@@ -41,9 +41,7 @@ public enum BGTGMLLightTransformerFactory {
     stadsdeel("bgt_stadsdeel.gml", "Stadsdeel"),
     buurt("bgt_buurt.gml", "Buurt"),
     wijk("bgt_wijk.gml", "Wijk"),
-    // TODO bestuurlijke eenheden, nog geen gml bestand van gezien
-    // zie: https://github.com/B3Partners/brmo/issues/324
-    // waterschap("", "Waterschap"),
+    waterschap("bgt_waterschap.gml", "Waterschap"),
     //
     ongeclassificeerdobject("bgt_ongeclassificeerdobject.gml", "OngeclassificeerdObject"),
     //
