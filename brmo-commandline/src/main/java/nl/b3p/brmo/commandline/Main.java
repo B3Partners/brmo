@@ -45,7 +45,7 @@ import org.apache.commons.logging.LogFactory;
 import static nl.b3p.brmo.commandline.Main.sysexits.*;
 import nl.b3p.brmo.loader.util.BrmoLeegBestandException;
 import org.apache.commons.io.FileUtils;
-import org.geotools.factory.GeoTools;
+import org.geotools.util.factory.GeoTools;
 import org.geotools.util.logging.Logging;
 
 /**

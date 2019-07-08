@@ -29,7 +29,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.geotools.gml3.ArcParameters;
 import org.geotools.gml3.CircleRadiusTolerance;
-import org.geotools.xml.Parser;
+import org.geotools.xsd.Parser;
 import org.jdom2.input.DOMBuilder;
 import org.jdom2.output.XMLOutputter;
 import org.w3c.dom.Element;
