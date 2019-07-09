@@ -2,14 +2,28 @@
 <suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.2.xsd">
     <suppress>
         <notes><![CDATA[
-      Negeer meldingen mbt tomcat-catalina-7.0.92.jar omdat we geen tomcat mee leveren en deze
+      Negeer meldingen mbt tomcat-catalina-7.0.94.jar omdat we geen tomcat mee leveren en deze
       alleen voor bepaalde deployments geldt.
       ]]></notes>
-        <filePath regex="true">.*\btomcat-catalina-7\.0\.92\.jar</filePath>
+        <filePath regex="true">.*\btomcat-catalina-7\.0\.94\.jar</filePath>
         <cve>CVE-2016-5388</cve>
         <cve>CVE-2016-5425</cve>
         <cve>CVE-2016-6325</cve>
         <cve>CVE-2017-6056</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+      Negeer melding mbt gt-jdbc jar, false positive "data-tools" wat iets heel anders is.
+      ]]></notes>
+        <gav regex="true">^org\.geotools:gt-jdbc:.*$</gav>
+        <cpe>cpe:/a:data-tools_project:data_tools</cpe>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+      Negeer melding mbt gt-jdbc-sqlserver jar, false positive "data-tools" wat iets heel anders is.
+      ]]></notes>
+        <gav regex="true">^org\.geotools\.jdbc:gt-jdbc-sqlserver:.*$</gav>
+        <cpe>cpe:/a:data-tools_project:data_tools</cpe>
     </suppress>
     <suppress>
         <notes><![CDATA[
@@ -54,6 +68,7 @@
         <gav regex="true">^net\.postgis:postgis-jdbc:.*$</gav>
         <cpe>cpe:/a:postgresql:postgresql</cpe>
         <cpe>cpe:/a:postgresql:postgresql_jdbc_driver</cpe>
+        <cpe>cpe:/a:postgis_project:postgis</cpe>
         <!--<cve>CVE-2007-2138</cve>-->
         <!--<cve>CVE-2010-0733</cve>-->
         <!--<cve>CVE-2014-0060</cve>-->
