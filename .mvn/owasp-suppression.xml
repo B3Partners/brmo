@@ -1,75 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.2.xsd">
-    <suppress>
-        <notes><![CDATA[
-      Negeer meldingen mbt tomcat-catalina-7.0.94.jar omdat we geen tomcat mee leveren en deze
-      alleen voor bepaalde deployments geldt.
-      ]]></notes>
-        <filePath regex="true">.*\btomcat-catalina-7\.0\.94\.jar</filePath>
-        <cve>CVE-2016-5388</cve>
-        <cve>CVE-2016-5425</cve>
-        <cve>CVE-2016-6325</cve>
-        <cve>CVE-2017-6056</cve>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-      Negeer melding mbt gt-jdbc jar, false positive "data-tools" wat iets heel anders is.
-      ]]></notes>
-        <gav regex="true">^org\.geotools:gt-jdbc:.*$</gav>
-        <cpe>cpe:/a:data-tools_project:data_tools</cpe>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-      Negeer melding mbt gt-jdbc-sqlserver jar, false positive "data-tools" wat iets heel anders is.
-      ]]></notes>
-        <gav regex="true">^org\.geotools\.jdbc:gt-jdbc-sqlserver:.*$</gav>
-        <cpe>cpe:/a:data-tools_project:data_tools</cpe>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-      Negeer melding mbt gt-coverage jar, false positive mbt jpeg thumbnail disclosure.
-      ]]></notes>
-        <gav regex="true">^org\.geotools:gt-coverage:.*$</gav>
-        <cve>CVE-2005-0406</cve>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-      Negeer melding mbt gt-main jar, false positive mbt integer overflow in data-tools
-      ]]></notes>
-        <gav regex="true">^org\.geotools:gt-main:.*$</gav>
-        <cpe>cpe:/a:data-tools_project:data_tools</cpe>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-      Negeer melding mbt gt-data jar, false positive mbt integer overflow in data-tools
-        ]]></notes>
-        <gav regex="true">^org\.geotools:gt-data:.*$</gav>
-        <cpe>cpe:/a:data-tools_project:data_tools</cpe>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-      Negeer melding mbt log4j-1.2.17.jar, false positive, CVE heeft betrekking op versie 2 en hoger.
-        ]]></notes>
-        <gav regex="true">^log4j:log4j:1\.2\.17$</gav>
-        <cve>CVE-2017-5645</cve>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-      Deze kwetsbaarheid is niet van toepassing, er wordt geen gebruik gemaakt van RC4 voor TLS.
-        ]]></notes>
-        <gav regex="true">^org\.glassfish\.ha:ha-api:3\.1\.9$</gav>
-        <cve>CVE-2013-2566</cve>
-        <cve>CVE-2015-2808</cve>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-      Negeer meldingen mbt postgis-jdbc jar, hebben allemaal betrekking op de database engine
-        ]]></notes>
-        <gav regex="true">^net\.postgis:postgis-jdbc:.*$</gav>
-        <cpe>cpe:/a:postgresql:postgresql</cpe>
-        <cpe>cpe:/a:postgresql:postgresql_jdbc_driver</cpe>
-        <cpe>cpe:/a:postgis_project:postgis</cpe>
-        <!--<cve>CVE-2007-2138</cve>-->
+<suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.3.xsd">
+        <suppress>
+            <notes><![CDATA[
+          Negeer meldingen mbt tomcat-catalina-7.0.94.jar omdat we geen tomcat mee leveren en deze
+          alleen voor bepaalde deployments geldt.
+          ]]></notes>
+            <filePath regex="true">.*\btomcat-catalina-7\.0\.94\.jar</filePath>
+            <cve>CVE-2016-5388</cve>
+            <cve>CVE-2016-5425</cve>
+            <cve>CVE-2016-6325</cve>
+            <cve>CVE-2017-6056</cve>
+        </suppress>
+        <suppress>
+            <notes><![CDATA[
+          Negeer melding mbt gt-jdbc jar, false positive "data-tools" wat iets heel anders is.
+          ]]></notes>
+            <gav regex="true">^org\.geotools:gt-jdbc:.*$</gav>
+            <cpe>cpe:/a:data-tools_project:data_tools</cpe>
+        </suppress>
+        <suppress>
+            <notes><![CDATA[
+          Negeer melding mbt gt-jdbc-sqlserver jar, false positive "data-tools" wat iets heel anders is.
+          ]]></notes>
+            <gav regex="true">^org\.geotools\.jdbc:gt-jdbc-sqlserver:.*$</gav>
+            <cpe>cpe:/a:data-tools_project:data_tools</cpe>
+        </suppress>
+        <suppress>
+            <notes><![CDATA[
+          Negeer melding mbt gt-coverage jar, false positive mbt jpeg thumbnail disclosure.
+          ]]></notes>
+            <gav regex="true">^org\.geotools:gt-coverage:.*$</gav>
+            <cve>CVE-2005-0406</cve>
+        </suppress>
+        <suppress>
+            <notes><![CDATA[
+          Negeer melding mbt gt-main jar, false positive mbt integer overflow in data-tools
+          ]]></notes>
+            <gav regex="true">^org\.geotools:gt-main:.*$</gav>
+            <cpe>cpe:/a:data-tools_project:data_tools</cpe>
+        </suppress>
+        <suppress>
+            <notes><![CDATA[
+          Negeer melding mbt gt-data jar, false positive mbt integer overflow in data-tools
+            ]]></notes>
+            <gav regex="true">^org\.geotools:gt-data:.*$</gav>
+            <cpe>cpe:/a:data-tools_project:data_tools</cpe>
+        </suppress>
+        <suppress>
+            <notes><![CDATA[
+          Negeer melding mbt log4j-1.2.17.jar, false positive, CVE heeft betrekking op versie 2 en hoger.
+            ]]></notes>
+            <gav regex="true">^log4j:log4j:1\.2\.17$</gav>
+            <cve>CVE-2017-5645</cve>
+        </suppress>
+        <suppress>
+            <notes><![CDATA[
+          Deze kwetsbaarheid is niet van toepassing, er wordt geen gebruik gemaakt van RC4 voor TLS.
+            ]]></notes>
+            <gav regex="true">^org\.glassfish\.ha:ha-api:3\.1\.9$</gav>
+            <cve>CVE-2013-2566</cve>
+            <cve>CVE-2015-2808</cve>
+        </suppress>
+        <suppress>
+            <notes><![CDATA[
+          Negeer meldingen mbt postgis-jdbc jar, hebben allemaal betrekking op de database engine
+            ]]></notes>
+            <gav regex="true">^net\.postgis:postgis-jdbc:.*$</gav>
+            <cpe>cpe:/a:postgresql:postgresql</cpe>
+            <cpe>cpe:/a:postgresql:postgresql_jdbc_driver</cpe>
+            <cpe>cpe:/a:postgis_project:postgis</cpe>
+            <!--<cve>CVE-2007-2138</cve>-->
         <!--<cve>CVE-2010-0733</cve>-->
         <!--<cve>CVE-2014-0060</cve>-->
         <!--<cve>CVE-2014-0061</cve>-->
