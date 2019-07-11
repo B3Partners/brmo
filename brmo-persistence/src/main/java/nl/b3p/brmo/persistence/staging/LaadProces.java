@@ -32,6 +32,8 @@ public class LaadProces implements Serializable {
     private Long id;
 
     private String bestand_naam;
+    
+    private String bestand_naam_hersteld;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date bestand_datum;
@@ -152,5 +154,14 @@ public class LaadProces implements Serializable {
     public void setAutomatischProces(AutomatischProces automatischProces) {
         this.automatischProces = automatischProces;
     }
+    
+    public String getBestand_naam_hersteld() {
+        return bestand_naam_hersteld;
+    }
+
+    public void setBestand_naam_hersteld(String bestand_naam_hersteld) {
+        this.bestand_naam_hersteld = bestand_naam_hersteld;
+    }
     // </editor-fold>
+
 }

@@ -1,18 +1,22 @@
 package nl.b3p.brmo.loader.entity;
 
+import java.io.IOException;
 import java.io.StringReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 /**
  *
@@ -96,5 +100,40 @@ public class BrkBericht extends Bericht {
         evaluateXPath();
 
         return datum;
+    }
+    
+     public String getRestoredFileName(Date bestanddatum, Integer volgordenummer){
+        try {
+            SimpleDateFormat output = new SimpleDateFormat("yyyyMMdd");
+            
+            String prefix = "BKE-MUTBX01";
+            String waarde;
+            String perceelnummer;
+            String brkdatum = output.format(bestanddatum);
+            String sectie;
+            String volgnummer = volgordenummer.toString();
+            
+            String basePath = "/KadastraalObjectSnapshot/Perceel/kadastraleAanduiding/";
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document doc = builder.parse(new InputSource(new StringReader(getBrXml())));
+            XPathFactory xPathfactory = XPathFactory.newInstance();
+            XPath xpath = xPathfactory.newXPath();
+            
+            XPathExpression expr = xpath.compile(basePath + "AKRKadastraleGemeenteCode/waarde/text()");
+            waarde = expr.evaluate(doc);
+            
+            expr = xpath.compile(basePath + "sectie/text()");
+            sectie = expr.evaluate(doc);
+            
+            expr = xpath.compile(basePath + "perceelnummer/text()");
+            perceelnummer = expr.evaluate(doc);
+            
+            String filename = prefix + "-" + waarde + sectie + perceelnummer + "-" + brkdatum + "-" +volgnummer + ".zip";
+            return filename;
+        } catch (ParserConfigurationException | XPathExpressionException | SAXException | IOException  ex) {
+            log.error("Cannot create filename from xml: ", ex);
+            return "";
+        }
     }
 }

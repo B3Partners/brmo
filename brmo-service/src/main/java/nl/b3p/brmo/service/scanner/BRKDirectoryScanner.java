@@ -31,6 +31,7 @@ import nl.b3p.brmo.persistence.staging.Bericht;
 import nl.b3p.brmo.persistence.staging.LaadProces;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.comparator.NameFileComparator;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.stripesstuff.stripersist.Stripersist;
@@ -212,6 +213,7 @@ public class BRKDirectoryScanner extends AbstractExecutableProces {
                         }
                         b.setBr_xml(bericht.getBrXml());
                         b.setVolgordenummer(bericht.getVolgordeNummer());
+                        lp.setBestand_naam_hersteld(bericht.getRestoredFileName(lp.getBestand_datum(), bericht.getVolgordeNummer()));
 
                         //Als objectRef niet opgehaald kan worden,dan kan het
                         //  bericht niet verwerkt worden.
