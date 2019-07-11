@@ -493,6 +493,13 @@
                 <artifactId>dbunit</artifactId>
                 <version>2.6.0</version>
                 <scope>test</scope>
+                <exclusions>
+                    <!-- vanwege CVE-2018-10936 -->
+                    <exclusion>
+                        <groupId>postgresql</groupId>
+                        <artifactId>postgresql</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.httpunit</groupId>
