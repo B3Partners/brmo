@@ -480,6 +480,10 @@ public class StagingProxy {
     private PreparedStatement getOldBerichtStatementById;
 
     public Bericht getOldBericht(Bericht nieuwBericht, StringBuilder loadLog) throws SQLException {
+        return getOldBericht(nieuwBericht.getObjectRef(), loadLog);
+    }
+    
+    public Bericht getOldBericht(String objectRef, StringBuilder loadLog) throws SQLException {
         Split split = SimonManager.getStopwatch("b3p.staging.bericht.getold").start();
 
         Bericht bericht = null;
@@ -498,7 +502,7 @@ public class StagingProxy {
         } else {
             getOldBerichtStatement.clearParameters();
         }
-        getOldBerichtStatement.setString(1, nieuwBericht.getObjectRef());
+        getOldBerichtStatement.setString(1, objectRef);
 
         ResultSet rs = getOldBerichtStatement.executeQuery();
         List<Bericht> list = h.handle(rs);
@@ -682,7 +686,7 @@ public class StagingProxy {
         } else if (TopNLType.isTopNLType(type)) {
             brmoXMLReader = new TopNLFileReader(fileName, type);
         } else if(type.equals(BrmoFramework.BR_BRP)){
-            brmoXMLReader = new BRPXMLReader(cis, d);
+            brmoXMLReader = new BRPXMLReader(cis, d, this);
         } else if (type.equals(BrmoFramework.BR_GBAV)) {
             brmoXMLReader = new GbavXMLReader(cis);
         } else {

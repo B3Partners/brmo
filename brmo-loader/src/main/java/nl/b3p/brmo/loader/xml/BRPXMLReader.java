@@ -26,17 +26,24 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Source;
+import javax.xml.transform.Templates;
 import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.URIResolver;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 import nl.b3p.brmo.loader.BrmoFramework;
+import nl.b3p.brmo.loader.StagingProxy;
 import nl.b3p.brmo.loader.entity.Bericht;
+import nl.b3p.brmo.loader.util.RsgbTransformer;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -51,10 +58,15 @@ public class BRPXMLReader extends BrmoXMLReader {
     private NodeList nodes = null;
     private int index;
     
+    private Templates template;
+    private final String pathToXsl = "/xsl/brp-brxml-preprocessor.xsl";
+    
     public static final String PREFIX = "NL.BRP.Persoon.";
+    private StagingProxy staging;
 
-    public BRPXMLReader(InputStream in, Date d) throws Exception {
+    public BRPXMLReader(InputStream in, Date d, StagingProxy staging) throws Exception {
         this.in = in;
+        this.staging = staging;
         setBestandsDatum(d);
         init();
     }
@@ -66,6 +78,18 @@ public class BRPXMLReader extends BrmoXMLReader {
         factory.setNamespaceAware(true);
         DocumentBuilder builder = factory.newDocumentBuilder();
         Document doc = builder.parse(in);
+        
+        TransformerFactory tf = TransformerFactory.newInstance();
+        tf.setURIResolver(new URIResolver() {
+            @Override
+            public Source resolve(String href, String base) throws TransformerException {
+                return new StreamSource(RsgbTransformer.class.getResourceAsStream("/xsl/" + href));
+            }
+        });
+        
+        Source xsl = new StreamSource(this.getClass().getResourceAsStream(pathToXsl));
+        this.template = tf.newTemplates(xsl);
+        
         nodes = doc.getDocumentElement().getChildNodes();
         index = 0;
     }
@@ -79,9 +103,21 @@ public class BRPXMLReader extends BrmoXMLReader {
     public Bericht next() throws Exception {
         Node n = nodes.item(index);
         index++;
-
+        String object_ref = getObjectRef(n);
         StringWriter sw = new StringWriter();
-        Transformer t = TransformerFactory.newInstance().newTransformer();
+        Bericht old = staging.getOldBericht(object_ref, new StringBuilder());
+        
+        
+        // kijk hier of dit bericht een voorganger heeft: zo niet, dan moet niet de preprocessor template gebruikt worden, maar de gewone.
+        
+        Transformer t;
+
+        if (old != null) {
+            t = this.template.newTransformer();
+        } else {
+            t = TransformerFactory.newInstance().newTransformer();
+        }
+
         t.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
         t.transform(new DOMSource(n), new StreamResult(sw));//new StreamResult(outputStream));
  
@@ -94,7 +130,7 @@ public class BRPXMLReader extends BrmoXMLReader {
         Bericht b = new Bericht(brXML);
         b.setBrOrgineelXml(origXML);
         b.setVolgordeNummer(index);
-        b.setObjectRef(getObjectRef(n));
+        b.setObjectRef(object_ref);
         b.setSoort(BrmoFramework.BR_BRP);
         b.setDatum(getBestandsDatum());
         return b;

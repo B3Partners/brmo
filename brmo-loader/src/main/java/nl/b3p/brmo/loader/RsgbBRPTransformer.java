@@ -52,10 +52,10 @@ public class RsgbBRPTransformer extends RsgbTransformer {
             Bericht old = staging.getOldBericht(bericht, loadLog);
 
             if (old != null) {
-                Document d = merge( old.getDbXml(), current);
+                Document d = merge(old.getDbXml(), current);
                 String mergedDBXML = print(d);
                 bericht.setDbXml(mergedDBXML);
-                current = mergedDBXML;                
+                current = mergedDBXML;
             }
         } catch (SQLException ex) {
             log.error("Cannot retrieve old bericht: ", ex);
@@ -83,7 +83,7 @@ public class RsgbBRPTransformer extends RsgbTransformer {
         XPathFactory xPathFactory = XPathFactory.newInstance();
         XPath xpath = xPathFactory.newXPath();
         XPathExpression expression = xpath.compile("/root/data");
-        
+
         DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
         docBuilderFactory.setIgnoringElementContentWhitespace(true);
         DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
@@ -96,7 +96,7 @@ public class RsgbBRPTransformer extends RsgbTransformer {
 
         Document merge = docBuilder.parse(new InputSource(new StringReader(newFile)));
         Node newNode = (Node) expression.evaluate(merge, XPathConstants.NODE);
-        
+
         /*
             (1)Voor elke node in merge, kijk of hij bestaat in base
                 zo nee, importeer
@@ -106,36 +106,52 @@ public class RsgbBRPTransformer extends RsgbTransformer {
                             zo nee, importeer
                             zo ja, overschrijf waarde
                     zo nee, recurse in (1)
-        */
-        
-        merge(base,newNode, old, true/*, merge*/);
-   
+         */
+        merge(base, newNode, old, true/*, merge*/);
 
         return base;
     }
+
+    private static final String GEEN_WAARDE = "geenWaarde";
     
-    private static void merge(Document base, Node newNode, Element old, boolean first/*, Node merge*/){
+    private static void merge(Document base, Node newNode, Element old, boolean first/*, Node merge*/) {
         while (newNode.hasChildNodes()) {
             Node newChild = newNode.getFirstChild();
             newNode.removeChild(newChild);
             String name = newChild.getNodeName();
             NodeList nl = old.getElementsByTagName(name);
-            if(nl.getLength() == 0){ // Geen oude data gevonden voor huidige node
+            if (nl.getLength() == 0) { // Geen oude data gevonden voor huidige node
                 newChild = base.importNode(newChild, true);
+                newChild.setTextContent(newChild.getTextContent());
                 old.appendChild(newChild);
-            }else{
+            } else {
                 Element oldItem = (Element) nl.item(0);
-                if(first){
+                if (first) {
                     merge(base, newChild, oldItem, false);
-                }else{
-                    if(!newChild.getTextContent().equalsIgnoreCase("")){
-                        oldItem.setTextContent(newChild.getTextContent());
+                } else {
+                    String content = newChild.getTextContent();
+                    if (content.equals(GEEN_WAARDE)) {
+                        oldItem.setTextContent("");
+                    } else if(content.equals("")){
+                        //keep old content
+                    }else {
+                        oldItem.setTextContent(sanitizeValue(newChild.getTextContent()));
                     }
                 }
             }
         }
     }
     
+    private static String sanitizeValue(String val){
+        if(val.contains(GEEN_WAARDE)){
+            String newValue = val.replaceAll(GEEN_WAARDE + " ", "");
+            newValue = newValue.replaceAll(GEEN_WAARDE, "");
+            return newValue;
+        }else{
+            return val;
+        }
+    }
+
     protected static String print(Document doc) throws Exception {
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         Transformer transformer = transformerFactory.newTransformer();

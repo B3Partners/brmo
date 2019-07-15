@@ -105,7 +105,7 @@
         <naam>
             <xsl:value-of select="ns2:voorletters"/>
             <xsl:if test="ns2:voorvoegselGeslachtsnaam != ''"><xsl:value-of select="' '"/></xsl:if><xsl:value-of select="ns2:voorvoegselGeslachtsnaam"/>
-            <xsl:if test="ns2:voorvoegselGeslachtsnaam != ''"><xsl:value-of select="' '"/></xsl:if>
+            <xsl:value-of select="' '"/>
             <xsl:value-of select="ns2:geslachtsnaam"/>
         </naam>
         <xsl:apply-templates select="ns2:PRSADRVBL"/>

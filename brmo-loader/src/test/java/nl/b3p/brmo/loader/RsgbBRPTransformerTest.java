@@ -17,7 +17,7 @@ import org.w3c.dom.NodeList;
 
 public class RsgbBRPTransformerTest {
     
-    @Test
+   // @Test
     public void mergeTest() throws Exception{
         StringWriter writerOld = new StringWriter();
         IOUtils.copy(RsgbBRPTransformerTest.class.getResourceAsStream("old.xml"), writerOld, "UTF-8");
