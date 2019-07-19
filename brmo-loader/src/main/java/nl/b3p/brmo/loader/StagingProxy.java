@@ -547,6 +547,86 @@ public class StagingProxy {
         split.stop();
         return bericht;
     }
+    
+    
+    private PreparedStatement getPreviousBerichtStatement;
+    
+    public Bericht getPreviousBericht(Bericht ber, StringBuilder loadLog) throws SQLException {
+        return getPreviousBericht(ber.getObjectRef(), ber.getDatum(), ber.getId(), loadLog);
+    }
+    
+    /**
+     * Gets the previous method (not the first)
+     * @param objectRef
+     * @param datum
+     * @param currentBerichtId
+     * @param loadLog
+     * @return
+     * @throws SQLException 
+     */
+    public Bericht getPreviousBericht(String objectRef, Date datum, Long currentBerichtId, StringBuilder loadLog) throws SQLException {
+        Split split = SimonManager.getStopwatch("b3p.staging.bericht.getprevious").start();
+
+        Bericht bericht = null;
+        ResultSetHandler<List<Bericht>> h
+                = new BeanListHandler(Bericht.class, new StagingRowHandler());
+
+        if(getPreviousBerichtStatement == null) {
+            String sql = "SELECT id, object_ref, datum, volgordenummer, soort, status, job_id, status_datum FROM "
+                    + BrmoFramework.BERICHT_TABLE + " WHERE"
+                    + " object_ref = ? and datum <= ? and id <> ?"
+                    + " ORDER BY datum asc, volgordenummer desc";
+            sql = geomToJdbc.buildPaginationSql(sql, 0, 1);
+
+            getPreviousBerichtStatement = getConnection().prepareStatement(sql);
+        } else {
+            getPreviousBerichtStatement.clearParameters();
+        }
+        getPreviousBerichtStatement.setString(1, objectRef);
+        getPreviousBerichtStatement.setTimestamp(2, new java.sql.Timestamp(datum.getTime()));
+        getPreviousBerichtStatement.setLong(3, currentBerichtId);
+
+        ResultSet rs = getPreviousBerichtStatement.executeQuery();
+        List<Bericht> list = h.handle(rs);
+        rs.close();
+
+        if(!list.isEmpty()) {
+            loadLog.append("Vorig bericht gevonden:\n");
+            for(Bericht b: list) {
+                if( bericht == null) {
+                    loadLog.append("Meest recent bericht gevonden: ").append(b).append("\n");
+                    bericht = b;
+                } else {
+                    loadLog.append("Niet geschikt bericht: ").append(b).append("\n");
+                }
+            }
+        }
+
+        if (bericht != null) {
+            //bericht nu wel vullen met alle kolommen
+            if (getOldBerichtStatementById == null) {
+                String sql = "SELECT * FROM "
+                        + BrmoFramework.BERICHT_TABLE +
+                        " WHERE id = ?";
+
+                getOldBerichtStatementById = getConnection().prepareStatement(sql);
+            } else {
+                getOldBerichtStatementById.clearParameters();
+            }
+            getOldBerichtStatementById.setLong(1, bericht.getId());
+
+            ResultSet rs2 = getOldBerichtStatementById.executeQuery();
+            List<Bericht> list2 = h.handle(rs2);
+            rs2.close();
+
+            if(!list2.isEmpty()) {
+                bericht = list2.get(0);
+            }
+        }
+
+        split.stop();
+        return bericht;
+    }
 
     /**
      * Update (overschrijft) een bericht in job tabel. (object_ref, datum,

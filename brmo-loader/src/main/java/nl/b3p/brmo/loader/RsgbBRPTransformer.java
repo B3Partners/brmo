@@ -49,7 +49,7 @@ public class RsgbBRPTransformer extends RsgbTransformer {
         StringBuilder loadLog = new StringBuilder();
 
         try {
-            Bericht old = staging.getOldBericht(bericht, loadLog);
+            Bericht old = staging.getPreviousBericht(bericht, loadLog);
 
             if (old != null) {
                 Document d = merge(old.getDbXml(), current);

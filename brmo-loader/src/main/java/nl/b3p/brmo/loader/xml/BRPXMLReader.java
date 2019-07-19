@@ -105,8 +105,7 @@ public class BRPXMLReader extends BrmoXMLReader {
         index++;
         String object_ref = getObjectRef(n);
         StringWriter sw = new StringWriter();
-        Bericht old = staging.getOldBericht(object_ref, new StringBuilder());
-        
+        Bericht old = staging.getPreviousBericht(object_ref, getBestandsDatum(), -1L, new StringBuilder());
         
         // kijk hier of dit bericht een voorganger heeft: zo niet, dan moet niet de preprocessor template gebruikt worden, maar de gewone.
         
