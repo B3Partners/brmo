@@ -63,7 +63,7 @@ public class AfgiftelijstReport {
     private static final Log log = LogFactory.getLog(AfgiftelijstReport.class);
     private String datum;
 
-    public void createReport(List<Afgifte> afgiftes, String input, File output) throws FileNotFoundException {
+    public void createReport(List<Afgifte> afgiftes, String inputFileName, File output) throws FileNotFoundException {
         datum = sdf.format(new Date());
         PdfDocument pdfDoc = new PdfDocument(new PdfWriter(output));
 
@@ -74,7 +74,7 @@ public class AfgiftelijstReport {
         pdfDoc.addEventHandler(PdfDocumentEvent.END_PAGE, footerHandler);
 
         try (Document doc = new Document(pdfDoc)) {
-            createFirstPage(doc, input);
+            createFirstPage(doc, inputFileName);
             createTable(afgiftes, pdfDoc, doc);
 
             footerHandler.writeTotal(pdfDoc);

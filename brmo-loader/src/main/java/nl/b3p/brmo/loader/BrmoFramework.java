@@ -657,10 +657,15 @@ public class BrmoFramework {
         }
     }
     
-    public File checkAfgiftelijst(String bestand, String output) throws IOException{
+    public File checkAfgiftelijst(String bestandsnaam, String output) throws IOException{
+        File f = new File(bestandsnaam);
+        return checkAfgiftelijst(bestandsnaam, new FileInputStream(f), new File(output));
+    }
+    
+    public File checkAfgiftelijst(String bestandsnaam, InputStream is, File output) throws IOException{
         AfgifteChecker checker = new AfgifteChecker();
-        checker.init(bestand,stagingProxy);
+        checker.init(is,stagingProxy);
         checker.check();
-        return checker.getResults(bestand, output);
+        return checker.getResults(bestandsnaam, output);
     }
 }

@@ -17,8 +17,10 @@
 package nl.b3p.brmo.loader.checks;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
@@ -37,7 +39,12 @@ public class AfgifteChecker {
     
     private List<Afgifte> afgiftes;
     private StagingProxy staging;
+    
     public void init(String input, StagingProxy staging) throws IOException{
+        init(new FileInputStream(new File(input)), staging);
+    }
+    
+    public void init(InputStream input, StagingProxy staging) throws IOException{
         this.staging = staging;
         // parse csv/excel
         AfgiftelijstParser ap = new AfgiftelijstParser();
@@ -82,10 +89,14 @@ public class AfgifteChecker {
             counts.put(bericht.getStatus() ,counts.get(bericht.getStatus()) +1 );
         }
     }
-    
-    public File getResults(String input, String output) throws FileNotFoundException {
+
+    public File getResults(String input, String f) throws FileNotFoundException {
+        return getResults(input, new File(f));
+    }
+
+    public File getResults(String input, File f) throws FileNotFoundException {
         AfgiftelijstReport reporter = new AfgiftelijstReport();
-        File f = new File(output);
+        
         reporter.createReport(afgiftes, input, f);
         return f;
     }

@@ -16,8 +16,8 @@
  */
 package nl.b3p.brmo.loader.checks;
 
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,14 +32,13 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
  * @author Meine Toonen
  */
 public class AfgiftelijstParser {
-
-    public List<Afgifte> parse(String input) throws IOException {
+    public List<Afgifte> parse(InputStream input) throws IOException {
         return parseExcel(input);
     }
 
-    private List<Afgifte> parseExcel(String input) throws IOException {
+    private List<Afgifte> parseExcel(InputStream input) throws IOException {
         List<Afgifte> afgiftes = new ArrayList<>();
-        Workbook wb = WorkbookFactory.create(new File(input));
+        Workbook wb = WorkbookFactory.create(input);
 
         Sheet sheet = wb.getSheetAt(0);
         boolean first = true;
