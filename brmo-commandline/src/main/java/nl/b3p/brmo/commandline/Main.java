@@ -104,7 +104,7 @@ public class Main {
             .longOpt("exportgds").hasArg().numberOfArgs(1).type(File.class).argName("output-directory").build(),
             // 
             Option.builder("al").desc("Controleer of de berichtin in de opgegeven afgiftelijst in de staging staan.")
-            .longOpt("afgiftelijst").hasArg().numberOfArgs(1).type(File.class).argName("afgiftelijst").build()
+            .longOpt("afgiftelijst").hasArg().numberOfArgs(2).type(File.class).argName("afgiftelijst").build()
             
         });
 
@@ -243,7 +243,8 @@ public class Main {
             } else if (cl.hasOption("exportgds")) {
                 exitcode = getMutations(dsStaging, cl.getOptionValues("exportgds"));
             } else if(cl.hasOption("afgiftelijst")){
-                exitcode = checkAfgiftelijst(dsStaging, cl.getOptionValue("afgiftelijst"));
+                String [] files = cl.getOptionValues("afgiftelijst");//cl.getOptionValue("afgiftelijst")
+                exitcode = checkAfgiftelijst(dsStaging, files[0], files[1]);
             }
             // ----------------
             // rsgb commando's
@@ -399,7 +400,7 @@ public class Main {
         return 0;
     }
     
-    private static int checkAfgiftelijst(DataSource ds, String input) throws BrmoException {
+    private static int checkAfgiftelijst(DataSource ds, String input, String output) throws BrmoException {
         BrmoFramework brmo = new BrmoFramework(ds, null);
         try {
             LOG.info("Afgiftelijst controleren.");
@@ -410,10 +411,9 @@ public class Main {
             }
             if(!f.canRead()){
                 throw new IOException ("bestand niet leesbaar: " + input);
-            }
-            String response = brmo.checkAfgiftelijst(input);
+            } 
+           File response = brmo.checkAfgiftelijst(input, output);
             System.out.print("Afgifte gecontroleerd:");
-            System.out.println(response);
             brmo.closeBrmoFramework();
             return 0;
         } catch (Exception ex) {

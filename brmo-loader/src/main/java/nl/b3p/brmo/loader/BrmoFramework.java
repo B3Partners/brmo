@@ -634,10 +634,10 @@ public class BrmoFramework {
         }
     }
     
-    public String checkAfgiftelijst(String bestand) throws IOException{
+    public File checkAfgiftelijst(String bestand, String output) throws IOException{
         AfgifteChecker checker = new AfgifteChecker();
         checker.init(bestand,stagingProxy);
         checker.check();
-        return checker.getResults();
+        return checker.getResults(bestand, output);
     }
 }

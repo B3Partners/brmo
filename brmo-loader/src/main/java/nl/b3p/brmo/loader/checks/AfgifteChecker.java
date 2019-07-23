@@ -16,6 +16,8 @@
  */
 package nl.b3p.brmo.loader.checks;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -81,12 +83,11 @@ public class AfgifteChecker {
         }
     }
     
-    public String getResults(){
-        String res = "Resultaat: ";
-        for (Afgifte afgifte : afgiftes) {
-            res += "\n " + afgifte.toString();
-        }
-        return res;
+    public File getResults(String input, String output) throws FileNotFoundException {
+        AfgiftelijstReport reporter = new AfgiftelijstReport();
+        File f = new File(output);
+        reporter.createReport(afgiftes, input, f);
+        return f;
     }
     
 }
