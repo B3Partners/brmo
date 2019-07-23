@@ -104,7 +104,7 @@ public class Main {
             .longOpt("exportgds").hasArg().numberOfArgs(1).type(File.class).argName("output-directory").build(),
             // 
             Option.builder("al").desc("Controleer of de berichtin in de opgegeven afgiftelijst in de staging staan.")
-            .longOpt("afgiftelijst").hasArg().numberOfArgs(2).type(File.class).argName("afgiftelijst").build()
+            .longOpt("afgiftelijst").hasArg().numberOfArgs(2).type(File.class).argName("afgiftelijst> <uitvoerbestand").build()
             
         });
 
