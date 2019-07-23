@@ -1,6 +1,6 @@
 package nl.b3p.brmo.loader.checks;
 
-import java.net.URL;
+import java.io.InputStream;
 import java.util.List;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -20,11 +20,10 @@ public class AfgiftelijstParserTest {
     public void testParse() throws Exception {
         System.out.println("parse");
         String input = "overzicht_klein.xlsx";
-        URL u = AfgiftelijstParserTest.class.getResource(input);
-        String file = u.toURI().getPath();
+        InputStream in = AfgiftelijstParserTest.class.getResourceAsStream(input);
         AfgiftelijstParser instance = new AfgiftelijstParser();
         
-        List<Afgifte> result = instance.parse(file);
+        List<Afgifte> result = instance.parse(in);
         assertEquals(18, result.size());
         for (Afgifte afgifte : result) {
             assertEquals("16", afgifte.getKlantnummer());

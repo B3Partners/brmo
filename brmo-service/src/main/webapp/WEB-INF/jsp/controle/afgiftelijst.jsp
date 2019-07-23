@@ -12,6 +12,10 @@
         <stripes:messages />
         <stripes:errors />
 
+        <stripes:form beanclass="nl.b3p.brmo.service.stripes.ControleActionBean" focus="">
+            Afgiftelijst: <stripes:file name="file"/>
+            <p><stripes:submit name="check" value="Controleer" /></p>
+        </stripes:form>
      
     </stripes:layout-component>
 </stripes:layout-render>
