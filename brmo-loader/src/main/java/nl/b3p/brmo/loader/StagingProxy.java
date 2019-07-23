@@ -151,13 +151,13 @@ public class StagingProxy {
         return null;
     }
 
-    public LaadProces getLaadProcesByApproximateFileName(String name) throws SQLException {
+    public LaadProces getLaadProcesByRestoredFilename(String name) throws SQLException {
         List<LaadProces> processen;
         ResultSetHandler<List<LaadProces>> h
                 = new BeanListHandler(LaadProces.class, new StagingRowHandler());
 
         processen = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(),
-                "SELECT * FROM " + BrmoFramework.LAADPROCES_TABEL + " WHERE bestand_naam like ?", h, "%" + name + "%");
+                "SELECT * FROM " + BrmoFramework.LAADPROCES_TABEL + " WHERE bestand_naam_hersteld = ?", h,  name);
 
         if (processen != null && processen.size() == 1) {
             return processen.get(0);

@@ -634,7 +634,6 @@ public class BrmoFramework {
             throw new BrmoException(ex);
         }
     }
-
     /**
      * update laadproces (GDS2 afgifte) metadata.
      *
@@ -657,11 +656,11 @@ public class BrmoFramework {
             throw new BrmoException(ex);
         }
     }
-
-    public String checkAfgiftelijst(String bestand) throws IOException{
+    
+    public File checkAfgiftelijst(String bestand, String output) throws IOException{
         AfgifteChecker checker = new AfgifteChecker();
         checker.init(bestand,stagingProxy);
         checker.check();
-        return checker.getResults();
+        return checker.getResults(bestand, output);
     }
 }

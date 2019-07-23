@@ -506,6 +506,22 @@
                 <artifactId>poi-ooxml</artifactId>
                 <version>4.1.0</version>
             </dependency>
+            <dependency>
+                <groupId>com.itextpdf</groupId>
+                <artifactId>kernel</artifactId>
+                <version>7.1.7</version>
+            </dependency>
+            <dependency>
+                <groupId>com.itextpdf</groupId>
+                <artifactId>itext7-core</artifactId>
+                <version>7.1.7</version>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>com.itextpdf</groupId>
+                <artifactId>layout</artifactId>
+                <version>7.1.7</version>
+            </dependency>
 
             <!-- test dependencies -->
             <dependency>
