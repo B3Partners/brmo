@@ -53,7 +53,7 @@ public class AfgifteChecker {
     
     private void check(Afgifte afgifte){
         try {
-            LaadProces lp = staging.getLaadProcesByApproximateFileName(afgifte.getBestandsnaam());
+            LaadProces lp = staging.getLaadProcesByRestoredFilename(afgifte.getBestandsnaam());
             
             // kijk of afgifte bestaat in staging
             if(lp != null){
