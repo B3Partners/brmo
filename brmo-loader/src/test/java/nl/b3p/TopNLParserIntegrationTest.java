@@ -28,7 +28,7 @@ import org.junit.experimental.categories.Category;
 /**
  * Deze test dient om onaangekondigde aanpassingen in het schema te vangen, pdok
  * heeft dat nu een paar keer gedaan. Draaien met:
- * {@code mvn -Dit.test=TopNLParserIntegrationTest -Dtest.onlyITs=true verify > target/TopNLParserIntegrationTest.log}
+ * {@code mvn -Dit.test=TopNLParserIntegrationTest -Dtest.onlyITs=true -Ppostgresql verify > target/TopNLParserIntegrationTest.log}
  *
  * @author Mark Prins
  */
