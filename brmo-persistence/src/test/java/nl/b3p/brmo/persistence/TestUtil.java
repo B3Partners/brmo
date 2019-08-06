@@ -64,7 +64,7 @@ public abstract class TestUtil {
      */
     @After
     public void close() throws Exception {
-        if (entityManager.isOpen()) {
+        if (entityManager != null && entityManager.isOpen()) {
             entityManager.close();
         }
     }

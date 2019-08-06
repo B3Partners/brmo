@@ -8,7 +8,7 @@ PREVRELEASE=$MAJOR.$PREVMINOR
 
 echo "Huidige snapshot:" $CURSNAPSHOT", vorige, te downloaden, release: "$PREVRELEASE", komende release: "$NEXTRELEASE
 
-REMOTE_FILE="https://repo.b3p.nl/nexus/repository/releases/nl/b3p/brmo-dist/${PREVRELEASE}/brmo-dist-${PREVRELEASE}-bin.zip"
+REMOTE_FILE="https://repo.b3p.nl/nexus/repository/public/nl/b3p/brmo-dist/${PREVRELEASE}/brmo-dist-${PREVRELEASE}-bin.zip"
 LOCAL_FILE="${HOME}/downloads/brmo-dist-old.zip"
 #LOCAL_FILE="/tmp/downloads/brmo-dist-old.zip"
 

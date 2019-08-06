@@ -8,7 +8,7 @@ wget --no-verbose --tries=5 --timeout=60 --waitretry=300 --user-agent="" "http:/
 # uitpakken in de /tmp dir
 ls *.zip | while read filename; do unzip -j -o -d "/tmp" "$filename" *.gml; done;
 #van ieder aleen de eerste 5 features
-xmlstarlet transform .jenkins/data-prepare-top250nl.xsl /tmp/TOP250NL.gml > brmo-loader/src/test/resources/topnl/TOP250NL.gml
+xmlstarlet transform .jenkins/data-prepare-top250nl.xsl /tmp/Top250NL.gml > brmo-loader/src/test/resources/topnl/TOP250NL.gml
 xmlstarlet transform .jenkins/data-prepare-top100nl.xsl /tmp/Top100NL_000001.gml > brmo-loader/src/test/resources/topnl/Top100NL_000001.gml
 xmlstarlet transform .jenkins/data-prepare-top50nl.xsl /tmp/Top50NL_07West.gml > brmo-loader/src/test/resources/topnl/Top50NL_07W.gml
 xmlstarlet transform .jenkins/data-prepare-top10nl.xsl /tmp/TOP10NL_07W.gml > brmo-loader/src/test/resources/topnl/TOP10NL_07W.gml

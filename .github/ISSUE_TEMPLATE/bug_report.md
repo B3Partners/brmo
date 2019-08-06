@@ -1,3 +1,12 @@
+---
+name: Bug rapport
+about: Maak een bug rapport
+title: ''
+labels: 'bug :bomb:'
+assignees: ''
+
+---
+
 ### Probleem
 XXXXXXX
 

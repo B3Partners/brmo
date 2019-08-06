@@ -18,3 +18,7 @@ Ga naar [releases](https://github.com/B3Partners/brmo/releases) voor de laatste 
 [![Github All Releases](https://img.shields.io/github/downloads/B3Partners/brmo/total.svg?maxAge=2592000)]()
 [![Percentage of issues still open](https://isitmaintained.com/badge/open/B3Partners/brmo.svg)](https://isitmaintained.com/project/B3Partners/brmo "Percentage of issues still open")
 [![Average time to resolve an issue](https://isitmaintained.com/badge/resolution/B3Partners/brmo.svg)](https://isitmaintained.com/project/B3Partners/brmo "Average time to resolve an issue")
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/B3Partners/brmo.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/B3Partners/brmo/alerts/)
+[![Language grade: Java](https://img.shields.io/lgtm/grade/java/g/B3Partners/brmo.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/B3Partners/brmo/context:java)
+[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/B3Partners/brmo.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/B3Partners/brmo/context:javascript)
+[![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/B3Partners/brmo.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/B3Partners/brmo/context:python)

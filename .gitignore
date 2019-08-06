@@ -34,13 +34,19 @@ plugin-updates.log
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
-/nbproject/
-**/nbproject/
 **/XSD-Resolver/generated/
 **/XSD-Resolver/consolidated/
+
+# verschillende IDE meta files
+/nbproject/
+**/nbproject/
 nb-configuration.xml
 .idea/
 *.iml
+**/.settings
+**/.classpath
+**/.project
+
 temp/
 
 # python virtualenv voor de pythonscripts in unsupported

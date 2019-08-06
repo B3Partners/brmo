@@ -25,7 +25,9 @@ addons:
 
 jdk:
   - oraclejdk8
+  - oraclejdk11
   - openjdk8
+  - openjdk11
 
 matrix:
   fast_finish: true
@@ -80,14 +82,14 @@ matrix:
     group: edge
     dist: xenial
     sudo: required
-    env: 
+    env:
       - PG_VERSION=""
       - PROFILE="mssql"
       - MVN_ARGS="-Dmssql.instancename='' -Dit.test=!TopNLIntegrationTest"
   - name: "database upgrades"
     jdk: openjdk8
     sudo: required
-    env: 
+    env:
       - PROFILE="postgresql"
       - MVN_ARGS="-Ddatabase.upgrade=true -Dit.test=!TopNLIntegrationTest"
     addons:
@@ -117,6 +119,10 @@ cache:
   directories:
   - $HOME/.m2
   - $HOME/downloads
+  - .git/lfs
+
+git:
+  lfs_skip_smudge: true
 
 # before_cache:
 
