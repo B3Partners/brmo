@@ -155,7 +155,7 @@ before_install:
     fi
     # ophalen actuele topnl test data alleen voor postgresql
   - if  [ "$PROFILE" == "postgresql" ] && [ "$TRAVIS_JOB_NAME" != "database upgrades" ]; then
-       sh ".jenkins/data-prepare-topnl.sh";
+       bash ".jenkins/data-prepare-topnl.sh";
     fi
 
   - unset _JAVA_OPTIONS
