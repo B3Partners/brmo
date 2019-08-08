@@ -138,6 +138,13 @@ timestamps {
                         }
                     }
                 }
+
+                if (jdkTestName == 'OpenJDK11') {
+                    stage("cleanup Java 11 packages") {
+                        echo "Verwijder de Java 11 build artifacts uit lokale repo"
+                        sh "mvn build-helper:remove-project-artifact"
+                    }
+                }
             }
         }
 
