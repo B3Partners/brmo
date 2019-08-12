@@ -52,10 +52,10 @@ import org.geotools.data.DefaultTransaction;
 import org.geotools.data.FeatureStore;
 import org.geotools.data.Transaction;
 import org.geotools.factory.CommonFactoryFinder;
-import org.geotools.factory.Hints;
 import org.geotools.feature.FeatureIterator;
 import org.geotools.feature.simple.SimpleFeatureBuilder;
 import org.geotools.jdbc.JDBCDataStore;
+import org.geotools.util.factory.Hints;
 import org.opengis.feature.simple.SimpleFeature;
 import org.opengis.feature.simple.SimpleFeatureType;
 import org.opengis.feature.type.AttributeDescriptor;
@@ -142,7 +142,7 @@ public class BGTv3Loader {
         try {
             reader = new BGTv3XMLReader(xml);
         } catch(Exception e) {
-            throw new Exception(String.format("Fout bij het lezen van BGTv3 XML", e));
+            throw new Exception("Fout bij het lezen van BGTv3 XML", e);
         }
 
         OutputContext context = new OutputContext(delta);

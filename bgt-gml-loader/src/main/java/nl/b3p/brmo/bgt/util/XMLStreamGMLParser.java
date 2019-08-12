@@ -16,6 +16,7 @@
  */
 package nl.b3p.brmo.bgt.util;
 
+import org.geotools.xsd.Parser;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.Polygon;
@@ -28,7 +29,6 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stax.StAXSource;
 import javax.xml.transform.stream.StreamResult;
 import org.geotools.gml3.GMLConfiguration;
-import org.geotools.xml.Parser;
 
 /**
  *
