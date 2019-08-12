@@ -8,7 +8,7 @@ env:
     - secure: "NynQI56H74dDi6sK4wxPawnLoLsrzADKmD8Jl7w3yQnYTfVU7zP07KeJKoIWhFaYB3GCKyG2qdeM1I5DOeim183c0h51WcQTVvHX3o1D3DyrdfuhqKTBXmAUXJObp/jUoABD2KKejSKZj+mkzqutITMUUbHDiMu5PD6WXEuCYT8="
     - PG_VERSION="9.6"
     - PROFILE="postgresql"
-    - MVN_VERSION="3.6.0"
+    - MVN_VERSION="3.6.1"
     - MVN_ARGS="-Dit.test=!TopNLIntegrationTest"
     - PGPORT=5432
     - MAVEN_OPTS=-Djava.awt.headless=true -Xms8G -Xmx12G
@@ -37,7 +37,7 @@ matrix:
     # - name: "PostgreSQL 11"
   include:
   - name: "Oudste supported PostgreSQL"
-    dist: trusty
+    dist: xenial
     jdk: openjdk8
     sudo: required
     # final release van 9.4 (==EOL): Feb 13, 2020
@@ -47,7 +47,10 @@ matrix:
       postgresql: 9.4
       apt:
         packages:
-          - postgresql-9.4-postgis-2.3
+          - postgresql-9.4
+          - postgresql-client-9.4
+          - postgresql-9.4-postgis-2.5
+          - postgresql-9.4-postgis-2.5-scripts
           - xmlstarlet
   - name: "PostgreSQL 11"
     group: edge
@@ -68,6 +71,7 @@ matrix:
     group: edge
     dist: xenial
     jdk: openjdk8
+    sudo: required
     env: PG_VERSION="10"
     addons:
       postgresql: 10
@@ -75,7 +79,8 @@ matrix:
         packages:
           - postgresql-10
           - postgresql-client-10
-          - postgresql-10-postgis-2.4
+          - postgresql-10-postgis-2.5
+          - postgresql-10-postgis-2.5-scripts
           - xmlstarlet
   - name: "MS SQL server 2017"
     jdk: openjdk8
@@ -109,7 +114,8 @@ matrix:
         packages:
           - postgresql-10
           - postgresql-client-10
-          - postgresql-10-postgis-2.4
+          - postgresql-10-postgis-2.5
+          - postgresql-10-postgis-2.5-scripts
           - xmlstarlet
     env:
       - PG_VERSION="10"
