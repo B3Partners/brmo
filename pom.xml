@@ -83,6 +83,7 @@
         <javasimon.version>4.1.4</javasimon.version>
         <jakarta.mail.version>1.6.3</jakarta.mail.version>
         <quartz.version>2.3.1</quartz.version>
+        <slf4j.version>1.7.28</slf4j.version>
         <jaxb.api.version>2.3.2</jaxb.api.version>
         <jaxb.impl.version>2.3.2</jaxb.impl.version>
         <activation.api.version>1.2.1</activation.api.version>
@@ -124,15 +125,15 @@
                 <version>1.2</version>
             </dependency>
             <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
                 <!-- oa. nodig voor hibernate, dbunit, cronparser -->
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-log4j12</artifactId>
-                <version>1.7.27</version>
-            </dependency>
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-api</artifactId>
-                <version>1.7.27</version>
+                <version>${slf4j.version}</version>
             </dependency>
             <dependency>
                 <groupId>log4j</groupId>
