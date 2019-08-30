@@ -1,33 +1,29 @@
 /*
 Views for visualizing the BAG data.
 versie 2
-28-8-2018
+30-8-2019
 */
--- DROP VIEWS
---drop view vb_adres cascade;
+
+--DROP VIEWS
 --drop view vb_vbo_adres cascade;
 --drop view vb_standplaats_adres cascade;
 --drop view vb_ligplaats_adres cascade;
---drop view vb_pand cascade;
---drop view vb_benoemd_obj_adres cascade;
---drop view vb_ben_obj_nevenadres cascade;
-
 
 --drop materialized view mb_pand cascade;
 --drop materialized view mb_benoemd_obj_adres cascade;
 --drop materialized view mb_adres cascade;
 --drop materialized view mb_ben_obj_nevenadres cascade;
 
+--drop index mb_benoemd_obj_adres_identif cascade; 
+--drop index mb_ben_obj_adr_geom_idx cascade; 
+--drop index mb_ben_obj_nevenadres_identif cascade; 
+--drop index mb_pand_identif cascade; 
+--drop index mb_pand_the_geom_idx cascade; 
+--drop index mb_adres_identif cascade; 
+--drop index mb_ben_obj_adres_objectid cascade; 
+--drop index mb_pand_objectid cascade; 
+--drop index mb_adres_objectid cascade; 
 
---DROP INDEX mb_adres_objectid cascade;
---DROP INDEX mb_adres_identif cascade;
---DROP INDEX mb_pand_objectid cascade;
---DROP INDEX mb_pand_identif cascade;
---DROP INDEX mb_pand_the_geom_idx cascade;
---DROP INDEX mb_benoemd_obj_adres_objectid cascade;
---DROP INDEX mb_benoemd_obj_adres_identif cascade;
---DROP INDEX mb_benoemd_obj_adres_the_geom_idx cascade;
---DROP INDEX mb_ben_obj_nevenadres_identif cascade;
 
 --INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('public', 'vb_pand', 'objectid', 'assigned');
 --INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('public', 'vb_benoemd_obj_adres', 'objectid', 'assigned');
@@ -37,16 +33,18 @@ versie 2
 --INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('public', 'mb_benoemd_obj_adres', 'objectid', 'assigned');
 --INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('public', 'mb_adres', 'objectid', 'assigned');
 
---REFRESH MATERIALIZED VIEW mb_pand;
---REFRESH MATERIALIZED VIEW mb_benoemd_obj_adres;
+--BEGIN
+-- run 1
 --REFRESH MATERIALIZED VIEW mb_adres;
+--REFRESH MATERIALIZED VIEW mb_pand;
+-- run 2
+--REFRESH MATERIALIZED VIEW mb_benoemd_obj_adres;
 --REFRESH MATERIALIZED VIEW mb_ben_obj_nevenadres;
+--END
 
 --set session authorization flamingo;
 
---drop view vb_adres;
-CREATE OR REPLACE VIEW
-    vb_adres
+CREATE MATERIALIZED VIEW mb_adres
     (
         objectid,
         na_identif,
@@ -128,13 +126,15 @@ LEFT JOIN
     gemeente gem
 ON
     ((
-            wp.fk_7gem_code = gem.code)));
+            wp.fk_7gem_code = gem.code))) WITH NO DATA;
             
-COMMENT ON VIEW vb_adres
-IS
-    'commentaar view vb_adres:
+create unique index mb_adres_objectid on mb_adres (objectid asc);
+create index mb_adres_identif on mb_adres (na_identif asc);
+            
+            
+COMMENT ON MATERIALIZED VIEW mb_adres
+IS 'commentaar view vb_adres:
 volledig adres zonder locatie
-
 beschikbare kolommen:
 * objectid: uniek id bruikbaar voor geoserver/arcgis,
 * na_identif: natuurlijke id van nummeraanduiding,   
@@ -152,16 +152,7 @@ beschikbare kolommen:
 * gem_code: gemeentecode
 
 ';
---drop materialized view mb_adres cascade;
-CREATE MATERIALIZED VIEW mb_adres AS
-SELECT
-    *
-FROM
-    vb_adres WITH NO DATA;
-CREATE UNIQUE INDEX mb_adres_objectid ON mb_adres USING btree (objectid);
-CREATE INDEX mb_adres_identif ON mb_adres USING btree (na_identif);
             
---drop view vb_vbo_adres cascade;
 CREATE OR REPLACE VIEW
     vb_vbo_adres
     (
@@ -228,7 +219,7 @@ ON
     (((
                 fkpand.fk_nn_lh_vbo_sc_identif)::text = (vbo.sc_identif)::text)))
 LEFT JOIN
-    vb_adres bva
+    mb_adres bva
 ON
     (((
                 vbo.fk_11nra_sc_identif)::text = (bva.na_identif)::text)));
@@ -258,7 +249,6 @@ beschikbare kolommen:
 ';
                 
                 
---drop view vb_standplaats_adres cascade;
 CREATE OR REPLACE VIEW
     vb_standplaats_adres
     (
@@ -311,7 +301,7 @@ ON
     (((
                 benter.sc_identif)::text = (spl.sc_identif)::text)))
 LEFT JOIN
-    vb_adres bva
+    mb_adres bva
 ON
     (((
                 spl.fk_4nra_sc_identif)::text = (bva.na_identif)::text)));
@@ -336,7 +326,6 @@ beschikbare kolommen:
 * the_geom: puntlocatie
 ';
                 
---drop view vb_ligplaats_adres cascade;
 CREATE OR REPLACE VIEW
     vb_ligplaats_adres
     (
@@ -389,7 +378,7 @@ ON
     (((
                 benter.sc_identif)::text = (lpl.sc_identif)::text)))
 LEFT JOIN
-    vb_adres bva
+    mb_adres bva
 ON
     (((
                 lpl.fk_4nra_sc_identif)::text = (bva.na_identif)::text)));
@@ -414,9 +403,7 @@ beschikbare kolommen:
 * the_geom: puntlocatie
 ';
                 
---drop view vb_pand cascade;
-CREATE OR REPLACE VIEW
-    vb_pand
+CREATE MATERIALIZED VIEW mb_pand
     (
         objectid,
         pand_identif,
@@ -446,8 +433,14 @@ SELECT
     pand.status,
     pand.geom_bovenaanzicht AS the_geom
 FROM
-    pand;
-COMMENT ON VIEW vb_pand
+    pand WITH NO DATA;
+
+CREATE UNIQUE INDEX mb_pand_objectid ON mb_pand USING btree (objectid);
+CREATE INDEX mb_pand_identif ON mb_pand USING btree (pand_identif);
+CREATE INDEX mb_pand_the_geom_idx ON mb_pand USING gist (the_geom);
+ 
+    
+COMMENT ON MATERIALIZED VIEW mb_pand
 IS
     'commentaar view vb_pand:
 pand met datum veld voor begin geldigheid en objectid voor geoserver/arcgis
@@ -460,20 +453,9 @@ beschikbare kolommen:
 * status: -,
 * the_geom: pandvlak
 ';
---drop materialized view mb_pand cascade;
-CREATE MATERIALIZED VIEW mb_pand AS
-SELECT
-    *
-FROM
-    vb_pand WITH NO DATA;
-CREATE UNIQUE INDEX mb_pand_objectid ON mb_pand USING btree (objectid);
-CREATE INDEX mb_pand_identif ON mb_pand USING btree (pand_identif);
-CREATE INDEX mb_pand_the_geom_idx ON mb_pand USING gist (the_geom);
 
     
---drop view vb_benoemd_obj_adres cascade;
-CREATE OR REPLACE VIEW
-    vb_benoemd_obj_adres
+CREATE MATERIALIZED VIEW mb_benoemd_obj_adres
     (
         objectid,
         benoemdobj_identif,
@@ -582,8 +564,13 @@ FROM
             vsla.the_geom
         FROM
             vb_standplaats_adres vsla
-    ) qry;
-COMMENT ON VIEW vb_benoemd_obj_adres
+    ) qry WITH NO DATA;
+
+CREATE UNIQUE INDEX mb_benoemd_obj_adres_objectid ON mb_benoemd_obj_adres USING btree (objectid);
+CREATE INDEX mb_benoemd_obj_adres_identif ON mb_benoemd_obj_adres USING btree (na_identif);
+CREATE INDEX mb_ben_obj_adr_geom_idx ON mb_benoemd_obj_adres USING gist (the_geom);
+
+COMMENT ON MATERIALIZED VIEW mb_benoemd_obj_adres
 IS
     'commentaar view vb_benoemd_obj_adres:
 alle benoemde objecten (vbo, standplaats en ligplaats) met adres, puntlocatie, objectid voor geoserver/arcgis en bij vbo referentie naar pand
@@ -606,19 +593,8 @@ beschikbare kolommen:
 * oppervlakte_obj: oppervlak van het gebouwd object
 * the_geom: puntlocatie
 ';
---drop materialized view mb_benoemd_obj_adres cascade;
-CREATE MATERIALIZED VIEW mb_benoemd_obj_adres AS
-SELECT
-    *
-FROM
-    vb_benoemd_obj_adres WITH NO DATA;
-CREATE UNIQUE INDEX mb_benoemd_obj_adres_objectid ON mb_benoemd_obj_adres USING btree (objectid);
-CREATE INDEX mb_benoemd_obj_adres_identif ON mb_benoemd_obj_adres USING btree (na_identif);
-CREATE INDEX mb_benoemd_obj_adres_the_geom_idx ON mb_benoemd_obj_adres USING gist (the_geom);
 
---drop view vb_ben_obj_nevenadres cascade;
-create or replace view
-    vb_ben_obj_nevenadres
+CREATE MATERIALIZED VIEW mb_ben_obj_nevenadres
     (
         benoemdobj_identif,
         na_identif,
@@ -676,7 +652,7 @@ from
 						    vba.huisnummer_toev,
 						    vba.postcode
 						from
-						    vb_adres vba
+						    mb_adres vba
 						join
 						    verblijfsobj_nummeraand vna
 						on
@@ -714,7 +690,7 @@ from
 						    vba.huisnummer_toev,
 						    vba.postcode
 						from
-						    vb_adres vba
+						    mb_adres vba
 						join
 						    ligplaats_nummeraand lpa
 						on
@@ -752,7 +728,7 @@ from
 						    vba.huisnummer_toev,
 						    vba.postcode
 						from
-						    vb_adres vba
+						    mb_adres vba
 						join
 						    standplaats_nummeraand spa
 						on
@@ -763,10 +739,11 @@ from
 						    (spa.fk_nn_lh_spl_sc_identif = spl.sc_identif)
 						where 
                 spl.fk_4nra_sc_identif <> spa.fk_nn_rh_nra_sc_identif
-    ) qry;
+    ) qry WITH NO DATA;
 
+CREATE INDEX mb_ben_obj_nevenadres_identif ON mb_ben_obj_nevenadres USING btree (na_identif);
 
-comment on view vb_ben_obj_nevenadres
+comment on materialized view mb_ben_obj_nevenadres
 is
     'commentaar view mb_ben_obj_nevenadres:
 alle nevenadressen van een benoemde object (vbo, standplaats en ligplaats)
@@ -786,11 +763,4 @@ beschikbare kolommen:
 * postcode: nevenadres
 ';
 
---drop materialized view mb_ben_obj_nevenadres cascade;
-create materialized view mb_ben_obj_nevenadres as
-SELECT
-    *
-FROM
-    vb_ben_obj_nevenadres WITH NO DATA;
-CREATE INDEX mb_ben_obj_nevenadres_identif ON mb_ben_obj_nevenadres USING btree (na_identif);
 
