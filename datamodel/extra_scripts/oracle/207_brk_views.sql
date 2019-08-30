@@ -14,6 +14,7 @@ versie 2.2
 --drop materialized view mb_avg_zr_rechth;
 --drop materialized view mb_kad_onrrnd_zk_adres;
 --drop materialized view mb_koz_rechth;
+--drop materialized view mb_avg_koz_rechth;
 --drop materialized view mb_subject;
 --drop materialized view mb_zr_rechth;
 --drop materialized view mb_util_app_re_kad_perceel;
@@ -40,22 +41,15 @@ versie 2.2
 --DROP INDEX mb_avg_zr_rechth_objectid;
 --DROP INDEX mb_subject_objectid;
 
---INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('RSGB', 'vb_kad_onrrnd_zk_adres', 'objectid', 'assigned');
---INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('RSGB', 'vb_koz_rechth', 'objectid', 'assigned');
---INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('RSGB', 'vb_avg_koz_rechth', 'objectid', 'assigned');
---INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('RSGB', 'vb_avg_zr_rechth', 'objectid', 'assigned');
---INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('RSGB', 'vb_zr_rechth', 'objectid', 'assigned');
---INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('RSGB', 'vb_subject', 'objectid', 'assigned');
---INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('RSGB', 'vb_avg_subject', 'objectid', 'assigned');
---INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('RSGB', 'vb_kad_onrrnd_zk_archief', 'objectid', 'assigned');
-
+--INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('RSGB', 'mb_kad_onrrnd_zk_archief', 'objectid', 'assigned');
+--INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('RSGB', 'mb_zr_rechth', 'objectid', 'assigned');
+--INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('RSGB', 'mb_avg_subject', 'objectid', 'assigned');
+--INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('RSGB', 'mb_avg_zr_rechth', 'objectid', 'assigned');
 --INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('RSGB', 'mb_kad_onrrnd_zk_adres', 'objectid', 'assigned');
 --INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('RSGB', 'mb_koz_rechth', 'objectid', 'assigned');
 --INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('RSGB', 'mb_avg_koz_rechth', 'objectid', 'assigned');
---INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('RSGB', 'mb_avg_zr_rechth', 'objectid', 'assigned');
---INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('RSGB', 'mb_zr_rechth', 'objectid', 'assigned');
 --INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('RSGB', 'mb_subject', 'objectid', 'assigned');
---INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('RSGB', 'mb_avg_subject', 'objectid', 'assigned');
+--INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('RSGB', 'mb_zr_rechth', 'objectid', 'assigned');
 --INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('RSGB', 'mb_kad_onrrnd_zk_archief', 'objectid', 'assigned');
 
 
@@ -73,12 +67,10 @@ versie 2.2
 -- run 4
 --DBMS_SNAPSHOT.REFRESH( 'mb_koz_rechth','c');
 --DBMS_SNAPSHOT.REFRESH( 'mb_avg_koz_rechth','c');
---DBMS_SNAPSHOT.REFRESH( 'mb_koz_rechth','c');
 --END
 
 alter session set query_rewrite_integrity=stale_tolerated;
 
---drop materialized view mb_subject cascade;
 CREATE MATERIALIZED VIEW mb_subject 
     (
         objectid,
@@ -117,6 +109,8 @@ SELECT
         THEN CAST('M' AS CHARACTER VARYING(1))
         WHEN ((np.geslachtsaand) = '2')
         THEN CAST('V' AS CHARACTER VARYING(1))
+        WHEN ((np.geslachtsaand) = '3')
+        THEN CAST('X' AS CHARACTER VARYING(1))
         ELSE np.geslachtsaand
     END AS geslachtsaand,
     CASE
@@ -244,7 +238,6 @@ beschikbare kolommen:
 * rsin: -        
 * kvk_nummer: -';
 
---drop materialized view mb_avg_subject cascade;
 CREATE MATERIALIZED VIEW mb_avg_subject 
     (
         objectid,
@@ -407,7 +400,7 @@ ON
     u1.parent_identif = cast(kp.sc_kad_identif AS CHARACTER VARYING(50))
 GROUP BY
     u1.app_re_identif,
-    kp.sc_kad_identif;
+    kp.sc_kad_identif WITH NO DATA;
     
 CREATE INDEX mb_util_app_re_kad_perceel_id ON mb_util_app_re_kad_perceel(app_re_identif);
     
@@ -423,6 +416,7 @@ CREATE MATERIALIZED VIEW mb_kad_onrrnd_zk_adres (
     objectid,
     koz_identif,
     begin_geldigheid,
+		begin_geldigheid_datum,
     benoemdobj_identif,
     type,
     aanduiding,
@@ -443,6 +437,9 @@ CREATE MATERIALIZED VIEW mb_kad_onrrnd_zk_adres (
     meer_onroerendgoed,
     valutasoort,
     loc_omschr,
+    aantekeningen,
+    na_identif,
+    na_status,
     gemeente,
     woonplaats,
     straatnaam,
@@ -450,6 +447,8 @@ CREATE MATERIALIZED VIEW mb_kad_onrrnd_zk_adres (
     huisletter,
     huisnummer_toev,
     postcode,
+    gebruiksdoelen,
+    oppervlakte_obj,
     lon,
     lat,
     begrenzing_perceel
@@ -462,6 +461,7 @@ AS
         CAST(ROWNUM AS INTEGER) AS objectid,
         qry.identif                AS koz_identif,
         koz.dat_beg_geldh          AS begin_geldigheid,
+    		to_date(koz.dat_beg_geldh, 'YYYY-MM-DD'::text) AS begin_geldigheid_datum,
         bok.fk_nn_lh_tgo_identif   AS benoemdobj_identif,
         qry.type,
         coalesce(qry.ka_sectie,'')
@@ -490,6 +490,18 @@ AS
         koz.ks_meer_onroerendgoed,
         koz.ks_valutasoort,
         koz.lo_loc__omschr,
+		    array_to_string(
+		        (SELECT array_agg(('id: '::text || COALESCE(koza.kadaster_identif_aantek, ''::character varying)::text || ', '::text || 
+		        'aard: '::text || COALESCE(koza.aard_aantek_kad_obj, ''::character varying)::text || ', '::text || 
+		       'begin: '::text || COALESCE(koza.begindatum_aantek_kad_obj, ''::character varying)::text || ', '::text || 
+		       'beschrijving: '::text || COALESCE(koza.beschrijving_aantek_kad_obj, ''::character varying)::text || ', '::text || 
+		       'eind: '::text || COALESCE(koza.eindd_aantek_kad_obj, ''::character varying)::text || ', '::text || 
+		       'koz-id: '::text || COALESCE(koza.fk_4koz_kad_identif, 0::NUMERIC(15,0))::NUMERIC(15,0) || ', '::text || 
+		       'subject-id: '::text || COALESCE(koza.fk_5pes_sc_identif, ''::character varying)::text || '; '::text))
+		       FROM kad_onrrnd_zk_aantek koza
+		       WHERE koza.fk_4koz_kad_identif = koz.kad_identif), ' & ') as aantekeningen,   
+		    bola.na_identif,
+		    bola.na_status,
         bola.gemeente,
         bola.woonplaats,
         bola.straatnaam,
@@ -497,6 +509,8 @@ AS
         bola.huisletter,
         bola.huisnummer_toev,
         bola.postcode,
+    		bola.gebruiksdoelen,
+    		bola.oppervlakte_obj,
         qry.lon,
         qry.lat,
         qry.begrenzing_perceel
@@ -630,7 +644,8 @@ CREATE OR REPLACE VIEW
         koz_identif,
         indic_betrokken_in_splitsing,
         omschr_aard_verkregenr_recht,
-        fk_3avr_aand
+        fk_3avr_aand,
+        aantekeningen
     ) AS
 SELECT
     zr.kadaster_identif AS zr_identif,
@@ -642,7 +657,17 @@ SELECT
     zr.fk_7koz_kad_identif AS koz_identif,
     zr.indic_betrokken_in_splitsing,
     avr.omschr_aard_verkregenr_recht,
-    zr.fk_3avr_aand
+    zr.fk_3avr_aand,
+    array_to_string(
+        (SELECT array_agg(('id: '::text || COALESCE(zra.kadaster_identif_aantek_recht, ''::character varying)::text || ', '::text || 
+        'aard: '::text || COALESCE(zra.aard_aantek_recht, ''::character varying)::text || ', '::text || 
+       'begin: '::text || COALESCE(zra.begindatum_aantek_recht, ''::character varying)::text || ', '::text || 
+       'beschrijving: '::text || COALESCE(zra.beschrijving_aantek_recht, ''::character varying)::text || ', '::text || 
+       'eind: '::text || COALESCE(zra.eindd_aantek_recht, ''::character varying)::text || ', '::text || 
+       'zkr-id: '::text || COALESCE(zra.fk_5zkr_kadaster_identif, ''::character varying)::text || ', '::text || 
+       'subject-id: '::text || COALESCE(zra.fk_6pes_sc_identif, ''::character varying)::text || '; '::text))
+       FROM zak_recht_aantek zra
+       WHERE zra.fk_5zkr_kadaster_identif = zr.kadaster_identif), '&& ') as aantekeningen
 FROM
     (zak_recht zr
 JOIN
@@ -651,7 +676,6 @@ ON
     (((
                 zr.fk_3avr_aand) = (avr.aand))));
     
---drop materialized view mb_zr_rechth cascade;
 CREATE MATERIALIZED VIEW mb_zr_rechth 
     (
         objectid,
@@ -751,7 +775,6 @@ beschikbare kolommen:
 * rsin: -        
 * kvk_nummer: -';
 
---drop materialized view mb_avg_zr_rechth cascade;
 CREATE MATERIALIZED VIEW mb_avg_zr_rechth 
     (
         objectid,
@@ -847,12 +870,12 @@ beschikbare kolommen:
 * rsin: -        
 * kvk_nummer: -';
 
---drop materialized view mb_koz_rechth cascade;
 CREATE MATERIALIZED VIEW mb_koz_rechth
     (
         objectid,
         koz_identif,
         begin_geldigheid,
+				begin_geldigheid_datum,
         type,
         aanduiding,
         aanduiding2,
@@ -894,6 +917,7 @@ CREATE MATERIALIZED VIEW mb_koz_rechth
         statutaire_zetel,
         rsin,
         kvk_nummer,
+        aantekeningen,
         gemeente,
         woonplaats,
         straatnaam,
@@ -910,6 +934,7 @@ SELECT
     CAST(ROWNUM AS INTEGER) AS objectid,
     koz.koz_identif,
     koz.begin_geldigheid,
+    to_date(koz.begin_geldigheid, 'YYYY-MM-DD'::text) AS begin_geldigheid_datum,
     koz.type,
     COALESCE(koz.sectie, '') || ' ' || COALESCE(koz.perceelnummer, '') AS aanduiding,
     COALESCE(koz.gemeentecode, '') || ' ' || COALESCE(koz.sectie, '') || ' ' || COALESCE(koz.perceelnummer, '') || ' ' || COALESCE(koz.appartementsindex, '') AS aanduiding2,
@@ -951,6 +976,7 @@ SELECT
     zrr.statutaire_zetel,
     zrr.rsin,
     zrr.kvk_nummer,
+    zrr.aantekeningen,
     koz.gemeente,
     koz.woonplaats,
     koz.straatnaam,
@@ -1036,11 +1062,12 @@ beschikbare kolommen:
 * lon: coordinaat als WSG84,
 * begrenzing_perceel: perceelvlak';
 
---DROP MATERIALIZED VIEW mb_avg_koz_rechth;
-CREATE MATERIALIZED VIEW mb_avg_koz_rechth (
+CREATE MATERIALIZED VIEW mb_avg_koz_rechth 
+(
     objectid,
     koz_identif,
     begin_geldigheid,
+	  begin_geldigheid_datum,
     type,
     aanduiding,
     aanduiding2,
@@ -1082,6 +1109,7 @@ CREATE MATERIALIZED VIEW mb_avg_koz_rechth (
     statutaire_zetel,
     rsin,
     kvk_nummer,
+        aantekeningen,
     gemeente,
     woonplaats,
     straatnaam,
@@ -1099,6 +1127,7 @@ SELECT
     CAST(ROWNUM AS INTEGER) AS objectid,
     koz.koz_identif as koz_identif,
     koz.begin_geldigheid,
+    to_date(koz.begin_geldigheid, 'YYYY-MM-DD'::text) AS begin_geldigheid_datum,
     koz.type,
     COALESCE(koz.sectie, '') || ' ' || COALESCE(koz.perceelnummer, '') AS aanduiding,
     COALESCE(koz.gemeentecode, '') || ' ' || COALESCE(koz.sectie, '') || ' ' || COALESCE(koz.perceelnummer, '') || ' ' || COALESCE(koz.appartementsindex, '') AS aanduiding2,
@@ -1140,6 +1169,7 @@ SELECT
     zrr.statutaire_zetel,
     zrr.rsin,
     zrr.kvk_nummer,
+    zrr.aantekeningen,
     koz.gemeente,
     koz.woonplaats,
     koz.straatnaam,
@@ -1221,13 +1251,14 @@ beschikbare kolommen:
 * lat: coordinaat als WSG84,
 * begrenzing_perceel: perceelvlak';
 
---drop materialized view MB_KAD_ONRRND_ZK_ARCHIEF cascade;
 CREATE MATERIALIZED VIEW MB_KAD_ONRRND_ZK_ARCHIEF 
     (
         objectid,
         koz_identif,
         begin_geldigheid,
+				begin_geldigheid_datum,
         eind_geldigheid,
+				eind_geldigheid_datum,
         type,
         aanduiding,
         aanduiding2,
@@ -1253,7 +1284,9 @@ SELECT
     CAST(ROWNUM AS INTEGER) AS objectid,
     qry.identif as koz_identif,
     koza.dat_beg_geldh AS begin_geldigheid,
+    to_date(koza.dat_beg_geldh, 'YYYY-MM-DD'::text) AS begin_geldigheid_datum,
     koza.datum_einde_geldh AS eind_geldigheid,
+    to_date(koza.datum_einde_geldh, 'YYYY-MM-DD'::text) AS eind_geldigheid_datum,
     qry.type,
     (((COALESCE(qry.ka_sectie, '')) || ' ') || (COALESCE
     (qry.ka_perceelnummer, ''))) AS aanduiding,

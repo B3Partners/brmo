@@ -1,7 +1,7 @@
 /*
 Views for visualizing the BAG data.
 versie 2
-28-8-2018
+30-8-2019
 */
 -- DROP VIEWS
 --drop view vb_vbo_adres;
@@ -42,12 +42,12 @@ versie 2
 
 alter session set query_rewrite_integrity=stale_tolerated;
 
---drop materialized view mb_adres;
 CREATE MATERIALIZED VIEW mb_adres
     (
         objectid,
         na_identif,
         begin_geldigheid,
+        begin_geldigheid_datum,
         gemeente,
         woonplaats,
         straatnaam,
@@ -75,6 +75,11 @@ SELECT
             SUBSTR(addrobj.dat_beg_geldh,5,2) || '-' ||
             SUBSTR(addrobj.dat_beg_geldh,7,2)
     END AS CHARACTER VARYING(10))  AS begin_geldigheid,
+    CASE
+        WHEN position('-' IN addrobj.dat_beg_geldh) = 5
+        THEN to_date(addrobj.dat_beg_geldh, 'YYYY-MM-DD'::text)
+        ELSE to_date(addrobj.dat_beg_geldh, 'YYYYMMDDHH24MISSUS'::text)
+    END AS begin_geldigheid_datum,
     gem.naam                                                   AS gemeente,
     CASE
         WHEN (addrobj.fk_6wpl_identif IS NOT NULL)
@@ -151,8 +156,10 @@ CREATE OR REPLACE VIEW
     (
         vbo_identif,
         begin_geldigheid,
+        begin_geldigheid_datum,
         pand_identif,
         na_identif,
+        na_status,
         gemeente,
         woonplaats,
         straatnaam,
@@ -161,6 +168,8 @@ CREATE OR REPLACE VIEW
         huisnummer_toev,
         postcode,
         status,
+        gebruiksdoelen,
+        oppervlakte_obj,
         the_geom
     ) AS
 SELECT
@@ -175,8 +184,14 @@ SELECT
             SUBSTR(gobj.dat_beg_geldh,5,2) || '-' ||
             SUBSTR(gobj.dat_beg_geldh,7,2)
     END AS CHARACTER VARYING(10)) AS begin_geldigheid,
+    CASE
+        WHEN position('-' IN gobj.dat_beg_geldh) = 5
+				THEN to_date(gobj.dat_beg_geldh, 'YYYY-MM-DD'::text)
+				ELSE to_date(gobj.dat_beg_geldh, 'YYYYMMDDHH24MISSUS'::text)
+		END AS begin_geldigheid_datum,
     fkpand.fk_nn_rh_pnd_identif                             AS pand_identif,
-    bva.na_identif                                                                                  as na_identif,
+    bva.na_identif                                          as na_identif,
+    bva.na_status 																					as na_status,
     bva.gemeente,
     bva.woonplaats,
     bva.straatnaam,
@@ -185,6 +200,11 @@ SELECT
     bva.huisnummer_toev,
     bva.postcode,
     vbo.status,
+    array_to_string(
+    	(SELECT array_agg(gog.gebruiksdoel_gebouwd_obj) 
+    	FROM gebouwd_obj_gebruiksdoel gog 
+    	WHERE gog.fk_gbo_sc_identif = vbo.sc_identif), ',') as gebruiksdoelen,
+    gobj.oppervlakte_obj,
     gobj.puntgeom AS the_geom
 FROM
     (((verblijfsobj vbo
@@ -211,7 +231,9 @@ CREATE OR REPLACE VIEW
     (
         spl_identif,
         begin_geldigheid,
+        begin_geldigheid_datum,
         na_identif,
+        na_status,
         gemeente,
         woonplaats,
         straatnaam,
@@ -234,7 +256,13 @@ SELECT
             SUBSTR(benter.dat_beg_geldh,5,2) || '-' ||
             SUBSTR(benter.dat_beg_geldh,7,2)
     END AS CHARACTER VARYING(10)) AS begin_geldigheid,
+    CASE
+        WHEN position('-' IN benter.dat_beg_geldh) = 5
+				THEN to_date(benter.dat_beg_geldh, 'YYYY-MM-DD'::text)
+				ELSE to_date(benter.dat_beg_geldh, 'YYYYMMDDHH24MISSUS'::text)
+		END AS begin_geldigheid_datum,
     bva.na_identif                        as na_identif,
+    bva.na_status 					      as na_status,
     bva.gemeente,
     bva.woonplaats,
     bva.straatnaam,
@@ -263,7 +291,9 @@ CREATE OR REPLACE VIEW
     (
         lpl_identif,
         begin_geldigheid,
+        begin_geldigheid_datum,
         na_identif,
+        na_status,
         gemeente,
         woonplaats,
         straatnaam,
@@ -286,7 +316,13 @@ SELECT
             SUBSTR(benter.dat_beg_geldh,5,2) || '-' ||
             SUBSTR(benter.dat_beg_geldh,7,2)
     END AS CHARACTER VARYING(10)) AS begin_geldigheid,
+    CASE
+        WHEN position('-' IN benter.dat_beg_geldh) = 5
+				THEN to_date(benter.dat_beg_geldh, 'YYYY-MM-DD'::text)
+				ELSE to_date(benter.dat_beg_geldh, 'YYYYMMDDHH24MISSUS'::text)
+		END AS begin_geldigheid_datum,
     bva.na_identif                            as na_identif,
+    bva.na_status 				              as na_status,
     bva.gemeente,
     bva.woonplaats,
     bva.straatnaam,
@@ -310,12 +346,12 @@ ON
                 lpl.fk_4nra_sc_identif) = (bva.na_identif))));
 
 
---drop materialized view mb_pand;
 CREATE MATERIALIZED VIEW mb_pand
     (
         objectid,
         pand_identif,
         begin_geldigheid,
+        begin_geldigheid_datum,
         bouwjaar,
         status,
         the_geom
@@ -336,6 +372,11 @@ SELECT
             SUBSTR(pand.dat_beg_geldh,5,2) || '-' ||
             SUBSTR(pand.dat_beg_geldh,7,2)
     END AS CHARACTER VARYING(10)) AS begin_geldigheid,
+    CASE
+        WHEN position('-' IN pand.dat_beg_geldh) = 5
+				THEN to_date(pand.dat_beg_geldh, 'YYYY-MM-DD'::text)
+				ELSE to_date(pand.dat_beg_geldh, 'YYYYMMDDHH24MISSUS'::text)
+		END AS begin_geldigheid_datum,
     pand.oorspronkelijk_bouwjaar                            AS bouwjaar,
     pand.status,
     pand.geom_bovenaanzicht AS the_geom
@@ -364,7 +405,9 @@ CREATE MATERIALIZED VIEW mb_benoemd_obj_adres
         objectid,
         benoemdobj_identif,
         na_identif,
+x        na_status,
         begin_geldigheid,
+x        begin_geldigheid_datum,
         pand_identif,
         soort,
         gemeente,
@@ -375,6 +418,8 @@ CREATE MATERIALIZED VIEW mb_benoemd_obj_adres
         huisnummer_toev,
         postcode,
         status,
+x        gebruiksdoelen,
+x        oppervlakte_obj,
         the_geom
     ) 
 BUILD DEFERRED
@@ -384,7 +429,9 @@ SELECT
     CAST(ROWNUM AS INTEGER) AS objectid,
     qry.benoemdobj_identif,
     qry.na_identif,
+    qry.na_status,
     qry.begin_geldigheid,
+    qry.begin_geldigheid_datum,
     qry.pand_identif,
     qry.soort,
     qry.gemeente,
@@ -395,13 +442,17 @@ SELECT
     qry.huisnummer_toev,
     qry.postcode,
     qry.status,
+    qry.gebruiksdoelen,
+    CAST(qry.oppervlakte_obj AS INTEGER),
     qry.the_geom
 FROM
     (
         SELECT
             vvla.vbo_identif as benoemdobj_identif,
             vvla.na_identif,
+            vvla.na_status,
             vvla.begin_geldigheid,
+        		vvla.begin_geldigheid_datum,
             vvla.pand_identif,
             CAST('VBO' AS CHARACTER VARYING(50)) AS soort,
             vvla.gemeente,
@@ -412,6 +463,8 @@ FROM
             vvla.huisnummer_toev,
             vvla.postcode,
             vvla.status,
+            vvla.gebruiksdoelen,
+            vvla.oppervlakte_obj,
             vvla.the_geom
         FROM
             vb_vbo_adres vvla
@@ -419,7 +472,9 @@ FROM
         SELECT
             vlla.lpl_identif as benoemdobj_identif,
             vlla.na_identif,
+            vlla.na_status,
             vlla.begin_geldigheid,
+        		vlla.begin_geldigheid_datum,
             CAST(NULL AS CHARACTER VARYING(16))        AS pand_identif,
             CAST('LIGPLAATS' AS CHARACTER VARYING(50)) AS soort,
             vlla.gemeente,
@@ -430,6 +485,8 @@ FROM
             vlla.huisnummer_toev,
             vlla.postcode,
             vlla.status,
+            vlla.gebruiksdoelen,
+            vlla.oppervlakte_obj,
             vlla.the_geom
         FROM
             vb_ligplaats_adres vlla
@@ -437,7 +494,9 @@ FROM
         SELECT
             vsla.spl_identif as benoemdobj_identif,
             vsla.na_identif,
+            vsla.na_status,
             vsla.begin_geldigheid,
+        		vsla.begin_geldigheid_datum,
             CAST(NULL AS CHARACTER VARYING(16))        AS pand_identif,
             CAST('STANDPLAATS' AS CHARACTER VARYING(50)) AS soort,
             vsla.gemeente,
@@ -448,6 +507,8 @@ FROM
             vsla.huisnummer_toev,
             vsla.postcode,
             vsla.status,
+            vsla.gebruiksdoelen,
+            vsla.oppervlakte_obj,
             vsla.the_geom
         FROM
             vb_standplaats_adres vsla
@@ -482,7 +543,9 @@ CREATE MATERIALIZED VIEW mb_ben_obj_nevenadres
     (
         benoemdobj_identif,
         na_identif,
+        na_status,
         begin_geldigheid,
+        begin_geldigheid_datum,
         soort,
         gemeente,
         woonplaats,
@@ -498,7 +561,9 @@ AS
 SELECT
     qry.benoemdobj_identif,
     qry.na_identif,
+    qry.na_status,
     qry.begin_geldigheid,
+    qry.begin_geldigheid_datum,
     qry.soort,
     qry.gemeente,
     qry.woonplaats,
@@ -512,6 +577,7 @@ FROM
                         SELECT
                             vna.FK_NN_LH_VBO_SC_IDENTIF AS benoemdobj_identif,
                             vba.na_identif,
+						    						vba.na_status,
                             CAST(CASE
                                 WHEN
                                   ((INSTR(vna.fk_nn_lh_vbo_sc_dat_beg_geldh,'-')  = 5) AND
@@ -523,6 +589,11 @@ FROM
                                     SUBSTR(vna.fk_nn_lh_vbo_sc_dat_beg_geldh,5,2) || '-' ||
                                     SUBSTR(vna.fk_nn_lh_vbo_sc_dat_beg_geldh,7,2)
                             END AS CHARACTER VARYING(10)) AS begin_geldigheid,
+												    CASE
+												        WHEN position('-' IN vna.fk_nn_lh_vbo_sc_dat_beg_geldh) = 5
+						        						THEN to_date(vna.fk_nn_lh_vbo_sc_dat_beg_geldh, 'YYYY-MM-DD'::text)
+						        						ELSE to_date(vna.fk_nn_lh_vbo_sc_dat_beg_geldh, 'YYYYMMDDHH24MISSUS'::text)
+						    						END AS begin_geldigheid_datum,
                             CAST('VBO' AS CHARACTER VARYING(50)) AS soort,
                             vba.gemeente,
                             vba.woonplaats,
@@ -547,6 +618,7 @@ FROM
                         SELECT
                             lpa.fk_nn_lh_lpl_sc_identif AS benoemdobj_identif,
                             vba.na_identif,
+						    						vba.na_status,
                             CAST(CASE
                                 WHEN
                                   ((INSTR(lpa.fk_nn_lh_lpl_sc_dat_beg_geldh,'-')  = 5) AND
@@ -558,6 +630,11 @@ FROM
                                     SUBSTR(lpa.fk_nn_lh_lpl_sc_dat_beg_geldh,5,2) || '-' ||
                                     SUBSTR(lpa.fk_nn_lh_lpl_sc_dat_beg_geldh,7,2)
                             END AS CHARACTER VARYING(10)) AS begin_geldigheid,
+												    CASE
+												        WHEN position('-' IN lpa.fk_nn_lh_lpl_sc_dat_beg_geldh) = 5
+						        						THEN to_date(lpa.fk_nn_lh_lpl_sc_dat_beg_geldh, 'YYYY-MM-DD'::text)
+						        						ELSE to_date(lpa.fk_nn_lh_lpl_sc_dat_beg_geldh, 'YYYYMMDDHH24MISSUS'::text)
+						    						END AS begin_geldigheid_datum,
                             CAST('LIGPLAATS' AS CHARACTER VARYING(50)) AS soort,
                             vba.gemeente,
                             vba.woonplaats,
@@ -582,6 +659,7 @@ FROM
                         SELECT
                             spa.fk_nn_lh_spl_sc_identif AS benoemdobj_identif,
                             vba.na_identif,
+						    						vba.na_status,
                             CAST(CASE
                                 WHEN
                                   ((INSTR(spa.fk_nn_lh_spl_sc_dat_beg_geldh,'-')  = 5) AND
@@ -593,6 +671,11 @@ FROM
                                     SUBSTR(spa.fk_nn_lh_spl_sc_dat_beg_geldh,5,2) || '-' ||
                                     SUBSTR(spa.fk_nn_lh_spl_sc_dat_beg_geldh,7,2)
                             END AS CHARACTER VARYING(10)) AS begin_geldigheid,
+												    CASE
+												        WHEN position('-' IN spa.fk_nn_lh_spl_sc_dat_beg_geldh) = 5
+						        						THEN to_date(spa.fk_nn_lh_spl_sc_dat_beg_geldh, 'YYYY-MM-DD'::text)
+						        						ELSE to_date(spa.fk_nn_lh_spl_sc_dat_beg_geldh, 'YYYYMMDDHH24MISSUS'::text)
+						    						END AS begin_geldigheid_datum,
                             CAST('STANDPLAATS' AS CHARACTER VARYING(50)) AS soort,
                             vba.gemeente,
                             vba.woonplaats,
