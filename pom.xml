@@ -88,7 +88,7 @@
         <jaxb.impl.version>2.3.2</jaxb.impl.version>
         <activation.api.version>1.2.1</activation.api.version>
         <!-- bij ophogen van tomcat versie evt. ook de .mvn/owasp-suppression.xml file bijwerken -->
-        <tomcat.version>7.0.94</tomcat.version>
+        <tomcat.version>7.0.96</tomcat.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <!-- om unit tests met postgres te draaien gebruik je
@@ -281,7 +281,7 @@
             </dependency>
             <!-- database en persistence -->
             <dependency>
-                <!-- override v 3.1 die met hibernate meekomt, eigenlijk zouden we naar 4.3 moeten, maar die is ws. niet compatibel -->
+                <!-- override v 3.1 die met hibernate meekomt, eigenlijk zouden we naar 4.4 moeten, maar die is ws. niet compatibel -->
                 <groupId>commons-collections</groupId>
                 <artifactId>commons-collections</artifactId>
                 <version>3.2.2</version>
