@@ -42,10 +42,10 @@ install:
   - ps: |
         Add-Type -AssemblyName System.IO.Compression.FileSystem
         if (!(Test-Path("C:\Users\appveyor\downloads\maven-bin.zip"))) {
-            (new-object System.Net.WebClient).DownloadFile('https://archive.apache.org/dist/maven/maven-3/3.6.1/binaries/apache-maven-3.6.1-bin.zip', 'C:\Users\appveyor\downloads\maven-bin.zip')
+            (new-object System.Net.WebClient).DownloadFile('https://archive.apache.org/dist/maven/maven-3/3.6.2/binaries/apache-maven-3.6.2-bin.zip', 'C:\Users\appveyor\downloads\maven-bin.zip')
         }
         [System.IO.Compression.ZipFile]::ExtractToDirectory("C:\Users\appveyor\downloads\maven-bin.zip", "C:\maven")
-  - cmd: SET PATH=C:\maven\apache-maven-3.6.1\bin;%PATH%
+  - cmd: SET PATH=C:\maven\apache-maven-3.6.2\bin;%PATH%
   - cmd: echo %PATH%
   - cmd: java -version
   - cmd: mvn -v

@@ -8,7 +8,7 @@ env:
     - secure: "NynQI56H74dDi6sK4wxPawnLoLsrzADKmD8Jl7w3yQnYTfVU7zP07KeJKoIWhFaYB3GCKyG2qdeM1I5DOeim183c0h51WcQTVvHX3o1D3DyrdfuhqKTBXmAUXJObp/jUoABD2KKejSKZj+mkzqutITMUUbHDiMu5PD6WXEuCYT8="
     - PG_VERSION="9.6"
     - PROFILE="postgresql"
-    - MVN_VERSION="3.6.1"
+    - MVN_VERSION="3.6.2"
     - MVN_ARGS="-Dit.test=!TopNLIntegrationTest"
     - PGPORT=5432
     - MAVEN_OPTS=-Djava.awt.headless=true -Xms8G -Xmx12G
@@ -103,6 +103,7 @@ matrix:
         packages:
           - xmlstarlet
           - postgresql-9.6-postgis-2.3
+          - postgresql-9.6-postgis-2.3-scripts
   - name: "TopNL tests"
     group: edge
     dist: xenial
