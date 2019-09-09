@@ -11,8 +11,8 @@ init:
 
 environment:
   BGT_ONLY_ITESTS : false
-  # Microsoft SQL Server 2016 Service Pack 1 heeft een EOL van 13-7-2021
-  # Microsoft SQL Server 2017 is de jongst-beschikbare release op AppVeyor, maar testen we op Travis-CI (veel sneller)
+  # Microsoft SQL Server 2016 Service Pack 2 heeft een EOL (einde basisondersteuning) van 13-7-2021
+  # Microsoft SQL Server 2017 is de jongst-beschikbare release op AppVeyor, maar testen we (ook) op Travis-CI (veel sneller)
   matrix:
     - SQL: MSSQL$SQL2016
       INSTANCENAME: SQL2016

@@ -109,18 +109,18 @@ matrix:
     dist: xenial
     jdk: openjdk8
     sudo: required
+    env:
+      - PG_VERSION="11"
+      - MVN_ARGS="-Dit.test=TopNLIntegrationTest"
     addons:
-      postgresql: 10
+      postgresql: 11
       apt:
         packages:
-          - postgresql-10
-          - postgresql-client-10
-          - postgresql-10-postgis-2.5
-          - postgresql-10-postgis-2.5-scripts
+          - postgresql-11
+          - postgresql-client-11
+          - postgresql-11-postgis-2.5
+          - postgresql-11-postgis-2.5-scripts
           - xmlstarlet
-    env:
-      - PG_VERSION="10"
-      - MVN_ARGS="-Dit.test=TopNLIntegrationTest"
 
 cache:
   directories:
