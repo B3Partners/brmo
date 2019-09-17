@@ -62,7 +62,7 @@
         <hibernate.version>3.6.10.Final</hibernate.version>
         <geotools.version>21.2</geotools.version>
         <jts.version>1.16.1</jts.version>
-        <postgresql.jdbc.version>42.2.7</postgresql.jdbc.version>
+        <postgresql.jdbc.version>42.2.8</postgresql.jdbc.version>
         <postgresql.postgis-jdbc.version>2.3.0</postgresql.postgis-jdbc.version>
         <!--
         https://blogs.oracle.com/dev2dev/get-oracle-jdbc-drivers-and-ucp-from-oracle-maven-repository-without-ides
