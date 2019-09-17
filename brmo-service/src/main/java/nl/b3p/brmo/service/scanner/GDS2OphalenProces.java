@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.math.BigInteger;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
@@ -58,13 +57,14 @@ import nl.b3p.brmo.persistence.staging.LaadProces;
 import nl.b3p.brmo.service.util.ConfigUtil;
 import nl.b3p.brmo.service.util.TrustManagerDelegate;
 import static nl.b3p.gds2.GDS2Util.*;
-import nl.b3p.soap.logging.LogMessageHandler;
+import nl.b3p.brmo.soap.util.LogMessageHandler;
 import nl.kadaster.schemas.gds2.afgifte_bestandenlijstopvragen.v20170401.BestandenlijstOpvragenType;
 import nl.kadaster.schemas.gds2.afgifte_bestandenlijstresultaat.afgifte.v20170401.AfgifteType;
 import nl.kadaster.schemas.gds2.afgifte_bestandenlijstselectie.v20170401.AfgifteSelectieCriteriaType;
 import nl.kadaster.schemas.gds2.afgifte_bestandenlijstselectie.v20170401.BestandKenmerkenType;
 import nl.kadaster.schemas.gds2.afgifte_proces.v20170401.FilterDatumTijdType;
 import nl.kadaster.schemas.gds2.afgifte_proces.v20170401.KlantAfgiftenummerReeksType;
+import nl.kadaster.schemas.gds2.imgds.baseurl.v20170401.BaseURLType;
 import nl.kadaster.schemas.gds2.service.afgifte.v20170401.Gds2AfgifteServiceV20170401;
 import nl.kadaster.schemas.gds2.service.afgifte.v20170401.Gds2AfgifteServiceV20170401Service;
 import nl.kadaster.schemas.gds2.service.afgifte_bestandenlijstopvragen.v20170401.BestandenlijstOpvragenRequest;
@@ -173,7 +173,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
 
             String alGerapporteerd = ClobElement.nullSafeGet(this.config.getConfig().get("gds2_al_gerapporteerde_afgiftes"));
             if (!"true".equals(alGerapporteerd)) {
-                criteria.setNogNietGerapporteerd(Boolean.TRUE);
+                criteria.setNogNietGerapporteerd(true);
             }
 
             // datum tijd parsen/instellen
@@ -188,9 +188,9 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
 
             // TODO instellen laagste en hoogste afgiftenummer voor dit verzoek
             KlantAfgiftenummerReeksType afgiftenummers = new KlantAfgiftenummerReeksType();
-            afgiftenummers.setKlantAfgiftenummerVanaf(BigInteger.ONE);
-            afgiftenummers.setKlantAfgiftenummerTotmet(BigInteger.valueOf(10000));
-            criteria.setKlantAfgiftenummerReeks(afgiftenummers);
+//            afgiftenummers.setKlantAfgiftenummerVanaf(BigInteger.ONE);
+//            afgiftenummers.setKlantAfgiftenummerTotmet(BigInteger.valueOf(10000));
+//            criteria.setKlantAfgiftenummerReeks(afgiftenummers);
 
             GregorianCalendar currentMoment = null;
             boolean parseblePeriod = false;
@@ -206,6 +206,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             }
 
             List<AfgifteType> afgiftes = new ArrayList<>();
+            BestandenlijstOpvragenResponse response = null;
 
             Gds2AfgifteServiceV20170401 gds2 = initGDS2();
             l.updateStatus("Uitvoeren SOAP request naar Kadaster...");
@@ -295,9 +296,9 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
                 }
 
                 verzoek.setAfgifteSelectieCriteria(criteria);
-                BestandenlijstOpvragenResponse response = retryBestandenLijstOpvragen(gds2, request, BESTANDENLIJST_ATTEMPTS, BESTANDENLIJST_RETRY_WAIT);
+                response = retryBestandenLijstOpvragen(gds2, request, BESTANDENLIJST_ATTEMPTS, BESTANDENLIJST_RETRY_WAIT);
 
-                int aantalInAntwoord = response.getAntwoord().getBestandenLijst().getAfgifte().size();
+                int aantalInAntwoord = response.getAntwoord().getAfgifteAantalInLijst();
                 l.addLog("Aantal in antwoord: " + aantalInAntwoord);
                 // opletten; in de xsd staat een default value van 'J' voor meerAfgiftesbeschikbaar
                 boolean hasMore = response.getAntwoord().isMeerAfgiftesbeschikbaar();
@@ -357,7 +358,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
                         }
                     }
                     afgiftes.addAll(afgifteLijst);
-                    aantalInAntwoord = afgiftes.size();
+                    aantalInAntwoord = response.getAntwoord().getAfgifteAantalInLijst();
                     l.addLog("Aantal in antwoord: " + aantalInAntwoord);
                     hasMore = response.getAntwoord().isMeerAfgiftesbeschikbaar();
                     l.addLog("Nog meer afgiftes beschikbaar: " + hasMore);
@@ -368,7 +369,13 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             l.total(afgiftes.size());
             l.addLog("Totaal aantal op te halen berichten: " + afgiftes.size());
 
-            verwerkAfgiftes(afgiftes);
+            if (criteria.getBestandKenmerken().getContractnummer() == null) {
+                // bag
+                verwerkAfgiftes(afgiftes, getAnoniemBaseURL(response.getAntwoord()));
+            } else {
+                // brk
+                verwerkAfgiftes(afgiftes, getCertificaatBaseURL(response.getAntwoord()));
+            }
 
         } catch (Exception e) {
             log.error("Fout bij ophalen van GDS2 berichten", e);
@@ -683,10 +690,10 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
     /**
      * verwerk de afgiftes in de response en stuur eventueel door.
      *
-     * @param afgiftesGb lijst afgiftes
+     * @param afgiftes lijst afgiftes
      * @throws Exception if any
      */
-    private void verwerkAfgiftes(List<AfgifteType> afgiftesGb) throws Exception {
+    private void verwerkAfgiftes(List<AfgifteType> afgiftes, BaseURLType baseUrl) throws Exception {
         int filterAlVerwerkt = 0;
         int aantalGeladen = 0;
         int aantalDoorgestuurd = 0;
@@ -695,15 +702,9 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         String doorsturenUrl = ClobElement.nullSafeGet(this.config.getConfig().get("delivery_endpoint"));
         final String soort = this.config.getConfig().getOrDefault("gds2_br_soort", new ClobElement("brk")).getValue();
 
-        for (AfgifteType a : afgiftesGb) {
-            String url = null;
-            if (a.getDigikoppelingExternalDatareferences() != null
-                    && a.getDigikoppelingExternalDatareferences().getDataReference() != null) {
-                for (DataReference dr : a.getDigikoppelingExternalDatareferences().getDataReference()) {
-                    url = dr.getTransport().getLocation().getSenderUrl().getValue();
-                    break;
-                }
-            }
+        for (AfgifteType a : afgiftes) {
+            String url = getAfgifteURL(a, baseUrl);
+
             if (url != null) {
                 if (isAfgifteAlGeladen(a, url)) {
                     filterAlVerwerkt++;

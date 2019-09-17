@@ -60,6 +60,10 @@
         </dependency>
         <dependency>
             <groupId>nl.b3p</groupId>
+            <artifactId>brmo-soap-util</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>nl.b3p</groupId>
             <artifactId>brmo-init-util</artifactId>
         </dependency>
         <dependency>
@@ -163,6 +167,7 @@
                     <compilerArguments>
                         <endorseddirs>${endorsed.dir}</endorseddirs>
                     </compilerArguments>
+                    <showDeprecation>true</showDeprecation>
                 </configuration>
             </plugin>
             <plugin>

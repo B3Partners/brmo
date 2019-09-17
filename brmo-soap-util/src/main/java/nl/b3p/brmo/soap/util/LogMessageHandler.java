@@ -39,6 +39,9 @@ public class LogMessageHandler implements SOAPHandler<SOAPMessageContext> {
                 String prefix = "<<< ";
                 if (outboundProperty) {
                     prefix = ">>> ";
+                    LOG.trace(prefix + "Uitgaand soap bericht");
+                } else {
+                    LOG.trace(prefix + "Inkomend soap bericht.");
                 }
 
                 Iterator<MimeHeader> i = context.getMessage().getMimeHeaders().getAllHeaders();
