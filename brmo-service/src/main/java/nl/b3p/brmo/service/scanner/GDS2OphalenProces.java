@@ -480,11 +480,26 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
                         l.addLog(msg);
                         log.debug(msg);
                         try {
-                            brmo.loadFromStream(BrmoFramework.BR_BAG,
+                            String localLpName = getLaadprocesBestandsnaam(a) + "/" + entry.getName() + "/" + innerentry.getName();
+                            brmo.loadFromStream(
+                                    BrmoFramework.BR_BAG,
                                     new CloseShieldInputStream(innerzip),
-                                    getLaadprocesBestandsnaam(a) + "/" + entry.getName() + "/" + innerentry.getName(),
+                                    localLpName,
                                     config.getId()
                             );
+
+                            brmo.updateLaadProcesMeta(
+                                    brmo.getLaadProcesIdByFileName(localLpName),
+                                    a.getKlantAfgiftenummer(),
+                                    a.getContractAfgiftenummer(),
+                                    a.getBestandKenmerken().getArtikelnummer(),
+                                    a.getBestandKenmerken().getContractnummer(),
+                                    a.getAfgifteID(),
+                                    a.getAfgiftereferentie(),
+                                    a.getBestand().getBestandsreferentie(),
+                                    a.getBeschikbaarTot().toGregorianCalendar().getTime()
+                            );
+
                         } catch (BrmoDuplicaatLaadprocesException d) {
                             msg = "Duplicaat laadproces. " + d.getLocalizedMessage();
                             l.updateStatus(msg);
@@ -541,6 +556,14 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
 
         LaadProces lp = new LaadProces();
         lp.setBestand_naam(getLaadprocesBestandsnaam(a));
+        lp.setKlantafgiftenummer(a.getKlantAfgiftenummer());
+        lp.setContractafgiftenummer(a.getContractAfgiftenummer());
+        lp.setArtikelnummer(a.getBestandKenmerken().getArtikelnummer());
+        lp.setContractnummer(a.getBestandKenmerken().getContractnummer());
+        lp.setAfgifteid(a.getAfgifteID());
+        lp.setAfgiftereferentie(a.getAfgiftereferentie());
+        lp.setBestandsreferentie(a.getBestand().getBestandsreferentie());
+        lp.setBeschikbaar_tot(a.getBeschikbaarTot().toGregorianCalendar().getTime());
 
         if (a.getDigikoppelingExternalDatareferences() != null
                 && a.getDigikoppelingExternalDatareferences().getDataReference() != null) {

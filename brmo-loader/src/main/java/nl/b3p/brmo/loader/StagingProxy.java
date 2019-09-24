@@ -4,6 +4,7 @@ import nl.b3p.brmo.loader.pipeline.ProcessDbXmlPipeline;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -842,6 +843,53 @@ public class StagingProxy {
     public void updateLaadProcesStatus(LaadProces lp, LaadProces.STATUS status, String opmerking) throws SQLException {
         new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(), "update " + BrmoFramework.LAADPROCES_TABEL + " set status = ?, opmerking = ?, status_datum = ? where id = ?",
                         status.toString(), opmerking, new Timestamp(new Date().getTime()), lp.getId());
+    }
+
+    /**
+     * update laadproces (GDS2 afgifte) metadata.
+     *
+     * @param lpId laadproces id
+     * @param klantafgiftenummer klantafgiftenummer
+     * @param contractafgiftenummer contractafgiftenummer
+     * @param artikelnummer artikelnummer
+     * @param contractnummer contractnummer
+     * @param afgifteid afgifteid
+     * @param afgiftereferentie afgiftereferentie
+     * @param bestandsreferentie bestandsreferentie
+     * @param beschikbaar_tot beschikbaar_tot
+     * @throws SQLException if any
+     */
+    public void updateLaadProcesMeta(Long lpId,
+            BigInteger klantafgiftenummer,
+            BigInteger contractafgiftenummer,
+            String artikelnummer,
+            String contractnummer,
+            String afgifteid,
+            String afgiftereferentie,
+            String bestandsreferentie,
+            Date beschikbaar_tot
+    ) throws SQLException {
+        new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(
+                getConnection(),
+                "update " + BrmoFramework.LAADPROCES_TABEL + " set "
+                + "afgifteid = ?,"
+                + "afgiftereferentie = ?,"
+                + "artikelnummer = ?,"
+                + "beschikbaar_tot = ?,"
+                + "bestandsreferentie = ?,"
+                + "contractafgiftenummer = ?,"
+                + "contractnummer = ?,"
+                + "klantafgiftenummer = ?"
+                + "where id = ?",
+                afgifteid,
+                afgiftereferentie,
+                artikelnummer,
+                new Timestamp(beschikbaar_tot.getTime()),
+                bestandsreferentie,
+                contractafgiftenummer,
+                contractnummer,
+                klantafgiftenummer,
+                lpId);
     }
 
     public void emptyStagingDb() throws SQLException {
