@@ -8,9 +8,9 @@ ALTER TABLE laadproces ADD afgiftereferentie varchar(255) null;
 ALTER TABLE laadproces ADD artikelnummer varchar(255) null;
 ALTER TABLE laadproces ADD beschikbaar_tot datetime null;
 ALTER TABLE laadproces ADD bestandsreferentie varchar(255) null;
-ALTER TABLE laadproces ADD contractafgiftenummer numeric(19,2) null;
+ALTER TABLE laadproces ADD contractafgiftenummer numeric(19,0) null;
 ALTER TABLE laadproces ADD contractnummer varchar(255) null;
-ALTER TABLE laadproces ADD klantafgiftenummer numeric(19,2) null;
+ALTER TABLE laadproces ADD klantafgiftenummer numeric(19,0) null;
 
 
 -- onderstaande dienen als laatste stappen van een upgrade uitgevoerd
