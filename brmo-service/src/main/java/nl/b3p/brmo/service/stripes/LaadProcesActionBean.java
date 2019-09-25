@@ -187,6 +187,7 @@ public class LaadProcesActionBean implements ActionBean {
         JSONObject json = new JSONObject();
 
         json.put("id", lp.getId());
+        json.put("ka_nr", lp.getKlantafgiftenummer());
         json.put("bestand_naam", lp.getBestandNaam());
         json.put("bestand_datum", lp.getBestandDatum());
         json.put("soort", lp.getSoort());

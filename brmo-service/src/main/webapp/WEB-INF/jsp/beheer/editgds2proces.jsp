@@ -1,6 +1,6 @@
 <%@include file="/WEB-INF/taglibs.jsp" %>
 <table>
-    <tr><td>Label:</td><td><stripes:text name="config['label']"/></td></tr>
+    <tr><td>Label:</td><td><stripes:text name="config['label']" size="80"/></td></tr>
     <tr><td>Afleveringsendpoint:</td><td><stripes:text name="config['delivery_endpoint']" size="80"/></td></tr>
     <%--tr><td>GDS2 endpoint (leeg is standaard):</td><td><stripes:text name="config['gds2_endpoint']" size="80"/></td></tr--%>
     <%--tr><td>GDS2 HTTP BASIC username:</td><td><stripes:text name="config['gds2_username']"/> (optioneel)</td></tr--%>
@@ -22,6 +22,8 @@
 <tr><td>Contractnummer:</td><td><stripes:text name="config['gds2_contractnummer']" size="10"/></td></tr>
 <!-- 2516 dagelijks bag extract, 2508? maandelijks bag extract -->
 <tr><td>Artikelnummer:</td><td><stripes:text name="config['gds2_artikelnummer']" size="10"/></td></tr>
+<%-- hidden field onderaan de pagina zodat deze niet wordt weggegooid bij opslaan --%>
+<tr><td>Hoogste klantafgiftenummer:</td><td><c:out value="${actionBean.config['hoogste_afgiftenummer']}"/></td></tr>
 <tr>
     <td>Bericht soort:</td>
     <td><stripes:select name="config['gds2_br_soort']" value="brk">
@@ -48,4 +50,11 @@
 <tr>
     <td>datum tot (dd-MM-yyyy formaat of "nu")</td><td><stripes:text name="config['totdatum']"/></td>
 </tr>
+<tr>
+    <td>klantafgiftenummer vanaf</td><td><stripes:text name="config['klantafgiftenummer_vanaf']"/></td>
+</tr>
+<tr>
+    <td>klantafgiftenummer tot-en-met</td><td><stripes:text name="config['klantafgiftenummer_totenmet']"/></td>
+</tr>
 </table>
+<stripes:hidden name="config['hoogste_afgiftenummer']" />

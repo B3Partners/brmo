@@ -697,6 +697,7 @@ public class StagingProxy {
             }
         } else {
             if (!brmoXMLReader.hasNext()) {
+                updateLaadProcesStatus(lp, LaadProces.STATUS.STAGING_OK, "Leeg bestand, geen berichten gevonden in " + fileName);
                 throw new BrmoLeegBestandException("Leeg bestand, geen berichten gevonden in " + fileName);
             }
 
