@@ -8,8 +8,6 @@ import java.util.List;
 import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.loader.entity.LaadProces;
 import org.apache.commons.dbutils.BasicRowProcessor;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
  * creates laadproces or bericht bean from database row.
@@ -71,7 +69,9 @@ public class StagingRowHandler extends BasicRowProcessor {
             if (namesList.contains("contact_email")) {
                 lp.setContactEmail(rs.getString("contact_email"));
             }
-
+            if (namesList.contains("bestand_naam_hersteld")) {
+                lp.setBestandNaamHersteld(rs.getString("bestand_naam_hersteld"));
+            }
             return lp;
         }
 
