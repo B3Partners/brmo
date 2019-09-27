@@ -7,7 +7,7 @@ INSERT INTO aard_verkregen_recht (aand, omschr_aard_verkregenr_recht) VALUES ('6
 INSERT INTO aard_verkregen_recht (aand, omschr_aard_verkregenr_recht) VALUES ('7', 'Opstal (recht van)');
 INSERT INTO aard_verkregen_recht (aand, omschr_aard_verkregenr_recht) VALUES ('8', 'Optierecht (zakelijk)');
 INSERT INTO aard_verkregen_recht (aand, omschr_aard_verkregenr_recht) VALUES ('9', 'Oud-vaderlandsrecht');
-INSERT INTO aard_verkregen_recht (aand, omschr_aard_verkregenr_recht) VALUES ('10', 'Privaatrechtelijke belemmering (als bedoeld in artikel 5, lid 3, onder b, Belemmeringenwet Privaatrecht)');
+INSERT INTO aard_verkregen_recht (aand, omschr_aard_verkregenr_recht) VALUES ('10', 'Zakelijk recht als bedoeld in artikel 5, lid 3, onder b, van de Belemmeringenwet Privaatrecht');
 INSERT INTO aard_verkregen_recht (aand, omschr_aard_verkregenr_recht) VALUES ('11', 'Stadsmeierrecht');
 INSERT INTO aard_verkregen_recht (aand, omschr_aard_verkregenr_recht) VALUES ('12', 'Vruchtgebruik (recht van)');
 INSERT INTO aard_verkregen_recht (aand, omschr_aard_verkregenr_recht) VALUES ('13', 'Erfpacht en Opstal (recht van)');

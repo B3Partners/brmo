@@ -3,7 +3,7 @@
 sudo service postgresql stop
 #sudo -E apt-get -qq update &>> ~/apt-get-update.log
 #sudo apt-get -qq install postgis-2.3 gdal-bin graphviz
-sudo service postgresql stop
+#sudo service postgresql stop
 sudo service postgresql start $PG_VERSION
 psql --version
 psql -U postgres -d postgres -c 'SELECT Version();'
