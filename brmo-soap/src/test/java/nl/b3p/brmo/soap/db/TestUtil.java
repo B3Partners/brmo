@@ -4,13 +4,18 @@
 package nl.b3p.brmo.soap.db;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Properties;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import nl.b3p.loader.jdbc.GeometryJdbcConverter;
+import nl.b3p.loader.jdbc.GeometryJdbcConverterFactory;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.dbcp.BasicDataSource;
+import org.apache.commons.dbutils.QueryRunner;
 import org.junit.After;
 import static org.junit.Assume.assumeNotNull;
 import org.junit.Before;
@@ -159,6 +164,25 @@ public abstract class TestUtil {
                 haveSetupJNDI = true;
             } catch (NamingException ex) {
                 LOG.warn("Opzetten van datasource jndi is mislukt", ex);
+            }
+        }
+    }
+
+    /**
+     * refresh de gegeven lijst van materialized views in de database.
+     *
+     * @param mviews lijst van views
+     * @param ds database koppeling
+     * @throws SQLException if any
+     */
+    protected void refreshMViews(final String[] mviews, final BasicDataSource ds) throws SQLException {
+        // refresh materialized views
+        try (Connection conn = ds.getConnection()) {
+            conn.setAutoCommit(true);
+            final GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
+            for (String mview : mviews) {
+                // "update" gebruiken omdat we een oracle stored procedure benaderen
+                Object o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(conn, geomToJdbc.getMViewRefreshSQL(mview));
             }
         }
     }
