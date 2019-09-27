@@ -13,7 +13,7 @@ ALTER TABLE laadproces ADD contractnummer varchar(255) null;
 ALTER TABLE laadproces ADD klantafgiftenummer numeric(19,0) null;
 
 -- PR#688 controle module
-alter table laadproces add bestand_naam_hersteld varchar(255);
+alter table laadproces add bestand_naam_hersteld varchar(255) null;
 
 -- onderstaande dienen als laatste stappen van een upgrade uitgevoerd
 INSERT INTO brmo_metadata (naam,waarde) SELECT 'upgrade_1.6.3_naar_1.6.4','vorige versie was ' + waarde FROM brmo_metadata WHERE naam='brmoversie';

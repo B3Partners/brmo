@@ -93,7 +93,9 @@ public class StagingRowHandler extends BasicRowProcessor {
             if (namesList.contains("beschikbaar_tot")) {
                 lp.setBeschikbaar_tot(rs.getDate("beschikbaar_tot"));
             }
-
+            if (namesList.contains("bestand_naam_hersteld")) {
+                lp.setBestandNaamHersteld(rs.getString("bestand_naam_hersteld"));
+            }
             return lp;
         }
 
