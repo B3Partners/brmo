@@ -127,6 +127,8 @@ public class EigendomInfoIntegrationTest extends TestUtil {
 
         DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
         DatabaseOperation.CLEAN_INSERT.execute(rsgb, rsgbDataSet);
+
+        refreshMViews(new String[]{"mb_util_app_re_kad_perceel"}, this.dsRsgb);
     }
 
     @After

@@ -29,6 +29,7 @@ import nl.b3p.brmo.soap.eigendom.MutatieListRequest;
 import nl.b3p.brmo.soap.eigendom.MutatieListResponse;
 import nl.b3p.brmo.soap.eigendom.ZakelijkRecht;
 import nl.b3p.brmo.soap.eigendom.ZakelijkeRechten;
+import org.apache.commons.dbutils.DbUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -135,7 +136,7 @@ public class EigendomInfo {
      * @throws EigendomMutatieException if any
      */
     public static Map<String, Object> createMutatieListContext(MutatieListRequest request) throws EigendomMutatieException {
-        Map<String, Object> searchContext = new HashMap<String, Object>();
+        Map<String, Object> searchContext = new HashMap<>();
         if (request == null) {
             return searchContext;
         }
@@ -192,7 +193,7 @@ public class EigendomInfo {
      * @throws EigendomMutatieException if any
      */
     public static Map<String, Object> createEigendomMutatieContext(EigendomMutatieRequest request) throws EigendomMutatieException {
-        Map<String, Object> searchContext = new HashMap<String, Object>();
+        Map<String, Object> searchContext = new HashMap<>();
         if (request == null) {
             return searchContext;
         }
@@ -225,10 +226,8 @@ public class EigendomInfo {
     private static ArrayList<MutatieEntry> findMutatieEntries(Map<String, Object> searchContext) throws Exception {
         DataSource ds = ConfigUtil.getDataSourceStaging();
         PreparedStatement stm = null;
-        Connection conn = null;
         ResultSet rs = null;
-        try {
-            conn = ds.getConnection();
+        try (Connection conn = ds.getConnection()) {
             String dbType = getDbType(conn);
 
             StringBuilder sql = createSelectStagingSQL(searchContext, dbType);
@@ -255,30 +254,18 @@ public class EigendomInfo {
 
             return entries;
         } finally {
-            if (rs != null) {
-                rs.close();
-            }
-            if (stm != null) {
-                stm.close();
-            }
-            if (conn != null) {
-                conn.close();
-            }
+            DbUtils.closeQuietly(rs);
+            DbUtils.closeQuietly(stm);
         }
     }
 
     private static ArrayList<EigendomMutatie> findEigendomMutatie(Map<String, Object> searchContext) throws Exception {
-
         DataSource ds = ConfigUtil.getDataSourceRsgb();
-        StringBuilder sql = null;
         PreparedStatement stm = null;
-        Connection conn = null;
         ResultSet rs = null;
-        try {
-            conn = ds.getConnection();
+        try (Connection conn = ds.getConnection()) {
             String dbType = getDbType(conn);
-
-            sql = createSelectRsgbSQL(searchContext, dbType);
+            StringBuilder sql = createSelectRsgbSQL(searchContext, dbType);
             LOG.trace(sql);
             LOG.trace(searchContext);
             stm = conn.prepareStatement(sql.toString());
@@ -336,15 +323,8 @@ public class EigendomInfo {
 
             return entries;
         } finally {
-            if (rs != null) {
-                rs.close();
-            }
-            if (stm != null) {
-                stm.close();
-            }
-            if (conn != null) {
-                conn.close();
-            }
+            DbUtils.closeQuietly(rs);
+            DbUtils.closeQuietly(stm);
         }
     }
 
@@ -361,12 +341,9 @@ public class EigendomInfo {
      */
     private static Brondocumenten findBrondocumenten(String value) throws Exception {
         DataSource ds = ConfigUtil.getDataSourceRsgb();
-        StringBuilder sql = null;
         PreparedStatement stm = null;
-        Connection conn = null;
         ResultSet rs = null;
-        try {
-            conn = ds.getConnection();
+        try (Connection conn = ds.getConnection()) {
             String dbType = getDbType(conn);
 
             StringBuilder resultNames = new StringBuilder();
@@ -377,8 +354,7 @@ public class EigendomInfo {
             whereSQL.append(" (bd.tabel = 'APP_RE' or bd.tabel = 'KAD_PERCEEL' or bd.tabel = 'verblijfsobject') ");
             whereSQL.append(" and bd.tabel_identificatie = ? ");
 
-            sql = createSelectSQL(resultNames, fromSQL,
-                    whereSQL, null, dbType);
+            StringBuilder sql = createSelectSQL(resultNames, fromSQL, whereSQL, null, dbType);
             LOG.trace(sql);
             LOG.trace(value);
             stm = conn.prepareStatement(sql.toString());
@@ -399,26 +375,16 @@ public class EigendomInfo {
 
             return bdbo;
         } finally {
-            if (rs != null) {
-                rs.close();
-            }
-            if (stm != null) {
-                stm.close();
-            }
-            if (conn != null) {
-                conn.close();
-            }
+            DbUtils.closeQuietly(rs);
+            DbUtils.closeQuietly(stm);
         }
     }
 
     private static BenoemdObjecten findBenoemdObjecten(String vo_id) throws Exception {
         DataSource ds = ConfigUtil.getDataSourceRsgb();
-        StringBuilder sql = null;
         PreparedStatement stm = null;
-        Connection conn = null;
         ResultSet rs = null;
-        try {
-            conn = ds.getConnection();
+        try (Connection conn = ds.getConnection();) {
             String dbType = getDbType(conn);
 
             StringBuilder resultNames = new StringBuilder();
@@ -432,9 +398,7 @@ public class EigendomInfo {
             fromSQL.append(" ON (gobjd.fk_gbo_sc_identif = gobj.sc_identif) ");
 
             StringBuilder whereSQL = new StringBuilder(" gobj.sc_identif = ? ");
-
-            sql = createSelectSQL(resultNames, fromSQL,
-                    whereSQL, null, dbType);
+            StringBuilder sql = createSelectSQL(resultNames, fromSQL, whereSQL, null, dbType);
             LOG.trace(sql);
             LOG.trace(vo_id);
             stm = conn.prepareStatement(sql.toString());
@@ -461,37 +425,24 @@ public class EigendomInfo {
 
             return bon;
         } finally {
-            if (rs != null) {
-                rs.close();
-            }
-            if (stm != null) {
-                stm.close();
-            }
-            if (conn != null) {
-                conn.close();
-            }
+            DbUtils.closeQuietly(rs);
+            DbUtils.closeQuietly(stm);
         }
     }
 
     private static HistorischeRelaties findHistorischeRelaties(long value) throws Exception {
         DataSource ds = ConfigUtil.getDataSourceRsgb();
-        StringBuilder sql = null;
         PreparedStatement stm = null;
-        Connection conn = null;
         ResultSet rs = null;
-        try {
-            conn = ds.getConnection();
+        try (Connection conn = ds.getConnection()) {
             String dbType = getDbType(conn);
 
             StringBuilder resultNames = new StringBuilder();
             resultNames.append(" hr.fk_sc_rh_koz_kad_identif as identificatie,  ");
             resultNames.append(" hr.aard as aard ");
             StringBuilder fromSQL = new StringBuilder(" kad_onrrnd_zk_his_rel hr ");
-            StringBuilder whereSQL
-                    = new StringBuilder(" hr.fk_sc_lh_koz_kad_identif = ? ");
-
-            sql = createSelectSQL(resultNames, fromSQL,
-                    whereSQL, null, dbType);
+            StringBuilder whereSQL = new StringBuilder(" hr.fk_sc_lh_koz_kad_identif = ? ");
+            StringBuilder sql = createSelectSQL(resultNames, fromSQL, whereSQL, null, dbType);
             LOG.trace(sql);
             LOG.trace(value);
             stm = conn.prepareStatement(sql.toString());
@@ -510,15 +461,8 @@ public class EigendomInfo {
 
             return hrs;
         } finally {
-            if (rs != null) {
-                rs.close();
-            }
-            if (stm != null) {
-                stm.close();
-            }
-            if (conn != null) {
-                conn.close();
-            }
+            DbUtils.closeQuietly(rs);
+            DbUtils.closeQuietly(stm);
         }
     }
     
@@ -536,22 +480,17 @@ public class EigendomInfo {
         // zoek grondperceel grondperceel_kad_id
         long grondperceel_kad_id = 0l;
         DataSource ds = ConfigUtil.getDataSourceRsgb();
-        StringBuilder sql = null;
         PreparedStatement stm = null;
-        Connection conn = null;
         ResultSet rs = null;
-        try {
-            conn = ds.getConnection();
+        try (Connection conn = ds.getConnection()) {
             String dbType = getDbType(conn);
 
             StringBuilder resultNames = new StringBuilder();
             resultNames.append(" gpa.perceel_identif as perceel_identif ");
-            StringBuilder fromSQL = new StringBuilder(" vb_util_app_re_kad_perceel gpa ");
-            StringBuilder whereSQL = new StringBuilder();
-            whereSQL.append(" gpa.app_re_identif = ? ");
+            StringBuilder fromSQL = new StringBuilder(" mb_util_app_re_kad_perceel gpa ");
+            StringBuilder whereSQL = new StringBuilder(" gpa.app_re_identif = ? ");
 
-            sql = createSelectSQL(resultNames, fromSQL,
-                    whereSQL, null, dbType);
+            StringBuilder sql = createSelectSQL(resultNames, fromSQL, whereSQL, null, dbType);
             LOG.trace(sql);
             LOG.trace(kad_id);
             stm = conn.prepareStatement(sql.toString());
@@ -562,15 +501,8 @@ public class EigendomInfo {
                 grondperceel_kad_id = rs.getLong("perceel_identif");
             }
         } finally {
-            if (rs != null) {
-                rs.close();
-            }
-            if (stm != null) {
-                stm.close();
-            }
-            if (conn != null) {
-                conn.close();
-            }
+            DbUtils.closeQuietly(rs);
+            DbUtils.closeQuietly(stm);
         }
 
         if (grondperceel_kad_id != 0l) {
@@ -583,10 +515,8 @@ public class EigendomInfo {
         DataSource ds = ConfigUtil.getDataSourceRsgb();
         StringBuilder sql = null;
         PreparedStatement stm = null;
-        Connection conn = null;
         ResultSet rs = null;
-        try {
-            conn = ds.getConnection();
+        try (Connection conn = ds.getConnection();) {
             String dbType = getDbType(conn);
 
             StringBuilder resultNames = new StringBuilder();
@@ -627,8 +557,7 @@ public class EigendomInfo {
 
             whereSQL.append(" zr.fk_7koz_kad_identif = ? ");
             
-            sql = createSelectSQL(resultNames, fromSQL,
-                    whereSQL, null, dbType);
+            sql = createSelectSQL(resultNames, fromSQL, whereSQL, null, dbType);
             LOG.trace(sql);
             LOG.trace(kad_id);
             stm = conn.prepareStatement(sql.toString());
@@ -684,20 +613,12 @@ public class EigendomInfo {
 
             return zrn;
         } finally {
-            if (rs != null) {
-                rs.close();
-            }
-            if (stm != null) {
-                stm.close();
-            }
-            if (conn != null) {
-                conn.close();
-            }
+            DbUtils.closeQuietly(rs);
+            DbUtils.closeQuietly(stm);
         }
     }
 
-    private static StringBuilder createSelectRsgbSQL(
-            Map<String, Object> searchContext, String dbType) throws ParseException {
+    private static StringBuilder createSelectRsgbSQL(Map<String, Object> searchContext, String dbType) throws ParseException {
 
         Integer maxrows = (Integer) searchContext.get(MAXAANTALRESULTATEN);
         if (maxrows == null) {
@@ -734,8 +655,7 @@ public class EigendomInfo {
 
         StringBuilder whereSQL = createWhereRsgbSQL(searchContext);
 
-        return createSelectSQL(resultNames, fromSQL,
-                whereSQL, searchContext, dbType);
+        return createSelectSQL(resultNames, fromSQL, whereSQL, searchContext, dbType);
     }
 
     private static StringBuilder createSelectStagingSQL(
@@ -852,8 +772,7 @@ public class EigendomInfo {
         return sql;
     }
 
-    private static StringBuilder createWhereStagingSQL(
-            Map<String, Object> searchContext) throws ParseException {
+    private static StringBuilder createWhereStagingSQL(Map<String, Object> searchContext) throws ParseException {
         StringBuilder sql = new StringBuilder();
 
         boolean first = true;
@@ -883,9 +802,7 @@ public class EigendomInfo {
         return first;
     }
 
-    private static PreparedStatement addParamsSQL(PreparedStatement stm,
-            Map<String, Object> searchContext) throws SQLException {
-
+    private static PreparedStatement addParamsSQL(PreparedStatement stm, Map<String, Object> searchContext) throws SQLException {
         int index = 1;
         index = addParam(index, searchContext.get(OBJECT_PREFIX), stm);
         index = addParam(index, searchContext.get(FROMDATE), stm);
