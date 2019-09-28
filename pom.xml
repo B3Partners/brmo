@@ -64,6 +64,8 @@
         <geotools.version>22.0</geotools.version>
         <jdbc-util.version>4.0</jdbc-util.version>
         <jts.version>1.16.1</jts.version>
+        <jts.version>1.16.1</jts.version>
+        <itextpdf.version>7.1.8</itextpdf.version>
         <postgresql.jdbc.version>42.2.8</postgresql.jdbc.version>
         <postgresql.postgis-jdbc.version>2.3.0</postgresql.postgis-jdbc.version>
         <!--
@@ -497,6 +499,12 @@
                 <version>2.0.6</version>
             </dependency>
             <dependency>
+                <!-- override versie die met org.apache.poi:poi-ooxml:4.0.1 meekomt vanwege CVE-2019-12402 -->
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-compress</artifactId>
+                <version>1.19</version>
+            </dependency>
+            <dependency>
                 <groupId>org.apache.poi</groupId>
                 <artifactId>poi</artifactId>
                 <version>4.1.0</version>
@@ -509,18 +517,18 @@
             <dependency>
                 <groupId>com.itextpdf</groupId>
                 <artifactId>kernel</artifactId>
-                <version>7.1.7</version>
+                <version>${itextpdf.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.itextpdf</groupId>
                 <artifactId>itext7-core</artifactId>
-                <version>7.1.7</version>
+                <version>${itextpdf.version}</version>
                 <type>pom</type>
             </dependency>
             <dependency>
                 <groupId>com.itextpdf</groupId>
                 <artifactId>layout</artifactId>
-                <version>7.1.7</version>
+                <version>${itextpdf.version}</version>
             </dependency>
 
             <!-- test dependencies -->
