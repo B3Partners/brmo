@@ -17,8 +17,6 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.stream.Stream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -103,7 +101,7 @@ public class Main {
             Option.builder("e").desc("Maak van berichten uit staging gezipte xml-files in de opgegeven directory. Dit zijn alleen BRK mutaties van GDS2 processen.")
             .longOpt("exportgds").hasArg().numberOfArgs(1).type(File.class).argName("output-directory").build(),
             // 
-            Option.builder("al").desc("Controleer of de berichtin in de opgegeven afgiftelijst in de staging staan.")
+            Option.builder("al").desc("Controleer of de berichten in de opgegeven afgiftelijst in de staging staan.")
             .longOpt("afgiftelijst").hasArg().numberOfArgs(2).type(File.class).argName("afgiftelijst> <uitvoerbestand").build()
             
         });
