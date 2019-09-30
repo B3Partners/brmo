@@ -48,7 +48,7 @@
     <td><stripes:text name="config['vanafdatum']"/></td>
 </tr>
 <tr>
-    <td>datum tot (dd-MM-yyyy formaat of "nu")</td><td><stripes:text name="config['totdatum']"/></td>
+    <td>datum tot-en-met (dd-MM-yyyy formaat of "nu")</td><td><stripes:text name="config['totdatum']"/></td>
 </tr>
 <tr>
     <td>klantafgiftenummer vanaf</td><td><stripes:text name="config['klantafgiftenummer_vanaf']"/></td>
