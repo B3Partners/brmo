@@ -102,8 +102,14 @@ public class LaadprocesTransformatieUitvoeren extends AbstractExecutableProces {
         BrmoFramework brmo = null;
         try {
             DataSource dataSourceStaging = ConfigUtil.getDataSourceStaging();
-            DataSource dataSourceRsgbBgt = ConfigUtil.getDataSourceRsgbBgt();
-            DataSource dataSourceTopNL = ConfigUtil.getDataSourceTopNL();
+            DataSource dataSourceRsgbBgt = null;
+            DataSource dataSourceTopNL = null;
+            if (LaadprocesTransformatieProces.LaadprocesSoorten.BR_TOPNL.getSoort().equalsIgnoreCase(this.config.getSoort())) {
+                dataSourceTopNL = ConfigUtil.getDataSourceTopNL();
+            }
+            if (LaadprocesTransformatieProces.LaadprocesSoorten.BR_BGTLIGHT.getSoort().equalsIgnoreCase(this.config.getSoort())) {
+                dataSourceRsgbBgt = ConfigUtil.getDataSourceRsgbBgt();
+            }
             brmo = new BrmoFramework(dataSourceStaging, null, dataSourceRsgbBgt, dataSourceTopNL);
             long[] lpIds = null;
             
