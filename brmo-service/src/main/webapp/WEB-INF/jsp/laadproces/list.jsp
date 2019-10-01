@@ -11,7 +11,7 @@
         <h1>Overzicht Laadprocessen</h1>
         <p><b>Shift-click:</b> Selecteer meerdere records,
             <b>Ctrl-click:</b> De-selecteer record.
-            <b>Let op:</b> Als U "bgtlight" wilt transformeren mogen alleen processen van deze soort geselecteerd worden.
+            <b>Let op:</b> Als U "bgtlight" of "topnl" wilt transformeren mogen alleen processen van deze een enkele soort geselecteerd worden.
         </p>
         <div id="comment-div"></div>
         <div id="laadproces-grid" class="grid-container"></div>
