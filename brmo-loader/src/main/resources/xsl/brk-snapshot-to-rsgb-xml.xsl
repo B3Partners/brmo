@@ -173,6 +173,13 @@
                         </xsl:call-template>
                     </fk_2nnp_sc_identif>
                 </xsl:when>
+                <xsl:when test="$vve_id and ../nhr:Rechtspersoon[@id = substring($vve_id,2)]/pers:identificatie">
+                    <fk_2nnp_sc_identif>
+                        <xsl:call-template name="nen_identificatie">
+                            <xsl:with-param name="id" select="../nhr:Rechtspersoon[@id = substring($vve_id,2)]/pers:identificatie"/>
+                        </xsl:call-template>
+                    </fk_2nnp_sc_identif>
+                </xsl:when>
             </xsl:choose>
         </app_re>
     </xsl:template>
