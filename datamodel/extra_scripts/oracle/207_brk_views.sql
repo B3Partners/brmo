@@ -342,7 +342,7 @@ CREATE OR REPLACE VIEW
     vb_util_app_re_parent_3 AS
 SELECT
     cast(re.sc_kad_identif AS CHARACTER VARYING(50)) AS app_re_identif,
-    min(sp.parent_identif) as parent_identif
+    min(sp.parent_identif) AS parent_identif
 FROM
     app_re re
 LEFT JOIN
@@ -350,7 +350,7 @@ LEFT JOIN
 ON
     cast(re.sc_kad_identif AS CHARACTER VARYING(50)) = sp.child_identif
 GROUP BY
-    re.sc_kad_identif;
+    cast(re.sc_kad_identif AS CHARACTER VARYING(50));
 
 --drop view vb_util_app_re_parent_2 cascade;
 CREATE OR REPLACE VIEW
@@ -400,17 +400,17 @@ ON
     u1.parent_identif = cast(kp.sc_kad_identif AS CHARACTER VARYING(50))
 GROUP BY
     u1.app_re_identif,
-    kp.sc_kad_identif WITH NO DATA;
-    
+    kp.sc_kad_identif;
+
 CREATE INDEX mb_util_app_re_kad_perceel_id ON mb_util_app_re_kad_perceel(app_re_identif);
-    
+
 COMMENT ON MATERIALIZED VIEW mb_util_app_re_kad_perceel
 IS 'commentaar view mb_util_app_re_kad_perceel:
 utility view, niet bedoeld voor direct gebruik, met lijst van appartementsrechten met bijbehorend grondperceel
 beschikbare kolommen:
 * app_re_identif: natuurlijk id van appartementsrecht,
 * perceel_identif: natuurlijk id van grondperceel';
-        
+
 --drop materialized view mb_kad_onrrnd_zk_adres cascade;
 CREATE MATERIALIZED VIEW mb_kad_onrrnd_zk_adres (
     objectid,
@@ -461,7 +461,7 @@ AS
         CAST(ROWNUM AS INTEGER) AS objectid,
         qry.identif                AS koz_identif,
         koz.dat_beg_geldh          AS begin_geldigheid,
-    		to_date(koz.dat_beg_geldh, 'YYYY-MM-DD'::text) AS begin_geldigheid_datum,
+    		to_date(koz.dat_beg_geldh, 'YYYY-MM-DD') AS begin_geldigheid_datum,
         bok.fk_nn_lh_tgo_identif   AS benoemdobj_identif,
         qry.type,
         coalesce(qry.ka_sectie,'')
@@ -491,15 +491,15 @@ AS
         koz.ks_valutasoort,
         koz.lo_loc__omschr,
 		    array_to_string(
-		        (SELECT array_agg(('id: '::text || COALESCE(koza.kadaster_identif_aantek, ''::character varying)::text || ', '::text || 
-		        'aard: '::text || COALESCE(koza.aard_aantek_kad_obj, ''::character varying)::text || ', '::text || 
-		       'begin: '::text || COALESCE(koza.begindatum_aantek_kad_obj, ''::character varying)::text || ', '::text || 
-		       'beschrijving: '::text || COALESCE(koza.beschrijving_aantek_kad_obj, ''::character varying)::text || ', '::text || 
-		       'eind: '::text || COALESCE(koza.eindd_aantek_kad_obj, ''::character varying)::text || ', '::text || 
-		       'koz-id: '::text || COALESCE(koza.fk_4koz_kad_identif, 0::NUMERIC(15,0))::NUMERIC(15,0) || ', '::text || 
-		       'subject-id: '::text || COALESCE(koza.fk_5pes_sc_identif, ''::character varying)::text || '; '::text))
+		        (SELECT array_agg(('id: ' || COALESCE(koza.kadaster_identif_aantek, ''::character varying) || ', ' ||
+		        'aard: ' || COALESCE(koza.aard_aantek_kad_obj, ''::character varying) || ', ' ||
+		       'begin: ' || COALESCE(koza.begindatum_aantek_kad_obj, ''::character varying) || ', ' ||
+		       'beschrijving: ' || COALESCE(koza.beschrijving_aantek_kad_obj, ''::character varying) || ', ' ||
+		       'eind: ' || COALESCE(koza.eindd_aantek_kad_obj, ''::character varying) || ', ' ||
+		       'koz-id: ' || COALESCE(koza.fk_4koz_kad_identif, 0::NUMERIC(15,0))::NUMERIC(15,0) || ', ' ||
+		       'subject-id: ' || COALESCE(koza.fk_5pes_sc_identif, ''::character varying) || '; '))
 		       FROM kad_onrrnd_zk_aantek koza
-		       WHERE koza.fk_4koz_kad_identif = koz.kad_identif), ' & ') as aantekeningen,   
+		       WHERE koza.fk_4koz_kad_identif = koz.kad_identif), ' & ') as aantekeningen,
 		    bola.na_identif,
 		    bola.na_status,
         bola.gemeente,
@@ -588,7 +588,7 @@ AS
             GROUP BY
                 bd.ref_id
         ) b ON ( koz.kad_identif = b.ref_id );
-    
+
 CREATE UNIQUE INDEX MB_KAD_ONRRND_ZK_ADRES_OBJIDX ON MB_KAD_ONRRND_ZK_ADRES(OBJECTID ASC);
 CREATE INDEX MB_KAD_ONRRND_ZK_ADRES_IDENTIF ON MB_KAD_ONRRND_ZK_ADRES(KOZ_IDENTIF ASC);
 INSERT INTO USER_SDO_GEOM_METADATA VALUES ('MB_KAD_ONRRND_ZK_ADRES', 'BEGRENZING_PERCEEL', MDSYS.SDO_DIM_ARRAY(MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)), 28992);
@@ -599,7 +599,7 @@ IS 'commentaar view mb_kad_onrrnd_zk_adres:
 alle kadastrale onroerende zaken (perceel en appartementsrecht) met opgezochte verkoop datum, objectid voor geoserver/arcgis en BAG adres
 beschikbare kolommen:
 * objectid: uniek id bruikbaar voor geoserver/arcgis,
-* koz_identif: natuurlijke id van perceel of appartementsrecht      
+* koz_identif: natuurlijke id van perceel of appartementsrecht
 * begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
 * benoemdobj_identif: koppeling met BAG object,
 * type: perceel of appartement,
@@ -659,13 +659,13 @@ SELECT
     avr.omschr_aard_verkregenr_recht,
     zr.fk_3avr_aand,
     array_to_string(
-        (SELECT array_agg(('id: '::text || COALESCE(zra.kadaster_identif_aantek_recht, ''::character varying)::text || ', '::text || 
-        'aard: '::text || COALESCE(zra.aard_aantek_recht, ''::character varying)::text || ', '::text || 
-       'begin: '::text || COALESCE(zra.begindatum_aantek_recht, ''::character varying)::text || ', '::text || 
-       'beschrijving: '::text || COALESCE(zra.beschrijving_aantek_recht, ''::character varying)::text || ', '::text || 
-       'eind: '::text || COALESCE(zra.eindd_aantek_recht, ''::character varying)::text || ', '::text || 
-       'zkr-id: '::text || COALESCE(zra.fk_5zkr_kadaster_identif, ''::character varying)::text || ', '::text || 
-       'subject-id: '::text || COALESCE(zra.fk_6pes_sc_identif, ''::character varying)::text || '; '::text))
+        (SELECT array_agg(('id: ' || COALESCE(zra.kadaster_identif_aantek_recht, ''::character varying) || ', ' ||
+        'aard: ' || COALESCE(zra.aard_aantek_recht, ''::character varying) || ', ' ||
+       'begin: ' || COALESCE(zra.begindatum_aantek_recht, ''::character varying) || ', ' ||
+       'beschrijving: ' || COALESCE(zra.beschrijving_aantek_recht, ''::character varying) || ', ' ||
+       'eind: ' || COALESCE(zra.eindd_aantek_recht, ''::character varying) || ', ' ||
+       'zkr-id: ' || COALESCE(zra.fk_5zkr_kadaster_identif, ''::character varying) || ', ' ||
+       'subject-id: ' || COALESCE(zra.fk_6pes_sc_identif, ''::character varying) || '; '))
        FROM zak_recht_aantek zra
        WHERE zra.fk_5zkr_kadaster_identif = zr.kadaster_identif), '&& ') as aantekeningen
 FROM
@@ -675,8 +675,8 @@ JOIN
 ON
     (((
                 zr.fk_3avr_aand) = (avr.aand))));
-    
-CREATE MATERIALIZED VIEW mb_zr_rechth 
+
+CREATE MATERIALIZED VIEW mb_zr_rechth
     (
         objectid,
         zr_identif,
@@ -702,7 +702,7 @@ CREATE MATERIALIZED VIEW mb_zr_rechth
         statutaire_zetel,
         rsin,
         kvk_nummer
-    ) 
+    )
 BUILD DEFERRED
 REFRESH ON DEMAND
 AS
@@ -747,35 +747,35 @@ IS 'commentaar view mb_zr_rechth:
 alle zakelijke rechten met rechthebbenden en referentie naar kadastraal onroerende zaak (perceel of appartementsrecht)
 beschikbare kolommen:
 * objectid: uniek id bruikbaar voor geoserver/arcgis,
-* zr_identif: natuurlijke id van zakelijk recht 
+* zr_identif: natuurlijke id van zakelijk recht
 * subject_identif: natuurlijk id van subject (natuurlijk of niet natuurlijk) welke rechthebbende is,
 * koz_identif: natuurlijk id van kadastrale onroerende zaak (perceel of appratementsrecht) dat gekoppeld is,
 * aandeel: samenvoeging van teller en noemer (1/2),
 * omschr_aard_verkregenr_recht: tekstuele omschrijving aard recht,
 * indic_betrokken_in_splitsing: -,
-* soort: soort subject zoals natuurlijk, niet-natuurlijk enz.  
-* geslachtsnaam: -       
-* voorvoegsel: -     
-* voornamen: -     
-* aand_naamgebruik:        
-- E (= Eigen geslachtsnaam)        
-- N (=Geslachtsnaam echtgenoot/geregistreerd partner na eigen geslachtsnaam)        
-- P (= Geslachtsnaam echtgenoot/geregistreerd partner)        
-- V (= Geslachtsnaam evhtgenoot/geregistreerd partner voor eigen geslachtsnaam)        
-* geslachtsaand: M/V   
+* soort: soort subject zoals natuurlijk, niet-natuurlijk enz.
+* geslachtsnaam: -
+* voorvoegsel: -
+* voornamen: -
+* aand_naamgebruik:
+- E (= Eigen geslachtsnaam)
+- N (=Geslachtsnaam echtgenoot/geregistreerd partner na eigen geslachtsnaam)
+- P (= Geslachtsnaam echtgenoot/geregistreerd partner)
+- V (= Geslachtsnaam evhtgenoot/geregistreerd partner voor eigen geslachtsnaam)
+* geslachtsaand: M/V
 * naam: samengestelde naam bruikbaar voor natuurlijke en niet-natuurlijke subjecten
-* woonadres: meegeleverd adres buiten BAG koppeling om      
-* geboortedatum: -       
-* geboorteplaats: -       
-* overlijdensdatum: -       
-* bsn: -       
-* organisatie_naam: naam niet natuurlijk subject      
-* rechtsvorm: -  
-* statutaire_zetel: -      
-* rsin: -        
+* woonadres: meegeleverd adres buiten BAG koppeling om
+* geboortedatum: -
+* geboorteplaats: -
+* overlijdensdatum: -
+* bsn: -
+* organisatie_naam: naam niet natuurlijk subject
+* rechtsvorm: -
+* statutaire_zetel: -
+* rsin: -
 * kvk_nummer: -';
 
-CREATE MATERIALIZED VIEW mb_avg_zr_rechth 
+CREATE MATERIALIZED VIEW mb_avg_zr_rechth
     (
         objectid,
         zr_identif,
@@ -801,7 +801,7 @@ CREATE MATERIALIZED VIEW mb_avg_zr_rechth
         statutaire_zetel,
         rsin,
         kvk_nummer
-    ) 
+    )
 BUILD DEFERRED
 REFRESH ON DEMAND
 AS
@@ -846,28 +846,28 @@ IS 'commentaar view mb_avg_zr_rechth:
 alle zakelijke rechten met voor avg geschoonde rechthebbenden en referentie naar kadastraal onroerende zaak (perceel of appartementsrecht)
 beschikbare kolommen:
 * objectid: uniek id bruikbaar voor geoserver/arcgis,
-* zr_identif: natuurlijke id van zakelijk recht     
+* zr_identif: natuurlijke id van zakelijk recht
 * subject_identif: natuurlijk id van subject (natuurlijk of niet natuurlijk) welke rechthebbende is,
 * koz_identif: natuurlijk id van kadastrale onroerende zaak (perceel of appratementsrecht) dat gekoppeld is,
 * aandeel: samenvoeging van teller en noemer (1/2),
 * omschr_aard_verkregenr_recht: tekstuele omschrijving aard recht,
 * indic_betrokken_in_splitsing: -,
-* soort: soort subject zoals natuurlijk, niet-natuurlijk enz.  
-* geslachtsnaam: NULL (avg)       
-* voorvoegsel: NULL (avg)      
-* voornamen: NULL (avg)       
-* aand_naamgebruik: NULL (avg)         
-* geslachtsaand:NULL (avg)     
+* soort: soort subject zoals natuurlijk, niet-natuurlijk enz.
+* geslachtsnaam: NULL (avg)
+* voorvoegsel: NULL (avg)
+* voornamen: NULL (avg)
+* aand_naamgebruik: NULL (avg)
+* geslachtsaand:NULL (avg)
 * naam: gelijk aan organisatie_naam
-* woonadres: NULL (avg)        
-* geboortedatum: NULL (avg)        
-* geboorteplaats: NULL (avg)        
-* overlijdensdatum: NULL (avg)        
-* bsn: NULL (avg)         
-* organisatie_naam: naam niet natuurlijk subject      
-* rechtsvorm: -  
-* statutaire_zetel: -      
-* rsin: -        
+* woonadres: NULL (avg)
+* geboortedatum: NULL (avg)
+* geboorteplaats: NULL (avg)
+* overlijdensdatum: NULL (avg)
+* bsn: NULL (avg)
+* organisatie_naam: naam niet natuurlijk subject
+* rechtsvorm: -
+* statutaire_zetel: -
+* rsin: -
 * kvk_nummer: -';
 
 CREATE MATERIALIZED VIEW mb_koz_rechth
@@ -934,7 +934,7 @@ SELECT
     CAST(ROWNUM AS INTEGER) AS objectid,
     koz.koz_identif,
     koz.begin_geldigheid,
-    to_date(koz.begin_geldigheid, 'YYYY-MM-DD'::text) AS begin_geldigheid_datum,
+    to_date(koz.begin_geldigheid, 'YYYY-MM-DD') AS begin_geldigheid_datum,
     koz.type,
     COALESCE(koz.sectie, '') || ' ' || COALESCE(koz.perceelnummer, '') AS aanduiding,
     COALESCE(koz.gemeentecode, '') || ' ' || COALESCE(koz.sectie, '') || ' ' || COALESCE(koz.perceelnummer, '') || ' ' || COALESCE(koz.appartementsindex, '') AS aanduiding2,
@@ -1004,7 +1004,7 @@ IS 'commentaar view mb_koz_rechth:
 kadastrale percelen een appartementsrechten met rechten en rechthebbenden en objectid voor geoserver/arcgis
 beschikbare kolommen:
 * objectid: uniek id bruikbaar voor geoserver/arcgis,
-* koz_identif: natuurlijke id van perceel of appartementsrecht      
+* koz_identif: natuurlijke id van perceel of appartementsrecht
 * begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
 * type: perceel of appartement,
 * aanduiding: sectie perceelnummer,
@@ -1030,26 +1030,26 @@ beschikbare kolommen:
 * aandeel: samenvoeging van teller en noemer (1/2),
 * omschr_aard_verkregenr_recht: tekstuele omschrijving aard recht,
 * indic_betrokken_in_splitsing: -,
-* soort: soort subject zoals natuurlijk, niet-natuurlijk enz.  
-* geslachtsnaam: -       
-* voorvoegsel: -     
-* voornamen: -     
-* aand_naamgebruik:        
-- E (= Eigen geslachtsnaam)        
-- N (=Geslachtsnaam echtgenoot/geregistreerd partner na eigen geslachtsnaam)        
-- P (= Geslachtsnaam echtgenoot/geregistreerd partner)        
-- V (= Geslachtsnaam evhtgenoot/geregistreerd partner voor eigen geslachtsnaam)        
-* geslachtsaand: M/V   
+* soort: soort subject zoals natuurlijk, niet-natuurlijk enz.
+* geslachtsnaam: -
+* voorvoegsel: -
+* voornamen: -
+* aand_naamgebruik:
+- E (= Eigen geslachtsnaam)
+- N (=Geslachtsnaam echtgenoot/geregistreerd partner na eigen geslachtsnaam)
+- P (= Geslachtsnaam echtgenoot/geregistreerd partner)
+- V (= Geslachtsnaam evhtgenoot/geregistreerd partner voor eigen geslachtsnaam)
+* geslachtsaand: M/V
 * naam: samengestelde naam bruikbaar voor natuurlijke en niet-natuurlijke subjecten
-* woonadres: meegeleverd adres buiten BAG koppeling om      
-* geboortedatum: -       
-* geboorteplaats: -       
-* overlijdensdatum: -       
-* bsn: -       
-* organisatie_naam: naam niet natuurlijk subject      
-* rechtsvorm: -  
-* statutaire_zetel: -      
-* rsin: -        
+* woonadres: meegeleverd adres buiten BAG koppeling om
+* geboortedatum: -
+* geboorteplaats: -
+* overlijdensdatum: -
+* bsn: -
+* organisatie_naam: naam niet natuurlijk subject
+* rechtsvorm: -
+* statutaire_zetel: -
+* rsin: -
 * kvk_nummer: -
 * gemeente: -,
 * woonplaats: -,
@@ -1062,7 +1062,7 @@ beschikbare kolommen:
 * lon: coordinaat als WSG84,
 * begrenzing_perceel: perceelvlak';
 
-CREATE MATERIALIZED VIEW mb_avg_koz_rechth 
+CREATE MATERIALIZED VIEW mb_avg_koz_rechth
 (
     objectid,
     koz_identif,
@@ -1127,7 +1127,7 @@ SELECT
     CAST(ROWNUM AS INTEGER) AS objectid,
     koz.koz_identif as koz_identif,
     koz.begin_geldigheid,
-    to_date(koz.begin_geldigheid, 'YYYY-MM-DD'::text) AS begin_geldigheid_datum,
+    to_date(koz.begin_geldigheid, 'YYYY-MM-DD') AS begin_geldigheid_datum,
     koz.type,
     COALESCE(koz.sectie, '') || ' ' || COALESCE(koz.perceelnummer, '') AS aanduiding,
     COALESCE(koz.gemeentecode, '') || ' ' || COALESCE(koz.sectie, '') || ' ' || COALESCE(koz.perceelnummer, '') || ' ' || COALESCE(koz.appartementsindex, '') AS aanduiding2,
@@ -1197,7 +1197,7 @@ IS 'commentaar view mb_avg_koz_rechth:
 kadastrale percelen een appartementsrechten met rechten en rechthebbenden geschoond voor avg en objectid voor geoserver/arcgis
 beschikbare kolommen:
 * objectid: uniek id bruikbaar voor geoserver/arcgis,
-* koz_identif: natuurlijke id van perceel of appartementsrecht      
+* koz_identif: natuurlijke id van perceel of appartementsrecht
 * begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
 * type: perceel of appartement,
 * aanduiding: sectie perceelnummer,
@@ -1223,22 +1223,22 @@ beschikbare kolommen:
 * aandeel: samenvoeging van teller en noemer (1/2),
 * omschr_aard_verkregenr_recht: tekstuele omschrijving aard recht,
 * indic_betrokken_in_splitsing: -,
-* soort: soort subject zoals natuurlijk, niet-natuurlijk enz.  
-* geslachtsnaam: NULL (avg)       
-* voorvoegsel: NULL (avg)      
-* voornamen: NULL (avg)       
-* aand_naamgebruik: NULL (avg)         
-* geslachtsaand:NULL (avg)     
+* soort: soort subject zoals natuurlijk, niet-natuurlijk enz.
+* geslachtsnaam: NULL (avg)
+* voorvoegsel: NULL (avg)
+* voornamen: NULL (avg)
+* aand_naamgebruik: NULL (avg)
+* geslachtsaand:NULL (avg)
 * naam: gelijk aan organisatie_naam
-* woonadres: NULL (avg)        
-* geboortedatum: NULL (avg)        
-* geboorteplaats: NULL (avg)        
-* overlijdensdatum: NULL (avg)        
-* bsn: NULL (avg)         
-* organisatie_naam: naam niet natuurlijk subject      
-* rechtsvorm: -  
-* statutaire_zetel: -      
-* rsin: -        
+* woonadres: NULL (avg)
+* geboortedatum: NULL (avg)
+* geboorteplaats: NULL (avg)
+* overlijdensdatum: NULL (avg)
+* bsn: NULL (avg)
+* organisatie_naam: naam niet natuurlijk subject
+* rechtsvorm: -
+* statutaire_zetel: -
+* rsin: -
 * kvk_nummer: -
 * gemeente: -,
 * woonplaats: -,
@@ -1251,7 +1251,7 @@ beschikbare kolommen:
 * lat: coordinaat als WSG84,
 * begrenzing_perceel: perceelvlak';
 
-CREATE MATERIALIZED VIEW MB_KAD_ONRRND_ZK_ARCHIEF 
+CREATE MATERIALIZED VIEW MB_KAD_ONRRND_ZK_ARCHIEF
     (
         objectid,
         koz_identif,
@@ -1278,15 +1278,15 @@ CREATE MATERIALIZED VIEW MB_KAD_ONRRND_ZK_ARCHIEF
         loc_omschr,
         overgegaan_in,
         begrenzing_perceel
-    ) 
+    )
 BUILD DEFERRED REFRESH ON DEMAND AS
 SELECT
     CAST(ROWNUM AS INTEGER) AS objectid,
     qry.identif as koz_identif,
     koza.dat_beg_geldh AS begin_geldigheid,
-    to_date(koza.dat_beg_geldh, 'YYYY-MM-DD'::text) AS begin_geldigheid_datum,
+    to_date(koza.dat_beg_geldh, 'YYYY-MM-DD') AS begin_geldigheid_datum,
     koza.datum_einde_geldh AS eind_geldigheid,
-    to_date(koza.datum_einde_geldh, 'YYYY-MM-DD'::text) AS eind_geldigheid_datum,
+    to_date(koza.datum_einde_geldh, 'YYYY-MM-DD') AS eind_geldigheid_datum,
     qry.type,
     (((COALESCE(qry.ka_sectie, '')) || ' ') || (COALESCE
     (qry.ka_perceelnummer, ''))) AS aanduiding,

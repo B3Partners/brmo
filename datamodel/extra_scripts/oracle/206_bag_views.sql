@@ -77,8 +77,8 @@ SELECT
     END AS CHARACTER VARYING(10))  AS begin_geldigheid,
     CASE
         WHEN position('-' IN addrobj.dat_beg_geldh) = 5
-        THEN to_date(addrobj.dat_beg_geldh, 'YYYY-MM-DD'::text)
-        ELSE to_date(addrobj.dat_beg_geldh, 'YYYYMMDDHH24MISSUS'::text)
+        THEN to_date(addrobj.dat_beg_geldh, 'YYYY-MM-DD')
+        ELSE to_date(addrobj.dat_beg_geldh, 'YYYYMMDDHH24MISSUS')
     END AS begin_geldigheid_datum,
     gem.naam                                                   AS gemeente,
     CASE
@@ -186,8 +186,8 @@ SELECT
     END AS CHARACTER VARYING(10)) AS begin_geldigheid,
     CASE
         WHEN position('-' IN gobj.dat_beg_geldh) = 5
-				THEN to_date(gobj.dat_beg_geldh, 'YYYY-MM-DD'::text)
-				ELSE to_date(gobj.dat_beg_geldh, 'YYYYMMDDHH24MISSUS'::text)
+				THEN to_date(gobj.dat_beg_geldh, 'YYYY-MM-DD')
+				ELSE to_date(gobj.dat_beg_geldh, 'YYYYMMDDHH24MISSUS')
 		END AS begin_geldigheid_datum,
     fkpand.fk_nn_rh_pnd_identif                             AS pand_identif,
     bva.na_identif                                          as na_identif,
@@ -201,8 +201,8 @@ SELECT
     bva.postcode,
     vbo.status,
     array_to_string(
-    	(SELECT array_agg(gog.gebruiksdoel_gebouwd_obj) 
-    	FROM gebouwd_obj_gebruiksdoel gog 
+    	(SELECT array_agg(gog.gebruiksdoel_gebouwd_obj)
+    	FROM gebouwd_obj_gebruiksdoel gog
     	WHERE gog.fk_gbo_sc_identif = vbo.sc_identif), ',') as gebruiksdoelen,
     gobj.oppervlakte_obj,
     gobj.puntgeom AS the_geom
@@ -258,8 +258,8 @@ SELECT
     END AS CHARACTER VARYING(10)) AS begin_geldigheid,
     CASE
         WHEN position('-' IN benter.dat_beg_geldh) = 5
-				THEN to_date(benter.dat_beg_geldh, 'YYYY-MM-DD'::text)
-				ELSE to_date(benter.dat_beg_geldh, 'YYYYMMDDHH24MISSUS'::text)
+				THEN to_date(benter.dat_beg_geldh, 'YYYY-MM-DD')
+				ELSE to_date(benter.dat_beg_geldh, 'YYYYMMDDHH24MISSUS')
 		END AS begin_geldigheid_datum,
     bva.na_identif                        as na_identif,
     bva.na_status 					      as na_status,
@@ -318,8 +318,8 @@ SELECT
     END AS CHARACTER VARYING(10)) AS begin_geldigheid,
     CASE
         WHEN position('-' IN benter.dat_beg_geldh) = 5
-				THEN to_date(benter.dat_beg_geldh, 'YYYY-MM-DD'::text)
-				ELSE to_date(benter.dat_beg_geldh, 'YYYYMMDDHH24MISSUS'::text)
+				THEN to_date(benter.dat_beg_geldh, 'YYYY-MM-DD')
+				ELSE to_date(benter.dat_beg_geldh, 'YYYYMMDDHH24MISSUS')
 		END AS begin_geldigheid_datum,
     bva.na_identif                            as na_identif,
     bva.na_status 				              as na_status,
@@ -355,7 +355,7 @@ CREATE MATERIALIZED VIEW mb_pand
         bouwjaar,
         status,
         the_geom
-    ) 
+    )
 BUILD DEFERRED
 REFRESH ON DEMAND
 AS
@@ -374,8 +374,8 @@ SELECT
     END AS CHARACTER VARYING(10)) AS begin_geldigheid,
     CASE
         WHEN position('-' IN pand.dat_beg_geldh) = 5
-				THEN to_date(pand.dat_beg_geldh, 'YYYY-MM-DD'::text)
-				ELSE to_date(pand.dat_beg_geldh, 'YYYYMMDDHH24MISSUS'::text)
+				THEN to_date(pand.dat_beg_geldh, 'YYYY-MM-DD')
+				ELSE to_date(pand.dat_beg_geldh, 'YYYYMMDDHH24MISSUS')
 		END AS begin_geldigheid_datum,
     pand.oorspronkelijk_bouwjaar                            AS bouwjaar,
     pand.status,
@@ -405,9 +405,9 @@ CREATE MATERIALIZED VIEW mb_benoemd_obj_adres
         objectid,
         benoemdobj_identif,
         na_identif,
-x        na_status,
+        na_status,
         begin_geldigheid,
-x        begin_geldigheid_datum,
+        begin_geldigheid_datum,
         pand_identif,
         soort,
         gemeente,
@@ -418,10 +418,10 @@ x        begin_geldigheid_datum,
         huisnummer_toev,
         postcode,
         status,
-x        gebruiksdoelen,
-x        oppervlakte_obj,
+        gebruiksdoelen,
+        oppervlakte_obj,
         the_geom
-    ) 
+    )
 BUILD DEFERRED
 REFRESH ON DEMAND
 AS
@@ -554,7 +554,7 @@ CREATE MATERIALIZED VIEW mb_ben_obj_nevenadres
         huisletter,
         huisnummer_toev,
         postcode
-    ) 
+    )
 BUILD DEFERRED
 REFRESH ON DEMAND
 AS
@@ -591,8 +591,8 @@ FROM
                             END AS CHARACTER VARYING(10)) AS begin_geldigheid,
 												    CASE
 												        WHEN position('-' IN vna.fk_nn_lh_vbo_sc_dat_beg_geldh) = 5
-						        						THEN to_date(vna.fk_nn_lh_vbo_sc_dat_beg_geldh, 'YYYY-MM-DD'::text)
-						        						ELSE to_date(vna.fk_nn_lh_vbo_sc_dat_beg_geldh, 'YYYYMMDDHH24MISSUS'::text)
+						        						THEN to_date(vna.fk_nn_lh_vbo_sc_dat_beg_geldh, 'YYYY-MM-DD')
+						        						ELSE to_date(vna.fk_nn_lh_vbo_sc_dat_beg_geldh, 'YYYYMMDDHH24MISSUS')
 						    						END AS begin_geldigheid_datum,
                             CAST('VBO' AS CHARACTER VARYING(50)) AS soort,
                             vba.gemeente,
@@ -632,8 +632,8 @@ FROM
                             END AS CHARACTER VARYING(10)) AS begin_geldigheid,
 												    CASE
 												        WHEN position('-' IN lpa.fk_nn_lh_lpl_sc_dat_beg_geldh) = 5
-						        						THEN to_date(lpa.fk_nn_lh_lpl_sc_dat_beg_geldh, 'YYYY-MM-DD'::text)
-						        						ELSE to_date(lpa.fk_nn_lh_lpl_sc_dat_beg_geldh, 'YYYYMMDDHH24MISSUS'::text)
+						        						THEN to_date(lpa.fk_nn_lh_lpl_sc_dat_beg_geldh, 'YYYY-MM-DD')
+						        						ELSE to_date(lpa.fk_nn_lh_lpl_sc_dat_beg_geldh, 'YYYYMMDDHH24MISSUS')
 						    						END AS begin_geldigheid_datum,
                             CAST('LIGPLAATS' AS CHARACTER VARYING(50)) AS soort,
                             vba.gemeente,
@@ -673,8 +673,8 @@ FROM
                             END AS CHARACTER VARYING(10)) AS begin_geldigheid,
 												    CASE
 												        WHEN position('-' IN spa.fk_nn_lh_spl_sc_dat_beg_geldh) = 5
-						        						THEN to_date(spa.fk_nn_lh_spl_sc_dat_beg_geldh, 'YYYY-MM-DD'::text)
-						        						ELSE to_date(spa.fk_nn_lh_spl_sc_dat_beg_geldh, 'YYYYMMDDHH24MISSUS'::text)
+						        						THEN to_date(spa.fk_nn_lh_spl_sc_dat_beg_geldh, 'YYYY-MM-DD')
+						        						ELSE to_date(spa.fk_nn_lh_spl_sc_dat_beg_geldh, 'YYYYMMDDHH24MISSUS')
 						    						END AS begin_geldigheid_datum,
                             CAST('STANDPLAATS' AS CHARACTER VARYING(50)) AS soort,
                             vba.gemeente,

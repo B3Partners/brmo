@@ -281,8 +281,8 @@ GO
 CREATE VIEW
     vb_util_app_re_parent_3 AS
 SELECT
-    re.sc_kad_identif AS app_re_identif,
-    sp.parent_identif
+    re.sc_kad_identif      AS app_re_identif,
+    min(sp.parent_identif) AS parent_identif
 FROM
     app_re re
 LEFT JOIN
@@ -290,8 +290,7 @@ LEFT JOIN
 ON
     re.sc_kad_identif = sp.child_identif
 GROUP BY
-    re.sc_kad_identif,
-    sp.parent_identif;
+    re.sc_kad_identif;
     
 GO
 
