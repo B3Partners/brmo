@@ -24,14 +24,16 @@ Ext.define('B3P.brmo.LaadProces', {
             var gridSelection = Ext.create('B3P.common.GridSelection', {
                 fields: [
                     {name: 'id', type: 'int'},
+                    {name: 'ka_nr', type: 'int'},
                     {name: 'bestand_naam', type: 'string'},
                     {name: 'bestand_datum', type: 'string'},
                     {name: 'soort', type: 'string'},
                     {name: 'status', type: 'string'}
                 ],
                 columns: [
-                    {text: "id", dataIndex: 'id'},
-                    {text: "bestand_naam", dataIndex: 'bestand_naam', flex: 1},
+                    {text: "id", dataIndex: 'id', tooltip: "database rij nummer"},
+                    {text: "klant afgifte nr", dataIndex: 'ka_nr', tooltip: "klant afgifte nummer"},
+                    {text: "bestand_naam", dataIndex: 'bestand_naam', flex: 2},
                     {text: "bestand_datum", dataIndex: 'bestand_datum'},
                     {text: "soort", dataIndex: 'soort', filter: 'string'},
                     {text: "status", dataIndex: 'status', filter: 'string',
@@ -43,10 +45,12 @@ Ext.define('B3P.brmo.LaadProces', {
                     {
                         text: "log",
                         dataIndex: 'id',
-                        flex: 1,
+                        flex: -1,
                         renderer: function (value) {
                             return Ext.String.format('<a href="#" onclick="return openLog({0});" title="Open opmerkingen"><img src="images/page_text.gif"/></a>', value);
-                        }
+                        },
+                        tooltip: "opmerkingen",
+                        sortable: false
                     }
                 ],
                 gridUrl: config.gridurl,

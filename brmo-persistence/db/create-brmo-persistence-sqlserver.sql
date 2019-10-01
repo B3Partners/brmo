@@ -55,10 +55,18 @@
 
     create table laadproces (
         id numeric(19,0) identity not null,
+        afgifteid varchar(255) null,
+        afgiftereferentie varchar(255) null,
+        artikelnummer varchar(255) null,
+        beschikbaar_tot datetime null,
         bestand_datum datetime null,
         bestand_naam varchar(255) null,
+        bestandsreferentie varchar(255) null,
         contact_email varchar(255) null,
+        contractafgiftenummer numeric(19,2) null,
+        contractnummer varchar(255) null,
         gebied varchar(255) null,
+        klantafgiftenummer numeric(19,2) null,
         opmerking text null,
         soort varchar(255) null,
         status varchar(255) null,

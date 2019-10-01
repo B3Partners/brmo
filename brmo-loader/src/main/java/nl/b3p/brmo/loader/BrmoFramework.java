@@ -3,6 +3,7 @@ package nl.b3p.brmo.loader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Date;
@@ -627,6 +628,29 @@ public class BrmoFramework {
     public long getCountJob() throws BrmoException {
         try {
             return stagingProxy.getCountJob();
+        } catch (SQLException ex) {
+            throw new BrmoException(ex);
+        }
+    }
+
+    /**
+     * update laadproces (GDS2 afgifte) metadata.
+     *
+     * @param lpId laadproces id
+     * @param klantafgiftenummer klantafgiftenummer
+     * @param contractafgiftenummer contractafgiftenummer
+     * @param artikelnummer artikelnummer
+     * @param contractnummer contractnummer
+     * @param afgifteid afgifteid
+     * @param afgiftereferentie afgiftereferentie
+     * @param bestandsreferentie bestandsreferentie
+     * @param beschikbaar_tot beschikbaar_tot
+     * @throws BrmoException if any
+     */
+    public void updateLaadProcesMeta(Long lpId, BigInteger klantafgiftenummer, BigInteger contractafgiftenummer, String artikelnummer, String contractnummer, String afgifteid, String afgiftereferentie, String bestandsreferentie, Date beschikbaar_tot
+    ) throws BrmoException {
+        try {
+            stagingProxy.updateLaadProcesMeta(lpId, klantafgiftenummer, contractafgiftenummer, artikelnummer, contractnummer, afgifteid, afgiftereferentie, bestandsreferentie, beschikbaar_tot);
         } catch (SQLException ex) {
             throw new BrmoException(ex);
         }

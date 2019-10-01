@@ -4,6 +4,7 @@
 package nl.b3p.brmo.persistence.staging;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -55,6 +56,23 @@ public class LaadProces implements Serializable {
 
     @ManyToOne
     private AutomatischProces automatischProces;
+
+    private BigInteger klantafgiftenummer;
+
+    private BigInteger contractafgiftenummer;
+
+    private String artikelnummer;
+
+    private String contractnummer;
+
+    private String afgifteid;
+
+    private String afgiftereferentie;
+
+    private String bestandsreferentie;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date beschikbaar_tot;
 
     /**
      * see nl.b3p.brmo.loader.entity.LaadProces
@@ -151,6 +169,70 @@ public class LaadProces implements Serializable {
 
     public void setAutomatischProces(AutomatischProces automatischProces) {
         this.automatischProces = automatischProces;
+    }
+
+    public BigInteger getKlantafgiftenummer() {
+        return klantafgiftenummer;
+    }
+
+    public void setKlantafgiftenummer(BigInteger klantafgiftenummer) {
+        this.klantafgiftenummer = klantafgiftenummer;
+    }
+
+    public BigInteger getContractafgiftenummer() {
+        return contractafgiftenummer;
+    }
+
+    public void setContractafgiftenummer(BigInteger contractafgiftenummer) {
+        this.contractafgiftenummer = contractafgiftenummer;
+    }
+
+    public String getArtikelnummer() {
+        return artikelnummer;
+    }
+
+    public void setArtikelnummer(String artikelnummer) {
+        this.artikelnummer = artikelnummer;
+    }
+
+    public String getContractnummer() {
+        return contractnummer;
+    }
+
+    public void setContractnummer(String contractnummer) {
+        this.contractnummer = contractnummer;
+    }
+
+    public String getAfgifteid() {
+        return afgifteid;
+    }
+
+    public void setAfgifteid(String afgifteid) {
+        this.afgifteid = afgifteid;
+    }
+
+    public String getAfgiftereferentie() {
+        return afgiftereferentie;
+    }
+
+    public void setAfgiftereferentie(String afgiftereferentie) {
+        this.afgiftereferentie = afgiftereferentie;
+    }
+
+    public String getBestandsreferentie() {
+        return bestandsreferentie;
+    }
+
+    public void setBestandsreferentie(String bestandsreferentie) {
+        this.bestandsreferentie = bestandsreferentie;
+    }
+
+    public Date getBeschikbaar_tot() {
+        return beschikbaar_tot;
+    }
+
+    public void setBeschikbaar_tot(Date beschikbaar_tot) {
+        this.beschikbaar_tot = beschikbaar_tot;
     }
     // </editor-fold>
 }

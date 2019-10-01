@@ -8,8 +8,6 @@ import java.util.List;
 import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.loader.entity.LaadProces;
 import org.apache.commons.dbutils.BasicRowProcessor;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
  * creates laadproces or bericht bean from database row.
@@ -70,6 +68,30 @@ public class StagingRowHandler extends BasicRowProcessor {
             }
             if (namesList.contains("contact_email")) {
                 lp.setContactEmail(rs.getString("contact_email"));
+            }
+            if (namesList.contains("klantafgiftenummer") && rs.getBigDecimal("klantafgiftenummer") != null) {
+                lp.setKlantafgiftenummer((rs.getBigDecimal("klantafgiftenummer").toBigInteger()));
+            }
+            if (namesList.contains("contractafgiftenummer") && rs.getBigDecimal("contractafgiftenummer") != null) {
+                lp.setContractafgiftenummer((rs.getBigDecimal("contractafgiftenummer").toBigInteger()));
+            }
+            if (namesList.contains("artikelnummer")) {
+                lp.setArtikelnummer(rs.getString("artikelnummer"));
+            }
+            if (namesList.contains("contractnummer")) {
+                lp.setContractnummer(rs.getString("contractnummer"));
+            }
+            if (namesList.contains("afgifteid")) {
+                lp.setAfgifteid(rs.getString("afgifteid"));
+            }
+            if (namesList.contains("afgiftereferentie")) {
+                lp.setAfgiftereferentie(rs.getString("afgiftereferentie"));
+            }
+            if (namesList.contains("bestandsreferentie")) {
+                lp.setBestandsreferentie(rs.getString("bestandsreferentie"));
+            }
+            if (namesList.contains("beschikbaar_tot")) {
+                lp.setBeschikbaar_tot(rs.getDate("beschikbaar_tot"));
             }
 
             return lp;
