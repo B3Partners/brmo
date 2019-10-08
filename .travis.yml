@@ -34,7 +34,8 @@ matrix:
   allow_failures:
     # vanwege build timeout (soms)
     #- name: "MS SQL server 2017"
-    # - name: "PostgreSQL 11"
+    # kan vaak postgis niet installeren...
+    - name: "PostgreSQL 10"
   include:
   - name: "Oudste supported PostgreSQL"
     dist: xenial
@@ -243,11 +244,11 @@ script:
   # Linting
   # test of de javadoc compliant is met java-8 strict checks, noodzakelijk voor succesvolle release
   #
-  - if [ "$TRAVIS_JDK_VERSION" == oraclejdk8 ] && [ "$PG_VERSION" == "9.6" ]; then
+  - if [ "$TRAVIS_JDK_VERSION" == openjdk8 ] && [ "$PG_VERSION" == "9.6" ]; then
         printf %'s\n\n' 'Javadoc checks';
         travis_wait 30 mvn javadoc:javadoc;
     fi
-  - if [ "$TRAVIS_JDK_VERSION" == oraclejdk8 ] && [ "$PG_VERSION" == "9.6" ]; then
+  - if [ "$TRAVIS_JDK_VERSION" == openjdk8 ] && [ "$PG_VERSION" == "9.6" ]; then
         printf %'s\n\n' 'Test Javadoc checks';
         travis_wait 30 mvn javadoc:test-javadoc;
     fi
@@ -257,9 +258,14 @@ script:
 
 after_script:
   # deploy maven site van master branch als test succes
-  - if [ "$TRAVIS_JDK_VERSION" == oraclejdk8 ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_TEST_RESULT" == 0 ] && [ "$PG_VERSION" == "9.6" ]; then
+  - if [ "$TRAVIS_JDK_VERSION" == openjdk8 ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_TEST_RESULT" == 0 ] && [ "$PG_VERSION" == "9.6" ]; then
          travis_wait 30 mvn -B -e -T1 site site:stage --settings .travis/settings.xml;
          mvn scm-publish:publish-scm --settings .travis/settings.xml;
+    fi
+
+after_success:
+  - if [ "$TRAVIS_JDK_VERSION" == openjdk8 ] && [ "$PG_VERSION" == "9.6" ]; then
+          bash <(curl -s https://codecov.io/bash);
     fi
 
 notifications:
