@@ -92,8 +92,6 @@ public class ZakRechtArchiefIntegrationTest extends AbstractDatabaseIntegrationT
             rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
             staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
         }
-CleanUtil.cleanSTAGING(staging);
-        CleanUtil.cleanRSGB_BRK(rsgb, true);
         IDataSet stagingDataSet = new XmlDataSet(new FileInputStream(new File(Mantis6380IntegrationTest.class.getResource("/zak_recht_archief/staging.xml").toURI())));
 
         sequential.lock();
@@ -104,7 +102,7 @@ CleanUtil.cleanSTAGING(staging);
             DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
         }
         brmo = new BrmoFramework(dsStaging, dsRsgb);
-        assumeTrue("Er zijn geen 1 STAGING_OK berichten", 6l == brmo.getCountBerichten(null, null, "brk", "STAGING_OK"));
+        assumeTrue("Er zijn geen 6 STAGING_OK berichten", 6l == brmo.getCountBerichten(null, null, "brk", "STAGING_OK"));
         assumeTrue("Er zijn geen 1 STAGING_OK laadproces", 1l == brmo.getCountLaadProcessen(null, null, "brk", "STAGING_OK"));
     }
 
@@ -113,9 +111,10 @@ CleanUtil.cleanSTAGING(staging);
     public void cleanup() throws Exception {
         brmo.closeBrmoFramework();
         
+        CleanUtil.cleanRSGB_BRK(rsgb, true);
         rsgb.close();
 
-        
+        CleanUtil.cleanSTAGING(staging);
         staging.close();
 
         sequential.unlock();
@@ -173,7 +172,7 @@ CleanUtil.cleanSTAGING(staging);
         }
         
         ITable zak_recht_archief = rsgb.createDataSet().getTable("zak_recht_archief");
-        assertEquals("Aantal zakelijk rechten klopt niet", 7, zak_recht_archief.getRowCount());
+        assertEquals("Aantal zakelijk rechten klopt niet", 19, zak_recht_archief.getRowCount());
         
         for (int i = 0; i < zak_recht_archief.getRowCount(); i++) {
             assertNotNull("Ingangsdatum recht is niet gevuld", zak_recht_archief.getValue(i, "ingangsdatum_recht"));
