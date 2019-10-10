@@ -153,14 +153,14 @@ timestamps {
                 junit allowEmptyResults: true, testResults: '**/target/surefire-reports/TEST-*.xml, **/target/failsafe-reports/TEST-*.xml'
             }
 
-            stage('Test Coverage results') {
+            stage('Publish Test Coverage') {
                 jacoco exclusionPattern: '**/*Test.class', execPattern: '**/target/**.exec'
+                sh "curl -s https://codecov.io/bash | bash"
             }
 
             stage('OWASP Dependency Check') {
                 echo "Uitvoeren OWASP dependency check"
                 sh "mvn org.owasp:dependency-check-maven:aggregate"
-
                 dependencyCheckPublisher pattern: '**/dependency-check-report.xml', failedNewCritical: 1, failedNewHigh: 1, failedTotalCritical: 1, failedTotalHigh: 3, unstableTotalHigh: 2
             }
 
