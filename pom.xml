@@ -678,6 +678,7 @@
                             <exclude>**/*IntegrationTest.java</exclude>
                         </excludes>
                         <skipTests>${test.onlyITs}</skipTests>
+                        <argLine>${surefireArgLine}</argLine>
                     </configuration>
                 </plugin>
                 <plugin>
@@ -695,6 +696,7 @@
                         <useFile>false</useFile>
                         <skipTests>!${test.onlyITs}</skipTests>
                         <skipITs>!${test.onlyITs}</skipITs>
+                        <argLine>${failsafeArgLine}</argLine>
                     </configuration>
                     <executions>
                         <execution>
@@ -996,6 +998,45 @@
                 </executions>
             </plugin>
             <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>pre-unit-test</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                        <configuration>
+                            <propertyName>surefireArgLine</propertyName>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>pre-integration-test</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>prepare-agent-integration</goal>
+                        </goals>
+                        <configuration>
+                            <propertyName>failsafeArgLine</propertyName>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>post-unit-test</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>post-integration-test</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>report-integration</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <artifactId>maven-site-plugin</artifactId>
                 <configuration>
                     <skipDeploy>true</skipDeploy>
@@ -1032,6 +1073,19 @@
                         <reports>
                             <report>dependency-updates-report</report>
                             <report>plugin-updates-report</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco-maven-plugin.version}</version>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>report</report>
+                            <report>report-aggregate</report>
                         </reports>
                     </reportSet>
                 </reportSets>
