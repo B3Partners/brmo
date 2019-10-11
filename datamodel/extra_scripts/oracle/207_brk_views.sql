@@ -3,406 +3,282 @@ Views for visualizing the BRK data.
 versie 2.2
 16-5-2019
 */
---drop view vb_util_app_re_parent;
---drop view vb_util_app_re_parent_2;
---drop view vb_util_app_re_parent_3;
---drop view vb_util_app_re_splitsing;
---drop view vb_util_zk_recht;
-
---drop materialized view mb_kad_onrrnd_zk_archief;
---drop materialized view mb_avg_subject;
---drop materialized view mb_avg_zr_rechth;
---drop materialized view mb_kad_onrrnd_zk_adres;
---drop materialized view mb_koz_rechth;
---drop materialized view mb_avg_koz_rechth;
---drop materialized view mb_subject;
---drop materialized view mb_zr_rechth;
---drop materialized view mb_util_app_re_kad_perceel;
-
---DROP INDEX MB_AVG_KOZ_RECHTH_BEGR_P_IDX;
---DROP INDEX MB_AVG_KOZ_RECHTH_IDENTIF;
---DROP INDEX MB_KAD_ONRRND_ZK_ADRES_IDENTIF;
---DROP INDEX MB_KAD_ONRRND_ZK_ADR_BGRGPIDX;
---DROP INDEX MB_KAD_ONRRND_ZK_A_BGRGPIDX;
---DROP INDEX MB_KAD_ONRRND_ZK_A_IDENTIF;
---DROP INDEX MB_KOZ_RECHTH_BEGR_PRCL_IDX;
---DROP INDEX MB_KOZ_RECHTH_IDENTIF;
---DROP INDEX MB_ZR_RECHTH_IDENTIF;
---DROP INDEX mb_avg_subject_identif;
---DROP INDEX mb_avg_zr_rechth_identif;
---DROP INDEX mb_subject_identif;
---DROP INDEX mb_util_app_re_kad_perceel_id;
---DROP INDEX MB_AVG_KOZ_RECHTH_OBJECTID;
---DROP INDEX MB_KAD_ONRRND_ZK_ADRES_OBJIDX;
---DROP INDEX MB_KAD_ONRRND_ZK_A_OBJIDX;
---DROP INDEX MB_KOZ_RECHTH_OBJECTID;
---DROP INDEX MB_ZR_RECHTH_OBJECTID;
---DROP INDEX mb_avg_subject_objectid;
---DROP INDEX mb_avg_zr_rechth_objectid;
---DROP INDEX mb_subject_objectid;
-
---INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('RSGB', 'mb_kad_onrrnd_zk_archief', 'objectid', 'assigned');
---INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('RSGB', 'mb_zr_rechth', 'objectid', 'assigned');
---INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('RSGB', 'mb_avg_subject', 'objectid', 'assigned');
---INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('RSGB', 'mb_avg_zr_rechth', 'objectid', 'assigned');
---INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('RSGB', 'mb_kad_onrrnd_zk_adres', 'objectid', 'assigned');
---INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('RSGB', 'mb_koz_rechth', 'objectid', 'assigned');
---INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('RSGB', 'mb_avg_koz_rechth', 'objectid', 'assigned');
---INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('RSGB', 'mb_subject', 'objectid', 'assigned');
---INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('RSGB', 'mb_zr_rechth', 'objectid', 'assigned');
---INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('RSGB', 'mb_kad_onrrnd_zk_archief', 'objectid', 'assigned');
-
-
---BEGIN
--- run 1
---DBMS_SNAPSHOT.REFRESH( 'mb_subject','c');
---DBMS_SNAPSHOT.REFRESH( 'mb_util_app_re_kad_perceel','c');
---DBMS_SNAPSHOT.REFRESH( 'mb_kad_onrrnd_zk_archief','c');
--- run 2
---DBMS_SNAPSHOT.REFRESH( 'mb_avg_subject','c');
---DBMS_SNAPSHOT.REFRESH( 'mb_zr_rechth','c');
--- run 3
---DBMS_SNAPSHOT.REFRESH( 'mb_kad_onrrnd_zk_adres','c');
---DBMS_SNAPSHOT.REFRESH( 'mb_avg_zr_rechth','c');
--- run 4
---DBMS_SNAPSHOT.REFRESH( 'mb_koz_rechth','c');
---DBMS_SNAPSHOT.REFRESH( 'mb_avg_koz_rechth','c');
---END
-
-alter session set query_rewrite_integrity=stale_tolerated;
-
-CREATE MATERIALIZED VIEW mb_subject 
-    (
-        objectid,
-        subject_identif,
-        soort,
-        geslachtsnaam,
-        voorvoegsel,
-        voornamen,
-        aand_naamgebruik,
-        geslachtsaand,
-        naam,
-        woonadres,
-        geboortedatum,
-        geboorteplaats,
-        overlijdensdatum,
-        bsn,
-        organisatie_naam,
-        rechtsvorm,
-        statutaire_zetel,
-        rsin,
-        kvk_nummer
-    )
-BUILD DEFERRED
-REFRESH ON DEMAND
+CREATE MATERIALIZED VIEW mb_subject (
+    objectid,
+    subject_identif,
+    soort,
+    geslachtsnaam,
+    voorvoegsel,
+    voornamen,
+    aand_naamgebruik,
+    geslachtsaand,
+    naam,
+    woonadres,
+    geboortedatum,
+    geboorteplaats,
+    overlijdensdatum,
+    bsn,
+    organisatie_naam,
+    rechtsvorm,
+    statutaire_zetel,
+    rsin,
+    kvk_nummer
+)
+    BUILD DEFERRED
+    REFRESH
+        ON DEMAND
 AS
-SELECT
-    CAST(ROWNUM AS INTEGER)         AS objectid,
-    s.identif                       AS subject_identif,
-    s.clazz                         AS soort,
-    np.nm_geslachtsnaam             AS geslachtsnaam,
-    np.nm_voorvoegsel_geslachtsnaam AS voorvoegsel,
-    np.nm_voornamen                 AS voornamen,
-    np.aand_naamgebruik,
-    CASE
-        WHEN ((np.geslachtsaand) = '1')
-        THEN CAST('M' AS CHARACTER VARYING(1))
-        WHEN ((np.geslachtsaand) = '2')
-        THEN CAST('V' AS CHARACTER VARYING(1))
-        WHEN ((np.geslachtsaand) = '3')
-        THEN CAST('X' AS CHARACTER VARYING(1))
-        ELSE np.geslachtsaand
-    END AS geslachtsaand,
-    CASE
-        WHEN (nnp.naam IS NOT NULL)
-        THEN CAST(nnp.naam AS CHARACTER VARYING(1000))
-        ELSE CAST(
-                        ((
-                        ((COALESCE(np.nm_voornamen, CAST('' AS CHARACTER VARYING(1)) )) || ' ') 
-                        ||
-                        ((COALESCE(np.nm_voorvoegsel_geslachtsnaam, CAST('' AS CHARACTER VARYING(1))) )) || ' ')
-                        || 
-                        ((COALESCE(np.nm_geslachtsnaam, CAST('' AS CHARACTER VARYING(1))) ))
-            ) AS CHARACTER VARYING(1000))
-    END                     AS naam,
-    inp.va_loc_beschrijving AS woonadres,
-    CASE
-        WHEN (((s.clazz) = 'INGESCHREVEN NATUURLIJK PERSOON')
-            AND LENGTH(inp.gb_geboortedatum)=8)
-        THEN CAST(
-                SUBSTR(TO_CHAR(inp.gb_geboortedatum,'99999999'),2,4) || '-' || 
-                SUBSTR(TO_CHAR(inp.gb_geboortedatum,'99999999'),6,2) || '-' || 
-                SUBSTR(TO_CHAR(inp.gb_geboortedatum,'99999999'),8,2) 
-                AS VARCHAR(10))
-        WHEN (((s.clazz) = 'ANDER NATUURLIJK PERSOON')
-            AND LENGTH(anp.geboortedatum)=8)
-        THEN CAST(
-                SUBSTR(TO_CHAR(anp.geboortedatum, '99999999'),2,4) || '-' || 
-                SUBSTR(TO_CHAR(anp.geboortedatum, '99999999'),6,2) || '-' || 
-                SUBSTR(TO_CHAR(anp.geboortedatum, '99999999'),8,2)  
-                AS VARCHAR(10))
-        WHEN (((s.clazz) = 'INGESCHREVEN NATUURLIJK PERSOON')
-            AND LENGTH(inp.gb_geboortedatum)=5)
-        THEN CAST('0001-01-01' AS VARCHAR(10))
-        WHEN (((s.clazz) = 'ANDER NATUURLIJK PERSOON')
-            AND LENGTH(anp.geboortedatum)=5)
-        THEN CAST('0001-01-01' AS VARCHAR(10))
-        ELSE CAST(NULL AS VARCHAR(10))
-    END                   AS geboortedatum,
-    inp.gb_geboorteplaats AS geboorteplaats,
-     CASE
-        WHEN (((s.clazz) = 'INGESCHREVEN NATUURLIJK PERSOON')
-            AND LENGTH(inp.ol_overlijdensdatum)=8)
-        THEN CAST(
-                SUBSTR(TO_CHAR(inp.ol_overlijdensdatum,'99999999'),2,4) || '-' || 
-                SUBSTR(TO_CHAR(inp.ol_overlijdensdatum,'99999999'),6,2) || '-' || 
-                SUBSTR(TO_CHAR(inp.ol_overlijdensdatum,'99999999'),8,2) 
-                AS VARCHAR(10))
-        WHEN (((s.clazz) = 'ANDER NATUURLIJK PERSOON')
-            AND LENGTH(anp.overlijdensdatum)=8)
-        THEN CAST(
-                SUBSTR(TO_CHAR(anp.overlijdensdatum, '99999999'),2,4) || '-' || 
-                SUBSTR(TO_CHAR(anp.overlijdensdatum, '99999999'),6,2) || '-' || 
-                SUBSTR(TO_CHAR(anp.overlijdensdatum, '99999999'),8,2)  
-                AS VARCHAR(10))
-        WHEN (((s.clazz) = 'INGESCHREVEN NATUURLIJK PERSOON')
-            AND LENGTH(inp.ol_overlijdensdatum)=5)
-        THEN CAST('0001-01-01' AS VARCHAR(10))
-        WHEN (((s.clazz) = 'ANDER NATUURLIJK PERSOON')
-            AND LENGTH(anp.overlijdensdatum)=5)
-        THEN CAST('0001-01-01' AS VARCHAR(10))
-        ELSE CAST(NULL AS VARCHAR(10))
-    END AS overlijdensdatum,
-    inp.bsn,
-    nnp.naam AS organisatie_naam,
-    innp.rechtsvorm,
-    innp.statutaire_zetel,
-    innp.rsin,
-    s.kvk_nummer
-FROM
-    (((((subject s
-LEFT JOIN
-    nat_prs np
-ON
-    (((
-                s.identif) = (np.sc_identif))))
-LEFT JOIN
-    ingeschr_nat_prs inp
-ON
-    (((
-                inp.sc_identif) = (np.sc_identif))))
-LEFT JOIN
-    ander_nat_prs anp
-ON
-    (((
-                anp.sc_identif) = (np.sc_identif))))
-LEFT JOIN
-    niet_nat_prs nnp
-ON
-    (((
-                nnp.sc_identif) = (s.identif))))
-LEFT JOIN
-    ingeschr_niet_nat_prs innp
-ON
-    (((
-                innp.sc_identif) = (nnp.sc_identif))));
+    SELECT
+        CAST(ROWNUM AS INTEGER) AS objectid,
+        s.identif                         AS subject_identif,
+        s.clazz                           AS soort,
+        np.nm_geslachtsnaam               AS geslachtsnaam,
+        np.nm_voorvoegsel_geslachtsnaam   AS voorvoegsel,
+        np.nm_voornamen                   AS voornamen,
+        np.aand_naamgebruik,
+        CASE
+            WHEN ( ( np.geslachtsaand ) = '1' ) THEN CAST('M' AS CHARACTER VARYING(1) )
+            WHEN ( ( np.geslachtsaand ) = '2' ) THEN CAST('V' AS CHARACTER VARYING(1) )
+            WHEN ( ( np.geslachtsaand ) = '3' ) THEN CAST('X' AS CHARACTER VARYING(1) )
+            ELSE np.geslachtsaand
+        END AS geslachtsaand,
+        CASE
+            WHEN ( nnp.naam IS NOT NULL ) THEN CAST(nnp.naam AS CHARACTER VARYING(1000) )
+            ELSE CAST( ( ( ( (coalesce(np.nm_voornamen,CAST('' AS CHARACTER VARYING(1) ) ) )
+                              || ' ')
+                            || ( (coalesce(np.nm_voorvoegsel_geslachtsnaam,CAST('' AS CHARACTER VARYING(1) ) ) ) )
+                            || ' ')
+                          || ( (coalesce(np.nm_geslachtsnaam,CAST('' AS CHARACTER VARYING(1) ) ) ) ) ) AS CHARACTER VARYING(1000)
+                          )
+        END AS naam,
+        inp.va_loc_beschrijving           AS woonadres,
+        CASE
+            WHEN ( ( ( s.clazz ) = 'INGESCHREVEN NATUURLIJK PERSOON' )
+                   AND length(inp.gb_geboortedatum) = 8 ) THEN CAST(substr(TO_CHAR(inp.gb_geboortedatum,'99999999'),2,4)
+                                                                         || '-'
+                                                                         || substr(TO_CHAR(inp.gb_geboortedatum,'99999999'),6,2)
+                                                                         || '-'
+                                                                         || substr(TO_CHAR(inp.gb_geboortedatum,'99999999'),8,2) AS
+                                                                         VARCHAR(10) )
+            WHEN ( ( ( s.clazz ) = 'ANDER NATUURLIJK PERSOON' )
+                   AND length(anp.geboortedatum) = 8 ) THEN CAST(substr(TO_CHAR(anp.geboortedatum,'99999999'),2,4)
+                                                                      || '-'
+                                                                      || substr(TO_CHAR(anp.geboortedatum,'99999999'),6,2)
+                                                                      || '-'
+                                                                      || substr(TO_CHAR(anp.geboortedatum,'99999999'),8,2) AS VARCHAR
+                                                                      (10) )
+            WHEN ( ( ( s.clazz ) = 'INGESCHREVEN NATUURLIJK PERSOON' )
+                   AND length(inp.gb_geboortedatum) = 5 ) THEN CAST('0001-01-01' AS VARCHAR(10) )
+            WHEN ( ( ( s.clazz ) = 'ANDER NATUURLIJK PERSOON' )
+                   AND length(anp.geboortedatum) = 5 ) THEN CAST('0001-01-01' AS VARCHAR(10) )
+            ELSE CAST(NULL AS VARCHAR(10) )
+        END AS geboortedatum,
+        inp.gb_geboorteplaats             AS geboorteplaats,
+        CASE
+            WHEN ( ( ( s.clazz ) = 'INGESCHREVEN NATUURLIJK PERSOON' )
+                   AND length(inp.ol_overlijdensdatum) = 8 ) THEN CAST(substr(TO_CHAR(inp.ol_overlijdensdatum,'99999999'),2,4)
+                                                                            || '-'
+                                                                            || substr(TO_CHAR(inp.ol_overlijdensdatum,'99999999')
+                                                                           ,6,2)
+                                                                            || '-'
+                                                                            || substr(TO_CHAR(inp.ol_overlijdensdatum,'99999999')
+                                                                           ,8,2) AS VARCHAR(10) )
+            WHEN ( ( ( s.clazz ) = 'ANDER NATUURLIJK PERSOON' )
+                   AND length(anp.overlijdensdatum) = 8 ) THEN CAST(substr(TO_CHAR(anp.overlijdensdatum,'99999999'),2,4)
+                                                                         || '-'
+                                                                         || substr(TO_CHAR(anp.overlijdensdatum,'99999999'),6,2)
+                                                                         || '-'
+                                                                         || substr(TO_CHAR(anp.overlijdensdatum,'99999999'),8,2) AS
+                                                                         VARCHAR(10) )
+            WHEN ( ( ( s.clazz ) = 'INGESCHREVEN NATUURLIJK PERSOON' )
+                   AND length(inp.ol_overlijdensdatum) = 5 ) THEN CAST('0001-01-01' AS VARCHAR(10) )
+            WHEN ( ( ( s.clazz ) = 'ANDER NATUURLIJK PERSOON' )
+                   AND length(anp.overlijdensdatum) = 5 ) THEN CAST('0001-01-01' AS VARCHAR(10) )
+            ELSE CAST(NULL AS VARCHAR(10) )
+        END AS overlijdensdatum,
+        inp.bsn,
+        nnp.naam                          AS organisatie_naam,
+        innp.rechtsvorm,
+        innp.statutaire_zetel,
+        innp.rsin,
+        s.kvk_nummer
+    FROM
+        ( ( ( ( ( subject s
+        LEFT JOIN nat_prs np ON ( ( ( s.identif ) = ( np.sc_identif ) ) ) ) left
+        JOIN ingeschr_nat_prs inp ON ( ( ( inp.sc_identif ) = ( np.sc_identif ) ) ) ) left
+        JOIN ander_nat_prs anp ON ( ( ( anp.sc_identif ) = ( np.sc_identif ) ) ) ) left
+        JOIN niet_nat_prs nnp ON ( ( ( nnp.sc_identif ) = ( s.identif ) ) ) ) left
+        JOIN ingeschr_niet_nat_prs innp ON ( ( ( innp.sc_identif ) = ( nnp.sc_identif ) ) ) );
 
-CREATE UNIQUE INDEX mb_subject_objectid ON mb_subject (objectid ASC);
-CREATE INDEX mb_subject_identif ON mb_subject (subject_identif ASC);
+CREATE UNIQUE INDEX mb_subject_objectid ON mb_subject ( objectid  ASC );
+CREATE INDEX mb_subject_identif ON mb_subject ( subject_identif ASC );
 
 COMMENT ON MATERIALIZED VIEW mb_subject
 IS 'commentaar view mb_subject:
 samenvoeging alle soorten subjecten: natuurlijk en niet-natuurlijk.
 beschikbare kolommen:
 * objectid: uniek id bruikbaar voor geoserver/arcgis,
-* subject_identif: natuurlijke id van subject      
-* soort: soort subject zoals natuurlijk, niet-natuurlijk enz.  
-* geslachtsnaam: -       
-* voorvoegsel: -     
-* voornamen: -     
-* aand_naamgebruik:        
-- E (= Eigen geslachtsnaam)        
-- N (=Geslachtsnaam echtgenoot/geregistreerd partner na eigen geslachtsnaam)        
-- P (= Geslachtsnaam echtgenoot/geregistreerd partner)        
-- V (= Geslachtsnaam evhtgenoot/geregistreerd partner voor eigen geslachtsnaam)        
-* geslachtsaand: M/V   
+* subject_identif: natuurlijke id van subject
+* soort: soort subject zoals natuurlijk, niet-natuurlijk enz.
+* geslachtsnaam: -
+* voorvoegsel: -
+* voornamen: -
+* aand_naamgebruik:
+- E (= Eigen geslachtsnaam)
+- N (= Geslachtsnaam echtgenoot/geregistreerd partner na eigen geslachtsnaam)
+- P (= Geslachtsnaam echtgenoot/geregistreerd partner)
+- V (= Geslachtsnaam evhtgenoot/geregistreerd partner voor eigen geslachtsnaam)
+* geslachtsaand: M/V
 * naam: samengestelde naam bruikbaar voor natuurlijke en niet-natuurlijke subjecten
-* woonadres: meegeleverd adres buiten BAG koppeling om      
-* geboortedatum: -       
-* geboorteplaats: -       
-* overlijdensdatum: -       
-* bsn: -       
-* organisatie_naam: naam niet natuurlijk subject      
-* rechtsvorm: -  
-* statutaire_zetel: -      
-* rsin: -        
+* woonadres: meegeleverd adres buiten BAG koppeling om
+* geboortedatum: -
+* geboorteplaats: -
+* overlijdensdatum: -
+* bsn: -
+* organisatie_naam: naam niet natuurlijk subject
+* rechtsvorm: -
+* statutaire_zetel: -
+* rsin: -
 * kvk_nummer: -';
 
-CREATE MATERIALIZED VIEW mb_avg_subject 
-    (
-        objectid,
-        subject_identif,
-        soort,
-        geslachtsnaam,
-        voorvoegsel,
-        voornamen,
-        aand_naamgebruik,
-        geslachtsaand,
-        naam,
-        woonadres,
-        geboortedatum,
-        geboorteplaats,
-        overlijdensdatum,
-        bsn,
-        organisatie_naam,
-        rechtsvorm,
-        statutaire_zetel,
-        rsin,
-        kvk_nummer
-    ) 
-BUILD DEFERRED
-REFRESH ON DEMAND
+CREATE MATERIALIZED VIEW mb_avg_subject (
+    objectid,
+    subject_identif,
+    soort,
+    geslachtsnaam,
+    voorvoegsel,
+    voornamen,
+    aand_naamgebruik,
+    geslachtsaand,
+    naam,
+    woonadres,
+    geboortedatum,
+    geboorteplaats,
+    overlijdensdatum,
+    bsn,
+    organisatie_naam,
+    rechtsvorm,
+    statutaire_zetel,
+    rsin,
+    kvk_nummer
+)
+    BUILD DEFERRED
+    REFRESH
+        ON DEMAND
 AS
-SELECT
-    s.objectid,
-    s.subject_identif as subject_identif,
-    s.soort,
-    CAST(NULL AS CHARACTER VARYING(1)) AS geslachtsnaam,
-    CAST(NULL AS CHARACTER VARYING(1)) AS voorvoegsel,
-    CAST(NULL AS CHARACTER VARYING(1)) AS voornamen,
-    CAST(NULL AS CHARACTER VARYING(1)) AS aand_naamgebruik,
-    CAST(NULL AS CHARACTER VARYING(1)) AS geslachtsaand,
-    s.organisatie_naam AS naam,
-    CAST(NULL AS CHARACTER VARYING(1)) AS woonadres,
-    CAST(NULL AS CHARACTER VARYING(1)) AS geboortedatum,
-    CAST(NULL AS CHARACTER VARYING(1)) AS geboorteplaats,
-    CAST(NULL AS CHARACTER VARYING(1)) AS overlijdensdatum,
-    CAST(NULL AS CHARACTER VARYING(1)) AS bsn,
-    s.organisatie_naam,
-    s.rechtsvorm,
-    s.statutaire_zetel,
-    s.rsin,
-    s.kvk_nummer
-FROM
-    mb_subject s;
+    SELECT
+        s.objectid,
+        s.subject_identif    AS subject_identif,
+        s.soort,
+        CAST(NULL AS CHARACTER VARYING(1) ) AS geslachtsnaam,
+        CAST(NULL AS CHARACTER VARYING(1) ) AS voorvoegsel,
+        CAST(NULL AS CHARACTER VARYING(1) ) AS voornamen,
+        CAST(NULL AS CHARACTER VARYING(1) ) AS aand_naamgebruik,
+        CAST(NULL AS CHARACTER VARYING(1) ) AS geslachtsaand,
+        s.organisatie_naam   AS naam,
+        CAST(NULL AS CHARACTER VARYING(1) ) AS woonadres,
+        CAST(NULL AS CHARACTER VARYING(1) ) AS geboortedatum,
+        CAST(NULL AS CHARACTER VARYING(1) ) AS geboorteplaats,
+        CAST(NULL AS CHARACTER VARYING(1) ) AS overlijdensdatum,
+        CAST(NULL AS CHARACTER VARYING(1) ) AS bsn,
+        s.organisatie_naam,
+        s.rechtsvorm,
+        s.statutaire_zetel,
+        s.rsin,
+        s.kvk_nummer
+    FROM
+        mb_subject s;
 
-CREATE UNIQUE INDEX mb_avg_subject_objectid ON mb_avg_subject (objectid ASC);
-CREATE INDEX mb_avg_subject_identif ON mb_avg_subject (subject_identif ASC);
+CREATE UNIQUE INDEX mb_avg_subject_objectid ON mb_avg_subject ( objectid ASC );
+CREATE INDEX mb_avg_subject_identif ON mb_avg_subject ( subject_identif ASC );
 
 COMMENT ON MATERIALIZED VIEW mb_avg_subject
 IS 'commentaar view mb_avg_subject:
 volledig subject (natuurlijk en niet natuurlijk) geschoond voor avg
 beschikbare kolommen:
 * objectid: uniek id bruikbaar voor geoserver/arcgis,
-* subject_identif: natuurlijke id van subject      
-* soort: soort subject zoals natuurlijk, niet-natuurlijk enz.  
-* geslachtsnaam: NULL (avg)       
-* voorvoegsel: NULL (avg)      
-* voornamen: NULL (avg)       
-* aand_naamgebruik: NULL (avg)         
-* geslachtsaand:NULL (avg)     
+* subject_identif: natuurlijke id van subject
+* soort: soort subject zoals natuurlijk, niet-natuurlijk enz.
+* geslachtsnaam: NULL (avg)
+* voorvoegsel: NULL (avg)
+* voornamen: NULL (avg)
+* aand_naamgebruik: NULL (avg)
+* geslachtsaand:NULL (avg)
 * naam: gelijk aan organisatie_naam
-* woonadres: NULL (avg)        
-* geboortedatum: NULL (avg)        
-* geboorteplaats: NULL (avg)        
-* overlijdensdatum: NULL (avg)        
-* bsn: NULL (avg)         
-* organisatie_naam: naam niet natuurlijk subject      
-* rechtsvorm: -  
-* statutaire_zetel: -      
-* rsin: -        
+* woonadres: NULL (avg)
+* geboortedatum: NULL (avg)
+* geboorteplaats: NULL (avg)
+* overlijdensdatum: NULL (avg)
+* bsn: NULL (avg)
+* organisatie_naam: naam niet natuurlijk subject
+* rechtsvorm: -
+* statutaire_zetel: -
+* rsin: -
 * kvk_nummer: -';
-    
---Views om kad_perceel bij app_re's op te zoeken (inclusief ondersplitsingen)
 
---drop view vb_util_app_re_splitsing cascade;
-CREATE OR REPLACE VIEW
-    vb_util_app_re_splitsing AS
-SELECT
-    b1.ref_id AS child_identif,
-    min(b2.ref_id) AS parent_identif
-FROM
-    brondocument b1
-JOIN
-    brondocument b2
-ON
-    b2.identificatie = b1.identificatie
-WHERE
-    (
-        b2.omschrijving = 'betrokkenBij Ondersplitsing'
-    OR  b2.omschrijving = 'betrokkenBij HoofdSplitsing')
-AND (
-        b1.omschrijving = 'ontstaanUit Ondersplitsing'
-    OR  b1.omschrijving = 'ontstaanUit HoofdSplitsing')
-GROUP BY
-    b1.ref_id;
-    
---drop view vb_util_app_re_parent_3 cascade;
-CREATE OR REPLACE VIEW
-    vb_util_app_re_parent_3 AS
-SELECT
-    cast(re.sc_kad_identif AS CHARACTER VARYING(50)) AS app_re_identif,
-    min(sp.parent_identif) AS parent_identif
-FROM
-    app_re re
-LEFT JOIN
-    vb_util_app_re_splitsing sp
-ON
-    cast(re.sc_kad_identif AS CHARACTER VARYING(50)) = sp.child_identif
-GROUP BY
-    cast(re.sc_kad_identif AS CHARACTER VARYING(50));
+CREATE OR REPLACE VIEW vb_util_app_re_splitsing AS
+    SELECT
+        b1.ref_id   AS child_identif,
+        MIN(b2.ref_id) AS parent_identif
+    FROM
+        brondocument b1
+        JOIN brondocument b2 ON b2.identificatie = b1.identificatie
+    WHERE
+        ( b2.omschrijving = 'betrokkenBij Ondersplitsing'
+          OR b2.omschrijving = 'betrokkenBij HoofdSplitsing' )
+        AND ( b1.omschrijving = 'ontstaanUit Ondersplitsing'
+              OR b1.omschrijving = 'ontstaanUit HoofdSplitsing' )
+    GROUP BY
+        b1.ref_id;
 
---drop view vb_util_app_re_parent_2 cascade;
-CREATE OR REPLACE VIEW
-    vb_util_app_re_parent_2 AS
-SELECT
-    u1.app_re_identif,
-    CASE
-        WHEN sp.parent_identif IS NULL
-        THEN u1.parent_identif
-        ELSE sp.parent_identif
-    END AS parent_identif
-FROM
-    vb_util_app_re_parent_3 u1
-LEFT JOIN
-    vb_util_app_re_splitsing sp
-ON
-    u1.parent_identif = sp.child_identif;
+CREATE OR REPLACE VIEW vb_util_app_re_parent_3 AS
+    SELECT
+        CAST(re.sc_kad_identif AS CHARACTER VARYING(50) ) AS app_re_identif,
+        MIN(sp.parent_identif) AS parent_identif
+    FROM
+        app_re re
+        LEFT JOIN vb_util_app_re_splitsing sp ON CAST(re.sc_kad_identif AS CHARACTER VARYING(50) ) = sp.child_identif
+    GROUP BY
+        CAST(re.sc_kad_identif AS CHARACTER VARYING(50) );
 
---drop view vb_util_app_re_parent cascade;
-CREATE OR REPLACE VIEW
-    vb_util_app_re_parent AS
-SELECT
-    u2.app_re_identif,
-    CASE
-        WHEN sp.parent_identif IS NULL
-        THEN u2.parent_identif
-        ELSE sp.parent_identif
-    END AS parent_identif
-FROM
-    vb_util_app_re_parent_2 u2
-LEFT JOIN
-    vb_util_app_re_splitsing sp
-ON
-    u2.parent_identif = sp.child_identif;
+CREATE OR REPLACE VIEW vb_util_app_re_parent_2 AS
+    SELECT
+        u1.app_re_identif,
+        CASE
+            WHEN sp.parent_identif IS NULL THEN u1.parent_identif
+            ELSE sp.parent_identif
+        END AS parent_identif
+    FROM
+        vb_util_app_re_parent_3 u1
+        LEFT JOIN vb_util_app_re_splitsing sp ON u1.parent_identif = sp.child_identif;
 
---drop materialized view mb_util_app_re_kad_perceel cascade;
+CREATE OR REPLACE VIEW vb_util_app_re_parent AS
+    SELECT
+        u2.app_re_identif,
+        CASE
+            WHEN sp.parent_identif IS NULL THEN u2.parent_identif
+            ELSE sp.parent_identif
+        END AS parent_identif
+    FROM
+        vb_util_app_re_parent_2 u2
+        LEFT JOIN vb_util_app_re_splitsing sp ON u2.parent_identif = sp.child_identif;
+
 CREATE MATERIALIZED VIEW mb_util_app_re_kad_perceel
-    BUILD DEFERRED REFRESH ON DEMAND AS
-SELECT
-    u1.app_re_identif,
-    kp.sc_kad_identif AS perceel_identif
-FROM
-    vb_util_app_re_parent u1
-JOIN
-    kad_perceel kp
-ON
-    u1.parent_identif = cast(kp.sc_kad_identif AS CHARACTER VARYING(50))
-GROUP BY
-    u1.app_re_identif,
-    kp.sc_kad_identif;
+    BUILD DEFERRED
+    REFRESH
+        ON DEMAND
+AS
+    SELECT
+        u1.app_re_identif,
+        kp.sc_kad_identif   AS perceel_identif
+    FROM
+        vb_util_app_re_parent u1
+        JOIN kad_perceel kp ON u1.parent_identif = CAST(kp.sc_kad_identif AS CHARACTER VARYING(50) )
+    GROUP BY
+        u1.app_re_identif,
+        kp.sc_kad_identif;
 
-CREATE INDEX mb_util_app_re_kad_perceel_id ON mb_util_app_re_kad_perceel(app_re_identif);
+CREATE INDEX mb_util_app_re_kad_perceel_id ON  mb_util_app_re_kad_perceel ( app_re_identif );
 
 COMMENT ON MATERIALIZED VIEW mb_util_app_re_kad_perceel
 IS 'commentaar view mb_util_app_re_kad_perceel:
@@ -411,12 +287,12 @@ beschikbare kolommen:
 * app_re_identif: natuurlijk id van appartementsrecht,
 * perceel_identif: natuurlijk id van grondperceel';
 
---drop materialized view mb_kad_onrrnd_zk_adres cascade;
+
 CREATE MATERIALIZED VIEW mb_kad_onrrnd_zk_adres (
     objectid,
     koz_identif,
     begin_geldigheid,
-		begin_geldigheid_datum,
+	begin_geldigheid_datum,
     benoemdobj_identif,
     type,
     aanduiding,
@@ -759,7 +635,7 @@ beschikbare kolommen:
 * voornamen: -
 * aand_naamgebruik:
 - E (= Eigen geslachtsnaam)
-- N (=Geslachtsnaam echtgenoot/geregistreerd partner na eigen geslachtsnaam)
+- N (= Geslachtsnaam echtgenoot/geregistreerd partner na eigen geslachtsnaam)
 - P (= Geslachtsnaam echtgenoot/geregistreerd partner)
 - V (= Geslachtsnaam evhtgenoot/geregistreerd partner voor eigen geslachtsnaam)
 * geslachtsaand: M/V
@@ -1036,7 +912,7 @@ beschikbare kolommen:
 * voornamen: -
 * aand_naamgebruik:
 - E (= Eigen geslachtsnaam)
-- N (=Geslachtsnaam echtgenoot/geregistreerd partner na eigen geslachtsnaam)
+- N (= Geslachtsnaam echtgenoot/geregistreerd partner na eigen geslachtsnaam)
 - P (= Geslachtsnaam echtgenoot/geregistreerd partner)
 - V (= Geslachtsnaam evhtgenoot/geregistreerd partner voor eigen geslachtsnaam)
 * geslachtsaand: M/V
