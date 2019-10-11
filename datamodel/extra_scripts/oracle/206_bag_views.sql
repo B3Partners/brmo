@@ -3,131 +3,69 @@ Views for visualizing the BAG data.
 versie 2
 30-8-2019
 */
--- DROP VIEWS
---drop view vb_vbo_adres;
---drop view vb_standplaats_adres;
---drop view vb_ligplaats_adres;
-
---drop materialized view mb_pand;
---drop materialized view mb_benoemd_obj_adres;
---drop materialized view mb_adres;
---drop materialized view mb_ben_obj_nevenadres;
-
---DROP INDEX MB_BENOEMD_OBJ_ADRES_IDENTIF; 
---DROP INDEX MB_BEN_OBJ_ADR_GEOM_IDX; 
---DROP INDEX MB_BEN_OBJ_NEVENADRES_IDENTIF; 
---DROP INDEX MB_PAND_IDENTIF; 
---DROP INDEX MB_PAND_THE_GEOM_IDX; 
---DROP INDEX mb_adres_identif; 
---DROP INDEX MB_BEN_OBJ_ADRES_OBJECTID; 
---DROP INDEX MB_PAND_OBJECTID; 
---DROP INDEX mb_adres_objectid; 
-
---INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('RSGB', 'vb_pand', 'objectid', 'assigned');
---INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('RSGB', 'vb_benoemd_obj_adres', 'objectid', 'assigned');
---INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('RSGB', 'vb_adres', 'objectid', 'assigned');
-
---INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('RSGB', 'mb_pand', 'objectid', 'assigned');
---INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('RSGB', 'mb_benoemd_obj_adres', 'objectid', 'assigned');
---INSERT INTO gt_pk_metadata (table_schema, table_name, pk_column, pk_policy) VALUES ('RSGB', 'mb_adres', 'objectid', 'assigned');
-
---BEGIN
--- run 1
---DBMS_SNAPSHOT.REFRESH( 'mb_adres','c');
---DBMS_SNAPSHOT.REFRESH( 'mb_pand','c');
--- run 2
---DBMS_SNAPSHOT.REFRESH( 'mb_benoemd_obj_adres','c');
---DBMS_SNAPSHOT.REFRESH( 'mb_ben_obj_nevenadres','c');
---END
-
-alter session set query_rewrite_integrity=stale_tolerated;
-
-CREATE MATERIALIZED VIEW mb_adres
-    (
-        objectid,
-        na_identif,
-        begin_geldigheid,
-        begin_geldigheid_datum,
-        gemeente,
-        woonplaats,
-        straatnaam,
-        huisnummer,
-        huisletter,
-        huisnummer_toev,
-        postcode,
-        geor_identif,
-        wpl_identif,
-        gem_code
-    ) 
-BUILD DEFERRED
-REFRESH ON DEMAND
+CREATE MATERIALIZED VIEW mb_adres (
+    objectid,
+    na_identif,
+    begin_geldigheid,
+    begin_geldigheid_datum,
+    gemeente,
+    woonplaats,
+    straatnaam,
+    huisnummer,
+    huisletter,
+    huisnummer_toev,
+    postcode,
+    geor_identif,
+    wpl_identif,
+    gem_code
+)
+    BUILD DEFERRED
+    REFRESH
+        ON DEMAND
 AS
-SELECT
-    CAST(ROWNUM AS INTEGER)                            AS objectid,
-    na.sc_identif                                              AS na_identif,
-    CAST(CASE
-        WHEN
-            ((INSTR(addrobj.dat_beg_geldh,'-')  = 5) AND (INSTR(addrobj.dat_beg_geldh,'-',1,2)  = 8))
-        THEN
-            addrobj.dat_beg_geldh
-        ELSE
-            SUBSTR(addrobj.dat_beg_geldh,1,4) || '-' ||
-            SUBSTR(addrobj.dat_beg_geldh,5,2) || '-' ||
-            SUBSTR(addrobj.dat_beg_geldh,7,2)
-    END AS CHARACTER VARYING(10))  AS begin_geldigheid,
-    CASE
-        WHEN position('-' IN addrobj.dat_beg_geldh) = 5
-        THEN to_date(addrobj.dat_beg_geldh, 'YYYY-MM-DD')
-        ELSE to_date(addrobj.dat_beg_geldh, 'YYYYMMDDHH24MISSUS')
-    END AS begin_geldigheid_datum,
-    gem.naam                                                   AS gemeente,
-    CASE
-        WHEN (addrobj.fk_6wpl_identif IS NOT NULL)
-        THEN
-            (
+    SELECT
+        CAST(ROWNUM AS INTEGER)       AS objectid,
+        na.sc_identif                 AS na_identif,
+        CAST(CASE
+            WHEN( (instr(addrobj.dat_beg_geldh,'-') = 5)
+                   AND(instr(addrobj.dat_beg_geldh,'-',1,2) = 8) ) THEN addrobj.dat_beg_geldh
+            ELSE substr(addrobj.dat_beg_geldh,1,4)
+                 || '-'
+                 || substr(addrobj.dat_beg_geldh,5,2)
+                 || '-'
+                 || substr(addrobj.dat_beg_geldh,7,2)
+        END AS VARCHAR2(10 CHAR) )    AS begin_geldigheid,
+        CASE
+            WHEN ( instr(addrobj.dat_beg_geldh,'-') = 5 ) THEN TO_DATE(addrobj.dat_beg_geldh,'YYYY-MM-DD')
+            ELSE TO_DATE(addrobj.dat_beg_geldh,'YYYYMMDDHH24MISSUS')
+        END AS begin_geldigheid_datum,
+        gem.naam                      AS gemeente,
+        CASE
+            WHEN ( addrobj.fk_6wpl_identif IS NOT NULL ) THEN (
                 SELECT
                     wnplts.naam
                 FROM
                     wnplts
                 WHERE
-                    ((wnplts.identif) = (addrobj.fk_6wpl_identif)))
-        ELSE wp.naam
-    END                  AS woonplaats,
-    geor.naam_openb_rmte AS straatnaam,
-    addrobj.huinummer    AS huisnummer,
-    addrobj.huisletter,
-    addrobj.huinummertoevoeging AS huisnummer_toev,
-    addrobj.postcode,
-    geor.identifcode as geor_identif,
-    wp.identif as wpl_identif,
-    gem.code as gem_code
-FROM
-    (((((nummeraand na
-LEFT JOIN
-    addresseerb_obj_aand addrobj
-ON
-    (((
-                addrobj.identif) = (na.sc_identif))))
-JOIN
-    gem_openb_rmte geor
-ON
-    (((
-                geor.identifcode) = (addrobj.fk_7opr_identifcode))))
-LEFT JOIN
-    openb_rmte_wnplts orwp
-ON
-    (((
-                geor.identifcode) = (orwp.fk_nn_lh_opr_identifcode))))
-LEFT JOIN
-    wnplts wp
-ON
-    (((
-                orwp.fk_nn_rh_wpl_identif) = (wp.identif))))
-LEFT JOIN
-    gemeente gem
-ON
-    ((
-            wp.fk_7gem_code = gem.code)));
+                    ( ( wnplts.identif ) = ( addrobj.fk_6wpl_identif ) )
+            )
+            ELSE wp.naam
+        END AS woonplaats,
+        geor.naam_openb_rmte          AS straatnaam,
+        addrobj.huinummer             AS huisnummer,
+        addrobj.huisletter,
+        addrobj.huinummertoevoeging   AS huisnummer_toev,
+        addrobj.postcode,
+        geor.identifcode              AS geor_identif,
+        wp.identif                    AS wpl_identif,
+        gem.code                      AS gem_code
+    FROM
+        ( ( ( ( ( nummeraand na
+        LEFT JOIN addresseerb_obj_aand addrobj ON ( ( ( addrobj.identif ) = ( na.sc_identif ) ) ) )
+        JOIN gem_openb_rmte geor ON ( ( ( geor.identifcode ) = ( addrobj.fk_7opr_identifcode ) ) ) ) left
+        JOIN openb_rmte_wnplts orwp ON ( ( ( geor.identifcode ) = ( orwp.fk_nn_lh_opr_identifcode ) ) ) ) left
+        JOIN wnplts wp ON ( ( ( orwp.fk_nn_rh_wpl_identif ) = ( wp.identif ) ) ) ) left
+        JOIN gemeente gem ON ( ( wp.fk_7gem_code = gem.code ) ) );
 
 CREATE UNIQUE INDEX mb_adres_objectid ON mb_adres (objectid asc);
 CREATE INDEX mb_adres_identif ON mb_adres (na_identif asc);
