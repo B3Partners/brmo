@@ -253,9 +253,6 @@ script:
         travis_wait 30 mvn javadoc:test-javadoc;
     fi
 
-# after_failure:
-# after_success:
-
 after_script:
   # deploy maven site van master branch als test succes
   - if [ "$TRAVIS_JDK_VERSION" == openjdk8 ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_TEST_RESULT" == 0 ] && [ "$PG_VERSION" == "9.6" ]; then
@@ -264,10 +261,9 @@ after_script:
     fi
 
 after_success:
-#  - if [ "$TRAVIS_JDK_VERSION" == openjdk8 ] && [ "$PG_VERSION" == "9.6" ]; then
-#          bash <(curl -s https://codecov.io/bash);
-#    fi
-  - bash <(curl -s https://codecov.io/bash)
+  - bash <(curl -s https://codecov.io/bash) -v -f */jacoco.xml || echo 'Codecov failed to upload'
+
+# after_failure:
 
 notifications:
   slack:
