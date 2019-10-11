@@ -6,6 +6,7 @@ versie 2
 CREATE MATERIALIZED VIEW mb_adres (
     objectid,
     na_identif,
+    na_status,
     begin_geldigheid,
     begin_geldigheid_datum,
     gemeente,
@@ -26,6 +27,7 @@ AS
     SELECT
         CAST(ROWNUM AS INTEGER)       AS objectid,
         na.sc_identif                 AS na_identif,
+        na.status,
         CAST(CASE
             WHEN( (instr(addrobj.dat_beg_geldh,'-') = 5)
                    AND(instr(addrobj.dat_beg_geldh,'-',1,2) = 8) ) THEN addrobj.dat_beg_geldh
