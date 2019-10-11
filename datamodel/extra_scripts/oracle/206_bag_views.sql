@@ -165,125 +165,99 @@ ON
                 vbo.fk_11nra_sc_identif) = (bva.na_identif))));
 
 
---drop view vb_standplaats_adres;
-CREATE OR REPLACE VIEW
-    vb_standplaats_adres
-    (
-        spl_identif,
-        begin_geldigheid,
-        begin_geldigheid_datum,
-        na_identif,
-        na_status,
-        gemeente,
-        woonplaats,
-        straatnaam,
-        huisnummer,
-        huisletter,
-        huisnummer_toev,
-        postcode,
-        status,
-        the_geom
-    ) AS
-SELECT
-    spl.sc_identif                                            AS spl_identif,
-    CAST(CASE
-        WHEN
-            ((INSTR(benter.dat_beg_geldh,'-')  = 5) AND (INSTR(benter.dat_beg_geldh,'-',1,2)  = 8))
-        THEN
-            benter.dat_beg_geldh
-        ELSE
-            SUBSTR(benter.dat_beg_geldh,1,4) || '-' ||
-            SUBSTR(benter.dat_beg_geldh,5,2) || '-' ||
-            SUBSTR(benter.dat_beg_geldh,7,2)
-    END AS CHARACTER VARYING(10)) AS begin_geldigheid,
-    CASE
-        WHEN position('-' IN benter.dat_beg_geldh) = 5
-				THEN to_date(benter.dat_beg_geldh, 'YYYY-MM-DD')
-				ELSE to_date(benter.dat_beg_geldh, 'YYYYMMDDHH24MISSUS')
-		END AS begin_geldigheid_datum,
-    bva.na_identif                        as na_identif,
-    bva.na_status 					      as na_status,
-    bva.gemeente,
-    bva.woonplaats,
-    bva.straatnaam,
-    bva.huisnummer,
-    bva.huisletter,
-    bva.huisnummer_toev,
-    bva.postcode,
-    spl.status,
-    SDO_GEOM.SDO_CENTROID(benter.geom,2) AS the_geom
-FROM
-    ((standplaats spl
-JOIN
-    benoemd_terrein benter
-ON
-    (((
-                benter.sc_identif) = (spl.sc_identif))))
-LEFT JOIN
-    mb_adres bva
-ON
-    (((
-                spl.fk_4nra_sc_identif) = (bva.na_identif))));
+CREATE OR REPLACE VIEW vb_standplaats_adres (
+    spl_identif,
+    begin_geldigheid,
+    begin_geldigheid_datum,
+    na_identif,
+    na_status,
+    gemeente,
+    woonplaats,
+    straatnaam,
+    huisnummer,
+    huisletter,
+    huisnummer_toev,
+    postcode,
+    status,
+    the_geom
+) AS
+    SELECT
+        spl.sc_identif   AS spl_identif,
+        CAST(CASE
+            WHEN( (instr(benter.dat_beg_geldh,'-') = 5)
+                   AND(instr(benter.dat_beg_geldh,'-',1,2) = 8) ) THEN benter.dat_beg_geldh
+            ELSE substr(benter.dat_beg_geldh,1,4)
+                 || '-'
+                 || substr(benter.dat_beg_geldh,5,2)
+                 || '-'
+                 || substr(benter.dat_beg_geldh,7,2)
+        END AS CHARACTER VARYING(10) ) AS begin_geldigheid,
+        CASE
+            WHEN instr(benter.dat_beg_geldh,'-') = 5 THEN TO_DATE(benter.dat_beg_geldh,'YYYY-MM-DD')
+            ELSE TO_DATE(benter.dat_beg_geldh,'YYYYMMDDHH24MISSUS')
+        END AS begin_geldigheid_datum,
+        bva.na_identif   AS na_identif,
+        bva.na_status    AS na_status,
+        bva.gemeente,
+        bva.woonplaats,
+        bva.straatnaam,
+        bva.huisnummer,
+        bva.huisletter,
+        bva.huisnummer_toev,
+        bva.postcode,
+        spl.status,
+        sdo_geom.sdo_centroid(benter.geom,2) AS the_geom
+    FROM
+        ( ( standplaats spl
+        JOIN benoemd_terrein benter ON ( ( ( benter.sc_identif ) = ( spl.sc_identif ) ) ) ) left
+        JOIN mb_adres bva ON ( ( ( spl.fk_4nra_sc_identif ) = ( bva.na_identif ) ) ) );
 
---drop view vb_ligplaats_adres;
-CREATE OR REPLACE VIEW
-    vb_ligplaats_adres
-    (
-        lpl_identif,
-        begin_geldigheid,
-        begin_geldigheid_datum,
-        na_identif,
-        na_status,
-        gemeente,
-        woonplaats,
-        straatnaam,
-        huisnummer,
-        huisletter,
-        huisnummer_toev,
-        postcode,
-        status,
-        the_geom
-    ) AS
-SELECT
-    lpl.sc_identif                                            AS lpl_identif,
-    CAST(CASE
-        WHEN
-            ((INSTR(benter.dat_beg_geldh,'-')  = 5) AND (INSTR(benter.dat_beg_geldh,'-',1,2)  = 8))
-        THEN
-            benter.dat_beg_geldh
-        ELSE
-            SUBSTR(benter.dat_beg_geldh,1,4) || '-' ||
-            SUBSTR(benter.dat_beg_geldh,5,2) || '-' ||
-            SUBSTR(benter.dat_beg_geldh,7,2)
-    END AS CHARACTER VARYING(10)) AS begin_geldigheid,
-    CASE
-        WHEN position('-' IN benter.dat_beg_geldh) = 5
-				THEN to_date(benter.dat_beg_geldh, 'YYYY-MM-DD')
-				ELSE to_date(benter.dat_beg_geldh, 'YYYYMMDDHH24MISSUS')
-		END AS begin_geldigheid_datum,
-    bva.na_identif                            as na_identif,
-    bva.na_status 				              as na_status,
-    bva.gemeente,
-    bva.woonplaats,
-    bva.straatnaam,
-    bva.huisnummer,
-    bva.huisletter,
-    bva.huisnummer_toev,
-    bva.postcode,
-    lpl.status,
-    SDO_GEOM.SDO_CENTROID(benter.geom,2) AS the_geom
-FROM
-    ((ligplaats lpl
-JOIN
-    benoemd_terrein benter
-ON
-    (((
-                benter.sc_identif) = (lpl.sc_identif))))
-LEFT JOIN
-    mb_adres bva
-ON
-    (((
-                lpl.fk_4nra_sc_identif) = (bva.na_identif))));
+CREATE OR REPLACE VIEW vb_ligplaats_adres (
+    lpl_identif,
+    begin_geldigheid,
+    begin_geldigheid_datum,
+    na_identif,
+    na_status,
+    gemeente,
+    woonplaats,
+    straatnaam,
+    huisnummer,
+    huisletter,
+    huisnummer_toev,
+    postcode,
+    status,
+    the_geom
+) AS
+    SELECT
+        lpl.sc_identif   AS lpl_identif,
+        CAST(CASE
+            WHEN( (instr(benter.dat_beg_geldh,'-') = 5)
+                   AND(instr(benter.dat_beg_geldh,'-',1,2) = 8) ) THEN benter.dat_beg_geldh
+            ELSE substr(benter.dat_beg_geldh,1,4)
+                 || '-'
+                 || substr(benter.dat_beg_geldh,5,2)
+                 || '-'
+                 || substr(benter.dat_beg_geldh,7,2)
+        END AS CHARACTER VARYING(10) ) AS begin_geldigheid,
+        CASE
+            WHEN instr(benter.dat_beg_geldh,'-') = 5 THEN TO_DATE(benter.dat_beg_geldh,'YYYY-MM-DD')
+            ELSE TO_DATE(benter.dat_beg_geldh,'YYYYMMDDHH24MISSUS')
+        END AS begin_geldigheid_datum,
+        bva.na_identif   AS na_identif,
+        bva.na_status    AS na_status,
+        bva.gemeente,
+        bva.woonplaats,
+        bva.straatnaam,
+        bva.huisnummer,
+        bva.huisletter,
+        bva.huisnummer_toev,
+        bva.postcode,
+        lpl.status,
+        sdo_geom.sdo_centroid(benter.geom,2) AS the_geom
+    FROM
+        ( ( ligplaats lpl
+        JOIN benoemd_terrein benter ON ( ( ( benter.sc_identif ) = ( lpl.sc_identif ) ) ) ) left
+        JOIN mb_adres bva ON ( ( ( lpl.fk_4nra_sc_identif ) = ( bva.na_identif ) ) ) );
 
 
 CREATE MATERIALIZED VIEW mb_pand
