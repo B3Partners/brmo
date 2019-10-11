@@ -90,80 +90,69 @@ beschikbare kolommen:
 * wpl_identif: natuurlijk id van woonplaats,
 * gem_code: gemeentecode';
 
---drop view vb_vbo_adres;
-CREATE OR REPLACE VIEW
-    vb_vbo_adres
-    (
-        vbo_identif,
-        begin_geldigheid,
-        begin_geldigheid_datum,
-        pand_identif,
-        na_identif,
-        na_status,
-        gemeente,
-        woonplaats,
-        straatnaam,
-        huisnummer,
-        huisletter,
-        huisnummer_toev,
-        postcode,
-        status,
-        gebruiksdoelen,
-        oppervlakte_obj,
-        the_geom
-    ) AS
-SELECT
-    vbo.sc_identif                                          AS vbo_identif,
-    CAST(CASE
-        WHEN
-            ((INSTR(gobj.dat_beg_geldh,'-')  = 5) AND (INSTR(gobj.dat_beg_geldh,'-',1,2)  = 8))
-        THEN
-            gobj.dat_beg_geldh
-        ELSE
-            SUBSTR(gobj.dat_beg_geldh,1,4) || '-' ||
-            SUBSTR(gobj.dat_beg_geldh,5,2) || '-' ||
-            SUBSTR(gobj.dat_beg_geldh,7,2)
-    END AS CHARACTER VARYING(10)) AS begin_geldigheid,
-    CASE
-        WHEN position('-' IN gobj.dat_beg_geldh) = 5
-				THEN to_date(gobj.dat_beg_geldh, 'YYYY-MM-DD')
-				ELSE to_date(gobj.dat_beg_geldh, 'YYYYMMDDHH24MISSUS')
-		END AS begin_geldigheid_datum,
-    fkpand.fk_nn_rh_pnd_identif                             AS pand_identif,
-    bva.na_identif                                          as na_identif,
-    bva.na_status 																					as na_status,
-    bva.gemeente,
-    bva.woonplaats,
-    bva.straatnaam,
-    bva.huisnummer,
-    bva.huisletter,
-    bva.huisnummer_toev,
-    bva.postcode,
-    vbo.status,
-    array_to_string(
-    	(SELECT array_agg(gog.gebruiksdoel_gebouwd_obj)
-    	FROM gebouwd_obj_gebruiksdoel gog
-    	WHERE gog.fk_gbo_sc_identif = vbo.sc_identif), ',') as gebruiksdoelen,
-    gobj.oppervlakte_obj,
-    gobj.puntgeom AS the_geom
-FROM
-    (((verblijfsobj vbo
-JOIN
-    gebouwd_obj gobj
-ON
-    (((
-                gobj.sc_identif) = (vbo.sc_identif))))
-LEFT JOIN
-    verblijfsobj_pand fkpand
-ON
-    (((
-                fkpand.fk_nn_lh_vbo_sc_identif) = (vbo.sc_identif))))
-LEFT JOIN
-    mb_adres bva
-ON
-    (((
-                vbo.fk_11nra_sc_identif) = (bva.na_identif))));
-
+CREATE OR REPLACE VIEW vb_vbo_adres (
+    vbo_identif,
+    begin_geldigheid,
+    begin_geldigheid_datum,
+    pand_identif,
+    na_identif,
+    na_status,
+    gemeente,
+    woonplaats,
+    straatnaam,
+    huisnummer,
+    huisletter,
+    huisnummer_toev,
+    postcode,
+    status,
+    gebruiksdoelen,
+    oppervlakte_obj,
+    the_geom
+) AS
+    SELECT
+        vbo.sc_identif                AS vbo_identif,
+        CAST(CASE
+            WHEN( (instr(gobj.dat_beg_geldh,'-') = 5)
+                   AND(instr(gobj.dat_beg_geldh,'-',1,2) = 8) ) THEN gobj.dat_beg_geldh
+            ELSE substr(gobj.dat_beg_geldh,1,4)
+                 || '-'
+                 || substr(gobj.dat_beg_geldh,5,2)
+                 || '-'
+                 || substr(gobj.dat_beg_geldh,7,2)
+        END AS VARCHAR2(10 CHAR) ) AS begin_geldigheid,
+        CASE
+            WHEN ( instr(gobj.dat_beg_geldh,'-') = 5 ) THEN TO_DATE(gobj.dat_beg_geldh,'YYYY-MM-DD')
+            ELSE TO_DATE(gobj.dat_beg_geldh,'YYYYMMDDHH24MISSUS')
+        END AS begin_geldigheid_datum,
+        fkpand.fk_nn_rh_pnd_identif   AS pand_identif,
+        bva.na_identif                AS na_identif,
+        bva.na_status                 AS na_status,
+        bva.gemeente,
+        bva.woonplaats,
+        bva.straatnaam,
+        bva.huisnummer,
+        bva.huisletter,
+        bva.huisnummer_toev,
+        bva.postcode,
+        vbo.status,
+        (
+            SELECT
+                LISTAGG(gog.gebruiksdoel_gebouwd_obj,',') WITHIN GROUP(
+                    ORDER BY
+                        gog.gebruiksdoel_gebouwd_obj
+                ) AS gebruiksdoelen
+            FROM
+                gebouwd_obj_gebruiksdoel gog
+            WHERE
+                gog.fk_gbo_sc_identif = vbo.sc_identif
+        ) AS gebruiksdoelen,
+        gobj.oppervlakte_obj,
+        gobj.puntgeom                 AS the_geom
+    FROM
+        verblijfsobj vbo
+        JOIN gebouwd_obj gobj ON gobj.sc_identif = vbo.sc_identif
+        LEFT JOIN verblijfsobj_pand fkpand ON fkpand.fk_nn_lh_vbo_sc_identif = vbo.sc_identif
+        LEFT JOIN mb_adres bva ON vbo.fk_11nra_sc_identif = bva.na_identif;
 
 CREATE OR REPLACE VIEW vb_standplaats_adres (
     spl_identif,
