@@ -260,42 +260,40 @@ CREATE OR REPLACE VIEW vb_ligplaats_adres (
         JOIN mb_adres bva ON ( ( ( lpl.fk_4nra_sc_identif ) = ( bva.na_identif ) ) ) );
 
 
-CREATE MATERIALIZED VIEW mb_pand
-    (
-        objectid,
-        pand_identif,
-        begin_geldigheid,
-        begin_geldigheid_datum,
-        bouwjaar,
-        status,
-        the_geom
-    )
-BUILD DEFERRED
-REFRESH ON DEMAND
+CREATE MATERIALIZED VIEW mb_pand (
+    objectid,
+    pand_identif,
+    begin_geldigheid,
+    begin_geldigheid_datum,
+    bouwjaar,
+    status,
+    the_geom
+)
+    BUILD DEFERRED
+    REFRESH
+        ON DEMAND
 AS
-SELECT
-    CAST(ROWNUM AS INTEGER) AS objectid,
-    pand.identif as pand_identif,
-    CAST(CASE
-        WHEN
-            ((INSTR(pand.dat_beg_geldh,'-')  = 5) AND (INSTR(pand.dat_beg_geldh,'-',1,2)  = 8))
-        THEN
-            pand.dat_beg_geldh
-        ELSE
-                SUBSTR(pand.dat_beg_geldh,1,4) || '-' ||
-            SUBSTR(pand.dat_beg_geldh,5,2) || '-' ||
-            SUBSTR(pand.dat_beg_geldh,7,2)
-    END AS CHARACTER VARYING(10)) AS begin_geldigheid,
-    CASE
-        WHEN position('-' IN pand.dat_beg_geldh) = 5
-				THEN to_date(pand.dat_beg_geldh, 'YYYY-MM-DD')
-				ELSE to_date(pand.dat_beg_geldh, 'YYYYMMDDHH24MISSUS')
-		END AS begin_geldigheid_datum,
-    pand.oorspronkelijk_bouwjaar                            AS bouwjaar,
-    pand.status,
-    pand.geom_bovenaanzicht AS the_geom
-FROM
-    pand;
+    SELECT
+        CAST(ROWNUM AS INTEGER) AS objectid,
+        pand.identif                   AS pand_identif,
+        CAST(CASE
+            WHEN( (instr(pand.dat_beg_geldh,'-') = 5)
+                   AND(instr(pand.dat_beg_geldh,'-',1,2) = 8) ) THEN pand.dat_beg_geldh
+            ELSE substr(pand.dat_beg_geldh,1,4)
+                 || '-'
+                 || substr(pand.dat_beg_geldh,5,2)
+                 || '-'
+                 || substr(pand.dat_beg_geldh,7,2)
+        END AS CHARACTER VARYING(10) ) AS begin_geldigheid,
+        CASE
+            WHEN instr(pand.dat_beg_geldh,'-') = 5 THEN TO_DATE(pand.dat_beg_geldh,'YYYY-MM-DD')
+            ELSE TO_DATE(pand.dat_beg_geldh,'YYYYMMDDHH24MISSUS')
+        END AS begin_geldigheid_datum,
+        pand.oorspronkelijk_bouwjaar   AS bouwjaar,
+        pand.status,
+        pand.geom_bovenaanzicht        AS the_geom
+    FROM
+        pand;
 
 CREATE UNIQUE INDEX MB_PAND_OBJECTID ON MB_PAND (OBJECTID ASC);
 CREATE INDEX MB_PAND_IDENTIF ON MB_PAND(PAND_IDENTIF ASC);
@@ -313,120 +311,119 @@ beschikbare kolommen:
 * status: -,
 * the_geom: pandvlak';
 
---drop materialized view mb_benoemd_obj_adres;
-CREATE MATERIALIZED VIEW mb_benoemd_obj_adres
-    (
-        objectid,
-        benoemdobj_identif,
-        na_identif,
-        na_status,
-        begin_geldigheid,
-        begin_geldigheid_datum,
-        pand_identif,
-        soort,
-        gemeente,
-        woonplaats,
-        straatnaam,
-        huisnummer,
-        huisletter,
-        huisnummer_toev,
-        postcode,
-        status,
-        gebruiksdoelen,
-        oppervlakte_obj,
-        the_geom
-    )
-BUILD DEFERRED
-REFRESH ON DEMAND
+CREATE MATERIALIZED VIEW mb_benoemd_obj_adres (
+    objectid,
+    benoemdobj_identif,
+    na_identif,
+    na_status,
+    begin_geldigheid,
+    begin_geldigheid_datum,
+    pand_identif,
+    soort,
+    gemeente,
+    woonplaats,
+    straatnaam,
+    huisnummer,
+    huisletter,
+    huisnummer_toev,
+    postcode,
+    status,
+    gebruiksdoelen,
+    oppervlakte_obj,
+    the_geom
+)
+    BUILD DEFERRED
+    REFRESH
+        ON DEMAND
 AS
-SELECT
-    CAST(ROWNUM AS INTEGER) AS objectid,
-    qry.benoemdobj_identif,
-    qry.na_identif,
-    qry.na_status,
-    qry.begin_geldigheid,
-    qry.begin_geldigheid_datum,
-    qry.pand_identif,
-    qry.soort,
-    qry.gemeente,
-    qry.woonplaats,
-    qry.straatnaam,
-    qry.huisnummer,
-    qry.huisletter,
-    qry.huisnummer_toev,
-    qry.postcode,
-    qry.status,
-    qry.gebruiksdoelen,
-    CAST(qry.oppervlakte_obj AS INTEGER),
-    qry.the_geom
-FROM
-    (
-        SELECT
-            vvla.vbo_identif as benoemdobj_identif,
-            vvla.na_identif,
-            vvla.na_status,
-            vvla.begin_geldigheid,
-        		vvla.begin_geldigheid_datum,
-            vvla.pand_identif,
-            CAST('VBO' AS CHARACTER VARYING(50)) AS soort,
-            vvla.gemeente,
-            vvla.woonplaats,
-            vvla.straatnaam,
-            vvla.huisnummer,
-            vvla.huisletter,
-            vvla.huisnummer_toev,
-            vvla.postcode,
-            vvla.status,
-            vvla.gebruiksdoelen,
-            vvla.oppervlakte_obj,
-            vvla.the_geom
-        FROM
-            vb_vbo_adres vvla
-        UNION ALL
-        SELECT
-            vlla.lpl_identif as benoemdobj_identif,
-            vlla.na_identif,
-            vlla.na_status,
-            vlla.begin_geldigheid,
-        		vlla.begin_geldigheid_datum,
-            CAST(NULL AS CHARACTER VARYING(16))        AS pand_identif,
-            CAST('LIGPLAATS' AS CHARACTER VARYING(50)) AS soort,
-            vlla.gemeente,
-            vlla.woonplaats,
-            vlla.straatnaam,
-            vlla.huisnummer,
-            vlla.huisletter,
-            vlla.huisnummer_toev,
-            vlla.postcode,
-            vlla.status,
-            vlla.gebruiksdoelen,
-            vlla.oppervlakte_obj,
-            vlla.the_geom
-        FROM
-            vb_ligplaats_adres vlla
-        UNION ALL
-        SELECT
-            vsla.spl_identif as benoemdobj_identif,
-            vsla.na_identif,
-            vsla.na_status,
-            vsla.begin_geldigheid,
-        		vsla.begin_geldigheid_datum,
-            CAST(NULL AS CHARACTER VARYING(16))        AS pand_identif,
-            CAST('STANDPLAATS' AS CHARACTER VARYING(50)) AS soort,
-            vsla.gemeente,
-            vsla.woonplaats,
-            vsla.straatnaam,
-            vsla.huisnummer,
-            vsla.huisletter,
-            vsla.huisnummer_toev,
-            vsla.postcode,
-            vsla.status,
-            vsla.gebruiksdoelen,
-            vsla.oppervlakte_obj,
-            vsla.the_geom
-        FROM
-            vb_standplaats_adres vsla
-    ) qry;
+    SELECT
+        CAST(ROWNUM AS INTEGER) AS objectid,
+        qry.benoemdobj_identif,
+        qry.na_identif,
+        qry.na_status,
+        qry.begin_geldigheid,
+        qry.begin_geldigheid_datum,
+        qry.pand_identif,
+        qry.soort,
+        qry.gemeente,
+        qry.woonplaats,
+        qry.straatnaam,
+        qry.huisnummer,
+        qry.huisletter,
+        qry.huisnummer_toev,
+        qry.postcode,
+        qry.status,
+        qry.gebruiksdoelen,
+        CAST(qry.oppervlakte_obj AS INTEGER),
+        qry.the_geom
+    FROM
+        (
+            SELECT
+                vvla.vbo_identif   AS benoemdobj_identif,
+                vvla.na_identif,
+                vvla.na_status,
+                vvla.begin_geldigheid,
+                vvla.begin_geldigheid_datum,
+                vvla.pand_identif,
+                CAST('VBO' AS CHARACTER VARYING(50) ) AS soort,
+                vvla.gemeente,
+                vvla.woonplaats,
+                vvla.straatnaam,
+                vvla.huisnummer,
+                vvla.huisletter,
+                vvla.huisnummer_toev,
+                vvla.postcode,
+                vvla.status,
+                vvla.gebruiksdoelen,
+                vvla.oppervlakte_obj,
+                vvla.the_geom
+            FROM
+                vb_vbo_adres vvla
+            UNION ALL
+            SELECT
+                vlla.lpl_identif   AS benoemdobj_identif,
+                vlla.na_identif,
+                vlla.na_status,
+                vlla.begin_geldigheid,
+                vlla.begin_geldigheid_datum,
+                CAST(NULL AS CHARACTER VARYING(16) ) AS pand_identif,
+                CAST('LIGPLAATS' AS CHARACTER VARYING(50) ) AS soort,
+                vlla.gemeente,
+                vlla.woonplaats,
+                vlla.straatnaam,
+                vlla.huisnummer,
+                vlla.huisletter,
+                vlla.huisnummer_toev,
+                vlla.postcode,
+                vlla.status,
+                CAST(NULL AS CHARACTER VARYING(500) ) AS gebruiksdoelen,
+                CAST(NULL AS INTEGER) AS oppervlakte_obj,
+                vlla.the_geom
+            FROM
+                vb_ligplaats_adres vlla
+            UNION ALL
+            SELECT
+                vsla.spl_identif   AS benoemdobj_identif,
+                vsla.na_identif,
+                vsla.na_status,
+                vsla.begin_geldigheid,
+                vsla.begin_geldigheid_datum,
+                CAST(NULL AS CHARACTER VARYING(16) ) AS pand_identif,
+                CAST('STANDPLAATS' AS CHARACTER VARYING(50) ) AS soort,
+                vsla.gemeente,
+                vsla.woonplaats,
+                vsla.straatnaam,
+                vsla.huisnummer,
+                vsla.huisletter,
+                vsla.huisnummer_toev,
+                vsla.postcode,
+                vsla.status,
+                CAST(NULL AS CHARACTER VARYING(500) ) AS gebruiksdoelen,
+                CAST(NULL AS INTEGER) AS oppervlakte_obj,
+                vsla.the_geom
+            FROM
+                vb_standplaats_adres vsla
+        ) qry;
 
 CREATE UNIQUE INDEX MB_BEN_OBJ_ADRES_OBJECTID ON MB_BENOEMD_OBJ_ADRES(OBJECTID ASC);
 CREATE INDEX MB_BENOEMD_OBJ_ADRES_IDENTIF ON MB_BENOEMD_OBJ_ADRES (NA_IDENTIF ASC);
