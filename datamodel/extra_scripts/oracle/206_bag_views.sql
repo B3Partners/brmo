@@ -449,165 +449,140 @@ beschikbare kolommen:
 * status: -,
 * the_geom: puntlocatie';
 
---drop materialized view mb_ben_obj_nevenadres;
-CREATE MATERIALIZED VIEW mb_ben_obj_nevenadres
-    (
-        benoemdobj_identif,
-        na_identif,
-        na_status,
-        begin_geldigheid,
-        begin_geldigheid_datum,
-        soort,
-        gemeente,
-        woonplaats,
-        straatnaam,
-        huisnummer,
-        huisletter,
-        huisnummer_toev,
-        postcode
-    )
-BUILD DEFERRED
-REFRESH ON DEMAND
+CREATE MATERIALIZED VIEW mb_ben_obj_nevenadres (
+    benoemdobj_identif,
+    na_identif,
+    na_status,
+    begin_geldigheid,
+    begin_geldigheid_datum,
+    soort,
+    gemeente,
+    woonplaats,
+    straatnaam,
+    huisnummer,
+    huisletter,
+    huisnummer_toev,
+    postcode
+)
+    BUILD DEFERRED
+    REFRESH
+        ON DEMAND
 AS
-SELECT
-    qry.benoemdobj_identif,
-    qry.na_identif,
-    qry.na_status,
-    qry.begin_geldigheid,
-    qry.begin_geldigheid_datum,
-    qry.soort,
-    qry.gemeente,
-    qry.woonplaats,
-    qry.straatnaam,
-    qry.huisnummer,
-    qry.huisletter,
-    qry.huisnummer_toev,
-    qry.postcode
-FROM
-    (
-                        SELECT
-                            vna.FK_NN_LH_VBO_SC_IDENTIF AS benoemdobj_identif,
-                            vba.na_identif,
-						    						vba.na_status,
-                            CAST(CASE
-                                WHEN
-                                  ((INSTR(vna.fk_nn_lh_vbo_sc_dat_beg_geldh,'-')  = 5) AND
-                                    (INSTR(vna.fk_nn_lh_vbo_sc_dat_beg_geldh,'-',1,2)  = 8))
-                                THEN
-                                    vna.fk_nn_lh_vbo_sc_dat_beg_geldh
-                                ELSE
-                                    SUBSTR(vna.fk_nn_lh_vbo_sc_dat_beg_geldh,1,4) || '-' ||
-                                    SUBSTR(vna.fk_nn_lh_vbo_sc_dat_beg_geldh,5,2) || '-' ||
-                                    SUBSTR(vna.fk_nn_lh_vbo_sc_dat_beg_geldh,7,2)
-                            END AS CHARACTER VARYING(10)) AS begin_geldigheid,
-												    CASE
-												        WHEN position('-' IN vna.fk_nn_lh_vbo_sc_dat_beg_geldh) = 5
-						        						THEN to_date(vna.fk_nn_lh_vbo_sc_dat_beg_geldh, 'YYYY-MM-DD')
-						        						ELSE to_date(vna.fk_nn_lh_vbo_sc_dat_beg_geldh, 'YYYYMMDDHH24MISSUS')
-						    						END AS begin_geldigheid_datum,
-                            CAST('VBO' AS CHARACTER VARYING(50)) AS soort,
-                            vba.gemeente,
-                            vba.woonplaats,
-                            vba.straatnaam,
-                            vba.huisnummer,
-                            vba.huisletter,
-                            vba.huisnummer_toev,
-                            vba.postcode
-                        FROM
-                            mb_adres vba
-                        JOIN
-                            verblijfsobj_nummeraand vna
-                        ON
-                            (vna.fk_nn_rh_nra_sc_identif = vba.na_identif)
-                        join
-                            verblijfsobj vbo
-                        on
-                            (vna.fk_nn_lh_vbo_sc_identif = vbo.sc_identif)
-                        where
+    SELECT
+        qry.benoemdobj_identif,
+        qry.na_identif,
+        qry.na_status,
+        qry.begin_geldigheid,
+        qry.begin_geldigheid_datum,
+        qry.soort,
+        qry.gemeente,
+        qry.woonplaats,
+        qry.straatnaam,
+        qry.huisnummer,
+        qry.huisletter,
+        qry.huisnummer_toev,
+        qry.postcode
+    FROM
+        (
+            SELECT
+                vna.fk_nn_lh_vbo_sc_identif   AS benoemdobj_identif,
+                vba.na_identif,
+                vba.na_status,
+                CAST(CASE
+                    WHEN( (instr(vna.fk_nn_lh_vbo_sc_dat_beg_geldh,'-') = 5)
+                           AND(instr(vna.fk_nn_lh_vbo_sc_dat_beg_geldh,'-',1,2) = 8) ) THEN vna.fk_nn_lh_vbo_sc_dat_beg_geldh
+                    ELSE substr(vna.fk_nn_lh_vbo_sc_dat_beg_geldh,1,4)
+                         || '-'
+                         || substr(vna.fk_nn_lh_vbo_sc_dat_beg_geldh,5,2)
+                         || '-'
+                         || substr(vna.fk_nn_lh_vbo_sc_dat_beg_geldh,7,2)
+                END AS CHARACTER VARYING(10) ) AS begin_geldigheid,
+                CASE
+                    WHEN instr(vna.fk_nn_lh_vbo_sc_dat_beg_geldh,'-') = 5 THEN TO_DATE(vna.fk_nn_lh_vbo_sc_dat_beg_geldh,'YYYY-MM-DD'
+                    )
+                    ELSE TO_DATE(vna.fk_nn_lh_vbo_sc_dat_beg_geldh,'YYYYMMDDHH24MISSUS')
+                END AS begin_geldigheid_datum,
+                CAST('VBO' AS CHARACTER VARYING(50) ) AS soort,
+                vba.gemeente,
+                vba.woonplaats,
+                vba.straatnaam,
+                vba.huisnummer,
+                vba.huisletter,
+                vba.huisnummer_toev,
+                vba.postcode
+            FROM
+                mb_adres vba
+                JOIN verblijfsobj_nummeraand vna ON ( vna.fk_nn_rh_nra_sc_identif = vba.na_identif )
+                JOIN verblijfsobj vbo ON ( vna.fk_nn_lh_vbo_sc_identif = vbo.sc_identif )
+            WHERE
                 vbo.fk_11nra_sc_identif <> vna.fk_nn_rh_nra_sc_identif
             UNION ALL
-                        SELECT
-                            lpa.fk_nn_lh_lpl_sc_identif AS benoemdobj_identif,
-                            vba.na_identif,
-						    						vba.na_status,
-                            CAST(CASE
-                                WHEN
-                                  ((INSTR(lpa.fk_nn_lh_lpl_sc_dat_beg_geldh,'-')  = 5) AND
-                                    (INSTR(lpa.fk_nn_lh_lpl_sc_dat_beg_geldh,'-',1,2)  = 8))
-                                THEN
-                                    lpa.fk_nn_lh_lpl_sc_dat_beg_geldh
-                                ELSE
-                                    SUBSTR(lpa.fk_nn_lh_lpl_sc_dat_beg_geldh,1,4) || '-' ||
-                                    SUBSTR(lpa.fk_nn_lh_lpl_sc_dat_beg_geldh,5,2) || '-' ||
-                                    SUBSTR(lpa.fk_nn_lh_lpl_sc_dat_beg_geldh,7,2)
-                            END AS CHARACTER VARYING(10)) AS begin_geldigheid,
-												    CASE
-												        WHEN position('-' IN lpa.fk_nn_lh_lpl_sc_dat_beg_geldh) = 5
-						        						THEN to_date(lpa.fk_nn_lh_lpl_sc_dat_beg_geldh, 'YYYY-MM-DD')
-						        						ELSE to_date(lpa.fk_nn_lh_lpl_sc_dat_beg_geldh, 'YYYYMMDDHH24MISSUS')
-						    						END AS begin_geldigheid_datum,
-                            CAST('LIGPLAATS' AS CHARACTER VARYING(50)) AS soort,
-                            vba.gemeente,
-                            vba.woonplaats,
-                            vba.straatnaam,
-                            vba.huisnummer,
-                            vba.huisletter,
-                            vba.huisnummer_toev,
-                            vba.postcode
-                        FROM
-                            mb_adres vba
-                        JOIN
-                            ligplaats_nummeraand lpa
-                        ON
-                            (lpa.fk_nn_rh_nra_sc_identif = vba.na_identif)
-                        join
-                            ligplaats lpl
-                        on
-                            (lpa.fk_nn_lh_lpl_sc_identif = lpl.sc_identif)
-                        where
+            SELECT
+                lpa.fk_nn_lh_lpl_sc_identif   AS benoemdobj_identif,
+                vba.na_identif,
+                vba.na_status,
+                CAST(CASE
+                    WHEN( (instr(lpa.fk_nn_lh_lpl_sc_dat_beg_geldh,'-') = 5)
+                           AND(instr(lpa.fk_nn_lh_lpl_sc_dat_beg_geldh,'-',1,2) = 8) ) THEN lpa.fk_nn_lh_lpl_sc_dat_beg_geldh
+                    ELSE substr(lpa.fk_nn_lh_lpl_sc_dat_beg_geldh,1,4)
+                         || '-'
+                         || substr(lpa.fk_nn_lh_lpl_sc_dat_beg_geldh,5,2)
+                         || '-'
+                         || substr(lpa.fk_nn_lh_lpl_sc_dat_beg_geldh,7,2)
+                END AS CHARACTER VARYING(10) ) AS begin_geldigheid,
+                CASE
+                    WHEN instr(lpa.fk_nn_lh_lpl_sc_dat_beg_geldh,'-') = 5 THEN TO_DATE(lpa.fk_nn_lh_lpl_sc_dat_beg_geldh,'YYYY-MM-DD'
+                    )
+                    ELSE TO_DATE(lpa.fk_nn_lh_lpl_sc_dat_beg_geldh,'YYYYMMDDHH24MISSUS')
+                END AS begin_geldigheid_datum,
+                CAST('LIGPLAATS' AS CHARACTER VARYING(50) ) AS soort,
+                vba.gemeente,
+                vba.woonplaats,
+                vba.straatnaam,
+                vba.huisnummer,
+                vba.huisletter,
+                vba.huisnummer_toev,
+                vba.postcode
+            FROM
+                mb_adres vba
+                JOIN ligplaats_nummeraand lpa ON ( lpa.fk_nn_rh_nra_sc_identif = vba.na_identif )
+                JOIN ligplaats lpl ON ( lpa.fk_nn_lh_lpl_sc_identif = lpl.sc_identif )
+            WHERE
                 lpl.fk_4nra_sc_identif <> lpa.fk_nn_rh_nra_sc_identif
-        UNION ALL
-                        SELECT
-                            spa.fk_nn_lh_spl_sc_identif AS benoemdobj_identif,
-                            vba.na_identif,
-						    						vba.na_status,
-                            CAST(CASE
-                                WHEN
-                                  ((INSTR(spa.fk_nn_lh_spl_sc_dat_beg_geldh,'-')  = 5) AND
-                                    (INSTR(spa.fk_nn_lh_spl_sc_dat_beg_geldh,'-',1,2)  = 8))
-                                THEN
-                                    spa.fk_nn_lh_spl_sc_dat_beg_geldh
-                                ELSE
-                                    SUBSTR(spa.fk_nn_lh_spl_sc_dat_beg_geldh,1,4) || '-' ||
-                                    SUBSTR(spa.fk_nn_lh_spl_sc_dat_beg_geldh,5,2) || '-' ||
-                                    SUBSTR(spa.fk_nn_lh_spl_sc_dat_beg_geldh,7,2)
-                            END AS CHARACTER VARYING(10)) AS begin_geldigheid,
-												    CASE
-												        WHEN position('-' IN spa.fk_nn_lh_spl_sc_dat_beg_geldh) = 5
-						        						THEN to_date(spa.fk_nn_lh_spl_sc_dat_beg_geldh, 'YYYY-MM-DD')
-						        						ELSE to_date(spa.fk_nn_lh_spl_sc_dat_beg_geldh, 'YYYYMMDDHH24MISSUS')
-						    						END AS begin_geldigheid_datum,
-                            CAST('STANDPLAATS' AS CHARACTER VARYING(50)) AS soort,
-                            vba.gemeente,
-                            vba.woonplaats,
-                            vba.straatnaam,
-                            vba.huisnummer,
-                            vba.huisletter,
-                            vba.huisnummer_toev,
-                            vba.postcode
-                        FROM
-                            mb_adres vba
-                        JOIN
-                            standplaats_nummeraand spa
-                        ON
-                            (spa.fk_nn_rh_nra_sc_identif = vba.na_identif)
-                        join
-                            standplaats spl
-                        on
-                            (spa.fk_nn_lh_spl_sc_identif = spl.sc_identif)
-                        where
+            UNION ALL
+            SELECT
+                spa.fk_nn_lh_spl_sc_identif   AS benoemdobj_identif,
+                vba.na_identif,
+                vba.na_status,
+                CAST(CASE
+                    WHEN( (instr(spa.fk_nn_lh_spl_sc_dat_beg_geldh,'-') = 5)
+                           AND(instr(spa.fk_nn_lh_spl_sc_dat_beg_geldh,'-',1,2) = 8) ) THEN spa.fk_nn_lh_spl_sc_dat_beg_geldh
+                    ELSE substr(spa.fk_nn_lh_spl_sc_dat_beg_geldh,1,4)
+                         || '-'
+                         || substr(spa.fk_nn_lh_spl_sc_dat_beg_geldh,5,2)
+                         || '-'
+                         || substr(spa.fk_nn_lh_spl_sc_dat_beg_geldh,7,2)
+                END AS CHARACTER VARYING(10) ) AS begin_geldigheid,
+                CASE
+                    WHEN instr(spa.fk_nn_lh_spl_sc_dat_beg_geldh,'-') = 5 THEN TO_DATE(spa.fk_nn_lh_spl_sc_dat_beg_geldh,'YYYY-MM-DD'
+                    )
+                    ELSE TO_DATE(spa.fk_nn_lh_spl_sc_dat_beg_geldh,'YYYYMMDDHH24MISSUS')
+                END AS begin_geldigheid_datum,
+                CAST('STANDPLAATS' AS CHARACTER VARYING(50) ) AS soort,
+                vba.gemeente,
+                vba.woonplaats,
+                vba.straatnaam,
+                vba.huisnummer,
+                vba.huisletter,
+                vba.huisnummer_toev,
+                vba.postcode
+            FROM
+                mb_adres vba
+                JOIN standplaats_nummeraand spa ON ( spa.fk_nn_rh_nra_sc_identif = vba.na_identif )
+                JOIN standplaats spl ON ( spa.fk_nn_lh_spl_sc_identif = spl.sc_identif )
+            WHERE
                 spl.fk_4nra_sc_identif <> spa.fk_nn_rh_nra_sc_identif
-    ) qry;
+        ) qry;
 
 CREATE INDEX MB_BEN_OBJ_NEVENADRES_IDENTIF ON MB_BEN_OBJ_NEVENADRES (NA_IDENTIF ASC);
 
