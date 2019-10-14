@@ -4,16 +4,6 @@ versie 2
 30-8-2018
 */
 
--- DROP VIEW vb_ben_obj_nevenadres;
--- DROP VIEW vb_benoemd_obj_adres;
--- DROP VIEW vb_pand;
--- DROP VIEW vb_ligplaats_adres;
--- DROP VIEW vb_standplaats_adres;
--- DROP VIEW vb_vbo_adres;
--- DROP VIEW vb_adres;
-
-GO
-
 CREATE VIEW
     vb_adres
     (

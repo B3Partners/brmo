@@ -4,22 +4,6 @@ versie 2
 30-8-2018
 */
 
--- DROP VIEW vb_kad_onrrnd_zk_archief;
--- DROP VIEW vb_avg_koz_rechth;
--- DROP VIEW vb_koz_rechth;
--- DROP VIEW vb_avg_zr_rechth;
--- DROP VIEW vb_zr_rechth;
--- DROP VIEW vb_util_zk_recht;
--- DROP VIEW vb_kad_onrrnd_zk_adres;
--- DROP VIEW vb_util_app_re_kad_perceel;
--- DROP VIEW vb_util_app_re_parent;
--- DROP VIEW vb_util_app_re_parent_2;
--- DROP VIEW vb_util_app_re_parent_3;
--- DROP VIEW vb_util_app_re_splitsing;
--- DROP VIEW vb_avg_subject;
--- DROP VIEW vb_subject;
-GO
-
 CREATE VIEW
     vb_subject
     (
@@ -573,6 +557,112 @@ beschikbare kolommen:
 
 GO
 
+CREATE VIEW vb_percelenkaart AS
+SELECT
+    CAST(ROW_NUMBER() OVER(ORDER BY qry.identif) AS INT) AS ObjectID,
+    qry.identif                                          AS koz_identif,
+    koz.dat_beg_geldh                                    AS begin_geldigheid,
+    TRY_CONVERT(DATETIME, koz.dat_beg_geldh)             AS begin_geldigheid_datum,
+    qry.type,
+    COALESCE(qry.ka_sectie, '') + ' ' + COALESCE(qry.ka_perceelnummer, '')                                                     AS aanduiding,
+    COALESCE(qry.ka_kad_gemeentecode, '') + ' ' + COALESCE(qry.ka_sectie, '') + ' ' + COALESCE(qry.ka_perceelnummer, '') + ' ' AS aanduiding2,
+    qry.ka_sectie                                                                                                              AS sectie,
+    qry.ka_perceelnummer                                                                                                       AS perceelnummer,
+    qry.ka_kad_gemeentecode                                                                                                    AS gemeentecode,
+    qry.aand_soort_grootte,
+    qry.grootte_perceel,
+    qry.begrenzing_perceel.STArea() AS oppervlakte_geom,
+    b.datum                         AS verkoop_datum,
+    koz.cu_aard_cultuur_onbebouwd   AS aard_cultuur_onbebouwd,
+    koz.ks_bedrag                   AS bedrag,
+    koz.ks_koopjaar                 AS koopjaar,
+    koz.ks_meer_onroerendgoed       AS meer_onroerendgoed,
+    koz.ks_valutasoort              AS valutasoort,
+    aant.aantekeningen              AS aantekeningen,
+    -- mssqlserver heeft geen STtransform functie, dus projectie naar EPSG:4326 onmogelijk, derhalve NULL
+    qry.begrenzing_perceel
+FROM (
+        SELECT
+            p.sc_kad_identif AS identif,
+            'perceel'        AS type,
+            p.ka_sectie,
+            p.ka_perceelnummer,
+            p.ka_kad_gemeentecode,
+            p.aand_soort_grootte,
+            p.grootte_perceel,
+            p.begrenzing_perceel
+        FROM
+            kad_perceel p) qry
+JOIN
+    kad_onrrnd_zk koz
+    ON koz.kad_identif = qry.identif
+LEFT JOIN
+    (
+        SELECT
+            brondocument.ref_id,
+            MAX(brondocument.datum) AS datum
+        FROM
+            brondocument
+        WHERE
+            brondocument.omschrijving = 'Akte van Koop en Verkoop'
+        GROUP BY
+            brondocument.ref_id) b
+    ON koz.kad_identif = b.ref_id
+LEFT JOIN
+    (
+        SELECT
+            koza.fk_4koz_kad_identif,
+            STRING_AGG(
+                    CONCAT_WS(' ',
+                            'id:', COALESCE(koza.kadaster_identif_aantek, ''),
+                            ', aard:', COALESCE(koza.aard_aantek_kad_obj, ''),
+                            ', begin:', COALESCE(koza.begindatum_aantek_kad_obj, ''),
+                            ', beschrijving:', COALESCE(koza.beschrijving_aantek_kad_obj, ''),
+                            ', eind:', COALESCE(koza.eindd_aantek_kad_obj, ''),
+                            ', koz-id:', COALESCE(CAST(koza.fk_4koz_kad_identif AS NUMERIC), 0),
+                            ', subject-id:', COALESCE(koza.fk_5pes_sc_identif, ''),
+                            ';'),
+                        ' & ') WITHIN GROUP ( ORDER BY koza.fk_4koz_kad_identif ) AS aantekeningen
+        FROM kad_onrrnd_zk_aantek koza
+        GROUP BY fk_4koz_kad_identif) aant
+    ON koz.kad_identif = aant.fk_4koz_kad_identif;
+
+GO
+
+EXEC sp_addextendedproperty
+@name = N'comment',
+@value = N'
+commentaar view vb_percelenkaart:
+alle kadastrale onroerende zaken (perceel en appartementsrecht) met opgezochte verkoop datum, objectid voor geoserver/arcgis
+
+beschikbare kolommen:
+* objectid: uniek id bruikbaar voor geoserver/arcgis,
+* koz_identif: natuurlijke id van perceel of appartementsrecht
+* begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
+* begin_geldigheid_datum: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
+* type: perceel of appartement,
+* aanduiding: sectie perceelnummer,
+* aanduiding2: kadgem sectie perceelnummer appartementsindex,
+* sectie: -,
+* perceelnummer: -,
+* gemeentecode: -,
+* aand_soort_grootte: -,
+* grootte_perceel: -,
+* oppervlakte_geom: oppervlakte berekend uit geometrie, hoort gelijk te zijn aan grootte_perceel,
+* verkoop_datum: laatste datum gevonden akten van verkoop,
+* aard_cultuur_onbebouwd: -,
+* bedrag: -,
+* koopjaar: -,
+* meer_onroerendgoed: -,
+* valutasoort: -,
+* aantekeningen: -,
+* lon: coordinaat als WSG84,
+* lon: coordinaat als WSG84,
+* begrenzing_perceel: perceelvlak',
+@level0type = N'Schema', @level0name = N'dbo',
+@level1type = N'View', @level1name = N'vb_percelenkaart';
+
+GO
 
 CREATE VIEW
     vb_util_zk_recht
