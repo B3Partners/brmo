@@ -675,7 +675,7 @@ CREATE INDEX mb_percelenkaart_begrenzing_perceel_idx ON mb_percelenkaart USING g
 
 COMMENT ON MATERIALIZED VIEW mb_percelenkaart
 IS
-    'commentaar view vb_percelenkaart:
+    'commentaar view mb_percelenkaart:
 alle kadastrale onroerende zaken (perceel en appartementsrecht) met opgezochte verkoop datum, objectid voor geoserver/arcgis
 
 beschikbare kolommen:
