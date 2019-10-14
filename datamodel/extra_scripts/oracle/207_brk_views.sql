@@ -537,47 +537,79 @@ beschikbare kolommen:
 * lon: coordinaat als WSG84,
 * begrenzing_perceel: perceelvlak';
 
-CREATE OR REPLACE VIEW vb_util_zk_recht
-    (
-        zr_identif,
-        aandeel,
-        ar_teller,
-        ar_noemer,
-        subject_identif,
-        koz_identif,
-        indic_betrokken_in_splitsing,
-        omschr_aard_verkregenr_recht,
-        fk_3avr_aand,
-        aantekeningen
-    ) AS
-SELECT
-    zr.kadaster_identif AS zr_identif,
-    (CAST( ( COALESCE(CAST(zr.ar_teller AS CHARACTER VARYING(7)), ('0')) || ('/') || COALESCE(CAST
-    (zr.ar_noemer AS CHARACTER VARYING(7)), ('0')) ) AS CHARACTER VARYING(20))) AS aandeel,
-    zr.ar_teller,
-    zr.ar_noemer,
-    zr.fk_8pes_sc_identif  AS subject_identif,
-    zr.fk_7koz_kad_identif AS koz_identif,
-    zr.indic_betrokken_in_splitsing,
-    avr.omschr_aard_verkregenr_recht,
-    zr.fk_3avr_aand,
-    array_to_string(
-        (SELECT array_agg(('id: ' || COALESCE(zra.kadaster_identif_aantek_recht, ''::character varying) || ', ' ||
-        'aard: ' || COALESCE(zra.aard_aantek_recht, ''::character varying) || ', ' ||
-       'begin: ' || COALESCE(zra.begindatum_aantek_recht, ''::character varying) || ', ' ||
-       'beschrijving: ' || COALESCE(zra.beschrijving_aantek_recht, ''::character varying) || ', ' ||
-       'eind: ' || COALESCE(zra.eindd_aantek_recht, ''::character varying) || ', ' ||
-       'zkr-id: ' || COALESCE(zra.fk_5zkr_kadaster_identif, ''::character varying) || ', ' ||
-       'subject-id: ' || COALESCE(zra.fk_6pes_sc_identif, ''::character varying) || '; '))
-       FROM zak_recht_aantek zra
-       WHERE zra.fk_5zkr_kadaster_identif = zr.kadaster_identif), '&& ') as aantekeningen
-FROM
-    (zak_recht zr
-JOIN
-    aard_verkregen_recht avr
-ON
-    (((
-                zr.fk_3avr_aand) = (avr.aand))));
+CREATE OR REPLACE VIEW vb_util_zk_recht (
+    zr_identif,
+    aandeel,
+    ar_teller,
+    ar_noemer,
+    subject_identif,
+    koz_identif,
+    indic_betrokken_in_splitsing,
+    omschr_aard_verkregenr_recht,
+    fk_3avr_aand,
+    aantekeningen
+) AS
+    SELECT
+        zr.kadaster_identif      AS zr_identif,
+        ( CAST( (coalesce(CAST(zr.ar_teller AS CHARACTER VARYING(7) ), ('0') )
+                   || ('/')
+                   || coalesce(CAST(zr.ar_noemer AS CHARACTER VARYING(7) ), ('0') ) ) AS CHARACTER VARYING(20) ) ) AS aandeel,
+        zr.ar_teller,
+        zr.ar_noemer,
+        zr.fk_8pes_sc_identif    AS subject_identif,
+        zr.fk_7koz_kad_identif   AS koz_identif,
+        zr.indic_betrokken_in_splitsing,
+        avr.omschr_aard_verkregenr_recht,
+        zr.fk_3avr_aand,
+        (
+            SELECT
+                LISTAGG( ('id: '
+                            || coalesce(zra.kadaster_identif_aantek_recht,'')
+                            || ', '
+                            || 'aard: '
+                            || coalesce(zra.aard_aantek_recht,'')
+                            || ', '
+                            || 'begin: '
+                            || coalesce(zra.begindatum_aantek_recht,'')
+                            || ', '
+                            || 'beschrijving: '
+                            || coalesce(zra.beschrijving_aantek_recht,'')
+                            || ', '
+                            || 'eind: '
+                            || coalesce(zra.eindd_aantek_recht,'')
+                            || ', '
+                            || 'zkr-id: '
+                            || coalesce(zra.fk_5zkr_kadaster_identif,'')
+                            || ', '
+                            || 'subject-id: '
+                            || coalesce(zra.fk_6pes_sc_identif,'')
+                            || '; '),'&& ') WITHIN GROUP(
+                    ORDER BY
+                        zra.fk_5zkr_kadaster_identif
+                ) AS aantekeningen
+            FROM
+                zak_recht_aantek zra
+            WHERE
+                zra.fk_5zkr_kadaster_identif = zr.kadaster_identif
+        ) AS aantekeningen
+    FROM
+        zak_recht zr
+        JOIN aard_verkregen_recht avr ON zr.fk_3avr_aand = avr.aand;
+
+COMMENT ON TABLE vb_util_zk_recht
+IS 'commentaar view vb_util_zk_recht:
+zakelijk recht met opgezocht aard recht en berekend aandeel
+beschikbare kolommen:
+* zr_identif: natuurlijke id van zakelijk recht
+* aandeel: samenvoeging van teller en noemer (1/2),
+* ar_teller: teller van aandeel,
+* ar_noemer: noemer van aandeel,
+* subject_identif: natuurlijk id van subject (natuurlijk of niet natuurlijk) welke rechthebbende is,
+* koz_identif: natuurlijk id van kadastrale onroerende zaak (perceel of appratementsrecht) dat gekoppeld is,
+* indic_betrokken_in_splitsing: -,
+* omschr_aard_verkregen_recht: tekstuele omschrijving aard recht,
+* fk_3avr_aand: code aard recht,
+* aantekeningen: samenvoeging van alle aantekening op dit recht';
 
 CREATE MATERIALIZED VIEW mb_zr_rechth
     (
