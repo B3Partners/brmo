@@ -36,6 +36,7 @@ matrix:
     #- name: "MS SQL server 2017"
     # kan vaak postgis niet installeren...
     - name: "PostgreSQL 10"
+    - jdk: oraclejdk11
   include:
   - name: "Oudste supported PostgreSQL"
     dist: xenial
@@ -52,6 +53,7 @@ matrix:
           - postgresql-client-9.4
           - postgresql-9.4-postgis-2.5
           - postgresql-9.4-postgis-2.5-scripts
+          - graphviz
           - xmlstarlet
   - name: "PostgreSQL 11"
     group: edge
@@ -67,6 +69,7 @@ matrix:
           - postgresql-client-11
           - postgresql-11-postgis-2.5
           - postgresql-11-postgis-2.5-scripts
+          - graphviz
           - xmlstarlet
   - name: "PostgreSQL 10"
     group: edge
@@ -82,6 +85,7 @@ matrix:
           - postgresql-client-10
           - postgresql-10-postgis-2.5
           - postgresql-10-postgis-2.5-scripts
+          - graphviz
           - xmlstarlet
   - name: "MS SQL server 2017"
     jdk: openjdk8
@@ -103,6 +107,7 @@ matrix:
       apt:
         packages:
           - xmlstarlet
+          - graphviz
           - postgresql-9.6-postgis-2.3
           - postgresql-9.6-postgis-2.3-scripts
   - name: "TopNL tests"
@@ -122,6 +127,7 @@ matrix:
           - postgresql-11-postgis-2.5
           - postgresql-11-postgis-2.5-scripts
           - xmlstarlet
+          - graphviz
 
 cache:
   directories:
@@ -244,11 +250,11 @@ script:
   # Linting
   # test of de javadoc compliant is met java-8 strict checks, noodzakelijk voor succesvolle release
   #
-  - if [ "$TRAVIS_JDK_VERSION" == openjdk8 ] && [ "$PG_VERSION" == "9.6" ]; then
+  - if [ "$TRAVIS_JDK_VERSION" == openjdk8 ] && [ "$PG_VERSION" == "9.6" ] && [ "$TRAVIS_JOB_NAME" != "database upgrades" ]; then
         printf %'s\n\n' 'Javadoc checks';
         travis_wait 30 mvn javadoc:javadoc;
     fi
-  - if [ "$TRAVIS_JDK_VERSION" == openjdk8 ] && [ "$PG_VERSION" == "9.6" ]; then
+  - if [ "$TRAVIS_JDK_VERSION" == openjdk8 ] && [ "$PG_VERSION" == "9.6" ] && [ "$TRAVIS_JOB_NAME" != "database upgrades" ]; then
         printf %'s\n\n' 'Test Javadoc checks';
         travis_wait 30 mvn javadoc:test-javadoc;
     fi
