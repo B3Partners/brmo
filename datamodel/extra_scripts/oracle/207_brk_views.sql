@@ -292,7 +292,7 @@ CREATE MATERIALIZED VIEW mb_kad_onrrnd_zk_adres (
     objectid,
     koz_identif,
     begin_geldigheid,
-	begin_geldigheid_datum,
+    begin_geldigheid_datum,
     benoemdobj_identif,
     type,
     aanduiding,
@@ -337,7 +337,7 @@ AS
         CAST(ROWNUM AS INTEGER) AS objectid,
         qry.identif                AS koz_identif,
         koz.dat_beg_geldh          AS begin_geldigheid,
-    		to_date(koz.dat_beg_geldh, 'YYYY-MM-DD') AS begin_geldigheid_datum,
+        TO_DATE(koz.dat_beg_geldh,'YYYY-MM-DD') AS begin_geldigheid_datum,
         bok.fk_nn_lh_tgo_identif   AS benoemdobj_identif,
         qry.type,
         coalesce(qry.ka_sectie,'')
@@ -366,18 +366,9 @@ AS
         koz.ks_meer_onroerendgoed,
         koz.ks_valutasoort,
         koz.lo_loc__omschr,
-		    array_to_string(
-		        (SELECT array_agg(('id: ' || COALESCE(koza.kadaster_identif_aantek, ''::character varying) || ', ' ||
-		        'aard: ' || COALESCE(koza.aard_aantek_kad_obj, ''::character varying) || ', ' ||
-		       'begin: ' || COALESCE(koza.begindatum_aantek_kad_obj, ''::character varying) || ', ' ||
-		       'beschrijving: ' || COALESCE(koza.beschrijving_aantek_kad_obj, ''::character varying) || ', ' ||
-		       'eind: ' || COALESCE(koza.eindd_aantek_kad_obj, ''::character varying) || ', ' ||
-		       'koz-id: ' || COALESCE(koza.fk_4koz_kad_identif, 0::NUMERIC(15,0))::NUMERIC(15,0) || ', ' ||
-		       'subject-id: ' || COALESCE(koza.fk_5pes_sc_identif, ''::character varying) || '; '))
-		       FROM kad_onrrnd_zk_aantek koza
-		       WHERE koza.fk_4koz_kad_identif = koz.kad_identif), ' & ') as aantekeningen,
-		    bola.na_identif,
-		    bola.na_status,
+        aant.aantekeningen         AS aantekeningen,
+        bola.na_identif,
+        bola.na_status,
         bola.gemeente,
         bola.woonplaats,
         bola.straatnaam,
@@ -385,8 +376,8 @@ AS
         bola.huisletter,
         bola.huisnummer_toev,
         bola.postcode,
-    		bola.gebruiksdoelen,
-    		bola.oppervlakte_obj,
+        bola.gebruiksdoelen,
+        bola.oppervlakte_obj,
         qry.lon,
         qry.lat,
         qry.begrenzing_perceel
@@ -463,7 +454,39 @@ AS
                 ( ( bd.omschrijving ) = 'Akte van Koop en Verkoop' )
             GROUP BY
                 bd.ref_id
-        ) b ON ( koz.kad_identif = b.ref_id );
+        ) b ON ( koz.kad_identif = b.ref_id )
+        LEFT JOIN (
+            SELECT
+                fk_4koz_kad_identif,
+                LISTAGG('id: '
+                          || coalesce(koza.kadaster_identif_aantek,'')
+                          || ', '
+                          || 'aard: '
+                          || coalesce(koza.aard_aantek_kad_obj,'')
+                          || ', '
+                          || 'begin: '
+                          || coalesce(koza.begindatum_aantek_kad_obj,'')
+                          || ', '
+                          || 'beschrijving: '
+                          || coalesce(koza.beschrijving_aantek_kad_obj,'')
+                          || ', '
+                          || 'eind: '
+                          || coalesce(koza.eindd_aantek_kad_obj,'')
+                          || ', '
+                          || 'koz-id: '
+                          || coalesce(koza.fk_4koz_kad_identif,0)
+                          || ', '
+                          || 'subject-id: '
+                          || coalesce(koza.fk_5pes_sc_identif,'')
+                          || '; ',' & ') WITHIN GROUP(
+                    ORDER BY
+                        koza.fk_4koz_kad_identif
+                ) AS aantekeningen
+            FROM
+                kad_onrrnd_zk_aantek koza
+            GROUP BY
+                fk_4koz_kad_identif
+        ) aant ON koz.kad_identif = aant.fk_4koz_kad_identif;
 
 CREATE UNIQUE INDEX MB_KAD_ONRRND_ZK_ADRES_OBJIDX ON MB_KAD_ONRRND_ZK_ADRES(OBJECTID ASC);
 CREATE INDEX MB_KAD_ONRRND_ZK_ADRES_IDENTIF ON MB_KAD_ONRRND_ZK_ADRES(KOZ_IDENTIF ASC);
@@ -477,6 +500,7 @@ beschikbare kolommen:
 * objectid: uniek id bruikbaar voor geoserver/arcgis,
 * koz_identif: natuurlijke id van perceel of appartementsrecht
 * begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
+* begin_geldigheid_datum: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
 * benoemdobj_identif: koppeling met BAG object,
 * type: perceel of appartement,
 * aanduiding: sectie perceelnummer,
@@ -497,6 +521,9 @@ beschikbare kolommen:
 * meer_onroerendgoed: -,
 * valutasoort: -,
 * loc_omschr: adres buiten BAG om meegegeven,
+* aantekeningen: -,
+* na_identif: identificatie van nummeraanduiding
+* na_status: status van nummeraanduiding
 * gemeente: -,
 * woonplaats: -,
 * straatnaam: -,
@@ -504,13 +531,13 @@ beschikbare kolommen:
 * huisletter: -,
 * huisnummer_toev: -,
 * postcode: -,
+* gebruiksdoelen: alle gebruiksdoelen gescheiden door komma
+* oppervlakte_obj: oppervlak van gebouwd object
 * lon: coordinaat als WSG84,
 * lon: coordinaat als WSG84,
 * begrenzing_perceel: perceelvlak';
 
---drop view vb_util_zk_recht cascade;
-CREATE OR REPLACE VIEW
-    vb_util_zk_recht
+CREATE OR REPLACE VIEW vb_util_zk_recht
     (
         zr_identif,
         aandeel,
