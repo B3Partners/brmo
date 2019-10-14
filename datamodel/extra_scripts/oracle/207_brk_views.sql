@@ -620,6 +620,7 @@ CREATE MATERIALIZED VIEW mb_zr_rechth
         aandeel,
         omschr_aard_verkregenr_recht,
         indic_betrokken_in_splitsing,
+        aantekeningen,
         soort,
         geslachtsnaam,
         voorvoegsel,
@@ -649,6 +650,7 @@ SELECT
     uzr.aandeel,
     uzr.omschr_aard_verkregenr_recht,
     uzr.indic_betrokken_in_splitsing,
+    uzr.aantekeningen,
     vs.soort,
     vs.geslachtsnaam,
     vs.voorvoegsel,
@@ -667,12 +669,11 @@ SELECT
     vs.rsin,
     vs.kvk_nummer
 FROM
-    (vb_util_zk_recht uzr
+    vb_util_zk_recht uzr
 JOIN
     mb_subject vs
 ON
-    (((
-                uzr.subject_identif) = (vs.subject_identif))));
+    uzr.subject_identif = vs.subject_identif;
 
 CREATE UNIQUE INDEX MB_ZR_RECHTH_OBJECTID ON MB_ZR_RECHTH(OBJECTID ASC);
 CREATE INDEX MB_ZR_RECHTH_IDENTIF ON MB_ZR_RECHTH(ZR_IDENTIF ASC);
@@ -686,18 +687,19 @@ beschikbare kolommen:
 * subject_identif: natuurlijk id van subject (natuurlijk of niet natuurlijk) welke rechthebbende is,
 * koz_identif: natuurlijk id van kadastrale onroerende zaak (perceel of appratementsrecht) dat gekoppeld is,
 * aandeel: samenvoeging van teller en noemer (1/2),
-* omschr_aard_verkregenr_recht: tekstuele omschrijving aard recht,
+* omschr_aard_verkregen_recht: tekstuele omschrijving aard recht,
 * indic_betrokken_in_splitsing: -,
+* aantekeningen: samenvoeging van alle rechten voor dit recht,
 * soort: soort subject zoals natuurlijk, niet-natuurlijk enz.
 * geslachtsnaam: -
 * voorvoegsel: -
 * voornamen: -
 * aand_naamgebruik:
 - E (= Eigen geslachtsnaam)
-- N (= Geslachtsnaam echtgenoot/geregistreerd partner na eigen geslachtsnaam)
+- N (=Geslachtsnaam echtgenoot/geregistreerd partner na eigen geslachtsnaam)
 - P (= Geslachtsnaam echtgenoot/geregistreerd partner)
 - V (= Geslachtsnaam evhtgenoot/geregistreerd partner voor eigen geslachtsnaam)
-* geslachtsaand: M/V
+* geslachtsaand: M/V/X
 * naam: samengestelde naam bruikbaar voor natuurlijke en niet-natuurlijke subjecten
 * woonadres: meegeleverd adres buiten BAG koppeling om
 * geboortedatum: -
@@ -710,68 +712,66 @@ beschikbare kolommen:
 * rsin: -
 * kvk_nummer: -';
 
-CREATE MATERIALIZED VIEW mb_avg_zr_rechth
-    (
-        objectid,
-        zr_identif,
-        subject_identif,
-        koz_identif,
-        aandeel,
-        omschr_aard_verkregenr_recht,
-        indic_betrokken_in_splitsing,
-        soort,
-        geslachtsnaam,
-        voorvoegsel,
-        voornamen,
-        aand_naamgebruik,
-        geslachtsaand,
-        naam,
-        woonadres,
-        geboortedatum,
-        geboorteplaats,
-        overlijdensdatum,
-        bsn,
-        organisatie_naam,
-        rechtsvorm,
-        statutaire_zetel,
-        rsin,
-        kvk_nummer
-    )
-BUILD DEFERRED
-REFRESH ON DEMAND
+CREATE MATERIALIZED VIEW mb_avg_zr_rechth (
+    objectid,
+    zr_identif,
+    subject_identif,
+    koz_identif,
+    aandeel,
+    omschr_aard_verkregenr_recht,
+    indic_betrokken_in_splitsing,
+    aantekeningen,
+    soort,
+    geslachtsnaam,
+    voorvoegsel,
+    voornamen,
+    aand_naamgebruik,
+    geslachtsaand,
+    naam,
+    woonadres,
+    geboortedatum,
+    geboorteplaats,
+    overlijdensdatum,
+    bsn,
+    organisatie_naam,
+    rechtsvorm,
+    statutaire_zetel,
+    rsin,
+    kvk_nummer
+)
+    BUILD DEFERRED
+    REFRESH
+        ON DEMAND
 AS
-SELECT
-    CAST(ROWNUM AS INTEGER) AS objectid,
-    uzr.zr_identif as zr_identif,
-    uzr.subject_identif,
-    uzr.koz_identif,
-    uzr.aandeel,
-    uzr.omschr_aard_verkregenr_recht,
-    uzr.indic_betrokken_in_splitsing,
-    vs.soort,
-    vs.geslachtsnaam,
-    vs.voorvoegsel,
-    vs.voornamen,
-    vs.aand_naamgebruik,
-    vs.geslachtsaand,
-    vs.naam,
-    vs.woonadres,
-    vs.geboortedatum,
-    vs.geboorteplaats,
-    vs.overlijdensdatum,
-    vs.bsn,
-    vs.organisatie_naam,
-    vs.rechtsvorm,
-    vs.statutaire_zetel,
-    vs.rsin,
-    vs.kvk_nummer
-FROM
-    (vb_util_zk_recht uzr
-JOIN
-    mb_avg_subject vs
-ON
-    (((
-                uzr.subject_identif) = (vs.subject_identif))));
+    SELECT
+        CAST(ROWNUM AS INTEGER) AS objectid,
+        uzr.zr_identif   AS zr_identif,
+        uzr.subject_identif,
+        uzr.koz_identif,
+        uzr.aandeel,
+        uzr.omschr_aard_verkregenr_recht,
+        uzr.indic_betrokken_in_splitsing,
+        uzr.aantekeningen,
+        vs.soort,
+        vs.geslachtsnaam,
+        vs.voorvoegsel,
+        vs.voornamen,
+        vs.aand_naamgebruik,
+        vs.geslachtsaand,
+        vs.naam,
+        vs.woonadres,
+        vs.geboortedatum,
+        vs.geboorteplaats,
+        vs.overlijdensdatum,
+        vs.bsn,
+        vs.organisatie_naam,
+        vs.rechtsvorm,
+        vs.statutaire_zetel,
+        vs.rsin,
+        vs.kvk_nummer
+    FROM
+        vb_util_zk_recht uzr
+        JOIN mb_avg_subject vs ON uzr.subject_identif = vs.subject_identif;
 
 CREATE UNIQUE INDEX mb_avg_zr_rechth_objectid ON mb_avg_zr_rechth(objectid ASC);
 CREATE INDEX mb_avg_zr_rechth_identif ON mb_avg_zr_rechth(zr_identif ASC);
@@ -785,8 +785,9 @@ beschikbare kolommen:
 * subject_identif: natuurlijk id van subject (natuurlijk of niet natuurlijk) welke rechthebbende is,
 * koz_identif: natuurlijk id van kadastrale onroerende zaak (perceel of appratementsrecht) dat gekoppeld is,
 * aandeel: samenvoeging van teller en noemer (1/2),
-* omschr_aard_verkregenr_recht: tekstuele omschrijving aard recht,
+* omschr_aard_verkregen_recht: tekstuele omschrijving aard recht,
 * indic_betrokken_in_splitsing: -,
+* aantekeningen: samenvoeging van alle aantekeningen van dit recht
 * soort: soort subject zoals natuurlijk, niet-natuurlijk enz.
 * geslachtsnaam: NULL (avg)
 * voorvoegsel: NULL (avg)
@@ -805,12 +806,11 @@ beschikbare kolommen:
 * rsin: -
 * kvk_nummer: -';
 
-CREATE MATERIALIZED VIEW mb_koz_rechth
-    (
+CREATE MATERIALIZED VIEW mb_koz_rechth (
         objectid,
         koz_identif,
         begin_geldigheid,
-				begin_geldigheid_datum,
+		begin_geldigheid_datum,
         type,
         aanduiding,
         aanduiding2,
@@ -928,11 +928,11 @@ RIGHT JOIN
     mb_kad_onrrnd_zk_adres koz
 ON
     zrr.koz_identif = koz.koz_identif;
+
 CREATE UNIQUE INDEX MB_KOZ_RECHTH_OBJECTID ON MB_KOZ_RECHTH(OBJECTID ASC);
 CREATE INDEX MB_KOZ_RECHTH_IDENTIF ON MB_KOZ_RECHTH(KOZ_IDENTIF ASC);
 INSERT INTO USER_SDO_GEOM_METADATA VALUES ('MB_KOZ_RECHTH', 'BEGRENZING_PERCEEL', MDSYS.SDO_DIM_ARRAY(MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)), 28992);
 CREATE INDEX MB_KOZ_RECHTH_BEGR_PRCL_IDX ON MB_KOZ_RECHTH(BEGRENZING_PERCEEL)  INDEXTYPE IS MDSYS.SPATIAL_INDEX;
-
 
 COMMENT ON MATERIALIZED VIEW mb_koz_rechth
 IS 'commentaar view mb_koz_rechth:
@@ -941,6 +941,7 @@ beschikbare kolommen:
 * objectid: uniek id bruikbaar voor geoserver/arcgis,
 * koz_identif: natuurlijke id van perceel of appartementsrecht
 * begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
+* begin_geldigheid_datum: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
 * type: perceel of appartement,
 * aanduiding: sectie perceelnummer,
 * aanduiding2: kadgem sectie perceelnummer appartementsindex,
@@ -963,7 +964,7 @@ beschikbare kolommen:
 * zr_identif: natuurlijk id van zakelijk recht,
 * subject_identif: natuurlijk id van rechthebbende,
 * aandeel: samenvoeging van teller en noemer (1/2),
-* omschr_aard_verkregenr_recht: tekstuele omschrijving aard recht,
+* omschr_aard_verkregen_recht: tekstuele omschrijving aard recht,
 * indic_betrokken_in_splitsing: -,
 * soort: soort subject zoals natuurlijk, niet-natuurlijk enz.
 * geslachtsnaam: -
@@ -974,7 +975,7 @@ beschikbare kolommen:
 - N (= Geslachtsnaam echtgenoot/geregistreerd partner na eigen geslachtsnaam)
 - P (= Geslachtsnaam echtgenoot/geregistreerd partner)
 - V (= Geslachtsnaam evhtgenoot/geregistreerd partner voor eigen geslachtsnaam)
-* geslachtsaand: M/V
+* geslachtsaand: M/V/X
 * naam: samengestelde naam bruikbaar voor natuurlijke en niet-natuurlijke subjecten
 * woonadres: meegeleverd adres buiten BAG koppeling om
 * geboortedatum: -
@@ -986,6 +987,7 @@ beschikbare kolommen:
 * statutaire_zetel: -
 * rsin: -
 * kvk_nummer: -
+* aantekeningen: samenvoeging van alle aantekeningen van dit recht,
 * gemeente: -,
 * woonplaats: -,
 * straatnaam: -,
@@ -997,12 +999,11 @@ beschikbare kolommen:
 * lon: coordinaat als WSG84,
 * begrenzing_perceel: perceelvlak';
 
-CREATE MATERIALIZED VIEW mb_avg_koz_rechth
-(
+CREATE MATERIALIZED VIEW mb_avg_koz_rechth (
     objectid,
     koz_identif,
     begin_geldigheid,
-	  begin_geldigheid_datum,
+	begin_geldigheid_datum,
     type,
     aanduiding,
     aanduiding2,
@@ -1044,7 +1045,7 @@ CREATE MATERIALIZED VIEW mb_avg_koz_rechth
     statutaire_zetel,
     rsin,
     kvk_nummer,
-        aantekeningen,
+    aantekeningen,
     gemeente,
     woonplaats,
     straatnaam,
@@ -1058,7 +1059,6 @@ CREATE MATERIALIZED VIEW mb_avg_koz_rechth
 )
 BUILD DEFERRED REFRESH ON DEMAND AS
 SELECT
-
     CAST(ROWNUM AS INTEGER) AS objectid,
     koz.koz_identif as koz_identif,
     koz.begin_geldigheid,
@@ -1126,7 +1126,6 @@ CREATE INDEX MB_AVG_KOZ_RECHTH_IDENTIF ON MB_AVG_KOZ_RECHTH(KOZ_IDENTIF ASC);
 INSERT INTO USER_SDO_GEOM_METADATA VALUES ('MB_AVG_KOZ_RECHTH', 'BEGRENZING_PERCEEL', MDSYS.SDO_DIM_ARRAY(MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1),MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1)), 28992);
 CREATE INDEX MB_AVG_KOZ_RECHTH_BEGR_P_IDX ON MB_AVG_KOZ_RECHTH (BEGRENZING_PERCEEL) INDEXTYPE IS MDSYS.SPATIAL_INDEX;
 
-
 COMMENT ON MATERIALIZED VIEW mb_avg_koz_rechth
 IS 'commentaar view mb_avg_koz_rechth:
 kadastrale percelen een appartementsrechten met rechten en rechthebbenden geschoond voor avg en objectid voor geoserver/arcgis
@@ -1134,6 +1133,7 @@ beschikbare kolommen:
 * objectid: uniek id bruikbaar voor geoserver/arcgis,
 * koz_identif: natuurlijke id van perceel of appartementsrecht
 * begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
+* begin_geldigheid_datum: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
 * type: perceel of appartement,
 * aanduiding: sectie perceelnummer,
 * aanduiding2: kadgem sectie perceelnummer appartementsindex,
@@ -1156,7 +1156,7 @@ beschikbare kolommen:
 * zr_identif: natuurlijk id van zakelijk recht,
 * subject_identif: natuurlijk id van rechthebbende,
 * aandeel: samenvoeging van teller en noemer (1/2),
-* omschr_aard_verkregenr_recht: tekstuele omschrijving aard recht,
+* omschr_aard_verkregen_recht: tekstuele omschrijving aard recht,
 * indic_betrokken_in_splitsing: -,
 * soort: soort subject zoals natuurlijk, niet-natuurlijk enz.
 * geslachtsnaam: NULL (avg)
@@ -1175,6 +1175,7 @@ beschikbare kolommen:
 * statutaire_zetel: -
 * rsin: -
 * kvk_nummer: -
+* aantekeningen: samenvoeging van alle aantekeningen van dit recht,
 * gemeente: -,
 * woonplaats: -,
 * straatnaam: -,
