@@ -31,6 +31,9 @@
     <logger name="nl.b3p.brmo.oracle">
         <level value="debug" />
     </logger>
+    <logger name="nl.b3p.brmo.test.util">
+        <level value="debug" />
+    </logger>
     <root>
         <level value="info" />
         <appender-ref ref="consoleAppender" />
