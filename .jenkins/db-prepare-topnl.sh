@@ -1,5 +1,6 @@
 #!/bin/bash
 
+export SQLPATH=./.jenkins
 # set up topnl tabellen
 ls -l ./topparser/src/main/resources/nl/b3p/topnl/database/
 echo "aanmaken top10nl schema"

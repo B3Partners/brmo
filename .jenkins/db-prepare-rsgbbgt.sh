@@ -1,5 +1,6 @@
 #!/bin/bash
 
+export SQLPATH=./.jenkins
 # set up rsgbbgt tabellen
 sqlplus -l -S jenkins_rsgbbgt/jenkins_rsgbbgt@192.168.1.11:1521/ORCL < ./bgt-gml-loader/target/generated-resources/ddl/oracle/create_rsgb_bgt.sql
 # update geotools metadata
