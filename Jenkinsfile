@@ -138,6 +138,10 @@ timestamps {
                                     sh "sqlplus -l -S jenkins_rsgb/jenkins_rsgb@192.168.1.11:1521/ORCL < ./.jenkins/clear-schema.sql"
                                 }
                             }
+
+                            stage("P8 integratie tests") {
+                                build job: 'BRMO P8 vs. datamodel', quietPeriod: 600, wait: false
+                            }
                         }
                     }
 
