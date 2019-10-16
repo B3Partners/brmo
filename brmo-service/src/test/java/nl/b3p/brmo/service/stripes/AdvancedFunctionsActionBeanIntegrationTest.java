@@ -163,10 +163,11 @@ public class AdvancedFunctionsActionBeanIntegrationTest extends TestUtil {
             brmo.closeBrmoFramework();
         }
         if (rsgb != null) {
-            CleanUtil.cleanRSGB(rsgb);
+            CleanUtil.cleanRSGB_BRK(rsgb, true);
             rsgb.close();
         }
         if (staging != null) {
+            CleanUtil.cleanSTAGING(staging);
             staging.close();
         }
 

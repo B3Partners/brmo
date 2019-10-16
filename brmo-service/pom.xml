@@ -148,6 +148,12 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <!-- voor database integratie tests -->
+                    <groupId>net.postgis</groupId>
+                    <artifactId>postgis-jdbc</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>org.apache.tomcat</groupId>
             <artifactId>tomcat-catalina</artifactId>
             <scope>test</scope>
