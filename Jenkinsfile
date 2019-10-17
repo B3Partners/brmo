@@ -113,6 +113,7 @@ timestamps {
 
                             stage("Cleanup Database: ${indexOfJdk}") {
                                 sh "sqlplus -l -S jenkins_rsgbbgt/jenkins_rsgbbgt@192.168.1.11:1521/ORCL < ./bgt-gml-loader/target/generated-resources/ddl/oracle/drop_rsgb_bgt.sql"
+                                sh "sqlplus -l -S jenkins_rsgbbgt/jenkins_rsgbbgt@192.168.1.11:1521/ORCL < ./bgt-gml-loader/target/generated-resources/ddl/oracle/drop_rsgb_bgt.sql"
                                 sh "sqlplus -l -S jenkins_staging/jenkins_staging@192.168.1.11:1521/ORCL < ./brmo-persistence/db/drop-brmo-persistence-oracle.sql"
                                 sh "sqlplus -l -S jenkins_rsgb/jenkins_rsgb@192.168.1.11:1521/ORCL < ./.jenkins/clear-schema.sql"
                                 sh "sqlplus -l -S top10nl/top10nl@192.168.1.11:1521/ORCL < ./.jenkins/clear-schema.sql"
@@ -139,8 +140,17 @@ timestamps {
                                 }
                             }
 
-                            stage("P8 integratie tests") {
-                                build job: 'BRMO P8 vs. datamodel', quietPeriod: 600, wait: false
+                            configFileProvider([
+                                configFile(
+                                    fileId: 'local.P8.properties',
+                                    targetLocation: 'datamodel/src/test/resources/local.P8.properties'
+                                    )
+                                ]) {
+                                lock('rsgb-p8') {
+                                    stage("P8 datamodel Integration Test") {
+                                        sh "mvn -e verify -B -Pp8 -T1 -pl 'datamodel' -fae
+                                    }
+                                }
                             }
                         }
                     }

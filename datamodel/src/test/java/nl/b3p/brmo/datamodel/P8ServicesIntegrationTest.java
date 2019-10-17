@@ -21,12 +21,12 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
-import org.apache.http.auth.AuthenticationException;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.methods.RequestBuilder;
 import org.apache.http.util.EntityUtils;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -66,23 +66,12 @@ public class P8ServicesIntegrationTest extends P8TestFramework {
         this.setUpDB();
 
         if (!didThisAllready) {
-            // TODO testdata laden / verversen
-            ViewUtils.refreshKnownMViews(dsRsgb);
+            // TODO testdata laden
+
+            // verversen van de views
+            // ViewUtils.refreshKnownMViews(dsRsgb);
+            didThisAllready = true;
         }
-    }
-
-    @Test
-    public void testVersion() throws IOException {
-        // https://imkad-b3.p8.nl/web/version.json?_format=json
-        HttpUriRequest request = RequestBuilder.get(params.getProperty("p8.baseurl") + "version.json")
-                .addParameter("_format", "json")
-                .build();
-        response = client.execute(request);
-        String body = EntityUtils.toString(response.getEntity());
-
-        assertThat("Response status is OK.", response.getStatusLine().getStatusCode(), equalTo(HttpStatus.SC_OK));
-        assertNotNull("Response body mag niet null zijn.", body);
-        assertJsonEquals("\"imkad_api_1.8.20\"", body);
     }
 
     @Test
@@ -102,7 +91,8 @@ public class P8ServicesIntegrationTest extends P8TestFramework {
     }
 
     @Test
-    public void testKadastraalPerceel() throws IOException, AuthenticationException {
+    @Ignore("vanwege een bug in de P8 api wordt het tijdstip (GMT) van uitvragen toegevoegd aan de datum begin geldigheid")
+    public void testKadastraalPerceel() throws IOException {
         // kadastraalperceel.json?kadperceelcode=VDG00B1708&geoinfo=true&_format=json
         HttpUriRequest request = RequestBuilder.get(params.getProperty("p8.baseurl") + "kadastraalperceel.json")
                 .addParameter("kadperceelcode", "VDG00B1708")
@@ -116,6 +106,80 @@ public class P8ServicesIntegrationTest extends P8TestFramework {
         assertNotNull("Response body mag niet null zijn.", body);
         assertJsonEquals(
                 "{\"kadastrale_code\":\"VDG00B1708\",\"gemeente_code\":\"VDG00\",\"sectie\":\"B\",\"perceelnummer\":1708,\"oppervlakte\":65,\"adres\":\"OOSTERSTR 33, 3134NM VLAARDINGEN  (1 meer adressen)\",\"postcode\":\"3134NM\",\"woonplaats\":\"Vlaardingen\",\"gemeente\":\"Vlaardingen\",\"geom\":\"MULTIPOLYGON (((83442.009 435842.213, 83445.535 435831.176, 83451.303 435833.022, 83447.831 435844.075, 83442.009 435842.213)))\",\"rechten\":[{\"subject\":{\"naam\":\"5a063d4c  251bf\",\"type\":\"perceel\",\"persoonid\":\"NL.KAD.Persoon.157125580\",\"woonplaats\":\"Vlaardingen\"},\"aandeel\":\"1\\/1\",\"recht_soort\":\"INGESCHREVEN NATUURLIJK PERSOON\",\"datum_ingang\":\"2012-12-31T12:52:20+00:00\"},{\"subject\":{\"naam\":\"Gemeente Vlaardingen (Kad Gem Vlaardingen Sectie B)\",\"type\":\"perceel\",\"persoonid\":\"NL.KAD.Persoon.159287767\",\"woonplaats\":\"Vlaardingen\"},\"aandeel\":\"1\\/1\",\"recht_soort\":\"INGESCHREVEN NIET-NATUURLIJK PERSOON\",\"datum_ingang\":\"2012-12-31T12:52:20+00:00\"},{\"subject\":{\"naam\":\"5a063d4c  251bf\",\"type\":\"perceel\",\"persoonid\":\"NL.KAD.Persoon.157125580\",\"woonplaats\":\"Vlaardingen\"},\"aandeel\":\"1\\/1\",\"recht_soort\":\"INGESCHREVEN NATUURLIJK PERSOON\",\"datum_ingang\":\"2012-12-31T12:52:20+00:00\"},{\"subject\":{\"naam\":\"Gemeente Vlaardingen (Kad Gem Vlaardingen Sectie B)\",\"type\":\"perceel\",\"persoonid\":\"NL.KAD.Persoon.159287767\",\"woonplaats\":\"Vlaardingen\"},\"aandeel\":\"1\\/1\",\"recht_soort\":\"INGESCHREVEN NIET-NATUURLIJK PERSOON\",\"datum_ingang\":\"2012-12-31T12:52:20+00:00\"}],\"adressen\":[{\"woonplaats\":\"Vlaardingen\",\"straat\":\"Oosterstraat\",\"postcode\":\"3134NM\",\"huisnummer\":\"35\",\"postadres\":false},{\"woonplaats\":\"Vlaardingen\",\"straat\":\"Oosterstraat\",\"postcode\":\"3134NM\",\"huisnummer\":\"33\",\"postadres\":false}]}",
+                body);
+    }
+
+    @Test
+    public void testKadastralepercelenadressen() throws IOException {
+        //https://imkad-b3.p8.nl/web/kadastralepercelenadressen.json?offset=0&limit=10&_format=json
+        HttpUriRequest request = RequestBuilder.get(params.getProperty("p8.baseurl") + "kadastralepercelenadressen.json")
+                .addParameter("offset", "0")
+                .addParameter("limit", "3")
+                .addParameter("_format", "json")
+                .build();
+        response = client.execute(request);
+        String body = EntityUtils.toString(response.getEntity());
+
+        assertThat("Response status is OK.", response.getStatusLine().getStatusCode(), equalTo(HttpStatus.SC_OK));
+        assertNotNull("Response body mag niet null zijn.", body);
+        assertJsonEquals(
+                "{\"kadastrale_percelen\":[{\"kadastrale_code\":\"VDG00B1708\",\"gemeente_code\":\"VDG00\",\"sectie\":\"B\",\"perceelnummer\":1708,\"oppervlakte\":65,\"straat\":\"Oosterstraat\",\"huisnummer\":\"35\",\"postcode\":\"3134NM\",\"woonplaats\":\"Vlaardingen\",\"percnr17\":\"VDG00B1708\"},{\"kadastrale_code\":\"VDG00B1708\",\"gemeente_code\":\"VDG00\",\"sectie\":\"B\",\"perceelnummer\":1708,\"oppervlakte\":65,\"straat\":\"Oosterstraat\",\"huisnummer\":\"33\",\"postcode\":\"3134NM\",\"woonplaats\":\"Vlaardingen\",\"percnr17\":\"VDG00B1708\"},{\"kadastrale_code\":\"VDG00B1709\",\"gemeente_code\":\"VDG00\",\"sectie\":\"B\",\"perceelnummer\":1709,\"oppervlakte\":65,\"straat\":\"Oosterstraat\",\"huisnummer\":\"29\",\"postcode\":\"3134NM\",\"woonplaats\":\"Vlaardingen\",\"percnr17\":\"VDG00B1709\"}],\"offset\":\"0\",\"limit\":\"3\",\"total_item_count\":1000}",
+                body);
+    }
+
+    @Test
+    public void testKadastralesubjectpercelen() throws IOException {
+        // https://imkad-b3.p8.nl/web/kadastralesubjectpercelen.json?offset=0&limit=3&_format=json
+        HttpUriRequest request = RequestBuilder.get(params.getProperty("p8.baseurl") + "kadastralesubjectpercelen.json")
+                .addParameter("offset", "0")
+                .addParameter("limit", "3")
+                // TODO testen met echte subject id
+                .addParameter("subjectid", "0")
+                .addParameter("_format", "json")
+                .build();
+        response = client.execute(request);
+        String body = EntityUtils.toString(response.getEntity());
+
+        assertThat("Response status is OK.", response.getStatusLine().getStatusCode(), equalTo(HttpStatus.SC_OK));
+        assertNotNull("Response body mag niet null zijn.", body);
+        assertJsonEquals(
+                "{\"kadastrale_percelen\":[],\"offset\":\"0\",\"limit\":\"3\",\"total_item_count\":0}",
+                body);
+    }
+
+    @Test
+    public void testSubject() throws IOException {
+        // https://imkad-b3.p8.nl/web/subject.json?subjectid=0&_format=json
+        // TODO testen met echte subject id
+        HttpUriRequest request = RequestBuilder.get(params.getProperty("p8.baseurl") + "subject.json")
+                .addParameter("subjectid", "0")
+                .addParameter("_format", "json")
+                .build();
+        response = client.execute(request);
+        String body = EntityUtils.toString(response.getEntity());
+
+        assertThat("Response status is OK.", response.getStatusLine().getStatusCode(), equalTo(HttpStatus.SC_OK));
+        assertNotNull("Response body mag niet null zijn.", body);
+        assertJsonEquals(
+                "{\"subjectid\":\"0\",\"type\":\"KadastraalNatuurlijkSubject\",\"natuurlijk_subject\":{}}",
+                body);
+    }
+
+    @Test
+    public void testSubjecten() throws IOException {
+        //https://imkad-b3.p8.nl/web/subjecten.json?offset=0&limit=3&_format=json
+        HttpUriRequest request = RequestBuilder.get(params.getProperty("p8.baseurl") + "subjecten.json")
+                .addParameter("offset", "0")
+                .addParameter("limit", "3")
+                .addParameter("_format", "json")
+                .build();
+        response = client.execute(request);
+        String body = EntityUtils.toString(response.getEntity());
+
+        assertThat("Response status is OK.", response.getStatusLine().getStatusCode(), equalTo(HttpStatus.SC_OK));
+        assertNotNull("Response body mag niet null zijn.", body);
+        assertJsonEquals(
+                "{\"subjecten\":[{\"subjectid\":\"NL.KAD.Persoon.158819809\",\"voornamen\":\"7efe9\",\"achternaam\":\"ec3e8\",\"geslacht\":\"V\",\"adres\":\"\"},{\"subjectid\":\"NL.KAD.Persoon.157125580\",\"voornamen\":\"5a063d4c\",\"achternaam\":\"251bf\",\"geslacht\":\"M\",\"geboorte_datum\":{},\"adres\":\"Oosterstraat 35, 3134NM VLAARDINGEN\"},{\"subjectid\":\"NL.KAD.Persoon.157450463\",\"voornamen\":\"d941\",\"achternaam\":\"abda6a2\",\"geslacht\":\"M\",\"geboorte_datum\":{},\"adres\":\"Oosterstraat 17, 3134NM VLAARDINGEN\"}],\"offset\":\"0\",\"limit\":\"3\",\"total_item_count\":1000}",
                 body);
     }
 }
