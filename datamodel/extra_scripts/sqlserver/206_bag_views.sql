@@ -496,12 +496,12 @@ beschikbare kolommen:
 
 GO
 
-CREATE VIEW
-    vb_ben_obj_nevenadres
-    (
+CREATE VIEW vb_ben_obj_nevenadres (
         benoemdobj_identif,
         na_identif,
+        na_status,
         begin_geldigheid,
+        begin_geldigheid_datum,
         soort,
         gemeente,
         woonplaats,
@@ -514,7 +514,9 @@ CREATE VIEW
 SELECT
     qry.benoemdobj_identif,
     qry.na_identif,
+    qry.na_status,
     qry.begin_geldigheid,
+    qry.begin_geldigheid_datum,
     qry.soort,
     qry.gemeente,
     qry.woonplaats,
@@ -528,14 +530,13 @@ FROM
         SELECT
             vna.fk_nn_lh_vbo_sc_identif AS benoemdobj_identif,
             vba.na_identif,
-            (
-                CASE
-                    WHEN CHARINDEX('-',vna.fk_nn_lh_vbo_sc_dat_beg_geldh) = 5
-                    THEN vna.fk_nn_lh_vbo_sc_dat_beg_geldh
-                    ELSE substring(vna.fk_nn_lh_vbo_sc_dat_beg_geldh,1,4) + '-'
-                         + substring(vna.fk_nn_lh_vbo_sc_dat_beg_geldh,5,2) + '-'
-                         + substring(vna.fk_nn_lh_vbo_sc_dat_beg_geldh,7,2)
-                END) AS begin_geldigheid,
+            vba.na_status,
+            CASE
+                WHEN CHARINDEX('-',vna.fk_nn_lh_vbo_sc_dat_beg_geldh) = 5
+                THEN vna.fk_nn_lh_vbo_sc_dat_beg_geldh
+                ELSE substring(vna.fk_nn_lh_vbo_sc_dat_beg_geldh,1,4) + '-' + substring(vna.fk_nn_lh_vbo_sc_dat_beg_geldh,5,2) + '-' + substring(vna.fk_nn_lh_vbo_sc_dat_beg_geldh,7,2)
+             END AS begin_geldigheid,
+             TRY_CONVERT(DATETIME, vna.fk_nn_lh_vbo_sc_dat_beg_geldh) AS begin_geldigheid_datum,
             'VBO'    AS soort,
             vba.gemeente,
             vba.woonplaats,
@@ -560,14 +561,13 @@ FROM
         SELECT
             lpa.fk_nn_lh_lpl_sc_identif AS benoemdobj_identif,
             vba.na_identif,
-            (
-                CASE
-                    WHEN CHARINDEX('-',lpa.fk_nn_lh_lpl_sc_dat_beg_geldh) = 5
-                    THEN lpa.fk_nn_lh_lpl_sc_dat_beg_geldh
-                    ELSE substring(lpa.fk_nn_lh_lpl_sc_dat_beg_geldh,1,4) + '-'
-                         + substring(lpa.fk_nn_lh_lpl_sc_dat_beg_geldh,5,2) + '-'
-                         + substring(lpa.fk_nn_lh_lpl_sc_dat_beg_geldh,7,2)
-                END)    AS begin_geldigheid,
+            vba.na_status,
+            CASE
+                WHEN CHARINDEX('-',lpa.fk_nn_lh_lpl_sc_dat_beg_geldh) = 5
+                THEN lpa.fk_nn_lh_lpl_sc_dat_beg_geldh
+                ELSE substring(lpa.fk_nn_lh_lpl_sc_dat_beg_geldh,1,4) + '-' + substring(lpa.fk_nn_lh_lpl_sc_dat_beg_geldh,5,2) + '-' + substring(lpa.fk_nn_lh_lpl_sc_dat_beg_geldh,7,2)
+            END    AS begin_geldigheid,
+            TRY_CONVERT(DATETIME, lpa.fk_nn_lh_lpl_sc_dat_beg_geldh) AS begin_geldigheid_datum,
             'ligplaats' AS soort,
             vba.gemeente,
             vba.woonplaats,
@@ -592,14 +592,13 @@ FROM
         SELECT
             spa.fk_nn_lh_spl_sc_identif AS benoemdobj_identif,
             vba.na_identif,
-            (
-                CASE
-                    WHEN CHARINDEX('-',spa.fk_nn_lh_spl_sc_dat_beg_geldh) = 5
-                    THEN spa.fk_nn_lh_spl_sc_dat_beg_geldh
-                    ELSE substring(spa.fk_nn_lh_spl_sc_dat_beg_geldh,1,4) + '-'
-                        + substring(spa.fk_nn_lh_spl_sc_dat_beg_geldh,5,2) + '-'
-                        + substring(spa.fk_nn_lh_spl_sc_dat_beg_geldh,7,2)
-                END)      AS begin_geldigheid,
+            vba.na_status,
+            CASE
+                WHEN CHARINDEX('-',spa.fk_nn_lh_spl_sc_dat_beg_geldh) = 5
+                THEN spa.fk_nn_lh_spl_sc_dat_beg_geldh
+                ELSE substring(spa.fk_nn_lh_spl_sc_dat_beg_geldh,1,4) + '-' + substring(spa.fk_nn_lh_spl_sc_dat_beg_geldh,5,2) + '-' + substring(spa.fk_nn_lh_spl_sc_dat_beg_geldh,7,2)
+            END      AS begin_geldigheid,
+            TRY_CONVERT(DATETIME, spa.fk_nn_lh_spl_sc_dat_beg_geldh) AS begin_geldigheid_datum,
             'standplaats' AS soort,
             vba.gemeente,
             vba.woonplaats,
@@ -620,7 +619,6 @@ FROM
             spa.fk_nn_lh_spl_sc_identif = spl.sc_identif
         WHERE
             spl.fk_4nra_sc_identif <> spa.fk_nn_rh_nra_sc_identif ) qry;
-
 GO
 
 EXEC sp_addextendedproperty
@@ -629,7 +627,9 @@ EXEC sp_addextendedproperty
 beschikbare kolommen:
 * benoemdobj_identif: natuurlijke id van benoemd object
 * na_identif: natuurlijke id van nummeraanduiding
+* na_status: status van de nummeraanduiding,
 * begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
+* begin_geldigheid_datum: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
 * soort: vbo, ligplaats of standplaats
 * gemeente: nevenadres,
 * woonplaats: nevenadres,
@@ -642,3 +642,4 @@ beschikbare kolommen:
 @level1type = N'View', @level1name = N'vb_ben_obj_nevenadres';
 
 GO
+
