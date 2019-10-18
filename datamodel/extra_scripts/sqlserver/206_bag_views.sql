@@ -316,41 +316,40 @@ beschikbare kolommen:
 
 GO
 
-CREATE VIEW
-    vb_pand
-    (
+CREATE VIEW vb_pand (
         objectid,
         pand_identif,
         begin_geldigheid,
+        begin_geldigheid_datum,
         bouwjaar,
         status,
         the_geom
     ) AS
 SELECT
-    CAST(row_number() OVER (ORDER BY pand.identif)AS INT) AS ObjectID,
-    pand.identif                    AS pand_identif,
+    CAST(row_number() OVER(ORDER BY pand.identif) AS INT) AS ObjectID,
+    pand.identif                                          AS pand_identif,
     CASE
-        WHEN CHARINDEX('-',pand.dat_beg_geldh) = 5
+        WHEN CHARINDEX('-', pand.dat_beg_geldh) = 5
         THEN pand.dat_beg_geldh
-        ELSE substring(pand.dat_beg_geldh,1,4) + '-'
-            + substring(pand.dat_beg_geldh,5,2) + '-'
-            + substring(pand.dat_beg_geldh,7,2)
-    END                             AS begin_geldigheid,
-    pand.oorspronkelijk_bouwjaar    AS bouwjaar,
+        ELSE substring(pand.dat_beg_geldh, 1, 4) + '-' + substring(pand.dat_beg_geldh, 5, 2) + '-' + substring(pand.dat_beg_geldh, 7, 2)
+    END                                                   AS begin_geldigheid,
+    TRY_CONVERT(DATETIME, pand.dat_beg_geldh)             AS begin_geldigheid_datum,
+    pand.oorspronkelijk_bouwjaar                          AS bouwjaar,
     pand.status,
     pand.geom_bovenaanzicht AS the_geom
 FROM
     pand;
 
-GO 
+GO
 
 EXEC sp_addextendedproperty
 @name = N'comment',
 @value = N'pand met datum veld voor begin geldigheid en objectid voor geoserver/arcgis
 beschikbare kolommen:
 * objectid: uniek id bruikbaar voor geoserver/arcgis,
-* pand_identif: natuurlijke id van pand      
+* pand_identif: natuurlijke id van pand
 * begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
+* begin_geldigheid_datum: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
 * bouwjaar: -,
 * status: -,
 * the_geom: pandvlak',
