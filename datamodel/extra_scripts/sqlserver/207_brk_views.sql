@@ -226,8 +226,7 @@ beschikbare kolommen:
 
 GO
 
-CREATE VIEW
-    vb_util_app_re_splitsing AS
+CREATE VIEW vb_util_app_re_splitsing AS
 SELECT
     b1.ref_id AS child_identif,
     min(b2.ref_id) AS parent_identif
@@ -257,8 +256,7 @@ EXEC sp_addextendedproperty
 
 GO
 
-CREATE VIEW
-    vb_util_app_re_parent_3 AS
+CREATE VIEW vb_util_app_re_parent_3 AS
 SELECT
     re.sc_kad_identif      AS app_re_identif,
     min(sp.parent_identif) AS parent_identif
@@ -281,8 +279,7 @@ EXEC sp_addextendedproperty
 
 GO
 
-CREATE VIEW
-    vb_util_app_re_parent_2 AS
+CREATE VIEW vb_util_app_re_parent_2 AS
 SELECT
     u1.app_re_identif,
     CASE
@@ -307,8 +304,7 @@ EXEC sp_addextendedproperty
 
 GO
 
-CREATE VIEW
-    vb_util_app_re_parent AS
+CREATE VIEW vb_util_app_re_parent AS
 SELECT
     u2.app_re_identif,
     CASE
@@ -333,8 +329,7 @@ EXEC sp_addextendedproperty
 
 GO
 
-CREATE VIEW
-    vb_util_app_re_kad_perceel AS
+CREATE VIEW vb_util_app_re_kad_perceel AS
 SELECT
     u1.app_re_identif,
     kp.sc_kad_identif AS perceel_identif
@@ -362,12 +357,11 @@ beschikbare kolommen:
 
 GO
 
-CREATE VIEW
-    vb_kad_onrrnd_zk_adres
-    (
+CREATE VIEW vb_kad_onrrnd_zk_adres (
         objectid,
         koz_identif,
         begin_geldigheid,
+        begin_geldigheid_datum,
         benoemdobj_identif,
         type,
         aanduiding,
@@ -388,6 +382,9 @@ CREATE VIEW
         meer_onroerendgoed,
         valutasoort,
         loc_omschr,
+        aantekeningen,
+        na_identif,
+        na_status,
         gemeente,
         woonplaats,
         straatnaam,
@@ -395,26 +392,28 @@ CREATE VIEW
         huisletter,
         huisnummer_toev,
         postcode,
+        gebruiksdoelen,
+        oppervlakte_obj,
         lon,
         lat,
         begrenzing_perceel
     ) AS
 SELECT
-    CAST(row_number() OVER (ORDER BY qry.identif) AS INT) AS ObjectID,
-    qry.identif                                           AS koz_identif,
-    koz.dat_beg_geldh                                     AS begin_geldigheid,
-    bok.fk_nn_lh_tgo_identif                              AS benoemdobj_identif,
+    CAST(row_number() OVER (ORDER BY qry.identif) AS INT)                       AS ObjectID,
+    qry.identif                                                                 AS koz_identif,
+    koz.dat_beg_geldh                                                           AS begin_geldigheid,
+    TRY_CONVERT(DATETIME, koz.dat_beg_geldh)                                    AS begin_geldigheid_datum,
+    bok.fk_nn_lh_tgo_identif                                                    AS benoemdobj_identif,
     qry.type,
-    COALESCE(qry.ka_sectie, '') + ' ' + COALESCE(qry.ka_perceelnummer, '') AS aanduiding,
-    COALESCE(qry.ka_kad_gemeentecode, '') + ' ' + COALESCE(qry.ka_sectie, '') + ' ' + COALESCE
-    (qry.ka_perceelnummer, '') + ' ' + COALESCE(qry.ka_appartementsindex, '') AS aanduiding2,
+    COALESCE(qry.ka_sectie, '') + ' ' + COALESCE(qry.ka_perceelnummer, '')                                                                                              AS aanduiding,
+    COALESCE(qry.ka_kad_gemeentecode, '') + ' ' + COALESCE(qry.ka_sectie, '') + ' ' + COALESCE(qry.ka_perceelnummer, '') + ' ' + COALESCE(qry.ka_appartementsindex, '') AS aanduiding2,
     qry.ka_sectie,
     qry.ka_perceelnummer,
     qry.ka_appartementsindex,
     qry.ka_kad_gemeentecode,
     qry.aand_soort_grootte,
     qry.grootte_perceel,
-    (qry.begrenzing_perceel.STArea()) AS oppervlakte_geom,
+    (qry.begrenzing_perceel.STArea())                                           AS oppervlakte_geom,
     qry.ka_deelperceelnummer,
     qry.omschr_deelperceel,
     b.datum,
@@ -424,6 +423,9 @@ SELECT
     koz.ks_meer_onroerendgoed,
     koz.ks_valutasoort,
     koz.lo_loc__omschr,
+    aant.aantekeningen                                                          AS aantekeningen,
+    bola.na_identif,
+    bola.na_status,
     bola.gemeente,
     bola.woonplaats,
     bola.straatnaam,
@@ -431,6 +433,8 @@ SELECT
     bola.huisletter,
     bola.huisnummer_toev,
     bola.postcode,
+    bola.gebruiksdoelen,
+    bola.oppervlakte_obj,
     -- mssqlserver heeft geen STtransform functie, dus projectie naar EPSG:4326 onmogelijk,
     -- derhalve NULL
     NULL AS lon,
@@ -439,11 +443,11 @@ SELECT
 FROM
     (
         SELECT
-            p.sc_kad_identif AS identif,
-            'perceel'        AS type,
+            p.sc_kad_identif    AS identif,
+            'perceel'           AS type,
             p.ka_sectie,
             p.ka_perceelnummer,
-            NULL AS ka_appartementsindex,
+            NULL                AS ka_appartementsindex,
             p.ka_kad_gemeentecode,
             p.aand_soort_grootte,
             p.grootte_perceel,
@@ -454,58 +458,66 @@ FROM
             kad_perceel p
         UNION ALL
         SELECT
-            ar.sc_kad_identif AS identif,
-            'appartement'     AS type,
+            ar.sc_kad_identif   AS identif,
+            'appartement'       AS type,
             ar.ka_sectie,
             ar.ka_perceelnummer,
             ar.ka_appartementsindex,
             ar.ka_kad_gemeentecode,
-            NULL AS aand_soort_grootte,
-            NULL AS grootte_perceel,
-            NULL AS ka_deelperceelnummer,
-            NULL AS omschr_deelperceel,
+            NULL                AS aand_soort_grootte,
+            NULL                AS grootte_perceel,
+            NULL                AS ka_deelperceelnummer,
+            NULL                AS omschr_deelperceel,
             kp.begrenzing_perceel
         FROM
-            ((vb_util_app_re_kad_perceel v
+            vb_util_app_re_kad_perceel v
         JOIN
             kad_perceel kp
-        ON
-            (((
-                        v.perceel_identif) = kp.sc_kad_identif)))
+        ON  v.perceel_identif = kp.sc_kad_identif
         JOIN
             app_re ar
-        ON
-            (((
-                        v.app_re_identif) = ar.sc_kad_identif)))) qry
+        ON v.app_re_identif = ar.sc_kad_identif) qry
 JOIN
-    kad_onrrnd_zk koz
+        kad_onrrnd_zk koz
 ON
-    (
-        koz.kad_identif = qry.identif)
+        koz.kad_identif = qry.identif
 LEFT JOIN
-    benoemd_obj_kad_onrrnd_zk bok
+        benoemd_obj_kad_onrrnd_zk bok
 ON
-    (
-        bok.fk_nn_rh_koz_kad_identif = qry.identif)
+        bok.fk_nn_rh_koz_kad_identif = qry.identif
 LEFT JOIN
     vb_benoemd_obj_adres bola
 ON
     bok.fk_nn_lh_tgo_identif = bola.benoemdobj_identif
-LEFT JOIN
-    (
+LEFT JOIN (
         SELECT
             brondocument.ref_id,
             MAX(brondocument.datum) AS datum
         FROM
             brondocument
         WHERE
-            ((
-                    brondocument.omschrijving) = 'Akte van Koop en Verkoop')
-        GROUP BY
-            brondocument.ref_id) b
+            brondocument.omschrijving = 'Akte van Koop en Verkoop'
+        GROUP BY brondocument.ref_id) b
 ON
-    (
-        koz.kad_identif = b.ref_id);
+        koz.kad_identif = b.ref_id
+LEFT JOIN (
+        SELECT
+            koza.fk_4koz_kad_identif,
+            STRING_AGG(
+                    CONCAT_WS(' ',
+                            'id:', COALESCE(koza.kadaster_identif_aantek, ''),
+                            ', aard:', COALESCE(koza.aard_aantek_kad_obj, ''),
+                            ', begin:', COALESCE(koza.begindatum_aantek_kad_obj, ''),
+                            ', beschrijving:', COALESCE(koza.beschrijving_aantek_kad_obj, ''),
+                            ', eind:', COALESCE(koza.eindd_aantek_kad_obj, ''),
+                            ', koz-id:', COALESCE(CAST(koza.fk_4koz_kad_identif AS NUMERIC), 0),
+                            ', subject-id:', COALESCE(koza.fk_5pes_sc_identif, ''),
+                            ';'),
+                        ' & ') WITHIN GROUP ( ORDER BY koza.fk_4koz_kad_identif ) AS aantekeningen
+        FROM kad_onrrnd_zk_aantek koza
+        GROUP BY fk_4koz_kad_identif) aant
+    ON koz.kad_identif = aant.fk_4koz_kad_identif;
+
 
 GO
 
@@ -515,8 +527,9 @@ EXEC sp_addextendedproperty
 
 beschikbare kolommen:
 * objectid: uniek id bruikbaar voor geoserver/arcgis,
-* koz_identif: natuurlijke id van perceel of appartementsrecht      
+* koz_identif: natuurlijke id van perceel of appartementsrecht
 * begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
+* begin_geldigheid_datum: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
 * benoemdobj_identif: koppeling met BAG object,
 * type: perceel of appartement,
 * aanduiding: sectie perceelnummer,
@@ -537,6 +550,9 @@ beschikbare kolommen:
 * meer_onroerendgoed: -,
 * valutasoort: -,
 * loc_omschr: adres buiten BAG om meegegeven,
+* aantekeningen: -,
+* na_identif: identificatie van nummeraanduiding
+* na_status: status van nummeraanduiding
 * gemeente: -,
 * woonplaats: -,
 * straatnaam: -,
@@ -544,6 +560,8 @@ beschikbare kolommen:
 * huisletter: -,
 * huisnummer_toev: -,
 * postcode: -,
+* gebruiksdoelen: alle gebruiksdoelen gescheiden door komma
+* oppervlakte_obj: oppervlak van gebouwd object
 * lon: coordinaat als WSG84,
 * lon: coordinaat als WSG84,
 * begrenzing_perceel: perceelvlak',
