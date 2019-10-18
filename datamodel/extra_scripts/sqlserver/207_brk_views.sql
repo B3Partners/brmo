@@ -1321,13 +1321,13 @@ beschikbare kolommen:
 GO
 
 
-CREATE VIEW
-    vb_kad_onrrnd_zk_archief
-    (
+CREATE VIEW vb_kad_onrrnd_zk_archief (
         objectid,
         koz_identif,
         begin_geldigheid,
+        begin_geldigheid_datum,
         eind_geldigheid,
+        eind_geldigheid_datum,
         type,
         aanduiding,
         aanduiding2,
@@ -1349,29 +1349,30 @@ CREATE VIEW
         begrenzing_perceel
     ) AS
 SELECT
-    CAST(row_number() OVER (ORDER BY qry.identif)AS INT) AS ObjectID,
-    qry.identif                                          AS koz_identif,
-    koza.dat_beg_geldh                                   AS begin_geldigheid,
-    koza.datum_einde_geldh                               AS eind_geldigheid,
+    CAST(row_number() OVER (ORDER BY qry.identif)AS INT)        AS ObjectID,
+    qry.identif                                                 AS koz_identif,
+    koza.dat_beg_geldh                                          AS begin_geldigheid,
+    TRY_CONVERT(DATETIME, koza.dat_beg_geldh)                   AS begin_geldigheid_datum,
+    koza.datum_einde_geldh                                      AS eind_geldigheid,
+    TRY_CONVERT(DATETIME, koza.datum_einde_geldh)               AS eind_geldigheid_datum,
     qry.type,
     COALESCE(qry.ka_sectie, '') + ' ' + COALESCE (qry.ka_perceelnummer, '') AS aanduiding,
-    COALESCE(qry.ka_kad_gemeentecode, '') + ' ' + COALESCE (qry.ka_sectie, '') + ' ' + COALESCE
-    (qry.ka_perceelnummer, '') + ' ' + COALESCE (qry.ka_appartementsindex, '') AS aanduiding2,
-    qry.ka_sectie                                                              AS sectie,
-    qry.ka_perceelnummer                                                       AS perceelnummer,
-    qry.ka_appartementsindex                                                   AS appartementsindex,
-    qry.ka_kad_gemeentecode AS gemeentecode,
+    COALESCE(qry.ka_kad_gemeentecode, '') + ' ' + COALESCE (qry.ka_sectie, '') + ' ' + COALESCE(qry.ka_perceelnummer, '') + ' ' + COALESCE (qry.ka_appartementsindex, '') AS aanduiding2,
+    qry.ka_sectie                                               AS sectie,
+    qry.ka_perceelnummer                                        AS perceelnummer,
+    qry.ka_appartementsindex                                    AS appartementsindex,
+    qry.ka_kad_gemeentecode                                     AS gemeentecode,
     qry.aand_soort_grootte,
     qry.grootte_perceel,
-    qry.ka_deelperceelnummer AS deelperceelnummer,
+    qry.ka_deelperceelnummer                                    AS deelperceelnummer,
     qry.omschr_deelperceel,
-    koza.cu_aard_cultuur_onbebouwd AS aard_cultuur_onbebouwd,
-    koza.ks_bedrag                 AS bedrag,
-    koza.ks_koopjaar               AS koopjaar,
-    koza.ks_meer_onroerendgoed     AS meer_onroerendgoed,
-    koza.ks_valutasoort            AS valutasoort,
-    koza.lo_loc__omschr            AS loc_omschr ,
-    kozhr.fk_sc_lh_koz_kad_identif AS overgegaan_in,
+    koza.cu_aard_cultuur_onbebouwd                              AS aard_cultuur_onbebouwd,
+    koza.ks_bedrag                                              AS bedrag,
+    koza.ks_koopjaar                                            AS koopjaar,
+    koza.ks_meer_onroerendgoed                                  AS meer_onroerendgoed,
+    koza.ks_valutasoort                                         AS valutasoort,
+    koza.lo_loc__omschr                                         AS loc_omschr ,
+    kozhr.fk_sc_lh_koz_kad_identif                              AS overgegaan_in,
     qry.begrenzing_perceel
 FROM
     (
@@ -1419,7 +1420,7 @@ JOIN
         FROM
             kad_onrrnd_zk_archief ikoza
         GROUP BY
-            ikoza.kad_identif 
+            ikoza.kad_identif
      ) nqry
 ON
     nqry.kad_identif = koza.kad_identif
@@ -1427,11 +1428,7 @@ AND nqry.bdate = koza.dat_beg_geldh
 LEFT JOIN
     kad_onrrnd_zk_his_rel kozhr
 ON
-    kozhr.fk_sc_rh_koz_kad_identif = koza.kad_identif
--- ORDER BY bdate DESC
--- want: [Code: 1033, SQL State: S1000]  The ORDER BY clause is invalid in views, inline functions, derived tables, subqueries, and common table expressions, unless TOP, OFFSET or FOR XML is also specified.
--- niet duidelijk wat dit nog toevoegt, immers bdate is max(dat_beg_geldh)
-;
+    kozhr.fk_sc_rh_koz_kad_identif = koza.kad_identif;
 
 GO
 
@@ -1441,9 +1438,11 @@ EXEC sp_addextendedproperty
 
 beschikbare kolommen:
 * objectid: uniek id bruikbaar voor geoserver/arcgis,
-* koz_identif: natuurlijke id van perceel of appartementsrecht      
+* koz_identif: natuurlijke id van perceel of appartementsrecht
 * begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
+* begin_geldigheid_datum: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
 * eind_geldigheid: datum wanneer dit object ongeldig geworden is,
+* eind_geldigheid_datum: datum wanneer dit object ongeldig geworden is,
 * benoemdobj_identif: koppeling met BAG object,
 * type: perceel of appartement,
 * sectie: -,
