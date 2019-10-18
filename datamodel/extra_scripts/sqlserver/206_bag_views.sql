@@ -89,14 +89,13 @@ beschikbare kolommen:
 @level1type = N'View', @level1name = N'vb_adres';
 GO
 
-
-CREATE VIEW
-    vb_vbo_adres
-    (
+CREATE VIEW vb_vbo_adres (
         vbo_identif,
         begin_geldigheid,
+        begin_geldigheid_datum,
         pand_identif,
         na_identif,
+        na_status,
         gemeente,
         woonplaats,
         straatnaam,
@@ -105,19 +104,21 @@ CREATE VIEW
         huisnummer_toev,
         postcode,
         status,
+        gebruiksdoelen,
+        oppervlakte_obj,
         the_geom
     ) AS
 SELECT
-    vbo.sc_identif              AS vbo_identif,
+    vbo.sc_identif                                           AS vbo_identif,
     CASE
-        WHEN CHARINDEX('-',gobj.dat_beg_geldh) = 5
+        WHEN CHARINDEX('-', gobj.dat_beg_geldh) = 5
         THEN gobj.dat_beg_geldh
-        ELSE substring(gobj.dat_beg_geldh,1,4) + '-'
-            + substring(gobj.dat_beg_geldh,5,2) + '-'
-            + substring(gobj.dat_beg_geldh,7,2)
-    END                         AS begin_geldigheid,
-    fkpand.fk_nn_rh_pnd_identif AS pand_identif,
-    bva.na_identif              AS na_identif,
+        ELSE substring(gobj.dat_beg_geldh, 1, 4) + '-' + substring(gobj.dat_beg_geldh, 5, 2) + '-' + substring(gobj.dat_beg_geldh, 7, 2)
+    END                                                      AS begin_geldigheid,
+    TRY_CONVERT(DATETIME, gobj.dat_beg_geldh)                AS begin_geldigheid_datum,
+    fkpand.fk_nn_rh_pnd_identif                              AS pand_identif,
+    bva.na_identif                                           AS na_identif,
+    bva.na_status                                            AS na_status,
     bva.gemeente,
     bva.woonplaats,
     bva.straatnaam,
@@ -126,45 +127,42 @@ SELECT
     bva.huisnummer_toev,
     bva.postcode,
     vbo.status,
+    doel.gebruiksdoelen                                      AS gebruiksdoelen,
+    gobj.oppervlakte_obj,
     gobj.puntgeom AS the_geom
 FROM
-    (((((verblijfsobj vbo
+    verblijfsobj vbo
 JOIN
-    gebouwd_obj gobj
-ON
-    (((
-                gobj.sc_identif) = (vbo.sc_identif))))
+    gebouwd_obj gobj ON gobj.sc_identif = vbo.sc_identif
 LEFT JOIN
-    verblijfsobj_pand fkpand
-ON
-    (((
-                fkpand.fk_nn_lh_vbo_sc_identif) = (vbo.sc_identif))))
+    verblijfsobj_pand fkpand ON fkpand.fk_nn_lh_vbo_sc_identif = vbo.sc_identif
 LEFT JOIN
-    pand
-ON
-    (((
-                fkpand.fk_nn_rh_pnd_identif) = (pand.identif))))
+    pand ON fkpand.fk_nn_rh_pnd_identif = pand.identif
 LEFT JOIN
-    verblijfsobj_nummeraand vna
-ON
-    (((
-                vna.fk_nn_lh_vbo_sc_identif)= (vbo.sc_identif))))
+    verblijfsobj_nummeraand vna ON vna.fk_nn_lh_vbo_sc_identif = vbo.sc_identif
 LEFT JOIN
-    vb_adres bva
-ON
-    (((
-                vna.fk_nn_rh_nra_sc_identif) = (bva.na_identif))));
-GO 
+    vb_adres bva ON vna.fk_nn_rh_nra_sc_identif = bva.na_identif
+LEFT JOIN (
+        SELECT
+            gog.fk_gbo_sc_identif,
+            STRING_AGG(gog.gebruiksdoel_gebouwd_obj, ',') WITHIN GROUP(ORDER BY gog.fk_gbo_sc_identif) AS gebruiksdoelen
+        FROM
+            gebouwd_obj_gebruiksdoel gog
+        GROUP BY
+            gog.fk_gbo_sc_identif ) doel ON doel.fk_gbo_sc_identif = vbo.sc_identif;
+GO
 
 EXEC sp_addextendedproperty
 @name = N'comment',
 @value = N'vbo met adres, puntlocatie en referentie naar pand
 
 beschikbare kolommen:
-* vbo_identif: natuurlijke id van vbo      
+* vbo_identif: natuurlijke id van vbo
 * begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
+* begin_geldigheid_datum: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
 * pand_identif: natuurlijk id van pand dat aan dit vbo gekoppeld is,
 * na_identif: natuurlijk id van nummeraanduiding,
+* na_status: status van de nummeraanduiding,
 * gemeente: -,
 * woonplaats: -,
 * straatnaam: -,
@@ -173,6 +171,7 @@ beschikbare kolommen:
 * huisnummer_toev: -,
 * postcode: -,
 * status: -,
+* gebruiksdoelen: alle gebruiksdoel gescheiden door komma,
 * the_geom: puntlocatie',
 @level0type = N'Schema', @level0name = N'dbo',
 @level1type = N'View', @level1name = N'vb_vbo_adres';
