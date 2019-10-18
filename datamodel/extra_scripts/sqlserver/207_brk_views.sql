@@ -4,9 +4,7 @@ versie 2
 30-8-2018
 */
 
-CREATE VIEW
-    vb_subject
-    (
+CREATE VIEW vb_subject (
         objectid,
         subject_identif,
         soort,
@@ -54,16 +52,16 @@ CREATE VIEW
         THEN (
                 substring(CONVERT(VARCHAR, inp.gb_geboortedatum),2,4) + '-' +
                 substring(CONVERT(VARCHAR, inp.gb_geboortedatum),6,2) + '-' +
-                substring(CONVERT(VARCHAR, inp.gb_geboortedatum),8,2) 
+                substring(CONVERT(VARCHAR, inp.gb_geboortedatum),8,2)
         )
-        
+
         WHEN ((s.clazz) = 'ANDER NATUURLIJK PERSOON') AND LEN(anp.geboortedatum)=8
         THEN (
                 substring(CONVERT(VARCHAR, anp.geboortedatum),2,4) + '-' +
                 substring(CONVERT(VARCHAR, anp.geboortedatum),6,2) + '-' +
-                substring(CONVERT(VARCHAR, anp.geboortedatum),8,2)  
+                substring(CONVERT(VARCHAR, anp.geboortedatum),8,2)
         )
-        WHEN ((s.clazz) = 'INGESCHREVEN NATUURLIJK PERSOON') AND LEN(inp.gb_geboortedatum)=5 
+        WHEN ((s.clazz) = 'INGESCHREVEN NATUURLIJK PERSOON') AND LEN(inp.gb_geboortedatum)=5
         THEN '0001-01-01'
         WHEN ((s.clazz) = 'ANDER NATUURLIJK PESOON') AND LEN(anp.geboortedatum)=5
         THEN '0001-01-01'
@@ -75,16 +73,16 @@ CREATE VIEW
         THEN (
                 substring(CONVERT(VARCHAR, inp.ol_overlijdensdatum),2,4) + '-' +
                 substring(CONVERT(VARCHAR, inp.ol_overlijdensdatum),6,2) + '-' +
-                substring(CONVERT(VARCHAR, inp.ol_overlijdensdatum),8,2) 
+                substring(CONVERT(VARCHAR, inp.ol_overlijdensdatum),8,2)
         )
-        
+
         WHEN ((s.clazz) = 'ANDER NATUURLIJK PERSOON') AND LEN(anp.overlijdensdatum)=8
         THEN (
                 substring(CONVERT(VARCHAR, anp.overlijdensdatum),2,4) + '-' +
                 substring(CONVERT(VARCHAR, anp.overlijdensdatum),6,2) + '-' +
-                substring(CONVERT(VARCHAR, anp.overlijdensdatum),8,2)  
+                substring(CONVERT(VARCHAR, anp.overlijdensdatum),8,2)
         )
-        WHEN ((s.clazz) = 'INGESCHREVEN NATUURLIJK PERSOON') AND LEN(inp.ol_overlijdensdatum)=5 
+        WHEN ((s.clazz) = 'INGESCHREVEN NATUURLIJK PERSOON') AND LEN(inp.ol_overlijdensdatum)=5
         THEN '0001-01-01'
         WHEN ((s.clazz) = 'ANDER NATUURLIJK PESOON') AND LEN(anp.overlijdensdatum)=5
         THEN '0001-01-01'
@@ -127,17 +125,17 @@ EXEC sp_addextendedproperty
 
 beschikbare kolommen:
 * objectid: uniek id bruikbaar voor geoserver/arcgis,
-* subject_identif: natuurlijke id van subject      
-* soort: soort subject zoals natuurlijk, niet-natuurlijk enz.  
-* geslachtsnaam: -       
-* voorvoegsel: -     
-* voornamen: -     
-* aand_naamgebruik:        
-- E (= Eigen geslachtsnaam)        
-- N (=Geslachtsnaam echtgenoot/geregistreerd partner na eigen geslachtsnaam)        
-- P (= Geslachtsnaam echtgenoot/geregistreerd partner)        
-- V (= Geslachtsnaam evhtgenoot/geregistreerd partner voor eigen geslachtsnaam)        
-* geslachtsaand: M/V   
+* subject_identif: natuurlijke id van subject
+* soort: soort subject zoals natuurlijk, niet-natuurlijk enz.
+* geslachtsnaam: -
+* voorvoegsel: -
+* voornamen: -
+* aand_naamgebruik:
+- E (= Eigen geslachtsnaam)
+- N (= Geslachtsnaam echtgenoot/geregistreerd partner na eigen geslachtsnaam)
+- P (= Geslachtsnaam echtgenoot/geregistreerd partner)
+- V (= Geslachtsnaam evhtgenoot/geregistreerd partner voor eigen geslachtsnaam)
+* geslachtsaand: M/V/X
 * naam: samengestelde naam bruikbaar voor natuurlijke en niet-natuurlijke subjecten
 * woonadres: meegeleverd adres buiten BAG koppeling om      
 * geboortedatum: -       
@@ -154,10 +152,7 @@ beschikbare kolommen:
 
 GO
 
-
-CREATE VIEW
-    vb_avg_subject
-    (
+CREATE VIEW vb_avg_subject (
         objectid,
         subject_identif,
         soort,
@@ -180,7 +175,7 @@ CREATE VIEW
     ) AS
 SELECT
     s.objectid,
-    s.subject_identif AS subject_identif,
+    s.subject_identif  AS subject_identif,
     s.soort,
     NULL               AS geslachtsnaam,
     NULL               AS voorvoegsel,
