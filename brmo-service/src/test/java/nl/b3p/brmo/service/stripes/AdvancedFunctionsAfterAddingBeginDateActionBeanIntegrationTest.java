@@ -49,9 +49,9 @@ import static org.mockito.Mockito.when;
  *
  * testcases voor GH issue 260; herhalen van brk verwijder berichten. Draaien
  * met:
- * {@code mvn -Dit.test=AdvancedFunctionsActionBeanIntegrationTest -Dtest.onlyITs=true verify -Poracle > target/oracle.log}
+ * {@code mvn -Dit.test=AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest -Dtest.onlyITs=true verify -Poracle > target/oracle.log}
  * voor bijvoorbeeld Oracle of
- * {@code mvn -Dit.test=AdvancedFunctionsActionBeanIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql > target/postgresql.log}
+ * {@code mvn -Dit.test=AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql > target/postgresql.log}
  * voor PostgreSQL.
  *
  * <strong>Deze test werkt niet met de jTDS driver omdat die geen
@@ -62,16 +62,16 @@ import static org.mockito.Mockito.when;
  */
 @RunWith(Parameterized.class)
 @Category(JTDSDriverBasedFailures.class)
-public class AdvancedFunctionsActionBeanIntegrationTest extends TestUtil {
+public class AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest extends TestUtil {
 
-    private static final Log LOG = LogFactory.getLog(AdvancedFunctionsActionBeanIntegrationTest.class);
+    private static final Log LOG = LogFactory.getLog(AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest.class);
 
     @Parameterized.Parameters(name = "{index}: verwerken bestand: {0}")
     public static Collection params() {
         return Arrays.asList(new Object[][]{
             // {"sBestandsNaam", aantalProcessen, aantalBerichten, rBestandsNaam},
-            {"/gh-issue-260/staging-flat.xml", 2, 2, "/gh-issue-260/rsgb-spook_kad_onrrnd_zk-flat.xml"},
-            {"/gh-issue-260/staging-flat-4.xml", 4, 4, "/gh-issue-260/rsgb-spook_kad_onrrnd_zk-flat-4.xml"}
+            {"/replayDeleteAfterUpdateBegindate/staging-flat.xml", 2, 2, "/replayDeleteAfterUpdateBegindate/rsgb-spook_kad_onrrnd_zk-flat.xml"},
+            {"/replayDeleteAfterUpdateBegindate/staging-flat-4.xml", 4, 4, "/replayDeleteAfterUpdateBegindate/rsgb-spook_kad_onrrnd_zk-flat-4.xml"}
         });
     }
 
@@ -93,7 +93,7 @@ public class AdvancedFunctionsActionBeanIntegrationTest extends TestUtil {
     private final long aantalBerichten;
     private final long aantalProcessen;
 
-    public AdvancedFunctionsActionBeanIntegrationTest(String sBestandsNaam, long aantalBerichten, long aantalProcessen, String rBestandsNaam) {
+    public AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest(String sBestandsNaam, long aantalBerichten, long aantalProcessen, String rBestandsNaam) {
         this.sBestandsNaam = sBestandsNaam;
         this.rBestandsNaam = rBestandsNaam;
         this.aantalBerichten = aantalBerichten;
@@ -102,8 +102,8 @@ public class AdvancedFunctionsActionBeanIntegrationTest extends TestUtil {
 
     @Before
     public void setUp() throws Exception {
-        assumeTrue("Het bestand met staging testdata zou moeten bestaan.", AdvancedFunctionsActionBeanIntegrationTest.class.getResource(sBestandsNaam) != null);
-        assumeTrue("Het bestand met rsgb testdata zou moeten bestaan.", AdvancedFunctionsActionBeanIntegrationTest.class.getResource(rBestandsNaam) != null);
+        assumeTrue("Het bestand met staging testdata zou moeten bestaan.", AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest.class.getResource(sBestandsNaam) != null);
+        assumeTrue("Het bestand met rsgb testdata zou moeten bestaan.", AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest.class.getResource(rBestandsNaam) != null);
         assumeTrue("Deze test werkt niet met de jTDS driver omdat die geen PreparedStatement.setNull(int, int, String) methode heeft geimplementeerd.",
                 !this.isMsSQL);
 
@@ -151,8 +151,8 @@ public class AdvancedFunctionsActionBeanIntegrationTest extends TestUtil {
 
         FlatXmlDataSetBuilder fxdb = new FlatXmlDataSetBuilder();
         fxdb.setCaseSensitiveTableNames(false);
-        IDataSet stagingDataSet = fxdb.build(new FileInputStream(new File(AdvancedFunctionsActionBeanIntegrationTest.class.getResource(sBestandsNaam).toURI())));
-        IDataSet rsgbDataSet = fxdb.build(new FileInputStream(new File(AdvancedFunctionsActionBeanIntegrationTest.class.getResource(rBestandsNaam).toURI())));
+        IDataSet stagingDataSet = fxdb.build(new FileInputStream(new File(AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest.class.getResource(sBestandsNaam).toURI())));
+        IDataSet rsgbDataSet = fxdb.build(new FileInputStream(new File(AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest.class.getResource(rBestandsNaam).toURI())));
 
         sequential.lock();
 
@@ -196,8 +196,27 @@ public class AdvancedFunctionsActionBeanIntegrationTest extends TestUtil {
     }
 
     @Test
-    public void testReplayBRKVerwijderBerichten() throws Exception {
+    public void testReplayBRKVerwijderBerichtenNaUpdateIngangsdatumRecht() throws Exception {
+        
+        updatesBean.populateUpdateProcesses();
+        updatesBean.setUpdateProcessName("Bijwerken ingangsdatum_recht zakelijk recht");
+        updatesBean.update();
+        Date now = new Date();
+        long maxWait = 20000;
+        while(!updatesBean.isComplete() && (new Date().getTime() - now.getTime() < maxWait)){
+            Thread.sleep(1000);
+            LOG.info("waiting...");
+        }
+        LOG.info("Finished waiting");
+        
         final IDataSet rds = rsgb.createDataSet();
+        staging.getConnection().createStatement().executeUpdate("update BERICHT set db_xml = null;");
+        ITable zak_recht = zak_recht = rsgb.createDataSet().getTable("zak_recht");
+        for (int i = 0; i < zak_recht.getRowCount(); i++) {
+            assertNotNull("Ingangsdatum recht is niet gevuld", zak_recht.getValue(i, "ingangsdatum_recht"));
+            assertNotNull("fk_3avr_aand recht is niet gevuld", zak_recht.getValue(i, "fk_3avr_aand"));
+        }
+        
 
         assertEquals("Er is een spook record in de kad_onrrnd_zk tabel", 1, rds.getTable("kad_onrrnd_zk").getRowCount());
         assertEquals("De perceel tabel is leeg", 0, rds.getTable("kad_perceel").getRowCount());
