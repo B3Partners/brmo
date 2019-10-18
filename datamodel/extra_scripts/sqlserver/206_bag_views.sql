@@ -247,12 +247,12 @@ beschikbare kolommen:
 
 GO
 
-CREATE VIEW
-    vb_ligplaats_adres
-    (
+CREATE VIEW vb_ligplaats_adres (
         lpl_identif,
         begin_geldigheid,
+        begin_geldigheid_datum,
         na_identif,
+        na_status,
         gemeente,
         woonplaats,
         straatnaam,
@@ -264,15 +264,15 @@ CREATE VIEW
         the_geom
     ) AS
 SELECT
-    lpa.sc_identif         AS lpl_identif,
+    lpa.sc_identif                                                      AS lpl_identif,
     CASE
-        WHEN CHARINDEX('-',benter.dat_beg_geldh) = 5
+        WHEN CHARINDEX('-', benter.dat_beg_geldh) = 5
         THEN benter.dat_beg_geldh
-        ELSE substring(benter.dat_beg_geldh,1,4) + '-'
-            + substring(benter.dat_beg_geldh,5,2) + '-'
-            + substring(benter.dat_beg_geldh,7,2)
-    END                    AS begin_geldigheid,
-    bva.na_identif         AS na_identif,
+        ELSE substring(benter.dat_beg_geldh, 1, 4) + '-' + substring(benter.dat_beg_geldh, 5, 2) + '-' + substring(benter.dat_beg_geldh, 7, 2)
+    END                                                                  AS begin_geldigheid,
+    TRY_CONVERT(DATETIME, benter.dat_beg_geldh)                          AS begin_geldigheid_datum,
+    bva.na_identif                                                       AS na_identif,
+    bva.na_status                                                        AS na_status,
     bva.gemeente,
     bva.woonplaats,
     bva.straatnaam,
@@ -283,33 +283,25 @@ SELECT
     lpa.status,
     (benter.geom.STCentroid()) AS the_geom
 FROM
-    (((ligplaats lpa
+    ligplaats lpa
 JOIN
-    benoemd_terrein benter
-ON
-    (((
-                benter.sc_identif) = (lpa.sc_identif))))
+    benoemd_terrein benter ON benter.sc_identif = lpa.sc_identif
 LEFT JOIN
-    ligplaats_nummeraand lna
-ON
-    (((
-                lna.fk_nn_lh_lpl_sc_identif) = (lpa.sc_identif))))
+    ligplaats_nummeraand lna ON lna.fk_nn_lh_lpl_sc_identif = lpa.sc_identif
 LEFT JOIN
-    vb_adres bva
-ON
-    (((
-                lna.fk_nn_rh_nra_sc_identif) = (bva.na_identif))));
+    vb_adres bva ON lna.fk_nn_rh_nra_sc_identif = bva.na_identif;
 
-GO 
+GO
 
 EXEC sp_addextendedproperty
 @name = N'comment',
 @value = N'ligplaats met adres en puntlocatie
 
 beschikbare kolommen:
-* lpl_identif: natuurlijke id van ligplaats      
+* lpl_identif: natuurlijke id van ligplaats
 * begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
 * na_identif: natuurlijk id van nummeraanduiding,
+* na_status: status van de nummeraanduiding,
 * gemeente: -,
 * woonplaats: -,
 * straatnaam: -,
