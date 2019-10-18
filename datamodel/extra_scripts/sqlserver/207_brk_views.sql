@@ -740,16 +740,15 @@ EXEC sp_addextendedproperty
 GO
 
 
-CREATE VIEW
-    vb_zr_rechth
-    (
+CREATE VIEW vb_zr_rechth (
         objectid,
         zr_identif,
         subject_identif,
         koz_identif,
         aandeel,
-        omschr_aard_verkregenr_recht,
+        omschr_aard_verkregen_recht,
         indic_betrokken_in_splitsing,
+        aantekeningen,
         soort,
         geslachtsnaam,
         voorvoegsel,
@@ -774,8 +773,9 @@ SELECT
     uzr.subject_identif,
     uzr.koz_identif,
     uzr.aandeel,
-    uzr.omschr_aard_verkregenr_recht,
+    uzr.omschr_aard_verkregen_recht,
     uzr.indic_betrokken_in_splitsing,
+    uzr.aantekeningen,
     vs.soort,
     vs.geslachtsnaam,
     vs.voorvoegsel,
@@ -808,22 +808,23 @@ EXEC sp_addextendedproperty
 
 beschikbare kolommen:
 * objectid: uniek id bruikbaar voor geoserver/arcgis,
-* zr_identif: natuurlijke id van zakelijk recht 
+* zr_identif: natuurlijke id van zakelijk recht
 * subject_identif: natuurlijk id van subject (natuurlijk of niet natuurlijk) welke rechthebbende is,
 * koz_identif: natuurlijk id van kadastrale onroerende zaak (perceel of appratementsrecht) dat gekoppeld is,
 * aandeel: samenvoeging van teller en noemer (1/2),
-* omschr_aard_verkregenr_recht: tekstuele omschrijving aard recht,
+* omschr_aard_verkregen_recht: tekstuele omschrijving aard recht,
 * indic_betrokken_in_splitsing: -,
-* soort: soort subject zoals natuurlijk, niet-natuurlijk enz.  
-* geslachtsnaam: -       
-* voorvoegsel: -     
-* voornamen: -     
-* aand_naamgebruik:        
-- E (= Eigen geslachtsnaam)        
-- N (=Geslachtsnaam echtgenoot/geregistreerd partner na eigen geslachtsnaam)        
-- P (= Geslachtsnaam echtgenoot/geregistreerd partner)        
-- V (= Geslachtsnaam evhtgenoot/geregistreerd partner voor eigen geslachtsnaam)        
-* geslachtsaand: M/V   
+* aantekeningen: samenvoeging van alle rechten voor dit recht,
+* soort: soort subject zoals natuurlijk, niet-natuurlijk enz.
+* geslachtsnaam: -
+* voorvoegsel: -
+* voornamen: -
+* aand_naamgebruik:
+- E (= Eigen geslachtsnaam)
+- N (= Geslachtsnaam echtgenoot/geregistreerd partner na eigen geslachtsnaam)
+- P (= Geslachtsnaam echtgenoot/geregistreerd partner)
+- V (= Geslachtsnaam evhtgenoot/geregistreerd partner voor eigen geslachtsnaam)
+* geslachtsaand: M/V/X
 * naam: samengestelde naam bruikbaar voor natuurlijke en niet-natuurlijke subjecten
 * woonadres: meegeleverd adres buiten BAG koppeling om      
 * geboortedatum: -       
@@ -841,16 +842,15 @@ beschikbare kolommen:
 GO
 
 
-CREATE VIEW
-    vb_avg_zr_rechth
-    (
+CREATE VIEW vb_avg_zr_rechth (
         objectid,
         zr_identif,
         subject_identif,
         koz_identif,
         aandeel,
-        omschr_aard_verkregenr_recht,
+        omschr_aard_verkregen_recht,
         indic_betrokken_in_splitsing,
+        aantekeningen,
         soort,
         geslachtsnaam,
         voorvoegsel,
@@ -875,8 +875,9 @@ SELECT
     uzr.subject_identif,
     uzr.koz_identif,
     uzr.aandeel,
-    uzr.omschr_aard_verkregenr_recht,
+    uzr.omschr_aard_verkregen_recht,
     uzr.indic_betrokken_in_splitsing,
+    uzr.aantekeningen,
     vs.soort,
     vs.geslachtsnaam,
     vs.voorvoegsel,
@@ -909,12 +910,13 @@ EXEC sp_addextendedproperty
 
 beschikbare kolommen:
 * objectid: uniek id bruikbaar voor geoserver/arcgis,
-* zr_identif: natuurlijke id van zakelijk recht     
+* zr_identif: natuurlijke id van zakelijk recht
 * subject_identif: natuurlijk id van subject (natuurlijk of niet natuurlijk) welke rechthebbende is,
 * koz_identif: natuurlijk id van kadastrale onroerende zaak (perceel of appratementsrecht) dat gekoppeld is,
 * aandeel: samenvoeging van teller en noemer (1/2),
-* omschr_aard_verkregenr_recht: tekstuele omschrijving aard recht,
+* omschr_aard_verkregen_recht: tekstuele omschrijving aard recht,
 * indic_betrokken_in_splitsing: -,
+* aantekeningen: samenvoeging van alle aantekeningen van dit recht
 * soort: soort subject zoals natuurlijk, niet-natuurlijk enz.  
 * geslachtsnaam: NULL (avg)       
 * voorvoegsel: NULL (avg)      
