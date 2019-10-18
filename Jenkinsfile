@@ -148,7 +148,7 @@ timestamps {
                                 ]) {
                                 lock('rsgb-p8') {
                                     stage("P8 datamodel Integration Test") {
-                                        sh "mvn -e verify -B -Pp8 -T1 -pl 'datamodel' -fae
+                                        sh "mvn -e verify -B -Pp8 -T1 -pl 'datamodel' -fae"
                                     }
                                 }
                             }
