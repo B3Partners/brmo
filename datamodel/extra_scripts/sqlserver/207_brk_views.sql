@@ -677,9 +677,7 @@ beschikbare kolommen:
 
 GO
 
-CREATE VIEW
-    vb_util_zk_recht
-    (
+CREATE VIEW vb_util_zk_recht (
         zr_identif,
         aandeel,
         ar_teller,
@@ -687,8 +685,9 @@ CREATE VIEW
         subject_identif,
         koz_identif,
         indic_betrokken_in_splitsing,
-        omschr_aard_verkregenr_recht,
-        fk_3avr_aand
+        omschr_aard_verkregen_recht,
+        fk_3avr_aand,
+        aantekeningen
     ) AS
 SELECT
     zr.kadaster_identif AS zr_identif,
@@ -699,7 +698,20 @@ SELECT
     zr.fk_7koz_kad_identif AS koz_identif,
     zr.indic_betrokken_in_splitsing,
     avr.omschr_aard_verkregenr_recht,
-    zr.fk_3avr_aand
+    zr.fk_3avr_aand,
+    (SELECT STRING_AGG( CAST( CONCAT_WS(' ',
+                            'id:', COALESCE(zra.kadaster_identif_aantek_recht, ''),
+                            ', aard:', COALESCE(zra.aard_aantek_recht, ''),
+                            ', begin:', COALESCE(zra.begindatum_aantek_recht, ''),
+                            ', beschrijving:', COALESCE(zra.beschrijving_aantek_recht, ''),
+                            ', eind:', COALESCE(zra.eindd_aantek_recht, ''),
+                            ', zkr-id:', COALESCE(zra.fk_5zkr_kadaster_identif, ''),
+                            ', subject-id:', COALESCE(zra.fk_6pes_sc_identif, ''),
+                            ';')
+                        AS VARCHAR(MAX) ), ' & ') WITHIN GROUP ( ORDER BY zra.fk_5zkr_kadaster_identif ) AS aantekeningen
+                        FROM zak_recht_aantek zra
+                        WHERE zra.fk_5zkr_kadaster_identif = zr.kadaster_identif
+    ) AS aantekeningen
 FROM
     zak_recht zr
 JOIN
@@ -712,17 +724,16 @@ GO
 EXEC sp_addextendedproperty
 @name = N'comment',
 @value = N'zakelijk recht met opgezocht aard recht en berekend aandeel
-
-beschikbare kolommen:
-* zr_identif: natuurlijke id van zakelijk recht     
+* zr_identif: natuurlijke id van zakelijk recht
 * aandeel: samenvoeging van teller en noemer (1/2),
 * ar_teller: teller van aandeel,
 * ar_noemer: noemer van aandeel,
 * subject_identif: natuurlijk id van subject (natuurlijk of niet natuurlijk) welke rechthebbende is,
 * koz_identif: natuurlijk id van kadastrale onroerende zaak (perceel of appratementsrecht) dat gekoppeld is,
 * indic_betrokken_in_splitsing: -,
-* omschr_aard_verkregenr_recht: tekstuele omschrijving aard recht,
-* fk_3avr_aand: code aard recht',
+* omschr_aard_verkregen_recht: tekstuele omschrijving aard recht,
+* fk_3avr_aand: code aard recht,
+* aantekeningen: samenvoeging van alle aantekening op dit recht',
 @level0type = N'Schema', @level0name = N'dbo',
 @level1type = N'View', @level1name = N'vb_util_zk_recht';
 
