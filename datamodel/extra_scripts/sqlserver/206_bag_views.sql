@@ -358,13 +358,13 @@ beschikbare kolommen:
 
 GO
 
-CREATE VIEW
-    vb_benoemd_obj_adres
-    (
+CREATE VIEW vb_benoemd_obj_adres (
         objectid,
         benoemdobj_identif,
         na_identif,
+        na_status,
         begin_geldigheid,
+        begin_geldigheid_datum,
         pand_identif,
         soort,
         gemeente,
@@ -375,13 +375,17 @@ CREATE VIEW
         huisnummer_toev,
         postcode,
         status,
+        gebruiksdoelen,
+        oppervlakte_obj,
         the_geom
     ) AS
 SELECT
     CAST(row_number() OVER (ORDER BY qry.benoemdobj_identif)AS INT) AS ObjectID,
     qry.benoemdobj_identif,
     qry.na_identif,
+    qry.na_status,
     qry.begin_geldigheid,
+    qry.begin_geldigheid_datum,
     qry.pand_identif,
     qry.soort,
     qry.gemeente,
@@ -392,13 +396,17 @@ SELECT
     qry.huisnummer_toev,
     qry.postcode,
     qry.status,
+    qry.gebruiksdoelen,
+    qry.oppervlakte_obj,
     qry.the_geom
 FROM
     (
         SELECT
             vvla.vbo_identif AS benoemdobj_identif,
             vvla.na_identif,
+            vvla.na_status,
             vvla.begin_geldigheid,
+            vvla.begin_geldigheid_datum,
             vvla.pand_identif,
             'VBO' AS soort,
             vvla.gemeente,
@@ -409,6 +417,8 @@ FROM
             vvla.huisnummer_toev,
             vvla.postcode,
             vvla.status,
+            vvla.gebruiksdoelen,
+            vvla.oppervlakte_obj,
             vvla.the_geom
         FROM
             vb_vbo_adres vvla
@@ -416,7 +426,9 @@ FROM
         SELECT
             vlla.lpl_identif AS benoemdobj_identif,
             vlla.na_identif,
+            vlla.na_status,
             vlla.begin_geldigheid,
+            vlla.begin_geldigheid_datum,
             NULL        AS pand_identif,
             'LIGPLAATS' AS soort,
             vlla.gemeente,
@@ -427,6 +439,8 @@ FROM
             vlla.huisnummer_toev,
             vlla.postcode,
             vlla.status,
+            NULL         AS gebruiksdoelen,
+            NULL         AS oppervlakte_obj,
             vlla.the_geom
         FROM
             vb_ligplaats_adres vlla
@@ -434,7 +448,9 @@ FROM
         SELECT
             vsla.spl_identif AS benoemdobj_identif,
             vsla.na_identif,
+            vsla.na_status,
             vsla.begin_geldigheid,
+            vsla.begin_geldigheid_datum,
             NULL          AS pand_identif,
             'STANDPLAATS' AS soort,
             vsla.gemeente,
@@ -445,20 +461,24 @@ FROM
             vsla.huisnummer_toev,
             vsla.postcode,
             vsla.status,
+            NULL         AS gebruiksdoelen,
+            NULL         AS oppervlakte_obj,
             vsla.the_geom
         FROM
             vb_standplaats_adres vsla ) qry;
 
 
-GO 
+GO
 
 EXEC sp_addextendedproperty
 @name = N'comment',
 @value = N'alle benoemde objecten (vbo, standplaats en ligplaats) met adres, puntlocatie, objectid voor geoserver/arcgis en bij vbo referentie naar pand
 beschikbare kolommen:
-* benoemdobj_identif: natuurlijke id van benoemd object      
-* na_identif: natuurlijke id van nummeraanduiding      
+* benoemdobj_identif: natuurlijke id van benoemd object
+* na_identif: natuurlijke id van nummeraanduiding
+* na_status: status van de nummeraanduiding,
 * begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
+* begin_geldigheid_datum: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
 * pand_identif: natuurlijk id van pand dat aan dit object gekoppeld is (alleen vbo),
 * gemeente: -,
 * woonplaats: -,
@@ -468,6 +488,8 @@ beschikbare kolommen:
 * huisnummer_toev: -,
 * postcode: -,
 * status: -,
+* gebruiksdoelen: alle gebruiksdoel gescheiden door komma,
+* oppervlakte_obj: oppervlak van het gebouwd object
 * the_geom: puntlocatie',
 @level0type = N'Schema', @level0name = N'dbo',
 @level1type = N'View', @level1name = N'vb_benoemd_obj_adres';
