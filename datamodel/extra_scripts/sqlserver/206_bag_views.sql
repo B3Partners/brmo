@@ -4,12 +4,12 @@ versie 2
 30-8-2018
 */
 
-CREATE VIEW
-    vb_adres
-    (
+CREATE VIEW vb_adres (
         objectid,
         na_identif,
+        na_status,
         begin_geldigheid,
+        begin_geldigheid_datum,
         gemeente,
         woonplaats,
         straatnaam,
@@ -22,63 +22,47 @@ CREATE VIEW
         gem_code
     ) AS
 SELECT
-    CAST(row_number() OVER (ORDER BY na.sc_identif)AS INT) AS ObjectID,
-    na.sc_identif                                          AS na_identif,
+    CAST(row_number() OVER(ORDER BY na.sc_identif) AS INT)   AS ObjectID,
+    na.sc_identif                                            AS na_identif,
+    na.status                                                AS na_status,
     CASE
-        WHEN CHARINDEX('-',addrobj.dat_beg_geldh) = 5
+        WHEN CHARINDEX('-', addrobj.dat_beg_geldh) = 5
         THEN addrobj.dat_beg_geldh
-        ELSE substring(addrobj.dat_beg_geldh,1,4) + '-'
-            + substring(addrobj.dat_beg_geldh,5,2) + '-'
-            + substring(addrobj.dat_beg_geldh,7,2)
-    END                                                    AS begin_geldigheid,
-    gem.naam                                               AS gemeente,
+        ELSE substring(addrobj.dat_beg_geldh, 1, 4) + '-' + substring(addrobj.dat_beg_geldh, 5, 2) + '-' + substring(addrobj.dat_beg_geldh, 7, 2)
+    END                                                      AS begin_geldigheid,
+    TRY_CONVERT(DATETIME, addrobj.dat_beg_geldh)             AS begin_geldigheid_datum,
+    gem.naam                                                 AS gemeente,
     CASE
-        WHEN (addrobj.fk_6wpl_identif IS NOT NULL)
-        THEN
-            (
+        WHEN(addrobj.fk_6wpl_identif IS NOT NULL)
+        THEN (
                 SELECT
                     wnplts.naam
                 FROM
                     wnplts
                 WHERE
-                    (wnplts.identif = (addrobj.fk_6wpl_identif)))
+                    (wnplts.identif =(addrobj.fk_6wpl_identif)))
         ELSE wp.naam
-    END                  AS woonplaats,
-    geor.naam_openb_rmte AS straatnaam,
-    addrobj.huinummer    AS huisnummer,
+    END                                                      AS woonplaats,
+    geor.naam_openb_rmte                                     AS straatnaam,
+    addrobj.huinummer                                        AS huisnummer,
     addrobj.huisletter,
-    addrobj.huinummertoevoeging AS huisnummer_toev,
+    addrobj.huinummertoevoeging                              AS huisnummer_toev,
     addrobj.postcode,
-    geor.identifcode AS geor_identif,
-    wp.identif       AS wpl_identif,
-    gem.code         AS gem_code
+    geor.identifcode                                         AS geor_identif,
+    wp.identif                                               AS wpl_identif,
+    gem.code                                                 AS gem_code
 FROM
     (((((nummeraand na
 LEFT JOIN
-    addresseerb_obj_aand addrobj
-ON
-    (((
-                addrobj.identif) = (na.sc_identif))))
+    addresseerb_obj_aand addrobj ON(((addrobj.identif) =(na.sc_identif))))
 JOIN
-    gem_openb_rmte geor
-ON
-    (((
-                geor.identifcode) = (addrobj.fk_7opr_identifcode))))
+    gem_openb_rmte geor ON(((geor.identifcode) =(addrobj.fk_7opr_identifcode))))
 LEFT JOIN
-    openb_rmte_wnplts orwp
-ON
-    (((
-                geor.identifcode) = (orwp.fk_nn_lh_opr_identifcode))))
+    openb_rmte_wnplts orwp ON(((geor.identifcode) =(orwp.fk_nn_lh_opr_identifcode))))
 LEFT JOIN
-    wnplts wp
-ON
-    (((
-                orwp.fk_nn_rh_wpl_identif) = (wp.identif))))
+    wnplts wp ON(((orwp.fk_nn_rh_wpl_identif) =(wp.identif))))
 LEFT JOIN
-    gemeente gem
-ON
-    ((
-            wp.fk_7gem_code = gem.code)));
+    gemeente gem ON((wp.fk_7gem_code = gem.code))) ;
 GO
 
 EXEC sp_addextendedproperty
@@ -87,8 +71,10 @@ EXEC sp_addextendedproperty
 
 beschikbare kolommen:
 * objectid: uniek id bruikbaar voor geoserver/arcgis,
-* na_identif: natuurlijke id van nummeraanduiding,      
+* na_identif: natuurlijke id van nummeraanduiding,
+* na_status: status van de nummeraanduiding,
 * begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
+* begin_geldigheid_datum: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
 * gemeente: -,
 * woonplaats: -,
 * straatnaam: -,
