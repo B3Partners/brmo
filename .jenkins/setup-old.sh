@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # set up staging db
+# export SQLPATH=./.jenkins
 sqlplus -l -S jenkins_staging/jenkins_staging@192.168.1.11:1521/ORCL < ./old/db/staging/create-brmo-persistence-oracle.sql
 sqlplus -l -S jenkins_staging/jenkins_staging@192.168.1.11:1521/ORCL < ./old/db/staging/01_create_indexes.sql
 sqlplus -l -S jenkins_staging/jenkins_staging@192.168.1.11:1521/ORCL < ./old/db/staging/02_insert_default_user.sql

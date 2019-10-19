@@ -224,6 +224,7 @@ script:
   - if  [ "$TRAVIS_JOB_NAME" == "database upgrades" ]; then
         .travis/execute-upgrades-pgsql.sh staging;
         .travis/execute-upgrades-pgsql.sh rsgb;
+        .travis/execute-upgrade-extras-pgsql.sh rsgb;
         .travis/execute-upgrades-pgsql.sh rsgbbgt;
         mvn -e -B -P$PROFILE $MVN_ARGS -pl 'datamodel' resources:testResources compiler:testCompile surefire:test;
     fi

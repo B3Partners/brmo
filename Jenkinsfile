@@ -126,6 +126,7 @@ timestamps {
                                 sh ".jenkins/setup-old.sh"
                                 sh "\".jenkins/execute-upgrades-oracle.sh\" staging"
                                 sh "\".jenkins/execute-upgrades-oracle.sh\" rsgb"
+                                sh "\".jenkins/execute-upgrade-extras-oracle.sh\" rsgb"
                                 sh "\".jenkins/execute-upgrades-oracle.sh\" rsgbbgt"
                                 sh "mvn -e -B -Poracle -pl 'datamodel' resources:testResources compiler:testCompile surefire:test"
                             }

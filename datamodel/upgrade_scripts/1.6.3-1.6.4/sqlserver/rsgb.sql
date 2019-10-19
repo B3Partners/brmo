@@ -8,27 +8,27 @@ UPDATE aard_recht_verkort SET omschr='Zakelijk recht op gedeelte van perceel (al
 GO
 
 -- PR#617 verwijderen oude views
-DROP VIEW vb_kad_onrrnd_zk_archief;
-DROP VIEW vb_avg_koz_rechth;
-DROP VIEW vb_koz_rechth;
-DROP VIEW vb_avg_zr_rechth;
-DROP VIEW vb_zr_rechth;
-DROP VIEW vb_util_zk_recht;
-DROP VIEW vb_kad_onrrnd_zk_adres;
-DROP VIEW vb_util_app_re_kad_perceel;
-DROP VIEW vb_util_app_re_parent;
-DROP VIEW vb_util_app_re_parent_2;
-DROP VIEW vb_util_app_re_parent_3;
-DROP VIEW vb_util_app_re_splitsing;
-DROP VIEW vb_avg_subject;
-DROP VIEW vb_subject;
-DROP VIEW vb_ben_obj_nevenadres;
-DROP VIEW vb_benoemd_obj_adres;
-DROP VIEW vb_pand;
-DROP VIEW vb_ligplaats_adres;
-DROP VIEW vb_standplaats_adres;
-DROP VIEW vb_vbo_adres;
-DROP VIEW vb_adres;
+DROP VIEW IF EXISTS vb_kad_onrrnd_zk_archief;
+DROP VIEW IF EXISTS vb_avg_koz_rechth;
+DROP VIEW IF EXISTS vb_koz_rechth;
+DROP VIEW IF EXISTS vb_avg_zr_rechth;
+DROP VIEW IF EXISTS vb_zr_rechth;
+DROP VIEW IF EXISTS vb_util_zk_recht;
+DROP VIEW IF EXISTS vb_kad_onrrnd_zk_adres;
+DROP VIEW IF EXISTS vb_util_app_re_kad_perceel;
+DROP VIEW IF EXISTS vb_util_app_re_parent;
+DROP VIEW IF EXISTS vb_util_app_re_parent_2;
+DROP VIEW IF EXISTS vb_util_app_re_parent_3;
+DROP VIEW IF EXISTS vb_util_app_re_splitsing;
+DROP VIEW IF EXISTS vb_avg_subject;
+DROP VIEW IF EXISTS vb_subject;
+DROP VIEW IF EXISTS vb_ben_obj_nevenadres;
+DROP VIEW IF EXISTS vb_benoemd_obj_adres;
+DROP VIEW IF EXISTS vb_pand;
+DROP VIEW IF EXISTS vb_ligplaats_adres;
+DROP VIEW IF EXISTS vb_standplaats_adres;
+DROP VIEW IF EXISTS vb_vbo_adres;
+DROP VIEW IF EXISTS vb_adres;
 GO
 
 -- onderstaande dienen als laatste stappen van een upgrade uitgevoerd
