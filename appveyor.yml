@@ -11,28 +11,24 @@ init:
 
 environment:
   BGT_ONLY_ITESTS : false
+  # Microsoft SQL Server 2014 Service Pack 2 heeft een EOL van 9-7-2019
   # Microsoft SQL Server 2016 Service Pack 2 heeft een EOL (einde basisondersteuning) van 13-7-2021
+  # wegens in de views gebruikte functies niet meer ondersteund voor brmo
   # Microsoft SQL Server 2017 is de jongst-beschikbare release op AppVeyor, maar testen we (ook) op Travis-CI (veel sneller)
   matrix:
-    - SQL: MSSQL$SQL2016
-      INSTANCENAME: SQL2016
-      JAVA_HOME: C:\Program Files\Java\jdk1.8.0
+    #- SQL: MSSQL$SQL2016
+    #  INSTANCENAME: SQL2016
+    #  JAVA_HOME: C:\Program Files\Java\jdk1.8.0
     - SQL: MSSQL$SQL2017
       INSTANCENAME: SQL2017
       JAVA_HOME: C:\Program Files\Java\jdk11
     - SQL: MSSQL$SQL2017
       INSTANCENAME: SQL2017
-      JAVA_HOME: C:\Program Files\Java\jdk11
-      BGT_ONLY_ITESTS : true
-    - SQL: MSSQL$SQL2016
-      INSTANCENAME: SQL2016
+      JAVA_HOME: C:\Program Files\Java\jdk1.8.0
+    - SQL: MSSQL$SQL2017
+      INSTANCENAME: SQL2017
       JAVA_HOME: C:\Program Files\Java\jdk1.8.0
       BGT_ONLY_ITESTS : true
-  # Microsoft SQL Server 2014 Service Pack 2 heeft een EOL van 9-7-2019
-  # https://support.microsoft.com/en-us/lifecycle/search/17645
-  #  - SQL: MSSQL$SQL2014
-  #    INSTANCENAME: SQL2014
-  #    JAVA_HOME: C:\Program Files\Java\jdk1.8.0
 
 matrix:
   fast_finish: false

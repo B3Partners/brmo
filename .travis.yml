@@ -37,6 +37,7 @@ matrix:
     # kan vaak postgis niet installeren...
     - name: "PostgreSQL 10"
     - jdk: oraclejdk11
+    - name: "MS SQL server 2019"
   include:
   - name: "Oudste supported PostgreSQL"
     dist: xenial
@@ -94,6 +95,16 @@ matrix:
     sudo: required
     env:
       - PG_VERSION=""
+      - PROFILE="mssql"
+      - MVN_ARGS="-Dmssql.instancename='' -Dit.test=!TopNLIntegrationTest"
+  - name: "MS SQL server 2019"
+    jdk: openjdk8
+    group: edge
+    dist: xenial
+    sudo: required
+    env:
+      - PG_VERSION=""
+      - MSSQL_VERSION="2019"
       - PROFILE="mssql"
       - MVN_ARGS="-Dmssql.instancename='' -Dit.test=!TopNLIntegrationTest"
   - name: "database upgrades"
@@ -161,8 +172,12 @@ before_install:
   - if [ "$PROFILE" == "postgresql" ]; then
        sh ".travis/install-pgsql.sh";
     elif [ "$PROFILE" == "mssql" ]; then
-       sudo service postgresql stop;
-       sh ".travis/install-mssql.sh";
+        sudo service postgresql stop;
+        if [ "$MSSQL_VERSION" == "2019" ]; then
+          sh ".travis/install-mssql2019.sh";
+        else
+          sh ".travis/install-mssql.sh";
+        fi
     fi
   - if  [ "$TRAVIS_JOB_NAME" == "database upgrades" ]; then
        sh ".travis/getlastRelease.sh";
@@ -209,6 +224,7 @@ script:
   - if  [ "$TRAVIS_JOB_NAME" == "database upgrades" ]; then
         .travis/execute-upgrades-pgsql.sh staging;
         .travis/execute-upgrades-pgsql.sh rsgb;
+        .travis/execute-upgrade-extras-pgsql.sh rsgb;
         .travis/execute-upgrades-pgsql.sh rsgbbgt;
         mvn -e -B -P$PROFILE $MVN_ARGS -pl 'datamodel' resources:testResources compiler:testCompile surefire:test;
     fi

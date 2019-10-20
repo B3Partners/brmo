@@ -4,22 +4,12 @@ versie 2
 30-8-2018
 */
 
--- DROP VIEW vb_ben_obj_nevenadres;
--- DROP VIEW vb_benoemd_obj_adres;
--- DROP VIEW vb_pand;
--- DROP VIEW vb_ligplaats_adres;
--- DROP VIEW vb_standplaats_adres;
--- DROP VIEW vb_vbo_adres;
--- DROP VIEW vb_adres;
-
-GO
-
-CREATE VIEW
-    vb_adres
-    (
+CREATE VIEW vb_adres (
         objectid,
         na_identif,
+        na_status,
         begin_geldigheid,
+        begin_geldigheid_datum,
         gemeente,
         woonplaats,
         straatnaam,
@@ -32,63 +22,47 @@ CREATE VIEW
         gem_code
     ) AS
 SELECT
-    CAST(row_number() OVER (ORDER BY na.sc_identif)AS INT) AS ObjectID,
-    na.sc_identif                                          AS na_identif,
+    CAST(row_number() OVER(ORDER BY na.sc_identif) AS INT)   AS ObjectID,
+    na.sc_identif                                            AS na_identif,
+    na.status                                                AS na_status,
     CASE
-        WHEN CHARINDEX('-',addrobj.dat_beg_geldh) = 5
+        WHEN CHARINDEX('-', addrobj.dat_beg_geldh) = 5
         THEN addrobj.dat_beg_geldh
-        ELSE substring(addrobj.dat_beg_geldh,1,4) + '-'
-            + substring(addrobj.dat_beg_geldh,5,2) + '-'
-            + substring(addrobj.dat_beg_geldh,7,2)
-    END                                                    AS begin_geldigheid,
-    gem.naam                                               AS gemeente,
+        ELSE substring(addrobj.dat_beg_geldh, 1, 4) + '-' + substring(addrobj.dat_beg_geldh, 5, 2) + '-' + substring(addrobj.dat_beg_geldh, 7, 2)
+    END                                                      AS begin_geldigheid,
+    TRY_CONVERT(DATETIME, addrobj.dat_beg_geldh)             AS begin_geldigheid_datum,
+    gem.naam                                                 AS gemeente,
     CASE
-        WHEN (addrobj.fk_6wpl_identif IS NOT NULL)
-        THEN
-            (
+        WHEN(addrobj.fk_6wpl_identif IS NOT NULL)
+        THEN (
                 SELECT
                     wnplts.naam
                 FROM
                     wnplts
                 WHERE
-                    (wnplts.identif = (addrobj.fk_6wpl_identif)))
+                    (wnplts.identif =(addrobj.fk_6wpl_identif)))
         ELSE wp.naam
-    END                  AS woonplaats,
-    geor.naam_openb_rmte AS straatnaam,
-    addrobj.huinummer    AS huisnummer,
+    END                                                      AS woonplaats,
+    geor.naam_openb_rmte                                     AS straatnaam,
+    addrobj.huinummer                                        AS huisnummer,
     addrobj.huisletter,
-    addrobj.huinummertoevoeging AS huisnummer_toev,
+    addrobj.huinummertoevoeging                              AS huisnummer_toev,
     addrobj.postcode,
-    geor.identifcode AS geor_identif,
-    wp.identif       AS wpl_identif,
-    gem.code         AS gem_code
+    geor.identifcode                                         AS geor_identif,
+    wp.identif                                               AS wpl_identif,
+    gem.code                                                 AS gem_code
 FROM
     (((((nummeraand na
 LEFT JOIN
-    addresseerb_obj_aand addrobj
-ON
-    (((
-                addrobj.identif) = (na.sc_identif))))
+    addresseerb_obj_aand addrobj ON(((addrobj.identif) =(na.sc_identif))))
 JOIN
-    gem_openb_rmte geor
-ON
-    (((
-                geor.identifcode) = (addrobj.fk_7opr_identifcode))))
+    gem_openb_rmte geor ON(((geor.identifcode) =(addrobj.fk_7opr_identifcode))))
 LEFT JOIN
-    openb_rmte_wnplts orwp
-ON
-    (((
-                geor.identifcode) = (orwp.fk_nn_lh_opr_identifcode))))
+    openb_rmte_wnplts orwp ON(((geor.identifcode) =(orwp.fk_nn_lh_opr_identifcode))))
 LEFT JOIN
-    wnplts wp
-ON
-    (((
-                orwp.fk_nn_rh_wpl_identif) = (wp.identif))))
+    wnplts wp ON(((orwp.fk_nn_rh_wpl_identif) =(wp.identif))))
 LEFT JOIN
-    gemeente gem
-ON
-    ((
-            wp.fk_7gem_code = gem.code)));
+    gemeente gem ON((wp.fk_7gem_code = gem.code))) ;
 GO
 
 EXEC sp_addextendedproperty
@@ -97,8 +71,10 @@ EXEC sp_addextendedproperty
 
 beschikbare kolommen:
 * objectid: uniek id bruikbaar voor geoserver/arcgis,
-* na_identif: natuurlijke id van nummeraanduiding,      
+* na_identif: natuurlijke id van nummeraanduiding,
+* na_status: status van de nummeraanduiding,
 * begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
+* begin_geldigheid_datum: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
 * gemeente: -,
 * woonplaats: -,
 * straatnaam: -,
@@ -113,14 +89,13 @@ beschikbare kolommen:
 @level1type = N'View', @level1name = N'vb_adres';
 GO
 
-
-CREATE VIEW
-    vb_vbo_adres
-    (
+CREATE VIEW vb_vbo_adres (
         vbo_identif,
         begin_geldigheid,
+        begin_geldigheid_datum,
         pand_identif,
         na_identif,
+        na_status,
         gemeente,
         woonplaats,
         straatnaam,
@@ -129,19 +104,21 @@ CREATE VIEW
         huisnummer_toev,
         postcode,
         status,
+        gebruiksdoelen,
+        oppervlakte_obj,
         the_geom
     ) AS
 SELECT
-    vbo.sc_identif              AS vbo_identif,
+    vbo.sc_identif                                           AS vbo_identif,
     CASE
-        WHEN CHARINDEX('-',gobj.dat_beg_geldh) = 5
+        WHEN CHARINDEX('-', gobj.dat_beg_geldh) = 5
         THEN gobj.dat_beg_geldh
-        ELSE substring(gobj.dat_beg_geldh,1,4) + '-'
-            + substring(gobj.dat_beg_geldh,5,2) + '-'
-            + substring(gobj.dat_beg_geldh,7,2)
-    END                         AS begin_geldigheid,
-    fkpand.fk_nn_rh_pnd_identif AS pand_identif,
-    bva.na_identif              AS na_identif,
+        ELSE substring(gobj.dat_beg_geldh, 1, 4) + '-' + substring(gobj.dat_beg_geldh, 5, 2) + '-' + substring(gobj.dat_beg_geldh, 7, 2)
+    END                                                      AS begin_geldigheid,
+    TRY_CONVERT(DATETIME, gobj.dat_beg_geldh)                AS begin_geldigheid_datum,
+    fkpand.fk_nn_rh_pnd_identif                              AS pand_identif,
+    bva.na_identif                                           AS na_identif,
+    bva.na_status                                            AS na_status,
     bva.gemeente,
     bva.woonplaats,
     bva.straatnaam,
@@ -150,45 +127,42 @@ SELECT
     bva.huisnummer_toev,
     bva.postcode,
     vbo.status,
+    doel.gebruiksdoelen                                      AS gebruiksdoelen,
+    gobj.oppervlakte_obj,
     gobj.puntgeom AS the_geom
 FROM
-    (((((verblijfsobj vbo
+    verblijfsobj vbo
 JOIN
-    gebouwd_obj gobj
-ON
-    (((
-                gobj.sc_identif) = (vbo.sc_identif))))
+    gebouwd_obj gobj ON gobj.sc_identif = vbo.sc_identif
 LEFT JOIN
-    verblijfsobj_pand fkpand
-ON
-    (((
-                fkpand.fk_nn_lh_vbo_sc_identif) = (vbo.sc_identif))))
+    verblijfsobj_pand fkpand ON fkpand.fk_nn_lh_vbo_sc_identif = vbo.sc_identif
 LEFT JOIN
-    pand
-ON
-    (((
-                fkpand.fk_nn_rh_pnd_identif) = (pand.identif))))
+    pand ON fkpand.fk_nn_rh_pnd_identif = pand.identif
 LEFT JOIN
-    verblijfsobj_nummeraand vna
-ON
-    (((
-                vna.fk_nn_lh_vbo_sc_identif)= (vbo.sc_identif))))
+    verblijfsobj_nummeraand vna ON vna.fk_nn_lh_vbo_sc_identif = vbo.sc_identif
 LEFT JOIN
-    vb_adres bva
-ON
-    (((
-                vna.fk_nn_rh_nra_sc_identif) = (bva.na_identif))));
-GO 
+    vb_adres bva ON vna.fk_nn_rh_nra_sc_identif = bva.na_identif
+LEFT JOIN (
+        SELECT
+            gog.fk_gbo_sc_identif,
+            STRING_AGG(gog.gebruiksdoel_gebouwd_obj, ',') WITHIN GROUP(ORDER BY gog.fk_gbo_sc_identif) AS gebruiksdoelen
+        FROM
+            gebouwd_obj_gebruiksdoel gog
+        GROUP BY
+            gog.fk_gbo_sc_identif ) doel ON doel.fk_gbo_sc_identif = vbo.sc_identif;
+GO
 
 EXEC sp_addextendedproperty
 @name = N'comment',
 @value = N'vbo met adres, puntlocatie en referentie naar pand
 
 beschikbare kolommen:
-* vbo_identif: natuurlijke id van vbo      
+* vbo_identif: natuurlijke id van vbo
 * begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
+* begin_geldigheid_datum: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
 * pand_identif: natuurlijk id van pand dat aan dit vbo gekoppeld is,
 * na_identif: natuurlijk id van nummeraanduiding,
+* na_status: status van de nummeraanduiding,
 * gemeente: -,
 * woonplaats: -,
 * straatnaam: -,
@@ -197,19 +171,19 @@ beschikbare kolommen:
 * huisnummer_toev: -,
 * postcode: -,
 * status: -,
+* gebruiksdoelen: alle gebruiksdoel gescheiden door komma,
 * the_geom: puntlocatie',
 @level0type = N'Schema', @level0name = N'dbo',
 @level1type = N'View', @level1name = N'vb_vbo_adres';
 
 GO
 
-
-CREATE VIEW
-    vb_standplaats_adres
-    (
+CREATE VIEW vb_standplaats_adres  (
         spl_identif,
         begin_geldigheid,
+        begin_geldigheid_datum,
         na_identif,
+        na_status,
         gemeente,
         woonplaats,
         straatnaam,
@@ -221,15 +195,15 @@ CREATE VIEW
         the_geom
     ) AS
 SELECT
-    spl.sc_identif       AS spl_identif,
+    spl.sc_identif                                                    AS spl_identif,
     CASE
-        WHEN CHARINDEX('-',benter.dat_beg_geldh) = 5
+        WHEN CHARINDEX('-', benter.dat_beg_geldh) = 5
         THEN benter.dat_beg_geldh
-        ELSE substring(benter.dat_beg_geldh,1,4) + '-'
-            + substring(benter.dat_beg_geldh,5,2) + '-'
-            + substring(benter.dat_beg_geldh,7,2)
-    END                  AS begin_geldigheid,
-    bva.na_identif       AS na_identif,
+        ELSE substring(benter.dat_beg_geldh, 1, 4) + '-' + substring(benter.dat_beg_geldh, 5, 2) + '-' + substring(benter.dat_beg_geldh, 7, 2)
+    END                                                                AS begin_geldigheid,
+    TRY_CONVERT(DATETIME, benter.dat_beg_geldh)                        AS begin_geldigheid_datum,
+    bva.na_identif                                                     AS na_identif,
+    bva.na_status                                                      AS na_status,
     bva.gemeente,
     bva.woonplaats,
     bva.straatnaam,
@@ -242,30 +216,23 @@ SELECT
 FROM
     (((standplaats spl
 JOIN
-    benoemd_terrein benter
-ON
-    (((
-                benter.sc_identif) = (spl.sc_identif))))
+    benoemd_terrein benter ON(((benter.sc_identif) =(spl.sc_identif))))
 LEFT JOIN
-    standplaats_nummeraand sna
-ON
-    (((
-                sna.fk_nn_lh_spl_sc_identif) = (spl.sc_identif))))
+    standplaats_nummeraand sna ON(((sna.fk_nn_lh_spl_sc_identif) =(spl.sc_identif))))
 LEFT JOIN
-    vb_adres bva
-ON
-    (((
-                sna.fk_nn_rh_nra_sc_identif) = (bva.na_identif))));
-GO 
+    vb_adres bva ON(((sna.fk_nn_rh_nra_sc_identif) =(bva.na_identif)))) ;
+GO
 
 EXEC sp_addextendedproperty
 @name = N'comment',
 @value = N'standplaats met adres en puntlocatie
 
 beschikbare kolommen:
-* spl_identif: natuurlijke id van standplaats      
+* spl_identif: natuurlijke id van standplaats
 * begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
+* begin_geldigheid_datum: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
 * na_identif: natuurlijk id van nummeraanduiding,
+* na_status: status van de nummeraanduiding,
 * gemeente: -,
 * woonplaats: -,
 * straatnaam: -,
@@ -280,12 +247,12 @@ beschikbare kolommen:
 
 GO
 
-CREATE VIEW
-    vb_ligplaats_adres
-    (
+CREATE VIEW vb_ligplaats_adres (
         lpl_identif,
         begin_geldigheid,
+        begin_geldigheid_datum,
         na_identif,
+        na_status,
         gemeente,
         woonplaats,
         straatnaam,
@@ -297,15 +264,15 @@ CREATE VIEW
         the_geom
     ) AS
 SELECT
-    lpa.sc_identif         AS lpl_identif,
+    lpa.sc_identif                                                      AS lpl_identif,
     CASE
-        WHEN CHARINDEX('-',benter.dat_beg_geldh) = 5
+        WHEN CHARINDEX('-', benter.dat_beg_geldh) = 5
         THEN benter.dat_beg_geldh
-        ELSE substring(benter.dat_beg_geldh,1,4) + '-'
-            + substring(benter.dat_beg_geldh,5,2) + '-'
-            + substring(benter.dat_beg_geldh,7,2)
-    END                    AS begin_geldigheid,
-    bva.na_identif         AS na_identif,
+        ELSE substring(benter.dat_beg_geldh, 1, 4) + '-' + substring(benter.dat_beg_geldh, 5, 2) + '-' + substring(benter.dat_beg_geldh, 7, 2)
+    END                                                                  AS begin_geldigheid,
+    TRY_CONVERT(DATETIME, benter.dat_beg_geldh)                          AS begin_geldigheid_datum,
+    bva.na_identif                                                       AS na_identif,
+    bva.na_status                                                        AS na_status,
     bva.gemeente,
     bva.woonplaats,
     bva.straatnaam,
@@ -316,33 +283,25 @@ SELECT
     lpa.status,
     (benter.geom.STCentroid()) AS the_geom
 FROM
-    (((ligplaats lpa
+    ligplaats lpa
 JOIN
-    benoemd_terrein benter
-ON
-    (((
-                benter.sc_identif) = (lpa.sc_identif))))
+    benoemd_terrein benter ON benter.sc_identif = lpa.sc_identif
 LEFT JOIN
-    ligplaats_nummeraand lna
-ON
-    (((
-                lna.fk_nn_lh_lpl_sc_identif) = (lpa.sc_identif))))
+    ligplaats_nummeraand lna ON lna.fk_nn_lh_lpl_sc_identif = lpa.sc_identif
 LEFT JOIN
-    vb_adres bva
-ON
-    (((
-                lna.fk_nn_rh_nra_sc_identif) = (bva.na_identif))));
+    vb_adres bva ON lna.fk_nn_rh_nra_sc_identif = bva.na_identif;
 
-GO 
+GO
 
 EXEC sp_addextendedproperty
 @name = N'comment',
 @value = N'ligplaats met adres en puntlocatie
 
 beschikbare kolommen:
-* lpl_identif: natuurlijke id van ligplaats      
+* lpl_identif: natuurlijke id van ligplaats
 * begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
 * na_identif: natuurlijk id van nummeraanduiding,
+* na_status: status van de nummeraanduiding,
 * gemeente: -,
 * woonplaats: -,
 * straatnaam: -,
@@ -357,41 +316,40 @@ beschikbare kolommen:
 
 GO
 
-CREATE VIEW
-    vb_pand
-    (
+CREATE VIEW vb_pand (
         objectid,
         pand_identif,
         begin_geldigheid,
+        begin_geldigheid_datum,
         bouwjaar,
         status,
         the_geom
     ) AS
 SELECT
-    CAST(row_number() OVER (ORDER BY pand.identif)AS INT) AS ObjectID,
-    pand.identif                    AS pand_identif,
+    CAST(row_number() OVER(ORDER BY pand.identif) AS INT) AS ObjectID,
+    pand.identif                                          AS pand_identif,
     CASE
-        WHEN CHARINDEX('-',pand.dat_beg_geldh) = 5
+        WHEN CHARINDEX('-', pand.dat_beg_geldh) = 5
         THEN pand.dat_beg_geldh
-        ELSE substring(pand.dat_beg_geldh,1,4) + '-'
-            + substring(pand.dat_beg_geldh,5,2) + '-'
-            + substring(pand.dat_beg_geldh,7,2)
-    END                             AS begin_geldigheid,
-    pand.oorspronkelijk_bouwjaar    AS bouwjaar,
+        ELSE substring(pand.dat_beg_geldh, 1, 4) + '-' + substring(pand.dat_beg_geldh, 5, 2) + '-' + substring(pand.dat_beg_geldh, 7, 2)
+    END                                                   AS begin_geldigheid,
+    TRY_CONVERT(DATETIME, pand.dat_beg_geldh)             AS begin_geldigheid_datum,
+    pand.oorspronkelijk_bouwjaar                          AS bouwjaar,
     pand.status,
     pand.geom_bovenaanzicht AS the_geom
 FROM
     pand;
 
-GO 
+GO
 
 EXEC sp_addextendedproperty
 @name = N'comment',
 @value = N'pand met datum veld voor begin geldigheid en objectid voor geoserver/arcgis
 beschikbare kolommen:
 * objectid: uniek id bruikbaar voor geoserver/arcgis,
-* pand_identif: natuurlijke id van pand      
+* pand_identif: natuurlijke id van pand
 * begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
+* begin_geldigheid_datum: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
 * bouwjaar: -,
 * status: -,
 * the_geom: pandvlak',
@@ -400,13 +358,13 @@ beschikbare kolommen:
 
 GO
 
-CREATE VIEW
-    vb_benoemd_obj_adres
-    (
+CREATE VIEW vb_benoemd_obj_adres (
         objectid,
         benoemdobj_identif,
         na_identif,
+        na_status,
         begin_geldigheid,
+        begin_geldigheid_datum,
         pand_identif,
         soort,
         gemeente,
@@ -417,13 +375,17 @@ CREATE VIEW
         huisnummer_toev,
         postcode,
         status,
+        gebruiksdoelen,
+        oppervlakte_obj,
         the_geom
     ) AS
 SELECT
     CAST(row_number() OVER (ORDER BY qry.benoemdobj_identif)AS INT) AS ObjectID,
     qry.benoemdobj_identif,
     qry.na_identif,
+    qry.na_status,
     qry.begin_geldigheid,
+    qry.begin_geldigheid_datum,
     qry.pand_identif,
     qry.soort,
     qry.gemeente,
@@ -434,13 +396,17 @@ SELECT
     qry.huisnummer_toev,
     qry.postcode,
     qry.status,
+    qry.gebruiksdoelen,
+    qry.oppervlakte_obj,
     qry.the_geom
 FROM
     (
         SELECT
             vvla.vbo_identif AS benoemdobj_identif,
             vvla.na_identif,
+            vvla.na_status,
             vvla.begin_geldigheid,
+            vvla.begin_geldigheid_datum,
             vvla.pand_identif,
             'VBO' AS soort,
             vvla.gemeente,
@@ -451,6 +417,8 @@ FROM
             vvla.huisnummer_toev,
             vvla.postcode,
             vvla.status,
+            vvla.gebruiksdoelen,
+            vvla.oppervlakte_obj,
             vvla.the_geom
         FROM
             vb_vbo_adres vvla
@@ -458,7 +426,9 @@ FROM
         SELECT
             vlla.lpl_identif AS benoemdobj_identif,
             vlla.na_identif,
+            vlla.na_status,
             vlla.begin_geldigheid,
+            vlla.begin_geldigheid_datum,
             NULL        AS pand_identif,
             'LIGPLAATS' AS soort,
             vlla.gemeente,
@@ -469,6 +439,8 @@ FROM
             vlla.huisnummer_toev,
             vlla.postcode,
             vlla.status,
+            NULL         AS gebruiksdoelen,
+            NULL         AS oppervlakte_obj,
             vlla.the_geom
         FROM
             vb_ligplaats_adres vlla
@@ -476,7 +448,9 @@ FROM
         SELECT
             vsla.spl_identif AS benoemdobj_identif,
             vsla.na_identif,
+            vsla.na_status,
             vsla.begin_geldigheid,
+            vsla.begin_geldigheid_datum,
             NULL          AS pand_identif,
             'STANDPLAATS' AS soort,
             vsla.gemeente,
@@ -487,20 +461,24 @@ FROM
             vsla.huisnummer_toev,
             vsla.postcode,
             vsla.status,
+            NULL         AS gebruiksdoelen,
+            NULL         AS oppervlakte_obj,
             vsla.the_geom
         FROM
             vb_standplaats_adres vsla ) qry;
 
 
-GO 
+GO
 
 EXEC sp_addextendedproperty
 @name = N'comment',
 @value = N'alle benoemde objecten (vbo, standplaats en ligplaats) met adres, puntlocatie, objectid voor geoserver/arcgis en bij vbo referentie naar pand
 beschikbare kolommen:
-* benoemdobj_identif: natuurlijke id van benoemd object      
-* na_identif: natuurlijke id van nummeraanduiding      
+* benoemdobj_identif: natuurlijke id van benoemd object
+* na_identif: natuurlijke id van nummeraanduiding
+* na_status: status van de nummeraanduiding,
 * begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
+* begin_geldigheid_datum: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
 * pand_identif: natuurlijk id van pand dat aan dit object gekoppeld is (alleen vbo),
 * gemeente: -,
 * woonplaats: -,
@@ -510,18 +488,20 @@ beschikbare kolommen:
 * huisnummer_toev: -,
 * postcode: -,
 * status: -,
+* gebruiksdoelen: alle gebruiksdoel gescheiden door komma,
+* oppervlakte_obj: oppervlak van het gebouwd object
 * the_geom: puntlocatie',
 @level0type = N'Schema', @level0name = N'dbo',
 @level1type = N'View', @level1name = N'vb_benoemd_obj_adres';
 
 GO
 
-CREATE VIEW
-    vb_ben_obj_nevenadres
-    (
+CREATE VIEW vb_ben_obj_nevenadres (
         benoemdobj_identif,
         na_identif,
+        na_status,
         begin_geldigheid,
+        begin_geldigheid_datum,
         soort,
         gemeente,
         woonplaats,
@@ -534,7 +514,9 @@ CREATE VIEW
 SELECT
     qry.benoemdobj_identif,
     qry.na_identif,
+    qry.na_status,
     qry.begin_geldigheid,
+    qry.begin_geldigheid_datum,
     qry.soort,
     qry.gemeente,
     qry.woonplaats,
@@ -548,14 +530,13 @@ FROM
         SELECT
             vna.fk_nn_lh_vbo_sc_identif AS benoemdobj_identif,
             vba.na_identif,
-            (
-                CASE
-                    WHEN CHARINDEX('-',vna.fk_nn_lh_vbo_sc_dat_beg_geldh) = 5
-                    THEN vna.fk_nn_lh_vbo_sc_dat_beg_geldh
-                    ELSE substring(vna.fk_nn_lh_vbo_sc_dat_beg_geldh,1,4) + '-'
-                         + substring(vna.fk_nn_lh_vbo_sc_dat_beg_geldh,5,2) + '-'
-                         + substring(vna.fk_nn_lh_vbo_sc_dat_beg_geldh,7,2)
-                END) AS begin_geldigheid,
+            vba.na_status,
+            CASE
+                WHEN CHARINDEX('-',vna.fk_nn_lh_vbo_sc_dat_beg_geldh) = 5
+                THEN vna.fk_nn_lh_vbo_sc_dat_beg_geldh
+                ELSE substring(vna.fk_nn_lh_vbo_sc_dat_beg_geldh,1,4) + '-' + substring(vna.fk_nn_lh_vbo_sc_dat_beg_geldh,5,2) + '-' + substring(vna.fk_nn_lh_vbo_sc_dat_beg_geldh,7,2)
+             END AS begin_geldigheid,
+             TRY_CONVERT(DATETIME, vna.fk_nn_lh_vbo_sc_dat_beg_geldh) AS begin_geldigheid_datum,
             'VBO'    AS soort,
             vba.gemeente,
             vba.woonplaats,
@@ -580,14 +561,13 @@ FROM
         SELECT
             lpa.fk_nn_lh_lpl_sc_identif AS benoemdobj_identif,
             vba.na_identif,
-            (
-                CASE
-                    WHEN CHARINDEX('-',lpa.fk_nn_lh_lpl_sc_dat_beg_geldh) = 5
-                    THEN lpa.fk_nn_lh_lpl_sc_dat_beg_geldh
-                    ELSE substring(lpa.fk_nn_lh_lpl_sc_dat_beg_geldh,1,4) + '-'
-                         + substring(lpa.fk_nn_lh_lpl_sc_dat_beg_geldh,5,2) + '-'
-                         + substring(lpa.fk_nn_lh_lpl_sc_dat_beg_geldh,7,2)
-                END)    AS begin_geldigheid,
+            vba.na_status,
+            CASE
+                WHEN CHARINDEX('-',lpa.fk_nn_lh_lpl_sc_dat_beg_geldh) = 5
+                THEN lpa.fk_nn_lh_lpl_sc_dat_beg_geldh
+                ELSE substring(lpa.fk_nn_lh_lpl_sc_dat_beg_geldh,1,4) + '-' + substring(lpa.fk_nn_lh_lpl_sc_dat_beg_geldh,5,2) + '-' + substring(lpa.fk_nn_lh_lpl_sc_dat_beg_geldh,7,2)
+            END    AS begin_geldigheid,
+            TRY_CONVERT(DATETIME, lpa.fk_nn_lh_lpl_sc_dat_beg_geldh) AS begin_geldigheid_datum,
             'ligplaats' AS soort,
             vba.gemeente,
             vba.woonplaats,
@@ -612,14 +592,13 @@ FROM
         SELECT
             spa.fk_nn_lh_spl_sc_identif AS benoemdobj_identif,
             vba.na_identif,
-            (
-                CASE
-                    WHEN CHARINDEX('-',spa.fk_nn_lh_spl_sc_dat_beg_geldh) = 5
-                    THEN spa.fk_nn_lh_spl_sc_dat_beg_geldh
-                    ELSE substring(spa.fk_nn_lh_spl_sc_dat_beg_geldh,1,4) + '-'
-                        + substring(spa.fk_nn_lh_spl_sc_dat_beg_geldh,5,2) + '-'
-                        + substring(spa.fk_nn_lh_spl_sc_dat_beg_geldh,7,2)
-                END)      AS begin_geldigheid,
+            vba.na_status,
+            CASE
+                WHEN CHARINDEX('-',spa.fk_nn_lh_spl_sc_dat_beg_geldh) = 5
+                THEN spa.fk_nn_lh_spl_sc_dat_beg_geldh
+                ELSE substring(spa.fk_nn_lh_spl_sc_dat_beg_geldh,1,4) + '-' + substring(spa.fk_nn_lh_spl_sc_dat_beg_geldh,5,2) + '-' + substring(spa.fk_nn_lh_spl_sc_dat_beg_geldh,7,2)
+            END      AS begin_geldigheid,
+            TRY_CONVERT(DATETIME, spa.fk_nn_lh_spl_sc_dat_beg_geldh) AS begin_geldigheid_datum,
             'standplaats' AS soort,
             vba.gemeente,
             vba.woonplaats,
@@ -640,7 +619,6 @@ FROM
             spa.fk_nn_lh_spl_sc_identif = spl.sc_identif
         WHERE
             spl.fk_4nra_sc_identif <> spa.fk_nn_rh_nra_sc_identif ) qry;
-
 GO
 
 EXEC sp_addextendedproperty
@@ -649,7 +627,9 @@ EXEC sp_addextendedproperty
 beschikbare kolommen:
 * benoemdobj_identif: natuurlijke id van benoemd object
 * na_identif: natuurlijke id van nummeraanduiding
+* na_status: status van de nummeraanduiding,
 * begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
+* begin_geldigheid_datum: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),
 * soort: vbo, ligplaats of standplaats
 * gemeente: nevenadres,
 * woonplaats: nevenadres,
@@ -662,3 +642,4 @@ beschikbare kolommen:
 @level1type = N'View', @level1name = N'vb_ben_obj_nevenadres';
 
 GO
+

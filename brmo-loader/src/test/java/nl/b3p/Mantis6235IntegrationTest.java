@@ -91,7 +91,7 @@ public class Mantis6235IntegrationTest extends AbstractDatabaseIntegrationTest {
             staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
         }
 
-        IDataSet stagingDataSet = new XmlDataSet(new FileInputStream(new File(Mantis6166IntegrationTest.class.getResource("/mantis6235/staging.xml").toURI())));
+        IDataSet stagingDataSet = new XmlDataSet(new FileInputStream(new File(Mantis6235IntegrationTest.class.getResource("/mantis6235/staging.xml").toURI())));
 
         sequential.lock();
 
@@ -112,10 +112,9 @@ public class Mantis6235IntegrationTest extends AbstractDatabaseIntegrationTest {
     public void cleanup() throws Exception {
         brmo.closeBrmoFramework();
 
-        CleanUtil.cleanRSGB(rsgb);
-        rsgb.close();
-
+        CleanUtil.cleanRSGB_BRK(rsgb, true);
         CleanUtil.cleanSTAGING(staging);
+        rsgb.close();
         staging.close();
 
         sequential.unlock();
