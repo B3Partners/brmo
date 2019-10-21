@@ -75,7 +75,7 @@ versie 2
 --REFRESH MATERIALIZED VIEW mb_avg_koz_rechth;
 --END
 
-CREATE MATERIALIZED VIEW mb_subject 
+CREATE MATERIALIZED VIEW mb_subject
     (
         objectid,
         subject_identif,
@@ -117,26 +117,25 @@ SELECT
     CASE
         WHEN (nnp.naam IS NOT NULL)
         THEN (nnp.naam)::CHARACTER VARYING(1000)
-        ELSE ((((((COALESCE(np.nm_voornamen, ''::CHARACTER VARYING))::text || ' '::text) ||
-            (COALESCE(np.nm_voorvoegsel_geslachtsnaam, ''::CHARACTER VARYING))::text) || ' '::text)
-            || (COALESCE(np.nm_geslachtsnaam, ''::CHARACTER VARYING))::text))::CHARACTER VARYING
-            (1000)
+        ELSE ((REPLACE(COALESCE(np.nm_voornamen, ''::character varying)::text || ' '::text ||
+            COALESCE(np.nm_voorvoegsel_geslachtsnaam, '') || ' ' ,'  ',' ') ||
+            COALESCE(np.nm_geslachtsnaam, ''::character varying)::text))::character varying(1000)
     END                     AS naam,
     inp.va_loc_beschrijving AS woonadres,
     CASE
         WHEN ((s.clazz)::text = 'INGESCHREVEN NATUURLIJK PERSOON'::text)
             AND LENGTH(inp.gb_geboortedatum::text)=8
         THEN (
-                SUBSTRING(TO_CHAR(inp.gb_geboortedatum,'99999999'),2,4) || '-' || 
-                SUBSTRING(TO_CHAR(inp.gb_geboortedatum,'99999999'),6,2) || '-' || 
-                SUBSTRING(TO_CHAR(inp.gb_geboortedatum,'99999999'),8,2) 
+                SUBSTRING(TO_CHAR(inp.gb_geboortedatum,'99999999'),2,4) || '-' ||
+                SUBSTRING(TO_CHAR(inp.gb_geboortedatum,'99999999'),6,2) || '-' ||
+                SUBSTRING(TO_CHAR(inp.gb_geboortedatum,'99999999'),8,2)
               )::VARCHAR(10)
         WHEN ((s.clazz)::text = 'ANDER NATUURLIJK PERSOON'::text)
             AND LENGTH(anp.geboortedatum::text)=8
         THEN (
-                SUBSTRING(TO_CHAR(anp.geboortedatum, '99999999'),2,4) || '-' || 
-                SUBSTRING(TO_CHAR(anp.geboortedatum, '99999999'),6,2) || '-' || 
-                SUBSTRING(TO_CHAR(anp.geboortedatum, '99999999'),8,2)  
+                SUBSTRING(TO_CHAR(anp.geboortedatum, '99999999'),2,4) || '-' ||
+                SUBSTRING(TO_CHAR(anp.geboortedatum, '99999999'),6,2) || '-' ||
+                SUBSTRING(TO_CHAR(anp.geboortedatum, '99999999'),8,2)
               )::VARCHAR(10)
         WHEN ((s.clazz)::text = 'INGESCHREVEN NATUURLIJK PERSOON'::text)
            AND LENGTH(inp.gb_geboortedatum::text)=5
@@ -151,16 +150,16 @@ SELECT
         WHEN ((s.clazz)::text = 'INGESCHREVEN NATUURLIJK PERSOON'::text)
             AND LENGTH(inp.ol_overlijdensdatum::text)=8
         THEN (
-                SUBSTRING(TO_CHAR(inp.ol_overlijdensdatum,'99999999'),2,4) || '-' || 
-                SUBSTRING(TO_CHAR(inp.ol_overlijdensdatum,'99999999'),6,2) || '-' || 
-                SUBSTRING(TO_CHAR(inp.ol_overlijdensdatum,'99999999'),8,2) 
+                SUBSTRING(TO_CHAR(inp.ol_overlijdensdatum,'99999999'),2,4) || '-' ||
+                SUBSTRING(TO_CHAR(inp.ol_overlijdensdatum,'99999999'),6,2) || '-' ||
+                SUBSTRING(TO_CHAR(inp.ol_overlijdensdatum,'99999999'),8,2)
               )::VARCHAR(10)
         WHEN ((s.clazz)::text = 'ANDER NATUURLIJK PERSOON'::text)
             AND LENGTH(anp.overlijdensdatum::text)=8
         THEN (
-                SUBSTRING(TO_CHAR(anp.overlijdensdatum, '99999999'),2,4) || '-' || 
-                SUBSTRING(TO_CHAR(anp.overlijdensdatum, '99999999'),6,2) || '-' || 
-                SUBSTRING(TO_CHAR(anp.overlijdensdatum, '99999999'),8,2)  
+                SUBSTRING(TO_CHAR(anp.overlijdensdatum, '99999999'),2,4) || '-' ||
+                SUBSTRING(TO_CHAR(anp.overlijdensdatum, '99999999'),6,2) || '-' ||
+                SUBSTRING(TO_CHAR(anp.overlijdensdatum, '99999999'),8,2)
               )::VARCHAR(10)
         WHEN ((s.clazz)::text = 'INGESCHREVEN NATUURLIJK PERSOON'::text)
            AND LENGTH(inp.ol_overlijdensdatum::text)=5
@@ -221,7 +220,7 @@ beschikbare kolommen:
 * voornamen: -     
 * aand_naamgebruik:        
 - E (= Eigen geslachtsnaam)        
-- N (=Geslachtsnaam echtgenoot/geregistreerd partner na eigen geslachtsnaam)        
+- N (= Geslachtsnaam echtgenoot/geregistreerd partner na eigen geslachtsnaam)
 - P (= Geslachtsnaam echtgenoot/geregistreerd partner)        
 - V (= Geslachtsnaam evhtgenoot/geregistreerd partner voor eigen geslachtsnaam)        
 * geslachtsaand: M/V/X  
