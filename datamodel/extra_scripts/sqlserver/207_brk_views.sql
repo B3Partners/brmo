@@ -38,13 +38,18 @@ CREATE VIEW vb_subject (
         THEN 'M'
         WHEN ((np.geslachtsaand) = '2')
         THEN 'V'
+        WHEN ((np.geslachtsaand) = '3')
+        THEN 'X'
         ELSE np.geslachtsaand
     END AS geslachtsaand,
     CASE
         WHEN (nnp.naam IS NOT NULL)
         THEN (nnp.naam)
-        ELSE ((((((COALESCE(np.nm_voornamen, '')) + ' ') + (COALESCE
-            (np.nm_voorvoegsel_geslachtsnaam, ''))) + ' ') + (COALESCE (np.nm_geslachtsnaam, ''))))
+        ELSE (REPLACE(
+                COALESCE(np.nm_voornamen, '') + ' ' +
+                COALESCE(np.nm_voorvoegsel_geslachtsnaam, '') + ' ' +
+                COALESCE(np.nm_geslachtsnaam, '')
+                ,'  ', ' '))
     END                     AS naam,
     inp.va_loc_beschrijving AS woonadres,
     CASE

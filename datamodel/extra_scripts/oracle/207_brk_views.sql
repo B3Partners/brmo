@@ -44,11 +44,11 @@ AS
         END AS geslachtsaand,
         CASE
             WHEN ( nnp.naam IS NOT NULL ) THEN CAST(nnp.naam AS CHARACTER VARYING(1000) )
-            ELSE CAST( ( ( ( (coalesce(np.nm_voornamen,CAST('' AS CHARACTER VARYING(1) ) ) )
-                              || ' ')
-                            || ( (coalesce(np.nm_voorvoegsel_geslachtsnaam,CAST('' AS CHARACTER VARYING(1) ) ) ) )
-                            || ' ')
-                          || ( (coalesce(np.nm_geslachtsnaam,CAST('' AS CHARACTER VARYING(1) ) ) ) ) ) AS CHARACTER VARYING(1000)
+            ELSE CAST( REPLACE(
+                              coalesce(np.nm_voornamen, CAST('' AS CHARACTER VARYING(1) ) ) || ' '
+                           || coalesce(np.nm_voorvoegsel_geslachtsnaam, CAST('' AS CHARACTER VARYING(1) ) ) || ' '
+                           || coalesce(np.nm_geslachtsnaam, CAST('' AS CHARACTER VARYING(1) ) )
+                           ,'  ',' ') AS CHARACTER VARYING(1000)
                           )
         END AS naam,
         inp.va_loc_beschrijving           AS woonadres,
