@@ -3,9 +3,13 @@ package nl.b3p.brmo.service.stripes;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.StringReader;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import javax.servlet.ServletContext;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
 import net.sourceforge.stripes.action.ActionBeanContext;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.service.testutil.TestUtil;
@@ -33,6 +37,12 @@ import static org.junit.Assert.fail;
 import static org.junit.Assume.assumeTrue;
 import org.junit.Before;
 import org.junit.Test;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
+
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
@@ -61,6 +71,8 @@ public class UpdateBeginDatumZakRechtIntegrationTest extends TestUtil{
     private final String sBestandsNaam = "/GH557-brk-comfort-adres/staging-flat.xml";
     private final String rBestandsNaam = "/GH557-brk-comfort-adres/rsgb-flat.xml";
     private final Lock sequential = new ReentrantLock();
+
+    private final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 
     private UpdatesActionBean bean;
     @Before
@@ -177,6 +189,22 @@ public class UpdateBeginDatumZakRechtIntegrationTest extends TestUtil{
         for (int i = 0; i < 6; i++) {
             assertNotNull("Ingangsdatum recht is niet gevuld", zak_recht.getValue(i, "ingangsdatum_recht"));
             assertNotNull("fk_3avr_aand recht is niet gevuld", zak_recht.getValue(i, "fk_3avr_aand"));
+        }
+
+        // check of de db_xml ook is bijgewerkt
+        ITable bericht = staging.createDataSet().getTable("bericht");
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        for (int i = 0; i < bericht.getRowCount(); i++) {
+            String db_xml = bericht.getValue(i, "db_xml").toString();
+            if (db_xml.contains("zak_recht")) {
+                Document doc = builder.parse(new InputSource(new StringReader(db_xml)));
+                NodeList zakRechten = doc.getElementsByTagName("zak_recht");
+                for (int z = 0; i < zakRechten.getLength(); i++) {
+                    Element zr = (Element) zakRechten.item(z);
+                    assertNotNull("Zakelijk recht heeft geen ingangsdatum", zr.getElementsByTagName("ingangsdatum_recht"));
+                    assertNotNull("Zakelijk recht heeft geen geldige ingangsdatum waarde", zr.getElementsByTagName("ingangsdatum_recht").item(0).getTextContent());
+                }
+            }
         }
     }
 }

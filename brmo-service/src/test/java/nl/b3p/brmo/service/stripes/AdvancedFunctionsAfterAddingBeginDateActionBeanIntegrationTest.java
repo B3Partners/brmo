@@ -51,7 +51,7 @@ import static org.mockito.Mockito.when;
  * met:
  * {@code mvn -Dit.test=AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest -Dtest.onlyITs=true verify -Poracle > target/oracle.log}
  * voor bijvoorbeeld Oracle of
- * {@code mvn -Dit.test=AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql > target/postgresql.log}
+ * {@code mvn -Dit.test=AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql -pl brmo-service > target/postgresql.log}
  * voor PostgreSQL.
  *
  * @see AdvancedFunctionsActionBeanIntegrationTest
@@ -212,14 +212,13 @@ public class AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest exte
         LOG.info("Finished waiting");
         
         final IDataSet rds = rsgb.createDataSet();
-        // Ik denk dat dit niet moet gebeuren, dan kun je niet meer verwijderen+archiveren
-        // staging.getConnection().createStatement().executeUpdate("update BERICHT set db_xml = null;");
-        ITable zak_recht = zak_recht = rsgb.createDataSet().getTable("zak_recht");
+        ITable zak_recht = rsgb.createDataSet().getTable("zak_recht");
         for (int i = 0; i < zak_recht.getRowCount(); i++) {
             assertNotNull("Ingangsdatum recht is niet gevuld", zak_recht.getValue(i, "ingangsdatum_recht"));
             assertNotNull("fk_3avr_aand recht is niet gevuld", zak_recht.getValue(i, "fk_3avr_aand"));
         }
 
+        // deze gegevens komen uit de test data set
         assertEquals("Er is een spook record in de kad_onrrnd_zk tabel", 1, rds.getTable("kad_onrrnd_zk").getRowCount());
         assertEquals("De perceel tabel is leeg", 0, rds.getTable("kad_perceel").getRowCount());
         assertEquals("De kad_onrrnd_zk_archief komt een record te kort", aantalBerichten - (1 + 1), rds.getTable("kad_onrrnd_zk_archief").getRowCount());
@@ -229,12 +228,15 @@ public class AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest exte
 
         assertEquals("Er zijn geen spook records in de kad_onrrnd_zk tabel", 0, rds.getTable("kad_onrrnd_zk").getRowCount());
         assertTrue("De kad_onrrnd_zk_archief tabel is niet leeg", 0 < rds.getTable("kad_onrrnd_zk_archief").getRowCount());
-        assertEquals("Er zit voor ieder bericht met perceel in record in kad_perceel_archief",
+        assertEquals("Er zit voor ieder bericht met perceel een record in kad_perceel_archief",
                 aantalBerichten - 1,
                 rds.getTable("kad_perceel_archief").getRowCount()
         );
 
-        ITable bericht = staging.createDataSet().getTable("bericht");
-        assertEquals("Alle berichten hebben status RSGB_OK", aantalBerichten, bericht.getRowCount());
+        assertEquals(
+                "Alle berichten hebben status RSGB_OK",
+                aantalBerichten,
+                brmo.getCountBerichten(null,null,"brk","RSGB_OK")
+        );
     }
 }
