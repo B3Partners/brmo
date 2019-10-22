@@ -47,12 +47,14 @@ import static org.mockito.Mockito.when;
 
 /**
  *
- * testcases voor GH issue 260; herhalen van brk verwijder berichten. Draaien
+ * testcase voor snelle update van brk berichten en daarda een herhalen van brk verwijder berichten. Draaien
  * met:
  * {@code mvn -Dit.test=AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest -Dtest.onlyITs=true verify -Poracle > target/oracle.log}
  * voor bijvoorbeeld Oracle of
  * {@code mvn -Dit.test=AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql > target/postgresql.log}
  * voor PostgreSQL.
+ *
+ * @see AdvancedFunctionsActionBeanIntegrationTest
  *
  * <strong>Deze test werkt niet met de jTDS driver omdat die geen
  * {@code PreparedStatement.setNull(int, int, String)} methode heeft
@@ -210,13 +212,13 @@ public class AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest exte
         LOG.info("Finished waiting");
         
         final IDataSet rds = rsgb.createDataSet();
-        staging.getConnection().createStatement().executeUpdate("update BERICHT set db_xml = null;");
+        // Ik denk dat dit niet moet gebeuren, dan kun je niet meer verwijderen+archiveren
+        // staging.getConnection().createStatement().executeUpdate("update BERICHT set db_xml = null;");
         ITable zak_recht = zak_recht = rsgb.createDataSet().getTable("zak_recht");
         for (int i = 0; i < zak_recht.getRowCount(); i++) {
             assertNotNull("Ingangsdatum recht is niet gevuld", zak_recht.getValue(i, "ingangsdatum_recht"));
             assertNotNull("fk_3avr_aand recht is niet gevuld", zak_recht.getValue(i, "fk_3avr_aand"));
         }
-        
 
         assertEquals("Er is een spook record in de kad_onrrnd_zk tabel", 1, rds.getTable("kad_onrrnd_zk").getRowCount());
         assertEquals("De perceel tabel is leeg", 0, rds.getTable("kad_perceel").getRowCount());

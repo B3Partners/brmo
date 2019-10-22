@@ -149,8 +149,8 @@
         </dependency>
         <dependency>
             <!-- voor database integratie tests -->
-                    <groupId>net.postgis</groupId>
-                    <artifactId>postgis-jdbc</artifactId>
+            <groupId>net.postgis</groupId>
+            <artifactId>postgis-jdbc</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -173,9 +173,6 @@
                     <compilerArguments>
                         <endorseddirs>${endorsed.dir}</endorseddirs>
                     </compilerArguments>
-                    <showDeprecation>true</showDeprecation>
-                    <source>1.8</source>
-                    <target>1.8</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -285,6 +282,8 @@
                                 <file>${project.basedir}/src/test/resources/local.postgres.properties</file>
                             </files>
                             <quiet>true</quiet>
+                            <outputFile/>
+                            <properties/>
                         </configuration>
                         <executions>
                             <execution>
@@ -393,6 +392,8 @@
                                 <file>${project.basedir}/src/test/resources/local.oracle.properties</file>
                             </files>
                             <quiet>true</quiet>
+                            <outputFile/>
+                            <properties/>
                         </configuration>
                         <executions>
                             <execution>
@@ -498,6 +499,8 @@
                                 <file>${project.basedir}/src/test/resources/local.sqlserver.properties</file>
                             </files>
                             <quiet>true</quiet>
+                            <outputFile/>
+                            <properties/>
                         </configuration>
                         <executions>
                             <execution>
