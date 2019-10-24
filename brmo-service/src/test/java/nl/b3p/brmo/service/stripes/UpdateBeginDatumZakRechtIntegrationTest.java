@@ -25,6 +25,7 @@ import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
+import org.dbunit.ext.mssql.InsertIdentityOperation;
 import org.dbunit.ext.mssql.MsSqlDataTypeFactory;
 import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
@@ -132,8 +133,14 @@ public class UpdateBeginDatumZakRechtIntegrationTest extends TestUtil{
 
         sequential.lock();
 
-        DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
-        DatabaseOperation.CLEAN_INSERT.execute(rsgb, rsgbDataSet);
+        if (this.isMsSQL) {
+            // SET IDENTITY_INSERT op ON
+            InsertIdentityOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
+            InsertIdentityOperation.CLEAN_INSERT.execute(rsgb, rsgbDataSet);
+        } else {
+            DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
+            DatabaseOperation.CLEAN_INSERT.execute(rsgb, rsgbDataSet);
+        }
 
         brmo = new BrmoFramework(dsStaging, dsRsgb);
         brmo.setOrderBerichten(true);
