@@ -39,9 +39,11 @@ public class AfgifteChecker {
     
     private List<Afgifte> afgiftes;
     private StagingProxy staging;
-    
-    public void init(String input, StagingProxy staging) throws IOException{
-        init(new FileInputStream(new File(input)), staging);
+
+    public void init(String input, StagingProxy staging) throws IOException {
+        try (FileInputStream fin = new FileInputStream(new File(input))) {
+            init(fin, staging);
+        }
     }
     
     public void init(InputStream input, StagingProxy staging) throws IOException{
