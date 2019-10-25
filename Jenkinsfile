@@ -148,6 +148,8 @@ timestamps {
                                 ]) {
                                 lock('rsgb-p8') {
                                     stage("P8 datamodel Integration Test") {
+                                        sh "mvn -Pp8 resources:testResources"
+                                        sh "./datamodel/target/reinstall-rsgb-views-pgsql.sh"
                                         sh "mvn -e verify -B -Pp8 -T1 -pl 'datamodel' -fae"
                                     }
                                 }

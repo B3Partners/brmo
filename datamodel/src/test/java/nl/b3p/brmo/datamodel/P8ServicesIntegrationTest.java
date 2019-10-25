@@ -16,7 +16,6 @@
  */
 package nl.b3p.brmo.datamodel;
 
-import nl.b3p.brmo.test.util.database.ViewUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.http.HttpResponse;
@@ -66,9 +65,11 @@ public class P8ServicesIntegrationTest extends P8TestFramework {
         this.setUpDB();
 
         if (!didThisAllready) {
+            LOG.debug("begin laden test data");
             // TODO testdata laden
 
-            // verversen van de views
+            // TODO verversen van de views na laden van test data
+            LOG.debug("ververs test data in rsgb views");
             // ViewUtils.refreshKnownMViews(dsRsgb);
             didThisAllready = true;
         }

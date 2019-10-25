@@ -1,9 +1,6 @@
 package nl.b3p.brmo.datamodel;
 
-import nl.b3p.loader.jdbc.GeometryJdbcConverter;
-import nl.b3p.loader.jdbc.GeometryJdbcConverterFactory;
 import org.apache.commons.dbcp.BasicDataSource;
-import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.http.auth.AuthScope;
@@ -18,12 +15,8 @@ import org.junit.*;
 import org.junit.rules.TestName;
 
 import java.io.IOException;
-
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Properties;
-
-import static org.junit.Assume.assumeNotNull;
 
 public abstract class P8TestFramework {
     private static final Log LOG = LogFactory.getLog(P8TestFramework.class);

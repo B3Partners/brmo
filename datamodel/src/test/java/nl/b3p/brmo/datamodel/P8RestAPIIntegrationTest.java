@@ -16,12 +16,8 @@
  */
 package nl.b3p.brmo.datamodel;
 
-import nl.b3p.brmo.test.util.database.ViewUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
-import org.apache.http.auth.AuthenticationException;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.methods.RequestBuilder;
 import org.apache.http.util.EntityUtils;
@@ -30,7 +26,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 import static net.javacrumbs.jsonunit.JsonAssert.assertJsonEquals;
 import static org.hamcrest.CoreMatchers.equalTo;
