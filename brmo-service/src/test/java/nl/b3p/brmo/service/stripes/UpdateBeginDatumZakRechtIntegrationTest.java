@@ -1,21 +1,18 @@
-/*
- * Copyright (C) 2016 B3Partners B.V.
- */
 package nl.b3p.brmo.service.stripes;
+
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Date;
+import java.io.StringReader;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import javax.servlet.ServletContext;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
 import net.sourceforge.stripes.action.ActionBeanContext;
 import nl.b3p.brmo.loader.BrmoFramework;
-import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.service.testutil.TestUtil;
-import nl.b3p.brmo.test.util.database.JTDSDriverBasedFailures;
 import nl.b3p.brmo.test.util.database.dbunit.CleanUtil;
 import nl.b3p.loader.jdbc.OracleConnectionUnwrapper;
 import org.apache.commons.dbcp.BasicDataSource;
@@ -34,88 +31,65 @@ import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 import org.dbunit.operation.DatabaseOperation;
 import org.junit.After;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
+import static org.junit.Assume.assumeTrue;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
-import static org.junit.Assume.assumeTrue;
-import org.junit.experimental.categories.Category;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
+
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 
 /**
+ * Testcases voor updaten van zak_recht.begind_recht tabel
  *
- * testcases voor GH issue 260; herhalen van brk verwijder berichten. Draaien
- * met:
- * {@code mvn -Dit.test=AdvancedFunctionsActionBeanIntegrationTest -Dtest.onlyITs=true verify -Poracle > target/oracle.log}
+ * Draaien met:
+ * {@code mvn -Dit.test=UpdateBeginDatumZakRechtIntegrationTest -Dtest.onlyITs=true verify -Poracle > target/oracle.log}
  * voor bijvoorbeeld Oracle of
- * {@code mvn -Dit.test=AdvancedFunctionsActionBeanIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql > target/postgresql.log}
- * voor PostgreSQL.
+ * {@code mvn -Dit.test=UpdateBeginDatumZakRechtIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql > target/postgresql.log}
+ * of
+ * {@code mvn -Dit.test=UpdateBeginDatumZakRechtIntegrationTest -Dtest.onlyITs=true verify -Pmssql > target/mssql.log}.
  *
- * <strong>Deze test werkt niet met de jTDS driver omdat die geen
- * {@code PreparedStatement.setNull(int, int, String)} methode heeft
- * geimplementeerd.</strong>
- *
- * @author mprins
+ * @author meine
  */
-@RunWith(Parameterized.class)
-@Category(JTDSDriverBasedFailures.class)
-public class AdvancedFunctionsActionBeanIntegrationTest extends TestUtil {
+public class UpdateBeginDatumZakRechtIntegrationTest extends TestUtil{
 
-    private static final Log LOG = LogFactory.getLog(AdvancedFunctionsActionBeanIntegrationTest.class);
+    private static final Log LOG = LogFactory.getLog(UpdateBeginDatumZakRechtIntegrationTest.class);
 
-    @Parameterized.Parameters(name = "{index}: verwerken bestand: {0}")
-    public static Collection params() {
-        return Arrays.asList(new Object[][]{
-            // {"sBestandsNaam", aantalProcessen, aantalBerichten, rBestandsNaam},
-            {"/gh-issue-260/staging-flat.xml", 2, 2, "/gh-issue-260/rsgb-spook_kad_onrrnd_zk-flat.xml"},
-            {"/gh-issue-260/staging-flat-4.xml", 4, 4, "/gh-issue-260/rsgb-spook_kad_onrrnd_zk-flat-4.xml"}
-        });
-    }
-
-    private AdvancedFunctionsActionBean bean;
-    
-    private UpdatesActionBean updatesBean;
-    
     private BrmoFramework brmo;
+
     private IDatabaseConnection rsgb;
     private IDatabaseConnection staging;
 
+    private final String sBestandsNaam = "/GH557-brk-comfort-adres/staging-flat.xml";
+    private final String rBestandsNaam = "/GH557-brk-comfort-adres/rsgb-flat.xml";
     private final Lock sequential = new ReentrantLock();
 
-    /*
-     * test parameters.
-     */
-    private final String sBestandsNaam;
-    private final String rBestandsNaam;
-    private final long aantalBerichten;
-    private final long aantalProcessen;
+    private final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 
-    public AdvancedFunctionsActionBeanIntegrationTest(String sBestandsNaam, long aantalBerichten, long aantalProcessen, String rBestandsNaam) {
-        this.sBestandsNaam = sBestandsNaam;
-        this.rBestandsNaam = rBestandsNaam;
-        this.aantalBerichten = aantalBerichten;
-        this.aantalProcessen = aantalProcessen;
-    }
-
+    private UpdatesActionBean bean;
     @Before
+    @Override
     public void setUp() throws Exception {
-        assumeTrue("Het bestand met staging testdata zou moeten bestaan.", AdvancedFunctionsActionBeanIntegrationTest.class.getResource(sBestandsNaam) != null);
-        assumeTrue("Het bestand met rsgb testdata zou moeten bestaan.", AdvancedFunctionsActionBeanIntegrationTest.class.getResource(rBestandsNaam) != null);
-        assumeTrue("Deze test werkt niet met de jTDS driver omdat die geen PreparedStatement.setNull(int, int, String) methode heeft geimplementeerd.",
-                !this.isMsSQL);
-
-        bean = new AdvancedFunctionsActionBean();
         
-        updatesBean = spy(UpdatesActionBean.class);
+        // mock de context van de bean
         ServletContext sctx = mock(ServletContext.class);
         ActionBeanContext actx = mock(ActionBeanContext.class);
-        updatesBean = spy(UpdatesActionBean.class);
-        when(updatesBean.getContext()).thenReturn(actx);
+        bean = spy(UpdatesActionBean.class);
+        when(bean.getContext()).thenReturn(actx);
         when(actx.getServletContext()).thenReturn(sctx);
-        
+
+        assumeTrue("Het bestand met staging testdata zou moeten bestaan.", UpdateBeginDatumZakRechtIntegrationTest.class.getResource(sBestandsNaam) != null);
+        assumeTrue("Het bestand met rsgb testdata zou moeten bestaan.", UpdateBeginDatumZakRechtIntegrationTest.class.getResource(rBestandsNaam) != null);
+
         BasicDataSource dsStaging = new BasicDataSource();
         dsStaging.setUrl(DBPROPS.getProperty("staging.url"));
         dsStaging.setUsername(DBPROPS.getProperty("staging.username"));
@@ -147,12 +121,15 @@ public class AdvancedFunctionsActionBeanIntegrationTest extends TestUtil {
         } else {
             fail("Geen ondersteunde database aangegegeven");
         }
+
+        staging.getConfig().setProperty(DatabaseConfig.FEATURE_ALLOW_EMPTY_FIELDS, true);
+        rsgb.getConfig().setProperty(DatabaseConfig.FEATURE_ALLOW_EMPTY_FIELDS, true);
         setupJNDI(dsRsgb, dsStaging);
 
         FlatXmlDataSetBuilder fxdb = new FlatXmlDataSetBuilder();
         fxdb.setCaseSensitiveTableNames(false);
-        IDataSet stagingDataSet = fxdb.build(new FileInputStream(new File(AdvancedFunctionsActionBeanIntegrationTest.class.getResource(sBestandsNaam).toURI())));
-        IDataSet rsgbDataSet = fxdb.build(new FileInputStream(new File(AdvancedFunctionsActionBeanIntegrationTest.class.getResource(rBestandsNaam).toURI())));
+        IDataSet stagingDataSet = fxdb.build(new FileInputStream(new File(UpdateBeginDatumZakRechtIntegrationTest.class.getResource(sBestandsNaam).toURI())));
+        IDataSet rsgbDataSet = fxdb.build(new FileInputStream(new File(UpdateBeginDatumZakRechtIntegrationTest.class.getResource(rBestandsNaam).toURI())));
 
         sequential.lock();
 
@@ -168,10 +145,11 @@ public class AdvancedFunctionsActionBeanIntegrationTest extends TestUtil {
         brmo = new BrmoFramework(dsStaging, dsRsgb);
         brmo.setOrderBerichten(true);
 
-        assumeTrue("Er zijn x RSGB_OK berichten", aantalBerichten == brmo.getCountBerichten(null, null, "brk", "RSGB_OK"));
-        assumeTrue("Er zijn x STAGING_OK laadprocessen", aantalProcessen == brmo.getCountLaadProcessen(null, null, "brk", "STAGING_OK"));
+        assumeTrue("Er zijn x RSGB_OK berichten", 1 == brmo.getCountBerichten(null, null, "brk", "RSGB_OK"));
+        assumeTrue("Er zijn x STAGING_OK laadprocessen", 1 == brmo.getCountLaadProcessen(null, null, "brk", "STAGING_OK"));
     }
 
+    
     @After
     public void cleanup() throws Exception {
         if (brmo != null) {
@@ -195,25 +173,45 @@ public class AdvancedFunctionsActionBeanIntegrationTest extends TestUtil {
         }
     }
 
+
     @Test
-    public void testReplayBRKVerwijderBerichten() throws Exception {
-        final IDataSet rds = rsgb.createDataSet();
+    public void runUpdate() throws Exception {
 
-        assertEquals("Er is een spook record in de kad_onrrnd_zk tabel", 1, rds.getTable("kad_onrrnd_zk").getRowCount());
-        assertEquals("De perceel tabel is leeg", 0, rds.getTable("kad_perceel").getRowCount());
-        assertEquals("De kad_onrrnd_zk_archief komt een record te kort", aantalBerichten - (1 + 1), rds.getTable("kad_onrrnd_zk_archief").getRowCount());
-        assertTrue("Er is minstens een perceel in kad_perceel_archief", 0 < rds.getTable("kad_perceel_archief").getRowCount());
+        ITable zak_recht = rsgb.createDataSet().getTable("zak_recht");
+        assertEquals("Aantal zakelijk rechten klopt niet", 6, zak_recht.getRowCount());
+        /*
+        eerst checken of de datum leeg is, anders klopt de testdata niet
+         */
+        for (int i = 0; i < 6; i++) {
+            assertNull("Ingangsdatum recht is gevuld", zak_recht.getValue(i, "ingangsdatum_recht"));
+        }
+       
+        bean.populateUpdateProcesses();
+        bean.setUpdateProcessName("Bijwerken ingangsdatum_recht zakelijk recht");
+        bean.update();
 
-        bean.replayBRKVerwijderBerichten(BrmoFramework.BR_BRK, Bericht.STATUS.RSGB_OK.toString());
+        zak_recht = rsgb.createDataSet().getTable("zak_recht");
+        assertEquals("Aantal zakelijk rechten klopt niet", 6, zak_recht.getRowCount());
 
-        assertEquals("Er zijn geen spook records in de kad_onrrnd_zk tabel", 0, rds.getTable("kad_onrrnd_zk").getRowCount());
-        assertTrue("De kad_onrrnd_zk_archief tabel is niet leeg", 0 < rds.getTable("kad_onrrnd_zk_archief").getRowCount());
-        assertEquals("Er zit voor ieder bericht met perceel in record in kad_perceel_archief",
-                aantalBerichten - 1,
-                rds.getTable("kad_perceel_archief").getRowCount()
-        );
+        for (int i = 0; i < 6; i++) {
+            assertNotNull("Ingangsdatum recht is niet gevuld", zak_recht.getValue(i, "ingangsdatum_recht"));
+            assertNotNull("fk_3avr_aand recht is niet gevuld", zak_recht.getValue(i, "fk_3avr_aand"));
+        }
 
+        // check of de db_xml ook is bijgewerkt
         ITable bericht = staging.createDataSet().getTable("bericht");
-        assertEquals("Alle berichten hebben status RSGB_OK", aantalBerichten, bericht.getRowCount());
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        for (int i = 0; i < bericht.getRowCount(); i++) {
+            String db_xml = bericht.getValue(i, "db_xml").toString();
+            if (db_xml.contains("zak_recht")) {
+                Document doc = builder.parse(new InputSource(new StringReader(db_xml)));
+                NodeList zakRechten = doc.getElementsByTagName("zak_recht");
+                for (int z = 0; i < zakRechten.getLength(); i++) {
+                    Element zr = (Element) zakRechten.item(z);
+                    assertNotNull("Zakelijk recht heeft geen ingangsdatum", zr.getElementsByTagName("ingangsdatum_recht"));
+                    assertNotNull("Zakelijk recht heeft geen geldige ingangsdatum waarde", zr.getElementsByTagName("ingangsdatum_recht").item(0).getTextContent());
+                }
+            }
+        }
     }
 }

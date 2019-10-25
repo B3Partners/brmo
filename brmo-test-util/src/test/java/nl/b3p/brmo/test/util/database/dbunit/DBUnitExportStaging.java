@@ -12,15 +12,10 @@ import java.sql.SQLException;
 import org.dbunit.DatabaseUnitException;
 import org.dbunit.database.DatabaseConfig;
 import org.dbunit.database.DatabaseConnection;
-import org.dbunit.database.DatabaseSequenceFilter;
 import org.dbunit.database.IDatabaseConnection;
-import org.dbunit.dataset.FilteredDataSet;
-import org.dbunit.dataset.IDataSet;
-import org.dbunit.dataset.filter.ITableFilter;
+import org.dbunit.database.QueryDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSet;
 import org.dbunit.dataset.xml.XmlDataSet;
-import org.dbunit.ext.mssql.MsSqlDataTypeFactory;
-import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 
 /**
@@ -70,10 +65,13 @@ public class DBUnitExportStaging {
 //        connection.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
 
         // voor alle tabellen:
-//        ITableFilter filter = new DatabaseSequenceFilter(connection);
-//        IDataSet dataset = new FilteredDataSet(filter, connection.createDataSet());
+       // ITableFilter filter = new DatabaseSequenceFilter(connection);
+        QueryDataSet dataset = new QueryDataSet(connection);
+        dataset.addTable("bericht", "SELECT id,br_orgineel_xml,br_xml,datum,job_id,object_ref,soort,status,status_datum,volgordenummer,xsl_version,laadprocesid FROM bericht WHERE object_ref='NL.KAD.OnroerendeZaak:20930170970000'");
+        dataset.addTable("laadproces","SELECT * FROM laadproces WHERE id=1");
+        //IDataSet dataset = new FilteredDataSet(filter, connection.createDataSet());
         // voor een setje tabellen
-        IDataSet dataset = new FilteredDataSet(_testTableNames, connection.createDataSet());
+     //   IDataSet dataset = new FilteredDataSet(_testTableNames, connection.createDataSet());
 
         // "flat" xml export
         FlatXmlDataSet.write(dataset, new FileOutputStream(new File(_testDir, _dbFile)));

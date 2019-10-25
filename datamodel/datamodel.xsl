@@ -29,6 +29,7 @@
 			<xsl:call-template name="process-referentielijsten"/>
 
 			<extra-scripts>
+				<script>50_zak_recht_archief.sql</script>
 				<script>101_herkomst_metadata.sql</script>
 				<script>102_metagegevens_brondocument.sql</script>
 				<script>103_woz_waarde.sql</script>

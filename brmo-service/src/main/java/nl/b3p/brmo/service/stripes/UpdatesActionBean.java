@@ -163,7 +163,8 @@ public class UpdatesActionBean implements ActionBean, ProgressUpdateListener {
             new UpdateProcess("Bijwerken van onvolledig adres", BrmoFramework.BR_BRK, "/xsl/update-incompleetadres.xsl"),
             new UpdateProcess("Bijwerken van rechthebbende VVE op zakelijk recht", BrmoFramework.BR_BRK, "/xsl/update-zak_recht-vve.xsl"),
             new UpdateProcess("Bijwerken van GBA Niet Ingezetene 'clazz' in personen tabellen", BrmoFramework.BR_BRK, "/xsl/update-niet_ingezetene-clazz.xsl"),
-            new UpdateProcess("Bijwerken subject adres comfort data", BrmoFramework.BR_BRK, "/xsl/update-comfort-adres.xsl")
+            new UpdateProcess("Bijwerken subject adres comfort data", BrmoFramework.BR_BRK, "/xsl/update-comfort-adres.xsl"),
+            new UpdateProcess("Bijwerken ingangsdatum_recht zakelijk recht", BrmoFramework.BR_BRK, "/xsl/update-zak_recht-begindatum.xsl", true)
         });
     }
 

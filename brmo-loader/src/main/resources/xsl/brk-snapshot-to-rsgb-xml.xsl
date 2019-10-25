@@ -14,6 +14,7 @@
                 xmlns:gba="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-gba-persoon/v20120901"
                 xmlns:GbaPersoonRef="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-gba-persoon-ref/v20120201"
                 xmlns:Stuk="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-stuk/v20120201"
+                xmlns:StukRef="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-stuk-ref/v20120201" 
                 xmlns:bagadres="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-bag-adres/v20120201"
                 xmlns:fn="http://www.w3.org/2005/xpath-functions">
         <!-- parameters van het bericht -->
@@ -74,8 +75,9 @@
                             <xsl:with-param name="id" select="recht:identificatie"/>
                         </xsl:call-template>
                     </xsl:variable>
-                    <zak_recht>
+                    <zak_recht column-dat-beg-geldh="ingangsdatum_recht" column-datum-einde-geldh="eindd_recht">
                         <kadaster_identif><xsl:value-of select="$parent-id"/></kadaster_identif>
+                        <eindd_recht alleen-archief="true"></eindd_recht>
                         <xsl:call-template name="zakelijk_recht">
                             <xsl:with-param name="zr" select="."/>
                         </xsl:call-template>
@@ -94,6 +96,7 @@
                                 </fk_8pes_sc_identif>
                             </xsl:for-each>
                         </xsl:for-each>
+                        <ingangsdatum_recht><xsl:value-of select="$toestandsdatum"/></ingangsdatum_recht>
                     </zak_recht>
                     <xsl:for-each select="recht:ontstaanUit//recht:isGebaseerdOp | recht:betrokkenBij//recht:isGebaseerdOp">
                         <xsl:call-template name="is_gebaseerd_op_brondocument">
@@ -306,8 +309,9 @@
                 <xsl:with-param name="id" select="recht:identificatie"/>
             </xsl:call-template>
         </xsl:variable>
-        <zak_recht>
+        <zak_recht column-dat-beg-geldh="ingangsdatum_recht" column-datum-einde-geldh="eindd_recht">
             <kadaster_identif><xsl:value-of select="$parent-id"/></kadaster_identif>
+            <eindd_recht alleen-archief="true"></eindd_recht>
             <xsl:choose>
                 <xsl:when test="recht:aandeel">
                     <ar_teller>
@@ -340,7 +344,23 @@
                     </fk_8pes_sc_identif>
                 </xsl:for-each>
             </xsl:for-each>
-
+            <xsl:for-each select="recht:isGebaseerdOp">
+                <xsl:for-each select="StukRef:StukdeelRef">
+                    <xsl:variable name="id" select="substring(@xlink:href,2)"/>
+                    <xsl:choose>
+                        <xsl:when test="//Stuk:TerInschrijvingAangebodenStuk/Stuk:omvat/Stuk:Stukdeel[@id=$id]/../../Stuk:tijdstipAanbieding">
+                            <ingangsdatum_recht>
+                                <xsl:value-of select="substring(//Stuk:TerInschrijvingAangebodenStuk/Stuk:omvat/Stuk:Stukdeel[@id=$id]/../../Stuk:tijdstipAanbieding,0,11)"/>
+                            </ingangsdatum_recht>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <ingangsdatum_recht>
+                                <xsl:value-of select="$toestandsdatum"/>
+                            </ingangsdatum_recht>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:for-each>
+            </xsl:for-each>
         </zak_recht>
 
         <xsl:for-each select="recht:isGebaseerdOp">

@@ -12,10 +12,19 @@ public class UpdateProcess {
 
     private String xsl;
 
+    private boolean updateDbXml;
+
     public UpdateProcess(String name, String soort, String xsl) {
         this.name = name;
         this.soort = soort;
         this.xsl = xsl;
+    }
+
+    public UpdateProcess(String name, String soort, String xsl, boolean updateDbXml) {
+        this.name = name;
+        this.soort = soort;
+        this.xsl = xsl;
+        this.updateDbXml = updateDbXml;
     }
 
     public String getName() {
@@ -41,4 +50,18 @@ public class UpdateProcess {
     public void setXsl(String xsl) {
         this.xsl = xsl;
     }
+
+    /**
+     * of de DbXml moet "herberekend" en gebruikt moet worden in verdere verwerking.
+     *
+     * @return true als de DbXml opnieuw moet worden gemaakt en opgeslagen in het bericht.
+     */
+    public boolean isUpdateDbXml() { return updateDbXml; }
+
+    /**
+     * of de DbXml moet "herberekend" en gebruikt moet worden in verdere verwerking.
+     *
+     * @param updateDbXml {@code true} als de DbXml opnieuw moet worden gemaakt en opgeslagen in het bericht.
+     */
+    public void setUpdateDbXml(boolean updateDbXml) { this.updateDbXml = updateDbXml; }
 }

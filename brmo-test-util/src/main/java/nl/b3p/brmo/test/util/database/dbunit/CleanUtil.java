@@ -83,6 +83,7 @@ public final class CleanUtil {
             new DefaultTable("app_re"),
             new DefaultTable("app_re_archief"),
             new DefaultTable("zak_recht"),
+            new DefaultTable("zak_recht_archief"),
             new DefaultTable("zak_recht_aantek"),
             new DefaultTable("benoemd_obj_kad_onrrnd_zk"),
             new DefaultTable("herkomst_metadata")}
