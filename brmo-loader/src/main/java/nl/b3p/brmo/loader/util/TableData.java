@@ -102,4 +102,17 @@ public class TableData {
     public void setComfortSnapshotDate(String comfortSnapshotDate) {
         this.comfortSnapshotDate = comfortSnapshotDate;
     }
+
+    @Override
+    public String toString() {
+        return "TableData{" +
+                "comfortData=" + comfortData +
+                ", comfortSearchTable='" + comfortSearchTable + '\'' +
+                ", comfortSearchColumn='" + comfortSearchColumn + '\'' +
+                ", comfortSearchValue='" + comfortSearchValue + '\'' +
+                ", deleteData=" + deleteData +
+                ", comfortSnapshotDate='" + comfortSnapshotDate + '\'' +
+                ", rows=" + rows +
+                '}';
+    }
 }

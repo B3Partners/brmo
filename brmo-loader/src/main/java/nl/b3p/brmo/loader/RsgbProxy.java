@@ -1,6 +1,8 @@
 package nl.b3p.brmo.loader;
 
 import org.locationtech.jts.io.ParseException;
+
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringReader;
 import java.io.StringWriter;
@@ -24,6 +26,7 @@ import java.util.TreeSet;
 import javax.sql.DataSource;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamSource;
 import nl.b3p.brmo.loader.entity.Bericht;
@@ -43,6 +46,10 @@ import org.apache.commons.logging.LogFactory;
 import org.javasimon.SimonManager;
 import org.javasimon.Split;
 import org.w3c.dom.Node;
+import org.xml.sax.SAXException;
+
+import static nl.b3p.brmo.loader.BrmoFramework.BR_BRK;
+import static nl.b3p.brmo.loader.BrmoFramework.XSL_BRK;
 
 /**
  *
@@ -594,7 +601,34 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         }
     }
 
-    public void update(Bericht ber, List<TableData> pretransformedTableData) throws BrmoException {
+    public void update(Bericht jobBericht, List<TableData> pretransformedTableData) throws BrmoException {
+
+        if (updateProcess.isUpdateDbXml() && jobBericht.getSoort().equals(BR_BRK)) {
+            try {
+                // maak nieuwe DbXml voor het bericht op basis van de br xml en gebruik die in verdere verwerking
+                Bericht berichtBericht = stagingProxy.getBerichtById(jobBericht.getId());
+                log.trace("job bericht: " + jobBericht);
+                log.trace("origineel bericht: " + berichtBericht);
+                RsgbTransformer t = new RsgbTransformer(XSL_BRK);
+                final String newDbXml = t.transformToDbXml(berichtBericht);
+                berichtBericht.setDbXml(newDbXml);
+                jobBericht.setDbXml(newDbXml);
+                berichtBericht.setStatus(Bericht.STATUS.RSGB_OK);
+                berichtBericht.setStatusDatum(new Date());
+                SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+                berichtBericht.setOpmerking(
+                        String.format(
+                                "%s: Middels update proces '%s' her-verwerkt.\nDe eerdere db_xml van dit bericht is vervangen door nieuwe.\n\nOude verwerkingslog\n\n%s",
+                                dateTimeFormat.format(new Date()), updateProcess.getName(), berichtBericht.getOpmerking()
+                        )
+                );
+                log.trace("updated bericht: " + jobBericht);
+                log.trace("job bericht: " + jobBericht);
+                stagingProxy.updateBerichtProcessing(berichtBericht);
+            } catch (SAXException | IOException | TransformerException | ParserConfigurationException | SQLException e) {
+                log.error("Bijwerken van db_xml is mislukt voor bericht " + jobBericht.getId(), e);
+            }
+        }
 
         try {
 
@@ -606,9 +640,10 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             if (pretransformedTableData != null) {
                 newList = pretransformedTableData;
             } else {
-                newList = transformUpdateTableData(ber);
+                newList = transformUpdateTableData(jobBericht);
             }
 
+            log.trace("data voor update: " + newList);
             for (TableData newData : newList) {
                 for (TableRow row : newData.getRows()) {
                     
@@ -632,7 +667,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             }
 
         } catch (Throwable ex) {
-            log.error("Fout bij updaten bericht met id " + ber.getId(), ex);
+            log.error("Fout bij updaten bericht met id " + jobBericht.getId(), ex);
             try {
                 connRsgb.rollback();
             } catch (SQLException e) {
@@ -644,8 +679,8 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
     private RsgbTransformer getTransformer(String brType) throws TransformerConfigurationException, ParserConfigurationException {
         RsgbTransformer t = rsgbTransformers.get(brType);
         if (t == null) {
-            if (brType.equals(BrmoFramework.BR_BRK)) {
-                t = new RsgbTransformer(BrmoFramework.XSL_BRK);
+            if (brType.equals(BR_BRK)) {
+                t = new RsgbTransformer(XSL_BRK);
             } else if (brType.equals(BrmoFramework.BR_BAG)) {
                 t = new RsgbTransformer(BrmoFramework.XSL_BAG);
             } else if(brType.equals(BrmoFramework.BR_BRP)){
