@@ -70,12 +70,12 @@
     <suppress>
         <notes>
             <![CDATA[
-                     Deze kwetsbaarheid is niet van toepassing, er wordt geen gebruik gemaakt van RC4 voor TLS.
+                     False positive voor xss kwetsbaarheden in de Eclipse help server
             ]]>
         </notes>
-        <gav regex="true">^org\.glassfish\.ha:ha-api:3\.1\.9$</gav>
-        <cve>CVE-2013-2566</cve>
-        <cve>CVE-2015-2808</cve>
+        <gav regex="true">^org\.glassfish\.ha:ha-api:3\.1\.12$</gav>
+        <cve>CVE-2010-4647</cve>
+        <cve>CVE-2008-7271</cve>
     </suppress>
     <suppress>
         <notes>
@@ -84,31 +84,7 @@
             ]]>
         </notes>
         <gav regex="true">^net\.postgis:postgis-jdbc:.*$</gav>
-        <cpe>cpe:/a:postgresql:postgresql</cpe>
-        <cpe>cpe:/a:postgresql:postgresql_jdbc_driver</cpe>
-        <cpe>cpe:/a:postgis_project:postgis</cpe>
-        <!--<cve>CVE-2007-2138</cve>-->
-        <!--<cve>CVE-2010-0733</cve>-->
-        <!--<cve>CVE-2014-0060</cve>-->
-        <!--<cve>CVE-2014-0061</cve>-->
-        <!--<cve>CVE-2014-0062</cve>-->
-        <!--<cve>CVE-2014-0063</cve>-->
-        <!--<cve>CVE-2014-0064</cve>-->
-        <!--<cve>CVE-2014-0065</cve>-->
-        <!--<cve>CVE-2014-0066</cve>-->
-        <!--<cve>CVE-2014-0067</cve>-->
-        <!--<cve>CVE-2015-5288</cve>-->
-        <!--<cve>CVE-2015-5289</cve>-->
-        <!--<cve>CVE-2016-0766</cve>-->
-        <!--<cve>CVE-2016-0768</cve>-->
-        <!--<cve>CVE-2016-0773</cve>-->
-        <!--<cve>CVE-2016-5423</cve>-->
-        <!--<cve>CVE-2016-5424</cve>-->
-        <!--<cve>CVE-2016-7048</cve>-->
-        <!--<cve>CVE-2017-14798</cve>-->
-        <!--<cve>CVE-2017-7484</cve>-->
-        <!--<cve>CVE-2017-8806</cve>-->
-        <!--<cve>CVE-2017-1115</cve>-->
+        <cpe>cpe:/a:postgis:postgis</cpe>
     </suppress>
     <suppress>
         <notes>
@@ -118,13 +94,5 @@
         </notes>
         <gav regex="true">^net\.sourceforge\.jtds:jtds:.*$</gav>
         <cpe>cpe:/a:microsoft:sql_server</cpe>
-        <!--CVE-2001-0509-->
-        <!--CVE-2007-5090-->
-        <!--CVE-2012-1856-->
-        <!--CVE-2012-2552-->
-        <!--CVE-2014-4061-->
-        <!--CVE-2015-1761-->
-        <!--CVE-2015-1762-->
-        <!--CVE-2015-1763-->
     </suppress>
 </suppressions>
