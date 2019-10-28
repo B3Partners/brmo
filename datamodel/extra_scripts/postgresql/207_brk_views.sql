@@ -201,7 +201,7 @@ LEFT JOIN
     ingeschr_niet_nat_prs innp
 ON
     (((
-                innp.sc_identif)::text = (nnp.sc_identif)::text)));
+                innp.sc_identif)::text = (nnp.sc_identif)::text))) WITH NO DATA;
 
 CREATE UNIQUE INDEX mb_subject_objectid ON mb_subject USING btree (objectid);
 CREATE INDEX mb_subject_identif ON mb_subject USING btree (subject_identif);
