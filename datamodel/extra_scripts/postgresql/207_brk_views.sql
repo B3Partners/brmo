@@ -346,7 +346,7 @@ FROM
 LEFT JOIN
     vb_util_app_re_splitsing sp
 ON
-    re.sc_kad_identif::text = sp.child_identif
+    re.sc_kad_identif = sp.child_identif::numeric
 GROUP BY
     re.sc_kad_identif::text,
     sp.parent_identif;
@@ -390,7 +390,7 @@ SELECT
    u1.app_re_identif,
    kp.sc_kad_identif AS perceel_identif
 FROM vb_util_app_re_parent u1
-JOIN kad_perceel kp ON u1.parent_identif = kp.sc_kad_identif::text
+JOIN kad_perceel kp ON u1.parent_identif::numeric = kp.sc_kad_identif
 GROUP BY u1.app_re_identif, kp.sc_kad_identif WITH NO DATA;
 
 CREATE INDEX mb_util_app_re_kad_perceel_identif ON mb_util_app_re_kad_perceel USING btree (app_re_identif);

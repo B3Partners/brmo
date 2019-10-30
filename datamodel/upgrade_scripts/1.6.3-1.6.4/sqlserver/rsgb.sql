@@ -48,5 +48,7 @@ CREATE TABLE zak_recht_archief
    CONSTRAINT zak_recht_archief_pk PRIMARY KEY (kadaster_identif,ingangsdatum_recht)
 );
  
+CREATE INDEX idx_gebrdoel  ON gebouwd_obj_gebruiksdoel (fk_gbo_sc_identif);
+
 -- versienummer update
 UPDATE brmo_metadata SET waarde='1.6.4' WHERE naam='brmoversie';
