@@ -237,7 +237,7 @@ CREATE OR REPLACE VIEW vb_util_app_re_parent_3 AS
         MIN(sp.parent_identif) AS parent_identif
     FROM
         app_re re
-        LEFT JOIN vb_util_app_re_splitsing sp ON CAST(re.sc_kad_identif AS CHARACTER VARYING(50) ) = sp.child_identif
+        LEFT JOIN vb_util_app_re_splitsing sp ON re.sc_kad_identif  = CAST (sp.child_identif AS numeric)
     GROUP BY
         CAST(re.sc_kad_identif AS CHARACTER VARYING(50) );
 
@@ -273,7 +273,7 @@ AS
         kp.sc_kad_identif   AS perceel_identif
     FROM
         vb_util_app_re_parent u1
-        JOIN kad_perceel kp ON u1.parent_identif = CAST(kp.sc_kad_identif AS CHARACTER VARYING(50) )
+        JOIN kad_perceel kp ON cast( u1.parent_identif as numeric) = kp.sc_kad_identif 
     GROUP BY
         u1.app_re_identif,
         kp.sc_kad_identif;
