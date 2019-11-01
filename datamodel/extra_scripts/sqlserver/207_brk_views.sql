@@ -1472,3 +1472,4 @@ beschikbare kolommen:
 @level1type = N'View', @level1name = N'vb_kad_onrrnd_zk_archief';
 
 GO
+

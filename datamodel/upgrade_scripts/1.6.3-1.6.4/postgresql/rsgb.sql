@@ -64,6 +64,7 @@ CREATE TABLE zak_recht_archief
     fk_3avr_aand character varying(6),
     CONSTRAINT zak_recht_archief_pk PRIMARY KEY (kadaster_identif,ingangsdatum_recht)
 );
-
+CREATE INDEX idx_gebrdoel ON gebouwd_obj_gebruiksdoel USING btree (fk_gbo_sc_identif ASC NULLS LAST);
+CREATE INDEX mb_kad_onrrnd_zak_archief_overgegaan_in_idx ON public.mb_kad_onrrnd_zk_archief USING btree(overgegaan_in);
 
 UPDATE brmo_metadata SET waarde='1.6.4' WHERE naam='brmoversie';
