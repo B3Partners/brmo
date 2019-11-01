@@ -3,13 +3,8 @@ package nl.b3p.brmo.service.stripes;
 
 import java.util.Date;
 import javax.sql.DataSource;
-import net.sourceforge.stripes.action.ActionBean;
-import net.sourceforge.stripes.action.ActionBeanContext;
-import net.sourceforge.stripes.action.After;
-import net.sourceforge.stripes.action.Before;
-import net.sourceforge.stripes.action.ForwardResolution;
-import net.sourceforge.stripes.action.Resolution;
-import net.sourceforge.stripes.action.SimpleMessage;
+
+import net.sourceforge.stripes.action.*;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.ProgressUpdateListener;
 import nl.b3p.brmo.loader.RsgbProxy;
@@ -152,6 +147,12 @@ public class TransformActionBean implements ActionBean, ProgressUpdateListener {
             }
         }
 
+        return new ForwardResolution(JSP);
+    }
+
+    @DefaultHandler
+    public Resolution transformUnknown() {
+        getContext().getMessages().add(new SimpleMessage("Het proces is onbekend. Mogelijk is deze transformatie al enige tijd geleden afgerond."));
         return new ForwardResolution(JSP);
     }
 
