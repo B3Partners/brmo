@@ -1512,3 +1512,5 @@ beschikbare kolommen:
 '
     ;
 
+
+CREATE INDEX mb_kad_onrrnd_zak_archief_overgegaan_in_idx ON mb_kad_onrrnd_zk_archief USING btree (overgegaan_in);

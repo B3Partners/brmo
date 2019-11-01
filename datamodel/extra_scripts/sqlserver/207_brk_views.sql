@@ -1471,4 +1471,5 @@ beschikbare kolommen:
 @level0type = N'Schema', @level0name = N'dbo',
 @level1type = N'View', @level1name = N'vb_kad_onrrnd_zk_archief';
 
+CREATE INDEX mb_kad_onrr_z_ar_overgeg_idx  ON mb_kad_onrrnd_zk_archief (overgegaan_in);
 GO

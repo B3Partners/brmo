@@ -1474,3 +1474,6 @@ beschikbare kolommen:
 * loc_omschr: adres buiten BAG om meegegeven,
 * overgegaan_in: natuurlijk id van kadastrale onroerende zaak waar dit object in is overgegaan,
 * begrenzing_perceel: perceelvlak';
+
+
+CREATE INDEX mb_kad_onrr_z_ar_overgeg_idx  ON mb_kad_onrrnd_zk_archief (overgegaan_in);
