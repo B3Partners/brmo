@@ -12,6 +12,7 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.Document;
@@ -107,13 +108,13 @@ public class BrkBericht extends Bericht {
             SimpleDateFormat output = new SimpleDateFormat("yyyyMMdd");
             
             String prefix = "BKE-MUTBX01";
-            String waarde;
+            String kadGemCode;
             String perceelnummer;
             String brkdatum = output.format(bestanddatum);
             String sectie;
-            String volgnummer = volgordenummer.toString();
-            
-            String basePath = "/KadastraalObjectSnapshot/Perceel/kadastraleAanduiding/";
+            String appartementsrechtVolgnummer;
+
+            String basePath = "/KadastraalObjectSnapshot/*[local-name()= 'Perceel' or local-name()='Appartementsrecht']/kadastraleAanduiding/";
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document doc = builder.parse(new InputSource(new StringReader(getBrXml())));
@@ -121,15 +122,21 @@ public class BrkBericht extends Bericht {
             XPath xpath = xPathfactory.newXPath();
             
             XPathExpression expr = xpath.compile(basePath + "AKRKadastraleGemeenteCode/waarde/text()");
-            waarde = expr.evaluate(doc);
+            kadGemCode = expr.evaluate(doc);
             
             expr = xpath.compile(basePath + "sectie/text()");
             sectie = expr.evaluate(doc);
             
             expr = xpath.compile(basePath + "perceelnummer/text()");
             perceelnummer = expr.evaluate(doc);
+
+            expr = xpath.compile(basePath + "appartementsrechtVolgnummer/text()");
+            appartementsrechtVolgnummer = expr.evaluate(doc);
+            if (!StringUtils.isEmpty(appartementsrechtVolgnummer)) {
+                appartementsrechtVolgnummer = "A" + appartementsrechtVolgnummer;
+            }
             
-            String filename = prefix + "-" + waarde + sectie + perceelnummer + "-" + brkdatum + "-" +volgnummer + ".zip";
+            String filename = prefix + "-" + kadGemCode + sectie + perceelnummer + appartementsrechtVolgnummer + "-" + brkdatum + "-" + volgordenummer.toString() + ".zip";
             return filename;
         } catch (ParserConfigurationException | XPathExpressionException | SAXException | IOException  ex) {
             log.error("Cannot create filename from xml: ", ex);

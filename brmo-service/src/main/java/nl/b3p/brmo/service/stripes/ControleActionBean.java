@@ -90,9 +90,9 @@ public class ControleActionBean implements ActionBean {
             File temp = File.createTempFile("afgiftelijst", "report.pdf");
             temp.deleteOnExit();
 
-            LOG.info("Afgiftelijst controleren.");
+            LOG.info("Afgiftelijst controleren met bestand: " + file.getFileName());
             File response = brmo.checkAfgiftelijst(file.getFileName(), file.getInputStream(), temp);
-            LOG.info("Afgifte gecontroleerd:");
+            LOG.info("Afgiftelijst gecontroleerd met bestand: " + file.getFileName());
             brmo.closeBrmoFramework();
 
             final FileInputStream fis = new FileInputStream(response);
@@ -116,7 +116,7 @@ public class ControleActionBean implements ActionBean {
                 response.delete();
             }
         } catch (IOException | BrmoException ex) {
-            LOG.error("Error reading afgiftelijst: " + ex.getLocalizedMessage(), ex);
+            LOG.error("Fout tijdens lezen afgiftelijst: " + ex.getLocalizedMessage(), ex);
             context.getValidationErrors().addGlobalError(new SimpleError("Kan afgiftelijst niet verwerken: " + ex.getLocalizedMessage()));
         }finally{
             if (brmo != null) {

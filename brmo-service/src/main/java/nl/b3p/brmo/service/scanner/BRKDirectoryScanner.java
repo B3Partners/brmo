@@ -31,7 +31,6 @@ import nl.b3p.brmo.persistence.staging.Bericht;
 import nl.b3p.brmo.persistence.staging.LaadProces;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.comparator.NameFileComparator;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.stripesstuff.stripersist.Stripersist;
