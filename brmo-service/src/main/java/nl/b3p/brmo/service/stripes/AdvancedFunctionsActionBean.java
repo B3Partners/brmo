@@ -94,7 +94,7 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
     private final String NHR_FIX_TYPERING = "Fix 'typering' en 'clazz' van nHR persoon";
     private final String NHR_ARCHIVING = "Opschonen en archiveren van nHR berichten met status RSGB_OK, ouder dan 3 maanden";
     private final String NHR_REMOVAL = "Verwijderen van nHR berichten met status ARCHIVE";
-    private final String BRK_HERSTEL_BESTANDSNAAM = "Bepaal de herstelde bestandsnaam van BRK laadprocessen";
+    private final String BRK_HERSTEL_BESTANDSNAAM = "Vul de 'herstelde bestandsnaam' van BRK laadprocessen";
 
     private final boolean repairFirst = false;
 
@@ -221,7 +221,8 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
             new AdvancedFunctionProcess("Verwijderen van BAG berichten met status ARCHIVE", BrmoFramework.BR_BAG, Bericht.STATUS.ARCHIVE.toString()),
             new AdvancedFunctionProcess(NHR_REMOVAL, BrmoFramework.BR_NHR, Bericht.STATUS.ARCHIVE.toString()),
             new AdvancedFunctionProcess(BRK_VERWIJDEREN_NOGMAALS_UITVOEREN, BrmoFramework.BR_BRK, Bericht.STATUS.RSGB_OK.toString()),
-            new AdvancedFunctionProcess(NHR_FIX_TYPERING, BrmoFramework.BR_NHR, null), new AdvancedFunctionProcess(BRK_HERSTEL_BESTANDSNAAM, BrmoFramework.BR_BRK, "0")
+            new AdvancedFunctionProcess(NHR_FIX_TYPERING, BrmoFramework.BR_NHR, null),
+            new AdvancedFunctionProcess(BRK_HERSTEL_BESTANDSNAAM, BrmoFramework.BR_BRK, "0")
         });
     }
 
@@ -928,11 +929,11 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
                     while (rs.next()) {
                         try {
                             final Bericht bericht = processor.toBean(rs, Bericht.class);
-                            // throws class cast exception want bericht is een instance van nl.b3p.brmo.loader.entity.Bericht
-                            // String bestandsnaamHersteld = ((BrkBericht) bericht).getRestoredFileName(bericht.getDatum(), bericht.getVolgordeNummer());
-                            final String bestandsnaamHersteld = (new BrkBericht(bericht.getBrXml()).getRestoredFileName(bericht.getDatum(), bericht.getVolgordeNummer()));
-                            LOG.trace(String.format(
-                                    "Bijwerken bestand_naam_hersteld voor laadproces %d met waarde %s op basis van bericht %d",
+                            final BrkBericht brkBericht = new BrkBericht(bericht.getBrXml());
+                            brkBericht.setBrOrgineelXml(bericht.getBrOrgineelXml());
+                            final String bestandsnaamHersteld = brkBericht.getRestoredFileName(bericht.getDatum(), bericht.getVolgordeNummer());
+                            LOG.debug(String.format(
+                                    "Bijwerken bestand_naam_hersteld voor laadproces %d met waarde '%s' op basis van bericht %d",
                                     bericht.getLaadProcesId(),
                                     bestandsnaamHersteld,
                                     bericht.getId())

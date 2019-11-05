@@ -105,7 +105,7 @@ public class BrkBericht extends Bericht {
     
      public String getRestoredFileName(Date bestanddatum, Integer volgordenummer){
         try {
-            SimpleDateFormat output = new SimpleDateFormat("yyyyMMdd");
+            final SimpleDateFormat output = new SimpleDateFormat("yyyyMMdd");
             
             String prefix = "BKE-MUTBX01";
             String kadGemCode;
@@ -115,12 +115,19 @@ public class BrkBericht extends Bericht {
             String appartementsrechtVolgnummer;
 
             String basePath = "/KadastraalObjectSnapshot/*[local-name()= 'Perceel' or local-name()='Appartementsrecht']/kadastraleAanduiding/";
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder = factory.newDocumentBuilder();
-            Document doc = builder.parse(new InputSource(new StringReader(getBrXml())));
             XPathFactory xPathfactory = XPathFactory.newInstance();
             XPath xpath = xPathfactory.newXPath();
-            
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document doc = builder.parse(new InputSource(new StringReader(this.getBrXml())));
+
+            // in geval van een verwijderbericht is de "wordt" leeg, db_xml <empty/>
+            if (this.getBrXml().contains("<empty/>") && StringUtils.isNotBlank(this.getBrOrgineelXml())) {
+                // dan proberen om de db_origineel_xml te gebruiken.
+                basePath = "/Mutatie/kadastraalObject/AanduidingKadastraalObject/kadastraleAanduiding/";
+                doc = builder.parse(new InputSource(new StringReader(this.getBrOrgineelXml())));
+            }
+
             XPathExpression expr = xpath.compile(basePath + "AKRKadastraleGemeenteCode/waarde/text()");
             kadGemCode = expr.evaluate(doc);
             
@@ -132,11 +139,16 @@ public class BrkBericht extends Bericht {
 
             expr = xpath.compile(basePath + "appartementsrechtVolgnummer/text()");
             appartementsrechtVolgnummer = expr.evaluate(doc);
-            if (!StringUtils.isEmpty(appartementsrechtVolgnummer)) {
+            if (StringUtils.isNotBlank(appartementsrechtVolgnummer)) {
                 appartementsrechtVolgnummer = "A" + appartementsrechtVolgnummer;
             }
-            
-            String filename = prefix + "-" + kadGemCode + sectie + perceelnummer + appartementsrechtVolgnummer + "-" + brkdatum + "-" + volgordenummer.toString() + ".zip";
+
+            String aanduiding = kadGemCode + sectie + perceelnummer + appartementsrechtVolgnummer;
+            log.debug("gevonden aanduiding voor herstelde bestandsnaam: " + aanduiding);
+            String filename = "bestandsnaam kon niet worden hersteld";
+            if (StringUtils.isNotBlank(aanduiding)) {
+                filename = prefix + "-" + aanduiding + "-" + brkdatum + "-" + volgordenummer.toString() + ".zip";
+            }
             return filename;
         } catch (ParserConfigurationException | XPathExpressionException | SAXException | IOException  ex) {
             log.error("Cannot create filename from xml: ", ex);

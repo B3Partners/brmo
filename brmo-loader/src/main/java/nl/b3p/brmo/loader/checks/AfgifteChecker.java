@@ -54,42 +54,48 @@ public class AfgifteChecker {
     }
     
     public void check(){
-        // ga per afgifte langs of het bericht in de staging zit
-        for (Afgifte afgifte : afgiftes) {
+        afgiftes.forEach((afgifte) -> {
             check(afgifte);
-        }
+        });
     }
-    
+
+    /**
+     * afgifte controle.
+     *
+     * @param afgifte de te controleren afgifte
+     */
     private void check(Afgifte afgifte){
         try {
             LaadProces lp = staging.getLaadProcesByRestoredFilename(afgifte.getBestandsnaam());
-            
             // kijk of afgifte bestaat in staging
-            if(lp != null){
-                // zo ja, haal status op en schrijf naar afgifte
+            if (lp != null) {
                 afgifte.setFoundInStaging(true);
                 processFoundLaadprocess(afgifte, lp);
-            }else{
-                
-            // zo nee, herstel bestandsnamen, en kijk of het dan bestaat
-            // zo ja, haal status op en schrijf naar afgifte
-            // zo nee, schrijf status weg naar afgifte
             }
         } catch (SQLException ex) {
             log.error("Error querying staging for laadproces for afgifte: " + afgifte.toString(), ex);
         }
                 
     }
-    
+    /**
+     * zoek de status van alle bijbehorende berichten op en leg die vast in de
+     * afgifte.
+     *
+     * @param afgifte de te controleren afgifte
+     * @param lp het laadproces waar de berichten bij zoeken
+     * @throws SQLException if any
+     */
     private void processFoundLaadprocess(Afgifte afgifte, LaadProces lp) throws SQLException{
         List<Bericht> berichten = staging.getBerichtByLaadProces(lp);
         Map<Bericht.STATUS, Integer> counts = afgifte.getStatussen();
-        for (Bericht bericht : berichten) {
+        berichten.stream().map((bericht) -> {
             if(!counts.containsKey(bericht.getStatus())){
                 counts.put(bericht.getStatus(), 0);
             }
-            counts.put(bericht.getStatus() ,counts.get(bericht.getStatus()) +1 );
-        }
+            return bericht;
+        }).forEachOrdered((bericht) -> {
+            counts.put(bericht.getStatus(), counts.get(bericht.getStatus()) + 1);
+        });
     }
 
     public File getResults(String input, String f) throws FileNotFoundException {
