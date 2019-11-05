@@ -7,7 +7,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Date;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import javax.servlet.ServletContext;
@@ -215,5 +214,23 @@ public class AdvancedFunctionsActionBeanIntegrationTest extends TestUtil {
 
         ITable bericht = staging.createDataSet().getTable("bericht");
         assertEquals("Alle berichten hebben status RSGB_OK", aantalBerichten, bericht.getRowCount());
+    }
+
+    @Test
+    public void testFillbestandsNaamHersteld() throws Exception {
+        bean.fillbestandsNaamHersteld(BrmoFramework.BR_BRK, "0");
+        ITable laadproces = staging.createDataSet().getTable("laadproces");
+
+        for (int i = 1; i < laadproces.getRowCount(); i++) {
+            if (laadproces.getValue(i, "bestand_naam").toString().equals("stand")) {
+                assertNull("'bestand_naam_hersteld' moet leeg zijn voor stand", laadproces.getValue(i, "bestand_naam_hersteld"));
+            } else if (laadproces.getValue(i, "bestand_naam").toString().equals("verwijder")) {
+                assertNotNull("'bestand_naam_hersteld' mag niet leeg zijn", laadproces.getValue(i, "bestand_naam_hersteld"));
+                assertEquals("inhoud mag niet herstelbaar zijn", "bestandsnaam kon niet worden hersteld", laadproces.getValue(i, "bestand_naam_hersteld"));
+            } else {
+                assertNotNull("'bestand_naam_hersteld' mag niet leeg zijn", laadproces.getValue(i, "bestand_naam_hersteld"));
+                assertNotEquals("inhoud moet herstelbaar zijn", "bestandsnaam kon niet worden hersteld", laadproces.getValue(i, "bestand_naam_hersteld"));
+            }
+        }
     }
 }
