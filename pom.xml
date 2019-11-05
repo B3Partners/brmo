@@ -728,6 +728,7 @@
                     <artifactId>maven-javadoc-plugin</artifactId>
                     <version>${maven-javadoc-plugin.version}</version>
                     <configuration>
+                        <quiet>true</quiet>
                         <stylesheet>java</stylesheet>
                         <doclet>org.umlgraph.doclet.UmlGraphDoc</doclet>
                         <docletArtifact>
