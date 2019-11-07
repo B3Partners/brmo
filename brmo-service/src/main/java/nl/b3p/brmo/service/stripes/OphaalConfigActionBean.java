@@ -23,6 +23,7 @@ import net.sourceforge.stripes.validation.SimpleError;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
 import net.sourceforge.stripes.validation.ValidationMethod;
+import nl.b3p.brmo.persistence.staging.AfgifteNummerScannerProces;
 import nl.b3p.brmo.persistence.staging.AutomatischProces;
 import nl.b3p.brmo.persistence.staging.BAGScannerProces;
 import nl.b3p.brmo.persistence.staging.BGTLightOphaalProces;
@@ -189,6 +190,8 @@ public class OphaalConfigActionBean implements ActionBean {
                 return new BerichtstatusRapportProces();
             case TopNLScannerProces:
                 return new TopNLScannerProces();
+            case AfgifteNummerScannerProces:
+                return new AfgifteNummerScannerProces();
             default:
                 throw new IllegalArgumentException(type.name() + " is geen ondersteund proces type...");
         }
