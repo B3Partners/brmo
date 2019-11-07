@@ -10,10 +10,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import org.dbunit.DatabaseUnitException;
-import org.dbunit.database.DatabaseConfig;
-import org.dbunit.database.DatabaseConnection;
-import org.dbunit.database.IDatabaseConnection;
-import org.dbunit.database.QueryDataSet;
+import org.dbunit.database.*;
+import org.dbunit.dataset.*;
 import org.dbunit.dataset.xml.FlatXmlDataSet;
 import org.dbunit.dataset.xml.XmlDataSet;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
@@ -34,7 +32,7 @@ public class DBUnitExportStaging {
 
     // postgis
     private static final String _driverClass = "org.postgresql.Driver";
-    private static final String _jdbcConnection = "jdbc:postgresql://localhost:5434/itest_staging";
+    private static final String _jdbcConnection = "jdbc:postgresql://localhost:5432/staging";
     private static final String _user = "rsgb";
     private static final String _passwd = "rsgb";
     // ms sql
@@ -49,7 +47,7 @@ public class DBUnitExportStaging {
     // private static final String _user = "stagingitest";
     // private static final String _passwd = "stagingitest";
     // volgorde van tabellen belangrijk vanwege de constraint op laadproces-id
-    private static final String[] _testTableNames = {"laadproces", "bericht"};
+    private static final String[] _testTableNames = {"laadproces" /*, "bericht"*/};
 
     public static void main(String[] args) throws ClassNotFoundException, DatabaseUnitException, IOException, SQLException {
         Class driverClass = Class.forName(_driverClass);
@@ -63,15 +61,19 @@ public class DBUnitExportStaging {
 //        IDatabaseConnection connection = new DatabaseConnection(jdbcConnection, _user.toUpperCase());
 //        connection.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
 //        connection.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
+        IDataSet dataset;
+
+        // voor een query
+        dataset = new QueryDataSet(connection);
+        //((QueryDataSet)dataset).addTable("bericht", "SELECT id,br_orgineel_xml,br_xml,datum,job_id,object_ref,soort,status,status_datum,volgordenummer,xsl_version,laadprocesid FROM bericht WHERE object_ref='NL.KAD.OnroerendeZaak:20930170970000'");
+        ((QueryDataSet) dataset).addTable("laadproces", "SELECT id,contractafgiftenummer,contractnummer,klantafgiftenummer FROM laadproces WHERE id>50 order by id");
 
         // voor alle tabellen:
-       // ITableFilter filter = new DatabaseSequenceFilter(connection);
-        QueryDataSet dataset = new QueryDataSet(connection);
-        dataset.addTable("bericht", "SELECT id,br_orgineel_xml,br_xml,datum,job_id,object_ref,soort,status,status_datum,volgordenummer,xsl_version,laadprocesid FROM bericht WHERE object_ref='NL.KAD.OnroerendeZaak:20930170970000'");
-        dataset.addTable("laadproces","SELECT * FROM laadproces WHERE id=1");
-        //IDataSet dataset = new FilteredDataSet(filter, connection.createDataSet());
-        // voor een setje tabellen
-     //   IDataSet dataset = new FilteredDataSet(_testTableNames, connection.createDataSet());
+        // ITableFilter filter = new DatabaseSequenceFilter(connection);
+//        dataset = new FilteredDataSet(filter, connection.createDataSet());
+
+        // voor de set tabellen
+//         dataset = new FilteredDataSet(_testTableNames, connection.createDataSet());
 
         // "flat" xml export
         FlatXmlDataSet.write(dataset, new FileOutputStream(new File(_testDir, _dbFile)));
