@@ -86,6 +86,7 @@
         <mssql.instancename />
         <javasimon.version>4.2.0</javasimon.version>
         <jakarta.mail.version>1.6.4</jakarta.mail.version>
+        <apache.poi.version>4.1.1</apache.poi.version>
         <quartz.version>2.3.2</quartz.version>
         <slf4j.version>1.7.29</slf4j.version>
         <jaxb.api.version>2.3.2</jaxb.api.version>
@@ -499,20 +500,14 @@
                 <version>2.0.6</version>
             </dependency>
             <dependency>
-                <!-- override versie die met org.apache.poi:poi-ooxml:4.0.1 meekomt vanwege CVE-2019-12402 -->
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-compress</artifactId>
-                <version>1.19</version>
-            </dependency>
-            <dependency>
                 <groupId>org.apache.poi</groupId>
                 <artifactId>poi</artifactId>
-                <version>4.1.0</version>
+                <version>${apache.poi.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.poi</groupId>
                 <artifactId>poi-ooxml</artifactId>
-                <version>4.1.0</version>
+                <version>${apache.poi.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.itextpdf</groupId>
