@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.persistence.staging.AfgifteNummerScannerProces;
@@ -47,10 +48,10 @@ import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 import org.dbunit.operation.DatabaseOperation;
 import org.junit.After;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.fail;
+
+import static org.junit.Assert.*;
 import static org.junit.Assume.assumeTrue;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -75,20 +76,21 @@ public class AfgifteNummerScannerIntegrationTest extends TestUtil {
     private BrmoFramework brmo;
     private AfgifteNummerScanner scanner;
     private IDatabaseConnection staging;
+
     /**
-     *
      * @return een test data {@code Object[]} met daarin
      * {@code {"sBestandsNaam", lAantalLaadProcessen, iAantalOntbrekendRecords, sContractNummer, sContractNummers aanwezig}}
      */
-    @Parameterized.Parameters(name = "{index}: bestand: {0}, aantal berichten {1}")
+    @Parameterized.Parameters(name = "{index}: bestand: {0}, aantal laadprocessen {1}, aantal ontbrekende nummers {2} voor contractnummer {3}")
     public static Collection testdata() {
         return Arrays.asList(new Object[][]{
-            // {"sBestandsNaam", lAantalLaadProcessen, iAantalOntbrekendRecords, sContractNummer, sContractNummers aanwezig},
-            {"/afgiftescanner/geenontbrekendenummers.xml", 49, 0, "6666666", new String[]{"6666666"}},
-            {"/afgiftescanner/metontbrekendenummers.xml", 2317, 2, "999999", new String[]{"999999"}},
-            {"/afgiftescanner/combi.xml", 2317, 2, "999999", new String[]{"999999", "6666666"}},
-            {"/afgiftescanner/combi.xml", 49, 0, "6666666", new String[]{"999999", "6666666"}},
-            {"/afgiftescanner/combi2.xml", 1, 0, "6666666", new String[]{"999999", "6666666"}}
+                // {"sBestandsNaam", lAantalLaadProcessen, iAantalOntbrekendRecords, sContractNummer, sContractNummers aanwezig},
+                {"/afgiftescanner/geenontbrekendenummers.xml", 49, 0, "6666666", new String[]{"6666666"}},
+                {"/afgiftescanner/geenontbrekendenummers2.xml", 11, 0, "6666666", new String[]{"1111", "6666666", "999999"}},
+                {"/afgiftescanner/metontbrekendenummers.xml", 2317, 2, "999999", new String[]{"999999"}},
+                {"/afgiftescanner/combi.xml", 2317 + 49, 2, "999999", new String[]{"6666666", "999999"}},
+                {"/afgiftescanner/combi.xml", 2317 + 49, 0, "6666666", new String[]{"6666666", "999999"}},
+                {"/afgiftescanner/combi2.xml", 6, 0, "6666666", new String[]{"1111", "6666666", "999999"}}
         });
     }
 
@@ -126,7 +128,7 @@ public class AfgifteNummerScannerIntegrationTest extends TestUtil {
             fail("Geen ondersteunde database aangegegeven");
         }
 
-        setupJNDI(null, dsStaging);
+        setupJNDI(null, dsStaging, null, null);
 
         FlatXmlDataSetBuilder fxdb = new FlatXmlDataSetBuilder();
         fxdb.setCaseSensitiveTableNames(false);
@@ -143,7 +145,7 @@ public class AfgifteNummerScannerIntegrationTest extends TestUtil {
         brmo = new BrmoFramework(dsStaging, null);
 
         scanner = new AfgifteNummerScanner(new AfgifteNummerScannerProces());
-        assumeTrue("Er zijn anders dan verwacht aantal STAGING_OK laadprocessen", lAantalLaadProcessen == brmo.getCountLaadProcessen(null, null, null, null));
+        assumeTrue("Er zijn anders dan verwacht aantal laadprocessen", lAantalLaadProcessen == brmo.getCountLaadProcessen(null, null, null, null));
     }
 
     @After
@@ -168,7 +170,7 @@ public class AfgifteNummerScannerIntegrationTest extends TestUtil {
     public void testGetOntbrekendeAfgiftenummersDefault() throws BrmoException, SQLException {
         List<Map<String, Object>> afgiftenummers = scanner.getOntbrekendeAfgiftenummers(sContractNummer, "");
         assertEquals("aantal ontbrekende afgifte nummer ranges klopt niet", iAantalOntbrekendRecords, afgiftenummers.size());
-        assertEquals(iAantalOntbrekendRecords == 0, scanner.getOntbrekendeNummersGevonden());
+        assertEquals("gevonden ontbrekende records vlag klopt niet", iAantalOntbrekendRecords != 0, scanner.getOntbrekendeNummersGevonden());
 
         if (iAantalOntbrekendRecords > 0) {
             Iterator<Map<String, Object>> records = afgiftenummers.iterator();
@@ -182,24 +184,28 @@ public class AfgifteNummerScannerIntegrationTest extends TestUtil {
     public void testGetOntbrekendeKlantAfgiftenummers() throws BrmoException, SQLException {
         List<Map<String, Object>> afgiftenummers = scanner.getOntbrekendeAfgiftenummers(sContractNummer, "klantafgiftenummer");
         assertEquals("aantal ontbrekende afgifte nummer ranges klopt niet", iAantalOntbrekendRecords, afgiftenummers.size());
-        assertEquals(iAantalOntbrekendRecords == 0, scanner.getOntbrekendeNummersGevonden());
+        assertEquals("gevonden ontbrekende records vlag klopt niet", iAantalOntbrekendRecords != 0, scanner.getOntbrekendeNummersGevonden());
     }
 
     @Test
     public void testGetOntbrekendeContractAfgiftenummers() throws BrmoException, SQLException {
         List<Map<String, Object>> afgiftenummers = scanner.getOntbrekendeAfgiftenummers(sContractNummer, "contractafgiftenummer");
         assertEquals("aantal ontbrekende afgifte nummer ranges klopt niet", iAantalOntbrekendRecords, afgiftenummers.size());
-        assertEquals(iAantalOntbrekendRecords == 0, scanner.getOntbrekendeNummersGevonden());
+        assertEquals("gevonden ontbrekende records vlag klopt niet", iAantalOntbrekendRecords != 0, scanner.getOntbrekendeNummersGevonden());
     }
 
     @Test(expected = BrmoException.class)
     public void testGetOntbrekendeAfgiftenummersZonderContractnummer() throws BrmoException, SQLException {
+        assertTrue("should fail", true);
         List<Map<String, Object>> afgiftenummers = scanner.getOntbrekendeAfgiftenummers(null, "");
+        fail("should not pass");
     }
 
     @Test(expected = NullPointerException.class)
     public void testGetOntbrekendeAfgiftenummersZonderNummerType() throws BrmoException, SQLException {
+        assertTrue("should fail", true);
         List<Map<String, Object>> afgiftenummers = scanner.getOntbrekendeAfgiftenummers(sContractNummer, null);
+        fail("should not pass");
     }
 
     @Test
@@ -208,6 +214,5 @@ public class AfgifteNummerScannerIntegrationTest extends TestUtil {
         assertFalse(nummers.isEmpty());
         assertEquals("aantal contractnummers klopt niet", sContractNummers.length, nummers.size());
         assertEquals(Arrays.asList(sContractNummers), nummers);
-
     }
 }

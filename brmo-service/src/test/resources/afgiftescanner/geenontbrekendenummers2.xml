@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+    <laadproces id="1" contractafgiftenummer="1554632" contractnummer="6666666" klantafgiftenummer="2285729"/>
+    <laadproces id="2" contractafgiftenummer="1554633" contractnummer="6666666" klantafgiftenummer="2285730"/>
+    <laadproces id="3" contractafgiftenummer="1554634" contractnummer="6666666" klantafgiftenummer="2285731"/>
+    <laadproces id="4" contractafgiftenummer="1554635" contractnummer="6666666" klantafgiftenummer="2285732"/>
+    <laadproces id="5" contractafgiftenummer="1554636" contractnummer="6666666" klantafgiftenummer="2285733"/>
+    <laadproces id="6" contractafgiftenummer="1554637" contractnummer="6666666" klantafgiftenummer="2285734"/>
+    <laadproces id="7" contractafgiftenummer="1554638" contractnummer="6666666" klantafgiftenummer="2285735"/>
+    <laadproces id="8" contractafgiftenummer="1554639" contractnummer="6666666" klantafgiftenummer="2285736"/>
+    <laadproces id="9" contractafgiftenummer="1554640" contractnummer="6666666" klantafgiftenummer="2285737"/>
+    <laadproces id="10" contractafgiftenummer="1554641" contractnummer="6666666" klantafgiftenummer="2285738"/>
+    <laadproces id="11" contractafgiftenummer="1554642" contractnummer="6666666" klantafgiftenummer="2285739"/>
+    <automatisch_proces dtype="GDS2OphaalProces" id="1"/>
+    <automatisch_proces dtype="GDS2OphaalProces" id="2"/>
+    <automatisch_proces dtype="GDS2OphaalProces" id="3"/>
+    <automatisch_proces dtype="GDS2OphaalProces" id="4"/>
+    <automatisch_proces dtype="GDS2OphaalProces" id="5"/>
+    <automatisch_proces_config proces_id="1" value="6666666" config_key="gds2_contractnummer"/>
+    <automatisch_proces_config proces_id="2" value="999999" config_key="gds2_contractnummer"/>
+    <automatisch_proces_config proces_id="3" value="6666666" config_key="gds2_contractnummer"/>
+    <automatisch_proces_config proces_id="4" value="6666666" config_key="gds2_contractnummer"/>
+    <automatisch_proces_config proces_id="5" value="1111" config_key="gds2_contractnummer"/>
+</dataset>

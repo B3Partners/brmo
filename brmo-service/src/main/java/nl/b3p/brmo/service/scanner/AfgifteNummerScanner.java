@@ -26,11 +26,14 @@ import java.util.List;
 import java.util.Map;
 import javax.persistence.Transient;
 import javax.sql.DataSource;
+
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.persistence.staging.AfgifteNummerScannerProces;
+
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.ERROR;
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.PROCESSING;
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.WAITING;
+
 import nl.b3p.brmo.service.util.ConfigUtil;
 import nl.b3p.loader.jdbc.GeometryJdbcConverter;
 import nl.b3p.loader.jdbc.GeometryJdbcConverterFactory;
@@ -66,13 +69,14 @@ public class AfgifteNummerScanner extends AbstractExecutableProces {
     public static List<String> contractnummers() {
         try {
             final DataSource ds = ConfigUtil.getDataSourceStaging();
-            final Connection conn = ds.getConnection();
-            final GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
-            String sql = "select distinct value from automatisch_proces_config where config_key = 'gds2_contractnummer'";
-            List<String> contractnummers = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, sql, new ColumnListHandler<>());
-            contractnummers.sort(String::compareToIgnoreCase);
-            DbUtils.closeQuietly(conn);
-            return Collections.unmodifiableList(contractnummers);
+            try (final Connection conn = ds.getConnection()) {
+                final GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
+                String sql = "select distinct value from automatisch_proces_config where config_key = 'gds2_contractnummer'";
+                List<String> contractnummers = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, sql, new ColumnListHandler<>());
+                contractnummers.sort(String::compareToIgnoreCase);
+                DbUtils.closeQuietly(conn);
+                return Collections.unmodifiableList(contractnummers);
+            }
         } catch (BrmoException | SQLException | ClassCastException | UnsupportedOperationException | IllegalArgumentException ex) {
             LOG.error("Ophalen contractnummers is mislukt.", ex);
             return Collections.EMPTY_LIST;
@@ -84,7 +88,6 @@ public class AfgifteNummerScanner extends AbstractExecutableProces {
     }
 
     /**
-     *
      * @throws BrmoException als...
      */
     @Override
@@ -187,22 +190,22 @@ public class AfgifteNummerScanner extends AbstractExecutableProces {
     }
 
     /**
-     *
-     * @param contractnummer GDS2 contractnummer
+     * @param contractnummer    GDS2 contractnummer
      * @param afgiftenummertype naam van de kolom in de laadproces tabel,
-     * "contractafgiftenummer" of "klantafgiftenummer", niet {code null}
+     *                          "contractafgiftenummer" of "klantafgiftenummer", niet {code null}
      * @return lijst met ranges van onbrekende records
      * {@code ["eerst_ontbrekend_nr", laatst_ontbrekend_nr, "laatste_aanwezige_id", "eerst_opvolgende_id"]}
      * @throws BrmoException if any
-     * @throws SQLException if any
+     * @throws SQLException  if any
      */
-    /*package private tbv. unit test*/ List<Map<String, Object>> getOntbrekendeAfgiftenummers(String contractnummer, String afgiftenummertype) throws BrmoException, SQLException {
+    /*package private tbv. unit test*/ List<Map<String, Object>> getOntbrekendeAfgiftenummers(final String contractnummer, final String afgiftenummertype) throws BrmoException, SQLException {
         if (contractnummer == null) {
             throw new BrmoException("Contractnummer voor bepalen van ontbrekende afgiftenummers ontbreekt.");
         }
 
         final DataSource ds = ConfigUtil.getDataSourceStaging();
-        try (final Connection conn = ds.getConnection()) {;
+        try (final Connection conn = ds.getConnection()) {
+            ;
             final GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
             final String sql;
             switch (afgiftenummertype) {
@@ -216,8 +219,10 @@ public class AfgifteNummerScanner extends AbstractExecutableProces {
                             + "    laadproces"
                             + " LEFT JOIN laadproces r ON"
                             + "    laadproces.contractafgiftenummer = r.contractafgiftenummer - 1"
+                            + "    AND r.contractnummer = ? "
                             + " LEFT JOIN laadproces fr ON"
-                            + "    laadproces.contractafgiftenummer < fr.contractafgiftenummer"
+                            + "    laadproces.contractafgiftenummer < fr.contractafgiftenummer "
+                            + "    AND fr.contractnummer = ? "
                             + " WHERE"
                             + "    r.contractafgiftenummer IS NULL"
                             + "    AND fr.contractafgiftenummer IS NOT NULL"
@@ -237,8 +242,10 @@ public class AfgifteNummerScanner extends AbstractExecutableProces {
                             + "    laadproces"
                             + " LEFT JOIN laadproces r ON"
                             + "    laadproces.klantafgiftenummer = r.klantafgiftenummer - 1"
+                            + "    AND r.contractnummer = ? "
                             + " LEFT JOIN laadproces fr ON"
                             + "    laadproces.klantafgiftenummer < fr.klantafgiftenummer"
+                            + "    AND fr.contractnummer = ? "
                             + " WHERE"
                             + "    r.klantafgiftenummer IS NULL"
                             + "    AND fr.klantafgiftenummer IS NOT NULL"
@@ -250,10 +257,10 @@ public class AfgifteNummerScanner extends AbstractExecutableProces {
 
             }
 
-            List<Map<String, Object>> afgiftenummers = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, sql, new MapListHandler(), contractnummer);
+            List<Map<String, Object>> afgiftenummers = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, sql, new MapListHandler(), contractnummer, contractnummer, contractnummer);
 
             this.ontbrekendeNummersGevonden = !afgiftenummers.isEmpty();
-            LOG.debug("Ontbrekende " + afgiftenummertype + "s voor contractnummer " + contractnummer + ": " + afgiftenummers);
+            LOG.debug("Ontbrekende " + (afgiftenummertype == "" ? "klantafgiftenummer" : afgiftenummertype) + "s voor contractnummer " + contractnummer + ": " + afgiftenummers);
 
             DbUtils.closeQuietly(conn);
             return afgiftenummers;
