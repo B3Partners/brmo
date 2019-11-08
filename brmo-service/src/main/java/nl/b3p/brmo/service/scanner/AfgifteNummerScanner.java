@@ -52,8 +52,11 @@ public class AfgifteNummerScanner extends AbstractExecutableProces {
 
     private static final Log LOG = LogFactory.getLog(AfgifteNummerScanner.class);
     private AfgifteNummerScannerProces config;
+
     @Transient
     private ProgressUpdateListener listener;
+
+    private boolean ontbrekendeNummersGevonden;
 
     /**
      * Zoek contractnummers op van de GDS2 jobs.
@@ -65,7 +68,7 @@ public class AfgifteNummerScanner extends AbstractExecutableProces {
             final DataSource ds = ConfigUtil.getDataSourceStaging();
             final Connection conn = ds.getConnection();
             final GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
-            String sql = "select value from automatisch_proces_config where config_key = 'gds2_contractnummer'";
+            String sql = "select distinct value from automatisch_proces_config where config_key = 'gds2_contractnummer'";
             List<String> contractnummers = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, sql, new ColumnListHandler<>());
             contractnummers.sort(String::compareToIgnoreCase);
             DbUtils.closeQuietly(conn);
@@ -249,6 +252,7 @@ public class AfgifteNummerScanner extends AbstractExecutableProces {
 
             List<Map<String, Object>> afgiftenummers = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, sql, new MapListHandler(), contractnummer);
 
+            this.ontbrekendeNummersGevonden = !afgiftenummers.isEmpty();
             LOG.debug("Ontbrekende " + afgiftenummertype + "s voor contractnummer " + contractnummer + ": " + afgiftenummers);
 
             DbUtils.closeQuietly(conn);
@@ -256,4 +260,7 @@ public class AfgifteNummerScanner extends AbstractExecutableProces {
         }
     }
 
+    public boolean getOntbrekendeNummersGevonden() {
+        return this.ontbrekendeNummersGevonden;
+    }
 }

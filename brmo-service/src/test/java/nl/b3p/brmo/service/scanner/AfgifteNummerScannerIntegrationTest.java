@@ -48,6 +48,7 @@ import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 import org.dbunit.operation.DatabaseOperation;
 import org.junit.After;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.fail;
 import static org.junit.Assume.assumeTrue;
 import org.junit.Before;
@@ -56,7 +57,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
 /**
- * {@code mvn -Dit.test=AfgifteNummerScannerIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql -pl brmo-service}
+ * {@code mvn -Dit.test=AfgifteNummerScannerIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql -pl brmo-service > target/pg.log}
  *
  * @author mprins
  */
@@ -65,35 +66,38 @@ public class AfgifteNummerScannerIntegrationTest extends TestUtil {
 
     private static final Log LOG = LogFactory.getLog(AfgifteNummerScannerIntegrationTest.class);
 
+    private final Lock sequential = new ReentrantLock();
+    private final String sBestandsNaam;
+    private final String sContractNummer;
+    private final String[] sContractNummers;
+    private final long lAantalLaadProcessen;
+    private final int iAantalOntbrekendRecords;
     private BrmoFramework brmo;
     private AfgifteNummerScanner scanner;
     private IDatabaseConnection staging;
-    private final Lock sequential = new ReentrantLock();
-
-    private final String sBestandsNaam;
-    private final String sContractNummer;
-    private final long lAantalLaadProcessen;
-    private final int iAantalOntbrekendRecords;
-
     /**
      *
      * @return een test data {@code Object[]} met daarin
-     * {@code {"sBestandsNaam", lAantalLaadProcessen, iAantalOntbrekendRecords}}
+     * {@code {"sBestandsNaam", lAantalLaadProcessen, iAantalOntbrekendRecords, sContractNummer, sContractNummers aanwezig}}
      */
     @Parameterized.Parameters(name = "{index}: bestand: {0}, aantal berichten {1}")
     public static Collection testdata() {
         return Arrays.asList(new Object[][]{
-            // {"sBestandsNaam", lAantalLaadProcessen, iAantalOntbrekendRecords},
-            {"/afgiftescanner/geenontbrekendenummers.xml", 49, 0, "6666666"},
-            {"/afgiftescanner/metontbrekendenummers.xml", 2317, 2, "999999"}
+            // {"sBestandsNaam", lAantalLaadProcessen, iAantalOntbrekendRecords, sContractNummer, sContractNummers aanwezig},
+            {"/afgiftescanner/geenontbrekendenummers.xml", 49, 0, "6666666", new String[]{"6666666"}},
+            {"/afgiftescanner/metontbrekendenummers.xml", 2317, 2, "999999", new String[]{"999999"}},
+            {"/afgiftescanner/combi.xml", 2317, 2, "999999", new String[]{"999999", "6666666"}},
+            {"/afgiftescanner/combi.xml", 49, 0, "6666666", new String[]{"999999", "6666666"}},
+            {"/afgiftescanner/combi2.xml", 1, 0, "6666666", new String[]{"999999", "6666666"}}
         });
     }
 
-    public AfgifteNummerScannerIntegrationTest(String sBestandsNaam, long lAantalLaadProcessen, int iAantalOntbrekendRecords, String sContractNummer) {
+    public AfgifteNummerScannerIntegrationTest(String sBestandsNaam, long lAantalLaadProcessen, int iAantalOntbrekendRecords, String sContractNummer, String[] sContractNummers) {
         this.sBestandsNaam = sBestandsNaam;
         this.lAantalLaadProcessen = lAantalLaadProcessen;
         this.iAantalOntbrekendRecords = iAantalOntbrekendRecords;
         this.sContractNummer = sContractNummer;
+        this.sContractNummers = sContractNummers;
     }
 
     @Before
@@ -148,7 +152,7 @@ public class AfgifteNummerScannerIntegrationTest extends TestUtil {
             brmo.closeBrmoFramework();
         }
         if (staging != null) {
-            CleanUtil.cleanSTAGING(staging);
+            CleanUtil.cleanSTAGING(staging, true);
             staging.close();
         }
         try {
@@ -164,6 +168,7 @@ public class AfgifteNummerScannerIntegrationTest extends TestUtil {
     public void testGetOntbrekendeAfgiftenummersDefault() throws BrmoException, SQLException {
         List<Map<String, Object>> afgiftenummers = scanner.getOntbrekendeAfgiftenummers(sContractNummer, "");
         assertEquals("aantal ontbrekende afgifte nummer ranges klopt niet", iAantalOntbrekendRecords, afgiftenummers.size());
+        assertEquals(iAantalOntbrekendRecords == 0, scanner.getOntbrekendeNummersGevonden());
 
         if (iAantalOntbrekendRecords > 0) {
             Iterator<Map<String, Object>> records = afgiftenummers.iterator();
@@ -177,12 +182,14 @@ public class AfgifteNummerScannerIntegrationTest extends TestUtil {
     public void testGetOntbrekendeKlantAfgiftenummers() throws BrmoException, SQLException {
         List<Map<String, Object>> afgiftenummers = scanner.getOntbrekendeAfgiftenummers(sContractNummer, "klantafgiftenummer");
         assertEquals("aantal ontbrekende afgifte nummer ranges klopt niet", iAantalOntbrekendRecords, afgiftenummers.size());
+        assertEquals(iAantalOntbrekendRecords == 0, scanner.getOntbrekendeNummersGevonden());
     }
 
     @Test
     public void testGetOntbrekendeContractAfgiftenummers() throws BrmoException, SQLException {
         List<Map<String, Object>> afgiftenummers = scanner.getOntbrekendeAfgiftenummers(sContractNummer, "contractafgiftenummer");
         assertEquals("aantal ontbrekende afgifte nummer ranges klopt niet", iAantalOntbrekendRecords, afgiftenummers.size());
+        assertEquals(iAantalOntbrekendRecords == 0, scanner.getOntbrekendeNummersGevonden());
     }
 
     @Test(expected = BrmoException.class)
@@ -193,5 +200,14 @@ public class AfgifteNummerScannerIntegrationTest extends TestUtil {
     @Test(expected = NullPointerException.class)
     public void testGetOntbrekendeAfgiftenummersZonderNummerType() throws BrmoException, SQLException {
         List<Map<String, Object>> afgiftenummers = scanner.getOntbrekendeAfgiftenummers(sContractNummer, null);
+    }
+
+    @Test
+    public void testContractnummers() {
+        List<String> nummers = AfgifteNummerScanner.contractnummers();
+        assertFalse(nummers.isEmpty());
+        assertEquals("aantal contractnummers klopt niet", sContractNummers.length, nummers.size());
+        assertEquals(Arrays.asList(sContractNummers), nummers);
+
     }
 }

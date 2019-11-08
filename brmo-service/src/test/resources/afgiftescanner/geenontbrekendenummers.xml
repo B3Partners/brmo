@@ -49,4 +49,6 @@
   <laadproces id="47" contractafgiftenummer="1554678" contractnummer="6666666" klantafgiftenummer="2285775"/>
   <laadproces id="48" contractafgiftenummer="1554679" contractnummer="6666666" klantafgiftenummer="2285776"/>
   <laadproces id="49" contractafgiftenummer="1554680" contractnummer="6666666" klantafgiftenummer="2285777"/>
+  <automatisch_proces dtype="GDS2OphaalProces" id="1"/>
+  <automatisch_proces_config proces_id="1" value="6666666" config_key="gds2_contractnummer"/>
 </dataset>

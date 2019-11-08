@@ -27,7 +27,7 @@ public class AfgifteNummerScannerProces extends AutomatischProces {
 
     private static final String CONTRACTNUMMER = "contractnummer";
     private static final String AFGIFTENUMMERTYPE = "afgiftenummertype";
-
+    private static final String MISSINGNUMBERSFOUND = "ontbrekendenummersgevonden";
 
     /**
      * Zoekt het geconfigureerde contractnummer op.
@@ -71,5 +71,14 @@ public class AfgifteNummerScannerProces extends AutomatischProces {
         } else {
             this.getConfig().put(AFGIFTENUMMERTYPE, new ClobElement(afgiftenummertype));
         }
+    }
+
+    public void setOntbrekendeNummersGevonden(boolean gevonden) {
+        this.getConfig().put(MISSINGNUMBERSFOUND, new ClobElement(Boolean.toString(gevonden)));
+    }
+
+    public boolean getOntbrekendeNummersGevonden() {
+        String s = ClobElement.nullSafeGet(this.getConfig().get(MISSINGNUMBERSFOUND));
+        return (s == null ? false : Boolean.parseBoolean(s));
     }
 }

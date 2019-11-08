@@ -31,8 +31,19 @@
             </stripes:select>
         </td>
     </tr>
+
+    <%-- hidden field onderaan de pagina zodat deze niet wordt weggegooid bij opslaan --%>
+    <c:if test="${not empty actionBean.proces.config['ontbrekendenummersgevonden']}"><tr>
+        <td colspan="2">Bij de vorig run zijn
+            <c:if test="${'false' eq actionBean.proces.config['ontbrekendenummersgevonden']}">geen</c:if>
+            ontbrekende afgiftenummers geconstateerd.
+        </td>
+    </tr></c:if>
+
     <tr>
         <td><stripes:label name="">Planning <a href="http://cronmaker.com" target="_blank">(cron expressie)</a></stripes:label></td>
         <td><stripes:text name="proces.cronExpressie"/><brmo:formatCron cronExpression="${actionBean.proces.cronExpressie}" /></td>
     </tr>
 </table>
+
+    <stripes:hidden name="config['ontbrekendenummersgevonden']"/>

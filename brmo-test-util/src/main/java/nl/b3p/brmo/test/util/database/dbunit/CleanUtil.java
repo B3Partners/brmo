@@ -246,19 +246,42 @@ public final class CleanUtil {
     }
 
     /**
-     * leegt de bericht, laadproces en job tabellen in het stating schema. kan
+     * leegt de bericht, laadproces en job tabellen in het staging schema. kan
      * worden gebruikt in een {@code @After} van een test case.
      *
      * @param staging database welke geleegd moet worden
      * @throws org.dbunit.DatabaseUnitException als er een DBunit fout optreedt
      * @throws java.sql.SQLException als er iets misgaat in de database
+     * @deprecated gebruik {@link #cleanSTAGING(org.dbunit.database.IDatabaseConnection, boolean)
      */
+    @Deprecated
     public static void cleanSTAGING(final IDatabaseConnection staging) throws DatabaseUnitException, SQLException {
+        cleanSTAGING(staging, false);
+    }
+
+    /**
+     * leegt de bericht, laadproces en job tabellen en de automatsiche processen
+     * in het staging schema. kan worden gebruikt in een {@code @After} van een
+     * test case.
+     *
+     * @param staging database welke geleegd moet worden
+     * @param includeProcessen {@code true} als de automastche processen ook
+     * verwijderd moeten worden
+     * @throws org.dbunit.DatabaseUnitException als er een DBunit fout optreedt
+     * @throws java.sql.SQLException als er iets misgaat in de database
+     */
+    public static void cleanSTAGING(final IDatabaseConnection staging, final boolean includeProcessen) throws DatabaseUnitException, SQLException {
+        if (includeProcessen) {
+            DatabaseOperation.DELETE_ALL.execute(staging, new DefaultDataSet(new DefaultTable[]{
+                new DefaultTable("automatisch_proces"),
+                new DefaultTable("automatisch_proces_config")
+            }));
+        }
         DatabaseOperation.DELETE_ALL.execute(staging, new DefaultDataSet(new DefaultTable[]{
             new DefaultTable("laadproces"),
             new DefaultTable("bericht"),
-            new DefaultTable("job")}
-        ));
+            new DefaultTable("job")
+        }));
     }
 
     /**

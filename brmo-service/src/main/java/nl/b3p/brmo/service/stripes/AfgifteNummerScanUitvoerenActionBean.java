@@ -62,7 +62,9 @@ public class AfgifteNummerScanUitvoerenActionBean implements ActionBean, Progres
         AfgifteNummerScanner _proces = (AfgifteNummerScanner) AbstractExecutableProces.getProces(proces);
         try {
             _proces.execute(this);
+            proces.setOntbrekendeNummersGevonden(_proces.getOntbrekendeNummersGevonden());
             getContext().getMessages().add(new SimpleMessage("Afgiftenummer scan is afgerond."));
+            getContext().getMessages().add(new SimpleMessage("Er zijn " + (_proces.getOntbrekendeNummersGevonden() ? "" : "geen") + " ontbrekende afgiftenummers geconstateerd."));
         } catch (Exception ex) {
             proces.setStatus(AutomatischProces.ProcessingStatus.ERROR);
             getContext().getMessages().add(
