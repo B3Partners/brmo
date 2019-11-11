@@ -478,7 +478,7 @@ AS
                           || ', '
                           || 'subject-id: '
                           || coalesce(koza.fk_5pes_sc_identif,'')
-                          || '; ',' & ') WITHIN GROUP(
+                          || '; ',' & ' ON OVERFLOW TRUNCATE WITH COUNT) WITHIN GROUP(
                     ORDER BY
                         koza.fk_4koz_kad_identif
                 ) AS aantekeningen
@@ -632,7 +632,7 @@ AS
                           || ', '
                           || 'subject-id: '
                           || coalesce(koza.fk_5pes_sc_identif,'')
-                          || '; ',' & ') WITHIN GROUP(
+                          || '; ',' & ' ON OVERFLOW TRUNCATE WITH COUNT) WITHIN GROUP(
                     ORDER BY
                         koza.fk_4koz_kad_identif
                 ) AS aantekeningen
@@ -721,7 +721,7 @@ CREATE OR REPLACE VIEW vb_util_zk_recht (
                             || ', '
                             || 'subject-id: '
                             || coalesce(zra.fk_6pes_sc_identif,'')
-                            || '; '),'&& ') WITHIN GROUP(
+                            || '; '),'&& ' ON OVERFLOW TRUNCATE WITH COUNT) WITHIN GROUP(
                     ORDER BY
                         zra.fk_5zkr_kadaster_identif
                 ) AS aantekeningen
