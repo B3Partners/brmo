@@ -63,7 +63,6 @@ CREATE TABLE zak_recht_archief
 
 
 CREATE INDEX idx_gebrdoel  ON gebouwd_obj_gebruiksdoel (fk_gbo_sc_identif);
-CREATE INDEX mb_kad_onrr_z_ar_overgeg_idx  ON mb_kad_onrrnd_zk_archief (overgegaan_in);
 
 -- versienummer update
 UPDATE brmo_metadata SET waarde='1.6.4' WHERE naam='brmoversie';
