@@ -18,12 +18,7 @@ package nl.b3p.brmo.service.scanner;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import javax.persistence.Transient;
 import javax.sql.DataSource;
 
@@ -37,6 +32,7 @@ import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus
 import nl.b3p.brmo.service.util.ConfigUtil;
 import nl.b3p.loader.jdbc.GeometryJdbcConverter;
 import nl.b3p.loader.jdbc.GeometryJdbcConverterFactory;
+import org.apache.commons.compress.utils.Sets;
 import org.apache.commons.dbutils.DbUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.ColumnListHandler;
@@ -71,8 +67,10 @@ public class AfgifteNummerScanner extends AbstractExecutableProces {
             final DataSource ds = ConfigUtil.getDataSourceStaging();
             try (final Connection conn = ds.getConnection()) {
                 final GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
-                String sql = "select distinct value from automatisch_proces_config where config_key = 'gds2_contractnummer'";
+                String sql = "select distinct cast(value as varchar(15)) from automatisch_proces_config where config_key = 'gds2_contractnummer'";
                 List<String> contractnummers = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, sql, new ColumnListHandler<>());
+                // omdat sql server geen distinct op een 'text' kolom kan doen halen we alles op en doen we distinct + sorteren aan de java kant
+                //contractnummers = new ArrayList<>(new HashSet(contractnummers));
                 contractnummers.sort(String::compareToIgnoreCase);
                 DbUtils.closeQuietly(conn);
                 return Collections.unmodifiableList(contractnummers);
