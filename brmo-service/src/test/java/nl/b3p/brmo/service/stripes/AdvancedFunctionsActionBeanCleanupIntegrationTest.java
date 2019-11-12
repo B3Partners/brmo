@@ -38,7 +38,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import static org.junit.Assert.fail;
 import static org.junit.Assume.assumeTrue;
-import org.junit.Ignore;
 
 /**
  *
@@ -72,7 +71,7 @@ public class AdvancedFunctionsActionBeanCleanupIntegrationTest extends TestUtil 
         return Arrays.asList(new Object[][]{
             // {"sBestandsNaam", aantalBerichtenRsgbOk, aantalBerichtenToArchive, aantalBerichtenArchive, aantalBerichtenRsgbNok},
             {"/GH-287/staging-flat.xml", 43, 42, 6, 1},
-            {"/GH-287/gh-292-staging-flat.xml", 2042, 2042, 0, 0},
+            {"/GH-287/gh-292-staging-flat.xml", 2043, 2043, 0, 0},
             /* onderstaand staat op de ignore lijst omdat het op de build servers voor oom error zorgt, er zitten teveel berichten in.*/
             {"/GH-287/gh-292-staging-flat-4242.xml", 4242, 4242, 0, 0}
         });
@@ -192,7 +191,7 @@ public class AdvancedFunctionsActionBeanCleanupIntegrationTest extends TestUtil 
     }
 
     @Test
-    @Ignore("Deze programma flow komt normaal niet voor; de GUI staat slechts 1 keuze per run toe.")
+    //@Ignore("Deze programma flow komt normaal niet voor; de GUI staat slechts 1 keuze per run toe.")
     public void testCleanupAndDeleteBerichten() throws Exception {
         LOG.debug("Archiveren 'ok' berichten");
         bean.cleanupBerichten(Bericht.STATUS.RSGB_OK.toString(), BrmoFramework.BR_BAG);
