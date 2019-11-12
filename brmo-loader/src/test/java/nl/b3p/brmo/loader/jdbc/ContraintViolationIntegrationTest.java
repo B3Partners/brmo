@@ -122,10 +122,7 @@ public class ContraintViolationIntegrationTest extends AbstractDatabaseIntegrati
         }
 
         if (staging != null) {
-            CleanUtil.cleanSTAGING(staging);
-            DatabaseOperation.DELETE_ALL.execute(staging, new DefaultDataSet(new DefaultTable[]{
-                new DefaultTable("job")}
-            ));
+            CleanUtil.cleanSTAGING(staging, false);
             staging.close();
         }
 

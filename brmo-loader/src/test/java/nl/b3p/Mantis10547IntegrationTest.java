@@ -159,9 +159,7 @@ public class Mantis10547IntegrationTest extends AbstractDatabaseIntegrationTest 
         CleanUtil.cleanRSGB_BRK(rsgb, true);
         rsgb.close();
 
-        DatabaseOperation.DELETE_ALL.execute(staging, new DefaultDataSet(new DefaultTable[]{
-            new DefaultTable("job")}
-        ));
+        CleanUtil.cleanSTAGING(staging, false);
         staging.close();
 
         try {

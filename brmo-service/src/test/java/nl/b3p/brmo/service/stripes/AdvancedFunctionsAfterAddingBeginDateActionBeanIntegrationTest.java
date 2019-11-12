@@ -149,7 +149,7 @@ public class AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest exte
         } else {
             fail("Geen ondersteunde database aangegegeven");
         }
-        setupJNDI(dsRsgb, dsStaging);
+        setupJNDI(dsRsgb, dsStaging, null, null);
 
         FlatXmlDataSetBuilder fxdb = new FlatXmlDataSetBuilder();
         fxdb.setCaseSensitiveTableNames(false);
@@ -185,7 +185,7 @@ public class AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest exte
             rsgb.close();
         }
         if (staging != null) {
-            CleanUtil.cleanSTAGING(staging);
+            CleanUtil.cleanSTAGING(staging, true);
             staging.close();
         }
 

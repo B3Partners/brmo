@@ -113,7 +113,7 @@ public class Mantis6235IntegrationTest extends AbstractDatabaseIntegrationTest {
         brmo.closeBrmoFramework();
 
         CleanUtil.cleanRSGB_BRK(rsgb, true);
-        CleanUtil.cleanSTAGING(staging);
+        CleanUtil.cleanSTAGING(staging, false);
         rsgb.close();
         staging.close();
 

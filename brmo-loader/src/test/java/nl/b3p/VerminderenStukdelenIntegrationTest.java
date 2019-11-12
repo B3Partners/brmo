@@ -116,7 +116,7 @@ public class VerminderenStukdelenIntegrationTest extends AbstractDatabaseIntegra
     public void cleanup() throws Exception {
         brmo.closeBrmoFramework();
 
-        CleanUtil.cleanSTAGING(staging);
+        CleanUtil.cleanSTAGING(staging, false);
         staging.close();
 
         CleanUtil.cleanRSGB_BRK(rsgb, true);

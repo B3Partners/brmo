@@ -157,14 +157,11 @@ public class Mantis6166IntegrationTest extends AbstractDatabaseIntegrationTest {
             // in geval van niet waar gemaakte assumptions
             brmo.closeBrmoFramework();
         }
-        assumeTrue("Deze test werkt niet met de jTDS driver omdat die geen JtdsPreparedStatement#setNull() methode heeft.", !this.isMsSQL);
 
-        CleanUtil.cleanRSGB(rsgb);
+        CleanUtil.cleanRSGB_BRK(rsgb,true);
         rsgb.close();
 
-        DatabaseOperation.DELETE_ALL.execute(staging, new DefaultDataSet(new DefaultTable[]{
-            new DefaultTable("job")}
-        ));
+        CleanUtil.cleanSTAGING(staging, false);
         staging.close();
 
         try {

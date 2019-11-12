@@ -131,7 +131,7 @@ public class AdvancedFunctionsActionBeanCleanupIntegrationTest extends TestUtil 
         } else {
             fail("Geen ondersteunde database aangegegeven");
         }
-        setupJNDI(dsRsgb, dsStaging);
+        setupJNDI(dsRsgb, dsStaging, null, null);
 
         FlatXmlDataSetBuilder fxdb = new FlatXmlDataSetBuilder();
         fxdb.setCaseSensitiveTableNames(false);
@@ -160,10 +160,8 @@ public class AdvancedFunctionsActionBeanCleanupIntegrationTest extends TestUtil 
         }
 
         if (staging != null) {
-        CleanUtil.cleanSTAGING(staging);
-        if (staging != null) {
+            CleanUtil.cleanSTAGING(staging, true);
             staging.close();
-            }
         }
         try {
             sequential.unlock();

@@ -124,7 +124,7 @@ public class UpdateBeginDatumZakRechtIntegrationTest extends TestUtil{
 
         staging.getConfig().setProperty(DatabaseConfig.FEATURE_ALLOW_EMPTY_FIELDS, true);
         rsgb.getConfig().setProperty(DatabaseConfig.FEATURE_ALLOW_EMPTY_FIELDS, true);
-        setupJNDI(dsRsgb, dsStaging);
+        setupJNDI(dsRsgb, dsStaging, null, null);
 
         FlatXmlDataSetBuilder fxdb = new FlatXmlDataSetBuilder();
         fxdb.setCaseSensitiveTableNames(false);
@@ -161,7 +161,7 @@ public class UpdateBeginDatumZakRechtIntegrationTest extends TestUtil{
             rsgb.close();
         }
         if (staging != null) {
-            CleanUtil.cleanSTAGING(staging);
+            CleanUtil.cleanSTAGING(staging, true);
             staging.close();
         }
 

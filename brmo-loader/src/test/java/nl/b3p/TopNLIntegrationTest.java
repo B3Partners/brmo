@@ -179,7 +179,7 @@ public class TopNLIntegrationTest extends AbstractDatabaseIntegrationTest {
     public void cleanup() throws Exception {
         brmo.closeBrmoFramework();
 
-        CleanUtil.cleanSTAGING(staging);
+        CleanUtil.cleanSTAGING(staging, false);
         staging.close();
 
         topnl.close();

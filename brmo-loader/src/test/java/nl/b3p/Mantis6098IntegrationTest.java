@@ -114,12 +114,10 @@ public class Mantis6098IntegrationTest extends AbstractDatabaseIntegrationTest {
     public void cleanup() throws Exception {
         brmo.closeBrmoFramework();
 
-        CleanUtil.cleanRSGB(rsgb);
+        CleanUtil.cleanRSGB_BRK(rsgb, true);
         rsgb.close();
 
-        DatabaseOperation.DELETE_ALL.execute(staging, new DefaultDataSet(new DefaultTable[]{
-            new DefaultTable("job")}
-        ));
+        CleanUtil.cleanSTAGING(staging, false);
         staging.close();
 
         sequential.unlock();
