@@ -364,8 +364,8 @@
                         </executions>
                         <dependencies>
                             <dependency>
-                                <groupId>${oracle.jdbc.groupId}</groupId>
-                                <artifactId>${oracle.jdbc.artifactId}</artifactId>
+                                <groupId>com.oracle.jdbc</groupId>
+                                <artifactId>ojdbc8</artifactId>
                                 <version>${oracle.jdbc.version}</version>
                             </dependency>
                         </dependencies>

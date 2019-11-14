@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context path="/brmo-stufbg204">
     <!-- properties komen uit postgres.properties tijdens package? phase -->
-
     <Resource name="jdbc/brmo/staging"
               auth="Container"
               type="javax.sql.DataSource"
@@ -14,7 +13,6 @@
               driverClassName="${jdbc.driverClassName}"
               url="${staging.url}"
     />
-    
     <Resource name="jdbc/brmo/rsgb"
               auth="Container"
               type="javax.sql.DataSource"
@@ -39,28 +37,26 @@
               password="${rsgbbgt.password}"
               driverClassName="${jdbc.driverClassName}"
               url="${rsgbbgt.url}"
-    />-->
-
-<!--        <Resource name="jdbc/brmo/topnl"
-              auth="Container"
-              type="javax.sql.DataSource"
-              maxActive="40"
-              validationQuery="select 1"
-              timeBetweenEvictionRunsMillis="30000"
-              minEvictableIdleTimeMillis="5000"
-              username="${topnl.username}"
-              password="${topnl.password}"
-              driverClassName="${jdbc.driverClassName}"
-              url="${topnl.url}"
-    />-->
-
+    />
+    <Resource name="jdbc/brmo/topnl"
+          auth="Container"
+          type="javax.sql.DataSource"
+          maxActive="40"
+          validationQuery="select 1"
+          timeBetweenEvictionRunsMillis="30000"
+          minEvictableIdleTimeMillis="5000"
+          username="${topnl.username}"
+          password="${topnl.password}"
+          driverClassName="${jdbc.driverClassName}"
+          url="${topnl.url}"
+    />
+-->
     <Resource name="mail/session"
               auth="Container"
               type="javax.mail.Session"
               mail.smtp.host="localhost"
               mail.smtp.from="no-reply@b3partners.nl"
     />
-
     <Realm allRolesMode="authOnly"
            className="org.apache.catalina.realm.DataSourceRealm"
            digest="SHA-1"
@@ -72,16 +68,4 @@
            dataSourceName="jdbc/brmo/staging"
            localDataSource="true"
     />
-
-    <!-- Realm allRolesMode="authOnly"
-           className="org.apache.catalina.realm.JDBCRealm"
-           digest="SHA-1"
-           roleNameCol="groep_"
-           userCredCol="wachtwoord"
-           userNameCol="gebruikersnaam"
-           userRoleTable="gebruiker_groepen"
-           userTable="gebruiker_"
-           driverName="${jdbc.driverClassName}"
-           connectionURL="${staging.url}?user=${staging.username}&amp;password=${staging.password}"
-    / -->
 </Context>
