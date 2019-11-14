@@ -27,7 +27,6 @@
               driverClassName="${jdbc.driverClassName}"
               url="${rsgb.url}"
     />
-
     <Resource name="jdbc/brmo/rsgbbgt"
               auth="Container"
               type="javax.sql.DataSource"
@@ -40,8 +39,7 @@
               driverClassName="${jdbc.driverClassName}"
               url="${rsgbbgt.url}"
     />
-
-        <Resource name="jdbc/brmo/topnl"
+    <Resource name="jdbc/brmo/topnl"
               auth="Container"
               type="javax.sql.DataSource"
               maxActive="40"
@@ -53,14 +51,12 @@
               driverClassName="${jdbc.driverClassName}"
               url="${topnl.url}"
     />
-
     <Resource name="mail/session"
               auth="Container"
               type="javax.mail.Session"
               mail.smtp.host="localhost"
               mail.smtp.from="no-reply@b3partners.nl"
     />
-
     <Realm allRolesMode="authOnly"
            className="org.apache.catalina.realm.DataSourceRealm"
            digest="SHA-1"
@@ -72,16 +68,4 @@
            dataSourceName="jdbc/brmo/staging"
            localDataSource="true"
     />
-
-    <!-- Realm allRolesMode="authOnly"
-           className="org.apache.catalina.realm.JDBCRealm"
-           digest="SHA-1"
-           roleNameCol="groep_"
-           userCredCol="wachtwoord"
-           userNameCol="gebruikersnaam"
-           userRoleTable="gebruiker_groepen"
-           userTable="gebruiker_"
-           driverName="${jdbc.driverClassName}"
-           connectionURL="${staging.url}?user=${staging.username}&amp;password=${staging.password}"
-    / -->
 </Context>

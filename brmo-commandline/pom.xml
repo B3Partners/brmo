@@ -12,7 +12,7 @@
     <description>BRMO commandline tool</description>
     <properties>
         <!-- de oracle driver van zip file uitsluiten-->
-        <exclude.groupIds.fromPackaging>${oracle.jdbc.groupId}</exclude.groupIds.fromPackaging>
+        <exclude.groupIds.fromPackaging>com.oracle.jdbc</exclude.groupIds.fromPackaging>
         <include.scope.inPackaging>runtime</include.scope.inPackaging>
     </properties>
     <dependencies>
@@ -87,8 +87,8 @@
             <artifactId>jtds</artifactId>
         </dependency>
         <dependency>
-            <groupId>${oracle.jdbc.groupId}</groupId>
-            <artifactId>${oracle.jdbc.artifactId}</artifactId>
+            <groupId>com.oracle.jdbc</groupId>
+            <artifactId>ojdbc8</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -290,8 +290,8 @@
             </properties>
             <dependencies>
                 <dependency>
-                    <groupId>${oracle.jdbc.groupId}</groupId>
-                    <artifactId>${oracle.jdbc.artifactId}</artifactId>
+                    <groupId>com.oracle.jdbc</groupId>
+                    <artifactId>ojdbc8</artifactId>
                 </dependency>
             </dependencies>
             <build>

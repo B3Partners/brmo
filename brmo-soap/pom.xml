@@ -29,8 +29,8 @@
             <artifactId>brmo-loader</artifactId>
             <exclusions>
                 <exclusion>
-                    <groupId>${oracle.jdbc.groupId}</groupId>
-                    <artifactId>${oracle.jdbc.artifactId}</artifactId>
+                    <groupId>com.oracle.jdbc</groupId>
+                    <artifactId>ojdbc8</artifactId>
                 </exclusion>
                 <exclusion>
                     <artifactId>org.postgresql</artifactId>
@@ -74,8 +74,8 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>${oracle.jdbc.groupId}</groupId>
-            <artifactId>${oracle.jdbc.artifactId}</artifactId>
+            <groupId>com.oracle.jdbc</groupId>
+            <artifactId>ojdbc8</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -182,8 +182,8 @@
             </properties>
             <dependencies>
                 <dependency>
-                    <groupId>${oracle.jdbc.groupId}</groupId>
-                    <artifactId>${oracle.jdbc.artifactId}</artifactId>
+                    <groupId>com.oracle.jdbc</groupId>
+                    <artifactId>ojdbc8</artifactId>
                 </dependency>
             </dependencies>
             <build>

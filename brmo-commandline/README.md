@@ -4,7 +4,7 @@
 
 Met de commandline tool kunnen een aantal beheer taken worden uitgevoerd. Hieronder vallen bijvoorbeeld het opvragen van informatie over de databases, het laden en verwijderen van bestanden (laadprocessen), het transformeren en het dumpen van GDS2 berichten.
 
-De basis commandoregel is: `java -jar ./brmo-commandline.jar` deze geeft output met de gebruiksinfo als onderstaand:
+De basis commandoregel is: `java -jar ./bin/brmo-commandline.jar` deze geeft output met de gebruiksinfo als onderstaand:
 
 ```
 usage: java -jar brmo-commandline.jar --<actie> --dbprops <db-props>
@@ -37,15 +37,23 @@ Acties:
                                                              xml-files in de opgegeven directory.
                                                              Dit zijn alleen BRK mutaties van GDS2
                                                              processen.
+  -al,--afgiftelijst <afgiftelijst> <uitvoerbestand>         Controleer of de berichten in de
+                                                             opgegeven afgiftelijst in de staging
+                                                             staan.
 Configuratie:
   -db,--dbprops <bestand>  database properties file
 
 
 ```
 De `[format]` optie is optioneel en kan de waarde "json" hebben, de default is tekst output.
+
 De `[archief-directory]` optie is optioneel en kan gebruikt worden om betsanden na laden in een archief directory te plaatsen.
+
 De `[error-state]` is optioneel, default is "ignore".
+
 De `[loadingUpdate]` optie is optioneel met een default waarde van "false".
+
+__De `--afgiftelijst` is beschikbaar vanaf versie 2.0.0__
 
 Omdat de Oracle jdbc driver niet gedistribueerd mag worden dient deze zelf in de lib directory te worden gezet met de aangepaste commando regel zal deze worden opgepikt.
 
@@ -112,4 +120,3 @@ De tool gebruikt Log4J logging voor de logging configuratie (NB. programma outpu
 De logging kan worden aangepast worden door de log4j.xml te bewerken welke in de `brmo-commandline.jar` te vinden is. De default gebruikt `info` level logging naar het bestand `brmo-commandline.log`.
 Vervolgens kan de ingebouwde log file overruled worden door op de commandoregel de optie naar de logging configuratie te geven als JVM optie, bijvoorbeeld: `java -Dlog4j.configuration=file:./mijnlog4j.xml ./brmo-commandline.jar -db commandline-example.properties --list json`
 Meer informatie over de mogelijkheden van Log4J is te vinden in de [manual](https://logging.apache.org/log4j/1.2/manual.html) en de [FAQ](https://logging.apache.org/log4j/1.2/faq.html).
-  

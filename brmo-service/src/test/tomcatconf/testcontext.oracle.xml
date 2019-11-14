@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context path="/brmo-service">
     <!-- properties komen uit oracle.properties tijdens test phase -->
-
     <Resource name="jdbc/brmo/staging"
               auth="Container"
               type="javax.sql.DataSource"
@@ -14,7 +13,6 @@
               driverClassName="${jdbc.driverClassName}"
               url="${staging.url}"
     />
-
     <Resource name="jdbc/brmo/rsgb"
               auth="Container"
               type="javax.sql.DataSource"
@@ -27,7 +25,6 @@
               driverClassName="${jdbc.driverClassName}"
               url="${rsgb.url}"
     />
-
     <Resource name="jdbc/brmo/rsgbbgt"
               auth="Container"
               type="javax.sql.DataSource"
@@ -40,7 +37,6 @@
               driverClassName="${jdbc.driverClassName}"
               url="${rsgbbgt.url}"
     />
-
     <Resource name="jdbc/brmo/topnl"
               auth="Container"
               type="javax.sql.DataSource"
@@ -53,14 +49,12 @@
               driverClassName="${jdbc.driverClassName}"
               url="${topnl.url}"
     />
-
     <Resource name="mail/session"
               auth="Container"
               type="javax.mail.Session"
               mail.smtp.host="localhost"
               mail.smtp.from="no-reply@b3partners.nl"
     />
-
     <Realm allRolesMode="authOnly"
            className="org.apache.catalina.realm.DataSourceRealm"
            digest="SHA-1"

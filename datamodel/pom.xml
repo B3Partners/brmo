@@ -38,8 +38,8 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>${oracle.jdbc.groupId}</groupId>
-            <artifactId>${oracle.jdbc.artifactId}</artifactId>
+            <groupId>com.oracle.jdbc</groupId>
+            <artifactId>ojdbc8</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
