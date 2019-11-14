@@ -1,18 +1,23 @@
 package nl.b3p.brmo.loader.entity;
 
+import java.io.IOException;
 import java.io.StringReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 /**
  *
@@ -96,5 +101,58 @@ public class BrkBericht extends Bericht {
         evaluateXPath();
 
         return datum;
+    }
+    
+     public String getRestoredFileName(Date bestanddatum, Integer volgordenummer){
+        try {
+            final SimpleDateFormat output = new SimpleDateFormat("yyyyMMdd");
+            
+            String prefix = "BKE-MUTBX01";
+            String kadGemCode;
+            String perceelnummer;
+            String brkdatum = output.format(bestanddatum);
+            String sectie;
+            String appartementsrechtVolgnummer;
+
+            String basePath = "/KadastraalObjectSnapshot/*[local-name()= 'Perceel' or local-name()='Appartementsrecht']/kadastraleAanduiding/";
+            XPathFactory xPathfactory = XPathFactory.newInstance();
+            XPath xpath = xPathfactory.newXPath();
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document doc = builder.parse(new InputSource(new StringReader(this.getBrXml())));
+
+            // in geval van een verwijderbericht is de "wordt" leeg, db_xml <empty/>
+            if (this.getBrXml().contains("<empty/>") && StringUtils.isNotBlank(this.getBrOrgineelXml())) {
+                // dan proberen om de db_origineel_xml te gebruiken.
+                basePath = "/Mutatie/kadastraalObject/AanduidingKadastraalObject/kadastraleAanduiding/";
+                doc = builder.parse(new InputSource(new StringReader(this.getBrOrgineelXml())));
+            }
+
+            XPathExpression expr = xpath.compile(basePath + "AKRKadastraleGemeenteCode/waarde/text()");
+            kadGemCode = expr.evaluate(doc);
+            
+            expr = xpath.compile(basePath + "sectie/text()");
+            sectie = expr.evaluate(doc);
+            
+            expr = xpath.compile(basePath + "perceelnummer/text()");
+            perceelnummer = expr.evaluate(doc);
+
+            expr = xpath.compile(basePath + "appartementsrechtVolgnummer/text()");
+            appartementsrechtVolgnummer = expr.evaluate(doc);
+            if (StringUtils.isNotBlank(appartementsrechtVolgnummer)) {
+                appartementsrechtVolgnummer = "A" + appartementsrechtVolgnummer;
+            }
+
+            String aanduiding = kadGemCode + sectie + perceelnummer + appartementsrechtVolgnummer;
+            log.debug("gevonden aanduiding voor herstelde bestandsnaam: " + aanduiding);
+            String filename = "bestandsnaam kon niet worden hersteld";
+            if (StringUtils.isNotBlank(aanduiding)) {
+                filename = prefix + "-" + aanduiding + "-" + brkdatum + "-" + volgordenummer.toString() + ".zip";
+            }
+            return filename;
+        } catch (ParserConfigurationException | XPathExpressionException | SAXException | IOException  ex) {
+            log.error("Cannot create filename from xml: ", ex);
+            return "";
+        }
     }
 }

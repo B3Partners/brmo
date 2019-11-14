@@ -72,6 +72,7 @@
         status varchar(255) null,
         status_datum datetime null,
         automatisch_proces numeric(19,0) null,
+        bestand_naam_hersteld varchar(255) null,
         primary key (id)
     );
 

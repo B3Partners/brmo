@@ -114,7 +114,7 @@ public class ZakRechtArchiefIntegrationTest extends AbstractDatabaseIntegrationT
         CleanUtil.cleanRSGB_BRK(rsgb, true);
         rsgb.close();
 
-        CleanUtil.cleanSTAGING(staging);
+        CleanUtil.cleanSTAGING(staging, false);
         staging.close();
 
         sequential.unlock();

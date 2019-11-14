@@ -64,6 +64,8 @@
         <geotools.version>22.0</geotools.version>
         <jdbc-util.version>4.0</jdbc-util.version>
         <jts.version>1.16.1</jts.version>
+        <jts.version>1.16.1</jts.version>
+        <itextpdf.version>7.1.8</itextpdf.version>
         <postgresql.jdbc.version>42.2.8</postgresql.jdbc.version>
         <postgresql.postgis-jdbc.version>2.3.0</postgresql.postgis-jdbc.version>
         <!--
@@ -84,6 +86,7 @@
         <mssql.instancename />
         <javasimon.version>4.2.0</javasimon.version>
         <jakarta.mail.version>1.6.4</jakarta.mail.version>
+        <apache.poi.version>4.1.1</apache.poi.version>
         <quartz.version>2.3.2</quartz.version>
         <slf4j.version>1.7.29</slf4j.version>
         <jaxb.api.version>2.3.2</jaxb.api.version>
@@ -496,6 +499,33 @@
                 <artifactId>jdom2</artifactId>
                 <version>2.0.6</version>
             </dependency>
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi</artifactId>
+                <version>${apache.poi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi-ooxml</artifactId>
+                <version>${apache.poi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.itextpdf</groupId>
+                <artifactId>kernel</artifactId>
+                <version>${itextpdf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.itextpdf</groupId>
+                <artifactId>itext7-core</artifactId>
+                <version>${itextpdf.version}</version>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>com.itextpdf</groupId>
+                <artifactId>layout</artifactId>
+                <version>${itextpdf.version}</version>
+            </dependency>
+
             <!-- test dependencies -->
             <dependency>
                 <groupId>com.h2database</groupId>
@@ -662,7 +692,7 @@
                     <artifactId>maven-resources-plugin</artifactId>
                     <version>3.1.0</version>
                     <configuration>
-                        <nonFilteredFileExtensions>zip,gml,md,json,geojson,txt,sql</nonFilteredFileExtensions>
+                        <nonFilteredFileExtensions>zip,gml,md,json,geojson,txt,sql,xlsx</nonFilteredFileExtensions>
                     </configuration>
                 </plugin>
                 <plugin>

@@ -113,7 +113,7 @@ public class Mantis10315IntegrationTest extends AbstractDatabaseIntegrationTest 
         CleanUtil.cleanRSGB_BRK(rsgb, true);
         rsgb.close();
 
-        CleanUtil.cleanSTAGING(staging);
+        CleanUtil.cleanSTAGING(staging, false);
         staging.close();
 
         sequential.unlock();

@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+  <laadproces id="1" contractafgiftenummer="1554632" contractnummer="6666666" klantafgiftenummer="2285729"/>
+  <laadproces id="2368" contractafgiftenummer="1556999" contractnummer="999999" klantafgiftenummer="2288096"/>
+  <laadproces id="2369" contractafgiftenummer="1557000" contractnummer="999999" klantafgiftenummer="2288097"/>
+  <laadproces id="2370" contractafgiftenummer="1557001" contractnummer="999999" klantafgiftenummer="2288098"/>
+  <laadproces id="2371" contractafgiftenummer="1557002" contractnummer="999999" klantafgiftenummer="2288099"/>
+  <laadproces id="2372" contractafgiftenummer="1557003" contractnummer="999999" klantafgiftenummer="2288100"/>
+  <automatisch_proces dtype="GDS2OphaalProces" id="1"/>
+  <automatisch_proces dtype="GDS2OphaalProces" id="2"/>
+  <automatisch_proces dtype="GDS2OphaalProces" id="3"/>
+  <automatisch_proces dtype="GDS2OphaalProces" id="4"/>
+  <automatisch_proces dtype="GDS2OphaalProces" id="5"/>
+  <automatisch_proces_config proces_id="1" value="6666666" config_key="gds2_contractnummer"/>
+  <automatisch_proces_config proces_id="2" value="999999" config_key="gds2_contractnummer"/>
+  <automatisch_proces_config proces_id="3" value="6666666" config_key="gds2_contractnummer"/>
+  <automatisch_proces_config proces_id="4" value="6666666" config_key="gds2_contractnummer"/>
+  <automatisch_proces_config proces_id="5" value="1111" config_key="gds2_contractnummer"/>
+</dataset>

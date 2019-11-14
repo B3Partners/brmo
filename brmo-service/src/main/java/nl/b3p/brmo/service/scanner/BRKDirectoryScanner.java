@@ -212,6 +212,7 @@ public class BRKDirectoryScanner extends AbstractExecutableProces {
                         }
                         b.setBr_xml(bericht.getBrXml());
                         b.setVolgordenummer(bericht.getVolgordeNummer());
+                        lp.setBestand_naam_hersteld(bericht.getRestoredFileName(lp.getBestand_datum(), bericht.getVolgordeNummer()));
 
                         //Als objectRef niet opgehaald kan worden,dan kan het
                         //  bericht niet verwerkt worden.

@@ -26,6 +26,7 @@ import nl.b3p.brmo.persistence.staging.MailRapportageProces;
 import nl.b3p.brmo.persistence.staging.MaterializedViewRefresh;
 import nl.b3p.brmo.persistence.staging.WebMirrorBAGScannerProces;
 import nl.b3p.brmo.persistence.staging.BerichtstatusRapportProces;
+import nl.b3p.brmo.persistence.staging.AfgifteNummerScannerProces;
 import nl.b3p.brmo.persistence.staging.TopNLScannerProces;
 import static nl.b3p.brmo.service.scanner.ProcesExecutable.ProcessingImple.TopNLScannerProces;
 import org.apache.commons.logging.Log;
@@ -84,6 +85,8 @@ public abstract class AbstractExecutableProces implements ProcesExecutable {
                 return new BerichtstatusRapport((BerichtstatusRapportProces) config);
             case TopNLScannerProces:
                 return new TopNLDirectoryScanner((TopNLScannerProces) config);
+            case AfgifteNummerScannerProces:
+                return new AfgifteNummerScanner((AfgifteNummerScannerProces) config);
             default:
                 throw new IllegalArgumentException(imple.name() + " is is geen ondersteund proces...");
         }
@@ -115,10 +118,8 @@ public abstract class AbstractExecutableProces implements ProcesExecutable {
                 this.execute();
                 // TODO
                 Thread.sleep(5000);
-            } catch (InterruptedException e) {
+            } catch (InterruptedException | BrmoException e) {
                 log.error(e.getMessage(), e);
-            } catch (BrmoException ex) {
-                log.error(ex.getMessage(), ex);
             }
         }
     }

@@ -2,6 +2,7 @@ package nl.b3p.brmo.loader;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigInteger;
 import java.sql.Connection;
@@ -12,6 +13,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import javax.sql.DataSource;
 import javax.xml.bind.JAXBException;
+import nl.b3p.brmo.loader.checks.AfgifteChecker;
 import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.loader.entity.LaadProces;
 import nl.b3p.brmo.loader.updates.UpdateProcess;
@@ -632,7 +634,6 @@ public class BrmoFramework {
             throw new BrmoException(ex);
         }
     }
-
     /**
      * update laadproces (GDS2 afgifte) metadata.
      *
@@ -654,5 +655,17 @@ public class BrmoFramework {
         } catch (SQLException ex) {
             throw new BrmoException(ex);
         }
+    }
+    
+    public File checkAfgiftelijst(String bestandsnaam, String output) throws IOException{
+        File f = new File(bestandsnaam);
+        return checkAfgiftelijst(bestandsnaam, new FileInputStream(f), new File(output));
+    }
+    
+    public File checkAfgiftelijst(String bestandsnaam, InputStream is, File output) throws IOException{
+        AfgifteChecker checker = new AfgifteChecker();
+        checker.init(is,stagingProxy);
+        checker.check();
+        return checker.getResults(bestandsnaam, output);
     }
 }

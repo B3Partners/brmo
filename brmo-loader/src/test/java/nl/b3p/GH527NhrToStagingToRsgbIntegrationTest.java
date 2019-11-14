@@ -108,7 +108,7 @@ public class GH527NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseInte
     public void cleanup() throws Exception {
         brmo.closeBrmoFramework();
 
-        CleanUtil.cleanSTAGING(staging);
+        CleanUtil.cleanSTAGING(staging, false);
         staging.close();
 
         CleanUtil.cleanRSGB_NHR(rsgb);
@@ -151,6 +151,7 @@ public class GH527NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseInte
 
     private void checkWaarde(String tabelNaam, String kolom) throws DataSetException, SQLException {
         ITable tabel = rsgb.createDataSet().getTable(tabelNaam);
+        LOG.info("check " + tabelNaam + ":" + kolom);
         for (int i = 0; i < tabel.getRowCount(); i++) {
             assertFalse("kolom " + kolom + " van tabel " + tabelNaam + " bevat quote", tabel.getValue(i, kolom).toString().contains("'"));
         }

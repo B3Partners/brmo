@@ -20,6 +20,7 @@ import javax.sql.DataSource;
 import javax.xml.transform.TransformerException;
 import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.loader.entity.BerichtenSorter;
+import nl.b3p.brmo.loader.entity.BrkBericht;
 import nl.b3p.brmo.loader.entity.LaadProces;
 import nl.b3p.brmo.loader.pipeline.BerichtTypeOfWork;
 import nl.b3p.brmo.loader.pipeline.BerichtWorkUnit;
@@ -124,6 +125,16 @@ public class StagingProxy {
         return null;
     }
 
+    public List<Bericht> getBerichtByLaadProces(LaadProces lp) throws SQLException {
+        List<Bericht> berichten;
+        ResultSetHandler<List<Bericht>> h
+                = new BeanListHandler(Bericht.class, new StagingRowHandler());
+
+        berichten = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(),
+                "SELECT * FROM " + BrmoFramework.BERICHT_TABLE + " WHERE laadprocesid = ?", h, lp.getId());
+        return berichten;
+    }
+
 
     public LaadProces getLaadProcesByFileName(String name) throws SQLException {
         List<LaadProces> processen;
@@ -132,6 +143,21 @@ public class StagingProxy {
 
         processen = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(),
                 "SELECT * FROM " + BrmoFramework.LAADPROCES_TABEL + " WHERE bestand_naam = ?", h, name);
+
+        if (processen != null && processen.size() == 1) {
+            return processen.get(0);
+        }
+
+        return null;
+    }
+
+    public LaadProces getLaadProcesByRestoredFilename(String name) throws SQLException {
+        List<LaadProces> processen;
+        ResultSetHandler<List<LaadProces>> h
+                = new BeanListHandler(LaadProces.class, new StagingRowHandler());
+
+        processen = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(),
+                "SELECT * FROM " + BrmoFramework.LAADPROCES_TABEL + " WHERE bestand_naam_hersteld = ?", h,  name);
 
         if (processen != null && processen.size() == 1) {
             return processen.get(0);
@@ -721,6 +747,13 @@ public class StagingProxy {
                     log.debug(b);
 
                     Bericht existingBericht = getExistingBericht(b);
+                    if(type.equals(BrmoFramework.BR_BRK) && !isBerichtGeschreven){
+                        // haal alleen voor eerste 
+                        BrkBericht brkBericht = (BrkBericht)b;
+                        lp.setBestandNaamHersteld(brkBericht.getRestoredFileName(lp.getBestandDatum(), b.getVolgordeNummer()));
+                        updateLaadProcesBestandNaamHersteld(lp);
+                    }
+                    
                     if (existingBericht == null) {
                         writeBericht(b);
                         isBerichtGeschreven = true;
@@ -892,6 +925,12 @@ public class StagingProxy {
                 klantafgiftenummer,
                 lpId);
     }
+
+    public void updateLaadProcesBestandNaamHersteld(LaadProces lp) throws SQLException {
+        new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(), "update " + BrmoFramework.LAADPROCES_TABEL + " set bestand_naam_hersteld = ? where id = ?",
+                        lp.getBestandNaamHersteld(), lp.getId());
+    }
+
 
     public void emptyStagingDb() throws SQLException {
         new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(), "DELETE FROM " + BrmoFramework.BERICHT_TABLE);
@@ -1085,4 +1124,5 @@ public class StagingProxy {
     public void setLimitStandBerichtenToTransform(Integer limitStandBerichtenToTransform) {
         this.limitStandBerichtenToTransform = limitStandBerichtenToTransform;
     }
+
 }

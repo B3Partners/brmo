@@ -8,6 +8,7 @@ import java.util.concurrent.locks.ReentrantLock;
 import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.util.BrmoException;
+import nl.b3p.brmo.test.util.database.dbunit.CleanUtil;
 import nl.b3p.loader.jdbc.OracleConnectionUnwrapper;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.dbunit.database.DatabaseConfig;
@@ -97,10 +98,7 @@ public class BerichtenFilterSqlIntegrationTest extends AbstractDatabaseIntegrati
     @After
     public void cleanup() throws Exception {
         brmo.closeBrmoFramework();
-        DatabaseOperation.DELETE_ALL.execute(staging, new DefaultDataSet(new DefaultTable[]{
-            new DefaultTable("laadproces"),
-            new DefaultTable("bericht")
-        }));
+        CleanUtil.cleanSTAGING(staging, false);
         staging.close();
 
         sequential.unlock();

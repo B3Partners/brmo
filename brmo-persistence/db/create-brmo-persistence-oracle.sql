@@ -72,6 +72,7 @@
         status varchar2(255 char),
         status_datum timestamp,
         automatisch_proces number(19,0),
+        bestand_naam_hersteld varchar2(255 char),
         primary key (id)
     );
 

@@ -121,7 +121,7 @@ public class BAGXMLToStagingIntegrationTest extends AbstractDatabaseIntegrationT
     @After
     public void cleanup() throws Exception {
         brmo.closeBrmoFramework();
-        CleanUtil.cleanSTAGING(staging);
+        CleanUtil.cleanSTAGING(staging, false);
         staging.close();
         sequential.unlock();
     }

@@ -30,6 +30,7 @@ import nl.b3p.brmo.loader.RsgbProxy;
 import nl.b3p.brmo.loader.StagingProxy;
 import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.loader.advancedfunctions.AdvancedFunctionProcess;
+import nl.b3p.brmo.loader.entity.BrkBericht;
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.loader.util.StagingRowHandler;
 import nl.b3p.brmo.loader.xml.BagXMLReader;
@@ -93,6 +94,7 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
     private final String NHR_FIX_TYPERING = "Fix 'typering' en 'clazz' van nHR persoon";
     private final String NHR_ARCHIVING = "Opschonen en archiveren van nHR berichten met status RSGB_OK, ouder dan 3 maanden";
     private final String NHR_REMOVAL = "Verwijderen van nHR berichten met status ARCHIVE";
+    private final String BRK_HERSTEL_BESTANDSNAAM = "Vul de 'herstelde bestandsnaam' van BRK laadprocessen";
 
     private final boolean repairFirst = false;
 
@@ -219,7 +221,8 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
             new AdvancedFunctionProcess("Verwijderen van BAG berichten met status ARCHIVE", BrmoFramework.BR_BAG, Bericht.STATUS.ARCHIVE.toString()),
             new AdvancedFunctionProcess(NHR_REMOVAL, BrmoFramework.BR_NHR, Bericht.STATUS.ARCHIVE.toString()),
             new AdvancedFunctionProcess(BRK_VERWIJDEREN_NOGMAALS_UITVOEREN, BrmoFramework.BR_BRK, Bericht.STATUS.RSGB_OK.toString()),
-            new AdvancedFunctionProcess(NHR_FIX_TYPERING, BrmoFramework.BR_NHR, null)
+            new AdvancedFunctionProcess(NHR_FIX_TYPERING, BrmoFramework.BR_NHR, null),
+            new AdvancedFunctionProcess(BRK_HERSTEL_BESTANDSNAAM, BrmoFramework.BR_BRK, "0")
         });
     }
 
@@ -271,14 +274,16 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
                 replayBRKVerwijderBerichten(process.getSoort(), process.getConfig());
             } else if (process.getName().equals(NHR_FIX_TYPERING)) {
                 fixNHRTypering(process.getSoort(), process.getConfig());
+            } else if (process.getName().equals(BRK_HERSTEL_BESTANDSNAAM)) {
+                fillbestandsNaamHersteld(process.getSoort(), process.getConfig());
             }
             
             if (this.exceptionStacktrace == null) {
                 getContext().getMessages().add(new SimpleMessage("Geavanceerde functie afgerond."));
             }
         } catch (Throwable t) {
-            LOG.error("Fout bij geavanceerd functie", t);
-            String m = "Fout bij geavanceerd functie: " + ExceptionUtils.getMessage(t);
+            LOG.error("Fout bij uitvoeren geavanceerde functie", t);
+            String m = "Fout bij uitvoeren geavanceerde functie: " + ExceptionUtils.getMessage(t);
             if (t.getCause() != null) {
                 m += ", oorzaak: " + ExceptionUtils.getRootCauseMessage(t);
             }
@@ -885,6 +890,78 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
                 }
             } while (_processed.intValue() > 0);
         }
+        DbUtils.closeQuietly(conn);
+    }
+
+    public void fillbestandsNaamHersteld(String soort, String config) throws BrmoException, SQLException, Exception {
+        int offset = 0;
+        int batch = 100;
+        final MutableInt _processed = new MutableInt(0);
+        final DataSource dataSourceRsgb = ConfigUtil.getDataSourceStaging();
+        final Connection conn = dataSourceRsgb.getConnection();
+        final GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
+        final RowProcessor processor = new StagingRowHandler();
+
+        String countsql = "select count(*) from " + BrmoFramework.BERICHT_TABLE + " where soort='" + soort + "' " + " and volgordenummer > " + config;
+
+        Object o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, countsql, new ScalarHandler());
+        if (o instanceof BigDecimal) {
+            total(((Number) o).longValue());
+        } else if (o instanceof Integer) {
+            total(((Number) o).longValue());
+        } else {
+            total((Long) o);
+        }
+
+        do {
+            LOG.debug(String.format("Ophalen berichten batch met offset %d, limit %d, voortgang %f", offset, batch, progress));
+            String sql = "select * from " + BrmoFramework.BERICHT_TABLE
+                    + " where soort='" + soort + "' "
+                    + " and volgordenummer > " + config
+                    + " order by id ";
+            sql = geomToJdbc.buildPaginationSql(sql, offset, batch);
+            LOG.debug("SQL voor ophalen berichten batch: " + sql);
+
+            _processed.setValue(0);
+            Exception e = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, sql, new ResultSetHandler<Exception>() {
+                @Override
+                public Exception handle(ResultSet rs) throws SQLException {
+                    while (rs.next()) {
+                        try {
+                            final Bericht bericht = processor.toBean(rs, Bericht.class);
+                            final BrkBericht brkBericht = new BrkBericht(bericht.getBrXml());
+                            brkBericht.setBrOrgineelXml(bericht.getBrOrgineelXml());
+                            final String bestandsnaamHersteld = brkBericht.getRestoredFileName(bericht.getDatum(), bericht.getVolgordeNummer());
+                            LOG.debug(String.format(
+                                    "Bijwerken bestand_naam_hersteld voor laadproces %d met waarde '%s' op basis van bericht %d",
+                                    bericht.getLaadProcesId(),
+                                    bestandsnaamHersteld,
+                                    bericht.getId())
+                            );
+                            new QueryRunner(geomToJdbc.isPmdKnownBroken())
+                                    .update(conn,
+                                            "update " + BrmoFramework.LAADPROCES_TABEL + " set bestand_naam_hersteld = ? where id = ?",
+                                            bestandsnaamHersteld,
+                                            bericht.getLaadProcesId()
+                                    );
+                        } catch (SQLException e) {
+                            return e;
+                        }
+                        _processed.increment();
+                    }
+                    return null;
+                }
+            });
+            offset += _processed.intValue();
+
+            progress(this.processed + _processed.intValue());
+
+            // If handler threw exception processing row, rethrow it
+            if (e != null) {
+                DbUtils.closeQuietly(conn);
+                throw e;
+            }
+        } while (_processed.intValue() > 0);
         DbUtils.closeQuietly(conn);
     }
 }

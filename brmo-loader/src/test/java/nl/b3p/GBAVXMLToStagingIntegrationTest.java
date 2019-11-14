@@ -188,7 +188,7 @@ public class GBAVXMLToStagingIntegrationTest extends AbstractDatabaseIntegration
     @After
     public void cleanup() throws Exception {
         brmo.closeBrmoFramework();
-        CleanUtil.cleanSTAGING(staging);
+        CleanUtil.cleanSTAGING(staging, false);
         CleanUtil.cleanRSGB_BAG(rsgb, true);
         CleanUtil.cleanRSGB_BRP(rsgb);
         staging.close();

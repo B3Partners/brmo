@@ -125,8 +125,11 @@ public abstract class TestUtil {
      *
      * @param dsRsgb rsgb databron
      * @param dsStaging staging databron
+     * @param dsRsgbBgt bgt databron
+     * @param dsTopNL topnl databron
      */
-    protected void setupJNDI(final BasicDataSource dsRsgb, final BasicDataSource dsStaging) {
+    protected void setupJNDI(final BasicDataSource dsRsgb, final BasicDataSource dsStaging,
+                             final BasicDataSource dsRsgbBgt, final BasicDataSource dsTopNL) {
         if (!haveSetupJNDI) {
             try {
                 System.setProperty(Context.INITIAL_CONTEXT_FACTORY, "org.apache.naming.java.javaURLContextFactory");
@@ -139,6 +142,8 @@ public abstract class TestUtil {
                 ic.createSubcontext("java:comp/env/jdbc/brmo");
                 ic.bind("java:comp/env/jdbc/brmo/rsgb", dsRsgb);
                 ic.bind("java:comp/env/jdbc/brmo/staging", dsStaging);
+                ic.bind("java:comp/env/jdbc/brmo/rsgbbgt", dsRsgbBgt);
+                ic.bind("java:comp/env/jdbc/brmo/topnl", dsTopNL);
                 haveSetupJNDI = true;
             } catch (NamingException ex) {
                 LOG.warn("Opzetten van datasource jndi is mislukt", ex);

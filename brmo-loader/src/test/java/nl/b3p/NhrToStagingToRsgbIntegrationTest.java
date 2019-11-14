@@ -216,7 +216,7 @@ public class NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
     public void cleanup() throws Exception {
         brmo.closeBrmoFramework();
 
-        CleanUtil.cleanSTAGING(staging);
+        CleanUtil.cleanSTAGING(staging, false);
         staging.close();
 
         CleanUtil.cleanRSGB_NHR(rsgb);
