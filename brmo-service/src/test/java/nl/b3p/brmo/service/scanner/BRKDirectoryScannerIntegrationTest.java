@@ -55,11 +55,6 @@ public class BRKDirectoryScannerIntegrationTest extends TestUtil {
     @Before
     @Override
     public void setUp() throws BrmoException {
-        BasicDataSource dsStaging = new BasicDataSource();
-        dsStaging.setUrl(DBPROPS.getProperty("staging.url"));
-        dsStaging.setUsername(DBPROPS.getProperty("staging.username"));
-        dsStaging.setPassword(DBPROPS.getProperty("staging.password"));
-        dsStaging.setAccessToUnderlyingConnectionAllowed(true);
         brmo = new BrmoFramework(dsStaging, null);
 
         /*

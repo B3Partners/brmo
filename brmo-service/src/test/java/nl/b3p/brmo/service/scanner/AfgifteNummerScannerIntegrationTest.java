@@ -107,12 +107,6 @@ public class AfgifteNummerScannerIntegrationTest extends TestUtil {
     public void setUp() throws Exception {
         assumeTrue("Het bestand met staging testdata zou moeten bestaan.", AfgifteNummerScannerIntegrationTest.class.getResource(sBestandsNaam) != null);
 
-        BasicDataSource dsStaging = new BasicDataSource();
-        dsStaging.setUrl(DBPROPS.getProperty("staging.url"));
-        dsStaging.setUsername(DBPROPS.getProperty("staging.username"));
-        dsStaging.setPassword(DBPROPS.getProperty("staging.password"));
-        dsStaging.setAccessToUnderlyingConnectionAllowed(true);
-
         staging = new DatabaseDataSourceConnection(dsStaging);
 
         if (this.isMsSQL) {
@@ -127,8 +121,6 @@ public class AfgifteNummerScannerIntegrationTest extends TestUtil {
         } else {
             fail("Geen ondersteunde database aangegegeven");
         }
-
-        setupJNDI(null, dsStaging, null, null);
 
         FlatXmlDataSetBuilder fxdb = new FlatXmlDataSetBuilder();
         fxdb.setCaseSensitiveTableNames(false);

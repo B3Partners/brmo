@@ -95,19 +95,6 @@ public class BRKComfortAdresUpdatesIntegrationTest extends TestUtil {
         when(bean.getContext()).thenReturn(actx);
         when(actx.getServletContext()).thenReturn(sctx);
 
-        // set up database en brmo framework en laadt test data
-        BasicDataSource dsStaging = new BasicDataSource();
-        dsStaging.setUrl(DBPROPS.getProperty("staging.url"));
-        dsStaging.setUsername(DBPROPS.getProperty("staging.username"));
-        dsStaging.setPassword(DBPROPS.getProperty("staging.password"));
-        dsStaging.setAccessToUnderlyingConnectionAllowed(true);
-
-        BasicDataSource dsRsgb = new BasicDataSource();
-        dsRsgb.setUrl(DBPROPS.getProperty("rsgb.url"));
-        dsRsgb.setUsername(DBPROPS.getProperty("rsgb.username"));
-        dsRsgb.setPassword(DBPROPS.getProperty("rsgb.password"));
-        dsRsgb.setAccessToUnderlyingConnectionAllowed(true);
-
         rsgb = new DatabaseDataSourceConnection(dsRsgb);
         staging = new DatabaseDataSourceConnection(dsStaging);
 
@@ -129,8 +116,6 @@ public class BRKComfortAdresUpdatesIntegrationTest extends TestUtil {
         }
         staging.getConfig().setProperty(DatabaseConfig.FEATURE_ALLOW_EMPTY_FIELDS, true);
         rsgb.getConfig().setProperty(DatabaseConfig.FEATURE_ALLOW_EMPTY_FIELDS, true);
-
-        setupJNDI(dsRsgb, dsStaging, null, null);
 
         FlatXmlDataSetBuilder fxdb = new FlatXmlDataSetBuilder();
         fxdb.setCaseSensitiveTableNames(false);

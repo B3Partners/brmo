@@ -50,6 +50,9 @@ public abstract class TestUtil {
      */
     protected boolean isPostgis;
 
+    protected BasicDataSource dsStaging;
+    protected BasicDataSource dsRsgb;
+
     /**
      * logging rule.
      */
@@ -102,6 +105,20 @@ public abstract class TestUtil {
         } catch (ClassNotFoundException ex) {
             LOG.error("Database driver niet gevonden.", ex);
         }
+
+        dsStaging = new BasicDataSource();
+        dsStaging.setUrl(DBPROPS.getProperty("staging.url"));
+        dsStaging.setUsername(DBPROPS.getProperty("staging.username"));
+        dsStaging.setPassword(DBPROPS.getProperty("staging.password"));
+        dsStaging.setAccessToUnderlyingConnectionAllowed(true);
+
+        dsRsgb = new BasicDataSource();
+        dsRsgb.setUrl(DBPROPS.getProperty("rsgb.url"));
+        dsRsgb.setUsername(DBPROPS.getProperty("rsgb.username"));
+        dsRsgb.setPassword(DBPROPS.getProperty("rsgb.password"));
+        dsRsgb.setAccessToUnderlyingConnectionAllowed(true);
+
+        setupJNDI();
     }
 
     /**
@@ -122,14 +139,8 @@ public abstract class TestUtil {
 
     /**
      * setup jndi voor testcases.
-     *
-     * @param dsRsgb rsgb databron
-     * @param dsStaging staging databron
-     * @param dsRsgbBgt bgt databron
-     * @param dsTopNL topnl databron
      */
-    protected void setupJNDI(final BasicDataSource dsRsgb, final BasicDataSource dsStaging,
-                             final BasicDataSource dsRsgbBgt, final BasicDataSource dsTopNL) {
+    protected void setupJNDI() {
         if (!haveSetupJNDI) {
             try {
                 System.setProperty(Context.INITIAL_CONTEXT_FACTORY, "org.apache.naming.java.javaURLContextFactory");
@@ -142,8 +153,6 @@ public abstract class TestUtil {
                 ic.createSubcontext("java:comp/env/jdbc/brmo");
                 ic.bind("java:comp/env/jdbc/brmo/rsgb", dsRsgb);
                 ic.bind("java:comp/env/jdbc/brmo/staging", dsStaging);
-                ic.bind("java:comp/env/jdbc/brmo/rsgbbgt", dsRsgbBgt);
-                ic.bind("java:comp/env/jdbc/brmo/topnl", dsTopNL);
                 haveSetupJNDI = true;
             } catch (NamingException ex) {
                 LOG.warn("Opzetten van datasource jndi is mislukt", ex);

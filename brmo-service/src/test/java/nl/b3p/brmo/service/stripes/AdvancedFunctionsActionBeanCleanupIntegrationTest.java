@@ -104,17 +104,7 @@ public class AdvancedFunctionsActionBeanCleanupIntegrationTest extends TestUtil 
         assumeTrue("Het bestand met staging testdata zou moeten bestaan.", AdvancedFunctionsActionBeanCleanupIntegrationTest.class.getResource(sBestandsNaam) != null);
         bean = new AdvancedFunctionsActionBean();
 
-        BasicDataSource dsStaging = new BasicDataSource();
-        dsStaging.setUrl(DBPROPS.getProperty("staging.url"));
-        dsStaging.setUsername(DBPROPS.getProperty("staging.username"));
-        dsStaging.setPassword(DBPROPS.getProperty("staging.password"));
-        dsStaging.setAccessToUnderlyingConnectionAllowed(true);
 
-        BasicDataSource dsRsgb = new BasicDataSource();
-        dsRsgb.setUrl(DBPROPS.getProperty("rsgb.url"));
-        dsRsgb.setUsername(DBPROPS.getProperty("rsgb.username"));
-        dsRsgb.setPassword(DBPROPS.getProperty("rsgb.password"));
-        dsRsgb.setAccessToUnderlyingConnectionAllowed(true);
 
         staging = new DatabaseDataSourceConnection(dsStaging);
 
@@ -130,7 +120,7 @@ public class AdvancedFunctionsActionBeanCleanupIntegrationTest extends TestUtil 
         } else {
             fail("Geen ondersteunde database aangegegeven");
         }
-        setupJNDI(dsRsgb, dsStaging, null, null);
+
 
         FlatXmlDataSetBuilder fxdb = new FlatXmlDataSetBuilder();
         fxdb.setCaseSensitiveTableNames(false);

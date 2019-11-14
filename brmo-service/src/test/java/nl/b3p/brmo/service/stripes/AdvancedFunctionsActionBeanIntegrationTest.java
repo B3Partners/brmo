@@ -114,18 +114,6 @@ public class AdvancedFunctionsActionBeanIntegrationTest extends TestUtil {
         updatesBean = spy(UpdatesActionBean.class);
         when(updatesBean.getContext()).thenReturn(actx);
         when(actx.getServletContext()).thenReturn(sctx);
-        
-        BasicDataSource dsStaging = new BasicDataSource();
-        dsStaging.setUrl(DBPROPS.getProperty("staging.url"));
-        dsStaging.setUsername(DBPROPS.getProperty("staging.username"));
-        dsStaging.setPassword(DBPROPS.getProperty("staging.password"));
-        dsStaging.setAccessToUnderlyingConnectionAllowed(true);
-
-        BasicDataSource dsRsgb = new BasicDataSource();
-        dsRsgb.setUrl(DBPROPS.getProperty("rsgb.url"));
-        dsRsgb.setUsername(DBPROPS.getProperty("rsgb.username"));
-        dsRsgb.setPassword(DBPROPS.getProperty("rsgb.password"));
-        dsRsgb.setAccessToUnderlyingConnectionAllowed(true);
 
         rsgb = new DatabaseDataSourceConnection(dsRsgb);
         staging = new DatabaseDataSourceConnection(dsStaging);
@@ -146,7 +134,6 @@ public class AdvancedFunctionsActionBeanIntegrationTest extends TestUtil {
         } else {
             fail("Geen ondersteunde database aangegegeven");
         }
-        setupJNDI(dsRsgb, dsStaging, null, null);
 
         FlatXmlDataSetBuilder fxdb = new FlatXmlDataSetBuilder();
         fxdb.setCaseSensitiveTableNames(false);

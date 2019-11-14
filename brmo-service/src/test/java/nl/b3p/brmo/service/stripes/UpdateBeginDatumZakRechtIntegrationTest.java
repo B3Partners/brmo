@@ -90,17 +90,8 @@ public class UpdateBeginDatumZakRechtIntegrationTest extends TestUtil{
         assumeTrue("Het bestand met staging testdata zou moeten bestaan.", UpdateBeginDatumZakRechtIntegrationTest.class.getResource(sBestandsNaam) != null);
         assumeTrue("Het bestand met rsgb testdata zou moeten bestaan.", UpdateBeginDatumZakRechtIntegrationTest.class.getResource(rBestandsNaam) != null);
 
-        BasicDataSource dsStaging = new BasicDataSource();
-        dsStaging.setUrl(DBPROPS.getProperty("staging.url"));
-        dsStaging.setUsername(DBPROPS.getProperty("staging.username"));
-        dsStaging.setPassword(DBPROPS.getProperty("staging.password"));
-        dsStaging.setAccessToUnderlyingConnectionAllowed(true);
 
-        BasicDataSource dsRsgb = new BasicDataSource();
-        dsRsgb.setUrl(DBPROPS.getProperty("rsgb.url"));
-        dsRsgb.setUsername(DBPROPS.getProperty("rsgb.username"));
-        dsRsgb.setPassword(DBPROPS.getProperty("rsgb.password"));
-        dsRsgb.setAccessToUnderlyingConnectionAllowed(true);
+
 
         rsgb = new DatabaseDataSourceConnection(dsRsgb);
         staging = new DatabaseDataSourceConnection(dsStaging);
@@ -124,7 +115,6 @@ public class UpdateBeginDatumZakRechtIntegrationTest extends TestUtil{
 
         staging.getConfig().setProperty(DatabaseConfig.FEATURE_ALLOW_EMPTY_FIELDS, true);
         rsgb.getConfig().setProperty(DatabaseConfig.FEATURE_ALLOW_EMPTY_FIELDS, true);
-        setupJNDI(dsRsgb, dsStaging, null, null);
 
         FlatXmlDataSetBuilder fxdb = new FlatXmlDataSetBuilder();
         fxdb.setCaseSensitiveTableNames(false);
