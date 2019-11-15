@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
+    <S:Header/>
+    <S:Body>
+        <ns1:bevestigingsBericht xmlns:ns1="http://www.egem.nl/StUF/StUF0204" xmlns:ns2="http://www.egem.nl/StUF/sector/bg/0204">
+            <ns1:stuurgegevens>
+                <ns1:berichtsoort>Lk01</ns1:berichtsoort>
+                <ns1:entiteittype>PRS</ns1:entiteittype>
+                <ns1:sectormodel>BG</ns1:sectormodel>
+                <ns1:versieStUF>0204</ns1:versieStUF>
+                <ns1:versieSectormodel>0204</ns1:versieSectormodel>
+                <ns1:zender>
+                    <ns1:organisatie>B3Partners B.V.</ns1:organisatie>
+                    <ns1:applicatie>BRMO</ns1:applicatie>
+                </ns1:zender>
+                <ns1:ontvanger>
+                    <ns1:organisatie>DeDommel</ns1:organisatie>
+                    <ns1:applicatie>B3Partners</ns1:applicatie>
+                </ns1:ontvanger>
+                <ns1:referentienummer>2018000005FF</ns1:referentienummer>
+                <ns1:tijdstipBericht>201812210141847988</ns1:tijdstipBericht>
+                <ns1:kennisgeving>
+                    <ns1:mutatiesoort>W</ns1:mutatiesoort>
+                    <ns1:indicatorOvername>I</ns1:indicatorOvername>
+                    <ns1:tijdstipMutatie>2018122114184500</ns1:tijdstipMutatie>
+                </ns1:kennisgeving>
+            </ns1:stuurgegevens>
+        </ns1:bevestigingsBericht>
+    </S:Body>
+</S:Envelope>

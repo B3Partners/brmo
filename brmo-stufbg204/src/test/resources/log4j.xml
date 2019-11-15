@@ -7,6 +7,14 @@
             <param name="ConversionPattern" value="BRMO-STUFBG204-TEST: %5p %d{HH:mm:ss} (%C{1.}#%M:%L) - %m%n" />
         </layout>
     </appender>
+    <appender name="file" class="org.apache.log4j.RollingFileAppender">
+        <param name="Threshold" value="all" />
+        <param name="File" value="${java.io.tmpdir}/test.log" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="BRMO-STUFBG204-TEST: %5p %d{HH:mm:ss} (%C#%M:%L) - %m%n" />
+        </layout>
+    </appender>
+
     <logger name="org.dbunit.database">
         <level value="info" />
     </logger>
@@ -29,10 +37,26 @@
         <level value="info" />
     </logger>
     <logger name="nl.b3p.brmo">
+        <level value="info" />
+    </logger>
+    <logger name="nl.b3p.brmo.soap.util">
+        <level value="trace" />
+    </logger>
+    <logger name="nl.b3p.brmo.stufbg204">
+        <level value="trace" />
+    </logger>
+    <logger name="nl.b3p.brmo.loader">
+        <level value="debug" />
+    </logger>
+    <logger name="nl.b3p.brmo.loader.xml">
+        <level value="info" />
+    </logger>
+    <logger name="nl.b3p.loader.jdbc">
         <level value="trace" />
     </logger>
     <root>
         <level value="info" />
         <appender-ref ref="consoleAppender" />
+        <appender-ref ref="file" />
     </root>
 </log4j:configuration>

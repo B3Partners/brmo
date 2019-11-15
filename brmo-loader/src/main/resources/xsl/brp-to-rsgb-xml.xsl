@@ -32,10 +32,10 @@
             </data>
         </root>
     </xsl:template>
-
+    
 	<xsl:template match="ns2:PRS">
 		<xsl:variable name="objRef"><xsl:value-of select="$objectRef"/></xsl:variable>
-		<xsl:variable name="class">NATUURLIJK PERSOON</xsl:variable>
+		<xsl:variable name="class">INGESCHREVEN NATUURLIJK PERSOON</xsl:variable>
 		<xsl:call-template name="persoon">
             <xsl:with-param name="key" select="$objRef"/>
             <xsl:with-param name="class" select="$class"/>
@@ -92,6 +92,7 @@
             <bsn><xsl:value-of select="ns2:bsn-nummer"/></bsn>
             <a_nummer><xsl:value-of select="ns2:a-nummer"/></a_nummer>
             <gb_geboortedatum><xsl:value-of select="ns2:geboortedatum"/></gb_geboortedatum>
+            <indic_geheim><xsl:value-of select="ns2:indicatieGeheim"/></indic_geheim>
             <gb_geboorteplaats><xsl:value-of select="ns2:geboorteplaats"/></gb_geboorteplaats>
             <!--fk_gb_lnd_code_iso><xsl:value-of select="ns2:codeGeboorteland"/></fk_gb_lnd_code_iso-->
             <ol_overlijdensdatum><xsl:value-of select="ns2:datumOverlijden"/></ol_overlijdensdatum>
@@ -104,7 +105,7 @@
         <naam>
             <xsl:value-of select="ns2:voorletters"/>
             <xsl:if test="ns2:voorvoegselGeslachtsnaam != ''"><xsl:value-of select="' '"/></xsl:if><xsl:value-of select="ns2:voorvoegselGeslachtsnaam"/>
-            <xsl:if test="ns2:voorvoegselGeslachtsnaam != ''"><xsl:value-of select="' '"/></xsl:if>
+            <xsl:value-of select="' '"/>
             <xsl:value-of select="ns2:geslachtsnaam"/>
         </naam>
         <xsl:apply-templates select="ns2:PRSADRVBL"/>
@@ -116,20 +117,22 @@
         <xsl:variable name="searchcol">
             <xsl:call-template name="getHash"><xsl:with-param name="bsn" select="ns2:PRS/ns2:bsn-nummer"/></xsl:call-template>
         </xsl:variable>
-        <xsl:variable name="datum">
-            <xsl:value-of select="substring($snapshot-date,0,5)"/><xsl:value-of select="'-'"/>
-            <xsl:value-of select="substring($snapshot-date,5,2)"/><xsl:value-of select="'-'"/>
-            <xsl:value-of select="substring($snapshot-date,7)"/>
-        </xsl:variable>
+        <xsl:if test="searchcol != ''">
+            <xsl:variable name="datum">
+                <xsl:value-of select="substring($snapshot-date,0,5)"/><xsl:value-of select="'-'"/>
+                <xsl:value-of select="substring($snapshot-date,5,2)"/><xsl:value-of select="'-'"/>
+                <xsl:value-of select="substring($snapshot-date,7)"/>
+            </xsl:variable>
 
-        <comfort search-table="subject" search-column="identif" search-value="{$searchcol}" snapshot-date="{$datum}">
-            <xsl:for-each select="ns2:PRS">
-                <xsl:call-template name="persoon" >
-                    <xsl:with-param name="key" select="$searchcol"/>
-                    <xsl:with-param name="class" select="$class"/>
-                </xsl:call-template>
-            </xsl:for-each>
-        </comfort>
+            <comfort search-table="subject" search-column="identif" search-value="{$searchcol}" snapshot-date="{$datum}">
+                <xsl:for-each select="ns2:PRS">
+                    <xsl:call-template name="persoon" >
+                        <xsl:with-param name="key" select="$searchcol"/>
+                        <xsl:with-param name="class" select="$class"/>
+                    </xsl:call-template>
+                </xsl:for-each>
+            </comfort>
+        </xsl:if>
     </xsl:template>
 
     <xsl:template match="ns2:PRSPRSKND">
@@ -157,18 +160,18 @@
 
     <xsl:template match="ns2:PRSPRSHUW">
         <xsl:call-template name="comfortPerson"><xsl:with-param name="snapshot-date" select="ns2:datumSluiting"/></xsl:call-template>
-        <huw_ger_partn>
-            <fk_sc_lh_inp_sc_identif><xsl:value-of select="$objectRef"/></fk_sc_lh_inp_sc_identif>
-            <fk_sc_rh_inp_sc_identif><xsl:call-template name="getHash"><xsl:with-param name="bsn" select="ns2:PRS/ns2:bsn-nummer"/></xsl:call-template></fk_sc_rh_inp_sc_identif>
-            <hs_datum_aangaan><xsl:value-of select="ns2:datumSluiting"/></hs_datum_aangaan>
-            <!--fk_hs_lnd_code_iso><xsl:value-of select="ns2:landSluiting"/></fk_hs_lnd_code_iso-->
-            <hs_plaats><xsl:value-of select="ns2:plaatsSluiting"/></hs_plaats>
-            <ho_datum_ontb_huw_ger_partn><xsl:value-of select="ns2:datumOntbinding"/></ho_datum_ontb_huw_ger_partn>
-            <!--fk_ho_lnd_code_iso><xsl:value-of select="ns2:landOntbinding"/></fk_ho_lnd_code_iso-->
-            <ho_plaats_ontb_huw_ger_partn><xsl:value-of select="ns2:plaatsOntbinding"/></ho_plaats_ontb_huw_ger_partn>
-            <ho_reden_ontb_huw_ger_partn><xsl:value-of select="ns2:redenOntbinding"/></ho_reden_ontb_huw_ger_partn>
-            <soort_verbintenis><xsl:value-of select="ns2:soortVerbintenis"/></soort_verbintenis>
-        </huw_ger_partn>
+            <huw_ger_partn>
+                <fk_sc_lh_inp_sc_identif><xsl:value-of select="$objectRef"/></fk_sc_lh_inp_sc_identif>
+                <fk_sc_rh_inp_sc_identif><xsl:call-template name="getHash"><xsl:with-param name="bsn" select="ns2:PRS/ns2:bsn-nummer"/></xsl:call-template></fk_sc_rh_inp_sc_identif>
+                <hs_datum_aangaan><xsl:value-of select="ns2:datumSluiting"/></hs_datum_aangaan>
+                    <!--fk_hs_lnd_code_iso><xsl:value-of select="ns2:landSluiting"/></fk_hs_lnd_code_iso-->
+                <hs_plaats><xsl:value-of select="ns2:plaatsSluiting"/></hs_plaats>
+                <ho_datum_ontb_huw_ger_partn><xsl:value-of select="ns2:datumOntbinding"/></ho_datum_ontb_huw_ger_partn>
+                    <!--fk_ho_lnd_code_iso><xsl:value-of select="ns2:landOntbinding"/></fk_ho_lnd_code_iso-->
+                <ho_plaats_ontb_huw_ger_partn><xsl:value-of select="ns2:plaatsOntbinding"/></ho_plaats_ontb_huw_ger_partn>
+                <ho_reden_ontb_huw_ger_partn><xsl:value-of select="ns2:redenOntbinding"/></ho_reden_ontb_huw_ger_partn>
+                <soort_verbintenis><xsl:value-of select="ns2:soortVerbintenis"/></soort_verbintenis>
+            </huw_ger_partn>
 
     </xsl:template>
 
@@ -220,7 +223,7 @@
     <xsl:template name="getHash">
         <xsl:param name="bsn"/>
         <xsl:variable name="bsnwithprefix"><xsl:value-of select="'NL.BRP.Persoon.'"/><xsl:value-of select="$bsn"/></xsl:variable>
-        <xsl:variable name="hashedbsn"><xsl:value-of select="/root/bsnhashes/*[name() =$bsnwithprefix]"/></xsl:variable>
+        <xsl:variable name="hashedbsn"><xsl:value-of select="'NL.BRP.Persoon.'"/><xsl:value-of select="/root/bsnhashes/*[name() =$bsnwithprefix]"/></xsl:variable>
         <xsl:value-of select="$hashedbsn"/>
     </xsl:template>
 

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
+    <S:Body>
+        <!-- Dit document bevat een fictieve persoon uit de testset van RVIG verkregen via T&T ,
+        zie ook: http://www.competent.nl/media/20632/Inhoud-Testdatabase-verkort.pdf
+        en https://www.rvig.nl/binaries/rvig/documenten/richtlijnen/2018/10/08/testdataset-proef-bvbsn/Testset+persoonslijsten+proefomgeving+BVBSN.ods-->
+        <ns2:kennisgevingsBericht xmlns:ns1="http://www.egem.nl/StUF/StUF0204" xmlns:ns2="http://www.egem.nl/StUF/sector/bg/0204">
+            <ns1:stuurgegevens>
+                <ns1:berichtsoort>Lk01</ns1:berichtsoort>
+                <ns1:entiteittype>PRS</ns1:entiteittype>
+                <ns1:sectormodel>BG</ns1:sectormodel>
+                <ns1:versieStUF>0204</ns1:versieStUF>
+                <ns1:versieSectormodel>0204</ns1:versieSectormodel>
+                <ns1:zender>
+                    <ns1:organisatie>tent</ns1:organisatie>
+                    <ns1:applicatie>Competent-StUF</ns1:applicatie>
+                </ns1:zender>
+                <ns1:ontvanger>
+                    <ns1:organisatie>DeDommel</ns1:organisatie>
+                    <ns1:applicatie>B3Partners</ns1:applicatie>
+                </ns1:ontvanger>
+                <ns1:referentienummer>2018000005FF</ns1:referentienummer>
+                <ns1:tijdstipBericht>2018122114184500</ns1:tijdstipBericht>
+                <ns1:kennisgeving>
+                    <ns1:mutatiesoort>W</ns1:mutatiesoort>
+                    <ns1:indicatorOvername>I</ns1:indicatorOvername>
+                    <ns1:tijdstipMutatie>2018122114184500</ns1:tijdstipMutatie>
+                </ns1:kennisgeving>
+            </ns1:stuurgegevens>
+            <ns2:body>
+                <ns2:PRS ns1:sleutelVerzendend="9173658014" ns1:verwerkingssoort="I" soortEntiteit="F">
+                    <ns2:a-nummer kerngegeven="true">9173658014</ns2:a-nummer>
+                    <ns2:bsn-nummer kerngegeven="true">301571818</ns2:bsn-nummer>
+                    <ns2:voornamen gegevengroep="PRS1" kerngegeven="true">Jan</ns2:voornamen>
+                    <ns2:voorletters gegevengroep="PRS1" kerngegeven="true">J</ns2:voorletters>
+                    <ns2:voorvoegselGeslachtsnaam gegevengroep="PRS1" kerngegeven="true">de</ns2:voorvoegselGeslachtsnaam>
+                    <ns2:geslachtsnaam gegevengroep="PRS1" kerngegeven="true">Cuykelaer</ns2:geslachtsnaam>
+                    <ns2:geboortedatum kerngegeven="true">19671210</ns2:geboortedatum>
+                    <ns2:geslachtsaanduiding kerngegeven="true">M</ns2:geslachtsaanduiding>
+                    <ns2:PRSADRVBL ns1:verwerkingssoort="I" soortEntiteit="R">
+                        <ns2:tijdvakRelatie>
+                            <ns1:begindatumRelatie>19920228</ns1:begindatumRelatie>
+                            <ns1:einddatumRelatie xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ns1:noValue="geenWaarde" xsi:nil="true"/>
+                        </ns2:tijdvakRelatie>
+                        <ns2:ADR ns1:verwerkingssoort="I" soortEntiteit="F">
+                            <ns2:postcode gegevengroep="ADR1" kerngegeven="true">2727FM</ns2:postcode>
+                            <ns2:woonplaatsnaam xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" kerngegeven="true" ns1:noValue="geenWaarde" xsi:nil="true"/>
+                            <ns2:straatnaam gegevengroep="ADR1" kerngegeven="true">Thorbeckegracht</ns2:straatnaam>
+                            <ns2:huisnummer gegevengroep="ADR1" kerngegeven="true">73</ns2:huisnummer>
+                            <ns2:huisletter xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" gegevengroep="ADR1" kerngegeven="true" ns1:noValue="geenWaarde" xsi:nil="true"/>
+                            <ns2:huisnummertoevoeging xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" gegevengroep="ADR1" kerngegeven="true" ns1:noValue="geenWaarde" xsi:nil="true"/>
+                            <ns2:aanduidingBijHuisnummer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" gegevengroep="ADR1" kerngegeven="true" ns1:noValue="geenWaarde" xsi:nil="true"/>
+                            <ns2:locatieomschrijving xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" gegevengroep="ADR1" kerngegeven="true" ns1:noValue="geenWaarde" xsi:nil="true"/>
+                            <ns2:locatieadresnummer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" kerngegeven="true" ns1:noValue="nietOndersteund" xsi:nil="true"/>
+                            <ns2:gemeentecode kerngegeven="true">1802</ns2:gemeentecode>
+                        </ns2:ADR>
+                    </ns2:PRSADRVBL>
+                    <ns2:PRSPRSHUW xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ns1:noValue="geenWaarde" ns1:verwerkingssoort="T" soortEntiteit="R" xsi:nil="true"/>
+                </ns2:PRS>
+                <ns2:PRS ns1:sleutelVerzendend="9173658014" ns1:verwerkingssoort="I" soortEntiteit="F">
+                    <ns2:a-nummer kerngegeven="true">9173658014</ns2:a-nummer>
+                    <ns2:bsn-nummer kerngegeven="true">301571818</ns2:bsn-nummer>
+                    <ns2:voornamen gegevengroep="PRS1" kerngegeven="true">Jan</ns2:voornamen>
+                    <ns2:voorletters gegevengroep="PRS1" kerngegeven="true">J</ns2:voorletters>
+                    <ns2:voorvoegselGeslachtsnaam gegevengroep="PRS1" kerngegeven="true">de</ns2:voorvoegselGeslachtsnaam>
+                    <ns2:geslachtsnaam gegevengroep="PRS1" kerngegeven="true">Cuykelaer</ns2:geslachtsnaam>
+                    <ns2:geboortedatum kerngegeven="true">19671210</ns2:geboortedatum>
+                    <ns2:geslachtsaanduiding kerngegeven="true">M</ns2:geslachtsaanduiding>
+                    <ns2:PRSADRVBL ns1:verwerkingssoort="I" soortEntiteit="R">
+                        <ns2:tijdvakRelatie>
+                            <ns1:begindatumRelatie>19920228</ns1:begindatumRelatie>
+                            <ns1:einddatumRelatie xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ns1:noValue="geenWaarde" xsi:nil="true"/>
+                        </ns2:tijdvakRelatie>
+                        <ns2:ADR ns1:verwerkingssoort="I" soortEntiteit="F">
+                            <ns2:postcode gegevengroep="ADR1" kerngegeven="true">2727FM</ns2:postcode>
+                            <ns2:woonplaatsnaam xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" kerngegeven="true" ns1:noValue="geenWaarde" xsi:nil="true"/>
+                            <ns2:straatnaam gegevengroep="ADR1" kerngegeven="true">Thorbeckegracht</ns2:straatnaam>
+                            <ns2:huisnummer gegevengroep="ADR1" kerngegeven="true">73</ns2:huisnummer>
+                            <ns2:huisletter xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" gegevengroep="ADR1" kerngegeven="true" ns1:noValue="geenWaarde" xsi:nil="true"/>
+                            <ns2:huisnummertoevoeging xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" gegevengroep="ADR1" kerngegeven="true" ns1:noValue="geenWaarde" xsi:nil="true"/>
+                            <ns2:aanduidingBijHuisnummer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" gegevengroep="ADR1" kerngegeven="true" ns1:noValue="geenWaarde" xsi:nil="true"/>
+                            <ns2:locatieomschrijving xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" gegevengroep="ADR1" kerngegeven="true" ns1:noValue="geenWaarde" xsi:nil="true"/>
+                            <ns2:locatieadresnummer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" kerngegeven="true" ns1:noValue="nietOndersteund" xsi:nil="true"/>
+                            <ns2:gemeentecode kerngegeven="true">1802</ns2:gemeentecode>
+                        </ns2:ADR>
+                    </ns2:PRSADRVBL>
+                    <ns2:PRSPRSHUW ns1:verwerkingssoort="T" soortEntiteit="R">
+                        <ns2:datumSluiting>20110526</ns2:datumSluiting>
+                        <ns2:tijdvakRelatie>
+                            <ns1:begindatumRelatie>20110526</ns1:begindatumRelatie>
+                            <ns1:einddatumRelatie xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ns1:noValue="geenWaarde" xsi:nil="true"/>
+                        </ns2:tijdvakRelatie>
+                        <ns2:PRS ns1:verwerkingssoort="T" soortEntiteit="F">
+                            <ns2:a-nummer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" kerngegeven="true" ns1:noValue="geenWaarde" xsi:nil="true"/>
+                            <ns2:bsn-nummer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" kerngegeven="true" ns1:noValue="geenWaarde" xsi:nil="true"/>
+                            <ns2:voornamen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" gegevengroep="PRS1" kerngegeven="true" ns1:noValue="nietGeautoriseerd" xsi:nil="true"/>
+                            <ns2:voorletters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" gegevengroep="PRS1" kerngegeven="true" ns1:noValue="nietGeautoriseerd" xsi:nil="true"/>
+                            <ns2:voorvoegselGeslachtsnaam xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" gegevengroep="PRS1" kerngegeven="true" ns1:noValue="geenWaarde" xsi:nil="true"/>
+                            <ns2:geslachtsnaam gegevengroep="PRS1" kerngegeven="true">Tupolev</ns2:geslachtsnaam>
+                            <ns2:geboortedatum xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" kerngegeven="true" ns1:noValue="nietGeautoriseerd" xsi:nil="true"/>
+                            <ns2:geslachtsaanduiding xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" kerngegeven="true" ns1:noValue="nietGeautoriseerd" xsi:nil="true"/>
+                        </ns2:PRS>
+                    </ns2:PRSPRSHUW>
+                </ns2:PRS>
+            </ns2:body>
+        </ns2:kennisgevingsBericht>
+    </S:Body>
+</S:Envelope>

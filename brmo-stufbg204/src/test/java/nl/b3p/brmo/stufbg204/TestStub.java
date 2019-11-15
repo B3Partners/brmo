@@ -50,6 +50,8 @@ public abstract class TestStub {
      */
     protected boolean isPostgis;
 
+    protected BasicDataSource dsStaging;
+    protected BasicDataSource dsRsgb;
     /**
      * logging rule.
      */
@@ -102,6 +104,20 @@ public abstract class TestStub {
         } catch (ClassNotFoundException ex) {
             LOG.error("Database driver niet gevonden.", ex);
         }
+
+        dsStaging = new BasicDataSource();
+        dsStaging.setUrl(DBPROPS.getProperty("staging.url"));
+        dsStaging.setUsername(DBPROPS.getProperty("staging.username"));
+        dsStaging.setPassword(DBPROPS.getProperty("staging.password"));
+        dsStaging.setAccessToUnderlyingConnectionAllowed(true);
+
+        dsRsgb = new BasicDataSource();
+        dsRsgb.setUrl(DBPROPS.getProperty("rsgb.url"));
+        dsRsgb.setUsername(DBPROPS.getProperty("rsgb.username"));
+        dsRsgb.setPassword(DBPROPS.getProperty("rsgb.password"));
+        dsRsgb.setAccessToUnderlyingConnectionAllowed(true);
+
+        setupJNDI();
     }
 
     /**
@@ -122,11 +138,8 @@ public abstract class TestStub {
 
     /**
      * setup jndi voor testcases.
-     *
-     * @param dsRsgb rsgb databron
-     * @param dsStaging staging databron
      */
-    protected void setupJNDI(final BasicDataSource dsRsgb, final BasicDataSource dsStaging) {
+    private void setupJNDI() {
         if (!haveSetupJNDI) {
             try {
                 System.setProperty(Context.INITIAL_CONTEXT_FACTORY, "org.apache.naming.java.javaURLContextFactory");

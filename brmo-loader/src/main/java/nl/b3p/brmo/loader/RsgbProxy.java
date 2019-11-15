@@ -684,7 +684,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             } else if (brType.equals(BrmoFramework.BR_BAG)) {
                 t = new RsgbTransformer(BrmoFramework.XSL_BAG);
             } else if(brType.equals(BrmoFramework.BR_BRP)){
-                t = new RsgbTransformer(BrmoFramework.XSL_BRP);
+                t = new RsgbBRPTransformer(BrmoFramework.XSL_BRP, this.stagingProxy);
             }else if (brType.equals(BrmoFramework.BR_NHR)) {
                 t = new RsgbTransformer(BrmoFramework.XSL_NHR);
 //            } else if (brType.equals(BrmoFramework.BR_BGTLIGHT)) {

@@ -18,7 +18,7 @@ import nl.egem.stuf.stuf0204.Systeem;
  */
 public final class StUFbg204Util {
     
-    public static final SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddkkkmmssSSS");
+    public static final SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddkkmmssSSS");
     private static JAXBContext jaxbContext;
 
     private StUFbg204Util() {

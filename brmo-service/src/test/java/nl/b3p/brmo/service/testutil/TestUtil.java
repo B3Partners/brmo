@@ -52,6 +52,7 @@ public abstract class TestUtil {
 
     protected BasicDataSource dsStaging;
     protected BasicDataSource dsRsgb;
+    protected BasicDataSource dsRsgbBgt;
 
     /**
      * logging rule.
@@ -118,6 +119,12 @@ public abstract class TestUtil {
         dsRsgb.setPassword(DBPROPS.getProperty("rsgb.password"));
         dsRsgb.setAccessToUnderlyingConnectionAllowed(true);
 
+        dsRsgbBgt = new BasicDataSource();
+        dsRsgbBgt.setUrl(DBPROPS.getProperty("rsgb.url"));
+        dsRsgbBgt.setUsername(DBPROPS.getProperty("rsgb.username"));
+        dsRsgbBgt.setPassword(DBPROPS.getProperty("rsgb.password"));
+        dsRsgbBgt.setAccessToUnderlyingConnectionAllowed(true);
+
         setupJNDI();
     }
 
@@ -153,6 +160,7 @@ public abstract class TestUtil {
                 ic.createSubcontext("java:comp/env/jdbc/brmo");
                 ic.bind("java:comp/env/jdbc/brmo/rsgb", dsRsgb);
                 ic.bind("java:comp/env/jdbc/brmo/staging", dsStaging);
+                ic.bind("java:comp/env/jdbc/brmo/staging", dsRsgbBgt);
                 haveSetupJNDI = true;
             } catch (NamingException ex) {
                 LOG.warn("Opzetten van datasource jndi is mislukt", ex);
