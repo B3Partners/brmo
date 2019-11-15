@@ -14,7 +14,7 @@ exclude-result-prefixes="ns1 ns2"
     </xsl:template>
     
     <xsl:template match="*[@ns1:noValue='geenWaarde']">
-        <xsl:copy select=".">
+        <xsl:copy>
             <xsl:apply-templates select="@*|node()"/>geenWaarde</xsl:copy>
     </xsl:template>
 
