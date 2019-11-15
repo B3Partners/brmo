@@ -139,7 +139,7 @@ public abstract class TestStub {
     /**
      * setup jndi voor testcases.
      */
-    protected void setupJNDI() {
+    private void setupJNDI() {
         if (!haveSetupJNDI) {
             try {
                 System.setProperty(Context.INITIAL_CONTEXT_FACTORY, "org.apache.naming.java.javaURLContextFactory");
