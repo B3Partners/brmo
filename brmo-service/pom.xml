@@ -444,11 +444,11 @@
                                 <artifactId>jakarta.mail</artifactId>
                                 <version>${jakarta.mail.version}</version>
                             </dependency>
-                            <dependency>
-                                <groupId>com.oracle.jdbc</groupId>
-                                <artifactId>ojdbc8</artifactId>
-                                <version>${oracle.jdbc.version}</version>
-                            </dependency>
+<!--                            <dependency>-->
+<!--                                <groupId>com.oracle.jdbc</groupId>-->
+<!--                                <artifactId>ojdbc8</artifactId>-->
+<!--                                <version>${oracle.jdbc.version}</version>-->
+<!--                            </dependency>-->
                         </dependencies>
                     </plugin>
                     <plugin>
@@ -551,11 +551,11 @@
                                 <artifactId>jakarta.mail</artifactId>
                                 <version>${jakarta.mail.version}</version>
                             </dependency>
-                            <dependency>
-                                <groupId>net.sourceforge.jtds</groupId>
-                                <artifactId>jtds</artifactId>
-                                <version>${sqlserver.jtds.version}</version>
-                            </dependency>
+<!--                            <dependency>-->
+<!--                                <groupId>net.sourceforge.jtds</groupId>-->
+<!--                                <artifactId>jtds</artifactId>-->
+<!--                                <version>${sqlserver.jtds.version}</version>-->
+<!--                            </dependency>-->
                         </dependencies>
                     </plugin>
                     <plugin>

@@ -29,20 +29,6 @@ public class StUFBGsynchroonIntegrationTest extends TestStub {
     @Before
     @Override
     public void setUp() {
-        BasicDataSource dsStaging = new BasicDataSource();
-        dsStaging.setUrl(DBPROPS.getProperty("staging.url"));
-        dsStaging.setUsername(DBPROPS.getProperty("staging.username"));
-        dsStaging.setPassword(DBPROPS.getProperty("staging.password"));
-        dsStaging.setAccessToUnderlyingConnectionAllowed(true);
-
-        BasicDataSource dsRsgb = new BasicDataSource();
-        dsRsgb.setUrl(DBPROPS.getProperty("rsgb.url"));
-        dsRsgb.setUsername(DBPROPS.getProperty("rsgb.username"));
-        dsRsgb.setPassword(DBPROPS.getProperty("rsgb.password"));
-        dsRsgb.setAccessToUnderlyingConnectionAllowed(true);
-
-        setupJNDI(dsRsgb, dsStaging);
-
         stub = new StUFBGsynchroon();
     }
 

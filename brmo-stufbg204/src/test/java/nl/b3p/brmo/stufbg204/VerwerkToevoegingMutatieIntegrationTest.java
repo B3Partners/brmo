@@ -14,6 +14,7 @@ import java.util.concurrent.locks.ReentrantLock;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.test.util.database.dbunit.CleanUtil;
+import nl.b3p.loader.jdbc.OracleConnectionUnwrapper;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -23,19 +24,20 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.InputStreamEntity;
 import org.dbunit.DatabaseUnitException;
+import org.dbunit.database.DatabaseConfig;
+import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.DatabaseDataSourceConnection;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.DataSetException;
 import org.dbunit.dataset.ITable;
 
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.*;
 
+import org.dbunit.ext.mssql.MsSqlDataTypeFactory;
+import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
+import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 import org.junit.After;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -61,24 +63,23 @@ public class VerwerkToevoegingMutatieIntegrationTest extends WebTestStub {
     @Before
     @Override
     public void setUp() throws SQLException, BrmoException, DatabaseUnitException {
-        BasicDataSource dsStaging = new BasicDataSource();
-        dsStaging.setUrl(DBPROPS.getProperty("staging.url"));
-        dsStaging.setUsername(DBPROPS.getProperty("staging.username"));
-        dsStaging.setPassword(DBPROPS.getProperty("staging.password"));
-        dsStaging.setAccessToUnderlyingConnectionAllowed(true);
-
-        BasicDataSource dsRsgb = new BasicDataSource();
-        dsRsgb.setUrl(DBPROPS.getProperty("rsgb.url"));
-        dsRsgb.setUsername(DBPROPS.getProperty("rsgb.username"));
-        dsRsgb.setPassword(DBPROPS.getProperty("rsgb.password"));
-        dsRsgb.setAccessToUnderlyingConnectionAllowed(true);
-
-        setupJNDI(dsRsgb, dsStaging);
-
         brmo = new BrmoFramework(dsStaging, dsRsgb, null);
         // brmo.setEnablePipeline(true);
+
         staging = new DatabaseDataSourceConnection(dsStaging);
         rsgb = new DatabaseDataSourceConnection(dsRsgb);
+        if (this.isMsSQL) {
+            staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MsSqlDataTypeFactory());
+        } else if (this.isOracle) {
+            dsStaging.getConnection().setAutoCommit(true);
+            staging = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsStaging.getConnection()), DBPROPS.getProperty("staging.username").toUpperCase());
+            staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
+            staging.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
+        } else if (this.isPostgis) {
+            staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
+        } else {
+            fail("Geen ondersteunde database aangegegeven");
+        }
 
         sequential.lock();
     }
