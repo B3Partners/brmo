@@ -48,6 +48,7 @@ import org.junit.Test;
  *
  * @author Mark Prins
  * @code mvn -Dit.test=VerwerkToevoegingMutatieIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql > target/postgresql.log}
+ * @code mvn -Dit.test=VerwerkToevoegingMutatieIntegrationTest -Dtest.onlyITs=true verify -Pmssql -pl brmo-stufbg204 > target/mssql.log}
  */
 public class VerwerkToevoegingMutatieIntegrationTest extends WebTestStub {
 
@@ -85,7 +86,7 @@ public class VerwerkToevoegingMutatieIntegrationTest extends WebTestStub {
     @After
     public void cleanup() throws Exception {
         brmo.closeBrmoFramework();
-        CleanUtil.cleanSTAGING(staging);
+        CleanUtil.cleanSTAGING(staging, true);
         CleanUtil.cleanRSGB_BRP(rsgb);
         staging.close();
         rsgb.close();
@@ -326,7 +327,7 @@ public class VerwerkToevoegingMutatieIntegrationTest extends WebTestStub {
         HttpPost httppost = new HttpPost(BASE_TEST_URL + "StUFBGAsynchroon");
         httppost.setEntity(reqEntity);
         // httppost.addHeader("SOAPAction", "ontvangKennisgeving");
-        LOG.debug("SOAP request uitvoeren: " + httppost.getRequestLine());
+        LOG.debug("SOAP request uitvoeren; POST " + file + " naar: " + httppost.getRequestLine());
 
         // set-up preemptive auth voor request en stuur bericht
         CloseableHttpResponse response = client.execute(target, httppost, localContext);

@@ -37,7 +37,7 @@
         <level value="info" />
     </logger>
     <logger name="nl.b3p.brmo">
-        <level value="trace" />
+        <level value="info" />
     </logger>
     <logger name="nl.b3p.brmo.soap.util">
         <level value="trace" />
@@ -50,6 +50,9 @@
     </logger>
     <logger name="nl.b3p.brmo.loader.xml">
         <level value="info" />
+    </logger>
+    <logger name="nl.b3p.loader.jdbc">
+        <level value="trace" />
     </logger>
     <root>
         <level value="info" />

@@ -82,8 +82,8 @@ public class VerwerkHuwelijksMutatieIntegrationTest extends WebTestStub {
     @After
     public void cleanup() throws Exception {
         brmo.closeBrmoFramework();
-//        CleanUtil.cleanSTAGING(staging);
-//        CleanUtil.cleanRSGB_BRP(rsgb);
+        CleanUtil.cleanSTAGING(staging, false);
+        CleanUtil.cleanRSGB_BRP(rsgb);
         staging.close();
         rsgb.close();
         sequential.unlock();
