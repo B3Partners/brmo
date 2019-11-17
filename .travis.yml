@@ -283,7 +283,7 @@ after_script:
     fi
 
 after_success:
-  - bash <(curl -s https://codecov.io/bash) -v -f */jacoco.xml || echo 'Codecov failed to upload'
+  - bash <(curl -s https://codecov.io/bash) -f */jacoco.xml || echo 'Codecov failed to upload'
 
 # after_failure:
 

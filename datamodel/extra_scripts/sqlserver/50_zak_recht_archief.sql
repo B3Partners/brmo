@@ -1,5 +1,5 @@
 -- 
--- upgrade SQLserver RSGB datamodel van 1.6.3 naar 1.6.4 
+-- upgrade SQLserver RSGB datamodel van 1.6.3 naar 2.0.0
 --
 
 -- onderstaande dienen als laatste stappen van een upgrade uitgevoerd
