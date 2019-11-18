@@ -1,4 +1,3 @@
-GO
 
 CREATE TABLE zak_recht_archief
 (
@@ -14,4 +13,3 @@ CREATE TABLE zak_recht_archief
    fk_3avr_aand character varying(6),
    CONSTRAINT zak_recht_archief_pk PRIMARY KEY (kadaster_identif,ingangsdatum_recht)
 );
-GO
