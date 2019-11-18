@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Relatie.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO STUF BG 204</a> &gt; <a href="index.source.html" class="el_package">nl.egem.stuf.sector.bg._0204</a> &gt; <span class="el_source">Relatie.java</span></div><h1>Relatie.java</h1><pre class="source lang-java linenums">
+package nl.egem.stuf.sector.bg._0204;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlType;
+import nl.egem.stuf.stuf0204.ExtraElementen;
+import nl.egem.stuf.stuf0204.NoValue;
+import nl.egem.stuf.stuf0204.TijdvakGeldigheid;
+import nl.egem.stuf.stuf0204.TijdvakRelatie;
+import nl.egem.stuf.stuf0204.Verwerkingssoort;
+
+
+/**
+ * generieke relatie-entiteit zonder elementen
+ * 
+ * &lt;p&gt;Java class for Relatie complex type.
+ * 
+ * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+ * 
+ * &lt;pre&gt;
+ * &amp;lt;complexType name=&quot;Relatie&quot;&amp;gt;
+ *   &amp;lt;complexContent&amp;gt;
+ *     &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
+ *       &amp;lt;sequence&amp;gt;
+ *         &amp;lt;element name=&quot;tijdvakRelatie&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}TijdvakRelatie&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;tijdvakGeldigheid&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}TijdvakGeldigheid&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;extraElementen&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}ExtraElementen&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *       &amp;lt;/sequence&amp;gt;
+ *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}relatie&quot;/&amp;gt;
+ *     &amp;lt;/restriction&amp;gt;
+ *   &amp;lt;/complexContent&amp;gt;
+ * &amp;lt;/complexType&amp;gt;
+ * &lt;/pre&gt;
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = &quot;Relatie&quot;, propOrder = {
+    &quot;tijdvakRelatie&quot;,
+    &quot;tijdvakGeldigheid&quot;,
+    &quot;extraElementen&quot;
+})
+@XmlSeeAlso({
+    ADRRelFund.class,
+    nl.egem.stuf.sector.bg._0204.HHDKennisgeving.HDDWOZ.class,
+    nl.egem.stuf.sector.bg._0204.HHDVraag.HDDWOZ.class,
+    nl.egem.stuf.sector.bg._0204.HHDAntwoord.HDDWOZ.class,
+    nl.egem.stuf.sector.bg._0204.KDOKennisgeving.KDOBSG.class,
+    nl.egem.stuf.sector.bg._0204.KDOKennisgeving.KDOPRB.class,
+    nl.egem.stuf.sector.bg._0204.KDOKennisgeving.KDOSUBVZG.class,
+    nl.egem.stuf.sector.bg._0204.KDOVraag.KDOBSG.class,
+    nl.egem.stuf.sector.bg._0204.KDOVraag.KDOPRB.class,
+    nl.egem.stuf.sector.bg._0204.KDOVraag.KDOSUBVZG.class,
+    nl.egem.stuf.sector.bg._0204.KDOAntwoord.KDOBSG.class,
+    nl.egem.stuf.sector.bg._0204.KDOAntwoord.KDOPRB.class,
+    nl.egem.stuf.sector.bg._0204.KDOAntwoord.KDOSUBVZG.class,
+    nl.egem.stuf.sector.bg._0204.NNPKennisgeving.NNPNNPHFD.class,
+    nl.egem.stuf.sector.bg._0204.NNPKennisgeving.NNPNNPNVN.class,
+    nl.egem.stuf.sector.bg._0204.NNPVraag.NNPNNPHFD.class,
+    nl.egem.stuf.sector.bg._0204.NNPVraag.NNPNNPNVN.class,
+    nl.egem.stuf.sector.bg._0204.NNPAntwoord.NNPNNPHFD.class,
+    nl.egem.stuf.sector.bg._0204.NNPAntwoord.NNPNNPNVN.class,
+    nl.egem.stuf.sector.bg._0204.OBWKennisgeving.OBWKDO.class,
+    nl.egem.stuf.sector.bg._0204.OBWKennisgeving.OBWBSG.class,
+    nl.egem.stuf.sector.bg._0204.OBWVraag.OBWKDO.class,
+    nl.egem.stuf.sector.bg._0204.OBWVraag.OBWBSG.class,
+    nl.egem.stuf.sector.bg._0204.OBWAntwoord.OBWKDO.class,
+    nl.egem.stuf.sector.bg._0204.OBWAntwoord.OBWBSG.class,
+    nl.egem.stuf.sector.bg._0204.VBOKennisgeving.VBOBSG.class,
+    nl.egem.stuf.sector.bg._0204.VBOKennisgeving.VBOKDO.class,
+    nl.egem.stuf.sector.bg._0204.VBOKennisgeving.VBOSUBGBR.class,
+    nl.egem.stuf.sector.bg._0204.VBOVraag.VBOBSG.class,
+    nl.egem.stuf.sector.bg._0204.VBOVraag.VBOKDO.class,
+    nl.egem.stuf.sector.bg._0204.VBOVraag.VBOSUBGBR.class,
+    nl.egem.stuf.sector.bg._0204.VBOAntwoord.VBOBSG.class,
+    nl.egem.stuf.sector.bg._0204.VBOAntwoord.VBOKDO.class,
+    nl.egem.stuf.sector.bg._0204.VBOAntwoord.VBOSUBGBR.class,
+    ADRRelKerngegevens.class,
+    nl.egem.stuf.sector.bg._0204.WOZKennisgeving.WOZKDO.class,
+    nl.egem.stuf.sector.bg._0204.WOZKennisgeving.WOZOBW.class,
+    nl.egem.stuf.sector.bg._0204.WOZKennisgeving.WOZSUBEIG.class,
+    nl.egem.stuf.sector.bg._0204.WOZKennisgeving.WOZSUBGBR.class,
+    nl.egem.stuf.sector.bg._0204.WOZKennisgeving.WOZVBO.class,
+    nl.egem.stuf.sector.bg._0204.WOZVraag.WOZKDO.class,
+    nl.egem.stuf.sector.bg._0204.WOZVraag.WOZOBW.class,
+    nl.egem.stuf.sector.bg._0204.WOZVraag.WOZSUBEIG.class,
+    nl.egem.stuf.sector.bg._0204.WOZVraag.WOZSUBGBR.class,
+    nl.egem.stuf.sector.bg._0204.WOZVraag.WOZVBO.class,
+    nl.egem.stuf.sector.bg._0204.WOZAntwoord.WOZKDO.class,
+    nl.egem.stuf.sector.bg._0204.WOZAntwoord.WOZOBW.class,
+    nl.egem.stuf.sector.bg._0204.WOZAntwoord.WOZSUBEIG.class,
+    nl.egem.stuf.sector.bg._0204.WOZAntwoord.WOZSUBGBR.class,
+    nl.egem.stuf.sector.bg._0204.WOZAntwoord.WOZVBO.class
+})
+<span class="nc" id="L98">public class Relatie {</span>
+
+    protected TijdvakRelatie tijdvakRelatie;
+    protected TijdvakGeldigheid tijdvakGeldigheid;
+    protected ExtraElementen extraElementen;
+    @XmlAttribute(name = &quot;soortEntiteit&quot;, required = true)
+    protected String soortEntiteit;
+    @XmlAttribute(name = &quot;sleutelVerzendend&quot;, namespace = &quot;http://www.egem.nl/StUF/StUF0204&quot;)
+    protected String sleutelVerzendend;
+    @XmlAttribute(name = &quot;sleutelOntvangend&quot;, namespace = &quot;http://www.egem.nl/StUF/StUF0204&quot;)
+    protected String sleutelOntvangend;
+    @XmlAttribute(name = &quot;sleutelGegevensbeheer&quot;, namespace = &quot;http://www.egem.nl/StUF/StUF0204&quot;)
+    protected String sleutelGegevensbeheer;
+    @XmlAttribute(name = &quot;verwerkingssoort&quot;, namespace = &quot;http://www.egem.nl/StUF/StUF0204&quot;)
+    protected Verwerkingssoort verwerkingssoort;
+    @XmlAttribute(name = &quot;noValue&quot;, namespace = &quot;http://www.egem.nl/StUF/StUF0204&quot;)
+    protected NoValue noValue;
+
+    /**
+     * Gets the value of the tijdvakRelatie property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link TijdvakRelatie }
+     *     
+     */
+    public TijdvakRelatie getTijdvakRelatie() {
+<span class="nc" id="L125">        return tijdvakRelatie;</span>
+    }
+
+    /**
+     * Sets the value of the tijdvakRelatie property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link TijdvakRelatie }
+     *     
+     */
+    public void setTijdvakRelatie(TijdvakRelatie value) {
+<span class="nc" id="L137">        this.tijdvakRelatie = value;</span>
+<span class="nc" id="L138">    }</span>
+
+    /**
+     * Gets the value of the tijdvakGeldigheid property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link TijdvakGeldigheid }
+     *     
+     */
+    public TijdvakGeldigheid getTijdvakGeldigheid() {
+<span class="nc" id="L149">        return tijdvakGeldigheid;</span>
+    }
+
+    /**
+     * Sets the value of the tijdvakGeldigheid property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link TijdvakGeldigheid }
+     *     
+     */
+    public void setTijdvakGeldigheid(TijdvakGeldigheid value) {
+<span class="nc" id="L161">        this.tijdvakGeldigheid = value;</span>
+<span class="nc" id="L162">    }</span>
+
+    /**
+     * Gets the value of the extraElementen property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link ExtraElementen }
+     *     
+     */
+    public ExtraElementen getExtraElementen() {
+<span class="nc" id="L173">        return extraElementen;</span>
+    }
+
+    /**
+     * Sets the value of the extraElementen property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link ExtraElementen }
+     *     
+     */
+    public void setExtraElementen(ExtraElementen value) {
+<span class="nc" id="L185">        this.extraElementen = value;</span>
+<span class="nc" id="L186">    }</span>
+
+    /**
+     * Gets the value of the soortEntiteit property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getSoortEntiteit() {
+<span class="nc bnc" id="L197" title="All 2 branches missed.">        if (soortEntiteit == null) {</span>
+<span class="nc" id="L198">            return &quot;R&quot;;</span>
+        } else {
+<span class="nc" id="L200">            return soortEntiteit;</span>
+        }
+    }
+
+    /**
+     * Sets the value of the soortEntiteit property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setSoortEntiteit(String value) {
+<span class="nc" id="L213">        this.soortEntiteit = value;</span>
+<span class="nc" id="L214">    }</span>
+
+    /**
+     * Gets the value of the sleutelVerzendend property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getSleutelVerzendend() {
+<span class="nc" id="L225">        return sleutelVerzendend;</span>
+    }
+
+    /**
+     * Sets the value of the sleutelVerzendend property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setSleutelVerzendend(String value) {
+<span class="nc" id="L237">        this.sleutelVerzendend = value;</span>
+<span class="nc" id="L238">    }</span>
+
+    /**
+     * Gets the value of the sleutelOntvangend property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getSleutelOntvangend() {
+<span class="nc" id="L249">        return sleutelOntvangend;</span>
+    }
+
+    /**
+     * Sets the value of the sleutelOntvangend property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setSleutelOntvangend(String value) {
+<span class="nc" id="L261">        this.sleutelOntvangend = value;</span>
+<span class="nc" id="L262">    }</span>
+
+    /**
+     * Gets the value of the sleutelGegevensbeheer property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getSleutelGegevensbeheer() {
+<span class="nc" id="L273">        return sleutelGegevensbeheer;</span>
+    }
+
+    /**
+     * Sets the value of the sleutelGegevensbeheer property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setSleutelGegevensbeheer(String value) {
+<span class="nc" id="L285">        this.sleutelGegevensbeheer = value;</span>
+<span class="nc" id="L286">    }</span>
+
+    /**
+     * Gets the value of the verwerkingssoort property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Verwerkingssoort }
+     *     
+     */
+    public Verwerkingssoort getVerwerkingssoort() {
+<span class="nc" id="L297">        return verwerkingssoort;</span>
+    }
+
+    /**
+     * Sets the value of the verwerkingssoort property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Verwerkingssoort }
+     *     
+     */
+    public void setVerwerkingssoort(Verwerkingssoort value) {
+<span class="nc" id="L309">        this.verwerkingssoort = value;</span>
+<span class="nc" id="L310">    }</span>
+
+    /**
+     * Gets the value of the noValue property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link NoValue }
+     *     
+     */
+    public NoValue getNoValue() {
+<span class="nc" id="L321">        return noValue;</span>
+    }
+
+    /**
+     * Sets the value of the noValue property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link NoValue }
+     *     
+     */
+    public void setNoValue(NoValue value) {
+<span class="nc" id="L333">        this.noValue = value;</span>
+<span class="nc" id="L334">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

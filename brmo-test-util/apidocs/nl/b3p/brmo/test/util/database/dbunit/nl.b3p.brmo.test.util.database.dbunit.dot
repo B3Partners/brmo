@@ -26,6 +26,7 @@ digraph G {
 <tr><td align="left" balign="left"> + cleanRSGB_NHR(rsgb : IDatabaseConnection) </td></tr>
 <tr><td align="left" balign="left"> + cleanRSGB_NHR(rsgb : IDatabaseConnection, deleteBrondocument : boolean) </td></tr>
 <tr><td align="left" balign="left"> + cleanSTAGING(staging : IDatabaseConnection) </td></tr>
+<tr><td align="left" balign="left"> + cleanSTAGING(staging : IDatabaseConnection, includeProcessen : boolean) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./CleanUtil.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }

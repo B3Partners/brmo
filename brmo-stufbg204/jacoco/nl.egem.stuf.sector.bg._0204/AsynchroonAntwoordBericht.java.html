@@ -1,0 +1,1176 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AsynchroonAntwoordBericht.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO STUF BG 204</a> &gt; <a href="index.source.html" class="el_package">nl.egem.stuf.sector.bg._0204</a> &gt; <span class="el_source">AsynchroonAntwoordBericht.java</span></div><h1>AsynchroonAntwoordBericht.java</h1><pre class="source lang-java linenums">
+package nl.egem.stuf.sector.bg._0204;
+
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementRef;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+import nl.egem.stuf.stuf0204.Stuurgegevens;
+
+
+/**
+ * &lt;p&gt;Java class for anonymous complex type.
+ * 
+ * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+ * 
+ * &lt;pre&gt;
+ * &amp;lt;complexType&amp;gt;
+ *   &amp;lt;complexContent&amp;gt;
+ *     &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
+ *       &amp;lt;sequence&amp;gt;
+ *         &amp;lt;element ref=&quot;{http://www.egem.nl/StUF/StUF0204}stuurgegevens&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;body&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;complexContent&amp;gt;
+ *               &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
+ *                 &amp;lt;choice&amp;gt;
+ *                   &amp;lt;element name=&quot;ACD&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}ACD-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;ADL&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}ADL-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;ADR&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}ADR-antwoord&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;BGB&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BGB-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;BHV&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BHV-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;BRT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BRT-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;BSG&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BSG-fund&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;BTK&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BTK-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;R04&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}R04-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;GEM&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}GEM-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;HHD&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}HHD-antwoord&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;KDO&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}KDO-antwoord&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;KGM&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}KGM-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;LFT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}LFT-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;LND&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}LND-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;MNA&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}MNA-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;NAT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}NAT-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;NNP&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}NNP-antwoord&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;OBW&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}OBW-antwoord&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;OHT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}OHT-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;PRB&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}PRB-fund&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;PRS&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}PRS-antwoord&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;RTB&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}RTB-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;SBI&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}SBI-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;SIB&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}SIB-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;SPB&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}SPB-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;SRV&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}SRV-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;R02&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}R02-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;SZR&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}SZR-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;VBT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}VBT-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;VBO&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}VBO-antwoord&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;VOT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}VOT-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;WOS&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}WOS-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;WOZ&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}WOZ-antwoord&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;R03&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}R03-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;WYK&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}WYK-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                 &amp;lt;/choice&amp;gt;
+ *               &amp;lt;/restriction&amp;gt;
+ *             &amp;lt;/complexContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *       &amp;lt;/sequence&amp;gt;
+ *     &amp;lt;/restriction&amp;gt;
+ *   &amp;lt;/complexContent&amp;gt;
+ * &amp;lt;/complexType&amp;gt;
+ * &lt;/pre&gt;
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = &quot;&quot;, propOrder = {
+    &quot;stuurgegevens&quot;,
+    &quot;body&quot;
+})
+@XmlRootElement(name = &quot;asynchroonAntwoordBericht&quot;)
+<span class="nc" id="L85">public class AsynchroonAntwoordBericht {</span>
+
+    @XmlElement(namespace = &quot;http://www.egem.nl/StUF/StUF0204&quot;, required = true)
+    protected Stuurgegevens stuurgegevens;
+    @XmlElement(required = true)
+    protected AsynchroonAntwoordBericht.Body body;
+
+    /**
+     * Gets the value of the stuurgegevens property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Stuurgegevens }
+     *     
+     */
+    public Stuurgegevens getStuurgegevens() {
+<span class="nc" id="L101">        return stuurgegevens;</span>
+    }
+
+    /**
+     * Sets the value of the stuurgegevens property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Stuurgegevens }
+     *     
+     */
+    public void setStuurgegevens(Stuurgegevens value) {
+<span class="nc" id="L113">        this.stuurgegevens = value;</span>
+<span class="nc" id="L114">    }</span>
+
+    /**
+     * Gets the value of the body property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link AsynchroonAntwoordBericht.Body }
+     *     
+     */
+    public AsynchroonAntwoordBericht.Body getBody() {
+<span class="nc" id="L125">        return body;</span>
+    }
+
+    /**
+     * Sets the value of the body property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link AsynchroonAntwoordBericht.Body }
+     *     
+     */
+    public void setBody(AsynchroonAntwoordBericht.Body value) {
+<span class="nc" id="L137">        this.body = value;</span>
+<span class="nc" id="L138">    }</span>
+
+
+    /**
+     * &lt;p&gt;Java class for anonymous complex type.
+     * 
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * 
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;complexContent&amp;gt;
+     *     &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
+     *       &amp;lt;choice&amp;gt;
+     *         &amp;lt;element name=&quot;ACD&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}ACD-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;ADL&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}ADL-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;ADR&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}ADR-antwoord&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;BGB&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BGB-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;BHV&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BHV-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;BRT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BRT-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;BSG&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BSG-fund&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;BTK&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BTK-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;R04&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}R04-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;GEM&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}GEM-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;HHD&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}HHD-antwoord&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;KDO&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}KDO-antwoord&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;KGM&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}KGM-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;LFT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}LFT-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;LND&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}LND-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;MNA&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}MNA-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;NAT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}NAT-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;NNP&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}NNP-antwoord&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;OBW&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}OBW-antwoord&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;OHT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}OHT-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;PRB&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}PRB-fund&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;PRS&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}PRS-antwoord&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;RTB&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}RTB-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;SBI&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}SBI-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;SIB&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}SIB-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;SPB&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}SPB-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;SRV&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}SRV-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;R02&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}R02-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;SZR&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}SZR-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;VBT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}VBT-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;VBO&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}VBO-antwoord&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;VOT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}VOT-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;WOS&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}WOS-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;WOZ&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}WOZ-antwoord&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;R03&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}R03-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;WYK&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}WYK-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *       &amp;lt;/choice&amp;gt;
+     *     &amp;lt;/restriction&amp;gt;
+     *   &amp;lt;/complexContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = &quot;&quot;, propOrder = {
+        &quot;acd&quot;,
+        &quot;adl&quot;,
+        &quot;adr&quot;,
+        &quot;bgb&quot;,
+        &quot;bhv&quot;,
+        &quot;brt&quot;,
+        &quot;bsg&quot;,
+        &quot;btk&quot;,
+        &quot;r04&quot;,
+        &quot;gem&quot;,
+        &quot;hhd&quot;,
+        &quot;kdo&quot;,
+        &quot;kgm&quot;,
+        &quot;lft&quot;,
+        &quot;lnd&quot;,
+        &quot;mna&quot;,
+        &quot;nat&quot;,
+        &quot;nnp&quot;,
+        &quot;obw&quot;,
+        &quot;oht&quot;,
+        &quot;prb&quot;,
+        &quot;prs&quot;,
+        &quot;rtb&quot;,
+        &quot;sbi&quot;,
+        &quot;sib&quot;,
+        &quot;spb&quot;,
+        &quot;srv&quot;,
+        &quot;r02&quot;,
+        &quot;szr&quot;,
+        &quot;vbt&quot;,
+        &quot;vbo&quot;,
+        &quot;vot&quot;,
+        &quot;wos&quot;,
+        &quot;woz&quot;,
+        &quot;r03&quot;,
+        &quot;wyk&quot;
+    })
+<span class="nc" id="L234">    public static class Body {</span>
+
+        @XmlElementRef(name = &quot;ACD&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+        protected JAXBElement&lt;ACDTabel&gt; acd;
+        @XmlElementRef(name = &quot;ADL&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+        protected JAXBElement&lt;ADLTabel&gt; adl;
+        @XmlElementRef(name = &quot;ADR&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+        protected JAXBElement&lt;ADRAntwoord&gt; adr;
+        @XmlElementRef(name = &quot;BGB&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+        protected JAXBElement&lt;BGBTabel&gt; bgb;
+        @XmlElementRef(name = &quot;BHV&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+        protected JAXBElement&lt;BHVTabel&gt; bhv;
+        @XmlElementRef(name = &quot;BRT&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+        protected JAXBElement&lt;BRTTabel&gt; brt;
+        @XmlElementRef(name = &quot;BSG&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+        protected JAXBElement&lt;BSGFund&gt; bsg;
+        @XmlElementRef(name = &quot;BTK&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+        protected JAXBElement&lt;BTKTabel&gt; btk;
+        @XmlElementRef(name = &quot;R04&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+        protected JAXBElement&lt;R04Tabel&gt; r04;
+        @XmlElementRef(name = &quot;GEM&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+        protected JAXBElement&lt;GEMTabel&gt; gem;
+        @XmlElementRef(name = &quot;HHD&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+        protected JAXBElement&lt;HHDAntwoord&gt; hhd;
+        @XmlElementRef(name = &quot;KDO&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+        protected JAXBElement&lt;KDOAntwoord&gt; kdo;
+        @XmlElementRef(name = &quot;KGM&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+        protected JAXBElement&lt;KGMTabel&gt; kgm;
+        @XmlElementRef(name = &quot;LFT&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+        protected JAXBElement&lt;LFTTabel&gt; lft;
+        @XmlElementRef(name = &quot;LND&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+        protected JAXBElement&lt;LNDTabel&gt; lnd;
+        @XmlElementRef(name = &quot;MNA&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+        protected JAXBElement&lt;MNATabel&gt; mna;
+        @XmlElementRef(name = &quot;NAT&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+        protected JAXBElement&lt;NATTabel&gt; nat;
+        @XmlElementRef(name = &quot;NNP&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+        protected JAXBElement&lt;NNPAntwoord&gt; nnp;
+        @XmlElementRef(name = &quot;OBW&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+        protected JAXBElement&lt;OBWAntwoord&gt; obw;
+        @XmlElementRef(name = &quot;OHT&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+        protected JAXBElement&lt;OHTTabel&gt; oht;
+        @XmlElementRef(name = &quot;PRB&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+        protected JAXBElement&lt;PRBFund&gt; prb;
+        @XmlElementRef(name = &quot;PRS&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+        protected JAXBElement&lt;PRSAntwoord&gt; prs;
+        @XmlElementRef(name = &quot;RTB&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+        protected JAXBElement&lt;RTBTabel&gt; rtb;
+        @XmlElementRef(name = &quot;SBI&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+        protected JAXBElement&lt;SBITabel&gt; sbi;
+        @XmlElementRef(name = &quot;SIB&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+        protected JAXBElement&lt;SIBTabel&gt; sib;
+        @XmlElementRef(name = &quot;SPB&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+        protected JAXBElement&lt;SPBTabel&gt; spb;
+        @XmlElementRef(name = &quot;SRV&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+        protected JAXBElement&lt;SRVTabel&gt; srv;
+        @XmlElementRef(name = &quot;R02&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+        protected JAXBElement&lt;R02Tabel&gt; r02;
+        @XmlElementRef(name = &quot;SZR&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+        protected JAXBElement&lt;SZRTabel&gt; szr;
+        @XmlElementRef(name = &quot;VBT&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+        protected JAXBElement&lt;VBTTabel&gt; vbt;
+        @XmlElementRef(name = &quot;VBO&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+        protected JAXBElement&lt;VBOAntwoord&gt; vbo;
+        @XmlElementRef(name = &quot;VOT&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+        protected JAXBElement&lt;VOTTabel&gt; vot;
+        @XmlElementRef(name = &quot;WOS&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+        protected JAXBElement&lt;WOSTabel&gt; wos;
+        @XmlElementRef(name = &quot;WOZ&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+        protected JAXBElement&lt;WOZAntwoord&gt; woz;
+        @XmlElementRef(name = &quot;R03&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+        protected JAXBElement&lt;R03Tabel&gt; r03;
+        @XmlElementRef(name = &quot;WYK&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+        protected JAXBElement&lt;WYKTabel&gt; wyk;
+
+        /**
+         * Gets the value of the acd property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link JAXBElement }{@code &lt;}{@link ACDTabel }{@code &gt;}
+         *     
+         */
+        public JAXBElement&lt;ACDTabel&gt; getACD() {
+<span class="nc" id="L318">            return acd;</span>
+        }
+
+        /**
+         * Sets the value of the acd property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link JAXBElement }{@code &lt;}{@link ACDTabel }{@code &gt;}
+         *     
+         */
+        public void setACD(JAXBElement&lt;ACDTabel&gt; value) {
+<span class="nc" id="L330">            this.acd = value;</span>
+<span class="nc" id="L331">        }</span>
+
+        /**
+         * Gets the value of the adl property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link JAXBElement }{@code &lt;}{@link ADLTabel }{@code &gt;}
+         *     
+         */
+        public JAXBElement&lt;ADLTabel&gt; getADL() {
+<span class="nc" id="L342">            return adl;</span>
+        }
+
+        /**
+         * Sets the value of the adl property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link JAXBElement }{@code &lt;}{@link ADLTabel }{@code &gt;}
+         *     
+         */
+        public void setADL(JAXBElement&lt;ADLTabel&gt; value) {
+<span class="nc" id="L354">            this.adl = value;</span>
+<span class="nc" id="L355">        }</span>
+
+        /**
+         * Gets the value of the adr property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link JAXBElement }{@code &lt;}{@link ADRAntwoord }{@code &gt;}
+         *     
+         */
+        public JAXBElement&lt;ADRAntwoord&gt; getADR() {
+<span class="nc" id="L366">            return adr;</span>
+        }
+
+        /**
+         * Sets the value of the adr property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link JAXBElement }{@code &lt;}{@link ADRAntwoord }{@code &gt;}
+         *     
+         */
+        public void setADR(JAXBElement&lt;ADRAntwoord&gt; value) {
+<span class="nc" id="L378">            this.adr = value;</span>
+<span class="nc" id="L379">        }</span>
+
+        /**
+         * Gets the value of the bgb property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link JAXBElement }{@code &lt;}{@link BGBTabel }{@code &gt;}
+         *     
+         */
+        public JAXBElement&lt;BGBTabel&gt; getBGB() {
+<span class="nc" id="L390">            return bgb;</span>
+        }
+
+        /**
+         * Sets the value of the bgb property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link JAXBElement }{@code &lt;}{@link BGBTabel }{@code &gt;}
+         *     
+         */
+        public void setBGB(JAXBElement&lt;BGBTabel&gt; value) {
+<span class="nc" id="L402">            this.bgb = value;</span>
+<span class="nc" id="L403">        }</span>
+
+        /**
+         * Gets the value of the bhv property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link JAXBElement }{@code &lt;}{@link BHVTabel }{@code &gt;}
+         *     
+         */
+        public JAXBElement&lt;BHVTabel&gt; getBHV() {
+<span class="nc" id="L414">            return bhv;</span>
+        }
+
+        /**
+         * Sets the value of the bhv property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link JAXBElement }{@code &lt;}{@link BHVTabel }{@code &gt;}
+         *     
+         */
+        public void setBHV(JAXBElement&lt;BHVTabel&gt; value) {
+<span class="nc" id="L426">            this.bhv = value;</span>
+<span class="nc" id="L427">        }</span>
+
+        /**
+         * Gets the value of the brt property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link JAXBElement }{@code &lt;}{@link BRTTabel }{@code &gt;}
+         *     
+         */
+        public JAXBElement&lt;BRTTabel&gt; getBRT() {
+<span class="nc" id="L438">            return brt;</span>
+        }
+
+        /**
+         * Sets the value of the brt property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link JAXBElement }{@code &lt;}{@link BRTTabel }{@code &gt;}
+         *     
+         */
+        public void setBRT(JAXBElement&lt;BRTTabel&gt; value) {
+<span class="nc" id="L450">            this.brt = value;</span>
+<span class="nc" id="L451">        }</span>
+
+        /**
+         * Gets the value of the bsg property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link JAXBElement }{@code &lt;}{@link BSGFund }{@code &gt;}
+         *     
+         */
+        public JAXBElement&lt;BSGFund&gt; getBSG() {
+<span class="nc" id="L462">            return bsg;</span>
+        }
+
+        /**
+         * Sets the value of the bsg property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link JAXBElement }{@code &lt;}{@link BSGFund }{@code &gt;}
+         *     
+         */
+        public void setBSG(JAXBElement&lt;BSGFund&gt; value) {
+<span class="nc" id="L474">            this.bsg = value;</span>
+<span class="nc" id="L475">        }</span>
+
+        /**
+         * Gets the value of the btk property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link JAXBElement }{@code &lt;}{@link BTKTabel }{@code &gt;}
+         *     
+         */
+        public JAXBElement&lt;BTKTabel&gt; getBTK() {
+<span class="nc" id="L486">            return btk;</span>
+        }
+
+        /**
+         * Sets the value of the btk property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link JAXBElement }{@code &lt;}{@link BTKTabel }{@code &gt;}
+         *     
+         */
+        public void setBTK(JAXBElement&lt;BTKTabel&gt; value) {
+<span class="nc" id="L498">            this.btk = value;</span>
+<span class="nc" id="L499">        }</span>
+
+        /**
+         * Gets the value of the r04 property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link JAXBElement }{@code &lt;}{@link R04Tabel }{@code &gt;}
+         *     
+         */
+        public JAXBElement&lt;R04Tabel&gt; getR04() {
+<span class="nc" id="L510">            return r04;</span>
+        }
+
+        /**
+         * Sets the value of the r04 property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link JAXBElement }{@code &lt;}{@link R04Tabel }{@code &gt;}
+         *     
+         */
+        public void setR04(JAXBElement&lt;R04Tabel&gt; value) {
+<span class="nc" id="L522">            this.r04 = value;</span>
+<span class="nc" id="L523">        }</span>
+
+        /**
+         * Gets the value of the gem property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link JAXBElement }{@code &lt;}{@link GEMTabel }{@code &gt;}
+         *     
+         */
+        public JAXBElement&lt;GEMTabel&gt; getGEM() {
+<span class="nc" id="L534">            return gem;</span>
+        }
+
+        /**
+         * Sets the value of the gem property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link JAXBElement }{@code &lt;}{@link GEMTabel }{@code &gt;}
+         *     
+         */
+        public void setGEM(JAXBElement&lt;GEMTabel&gt; value) {
+<span class="nc" id="L546">            this.gem = value;</span>
+<span class="nc" id="L547">        }</span>
+
+        /**
+         * Gets the value of the hhd property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link JAXBElement }{@code &lt;}{@link HHDAntwoord }{@code &gt;}
+         *     
+         */
+        public JAXBElement&lt;HHDAntwoord&gt; getHHD() {
+<span class="nc" id="L558">            return hhd;</span>
+        }
+
+        /**
+         * Sets the value of the hhd property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link JAXBElement }{@code &lt;}{@link HHDAntwoord }{@code &gt;}
+         *     
+         */
+        public void setHHD(JAXBElement&lt;HHDAntwoord&gt; value) {
+<span class="nc" id="L570">            this.hhd = value;</span>
+<span class="nc" id="L571">        }</span>
+
+        /**
+         * Gets the value of the kdo property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link JAXBElement }{@code &lt;}{@link KDOAntwoord }{@code &gt;}
+         *     
+         */
+        public JAXBElement&lt;KDOAntwoord&gt; getKDO() {
+<span class="nc" id="L582">            return kdo;</span>
+        }
+
+        /**
+         * Sets the value of the kdo property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link JAXBElement }{@code &lt;}{@link KDOAntwoord }{@code &gt;}
+         *     
+         */
+        public void setKDO(JAXBElement&lt;KDOAntwoord&gt; value) {
+<span class="nc" id="L594">            this.kdo = value;</span>
+<span class="nc" id="L595">        }</span>
+
+        /**
+         * Gets the value of the kgm property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link JAXBElement }{@code &lt;}{@link KGMTabel }{@code &gt;}
+         *     
+         */
+        public JAXBElement&lt;KGMTabel&gt; getKGM() {
+<span class="nc" id="L606">            return kgm;</span>
+        }
+
+        /**
+         * Sets the value of the kgm property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link JAXBElement }{@code &lt;}{@link KGMTabel }{@code &gt;}
+         *     
+         */
+        public void setKGM(JAXBElement&lt;KGMTabel&gt; value) {
+<span class="nc" id="L618">            this.kgm = value;</span>
+<span class="nc" id="L619">        }</span>
+
+        /**
+         * Gets the value of the lft property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link JAXBElement }{@code &lt;}{@link LFTTabel }{@code &gt;}
+         *     
+         */
+        public JAXBElement&lt;LFTTabel&gt; getLFT() {
+<span class="nc" id="L630">            return lft;</span>
+        }
+
+        /**
+         * Sets the value of the lft property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link JAXBElement }{@code &lt;}{@link LFTTabel }{@code &gt;}
+         *     
+         */
+        public void setLFT(JAXBElement&lt;LFTTabel&gt; value) {
+<span class="nc" id="L642">            this.lft = value;</span>
+<span class="nc" id="L643">        }</span>
+
+        /**
+         * Gets the value of the lnd property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link JAXBElement }{@code &lt;}{@link LNDTabel }{@code &gt;}
+         *     
+         */
+        public JAXBElement&lt;LNDTabel&gt; getLND() {
+<span class="nc" id="L654">            return lnd;</span>
+        }
+
+        /**
+         * Sets the value of the lnd property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link JAXBElement }{@code &lt;}{@link LNDTabel }{@code &gt;}
+         *     
+         */
+        public void setLND(JAXBElement&lt;LNDTabel&gt; value) {
+<span class="nc" id="L666">            this.lnd = value;</span>
+<span class="nc" id="L667">        }</span>
+
+        /**
+         * Gets the value of the mna property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link JAXBElement }{@code &lt;}{@link MNATabel }{@code &gt;}
+         *     
+         */
+        public JAXBElement&lt;MNATabel&gt; getMNA() {
+<span class="nc" id="L678">            return mna;</span>
+        }
+
+        /**
+         * Sets the value of the mna property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link JAXBElement }{@code &lt;}{@link MNATabel }{@code &gt;}
+         *     
+         */
+        public void setMNA(JAXBElement&lt;MNATabel&gt; value) {
+<span class="nc" id="L690">            this.mna = value;</span>
+<span class="nc" id="L691">        }</span>
+
+        /**
+         * Gets the value of the nat property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link JAXBElement }{@code &lt;}{@link NATTabel }{@code &gt;}
+         *     
+         */
+        public JAXBElement&lt;NATTabel&gt; getNAT() {
+<span class="nc" id="L702">            return nat;</span>
+        }
+
+        /**
+         * Sets the value of the nat property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link JAXBElement }{@code &lt;}{@link NATTabel }{@code &gt;}
+         *     
+         */
+        public void setNAT(JAXBElement&lt;NATTabel&gt; value) {
+<span class="nc" id="L714">            this.nat = value;</span>
+<span class="nc" id="L715">        }</span>
+
+        /**
+         * Gets the value of the nnp property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link JAXBElement }{@code &lt;}{@link NNPAntwoord }{@code &gt;}
+         *     
+         */
+        public JAXBElement&lt;NNPAntwoord&gt; getNNP() {
+<span class="nc" id="L726">            return nnp;</span>
+        }
+
+        /**
+         * Sets the value of the nnp property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link JAXBElement }{@code &lt;}{@link NNPAntwoord }{@code &gt;}
+         *     
+         */
+        public void setNNP(JAXBElement&lt;NNPAntwoord&gt; value) {
+<span class="nc" id="L738">            this.nnp = value;</span>
+<span class="nc" id="L739">        }</span>
+
+        /**
+         * Gets the value of the obw property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link JAXBElement }{@code &lt;}{@link OBWAntwoord }{@code &gt;}
+         *     
+         */
+        public JAXBElement&lt;OBWAntwoord&gt; getOBW() {
+<span class="nc" id="L750">            return obw;</span>
+        }
+
+        /**
+         * Sets the value of the obw property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link JAXBElement }{@code &lt;}{@link OBWAntwoord }{@code &gt;}
+         *     
+         */
+        public void setOBW(JAXBElement&lt;OBWAntwoord&gt; value) {
+<span class="nc" id="L762">            this.obw = value;</span>
+<span class="nc" id="L763">        }</span>
+
+        /**
+         * Gets the value of the oht property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link JAXBElement }{@code &lt;}{@link OHTTabel }{@code &gt;}
+         *     
+         */
+        public JAXBElement&lt;OHTTabel&gt; getOHT() {
+<span class="nc" id="L774">            return oht;</span>
+        }
+
+        /**
+         * Sets the value of the oht property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link JAXBElement }{@code &lt;}{@link OHTTabel }{@code &gt;}
+         *     
+         */
+        public void setOHT(JAXBElement&lt;OHTTabel&gt; value) {
+<span class="nc" id="L786">            this.oht = value;</span>
+<span class="nc" id="L787">        }</span>
+
+        /**
+         * Gets the value of the prb property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link JAXBElement }{@code &lt;}{@link PRBFund }{@code &gt;}
+         *     
+         */
+        public JAXBElement&lt;PRBFund&gt; getPRB() {
+<span class="nc" id="L798">            return prb;</span>
+        }
+
+        /**
+         * Sets the value of the prb property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link JAXBElement }{@code &lt;}{@link PRBFund }{@code &gt;}
+         *     
+         */
+        public void setPRB(JAXBElement&lt;PRBFund&gt; value) {
+<span class="nc" id="L810">            this.prb = value;</span>
+<span class="nc" id="L811">        }</span>
+
+        /**
+         * Gets the value of the prs property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link JAXBElement }{@code &lt;}{@link PRSAntwoord }{@code &gt;}
+         *     
+         */
+        public JAXBElement&lt;PRSAntwoord&gt; getPRS() {
+<span class="nc" id="L822">            return prs;</span>
+        }
+
+        /**
+         * Sets the value of the prs property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link JAXBElement }{@code &lt;}{@link PRSAntwoord }{@code &gt;}
+         *     
+         */
+        public void setPRS(JAXBElement&lt;PRSAntwoord&gt; value) {
+<span class="nc" id="L834">            this.prs = value;</span>
+<span class="nc" id="L835">        }</span>
+
+        /**
+         * Gets the value of the rtb property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link JAXBElement }{@code &lt;}{@link RTBTabel }{@code &gt;}
+         *     
+         */
+        public JAXBElement&lt;RTBTabel&gt; getRTB() {
+<span class="nc" id="L846">            return rtb;</span>
+        }
+
+        /**
+         * Sets the value of the rtb property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link JAXBElement }{@code &lt;}{@link RTBTabel }{@code &gt;}
+         *     
+         */
+        public void setRTB(JAXBElement&lt;RTBTabel&gt; value) {
+<span class="nc" id="L858">            this.rtb = value;</span>
+<span class="nc" id="L859">        }</span>
+
+        /**
+         * Gets the value of the sbi property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link JAXBElement }{@code &lt;}{@link SBITabel }{@code &gt;}
+         *     
+         */
+        public JAXBElement&lt;SBITabel&gt; getSBI() {
+<span class="nc" id="L870">            return sbi;</span>
+        }
+
+        /**
+         * Sets the value of the sbi property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link JAXBElement }{@code &lt;}{@link SBITabel }{@code &gt;}
+         *     
+         */
+        public void setSBI(JAXBElement&lt;SBITabel&gt; value) {
+<span class="nc" id="L882">            this.sbi = value;</span>
+<span class="nc" id="L883">        }</span>
+
+        /**
+         * Gets the value of the sib property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link JAXBElement }{@code &lt;}{@link SIBTabel }{@code &gt;}
+         *     
+         */
+        public JAXBElement&lt;SIBTabel&gt; getSIB() {
+<span class="nc" id="L894">            return sib;</span>
+        }
+
+        /**
+         * Sets the value of the sib property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link JAXBElement }{@code &lt;}{@link SIBTabel }{@code &gt;}
+         *     
+         */
+        public void setSIB(JAXBElement&lt;SIBTabel&gt; value) {
+<span class="nc" id="L906">            this.sib = value;</span>
+<span class="nc" id="L907">        }</span>
+
+        /**
+         * Gets the value of the spb property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link JAXBElement }{@code &lt;}{@link SPBTabel }{@code &gt;}
+         *     
+         */
+        public JAXBElement&lt;SPBTabel&gt; getSPB() {
+<span class="nc" id="L918">            return spb;</span>
+        }
+
+        /**
+         * Sets the value of the spb property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link JAXBElement }{@code &lt;}{@link SPBTabel }{@code &gt;}
+         *     
+         */
+        public void setSPB(JAXBElement&lt;SPBTabel&gt; value) {
+<span class="nc" id="L930">            this.spb = value;</span>
+<span class="nc" id="L931">        }</span>
+
+        /**
+         * Gets the value of the srv property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link JAXBElement }{@code &lt;}{@link SRVTabel }{@code &gt;}
+         *     
+         */
+        public JAXBElement&lt;SRVTabel&gt; getSRV() {
+<span class="nc" id="L942">            return srv;</span>
+        }
+
+        /**
+         * Sets the value of the srv property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link JAXBElement }{@code &lt;}{@link SRVTabel }{@code &gt;}
+         *     
+         */
+        public void setSRV(JAXBElement&lt;SRVTabel&gt; value) {
+<span class="nc" id="L954">            this.srv = value;</span>
+<span class="nc" id="L955">        }</span>
+
+        /**
+         * Gets the value of the r02 property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link JAXBElement }{@code &lt;}{@link R02Tabel }{@code &gt;}
+         *     
+         */
+        public JAXBElement&lt;R02Tabel&gt; getR02() {
+<span class="nc" id="L966">            return r02;</span>
+        }
+
+        /**
+         * Sets the value of the r02 property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link JAXBElement }{@code &lt;}{@link R02Tabel }{@code &gt;}
+         *     
+         */
+        public void setR02(JAXBElement&lt;R02Tabel&gt; value) {
+<span class="nc" id="L978">            this.r02 = value;</span>
+<span class="nc" id="L979">        }</span>
+
+        /**
+         * Gets the value of the szr property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link JAXBElement }{@code &lt;}{@link SZRTabel }{@code &gt;}
+         *     
+         */
+        public JAXBElement&lt;SZRTabel&gt; getSZR() {
+<span class="nc" id="L990">            return szr;</span>
+        }
+
+        /**
+         * Sets the value of the szr property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link JAXBElement }{@code &lt;}{@link SZRTabel }{@code &gt;}
+         *     
+         */
+        public void setSZR(JAXBElement&lt;SZRTabel&gt; value) {
+<span class="nc" id="L1002">            this.szr = value;</span>
+<span class="nc" id="L1003">        }</span>
+
+        /**
+         * Gets the value of the vbt property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link JAXBElement }{@code &lt;}{@link VBTTabel }{@code &gt;}
+         *     
+         */
+        public JAXBElement&lt;VBTTabel&gt; getVBT() {
+<span class="nc" id="L1014">            return vbt;</span>
+        }
+
+        /**
+         * Sets the value of the vbt property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link JAXBElement }{@code &lt;}{@link VBTTabel }{@code &gt;}
+         *     
+         */
+        public void setVBT(JAXBElement&lt;VBTTabel&gt; value) {
+<span class="nc" id="L1026">            this.vbt = value;</span>
+<span class="nc" id="L1027">        }</span>
+
+        /**
+         * Gets the value of the vbo property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link JAXBElement }{@code &lt;}{@link VBOAntwoord }{@code &gt;}
+         *     
+         */
+        public JAXBElement&lt;VBOAntwoord&gt; getVBO() {
+<span class="nc" id="L1038">            return vbo;</span>
+        }
+
+        /**
+         * Sets the value of the vbo property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link JAXBElement }{@code &lt;}{@link VBOAntwoord }{@code &gt;}
+         *     
+         */
+        public void setVBO(JAXBElement&lt;VBOAntwoord&gt; value) {
+<span class="nc" id="L1050">            this.vbo = value;</span>
+<span class="nc" id="L1051">        }</span>
+
+        /**
+         * Gets the value of the vot property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link JAXBElement }{@code &lt;}{@link VOTTabel }{@code &gt;}
+         *     
+         */
+        public JAXBElement&lt;VOTTabel&gt; getVOT() {
+<span class="nc" id="L1062">            return vot;</span>
+        }
+
+        /**
+         * Sets the value of the vot property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link JAXBElement }{@code &lt;}{@link VOTTabel }{@code &gt;}
+         *     
+         */
+        public void setVOT(JAXBElement&lt;VOTTabel&gt; value) {
+<span class="nc" id="L1074">            this.vot = value;</span>
+<span class="nc" id="L1075">        }</span>
+
+        /**
+         * Gets the value of the wos property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link JAXBElement }{@code &lt;}{@link WOSTabel }{@code &gt;}
+         *     
+         */
+        public JAXBElement&lt;WOSTabel&gt; getWOS() {
+<span class="nc" id="L1086">            return wos;</span>
+        }
+
+        /**
+         * Sets the value of the wos property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link JAXBElement }{@code &lt;}{@link WOSTabel }{@code &gt;}
+         *     
+         */
+        public void setWOS(JAXBElement&lt;WOSTabel&gt; value) {
+<span class="nc" id="L1098">            this.wos = value;</span>
+<span class="nc" id="L1099">        }</span>
+
+        /**
+         * Gets the value of the woz property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link JAXBElement }{@code &lt;}{@link WOZAntwoord }{@code &gt;}
+         *     
+         */
+        public JAXBElement&lt;WOZAntwoord&gt; getWOZ() {
+<span class="nc" id="L1110">            return woz;</span>
+        }
+
+        /**
+         * Sets the value of the woz property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link JAXBElement }{@code &lt;}{@link WOZAntwoord }{@code &gt;}
+         *     
+         */
+        public void setWOZ(JAXBElement&lt;WOZAntwoord&gt; value) {
+<span class="nc" id="L1122">            this.woz = value;</span>
+<span class="nc" id="L1123">        }</span>
+
+        /**
+         * Gets the value of the r03 property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link JAXBElement }{@code &lt;}{@link R03Tabel }{@code &gt;}
+         *     
+         */
+        public JAXBElement&lt;R03Tabel&gt; getR03() {
+<span class="nc" id="L1134">            return r03;</span>
+        }
+
+        /**
+         * Sets the value of the r03 property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link JAXBElement }{@code &lt;}{@link R03Tabel }{@code &gt;}
+         *     
+         */
+        public void setR03(JAXBElement&lt;R03Tabel&gt; value) {
+<span class="nc" id="L1146">            this.r03 = value;</span>
+<span class="nc" id="L1147">        }</span>
+
+        /**
+         * Gets the value of the wyk property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link JAXBElement }{@code &lt;}{@link WYKTabel }{@code &gt;}
+         *     
+         */
+        public JAXBElement&lt;WYKTabel&gt; getWYK() {
+<span class="nc" id="L1158">            return wyk;</span>
+        }
+
+        /**
+         * Sets the value of the wyk property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link JAXBElement }{@code &lt;}{@link WYKTabel }{@code &gt;}
+         *     
+         */
+        public void setWYK(JAXBElement&lt;WYKTabel&gt; value) {
+<span class="nc" id="L1170">            this.wyk = value;</span>
+<span class="nc" id="L1171">        }</span>
+
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

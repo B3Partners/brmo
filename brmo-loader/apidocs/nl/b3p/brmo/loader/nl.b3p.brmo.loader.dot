@@ -9,8 +9,24 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// nl.b3p.brmo.loader.RsgbBRPTransformer
+	c51 [label=<<table title="nl.b3p.brmo.loader.RsgbBRPTransformer" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RsgbBRPTransformer.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> RsgbBRPTransformer </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + RsgbBRPTransformer(pathToXsl : String, staging : StagingProxy) </td></tr>
+<tr><td align="left" balign="left"> + transformToDbXml(bericht : Bericht) : String </td></tr>
+<tr><td align="left" balign="left"> + transformToDbXmlNode(bericht : Bericht) : Node </td></tr>
+<tr><td align="left" balign="left"> # merge(oldFile : String, newFile : String) : Document </td></tr>
+<tr><td align="left" balign="left"> # print(doc : Document) : String </td></tr>
+		</table></td></tr>
+		</table>>, URL="./RsgbBRPTransformer.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.RsgbProxy
-	c45 [label=<<table title="nl.b3p.brmo.loader.RsgbProxy" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RsgbProxy.html">
+	c52 [label=<<table title="nl.b3p.brmo.loader.RsgbProxy" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RsgbProxy.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> RsgbProxy </td></tr>
 		</table></td></tr>
@@ -39,14 +55,14 @@ digraph G {
 <tr><td align="left" balign="left"> + updateBerichtException(ber : Bericht, e : Throwable) </td></tr>
 <tr><td align="left" balign="left"> + updateBerichtProcessing(ber : Bericht) </td></tr>
 <tr><td align="left" balign="left"> + handle(ber : Bericht, pretransformedTableData : List&lt;TableData&gt;, updateResult : boolean) </td></tr>
-<tr><td align="left" balign="left"> + update(ber : Bericht, pretransformedTableData : List&lt;TableData&gt;) </td></tr>
+<tr><td align="left" balign="left"> + update(jobBericht : Bericht, pretransformedTableData : List&lt;TableData&gt;) </td></tr>
 <tr><td align="left" balign="left"> + isAlreadyInMetadata(row : TableRow, loadLog : StringBuilder) : boolean </td></tr>
 <tr><td align="left" balign="left"> + getHerkomstMetadata() : String </td></tr>
 <tr><td align="left" balign="left"> + setHerkomstMetadata(herkomstMetadata : String) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./RsgbProxy.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.RsgbProxy.BerichtSelectMode
-	c46 [label=<<table title="nl.b3p.brmo.loader.RsgbProxy.BerichtSelectMode" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RsgbProxy.BerichtSelectMode.html">
+	c53 [label=<<table title="nl.b3p.brmo.loader.RsgbProxy.BerichtSelectMode" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RsgbProxy.BerichtSelectMode.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> BerichtSelectMode </td></tr>
@@ -63,7 +79,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./RsgbProxy.BerichtSelectMode.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.ProgressUpdateListener
-	c47 [label=<<table title="nl.b3p.brmo.loader.ProgressUpdateListener" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ProgressUpdateListener.html">
+	c54 [label=<<table title="nl.b3p.brmo.loader.ProgressUpdateListener" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ProgressUpdateListener.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> ProgressUpdateListener </td></tr>
@@ -78,7 +94,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./ProgressUpdateListener.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.BrmoFramework
-	c48 [label=<<table title="nl.b3p.brmo.loader.BrmoFramework" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BrmoFramework.html">
+	c55 [label=<<table title="nl.b3p.brmo.loader.BrmoFramework" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BrmoFramework.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BrmoFramework </td></tr>
 		</table></td></tr>
@@ -143,10 +159,13 @@ digraph G {
 <tr><td align="left" balign="left"> + getCountBerichten(sort : String, dir : String, filterSoort : String, filterStatus : String) : long </td></tr>
 <tr><td align="left" balign="left"> + getCountLaadProcessen(sort : String, dir : String, filterSoort : String, filterStatus : String) : long </td></tr>
 <tr><td align="left" balign="left"> + getCountJob() : long </td></tr>
+<tr><td align="left" balign="left"> + updateLaadProcesMeta(lpId : Long, klantafgiftenummer : BigInteger, contractafgiftenummer : BigInteger, artikelnummer : String, contractnummer : String, afgifteid : String, afgiftereferentie : String, bestandsreferentie : String, beschikbaar_tot : Date) </td></tr>
+<tr><td align="left" balign="left"> + checkAfgiftelijst(bestandsnaam : String, output : String) : File </td></tr>
+<tr><td align="left" balign="left"> + checkAfgiftelijst(bestandsnaam : String, is : InputStream, output : File) : File </td></tr>
 		</table></td></tr>
 		</table>>, URL="./BrmoFramework.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.StagingProxy
-	c49 [label=<<table title="nl.b3p.brmo.loader.StagingProxy" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./StagingProxy.html">
+	c56 [label=<<table title="nl.b3p.brmo.loader.StagingProxy" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./StagingProxy.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> StagingProxy </td></tr>
 		</table></td></tr>
@@ -158,7 +177,9 @@ digraph G {
 <tr><td align="left" balign="left"> + closeStagingProxy() </td></tr>
 <tr><td align="left" balign="left"> + getLaadProcesById(id : Long) : LaadProces </td></tr>
 <tr><td align="left" balign="left"> + getBerichtById(id : Long) : Bericht </td></tr>
+<tr><td align="left" balign="left"> + getBerichtByLaadProces(lp : LaadProces) : List&lt;Bericht&gt; </td></tr>
 <tr><td align="left" balign="left"> + getLaadProcesByFileName(name : String) : LaadProces </td></tr>
+<tr><td align="left" balign="left"> + getLaadProcesByRestoredFilename(name : String) : LaadProces </td></tr>
 <tr><td align="left" balign="left"> + getExistingBericht(b : Bericht) : Bericht </td></tr>
 <tr><td align="left" balign="left"> + getCountJob() : long </td></tr>
 <tr><td align="left" balign="left"> + removeJob() : boolean </td></tr>
@@ -170,6 +191,9 @@ digraph G {
 <tr><td align="left" balign="left"> + handleBerichtenByJob(total : long, handler : BerichtenHandler, enablePipeline : boolean, transformPipelineCapacity : int, orderBerichten : boolean) </td></tr>
 <tr><td align="left" balign="left"> + updateBerichtenDbXml(berichten : List&lt;Bericht&gt;, transformer : RsgbTransformer) </td></tr>
 <tr><td align="left" balign="left"> + getOldBericht(nieuwBericht : Bericht, loadLog : StringBuilder) : Bericht </td></tr>
+<tr><td align="left" balign="left"> + getOldBericht(objectRef : String, loadLog : StringBuilder) : Bericht </td></tr>
+<tr><td align="left" balign="left"> + getPreviousBericht(ber : Bericht, loadLog : StringBuilder) : Bericht </td></tr>
+<tr><td align="left" balign="left"> + getPreviousBericht(objectRef : String, datum : Date, currentBerichtId : Long, loadLog : StringBuilder) : Bericht </td></tr>
 <tr><td align="left" balign="left"> + updateBericht(b : Bericht) </td></tr>
 <tr><td align="left" balign="left"> + updateBerichtProcessing(b : Bericht) </td></tr>
 <tr><td align="left" balign="left"> + deleteByLaadProcesId(id : Long) </td></tr>
@@ -179,6 +203,8 @@ digraph G {
 <tr><td align="left" balign="left"> + loadBr(stream : InputStream, type : String, fileName : String, d : Date, listener : ProgressUpdateListener, automatischProces : Long) </td></tr>
 <tr><td align="left" balign="left"> + writeBericht(b : Bericht) </td></tr>
 <tr><td align="left" balign="left"> + updateLaadProcesStatus(lp : LaadProces, status : LaadProces.STATUS, opmerking : String) </td></tr>
+<tr><td align="left" balign="left"> + updateLaadProcesMeta(lpId : Long, klantafgiftenummer : BigInteger, contractafgiftenummer : BigInteger, artikelnummer : String, contractnummer : String, afgifteid : String, afgiftereferentie : String, bestandsreferentie : String, beschikbaar_tot : Date) </td></tr>
+<tr><td align="left" balign="left"> + updateLaadProcesBestandNaamHersteld(lp : LaadProces) </td></tr>
 <tr><td align="left" balign="left"> + emptyStagingDb() </td></tr>
 <tr><td align="left" balign="left"> + getBerichten(page : int, start : int, limit : int, sort : String, dir : String, filterSoort : String, filterStatus : String) : List&lt;Bericht&gt; </td></tr>
 <tr><td align="left" balign="left"> + getCountBerichten(sort : String, dir : String, filterSoort : String, filterStatus : String) : long </td></tr>
@@ -191,7 +217,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./StagingProxy.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.BerichtenHandler
-	c50 [label=<<table title="nl.b3p.brmo.loader.BerichtenHandler" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BerichtenHandler.html">
+	c57 [label=<<table title="nl.b3p.brmo.loader.BerichtenHandler" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BerichtenHandler.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> BerichtenHandler </td></tr>
@@ -208,14 +234,16 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BerichtenHandler.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.loader.RsgbProxy implements nl.b3p.brmo.loader.BerichtenHandler
-	c50:p -> c45:p [dir=back,arrowtail=empty,style=dashed];
+	c57:p -> c52:p [dir=back,arrowtail=empty,style=dashed];
+	// nl.b3p.brmo.loader.RsgbBRPTransformer NAVASSOC nl.b3p.brmo.loader.StagingProxy
+	c51:p -> c56:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.loader.RsgbProxy NAVASSOC nl.b3p.brmo.loader.ProgressUpdateListener
-	c45:p -> c47:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c52:p -> c54:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.loader.RsgbProxy NAVASSOC nl.b3p.brmo.loader.RsgbProxy.BerichtSelectMode
-	c45:p -> c46:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c52:p -> c53:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.loader.RsgbProxy NAVASSOC nl.b3p.brmo.loader.StagingProxy
-	c45:p -> c49:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c52:p -> c56:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.loader.BrmoFramework NAVASSOC nl.b3p.brmo.loader.StagingProxy
-	c48:p -> c49:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c55:p -> c56:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<database name="rsgb" schema="public" type="PostgreSQL - 9.4.20">
+<database name="rsgb" schema="public" type="PostgreSQL - 12.1 (Ubuntu 12.1-1.pgdg19.04+1)">
    <tables>
       <table name="aard_recht_verkort" numRows="24" remarks="RSGB referentielijst AARD RECHT VERKORT" schema="public" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="aand" nullable="false" remarks="Referentielijst property AARD RECHT VERKORT.Aanduiding aard recht verkort - Aanduiding aard recht verkort" size="4" type="varchar">
@@ -373,7 +373,7 @@
             <column ascending="true" name="sc_identif"/>
          </index>
       </table>
-      <table name="buurt" numRows="13308" remarks="RSGB class BUURT" schema="public" type="TABLE">
+      <table name="buurt" numRows="13305" remarks="RSGB class BUURT" schema="public" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="code" nullable="false" remarks="[PK] N8 - Buurtcode" size="8" type="numeric"/>
          <column autoUpdated="false" digits="0" id="1" name="dat_beg_geldh" nullable="true" remarks="" size="19" type="varchar"/>
          <column autoUpdated="false" digits="0" id="2" name="naam" nullable="true" remarks="AN80 - Buurtnaam" size="80" type="varchar"/>
@@ -537,6 +537,9 @@
             <column ascending="true" name="gebruiksdoel_gebouwd_obj"/>
             <column ascending="true" name="fk_gbo_sc_identif"/>
          </index>
+         <index name="idx_gebrdoel" unique="false">
+            <column ascending="true" name="fk_gbo_sc_identif"/>
+         </index>
       </table>
       <table name="gebouwinstallatie" numRows="0" remarks="RSGB class GEBOUWINSTALLATIE" schema="public" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="dat_beg_geldh" nullable="true" remarks="" size="19" type="varchar"/>
@@ -606,7 +609,7 @@
             <column ascending="true" name="identifcode"/>
          </index>
       </table>
-      <table name="gemeente" numRows="380" remarks="RSGB class GEMEENTE" schema="public" type="TABLE">
+      <table name="gemeente" numRows="355" remarks="RSGB class GEMEENTE" schema="public" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="dat_beg_geldh" nullable="true" remarks="" size="19" type="varchar"/>
          <column autoUpdated="false" digits="0" id="1" name="code" nullable="false" remarks="[PK] N4 - Gemeentecode" size="4" type="numeric">
             <child column="fk_nn_lh_gem_code" foreignKey="fk_gem_gem_nn_lh" implied="false" onDeleteCascade="true" table="gemeente_gemeente"/>
@@ -1088,7 +1091,7 @@
             <child column="fk_7kdp_sc_kad_identif" foreignKey="fk_kdp_as_7" implied="false" onDeleteCascade="true" table="kad_perceel"/>
             <parent column="kad_identif" foreignKey="fk_kdp_sc" implied="false" onDeleteCascade="true" table="kad_onrrnd_zk"/>
          </column>
-         <column autoUpdated="false" digits="0" id="1" name="aand_soort_grootte" nullable="true" remarks="boolean - Aanduiding soort grootte" size="1" type="bpchar"/>
+         <column autoUpdated="false" digits="0" id="1" name="aand_soort_grootte" nullable="true" remarks="AN2 - Aanduiding soort grootte" size="2" type="varchar"/>
          <column autoUpdated="false" digits="0" id="2" name="grootte_perceel" nullable="true" remarks="N8 - Grootte perceel" size="8" type="numeric"/>
          <column autoUpdated="false" digits="0" id="3" name="omschr_deelperceel" nullable="true" remarks="AN1120 - Omschrijving deelperceel" size="1120" type="varchar"/>
          <column autoUpdated="false" digits="0" id="4" name="fk_7kdp_sc_kad_identif" nullable="true" remarks="[FK] N15, FK naar kad_perceel.sc_kad_identif (is FK naar superclass KADASTRALE ONROERENDE ZAAK): &quot;ligt binnen&quot;" size="15" type="numeric">
@@ -1119,7 +1122,7 @@
       <table name="kad_perceel_archief" numRows="0" remarks="RSGB class KADASTRAAL PERCEEL. Subclass van: KADASTRALE ONROERENDE ZAAK" schema="public" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="sc_dat_beg_geldh" nullable="false" remarks="[PK] OnvolledigeDatum, FK naar kad_onrrnd_zk.dat_beg_geldh - Datum begin geldigheid kadastrale onroerende zaak" size="19" type="varchar"/>
          <column autoUpdated="false" digits="0" id="1" name="sc_kad_identif" nullable="false" remarks="[PK] N15, FK naar kad_onrrnd_zk.kad_identif - Kadastrale identificatie" size="15" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="2" name="aand_soort_grootte" nullable="true" remarks="boolean - Aanduiding soort grootte" size="1" type="bpchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="aand_soort_grootte" nullable="true" remarks="AN2 - Aanduiding soort grootte" size="2" type="varchar"/>
          <column autoUpdated="false" digits="0" id="3" name="grootte_perceel" nullable="true" remarks="N8 - Grootte perceel" size="8" type="numeric"/>
          <column autoUpdated="false" digits="0" id="4" name="omschr_deelperceel" nullable="true" remarks="AN1120 - Omschrijving deelperceel" size="1120" type="varchar"/>
          <column autoUpdated="false" digits="0" id="5" name="fk_7kdp_sc_kad_identif" nullable="true" remarks="[FK] N15, FK naar kad_perceel.sc_kad_identif (is FK naar superclass KADASTRALE ONROERENDE ZAAK): &quot;ligt binnen&quot;" size="15" type="numeric"/>
@@ -1851,36 +1854,6 @@
             <column ascending="true" name="sc_identif"/>
          </index>
       </table>
-      <table name="raster_columns" numRows="0" remarks="" schema="public" type="VIEW">
-         <column autoUpdated="false" digits="0" id="0" name="r_table_catalog" nullable="true" remarks="" size="2147483647" type="name"/>
-         <column autoUpdated="false" digits="0" id="1" name="r_table_schema" nullable="true" remarks="" size="2147483647" type="name"/>
-         <column autoUpdated="false" digits="0" id="2" name="r_table_name" nullable="true" remarks="" size="2147483647" type="name"/>
-         <column autoUpdated="false" digits="0" id="3" name="r_raster_column" nullable="true" remarks="" size="2147483647" type="name"/>
-         <column autoUpdated="false" digits="0" id="4" name="srid" nullable="true" remarks="" size="10" type="int4"/>
-         <column autoUpdated="false" digits="17" id="5" name="scale_x" nullable="true" remarks="" size="17" type="float8"/>
-         <column autoUpdated="false" digits="17" id="6" name="scale_y" nullable="true" remarks="" size="17" type="float8"/>
-         <column autoUpdated="false" digits="0" id="7" name="blocksize_x" nullable="true" remarks="" size="10" type="int4"/>
-         <column autoUpdated="false" digits="0" id="8" name="blocksize_y" nullable="true" remarks="" size="10" type="int4"/>
-         <column autoUpdated="false" digits="0" id="9" name="same_alignment" nullable="true" remarks="" size="1" type="bool"/>
-         <column autoUpdated="false" digits="0" id="10" name="regular_blocking" nullable="true" remarks="" size="1" type="bool"/>
-         <column autoUpdated="false" digits="0" id="11" name="num_bands" nullable="true" remarks="" size="10" type="int4"/>
-         <column autoUpdated="false" digits="0" id="12" name="pixel_types" nullable="true" remarks="" size="2147483647" type="_text"/>
-         <column autoUpdated="false" digits="17" id="13" name="nodata_values" nullable="true" remarks="" size="17" type="_float8"/>
-         <column autoUpdated="false" digits="0" id="14" name="out_db" nullable="true" remarks="" size="1" type="_bool"/>
-         <column autoUpdated="false" digits="0" id="15" name="extent" nullable="true" remarks="" size="2147483647" type="geometry"/>
-         <column autoUpdated="false" digits="0" id="16" name="spatial_index" nullable="true" remarks="" size="1" type="bool"/>
-      </table>
-      <table name="raster_overviews" numRows="0" remarks="" schema="public" type="VIEW">
-         <column autoUpdated="false" digits="0" id="0" name="o_table_catalog" nullable="true" remarks="" size="2147483647" type="name"/>
-         <column autoUpdated="false" digits="0" id="1" name="o_table_schema" nullable="true" remarks="" size="2147483647" type="name"/>
-         <column autoUpdated="false" digits="0" id="2" name="o_table_name" nullable="true" remarks="" size="2147483647" type="name"/>
-         <column autoUpdated="false" digits="0" id="3" name="o_raster_column" nullable="true" remarks="" size="2147483647" type="name"/>
-         <column autoUpdated="false" digits="0" id="4" name="r_table_catalog" nullable="true" remarks="" size="2147483647" type="name"/>
-         <column autoUpdated="false" digits="0" id="5" name="r_table_schema" nullable="true" remarks="" size="2147483647" type="name"/>
-         <column autoUpdated="false" digits="0" id="6" name="r_table_name" nullable="true" remarks="" size="2147483647" type="name"/>
-         <column autoUpdated="false" digits="0" id="7" name="r_raster_column" nullable="true" remarks="" size="2147483647" type="name"/>
-         <column autoUpdated="false" digits="0" id="8" name="overview_factor" nullable="true" remarks="" size="10" type="int4"/>
-      </table>
       <table name="rsdoc" numRows="0" remarks="RSGB class REISDOCUMENT" schema="public" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="nummer" nullable="false" remarks="[PK] AN9 - Reisdocumentnummer" size="9" type="varchar">
             <child column="fk_1rsd_nummer" foreignKey="fk_inp_1n_1" implied="false" onDeleteCascade="true" table="ingeschr_nat_prs"/>
@@ -1971,7 +1944,7 @@
             <column ascending="true" name="geom"/>
          </index>
       </table>
-      <table name="spatial_ref_sys" numRows="5757" remarks="" schema="public" type="TABLE">
+      <table name="spatial_ref_sys" numRows="8500" remarks="" schema="public" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="srid" nullable="false" remarks="" size="10" type="int4"/>
          <column autoUpdated="false" digits="0" id="1" name="auth_name" nullable="true" remarks="" size="256" type="varchar"/>
          <column autoUpdated="false" digits="0" id="2" name="auth_srid" nullable="true" remarks="" size="10" type="int4"/>
@@ -2140,398 +2113,84 @@
             <column ascending="true" name="identif"/>
          </index>
       </table>
-      <table name="vb_adres" numRows="0" remarks="commentaar view vb_adres:&#10;volledig adres zonder locatie&#10;&#10;beschikbare kolommen:&#10;* objectid: uniek id bruikbaar voor geoserver/arcgis,&#10;* na_identif: natuurlijke id van nummeraanduiding,      &#10;* begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),&#10;* gemeente: -,&#10;* woonplaats: -,&#10;* straatnaam: -,&#10;* huisnummer: -,&#10;* huisletter: -,&#10;* huisnummer_toev: -,&#10;* postcode: -,&#10;* geor_identif: natuurlijk id van gemeentelijke openbare ruimte,&#10;* wpl_identif: natuurlijk id van woonplaats,&#10;* gem_code: gemeentecode" schema="public" type="VIEW">
-         <column autoUpdated="false" digits="0" id="0" name="objectid" nullable="true" remarks="" size="10" type="int4"/>
-         <column autoUpdated="false" digits="0" id="1" name="na_identif" nullable="true" remarks="" size="16" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="2" name="begin_geldigheid" nullable="true" remarks="" size="10" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="3" name="gemeente" nullable="true" remarks="" size="40" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="4" name="woonplaats" nullable="true" remarks="" size="80" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="5" name="straatnaam" nullable="true" remarks="" size="80" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="6" name="huisnummer" nullable="true" remarks="" size="5" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="7" name="huisletter" nullable="true" remarks="" size="1" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="8" name="huisnummer_toev" nullable="true" remarks="" size="4" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="9" name="postcode" nullable="true" remarks="" size="6" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="10" name="geor_identif" nullable="true" remarks="" size="16" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="11" name="wpl_identif" nullable="true" remarks="" size="4" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="12" name="gem_code" nullable="true" remarks="" size="4" type="numeric"/>
+      <table name="vb_ligplaats_adres" numRows="0" remarks="commentaar view vb_ligplaats_adres:&#10;ligplaats met adres en puntlocatie&#10;&#10;beschikbare kolommen:&#10;* lpl_identif: natuurlijke id van ligplaats      &#10;* begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),&#10;* na_identif: natuurlijk id van nummeraanduiding,&#10;* na_status: status van de nummeraanduiding,   &#10;* gemeente: -,&#10;* woonplaats: -,&#10;* straatnaam: -,&#10;* huisnummer: -,&#10;* huisletter: -,&#10;* huisnummer_toev: -,&#10;* postcode: -,&#10;* status: -,&#10;* the_geom: puntlocatie" schema="public" type="VIEW">
+         <column autoUpdated="false" digits="0" id="0" name="lpl_identif" nullable="true" remarks="" size="16" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="1" name="begin_geldigheid" nullable="true" remarks="" size="10" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="begin_geldigheid_datum" nullable="true" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="3" name="na_identif" nullable="true" remarks="" size="16" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="na_status" nullable="true" remarks="" size="80" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="5" name="gemeente" nullable="true" remarks="" size="40" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="6" name="woonplaats" nullable="true" remarks="" size="80" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="7" name="straatnaam" nullable="true" remarks="" size="80" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="8" name="huisnummer" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="9" name="huisletter" nullable="true" remarks="" size="1" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="10" name="huisnummer_toev" nullable="true" remarks="" size="4" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="11" name="postcode" nullable="true" remarks="" size="6" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="12" name="status" nullable="true" remarks="" size="80" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="13" name="the_geom" nullable="true" remarks="" size="2147483647" type="geometry"/>
       </table>
-      <table name="vb_avg_koz_rechth" numRows="0" remarks="commentaar view vb_avg_koz_rechth:&#10;kadastrale percelen een appartementsrechten met rechten en rechthebbenden geschoond voor avg en objectid voor geoserver/arcgis&#10;beschikbare kolommen:&#10;* objectid: uniek id bruikbaar voor geoserver/arcgis,&#10;* koz_identif: natuurlijke id van perceel of appartementsrecht      &#10;* begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),&#10;* type: perceel of appartement,&#10;* aanduiding: sectie perceelnummer,&#10;* aanduiding2: kadgem sectie perceelnummer appartementsindex,&#10;* sectie: -,&#10;* perceelnummer: -,&#10;* appartementsindex: -,&#10;* gemeentecode: -,&#10;* aand_soort_grootte: -,&#10;* grootte_perceel: -,&#10;* oppervlakte_geom: oppervlakte berekend uit geometrie, hoort gelijk te zijn aan grootte_perceel,&#10;* deelperceelnummer: -,&#10;* omschr_deelperceel: -,&#10;* verkoop_datum: laatste datum gevonden akten van verkoop,&#10;* aard_cultuur_onbebouwd: -,&#10;* bedrag: -,&#10;* koopjaar: -,&#10;* meer_onroerendgoed: -,&#10;* valutasoort: -,&#10;* loc_omschr: adres buiten BAG om meegegeven,&#10;* zr_identif: natuurlijk id van zakelijk recht,&#10;* subject_identif: natuurlijk id van rechthebbende,&#10;* aandeel: samenvoeging van teller en noemer (1/2),&#10;* omschr_aard_verkregenr_recht: tekstuele omschrijving aard recht,&#10;* indic_betrokken_in_splitsing: -,&#10;* soort: soort subject zoals natuurlijk, niet-natuurlijk enz.  &#10;* geslachtsnaam: NULL (avg)       &#10;* voorvoegsel: NULL (avg)      &#10;* voornamen: NULL (avg)       &#10;* aand_naamgebruik: NULL (avg)         &#10;* geslachtsaand:NULL (avg)     &#10;* naam: gelijk aan organisatie_naam&#10;* woonadres: NULL (avg)        &#10;* geboortedatum: NULL (avg)        &#10;* geboorteplaats: NULL (avg)        &#10;* overlijdensdatum: NULL (avg)        &#10;* bsn: NULL (avg)         &#10;* organisatie_naam: naam niet natuurlijk subject      &#10;* rechtsvorm: -  &#10;* statutaire_zetel: -      &#10;* rsin: -        &#10;* kvk_nummer: -&#10;* gemeente: -,&#10;* woonplaats: -,&#10;* straatnaam: -,&#10;* huisnummer: -,&#10;* huisletter: -,&#10;* huisnummer_toev: -,&#10;* postcode: -,&#10;* lon: coordinaat als WSG84,&#10;* lat: coordinaat als WSG84,&#10;* begrenzing_perceel: perceelvlak" schema="public" type="VIEW">
-         <column autoUpdated="false" digits="0" id="0" name="objectid" nullable="true" remarks="" size="10" type="int4"/>
-         <column autoUpdated="false" digits="0" id="1" name="koz_identif" nullable="true" remarks="" size="15" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="2" name="begin_geldigheid" nullable="true" remarks="" size="19" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="3" name="type" nullable="true" remarks="" size="11" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="4" name="aanduiding" nullable="true" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" digits="0" id="5" name="aanduiding2" nullable="true" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" digits="0" id="6" name="sectie" nullable="true" remarks="" size="255" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="7" name="perceelnummer" nullable="true" remarks="" size="2147483647" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="8" name="appartementsindex" nullable="true" remarks="" size="4" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="9" name="gemeentecode" nullable="true" remarks="" size="5" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="10" name="aand_soort_grootte" nullable="true" remarks="" size="2147483647" type="bpchar"/>
-         <column autoUpdated="false" digits="0" id="11" name="grootte_perceel" nullable="true" remarks="" size="8" type="numeric"/>
-         <column autoUpdated="false" digits="17" id="12" name="oppervlakte_geom" nullable="true" remarks="" size="17" type="float8"/>
-         <column autoUpdated="false" digits="0" id="13" name="deelperceelnummer" nullable="true" remarks="" size="4" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="14" name="omschr_deelperceel" nullable="true" remarks="" size="1120" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="15" name="verkoop_datum" nullable="true" remarks="" size="13" type="date"/>
-         <column autoUpdated="false" digits="0" id="16" name="aard_cultuur_onbebouwd" nullable="true" remarks="" size="65" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="17" name="bedrag" nullable="true" remarks="" size="9" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="18" name="koopjaar" nullable="true" remarks="" size="10" type="int4"/>
-         <column autoUpdated="false" digits="0" id="19" name="meer_onroerendgoed" nullable="true" remarks="" size="1" type="bpchar"/>
-         <column autoUpdated="false" digits="0" id="20" name="valutasoort" nullable="true" remarks="" size="255" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="21" name="loc_omschr" nullable="true" remarks="" size="255" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="22" name="zr_identif" nullable="true" remarks="" size="255" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="23" name="subject_identif" nullable="true" remarks="" size="255" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="24" name="aandeel" nullable="true" remarks="" size="20" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="25" name="omschr_aard_verkregenr_recht" nullable="true" remarks="" size="200" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="26" name="indic_betrokken_in_splitsing" nullable="true" remarks="" size="255" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="27" name="soort" nullable="true" remarks="" size="255" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="28" name="geslachtsnaam" nullable="true" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" digits="0" id="29" name="voorvoegsel" nullable="true" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" digits="0" id="30" name="voornamen" nullable="true" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" digits="0" id="31" name="aand_naamgebruik" nullable="true" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" digits="0" id="32" name="geslachtsaand" nullable="true" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" digits="0" id="33" name="naam" nullable="true" remarks="" size="500" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="34" name="woonadres" nullable="true" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" digits="0" id="35" name="geboortedatum" nullable="true" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" digits="0" id="36" name="geboorteplaats" nullable="true" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" digits="0" id="37" name="overlijdensdatum" nullable="true" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" digits="0" id="38" name="bsn" nullable="true" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" digits="0" id="39" name="organisatie_naam" nullable="true" remarks="" size="500" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="40" name="rechtsvorm" nullable="true" remarks="" size="50" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="41" name="statutaire_zetel" nullable="true" remarks="" size="40" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="42" name="rsin" nullable="true" remarks="" size="9" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="43" name="kvk_nummer" nullable="true" remarks="" size="8" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="44" name="gemeente" nullable="true" remarks="" size="40" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="45" name="woonplaats" nullable="true" remarks="" size="80" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="46" name="straatnaam" nullable="true" remarks="" size="80" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="47" name="huisnummer" nullable="true" remarks="" size="5" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="48" name="huisletter" nullable="true" remarks="" size="1" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="49" name="huisnummer_toev" nullable="true" remarks="" size="4" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="50" name="postcode" nullable="true" remarks="" size="6" type="varchar"/>
-         <column autoUpdated="false" digits="17" id="51" name="lon" nullable="true" remarks="" size="17" type="float8"/>
-         <column autoUpdated="false" digits="17" id="52" name="lat" nullable="true" remarks="" size="17" type="float8"/>
-         <column autoUpdated="false" digits="0" id="53" name="begrenzing_perceel" nullable="true" remarks="" size="2147483647" type="geometry"/>
+      <table name="vb_standplaats_adres" numRows="0" remarks="commentaar view vb_standplaats_adres:&#10;standplaats met adres en puntlocatie&#10;&#10;beschikbare kolommen:&#10;* spl_identif: natuurlijke id van standplaats      &#10;* begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),&#10;* na_identif: natuurlijk id van nummeraanduiding,&#10;* na_status: status van de nummeraanduiding,   &#10;* gemeente: -,&#10;* woonplaats: -,&#10;* straatnaam: -,&#10;* huisnummer: -,&#10;* huisletter: -,&#10;* huisnummer_toev: -,&#10;* postcode: -,&#10;* status: -,&#10;* the_geom: puntlocatie" schema="public" type="VIEW">
+         <column autoUpdated="false" digits="0" id="0" name="spl_identif" nullable="true" remarks="" size="16" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="1" name="begin_geldigheid" nullable="true" remarks="" size="10" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="begin_geldigheid_datum" nullable="true" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="3" name="na_identif" nullable="true" remarks="" size="16" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="na_status" nullable="true" remarks="" size="80" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="5" name="gemeente" nullable="true" remarks="" size="40" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="6" name="woonplaats" nullable="true" remarks="" size="80" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="7" name="straatnaam" nullable="true" remarks="" size="80" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="8" name="huisnummer" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="9" name="huisletter" nullable="true" remarks="" size="1" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="10" name="huisnummer_toev" nullable="true" remarks="" size="4" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="11" name="postcode" nullable="true" remarks="" size="6" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="12" name="status" nullable="true" remarks="" size="80" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="13" name="the_geom" nullable="true" remarks="" size="2147483647" type="geometry"/>
       </table>
-      <table name="vb_avg_subject" numRows="0" remarks="commentaar view vb_avg_subject:&#10;volledig subject (natuurlijk en niet natuurlijk) geschoond voor avg&#10;beschikbare kolommen:&#10;* objectid: uniek id bruikbaar voor geoserver/arcgis,&#10;* subject_identif: natuurlijke id van subject      &#10;* soort: soort subject zoals natuurlijk, niet-natuurlijk enz.  &#10;* geslachtsnaam: NULL (avg)       &#10;* voorvoegsel: NULL (avg)      &#10;* voornamen: NULL (avg)       &#10;* aand_naamgebruik: NULL (avg)         &#10;* geslachtsaand:NULL (avg)     &#10;* naam: gelijk aan organisatie_naam&#10;* woonadres: NULL (avg)        &#10;* geboortedatum: NULL (avg)        &#10;* geboorteplaats: NULL (avg)        &#10;* overlijdensdatum: NULL (avg)        &#10;* bsn: NULL (avg)         &#10;* organisatie_naam: naam niet natuurlijk subject      &#10;* rechtsvorm: -  &#10;* statutaire_zetel: -      &#10;* rsin: -        &#10;* kvk_nummer: -" schema="public" type="VIEW">
-         <column autoUpdated="false" digits="0" id="0" name="objectid" nullable="true" remarks="" size="10" type="int4"/>
-         <column autoUpdated="false" digits="0" id="1" name="subject_identif" nullable="true" remarks="" size="255" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="2" name="soort" nullable="true" remarks="" size="255" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="3" name="geslachtsnaam" nullable="true" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" digits="0" id="4" name="voorvoegsel" nullable="true" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" digits="0" id="5" name="voornamen" nullable="true" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" digits="0" id="6" name="aand_naamgebruik" nullable="true" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" digits="0" id="7" name="geslachtsaand" nullable="true" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" digits="0" id="8" name="naam" nullable="true" remarks="" size="500" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="9" name="woonadres" nullable="true" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" digits="0" id="10" name="geboortedatum" nullable="true" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" digits="0" id="11" name="geboorteplaats" nullable="true" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" digits="0" id="12" name="overlijdensdatum" nullable="true" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" digits="0" id="13" name="bsn" nullable="true" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" digits="0" id="14" name="organisatie_naam" nullable="true" remarks="" size="500" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="15" name="rechtsvorm" nullable="true" remarks="" size="50" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="16" name="statutaire_zetel" nullable="true" remarks="" size="40" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="17" name="rsin" nullable="true" remarks="" size="9" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="18" name="kvk_nummer" nullable="true" remarks="" size="8" type="numeric"/>
+      <table name="vb_util_app_re_parent" numRows="0" remarks="" schema="public" type="VIEW">
+         <column autoUpdated="false" digits="0" id="0" name="app_re_identif" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="1" name="parent_identif" nullable="true" remarks="" size="2147483647" type="text"/>
       </table>
-      <table name="vb_avg_zr_rechth" numRows="0" remarks="commentaar view vb_avg_zr_rechth:&#10;alle zakelijke rechten met voor avg geschoonde rechthebbenden en referentie naar kadastraal onroerende zaak (perceel of appartementsrecht)&#10;&#10;beschikbare kolommen:&#10;* objectid: uniek id bruikbaar voor geoserver/arcgis,&#10;* zr_identif: natuurlijke id van zakelijk recht     &#10;* subject_identif: natuurlijk id van subject (natuurlijk of niet natuurlijk) welke rechthebbende is,&#10;* koz_identif: natuurlijk id van kadastrale onroerende zaak (perceel of appratementsrecht) dat gekoppeld is,&#10;* aandeel: samenvoeging van teller en noemer (1/2),&#10;* omschr_aard_verkregenr_recht: tekstuele omschrijving aard recht,&#10;* indic_betrokken_in_splitsing: -,&#10;* soort: soort subject zoals natuurlijk, niet-natuurlijk enz.  &#10;* geslachtsnaam: NULL (avg)       &#10;* voorvoegsel: NULL (avg)      &#10;* voornamen: NULL (avg)       &#10;* aand_naamgebruik: NULL (avg)         &#10;* geslachtsaand:NULL (avg)     &#10;* naam: gelijk aan organisatie_naam&#10;* woonadres: NULL (avg)        &#10;* geboortedatum: NULL (avg)        &#10;* geboorteplaats: NULL (avg)        &#10;* overlijdensdatum: NULL (avg)        &#10;* bsn: NULL (avg)         &#10;* organisatie_naam: naam niet natuurlijk subject      &#10;* rechtsvorm: -  &#10;* statutaire_zetel: -      &#10;* rsin: -        &#10;* kvk_nummer: -" schema="public" type="VIEW">
-         <column autoUpdated="false" digits="0" id="0" name="objectid" nullable="true" remarks="" size="10" type="int4"/>
-         <column autoUpdated="false" digits="0" id="1" name="zr_identif" nullable="true" remarks="" size="255" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="2" name="subject_identif" nullable="true" remarks="" size="255" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="3" name="koz_identif" nullable="true" remarks="" size="15" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="4" name="aandeel" nullable="true" remarks="" size="20" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="5" name="omschr_aard_verkregenr_recht" nullable="true" remarks="" size="200" type="varchar"/>
+      <table name="vb_util_app_re_parent_2" numRows="0" remarks="" schema="public" type="VIEW">
+         <column autoUpdated="false" digits="0" id="0" name="app_re_identif" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="1" name="parent_identif" nullable="true" remarks="" size="2147483647" type="text"/>
+      </table>
+      <table name="vb_util_app_re_parent_3" numRows="0" remarks="" schema="public" type="VIEW">
+         <column autoUpdated="false" digits="0" id="0" name="app_re_identif" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="1" name="parent_identif" nullable="true" remarks="" size="2147483647" type="text"/>
+      </table>
+      <table name="vb_util_app_re_splitsing" numRows="0" remarks="" schema="public" type="VIEW">
+         <column autoUpdated="false" digits="0" id="0" name="child_identif" nullable="true" remarks="" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="1" name="parent_identif" nullable="true" remarks="" size="2147483647" type="text"/>
+      </table>
+      <table name="vb_util_zk_recht" numRows="0" remarks="commentaar view vb_util_zk_recht:&#10;zakelijk recht met opgezocht aard recht en berekend aandeel&#10;&#10;beschikbare kolommen:&#10;* zr_identif: natuurlijke id van zakelijk recht     &#10;* aandeel: samenvoeging van teller en noemer (1/2),&#10;* ar_teller: teller van aandeel,&#10;* ar_noemer: noemer van aandeel,&#10;* subject_identif: natuurlijk id van subject (natuurlijk of niet natuurlijk) welke rechthebbende is,&#10;* koz_identif: natuurlijk id van kadastrale onroerende zaak (perceel of appratementsrecht) dat gekoppeld is,&#10;* indic_betrokken_in_splitsing: -,&#10;* omschr_aard_verkregen_recht: tekstuele omschrijving aard recht,&#10;* fk_3avr_aand: code aard recht,&#10;* aantekeningen: samenvoeging van alle aantekening op dit recht" schema="public" type="VIEW">
+         <column autoUpdated="false" digits="0" id="0" name="zr_identif" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="1" name="aandeel" nullable="true" remarks="" size="20" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="ar_teller" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="ar_noemer" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="4" name="subject_identif" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="5" name="koz_identif" nullable="true" remarks="" size="15" type="numeric"/>
          <column autoUpdated="false" digits="0" id="6" name="indic_betrokken_in_splitsing" nullable="true" remarks="" size="255" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="7" name="soort" nullable="true" remarks="" size="255" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="8" name="geslachtsnaam" nullable="true" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" digits="0" id="9" name="voorvoegsel" nullable="true" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" digits="0" id="10" name="voornamen" nullable="true" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" digits="0" id="11" name="aand_naamgebruik" nullable="true" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" digits="0" id="12" name="geslachtsaand" nullable="true" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" digits="0" id="13" name="naam" nullable="true" remarks="" size="500" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="14" name="woonadres" nullable="true" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" digits="0" id="15" name="geboortedatum" nullable="true" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" digits="0" id="16" name="geboorteplaats" nullable="true" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" digits="0" id="17" name="overlijdensdatum" nullable="true" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" digits="0" id="18" name="bsn" nullable="true" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" digits="0" id="19" name="organisatie_naam" nullable="true" remarks="" size="500" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="20" name="rechtsvorm" nullable="true" remarks="" size="50" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="21" name="statutaire_zetel" nullable="true" remarks="" size="40" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="22" name="rsin" nullable="true" remarks="" size="9" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="23" name="kvk_nummer" nullable="true" remarks="" size="8" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="7" name="omschr_aard_verkregen_recht" nullable="true" remarks="" size="200" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="8" name="fk_3avr_aand" nullable="true" remarks="" size="6" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="9" name="aantekeningen" nullable="true" remarks="" size="2147483647" type="text"/>
       </table>
-      <table name="vb_ben_obj_nevenadres" numRows="0" remarks="commentaar view mb_ben_obj_nevenadres:&#10;alle nevenadressen van een benoemde object (vbo, standplaats en ligplaats)&#10;beschikbare kolommen:&#10;* benoemdobj_identif: natuurlijke id van benoemd object      &#10;* na_identif: natuurlijke id van nummeraanduiding      &#10;* begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),&#10;* soort: vbo, ligplaats of standplaats&#10;* gemeente: nevenadres,&#10;* woonplaats: nevenadres,&#10;* straatnaam: nevenadres,&#10;* huisnummer: nevenadres,&#10;* huisletter: nevenadres,&#10;* huisnummer_toev: nevenadres,&#10;* postcode: nevenadres" schema="public" type="VIEW">
-         <column autoUpdated="false" digits="0" id="0" name="benoemdobj_identif" nullable="true" remarks="" size="16" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="1" name="na_identif" nullable="true" remarks="" size="16" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="2" name="begin_geldigheid" nullable="true" remarks="" size="10" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="3" name="soort" nullable="true" remarks="" size="50" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="4" name="gemeente" nullable="true" remarks="" size="40" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="5" name="woonplaats" nullable="true" remarks="" size="80" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="6" name="straatnaam" nullable="true" remarks="" size="80" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="7" name="huisnummer" nullable="true" remarks="" size="5" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="8" name="huisletter" nullable="true" remarks="" size="1" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="9" name="huisnummer_toev" nullable="true" remarks="" size="4" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="10" name="postcode" nullable="true" remarks="" size="6" type="varchar"/>
-      </table>
-      <table name="vb_benoemd_obj_adres" numRows="0" remarks="commentaar view vb_benoemd_obj_adres:&#10;alle benoemde objecten (vbo, standplaats en ligplaats) met adres, puntlocatie, objectid voor geoserver/arcgis en bij vbo referentie naar pand&#10;beschikbare kolommen:&#10;* benoemdobj_identif: natuurlijke id van benoemd object      &#10;* na_identif: natuurlijke id van nummeraanduiding      &#10;* begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),&#10;* pand_identif: natuurlijk id van pand dat aan dit object gekoppeld is (alleen vbo),&#10;* gemeente: -,&#10;* woonplaats: -,&#10;* straatnaam: -,&#10;* huisnummer: -,&#10;* huisletter: -,&#10;* huisnummer_toev: -,&#10;* postcode: -,&#10;* status: -,&#10;* the_geom: puntlocatie" schema="public" type="VIEW">
-         <column autoUpdated="false" digits="0" id="0" name="objectid" nullable="true" remarks="" size="10" type="int4"/>
-         <column autoUpdated="false" digits="0" id="1" name="benoemdobj_identif" nullable="true" remarks="" size="16" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="2" name="na_identif" nullable="true" remarks="" size="16" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="3" name="begin_geldigheid" nullable="true" remarks="" size="10" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="4" name="pand_identif" nullable="true" remarks="" size="16" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="5" name="soort" nullable="true" remarks="" size="50" type="varchar"/>
+      <table name="vb_vbo_adres" numRows="0" remarks="commentaar view vb_vbo_adres:&#10;vbo met adres, puntlocatie en referentie naar pand&#10;&#10;beschikbare kolommen:&#10;* vbo_identif: natuurlijke id van vbo      &#10;* begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),&#10;* pand_identif: natuurlijk id van pand dat aan dit vbo gekoppeld is,&#10;* na_identif: natuurlijk id van nummeraanduiding,&#10;* na_status: status van de nummeraanduiding,   &#10;* gemeente: -,&#10;* woonplaats: -,&#10;* straatnaam: -,&#10;* huisnummer: -,&#10;* huisletter: -,&#10;* huisnummer_toev: -,&#10;* postcode: -,&#10;* status: -,&#10;* gebruiksdoelen: alle gebruiksdoel gescheiden door komma,&#10;* the_geom: puntlocatie" schema="public" type="VIEW">
+         <column autoUpdated="false" digits="0" id="0" name="vbo_identif" nullable="true" remarks="" size="16" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="1" name="begin_geldigheid" nullable="true" remarks="" size="10" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="begin_geldigheid_datum" nullable="true" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="3" name="pand_identif" nullable="true" remarks="" size="16" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="na_identif" nullable="true" remarks="" size="16" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="5" name="na_status" nullable="true" remarks="" size="80" type="varchar"/>
          <column autoUpdated="false" digits="0" id="6" name="gemeente" nullable="true" remarks="" size="40" type="varchar"/>
          <column autoUpdated="false" digits="0" id="7" name="woonplaats" nullable="true" remarks="" size="80" type="varchar"/>
          <column autoUpdated="false" digits="0" id="8" name="straatnaam" nullable="true" remarks="" size="80" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="9" name="huisnummer" nullable="true" remarks="" size="5" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="9" name="huisnummer" nullable="true" remarks="" size="10" type="int4"/>
          <column autoUpdated="false" digits="0" id="10" name="huisletter" nullable="true" remarks="" size="1" type="varchar"/>
          <column autoUpdated="false" digits="0" id="11" name="huisnummer_toev" nullable="true" remarks="" size="4" type="varchar"/>
          <column autoUpdated="false" digits="0" id="12" name="postcode" nullable="true" remarks="" size="6" type="varchar"/>
          <column autoUpdated="false" digits="0" id="13" name="status" nullable="true" remarks="" size="80" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="14" name="the_geom" nullable="true" remarks="" size="2147483647" type="geometry"/>
-      </table>
-      <table name="vb_kad_onrrnd_zk_adres" numRows="0" remarks="commentaar view vb_kad_onrrnd_zk_adres:&#10;alle kadastrale onroerende zaken (perceel en appartementsrecht) met opgezochte verkoop datum, objectid voor geoserver/arcgis en BAG adres&#10;&#10;beschikbare kolommen:&#10;* objectid: uniek id bruikbaar voor geoserver/arcgis,&#10;* koz_identif: natuurlijke id van perceel of appartementsrecht      &#10;* begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),&#10;* benoemdobj_identif: koppeling met BAG object,&#10;* type: perceel of appartement,&#10;* aanduiding: sectie perceelnummer,&#10;* aanduiding2: kadgem sectie perceelnummer appartementsindex,&#10;* sectie: -,&#10;* perceelnummer: -,&#10;* appartementsindex: -,&#10;* gemeentecode: -,&#10;* aand_soort_grootte: -,&#10;* grootte_perceel: -,&#10;* oppervlakte_geom: oppervlakte berekend uit geometrie, hoort gelijk te zijn aan grootte_perceel,&#10;* deelperceelnummer: -,&#10;* omschr_deelperceel: -,&#10;* verkoop_datum: laatste datum gevonden akten van verkoop,&#10;* aard_cultuur_onbebouwd: -,&#10;* bedrag: -,&#10;* koopjaar: -,&#10;* meer_onroerendgoed: -,&#10;* valutasoort: -,&#10;* loc_omschr: adres buiten BAG om meegegeven,&#10;* gemeente: -,&#10;* woonplaats: -,&#10;* straatnaam: -,&#10;* huisnummer: -,&#10;* huisletter: -,&#10;* huisnummer_toev: -,&#10;* postcode: -,&#10;* lon: coordinaat als WSG84,&#10;* lon: coordinaat als WSG84,&#10;* begrenzing_perceel: perceelvlak" schema="public" type="VIEW">
-         <column autoUpdated="false" digits="0" id="0" name="objectid" nullable="true" remarks="" size="10" type="int4"/>
-         <column autoUpdated="false" digits="0" id="1" name="koz_identif" nullable="true" remarks="" size="15" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="2" name="begin_geldigheid" nullable="true" remarks="" size="19" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="3" name="benoemdobj_identif" nullable="true" remarks="" size="16" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="4" name="type" nullable="true" remarks="" size="11" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="5" name="aanduiding" nullable="true" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" digits="0" id="6" name="aanduiding2" nullable="true" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" digits="0" id="7" name="sectie" nullable="true" remarks="" size="255" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="8" name="perceelnummer" nullable="true" remarks="" size="2147483647" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="9" name="appartementsindex" nullable="true" remarks="" size="4" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="10" name="gemeentecode" nullable="true" remarks="" size="5" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="11" name="aand_soort_grootte" nullable="true" remarks="" size="2147483647" type="bpchar"/>
-         <column autoUpdated="false" digits="0" id="12" name="grootte_perceel" nullable="true" remarks="" size="8" type="numeric"/>
-         <column autoUpdated="false" digits="17" id="13" name="oppervlakte_geom" nullable="true" remarks="" size="17" type="float8"/>
-         <column autoUpdated="false" digits="0" id="14" name="deelperceelnummer" nullable="true" remarks="" size="4" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="15" name="omschr_deelperceel" nullable="true" remarks="" size="1120" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="16" name="verkoop_datum" nullable="true" remarks="" size="13" type="date"/>
-         <column autoUpdated="false" digits="0" id="17" name="aard_cultuur_onbebouwd" nullable="true" remarks="" size="65" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="18" name="bedrag" nullable="true" remarks="" size="9" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="19" name="koopjaar" nullable="true" remarks="" size="10" type="int4"/>
-         <column autoUpdated="false" digits="0" id="20" name="meer_onroerendgoed" nullable="true" remarks="" size="1" type="bpchar"/>
-         <column autoUpdated="false" digits="0" id="21" name="valutasoort" nullable="true" remarks="" size="255" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="22" name="loc_omschr" nullable="true" remarks="" size="255" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="23" name="gemeente" nullable="true" remarks="" size="40" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="24" name="woonplaats" nullable="true" remarks="" size="80" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="25" name="straatnaam" nullable="true" remarks="" size="80" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="26" name="huisnummer" nullable="true" remarks="" size="5" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="27" name="huisletter" nullable="true" remarks="" size="1" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="28" name="huisnummer_toev" nullable="true" remarks="" size="4" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="29" name="postcode" nullable="true" remarks="" size="6" type="varchar"/>
-         <column autoUpdated="false" digits="17" id="30" name="lon" nullable="true" remarks="" size="17" type="float8"/>
-         <column autoUpdated="false" digits="17" id="31" name="lat" nullable="true" remarks="" size="17" type="float8"/>
-         <column autoUpdated="false" digits="0" id="32" name="begrenzing_perceel" nullable="true" remarks="" size="2147483647" type="geometry"/>
-      </table>
-      <table name="vb_kad_onrrnd_zk_archief" numRows="0" remarks="commentaar view vb_kad_onrrnd_zk_archief:&#10;Nieuwste gearchiveerde versie van ieder kadastrale onroerende zaak (perceel en appartementsrecht) met objectid voor geoserver/arcgis en historische relatie&#10;&#10;beschikbare kolommen:&#10;* objectid: uniek id bruikbaar voor geoserver/arcgis,&#10;* koz_identif: natuurlijke id van perceel of appartementsrecht      &#10;* begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),&#10;* eind_geldigheid: datum wanneer dit object ongeldig geworden is,&#10;* benoemdobj_identif: koppeling met BAG object,&#10;* type: perceel of appartement,&#10;* sectie: -,&#10;* aanduiding: sectie perceelnummer,&#10;* aanduiding2: kadgem sectie perceelnummer appartementsindex,&#10;* perceelnummer: -,&#10;* appartementsindex: -,&#10;* gemeentecode: -,&#10;* aand_soort_grootte: -,&#10;* grootte_perceel: -,&#10;* deelperceelnummer: -,&#10;* omschr_deelperceel: -,&#10;* aard_cultuur_onbebouwd: -,&#10;* bedrag: -,&#10;* koopjaar: -,&#10;* meer_onroerendgoed: -,&#10;* valutasoort: -,&#10;* loc_omschr: adres buiten BAG om meegegeven,&#10;* overgegaan_in: natuurlijk id van kadastrale onroerende zaak waar dit object in is overgegaan,&#10;* begrenzing_perceel: perceelvlak" schema="public" type="VIEW">
-         <column autoUpdated="false" digits="0" id="0" name="objectid" nullable="true" remarks="" size="10" type="int4"/>
-         <column autoUpdated="false" digits="0" id="1" name="koz_identif" nullable="true" remarks="" size="15" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="2" name="begin_geldigheid" nullable="true" remarks="" size="19" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="3" name="eind_geldigheid" nullable="true" remarks="" size="19" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="4" name="type" nullable="true" remarks="" size="11" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="5" name="aanduiding" nullable="true" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" digits="0" id="6" name="aanduiding2" nullable="true" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" digits="0" id="7" name="sectie" nullable="true" remarks="" size="255" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="8" name="perceelnummer" nullable="true" remarks="" size="2147483647" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="9" name="appartementsindex" nullable="true" remarks="" size="4" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="10" name="gemeentecode" nullable="true" remarks="" size="5" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="11" name="aand_soort_grootte" nullable="true" remarks="" size="2147483647" type="bpchar"/>
-         <column autoUpdated="false" digits="0" id="12" name="grootte_perceel" nullable="true" remarks="" size="8" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="13" name="deelperceelnummer" nullable="true" remarks="" size="4" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="14" name="omschr_deelperceel" nullable="true" remarks="" size="1120" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="15" name="aard_cultuur_onbebouwd" nullable="true" remarks="" size="65" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="16" name="bedrag" nullable="true" remarks="" size="9" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="17" name="koopjaar" nullable="true" remarks="" size="10" type="int4"/>
-         <column autoUpdated="false" digits="0" id="18" name="meer_onroerendgoed" nullable="true" remarks="" size="1" type="bpchar"/>
-         <column autoUpdated="false" digits="0" id="19" name="valutasoort" nullable="true" remarks="" size="255" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="20" name="loc_omschr" nullable="true" remarks="" size="255" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="21" name="overgegaan_in" nullable="true" remarks="" size="15" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="22" name="begrenzing_perceel" nullable="true" remarks="" size="2147483647" type="geometry"/>
-      </table>
-      <table name="vb_koz_rechth" numRows="0" remarks="commentaar view vb_koz_rechth:&#10;kadastrale percelen een appartementsrechten met rechten en rechthebbenden en objectid voor geoserver/arcgis&#10;beschikbare kolommen:&#10;* objectid: uniek id bruikbaar voor geoserver/arcgis,&#10;* koz_identif: natuurlijke id van perceel of appartementsrecht      &#10;* begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),&#10;* type: perceel of appartement,&#10;* aanduiding: sectie perceelnummer,&#10;* aanduiding2: kadgem sectie perceelnummer appartementsindex,&#10;* sectie: -,&#10;* perceelnummer: -,&#10;* appartementsindex: -,&#10;* gemeentecode: -,&#10;* aand_soort_grootte: -,&#10;* grootte_perceel: -,&#10;* oppervlakte_geom: oppervlakte berekend uit geometrie, hoort gelijk te zijn aan grootte_perceel,&#10;* deelperceelnummer: -,&#10;* omschr_deelperceel: -,&#10;* verkoop_datum: laatste datum gevonden akten van verkoop,&#10;* aard_cultuur_onbebouwd: -,&#10;* bedrag: -,&#10;* koopjaar: -,&#10;* meer_onroerendgoed: -,&#10;* valutasoort: -,&#10;* loc_omschr: adres buiten BAG om meegegeven,&#10;* zr_identif: natuurlijk id van zakelijk recht,&#10;* subject_identif: natuurlijk id van rechthebbende,&#10;* aandeel: samenvoeging van teller en noemer (1/2),&#10;* omschr_aard_verkregenr_recht: tekstuele omschrijving aard recht,&#10;* indic_betrokken_in_splitsing: -,&#10;* soort: soort subject zoals natuurlijk, niet-natuurlijk enz.  &#10;* geslachtsnaam: -       &#10;* voorvoegsel: -     &#10;* voornamen: -     &#10;* aand_naamgebruik:        &#10;- E (= Eigen geslachtsnaam)        &#10;- N (=Geslachtsnaam echtgenoot/geregistreerd partner na eigen geslachtsnaam)        &#10;- P (= Geslachtsnaam echtgenoot/geregistreerd partner)        &#10;- V (= Geslachtsnaam evhtgenoot/geregistreerd partner voor eigen geslachtsnaam)        &#10;* geslachtsaand: M/V   &#10;* naam: samengestelde naam bruikbaar voor natuurlijke en niet-natuurlijke subjecten&#10;* woonadres: meegeleverd adres buiten BAG koppeling om      &#10;* geboortedatum: -       &#10;* geboorteplaats: -       &#10;* overlijdensdatum: -       &#10;* bsn: -       &#10;* organisatie_naam: naam niet natuurlijk subject      &#10;* rechtsvorm: -  &#10;* statutaire_zetel: -      &#10;* rsin: -        &#10;* kvk_nummer: -&#10;* gemeente: -,&#10;* woonplaats: -,&#10;* straatnaam: -,&#10;* huisnummer: -,&#10;* huisletter: -,&#10;* huisnummer_toev: -,&#10;* postcode: -,&#10;* lon: coordinaat als WSG84,&#10;* lon: coordinaat als WSG84,&#10;* begrenzing_perceel: perceelvlak" schema="public" type="VIEW">
-         <column autoUpdated="false" digits="0" id="0" name="objectid" nullable="true" remarks="" size="10" type="int4"/>
-         <column autoUpdated="false" digits="0" id="1" name="koz_identif" nullable="true" remarks="" size="15" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="2" name="begin_geldigheid" nullable="true" remarks="" size="19" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="3" name="type" nullable="true" remarks="" size="11" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="4" name="aanduiding" nullable="true" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" digits="0" id="5" name="aanduiding2" nullable="true" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" digits="0" id="6" name="sectie" nullable="true" remarks="" size="255" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="7" name="perceelnummer" nullable="true" remarks="" size="2147483647" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="8" name="appartementsindex" nullable="true" remarks="" size="4" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="9" name="gemeentecode" nullable="true" remarks="" size="5" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="10" name="aand_soort_grootte" nullable="true" remarks="" size="2147483647" type="bpchar"/>
-         <column autoUpdated="false" digits="0" id="11" name="grootte_perceel" nullable="true" remarks="" size="8" type="numeric"/>
-         <column autoUpdated="false" digits="17" id="12" name="oppervlakte_geom" nullable="true" remarks="" size="17" type="float8"/>
-         <column autoUpdated="false" digits="0" id="13" name="deelperceelnummer" nullable="true" remarks="" size="4" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="14" name="omschr_deelperceel" nullable="true" remarks="" size="1120" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="15" name="verkoop_datum" nullable="true" remarks="" size="13" type="date"/>
-         <column autoUpdated="false" digits="0" id="16" name="aard_cultuur_onbebouwd" nullable="true" remarks="" size="65" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="17" name="bedrag" nullable="true" remarks="" size="9" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="18" name="koopjaar" nullable="true" remarks="" size="10" type="int4"/>
-         <column autoUpdated="false" digits="0" id="19" name="meer_onroerendgoed" nullable="true" remarks="" size="1" type="bpchar"/>
-         <column autoUpdated="false" digits="0" id="20" name="valutasoort" nullable="true" remarks="" size="255" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="21" name="loc_omschr" nullable="true" remarks="" size="255" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="22" name="zr_identif" nullable="true" remarks="" size="255" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="23" name="subject_identif" nullable="true" remarks="" size="255" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="24" name="aandeel" nullable="true" remarks="" size="20" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="25" name="omschr_aard_verkregenr_recht" nullable="true" remarks="" size="200" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="26" name="indic_betrokken_in_splitsing" nullable="true" remarks="" size="255" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="27" name="soort" nullable="true" remarks="" size="255" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="28" name="geslachtsnaam" nullable="true" remarks="" size="200" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="29" name="voorvoegsel" nullable="true" remarks="" size="10" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="30" name="voornamen" nullable="true" remarks="" size="200" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="31" name="aand_naamgebruik" nullable="true" remarks="" size="1" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="32" name="geslachtsaand" nullable="true" remarks="" size="1" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="33" name="naam" nullable="true" remarks="" size="1000" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="34" name="woonadres" nullable="true" remarks="" size="255" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="35" name="geboortedatum" nullable="true" remarks="" size="10" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="36" name="geboorteplaats" nullable="true" remarks="" size="40" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="37" name="overlijdensdatum" nullable="true" remarks="" size="10" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="38" name="bsn" nullable="true" remarks="" size="9" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="39" name="organisatie_naam" nullable="true" remarks="" size="500" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="40" name="rechtsvorm" nullable="true" remarks="" size="50" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="41" name="statutaire_zetel" nullable="true" remarks="" size="40" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="42" name="rsin" nullable="true" remarks="" size="9" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="43" name="kvk_nummer" nullable="true" remarks="" size="8" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="44" name="gemeente" nullable="true" remarks="" size="40" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="45" name="woonplaats" nullable="true" remarks="" size="80" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="46" name="straatnaam" nullable="true" remarks="" size="80" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="47" name="huisnummer" nullable="true" remarks="" size="5" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="48" name="huisletter" nullable="true" remarks="" size="1" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="49" name="huisnummer_toev" nullable="true" remarks="" size="4" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="50" name="postcode" nullable="true" remarks="" size="6" type="varchar"/>
-         <column autoUpdated="false" digits="17" id="51" name="lon" nullable="true" remarks="" size="17" type="float8"/>
-         <column autoUpdated="false" digits="17" id="52" name="lat" nullable="true" remarks="" size="17" type="float8"/>
-         <column autoUpdated="false" digits="0" id="53" name="begrenzing_perceel" nullable="true" remarks="" size="2147483647" type="geometry"/>
-      </table>
-      <table name="vb_ligplaats_adres" numRows="0" remarks="commentaar view vb_ligplaats_adres:&#10;ligplaats met adres en puntlocatie&#10;&#10;beschikbare kolommen:&#10;* lpl_identif: natuurlijke id van ligplaats      &#10;* begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),&#10;* na_identif: natuurlijk id van nummeraanduiding,&#10;* gemeente: -,&#10;* woonplaats: -,&#10;* straatnaam: -,&#10;* huisnummer: -,&#10;* huisletter: -,&#10;* huisnummer_toev: -,&#10;* postcode: -,&#10;* status: -,&#10;* the_geom: puntlocatie" schema="public" type="VIEW">
-         <column autoUpdated="false" digits="0" id="0" name="lpl_identif" nullable="true" remarks="" size="16" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="1" name="begin_geldigheid" nullable="true" remarks="" size="10" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="2" name="na_identif" nullable="true" remarks="" size="16" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="3" name="gemeente" nullable="true" remarks="" size="40" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="4" name="woonplaats" nullable="true" remarks="" size="80" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="5" name="straatnaam" nullable="true" remarks="" size="80" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="6" name="huisnummer" nullable="true" remarks="" size="5" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="7" name="huisletter" nullable="true" remarks="" size="1" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="8" name="huisnummer_toev" nullable="true" remarks="" size="4" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="9" name="postcode" nullable="true" remarks="" size="6" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="10" name="status" nullable="true" remarks="" size="80" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="11" name="the_geom" nullable="true" remarks="" size="2147483647" type="geometry"/>
-      </table>
-      <table name="vb_pand" numRows="0" remarks="commentaar view vb_pand:&#10;pand met datum veld voor begin geldigheid en objectid voor geoserver/arcgis&#10;beschikbare kolommen:&#10;* objectid: uniek id bruikbaar voor geoserver/arcgis,&#10;* pand_identif: natuurlijke id van pand      &#10;* begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),&#10;* bouwjaar: -,&#10;* status: -,&#10;* the_geom: pandvlak" schema="public" type="VIEW">
-         <column autoUpdated="false" digits="0" id="0" name="objectid" nullable="true" remarks="" size="10" type="int4"/>
-         <column autoUpdated="false" digits="0" id="1" name="pand_identif" nullable="true" remarks="" size="16" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="2" name="begin_geldigheid" nullable="true" remarks="" size="10" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="3" name="bouwjaar" nullable="true" remarks="" size="4" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="4" name="status" nullable="true" remarks="" size="80" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="5" name="the_geom" nullable="true" remarks="" size="2147483647" type="geometry"/>
-      </table>
-      <table name="vb_standplaats_adres" numRows="0" remarks="commentaar view vb_standplaats_adres:&#10;standplaats met adres en puntlocatie&#10;&#10;beschikbare kolommen:&#10;* spl_identif: natuurlijke id van standplaats      &#10;* begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),&#10;* na_identif: natuurlijk id van nummeraanduiding,&#10;* gemeente: -,&#10;* woonplaats: -,&#10;* straatnaam: -,&#10;* huisnummer: -,&#10;* huisletter: -,&#10;* huisnummer_toev: -,&#10;* postcode: -,&#10;* status: -,&#10;* the_geom: puntlocatie" schema="public" type="VIEW">
-         <column autoUpdated="false" digits="0" id="0" name="spl_identif" nullable="true" remarks="" size="16" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="1" name="begin_geldigheid" nullable="true" remarks="" size="10" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="2" name="na_identif" nullable="true" remarks="" size="16" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="3" name="gemeente" nullable="true" remarks="" size="40" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="4" name="woonplaats" nullable="true" remarks="" size="80" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="5" name="straatnaam" nullable="true" remarks="" size="80" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="6" name="huisnummer" nullable="true" remarks="" size="5" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="7" name="huisletter" nullable="true" remarks="" size="1" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="8" name="huisnummer_toev" nullable="true" remarks="" size="4" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="9" name="postcode" nullable="true" remarks="" size="6" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="10" name="status" nullable="true" remarks="" size="80" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="11" name="the_geom" nullable="true" remarks="" size="2147483647" type="geometry"/>
-      </table>
-      <table name="vb_subject" numRows="0" remarks="commentaar view vb_subject:&#10;samenvoeging alle soorten subjecten: natuurlijk en niet-natuurlijk.&#10;&#10;beschikbare kolommen:&#10;* objectid: uniek id bruikbaar voor geoserver/arcgis,&#10;* subject_identif: natuurlijke id van subject      &#10;* soort: soort subject zoals natuurlijk, niet-natuurlijk enz.  &#10;* geslachtsnaam: -       &#10;* voorvoegsel: -     &#10;* voornamen: -     &#10;* aand_naamgebruik:        &#10;- E (= Eigen geslachtsnaam)        &#10;- N (=Geslachtsnaam echtgenoot/geregistreerd partner na eigen geslachtsnaam)        &#10;- P (= Geslachtsnaam echtgenoot/geregistreerd partner)        &#10;- V (= Geslachtsnaam evhtgenoot/geregistreerd partner voor eigen geslachtsnaam)        &#10;* geslachtsaand: M/V   &#10;* naam: samengestelde naam bruikbaar voor natuurlijke en niet-natuurlijke subjecten&#10;* woonadres: meegeleverd adres buiten BAG koppeling om      &#10;* geboortedatum: -       &#10;* geboorteplaats: -       &#10;* overlijdensdatum: -       &#10;* bsn: -       &#10;* organisatie_naam: naam niet natuurlijk subject      &#10;* rechtsvorm: -  &#10;* statutaire_zetel: -      &#10;* rsin: -        &#10;* kvk_nummer: -" schema="public" type="VIEW">
-         <column autoUpdated="false" digits="0" id="0" name="objectid" nullable="true" remarks="" size="10" type="int4"/>
-         <column autoUpdated="false" digits="0" id="1" name="subject_identif" nullable="true" remarks="" size="255" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="2" name="soort" nullable="true" remarks="" size="255" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="3" name="geslachtsnaam" nullable="true" remarks="" size="200" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="4" name="voorvoegsel" nullable="true" remarks="" size="10" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="5" name="voornamen" nullable="true" remarks="" size="200" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="6" name="aand_naamgebruik" nullable="true" remarks="" size="1" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="7" name="geslachtsaand" nullable="true" remarks="" size="1" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="8" name="naam" nullable="true" remarks="" size="1000" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="9" name="woonadres" nullable="true" remarks="" size="255" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="10" name="geboortedatum" nullable="true" remarks="" size="10" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="11" name="geboorteplaats" nullable="true" remarks="" size="40" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="12" name="overlijdensdatum" nullable="true" remarks="" size="10" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="13" name="bsn" nullable="true" remarks="" size="9" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="14" name="organisatie_naam" nullable="true" remarks="" size="500" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="15" name="rechtsvorm" nullable="true" remarks="" size="50" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="16" name="statutaire_zetel" nullable="true" remarks="" size="40" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="17" name="rsin" nullable="true" remarks="" size="9" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="18" name="kvk_nummer" nullable="true" remarks="" size="8" type="numeric"/>
-      </table>
-      <table name="vb_util_app_re_kad_perceel" numRows="0" remarks="commentaar view vb_util_app_re_kad_perceel:&#10;utility view, niet bedoeld voor direct gebruik, met lijst van appartementsrechten met bijbehorend grondperceel&#10;&#10;beschikbare kolommen:&#10;* app_re_identif: natuurlijk is van appartementsrecht,&#10;* perceel_identif: natuurlijk id van grondperceel" schema="public" type="VIEW">
-         <column autoUpdated="false" digits="0" id="0" name="app_re_identif" nullable="true" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" digits="0" id="1" name="perceel_identif" nullable="true" remarks="" size="15" type="numeric"/>
-      </table>
-      <table name="vb_util_app_re_parent" numRows="0" remarks="commentaar view vb_util_app_re_parent:&#10;utility view, niet bedoeld voor direct gebruik" schema="public" type="VIEW">
-         <column autoUpdated="false" digits="0" id="0" name="app_re_identif" nullable="true" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" digits="0" id="1" name="parent_identif" nullable="true" remarks="" size="50" type="varchar"/>
-      </table>
-      <table name="vb_util_app_re_parent_2" numRows="0" remarks="commentaar view vb_util_app_re_parent_2:&#10;utility view, niet bedoeld voor direct gebruik" schema="public" type="VIEW">
-         <column autoUpdated="false" digits="0" id="0" name="app_re_identif" nullable="true" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" digits="0" id="1" name="parent_identif" nullable="true" remarks="" size="50" type="varchar"/>
-      </table>
-      <table name="vb_util_app_re_parent_3" numRows="0" remarks="commentaar view vb_util_app_re_parent_3:&#10;utility view, niet bedoeld voor direct gebruik" schema="public" type="VIEW">
-         <column autoUpdated="false" digits="0" id="0" name="app_re_identif" nullable="true" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" digits="0" id="1" name="parent_identif" nullable="true" remarks="" size="50" type="varchar"/>
-      </table>
-      <table name="vb_util_app_re_splitsing" numRows="0" remarks="commentaar view vb_util_app_re_splitsing:&#10;utility view, niet bedoeld voor direct gebruik" schema="public" type="VIEW">
-         <column autoUpdated="false" digits="0" id="0" name="child_identif" nullable="true" remarks="" size="50" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="1" name="parent_identif" nullable="true" remarks="" size="50" type="varchar"/>
-      </table>
-      <table name="vb_util_zk_recht" numRows="0" remarks="commentaar view vb_util_zk_recht:&#10;zakelijk recht met opgezocht aard recht en berekend aandeel&#10;&#10;beschikbare kolommen:&#10;* zr_identif: natuurlijke id van zakelijk recht     &#10;* aandeel: samenvoeging van teller en noemer (1/2),&#10;* ar_teller: teller van aandeel,&#10;* ar_noemer: noemer van aandeel,&#10;* subject_identif: natuurlijk id van subject (natuurlijk of niet natuurlijk) welke rechthebbende is,&#10;* koz_identif: natuurlijk id van kadastrale onroerende zaak (perceel of appratementsrecht) dat gekoppeld is,&#10;* indic_betrokken_in_splitsing: -,&#10;* omschr_aard_verkregenr_recht: tekstuele omschrijving aard recht,&#10;* fk_3avr_aand: code aard recht" schema="public" type="VIEW">
-         <column autoUpdated="false" digits="0" id="0" name="zr_identif" nullable="true" remarks="" size="255" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="1" name="aandeel" nullable="true" remarks="" size="20" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="2" name="ar_teller" nullable="true" remarks="" size="8" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="3" name="ar_noemer" nullable="true" remarks="" size="8" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="4" name="subject_identif" nullable="true" remarks="" size="255" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="5" name="koz_identif" nullable="true" remarks="" size="15" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="6" name="indic_betrokken_in_splitsing" nullable="true" remarks="" size="255" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="7" name="omschr_aard_verkregenr_recht" nullable="true" remarks="" size="200" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="8" name="fk_3avr_aand" nullable="true" remarks="" size="6" type="varchar"/>
-      </table>
-      <table name="vb_vbo_adres" numRows="0" remarks="commentaar view vb_vbo_adres:&#10;vbo met adres, puntlocatie en referentie naar pand&#10;&#10;beschikbare kolommen:&#10;* vbo_identif: natuurlijke id van vbo      &#10;* begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),&#10;* pand_identif: natuurlijk id van pand dat aan dit vbo gekoppeld is,&#10;* na_identif: natuurlijk id van nummeraanduiding,&#10;* gemeente: -,&#10;* woonplaats: -,&#10;* straatnaam: -,&#10;* huisnummer: -,&#10;* huisletter: -,&#10;* huisnummer_toev: -,&#10;* postcode: -,&#10;* status: -,&#10;* the_geom: puntlocatie" schema="public" type="VIEW">
-         <column autoUpdated="false" digits="0" id="0" name="vbo_identif" nullable="true" remarks="" size="16" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="1" name="begin_geldigheid" nullable="true" remarks="" size="10" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="2" name="pand_identif" nullable="true" remarks="" size="16" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="3" name="na_identif" nullable="true" remarks="" size="16" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="4" name="gemeente" nullable="true" remarks="" size="40" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="5" name="woonplaats" nullable="true" remarks="" size="80" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="6" name="straatnaam" nullable="true" remarks="" size="80" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="7" name="huisnummer" nullable="true" remarks="" size="5" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="8" name="huisletter" nullable="true" remarks="" size="1" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="9" name="huisnummer_toev" nullable="true" remarks="" size="4" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="10" name="postcode" nullable="true" remarks="" size="6" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="11" name="status" nullable="true" remarks="" size="80" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="12" name="the_geom" nullable="true" remarks="" size="2147483647" type="geometry"/>
-      </table>
-      <table name="vb_zr_rechth" numRows="0" remarks="commentaar view vb_zr_rechth:&#10;alle zakelijke rechten met rechthebbenden en referentie naar kadastraal onroerende zaak (perceel of appartementsrecht)&#10;&#10;beschikbare kolommen:&#10;* objectid: uniek id bruikbaar voor geoserver/arcgis,&#10;* zr_identif: natuurlijke id van zakelijk recht &#10;* subject_identif: natuurlijk id van subject (natuurlijk of niet natuurlijk) welke rechthebbende is,&#10;* koz_identif: natuurlijk id van kadastrale onroerende zaak (perceel of appratementsrecht) dat gekoppeld is,&#10;* aandeel: samenvoeging van teller en noemer (1/2),&#10;* omschr_aard_verkregenr_recht: tekstuele omschrijving aard recht,&#10;* indic_betrokken_in_splitsing: -,&#10;* soort: soort subject zoals natuurlijk, niet-natuurlijk enz.  &#10;* geslachtsnaam: -       &#10;* voorvoegsel: -     &#10;* voornamen: -     &#10;* aand_naamgebruik:        &#10;- E (= Eigen geslachtsnaam)        &#10;- N (=Geslachtsnaam echtgenoot/geregistreerd partner na eigen geslachtsnaam)        &#10;- P (= Geslachtsnaam echtgenoot/geregistreerd partner)        &#10;- V (= Geslachtsnaam evhtgenoot/geregistreerd partner voor eigen geslachtsnaam)        &#10;* geslachtsaand: M/V   &#10;* naam: samengestelde naam bruikbaar voor natuurlijke en niet-natuurlijke subjecten&#10;* woonadres: meegeleverd adres buiten BAG koppeling om      &#10;* geboortedatum: -       &#10;* geboorteplaats: -       &#10;* overlijdensdatum: -       &#10;* bsn: -       &#10;* organisatie_naam: naam niet natuurlijk subject      &#10;* rechtsvorm: -  &#10;* statutaire_zetel: -      &#10;* rsin: -        &#10;* kvk_nummer: -" schema="public" type="VIEW">
-         <column autoUpdated="false" digits="0" id="0" name="objectid" nullable="true" remarks="" size="10" type="int4"/>
-         <column autoUpdated="false" digits="0" id="1" name="zr_identif" nullable="true" remarks="" size="255" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="2" name="subject_identif" nullable="true" remarks="" size="255" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="3" name="koz_identif" nullable="true" remarks="" size="15" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="4" name="aandeel" nullable="true" remarks="" size="20" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="5" name="omschr_aard_verkregenr_recht" nullable="true" remarks="" size="200" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="6" name="indic_betrokken_in_splitsing" nullable="true" remarks="" size="255" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="7" name="soort" nullable="true" remarks="" size="255" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="8" name="geslachtsnaam" nullable="true" remarks="" size="200" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="9" name="voorvoegsel" nullable="true" remarks="" size="10" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="10" name="voornamen" nullable="true" remarks="" size="200" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="11" name="aand_naamgebruik" nullable="true" remarks="" size="1" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="12" name="geslachtsaand" nullable="true" remarks="" size="1" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="13" name="naam" nullable="true" remarks="" size="1000" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="14" name="woonadres" nullable="true" remarks="" size="255" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="15" name="geboortedatum" nullable="true" remarks="" size="10" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="16" name="geboorteplaats" nullable="true" remarks="" size="40" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="17" name="overlijdensdatum" nullable="true" remarks="" size="10" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="18" name="bsn" nullable="true" remarks="" size="9" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="19" name="organisatie_naam" nullable="true" remarks="" size="500" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="20" name="rechtsvorm" nullable="true" remarks="" size="50" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="21" name="statutaire_zetel" nullable="true" remarks="" size="40" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="22" name="rsin" nullable="true" remarks="" size="9" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="23" name="kvk_nummer" nullable="true" remarks="" size="8" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="14" name="gebruiksdoelen" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="15" name="oppervlakte_obj" nullable="true" remarks="" size="6" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="16" name="the_geom" nullable="true" remarks="" size="2147483647" type="geometry"/>
       </table>
       <table name="verblijfsobj" numRows="0" remarks="RSGB class VERBLIJFSOBJECT. Subclass van: GEBOUWD OBJECT -&gt; BENOEMD OBJECT" schema="public" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="sc_identif" nullable="false" remarks="[PK] AN16, FK naar gebouwd_obj.sc_identif - Benoemd object identificatie" size="16" type="varchar">
@@ -2934,7 +2593,7 @@
             <column ascending="true" name="sc_identif"/>
          </index>
       </table>
-      <table name="wijk" numRows="3159" remarks="RSGB class WIJK" schema="public" type="TABLE">
+      <table name="wijk" numRows="3086" remarks="RSGB class WIJK" schema="public" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="dat_beg_geldh" nullable="true" remarks="" size="19" type="varchar"/>
          <column autoUpdated="false" digits="0" id="1" name="code" nullable="false" remarks="[PK] N6 - Wijkcode" size="6" type="numeric"/>
          <column autoUpdated="false" digits="0" id="2" name="datum_einde_geldh" nullable="true" remarks="OnvolledigeDatum - Datum einde geldigheid wijk" size="19" type="varchar"/>
@@ -3176,6 +2835,24 @@
          </index>
          <index name="zak_recht_aantek_fk5_zk_re_idx" unique="false">
             <column ascending="true" name="fk_5zkr_kadaster_identif"/>
+         </index>
+      </table>
+      <table name="zak_recht_archief" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="kadaster_identif" nullable="false" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="1" name="eindd_recht" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="indic_betrokken_in_splitsing" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="ingangsdatum_recht" nullable="false" remarks="" size="19" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="fk_7koz_kad_identif" nullable="true" remarks="" size="15" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="5" name="fk_8pes_sc_identif" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="6" name="ar_noemer" nullable="true" remarks="" size="8" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="7" name="ar_teller" nullable="true" remarks="" size="8" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="8" name="fk_2aard_recht_verkort_aand" nullable="true" remarks="" size="4" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="9" name="fk_3avr_aand" nullable="true" remarks="" size="6" type="varchar"/>
+         <primaryKey column="kadaster_identif" sequenceNumberInPK="1"/>
+         <primaryKey column="ingangsdatum_recht" sequenceNumberInPK="2"/>
+         <index name="zak_recht_archief_pk" unique="true">
+            <column ascending="true" name="kadaster_identif"/>
+            <column ascending="true" name="ingangsdatum_recht"/>
          </index>
       </table>
    </tables>

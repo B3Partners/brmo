@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BrkSnapshotXMLReader.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.loader.xml</a> &gt; <span class="el_source">BrkSnapshotXMLReader.java</span></div><h1>BrkSnapshotXMLReader.java</h1><pre class="source lang-java linenums">package nl.b3p.brmo.loader.xml;
+
+import java.io.InputStream;
+import java.io.StringWriter;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLOutputFactory;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
+import javax.xml.stream.XMLStreamWriter;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.stax.StAXResult;
+import javax.xml.transform.stax.StAXSource;
+import nl.b3p.brmo.loader.BrmoFramework;
+import nl.b3p.brmo.loader.entity.BrkBericht;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+/**
+ * reader of BRK stand files
+ *
+ * @author Boy de Wit
+ */
+public class BrkSnapshotXMLReader extends BrmoXMLReader {
+
+<span class="fc" id="L28">    private static final Log log = LogFactory.getLog(BrkSnapshotXMLReader.class);</span>
+
+<span class="fc" id="L30">    private final XMLInputFactory factory = XMLInputFactory.newInstance();</span>
+    private final XMLStreamReader streamReader;
+    private final Transformer transformer;
+
+    private static final String KAD_OBJ_SNAP = &quot;KadastraalObjectSnapshot&quot;;
+    // gebied
+    private static final String PRODUCTSPECIFICATIE = &quot;productSpecificatie&quot;;
+    private static final String KENMERKNAAM = &quot;kenmerknaam&quot;;
+    private static final String KENMERKWAARDE = &quot;kenmerkwaarde&quot;;
+    // burgerlijke gemeente
+    private static final String BRK_DATUM = &quot;BRKDatum&quot;;
+    private static final String GEMEENTE = &quot;naamBurgerlijkeGemeente&quot;;
+    private static final String MUTATIE = &quot;Mutatie&quot;;
+    private static final String NS_MUTATIE = &quot;http://www.kadaster.nl/schemas/brk-levering/product-mutatie/v20120901&quot;;
+    private static final String NS_XLINK = &quot;http://www.w3.org/1999/xlink&quot;;
+
+<span class="fc" id="L46">    private static class MutatieGegevens {</span>
+<span class="fc" id="L47">        boolean inMutatieObjectRef = false;</span>
+<span class="fc" id="L48">        String mutatieObjectRef = null;</span>
+<span class="fc" id="L49">        boolean isMutatieZonderWordt = true;</span>
+<span class="fc" id="L50">        Integer volgnummerKadastraalObjectDatum = null;</span>
+    }
+<span class="fc" id="L52">    private MutatieGegevens mutatieGegevens = null;</span>
+
+    public BrkSnapshotXMLReader(InputStream in)
+            throws XMLStreamException,
+<span class="fc" id="L56">            TransformerConfigurationException {</span>
+
+<span class="fc" id="L58">        streamReader = factory.createXMLStreamReader(in);</span>
+<span class="fc" id="L59">        TransformerFactory tf = TransformerFactory.newInstance();</span>
+<span class="fc" id="L60">        transformer = tf.newTransformer();</span>
+
+<span class="fc" id="L62">        init();</span>
+<span class="fc" id="L63">    }</span>
+
+    @Override
+    public void init() throws XMLStreamException {
+<span class="fc" id="L67">        soort = BrmoFramework.BR_BRK;</span>
+<span class="fc" id="L68">        positionToNext();</span>
+<span class="fc" id="L69">    }</span>
+
+    /**
+     * Positioneer de XML stream aan het start element voor een
+     * KadastraalObjectSnapshot (als child van een GemeenteGebaseerdeStand:stand
+     * of als child van een Mutatie:wordt) of aan het end element voor een Mutatie:Mutatie
+     * zonder Mutatie:wordt (vervallen perceel).
+     *
+     * @throws XMLStreamException
+     */
+
+    private void positionToNext() throws XMLStreamException {
+<span class="fc" id="L81">        boolean inMutatie = false;</span>
+<span class="fc" id="L82">        mutatieGegevens = null;</span>
+<span class="fc" id="L83">        boolean inGemeente = false;</span>
+<span class="fc" id="L84">        boolean inWas = false;</span>
+<span class="fc" id="L85">        boolean inProductSpecificatie = false;</span>
+<span class="fc" id="L86">        String inProductSpecificatieNaam = null;</span>
+<span class="fc bfc" id="L87" title="All 2 branches covered.">        while (streamReader.hasNext()) {</span>
+<span class="fc bfc" id="L88" title="All 2 branches covered.">            if (streamReader.isStartElement()) {</span>
+<span class="fc bfc" id="L89" title="All 4 branches covered.">                if (!inWas &amp;&amp; streamReader.getLocalName().equals(KAD_OBJ_SNAP)) {</span>
+                    // KadastraalObjectSnapshot gevonden niet in &quot;was&quot; van mutatie,
+                    // hou streamReader op dit start element voor next()
+<span class="fc" id="L92">                    break;</span>
+                }
+<span class="fc bfc" id="L94" title="All 2 branches covered.">                if (streamReader.getLocalName().equals(BRK_DATUM)) {</span>
+                    // GemeenteGebaseerdeStand:BRKDatum:BRKDatum of Mutatie:BRKDatum
+<span class="fc" id="L96">                    setDatumAsString(streamReader.getElementText());</span>
+<span class="pc bpc" id="L97" title="1 of 2 branches missed.">                } else if (streamReader.getLocalName().equals(PRODUCTSPECIFICATIE)) {</span>
+<span class="nc" id="L98">                    inProductSpecificatie = true;</span>
+<span class="pc bpc" id="L99" title="3 of 4 branches missed.">                } else if (inProductSpecificatie &amp;&amp; streamReader.getLocalName().equals(KENMERKNAAM)) {</span>
+<span class="nc" id="L100">                    inProductSpecificatieNaam = streamReader.getElementText();</span>
+<span class="pc bpc" id="L101" title="3 of 4 branches missed.">                } else if (inProductSpecificatie &amp;&amp; streamReader.getLocalName().equals(KENMERKWAARDE)) {</span>
+<span class="nc bnc" id="L102" title="All 2 branches missed.">                    if (&quot;Peildatum&quot;.equals(inProductSpecificatieNaam)) {</span>
+<span class="nc" id="L103">                        setDatumAsString(streamReader.getElementText());</span>
+<span class="nc bnc" id="L104" title="All 2 branches missed.">                    } else if (&quot;Gebiednummer&quot;.equals(inProductSpecificatieNaam)) {</span>
+<span class="nc" id="L105">                        setGebied(streamReader.getElementText());</span>
+                    }
+<span class="pc bpc" id="L107" title="1 of 2 branches missed.">                } else if (streamReader.getLocalName().equals(GEMEENTE)) {</span>
+<span class="nc" id="L108">                    inGemeente = true;</span>
+<span class="pc bpc" id="L109" title="3 of 4 branches missed.">                } else if (inGemeente &amp;&amp; streamReader.getLocalName().equals(&quot;waarde&quot;)) {</span>
+<span class="nc" id="L110">                    setGebied(streamReader.getElementText());</span>
+<span class="fc bfc" id="L111" title="All 2 branches covered.">                } else if(streamReader.getLocalName().equals(MUTATIE)) {</span>
+<span class="fc" id="L112">                    inMutatie = true;</span>
+<span class="fc" id="L113">                    mutatieGegevens = new MutatieGegevens();</span>
+<span class="pc bpc" id="L114" title="1 of 4 branches missed.">                } else if(inMutatie &amp;&amp; streamReader.getLocalName().equals(&quot;volgnummerKadastraalObjectDatum&quot;)) {</span>
+<span class="fc" id="L115">                    mutatieGegevens.volgnummerKadastraalObjectDatum = Integer.parseInt(streamReader.getElementText());</span>
+<span class="pc bpc" id="L116" title="2 of 6 branches missed.">                } else if(inMutatie &amp;&amp; streamReader.getLocalName().equals(&quot;kadastraalObject&quot;) &amp;&amp; streamReader.getNamespaceURI().equals(NS_MUTATIE)) {</span>
+                    // Mutatie:AanduidingKadastraalObject -&gt; Mutatie:kadastraalObject -&gt; (AppartementsrechtRef | PerceelRef)
+<span class="fc" id="L118">                    mutatieGegevens.inMutatieObjectRef = true;</span>
+<span class="pc bpc" id="L119" title="1 of 4 branches missed.">                } else if(inMutatie &amp;&amp; mutatieGegevens.inMutatieObjectRef) {</span>
+                    // Haal id op van Appartementsrecht of PerceelRef
+<span class="fc" id="L121">                    mutatieGegevens.mutatieObjectRef = streamReader.getAttributeValue(NS_XLINK, &quot;href&quot;);</span>
+<span class="fc bfc" id="L122" title="All 2 branches covered.">                    if(mutatieGegevens.mutatieObjectRef != null) {</span>
+<span class="fc" id="L123">                        int i = mutatieGegevens.mutatieObjectRef.lastIndexOf('.');</span>
+<span class="pc bpc" id="L124" title="1 of 2 branches missed.">                        if(i != -1) {</span>
+<span class="fc" id="L125">                            mutatieGegevens.mutatieObjectRef = mutatieGegevens.mutatieObjectRef.substring(0,i) + ':' + mutatieGegevens.mutatieObjectRef.substring(i+1);</span>
+                        }
+                    }
+<span class="fc" id="L128">                    mutatieGegevens.inMutatieObjectRef = false;</span>
+<span class="pc bpc" id="L129" title="1 of 4 branches missed.">                } else if(inMutatie &amp;&amp; streamReader.getLocalName().equals(&quot;was&quot;)) {</span>
+                    // Bij mutatie &quot;was&quot; skippen
+<span class="fc" id="L131">                    inWas = true;</span>
+<span class="pc bpc" id="L132" title="1 of 4 branches missed.">                } else if(inMutatie &amp;&amp; streamReader.getLocalName().equals(&quot;wordt&quot;)) {</span>
+<span class="fc" id="L133">                    mutatieGegevens.isMutatieZonderWordt = false;</span>
+                }
+<span class="fc bfc" id="L135" title="All 2 branches covered.">            } else if (streamReader.isEndElement()) {</span>
+<span class="pc bpc" id="L136" title="1 of 2 branches missed.">                if(streamReader.getLocalName().equals(PRODUCTSPECIFICATIE)) {</span>
+<span class="nc" id="L137">                    inProductSpecificatie = false;</span>
+<span class="nc" id="L138">                    inProductSpecificatieNaam = null;</span>
+                }
+<span class="pc bpc" id="L140" title="1 of 2 branches missed.">                if(streamReader.getLocalName().equals(GEMEENTE)) {</span>
+<span class="nc" id="L141">                    inGemeente = false;</span>
+                }
+<span class="fc bfc" id="L143" title="All 2 branches covered.">                if(streamReader.getLocalName().equals(&quot;was&quot;)) {</span>
+<span class="fc" id="L144">                    inWas = false;</span>
+                }
+<span class="pc bpc" id="L146" title="1 of 4 branches missed.">                if(inMutatie &amp;&amp; streamReader.getLocalName().equals(MUTATIE)) {</span>
+<span class="nc" id="L147">                    break;</span>
+                }
+            }
+
+<span class="fc" id="L151">            streamReader.next();</span>
+        }
+<span class="fc" id="L153">    }</span>
+
+    @Override
+    public boolean hasNext() {
+        try {
+<span class="pc bpc" id="L158" title="1 of 6 branches missed.">            return mutatieGegevens != null &amp;&amp; mutatieGegevens.isMutatieZonderWordt || streamReader.hasNext();</span>
+<span class="nc" id="L159">        } catch (XMLStreamException ex) {</span>
+<span class="nc" id="L160">            log.error(&quot;Error while streaming XML&quot;, ex);</span>
+        }
+<span class="nc" id="L162">        return false;</span>
+    }
+
+    @Override
+    public BrkBericht next() throws TransformerException, XMLStreamException {
+        BrkBericht b;
+
+<span class="pc bpc" id="L169" title="2 of 4 branches missed.">        if(mutatieGegevens != null &amp;&amp; mutatieGegevens.isMutatieZonderWordt) {</span>
+            // Vervallen perceel
+<span class="nc" id="L171">            b = new BrkBericht(&quot;&lt;empty/&gt;&quot;);</span>
+
+<span class="nc" id="L173">            b.setVervallenInfo(mutatieGegevens.mutatieObjectRef, getBestandsDatum());</span>
+<span class="nc" id="L174">            b.setVolgordeNummer(mutatieGegevens.volgnummerKadastraalObjectDatum);</span>
+        } else {
+<span class="fc" id="L176">            StringWriter sw = new StringWriter();</span>
+
+            // Vanwege splitsing is repairen van namespaces nodig, anders ontbreekt
+            // de namespace prefix declaratie xmlns:xlink=&quot;http://www.w3.org/1999/xlink&quot;
+            // in de output en mislukt de XSL transformatie
+<span class="fc" id="L181">            XMLOutputFactory of = XMLOutputFactory.newInstance();</span>
+<span class="fc" id="L182">            of.setProperty(XMLOutputFactory.IS_REPAIRING_NAMESPACES, Boolean.TRUE);</span>
+<span class="fc" id="L183">            XMLStreamWriter writer = of.createXMLStreamWriter(sw);</span>
+
+<span class="fc" id="L185">            transformer.transform(new StAXSource(streamReader), new StAXResult(writer));</span>
+<span class="fc" id="L186">            b = new BrkBericht(sw.toString());</span>
+            //volgende gegevens komen uit de header, in bericht worden gegevens verder aangevuld.
+<span class="pc bpc" id="L188" title="1 of 2 branches missed.">            b.setVolgordeNummer(mutatieGegevens != null ? mutatieGegevens.volgnummerKadastraalObjectDatum : -1);</span>
+<span class="fc" id="L189">            b.setDatum(getBestandsDatum());</span>
+<span class="pc bpc" id="L190" title="1 of 2 branches missed.">            b.setObjectRef(mutatieGegevens != null ? mutatieGegevens.mutatieObjectRef : null);</span>
+        }
+<span class="fc" id="L192">        positionToNext();</span>
+<span class="fc" id="L193">        return b;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

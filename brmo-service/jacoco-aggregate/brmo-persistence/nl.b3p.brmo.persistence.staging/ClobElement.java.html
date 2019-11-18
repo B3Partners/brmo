@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>ClobElement.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO service</a> &gt; <a href="../index.html" class="el_bundle">brmo-persistence</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.persistence.staging</a> &gt; <span class="el_source">ClobElement.java</span></div><h1>ClobElement.java</h1><pre class="source lang-java linenums">package nl.b3p.brmo.persistence.staging;
+
+import java.io.Serializable;
+import javax.persistence.Embeddable;
+import javax.persistence.Lob;
+import org.apache.commons.lang3.StringUtils;
+
+/**
+ *
+ * @author Matthijs Laan
+ */
+
+@Embeddable
+public class ClobElement implements Serializable {
+    @Lob
+    @org.hibernate.annotations.Type(type=&quot;org.hibernate.type.StringClobType&quot;)
+    private String value;
+
+<span class="fc" id="L19">    public ClobElement() {</span>
+<span class="fc" id="L20">    }</span>
+
+<span class="fc" id="L22">    public ClobElement(String value) {</span>
+<span class="fc" id="L23">        this.value = value;</span>
+<span class="fc" id="L24">    }</span>
+
+    public String getValue() {
+<span class="fc" id="L27">        return value;</span>
+    }
+
+    public void setValue(String value) {
+<span class="nc" id="L31">        this.value = value;</span>
+<span class="nc" id="L32">    }</span>
+
+    @Override
+    public boolean equals(Object obj) {
+<span class="nc bnc" id="L36" title="All 2 branches missed.">        if (obj == null) {</span>
+<span class="nc" id="L37">            return false;</span>
+        }
+<span class="nc bnc" id="L39" title="All 2 branches missed.">        if (getClass() != obj.getClass()) {</span>
+<span class="nc" id="L40">            return false;</span>
+        }
+<span class="nc" id="L42">        final ClobElement other = (ClobElement) obj;</span>
+<span class="nc bnc" id="L43" title="All 6 branches missed.">        if ((this.value == null) ? (other.value != null) : !this.value.equals(other.value)) {</span>
+<span class="nc" id="L44">            return false;</span>
+        }
+<span class="nc" id="L46">        return true;</span>
+    }
+
+    @Override
+    public int hashCode() {
+<span class="nc" id="L51">        int hash = 3;</span>
+<span class="nc bnc" id="L52" title="All 2 branches missed.">        hash = 71 * hash + (this.value != null ? this.value.hashCode() : 0);</span>
+<span class="nc" id="L53">        return hash;</span>
+    }
+
+    @Override
+    public String toString() {
+<span class="nc" id="L58">        return value;</span>
+    }
+
+    public static boolean isNotBlank(ClobElement e) {
+<span class="nc bnc" id="L62" title="All 4 branches missed.">        return e != null &amp;&amp; StringUtils.isNotBlank(e.getValue());</span>
+    }
+
+    public static String nullSafeGet(ClobElement e) {
+<span class="pc bpc" id="L66" title="1 of 2 branches missed.">        return e == null ? null : e.getValue();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

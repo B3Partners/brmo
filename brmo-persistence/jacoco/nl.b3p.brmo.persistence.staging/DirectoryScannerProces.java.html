@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DirectoryScannerProces.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO persistence</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.persistence.staging</a> &gt; <span class="el_source">DirectoryScannerProces.java</span></div><h1>DirectoryScannerProces.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2015 B3Partners B.V.
+ */
+package nl.b3p.brmo.persistence.staging;
+
+/**
+ * Levert een aantal gedeelde methoden voor directory gebaseerde processen.
+ *
+ * @author mprins
+ */
+<span class="fc" id="L11">public abstract class DirectoryScannerProces extends AutomatischProces {</span>
+
+    private static final String SCAN_DIRECTORY = &quot;scandirectory&quot;;
+
+    private static final String ARCHIEF_DIRECTORY = &quot;archiefdirectory&quot;;
+
+    /**
+     * Zoekt de geconfigureerde scan directory op.
+     *
+     * @return de naam van de directory voor deze configuratie of null
+     */
+    public String getScanDirectory() {
+<span class="fc" id="L23">        return ClobElement.nullSafeGet(this.getConfig().get(SCAN_DIRECTORY));</span>
+    }
+
+    /**
+     * Zoekt de geconfigureerde archief directory op.
+     *
+     * @return de naam van de directory voor deze configuratie of null
+     */
+    public String getArchiefDirectory() {
+<span class="fc" id="L32">        return ClobElement.nullSafeGet(this.getConfig().get(ARCHIEF_DIRECTORY));</span>
+    }
+
+    /**
+     * Stelt de te scannen directory in.
+     *
+     * @param scanDirectory te scannen directory
+     */
+    public void setScanDirectory(String scanDirectory) {
+<span class="pc bpc" id="L41" title="1 of 2 branches missed.">        if (scanDirectory == null) {</span>
+<span class="nc" id="L42">            this.getConfig().put(SCAN_DIRECTORY, null);</span>
+        } else {
+<span class="fc" id="L44">            this.getConfig().put(SCAN_DIRECTORY, new ClobElement(scanDirectory));</span>
+        }
+<span class="fc" id="L46">    }</span>
+
+    /**
+     * Stelt de te gebruiken archief directory in.
+     *
+     * @param archiefDirectory te gebruiken archief directory
+     */
+    public void setArchiefDirectory(String archiefDirectory) {
+<span class="pc bpc" id="L54" title="1 of 2 branches missed.">        if (archiefDirectory == null) {</span>
+<span class="nc" id="L55">            this.getConfig().put(ARCHIEF_DIRECTORY, null);</span>
+        } else {
+<span class="fc" id="L57">            this.getConfig().put(ARCHIEF_DIRECTORY, new ClobElement(archiefDirectory));</span>
+        }
+<span class="fc" id="L59">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

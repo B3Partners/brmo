@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>ZakelijkRecht.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO distributie</a> &gt; <a href="../index.html" class="el_bundle">brmo-soap</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.soap.eigendom</a> &gt; <span class="el_source">ZakelijkRecht.java</span></div><h1>ZakelijkRecht.java</h1><pre class="source lang-java linenums">package nl.b3p.brmo.soap.eigendom;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+
+/**
+ * &lt;p&gt;
+ * Java class for ZakelijkRecht.
+  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = &quot;&quot;, propOrder = {
+    &quot;identificatienummer&quot;,
+    &quot;noemer&quot;,
+    &quot;teller&quot;,
+    &quot;bsn&quot;,
+    &quot;aardRecht&quot;
+})
+<span class="nc" id="L20">public class ZakelijkRecht {</span>
+
+    @XmlElement(required = true)
+    protected String identificatienummer;
+    protected String noemer;
+    protected String teller;
+    @XmlElement(name = &quot;BSN&quot;)
+    protected String bsn;
+    @XmlElement(name = &quot;aard_recht&quot;)
+    protected String aardRecht;
+
+    /**
+     * Gets the value of the identificatienummer property.
+     *
+     * @return possible object is {@link String }
+     *
+     */
+    public String getIdentificatienummer() {
+<span class="nc" id="L38">        return identificatienummer;</span>
+    }
+
+    /**
+     * Sets the value of the identificatienummer property.
+     *
+     * @param value allowed object is {@link String }
+     *
+     */
+    public void setIdentificatienummer(String value) {
+<span class="nc" id="L48">        this.identificatienummer = value;</span>
+<span class="nc" id="L49">    }</span>
+
+    /**
+     * Gets the value of the noemer property.
+     *
+     * @return possible object is {@link String }
+     *
+     */
+    public String getNoemer() {
+<span class="nc" id="L58">        return noemer;</span>
+    }
+
+    /**
+     * Sets the value of the noemer property.
+     *
+     * @param value allowed object is {@link String }
+     *
+     */
+    public void setNoemer(String value) {
+<span class="nc" id="L68">        this.noemer = value;</span>
+<span class="nc" id="L69">    }</span>
+
+    /**
+     * Gets the value of the teller property.
+     *
+     * @return possible object is {@link String }
+     *
+     */
+    public String getTeller() {
+<span class="nc" id="L78">        return teller;</span>
+    }
+
+    /**
+     * Sets the value of the teller property.
+     *
+     * @param value allowed object is {@link String }
+     *
+     */
+    public void setTeller(String value) {
+<span class="nc" id="L88">        this.teller = value;</span>
+<span class="nc" id="L89">    }</span>
+
+    /**
+     * Gets the value of the bsn property.
+     *
+     * @return possible object is {@link String }
+     *
+     */
+    public String getBSN() {
+<span class="nc" id="L98">        return bsn;</span>
+    }
+
+    /**
+     * Sets the value of the bsn property.
+     *
+     * @param value allowed object is {@link String }
+     *
+     */
+    public void setBSN(String value) {
+<span class="nc" id="L108">        this.bsn = value;</span>
+<span class="nc" id="L109">    }</span>
+
+    /**
+     * Gets the value of the aardRecht property.
+     *
+     * @return possible object is {@link String }
+     *
+     */
+    public String getAardRecht() {
+<span class="nc" id="L118">        return aardRecht;</span>
+    }
+
+    /**
+     * Sets the value of the aardRecht property.
+     *
+     * @param value allowed object is {@link String }
+     *
+     */
+    public void setAardRecht(String value) {
+<span class="nc" id="L128">        this.aardRecht = value;</span>
+<span class="nc" id="L129">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

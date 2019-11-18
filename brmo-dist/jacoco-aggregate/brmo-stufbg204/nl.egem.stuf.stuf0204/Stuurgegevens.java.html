@@ -1,0 +1,1037 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>Stuurgegevens.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO distributie</a> &gt; <a href="../index.html" class="el_bundle">brmo-stufbg204</a> &gt; <a href="index.source.html" class="el_package">nl.egem.stuf.stuf0204</a> &gt; <span class="el_source">Stuurgegevens.java</span></div><h1>Stuurgegevens.java</h1><pre class="source lang-java linenums">
+package nl.egem.stuf.stuf0204;
+
+import java.math.BigInteger;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.XmlType;
+
+
+/**
+ * &lt;p&gt;Java class for anonymous complex type.
+ * 
+ * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+ * 
+ * &lt;pre&gt;
+ * &amp;lt;complexType&amp;gt;
+ *   &amp;lt;complexContent&amp;gt;
+ *     &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
+ *       &amp;lt;sequence&amp;gt;
+ *         &amp;lt;element name=&quot;berichtsoort&quot;&amp;gt;
+ *           &amp;lt;simpleType&amp;gt;
+ *             &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}string&quot;&amp;gt;
+ *               &amp;lt;minLength value=&quot;4&quot;/&amp;gt;
+ *               &amp;lt;maxLength value=&quot;4&quot;/&amp;gt;
+ *               &amp;lt;pattern value=&quot;Fo01&quot;/&amp;gt;
+ *               &amp;lt;pattern value=&quot;Lv01&quot;/&amp;gt;
+ *               &amp;lt;pattern value=&quot;Lv02&quot;/&amp;gt;
+ *               &amp;lt;pattern value=&quot;La01&quot;/&amp;gt;
+ *               &amp;lt;pattern value=&quot;La02&quot;/&amp;gt;
+ *               &amp;lt;pattern value=&quot;Lk01&quot;/&amp;gt;
+ *               &amp;lt;pattern value=&quot;Bv01&quot;/&amp;gt;
+ *             &amp;lt;/restriction&amp;gt;
+ *           &amp;lt;/simpleType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;entiteittype&quot;&amp;gt;
+ *           &amp;lt;simpleType&amp;gt;
+ *             &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}string&quot;&amp;gt;
+ *               &amp;lt;minLength value=&quot;3&quot;/&amp;gt;
+ *               &amp;lt;maxLength value=&quot;3&quot;/&amp;gt;
+ *             &amp;lt;/restriction&amp;gt;
+ *           &amp;lt;/simpleType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;sectormodel&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;versieStUF&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}Versienr&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;versieSectormodel&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}Versienr&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;zender&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}Systeem&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;ontvanger&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}Systeem&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;referentienummer&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}RefNummer&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;tijdstipBericht&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}Tijdstip&quot;/&amp;gt;
+ *         &amp;lt;choice&amp;gt;
+ *           &amp;lt;element name=&quot;kennisgeving&quot;&amp;gt;
+ *             &amp;lt;complexType&amp;gt;
+ *               &amp;lt;complexContent&amp;gt;
+ *                 &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
+ *                   &amp;lt;sequence&amp;gt;
+ *                     &amp;lt;element name=&quot;mutatiesoort&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}Mutatiesoort&quot;/&amp;gt;
+ *                     &amp;lt;element name=&quot;indicatorOvername&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}IndicatorOvername&quot;/&amp;gt;
+ *                     &amp;lt;element name=&quot;tijdstipMutatie&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}Tijdstip&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;/sequence&amp;gt;
+ *                 &amp;lt;/restriction&amp;gt;
+ *               &amp;lt;/complexContent&amp;gt;
+ *             &amp;lt;/complexType&amp;gt;
+ *           &amp;lt;/element&amp;gt;
+ *           &amp;lt;element name=&quot;vraag&quot;&amp;gt;
+ *             &amp;lt;complexType&amp;gt;
+ *               &amp;lt;complexContent&amp;gt;
+ *                 &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
+ *                   &amp;lt;sequence&amp;gt;
+ *                     &amp;lt;element name=&quot;sortering&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}Sortering&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                     &amp;lt;element name=&quot;maximumAantal&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}MaximumAantal&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                     &amp;lt;element name=&quot;indicatorHistorisch&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                     &amp;lt;element name=&quot;indicatorVervolgvraag&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                     &amp;lt;element name=&quot;indicatorAfnemerIndicatie&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;/sequence&amp;gt;
+ *                 &amp;lt;/restriction&amp;gt;
+ *               &amp;lt;/complexContent&amp;gt;
+ *             &amp;lt;/complexType&amp;gt;
+ *           &amp;lt;/element&amp;gt;
+ *           &amp;lt;element name=&quot;antwoord&quot;&amp;gt;
+ *             &amp;lt;complexType&amp;gt;
+ *               &amp;lt;complexContent&amp;gt;
+ *                 &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
+ *                   &amp;lt;sequence&amp;gt;
+ *                     &amp;lt;element name=&quot;indicatorVervolgvraag&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                     &amp;lt;element name=&quot;indicatorAfnemerIndicatie&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                     &amp;lt;element name=&quot;crossRefNummer&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}RefNummer&quot;/&amp;gt;
+ *                     &amp;lt;element name=&quot;foutmelding&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;/sequence&amp;gt;
+ *                 &amp;lt;/restriction&amp;gt;
+ *               &amp;lt;/complexContent&amp;gt;
+ *             &amp;lt;/complexType&amp;gt;
+ *           &amp;lt;/element&amp;gt;
+ *           &amp;lt;element name=&quot;bevestiging&quot;&amp;gt;
+ *             &amp;lt;complexType&amp;gt;
+ *               &amp;lt;complexContent&amp;gt;
+ *                 &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
+ *                   &amp;lt;sequence&amp;gt;
+ *                     &amp;lt;element name=&quot;crossRefNummer&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}RefNummer&quot;/&amp;gt;
+ *                   &amp;lt;/sequence&amp;gt;
+ *                 &amp;lt;/restriction&amp;gt;
+ *               &amp;lt;/complexContent&amp;gt;
+ *             &amp;lt;/complexType&amp;gt;
+ *           &amp;lt;/element&amp;gt;
+ *           &amp;lt;element name=&quot;fout&quot;&amp;gt;
+ *             &amp;lt;complexType&amp;gt;
+ *               &amp;lt;complexContent&amp;gt;
+ *                 &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
+ *                   &amp;lt;sequence&amp;gt;
+ *                     &amp;lt;element name=&quot;crossRefNummer&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}RefNummer&quot;/&amp;gt;
+ *                   &amp;lt;/sequence&amp;gt;
+ *                 &amp;lt;/restriction&amp;gt;
+ *               &amp;lt;/complexContent&amp;gt;
+ *             &amp;lt;/complexType&amp;gt;
+ *           &amp;lt;/element&amp;gt;
+ *         &amp;lt;/choice&amp;gt;
+ *       &amp;lt;/sequence&amp;gt;
+ *     &amp;lt;/restriction&amp;gt;
+ *   &amp;lt;/complexContent&amp;gt;
+ * &amp;lt;/complexType&amp;gt;
+ * &lt;/pre&gt;
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = &quot;&quot;, propOrder = {
+    &quot;berichtsoort&quot;,
+    &quot;entiteittype&quot;,
+    &quot;sectormodel&quot;,
+    &quot;versieStUF&quot;,
+    &quot;versieSectormodel&quot;,
+    &quot;zender&quot;,
+    &quot;ontvanger&quot;,
+    &quot;referentienummer&quot;,
+    &quot;tijdstipBericht&quot;,
+    &quot;kennisgeving&quot;,
+    &quot;vraag&quot;,
+    &quot;antwoord&quot;,
+    &quot;bevestiging&quot;,
+    &quot;fout&quot;
+})
+@XmlRootElement(name = &quot;stuurgegevens&quot;)
+<span class="nc" id="L145">public class Stuurgegevens {</span>
+
+    @XmlElement(required = true)
+    protected String berichtsoort;
+    @XmlElement(required = true)
+    protected String entiteittype;
+    @XmlElement(required = true)
+    protected String sectormodel;
+    @XmlElement(required = true)
+    protected String versieStUF;
+    @XmlElement(required = true)
+    protected String versieSectormodel;
+    @XmlElement(required = true)
+    protected Systeem zender;
+    @XmlElement(required = true)
+    protected Systeem ontvanger;
+    @XmlElement(required = true)
+    protected String referentienummer;
+    @XmlElement(required = true)
+    protected String tijdstipBericht;
+    protected Stuurgegevens.Kennisgeving kennisgeving;
+    protected Stuurgegevens.Vraag vraag;
+    protected Stuurgegevens.Antwoord antwoord;
+    protected Stuurgegevens.Bevestiging bevestiging;
+    protected Stuurgegevens.Fout fout;
+
+    /**
+     * Gets the value of the berichtsoort property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getBerichtsoort() {
+<span class="nc" id="L180">        return berichtsoort;</span>
+    }
+
+    /**
+     * Sets the value of the berichtsoort property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setBerichtsoort(String value) {
+<span class="nc" id="L192">        this.berichtsoort = value;</span>
+<span class="nc" id="L193">    }</span>
+
+    /**
+     * Gets the value of the entiteittype property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getEntiteittype() {
+<span class="nc" id="L204">        return entiteittype;</span>
+    }
+
+    /**
+     * Sets the value of the entiteittype property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setEntiteittype(String value) {
+<span class="nc" id="L216">        this.entiteittype = value;</span>
+<span class="nc" id="L217">    }</span>
+
+    /**
+     * Gets the value of the sectormodel property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getSectormodel() {
+<span class="nc" id="L228">        return sectormodel;</span>
+    }
+
+    /**
+     * Sets the value of the sectormodel property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setSectormodel(String value) {
+<span class="nc" id="L240">        this.sectormodel = value;</span>
+<span class="nc" id="L241">    }</span>
+
+    /**
+     * Gets the value of the versieStUF property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getVersieStUF() {
+<span class="nc" id="L252">        return versieStUF;</span>
+    }
+
+    /**
+     * Sets the value of the versieStUF property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setVersieStUF(String value) {
+<span class="nc" id="L264">        this.versieStUF = value;</span>
+<span class="nc" id="L265">    }</span>
+
+    /**
+     * Gets the value of the versieSectormodel property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getVersieSectormodel() {
+<span class="nc" id="L276">        return versieSectormodel;</span>
+    }
+
+    /**
+     * Sets the value of the versieSectormodel property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setVersieSectormodel(String value) {
+<span class="nc" id="L288">        this.versieSectormodel = value;</span>
+<span class="nc" id="L289">    }</span>
+
+    /**
+     * Gets the value of the zender property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Systeem }
+     *     
+     */
+    public Systeem getZender() {
+<span class="nc" id="L300">        return zender;</span>
+    }
+
+    /**
+     * Sets the value of the zender property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Systeem }
+     *     
+     */
+    public void setZender(Systeem value) {
+<span class="nc" id="L312">        this.zender = value;</span>
+<span class="nc" id="L313">    }</span>
+
+    /**
+     * Gets the value of the ontvanger property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Systeem }
+     *     
+     */
+    public Systeem getOntvanger() {
+<span class="nc" id="L324">        return ontvanger;</span>
+    }
+
+    /**
+     * Sets the value of the ontvanger property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Systeem }
+     *     
+     */
+    public void setOntvanger(Systeem value) {
+<span class="nc" id="L336">        this.ontvanger = value;</span>
+<span class="nc" id="L337">    }</span>
+
+    /**
+     * Gets the value of the referentienummer property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getReferentienummer() {
+<span class="nc" id="L348">        return referentienummer;</span>
+    }
+
+    /**
+     * Sets the value of the referentienummer property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setReferentienummer(String value) {
+<span class="nc" id="L360">        this.referentienummer = value;</span>
+<span class="nc" id="L361">    }</span>
+
+    /**
+     * Gets the value of the tijdstipBericht property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getTijdstipBericht() {
+<span class="nc" id="L372">        return tijdstipBericht;</span>
+    }
+
+    /**
+     * Sets the value of the tijdstipBericht property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setTijdstipBericht(String value) {
+<span class="nc" id="L384">        this.tijdstipBericht = value;</span>
+<span class="nc" id="L385">    }</span>
+
+    /**
+     * Gets the value of the kennisgeving property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Stuurgegevens.Kennisgeving }
+     *     
+     */
+    public Stuurgegevens.Kennisgeving getKennisgeving() {
+<span class="nc" id="L396">        return kennisgeving;</span>
+    }
+
+    /**
+     * Sets the value of the kennisgeving property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Stuurgegevens.Kennisgeving }
+     *     
+     */
+    public void setKennisgeving(Stuurgegevens.Kennisgeving value) {
+<span class="nc" id="L408">        this.kennisgeving = value;</span>
+<span class="nc" id="L409">    }</span>
+
+    /**
+     * Gets the value of the vraag property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Stuurgegevens.Vraag }
+     *     
+     */
+    public Stuurgegevens.Vraag getVraag() {
+<span class="nc" id="L420">        return vraag;</span>
+    }
+
+    /**
+     * Sets the value of the vraag property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Stuurgegevens.Vraag }
+     *     
+     */
+    public void setVraag(Stuurgegevens.Vraag value) {
+<span class="nc" id="L432">        this.vraag = value;</span>
+<span class="nc" id="L433">    }</span>
+
+    /**
+     * Gets the value of the antwoord property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Stuurgegevens.Antwoord }
+     *     
+     */
+    public Stuurgegevens.Antwoord getAntwoord() {
+<span class="nc" id="L444">        return antwoord;</span>
+    }
+
+    /**
+     * Sets the value of the antwoord property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Stuurgegevens.Antwoord }
+     *     
+     */
+    public void setAntwoord(Stuurgegevens.Antwoord value) {
+<span class="nc" id="L456">        this.antwoord = value;</span>
+<span class="nc" id="L457">    }</span>
+
+    /**
+     * Gets the value of the bevestiging property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Stuurgegevens.Bevestiging }
+     *     
+     */
+    public Stuurgegevens.Bevestiging getBevestiging() {
+<span class="nc" id="L468">        return bevestiging;</span>
+    }
+
+    /**
+     * Sets the value of the bevestiging property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Stuurgegevens.Bevestiging }
+     *     
+     */
+    public void setBevestiging(Stuurgegevens.Bevestiging value) {
+<span class="nc" id="L480">        this.bevestiging = value;</span>
+<span class="nc" id="L481">    }</span>
+
+    /**
+     * Gets the value of the fout property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Stuurgegevens.Fout }
+     *     
+     */
+    public Stuurgegevens.Fout getFout() {
+<span class="nc" id="L492">        return fout;</span>
+    }
+
+    /**
+     * Sets the value of the fout property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Stuurgegevens.Fout }
+     *     
+     */
+    public void setFout(Stuurgegevens.Fout value) {
+<span class="nc" id="L504">        this.fout = value;</span>
+<span class="nc" id="L505">    }</span>
+
+
+    /**
+     * &lt;p&gt;Java class for anonymous complex type.
+     * 
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * 
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;complexContent&amp;gt;
+     *     &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
+     *       &amp;lt;sequence&amp;gt;
+     *         &amp;lt;element name=&quot;indicatorVervolgvraag&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;indicatorAfnemerIndicatie&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;crossRefNummer&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}RefNummer&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;foutmelding&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *       &amp;lt;/sequence&amp;gt;
+     *     &amp;lt;/restriction&amp;gt;
+     *   &amp;lt;/complexContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = &quot;&quot;, propOrder = {
+        &quot;indicatorVervolgvraag&quot;,
+        &quot;indicatorAfnemerIndicatie&quot;,
+        &quot;crossRefNummer&quot;,
+        &quot;foutmelding&quot;
+    })
+<span class="nc" id="L537">    public static class Antwoord {</span>
+
+        @XmlElement(defaultValue = &quot;false&quot;)
+        protected Boolean indicatorVervolgvraag;
+        @XmlElement(defaultValue = &quot;false&quot;)
+        protected Boolean indicatorAfnemerIndicatie;
+        @XmlElement(required = true)
+        protected String crossRefNummer;
+        protected String foutmelding;
+
+        /**
+         * Gets the value of the indicatorVervolgvraag property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link Boolean }
+         *     
+         */
+        public Boolean isIndicatorVervolgvraag() {
+<span class="nc" id="L556">            return indicatorVervolgvraag;</span>
+        }
+
+        /**
+         * Sets the value of the indicatorVervolgvraag property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link Boolean }
+         *     
+         */
+        public void setIndicatorVervolgvraag(Boolean value) {
+<span class="nc" id="L568">            this.indicatorVervolgvraag = value;</span>
+<span class="nc" id="L569">        }</span>
+
+        /**
+         * Gets the value of the indicatorAfnemerIndicatie property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link Boolean }
+         *     
+         */
+        public Boolean isIndicatorAfnemerIndicatie() {
+<span class="nc" id="L580">            return indicatorAfnemerIndicatie;</span>
+        }
+
+        /**
+         * Sets the value of the indicatorAfnemerIndicatie property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link Boolean }
+         *     
+         */
+        public void setIndicatorAfnemerIndicatie(Boolean value) {
+<span class="nc" id="L592">            this.indicatorAfnemerIndicatie = value;</span>
+<span class="nc" id="L593">        }</span>
+
+        /**
+         * Gets the value of the crossRefNummer property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
+         */
+        public String getCrossRefNummer() {
+<span class="nc" id="L604">            return crossRefNummer;</span>
+        }
+
+        /**
+         * Sets the value of the crossRefNummer property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
+         */
+        public void setCrossRefNummer(String value) {
+<span class="nc" id="L616">            this.crossRefNummer = value;</span>
+<span class="nc" id="L617">        }</span>
+
+        /**
+         * Gets the value of the foutmelding property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
+         */
+        public String getFoutmelding() {
+<span class="nc" id="L628">            return foutmelding;</span>
+        }
+
+        /**
+         * Sets the value of the foutmelding property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
+         */
+        public void setFoutmelding(String value) {
+<span class="nc" id="L640">            this.foutmelding = value;</span>
+<span class="nc" id="L641">        }</span>
+
+    }
+
+
+    /**
+     * &lt;p&gt;Java class for anonymous complex type.
+     * 
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * 
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;complexContent&amp;gt;
+     *     &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
+     *       &amp;lt;sequence&amp;gt;
+     *         &amp;lt;element name=&quot;crossRefNummer&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}RefNummer&quot;/&amp;gt;
+     *       &amp;lt;/sequence&amp;gt;
+     *     &amp;lt;/restriction&amp;gt;
+     *   &amp;lt;/complexContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = &quot;&quot;, propOrder = {
+        &quot;crossRefNummer&quot;
+    })
+<span class="nc" id="L669">    public static class Bevestiging {</span>
+
+        @XmlElement(required = true)
+        protected String crossRefNummer;
+
+        /**
+         * Gets the value of the crossRefNummer property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
+         */
+        public String getCrossRefNummer() {
+<span class="nc" id="L683">            return crossRefNummer;</span>
+        }
+
+        /**
+         * Sets the value of the crossRefNummer property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
+         */
+        public void setCrossRefNummer(String value) {
+<span class="nc" id="L695">            this.crossRefNummer = value;</span>
+<span class="nc" id="L696">        }</span>
+
+    }
+
+
+    /**
+     * &lt;p&gt;Java class for anonymous complex type.
+     * 
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * 
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;complexContent&amp;gt;
+     *     &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
+     *       &amp;lt;sequence&amp;gt;
+     *         &amp;lt;element name=&quot;crossRefNummer&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}RefNummer&quot;/&amp;gt;
+     *       &amp;lt;/sequence&amp;gt;
+     *     &amp;lt;/restriction&amp;gt;
+     *   &amp;lt;/complexContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = &quot;&quot;, propOrder = {
+        &quot;crossRefNummer&quot;
+    })
+<span class="nc" id="L724">    public static class Fout {</span>
+
+        @XmlElement(required = true)
+        protected String crossRefNummer;
+
+        /**
+         * Gets the value of the crossRefNummer property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
+         */
+        public String getCrossRefNummer() {
+<span class="nc" id="L738">            return crossRefNummer;</span>
+        }
+
+        /**
+         * Sets the value of the crossRefNummer property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
+         */
+        public void setCrossRefNummer(String value) {
+<span class="nc" id="L750">            this.crossRefNummer = value;</span>
+<span class="nc" id="L751">        }</span>
+
+    }
+
+
+    /**
+     * &lt;p&gt;Java class for anonymous complex type.
+     * 
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * 
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;complexContent&amp;gt;
+     *     &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
+     *       &amp;lt;sequence&amp;gt;
+     *         &amp;lt;element name=&quot;mutatiesoort&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}Mutatiesoort&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;indicatorOvername&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}IndicatorOvername&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;tijdstipMutatie&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}Tijdstip&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *       &amp;lt;/sequence&amp;gt;
+     *     &amp;lt;/restriction&amp;gt;
+     *   &amp;lt;/complexContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = &quot;&quot;, propOrder = {
+        &quot;mutatiesoort&quot;,
+        &quot;indicatorOvername&quot;,
+        &quot;tijdstipMutatie&quot;
+    })
+<span class="nc" id="L783">    public static class Kennisgeving {</span>
+
+        @XmlElement(required = true)
+        @XmlSchemaType(name = &quot;string&quot;)
+        protected Mutatiesoort mutatiesoort;
+        @XmlElement(required = true, defaultValue = &quot;I&quot;)
+        @XmlSchemaType(name = &quot;string&quot;)
+        protected IndicatorOvername indicatorOvername;
+        protected String tijdstipMutatie;
+
+        /**
+         * Gets the value of the mutatiesoort property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link Mutatiesoort }
+         *     
+         */
+        public Mutatiesoort getMutatiesoort() {
+<span class="nc" id="L802">            return mutatiesoort;</span>
+        }
+
+        /**
+         * Sets the value of the mutatiesoort property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link Mutatiesoort }
+         *     
+         */
+        public void setMutatiesoort(Mutatiesoort value) {
+<span class="nc" id="L814">            this.mutatiesoort = value;</span>
+<span class="nc" id="L815">        }</span>
+
+        /**
+         * Gets the value of the indicatorOvername property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link IndicatorOvername }
+         *     
+         */
+        public IndicatorOvername getIndicatorOvername() {
+<span class="nc" id="L826">            return indicatorOvername;</span>
+        }
+
+        /**
+         * Sets the value of the indicatorOvername property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link IndicatorOvername }
+         *     
+         */
+        public void setIndicatorOvername(IndicatorOvername value) {
+<span class="nc" id="L838">            this.indicatorOvername = value;</span>
+<span class="nc" id="L839">        }</span>
+
+        /**
+         * Gets the value of the tijdstipMutatie property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
+         */
+        public String getTijdstipMutatie() {
+<span class="nc" id="L850">            return tijdstipMutatie;</span>
+        }
+
+        /**
+         * Sets the value of the tijdstipMutatie property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
+         */
+        public void setTijdstipMutatie(String value) {
+<span class="nc" id="L862">            this.tijdstipMutatie = value;</span>
+<span class="nc" id="L863">        }</span>
+
+    }
+
+
+    /**
+     * &lt;p&gt;Java class for anonymous complex type.
+     * 
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * 
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;complexContent&amp;gt;
+     *     &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
+     *       &amp;lt;sequence&amp;gt;
+     *         &amp;lt;element name=&quot;sortering&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}Sortering&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;maximumAantal&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}MaximumAantal&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;indicatorHistorisch&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;indicatorVervolgvraag&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;indicatorAfnemerIndicatie&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *       &amp;lt;/sequence&amp;gt;
+     *     &amp;lt;/restriction&amp;gt;
+     *   &amp;lt;/complexContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = &quot;&quot;, propOrder = {
+        &quot;sortering&quot;,
+        &quot;maximumAantal&quot;,
+        &quot;indicatorHistorisch&quot;,
+        &quot;indicatorVervolgvraag&quot;,
+        &quot;indicatorAfnemerIndicatie&quot;
+    })
+<span class="nc" id="L899">    public static class Vraag {</span>
+
+        @XmlElement(defaultValue = &quot;0&quot;)
+        @XmlSchemaType(name = &quot;nonNegativeInteger&quot;)
+        protected BigInteger sortering;
+        @XmlElement(defaultValue = &quot;15&quot;)
+        @XmlSchemaType(name = &quot;nonNegativeInteger&quot;)
+        protected BigInteger maximumAantal;
+        @XmlElement(defaultValue = &quot;false&quot;)
+        protected Boolean indicatorHistorisch;
+        @XmlElement(defaultValue = &quot;false&quot;)
+        protected Boolean indicatorVervolgvraag;
+        @XmlElement(defaultValue = &quot;false&quot;)
+        protected Boolean indicatorAfnemerIndicatie;
+
+        /**
+         * Gets the value of the sortering property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link BigInteger }
+         *     
+         */
+        public BigInteger getSortering() {
+<span class="nc" id="L923">            return sortering;</span>
+        }
+
+        /**
+         * Sets the value of the sortering property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link BigInteger }
+         *     
+         */
+        public void setSortering(BigInteger value) {
+<span class="nc" id="L935">            this.sortering = value;</span>
+<span class="nc" id="L936">        }</span>
+
+        /**
+         * Gets the value of the maximumAantal property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link BigInteger }
+         *     
+         */
+        public BigInteger getMaximumAantal() {
+<span class="nc" id="L947">            return maximumAantal;</span>
+        }
+
+        /**
+         * Sets the value of the maximumAantal property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link BigInteger }
+         *     
+         */
+        public void setMaximumAantal(BigInteger value) {
+<span class="nc" id="L959">            this.maximumAantal = value;</span>
+<span class="nc" id="L960">        }</span>
+
+        /**
+         * Gets the value of the indicatorHistorisch property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link Boolean }
+         *     
+         */
+        public Boolean isIndicatorHistorisch() {
+<span class="nc" id="L971">            return indicatorHistorisch;</span>
+        }
+
+        /**
+         * Sets the value of the indicatorHistorisch property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link Boolean }
+         *     
+         */
+        public void setIndicatorHistorisch(Boolean value) {
+<span class="nc" id="L983">            this.indicatorHistorisch = value;</span>
+<span class="nc" id="L984">        }</span>
+
+        /**
+         * Gets the value of the indicatorVervolgvraag property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link Boolean }
+         *     
+         */
+        public Boolean isIndicatorVervolgvraag() {
+<span class="nc" id="L995">            return indicatorVervolgvraag;</span>
+        }
+
+        /**
+         * Sets the value of the indicatorVervolgvraag property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link Boolean }
+         *     
+         */
+        public void setIndicatorVervolgvraag(Boolean value) {
+<span class="nc" id="L1007">            this.indicatorVervolgvraag = value;</span>
+<span class="nc" id="L1008">        }</span>
+
+        /**
+         * Gets the value of the indicatorAfnemerIndicatie property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link Boolean }
+         *     
+         */
+        public Boolean isIndicatorAfnemerIndicatie() {
+<span class="nc" id="L1019">            return indicatorAfnemerIndicatie;</span>
+        }
+
+        /**
+         * Sets the value of the indicatorAfnemerIndicatie property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link Boolean }
+         *     
+         */
+        public void setIndicatorAfnemerIndicatie(Boolean value) {
+<span class="nc" id="L1031">            this.indicatorAfnemerIndicatie = value;</span>
+<span class="nc" id="L1032">        }</span>
+
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

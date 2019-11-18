@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>NatuurlijkPersoonResponse.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO distributie</a> &gt; <a href="../index.html" class="el_bundle">brmo-soap</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.soap.brk</a> &gt; <span class="el_source">NatuurlijkPersoonResponse.java</span></div><h1>NatuurlijkPersoonResponse.java</h1><pre class="source lang-java linenums">package nl.b3p.brmo.soap.brk;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.Map;
+import javax.sql.DataSource;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+import nl.b3p.brmo.service.util.ConfigUtil;
+import nl.b3p.brmo.soap.db.BrkInfo;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+/**
+ *
+ * @author Chris
+ */
+@XmlType
+<span class="nc" id="L20">public class NatuurlijkPersoonResponse {</span>
+
+<span class="nc" id="L22">    private static final Log LOG = LogFactory.getLog(NatuurlijkPersoonResponse.class);</span>
+
+    private String identificatie;
+    private Integer geboortedatum;
+    private Integer overlijdensdatum;
+    private String bsn;
+    private String geboorteplaats;
+    private String locatieBeschrijving;
+    private String aanduidingNaamgebruik;
+    private String geslachtsaanduiding;
+    private String geslachtsnaam;
+    private String voornamen;
+    private String voorvoegsel;
+
+    /**
+     * @return the identificatie
+     */
+    @XmlElement
+    public String getIdentificatie() {
+<span class="nc" id="L41">        return identificatie;</span>
+    }
+
+    /**
+     * @param identificatie the identificatie to set
+     */
+    public void setIdentificatie(String identificatie) {
+<span class="nc" id="L48">        this.identificatie = identificatie;</span>
+<span class="nc" id="L49">    }</span>
+
+    /**
+     * @return the geboortedatum
+     */
+    public Integer getGeboortedatum() {
+<span class="nc" id="L55">        return geboortedatum;</span>
+    }
+
+    /**
+     * @param geboortedatum the geboortedatum to set
+     */
+    public void setGeboortedatum(Integer geboortedatum) {
+<span class="nc" id="L62">        this.geboortedatum = geboortedatum;</span>
+<span class="nc" id="L63">    }</span>
+
+    /**
+     * @return the overlijdensdatum
+     */
+    public Integer getOverlijdensdatum() {
+<span class="nc" id="L69">        return overlijdensdatum;</span>
+    }
+
+    /**
+     * @param overlijdensdatum the overlijdensdatum to set
+     */
+    public void setOverlijdensdatum(Integer overlijdensdatum) {
+<span class="nc" id="L76">        this.overlijdensdatum = overlijdensdatum;</span>
+<span class="nc" id="L77">    }</span>
+
+    /**
+     * @return the bsn
+     */
+    public String getBsn() {
+<span class="nc" id="L83">        return bsn;</span>
+    }
+
+    /**
+     * @param bsn the bsn to set
+     */
+    public void setBsn(String bsn) {
+<span class="nc" id="L90">        this.bsn = bsn;</span>
+<span class="nc" id="L91">    }</span>
+
+    /**
+     * @return the geboorteplaats
+     */
+    public String getGeboorteplaats() {
+<span class="nc" id="L97">        return geboorteplaats;</span>
+    }
+
+    /**
+     * @param geboorteplaats the geboorteplaats to set
+     */
+    public void setGeboorteplaats(String geboorteplaats) {
+<span class="nc" id="L104">        this.geboorteplaats = geboorteplaats;</span>
+<span class="nc" id="L105">    }</span>
+
+    /**
+     * @return the locatieBeschrijving
+     */
+    public String getLocatieBeschrijving() {
+<span class="nc" id="L111">        return locatieBeschrijving;</span>
+    }
+
+    /**
+     * @param locatieBeschrijving the locatieBeschrijving to set
+     */
+    public void setLocatieBeschrijving(String locatieBeschrijving) {
+<span class="nc" id="L118">        this.locatieBeschrijving = locatieBeschrijving;</span>
+<span class="nc" id="L119">    }</span>
+
+    /**
+     * @return the aanduidingNaamgebruik
+     */
+    public String getAanduidingNaamgebruik() {
+<span class="nc" id="L125">        return aanduidingNaamgebruik;</span>
+    }
+
+    /**
+     * @param aanduidingNaamgebruik the aanduidingNaamgebruik to set
+     */
+    public void setAanduidingNaamgebruik(String aanduidingNaamgebruik) {
+<span class="nc" id="L132">        this.aanduidingNaamgebruik = aanduidingNaamgebruik;</span>
+<span class="nc" id="L133">    }</span>
+
+    /**
+     * @return the geslachtsaanduiding
+     */
+    public String getGeslachtsaanduiding() {
+<span class="nc" id="L139">        return geslachtsaanduiding;</span>
+    }
+
+    /**
+     * @param geslachtsaanduiding the geslachtsaanduiding to set
+     */
+    public void setGeslachtsaanduiding(String geslachtsaanduiding) {
+<span class="nc" id="L146">        this.geslachtsaanduiding = geslachtsaanduiding;</span>
+<span class="nc" id="L147">    }</span>
+
+    /**
+     * @return the geslachtsnaam
+     */
+    public String getGeslachtsnaam() {
+<span class="nc" id="L153">        return geslachtsnaam;</span>
+    }
+
+    /**
+     * @param geslachtsnaam the geslachtsnaam to set
+     */
+    public void setGeslachtsnaam(String geslachtsnaam) {
+<span class="nc" id="L160">        this.geslachtsnaam = geslachtsnaam;</span>
+<span class="nc" id="L161">    }</span>
+
+    /**
+     * @return the voornamen
+     */
+    public String getVoornamen() {
+<span class="nc" id="L167">        return voornamen;</span>
+    }
+
+    /**
+     * @param voornamen the voornamen to set
+     */
+    public void setVoornamen(String voornamen) {
+<span class="nc" id="L174">        this.voornamen = voornamen;</span>
+<span class="nc" id="L175">    }</span>
+
+    /**
+     * @return the voorvoegsel
+     */
+    public String getVoorvoegsel() {
+<span class="nc" id="L181">        return voorvoegsel;</span>
+    }
+
+    /**
+     * @param voorvoegsel the voorvoegsel to set
+     */
+    public void setVoorvoegsel(String voorvoegsel) {
+<span class="nc" id="L188">        this.voorvoegsel = voorvoegsel;</span>
+<span class="nc" id="L189">    }</span>
+
+    private static StringBuilder createFullColumnsSQL() {
+<span class="nc" id="L192">        StringBuilder sql = new StringBuilder();</span>
+<span class="nc" id="L193">        sql.append(&quot;    nat_prs.geslachtsaand,&quot;);</span>
+<span class="nc" id="L194">        sql.append(&quot;    nat_prs.nm_geslachtsnaam,&quot;);</span>
+<span class="nc" id="L195">        sql.append(&quot;    nat_prs.nm_voornamen,&quot;);</span>
+<span class="nc" id="L196">        sql.append(&quot;    nat_prs.nm_voorvoegsel_geslachtsnaam,&quot;);</span>
+<span class="nc" id="L197">        sql.append(&quot;    ander_nat_prs.geboortedatum,&quot;);</span>
+<span class="nc" id="L198">        sql.append(&quot;    ander_nat_prs.overlijdensdatum,&quot;);</span>
+<span class="nc" id="L199">        sql.append(&quot;    ingeschr_nat_prs.gb_geboortedatum,&quot;);</span>
+<span class="nc" id="L200">        sql.append(&quot;    ingeschr_nat_prs.bsn,&quot;);</span>
+<span class="nc" id="L201">        sql.append(&quot;    ingeschr_nat_prs.gb_geboorteplaats,&quot;);</span>
+<span class="nc" id="L202">        sql.append(&quot;    ingeschr_nat_prs.va_loc_beschrijving &quot;);</span>
+<span class="nc" id="L203">        return sql;</span>
+    }
+
+    private static StringBuilder createFromSQL() {
+<span class="nc" id="L207">        StringBuilder sql = new StringBuilder();</span>
+<span class="nc" id="L208">        sql.append(&quot;    nat_prs &quot;);</span>
+<span class="nc" id="L209">        sql.append(&quot;LEFT OUTER JOIN &quot;);</span>
+<span class="nc" id="L210">        sql.append(&quot;    ander_nat_prs &quot;);</span>
+<span class="nc" id="L211">        sql.append(&quot;ON &quot;);</span>
+<span class="nc" id="L212">        sql.append(&quot;    ( &quot;);</span>
+<span class="nc" id="L213">        sql.append(&quot;        nat_prs.sc_identif = ander_nat_prs.sc_identif) &quot;);</span>
+<span class="nc" id="L214">        sql.append(&quot;LEFT OUTER JOIN &quot;);</span>
+<span class="nc" id="L215">        sql.append(&quot;    ingeschr_nat_prs &quot;);</span>
+<span class="nc" id="L216">        sql.append(&quot;ON &quot;);</span>
+<span class="nc" id="L217">        sql.append(&quot;    ( &quot;);</span>
+<span class="nc" id="L218">        sql.append(&quot;        nat_prs.sc_identif = ingeschr_nat_prs.sc_identif) &quot;);</span>
+<span class="nc" id="L219">        return sql;</span>
+    }
+
+    private static StringBuilder createWhereSQL() {
+<span class="nc" id="L223">        StringBuilder sql = new StringBuilder();</span>
+<span class="nc" id="L224">        sql.append(&quot;    nat_prs.sc_identif = ? &quot;);</span>
+<span class="nc" id="L225">        return sql;</span>
+    }
+
+    public static NatuurlijkPersoonResponse getRecordById(String id,
+            Map&lt;String, Object&gt; searchContext) throws Exception {
+
+<span class="nc" id="L231">        DataSource ds = ConfigUtil.getDataSourceRsgb();</span>
+<span class="nc" id="L232">        PreparedStatement stm = null;</span>
+<span class="nc" id="L233">        Connection connRsgb = null;</span>
+<span class="nc" id="L234">        ResultSet rs = null;</span>
+        try {
+<span class="nc" id="L236">            connRsgb = ds.getConnection();</span>
+
+<span class="nc" id="L238">            StringBuilder sql = new StringBuilder();</span>
+<span class="nc" id="L239">            sql.append(&quot;SELECT &quot;);</span>
+<span class="nc" id="L240">            sql.append(createFullColumnsSQL());</span>
+<span class="nc" id="L241">            sql.append(&quot;FROM &quot;);</span>
+<span class="nc" id="L242">            sql.append(createFromSQL());</span>
+<span class="nc" id="L243">            sql.append(&quot;WHERE &quot;);</span>
+<span class="nc" id="L244">            sql.append(createWhereSQL());</span>
+<span class="nc" id="L245">            LOG.trace(sql);</span>
+<span class="nc" id="L246">            LOG.trace(id);</span>
+<span class="nc" id="L247">            stm = connRsgb.prepareStatement(sql.toString());</span>
+<span class="nc" id="L248">            stm.setString(1, id);</span>
+<span class="nc" id="L249">            rs = stm.executeQuery();</span>
+
+<span class="nc" id="L251">            NatuurlijkPersoonResponse np = new NatuurlijkPersoonResponse();</span>
+<span class="nc bnc" id="L252" title="All 2 branches missed.">            if (rs.next()) {</span>
+
+<span class="nc" id="L254">                Boolean gi = (Boolean) searchContext.get(BrkInfo.GEVOELIGEINFOOPHALEN);</span>
+<span class="nc bnc" id="L255" title="All 4 branches missed.">                if (gi != null &amp;&amp; gi) {</span>
+<span class="nc" id="L256">                    np.setBsn(rs.getString(&quot;bsn&quot;));</span>
+                }
+<span class="nc" id="L258">                np.setGeboortedatum(rs.getInt(&quot;gb_geboortedatum&quot;));</span>
+<span class="nc" id="L259">                np.setGeboorteplaats(rs.getString(&quot;gb_geboorteplaats&quot;));</span>
+<span class="nc" id="L260">                np.setGeslachtsaanduiding(rs.getString(&quot;geslachtsaand&quot;));</span>
+<span class="nc" id="L261">                np.setGeslachtsnaam(rs.getString(&quot;nm_geslachtsnaam&quot;));</span>
+<span class="nc" id="L262">                np.setLocatieBeschrijving(rs.getString(&quot;va_loc_beschrijving&quot;));</span>
+<span class="nc" id="L263">                np.setOverlijdensdatum(rs.getInt(&quot;overlijdensdatum&quot;));</span>
+<span class="nc" id="L264">                np.setVoornamen(rs.getString(&quot;nm_voornamen&quot;));</span>
+<span class="nc" id="L265">                np.setVoorvoegsel(rs.getString(&quot;nm_voorvoegsel_geslachtsnaam&quot;));</span>
+<span class="nc" id="L266">            } else {</span>
+<span class="nc" id="L267">                return null;</span>
+            }
+
+<span class="nc" id="L270">            return np;</span>
+        } finally {
+<span class="nc bnc" id="L272" title="All 2 branches missed.">            if (rs != null) {</span>
+<span class="nc" id="L273">                rs.close();</span>
+            }
+<span class="nc bnc" id="L275" title="All 2 branches missed.">            if (stm != null) {</span>
+<span class="nc" id="L276">                stm.close();</span>
+            }
+<span class="nc bnc" id="L278" title="All 2 branches missed.">            if (connRsgb != null) {</span>
+<span class="nc" id="L279">                connRsgb.close();</span>
+            }
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

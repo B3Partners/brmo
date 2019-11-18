@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.GBAVXMLToStagingIntegrationTest
-	c633 [label=<<table title="nl.b3p.GBAVXMLToStagingIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./GBAVXMLToStagingIntegrationTest.html">
+	c878 [label=<<table title="nl.b3p.GBAVXMLToStagingIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./GBAVXMLToStagingIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> GBAVXMLToStagingIntegrationTest </td></tr>
 		</table></td></tr>
@@ -26,7 +26,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./GBAVXMLToStagingIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.AbstractDatabaseIntegrationTest
-	c645 [label=<<table title="nl.b3p.AbstractDatabaseIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AbstractDatabaseIntegrationTest.html">
+	c891 [label=<<table title="nl.b3p.AbstractDatabaseIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AbstractDatabaseIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> AbstractDatabaseIntegrationTest </font></td></tr>
 		</table></td></tr>
@@ -47,11 +47,11 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./AbstractDatabaseIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.GBAVXMLToStagingIntegrationTest extends nl.b3p.AbstractDatabaseIntegrationTest
-	c645:p -> c633:p [dir=back,arrowtail=empty];
+	c891:p -> c878:p [dir=back,arrowtail=empty];
 	// nl.b3p.GBAVXMLToStagingIntegrationTest NAVASSOC nl.b3p.brmo.loader.BrmoFramework
-	c633:p -> c659:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c878:p -> c908:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.loader.BrmoFramework
-	c659 [label=<<table title="nl.b3p.brmo.loader.BrmoFramework" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+	c908 [label=<<table title="nl.b3p.brmo.loader.BrmoFramework" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BrmoFramework </td></tr>
 		</table></td></tr>
@@ -116,6 +116,9 @@ digraph G {
 <tr><td align="left" balign="left"> + getCountBerichten(arg0 : String, arg1 : String, arg2 : String, arg3 : String) : long </td></tr>
 <tr><td align="left" balign="left"> + getCountLaadProcessen(arg0 : String, arg1 : String, arg2 : String, arg3 : String) : long </td></tr>
 <tr><td align="left" balign="left"> + getCountJob() : long </td></tr>
+<tr><td align="left" balign="left"> + updateLaadProcesMeta(arg0 : Long, arg1 : BigInteger, arg2 : BigInteger, arg3 : String, arg4 : String, arg5 : String, arg6 : String, arg7 : String, arg8 : Date) </td></tr>
+<tr><td align="left" balign="left"> + checkAfgiftelijst(arg0 : String, arg1 : String) : File </td></tr>
+<tr><td align="left" balign="left"> + checkAfgiftelijst(arg0 : String, arg1 : InputStream, arg2 : File) : File </td></tr>
 		</table></td></tr>
 		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }

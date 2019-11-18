@@ -1,0 +1,39 @@
+// dot 2.40.1 on Linux 5.0.0-36-generic
+// SchemaSpy rev Unknown
+digraph "zak_recht_archief" {
+  graph [
+    rankdir="RL"
+    bgcolor="#f7f7f7"
+    nodesep="0.18"
+    ranksep="0.46"
+    fontname="Helvetica"
+    fontsize="11"
+  ];
+  node [
+    fontname="Helvetica"
+    fontsize="11"
+    shape="plaintext"
+  ];
+  edge [
+    arrowsize="0.8"
+  ];
+  "zak_recht_archief" [
+    label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
+      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">zak_recht_archief</TD></TR>
+      <TR><TD PORT="kadaster_identif" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">kadaster_identif</TD></TR>
+      <TR><TD PORT="eindd_recht" COLSPAN="3" ALIGN="LEFT">eindd_recht</TD></TR>
+      <TR><TD PORT="indic_betrokken_in_splitsing" COLSPAN="3" ALIGN="LEFT">indic_betrokken_in_splitsing</TD></TR>
+      <TR><TD PORT="ingangsdatum_recht" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">ingangsdatum_recht</TD></TR>
+      <TR><TD PORT="fk_7koz_kad_identif" COLSPAN="3" ALIGN="LEFT">fk_7koz_kad_identif</TD></TR>
+      <TR><TD PORT="fk_8pes_sc_identif" COLSPAN="3" ALIGN="LEFT">fk_8pes_sc_identif</TD></TR>
+      <TR><TD PORT="ar_noemer" COLSPAN="3" ALIGN="LEFT">ar_noemer</TD></TR>
+      <TR><TD PORT="ar_teller" COLSPAN="3" ALIGN="LEFT">ar_teller</TD></TR>
+      <TR><TD PORT="fk_2aard_recht_verkort_aand" COLSPAN="3" ALIGN="LEFT">fk_2aard_recht_verkort_aand</TD></TR>
+      <TR><TD PORT="fk_3avr_aand" COLSPAN="3" ALIGN="LEFT">fk_3avr_aand</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD></TR>
+    </TABLE>>
+    URL="tables/zak_recht_archief.html"
+    tooltip="zak_recht_archief"
+  ];
+}

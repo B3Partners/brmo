@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.web.stripes.DirectResponseResolution
-	c1169 [label=<<table title="nl.b3p.web.stripes.DirectResponseResolution" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./DirectResponseResolution.html">
+	c1390 [label=<<table title="nl.b3p.web.stripes.DirectResponseResolution" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./DirectResponseResolution.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DirectResponseResolution </td></tr>
 		</table></td></tr>
@@ -26,9 +26,9 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./DirectResponseResolution.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.web.stripes.DirectResponseResolution extends net.sourceforge.stripes.action.StreamingResolution
-	c1173:p -> c1169:p [dir=back,arrowtail=empty];
+	c1394:p -> c1390:p [dir=back,arrowtail=empty];
 	// net.sourceforge.stripes.action.StreamingResolution
-	c1173 [label=<<table title="net.sourceforge.stripes.action.StreamingResolution" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/net/sourceforge/stripes/action/StreamingResolution.html">
+	c1394 [label=<<table title="net.sourceforge.stripes.action.StreamingResolution" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> StreamingResolution </td></tr>
 		</table></td></tr>
@@ -51,6 +51,6 @@ digraph G {
 <tr><td align="left" balign="left"> # parseRangeHeader(arg0 : String) : List&lt;Range&lt;Long&gt;&gt; </td></tr>
 <tr><td align="left" balign="left"> # stream(arg0 : HttpServletResponse) </td></tr>
 		</table></td></tr>
-		</table>>, URL="http://java.sun.com/j2se/1.4.2/docs/api/net/sourceforge/stripes/action/StreamingResolution.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 

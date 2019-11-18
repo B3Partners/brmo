@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BGTGMLLightTransformerFactory.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO BGT GML loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.loader.gml</a> &gt; <span class="el_source">BGTGMLLightTransformerFactory.java</span></div><h1>BGTGMLLightTransformerFactory.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2016 B3Partners B.V.
+ */
+package nl.b3p.brmo.loader.gml;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ *
+ * Houdt de lijst met beschkibare GML transformers bij. Er zijn een aantal
+ * bestanden die niet geconverteerd worden, oa. bestuurlijke eenheden.
+ *
+ * @author mprins
+ */
+<span class="nc" id="L16">public enum BGTGMLLightTransformerFactory {</span>
+    // NB (mogelijk) geen geometrie,
+    // TODO nog geen voorbeeld of bestand gezien...
+    // zie: https://github.com/B3Partners/brmo/issues/324
+    // inrichtingselement(&quot;&quot;, &quot;Inrichtingselement&quot;),
+    // doen we niet/nooit
+    // plaatsbepalingspunt(&quot;&quot;, &quot;&quot;),
+    
+<span class="nc" id="L24">    bak(&quot;bgt_bak.gml&quot;, &quot;Bak&quot;),</span>
+<span class="nc" id="L25">    bord(&quot;bgt_bord.gml&quot;, &quot;Bord&quot;),</span>
+<span class="nc" id="L26">    put(&quot;bgt_put.gml&quot;, &quot;Put&quot;),</span>
+<span class="nc" id="L27">    paal(&quot;bgt_paal.gml&quot;, &quot;Paal&quot;),</span>
+<span class="nc" id="L28">    mast(&quot;bgt_mast.gml&quot;, &quot;Mast&quot;),</span>
+<span class="nc" id="L29">    sensor(&quot;bgt_sensor.gml&quot;, &quot;Sensor&quot;),</span>
+<span class="nc" id="L30">    installatie(&quot;bgt_installatie.gml&quot;, &quot;Installatie&quot;),</span>
+<span class="nc" id="L31">    kast(&quot;bgt_kast.gml&quot;, &quot;Kast&quot;),</span>
+    //
+<span class="nc" id="L33">    gebouw_installatie(&quot;bgt_buildinginstallation.gml&quot;, &quot;GebouwInstallatie&quot;),</span>
+<span class="nc" id="L34">    pand(&quot;bgt_buildingpart.gml&quot;, &quot;Pand&quot;),</span>
+<span class="nc" id="L35">    overig_bouwwerk(&quot;bgt_overigbouwwerk.gml&quot;, &quot;OverigBouwwerk&quot;),</span>
+    //
+<span class="nc" id="L37">    openbareruimte(&quot;bgt_openbareruimte.gml&quot;, &quot;OpenbareRuimte&quot;),</span>
+<span class="nc" id="L38">    openbareruimtelabel(&quot;bgt_openbareruimtelabel.gml&quot;, &quot;OpenbareRuimteLabel&quot;),</span>
+<span class="nc" id="L39">    functioneelgebied(&quot;bgt_functioneelgebied.gml&quot;, &quot;FunctioneelGebied&quot;),</span>
+    //
+<span class="nc" id="L41">    stadsdeel(&quot;bgt_stadsdeel.gml&quot;, &quot;Stadsdeel&quot;),</span>
+<span class="nc" id="L42">    buurt(&quot;bgt_buurt.gml&quot;, &quot;Buurt&quot;),</span>
+<span class="nc" id="L43">    wijk(&quot;bgt_wijk.gml&quot;, &quot;Wijk&quot;),</span>
+<span class="nc" id="L44">    waterschap(&quot;bgt_waterschap.gml&quot;, &quot;Waterschap&quot;),</span>
+    //
+<span class="nc" id="L46">    ongeclassificeerdobject(&quot;bgt_ongeclassificeerdobject.gml&quot;, &quot;OngeclassificeerdObject&quot;),</span>
+    //
+<span class="nc" id="L48">    begroeid_terreindeel(&quot;bgt_begroeidterreindeel.gml&quot;, &quot;BegroeidTerreindeel&quot;),</span>
+<span class="nc" id="L49">    onbegroeid_terreindeel(&quot;bgt_onbegroeidterreindeel.gml&quot;, &quot;OnbegroeidTerreindeel&quot;),</span>
+<span class="nc" id="L50">    vegetatieobject(&quot;bgt_vegetatieobject.gml&quot;, &quot;VegetatieObject&quot;),</span>
+    //
+<span class="nc" id="L52">    spoor(&quot;bgt_spoor.gml&quot;, &quot;Spoor&quot;),</span>
+    //
+<span class="nc" id="L54">    scheiding(&quot;bgt_scheiding.gml&quot;, &quot;Scheiding&quot;),</span>
+<span class="nc" id="L55">    overige_scheiding(&quot;bgt_overigescheiding.gml&quot;, &quot;OverigeScheiding&quot;),</span>
+    //
+<span class="nc" id="L57">    waterdeel(&quot;bgt_waterdeel.gml&quot;, &quot;Waterdeel&quot;),</span>
+<span class="nc" id="L58">    ondersteunend_waterdeel(&quot;bgt_ondersteunendwaterdeel.gml&quot;, &quot;OndersteunendWaterdeel&quot;),</span>
+<span class="nc" id="L59">    waterinrichtingselement(&quot;bgt_waterinrichtingselement.gml&quot;, &quot;Waterinrichtingselement&quot;),</span>
+    //
+<span class="nc" id="L61">    overbruggingsdeel(&quot;bgt_overbruggingsdeel.gml&quot;, &quot;Overbruggingsdeel&quot;),</span>
+<span class="nc" id="L62">    kunstwerkdeel(&quot;bgt_kunstwerkdeel.gml&quot;, &quot;Kunstwerkdeel&quot;),</span>
+    //
+<span class="nc" id="L64">    ondersteunend_wegdeel(&quot;bgt_ondersteunendwegdeel.gml&quot;, &quot;OndersteunendWegdeel&quot;),</span>
+<span class="nc" id="L65">    wegdeel(&quot;bgt_wegdeel.gml&quot;, &quot;Wegdeel&quot;),</span>
+<span class="nc" id="L66">    tunneldeel(&quot;bgt_tunneldeel.gml&quot;, &quot;Tunneldeel&quot;),</span>
+<span class="nc" id="L67">    straatmeubilair(&quot;bgt_straatmeubilair.gml&quot;, &quot;Straatmeubilair&quot;),</span>
+<span class="nc" id="L68">    weginrichtingselement(&quot;bgt_weginrichtingselement.gml&quot;, &quot;Weginrichtingselement&quot;);</span>
+
+    /**
+     * naam van het GML bestand.
+     */
+    private final String gmlFileName;
+    /**
+     * naam van de transformer klasse.
+     */
+    private final String transformerClassName;
+
+<span class="nc" id="L79">    private static final Map&lt;String, BGTGMLLightTransformerFactory&gt; lookup = new HashMap&lt;&gt;();</span>
+
+    static {
+<span class="nc bnc" id="L82" title="All 2 branches missed.">        for (BGTGMLLightTransformerFactory d : BGTGMLLightTransformerFactory.values()) {</span>
+            //lookup.put(d.getGmlFileName(), d);
+<span class="nc" id="L84">            lookup.put(d.getTransformerClassName(), d);</span>
+        }
+<span class="nc" id="L86">    }</span>
+
+<span class="nc" id="L88">    private BGTGMLLightTransformerFactory(String gmlFileName, String transformerClassName) {</span>
+<span class="nc" id="L89">        this.gmlFileName = gmlFileName;</span>
+<span class="nc" id="L90">        this.transformerClassName = transformerClassName;</span>
+<span class="nc" id="L91">    }</span>
+
+    public String getGmlFileName() {
+<span class="nc" id="L94">        return gmlFileName;</span>
+    }
+
+    public String getTransformerClassName() {
+<span class="nc" id="L98">        return transformerClassName;</span>
+    }
+
+    /**
+     * zoek de tabelnaam voor dit GML bestand.
+     *
+     * @param gmlFileName GML bestandsnaam
+     * @return tabelnaam
+     */
+    public static String getTableName(String gmlFileName) {
+<span class="nc" id="L108">        return lookup.get(gmlFileName).name();</span>
+    }
+
+    /**
+     * Zoek de juiste feature transformer op voor het (gml light) bestand.
+     *
+     * @param gmlFileName bestandsnaam
+     * @return transformer of {@code null} als er geen transformer beschikbaar
+     * danwel gevonden is
+     */
+    public static GMLLightFeatureTransformer getTransformer(String gmlFileName) {
+        try {
+<span class="nc" id="L120">            Class c = Class.forName(GMLLightFeatureTransformer.class.getPackage().getName() + &quot;.light.&quot; + lookup.get(gmlFileName).getTransformerClassName());</span>
+<span class="nc" id="L121">            return (GMLLightFeatureTransformer) c.newInstance();</span>
+<span class="nc" id="L122">        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | NullPointerException ex) {</span>
+<span class="nc" id="L123">            return null;</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>UpdatesActionBean.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO distributie</a> &gt; <a href="../index.html" class="el_bundle">brmo-service</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.service.stripes</a> &gt; <span class="el_source">UpdatesActionBean.java</span></div><h1>UpdatesActionBean.java</h1><pre class="source lang-java linenums">package nl.b3p.brmo.service.stripes;
+
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+import javax.sql.DataSource;
+import net.sourceforge.stripes.action.*;
+import net.sourceforge.stripes.controller.LifecycleStage;
+import net.sourceforge.stripes.validation.Validate;
+import nl.b3p.brmo.loader.BrmoFramework;
+import nl.b3p.brmo.loader.ProgressUpdateListener;
+import nl.b3p.brmo.loader.updates.UpdateProcess;
+import nl.b3p.brmo.service.util.ConfigUtil;
+import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.stripesstuff.plugin.waitpage.WaitPage;
+
+/**
+ *
+ * @author Matthijs Laan
+ */
+@StrictBinding
+<span class="nc" id="L26">public class UpdatesActionBean implements ActionBean, ProgressUpdateListener {</span>
+<span class="nc" id="L27">    private static final Log log = LogFactory.getLog(UpdatesActionBean.class);</span>
+
+    private static final String JSP = &quot;/WEB-INF/jsp/transform/updates.jsp&quot;;
+    private static final String JSP_PROGRESS = &quot;/WEB-INF/jsp/transform/updateprogress.jsp&quot;;
+
+    private ActionBeanContext context;
+
+    private List&lt;UpdateProcess&gt; updateProcesses;
+
+    @Validate(required=true, on=&quot;update&quot;)
+    private String updateProcessName;
+
+    private double progress;
+    private long total;
+    private long processed;
+    private boolean complete;
+    private Date start;
+    private Date update;
+    private String exceptionStacktrace;
+
+    // &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;getters en setters&quot;&gt;
+    @Override
+    public ActionBeanContext getContext() {
+<span class="nc" id="L50">        return context;</span>
+    }
+
+    @Override
+    public void setContext(ActionBeanContext context) {
+<span class="nc" id="L55">        this.context = context;</span>
+<span class="nc" id="L56">    }</span>
+
+    public double getProgress() {
+<span class="nc" id="L59">        return progress;</span>
+    }
+
+    public void setProgress(double progress) {
+<span class="nc" id="L63">        this.progress = progress;</span>
+<span class="nc" id="L64">    }</span>
+
+    public long getTotal() {
+<span class="nc" id="L67">        return total;</span>
+    }
+
+    public void setTotal(long total) {
+<span class="nc" id="L71">        this.total = total;</span>
+<span class="nc" id="L72">    }</span>
+
+    public long getProcessed() {
+<span class="nc" id="L75">        return processed;</span>
+    }
+
+    public void setProcessed(long processed) {
+<span class="nc" id="L79">        this.processed = processed;</span>
+<span class="nc" id="L80">    }</span>
+
+    public boolean isComplete() {
+<span class="nc" id="L83">        return complete;</span>
+    }
+
+    public void setComplete(boolean complete) {
+<span class="nc" id="L87">        this.complete = complete;</span>
+<span class="nc" id="L88">    }</span>
+
+    public Date getStart() {
+<span class="nc" id="L91">        return start;</span>
+    }
+
+    public void setStart(Date start) {
+<span class="nc" id="L95">        this.start = start;</span>
+<span class="nc" id="L96">    }</span>
+
+    public Date getUpdate() {
+<span class="nc" id="L99">        return update;</span>
+    }
+
+    public void setUpdate(Date update) {
+<span class="nc" id="L103">        this.update = update;</span>
+<span class="nc" id="L104">    }</span>
+
+    public String getExceptionStacktrace() {
+<span class="nc" id="L107">        return exceptionStacktrace;</span>
+    }
+
+    public void setExceptionStacktrace(String exceptionStacktrace) {
+<span class="nc" id="L111">        this.exceptionStacktrace = exceptionStacktrace;</span>
+<span class="nc" id="L112">    }</span>
+
+    @Override
+    public void total(long total) {
+<span class="nc" id="L116">        this.total = total;</span>
+<span class="nc" id="L117">    }</span>
+
+    @Override
+    public void progress(long progress) {
+<span class="nc" id="L121">        this.processed = progress;</span>
+<span class="nc bnc" id="L122" title="All 2 branches missed.">        if(this.total != 0) {</span>
+<span class="nc" id="L123">            this.progress = (100.0/this.total) * this.processed;</span>
+        }
+<span class="nc" id="L125">        this.update = new Date();</span>
+<span class="nc" id="L126">    }</span>
+
+    @Override
+    public void exception(Throwable t) {
+<span class="nc" id="L130">        StringWriter sw = new StringWriter();</span>
+<span class="nc" id="L131">        t.printStackTrace(new PrintWriter(sw));</span>
+<span class="nc" id="L132">        this.exceptionStacktrace = sw.toString();</span>
+<span class="nc" id="L133">    }</span>
+
+    public List&lt;UpdateProcess&gt; getUpdateProcesses() {
+<span class="nc" id="L136">        return updateProcesses;</span>
+    }
+
+    public void setUpdateProcesses(List&lt;UpdateProcess&gt; updateProcesses) {
+<span class="nc" id="L140">        this.updateProcesses = updateProcesses;</span>
+<span class="nc" id="L141">    }</span>
+
+    public String getUpdateProcessName() {
+<span class="nc" id="L144">        return updateProcessName;</span>
+    }
+
+    public void setUpdateProcessName(String updateProcessName) {
+<span class="nc" id="L148">        this.updateProcessName = updateProcessName;</span>
+<span class="nc" id="L149">    }</span>
+    // &lt;/editor-fold&gt;
+
+
+    @Before(stages = LifecycleStage.BindingAndValidation)
+    public void populateUpdateProcesses() {
+
+        // XXX move to configuration file
+
+<span class="nc" id="L158">        updateProcesses = Arrays.asList(new UpdateProcess[]{</span>
+            // bij een nieuw proces ook de wiki bijwerken: https://github.com/B3Partners/brmo/wiki/Snelle-updates
+            new UpdateProcess(&quot;Toevoegen BSN aan ingeschreven natuurlijk persoon&quot;, BrmoFramework.BR_BRK, &quot;/xsl/update-bsn.xsl&quot;),
+            new UpdateProcess(&quot;Toevoegen RSIN aan ingeschreven niet-natuurlijk persoon&quot;, BrmoFramework.BR_BRK, &quot;/xsl/update-rsin.xsl&quot;),
+            new UpdateProcess(&quot;Bijwerken van omschrijving, datum en ref_id in brondocument&quot;, BrmoFramework.BR_BRK, &quot;/xsl/update-brondocument.xsl&quot;),
+            new UpdateProcess(&quot;Bijwerken van onvolledig adres&quot;, BrmoFramework.BR_BRK, &quot;/xsl/update-incompleetadres.xsl&quot;),
+            new UpdateProcess(&quot;Bijwerken van rechthebbende VVE op zakelijk recht&quot;, BrmoFramework.BR_BRK, &quot;/xsl/update-zak_recht-vve.xsl&quot;),
+            new UpdateProcess(&quot;Bijwerken van GBA Niet Ingezetene 'clazz' in personen tabellen&quot;, BrmoFramework.BR_BRK, &quot;/xsl/update-niet_ingezetene-clazz.xsl&quot;),
+            new UpdateProcess(&quot;Bijwerken subject adres comfort data&quot;, BrmoFramework.BR_BRK, &quot;/xsl/update-comfort-adres.xsl&quot;),
+            new UpdateProcess(&quot;Bijwerken ingangsdatum_recht zakelijk recht&quot;, BrmoFramework.BR_BRK, &quot;/xsl/update-zak_recht-begindatum.xsl&quot;, true)
+        });
+<span class="nc" id="L169">    }</span>
+
+    @DefaultHandler
+    public Resolution form() {
+<span class="nc bnc" id="L173" title="All 2 branches missed.">        return new ForwardResolution(complete ? JSP_PROGRESS : JSP);</span>
+    }
+
+    @WaitPage(path=JSP_PROGRESS, delay=1000, refresh=1000)
+    public Resolution update() {
+<span class="nc" id="L178">        UpdateProcess process = null;</span>
+
+<span class="nc bnc" id="L180" title="All 2 branches missed.">        for(UpdateProcess p: updateProcesses) {</span>
+<span class="nc bnc" id="L181" title="All 2 branches missed.">            if(p.getName().equals(updateProcessName)) {</span>
+<span class="nc" id="L182">                process = p;</span>
+<span class="nc" id="L183">                break;</span>
+            }
+<span class="nc" id="L185">        }</span>
+<span class="nc bnc" id="L186" title="All 2 branches missed.">        if(process == null) {</span>
+<span class="nc" id="L187">            getContext().getMessages().add(new SimpleMessage(&quot;Ongeldig proces&quot;));</span>
+<span class="nc" id="L188">            return new ForwardResolution(JSP);</span>
+        }
+
+<span class="nc" id="L191">        start = new Date();</span>
+<span class="nc" id="L192">        log.info(&quot;Start update process: &quot; + process.getName());</span>
+
+        // Get berichten
+<span class="nc" id="L195">        BrmoFramework brmo = null;</span>
+        try {
+<span class="nc" id="L197">            DataSource dataSourceStaging = ConfigUtil.getDataSourceStaging();</span>
+<span class="nc" id="L198">            DataSource dataSourceRsgb = ConfigUtil.getDataSourceRsgb();</span>
+<span class="nc" id="L199">            brmo = new BrmoFramework(dataSourceStaging, dataSourceRsgb);</span>
+
+<span class="nc" id="L201">            boolean enableTransformPipeline = &quot;true&quot;.equals(getContext().getServletContext().getInitParameter(&quot;pipelining.enabled&quot;));</span>
+<span class="nc" id="L202">            brmo.setEnablePipeline(enableTransformPipeline);</span>
+<span class="nc bnc" id="L203" title="All 2 branches missed.">            if(enableTransformPipeline) {</span>
+<span class="nc" id="L204">                String capacityString = getContext().getServletContext().getInitParameter(&quot;pipelining.capacity&quot;);</span>
+<span class="nc bnc" id="L205" title="All 2 branches missed.">                if(capacityString != null) {</span>
+<span class="nc" id="L206">                    brmo.setTransformPipelineCapacity(Integer.parseInt(capacityString));</span>
+                }
+            }
+<span class="nc" id="L209">            String batchString = getContext().getServletContext().getInitParameter(&quot;batch.capacity&quot;);</span>
+<span class="nc bnc" id="L210" title="All 2 branches missed.">            if(batchString != null) {</span>
+<span class="nc" id="L211">                brmo.setBatchCapacity(Integer.parseInt(batchString));</span>
+            }
+<span class="nc" id="L213">            String errorState = getContext().getServletContext().getInitParameter(&quot;error.state&quot;);</span>
+<span class="nc bnc" id="L214" title="All 2 branches missed.">            if (errorState != null) {</span>
+<span class="nc" id="L215">                brmo.setErrorState(errorState);</span>
+            }
+
+<span class="nc" id="L218">            Thread t = brmo.toRsgb(process, this);</span>
+<span class="nc" id="L219">            t.join();</span>
+
+<span class="nc bnc" id="L221" title="All 2 branches missed.">            if(this.exceptionStacktrace == null) {</span>
+<span class="nc" id="L222">                getContext().getMessages().add(new SimpleMessage(&quot;Transformatie afgerond, controleer berichtenstatus.&quot;));</span>
+            }
+<span class="nc" id="L224">        } catch(Throwable t) {</span>
+<span class="nc" id="L225">            log.error(&quot;Fout bij updaten&quot;, t);</span>
+<span class="nc" id="L226">            String m = &quot;Fout bij updaten: &quot; + ExceptionUtils.getMessage(t);</span>
+<span class="nc bnc" id="L227" title="All 2 branches missed.">            if(t.getCause() != null) {</span>
+<span class="nc" id="L228">                m += &quot;, oorzaak: &quot; + ExceptionUtils.getRootCauseMessage(t);</span>
+            }
+<span class="nc" id="L230">            getContext().getMessages().add(new SimpleMessage(m));</span>
+        } finally {
+<span class="nc bnc" id="L232" title="All 2 branches missed.">            if (brmo!=null) {</span>
+<span class="nc" id="L233">                brmo.closeBrmoFramework();</span>
+            }
+<span class="nc" id="L235">            complete = true;</span>
+        }
+<span class="nc" id="L237">        return new ForwardResolution(JSP_PROGRESS);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

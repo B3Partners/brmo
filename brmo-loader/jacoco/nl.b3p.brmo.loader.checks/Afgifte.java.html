@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Afgifte.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.loader.checks</a> &gt; <span class="el_source">Afgifte.java</span></div><h1>Afgifte.java</h1><pre class="source lang-java linenums">/*
+ *  Copyright (C) 2019  B3Partners B.V.
+
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+ */
+package nl.b3p.brmo.loader.checks;
+
+import java.util.HashMap;
+import java.util.Map;
+import nl.b3p.brmo.loader.entity.Bericht;
+
+/**
+ *
+ * @author meine
+ */
+<span class="fc" id="L27">public class Afgifte {</span>
+    
+    private String klantnummer;
+    private String contractnummer;
+    private String datum;
+    private String bestandsnaam;
+    private boolean rapport;
+    private boolean geleverd;
+    
+    private boolean foundInStaging;
+<span class="fc" id="L37">    private Map&lt;Bericht.STATUS, Integer&gt; statussen = new HashMap&lt;&gt;();</span>
+
+    public String getKlantnummer() {
+<span class="fc" id="L40">        return klantnummer;</span>
+    }
+
+    public void setKlantnummer(String klantnummer) {
+<span class="fc" id="L44">        this.klantnummer = klantnummer;</span>
+<span class="fc" id="L45">    }</span>
+
+    public String getContractnummer() {
+<span class="fc" id="L48">        return contractnummer;</span>
+    }
+
+    public void setContractnummer(String contractnummer) {
+<span class="fc" id="L52">        this.contractnummer = contractnummer;</span>
+<span class="fc" id="L53">    }</span>
+
+    public String getDatum() {
+<span class="nc" id="L56">        return datum;</span>
+    }
+
+    public void setDatum(String datum) {
+<span class="fc" id="L60">        this.datum = datum;</span>
+<span class="fc" id="L61">    }</span>
+
+    public String getBestandsnaam() {
+<span class="nc" id="L64">        return bestandsnaam;</span>
+    }
+
+    public void setBestandsnaam(String bestandsnaam) {
+<span class="fc" id="L68">        this.bestandsnaam = bestandsnaam;</span>
+<span class="fc" id="L69">    }</span>
+
+    public boolean isRapport() {
+<span class="fc" id="L72">        return rapport;</span>
+    }
+
+    public void setRapport(boolean rapport) {
+<span class="fc" id="L76">        this.rapport = rapport;</span>
+<span class="fc" id="L77">    }</span>
+
+    public boolean isGeleverd() {
+<span class="fc" id="L80">        return geleverd;</span>
+    }
+
+    public void setGeleverd(boolean geleverd) {
+<span class="fc" id="L84">        this.geleverd = geleverd;</span>
+<span class="fc" id="L85">    }</span>
+
+    public boolean isFoundInStaging() {
+<span class="nc" id="L88">        return foundInStaging;</span>
+    }
+
+    public void setFoundInStaging(boolean foundInStaging) {
+<span class="nc" id="L92">        this.foundInStaging = foundInStaging;</span>
+<span class="nc" id="L93">    }</span>
+
+    public Map&lt;Bericht.STATUS, Integer&gt; getStatussen() {
+<span class="nc" id="L96">        return statussen;</span>
+    }
+
+    public void setStatussen(Map&lt;Bericht.STATUS, Integer&gt; statussen) {
+<span class="nc" id="L100">        this.statussen = statussen;</span>
+<span class="nc" id="L101">    }</span>
+    
+    
+    @Override
+    public String toString(){
+<span class="nc" id="L106">        String res = &quot;Afgifte [&quot; + bestandsnaam + &quot;, &quot; + datum+ &quot;, Found: &quot; + foundInStaging + &quot;]&quot;;</span>
+<span class="nc bnc" id="L107" title="All 2 branches missed.">        if(!statussen.keySet().isEmpty()){</span>
+<span class="nc bnc" id="L108" title="All 2 branches missed.">            for (Bericht.STATUS status : statussen.keySet()) {</span>
+<span class="nc" id="L109">                res += &quot;\n&quot; + status.name() + &quot;: &quot;+ statussen.get(status);</span>
+<span class="nc" id="L110">            }</span>
+        }
+<span class="nc" id="L112">        return res;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

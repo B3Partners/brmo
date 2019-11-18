@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.persistence.staging.AutomatischProces
-	c465 [label=<<table title="nl.b3p.brmo.persistence.staging.AutomatischProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AutomatischProces.html">
+	c511 [label=<<table title="nl.b3p.brmo.persistence.staging.AutomatischProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AutomatischProces.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> AutomatischProces </font></td></tr>
 		</table></td></tr>
@@ -38,14 +38,14 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./AutomatischProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// Note annotation
-	n0cc465 [label=<<table title="nl.b3p.brmo.persistence.staging.AutomatischProces" border="0" cellborder="0" cellspacing="0" cellpadding="2" port="p" href="./AutomatischProces.html">
+	n0cc511 [label=<<table title="nl.b3p.brmo.persistence.staging.AutomatischProces" border="0" cellborder="0" cellspacing="0" cellpadding="2" port="p" href="./AutomatischProces.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> Tabel "automatisch_proces" in de database. </td></tr>
 		</table></td></tr>
 		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0, shape=note];
-	n0cc465 -> c465:p[arrowhead=none];
+	n0cc511 -> c511:p[arrowhead=none];
 	// nl.b3p.brmo.persistence.staging.Bericht
-	c478 [label=<<table title="nl.b3p.brmo.persistence.staging.Bericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Bericht.html">
+	c524 [label=<<table title="nl.b3p.brmo.persistence.staging.Bericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Bericht.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Bericht </td></tr>
 		</table></td></tr>
@@ -86,7 +86,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./Bericht.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.persistence.staging.LaadProces
-	c482 [label=<<table title="nl.b3p.brmo.persistence.staging.LaadProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./LaadProces.html">
+	c528 [label=<<table title="nl.b3p.brmo.persistence.staging.LaadProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./LaadProces.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> LaadProces </td></tr>
 		</table></td></tr>
@@ -116,10 +116,28 @@ digraph G {
 <tr><td align="left" balign="left"> + setContact_email(contact_email : String) </td></tr>
 <tr><td align="left" balign="left"> + getAutomatischProces() : AutomatischProces </td></tr>
 <tr><td align="left" balign="left"> + setAutomatischProces(automatischProces : AutomatischProces) </td></tr>
+<tr><td align="left" balign="left"> + getKlantafgiftenummer() : BigInteger </td></tr>
+<tr><td align="left" balign="left"> + setKlantafgiftenummer(klantafgiftenummer : BigInteger) </td></tr>
+<tr><td align="left" balign="left"> + getContractafgiftenummer() : BigInteger </td></tr>
+<tr><td align="left" balign="left"> + setContractafgiftenummer(contractafgiftenummer : BigInteger) </td></tr>
+<tr><td align="left" balign="left"> + getArtikelnummer() : String </td></tr>
+<tr><td align="left" balign="left"> + setArtikelnummer(artikelnummer : String) </td></tr>
+<tr><td align="left" balign="left"> + getContractnummer() : String </td></tr>
+<tr><td align="left" balign="left"> + setContractnummer(contractnummer : String) </td></tr>
+<tr><td align="left" balign="left"> + getAfgifteid() : String </td></tr>
+<tr><td align="left" balign="left"> + setAfgifteid(afgifteid : String) </td></tr>
+<tr><td align="left" balign="left"> + getAfgiftereferentie() : String </td></tr>
+<tr><td align="left" balign="left"> + setAfgiftereferentie(afgiftereferentie : String) </td></tr>
+<tr><td align="left" balign="left"> + getBestandsreferentie() : String </td></tr>
+<tr><td align="left" balign="left"> + setBestandsreferentie(bestandsreferentie : String) </td></tr>
+<tr><td align="left" balign="left"> + getBeschikbaar_tot() : Date </td></tr>
+<tr><td align="left" balign="left"> + setBeschikbaar_tot(beschikbaar_tot : Date) </td></tr>
+<tr><td align="left" balign="left"> + getBestand_naam_hersteld() : String </td></tr>
+<tr><td align="left" balign="left"> + setBestand_naam_hersteld(bestand_naam_hersteld : String) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./LaadProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.persistence.staging.LaadProces.STATUS
-	c483 [label=<<table title="nl.b3p.brmo.persistence.staging.LaadProces.STATUS" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./LaadProces.STATUS.html">
+	c529 [label=<<table title="nl.b3p.brmo.persistence.staging.LaadProces.STATUS" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./LaadProces.STATUS.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> STATUS </td></tr>
@@ -141,10 +159,10 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./LaadProces.STATUS.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.persistence.staging.Bericht NAVASSOC nl.b3p.brmo.persistence.staging.LaadProces
-	c478:p -> c482:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c524:p -> c528:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.persistence.staging.LaadProces NAVASSOC nl.b3p.brmo.persistence.staging.LaadProces.STATUS
-	c482:p -> c483:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c528:p -> c529:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.persistence.staging.LaadProces NAVASSOC nl.b3p.brmo.persistence.staging.AutomatischProces
-	c482:p -> c465:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c528:p -> c511:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>AutomatischProces.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO service</a> &gt; <a href="../index.html" class="el_bundle">brmo-persistence</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.persistence.staging</a> &gt; <span class="el_source">AutomatischProces.java</span></div><h1>AutomatischProces.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2015 B3Partners B.V.
+ */
+package nl.b3p.brmo.persistence.staging;
+
+import java.io.Serializable;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
+import javax.persistence.ElementCollection;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.Lob;
+import javax.persistence.MapKeyJoinColumn;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import org.hibernate.annotations.Type;
+
+/**
+ * Generieke beschrijving van een automatisch proces.
+ *
+ * @author mprins
+ *
+ * @note Tabel &quot;automatisch_proces&quot; in de database.
+ *
+ */
+@MappedSuperclass
+@DiscriminatorColumn(name = &quot;dtype&quot;, discriminatorType = DiscriminatorType.STRING, length = 255)
+<span class="fc" id="L36">public abstract class AutomatischProces implements Serializable {</span>
+
+    /**
+     * newline string ({@value LOG_NEWLINE}) voor de logberichten en
+     * samenvatting.
+     */
+    public static final String LOG_NEWLINE = &quot;\n&quot;;
+
+<span class="fc" id="L44">    public enum ProcessingStatus {</span>
+
+<span class="fc" id="L46">        PROCESSING(&quot;PROCESSING&quot;), WAITING(&quot;WAITING&quot;), ONBEKEND(&quot;ONBEKEND&quot;), ERROR(&quot;ERROR&quot;);</span>
+
+        private final String status;
+
+<span class="fc" id="L50">        ProcessingStatus(String status) {</span>
+<span class="fc" id="L51">            this.status = status;</span>
+<span class="fc" id="L52">        }</span>
+    }
+
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    /**
+     * @note Tabel &quot;automatisch_proces_config&quot; in de database.
+     */
+<span class="fc" id="L62">    @ElementCollection</span>
+    @JoinTable(joinColumns = @JoinColumn(name = &quot;proces_id&quot;))
+    //volgende annotatie wordt nu niet uitgevoerd, mogelijk volgende hibernate versie
+    //dit is alleen nodig voor sql server, script faalt bij maken primary key
+    @MapKeyJoinColumn(nullable=false)
+    // Element wrapper required because of https://hibernate.atlassian.net/browse/JPA-11
+    private Map&lt;String, ClobElement&gt; config = new HashMap&lt;String, ClobElement&gt;();
+
+    /**
+     * laatste run tijdtip vasthouden ten behoeve van logging en rapportage.
+     */
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastrun;
+
+    /**
+     * status van de laatste run.
+     */
+<span class="fc" id="L79">    @Enumerated(EnumType.STRING)</span>
+    private ProcessingStatus status = ProcessingStatus.WAITING;
+
+    /**
+     * samenvatting van de laatste run.
+     */
+    @Lob
+    @Type(type = &quot;org.hibernate.type.StringClobType&quot;)
+    private String samenvatting;
+
+    /**
+     * logfile
+     */
+    @Lob
+    @Type(type = &quot;org.hibernate.type.StringClobType&quot;)
+    private String logfile;
+
+    /**
+     * cron expressie voor planning.
+     */
+    private String cronExpressie;
+
+    /**
+     * update samenvatting en logfile in één keer, waarbij de logfile aangevuld
+     * wordt met de samenvatting.
+     *
+     * @param samenvatting de nieuwe samenvatting
+     * @todo auto-truncate van de clob? oracle CLOB is maximaal 4 GB - 1) *
+     * DB_BLOCK_SIZE
+     * (http://docs.oracle.com/cd/B19306_01/server.102/b14237/limits001.htm#i287903)
+     * ,posgres CLOB (text type) is maximaal limitless
+     * (http://www.postgresql.org/docs/9.3/static/datatype-character.html)
+     */
+    public void updateSamenvattingEnLogfile(String samenvatting) {
+<span class="pc bpc" id="L113" title="1 of 2 branches missed.">        if (samenvatting == null) {</span>
+<span class="nc" id="L114">            samenvatting = &quot;&quot;;</span>
+        }
+<span class="fc" id="L116">        this.setSamenvatting(samenvatting);</span>
+<span class="fc bfc" id="L117" title="All 2 branches covered.">        if (this.logfile == null) {</span>
+<span class="fc" id="L118">            this.setLogfile(samenvatting);</span>
+        } else {
+<span class="fc" id="L120">            this.setLogfile(this.logfile + LOG_NEWLINE</span>
+                    // +&quot;----------------&quot;+ LOG_NEWLINE
+                    + samenvatting);
+        }
+
+<span class="fc" id="L125">    }</span>
+
+    /**
+     * Voeg een regel toe aan de log en de samenvatting. &lt;strong&gt;DOET
+     * NIETS&lt;/strong&gt; op dit moment.
+     *
+     * @todo make this work
+     * @deprecated doet niets!
+     *
+     * @param line toe te voegen regel
+     */
+    @Deprecated
+    public void addLogLine(String line) {
+        //this.setLogfile(this.getLogfile() + LOG_NEWLINE + line);
+<span class="nc" id="L139">    }</span>
+
+    // &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;getters and setters&quot;&gt;
+    public Map&lt;String, ClobElement&gt; getConfig() {
+<span class="fc" id="L143">        return config;</span>
+    }
+
+    public void setConfig(Map&lt;String, ClobElement&gt; config) {
+<span class="nc" id="L147">        this.config = config;</span>
+<span class="nc" id="L148">    }</span>
+
+    public Date getLastrun() {
+<span class="nc" id="L151">        return lastrun;</span>
+    }
+
+    public void setLastrun(Date lastrun) {
+<span class="nc" id="L155">        this.lastrun = lastrun;</span>
+<span class="nc" id="L156">    }</span>
+
+    public ProcessingStatus getStatus() {
+<span class="nc" id="L159">        return status;</span>
+    }
+
+    public void setStatus(ProcessingStatus status) {
+<span class="fc" id="L163">        this.status = status;</span>
+<span class="fc" id="L164">    }</span>
+
+    public String getSamenvatting() {
+<span class="fc" id="L167">        return samenvatting;</span>
+    }
+
+    public void setSamenvatting(String samenvatting) {
+<span class="fc" id="L171">        this.samenvatting = samenvatting;</span>
+<span class="fc" id="L172">    }</span>
+
+    public String getLogfile() {
+<span class="fc" id="L175">        return logfile;</span>
+    }
+
+    public void setLogfile(String logfile) {
+<span class="fc" id="L179">        this.logfile = logfile;</span>
+<span class="fc" id="L180">    }</span>
+
+    public Long getId() {
+<span class="fc" id="L183">        return id;</span>
+    }
+
+    public void setId(Long id) {
+<span class="nc" id="L187">        this.id = id;</span>
+<span class="nc" id="L188">    }</span>
+
+    public String getCronExpressie() {
+<span class="nc" id="L191">        return cronExpressie;</span>
+    }
+
+    public void setCronExpressie(String cronExpressie) {
+<span class="nc" id="L195">        this.cronExpressie = cronExpressie;</span>
+<span class="nc" id="L196">    }</span>
+
+    //&lt;/editor-fold&gt;
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

@@ -57,8 +57,23 @@ digraph G {
 <tr><td align="left" balign="left"> + testBrkXMLToStaging() </td></tr>
 		</table></td></tr>
 		</table>>, URL="./BrkToStagingToRsgbIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.Art37aIntegrationTest
+	c3 [label=<<table title="nl.b3p.Art37aIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Art37aIntegrationTest.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> Art37aIntegrationTest </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + Art37aIntegrationTest() </td></tr>
+<tr><td align="left" balign="left"> + setUp() </td></tr>
+<tr><td align="left" balign="left"> + cleanup() </td></tr>
+<tr><td align="left" balign="left"> + testAfgeschermdBericht() </td></tr>
+		</table></td></tr>
+		</table>>, URL="./Art37aIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.TopNLParserIntegrationTest
-	c3 [label=<<table title="nl.b3p.TopNLParserIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TopNLParserIntegrationTest.html">
+	c4 [label=<<table title="nl.b3p.TopNLParserIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TopNLParserIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> TopNLParserIntegrationTest </td></tr>
 		</table></td></tr>
@@ -76,7 +91,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./TopNLParserIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.GBAVXMLToStagingIntegrationTest
-	c4 [label=<<table title="nl.b3p.GBAVXMLToStagingIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GBAVXMLToStagingIntegrationTest.html">
+	c5 [label=<<table title="nl.b3p.GBAVXMLToStagingIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GBAVXMLToStagingIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> GBAVXMLToStagingIntegrationTest </td></tr>
 		</table></td></tr>
@@ -92,7 +107,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./GBAVXMLToStagingIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.BerichtenFilterSqlIntegrationTest
-	c5 [label=<<table title="nl.b3p.BerichtenFilterSqlIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BerichtenFilterSqlIntegrationTest.html">
+	c6 [label=<<table title="nl.b3p.BerichtenFilterSqlIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BerichtenFilterSqlIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BerichtenFilterSqlIntegrationTest </td></tr>
 		</table></td></tr>
@@ -112,7 +127,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BerichtenFilterSqlIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.Mantis10547IntegrationTest
-	c6 [label=<<table title="nl.b3p.Mantis10547IntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Mantis10547IntegrationTest.html">
+	c7 [label=<<table title="nl.b3p.Mantis10547IntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Mantis10547IntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Mantis10547IntegrationTest </td></tr>
 		</table></td></tr>
@@ -128,7 +143,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./Mantis10547IntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.Mantis11180IntegrationTest
-	c7 [label=<<table title="nl.b3p.Mantis11180IntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Mantis11180IntegrationTest.html">
+	c8 [label=<<table title="nl.b3p.Mantis11180IntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Mantis11180IntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Mantis11180IntegrationTest </td></tr>
 		</table></td></tr>
@@ -143,7 +158,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./Mantis11180IntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.Oracle8000byteBugIntegrationTest
-	c8 [label=<<table title="nl.b3p.Oracle8000byteBugIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Oracle8000byteBugIntegrationTest.html">
+	c9 [label=<<table title="nl.b3p.Oracle8000byteBugIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Oracle8000byteBugIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Oracle8000byteBugIntegrationTest </td></tr>
 		</table></td></tr>
@@ -159,7 +174,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./Oracle8000byteBugIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.Mantis6235IntegrationTest
-	c9 [label=<<table title="nl.b3p.Mantis6235IntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Mantis6235IntegrationTest.html">
+	c10 [label=<<table title="nl.b3p.Mantis6235IntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Mantis6235IntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Mantis6235IntegrationTest </td></tr>
 		</table></td></tr>
@@ -174,7 +189,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./Mantis6235IntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.Mantis6098IntegrationTest
-	c10 [label=<<table title="nl.b3p.Mantis6098IntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Mantis6098IntegrationTest.html">
+	c11 [label=<<table title="nl.b3p.Mantis6098IntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Mantis6098IntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Mantis6098IntegrationTest </td></tr>
 		</table></td></tr>
@@ -193,7 +208,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./Mantis6098IntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.VerminderenStukdelenIntegrationTest
-	c11 [label=<<table title="nl.b3p.VerminderenStukdelenIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VerminderenStukdelenIntegrationTest.html">
+	c12 [label=<<table title="nl.b3p.VerminderenStukdelenIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VerminderenStukdelenIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> VerminderenStukdelenIntegrationTest </td></tr>
 		</table></td></tr>
@@ -208,7 +223,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./VerminderenStukdelenIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.NhrToStagingToRsgbIntegrationTest
-	c12 [label=<<table title="nl.b3p.NhrToStagingToRsgbIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NhrToStagingToRsgbIntegrationTest.html">
+	c13 [label=<<table title="nl.b3p.NhrToStagingToRsgbIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NhrToStagingToRsgbIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> NhrToStagingToRsgbIntegrationTest </td></tr>
 		</table></td></tr>
@@ -224,7 +239,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./NhrToStagingToRsgbIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.Mantis10315IntegrationTest
-	c13 [label=<<table title="nl.b3p.Mantis10315IntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Mantis10315IntegrationTest.html">
+	c14 [label=<<table title="nl.b3p.Mantis10315IntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Mantis10315IntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Mantis10315IntegrationTest </td></tr>
 		</table></td></tr>
@@ -239,7 +254,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./Mantis10315IntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.Mantis6166IntegrationTest
-	c14 [label=<<table title="nl.b3p.Mantis6166IntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Mantis6166IntegrationTest.html">
+	c15 [label=<<table title="nl.b3p.Mantis6166IntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Mantis6166IntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Mantis6166IntegrationTest </td></tr>
 		</table></td></tr>
@@ -258,8 +273,23 @@ digraph G {
 <tr><td align="left" balign="left"> + testStandDeleteMutatie() </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Mantis6166IntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.ZakRechtArchiefIntegrationTest
+	c16 [label=<<table title="nl.b3p.ZakRechtArchiefIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ZakRechtArchiefIntegrationTest.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> ZakRechtArchiefIntegrationTest </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + ZakRechtArchiefIntegrationTest() </td></tr>
+<tr><td align="left" balign="left"> + setUp() </td></tr>
+<tr><td align="left" balign="left"> + cleanup() </td></tr>
+<tr><td align="left" balign="left"> + transformeerberichten() </td></tr>
+		</table></td></tr>
+		</table>>, URL="./ZakRechtArchiefIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.Mantis6380IntegrationTest
-	c15 [label=<<table title="nl.b3p.Mantis6380IntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Mantis6380IntegrationTest.html">
+	c17 [label=<<table title="nl.b3p.Mantis6380IntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Mantis6380IntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Mantis6380IntegrationTest </td></tr>
 		</table></td></tr>
@@ -277,7 +307,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./Mantis6380IntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.AbstractDatabaseIntegrationTest
-	c16 [label=<<table title="nl.b3p.AbstractDatabaseIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AbstractDatabaseIntegrationTest.html">
+	c18 [label=<<table title="nl.b3p.AbstractDatabaseIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AbstractDatabaseIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> AbstractDatabaseIntegrationTest </font></td></tr>
 		</table></td></tr>
@@ -298,7 +328,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./AbstractDatabaseIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.TopNLIntegrationTest
-	c17 [label=<<table title="nl.b3p.TopNLIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TopNLIntegrationTest.html">
+	c19 [label=<<table title="nl.b3p.TopNLIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TopNLIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> TopNLIntegrationTest </td></tr>
 		</table></td></tr>
@@ -315,7 +345,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./TopNLIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.GH527NhrToStagingToRsgbIntegrationTest
-	c18 [label=<<table title="nl.b3p.GH527NhrToStagingToRsgbIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GH527NhrToStagingToRsgbIntegrationTest.html">
+	c20 [label=<<table title="nl.b3p.GH527NhrToStagingToRsgbIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GH527NhrToStagingToRsgbIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> GH527NhrToStagingToRsgbIntegrationTest </td></tr>
 		</table></td></tr>
@@ -330,38 +360,42 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./GH527NhrToStagingToRsgbIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.BAGXMLToStagingIntegrationTest extends nl.b3p.AbstractDatabaseIntegrationTest
-	c16:p -> c0:p [dir=back,arrowtail=empty];
+	c18:p -> c0:p [dir=back,arrowtail=empty];
 	//nl.b3p.BRKLocatiebeschrijvingIntegrationTest extends nl.b3p.AbstractDatabaseIntegrationTest
-	c16:p -> c1:p [dir=back,arrowtail=empty];
+	c18:p -> c1:p [dir=back,arrowtail=empty];
 	//nl.b3p.BrkToStagingToRsgbIntegrationTest extends nl.b3p.AbstractDatabaseIntegrationTest
-	c16:p -> c2:p [dir=back,arrowtail=empty];
+	c18:p -> c2:p [dir=back,arrowtail=empty];
+	//nl.b3p.Art37aIntegrationTest extends nl.b3p.AbstractDatabaseIntegrationTest
+	c18:p -> c3:p [dir=back,arrowtail=empty];
 	//nl.b3p.GBAVXMLToStagingIntegrationTest extends nl.b3p.AbstractDatabaseIntegrationTest
-	c16:p -> c4:p [dir=back,arrowtail=empty];
+	c18:p -> c5:p [dir=back,arrowtail=empty];
 	//nl.b3p.BerichtenFilterSqlIntegrationTest extends nl.b3p.AbstractDatabaseIntegrationTest
-	c16:p -> c5:p [dir=back,arrowtail=empty];
+	c18:p -> c6:p [dir=back,arrowtail=empty];
 	//nl.b3p.Mantis10547IntegrationTest extends nl.b3p.AbstractDatabaseIntegrationTest
-	c16:p -> c6:p [dir=back,arrowtail=empty];
+	c18:p -> c7:p [dir=back,arrowtail=empty];
 	//nl.b3p.Mantis11180IntegrationTest extends nl.b3p.AbstractDatabaseIntegrationTest
-	c16:p -> c7:p [dir=back,arrowtail=empty];
+	c18:p -> c8:p [dir=back,arrowtail=empty];
 	//nl.b3p.Oracle8000byteBugIntegrationTest extends nl.b3p.AbstractDatabaseIntegrationTest
-	c16:p -> c8:p [dir=back,arrowtail=empty];
+	c18:p -> c9:p [dir=back,arrowtail=empty];
 	//nl.b3p.Mantis6235IntegrationTest extends nl.b3p.AbstractDatabaseIntegrationTest
-	c16:p -> c9:p [dir=back,arrowtail=empty];
+	c18:p -> c10:p [dir=back,arrowtail=empty];
 	//nl.b3p.Mantis6098IntegrationTest extends nl.b3p.AbstractDatabaseIntegrationTest
-	c16:p -> c10:p [dir=back,arrowtail=empty];
+	c18:p -> c11:p [dir=back,arrowtail=empty];
 	//nl.b3p.VerminderenStukdelenIntegrationTest extends nl.b3p.AbstractDatabaseIntegrationTest
-	c16:p -> c11:p [dir=back,arrowtail=empty];
+	c18:p -> c12:p [dir=back,arrowtail=empty];
 	//nl.b3p.NhrToStagingToRsgbIntegrationTest extends nl.b3p.AbstractDatabaseIntegrationTest
-	c16:p -> c12:p [dir=back,arrowtail=empty];
+	c18:p -> c13:p [dir=back,arrowtail=empty];
 	//nl.b3p.Mantis10315IntegrationTest extends nl.b3p.AbstractDatabaseIntegrationTest
-	c16:p -> c13:p [dir=back,arrowtail=empty];
+	c18:p -> c14:p [dir=back,arrowtail=empty];
 	//nl.b3p.Mantis6166IntegrationTest extends nl.b3p.AbstractDatabaseIntegrationTest
-	c16:p -> c14:p [dir=back,arrowtail=empty];
+	c18:p -> c15:p [dir=back,arrowtail=empty];
+	//nl.b3p.ZakRechtArchiefIntegrationTest extends nl.b3p.AbstractDatabaseIntegrationTest
+	c18:p -> c16:p [dir=back,arrowtail=empty];
 	//nl.b3p.Mantis6380IntegrationTest extends nl.b3p.AbstractDatabaseIntegrationTest
-	c16:p -> c15:p [dir=back,arrowtail=empty];
+	c18:p -> c17:p [dir=back,arrowtail=empty];
 	//nl.b3p.TopNLIntegrationTest extends nl.b3p.AbstractDatabaseIntegrationTest
-	c16:p -> c17:p [dir=back,arrowtail=empty];
+	c18:p -> c19:p [dir=back,arrowtail=empty];
 	//nl.b3p.GH527NhrToStagingToRsgbIntegrationTest extends nl.b3p.AbstractDatabaseIntegrationTest
-	c16:p -> c18:p [dir=back,arrowtail=empty];
+	c18:p -> c20:p [dir=back,arrowtail=empty];
 }
 

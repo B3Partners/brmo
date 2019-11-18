@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>PDOKBGTLightUtil.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO loader</a> &gt; <a href="../index.html" class="el_bundle">bgt-gml-loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.bgt.util</a> &gt; <span class="el_source">PDOKBGTLightUtil.java</span></div><h1>PDOKBGTLightUtil.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2016 B3Partners B.V.
+ */
+package nl.b3p.brmo.bgt.util;
+
+import org.locationtech.jts.geom.Geometry;
+import org.locationtech.jts.io.WKTReader;
+import java.io.IOException;
+import java.net.URL;
+import java.util.Set;
+import java.util.TreeSet;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.geotools.data.DataUtilities;
+import org.geotools.data.simple.SimpleFeatureCollection;
+import org.geotools.data.simple.SimpleFeatureIterator;
+import org.geotools.feature.SchemaException;
+import org.geotools.geojson.feature.FeatureJSON;
+import org.geotools.geometry.jts.JTSFactoryFinder;
+import org.json.simple.parser.JSONParser;
+import org.opengis.feature.simple.SimpleFeature;
+import org.opengis.feature.simple.SimpleFeatureType;
+
+/**
+ * utilities mbt PDOK BGT GML light formaat en de dwnload website.
+ *
+ * @author mprins
+ */
+public class PDOKBGTLightUtil {
+
+<span class="fc" id="L31">    private static final Log LOG = LogFactory.getLog(PDOKBGTLightUtil.class);</span>
+    /**
+     * het featuretype van de {@code tileinfo.json} van de pdok bgt download
+     * site.
+     */
+    public static final String TILEINFO_F_TYPE = &quot;geom:Polygon:srid=28992,extractset:String,id:Integer&quot;;
+
+    /**
+     * Bepaald de lijst met grid ids.
+     *
+     * @param wktGeom aandachtsgebied
+     * @param jsonUrl url naar de pdok bgt gml light index
+     * @return lijst met grid ids
+     *
+     * @see #calculateGridIds(org.locationtech.jts.geom.Geometry,
+     * org.geotools.data.simple.SimpleFeatureCollection)
+     */
+    public static Set&lt;Integer&gt; calculateGridIds(String wktGeom, String jsonUrl) {
+<span class="fc" id="L49">        Geometry geometry = null;</span>
+<span class="fc" id="L50">        SimpleFeatureCollection fc = null;</span>
+        try {
+<span class="fc" id="L52">            org.locationtech.jts.geom.GeometryFactory geometryFactory = JTSFactoryFinder.getGeometryFactory();</span>
+<span class="fc" id="L53">            WKTReader reader = new WKTReader(geometryFactory);</span>
+<span class="fc" id="L54">            geometry = reader.read(wktGeom);</span>
+<span class="fc" id="L55">            geometry.setSRID(28992);</span>
+
+<span class="fc" id="L57">            URL u = new URL(jsonUrl);</span>
+<span class="fc" id="L58">            JSONParser parser = new JSONParser();</span>
+<span class="fc" id="L59">            Object json = parser.parse(new java.io.InputStreamReader(u.openStream()));</span>
+<span class="fc" id="L60">            final FeatureJSON io = new FeatureJSON();</span>
+            try {
+<span class="fc" id="L62">                final SimpleFeatureType jsonType = DataUtilities.createType(&quot;tileinfo&quot;, TILEINFO_F_TYPE);</span>
+<span class="fc" id="L63">                io.setFeatureType(jsonType);</span>
+<span class="nc" id="L64">            } catch (SchemaException se) {</span>
+<span class="nc" id="L65">                LOG.warn(&quot;Aanmaken van tileinfo featuretype is mislukt&quot;, se);</span>
+<span class="fc" id="L66">            }</span>
+<span class="fc" id="L67">            fc = (SimpleFeatureCollection) io.readFeatureCollection(json.toString());</span>
+<span class="nc" id="L68">        } catch (org.locationtech.jts.io.ParseException ex) {</span>
+<span class="nc" id="L69">            LOG.error(&quot;Parsen van de WKT selectie geometrie is mislukt&quot;, ex);</span>
+<span class="nc" id="L70">        } catch (IOException | org.json.simple.parser.ParseException io) {</span>
+<span class="nc" id="L71">            LOG.error(&quot;Ophalen of parsen van de geojson file met tiles is mislukt&quot;, io);</span>
+<span class="pc" id="L72">        }</span>
+<span class="fc" id="L73">        return calculateGridIds(geometry, fc);</span>
+    }
+
+    public static Set&lt;Integer&gt; calculateGridIds(Geometry aoi, SimpleFeatureCollection grid) {
+<span class="fc" id="L77">        final Set&lt;Integer&gt; ids = new TreeSet();</span>
+        SimpleFeature sf;
+<span class="fc" id="L79">        aoi = aoi.buffer(10, 1);</span>
+<span class="fc" id="L80">        try (SimpleFeatureIterator sfi = grid.features()) {</span>
+<span class="fc bfc" id="L81" title="All 2 branches covered.">            while (sfi.hasNext()) {</span>
+<span class="fc" id="L82">                sf = sfi.next();</span>
+<span class="fc bfc" id="L83" title="All 2 branches covered.">                if (aoi.intersects((Geometry) sf.getDefaultGeometry())) {</span>
+<span class="fc" id="L84">                    LOG.debug(sf.getAttribute(&quot;id&quot;) + &quot; Toevoegen aan de lijst van op te halen ids&quot;);</span>
+<span class="fc" id="L85">                    ids.add((Integer) (sf.getAttribute(&quot;id&quot;)));</span>
+                }
+            }
+        }
+<span class="fc" id="L89">        LOG.debug(&quot;De lijst bevat de volgende id's: &quot; + ids);</span>
+<span class="fc" id="L90">        return ids;</span>
+    }
+
+    private PDOKBGTLightUtil() {
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

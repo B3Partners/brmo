@@ -1,0 +1,1246 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>WOZFund.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO STUF BG 204</a> &gt; <a href="index.source.html" class="el_package">nl.egem.stuf.sector.bg._0204</a> &gt; <span class="el_source">WOZFund.java</span></div><h1>WOZFund.java</h1><pre class="source lang-java linenums">
+package nl.egem.stuf.sector.bg._0204;
+
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementRef;
+import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.XmlValue;
+import nl.egem.stuf.stuf0204.DatumMetIndicator;
+import nl.egem.stuf.stuf0204.ExtraElementen;
+import nl.egem.stuf.stuf0204.NoValue;
+import nl.egem.stuf.stuf0204.TijdvakGeldigheid;
+import nl.egem.stuf.stuf0204.Verwerkingssoort;
+
+
+/**
+ * fundamenteel WOZ
+ * 
+ * &lt;p&gt;Java class for WOZ-fund complex type.
+ * 
+ * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+ * 
+ * &lt;pre&gt;
+ * &amp;lt;complexType name=&quot;WOZ-fund&quot;&amp;gt;
+ *   &amp;lt;complexContent&amp;gt;
+ *     &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
+ *       &amp;lt;sequence&amp;gt;
+ *         &amp;lt;element name=&quot;wozObjectNummer&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;simpleContent&amp;gt;
+ *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;WOZObjectNummer&quot;&amp;gt;
+ *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+ *                 &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/simpleContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;activiteitFeitelijk&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;simpleContent&amp;gt;
+ *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;ActiviteitFeitelijk&quot;&amp;gt;
+ *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/simpleContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;vastgesteldeWaarde&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;simpleContent&amp;gt;
+ *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;VastgesteldeWaarde&quot;&amp;gt;
+ *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+ *                 &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;WOZ1&quot; /&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/simpleContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;vastgesteldeWaardeEuro&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;simpleContent&amp;gt;
+ *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;VastgesteldeWaarde&quot;&amp;gt;
+ *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+ *                 &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;WOZ1&quot; /&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/simpleContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;peildatumWaarde&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;simpleContent&amp;gt;
+ *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/StUF0204&amp;gt;DatumMetIndicator&quot;&amp;gt;
+ *                 &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;WOZ1&quot; /&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/simpleContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;huurprijs&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;simpleContent&amp;gt;
+ *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;Huurprijs&quot;&amp;gt;
+ *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/simpleContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;huurprijsEuro&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}Huurprijs&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;PeildatumHuurprijs&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}DatumMetIndicator&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;tijdvakGeldigheid&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}TijdvakGeldigheid&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;extraElementen&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}ExtraElementen&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *       &amp;lt;/sequence&amp;gt;
+ *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}fundamenteel&quot;/&amp;gt;
+ *     &amp;lt;/restriction&amp;gt;
+ *   &amp;lt;/complexContent&amp;gt;
+ * &amp;lt;/complexType&amp;gt;
+ * &lt;/pre&gt;
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = &quot;WOZ-fund&quot;, propOrder = {
+    &quot;wozObjectNummer&quot;,
+    &quot;activiteitFeitelijk&quot;,
+    &quot;vastgesteldeWaarde&quot;,
+    &quot;vastgesteldeWaardeEuro&quot;,
+    &quot;peildatumWaarde&quot;,
+    &quot;huurprijs&quot;,
+    &quot;huurprijsEuro&quot;,
+    &quot;peildatumHuurprijs&quot;,
+    &quot;tijdvakGeldigheid&quot;,
+    &quot;extraElementen&quot;
+})
+@XmlSeeAlso({
+    WOZKennisgeving.class,
+    WOZVraag.class,
+    WOZAntwoord.class
+})
+<span class="nc" id="L124">public class WOZFund {</span>
+
+    @XmlElementRef(name = &quot;wozObjectNummer&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+    protected JAXBElement&lt;WOZFund.WozObjectNummer&gt; wozObjectNummer;
+    @XmlElement(nillable = true)
+    protected List&lt;WOZFund.ActiviteitFeitelijk&gt; activiteitFeitelijk;
+    @XmlElementRef(name = &quot;vastgesteldeWaarde&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+    protected JAXBElement&lt;WOZFund.VastgesteldeWaarde&gt; vastgesteldeWaarde;
+    @XmlElementRef(name = &quot;vastgesteldeWaardeEuro&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+    protected JAXBElement&lt;WOZFund.VastgesteldeWaardeEuro&gt; vastgesteldeWaardeEuro;
+    @XmlElementRef(name = &quot;peildatumWaarde&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+    protected JAXBElement&lt;WOZFund.PeildatumWaarde&gt; peildatumWaarde;
+    @XmlElementRef(name = &quot;huurprijs&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+    protected JAXBElement&lt;WOZFund.Huurprijs&gt; huurprijs;
+    @XmlElementRef(name = &quot;huurprijsEuro&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+    protected JAXBElement&lt;BigInteger&gt; huurprijsEuro;
+    @XmlElementRef(name = &quot;PeildatumHuurprijs&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+    protected JAXBElement&lt;DatumMetIndicator&gt; peildatumHuurprijs;
+    protected TijdvakGeldigheid tijdvakGeldigheid;
+    protected ExtraElementen extraElementen;
+    @XmlAttribute(name = &quot;soortEntiteit&quot;, required = true)
+    protected String soortEntiteit;
+    @XmlAttribute(name = &quot;sleutelVerzendend&quot;, namespace = &quot;http://www.egem.nl/StUF/StUF0204&quot;)
+    protected String sleutelVerzendend;
+    @XmlAttribute(name = &quot;sleutelOntvangend&quot;, namespace = &quot;http://www.egem.nl/StUF/StUF0204&quot;)
+    protected String sleutelOntvangend;
+    @XmlAttribute(name = &quot;sleutelGegevensbeheer&quot;, namespace = &quot;http://www.egem.nl/StUF/StUF0204&quot;)
+    protected String sleutelGegevensbeheer;
+    @XmlAttribute(name = &quot;verwerkingssoort&quot;, namespace = &quot;http://www.egem.nl/StUF/StUF0204&quot;)
+    protected Verwerkingssoort verwerkingssoort;
+    @XmlAttribute(name = &quot;noValue&quot;, namespace = &quot;http://www.egem.nl/StUF/StUF0204&quot;)
+    protected NoValue noValue;
+
+    /**
+     * Gets the value of the wozObjectNummer property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code &lt;}{@link WOZFund.WozObjectNummer }{@code &gt;}
+     *     
+     */
+    public JAXBElement&lt;WOZFund.WozObjectNummer&gt; getWozObjectNummer() {
+<span class="nc" id="L166">        return wozObjectNummer;</span>
+    }
+
+    /**
+     * Sets the value of the wozObjectNummer property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code &lt;}{@link WOZFund.WozObjectNummer }{@code &gt;}
+     *     
+     */
+    public void setWozObjectNummer(JAXBElement&lt;WOZFund.WozObjectNummer&gt; value) {
+<span class="nc" id="L178">        this.wozObjectNummer = value;</span>
+<span class="nc" id="L179">    }</span>
+
+    /**
+     * Gets the value of the activiteitFeitelijk property.
+     * 
+     * &lt;p&gt;
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the activiteitFeitelijk property.
+     * 
+     * &lt;p&gt;
+     * For example, to add a new item, do as follows:
+     * &lt;pre&gt;
+     *    getActiviteitFeitelijk().add(newItem);
+     * &lt;/pre&gt;
+     * 
+     * 
+     * &lt;p&gt;
+     * Objects of the following type(s) are allowed in the list
+     * {@link WOZFund.ActiviteitFeitelijk }
+     * 
+     * 
+     */
+    public List&lt;WOZFund.ActiviteitFeitelijk&gt; getActiviteitFeitelijk() {
+<span class="nc bnc" id="L204" title="All 2 branches missed.">        if (activiteitFeitelijk == null) {</span>
+<span class="nc" id="L205">            activiteitFeitelijk = new ArrayList&lt;WOZFund.ActiviteitFeitelijk&gt;();</span>
+        }
+<span class="nc" id="L207">        return this.activiteitFeitelijk;</span>
+    }
+
+    /**
+     * Gets the value of the vastgesteldeWaarde property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code &lt;}{@link WOZFund.VastgesteldeWaarde }{@code &gt;}
+     *     
+     */
+    public JAXBElement&lt;WOZFund.VastgesteldeWaarde&gt; getVastgesteldeWaarde() {
+<span class="nc" id="L219">        return vastgesteldeWaarde;</span>
+    }
+
+    /**
+     * Sets the value of the vastgesteldeWaarde property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code &lt;}{@link WOZFund.VastgesteldeWaarde }{@code &gt;}
+     *     
+     */
+    public void setVastgesteldeWaarde(JAXBElement&lt;WOZFund.VastgesteldeWaarde&gt; value) {
+<span class="nc" id="L231">        this.vastgesteldeWaarde = value;</span>
+<span class="nc" id="L232">    }</span>
+
+    /**
+     * Gets the value of the vastgesteldeWaardeEuro property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code &lt;}{@link WOZFund.VastgesteldeWaardeEuro }{@code &gt;}
+     *     
+     */
+    public JAXBElement&lt;WOZFund.VastgesteldeWaardeEuro&gt; getVastgesteldeWaardeEuro() {
+<span class="nc" id="L243">        return vastgesteldeWaardeEuro;</span>
+    }
+
+    /**
+     * Sets the value of the vastgesteldeWaardeEuro property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code &lt;}{@link WOZFund.VastgesteldeWaardeEuro }{@code &gt;}
+     *     
+     */
+    public void setVastgesteldeWaardeEuro(JAXBElement&lt;WOZFund.VastgesteldeWaardeEuro&gt; value) {
+<span class="nc" id="L255">        this.vastgesteldeWaardeEuro = value;</span>
+<span class="nc" id="L256">    }</span>
+
+    /**
+     * Gets the value of the peildatumWaarde property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code &lt;}{@link WOZFund.PeildatumWaarde }{@code &gt;}
+     *     
+     */
+    public JAXBElement&lt;WOZFund.PeildatumWaarde&gt; getPeildatumWaarde() {
+<span class="nc" id="L267">        return peildatumWaarde;</span>
+    }
+
+    /**
+     * Sets the value of the peildatumWaarde property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code &lt;}{@link WOZFund.PeildatumWaarde }{@code &gt;}
+     *     
+     */
+    public void setPeildatumWaarde(JAXBElement&lt;WOZFund.PeildatumWaarde&gt; value) {
+<span class="nc" id="L279">        this.peildatumWaarde = value;</span>
+<span class="nc" id="L280">    }</span>
+
+    /**
+     * Gets the value of the huurprijs property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code &lt;}{@link WOZFund.Huurprijs }{@code &gt;}
+     *     
+     */
+    public JAXBElement&lt;WOZFund.Huurprijs&gt; getHuurprijs() {
+<span class="nc" id="L291">        return huurprijs;</span>
+    }
+
+    /**
+     * Sets the value of the huurprijs property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code &lt;}{@link WOZFund.Huurprijs }{@code &gt;}
+     *     
+     */
+    public void setHuurprijs(JAXBElement&lt;WOZFund.Huurprijs&gt; value) {
+<span class="nc" id="L303">        this.huurprijs = value;</span>
+<span class="nc" id="L304">    }</span>
+
+    /**
+     * Gets the value of the huurprijsEuro property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code &lt;}{@link BigInteger }{@code &gt;}
+     *     
+     */
+    public JAXBElement&lt;BigInteger&gt; getHuurprijsEuro() {
+<span class="nc" id="L315">        return huurprijsEuro;</span>
+    }
+
+    /**
+     * Sets the value of the huurprijsEuro property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code &lt;}{@link BigInteger }{@code &gt;}
+     *     
+     */
+    public void setHuurprijsEuro(JAXBElement&lt;BigInteger&gt; value) {
+<span class="nc" id="L327">        this.huurprijsEuro = value;</span>
+<span class="nc" id="L328">    }</span>
+
+    /**
+     * Gets the value of the peildatumHuurprijs property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code &lt;}{@link DatumMetIndicator }{@code &gt;}
+     *     
+     */
+    public JAXBElement&lt;DatumMetIndicator&gt; getPeildatumHuurprijs() {
+<span class="nc" id="L339">        return peildatumHuurprijs;</span>
+    }
+
+    /**
+     * Sets the value of the peildatumHuurprijs property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code &lt;}{@link DatumMetIndicator }{@code &gt;}
+     *     
+     */
+    public void setPeildatumHuurprijs(JAXBElement&lt;DatumMetIndicator&gt; value) {
+<span class="nc" id="L351">        this.peildatumHuurprijs = value;</span>
+<span class="nc" id="L352">    }</span>
+
+    /**
+     * Gets the value of the tijdvakGeldigheid property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link TijdvakGeldigheid }
+     *     
+     */
+    public TijdvakGeldigheid getTijdvakGeldigheid() {
+<span class="nc" id="L363">        return tijdvakGeldigheid;</span>
+    }
+
+    /**
+     * Sets the value of the tijdvakGeldigheid property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link TijdvakGeldigheid }
+     *     
+     */
+    public void setTijdvakGeldigheid(TijdvakGeldigheid value) {
+<span class="nc" id="L375">        this.tijdvakGeldigheid = value;</span>
+<span class="nc" id="L376">    }</span>
+
+    /**
+     * Gets the value of the extraElementen property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link ExtraElementen }
+     *     
+     */
+    public ExtraElementen getExtraElementen() {
+<span class="nc" id="L387">        return extraElementen;</span>
+    }
+
+    /**
+     * Sets the value of the extraElementen property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link ExtraElementen }
+     *     
+     */
+    public void setExtraElementen(ExtraElementen value) {
+<span class="nc" id="L399">        this.extraElementen = value;</span>
+<span class="nc" id="L400">    }</span>
+
+    /**
+     * Gets the value of the soortEntiteit property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getSoortEntiteit() {
+<span class="nc bnc" id="L411" title="All 2 branches missed.">        if (soortEntiteit == null) {</span>
+<span class="nc" id="L412">            return &quot;F&quot;;</span>
+        } else {
+<span class="nc" id="L414">            return soortEntiteit;</span>
+        }
+    }
+
+    /**
+     * Sets the value of the soortEntiteit property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setSoortEntiteit(String value) {
+<span class="nc" id="L427">        this.soortEntiteit = value;</span>
+<span class="nc" id="L428">    }</span>
+
+    /**
+     * Gets the value of the sleutelVerzendend property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getSleutelVerzendend() {
+<span class="nc" id="L439">        return sleutelVerzendend;</span>
+    }
+
+    /**
+     * Sets the value of the sleutelVerzendend property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setSleutelVerzendend(String value) {
+<span class="nc" id="L451">        this.sleutelVerzendend = value;</span>
+<span class="nc" id="L452">    }</span>
+
+    /**
+     * Gets the value of the sleutelOntvangend property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getSleutelOntvangend() {
+<span class="nc" id="L463">        return sleutelOntvangend;</span>
+    }
+
+    /**
+     * Sets the value of the sleutelOntvangend property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setSleutelOntvangend(String value) {
+<span class="nc" id="L475">        this.sleutelOntvangend = value;</span>
+<span class="nc" id="L476">    }</span>
+
+    /**
+     * Gets the value of the sleutelGegevensbeheer property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getSleutelGegevensbeheer() {
+<span class="nc" id="L487">        return sleutelGegevensbeheer;</span>
+    }
+
+    /**
+     * Sets the value of the sleutelGegevensbeheer property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setSleutelGegevensbeheer(String value) {
+<span class="nc" id="L499">        this.sleutelGegevensbeheer = value;</span>
+<span class="nc" id="L500">    }</span>
+
+    /**
+     * Gets the value of the verwerkingssoort property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Verwerkingssoort }
+     *     
+     */
+    public Verwerkingssoort getVerwerkingssoort() {
+<span class="nc" id="L511">        return verwerkingssoort;</span>
+    }
+
+    /**
+     * Sets the value of the verwerkingssoort property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Verwerkingssoort }
+     *     
+     */
+    public void setVerwerkingssoort(Verwerkingssoort value) {
+<span class="nc" id="L523">        this.verwerkingssoort = value;</span>
+<span class="nc" id="L524">    }</span>
+
+    /**
+     * Gets the value of the noValue property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link NoValue }
+     *     
+     */
+    public NoValue getNoValue() {
+<span class="nc" id="L535">        return noValue;</span>
+    }
+
+    /**
+     * Sets the value of the noValue property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link NoValue }
+     *     
+     */
+    public void setNoValue(NoValue value) {
+<span class="nc" id="L547">        this.noValue = value;</span>
+<span class="nc" id="L548">    }</span>
+
+
+    /**
+     * &lt;p&gt;Java class for anonymous complex type.
+     * 
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * 
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;simpleContent&amp;gt;
+     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;ActiviteitFeitelijk&quot;&amp;gt;
+     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/simpleContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = &quot;&quot;, propOrder = {
+        &quot;value&quot;
+    })
+<span class="nc" id="L572">    public static class ActiviteitFeitelijk {</span>
+
+        @XmlValue
+        protected BigDecimal value;
+        @XmlAttribute(name = &quot;noValue&quot;, namespace = &quot;http://www.egem.nl/StUF/StUF0204&quot;)
+        protected NoValue noValue;
+        @XmlAttribute(name = &quot;exact&quot;, namespace = &quot;http://www.egem.nl/StUF/StUF0204&quot;)
+        protected Boolean exact;
+
+        /**
+         * Gets the value of the value property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link BigDecimal }
+         *     
+         */
+        public BigDecimal getValue() {
+<span class="nc" id="L590">            return value;</span>
+        }
+
+        /**
+         * Sets the value of the value property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link BigDecimal }
+         *     
+         */
+        public void setValue(BigDecimal value) {
+<span class="nc" id="L602">            this.value = value;</span>
+<span class="nc" id="L603">        }</span>
+
+        /**
+         * Gets the value of the noValue property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link NoValue }
+         *     
+         */
+        public NoValue getNoValue() {
+<span class="nc" id="L614">            return noValue;</span>
+        }
+
+        /**
+         * Sets the value of the noValue property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link NoValue }
+         *     
+         */
+        public void setNoValue(NoValue value) {
+<span class="nc" id="L626">            this.noValue = value;</span>
+<span class="nc" id="L627">        }</span>
+
+        /**
+         * Gets the value of the exact property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link Boolean }
+         *     
+         */
+        public boolean isExact() {
+<span class="nc bnc" id="L638" title="All 2 branches missed.">            if (exact == null) {</span>
+<span class="nc" id="L639">                return true;</span>
+            } else {
+<span class="nc" id="L641">                return exact;</span>
+            }
+        }
+
+        /**
+         * Sets the value of the exact property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link Boolean }
+         *     
+         */
+        public void setExact(Boolean value) {
+<span class="nc" id="L654">            this.exact = value;</span>
+<span class="nc" id="L655">        }</span>
+
+    }
+
+
+    /**
+     * &lt;p&gt;Java class for anonymous complex type.
+     * 
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * 
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;simpleContent&amp;gt;
+     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;Huurprijs&quot;&amp;gt;
+     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/simpleContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = &quot;&quot;, propOrder = {
+        &quot;value&quot;
+    })
+<span class="nc" id="L681">    public static class Huurprijs {</span>
+
+        @XmlValue
+        protected BigInteger value;
+        @XmlAttribute(name = &quot;noValue&quot;, namespace = &quot;http://www.egem.nl/StUF/StUF0204&quot;)
+        protected NoValue noValue;
+        @XmlAttribute(name = &quot;exact&quot;, namespace = &quot;http://www.egem.nl/StUF/StUF0204&quot;)
+        protected Boolean exact;
+
+        /**
+         * Gets the value of the value property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link BigInteger }
+         *     
+         */
+        public BigInteger getValue() {
+<span class="nc" id="L699">            return value;</span>
+        }
+
+        /**
+         * Sets the value of the value property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link BigInteger }
+         *     
+         */
+        public void setValue(BigInteger value) {
+<span class="nc" id="L711">            this.value = value;</span>
+<span class="nc" id="L712">        }</span>
+
+        /**
+         * Gets the value of the noValue property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link NoValue }
+         *     
+         */
+        public NoValue getNoValue() {
+<span class="nc" id="L723">            return noValue;</span>
+        }
+
+        /**
+         * Sets the value of the noValue property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link NoValue }
+         *     
+         */
+        public void setNoValue(NoValue value) {
+<span class="nc" id="L735">            this.noValue = value;</span>
+<span class="nc" id="L736">        }</span>
+
+        /**
+         * Gets the value of the exact property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link Boolean }
+         *     
+         */
+        public boolean isExact() {
+<span class="nc bnc" id="L747" title="All 2 branches missed.">            if (exact == null) {</span>
+<span class="nc" id="L748">                return true;</span>
+            } else {
+<span class="nc" id="L750">                return exact;</span>
+            }
+        }
+
+        /**
+         * Sets the value of the exact property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link Boolean }
+         *     
+         */
+        public void setExact(Boolean value) {
+<span class="nc" id="L763">            this.exact = value;</span>
+<span class="nc" id="L764">        }</span>
+
+    }
+
+
+    /**
+     * &lt;p&gt;Java class for anonymous complex type.
+     * 
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * 
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;simpleContent&amp;gt;
+     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/StUF0204&amp;gt;DatumMetIndicator&quot;&amp;gt;
+     *       &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;WOZ1&quot; /&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/simpleContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = &quot;&quot;)
+<span class="nc" id="L788">    public static class PeildatumWaarde</span>
+        extends DatumMetIndicator
+    {
+
+        @XmlAttribute(name = &quot;gegevengroep&quot;)
+        protected String gegevengroep;
+
+        /**
+         * Gets the value of the gegevengroep property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
+         */
+        public String getGegevengroep() {
+<span class="nc bnc" id="L804" title="All 2 branches missed.">            if (gegevengroep == null) {</span>
+<span class="nc" id="L805">                return &quot;WOZ1&quot;;</span>
+            } else {
+<span class="nc" id="L807">                return gegevengroep;</span>
+            }
+        }
+
+        /**
+         * Sets the value of the gegevengroep property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
+         */
+        public void setGegevengroep(String value) {
+<span class="nc" id="L820">            this.gegevengroep = value;</span>
+<span class="nc" id="L821">        }</span>
+
+    }
+
+
+    /**
+     * &lt;p&gt;Java class for anonymous complex type.
+     * 
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * 
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;simpleContent&amp;gt;
+     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;VastgesteldeWaarde&quot;&amp;gt;
+     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+     *       &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;WOZ1&quot; /&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/simpleContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = &quot;&quot;, propOrder = {
+        &quot;value&quot;
+    })
+<span class="nc" id="L848">    public static class VastgesteldeWaarde {</span>
+
+        @XmlValue
+        protected BigInteger value;
+        @XmlAttribute(name = &quot;gegevengroep&quot;)
+        protected String gegevengroep;
+        @XmlAttribute(name = &quot;noValue&quot;, namespace = &quot;http://www.egem.nl/StUF/StUF0204&quot;)
+        protected NoValue noValue;
+        @XmlAttribute(name = &quot;exact&quot;, namespace = &quot;http://www.egem.nl/StUF/StUF0204&quot;)
+        protected Boolean exact;
+
+        /**
+         * Gets the value of the value property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link BigInteger }
+         *     
+         */
+        public BigInteger getValue() {
+<span class="nc" id="L868">            return value;</span>
+        }
+
+        /**
+         * Sets the value of the value property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link BigInteger }
+         *     
+         */
+        public void setValue(BigInteger value) {
+<span class="nc" id="L880">            this.value = value;</span>
+<span class="nc" id="L881">        }</span>
+
+        /**
+         * Gets the value of the gegevengroep property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
+         */
+        public String getGegevengroep() {
+<span class="nc bnc" id="L892" title="All 2 branches missed.">            if (gegevengroep == null) {</span>
+<span class="nc" id="L893">                return &quot;WOZ1&quot;;</span>
+            } else {
+<span class="nc" id="L895">                return gegevengroep;</span>
+            }
+        }
+
+        /**
+         * Sets the value of the gegevengroep property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
+         */
+        public void setGegevengroep(String value) {
+<span class="nc" id="L908">            this.gegevengroep = value;</span>
+<span class="nc" id="L909">        }</span>
+
+        /**
+         * Gets the value of the noValue property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link NoValue }
+         *     
+         */
+        public NoValue getNoValue() {
+<span class="nc" id="L920">            return noValue;</span>
+        }
+
+        /**
+         * Sets the value of the noValue property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link NoValue }
+         *     
+         */
+        public void setNoValue(NoValue value) {
+<span class="nc" id="L932">            this.noValue = value;</span>
+<span class="nc" id="L933">        }</span>
+
+        /**
+         * Gets the value of the exact property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link Boolean }
+         *     
+         */
+        public boolean isExact() {
+<span class="nc bnc" id="L944" title="All 2 branches missed.">            if (exact == null) {</span>
+<span class="nc" id="L945">                return true;</span>
+            } else {
+<span class="nc" id="L947">                return exact;</span>
+            }
+        }
+
+        /**
+         * Sets the value of the exact property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link Boolean }
+         *     
+         */
+        public void setExact(Boolean value) {
+<span class="nc" id="L960">            this.exact = value;</span>
+<span class="nc" id="L961">        }</span>
+
+    }
+
+
+    /**
+     * &lt;p&gt;Java class for anonymous complex type.
+     * 
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * 
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;simpleContent&amp;gt;
+     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;VastgesteldeWaarde&quot;&amp;gt;
+     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+     *       &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;WOZ1&quot; /&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/simpleContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = &quot;&quot;, propOrder = {
+        &quot;value&quot;
+    })
+<span class="nc" id="L988">    public static class VastgesteldeWaardeEuro {</span>
+
+        @XmlValue
+        protected BigInteger value;
+        @XmlAttribute(name = &quot;gegevengroep&quot;)
+        protected String gegevengroep;
+        @XmlAttribute(name = &quot;noValue&quot;, namespace = &quot;http://www.egem.nl/StUF/StUF0204&quot;)
+        protected NoValue noValue;
+        @XmlAttribute(name = &quot;exact&quot;, namespace = &quot;http://www.egem.nl/StUF/StUF0204&quot;)
+        protected Boolean exact;
+
+        /**
+         * Gets the value of the value property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link BigInteger }
+         *     
+         */
+        public BigInteger getValue() {
+<span class="nc" id="L1008">            return value;</span>
+        }
+
+        /**
+         * Sets the value of the value property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link BigInteger }
+         *     
+         */
+        public void setValue(BigInteger value) {
+<span class="nc" id="L1020">            this.value = value;</span>
+<span class="nc" id="L1021">        }</span>
+
+        /**
+         * Gets the value of the gegevengroep property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
+         */
+        public String getGegevengroep() {
+<span class="nc bnc" id="L1032" title="All 2 branches missed.">            if (gegevengroep == null) {</span>
+<span class="nc" id="L1033">                return &quot;WOZ1&quot;;</span>
+            } else {
+<span class="nc" id="L1035">                return gegevengroep;</span>
+            }
+        }
+
+        /**
+         * Sets the value of the gegevengroep property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
+         */
+        public void setGegevengroep(String value) {
+<span class="nc" id="L1048">            this.gegevengroep = value;</span>
+<span class="nc" id="L1049">        }</span>
+
+        /**
+         * Gets the value of the noValue property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link NoValue }
+         *     
+         */
+        public NoValue getNoValue() {
+<span class="nc" id="L1060">            return noValue;</span>
+        }
+
+        /**
+         * Sets the value of the noValue property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link NoValue }
+         *     
+         */
+        public void setNoValue(NoValue value) {
+<span class="nc" id="L1072">            this.noValue = value;</span>
+<span class="nc" id="L1073">        }</span>
+
+        /**
+         * Gets the value of the exact property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link Boolean }
+         *     
+         */
+        public boolean isExact() {
+<span class="nc bnc" id="L1084" title="All 2 branches missed.">            if (exact == null) {</span>
+<span class="nc" id="L1085">                return true;</span>
+            } else {
+<span class="nc" id="L1087">                return exact;</span>
+            }
+        }
+
+        /**
+         * Sets the value of the exact property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link Boolean }
+         *     
+         */
+        public void setExact(Boolean value) {
+<span class="nc" id="L1100">            this.exact = value;</span>
+<span class="nc" id="L1101">        }</span>
+
+    }
+
+
+    /**
+     * &lt;p&gt;Java class for anonymous complex type.
+     * 
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * 
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;simpleContent&amp;gt;
+     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;WOZObjectNummer&quot;&amp;gt;
+     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+     *       &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/simpleContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = &quot;&quot;, propOrder = {
+        &quot;value&quot;
+    })
+<span class="nc" id="L1128">    public static class WozObjectNummer {</span>
+
+        @XmlValue
+        protected BigInteger value;
+        @XmlAttribute(name = &quot;kerngegeven&quot;)
+        protected Boolean kerngegeven;
+        @XmlAttribute(name = &quot;noValue&quot;, namespace = &quot;http://www.egem.nl/StUF/StUF0204&quot;)
+        protected NoValue noValue;
+        @XmlAttribute(name = &quot;exact&quot;, namespace = &quot;http://www.egem.nl/StUF/StUF0204&quot;)
+        protected Boolean exact;
+
+        /**
+         * Gets the value of the value property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link BigInteger }
+         *     
+         */
+        public BigInteger getValue() {
+<span class="nc" id="L1148">            return value;</span>
+        }
+
+        /**
+         * Sets the value of the value property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link BigInteger }
+         *     
+         */
+        public void setValue(BigInteger value) {
+<span class="nc" id="L1160">            this.value = value;</span>
+<span class="nc" id="L1161">        }</span>
+
+        /**
+         * Gets the value of the kerngegeven property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link Boolean }
+         *     
+         */
+        public boolean isKerngegeven() {
+<span class="nc bnc" id="L1172" title="All 2 branches missed.">            if (kerngegeven == null) {</span>
+<span class="nc" id="L1173">                return true;</span>
+            } else {
+<span class="nc" id="L1175">                return kerngegeven;</span>
+            }
+        }
+
+        /**
+         * Sets the value of the kerngegeven property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link Boolean }
+         *     
+         */
+        public void setKerngegeven(Boolean value) {
+<span class="nc" id="L1188">            this.kerngegeven = value;</span>
+<span class="nc" id="L1189">        }</span>
+
+        /**
+         * Gets the value of the noValue property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link NoValue }
+         *     
+         */
+        public NoValue getNoValue() {
+<span class="nc" id="L1200">            return noValue;</span>
+        }
+
+        /**
+         * Sets the value of the noValue property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link NoValue }
+         *     
+         */
+        public void setNoValue(NoValue value) {
+<span class="nc" id="L1212">            this.noValue = value;</span>
+<span class="nc" id="L1213">        }</span>
+
+        /**
+         * Gets the value of the exact property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link Boolean }
+         *     
+         */
+        public boolean isExact() {
+<span class="nc bnc" id="L1224" title="All 2 branches missed.">            if (exact == null) {</span>
+<span class="nc" id="L1225">                return true;</span>
+            } else {
+<span class="nc" id="L1227">                return exact;</span>
+            }
+        }
+
+        /**
+         * Sets the value of the exact property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link Boolean }
+         *     
+         */
+        public void setExact(Boolean value) {
+<span class="nc" id="L1240">            this.exact = value;</span>
+<span class="nc" id="L1241">        }</span>
+
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

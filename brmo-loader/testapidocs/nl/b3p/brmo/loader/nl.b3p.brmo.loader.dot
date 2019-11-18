@@ -9,8 +9,21 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// nl.b3p.brmo.loader.RsgbBRPTransformerTest
+	c169 [label=<<table title="nl.b3p.brmo.loader.RsgbBRPTransformerTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RsgbBRPTransformerTest.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> RsgbBRPTransformerTest </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + RsgbBRPTransformerTest() </td></tr>
+<tr><td align="left" balign="left"> + mergeTest() </td></tr>
+		</table></td></tr>
+		</table>>, URL="./RsgbBRPTransformerTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.BrmoFrameworkIntegrationTest
-	c179 [label=<<table title="nl.b3p.brmo.loader.BrmoFrameworkIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BrmoFrameworkIntegrationTest.html">
+	c170 [label=<<table title="nl.b3p.brmo.loader.BrmoFrameworkIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BrmoFrameworkIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BrmoFrameworkIntegrationTest </td></tr>
 		</table></td></tr>
@@ -28,9 +41,9 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BrmoFrameworkIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.BrmoFrameworkIntegrationTest NAVASSOC nl.b3p.brmo.loader.BrmoFramework
-	c179:p -> c180:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c170:p -> c175:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.loader.BrmoFramework
-	c180 [label=<<table title="nl.b3p.brmo.loader.BrmoFramework" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+	c175 [label=<<table title="nl.b3p.brmo.loader.BrmoFramework" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BrmoFramework </td></tr>
 		</table></td></tr>
@@ -95,6 +108,9 @@ digraph G {
 <tr><td align="left" balign="left"> + getCountBerichten(arg0 : String, arg1 : String, arg2 : String, arg3 : String) : long </td></tr>
 <tr><td align="left" balign="left"> + getCountLaadProcessen(arg0 : String, arg1 : String, arg2 : String, arg3 : String) : long </td></tr>
 <tr><td align="left" balign="left"> + getCountJob() : long </td></tr>
+<tr><td align="left" balign="left"> + updateLaadProcesMeta(arg0 : Long, arg1 : BigInteger, arg2 : BigInteger, arg3 : String, arg4 : String, arg5 : String, arg6 : String, arg7 : String, arg8 : Date) </td></tr>
+<tr><td align="left" balign="left"> + checkAfgiftelijst(arg0 : String, arg1 : String) : File </td></tr>
+<tr><td align="left" balign="left"> + checkAfgiftelijst(arg0 : String, arg1 : InputStream, arg2 : File) : File </td></tr>
 		</table></td></tr>
 		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }

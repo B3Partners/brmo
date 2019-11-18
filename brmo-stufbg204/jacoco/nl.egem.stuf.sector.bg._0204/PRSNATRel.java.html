@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PRSNATRel.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO STUF BG 204</a> &gt; <a href="index.source.html" class="el_package">nl.egem.stuf.sector.bg._0204</a> &gt; <span class="el_source">PRSNATRel.java</span></div><h1>PRSNATRel.java</h1><pre class="source lang-java linenums">
+package nl.egem.stuf.sector.bg._0204;
+
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElementRef;
+import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlType;
+import nl.egem.stuf.stuf0204.DatumMetIndicator;
+import nl.egem.stuf.stuf0204.ExtraElementen;
+import nl.egem.stuf.stuf0204.NoValue;
+import nl.egem.stuf.stuf0204.TijdvakGeldigheid;
+import nl.egem.stuf.stuf0204.TijdvakRelatie;
+import nl.egem.stuf.stuf0204.Verwerkingssoort;
+
+
+/**
+ * relatie entiteit nationaliteit
+ * 
+ * &lt;p&gt;Java class for PRSNAT-rel complex type.
+ * 
+ * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+ * 
+ * &lt;pre&gt;
+ * &amp;lt;complexType name=&quot;PRSNAT-rel&quot;&amp;gt;
+ *   &amp;lt;complexContent&amp;gt;
+ *     &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
+ *       &amp;lt;sequence&amp;gt;
+ *         &amp;lt;element name=&quot;datumVerkrijging&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}DatumMetIndicator&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;datumVerlies&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}DatumMetIndicator&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;tijdvakRelatie&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}TijdvakRelatie&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;tijdvakGeldigheid&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}TijdvakGeldigheid&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;extraElementen&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}ExtraElementen&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *       &amp;lt;/sequence&amp;gt;
+ *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}relatie&quot;/&amp;gt;
+ *     &amp;lt;/restriction&amp;gt;
+ *   &amp;lt;/complexContent&amp;gt;
+ * &amp;lt;/complexType&amp;gt;
+ * &lt;/pre&gt;
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = &quot;PRSNAT-rel&quot;, propOrder = {
+    &quot;datumVerkrijging&quot;,
+    &quot;datumVerlies&quot;,
+    &quot;tijdvakRelatie&quot;,
+    &quot;tijdvakGeldigheid&quot;,
+    &quot;extraElementen&quot;
+})
+@XmlSeeAlso({
+    nl.egem.stuf.sector.bg._0204.PRSKennisgeving.PRSNAT.class,
+    nl.egem.stuf.sector.bg._0204.PRSVraag.PRSNAT.class,
+    nl.egem.stuf.sector.bg._0204.PRSAntwoord.PRSNAT.class
+})
+<span class="nc" id="L58">public class PRSNATRel {</span>
+
+    @XmlElementRef(name = &quot;datumVerkrijging&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+    protected JAXBElement&lt;DatumMetIndicator&gt; datumVerkrijging;
+    @XmlElementRef(name = &quot;datumVerlies&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+    protected JAXBElement&lt;DatumMetIndicator&gt; datumVerlies;
+    protected TijdvakRelatie tijdvakRelatie;
+    protected TijdvakGeldigheid tijdvakGeldigheid;
+    protected ExtraElementen extraElementen;
+    @XmlAttribute(name = &quot;soortEntiteit&quot;, required = true)
+    protected String soortEntiteit;
+    @XmlAttribute(name = &quot;sleutelVerzendend&quot;, namespace = &quot;http://www.egem.nl/StUF/StUF0204&quot;)
+    protected String sleutelVerzendend;
+    @XmlAttribute(name = &quot;sleutelOntvangend&quot;, namespace = &quot;http://www.egem.nl/StUF/StUF0204&quot;)
+    protected String sleutelOntvangend;
+    @XmlAttribute(name = &quot;sleutelGegevensbeheer&quot;, namespace = &quot;http://www.egem.nl/StUF/StUF0204&quot;)
+    protected String sleutelGegevensbeheer;
+    @XmlAttribute(name = &quot;verwerkingssoort&quot;, namespace = &quot;http://www.egem.nl/StUF/StUF0204&quot;)
+    protected Verwerkingssoort verwerkingssoort;
+    @XmlAttribute(name = &quot;noValue&quot;, namespace = &quot;http://www.egem.nl/StUF/StUF0204&quot;)
+    protected NoValue noValue;
+
+    /**
+     * Gets the value of the datumVerkrijging property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code &lt;}{@link DatumMetIndicator }{@code &gt;}
+     *     
+     */
+    public JAXBElement&lt;DatumMetIndicator&gt; getDatumVerkrijging() {
+<span class="nc" id="L89">        return datumVerkrijging;</span>
+    }
+
+    /**
+     * Sets the value of the datumVerkrijging property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code &lt;}{@link DatumMetIndicator }{@code &gt;}
+     *     
+     */
+    public void setDatumVerkrijging(JAXBElement&lt;DatumMetIndicator&gt; value) {
+<span class="nc" id="L101">        this.datumVerkrijging = value;</span>
+<span class="nc" id="L102">    }</span>
+
+    /**
+     * Gets the value of the datumVerlies property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code &lt;}{@link DatumMetIndicator }{@code &gt;}
+     *     
+     */
+    public JAXBElement&lt;DatumMetIndicator&gt; getDatumVerlies() {
+<span class="nc" id="L113">        return datumVerlies;</span>
+    }
+
+    /**
+     * Sets the value of the datumVerlies property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code &lt;}{@link DatumMetIndicator }{@code &gt;}
+     *     
+     */
+    public void setDatumVerlies(JAXBElement&lt;DatumMetIndicator&gt; value) {
+<span class="nc" id="L125">        this.datumVerlies = value;</span>
+<span class="nc" id="L126">    }</span>
+
+    /**
+     * Gets the value of the tijdvakRelatie property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link TijdvakRelatie }
+     *     
+     */
+    public TijdvakRelatie getTijdvakRelatie() {
+<span class="nc" id="L137">        return tijdvakRelatie;</span>
+    }
+
+    /**
+     * Sets the value of the tijdvakRelatie property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link TijdvakRelatie }
+     *     
+     */
+    public void setTijdvakRelatie(TijdvakRelatie value) {
+<span class="nc" id="L149">        this.tijdvakRelatie = value;</span>
+<span class="nc" id="L150">    }</span>
+
+    /**
+     * Gets the value of the tijdvakGeldigheid property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link TijdvakGeldigheid }
+     *     
+     */
+    public TijdvakGeldigheid getTijdvakGeldigheid() {
+<span class="nc" id="L161">        return tijdvakGeldigheid;</span>
+    }
+
+    /**
+     * Sets the value of the tijdvakGeldigheid property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link TijdvakGeldigheid }
+     *     
+     */
+    public void setTijdvakGeldigheid(TijdvakGeldigheid value) {
+<span class="nc" id="L173">        this.tijdvakGeldigheid = value;</span>
+<span class="nc" id="L174">    }</span>
+
+    /**
+     * Gets the value of the extraElementen property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link ExtraElementen }
+     *     
+     */
+    public ExtraElementen getExtraElementen() {
+<span class="nc" id="L185">        return extraElementen;</span>
+    }
+
+    /**
+     * Sets the value of the extraElementen property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link ExtraElementen }
+     *     
+     */
+    public void setExtraElementen(ExtraElementen value) {
+<span class="nc" id="L197">        this.extraElementen = value;</span>
+<span class="nc" id="L198">    }</span>
+
+    /**
+     * Gets the value of the soortEntiteit property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getSoortEntiteit() {
+<span class="nc bnc" id="L209" title="All 2 branches missed.">        if (soortEntiteit == null) {</span>
+<span class="nc" id="L210">            return &quot;R&quot;;</span>
+        } else {
+<span class="nc" id="L212">            return soortEntiteit;</span>
+        }
+    }
+
+    /**
+     * Sets the value of the soortEntiteit property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setSoortEntiteit(String value) {
+<span class="nc" id="L225">        this.soortEntiteit = value;</span>
+<span class="nc" id="L226">    }</span>
+
+    /**
+     * Gets the value of the sleutelVerzendend property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getSleutelVerzendend() {
+<span class="nc" id="L237">        return sleutelVerzendend;</span>
+    }
+
+    /**
+     * Sets the value of the sleutelVerzendend property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setSleutelVerzendend(String value) {
+<span class="nc" id="L249">        this.sleutelVerzendend = value;</span>
+<span class="nc" id="L250">    }</span>
+
+    /**
+     * Gets the value of the sleutelOntvangend property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getSleutelOntvangend() {
+<span class="nc" id="L261">        return sleutelOntvangend;</span>
+    }
+
+    /**
+     * Sets the value of the sleutelOntvangend property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setSleutelOntvangend(String value) {
+<span class="nc" id="L273">        this.sleutelOntvangend = value;</span>
+<span class="nc" id="L274">    }</span>
+
+    /**
+     * Gets the value of the sleutelGegevensbeheer property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getSleutelGegevensbeheer() {
+<span class="nc" id="L285">        return sleutelGegevensbeheer;</span>
+    }
+
+    /**
+     * Sets the value of the sleutelGegevensbeheer property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setSleutelGegevensbeheer(String value) {
+<span class="nc" id="L297">        this.sleutelGegevensbeheer = value;</span>
+<span class="nc" id="L298">    }</span>
+
+    /**
+     * Gets the value of the verwerkingssoort property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Verwerkingssoort }
+     *     
+     */
+    public Verwerkingssoort getVerwerkingssoort() {
+<span class="nc" id="L309">        return verwerkingssoort;</span>
+    }
+
+    /**
+     * Sets the value of the verwerkingssoort property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Verwerkingssoort }
+     *     
+     */
+    public void setVerwerkingssoort(Verwerkingssoort value) {
+<span class="nc" id="L321">        this.verwerkingssoort = value;</span>
+<span class="nc" id="L322">    }</span>
+
+    /**
+     * Gets the value of the noValue property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link NoValue }
+     *     
+     */
+    public NoValue getNoValue() {
+<span class="nc" id="L333">        return noValue;</span>
+    }
+
+    /**
+     * Sets the value of the noValue property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link NoValue }
+     *     
+     */
+    public void setNoValue(NoValue value) {
+<span class="nc" id="L345">        this.noValue = value;</span>
+<span class="nc" id="L346">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

@@ -28,34 +28,34 @@
 <a class="jxr_linenumber" name="L20" href="#L20">20</a>  <em class="jxr_javadoccomment"> * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.</em>
 <a class="jxr_linenumber" name="L21" href="#L21">21</a>  <em class="jxr_javadoccomment"> * </em>
 <a class="jxr_linenumber" name="L22" href="#L22">22</a>  <em class="jxr_javadoccomment"> * &lt;pre&gt;</em>
-<a class="jxr_linenumber" name="L23" href="#L23">23</a>  <em class="jxr_javadoccomment"> * &amp;lt;complexType name="PRB-kerngegevens"&gt;</em>
-<a class="jxr_linenumber" name="L24" href="#L24">24</a>  <em class="jxr_javadoccomment"> *   &amp;lt;complexContent&gt;</em>
-<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <em class="jxr_javadoccomment"> *     &amp;lt;restriction base="{<a href="http://www.w3.org/2001/XMLSchema" target="alexandria_uri">http://www.w3.org/2001/XMLSchema</a>}anyType"&gt;</em>
-<a class="jxr_linenumber" name="L26" href="#L26">26</a>  <em class="jxr_javadoccomment"> *       &amp;lt;sequence&gt;</em>
-<a class="jxr_linenumber" name="L27" href="#L27">27</a>  <em class="jxr_javadoccomment"> *         &amp;lt;element name="codePubliekRechtlijkeBeperking"&gt;</em>
-<a class="jxr_linenumber" name="L28" href="#L28">28</a>  <em class="jxr_javadoccomment"> *           &amp;lt;complexType&gt;</em>
-<a class="jxr_linenumber" name="L29" href="#L29">29</a>  <em class="jxr_javadoccomment"> *             &amp;lt;simpleContent&gt;</em>
-<a class="jxr_linenumber" name="L30" href="#L30">30</a>  <em class="jxr_javadoccomment"> *               &amp;lt;extension base="&amp;lt;<a href="http://www.egem.nl/StUF/sector/bg/0204&gt;PubliekrechtelijkeBeperkingCode" target="alexandria_uri">http://www.egem.nl/StUF/sector/bg/0204&gt;PubliekrechtelijkeBeperkingCode</a>"&gt;</em>
-<a class="jxr_linenumber" name="L31" href="#L31">31</a>  <em class="jxr_javadoccomment"> *                 &amp;lt;attGroup ref="{<a href="http://www.egem.nl/StUF/StUF0204" target="alexandria_uri">http://www.egem.nl/StUF/StUF0204</a>}element"/&gt;</em>
-<a class="jxr_linenumber" name="L32" href="#L32">32</a>  <em class="jxr_javadoccomment"> *                 &amp;lt;attribute name="kerngegeven" type="{<a href="http://www.w3.org/2001/XMLSchema" target="alexandria_uri">http://www.w3.org/2001/XMLSchema</a>}boolean" fixed="true" /&gt;</em>
-<a class="jxr_linenumber" name="L33" href="#L33">33</a>  <em class="jxr_javadoccomment"> *               &amp;lt;/extension&gt;</em>
-<a class="jxr_linenumber" name="L34" href="#L34">34</a>  <em class="jxr_javadoccomment"> *             &amp;lt;/simpleContent&gt;</em>
-<a class="jxr_linenumber" name="L35" href="#L35">35</a>  <em class="jxr_javadoccomment"> *           &amp;lt;/complexType&gt;</em>
-<a class="jxr_linenumber" name="L36" href="#L36">36</a>  <em class="jxr_javadoccomment"> *         &amp;lt;/element&gt;</em>
-<a class="jxr_linenumber" name="L37" href="#L37">37</a>  <em class="jxr_javadoccomment"> *         &amp;lt;element name="ingangsdatum"&gt;</em>
-<a class="jxr_linenumber" name="L38" href="#L38">38</a>  <em class="jxr_javadoccomment"> *           &amp;lt;complexType&gt;</em>
-<a class="jxr_linenumber" name="L39" href="#L39">39</a>  <em class="jxr_javadoccomment"> *             &amp;lt;simpleContent&gt;</em>
-<a class="jxr_linenumber" name="L40" href="#L40">40</a>  <em class="jxr_javadoccomment"> *               &amp;lt;extension base="&amp;lt;<a href="http://www.egem.nl/StUF/StUF0204&gt;DatumMetIndicator" target="alexandria_uri">http://www.egem.nl/StUF/StUF0204&gt;DatumMetIndicator</a>"&gt;</em>
-<a class="jxr_linenumber" name="L41" href="#L41">41</a>  <em class="jxr_javadoccomment"> *                 &amp;lt;attribute name="kerngegeven" type="{<a href="http://www.w3.org/2001/XMLSchema" target="alexandria_uri">http://www.w3.org/2001/XMLSchema</a>}boolean" fixed="true" /&gt;</em>
-<a class="jxr_linenumber" name="L42" href="#L42">42</a>  <em class="jxr_javadoccomment"> *               &amp;lt;/extension&gt;</em>
-<a class="jxr_linenumber" name="L43" href="#L43">43</a>  <em class="jxr_javadoccomment"> *             &amp;lt;/simpleContent&gt;</em>
-<a class="jxr_linenumber" name="L44" href="#L44">44</a>  <em class="jxr_javadoccomment"> *           &amp;lt;/complexType&gt;</em>
-<a class="jxr_linenumber" name="L45" href="#L45">45</a>  <em class="jxr_javadoccomment"> *         &amp;lt;/element&gt;</em>
-<a class="jxr_linenumber" name="L46" href="#L46">46</a>  <em class="jxr_javadoccomment"> *       &amp;lt;/sequence&gt;</em>
-<a class="jxr_linenumber" name="L47" href="#L47">47</a>  <em class="jxr_javadoccomment"> *       &amp;lt;attGroup ref="{<a href="http://www.egem.nl/StUF/StUF0204" target="alexandria_uri">http://www.egem.nl/StUF/StUF0204</a>}fundamenteel"/&gt;</em>
-<a class="jxr_linenumber" name="L48" href="#L48">48</a>  <em class="jxr_javadoccomment"> *     &amp;lt;/restriction&gt;</em>
-<a class="jxr_linenumber" name="L49" href="#L49">49</a>  <em class="jxr_javadoccomment"> *   &amp;lt;/complexContent&gt;</em>
-<a class="jxr_linenumber" name="L50" href="#L50">50</a>  <em class="jxr_javadoccomment"> * &amp;lt;/complexType&gt;</em>
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>  <em class="jxr_javadoccomment"> * &amp;lt;complexType name="PRB-kerngegevens"&amp;gt;</em>
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>  <em class="jxr_javadoccomment"> *   &amp;lt;complexContent&amp;gt;</em>
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <em class="jxr_javadoccomment"> *     &amp;lt;restriction base="{<a href="http://www.w3.org/2001/XMLSchema" target="alexandria_uri">http://www.w3.org/2001/XMLSchema</a>}anyType"&amp;gt;</em>
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>  <em class="jxr_javadoccomment"> *       &amp;lt;sequence&amp;gt;</em>
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>  <em class="jxr_javadoccomment"> *         &amp;lt;element name="codePubliekRechtlijkeBeperking"&amp;gt;</em>
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>  <em class="jxr_javadoccomment"> *           &amp;lt;complexType&amp;gt;</em>
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>  <em class="jxr_javadoccomment"> *             &amp;lt;simpleContent&amp;gt;</em>
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>  <em class="jxr_javadoccomment"> *               &amp;lt;extension base="&amp;lt;<a href="http://www.egem.nl/StUF/sector/bg/0204&amp;gt;PubliekrechtelijkeBeperkingCode" target="alexandria_uri">http://www.egem.nl/StUF/sector/bg/0204&amp;gt;PubliekrechtelijkeBeperkingCode</a>"&amp;gt;</em>
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>  <em class="jxr_javadoccomment"> *                 &amp;lt;attGroup ref="{<a href="http://www.egem.nl/StUF/StUF0204" target="alexandria_uri">http://www.egem.nl/StUF/StUF0204</a>}element"/&amp;gt;</em>
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>  <em class="jxr_javadoccomment"> *                 &amp;lt;attribute name="kerngegeven" type="{<a href="http://www.w3.org/2001/XMLSchema" target="alexandria_uri">http://www.w3.org/2001/XMLSchema</a>}boolean" fixed="true" /&amp;gt;</em>
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>  <em class="jxr_javadoccomment"> *               &amp;lt;/extension&amp;gt;</em>
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>  <em class="jxr_javadoccomment"> *             &amp;lt;/simpleContent&amp;gt;</em>
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>  <em class="jxr_javadoccomment"> *           &amp;lt;/complexType&amp;gt;</em>
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>  <em class="jxr_javadoccomment"> *         &amp;lt;/element&amp;gt;</em>
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>  <em class="jxr_javadoccomment"> *         &amp;lt;element name="ingangsdatum"&amp;gt;</em>
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>  <em class="jxr_javadoccomment"> *           &amp;lt;complexType&amp;gt;</em>
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>  <em class="jxr_javadoccomment"> *             &amp;lt;simpleContent&amp;gt;</em>
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>  <em class="jxr_javadoccomment"> *               &amp;lt;extension base="&amp;lt;<a href="http://www.egem.nl/StUF/StUF0204&amp;gt;DatumMetIndicator" target="alexandria_uri">http://www.egem.nl/StUF/StUF0204&amp;gt;DatumMetIndicator</a>"&amp;gt;</em>
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>  <em class="jxr_javadoccomment"> *                 &amp;lt;attribute name="kerngegeven" type="{<a href="http://www.w3.org/2001/XMLSchema" target="alexandria_uri">http://www.w3.org/2001/XMLSchema</a>}boolean" fixed="true" /&amp;gt;</em>
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>  <em class="jxr_javadoccomment"> *               &amp;lt;/extension&amp;gt;</em>
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>  <em class="jxr_javadoccomment"> *             &amp;lt;/simpleContent&amp;gt;</em>
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>  <em class="jxr_javadoccomment"> *           &amp;lt;/complexType&amp;gt;</em>
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>  <em class="jxr_javadoccomment"> *         &amp;lt;/element&amp;gt;</em>
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>  <em class="jxr_javadoccomment"> *       &amp;lt;/sequence&amp;gt;</em>
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>  <em class="jxr_javadoccomment"> *       &amp;lt;attGroup ref="{<a href="http://www.egem.nl/StUF/StUF0204" target="alexandria_uri">http://www.egem.nl/StUF/StUF0204</a>}fundamenteel"/&amp;gt;</em>
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>  <em class="jxr_javadoccomment"> *     &amp;lt;/restriction&amp;gt;</em>
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>  <em class="jxr_javadoccomment"> *   &amp;lt;/complexContent&amp;gt;</em>
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>  <em class="jxr_javadoccomment"> * &amp;lt;/complexType&amp;gt;</em>
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>  <em class="jxr_javadoccomment"> * &lt;/pre&gt;</em>
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>  <em class="jxr_javadoccomment"> * </em>
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>  <em class="jxr_javadoccomment"> * </em>
@@ -287,14 +287,14 @@
 <a class="jxr_linenumber" name="L279" href="#L279">279</a> <em class="jxr_javadoccomment">     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.</em>
 <a class="jxr_linenumber" name="L280" href="#L280">280</a> <em class="jxr_javadoccomment">     * </em>
 <a class="jxr_linenumber" name="L281" href="#L281">281</a> <em class="jxr_javadoccomment">     * &lt;pre&gt;</em>
-<a class="jxr_linenumber" name="L282" href="#L282">282</a> <em class="jxr_javadoccomment">     * &amp;lt;complexType&gt;</em>
-<a class="jxr_linenumber" name="L283" href="#L283">283</a> <em class="jxr_javadoccomment">     *   &amp;lt;simpleContent&gt;</em>
-<a class="jxr_linenumber" name="L284" href="#L284">284</a> <em class="jxr_javadoccomment">     *     &amp;lt;extension base="&amp;lt;<a href="http://www.egem.nl/StUF/sector/bg/0204&gt;PubliekrechtelijkeBeperkingCode" target="alexandria_uri">http://www.egem.nl/StUF/sector/bg/0204&gt;PubliekrechtelijkeBeperkingCode</a>"&gt;</em>
-<a class="jxr_linenumber" name="L285" href="#L285">285</a> <em class="jxr_javadoccomment">     *       &amp;lt;attGroup ref="{<a href="http://www.egem.nl/StUF/StUF0204" target="alexandria_uri">http://www.egem.nl/StUF/StUF0204</a>}element"/&gt;</em>
-<a class="jxr_linenumber" name="L286" href="#L286">286</a> <em class="jxr_javadoccomment">     *       &amp;lt;attribute name="kerngegeven" type="{<a href="http://www.w3.org/2001/XMLSchema" target="alexandria_uri">http://www.w3.org/2001/XMLSchema</a>}boolean" fixed="true" /&gt;</em>
-<a class="jxr_linenumber" name="L287" href="#L287">287</a> <em class="jxr_javadoccomment">     *     &amp;lt;/extension&gt;</em>
-<a class="jxr_linenumber" name="L288" href="#L288">288</a> <em class="jxr_javadoccomment">     *   &amp;lt;/simpleContent&gt;</em>
-<a class="jxr_linenumber" name="L289" href="#L289">289</a> <em class="jxr_javadoccomment">     * &amp;lt;/complexType&gt;</em>
+<a class="jxr_linenumber" name="L282" href="#L282">282</a> <em class="jxr_javadoccomment">     * &amp;lt;complexType&amp;gt;</em>
+<a class="jxr_linenumber" name="L283" href="#L283">283</a> <em class="jxr_javadoccomment">     *   &amp;lt;simpleContent&amp;gt;</em>
+<a class="jxr_linenumber" name="L284" href="#L284">284</a> <em class="jxr_javadoccomment">     *     &amp;lt;extension base="&amp;lt;<a href="http://www.egem.nl/StUF/sector/bg/0204&amp;gt;PubliekrechtelijkeBeperkingCode" target="alexandria_uri">http://www.egem.nl/StUF/sector/bg/0204&amp;gt;PubliekrechtelijkeBeperkingCode</a>"&amp;gt;</em>
+<a class="jxr_linenumber" name="L285" href="#L285">285</a> <em class="jxr_javadoccomment">     *       &amp;lt;attGroup ref="{<a href="http://www.egem.nl/StUF/StUF0204" target="alexandria_uri">http://www.egem.nl/StUF/StUF0204</a>}element"/&amp;gt;</em>
+<a class="jxr_linenumber" name="L286" href="#L286">286</a> <em class="jxr_javadoccomment">     *       &amp;lt;attribute name="kerngegeven" type="{<a href="http://www.w3.org/2001/XMLSchema" target="alexandria_uri">http://www.w3.org/2001/XMLSchema</a>}boolean" fixed="true" /&amp;gt;</em>
+<a class="jxr_linenumber" name="L287" href="#L287">287</a> <em class="jxr_javadoccomment">     *     &amp;lt;/extension&amp;gt;</em>
+<a class="jxr_linenumber" name="L288" href="#L288">288</a> <em class="jxr_javadoccomment">     *   &amp;lt;/simpleContent&amp;gt;</em>
+<a class="jxr_linenumber" name="L289" href="#L289">289</a> <em class="jxr_javadoccomment">     * &amp;lt;/complexType&amp;gt;</em>
 <a class="jxr_linenumber" name="L290" href="#L290">290</a> <em class="jxr_javadoccomment">     * &lt;/pre&gt;</em>
 <a class="jxr_linenumber" name="L291" href="#L291">291</a> <em class="jxr_javadoccomment">     * </em>
 <a class="jxr_linenumber" name="L292" href="#L292">292</a> <em class="jxr_javadoccomment">     * </em>
@@ -427,13 +427,13 @@
 <a class="jxr_linenumber" name="L419" href="#L419">419</a> <em class="jxr_javadoccomment">     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.</em>
 <a class="jxr_linenumber" name="L420" href="#L420">420</a> <em class="jxr_javadoccomment">     * </em>
 <a class="jxr_linenumber" name="L421" href="#L421">421</a> <em class="jxr_javadoccomment">     * &lt;pre&gt;</em>
-<a class="jxr_linenumber" name="L422" href="#L422">422</a> <em class="jxr_javadoccomment">     * &amp;lt;complexType&gt;</em>
-<a class="jxr_linenumber" name="L423" href="#L423">423</a> <em class="jxr_javadoccomment">     *   &amp;lt;simpleContent&gt;</em>
-<a class="jxr_linenumber" name="L424" href="#L424">424</a> <em class="jxr_javadoccomment">     *     &amp;lt;extension base="&amp;lt;<a href="http://www.egem.nl/StUF/StUF0204&gt;DatumMetIndicator" target="alexandria_uri">http://www.egem.nl/StUF/StUF0204&gt;DatumMetIndicator</a>"&gt;</em>
-<a class="jxr_linenumber" name="L425" href="#L425">425</a> <em class="jxr_javadoccomment">     *       &amp;lt;attribute name="kerngegeven" type="{<a href="http://www.w3.org/2001/XMLSchema" target="alexandria_uri">http://www.w3.org/2001/XMLSchema</a>}boolean" fixed="true" /&gt;</em>
-<a class="jxr_linenumber" name="L426" href="#L426">426</a> <em class="jxr_javadoccomment">     *     &amp;lt;/extension&gt;</em>
-<a class="jxr_linenumber" name="L427" href="#L427">427</a> <em class="jxr_javadoccomment">     *   &amp;lt;/simpleContent&gt;</em>
-<a class="jxr_linenumber" name="L428" href="#L428">428</a> <em class="jxr_javadoccomment">     * &amp;lt;/complexType&gt;</em>
+<a class="jxr_linenumber" name="L422" href="#L422">422</a> <em class="jxr_javadoccomment">     * &amp;lt;complexType&amp;gt;</em>
+<a class="jxr_linenumber" name="L423" href="#L423">423</a> <em class="jxr_javadoccomment">     *   &amp;lt;simpleContent&amp;gt;</em>
+<a class="jxr_linenumber" name="L424" href="#L424">424</a> <em class="jxr_javadoccomment">     *     &amp;lt;extension base="&amp;lt;<a href="http://www.egem.nl/StUF/StUF0204&amp;gt;DatumMetIndicator" target="alexandria_uri">http://www.egem.nl/StUF/StUF0204&amp;gt;DatumMetIndicator</a>"&amp;gt;</em>
+<a class="jxr_linenumber" name="L425" href="#L425">425</a> <em class="jxr_javadoccomment">     *       &amp;lt;attribute name="kerngegeven" type="{<a href="http://www.w3.org/2001/XMLSchema" target="alexandria_uri">http://www.w3.org/2001/XMLSchema</a>}boolean" fixed="true" /&amp;gt;</em>
+<a class="jxr_linenumber" name="L426" href="#L426">426</a> <em class="jxr_javadoccomment">     *     &amp;lt;/extension&amp;gt;</em>
+<a class="jxr_linenumber" name="L427" href="#L427">427</a> <em class="jxr_javadoccomment">     *   &amp;lt;/simpleContent&amp;gt;</em>
+<a class="jxr_linenumber" name="L428" href="#L428">428</a> <em class="jxr_javadoccomment">     * &amp;lt;/complexType&amp;gt;</em>
 <a class="jxr_linenumber" name="L429" href="#L429">429</a> <em class="jxr_javadoccomment">     * &lt;/pre&gt;</em>
 <a class="jxr_linenumber" name="L430" href="#L430">430</a> <em class="jxr_javadoccomment">     * </em>
 <a class="jxr_linenumber" name="L431" href="#L431">431</a> <em class="jxr_javadoccomment">     * </em>

@@ -1,0 +1,856 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>R04Tabel.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO STUF BG 204</a> &gt; <a href="index.source.html" class="el_package">nl.egem.stuf.sector.bg._0204</a> &gt; <span class="el_source">R04Tabel.java</span></div><h1>R04Tabel.java</h1><pre class="source lang-java linenums">
+package nl.egem.stuf.sector.bg._0204;
+
+import java.math.BigInteger;
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElementRef;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.XmlValue;
+import nl.egem.stuf.stuf0204.DatumMetIndicatorKerngegeven;
+import nl.egem.stuf.stuf0204.ExtraElementen;
+import nl.egem.stuf.stuf0204.NoValue;
+import nl.egem.stuf.stuf0204.Verwerkingssoort;
+
+
+/**
+ * Sortering 01: gemeentecode, deelgemeentecode
+ * Sortering 02: deelgemeentenaam
+ * 
+ * &lt;p&gt;Java class for R04-tabel complex type.
+ * 
+ * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+ * 
+ * &lt;pre&gt;
+ * &amp;lt;complexType name=&quot;R04-tabel&quot;&amp;gt;
+ *   &amp;lt;complexContent&amp;gt;
+ *     &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
+ *       &amp;lt;sequence&amp;gt;
+ *         &amp;lt;element name=&quot;gemeentecode&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;simpleContent&amp;gt;
+ *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;Gemeentecode&quot;&amp;gt;
+ *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+ *                 &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/simpleContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;deelgemeentecode&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;simpleContent&amp;gt;
+ *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;Deelgemeentecode&quot;&amp;gt;
+ *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+ *                 &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/simpleContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;deelgemeentenaam&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;simpleContent&amp;gt;
+ *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;Deelgemeentenaam&quot;&amp;gt;
+ *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/simpleContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;gemeentenaam&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;simpleContent&amp;gt;
+ *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;Gemeentenaam&quot;&amp;gt;
+ *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/simpleContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;ingangsdatum&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}DatumMetIndicatorKerngegeven&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;einddatum&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}DatumMetIndicatorKerngegeven&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;extraElementen&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}ExtraElementen&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *       &amp;lt;/sequence&amp;gt;
+ *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}tabel&quot;/&amp;gt;
+ *     &amp;lt;/restriction&amp;gt;
+ *   &amp;lt;/complexContent&amp;gt;
+ * &amp;lt;/complexType&amp;gt;
+ * &lt;/pre&gt;
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = &quot;R04-tabel&quot;, propOrder = {
+    &quot;gemeentecode&quot;,
+    &quot;deelgemeentecode&quot;,
+    &quot;deelgemeentenaam&quot;,
+    &quot;gemeentenaam&quot;,
+    &quot;ingangsdatum&quot;,
+    &quot;einddatum&quot;,
+    &quot;extraElementen&quot;
+})
+<span class="nc" id="L91">public class R04Tabel {</span>
+
+    @XmlElementRef(name = &quot;gemeentecode&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+    protected JAXBElement&lt;R04Tabel.Gemeentecode&gt; gemeentecode;
+    @XmlElementRef(name = &quot;deelgemeentecode&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+    protected JAXBElement&lt;R04Tabel.Deelgemeentecode&gt; deelgemeentecode;
+    @XmlElementRef(name = &quot;deelgemeentenaam&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+    protected JAXBElement&lt;R04Tabel.Deelgemeentenaam&gt; deelgemeentenaam;
+    @XmlElementRef(name = &quot;gemeentenaam&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+    protected JAXBElement&lt;R04Tabel.Gemeentenaam&gt; gemeentenaam;
+    @XmlElementRef(name = &quot;ingangsdatum&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+    protected JAXBElement&lt;DatumMetIndicatorKerngegeven&gt; ingangsdatum;
+    @XmlElementRef(name = &quot;einddatum&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+    protected JAXBElement&lt;DatumMetIndicatorKerngegeven&gt; einddatum;
+    protected ExtraElementen extraElementen;
+    @XmlAttribute(name = &quot;soortEntiteit&quot;, required = true)
+    protected String soortEntiteit;
+    @XmlAttribute(name = &quot;verwerkingssoort&quot;, namespace = &quot;http://www.egem.nl/StUF/StUF0204&quot;)
+    protected Verwerkingssoort verwerkingssoort;
+    @XmlAttribute(name = &quot;noValue&quot;, namespace = &quot;http://www.egem.nl/StUF/StUF0204&quot;)
+    protected NoValue noValue;
+
+    /**
+     * Gets the value of the gemeentecode property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code &lt;}{@link R04Tabel.Gemeentecode }{@code &gt;}
+     *     
+     */
+    public JAXBElement&lt;R04Tabel.Gemeentecode&gt; getGemeentecode() {
+<span class="nc" id="L122">        return gemeentecode;</span>
+    }
+
+    /**
+     * Sets the value of the gemeentecode property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code &lt;}{@link R04Tabel.Gemeentecode }{@code &gt;}
+     *     
+     */
+    public void setGemeentecode(JAXBElement&lt;R04Tabel.Gemeentecode&gt; value) {
+<span class="nc" id="L134">        this.gemeentecode = value;</span>
+<span class="nc" id="L135">    }</span>
+
+    /**
+     * Gets the value of the deelgemeentecode property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code &lt;}{@link R04Tabel.Deelgemeentecode }{@code &gt;}
+     *     
+     */
+    public JAXBElement&lt;R04Tabel.Deelgemeentecode&gt; getDeelgemeentecode() {
+<span class="nc" id="L146">        return deelgemeentecode;</span>
+    }
+
+    /**
+     * Sets the value of the deelgemeentecode property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code &lt;}{@link R04Tabel.Deelgemeentecode }{@code &gt;}
+     *     
+     */
+    public void setDeelgemeentecode(JAXBElement&lt;R04Tabel.Deelgemeentecode&gt; value) {
+<span class="nc" id="L158">        this.deelgemeentecode = value;</span>
+<span class="nc" id="L159">    }</span>
+
+    /**
+     * Gets the value of the deelgemeentenaam property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code &lt;}{@link R04Tabel.Deelgemeentenaam }{@code &gt;}
+     *     
+     */
+    public JAXBElement&lt;R04Tabel.Deelgemeentenaam&gt; getDeelgemeentenaam() {
+<span class="nc" id="L170">        return deelgemeentenaam;</span>
+    }
+
+    /**
+     * Sets the value of the deelgemeentenaam property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code &lt;}{@link R04Tabel.Deelgemeentenaam }{@code &gt;}
+     *     
+     */
+    public void setDeelgemeentenaam(JAXBElement&lt;R04Tabel.Deelgemeentenaam&gt; value) {
+<span class="nc" id="L182">        this.deelgemeentenaam = value;</span>
+<span class="nc" id="L183">    }</span>
+
+    /**
+     * Gets the value of the gemeentenaam property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code &lt;}{@link R04Tabel.Gemeentenaam }{@code &gt;}
+     *     
+     */
+    public JAXBElement&lt;R04Tabel.Gemeentenaam&gt; getGemeentenaam() {
+<span class="nc" id="L194">        return gemeentenaam;</span>
+    }
+
+    /**
+     * Sets the value of the gemeentenaam property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code &lt;}{@link R04Tabel.Gemeentenaam }{@code &gt;}
+     *     
+     */
+    public void setGemeentenaam(JAXBElement&lt;R04Tabel.Gemeentenaam&gt; value) {
+<span class="nc" id="L206">        this.gemeentenaam = value;</span>
+<span class="nc" id="L207">    }</span>
+
+    /**
+     * Gets the value of the ingangsdatum property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code &lt;}{@link DatumMetIndicatorKerngegeven }{@code &gt;}
+     *     
+     */
+    public JAXBElement&lt;DatumMetIndicatorKerngegeven&gt; getIngangsdatum() {
+<span class="nc" id="L218">        return ingangsdatum;</span>
+    }
+
+    /**
+     * Sets the value of the ingangsdatum property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code &lt;}{@link DatumMetIndicatorKerngegeven }{@code &gt;}
+     *     
+     */
+    public void setIngangsdatum(JAXBElement&lt;DatumMetIndicatorKerngegeven&gt; value) {
+<span class="nc" id="L230">        this.ingangsdatum = value;</span>
+<span class="nc" id="L231">    }</span>
+
+    /**
+     * Gets the value of the einddatum property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code &lt;}{@link DatumMetIndicatorKerngegeven }{@code &gt;}
+     *     
+     */
+    public JAXBElement&lt;DatumMetIndicatorKerngegeven&gt; getEinddatum() {
+<span class="nc" id="L242">        return einddatum;</span>
+    }
+
+    /**
+     * Sets the value of the einddatum property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code &lt;}{@link DatumMetIndicatorKerngegeven }{@code &gt;}
+     *     
+     */
+    public void setEinddatum(JAXBElement&lt;DatumMetIndicatorKerngegeven&gt; value) {
+<span class="nc" id="L254">        this.einddatum = value;</span>
+<span class="nc" id="L255">    }</span>
+
+    /**
+     * Gets the value of the extraElementen property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link ExtraElementen }
+     *     
+     */
+    public ExtraElementen getExtraElementen() {
+<span class="nc" id="L266">        return extraElementen;</span>
+    }
+
+    /**
+     * Sets the value of the extraElementen property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link ExtraElementen }
+     *     
+     */
+    public void setExtraElementen(ExtraElementen value) {
+<span class="nc" id="L278">        this.extraElementen = value;</span>
+<span class="nc" id="L279">    }</span>
+
+    /**
+     * Gets the value of the soortEntiteit property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getSoortEntiteit() {
+<span class="nc bnc" id="L290" title="All 2 branches missed.">        if (soortEntiteit == null) {</span>
+<span class="nc" id="L291">            return &quot;T&quot;;</span>
+        } else {
+<span class="nc" id="L293">            return soortEntiteit;</span>
+        }
+    }
+
+    /**
+     * Sets the value of the soortEntiteit property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setSoortEntiteit(String value) {
+<span class="nc" id="L306">        this.soortEntiteit = value;</span>
+<span class="nc" id="L307">    }</span>
+
+    /**
+     * Gets the value of the verwerkingssoort property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Verwerkingssoort }
+     *     
+     */
+    public Verwerkingssoort getVerwerkingssoort() {
+<span class="nc" id="L318">        return verwerkingssoort;</span>
+    }
+
+    /**
+     * Sets the value of the verwerkingssoort property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Verwerkingssoort }
+     *     
+     */
+    public void setVerwerkingssoort(Verwerkingssoort value) {
+<span class="nc" id="L330">        this.verwerkingssoort = value;</span>
+<span class="nc" id="L331">    }</span>
+
+    /**
+     * Gets the value of the noValue property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link NoValue }
+     *     
+     */
+    public NoValue getNoValue() {
+<span class="nc" id="L342">        return noValue;</span>
+    }
+
+    /**
+     * Sets the value of the noValue property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link NoValue }
+     *     
+     */
+    public void setNoValue(NoValue value) {
+<span class="nc" id="L354">        this.noValue = value;</span>
+<span class="nc" id="L355">    }</span>
+
+
+    /**
+     * &lt;p&gt;Java class for anonymous complex type.
+     * 
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * 
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;simpleContent&amp;gt;
+     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;Deelgemeentecode&quot;&amp;gt;
+     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+     *       &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/simpleContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = &quot;&quot;, propOrder = {
+        &quot;value&quot;
+    })
+<span class="nc" id="L380">    public static class Deelgemeentecode {</span>
+
+        @XmlValue
+        protected String value;
+        @XmlAttribute(name = &quot;kerngegeven&quot;)
+        protected Boolean kerngegeven;
+        @XmlAttribute(name = &quot;noValue&quot;, namespace = &quot;http://www.egem.nl/StUF/StUF0204&quot;)
+        protected NoValue noValue;
+        @XmlAttribute(name = &quot;exact&quot;, namespace = &quot;http://www.egem.nl/StUF/StUF0204&quot;)
+        protected Boolean exact;
+
+        /**
+         * Gets the value of the value property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
+         */
+        public String getValue() {
+<span class="nc" id="L400">            return value;</span>
+        }
+
+        /**
+         * Sets the value of the value property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
+         */
+        public void setValue(String value) {
+<span class="nc" id="L412">            this.value = value;</span>
+<span class="nc" id="L413">        }</span>
+
+        /**
+         * Gets the value of the kerngegeven property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link Boolean }
+         *     
+         */
+        public boolean isKerngegeven() {
+<span class="nc bnc" id="L424" title="All 2 branches missed.">            if (kerngegeven == null) {</span>
+<span class="nc" id="L425">                return true;</span>
+            } else {
+<span class="nc" id="L427">                return kerngegeven;</span>
+            }
+        }
+
+        /**
+         * Sets the value of the kerngegeven property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link Boolean }
+         *     
+         */
+        public void setKerngegeven(Boolean value) {
+<span class="nc" id="L440">            this.kerngegeven = value;</span>
+<span class="nc" id="L441">        }</span>
+
+        /**
+         * Gets the value of the noValue property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link NoValue }
+         *     
+         */
+        public NoValue getNoValue() {
+<span class="nc" id="L452">            return noValue;</span>
+        }
+
+        /**
+         * Sets the value of the noValue property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link NoValue }
+         *     
+         */
+        public void setNoValue(NoValue value) {
+<span class="nc" id="L464">            this.noValue = value;</span>
+<span class="nc" id="L465">        }</span>
+
+        /**
+         * Gets the value of the exact property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link Boolean }
+         *     
+         */
+        public boolean isExact() {
+<span class="nc bnc" id="L476" title="All 2 branches missed.">            if (exact == null) {</span>
+<span class="nc" id="L477">                return true;</span>
+            } else {
+<span class="nc" id="L479">                return exact;</span>
+            }
+        }
+
+        /**
+         * Sets the value of the exact property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link Boolean }
+         *     
+         */
+        public void setExact(Boolean value) {
+<span class="nc" id="L492">            this.exact = value;</span>
+<span class="nc" id="L493">        }</span>
+
+    }
+
+
+    /**
+     * &lt;p&gt;Java class for anonymous complex type.
+     * 
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * 
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;simpleContent&amp;gt;
+     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;Deelgemeentenaam&quot;&amp;gt;
+     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/simpleContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = &quot;&quot;, propOrder = {
+        &quot;value&quot;
+    })
+<span class="nc" id="L519">    public static class Deelgemeentenaam {</span>
+
+        @XmlValue
+        protected String value;
+        @XmlAttribute(name = &quot;noValue&quot;, namespace = &quot;http://www.egem.nl/StUF/StUF0204&quot;)
+        protected NoValue noValue;
+        @XmlAttribute(name = &quot;exact&quot;, namespace = &quot;http://www.egem.nl/StUF/StUF0204&quot;)
+        protected Boolean exact;
+
+        /**
+         * Gets the value of the value property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
+         */
+        public String getValue() {
+<span class="nc" id="L537">            return value;</span>
+        }
+
+        /**
+         * Sets the value of the value property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
+         */
+        public void setValue(String value) {
+<span class="nc" id="L549">            this.value = value;</span>
+<span class="nc" id="L550">        }</span>
+
+        /**
+         * Gets the value of the noValue property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link NoValue }
+         *     
+         */
+        public NoValue getNoValue() {
+<span class="nc" id="L561">            return noValue;</span>
+        }
+
+        /**
+         * Sets the value of the noValue property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link NoValue }
+         *     
+         */
+        public void setNoValue(NoValue value) {
+<span class="nc" id="L573">            this.noValue = value;</span>
+<span class="nc" id="L574">        }</span>
+
+        /**
+         * Gets the value of the exact property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link Boolean }
+         *     
+         */
+        public boolean isExact() {
+<span class="nc bnc" id="L585" title="All 2 branches missed.">            if (exact == null) {</span>
+<span class="nc" id="L586">                return true;</span>
+            } else {
+<span class="nc" id="L588">                return exact;</span>
+            }
+        }
+
+        /**
+         * Sets the value of the exact property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link Boolean }
+         *     
+         */
+        public void setExact(Boolean value) {
+<span class="nc" id="L601">            this.exact = value;</span>
+<span class="nc" id="L602">        }</span>
+
+    }
+
+
+    /**
+     * &lt;p&gt;Java class for anonymous complex type.
+     * 
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * 
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;simpleContent&amp;gt;
+     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;Gemeentecode&quot;&amp;gt;
+     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+     *       &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/simpleContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = &quot;&quot;, propOrder = {
+        &quot;value&quot;
+    })
+<span class="nc" id="L629">    public static class Gemeentecode {</span>
+
+        @XmlValue
+        protected BigInteger value;
+        @XmlAttribute(name = &quot;kerngegeven&quot;)
+        protected Boolean kerngegeven;
+        @XmlAttribute(name = &quot;noValue&quot;, namespace = &quot;http://www.egem.nl/StUF/StUF0204&quot;)
+        protected NoValue noValue;
+        @XmlAttribute(name = &quot;exact&quot;, namespace = &quot;http://www.egem.nl/StUF/StUF0204&quot;)
+        protected Boolean exact;
+
+        /**
+         * Gets the value of the value property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link BigInteger }
+         *     
+         */
+        public BigInteger getValue() {
+<span class="nc" id="L649">            return value;</span>
+        }
+
+        /**
+         * Sets the value of the value property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link BigInteger }
+         *     
+         */
+        public void setValue(BigInteger value) {
+<span class="nc" id="L661">            this.value = value;</span>
+<span class="nc" id="L662">        }</span>
+
+        /**
+         * Gets the value of the kerngegeven property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link Boolean }
+         *     
+         */
+        public boolean isKerngegeven() {
+<span class="nc bnc" id="L673" title="All 2 branches missed.">            if (kerngegeven == null) {</span>
+<span class="nc" id="L674">                return true;</span>
+            } else {
+<span class="nc" id="L676">                return kerngegeven;</span>
+            }
+        }
+
+        /**
+         * Sets the value of the kerngegeven property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link Boolean }
+         *     
+         */
+        public void setKerngegeven(Boolean value) {
+<span class="nc" id="L689">            this.kerngegeven = value;</span>
+<span class="nc" id="L690">        }</span>
+
+        /**
+         * Gets the value of the noValue property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link NoValue }
+         *     
+         */
+        public NoValue getNoValue() {
+<span class="nc" id="L701">            return noValue;</span>
+        }
+
+        /**
+         * Sets the value of the noValue property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link NoValue }
+         *     
+         */
+        public void setNoValue(NoValue value) {
+<span class="nc" id="L713">            this.noValue = value;</span>
+<span class="nc" id="L714">        }</span>
+
+        /**
+         * Gets the value of the exact property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link Boolean }
+         *     
+         */
+        public boolean isExact() {
+<span class="nc bnc" id="L725" title="All 2 branches missed.">            if (exact == null) {</span>
+<span class="nc" id="L726">                return true;</span>
+            } else {
+<span class="nc" id="L728">                return exact;</span>
+            }
+        }
+
+        /**
+         * Sets the value of the exact property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link Boolean }
+         *     
+         */
+        public void setExact(Boolean value) {
+<span class="nc" id="L741">            this.exact = value;</span>
+<span class="nc" id="L742">        }</span>
+
+    }
+
+
+    /**
+     * &lt;p&gt;Java class for anonymous complex type.
+     * 
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * 
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;simpleContent&amp;gt;
+     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;Gemeentenaam&quot;&amp;gt;
+     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/simpleContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = &quot;&quot;, propOrder = {
+        &quot;value&quot;
+    })
+<span class="nc" id="L768">    public static class Gemeentenaam {</span>
+
+        @XmlValue
+        protected String value;
+        @XmlAttribute(name = &quot;noValue&quot;, namespace = &quot;http://www.egem.nl/StUF/StUF0204&quot;)
+        protected NoValue noValue;
+        @XmlAttribute(name = &quot;exact&quot;, namespace = &quot;http://www.egem.nl/StUF/StUF0204&quot;)
+        protected Boolean exact;
+
+        /**
+         * Gets the value of the value property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
+         */
+        public String getValue() {
+<span class="nc" id="L786">            return value;</span>
+        }
+
+        /**
+         * Sets the value of the value property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
+         */
+        public void setValue(String value) {
+<span class="nc" id="L798">            this.value = value;</span>
+<span class="nc" id="L799">        }</span>
+
+        /**
+         * Gets the value of the noValue property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link NoValue }
+         *     
+         */
+        public NoValue getNoValue() {
+<span class="nc" id="L810">            return noValue;</span>
+        }
+
+        /**
+         * Sets the value of the noValue property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link NoValue }
+         *     
+         */
+        public void setNoValue(NoValue value) {
+<span class="nc" id="L822">            this.noValue = value;</span>
+<span class="nc" id="L823">        }</span>
+
+        /**
+         * Gets the value of the exact property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link Boolean }
+         *     
+         */
+        public boolean isExact() {
+<span class="nc bnc" id="L834" title="All 2 branches missed.">            if (exact == null) {</span>
+<span class="nc" id="L835">                return true;</span>
+            } else {
+<span class="nc" id="L837">                return exact;</span>
+            }
+        }
+
+        /**
+         * Sets the value of the exact property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link Boolean }
+         *     
+         */
+        public void setExact(Boolean value) {
+<span class="nc" id="L850">            this.exact = value;</span>
+<span class="nc" id="L851">        }</span>
+
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

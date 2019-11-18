@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>TijdvakRelatie.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO distributie</a> &gt; <a href="../index.html" class="el_bundle">brmo-stufbg204</a> &gt; <a href="index.source.html" class="el_package">nl.egem.stuf.stuf0204</a> &gt; <span class="el_source">TijdvakRelatie.java</span></div><h1>TijdvakRelatie.java</h1><pre class="source lang-java linenums">
+package nl.egem.stuf.stuf0204;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+
+
+/**
+ * &lt;p&gt;Java class for TijdvakRelatie complex type.
+ * 
+ * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+ * 
+ * &lt;pre&gt;
+ * &amp;lt;complexType name=&quot;TijdvakRelatie&quot;&amp;gt;
+ *   &amp;lt;complexContent&amp;gt;
+ *     &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
+ *       &amp;lt;sequence&amp;gt;
+ *         &amp;lt;element name=&quot;begindatumRelatie&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}DatumMetIndicator&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;einddatumRelatie&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}DatumMetIndicator&quot;/&amp;gt;
+ *       &amp;lt;/sequence&amp;gt;
+ *     &amp;lt;/restriction&amp;gt;
+ *   &amp;lt;/complexContent&amp;gt;
+ * &amp;lt;/complexType&amp;gt;
+ * &lt;/pre&gt;
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = &quot;TijdvakRelatie&quot;, propOrder = {
+    &quot;begindatumRelatie&quot;,
+    &quot;einddatumRelatie&quot;
+})
+<span class="nc" id="L35">public class TijdvakRelatie {</span>
+
+    @XmlElement(required = true, nillable = true)
+    protected DatumMetIndicator begindatumRelatie;
+    @XmlElement(required = true, nillable = true)
+    protected DatumMetIndicator einddatumRelatie;
+
+    /**
+     * Gets the value of the begindatumRelatie property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link DatumMetIndicator }
+     *     
+     */
+    public DatumMetIndicator getBegindatumRelatie() {
+<span class="nc" id="L51">        return begindatumRelatie;</span>
+    }
+
+    /**
+     * Sets the value of the begindatumRelatie property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link DatumMetIndicator }
+     *     
+     */
+    public void setBegindatumRelatie(DatumMetIndicator value) {
+<span class="nc" id="L63">        this.begindatumRelatie = value;</span>
+<span class="nc" id="L64">    }</span>
+
+    /**
+     * Gets the value of the einddatumRelatie property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link DatumMetIndicator }
+     *     
+     */
+    public DatumMetIndicator getEinddatumRelatie() {
+<span class="nc" id="L75">        return einddatumRelatie;</span>
+    }
+
+    /**
+     * Sets the value of the einddatumRelatie property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link DatumMetIndicator }
+     *     
+     */
+    public void setEinddatumRelatie(DatumMetIndicator value) {
+<span class="nc" id="L87">        this.einddatumRelatie = value;</span>
+<span class="nc" id="L88">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

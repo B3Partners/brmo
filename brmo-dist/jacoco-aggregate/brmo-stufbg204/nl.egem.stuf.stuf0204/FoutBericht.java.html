@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>FoutBericht.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO distributie</a> &gt; <a href="../index.html" class="el_bundle">brmo-stufbg204</a> &gt; <a href="index.source.html" class="el_package">nl.egem.stuf.stuf0204</a> &gt; <span class="el_source">FoutBericht.java</span></div><h1>FoutBericht.java</h1><pre class="source lang-java linenums">
+package nl.egem.stuf.stuf0204;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.XmlType;
+
+
+/**
+ * &lt;p&gt;Java class for anonymous complex type.
+ * 
+ * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+ * 
+ * &lt;pre&gt;
+ * &amp;lt;complexType&amp;gt;
+ *   &amp;lt;complexContent&amp;gt;
+ *     &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
+ *       &amp;lt;sequence&amp;gt;
+ *         &amp;lt;element ref=&quot;{http://www.egem.nl/StUF/StUF0204}stuurgegevens&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;body&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;complexContent&amp;gt;
+ *               &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
+ *                 &amp;lt;sequence&amp;gt;
+ *                   &amp;lt;element name=&quot;code&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}FoutCode&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;plek&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}FoutPlek&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;omschrijving&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}FoutOmschrijving&quot;/&amp;gt;
+ *                 &amp;lt;/sequence&amp;gt;
+ *               &amp;lt;/restriction&amp;gt;
+ *             &amp;lt;/complexContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *       &amp;lt;/sequence&amp;gt;
+ *     &amp;lt;/restriction&amp;gt;
+ *   &amp;lt;/complexContent&amp;gt;
+ * &amp;lt;/complexType&amp;gt;
+ * &lt;/pre&gt;
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = &quot;&quot;, propOrder = {
+    &quot;stuurgegevens&quot;,
+    &quot;body&quot;
+})
+@XmlRootElement(name = &quot;foutBericht&quot;)
+<span class="nc" id="L50">public class FoutBericht {</span>
+
+    @XmlElement(required = true)
+    protected Stuurgegevens stuurgegevens;
+    @XmlElement(required = true)
+    protected FoutBericht.Body body;
+
+    /**
+     * Gets the value of the stuurgegevens property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Stuurgegevens }
+     *     
+     */
+    public Stuurgegevens getStuurgegevens() {
+<span class="nc" id="L66">        return stuurgegevens;</span>
+    }
+
+    /**
+     * Sets the value of the stuurgegevens property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Stuurgegevens }
+     *     
+     */
+    public void setStuurgegevens(Stuurgegevens value) {
+<span class="nc" id="L78">        this.stuurgegevens = value;</span>
+<span class="nc" id="L79">    }</span>
+
+    /**
+     * Gets the value of the body property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link FoutBericht.Body }
+     *     
+     */
+    public FoutBericht.Body getBody() {
+<span class="nc" id="L90">        return body;</span>
+    }
+
+    /**
+     * Sets the value of the body property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link FoutBericht.Body }
+     *     
+     */
+    public void setBody(FoutBericht.Body value) {
+<span class="nc" id="L102">        this.body = value;</span>
+<span class="nc" id="L103">    }</span>
+
+
+    /**
+     * &lt;p&gt;Java class for anonymous complex type.
+     * 
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * 
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;complexContent&amp;gt;
+     *     &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
+     *       &amp;lt;sequence&amp;gt;
+     *         &amp;lt;element name=&quot;code&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}FoutCode&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;plek&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}FoutPlek&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;omschrijving&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}FoutOmschrijving&quot;/&amp;gt;
+     *       &amp;lt;/sequence&amp;gt;
+     *     &amp;lt;/restriction&amp;gt;
+     *   &amp;lt;/complexContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = &quot;&quot;, propOrder = {
+        &quot;code&quot;,
+        &quot;plek&quot;,
+        &quot;omschrijving&quot;
+    })
+<span class="nc" id="L133">    public static class Body {</span>
+
+        @XmlElement(required = true)
+        protected String code;
+        @XmlElement(required = true)
+        @XmlSchemaType(name = &quot;string&quot;)
+        protected FoutPlek plek;
+        @XmlElement(required = true)
+        protected String omschrijving;
+
+        /**
+         * Gets the value of the code property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
+         */
+        public String getCode() {
+<span class="nc" id="L152">            return code;</span>
+        }
+
+        /**
+         * Sets the value of the code property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
+         */
+        public void setCode(String value) {
+<span class="nc" id="L164">            this.code = value;</span>
+<span class="nc" id="L165">        }</span>
+
+        /**
+         * Gets the value of the plek property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link FoutPlek }
+         *     
+         */
+        public FoutPlek getPlek() {
+<span class="nc" id="L176">            return plek;</span>
+        }
+
+        /**
+         * Sets the value of the plek property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link FoutPlek }
+         *     
+         */
+        public void setPlek(FoutPlek value) {
+<span class="nc" id="L188">            this.plek = value;</span>
+<span class="nc" id="L189">        }</span>
+
+        /**
+         * Gets the value of the omschrijving property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
+         */
+        public String getOmschrijving() {
+<span class="nc" id="L200">            return omschrijving;</span>
+        }
+
+        /**
+         * Sets the value of the omschrijving property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
+         */
+        public void setOmschrijving(String value) {
+<span class="nc" id="L212">            this.omschrijving = value;</span>
+<span class="nc" id="L213">        }</span>
+
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

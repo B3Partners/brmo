@@ -1,0 +1,631 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PRSKennisgeving.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO STUF BG 204</a> &gt; <a href="index.source.html" class="el_package">nl.egem.stuf.sector.bg._0204</a> &gt; <span class="el_source">PRSKennisgeving.java</span></div><h1>PRSKennisgeving.java</h1><pre class="source lang-java linenums">
+package nl.egem.stuf.sector.bg._0204;
+
+import java.util.ArrayList;
+import java.util.List;
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementRef;
+import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlType;
+
+
+/**
+ * Natuurlijk persoon binnen kennisgeving
+ * 
+ * &lt;p&gt;Java class for PRS-kennisgeving complex type.
+ * 
+ * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+ * 
+ * &lt;pre&gt;
+ * &amp;lt;complexType name=&quot;PRS-kennisgeving&quot;&amp;gt;
+ *   &amp;lt;complexContent&amp;gt;
+ *     &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}PRS-fund&quot;&amp;gt;
+ *       &amp;lt;sequence&amp;gt;
+ *         &amp;lt;element name=&quot;PRSADRCOR&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}ADR-relKerngegevens&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;PRSADRINS&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}ADR-relKerngegevens&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;PRSADRVBL&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}PRSADRVBL&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;PRSIDB&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;complexContent&amp;gt;
+ *               &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}PRSIDB-rel&quot;&amp;gt;
+ *                 &amp;lt;sequence&amp;gt;
+ *                   &amp;lt;element name=&quot;SIB&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}SIB-tabel&quot;/&amp;gt;
+ *                 &amp;lt;/sequence&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/complexContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;PRSNAT&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;complexContent&amp;gt;
+ *               &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}PRSNAT-rel&quot;&amp;gt;
+ *                 &amp;lt;sequence&amp;gt;
+ *                   &amp;lt;element name=&quot;NAT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}NAT-tabel&quot;/&amp;gt;
+ *                 &amp;lt;/sequence&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/complexContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;PRSPRSHUW&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;complexContent&amp;gt;
+ *               &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}PRSPRSHUW-rel&quot;&amp;gt;
+ *                 &amp;lt;sequence&amp;gt;
+ *                   &amp;lt;element name=&quot;PRS&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}PRS-gerelateerde&quot;/&amp;gt;
+ *                 &amp;lt;/sequence&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/complexContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;PRSPRSKND&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;complexContent&amp;gt;
+ *               &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}PRSPRSKND-rel&quot;&amp;gt;
+ *                 &amp;lt;sequence&amp;gt;
+ *                   &amp;lt;element name=&quot;PRS&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}PRS-gerelateerde&quot;/&amp;gt;
+ *                 &amp;lt;/sequence&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/complexContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;PRSPRSOUD&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;complexContent&amp;gt;
+ *               &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}PRSPRSOUD-rel&quot;&amp;gt;
+ *                 &amp;lt;sequence&amp;gt;
+ *                   &amp;lt;element name=&quot;PRS&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}PRS-gerelateerde&quot;/&amp;gt;
+ *                 &amp;lt;/sequence&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/complexContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *       &amp;lt;/sequence&amp;gt;
+ *     &amp;lt;/extension&amp;gt;
+ *   &amp;lt;/complexContent&amp;gt;
+ * &amp;lt;/complexType&amp;gt;
+ * &lt;/pre&gt;
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = &quot;PRS-kennisgeving&quot;, propOrder = {
+    &quot;prsadrcor&quot;,
+    &quot;prsadrins&quot;,
+    &quot;prsadrvbl&quot;,
+    &quot;prsidb&quot;,
+    &quot;prsnat&quot;,
+    &quot;prsprshuw&quot;,
+    &quot;prsprsknd&quot;,
+    &quot;prsprsoud&quot;
+})
+@XmlSeeAlso({
+    PRSGerelateerde.class
+})
+<span class="nc" id="L107">public class PRSKennisgeving</span>
+    extends PRSFund
+{
+
+    @XmlElementRef(name = &quot;PRSADRCOR&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+    protected JAXBElement&lt;ADRRelKerngegevens&gt; prsadrcor;
+    @XmlElementRef(name = &quot;PRSADRINS&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+    protected JAXBElement&lt;ADRRelKerngegevens&gt; prsadrins;
+    @XmlElementRef(name = &quot;PRSADRVBL&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+    protected JAXBElement&lt;PRSADRVBL&gt; prsadrvbl;
+    @XmlElement(name = &quot;PRSIDB&quot;, nillable = true)
+    protected List&lt;PRSKennisgeving.PRSIDB&gt; prsidb;
+    @XmlElement(name = &quot;PRSNAT&quot;, nillable = true)
+    protected List&lt;PRSKennisgeving.PRSNAT&gt; prsnat;
+    @XmlElement(name = &quot;PRSPRSHUW&quot;, nillable = true)
+    protected List&lt;PRSKennisgeving.PRSPRSHUW&gt; prsprshuw;
+    @XmlElement(name = &quot;PRSPRSKND&quot;, nillable = true)
+    protected List&lt;PRSKennisgeving.PRSPRSKND&gt; prsprsknd;
+    @XmlElement(name = &quot;PRSPRSOUD&quot;, nillable = true)
+    protected List&lt;PRSKennisgeving.PRSPRSOUD&gt; prsprsoud;
+
+    /**
+     * Gets the value of the prsadrcor property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code &lt;}{@link ADRRelKerngegevens }{@code &gt;}
+     *     
+     */
+    public JAXBElement&lt;ADRRelKerngegevens&gt; getPRSADRCOR() {
+<span class="nc" id="L137">        return prsadrcor;</span>
+    }
+
+    /**
+     * Sets the value of the prsadrcor property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code &lt;}{@link ADRRelKerngegevens }{@code &gt;}
+     *     
+     */
+    public void setPRSADRCOR(JAXBElement&lt;ADRRelKerngegevens&gt; value) {
+<span class="nc" id="L149">        this.prsadrcor = value;</span>
+<span class="nc" id="L150">    }</span>
+
+    /**
+     * Gets the value of the prsadrins property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code &lt;}{@link ADRRelKerngegevens }{@code &gt;}
+     *     
+     */
+    public JAXBElement&lt;ADRRelKerngegevens&gt; getPRSADRINS() {
+<span class="nc" id="L161">        return prsadrins;</span>
+    }
+
+    /**
+     * Sets the value of the prsadrins property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code &lt;}{@link ADRRelKerngegevens }{@code &gt;}
+     *     
+     */
+    public void setPRSADRINS(JAXBElement&lt;ADRRelKerngegevens&gt; value) {
+<span class="nc" id="L173">        this.prsadrins = value;</span>
+<span class="nc" id="L174">    }</span>
+
+    /**
+     * Gets the value of the prsadrvbl property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code &lt;}{@link PRSADRVBL }{@code &gt;}
+     *     
+     */
+    public JAXBElement&lt;PRSADRVBL&gt; getPRSADRVBL() {
+<span class="nc" id="L185">        return prsadrvbl;</span>
+    }
+
+    /**
+     * Sets the value of the prsadrvbl property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code &lt;}{@link PRSADRVBL }{@code &gt;}
+     *     
+     */
+    public void setPRSADRVBL(JAXBElement&lt;PRSADRVBL&gt; value) {
+<span class="nc" id="L197">        this.prsadrvbl = value;</span>
+<span class="nc" id="L198">    }</span>
+
+    /**
+     * Gets the value of the prsidb property.
+     * 
+     * &lt;p&gt;
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the prsidb property.
+     * 
+     * &lt;p&gt;
+     * For example, to add a new item, do as follows:
+     * &lt;pre&gt;
+     *    getPRSIDB().add(newItem);
+     * &lt;/pre&gt;
+     * 
+     * 
+     * &lt;p&gt;
+     * Objects of the following type(s) are allowed in the list
+     * {@link PRSKennisgeving.PRSIDB }
+     * 
+     * 
+     */
+    public List&lt;PRSKennisgeving.PRSIDB&gt; getPRSIDB() {
+<span class="nc bnc" id="L223" title="All 2 branches missed.">        if (prsidb == null) {</span>
+<span class="nc" id="L224">            prsidb = new ArrayList&lt;PRSKennisgeving.PRSIDB&gt;();</span>
+        }
+<span class="nc" id="L226">        return this.prsidb;</span>
+    }
+
+    /**
+     * Gets the value of the prsnat property.
+     * 
+     * &lt;p&gt;
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the prsnat property.
+     * 
+     * &lt;p&gt;
+     * For example, to add a new item, do as follows:
+     * &lt;pre&gt;
+     *    getPRSNAT().add(newItem);
+     * &lt;/pre&gt;
+     * 
+     * 
+     * &lt;p&gt;
+     * Objects of the following type(s) are allowed in the list
+     * {@link PRSKennisgeving.PRSNAT }
+     * 
+     * 
+     */
+    public List&lt;PRSKennisgeving.PRSNAT&gt; getPRSNAT() {
+<span class="nc bnc" id="L252" title="All 2 branches missed.">        if (prsnat == null) {</span>
+<span class="nc" id="L253">            prsnat = new ArrayList&lt;PRSKennisgeving.PRSNAT&gt;();</span>
+        }
+<span class="nc" id="L255">        return this.prsnat;</span>
+    }
+
+    /**
+     * Gets the value of the prsprshuw property.
+     * 
+     * &lt;p&gt;
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the prsprshuw property.
+     * 
+     * &lt;p&gt;
+     * For example, to add a new item, do as follows:
+     * &lt;pre&gt;
+     *    getPRSPRSHUW().add(newItem);
+     * &lt;/pre&gt;
+     * 
+     * 
+     * &lt;p&gt;
+     * Objects of the following type(s) are allowed in the list
+     * {@link PRSKennisgeving.PRSPRSHUW }
+     * 
+     * 
+     */
+    public List&lt;PRSKennisgeving.PRSPRSHUW&gt; getPRSPRSHUW() {
+<span class="nc bnc" id="L281" title="All 2 branches missed.">        if (prsprshuw == null) {</span>
+<span class="nc" id="L282">            prsprshuw = new ArrayList&lt;PRSKennisgeving.PRSPRSHUW&gt;();</span>
+        }
+<span class="nc" id="L284">        return this.prsprshuw;</span>
+    }
+
+    /**
+     * Gets the value of the prsprsknd property.
+     * 
+     * &lt;p&gt;
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the prsprsknd property.
+     * 
+     * &lt;p&gt;
+     * For example, to add a new item, do as follows:
+     * &lt;pre&gt;
+     *    getPRSPRSKND().add(newItem);
+     * &lt;/pre&gt;
+     * 
+     * 
+     * &lt;p&gt;
+     * Objects of the following type(s) are allowed in the list
+     * {@link PRSKennisgeving.PRSPRSKND }
+     * 
+     * 
+     */
+    public List&lt;PRSKennisgeving.PRSPRSKND&gt; getPRSPRSKND() {
+<span class="nc bnc" id="L310" title="All 2 branches missed.">        if (prsprsknd == null) {</span>
+<span class="nc" id="L311">            prsprsknd = new ArrayList&lt;PRSKennisgeving.PRSPRSKND&gt;();</span>
+        }
+<span class="nc" id="L313">        return this.prsprsknd;</span>
+    }
+
+    /**
+     * Gets the value of the prsprsoud property.
+     * 
+     * &lt;p&gt;
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the prsprsoud property.
+     * 
+     * &lt;p&gt;
+     * For example, to add a new item, do as follows:
+     * &lt;pre&gt;
+     *    getPRSPRSOUD().add(newItem);
+     * &lt;/pre&gt;
+     * 
+     * 
+     * &lt;p&gt;
+     * Objects of the following type(s) are allowed in the list
+     * {@link PRSKennisgeving.PRSPRSOUD }
+     * 
+     * 
+     */
+    public List&lt;PRSKennisgeving.PRSPRSOUD&gt; getPRSPRSOUD() {
+<span class="nc bnc" id="L339" title="All 2 branches missed.">        if (prsprsoud == null) {</span>
+<span class="nc" id="L340">            prsprsoud = new ArrayList&lt;PRSKennisgeving.PRSPRSOUD&gt;();</span>
+        }
+<span class="nc" id="L342">        return this.prsprsoud;</span>
+    }
+
+
+    /**
+     * &lt;p&gt;Java class for anonymous complex type.
+     * 
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * 
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;complexContent&amp;gt;
+     *     &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}PRSIDB-rel&quot;&amp;gt;
+     *       &amp;lt;sequence&amp;gt;
+     *         &amp;lt;element name=&quot;SIB&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}SIB-tabel&quot;/&amp;gt;
+     *       &amp;lt;/sequence&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/complexContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = &quot;&quot;, propOrder = {
+        &quot;sib&quot;
+    })
+<span class="nc" id="L369">    public static class PRSIDB</span>
+        extends PRSIDBRel
+    {
+
+        @XmlElement(name = &quot;SIB&quot;, required = true, nillable = true)
+        protected SIBTabel sib;
+
+        /**
+         * Gets the value of the sib property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link SIBTabel }
+         *     
+         */
+        public SIBTabel getSIB() {
+<span class="nc" id="L385">            return sib;</span>
+        }
+
+        /**
+         * Sets the value of the sib property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link SIBTabel }
+         *     
+         */
+        public void setSIB(SIBTabel value) {
+<span class="nc" id="L397">            this.sib = value;</span>
+<span class="nc" id="L398">        }</span>
+
+    }
+
+
+    /**
+     * &lt;p&gt;Java class for anonymous complex type.
+     * 
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * 
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;complexContent&amp;gt;
+     *     &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}PRSNAT-rel&quot;&amp;gt;
+     *       &amp;lt;sequence&amp;gt;
+     *         &amp;lt;element name=&quot;NAT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}NAT-tabel&quot;/&amp;gt;
+     *       &amp;lt;/sequence&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/complexContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = &quot;&quot;, propOrder = {
+        &quot;nat&quot;
+    })
+<span class="nc" id="L426">    public static class PRSNAT</span>
+        extends PRSNATRel
+    {
+
+        @XmlElement(name = &quot;NAT&quot;, required = true, nillable = true)
+        protected NATTabel nat;
+
+        /**
+         * Gets the value of the nat property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link NATTabel }
+         *     
+         */
+        public NATTabel getNAT() {
+<span class="nc" id="L442">            return nat;</span>
+        }
+
+        /**
+         * Sets the value of the nat property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link NATTabel }
+         *     
+         */
+        public void setNAT(NATTabel value) {
+<span class="nc" id="L454">            this.nat = value;</span>
+<span class="nc" id="L455">        }</span>
+
+    }
+
+
+    /**
+     * &lt;p&gt;Java class for anonymous complex type.
+     * 
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * 
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;complexContent&amp;gt;
+     *     &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}PRSPRSHUW-rel&quot;&amp;gt;
+     *       &amp;lt;sequence&amp;gt;
+     *         &amp;lt;element name=&quot;PRS&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}PRS-gerelateerde&quot;/&amp;gt;
+     *       &amp;lt;/sequence&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/complexContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = &quot;&quot;, propOrder = {
+        &quot;prs&quot;
+    })
+<span class="nc" id="L483">    public static class PRSPRSHUW</span>
+        extends PRSPRSHUWRel
+    {
+
+        @XmlElement(name = &quot;PRS&quot;, required = true, nillable = true)
+        protected PRSGerelateerde prs;
+
+        /**
+         * Gets the value of the prs property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link PRSGerelateerde }
+         *     
+         */
+        public PRSGerelateerde getPRS() {
+<span class="nc" id="L499">            return prs;</span>
+        }
+
+        /**
+         * Sets the value of the prs property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link PRSGerelateerde }
+         *     
+         */
+        public void setPRS(PRSGerelateerde value) {
+<span class="nc" id="L511">            this.prs = value;</span>
+<span class="nc" id="L512">        }</span>
+
+    }
+
+
+    /**
+     * &lt;p&gt;Java class for anonymous complex type.
+     * 
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * 
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;complexContent&amp;gt;
+     *     &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}PRSPRSKND-rel&quot;&amp;gt;
+     *       &amp;lt;sequence&amp;gt;
+     *         &amp;lt;element name=&quot;PRS&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}PRS-gerelateerde&quot;/&amp;gt;
+     *       &amp;lt;/sequence&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/complexContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = &quot;&quot;, propOrder = {
+        &quot;prs&quot;
+    })
+<span class="nc" id="L540">    public static class PRSPRSKND</span>
+        extends PRSPRSKNDRel
+    {
+
+        @XmlElement(name = &quot;PRS&quot;, required = true, nillable = true)
+        protected PRSGerelateerde prs;
+
+        /**
+         * Gets the value of the prs property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link PRSGerelateerde }
+         *     
+         */
+        public PRSGerelateerde getPRS() {
+<span class="nc" id="L556">            return prs;</span>
+        }
+
+        /**
+         * Sets the value of the prs property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link PRSGerelateerde }
+         *     
+         */
+        public void setPRS(PRSGerelateerde value) {
+<span class="nc" id="L568">            this.prs = value;</span>
+<span class="nc" id="L569">        }</span>
+
+    }
+
+
+    /**
+     * &lt;p&gt;Java class for anonymous complex type.
+     * 
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * 
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;complexContent&amp;gt;
+     *     &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}PRSPRSOUD-rel&quot;&amp;gt;
+     *       &amp;lt;sequence&amp;gt;
+     *         &amp;lt;element name=&quot;PRS&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}PRS-gerelateerde&quot;/&amp;gt;
+     *       &amp;lt;/sequence&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/complexContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = &quot;&quot;, propOrder = {
+        &quot;prs&quot;
+    })
+<span class="nc" id="L597">    public static class PRSPRSOUD</span>
+        extends PRSPRSOUDRel
+    {
+
+        @XmlElement(name = &quot;PRS&quot;, required = true, nillable = true)
+        protected PRSGerelateerde prs;
+
+        /**
+         * Gets the value of the prs property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link PRSGerelateerde }
+         *     
+         */
+        public PRSGerelateerde getPRS() {
+<span class="nc" id="L613">            return prs;</span>
+        }
+
+        /**
+         * Sets the value of the prs property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link PRSGerelateerde }
+         *     
+         */
+        public void setPRS(PRSGerelateerde value) {
+<span class="nc" id="L625">            this.prs = value;</span>
+<span class="nc" id="L626">        }</span>
+
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

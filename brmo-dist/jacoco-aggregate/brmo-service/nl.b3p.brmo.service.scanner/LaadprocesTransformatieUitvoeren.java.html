@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>LaadprocesTransformatieUitvoeren.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO distributie</a> &gt; <a href="../index.html" class="el_bundle">brmo-service</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.service.scanner</a> &gt; <span class="el_source">LaadprocesTransformatieUitvoeren.java</span></div><h1>LaadprocesTransformatieUitvoeren.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2016 B3Partners B.V.
+ */
+package nl.b3p.brmo.service.scanner;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import javax.persistence.Transient;
+import javax.sql.DataSource;
+import nl.b3p.brmo.loader.BrmoFramework;
+import nl.b3p.brmo.loader.RsgbProxy;
+import nl.b3p.brmo.loader.util.BrmoException;
+import nl.b3p.brmo.persistence.staging.AutomatischProces;
+import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.ERROR;
+import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.PROCESSING;
+import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.WAITING;
+import nl.b3p.brmo.persistence.staging.LaadprocesTransformatieProces;
+import nl.b3p.brmo.service.util.ConfigUtil;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.stripesstuff.stripersist.Stripersist;
+
+/**
+ * Transformeert laadprocessn, zoals bijvoorbeeld BGTLight GML.
+ *
+ * @author mprins
+ */
+public class LaadprocesTransformatieUitvoeren extends AbstractExecutableProces {
+
+<span class="nc" id="L35">    private static final Log LOG = LogFactory.getLog(LaadprocesTransformatieUitvoeren.class);</span>
+
+    private final LaadprocesTransformatieProces config;
+
+    @Transient
+    private ProgressUpdateListener listener;
+
+<span class="nc" id="L42">    private boolean transformErrorOccured = false;</span>
+
+<span class="nc" id="L44">    public LaadprocesTransformatieUitvoeren(LaadprocesTransformatieProces config) {</span>
+<span class="nc" id="L45">        this.config = config;</span>
+<span class="nc" id="L46">    }</span>
+
+    @Override
+    public void execute() throws BrmoException {
+<span class="nc" id="L50">        this.execute(new ProgressUpdateListener() {</span>
+            @Override
+            public void total(long total) {
+<span class="nc" id="L53">            }</span>
+
+            @Override
+            public void progress(long progress) {
+<span class="nc" id="L57">            }</span>
+
+            @Override
+            public void exception(Throwable t) {
+                // afvangen van de fout conditie zodat de status van het proces goed kan worden gezet
+<span class="nc" id="L62">                transformErrorOccured = true;</span>
+<span class="nc" id="L63">                LOG.error(t);</span>
+<span class="nc" id="L64">            }</span>
+
+            @Override
+            public void updateStatus(String status) {
+<span class="nc" id="L68">            }</span>
+
+            @Override
+            public void addLog(String log) {
+<span class="nc" id="L72">            }</span>
+        });
+<span class="nc" id="L74">    }</span>
+
+    @Override
+    public void execute(final ProgressUpdateListener listener) {
+<span class="nc" id="L78">        this.listener = listener;</span>
+<span class="nc" id="L79">        listener.updateStatus(&quot;Initialiseren...&quot;);</span>
+<span class="nc" id="L80">        listener.addLog(String.format(&quot;Initialiseren... %tc&quot;, new Date()));</span>
+<span class="nc" id="L81">        this.config.setStatus(PROCESSING);</span>
+<span class="nc" id="L82">        this.config.setLastrun(new Date());</span>
+<span class="nc" id="L83">        Stripersist.getEntityManager().merge(config);</span>
+<span class="nc" id="L84">        Stripersist.getEntityManager().flush();</span>
+
+<span class="nc" id="L86">        final StringBuilder sb = new StringBuilder(AutomatischProces.LOG_NEWLINE);</span>
+<span class="nc" id="L87">        String oldLog = config.getLogfile();</span>
+<span class="nc bnc" id="L88" title="All 2 branches missed.">        if (oldLog != null) {</span>
+<span class="nc bnc" id="L89" title="All 2 branches missed.">            if (oldLog.length() &gt; OLD_LOG_LENGTH) {</span>
+<span class="nc" id="L90">                sb.append(oldLog.substring(oldLog.length() - OLD_LOG_LENGTH / 10));</span>
+            } else {
+<span class="nc" id="L92">                sb.append(oldLog);</span>
+            }
+        }
+
+<span class="nc" id="L96">        String msg = String.format(&quot;Het laadproces transformatie proces met ID %d is gestart op %tc.&quot;,</span>
+<span class="nc" id="L97">                config.getId(), Calendar.getInstance());</span>
+<span class="nc" id="L98">        LOG.info(msg);</span>
+<span class="nc" id="L99">        listener.addLog(msg);</span>
+<span class="nc" id="L100">        sb.append(msg).append(AutomatischProces.LOG_NEWLINE);</span>
+
+<span class="nc" id="L102">        BrmoFramework brmo = null;</span>
+        try {
+<span class="nc" id="L104">            DataSource dataSourceStaging = ConfigUtil.getDataSourceStaging();</span>
+<span class="nc" id="L105">            DataSource dataSourceRsgbBgt = null;</span>
+<span class="nc" id="L106">            DataSource dataSourceTopNL = null;</span>
+<span class="nc bnc" id="L107" title="All 2 branches missed.">            if (LaadprocesTransformatieProces.LaadprocesSoorten.BR_TOPNL.getSoort().equalsIgnoreCase(this.config.getSoort())) {</span>
+<span class="nc" id="L108">                dataSourceTopNL = ConfigUtil.getDataSourceTopNL();</span>
+            }
+<span class="nc bnc" id="L110" title="All 2 branches missed.">            if (LaadprocesTransformatieProces.LaadprocesSoorten.BR_BGTLIGHT.getSoort().equalsIgnoreCase(this.config.getSoort())) {</span>
+<span class="nc" id="L111">                dataSourceRsgbBgt = ConfigUtil.getDataSourceRsgbBgt();</span>
+            }
+<span class="nc" id="L113">            brmo = new BrmoFramework(dataSourceStaging, null, dataSourceRsgbBgt, dataSourceTopNL);</span>
+<span class="nc" id="L114">            long[] lpIds = null;</span>
+            
+<span class="nc bnc" id="L116" title="All 2 branches missed.">            if(LaadprocesTransformatieProces.LaadprocesSoorten.BR_TOPNL.getSoort().equalsIgnoreCase(this.config.getSoort())){</span>
+<span class="nc" id="L117">                List&lt;Long&gt; ids = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L118" title="All 2 branches missed.">                for (String type : TopNLDirectoryScanner.subdirectoryNames) {</span>
+<span class="nc" id="L119">                    ids.addAll(Arrays.asList(brmo.getLaadProcessenIds(&quot;bestand_datum&quot;, &quot;ASC&quot;, type, &quot;STAGING_OK&quot;)));</span>
+                }
+<span class="nc" id="L121">                lpIds = ArrayUtils.toPrimitive(ids.toArray(new Long[ids.size()]));</span>
+<span class="nc" id="L122">            }else{</span>
+<span class="nc" id="L123">                lpIds = ArrayUtils.toPrimitive(brmo.getLaadProcessenIds(&quot;bestand_datum&quot;, &quot;ASC&quot;, config.getSoort(), &quot;STAGING_OK&quot;));</span>
+            }
+<span class="nc bnc" id="L125" title="All 2 branches missed.">            brmo.setOrderBerichten(!config.alsStandTransformeren());</span>
+<span class="nc bnc" id="L126" title="All 4 branches missed.">            if (lpIds == null || lpIds.length == 0) {</span>
+<span class="nc" id="L127">                msg = &quot;Er zijn geen laadprocessen van soort &quot; + config.getSoort() + &quot; en status: 'STAGING_OK' om te transformeren.&quot;;</span>
+<span class="nc" id="L128">                LOG.info(msg);</span>
+<span class="nc" id="L129">                sb.append(msg).append(AutomatischProces.LOG_NEWLINE);</span>
+<span class="nc" id="L130">                listener.addLog(msg);</span>
+            } else {
+<span class="nc" id="L132">                listener.updateStatus(&quot;Transformeren...&quot;);</span>
+<span class="nc" id="L133">                Thread t = brmo.toRsgb(RsgbProxy.BerichtSelectMode.BY_LAADPROCES, lpIds,</span>
+<span class="nc" id="L134">                        new nl.b3p.brmo.loader.ProgressUpdateListener() {</span>
+                    @Override
+                    public void total(long total) {
+<span class="nc" id="L137">                        sb.append(&quot;Totaal te transformeren: &quot;)</span>
+<span class="nc" id="L138">                                .append(total).append(AutomatischProces.LOG_NEWLINE);</span>
+<span class="nc" id="L139">                        listener.total(total);</span>
+<span class="nc" id="L140">                    }</span>
+
+                    @Override
+                    public void progress(long progress) {
+<span class="nc" id="L144">                        listener.progress(progress);</span>
+<span class="nc" id="L145">                    }</span>
+
+                    @Override
+                    public void exception(Throwable t) {
+<span class="nc" id="L149">                        sb.append(&quot;Fout tijdens laadproces transformeren: &quot;)</span>
+<span class="nc" id="L150">                                .append(t.getLocalizedMessage()).append(AutomatischProces.LOG_NEWLINE);</span>
+<span class="nc" id="L151">                        listener.exception(t);</span>
+<span class="nc" id="L152">                    }</span>
+                }
+                );
+<span class="nc" id="L155">                t.join();</span>
+            }
+
+<span class="nc bnc" id="L158" title="All 2 branches missed.">            if (transformErrorOccured) {</span>
+<span class="nc" id="L159">                this.config.setStatus(ERROR);</span>
+<span class="nc" id="L160">                msg = &quot;Handmatige transformatie vanuit de laadprocessen pagina is noodzakelijk.&quot;;</span>
+<span class="nc" id="L161">                sb.append(msg).append(AutomatischProces.LOG_NEWLINE);</span>
+<span class="nc" id="L162">                LOG.warn(msg);</span>
+<span class="nc" id="L163">                msg = String.format(&quot;Laadproces transformatie proces met ID %d is niet succesvol afgerond op %tc.&quot;, config.getId(), Calendar.getInstance());</span>
+<span class="nc" id="L164">                LOG.error(msg);</span>
+<span class="nc" id="L165">                listener.updateStatus(&quot;Er is een fout opgetreden.&quot;);</span>
+            } else {
+<span class="nc" id="L167">                this.config.setStatus(WAITING);</span>
+<span class="nc" id="L168">                msg = String.format(&quot;Laadproces transformatie proces met ID %d is succesvol afgerond op %tc.&quot;, config.getId(), Calendar.getInstance());</span>
+<span class="nc" id="L169">                LOG.info(msg);</span>
+<span class="nc" id="L170">                listener.updateStatus(&quot;Transformatie afgerond.&quot;);</span>
+            }
+
+<span class="nc" id="L173">            sb.append(msg).append(AutomatischProces.LOG_NEWLINE);</span>
+<span class="nc" id="L174">            this.listener.addLog(msg);</span>
+<span class="nc" id="L175">            this.config.setSamenvatting(msg);</span>
+<span class="nc" id="L176">            this.config.setLogfile(sb.toString());</span>
+<span class="nc" id="L177">        } catch (BrmoException | InterruptedException e) {</span>
+<span class="nc" id="L178">            LOG.error(&quot;Fout bij transformeren laadprocessen naar RSGB&quot;, e);</span>
+<span class="nc" id="L179">            String m = &quot;Fout bij transformeren laadprocessen naar RSGB: &quot; + ExceptionUtils.getMessage(e);</span>
+<span class="nc bnc" id="L180" title="All 2 branches missed.">            if (e.getCause() != null) {</span>
+<span class="nc" id="L181">                m += &quot;, oorzaak: &quot; + ExceptionUtils.getRootCauseMessage(e);</span>
+            }
+<span class="nc" id="L183">            this.config.setLogfile(sb.toString());</span>
+<span class="nc" id="L184">            this.config.updateSamenvattingEnLogfile(m);</span>
+<span class="nc" id="L185">            this.config.setStatus(ERROR);</span>
+        } finally {
+<span class="nc bnc" id="L187" title="All 2 branches missed.">            if (brmo != null) {</span>
+<span class="nc" id="L188">                brmo.closeBrmoFramework();</span>
+            }
+<span class="nc" id="L190">            Stripersist.getEntityManager().merge(this.config);</span>
+<span class="nc" id="L191">            Stripersist.getEntityManager().flush();</span>
+<span class="nc" id="L192">            Stripersist.getEntityManager().getTransaction().commit();</span>
+<span class="nc" id="L193">            Stripersist.getEntityManager().clear();</span>
+        }
+<span class="nc" id="L195">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

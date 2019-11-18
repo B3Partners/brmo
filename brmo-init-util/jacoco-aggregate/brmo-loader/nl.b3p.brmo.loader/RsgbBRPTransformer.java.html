@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>RsgbBRPTransformer.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO initialisatie utilities</a> &gt; <a href="../index.html" class="el_bundle">brmo-loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.loader</a> &gt; <span class="el_source">RsgbBRPTransformer.java</span></div><h1>RsgbBRPTransformer.java</h1><pre class="source lang-java linenums">package nl.b3p.brmo.loader;
+
+import java.io.IOException;
+import java.io.StringReader;
+import java.io.StringWriter;
+import java.sql.SQLException;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Result;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathFactory;
+import nl.b3p.brmo.loader.entity.Bericht;
+import nl.b3p.brmo.loader.util.RsgbTransformer;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+
+/**
+ *
+ * @author meine
+ */
+public class RsgbBRPTransformer extends RsgbTransformer {
+
+<span class="nc" id="L38">    private static final Log log = LogFactory.getLog(RsgbBRPTransformer.class);</span>
+    private StagingProxy staging;
+
+    public RsgbBRPTransformer(String pathToXsl, StagingProxy staging) throws TransformerConfigurationException, ParserConfigurationException {
+<span class="nc" id="L42">        super(pathToXsl);</span>
+<span class="nc" id="L43">        this.staging = staging;</span>
+<span class="nc" id="L44">    }</span>
+
+    @Override
+    public String transformToDbXml(Bericht bericht) throws SAXException, IOException, TransformerConfigurationException, TransformerException {
+<span class="nc" id="L48">        String current = super.transformToDbXml(bericht);</span>
+<span class="nc" id="L49">        StringBuilder loadLog = new StringBuilder();</span>
+
+        try {
+<span class="nc" id="L52">            Bericht old = staging.getPreviousBericht(bericht, loadLog);</span>
+
+<span class="nc bnc" id="L54" title="All 2 branches missed.">            if (old != null) {</span>
+<span class="nc" id="L55">                Document d = merge(old.getDbXml(), current);</span>
+<span class="nc" id="L56">                String mergedDBXML = print(d);</span>
+<span class="nc" id="L57">                bericht.setDbXml(mergedDBXML);</span>
+<span class="nc" id="L58">                current = mergedDBXML;</span>
+            }
+<span class="nc" id="L60">        } catch (SQLException ex) {</span>
+<span class="nc" id="L61">            log.error(&quot;Cannot retrieve old bericht: &quot;, ex);</span>
+<span class="nc" id="L62">        } catch (Exception ex) {</span>
+<span class="nc" id="L63">            log.error(&quot;Cannot retrieve old bericht: &quot;, ex);</span>
+<span class="nc" id="L64">        }</span>
+
+        // retrieve old bericht
+        // apply current to old
+        // return modified dbxml
+<span class="nc" id="L69">        return current;</span>
+    }
+
+    @Override
+    public Node transformToDbXmlNode(Bericht bericht) throws SAXException, IOException, TransformerConfigurationException, TransformerException {
+<span class="nc" id="L74">        Node n = super.transformToDbXmlNode(bericht);</span>
+
+        // retrieve old bericht
+        // apply current to old
+        // return modified dbxml
+<span class="nc" id="L79">        return n;</span>
+    }
+
+    protected static Document merge(String oldFile, String newFile) throws Exception {
+<span class="nc" id="L83">        XPathFactory xPathFactory = XPathFactory.newInstance();</span>
+<span class="nc" id="L84">        XPath xpath = xPathFactory.newXPath();</span>
+<span class="nc" id="L85">        XPathExpression expression = xpath.compile(&quot;/root/data&quot;);</span>
+
+<span class="nc" id="L87">        DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();</span>
+<span class="nc" id="L88">        docBuilderFactory.setIgnoringElementContentWhitespace(true);</span>
+<span class="nc" id="L89">        DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();</span>
+<span class="nc" id="L90">        Document base = docBuilder.parse(new InputSource(new StringReader(oldFile)));</span>
+
+<span class="nc" id="L92">        Element old = (Element) expression.evaluate(base, XPathConstants.NODE);</span>
+<span class="nc bnc" id="L93" title="All 2 branches missed.">        if (old == null) {</span>
+<span class="nc" id="L94">            throw new IOException(oldFile + &quot;: expression does not evaluate to node&quot;);</span>
+        }
+
+<span class="nc" id="L97">        Document merge = docBuilder.parse(new InputSource(new StringReader(newFile)));</span>
+<span class="nc" id="L98">        Node newNode = (Node) expression.evaluate(merge, XPathConstants.NODE);</span>
+
+        /*
+            (1)Voor elke node in merge, kijk of hij bestaat in base
+                zo nee, importeer
+                zo ja, kijk of dit het een na diepste niveau is
+                    zo ja,
+                        ga voor elk childnode na of deze bestaat
+                            zo nee, importeer
+                            zo ja, overschrijf waarde
+                    zo nee, recurse in (1)
+         */
+<span class="nc" id="L110">        merge(base, newNode, old, true/*, merge*/);</span>
+
+<span class="nc" id="L112">        return base;</span>
+    }
+
+    private static final String GEEN_WAARDE = &quot;geenWaarde&quot;;
+    
+    private static void merge(Document base, Node newNode, Element old, boolean first/*, Node merge*/) {
+<span class="nc bnc" id="L118" title="All 2 branches missed.">        while (newNode.hasChildNodes()) {</span>
+<span class="nc" id="L119">            Node newChild = newNode.getFirstChild();</span>
+<span class="nc" id="L120">            newNode.removeChild(newChild);</span>
+<span class="nc" id="L121">            String name = newChild.getNodeName();</span>
+<span class="nc" id="L122">            NodeList nl = old.getElementsByTagName(name);</span>
+<span class="nc bnc" id="L123" title="All 2 branches missed.">            if (nl.getLength() == 0) { // Geen oude data gevonden voor huidige node</span>
+<span class="nc" id="L124">                newChild = base.importNode(newChild, true);</span>
+<span class="nc" id="L125">                newChild.setTextContent(newChild.getTextContent());</span>
+<span class="nc" id="L126">                old.appendChild(newChild);</span>
+            } else {
+<span class="nc" id="L128">                Element oldItem = (Element) nl.item(0);</span>
+<span class="nc bnc" id="L129" title="All 2 branches missed.">                if (first) {</span>
+<span class="nc" id="L130">                    merge(base, newChild, oldItem, false);</span>
+                } else {
+<span class="nc" id="L132">                    String content = newChild.getTextContent();</span>
+<span class="nc bnc" id="L133" title="All 2 branches missed.">                    if (content.equals(GEEN_WAARDE)) {</span>
+<span class="nc" id="L134">                        oldItem.setTextContent(&quot;&quot;);</span>
+<span class="nc bnc" id="L135" title="All 2 branches missed.">                    } else if(content.equals(&quot;&quot;)){</span>
+                        //keep old content
+                    }else {
+<span class="nc" id="L138">                        oldItem.setTextContent(sanitizeValue(newChild.getTextContent()));</span>
+                    }
+                }
+            }
+<span class="nc" id="L142">        }</span>
+<span class="nc" id="L143">    }</span>
+    
+    private static String sanitizeValue(String val){
+<span class="nc bnc" id="L146" title="All 2 branches missed.">        if(val.contains(GEEN_WAARDE)){</span>
+<span class="nc" id="L147">            String newValue = val.replaceAll(GEEN_WAARDE + &quot; &quot;, &quot;&quot;);</span>
+<span class="nc" id="L148">            newValue = newValue.replaceAll(GEEN_WAARDE, &quot;&quot;);</span>
+<span class="nc" id="L149">            return newValue;</span>
+        }else{
+<span class="nc" id="L151">            return val;</span>
+        }
+    }
+
+    protected static String print(Document doc) throws Exception {
+<span class="nc" id="L156">        TransformerFactory transformerFactory = TransformerFactory.newInstance();</span>
+<span class="nc" id="L157">        Transformer transformer = transformerFactory.newTransformer();</span>
+<span class="nc" id="L158">        DOMSource source = new DOMSource(doc);</span>
+<span class="nc" id="L159">        StringWriter sw = new StringWriter();</span>
+<span class="nc" id="L160">        Result result = new StreamResult(sw);</span>
+<span class="nc" id="L161">        transformer.transform(source, result);</span>
+<span class="nc" id="L162">        return sw.toString();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

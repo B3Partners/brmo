@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>BGTLightOphalenProces.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO distributie</a> &gt; <a href="../index.html" class="el_bundle">brmo-service</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.service.scanner</a> &gt; <span class="el_source">BGTLightOphalenProces.java</span></div><h1>BGTLightOphalenProces.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2016 B3Partners B.V.
+ */
+package nl.b3p.brmo.service.scanner;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Set;
+import javax.persistence.Transient;
+import nl.b3p.brmo.bgt.util.PDOKBGTLightUtil;
+import nl.b3p.brmo.loader.BrmoFramework;
+import nl.b3p.brmo.loader.util.BrmoException;
+import nl.b3p.brmo.persistence.staging.AutomatischProces;
+import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.ERROR;
+import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.PROCESSING;
+import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.WAITING;
+import nl.b3p.brmo.persistence.staging.BGTLightOphaalProces;
+import nl.b3p.brmo.service.util.ConfigUtil;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.hibernate.engine.jdbc.StreamUtils;
+import org.stripesstuff.stripersist.Stripersist;
+
+/**
+ * Ophalen van BGT GML Light formaat bestanden.
+ *
+ * @author mprins
+ */
+public class BGTLightOphalenProces extends AbstractExecutableProces {
+
+<span class="nc" id="L39">    private static final Log LOG = LogFactory.getLog(BGTLightOphalenProces.class);</span>
+
+    private final BGTLightOphaalProces config;
+
+    @Transient
+    private ProgressUpdateListener listener;
+
+<span class="nc" id="L46">    public BGTLightOphalenProces(BGTLightOphaalProces config) {</span>
+<span class="nc" id="L47">        this.config = config;</span>
+<span class="nc" id="L48">    }</span>
+
+    @Override
+    public void execute() throws BrmoException {
+<span class="nc" id="L52">        this.execute(new ProgressUpdateListener() {</span>
+            @Override
+            public void total(long total) {
+<span class="nc" id="L55">            }</span>
+
+            @Override
+            public void progress(long progress) {
+<span class="nc" id="L59">            }</span>
+
+            @Override
+            public void exception(Throwable t) {
+<span class="nc" id="L63">                LOG.error(t);</span>
+<span class="nc" id="L64">            }</span>
+
+            @Override
+            public void updateStatus(String status) {
+<span class="nc" id="L68">            }</span>
+
+            @Override
+            public void addLog(String log) {
+<span class="nc" id="L72">            }</span>
+        });
+<span class="nc" id="L74">    }</span>
+
+    @Override
+    public void execute(ProgressUpdateListener listener) {
+<span class="nc" id="L78">        this.listener = listener;</span>
+<span class="nc" id="L79">        config.setStatus(PROCESSING);</span>
+<span class="nc" id="L80">        config.setLastrun(new Date());</span>
+<span class="nc" id="L81">        Stripersist.getEntityManager().merge(config);</span>
+<span class="nc" id="L82">        Stripersist.getEntityManager().flush();</span>
+
+<span class="nc" id="L84">        StringBuilder sb = new StringBuilder(AutomatischProces.LOG_NEWLINE);</span>
+<span class="nc" id="L85">        String oldLog = config.getLogfile();</span>
+<span class="nc bnc" id="L86" title="All 2 branches missed.">        if (oldLog != null) {</span>
+<span class="nc bnc" id="L87" title="All 2 branches missed.">            if (oldLog.length() &gt; OLD_LOG_LENGTH) {</span>
+<span class="nc" id="L88">                sb.append(oldLog.substring(oldLog.length() - OLD_LOG_LENGTH / 10));</span>
+            } else {
+<span class="nc" id="L90">                sb.append(oldLog);</span>
+            }
+        }
+
+<span class="nc" id="L94">        long totaal = 0, aantalGeladen = 0;</span>
+
+<span class="nc" id="L96">        String msg = String.format(&quot;Het BGT GML Light ophalen proces met ID %d is gestart op %tc.&quot;, config.getId(), Calendar.getInstance());</span>
+<span class="nc" id="L97">        LOG.info(msg);</span>
+<span class="nc" id="L98">        listener.addLog(msg);</span>
+<span class="nc" id="L99">        sb.append(msg).append(AutomatischProces.LOG_NEWLINE);</span>
+
+<span class="nc bnc" id="L101" title="All 2 branches missed.">        if (isArchivingOK()) {</span>
+<span class="nc" id="L102">            config.setLogfile(sb.toString());</span>
+<span class="nc" id="L103">            Set&lt;Integer&gt; ids = config.getGridIds();</span>
+<span class="nc bnc" id="L104" title="All 4 branches missed.">            if (ids == null || ids.isEmpty()) {</span>
+<span class="nc" id="L105">                msg = &quot;Ophalen 'tileinfo.json' en bepalen grid cellen&quot;;</span>
+<span class="nc" id="L106">                listener.updateStatus(msg);</span>
+<span class="nc" id="L107">                String ophaalgebiedWKT = config.getOphaalgebied();</span>
+<span class="nc" id="L108">                msg = &quot;Ophaalgebied: &quot; + ophaalgebiedWKT;</span>
+<span class="nc" id="L109">                sb.append(msg).append(AutomatischProces.LOG_NEWLINE);</span>
+<span class="nc" id="L110">                listener.addLog(msg);</span>
+<span class="nc" id="L111">                LOG.info(msg);</span>
+<span class="nc" id="L112">                String tileInfoJsonUrl = config.getTileInfoUrl();</span>
+<span class="nc" id="L113">                msg = &quot;BGT tileinfo url: &quot; + tileInfoJsonUrl;</span>
+<span class="nc" id="L114">                sb.append(msg).append(AutomatischProces.LOG_NEWLINE);</span>
+<span class="nc" id="L115">                LOG.info(msg);</span>
+<span class="nc" id="L116">                ids = PDOKBGTLightUtil.calculateGridIds(ophaalgebiedWKT, tileInfoJsonUrl);</span>
+<span class="nc" id="L117">                msg = &quot;De berekende lijst met op te halen grid cellen is: &quot; + ids;</span>
+<span class="nc" id="L118">            } else {</span>
+<span class="nc" id="L119">                msg = &quot;De berekende lijst met op te halen grid cellen is: &quot; + ids;</span>
+            }
+<span class="nc" id="L121">            listener.total(ids.size());</span>
+<span class="nc" id="L122">            sb.append(msg).append(AutomatischProces.LOG_NEWLINE);</span>
+<span class="nc" id="L123">            LOG.info(msg);</span>
+<span class="nc" id="L124">            listener.addLog(msg);</span>
+<span class="nc" id="L125">            listener.updateStatus(msg);</span>
+
+<span class="nc" id="L127">            String bUrl = config.getOphaalUrl();</span>
+<span class="nc" id="L128">            LOG.info(&quot;BGT GML light ophaal basis url: &quot; + bUrl);</span>
+<span class="nc" id="L129">            SimpleDateFormat sdf = new SimpleDateFormat(&quot;dd-MM-yyyy&quot;);</span>
+<span class="nc" id="L130">            String enddate = sdf.format(new Date());</span>
+<span class="nc" id="L131">            bUrl = bUrl.replace(&quot;ENDDATE&quot;, enddate);</span>
+            String naam;
+            String sUrl;
+
+<span class="nc" id="L135">            BrmoFramework brmo = null;</span>
+<span class="nc bnc" id="L136" title="All 2 branches missed.">            for (Integer id : ids) {</span>
+                // download naar directory
+                // code38451_aggrlevel0-20160429.zip
+                //&quot;https://www.pdok.nl/download/service/extract.zip?extractset=gmllight&amp;tiles=%7B%22layers%22%3A%5B%7B%22aggregateLevel%22%3A0%2C%22codes%22%3A%5B38451%5D%7D%5D%7D&amp;excludedtypes=plaatsbepalingspunt&amp;history=true&amp;enddate=29-4-2016&quot;
+<span class="nc" id="L140">                sUrl = bUrl.replace(&quot;GRID_ID&quot;, id.toString());</span>
+<span class="nc" id="L141">                msg = &quot;Ophalen/downloaden bestand voor grid id: &quot; + id + &quot; aggr. nivo 0&quot;;</span>
+<span class="nc" id="L142">                listener.updateStatus(msg);</span>
+<span class="nc" id="L143">                LOG.info(msg);</span>
+<span class="nc" id="L144">                listener.addLog(msg);</span>
+<span class="nc" id="L145">                sb.append(msg).append(AutomatischProces.LOG_NEWLINE);</span>
+<span class="nc" id="L146">                naam = id + &quot;_0-&quot; + enddate + &quot;.zip&quot;;</span>
+<span class="nc" id="L147">                File gmlZip = getBestand(sUrl, naam, sb);</span>
+
+<span class="nc bnc" id="L149" title="All 2 branches missed.">                if (gmlZip != null) {</span>
+<span class="nc" id="L150">                    msg = &quot;Laden bestand: &quot; + naam;</span>
+<span class="nc" id="L151">                    listener.updateStatus(msg);</span>
+<span class="nc" id="L152">                    LOG.info(msg);</span>
+<span class="nc" id="L153">                    listener.addLog(msg);</span>
+<span class="nc" id="L154">                    sb.append(msg).append(AutomatischProces.LOG_NEWLINE);</span>
+                    try {
+<span class="nc" id="L156">                        brmo = new BrmoFramework(ConfigUtil.getDataSourceStaging(), null);</span>
+<span class="nc" id="L157">                        brmo.loadFromFile(BrmoFramework.BR_BGTLIGHT, gmlZip.getAbsolutePath(), config.getId());</span>
+<span class="nc" id="L158">                        aantalGeladen++;</span>
+<span class="nc" id="L159">                    } catch (BrmoException ex) {</span>
+<span class="nc" id="L160">                        msg = &quot;GML Bestand kon niet worden geladen.&quot;;</span>
+<span class="nc" id="L161">                        sb.append(msg).append(AutomatischProces.LOG_NEWLINE);</span>
+<span class="nc" id="L162">                        LOG.error(msg, ex);</span>
+<span class="nc" id="L163">                        config.setSamenvatting(&quot;Er is een fout opgetreden, details staan in de logs.&quot;);</span>
+<span class="nc" id="L164">                        listener.exception(ex);</span>
+                    } finally {
+<span class="nc bnc" id="L166" title="All 2 branches missed.">                        if (brmo != null) {</span>
+<span class="nc" id="L167">                            brmo.closeBrmoFramework();</span>
+                        }
+                    }
+                }
+<span class="nc" id="L171">                listener.progress(++totaal);</span>
+<span class="nc" id="L172">            }</span>
+
+<span class="nc" id="L174">            msg = &quot;Er zijn &quot; + aantalGeladen + &quot; bestanden opgehaald en geladen.&quot;;</span>
+<span class="nc" id="L175">            sb.append(msg).append(AutomatischProces.LOG_NEWLINE);</span>
+<span class="nc" id="L176">            listener.addLog(&quot;\n\n**** resultaat ****\n&quot;);</span>
+<span class="nc" id="L177">            listener.addLog(msg);</span>
+<span class="nc" id="L178">            config.setStatus(WAITING);</span>
+<span class="nc" id="L179">            config.setSamenvatting(msg);</span>
+<span class="nc" id="L180">        } else {</span>
+<span class="nc" id="L181">            msg = &quot;FOUT: Download bestanden kunnen niet worden opgeslagen/weggeschreven.&quot;;</span>
+<span class="nc" id="L182">            LOG.error(msg);</span>
+<span class="nc" id="L183">            sb.append(msg).append(AutomatischProces.LOG_NEWLINE);</span>
+<span class="nc" id="L184">            listener.updateStatus(msg);</span>
+<span class="nc" id="L185">            listener.addLog(msg);</span>
+<span class="nc" id="L186">            config.setStatus(ERROR);</span>
+<span class="nc" id="L187">            config.setSamenvatting(msg);</span>
+        }
+
+<span class="nc" id="L190">        msg = String.format(&quot;Het BGT GML Light ophalen proces met ID %d is afgerond op %tc&quot;, config.getId(), Calendar.getInstance());</span>
+
+<span class="nc" id="L192">        LOG.info(msg);</span>
+<span class="nc" id="L193">        listener.updateStatus(msg);</span>
+<span class="nc" id="L194">        listener.addLog(&quot;\n&quot; + msg);</span>
+<span class="nc" id="L195">        sb.append(msg).append(AutomatischProces.LOG_NEWLINE);</span>
+
+<span class="nc" id="L197">        config.setLogfile(sb.toString());</span>
+
+<span class="nc" id="L199">        Stripersist.getEntityManager().merge(config);</span>
+<span class="nc" id="L200">        Stripersist.getEntityManager().flush();</span>
+<span class="nc" id="L201">        Stripersist.getEntityManager().getTransaction().commit();</span>
+<span class="nc" id="L202">        Stripersist.getEntityManager().clear();</span>
+<span class="nc" id="L203">    }</span>
+
+    /**
+     * download bestand.
+     *
+     * @param sUrl op te halen url
+     * @param naam van de zipfile
+     * @throws MalformedURLException als de url niet geldig is
+     * @throws IOException als er geen verbinding kan worden gemaakt of het
+     * bestand niet opgeslagen kan worden
+     */
+    private File getBestand(String sUrl, String naam, StringBuilder log) {
+<span class="nc" id="L215">        File out = new File(this.config.getArchiefDirectory(), naam);</span>
+
+<span class="nc bnc" id="L217" title="All 2 branches missed.">        if (isDuplicaatLaadProces(out, BrmoFramework.BR_BGTLIGHT)) {</span>
+<span class="nc" id="L218">            String msg = &quot;Duplicaat bestand &quot; + naam + &quot; wordt niet (opnieuw) opgehaald of geladen.&quot;;</span>
+<span class="nc" id="L219">            LOG.info(msg);</span>
+<span class="nc" id="L220">            log.append(msg).append(AutomatischProces.LOG_NEWLINE);</span>
+<span class="nc" id="L221">            listener.addLog(msg);</span>
+<span class="nc" id="L222">            return null;</span>
+        }
+
+        try {
+<span class="nc" id="L226">            LOG.debug(&quot;ophalen bestand: &quot; + sUrl);</span>
+<span class="nc" id="L227">            final URL url = new URL(sUrl);</span>
+<span class="nc" id="L228">            URLConnection conn = url.openConnection();</span>
+<span class="nc" id="L229">            conn.setDoInput(true);</span>
+<span class="nc" id="L230">            conn.setDoOutput(false);</span>
+<span class="nc" id="L231">            conn.setUseCaches(false);</span>
+<span class="nc" id="L232">            conn.setDefaultUseCaches(false);</span>
+<span class="nc" id="L233">            conn.setConnectTimeout(30 * 1000);</span>
+<span class="nc" id="L234">            conn.setReadTimeout(60 * 1000);</span>
+<span class="nc" id="L235">            conn.connect();</span>
+
+<span class="nc" id="L237">            InputStream data = conn.getInputStream();</span>
+<span class="nc" id="L238">            FileOutputStream archiveFile = new FileOutputStream(out);</span>
+<span class="nc" id="L239">            StreamUtils.copy(data, archiveFile);</span>
+<span class="nc" id="L240">        } catch (IOException ex) {</span>
+<span class="nc" id="L241">            LOG.error(&quot;Bestand kon niet worden opgehaald of opgeslagen.&quot;, ex);</span>
+<span class="nc" id="L242">            log.append(&quot;Bestand kon niet worden opgehaald of opgeslagen: &quot;).append(ex.getLocalizedMessage()).append(AutomatischProces.LOG_NEWLINE);</span>
+<span class="nc" id="L243">            config.setSamenvatting(&quot;Er is een fout opgetreden, details staan in de logs.&quot;);</span>
+<span class="nc" id="L244">            config.setStatus(ERROR);</span>
+<span class="nc" id="L245">            listener.exception(ex);</span>
+<span class="nc" id="L246">        }</span>
+<span class="nc" id="L247">        return out;</span>
+    }
+
+    /**
+     * Bepaal of de zipfile kan worden opgeslagen in de geconfigureerde
+     * directory. Als de directory niet bestaat wordt geprobeerd deze aan te
+     * maken.
+     *
+     * @return true als we de zipfile lokaal kunnen opslaan.
+     */
+    private boolean isArchivingOK() {
+<span class="nc" id="L258">        LOG.debug(&quot;Controle archief directory.&quot;);</span>
+<span class="nc" id="L259">        final String aDir = this.config.getArchiefDirectory();</span>
+<span class="nc bnc" id="L260" title="All 2 branches missed.">        boolean isArchiving = (aDir != null);</span>
+<span class="nc bnc" id="L261" title="All 2 branches missed.">        if (isArchiving) {</span>
+<span class="nc" id="L262">            final File archiefDirectory = new File(aDir);</span>
+            try {
+<span class="nc" id="L264">                archiefDirectory.mkdirs();</span>
+<span class="nc bnc" id="L265" title="All 4 branches missed.">                if (!archiefDirectory.isDirectory() || !archiefDirectory.canWrite()) {</span>
+<span class="nc" id="L266">                    config.setStatus(ERROR);</span>
+<span class="nc" id="L267">                    String msg = String.format(&quot;FOUT: De archief directory '%s' is geen beschrijfbare directory, zipfiles kunnen niet worden niet opgeslagen.&quot;, archiefDirectory);</span>
+<span class="nc" id="L268">                    LOG.error(msg);</span>
+<span class="nc" id="L269">                    listener.addLog(msg);</span>
+<span class="nc" id="L270">                    config.addLogLine(msg);</span>
+<span class="nc" id="L271">                    isArchiving = false;</span>
+                }
+<span class="nc" id="L273">            } catch (SecurityException e) {</span>
+<span class="nc" id="L274">                String msg = String.format(&quot;SecurityException voor archief directory '%s', zipfiles kunnen niet worden niet opgeslagen.&quot;, archiefDirectory);</span>
+<span class="nc" id="L275">                listener.addLog(msg);</span>
+<span class="nc" id="L276">                config.addLogLine(msg);</span>
+<span class="nc" id="L277">                LOG.error(msg, e);</span>
+<span class="nc" id="L278">                isArchiving = false;</span>
+<span class="nc" id="L279">                listener.exception(e);</span>
+<span class="nc" id="L280">            }</span>
+        }
+<span class="nc" id="L282">        LOG.debug(&quot;Archief directory ingesteld op &quot; + aDir);</span>
+<span class="nc" id="L283">        return isArchiving;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

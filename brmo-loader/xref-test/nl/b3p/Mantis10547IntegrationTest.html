@@ -167,56 +167,54 @@
 <a class="jxr_linenumber" name="L159" href="#L159">159</a>         CleanUtil.cleanRSGB_BRK(rsgb, <strong class="jxr_keyword">true</strong>);
 <a class="jxr_linenumber" name="L160" href="#L160">160</a>         rsgb.close();
 <a class="jxr_linenumber" name="L161" href="#L161">161</a> 
-<a class="jxr_linenumber" name="L162" href="#L162">162</a>         DatabaseOperation.DELETE_ALL.execute(staging, <strong class="jxr_keyword">new</strong> DefaultDataSet(<strong class="jxr_keyword">new</strong> DefaultTable[]{
-<a class="jxr_linenumber" name="L163" href="#L163">163</a>             <strong class="jxr_keyword">new</strong> DefaultTable(<span class="jxr_string">"job"</span>)}
-<a class="jxr_linenumber" name="L164" href="#L164">164</a>         ));
-<a class="jxr_linenumber" name="L165" href="#L165">165</a>         staging.close();
-<a class="jxr_linenumber" name="L166" href="#L166">166</a> 
-<a class="jxr_linenumber" name="L167" href="#L167">167</a>         <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L168" href="#L168">168</a>             sequential.unlock();
-<a class="jxr_linenumber" name="L169" href="#L169">169</a>         } <strong class="jxr_keyword">catch</strong> (IllegalMonitorStateException e) {
-<a class="jxr_linenumber" name="L170" href="#L170">170</a>             <em class="jxr_comment">// in geval van niet waar gemaakte assumptions</em>
-<a class="jxr_linenumber" name="L171" href="#L171">171</a>             LOG.debug(<span class="jxr_string">"unlock van thread is mislukt, mogelijk niet ge-lock-ed"</span>);
-<a class="jxr_linenumber" name="L172" href="#L172">172</a>         }
-<a class="jxr_linenumber" name="L173" href="#L173">173</a>     }
-<a class="jxr_linenumber" name="L174" href="#L174">174</a> 
-<a class="jxr_linenumber" name="L175" href="#L175">175</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L176" href="#L176">176</a> <em class="jxr_javadoccomment">     * transformeer alle berichtenen ga dan de data testen.</em>
-<a class="jxr_linenumber" name="L177" href="#L177">177</a> <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="L178" href="#L178">178</a> <em class="jxr_javadoccomment">     * @throws Exception if any</em>
-<a class="jxr_linenumber" name="L179" href="#L179">179</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L180" href="#L180">180</a>     @Test
-<a class="jxr_linenumber" name="L181" href="#L181">181</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testAll() <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L182" href="#L182">182</a>         Thread t = brmo.toRsgb();
-<a class="jxr_linenumber" name="L183" href="#L183">183</a>         t.join();
+<a class="jxr_linenumber" name="L162" href="#L162">162</a>         CleanUtil.cleanSTAGING(staging, false);
+<a class="jxr_linenumber" name="L163" href="#L163">163</a>         staging.close();
+<a class="jxr_linenumber" name="L164" href="#L164">164</a> 
+<a class="jxr_linenumber" name="L165" href="#L165">165</a>         <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L166" href="#L166">166</a>             sequential.unlock();
+<a class="jxr_linenumber" name="L167" href="#L167">167</a>         } <strong class="jxr_keyword">catch</strong> (IllegalMonitorStateException e) {
+<a class="jxr_linenumber" name="L168" href="#L168">168</a>             <em class="jxr_comment">// in geval van niet waar gemaakte assumptions</em>
+<a class="jxr_linenumber" name="L169" href="#L169">169</a>             LOG.debug(<span class="jxr_string">"unlock van thread is mislukt, mogelijk niet ge-lock-ed"</span>);
+<a class="jxr_linenumber" name="L170" href="#L170">170</a>         }
+<a class="jxr_linenumber" name="L171" href="#L171">171</a>     }
+<a class="jxr_linenumber" name="L172" href="#L172">172</a> 
+<a class="jxr_linenumber" name="L173" href="#L173">173</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L174" href="#L174">174</a> <em class="jxr_javadoccomment">     * transformeer alle berichtenen ga dan de data testen.</em>
+<a class="jxr_linenumber" name="L175" href="#L175">175</a> <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="L176" href="#L176">176</a> <em class="jxr_javadoccomment">     * @throws Exception if any</em>
+<a class="jxr_linenumber" name="L177" href="#L177">177</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L178" href="#L178">178</a>     @Test
+<a class="jxr_linenumber" name="L179" href="#L179">179</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testAll() <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L180" href="#L180">180</a>         Thread t = brmo.toRsgb();
+<a class="jxr_linenumber" name="L181" href="#L181">181</a>         t.join();
+<a class="jxr_linenumber" name="L182" href="#L182">182</a> 
+<a class="jxr_linenumber" name="L183" href="#L183">183</a>         assertEquals(<span class="jxr_string">"Alle berichten zijn OK getransformeerd"</span>, aantalBerichten, brmo.getCountBerichten(<strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">null</strong>, <span class="jxr_string">"brk"</span>, <span class="jxr_string">"RSGB_OK"</span>));
 <a class="jxr_linenumber" name="L184" href="#L184">184</a> 
-<a class="jxr_linenumber" name="L185" href="#L185">185</a>         assertEquals(<span class="jxr_string">"Alle berichten zijn OK getransformeerd"</span>, aantalBerichten, brmo.getCountBerichten(<strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">null</strong>, <span class="jxr_string">"brk"</span>, <span class="jxr_string">"RSGB_OK"</span>));
-<a class="jxr_linenumber" name="L186" href="#L186">186</a> 
-<a class="jxr_linenumber" name="L187" href="#L187">187</a>         ITable kad_perceel = rsgb.createDataSet().getTable(<span class="jxr_string">"kad_perceel"</span>);
-<a class="jxr_linenumber" name="L188" href="#L188">188</a>         assertEquals(<span class="jxr_string">"Er zijn geen actuele percelen"</span>, 0, kad_perceel.getRowCount());
-<a class="jxr_linenumber" name="L189" href="#L189">189</a> 
-<a class="jxr_linenumber" name="L190" href="#L190">190</a>         ITable kad_onrrnd_zk = rsgb.createDataSet().getTable(<span class="jxr_string">"kad_onrrnd_zk"</span>);
-<a class="jxr_linenumber" name="L191" href="#L191">191</a>         assertEquals(<span class="jxr_string">"Er zijn geen actuele onroerende zaken"</span>, 0, kad_onrrnd_zk.getRowCount());
-<a class="jxr_linenumber" name="L192" href="#L192">192</a> 
-<a class="jxr_linenumber" name="L193" href="#L193">193</a>         ITable brondocument = rsgb.createDataSet().getTable(<span class="jxr_string">"brondocument"</span>);
-<a class="jxr_linenumber" name="L194" href="#L194">194</a>         assertEquals(<span class="jxr_string">"Er zijn geen brondocumenten"</span>, 0, brondocument.getRowCount());
-<a class="jxr_linenumber" name="L195" href="#L195">195</a> 
-<a class="jxr_linenumber" name="L196" href="#L196">196</a>         ITable kad_perceel_archief = rsgb.createDataSet().getTable(<span class="jxr_string">"kad_perceel_archief"</span>);
-<a class="jxr_linenumber" name="L197" href="#L197">197</a>         assertEquals(<span class="jxr_string">"Alle percelen zijn  gearchiveerd"</span>, aantalBerichten - 1, kad_perceel_archief.getRowCount());
-<a class="jxr_linenumber" name="L198" href="#L198">198</a> 
-<a class="jxr_linenumber" name="L199" href="#L199">199</a>         ITable kad_onrrnd_zk_archief = rsgb.createDataSet().getTable(<span class="jxr_string">"kad_onrrnd_zk_archief"</span>);
-<a class="jxr_linenumber" name="L200" href="#L200">200</a>         assertEquals(<span class="jxr_string">"Alle onroerende zaken zijn gearchiveerd"</span>, aantalBerichten - 1, kad_onrrnd_zk_archief.getRowCount());
-<a class="jxr_linenumber" name="L201" href="#L201">201</a> 
-<a class="jxr_linenumber" name="L202" href="#L202">202</a>         <strong class="jxr_keyword">final</strong> Pattern pattern = Pattern.compile(<span class="jxr_string">"&#92;&#92;d{4}-&#92;&#92;d{2}-&#92;&#92;d{2}"</span>);
-<a class="jxr_linenumber" name="L203" href="#L203">203</a>         <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; aantalBerichten - 1; i++) {
-<a class="jxr_linenumber" name="L204" href="#L204">204</a>             LOG.debug(<span class="jxr_string">"dat_beg_geldh/datum_einde_geldh voor rij: "</span> + 1 + <span class="jxr_string">": "</span>
-<a class="jxr_linenumber" name="L205" href="#L205">205</a>                     + kad_onrrnd_zk_archief.getValue(i, <span class="jxr_string">"dat_beg_geldh"</span>) + <span class="jxr_string">"/"</span>
-<a class="jxr_linenumber" name="L206" href="#L206">206</a>                     + kad_onrrnd_zk_archief.getValue(i, <span class="jxr_string">"datum_einde_geldh"</span>));
-<a class="jxr_linenumber" name="L207" href="#L207">207</a>             assertTrue(<span class="jxr_string">"'dat_beg_geldh' patroon klopt niet"</span>, (pattern.matcher(<span class="jxr_string">""</span> + kad_onrrnd_zk_archief.getValue(i, <span class="jxr_string">"dat_beg_geldh"</span>))).find());
-<a class="jxr_linenumber" name="L208" href="#L208">208</a>             assertTrue(<span class="jxr_string">"'datum_einde_geldh' patroon klopt niet"</span>, (pattern.matcher(<span class="jxr_string">""</span> + kad_onrrnd_zk_archief.getValue(i, <span class="jxr_string">"datum_einde_geldh"</span>))).find());
-<a class="jxr_linenumber" name="L209" href="#L209">209</a>         }
-<a class="jxr_linenumber" name="L210" href="#L210">210</a>     }
-<a class="jxr_linenumber" name="L211" href="#L211">211</a> }
+<a class="jxr_linenumber" name="L185" href="#L185">185</a>         ITable kad_perceel = rsgb.createDataSet().getTable(<span class="jxr_string">"kad_perceel"</span>);
+<a class="jxr_linenumber" name="L186" href="#L186">186</a>         assertEquals(<span class="jxr_string">"Er zijn geen actuele percelen"</span>, 0, kad_perceel.getRowCount());
+<a class="jxr_linenumber" name="L187" href="#L187">187</a> 
+<a class="jxr_linenumber" name="L188" href="#L188">188</a>         ITable kad_onrrnd_zk = rsgb.createDataSet().getTable(<span class="jxr_string">"kad_onrrnd_zk"</span>);
+<a class="jxr_linenumber" name="L189" href="#L189">189</a>         assertEquals(<span class="jxr_string">"Er zijn geen actuele onroerende zaken"</span>, 0, kad_onrrnd_zk.getRowCount());
+<a class="jxr_linenumber" name="L190" href="#L190">190</a> 
+<a class="jxr_linenumber" name="L191" href="#L191">191</a>         ITable brondocument = rsgb.createDataSet().getTable(<span class="jxr_string">"brondocument"</span>);
+<a class="jxr_linenumber" name="L192" href="#L192">192</a>         assertEquals(<span class="jxr_string">"Er zijn geen brondocumenten"</span>, 0, brondocument.getRowCount());
+<a class="jxr_linenumber" name="L193" href="#L193">193</a> 
+<a class="jxr_linenumber" name="L194" href="#L194">194</a>         ITable kad_perceel_archief = rsgb.createDataSet().getTable(<span class="jxr_string">"kad_perceel_archief"</span>);
+<a class="jxr_linenumber" name="L195" href="#L195">195</a>         assertEquals(<span class="jxr_string">"Alle percelen zijn  gearchiveerd"</span>, aantalBerichten - 1, kad_perceel_archief.getRowCount());
+<a class="jxr_linenumber" name="L196" href="#L196">196</a> 
+<a class="jxr_linenumber" name="L197" href="#L197">197</a>         ITable kad_onrrnd_zk_archief = rsgb.createDataSet().getTable(<span class="jxr_string">"kad_onrrnd_zk_archief"</span>);
+<a class="jxr_linenumber" name="L198" href="#L198">198</a>         assertEquals(<span class="jxr_string">"Alle onroerende zaken zijn gearchiveerd"</span>, aantalBerichten - 1, kad_onrrnd_zk_archief.getRowCount());
+<a class="jxr_linenumber" name="L199" href="#L199">199</a> 
+<a class="jxr_linenumber" name="L200" href="#L200">200</a>         <strong class="jxr_keyword">final</strong> Pattern pattern = Pattern.compile(<span class="jxr_string">"&#92;&#92;d{4}-&#92;&#92;d{2}-&#92;&#92;d{2}"</span>);
+<a class="jxr_linenumber" name="L201" href="#L201">201</a>         <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; aantalBerichten - 1; i++) {
+<a class="jxr_linenumber" name="L202" href="#L202">202</a>             LOG.debug(<span class="jxr_string">"dat_beg_geldh/datum_einde_geldh voor rij: "</span> + 1 + <span class="jxr_string">": "</span>
+<a class="jxr_linenumber" name="L203" href="#L203">203</a>                     + kad_onrrnd_zk_archief.getValue(i, <span class="jxr_string">"dat_beg_geldh"</span>) + <span class="jxr_string">"/"</span>
+<a class="jxr_linenumber" name="L204" href="#L204">204</a>                     + kad_onrrnd_zk_archief.getValue(i, <span class="jxr_string">"datum_einde_geldh"</span>));
+<a class="jxr_linenumber" name="L205" href="#L205">205</a>             assertTrue(<span class="jxr_string">"'dat_beg_geldh' patroon klopt niet"</span>, (pattern.matcher(<span class="jxr_string">""</span> + kad_onrrnd_zk_archief.getValue(i, <span class="jxr_string">"dat_beg_geldh"</span>))).find());
+<a class="jxr_linenumber" name="L206" href="#L206">206</a>             assertTrue(<span class="jxr_string">"'datum_einde_geldh' patroon klopt niet"</span>, (pattern.matcher(<span class="jxr_string">""</span> + kad_onrrnd_zk_archief.getValue(i, <span class="jxr_string">"datum_einde_geldh"</span>))).find());
+<a class="jxr_linenumber" name="L207" href="#L207">207</a>         }
+<a class="jxr_linenumber" name="L208" href="#L208">208</a>     }
+<a class="jxr_linenumber" name="L209" href="#L209">209</a> }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2014&#x2013;2019 <a href="http://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>

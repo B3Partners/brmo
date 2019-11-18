@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>MaterializedViewRefreshUitvoeren.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO distributie</a> &gt; <a href="../index.html" class="el_bundle">brmo-service</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.service.scanner</a> &gt; <span class="el_source">MaterializedViewRefreshUitvoeren.java</span></div><h1>MaterializedViewRefreshUitvoeren.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2016 B3Partners B.V.
+ */
+package nl.b3p.brmo.service.scanner;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+import javax.persistence.Transient;
+import javax.sql.DataSource;
+import nl.b3p.brmo.loader.util.BrmoException;
+import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.ERROR;
+import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.PROCESSING;
+import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.WAITING;
+import nl.b3p.brmo.persistence.staging.MaterializedViewRefresh;
+import nl.b3p.brmo.service.util.ConfigUtil;
+import nl.b3p.loader.jdbc.GeometryJdbcConverter;
+import nl.b3p.loader.jdbc.GeometryJdbcConverterFactory;
+import org.apache.commons.dbutils.DbUtils;
+import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.ColumnListHandler;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import org.stripesstuff.stripersist.Stripersist;
+
+/**
+ * Proces om materilzed views te verversen.
+ *
+ * @author mprins
+ */
+public class MaterializedViewRefreshUitvoeren extends AbstractExecutableProces {
+
+<span class="nc" id="L37">    private static final Log LOG = LogFactory.getLog(MaterializedViewRefreshUitvoeren.class);</span>
+
+    private final MaterializedViewRefresh config;
+
+    @Transient
+    private ProgressUpdateListener listener;
+
+<span class="nc" id="L44">    public MaterializedViewRefreshUitvoeren(MaterializedViewRefresh config) {</span>
+<span class="nc" id="L45">        this.config = config;</span>
+<span class="nc" id="L46">    }</span>
+
+    @Override
+    public void execute() throws BrmoException {
+<span class="nc" id="L50">        this.execute(new ProgressUpdateListener() {</span>
+            @Override
+            public void total(long total) {
+<span class="nc" id="L53">            }</span>
+
+            @Override
+            public void progress(long progress) {
+<span class="nc" id="L57">            }</span>
+
+            @Override
+            public void exception(Throwable t) {
+<span class="nc" id="L61">                LOG.error(t);</span>
+<span class="nc" id="L62">            }</span>
+
+            @Override
+            public void updateStatus(String status) {
+<span class="nc" id="L66">            }</span>
+
+            @Override
+            public void addLog(String log) {
+<span class="nc" id="L70">            }</span>
+        });
+<span class="nc" id="L72">    }</span>
+
+    @Override
+    public void execute(ProgressUpdateListener listener) {
+<span class="nc" id="L76">        this.listener = listener;</span>
+<span class="nc" id="L77">        config.setStatus(PROCESSING);</span>
+<span class="nc" id="L78">        config.setLastrun(new Date());</span>
+<span class="nc" id="L79">        Stripersist.getEntityManager().merge(config);</span>
+<span class="nc" id="L80">        Stripersist.getEntityManager().flush();</span>
+
+<span class="nc" id="L82">        String msg = String.format(&quot;De materialized view ververser met ID %d is gestart op %tc.&quot;, config.getId(), Calendar.getInstance());</span>
+<span class="nc" id="L83">        LOG.info(msg);</span>
+<span class="nc" id="L84">        listener.updateStatus(msg);</span>
+<span class="nc" id="L85">        listener.addLog(msg);</span>
+
+<span class="nc" id="L87">        String mview = &quot;onbekend&quot;;</span>
+        try {
+<span class="nc" id="L89">            mview = this.config.getMView();</span>
+<span class="nc" id="L90">            final DataSource ds = ConfigUtil.getDataSourceRsgb();</span>
+<span class="nc" id="L91">            final Connection conn = ds.getConnection();</span>
+<span class="nc" id="L92">            conn.setAutoCommit(true);</span>
+<span class="nc" id="L93">            final GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);</span>
+            // &quot;update&quot; gebruiken omdat we een oracle stored procedure benaderen
+<span class="nc" id="L95">            Object o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(conn, geomToJdbc.getMViewRefreshSQL(mview));</span>
+<span class="nc" id="L96">            LOG.debug(&quot;mview update resultaat: &quot; + o);</span>
+<span class="nc" id="L97">            String resultaat = null;</span>
+            // oracle geeft 1 terug als resultaat, postgresql geeft 0 terug...
+<span class="nc bnc" id="L99" title="All 2 branches missed.">            if (geomToJdbc.getGeotoolsDBTypeName().equalsIgnoreCase(&quot;oracle&quot;)) {</span>
+<span class="nc bnc" id="L100" title="All 2 branches missed.">                resultaat = (o.toString().equals(&quot;1&quot;) ? &quot;OK&quot; : &quot;NOT OK&quot;);</span>
+            } else {
+<span class="nc bnc" id="L102" title="All 2 branches missed.">                resultaat = (o.toString().equals(&quot;0&quot;) ? &quot;OK&quot; : &quot;NOT OK&quot;);</span>
+            }
+<span class="nc" id="L104">            DbUtils.closeQuietly(conn);</span>
+
+<span class="nc" id="L106">            msg = String.format(&quot;De materialized view %s is ververst met resultaat %s om %tc&quot;, mview, resultaat, Calendar.getInstance());</span>
+<span class="nc" id="L107">            LOG.info(msg);</span>
+<span class="nc" id="L108">            listener.updateStatus(msg);</span>
+<span class="nc" id="L109">            listener.addLog(msg);</span>
+
+<span class="nc" id="L111">            config.setStatus(WAITING);</span>
+<span class="nc" id="L112">            config.setLastrun(new Date());</span>
+<span class="nc" id="L113">        } catch (BrmoException | SQLException e) {</span>
+<span class="nc" id="L114">            config.setStatus(ERROR);</span>
+<span class="nc" id="L115">            LOG.error(&quot;Fout tijdens verversen materialized view: &quot; + mview, e);</span>
+<span class="nc" id="L116">            listener.exception(e);</span>
+        } finally {
+<span class="nc" id="L118">            Stripersist.getEntityManager().merge(config);</span>
+        }
+<span class="nc" id="L120">    }</span>
+
+    /**
+     * Zoek materialized views in rsgb schema.
+     *
+     * @return lijst met materialized views, de lijst kan leeg zijn
+     */
+    public static List&lt;String&gt; mviews() {
+        try {
+<span class="nc" id="L129">            final DataSource ds = ConfigUtil.getDataSourceRsgb();</span>
+<span class="nc" id="L130">            final Connection conn = ds.getConnection();</span>
+<span class="nc" id="L131">            final GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);</span>
+<span class="nc" id="L132">            List&lt;String&gt; mviews = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, geomToJdbc.getMViewsSQL(), new ColumnListHandler&lt;String&gt;());</span>
+<span class="nc" id="L133">            mviews.sort(String::compareToIgnoreCase);</span>
+<span class="nc" id="L134">            DbUtils.closeQuietly(conn);</span>
+<span class="nc" id="L135">            return Collections.unmodifiableList(mviews);</span>
+<span class="nc" id="L136">        } catch (BrmoException | SQLException | ClassCastException | UnsupportedOperationException | IllegalArgumentException ex) {</span>
+<span class="nc" id="L137">            LOG.error(&quot;Ophalen materialized views is mislukt.&quot;, ex);</span>
+<span class="nc" id="L138">            return Collections.EMPTY_LIST;</span>
+        }
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

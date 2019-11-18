@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CronFormatterTag.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO taglibrary</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.web.jsp</a> &gt; <span class="el_source">CronFormatterTag.java</span></div><h1>CronFormatterTag.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2016 B3Partners B.V.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+ */
+package nl.b3p.web.jsp;
+
+import java.util.Locale;
+import net.redhogs.cronparser.CronExpressionDescriptor;
+import java.text.ParseException;
+import javax.servlet.jsp.tagext.SimpleTagSupport;
+import javax.servlet.jsp.JspException;
+import java.io.IOException;
+import net.redhogs.cronparser.Options;
+
+/**
+ * Formatter voor cron expressies. The default locale for this tag is
+ * {@code nl}.
+ *
+ * @author mprins
+ */
+public class CronFormatterTag extends SimpleTagSupport {
+
+    private String cronExpression;
+    private Locale locale;
+
+<span class="fc" id="L38">    public CronFormatterTag() {</span>
+<span class="fc" id="L39">        setLocale(&quot;nl&quot;);</span>
+<span class="fc" id="L40">    }</span>
+
+    public void setCronExpression(String cronExpression) {
+<span class="fc" id="L43">        this.cronExpression = cronExpression;</span>
+<span class="fc" id="L44">    }</span>
+
+    public void setLocale(String locale) {
+        try {
+<span class="fc" id="L48">            this.locale = new Locale(locale);</span>
+<span class="nc" id="L49">        } catch (NullPointerException npe) {</span>
+<span class="nc" id="L50">            this.locale = null;</span>
+<span class="fc" id="L51">        }</span>
+<span class="fc" id="L52">    }</span>
+
+    @Override
+    public void doTag() throws JspException, IOException {
+<span class="nc" id="L56">        getJspContext().getOut().write(buildOutput());</span>
+<span class="nc" id="L57">    }</span>
+
+    public String buildOutput() {
+<span class="fc" id="L60">        String formatted = &quot;&quot;;</span>
+<span class="fc" id="L61">        final Options options = new Options();</span>
+<span class="fc" id="L62">        options.setVerbose(true);</span>
+<span class="fc" id="L63">        options.setTwentyFourHourTime(true);</span>
+<span class="pc bpc" id="L64" title="2 of 4 branches missed.">        if (cronExpression != null &amp;&amp; !cronExpression.isEmpty()) {</span>
+            try {
+<span class="pc bpc" id="L66" title="1 of 2 branches missed.">                if (locale != null) {</span>
+<span class="fc" id="L67">                    formatted = CronExpressionDescriptor.getDescription(cronExpression, options, locale);</span>
+                } else {
+<span class="nc" id="L69">                    formatted = CronExpressionDescriptor.getDescription(cronExpression, options);</span>
+                }
+<span class="nc" id="L71">            } catch (ParseException e) {</span>
+<span class="nc" id="L72">                formatted = e.getLocalizedMessage();</span>
+<span class="fc" id="L73">            }</span>
+        }
+<span class="fc" id="L75">        return formatted;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

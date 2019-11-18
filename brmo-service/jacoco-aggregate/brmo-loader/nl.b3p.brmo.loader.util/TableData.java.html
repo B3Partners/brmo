@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>TableData.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO service</a> &gt; <a href="../index.html" class="el_bundle">brmo-loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.loader.util</a> &gt; <span class="el_source">TableData.java</span></div><h1>TableData.java</h1><pre class="source lang-java linenums">package nl.b3p.brmo.loader.util;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ *
+ * @author Boy de Wit
+ */
+public class TableData {
+    
+<span class="pc" id="L12">    private boolean comfortData = false;</span>
+    private String comfortSearchTable;
+    private String comfortSearchColumn;
+    private String comfortSearchValue;
+    
+<span class="pc" id="L17">    private boolean deleteData = false;</span>
+    
+    /* Used for comfort metadata tables */
+    private String comfortSnapshotDate;
+    
+<span class="pc" id="L22">    List&lt;TableRow&gt; rows = new ArrayList&lt;TableRow&gt;();</span>
+    
+<span class="fc" id="L24">    public TableData(TableRow row) {</span>
+<span class="fc" id="L25">        this.deleteData = false;</span>
+<span class="fc" id="L26">        this.comfortData = false;  </span>
+<span class="fc" id="L27">        this.rows.add(row);</span>
+<span class="fc" id="L28">    }</span>
+    
+    public TableData(String comfortSearchTable, String comfortSearchColumn, 
+<span class="fc" id="L31">            String comfortSearchValue, String comfortSnapshotDate) {</span>
+        
+<span class="fc" id="L33">        this.comfortData = true;</span>
+<span class="fc" id="L34">        this.deleteData = false;</span>
+<span class="fc" id="L35">        this.comfortSearchTable = comfortSearchTable;</span>
+<span class="fc" id="L36">        this.comfortSearchColumn = comfortSearchColumn;</span>
+<span class="fc" id="L37">        this.comfortSearchValue = comfortSearchValue;    </span>
+<span class="fc" id="L38">        this.comfortSnapshotDate = comfortSnapshotDate;</span>
+<span class="fc" id="L39">    }</span>
+
+<span class="nc" id="L41">    public TableData() {</span>
+<span class="nc" id="L42">        this.deleteData = true;</span>
+<span class="nc" id="L43">        this.comfortData = false;</span>
+<span class="nc" id="L44">    }</span>
+
+    public void addRow(TableRow row) {
+<span class="fc" id="L47">        rows.add(row);      </span>
+<span class="fc" id="L48">    }</span>
+
+    public boolean isComfortData() {
+<span class="fc" id="L51">        return comfortData;</span>
+    }
+
+    public void setComfortData(boolean comfortData) {
+<span class="nc" id="L55">        this.comfortData = comfortData;</span>
+<span class="nc" id="L56">    }</span>
+    
+    public boolean isDeleteData() {
+<span class="nc" id="L59">        return deleteData;</span>
+    }
+
+    public void setDeleteData(boolean deleteData) {
+<span class="nc" id="L63">        this.deleteData = deleteData;</span>
+<span class="nc" id="L64">    }</span>
+
+    public String getComfortSearchTable() {
+<span class="nc" id="L67">        return comfortSearchTable;</span>
+    }
+
+    public void setComfortSearchTable(String comfortSearchTable) {
+<span class="nc" id="L71">        this.comfortSearchTable = comfortSearchTable;</span>
+<span class="nc" id="L72">    }</span>
+
+    public String getComfortSearchColumn() {
+<span class="nc" id="L75">        return comfortSearchColumn;</span>
+    }
+
+    public void setComfortSearchColumn(String comfortSearchColumn) {
+<span class="nc" id="L79">        this.comfortSearchColumn = comfortSearchColumn;</span>
+<span class="nc" id="L80">    }</span>
+
+    public String getComfortSearchValue() {
+<span class="nc" id="L83">        return comfortSearchValue;</span>
+    }
+
+    public void setComfortSearchValue(String comfortSearchValue) {
+<span class="nc" id="L87">        this.comfortSearchValue = comfortSearchValue;</span>
+<span class="nc" id="L88">    }</span>
+
+    public List&lt;TableRow&gt; getRows() {
+<span class="fc" id="L91">        return rows;</span>
+    }
+
+    public void setRows(List&lt;TableRow&gt; rows) {
+<span class="nc" id="L95">        this.rows = rows;</span>
+<span class="nc" id="L96">    }</span>
+
+    public String getComfortSnapshotDate() {
+<span class="nc" id="L99">        return comfortSnapshotDate;</span>
+    }
+
+    public void setComfortSnapshotDate(String comfortSnapshotDate) {
+<span class="nc" id="L103">        this.comfortSnapshotDate = comfortSnapshotDate;</span>
+<span class="nc" id="L104">    }</span>
+
+    @Override
+    public String toString() {
+<span class="nc" id="L108">        return &quot;TableData{&quot; +</span>
+                &quot;comfortData=&quot; + comfortData +
+                &quot;, comfortSearchTable='&quot; + comfortSearchTable + '\'' +
+                &quot;, comfortSearchColumn='&quot; + comfortSearchColumn + '\'' +
+                &quot;, comfortSearchValue='&quot; + comfortSearchValue + '\'' +
+                &quot;, deleteData=&quot; + deleteData +
+                &quot;, comfortSnapshotDate='&quot; + comfortSnapshotDate + '\'' +
+                &quot;, rows=&quot; + rows +
+                '}';
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

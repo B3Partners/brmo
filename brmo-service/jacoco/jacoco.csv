@@ -1,0 +1,79 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+BRMO service,nl.b3p.brmo.service.stripes,AdvancedFunctionsActionBean.new ResultSetHandler() {...},97,0,2,0,17,0,3,0,2,0
+BRMO service,nl.b3p.brmo.service.stripes,AdvancedFunctionsActionBean.new ResultSetHandler() {...},142,0,2,0,24,0,3,0,2,0
+BRMO service,nl.b3p.brmo.service.stripes,AdvancedFunctionsActionBean.new ResultSetHandler() {...},112,0,2,0,17,0,3,0,2,0
+BRMO service,nl.b3p.brmo.service.stripes,AdvancedFunctionsActionBean.new ResultSetHandler() {...},84,0,2,0,10,0,3,0,2,0
+BRMO service,nl.b3p.brmo.service.stripes,AdvancedFunctionsActionBean.new HashMap() {...},26,0,0,0,6,0,1,0,1,0
+BRMO service,nl.b3p.brmo.service.stripes,BerichtenActionBean,406,0,28,0,103,0,41,0,27,0
+BRMO service,nl.b3p.brmo.service.stripes,LaadProcesActionBean.new StreamingResolution() {...},17,0,0,0,3,0,2,0,2,0
+BRMO service,nl.b3p.brmo.service.stripes,LaadProcesActionBean.new StreamingResolution() {...},16,0,0,0,3,0,2,0,2,0
+BRMO service,nl.b3p.brmo.service.stripes,LaadProcesActionBean.new StreamingResolution() {...},17,0,0,0,3,0,2,0,2,0
+BRMO service,nl.b3p.brmo.service.stripes,LaadProcesActionBean.new StreamingResolution() {...},17,0,0,0,3,0,2,0,2,0
+BRMO service,nl.b3p.brmo.service.stripes,BerichtDoorsturenUitvoerActionBean,222,0,6,0,70,0,36,0,33,0
+BRMO service,nl.b3p.brmo.service.stripes,AdvancedFunctionsActionBean.new ResultSetHandler() {...},241,0,28,0,34,0,16,0,2,0
+BRMO service,nl.b3p.brmo.service.stripes,BasisregistratieFileUploadActionBean,458,0,30,0,72,0,25,0,10,0
+BRMO service,nl.b3p.brmo.service.stripes,AdvancedFunctionsActionBean.new ResultSetHandler() {...},186,0,18,0,43,0,11,0,2,0
+BRMO service,nl.b3p.brmo.service.stripes,AdvancedFunctionsActionBean.new ResultSetHandler() {...},216,0,28,0,30,0,16,0,2,0
+BRMO service,nl.b3p.brmo.service.stripes,BGTOphalenUitvoerActionBean,247,0,6,0,78,0,38,0,35,0
+BRMO service,nl.b3p.brmo.service.stripes,LaadprocesTransformatieUitvoerActionBean,281,0,10,0,82,0,39,0,34,0
+BRMO service,nl.b3p.brmo.service.stripes,OphaalConfigActionBean,472,0,31,0,103,0,45,0,23,0
+BRMO service,nl.b3p.brmo.service.stripes,BerichtstatusRapportActionBean,116,0,2,0,35,0,18,0,17,0
+BRMO service,nl.b3p.brmo.service.stripes,BerichtenActionBean.new StreamingResolution() {...},17,0,0,0,3,0,2,0,2,0
+BRMO service,nl.b3p.brmo.service.stripes,BerichtenActionBean.new StreamingResolution() {...},17,0,0,0,3,0,2,0,2,0
+BRMO service,nl.b3p.brmo.service.stripes,BerichtenActionBean.new StreamingResolution() {...},16,0,0,0,3,0,2,0,2,0
+BRMO service,nl.b3p.brmo.service.stripes,BasisregistratieFileUploadActionBean.new ProgressUpdateListener() {...},21,0,0,0,5,0,4,0,4,0
+BRMO service,nl.b3p.brmo.service.stripes,SamenvattingActionBean,90,0,4,0,22,0,12,0,10,0
+BRMO service,nl.b3p.brmo.service.stripes,AfgifteNummerScanUitvoerenActionBean,184,0,4,0,43,0,19,0,17,0
+BRMO service,nl.b3p.brmo.service.stripes,TransformActionBean,384,0,25,0,102,0,50,0,36,0
+BRMO service,nl.b3p.brmo.service.stripes,BasisregistratieBigFileLoadActionBean,230,0,8,0,59,0,31,0,27,0
+BRMO service,nl.b3p.brmo.service.stripes,LaadProcesActionBean,491,0,30,0,118,0,43,0,28,0
+BRMO service,nl.b3p.brmo.service.stripes,BasisregistratieServiceActionBean,264,0,20,0,49,0,18,0,8,0
+BRMO service,nl.b3p.brmo.service.stripes,AdvancedFunctionsActionBean,1882,0,100,0,337,0,86,0,36,0
+BRMO service,nl.b3p.brmo.service.stripes,GDS2OphalenUitvoerActionBean,262,0,10,0,77,0,39,0,34,0
+BRMO service,nl.b3p.brmo.service.stripes,UpdatesActionBean,401,0,24,0,87,0,40,0,28,0
+BRMO service,nl.b3p.brmo.service.stripes,DirectoryScannerUitvoerActionBean,264,0,8,0,81,0,37,0,33,0
+BRMO service,nl.b3p.brmo.service.stripes,ControleActionBean,169,0,2,0,33,0,9,0,8,0
+BRMO service,nl.b3p.brmo.service.stripes,MailProcesUitvoerActionBean,88,0,2,0,20,0,7,0,6,0
+BRMO service,nl.b3p.brmo.service.stripes,ControleActionBean.new StreamingResolution() {...},22,0,0,0,5,0,2,0,2,0
+BRMO service,nl.b3p.brmo.service.stripes,MViewRefreshActionBean,116,0,2,0,35,0,18,0,17,0
+BRMO service,nl.b3p.brmo.web.geotools,GeotoolsContextListener,13,0,0,0,8,0,3,0,3,0
+BRMO service,nl.b3p.brmo.service.stripersist,DynamicStripersistInitializer,115,0,6,0,29,0,7,0,4,0
+BRMO service,nl.b3p.brmo.service.scanner,BAGDirectoryScanner.new ProgressUpdateListener() {...},14,0,0,0,7,0,6,0,6,0
+BRMO service,nl.b3p.brmo.service.scanner,MaterializedViewRefreshUitvoeren.new ProgressUpdateListener() {...},14,0,0,0,7,0,6,0,6,0
+BRMO service,nl.b3p.brmo.service.scanner,BRKDirectoryScanner.new ProgressUpdateListener() {...},14,0,0,0,7,0,6,0,6,0
+BRMO service,nl.b3p.brmo.service.scanner,BGTLightOphalenProces,704,0,26,0,156,0,19,0,6,0
+BRMO service,nl.b3p.brmo.service.scanner,BerichtTransformatieUitvoeren,278,0,10,0,60,0,9,0,4,0
+BRMO service,nl.b3p.brmo.service.scanner,AfgifteNummerScanner.new ProgressUpdateListener() {...},14,0,0,0,7,0,6,0,6,0
+BRMO service,nl.b3p.brmo.service.scanner,WebMirrorBAGDirectoryScanner,793,0,26,0,171,0,19,0,6,0
+BRMO service,nl.b3p.brmo.service.scanner,BerichtstatusRapport,259,0,8,0,55,0,8,0,4,0
+BRMO service,nl.b3p.brmo.service.scanner,BerichtDoorsturenProces.new ProgressUpdateListener() {...},44,0,0,0,10,0,6,0,6,0
+BRMO service,nl.b3p.brmo.service.scanner,WebMirrorBAGDirectoryScanner.new ProgressUpdateListener() {...},45,0,0,0,7,0,4,0,4,0
+BRMO service,nl.b3p.brmo.service.scanner,WebMirrorBAGDirectoryScanner.new ProgressUpdateListener() {...},14,0,0,0,7,0,6,0,6,0
+BRMO service,nl.b3p.brmo.service.scanner,GDS2OphalenProces,2624,0,162,0,507,0,96,0,13,0
+BRMO service,nl.b3p.brmo.service.scanner,ProcesExecutable.ProcessingImple,144,0,0,0,4,0,1,0,1,0
+BRMO service,nl.b3p.brmo.service.scanner,BGTLightOphalenProces.new ProgressUpdateListener() {...},14,0,0,0,7,0,6,0,6,0
+BRMO service,nl.b3p.brmo.service.scanner,BRKDirectoryScanner,850,0,34,0,171,0,23,0,6,0
+BRMO service,nl.b3p.brmo.service.scanner,TopNLDirectoryScanner,686,0,28,0,123,0,21,0,7,0
+BRMO service,nl.b3p.brmo.service.scanner,BerichtTransformatieUitvoeren.new ProgressUpdateListener() {...},46,0,0,0,11,0,4,0,4,0
+BRMO service,nl.b3p.brmo.service.scanner,LaadprocesTransformatieUitvoeren.new ProgressUpdateListener() {...},19,0,0,0,8,0,6,0,6,0
+BRMO service,nl.b3p.brmo.service.scanner,LaadprocesTransformatieUitvoeren.new ProgressUpdateListener() {...},46,0,0,0,11,0,4,0,4,0
+BRMO service,nl.b3p.brmo.service.scanner,BGTLightDirectoryScanner.new ProgressUpdateListener() {...},14,0,0,0,7,0,6,0,6,0
+BRMO service,nl.b3p.brmo.service.scanner,BGTLightDirectoryScanner.new FilenameFilter() {...},11,0,0,0,2,0,2,0,2,0
+BRMO service,nl.b3p.brmo.service.scanner,BerichtDoorsturenProces,273,0,16,0,63,0,13,0,5,0
+BRMO service,nl.b3p.brmo.service.scanner,LaadprocesTransformatieUitvoeren,403,0,24,0,82,0,16,0,4,0
+BRMO service,nl.b3p.brmo.service.scanner,BAGDirectoryScanner,655,0,32,0,143,0,20,0,4,0
+BRMO service,nl.b3p.brmo.service.scanner,GDS2OphalenProces.new ProgressUpdateListener() {...},17,0,0,0,8,0,6,0,6,0
+BRMO service,nl.b3p.brmo.service.scanner,BerichtTransformatieUitvoeren.new ProgressUpdateListener() {...},19,0,0,0,8,0,6,0,6,0
+BRMO service,nl.b3p.brmo.service.scanner,MaterializedViewRefreshUitvoeren,226,0,6,0,50,0,8,0,5,0
+BRMO service,nl.b3p.brmo.service.scanner,TopNLDirectoryScanner.new FilenameFilter() {...},11,0,0,0,2,0,2,0,2,0
+BRMO service,nl.b3p.brmo.service.scanner,TopNLDirectoryScanner.new ProgressUpdateListener() {...},14,0,0,0,7,0,6,0,6,0
+BRMO service,nl.b3p.brmo.service.scanner,MailRapportage,505,0,18,0,89,0,14,0,5,0
+BRMO service,nl.b3p.brmo.service.scanner,BGTLightDirectoryScanner,492,0,20,0,98,0,16,0,6,0
+BRMO service,nl.b3p.brmo.service.scanner,AbstractExecutableProces,218,0,19,0,44,0,25,0,9,0
+BRMO service,nl.b3p.brmo.service.scanner,AfgifteNummerScanner,416,0,18,0,79,0,16,0,7,0
+BRMO service,nl.b3p.brmo.service.scanner,BerichtstatusRapport.new ProgressUpdateListener() {...},14,0,0,0,7,0,6,0,6,0
+BRMO service,nl.b3p.web.stripes,DirectResponseResolution,45,0,0,0,16,0,5,0,5,0
+BRMO service,nl.b3p.brmo.service.jobs,GeplandeTakenInit,261,0,8,0,64,0,14,0,10,0
+BRMO service,nl.b3p.brmo.service.jobs,AutomatischProcesJob,161,0,6,0,30,0,6,0,3,0
+BRMO service,nl.b3p.brmo.service.jobs,GeplandeTakenContextListener,23,0,2,0,10,0,4,0,3,0
+BRMO service,nl.b3p.brmo.service.util,TrustManagerDelegate,39,0,0,0,15,0,4,0,4,0

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BrmoXMLReader.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.loader.xml</a> &gt; <span class="el_source">BrmoXMLReader.java</span></div><h1>BrmoXMLReader.java</h1><pre class="source lang-java linenums">package nl.b3p.brmo.loader.xml;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import nl.b3p.brmo.loader.entity.Bericht;
+import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+/**
+ * abstract reader of basisregistratie files
+ *
+ * @author Boy de Wit
+ */
+<span class="fc" id="L16">public abstract class BrmoXMLReader {</span>
+
+<span class="fc" id="L18">    private static final Log log = LogFactory.getLog(BrmoXMLReader.class);</span>
+
+    // laadproces
+    private String bestandsNaam;
+    private Date bestandsDatum;
+    protected String soort; //waarde gezet in implementatie
+    private String gebied;
+    private String opmerking;
+    private String status;
+    private Date statusDatum;
+    private String contactEmail;
+
+    public abstract void init() throws Exception;
+    public abstract boolean hasNext() throws Exception;
+    public abstract Bericht next() throws Exception;
+
+    public void setDatumAsString(String brkDatumString, String simpleDateFormat) {
+<span class="fc" id="L35">        SimpleDateFormat sdf = new SimpleDateFormat(simpleDateFormat);</span>
+        try {
+<span class="fc" id="L37">            bestandsDatum = sdf.parse(brkDatumString);</span>
+<span class="nc" id="L38">        } catch (ParseException pe) {</span>
+<span class="nc" id="L39">            log.error(&quot;Fout bij parsen BRK datum \&quot;&quot; + brkDatumString + &quot;\&quot; met formaat &quot; + simpleDateFormat, pe);</span>
+<span class="fc" id="L40">        }</span>
+<span class="fc" id="L41">    }</span>
+    public String getHash(String bsn) {
+<span class="fc" id="L43">        String hash = DigestUtils.sha1Hex(bsn);</span>
+<span class="fc" id="L44">        return  hash;</span>
+    }
+
+    public void setDatumAsString(String brkDatumString) {
+<span class="fc" id="L48">        setDatumAsString(brkDatumString, &quot;yyyy-MM-dd&quot;);</span>
+<span class="fc" id="L49">    }</span>
+
+    public String getBestandsNaam() {
+<span class="fc" id="L52">        return bestandsNaam;</span>
+    }
+
+    public void setBestandsNaam(String bestandsNaam) {
+<span class="fc" id="L56">        this.bestandsNaam = bestandsNaam;</span>
+<span class="fc" id="L57">    }</span>
+
+    public Date getBestandsDatum() {
+<span class="fc" id="L60">        return bestandsDatum;</span>
+    }
+
+    public void setBestandsDatum(Date bestandsDatum) {
+<span class="fc" id="L64">        this.bestandsDatum = bestandsDatum;</span>
+<span class="fc" id="L65">    }</span>
+
+    public String getSoort() {
+<span class="nc" id="L68">        return soort;</span>
+    }
+
+    public void setSoort(String soort) {
+<span class="nc" id="L72">        this.soort = soort;</span>
+<span class="nc" id="L73">    }</span>
+
+    public String getGebied() {
+<span class="nc" id="L76">        return gebied;</span>
+    }
+
+    public void setGebied(String gebied) {
+<span class="fc" id="L80">        this.gebied = gebied;</span>
+<span class="fc" id="L81">    }</span>
+
+    public String getOpmerking() {
+<span class="nc" id="L84">        return opmerking;</span>
+    }
+
+    public void setOpmerking(String opmerking) {
+<span class="nc" id="L88">        this.opmerking = opmerking;</span>
+<span class="nc" id="L89">    }</span>
+
+    public String getStatus() {
+<span class="nc" id="L92">        return status;</span>
+    }
+
+    public void setStatus(String status) {
+<span class="nc" id="L96">        this.status = status;</span>
+<span class="nc" id="L97">    }</span>
+
+    public Date getStatusDatum() {
+<span class="nc" id="L100">        return statusDatum;</span>
+    }
+
+    public void setStatusDatum(Date statusDatum) {
+<span class="nc" id="L104">        this.statusDatum = statusDatum;</span>
+<span class="nc" id="L105">    }</span>
+
+    public String getContactEmail() {
+<span class="nc" id="L108">        return contactEmail;</span>
+    }
+
+    public void setContactEmail(String contactEmail) {
+<span class="nc" id="L112">        this.contactEmail = contactEmail;</span>
+<span class="nc" id="L113">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

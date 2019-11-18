@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>ConfigUtil.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO STUF BG 204</a> &gt; <a href="../index.html" class="el_bundle">brmo-init-util</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.service.util</a> &gt; <span class="el_source">ConfigUtil.java</span></div><h1>ConfigUtil.java</h1><pre class="source lang-java linenums">package nl.b3p.brmo.service.util;
+
+import java.io.IOException;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.servlet.Servlet;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.sql.DataSource;
+import nl.b3p.brmo.loader.util.BrmoException;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+<span class="nc" id="L16">public class ConfigUtil implements Servlet {</span>
+
+<span class="nc" id="L18">    private static final Log log = LogFactory.getLog(ConfigUtil.class);</span>
+
+    private static final String JNDI_NAME = &quot;java:comp/env&quot;;
+    private static final String JDBC_NAME_STAGING = &quot;jdbc/brmo/staging&quot;;
+    private static final String JDBC_NAME_RSGB = &quot;jdbc/brmo/rsgb&quot;;
+    private static final String JDBC_NAME_RSGB_BGT = &quot;jdbc/brmo/rsgbbgt&quot;;
+    private static final String JDBC_NAME_RSGB_TOPNL = &quot;jdbc/brmo/rsgbtopnl&quot;;
+
+<span class="nc" id="L26">    private static DataSource datasourceStaging = null;</span>
+<span class="nc" id="L27">    private static DataSource datasourceRsgb = null;</span>
+<span class="nc" id="L28">    private static DataSource datasourceRsgbbgt = null;</span>
+<span class="nc" id="L29">    private static DataSource datasourceTopNL = null;</span>
+    
+    public static Integer MAX_UPLOAD_SIZE;
+    public static String TEMP_FOLDER;
+
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+<span class="nc" id="L36">        String tempSize = config.getInitParameter(&quot;max_upload_size&quot;);</span>
+<span class="nc bnc" id="L37" title="All 4 branches missed.">        if (tempSize != null &amp;&amp; !tempSize.isEmpty()) {</span>
+<span class="nc" id="L38">            MAX_UPLOAD_SIZE = new Integer(tempSize) * 1024;</span>
+        } else {
+<span class="nc" id="L40">            MAX_UPLOAD_SIZE = 500 * 1024;</span>
+        }
+        
+<span class="nc" id="L43">        String tempFolder = config.getInitParameter(&quot;temp_folder&quot;);</span>
+<span class="nc bnc" id="L44" title="All 4 branches missed.">        if (tempFolder != null &amp;&amp; !tempFolder.isEmpty()) {          </span>
+<span class="nc" id="L45">            TEMP_FOLDER = tempFolder;</span>
+        } else {
+<span class="nc" id="L47">            TEMP_FOLDER = System.getProperty(&quot;java.io.tmpdir&quot;);</span>
+        }        
+<span class="nc" id="L49">    }</span>
+
+    public static DataSource getDataSourceStaging() throws BrmoException {
+        try {
+<span class="nc bnc" id="L53" title="All 2 branches missed.">            if (datasourceStaging == null) {</span>
+<span class="nc" id="L54">                InitialContext ic = new InitialContext();</span>
+<span class="nc" id="L55">                Context xmlContext = (Context) ic.lookup(JNDI_NAME);</span>
+<span class="nc" id="L56">                datasourceStaging = (DataSource) xmlContext.lookup(JDBC_NAME_STAGING);</span>
+            }
+<span class="nc" id="L58">        } catch (Exception ex) {</span>
+<span class="nc" id="L59">            log.error(&quot;Fout verbinden naar staging db. &quot;, ex);</span>
+<span class="nc" id="L60">            throw new BrmoException(ex);</span>
+<span class="nc" id="L61">        }</span>
+
+<span class="nc" id="L63">        return datasourceStaging;</span>
+    }
+    
+    public static DataSource getDataSourceRsgb() throws BrmoException {
+        try {
+<span class="nc bnc" id="L68" title="All 2 branches missed.">            if (datasourceRsgb == null) {</span>
+<span class="nc" id="L69">                InitialContext ic = new InitialContext();</span>
+<span class="nc" id="L70">                Context xmlContext = (Context) ic.lookup(JNDI_NAME);</span>
+<span class="nc" id="L71">                datasourceRsgb = (DataSource) xmlContext.lookup(JDBC_NAME_RSGB);</span>
+            }
+<span class="nc" id="L73">        } catch (Exception ex) {</span>
+<span class="nc" id="L74">            log.error(&quot;Fout verbinden naar rsgb db. &quot;, ex);</span>
+<span class="nc" id="L75">            throw new BrmoException(ex);</span>
+<span class="nc" id="L76">        }</span>
+
+<span class="nc" id="L78">        return datasourceRsgb;</span>
+    }
+
+    public static DataSource getDataSourceRsgbBgt() throws BrmoException {
+        try {
+<span class="nc bnc" id="L83" title="All 2 branches missed.">            if (datasourceRsgbbgt == null) {</span>
+<span class="nc" id="L84">                InitialContext ic = new InitialContext();</span>
+<span class="nc" id="L85">                Context xmlContext = (Context) ic.lookup(JNDI_NAME);</span>
+<span class="nc" id="L86">                datasourceRsgbbgt = (DataSource) xmlContext.lookup(JDBC_NAME_RSGB_BGT);</span>
+            }
+<span class="nc" id="L88">        } catch (Exception ex) {</span>
+<span class="nc" id="L89">            log.error(&quot;Fout verbinden naar 'rsgbbgt' schema.&quot;, ex);</span>
+<span class="nc" id="L90">            throw new BrmoException(&quot;Fout verbinden naar 'rsgbbgt' schema.&quot;, ex);</span>
+<span class="nc" id="L91">        }</span>
+
+<span class="nc" id="L93">        return datasourceRsgbbgt;</span>
+    }
+
+    /**
+     *
+     * @return de gevraagde datasource
+     * @throws BrmoException als opzoeken van de datasource in de jndi context
+     * mislukt
+     */
+    public static DataSource getDataSourceTopNL() throws BrmoException {
+        try {
+<span class="nc bnc" id="L104" title="All 2 branches missed.">            if (datasourceTopNL == null) {</span>
+<span class="nc" id="L105">                InitialContext ic = new InitialContext();</span>
+<span class="nc" id="L106">                Context xmlContext = (Context) ic.lookup(JNDI_NAME);</span>
+<span class="nc" id="L107">                datasourceTopNL = (DataSource) xmlContext.lookup(JDBC_NAME_RSGB_TOPNL);</span>
+            }
+<span class="nc" id="L109">        } catch (Exception ex) {</span>
+<span class="nc" id="L110">            log.error(&quot;Fout verbinden naar 'topnl' schema.&quot;, ex);</span>
+<span class="nc" id="L111">            throw new BrmoException(&quot;Fout verbinden naar 'topnl' schema.&quot;, ex);</span>
+<span class="nc" id="L112">        }</span>
+
+<span class="nc" id="L114">        return datasourceTopNL;</span>
+    }
+
+    public ServletConfig getServletConfig() {
+<span class="nc" id="L118">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;); </span>
+    }
+
+    public void service(ServletRequest sr, ServletResponse sr1) throws ServletException, IOException {
+<span class="nc" id="L122">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;); </span>
+    }
+
+    public String getServletInfo() {
+<span class="nc" id="L126">        return &quot;Servlet voor configuratie parameters in web.xml&quot;;</span>
+    }
+
+    public void destroy() {
+        // nothing
+<span class="nc" id="L131">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

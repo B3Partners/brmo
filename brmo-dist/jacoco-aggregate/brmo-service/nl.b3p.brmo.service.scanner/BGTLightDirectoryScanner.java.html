@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>BGTLightDirectoryScanner.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO distributie</a> &gt; <a href="../index.html" class="el_bundle">brmo-service</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.service.scanner</a> &gt; <span class="el_source">BGTLightDirectoryScanner.java</span></div><h1>BGTLightDirectoryScanner.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2016 B3Partners B.V.
+ */
+package nl.b3p.brmo.service.scanner;
+
+import java.io.File;
+import java.io.FilenameFilter;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import javax.persistence.Transient;
+import nl.b3p.brmo.loader.BrmoFramework;
+import nl.b3p.brmo.loader.util.BrmoException;
+import nl.b3p.brmo.persistence.staging.AutomatischProces;
+import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.ERROR;
+import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.PROCESSING;
+import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.WAITING;
+import nl.b3p.brmo.persistence.staging.BGTLightScannerProces;
+import nl.b3p.brmo.persistence.staging.ClobElement;
+import nl.b3p.brmo.persistence.staging.LaadProces;
+import org.apache.commons.io.comparator.NameFileComparator;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.stripesstuff.stripersist.Stripersist;
+
+/**
+ * Directory scanner for BGT light zip files.
+ *
+ * @author mprins
+ */
+public class BGTLightDirectoryScanner extends AbstractExecutableProces {
+
+<span class="nc" id="L34">    private static final Log LOG = LogFactory.getLog(BGTLightDirectoryScanner.class);</span>
+
+    private final BGTLightScannerProces config;
+<span class="nc" id="L37">    private final int defaultCommitPageSize = 1000;</span>
+    @Transient
+    private ProgressUpdateListener listener;
+
+<span class="nc" id="L41">    public BGTLightDirectoryScanner(BGTLightScannerProces config) {</span>
+<span class="nc" id="L42">        this.config = config;</span>
+<span class="nc" id="L43">    }</span>
+
+    @Override
+    public void execute() throws BrmoException {
+<span class="nc" id="L47">        this.execute(new ProgressUpdateListener() {</span>
+            @Override
+            public void total(long total) {
+<span class="nc" id="L50">            }</span>
+
+            @Override
+            public void progress(long progress) {
+<span class="nc" id="L54">            }</span>
+
+            @Override
+            public void exception(Throwable t) {
+<span class="nc" id="L58">                LOG.error(t);</span>
+<span class="nc" id="L59">            }</span>
+
+            @Override
+            public void updateStatus(String status) {
+<span class="nc" id="L63">            }</span>
+
+            @Override
+            public void addLog(String log) {
+<span class="nc" id="L67">            }</span>
+        });
+<span class="nc" id="L69">    }</span>
+
+    @Override
+    public void execute(ProgressUpdateListener listener) {
+<span class="nc" id="L73">        this.listener = listener;</span>
+<span class="nc" id="L74">        config.setStatus(PROCESSING);</span>
+<span class="nc" id="L75">        StringBuilder sb = new StringBuilder(AutomatischProces.LOG_NEWLINE);</span>
+<span class="nc" id="L76">        String oldLog = config.getLogfile();</span>
+<span class="nc bnc" id="L77" title="All 2 branches missed.">        if (oldLog != null) {</span>
+<span class="nc bnc" id="L78" title="All 2 branches missed.">            if (oldLog.length() &gt; OLD_LOG_LENGTH) {</span>
+<span class="nc" id="L79">                sb.append(oldLog.substring(oldLog.length() - OLD_LOG_LENGTH / 10));</span>
+            } else {
+<span class="nc" id="L81">                sb.append(oldLog);</span>
+            }
+        }
+
+<span class="nc" id="L85">        String msg = String.format(&quot;De BGT Light scanner met ID %d is gestart op %tc.&quot;, config.getId(), Calendar.getInstance());</span>
+<span class="nc" id="L86">        LOG.info(msg);</span>
+<span class="nc" id="L87">        listener.addLog(msg);</span>
+<span class="nc" id="L88">        sb.append(msg);</span>
+
+        // validatie van de directories, kunnen we lezen/bladeren en evt. schrijven?
+<span class="nc" id="L91">        final File scanDirectory = new File(this.config.getScanDirectory());</span>
+<span class="nc bnc" id="L92" title="All 4 branches missed.">        if (!scanDirectory.isDirectory() || !scanDirectory.canExecute()) {</span>
+<span class="nc" id="L93">            config.setStatus(ERROR);</span>
+<span class="nc" id="L94">            msg = String.format(&quot;De scan directory '%s' is geen executable directory&quot;, scanDirectory);</span>
+<span class="nc" id="L95">            config.setLogfile(msg);</span>
+<span class="nc" id="L96">            config.setSamenvatting(&quot;Er is een fout opgetreden, details staan in de logs&quot;);</span>
+<span class="nc" id="L97">            this.listener.exception(new BrmoException(msg));</span>
+<span class="nc" id="L98">            return;</span>
+        }
+
+<span class="nc" id="L101">        config.setLogfile(sb.toString());</span>
+
+<span class="nc" id="L103">        File files[] = scanDirectory.listFiles(new FilenameFilter() {</span>
+            @Override
+            public boolean accept(File dir, String name) {
+<span class="nc" id="L106">                return name.toLowerCase().endsWith(&quot;.zip&quot;);</span>
+            }
+        });
+<span class="nc" id="L109">        Arrays.sort(files, NameFileComparator.NAME_COMPARATOR);</span>
+
+<span class="nc" id="L111">        processZipFiles(files, scanDirectory);</span>
+
+<span class="nc" id="L113">        Stripersist.getEntityManager().flush();</span>
+<span class="nc" id="L114">        Stripersist.getEntityManager().getTransaction().commit();</span>
+<span class="nc" id="L115">        Stripersist.getEntityManager().clear();</span>
+<span class="nc" id="L116">    }</span>
+
+    /**
+     * verwerk een bestandenlijst.
+     *
+     * @param files array met xml bestanden
+     *
+     * @param scanDirectory
+     * @param archiefDirectory
+     */
+    private void processZipFiles(File[] files, File scanDirectory) {
+<span class="nc" id="L127">        StringBuilder sb = new StringBuilder(AutomatischProces.LOG_NEWLINE + config.getLogfile());</span>
+        String msg;
+<span class="nc" id="L129">        int filterAlVerwerkt = 0;</span>
+<span class="nc" id="L130">        int aantalGeladen = 0;</span>
+<span class="nc" id="L131">        int progress = 0;</span>
+<span class="nc" id="L132">        SimpleDateFormat sdf = new SimpleDateFormat(&quot;dd-MM-yyyy HH:mm:ss&quot;);</span>
+<span class="nc" id="L133">        int commitPageSize = this.getCommitPageSize();</span>
+
+<span class="nc" id="L135">        listener.total(files.length);</span>
+<span class="nc bnc" id="L136" title="All 2 branches missed.">        for (File f : files) {</span>
+<span class="nc bnc" id="L137" title="All 2 branches missed.">            if (f.isDirectory()) {</span>
+<span class="nc" id="L138">                continue;</span>
+            }
+<span class="nc" id="L140">            msg = String.format(&quot;Bestand %s is gevonden in %s.&quot;, f, scanDirectory);</span>
+<span class="nc" id="L141">            LOG.info(msg);</span>
+<span class="nc" id="L142">            listener.addLog(msg);</span>
+<span class="nc" id="L143">            sb.append(AutomatischProces.LOG_NEWLINE).append(msg).append(AutomatischProces.LOG_NEWLINE);</span>
+<span class="nc bnc" id="L144" title="All 2 branches missed.">            if (this.isDuplicaatLaadProces(f, BrmoFramework.BR_BGTLIGHT)) {</span>
+<span class="nc" id="L145">                msg = String.format(&quot;  Bestand %s is een duplicaat en wordt overgeslagen.&quot;, f);</span>
+<span class="nc" id="L146">                listener.addLog(msg);</span>
+<span class="nc" id="L147">                LOG.info(msg);</span>
+<span class="nc" id="L148">                sb.append(msg).append(AutomatischProces.LOG_NEWLINE);</span>
+<span class="nc" id="L149">                filterAlVerwerkt++;</span>
+            } else {
+<span class="nc" id="L151">                LaadProces lp = new LaadProces();</span>
+<span class="nc" id="L152">                lp.setBestand_naam(getBestandsNaam(f));</span>
+<span class="nc" id="L153">                lp.setBestand_datum(getBestandsDatum(f));</span>
+<span class="nc" id="L154">                lp.setSoort(BrmoFramework.BR_BGTLIGHT);</span>
+<span class="nc" id="L155">                lp.setStatus(LaadProces.STATUS.STAGING_OK);</span>
+<span class="nc" id="L156">                lp.setOpmerking(String.format(&quot;Bestand geladen van %s op %s&quot;, f.getAbsolutePath(), sdf.format(new Date())));</span>
+<span class="nc" id="L157">                lp.setAutomatischProces(Stripersist.getEntityManager().find(AutomatischProces.class, config.getId()));</span>
+<span class="nc" id="L158">                Stripersist.getEntityManager().persist(lp);</span>
+<span class="nc" id="L159">                Stripersist.getEntityManager().merge(this.config);</span>
+
+<span class="nc" id="L161">                aantalGeladen++;</span>
+<span class="nc" id="L162">                msg = String.format(&quot;  Bestand %s is geladen en heeft status: %s.&quot;, f, lp.getStatus());</span>
+<span class="nc" id="L163">                LOG.info(msg);</span>
+<span class="nc" id="L164">                this.listener.addLog(msg);</span>
+<span class="nc" id="L165">                sb.append(msg).append(AutomatischProces.LOG_NEWLINE);</span>
+<span class="nc bnc" id="L166" title="All 2 branches missed.">                if (aantalGeladen % commitPageSize == 0) {</span>
+<span class="nc" id="L167">                    LOG.debug(&quot;Tussentijds opslaan van berichten, 'commitPageSize' is bereikt&quot;);</span>
+<span class="nc" id="L168">                    Stripersist.getEntityManager().flush();</span>
+<span class="nc" id="L169">                    Stripersist.getEntityManager().getTransaction().commit();</span>
+<span class="nc" id="L170">                    Stripersist.getEntityManager().clear();</span>
+                }
+            }
+<span class="nc" id="L173">            listener.progress(++progress);</span>
+        }
+<span class="nc" id="L175">        msg = String.format(&quot;Klaar met run op %tc&quot;, Calendar.getInstance());</span>
+<span class="nc" id="L176">        LOG.info(msg);</span>
+<span class="nc" id="L177">        listener.updateStatus(msg);</span>
+<span class="nc" id="L178">        listener.addLog(msg);</span>
+<span class="nc" id="L179">        sb.append(msg);</span>
+
+<span class="nc" id="L181">        listener.addLog(&quot;\n\n**** resultaat ****&quot;);</span>
+<span class="nc" id="L182">        listener.addLog(&quot;\nAantal bestanden die al waren geladen: &quot; + filterAlVerwerkt);</span>
+<span class="nc" id="L183">        listener.addLog(&quot;\nAantal bestanden geladen: &quot; + aantalGeladen + &quot;\n&quot;);</span>
+
+<span class="nc" id="L185">        config.setStatus(WAITING);</span>
+<span class="nc" id="L186">        config.setLogfile(sb.toString());</span>
+<span class="nc" id="L187">        config.setLastrun(new Date());</span>
+<span class="nc" id="L188">        config.updateSamenvattingEnLogfile(&quot;Aantal bestanden die al waren verwerkt: &quot;</span>
+                + filterAlVerwerkt + AutomatischProces.LOG_NEWLINE
+                + &quot;Aantal bestanden geladen: &quot; + aantalGeladen + AutomatischProces.LOG_NEWLINE);
+<span class="nc" id="L191">        Stripersist.getEntityManager().merge(config);</span>
+<span class="nc" id="L192">    }</span>
+
+    private int getCommitPageSize() {
+        int commitPageSize;
+        try {
+<span class="nc" id="L197">            String s = ClobElement.nullSafeGet(config.getConfig().get(&quot;commitPageSize&quot;));</span>
+<span class="nc" id="L198">            commitPageSize = Integer.parseInt(s);</span>
+<span class="nc bnc" id="L199" title="All 4 branches missed.">            if (commitPageSize &lt; 1 || commitPageSize &gt; defaultCommitPageSize) {</span>
+<span class="nc" id="L200">                commitPageSize = defaultCommitPageSize;</span>
+            }
+<span class="nc" id="L202">        } catch (NumberFormatException nfe) {</span>
+<span class="nc" id="L203">            commitPageSize = defaultCommitPageSize;</span>
+<span class="nc" id="L204">        }</span>
+
+<span class="nc" id="L206">        LOG.debug(&quot;Instellen van commit page size op: &quot; + commitPageSize);</span>
+<span class="nc" id="L207">        return commitPageSize;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

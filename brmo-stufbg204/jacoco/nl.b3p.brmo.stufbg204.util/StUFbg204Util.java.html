@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>StUFbg204Util.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO STUF BG 204</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.stufbg204.util</a> &gt; <span class="el_source">StUFbg204Util.java</span></div><h1>StUFbg204Util.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2017 B3Partners B.V.
+ */
+package nl.b3p.brmo.stufbg204.util;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import nl.egem.stuf.stuf0204.FoutBericht;
+import nl.egem.stuf.stuf0204.Stuurgegevens;
+import nl.egem.stuf.stuf0204.Systeem;
+
+/**
+ * Utility methodes voor StUF BG 204.
+ *
+ * @author mprins
+ */
+public final class StUFbg204Util {
+    
+<span class="nc" id="L21">    public static final SimpleDateFormat sdf = new SimpleDateFormat(&quot;yyyyMMddkkmmssSSS&quot;);</span>
+    private static JAXBContext jaxbContext;
+
+    private StUFbg204Util() {
+    }
+    
+    public static FoutBericht maakFout(String errorcode) {
+<span class="nc" id="L28">        return maakFout(errorcode, null);</span>
+    }
+    
+    public static FoutBericht maakFout(String errorcode, Exception e) {
+<span class="nc" id="L32">        final FoutBericht fout = new FoutBericht();</span>
+<span class="nc" id="L33">        Stuurgegevens.Fout f = new Stuurgegevens.Fout();</span>
+<span class="nc" id="L34">        f.setCrossRefNummer(errorcode);</span>
+<span class="nc" id="L35">        Stuurgegevens s = new Stuurgegevens();</span>
+<span class="nc" id="L36">        s.setBerichtsoort(&quot;Fo01&quot;);</span>
+<span class="nc" id="L37">        s.setFout(f);</span>
+        
+<span class="nc" id="L39">        fout.setStuurgegevens(s);</span>
+<span class="nc" id="L40">        FoutBericht.Body  b = new FoutBericht.Body();</span>
+<span class="nc" id="L41">        b.setCode(errorcode);</span>
+<span class="nc bnc" id="L42" title="All 2 branches missed.">        if(e != null){</span>
+<span class="nc" id="L43">            b.setOmschrijving(e.getLocalizedMessage());</span>
+        }
+<span class="nc" id="L45">        fout.setBody(b);</span>
+        
+
+<span class="nc" id="L48">        return fout;</span>
+    }
+    
+    public static Stuurgegevens maakStuurgegevens(Stuurgegevens vraagStuurgegevens){
+<span class="nc" id="L52">        final Stuurgegevens sg = vraagStuurgegevens;</span>
+<span class="nc" id="L53">        Systeem s = new Systeem();</span>
+<span class="nc" id="L54">        s.setApplicatie(&quot;BRMO&quot;);</span>
+<span class="nc" id="L55">        s.setOrganisatie(&quot;B3Partners B.V.&quot;);</span>
+<span class="nc" id="L56">        sg.setZender(s);</span>
+<span class="nc" id="L57">        sg.setVersieStUF(&quot;0204&quot;);</span>
+<span class="nc" id="L58">        sg.setTijdstipBericht(sdf.format(new Date()));</span>
+        
+<span class="nc" id="L60">        return sg;</span>
+    }
+        
+    public static JAXBContext getStufJaxbContext() throws JAXBException{
+<span class="nc bnc" id="L64" title="All 2 branches missed.">        if(jaxbContext == null){</span>
+<span class="nc" id="L65">            jaxbContext = JAXBContext.newInstance(&quot;nl.egem.stuf.sector.bg._0204:nl.egem.stuf.stuf0204&quot;);</span>
+        }
+<span class="nc" id="L67">        return jaxbContext;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

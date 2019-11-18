@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>Spoorbaandeel.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO loader</a> &gt; <a href="../index.html" class="el_bundle">topnlparser</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.topnl.entities</a> &gt; <span class="el_source">Spoorbaandeel.java</span></div><h1>Spoorbaandeel.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2016 - 2017 B3Partners B.V.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+ */
+package nl.b3p.topnl.entities;
+
+import org.locationtech.jts.geom.LineString;
+import org.locationtech.jts.geom.Point;
+
+/**
+ *
+ * @author Meine Toonen meinetoonen@b3partners.nl
+ */
+<span class="fc" id="L26">public class Spoorbaandeel extends TopNLEntity {</span>
+
+    private String typeInfrastructuur;
+    private String typeSpoorbaan;
+    private String fysiekVoorkomen;
+    private String spoorbreedte;
+    private String aantalSporen;
+    private String vervoerfunctie;
+    private Boolean elektrificatie;
+    private String status;
+    private String brugnaam;
+    private String tunnelnaam;
+    private String baanvaknaam;
+    private Long hoogteniveau;
+    
+    private LineString geometrie;
+    private Point puntGeometrie;
+
+    public String getTypeInfrastructuur() {
+<span class="fc" id="L45">        return typeInfrastructuur;</span>
+    }
+
+    public void setTypeInfrastructuur(String typeInfrastructuur) {
+<span class="fc" id="L49">        this.typeInfrastructuur = typeInfrastructuur;</span>
+<span class="fc" id="L50">    }</span>
+
+    public String getTypeSpoorbaan() {
+<span class="fc" id="L53">        return typeSpoorbaan;</span>
+    }
+
+    public void setTypeSpoorbaan(String typeSpoorbaan) {
+<span class="fc" id="L57">        this.typeSpoorbaan = typeSpoorbaan;</span>
+<span class="fc" id="L58">    }</span>
+
+    public String getFysiekVoorkomen() {
+<span class="fc" id="L61">        return fysiekVoorkomen;</span>
+    }
+
+    public void setFysiekVoorkomen(String fysiekVoorkomen) {
+<span class="fc" id="L65">        this.fysiekVoorkomen = fysiekVoorkomen;</span>
+<span class="fc" id="L66">    }</span>
+
+    public String getSpoorbreedte() {
+<span class="fc" id="L69">        return spoorbreedte;</span>
+    }
+
+    public void setSpoorbreedte(String spoorbreedte) {
+<span class="fc" id="L73">        this.spoorbreedte = spoorbreedte;</span>
+<span class="fc" id="L74">    }</span>
+
+    public String getAantalSporen() {
+<span class="fc" id="L77">        return aantalSporen;</span>
+    }
+
+    public void setAantalSporen(String aantalSporen) {
+<span class="fc" id="L81">        this.aantalSporen = aantalSporen;</span>
+<span class="fc" id="L82">    }</span>
+
+    public String getVervoerfunctie() {
+<span class="fc" id="L85">        return vervoerfunctie;</span>
+    }
+
+    public void setVervoerfunctie(String vervoerfunctie) {
+<span class="fc" id="L89">        this.vervoerfunctie = vervoerfunctie;</span>
+<span class="fc" id="L90">    }</span>
+
+    public Boolean getElektrificatie() {
+<span class="fc" id="L93">        return elektrificatie;</span>
+    }
+
+    public void setElektrificatie(Boolean elektrificatie) {
+<span class="fc" id="L97">        this.elektrificatie = elektrificatie;</span>
+<span class="fc" id="L98">    }</span>
+
+    public String getStatus() {
+<span class="fc" id="L101">        return status;</span>
+    }
+
+    public void setStatus(String status) {
+<span class="fc" id="L105">        this.status = status;</span>
+<span class="fc" id="L106">    }</span>
+
+    public String getBrugnaam() {
+<span class="fc" id="L109">        return brugnaam;</span>
+    }
+
+    public void setBrugnaam(String brugnaam) {
+<span class="fc" id="L113">        this.brugnaam = brugnaam;</span>
+<span class="fc" id="L114">    }</span>
+
+    public String getTunnelnaam() {
+<span class="fc" id="L117">        return tunnelnaam;</span>
+    }
+
+    public void setTunnelnaam(String tunnelnaam) {
+<span class="fc" id="L121">        this.tunnelnaam = tunnelnaam;</span>
+<span class="fc" id="L122">    }</span>
+
+    public String getBaanvaknaam() {
+<span class="fc" id="L125">        return baanvaknaam;</span>
+    }
+
+    public void setBaanvaknaam(String baanvaknaam) {
+<span class="fc" id="L129">        this.baanvaknaam = baanvaknaam;</span>
+<span class="fc" id="L130">    }</span>
+
+    public LineString getGeometrie() {
+<span class="fc" id="L133">        return geometrie;</span>
+    }
+
+    public void setGeometrie(LineString geometrie) {
+<span class="fc" id="L137">        this.geometrie = geometrie;</span>
+<span class="fc" id="L138">    }</span>
+
+    public Long getHoogteniveau() {
+<span class="fc" id="L141">        return hoogteniveau;</span>
+    }
+
+    public void setHoogteniveau(Long hoogteniveau) {
+<span class="fc" id="L145">        this.hoogteniveau = hoogteniveau;</span>
+<span class="fc" id="L146">    }</span>
+
+    public Point getPuntGeometrie() {
+<span class="nc" id="L149">        return puntGeometrie;</span>
+    }
+
+    public void setPuntGeometrie(Point puntGeometrie) {
+<span class="fc" id="L153">        this.puntGeometrie = puntGeometrie;</span>
+<span class="fc" id="L154">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

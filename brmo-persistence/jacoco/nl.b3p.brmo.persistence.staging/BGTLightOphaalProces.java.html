@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BGTLightOphaalProces.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO persistence</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.persistence.staging</a> &gt; <span class="el_source">BGTLightOphaalProces.java</span></div><h1>BGTLightOphaalProces.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2016 B3Partners B.V.
+ */
+package nl.b3p.brmo.persistence.staging;
+
+import java.util.Collections;
+import java.util.Set;
+import java.util.StringTokenizer;
+import java.util.TreeSet;
+import javax.persistence.Entity;
+
+/**
+ * Proces configuratie voor de BGT light downloader.
+ *
+ * @author mprins
+ */
+@Entity
+<span class="fc" id="L18">public class BGTLightOphaalProces extends AutomatischProces {</span>
+
+    private static final String ARCHIEF_DIRECTORY = &quot;archiefdirectory&quot;;
+
+    /**
+     * Zoekt de geconfigureerde archief directory op.
+     *
+     * @return de naam van de directory voor deze configuratie of null
+     */
+    public String getArchiefDirectory() {
+<span class="nc" id="L28">        return ClobElement.nullSafeGet(this.getConfig().get(ARCHIEF_DIRECTORY));</span>
+    }
+
+    /**
+     * Stelt de te gebruiken archief directory in.
+     *
+     * @param archiefDirectory te gebruiken archief directory
+     */
+    public void setArchiefDirectory(String archiefDirectory) {
+<span class="nc bnc" id="L37" title="All 2 branches missed.">        if (archiefDirectory == null) {</span>
+<span class="nc" id="L38">            this.getConfig().put(ARCHIEF_DIRECTORY, null);</span>
+        } else {
+<span class="nc" id="L40">            this.getConfig().put(ARCHIEF_DIRECTORY, new ClobElement(archiefDirectory));</span>
+        }
+<span class="nc" id="L42">    }</span>
+
+    public String getTileInfoUrl() {
+<span class="nc" id="L45">        return ClobElement.nullSafeGet(this.getConfig().get(&quot;geojsonurl&quot;));</span>
+    }
+
+    public String getOphaalgebied() {
+<span class="nc" id="L49">        return ClobElement.nullSafeGet(this.getConfig().get(&quot;ophaalgebied&quot;));</span>
+    }
+
+    public String getOphaalUrl() {
+<span class="nc" id="L53">        return ClobElement.nullSafeGet(this.getConfig().get(&quot;ophaalurl&quot;));</span>
+    }
+
+    public Set&lt;Integer&gt; getGridIds() {
+<span class="nc" id="L57">        TreeSet&lt;Integer&gt; ids = new TreeSet();</span>
+<span class="nc" id="L58">        String cvsId = ClobElement.nullSafeGet(this.getConfig().get(&quot;gridids&quot;));</span>
+<span class="nc bnc" id="L59" title="All 2 branches missed.">        if (cvsId != null) {</span>
+<span class="nc" id="L60">            StringTokenizer st = new StringTokenizer(cvsId, &quot;,;&quot;, false);</span>
+<span class="nc bnc" id="L61" title="All 2 branches missed.">            while (st.hasMoreTokens()) {</span>
+                try {
+<span class="nc" id="L63">                    ids.add(Integer.parseInt(st.nextToken().trim()));</span>
+<span class="nc" id="L64">                } catch (NumberFormatException ignore) {</span>
+                    // LOG.debug(&quot;Niet parsable integer.&quot;, ignore);
+<span class="nc" id="L66">                }</span>
+            }
+        }
+<span class="nc" id="L69">        return Collections.unmodifiableSet(ids);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

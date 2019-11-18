@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>VersieInfo.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO service</a> &gt; <a href="../index.html" class="el_bundle">brmo-init-util</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.service.util</a> &gt; <span class="el_source">VersieInfo.java</span></div><h1>VersieInfo.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2016 B3Partners B.V.
+ */
+package nl.b3p.brmo.service.util;
+
+import java.io.IOException;
+import java.util.Locale;
+import java.util.Properties;
+import javax.servlet.Servlet;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import nl.b3p.brmo.loader.BrmoFramework;
+import nl.b3p.brmo.loader.util.BrmoException;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+/**
+ * log versie informatie van de gebruikte schema's. Maakt gebruik van
+ * {@link ConfigUtil} om de datasources op te halen. Voeg deze servlet toe aan
+ * de web.xml van jouw brmo webapp met een startup parameter hoger dan de
+ * {@link ConfigUtil} servlet. Voorbeeld:
+ * &lt;pre&gt;
+ * &amp;lt;servlet&amp;gt;
+ *      &amp;lt;servlet-name&amp;gt;VersieInfo&amp;lt;/servlet-name&amp;gt;
+ *      &amp;lt;description&amp;gt;versie info controle&amp;lt;/description&amp;gt;
+ *      &amp;lt;servlet-class&amp;gt;nl.b3p.brmo.service.util.VersieInfo&amp;lt;/servlet-class&amp;gt;
+ *      &amp;lt;load-on-startup&amp;gt;4&amp;lt;/load-on-startup&amp;gt;
+ * &amp;lt;/servlet&amp;gt;
+ * &lt;/pre&gt;
+ *
+ * @author mprins
+ * @since 1.4.1
+ */
+<span class="nc" id="L36">public class VersieInfo implements Servlet {</span>
+
+<span class="nc" id="L38">    private static final Log LOG = LogFactory.getLog(VersieInfo.class);</span>
+
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+<span class="nc" id="L42">        BrmoFramework brmo = null;</span>
+<span class="nc" id="L43">        String appVersie = &quot;mislukt&quot;;</span>
+<span class="nc" id="L44">        final Properties props = new Properties();</span>
+        try {
+<span class="nc" id="L46">            props.load(VersieInfo.class.getClassLoader().getResourceAsStream(&quot;git.properties&quot;));</span>
+<span class="nc" id="L47">            appVersie = props.getProperty(&quot;builddetails.build.version&quot;, &quot;onbekend&quot;);</span>
+<span class="nc" id="L48">        } catch (IOException ex) {</span>
+<span class="nc" id="L49">            String name = config.getServletContext().getContextPath();</span>
+<span class="nc bnc" id="L50" title="All 2 branches missed.">            name = name.startsWith(&quot;/&quot;) ? name.substring(1).toUpperCase(Locale.ROOT) : &quot;ROOT&quot;;</span>
+<span class="nc" id="L51">            LOG.warn(&quot;Ophalen &quot; + name + &quot; applicatie versie informatie is mislukt.&quot;, ex);</span>
+<span class="nc" id="L52">        }</span>
+
+        try {
+<span class="nc" id="L55">            brmo = new BrmoFramework(ConfigUtil.getDataSourceStaging(), ConfigUtil.getDataSourceRsgb(), ConfigUtil.getDataSourceRsgbBgt());</span>
+<span class="nc" id="L56">            LOG.info(&quot;BRMO versie informatie:&quot;);</span>
+<span class="nc" id="L57">            LOG.info(&quot;  staging schema versie is:  &quot; + brmo.getStagingVersion());</span>
+<span class="nc" id="L58">            LOG.info(&quot;  rsgb schema versie is:     &quot; + brmo.getRsgbVersion());</span>
+<span class="nc" id="L59">            LOG.info(&quot;  rsgbbgt schema versie is:  &quot; + brmo.getRsgbBgtVersion());</span>
+<span class="nc" id="L60">            LOG.info(&quot;  brmo applicatie versie is: &quot; + appVersie);</span>
+            // TODO check voor passende versies
+<span class="nc" id="L62">        } catch (BrmoException ex) {</span>
+<span class="nc" id="L63">            LOG.warn(&quot;Ophalen BRMO versie informatie is mislukt.&quot;, ex);</span>
+        } finally {
+<span class="nc bnc" id="L65" title="All 2 branches missed.">            if (brmo != null) {</span>
+<span class="nc" id="L66">                brmo.closeBrmoFramework();</span>
+            }
+        }
+<span class="nc" id="L69">    }</span>
+
+    @Override
+    public ServletConfig getServletConfig() {
+<span class="nc" id="L73">        throw new UnsupportedOperationException(&quot;Not supported.&quot;);</span>
+    }
+
+    @Override
+    public void service(ServletRequest req, ServletResponse res) throws ServletException, IOException {
+<span class="nc" id="L78">        throw new UnsupportedOperationException(&quot;Not supported.&quot;);</span>
+    }
+
+    @Override
+    public String getServletInfo() {
+<span class="nc" id="L83">        return &quot;Versie info logging servlet&quot;;</span>
+    }
+
+    @Override
+    public void destroy() {
+        // leeg
+<span class="nc" id="L89">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

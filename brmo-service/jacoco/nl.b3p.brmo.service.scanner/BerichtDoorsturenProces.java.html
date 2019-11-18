@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BerichtDoorsturenProces.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO service</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.service.scanner</a> &gt; <span class="el_source">BerichtDoorsturenProces.java</span></div><h1>BerichtDoorsturenProces.java</h1><pre class="source lang-java linenums">package nl.b3p.brmo.service.scanner;
+
+import java.util.Date;
+import java.util.List;
+import javax.persistence.Transient;
+import nl.b3p.brmo.loader.util.BrmoException;
+import nl.b3p.brmo.persistence.staging.AutomatischProces;
+import nl.b3p.brmo.persistence.staging.Bericht;
+import nl.b3p.brmo.persistence.staging.BerichtDoorstuurProces;
+import nl.b3p.brmo.persistence.staging.ClobElement;
+import nl.b3p.brmo.persistence.staging.GDS2OphaalProces;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.stripesstuff.stripersist.Stripersist;
+
+/**
+ *
+ * @author Matthijs Laan
+ */
+public class BerichtDoorsturenProces extends AbstractExecutableProces {
+
+<span class="nc" id="L22">    private static final Log log = LogFactory.getLog(BerichtDoorsturenProces.class);</span>
+
+    private final BerichtDoorstuurProces config;
+
+<span class="nc" id="L26">    private final int defaultCommitPageSize = 1000;</span>
+
+    @Transient
+    private ProgressUpdateListener l;
+
+<span class="nc" id="L31">    BerichtDoorsturenProces(BerichtDoorstuurProces config) {</span>
+<span class="nc" id="L32">        this.config = config;</span>
+<span class="nc" id="L33">    }</span>
+
+    @Override
+    public void execute() throws BrmoException {
+<span class="nc" id="L37">        this.execute(new ProgressUpdateListener() {</span>
+            /* doet bijna niks listener */
+            @Override
+            public void total(long total) {
+<span class="nc" id="L41">                config.addLogLine(&quot;Totaal aantal opgehaalde berichten: &quot; + total);</span>
+<span class="nc" id="L42">            }</span>
+
+            @Override
+            public void progress(long progress) {
+<span class="nc" id="L46">            }</span>
+
+            @Override
+            public void exception(Throwable t) {
+<span class="nc" id="L50">                config.addLogLine(&quot;FOUT:&quot; + t.getLocalizedMessage());</span>
+<span class="nc" id="L51">                log.error(t);</span>
+<span class="nc" id="L52">            }</span>
+
+            @Override
+            public void updateStatus(String status) {
+<span class="nc" id="L56">            }</span>
+
+            @Override
+            public void addLog(String log) {
+<span class="nc" id="L60">                config.addLogLine(log);</span>
+<span class="nc" id="L61">            }</span>
+        });
+<span class="nc" id="L63">    }</span>
+
+    @Override
+    public void execute(ProgressUpdateListener listener) {
+<span class="nc" id="L67">        this.l = listener;</span>
+        try {
+<span class="nc" id="L69">            l.updateStatus(&quot;Laden berichten...&quot;);</span>
+<span class="nc" id="L70">            this.config.setStatus(AutomatischProces.ProcessingStatus.PROCESSING);</span>
+
+<span class="nc" id="L72">            int commitPageSize = this.getCommitPageSize();</span>
+
+<span class="nc" id="L74">            String id = ClobElement.nullSafeGet(config.getConfig().get(&quot;gds2_ophaalproces_id&quot;));</span>
+<span class="nc" id="L75">            GDS2OphaalProces proces = Stripersist.getEntityManager().find(GDS2OphaalProces.class, Long.parseLong(id));</span>
+
+<span class="nc" id="L77">            List&lt;Long&gt; berichtIDs = Stripersist.getEntityManager().createQuery(&quot;select b.id from Bericht b join b.laadprocesid l where b.status in ('STAGING_OK', 'STAGING_NOK') and l.automatischProces = :proces&quot;)</span>
+<span class="nc" id="L78">                    .setParameter(&quot;proces&quot;, proces)</span>
+<span class="nc" id="L79">                    .getResultList();</span>
+
+<span class="nc bnc" id="L81" title="All 2 branches missed.">            if (berichtIDs.isEmpty()) {</span>
+<span class="nc" id="L82">                this.config.setSamenvatting(&quot;Geen berichten om door te sturen&quot;);</span>
+            } else {
+<span class="nc" id="L84">                this.l.total(berichtIDs.size());</span>
+<span class="nc" id="L85">                log.info(String.format(&quot;Er zijn %s berichten om door te sturen.&quot;, berichtIDs.size()));</span>
+
+<span class="nc" id="L87">                String url = ClobElement.nullSafeGet(proces.getConfig().get(&quot;delivery_endpoint&quot;));</span>
+
+<span class="nc bnc" id="L89" title="All 2 branches missed.">                if (url == null) {</span>
+<span class="nc" id="L90">                    this.config.setSamenvatting(&quot;GDS2 ophaal proces heeft geen afleveringsendpoint&quot;);</span>
+<span class="nc" id="L91">                    log.warn(&quot;GDS2 ophaal proces heeft geen afleveringsendpoint.&quot;);</span>
+                } else {
+<span class="nc" id="L93">                    int doorgestuurd = 0, fouten = 0, verwerkt = 0;</span>
+<span class="nc bnc" id="L94" title="All 2 branches missed.">                    for (Long pkid : berichtIDs) {</span>
+<span class="nc" id="L95">                        Bericht b = Stripersist.getEntityManager().find(Bericht.class, pkid);</span>
+<span class="nc bnc" id="L96" title="All 2 branches missed.">                        if (GDS2OphalenProces.doorsturenBericht(proces, l, b, url)) {</span>
+<span class="nc" id="L97">                            doorgestuurd++;</span>
+<span class="nc" id="L98">                            this.l.progress(doorgestuurd);</span>
+                        } else {
+<span class="nc" id="L100">                            fouten++;</span>
+                        }
+<span class="nc" id="L102">                        Stripersist.getEntityManager().merge(b);</span>
+<span class="nc" id="L103">                        verwerkt++;</span>
+<span class="nc bnc" id="L104" title="All 2 branches missed.">                        if (verwerkt % commitPageSize == 0) {</span>
+<span class="nc" id="L105">                            log.info(String.format(&quot;Tussentijds opslaan van berichten, 'commitPageSize' (%s) is bereikt, totaal aantal verwerkt : %s&quot;,</span>
+<span class="nc" id="L106">                                    commitPageSize, verwerkt));</span>
+<span class="nc" id="L107">                            Stripersist.getEntityManager().flush();</span>
+<span class="nc" id="L108">                            Stripersist.getEntityManager().getTransaction().commit();</span>
+<span class="nc" id="L109">                            Stripersist.getEntityManager().clear();</span>
+                        }
+<span class="nc" id="L111">                    }</span>
+<span class="nc" id="L112">                    this.config.setSamenvatting(&quot;Berichten doorgestuurd: &quot; + doorgestuurd + &quot;, fouten: &quot; + fouten);</span>
+                }
+            }
+
+<span class="nc" id="L116">            l.updateStatus(this.config.getSamenvatting());</span>
+
+<span class="nc" id="L118">            this.config.setStatus(AutomatischProces.ProcessingStatus.WAITING);</span>
+<span class="nc" id="L119">            this.config.setLastrun(new Date());</span>
+<span class="nc" id="L120">        } catch (Exception e) {</span>
+<span class="nc" id="L121">            this.config.setLastrun(new Date());</span>
+<span class="nc" id="L122">            this.config.setSamenvatting(&quot;Er is een fout opgetreden, details staan in de logs&quot;);</span>
+<span class="nc" id="L123">            this.config.setStatus(AutomatischProces.ProcessingStatus.ERROR);</span>
+<span class="nc" id="L124">            l.exception(e);</span>
+        } finally {
+<span class="nc bnc" id="L126" title="All 2 branches missed.">            if (Stripersist.getEntityManager().getTransaction().getRollbackOnly()) {</span>
+                // XXX bij rollback only wordt status niet naar ERROR gezet vanwege
+                // rollback, zou in aparte transactie moeten
+<span class="nc" id="L129">                Stripersist.getEntityManager().getTransaction().rollback();</span>
+            } else {
+<span class="nc" id="L131">                Stripersist.getEntityManager().merge(this.config);</span>
+<span class="nc" id="L132">                Stripersist.getEntityManager().getTransaction().commit();</span>
+            }
+        }
+<span class="nc" id="L135">    }</span>
+
+    private int getCommitPageSize() {
+        int commitPageSize;
+        try {
+<span class="nc" id="L140">            String s = ClobElement.nullSafeGet(config.getConfig().get(&quot;commitPageSize&quot;));</span>
+<span class="nc" id="L141">            commitPageSize = Integer.parseInt(s);</span>
+<span class="nc bnc" id="L142" title="All 4 branches missed.">            if (commitPageSize &lt; 1 || commitPageSize &gt; defaultCommitPageSize) {</span>
+<span class="nc" id="L143">                commitPageSize = defaultCommitPageSize;</span>
+            }
+<span class="nc" id="L145">        } catch (NumberFormatException nfe) {</span>
+<span class="nc" id="L146">            commitPageSize = defaultCommitPageSize;</span>
+<span class="nc" id="L147">        }</span>
+
+<span class="nc" id="L149">        log.debug(&quot;Instellen van commit page size op: &quot; + commitPageSize);</span>
+<span class="nc" id="L150">        return commitPageSize;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>AfgifteChecker.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO commandline</a> &gt; <a href="../index.html" class="el_bundle">brmo-loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.loader.checks</a> &gt; <span class="el_source">AfgifteChecker.java</span></div><h1>AfgifteChecker.java</h1><pre class="source lang-java linenums">/*
+ *  Copyright (C) 2019  B3Partners B.V.
+
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+ */
+package nl.b3p.brmo.loader.checks;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
+import nl.b3p.brmo.loader.StagingProxy;
+import nl.b3p.brmo.loader.entity.Bericht;
+import nl.b3p.brmo.loader.entity.LaadProces;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+/**
+ *
+ * @author Meine Toonen
+ */
+<span class="nc" id="L37">public class AfgifteChecker {</span>
+<span class="nc" id="L38">    private static final Log log = LogFactory.getLog(AfgifteChecker.class);</span>
+    
+    private List&lt;Afgifte&gt; afgiftes;
+    private StagingProxy staging;
+
+    public void init(String input, StagingProxy staging) throws IOException {
+<span class="nc" id="L44">        try (FileInputStream fin = new FileInputStream(new File(input))) {</span>
+<span class="nc" id="L45">            init(fin, staging);</span>
+        }
+<span class="nc" id="L47">    }</span>
+    
+    public void init(InputStream input, StagingProxy staging) throws IOException{
+<span class="nc" id="L50">        this.staging = staging;</span>
+        // parse csv/excel
+<span class="nc" id="L52">        AfgiftelijstParser ap = new AfgiftelijstParser();</span>
+<span class="nc" id="L53">        afgiftes = ap.parse(input);</span>
+<span class="nc" id="L54">    }</span>
+    
+    public void check(){
+<span class="nc" id="L57">        afgiftes.forEach((afgifte) -&gt; {</span>
+<span class="nc" id="L58">            check(afgifte);</span>
+<span class="nc" id="L59">        });</span>
+<span class="nc" id="L60">    }</span>
+
+    /**
+     * afgifte controle.
+     *
+     * @param afgifte de te controleren afgifte
+     */
+    private void check(Afgifte afgifte){
+        try {
+<span class="nc" id="L69">            LaadProces lp = staging.getLaadProcesByRestoredFilename(afgifte.getBestandsnaam());</span>
+            // kijk of afgifte bestaat in staging
+<span class="nc bnc" id="L71" title="All 2 branches missed.">            if (lp != null) {</span>
+<span class="nc" id="L72">                afgifte.setFoundInStaging(true);</span>
+<span class="nc" id="L73">                processFoundLaadprocess(afgifte, lp);</span>
+            }
+<span class="nc" id="L75">        } catch (SQLException ex) {</span>
+<span class="nc" id="L76">            log.error(&quot;Error querying staging for laadproces for afgifte: &quot; + afgifte.toString(), ex);</span>
+<span class="nc" id="L77">        }</span>
+                
+<span class="nc" id="L79">    }</span>
+    /**
+     * zoek de status van alle bijbehorende berichten op en leg die vast in de
+     * afgifte.
+     *
+     * @param afgifte de te controleren afgifte
+     * @param lp het laadproces waar de berichten bij zoeken
+     * @throws SQLException if any
+     */
+    private void processFoundLaadprocess(Afgifte afgifte, LaadProces lp) throws SQLException{
+<span class="nc" id="L89">        List&lt;Bericht&gt; berichten = staging.getBerichtByLaadProces(lp);</span>
+<span class="nc" id="L90">        Map&lt;Bericht.STATUS, Integer&gt; counts = afgifte.getStatussen();</span>
+<span class="nc" id="L91">        berichten.stream().map((bericht) -&gt; {</span>
+<span class="nc bnc" id="L92" title="All 2 branches missed.">            if(!counts.containsKey(bericht.getStatus())){</span>
+<span class="nc" id="L93">                counts.put(bericht.getStatus(), 0);</span>
+            }
+<span class="nc" id="L95">            return bericht;</span>
+<span class="nc" id="L96">        }).forEachOrdered((bericht) -&gt; {</span>
+<span class="nc" id="L97">            counts.put(bericht.getStatus(), counts.get(bericht.getStatus()) + 1);</span>
+<span class="nc" id="L98">        });</span>
+<span class="nc" id="L99">    }</span>
+
+    public File getResults(String input, String f) throws FileNotFoundException {
+<span class="nc" id="L102">        return getResults(input, new File(f));</span>
+    }
+
+    public File getResults(String input, File f) throws FileNotFoundException {
+<span class="nc" id="L106">        AfgiftelijstReport reporter = new AfgiftelijstReport();</span>
+        
+<span class="nc" id="L108">        reporter.createReport(afgiftes, input, f);</span>
+<span class="nc" id="L109">        return f;</span>
+    }
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

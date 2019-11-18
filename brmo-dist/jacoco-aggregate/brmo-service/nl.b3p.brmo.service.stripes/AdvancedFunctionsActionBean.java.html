@@ -1,0 +1,968 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>AdvancedFunctionsActionBean.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO distributie</a> &gt; <a href="../index.html" class="el_bundle">brmo-service</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.service.stripes</a> &gt; <span class="el_source">AdvancedFunctionsActionBean.java</span></div><h1>AdvancedFunctionsActionBean.java</h1><pre class="source lang-java linenums">package nl.b3p.brmo.service.stripes;
+
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.math.BigDecimal;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipException;
+import java.util.zip.ZipOutputStream;
+import javax.sql.DataSource;
+import net.sourceforge.stripes.action.*;
+import net.sourceforge.stripes.controller.LifecycleStage;
+import net.sourceforge.stripes.validation.Validate;
+import nl.b3p.brmo.loader.BrmoFramework;
+import nl.b3p.brmo.loader.ProgressUpdateListener;
+import nl.b3p.brmo.loader.RsgbProxy;
+import nl.b3p.brmo.loader.StagingProxy;
+import nl.b3p.brmo.loader.entity.Bericht;
+import nl.b3p.brmo.loader.advancedfunctions.AdvancedFunctionProcess;
+import nl.b3p.brmo.loader.entity.BrkBericht;
+import nl.b3p.brmo.loader.util.BrmoException;
+import nl.b3p.brmo.loader.util.StagingRowHandler;
+import nl.b3p.brmo.loader.xml.BagXMLReader;
+import nl.b3p.brmo.loader.xml.BrkSnapshotXMLReader;
+import nl.b3p.brmo.service.util.ConfigUtil;
+import nl.b3p.loader.jdbc.GeometryJdbcConverter;
+import nl.b3p.loader.jdbc.GeometryJdbcConverterFactory;
+import org.apache.commons.dbutils.DbUtils;
+import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.ResultSetHandler;
+import org.apache.commons.dbutils.RowProcessor;
+import org.apache.commons.dbutils.handlers.ScalarHandler;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.apache.commons.lang3.mutable.MutableInt;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.stripesstuff.plugin.waitpage.WaitPage;
+
+/**
+ *
+ * @author Chris van Lith
+ * @author mprins
+ */
+@StrictBinding
+<span class="nc" id="L59">public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateListener {</span>
+
+<span class="nc" id="L61">    private static final Log LOG = LogFactory.getLog(AdvancedFunctionsActionBean.class);</span>
+
+    private static final String JSP = &quot;/WEB-INF/jsp/transform/advancedfunctions.jsp&quot;;
+    private static final String JSP_PROGRESS = &quot;/WEB-INF/jsp/transform/advancedfunctionsprogress.jsp&quot;;
+    
+    private static final String MUTOPEN = &quot;&lt;?xml version=\&quot;1.0\&quot;?&gt;&lt;Mutatie:Mutatie &quot;
+            + &quot;xmlns:Mutatie=\&quot;http://www.kadaster.nl/schemas/brk-levering/product-mutatie/v20120901\&quot; &quot;
+            + &quot;xmlns:KadastraalObjectRef=\&quot;http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-kadastraalobject-ref/v20120201\&quot; &quot;
+            + &quot;xmlns:xlink=\&quot;http://www.w3.org/1999/xlink\&quot;&gt;&quot;
+            + &quot;&lt;Mutatie:BRKDatum&gt;%s&lt;/Mutatie:BRKDatum&gt;&quot;
+            + &quot;&lt;Mutatie:volgnummerKadastraalObjectDatum&gt;%s&lt;/Mutatie:volgnummerKadastraalObjectDatum&gt;&quot;
+            + &quot;&lt;Mutatie:kadastraalObject&gt;&lt;Mutatie:AanduidingKadastraalObject&gt;&lt;Mutatie:kadastraalObject&gt;&quot;
+            + &quot;&lt;KadastraalObjectRef:PerceelRef xlink:href=\&quot;%s\&quot;/&gt;&quot;
+            + &quot;&lt;/Mutatie:kadastraalObject&gt;&lt;/Mutatie:AanduidingKadastraalObject&gt;&lt;/Mutatie:kadastraalObject&gt;&quot;
+            + &quot;&lt;Mutatie:wordt&gt;&quot;;
+    private static final String MUTCLOSE = &quot;&lt;/Mutatie:wordt&gt;&lt;/Mutatie:Mutatie&gt;&quot;;
+
+    private ActionBeanContext context;
+
+    private List&lt;AdvancedFunctionProcess&gt; advancedFunctionProcesses;
+
+    @Validate(required = true, on = &quot;perform&quot;)
+    private String advancedFunctionProcessName;
+
+    private double progress;
+    private long total;
+    private long processed;
+    private boolean complete;
+    private Date start;
+    private Date update;
+    private String exceptionStacktrace;
+
+<span class="nc" id="L93">    private final String BRK_VERWIJDEREN_NOGMAALS_UITVOEREN = &quot;Herhaal transformatie BRK verwijderberichten, oplossen achtergebleven 'kad_onrrnd_zk' records&quot;;</span>
+<span class="nc" id="L94">    private final String NHR_FIX_TYPERING = &quot;Fix 'typering' en 'clazz' van nHR persoon&quot;;</span>
+<span class="nc" id="L95">    private final String NHR_ARCHIVING = &quot;Opschonen en archiveren van nHR berichten met status RSGB_OK, ouder dan 3 maanden&quot;;</span>
+<span class="nc" id="L96">    private final String NHR_REMOVAL = &quot;Verwijderen van nHR berichten met status ARCHIVE&quot;;</span>
+<span class="nc" id="L97">    private final String BRK_HERSTEL_BESTANDSNAAM = &quot;Vul de 'herstelde bestandsnaam' van BRK laadprocessen&quot;;</span>
+
+<span class="nc" id="L99">    private final boolean repairFirst = false;</span>
+
+    // &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;getters en setters&quot;&gt;
+    @Override
+    public ActionBeanContext getContext() {
+<span class="nc" id="L104">        return context;</span>
+    }
+
+    @Override
+    public void setContext(ActionBeanContext context) {
+<span class="nc" id="L109">        this.context = context;</span>
+<span class="nc" id="L110">    }</span>
+
+    public double getProgress() {
+<span class="nc" id="L113">        return progress;</span>
+    }
+
+    public void setProgress(double progress) {
+<span class="nc" id="L117">        this.progress = progress;</span>
+<span class="nc" id="L118">    }</span>
+
+    public long getTotal() {
+<span class="nc" id="L121">        return total;</span>
+    }
+
+    public void setTotal(long total) {
+<span class="nc" id="L125">        this.total = total;</span>
+<span class="nc" id="L126">    }</span>
+
+    public long getProcessed() {
+<span class="nc" id="L129">        return processed;</span>
+    }
+
+    public void setProcessed(long processed) {
+<span class="nc" id="L133">        this.processed = processed;</span>
+<span class="nc" id="L134">    }</span>
+
+    public boolean isComplete() {
+<span class="nc" id="L137">        return complete;</span>
+    }
+
+    public void setComplete(boolean complete) {
+<span class="nc" id="L141">        this.complete = complete;</span>
+<span class="nc" id="L142">    }</span>
+
+    public Date getStart() {
+<span class="nc" id="L145">        return start;</span>
+    }
+
+    public void setStart(Date start) {
+<span class="nc" id="L149">        this.start = start;</span>
+<span class="nc" id="L150">    }</span>
+
+    public Date getUpdate() {
+<span class="nc" id="L153">        return update;</span>
+    }
+
+    public void setUpdate(Date update) {
+<span class="nc" id="L157">        this.update = update;</span>
+<span class="nc" id="L158">    }</span>
+
+    public String getExceptionStacktrace() {
+<span class="nc" id="L161">        return exceptionStacktrace;</span>
+    }
+
+    public void setExceptionStacktrace(String exceptionStacktrace) {
+<span class="nc" id="L165">        this.exceptionStacktrace = exceptionStacktrace;</span>
+<span class="nc" id="L166">    }</span>
+
+    @Override
+    public void total(long total) {
+<span class="nc" id="L170">        this.total = total;</span>
+<span class="nc" id="L171">    }</span>
+
+    @Override
+    public void progress(long progress) {
+<span class="nc" id="L175">        this.processed = progress;</span>
+<span class="nc bnc" id="L176" title="All 2 branches missed.">        if (this.total != 0) {</span>
+<span class="nc" id="L177">            this.progress = (100.0 / this.total) * this.processed;</span>
+        }
+<span class="nc" id="L179">        this.update = new Date();</span>
+<span class="nc" id="L180">    }</span>
+
+    @Override
+    public void exception(Throwable t) {
+<span class="nc" id="L184">        StringWriter sw = new StringWriter();</span>
+<span class="nc" id="L185">        t.printStackTrace(new PrintWriter(sw));</span>
+<span class="nc" id="L186">        this.exceptionStacktrace = sw.toString();</span>
+<span class="nc" id="L187">    }</span>
+
+    public List&lt;AdvancedFunctionProcess&gt; getAdvancedFunctionProcesses() {
+<span class="nc" id="L190">        return advancedFunctionProcesses;</span>
+    }
+
+    public void setAdvancedFunctionProcesses(List&lt;AdvancedFunctionProcess&gt; advancedFunctionProcesses) {
+<span class="nc" id="L194">        this.advancedFunctionProcesses = advancedFunctionProcesses;</span>
+<span class="nc" id="L195">    }</span>
+
+    public String getAdvancedFunctionProcessName() {
+<span class="nc" id="L198">        return advancedFunctionProcessName;</span>
+    }
+
+    public void setAdvancedFunctionProcessName(String advancedFunctionProcessName) {
+<span class="nc" id="L202">        this.advancedFunctionProcessName = advancedFunctionProcessName;</span>
+<span class="nc" id="L203">    }</span>
+    // &lt;/editor-fold&gt;
+
+    @Before(stages = LifecycleStage.BindingAndValidation)
+    public void populateAdvancedFunctionProcesses() {
+<span class="nc" id="L208">        String brkExportDir = this.getContext().getServletContext().getInitParameter(&quot;exportDir.brk&quot;);</span>
+<span class="nc" id="L209">        LOG.warn(&quot;Instellen BRK export directory op niet-default waarde: &quot; + brkExportDir);</span>
+
+        // XXX move to configuration file
+        // bij een nieuw proces ook de wiki bijwerken: https://github.com/B3Partners/brmo/wiki/Geavanceerde-functies
+<span class="nc bnc" id="L213" title="All 2 branches missed.">        advancedFunctionProcesses = Arrays.asList(new AdvancedFunctionProcess[]{</span>
+            new AdvancedFunctionProcess(&quot;Exporteren BRK mutaties&quot;, BrmoFramework.BR_BRK, brkExportDir == null ? &quot;/tmp/brkmutaties&quot; : brkExportDir),
+<span class="nc" id="L215">            new AdvancedFunctionProcess(&quot;Repareren BRK mutaties met status STAGING_NOK&quot;, BrmoFramework.BR_BRK, Bericht.STATUS.STAGING_NOK.toString()),</span>
+<span class="nc" id="L216">            new AdvancedFunctionProcess(&quot;Repareren BAG mutaties met status STAGING_NOK&quot;, BrmoFramework.BR_BAG, Bericht.STATUS.STAGING_NOK.toString()),</span>
+<span class="nc" id="L217">            new AdvancedFunctionProcess(&quot;Opschonen en archiveren van BRK berichten met status RSGB_OK, ouder dan 3 maanden&quot;, BrmoFramework.BR_BRK, Bericht.STATUS.RSGB_OK.toString()),</span>
+<span class="nc" id="L218">            new AdvancedFunctionProcess(&quot;Opschonen en archiveren van BAG berichten met status RSGB_OK, ouder dan 3 maanden&quot;, BrmoFramework.BR_BAG, Bericht.STATUS.RSGB_OK.toString()),</span>
+<span class="nc" id="L219">            new AdvancedFunctionProcess(NHR_ARCHIVING, BrmoFramework.BR_NHR, Bericht.STATUS.RSGB_OK.toString()),</span>
+<span class="nc" id="L220">            new AdvancedFunctionProcess(&quot;Verwijderen van BRK berichten met status ARCHIVE&quot;, BrmoFramework.BR_BRK, Bericht.STATUS.ARCHIVE.toString()),</span>
+<span class="nc" id="L221">            new AdvancedFunctionProcess(&quot;Verwijderen van BAG berichten met status ARCHIVE&quot;, BrmoFramework.BR_BAG, Bericht.STATUS.ARCHIVE.toString()),</span>
+<span class="nc" id="L222">            new AdvancedFunctionProcess(NHR_REMOVAL, BrmoFramework.BR_NHR, Bericht.STATUS.ARCHIVE.toString()),</span>
+<span class="nc" id="L223">            new AdvancedFunctionProcess(BRK_VERWIJDEREN_NOGMAALS_UITVOEREN, BrmoFramework.BR_BRK, Bericht.STATUS.RSGB_OK.toString()),</span>
+            new AdvancedFunctionProcess(NHR_FIX_TYPERING, BrmoFramework.BR_NHR, null),
+            new AdvancedFunctionProcess(BRK_HERSTEL_BESTANDSNAAM, BrmoFramework.BR_BRK, &quot;0&quot;)
+        });
+<span class="nc" id="L227">    }</span>
+
+    @DefaultHandler
+    public Resolution form() {
+<span class="nc bnc" id="L231" title="All 2 branches missed.">        return new ForwardResolution(complete ? JSP_PROGRESS : JSP);</span>
+    }
+
+    @WaitPage(path = JSP_PROGRESS, delay = 1000, refresh = 1000)
+    public Resolution perform() {
+<span class="nc" id="L236">        AdvancedFunctionProcess process = null;</span>
+
+<span class="nc bnc" id="L238" title="All 2 branches missed.">        for (AdvancedFunctionProcess p : advancedFunctionProcesses) {</span>
+<span class="nc bnc" id="L239" title="All 2 branches missed.">            if (p.getName().equals(advancedFunctionProcessName)) {</span>
+<span class="nc" id="L240">                process = p;</span>
+<span class="nc" id="L241">                break;</span>
+            }
+<span class="nc" id="L243">        }</span>
+<span class="nc bnc" id="L244" title="All 2 branches missed.">        if (process == null) {</span>
+<span class="nc" id="L245">            getContext().getMessages().add(new SimpleMessage(&quot;Ongeldig proces&quot;));</span>
+<span class="nc" id="L246">            return new ForwardResolution(JSP);</span>
+        }
+
+<span class="nc" id="L249">        start = new Date();</span>
+<span class="nc" id="L250">        LOG.info(&quot;Start process: &quot; + process.getName());</span>
+<span class="nc" id="L251">        processed = 0;</span>
+
+        // Get berichten
+        try {
+<span class="nc bnc" id="L255" title="All 2 branches missed.">            if (process.getName().equals(&quot;Exporteren BRK mutaties&quot;)) {</span>
+<span class="nc" id="L256">                exportBRKMutatieBerichten(process.getConfig());</span>
+<span class="nc bnc" id="L257" title="All 2 branches missed.">            } else if (process.getName().equals(&quot;Repareren BRK mutaties met status STAGING_NOK&quot;)) {</span>
+<span class="nc" id="L258">                repairBRKMutatieBerichten(process.getConfig());</span>
+<span class="nc bnc" id="L259" title="All 2 branches missed.">            } else if (process.getName().equals(&quot;Repareren BAG mutaties met status STAGING_NOK&quot;)) {</span>
+<span class="nc" id="L260">                repairBAGMutatieBerichten(process.getConfig());</span>
+<span class="nc bnc" id="L261" title="All 2 branches missed.">            } else if (process.getName().equals(&quot;Opschonen en archiveren van BRK berichten met status RSGB_OK, ouder dan 3 maanden&quot;)) {</span>
+<span class="nc" id="L262">                cleanupBerichten(process.getConfig(), &quot;brk&quot;);</span>
+<span class="nc bnc" id="L263" title="All 2 branches missed.">            } else if (process.getName().equals(&quot;Opschonen en archiveren van BAG berichten met status RSGB_OK, ouder dan 3 maanden&quot;)) {</span>
+<span class="nc" id="L264">                cleanupBerichten(process.getConfig(), &quot;bag&quot;);</span>
+<span class="nc bnc" id="L265" title="All 2 branches missed.">            } else if (process.getName().equals(NHR_ARCHIVING)) {</span>
+<span class="nc" id="L266">                cleanupBerichten(process.getConfig(), BrmoFramework.BR_NHR);</span>
+<span class="nc bnc" id="L267" title="All 2 branches missed.">            } else if (process.getName().equals(&quot;Verwijderen van BRK berichten met status ARCHIVE&quot;)) {</span>
+<span class="nc" id="L268">                deleteBerichten(process.getConfig(), &quot;brk&quot;);</span>
+<span class="nc bnc" id="L269" title="All 2 branches missed.">            } else if (process.getName().equals(&quot;Verwijderen van BAG berichten met status ARCHIVE&quot;)) {</span>
+<span class="nc" id="L270">                deleteBerichten(process.getConfig(), &quot;bag&quot;);</span>
+<span class="nc bnc" id="L271" title="All 2 branches missed.">            } else if (process.getName().equals(NHR_REMOVAL)) {</span>
+<span class="nc" id="L272">                deleteBerichten(process.getConfig(), BrmoFramework.BR_NHR);</span>
+<span class="nc bnc" id="L273" title="All 2 branches missed.">            } else if (process.getName().equals(BRK_VERWIJDEREN_NOGMAALS_UITVOEREN)) {</span>
+<span class="nc" id="L274">                replayBRKVerwijderBerichten(process.getSoort(), process.getConfig());</span>
+<span class="nc bnc" id="L275" title="All 2 branches missed.">            } else if (process.getName().equals(NHR_FIX_TYPERING)) {</span>
+<span class="nc" id="L276">                fixNHRTypering(process.getSoort(), process.getConfig());</span>
+<span class="nc bnc" id="L277" title="All 2 branches missed.">            } else if (process.getName().equals(BRK_HERSTEL_BESTANDSNAAM)) {</span>
+<span class="nc" id="L278">                fillbestandsNaamHersteld(process.getSoort(), process.getConfig());</span>
+            }
+            
+<span class="nc bnc" id="L281" title="All 2 branches missed.">            if (this.exceptionStacktrace == null) {</span>
+<span class="nc" id="L282">                getContext().getMessages().add(new SimpleMessage(&quot;Geavanceerde functie afgerond.&quot;));</span>
+            }
+<span class="nc" id="L284">        } catch (Throwable t) {</span>
+<span class="nc" id="L285">            LOG.error(&quot;Fout bij uitvoeren geavanceerde functie&quot;, t);</span>
+<span class="nc" id="L286">            String m = &quot;Fout bij uitvoeren geavanceerde functie: &quot; + ExceptionUtils.getMessage(t);</span>
+<span class="nc bnc" id="L287" title="All 2 branches missed.">            if (t.getCause() != null) {</span>
+<span class="nc" id="L288">                m += &quot;, oorzaak: &quot; + ExceptionUtils.getRootCauseMessage(t);</span>
+            }
+<span class="nc" id="L290">            getContext().getMessages().add(new SimpleMessage(m));</span>
+        } finally {
+<span class="nc" id="L292">            complete = true;</span>
+        }
+<span class="nc" id="L294">        return new ForwardResolution(JSP_PROGRESS);</span>
+    }
+    
+    public void repairBRKMutatieBerichten(String config) throws Exception {
+<span class="nc" id="L298">        int offset = 0;</span>
+<span class="nc" id="L299">        int batch = 1000;</span>
+<span class="nc" id="L300">        final MutableInt processed = new MutableInt(0);</span>
+<span class="nc" id="L301">        final DataSource dataSourceStaging = ConfigUtil.getDataSourceStaging();</span>
+<span class="nc" id="L302">        final Connection conn = dataSourceStaging.getConnection();</span>
+<span class="nc" id="L303">        final GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);</span>
+<span class="nc" id="L304">        final RowProcessor processor = new StagingRowHandler();</span>
+        
+        do {
+<span class="nc" id="L307">            LOG.debug(String.format(&quot;Ophalen mutatieberichten batch met offset %d, limit %d&quot;, offset, batch));</span>
+<span class="nc" id="L308">            String sql = &quot;select * from &quot; + BrmoFramework.BERICHT_TABLE </span>
+                    + &quot; where volgordenummer &gt;= 0 &quot;
+                    + &quot; and soort='brk' &quot;
+                    + &quot; and status='&quot; + config + &quot;'&quot;
+                    + &quot; order by id &quot;;
+<span class="nc" id="L313">            sql = geomToJdbc.buildPaginationSql(sql, offset, batch);</span>
+<span class="nc" id="L314">            LOG.debug(&quot;SQL voor ophalen berichten batch: &quot; + sql);</span>
+            
+            
+<span class="nc" id="L317">            processed.setValue(0);</span>
+<span class="nc" id="L318">            Exception e = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, sql, new ResultSetHandler&lt;Exception&gt;() {</span>
+                @Override
+                public Exception handle(ResultSet rs) throws SQLException {
+
+<span class="nc bnc" id="L322" title="All 2 branches missed.">                    while (rs.next()) {</span>
+                        try {
+<span class="nc" id="L324">                            Bericht bericht = processor.toBean(rs, Bericht.class);</span>
+<span class="nc" id="L325">                            StringBuilder message = new StringBuilder();</span>
+<span class="nc bnc" id="L326" title="All 4 branches missed.">                            if (bericht.getBrOrgineelXml() != null &amp;&amp; !bericht.getBrOrgineelXml().isEmpty()) {</span>
+<span class="nc" id="L327">                                message.append(bericht.getBrOrgineelXml());</span>
+                            } else {
+<span class="nc" id="L329">                                SimpleDateFormat dateFormat = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</span>
+<span class="nc" id="L330">                                message.append(String.format(MUTOPEN,</span>
+<span class="nc" id="L331">                                        dateFormat.format(bericht.getDatum()),</span>
+<span class="nc" id="L332">                                        bericht.getVolgordeNummer(),</span>
+<span class="nc" id="L333">                                        bericht.getObjectRef()));</span>
+<span class="nc bnc" id="L334" title="All 2 branches missed.">                                if (bericht.getBrXml().startsWith(&quot;&lt;?xml version=\&quot;1.0\&quot;&quot;)) {</span>
+                                    // strip &lt;?xml version=&quot;1.0&quot;?&gt;
+<span class="nc" id="L336">                                    message.append(bericht.getBrXml().substring(21));</span>
+                                } else {
+<span class="nc" id="L338">                                    message.append(bericht.getBrXml());</span>
+                                }
+<span class="nc" id="L340">                                message.append(MUTCLOSE);</span>
+                            }
+
+<span class="nc" id="L343">                            BrkSnapshotXMLReader reader = new BrkSnapshotXMLReader(new ByteArrayInputStream(message.toString().getBytes(&quot;UTF-8&quot;)));</span>
+<span class="nc" id="L344">                            Bericht brk = reader.next();</span>
+<span class="nc bnc" id="L345" title="All 8 branches missed.">                            if (brk != null &amp;&amp; brk.getDatum() != null &amp;&amp; brk.getObjectRef() != null &amp;&amp; brk.getVolgordeNummer() != null) {</span>
+<span class="nc" id="L346">                                bericht.setDatum(brk.getDatum());</span>
+<span class="nc" id="L347">                                bericht.setObjectRef(brk.getObjectRef());</span>
+<span class="nc" id="L348">                                bericht.setVolgordeNummer(brk.getVolgordeNummer());</span>
+                            }
+<span class="nc bnc" id="L350" title="All 8 branches missed.">                            if (brk != null &amp;&amp; brk.getDatum() != null &amp;&amp; brk.getObjectRef() != null &amp;&amp; brk.getVolgordeNummer() != null) {</span>
+<span class="nc bnc" id="L351" title="All 4 branches missed.">                                if (bericht.getBrOrgineelXml() != null &amp;&amp; !bericht.getBrOrgineelXml().isEmpty()) {</span>
+<span class="nc" id="L352">                                    new QueryRunner(geomToJdbc.isPmdKnownBroken())</span>
+<span class="nc" id="L353">                                            .update(conn, &quot;update &quot; + BrmoFramework.BERICHT_TABLE + &quot; set object_ref = ?, datum = ?, volgordenummer = ? where id = ?&quot;,</span>
+<span class="nc" id="L354">                                                    bericht.getObjectRef(), new Timestamp(bericht.getDatum().getTime()), bericht.getVolgordeNummer(), bericht.getId());</span>
+                                } else {
+<span class="nc" id="L356">                                    new QueryRunner(geomToJdbc.isPmdKnownBroken())</span>
+<span class="nc" id="L357">                                            .update(conn, &quot;update &quot; + BrmoFramework.BERICHT_TABLE + &quot; set object_ref = ?, datum = ?, volgordenummer = ?, br_orgineel_xml = ? where id = ?&quot;,</span>
+<span class="nc" id="L358">                                                    bericht.getObjectRef(), new Timestamp(bericht.getDatum().getTime()), bericht.getVolgordeNummer(), message.toString(), bericht.getId());</span>
+                                }
+                            }
+                                
+<span class="nc" id="L362">                        } catch (Exception e) {</span>
+<span class="nc" id="L363">                            return e;</span>
+<span class="nc" id="L364">                        }</span>
+<span class="nc" id="L365">                        processed.increment();</span>
+                    }
+<span class="nc" id="L367">                    return null;</span>
+                }
+            });
+<span class="nc" id="L370">            offset += processed.intValue();</span>
+
+<span class="nc" id="L372">            progress(offset);</span>
+
+            // If handler threw exception processing row, rethrow it
+<span class="nc bnc" id="L375" title="All 2 branches missed.">            if (e != null) {</span>
+<span class="nc" id="L376">                DbUtils.closeQuietly(conn);</span>
+<span class="nc" id="L377">                throw e;</span>
+            }
+<span class="nc bnc" id="L379" title="All 2 branches missed.">        } while (processed.intValue() &gt; 0);</span>
+<span class="nc" id="L380">        DbUtils.closeQuietly(conn);</span>
+<span class="nc" id="L381">    }</span>
+
+    public void repairBAGMutatieBerichten(String config) throws Exception {
+<span class="nc" id="L384">        int offset = 0;</span>
+<span class="nc" id="L385">        int batch = 1000;</span>
+<span class="nc" id="L386">        final MutableInt processed = new MutableInt(0);</span>
+<span class="nc" id="L387">        final DataSource dataSourceStaging = ConfigUtil.getDataSourceStaging();</span>
+<span class="nc" id="L388">        final Connection conn = dataSourceStaging.getConnection();</span>
+<span class="nc" id="L389">        final GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);</span>
+<span class="nc" id="L390">        final RowProcessor processor = new StagingRowHandler();</span>
+        
+        do {
+<span class="nc" id="L393">            LOG.debug(String.format(&quot;Ophalen BAG mutatieberichten batch met offset %d, limit %d&quot;, offset, batch));</span>
+<span class="nc" id="L394">            String sql = &quot;select * from &quot; + BrmoFramework.BERICHT_TABLE </span>
+                    + &quot; where volgordenummer &gt;= 0 &quot;
+                    + &quot; and soort='bag' &quot;
+                    + &quot; and status='&quot; + config + &quot;'&quot;
+                    + &quot; order by id &quot;;
+<span class="nc" id="L399">            sql = geomToJdbc.buildPaginationSql(sql, offset, batch);</span>
+<span class="nc" id="L400">            LOG.debug(&quot;SQL voor ophalen berichten batch: &quot; + sql);</span>
+            
+            
+<span class="nc" id="L403">            processed.setValue(0);</span>
+<span class="nc" id="L404">            Exception e = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, sql, new ResultSetHandler&lt;Exception&gt;() {</span>
+                @Override
+                public Exception handle(ResultSet rs) throws SQLException {
+
+<span class="nc bnc" id="L408" title="All 2 branches missed.">                    while (rs.next()) {</span>
+                        try {
+<span class="nc" id="L410">                            Bericht bericht = processor.toBean(rs, Bericht.class);</span>
+
+<span class="nc" id="L412">                            StringBuilder message = new StringBuilder();</span>
+<span class="nc bnc" id="L413" title="All 4 branches missed.">                            if (bericht.getBrOrgineelXml() != null &amp;&amp; !bericht.getBrOrgineelXml().isEmpty()) {</span>
+<span class="nc" id="L414">                                message.append(bericht.getBrOrgineelXml());</span>
+                            } else {
+<span class="nc" id="L416">                                SimpleDateFormat dateFormat = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</span>
+<span class="nc bnc" id="L417" title="All 2 branches missed.">                                if (bericht.getBrXml().startsWith(&quot;&lt;?xml version=\&quot;1.0\&quot;&quot;)) {</span>
+                                    // strip &lt;?xml version=&quot;1.0&quot;?&gt;
+<span class="nc" id="L419">                                    message.append(bericht.getBrXml().substring(21));</span>
+                                } else {
+<span class="nc" id="L421">                                    message.append(bericht.getBrXml());</span>
+                                }
+                            }
+
+<span class="nc" id="L425">                            BagXMLReader reader = new BagXMLReader(new ByteArrayInputStream(message.toString().getBytes(&quot;UTF-8&quot;)));</span>
+<span class="nc" id="L426">                            reader.hasNext();</span>
+<span class="nc" id="L427">                            Bericht bag = reader.next();</span>
+<span class="nc bnc" id="L428" title="All 8 branches missed.">                            if (bag != null &amp;&amp; bag.getDatum() != null &amp;&amp; bag.getObjectRef() != null &amp;&amp; bag.getVolgordeNummer() != null) {</span>
+<span class="nc" id="L429">                                bericht.setDatum(bag.getDatum());</span>
+<span class="nc" id="L430">                                bericht.setObjectRef(bag.getObjectRef());</span>
+<span class="nc" id="L431">                                bericht.setVolgordeNummer(bag.getVolgordeNummer());</span>
+                            }
+<span class="nc bnc" id="L433" title="All 8 branches missed.">                            if (bag != null &amp;&amp; bag.getDatum() != null &amp;&amp; bag.getObjectRef() != null &amp;&amp; bag.getVolgordeNummer() != null) {</span>
+<span class="nc bnc" id="L434" title="All 4 branches missed.">                                if (bericht.getBrOrgineelXml() != null &amp;&amp; !bericht.getBrOrgineelXml().isEmpty()) {</span>
+<span class="nc" id="L435">                                    new QueryRunner(geomToJdbc.isPmdKnownBroken())</span>
+<span class="nc" id="L436">                                            .update(conn, &quot;update &quot; + BrmoFramework.BERICHT_TABLE + &quot; set object_ref = ?, datum = ?, volgordenummer = ? where id = ?&quot;,</span>
+<span class="nc" id="L437">                                                    bericht.getObjectRef(), new Timestamp(bericht.getDatum().getTime()), bericht.getVolgordeNummer(), bericht.getId());</span>
+                                } else {
+<span class="nc" id="L439">                                    new QueryRunner(geomToJdbc.isPmdKnownBroken())</span>
+<span class="nc" id="L440">                                            .update(conn, &quot;update &quot; + BrmoFramework.BERICHT_TABLE + &quot; set object_ref = ?, datum = ?, volgordenummer = ?, br_orgineel_xml = ? where id = ?&quot;,</span>
+<span class="nc" id="L441">                                                    bericht.getObjectRef(), new Timestamp(bericht.getDatum().getTime()), bericht.getVolgordeNummer(), message.toString(), bericht.getId());</span>
+                                }
+                            }
+<span class="nc" id="L444">                        } catch (Exception e) {</span>
+<span class="nc" id="L445">                            return e;</span>
+<span class="nc" id="L446">                        }</span>
+<span class="nc" id="L447">                        processed.increment();</span>
+                    }
+<span class="nc" id="L449">                    return null;</span>
+                }
+            });
+<span class="nc" id="L452">            offset += processed.intValue();</span>
+
+<span class="nc" id="L454">            progress(offset);</span>
+
+            // If handler threw exception processing row, rethrow it
+<span class="nc bnc" id="L457" title="All 2 branches missed.">            if (e != null) {</span>
+<span class="nc" id="L458">                DbUtils.closeQuietly(conn);</span>
+<span class="nc" id="L459">                throw e;</span>
+            }
+<span class="nc bnc" id="L461" title="All 2 branches missed.">        } while (processed.intValue() &gt; 0);</span>
+<span class="nc" id="L462">        DbUtils.closeQuietly(conn);</span>
+<span class="nc" id="L463">    }</span>
+
+    public void exportBRKMutatieBerichten(String locatie) throws Exception {
+        
+        if (repairFirst) {
+            repairBRKMutatieBerichten(null);
+        }
+        
+<span class="nc" id="L471">        int offset = 0;</span>
+<span class="nc" id="L472">        int batch = 5000;</span>
+<span class="nc" id="L473">        final MutableInt processed = new MutableInt(0);</span>
+<span class="nc" id="L474">        final DataSource dataSourceStaging = ConfigUtil.getDataSourceStaging();</span>
+<span class="nc" id="L475">        final Connection conn = dataSourceStaging.getConnection();</span>
+<span class="nc" id="L476">        final GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);</span>
+<span class="nc" id="L477">        final RowProcessor processor = new StagingRowHandler();</span>
+
+<span class="nc" id="L479">        final File exportDir = new File(locatie);</span>
+<span class="nc" id="L480">        FileUtils.forceMkdir(exportDir);</span>
+
+        do {
+<span class="nc" id="L483">            LOG.info(String.format(&quot;Ophalen mutatieberichten export batch met offset %d, limit %d&quot;, offset, batch));</span>
+<span class="nc" id="L484">            String sql = &quot;select * from &quot; + BrmoFramework.BERICHT_TABLE </span>
+                    + &quot; where volgordenummer &gt;= 0 &quot;
+                    + &quot; and soort='brk' &quot;
+                    + &quot; order by object_ref, datum, volgordenummer &quot;;
+<span class="nc" id="L488">            sql = geomToJdbc.buildPaginationSql(sql, offset, batch);</span>
+<span class="nc" id="L489">            LOG.debug(&quot;SQL voor ophalen berichten batch: &quot; + sql);</span>
+
+<span class="nc" id="L491">            final File f = new File(exportDir, &quot;batch&quot; + offset + &quot;.zip&quot;);</span>
+<span class="nc" id="L492">            final ZipOutputStream out = new ZipOutputStream(new FileOutputStream(f));</span>
+
+<span class="nc" id="L494">            processed.setValue(0);</span>
+<span class="nc" id="L495">            Exception e = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, sql, new ResultSetHandler&lt;Exception&gt;() {</span>
+                @Override
+                public Exception handle(ResultSet rs) throws SQLException {
+
+<span class="nc bnc" id="L499" title="All 2 branches missed.">                    while (rs.next()) {</span>
+                        try {
+<span class="nc" id="L501">                            Bericht bericht = processor.toBean(rs, Bericht.class);</span>
+
+<span class="nc" id="L503">                            boolean infoOK = true;</span>
+<span class="nc bnc" id="L504" title="All 2 branches missed.">                            if (bericht.getBrOrgineelXml() != null) {</span>
+<span class="nc" id="L505">                                BrkSnapshotXMLReader reader = new BrkSnapshotXMLReader(new ByteArrayInputStream(bericht.getBrOrgineelXml().getBytes(&quot;UTF-8&quot;)));</span>
+<span class="nc" id="L506">                                Bericht brk = reader.next();</span>
+<span class="nc bnc" id="L507" title="All 6 branches missed.">                                if (brk.getDatum() != null &amp;&amp; brk.getObjectRef() != null &amp;&amp; brk.getVolgordeNummer() != null) {</span>
+<span class="nc" id="L508">                                    bericht.setDatum(brk.getDatum());</span>
+<span class="nc" id="L509">                                    bericht.setObjectRef(brk.getObjectRef());</span>
+<span class="nc" id="L510">                                    bericht.setVolgordeNummer(brk.getVolgordeNummer());</span>
+                                } else {
+<span class="nc" id="L512">                                    infoOK = false;</span>
+                                }
+<span class="nc" id="L514">                            } else {</span>
+<span class="nc" id="L515">                                infoOK = false;</span>
+                            }
+<span class="nc" id="L517">                            StringBuilder sb = new StringBuilder();</span>
+<span class="nc bnc" id="L518" title="All 2 branches missed.">                            if (!infoOK) {</span>
+<span class="nc" id="L519">                                sb.append(&quot;I&quot;);</span>
+                            }
+<span class="nc bnc" id="L521" title="All 2 branches missed.">                            if (bericht.getObjectRef() != null) {</span>
+                                //substring om NL.KAD.OnroerendeZaak: eraf te strippen
+<span class="nc" id="L523">                                sb.append(bericht.getObjectRef().substring(22));</span>
+                            } else {
+<span class="nc" id="L525">                                sb.append((new Date()).getTime());</span>
+                            }
+<span class="nc" id="L527">                            sb.append(&quot;_&quot;);</span>
+<span class="nc bnc" id="L528" title="All 2 branches missed.">                            if (bericht.getDatum() != null) {</span>
+<span class="nc" id="L529">                                sb.append(bericht.getDatum().getTime());</span>
+                            } else {
+<span class="nc" id="L531">                                sb.append(&quot;O&quot;);</span>
+<span class="nc" id="L532">                                sb.append((new Date()).getTime());</span>
+                            }
+<span class="nc" id="L534">                            sb.append(&quot;_&quot;);</span>
+<span class="nc" id="L535">                            sb.append(bericht.getVolgordeNummer());</span>
+<span class="nc" id="L536">                            sb.append(&quot;.xml&quot;);</span>
+
+<span class="nc" id="L538">                            ZipEntry e = new ZipEntry(sb.toString());</span>
+                            try {
+<span class="nc" id="L540">                                out.putNextEntry(e);</span>
+<span class="nc" id="L541">                                byte[] data = null;</span>
+<span class="nc bnc" id="L542" title="All 2 branches missed.">                                if (infoOK) {</span>
+<span class="nc" id="L543">                                    data = bericht.getBrOrgineelXml().getBytes(&quot;utf-8&quot;);</span>
+                                } else {
+<span class="nc" id="L545">                                    data = &quot;ERROR&quot;.getBytes(&quot;utf-8&quot;);</span>
+                                }
+<span class="nc" id="L547">                                out.write(data, 0, data.length);</span>
+<span class="nc" id="L548">                            } catch (ZipException ze) {</span>
+<span class="nc" id="L549">                                LOG.info(ze.getLocalizedMessage());</span>
+                            } finally {
+<span class="nc" id="L551">                                out.closeEntry();</span>
+                            }
+<span class="nc" id="L553">                         } catch (Exception e) {</span>
+<span class="nc" id="L554">                            return e;</span>
+<span class="nc" id="L555">                        }</span>
+<span class="nc" id="L556">                        processed.increment();</span>
+                    }
+<span class="nc" id="L558">                    return null;</span>
+                }
+            });
+<span class="nc bnc" id="L561" title="All 2 branches missed.">            if (out != null) {</span>
+<span class="nc" id="L562">                out.close();</span>
+            }
+<span class="nc" id="L564">            LOG.info(&quot;Klaar met schrijven naar export bestand &quot; + f);</span>
+<span class="nc" id="L565">            offset += processed.intValue();</span>
+
+<span class="nc" id="L567">            progress(offset);</span>
+
+            // If handler threw exception processing row, rethrow it
+<span class="nc bnc" id="L570" title="All 2 branches missed.">            if (e != null) {</span>
+<span class="nc" id="L571">                DbUtils.closeQuietly(conn);</span>
+<span class="nc" id="L572">                throw e;</span>
+            }
+<span class="nc bnc" id="L574" title="All 2 branches missed.">        } while (processed.intValue() &gt; 0);</span>
+<span class="nc" id="L575">        DbUtils.closeQuietly(conn);</span>
+<span class="nc" id="L576">    }</span>
+    
+    public void cleanupBerichten(String config, String soort) throws Exception {
+<span class="nc" id="L579">        final int offset = 0;</span>
+<span class="nc" id="L580">        int progress = 0;</span>
+<span class="nc" id="L581">        int batch = 1000;</span>
+<span class="nc" id="L582">        final MutableInt processed = new MutableInt(0);</span>
+<span class="nc" id="L583">        final DataSource dataSourceStaging = ConfigUtil.getDataSourceStaging();</span>
+<span class="nc" id="L584">        final Connection conn = dataSourceStaging.getConnection();</span>
+<span class="nc" id="L585">        final GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);</span>
+<span class="nc" id="L586">        final RowProcessor processor = new StagingRowHandler();</span>
+        
+<span class="nc" id="L588">        Calendar c = Calendar.getInstance();</span>
+<span class="nc" id="L589">        c.setTime(new Date());</span>
+<span class="nc" id="L590">        c.add(Calendar.MONTH, -3);</span>
+
+<span class="nc" id="L592">        String countsql = &quot;select count(*) from &quot; + BrmoFramework.BERICHT_TABLE </span>
+                    + &quot; where soort='&quot; + soort + &quot;' &quot;
+                    + &quot; and status='&quot; + config + &quot;'&quot;
+                    + &quot; and status_datum &lt; ? &quot;;
+<span class="nc" id="L596">        Object o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn,</span>
+<span class="nc" id="L597">                countsql, new Timestamp(c.getTimeInMillis()), new ScalarHandler());</span>
+<span class="nc bnc" id="L598" title="All 2 branches missed.">        if (o instanceof BigDecimal) {</span>
+<span class="nc" id="L599">            total(((BigDecimal) o).longValue());</span>
+<span class="nc bnc" id="L600" title="All 2 branches missed.">        } else if (o instanceof Integer) {</span>
+<span class="nc" id="L601">            total(((Integer) o).longValue());</span>
+        } else {
+<span class="nc" id="L603">            total((Long) o);</span>
+        }
+        
+        do {
+<span class="nc" id="L607">            LOG.debug(String.format(&quot;Ophalen berichten batch met offset %d, limit %d, tot datum %tc, voortgang %d&quot;, offset, batch, c, progress));</span>
+<span class="nc" id="L608">            String sql = &quot;select * from &quot; + BrmoFramework.BERICHT_TABLE </span>
+                    + &quot; where soort='&quot; + soort + &quot;' &quot;
+                    + &quot; and status='&quot; + config + &quot;'&quot;
+                    + &quot; and status_datum &lt; ? &quot;
+                    + &quot; order by id &quot;;
+<span class="nc" id="L613">            sql = geomToJdbc.buildPaginationSql(sql, offset, batch);</span>
+<span class="nc" id="L614">            LOG.debug(&quot;SQL voor ophalen berichten batch: &quot; + sql);</span>
+            
+<span class="nc" id="L616">            processed.setValue(0);</span>
+<span class="nc" id="L617">            Exception e = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, sql, new ResultSetHandler&lt;Exception&gt;() {</span>
+                @Override
+                public Exception handle(ResultSet rs) throws SQLException {
+
+<span class="nc bnc" id="L621" title="All 2 branches missed.">                    while (rs.next()) {</span>
+                        try {
+<span class="nc" id="L623">                            Bericht bericht = processor.toBean(rs, Bericht.class);</span>
+
+<span class="nc" id="L625">                            bericht.setBrOrgineelXml(&quot;opgeschoond&quot;);</span>
+<span class="nc" id="L626">                            bericht.setBrXml(&quot;opgeschoond&quot;);</span>
+<span class="nc" id="L627">                            bericht.setOpmerking(&quot;opgeschoond, status was: &quot; + bericht.getStatus().toString());</span>
+<span class="nc" id="L628">                            bericht.setStatus(Bericht.STATUS.ARCHIVE);</span>
+<span class="nc" id="L629">                            bericht.setStatusDatum(new Date());</span>
+
+<span class="nc" id="L631">                            new QueryRunner(geomToJdbc.isPmdKnownBroken())</span>
+<span class="nc" id="L632">                                    .update(conn, &quot;update &quot; + BrmoFramework.BERICHT_TABLE </span>
+                                            + &quot; set status_datum = ?, status = ?, opmerking = ?, br_xml = ?, br_orgineel_xml = ? where id = ?&quot;,
+<span class="nc" id="L634">                                            new Timestamp(bericht.getStatusDatum().getTime()), bericht.getStatus().toString(), bericht.getOpmerking(),</span>
+<span class="nc" id="L635">                                            bericht.getBrXml(), bericht.getBrOrgineelXml(), bericht.getId());</span>
+                                 
+<span class="nc" id="L637">                        } catch (Exception e) {</span>
+<span class="nc" id="L638">                            return e;</span>
+<span class="nc" id="L639">                        }</span>
+<span class="nc" id="L640">                        processed.increment();</span>
+                    }
+<span class="nc" id="L642">                    return null;</span>
+                }
+<span class="nc" id="L644">            }, new Timestamp(c.getTimeInMillis()));</span>
+<span class="nc" id="L645">            progress += processed.intValue();</span>
+
+<span class="nc" id="L647">            progress(progress);</span>
+
+            // If handler threw exception processing row, rethrow it
+<span class="nc bnc" id="L650" title="All 2 branches missed.">            if (e != null) {</span>
+<span class="nc" id="L651">                DbUtils.closeQuietly(conn);</span>
+<span class="nc" id="L652">                throw e;</span>
+            }
+<span class="nc bnc" id="L654" title="All 2 branches missed.">        } while (processed.intValue() &gt; 0);</span>
+<span class="nc" id="L655">        DbUtils.closeQuietly(conn);</span>
+<span class="nc" id="L656">    }</span>
+
+    public void deleteBerichten(String config, String soort) throws Exception {
+<span class="nc" id="L659">        final MutableInt processed = new MutableInt(0);</span>
+<span class="nc" id="L660">        final DataSource dataSourceStaging = ConfigUtil.getDataSourceStaging();</span>
+<span class="nc" id="L661">        final Connection conn = dataSourceStaging.getConnection();</span>
+<span class="nc" id="L662">        final GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);</span>
+        
+<span class="nc" id="L664">        String countsql = &quot;select count(*) from &quot; + BrmoFramework.BERICHT_TABLE</span>
+                + &quot; WHERE soort='&quot; + soort + &quot;' &quot;
+                + &quot; AND status='&quot; + config + &quot;'&quot;;
+<span class="nc" id="L667">        Object o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn,</span>
+                countsql, new ScalarHandler());
+<span class="nc bnc" id="L669" title="All 2 branches missed.">        if (o instanceof BigDecimal) {</span>
+<span class="nc" id="L670">            total(((BigDecimal) o).longValue());</span>
+<span class="nc bnc" id="L671" title="All 2 branches missed.">        } else if (o instanceof Integer) {</span>
+<span class="nc" id="L672">            total(((Integer) o).longValue());</span>
+        } else {
+<span class="nc" id="L674">            total((Long) o);</span>
+        }
+<span class="nc" id="L676">        LOG.debug(&quot;Totaal te verwijderen &quot; + config + &quot; berichten: &quot; + o);</span>
+        
+<span class="nc" id="L678">        o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(conn, &quot;DELETE FROM &quot; + BrmoFramework.BERICHT_TABLE</span>
+                + &quot; WHERE soort='&quot; + soort + &quot;' &quot;
+                + &quot; AND status='&quot; + config + &quot;'&quot;);
+        
+<span class="nc bnc" id="L682" title="All 2 branches missed.">        if (o instanceof BigDecimal) {</span>
+<span class="nc" id="L683">            progress(((BigDecimal) o).longValue());</span>
+<span class="nc bnc" id="L684" title="All 2 branches missed.">        } else if (o instanceof Integer) {</span>
+<span class="nc" id="L685">            progress(((Integer) o).longValue());</span>
+        } else {
+<span class="nc" id="L687">            progress((Long) o);</span>
+        }
+<span class="nc" id="L689">        DbUtils.closeQuietly(conn);</span>
+<span class="nc" id="L690">    }</span>
+
+    /**
+     * Deze actie loopt door de lijst brk verwijderberichten (={@code &lt;empty/&gt;}
+     * br_xml) met status RSGB_OK om ze nogmaals naar de rsgb te transformeren.
+     *
+     * @param status bericht status
+     * @param soort soort bericht
+     * @throws SQLException if any
+     * @throws BrmoException if any
+     * @throws Exception if any
+     */
+    public void replayBRKVerwijderBerichten(String soort, String status) throws SQLException, BrmoException, Exception {
+<span class="nc" id="L703">        int offset = 0;</span>
+<span class="nc" id="L704">        int batch = 1000;</span>
+<span class="nc" id="L705">        final MutableInt processed = new MutableInt(0);</span>
+<span class="nc" id="L706">        final DataSource dataSourceStaging = ConfigUtil.getDataSourceStaging();</span>
+<span class="nc" id="L707">        final DataSource dataSourceRsgb = ConfigUtil.getDataSourceRsgb();</span>
+<span class="nc" id="L708">        final Connection conn = dataSourceStaging.getConnection();</span>
+<span class="nc" id="L709">        final GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);</span>
+<span class="nc" id="L710">        final RowProcessor processor = new StagingRowHandler();</span>
+
+<span class="nc" id="L712">        LOG.debug(&quot;staging datasource: &quot; + dataSourceStaging);</span>
+<span class="nc" id="L713">        LOG.debug(&quot;rsgb datasource: &quot; + dataSourceRsgb);</span>
+
+<span class="nc" id="L715">        String countsql = &quot;select count(id) from &quot; + BrmoFramework.BERICHT_TABLE</span>
+                + &quot; where soort='&quot; + soort + &quot;'&quot;
+                + &quot; and status='&quot; + status + &quot;'&quot;
+                // gebruik like (en niet =) omdat anders ORA-00932 want br_xml is clob
+                + &quot; and br_xml like '&lt;empty/&gt;'&quot;;
+<span class="nc" id="L720">        LOG.debug(&quot;SQL voor tellen van berichten batch: &quot; + countsql);</span>
+<span class="nc" id="L721">        Object o = new QueryRunner(</span>
+<span class="nc" id="L722">                geomToJdbc.isPmdKnownBroken()).query(conn,</span>
+                countsql, new ScalarHandler());
+<span class="nc" id="L724">        LOG.debug(&quot;Totaal te verwerken verwijder berichten: &quot; + o);</span>
+
+<span class="nc bnc" id="L726" title="All 2 branches missed.">        if (o instanceof BigDecimal) {</span>
+<span class="nc" id="L727">            total(((BigDecimal) o).longValue());</span>
+<span class="nc bnc" id="L728" title="All 2 branches missed.">        } else if (o instanceof Integer) {</span>
+<span class="nc" id="L729">            total(((Integer) o).longValue());</span>
+        } else {
+<span class="nc" id="L731">            total((Long) o);</span>
+        }
+
+<span class="nc" id="L734">        StagingProxy staging = new StagingProxy(dataSourceStaging);</span>
+<span class="nc" id="L735">        RsgbProxy rsgb = new RsgbProxy(dataSourceRsgb, staging, Bericht.STATUS.RSGB_OK, this);</span>
+<span class="nc" id="L736">        rsgb.setOrderBerichten(true);</span>
+<span class="nc" id="L737">        rsgb.init();</span>
+
+        do {
+<span class="nc" id="L740">            LOG.debug(String.format(&quot;Ophalen berichten batch met offset %d, limit %d&quot;, offset, batch));</span>
+<span class="nc" id="L741">            String sql = &quot;select * from &quot; + BrmoFramework.BERICHT_TABLE</span>
+                    + &quot; where soort='&quot; + soort + &quot;'&quot;
+                    + &quot; and status='&quot; + status + &quot;'&quot;
+                    + &quot; and br_xml like '&lt;empty/&gt;'&quot;
+                    + &quot; order by id&quot;;
+<span class="nc" id="L746">            sql = geomToJdbc.buildPaginationSql(sql, offset, batch);</span>
+<span class="nc" id="L747">            LOG.debug(&quot;SQL voor ophalen berichten batch: &quot; + sql);</span>
+
+<span class="nc" id="L749">            processed.setValue(0);</span>
+<span class="nc" id="L750">            Exception e = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, sql, new ResultSetHandler&lt;Exception&gt;() {</span>
+                @Override
+                public Exception handle(ResultSet rs) throws SQLException {
+<span class="nc bnc" id="L753" title="All 2 branches missed.">                    while (rs.next()) {</span>
+                        try {
+<span class="nc" id="L755">                            Bericht bericht = processor.toBean(rs, Bericht.class);</span>
+<span class="nc" id="L756">                            LOG.debug(&quot;Opnieuw verwerken van bericht: &quot; + bericht);</span>
+                            // bewaar oude log
+<span class="nc" id="L758">                            String oudeOpmerkingen = bericht.getOpmerking();</span>
+                            // forceer verwerking door bericht op STAGING_OK te zetten en dan opnieuw te verwerken
+<span class="nc" id="L760">                            bericht.setStatus(Bericht.STATUS.STAGING_OK);</span>
+<span class="nc" id="L761">                            new QueryRunner(geomToJdbc.isPmdKnownBroken())</span>
+<span class="nc" id="L762">                                    .update(conn, &quot;update &quot; + BrmoFramework.BERICHT_TABLE</span>
+                                            + &quot; set status_datum = ?, status = ? where id = ?&quot;,
+<span class="nc" id="L764">                                            new Timestamp(bericht.getStatusDatum().getTime()),</span>
+<span class="nc" id="L765">                                            bericht.getStatus().toString(),</span>
+<span class="nc" id="L766">                                            bericht.getId());</span>
+
+<span class="nc" id="L768">                            rsgb.handle(bericht, rsgb.transformToTableData(bericht), true);</span>
+
+<span class="nc" id="L770">                            bericht.setOpmerking(&quot;Opnieuw verwerkt met geavanceerde functies optie.\nNieuwe verwerkingslog (oude log daaronder)\n&quot;</span>
+<span class="nc" id="L771">                                    + bericht.getOpmerking()</span>
+                                    + &quot;\n\nOude verwerkingslog\n\n&quot;
+                                    + oudeOpmerkingen
+                            );
+<span class="nc" id="L775">                            bericht.setStatusDatum(new Date());</span>
+<span class="nc" id="L776">                            new QueryRunner(geomToJdbc.isPmdKnownBroken())</span>
+<span class="nc" id="L777">                                    .update(conn, &quot;update &quot; + BrmoFramework.BERICHT_TABLE</span>
+                                            + &quot; set opmerking = ? where id = ?&quot;,
+<span class="nc" id="L779">                                            bericht.getOpmerking(),</span>
+<span class="nc" id="L780">                                            bericht.getId());</span>
+<span class="nc" id="L781">                        } catch (Exception e) {</span>
+<span class="nc" id="L782">                            return e;</span>
+<span class="nc" id="L783">                        }</span>
+<span class="nc" id="L784">                        processed.increment();</span>
+                    }
+<span class="nc" id="L786">                    return null;</span>
+                }
+            });
+<span class="nc" id="L789">            offset += processed.intValue();</span>
+
+<span class="nc" id="L791">            progress(offset);</span>
+
+            // If handler threw exception processing row, rethrow it
+<span class="nc bnc" id="L794" title="All 2 branches missed.">            if (e != null) {</span>
+<span class="nc" id="L795">                DbUtils.closeQuietly(conn);</span>
+<span class="nc" id="L796">                throw e;</span>
+            }
+<span class="nc bnc" id="L798" title="All 2 branches missed.">        } while (processed.intValue() &gt; 0);</span>
+<span class="nc" id="L799">        DbUtils.closeQuietly(conn);</span>
+<span class="nc" id="L800">        rsgb.close();</span>
+<span class="nc" id="L801">    }</span>
+
+    /**
+     * Verwijderen van enkele aanhalingstekens van typering en clazz van sommige
+     * nHR persoon records dmv SQL update. fix voor issue #527, {@code 'INGESCHREVEN
+     * NIET-NATUURLIJK PERSOON'} moet worden {@code INGESCHREVEN NIET-NATUURLIJK
+     * PERSOON} (evt. afgekort op 35 char voor de 'ingeschr_niet_nat_prs'
+     * tabel/'typering' kolom)
+     *
+     * @param soort soort bericht
+     * @param status bericht status
+     * @throws SQLException if any
+     * @throws BrmoException if any
+     * @throws Exception if any
+     */
+    public void fixNHRTypering(String soort, String status) throws SQLException, BrmoException, Exception {
+
+<span class="nc" id="L818">        final MutableInt _processed = new MutableInt(0);</span>
+<span class="nc" id="L819">        final DataSource dataSourceRsgb = ConfigUtil.getDataSourceRsgb();</span>
+<span class="nc" id="L820">        final Connection conn = dataSourceRsgb.getConnection();</span>
+<span class="nc" id="L821">        final GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);</span>
+
+<span class="nc" id="L823">        final String was = &quot;'INGESCHREVEN NIET-NATUURLIJK PERSOON'&quot;;</span>
+<span class="nc" id="L824">        final String wordt = was.replace(&quot;'&quot;, &quot;&quot;);</span>
+        // typering kolom is smaller dan clazz kolom
+<span class="nc" id="L826">        final int typeringColWidth = 35;</span>
+
+        // betroffen tabel + kolom
+<span class="nc" id="L829">        final Map&lt;String, String&gt; tables = new HashMap&lt;String, String&gt;() {</span>
+            {
+<span class="nc" id="L831">                put(&quot;subject&quot;, &quot;clazz&quot;);</span>
+<span class="nc" id="L832">                put(&quot;prs&quot;, &quot;clazz&quot;);</span>
+<span class="nc" id="L833">                put(&quot;niet_nat_prs&quot;, &quot;clazz&quot;);</span>
+<span class="nc" id="L834">                put(&quot;ingeschr_niet_nat_prs&quot;, &quot;typering&quot;);</span>
+<span class="nc" id="L835">            }</span>
+        };
+
+<span class="nc bnc" id="L838" title="All 2 branches missed.">        for (Map.Entry&lt;String, String&gt; table : tables.entrySet()) {</span>
+<span class="nc" id="L839">            int offset = 0;</span>
+<span class="nc" id="L840">            int batch = 1000;</span>
+
+<span class="nc bnc" id="L842" title="All 2 branches missed.">            final String _was = (table.getValue().equalsIgnoreCase(&quot;typering&quot;) ? &quot;'&quot; + was.substring(0, typeringColWidth) : &quot;'&quot; + was + &quot;'&quot;);</span>
+<span class="nc bnc" id="L843" title="All 2 branches missed.">            final String _wordt = (table.getValue().equalsIgnoreCase(&quot;typering&quot;) ? wordt.substring(0, typeringColWidth) : wordt);</span>
+
+<span class="nc" id="L845">            String countsql = &quot;select count(*) from &quot; + table.getKey() + &quot; where &quot; + table.getValue() + &quot; = '&quot; + _was + &quot;'&quot;;</span>
+<span class="nc" id="L846">            LOG.debug(&quot;SQL voor tellen van berichten batch: &quot; + countsql);</span>
+
+<span class="nc" id="L848">            Object o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, countsql, new ScalarHandler());</span>
+<span class="nc" id="L849">            LOG.info(&quot;Totaal te bewerken records in tabel/kolom: &quot; + table + &quot; is: &quot; + o);</span>
+
+<span class="nc bnc" id="L851" title="All 2 branches missed.">            if (o instanceof BigDecimal) {</span>
+<span class="nc" id="L852">                total(this.total + ((Number) o).longValue());</span>
+<span class="nc bnc" id="L853" title="All 2 branches missed.">            } else if (o instanceof Integer) {</span>
+<span class="nc" id="L854">                total(this.total + ((Number) o).longValue());</span>
+            } else {
+<span class="nc" id="L856">                total(this.total + (Long) o);</span>
+            }
+
+            do {
+<span class="nc" id="L860">                LOG.debug(String.format(&quot;Update berichten batch met offset %d, limit %d&quot;, offset, batch));</span>
+<span class="nc" id="L861">                String sql = &quot;select * from &quot; + table.getKey() + &quot; where &quot; + table.getValue() + &quot; = '&quot; + _was + &quot;'&quot;;</span>
+<span class="nc" id="L862">                sql = geomToJdbc.buildPaginationSql(sql, offset, batch);</span>
+<span class="nc" id="L863">                LOG.trace(&quot;SQL voor ophalen berichten batch: &quot; + sql);</span>
+<span class="nc" id="L864">                _processed.setValue(0);</span>
+
+<span class="nc" id="L866">                Exception e = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, sql, new ResultSetHandler&lt;Exception&gt;() {</span>
+                    @Override
+                    public Exception handle(ResultSet rs) throws SQLException {
+<span class="nc bnc" id="L869" title="All 2 branches missed.">                        while (rs.next()) {</span>
+                            try {
+<span class="nc" id="L871">                                new QueryRunner(geomToJdbc.isPmdKnownBroken())</span>
+<span class="nc" id="L872">                                        .update(conn,</span>
+<span class="nc" id="L873">                                                &quot;update &quot; + table.getKey() + &quot; set &quot; + table.getValue() + &quot; = '&quot; + _wordt + &quot;' where &quot; + table.getValue() + &quot; = '&quot; + _was + &quot;'&quot;</span>
+                                        );
+<span class="nc" id="L875">                            } catch (Exception e) {</span>
+<span class="nc" id="L876">                                return e;</span>
+<span class="nc" id="L877">                            }</span>
+<span class="nc" id="L878">                            _processed.increment();</span>
+                        }
+<span class="nc" id="L880">                        return null;</span>
+                    }
+                });
+<span class="nc" id="L883">                offset += _processed.intValue();</span>
+
+<span class="nc" id="L885">                progress(this.processed + _processed.intValue());</span>
+
+<span class="nc bnc" id="L887" title="All 2 branches missed.">                if (e != null) {</span>
+<span class="nc" id="L888">                    DbUtils.closeQuietly(conn);</span>
+<span class="nc" id="L889">                    throw e;</span>
+                }
+<span class="nc bnc" id="L891" title="All 2 branches missed.">            } while (_processed.intValue() &gt; 0);</span>
+<span class="nc" id="L892">        }</span>
+<span class="nc" id="L893">        DbUtils.closeQuietly(conn);</span>
+<span class="nc" id="L894">    }</span>
+
+    public void fillbestandsNaamHersteld(String soort, String config) throws BrmoException, SQLException, Exception {
+<span class="nc" id="L897">        int offset = 0;</span>
+<span class="nc" id="L898">        int batch = 100;</span>
+<span class="nc" id="L899">        final MutableInt _processed = new MutableInt(0);</span>
+<span class="nc" id="L900">        final DataSource dataSourceRsgb = ConfigUtil.getDataSourceStaging();</span>
+<span class="nc" id="L901">        final Connection conn = dataSourceRsgb.getConnection();</span>
+<span class="nc" id="L902">        final GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);</span>
+<span class="nc" id="L903">        final RowProcessor processor = new StagingRowHandler();</span>
+
+<span class="nc" id="L905">        String countsql = &quot;select count(*) from &quot; + BrmoFramework.BERICHT_TABLE + &quot; where soort='&quot; + soort + &quot;' &quot; + &quot; and volgordenummer &gt; &quot; + config;</span>
+
+<span class="nc" id="L907">        Object o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, countsql, new ScalarHandler());</span>
+<span class="nc bnc" id="L908" title="All 2 branches missed.">        if (o instanceof BigDecimal) {</span>
+<span class="nc" id="L909">            total(((Number) o).longValue());</span>
+<span class="nc bnc" id="L910" title="All 2 branches missed.">        } else if (o instanceof Integer) {</span>
+<span class="nc" id="L911">            total(((Number) o).longValue());</span>
+        } else {
+<span class="nc" id="L913">            total((Long) o);</span>
+        }
+
+        do {
+<span class="nc" id="L917">            LOG.debug(String.format(&quot;Ophalen berichten batch met offset %d, limit %d, voortgang %f&quot;, offset, batch, progress));</span>
+<span class="nc" id="L918">            String sql = &quot;select * from &quot; + BrmoFramework.BERICHT_TABLE</span>
+                    + &quot; where soort='&quot; + soort + &quot;' &quot;
+                    + &quot; and volgordenummer &gt; &quot; + config
+                    + &quot; order by id &quot;;
+<span class="nc" id="L922">            sql = geomToJdbc.buildPaginationSql(sql, offset, batch);</span>
+<span class="nc" id="L923">            LOG.debug(&quot;SQL voor ophalen berichten batch: &quot; + sql);</span>
+
+<span class="nc" id="L925">            _processed.setValue(0);</span>
+<span class="nc" id="L926">            Exception e = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, sql, new ResultSetHandler&lt;Exception&gt;() {</span>
+                @Override
+                public Exception handle(ResultSet rs) throws SQLException {
+<span class="nc bnc" id="L929" title="All 2 branches missed.">                    while (rs.next()) {</span>
+                        try {
+<span class="nc" id="L931">                            final Bericht bericht = processor.toBean(rs, Bericht.class);</span>
+<span class="nc" id="L932">                            final BrkBericht brkBericht = new BrkBericht(bericht.getBrXml());</span>
+<span class="nc" id="L933">                            brkBericht.setBrOrgineelXml(bericht.getBrOrgineelXml());</span>
+<span class="nc" id="L934">                            final String bestandsnaamHersteld = brkBericht.getRestoredFileName(bericht.getDatum(), bericht.getVolgordeNummer());</span>
+<span class="nc" id="L935">                            LOG.debug(String.format(</span>
+                                    &quot;Bijwerken bestand_naam_hersteld voor laadproces %d met waarde '%s' op basis van bericht %d&quot;,
+<span class="nc" id="L937">                                    bericht.getLaadProcesId(),</span>
+                                    bestandsnaamHersteld,
+<span class="nc" id="L939">                                    bericht.getId())</span>
+                            );
+<span class="nc" id="L941">                            new QueryRunner(geomToJdbc.isPmdKnownBroken())</span>
+<span class="nc" id="L942">                                    .update(conn,</span>
+                                            &quot;update &quot; + BrmoFramework.LAADPROCES_TABEL + &quot; set bestand_naam_hersteld = ? where id = ?&quot;,
+                                            bestandsnaamHersteld,
+<span class="nc" id="L945">                                            bericht.getLaadProcesId()</span>
+                                    );
+<span class="nc" id="L947">                        } catch (SQLException e) {</span>
+<span class="nc" id="L948">                            return e;</span>
+<span class="nc" id="L949">                        }</span>
+<span class="nc" id="L950">                        _processed.increment();</span>
+                    }
+<span class="nc" id="L952">                    return null;</span>
+                }
+            });
+<span class="nc" id="L955">            offset += _processed.intValue();</span>
+
+<span class="nc" id="L957">            progress(this.processed + _processed.intValue());</span>
+
+            // If handler threw exception processing row, rethrow it
+<span class="nc bnc" id="L960" title="All 2 branches missed.">            if (e != null) {</span>
+<span class="nc" id="L961">                DbUtils.closeQuietly(conn);</span>
+<span class="nc" id="L962">                throw e;</span>
+            }
+<span class="nc bnc" id="L964" title="All 2 branches missed.">        } while (_processed.intValue() &gt; 0);</span>
+<span class="nc" id="L965">        DbUtils.closeQuietly(conn);</span>
+<span class="nc" id="L966">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

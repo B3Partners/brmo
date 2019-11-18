@@ -1,4 +1,4 @@
-// dot 2.40.1 on Linux 4.18.0-13-generic
+// dot 2.40.1 on Linux 5.0.0-36-generic
 // SchemaSpy rev Unknown
 digraph "vb_vbo_adres" {
   graph [
@@ -23,8 +23,10 @@ digraph "vb_vbo_adres" {
       <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">vb_vbo_adres</TD></TR>
       <TR><TD PORT="vbo_identif" COLSPAN="3" ALIGN="LEFT">vbo_identif</TD></TR>
       <TR><TD PORT="begin_geldigheid" COLSPAN="3" ALIGN="LEFT">begin_geldigheid</TD></TR>
+      <TR><TD PORT="begin_geldigheid_datum" COLSPAN="3" ALIGN="LEFT">begin_geldigheid_datum</TD></TR>
       <TR><TD PORT="pand_identif" COLSPAN="3" ALIGN="LEFT">pand_identif</TD></TR>
       <TR><TD PORT="na_identif" COLSPAN="3" ALIGN="LEFT">na_identif</TD></TR>
+      <TR><TD PORT="na_status" COLSPAN="3" ALIGN="LEFT">na_status</TD></TR>
       <TR><TD PORT="gemeente" COLSPAN="3" ALIGN="LEFT">gemeente</TD></TR>
       <TR><TD PORT="woonplaats" COLSPAN="3" ALIGN="LEFT">woonplaats</TD></TR>
       <TR><TD PORT="straatnaam" COLSPAN="3" ALIGN="LEFT">straatnaam</TD></TR>
@@ -33,6 +35,8 @@ digraph "vb_vbo_adres" {
       <TR><TD PORT="huisnummer_toev" COLSPAN="3" ALIGN="LEFT">huisnummer_toev</TD></TR>
       <TR><TD PORT="postcode" COLSPAN="3" ALIGN="LEFT">postcode</TD></TR>
       <TR><TD PORT="status" COLSPAN="3" ALIGN="LEFT">status</TD></TR>
+      <TR><TD PORT="gebruiksdoelen" COLSPAN="3" ALIGN="LEFT">gebruiksdoelen</TD></TR>
+      <TR><TD PORT="oppervlakte_obj" COLSPAN="3" ALIGN="LEFT">oppervlakte_obj</TD></TR>
       <TR><TD PORT="the_geom" COLSPAN="3" ALIGN="LEFT">the_geom</TD></TR>
       <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">view</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD></TR>
     </TABLE>>

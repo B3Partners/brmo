@@ -374,20 +374,20 @@ digraph G {
 <tr><td align="left" balign="left"> + createStuurgegevensAntwoord() : Stuurgegevens.Antwoord </td></tr>
 <tr><td align="left" balign="left"> + createStuurgegevensBevestiging() : Stuurgegevens.Bevestiging </td></tr>
 <tr><td align="left" balign="left"> + createStuurgegevensFout() : Stuurgegevens.Fout </td></tr>
-<tr><td align="left" balign="left"> + createExtraElement() : ExtraElement </td></tr>
-<tr><td align="left" balign="left"> + createStUFBerichtenSet() : StUFBerichtenSet </td></tr>
 <tr><td align="left" balign="left"> + createFoutBerichtBody() : FoutBericht.Body </td></tr>
 <tr><td align="left" balign="left"> + createBevestigingsBericht() : BevestigingsBericht </td></tr>
-<tr><td align="left" balign="left"> + createDatumMetIndicator() : DatumMetIndicator </td></tr>
-<tr><td align="left" balign="left"> + createTijdvakRelatie() : TijdvakRelatie </td></tr>
+<tr><td align="left" balign="left"> + createStUFBerichtenSet() : StUFBerichtenSet </td></tr>
+<tr><td align="left" balign="left"> + createExtraElement() : ExtraElement </td></tr>
 <tr><td align="left" balign="left"> + createExtraElementen() : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> + createDatumMetIndicator() : DatumMetIndicator </td></tr>
 <tr><td align="left" balign="left"> + createTijdvakGeldigheid() : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> + createTijdvakRelatie() : TijdvakRelatie </td></tr>
 <tr><td align="left" balign="left"> + createDatumMetIndicatorKerngegeven() : DatumMetIndicatorKerngegeven </td></tr>
 <tr><td align="left" balign="left"> + createTransmissionError(value : String) : JAXBElement&lt;String&gt; </td></tr>
 <tr><td align="left" balign="left"> + createExtraElement(value : ExtraElement) : JAXBElement&lt;ExtraElement&gt; </td></tr>
+<tr><td align="left" balign="left"> + createStUFBerichtenSetKennisgevingsBericht(value : Object) : JAXBElement&lt;Object&gt; </td></tr>
 <tr><td align="left" balign="left"> + createStUFBerichtenSetVraagBericht(value : Object) : JAXBElement&lt;Object&gt; </td></tr>
 <tr><td align="left" balign="left"> + createStUFBerichtenSetAsynchroonAntwoordBericht(value : Object) : JAXBElement&lt;Object&gt; </td></tr>
-<tr><td align="left" balign="left"> + createStUFBerichtenSetKennisgevingsBericht(value : Object) : JAXBElement&lt;Object&gt; </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ObjectFactory.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.stuf0204.FoutPlek

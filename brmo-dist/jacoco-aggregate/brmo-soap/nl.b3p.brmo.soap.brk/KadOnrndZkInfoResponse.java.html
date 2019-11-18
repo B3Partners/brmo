@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>KadOnrndZkInfoResponse.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO distributie</a> &gt; <a href="../index.html" class="el_bundle">brmo-soap</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.soap.brk</a> &gt; <span class="el_source">KadOnrndZkInfoResponse.java</span></div><h1>KadOnrndZkInfoResponse.java</h1><pre class="source lang-java linenums">package nl.b3p.brmo.soap.brk;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.Date;
+import java.util.Map;
+import javax.sql.DataSource;
+import javax.xml.bind.annotation.XmlType;
+import nl.b3p.brmo.service.util.ConfigUtil;
+import nl.b3p.brmo.soap.db.BrkInfo;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+/**
+ *
+ * @author Chris
+ */
+@XmlType
+public class KadOnrndZkInfoResponse {
+
+<span class="nc" id="L22">    private static final Log LOG = LogFactory.getLog(KadOnrndZkInfoResponse.class);</span>
+
+    private String gemeentecode;
+    private String sectie;
+    private String perceelnummer;
+    private String appReVolgnummer;
+    private String identificatie;
+    private String aandSoortGrootte;
+    private String begrenzingPerceel;
+    private Float groottePerceel;
+    private String omschr_deelperceel;
+    private String aardCultuurOnbebouwd;
+    private Date datumBeginGeldigheid;
+    private Date datumEindeGeldigheid;
+    private Float bedrag;
+    private Integer koopjaar;
+    private Boolean meerOnroerendgoed;
+    private String type; // appartement of perceel
+    private AdressenResponse adressen;
+    private RechtenResponse rechten;
+    private RelatiesResponse relaties;
+
+<span class="nc" id="L44">    public KadOnrndZkInfoResponse() {</span>
+<span class="nc" id="L45">    }</span>
+
+    /**
+     * Afkorting voor kadastrale gemeente als gebruikt in AKR
+     *
+     * @return the gemeentecode
+     */
+    public String getGemeentecode() {
+<span class="nc" id="L53">        return gemeentecode;</span>
+    }
+
+    /**
+     * Afkorting voor kadastrale gemeente als gebruikt in AKR
+     *
+     *
+     * @param gemeentecode the gemeentecode to set
+     */
+    public void setGemeentecode(String gemeentecode) {
+<span class="nc" id="L63">        this.gemeentecode = gemeentecode;</span>
+<span class="nc" id="L64">    }</span>
+
+    /**
+     * Letter van sectie
+     *
+     * @return the sectie
+     */
+    public String getSectie() {
+<span class="nc" id="L72">        return sectie;</span>
+    }
+
+    /**
+     * Letter van sectie
+     *
+     * @param sectie the sectie to set
+     */
+    public void setSectie(String sectie) {
+<span class="nc" id="L81">        this.sectie = sectie;</span>
+<span class="nc" id="L82">    }</span>
+
+    /**
+     * nummer van het perceel
+     *
+     * @return the perceelnummer
+     */
+    public String getPerceelnummer() {
+<span class="nc" id="L90">        return perceelnummer;</span>
+    }
+
+    /**
+     * nummer van het perceel
+     *
+     * @param perceelnummer the perceelnummer to set
+     */
+    public void setPerceelnummer(String perceelnummer) {
+<span class="nc" id="L99">        this.perceelnummer = perceelnummer;</span>
+<span class="nc" id="L100">    }</span>
+
+    /**
+     * In geval van een appartement kan hier het volgnummer worden opgegeven
+     *
+     * @return the appReVolgnummer
+     */
+    public String getAppReVolgnummer() {
+<span class="nc" id="L108">        return appReVolgnummer;</span>
+    }
+
+    /**
+     * In geval van een appartement kan hier het volgnummer worden opgegeven
+     *
+     * @param appReVolgnummer the appReVolgnummer to set
+     */
+    public void setAppReVolgnummer(String appReVolgnummer) {
+<span class="nc" id="L117">        this.appReVolgnummer = appReVolgnummer;</span>
+<span class="nc" id="L118">    }</span>
+
+    /**
+     * Formele kadatstrale object nummer
+     *
+     * @return the identificatie
+     */
+    public String getIdentificatie() {
+<span class="nc" id="L126">        return identificatie;</span>
+    }
+
+    /**
+     * Formele kadatstrale object nummer
+     *
+     * @param identificatie the identificatie to set
+     */
+    public void setIdentificatie(String identificatie) {
+<span class="nc" id="L135">        this.identificatie = identificatie;</span>
+<span class="nc" id="L136">    }</span>
+
+    /**
+     * @return the aandSoortGrootte
+     */
+    public String getAandSoortGrootte() {
+<span class="nc" id="L142">        return aandSoortGrootte;</span>
+    }
+
+    /**
+     * @param aandSoortGrootte the aandSoortGrootte to set
+     */
+    public void setAandSoortGrootte(String aandSoortGrootte) {
+<span class="nc" id="L149">        this.aandSoortGrootte = aandSoortGrootte;</span>
+<span class="nc" id="L150">    }</span>
+
+    /**
+     * @return the begrenzingPerceel
+     */
+    public String getBegrenzingPerceel() {
+<span class="nc" id="L156">        return begrenzingPerceel;</span>
+    }
+
+    /**
+     * @param begrenzingPerceel the begrenzingPerceel to set
+     */
+    public void setBegrenzingPerceel(String begrenzingPerceel) {
+<span class="nc" id="L163">        this.begrenzingPerceel = begrenzingPerceel;</span>
+<span class="nc" id="L164">    }</span>
+
+    /**
+     * @return the groottePerceel
+     */
+    public Float getGroottePerceel() {
+<span class="nc" id="L170">        return groottePerceel;</span>
+    }
+
+    /**
+     * @param groottePerceel the groottePerceel to set
+     */
+    public void setGroottePerceel(Float groottePerceel) {
+<span class="nc" id="L177">        this.groottePerceel = groottePerceel;</span>
+<span class="nc" id="L178">    }</span>
+
+    /**
+     * @return the omschr_deelperceel
+     */
+    public String getOmschr_deelperceel() {
+<span class="nc" id="L184">        return omschr_deelperceel;</span>
+    }
+
+    /**
+     * @param omschr_deelperceel the omschr_deelperceel to set
+     */
+    public void setOmschr_deelperceel(String omschr_deelperceel) {
+<span class="nc" id="L191">        this.omschr_deelperceel = omschr_deelperceel;</span>
+<span class="nc" id="L192">    }</span>
+
+    /**
+     * @return the aardCultuurOnbebouwd
+     */
+    public String getAardCultuurOnbebouwd() {
+<span class="nc" id="L198">        return aardCultuurOnbebouwd;</span>
+    }
+
+    /**
+     * @param aardCultuurOnbebouwd the aardCultuurOnbebouwd to set
+     */
+    public void setAardCultuurOnbebouwd(String aardCultuurOnbebouwd) {
+<span class="nc" id="L205">        this.aardCultuurOnbebouwd = aardCultuurOnbebouwd;</span>
+<span class="nc" id="L206">    }</span>
+
+    /**
+     * @return the datumBeginGeldigheid
+     */
+    public Date getDatumBeginGeldigheid() {
+<span class="nc" id="L212">        return datumBeginGeldigheid;</span>
+    }
+
+    /**
+     * @param datumBeginGeldigheid the datumBeginGeldigheid to set
+     */
+    public void setDatumBeginGeldigheid(Date datumBeginGeldigheid) {
+<span class="nc" id="L219">        this.datumBeginGeldigheid = datumBeginGeldigheid;</span>
+<span class="nc" id="L220">    }</span>
+
+    /**
+     * @return the datumEindeGeldigheid
+     */
+    public Date getDatumEindeGeldigheid() {
+<span class="nc" id="L226">        return datumEindeGeldigheid;</span>
+    }
+
+    /**
+     * @param datumEindeGeldigheid the datumEindeGeldigheid to set
+     */
+    public void setDatumEindeGeldigheid(Date datumEindeGeldigheid) {
+<span class="nc" id="L233">        this.datumEindeGeldigheid = datumEindeGeldigheid;</span>
+<span class="nc" id="L234">    }</span>
+
+    /**
+     * @return the bedrag
+     */
+    public Float getBedrag() {
+<span class="nc" id="L240">        return bedrag;</span>
+    }
+
+    /**
+     * @param bedrag the bedrag to set
+     */
+    public void setBedrag(Float bedrag) {
+<span class="nc" id="L247">        this.bedrag = bedrag;</span>
+<span class="nc" id="L248">    }</span>
+
+    /**
+     * @return the koopjaar
+     */
+    public Integer getKoopjaar() {
+<span class="nc" id="L254">        return koopjaar;</span>
+    }
+
+    /**
+     * @param koopjaar the koopjaar to set
+     */
+    public void setKoopjaar(Integer koopjaar) {
+<span class="nc" id="L261">        this.koopjaar = koopjaar;</span>
+<span class="nc" id="L262">    }</span>
+
+    /**
+     * @return the meerOnroerendgoed
+     */
+    public Boolean isMeerOnroerendgoed() {
+<span class="nc" id="L268">        return meerOnroerendgoed;</span>
+    }
+
+    /**
+     * @param meerOnroerendgoed the meerOnroerendgoed to set
+     */
+    public void setMeerOnroerendgoed(Boolean meerOnroerendgoed) {
+<span class="nc" id="L275">        this.meerOnroerendgoed = meerOnroerendgoed;</span>
+<span class="nc" id="L276">    }</span>
+
+    /**
+     * @return the type
+     */
+    public String getType() {
+<span class="nc" id="L282">        return type;</span>
+    }
+
+    /**
+     * @param type the type to set
+     */
+    public void setType(String type) {
+<span class="nc" id="L289">        this.type = type;</span>
+<span class="nc" id="L290">    }</span>
+
+    /**
+     * @return the adressen
+     */
+    public AdressenResponse getAdressen() {
+<span class="nc" id="L296">        return adressen;</span>
+    }
+
+    /**
+     * @param adressen the adressen to set
+     */
+    public void setAdressen(AdressenResponse adressen) {
+<span class="nc" id="L303">        this.adressen = adressen;</span>
+<span class="nc" id="L304">    }</span>
+
+    /**
+     * @return the rechten
+     */
+    public RechtenResponse getRechten() {
+<span class="nc" id="L310">        return rechten;</span>
+    }
+
+    /**
+     * @param rechten the rechten to set
+     */
+    public void setRechten(RechtenResponse rechten) {
+<span class="nc" id="L317">        this.rechten = rechten;</span>
+<span class="nc" id="L318">    }</span>
+
+    /**
+     * @return the relaties
+     */
+    public RelatiesResponse getRelaties() {
+<span class="nc" id="L324">        return relaties;</span>
+    }
+
+    /**
+     * @param relaties the relaties to set
+     */
+    public void setRelaties(RelatiesResponse relaties) {
+<span class="nc" id="L331">        this.relaties = relaties;</span>
+<span class="nc" id="L332">    }</span>
+
+    private static StringBuilder createFullColumnsSQL() {
+<span class="nc" id="L335">        StringBuilder sql = new StringBuilder();</span>
+<span class="nc" id="L336">        sql.append(&quot;    app_re.ka_sectie AS app_re_sectie,&quot;);</span>
+<span class="nc" id="L337">        sql.append(&quot;    app_re.ka_perceelnummer  AS app_re_perceelnummer,&quot;);</span>
+<span class="nc" id="L338">        sql.append(&quot;    app_re.ka_kad_gemeentecode AS app_re_kad_gemeentecode,&quot;);</span>
+<span class="nc" id="L339">        sql.append(&quot;    app_re.ka_appartementsindex,&quot;);</span>
+<span class="nc" id="L340">        sql.append(&quot;    kad_perceel.ka_sectie,&quot;);</span>
+<span class="nc" id="L341">        sql.append(&quot;    kad_perceel.ka_perceelnummer,&quot;);</span>
+<span class="nc" id="L342">        sql.append(&quot;    kad_perceel.ka_kad_gemeentecode,&quot;);</span>
+<span class="nc" id="L343">        sql.append(&quot;    kad_perceel.ka_deelperceelnummer,&quot;);</span>
+<span class="nc" id="L344">        sql.append(&quot;    kad_onrrnd_zk.dat_beg_geldh,&quot;);</span>
+<span class="nc" id="L345">        sql.append(&quot;    kad_onrrnd_zk.datum_einde_geldh,&quot;);</span>
+<span class="nc" id="L346">        sql.append(&quot;    kad_onrrnd_zk.kad_identif,&quot;);</span>
+<span class="nc" id="L347">        sql.append(&quot;    kad_perceel.aand_soort_grootte,&quot;);</span>
+<span class="nc" id="L348">        sql.append(&quot;    kad_onrrnd_zk.cu_aard_cultuur_onbebouwd,&quot;);</span>
+<span class="nc" id="L349">        sql.append(&quot;    kad_onrrnd_zk.lr_bedrag,&quot;);</span>
+<span class="nc" id="L350">        sql.append(&quot;    kad_perceel.begrenzing_perceel,&quot;);</span>
+<span class="nc" id="L351">        sql.append(&quot;    kad_perceel.grootte_perceel,&quot;);</span>
+<span class="nc" id="L352">        sql.append(&quot;    kad_onrrnd_zk.ks_koopjaar,&quot;);</span>
+<span class="nc" id="L353">        sql.append(&quot;    kad_onrrnd_zk.ks_meer_onroerendgoed,&quot;);</span>
+<span class="nc" id="L354">        sql.append(&quot;    kad_perceel.omschr_deelperceel &quot;);</span>
+<span class="nc" id="L355">        return sql;</span>
+    }
+
+    private static StringBuilder createFromSQL() {
+<span class="nc" id="L359">        StringBuilder sql = new StringBuilder();</span>
+<span class="nc" id="L360">        sql.append(&quot;    kad_onrrnd_zk &quot;);</span>
+<span class="nc" id="L361">        sql.append(&quot;LEFT OUTER JOIN &quot;);</span>
+<span class="nc" id="L362">        sql.append(&quot;    kad_perceel &quot;);</span>
+<span class="nc" id="L363">        sql.append(&quot;ON &quot;);</span>
+<span class="nc" id="L364">        sql.append(&quot;    ( &quot;);</span>
+<span class="nc" id="L365">        sql.append(&quot;        kad_onrrnd_zk.kad_identif = kad_perceel.sc_kad_identif) &quot;);</span>
+<span class="nc" id="L366">        sql.append(&quot;LEFT OUTER JOIN &quot;);</span>
+<span class="nc" id="L367">        sql.append(&quot;    app_re &quot;);</span>
+<span class="nc" id="L368">        sql.append(&quot;ON &quot;);</span>
+<span class="nc" id="L369">        sql.append(&quot;    ( &quot;);</span>
+<span class="nc" id="L370">        sql.append(&quot;        kad_onrrnd_zk.kad_identif = app_re.sc_kad_identif) &quot;);</span>
+<span class="nc" id="L371">        return sql;</span>
+    }
+
+    private static StringBuilder createWhereSQL() {
+<span class="nc" id="L375">        StringBuilder sql = new StringBuilder();</span>
+<span class="nc" id="L376">        sql.append(&quot;    kad_onrrnd_zk.kad_identif = ? &quot;);</span>
+<span class="nc" id="L377">        return sql;</span>
+    }
+
+    public static KadOnrndZkInfoResponse getRecord(Long id,
+            Map&lt;String, Object&gt; searchContext) throws Exception {
+
+<span class="nc" id="L383">        DataSource ds = ConfigUtil.getDataSourceRsgb();</span>
+<span class="nc" id="L384">        PreparedStatement stm = null;</span>
+<span class="nc" id="L385">        Connection connRsgb = null;</span>
+<span class="nc" id="L386">        ResultSet rs = null;</span>
+        try {
+<span class="nc" id="L388">            connRsgb = ds.getConnection();</span>
+<span class="nc" id="L389">            StringBuilder sql = new StringBuilder();</span>
+<span class="nc" id="L390">            sql.append(&quot;SELECT &quot;);</span>
+<span class="nc" id="L391">            sql.append(createFullColumnsSQL());</span>
+<span class="nc" id="L392">            sql.append(&quot;FROM &quot;);</span>
+<span class="nc" id="L393">            sql.append(createFromSQL());</span>
+<span class="nc" id="L394">            sql.append(&quot;WHERE &quot;);</span>
+<span class="nc" id="L395">            sql.append(createWhereSQL());</span>
+<span class="nc" id="L396">            LOG.trace(sql);</span>
+<span class="nc" id="L397">            LOG.trace(id);</span>
+<span class="nc" id="L398">            stm = connRsgb.prepareStatement(sql.toString());</span>
+<span class="nc" id="L399">            stm.setLong(1, id);</span>
+<span class="nc" id="L400">            rs = stm.executeQuery();</span>
+
+<span class="nc" id="L402">            KadOnrndZkInfoResponse koz = new KadOnrndZkInfoResponse();</span>
+<span class="nc bnc" id="L403" title="All 2 branches missed.">            if (rs.next()) {</span>
+<span class="nc" id="L404">                koz.setIdentificatie(Long.toString(rs.getLong(&quot;kad_identif&quot;)));</span>
+<span class="nc" id="L405">                koz.setAandSoortGrootte(rs.getString(&quot;aand_soort_grootte&quot;));</span>
+<span class="nc" id="L406">                koz.setAardCultuurOnbebouwd(rs.getString(&quot;cu_aard_cultuur_onbebouwd&quot;));</span>
+<span class="nc" id="L407">                koz.setBedrag(rs.getFloat(&quot;lr_bedrag&quot;));</span>
+<span class="nc" id="L408">                koz.setDatumBeginGeldigheid(rs.getDate(&quot;dat_beg_geldh&quot;));</span>
+<span class="nc" id="L409">                koz.setDatumEindeGeldigheid(rs.getDate(&quot;datum_einde_geldh&quot;));</span>
+<span class="nc" id="L410">                koz.setKoopjaar(rs.getInt(&quot;ks_koopjaar&quot;));</span>
+                // ks_meer_onroerendgoed is 'J' of 'N' string, geen boolean
+<span class="nc" id="L412">                koz.setMeerOnroerendgoed(rs.getString(&quot;ks_meer_onroerendgoed&quot;).equalsIgnoreCase(&quot;J&quot;));</span>
+<span class="nc" id="L413">                String type = &quot;perceel&quot;;</span>
+<span class="nc bnc" id="L414" title="All 2 branches missed.">                if (rs.getString(&quot;ka_appartementsindex&quot;) != null) {</span>
+<span class="nc" id="L415">                    type = &quot;appartement&quot;;</span>
+                }
+<span class="nc" id="L417">                koz.setType(type);</span>
+<span class="nc bnc" id="L418" title="All 2 branches missed.">                if (type.equalsIgnoreCase(&quot;appartement&quot;)) {</span>
+<span class="nc" id="L419">                    koz.setGemeentecode(rs.getString(&quot;app_re_kad_gemeentecode&quot;));</span>
+<span class="nc" id="L420">                    koz.setPerceelnummer(rs.getString(&quot;app_re_perceelnummer&quot;));</span>
+<span class="nc" id="L421">                    koz.setSectie(rs.getString(&quot;app_re_sectie&quot;));</span>
+<span class="nc" id="L422">                    koz.setAppReVolgnummer(rs.getString(&quot;ka_appartementsindex&quot;));</span>
+                } else {
+<span class="nc" id="L424">                    koz.setGemeentecode(rs.getString(&quot;ka_kad_gemeentecode&quot;));</span>
+<span class="nc" id="L425">                    koz.setPerceelnummer(rs.getString(&quot;ka_perceelnummer&quot;));</span>
+<span class="nc" id="L426">                    koz.setSectie(rs.getString(&quot;ka_sectie&quot;));</span>
+//                koz.setBegrenzingPerceel(rs.getString(&quot;begrenzing_perceel&quot;));
+<span class="nc" id="L428">                    koz.setGroottePerceel(rs.getFloat(&quot;grootte_perceel&quot;));</span>
+<span class="nc" id="L429">                    koz.setOmschr_deelperceel(rs.getString(&quot;omschr_deelperceel&quot;));</span>
+                }
+
+<span class="nc" id="L432">                koz.setRechten(RechtenResponse.getRechtenByKoz(id, searchContext));</span>
+<span class="nc" id="L433">                Boolean at = (Boolean) searchContext.get(BrkInfo.ADRESSENTOEVOEGEN);</span>
+<span class="nc bnc" id="L434" title="All 4 branches missed.">                if (at != null &amp;&amp; at) {</span>
+<span class="nc" id="L435">                    koz.setAdressen(AdressenResponse.getAdressenByKoz(id));</span>
+                }
+//            koz.setRelaties(null);
+
+<span class="nc" id="L439">            } else {</span>
+<span class="nc" id="L440">                return null;</span>
+            }
+<span class="nc" id="L442">            return koz;</span>
+
+        } finally {
+<span class="nc bnc" id="L445" title="All 2 branches missed.">            if (rs != null) {</span>
+<span class="nc" id="L446">                rs.close();</span>
+            }
+<span class="nc bnc" id="L448" title="All 2 branches missed.">            if (stm != null) {</span>
+<span class="nc" id="L449">                stm.close();</span>
+            }
+<span class="nc bnc" id="L451" title="All 2 branches missed.">            if (connRsgb != null) {</span>
+<span class="nc" id="L452">                connRsgb.close();</span>
+            }
+        }
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

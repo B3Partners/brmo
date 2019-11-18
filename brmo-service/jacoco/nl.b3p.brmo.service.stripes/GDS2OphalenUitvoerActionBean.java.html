@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GDS2OphalenUitvoerActionBean.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO service</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.service.stripes</a> &gt; <span class="el_source">GDS2OphalenUitvoerActionBean.java</span></div><h1>GDS2OphalenUitvoerActionBean.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2015 B3Partners B.V.
+ */
+package nl.b3p.brmo.service.stripes;
+
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.util.Date;
+import net.sourceforge.stripes.action.ActionBean;
+import net.sourceforge.stripes.action.ActionBeanContext;
+import net.sourceforge.stripes.action.After;
+import net.sourceforge.stripes.action.Before;
+import net.sourceforge.stripes.action.DefaultHandler;
+import net.sourceforge.stripes.action.ForwardResolution;
+import net.sourceforge.stripes.action.Resolution;
+import net.sourceforge.stripes.action.SimpleMessage;
+import net.sourceforge.stripes.validation.Validate;
+import nl.b3p.brmo.persistence.staging.AutomatischProces;
+import nl.b3p.brmo.service.scanner.ProgressUpdateListener;
+import nl.b3p.brmo.persistence.staging.GDS2OphaalProces;
+import nl.b3p.brmo.service.scanner.AbstractExecutableProces;
+import nl.b3p.brmo.service.scanner.GDS2OphalenProces;
+import nl.b3p.brmo.service.scanner.ProcesExecutable;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.stripesstuff.plugin.waitpage.WaitPage;
+import org.stripesstuff.stripersist.EntityTypeConverter;
+import org.stripesstuff.stripersist.Stripersist;
+
+/**
+ *
+ * @author Matthijs Laan
+ */
+<span class="nc" id="L34">public class GDS2OphalenUitvoerActionBean implements ActionBean, ProgressUpdateListener {</span>
+
+    private static final String JSP = &quot;/WEB-INF/jsp/beheer/gds2ophalenuitvoeren.jsp&quot;;
+
+<span class="nc" id="L38">    private static final Log LOG = LogFactory.getLog(GDS2OphalenUitvoerActionBean.class);</span>
+
+    private ActionBeanContext context;
+
+    @Validate(converter = EntityTypeConverter.class)
+    private GDS2OphaalProces proces;
+
+    private double progress;
+
+    private long total;
+
+    private long processed;
+
+    private boolean complete;
+
+    private String status;
+
+    private String label;
+
+<span class="nc" id="L57">    private StringBuilder log = new StringBuilder();</span>
+
+<span class="nc" id="L59">    private int logLineCounter = 0;</span>
+
+    private Date start;
+
+    private Date update;
+
+    private String exceptionStacktrace;
+
+    @Before
+    public void before() {
+<span class="nc" id="L69">        start = new Date();</span>
+<span class="nc" id="L70">    }</span>
+
+    @After
+    public void completed() {
+<span class="nc" id="L74">        complete = true;</span>
+<span class="nc" id="L75">    }</span>
+
+    @Override
+    public void total(long total) {
+<span class="nc" id="L79">        this.total = total;</span>
+<span class="nc" id="L80">    }</span>
+
+    @Override
+    public void progress(long progress) {
+<span class="nc" id="L84">        this.processed = progress;</span>
+<span class="nc bnc" id="L85" title="All 2 branches missed.">        if (this.total != 0) {</span>
+<span class="nc" id="L86">            this.progress = (100.0 / this.total) * this.processed;</span>
+        }
+<span class="nc" id="L88">        this.update = new Date();</span>
+<span class="nc" id="L89">    }</span>
+
+    @Override
+    public void exception(Throwable t) {
+<span class="nc" id="L93">        StringWriter sw = new StringWriter();</span>
+<span class="nc" id="L94">        t.printStackTrace(new PrintWriter(sw));</span>
+<span class="nc" id="L95">        this.exceptionStacktrace = sw.toString();</span>
+<span class="nc" id="L96">    }</span>
+
+    @Override
+    public void updateStatus(String status) {
+<span class="nc" id="L100">        this.status = status;</span>
+<span class="nc" id="L101">    }</span>
+
+    @Override
+    public void addLog(String line) {
+<span class="nc bnc" id="L105" title="All 2 branches missed.">        if (this.logLineCounter &gt; 3000) {</span>
+            // trim buffer met 150 regels (5%)
+<span class="nc bnc" id="L107" title="All 2 branches missed.">            for (int removeline = 0; removeline &lt; 150; removeline++) {</span>
+<span class="nc" id="L108">                this.log.delete(0, this.log.indexOf(&quot;\n&quot;) + 1);</span>
+            }
+<span class="nc" id="L110">            this.log.trimToSize();</span>
+<span class="nc" id="L111">            this.logLineCounter = this.log.toString().split(&quot;\n&quot;).length;</span>
+        }
+<span class="nc" id="L113">        this.log.append(line).append(&quot;\n&quot;);</span>
+<span class="nc" id="L114">        this.logLineCounter++;</span>
+<span class="nc" id="L115">        GDS2OphalenProces.getLog().info(line);</span>
+<span class="nc" id="L116">    }</span>
+
+    @DefaultHandler
+    @WaitPage(path = JSP, delay = 1000, refresh = 1000)
+    public Resolution execute() {
+
+<span class="nc bnc" id="L122" title="All 2 branches missed.">        if (proces == null) {</span>
+<span class="nc" id="L123">            getContext().getMessages().add(new SimpleMessage(&quot;Proces ongeldig!&quot;));</span>
+<span class="nc" id="L124">            completed();</span>
+<span class="nc" id="L125">            return new ForwardResolution(JSP);</span>
+        }
+        // opnieuw laden van config omdat de waitpage de entity detached
+<span class="nc" id="L128">        proces = (GDS2OphaalProces) Stripersist.getEntityManager().find(AutomatischProces.class, proces.getId());</span>
+<span class="nc" id="L129">        ProcesExecutable exeProces = AbstractExecutableProces.getProces(proces);</span>
+
+        try {
+<span class="nc" id="L132">            exeProces.execute(this);</span>
+        } finally {
+<span class="nc" id="L134">            completed();</span>
+<span class="nc bnc" id="L135" title="All 2 branches missed.">            if (Stripersist.getEntityManager().getTransaction().isActive()) {</span>
+<span class="nc" id="L136">                Stripersist.getEntityManager().getTransaction().rollback();</span>
+            }
+        }
+
+<span class="nc" id="L140">        return new ForwardResolution(JSP);</span>
+    }
+
+    // &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;getters en setters&quot;&gt;
+    @Override
+    public ActionBeanContext getContext() {
+<span class="nc" id="L146">        return context;</span>
+    }
+
+    @Override
+    public void setContext(ActionBeanContext context) {
+<span class="nc" id="L151">        this.context = context;</span>
+<span class="nc" id="L152">    }</span>
+
+    public String getLog() {
+<span class="nc" id="L155">        return log.toString();</span>
+    }
+
+    public void setLog(String log) {
+<span class="nc" id="L159">        this.log = new StringBuilder(log);</span>
+<span class="nc" id="L160">    }</span>
+
+    public long getTotal() {
+<span class="nc" id="L163">        return total;</span>
+    }
+
+    public void setTotal(long total) {
+<span class="nc" id="L167">        this.total = total;</span>
+<span class="nc" id="L168">    }</span>
+
+    public long getProcessed() {
+<span class="nc" id="L171">        return processed;</span>
+    }
+
+    public void setProcessed(long processed) {
+<span class="nc" id="L175">        this.processed = processed;</span>
+<span class="nc" id="L176">    }</span>
+
+    public boolean isComplete() {
+<span class="nc" id="L179">        return complete;</span>
+    }
+
+    public void setComplete(boolean complete) {
+<span class="nc" id="L183">        this.complete = complete;</span>
+<span class="nc" id="L184">    }</span>
+
+    public Date getStart() {
+<span class="nc" id="L187">        return start;</span>
+    }
+
+    public void setStart(Date start) {
+<span class="nc" id="L191">        this.start = start;</span>
+<span class="nc" id="L192">    }</span>
+
+    public Date getUpdate() {
+<span class="nc" id="L195">        return update;</span>
+    }
+
+    public void setUpdate(Date update) {
+<span class="nc" id="L199">        this.update = update;</span>
+<span class="nc" id="L200">    }</span>
+
+    public double getProgress() {
+<span class="nc" id="L203">        return progress;</span>
+    }
+
+    public void setProgress(double progress) {
+<span class="nc" id="L207">        this.progress = progress;</span>
+<span class="nc" id="L208">    }</span>
+
+    public String getExceptionStacktrace() {
+<span class="nc" id="L211">        return exceptionStacktrace;</span>
+    }
+
+    public void setExceptionStacktrace(String exceptionStacktrace) {
+<span class="nc" id="L215">        this.exceptionStacktrace = exceptionStacktrace;</span>
+<span class="nc" id="L216">    }</span>
+
+    public GDS2OphaalProces getProces() {
+<span class="nc" id="L219">        return proces;</span>
+    }
+
+    public void setProces(GDS2OphaalProces proces) {
+<span class="nc" id="L223">        this.proces = proces;</span>
+<span class="nc" id="L224">    }</span>
+
+    public String getStatus() {
+<span class="nc" id="L227">        return status;</span>
+    }
+
+    public void setStatus(String status) {
+<span class="nc" id="L231">        this.status = status;</span>
+<span class="nc" id="L232">    }</span>
+
+    public String getLabel() {
+<span class="nc" id="L235">        return label;</span>
+    }
+
+    public void setLabel(String label) {
+<span class="nc" id="L239">        this.label = label;</span>
+<span class="nc" id="L240">    }</span>
+    // &lt;/editor-fold&gt;
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

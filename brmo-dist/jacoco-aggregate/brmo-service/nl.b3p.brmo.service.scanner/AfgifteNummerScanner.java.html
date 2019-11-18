@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>AfgifteNummerScanner.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO distributie</a> &gt; <a href="../index.html" class="el_bundle">brmo-service</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.service.scanner</a> &gt; <span class="el_source">AfgifteNummerScanner.java</span></div><h1>AfgifteNummerScanner.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2019 B3Partners B.V.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+ */
+package nl.b3p.brmo.service.scanner;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.*;
+import javax.persistence.Transient;
+import javax.sql.DataSource;
+
+import nl.b3p.brmo.loader.util.BrmoException;
+import nl.b3p.brmo.persistence.staging.AfgifteNummerScannerProces;
+
+import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.ERROR;
+import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.PROCESSING;
+import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.WAITING;
+
+import nl.b3p.brmo.service.util.ConfigUtil;
+import nl.b3p.loader.jdbc.GeometryJdbcConverter;
+import nl.b3p.loader.jdbc.GeometryJdbcConverterFactory;
+import org.apache.commons.compress.utils.Sets;
+import org.apache.commons.dbutils.DbUtils;
+import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.ColumnListHandler;
+import org.apache.commons.dbutils.handlers.MapListHandler;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.stripesstuff.stripersist.Stripersist;
+
+/**
+ * Scan voor ontbrekende klantafgiftenummers voor een bepaald contractnummer in
+ * de laadproces tabel.
+ *
+ * @author mprins
+ */
+public class AfgifteNummerScanner extends AbstractExecutableProces {
+
+<span class="nc" id="L52">    private static final Log LOG = LogFactory.getLog(AfgifteNummerScanner.class);</span>
+    private AfgifteNummerScannerProces config;
+
+    @Transient
+    private ProgressUpdateListener listener;
+
+    private boolean ontbrekendeNummersGevonden;
+
+    /**
+     * Zoek contractnummers op van de GDS2 jobs.
+     *
+     * @return lijst met contractnummers, de lijst kan leeg zijn
+     */
+    public static List&lt;String&gt; contractnummers() {
+        try {
+<span class="nc" id="L67">            final DataSource ds = ConfigUtil.getDataSourceStaging();</span>
+<span class="nc" id="L68">            try (final Connection conn = ds.getConnection()) {</span>
+<span class="nc" id="L69">                final GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);</span>
+<span class="nc" id="L70">                String sql = &quot;select distinct cast(value as varchar(15)) from automatisch_proces_config where config_key = 'gds2_contractnummer'&quot;;</span>
+<span class="nc" id="L71">                List&lt;String&gt; contractnummers = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, sql, new ColumnListHandler&lt;&gt;());</span>
+                // omdat sql server geen distinct op een 'text' kolom kan doen halen we alles op en doen we distinct + sorteren aan de java kant
+                //contractnummers = new ArrayList&lt;&gt;(new HashSet(contractnummers));
+<span class="nc" id="L74">                contractnummers.sort(String::compareToIgnoreCase);</span>
+<span class="nc" id="L75">                DbUtils.closeQuietly(conn);</span>
+<span class="nc" id="L76">                return Collections.unmodifiableList(contractnummers);</span>
+            }
+<span class="nc" id="L78">        } catch (BrmoException | SQLException | ClassCastException | UnsupportedOperationException | IllegalArgumentException ex) {</span>
+<span class="nc" id="L79">            LOG.error(&quot;Ophalen contractnummers is mislukt.&quot;, ex);</span>
+<span class="nc" id="L80">            return Collections.EMPTY_LIST;</span>
+        }
+    }
+
+<span class="nc" id="L84">    public AfgifteNummerScanner(AfgifteNummerScannerProces config) {</span>
+<span class="nc" id="L85">        this.config = config;</span>
+<span class="nc" id="L86">    }</span>
+
+    /**
+     * @throws BrmoException als...
+     */
+    @Override
+    public void execute() throws BrmoException {
+<span class="nc" id="L93">        this.execute(new ProgressUpdateListener() {</span>
+            @Override
+            public void total(long total) {
+<span class="nc" id="L96">            }</span>
+
+            @Override
+            public void progress(long progress) {
+<span class="nc" id="L100">            }</span>
+
+            @Override
+            public void exception(Throwable t) {
+<span class="nc" id="L104">                LOG.error(t);</span>
+<span class="nc" id="L105">            }</span>
+
+            @Override
+            public void updateStatus(String status) {
+<span class="nc" id="L109">            }</span>
+
+            @Override
+            public void addLog(String log) {
+<span class="nc" id="L113">            }</span>
+        });
+<span class="nc" id="L115">    }</span>
+
+    @Override
+    public void execute(ProgressUpdateListener listener) {
+<span class="nc" id="L119">        this.listener = listener;</span>
+<span class="nc" id="L120">        config.setStatus(PROCESSING);</span>
+<span class="nc" id="L121">        config.setLastrun(new Date());</span>
+<span class="nc" id="L122">        Stripersist.getEntityManager().merge(config);</span>
+<span class="nc" id="L123">        Stripersist.getEntityManager().flush();</span>
+
+<span class="nc" id="L125">        String msg = String.format(&quot;De afgiftenummer scanner met ID %d is gestart op %tc.&quot;, config.getId(), Calendar.getInstance());</span>
+<span class="nc" id="L126">        LOG.info(msg);</span>
+<span class="nc" id="L127">        listener.updateStatus(msg);</span>
+<span class="nc" id="L128">        listener.addLog(msg);</span>
+
+<span class="nc" id="L130">        String contractnummer = this.config.getContracNummer();</span>
+<span class="nc" id="L131">        String afgiftenummertype = this.config.getAfgifteNummerType();</span>
+
+        try {
+
+<span class="nc bnc" id="L135" title="All 2 branches missed.">            if (afgiftenummertype == null) {</span>
+<span class="nc" id="L136">                msg = &quot;Geen afgiftenummertype opgegeven voor opzoeken van ontbrekende afgiftenummers.&quot;;</span>
+<span class="nc" id="L137">                LOG.warn(msg);</span>
+<span class="nc" id="L138">                listener.updateStatus(msg);</span>
+<span class="nc" id="L139">                listener.addLog(msg);</span>
+<span class="nc" id="L140">                afgiftenummertype = &quot;&quot;;</span>
+            }
+
+<span class="nc bnc" id="L143" title="All 2 branches missed.">            if (contractnummer == null) {</span>
+<span class="nc" id="L144">                msg = &quot;Geen contractnummer opgegeven voor opzoeken van ontbrekende afgiftenummers.&quot;;</span>
+<span class="nc" id="L145">                LOG.error(msg);</span>
+<span class="nc" id="L146">                listener.updateStatus(msg);</span>
+<span class="nc" id="L147">                listener.addLog(msg);</span>
+            }
+
+<span class="nc" id="L150">            List&lt;Map&lt;String, Object&gt;&gt; afgiftenummers = getOntbrekendeAfgiftenummers(contractnummer, afgiftenummertype);</span>
+
+<span class="nc bnc" id="L152" title="All 2 branches missed.">            if (!afgiftenummers.isEmpty()) {</span>
+
+<span class="nc" id="L154">                Iterator&lt;Map&lt;String, Object&gt;&gt; records = afgiftenummers.iterator();</span>
+                Map&lt;String, Object&gt; rec;
+
+<span class="nc" id="L157">                msg = &quot;Ontbrekende &quot; + afgiftenummertype + &quot;s voor contractnummer: &quot; + contractnummer;</span>
+<span class="nc" id="L158">                LOG.info(msg);</span>
+<span class="nc" id="L159">                listener.addLog(msg);</span>
+
+<span class="nc bnc" id="L161" title="All 2 branches missed.">                while (records.hasNext()) {</span>
+<span class="nc" id="L162">                    rec = records.next();</span>
+
+<span class="nc bnc" id="L164" title="All 2 branches missed.">                    if (rec.get(&quot;eerst_ontbrekend&quot;).equals(rec.get(&quot;laatst_ontbrekend&quot;))) {</span>
+<span class="nc" id="L165">                        msg = &quot;    &quot; + afgiftenummertype + &quot; &quot; + rec.get(&quot;eerst_ontbrekend&quot;) + &quot; ontbreekt (tussen laadproces.id &quot; + rec.get(&quot;laatste_aanwezige_id&quot;) + &quot; en &quot; + rec.get(&quot;eerst_opvolgende_id&quot;) + &quot;)&quot;;</span>
+                    } else {
+<span class="nc" id="L167">                        msg = &quot;    Meerdere &quot; + afgiftenummertype + &quot;s ontbreken; eerst ontbrekende &quot; + afgiftenummertype + &quot; &quot; + rec.get(&quot;eerst_ontbrekend&quot;) + &quot;, laatst ontbrekende &quot; + afgiftenummertype + &quot; &quot; + rec.get(&quot;laatst_ontbrekend&quot;) + &quot; (tussen laadproces.id &quot; + rec.get(&quot;laatste_aanwezige_id&quot;) + &quot; en &quot; + rec.get(&quot;eerst_opvolgende_id&quot;) + &quot;)&quot;;</span>
+                    }
+<span class="nc" id="L169">                    LOG.info(msg);</span>
+<span class="nc" id="L170">                    listener.addLog(msg);</span>
+                }
+            }
+
+<span class="nc" id="L174">            msg = &quot;Klaar met bepalen ontbrekende &quot; + afgiftenummertype + &quot;s.&quot;;</span>
+<span class="nc" id="L175">            LOG.info(msg);</span>
+<span class="nc" id="L176">            listener.addLog(msg);</span>
+<span class="nc" id="L177">            listener.updateStatus(msg);</span>
+
+<span class="nc" id="L179">            config.setStatus(WAITING);</span>
+<span class="nc" id="L180">            config.setLastrun(new Date());</span>
+<span class="nc" id="L181">        } catch (BrmoException | SQLException e) {</span>
+<span class="nc" id="L182">            config.setStatus(ERROR);</span>
+<span class="nc" id="L183">            LOG.error(&quot;Fout tijdens scannen voor onbrekende afgiftenummers van contract nummer: &quot; + contractnummer, e);</span>
+<span class="nc" id="L184">            listener.exception(e);</span>
+        } finally {
+<span class="nc" id="L186">            Stripersist.getEntityManager().merge(config);</span>
+        }
+<span class="nc" id="L188">    }</span>
+
+    /**
+     * @param contractnummer    GDS2 contractnummer
+     * @param afgiftenummertype naam van de kolom in de laadproces tabel,
+     *                          &quot;contractafgiftenummer&quot; of &quot;klantafgiftenummer&quot;, niet {code null}
+     * @return lijst met ranges van onbrekende records
+     * {@code [&quot;eerst_ontbrekend_nr&quot;, laatst_ontbrekend_nr, &quot;laatste_aanwezige_id&quot;, &quot;eerst_opvolgende_id&quot;]}
+     * @throws BrmoException if any
+     * @throws SQLException  if any
+     */
+    /*package private tbv. unit test*/ List&lt;Map&lt;String, Object&gt;&gt; getOntbrekendeAfgiftenummers(final String contractnummer, final String afgiftenummertype) throws BrmoException, SQLException {
+<span class="nc bnc" id="L200" title="All 2 branches missed.">        if (contractnummer == null) {</span>
+<span class="nc" id="L201">            throw new BrmoException(&quot;Contractnummer voor bepalen van ontbrekende afgiftenummers ontbreekt.&quot;);</span>
+        }
+
+<span class="nc" id="L204">        final DataSource ds = ConfigUtil.getDataSourceStaging();</span>
+<span class="nc" id="L205">        try (final Connection conn = ds.getConnection()) {</span>
+            ;
+<span class="nc" id="L207">            final GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);</span>
+            final String sql;
+<span class="nc bnc" id="L209" title="All 2 branches missed.">            switch (afgiftenummertype) {</span>
+                case &quot;contractafgiftenummer&quot;:
+<span class="nc" id="L211">                    sql = &quot;SELECT&quot;</span>
+                            + &quot;    laadproces.contractafgiftenummer + 1 AS eerst_ontbrekend,&quot;
+                            + &quot;    MIN(fr.contractafgiftenummer) - 1    AS laatst_ontbrekend,&quot;
+                            + &quot;    MIN(laadproces.id)                   AS laatste_aanwezige_id,&quot;
+                            + &quot;    MIN(fr.id)                           AS eerst_opvolgende_id&quot;
+                            + &quot; FROM&quot;
+                            + &quot;    laadproces&quot;
+                            + &quot; LEFT JOIN laadproces r ON&quot;
+                            + &quot;    laadproces.contractafgiftenummer = r.contractafgiftenummer - 1&quot;
+                            + &quot;    AND r.contractnummer = ? &quot;
+                            + &quot; LEFT JOIN laadproces fr ON&quot;
+                            + &quot;    laadproces.contractafgiftenummer &lt; fr.contractafgiftenummer &quot;
+                            + &quot;    AND fr.contractnummer = ? &quot;
+                            + &quot; WHERE&quot;
+                            + &quot;    r.contractafgiftenummer IS NULL&quot;
+                            + &quot;    AND fr.contractafgiftenummer IS NOT NULL&quot;
+                            + &quot;    AND laadproces.contractnummer = ? &quot;
+                            + &quot; GROUP BY&quot;
+                            + &quot;    laadproces.contractafgiftenummer,&quot;
+                            + &quot;    r.contractafgiftenummer&quot;;
+<span class="nc" id="L231">                    break;</span>
+                case &quot;klantafgiftenummer&quot;:
+                default:
+<span class="nc" id="L234">                    sql = &quot;SELECT&quot;</span>
+                            + &quot;    laadproces.klantafgiftenummer + 1 AS eerst_ontbrekend,&quot;
+                            + &quot;    MIN(fr.klantafgiftenummer) - 1    AS laatst_ontbrekend,&quot;
+                            + &quot;    MIN(laadproces.id)                AS laatste_aanwezige_id,&quot;
+                            + &quot;    MIN(fr.id)                        AS eerst_opvolgende_id&quot;
+                            + &quot; FROM&quot;
+                            + &quot;    laadproces&quot;
+                            + &quot; LEFT JOIN laadproces r ON&quot;
+                            + &quot;    laadproces.klantafgiftenummer = r.klantafgiftenummer - 1&quot;
+                            + &quot;    AND r.contractnummer = ? &quot;
+                            + &quot; LEFT JOIN laadproces fr ON&quot;
+                            + &quot;    laadproces.klantafgiftenummer &lt; fr.klantafgiftenummer&quot;
+                            + &quot;    AND fr.contractnummer = ? &quot;
+                            + &quot; WHERE&quot;
+                            + &quot;    r.klantafgiftenummer IS NULL&quot;
+                            + &quot;    AND fr.klantafgiftenummer IS NOT NULL&quot;
+                            + &quot;    AND laadproces.contractnummer = ? &quot;
+                            + &quot; GROUP BY&quot;
+                            + &quot;    laadproces.klantafgiftenummer,&quot;
+                            + &quot;    r.klantafgiftenummer&quot;;
+                    break;
+
+            }
+
+<span class="nc" id="L258">            List&lt;Map&lt;String, Object&gt;&gt; afgiftenummers = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, sql, new MapListHandler(), contractnummer, contractnummer, contractnummer);</span>
+
+<span class="nc bnc" id="L260" title="All 2 branches missed.">            this.ontbrekendeNummersGevonden = !afgiftenummers.isEmpty();</span>
+<span class="nc bnc" id="L261" title="All 2 branches missed.">            LOG.debug(&quot;Ontbrekende &quot; + (afgiftenummertype == &quot;&quot; ? &quot;klantafgiftenummer&quot; : afgiftenummertype) + &quot;s voor contractnummer &quot; + contractnummer + &quot;: &quot; + afgiftenummers);</span>
+
+<span class="nc" id="L263">            DbUtils.closeQuietly(conn);</span>
+<span class="nc" id="L264">            return afgiftenummers;</span>
+        }
+    }
+
+    public boolean getOntbrekendeNummersGevonden() {
+<span class="nc" id="L269">        return this.ontbrekendeNummersGevonden;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

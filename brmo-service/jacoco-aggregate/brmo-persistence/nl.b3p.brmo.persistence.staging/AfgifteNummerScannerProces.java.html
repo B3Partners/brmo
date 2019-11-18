@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>AfgifteNummerScannerProces.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO service</a> &gt; <a href="../index.html" class="el_bundle">brmo-persistence</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.persistence.staging</a> &gt; <span class="el_source">AfgifteNummerScannerProces.java</span></div><h1>AfgifteNummerScannerProces.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2019 B3Partners B.V.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+ */
+package nl.b3p.brmo.persistence.staging;
+
+import javax.persistence.Entity;
+
+/**
+ *
+ * @author mprins
+ */
+@Entity
+<span class="fc" id="L26">public class AfgifteNummerScannerProces extends AutomatischProces {</span>
+
+    private static final String CONTRACTNUMMER = &quot;contractnummer&quot;;
+    private static final String AFGIFTENUMMERTYPE = &quot;afgiftenummertype&quot;;
+    private static final String MISSINGNUMBERSFOUND = &quot;ontbrekendenummersgevonden&quot;;
+
+    /**
+     * Zoekt het geconfigureerde contractnummer op.
+     *
+     * @return contractnummer of null
+     */
+    public String getContracNummer() {
+<span class="nc" id="L38">        return ClobElement.nullSafeGet(this.getConfig().get(CONTRACTNUMMER));</span>
+    }
+
+    /**
+     * set contractnummer.
+     *
+     * @param contractnummer of null
+     */
+    public void setContracNummer(String contractnummer) {
+<span class="nc bnc" id="L47" title="All 2 branches missed.">        if (contractnummer == null) {</span>
+<span class="nc" id="L48">            this.getConfig().put(CONTRACTNUMMER, null);</span>
+        } else {
+<span class="nc" id="L50">            this.getConfig().put(CONTRACTNUMMER, new ClobElement(contractnummer));</span>
+        }
+<span class="nc" id="L52">    }</span>
+
+    /**
+     * Zoekt het geconfigureerde afgifte nummer type op.
+     *
+     * @return afgiftenummertype of een lege String
+     */
+    public String getAfgifteNummerType() {
+<span class="nc" id="L60">        return ClobElement.nullSafeGet(this.getConfig().get(AFGIFTENUMMERTYPE));</span>
+    }
+
+    /**
+     * set afgifte nummer type.
+     *
+     * @param afgiftenummertype of null
+     */
+    public void setAfgifteNummerType(String afgiftenummertype) {
+<span class="nc bnc" id="L69" title="All 2 branches missed.">        if (afgiftenummertype == null) {</span>
+<span class="nc" id="L70">            this.getConfig().put(AFGIFTENUMMERTYPE, null);</span>
+        } else {
+<span class="nc" id="L72">            this.getConfig().put(AFGIFTENUMMERTYPE, new ClobElement(afgiftenummertype));</span>
+        }
+<span class="nc" id="L74">    }</span>
+
+    public void setOntbrekendeNummersGevonden(boolean gevonden) {
+<span class="nc" id="L77">        this.getConfig().put(MISSINGNUMBERSFOUND, new ClobElement(Boolean.toString(gevonden)));</span>
+<span class="nc" id="L78">    }</span>
+
+    public boolean getOntbrekendeNummersGevonden() {
+<span class="nc" id="L81">        String s = ClobElement.nullSafeGet(this.getConfig().get(MISSINGNUMBERSFOUND));</span>
+<span class="nc bnc" id="L82" title="All 2 branches missed.">        return (s == null ? false : Boolean.parseBoolean(s));</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

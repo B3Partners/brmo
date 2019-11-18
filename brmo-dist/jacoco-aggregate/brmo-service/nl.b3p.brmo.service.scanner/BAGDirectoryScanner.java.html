@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>BAGDirectoryScanner.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO distributie</a> &gt; <a href="../index.html" class="el_bundle">brmo-service</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.service.scanner</a> &gt; <span class="el_source">BAGDirectoryScanner.java</span></div><h1>BAGDirectoryScanner.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package nl.b3p.brmo.service.scanner;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import javax.persistence.Transient;
+import nl.b3p.brmo.loader.BrmoFramework;
+import nl.b3p.brmo.loader.util.BrmoDuplicaatLaadprocesException;
+import nl.b3p.brmo.loader.util.BrmoException;
+import nl.b3p.brmo.loader.util.BrmoLeegBestandException;
+import nl.b3p.brmo.persistence.staging.AutomatischProces;
+import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.ERROR;
+import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.PROCESSING;
+import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.WAITING;
+import nl.b3p.brmo.persistence.staging.BAGScannerProces;
+import nl.b3p.brmo.service.util.ConfigUtil;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.comparator.NameFileComparator;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.stripesstuff.stripersist.Stripersist;
+
+/**
+ *
+ * @author mprins
+ */
+public class BAGDirectoryScanner extends AbstractExecutableProces {
+
+<span class="nc" id="L36">    private static final Log LOG = LogFactory.getLog(BAGDirectoryScanner.class);</span>
+
+    private final BAGScannerProces config;
+
+    @Transient
+    private ProgressUpdateListener listener;
+
+<span class="nc" id="L43">    public BAGDirectoryScanner(BAGScannerProces config) {</span>
+<span class="nc" id="L44">        this.config = config;</span>
+<span class="nc" id="L45">    }</span>
+
+    /**
+     *
+     * @throws BrmoException als de directory niet lees/blader/schrijfbaar is
+     */
+    @Override
+    public void execute() throws BrmoException {
+<span class="nc" id="L53">        this.execute(new ProgressUpdateListener() {</span>
+            @Override
+            public void total(long total) {
+<span class="nc" id="L56">            }</span>
+
+            @Override
+            public void progress(long progress) {
+<span class="nc" id="L60">            }</span>
+
+            @Override
+            public void exception(Throwable t) {
+<span class="nc" id="L64">                LOG.error(t);</span>
+<span class="nc" id="L65">            }</span>
+
+            @Override
+            public void updateStatus(String status) {
+<span class="nc" id="L69">            }</span>
+
+            @Override
+            public void addLog(String log) {
+<span class="nc" id="L73">            }</span>
+        });
+<span class="nc" id="L75">    }</span>
+
+    @Override
+    public void execute(ProgressUpdateListener listener) {
+<span class="nc" id="L79">        this.listener = listener;</span>
+<span class="nc" id="L80">        config.setStatus(PROCESSING);</span>
+<span class="nc" id="L81">        config.setLastrun(new Date());</span>
+<span class="nc" id="L82">        Stripersist.getEntityManager().merge(config);</span>
+<span class="nc" id="L83">        Stripersist.getEntityManager().flush();</span>
+
+<span class="nc" id="L85">        StringBuilder sb = new StringBuilder(AutomatischProces.LOG_NEWLINE);</span>
+<span class="nc" id="L86">        String oldLog = config.getLogfile();</span>
+<span class="nc bnc" id="L87" title="All 2 branches missed.">        if (oldLog != null) {</span>
+<span class="nc bnc" id="L88" title="All 2 branches missed.">            if (oldLog.length() &gt; OLD_LOG_LENGTH) {</span>
+<span class="nc" id="L89">                sb.append(oldLog.substring(oldLog.length() - OLD_LOG_LENGTH / 10));</span>
+            } else {
+<span class="nc" id="L91">                sb.append(oldLog).append(AutomatischProces.LOG_NEWLINE);</span>
+            }
+        }
+
+<span class="nc" id="L95">        config.setStatus(PROCESSING);</span>
+<span class="nc" id="L96">        String msg = String.format(&quot;De BAG scanner met ID %d is gestart op %tc.&quot;, config.getId(), Calendar.getInstance());</span>
+<span class="nc" id="L97">        LOG.info(msg);</span>
+<span class="nc" id="L98">        listener.updateStatus(msg);</span>
+<span class="nc" id="L99">        listener.addLog(msg);</span>
+<span class="nc" id="L100">        sb.append(msg).append(AutomatischProces.LOG_NEWLINE);</span>
+<span class="nc" id="L101">        this.active = true;</span>
+
+        // validatie van de directories, kunnen we lezen/bladeren en evt. schrijven?
+<span class="nc" id="L104">        final File scanDirectory = new File(this.config.getScanDirectory());</span>
+<span class="nc bnc" id="L105" title="All 4 branches missed.">        if (!scanDirectory.isDirectory() || !scanDirectory.canExecute()) {</span>
+<span class="nc" id="L106">            config.setStatus(ERROR);</span>
+<span class="nc" id="L107">            config.setSamenvatting(&quot;Er is een fout opgetreden, details staan in de logs&quot;);</span>
+<span class="nc" id="L108">            this.active = false;</span>
+<span class="nc" id="L109">            msg = String.format(&quot;De scan directory '%s' is geen executable directory&quot;, scanDirectory);</span>
+<span class="nc" id="L110">            LOG.info(msg);</span>
+<span class="nc" id="L111">            listener.updateStatus(msg);</span>
+<span class="nc" id="L112">            listener.addLog(msg);</span>
+<span class="nc" id="L113">            this.listener.exception(new BrmoException(msg));</span>
+<span class="nc" id="L114">            return;</span>
+        }
+<span class="nc" id="L116">        final String aDir = this.config.getArchiefDirectory();</span>
+<span class="nc bnc" id="L117" title="All 2 branches missed.">        final boolean isArchiving = (aDir != null);</span>
+<span class="nc" id="L118">        File archiefDirectory = null;</span>
+<span class="nc bnc" id="L119" title="All 2 branches missed.">        if (isArchiving) {</span>
+<span class="nc" id="L120">            archiefDirectory = new File(aDir);</span>
+<span class="nc" id="L121">            archiefDirectory.mkdirs();</span>
+<span class="nc bnc" id="L122" title="All 4 branches missed.">            if (!archiefDirectory.isDirectory() || !archiefDirectory.canWrite()) {</span>
+<span class="nc" id="L123">                config.setStatus(ERROR);</span>
+<span class="nc" id="L124">                config.setSamenvatting(&quot;Er is een fout opgetreden, details staan in de logs&quot;);</span>
+<span class="nc" id="L125">                this.active = false;</span>
+<span class="nc" id="L126">                msg = String.format(&quot;De archief directory '%s' is geen beschrijfbare directory&quot;, archiefDirectory);</span>
+<span class="nc" id="L127">                LOG.error(msg);</span>
+<span class="nc" id="L128">                listener.updateStatus(msg);</span>
+<span class="nc" id="L129">                listener.addLog(msg);</span>
+<span class="nc" id="L130">                this.listener.exception(new BrmoException(msg));</span>
+<span class="nc" id="L131">                return;</span>
+            }
+<span class="nc bnc" id="L133" title="All 2 branches missed.">            if (!scanDirectory.canWrite()) {</span>
+<span class="nc" id="L134">                config.setStatus(ERROR);</span>
+<span class="nc" id="L135">                config.setSamenvatting(&quot;Er is een fout opgetreden, details staan in de logs&quot;);</span>
+<span class="nc" id="L136">                this.active = false;</span>
+<span class="nc" id="L137">                msg = String.format(String.format(&quot;De scan directory '%s' is geen beschrijfbare directory&quot;, scanDirectory));</span>
+<span class="nc" id="L138">                LOG.error(msg);</span>
+<span class="nc" id="L139">                listener.updateStatus(msg);</span>
+<span class="nc" id="L140">                listener.addLog(msg);</span>
+<span class="nc" id="L141">                this.listener.exception(new BrmoException(msg));</span>
+<span class="nc" id="L142">                return;</span>
+            }
+        }
+
+<span class="nc" id="L146">        File files[] = scanDirectory.listFiles();</span>
+<span class="nc" id="L147">        Arrays.sort(files, NameFileComparator.NAME_COMPARATOR);</span>
+
+<span class="nc" id="L149">        int filterAlVerwerkt = 0;</span>
+<span class="nc" id="L150">        int aantalGeladen = 0;</span>
+<span class="nc" id="L151">        int progress = 0;</span>
+
+<span class="nc bnc" id="L153" title="All 2 branches missed.">        if (files.length &lt; 1) {</span>
+<span class="nc" id="L154">            msg = String.format(&quot;Geen bestanden gevonden in scandirectory: %s.&quot;, scanDirectory);</span>
+<span class="nc" id="L155">            LOG.info(msg);</span>
+<span class="nc" id="L156">            sb.append(msg).append(AutomatischProces.LOG_NEWLINE);</span>
+<span class="nc" id="L157">            listener.updateStatus(msg);</span>
+<span class="nc" id="L158">            listener.addLog(msg);</span>
+        }
+
+<span class="nc" id="L161">        listener.total(files.length);</span>
+<span class="nc bnc" id="L162" title="All 2 branches missed.">        for (File f : files) {</span>
+<span class="nc bnc" id="L163" title="All 2 branches missed.">            if (f.isDirectory()) {</span>
+<span class="nc" id="L164">                continue;</span>
+            }
+<span class="nc" id="L166">            msg = String.format(&quot;Bestand %s is gevonden in %s.&quot;, f, scanDirectory);</span>
+<span class="nc" id="L167">            LOG.info(msg);</span>
+<span class="nc" id="L168">            sb.append(msg).append(AutomatischProces.LOG_NEWLINE);</span>
+<span class="nc" id="L169">            listener.updateStatus(msg);</span>
+<span class="nc" id="L170">            listener.addLog(msg);</span>
+<span class="nc" id="L171">            BrmoFramework brmo = null;</span>
+            try {
+<span class="nc bnc" id="L173" title="All 2 branches missed.">                if (this.isDuplicaatLaadProces(f, BrmoFramework.BR_BAG)) {</span>
+<span class="nc" id="L174">                    msg = String.format(&quot;Bestand %s is een duplicaat en wordt overgeslagen.&quot;, f);</span>
+<span class="nc" id="L175">                    LOG.info(msg);</span>
+<span class="nc" id="L176">                    sb.append(msg).append(AutomatischProces.LOG_NEWLINE);</span>
+<span class="nc" id="L177">                    listener.updateStatus(msg);</span>
+<span class="nc" id="L178">                    listener.addLog(msg);</span>
+<span class="nc" id="L179">                    filterAlVerwerkt++;</span>
+                } else {
+<span class="nc" id="L181">                    brmo = new BrmoFramework(ConfigUtil.getDataSourceStaging(), null);</span>
+<span class="nc" id="L182">                    brmo.loadFromFile(BrmoFramework.BR_BAG, getBestandsNaam(f), config.getId());</span>
+<span class="nc" id="L183">                    msg = String.format(&quot;Bestand %s is geladen.&quot;, f);</span>
+<span class="nc" id="L184">                    LOG.info(msg);</span>
+<span class="nc" id="L185">                    sb.append(msg).append(AutomatischProces.LOG_NEWLINE);</span>
+<span class="nc" id="L186">                    listener.updateStatus(msg);</span>
+<span class="nc" id="L187">                    listener.addLog(msg);</span>
+<span class="nc" id="L188">                    aantalGeladen++;</span>
+                }
+<span class="nc" id="L190">            } catch (BrmoDuplicaatLaadprocesException duplicaat) {</span>
+<span class="nc" id="L191">                LOG.info(duplicaat.getLocalizedMessage());</span>
+<span class="nc" id="L192">                sb.append(duplicaat.getLocalizedMessage()).append(AutomatischProces.LOG_NEWLINE);</span>
+<span class="nc" id="L193">                filterAlVerwerkt++;</span>
+<span class="nc" id="L194">            } catch (BrmoLeegBestandException leegEx) {</span>
+                // log message maar ga door met verwerking, om een &quot;leeg&quot; bestand bericht/laadproces over te slaan
+<span class="nc" id="L196">                LOG.warn(leegEx.getLocalizedMessage());</span>
+<span class="nc" id="L197">                sb.append(leegEx.getLocalizedMessage()).append(AutomatischProces.LOG_NEWLINE);</span>
+<span class="nc" id="L198">            } catch (BrmoException ex) {</span>
+<span class="nc" id="L199">                LOG.error(ex.getLocalizedMessage());</span>
+<span class="nc" id="L200">                sb.append(ex.getLocalizedMessage()).append(AutomatischProces.LOG_NEWLINE);</span>
+            } finally {
+<span class="nc bnc" id="L202" title="All 2 branches missed.">                if (brmo != null) {</span>
+<span class="nc" id="L203">                    brmo.closeBrmoFramework();</span>
+                }
+            }
+
+<span class="nc bnc" id="L207" title="All 2 branches missed.">            if (isArchiving) {</span>
+                // verplaats naar archief
+                try {
+<span class="nc" id="L210">                    FileUtils.copyFileToDirectory(f, archiefDirectory);</span>
+<span class="nc" id="L211">                    boolean succes = FileUtils.deleteQuietly(f);</span>
+<span class="nc bnc" id="L212" title="All 2 branches missed.">                    if (succes) {</span>
+<span class="nc" id="L213">                        msg = String.format(&quot;  Bestand %s is naar archief %s verplaatst.&quot;, f, archiefDirectory);</span>
+                    } else {
+<span class="nc" id="L215">                        msg = String.format(&quot;  Bestand %s is naar archief %s verplaatst, maar origineel kon niet worden verwijderd.&quot;, f, archiefDirectory);</span>
+                    }
+<span class="nc" id="L217">                } catch (IOException e) {</span>
+<span class="nc" id="L218">                    msg = String.format(&quot;  Bestand %s is NIET naar archief %s verplaatst, oorzaak: (%s).&quot;, f, archiefDirectory, e.getLocalizedMessage());</span>
+<span class="nc" id="L219">                    LOG.error(msg);</span>
+<span class="nc" id="L220">                    listener.updateStatus(msg);</span>
+<span class="nc" id="L221">                    listener.addLog(msg);</span>
+<span class="nc" id="L222">                }</span>
+<span class="nc" id="L223">                LOG.info(msg);</span>
+<span class="nc" id="L224">                listener.updateStatus(msg);</span>
+<span class="nc" id="L225">                listener.addLog(msg);</span>
+<span class="nc" id="L226">                sb.append(msg).append(AutomatischProces.LOG_NEWLINE);</span>
+            }
+<span class="nc" id="L228">            listener.progress(++progress);</span>
+        }
+
+<span class="nc" id="L231">        listener.addLog(&quot;\n\n**** resultaat ****&quot;);</span>
+<span class="nc" id="L232">        listener.addLog(&quot;Aantal bestanden die al waren geladen: &quot; + filterAlVerwerkt);</span>
+<span class="nc" id="L233">        listener.addLog(&quot;Aantal bestanden geladen: &quot; + aantalGeladen + &quot;\n&quot;);</span>
+
+<span class="nc" id="L235">        msg = &quot;Aantal bestanden die al waren verwerkt: &quot; + filterAlVerwerkt + &quot;, aantal bestanden geladen: &quot; + aantalGeladen;</span>
+<span class="nc" id="L236">        sb.append(msg).append(AutomatischProces.LOG_NEWLINE);</span>
+<span class="nc" id="L237">        LOG.info(msg);</span>
+<span class="nc" id="L238">        config.setSamenvatting(msg);</span>
+
+<span class="nc" id="L240">        msg = String.format(&quot;De BAG scanner met ID %d is afgerond op %tc.&quot;, config.getId(), Calendar.getInstance());</span>
+<span class="nc" id="L241">        LOG.info(msg);</span>
+<span class="nc" id="L242">        listener.updateStatus(msg);</span>
+<span class="nc" id="L243">        listener.addLog(msg);</span>
+<span class="nc" id="L244">        sb.append(msg).append(AutomatischProces.LOG_NEWLINE);</span>
+
+<span class="nc" id="L246">        this.active = false;</span>
+<span class="nc" id="L247">        config.setStatus(WAITING);</span>
+<span class="nc" id="L248">        config.setLogfile(sb.toString());</span>
+
+<span class="nc" id="L250">        Stripersist.getEntityManager().merge(config);</span>
+<span class="nc" id="L251">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

@@ -1,0 +1,688 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BGTGMLLightLoader.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO BGT GML loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.loader.gml</a> &gt; <span class="el_source">BGTGMLLightLoader.java</span></div><h1>BGTGMLLightLoader.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2016 B3Partners B.V.
+ */
+package nl.b3p.brmo.loader.gml;
+
+import org.locationtech.jts.geom.GeometryFactory;
+import org.locationtech.jts.geom.PrecisionModel;
+import org.locationtech.jts.geom.Geometry;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FilenameFilter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.sql.SQLException;
+import java.sql.Types;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
+import java.util.zip.ZipInputStream;
+import javax.xml.parsers.ParserConfigurationException;
+import nl.b3p.brmo.bgt.util.JDBCDataStoreUtil;
+import static nl.b3p.brmo.loader.gml.GMLLightFeatureTransformer.ID_NAME;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.geotools.gml3.ApplicationSchemaConfiguration;
+import org.geotools.xsd.Configuration;
+import org.geotools.xsd.Parser;
+import org.xml.sax.SAXException;
+import org.apache.commons.io.input.CloseShieldInputStream;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
+import org.geotools.data.DataStoreFinder;
+import org.geotools.data.DataUtilities;
+import org.geotools.jdbc.JDBCDataStore;
+import org.geotools.data.DefaultTransaction;
+import org.geotools.data.FeatureStore;
+import org.geotools.data.Transaction;
+import org.geotools.data.simple.SimpleFeatureCollection;
+import org.geotools.factory.CommonFactoryFinder;
+import org.geotools.feature.FeatureIterator;
+import org.opengis.feature.simple.SimpleFeature;
+import org.opengis.feature.simple.SimpleFeatureType;
+import org.opengis.feature.type.AttributeDescriptor;
+import org.opengis.feature.type.Name;
+import org.opengis.filter.Filter;
+import org.opengis.filter.FilterFactory2;
+
+/**
+ *
+ * @author mprins
+ */
+public class BGTGMLLightLoader {
+
+<span class="nc" id="L61">    private static final Log LOG = LogFactory.getLog(BGTGMLLightLoader.class);</span>
+
+    /**
+     * directory met zip files.
+     */
+    private File scanDirectory;
+    /**
+     * gegevens voor database verbinding tbv. Geotools.
+     */
+    private Properties dbConnProps;
+
+    /**
+     * {@code true} als we tegen een oracle database werken, default
+     * {@code false}
+     */
+<span class="nc" id="L76">    private boolean isOracle = false;</span>
+    /**
+     * {@code true} als we tegen een MS SQL database werken, default
+     * {@code false}
+     */
+<span class="nc" id="L81">    private boolean isMSSQL = false;</span>
+
+    /**
+     * Bewaar voor elk BGT feature type een map met feature type ids nodig in
+     * storeFeatureCollection()
+     */
+<span class="nc" id="L87">    private final Map&lt;String, Map&lt;String,Pair&lt;Date,Boolean&gt;&gt;&gt; allRecords = new HashMap();</span>
+
+    /**
+     * Maak automatisch tabellen aan; normaal niet/default {@code false}.
+     */
+<span class="nc" id="L92">    private boolean createTables = false;</span>
+
+    private Parser parser;
+
+    /**
+     * deze geometrie wordt gebruikt om het gebied van de mutaties in een
+     * ziefile bij te houden.
+     */
+<span class="nc" id="L100">    private Geometry omhullendeVanZipFile = null;</span>
+
+<span class="nc" id="L102">    private StringBuilder opmerkingen = new StringBuilder();</span>
+
+<span class="nc" id="L104">    private STATUS status = STATUS.OK;</span>
+
+    /**
+     * Default constructor initaliseert de GML parser.
+     */
+<span class="nc" id="L109">    public BGTGMLLightLoader() {</span>
+<span class="nc" id="L110">        final String schemaLocation = BGTGMLLightLoader.class.getResource(&quot;/imgeo-simple_resolved.xsd&quot;).toString();</span>
+
+<span class="nc" id="L112">        Configuration configuration = new ApplicationSchemaConfiguration(&quot;http://www.geostandaarden.nl/imgeo/2.1/simple/gml31&quot;, schemaLocation);</span>
+<span class="nc" id="L113">        configuration.getContext().registerComponentInstance(new GeometryFactory(new PrecisionModel(), 28992));</span>
+
+<span class="nc" id="L115">        parser = new Parser(configuration);</span>
+<span class="nc" id="L116">        parser.setValidating(true);</span>
+<span class="nc" id="L117">        parser.setStrict(false);</span>
+<span class="nc" id="L118">        parser.setFailOnValidationError(false);</span>
+<span class="nc" id="L119">    }</span>
+
+    /**
+     * Maak alle bekende tabellen in de database leeg, voordat alle BGT
+     * kaartbladen worden ingeladen. Wordt aangeroepen voordat meerdere keren
+     * processZipFile() wordt aangeroepen voor alle nieuwe BGT kaartbladen.
+     *
+     * @throws java.sql.SQLException als legen van de tabellen niet lukt
+     * @throws java.io.IOException als opzetten van database verbinding niet
+     * lukt
+     */
+    public void truncateTables() throws SQLException, IOException {
+<span class="nc" id="L131">        final JDBCDataStore dataStore = (JDBCDataStore) DataStoreFinder.getDataStore(dbConnProps);</span>
+<span class="nc bnc" id="L132" title="All 2 branches missed.">        if (dataStore == null) {</span>
+<span class="nc" id="L133">            throw new IllegalStateException(&quot;Datastore mag niet 'null' zijn voor wissen van data.&quot;);</span>
+        }
+
+        try {
+            String name;
+<span class="nc bnc" id="L138" title="All 2 branches missed.">            for (BGTGMLLightTransformerFactory t : BGTGMLLightTransformerFactory.values()) {</span>
+<span class="nc bnc" id="L139" title="All 2 branches missed.">                name = isOracle ? t.name().toUpperCase() : t.name();</span>
+<span class="nc" id="L140">                JDBCDataStoreUtil.truncateTable(dataStore, name, isOracle, LOG);</span>
+            }
+        } finally {
+<span class="nc" id="L143">            dataStore.dispose();</span>
+        }
+<span class="nc" id="L145">    }</span>
+
+    /**
+     *
+     * @param scanDirectory te scannen directory met zip files
+     * @param dbConnProps getools verbindings gegevens
+     *
+     * @see #setDbConnProps(java.util.Properties)
+     * @see #setScanDirectory(java.io.File)
+     *
+     */
+<span class="nc" id="L156">    public BGTGMLLightLoader(File scanDirectory, Properties dbConnProps) {</span>
+<span class="nc" id="L157">        this.scanDirectory = scanDirectory;</span>
+<span class="nc" id="L158">        this.dbConnProps = dbConnProps;</span>
+
+<span class="nc" id="L160">        this.isOracle = &quot;oracle&quot;.equalsIgnoreCase(dbConnProps.getProperty(&quot;dbtype&quot;));</span>
+<span class="nc" id="L161">        this.isMSSQL = (&quot;jtds-sqlserver&quot;.equalsIgnoreCase(dbConnProps.getProperty(&quot;dbtype&quot;)) | &quot;sqlserver&quot;.equalsIgnoreCase(dbConnProps.getProperty(&quot;dbtype&quot;)));</span>
+<span class="nc" id="L162">    }</span>
+
+    /**
+     * Verwerk een set gmllight extract zipfiles.
+     *
+     * @param zipFiles lijst met zipfiles met gml bestanden
+     * @throws FileNotFoundException als zipExtract niet gevonden kan worden
+     * @throws IOException als ophalen next zipentry mislukt
+     * @see #processZipFile(File)
+     */
+    public void processZipFiles(List&lt;File&gt; zipFiles) throws FileNotFoundException, IOException {
+<span class="nc bnc" id="L173" title="All 2 branches missed.">        for (File zip : zipFiles) {</span>
+<span class="nc" id="L174">            LOG.debug(&quot;Verwerken zipfile: &quot; + zip.getName());</span>
+<span class="nc" id="L175">            processZipFile(zip);</span>
+<span class="nc" id="L176">        }</span>
+<span class="nc" id="L177">    }</span>
+
+    private int getRecordsCacheSize() {
+<span class="nc" id="L180">        int size = 0;</span>
+<span class="nc" id="L181">        size = allRecords.values().stream().map((recordMap) -&gt; recordMap.size()).reduce(size, Integer::sum);</span>
+<span class="nc" id="L182">        return size;</span>
+    }
+
+    /**
+     * Verwerk een gmllight extract zipfile.
+     *
+     * @param zipExtract zipfile met gml bestanden
+     * @return het aantal geschreven features voor de zipfile
+     *
+     * @throws FileNotFoundException als zipExtract niet gevonden kan worden
+     * @throws IOException als ophalen next zipentry mislukt of als de database
+     * verbinding wegvalt
+     */
+    public int processZipFile(File zipExtract) throws FileNotFoundException, IOException {
+<span class="nc" id="L196">        this.omhullendeVanZipFile = null;</span>
+<span class="nc" id="L197">        this.resetStatus();</span>
+<span class="nc" id="L198">        LOG.info(&quot;Lezen van ZIP bestand &quot; + zipExtract);</span>
+<span class="nc" id="L199">        int result = 0, total = 0;</span>
+<span class="nc" id="L200">        String eName = &quot;&quot;;</span>
+<span class="nc bnc" id="L201" title="All 2 branches missed.">        if (this.isValidZipFile(zipExtract)) {</span>
+<span class="nc" id="L202">            try (ZipInputStream zip = new ZipInputStream(new FileInputStream(zipExtract))) {</span>
+<span class="nc" id="L203">                ZipEntry entry = zip.getNextEntry();</span>
+<span class="nc bnc" id="L204" title="All 2 branches missed.">                if (entry == null) {</span>
+<span class="nc" id="L205">                    LOG.error(&quot;Geen bestanden in zipfile (&quot; + zipExtract + &quot;) gevonden.&quot;);</span>
+                }
+<span class="nc" id="L207">                int beforeRecords = getRecordsCacheSize();</span>
+                // for each gml in zip
+<span class="nc bnc" id="L209" title="All 2 branches missed.">                while (entry != null) {</span>
+<span class="nc bnc" id="L210" title="All 2 branches missed.">                    if (!entry.getName().toLowerCase().endsWith(&quot;.gml&quot;)) {</span>
+<span class="nc" id="L211">                        LOG.warn(&quot;Overslaan zip entry geen GML bestand: &quot; + entry.getName());</span>
+                    } else {
+<span class="nc" id="L213">                        eName = entry.getName();</span>
+<span class="nc" id="L214">                        LOG.debug(&quot;Lezen GML bestand: &quot; + eName + &quot; uit zip file: &quot; + zipExtract.getCanonicalPath());</span>
+<span class="nc" id="L215">                        result = storeFeatureCollection(new CloseShieldInputStream(zip), eName.toLowerCase());</span>
+<span class="nc bnc" id="L216" title="All 2 branches missed.">                        if(result != 0 ) {</span>
+<span class="nc" id="L217">                            opmerkingen.append(result)</span>
+<span class="nc" id="L218">                                    .append(&quot; features geladen uit: &quot;)</span>
+<span class="nc" id="L219">                                    .append(eName).append(&quot;, zipfile: &quot;)</span>
+<span class="nc" id="L220">                                    .append(zipExtract.getCanonicalPath())</span>
+<span class="nc" id="L221">                                    .append(&quot;\n&quot;);</span>
+                        }
+<span class="nc" id="L223">                        total += result;</span>
+
+                    }
+<span class="nc" id="L226">                    entry = zip.getNextEntry();</span>
+                }
+<span class="nc" id="L228">                int afterRecords = getRecordsCacheSize();</span>
+<span class="nc" id="L229">                LOG.info(String.format(&quot;Aantal ID's van alle BGT feature types in geheugen: %d (verschil dit bestand: %+d)&quot;, afterRecords, afterRecords - beforeRecords));</span>
+
+<span class="nc" id="L231">            } catch (SAXException | ParserConfigurationException ex) {</span>
+<span class="nc" id="L232">                LOG.error(&quot;Er is een parse fout opgetreden tijdens verwerken van &quot; + eName + &quot; uit &quot; + zipExtract.getCanonicalPath(), ex);</span>
+<span class="nc" id="L233">                opmerkingen.append(&quot;Er is een parse fout opgetreden tijdens verwerken van &quot;).append(eName)</span>
+<span class="nc" id="L234">                        .append(&quot; Foutmelding: &quot;).append(ex).append(&quot;\n&quot;);</span>
+<span class="nc" id="L235">                this.status = STATUS.NOK;</span>
+<span class="nc" id="L236">            }</span>
+        } else {
+<span class="nc" id="L238">            LOG.error(&quot;Ongeldige of corrupte zipfile: &quot; + zipExtract.getCanonicalPath());</span>
+<span class="nc" id="L239">            opmerkingen.append(&quot;Ongeldige of corrupte zipfile: &quot;).append(zipExtract.getCanonicalPath())</span>
+<span class="nc" id="L240">                    .append(&quot;\nHet bestand kan niet verwerkt worden. Download het bestand opnieuw.&quot;);</span>
+<span class="nc" id="L241">            this.status = STATUS.NOK;</span>
+        }
+<span class="nc" id="L243">        return total;</span>
+    }
+
+    /**
+     * Verwerk een enkel GML bestand. &lt;strong&gt;Let op:&lt;/strong&gt; alleen voor
+     * &quot;stand&quot;     * verwerking omdat de onderliggende geometrische data niet betrouwbaar kan
+     * worden verwijderd in dit geval. Waarschijnlijk wil je ook de status
+     * resetten voor deze Loader, gebruik {@link #resetStatus() }.
+     *
+     * @param gml GML Light bestand
+     * @return aantal geschreven features
+     *
+     * @throws IOException als ophalen gml mislukt
+     */
+    public int processGMLFile(File gml) throws IOException {
+<span class="nc" id="L258">        int result = 0;</span>
+        try {
+<span class="nc" id="L260">            result = storeFeatureCollection(new FileInputStream(gml), gml.getName().toLowerCase());</span>
+<span class="nc" id="L261">        } catch (SAXException | ParserConfigurationException ex) {</span>
+<span class="nc" id="L262">            LOG.error(&quot;Er is een parse fout opgetreden tijdens verwerken van: &quot; + gml.getCanonicalPath(), ex);</span>
+<span class="nc" id="L263">            this.status = STATUS.NOK;</span>
+<span class="nc" id="L264">        }</span>
+<span class="nc" id="L265">        return result;</span>
+    }
+
+    /**
+     * transformeert de input en slaat op in database.
+     *
+     * @param in Stream met te laden features
+     * @param gmlFileName naam input gml bestand
+     * @return aantal geschreven features
+     *
+     * @throws SAXException als parsen van input mislukt
+     * @throws IOException als er een database fout optreedt
+     * @throws ParserConfigurationException als gml parser config niet deugd
+     * @throws IllegalStateException als er iets mis is in de configuratie
+     */
+    private int storeFeatureCollection(InputStream in, String gmlFileName) throws IOException, IllegalStateException, SAXException, ParserConfigurationException {
+<span class="nc" id="L281">        int inserts = 0, updates = 0, deletes = 0, features = 0;</span>
+<span class="nc" id="L282">        JDBCDataStore dataStore = (JDBCDataStore) DataStoreFinder.getDataStore(dbConnProps);</span>
+<span class="nc bnc" id="L283" title="All 2 branches missed.">        if (dataStore == null) {</span>
+<span class="nc" id="L284">            throw new IllegalStateException(&quot;Datastore mag niet 'null' zijn voor opslaan van data.&quot;);</span>
+        }
+        // TODO boolean mapping voor mssql en oracle
+<span class="nc bnc" id="L287" title="All 2 branches missed.">        if (this.isOracle) {</span>
+<span class="nc" id="L288">            dataStore.getClassToSqlTypeMappings().put(java.lang.Boolean.class, Types.VARCHAR);</span>
+        }
+<span class="nc bnc" id="L290" title="All 2 branches missed.">        if (this.isMSSQL) {</span>
+<span class="nc" id="L291">            dataStore.getClassToSqlTypeMappings().put(java.lang.Boolean.class, Types.VARCHAR);</span>
+        }
+
+<span class="nc" id="L294">        SimpleFeatureCollection gmlFeatCollection = (SimpleFeatureCollection) parser.parse(in);</span>
+        
+<span class="nc" id="L296">        List&lt;Exception&gt; validationErrors = parser.getValidationErrors();</span>
+<span class="nc bnc" id="L297" title="All 2 branches missed.">        if (!validationErrors.isEmpty()) {</span>
+<span class="nc" id="L298">            LOG.warn(&quot;Er zijn validatie fouten opgetreden tijdens verwerking van bestand: &quot; + gmlFileName);</span>
+<span class="nc bnc" id="L299" title="All 2 branches missed.">            for (Exception e : validationErrors) {</span>
+<span class="nc" id="L300">                LOG.warn(&quot;validatie fout: &quot; + e.getMessage());</span>
+<span class="nc" id="L301">            }</span>
+        }
+
+<span class="nc bnc" id="L304" title="All 2 branches missed.">        if (gmlFeatCollection.isEmpty()) {</span>
+            //opmerkingen.append(&quot;Geen features gevonden in bestand: &quot;).append(gmlFileName).append(&quot;\n&quot;);
+<span class="nc" id="L306">            LOG.debug(&quot;Geen features gevonden in bestand: &quot; + gmlFileName);</span>
+<span class="nc" id="L307">            dataStore.dispose();</span>
+<span class="nc" id="L308">            return 0;</span>
+        } else {
+<span class="nc" id="L310">            LOG.debug(&quot;Verwerken features uit GML bestand: &quot; + gmlFileName);</span>
+        }
+
+<span class="nc" id="L313">        SimpleFeatureType sft = gmlFeatCollection.getSchema();</span>
+<span class="nc" id="L314">        GMLLightFeatureTransformer featTransformer = BGTGMLLightTransformerFactory.getTransformer(sft.getTypeName());</span>
+<span class="nc bnc" id="L315" title="All 2 branches missed.">        if (featTransformer == null) {</span>
+<span class="nc" id="L316">            LOG.error(&quot;Opzoeken van FeatureTransformer voor &quot; + sft.getTypeName() + &quot; is mislukt; er geen transformer beschikbaar voor dit bestand.&quot;);</span>
+<span class="nc" id="L317">            dataStore.dispose();</span>
+<span class="nc" id="L318">            return 0;</span>
+        }
+
+        // check table exists
+<span class="nc" id="L322">        String tableName = BGTGMLLightTransformerFactory.getTableName(sft.getTypeName());</span>
+<span class="nc" id="L323">        boolean exists = false;</span>
+<span class="nc" id="L324">        String[] typeNames = dataStore.getTypeNames();</span>
+<span class="nc bnc" id="L325" title="All 2 branches missed.">        for (String name : typeNames) {</span>
+<span class="nc bnc" id="L326" title="All 2 branches missed.">            if (tableName.equalsIgnoreCase(name)) {</span>
+<span class="nc" id="L327">                LOG.debug(&quot;De tabel '&quot; + tableName + &quot;' is gevonden in de database als: &quot; + name);</span>
+<span class="nc" id="L328">                exists = true;</span>
+            }
+        }
+
+<span class="nc" id="L332">        SimpleFeatureType targetSchema = featTransformer.getTargetSchema(sft, tableName, this.isOracle);</span>
+<span class="nc" id="L333">        LOG.debug(&quot;Doel tabel schema: &quot; + targetSchema);</span>
+
+<span class="nc bnc" id="L335" title="All 2 branches missed.">        if (!exists) {</span>
+<span class="nc bnc" id="L336" title="All 2 branches missed.">            if (createTables) {</span>
+<span class="nc" id="L337">                dataStore.createSchema(targetSchema);</span>
+<span class="nc" id="L338">                LOG.warn(&quot;De volgende tabel is aangemaakt in de database: &quot; + targetSchema.getTypeName());</span>
+<span class="nc bnc" id="L339" title="All 2 branches missed.">                if (this.isOracle) {</span>
+                    try {
+<span class="nc" id="L341">                        dataStore.getConnection(Transaction.AUTO_COMMIT).createStatement().execute(&quot;UPDATE USER_SDO_GEOM_METADATA SET SRID=28992&quot;);</span>
+<span class="nc" id="L342">                    } catch (SQLException ex) {</span>
+<span class="nc" id="L343">                        LOG.error(&quot;Bijwerken ruimtelijke metadata is mislukt&quot;, ex);</span>
+<span class="nc" id="L344">                    }</span>
+                }
+            } else {
+<span class="nc" id="L347">                LOG.error(&quot;Tabel: &quot; + tableName + &quot; is niet beschikbaar in de database.&quot;);</span>
+<span class="nc" id="L348">                throw new IllegalStateException(&quot;De tabel &quot; + tableName + &quot; ontbreekt in de database; opslaan van gegevens uit GML &quot; + gmlFileName + &quot; is niet mogelijk.&quot;);</span>
+            }
+        } else {
+            // als tabel bestaat aannemen dat deze de juiste primary key heeft
+<span class="nc" id="L352">            dataStore.setExposePrimaryKeyColumns(true);</span>
+        }
+
+        // Map om per ID bij te houden wat meest recente tijdstipRegistratie en beeindigd status is
+        // Niet in map: niet in tabel
+        // TRUE: beeindigd en niet in tabel
+        // FALSE: niet beeindigd, en in tabel
+<span class="nc" id="L359">        Map&lt;String,Pair&lt;Date,Boolean&gt;&gt; records = allRecords.get(tableName);</span>
+<span class="nc bnc" id="L360" title="All 2 branches missed.">        if(records == null) {</span>
+<span class="nc" id="L361">            records = new HashMap();</span>
+<span class="nc" id="L362">            allRecords.put(tableName, records);</span>
+        } else {
+<span class="nc" id="L364">            LOG.debug(&quot;Aantal ID's voor deze tabel al bekend in geheugen van vorige GML bestanden: &quot; + records.size());</span>
+        }
+
+<span class="nc" id="L367">        Transaction transaction = new DefaultTransaction(&quot;add-bgt&quot;);</span>
+<span class="nc" id="L368">        Transaction updatetransaction = new DefaultTransaction(&quot;update-bgt&quot;);</span>
+<span class="nc" id="L369">        FilterFactory2 ff = CommonFactoryFinder.getFilterFactory2(null);</span>
+<span class="nc" id="L370">        try (FeatureIterator&lt;SimpleFeature&gt; feats = gmlFeatCollection.features()) {</span>
+<span class="nc" id="L371">            FeatureStore store = (FeatureStore) dataStore.getFeatureSource(targetSchema.getTypeName(), transaction);</span>
+<span class="nc" id="L372">            FeatureStore store2 = (FeatureStore) dataStore.getFeatureSource(targetSchema.getTypeName(), updatetransaction);</span>
+
+            SimpleFeature gmlSF;
+            SimpleFeature transformed;
+<span class="nc bnc" id="L376" title="All 2 branches missed.">            while (feats.hasNext()) {</span>
+<span class="nc" id="L377">                gmlSF = feats.next();</span>
+<span class="nc" id="L378">                features++;</span>
+
+<span class="nc" id="L380">                transformed = featTransformer.transform(gmlSF, targetSchema, this.isOracle, dataStore.isExposePrimaryKeyColumns());</span>
+<span class="nc bnc" id="L381" title="All 2 branches missed.">                if (transformed == null) {</span>
+<span class="nc" id="L382">                    LOG.warn(&quot;Fout bij transformeren feature op index &quot; + features + &quot;, null geretourneerd&quot;);</span>
+<span class="nc" id="L383">                    continue;</span>
+                }
+
+<span class="nc" id="L386">                String id = transformed.getID();</span>
+<span class="nc" id="L387">                Pair&lt;Date,Boolean&gt; record = records.get(id);</span>
+<span class="nc" id="L388">                Date tijdstipRegistratie = (Date) gmlSF.getAttribute(&quot;tijdstipRegistratie&quot;);</span>
+<span class="nc bnc" id="L389" title="All 2 branches missed.">                if(tijdstipRegistratie == null) {</span>
+<span class="nc" id="L390">                    LOG.error(&quot;Feature voor object &quot; + id + &quot; zonder tijdstipRegistratie gevonden, genegeerd&quot;);</span>
+<span class="nc" id="L391">                    continue;</span>
+                }
+<span class="nc bnc" id="L393" title="All 2 branches missed.">                boolean beeindigd = gmlSF.getAttribute(&quot;objectEindTijd&quot;) != null;</span>
+<span class="nc bnc" id="L394" title="All 2 branches missed.">                if(LOG.isDebugEnabled()) {</span>
+<span class="nc bnc" id="L395" title="All 8 branches missed.">                    LOG.info(String.format(&quot;Object %s, beeindigd=%s, tijdstipRegistratie=%tc, eerder tijdstip %tc, eerder beeindigd %s&quot;, id, beeindigd ? &quot;ja&quot;:&quot;nee&quot;, tijdstipRegistratie, record != null ? record.getLeft() : null, record != null ? (record.getRight() ? &quot;ja&quot;:&quot;nee&quot;) : &quot;-&quot;));</span>
+                }
+<span class="nc bnc" id="L397" title="All 4 branches missed.">                if(record != null &amp;&amp; tijdstipRegistratie.before(record.getLeft())) {</span>
+<span class="nc" id="L398">                    LOG.warn(String.format(&quot;Feature voor object %s gevonden met tijdstipRegistratie %tc eerder dan vorig record van %tc, genegeerd&quot;, id, tijdstipRegistratie, record.getLeft()));</span>
+<span class="nc" id="L399">                    continue;</span>
+                }
+
+<span class="nc bnc" id="L402" title="All 2 branches missed.">                if(beeindigd) {</span>
+<span class="nc" id="L403">                    Date eindTijd = (Date) gmlSF.getAttribute(&quot;objectEindTijd&quot;);</span>
+<span class="nc bnc" id="L404" title="All 2 branches missed.">                    if(eindTijd.after(new Date())) {</span>
+<span class="nc" id="L405">                        LOG.warn(String.format(&quot;Object %s vervallen in de toekomst op %tc, wordt alvast verwijderd!&quot;, id, eindTijd));</span>
+                    }
+
+<span class="nc bnc" id="L408" title="All 2 branches missed.">                    if(record != null) {</span>
+<span class="nc bnc" id="L409" title="All 2 branches missed.">                        if(!record.getRight()) {</span>
+                            // Verwijder eerder geinsert record
+<span class="nc" id="L411">                            LOG.info(String.format(&quot;Object %s vervallen met tijdstipRegistratie %tc, verwijder eerder geinsert record met laatste tijdstipRegistratie %tc&quot;, id, tijdstipRegistratie, record.getLeft()));</span>
+
+                            // bij mssql transactie sluiten ander blijft de boel hangen, voor orcl + pg ook
+<span class="nc" id="L414">                            transaction.close();</span>
+<span class="nc" id="L415">                            Filter filter = ff.id(transformed.getIdentifier());</span>
+<span class="nc" id="L416">                            store2.removeFeatures(filter);</span>
+<span class="nc" id="L417">                            updatetransaction.commit();</span>
+                            // maak een nieuw transactie voor toevoegen, de eerdere is aborted
+<span class="nc" id="L419">                            transaction = new DefaultTransaction(&quot;add-bgt&quot;);</span>
+<span class="nc" id="L420">                            store.setTransaction(transaction);</span>
+<span class="nc" id="L421">                            deletes++;</span>
+                        }
+                    }
+<span class="nc" id="L424">                    records.put(id, new ImmutablePair&lt;&gt;(tijdstipRegistratie, true));</span>
+<span class="nc" id="L425">                } else {</span>
+
+<span class="nc bnc" id="L427" title="All 2 branches missed.">                    if(record != null) {</span>
+<span class="nc bnc" id="L428" title="All 2 branches missed.">                        if(record.getRight()) {</span>
+<span class="nc" id="L429">                            LOG.error(String.format(&quot;Object %s was eerder vervallen met tijdstipRegistratie %tc, nu weer niet met tijdstipRegistratie %tc, genegeerd&quot;, id, record.getLeft(), tijdstipRegistratie));</span>
+                            // Alternatief weer inserten?
+<span class="nc" id="L431">                            continue;</span>
+                        } else {
+                            // bij mssql transactie sluiten ander blijft de boel hangen, voor orcl + pg ook
+<span class="nc" id="L434">                            transaction.close();</span>
+                            // object opzoeken,
+<span class="nc" id="L436">                            Filter filter = CommonFactoryFinder.getFilterFactory2(null).id(transformed.getIdentifier());</span>
+<span class="nc" id="L437">                            FeatureIterator&lt;SimpleFeature&gt; bestaandeFeats = store2.getFeatures(filter).features();</span>
+<span class="nc" id="L438">                            SimpleFeature bestaandeFeat = bestaandeFeats.next();</span>
+
+<span class="nc bnc" id="L440" title="All 2 branches missed.">                            final String idAttr = this.isOracle ? ID_NAME.toUpperCase() : ID_NAME;</span>
+<span class="nc bnc" id="L441" title="All 2 branches missed.">                            for (AttributeDescriptor attr : transformed.getFeatureType().getAttributeDescriptors()) {</span>
+<span class="nc" id="L442">                                Name attrName = attr.getName();</span>
+<span class="nc bnc" id="L443" title="All 2 branches missed.">                                if (!attrName.getLocalPart().equals(idAttr)) {</span>
+<span class="nc" id="L444">                                    store2.modifyFeatures(attrName, transformed.getAttribute(attrName), filter);</span>
+                                }
+<span class="nc" id="L446">                            }</span>
+<span class="nc" id="L447">                            updatetransaction.commit();</span>
+<span class="nc" id="L448">                            LOG.info(String.format(&quot;Object %s geupdate van tijdstip %tc naar nieuw tijdstipRegistratie %tc&quot;, id, record.getLeft(), tijdstipRegistratie));</span>
+<span class="nc" id="L449">                            bestaandeFeats.close();</span>
+                            // maak een nieuw transactie voor toevoegen, de eerdere is aborted
+<span class="nc" id="L451">                            transaction = new DefaultTransaction(&quot;add-bgt&quot;);</span>
+<span class="nc" id="L452">                            store.setTransaction(transaction);</span>
+<span class="nc" id="L453">                            updates++;</span>
+<span class="nc" id="L454">                        }</span>
+                    } else {
+<span class="nc" id="L456">                        store.addFeatures(DataUtilities.collection(transformed));</span>
+<span class="nc" id="L457">                        inserts++;</span>
+                        // commit per feature
+<span class="nc" id="L459">                        transaction.commit();</span>
+<span class="nc" id="L460">                        LOG.debug(String.format(&quot;Object toegevoegd in database met NEN3610ID: %s en tijdstipRegistratie %tc&quot;, id, tijdstipRegistratie));</span>
+                    }
+<span class="nc" id="L462">                    records.put(id, new ImmutablePair&lt;&gt;(tijdstipRegistratie, false));</span>
+                }
+<span class="nc" id="L464">            }</span>
+<span class="nc" id="L465">            LOG.info(String.format(&quot;Totaal verwerkte features voor %s: %d, inserts: %d, updates: %d, deletes: %d&quot;, gmlFileName, features, inserts, updates, deletes));</span>
+<span class="nc" id="L466">        } catch (IOException ioe) {</span>
+<span class="nc" id="L467">            String s = String.format(&quot;Fout opgetreden, hiervoor verwerkte features voor %s: %d, inserts: %d, updates: %d, deletes: %d&quot;, gmlFileName, features, inserts, updates, deletes);</span>
+<span class="nc" id="L468">            opmerkingen.append(s).append(&quot;\n&quot;);</span>
+<span class="nc" id="L469">            LOG.info(s);</span>
+
+<span class="nc" id="L471">            LOG.error(&quot;I/O database probleem tijdens insert van features&quot;, ioe);</span>
+<span class="nc" id="L472">            this.status = STATUS.NOK;</span>
+<span class="nc" id="L473">            transaction.rollback();</span>
+        } finally {
+            try {
+<span class="nc" id="L476">                transaction.close();</span>
+<span class="nc" id="L477">                updatetransaction.close();</span>
+<span class="nc" id="L478">                dataStore.dispose();</span>
+<span class="nc" id="L479">            } catch(Exception e) {</span>
+<span class="nc" id="L480">                LOG.error(&quot;Fout sluiten datastores&quot;, e);</span>
+<span class="nc" id="L481">            }</span>
+        }
+<span class="nc" id="L483">        return inserts;</span>
+    }
+
+    private boolean isDuplicateKeyViolationMessage(String message) {
+<span class="nc bnc" id="L487" title="All 2 branches missed.">        return message != null</span>
+                /* oracle */
+<span class="nc" id="L489">                &amp;&amp; (message.startsWith(&quot;ORA-00001:&quot;)</span>
+                /* postgresql */
+<span class="nc" id="L491">                | message.startsWith(&quot;ERROR: duplicate key value violates unique constraint&quot;)</span>
+                /* mssql */
+<span class="nc bnc" id="L493" title="All 2 branches missed.">                | message.contains(&quot;Cannot insert duplicate key in object&quot;));</span>
+    }
+
+    /**
+     * scan directory for zipfiles in de geconfigueerde directory.
+     *
+     * @return lijst met zipfiles, mogelijk leeg
+     * @see #setScanDirectory(java.io.File)
+     * @see #setScanDirectory(java.lang.String)
+     */
+    public List&lt;File&gt; scanDirectory() {
+<span class="nc" id="L504">        List&lt;File&gt; zipfiles = Collections.emptyList();</span>
+
+<span class="nc bnc" id="L506" title="All 6 branches missed.">        if (scanDirectory != null &amp;&amp; scanDirectory.isDirectory() &amp;&amp; scanDirectory.canExecute()) {</span>
+<span class="nc" id="L507">            FilenameFilter filter = new FilenameFilter() {</span>
+                /**
+                 * accepteer alleen zip files.
+                 *
+                 * @param dir the directory in which the file was found.
+                 * @param name the name of the file
+                 * @return {@code true} if and only if the name should be
+                 * included in the file list; {@code false} otherwise.
+                 */
+                @Override
+                public boolean accept(File dir, String name) {
+<span class="nc" id="L518">                    return name.toLowerCase().endsWith(&quot;zip&quot;);</span>
+                }
+            };
+<span class="nc" id="L521">            File files[] = scanDirectory.listFiles(filter);</span>
+<span class="nc" id="L522">            zipfiles = Arrays.asList(files);</span>
+<span class="nc" id="L523">        } else {</span>
+<span class="nc" id="L524">            LOG.fatal(&quot;De directory (&quot; + scanDirectory + &quot;) kan niet worden gelezen of doorbladerd.&quot;);</span>
+<span class="nc" id="L525">            this.status = STATUS.NOK;</span>
+        }
+<span class="nc" id="L527">        return zipfiles;</span>
+    }
+
+    /**
+     * Stel directory met zip files in.
+     *
+     * @param scanDirectory pad van te scannen directory
+     *
+     * @see #processGMLFile(java.io.File)
+     */
+    public void setScanDirectory(String scanDirectory) {
+<span class="nc" id="L538">        this.scanDirectory = new File(scanDirectory);</span>
+<span class="nc" id="L539">    }</span>
+
+    /**
+     * Stel directory met zip files in.
+     *
+     * @param scanDirectory te scannen directory
+     *
+     * @see #setScanDirectory(java.lang.String)
+     */
+    public void setScanDirectory(File scanDirectory) {
+<span class="nc" id="L549">        this.scanDirectory = scanDirectory;</span>
+<span class="nc" id="L550">    }</span>
+
+    /**
+     * gegevens voor maken van verbinding met daatabase door geotools.
+     * Afhankelijk van de soort store dienen verschillende params te worden
+     * gegeven, zie:
+     * &lt;a href=&quot;http://docs.geotools.org/latest/userguide/library/jdbc/index.html&quot;&gt;JDBC&lt;/a&gt;.
+     *
+     * @param dbConnProps getools verbindings gegevens
+     */
+    public void setDbConnProps(Properties dbConnProps) {
+<span class="nc" id="L561">        this.dbConnProps = dbConnProps;</span>
+<span class="nc" id="L562">        this.isOracle = &quot;oracle&quot;.equalsIgnoreCase(dbConnProps.getProperty(&quot;dbtype&quot;));</span>
+<span class="nc" id="L563">        this.isMSSQL = (&quot;jtds-sqlserver&quot;.equalsIgnoreCase(dbConnProps.getProperty(&quot;dbtype&quot;)) | &quot;sqlserver&quot;.equalsIgnoreCase(dbConnProps.getProperty(&quot;dbtype&quot;)));</span>
+<span class="nc" id="L564">    }</span>
+
+    /**
+     * Maak automatisch tabellen aan.
+     *
+     * @param createTables {@code true} om automatisch tabellen aan te maken,
+     * default is {@code true}
+     */
+    public void setCreateTables(boolean createTables) {
+<span class="nc" id="L573">        this.createTables = createTables;</span>
+<span class="nc" id="L574">    }</span>
+
+    /**
+     * omdat oracle uppercase heeft voor tabellen en velden en geen boolean
+     * heeft...
+     *
+     * @param isOracle {@code true} als het zo is
+     */
+    public void setIsOracle(boolean isOracle) {
+<span class="nc" id="L583">        this.isOracle = isOracle;</span>
+<span class="nc" id="L584">    }</span>
+
+    /**
+     * omdat sqlserver geen boolean heeft voor velden...
+     *
+     * @param isMSSQL {@code true} als het zo is
+     */
+    public void setIsMSSQL(boolean isMSSQL) {
+<span class="nc" id="L592">        this.isMSSQL = isMSSQL;</span>
+<span class="nc" id="L593">    }</span>
+
+    /**
+     * Test of de zipFile een geldige zipfile is.
+     *
+     * @param file de te testen zipfile
+     * @return {@code true} als de zipfile OK is, aders {@code false}
+     */
+    private boolean isValidZipFile(final File file) {
+<span class="nc" id="L602">        ZipFile zipfile = null;</span>
+<span class="nc" id="L603">        ZipInputStream zis = null;</span>
+<span class="nc" id="L604">        String path = null;</span>
+        try {
+<span class="nc" id="L606">            path = file.getCanonicalPath();</span>
+<span class="nc" id="L607">            zipfile = new ZipFile(file, ZipFile.OPEN_READ);</span>
+<span class="nc" id="L608">            zis = new ZipInputStream(new FileInputStream(file));</span>
+<span class="nc" id="L609">            ZipEntry ze = zis.getNextEntry();</span>
+<span class="nc bnc" id="L610" title="All 2 branches missed.">            if (ze == null) {</span>
+<span class="nc" id="L611">                return false;</span>
+            }
+<span class="nc bnc" id="L613" title="All 2 branches missed.">            while (ze != null) {</span>
+                // als er een exception bij 1 van volgende optreed is het bestand corrupt
+<span class="nc" id="L615">                zipfile.getInputStream(ze);</span>
+<span class="nc" id="L616">                ze.getCrc();</span>
+<span class="nc" id="L617">                ze.getCompressedSize();</span>
+<span class="nc" id="L618">                ze.getName();</span>
+<span class="nc" id="L619">                ze = zis.getNextEntry();</span>
+            }
+<span class="nc" id="L621">            return true;</span>
+<span class="nc" id="L622">        } catch (IOException e) {</span>
+<span class="nc" id="L623">            LOG.error(&quot;Ongeldige zipfile: &quot; + path, e);</span>
+<span class="nc" id="L624">            return false;</span>
+        } finally {
+            try {
+<span class="nc bnc" id="L627" title="All 2 branches missed.">                if (zipfile != null) {</span>
+<span class="nc" id="L628">                    zipfile.close();</span>
+<span class="nc" id="L629">                    zipfile = null;</span>
+                }
+<span class="nc" id="L631">            } catch (IOException e) {</span>
+<span class="nc" id="L632">                LOG.warn(&quot;Fout tijdens sluiten zipfile, mogelijk corrupt bestand: &quot; + path, e);</span>
+                // return false;
+<span class="nc" id="L634">            }</span>
+            try {
+<span class="nc bnc" id="L636" title="All 2 branches missed.">                if (zis != null) {</span>
+<span class="nc" id="L637">                    zis.close();</span>
+<span class="nc" id="L638">                    zis = null;</span>
+                }
+<span class="nc" id="L640">            } catch (IOException e) {</span>
+<span class="nc" id="L641">                LOG.warn(&quot;Fout tijdens sluiten zipstream, mogelijk corrupt bestand: &quot; + path, e);</span>
+                // return false;
+<span class="nc" id="L643">            }</span>
+        }
+    }
+    /**
+     * Zipfile omhullende geometrie.
+     *
+     * @return omhullende van alle vlakgeometrieen van de bestanden in een
+     * zipfile. In het gavel van een stand {@code null}.
+     */
+    public Geometry getOmhullendeVanZipFile() {
+<span class="nc" id="L653">        return omhullendeVanZipFile;</span>
+    }
+
+    /**
+     * geeft een log van de verwerking.
+     *
+     * @return log van de verwerking
+     */
+    public String getOpmerkingen() {
+<span class="nc" id="L662">        return this.opmerkingen.toString();</span>
+    }
+
+    /**
+     * geeft de verwerkingsstatus. Voorafgaand aan de verwerking moet de status
+     * reset worden als er een set losse GML bestanden wordt verwerkt (bij zip
+     * files gaat dat vanzelf).
+     *
+     * @return status van de verwerking
+     */
+    public STATUS getStatus() {
+<span class="nc" id="L673">        return this.status;</span>
+    }
+
+    /**
+     * verwerkingsstatus
+     */
+<span class="nc" id="L679">    public enum STATUS {</span>
+<span class="nc" id="L680">        OK, NOK</span>
+    }
+
+    public void resetStatus() {
+<span class="nc" id="L684">        this.status = STATUS.OK;</span>
+<span class="nc" id="L685">        opmerkingen = new StringBuilder();</span>
+<span class="nc" id="L686">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.service.scanner.TopNLDirectoryScanner
-	c377 [label=<<table title="nl.b3p.brmo.service.scanner.TopNLDirectoryScanner" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TopNLDirectoryScanner.html">
+	c403 [label=<<table title="nl.b3p.brmo.service.scanner.TopNLDirectoryScanner" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TopNLDirectoryScanner.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> TopNLDirectoryScanner </td></tr>
 		</table></td></tr>
@@ -24,7 +24,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./TopNLDirectoryScanner.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.scanner.BerichtstatusRapport
-	c379 [label=<<table title="nl.b3p.brmo.service.scanner.BerichtstatusRapport" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BerichtstatusRapport.html">
+	c405 [label=<<table title="nl.b3p.brmo.service.scanner.BerichtstatusRapport" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BerichtstatusRapport.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BerichtstatusRapport </td></tr>
 		</table></td></tr>
@@ -38,7 +38,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BerichtstatusRapport.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.scanner.AbstractExecutableProces
-	c380 [label=<<table title="nl.b3p.brmo.service.scanner.AbstractExecutableProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./AbstractExecutableProces.html">
+	c406 [label=<<table title="nl.b3p.brmo.service.scanner.AbstractExecutableProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./AbstractExecutableProces.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> AbstractExecutableProces </font></td></tr>
 		</table></td></tr>
@@ -58,7 +58,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./AbstractExecutableProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.scanner.MaterializedViewRefreshUitvoeren
-	c382 [label=<<table title="nl.b3p.brmo.service.scanner.MaterializedViewRefreshUitvoeren" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MaterializedViewRefreshUitvoeren.html">
+	c408 [label=<<table title="nl.b3p.brmo.service.scanner.MaterializedViewRefreshUitvoeren" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MaterializedViewRefreshUitvoeren.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MaterializedViewRefreshUitvoeren </td></tr>
 		</table></td></tr>
@@ -73,7 +73,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./MaterializedViewRefreshUitvoeren.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.scanner.BGTLightOphalenProces
-	c386 [label=<<table title="nl.b3p.brmo.service.scanner.BGTLightOphalenProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTLightOphalenProces.html">
+	c412 [label=<<table title="nl.b3p.brmo.service.scanner.BGTLightOphalenProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTLightOphalenProces.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BGTLightOphalenProces </td></tr>
 		</table></td></tr>
@@ -87,7 +87,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BGTLightOphalenProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.scanner.ProcesExecutable
-	c388 [label=<<table title="nl.b3p.brmo.service.scanner.ProcesExecutable" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ProcesExecutable.html">
+	c414 [label=<<table title="nl.b3p.brmo.service.scanner.ProcesExecutable" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ProcesExecutable.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> ProcesExecutable </td></tr>
@@ -103,7 +103,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./ProcesExecutable.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.scanner.BRKDirectoryScanner
-	c392 [label=<<table title="nl.b3p.brmo.service.scanner.BRKDirectoryScanner" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BRKDirectoryScanner.html">
+	c418 [label=<<table title="nl.b3p.brmo.service.scanner.BRKDirectoryScanner" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BRKDirectoryScanner.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BRKDirectoryScanner </td></tr>
 		</table></td></tr>
@@ -117,7 +117,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BRKDirectoryScanner.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.scanner.MailRapportage
-	c394 [label=<<table title="nl.b3p.brmo.service.scanner.MailRapportage" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MailRapportage.html">
+	c420 [label=<<table title="nl.b3p.brmo.service.scanner.MailRapportage" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MailRapportage.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MailRapportage </td></tr>
 		</table></td></tr>
@@ -131,7 +131,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./MailRapportage.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.scanner.BGTLightDirectoryScanner
-	c397 [label=<<table title="nl.b3p.brmo.service.scanner.BGTLightDirectoryScanner" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTLightDirectoryScanner.html">
+	c423 [label=<<table title="nl.b3p.brmo.service.scanner.BGTLightDirectoryScanner" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTLightDirectoryScanner.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BGTLightDirectoryScanner </td></tr>
 		</table></td></tr>
@@ -145,7 +145,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BGTLightDirectoryScanner.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.scanner.BerichtTransformatieUitvoeren
-	c400 [label=<<table title="nl.b3p.brmo.service.scanner.BerichtTransformatieUitvoeren" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BerichtTransformatieUitvoeren.html">
+	c426 [label=<<table title="nl.b3p.brmo.service.scanner.BerichtTransformatieUitvoeren" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BerichtTransformatieUitvoeren.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BerichtTransformatieUitvoeren </td></tr>
 		</table></td></tr>
@@ -159,7 +159,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BerichtTransformatieUitvoeren.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.scanner.BerichtDoorsturenProces
-	c402 [label=<<table title="nl.b3p.brmo.service.scanner.BerichtDoorsturenProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BerichtDoorsturenProces.html">
+	c428 [label=<<table title="nl.b3p.brmo.service.scanner.BerichtDoorsturenProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BerichtDoorsturenProces.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BerichtDoorsturenProces </td></tr>
 		</table></td></tr>
@@ -173,7 +173,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BerichtDoorsturenProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.scanner.GDS2OphalenProces
-	c405 [label=<<table title="nl.b3p.brmo.service.scanner.GDS2OphalenProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GDS2OphalenProces.html">
+	c431 [label=<<table title="nl.b3p.brmo.service.scanner.GDS2OphalenProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GDS2OphalenProces.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> GDS2OphalenProces </td></tr>
 		</table></td></tr>
@@ -188,8 +188,25 @@ digraph G {
 <tr><td align="left" balign="left"> + doorsturenBericht(proces : AutomatischProces, l : ProgressUpdateListener, b : Bericht, endpoint : String) : boolean </td></tr>
 		</table></td></tr>
 		</table>>, URL="./GDS2OphalenProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.service.scanner.AfgifteNummerScanner
+	c433 [label=<<table title="nl.b3p.brmo.service.scanner.AfgifteNummerScanner" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AfgifteNummerScanner.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> AfgifteNummerScanner </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + AfgifteNummerScanner(config : AfgifteNummerScannerProces) </td></tr>
+<tr><td align="left" balign="left"> + contractnummers() : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + execute() </td></tr>
+<tr><td align="left" balign="left"> + execute(listener : ProgressUpdateListener) </td></tr>
+<tr><td align="left" balign="left"> ~ getOntbrekendeAfgiftenummers(contractnummer : String, afgiftenummertype : String) : List&lt;Map&lt;String, Object&gt;&gt; </td></tr>
+<tr><td align="left" balign="left"> + getOntbrekendeNummersGevonden() : boolean </td></tr>
+		</table></td></tr>
+		</table>>, URL="./AfgifteNummerScanner.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.scanner.BAGDirectoryScanner
-	c408 [label=<<table title="nl.b3p.brmo.service.scanner.BAGDirectoryScanner" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BAGDirectoryScanner.html">
+	c436 [label=<<table title="nl.b3p.brmo.service.scanner.BAGDirectoryScanner" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BAGDirectoryScanner.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BAGDirectoryScanner </td></tr>
 		</table></td></tr>
@@ -203,7 +220,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BAGDirectoryScanner.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.scanner.WebMirrorBAGDirectoryScanner
-	c412 [label=<<table title="nl.b3p.brmo.service.scanner.WebMirrorBAGDirectoryScanner" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WebMirrorBAGDirectoryScanner.html">
+	c440 [label=<<table title="nl.b3p.brmo.service.scanner.WebMirrorBAGDirectoryScanner" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WebMirrorBAGDirectoryScanner.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> WebMirrorBAGDirectoryScanner </td></tr>
 		</table></td></tr>
@@ -217,7 +234,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./WebMirrorBAGDirectoryScanner.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.scanner.LaadprocesTransformatieUitvoeren
-	c414 [label=<<table title="nl.b3p.brmo.service.scanner.LaadprocesTransformatieUitvoeren" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./LaadprocesTransformatieUitvoeren.html">
+	c442 [label=<<table title="nl.b3p.brmo.service.scanner.LaadprocesTransformatieUitvoeren" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./LaadprocesTransformatieUitvoeren.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> LaadprocesTransformatieUitvoeren </td></tr>
 		</table></td></tr>
@@ -231,32 +248,34 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./LaadprocesTransformatieUitvoeren.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.service.scanner.TopNLDirectoryScanner extends nl.b3p.brmo.service.scanner.AbstractExecutableProces
-	c380:p -> c377:p [dir=back,arrowtail=empty];
+	c406:p -> c403:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.service.scanner.BerichtstatusRapport extends nl.b3p.brmo.service.scanner.AbstractExecutableProces
-	c380:p -> c379:p [dir=back,arrowtail=empty];
+	c406:p -> c405:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.service.scanner.AbstractExecutableProces implements nl.b3p.brmo.service.scanner.ProcesExecutable
-	c388:p -> c380:p [dir=back,arrowtail=empty,style=dashed];
+	c414:p -> c406:p [dir=back,arrowtail=empty,style=dashed];
 	//nl.b3p.brmo.service.scanner.MaterializedViewRefreshUitvoeren extends nl.b3p.brmo.service.scanner.AbstractExecutableProces
-	c380:p -> c382:p [dir=back,arrowtail=empty];
+	c406:p -> c408:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.service.scanner.BGTLightOphalenProces extends nl.b3p.brmo.service.scanner.AbstractExecutableProces
-	c380:p -> c386:p [dir=back,arrowtail=empty];
+	c406:p -> c412:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.service.scanner.BRKDirectoryScanner extends nl.b3p.brmo.service.scanner.AbstractExecutableProces
-	c380:p -> c392:p [dir=back,arrowtail=empty];
+	c406:p -> c418:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.service.scanner.MailRapportage extends nl.b3p.brmo.service.scanner.AbstractExecutableProces
-	c380:p -> c394:p [dir=back,arrowtail=empty];
+	c406:p -> c420:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.service.scanner.BGTLightDirectoryScanner extends nl.b3p.brmo.service.scanner.AbstractExecutableProces
-	c380:p -> c397:p [dir=back,arrowtail=empty];
+	c406:p -> c423:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.service.scanner.BerichtTransformatieUitvoeren extends nl.b3p.brmo.service.scanner.AbstractExecutableProces
-	c380:p -> c400:p [dir=back,arrowtail=empty];
+	c406:p -> c426:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.service.scanner.BerichtDoorsturenProces extends nl.b3p.brmo.service.scanner.AbstractExecutableProces
-	c380:p -> c402:p [dir=back,arrowtail=empty];
+	c406:p -> c428:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.service.scanner.GDS2OphalenProces extends nl.b3p.brmo.service.scanner.AbstractExecutableProces
-	c380:p -> c405:p [dir=back,arrowtail=empty];
+	c406:p -> c431:p [dir=back,arrowtail=empty];
+	//nl.b3p.brmo.service.scanner.AfgifteNummerScanner extends nl.b3p.brmo.service.scanner.AbstractExecutableProces
+	c406:p -> c433:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.service.scanner.BAGDirectoryScanner extends nl.b3p.brmo.service.scanner.AbstractExecutableProces
-	c380:p -> c408:p [dir=back,arrowtail=empty];
+	c406:p -> c436:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.service.scanner.WebMirrorBAGDirectoryScanner extends nl.b3p.brmo.service.scanner.AbstractExecutableProces
-	c380:p -> c412:p [dir=back,arrowtail=empty];
+	c406:p -> c440:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.service.scanner.LaadprocesTransformatieUitvoeren extends nl.b3p.brmo.service.scanner.AbstractExecutableProces
-	c380:p -> c414:p [dir=back,arrowtail=empty];
+	c406:p -> c442:p [dir=back,arrowtail=empty];
 }
 

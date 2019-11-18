@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>AddreseerbaarObjectAanduiding.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO distributie</a> &gt; <a href="../index.html" class="el_bundle">brmo-soap</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.soap.eigendom</a> &gt; <span class="el_source">AddreseerbaarObjectAanduiding.java</span></div><h1>AddreseerbaarObjectAanduiding.java</h1><pre class="source lang-java linenums">package nl.b3p.brmo.soap.eigendom;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+
+/**
+ * &lt;p&gt;
+ * Java class for anonymous complex type.
+  *
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = &quot;&quot;, propOrder = {
+    &quot;identificatienummer&quot;,
+    &quot;postcode&quot;,
+    &quot;huisnummer&quot;,
+    &quot;huisletter&quot;,
+    &quot;huisnummertoevoeging&quot;,
+    &quot;woonplaatsIdentificatie&quot;,
+    &quot;openbareRuimteNaam&quot;
+})
+<span class="nc" id="L23">public class AddreseerbaarObjectAanduiding {</span>
+
+    @XmlElement(required = true)
+    protected String identificatienummer;
+    protected String postcode;
+    protected String huisnummer;
+    protected String huisletter;
+    protected String huisnummertoevoeging;
+    @XmlElement(name = &quot;woonplaats_identificatie&quot;)
+    protected String woonplaatsIdentificatie;
+    @XmlElement(name = &quot;openbare_ruimte_naam&quot;)
+    protected String openbareRuimteNaam;
+
+    /**
+     * Gets the value of the identificatienummer property.
+     *
+     * @return possible object is {@link String }
+     *
+     */
+    public String getIdentificatienummer() {
+<span class="nc" id="L43">        return identificatienummer;</span>
+    }
+
+    /**
+     * Sets the value of the identificatienummer property.
+     *
+     * @param value allowed object is {@link String }
+     *
+     */
+    public void setIdentificatienummer(String value) {
+<span class="nc" id="L53">        this.identificatienummer = value;</span>
+<span class="nc" id="L54">    }</span>
+
+    /**
+     * Gets the value of the postcode property.
+     *
+     * @return possible object is {@link String }
+     *
+     */
+    public String getPostcode() {
+<span class="nc" id="L63">        return postcode;</span>
+    }
+
+    /**
+     * Sets the value of the postcode property.
+     *
+     * @param value allowed object is {@link String }
+     *
+     */
+    public void setPostcode(String value) {
+<span class="nc" id="L73">        this.postcode = value;</span>
+<span class="nc" id="L74">    }</span>
+
+    /**
+     * Gets the value of the huisnummer property.
+     *
+     * @return possible object is {@link String }
+     *
+     */
+    public String getHuisnummer() {
+<span class="nc" id="L83">        return huisnummer;</span>
+    }
+
+    /**
+     * Sets the value of the huisnummer property.
+     *
+     * @param value allowed object is {@link String }
+     *
+     */
+    public void setHuisnummer(String value) {
+<span class="nc" id="L93">        this.huisnummer = value;</span>
+<span class="nc" id="L94">    }</span>
+
+    /**
+     * Gets the value of the huisletter property.
+     *
+     * @return possible object is {@link String }
+     *
+     */
+    public String getHuisletter() {
+<span class="nc" id="L103">        return huisletter;</span>
+    }
+
+    /**
+     * Sets the value of the huisletter property.
+     *
+     * @param value allowed object is {@link String }
+     *
+     */
+    public void setHuisletter(String value) {
+<span class="nc" id="L113">        this.huisletter = value;</span>
+<span class="nc" id="L114">    }</span>
+
+    /**
+     * Gets the value of the huisnummertoevoeging property.
+     *
+     * @return possible object is {@link String }
+     *
+     */
+    public String getHuisnummertoevoeging() {
+<span class="nc" id="L123">        return huisnummertoevoeging;</span>
+    }
+
+    /**
+     * Sets the value of the huisnummertoevoeging property.
+     *
+     * @param value allowed object is {@link String }
+     *
+     */
+    public void setHuisnummertoevoeging(String value) {
+<span class="nc" id="L133">        this.huisnummertoevoeging = value;</span>
+<span class="nc" id="L134">    }</span>
+
+    /**
+     * Gets the value of the woonplaatsIdentificatie property.
+     *
+     * @return possible object is {@link String }
+     *
+     */
+    public String getWoonplaatsIdentificatie() {
+<span class="nc" id="L143">        return woonplaatsIdentificatie;</span>
+    }
+
+    /**
+     * Sets the value of the woonplaatsIdentificatie property.
+     *
+     * @param value allowed object is {@link String }
+     *
+     */
+    public void setWoonplaatsIdentificatie(String value) {
+<span class="nc" id="L153">        this.woonplaatsIdentificatie = value;</span>
+<span class="nc" id="L154">    }</span>
+
+    /**
+     * Gets the value of the openbareRuimteNaam property.
+     *
+     * @return possible object is {@link String }
+     *
+     */
+    public String getOpenbareRuimteNaam() {
+<span class="nc" id="L163">        return openbareRuimteNaam;</span>
+    }
+
+    /**
+     * Sets the value of the openbareRuimteNaam property.
+     *
+     * @param value allowed object is {@link String }
+     *
+     */
+    public void setOpenbareRuimteNaam(String value) {
+<span class="nc" id="L173">        this.openbareRuimteNaam = value;</span>
+<span class="nc" id="L174">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

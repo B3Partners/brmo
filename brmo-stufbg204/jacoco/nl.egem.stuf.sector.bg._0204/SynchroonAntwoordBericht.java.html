@@ -1,0 +1,1356 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SynchroonAntwoordBericht.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO STUF BG 204</a> &gt; <a href="index.source.html" class="el_package">nl.egem.stuf.sector.bg._0204</a> &gt; <span class="el_source">SynchroonAntwoordBericht.java</span></div><h1>SynchroonAntwoordBericht.java</h1><pre class="source lang-java linenums">
+package nl.egem.stuf.sector.bg._0204;
+
+import java.util.ArrayList;
+import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+import nl.egem.stuf.stuf0204.Stuurgegevens;
+
+
+/**
+ * &lt;p&gt;Java class for anonymous complex type.
+ * 
+ * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+ * 
+ * &lt;pre&gt;
+ * &amp;lt;complexType&amp;gt;
+ *   &amp;lt;complexContent&amp;gt;
+ *     &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
+ *       &amp;lt;sequence&amp;gt;
+ *         &amp;lt;element ref=&quot;{http://www.egem.nl/StUF/StUF0204}stuurgegevens&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;body&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;complexContent&amp;gt;
+ *               &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
+ *                 &amp;lt;choice&amp;gt;
+ *                   &amp;lt;element name=&quot;ACD&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}ACD-tabel&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;ADL&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}ADL-tabel&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;ADR&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}ADR-antwoord&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;BGB&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BGB-tabel&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;BHV&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BHV-tabel&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;BRT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BRT-tabel&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;BSG&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BSG-fund&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;BTK&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BTK-tabel&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;R04&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}R04-tabel&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;GEM&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}GEM-tabel&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;HHD&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}HHD-antwoord&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;KDO&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}KDO-antwoord&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;KGM&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}KGM-tabel&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;LFT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}LFT-tabel&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;LND&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}LND-tabel&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;MNA&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}MNA-tabel&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;NAT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}NAT-tabel&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;NNP&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}NNP-antwoord&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;OBW&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}OBW-antwoord&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;OHT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}OHT-tabel&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;PRB&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}PRB-fund&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;PRS&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}PRS-antwoord&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;RTB&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}RTB-tabel&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;SBI&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}SBI-tabel&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;SIB&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}SIB-tabel&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;SPB&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}SPB-tabel&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;SRV&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}SRV-tabel&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;R02&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}R02-tabel&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;SZR&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}SZR-tabel&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;VBT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}VBT-tabel&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;VBO&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}VBO-antwoord&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;VOT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}VOT-tabel&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;WOS&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}WOS-tabel&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;WOZ&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}WOZ-antwoord&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;R03&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}R03-tabel&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;WYK&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}WYK-tabel&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                 &amp;lt;/choice&amp;gt;
+ *               &amp;lt;/restriction&amp;gt;
+ *             &amp;lt;/complexContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *       &amp;lt;/sequence&amp;gt;
+ *     &amp;lt;/restriction&amp;gt;
+ *   &amp;lt;/complexContent&amp;gt;
+ * &amp;lt;/complexType&amp;gt;
+ * &lt;/pre&gt;
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = &quot;&quot;, propOrder = {
+    &quot;stuurgegevens&quot;,
+    &quot;body&quot;
+})
+@XmlRootElement(name = &quot;synchroonAntwoordBericht&quot;)
+<span class="nc" id="L85">public class SynchroonAntwoordBericht {</span>
+
+    @XmlElement(namespace = &quot;http://www.egem.nl/StUF/StUF0204&quot;, required = true)
+    protected Stuurgegevens stuurgegevens;
+    @XmlElement(required = true)
+    protected SynchroonAntwoordBericht.Body body;
+
+    /**
+     * Gets the value of the stuurgegevens property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Stuurgegevens }
+     *     
+     */
+    public Stuurgegevens getStuurgegevens() {
+<span class="nc" id="L101">        return stuurgegevens;</span>
+    }
+
+    /**
+     * Sets the value of the stuurgegevens property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Stuurgegevens }
+     *     
+     */
+    public void setStuurgegevens(Stuurgegevens value) {
+<span class="nc" id="L113">        this.stuurgegevens = value;</span>
+<span class="nc" id="L114">    }</span>
+
+    /**
+     * Gets the value of the body property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link SynchroonAntwoordBericht.Body }
+     *     
+     */
+    public SynchroonAntwoordBericht.Body getBody() {
+<span class="nc" id="L125">        return body;</span>
+    }
+
+    /**
+     * Sets the value of the body property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link SynchroonAntwoordBericht.Body }
+     *     
+     */
+    public void setBody(SynchroonAntwoordBericht.Body value) {
+<span class="nc" id="L137">        this.body = value;</span>
+<span class="nc" id="L138">    }</span>
+
+
+    /**
+     * &lt;p&gt;Java class for anonymous complex type.
+     * 
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * 
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;complexContent&amp;gt;
+     *     &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
+     *       &amp;lt;choice&amp;gt;
+     *         &amp;lt;element name=&quot;ACD&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}ACD-tabel&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;ADL&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}ADL-tabel&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;ADR&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}ADR-antwoord&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;BGB&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BGB-tabel&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;BHV&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BHV-tabel&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;BRT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BRT-tabel&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;BSG&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BSG-fund&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;BTK&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BTK-tabel&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;R04&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}R04-tabel&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;GEM&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}GEM-tabel&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;HHD&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}HHD-antwoord&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;KDO&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}KDO-antwoord&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;KGM&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}KGM-tabel&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;LFT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}LFT-tabel&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;LND&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}LND-tabel&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;MNA&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}MNA-tabel&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;NAT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}NAT-tabel&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;NNP&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}NNP-antwoord&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;OBW&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}OBW-antwoord&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;OHT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}OHT-tabel&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;PRB&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}PRB-fund&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;PRS&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}PRS-antwoord&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;RTB&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}RTB-tabel&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;SBI&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}SBI-tabel&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;SIB&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}SIB-tabel&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;SPB&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}SPB-tabel&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;SRV&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}SRV-tabel&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;R02&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}R02-tabel&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;SZR&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}SZR-tabel&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;VBT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}VBT-tabel&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;VBO&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}VBO-antwoord&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;VOT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}VOT-tabel&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;WOS&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}WOS-tabel&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;WOZ&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}WOZ-antwoord&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;R03&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}R03-tabel&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;WYK&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}WYK-tabel&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *       &amp;lt;/choice&amp;gt;
+     *     &amp;lt;/restriction&amp;gt;
+     *   &amp;lt;/complexContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = &quot;&quot;, propOrder = {
+        &quot;acd&quot;,
+        &quot;adl&quot;,
+        &quot;adr&quot;,
+        &quot;bgb&quot;,
+        &quot;bhv&quot;,
+        &quot;brt&quot;,
+        &quot;bsg&quot;,
+        &quot;btk&quot;,
+        &quot;r04&quot;,
+        &quot;gem&quot;,
+        &quot;hhd&quot;,
+        &quot;kdo&quot;,
+        &quot;kgm&quot;,
+        &quot;lft&quot;,
+        &quot;lnd&quot;,
+        &quot;mna&quot;,
+        &quot;nat&quot;,
+        &quot;nnp&quot;,
+        &quot;obw&quot;,
+        &quot;oht&quot;,
+        &quot;prb&quot;,
+        &quot;prs&quot;,
+        &quot;rtb&quot;,
+        &quot;sbi&quot;,
+        &quot;sib&quot;,
+        &quot;spb&quot;,
+        &quot;srv&quot;,
+        &quot;r02&quot;,
+        &quot;szr&quot;,
+        &quot;vbt&quot;,
+        &quot;vbo&quot;,
+        &quot;vot&quot;,
+        &quot;wos&quot;,
+        &quot;woz&quot;,
+        &quot;r03&quot;,
+        &quot;wyk&quot;
+    })
+<span class="nc" id="L234">    public static class Body {</span>
+
+        @XmlElement(name = &quot;ACD&quot;, nillable = true)
+        protected List&lt;ACDTabel&gt; acd;
+        @XmlElement(name = &quot;ADL&quot;, nillable = true)
+        protected List&lt;ADLTabel&gt; adl;
+        @XmlElement(name = &quot;ADR&quot;, nillable = true)
+        protected List&lt;ADRAntwoord&gt; adr;
+        @XmlElement(name = &quot;BGB&quot;, nillable = true)
+        protected List&lt;BGBTabel&gt; bgb;
+        @XmlElement(name = &quot;BHV&quot;, nillable = true)
+        protected List&lt;BHVTabel&gt; bhv;
+        @XmlElement(name = &quot;BRT&quot;, nillable = true)
+        protected List&lt;BRTTabel&gt; brt;
+        @XmlElement(name = &quot;BSG&quot;, nillable = true)
+        protected List&lt;BSGFund&gt; bsg;
+        @XmlElement(name = &quot;BTK&quot;, nillable = true)
+        protected List&lt;BTKTabel&gt; btk;
+        @XmlElement(name = &quot;R04&quot;, nillable = true)
+        protected List&lt;R04Tabel&gt; r04;
+        @XmlElement(name = &quot;GEM&quot;, nillable = true)
+        protected List&lt;GEMTabel&gt; gem;
+        @XmlElement(name = &quot;HHD&quot;, nillable = true)
+        protected List&lt;HHDAntwoord&gt; hhd;
+        @XmlElement(name = &quot;KDO&quot;, nillable = true)
+        protected List&lt;KDOAntwoord&gt; kdo;
+        @XmlElement(name = &quot;KGM&quot;, nillable = true)
+        protected List&lt;KGMTabel&gt; kgm;
+        @XmlElement(name = &quot;LFT&quot;, nillable = true)
+        protected List&lt;LFTTabel&gt; lft;
+        @XmlElement(name = &quot;LND&quot;, nillable = true)
+        protected List&lt;LNDTabel&gt; lnd;
+        @XmlElement(name = &quot;MNA&quot;, nillable = true)
+        protected List&lt;MNATabel&gt; mna;
+        @XmlElement(name = &quot;NAT&quot;, nillable = true)
+        protected List&lt;NATTabel&gt; nat;
+        @XmlElement(name = &quot;NNP&quot;, nillable = true)
+        protected List&lt;NNPAntwoord&gt; nnp;
+        @XmlElement(name = &quot;OBW&quot;, nillable = true)
+        protected List&lt;OBWAntwoord&gt; obw;
+        @XmlElement(name = &quot;OHT&quot;, nillable = true)
+        protected List&lt;OHTTabel&gt; oht;
+        @XmlElement(name = &quot;PRB&quot;, nillable = true)
+        protected List&lt;PRBFund&gt; prb;
+        @XmlElement(name = &quot;PRS&quot;, nillable = true)
+        protected List&lt;PRSAntwoord&gt; prs;
+        @XmlElement(name = &quot;RTB&quot;, nillable = true)
+        protected List&lt;RTBTabel&gt; rtb;
+        @XmlElement(name = &quot;SBI&quot;, nillable = true)
+        protected List&lt;SBITabel&gt; sbi;
+        @XmlElement(name = &quot;SIB&quot;, nillable = true)
+        protected List&lt;SIBTabel&gt; sib;
+        @XmlElement(name = &quot;SPB&quot;, nillable = true)
+        protected List&lt;SPBTabel&gt; spb;
+        @XmlElement(name = &quot;SRV&quot;, nillable = true)
+        protected List&lt;SRVTabel&gt; srv;
+        @XmlElement(name = &quot;R02&quot;, nillable = true)
+        protected List&lt;R02Tabel&gt; r02;
+        @XmlElement(name = &quot;SZR&quot;, nillable = true)
+        protected List&lt;SZRTabel&gt; szr;
+        @XmlElement(name = &quot;VBT&quot;, nillable = true)
+        protected List&lt;VBTTabel&gt; vbt;
+        @XmlElement(name = &quot;VBO&quot;, nillable = true)
+        protected List&lt;VBOAntwoord&gt; vbo;
+        @XmlElement(name = &quot;VOT&quot;, nillable = true)
+        protected List&lt;VOTTabel&gt; vot;
+        @XmlElement(name = &quot;WOS&quot;, nillable = true)
+        protected List&lt;WOSTabel&gt; wos;
+        @XmlElement(name = &quot;WOZ&quot;, nillable = true)
+        protected List&lt;WOZAntwoord&gt; woz;
+        @XmlElement(name = &quot;R03&quot;, nillable = true)
+        protected List&lt;R03Tabel&gt; r03;
+        @XmlElement(name = &quot;WYK&quot;, nillable = true)
+        protected List&lt;WYKTabel&gt; wyk;
+
+        /**
+         * Gets the value of the acd property.
+         * 
+         * &lt;p&gt;
+         * This accessor method returns a reference to the live list,
+         * not a snapshot. Therefore any modification you make to the
+         * returned list will be present inside the JAXB object.
+         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the acd property.
+         * 
+         * &lt;p&gt;
+         * For example, to add a new item, do as follows:
+         * &lt;pre&gt;
+         *    getACD().add(newItem);
+         * &lt;/pre&gt;
+         * 
+         * 
+         * &lt;p&gt;
+         * Objects of the following type(s) are allowed in the list
+         * {@link ACDTabel }
+         * 
+         * 
+         */
+        public List&lt;ACDTabel&gt; getACD() {
+<span class="nc bnc" id="L332" title="All 2 branches missed.">            if (acd == null) {</span>
+<span class="nc" id="L333">                acd = new ArrayList&lt;ACDTabel&gt;();</span>
+            }
+<span class="nc" id="L335">            return this.acd;</span>
+        }
+
+        /**
+         * Gets the value of the adl property.
+         * 
+         * &lt;p&gt;
+         * This accessor method returns a reference to the live list,
+         * not a snapshot. Therefore any modification you make to the
+         * returned list will be present inside the JAXB object.
+         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the adl property.
+         * 
+         * &lt;p&gt;
+         * For example, to add a new item, do as follows:
+         * &lt;pre&gt;
+         *    getADL().add(newItem);
+         * &lt;/pre&gt;
+         * 
+         * 
+         * &lt;p&gt;
+         * Objects of the following type(s) are allowed in the list
+         * {@link ADLTabel }
+         * 
+         * 
+         */
+        public List&lt;ADLTabel&gt; getADL() {
+<span class="nc bnc" id="L361" title="All 2 branches missed.">            if (adl == null) {</span>
+<span class="nc" id="L362">                adl = new ArrayList&lt;ADLTabel&gt;();</span>
+            }
+<span class="nc" id="L364">            return this.adl;</span>
+        }
+
+        /**
+         * Gets the value of the adr property.
+         * 
+         * &lt;p&gt;
+         * This accessor method returns a reference to the live list,
+         * not a snapshot. Therefore any modification you make to the
+         * returned list will be present inside the JAXB object.
+         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the adr property.
+         * 
+         * &lt;p&gt;
+         * For example, to add a new item, do as follows:
+         * &lt;pre&gt;
+         *    getADR().add(newItem);
+         * &lt;/pre&gt;
+         * 
+         * 
+         * &lt;p&gt;
+         * Objects of the following type(s) are allowed in the list
+         * {@link ADRAntwoord }
+         * 
+         * 
+         */
+        public List&lt;ADRAntwoord&gt; getADR() {
+<span class="nc bnc" id="L390" title="All 2 branches missed.">            if (adr == null) {</span>
+<span class="nc" id="L391">                adr = new ArrayList&lt;ADRAntwoord&gt;();</span>
+            }
+<span class="nc" id="L393">            return this.adr;</span>
+        }
+
+        /**
+         * Gets the value of the bgb property.
+         * 
+         * &lt;p&gt;
+         * This accessor method returns a reference to the live list,
+         * not a snapshot. Therefore any modification you make to the
+         * returned list will be present inside the JAXB object.
+         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the bgb property.
+         * 
+         * &lt;p&gt;
+         * For example, to add a new item, do as follows:
+         * &lt;pre&gt;
+         *    getBGB().add(newItem);
+         * &lt;/pre&gt;
+         * 
+         * 
+         * &lt;p&gt;
+         * Objects of the following type(s) are allowed in the list
+         * {@link BGBTabel }
+         * 
+         * 
+         */
+        public List&lt;BGBTabel&gt; getBGB() {
+<span class="nc bnc" id="L419" title="All 2 branches missed.">            if (bgb == null) {</span>
+<span class="nc" id="L420">                bgb = new ArrayList&lt;BGBTabel&gt;();</span>
+            }
+<span class="nc" id="L422">            return this.bgb;</span>
+        }
+
+        /**
+         * Gets the value of the bhv property.
+         * 
+         * &lt;p&gt;
+         * This accessor method returns a reference to the live list,
+         * not a snapshot. Therefore any modification you make to the
+         * returned list will be present inside the JAXB object.
+         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the bhv property.
+         * 
+         * &lt;p&gt;
+         * For example, to add a new item, do as follows:
+         * &lt;pre&gt;
+         *    getBHV().add(newItem);
+         * &lt;/pre&gt;
+         * 
+         * 
+         * &lt;p&gt;
+         * Objects of the following type(s) are allowed in the list
+         * {@link BHVTabel }
+         * 
+         * 
+         */
+        public List&lt;BHVTabel&gt; getBHV() {
+<span class="nc bnc" id="L448" title="All 2 branches missed.">            if (bhv == null) {</span>
+<span class="nc" id="L449">                bhv = new ArrayList&lt;BHVTabel&gt;();</span>
+            }
+<span class="nc" id="L451">            return this.bhv;</span>
+        }
+
+        /**
+         * Gets the value of the brt property.
+         * 
+         * &lt;p&gt;
+         * This accessor method returns a reference to the live list,
+         * not a snapshot. Therefore any modification you make to the
+         * returned list will be present inside the JAXB object.
+         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the brt property.
+         * 
+         * &lt;p&gt;
+         * For example, to add a new item, do as follows:
+         * &lt;pre&gt;
+         *    getBRT().add(newItem);
+         * &lt;/pre&gt;
+         * 
+         * 
+         * &lt;p&gt;
+         * Objects of the following type(s) are allowed in the list
+         * {@link BRTTabel }
+         * 
+         * 
+         */
+        public List&lt;BRTTabel&gt; getBRT() {
+<span class="nc bnc" id="L477" title="All 2 branches missed.">            if (brt == null) {</span>
+<span class="nc" id="L478">                brt = new ArrayList&lt;BRTTabel&gt;();</span>
+            }
+<span class="nc" id="L480">            return this.brt;</span>
+        }
+
+        /**
+         * Gets the value of the bsg property.
+         * 
+         * &lt;p&gt;
+         * This accessor method returns a reference to the live list,
+         * not a snapshot. Therefore any modification you make to the
+         * returned list will be present inside the JAXB object.
+         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the bsg property.
+         * 
+         * &lt;p&gt;
+         * For example, to add a new item, do as follows:
+         * &lt;pre&gt;
+         *    getBSG().add(newItem);
+         * &lt;/pre&gt;
+         * 
+         * 
+         * &lt;p&gt;
+         * Objects of the following type(s) are allowed in the list
+         * {@link BSGFund }
+         * 
+         * 
+         */
+        public List&lt;BSGFund&gt; getBSG() {
+<span class="nc bnc" id="L506" title="All 2 branches missed.">            if (bsg == null) {</span>
+<span class="nc" id="L507">                bsg = new ArrayList&lt;BSGFund&gt;();</span>
+            }
+<span class="nc" id="L509">            return this.bsg;</span>
+        }
+
+        /**
+         * Gets the value of the btk property.
+         * 
+         * &lt;p&gt;
+         * This accessor method returns a reference to the live list,
+         * not a snapshot. Therefore any modification you make to the
+         * returned list will be present inside the JAXB object.
+         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the btk property.
+         * 
+         * &lt;p&gt;
+         * For example, to add a new item, do as follows:
+         * &lt;pre&gt;
+         *    getBTK().add(newItem);
+         * &lt;/pre&gt;
+         * 
+         * 
+         * &lt;p&gt;
+         * Objects of the following type(s) are allowed in the list
+         * {@link BTKTabel }
+         * 
+         * 
+         */
+        public List&lt;BTKTabel&gt; getBTK() {
+<span class="nc bnc" id="L535" title="All 2 branches missed.">            if (btk == null) {</span>
+<span class="nc" id="L536">                btk = new ArrayList&lt;BTKTabel&gt;();</span>
+            }
+<span class="nc" id="L538">            return this.btk;</span>
+        }
+
+        /**
+         * Gets the value of the r04 property.
+         * 
+         * &lt;p&gt;
+         * This accessor method returns a reference to the live list,
+         * not a snapshot. Therefore any modification you make to the
+         * returned list will be present inside the JAXB object.
+         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the r04 property.
+         * 
+         * &lt;p&gt;
+         * For example, to add a new item, do as follows:
+         * &lt;pre&gt;
+         *    getR04().add(newItem);
+         * &lt;/pre&gt;
+         * 
+         * 
+         * &lt;p&gt;
+         * Objects of the following type(s) are allowed in the list
+         * {@link R04Tabel }
+         * 
+         * 
+         */
+        public List&lt;R04Tabel&gt; getR04() {
+<span class="nc bnc" id="L564" title="All 2 branches missed.">            if (r04 == null) {</span>
+<span class="nc" id="L565">                r04 = new ArrayList&lt;R04Tabel&gt;();</span>
+            }
+<span class="nc" id="L567">            return this.r04;</span>
+        }
+
+        /**
+         * Gets the value of the gem property.
+         * 
+         * &lt;p&gt;
+         * This accessor method returns a reference to the live list,
+         * not a snapshot. Therefore any modification you make to the
+         * returned list will be present inside the JAXB object.
+         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the gem property.
+         * 
+         * &lt;p&gt;
+         * For example, to add a new item, do as follows:
+         * &lt;pre&gt;
+         *    getGEM().add(newItem);
+         * &lt;/pre&gt;
+         * 
+         * 
+         * &lt;p&gt;
+         * Objects of the following type(s) are allowed in the list
+         * {@link GEMTabel }
+         * 
+         * 
+         */
+        public List&lt;GEMTabel&gt; getGEM() {
+<span class="nc bnc" id="L593" title="All 2 branches missed.">            if (gem == null) {</span>
+<span class="nc" id="L594">                gem = new ArrayList&lt;GEMTabel&gt;();</span>
+            }
+<span class="nc" id="L596">            return this.gem;</span>
+        }
+
+        /**
+         * Gets the value of the hhd property.
+         * 
+         * &lt;p&gt;
+         * This accessor method returns a reference to the live list,
+         * not a snapshot. Therefore any modification you make to the
+         * returned list will be present inside the JAXB object.
+         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the hhd property.
+         * 
+         * &lt;p&gt;
+         * For example, to add a new item, do as follows:
+         * &lt;pre&gt;
+         *    getHHD().add(newItem);
+         * &lt;/pre&gt;
+         * 
+         * 
+         * &lt;p&gt;
+         * Objects of the following type(s) are allowed in the list
+         * {@link HHDAntwoord }
+         * 
+         * 
+         */
+        public List&lt;HHDAntwoord&gt; getHHD() {
+<span class="nc bnc" id="L622" title="All 2 branches missed.">            if (hhd == null) {</span>
+<span class="nc" id="L623">                hhd = new ArrayList&lt;HHDAntwoord&gt;();</span>
+            }
+<span class="nc" id="L625">            return this.hhd;</span>
+        }
+
+        /**
+         * Gets the value of the kdo property.
+         * 
+         * &lt;p&gt;
+         * This accessor method returns a reference to the live list,
+         * not a snapshot. Therefore any modification you make to the
+         * returned list will be present inside the JAXB object.
+         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the kdo property.
+         * 
+         * &lt;p&gt;
+         * For example, to add a new item, do as follows:
+         * &lt;pre&gt;
+         *    getKDO().add(newItem);
+         * &lt;/pre&gt;
+         * 
+         * 
+         * &lt;p&gt;
+         * Objects of the following type(s) are allowed in the list
+         * {@link KDOAntwoord }
+         * 
+         * 
+         */
+        public List&lt;KDOAntwoord&gt; getKDO() {
+<span class="nc bnc" id="L651" title="All 2 branches missed.">            if (kdo == null) {</span>
+<span class="nc" id="L652">                kdo = new ArrayList&lt;KDOAntwoord&gt;();</span>
+            }
+<span class="nc" id="L654">            return this.kdo;</span>
+        }
+
+        /**
+         * Gets the value of the kgm property.
+         * 
+         * &lt;p&gt;
+         * This accessor method returns a reference to the live list,
+         * not a snapshot. Therefore any modification you make to the
+         * returned list will be present inside the JAXB object.
+         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the kgm property.
+         * 
+         * &lt;p&gt;
+         * For example, to add a new item, do as follows:
+         * &lt;pre&gt;
+         *    getKGM().add(newItem);
+         * &lt;/pre&gt;
+         * 
+         * 
+         * &lt;p&gt;
+         * Objects of the following type(s) are allowed in the list
+         * {@link KGMTabel }
+         * 
+         * 
+         */
+        public List&lt;KGMTabel&gt; getKGM() {
+<span class="nc bnc" id="L680" title="All 2 branches missed.">            if (kgm == null) {</span>
+<span class="nc" id="L681">                kgm = new ArrayList&lt;KGMTabel&gt;();</span>
+            }
+<span class="nc" id="L683">            return this.kgm;</span>
+        }
+
+        /**
+         * Gets the value of the lft property.
+         * 
+         * &lt;p&gt;
+         * This accessor method returns a reference to the live list,
+         * not a snapshot. Therefore any modification you make to the
+         * returned list will be present inside the JAXB object.
+         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the lft property.
+         * 
+         * &lt;p&gt;
+         * For example, to add a new item, do as follows:
+         * &lt;pre&gt;
+         *    getLFT().add(newItem);
+         * &lt;/pre&gt;
+         * 
+         * 
+         * &lt;p&gt;
+         * Objects of the following type(s) are allowed in the list
+         * {@link LFTTabel }
+         * 
+         * 
+         */
+        public List&lt;LFTTabel&gt; getLFT() {
+<span class="nc bnc" id="L709" title="All 2 branches missed.">            if (lft == null) {</span>
+<span class="nc" id="L710">                lft = new ArrayList&lt;LFTTabel&gt;();</span>
+            }
+<span class="nc" id="L712">            return this.lft;</span>
+        }
+
+        /**
+         * Gets the value of the lnd property.
+         * 
+         * &lt;p&gt;
+         * This accessor method returns a reference to the live list,
+         * not a snapshot. Therefore any modification you make to the
+         * returned list will be present inside the JAXB object.
+         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the lnd property.
+         * 
+         * &lt;p&gt;
+         * For example, to add a new item, do as follows:
+         * &lt;pre&gt;
+         *    getLND().add(newItem);
+         * &lt;/pre&gt;
+         * 
+         * 
+         * &lt;p&gt;
+         * Objects of the following type(s) are allowed in the list
+         * {@link LNDTabel }
+         * 
+         * 
+         */
+        public List&lt;LNDTabel&gt; getLND() {
+<span class="nc bnc" id="L738" title="All 2 branches missed.">            if (lnd == null) {</span>
+<span class="nc" id="L739">                lnd = new ArrayList&lt;LNDTabel&gt;();</span>
+            }
+<span class="nc" id="L741">            return this.lnd;</span>
+        }
+
+        /**
+         * Gets the value of the mna property.
+         * 
+         * &lt;p&gt;
+         * This accessor method returns a reference to the live list,
+         * not a snapshot. Therefore any modification you make to the
+         * returned list will be present inside the JAXB object.
+         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the mna property.
+         * 
+         * &lt;p&gt;
+         * For example, to add a new item, do as follows:
+         * &lt;pre&gt;
+         *    getMNA().add(newItem);
+         * &lt;/pre&gt;
+         * 
+         * 
+         * &lt;p&gt;
+         * Objects of the following type(s) are allowed in the list
+         * {@link MNATabel }
+         * 
+         * 
+         */
+        public List&lt;MNATabel&gt; getMNA() {
+<span class="nc bnc" id="L767" title="All 2 branches missed.">            if (mna == null) {</span>
+<span class="nc" id="L768">                mna = new ArrayList&lt;MNATabel&gt;();</span>
+            }
+<span class="nc" id="L770">            return this.mna;</span>
+        }
+
+        /**
+         * Gets the value of the nat property.
+         * 
+         * &lt;p&gt;
+         * This accessor method returns a reference to the live list,
+         * not a snapshot. Therefore any modification you make to the
+         * returned list will be present inside the JAXB object.
+         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the nat property.
+         * 
+         * &lt;p&gt;
+         * For example, to add a new item, do as follows:
+         * &lt;pre&gt;
+         *    getNAT().add(newItem);
+         * &lt;/pre&gt;
+         * 
+         * 
+         * &lt;p&gt;
+         * Objects of the following type(s) are allowed in the list
+         * {@link NATTabel }
+         * 
+         * 
+         */
+        public List&lt;NATTabel&gt; getNAT() {
+<span class="nc bnc" id="L796" title="All 2 branches missed.">            if (nat == null) {</span>
+<span class="nc" id="L797">                nat = new ArrayList&lt;NATTabel&gt;();</span>
+            }
+<span class="nc" id="L799">            return this.nat;</span>
+        }
+
+        /**
+         * Gets the value of the nnp property.
+         * 
+         * &lt;p&gt;
+         * This accessor method returns a reference to the live list,
+         * not a snapshot. Therefore any modification you make to the
+         * returned list will be present inside the JAXB object.
+         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the nnp property.
+         * 
+         * &lt;p&gt;
+         * For example, to add a new item, do as follows:
+         * &lt;pre&gt;
+         *    getNNP().add(newItem);
+         * &lt;/pre&gt;
+         * 
+         * 
+         * &lt;p&gt;
+         * Objects of the following type(s) are allowed in the list
+         * {@link NNPAntwoord }
+         * 
+         * 
+         */
+        public List&lt;NNPAntwoord&gt; getNNP() {
+<span class="nc bnc" id="L825" title="All 2 branches missed.">            if (nnp == null) {</span>
+<span class="nc" id="L826">                nnp = new ArrayList&lt;NNPAntwoord&gt;();</span>
+            }
+<span class="nc" id="L828">            return this.nnp;</span>
+        }
+
+        /**
+         * Gets the value of the obw property.
+         * 
+         * &lt;p&gt;
+         * This accessor method returns a reference to the live list,
+         * not a snapshot. Therefore any modification you make to the
+         * returned list will be present inside the JAXB object.
+         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the obw property.
+         * 
+         * &lt;p&gt;
+         * For example, to add a new item, do as follows:
+         * &lt;pre&gt;
+         *    getOBW().add(newItem);
+         * &lt;/pre&gt;
+         * 
+         * 
+         * &lt;p&gt;
+         * Objects of the following type(s) are allowed in the list
+         * {@link OBWAntwoord }
+         * 
+         * 
+         */
+        public List&lt;OBWAntwoord&gt; getOBW() {
+<span class="nc bnc" id="L854" title="All 2 branches missed.">            if (obw == null) {</span>
+<span class="nc" id="L855">                obw = new ArrayList&lt;OBWAntwoord&gt;();</span>
+            }
+<span class="nc" id="L857">            return this.obw;</span>
+        }
+
+        /**
+         * Gets the value of the oht property.
+         * 
+         * &lt;p&gt;
+         * This accessor method returns a reference to the live list,
+         * not a snapshot. Therefore any modification you make to the
+         * returned list will be present inside the JAXB object.
+         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the oht property.
+         * 
+         * &lt;p&gt;
+         * For example, to add a new item, do as follows:
+         * &lt;pre&gt;
+         *    getOHT().add(newItem);
+         * &lt;/pre&gt;
+         * 
+         * 
+         * &lt;p&gt;
+         * Objects of the following type(s) are allowed in the list
+         * {@link OHTTabel }
+         * 
+         * 
+         */
+        public List&lt;OHTTabel&gt; getOHT() {
+<span class="nc bnc" id="L883" title="All 2 branches missed.">            if (oht == null) {</span>
+<span class="nc" id="L884">                oht = new ArrayList&lt;OHTTabel&gt;();</span>
+            }
+<span class="nc" id="L886">            return this.oht;</span>
+        }
+
+        /**
+         * Gets the value of the prb property.
+         * 
+         * &lt;p&gt;
+         * This accessor method returns a reference to the live list,
+         * not a snapshot. Therefore any modification you make to the
+         * returned list will be present inside the JAXB object.
+         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the prb property.
+         * 
+         * &lt;p&gt;
+         * For example, to add a new item, do as follows:
+         * &lt;pre&gt;
+         *    getPRB().add(newItem);
+         * &lt;/pre&gt;
+         * 
+         * 
+         * &lt;p&gt;
+         * Objects of the following type(s) are allowed in the list
+         * {@link PRBFund }
+         * 
+         * 
+         */
+        public List&lt;PRBFund&gt; getPRB() {
+<span class="nc bnc" id="L912" title="All 2 branches missed.">            if (prb == null) {</span>
+<span class="nc" id="L913">                prb = new ArrayList&lt;PRBFund&gt;();</span>
+            }
+<span class="nc" id="L915">            return this.prb;</span>
+        }
+
+        /**
+         * Gets the value of the prs property.
+         * 
+         * &lt;p&gt;
+         * This accessor method returns a reference to the live list,
+         * not a snapshot. Therefore any modification you make to the
+         * returned list will be present inside the JAXB object.
+         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the prs property.
+         * 
+         * &lt;p&gt;
+         * For example, to add a new item, do as follows:
+         * &lt;pre&gt;
+         *    getPRS().add(newItem);
+         * &lt;/pre&gt;
+         * 
+         * 
+         * &lt;p&gt;
+         * Objects of the following type(s) are allowed in the list
+         * {@link PRSAntwoord }
+         * 
+         * 
+         */
+        public List&lt;PRSAntwoord&gt; getPRS() {
+<span class="nc bnc" id="L941" title="All 2 branches missed.">            if (prs == null) {</span>
+<span class="nc" id="L942">                prs = new ArrayList&lt;PRSAntwoord&gt;();</span>
+            }
+<span class="nc" id="L944">            return this.prs;</span>
+        }
+
+        /**
+         * Gets the value of the rtb property.
+         * 
+         * &lt;p&gt;
+         * This accessor method returns a reference to the live list,
+         * not a snapshot. Therefore any modification you make to the
+         * returned list will be present inside the JAXB object.
+         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the rtb property.
+         * 
+         * &lt;p&gt;
+         * For example, to add a new item, do as follows:
+         * &lt;pre&gt;
+         *    getRTB().add(newItem);
+         * &lt;/pre&gt;
+         * 
+         * 
+         * &lt;p&gt;
+         * Objects of the following type(s) are allowed in the list
+         * {@link RTBTabel }
+         * 
+         * 
+         */
+        public List&lt;RTBTabel&gt; getRTB() {
+<span class="nc bnc" id="L970" title="All 2 branches missed.">            if (rtb == null) {</span>
+<span class="nc" id="L971">                rtb = new ArrayList&lt;RTBTabel&gt;();</span>
+            }
+<span class="nc" id="L973">            return this.rtb;</span>
+        }
+
+        /**
+         * Gets the value of the sbi property.
+         * 
+         * &lt;p&gt;
+         * This accessor method returns a reference to the live list,
+         * not a snapshot. Therefore any modification you make to the
+         * returned list will be present inside the JAXB object.
+         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the sbi property.
+         * 
+         * &lt;p&gt;
+         * For example, to add a new item, do as follows:
+         * &lt;pre&gt;
+         *    getSBI().add(newItem);
+         * &lt;/pre&gt;
+         * 
+         * 
+         * &lt;p&gt;
+         * Objects of the following type(s) are allowed in the list
+         * {@link SBITabel }
+         * 
+         * 
+         */
+        public List&lt;SBITabel&gt; getSBI() {
+<span class="nc bnc" id="L999" title="All 2 branches missed.">            if (sbi == null) {</span>
+<span class="nc" id="L1000">                sbi = new ArrayList&lt;SBITabel&gt;();</span>
+            }
+<span class="nc" id="L1002">            return this.sbi;</span>
+        }
+
+        /**
+         * Gets the value of the sib property.
+         * 
+         * &lt;p&gt;
+         * This accessor method returns a reference to the live list,
+         * not a snapshot. Therefore any modification you make to the
+         * returned list will be present inside the JAXB object.
+         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the sib property.
+         * 
+         * &lt;p&gt;
+         * For example, to add a new item, do as follows:
+         * &lt;pre&gt;
+         *    getSIB().add(newItem);
+         * &lt;/pre&gt;
+         * 
+         * 
+         * &lt;p&gt;
+         * Objects of the following type(s) are allowed in the list
+         * {@link SIBTabel }
+         * 
+         * 
+         */
+        public List&lt;SIBTabel&gt; getSIB() {
+<span class="nc bnc" id="L1028" title="All 2 branches missed.">            if (sib == null) {</span>
+<span class="nc" id="L1029">                sib = new ArrayList&lt;SIBTabel&gt;();</span>
+            }
+<span class="nc" id="L1031">            return this.sib;</span>
+        }
+
+        /**
+         * Gets the value of the spb property.
+         * 
+         * &lt;p&gt;
+         * This accessor method returns a reference to the live list,
+         * not a snapshot. Therefore any modification you make to the
+         * returned list will be present inside the JAXB object.
+         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the spb property.
+         * 
+         * &lt;p&gt;
+         * For example, to add a new item, do as follows:
+         * &lt;pre&gt;
+         *    getSPB().add(newItem);
+         * &lt;/pre&gt;
+         * 
+         * 
+         * &lt;p&gt;
+         * Objects of the following type(s) are allowed in the list
+         * {@link SPBTabel }
+         * 
+         * 
+         */
+        public List&lt;SPBTabel&gt; getSPB() {
+<span class="nc bnc" id="L1057" title="All 2 branches missed.">            if (spb == null) {</span>
+<span class="nc" id="L1058">                spb = new ArrayList&lt;SPBTabel&gt;();</span>
+            }
+<span class="nc" id="L1060">            return this.spb;</span>
+        }
+
+        /**
+         * Gets the value of the srv property.
+         * 
+         * &lt;p&gt;
+         * This accessor method returns a reference to the live list,
+         * not a snapshot. Therefore any modification you make to the
+         * returned list will be present inside the JAXB object.
+         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the srv property.
+         * 
+         * &lt;p&gt;
+         * For example, to add a new item, do as follows:
+         * &lt;pre&gt;
+         *    getSRV().add(newItem);
+         * &lt;/pre&gt;
+         * 
+         * 
+         * &lt;p&gt;
+         * Objects of the following type(s) are allowed in the list
+         * {@link SRVTabel }
+         * 
+         * 
+         */
+        public List&lt;SRVTabel&gt; getSRV() {
+<span class="nc bnc" id="L1086" title="All 2 branches missed.">            if (srv == null) {</span>
+<span class="nc" id="L1087">                srv = new ArrayList&lt;SRVTabel&gt;();</span>
+            }
+<span class="nc" id="L1089">            return this.srv;</span>
+        }
+
+        /**
+         * Gets the value of the r02 property.
+         * 
+         * &lt;p&gt;
+         * This accessor method returns a reference to the live list,
+         * not a snapshot. Therefore any modification you make to the
+         * returned list will be present inside the JAXB object.
+         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the r02 property.
+         * 
+         * &lt;p&gt;
+         * For example, to add a new item, do as follows:
+         * &lt;pre&gt;
+         *    getR02().add(newItem);
+         * &lt;/pre&gt;
+         * 
+         * 
+         * &lt;p&gt;
+         * Objects of the following type(s) are allowed in the list
+         * {@link R02Tabel }
+         * 
+         * 
+         */
+        public List&lt;R02Tabel&gt; getR02() {
+<span class="nc bnc" id="L1115" title="All 2 branches missed.">            if (r02 == null) {</span>
+<span class="nc" id="L1116">                r02 = new ArrayList&lt;R02Tabel&gt;();</span>
+            }
+<span class="nc" id="L1118">            return this.r02;</span>
+        }
+
+        /**
+         * Gets the value of the szr property.
+         * 
+         * &lt;p&gt;
+         * This accessor method returns a reference to the live list,
+         * not a snapshot. Therefore any modification you make to the
+         * returned list will be present inside the JAXB object.
+         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the szr property.
+         * 
+         * &lt;p&gt;
+         * For example, to add a new item, do as follows:
+         * &lt;pre&gt;
+         *    getSZR().add(newItem);
+         * &lt;/pre&gt;
+         * 
+         * 
+         * &lt;p&gt;
+         * Objects of the following type(s) are allowed in the list
+         * {@link SZRTabel }
+         * 
+         * 
+         */
+        public List&lt;SZRTabel&gt; getSZR() {
+<span class="nc bnc" id="L1144" title="All 2 branches missed.">            if (szr == null) {</span>
+<span class="nc" id="L1145">                szr = new ArrayList&lt;SZRTabel&gt;();</span>
+            }
+<span class="nc" id="L1147">            return this.szr;</span>
+        }
+
+        /**
+         * Gets the value of the vbt property.
+         * 
+         * &lt;p&gt;
+         * This accessor method returns a reference to the live list,
+         * not a snapshot. Therefore any modification you make to the
+         * returned list will be present inside the JAXB object.
+         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the vbt property.
+         * 
+         * &lt;p&gt;
+         * For example, to add a new item, do as follows:
+         * &lt;pre&gt;
+         *    getVBT().add(newItem);
+         * &lt;/pre&gt;
+         * 
+         * 
+         * &lt;p&gt;
+         * Objects of the following type(s) are allowed in the list
+         * {@link VBTTabel }
+         * 
+         * 
+         */
+        public List&lt;VBTTabel&gt; getVBT() {
+<span class="nc bnc" id="L1173" title="All 2 branches missed.">            if (vbt == null) {</span>
+<span class="nc" id="L1174">                vbt = new ArrayList&lt;VBTTabel&gt;();</span>
+            }
+<span class="nc" id="L1176">            return this.vbt;</span>
+        }
+
+        /**
+         * Gets the value of the vbo property.
+         * 
+         * &lt;p&gt;
+         * This accessor method returns a reference to the live list,
+         * not a snapshot. Therefore any modification you make to the
+         * returned list will be present inside the JAXB object.
+         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the vbo property.
+         * 
+         * &lt;p&gt;
+         * For example, to add a new item, do as follows:
+         * &lt;pre&gt;
+         *    getVBO().add(newItem);
+         * &lt;/pre&gt;
+         * 
+         * 
+         * &lt;p&gt;
+         * Objects of the following type(s) are allowed in the list
+         * {@link VBOAntwoord }
+         * 
+         * 
+         */
+        public List&lt;VBOAntwoord&gt; getVBO() {
+<span class="nc bnc" id="L1202" title="All 2 branches missed.">            if (vbo == null) {</span>
+<span class="nc" id="L1203">                vbo = new ArrayList&lt;VBOAntwoord&gt;();</span>
+            }
+<span class="nc" id="L1205">            return this.vbo;</span>
+        }
+
+        /**
+         * Gets the value of the vot property.
+         * 
+         * &lt;p&gt;
+         * This accessor method returns a reference to the live list,
+         * not a snapshot. Therefore any modification you make to the
+         * returned list will be present inside the JAXB object.
+         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the vot property.
+         * 
+         * &lt;p&gt;
+         * For example, to add a new item, do as follows:
+         * &lt;pre&gt;
+         *    getVOT().add(newItem);
+         * &lt;/pre&gt;
+         * 
+         * 
+         * &lt;p&gt;
+         * Objects of the following type(s) are allowed in the list
+         * {@link VOTTabel }
+         * 
+         * 
+         */
+        public List&lt;VOTTabel&gt; getVOT() {
+<span class="nc bnc" id="L1231" title="All 2 branches missed.">            if (vot == null) {</span>
+<span class="nc" id="L1232">                vot = new ArrayList&lt;VOTTabel&gt;();</span>
+            }
+<span class="nc" id="L1234">            return this.vot;</span>
+        }
+
+        /**
+         * Gets the value of the wos property.
+         * 
+         * &lt;p&gt;
+         * This accessor method returns a reference to the live list,
+         * not a snapshot. Therefore any modification you make to the
+         * returned list will be present inside the JAXB object.
+         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the wos property.
+         * 
+         * &lt;p&gt;
+         * For example, to add a new item, do as follows:
+         * &lt;pre&gt;
+         *    getWOS().add(newItem);
+         * &lt;/pre&gt;
+         * 
+         * 
+         * &lt;p&gt;
+         * Objects of the following type(s) are allowed in the list
+         * {@link WOSTabel }
+         * 
+         * 
+         */
+        public List&lt;WOSTabel&gt; getWOS() {
+<span class="nc bnc" id="L1260" title="All 2 branches missed.">            if (wos == null) {</span>
+<span class="nc" id="L1261">                wos = new ArrayList&lt;WOSTabel&gt;();</span>
+            }
+<span class="nc" id="L1263">            return this.wos;</span>
+        }
+
+        /**
+         * Gets the value of the woz property.
+         * 
+         * &lt;p&gt;
+         * This accessor method returns a reference to the live list,
+         * not a snapshot. Therefore any modification you make to the
+         * returned list will be present inside the JAXB object.
+         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the woz property.
+         * 
+         * &lt;p&gt;
+         * For example, to add a new item, do as follows:
+         * &lt;pre&gt;
+         *    getWOZ().add(newItem);
+         * &lt;/pre&gt;
+         * 
+         * 
+         * &lt;p&gt;
+         * Objects of the following type(s) are allowed in the list
+         * {@link WOZAntwoord }
+         * 
+         * 
+         */
+        public List&lt;WOZAntwoord&gt; getWOZ() {
+<span class="nc bnc" id="L1289" title="All 2 branches missed.">            if (woz == null) {</span>
+<span class="nc" id="L1290">                woz = new ArrayList&lt;WOZAntwoord&gt;();</span>
+            }
+<span class="nc" id="L1292">            return this.woz;</span>
+        }
+
+        /**
+         * Gets the value of the r03 property.
+         * 
+         * &lt;p&gt;
+         * This accessor method returns a reference to the live list,
+         * not a snapshot. Therefore any modification you make to the
+         * returned list will be present inside the JAXB object.
+         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the r03 property.
+         * 
+         * &lt;p&gt;
+         * For example, to add a new item, do as follows:
+         * &lt;pre&gt;
+         *    getR03().add(newItem);
+         * &lt;/pre&gt;
+         * 
+         * 
+         * &lt;p&gt;
+         * Objects of the following type(s) are allowed in the list
+         * {@link R03Tabel }
+         * 
+         * 
+         */
+        public List&lt;R03Tabel&gt; getR03() {
+<span class="nc bnc" id="L1318" title="All 2 branches missed.">            if (r03 == null) {</span>
+<span class="nc" id="L1319">                r03 = new ArrayList&lt;R03Tabel&gt;();</span>
+            }
+<span class="nc" id="L1321">            return this.r03;</span>
+        }
+
+        /**
+         * Gets the value of the wyk property.
+         * 
+         * &lt;p&gt;
+         * This accessor method returns a reference to the live list,
+         * not a snapshot. Therefore any modification you make to the
+         * returned list will be present inside the JAXB object.
+         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the wyk property.
+         * 
+         * &lt;p&gt;
+         * For example, to add a new item, do as follows:
+         * &lt;pre&gt;
+         *    getWYK().add(newItem);
+         * &lt;/pre&gt;
+         * 
+         * 
+         * &lt;p&gt;
+         * Objects of the following type(s) are allowed in the list
+         * {@link WYKTabel }
+         * 
+         * 
+         */
+        public List&lt;WYKTabel&gt; getWYK() {
+<span class="nc bnc" id="L1347" title="All 2 branches missed.">            if (wyk == null) {</span>
+<span class="nc" id="L1348">                wyk = new ArrayList&lt;WYKTabel&gt;();</span>
+            }
+<span class="nc" id="L1350">            return this.wyk;</span>
+        }
+
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

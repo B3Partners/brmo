@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.loader.gml.BGTGMLLightLoader
-	c43 [label=<<table title="nl.b3p.brmo.loader.gml.BGTGMLLightLoader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTGMLLightLoader.html">
+	c44 [label=<<table title="nl.b3p.brmo.loader.gml.BGTGMLLightLoader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTGMLLightLoader.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BGTGMLLightLoader </td></tr>
 		</table></td></tr>
@@ -38,7 +38,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BGTGMLLightLoader.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.BGTGMLLightLoader.STATUS
-	c44 [label=<<table title="nl.b3p.brmo.loader.gml.BGTGMLLightLoader.STATUS" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTGMLLightLoader.STATUS.html">
+	c45 [label=<<table title="nl.b3p.brmo.loader.gml.BGTGMLLightLoader.STATUS" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTGMLLightLoader.STATUS.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> STATUS </td></tr>
@@ -52,7 +52,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BGTGMLLightLoader.STATUS.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.BGTGMLLightTransformerFactory
-	c45 [label=<<table title="nl.b3p.brmo.loader.gml.BGTGMLLightTransformerFactory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTGMLLightTransformerFactory.html">
+	c46 [label=<<table title="nl.b3p.brmo.loader.gml.BGTGMLLightTransformerFactory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTGMLLightTransformerFactory.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> BGTGMLLightTransformerFactory </td></tr>
@@ -78,6 +78,7 @@ digraph G {
 <tr><td align="left" balign="left"> stadsdeel </td></tr>
 <tr><td align="left" balign="left"> buurt </td></tr>
 <tr><td align="left" balign="left"> wijk </td></tr>
+<tr><td align="left" balign="left"> waterschap </td></tr>
 <tr><td align="left" balign="left"> ongeclassificeerdobject </td></tr>
 <tr><td align="left" balign="left"> begroeid_terreindeel </td></tr>
 <tr><td align="left" balign="left"> onbegroeid_terreindeel </td></tr>
@@ -98,7 +99,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BGTGMLLightTransformerFactory.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.GMLLightFeatureTransformer
-	c46 [label=<<table title="nl.b3p.brmo.loader.gml.GMLLightFeatureTransformer" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GMLLightFeatureTransformer.html">
+	c47 [label=<<table title="nl.b3p.brmo.loader.gml.GMLLightFeatureTransformer" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GMLLightFeatureTransformer.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> GMLLightFeatureTransformer </td></tr>
@@ -119,6 +120,6 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./GMLLightFeatureTransformer.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.BGTGMLLightLoader NAVASSOC nl.b3p.brmo.loader.gml.BGTGMLLightLoader.STATUS
-	c43:p -> c44:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c44:p -> c45:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

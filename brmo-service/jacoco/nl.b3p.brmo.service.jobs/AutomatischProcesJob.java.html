@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AutomatischProcesJob.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO service</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.service.jobs</a> &gt; <span class="el_source">AutomatischProcesJob.java</span></div><h1>AutomatischProcesJob.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2015 B3Partners B.V.
+ */
+package nl.b3p.brmo.service.jobs;
+
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.util.Date;
+import nl.b3p.brmo.loader.util.BrmoException;
+import nl.b3p.brmo.persistence.staging.AutomatischProces;
+import nl.b3p.brmo.service.scanner.AbstractExecutableProces;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
+import org.quartz.Job;
+import org.stripesstuff.stripersist.Stripersist;
+
+/**
+ * Start door quartz beheerde automatische processen.
+ *
+ * @author mprins
+ */
+<span class="nc" id="L24">public class AutomatischProcesJob implements Job {</span>
+
+<span class="nc" id="L26">    private static final Log log = LogFactory.getLog(AutomatischProcesJob.class);</span>
+
+    @Override
+    public void execute(JobExecutionContext context) throws JobExecutionException {
+<span class="nc" id="L30">        Long id = null;</span>
+<span class="nc" id="L31">        AutomatischProces p = null;</span>
+        try {
+<span class="nc" id="L33">            id = context.getJobDetail().getJobDataMap().getLongValue(&quot;id&quot;);</span>
+<span class="nc" id="L34">            log.debug(&quot;Poging gepland automatisch proces met id: &quot; + id + &quot; te starten.&quot;);</span>
+<span class="nc" id="L35">            Stripersist.requestInit();</span>
+<span class="nc" id="L36">            p = Stripersist.getEntityManager().find(AutomatischProces.class, id);</span>
+<span class="nc bnc" id="L37" title="All 2 branches missed.">            if (p != null) {</span>
+<span class="nc" id="L38">                p.addLogLine(String.format(&quot;Geplande taak gestart op %tc.&quot;, new Date()));</span>
+<span class="nc" id="L39">                AbstractExecutableProces.getProces(p).execute();</span>
+<span class="nc" id="L40">                p.addLogLine(String.format(&quot;Geplande taak afgerond op %tc.&quot;, new Date()));</span>
+<span class="nc" id="L41">                p.setLastrun(new Date());</span>
+<span class="nc" id="L42">                Stripersist.getEntityManager().merge(p);</span>
+<span class="nc" id="L43">                Stripersist.getEntityManager().flush();</span>
+<span class="nc" id="L44">                log.debug(&quot;Gepland automatisch proces met &quot; + id + &quot; is afgerond.&quot;);</span>
+            } else {
+<span class="nc" id="L46">                log.warn(&quot;Automatisch proces met id:&quot; + id + &quot; bestaat niet.&quot;);</span>
+            }
+<span class="nc" id="L48">        } catch (ClassCastException cce) {</span>
+<span class="nc" id="L49">            log.warn(&quot;Geen geldige ID gevonden in de jobdata map.&quot;, cce);</span>
+<span class="nc" id="L50">        } catch (BrmoException ex) {</span>
+<span class="nc bnc" id="L51" title="All 2 branches missed.">            if (p != null) {</span>
+<span class="nc" id="L52">                StringWriter sw = new StringWriter();</span>
+<span class="nc" id="L53">                ex.printStackTrace(new PrintWriter(sw));</span>
+<span class="nc" id="L54">                p.setStatus(AutomatischProces.ProcessingStatus.ERROR);</span>
+<span class="nc" id="L55">                p.updateSamenvattingEnLogfile(String.format(&quot;Fout tijdens starten of uitvoeren van automatische proces met id %s: %s &quot;, id, sw.toString()));</span>
+<span class="nc" id="L56">                Stripersist.getEntityManager().merge(p);</span>
+            }
+<span class="nc" id="L58">            log.error(&quot;Fout tijdens starten of uitvoeren van automatische proces met id: &quot; + id, ex);</span>
+        } finally {
+<span class="nc bnc" id="L60" title="All 2 branches missed.">            if (Stripersist.getEntityManager().getTransaction().isActive()) {</span>
+<span class="nc" id="L61">                Stripersist.getEntityManager().getTransaction().commit();</span>
+            }
+        }
+<span class="nc" id="L64">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

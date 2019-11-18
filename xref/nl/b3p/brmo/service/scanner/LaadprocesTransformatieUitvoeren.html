@@ -110,93 +110,99 @@
 <a class="jxr_linenumber" name="L102" href="#L102">102</a>         <a name="BrmoFramework" href="../../../../../nl/b3p/brmo/loader/BrmoFramework.html#BrmoFramework">BrmoFramework</a> brmo = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L103" href="#L103">103</a>         <strong class="jxr_keyword">try</strong> {
 <a class="jxr_linenumber" name="L104" href="#L104">104</a>             DataSource dataSourceStaging = ConfigUtil.getDataSourceStaging();
-<a class="jxr_linenumber" name="L105" href="#L105">105</a>             DataSource dataSourceRsgbBgt = ConfigUtil.getDataSourceRsgbBgt();
-<a class="jxr_linenumber" name="L106" href="#L106">106</a>             DataSource dataSourceTopNL = ConfigUtil.getDataSourceTopNL();
-<a class="jxr_linenumber" name="L107" href="#L107">107</a>             brmo = <strong class="jxr_keyword">new</strong> <a name="BrmoFramework" href="../../../../../nl/b3p/brmo/loader/BrmoFramework.html#BrmoFramework">BrmoFramework</a>(dataSourceStaging, <strong class="jxr_keyword">null</strong>, dataSourceRsgbBgt, dataSourceTopNL);
-<a class="jxr_linenumber" name="L108" href="#L108">108</a>             <strong class="jxr_keyword">long</strong>[] lpIds = <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L109" href="#L109">109</a>             
-<a class="jxr_linenumber" name="L110" href="#L110">110</a>             <strong class="jxr_keyword">if</strong>(LaadprocesTransformatieProces.LaadprocesSoorten.BR_TOPNL.getSoort().equalsIgnoreCase(<strong class="jxr_keyword">this</strong>.config.getSoort())){
-<a class="jxr_linenumber" name="L111" href="#L111">111</a>                 List&lt;Long&gt; ids = <strong class="jxr_keyword">new</strong> ArrayList&lt;&gt;();
-<a class="jxr_linenumber" name="L112" href="#L112">112</a>                 <strong class="jxr_keyword">for</strong> (String type : TopNLDirectoryScanner.subdirectoryNames) {
-<a class="jxr_linenumber" name="L113" href="#L113">113</a>                     ids.addAll(Arrays.asList(brmo.getLaadProcessenIds(<span class="jxr_string">"bestand_datum"</span>, <span class="jxr_string">"ASC"</span>, type, <span class="jxr_string">"STAGING_OK"</span>)));
-<a class="jxr_linenumber" name="L114" href="#L114">114</a>                 }
-<a class="jxr_linenumber" name="L115" href="#L115">115</a>                 lpIds = ArrayUtils.toPrimitive(ids.toArray(<strong class="jxr_keyword">new</strong> Long[ids.size()]));
-<a class="jxr_linenumber" name="L116" href="#L116">116</a>             }<strong class="jxr_keyword">else</strong>{
-<a class="jxr_linenumber" name="L117" href="#L117">117</a>                 lpIds = ArrayUtils.toPrimitive(brmo.getLaadProcessenIds(<span class="jxr_string">"bestand_datum"</span>, <span class="jxr_string">"ASC"</span>, config.getSoort(), <span class="jxr_string">"STAGING_OK"</span>));
-<a class="jxr_linenumber" name="L118" href="#L118">118</a>             }
-<a class="jxr_linenumber" name="L119" href="#L119">119</a>             brmo.setOrderBerichten(!config.alsStandTransformeren());
-<a class="jxr_linenumber" name="L120" href="#L120">120</a>             <strong class="jxr_keyword">if</strong> (lpIds == <strong class="jxr_keyword">null</strong> || lpIds.length == 0) {
-<a class="jxr_linenumber" name="L121" href="#L121">121</a>                 msg = <span class="jxr_string">"Er zijn geen laadprocessen van soort "</span> + config.getSoort() + <span class="jxr_string">" en status: 'STAGING_OK' om te transformeren."</span>;
-<a class="jxr_linenumber" name="L122" href="#L122">122</a>                 LOG.info(msg);
-<a class="jxr_linenumber" name="L123" href="#L123">123</a>                 sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
-<a class="jxr_linenumber" name="L124" href="#L124">124</a>                 listener.addLog(msg);
-<a class="jxr_linenumber" name="L125" href="#L125">125</a>             } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L126" href="#L126">126</a>                 listener.updateStatus(<span class="jxr_string">"Transformeren..."</span>);
-<a class="jxr_linenumber" name="L127" href="#L127">127</a>                 Thread t = brmo.toRsgb(RsgbProxy.BerichtSelectMode.BY_LAADPROCES, lpIds,
-<a class="jxr_linenumber" name="L128" href="#L128">128</a>                         <strong class="jxr_keyword">new</strong> nl.b3p.brmo.loader.ProgressUpdateListener() {
-<a class="jxr_linenumber" name="L129" href="#L129">129</a>                     @Override
-<a class="jxr_linenumber" name="L130" href="#L130">130</a>                     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> total(<strong class="jxr_keyword">long</strong> total) {
-<a class="jxr_linenumber" name="L131" href="#L131">131</a>                         sb.append(<span class="jxr_string">"Totaal te transformeren: "</span>)
-<a class="jxr_linenumber" name="L132" href="#L132">132</a>                                 .append(total).append(AutomatischProces.LOG_NEWLINE);
-<a class="jxr_linenumber" name="L133" href="#L133">133</a>                         listener.total(total);
-<a class="jxr_linenumber" name="L134" href="#L134">134</a>                     }
-<a class="jxr_linenumber" name="L135" href="#L135">135</a> 
-<a class="jxr_linenumber" name="L136" href="#L136">136</a>                     @Override
-<a class="jxr_linenumber" name="L137" href="#L137">137</a>                     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> progress(<strong class="jxr_keyword">long</strong> progress) {
-<a class="jxr_linenumber" name="L138" href="#L138">138</a>                         listener.progress(progress);
-<a class="jxr_linenumber" name="L139" href="#L139">139</a>                     }
-<a class="jxr_linenumber" name="L140" href="#L140">140</a> 
-<a class="jxr_linenumber" name="L141" href="#L141">141</a>                     @Override
-<a class="jxr_linenumber" name="L142" href="#L142">142</a>                     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> exception(Throwable t) {
-<a class="jxr_linenumber" name="L143" href="#L143">143</a>                         sb.append(<span class="jxr_string">"Fout tijdens laadproces transformeren: "</span>)
-<a class="jxr_linenumber" name="L144" href="#L144">144</a>                                 .append(t.getLocalizedMessage()).append(AutomatischProces.LOG_NEWLINE);
-<a class="jxr_linenumber" name="L145" href="#L145">145</a>                         listener.exception(t);
-<a class="jxr_linenumber" name="L146" href="#L146">146</a>                     }
-<a class="jxr_linenumber" name="L147" href="#L147">147</a>                 }
-<a class="jxr_linenumber" name="L148" href="#L148">148</a>                 );
-<a class="jxr_linenumber" name="L149" href="#L149">149</a>                 t.join();
-<a class="jxr_linenumber" name="L150" href="#L150">150</a>             }
-<a class="jxr_linenumber" name="L151" href="#L151">151</a> 
-<a class="jxr_linenumber" name="L152" href="#L152">152</a>             <strong class="jxr_keyword">if</strong> (transformErrorOccured) {
-<a class="jxr_linenumber" name="L153" href="#L153">153</a>                 <strong class="jxr_keyword">this</strong>.config.setStatus(ERROR);
-<a class="jxr_linenumber" name="L154" href="#L154">154</a>                 msg = <span class="jxr_string">"Handmatige transformatie vanuit de laadprocessen pagina is noodzakelijk."</span>;
-<a class="jxr_linenumber" name="L155" href="#L155">155</a>                 sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
-<a class="jxr_linenumber" name="L156" href="#L156">156</a>                 LOG.warn(msg);
-<a class="jxr_linenumber" name="L157" href="#L157">157</a>                 msg = String.format(<span class="jxr_string">"Laadproces transformatie proces met ID %d is niet succesvol afgerond op %tc."</span>, config.getId(), Calendar.getInstance());
-<a class="jxr_linenumber" name="L158" href="#L158">158</a>                 LOG.error(msg);
-<a class="jxr_linenumber" name="L159" href="#L159">159</a>                 listener.updateStatus(<span class="jxr_string">"Er is een fout opgetreden."</span>);
-<a class="jxr_linenumber" name="L160" href="#L160">160</a>             } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L161" href="#L161">161</a>                 <strong class="jxr_keyword">this</strong>.config.setStatus(WAITING);
-<a class="jxr_linenumber" name="L162" href="#L162">162</a>                 msg = String.format(<span class="jxr_string">"Laadproces transformatie proces met ID %d is succesvol afgerond op %tc."</span>, config.getId(), Calendar.getInstance());
-<a class="jxr_linenumber" name="L163" href="#L163">163</a>                 LOG.info(msg);
-<a class="jxr_linenumber" name="L164" href="#L164">164</a>                 listener.updateStatus(<span class="jxr_string">"Transformatie afgerond."</span>);
-<a class="jxr_linenumber" name="L165" href="#L165">165</a>             }
-<a class="jxr_linenumber" name="L166" href="#L166">166</a> 
-<a class="jxr_linenumber" name="L167" href="#L167">167</a>             sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
-<a class="jxr_linenumber" name="L168" href="#L168">168</a>             <strong class="jxr_keyword">this</strong>.listener.addLog(msg);
-<a class="jxr_linenumber" name="L169" href="#L169">169</a>             <strong class="jxr_keyword">this</strong>.config.setSamenvatting(msg);
-<a class="jxr_linenumber" name="L170" href="#L170">170</a>             <strong class="jxr_keyword">this</strong>.config.setLogfile(sb.toString());
-<a class="jxr_linenumber" name="L171" href="#L171">171</a>         } <strong class="jxr_keyword">catch</strong> (<a name="BrmoException" href="../../../../../nl/b3p/brmo/loader/util/BrmoException.html#BrmoException">BrmoException</a> | InterruptedException e) {
-<a class="jxr_linenumber" name="L172" href="#L172">172</a>             LOG.error(<span class="jxr_string">"Fout bij transformeren laadprocessen naar RSGB"</span>, e);
-<a class="jxr_linenumber" name="L173" href="#L173">173</a>             String m = <span class="jxr_string">"Fout bij transformeren laadprocessen naar RSGB: "</span> + ExceptionUtils.getMessage(e);
-<a class="jxr_linenumber" name="L174" href="#L174">174</a>             <strong class="jxr_keyword">if</strong> (e.getCause() != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L175" href="#L175">175</a>                 m += <span class="jxr_string">", oorzaak: "</span> + ExceptionUtils.getRootCauseMessage(e);
-<a class="jxr_linenumber" name="L176" href="#L176">176</a>             }
-<a class="jxr_linenumber" name="L177" href="#L177">177</a>             <strong class="jxr_keyword">this</strong>.config.setLogfile(sb.toString());
-<a class="jxr_linenumber" name="L178" href="#L178">178</a>             <strong class="jxr_keyword">this</strong>.config.updateSamenvattingEnLogfile(m);
-<a class="jxr_linenumber" name="L179" href="#L179">179</a>             <strong class="jxr_keyword">this</strong>.config.setStatus(ERROR);
-<a class="jxr_linenumber" name="L180" href="#L180">180</a>         } <strong class="jxr_keyword">finally</strong> {
-<a class="jxr_linenumber" name="L181" href="#L181">181</a>             <strong class="jxr_keyword">if</strong> (brmo != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L182" href="#L182">182</a>                 brmo.closeBrmoFramework();
-<a class="jxr_linenumber" name="L183" href="#L183">183</a>             }
-<a class="jxr_linenumber" name="L184" href="#L184">184</a>             Stripersist.getEntityManager().merge(<strong class="jxr_keyword">this</strong>.config);
-<a class="jxr_linenumber" name="L185" href="#L185">185</a>             Stripersist.getEntityManager().flush();
-<a class="jxr_linenumber" name="L186" href="#L186">186</a>             Stripersist.getEntityManager().getTransaction().commit();
-<a class="jxr_linenumber" name="L187" href="#L187">187</a>             Stripersist.getEntityManager().clear();
-<a class="jxr_linenumber" name="L188" href="#L188">188</a>         }
-<a class="jxr_linenumber" name="L189" href="#L189">189</a>     }
-<a class="jxr_linenumber" name="L190" href="#L190">190</a> 
-<a class="jxr_linenumber" name="L191" href="#L191">191</a> }
+<a class="jxr_linenumber" name="L105" href="#L105">105</a>             DataSource dataSourceRsgbBgt = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L106" href="#L106">106</a>             DataSource dataSourceTopNL = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L107" href="#L107">107</a>             <strong class="jxr_keyword">if</strong> (LaadprocesTransformatieProces.LaadprocesSoorten.BR_TOPNL.getSoort().equalsIgnoreCase(<strong class="jxr_keyword">this</strong>.config.getSoort())) {
+<a class="jxr_linenumber" name="L108" href="#L108">108</a>                 dataSourceTopNL = ConfigUtil.getDataSourceTopNL();
+<a class="jxr_linenumber" name="L109" href="#L109">109</a>             }
+<a class="jxr_linenumber" name="L110" href="#L110">110</a>             <strong class="jxr_keyword">if</strong> (LaadprocesTransformatieProces.LaadprocesSoorten.BR_BGTLIGHT.getSoort().equalsIgnoreCase(<strong class="jxr_keyword">this</strong>.config.getSoort())) {
+<a class="jxr_linenumber" name="L111" href="#L111">111</a>                 dataSourceRsgbBgt = ConfigUtil.getDataSourceRsgbBgt();
+<a class="jxr_linenumber" name="L112" href="#L112">112</a>             }
+<a class="jxr_linenumber" name="L113" href="#L113">113</a>             brmo = <strong class="jxr_keyword">new</strong> <a name="BrmoFramework" href="../../../../../nl/b3p/brmo/loader/BrmoFramework.html#BrmoFramework">BrmoFramework</a>(dataSourceStaging, <strong class="jxr_keyword">null</strong>, dataSourceRsgbBgt, dataSourceTopNL);
+<a class="jxr_linenumber" name="L114" href="#L114">114</a>             <strong class="jxr_keyword">long</strong>[] lpIds = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L115" href="#L115">115</a>             
+<a class="jxr_linenumber" name="L116" href="#L116">116</a>             <strong class="jxr_keyword">if</strong>(LaadprocesTransformatieProces.LaadprocesSoorten.BR_TOPNL.getSoort().equalsIgnoreCase(<strong class="jxr_keyword">this</strong>.config.getSoort())){
+<a class="jxr_linenumber" name="L117" href="#L117">117</a>                 List&lt;Long&gt; ids = <strong class="jxr_keyword">new</strong> ArrayList&lt;&gt;();
+<a class="jxr_linenumber" name="L118" href="#L118">118</a>                 <strong class="jxr_keyword">for</strong> (String type : TopNLDirectoryScanner.subdirectoryNames) {
+<a class="jxr_linenumber" name="L119" href="#L119">119</a>                     ids.addAll(Arrays.asList(brmo.getLaadProcessenIds(<span class="jxr_string">"bestand_datum"</span>, <span class="jxr_string">"ASC"</span>, type, <span class="jxr_string">"STAGING_OK"</span>)));
+<a class="jxr_linenumber" name="L120" href="#L120">120</a>                 }
+<a class="jxr_linenumber" name="L121" href="#L121">121</a>                 lpIds = ArrayUtils.toPrimitive(ids.toArray(<strong class="jxr_keyword">new</strong> Long[ids.size()]));
+<a class="jxr_linenumber" name="L122" href="#L122">122</a>             }<strong class="jxr_keyword">else</strong>{
+<a class="jxr_linenumber" name="L123" href="#L123">123</a>                 lpIds = ArrayUtils.toPrimitive(brmo.getLaadProcessenIds(<span class="jxr_string">"bestand_datum"</span>, <span class="jxr_string">"ASC"</span>, config.getSoort(), <span class="jxr_string">"STAGING_OK"</span>));
+<a class="jxr_linenumber" name="L124" href="#L124">124</a>             }
+<a class="jxr_linenumber" name="L125" href="#L125">125</a>             brmo.setOrderBerichten(!config.alsStandTransformeren());
+<a class="jxr_linenumber" name="L126" href="#L126">126</a>             <strong class="jxr_keyword">if</strong> (lpIds == <strong class="jxr_keyword">null</strong> || lpIds.length == 0) {
+<a class="jxr_linenumber" name="L127" href="#L127">127</a>                 msg = <span class="jxr_string">"Er zijn geen laadprocessen van soort "</span> + config.getSoort() + <span class="jxr_string">" en status: 'STAGING_OK' om te transformeren."</span>;
+<a class="jxr_linenumber" name="L128" href="#L128">128</a>                 LOG.info(msg);
+<a class="jxr_linenumber" name="L129" href="#L129">129</a>                 sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
+<a class="jxr_linenumber" name="L130" href="#L130">130</a>                 listener.addLog(msg);
+<a class="jxr_linenumber" name="L131" href="#L131">131</a>             } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L132" href="#L132">132</a>                 listener.updateStatus(<span class="jxr_string">"Transformeren..."</span>);
+<a class="jxr_linenumber" name="L133" href="#L133">133</a>                 Thread t = brmo.toRsgb(RsgbProxy.BerichtSelectMode.BY_LAADPROCES, lpIds,
+<a class="jxr_linenumber" name="L134" href="#L134">134</a>                         <strong class="jxr_keyword">new</strong> nl.b3p.brmo.loader.ProgressUpdateListener() {
+<a class="jxr_linenumber" name="L135" href="#L135">135</a>                     @Override
+<a class="jxr_linenumber" name="L136" href="#L136">136</a>                     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> total(<strong class="jxr_keyword">long</strong> total) {
+<a class="jxr_linenumber" name="L137" href="#L137">137</a>                         sb.append(<span class="jxr_string">"Totaal te transformeren: "</span>)
+<a class="jxr_linenumber" name="L138" href="#L138">138</a>                                 .append(total).append(AutomatischProces.LOG_NEWLINE);
+<a class="jxr_linenumber" name="L139" href="#L139">139</a>                         listener.total(total);
+<a class="jxr_linenumber" name="L140" href="#L140">140</a>                     }
+<a class="jxr_linenumber" name="L141" href="#L141">141</a> 
+<a class="jxr_linenumber" name="L142" href="#L142">142</a>                     @Override
+<a class="jxr_linenumber" name="L143" href="#L143">143</a>                     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> progress(<strong class="jxr_keyword">long</strong> progress) {
+<a class="jxr_linenumber" name="L144" href="#L144">144</a>                         listener.progress(progress);
+<a class="jxr_linenumber" name="L145" href="#L145">145</a>                     }
+<a class="jxr_linenumber" name="L146" href="#L146">146</a> 
+<a class="jxr_linenumber" name="L147" href="#L147">147</a>                     @Override
+<a class="jxr_linenumber" name="L148" href="#L148">148</a>                     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> exception(Throwable t) {
+<a class="jxr_linenumber" name="L149" href="#L149">149</a>                         sb.append(<span class="jxr_string">"Fout tijdens laadproces transformeren: "</span>)
+<a class="jxr_linenumber" name="L150" href="#L150">150</a>                                 .append(t.getLocalizedMessage()).append(AutomatischProces.LOG_NEWLINE);
+<a class="jxr_linenumber" name="L151" href="#L151">151</a>                         listener.exception(t);
+<a class="jxr_linenumber" name="L152" href="#L152">152</a>                     }
+<a class="jxr_linenumber" name="L153" href="#L153">153</a>                 }
+<a class="jxr_linenumber" name="L154" href="#L154">154</a>                 );
+<a class="jxr_linenumber" name="L155" href="#L155">155</a>                 t.join();
+<a class="jxr_linenumber" name="L156" href="#L156">156</a>             }
+<a class="jxr_linenumber" name="L157" href="#L157">157</a> 
+<a class="jxr_linenumber" name="L158" href="#L158">158</a>             <strong class="jxr_keyword">if</strong> (transformErrorOccured) {
+<a class="jxr_linenumber" name="L159" href="#L159">159</a>                 <strong class="jxr_keyword">this</strong>.config.setStatus(ERROR);
+<a class="jxr_linenumber" name="L160" href="#L160">160</a>                 msg = <span class="jxr_string">"Handmatige transformatie vanuit de laadprocessen pagina is noodzakelijk."</span>;
+<a class="jxr_linenumber" name="L161" href="#L161">161</a>                 sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
+<a class="jxr_linenumber" name="L162" href="#L162">162</a>                 LOG.warn(msg);
+<a class="jxr_linenumber" name="L163" href="#L163">163</a>                 msg = String.format(<span class="jxr_string">"Laadproces transformatie proces met ID %d is niet succesvol afgerond op %tc."</span>, config.getId(), Calendar.getInstance());
+<a class="jxr_linenumber" name="L164" href="#L164">164</a>                 LOG.error(msg);
+<a class="jxr_linenumber" name="L165" href="#L165">165</a>                 listener.updateStatus(<span class="jxr_string">"Er is een fout opgetreden."</span>);
+<a class="jxr_linenumber" name="L166" href="#L166">166</a>             } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L167" href="#L167">167</a>                 <strong class="jxr_keyword">this</strong>.config.setStatus(WAITING);
+<a class="jxr_linenumber" name="L168" href="#L168">168</a>                 msg = String.format(<span class="jxr_string">"Laadproces transformatie proces met ID %d is succesvol afgerond op %tc."</span>, config.getId(), Calendar.getInstance());
+<a class="jxr_linenumber" name="L169" href="#L169">169</a>                 LOG.info(msg);
+<a class="jxr_linenumber" name="L170" href="#L170">170</a>                 listener.updateStatus(<span class="jxr_string">"Transformatie afgerond."</span>);
+<a class="jxr_linenumber" name="L171" href="#L171">171</a>             }
+<a class="jxr_linenumber" name="L172" href="#L172">172</a> 
+<a class="jxr_linenumber" name="L173" href="#L173">173</a>             sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
+<a class="jxr_linenumber" name="L174" href="#L174">174</a>             <strong class="jxr_keyword">this</strong>.listener.addLog(msg);
+<a class="jxr_linenumber" name="L175" href="#L175">175</a>             <strong class="jxr_keyword">this</strong>.config.setSamenvatting(msg);
+<a class="jxr_linenumber" name="L176" href="#L176">176</a>             <strong class="jxr_keyword">this</strong>.config.setLogfile(sb.toString());
+<a class="jxr_linenumber" name="L177" href="#L177">177</a>         } <strong class="jxr_keyword">catch</strong> (<a name="BrmoException" href="../../../../../nl/b3p/brmo/loader/util/BrmoException.html#BrmoException">BrmoException</a> | InterruptedException e) {
+<a class="jxr_linenumber" name="L178" href="#L178">178</a>             LOG.error(<span class="jxr_string">"Fout bij transformeren laadprocessen naar RSGB"</span>, e);
+<a class="jxr_linenumber" name="L179" href="#L179">179</a>             String m = <span class="jxr_string">"Fout bij transformeren laadprocessen naar RSGB: "</span> + ExceptionUtils.getMessage(e);
+<a class="jxr_linenumber" name="L180" href="#L180">180</a>             <strong class="jxr_keyword">if</strong> (e.getCause() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L181" href="#L181">181</a>                 m += <span class="jxr_string">", oorzaak: "</span> + ExceptionUtils.getRootCauseMessage(e);
+<a class="jxr_linenumber" name="L182" href="#L182">182</a>             }
+<a class="jxr_linenumber" name="L183" href="#L183">183</a>             <strong class="jxr_keyword">this</strong>.config.setLogfile(sb.toString());
+<a class="jxr_linenumber" name="L184" href="#L184">184</a>             <strong class="jxr_keyword">this</strong>.config.updateSamenvattingEnLogfile(m);
+<a class="jxr_linenumber" name="L185" href="#L185">185</a>             <strong class="jxr_keyword">this</strong>.config.setStatus(ERROR);
+<a class="jxr_linenumber" name="L186" href="#L186">186</a>         } <strong class="jxr_keyword">finally</strong> {
+<a class="jxr_linenumber" name="L187" href="#L187">187</a>             <strong class="jxr_keyword">if</strong> (brmo != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L188" href="#L188">188</a>                 brmo.closeBrmoFramework();
+<a class="jxr_linenumber" name="L189" href="#L189">189</a>             }
+<a class="jxr_linenumber" name="L190" href="#L190">190</a>             Stripersist.getEntityManager().merge(<strong class="jxr_keyword">this</strong>.config);
+<a class="jxr_linenumber" name="L191" href="#L191">191</a>             Stripersist.getEntityManager().flush();
+<a class="jxr_linenumber" name="L192" href="#L192">192</a>             Stripersist.getEntityManager().getTransaction().commit();
+<a class="jxr_linenumber" name="L193" href="#L193">193</a>             Stripersist.getEntityManager().clear();
+<a class="jxr_linenumber" name="L194" href="#L194">194</a>         }
+<a class="jxr_linenumber" name="L195" href="#L195">195</a>     }
+<a class="jxr_linenumber" name="L196" href="#L196">196</a> 
+<a class="jxr_linenumber" name="L197" href="#L197">197</a> }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2014&#x2013;2019 <a href="http://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>

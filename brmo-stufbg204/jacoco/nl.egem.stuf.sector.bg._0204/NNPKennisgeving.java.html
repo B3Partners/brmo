@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>NNPKennisgeving.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO STUF BG 204</a> &gt; <a href="index.source.html" class="el_package">nl.egem.stuf.sector.bg._0204</a> &gt; <span class="el_source">NNPKennisgeving.java</span></div><h1>NNPKennisgeving.java</h1><pre class="source lang-java linenums">
+package nl.egem.stuf.sector.bg._0204;
+
+import java.util.ArrayList;
+import java.util.List;
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementRef;
+import javax.xml.bind.annotation.XmlType;
+
+
+/**
+ * Niet natuurlijk persoon binnen kennisgeving
+ * 
+ * &lt;p&gt;Java class for NNP-kennisgeving complex type.
+ * 
+ * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+ * 
+ * &lt;pre&gt;
+ * &amp;lt;complexType name=&quot;NNP-kennisgeving&quot;&amp;gt;
+ *   &amp;lt;complexContent&amp;gt;
+ *     &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}NNP-fund&quot;&amp;gt;
+ *       &amp;lt;sequence&amp;gt;
+ *         &amp;lt;element name=&quot;NNPADRCOR&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}ADR-relKerngegevens&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;NNPADRVBL&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}ADR-relKerngegevens&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;NNPNNPHFD&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;complexContent&amp;gt;
+ *               &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}Relatie&quot;&amp;gt;
+ *                 &amp;lt;sequence&amp;gt;
+ *                   &amp;lt;element name=&quot;NNP&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}NNP-kerngegevens&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                 &amp;lt;/sequence&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/complexContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;NNPNNPNVN&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;complexContent&amp;gt;
+ *               &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}Relatie&quot;&amp;gt;
+ *                 &amp;lt;sequence&amp;gt;
+ *                   &amp;lt;element name=&quot;NNP&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}NNP-kerngegevens&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                 &amp;lt;/sequence&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/complexContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *       &amp;lt;/sequence&amp;gt;
+ *     &amp;lt;/extension&amp;gt;
+ *   &amp;lt;/complexContent&amp;gt;
+ * &amp;lt;/complexType&amp;gt;
+ * &lt;/pre&gt;
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = &quot;NNP-kennisgeving&quot;, propOrder = {
+    &quot;nnpadrcor&quot;,
+    &quot;nnpadrvbl&quot;,
+    &quot;nnpnnphfd&quot;,
+    &quot;nnpnnpnvn&quot;
+})
+<span class="nc" id="L65">public class NNPKennisgeving</span>
+    extends NNPFund
+{
+
+    @XmlElementRef(name = &quot;NNPADRCOR&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+    protected JAXBElement&lt;ADRRelKerngegevens&gt; nnpadrcor;
+    @XmlElementRef(name = &quot;NNPADRVBL&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+    protected JAXBElement&lt;ADRRelKerngegevens&gt; nnpadrvbl;
+    @XmlElementRef(name = &quot;NNPNNPHFD&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+    protected JAXBElement&lt;NNPKennisgeving.NNPNNPHFD&gt; nnpnnphfd;
+    @XmlElement(name = &quot;NNPNNPNVN&quot;, nillable = true)
+    protected List&lt;NNPKennisgeving.NNPNNPNVN&gt; nnpnnpnvn;
+
+    /**
+     * Gets the value of the nnpadrcor property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code &lt;}{@link ADRRelKerngegevens }{@code &gt;}
+     *     
+     */
+    public JAXBElement&lt;ADRRelKerngegevens&gt; getNNPADRCOR() {
+<span class="nc" id="L87">        return nnpadrcor;</span>
+    }
+
+    /**
+     * Sets the value of the nnpadrcor property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code &lt;}{@link ADRRelKerngegevens }{@code &gt;}
+     *     
+     */
+    public void setNNPADRCOR(JAXBElement&lt;ADRRelKerngegevens&gt; value) {
+<span class="nc" id="L99">        this.nnpadrcor = value;</span>
+<span class="nc" id="L100">    }</span>
+
+    /**
+     * Gets the value of the nnpadrvbl property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code &lt;}{@link ADRRelKerngegevens }{@code &gt;}
+     *     
+     */
+    public JAXBElement&lt;ADRRelKerngegevens&gt; getNNPADRVBL() {
+<span class="nc" id="L111">        return nnpadrvbl;</span>
+    }
+
+    /**
+     * Sets the value of the nnpadrvbl property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code &lt;}{@link ADRRelKerngegevens }{@code &gt;}
+     *     
+     */
+    public void setNNPADRVBL(JAXBElement&lt;ADRRelKerngegevens&gt; value) {
+<span class="nc" id="L123">        this.nnpadrvbl = value;</span>
+<span class="nc" id="L124">    }</span>
+
+    /**
+     * Gets the value of the nnpnnphfd property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code &lt;}{@link NNPKennisgeving.NNPNNPHFD }{@code &gt;}
+     *     
+     */
+    public JAXBElement&lt;NNPKennisgeving.NNPNNPHFD&gt; getNNPNNPHFD() {
+<span class="nc" id="L135">        return nnpnnphfd;</span>
+    }
+
+    /**
+     * Sets the value of the nnpnnphfd property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code &lt;}{@link NNPKennisgeving.NNPNNPHFD }{@code &gt;}
+     *     
+     */
+    public void setNNPNNPHFD(JAXBElement&lt;NNPKennisgeving.NNPNNPHFD&gt; value) {
+<span class="nc" id="L147">        this.nnpnnphfd = value;</span>
+<span class="nc" id="L148">    }</span>
+
+    /**
+     * Gets the value of the nnpnnpnvn property.
+     * 
+     * &lt;p&gt;
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the nnpnnpnvn property.
+     * 
+     * &lt;p&gt;
+     * For example, to add a new item, do as follows:
+     * &lt;pre&gt;
+     *    getNNPNNPNVN().add(newItem);
+     * &lt;/pre&gt;
+     * 
+     * 
+     * &lt;p&gt;
+     * Objects of the following type(s) are allowed in the list
+     * {@link NNPKennisgeving.NNPNNPNVN }
+     * 
+     * 
+     */
+    public List&lt;NNPKennisgeving.NNPNNPNVN&gt; getNNPNNPNVN() {
+<span class="nc bnc" id="L173" title="All 2 branches missed.">        if (nnpnnpnvn == null) {</span>
+<span class="nc" id="L174">            nnpnnpnvn = new ArrayList&lt;NNPKennisgeving.NNPNNPNVN&gt;();</span>
+        }
+<span class="nc" id="L176">        return this.nnpnnpnvn;</span>
+    }
+
+
+    /**
+     * &lt;p&gt;Java class for anonymous complex type.
+     * 
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * 
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;complexContent&amp;gt;
+     *     &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}Relatie&quot;&amp;gt;
+     *       &amp;lt;sequence&amp;gt;
+     *         &amp;lt;element name=&quot;NNP&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}NNP-kerngegevens&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *       &amp;lt;/sequence&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/complexContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = &quot;&quot;, propOrder = {
+        &quot;nnp&quot;
+    })
+<span class="nc" id="L203">    public static class NNPNNPHFD</span>
+        extends Relatie
+    {
+
+        @XmlElementRef(name = &quot;NNP&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+        protected JAXBElement&lt;NNPKerngegevens&gt; nnp;
+
+        /**
+         * Gets the value of the nnp property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link JAXBElement }{@code &lt;}{@link NNPKerngegevens }{@code &gt;}
+         *     
+         */
+        public JAXBElement&lt;NNPKerngegevens&gt; getNNP() {
+<span class="nc" id="L219">            return nnp;</span>
+        }
+
+        /**
+         * Sets the value of the nnp property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link JAXBElement }{@code &lt;}{@link NNPKerngegevens }{@code &gt;}
+         *     
+         */
+        public void setNNP(JAXBElement&lt;NNPKerngegevens&gt; value) {
+<span class="nc" id="L231">            this.nnp = value;</span>
+<span class="nc" id="L232">        }</span>
+
+    }
+
+
+    /**
+     * &lt;p&gt;Java class for anonymous complex type.
+     * 
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * 
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;complexContent&amp;gt;
+     *     &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}Relatie&quot;&amp;gt;
+     *       &amp;lt;sequence&amp;gt;
+     *         &amp;lt;element name=&quot;NNP&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}NNP-kerngegevens&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *       &amp;lt;/sequence&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/complexContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = &quot;&quot;, propOrder = {
+        &quot;nnp&quot;
+    })
+<span class="nc" id="L260">    public static class NNPNNPNVN</span>
+        extends Relatie
+    {
+
+        @XmlElementRef(name = &quot;NNP&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+        protected JAXBElement&lt;NNPKerngegevens&gt; nnp;
+
+        /**
+         * Gets the value of the nnp property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link JAXBElement }{@code &lt;}{@link NNPKerngegevens }{@code &gt;}
+         *     
+         */
+        public JAXBElement&lt;NNPKerngegevens&gt; getNNP() {
+<span class="nc" id="L276">            return nnp;</span>
+        }
+
+        /**
+         * Sets the value of the nnp property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link JAXBElement }{@code &lt;}{@link NNPKerngegevens }{@code &gt;}
+         *     
+         */
+        public void setNNP(JAXBElement&lt;NNPKerngegevens&gt; value) {
+<span class="nc" id="L288">            this.nnp = value;</span>
+<span class="nc" id="L289">        }</span>
+
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

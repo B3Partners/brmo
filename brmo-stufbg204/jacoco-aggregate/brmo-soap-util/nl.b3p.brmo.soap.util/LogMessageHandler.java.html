@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>LogMessageHandler.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO STUF BG 204</a> &gt; <a href="../index.html" class="el_bundle">brmo-soap-util</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.soap.util</a> &gt; <span class="el_source">LogMessageHandler.java</span></div><h1>LogMessageHandler.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2017 B3Partners B.V.
+ */
+package nl.b3p.brmo.soap.util;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.Set;
+import javax.xml.namespace.QName;
+import javax.xml.soap.MimeHeader;
+import javax.xml.soap.SOAPException;
+import javax.xml.ws.handler.MessageContext;
+import javax.xml.ws.handler.soap.SOAPHandler;
+import javax.xml.ws.handler.soap.SOAPMessageContext;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+/**
+ * 'TRACE' level logging van de soap berichten.
+ *
+ * @author mprins
+ */
+<span class="nc" id="L25">public class LogMessageHandler implements SOAPHandler&lt;SOAPMessageContext&gt; {</span>
+
+<span class="nc" id="L27">    private static final Log LOG = LogFactory.getLog(LogMessageHandler.class);</span>
+
+    @Override
+    public Set&lt;QName&gt; getHeaders() {
+<span class="nc" id="L31">        return Collections.EMPTY_SET;</span>
+    }
+
+    @Override
+    public boolean handleMessage(SOAPMessageContext context) {
+<span class="nc bnc" id="L36" title="All 2 branches missed.">        if (LOG.isTraceEnabled()) {</span>
+            try {
+<span class="nc" id="L38">                Boolean outboundProperty = (Boolean) context.get(MessageContext.MESSAGE_OUTBOUND_PROPERTY);</span>
+<span class="nc" id="L39">                String prefix = &quot;&lt;&lt;&lt; &quot;;</span>
+<span class="nc bnc" id="L40" title="All 2 branches missed.">                if (outboundProperty) {</span>
+<span class="nc" id="L41">                    prefix = &quot;&gt;&gt;&gt; &quot;;</span>
+<span class="nc" id="L42">                    LOG.trace(prefix + &quot;Uitgaand soap bericht&quot;);</span>
+                } else {
+<span class="nc" id="L44">                    LOG.trace(prefix + &quot;Inkomend soap bericht.&quot;);</span>
+                }
+
+<span class="nc" id="L47">                Iterator&lt;MimeHeader&gt; i = context.getMessage().getMimeHeaders().getAllHeaders();</span>
+<span class="nc bnc" id="L48" title="All 2 branches missed.">                while (i.hasNext()) {</span>
+<span class="nc" id="L49">                    MimeHeader h = i.next();</span>
+<span class="nc" id="L50">                    LOG.trace(prefix + &quot; &quot; + h.getName() + &quot;: &quot; + h.getValue());</span>
+<span class="nc" id="L51">                }</span>
+
+<span class="nc" id="L53">                ByteArrayOutputStream bos = new ByteArrayOutputStream();</span>
+<span class="nc" id="L54">                context.getMessage().writeTo(bos);</span>
+<span class="nc" id="L55">                LOG.trace(prefix + &quot; &quot; + bos.toString(&quot;UTF-8&quot;));</span>
+<span class="nc" id="L56">            } catch (SOAPException | IOException ex) {</span>
+<span class="nc" id="L57">                LOG.trace(ex);</span>
+<span class="nc" id="L58">            }</span>
+        }
+<span class="nc" id="L60">        return true;</span>
+    }
+
+    @Override
+    public boolean handleFault(SOAPMessageContext context) {
+<span class="nc" id="L65">        return true;</span>
+    }
+
+    @Override
+    public void close(MessageContext context) {
+<span class="nc" id="L70">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

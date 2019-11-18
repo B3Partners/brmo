@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>NietNatuurlijkPersoonResponse.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO distributie</a> &gt; <a href="../index.html" class="el_bundle">brmo-soap</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.soap.brk</a> &gt; <span class="el_source">NietNatuurlijkPersoonResponse.java</span></div><h1>NietNatuurlijkPersoonResponse.java</h1><pre class="source lang-java linenums">package nl.b3p.brmo.soap.brk;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.Map;
+import javax.sql.DataSource;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+import nl.b3p.brmo.service.util.ConfigUtil;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+/**
+ *
+ * @author Chris
+ */
+@XmlType
+<span class="nc" id="L19">public class NietNatuurlijkPersoonResponse {</span>
+<span class="nc" id="L20">    private static final Log LOG = LogFactory.getLog(NietNatuurlijkPersoonResponse.class);</span>
+    private String identificatie;
+    private String rechtsvorm;
+    private String statutaireZetel;
+    private String naam;
+
+    /**
+     * @return the identificatie
+     */
+    @XmlElement
+    public String getIdentificatie() {
+<span class="nc" id="L31">        return identificatie;</span>
+    }
+
+    /**
+     * @param identificatie the identificatie to set
+     */
+    public void setIdentificatie(String identificatie) {
+<span class="nc" id="L38">        this.identificatie = identificatie;</span>
+<span class="nc" id="L39">    }</span>
+
+    /**
+     * @return the rechtsvorm
+     */
+    public String getRechtsvorm() {
+<span class="nc" id="L45">        return rechtsvorm;</span>
+    }
+
+    /**
+     * @param rechtsvorm the rechtsvorm to set
+     */
+    public void setRechtsvorm(String rechtsvorm) {
+<span class="nc" id="L52">        this.rechtsvorm = rechtsvorm;</span>
+<span class="nc" id="L53">    }</span>
+
+    /**
+     * @return the statutaireZetel
+     */
+    public String getStatutaireZetel() {
+<span class="nc" id="L59">        return statutaireZetel;</span>
+    }
+
+    /**
+     * @param statutaireZetel the statutaireZetel to set
+     */
+    public void setStatutaireZetel(String statutaireZetel) {
+<span class="nc" id="L66">        this.statutaireZetel = statutaireZetel;</span>
+<span class="nc" id="L67">    }</span>
+
+    /**
+     * @return the naam
+     */
+    public String getNaam() {
+<span class="nc" id="L73">        return naam;</span>
+    }
+
+    /**
+     * @param naam the naam to set
+     */
+    public void setNaam(String naam) {
+<span class="nc" id="L80">        this.naam = naam;</span>
+<span class="nc" id="L81">    }</span>
+
+    private static StringBuilder createFullColumnsSQL() {
+<span class="nc" id="L84">        StringBuilder sql = new StringBuilder();</span>
+<span class="nc" id="L85">        sql.append(&quot;    niet_nat_prs.naam,&quot;);</span>
+<span class="nc" id="L86">        sql.append(&quot;    ingeschr_niet_nat_prs.rechtsvorm,&quot;);</span>
+<span class="nc" id="L87">        sql.append(&quot;    ingeschr_niet_nat_prs.statutaire_zetel &quot;);</span>
+<span class="nc" id="L88">        return sql;</span>
+    }
+
+    private static StringBuilder createFromSQL() {
+<span class="nc" id="L92">        StringBuilder sql = new StringBuilder();</span>
+<span class="nc" id="L93">        sql.append(&quot;    niet_nat_prs &quot;);</span>
+<span class="nc" id="L94">        sql.append(&quot;LEFT OUTER JOIN &quot;);</span>
+<span class="nc" id="L95">        sql.append(&quot;    ingeschr_niet_nat_prs &quot;);</span>
+<span class="nc" id="L96">        sql.append(&quot;ON &quot;);</span>
+<span class="nc" id="L97">        sql.append(&quot;    ( &quot;);</span>
+<span class="nc" id="L98">        sql.append(&quot;        niet_nat_prs.sc_identif = ingeschr_niet_nat_prs.sc_identif) &quot;);</span>
+<span class="nc" id="L99">        return sql;</span>
+    }
+
+    private static StringBuilder createWhereSQL() {
+<span class="nc" id="L103">        StringBuilder sql = new StringBuilder();</span>
+<span class="nc" id="L104">        sql.append(&quot;    niet_nat_prs.sc_identif = ? &quot;);</span>
+<span class="nc" id="L105">        return sql;</span>
+    }
+
+    public static NietNatuurlijkPersoonResponse getRecordById(String id,
+            Map&lt;String, Object&gt; searchContext) throws Exception {
+
+<span class="nc" id="L111">        DataSource ds = ConfigUtil.getDataSourceRsgb();</span>
+<span class="nc" id="L112">        PreparedStatement stm = null;</span>
+<span class="nc" id="L113">        Connection connRsgb = null;</span>
+<span class="nc" id="L114">        ResultSet rs = null;</span>
+        try {
+<span class="nc" id="L116">            connRsgb = ds.getConnection();</span>
+
+<span class="nc" id="L118">            StringBuilder sql = new StringBuilder();</span>
+<span class="nc" id="L119">            sql.append(&quot;SELECT &quot;);</span>
+<span class="nc" id="L120">            sql.append(createFullColumnsSQL());</span>
+<span class="nc" id="L121">            sql.append(&quot;FROM &quot;);</span>
+<span class="nc" id="L122">            sql.append(createFromSQL());</span>
+<span class="nc" id="L123">            sql.append(&quot;WHERE &quot;);</span>
+<span class="nc" id="L124">            sql.append(createWhereSQL());</span>
+<span class="nc" id="L125">            LOG.trace(sql);</span>
+<span class="nc" id="L126">            LOG.trace(id);</span>
+<span class="nc" id="L127">            stm = connRsgb.prepareStatement(sql.toString());</span>
+<span class="nc" id="L128">            stm.setString(1, id);</span>
+<span class="nc" id="L129">            rs = stm.executeQuery();</span>
+
+<span class="nc" id="L131">            NietNatuurlijkPersoonResponse nnp = new NietNatuurlijkPersoonResponse();</span>
+<span class="nc bnc" id="L132" title="All 2 branches missed.">            if (rs.next()) {</span>
+<span class="nc" id="L133">                nnp.setNaam(rs.getString(&quot;naam&quot;));</span>
+<span class="nc" id="L134">                nnp.setRechtsvorm(rs.getString(&quot;rechtsvorm&quot;));</span>
+<span class="nc" id="L135">                nnp.setStatutaireZetel(rs.getString(&quot;statutaire_zetel&quot;));</span>
+
+            } else {
+<span class="nc" id="L138">                return null;</span>
+            }
+
+<span class="nc" id="L141">            return nnp;</span>
+        } finally {
+<span class="nc bnc" id="L143" title="All 2 branches missed.">            if (rs != null) {</span>
+<span class="nc" id="L144">                rs.close();</span>
+            }
+<span class="nc bnc" id="L146" title="All 2 branches missed.">            if (stm != null) {</span>
+<span class="nc" id="L147">                stm.close();</span>
+            }
+<span class="nc bnc" id="L149" title="All 2 branches missed.">            if (connRsgb != null) {</span>
+<span class="nc" id="L150">                connRsgb.close();</span>
+            }
+        }
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

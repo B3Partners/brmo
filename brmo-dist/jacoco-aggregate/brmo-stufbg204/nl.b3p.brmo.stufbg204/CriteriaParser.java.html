@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>CriteriaParser.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO distributie</a> &gt; <a href="../index.html" class="el_bundle">brmo-stufbg204</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.stufbg204</a> &gt; <span class="el_source">CriteriaParser.java</span></div><h1>CriteriaParser.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2017 B3Partners B.V.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+ */
+package nl.b3p.brmo.stufbg204;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import nl.egem.stuf.sector.bg._0204.PRSVraag;
+import nl.egem.stuf.sector.bg._0204.VraagBericht;
+import nl.egem.stuf.sector.bg._0204.VraagBericht.Body;
+
+/**
+ *
+ * @author Meine Toonen
+ */
+public class CriteriaParser {
+
+<span class="nc" id="L32">    private static final Map&lt;String, String&gt; vraagToColumn = new HashMap();</span>
+
+    static {
+        //nat_prs
+<span class="nc" id="L36">        vraagToColumn.put(&quot;voornamen&quot;, &quot;nm_voornamen&quot;);</span>
+<span class="nc" id="L37">        vraagToColumn.put(&quot;voorletters&quot;, &quot;na_voorletters_aanschrijving&quot;);</span>
+<span class="nc" id="L38">        vraagToColumn.put(&quot;voorvoegselGeslachtsnaam&quot;, &quot;nm_voorvoegsel_geslachtsnaam&quot;);</span>
+<span class="nc" id="L39">        vraagToColumn.put(&quot;geslachtsnaam&quot;, &quot;nm_geslachtsnaam&quot;);</span>
+<span class="nc" id="L40">        vraagToColumn.put(&quot;adellijkeTitelPredikaat&quot;, &quot;nm_adellijke_titel_predikaat&quot;);</span>
+<span class="nc" id="L41">        vraagToColumn.put(&quot;geslachtsaanduiding&quot;, &quot;geslachtsaand&quot;);</span>
+<span class="nc" id="L42">        vraagToColumn.put(&quot;academischeTitel&quot;, &quot;fk_2acd_code&quot;);</span>
+<span class="nc" id="L43">        vraagToColumn.put(&quot;aanduidingNaamgebruik&quot;, &quot;aand_naamgebruik&quot;);</span>
+
+        // ingeschr_nat_prs
+<span class="nc" id="L46">        vraagToColumn.put(&quot;aNummer&quot;, &quot;a_nummer&quot;);</span>
+<span class="nc" id="L47">        vraagToColumn.put(&quot;bsn-nummer&quot;, &quot;bsn&quot;);</span>
+<span class="nc" id="L48">        vraagToColumn.put(&quot;burgerlijkeStaat&quot;, &quot;burgerlijke_staat&quot;);</span>
+<span class="nc" id="L49">        vraagToColumn.put(&quot;geboortedatum&quot;, &quot;gb_geboortedatum&quot;);</span>
+<span class="nc" id="L50">        vraagToColumn.put(&quot;datumInschrijvingGemeente&quot;, &quot;datum_inschrijving_in_gemeente&quot;);</span>
+<span class="nc" id="L51">        vraagToColumn.put(&quot;datumVerkrijgingVerblijfstitel&quot;, &quot;datum_verkr_nation&quot;);</span>
+<span class="nc" id="L52">        vraagToColumn.put(&quot;datumVerliesVerblijfstitel&quot;, &quot;datum_verlies_nation&quot;);</span>
+<span class="nc" id="L53">        vraagToColumn.put(&quot;datumVertrekUitNederland&quot;, &quot;datum_vertrek_uit_nederland&quot;);</span>
+<span class="nc" id="L54">        vraagToColumn.put(&quot;datumVestigingInNederland&quot;, &quot;datum_vestg_in_nederland&quot;);</span>
+<span class="nc" id="L55">        vraagToColumn.put(&quot;codeGemeenteVanInschrijving&quot;, &quot;gemeente_van_inschrijving&quot;);</span>
+<span class="nc" id="L56">        vraagToColumn.put(&quot;geboorteplaats&quot;, &quot;gb_geboorteplaats&quot;);</span>
+<span class="nc" id="L57">        vraagToColumn.put(&quot;codeGeboorteland&quot;, &quot;fk_gb_lnd_code_iso&quot;);</span>
+<span class="nc" id="L58">        vraagToColumn.put(&quot;datumOverlijden&quot;, &quot;ol_overlijdensdatum&quot;);</span>
+<span class="nc" id="L59">        vraagToColumn.put(&quot;plaatsOverlijden&quot;, &quot;fk_gb_lnd_code_iso&quot;);</span>
+<span class="nc" id="L60">        vraagToColumn.put(&quot;codeLandOverlijden&quot;, &quot;fk_ol_lnd_code_iso&quot;);</span>
+<span class="nc" id="L61">        vraagToColumn.put(&quot;datumOpschortingBijhouding&quot;, &quot;datum_opschorting_bijhouding&quot;);</span>
+<span class="nc" id="L62">        vraagToColumn.put(&quot;omschrijvingRedenOpschortingBijhouding&quot;, &quot;reden_opschorting_bijhouding&quot;);</span>
+
+        //subject
+<span class="nc" id="L65">        vraagToColumn.put(&quot;eMailAdres&quot;, &quot;emailadres&quot;);</span>
+<span class="nc" id="L66">        vraagToColumn.put(&quot;telefoonnummer&quot;, &quot;telefoonnummer&quot;);</span>
+<span class="nc" id="L67">        vraagToColumn.put(&quot;bankgiroRekeningnummer&quot;, &quot;rn_bankrekeningnummer&quot;);</span>
+<span class="nc" id="L68">        vraagToColumn.put(&quot;faxnummer&quot;, &quot;fax_nummer&quot;);</span>
+
+<span class="nc" id="L70">        vraagToColumn.put(&quot;indicatieGeheim&quot;, &quot;&quot;);</span>
+<span class="nc" id="L71">        vraagToColumn.put(&quot;prsadrcor&quot;, &quot;&quot;);</span>
+<span class="nc" id="L72">        vraagToColumn.put(&quot;prsadrins&quot;, &quot;&quot;);</span>
+<span class="nc" id="L73">        vraagToColumn.put(&quot;prsadrvbl&quot;, &quot;&quot;);</span>
+<span class="nc" id="L74">        vraagToColumn.put(&quot;prsidb&quot;, &quot;&quot;);</span>
+<span class="nc" id="L75">        vraagToColumn.put(&quot;prsnat&quot;, &quot;&quot;);</span>
+<span class="nc" id="L76">        vraagToColumn.put(&quot;prsprshuw&quot;, &quot;&quot;);</span>
+<span class="nc" id="L77">        vraagToColumn.put(&quot;prsprsknd&quot;, &quot;&quot;);</span>
+<span class="nc" id="L78">        vraagToColumn.put(&quot;prsprsoud&quot;, &quot;&quot;);</span>
+<span class="nc" id="L79">        vraagToColumn.put(&quot;codeLandEmigratie&quot;, &quot;&quot;);</span>
+<span class="nc" id="L80">        vraagToColumn.put(&quot;codeLandImmigratie&quot;, &quot;&quot;);</span>
+<span class="nc" id="L81">        vraagToColumn.put(&quot;indicatieGezagMinderjarige&quot;, &quot;&quot;);</span>
+<span class="nc" id="L82">        vraagToColumn.put(&quot;indicatieCuratelestelling&quot;, &quot;&quot;);</span>
+<span class="nc" id="L83">        vraagToColumn.put(&quot;verblijfstitel&quot;, &quot;&quot;);</span>
+<span class="nc" id="L84">        vraagToColumn.put(&quot;aanduidingBijzonderNederlanderschap&quot;, &quot;&quot;);</span>
+<span class="nc" id="L85">        vraagToColumn.put(&quot;subjectnrAKR&quot;, &quot;&quot;);</span>
+<span class="nc" id="L86">        vraagToColumn.put(&quot;tijdvakGeldigheid&quot;, &quot;&quot;);</span>
+<span class="nc" id="L87">        vraagToColumn.put(&quot;extraElementen&quot;, &quot;&quot;);</span>
+<span class="nc" id="L88">    }</span>
+
+<span class="nc" id="L90">    public CriteriaParser() {</span>
+
+<span class="nc" id="L92">    }</span>
+
+    public String getCriteria(VraagBericht bericht) throws IllegalArgumentException,UnsupportedOperationException {
+        String q;
+<span class="nc" id="L96">        String entiteitType = bericht.getStuurgegevens().getEntiteittype();</span>
+<span class="nc" id="L97">        Body b = bericht.getBody();</span>
+<span class="nc bnc" id="L98" title="All 2 branches missed.">        switch (entiteitType) {</span>
+            case &quot;PRS&quot;: {
+<span class="nc" id="L100">                q = getPRSCriterias(b);</span>
+<span class="nc" id="L101">                break;</span>
+            }
+            default:
+<span class="nc" id="L104">                throw new IllegalArgumentException(&quot;Entiteitstype niet ondersteund: &quot; + entiteitType);</span>
+        }
+<span class="nc bnc" id="L106" title="All 2 branches missed.">        if (q != null) {</span>
+<span class="nc" id="L107">            q = &quot;WHERE &quot; + q;</span>
+        }
+<span class="nc" id="L109">        return q;</span>
+    }
+
+    private String getPRSCriterias(Body b) throws IllegalArgumentException,UnsupportedOperationException {
+        String q;
+<span class="nc" id="L114">        List&lt;PRSVraag&gt; prs = b.getPRS();</span>
+
+<span class="nc" id="L116">        String from = getPRSCriteria(prs.get(0), true);</span>
+<span class="nc" id="L117">        String toCheck = getPRSCriteria(prs.get(1), true); // maak even een tweede filter aan met dezelfde operator, om te checken of er op hetzelfde gecheckt wordt == equals </span>
+<span class="nc" id="L118">        String to = getPRSCriteria(prs.get(1), false);</span>
+<span class="nc bnc" id="L119" title="All 4 branches missed.">        if (from == null &amp;&amp; to == null) {</span>
+<span class="nc" id="L120">            return null;</span>
+        }
+<span class="nc bnc" id="L122" title="All 2 branches missed.">        if (from.equals(toCheck)) {</span>
+<span class="nc" id="L123">            q = from.replace(&quot;&gt;&quot;, &quot;=&quot;);</span>
+        } else {
+<span class="nc" id="L125">            q = from + &quot; AND &quot; + to;</span>
+        }
+
+<span class="nc" id="L128">        return q;</span>
+    }
+
+    private String getPRSCriteria(PRSVraag prs, boolean first) throws IllegalArgumentException, UnsupportedOperationException {
+<span class="nc" id="L132">        String vraag = null;</span>
+<span class="nc" id="L133">        Object value = null;</span>
+<span class="nc" id="L134">        boolean exact = true;</span>
+
+<span class="nc bnc" id="L136" title="All 2 branches missed.">        if (prs.getANummer() != null) {</span>
+<span class="nc" id="L137">            vraag = prs.getANummer().getName().getLocalPart();</span>
+<span class="nc" id="L138">            value = prs.getANummer().getValue().getValue();</span>
+<span class="nc" id="L139">            exact = prs.getANummer().getValue().isExact();</span>
+<span class="nc bnc" id="L140" title="All 2 branches missed.">        } else if (prs.getBsnNummer() != null) {</span>
+<span class="nc" id="L141">            vraag = prs.getBsnNummer().getName().getLocalPart();</span>
+<span class="nc" id="L142">            value = prs.getBsnNummer().getValue().getValue();</span>
+<span class="nc" id="L143">            exact = prs.getBsnNummer().getValue().isExact();</span>
+<span class="nc bnc" id="L144" title="All 2 branches missed.">        } else if (prs.getGeboortedatum() != null) {</span>
+<span class="nc" id="L145">            vraag = prs.getGeboortedatum().getName().getLocalPart();</span>
+<span class="nc" id="L146">            value = prs.getGeboortedatum().getValue().getValue();</span>
+<span class="nc" id="L147">            exact = prs.getGeboortedatum().getValue().isExact();</span>
+<span class="nc bnc" id="L148" title="All 2 branches missed.">        } else if (prs.getVoornamen() != null) {</span>
+<span class="nc" id="L149">            vraag = prs.getVoornamen().getName().getLocalPart();</span>
+<span class="nc" id="L150">            value = prs.getVoornamen().getValue().getValue();</span>
+<span class="nc" id="L151">            exact = prs.getVoornamen().getValue().isExact();</span>
+<span class="nc bnc" id="L152" title="All 2 branches missed.">        } else if (prs.getVoorletters() != null) {</span>
+<span class="nc" id="L153">            vraag = prs.getVoorletters().getName().getLocalPart();</span>
+<span class="nc" id="L154">            value = prs.getVoorletters().getValue().getValue();</span>
+<span class="nc" id="L155">            exact = prs.getVoorletters().getValue().isExact();</span>
+<span class="nc bnc" id="L156" title="All 2 branches missed.">        } else if (prs.getVoorvoegselGeslachtsnaam() != null) {</span>
+<span class="nc" id="L157">            vraag = prs.getVoorvoegselGeslachtsnaam().getName().getLocalPart();</span>
+<span class="nc" id="L158">            value = prs.getVoorvoegselGeslachtsnaam().getValue().getValue();</span>
+<span class="nc" id="L159">            exact = prs.getVoorvoegselGeslachtsnaam().getValue().isExact();</span>
+<span class="nc bnc" id="L160" title="All 2 branches missed.">        } else if (prs.getGeslachtsnaam() != null) {</span>
+<span class="nc" id="L161">            vraag = prs.getGeslachtsnaam().getName().getLocalPart();</span>
+<span class="nc" id="L162">            value = prs.getGeslachtsnaam().getValue().getValue();</span>
+<span class="nc" id="L163">            exact = prs.getGeslachtsnaam().getValue().isExact();</span>
+<span class="nc bnc" id="L164" title="All 2 branches missed.">        } else if (prs.getGeboorteplaats() != null) {</span>
+<span class="nc" id="L165">            vraag = prs.getGeboorteplaats().getName().getLocalPart();</span>
+<span class="nc" id="L166">            value = prs.getGeboorteplaats().getValue().getValue();</span>
+<span class="nc" id="L167">            exact = prs.getGeboorteplaats().getValue().isExact();</span>
+<span class="nc bnc" id="L168" title="All 2 branches missed.">        } else if (prs.getCodeGeboorteland() != null) {</span>
+<span class="nc" id="L169">            vraag = prs.getCodeGeboorteland().getName().getLocalPart();</span>
+<span class="nc" id="L170">            value = prs.getCodeGeboorteland().getValue().getValue();</span>
+<span class="nc" id="L171">            exact = prs.getCodeGeboorteland().getValue().isExact();</span>
+<span class="nc bnc" id="L172" title="All 2 branches missed.">        } else if (prs.getGeslachtsaanduiding() != null) {</span>
+<span class="nc" id="L173">            vraag = prs.getGeslachtsaanduiding().getName().getLocalPart();</span>
+<span class="nc" id="L174">            value = prs.getGeslachtsaanduiding().getValue().getValue();</span>
+<span class="nc" id="L175">            exact = prs.getGeslachtsaanduiding().getValue().isExact();</span>
+<span class="nc bnc" id="L176" title="All 2 branches missed.">        } else if (prs.getDatumOverlijden() != null) {</span>
+<span class="nc" id="L177">            vraag = prs.getDatumOverlijden().getName().getLocalPart();</span>
+<span class="nc" id="L178">            value = prs.getDatumOverlijden().getValue().getValue();</span>
+<span class="nc" id="L179">            exact = prs.getDatumOverlijden().getValue().isExact();</span>
+<span class="nc bnc" id="L180" title="All 2 branches missed.">        } else if (prs.getPlaatsOverlijden() != null) {</span>
+<span class="nc" id="L181">            vraag = prs.getPlaatsOverlijden().getName().getLocalPart();</span>
+<span class="nc" id="L182">            value = prs.getPlaatsOverlijden().getValue().getValue();</span>
+<span class="nc" id="L183">            exact = prs.getPlaatsOverlijden().getValue().isExact();</span>
+<span class="nc bnc" id="L184" title="All 2 branches missed.">        } else if (prs.getCodeLandOverlijden() != null) {</span>
+<span class="nc" id="L185">            vraag = prs.getCodeLandOverlijden().getName().getLocalPart();</span>
+<span class="nc" id="L186">            value = prs.getCodeLandOverlijden().getValue().getValue();</span>
+<span class="nc" id="L187">            exact = prs.getCodeLandOverlijden().getValue().isExact();</span>
+<span class="nc bnc" id="L188" title="All 2 branches missed.">        } else if (prs.getIndicatieGeheim() != null) {</span>
+<span class="nc" id="L189">            vraag = prs.getIndicatieGeheim().getName().getLocalPart();</span>
+<span class="nc" id="L190">            value = prs.getIndicatieGeheim().getValue().getValue();</span>
+<span class="nc" id="L191">            exact = prs.getIndicatieGeheim().getValue().isExact();</span>
+<span class="nc bnc" id="L192" title="All 2 branches missed.">        } else if (prs.getAdellijkeTitelPredikaat() != null) {</span>
+<span class="nc" id="L193">            vraag = prs.getAdellijkeTitelPredikaat().getName().getLocalPart();</span>
+<span class="nc" id="L194">            value = prs.getAdellijkeTitelPredikaat().getValue().getValue();</span>
+<span class="nc" id="L195">            exact = prs.getAdellijkeTitelPredikaat().getValue().isExact();</span>
+<span class="nc bnc" id="L196" title="All 2 branches missed.">        } else if (prs.getCodeGemeenteVanInschrijving() != null) {</span>
+<span class="nc" id="L197">            vraag = prs.getCodeGemeenteVanInschrijving().getName().getLocalPart();</span>
+<span class="nc" id="L198">            value = prs.getCodeGemeenteVanInschrijving().getValue().getValue();</span>
+<span class="nc" id="L199">            exact = prs.getCodeGemeenteVanInschrijving().getValue().isExact();</span>
+<span class="nc bnc" id="L200" title="All 2 branches missed.">        } else if (prs.getDatumInschrijvingGemeente() != null) {</span>
+<span class="nc" id="L201">            vraag = prs.getDatumInschrijvingGemeente().getName().getLocalPart();</span>
+<span class="nc" id="L202">            value = prs.getDatumInschrijvingGemeente().getValue().getValue();</span>
+<span class="nc" id="L203">            exact = prs.getDatumInschrijvingGemeente().getValue().isExact();</span>
+<span class="nc bnc" id="L204" title="All 2 branches missed.">        } else if (prs.getDatumOpschortingBijhouding() != null) {</span>
+<span class="nc" id="L205">            vraag = prs.getDatumOpschortingBijhouding().getName().getLocalPart();</span>
+<span class="nc" id="L206">            value = prs.getDatumOpschortingBijhouding().getValue().getValue();</span>
+<span class="nc" id="L207">            exact = prs.getDatumOpschortingBijhouding().getValue().isExact();</span>
+<span class="nc bnc" id="L208" title="All 2 branches missed.">        } else if (prs.getOmschrijvingRedenOpschortingBijhouding() != null) {</span>
+<span class="nc" id="L209">            vraag = prs.getOmschrijvingRedenOpschortingBijhouding().getName().getLocalPart();</span>
+<span class="nc" id="L210">            value = prs.getOmschrijvingRedenOpschortingBijhouding().getValue().getValue();</span>
+<span class="nc" id="L211">            exact = prs.getOmschrijvingRedenOpschortingBijhouding().getValue().isExact();</span>
+<span class="nc bnc" id="L212" title="All 2 branches missed.">        } else if (prs.getCodeLandEmigratie() != null) {</span>
+<span class="nc" id="L213">            vraag = prs.getCodeLandEmigratie().getName().getLocalPart();</span>
+<span class="nc" id="L214">            value = prs.getCodeLandEmigratie().getValue().getValue();</span>
+<span class="nc" id="L215">            exact = prs.getCodeLandEmigratie().getValue().isExact();</span>
+<span class="nc bnc" id="L216" title="All 2 branches missed.">        } else if (prs.getDatumVertrekUitNederland() != null) {</span>
+<span class="nc" id="L217">            vraag = prs.getDatumVertrekUitNederland().getName().getLocalPart();</span>
+<span class="nc" id="L218">            value = prs.getDatumVertrekUitNederland().getValue().getValue();</span>
+<span class="nc" id="L219">            exact = prs.getDatumVertrekUitNederland().getValue().isExact();</span>
+<span class="nc bnc" id="L220" title="All 2 branches missed.">        } else if (prs.getCodeLandImmigratie() != null) {</span>
+<span class="nc" id="L221">            vraag = prs.getCodeLandImmigratie().getName().getLocalPart();</span>
+<span class="nc" id="L222">            value = prs.getCodeLandImmigratie().getValue().getValue();</span>
+<span class="nc" id="L223">            exact = prs.getCodeLandImmigratie().getValue().isExact();</span>
+<span class="nc bnc" id="L224" title="All 2 branches missed.">        } else if (prs.getDatumVestigingInNederland() != null) {</span>
+<span class="nc" id="L225">            vraag = prs.getDatumVestigingInNederland().getName().getLocalPart();</span>
+<span class="nc" id="L226">            value = prs.getDatumVestigingInNederland().getValue().getValue();</span>
+<span class="nc" id="L227">            exact = prs.getDatumVestigingInNederland().getValue().isExact();</span>
+<span class="nc bnc" id="L228" title="All 2 branches missed.">        } else if (prs.getIndicatieGezagMinderjarige() != null) {</span>
+<span class="nc" id="L229">            vraag = prs.getIndicatieGezagMinderjarige().getName().getLocalPart();</span>
+<span class="nc" id="L230">            value = prs.getIndicatieGezagMinderjarige().getValue().getValue();</span>
+<span class="nc" id="L231">            exact = prs.getIndicatieGezagMinderjarige().getValue().isExact();</span>
+<span class="nc bnc" id="L232" title="All 2 branches missed.">        } else if (prs.getIndicatieCuratelestelling() != null) {</span>
+<span class="nc" id="L233">            vraag = prs.getIndicatieCuratelestelling().getName().getLocalPart();</span>
+<span class="nc" id="L234">            value = prs.getIndicatieCuratelestelling().getValue().getValue();</span>
+<span class="nc" id="L235">            exact = prs.getIndicatieCuratelestelling().getValue().isExact();</span>
+<span class="nc bnc" id="L236" title="All 2 branches missed.">        } else if (prs.getVerblijfstitel() != null) {</span>
+<span class="nc" id="L237">            vraag = prs.getVerblijfstitel().getName().getLocalPart();</span>
+<span class="nc" id="L238">            value = prs.getVerblijfstitel().getValue().getValue();</span>
+<span class="nc" id="L239">            exact = prs.getVerblijfstitel().getValue().isExact();</span>
+<span class="nc bnc" id="L240" title="All 2 branches missed.">        } else if (prs.getDatumVerkrijgingVerblijfstitel() != null) {</span>
+<span class="nc" id="L241">            vraag = prs.getDatumVerkrijgingVerblijfstitel().getName().getLocalPart();</span>
+<span class="nc" id="L242">            value = prs.getDatumVerkrijgingVerblijfstitel().getValue().getValue();</span>
+<span class="nc" id="L243">            exact = prs.getDatumVerkrijgingVerblijfstitel().getValue().isExact();</span>
+<span class="nc bnc" id="L244" title="All 2 branches missed.">        } else if (prs.getDatumVerliesVerblijfstitel() != null) {</span>
+<span class="nc" id="L245">            vraag = prs.getDatumVerliesVerblijfstitel().getName().getLocalPart();</span>
+<span class="nc" id="L246">            value = prs.getDatumVerliesVerblijfstitel().getValue().getValue();</span>
+<span class="nc" id="L247">            exact = prs.getDatumVerliesVerblijfstitel().getValue().isExact();</span>
+<span class="nc bnc" id="L248" title="All 2 branches missed.">        } else if (prs.getAanduidingBijzonderNederlanderschap() != null) {</span>
+<span class="nc" id="L249">            vraag = prs.getAanduidingBijzonderNederlanderschap().getName().getLocalPart();</span>
+<span class="nc" id="L250">            value = prs.getAanduidingBijzonderNederlanderschap().getValue().getValue();</span>
+<span class="nc" id="L251">            exact = prs.getAanduidingBijzonderNederlanderschap().getValue().isExact();</span>
+<span class="nc bnc" id="L252" title="All 2 branches missed.">        } else if (prs.getBurgerlijkeStaat() != null) {</span>
+<span class="nc" id="L253">            vraag = prs.getBurgerlijkeStaat().getName().getLocalPart();</span>
+<span class="nc" id="L254">            value = prs.getBurgerlijkeStaat().getValue().getValue();</span>
+<span class="nc" id="L255">            exact = prs.getBurgerlijkeStaat().getValue().isExact();</span>
+<span class="nc bnc" id="L256" title="All 2 branches missed.">        } else if (prs.getAanduidingNaamgebruik() != null) {</span>
+<span class="nc" id="L257">            vraag = prs.getAanduidingNaamgebruik().getName().getLocalPart();</span>
+<span class="nc" id="L258">            value = prs.getAanduidingNaamgebruik().getValue().getValue();</span>
+<span class="nc" id="L259">            exact = prs.getAanduidingNaamgebruik().getValue().isExact();</span>
+        }
+
+        /*
+        if (prs.getPRSADRCOR() != null) {
+            vraag = prs.getPRSADRCOR().getName().getLocalPart();
+            value = prs.getPRSADRCOR().getValue().getValue();
+        }
+        if (prs.getPRSADRINS() != null) {
+            vraag = prs.getPRSADRINS().getName().getLocalPart();
+            value = prs.getPRSADRINS().getValue().getValue();
+        }
+        if (prs.getPRSADRVBL() != null) {
+            vraag = prs.getPRSADRVBL().getName().getLocalPart();
+            value = prs.getPRSADRVBL().getValue().getValue();
+        }
+        if (prs.getPRSIDB() != null) {
+            vraag = prs.getPRSIDB().getName().getLocalPart();
+            value = prs.getPRSIDB().getValue().getValue();
+        }
+        if (prs.getPRSNAT() != null) {
+            vraag = prs.getPRSNAT().getName().getLocalPart();
+            value = prs.getPRSNAT().getValue().getValue();
+        }
+        if (prs.getPRSPRSHUW() != null) {
+            vraag = prs.getPRSPRSHUW().getName().getLocalPart();
+            value = prs.getPRSPRSHUW().getValue().getValue();
+        }
+        if (prs.getPRSPRSKND() != null) {
+            vraag = prs.getPRSPRSKND().getName().getLocalPart();
+            value = prs.getPRSPRSKND().getValue().getValue();
+        }
+        if (prs.getPRSPRSOUD() != null) {
+            vraag = prs.getPRSPRSOUD().getName().getLocalPart();
+            value = prs.getPRSPRSOUD().getValue().getValue();
+        }
+        if (prs.getBankgiroRekeningnummer() != null) {
+            vraag = prs.getBankgiroRekeningnummer().getName().getLocalPart();
+            value = prs.getBankgiroRekeningnummer().getValue().getValue();
+        }
+        if (prs.getSubjectnrAKR() != null) {
+            vraag = prs.getSubjectnrAKR().getName().getLocalPart();
+            value = prs.getSubjectnrAKR().getValue().getValue();
+        }
+        if (prs.getEMailAdres() != null) {
+            vraag = prs.getEMailAdres().getName().getLocalPart();
+            value = prs.getEMailAdres().getValue().getValue();
+        }
+        if (prs.getTelefoonnummer() != null) {
+            vraag = prs.getTelefoonnummer().getName().getLocalPart();
+            value = prs.getTelefoonnummer().getValue().getValue();
+        }
+        if (prs.getFaxnummer() != null) {
+            vraag = prs.getFaxnummer().getName().getLocalPart();
+            value = prs.getFaxnummer().getValue().getValue();
+        }
+        if (prs.getTijdvakGeldigheid() != null) {
+            vraag = prs.getTijdvakGeldigheid().getName().getLocalPart();
+            value = prs.getTijdvakGeldigheid().getValue().getValue();
+        }
+        if (prs.getExtraElementen() != null) {
+            vraag = prs.getExtraElementen().getName().getLocalPart();
+            value = prs.getExtraElementen().getValue().getValue();
+        }
+        if (prs.getAcademischeTitel() != null) {
+            vraag = prs.getAcademischeTitel().getName().getLocalPart();
+            value = prs.getAcademischeTitel().getValue().getValue();
+        }*/
+<span class="nc" id="L327">        String column = vraagToColumn.get(vraag);</span>
+<span class="nc bnc" id="L328" title="All 2 branches missed.">        if (vraag == null) {</span>
+<span class="nc" id="L329">            return null;</span>
+        }
+<span class="nc bnc" id="L331" title="All 2 branches missed.">        if (column == null) {</span>
+<span class="nc" id="L332">            throw new IllegalArgumentException(&quot;Request filtercolumn not supported: &quot; + vraag);</span>
+        }
+
+<span class="nc" id="L335">        String operator = null;</span>
+<span class="nc" id="L336">        String quote = &quot;&quot;;</span>
+<span class="nc" id="L337">        String wildcard = &quot;&quot;;</span>
+<span class="nc" id="L338">        boolean valueIsString = value instanceof String;</span>
+<span class="nc bnc" id="L339" title="All 2 branches missed.">        if (valueIsString) {</span>
+<span class="nc" id="L340">            quote = &quot;\'&quot;;</span>
+        }
+<span class="nc bnc" id="L342" title="All 4 branches missed.">        if(!exact &amp;&amp; !valueIsString){</span>
+<span class="nc" id="L343">            throw new UnsupportedOperationException(&quot;Inexacte datums niet ondersteund&quot;);</span>
+        }
+<span class="nc bnc" id="L345" title="All 2 branches missed.">        if (exact) {</span>
+<span class="nc bnc" id="L346" title="All 2 branches missed.">            operator = first ? &quot; &gt; &quot; : &quot; &lt;= &quot;;</span>
+        }else{
+<span class="nc" id="L348">            wildcard = &quot;%&quot;;</span>
+<span class="nc" id="L349">            operator = &quot; LIKE &quot;;</span>
+        }
+<span class="nc" id="L351">        String valuePart = quote + wildcard + String.valueOf(value) + wildcard + quote;</span>
+<span class="nc" id="L352">        String query = column + operator + valuePart;</span>
+<span class="nc" id="L353">        return query;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

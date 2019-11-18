@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.AbstractDatabaseIntegrationTest
-	c1076 [label=<<table title="nl.b3p.AbstractDatabaseIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AbstractDatabaseIntegrationTest.html">
+	c1427 [label=<<table title="nl.b3p.AbstractDatabaseIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AbstractDatabaseIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> AbstractDatabaseIntegrationTest </font></td></tr>
 		</table></td></tr>
@@ -31,7 +31,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./AbstractDatabaseIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.TopNLIntegrationTest
-	c1077 [label=<<table title="nl.b3p.TopNLIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TopNLIntegrationTest.html">
+	c1428 [label=<<table title="nl.b3p.TopNLIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TopNLIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> TopNLIntegrationTest </td></tr>
 		</table></td></tr>
@@ -48,13 +48,13 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./TopNLIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.TopNLIntegrationTest extends nl.b3p.AbstractDatabaseIntegrationTest
-	c1076:p -> c1077:p [dir=back,arrowtail=empty];
+	c1427:p -> c1428:p [dir=back,arrowtail=empty];
 	// nl.b3p.TopNLIntegrationTest NAVASSOC nl.b3p.topnl.TopNLType
-	c1077:p -> c1090:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c1428:p -> c1444:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.TopNLIntegrationTest NAVASSOC nl.b3p.brmo.loader.BrmoFramework
-	c1077:p -> c1091:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c1428:p -> c1445:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.topnl.TopNLType
-	c1090 [label=<<table title="nl.b3p.topnl.TopNLType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+	c1444 [label=<<table title="nl.b3p.topnl.TopNLType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> TopNLType </td></tr>
@@ -70,7 +70,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.BrmoFramework
-	c1091 [label=<<table title="nl.b3p.brmo.loader.BrmoFramework" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+	c1445 [label=<<table title="nl.b3p.brmo.loader.BrmoFramework" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BrmoFramework </td></tr>
 		</table></td></tr>
@@ -135,6 +135,9 @@ digraph G {
 <tr><td align="left" balign="left"> + getCountBerichten(arg0 : String, arg1 : String, arg2 : String, arg3 : String) : long </td></tr>
 <tr><td align="left" balign="left"> + getCountLaadProcessen(arg0 : String, arg1 : String, arg2 : String, arg3 : String) : long </td></tr>
 <tr><td align="left" balign="left"> + getCountJob() : long </td></tr>
+<tr><td align="left" balign="left"> + updateLaadProcesMeta(arg0 : Long, arg1 : BigInteger, arg2 : BigInteger, arg3 : String, arg4 : String, arg5 : String, arg6 : String, arg7 : String, arg8 : Date) </td></tr>
+<tr><td align="left" balign="left"> + checkAfgiftelijst(arg0 : String, arg1 : String) : File </td></tr>
+<tr><td align="left" balign="left"> + checkAfgiftelijst(arg0 : String, arg1 : InputStream, arg2 : File) : File </td></tr>
 		</table></td></tr>
 		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }

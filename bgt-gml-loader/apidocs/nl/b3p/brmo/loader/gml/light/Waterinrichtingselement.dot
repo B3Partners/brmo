@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.loader.gml.light.Waterinrichtingselement
-	c1725 [label=<<table title="nl.b3p.brmo.loader.gml.light.Waterinrichtingselement" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Waterinrichtingselement.html">
+	c1767 [label=<<table title="nl.b3p.brmo.loader.gml.light.Waterinrichtingselement" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Waterinrichtingselement.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Waterinrichtingselement </td></tr>
 		</table></td></tr>
@@ -22,7 +22,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./Waterinrichtingselement.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.light.GMLLightFeatureTransformerImpl
-	c1732 [label=<<table title="nl.b3p.brmo.loader.gml.light.GMLLightFeatureTransformerImpl" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GMLLightFeatureTransformerImpl.html">
+	c1774 [label=<<table title="nl.b3p.brmo.loader.gml.light.GMLLightFeatureTransformerImpl" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GMLLightFeatureTransformerImpl.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> GMLLightFeatureTransformerImpl </td></tr>
 		</table></td></tr>
@@ -37,6 +37,6 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./GMLLightFeatureTransformerImpl.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.loader.gml.light.Waterinrichtingselement extends nl.b3p.brmo.loader.gml.light.GMLLightFeatureTransformerImpl
-	c1732:p -> c1725:p [dir=back,arrowtail=empty];
+	c1774:p -> c1767:p [dir=back,arrowtail=empty];
 }
 

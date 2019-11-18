@@ -1,4 +1,4 @@
-// dot 2.40.1 on Linux 4.18.0-13-generic
+// dot 2.40.1 on Linux 5.0.0-36-generic
 // SchemaSpy rev Unknown
 digraph "vb_ligplaats_adres" {
   graph [
@@ -23,7 +23,9 @@ digraph "vb_ligplaats_adres" {
       <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">vb_ligplaats_adres</TD></TR>
       <TR><TD PORT="lpl_identif" COLSPAN="3" ALIGN="LEFT">lpl_identif</TD></TR>
       <TR><TD PORT="begin_geldigheid" COLSPAN="3" ALIGN="LEFT">begin_geldigheid</TD></TR>
+      <TR><TD PORT="begin_geldigheid_datum" COLSPAN="3" ALIGN="LEFT">begin_geldigheid_datum</TD></TR>
       <TR><TD PORT="na_identif" COLSPAN="3" ALIGN="LEFT">na_identif</TD></TR>
+      <TR><TD PORT="na_status" COLSPAN="3" ALIGN="LEFT">na_status</TD></TR>
       <TR><TD PORT="gemeente" COLSPAN="3" ALIGN="LEFT">gemeente</TD></TR>
       <TR><TD PORT="woonplaats" COLSPAN="3" ALIGN="LEFT">woonplaats</TD></TR>
       <TR><TD PORT="straatnaam" COLSPAN="3" ALIGN="LEFT">straatnaam</TD></TR>

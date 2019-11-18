@@ -99,7 +99,7 @@
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>              staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, <strong class="jxr_keyword">new</strong> PostgresqlDataTypeFactory());
 <a class="jxr_linenumber" name="L92" href="#L92">92</a>          }
 <a class="jxr_linenumber" name="L93" href="#L93">93</a>  
-<a class="jxr_linenumber" name="L94" href="#L94">94</a>          IDataSet stagingDataSet = <strong class="jxr_keyword">new</strong> XmlDataSet(<strong class="jxr_keyword">new</strong> FileInputStream(<strong class="jxr_keyword">new</strong> File(Mantis6166IntegrationTest.<strong class="jxr_keyword">class</strong>.getResource(<span class="jxr_string">"/mantis6235/staging.xml"</span>).toURI())));
+<a class="jxr_linenumber" name="L94" href="#L94">94</a>          IDataSet stagingDataSet = <strong class="jxr_keyword">new</strong> XmlDataSet(<strong class="jxr_keyword">new</strong> FileInputStream(<strong class="jxr_keyword">new</strong> File(Mantis6235IntegrationTest.<strong class="jxr_keyword">class</strong>.getResource(<span class="jxr_string">"/mantis6235/staging.xml"</span>).toURI())));
 <a class="jxr_linenumber" name="L95" href="#L95">95</a>  
 <a class="jxr_linenumber" name="L96" href="#L96">96</a>          sequential.lock();
 <a class="jxr_linenumber" name="L97" href="#L97">97</a>  
@@ -120,42 +120,41 @@
 <a class="jxr_linenumber" name="L112" href="#L112">112</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> cleanup() <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L113" href="#L113">113</a>         brmo.closeBrmoFramework();
 <a class="jxr_linenumber" name="L114" href="#L114">114</a> 
-<a class="jxr_linenumber" name="L115" href="#L115">115</a>         CleanUtil.cleanRSGB(rsgb);
-<a class="jxr_linenumber" name="L116" href="#L116">116</a>         rsgb.close();
-<a class="jxr_linenumber" name="L117" href="#L117">117</a> 
-<a class="jxr_linenumber" name="L118" href="#L118">118</a>         CleanUtil.cleanSTAGING(staging);
-<a class="jxr_linenumber" name="L119" href="#L119">119</a>         staging.close();
-<a class="jxr_linenumber" name="L120" href="#L120">120</a> 
-<a class="jxr_linenumber" name="L121" href="#L121">121</a>         sequential.unlock();
-<a class="jxr_linenumber" name="L122" href="#L122">122</a>     }
-<a class="jxr_linenumber" name="L123" href="#L123">123</a> 
-<a class="jxr_linenumber" name="L124" href="#L124">124</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L125" href="#L125">125</a> <em class="jxr_javadoccomment">     * transformeer alle berichten.</em>
-<a class="jxr_linenumber" name="L126" href="#L126">126</a> <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="L127" href="#L127">127</a> <em class="jxr_javadoccomment">     * @throws Exception if any</em>
-<a class="jxr_linenumber" name="L128" href="#L128">128</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L129" href="#L129">129</a>     @Test
-<a class="jxr_linenumber" name="L130" href="#L130">130</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testTransformStandberichten() <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L131" href="#L131">131</a>         brmo.setOrderBerichten(false);
-<a class="jxr_linenumber" name="L132" href="#L132">132</a>         Thread t = brmo.toRsgb();
-<a class="jxr_linenumber" name="L133" href="#L133">133</a>         t.join();
-<a class="jxr_linenumber" name="L134" href="#L134">134</a> 
-<a class="jxr_linenumber" name="L135" href="#L135">135</a>         assertEquals(<span class="jxr_string">"Niet alle berichten zijn OK getransformeerd"</span>, 2l, brmo.getCountBerichten(<strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">null</strong>, <span class="jxr_string">"brk"</span>, <span class="jxr_string">"RSGB_OK"</span>));
-<a class="jxr_linenumber" name="L136" href="#L136">136</a>         assertEquals(<span class="jxr_string">"Niet alle berichten zijn OK getransformeerd"</span>, 0l, brmo.getCountBerichten(<strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">null</strong>, <span class="jxr_string">"brk"</span>, <span class="jxr_string">"RSGB_NOK"</span>));
-<a class="jxr_linenumber" name="L137" href="#L137">137</a> 
-<a class="jxr_linenumber" name="L138" href="#L138">138</a>         ITable brondocument = rsgb.createDataSet().getTable(<span class="jxr_string">"brondocument"</span>);
-<a class="jxr_linenumber" name="L139" href="#L139">139</a>         assertTrue(<span class="jxr_string">"Er zijn geen brondocumenten"</span>, brondocument.getRowCount() &gt; 0);
-<a class="jxr_linenumber" name="L140" href="#L140">140</a> 
-<a class="jxr_linenumber" name="L141" href="#L141">141</a>         ITable kad_onrrnd_zk = rsgb.createDataSet().getTable(<span class="jxr_string">"kad_onrrnd_zk"</span>);
-<a class="jxr_linenumber" name="L142" href="#L142">142</a>         assertEquals(<span class="jxr_string">"Er zijn geen actuele onroerende zaken"</span>, 2, kad_onrrnd_zk.getRowCount());
-<a class="jxr_linenumber" name="L143" href="#L143">143</a> 
-<a class="jxr_linenumber" name="L144" href="#L144">144</a>         ITable app_re = rsgb.createDataSet().getTable(<span class="jxr_string">"app_re"</span>);
-<a class="jxr_linenumber" name="L145" href="#L145">145</a>         assertEquals(<span class="jxr_string">"Er zijn geen actuele appartmentsrechten"</span>, 2, app_re.getRowCount());
-<a class="jxr_linenumber" name="L146" href="#L146">146</a> 
-<a class="jxr_linenumber" name="L147" href="#L147">147</a>         assertEquals(<span class="jxr_string">"Eerste rij bevat niet verwachte VVE 'fk_2nnp_sc_identif'"</span>, <span class="jxr_string">"NL.KAD.Persoon.58193932"</span>, app_re.getValue(0, <span class="jxr_string">"fk_2nnp_sc_identif"</span>).toString());
-<a class="jxr_linenumber" name="L148" href="#L148">148</a>         assertEquals(<span class="jxr_string">"Tweede rij bevat niet verwachte VVE 'fk_2nnp_sc_identif'"</span>, <span class="jxr_string">"NL.KAD.Persoon.58201049"</span>, app_re.getValue(1, <span class="jxr_string">"fk_2nnp_sc_identif"</span>).toString());
-<a class="jxr_linenumber" name="L149" href="#L149">149</a>     }
-<a class="jxr_linenumber" name="L150" href="#L150">150</a> }
+<a class="jxr_linenumber" name="L115" href="#L115">115</a>         CleanUtil.cleanRSGB_BRK(rsgb, <strong class="jxr_keyword">true</strong>);
+<a class="jxr_linenumber" name="L116" href="#L116">116</a>         CleanUtil.cleanSTAGING(staging, false);
+<a class="jxr_linenumber" name="L117" href="#L117">117</a>         rsgb.close();
+<a class="jxr_linenumber" name="L118" href="#L118">118</a>         staging.close();
+<a class="jxr_linenumber" name="L119" href="#L119">119</a> 
+<a class="jxr_linenumber" name="L120" href="#L120">120</a>         sequential.unlock();
+<a class="jxr_linenumber" name="L121" href="#L121">121</a>     }
+<a class="jxr_linenumber" name="L122" href="#L122">122</a> 
+<a class="jxr_linenumber" name="L123" href="#L123">123</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L124" href="#L124">124</a> <em class="jxr_javadoccomment">     * transformeer alle berichten.</em>
+<a class="jxr_linenumber" name="L125" href="#L125">125</a> <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="L126" href="#L126">126</a> <em class="jxr_javadoccomment">     * @throws Exception if any</em>
+<a class="jxr_linenumber" name="L127" href="#L127">127</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L128" href="#L128">128</a>     @Test
+<a class="jxr_linenumber" name="L129" href="#L129">129</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testTransformStandberichten() <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L130" href="#L130">130</a>         brmo.setOrderBerichten(false);
+<a class="jxr_linenumber" name="L131" href="#L131">131</a>         Thread t = brmo.toRsgb();
+<a class="jxr_linenumber" name="L132" href="#L132">132</a>         t.join();
+<a class="jxr_linenumber" name="L133" href="#L133">133</a> 
+<a class="jxr_linenumber" name="L134" href="#L134">134</a>         assertEquals(<span class="jxr_string">"Niet alle berichten zijn OK getransformeerd"</span>, 2l, brmo.getCountBerichten(<strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">null</strong>, <span class="jxr_string">"brk"</span>, <span class="jxr_string">"RSGB_OK"</span>));
+<a class="jxr_linenumber" name="L135" href="#L135">135</a>         assertEquals(<span class="jxr_string">"Niet alle berichten zijn OK getransformeerd"</span>, 0l, brmo.getCountBerichten(<strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">null</strong>, <span class="jxr_string">"brk"</span>, <span class="jxr_string">"RSGB_NOK"</span>));
+<a class="jxr_linenumber" name="L136" href="#L136">136</a> 
+<a class="jxr_linenumber" name="L137" href="#L137">137</a>         ITable brondocument = rsgb.createDataSet().getTable(<span class="jxr_string">"brondocument"</span>);
+<a class="jxr_linenumber" name="L138" href="#L138">138</a>         assertTrue(<span class="jxr_string">"Er zijn geen brondocumenten"</span>, brondocument.getRowCount() &gt; 0);
+<a class="jxr_linenumber" name="L139" href="#L139">139</a> 
+<a class="jxr_linenumber" name="L140" href="#L140">140</a>         ITable kad_onrrnd_zk = rsgb.createDataSet().getTable(<span class="jxr_string">"kad_onrrnd_zk"</span>);
+<a class="jxr_linenumber" name="L141" href="#L141">141</a>         assertEquals(<span class="jxr_string">"Er zijn geen actuele onroerende zaken"</span>, 2, kad_onrrnd_zk.getRowCount());
+<a class="jxr_linenumber" name="L142" href="#L142">142</a> 
+<a class="jxr_linenumber" name="L143" href="#L143">143</a>         ITable app_re = rsgb.createDataSet().getTable(<span class="jxr_string">"app_re"</span>);
+<a class="jxr_linenumber" name="L144" href="#L144">144</a>         assertEquals(<span class="jxr_string">"Er zijn geen actuele appartmentsrechten"</span>, 2, app_re.getRowCount());
+<a class="jxr_linenumber" name="L145" href="#L145">145</a> 
+<a class="jxr_linenumber" name="L146" href="#L146">146</a>         assertEquals(<span class="jxr_string">"Eerste rij bevat niet verwachte VVE 'fk_2nnp_sc_identif'"</span>, <span class="jxr_string">"NL.KAD.Persoon.58193932"</span>, app_re.getValue(0, <span class="jxr_string">"fk_2nnp_sc_identif"</span>).toString());
+<a class="jxr_linenumber" name="L147" href="#L147">147</a>         assertEquals(<span class="jxr_string">"Tweede rij bevat niet verwachte VVE 'fk_2nnp_sc_identif'"</span>, <span class="jxr_string">"NL.KAD.Persoon.58201049"</span>, app_re.getValue(1, <span class="jxr_string">"fk_2nnp_sc_identif"</span>).toString());
+<a class="jxr_linenumber" name="L148" href="#L148">148</a>     }
+<a class="jxr_linenumber" name="L149" href="#L149">149</a> }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2014&#x2013;2019 <a href="http://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>

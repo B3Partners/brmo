@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>Waterdeel.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO loader</a> &gt; <a href="../index.html" class="el_bundle">topnlparser</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.topnl.entities</a> &gt; <span class="el_source">Waterdeel.java</span></div><h1>Waterdeel.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2016 - 2017 B3Partners B.V.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+ */
+package nl.b3p.topnl.entities;
+
+import org.locationtech.jts.geom.Geometry;
+import java.math.BigInteger;
+
+/**
+ *
+ * @author Meine Toonen meinetoonen@b3partners.nl
+ */
+<span class="fc" id="L26">public class Waterdeel extends TopNLEntity {</span>
+
+    private String typeWater;
+    private String breedteklasse;
+    private String fysiekVoorkomen;
+    private String voorkomen;
+    private Boolean getijdeinvloed;
+    private String vaarwegklasse;
+    private String naamOfficieel;
+    private String naamNL;
+    private String naamFries;
+    private Boolean isBAGnaam;
+    private String sluisnaam;
+    private String brugnaam;
+    private Long hoogteniveau;
+    private String functie;
+    private boolean hoofdAfwatering;
+    
+    private Geometry geometrie;
+    
+    public String getTypeWater() {
+<span class="fc" id="L47">        return typeWater;</span>
+    }
+
+    public void setTypeWater(String typeWater) {
+<span class="fc" id="L51">        this.typeWater = typeWater;</span>
+<span class="fc" id="L52">    }</span>
+
+    public String getBreedteklasse() {
+<span class="fc" id="L55">        return breedteklasse;</span>
+    }
+
+    public void setBreedteklasse(String breedteklasse) {
+<span class="fc" id="L59">        this.breedteklasse = breedteklasse;</span>
+<span class="fc" id="L60">    }</span>
+
+    public String getFysiekVoorkomen() {
+<span class="fc" id="L63">        return fysiekVoorkomen;</span>
+    }
+
+    public void setFysiekVoorkomen(String fysiekVoorkomen) {
+<span class="fc" id="L67">        this.fysiekVoorkomen = fysiekVoorkomen;</span>
+<span class="fc" id="L68">    }</span>
+
+    public String getVoorkomen() {
+<span class="fc" id="L71">        return voorkomen;</span>
+    }
+
+    public void setVoorkomen(String voorkomen) {
+<span class="fc" id="L75">        this.voorkomen = voorkomen;</span>
+<span class="fc" id="L76">    }</span>
+
+    public Boolean getGetijdeinvloed() {
+<span class="fc" id="L79">        return getijdeinvloed;</span>
+    }
+
+    public void setGetijdeinvloed(Boolean getijdeinvloed) {
+<span class="fc" id="L83">        this.getijdeinvloed = getijdeinvloed;</span>
+<span class="fc" id="L84">    }</span>
+
+    public String getVaarwegklasse() {
+<span class="fc" id="L87">        return vaarwegklasse;</span>
+    }
+
+    public void setVaarwegklasse(String vaarwegklasse) {
+<span class="fc" id="L91">        this.vaarwegklasse = vaarwegklasse;</span>
+<span class="fc" id="L92">    }</span>
+
+    public String getNaamOfficieel() {
+<span class="fc" id="L95">        return naamOfficieel;</span>
+    }
+
+    public void setNaamOfficieel(String naamOfficieel) {
+<span class="fc" id="L99">        this.naamOfficieel = naamOfficieel;</span>
+<span class="fc" id="L100">    }</span>
+
+    public String getNaamNL() {
+<span class="fc" id="L103">        return naamNL;</span>
+    }
+
+    public void setNaamNL(String naamNL) {
+<span class="fc" id="L107">        this.naamNL = naamNL;</span>
+<span class="fc" id="L108">    }</span>
+
+    public String getNaamFries() {
+<span class="fc" id="L111">        return naamFries;</span>
+    }
+
+    public void setNaamFries(String naamFries) {
+<span class="fc" id="L115">        this.naamFries = naamFries;</span>
+<span class="fc" id="L116">    }</span>
+
+    public Boolean getIsBAGnaam() {
+<span class="fc" id="L119">        return isBAGnaam;</span>
+    }
+
+    public void setIsBAGnaam(Boolean isBAGnaam) {
+<span class="fc" id="L123">        this.isBAGnaam = isBAGnaam;</span>
+<span class="fc" id="L124">    }</span>
+
+    public String getSluisnaam() {
+<span class="fc" id="L127">        return sluisnaam;</span>
+    }
+
+    public void setSluisnaam(String sluisnaam) {
+<span class="fc" id="L131">        this.sluisnaam = sluisnaam;</span>
+<span class="fc" id="L132">    }</span>
+
+    public String getBrugnaam() {
+<span class="fc" id="L135">        return brugnaam;</span>
+    }
+
+    public void setBrugnaam(String brugnaam) {
+<span class="fc" id="L139">        this.brugnaam = brugnaam;</span>
+<span class="fc" id="L140">    }</span>
+
+    public Geometry getGeometrie() {
+<span class="fc" id="L143">        return geometrie;</span>
+    }
+
+    public void setGeometrie(Geometry geometrie) {
+<span class="fc" id="L147">        this.geometrie = geometrie;</span>
+<span class="fc" id="L148">    }</span>
+
+    public Long getHoogteniveau() {
+<span class="fc" id="L151">        return hoogteniveau;</span>
+    }
+
+    public void setHoogteniveau(Long hoogteniveau) {
+<span class="fc" id="L155">        this.hoogteniveau = hoogteniveau;</span>
+<span class="fc" id="L156">    }</span>
+
+    public boolean isHoofdAfwatering() {
+<span class="fc" id="L159">        return hoofdAfwatering;</span>
+    }
+
+    public void setHoofdAfwatering(boolean hoofdAfwatering) {
+<span class="fc" id="L163">        this.hoofdAfwatering = hoofdAfwatering;</span>
+<span class="fc" id="L164">    }</span>
+
+    public String getFunctie() {
+<span class="fc" id="L167">        return functie;</span>
+    }
+
+    public void setFunctie(String functie) {
+<span class="fc" id="L171">        this.functie = functie;</span>
+<span class="fc" id="L172">    }</span>
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

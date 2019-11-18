@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>Bericht.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO service</a> &gt; <a href="../index.html" class="el_bundle">brmo-persistence</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.persistence.staging</a> &gt; <span class="el_source">Bericht.java</span></div><h1>Bericht.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2015 B3Partners B.V.
+ */
+package nl.b3p.brmo.persistence.staging;
+
+import java.io.Serializable;
+import java.util.Date;
+import org.hibernate.annotations.ForeignKey;
+import org.hibernate.annotations.Type;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+/**
+ * Beschrijft een (xml) bericht in de staging database.
+ *
+ * @author mprins
+ */
+@Entity
+@Table(name = &quot;bericht&quot;)
+public class Bericht implements Serializable {
+
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    @OneToOne
+    @ForeignKey(name = &quot;bericht_laadprocesid_fkey&quot;)
+    private LaadProces laadprocesid;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date datum;
+
+    private String object_ref;
+
+    private Integer volgordenummer;
+
+    private String soort;
+
+    @Lob
+    @Type(type = &quot;org.hibernate.type.StringClobType&quot;)
+    private String opmerking;
+
+    @Enumerated(EnumType.STRING)
+    private STATUS status;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date status_datum;
+
+    private String job_id;
+
+    @Lob
+    @Type(type = &quot;org.hibernate.type.StringClobType&quot;)
+    private String br_xml;
+
+    @Lob
+    @Type(type = &quot;org.hibernate.type.StringClobType&quot;)
+    private String br_orgineel_xml;
+
+    @Lob
+    @Type(type = &quot;org.hibernate.type.StringClobType&quot;)
+    private String db_xml;
+
+    private String xsl_version;
+
+<span class="fc" id="L73">    public static enum STATUS {</span>
+// bij toevoegen van een status deze ook in nl.b3p.brmo.loader.entity.Bericht en /brmo-service/src/main/webapp/scripts/berichten.js toevoegen
+<span class="fc" id="L75">        STAGING_OK, STAGING_NOK, STAGING_FORWARDED, RSGB_WAITING, RSGB_PROCESSING, RSGB_OK, RSGB_OUTDATED, RSGB_NOK, ARCHIVE, RSGB_BAG_NOK</span>
+    };
+
+<span class="fc" id="L78">    public Bericht() {</span>
+<span class="fc" id="L79">    }</span>
+
+<span class="nc" id="L81">    public Bericht(String br_xml) {</span>
+<span class="nc" id="L82">        this.br_xml = br_xml;</span>
+<span class="nc" id="L83">    }</span>
+
+    // &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;getters and setters&quot;&gt;
+    public Long getId() {
+<span class="nc" id="L87">        return id;</span>
+    }
+
+    public void setId(Long id) {
+<span class="nc" id="L91">        this.id = id;</span>
+<span class="nc" id="L92">    }</span>
+
+    public LaadProces getLaadprocesid() {
+<span class="nc" id="L95">        return laadprocesid;</span>
+    }
+
+    public void setLaadprocesid(LaadProces laadprocesid) {
+<span class="fc" id="L99">        this.laadprocesid = laadprocesid;</span>
+<span class="fc" id="L100">    }</span>
+
+    public Date getDatum() {
+<span class="nc" id="L103">        return datum;</span>
+    }
+
+    public void setDatum(Date datum) {
+<span class="nc" id="L107">        this.datum = datum;</span>
+<span class="nc" id="L108">    }</span>
+
+    public String getObject_ref() {
+<span class="nc" id="L111">        return object_ref;</span>
+    }
+
+    public void setObject_ref(String object_ref) {
+<span class="nc" id="L115">        this.object_ref = object_ref;</span>
+<span class="nc" id="L116">    }</span>
+
+    public Integer getVolgordenummer() {
+<span class="nc" id="L119">        return volgordenummer;</span>
+    }
+
+    public void setVolgordenummer(Integer volgordenummer) {
+<span class="nc" id="L123">        this.volgordenummer = volgordenummer;</span>
+<span class="nc" id="L124">    }</span>
+
+    public String getSoort() {
+<span class="nc" id="L127">        return soort;</span>
+    }
+
+    public void setSoort(String soort) {
+<span class="nc" id="L131">        this.soort = soort;</span>
+<span class="nc" id="L132">    }</span>
+
+    public String getOpmerking() {
+<span class="nc" id="L135">        return opmerking;</span>
+    }
+
+    public void setOpmerking(String opmerking) {
+<span class="nc" id="L139">        this.opmerking = opmerking;</span>
+<span class="nc" id="L140">    }</span>
+
+    public STATUS getStatus() {
+<span class="nc" id="L143">        return status;</span>
+    }
+
+    public void setStatus(STATUS status) {
+<span class="fc" id="L147">        this.status = status;</span>
+<span class="fc" id="L148">    }</span>
+
+    public Date getStatus_datum() {
+<span class="nc" id="L151">        return status_datum;</span>
+    }
+
+    public void setStatus_datum(Date status_datum) {
+<span class="nc" id="L155">        this.status_datum = status_datum;</span>
+<span class="nc" id="L156">    }</span>
+
+    public String getJob_id() {
+<span class="nc" id="L159">        return job_id;</span>
+    }
+
+    public void setJob_id(String job_id) {
+<span class="nc" id="L163">        this.job_id = job_id;</span>
+<span class="nc" id="L164">    }</span>
+
+    public String getBr_xml() {
+<span class="nc" id="L167">        return br_xml;</span>
+    }
+
+    public void setBr_xml(String br_xml) {
+<span class="nc" id="L171">        this.br_xml = br_xml;</span>
+<span class="nc" id="L172">    }</span>
+
+    public String getBr_orgineel_xml() {
+<span class="nc" id="L175">        return br_orgineel_xml;</span>
+    }
+
+    public void setBr_orgineel_xml(String br_orgineel_xml) {
+<span class="nc" id="L179">        this.br_orgineel_xml = br_orgineel_xml;</span>
+<span class="nc" id="L180">    }</span>
+
+    public String getDb_xml() {
+        // als lengte in bytes precies 8000 is dan kan oracle
+        // dit waarde niet lezen uit database zonde \o toe te voegen
+        // TODO gaan we hier iets aan doen?
+<span class="nc" id="L186">        return db_xml;</span>
+    }
+
+    public void setDb_xml(String db_xml) {
+<span class="nc" id="L190">        this.db_xml = db_xml;</span>
+<span class="nc" id="L191">    }</span>
+
+    public String getXsl_version() {
+<span class="nc" id="L194">        return xsl_version;</span>
+    }
+
+    public void setXsl_version(String xsl_version) {
+<span class="nc" id="L198">        this.xsl_version = xsl_version;</span>
+<span class="nc" id="L199">    }</span>
+//&lt;/editor-fold&gt;
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

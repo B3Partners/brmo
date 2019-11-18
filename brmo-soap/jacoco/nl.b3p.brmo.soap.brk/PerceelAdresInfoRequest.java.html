@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PerceelAdresInfoRequest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO soap bevragingsservice</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.soap.brk</a> &gt; <span class="el_source">PerceelAdresInfoRequest.java</span></div><h1>PerceelAdresInfoRequest.java</h1><pre class="source lang-java linenums">package nl.b3p.brmo.soap.brk;
+
+import javax.xml.bind.annotation.XmlType;
+
+/**
+ *
+ * @author Chris
+ */
+@XmlType
+public class PerceelAdresInfoRequest {
+    
+    private String straatNaam;
+    private Integer huisnummer;
+    private String postcode;
+    private String woonplaatsNaam;
+    
+
+<span class="nc" id="L18">    public PerceelAdresInfoRequest() {</span>
+<span class="nc" id="L19">    }</span>
+
+    /**
+     * Naam van de straat welke via de BAG koppeling aan 
+     * het perceel is gekoppeld
+     * 
+     * @return the straatNaam
+     */
+    public String getStraatNaam() {
+<span class="nc" id="L28">        return straatNaam;</span>
+    }
+
+    /**
+     * Naam van de straat welke via de BAG koppeling aan 
+     * het perceel is gekoppeld
+     * 
+     * @param straatNaam the straatNaam to set
+     */
+    public void setStraatNaam(String straatNaam) {
+<span class="nc" id="L38">        this.straatNaam = straatNaam;</span>
+<span class="nc" id="L39">    }</span>
+
+    /**
+     * Huisnummer van de straat welke via de BAG koppeling aan 
+     * het perceel is gekoppeld
+     * 
+     * @return the huisnummer
+     */
+    public Integer getHuisnummer() {
+<span class="nc" id="L48">        return huisnummer;</span>
+    }
+
+    /**
+     * Huisnummer van de straat welke via de BAG koppeling aan 
+     * het perceel is gekoppeld
+     * 
+     * @param huisnummer the huisnummer to set
+     */
+    public void setHuisnummer(Integer huisnummer) {
+<span class="nc" id="L58">        this.huisnummer = huisnummer;</span>
+<span class="nc" id="L59">    }</span>
+
+    /**
+     * Postcode welke via de BAG koppeling aan 
+     * het perceel is gekoppeld
+     * 
+     * @return the postcode
+     */
+    public String getPostcode() {
+<span class="nc" id="L68">        return postcode;</span>
+    }
+
+    /**
+     * Postcode welke via de BAG koppeling aan 
+     * het perceel is gekoppeld
+     * 
+     * @param postcode the postcode to set
+     */
+    public void setPostcode(String postcode) {
+<span class="nc" id="L78">        this.postcode = postcode;</span>
+<span class="nc" id="L79">    }</span>
+
+    /**
+     * @return the woonplaatsNaam
+     */
+    public String getWoonplaatsNaam() {
+<span class="nc" id="L85">        return woonplaatsNaam;</span>
+    }
+
+    /**
+     * @param woonplaatsNaam the woonplaatsNaam to set
+     */
+    public void setWoonplaatsNaam(String woonplaatsNaam) {
+<span class="nc" id="L92">        this.woonplaatsNaam = woonplaatsNaam;</span>
+<span class="nc" id="L93">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

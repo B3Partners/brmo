@@ -1,0 +1,56 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+BRMO initialisatie utilities/brmo-loader,nl.b3p.brmo.loader.util,BrmoException,16,0,0,0,8,0,4,0,4,0
+BRMO initialisatie utilities/brmo-loader,nl.b3p.brmo.loader.util,BrmoLeegBestandException,16,0,0,0,8,0,4,0,4,0
+BRMO initialisatie utilities/brmo-loader,nl.b3p.brmo.loader.util,StagingRowHandler,382,0,76,0,83,0,41,0,3,0
+BRMO initialisatie utilities/brmo-loader,nl.b3p.brmo.loader.util,TableRow,155,60,9,1,38,19,14,9,9,9
+BRMO initialisatie utilities/brmo-loader,nl.b3p.brmo.loader.util,BGTLightRsgbTransformer,278,0,14,0,55,0,12,0,5,0
+BRMO initialisatie utilities/brmo-loader,nl.b3p.brmo.loader.util,StagingBeanProcessor,61,0,6,0,13,0,5,0,2,0
+BRMO initialisatie utilities/brmo-loader,nl.b3p.brmo.loader.util,DataComfortXMLReader,101,283,17,29,22,79,14,14,0,3
+BRMO initialisatie utilities/brmo-loader,nl.b3p.brmo.loader.util,TopNLRsgbTransformer,210,0,14,0,47,0,12,0,5,0
+BRMO initialisatie utilities/brmo-loader,nl.b3p.brmo.loader.util,TableData,113,69,0,0,24,20,14,5,14,5
+BRMO initialisatie utilities/brmo-loader,nl.b3p.brmo.loader.util,BrmoDuplicaatLaadprocesException,16,0,0,0,8,0,4,0,4,0
+BRMO initialisatie utilities/brmo-loader,nl.b3p.brmo.loader.util,StagingRowHandler.IgnoreCaseStringList,28,0,4,0,7,0,4,0,2,0
+BRMO initialisatie utilities/brmo-loader,nl.b3p.brmo.loader.util,RsgbTransformer.new URIResolver() {...},20,0,0,0,2,0,2,0,2,0
+BRMO initialisatie utilities/brmo-loader,nl.b3p.brmo.loader.util,RsgbTransformer,138,0,8,0,23,0,8,0,4,0
+BRMO initialisatie utilities/brmo-loader,nl.b3p.brmo.loader,RsgbProxy.STATEMENT_TYPE,44,0,0,0,2,0,1,0,1,0
+BRMO initialisatie utilities/brmo-loader,nl.b3p.brmo.loader,BrmoFramework,1038,0,58,0,257,0,76,0,47,0
+BRMO initialisatie utilities/brmo-loader,nl.b3p.brmo.loader,StagingProxy.new ResultSetHandler() {...},172,0,10,0,29,0,7,0,2,0
+BRMO initialisatie utilities/brmo-loader,nl.b3p.brmo.loader,RsgbProxy.BerichtSelectMode,54,0,0,0,2,0,1,0,1,0
+BRMO initialisatie utilities/brmo-loader,nl.b3p.brmo.loader,RsgbBRPTransformer,244,0,16,0,65,0,16,0,8,0
+BRMO initialisatie utilities/brmo-loader,nl.b3p.brmo.loader,StagingProxy,2920,0,248,0,519,0,172,0,48,0
+BRMO initialisatie utilities/brmo-loader,nl.b3p.brmo.loader,RsgbProxy,4529,0,400,0,918,0,250,0,48,0
+BRMO initialisatie utilities/brmo-loader,nl.b3p.brmo.loader,BrmoFramework.new CountingInputStream() {...},22,0,2,0,5,0,3,0,2,0
+BRMO initialisatie utilities/brmo-loader,nl.b3p.brmo.loader.xml,BrkSnapshotXMLReader.MutatieGegevens,0,15,0,0,0,5,0,1,0,1
+BRMO initialisatie utilities/brmo-loader,nl.b3p.brmo.loader.xml,BRPXMLReader,347,0,16,0,73,0,15,0,7,0
+BRMO initialisatie utilities/brmo-loader,nl.b3p.brmo.loader.xml,BrkSnapshotXMLReader,89,344,30,54,18,68,25,23,0,6
+BRMO initialisatie utilities/brmo-loader,nl.b3p.brmo.loader.xml,NhrXMLReader,339,0,20,0,67,0,18,0,8,0
+BRMO initialisatie utilities/brmo-loader,nl.b3p.brmo.loader.xml,GbavXMLReader,10,228,3,15,4,51,3,12,0,6
+BRMO initialisatie utilities/brmo-loader,nl.b3p.brmo.loader.xml,BrmoXMLReader,54,47,0,0,18,18,11,10,11,10
+BRMO initialisatie utilities/brmo-loader,nl.b3p.brmo.loader.xml,BRPXMLReader.new URIResolver() {...},20,0,0,0,2,0,2,0,2,0
+BRMO initialisatie utilities/brmo-loader,nl.b3p.brmo.loader.xml,NhrXMLReader.new URIResolver() {...},20,0,0,0,2,0,2,0,2,0
+BRMO initialisatie utilities/brmo-loader,nl.b3p.brmo.loader.xml,TopNLFileReader,86,0,6,0,21,0,9,0,6,0
+BRMO initialisatie utilities/brmo-loader,nl.b3p.brmo.loader.xml,BGTLightFileReader,55,58,7,3,17,12,7,4,3,3
+BRMO initialisatie utilities/brmo-loader,nl.b3p.brmo.loader.xml,BagXMLReader,91,526,16,68,24,121,14,37,0,9
+BRMO initialisatie utilities/brmo-loader,nl.b3p.brmo.loader.advancedfunctions,AdvancedFunctionProcess,33,0,0,0,14,0,7,0,7,0
+BRMO initialisatie utilities/brmo-loader,nl.b3p.brmo.loader.entity,NhrBerichten,3,0,0,0,1,0,1,0,1,0
+BRMO initialisatie utilities/brmo-loader,nl.b3p.brmo.loader.entity,BagBericht,61,177,7,11,14,48,8,9,1,7
+BRMO initialisatie utilities/brmo-loader,nl.b3p.brmo.loader.entity,Bericht.STATUS,104,0,0,0,2,0,1,0,1,0
+BRMO initialisatie utilities/brmo-loader,nl.b3p.brmo.loader.entity,GbavBericht,38,297,16,24,8,72,14,14,0,8
+BRMO initialisatie utilities/brmo-loader,nl.b3p.brmo.loader.entity,Bericht,77,132,4,4,27,23,22,12,18,12
+BRMO initialisatie utilities/brmo-loader,nl.b3p.brmo.loader.entity,NhrPeildatumAdapter,33,0,0,0,6,0,3,0,3,0
+BRMO initialisatie utilities/brmo-loader,nl.b3p.brmo.loader.entity,LaadProces,142,3,0,0,61,2,39,1,39,1
+BRMO initialisatie utilities/brmo-loader,nl.b3p.brmo.loader.entity,NhrBericht,24,0,0,0,9,0,4,0,4,0
+BRMO initialisatie utilities/brmo-loader,nl.b3p.brmo.loader.entity,BerichtenSorter,26,0,0,0,7,0,3,0,3,0
+BRMO initialisatie utilities/brmo-loader,nl.b3p.brmo.loader.entity,BrkBericht,139,192,11,7,33,39,10,7,2,6
+BRMO initialisatie utilities/brmo-loader,nl.b3p.brmo.loader.entity,LaadProces.STATUS,104,0,0,0,2,0,1,0,1,0
+BRMO initialisatie utilities/brmo-loader,nl.b3p.brmo.loader.pipeline,BerichtWorkUnit,30,0,0,0,13,0,7,0,7,0
+BRMO initialisatie utilities/brmo-loader,nl.b3p.brmo.loader.pipeline,BerichtPipelineThread,182,0,12,0,47,0,11,0,5,0
+BRMO initialisatie utilities/brmo-loader,nl.b3p.brmo.loader.pipeline,UpdateResultPipeline,19,0,0,0,4,0,2,0,2,0
+BRMO initialisatie utilities/brmo-loader,nl.b3p.brmo.loader.pipeline,BerichtTypeOfWork,34,0,0,0,2,0,1,0,1,0
+BRMO initialisatie utilities/brmo-loader,nl.b3p.brmo.loader.pipeline,ProcessDbXmlPipeline,22,0,0,0,4,0,2,0,2,0
+BRMO initialisatie utilities/brmo-loader,nl.b3p.brmo.loader.checks,AfgiftelijstReport,467,0,14,0,75,0,15,0,8,0
+BRMO initialisatie utilities/brmo-loader,nl.b3p.brmo.loader.checks,AfgiftelijstReport.Footer,146,0,0,0,25,0,3,0,3,0
+BRMO initialisatie utilities/brmo-loader,nl.b3p.brmo.loader.checks,AfgifteChecker,141,0,4,0,35,0,14,0,12,0
+BRMO initialisatie utilities/brmo-loader,nl.b3p.brmo.loader.checks,AfgiftelijstParser,2,116,2,7,1,27,2,7,0,4
+BRMO initialisatie utilities/brmo-loader,nl.b3p.brmo.loader.checks,Afgifte,81,44,4,0,14,18,9,11,7,11
+BRMO initialisatie utilities/brmo-loader,nl.b3p.brmo.loader.updates,UpdateProcess,55,0,0,0,22,0,10,0,10,0

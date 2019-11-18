@@ -31,6 +31,7 @@ digraph G {
 <tr><td align="left" balign="left"> + startTest() </td></tr>
 <tr><td align="left" balign="left"> + endTest() </td></tr>
 <tr><td align="left" balign="left"> # setupJNDI(dsRsgb : BasicDataSource, dsStaging : BasicDataSource) </td></tr>
+<tr><td align="left" balign="left"> # refreshMViews(mviews : String[], ds : BasicDataSource) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./TestUtil.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.soap.db.BrkInfoIntegrationTest

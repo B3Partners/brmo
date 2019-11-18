@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DataComfortXMLReader.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.loader.util</a> &gt; <span class="el_source">DataComfortXMLReader.java</span></div><h1>DataComfortXMLReader.java</h1><pre class="source lang-java linenums">package nl.b3p.brmo.loader.util;
+
+import org.locationtech.jts.geom.Geometry;
+import org.locationtech.jts.geom.GeometryFactory;
+import org.locationtech.jts.geom.Polygon;
+import org.locationtech.jts.geom.PrecisionModel;
+import java.io.IOException;
+import java.io.StringReader;
+import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.List;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.stax.StAXSource;
+import javax.xml.transform.stream.StreamResult;
+import org.geotools.gml3.GMLConfiguration;
+import org.geotools.xsd.Parser;
+import org.javasimon.SimonManager;
+import org.javasimon.Split;
+import org.xml.sax.SAXException;
+
+/**
+ *
+ * @author Boy de Wit
+ */
+<span class="pc bpc" id="L33" title="1 of 2 branches missed.">public class DataComfortXMLReader {</span>
+
+    private static final int LEVEL_ROOT = 0;
+    private static final int LEVEL_DATA = 1;
+    private static final int LEVEL_COMFORT = 2;
+    private static final int LEVEL_TABLE = 3;
+    private static final int LEVEL_DELETE = 4;
+
+<span class="fc" id="L41">    private final TransformerFactory tf = TransformerFactory.newInstance();</span>
+<span class="fc" id="L42">    private final XMLInputFactory xif = XMLInputFactory.newInstance();</span>
+    private final GeometryFactory gf;
+    private final Parser gmlParser;
+
+<span class="fc" id="L46">    public DataComfortXMLReader() {</span>
+<span class="fc" id="L47">        GMLConfiguration gml = new org.geotools.gml3.GMLConfiguration();</span>
+<span class="fc" id="L48">        gf = new GeometryFactory(new PrecisionModel(), 28992);</span>
+<span class="fc" id="L49">        gml.getContext().registerComponentInstance(gf);</span>
+<span class="fc" id="L50">        gmlParser = new Parser(gml);</span>
+<span class="fc" id="L51">    }</span>
+
+    public List&lt;TableData&gt; readDataXML(Source dataXML) throws XMLStreamException, TransformerConfigurationException, TransformerException, IOException, SAXException, ParserConfigurationException {
+<span class="fc" id="L54">        Split split = SimonManager.getStopwatch(&quot;b3p.util.datacomfortxmlreader&quot;).start();</span>
+
+<span class="fc" id="L56">        XMLStreamReader xer = xif.createXMLStreamReader(dataXML);</span>
+
+<span class="fc" id="L58">        int level = LEVEL_ROOT;</span>
+<span class="fc" id="L59">        List&lt;TableData&gt; list = new ArrayList();</span>
+<span class="fc" id="L60">        TableData data = null;</span>
+<span class="fc" id="L61">        TableRow row = null;</span>
+<span class="fc" id="L62">        boolean inComfortData = false;</span>
+<span class="fc" id="L63">        boolean inDeleteData = false;</span>
+
+        root:
+<span class="pc bpc" id="L66" title="1 of 2 branches missed.">        while (xer.hasNext()) {</span>
+<span class="fc" id="L67">            xer.nextTag();</span>
+<span class="fc" id="L68">            String tag = xer.getLocalName();</span>
+<span class="pc bpc" id="L69" title="2 of 6 branches missed.">            switch (level) {</span>
+                case LEVEL_ROOT:
+<span class="fc bfc" id="L71" title="All 2 branches covered.">                    if (&quot;data&quot;.equals(tag)) {</span>
+<span class="fc" id="L72">                        level = LEVEL_DATA;</span>
+                    }
+                    break;
+
+                case LEVEL_DATA:
+<span class="fc bfc" id="L77" title="All 2 branches covered.">                    if (xer.isEndElement()) {</span>
+<span class="fc" id="L78">                        break root;</span>
+                    }
+
+<span class="fc bfc" id="L81" title="All 2 branches covered.">                    if (&quot;comfort&quot;.equals(tag)) {</span>
+<span class="fc" id="L82">                        String comfortSearchTable = xer.getAttributeValue(null, &quot;search-table&quot;);</span>
+<span class="fc" id="L83">                        String comfortSearchColumn = xer.getAttributeValue(null, &quot;search-column&quot;);</span>
+<span class="fc" id="L84">                        String comfortSearchValue = xer.getAttributeValue(null, &quot;search-value&quot;);</span>
+<span class="fc" id="L85">                        String snapshotDate = xer.getAttributeValue(null, &quot;snapshot-date&quot;);</span>
+
+<span class="fc" id="L87">                        data = new TableData(comfortSearchTable, comfortSearchColumn, comfortSearchValue, snapshotDate);</span>
+
+<span class="fc" id="L89">                        level = LEVEL_COMFORT;</span>
+
+<span class="fc" id="L91">                        inComfortData = true;</span>
+<span class="fc" id="L92">                        inDeleteData = false;</span>
+
+<span class="pc bpc" id="L94" title="1 of 2 branches missed.">                    } else if (&quot;delete&quot;.equals(tag)) {</span>
+    
+<span class="nc" id="L96">                        data = new TableData();</span>
+                        
+<span class="nc" id="L98">                        level = LEVEL_DELETE;</span>
+                        
+<span class="nc" id="L100">                        inComfortData = false;</span>
+<span class="nc" id="L101">                        inDeleteData = true;</span>
+                        
+                    } else {
+<span class="fc" id="L104">                        row = new TableRow();</span>
+<span class="fc" id="L105">                        row.setTable(tag);</span>
+<span class="fc" id="L106">                        row.setIgnoreDuplicates(&quot;yes&quot;.equals(xer.getAttributeValue(null, &quot;ignore-duplicates&quot;)));</span>
+
+<span class="fc" id="L108">                        String beginDatumColumn = xer.getAttributeValue(null, &quot;column-dat-beg-geldh&quot;);</span>
+<span class="fc" id="L109">                        String eindeDatumColumn = xer.getAttributeValue(null, &quot;column-datum-einde-geldh&quot;);</span>
+
+<span class="fc" id="L111">                        row.setColumnDatumBeginGeldigheid(beginDatumColumn);</span>
+<span class="fc" id="L112">                        row.setColumnDatumEindeGeldigheid(eindeDatumColumn);</span>
+
+<span class="fc" id="L114">                        data = new TableData(row);</span>
+
+<span class="fc" id="L116">                        level = LEVEL_TABLE;</span>
+
+<span class="fc" id="L118">                        inComfortData = false;</span>
+<span class="fc" id="L119">                        inDeleteData = false;</span>
+                    }
+
+<span class="fc" id="L122">                    list.add(data);</span>
+
+<span class="fc" id="L124">                    break;</span>
+
+                case LEVEL_COMFORT:
+
+<span class="pc bpc" id="L128" title="1 of 4 branches missed.">                    if (xer.isEndElement() &amp;&amp; &quot;comfort&quot;.equals(tag)) {</span>
+<span class="fc" id="L129">                        level = LEVEL_DATA;</span>
+                    } else {
+<span class="fc" id="L131">                        row = new TableRow();</span>
+<span class="fc" id="L132">                        row.setTable(tag);</span>
+
+<span class="fc" id="L134">                        data.addRow(row);</span>
+
+<span class="fc" id="L136">                        level = LEVEL_TABLE;</span>
+                    }
+
+<span class="fc" id="L139">                    break;</span>
+
+                case LEVEL_DELETE:
+                    
+<span class="nc bnc" id="L143" title="All 4 branches missed.">                    if (xer.isEndElement() &amp;&amp; &quot;delete&quot;.equals(tag)) {</span>
+<span class="nc" id="L144">                        level = LEVEL_DATA;</span>
+                    } else {
+<span class="nc" id="L146">                        row = new TableRow();</span>
+<span class="nc" id="L147">                        row.setTable(tag);</span>
+
+<span class="nc" id="L149">                        data.addRow(row);</span>
+
+<span class="nc" id="L151">                        level = LEVEL_TABLE;</span>
+                    }
+
+<span class="nc" id="L154">                    break;</span>
+                   
+                case LEVEL_TABLE:
+<span class="fc bfc" id="L157" title="All 2 branches covered.">                    if (xer.isEndElement()) {</span>
+
+<span class="fc bfc" id="L159" title="All 2 branches covered.">                        if (inComfortData) {</span>
+<span class="fc" id="L160">                            level = LEVEL_COMFORT;</span>
+<span class="pc bpc" id="L161" title="1 of 2 branches missed.">                        } else if (inDeleteData) {</span>
+<span class="nc" id="L162">                            level = LEVEL_DELETE;</span>
+                        } else {
+<span class="fc" id="L164">                            level = LEVEL_DATA;</span>
+                        }
+                    } else {
+<span class="fc" id="L167">                        data = list.get(list.size() - 1);</span>
+
+<span class="fc" id="L169">                        row.getColumns().add(tag);</span>
+
+<span class="fc" id="L171">                        String alleenArchief = xer.getAttributeValue(null, &quot;alleen-archief&quot;);</span>
+<span class="fc bfc" id="L172" title="All 2 branches covered.">                        if(&quot;true&quot;.equals(alleenArchief)) {</span>
+<span class="fc" id="L173">                            row.setAlleenArchiefColumn(tag);</span>
+                        }
+
+                        // Detecteer XML elementen of text
+<span class="fc" id="L177">                        xer.next();</span>
+<span class="pc bpc" id="L178" title="1 of 2 branches missed.">                        if (xer.isStartElement()) {</span>
+<span class="nc" id="L179">                            Split split2 = SimonManager.getStopwatch(&quot;b3p.util.datacomfortxmlreader.parsegml&quot;).start();</span>
+
+<span class="nc" id="L181">                            Transformer transformer = tf.newTransformer();</span>
+<span class="nc" id="L182">                            StringWriter sw = new StringWriter();</span>
+<span class="nc" id="L183">                            transformer.transform(new StAXSource(xer), new StreamResult(sw));</span>
+
+<span class="nc" id="L185">                            Geometry geom = (Geometry) gmlParser.parse(new StringReader(sw.toString()));</span>
+                            //TODO Hack, alles naar multi variant of niet, nu POINT en MULTIPOLYGON
+                            //tijdelijk elke POLYGON omzetten naar MULTIPOLYGON
+<span class="nc bnc" id="L188" title="All 2 branches missed.">                            if (geom instanceof Polygon) {</span>
+<span class="nc" id="L189">                                Polygon[] polygons = new Polygon[] {(Polygon)geom};</span>
+<span class="nc" id="L190">                                 geom = gf.createMultiPolygon(polygons);</span>
+                            }
+
+<span class="nc" id="L193">                            row.getValues().add(geom.toString());</span>
+
+                            //System.out.println(&quot;Sub elements &quot; + tag + &quot;: &quot; + sw.toString());
+<span class="nc" id="L196">                            split2.stop();</span>
+<span class="pc bfc" id="L197" title="All 2 branches covered.">                        } else if (xer.isCharacters()) {</span>
+<span class="fc" id="L198">                            StringBuilder t = new StringBuilder();</span>
+                            do {
+<span class="fc" id="L200">                                t.append(xer.getText());</span>
+<span class="fc" id="L201">                                xer.next();</span>
+<span class="pc bpc" id="L202" title="1 of 2 branches missed.">                            } while (xer.isCharacters());</span>
+<span class="fc" id="L203">                            row.getValues().add(t.toString());</span>
+<span class="fc" id="L204">                        } else {</span>
+<span class="pc bpc" id="L205" title="2 of 4 branches missed.">                            assert (xer.isEndElement());</span>
+<span class="fc" id="L206">                            row.getValues().add(null);</span>
+                        }
+                    }
+
+                    break;
+            }
+<span class="fc" id="L212">        }</span>
+
+<span class="fc" id="L214">        split.stop();</span>
+<span class="fc" id="L215">        return list;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

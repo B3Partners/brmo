@@ -93,11 +93,11 @@
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>  <em class="jxr_javadoccomment">     * &lt;li&gt;{@code curl -v -s --trace-ascii http_trace.log -d @'brmo-loader/src/test/resources/verminderenstukdelen/MUTKX01-ASN00V2937-Bericht1.xml' -H "Content-Type: application/xml" -X POST <a href="http://localhost:8037/brmo-proxyservice/post/brk" target="alexandria_uri">http://localhost:8037/brmo-proxyservice/post/brk</a></em>
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>  <em class="jxr_javadoccomment">     * }&lt;/li&gt;</em>
 <a class="jxr_linenumber" name="L87" href="#L87">87</a>  <em class="jxr_javadoccomment">     * &lt;/ul&gt;</em>
-<a class="jxr_linenumber" name="L88" href="#L88">88</a>  <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="L88" href="#L88">88</a>  <em class="jxr_javadoccomment">     * @todo dit werkt niet zo, nog eens uitzoeken hoe dit moet met httpunit... (Not in GZIP format melding)</em>
 <a class="jxr_linenumber" name="L89" href="#L89">89</a>  <em class="jxr_javadoccomment">     * @throws Exception if any</em>
 <a class="jxr_linenumber" name="L90" href="#L90">90</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>      @Test
-<a class="jxr_linenumber" name="L92" href="#L92">92</a>      @Ignore(<span class="jxr_string">"dit werkt niet zo, nog eens uitzoeken hoe dit moet met httpunit... (Not in GZIP format)"</span>)
+<a class="jxr_linenumber" name="L92" href="#L92">92</a>      @Ignore(<span class="jxr_string">"dit werkt niet zo, nog eens uitzoeken hoe dit moet met httpunit... (Not in GZIP format melding)"</span>)
 <a class="jxr_linenumber" name="L93" href="#L93">93</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testPostGzippedBRK() <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L94" href="#L94">94</a>          WebRequest p = <strong class="jxr_keyword">new</strong> PostMethodWebRequest(
 <a class="jxr_linenumber" name="L95" href="#L95">95</a>                  <span class="jxr_string">"http://localhost:8080/post/brk"</span>,

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>UpdateProcess.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO commandline</a> &gt; <a href="../index.html" class="el_bundle">brmo-loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.loader.updates</a> &gt; <span class="el_source">UpdateProcess.java</span></div><h1>UpdateProcess.java</h1><pre class="source lang-java linenums">package nl.b3p.brmo.loader.updates;
+
+/**
+ *
+ * @author Matthijs Laan
+ */
+public class UpdateProcess {
+
+    private String name;
+
+    private String soort;
+
+    private String xsl;
+
+    private boolean updateDbXml;
+
+<span class="nc" id="L17">    public UpdateProcess(String name, String soort, String xsl) {</span>
+<span class="nc" id="L18">        this.name = name;</span>
+<span class="nc" id="L19">        this.soort = soort;</span>
+<span class="nc" id="L20">        this.xsl = xsl;</span>
+<span class="nc" id="L21">    }</span>
+
+<span class="nc" id="L23">    public UpdateProcess(String name, String soort, String xsl, boolean updateDbXml) {</span>
+<span class="nc" id="L24">        this.name = name;</span>
+<span class="nc" id="L25">        this.soort = soort;</span>
+<span class="nc" id="L26">        this.xsl = xsl;</span>
+<span class="nc" id="L27">        this.updateDbXml = updateDbXml;</span>
+<span class="nc" id="L28">    }</span>
+
+    public String getName() {
+<span class="nc" id="L31">        return name;</span>
+    }
+
+    public void setName(String name) {
+<span class="nc" id="L35">        this.name = name;</span>
+<span class="nc" id="L36">    }</span>
+
+    public String getSoort() {
+<span class="nc" id="L39">        return soort;</span>
+    }
+
+    public void setSoort(String soort) {
+<span class="nc" id="L43">        this.soort = soort;</span>
+<span class="nc" id="L44">    }</span>
+
+    public String getXsl() {
+<span class="nc" id="L47">        return xsl;</span>
+    }
+
+    public void setXsl(String xsl) {
+<span class="nc" id="L51">        this.xsl = xsl;</span>
+<span class="nc" id="L52">    }</span>
+
+    /**
+     * of de DbXml moet &quot;herberekend&quot; en gebruikt moet worden in verdere verwerking.
+     *
+     * @return true als de DbXml opnieuw moet worden gemaakt en opgeslagen in het bericht.
+     */
+<span class="nc" id="L59">    public boolean isUpdateDbXml() { return updateDbXml; }</span>
+
+    /**
+     * of de DbXml moet &quot;herberekend&quot; en gebruikt moet worden in verdere verwerking.
+     *
+     * @param updateDbXml {@code true} als de DbXml opnieuw moet worden gemaakt en opgeslagen in het bericht.
+     */
+<span class="nc" id="L66">    public void setUpdateDbXml(boolean updateDbXml) { this.updateDbXml = updateDbXml; }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

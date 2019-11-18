@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OBWVraag.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO STUF BG 204</a> &gt; <a href="index.source.html" class="el_package">nl.egem.stuf.sector.bg._0204</a> &gt; <span class="el_source">OBWVraag.java</span></div><h1>OBWVraag.java</h1><pre class="source lang-java linenums">
+package nl.egem.stuf.sector.bg._0204;
+
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementRef;
+import javax.xml.bind.annotation.XmlType;
+
+
+/**
+ * Overig bouwwerk binnen vraagbericht
+ * 
+ * &lt;p&gt;Java class for OBW-vraag complex type.
+ * 
+ * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+ * 
+ * &lt;pre&gt;
+ * &amp;lt;complexType name=&quot;OBW-vraag&quot;&amp;gt;
+ *   &amp;lt;complexContent&amp;gt;
+ *     &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}OBW-fund&quot;&amp;gt;
+ *       &amp;lt;sequence&amp;gt;
+ *         &amp;lt;element name=&quot;OBWADR&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}ADR-relFund&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;OBWKDO&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;complexContent&amp;gt;
+ *               &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}Relatie&quot;&amp;gt;
+ *                 &amp;lt;sequence&amp;gt;
+ *                   &amp;lt;element name=&quot;KDO&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}KDO-kennisgeving&quot;/&amp;gt;
+ *                 &amp;lt;/sequence&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/complexContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;OBWBSG&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;complexContent&amp;gt;
+ *               &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}Relatie&quot;&amp;gt;
+ *                 &amp;lt;sequence&amp;gt;
+ *                   &amp;lt;element name=&quot;BSG&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BSG-fund&quot;/&amp;gt;
+ *                 &amp;lt;/sequence&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/complexContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *       &amp;lt;/sequence&amp;gt;
+ *     &amp;lt;/extension&amp;gt;
+ *   &amp;lt;/complexContent&amp;gt;
+ * &amp;lt;/complexType&amp;gt;
+ * &lt;/pre&gt;
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = &quot;OBW-vraag&quot;, propOrder = {
+    &quot;obwadr&quot;,
+    &quot;obwkdo&quot;,
+    &quot;obwbsg&quot;
+})
+<span class="nc" id="L61">public class OBWVraag</span>
+    extends OBWFund
+{
+
+    @XmlElementRef(name = &quot;OBWADR&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+    protected JAXBElement&lt;ADRRelFund&gt; obwadr;
+    @XmlElementRef(name = &quot;OBWKDO&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+    protected JAXBElement&lt;OBWVraag.OBWKDO&gt; obwkdo;
+    @XmlElementRef(name = &quot;OBWBSG&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+    protected JAXBElement&lt;OBWVraag.OBWBSG&gt; obwbsg;
+
+    /**
+     * Gets the value of the obwadr property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code &lt;}{@link ADRRelFund }{@code &gt;}
+     *     
+     */
+    public JAXBElement&lt;ADRRelFund&gt; getOBWADR() {
+<span class="nc" id="L81">        return obwadr;</span>
+    }
+
+    /**
+     * Sets the value of the obwadr property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code &lt;}{@link ADRRelFund }{@code &gt;}
+     *     
+     */
+    public void setOBWADR(JAXBElement&lt;ADRRelFund&gt; value) {
+<span class="nc" id="L93">        this.obwadr = value;</span>
+<span class="nc" id="L94">    }</span>
+
+    /**
+     * Gets the value of the obwkdo property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code &lt;}{@link OBWVraag.OBWKDO }{@code &gt;}
+     *     
+     */
+    public JAXBElement&lt;OBWVraag.OBWKDO&gt; getOBWKDO() {
+<span class="nc" id="L105">        return obwkdo;</span>
+    }
+
+    /**
+     * Sets the value of the obwkdo property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code &lt;}{@link OBWVraag.OBWKDO }{@code &gt;}
+     *     
+     */
+    public void setOBWKDO(JAXBElement&lt;OBWVraag.OBWKDO&gt; value) {
+<span class="nc" id="L117">        this.obwkdo = value;</span>
+<span class="nc" id="L118">    }</span>
+
+    /**
+     * Gets the value of the obwbsg property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code &lt;}{@link OBWVraag.OBWBSG }{@code &gt;}
+     *     
+     */
+    public JAXBElement&lt;OBWVraag.OBWBSG&gt; getOBWBSG() {
+<span class="nc" id="L129">        return obwbsg;</span>
+    }
+
+    /**
+     * Sets the value of the obwbsg property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code &lt;}{@link OBWVraag.OBWBSG }{@code &gt;}
+     *     
+     */
+    public void setOBWBSG(JAXBElement&lt;OBWVraag.OBWBSG&gt; value) {
+<span class="nc" id="L141">        this.obwbsg = value;</span>
+<span class="nc" id="L142">    }</span>
+
+
+    /**
+     * &lt;p&gt;Java class for anonymous complex type.
+     * 
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * 
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;complexContent&amp;gt;
+     *     &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}Relatie&quot;&amp;gt;
+     *       &amp;lt;sequence&amp;gt;
+     *         &amp;lt;element name=&quot;BSG&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BSG-fund&quot;/&amp;gt;
+     *       &amp;lt;/sequence&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/complexContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = &quot;&quot;, propOrder = {
+        &quot;bsg&quot;
+    })
+<span class="nc" id="L168">    public static class OBWBSG</span>
+        extends Relatie
+    {
+
+        @XmlElement(name = &quot;BSG&quot;, required = true, nillable = true)
+        protected BSGFund bsg;
+
+        /**
+         * Gets the value of the bsg property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link BSGFund }
+         *     
+         */
+        public BSGFund getBSG() {
+<span class="nc" id="L184">            return bsg;</span>
+        }
+
+        /**
+         * Sets the value of the bsg property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link BSGFund }
+         *     
+         */
+        public void setBSG(BSGFund value) {
+<span class="nc" id="L196">            this.bsg = value;</span>
+<span class="nc" id="L197">        }</span>
+
+    }
+
+
+    /**
+     * &lt;p&gt;Java class for anonymous complex type.
+     * 
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * 
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;complexContent&amp;gt;
+     *     &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}Relatie&quot;&amp;gt;
+     *       &amp;lt;sequence&amp;gt;
+     *         &amp;lt;element name=&quot;KDO&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}KDO-kennisgeving&quot;/&amp;gt;
+     *       &amp;lt;/sequence&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/complexContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = &quot;&quot;, propOrder = {
+        &quot;kdo&quot;
+    })
+<span class="nc" id="L225">    public static class OBWKDO</span>
+        extends Relatie
+    {
+
+        @XmlElement(name = &quot;KDO&quot;, required = true, nillable = true)
+        protected KDOKennisgeving kdo;
+
+        /**
+         * Gets the value of the kdo property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link KDOKennisgeving }
+         *     
+         */
+        public KDOKennisgeving getKDO() {
+<span class="nc" id="L241">            return kdo;</span>
+        }
+
+        /**
+         * Sets the value of the kdo property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link KDOKennisgeving }
+         *     
+         */
+        public void setKDO(KDOKennisgeving value) {
+<span class="nc" id="L253">            this.kdo = value;</span>
+<span class="nc" id="L254">        }</span>
+
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

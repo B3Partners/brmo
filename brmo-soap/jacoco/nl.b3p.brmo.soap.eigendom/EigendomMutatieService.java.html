@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>EigendomMutatieService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO soap bevragingsservice</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.soap.eigendom</a> &gt; <span class="el_source">EigendomMutatieService.java</span></div><h1>EigendomMutatieService.java</h1><pre class="source lang-java linenums">package nl.b3p.brmo.soap.eigendom;
+
+import java.util.Map;
+import javax.jws.HandlerChain;
+import javax.jws.WebService;
+import javax.jws.WebMethod;
+import javax.jws.WebParam;
+import nl.b3p.brmo.soap.db.EigendomInfo;
+
+/**
+ *
+ * @author Chris
+ */
+@WebService(
+        serviceName = &quot;EigendomMutatieService&quot;,
+        targetNamespace = &quot;http://brmo.b3p.nl/brmo/1.0/eigendom&quot;,
+        wsdlLocation = &quot;WEB-INF/wsdl/EigendomMutatie.wsdl&quot;
+)
+@HandlerChain(file = &quot;/handler-chain.xml&quot;)
+<span class="nc" id="L20">public class EigendomMutatieService {</span>
+
+    @WebMethod(operationName = &quot;getEigendomMutaties&quot;)
+    public EigendomMutatieResponse getEigendomMutaties(@WebParam(name = &quot;request&quot;) EigendomMutatieRequest request) throws EigendomMutatieException {
+<span class="nc" id="L24">        Map&lt;String, Object&gt; eigendomMutatieContext = EigendomInfo.createEigendomMutatieContext(request);</span>
+<span class="nc" id="L25">        return EigendomInfo.createEigendomMutatieResponse(eigendomMutatieContext);</span>
+    }
+
+    @WebMethod(operationName = &quot;getMutatieList&quot;)
+    public MutatieListResponse getMutatieList(@WebParam(name = &quot;request&quot;) MutatieListRequest request) throws EigendomMutatieException {
+<span class="nc" id="L30">        Map&lt;String, Object&gt; mutatieListContext = EigendomInfo.createMutatieListContext(request);</span>
+<span class="nc" id="L31">        return EigendomInfo.createMutatieListResponse(mutatieListContext);</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

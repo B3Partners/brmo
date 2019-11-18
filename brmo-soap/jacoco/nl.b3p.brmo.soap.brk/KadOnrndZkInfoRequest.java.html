@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>KadOnrndZkInfoRequest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO soap bevragingsservice</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.soap.brk</a> &gt; <span class="el_source">KadOnrndZkInfoRequest.java</span></div><h1>KadOnrndZkInfoRequest.java</h1><pre class="source lang-java linenums">package nl.b3p.brmo.soap.brk;
+
+import javax.xml.bind.annotation.XmlType;
+
+/**
+ *
+ * @author Chris
+ */
+@XmlType
+public class KadOnrndZkInfoRequest {
+
+    private String gemeentecode;
+    private String sectie;
+    private String perceelnummer;
+    private String appReVolgnummer;
+    private String identificatie;
+
+<span class="nc" id="L18">    public KadOnrndZkInfoRequest() {</span>
+<span class="nc" id="L19">    }</span>
+
+    /**
+     * Afkorting voor kadastrale gemeente als gebruikt in AKR
+     *
+     * @return the gemeentecode
+     */
+    public String getGemeentecode() {
+<span class="nc" id="L27">        return gemeentecode;</span>
+    }
+
+    /**
+     * Afkorting voor kadastrale gemeente als gebruikt in AKR
+     *
+     *
+     * @param gemeentecode the gemeentecode to set
+     */
+    public void setGemeentecode(String gemeentecode) {
+<span class="nc" id="L37">        this.gemeentecode = gemeentecode;</span>
+<span class="nc" id="L38">    }</span>
+
+    /**
+     * Letter van sectie
+     *
+     * @return the sectie
+     */
+    public String getSectie() {
+<span class="nc" id="L46">        return sectie;</span>
+    }
+
+    /**
+     * Letter van sectie
+     *
+     * @param sectie the sectie to set
+     */
+    public void setSectie(String sectie) {
+<span class="nc" id="L55">        this.sectie = sectie;</span>
+<span class="nc" id="L56">    }</span>
+
+    /**
+     * nummer van het perceel
+     *
+     * @return the perceelnummer
+     */
+    public String getPerceelnummer() {
+<span class="nc" id="L64">        return perceelnummer;</span>
+    }
+
+    /**
+     * nummer van het perceel
+     *
+     * @param perceelnummer the perceelnummer to set
+     */
+    public void setPerceelnummer(String perceelnummer) {
+<span class="nc" id="L73">        this.perceelnummer = perceelnummer;</span>
+<span class="nc" id="L74">    }</span>
+
+    /**
+     * In geval van een appartement kan hier het volgnummer worden opgegeven
+     *
+     * @return the appReVolgnummer
+     */
+    public String getAppReVolgnummer() {
+<span class="nc" id="L82">        return appReVolgnummer;</span>
+    }
+
+    /**
+     * In geval van een appartement kan hier het volgnummer worden opgegeven
+     *
+     * @param appReVolgnummer the appReVolgnummer to set
+     */
+    public void setAppReVolgnummer(String appReVolgnummer) {
+<span class="nc" id="L91">        this.appReVolgnummer = appReVolgnummer;</span>
+<span class="nc" id="L92">    }</span>
+
+    /**
+     * Formeel kadasstrale object nummer
+     *
+     * @return the identificatie
+     */
+    public String getIdentificatie() {
+<span class="nc" id="L100">        return identificatie;</span>
+    }
+
+    /**
+     * Formele kadatstrale object nummer
+     *
+     * @param identificatie the identificatie to set
+     */
+    public void setIdentificatie(String identificatie) {
+<span class="nc" id="L109">        this.identificatie = identificatie;</span>
+<span class="nc" id="L110">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

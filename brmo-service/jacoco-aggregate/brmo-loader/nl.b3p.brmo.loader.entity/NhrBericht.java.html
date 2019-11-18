@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>NhrBericht.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO service</a> &gt; <a href="../index.html" class="el_bundle">brmo-loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.loader.entity</a> &gt; <span class="el_source">NhrBericht.java</span></div><h1>NhrBericht.java</h1><pre class="source lang-java linenums">package nl.b3p.brmo.loader.entity;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAnyElement;
+import static nl.b3p.brmo.loader.BrmoFramework.BR_NHR;
+import org.w3c.dom.Element;
+
+/**
+ *
+ * @author Matthijs Laan
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+public class NhrBericht extends Bericht {
+
+    @XmlAnyElement
+    private Element node;
+
+<span class="nc" id="L19">    private boolean hasAddedBSNHashes = false;</span>
+
+    public NhrBericht() {
+<span class="nc" id="L22">        super(null);</span>
+<span class="nc" id="L23">    }</span>
+
+    public NhrBericht(String brXml) {
+<span class="nc" id="L26">        super(brXml);</span>
+<span class="nc" id="L27">        setSoort(BR_NHR);</span>
+<span class="nc" id="L28">    }</span>
+
+    public Element getNode() {
+<span class="nc" id="L31">        return node;</span>
+    }
+
+    public void setNode(Element node) {
+<span class="nc" id="L35">        this.node = node;</span>
+<span class="nc" id="L36">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

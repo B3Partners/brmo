@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>BGTLightRsgbTransformer.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO service</a> &gt; <a href="../index.html" class="el_bundle">brmo-loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.loader.util</a> &gt; <span class="el_source">BGTLightRsgbTransformer.java</span></div><h1>BGTLightRsgbTransformer.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2016 B3Partners B.V.
+ */
+package nl.b3p.brmo.loader.util;
+
+import java.io.File;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.Date;
+import java.util.Properties;
+import javax.sql.DataSource;
+import static nl.b3p.brmo.loader.BrmoFramework.BR_BGTLIGHT;
+import nl.b3p.brmo.loader.ProgressUpdateListener;
+import nl.b3p.brmo.loader.StagingProxy;
+import nl.b3p.brmo.loader.entity.LaadProces;
+import static nl.b3p.brmo.loader.entity.LaadProces.STATUS;
+import nl.b3p.brmo.loader.gml.BGTGMLLightLoader;
+import nl.b3p.loader.jdbc.GeometryJdbcConverter;
+import nl.b3p.loader.jdbc.GeometryJdbcConverterFactory;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+/**
+ *
+ * @author mprins
+ */
+public class BGTLightRsgbTransformer implements Runnable {
+
+<span class="nc" id="L29">    private static final Log LOG = LogFactory.getLog(BGTLightRsgbTransformer.class);</span>
+    private final StagingProxy stagingProxy;
+    private final DataSource dataSourceRsgbBgt;
+    private final ProgressUpdateListener listener;
+    private final long[] lpIDs;
+<span class="nc" id="L34">    private final Properties params = new Properties();</span>
+<span class="nc" id="L35">    private GeometryJdbcConverter geomjdbc = null;</span>
+<span class="nc" id="L36">    private final BGTGMLLightLoader gmlLoader = new BGTGMLLightLoader();</span>
+
+<span class="nc" id="L38">    public BGTLightRsgbTransformer(DataSource dataSourceRsgbBgt, StagingProxy stagingProxy, long[] lpIDs, ProgressUpdateListener listener) {</span>
+<span class="nc" id="L39">        this.stagingProxy = stagingProxy;</span>
+<span class="nc" id="L40">        this.dataSourceRsgbBgt = dataSourceRsgbBgt;</span>
+<span class="nc" id="L41">        this.lpIDs = lpIDs;</span>
+<span class="nc" id="L42">        this.listener = listener;</span>
+<span class="nc" id="L43">    }</span>
+
+    private void transform(long lpID) throws SQLException {
+        STATUS status;
+<span class="nc" id="L47">        LaadProces lp = stagingProxy.getLaadProcesById(lpID);</span>
+<span class="nc bnc" id="L48" title="All 4 branches missed.">        if (lp.getSoort().equalsIgnoreCase(BR_BGTLIGHT) &amp;&amp; lp.getStatus() == STATUS.STAGING_OK) {</span>
+<span class="nc" id="L49">            File zip = new File(lp.getBestandNaam());</span>
+<span class="nc" id="L50">            stagingProxy.updateLaadProcesStatus(lp, STATUS.RSGB_BGT_WAITING, &quot;Transformatie loopt...&quot;);</span>
+            try {
+                // het bestand aan de GML transformer geven om te transformeren
+<span class="nc" id="L53">                int total = gmlLoader.processZipFile(zip);</span>
+                // dit is dubbelop: LOG.info(opmerking);
+<span class="nc bnc" id="L55" title="All 2 branches missed.">                switch (gmlLoader.getStatus()) {</span>
+                    case OK:
+<span class="nc" id="L57">                        status = STATUS.RSGB_BGT_OK;</span>
+<span class="nc" id="L58">                        break;</span>
+                    case NOK:
+                    default:
+<span class="nc" id="L61">                        status = STATUS.RSGB_BGT_NOK;</span>
+                }
+<span class="nc" id="L63">                stagingProxy.updateLaadProcesStatus(lp, status, gmlLoader.getOpmerkingen());</span>
+<span class="nc" id="L64">            } catch (IOException | IllegalArgumentException ex) {</span>
+<span class="nc" id="L65">                LOG.error(&quot;Laden van bestand &quot; + zip + &quot; is mislukt.&quot;, ex);</span>
+<span class="nc" id="L66">                String opmerkingen = gmlLoader.getOpmerkingen()</span>
+<span class="nc" id="L67">                        + &quot;\nLaden van bestand &quot; + zip + &quot; is mislukt: &quot; + ex.getLocalizedMessage();</span>
+<span class="nc" id="L68">                stagingProxy.updateLaadProcesStatus(lp, STATUS.RSGB_BGT_NOK, opmerkingen);</span>
+<span class="nc" id="L69">            }</span>
+<span class="nc" id="L70">        } else {</span>
+<span class="nc" id="L71">            LOG.warn(&quot;LaadProces &quot; + lp.getId() + &quot; van soort &quot; + lp.getSoort() + &quot; met status: &quot; + lp.getStatus() + &quot; is overgeslagen.&quot;);</span>
+        }
+<span class="nc" id="L73">    }</span>
+
+    public void init() throws SQLException, IOException {
+<span class="nc" id="L76">        geomjdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(dataSourceRsgbBgt.getConnection());</span>
+
+<span class="nc" id="L78">        params.put(&quot;jndiReferenceName&quot;, &quot;java:comp/env/jdbc/brmo/rsgbbgt&quot;);</span>
+<span class="nc" id="L79">        params.put(&quot;dbtype&quot;, geomjdbc.getGeotoolsDBTypeName());</span>
+<span class="nc" id="L80">        params.put(&quot;schema&quot;, geomjdbc.getSchema());</span>
+
+<span class="nc" id="L82">        gmlLoader.setDbConnProps(params);</span>
+<span class="nc" id="L83">        gmlLoader.setIsOracle(geomjdbc.getGeotoolsDBTypeName().toLowerCase().contains(&quot;oracle&quot;));</span>
+<span class="nc" id="L84">        gmlLoader.setIsMSSQL(geomjdbc.getGeotoolsDBTypeName().toLowerCase().contains(&quot;sqlserver&quot;));</span>
+
+<span class="nc" id="L86">        LOG.info(String.format(&quot;Alle BGT tabellen worden nu leeggemaakt voordat %d laadprocessen worden getransformeerd (Let op! Transformeer alle laadprocessen voor BGT kaartbladen tegelijkertijd)&quot;, lpIDs.length));</span>
+<span class="nc" id="L87">        gmlLoader.truncateTables();</span>
+<span class="nc" id="L88">    }</span>
+
+    @Override
+    public void run() {
+        try {
+<span class="nc" id="L93">            init();</span>
+<span class="nc" id="L94">            int count = 0;</span>
+<span class="nc bnc" id="L95" title="All 2 branches missed.">            if (listener != null) {</span>
+<span class="nc" id="L96">                listener.total(lpIDs.length);</span>
+<span class="nc" id="L97">                listener.progress(count);</span>
+            }
+<span class="nc bnc" id="L99" title="All 2 branches missed.">            for (long id : lpIDs) {</span>
+<span class="nc" id="L100">                this.transform(id);</span>
+<span class="nc" id="L101">                count++;</span>
+<span class="nc bnc" id="L102" title="All 2 branches missed.">                if (listener != null) {</span>
+<span class="nc" id="L103">                    listener.progress(count);</span>
+                }
+            }
+<span class="nc" id="L106">        } catch (Exception e) {</span>
+<span class="nc" id="L107">            LOG.error(&quot;Fout tijdens verwerken BGT laadprocessen&quot;, e);</span>
+<span class="nc bnc" id="L108" title="All 2 branches missed.">            if (listener != null) {</span>
+<span class="nc" id="L109">                listener.exception(e);</span>
+            }
+<span class="nc" id="L111">        }</span>
+<span class="nc" id="L112">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.loader.BrmoFramework
-	c1155 [label=<<table title="nl.b3p.brmo.loader.BrmoFramework" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BrmoFramework.html">
+	c1614 [label=<<table title="nl.b3p.brmo.loader.BrmoFramework" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BrmoFramework.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BrmoFramework </td></tr>
 		</table></td></tr>
@@ -75,10 +75,13 @@ digraph G {
 <tr><td align="left" balign="left"> + getCountBerichten(sort : String, dir : String, filterSoort : String, filterStatus : String) : long </td></tr>
 <tr><td align="left" balign="left"> + getCountLaadProcessen(sort : String, dir : String, filterSoort : String, filterStatus : String) : long </td></tr>
 <tr><td align="left" balign="left"> + getCountJob() : long </td></tr>
+<tr><td align="left" balign="left"> + updateLaadProcesMeta(lpId : Long, klantafgiftenummer : BigInteger, contractafgiftenummer : BigInteger, artikelnummer : String, contractnummer : String, afgifteid : String, afgiftereferentie : String, bestandsreferentie : String, beschikbaar_tot : Date) </td></tr>
+<tr><td align="left" balign="left"> + checkAfgiftelijst(bestandsnaam : String, output : String) : File </td></tr>
+<tr><td align="left" balign="left"> + checkAfgiftelijst(bestandsnaam : String, is : InputStream, output : File) : File </td></tr>
 		</table></td></tr>
 		</table>>, URL="./BrmoFramework.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.StagingProxy
-	c1156 [label=<<table title="nl.b3p.brmo.loader.StagingProxy" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./StagingProxy.html">
+	c1615 [label=<<table title="nl.b3p.brmo.loader.StagingProxy" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./StagingProxy.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> StagingProxy </td></tr>
 		</table></td></tr>
@@ -90,7 +93,9 @@ digraph G {
 <tr><td align="left" balign="left"> + closeStagingProxy() </td></tr>
 <tr><td align="left" balign="left"> + getLaadProcesById(id : Long) : LaadProces </td></tr>
 <tr><td align="left" balign="left"> + getBerichtById(id : Long) : Bericht </td></tr>
+<tr><td align="left" balign="left"> + getBerichtByLaadProces(lp : LaadProces) : List&lt;Bericht&gt; </td></tr>
 <tr><td align="left" balign="left"> + getLaadProcesByFileName(name : String) : LaadProces </td></tr>
+<tr><td align="left" balign="left"> + getLaadProcesByRestoredFilename(name : String) : LaadProces </td></tr>
 <tr><td align="left" balign="left"> + getExistingBericht(b : Bericht) : Bericht </td></tr>
 <tr><td align="left" balign="left"> + getCountJob() : long </td></tr>
 <tr><td align="left" balign="left"> + removeJob() : boolean </td></tr>
@@ -102,6 +107,9 @@ digraph G {
 <tr><td align="left" balign="left"> + handleBerichtenByJob(total : long, handler : BerichtenHandler, enablePipeline : boolean, transformPipelineCapacity : int, orderBerichten : boolean) </td></tr>
 <tr><td align="left" balign="left"> + updateBerichtenDbXml(berichten : List&lt;Bericht&gt;, transformer : RsgbTransformer) </td></tr>
 <tr><td align="left" balign="left"> + getOldBericht(nieuwBericht : Bericht, loadLog : StringBuilder) : Bericht </td></tr>
+<tr><td align="left" balign="left"> + getOldBericht(objectRef : String, loadLog : StringBuilder) : Bericht </td></tr>
+<tr><td align="left" balign="left"> + getPreviousBericht(ber : Bericht, loadLog : StringBuilder) : Bericht </td></tr>
+<tr><td align="left" balign="left"> + getPreviousBericht(objectRef : String, datum : Date, currentBerichtId : Long, loadLog : StringBuilder) : Bericht </td></tr>
 <tr><td align="left" balign="left"> + updateBericht(b : Bericht) </td></tr>
 <tr><td align="left" balign="left"> + updateBerichtProcessing(b : Bericht) </td></tr>
 <tr><td align="left" balign="left"> + deleteByLaadProcesId(id : Long) </td></tr>
@@ -111,6 +119,8 @@ digraph G {
 <tr><td align="left" balign="left"> + loadBr(stream : InputStream, type : String, fileName : String, d : Date, listener : ProgressUpdateListener, automatischProces : Long) </td></tr>
 <tr><td align="left" balign="left"> + writeBericht(b : Bericht) </td></tr>
 <tr><td align="left" balign="left"> + updateLaadProcesStatus(lp : LaadProces, status : LaadProces.STATUS, opmerking : String) </td></tr>
+<tr><td align="left" balign="left"> + updateLaadProcesMeta(lpId : Long, klantafgiftenummer : BigInteger, contractafgiftenummer : BigInteger, artikelnummer : String, contractnummer : String, afgifteid : String, afgiftereferentie : String, bestandsreferentie : String, beschikbaar_tot : Date) </td></tr>
+<tr><td align="left" balign="left"> + updateLaadProcesBestandNaamHersteld(lp : LaadProces) </td></tr>
 <tr><td align="left" balign="left"> + emptyStagingDb() </td></tr>
 <tr><td align="left" balign="left"> + getBerichten(page : int, start : int, limit : int, sort : String, dir : String, filterSoort : String, filterStatus : String) : List&lt;Bericht&gt; </td></tr>
 <tr><td align="left" balign="left"> + getCountBerichten(sort : String, dir : String, filterSoort : String, filterStatus : String) : long </td></tr>
@@ -123,6 +133,6 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./StagingProxy.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.BrmoFramework NAVASSOC nl.b3p.brmo.loader.StagingProxy
-	c1155:p -> c1156:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c1614:p -> c1615:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

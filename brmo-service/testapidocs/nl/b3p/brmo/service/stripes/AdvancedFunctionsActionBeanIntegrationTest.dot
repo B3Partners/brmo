@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBeanIntegrationTest
-	c76 [label=<<table title="nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBeanIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./AdvancedFunctionsActionBeanIntegrationTest.html">
+	c121 [label=<<table title="nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBeanIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./AdvancedFunctionsActionBeanIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> AdvancedFunctionsActionBeanIntegrationTest </td></tr>
 		</table></td></tr>
@@ -23,10 +23,11 @@ digraph G {
 <tr><td align="left" balign="left"> + setUp() </td></tr>
 <tr><td align="left" balign="left"> + cleanup() </td></tr>
 <tr><td align="left" balign="left"> + testReplayBRKVerwijderBerichten() </td></tr>
+<tr><td align="left" balign="left"> + testFillbestandsNaamHersteld() </td></tr>
 		</table></td></tr>
 		</table>>, URL="./AdvancedFunctionsActionBeanIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.testutil.TestUtil
-	c79 [label=<<table title="nl.b3p.brmo.service.testutil.TestUtil" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../testutil/TestUtil.html">
+	c124 [label=<<table title="nl.b3p.brmo.service.testutil.TestUtil" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../testutil/TestUtil.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> TestUtil </font></td></tr>
 		</table></td></tr>
@@ -35,6 +36,9 @@ digraph G {
 <tr><td align="left" balign="left"> # isOracle : boolean </td></tr>
 <tr><td align="left" balign="left"> # isMsSQL : boolean </td></tr>
 <tr><td align="left" balign="left"> # isPostgis : boolean </td></tr>
+<tr><td align="left" balign="left"> # dsStaging : BasicDataSource </td></tr>
+<tr><td align="left" balign="left"> # dsRsgb : BasicDataSource </td></tr>
+<tr><td align="left" balign="left"> # dsRsgbBgt : BasicDataSource </td></tr>
 <tr><td align="left" balign="left"> + name : TestName </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
@@ -44,17 +48,103 @@ digraph G {
 <tr><td align="left" balign="left"> + loadDBprop() </td></tr>
 <tr><td align="left" balign="left"> + startTest() </td></tr>
 <tr><td align="left" balign="left"> + endTest() </td></tr>
-<tr><td align="left" balign="left"> # setupJNDI(dsRsgb : BasicDataSource, dsStaging : BasicDataSource) </td></tr>
+<tr><td align="left" balign="left"> # setupJNDI() </td></tr>
 		</table></td></tr>
 		</table>>, URL="../testutil/TestUtil.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBeanIntegrationTest extends nl.b3p.brmo.service.testutil.TestUtil
-	c79:p -> c76:p [dir=back,arrowtail=empty];
+	c124:p -> c121:p [dir=back,arrowtail=empty];
 	// nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBeanIntegrationTest NAVASSOC nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBean
-	c76:p -> c84:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c121:p -> c131:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBeanIntegrationTest NAVASSOC nl.b3p.brmo.service.stripes.UpdatesActionBean
+	c121:p -> c132:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBeanIntegrationTest NAVASSOC nl.b3p.brmo.loader.BrmoFramework
-	c76:p -> c85:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c121:p -> c133:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.brmo.service.stripes.UpdatesActionBean
+	c132 [label=<<table title="nl.b3p.brmo.service.stripes.UpdatesActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> UpdatesActionBean </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + UpdatesActionBean() </td></tr>
+<tr><td align="left" balign="left"> + getContext() : ActionBeanContext </td></tr>
+<tr><td align="left" balign="left"> + setContext(arg0 : ActionBeanContext) </td></tr>
+<tr><td align="left" balign="left"> + getProgress() : double </td></tr>
+<tr><td align="left" balign="left"> + setProgress(arg0 : double) </td></tr>
+<tr><td align="left" balign="left"> + getTotal() : long </td></tr>
+<tr><td align="left" balign="left"> + setTotal(arg0 : long) </td></tr>
+<tr><td align="left" balign="left"> + getProcessed() : long </td></tr>
+<tr><td align="left" balign="left"> + setProcessed(arg0 : long) </td></tr>
+<tr><td align="left" balign="left"> + isComplete() : boolean </td></tr>
+<tr><td align="left" balign="left"> + setComplete(arg0 : boolean) </td></tr>
+<tr><td align="left" balign="left"> + getStart() : Date </td></tr>
+<tr><td align="left" balign="left"> + setStart(arg0 : Date) </td></tr>
+<tr><td align="left" balign="left"> + getUpdate() : Date </td></tr>
+<tr><td align="left" balign="left"> + setUpdate(arg0 : Date) </td></tr>
+<tr><td align="left" balign="left"> + getExceptionStacktrace() : String </td></tr>
+<tr><td align="left" balign="left"> + setExceptionStacktrace(arg0 : String) </td></tr>
+<tr><td align="left" balign="left"> + total(arg0 : long) </td></tr>
+<tr><td align="left" balign="left"> + progress(arg0 : long) </td></tr>
+<tr><td align="left" balign="left"> + exception(arg0 : Throwable) </td></tr>
+<tr><td align="left" balign="left"> + getUpdateProcesses() : List&lt;UpdateProcess&gt; </td></tr>
+<tr><td align="left" balign="left"> + setUpdateProcesses(arg0 : List&lt;UpdateProcess&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getUpdateProcessName() : String </td></tr>
+<tr><td align="left" balign="left"> + setUpdateProcessName(arg0 : String) </td></tr>
+<tr><td align="left" balign="left"> + populateUpdateProcesses() </td></tr>
+<tr><td align="left" balign="left"> + form() : Resolution </td></tr>
+<tr><td align="left" balign="left"> + update() : Resolution </td></tr>
+		</table></td></tr>
+		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBean
+	c131 [label=<<table title="nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> AdvancedFunctionsActionBean </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + AdvancedFunctionsActionBean() </td></tr>
+<tr><td align="left" balign="left"> + getContext() : ActionBeanContext </td></tr>
+<tr><td align="left" balign="left"> + setContext(arg0 : ActionBeanContext) </td></tr>
+<tr><td align="left" balign="left"> + getProgress() : double </td></tr>
+<tr><td align="left" balign="left"> + setProgress(arg0 : double) </td></tr>
+<tr><td align="left" balign="left"> + getTotal() : long </td></tr>
+<tr><td align="left" balign="left"> + setTotal(arg0 : long) </td></tr>
+<tr><td align="left" balign="left"> + getProcessed() : long </td></tr>
+<tr><td align="left" balign="left"> + setProcessed(arg0 : long) </td></tr>
+<tr><td align="left" balign="left"> + isComplete() : boolean </td></tr>
+<tr><td align="left" balign="left"> + setComplete(arg0 : boolean) </td></tr>
+<tr><td align="left" balign="left"> + getStart() : Date </td></tr>
+<tr><td align="left" balign="left"> + setStart(arg0 : Date) </td></tr>
+<tr><td align="left" balign="left"> + getUpdate() : Date </td></tr>
+<tr><td align="left" balign="left"> + setUpdate(arg0 : Date) </td></tr>
+<tr><td align="left" balign="left"> + getExceptionStacktrace() : String </td></tr>
+<tr><td align="left" balign="left"> + setExceptionStacktrace(arg0 : String) </td></tr>
+<tr><td align="left" balign="left"> + total(arg0 : long) </td></tr>
+<tr><td align="left" balign="left"> + progress(arg0 : long) </td></tr>
+<tr><td align="left" balign="left"> + exception(arg0 : Throwable) </td></tr>
+<tr><td align="left" balign="left"> + getAdvancedFunctionProcesses() : List&lt;AdvancedFunctionProcess&gt; </td></tr>
+<tr><td align="left" balign="left"> + setAdvancedFunctionProcesses(arg0 : List&lt;AdvancedFunctionProcess&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getAdvancedFunctionProcessName() : String </td></tr>
+<tr><td align="left" balign="left"> + setAdvancedFunctionProcessName(arg0 : String) </td></tr>
+<tr><td align="left" balign="left"> + populateAdvancedFunctionProcesses() </td></tr>
+<tr><td align="left" balign="left"> + form() : Resolution </td></tr>
+<tr><td align="left" balign="left"> + perform() : Resolution </td></tr>
+<tr><td align="left" balign="left"> + repairBRKMutatieBerichten(arg0 : String) </td></tr>
+<tr><td align="left" balign="left"> + repairBAGMutatieBerichten(arg0 : String) </td></tr>
+<tr><td align="left" balign="left"> + exportBRKMutatieBerichten(arg0 : String) </td></tr>
+<tr><td align="left" balign="left"> + cleanupBerichten(arg0 : String, arg1 : String) </td></tr>
+<tr><td align="left" balign="left"> + deleteBerichten(arg0 : String, arg1 : String) </td></tr>
+<tr><td align="left" balign="left"> + replayBRKVerwijderBerichten(arg0 : String, arg1 : String) </td></tr>
+<tr><td align="left" balign="left"> + fixNHRTypering(arg0 : String, arg1 : String) </td></tr>
+<tr><td align="left" balign="left"> + fillbestandsNaamHersteld(arg0 : String, arg1 : String) </td></tr>
+		</table></td></tr>
+		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.BrmoFramework
-	c85 [label=<<table title="nl.b3p.brmo.loader.BrmoFramework" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+	c133 [label=<<table title="nl.b3p.brmo.loader.BrmoFramework" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BrmoFramework </td></tr>
 		</table></td></tr>
@@ -119,51 +209,9 @@ digraph G {
 <tr><td align="left" balign="left"> + getCountBerichten(arg0 : String, arg1 : String, arg2 : String, arg3 : String) : long </td></tr>
 <tr><td align="left" balign="left"> + getCountLaadProcessen(arg0 : String, arg1 : String, arg2 : String, arg3 : String) : long </td></tr>
 <tr><td align="left" balign="left"> + getCountJob() : long </td></tr>
-		</table></td></tr>
-		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBean
-	c84 [label=<<table title="nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> AdvancedFunctionsActionBean </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + AdvancedFunctionsActionBean() </td></tr>
-<tr><td align="left" balign="left"> + getContext() : ActionBeanContext </td></tr>
-<tr><td align="left" balign="left"> + setContext(arg0 : ActionBeanContext) </td></tr>
-<tr><td align="left" balign="left"> + getProgress() : double </td></tr>
-<tr><td align="left" balign="left"> + setProgress(arg0 : double) </td></tr>
-<tr><td align="left" balign="left"> + getTotal() : long </td></tr>
-<tr><td align="left" balign="left"> + setTotal(arg0 : long) </td></tr>
-<tr><td align="left" balign="left"> + getProcessed() : long </td></tr>
-<tr><td align="left" balign="left"> + setProcessed(arg0 : long) </td></tr>
-<tr><td align="left" balign="left"> + isComplete() : boolean </td></tr>
-<tr><td align="left" balign="left"> + setComplete(arg0 : boolean) </td></tr>
-<tr><td align="left" balign="left"> + getStart() : Date </td></tr>
-<tr><td align="left" balign="left"> + setStart(arg0 : Date) </td></tr>
-<tr><td align="left" balign="left"> + getUpdate() : Date </td></tr>
-<tr><td align="left" balign="left"> + setUpdate(arg0 : Date) </td></tr>
-<tr><td align="left" balign="left"> + getExceptionStacktrace() : String </td></tr>
-<tr><td align="left" balign="left"> + setExceptionStacktrace(arg0 : String) </td></tr>
-<tr><td align="left" balign="left"> + total(arg0 : long) </td></tr>
-<tr><td align="left" balign="left"> + progress(arg0 : long) </td></tr>
-<tr><td align="left" balign="left"> + exception(arg0 : Throwable) </td></tr>
-<tr><td align="left" balign="left"> + getAdvancedFunctionProcesses() : List&lt;AdvancedFunctionProcess&gt; </td></tr>
-<tr><td align="left" balign="left"> + setAdvancedFunctionProcesses(arg0 : List&lt;AdvancedFunctionProcess&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getAdvancedFunctionProcessName() : String </td></tr>
-<tr><td align="left" balign="left"> + setAdvancedFunctionProcessName(arg0 : String) </td></tr>
-<tr><td align="left" balign="left"> + populateAdvancedFunctionProcesses() </td></tr>
-<tr><td align="left" balign="left"> + form() : Resolution </td></tr>
-<tr><td align="left" balign="left"> + perform() : Resolution </td></tr>
-<tr><td align="left" balign="left"> + repairBRKMutatieBerichten(arg0 : String) </td></tr>
-<tr><td align="left" balign="left"> + repairBAGMutatieBerichten(arg0 : String) </td></tr>
-<tr><td align="left" balign="left"> + exportBRKMutatieBerichten(arg0 : String) </td></tr>
-<tr><td align="left" balign="left"> + cleanupBerichten(arg0 : String, arg1 : String) </td></tr>
-<tr><td align="left" balign="left"> + deleteBerichten(arg0 : String, arg1 : String) </td></tr>
-<tr><td align="left" balign="left"> + replayBRKVerwijderBerichten(arg0 : String, arg1 : String) </td></tr>
-<tr><td align="left" balign="left"> + fixNHRTypering(arg0 : String, arg1 : String) </td></tr>
+<tr><td align="left" balign="left"> + updateLaadProcesMeta(arg0 : Long, arg1 : BigInteger, arg2 : BigInteger, arg3 : String, arg4 : String, arg5 : String, arg6 : String, arg7 : String, arg8 : Date) </td></tr>
+<tr><td align="left" balign="left"> + checkAfgiftelijst(arg0 : String, arg1 : String) : File </td></tr>
+<tr><td align="left" balign="left"> + checkAfgiftelijst(arg0 : String, arg1 : InputStream, arg2 : File) : File </td></tr>
 		</table></td></tr>
 		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }

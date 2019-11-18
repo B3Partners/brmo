@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>Pand.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO loader</a> &gt; <a href="../index.html" class="el_bundle">bgt-gml-loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.loader.gml.light</a> &gt; <span class="el_source">Pand.java</span></div><h1>Pand.java</h1><pre class="source lang-java linenums">/*
+*  Copyright (C) 2019 B3Partners B.V.
+*
+* Gegenereerde code, niet aanpassen.
+*
+* Gegenereerd op: 2019-11-18T13:39:36.099+01:00
+*/
+package nl.b3p.brmo.loader.gml.light;
+        
+/** BGT Light GML transformer voor RSGB 3.0 objecttype Pand. */
+public class Pand extends GMLLightFeatureTransformerImpl {
+
+<span class="nc" id="L13">    public Pand() {</span>
+<span class="nc" id="L14">        attrMapping.put(&quot;identificatieBAGPND&quot;, &quot;identif_bagpnd&quot;);</span>
+<span class="nc" id="L15">        attrMapping.put(&quot;geometrie2d&quot;, DEFAULT_GEOM_NAME);</span>
+<span class="nc" id="L16">        attrMapping.put(&quot;nummeraanduidingreeks_1.tekst&quot;, &quot;nrar_1_tekst&quot;);</span>
+<span class="nc" id="L17">        attrMapping.put(&quot;nummeraanduidingreeks_1.positie_1.plaatsingspunt&quot;, &quot;nrar_1_pos_1_pnt&quot;);</span>
+<span class="nc" id="L18">        attrMapping.put(&quot;nummeraanduidingreeks_1.positie_1.hoek&quot;, &quot;nrar_1_pos_1_hoek&quot;);</span>
+<span class="nc" id="L19">        attrMapping.put(&quot;nummeraanduidingreeks_1.positie_2.plaatsingspunt&quot;, &quot;nrar_1_pos_2_pnt&quot;);</span>
+<span class="nc" id="L20">        attrMapping.put(&quot;nummeraanduidingreeks_1.positie_2.hoek&quot;, &quot;nrar_1_pos_2_hoek&quot;);</span>
+<span class="nc" id="L21">        attrMapping.put(&quot;nummeraanduidingreeks_1.positie_3.plaatsingspunt&quot;, &quot;nrar_1_pos_3_pnt&quot;);</span>
+<span class="nc" id="L22">        attrMapping.put(&quot;nummeraanduidingreeks_1.positie_3.hoek&quot;, &quot;nrar_1_pos_3_hoek&quot;);</span>
+<span class="nc" id="L23">        attrMapping.put(&quot;nummeraanduidingreeks_1.identificatieBAGVBOLaagsteHuisnummer&quot;, &quot;nrar_1_id_bagvbo_min_huisnr&quot;);</span>
+<span class="nc" id="L24">        attrMapping.put(&quot;nummeraanduidingreeks_1.identificatieBAGVBOHoogsteHuisnummer&quot;, &quot;nrar_1_id_bagvbo_max_huisnr&quot;);</span>
+<span class="nc" id="L25">        attrMapping.put(&quot;nummeraanduidingreeks_2.tekst&quot;, &quot;nrar_2_tekst&quot;);</span>
+<span class="nc" id="L26">        attrMapping.put(&quot;nummeraanduidingreeks_2.positie_1.plaatsingspunt&quot;, &quot;nrar_2_pos_1_pnt&quot;);</span>
+<span class="nc" id="L27">        attrMapping.put(&quot;nummeraanduidingreeks_2.positie_1.hoek&quot;, &quot;nrar_2_pos_1_hoek&quot;);</span>
+<span class="nc" id="L28">        attrMapping.put(&quot;nummeraanduidingreeks_2.positie_2.plaatsingspunt&quot;, &quot;nrar_2_pos_2_pnt&quot;);</span>
+<span class="nc" id="L29">        attrMapping.put(&quot;nummeraanduidingreeks_2.positie_2.hoek&quot;, &quot;nrar_2_pos_2_hoek&quot;);</span>
+<span class="nc" id="L30">        attrMapping.put(&quot;nummeraanduidingreeks_2.positie_3.plaatsingspunt&quot;, &quot;nrar_2_pos_3_pnt&quot;);</span>
+<span class="nc" id="L31">        attrMapping.put(&quot;nummeraanduidingreeks_2.positie_3.hoek&quot;, &quot;nrar_2_pos_3_hoek&quot;);</span>
+<span class="nc" id="L32">        attrMapping.put(&quot;nummeraanduidingreeks_2.identificatieBAGVBOLaagsteHuisnummer&quot;, &quot;nrar_2_id_bagvbo_min_huisnr&quot;);</span>
+<span class="nc" id="L33">        attrMapping.put(&quot;nummeraanduidingreeks_2.identificatieBAGVBOHoogsteHuisnummer&quot;, &quot;nrar_2_id_bagvbo_max_huisnr&quot;);</span>
+<span class="nc" id="L34">        attrMapping.put(&quot;nummeraanduidingreeks_3.tekst&quot;, &quot;nrar_3_tekst&quot;);</span>
+<span class="nc" id="L35">        attrMapping.put(&quot;nummeraanduidingreeks_3.positie_1.plaatsingspunt&quot;, &quot;nrar_3_pos_1_pnt&quot;);</span>
+<span class="nc" id="L36">        attrMapping.put(&quot;nummeraanduidingreeks_3.positie_1.hoek&quot;, &quot;nrar_3_pos_1_hoek&quot;);</span>
+<span class="nc" id="L37">        attrMapping.put(&quot;nummeraanduidingreeks_3.positie_2.plaatsingspunt&quot;, &quot;nrar_3_pos_2_pnt&quot;);</span>
+<span class="nc" id="L38">        attrMapping.put(&quot;nummeraanduidingreeks_3.positie_2.hoek&quot;, &quot;nrar_3_pos_2_hoek&quot;);</span>
+<span class="nc" id="L39">        attrMapping.put(&quot;nummeraanduidingreeks_3.positie_3.plaatsingspunt&quot;, &quot;nrar_3_pos_3_pnt&quot;);</span>
+<span class="nc" id="L40">        attrMapping.put(&quot;nummeraanduidingreeks_3.positie_3.hoek&quot;, &quot;nrar_3_pos_3_hoek&quot;);</span>
+<span class="nc" id="L41">        attrMapping.put(&quot;nummeraanduidingreeks_3.identificatieBAGVBOLaagsteHuisnummer&quot;, &quot;nrar_3_id_bagvbo_min_huisnr&quot;);</span>
+<span class="nc" id="L42">        attrMapping.put(&quot;nummeraanduidingreeks_3.identificatieBAGVBOHoogsteHuisnummer&quot;, &quot;nrar_3_id_bagvbo_max_huisnr&quot;);</span>
+
+<span class="nc" id="L44">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

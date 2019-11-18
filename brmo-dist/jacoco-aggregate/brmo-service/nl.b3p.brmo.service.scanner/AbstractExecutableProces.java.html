@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>AbstractExecutableProces.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO distributie</a> &gt; <a href="../index.html" class="el_bundle">brmo-service</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.service.scanner</a> &gt; <span class="el_source">AbstractExecutableProces.java</span></div><h1>AbstractExecutableProces.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2015 B3Partners B.V.
+ */
+package nl.b3p.brmo.service.scanner;
+
+import java.io.File;
+import java.util.Date;
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import nl.b3p.brmo.loader.util.BrmoException;
+import nl.b3p.brmo.persistence.staging.AutomatischProces;
+import nl.b3p.brmo.persistence.staging.BAGScannerProces;
+import nl.b3p.brmo.persistence.staging.BGTLightOphaalProces;
+import nl.b3p.brmo.persistence.staging.BGTLightScannerProces;
+import nl.b3p.brmo.persistence.staging.BRKScannerProces;
+import nl.b3p.brmo.persistence.staging.BerichtDoorstuurProces;
+import nl.b3p.brmo.persistence.staging.BerichtTransformatieProces;
+import nl.b3p.brmo.persistence.staging.GDS2OphaalProces;
+import nl.b3p.brmo.persistence.staging.LaadProces;
+import nl.b3p.brmo.persistence.staging.LaadprocesTransformatieProces;
+import nl.b3p.brmo.persistence.staging.MailRapportageProces;
+import nl.b3p.brmo.persistence.staging.MaterializedViewRefresh;
+import nl.b3p.brmo.persistence.staging.WebMirrorBAGScannerProces;
+import nl.b3p.brmo.persistence.staging.BerichtstatusRapportProces;
+import nl.b3p.brmo.persistence.staging.AfgifteNummerScannerProces;
+import nl.b3p.brmo.persistence.staging.TopNLScannerProces;
+import static nl.b3p.brmo.service.scanner.ProcesExecutable.ProcessingImple.TopNLScannerProces;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.stripesstuff.stripersist.Stripersist;
+
+/**
+ * Abstract to make sure comparisons are done right.
+ *
+ * @author Mark Prins
+ */
+<span class="nc" id="L41">public abstract class AbstractExecutableProces implements ProcesExecutable {</span>
+
+<span class="nc" id="L43">    private static final Log log = LogFactory.getLog(AbstractExecutableProces.class);</span>
+
+    /**
+     * maximale lengte waarna log wordt ingekort, moet een veelvoud van 10 zijn.
+     */
+    protected static final int OLD_LOG_LENGTH = 3000;
+
+<span class="nc" id="L50">    volatile boolean active = false;</span>
+
+    /**
+     * ProcesExecutable factory.
+     *
+     * @param config the type of {@code ProcesExecutable} to create.
+     * @return an instance of the specified type
+     *
+     */
+    public static ProcesExecutable getProces(AutomatischProces config) {
+<span class="nc" id="L60">        ProcessingImple imple = ProcessingImple.valueOf(config.getClass().getSimpleName());</span>
+<span class="nc bnc" id="L61" title="All 15 branches missed.">        switch (imple) {</span>
+            case BAGScannerProces:
+<span class="nc" id="L63">                return new BAGDirectoryScanner((BAGScannerProces) config);</span>
+            case BRKScannerProces:
+<span class="nc" id="L65">                return new BRKDirectoryScanner((BRKScannerProces) config);</span>
+            case MailRapportageProces:
+<span class="nc" id="L67">                return new MailRapportage((MailRapportageProces) config);</span>
+            case GDS2OphaalProces:
+<span class="nc" id="L69">                return new GDS2OphalenProces((GDS2OphaalProces) config);</span>
+            case BerichtTransformatieProces:
+<span class="nc" id="L71">                return new BerichtTransformatieUitvoeren((BerichtTransformatieProces) config);</span>
+            case BerichtDoorstuurProces:
+<span class="nc" id="L73">                return new BerichtDoorsturenProces((BerichtDoorstuurProces)config);</span>
+            case WebMirrorBAGScannerProces:
+<span class="nc" id="L75">                return new WebMirrorBAGDirectoryScanner((WebMirrorBAGScannerProces) config);</span>
+            case BGTLightOphaalProces:
+<span class="nc" id="L77">                return new BGTLightOphalenProces((BGTLightOphaalProces) config);</span>
+            case BGTLightScannerProces:
+<span class="nc" id="L79">                return new BGTLightDirectoryScanner((BGTLightScannerProces) config);</span>
+            case LaadprocesTransformatieProces:
+<span class="nc" id="L81">                return new LaadprocesTransformatieUitvoeren((LaadprocesTransformatieProces) config);</span>
+            case MaterializedViewRefresh:
+<span class="nc" id="L83">                return new MaterializedViewRefreshUitvoeren((MaterializedViewRefresh) config);</span>
+            case BerichtstatusRapportProces:
+<span class="nc" id="L85">                return new BerichtstatusRapport((BerichtstatusRapportProces) config);</span>
+            case TopNLScannerProces:
+<span class="nc" id="L87">                return new TopNLDirectoryScanner((TopNLScannerProces) config);</span>
+            case AfgifteNummerScannerProces:
+<span class="nc" id="L89">                return new AfgifteNummerScanner((AfgifteNummerScannerProces) config);</span>
+            default:
+<span class="nc" id="L91">                throw new IllegalArgumentException(imple.name() + &quot; is is geen ondersteund proces...&quot;);</span>
+        }
+    }
+
+    /**
+     * {@inheritDoc }
+     */
+    @Override
+    public boolean isRunning() {
+<span class="nc" id="L100">        return this.active;</span>
+    }
+
+    /**
+     * {@inheritDoc }
+     */
+    @Override
+    public void stop() {
+<span class="nc" id="L108">        this.active = false;</span>
+<span class="nc" id="L109">    }</span>
+
+    /**
+     * {@inheritDoc }
+     */
+    @Override
+    public void run() {
+<span class="nc bnc" id="L116" title="All 2 branches missed.">        while (active) {</span>
+            try {
+<span class="nc" id="L118">                this.execute();</span>
+                // TODO
+<span class="nc" id="L120">                Thread.sleep(5000);</span>
+<span class="nc" id="L121">            } catch (InterruptedException | BrmoException e) {</span>
+<span class="nc" id="L122">                log.error(e.getMessage(), e);</span>
+<span class="nc" id="L123">            }</span>
+        }
+<span class="nc" id="L125">    }</span>
+
+    /**
+     * bepaal of het bestand een duplicaat is op basis van de bestandsnaam en
+     * soort.
+     *
+     * De flow in
+     * &lt;pre&gt;
+     * loadFromFile(bericht)
+     * 	→ stagingProxy.loadBr(InputStream stream, String type, String fileName,...)
+     * 	→ snapshot reader van de input stream parsed het bericht in een BrkSnapshotXMLReader of BagMutatieXMLReader die bericht voor bericht uitgelezen kunnen worden
+     * 	→ bepaal of laadproces bestaat stagingProxy.laadProcesExists(filenaam/datum)
+     * 	→ laadproces in database maken stagingProxy.writeLaadProces(bestand_naam/bestand_datum/soort/gebied/opmerking/status/status_datum/contact_email)
+     * 	→ uitlezen xml bericht als
+     * 	→ !stagingProxy.berichtExists(laadprocesid/object_ref/datum/volgordenummer)
+     * 	→ stagingProxy.writeBericht(b)
+     * &lt;/pre&gt;
+     *
+     * @param input een input bestand
+     * @param soort het type registratie, bijvoorbeeld
+     * {@value nl.b3p.brmo.loader.BrmoFramework#BR_BRK}
+     *
+     * @return {@code true} als het bestand een duplicaat betreft, anders
+     * {@code false}
+     *
+     */
+    protected boolean isDuplicaatLaadProces(File input, String soort) {
+<span class="nc" id="L152">        log.debug(&quot;Controle voor duplicaat laadproces, soort: '&quot; + soort + &quot;', bestand: &quot; + input.getName());</span>
+<span class="nc" id="L153">        final String name = getBestandsNaam(input);</span>
+<span class="nc" id="L154">        EntityManager em = Stripersist.getEntityManager();</span>
+<span class="nc" id="L155">        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();</span>
+<span class="nc" id="L156">        CriteriaQuery&lt;LaadProces&gt; criteriaQuery = criteriaBuilder.createQuery(LaadProces.class);</span>
+<span class="nc" id="L157">        Root&lt;LaadProces&gt; from = criteriaQuery.from(LaadProces.class);</span>
+<span class="nc" id="L158">        CriteriaQuery&lt;LaadProces&gt; select = criteriaQuery.select(from);</span>
+<span class="nc" id="L159">        Predicate _bestand_naam = criteriaBuilder.equal(from.get(&quot;bestand_naam&quot;), name);</span>
+<span class="nc" id="L160">        Predicate _soort = criteriaBuilder.equal(from.get(&quot;soort&quot;), soort);</span>
+<span class="nc" id="L161">        criteriaQuery.where(criteriaBuilder.and(_bestand_naam, _soort));</span>
+<span class="nc" id="L162">        TypedQuery&lt;LaadProces&gt; typedQuery = em.createQuery(select);</span>
+
+<span class="nc bnc" id="L164" title="All 2 branches missed.">        return !typedQuery.getResultList().isEmpty();</span>
+    }
+
+    /**
+     * bepaal bestandnaam.
+     *
+     * @param f het bestand
+     * @return de naam van het bestand tbv oa. duplicaat controle
+     * @see #isDuplicaatLaadProces(java.io.File, java.lang.String)
+     */
+    protected String getBestandsNaam(File f) {
+<span class="nc" id="L175">        return f.getAbsolutePath();</span>
+    }
+    
+    protected Date getBestandsDatum(File f) {
+<span class="nc" id="L179">        return new Date(f.lastModified());</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

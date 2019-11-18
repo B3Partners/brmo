@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MutatieEntry.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO soap bevragingsservice</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.soap.eigendom</a> &gt; <span class="el_source">MutatieEntry.java</span></div><h1>MutatieEntry.java</h1><pre class="source lang-java linenums">package nl.b3p.brmo.soap.eigendom;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.datatype.XMLGregorianCalendar;
+
+/**
+ * &lt;p&gt;
+ * Java class for mutatieEntry complex type.
+ *
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = &quot;&quot;, propOrder = {
+    &quot;objectRef&quot;,
+    &quot;volgnummer&quot;,
+    &quot;datum&quot;,
+    &quot;statusDatum&quot;
+})
+<span class="nc" id="L22">public class MutatieEntry {</span>
+
+    @XmlElement(name = &quot;object_ref&quot;, required = true)
+    private String objectRef;
+    @XmlElement(required = true)
+    private String volgnummer;
+    @XmlElement(required = true)
+    @XmlSchemaType(name = &quot;dateTime&quot;)
+    private XMLGregorianCalendar datum;
+    @XmlElement(name = &quot;status_datum&quot;, required = true)
+    @XmlSchemaType(name = &quot;dateTime&quot;)
+    private XMLGregorianCalendar statusDatum;
+
+    /**
+     * @return the objectRef
+     */
+    public String getObjectRef() {
+<span class="nc" id="L39">        return objectRef;</span>
+    }
+
+    /**
+     * @param objectRef the objectRef to set
+     */
+    public void setObjectRef(String objectRef) {
+<span class="nc" id="L46">        this.objectRef = objectRef;</span>
+<span class="nc" id="L47">    }</span>
+
+    /**
+     * @return the volgnummer
+     */
+    public String getVolgnummer() {
+<span class="nc" id="L53">        return volgnummer;</span>
+    }
+
+    /**
+     * @param volgnummer the volgnummer to set
+     */
+    public void setVolgnummer(String volgnummer) {
+<span class="nc" id="L60">        this.volgnummer = volgnummer;</span>
+<span class="nc" id="L61">    }</span>
+
+    /**
+     * @return the datum
+     */
+    public XMLGregorianCalendar getDatum() {
+<span class="nc" id="L67">        return datum;</span>
+    }
+
+    /**
+     * @param datum the datum to set
+     */
+    public void setDatum(XMLGregorianCalendar datum) {
+<span class="nc" id="L74">        this.datum = datum;</span>
+<span class="nc" id="L75">    }</span>
+
+    /**
+     * @return the statusDatum
+     */
+    public XMLGregorianCalendar getStatusDatum() {
+<span class="nc" id="L81">        return statusDatum;</span>
+    }
+
+    /**
+     * @param statusDatum the statusDatum to set
+     */
+    public void setStatusDatum(XMLGregorianCalendar statusDatum) {
+<span class="nc" id="L88">        this.statusDatum = statusDatum;</span>
+<span class="nc" id="L89">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

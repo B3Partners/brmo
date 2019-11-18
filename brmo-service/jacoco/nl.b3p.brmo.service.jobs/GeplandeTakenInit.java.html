@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GeplandeTakenInit.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO service</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.service.jobs</a> &gt; <span class="el_source">GeplandeTakenInit.java</span></div><h1>GeplandeTakenInit.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2015 B3Partners B.V.
+ */
+package nl.b3p.brmo.service.jobs;
+
+import java.io.IOException;
+import javax.servlet.Servlet;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+
+import java.text.ParseException;
+import java.util.List;
+import java.util.Properties;
+import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import nl.b3p.brmo.persistence.staging.AutomatischProces;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.quartz.CronExpression;
+import org.quartz.CronScheduleBuilder;
+import org.quartz.CronTrigger;
+import org.quartz.JobBuilder;
+import org.quartz.JobDetail;
+import org.quartz.Scheduler;
+import org.quartz.SchedulerException;
+import org.quartz.TriggerBuilder;
+import org.quartz.impl.StdSchedulerFactory;
+import org.stripesstuff.stripersist.Stripersist;
+
+/**
+ * Initialiseer de Quartz scheduler. Vanwege gebruik van de Stripersist entity
+ * manager kan dat pas na initialisatie van de Stripes stack en dat gebeurt in
+ * een ServletFilter, dus deze servlet moet een auto-start optie krijgen in
+ * web.xml waardoor dat na het Filter gebeurt.
+ *
+ * @author mprins
+ */
+<span class="nc" id="L42">public class GeplandeTakenInit implements Servlet {</span>
+
+<span class="nc" id="L44">    private static final Log log = LogFactory.getLog(GeplandeTakenInit.class);</span>
+    private static Scheduler scheduler;
+
+    public static final String JOBKEY_PREFIX = &quot;proces_&quot;;
+
+    public static final String TRIGGERKEY_PREFIX = &quot;trigger_&quot;;
+
+    public static final String SCHEDULER_NAME = &quot;BRMOgeplandeTaken&quot;;
+
+    public static final String QUARTZ_FACTORY_KEY = &quot;BRMO_qtz_factory&quot;;
+
+    private ServletConfig config;
+
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+<span class="nc" id="L59">        this.config = config;</span>
+        try {
+<span class="nc" id="L61">            this.setupQuartz();</span>
+<span class="nc" id="L62">        } catch (SchedulerException ex) {</span>
+<span class="nc" id="L63">            log.error(ex);</span>
+<span class="nc" id="L64">        }</span>
+<span class="nc" id="L65">    }</span>
+
+    @Override
+    public ServletConfig getServletConfig() {
+<span class="nc" id="L69">        return config;</span>
+    }
+
+    @Override
+    public void service(ServletRequest req, ServletResponse res) throws ServletException, IOException {
+<span class="nc" id="L74">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;);</span>
+    }
+
+    @Override
+    public String getServletInfo() {
+<span class="nc" id="L79">        return &quot;Initialiseer Quartz scheduler voor BRMO&quot;;</span>
+    }
+
+    @Override
+    public void destroy() {
+        try {
+<span class="nc" id="L85">            destroyQuartz();</span>
+<span class="nc" id="L86">        } catch (SchedulerException ex) {</span>
+<span class="nc" id="L87">            log.warn(ex);</span>
+<span class="nc" id="L88">        }</span>
+<span class="nc" id="L89">    }</span>
+
+    private void destroyQuartz() throws SchedulerException {
+<span class="nc bnc" id="L92" title="All 2 branches missed.">        if (scheduler != null) {</span>
+<span class="nc" id="L93">            scheduler.shutdown(true);</span>
+        }
+<span class="nc" id="L95">    }</span>
+
+    private void setupQuartz() throws SchedulerException {
+<span class="nc" id="L98">        Properties props = new Properties();</span>
+<span class="nc" id="L99">        props.put(&quot;org.quartz.scheduler.instanceName&quot;, SCHEDULER_NAME);</span>
+<span class="nc" id="L100">        String threadCount = this.getServletConfig().getServletContext().getInitParameter(&quot;quartz.threadCount&quot;);</span>
+<span class="nc bnc" id="L101" title="All 4 branches missed.">        if (threadCount != null &amp;&amp; (Integer.parseInt(threadCount) &gt; 1)) {</span>
+<span class="nc" id="L102">            log.warn(&quot;Instellen van quartz threadcount op niet-default waarde van &quot; + threadCount</span>
+                    + &quot; Gebruiker moet zorg dragen dat er geen overlappende transformatie- of GDS2 processen van eenzelfde soort zijn.&quot;);
+<span class="nc" id="L104">            props.put(&quot;org.quartz.threadPool.threadCount&quot;, threadCount);</span>
+        } else {
+<span class="nc" id="L106">            props.put(&quot;org.quartz.threadPool.threadCount&quot;, &quot;1&quot;);</span>
+        }
+<span class="nc" id="L108">        props.put(&quot;org.quartz.scheduler.interruptJobsOnShutdownWithWait&quot;, &quot;true&quot;);</span>
+<span class="nc" id="L109">        props.put(&quot;org.quartz.jobStore.class&quot;, &quot;org.quartz.simpl.RAMJobStore&quot;);</span>
+<span class="nc" id="L110">        props.put(&quot;org.quartz.scheduler.skipUpdateCheck&quot;, &quot;true&quot;);</span>
+<span class="nc" id="L111">        log.debug(&quot;Start quartz scheduler met de opties: &quot; + props);</span>
+
+<span class="nc" id="L113">        StdSchedulerFactory factory = new StdSchedulerFactory(props);</span>
+<span class="nc" id="L114">        scheduler = factory.getScheduler();</span>
+<span class="nc" id="L115">        scheduler.start();</span>
+
+<span class="nc" id="L117">        Stripersist.requestInit();</span>
+<span class="nc" id="L118">        EntityManager entityManager = Stripersist.getEntityManager();</span>
+
+<span class="nc" id="L120">        CriteriaBuilder cb = entityManager.getCriteriaBuilder();</span>
+<span class="nc" id="L121">        CriteriaQuery&lt;AutomatischProces&gt; cq = cb.createQuery(AutomatischProces.class);</span>
+<span class="nc" id="L122">        Root&lt;AutomatischProces&gt; from = cq.from(AutomatischProces.class);</span>
+<span class="nc" id="L123">        cq.where(cb.isNotNull(from.get(&quot;cronExpressie&quot;)));</span>
+<span class="nc" id="L124">        List&lt;AutomatischProces&gt; procList = entityManager.createQuery(cq).getResultList();</span>
+
+<span class="nc bnc" id="L126" title="All 2 branches missed.">        for (AutomatischProces p : procList) {</span>
+<span class="nc" id="L127">            addJobDetails(scheduler, p);</span>
+<span class="nc" id="L128">        }</span>
+<span class="nc" id="L129">        this.getServletConfig().getServletContext().setAttribute(QUARTZ_FACTORY_KEY, factory);</span>
+<span class="nc" id="L130">    }</span>
+
+    /**
+     * voeg een job toe op basis van het proces.
+     *
+     * @param scheduler taakplanner van de brmo service
+     * @param p het te bewerken automatisch proces
+     * @throws SchedulerException als de bewerking mislukt
+     */
+    public static void addJobDetails(Scheduler scheduler, AutomatischProces p) throws SchedulerException {
+        try {
+<span class="nc" id="L141">            CronExpression cron = new CronExpression(p.getCronExpressie());</span>
+
+<span class="nc" id="L143">            JobDetail job = JobBuilder.newJob(AutomatischProcesJob.class)</span>
+<span class="nc" id="L144">                    .usingJobData(&quot;id&quot;, p.getId())</span>
+<span class="nc" id="L145">                    .withIdentity(JOBKEY_PREFIX + p.getId())</span>
+<span class="nc" id="L146">                    .build();</span>
+
+<span class="nc" id="L148">            CronTrigger trigger = TriggerBuilder.newTrigger()</span>
+<span class="nc" id="L149">                    .startNow()</span>
+<span class="nc" id="L150">                    .forJob(job)</span>
+<span class="nc" id="L151">                    .withIdentity(TRIGGERKEY_PREFIX + p.getId())</span>
+<span class="nc" id="L152">                    .withSchedule(CronScheduleBuilder.cronSchedule(cron))</span>
+<span class="nc" id="L153">                    .build();</span>
+<span class="nc" id="L154">            scheduler.scheduleJob(job, trigger);</span>
+
+<span class="nc" id="L156">            log.info(String.format(&quot;%s met id: %d met cron expressie %s is toegevoegd (of bijgewerkt).&quot;,</span>
+<span class="nc" id="L157">                    p.getClass().getSimpleName(), p.getId(), p.getCronExpressie()));</span>
+<span class="nc" id="L158">        } catch (ParseException ex) {</span>
+<span class="nc" id="L159">            log.warn(String.format(&quot;Ongeldige cron expressie voor %s met id %d. Het proces is niet ingepland.&quot;,</span>
+<span class="nc" id="L160">                    p.getClass().getSimpleName(), p.getId()), ex);</span>
+<span class="nc" id="L161">        }</span>
+<span class="nc" id="L162">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

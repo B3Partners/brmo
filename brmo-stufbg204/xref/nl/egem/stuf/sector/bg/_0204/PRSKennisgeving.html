@@ -28,72 +28,72 @@
 <a class="jxr_linenumber" name="L20" href="#L20">20</a>  <em class="jxr_javadoccomment"> * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.</em>
 <a class="jxr_linenumber" name="L21" href="#L21">21</a>  <em class="jxr_javadoccomment"> * </em>
 <a class="jxr_linenumber" name="L22" href="#L22">22</a>  <em class="jxr_javadoccomment"> * &lt;pre&gt;</em>
-<a class="jxr_linenumber" name="L23" href="#L23">23</a>  <em class="jxr_javadoccomment"> * &amp;lt;complexType name="PRS-kennisgeving"&gt;</em>
-<a class="jxr_linenumber" name="L24" href="#L24">24</a>  <em class="jxr_javadoccomment"> *   &amp;lt;complexContent&gt;</em>
-<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <em class="jxr_javadoccomment"> *     &amp;lt;extension base="{<a href="http://www.egem.nl/StUF/sector/bg/0204" target="alexandria_uri">http://www.egem.nl/StUF/sector/bg/0204</a>}PRS-fund"&gt;</em>
-<a class="jxr_linenumber" name="L26" href="#L26">26</a>  <em class="jxr_javadoccomment"> *       &amp;lt;sequence&gt;</em>
-<a class="jxr_linenumber" name="L27" href="#L27">27</a>  <em class="jxr_javadoccomment"> *         &amp;lt;element name="PRSADRCOR" type="{<a href="http://www.egem.nl/StUF/sector/bg/0204" target="alexandria_uri">http://www.egem.nl/StUF/sector/bg/0204</a>}ADR-relKerngegevens" minOccurs="0"/&gt;</em>
-<a class="jxr_linenumber" name="L28" href="#L28">28</a>  <em class="jxr_javadoccomment"> *         &amp;lt;element name="PRSADRINS" type="{<a href="http://www.egem.nl/StUF/sector/bg/0204" target="alexandria_uri">http://www.egem.nl/StUF/sector/bg/0204</a>}ADR-relKerngegevens" minOccurs="0"/&gt;</em>
-<a class="jxr_linenumber" name="L29" href="#L29">29</a>  <em class="jxr_javadoccomment"> *         &amp;lt;element name="PRSADRVBL" type="{<a href="http://www.egem.nl/StUF/sector/bg/0204" target="alexandria_uri">http://www.egem.nl/StUF/sector/bg/0204</a>}PRSADRVBL" minOccurs="0"/&gt;</em>
-<a class="jxr_linenumber" name="L30" href="#L30">30</a>  <em class="jxr_javadoccomment"> *         &amp;lt;element name="PRSIDB" maxOccurs="unbounded" minOccurs="0"&gt;</em>
-<a class="jxr_linenumber" name="L31" href="#L31">31</a>  <em class="jxr_javadoccomment"> *           &amp;lt;complexType&gt;</em>
-<a class="jxr_linenumber" name="L32" href="#L32">32</a>  <em class="jxr_javadoccomment"> *             &amp;lt;complexContent&gt;</em>
-<a class="jxr_linenumber" name="L33" href="#L33">33</a>  <em class="jxr_javadoccomment"> *               &amp;lt;extension base="{<a href="http://www.egem.nl/StUF/sector/bg/0204" target="alexandria_uri">http://www.egem.nl/StUF/sector/bg/0204</a>}PRSIDB-rel"&gt;</em>
-<a class="jxr_linenumber" name="L34" href="#L34">34</a>  <em class="jxr_javadoccomment"> *                 &amp;lt;sequence&gt;</em>
-<a class="jxr_linenumber" name="L35" href="#L35">35</a>  <em class="jxr_javadoccomment"> *                   &amp;lt;element name="SIB" type="{<a href="http://www.egem.nl/StUF/sector/bg/0204" target="alexandria_uri">http://www.egem.nl/StUF/sector/bg/0204</a>}SIB-tabel"/&gt;</em>
-<a class="jxr_linenumber" name="L36" href="#L36">36</a>  <em class="jxr_javadoccomment"> *                 &amp;lt;/sequence&gt;</em>
-<a class="jxr_linenumber" name="L37" href="#L37">37</a>  <em class="jxr_javadoccomment"> *               &amp;lt;/extension&gt;</em>
-<a class="jxr_linenumber" name="L38" href="#L38">38</a>  <em class="jxr_javadoccomment"> *             &amp;lt;/complexContent&gt;</em>
-<a class="jxr_linenumber" name="L39" href="#L39">39</a>  <em class="jxr_javadoccomment"> *           &amp;lt;/complexType&gt;</em>
-<a class="jxr_linenumber" name="L40" href="#L40">40</a>  <em class="jxr_javadoccomment"> *         &amp;lt;/element&gt;</em>
-<a class="jxr_linenumber" name="L41" href="#L41">41</a>  <em class="jxr_javadoccomment"> *         &amp;lt;element name="PRSNAT" maxOccurs="unbounded" minOccurs="0"&gt;</em>
-<a class="jxr_linenumber" name="L42" href="#L42">42</a>  <em class="jxr_javadoccomment"> *           &amp;lt;complexType&gt;</em>
-<a class="jxr_linenumber" name="L43" href="#L43">43</a>  <em class="jxr_javadoccomment"> *             &amp;lt;complexContent&gt;</em>
-<a class="jxr_linenumber" name="L44" href="#L44">44</a>  <em class="jxr_javadoccomment"> *               &amp;lt;extension base="{<a href="http://www.egem.nl/StUF/sector/bg/0204" target="alexandria_uri">http://www.egem.nl/StUF/sector/bg/0204</a>}PRSNAT-rel"&gt;</em>
-<a class="jxr_linenumber" name="L45" href="#L45">45</a>  <em class="jxr_javadoccomment"> *                 &amp;lt;sequence&gt;</em>
-<a class="jxr_linenumber" name="L46" href="#L46">46</a>  <em class="jxr_javadoccomment"> *                   &amp;lt;element name="NAT" type="{<a href="http://www.egem.nl/StUF/sector/bg/0204" target="alexandria_uri">http://www.egem.nl/StUF/sector/bg/0204</a>}NAT-tabel"/&gt;</em>
-<a class="jxr_linenumber" name="L47" href="#L47">47</a>  <em class="jxr_javadoccomment"> *                 &amp;lt;/sequence&gt;</em>
-<a class="jxr_linenumber" name="L48" href="#L48">48</a>  <em class="jxr_javadoccomment"> *               &amp;lt;/extension&gt;</em>
-<a class="jxr_linenumber" name="L49" href="#L49">49</a>  <em class="jxr_javadoccomment"> *             &amp;lt;/complexContent&gt;</em>
-<a class="jxr_linenumber" name="L50" href="#L50">50</a>  <em class="jxr_javadoccomment"> *           &amp;lt;/complexType&gt;</em>
-<a class="jxr_linenumber" name="L51" href="#L51">51</a>  <em class="jxr_javadoccomment"> *         &amp;lt;/element&gt;</em>
-<a class="jxr_linenumber" name="L52" href="#L52">52</a>  <em class="jxr_javadoccomment"> *         &amp;lt;element name="PRSPRSHUW" maxOccurs="unbounded" minOccurs="0"&gt;</em>
-<a class="jxr_linenumber" name="L53" href="#L53">53</a>  <em class="jxr_javadoccomment"> *           &amp;lt;complexType&gt;</em>
-<a class="jxr_linenumber" name="L54" href="#L54">54</a>  <em class="jxr_javadoccomment"> *             &amp;lt;complexContent&gt;</em>
-<a class="jxr_linenumber" name="L55" href="#L55">55</a>  <em class="jxr_javadoccomment"> *               &amp;lt;extension base="{<a href="http://www.egem.nl/StUF/sector/bg/0204" target="alexandria_uri">http://www.egem.nl/StUF/sector/bg/0204</a>}PRSPRSHUW-rel"&gt;</em>
-<a class="jxr_linenumber" name="L56" href="#L56">56</a>  <em class="jxr_javadoccomment"> *                 &amp;lt;sequence&gt;</em>
-<a class="jxr_linenumber" name="L57" href="#L57">57</a>  <em class="jxr_javadoccomment"> *                   &amp;lt;element name="PRS" type="{<a href="http://www.egem.nl/StUF/sector/bg/0204" target="alexandria_uri">http://www.egem.nl/StUF/sector/bg/0204</a>}PRS-gerelateerde"/&gt;</em>
-<a class="jxr_linenumber" name="L58" href="#L58">58</a>  <em class="jxr_javadoccomment"> *                 &amp;lt;/sequence&gt;</em>
-<a class="jxr_linenumber" name="L59" href="#L59">59</a>  <em class="jxr_javadoccomment"> *               &amp;lt;/extension&gt;</em>
-<a class="jxr_linenumber" name="L60" href="#L60">60</a>  <em class="jxr_javadoccomment"> *             &amp;lt;/complexContent&gt;</em>
-<a class="jxr_linenumber" name="L61" href="#L61">61</a>  <em class="jxr_javadoccomment"> *           &amp;lt;/complexType&gt;</em>
-<a class="jxr_linenumber" name="L62" href="#L62">62</a>  <em class="jxr_javadoccomment"> *         &amp;lt;/element&gt;</em>
-<a class="jxr_linenumber" name="L63" href="#L63">63</a>  <em class="jxr_javadoccomment"> *         &amp;lt;element name="PRSPRSKND" maxOccurs="unbounded" minOccurs="0"&gt;</em>
-<a class="jxr_linenumber" name="L64" href="#L64">64</a>  <em class="jxr_javadoccomment"> *           &amp;lt;complexType&gt;</em>
-<a class="jxr_linenumber" name="L65" href="#L65">65</a>  <em class="jxr_javadoccomment"> *             &amp;lt;complexContent&gt;</em>
-<a class="jxr_linenumber" name="L66" href="#L66">66</a>  <em class="jxr_javadoccomment"> *               &amp;lt;extension base="{<a href="http://www.egem.nl/StUF/sector/bg/0204" target="alexandria_uri">http://www.egem.nl/StUF/sector/bg/0204</a>}PRSPRSKND-rel"&gt;</em>
-<a class="jxr_linenumber" name="L67" href="#L67">67</a>  <em class="jxr_javadoccomment"> *                 &amp;lt;sequence&gt;</em>
-<a class="jxr_linenumber" name="L68" href="#L68">68</a>  <em class="jxr_javadoccomment"> *                   &amp;lt;element name="PRS" type="{<a href="http://www.egem.nl/StUF/sector/bg/0204" target="alexandria_uri">http://www.egem.nl/StUF/sector/bg/0204</a>}PRS-gerelateerde"/&gt;</em>
-<a class="jxr_linenumber" name="L69" href="#L69">69</a>  <em class="jxr_javadoccomment"> *                 &amp;lt;/sequence&gt;</em>
-<a class="jxr_linenumber" name="L70" href="#L70">70</a>  <em class="jxr_javadoccomment"> *               &amp;lt;/extension&gt;</em>
-<a class="jxr_linenumber" name="L71" href="#L71">71</a>  <em class="jxr_javadoccomment"> *             &amp;lt;/complexContent&gt;</em>
-<a class="jxr_linenumber" name="L72" href="#L72">72</a>  <em class="jxr_javadoccomment"> *           &amp;lt;/complexType&gt;</em>
-<a class="jxr_linenumber" name="L73" href="#L73">73</a>  <em class="jxr_javadoccomment"> *         &amp;lt;/element&gt;</em>
-<a class="jxr_linenumber" name="L74" href="#L74">74</a>  <em class="jxr_javadoccomment"> *         &amp;lt;element name="PRSPRSOUD" maxOccurs="unbounded" minOccurs="0"&gt;</em>
-<a class="jxr_linenumber" name="L75" href="#L75">75</a>  <em class="jxr_javadoccomment"> *           &amp;lt;complexType&gt;</em>
-<a class="jxr_linenumber" name="L76" href="#L76">76</a>  <em class="jxr_javadoccomment"> *             &amp;lt;complexContent&gt;</em>
-<a class="jxr_linenumber" name="L77" href="#L77">77</a>  <em class="jxr_javadoccomment"> *               &amp;lt;extension base="{<a href="http://www.egem.nl/StUF/sector/bg/0204" target="alexandria_uri">http://www.egem.nl/StUF/sector/bg/0204</a>}PRSPRSOUD-rel"&gt;</em>
-<a class="jxr_linenumber" name="L78" href="#L78">78</a>  <em class="jxr_javadoccomment"> *                 &amp;lt;sequence&gt;</em>
-<a class="jxr_linenumber" name="L79" href="#L79">79</a>  <em class="jxr_javadoccomment"> *                   &amp;lt;element name="PRS" type="{<a href="http://www.egem.nl/StUF/sector/bg/0204" target="alexandria_uri">http://www.egem.nl/StUF/sector/bg/0204</a>}PRS-gerelateerde"/&gt;</em>
-<a class="jxr_linenumber" name="L80" href="#L80">80</a>  <em class="jxr_javadoccomment"> *                 &amp;lt;/sequence&gt;</em>
-<a class="jxr_linenumber" name="L81" href="#L81">81</a>  <em class="jxr_javadoccomment"> *               &amp;lt;/extension&gt;</em>
-<a class="jxr_linenumber" name="L82" href="#L82">82</a>  <em class="jxr_javadoccomment"> *             &amp;lt;/complexContent&gt;</em>
-<a class="jxr_linenumber" name="L83" href="#L83">83</a>  <em class="jxr_javadoccomment"> *           &amp;lt;/complexType&gt;</em>
-<a class="jxr_linenumber" name="L84" href="#L84">84</a>  <em class="jxr_javadoccomment"> *         &amp;lt;/element&gt;</em>
-<a class="jxr_linenumber" name="L85" href="#L85">85</a>  <em class="jxr_javadoccomment"> *       &amp;lt;/sequence&gt;</em>
-<a class="jxr_linenumber" name="L86" href="#L86">86</a>  <em class="jxr_javadoccomment"> *     &amp;lt;/extension&gt;</em>
-<a class="jxr_linenumber" name="L87" href="#L87">87</a>  <em class="jxr_javadoccomment"> *   &amp;lt;/complexContent&gt;</em>
-<a class="jxr_linenumber" name="L88" href="#L88">88</a>  <em class="jxr_javadoccomment"> * &amp;lt;/complexType&gt;</em>
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>  <em class="jxr_javadoccomment"> * &amp;lt;complexType name="PRS-kennisgeving"&amp;gt;</em>
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>  <em class="jxr_javadoccomment"> *   &amp;lt;complexContent&amp;gt;</em>
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <em class="jxr_javadoccomment"> *     &amp;lt;extension base="{<a href="http://www.egem.nl/StUF/sector/bg/0204" target="alexandria_uri">http://www.egem.nl/StUF/sector/bg/0204</a>}PRS-fund"&amp;gt;</em>
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>  <em class="jxr_javadoccomment"> *       &amp;lt;sequence&amp;gt;</em>
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>  <em class="jxr_javadoccomment"> *         &amp;lt;element name="PRSADRCOR" type="{<a href="http://www.egem.nl/StUF/sector/bg/0204" target="alexandria_uri">http://www.egem.nl/StUF/sector/bg/0204</a>}ADR-relKerngegevens" minOccurs="0"/&amp;gt;</em>
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>  <em class="jxr_javadoccomment"> *         &amp;lt;element name="PRSADRINS" type="{<a href="http://www.egem.nl/StUF/sector/bg/0204" target="alexandria_uri">http://www.egem.nl/StUF/sector/bg/0204</a>}ADR-relKerngegevens" minOccurs="0"/&amp;gt;</em>
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>  <em class="jxr_javadoccomment"> *         &amp;lt;element name="PRSADRVBL" type="{<a href="http://www.egem.nl/StUF/sector/bg/0204" target="alexandria_uri">http://www.egem.nl/StUF/sector/bg/0204</a>}PRSADRVBL" minOccurs="0"/&amp;gt;</em>
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>  <em class="jxr_javadoccomment"> *         &amp;lt;element name="PRSIDB" maxOccurs="unbounded" minOccurs="0"&amp;gt;</em>
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>  <em class="jxr_javadoccomment"> *           &amp;lt;complexType&amp;gt;</em>
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>  <em class="jxr_javadoccomment"> *             &amp;lt;complexContent&amp;gt;</em>
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>  <em class="jxr_javadoccomment"> *               &amp;lt;extension base="{<a href="http://www.egem.nl/StUF/sector/bg/0204" target="alexandria_uri">http://www.egem.nl/StUF/sector/bg/0204</a>}PRSIDB-rel"&amp;gt;</em>
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>  <em class="jxr_javadoccomment"> *                 &amp;lt;sequence&amp;gt;</em>
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>  <em class="jxr_javadoccomment"> *                   &amp;lt;element name="SIB" type="{<a href="http://www.egem.nl/StUF/sector/bg/0204" target="alexandria_uri">http://www.egem.nl/StUF/sector/bg/0204</a>}SIB-tabel"/&amp;gt;</em>
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>  <em class="jxr_javadoccomment"> *                 &amp;lt;/sequence&amp;gt;</em>
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>  <em class="jxr_javadoccomment"> *               &amp;lt;/extension&amp;gt;</em>
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>  <em class="jxr_javadoccomment"> *             &amp;lt;/complexContent&amp;gt;</em>
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>  <em class="jxr_javadoccomment"> *           &amp;lt;/complexType&amp;gt;</em>
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>  <em class="jxr_javadoccomment"> *         &amp;lt;/element&amp;gt;</em>
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>  <em class="jxr_javadoccomment"> *         &amp;lt;element name="PRSNAT" maxOccurs="unbounded" minOccurs="0"&amp;gt;</em>
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>  <em class="jxr_javadoccomment"> *           &amp;lt;complexType&amp;gt;</em>
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>  <em class="jxr_javadoccomment"> *             &amp;lt;complexContent&amp;gt;</em>
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>  <em class="jxr_javadoccomment"> *               &amp;lt;extension base="{<a href="http://www.egem.nl/StUF/sector/bg/0204" target="alexandria_uri">http://www.egem.nl/StUF/sector/bg/0204</a>}PRSNAT-rel"&amp;gt;</em>
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>  <em class="jxr_javadoccomment"> *                 &amp;lt;sequence&amp;gt;</em>
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>  <em class="jxr_javadoccomment"> *                   &amp;lt;element name="NAT" type="{<a href="http://www.egem.nl/StUF/sector/bg/0204" target="alexandria_uri">http://www.egem.nl/StUF/sector/bg/0204</a>}NAT-tabel"/&amp;gt;</em>
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>  <em class="jxr_javadoccomment"> *                 &amp;lt;/sequence&amp;gt;</em>
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>  <em class="jxr_javadoccomment"> *               &amp;lt;/extension&amp;gt;</em>
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>  <em class="jxr_javadoccomment"> *             &amp;lt;/complexContent&amp;gt;</em>
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>  <em class="jxr_javadoccomment"> *           &amp;lt;/complexType&amp;gt;</em>
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>  <em class="jxr_javadoccomment"> *         &amp;lt;/element&amp;gt;</em>
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>  <em class="jxr_javadoccomment"> *         &amp;lt;element name="PRSPRSHUW" maxOccurs="unbounded" minOccurs="0"&amp;gt;</em>
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>  <em class="jxr_javadoccomment"> *           &amp;lt;complexType&amp;gt;</em>
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>  <em class="jxr_javadoccomment"> *             &amp;lt;complexContent&amp;gt;</em>
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>  <em class="jxr_javadoccomment"> *               &amp;lt;extension base="{<a href="http://www.egem.nl/StUF/sector/bg/0204" target="alexandria_uri">http://www.egem.nl/StUF/sector/bg/0204</a>}PRSPRSHUW-rel"&amp;gt;</em>
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>  <em class="jxr_javadoccomment"> *                 &amp;lt;sequence&amp;gt;</em>
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>  <em class="jxr_javadoccomment"> *                   &amp;lt;element name="PRS" type="{<a href="http://www.egem.nl/StUF/sector/bg/0204" target="alexandria_uri">http://www.egem.nl/StUF/sector/bg/0204</a>}PRS-gerelateerde"/&amp;gt;</em>
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>  <em class="jxr_javadoccomment"> *                 &amp;lt;/sequence&amp;gt;</em>
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>  <em class="jxr_javadoccomment"> *               &amp;lt;/extension&amp;gt;</em>
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>  <em class="jxr_javadoccomment"> *             &amp;lt;/complexContent&amp;gt;</em>
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>  <em class="jxr_javadoccomment"> *           &amp;lt;/complexType&amp;gt;</em>
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>  <em class="jxr_javadoccomment"> *         &amp;lt;/element&amp;gt;</em>
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>  <em class="jxr_javadoccomment"> *         &amp;lt;element name="PRSPRSKND" maxOccurs="unbounded" minOccurs="0"&amp;gt;</em>
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>  <em class="jxr_javadoccomment"> *           &amp;lt;complexType&amp;gt;</em>
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>  <em class="jxr_javadoccomment"> *             &amp;lt;complexContent&amp;gt;</em>
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>  <em class="jxr_javadoccomment"> *               &amp;lt;extension base="{<a href="http://www.egem.nl/StUF/sector/bg/0204" target="alexandria_uri">http://www.egem.nl/StUF/sector/bg/0204</a>}PRSPRSKND-rel"&amp;gt;</em>
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>  <em class="jxr_javadoccomment"> *                 &amp;lt;sequence&amp;gt;</em>
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>  <em class="jxr_javadoccomment"> *                   &amp;lt;element name="PRS" type="{<a href="http://www.egem.nl/StUF/sector/bg/0204" target="alexandria_uri">http://www.egem.nl/StUF/sector/bg/0204</a>}PRS-gerelateerde"/&amp;gt;</em>
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>  <em class="jxr_javadoccomment"> *                 &amp;lt;/sequence&amp;gt;</em>
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>  <em class="jxr_javadoccomment"> *               &amp;lt;/extension&amp;gt;</em>
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>  <em class="jxr_javadoccomment"> *             &amp;lt;/complexContent&amp;gt;</em>
+<a class="jxr_linenumber" name="L72" href="#L72">72</a>  <em class="jxr_javadoccomment"> *           &amp;lt;/complexType&amp;gt;</em>
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>  <em class="jxr_javadoccomment"> *         &amp;lt;/element&amp;gt;</em>
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>  <em class="jxr_javadoccomment"> *         &amp;lt;element name="PRSPRSOUD" maxOccurs="unbounded" minOccurs="0"&amp;gt;</em>
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>  <em class="jxr_javadoccomment"> *           &amp;lt;complexType&amp;gt;</em>
+<a class="jxr_linenumber" name="L76" href="#L76">76</a>  <em class="jxr_javadoccomment"> *             &amp;lt;complexContent&amp;gt;</em>
+<a class="jxr_linenumber" name="L77" href="#L77">77</a>  <em class="jxr_javadoccomment"> *               &amp;lt;extension base="{<a href="http://www.egem.nl/StUF/sector/bg/0204" target="alexandria_uri">http://www.egem.nl/StUF/sector/bg/0204</a>}PRSPRSOUD-rel"&amp;gt;</em>
+<a class="jxr_linenumber" name="L78" href="#L78">78</a>  <em class="jxr_javadoccomment"> *                 &amp;lt;sequence&amp;gt;</em>
+<a class="jxr_linenumber" name="L79" href="#L79">79</a>  <em class="jxr_javadoccomment"> *                   &amp;lt;element name="PRS" type="{<a href="http://www.egem.nl/StUF/sector/bg/0204" target="alexandria_uri">http://www.egem.nl/StUF/sector/bg/0204</a>}PRS-gerelateerde"/&amp;gt;</em>
+<a class="jxr_linenumber" name="L80" href="#L80">80</a>  <em class="jxr_javadoccomment"> *                 &amp;lt;/sequence&amp;gt;</em>
+<a class="jxr_linenumber" name="L81" href="#L81">81</a>  <em class="jxr_javadoccomment"> *               &amp;lt;/extension&amp;gt;</em>
+<a class="jxr_linenumber" name="L82" href="#L82">82</a>  <em class="jxr_javadoccomment"> *             &amp;lt;/complexContent&amp;gt;</em>
+<a class="jxr_linenumber" name="L83" href="#L83">83</a>  <em class="jxr_javadoccomment"> *           &amp;lt;/complexType&amp;gt;</em>
+<a class="jxr_linenumber" name="L84" href="#L84">84</a>  <em class="jxr_javadoccomment"> *         &amp;lt;/element&amp;gt;</em>
+<a class="jxr_linenumber" name="L85" href="#L85">85</a>  <em class="jxr_javadoccomment"> *       &amp;lt;/sequence&amp;gt;</em>
+<a class="jxr_linenumber" name="L86" href="#L86">86</a>  <em class="jxr_javadoccomment"> *     &amp;lt;/extension&amp;gt;</em>
+<a class="jxr_linenumber" name="L87" href="#L87">87</a>  <em class="jxr_javadoccomment"> *   &amp;lt;/complexContent&amp;gt;</em>
+<a class="jxr_linenumber" name="L88" href="#L88">88</a>  <em class="jxr_javadoccomment"> * &amp;lt;/complexType&amp;gt;</em>
 <a class="jxr_linenumber" name="L89" href="#L89">89</a>  <em class="jxr_javadoccomment"> * &lt;/pre&gt;</em>
 <a class="jxr_linenumber" name="L90" href="#L90">90</a>  <em class="jxr_javadoccomment"> * </em>
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>  <em class="jxr_javadoccomment"> * </em>
@@ -357,15 +357,15 @@
 <a class="jxr_linenumber" name="L349" href="#L349">349</a> <em class="jxr_javadoccomment">     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.</em>
 <a class="jxr_linenumber" name="L350" href="#L350">350</a> <em class="jxr_javadoccomment">     * </em>
 <a class="jxr_linenumber" name="L351" href="#L351">351</a> <em class="jxr_javadoccomment">     * &lt;pre&gt;</em>
-<a class="jxr_linenumber" name="L352" href="#L352">352</a> <em class="jxr_javadoccomment">     * &amp;lt;complexType&gt;</em>
-<a class="jxr_linenumber" name="L353" href="#L353">353</a> <em class="jxr_javadoccomment">     *   &amp;lt;complexContent&gt;</em>
-<a class="jxr_linenumber" name="L354" href="#L354">354</a> <em class="jxr_javadoccomment">     *     &amp;lt;extension base="{<a href="http://www.egem.nl/StUF/sector/bg/0204" target="alexandria_uri">http://www.egem.nl/StUF/sector/bg/0204</a>}PRSIDB-rel"&gt;</em>
-<a class="jxr_linenumber" name="L355" href="#L355">355</a> <em class="jxr_javadoccomment">     *       &amp;lt;sequence&gt;</em>
-<a class="jxr_linenumber" name="L356" href="#L356">356</a> <em class="jxr_javadoccomment">     *         &amp;lt;element name="SIB" type="{<a href="http://www.egem.nl/StUF/sector/bg/0204" target="alexandria_uri">http://www.egem.nl/StUF/sector/bg/0204</a>}SIB-tabel"/&gt;</em>
-<a class="jxr_linenumber" name="L357" href="#L357">357</a> <em class="jxr_javadoccomment">     *       &amp;lt;/sequence&gt;</em>
-<a class="jxr_linenumber" name="L358" href="#L358">358</a> <em class="jxr_javadoccomment">     *     &amp;lt;/extension&gt;</em>
-<a class="jxr_linenumber" name="L359" href="#L359">359</a> <em class="jxr_javadoccomment">     *   &amp;lt;/complexContent&gt;</em>
-<a class="jxr_linenumber" name="L360" href="#L360">360</a> <em class="jxr_javadoccomment">     * &amp;lt;/complexType&gt;</em>
+<a class="jxr_linenumber" name="L352" href="#L352">352</a> <em class="jxr_javadoccomment">     * &amp;lt;complexType&amp;gt;</em>
+<a class="jxr_linenumber" name="L353" href="#L353">353</a> <em class="jxr_javadoccomment">     *   &amp;lt;complexContent&amp;gt;</em>
+<a class="jxr_linenumber" name="L354" href="#L354">354</a> <em class="jxr_javadoccomment">     *     &amp;lt;extension base="{<a href="http://www.egem.nl/StUF/sector/bg/0204" target="alexandria_uri">http://www.egem.nl/StUF/sector/bg/0204</a>}PRSIDB-rel"&amp;gt;</em>
+<a class="jxr_linenumber" name="L355" href="#L355">355</a> <em class="jxr_javadoccomment">     *       &amp;lt;sequence&amp;gt;</em>
+<a class="jxr_linenumber" name="L356" href="#L356">356</a> <em class="jxr_javadoccomment">     *         &amp;lt;element name="SIB" type="{<a href="http://www.egem.nl/StUF/sector/bg/0204" target="alexandria_uri">http://www.egem.nl/StUF/sector/bg/0204</a>}SIB-tabel"/&amp;gt;</em>
+<a class="jxr_linenumber" name="L357" href="#L357">357</a> <em class="jxr_javadoccomment">     *       &amp;lt;/sequence&amp;gt;</em>
+<a class="jxr_linenumber" name="L358" href="#L358">358</a> <em class="jxr_javadoccomment">     *     &amp;lt;/extension&amp;gt;</em>
+<a class="jxr_linenumber" name="L359" href="#L359">359</a> <em class="jxr_javadoccomment">     *   &amp;lt;/complexContent&amp;gt;</em>
+<a class="jxr_linenumber" name="L360" href="#L360">360</a> <em class="jxr_javadoccomment">     * &amp;lt;/complexType&amp;gt;</em>
 <a class="jxr_linenumber" name="L361" href="#L361">361</a> <em class="jxr_javadoccomment">     * &lt;/pre&gt;</em>
 <a class="jxr_linenumber" name="L362" href="#L362">362</a> <em class="jxr_javadoccomment">     * </em>
 <a class="jxr_linenumber" name="L363" href="#L363">363</a> <em class="jxr_javadoccomment">     * </em>
@@ -414,15 +414,15 @@
 <a class="jxr_linenumber" name="L406" href="#L406">406</a> <em class="jxr_javadoccomment">     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.</em>
 <a class="jxr_linenumber" name="L407" href="#L407">407</a> <em class="jxr_javadoccomment">     * </em>
 <a class="jxr_linenumber" name="L408" href="#L408">408</a> <em class="jxr_javadoccomment">     * &lt;pre&gt;</em>
-<a class="jxr_linenumber" name="L409" href="#L409">409</a> <em class="jxr_javadoccomment">     * &amp;lt;complexType&gt;</em>
-<a class="jxr_linenumber" name="L410" href="#L410">410</a> <em class="jxr_javadoccomment">     *   &amp;lt;complexContent&gt;</em>
-<a class="jxr_linenumber" name="L411" href="#L411">411</a> <em class="jxr_javadoccomment">     *     &amp;lt;extension base="{<a href="http://www.egem.nl/StUF/sector/bg/0204" target="alexandria_uri">http://www.egem.nl/StUF/sector/bg/0204</a>}PRSNAT-rel"&gt;</em>
-<a class="jxr_linenumber" name="L412" href="#L412">412</a> <em class="jxr_javadoccomment">     *       &amp;lt;sequence&gt;</em>
-<a class="jxr_linenumber" name="L413" href="#L413">413</a> <em class="jxr_javadoccomment">     *         &amp;lt;element name="NAT" type="{<a href="http://www.egem.nl/StUF/sector/bg/0204" target="alexandria_uri">http://www.egem.nl/StUF/sector/bg/0204</a>}NAT-tabel"/&gt;</em>
-<a class="jxr_linenumber" name="L414" href="#L414">414</a> <em class="jxr_javadoccomment">     *       &amp;lt;/sequence&gt;</em>
-<a class="jxr_linenumber" name="L415" href="#L415">415</a> <em class="jxr_javadoccomment">     *     &amp;lt;/extension&gt;</em>
-<a class="jxr_linenumber" name="L416" href="#L416">416</a> <em class="jxr_javadoccomment">     *   &amp;lt;/complexContent&gt;</em>
-<a class="jxr_linenumber" name="L417" href="#L417">417</a> <em class="jxr_javadoccomment">     * &amp;lt;/complexType&gt;</em>
+<a class="jxr_linenumber" name="L409" href="#L409">409</a> <em class="jxr_javadoccomment">     * &amp;lt;complexType&amp;gt;</em>
+<a class="jxr_linenumber" name="L410" href="#L410">410</a> <em class="jxr_javadoccomment">     *   &amp;lt;complexContent&amp;gt;</em>
+<a class="jxr_linenumber" name="L411" href="#L411">411</a> <em class="jxr_javadoccomment">     *     &amp;lt;extension base="{<a href="http://www.egem.nl/StUF/sector/bg/0204" target="alexandria_uri">http://www.egem.nl/StUF/sector/bg/0204</a>}PRSNAT-rel"&amp;gt;</em>
+<a class="jxr_linenumber" name="L412" href="#L412">412</a> <em class="jxr_javadoccomment">     *       &amp;lt;sequence&amp;gt;</em>
+<a class="jxr_linenumber" name="L413" href="#L413">413</a> <em class="jxr_javadoccomment">     *         &amp;lt;element name="NAT" type="{<a href="http://www.egem.nl/StUF/sector/bg/0204" target="alexandria_uri">http://www.egem.nl/StUF/sector/bg/0204</a>}NAT-tabel"/&amp;gt;</em>
+<a class="jxr_linenumber" name="L414" href="#L414">414</a> <em class="jxr_javadoccomment">     *       &amp;lt;/sequence&amp;gt;</em>
+<a class="jxr_linenumber" name="L415" href="#L415">415</a> <em class="jxr_javadoccomment">     *     &amp;lt;/extension&amp;gt;</em>
+<a class="jxr_linenumber" name="L416" href="#L416">416</a> <em class="jxr_javadoccomment">     *   &amp;lt;/complexContent&amp;gt;</em>
+<a class="jxr_linenumber" name="L417" href="#L417">417</a> <em class="jxr_javadoccomment">     * &amp;lt;/complexType&amp;gt;</em>
 <a class="jxr_linenumber" name="L418" href="#L418">418</a> <em class="jxr_javadoccomment">     * &lt;/pre&gt;</em>
 <a class="jxr_linenumber" name="L419" href="#L419">419</a> <em class="jxr_javadoccomment">     * </em>
 <a class="jxr_linenumber" name="L420" href="#L420">420</a> <em class="jxr_javadoccomment">     * </em>
@@ -471,15 +471,15 @@
 <a class="jxr_linenumber" name="L463" href="#L463">463</a> <em class="jxr_javadoccomment">     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.</em>
 <a class="jxr_linenumber" name="L464" href="#L464">464</a> <em class="jxr_javadoccomment">     * </em>
 <a class="jxr_linenumber" name="L465" href="#L465">465</a> <em class="jxr_javadoccomment">     * &lt;pre&gt;</em>
-<a class="jxr_linenumber" name="L466" href="#L466">466</a> <em class="jxr_javadoccomment">     * &amp;lt;complexType&gt;</em>
-<a class="jxr_linenumber" name="L467" href="#L467">467</a> <em class="jxr_javadoccomment">     *   &amp;lt;complexContent&gt;</em>
-<a class="jxr_linenumber" name="L468" href="#L468">468</a> <em class="jxr_javadoccomment">     *     &amp;lt;extension base="{<a href="http://www.egem.nl/StUF/sector/bg/0204" target="alexandria_uri">http://www.egem.nl/StUF/sector/bg/0204</a>}PRSPRSHUW-rel"&gt;</em>
-<a class="jxr_linenumber" name="L469" href="#L469">469</a> <em class="jxr_javadoccomment">     *       &amp;lt;sequence&gt;</em>
-<a class="jxr_linenumber" name="L470" href="#L470">470</a> <em class="jxr_javadoccomment">     *         &amp;lt;element name="PRS" type="{<a href="http://www.egem.nl/StUF/sector/bg/0204" target="alexandria_uri">http://www.egem.nl/StUF/sector/bg/0204</a>}PRS-gerelateerde"/&gt;</em>
-<a class="jxr_linenumber" name="L471" href="#L471">471</a> <em class="jxr_javadoccomment">     *       &amp;lt;/sequence&gt;</em>
-<a class="jxr_linenumber" name="L472" href="#L472">472</a> <em class="jxr_javadoccomment">     *     &amp;lt;/extension&gt;</em>
-<a class="jxr_linenumber" name="L473" href="#L473">473</a> <em class="jxr_javadoccomment">     *   &amp;lt;/complexContent&gt;</em>
-<a class="jxr_linenumber" name="L474" href="#L474">474</a> <em class="jxr_javadoccomment">     * &amp;lt;/complexType&gt;</em>
+<a class="jxr_linenumber" name="L466" href="#L466">466</a> <em class="jxr_javadoccomment">     * &amp;lt;complexType&amp;gt;</em>
+<a class="jxr_linenumber" name="L467" href="#L467">467</a> <em class="jxr_javadoccomment">     *   &amp;lt;complexContent&amp;gt;</em>
+<a class="jxr_linenumber" name="L468" href="#L468">468</a> <em class="jxr_javadoccomment">     *     &amp;lt;extension base="{<a href="http://www.egem.nl/StUF/sector/bg/0204" target="alexandria_uri">http://www.egem.nl/StUF/sector/bg/0204</a>}PRSPRSHUW-rel"&amp;gt;</em>
+<a class="jxr_linenumber" name="L469" href="#L469">469</a> <em class="jxr_javadoccomment">     *       &amp;lt;sequence&amp;gt;</em>
+<a class="jxr_linenumber" name="L470" href="#L470">470</a> <em class="jxr_javadoccomment">     *         &amp;lt;element name="PRS" type="{<a href="http://www.egem.nl/StUF/sector/bg/0204" target="alexandria_uri">http://www.egem.nl/StUF/sector/bg/0204</a>}PRS-gerelateerde"/&amp;gt;</em>
+<a class="jxr_linenumber" name="L471" href="#L471">471</a> <em class="jxr_javadoccomment">     *       &amp;lt;/sequence&amp;gt;</em>
+<a class="jxr_linenumber" name="L472" href="#L472">472</a> <em class="jxr_javadoccomment">     *     &amp;lt;/extension&amp;gt;</em>
+<a class="jxr_linenumber" name="L473" href="#L473">473</a> <em class="jxr_javadoccomment">     *   &amp;lt;/complexContent&amp;gt;</em>
+<a class="jxr_linenumber" name="L474" href="#L474">474</a> <em class="jxr_javadoccomment">     * &amp;lt;/complexType&amp;gt;</em>
 <a class="jxr_linenumber" name="L475" href="#L475">475</a> <em class="jxr_javadoccomment">     * &lt;/pre&gt;</em>
 <a class="jxr_linenumber" name="L476" href="#L476">476</a> <em class="jxr_javadoccomment">     * </em>
 <a class="jxr_linenumber" name="L477" href="#L477">477</a> <em class="jxr_javadoccomment">     * </em>
@@ -528,15 +528,15 @@
 <a class="jxr_linenumber" name="L520" href="#L520">520</a> <em class="jxr_javadoccomment">     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.</em>
 <a class="jxr_linenumber" name="L521" href="#L521">521</a> <em class="jxr_javadoccomment">     * </em>
 <a class="jxr_linenumber" name="L522" href="#L522">522</a> <em class="jxr_javadoccomment">     * &lt;pre&gt;</em>
-<a class="jxr_linenumber" name="L523" href="#L523">523</a> <em class="jxr_javadoccomment">     * &amp;lt;complexType&gt;</em>
-<a class="jxr_linenumber" name="L524" href="#L524">524</a> <em class="jxr_javadoccomment">     *   &amp;lt;complexContent&gt;</em>
-<a class="jxr_linenumber" name="L525" href="#L525">525</a> <em class="jxr_javadoccomment">     *     &amp;lt;extension base="{<a href="http://www.egem.nl/StUF/sector/bg/0204" target="alexandria_uri">http://www.egem.nl/StUF/sector/bg/0204</a>}PRSPRSKND-rel"&gt;</em>
-<a class="jxr_linenumber" name="L526" href="#L526">526</a> <em class="jxr_javadoccomment">     *       &amp;lt;sequence&gt;</em>
-<a class="jxr_linenumber" name="L527" href="#L527">527</a> <em class="jxr_javadoccomment">     *         &amp;lt;element name="PRS" type="{<a href="http://www.egem.nl/StUF/sector/bg/0204" target="alexandria_uri">http://www.egem.nl/StUF/sector/bg/0204</a>}PRS-gerelateerde"/&gt;</em>
-<a class="jxr_linenumber" name="L528" href="#L528">528</a> <em class="jxr_javadoccomment">     *       &amp;lt;/sequence&gt;</em>
-<a class="jxr_linenumber" name="L529" href="#L529">529</a> <em class="jxr_javadoccomment">     *     &amp;lt;/extension&gt;</em>
-<a class="jxr_linenumber" name="L530" href="#L530">530</a> <em class="jxr_javadoccomment">     *   &amp;lt;/complexContent&gt;</em>
-<a class="jxr_linenumber" name="L531" href="#L531">531</a> <em class="jxr_javadoccomment">     * &amp;lt;/complexType&gt;</em>
+<a class="jxr_linenumber" name="L523" href="#L523">523</a> <em class="jxr_javadoccomment">     * &amp;lt;complexType&amp;gt;</em>
+<a class="jxr_linenumber" name="L524" href="#L524">524</a> <em class="jxr_javadoccomment">     *   &amp;lt;complexContent&amp;gt;</em>
+<a class="jxr_linenumber" name="L525" href="#L525">525</a> <em class="jxr_javadoccomment">     *     &amp;lt;extension base="{<a href="http://www.egem.nl/StUF/sector/bg/0204" target="alexandria_uri">http://www.egem.nl/StUF/sector/bg/0204</a>}PRSPRSKND-rel"&amp;gt;</em>
+<a class="jxr_linenumber" name="L526" href="#L526">526</a> <em class="jxr_javadoccomment">     *       &amp;lt;sequence&amp;gt;</em>
+<a class="jxr_linenumber" name="L527" href="#L527">527</a> <em class="jxr_javadoccomment">     *         &amp;lt;element name="PRS" type="{<a href="http://www.egem.nl/StUF/sector/bg/0204" target="alexandria_uri">http://www.egem.nl/StUF/sector/bg/0204</a>}PRS-gerelateerde"/&amp;gt;</em>
+<a class="jxr_linenumber" name="L528" href="#L528">528</a> <em class="jxr_javadoccomment">     *       &amp;lt;/sequence&amp;gt;</em>
+<a class="jxr_linenumber" name="L529" href="#L529">529</a> <em class="jxr_javadoccomment">     *     &amp;lt;/extension&amp;gt;</em>
+<a class="jxr_linenumber" name="L530" href="#L530">530</a> <em class="jxr_javadoccomment">     *   &amp;lt;/complexContent&amp;gt;</em>
+<a class="jxr_linenumber" name="L531" href="#L531">531</a> <em class="jxr_javadoccomment">     * &amp;lt;/complexType&amp;gt;</em>
 <a class="jxr_linenumber" name="L532" href="#L532">532</a> <em class="jxr_javadoccomment">     * &lt;/pre&gt;</em>
 <a class="jxr_linenumber" name="L533" href="#L533">533</a> <em class="jxr_javadoccomment">     * </em>
 <a class="jxr_linenumber" name="L534" href="#L534">534</a> <em class="jxr_javadoccomment">     * </em>
@@ -585,15 +585,15 @@
 <a class="jxr_linenumber" name="L577" href="#L577">577</a> <em class="jxr_javadoccomment">     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.</em>
 <a class="jxr_linenumber" name="L578" href="#L578">578</a> <em class="jxr_javadoccomment">     * </em>
 <a class="jxr_linenumber" name="L579" href="#L579">579</a> <em class="jxr_javadoccomment">     * &lt;pre&gt;</em>
-<a class="jxr_linenumber" name="L580" href="#L580">580</a> <em class="jxr_javadoccomment">     * &amp;lt;complexType&gt;</em>
-<a class="jxr_linenumber" name="L581" href="#L581">581</a> <em class="jxr_javadoccomment">     *   &amp;lt;complexContent&gt;</em>
-<a class="jxr_linenumber" name="L582" href="#L582">582</a> <em class="jxr_javadoccomment">     *     &amp;lt;extension base="{<a href="http://www.egem.nl/StUF/sector/bg/0204" target="alexandria_uri">http://www.egem.nl/StUF/sector/bg/0204</a>}PRSPRSOUD-rel"&gt;</em>
-<a class="jxr_linenumber" name="L583" href="#L583">583</a> <em class="jxr_javadoccomment">     *       &amp;lt;sequence&gt;</em>
-<a class="jxr_linenumber" name="L584" href="#L584">584</a> <em class="jxr_javadoccomment">     *         &amp;lt;element name="PRS" type="{<a href="http://www.egem.nl/StUF/sector/bg/0204" target="alexandria_uri">http://www.egem.nl/StUF/sector/bg/0204</a>}PRS-gerelateerde"/&gt;</em>
-<a class="jxr_linenumber" name="L585" href="#L585">585</a> <em class="jxr_javadoccomment">     *       &amp;lt;/sequence&gt;</em>
-<a class="jxr_linenumber" name="L586" href="#L586">586</a> <em class="jxr_javadoccomment">     *     &amp;lt;/extension&gt;</em>
-<a class="jxr_linenumber" name="L587" href="#L587">587</a> <em class="jxr_javadoccomment">     *   &amp;lt;/complexContent&gt;</em>
-<a class="jxr_linenumber" name="L588" href="#L588">588</a> <em class="jxr_javadoccomment">     * &amp;lt;/complexType&gt;</em>
+<a class="jxr_linenumber" name="L580" href="#L580">580</a> <em class="jxr_javadoccomment">     * &amp;lt;complexType&amp;gt;</em>
+<a class="jxr_linenumber" name="L581" href="#L581">581</a> <em class="jxr_javadoccomment">     *   &amp;lt;complexContent&amp;gt;</em>
+<a class="jxr_linenumber" name="L582" href="#L582">582</a> <em class="jxr_javadoccomment">     *     &amp;lt;extension base="{<a href="http://www.egem.nl/StUF/sector/bg/0204" target="alexandria_uri">http://www.egem.nl/StUF/sector/bg/0204</a>}PRSPRSOUD-rel"&amp;gt;</em>
+<a class="jxr_linenumber" name="L583" href="#L583">583</a> <em class="jxr_javadoccomment">     *       &amp;lt;sequence&amp;gt;</em>
+<a class="jxr_linenumber" name="L584" href="#L584">584</a> <em class="jxr_javadoccomment">     *         &amp;lt;element name="PRS" type="{<a href="http://www.egem.nl/StUF/sector/bg/0204" target="alexandria_uri">http://www.egem.nl/StUF/sector/bg/0204</a>}PRS-gerelateerde"/&amp;gt;</em>
+<a class="jxr_linenumber" name="L585" href="#L585">585</a> <em class="jxr_javadoccomment">     *       &amp;lt;/sequence&amp;gt;</em>
+<a class="jxr_linenumber" name="L586" href="#L586">586</a> <em class="jxr_javadoccomment">     *     &amp;lt;/extension&amp;gt;</em>
+<a class="jxr_linenumber" name="L587" href="#L587">587</a> <em class="jxr_javadoccomment">     *   &amp;lt;/complexContent&amp;gt;</em>
+<a class="jxr_linenumber" name="L588" href="#L588">588</a> <em class="jxr_javadoccomment">     * &amp;lt;/complexType&amp;gt;</em>
 <a class="jxr_linenumber" name="L589" href="#L589">589</a> <em class="jxr_javadoccomment">     * &lt;/pre&gt;</em>
 <a class="jxr_linenumber" name="L590" href="#L590">590</a> <em class="jxr_javadoccomment">     * </em>
 <a class="jxr_linenumber" name="L591" href="#L591">591</a> <em class="jxr_javadoccomment">     * </em>

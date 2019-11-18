@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.loader.entity.LaadProces
-	c1452 [label=<<table title="nl.b3p.brmo.loader.entity.LaadProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./LaadProces.html">
+	c1947 [label=<<table title="nl.b3p.brmo.loader.entity.LaadProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./LaadProces.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> LaadProces </td></tr>
 		</table></td></tr>
@@ -40,10 +40,28 @@ digraph G {
 <tr><td align="left" balign="left"> + setContactEmail(contactEmail : String) </td></tr>
 <tr><td align="left" balign="left"> + getAutomatischProcesId() : Long </td></tr>
 <tr><td align="left" balign="left"> + setAutomatischProcesId(automatischProces : Long) </td></tr>
+<tr><td align="left" balign="left"> + getBestandNaamHersteld() : String </td></tr>
+<tr><td align="left" balign="left"> + setBestandNaamHersteld(bestandNaamHersteld : String) </td></tr>
+<tr><td align="left" balign="left"> + getKlantafgiftenummer() : BigInteger </td></tr>
+<tr><td align="left" balign="left"> + setKlantafgiftenummer(klantafgiftenummer : BigInteger) </td></tr>
+<tr><td align="left" balign="left"> + getContractafgiftenummer() : BigInteger </td></tr>
+<tr><td align="left" balign="left"> + setContractafgiftenummer(contractafgiftenummer : BigInteger) </td></tr>
+<tr><td align="left" balign="left"> + getArtikelnummer() : String </td></tr>
+<tr><td align="left" balign="left"> + setArtikelnummer(artikelnummer : String) </td></tr>
+<tr><td align="left" balign="left"> + getContractnummer() : String </td></tr>
+<tr><td align="left" balign="left"> + setContractnummer(contractnummer : String) </td></tr>
+<tr><td align="left" balign="left"> + getAfgifteid() : String </td></tr>
+<tr><td align="left" balign="left"> + setAfgifteid(afgifteid : String) </td></tr>
+<tr><td align="left" balign="left"> + getAfgiftereferentie() : String </td></tr>
+<tr><td align="left" balign="left"> + setAfgiftereferentie(afgiftereferentie : String) </td></tr>
+<tr><td align="left" balign="left"> + getBestandsreferentie() : String </td></tr>
+<tr><td align="left" balign="left"> + setBestandsreferentie(bestandsreferentie : String) </td></tr>
+<tr><td align="left" balign="left"> + getBeschikbaar_tot() : Date </td></tr>
+<tr><td align="left" balign="left"> + setBeschikbaar_tot(beschikbaar_tot : Date) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./LaadProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.entity.LaadProces.STATUS
-	c1453 [label=<<table title="nl.b3p.brmo.loader.entity.LaadProces.STATUS" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./LaadProces.STATUS.html">
+	c1948 [label=<<table title="nl.b3p.brmo.loader.entity.LaadProces.STATUS" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./LaadProces.STATUS.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> STATUS </td></tr>
@@ -65,6 +83,6 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./LaadProces.STATUS.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.entity.LaadProces NAVASSOC nl.b3p.brmo.loader.entity.LaadProces.STATUS
-	c1452:p -> c1453:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c1947:p -> c1948:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

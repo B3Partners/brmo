@@ -1,0 +1,538 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>VBOAntwoord.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO distributie</a> &gt; <a href="../index.html" class="el_bundle">brmo-stufbg204</a> &gt; <a href="index.source.html" class="el_package">nl.egem.stuf.sector.bg._0204</a> &gt; <span class="el_source">VBOAntwoord.java</span></div><h1>VBOAntwoord.java</h1><pre class="source lang-java linenums">
+package nl.egem.stuf.sector.bg._0204;
+
+import java.util.ArrayList;
+import java.util.List;
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementRef;
+import javax.xml.bind.annotation.XmlType;
+
+
+/**
+ * verblijfsobject binnen antwoordbericht
+ * 
+ * &lt;p&gt;Java class for VBO-antwoord complex type.
+ * 
+ * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+ * 
+ * &lt;pre&gt;
+ * &amp;lt;complexType name=&quot;VBO-antwoord&quot;&amp;gt;
+ *   &amp;lt;complexContent&amp;gt;
+ *     &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}VBO-fund&quot;&amp;gt;
+ *       &amp;lt;sequence&amp;gt;
+ *         &amp;lt;element name=&quot;VBO&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}VBO-fund&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;VBOADR&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}ADR-relFund&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;VBOBSG&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;complexContent&amp;gt;
+ *               &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}Relatie&quot;&amp;gt;
+ *                 &amp;lt;sequence&amp;gt;
+ *                   &amp;lt;element name=&quot;BSG&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BSG-fund&quot;/&amp;gt;
+ *                 &amp;lt;/sequence&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/complexContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;VBOKDO&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;complexContent&amp;gt;
+ *               &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}Relatie&quot;&amp;gt;
+ *                 &amp;lt;sequence&amp;gt;
+ *                   &amp;lt;element name=&quot;KDO&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}KDO-kennisgeving&quot;/&amp;gt;
+ *                 &amp;lt;/sequence&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/complexContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;VBOSUBGBR&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;complexContent&amp;gt;
+ *               &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}Relatie&quot;&amp;gt;
+ *                 &amp;lt;choice&amp;gt;
+ *                   &amp;lt;element name=&quot;NNP&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}NNP-kennisgeving&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;PRS&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}PRS-kennisgeving&quot;/&amp;gt;
+ *                 &amp;lt;/choice&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/complexContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;VBOVBOOSU&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;complexContent&amp;gt;
+ *               &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}VBOVBOOSU-rel&quot;&amp;gt;
+ *                 &amp;lt;sequence&amp;gt;
+ *                   &amp;lt;element name=&quot;VBO&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}VBO-kennisgeving&quot;/&amp;gt;
+ *                 &amp;lt;/sequence&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/complexContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *       &amp;lt;/sequence&amp;gt;
+ *     &amp;lt;/extension&amp;gt;
+ *   &amp;lt;/complexContent&amp;gt;
+ * &amp;lt;/complexType&amp;gt;
+ * &lt;/pre&gt;
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = &quot;VBO-antwoord&quot;, propOrder = {
+    &quot;vbo&quot;,
+    &quot;vboadr&quot;,
+    &quot;vbobsg&quot;,
+    &quot;vbokdo&quot;,
+    &quot;vbosubgbr&quot;,
+    &quot;vbovboosu&quot;
+})
+<span class="nc" id="L90">public class VBOAntwoord</span>
+    extends VBOFund
+{
+
+    @XmlElement(name = &quot;VBO&quot;)
+    protected List&lt;VBOFund&gt; vbo;
+    @XmlElement(name = &quot;VBOADR&quot;, nillable = true)
+    protected List&lt;ADRRelFund&gt; vboadr;
+    @XmlElement(name = &quot;VBOBSG&quot;, nillable = true)
+    protected List&lt;VBOAntwoord.VBOBSG&gt; vbobsg;
+    @XmlElement(name = &quot;VBOKDO&quot;, nillable = true)
+    protected List&lt;VBOAntwoord.VBOKDO&gt; vbokdo;
+    @XmlElement(name = &quot;VBOSUBGBR&quot;, nillable = true)
+    protected List&lt;VBOAntwoord.VBOSUBGBR&gt; vbosubgbr;
+    @XmlElement(name = &quot;VBOVBOOSU&quot;, nillable = true)
+    protected List&lt;VBOAntwoord.VBOVBOOSU&gt; vbovboosu;
+
+    /**
+     * Gets the value of the vbo property.
+     * 
+     * &lt;p&gt;
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the vbo property.
+     * 
+     * &lt;p&gt;
+     * For example, to add a new item, do as follows:
+     * &lt;pre&gt;
+     *    getVBO().add(newItem);
+     * &lt;/pre&gt;
+     * 
+     * 
+     * &lt;p&gt;
+     * Objects of the following type(s) are allowed in the list
+     * {@link VBOFund }
+     * 
+     * 
+     */
+    public List&lt;VBOFund&gt; getVBO() {
+<span class="nc bnc" id="L130" title="All 2 branches missed.">        if (vbo == null) {</span>
+<span class="nc" id="L131">            vbo = new ArrayList&lt;VBOFund&gt;();</span>
+        }
+<span class="nc" id="L133">        return this.vbo;</span>
+    }
+
+    /**
+     * Gets the value of the vboadr property.
+     * 
+     * &lt;p&gt;
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the vboadr property.
+     * 
+     * &lt;p&gt;
+     * For example, to add a new item, do as follows:
+     * &lt;pre&gt;
+     *    getVBOADR().add(newItem);
+     * &lt;/pre&gt;
+     * 
+     * 
+     * &lt;p&gt;
+     * Objects of the following type(s) are allowed in the list
+     * {@link ADRRelFund }
+     * 
+     * 
+     */
+    public List&lt;ADRRelFund&gt; getVBOADR() {
+<span class="nc bnc" id="L159" title="All 2 branches missed.">        if (vboadr == null) {</span>
+<span class="nc" id="L160">            vboadr = new ArrayList&lt;ADRRelFund&gt;();</span>
+        }
+<span class="nc" id="L162">        return this.vboadr;</span>
+    }
+
+    /**
+     * Gets the value of the vbobsg property.
+     * 
+     * &lt;p&gt;
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the vbobsg property.
+     * 
+     * &lt;p&gt;
+     * For example, to add a new item, do as follows:
+     * &lt;pre&gt;
+     *    getVBOBSG().add(newItem);
+     * &lt;/pre&gt;
+     * 
+     * 
+     * &lt;p&gt;
+     * Objects of the following type(s) are allowed in the list
+     * {@link VBOAntwoord.VBOBSG }
+     * 
+     * 
+     */
+    public List&lt;VBOAntwoord.VBOBSG&gt; getVBOBSG() {
+<span class="nc bnc" id="L188" title="All 2 branches missed.">        if (vbobsg == null) {</span>
+<span class="nc" id="L189">            vbobsg = new ArrayList&lt;VBOAntwoord.VBOBSG&gt;();</span>
+        }
+<span class="nc" id="L191">        return this.vbobsg;</span>
+    }
+
+    /**
+     * Gets the value of the vbokdo property.
+     * 
+     * &lt;p&gt;
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the vbokdo property.
+     * 
+     * &lt;p&gt;
+     * For example, to add a new item, do as follows:
+     * &lt;pre&gt;
+     *    getVBOKDO().add(newItem);
+     * &lt;/pre&gt;
+     * 
+     * 
+     * &lt;p&gt;
+     * Objects of the following type(s) are allowed in the list
+     * {@link VBOAntwoord.VBOKDO }
+     * 
+     * 
+     */
+    public List&lt;VBOAntwoord.VBOKDO&gt; getVBOKDO() {
+<span class="nc bnc" id="L217" title="All 2 branches missed.">        if (vbokdo == null) {</span>
+<span class="nc" id="L218">            vbokdo = new ArrayList&lt;VBOAntwoord.VBOKDO&gt;();</span>
+        }
+<span class="nc" id="L220">        return this.vbokdo;</span>
+    }
+
+    /**
+     * Gets the value of the vbosubgbr property.
+     * 
+     * &lt;p&gt;
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the vbosubgbr property.
+     * 
+     * &lt;p&gt;
+     * For example, to add a new item, do as follows:
+     * &lt;pre&gt;
+     *    getVBOSUBGBR().add(newItem);
+     * &lt;/pre&gt;
+     * 
+     * 
+     * &lt;p&gt;
+     * Objects of the following type(s) are allowed in the list
+     * {@link VBOAntwoord.VBOSUBGBR }
+     * 
+     * 
+     */
+    public List&lt;VBOAntwoord.VBOSUBGBR&gt; getVBOSUBGBR() {
+<span class="nc bnc" id="L246" title="All 2 branches missed.">        if (vbosubgbr == null) {</span>
+<span class="nc" id="L247">            vbosubgbr = new ArrayList&lt;VBOAntwoord.VBOSUBGBR&gt;();</span>
+        }
+<span class="nc" id="L249">        return this.vbosubgbr;</span>
+    }
+
+    /**
+     * Gets the value of the vbovboosu property.
+     * 
+     * &lt;p&gt;
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the vbovboosu property.
+     * 
+     * &lt;p&gt;
+     * For example, to add a new item, do as follows:
+     * &lt;pre&gt;
+     *    getVBOVBOOSU().add(newItem);
+     * &lt;/pre&gt;
+     * 
+     * 
+     * &lt;p&gt;
+     * Objects of the following type(s) are allowed in the list
+     * {@link VBOAntwoord.VBOVBOOSU }
+     * 
+     * 
+     */
+    public List&lt;VBOAntwoord.VBOVBOOSU&gt; getVBOVBOOSU() {
+<span class="nc bnc" id="L275" title="All 2 branches missed.">        if (vbovboosu == null) {</span>
+<span class="nc" id="L276">            vbovboosu = new ArrayList&lt;VBOAntwoord.VBOVBOOSU&gt;();</span>
+        }
+<span class="nc" id="L278">        return this.vbovboosu;</span>
+    }
+
+
+    /**
+     * &lt;p&gt;Java class for anonymous complex type.
+     * 
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * 
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;complexContent&amp;gt;
+     *     &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}Relatie&quot;&amp;gt;
+     *       &amp;lt;sequence&amp;gt;
+     *         &amp;lt;element name=&quot;BSG&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BSG-fund&quot;/&amp;gt;
+     *       &amp;lt;/sequence&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/complexContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = &quot;&quot;, propOrder = {
+        &quot;bsg&quot;
+    })
+<span class="nc" id="L305">    public static class VBOBSG</span>
+        extends Relatie
+    {
+
+        @XmlElement(name = &quot;BSG&quot;, required = true, nillable = true)
+        protected BSGFund bsg;
+
+        /**
+         * Gets the value of the bsg property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link BSGFund }
+         *     
+         */
+        public BSGFund getBSG() {
+<span class="nc" id="L321">            return bsg;</span>
+        }
+
+        /**
+         * Sets the value of the bsg property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link BSGFund }
+         *     
+         */
+        public void setBSG(BSGFund value) {
+<span class="nc" id="L333">            this.bsg = value;</span>
+<span class="nc" id="L334">        }</span>
+
+    }
+
+
+    /**
+     * &lt;p&gt;Java class for anonymous complex type.
+     * 
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * 
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;complexContent&amp;gt;
+     *     &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}Relatie&quot;&amp;gt;
+     *       &amp;lt;sequence&amp;gt;
+     *         &amp;lt;element name=&quot;KDO&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}KDO-kennisgeving&quot;/&amp;gt;
+     *       &amp;lt;/sequence&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/complexContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = &quot;&quot;, propOrder = {
+        &quot;kdo&quot;
+    })
+<span class="nc" id="L362">    public static class VBOKDO</span>
+        extends Relatie
+    {
+
+        @XmlElement(name = &quot;KDO&quot;, required = true, nillable = true)
+        protected KDOKennisgeving kdo;
+
+        /**
+         * Gets the value of the kdo property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link KDOKennisgeving }
+         *     
+         */
+        public KDOKennisgeving getKDO() {
+<span class="nc" id="L378">            return kdo;</span>
+        }
+
+        /**
+         * Sets the value of the kdo property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link KDOKennisgeving }
+         *     
+         */
+        public void setKDO(KDOKennisgeving value) {
+<span class="nc" id="L390">            this.kdo = value;</span>
+<span class="nc" id="L391">        }</span>
+
+    }
+
+
+    /**
+     * &lt;p&gt;Java class for anonymous complex type.
+     * 
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * 
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;complexContent&amp;gt;
+     *     &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}Relatie&quot;&amp;gt;
+     *       &amp;lt;choice&amp;gt;
+     *         &amp;lt;element name=&quot;NNP&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}NNP-kennisgeving&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;PRS&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}PRS-kennisgeving&quot;/&amp;gt;
+     *       &amp;lt;/choice&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/complexContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = &quot;&quot;, propOrder = {
+        &quot;nnp&quot;,
+        &quot;prs&quot;
+    })
+<span class="nc" id="L421">    public static class VBOSUBGBR</span>
+        extends Relatie
+    {
+
+        @XmlElementRef(name = &quot;NNP&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+        protected JAXBElement&lt;NNPKennisgeving&gt; nnp;
+        @XmlElementRef(name = &quot;PRS&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+        protected JAXBElement&lt;PRSKennisgeving&gt; prs;
+
+        /**
+         * Gets the value of the nnp property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link JAXBElement }{@code &lt;}{@link NNPKennisgeving }{@code &gt;}
+         *     
+         */
+        public JAXBElement&lt;NNPKennisgeving&gt; getNNP() {
+<span class="nc" id="L439">            return nnp;</span>
+        }
+
+        /**
+         * Sets the value of the nnp property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link JAXBElement }{@code &lt;}{@link NNPKennisgeving }{@code &gt;}
+         *     
+         */
+        public void setNNP(JAXBElement&lt;NNPKennisgeving&gt; value) {
+<span class="nc" id="L451">            this.nnp = value;</span>
+<span class="nc" id="L452">        }</span>
+
+        /**
+         * Gets the value of the prs property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link JAXBElement }{@code &lt;}{@link PRSKennisgeving }{@code &gt;}
+         *     
+         */
+        public JAXBElement&lt;PRSKennisgeving&gt; getPRS() {
+<span class="nc" id="L463">            return prs;</span>
+        }
+
+        /**
+         * Sets the value of the prs property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link JAXBElement }{@code &lt;}{@link PRSKennisgeving }{@code &gt;}
+         *     
+         */
+        public void setPRS(JAXBElement&lt;PRSKennisgeving&gt; value) {
+<span class="nc" id="L475">            this.prs = value;</span>
+<span class="nc" id="L476">        }</span>
+
+    }
+
+
+    /**
+     * &lt;p&gt;Java class for anonymous complex type.
+     * 
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * 
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;complexContent&amp;gt;
+     *     &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}VBOVBOOSU-rel&quot;&amp;gt;
+     *       &amp;lt;sequence&amp;gt;
+     *         &amp;lt;element name=&quot;VBO&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}VBO-kennisgeving&quot;/&amp;gt;
+     *       &amp;lt;/sequence&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/complexContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = &quot;&quot;, propOrder = {
+        &quot;vbo&quot;
+    })
+<span class="nc" id="L504">    public static class VBOVBOOSU</span>
+        extends VBOVBOOSURel
+    {
+
+        @XmlElement(name = &quot;VBO&quot;, required = true, nillable = true)
+        protected VBOKennisgeving vbo;
+
+        /**
+         * Gets the value of the vbo property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link VBOKennisgeving }
+         *     
+         */
+        public VBOKennisgeving getVBO() {
+<span class="nc" id="L520">            return vbo;</span>
+        }
+
+        /**
+         * Sets the value of the vbo property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link VBOKennisgeving }
+         *     
+         */
+        public void setVBO(VBOKennisgeving value) {
+<span class="nc" id="L532">            this.vbo = value;</span>
+<span class="nc" id="L533">        }</span>
+
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

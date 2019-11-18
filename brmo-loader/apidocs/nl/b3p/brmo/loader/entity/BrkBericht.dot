@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.loader.entity.Bericht
-	c1008 [label=<<table title="nl.b3p.brmo.loader.entity.Bericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Bericht.html">
+	c1443 [label=<<table title="nl.b3p.brmo.loader.entity.Bericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Bericht.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Bericht </td></tr>
 		</table></td></tr>
@@ -52,7 +52,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./Bericht.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.entity.BrkBericht
-	c1010 [label=<<table title="nl.b3p.brmo.loader.entity.BrkBericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BrkBericht.html">
+	c1445 [label=<<table title="nl.b3p.brmo.loader.entity.BrkBericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BrkBericht.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BrkBericht </td></tr>
 		</table></td></tr>
@@ -65,9 +65,10 @@ digraph G {
 <tr><td align="left" balign="left"> + setDatumAsString(d : String) </td></tr>
 <tr><td align="left" balign="left"> + getObjectRef() : String </td></tr>
 <tr><td align="left" balign="left"> + getDatum() : Date </td></tr>
+<tr><td align="left" balign="left"> + getRestoredFileName(bestanddatum : Date, volgordenummer : Integer) : String </td></tr>
 		</table></td></tr>
 		</table>>, URL="./BrkBericht.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.loader.entity.BrkBericht extends nl.b3p.brmo.loader.entity.Bericht
-	c1008:p -> c1010:p [dir=back,arrowtail=empty];
+	c1443:p -> c1445:p [dir=back,arrowtail=empty];
 }
 

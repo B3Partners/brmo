@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>HistorischeRelaties.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO soap bevragingsservice</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.soap.eigendom</a> &gt; <span class="el_source">HistorischeRelaties.java</span></div><h1>HistorischeRelaties.java</h1><pre class="source lang-java linenums">package nl.b3p.brmo.soap.eigendom;
+
+import java.util.ArrayList;
+import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+
+/**
+ * &lt;p&gt;
+ * Java class for anonymous complex type.
+ *
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = &quot;&quot;, propOrder = {
+    &quot;historischeRelatie&quot;
+})
+<span class="nc" id="L19">public class HistorischeRelaties {</span>
+
+    @XmlElement(name = &quot;historische_relatie&quot;, required = true)
+    protected List&lt;HistorischeRelatie&gt; historischeRelatie;
+
+    /**
+     * Gets the value of the historischeRelatie property.
+     *
+     * &lt;p&gt;
+     * This accessor method returns a reference to the live list, not a
+     * snapshot. Therefore any modification you make to the returned list will
+     * be present inside the JAXB object. This is why there is not a
+     * &lt;CODE&gt;set&lt;/CODE&gt; method for the historischeRelatie property.
+     *
+     * &lt;p&gt;
+     * For example, to add a new item, do as follows:
+     * &lt;pre&gt;
+     *    getHistorischeRelatie().add(newItem);
+     * &lt;/pre&gt;
+     *
+     *
+     * &lt;p&gt;
+     * Objects of the following type(s) are allowed in the list {@link HistorischeRelatie }
+     * {EigendomMutatie.HistorischeRelaties.HistorischeRelatie}
+     *
+     *
+     */
+    public List&lt;HistorischeRelatie&gt; getHistorischeRelatie() {
+<span class="nc bnc" id="L47" title="All 2 branches missed.">        if (historischeRelatie == null) {</span>
+<span class="nc" id="L48">            historischeRelatie = new ArrayList&lt;HistorischeRelatie&gt;();</span>
+        }
+<span class="nc" id="L50">        return this.historischeRelatie;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

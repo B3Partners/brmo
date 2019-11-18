@@ -73,6 +73,7 @@ digraph G {
 <tr><td align="left" balign="left"> + testProcessWijkGMLFile() </td></tr>
 <tr><td align="left" balign="left"> + testProcessStadsdeelGMLFile() </td></tr>
 <tr><td align="left" balign="left"> + testProcessOpenbareRuimteGMLFile() </td></tr>
+<tr><td align="left" balign="left"> + testProcessWaterschapGMLFile() </td></tr>
 <tr><td align="left" balign="left"> + testProcessDuplicateGMLFile() </td></tr>
 <tr><td align="left" balign="left"> + testProcessOutOFTimeGMLFile() </td></tr>
 <tr><td align="left" balign="left"> + testScanDirectory() </td></tr>

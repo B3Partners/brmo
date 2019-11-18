@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>EigendomMutatie.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO soap bevragingsservice</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.soap.eigendom</a> &gt; <span class="el_source">EigendomMutatie.java</span></div><h1>EigendomMutatie.java</h1><pre class="source lang-java linenums">package nl.b3p.brmo.soap.eigendom;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+
+/**
+ * &lt;p&gt;
+ * Java class for eigendomMutatie complex type.
+ *
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = &quot;eigendomMutatie&quot;, propOrder = {
+    &quot;identificatienummer&quot;,
+    &quot;gemeentecode&quot;,
+    &quot;appartementsindex&quot;,
+    &quot;perceelnummer&quot;,
+    &quot;sectie&quot;,
+    &quot;historischeRelaties&quot;,
+    &quot;brondocumenten&quot;,
+    &quot;zakelijkeRechten&quot;,
+    &quot;benoemdObjecten&quot;
+})
+<span class="nc" id="L25">public class EigendomMutatie {</span>
+
+    protected String identificatienummer;
+    @XmlElement(required = true)
+    protected String gemeentecode;
+    protected String appartementsindex;
+    @XmlElement(required = true)
+    protected String perceelnummer;
+    @XmlElement(required = true)
+    protected String sectie;
+    @XmlElement(name = &quot;historische_relaties&quot;)
+    protected HistorischeRelaties historischeRelaties;
+    protected Brondocumenten brondocumenten;
+    @XmlElement(name = &quot;zakelijke_rechten&quot;)
+    protected ZakelijkeRechten zakelijkeRechten;
+    @XmlElement(name = &quot;benoemd_objecten&quot;)
+    protected BenoemdObjecten benoemdObjecten;
+
+    /**
+     * Gets the value of the identificatienummer property.
+     *
+     */
+    public String getIdentificatienummer() {
+<span class="nc" id="L48">        return identificatienummer;</span>
+    }
+
+    /**
+     * Sets the value of the identificatienummer property.
+     *
+     */
+    public void setIdentificatienummer(String value) {
+<span class="nc" id="L56">        this.identificatienummer = value;</span>
+<span class="nc" id="L57">    }</span>
+
+    /**
+     * Gets the value of the gemeentecode property.
+     *
+     * @return possible object is {@link String }
+     *
+     */
+    public String getGemeentecode() {
+<span class="nc" id="L66">        return gemeentecode;</span>
+    }
+
+    /**
+     * Sets the value of the gemeentecode property.
+     *
+     * @param value allowed object is {@link String }
+     *
+     */
+    public void setGemeentecode(String value) {
+<span class="nc" id="L76">        this.gemeentecode = value;</span>
+<span class="nc" id="L77">    }</span>
+
+    /**
+     * Gets the value of the appartementsindex property.
+     *
+     * @return possible object is {@link String }
+     *
+     */
+    public String getAppartementsindex() {
+<span class="nc" id="L86">        return appartementsindex;</span>
+    }
+
+    /**
+     * Sets the value of the appartementsindex property.
+     *
+     * @param value allowed object is {@link String }
+     *
+     */
+    public void setAppartementsindex(String value) {
+<span class="nc" id="L96">        this.appartementsindex = value;</span>
+<span class="nc" id="L97">    }</span>
+
+    /**
+     * Gets the value of the perceelnummer property.
+     *
+     * @return possible object is {@link String }
+     *
+     */
+    public String getPerceelnummer() {
+<span class="nc" id="L106">        return perceelnummer;</span>
+    }
+
+    /**
+     * Sets the value of the perceelnummer property.
+     *
+     * @param value allowed object is {@link String }
+     *
+     */
+    public void setPerceelnummer(String value) {
+<span class="nc" id="L116">        this.perceelnummer = value;</span>
+<span class="nc" id="L117">    }</span>
+
+    /**
+     * Gets the value of the sectie property.
+     *
+     * @return possible object is {@link String }
+     *
+     */
+    public String getSectie() {
+<span class="nc" id="L126">        return sectie;</span>
+    }
+
+    /**
+     * Sets the value of the sectie property.
+     *
+     * @param value allowed object is {@link String }
+     *
+     */
+    public void setSectie(String value) {
+<span class="nc" id="L136">        this.sectie = value;</span>
+<span class="nc" id="L137">    }</span>
+
+    /**
+     * Gets the value of the historischeRelaties property.
+     *
+     * @return possible object is {@link HistorischeRelaties }
+     *
+     */
+    public HistorischeRelaties getHistorischeRelaties() {
+<span class="nc" id="L146">        return historischeRelaties;</span>
+    }
+
+    /**
+     * Sets the value of the historischeRelaties property.
+     *
+     * @param value allowed object is {@link HistorischeRelaties }
+     *
+     */
+    public void setHistorischeRelaties(HistorischeRelaties value) {
+<span class="nc" id="L156">        this.historischeRelaties = value;</span>
+<span class="nc" id="L157">    }</span>
+
+    /**
+     * Gets the value of the brondocumenten property.
+     *
+     * @return possible object is {@link Brondocumenten }
+     *
+     */
+    public Brondocumenten getBrondocumenten() {
+<span class="nc" id="L166">        return brondocumenten;</span>
+    }
+
+    /**
+     * Sets the value of the brondocumenten property.
+     *
+     * @param value allowed object is {@link Brondocumenten }
+     *
+     */
+    public void setBrondocumenten(Brondocumenten value) {
+<span class="nc" id="L176">        this.brondocumenten = value;</span>
+<span class="nc" id="L177">    }</span>
+
+    /**
+     * Gets the value of the zakelijkeRechten property.
+     *
+     * @return possible object is {@link ZakelijkeRechten }
+     *
+     */
+    public ZakelijkeRechten getZakelijkeRechten() {
+<span class="nc" id="L186">        return zakelijkeRechten;</span>
+    }
+
+    /**
+     * Sets the value of the zakelijkeRechten property.
+     *
+     * @param value allowed object is {@link ZakelijkeRechten }
+     *
+     */
+    public void setZakelijkeRechten(ZakelijkeRechten value) {
+<span class="nc" id="L196">        this.zakelijkeRechten = value;</span>
+<span class="nc" id="L197">    }</span>
+
+    /**
+     * Gets the value of the benoemdObjecten property.
+     *
+     * @return possible object is {@link BenoemdObjecten }
+     *
+     */
+    public BenoemdObjecten getBenoemdObjecten() {
+<span class="nc" id="L206">        return benoemdObjecten;</span>
+    }
+
+    /**
+     * Sets the value of the benoemdObjecten property.
+     *
+     * @param value allowed object is {@link BenoemdObjecten }
+     *
+     */
+    public void setBenoemdObjecten(BenoemdObjecten value) {
+<span class="nc" id="L216">        this.benoemdObjecten = value;</span>
+<span class="nc" id="L217">    }</span>
+
+    public static EigendomMutatie createDummy() {
+<span class="nc" id="L220">        EigendomMutatie em = new EigendomMutatie();</span>
+<span class="nc" id="L221">        em.setAppartementsindex(&quot;0001&quot;);</span>
+<span class="nc" id="L222">        BenoemdObject bo = new BenoemdObject();</span>
+<span class="nc" id="L223">        Brondocumenten bdbo = new Brondocumenten();</span>
+<span class="nc" id="L224">        Document d = new Document();</span>
+<span class="nc" id="L225">        d.setDatum(&quot;23-05-2016&quot;);</span>
+<span class="nc" id="L226">        d.setValue(&quot;GM/2006/3448&quot;);</span>
+<span class="nc" id="L227">        bdbo.getDocument().add(d);</span>
+<span class="nc" id="L228">        bdbo.getDocument().add(d);</span>
+<span class="nc" id="L229">        bo.setBrondocumenten(bdbo);</span>
+<span class="nc" id="L230">        bo.setGebouwdObjectGebruiksdoel(&quot;woonfunctie&quot;);</span>
+<span class="nc" id="L231">        bo.setGebouwdObjectOppervlakte(&quot;101&quot;);</span>
+<span class="nc" id="L232">        bo.setIdentificatienummer(&quot;0153010000393935&quot;);</span>
+<span class="nc" id="L233">        BenoemdObjecten bon = new BenoemdObjecten();</span>
+<span class="nc" id="L234">        bon.getBenoemdObject().add(bo);</span>
+<span class="nc" id="L235">        bon.getBenoemdObject().add(bo);</span>
+<span class="nc" id="L236">        em.setBenoemdObjecten(bon);</span>
+<span class="nc" id="L237">        em.setBrondocumenten(bdbo);</span>
+<span class="nc" id="L238">        em.setGemeentecode(&quot;ANA02&quot;);</span>
+<span class="nc" id="L239">        HistorischeRelaties hrs = new HistorischeRelaties();</span>
+<span class="nc" id="L240">        HistorischeRelatie hr = new HistorischeRelatie();</span>
+<span class="nc" id="L241">        hr.setAard(&quot;Vernummering&quot;);</span>
+<span class="nc" id="L242">        hr.setIdentificatienummer(&quot;46750053540001&quot;);</span>
+<span class="nc" id="L243">        hrs.getHistorischeRelatie().add(hr);</span>
+<span class="nc" id="L244">        hrs.getHistorischeRelatie().add(hr);</span>
+<span class="nc" id="L245">        em.setHistorischeRelaties(hrs);</span>
+<span class="nc" id="L246">        em.setIdentificatienummer(&quot;55770450970000&quot;);</span>
+<span class="nc" id="L247">        em.setPerceelnummer(&quot;1755&quot;);</span>
+<span class="nc" id="L248">        em.setSectie(&quot;I&quot;);</span>
+<span class="nc" id="L249">        ZakelijkeRechten zrn = new ZakelijkeRechten();</span>
+<span class="nc" id="L250">        ZakelijkRecht zr = new ZakelijkRecht();</span>
+<span class="nc" id="L251">        zr.setAardRecht(&quot;Eigendom (recht van)&quot;);</span>
+<span class="nc" id="L252">        zr.setBSN(&quot;0000001&quot;);</span>
+<span class="nc" id="L253">        zr.setIdentificatienummer(&quot;NL.KAD.Tenaamstelling.AKR1.8683641&quot;);</span>
+<span class="nc" id="L254">        zr.setNoemer(&quot;2&quot;);</span>
+<span class="nc" id="L255">        zr.setTeller(&quot;1&quot;);</span>
+<span class="nc" id="L256">        zrn.getZakelijkRecht().add(zr);</span>
+<span class="nc" id="L257">        zr.setAardRecht(&quot;Eigendom (recht van)&quot;);</span>
+<span class="nc" id="L258">        zr.setBSN(&quot;0000011&quot;);</span>
+<span class="nc" id="L259">        zr.setIdentificatienummer(&quot;NL.KAD.Tenaamstelling.AKR1.8683651&quot;);</span>
+<span class="nc" id="L260">        zr.setNoemer(&quot;2&quot;);</span>
+<span class="nc" id="L261">        zr.setTeller(&quot;1&quot;);</span>
+<span class="nc" id="L262">        zrn.getZakelijkRecht().add(zr);</span>
+<span class="nc" id="L263">        zr = new ZakelijkRecht();</span>
+<span class="nc" id="L264">        zr.setAardRecht(&quot;Erfpacht (recht van)&quot;);</span>
+<span class="nc" id="L265">        zr.setBSN(&quot;0000002&quot;);</span>
+<span class="nc" id="L266">        zr.setIdentificatienummer(&quot;NL.KAD.Tenaamstelling.AKR1.8683642&quot;);</span>
+<span class="nc" id="L267">        zr.setNoemer(&quot;2&quot;);</span>
+<span class="nc" id="L268">        zr.setTeller(&quot;1&quot;);</span>
+<span class="nc" id="L269">        zrn.getZakelijkRecht().add(zr);</span>
+<span class="nc" id="L270">        zr = new ZakelijkRecht();</span>
+<span class="nc" id="L271">        zr.setAardRecht(&quot;Gebruik en bewoning (recht van)&quot;);</span>
+<span class="nc" id="L272">        zr.setBSN(&quot;0000003&quot;);</span>
+<span class="nc" id="L273">        zr.setIdentificatienummer(&quot;NL.KAD.Tenaamstelling.AKR1.8683643&quot;);</span>
+<span class="nc" id="L274">        zr.setNoemer(&quot;2&quot;);</span>
+<span class="nc" id="L275">        zr.setTeller(&quot;1&quot;);</span>
+<span class="nc" id="L276">        zrn.getZakelijkRecht().add(zr);</span>
+<span class="nc" id="L277">        zr = new ZakelijkRecht();</span>
+<span class="nc" id="L278">        zr.setAardRecht(&quot;Grondrente (recht van)&quot;);</span>
+<span class="nc" id="L279">        zr.setBSN(&quot;0000004&quot;);</span>
+<span class="nc" id="L280">        zr.setIdentificatienummer(&quot;NL.KAD.Tenaamstelling.AKR1.8683644&quot;);</span>
+<span class="nc" id="L281">        zr.setNoemer(&quot;2&quot;);</span>
+<span class="nc" id="L282">        zr.setTeller(&quot;1&quot;);</span>
+<span class="nc" id="L283">        zrn.getZakelijkRecht().add(zr);</span>
+<span class="nc" id="L284">        zr = new ZakelijkRecht();</span>
+<span class="nc" id="L285">        zr.setAardRecht(&quot;Huurrecht (zakelijk)&quot;);</span>
+<span class="nc" id="L286">        zr.setBSN(&quot;0000005&quot;);</span>
+<span class="nc" id="L287">        zr.setIdentificatienummer(&quot;NL.KAD.Tenaamstelling.AKR1.8683645&quot;);</span>
+<span class="nc" id="L288">        zr.setNoemer(&quot;2&quot;);</span>
+<span class="nc" id="L289">        zr.setTeller(&quot;1&quot;);</span>
+<span class="nc" id="L290">        zrn.getZakelijkRecht().add(zr);</span>
+<span class="nc" id="L291">        zr = new ZakelijkRecht();</span>
+<span class="nc" id="L292">        zr.setAardRecht(&quot;Opstal (recht van)&quot;);</span>
+<span class="nc" id="L293">        zr.setBSN(&quot;0000006&quot;);</span>
+<span class="nc" id="L294">        zr.setIdentificatienummer(&quot;NL.KAD.Tenaamstelling.AKR1.8683646&quot;);</span>
+<span class="nc" id="L295">        zr.setNoemer(&quot;2&quot;);</span>
+<span class="nc" id="L296">        zr.setTeller(&quot;1&quot;);</span>
+<span class="nc" id="L297">        zrn.getZakelijkRecht().add(zr);</span>
+<span class="nc" id="L298">        zr = new ZakelijkRecht();</span>
+<span class="nc" id="L299">        zr.setAardRecht(&quot;Optierecht (zakelijk)&quot;);</span>
+<span class="nc" id="L300">        zr.setBSN(&quot;0000007&quot;);</span>
+<span class="nc" id="L301">        zr.setIdentificatienummer(&quot;NL.KAD.Tenaamstelling.AKR1.8683647&quot;);</span>
+<span class="nc" id="L302">        zr.setNoemer(&quot;2&quot;);</span>
+<span class="nc" id="L303">        zr.setTeller(&quot;1&quot;);</span>
+<span class="nc" id="L304">        zrn.getZakelijkRecht().add(zr);</span>
+<span class="nc" id="L305">        zr = new ZakelijkRecht();</span>
+<span class="nc" id="L306">        zr.setAardRecht(&quot;Vruchtgebruik (recht van)&quot;);</span>
+<span class="nc" id="L307">        zr.setBSN(&quot;0000008&quot;);</span>
+<span class="nc" id="L308">        zr.setIdentificatienummer(&quot;NL.KAD.Tenaamstelling.AKR1.8683648&quot;);</span>
+<span class="nc" id="L309">        zr.setNoemer(&quot;2&quot;);</span>
+<span class="nc" id="L310">        zr.setTeller(&quot;1&quot;);</span>
+<span class="nc" id="L311">        zrn.getZakelijkRecht().add(zr);</span>
+<span class="nc" id="L312">        zr = new ZakelijkRecht();</span>
+<span class="nc" id="L313">        zr.setAardRecht(&quot;Erfpacht en Opstal (recht van)&quot;);</span>
+<span class="nc" id="L314">        zr.setBSN(&quot;0000009&quot;);</span>
+<span class="nc" id="L315">        zr.setIdentificatienummer(&quot;NL.KAD.Tenaamstelling.AKR1.8683649&quot;);</span>
+<span class="nc" id="L316">        zr.setNoemer(&quot;2&quot;);</span>
+<span class="nc" id="L317">        zr.setTeller(&quot;1&quot;);</span>
+<span class="nc" id="L318">        zrn.getZakelijkRecht().add(zr);</span>
+<span class="nc" id="L319">        zr = new ZakelijkRecht();</span>
+<span class="nc" id="L320">        zr.setAardRecht(&quot;Opstalrecht Nutsvoorzieningen&quot;);</span>
+<span class="nc" id="L321">        zr.setBSN(&quot;0000010&quot;);</span>
+<span class="nc" id="L322">        zr.setIdentificatienummer(&quot;NL.KAD.Tenaamstelling.AKR1.8683649&quot;);</span>
+<span class="nc" id="L323">        zr.setNoemer(&quot;1&quot;);</span>
+<span class="nc" id="L324">        zr.setTeller(&quot;1&quot;);</span>
+<span class="nc" id="L325">        zrn.getZakelijkRecht().add(zr);</span>
+
+<span class="nc" id="L327">        em.setZakelijkeRechten(zrn);</span>
+<span class="nc" id="L328">        return em;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

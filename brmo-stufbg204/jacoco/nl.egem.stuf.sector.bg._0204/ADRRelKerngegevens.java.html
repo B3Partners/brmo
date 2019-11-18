@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ADRRelKerngegevens.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO STUF BG 204</a> &gt; <a href="index.source.html" class="el_package">nl.egem.stuf.sector.bg._0204</a> &gt; <span class="el_source">ADRRelKerngegevens.java</span></div><h1>ADRRelKerngegevens.java</h1><pre class="source lang-java linenums">
+package nl.egem.stuf.sector.bg._0204;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlType;
+
+
+/**
+ * template relatie entiteit voor een relatie met een adres als gerelateerde met alleen kerngegevens
+ * 
+ * &lt;p&gt;Java class for ADR-relKerngegevens complex type.
+ * 
+ * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+ * 
+ * &lt;pre&gt;
+ * &amp;lt;complexType name=&quot;ADR-relKerngegevens&quot;&amp;gt;
+ *   &amp;lt;complexContent&amp;gt;
+ *     &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}Relatie&quot;&amp;gt;
+ *       &amp;lt;sequence&amp;gt;
+ *         &amp;lt;element name=&quot;ADR&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}ADR-fund&quot;/&amp;gt;
+ *       &amp;lt;/sequence&amp;gt;
+ *     &amp;lt;/extension&amp;gt;
+ *   &amp;lt;/complexContent&amp;gt;
+ * &amp;lt;/complexType&amp;gt;
+ * &lt;/pre&gt;
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = &quot;ADR-relKerngegevens&quot;, propOrder = {
+    &quot;adr&quot;
+})
+@XmlSeeAlso({
+    nl.egem.stuf.sector.bg._0204.NNPKerngegevens.NNPADRVBL.class,
+    PRSADRVBL.class,
+    nl.egem.stuf.sector.bg._0204.VBOKerngegevens.VBOADR.class,
+    nl.egem.stuf.sector.bg._0204.WOZKerngegevens.WOZADRHFD.class
+})
+<span class="nc" id="L42">public class ADRRelKerngegevens</span>
+    extends Relatie
+{
+
+    @XmlElement(name = &quot;ADR&quot;, required = true, nillable = true)
+    protected ADRFund adr;
+
+    /**
+     * Gets the value of the adr property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link ADRFund }
+     *     
+     */
+    public ADRFund getADR() {
+<span class="nc" id="L58">        return adr;</span>
+    }
+
+    /**
+     * Sets the value of the adr property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link ADRFund }
+     *     
+     */
+    public void setADR(ADRFund value) {
+<span class="nc" id="L70">        this.adr = value;</span>
+<span class="nc" id="L71">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

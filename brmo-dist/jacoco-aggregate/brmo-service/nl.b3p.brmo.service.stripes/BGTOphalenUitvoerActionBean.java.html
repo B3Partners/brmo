@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>BGTOphalenUitvoerActionBean.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO distributie</a> &gt; <a href="../index.html" class="el_bundle">brmo-service</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.service.stripes</a> &gt; <span class="el_source">BGTOphalenUitvoerActionBean.java</span></div><h1>BGTOphalenUitvoerActionBean.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2016 B3Partners B.V.
+ */
+package nl.b3p.brmo.service.stripes;
+
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.util.Date;
+import net.sourceforge.stripes.action.ActionBean;
+import net.sourceforge.stripes.action.ActionBeanContext;
+import net.sourceforge.stripes.action.After;
+import net.sourceforge.stripes.action.Before;
+import net.sourceforge.stripes.action.DefaultHandler;
+import net.sourceforge.stripes.action.ForwardResolution;
+import net.sourceforge.stripes.action.Resolution;
+import net.sourceforge.stripes.action.SimpleMessage;
+import net.sourceforge.stripes.validation.Validate;
+import nl.b3p.brmo.persistence.staging.AutomatischProces;
+import nl.b3p.brmo.service.scanner.AbstractExecutableProces;
+import nl.b3p.brmo.service.scanner.ProcesExecutable;
+import nl.b3p.brmo.service.scanner.ProgressUpdateListener;
+import org.stripesstuff.plugin.waitpage.WaitPage;
+import org.stripesstuff.stripersist.EntityTypeConverter;
+import org.stripesstuff.stripersist.Stripersist;
+
+/**
+ *
+ * @author mprins
+ */
+<span class="nc" id="L30">public class BGTOphalenUitvoerActionBean implements ActionBean, ProgressUpdateListener {</span>
+
+    private static final String JSP = &quot;/WEB-INF/jsp/beheer/bgtdownloaduitvoeren.jsp&quot;;
+
+    @Validate(converter = EntityTypeConverter.class)
+    private AutomatischProces proces;
+
+    private ActionBeanContext context;
+
+    private double progress;
+
+    private long total;
+
+    private long processed;
+
+    private boolean complete;
+
+    private String status;
+
+    private String label;
+
+<span class="nc" id="L51">    private String log = &quot;&quot;;</span>
+
+    private Date start;
+
+    private Date update;
+
+    private String exceptionStacktrace;
+
+    private String title;
+
+    @DefaultHandler
+    @WaitPage(path = JSP, delay = 1000, refresh = 1000)
+    public Resolution execute() {
+<span class="nc bnc" id="L64" title="All 2 branches missed.">        if (proces == null) {</span>
+<span class="nc" id="L65">            getContext().getMessages().add(new SimpleMessage(&quot;Proces ongeldig!&quot;));</span>
+<span class="nc" id="L66">            completed();</span>
+<span class="nc" id="L67">            return new ForwardResolution(JSP);</span>
+        }
+        // opnieuw laden van config omdat de waitpage de entity detached
+<span class="nc" id="L70">        proces = Stripersist.getEntityManager().find(AutomatischProces.class, proces.getId());</span>
+<span class="nc" id="L71">        ProcesExecutable exeProces = AbstractExecutableProces.getProces(proces);</span>
+        try {
+<span class="nc" id="L73">            exeProces.execute(this);</span>
+<span class="nc" id="L74">            this.proces.setStatus(AutomatischProces.ProcessingStatus.WAITING);</span>
+<span class="nc" id="L75">        } catch (Exception e) {</span>
+<span class="nc" id="L76">            this.proces.setStatus(AutomatischProces.ProcessingStatus.ERROR);</span>
+<span class="nc" id="L77">            Stripersist.getEntityManager().merge(this.proces);</span>
+<span class="nc" id="L78">            exception(e);</span>
+        } finally {
+<span class="nc" id="L80">            completed();</span>
+<span class="nc bnc" id="L81" title="All 2 branches missed.">            if (Stripersist.getEntityManager().getTransaction().isActive()) {</span>
+<span class="nc" id="L82">                Stripersist.getEntityManager().getTransaction().commit();</span>
+            }
+        }
+
+<span class="nc" id="L86">        return new ForwardResolution(JSP);</span>
+    }
+
+    @Before
+    public void before() {
+<span class="nc" id="L91">        start = new Date();</span>
+<span class="nc" id="L92">    }</span>
+
+    @After
+    public void completed() {
+<span class="nc" id="L96">        complete = true;</span>
+<span class="nc" id="L97">        proces.setLastrun(this.update);</span>
+<span class="nc" id="L98">    }</span>
+
+    @Override
+    public void total(long total) {
+<span class="nc" id="L102">        this.total = total;</span>
+<span class="nc" id="L103">    }</span>
+
+    @Override
+    public void progress(long progress) {
+<span class="nc" id="L107">        this.processed = progress;</span>
+<span class="nc bnc" id="L108" title="All 2 branches missed.">        if (this.total != 0) {</span>
+<span class="nc" id="L109">            this.progress = (100.0 / this.total) * this.processed;</span>
+        }
+<span class="nc" id="L111">        this.update = new Date();</span>
+<span class="nc" id="L112">    }</span>
+
+    @Override
+    public void exception(Throwable t) {
+<span class="nc" id="L116">        StringWriter sw = new StringWriter();</span>
+<span class="nc" id="L117">        PrintWriter pw = new PrintWriter(sw);</span>
+<span class="nc" id="L118">        t.printStackTrace(new PrintWriter(sw));</span>
+<span class="nc" id="L119">        this.exceptionStacktrace = sw.toString();</span>
+<span class="nc" id="L120">    }</span>
+
+    @Override
+    public void updateStatus(String status) {
+<span class="nc" id="L124">        this.status = status;</span>
+<span class="nc" id="L125">    }</span>
+
+    @Override
+    public void addLog(String log) {
+        // voorkom dubbele log uitvoer
+        // this.proces.addLogLine(log);
+        // Stripersist.getEntityManager().merge(this.proces);
+<span class="nc" id="L132">        this.log += log + &quot;\n&quot;;</span>
+<span class="nc" id="L133">    }</span>
+
+    @Override
+    public ActionBeanContext getContext() {
+<span class="nc" id="L137">        return context;</span>
+    }
+
+    @Override
+    public void setContext(ActionBeanContext context) {
+<span class="nc" id="L142">        this.context = context;</span>
+<span class="nc" id="L143">    }</span>
+
+    public AutomatischProces getProces() {
+<span class="nc" id="L146">        return proces;</span>
+    }
+
+    public void setProces(AutomatischProces proces) {
+<span class="nc" id="L150">        this.proces = proces;</span>
+<span class="nc" id="L151">    }</span>
+
+    public double getProgress() {
+<span class="nc" id="L154">        return progress;</span>
+    }
+
+    public void setProgress(double progress) {
+<span class="nc" id="L158">        this.progress = progress;</span>
+<span class="nc" id="L159">    }</span>
+
+    public long getTotal() {
+<span class="nc" id="L162">        return total;</span>
+    }
+
+    public void setTotal(long total) {
+<span class="nc" id="L166">        this.total = total;</span>
+<span class="nc" id="L167">    }</span>
+
+    public long getProcessed() {
+<span class="nc" id="L170">        return processed;</span>
+    }
+
+    public void setProcessed(long processed) {
+<span class="nc" id="L174">        this.processed = processed;</span>
+<span class="nc" id="L175">    }</span>
+
+    public boolean isComplete() {
+<span class="nc" id="L178">        return complete;</span>
+    }
+
+    public void setComplete(boolean complete) {
+<span class="nc" id="L182">        this.complete = complete;</span>
+<span class="nc" id="L183">    }</span>
+
+    public String getStatus() {
+<span class="nc" id="L186">        return status;</span>
+    }
+
+    public void setStatus(String status) {
+<span class="nc" id="L190">        this.status = status;</span>
+<span class="nc" id="L191">    }</span>
+
+    public String getLabel() {
+<span class="nc" id="L194">        return label;</span>
+    }
+
+    public void setLabel(String label) {
+<span class="nc" id="L198">        this.label = label;</span>
+<span class="nc" id="L199">    }</span>
+
+    public String getLog() {
+<span class="nc" id="L202">        return log;</span>
+    }
+
+    public void setLog(String log) {
+<span class="nc" id="L206">        this.log = log;</span>
+<span class="nc" id="L207">    }</span>
+
+    public Date getStart() {
+<span class="nc" id="L210">        return start;</span>
+    }
+
+    public void setStart(Date start) {
+<span class="nc" id="L214">        this.start = start;</span>
+<span class="nc" id="L215">    }</span>
+
+    public Date getUpdate() {
+<span class="nc" id="L218">        return update;</span>
+    }
+
+    public void setUpdate(Date update) {
+<span class="nc" id="L222">        this.update = update;</span>
+<span class="nc" id="L223">    }</span>
+
+    public String getExceptionStacktrace() {
+<span class="nc" id="L226">        return exceptionStacktrace;</span>
+    }
+
+    public void setExceptionStacktrace(String exceptionStacktrace) {
+<span class="nc" id="L230">        this.exceptionStacktrace = exceptionStacktrace;</span>
+<span class="nc" id="L231">    }</span>
+
+    public String getTitle() {
+<span class="nc" id="L234">        return title;</span>
+    }
+
+    public void setTitle(String title) {
+<span class="nc" id="L238">        this.title = title;</span>
+<span class="nc" id="L239">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

@@ -1,4 +1,4 @@
-// dot 2.40.1 on Linux 4.18.0-13-generic
+// dot 2.40.1 on Linux 5.0.0-36-generic
 // SchemaSpy rev Unknown
 digraph "vb_util_zk_recht" {
   graph [
@@ -28,8 +28,9 @@ digraph "vb_util_zk_recht" {
       <TR><TD PORT="subject_identif" COLSPAN="3" ALIGN="LEFT">subject_identif</TD></TR>
       <TR><TD PORT="koz_identif" COLSPAN="3" ALIGN="LEFT">koz_identif</TD></TR>
       <TR><TD PORT="indic_betrokken_in_splitsing" COLSPAN="3" ALIGN="LEFT">indic_betrokken_in_splitsing</TD></TR>
-      <TR><TD PORT="omschr_aard_verkregenr_recht" COLSPAN="3" ALIGN="LEFT">omschr_aard_verkregenr_recht</TD></TR>
+      <TR><TD PORT="omschr_aard_verkregen_recht" COLSPAN="3" ALIGN="LEFT">omschr_aard_verkregen_recht</TD></TR>
       <TR><TD PORT="fk_3avr_aand" COLSPAN="3" ALIGN="LEFT">fk_3avr_aand</TD></TR>
+      <TR><TD PORT="aantekeningen" COLSPAN="3" ALIGN="LEFT">aantekeningen</TD></TR>
       <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">view</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD></TR>
     </TABLE>>
     URL="tables/vb_util_zk_recht.html"

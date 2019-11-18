@@ -1,0 +1,614 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>KDOVraag.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO distributie</a> &gt; <a href="../index.html" class="el_bundle">brmo-stufbg204</a> &gt; <a href="index.source.html" class="el_package">nl.egem.stuf.sector.bg._0204</a> &gt; <span class="el_source">KDOVraag.java</span></div><h1>KDOVraag.java</h1><pre class="source lang-java linenums">
+package nl.egem.stuf.sector.bg._0204;
+
+import java.util.ArrayList;
+import java.util.List;
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementRef;
+import javax.xml.bind.annotation.XmlType;
+
+
+/**
+ * kadastraal object binnen vraagberichten
+ * 
+ * &lt;p&gt;Java class for KDO-vraag complex type.
+ * 
+ * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+ * 
+ * &lt;pre&gt;
+ * &amp;lt;complexType name=&quot;KDO-vraag&quot;&amp;gt;
+ *   &amp;lt;complexContent&amp;gt;
+ *     &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}KDO-fund&quot;&amp;gt;
+ *       &amp;lt;sequence&amp;gt;
+ *         &amp;lt;element name=&quot;KDOADR&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}ADR-relFund&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;KDOBSG&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;complexContent&amp;gt;
+ *               &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}Relatie&quot;&amp;gt;
+ *                 &amp;lt;sequence&amp;gt;
+ *                   &amp;lt;element name=&quot;BSG&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BSG-fund&quot;/&amp;gt;
+ *                 &amp;lt;/sequence&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/complexContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;KDOKDOFIL&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;complexContent&amp;gt;
+ *               &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}KDOKDOFIL-rel&quot;&amp;gt;
+ *                 &amp;lt;sequence&amp;gt;
+ *                   &amp;lt;element name=&quot;KDO&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}KDO-kennisgeving&quot;/&amp;gt;
+ *                 &amp;lt;/sequence&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/complexContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;KDOPRB&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;complexContent&amp;gt;
+ *               &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}Relatie&quot;&amp;gt;
+ *                 &amp;lt;sequence&amp;gt;
+ *                   &amp;lt;element name=&quot;PRB&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}PRB-fund&quot;/&amp;gt;
+ *                 &amp;lt;/sequence&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/complexContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;KDOSUBVZG&quot; maxOccurs=&quot;2&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;complexContent&amp;gt;
+ *               &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}Relatie&quot;&amp;gt;
+ *                 &amp;lt;choice&amp;gt;
+ *                   &amp;lt;element name=&quot;PRS&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}PRS-kerngegevens&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;NNP&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}NNP-kerngegevens&quot;/&amp;gt;
+ *                 &amp;lt;/choice&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/complexContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;KDOSUBZKR&quot; maxOccurs=&quot;2&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;complexContent&amp;gt;
+ *               &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}KDOZKR-rel&quot;&amp;gt;
+ *                 &amp;lt;choice&amp;gt;
+ *                   &amp;lt;element name=&quot;PRS&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}PRS-kerngegevens&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;NNP&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}NNP-kerngegevens&quot;/&amp;gt;
+ *                 &amp;lt;/choice&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/complexContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *       &amp;lt;/sequence&amp;gt;
+ *     &amp;lt;/extension&amp;gt;
+ *   &amp;lt;/complexContent&amp;gt;
+ * &amp;lt;/complexType&amp;gt;
+ * &lt;/pre&gt;
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = &quot;KDO-vraag&quot;, propOrder = {
+    &quot;kdoadr&quot;,
+    &quot;kdobsg&quot;,
+    &quot;kdokdofil&quot;,
+    &quot;kdoprb&quot;,
+    &quot;kdosubvzg&quot;,
+    &quot;kdosubzkr&quot;
+})
+<span class="nc" id="L101">public class KDOVraag</span>
+    extends KDOFund
+{
+
+    @XmlElementRef(name = &quot;KDOADR&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+    protected JAXBElement&lt;ADRRelFund&gt; kdoadr;
+    @XmlElementRef(name = &quot;KDOBSG&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+    protected JAXBElement&lt;KDOVraag.KDOBSG&gt; kdobsg;
+    @XmlElementRef(name = &quot;KDOKDOFIL&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+    protected JAXBElement&lt;KDOVraag.KDOKDOFIL&gt; kdokdofil;
+    @XmlElementRef(name = &quot;KDOPRB&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+    protected JAXBElement&lt;KDOVraag.KDOPRB&gt; kdoprb;
+    @XmlElement(name = &quot;KDOSUBVZG&quot;, nillable = true)
+    protected List&lt;KDOVraag.KDOSUBVZG&gt; kdosubvzg;
+    @XmlElement(name = &quot;KDOSUBZKR&quot;, nillable = true)
+    protected List&lt;KDOVraag.KDOSUBZKR&gt; kdosubzkr;
+
+    /**
+     * Gets the value of the kdoadr property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code &lt;}{@link ADRRelFund }{@code &gt;}
+     *     
+     */
+    public JAXBElement&lt;ADRRelFund&gt; getKDOADR() {
+<span class="nc" id="L127">        return kdoadr;</span>
+    }
+
+    /**
+     * Sets the value of the kdoadr property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code &lt;}{@link ADRRelFund }{@code &gt;}
+     *     
+     */
+    public void setKDOADR(JAXBElement&lt;ADRRelFund&gt; value) {
+<span class="nc" id="L139">        this.kdoadr = value;</span>
+<span class="nc" id="L140">    }</span>
+
+    /**
+     * Gets the value of the kdobsg property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code &lt;}{@link KDOVraag.KDOBSG }{@code &gt;}
+     *     
+     */
+    public JAXBElement&lt;KDOVraag.KDOBSG&gt; getKDOBSG() {
+<span class="nc" id="L151">        return kdobsg;</span>
+    }
+
+    /**
+     * Sets the value of the kdobsg property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code &lt;}{@link KDOVraag.KDOBSG }{@code &gt;}
+     *     
+     */
+    public void setKDOBSG(JAXBElement&lt;KDOVraag.KDOBSG&gt; value) {
+<span class="nc" id="L163">        this.kdobsg = value;</span>
+<span class="nc" id="L164">    }</span>
+
+    /**
+     * Gets the value of the kdokdofil property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code &lt;}{@link KDOVraag.KDOKDOFIL }{@code &gt;}
+     *     
+     */
+    public JAXBElement&lt;KDOVraag.KDOKDOFIL&gt; getKDOKDOFIL() {
+<span class="nc" id="L175">        return kdokdofil;</span>
+    }
+
+    /**
+     * Sets the value of the kdokdofil property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code &lt;}{@link KDOVraag.KDOKDOFIL }{@code &gt;}
+     *     
+     */
+    public void setKDOKDOFIL(JAXBElement&lt;KDOVraag.KDOKDOFIL&gt; value) {
+<span class="nc" id="L187">        this.kdokdofil = value;</span>
+<span class="nc" id="L188">    }</span>
+
+    /**
+     * Gets the value of the kdoprb property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code &lt;}{@link KDOVraag.KDOPRB }{@code &gt;}
+     *     
+     */
+    public JAXBElement&lt;KDOVraag.KDOPRB&gt; getKDOPRB() {
+<span class="nc" id="L199">        return kdoprb;</span>
+    }
+
+    /**
+     * Sets the value of the kdoprb property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code &lt;}{@link KDOVraag.KDOPRB }{@code &gt;}
+     *     
+     */
+    public void setKDOPRB(JAXBElement&lt;KDOVraag.KDOPRB&gt; value) {
+<span class="nc" id="L211">        this.kdoprb = value;</span>
+<span class="nc" id="L212">    }</span>
+
+    /**
+     * Gets the value of the kdosubvzg property.
+     * 
+     * &lt;p&gt;
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the kdosubvzg property.
+     * 
+     * &lt;p&gt;
+     * For example, to add a new item, do as follows:
+     * &lt;pre&gt;
+     *    getKDOSUBVZG().add(newItem);
+     * &lt;/pre&gt;
+     * 
+     * 
+     * &lt;p&gt;
+     * Objects of the following type(s) are allowed in the list
+     * {@link KDOVraag.KDOSUBVZG }
+     * 
+     * 
+     */
+    public List&lt;KDOVraag.KDOSUBVZG&gt; getKDOSUBVZG() {
+<span class="nc bnc" id="L237" title="All 2 branches missed.">        if (kdosubvzg == null) {</span>
+<span class="nc" id="L238">            kdosubvzg = new ArrayList&lt;KDOVraag.KDOSUBVZG&gt;();</span>
+        }
+<span class="nc" id="L240">        return this.kdosubvzg;</span>
+    }
+
+    /**
+     * Gets the value of the kdosubzkr property.
+     * 
+     * &lt;p&gt;
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the kdosubzkr property.
+     * 
+     * &lt;p&gt;
+     * For example, to add a new item, do as follows:
+     * &lt;pre&gt;
+     *    getKDOSUBZKR().add(newItem);
+     * &lt;/pre&gt;
+     * 
+     * 
+     * &lt;p&gt;
+     * Objects of the following type(s) are allowed in the list
+     * {@link KDOVraag.KDOSUBZKR }
+     * 
+     * 
+     */
+    public List&lt;KDOVraag.KDOSUBZKR&gt; getKDOSUBZKR() {
+<span class="nc bnc" id="L266" title="All 2 branches missed.">        if (kdosubzkr == null) {</span>
+<span class="nc" id="L267">            kdosubzkr = new ArrayList&lt;KDOVraag.KDOSUBZKR&gt;();</span>
+        }
+<span class="nc" id="L269">        return this.kdosubzkr;</span>
+    }
+
+
+    /**
+     * &lt;p&gt;Java class for anonymous complex type.
+     * 
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * 
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;complexContent&amp;gt;
+     *     &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}Relatie&quot;&amp;gt;
+     *       &amp;lt;sequence&amp;gt;
+     *         &amp;lt;element name=&quot;BSG&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BSG-fund&quot;/&amp;gt;
+     *       &amp;lt;/sequence&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/complexContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = &quot;&quot;, propOrder = {
+        &quot;bsg&quot;
+    })
+<span class="nc" id="L296">    public static class KDOBSG</span>
+        extends Relatie
+    {
+
+        @XmlElement(name = &quot;BSG&quot;, required = true, nillable = true)
+        protected BSGFund bsg;
+
+        /**
+         * Gets the value of the bsg property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link BSGFund }
+         *     
+         */
+        public BSGFund getBSG() {
+<span class="nc" id="L312">            return bsg;</span>
+        }
+
+        /**
+         * Sets the value of the bsg property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link BSGFund }
+         *     
+         */
+        public void setBSG(BSGFund value) {
+<span class="nc" id="L324">            this.bsg = value;</span>
+<span class="nc" id="L325">        }</span>
+
+    }
+
+
+    /**
+     * &lt;p&gt;Java class for anonymous complex type.
+     * 
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * 
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;complexContent&amp;gt;
+     *     &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}KDOKDOFIL-rel&quot;&amp;gt;
+     *       &amp;lt;sequence&amp;gt;
+     *         &amp;lt;element name=&quot;KDO&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}KDO-kennisgeving&quot;/&amp;gt;
+     *       &amp;lt;/sequence&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/complexContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = &quot;&quot;, propOrder = {
+        &quot;kdo&quot;
+    })
+<span class="nc" id="L353">    public static class KDOKDOFIL</span>
+        extends KDOKDOFILRel
+    {
+
+        @XmlElement(name = &quot;KDO&quot;, required = true, nillable = true)
+        protected KDOKennisgeving kdo;
+
+        /**
+         * Gets the value of the kdo property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link KDOKennisgeving }
+         *     
+         */
+        public KDOKennisgeving getKDO() {
+<span class="nc" id="L369">            return kdo;</span>
+        }
+
+        /**
+         * Sets the value of the kdo property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link KDOKennisgeving }
+         *     
+         */
+        public void setKDO(KDOKennisgeving value) {
+<span class="nc" id="L381">            this.kdo = value;</span>
+<span class="nc" id="L382">        }</span>
+
+    }
+
+
+    /**
+     * &lt;p&gt;Java class for anonymous complex type.
+     * 
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * 
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;complexContent&amp;gt;
+     *     &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}Relatie&quot;&amp;gt;
+     *       &amp;lt;sequence&amp;gt;
+     *         &amp;lt;element name=&quot;PRB&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}PRB-fund&quot;/&amp;gt;
+     *       &amp;lt;/sequence&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/complexContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = &quot;&quot;, propOrder = {
+        &quot;prb&quot;
+    })
+<span class="nc" id="L410">    public static class KDOPRB</span>
+        extends Relatie
+    {
+
+        @XmlElement(name = &quot;PRB&quot;, required = true, nillable = true)
+        protected PRBFund prb;
+
+        /**
+         * Gets the value of the prb property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link PRBFund }
+         *     
+         */
+        public PRBFund getPRB() {
+<span class="nc" id="L426">            return prb;</span>
+        }
+
+        /**
+         * Sets the value of the prb property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link PRBFund }
+         *     
+         */
+        public void setPRB(PRBFund value) {
+<span class="nc" id="L438">            this.prb = value;</span>
+<span class="nc" id="L439">        }</span>
+
+    }
+
+
+    /**
+     * &lt;p&gt;Java class for anonymous complex type.
+     * 
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * 
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;complexContent&amp;gt;
+     *     &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}Relatie&quot;&amp;gt;
+     *       &amp;lt;choice&amp;gt;
+     *         &amp;lt;element name=&quot;PRS&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}PRS-kerngegevens&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;NNP&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}NNP-kerngegevens&quot;/&amp;gt;
+     *       &amp;lt;/choice&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/complexContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = &quot;&quot;, propOrder = {
+        &quot;prs&quot;,
+        &quot;nnp&quot;
+    })
+<span class="nc" id="L469">    public static class KDOSUBVZG</span>
+        extends Relatie
+    {
+
+        @XmlElementRef(name = &quot;PRS&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+        protected JAXBElement&lt;PRSKerngegevens&gt; prs;
+        @XmlElementRef(name = &quot;NNP&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+        protected JAXBElement&lt;NNPKerngegevens&gt; nnp;
+
+        /**
+         * Gets the value of the prs property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link JAXBElement }{@code &lt;}{@link PRSKerngegevens }{@code &gt;}
+         *     
+         */
+        public JAXBElement&lt;PRSKerngegevens&gt; getPRS() {
+<span class="nc" id="L487">            return prs;</span>
+        }
+
+        /**
+         * Sets the value of the prs property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link JAXBElement }{@code &lt;}{@link PRSKerngegevens }{@code &gt;}
+         *     
+         */
+        public void setPRS(JAXBElement&lt;PRSKerngegevens&gt; value) {
+<span class="nc" id="L499">            this.prs = value;</span>
+<span class="nc" id="L500">        }</span>
+
+        /**
+         * Gets the value of the nnp property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link JAXBElement }{@code &lt;}{@link NNPKerngegevens }{@code &gt;}
+         *     
+         */
+        public JAXBElement&lt;NNPKerngegevens&gt; getNNP() {
+<span class="nc" id="L511">            return nnp;</span>
+        }
+
+        /**
+         * Sets the value of the nnp property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link JAXBElement }{@code &lt;}{@link NNPKerngegevens }{@code &gt;}
+         *     
+         */
+        public void setNNP(JAXBElement&lt;NNPKerngegevens&gt; value) {
+<span class="nc" id="L523">            this.nnp = value;</span>
+<span class="nc" id="L524">        }</span>
+
+    }
+
+
+    /**
+     * &lt;p&gt;Java class for anonymous complex type.
+     * 
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * 
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;complexContent&amp;gt;
+     *     &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}KDOZKR-rel&quot;&amp;gt;
+     *       &amp;lt;choice&amp;gt;
+     *         &amp;lt;element name=&quot;PRS&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}PRS-kerngegevens&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;NNP&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}NNP-kerngegevens&quot;/&amp;gt;
+     *       &amp;lt;/choice&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/complexContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = &quot;&quot;, propOrder = {
+        &quot;prs&quot;,
+        &quot;nnp&quot;
+    })
+<span class="nc" id="L554">    public static class KDOSUBZKR</span>
+        extends KDOZKRRel
+    {
+
+        @XmlElementRef(name = &quot;PRS&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+        protected JAXBElement&lt;PRSKerngegevens&gt; prs;
+        @XmlElementRef(name = &quot;NNP&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+        protected JAXBElement&lt;NNPKerngegevens&gt; nnp;
+
+        /**
+         * Gets the value of the prs property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link JAXBElement }{@code &lt;}{@link PRSKerngegevens }{@code &gt;}
+         *     
+         */
+        public JAXBElement&lt;PRSKerngegevens&gt; getPRS() {
+<span class="nc" id="L572">            return prs;</span>
+        }
+
+        /**
+         * Sets the value of the prs property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link JAXBElement }{@code &lt;}{@link PRSKerngegevens }{@code &gt;}
+         *     
+         */
+        public void setPRS(JAXBElement&lt;PRSKerngegevens&gt; value) {
+<span class="nc" id="L584">            this.prs = value;</span>
+<span class="nc" id="L585">        }</span>
+
+        /**
+         * Gets the value of the nnp property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link JAXBElement }{@code &lt;}{@link NNPKerngegevens }{@code &gt;}
+         *     
+         */
+        public JAXBElement&lt;NNPKerngegevens&gt; getNNP() {
+<span class="nc" id="L596">            return nnp;</span>
+        }
+
+        /**
+         * Sets the value of the nnp property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link JAXBElement }{@code &lt;}{@link NNPKerngegevens }{@code &gt;}
+         *     
+         */
+        public void setNNP(JAXBElement&lt;NNPKerngegevens&gt; value) {
+<span class="nc" id="L608">            this.nnp = value;</span>
+<span class="nc" id="L609">        }</span>
+
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>MailProcesUitvoerActionBean.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO distributie</a> &gt; <a href="../index.html" class="el_bundle">brmo-service</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.service.stripes</a> &gt; <span class="el_source">MailProcesUitvoerActionBean.java</span></div><h1>MailProcesUitvoerActionBean.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2015 B3Partners B.V.
+ */
+package nl.b3p.brmo.service.stripes;
+
+import net.sourceforge.stripes.action.ActionBean;
+import net.sourceforge.stripes.action.ActionBeanContext;
+import net.sourceforge.stripes.action.DefaultHandler;
+import net.sourceforge.stripes.action.ForwardResolution;
+import net.sourceforge.stripes.action.Resolution;
+import net.sourceforge.stripes.action.SimpleMessage;
+import net.sourceforge.stripes.action.StrictBinding;
+import net.sourceforge.stripes.validation.SimpleError;
+import net.sourceforge.stripes.validation.Validate;
+import nl.b3p.brmo.loader.util.BrmoException;
+import nl.b3p.brmo.persistence.staging.AutomatischProces;
+import nl.b3p.brmo.persistence.staging.MailRapportageProces;
+import nl.b3p.brmo.service.scanner.AbstractExecutableProces;
+import nl.b3p.brmo.service.scanner.MailRapportage;
+import org.stripesstuff.stripersist.EntityTypeConverter;
+import org.stripesstuff.stripersist.Stripersist;
+
+/**
+ *
+ * @author mprins
+ */
+@StrictBinding
+<span class="nc" id="L28">public class MailProcesUitvoerActionBean implements ActionBean {</span>
+
+    private static final String JSP = &quot;/WEB-INF/jsp/beheer/mailprocesuitvoeren.jsp&quot;;
+
+    @Validate(converter = EntityTypeConverter.class)
+    private MailRapportageProces proces;
+
+    private ActionBeanContext context;
+
+    @DefaultHandler
+    public Resolution execute() {
+<span class="nc bnc" id="L39" title="All 2 branches missed.">        if (proces == null) {</span>
+<span class="nc" id="L40">            getContext().getMessages().add(new SimpleMessage(&quot;Proces ongeldig!&quot;));</span>
+<span class="nc" id="L41">            return new ForwardResolution(JSP);</span>
+        }
+<span class="nc" id="L43">        MailRapportage _proces = (MailRapportage) AbstractExecutableProces.getProces(proces);</span>
+        try {
+<span class="nc" id="L45">            _proces.execute();</span>
+<span class="nc" id="L46">            getContext().getMessages().add(new SimpleMessage(&quot;De mail is verstuurd.&quot;));</span>
+<span class="nc" id="L47">        } catch (BrmoException ex) {</span>
+<span class="nc" id="L48">            proces.setStatus(AutomatischProces.ProcessingStatus.ERROR);</span>
+<span class="nc" id="L49">            getContext().getMessages().add(</span>
+                    new SimpleError(&quot;Er is een fout opgetreden tijdens het verturen van de mail. {2}&quot;,
+<span class="nc" id="L51">                            ex.getMessage()));</span>
+        } finally {
+<span class="nc" id="L53">            Stripersist.getEntityManager().merge(proces);</span>
+<span class="nc" id="L54">            Stripersist.getEntityManager().getTransaction().commit();</span>
+        }
+<span class="nc" id="L56">        return new ForwardResolution(JSP);</span>
+    }
+
+    public MailRapportageProces getProces() {
+<span class="nc" id="L60">        return proces;</span>
+    }
+
+    public void setProces(MailRapportageProces proces) {
+<span class="nc" id="L64">        this.proces = proces;</span>
+<span class="nc" id="L65">    }</span>
+
+    @Override
+    public ActionBeanContext getContext() {
+<span class="nc" id="L69">        return context;</span>
+    }
+
+    @Override
+    public void setContext(ActionBeanContext context) {
+<span class="nc" id="L74">        this.context = context;</span>
+<span class="nc" id="L75">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>TableRow.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO soap bevragingsservice</a> &gt; <a href="../index.html" class="el_bundle">brmo-loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.loader.util</a> &gt; <span class="el_source">TableRow.java</span></div><h1>TableRow.java</h1><pre class="source lang-java linenums">package nl.b3p.brmo.loader.util;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import org.apache.commons.lang3.StringUtils;
+
+/**
+ *
+ * @author Matthijs Laan
+ */
+<span class="fc" id="L13">public class TableRow {</span>
+    private String table;
+    private boolean ignoreDuplicates;
+
+<span class="fc" id="L17">    private List&lt;String&gt; columns = new ArrayList();</span>
+<span class="fc" id="L18">    private List&lt;String&gt; values = new ArrayList();</span>
+
+<span class="fc" id="L20">    private final Set&lt;String&gt; alleenArchiefColumns = new HashSet();</span>
+
+    /* Used for archief tables */
+    private String columnDatumBeginGeldigheid;
+    private String columnDatumEindeGeldigheid;
+    
+    public String getTable() {
+<span class="nc" id="L27">        return table;</span>
+    }
+
+    public void setTable(String table) {
+<span class="fc" id="L31">        this.table = table;</span>
+<span class="fc" id="L32">    }</span>
+
+    public List&lt;String&gt; getColumns() {
+<span class="fc" id="L35">        return columns;</span>
+    }
+
+    public void setColumns(List&lt;String&gt; columns) {
+<span class="nc" id="L39">        this.columns = columns;</span>
+<span class="nc" id="L40">    }</span>
+
+    public boolean isAlleenArchiefColumn(String column) {
+<span class="nc" id="L43">        return alleenArchiefColumns.contains(column);</span>
+    }
+
+    public void setAlleenArchiefColumn(String column) {
+<span class="fc" id="L47">        alleenArchiefColumns.add(column);</span>
+<span class="fc" id="L48">    }</span>
+
+    public List&lt;String&gt; getValues() {
+<span class="fc" id="L51">        return values;</span>
+    }
+
+    public void setValues(List&lt;String&gt; values) {
+<span class="nc" id="L55">        this.values = values;</span>
+<span class="nc" id="L56">    }</span>
+
+    public boolean isIgnoreDuplicates() {
+<span class="nc" id="L59">        return ignoreDuplicates;</span>
+    }
+
+    public void setIgnoreDuplicates(boolean ignoreDuplicates) {
+<span class="fc" id="L63">        this.ignoreDuplicates = ignoreDuplicates;</span>
+<span class="fc" id="L64">    }</span>
+
+    public String getColumnDatumBeginGeldigheid() {
+<span class="nc" id="L67">        return columnDatumBeginGeldigheid;</span>
+    }
+
+    public void setColumnDatumBeginGeldigheid(String columnDatumBeginGeldigheid) {
+<span class="fc" id="L71">        this.columnDatumBeginGeldigheid = columnDatumBeginGeldigheid;</span>
+<span class="fc" id="L72">    }</span>
+
+    public String getColumnDatumEindeGeldigheid() {
+<span class="nc" id="L75">        return columnDatumEindeGeldigheid;</span>
+    }
+
+    public void setColumnDatumEindeGeldigheid(String columnDatumEindeGeldigheid) {
+<span class="fc" id="L79">        this.columnDatumEindeGeldigheid = columnDatumEindeGeldigheid;</span>
+<span class="fc" id="L80">    }</span>
+ 
+    public String toString(List&lt;String&gt; displayColumns) {
+<span class="nc" id="L83">        StringBuilder s = new StringBuilder();</span>
+<span class="nc" id="L84">        s.append(table).append(&quot;[&quot;);</span>
+
+<span class="nc" id="L86">        List&lt;String&gt; keys = new ArrayList();</span>
+<span class="nc" id="L87">        int i = -1;</span>
+<span class="nc bnc" id="L88" title="All 2 branches missed.">        for (String column: columns) {</span>
+<span class="nc" id="L89">            i++;</span>
+<span class="nc bnc" id="L90" title="All 2 branches missed.">            if(!displayColumns.contains(column)) {</span>
+<span class="nc" id="L91">                continue;</span>
+            }
+
+<span class="nc" id="L94">            keys.add(column + &quot;=&quot; + values.get(i));</span>
+<span class="nc" id="L95">        }</span>
+<span class="nc" id="L96">        s.append(StringUtils.join(keys, &quot;, &quot;));</span>
+<span class="nc" id="L97">        s.append(&quot;]&quot;);</span>
+<span class="nc" id="L98">        return s.toString();</span>
+    }
+
+    @Override
+    public String toString() {
+<span class="nc" id="L103">        StringBuilder str = new StringBuilder();</span>
+
+<span class="nc" id="L105">        str.append(&quot;TABLE: &quot;);</span>
+<span class="nc" id="L106">        str.append(table);</span>
+<span class="nc" id="L107">        str.append(&quot;\n&quot;);</span>
+
+<span class="nc" id="L109">        int i = 0;</span>
+<span class="nc bnc" id="L110" title="All 2 branches missed.">        for (String column : columns) {</span>
+<span class="nc" id="L111">            str.append(column);</span>
+<span class="nc" id="L112">            str.append(&quot;=&quot;);</span>
+<span class="nc" id="L113">            str.append(values.get(i));</span>
+<span class="nc bnc" id="L114" title="All 2 branches missed.">            if(isAlleenArchiefColumn(column)) {</span>
+<span class="nc" id="L115">                str.append(&quot; (alleen archief)&quot;);</span>
+            }
+<span class="nc" id="L117">            str.append(&quot;\n&quot;);</span>
+<span class="nc" id="L118">            i++;</span>
+<span class="nc" id="L119">        }</span>
+
+<span class="nc" id="L121">        return str.toString();</span>
+    }
+
+    public String getColumnValue(String column) {
+<span class="fc" id="L125">        int i = columns.indexOf(column);</span>
+<span class="pc bpc" id="L126" title="1 of 2 branches missed.">        if(i == -1) {</span>
+<span class="nc" id="L127">            return null;</span>
+        } else {
+<span class="fc" id="L129">            return values.get(i);</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.service.stripes.BasisregistratieFileUploadActionBean
-	c43 [label=<<table title="nl.b3p.brmo.service.stripes.BasisregistratieFileUploadActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BasisregistratieFileUploadActionBean.html">
+	c46 [label=<<table title="nl.b3p.brmo.service.stripes.BasisregistratieFileUploadActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BasisregistratieFileUploadActionBean.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BasisregistratieFileUploadActionBean </td></tr>
 		</table></td></tr>
@@ -30,7 +30,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BasisregistratieFileUploadActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBean
-	c44 [label=<<table title="nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AdvancedFunctionsActionBean.html">
+	c47 [label=<<table title="nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AdvancedFunctionsActionBean.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> AdvancedFunctionsActionBean </td></tr>
 		</table></td></tr>
@@ -72,10 +72,57 @@ digraph G {
 <tr><td align="left" balign="left"> + deleteBerichten(config : String, soort : String) </td></tr>
 <tr><td align="left" balign="left"> + replayBRKVerwijderBerichten(soort : String, status : String) </td></tr>
 <tr><td align="left" balign="left"> + fixNHRTypering(soort : String, status : String) </td></tr>
+<tr><td align="left" balign="left"> + fillbestandsNaamHersteld(soort : String, config : String) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./AdvancedFunctionsActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.service.stripes.AfgifteNummerScanUitvoerenActionBean
+	c48 [label=<<table title="nl.b3p.brmo.service.stripes.AfgifteNummerScanUitvoerenActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AfgifteNummerScanUitvoerenActionBean.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> AfgifteNummerScanUitvoerenActionBean </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + AfgifteNummerScanUitvoerenActionBean() </td></tr>
+<tr><td align="left" balign="left"> + execute() : Resolution </td></tr>
+<tr><td align="left" balign="left"> + total(total : long) </td></tr>
+<tr><td align="left" balign="left"> + progress(progress : long) </td></tr>
+<tr><td align="left" balign="left"> + exception(t : Throwable) </td></tr>
+<tr><td align="left" balign="left"> + updateStatus(status : String) </td></tr>
+<tr><td align="left" balign="left"> + addLog(line : String) </td></tr>
+<tr><td align="left" balign="left"> + setContext(context : ActionBeanContext) </td></tr>
+<tr><td align="left" balign="left"> + getContext() : ActionBeanContext </td></tr>
+<tr><td align="left" balign="left"> + getProces() : AfgifteNummerScannerProces </td></tr>
+<tr><td align="left" balign="left"> + setProces(proces : AfgifteNummerScannerProces) </td></tr>
+<tr><td align="left" balign="left"> + getLog() : String </td></tr>
+<tr><td align="left" balign="left"> + setLog(log : String) </td></tr>
+<tr><td align="left" balign="left"> + getStatus() : String </td></tr>
+<tr><td align="left" balign="left"> + setStatus(status : String) </td></tr>
+<tr><td align="left" balign="left"> + getExceptionStacktrace() : String </td></tr>
+<tr><td align="left" balign="left"> + setExceptionStacktrace(exceptionStacktrace : String) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./AfgifteNummerScanUitvoerenActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.service.stripes.ControleActionBean
+	c49 [label=<<table title="nl.b3p.brmo.service.stripes.ControleActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ControleActionBean.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> ControleActionBean </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + ControleActionBean() </td></tr>
+<tr><td align="left" balign="left"> + getContext() : ActionBeanContext </td></tr>
+<tr><td align="left" balign="left"> + setContext(context : ActionBeanContext) </td></tr>
+<tr><td align="left" balign="left"> + getFile() : FileBean </td></tr>
+<tr><td align="left" balign="left"> + setFile(file : FileBean) </td></tr>
+<tr><td align="left" balign="left"> + view() : Resolution </td></tr>
+<tr><td align="left" balign="left"> + check() : Resolution </td></tr>
+		</table></td></tr>
+		</table>>, URL="./ControleActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.stripes.TransformActionBean
-	c45 [label=<<table title="nl.b3p.brmo.service.stripes.TransformActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TransformActionBean.html">
+	c50 [label=<<table title="nl.b3p.brmo.service.stripes.TransformActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TransformActionBean.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> TransformActionBean </td></tr>
 		</table></td></tr>
@@ -89,6 +136,7 @@ digraph G {
 <tr><td align="left" balign="left"> + total(total : long) </td></tr>
 <tr><td align="left" balign="left"> + progress(progress : long) </td></tr>
 <tr><td align="left" balign="left"> + exception(t : Throwable) </td></tr>
+<tr><td align="left" balign="left"> + transformUnknown() : Resolution </td></tr>
 <tr><td align="left" balign="left"> + transformSelected() : Resolution </td></tr>
 <tr><td align="left" balign="left"> + transformAll() : Resolution </td></tr>
 <tr><td align="left" balign="left"> + transformAllStand() : Resolution </td></tr>
@@ -119,7 +167,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./TransformActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.stripes.UpdatesActionBean
-	c46 [label=<<table title="nl.b3p.brmo.service.stripes.UpdatesActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./UpdatesActionBean.html">
+	c51 [label=<<table title="nl.b3p.brmo.service.stripes.UpdatesActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./UpdatesActionBean.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> UpdatesActionBean </td></tr>
 		</table></td></tr>
@@ -157,7 +205,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./UpdatesActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.stripes.GDS2OphalenUitvoerActionBean
-	c47 [label=<<table title="nl.b3p.brmo.service.stripes.GDS2OphalenUitvoerActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GDS2OphalenUitvoerActionBean.html">
+	c52 [label=<<table title="nl.b3p.brmo.service.stripes.GDS2OphalenUitvoerActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GDS2OphalenUitvoerActionBean.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> GDS2OphalenUitvoerActionBean </td></tr>
 		</table></td></tr>
@@ -201,7 +249,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./GDS2OphalenUitvoerActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.stripes.MViewRefreshActionBean
-	c48 [label=<<table title="nl.b3p.brmo.service.stripes.MViewRefreshActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MViewRefreshActionBean.html">
+	c53 [label=<<table title="nl.b3p.brmo.service.stripes.MViewRefreshActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MViewRefreshActionBean.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MViewRefreshActionBean </td></tr>
 		</table></td></tr>
@@ -229,7 +277,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./MViewRefreshActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.stripes.BasisregistratieServiceActionBean
-	c49 [label=<<table title="nl.b3p.brmo.service.stripes.BasisregistratieServiceActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BasisregistratieServiceActionBean.html">
+	c54 [label=<<table title="nl.b3p.brmo.service.stripes.BasisregistratieServiceActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BasisregistratieServiceActionBean.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BasisregistratieServiceActionBean </td></tr>
 		</table></td></tr>
@@ -246,7 +294,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BasisregistratieServiceActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.stripes.LaadProcesActionBean
-	c50 [label=<<table title="nl.b3p.brmo.service.stripes.LaadProcesActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./LaadProcesActionBean.html">
+	c55 [label=<<table title="nl.b3p.brmo.service.stripes.LaadProcesActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./LaadProcesActionBean.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> LaadProcesActionBean </td></tr>
 		</table></td></tr>
@@ -283,7 +331,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./LaadProcesActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.stripes.BerichtDoorsturenUitvoerActionBean
-	c51 [label=<<table title="nl.b3p.brmo.service.stripes.BerichtDoorsturenUitvoerActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BerichtDoorsturenUitvoerActionBean.html">
+	c56 [label=<<table title="nl.b3p.brmo.service.stripes.BerichtDoorsturenUitvoerActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BerichtDoorsturenUitvoerActionBean.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BerichtDoorsturenUitvoerActionBean </td></tr>
 		</table></td></tr>
@@ -327,7 +375,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BerichtDoorsturenUitvoerActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.stripes.BerichtstatusRapportActionBean
-	c52 [label=<<table title="nl.b3p.brmo.service.stripes.BerichtstatusRapportActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BerichtstatusRapportActionBean.html">
+	c57 [label=<<table title="nl.b3p.brmo.service.stripes.BerichtstatusRapportActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BerichtstatusRapportActionBean.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BerichtstatusRapportActionBean </td></tr>
 		</table></td></tr>
@@ -355,7 +403,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BerichtstatusRapportActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.stripes.LaadprocesTransformatieUitvoerActionBean
-	c53 [label=<<table title="nl.b3p.brmo.service.stripes.LaadprocesTransformatieUitvoerActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./LaadprocesTransformatieUitvoerActionBean.html">
+	c58 [label=<<table title="nl.b3p.brmo.service.stripes.LaadprocesTransformatieUitvoerActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./LaadprocesTransformatieUitvoerActionBean.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> LaadprocesTransformatieUitvoerActionBean </td></tr>
 		</table></td></tr>
@@ -399,7 +447,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./LaadprocesTransformatieUitvoerActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.stripes.DirectoryScannerUitvoerActionBean
-	c54 [label=<<table title="nl.b3p.brmo.service.stripes.DirectoryScannerUitvoerActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DirectoryScannerUitvoerActionBean.html">
+	c59 [label=<<table title="nl.b3p.brmo.service.stripes.DirectoryScannerUitvoerActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DirectoryScannerUitvoerActionBean.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DirectoryScannerUitvoerActionBean </td></tr>
 		</table></td></tr>
@@ -443,7 +491,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./DirectoryScannerUitvoerActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.stripes.BGTOphalenUitvoerActionBean
-	c55 [label=<<table title="nl.b3p.brmo.service.stripes.BGTOphalenUitvoerActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTOphalenUitvoerActionBean.html">
+	c60 [label=<<table title="nl.b3p.brmo.service.stripes.BGTOphalenUitvoerActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTOphalenUitvoerActionBean.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BGTOphalenUitvoerActionBean </td></tr>
 		</table></td></tr>
@@ -489,7 +537,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BGTOphalenUitvoerActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.stripes.MailProcesUitvoerActionBean
-	c56 [label=<<table title="nl.b3p.brmo.service.stripes.MailProcesUitvoerActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MailProcesUitvoerActionBean.html">
+	c61 [label=<<table title="nl.b3p.brmo.service.stripes.MailProcesUitvoerActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MailProcesUitvoerActionBean.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MailProcesUitvoerActionBean </td></tr>
 		</table></td></tr>
@@ -506,7 +554,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./MailProcesUitvoerActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.stripes.BasisregistratieBigFileLoadActionBean
-	c57 [label=<<table title="nl.b3p.brmo.service.stripes.BasisregistratieBigFileLoadActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BasisregistratieBigFileLoadActionBean.html">
+	c62 [label=<<table title="nl.b3p.brmo.service.stripes.BasisregistratieBigFileLoadActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BasisregistratieBigFileLoadActionBean.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BasisregistratieBigFileLoadActionBean </td></tr>
 		</table></td></tr>
@@ -543,7 +591,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BasisregistratieBigFileLoadActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.stripes.OphaalConfigActionBean
-	c58 [label=<<table title="nl.b3p.brmo.service.stripes.OphaalConfigActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./OphaalConfigActionBean.html">
+	c63 [label=<<table title="nl.b3p.brmo.service.stripes.OphaalConfigActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./OphaalConfigActionBean.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> OphaalConfigActionBean </td></tr>
 		</table></td></tr>
@@ -572,7 +620,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./OphaalConfigActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.stripes.SamenvattingActionBean
-	c59 [label=<<table title="nl.b3p.brmo.service.stripes.SamenvattingActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./SamenvattingActionBean.html">
+	c64 [label=<<table title="nl.b3p.brmo.service.stripes.SamenvattingActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./SamenvattingActionBean.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> SamenvattingActionBean </td></tr>
 		</table></td></tr>
@@ -593,7 +641,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./SamenvattingActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.stripes.BerichtenActionBean
-	c60 [label=<<table title="nl.b3p.brmo.service.stripes.BerichtenActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BerichtenActionBean.html">
+	c65 [label=<<table title="nl.b3p.brmo.service.stripes.BerichtenActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BerichtenActionBean.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BerichtenActionBean </td></tr>
 		</table></td></tr>

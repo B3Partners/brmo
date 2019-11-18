@@ -1,0 +1,536 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>AntwoordBodyFactory.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO distributie</a> &gt; <a href="../index.html" class="el_bundle">brmo-stufbg204</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.stufbg204</a> &gt; <span class="el_source">AntwoordBodyFactory.java</span></div><h1>AntwoordBodyFactory.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2017 B3Partners B.V.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+ */
+package nl.b3p.brmo.stufbg204;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.List;
+import java.util.Map;
+import nl.egem.stuf.sector.bg._0204.ACDTabel;
+import nl.egem.stuf.sector.bg._0204.ADLTabel;
+import nl.egem.stuf.sector.bg._0204.ADRAntwoord;
+import nl.egem.stuf.sector.bg._0204.ADRFund;
+import nl.egem.stuf.sector.bg._0204.ADRRelFund;
+import nl.egem.stuf.sector.bg._0204.ANummerE;
+import nl.egem.stuf.sector.bg._0204.AcademischeTitelPositieTovNaam;
+import nl.egem.stuf.sector.bg._0204.AdellijkeTitelPredikaatE;
+import nl.egem.stuf.sector.bg._0204.AdellijkeTitelSoort;
+import nl.egem.stuf.sector.bg._0204.BsnNummerE;
+import nl.egem.stuf.sector.bg._0204.CodeGeboortelandE;
+import nl.egem.stuf.sector.bg._0204.GEMTabel;
+import nl.egem.stuf.sector.bg._0204.GeboortedatumE;
+import nl.egem.stuf.sector.bg._0204.GeboorteplaatsE;
+import nl.egem.stuf.sector.bg._0204.Geslachtsaanduiding;
+import nl.egem.stuf.sector.bg._0204.GeslachtsaanduidingE;
+import nl.egem.stuf.sector.bg._0204.GeslachtsnaamE;
+import nl.egem.stuf.sector.bg._0204.LNDTabel;
+import nl.egem.stuf.sector.bg._0204.NATTabel;
+import nl.egem.stuf.sector.bg._0204.ObjectFactory;
+import nl.egem.stuf.sector.bg._0204.PRSAntwoord;
+import nl.egem.stuf.sector.bg._0204.PRSFund.AanduidingNaamgebruik;
+import nl.egem.stuf.sector.bg._0204.PRSFund.AcademischeTitel;
+import nl.egem.stuf.sector.bg._0204.PRSFund.BurgerlijkeStaat;
+import nl.egem.stuf.sector.bg._0204.PRSFund.CodeGemeenteVanInschrijving;
+import nl.egem.stuf.sector.bg._0204.PRSFund.CodeLandOverlijden;
+import nl.egem.stuf.sector.bg._0204.PRSFund.DatumVerkrijgingVerblijfstitel;
+import nl.egem.stuf.sector.bg._0204.PRSFund.DatumVerliesVerblijfstitel;
+import nl.egem.stuf.sector.bg._0204.PRSFund.OmschrijvingRedenOpschortingBijhouding;
+import nl.egem.stuf.sector.bg._0204.PRSFund.PlaatsOverlijden;
+import nl.egem.stuf.sector.bg._0204.PRSVraag;
+import nl.egem.stuf.sector.bg._0204.SIBTabel;
+import nl.egem.stuf.sector.bg._0204.VBTTabel;
+import nl.egem.stuf.sector.bg._0204.VoorlettersE;
+import nl.egem.stuf.sector.bg._0204.VoornamenE;
+import nl.egem.stuf.sector.bg._0204.VoorvoegselGeslachtsnaamE;
+import nl.egem.stuf.stuf0204.DatumMetIndicator;
+import nl.egem.stuf.stuf0204.ExtraElement;
+import nl.egem.stuf.stuf0204.ExtraElementen;
+import nl.egem.stuf.stuf0204.NoValue;
+import nl.egem.stuf.stuf0204.Verwerkingssoort;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+/**
+ *
+ * @author Meine Toonen
+ */
+public class AntwoordBodyFactory {
+
+<span class="nc" id="L75">    private static final Log LOG = LogFactory.getLog(AntwoordBodyFactory.class);</span>
+    
+<span class="nc" id="L77">    private static final ObjectFactory objFac = new ObjectFactory();</span>
+
+<span class="nc" id="L79">    public AntwoordBodyFactory() {</span>
+
+<span class="nc" id="L81">    }</span>
+
+    // &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Answermessage creators&quot;&gt;
+    public static VBTTabel createVerblijfstitel(String omschrijving, BigInteger code) {
+<span class="nc" id="L85">        VBTTabel l = new VBTTabel();</span>
+
+<span class="nc" id="L87">        VBTTabel.Omschrijving o = new VBTTabel.Omschrijving();</span>
+<span class="nc" id="L88">        o.setValue(omschrijving);</span>
+
+<span class="nc" id="L90">        VBTTabel.Code c = new VBTTabel.Code();</span>
+<span class="nc" id="L91">        c.setValue(code);</span>
+
+<span class="nc" id="L93">        l.setOmschrijving(objFac.createVBTTabelOmschrijving(o));</span>
+<span class="nc" id="L94">        l.setCode(objFac.createVBTTabelCode(c));</span>
+
+<span class="nc" id="L96">        return l;</span>
+    }
+
+    public static SIBTabel createSoortIdentiteitsbewijs(String omschrijving, BigInteger soort) {
+<span class="nc" id="L100">        SIBTabel l = new SIBTabel();</span>
+
+<span class="nc" id="L102">        SIBTabel.Soort s = new SIBTabel.Soort();</span>
+<span class="nc" id="L103">        s.setValue(soort);</span>
+
+<span class="nc" id="L105">        SIBTabel.Omschrijving o = new SIBTabel.Omschrijving();</span>
+<span class="nc" id="L106">        o.setValue(omschrijving);</span>
+
+<span class="nc" id="L108">        l.setOmschrijving(objFac.createSIBTabelOmschrijving(o));</span>
+<span class="nc" id="L109">        l.setSoort(objFac.createSIBTabelSoort(s));</span>
+<span class="nc" id="L110">        l.setSoortEntiteit(&quot;SIB&quot;);</span>
+<span class="nc" id="L111">        return l;</span>
+    }
+
+    public static PRSAntwoord createPersoon(Map&lt;String, Object&gt; values, PRSVraag prs) {
+<span class="nc" id="L115">        BigDecimal bsnBD = (BigDecimal) values.get(&quot;bsn&quot;);</span>
+<span class="nc" id="L116">        BigInteger bsnInt = bsnBD.toBigInteger();</span>
+
+<span class="nc" id="L118">        PRSAntwoord p = new PRSAntwoord();</span>
+
+<span class="nc" id="L120">        BsnNummerE bsn = new BsnNummerE();</span>
+<span class="nc" id="L121">        bsn.setValue(bsnInt);</span>
+<span class="nc" id="L122">        calculateNoValue(bsn);</span>
+        
+<span class="nc" id="L124">        p.setBsnNummer(objFac.createPRSFundBsnNummer(bsn));</span>
+
+<span class="nc bnc" id="L126" title="All 2 branches missed.">        if (prs.getVoornamen() != null) {</span>
+<span class="nc" id="L127">            VoornamenE v = new VoornamenE();</span>
+<span class="nc" id="L128">            v.setGegevengroep(&quot;PRS1&quot;);</span>
+<span class="nc" id="L129">            v.setValue(nullIfEmpty(values.get(&quot;nm_voornamen&quot;)));</span>
+<span class="nc" id="L130">            p.setVoornamen(objFac.createPRSFundVoornamen(v));</span>
+<span class="nc" id="L131">            calculateNoValue(v);</span>
+        }
+<span class="nc bnc" id="L133" title="All 2 branches missed.">        if (prs.getGeslachtsnaam() != null) {</span>
+<span class="nc" id="L134">            GeslachtsnaamE g = new GeslachtsnaamE();</span>
+<span class="nc" id="L135">            g.setGegevengroep(&quot;PRS1&quot;);</span>
+<span class="nc" id="L136">            g.setValue(nullIfEmpty(values.get(&quot;nm_geslachtsnaam&quot;)));</span>
+<span class="nc" id="L137">            p.setGeslachtsnaam(objFac.createPRSFundGeslachtsnaam(g));</span>
+<span class="nc" id="L138">            calculateNoValue(g);</span>
+        }
+<span class="nc bnc" id="L140" title="All 2 branches missed.">        if (prs.getGeboortedatum() != null) {</span>
+<span class="nc" id="L141">            GeboortedatumE gd = new GeboortedatumE();</span>
+<span class="nc" id="L142">            gd.setValue(nullIfEmptyBD(values.get(&quot;gb_geboortedatum&quot;)));</span>
+<span class="nc" id="L143">            p.setGeboortedatum(objFac.createPRSFundGeboortedatum(gd));</span>
+<span class="nc" id="L144">            calculateNoValue(gd);</span>
+        }
+<span class="nc bnc" id="L146" title="All 2 branches missed.">        if (prs.getVoorletters() != null) {</span>
+<span class="nc" id="L147">            VoorlettersE vl = new VoorlettersE();</span>
+<span class="nc" id="L148">            vl.setGegevengroep(&quot;PRS1&quot;);</span>
+<span class="nc" id="L149">            vl.setValue(nullIfEmpty(values.get(&quot;na_voorletters_aanschrijving&quot;)));</span>
+<span class="nc" id="L150">            p.setVoorletters(objFac.createPRSFundVoorletters(vl));</span>
+<span class="nc" id="L151">            calculateNoValue(vl);</span>
+        }
+<span class="nc bnc" id="L153" title="All 2 branches missed.">        if (prs.getVoorvoegselGeslachtsnaam() != null) {</span>
+<span class="nc" id="L154">            VoorvoegselGeslachtsnaamE vvgn = new VoorvoegselGeslachtsnaamE();</span>
+<span class="nc" id="L155">            vvgn.setGegevengroep(&quot;PRS1&quot;);</span>
+<span class="nc" id="L156">            vvgn.setValue(nullIfEmpty(values.get(&quot;nm_voorvoegsel_geslachtsnaam&quot;)));</span>
+<span class="nc" id="L157">            p.setVoorvoegselGeslachtsnaam(objFac.createPRSFundVoorvoegselGeslachtsnaam(vvgn));</span>
+<span class="nc" id="L158">            calculateNoValue(vvgn);</span>
+        }
+<span class="nc bnc" id="L160" title="All 2 branches missed.">        if (prs.getAdellijkeTitelPredikaat() != null) {</span>
+<span class="nc" id="L161">            AdellijkeTitelPredikaatE a = new AdellijkeTitelPredikaatE();</span>
+<span class="nc" id="L162">            a.setValue(nullIfEmpty(values.get(&quot;nm_adellijke_titel_predikaat&quot;)));</span>
+<span class="nc" id="L163">            p.setAdellijkeTitelPredikaat(objFac.createPRSFundAdellijkeTitelPredikaat(a));</span>
+<span class="nc" id="L164">            calculateNoValue(a);</span>
+        }
+
+<span class="nc bnc" id="L167" title="All 4 branches missed.">        if (prs.getAcademischeTitel() != null &amp;&amp; prs.getAcademischeTitel().size() &gt; 0) {</span>
+<span class="nc" id="L168">            AcademischeTitel at = new AcademischeTitel();</span>
+<span class="nc" id="L169">            at.setValue(nullIfEmpty(values.get(&quot;fk_2acd_code&quot;)));</span>
+<span class="nc" id="L170">            p.getAcademischeTitel().add(at);</span>
+<span class="nc" id="L171">            calculateNoValue(at);</span>
+        }
+<span class="nc bnc" id="L173" title="All 2 branches missed.">        if (prs.getANummer() != null) {</span>
+<span class="nc" id="L174">            ANummerE aN = new ANummerE();</span>
+<span class="nc" id="L175">            aN.setValue(nullIfEmptyBI(values.get(&quot;a_nummer&quot;)));</span>
+<span class="nc" id="L176">            p.setANummer(objFac.createPRSFundANummer(aN));</span>
+<span class="nc" id="L177">            calculateNoValue(aN);</span>
+        }
+<span class="nc bnc" id="L179" title="All 2 branches missed.">        if (prs.getBurgerlijkeStaat() != null) {</span>
+<span class="nc" id="L180">            BurgerlijkeStaat bu = new BurgerlijkeStaat();</span>
+<span class="nc" id="L181">            bu.setValue(nullIfEmptyBI(values.get(&quot;burgerlijke_staat&quot;)));</span>
+<span class="nc" id="L182">            calculateNoValue(bu);</span>
+<span class="nc" id="L183">            p.setBurgerlijkeStaat(objFac.createPRSFundBurgerlijkeStaat(bu));</span>
+        }
+
+<span class="nc bnc" id="L186" title="All 2 branches missed.">        if (prs.getDatumInschrijvingGemeente() != null) {</span>
+<span class="nc" id="L187">            DatumMetIndicator da = new DatumMetIndicator();</span>
+<span class="nc" id="L188">            da.setValue(nullIfEmptyBD(values.get(&quot;datum_inschrijving_in_gemeente&quot;)));</span>
+<span class="nc" id="L189">            calculateNoValue(da);</span>
+<span class="nc" id="L190">            p.setDatumInschrijvingGemeente(objFac.createPRSFundDatumInschrijvingGemeente(da));</span>
+        }
+<span class="nc bnc" id="L192" title="All 2 branches missed.">        if (prs.getDatumVerkrijgingVerblijfstitel() != null) {</span>
+<span class="nc" id="L193">            DatumVerkrijgingVerblijfstitel dav = new DatumVerkrijgingVerblijfstitel();</span>
+<span class="nc" id="L194">            dav.setValue(nullIfEmptyBD(values.get(&quot;datum_verkr_nation&quot;)));</span>
+<span class="nc" id="L195">            calculateNoValue(dav);</span>
+<span class="nc" id="L196">            p.setDatumVerkrijgingVerblijfstitel(objFac.createPRSFundDatumVerkrijgingVerblijfstitel(dav));</span>
+        }
+<span class="nc bnc" id="L198" title="All 2 branches missed.">        if (prs.getDatumVerliesVerblijfstitel() != null) {</span>
+<span class="nc" id="L199">            DatumVerliesVerblijfstitel dvt = new DatumVerliesVerblijfstitel();</span>
+<span class="nc" id="L200">            dvt.setValue(nullIfEmptyBD(values.get(&quot;datum_verlies_nation&quot;)));</span>
+<span class="nc" id="L201">            calculateNoValue(dvt);</span>
+<span class="nc" id="L202">            p.setDatumVerliesVerblijfstitel(objFac.createPRSFundDatumVerliesVerblijfstitel(dvt));</span>
+        }
+<span class="nc bnc" id="L204" title="All 2 branches missed.">        if (prs.getDatumVertrekUitNederland() != null) {</span>
+<span class="nc" id="L205">            DatumMetIndicator da = new DatumMetIndicator();</span>
+<span class="nc" id="L206">            da.setValue(nullIfEmptyBD(values.get(&quot;datum_vertrek_uit_nederland&quot;)));</span>
+<span class="nc" id="L207">            calculateNoValue(da);</span>
+<span class="nc" id="L208">            p.setDatumVertrekUitNederland(objFac.createPRSFundDatumVertrekUitNederland(da));</span>
+        }
+<span class="nc bnc" id="L210" title="All 2 branches missed.">        if (prs.getDatumVestigingInNederland() != null) {</span>
+<span class="nc" id="L211">            DatumMetIndicator da = new DatumMetIndicator();</span>
+<span class="nc" id="L212">            da.setValue(nullIfEmptyBD(values.get(&quot;datum_vestg_in_nederland&quot;)));</span>
+<span class="nc" id="L213">            calculateNoValue(da);</span>
+<span class="nc" id="L214">            p.setDatumVestigingInNederland(objFac.createPRSFundDatumVestigingInNederland(da));</span>
+        }
+<span class="nc bnc" id="L216" title="All 2 branches missed.">        if (prs.getCodeGemeenteVanInschrijving() != null) {</span>
+<span class="nc" id="L217">            CodeGemeenteVanInschrijving co = new CodeGemeenteVanInschrijving();</span>
+<span class="nc" id="L218">            co.setValue(nullIfEmptyBI(values.get(&quot;gemeente_van_inschrijving&quot;)));</span>
+<span class="nc" id="L219">            calculateNoValue(co);</span>
+<span class="nc" id="L220">            p.setCodeGemeenteVanInschrijving(objFac.createPRSFundCodeGemeenteVanInschrijving(co));</span>
+        }
+<span class="nc bnc" id="L222" title="All 2 branches missed.">        if (prs.getGeboorteplaats() != null) {</span>
+<span class="nc" id="L223">            GeboorteplaatsE gp = new GeboorteplaatsE();</span>
+<span class="nc" id="L224">            gp.setValue(nullIfEmpty(values.get(&quot;gb_geboorteplaats&quot;)));</span>
+<span class="nc" id="L225">            calculateNoValue(gp);</span>
+<span class="nc" id="L226">            p.setGeboorteplaats(objFac.createPRSFundGeboorteplaats(gp));</span>
+        }
+<span class="nc bnc" id="L228" title="All 2 branches missed.">        if (prs.getCodeGeboorteland() != null) {</span>
+<span class="nc" id="L229">            CodeGeboortelandE cg = new CodeGeboortelandE();</span>
+<span class="nc" id="L230">            cg.setValue(nullIfEmptyBI(values.get(&quot;fk_gb_lnd_code_iso&quot;)));</span>
+<span class="nc" id="L231">            calculateNoValue(cg);</span>
+<span class="nc" id="L232">            p.setCodeGeboorteland(objFac.createPRSFundCodeGeboorteland(cg));</span>
+        }
+<span class="nc bnc" id="L234" title="All 2 branches missed.">        if (prs.getDatumOverlijden() != null) {</span>
+<span class="nc" id="L235">            DatumMetIndicator da = new DatumMetIndicator();</span>
+<span class="nc" id="L236">            da.setValue(nullIfEmptyBD(values.get(&quot;ol_overlijdensdatum&quot;)));</span>
+<span class="nc" id="L237">            calculateNoValue(da);</span>
+<span class="nc" id="L238">            p.setDatumOverlijden(objFac.createPRSFundDatumOverlijden(da));</span>
+        }
+<span class="nc bnc" id="L240" title="All 2 branches missed.">        if (prs.getPlaatsOverlijden() != null) {</span>
+<span class="nc" id="L241">            PlaatsOverlijden pl = new PlaatsOverlijden();</span>
+<span class="nc" id="L242">            pl.setValue(nullIfEmpty(values.get(&quot;fk_gb_lnd_code_iso&quot;)));</span>
+<span class="nc" id="L243">            calculateNoValue(pl);</span>
+<span class="nc" id="L244">            p.setPlaatsOverlijden(objFac.createPRSFundPlaatsOverlijden(pl));</span>
+        }
+<span class="nc bnc" id="L246" title="All 2 branches missed.">        if (prs.getCodeLandOverlijden() != null) {</span>
+<span class="nc" id="L247">            CodeLandOverlijden clo = new CodeLandOverlijden();</span>
+<span class="nc" id="L248">            clo.setValue(nullIfEmptyBI(values.get(&quot;fk_ol_lnd_code_iso&quot;)));</span>
+<span class="nc" id="L249">            calculateNoValue(clo);</span>
+<span class="nc" id="L250">            p.setCodeLandOverlijden(objFac.createPRSFundCodeLandOverlijden(clo));</span>
+        }
+<span class="nc bnc" id="L252" title="All 2 branches missed.">        if (prs.getDatumOpschortingBijhouding() != null) {</span>
+<span class="nc" id="L253">            DatumMetIndicator da = new DatumMetIndicator();</span>
+<span class="nc" id="L254">            da.setValue(nullIfEmptyBD(values.get(&quot;datum_opschorting_bijhouding&quot;)));</span>
+<span class="nc" id="L255">            calculateNoValue(da);</span>
+<span class="nc" id="L256">            p.setDatumOpschortingBijhouding(objFac.createPRSFundDatumOpschortingBijhouding(da));</span>
+        }
+<span class="nc bnc" id="L258" title="All 2 branches missed.">        if (prs.getOmschrijvingRedenOpschortingBijhouding() != null) {</span>
+<span class="nc" id="L259">            OmschrijvingRedenOpschortingBijhouding om = new OmschrijvingRedenOpschortingBijhouding();</span>
+<span class="nc" id="L260">            om.setValue(nullIfEmpty(values.get(&quot;reden_opschorting_bijhouding&quot;)));</span>
+<span class="nc" id="L261">            calculateNoValue(om);</span>
+<span class="nc" id="L262">            p.setOmschrijvingRedenOpschortingBijhouding(objFac.createPRSFundOmschrijvingRedenOpschortingBijhouding(om));</span>
+        }
+
+<span class="nc bnc" id="L265" title="All 4 branches missed.">        if (prs.getAanduidingNaamgebruik() != null &amp;&amp; values.get(&quot;aand_naamgebruik&quot;) != null) {</span>
+<span class="nc" id="L266">            AanduidingNaamgebruik an = new AanduidingNaamgebruik();</span>
+<span class="nc" id="L267">            an.setValue(nl.egem.stuf.sector.bg._0204.AanduidingNaamgebruik.fromValue(nullIfEmpty(values.get(&quot;aand_naamgebruik&quot;))));</span>
+<span class="nc" id="L268">            calculateNoValue(an);</span>
+<span class="nc" id="L269">            p.setAanduidingNaamgebruik(objFac.createPRSFundAanduidingNaamgebruik(an));</span>
+        }
+
+<span class="nc bnc" id="L272" title="All 4 branches missed.">        if (prs.getGeslachtsaanduiding() != null &amp;&amp; values.get(&quot;geslachtsaand&quot;) != null) {</span>
+<span class="nc" id="L273">            GeslachtsaanduidingE ga = new GeslachtsaanduidingE();</span>
+<span class="nc" id="L274">            Geslachtsaanduiding ge = Geslachtsaanduiding.fromValue(nullIfEmpty(values.get(&quot;geslachtsaand&quot;)));</span>
+<span class="nc" id="L275">            ga.setValue(ge);</span>
+<span class="nc" id="L276">            calculateNoValue(ga);</span>
+<span class="nc" id="L277">            p.setGeslachtsaanduiding(objFac.createPRSFundGeslachtsaanduiding(ga));</span>
+        }
+
+<span class="nc bnc" id="L280" title="All 2 branches missed.">        if (prs.getPRSADRCOR() != null) {</span>
+<span class="nc" id="L281">            List&lt;ADRRelFund&gt; adrcor = p.getPRSADRCOR();</span>
+<span class="nc" id="L282">            ADRRelFund a = createAdres(&quot;teststraat&quot;, new BigInteger(&quot;16&quot;), &quot;d&quot;, &quot;1212&quot;, new BigInteger(&quot;0556&quot;), prs.getPRSADRCOR().getValue().getADR());</span>
+<span class="nc" id="L283">            a.setSoortEntiteit(&quot;R&quot;);</span>
+<span class="nc" id="L284">            a.setVerwerkingssoort(Verwerkingssoort.I);</span>
+<span class="nc" id="L285">            adrcor.add(a);</span>
+        }
+
+<span class="nc bnc" id="L288" title="All 2 branches missed.">        if (prs.getPRSADRVBL() != null) {</span>
+<span class="nc" id="L289">            List&lt;ADRRelFund&gt; adrcor = p.getPRSADRVBL();</span>
+<span class="nc" id="L290">            ADRRelFund a = createAdres(&quot;teststraat&quot;, new BigInteger(&quot;16&quot;), &quot;d&quot;, &quot;1212&quot;, new BigInteger(&quot;0556&quot;), prs.getPRSADRVBL().getValue().getADR());</span>
+<span class="nc" id="L291">            adrcor.add(a);</span>
+        }
+
+<span class="nc bnc" id="L294" title="All 2 branches missed.">        if (prs.getPRSNAT() != null) {</span>
+<span class="nc" id="L295">            NATTabel n = createNationaliteit(&quot;NL&quot;, new BigInteger(&quot;42&quot;));</span>
+<span class="nc" id="L296">            PRSAntwoord.PRSNAT nat = new PRSAntwoord.PRSNAT();</span>
+<span class="nc" id="L297">            nat.setNAT(n);</span>
+<span class="nc" id="L298">            nat.setVerwerkingssoort(Verwerkingssoort.I);</span>
+<span class="nc" id="L299">            nat.setSoortEntiteit(&quot;R&quot;);</span>
+<span class="nc" id="L300">            p.getPRSNAT().add(nat);</span>
+        }
+
+<span class="nc" id="L303">        return p;</span>
+    }
+    
+    private static void calculateNoValue(Object element){
+<span class="nc" id="L307">        Class c = element.getClass();</span>
+<span class="nc" id="L308">        Object val = null;</span>
+        try {
+<span class="nc" id="L310">            Method method = element.getClass().getDeclaredMethod(&quot;getValue&quot;);</span>
+<span class="nc" id="L311">            val = method.invoke(element);</span>
+<span class="nc" id="L312">        } catch (SecurityException | NoSuchMethodException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {</span>
+<span class="nc" id="L313">            LOG.error(&quot;Cannot get value for element &quot; + c.toString(), e);</span>
+<span class="nc" id="L314">        }</span>
+<span class="nc bnc" id="L315" title="All 2 branches missed.">        if (val == null) {</span>
+            try {
+<span class="nc" id="L317">                Method method = element.getClass().getDeclaredMethod(&quot;setNoValue&quot;, NoValue.class);</span>
+<span class="nc" id="L318">                val = method.invoke(element, NoValue.GEEN_WAARDE);</span>
+<span class="nc" id="L319">            } catch (SecurityException | NoSuchMethodException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {</span>
+<span class="nc" id="L320">                LOG.error(&quot;Cannot set NoValue for element &quot; + c.toString(), e);</span>
+<span class="nc" id="L321">            }</span>
+        }
+<span class="nc" id="L323">    }</span>
+
+    public static NATTabel createNationaliteit(String nationaliteit, BigInteger code) {
+<span class="nc" id="L326">        NATTabel l = new NATTabel();</span>
+<span class="nc" id="L327">        l.setVerwerkingssoort(Verwerkingssoort.I);</span>
+<span class="nc" id="L328">        l.setSoortEntiteit(&quot;T&quot;);</span>
+<span class="nc" id="L329">        l.setVerwerkingssoort(Verwerkingssoort.I);</span>
+<span class="nc" id="L330">        NATTabel.Omschrijving o = new NATTabel.Omschrijving();</span>
+<span class="nc" id="L331">        o.setValue(nationaliteit);</span>
+
+<span class="nc" id="L333">        NATTabel.Code c = new NATTabel.Code();</span>
+<span class="nc" id="L334">        c.setValue(code);</span>
+
+<span class="nc" id="L336">        l.setOmschrijving(objFac.createNATTabelOmschrijving(o));</span>
+<span class="nc" id="L337">        l.setCode(objFac.createNATTabelCode(c));</span>
+<span class="nc" id="L338">        l.setSoortEntiteit(&quot;NAT&quot;);</span>
+<span class="nc" id="L339">        return l;</span>
+    }
+
+    public static LNDTabel createLand(String naam, BigInteger code) {
+<span class="nc" id="L343">        LNDTabel l = new LNDTabel();</span>
+
+<span class="nc" id="L345">        LNDTabel.Landnaam n = new LNDTabel.Landnaam();</span>
+<span class="nc" id="L346">        n.setValue(naam);</span>
+
+<span class="nc" id="L348">        LNDTabel.Landcode c = new LNDTabel.Landcode();</span>
+<span class="nc" id="L349">        c.setValue(code);</span>
+
+<span class="nc" id="L351">        l.setLandnaam(objFac.createLNDTabelLandnaam(n));</span>
+<span class="nc" id="L352">        l.setLandcode(objFac.createLNDTabelLandcode(c));</span>
+<span class="nc" id="L353">        l.setSoortEntiteit(&quot;LND&quot;);</span>
+<span class="nc" id="L354">        return l;</span>
+    }
+
+    public static GEMTabel createGemeente(String naam, BigInteger code) {
+<span class="nc" id="L358">        GEMTabel g = new GEMTabel();</span>
+<span class="nc" id="L359">        GEMTabel.Gemeentenaam n = new GEMTabel.Gemeentenaam();</span>
+<span class="nc" id="L360">        n.setValue(naam);</span>
+
+<span class="nc" id="L362">        GEMTabel.Gemeentecode c = new GEMTabel.Gemeentecode();</span>
+<span class="nc" id="L363">        c.setValue(code);</span>
+
+<span class="nc" id="L365">        g.setGemeentenaam(objFac.createGEMTabelGemeentenaam(n));</span>
+<span class="nc" id="L366">        g.setGemeentecode(objFac.createGEMTabelGemeentecode(c));</span>
+
+<span class="nc" id="L368">        g.setSoortEntiteit(&quot;GEM&quot;);</span>
+<span class="nc" id="L369">        return g;</span>
+    }
+
+    public static ACDTabel createAcademischeTitel(String titel, boolean posVoorNaam, String code) {
+<span class="nc" id="L373">        ACDTabel t = new ACDTabel();</span>
+<span class="nc" id="L374">        ACDTabel.Code c = new ACDTabel.Code();</span>
+<span class="nc" id="L375">        c.setExact(true);</span>
+<span class="nc" id="L376">        c.setKerngegeven(true);</span>
+<span class="nc" id="L377">        c.setNoValue(NoValue.GEEN_WAARDE);</span>
+<span class="nc" id="L378">        c.setValue(code);</span>
+
+<span class="nc" id="L380">        ACDTabel.Omschrijving o = new ACDTabel.Omschrijving();</span>
+<span class="nc" id="L381">        o.setValue(titel);</span>
+<span class="nc" id="L382">        o.setExact(Boolean.FALSE);</span>
+
+<span class="nc" id="L384">        ACDTabel.PositieTovNaam p = new ACDTabel.PositieTovNaam();</span>
+<span class="nc bnc" id="L385" title="All 2 branches missed.">        p.setValue(posVoorNaam ? AcademischeTitelPositieTovNaam.V : AcademischeTitelPositieTovNaam.N);</span>
+
+<span class="nc" id="L387">        ExtraElementen e = new ExtraElementen();</span>
+<span class="nc" id="L388">        ExtraElement ex = new ExtraElement();</span>
+<span class="nc" id="L389">        ex.setNaam(&quot;ex1&quot;);</span>
+<span class="nc" id="L390">        ex.setValue(&quot;val1&quot;);</span>
+<span class="nc" id="L391">        e.getExtraElement().add(ex);</span>
+
+<span class="nc" id="L393">        t.setNoValue(NoValue.NIET_ONDERSTEUND);</span>
+<span class="nc" id="L394">        t.setSoortEntiteit(&quot;ACD&quot;);</span>
+<span class="nc" id="L395">        t.setCode(objFac.createACDTabelCode(c));</span>
+<span class="nc" id="L396">        t.setOmschrijving(objFac.createACDTabelOmschrijving(o));</span>
+<span class="nc" id="L397">        t.setVerwerkingssoort(Verwerkingssoort.V);</span>
+<span class="nc" id="L398">        t.setPositieTovNaam(objFac.createACDTabelPositieTovNaam(p));</span>
+<span class="nc" id="L399">        t.setExtraElementen(e);</span>
+
+<span class="nc" id="L401">        return t;</span>
+    }
+
+    public static ADLTabel createAdelijkeTitel(String titel) {
+<span class="nc" id="L405">        ADLTabel t = new ADLTabel();</span>
+<span class="nc" id="L406">        ADLTabel.Soort s = new ADLTabel.Soort();</span>
+<span class="nc" id="L407">        s.setValue(AdellijkeTitelSoort.A);</span>
+
+<span class="nc" id="L409">        ADLTabel.Omschrijving o = new ADLTabel.Omschrijving();</span>
+<span class="nc" id="L410">        o.setValue(titel);</span>
+<span class="nc" id="L411">        o.setExact(Boolean.FALSE);</span>
+
+<span class="nc" id="L413">        t.setNoValue(NoValue.GEEN_WAARDE);</span>
+<span class="nc" id="L414">        t.setOmschrijving(objFac.createADLTabelOmschrijving(o));</span>
+<span class="nc" id="L415">        t.setSoort(objFac.createADLTabelSoort(s));</span>
+<span class="nc" id="L416">        t.setVerwerkingssoort(Verwerkingssoort.R);</span>
+<span class="nc" id="L417">        t.setSoortEntiteit(&quot;ADL&quot;);</span>
+<span class="nc" id="L418">        return t;</span>
+    }
+
+    public static ADRRelFund createAdres(String straat, BigInteger huisnummer, String huisletter, String postcode, BigInteger gemeentecode, ADRFund vraag) {
+<span class="nc" id="L422">        ADRRelFund aa = new ADRRelFund();</span>
+
+<span class="nc" id="L424">        ADRAntwoord a = new ADRAntwoord();</span>
+<span class="nc" id="L425">        a.setSoortEntiteit(&quot;F&quot;);</span>
+<span class="nc" id="L426">        a.setVerwerkingssoort(Verwerkingssoort.I);</span>
+
+<span class="nc" id="L428">        ADRFund.Straatnaam s = new ADRFund.Straatnaam();</span>
+<span class="nc" id="L429">        s.setValue(straat);</span>
+<span class="nc" id="L430">        s.setGegevengroep(&quot;ADR1&quot;);</span>
+<span class="nc" id="L431">        calculateNoValue(s);</span>
+
+<span class="nc" id="L433">        ADRFund.Huisnummer h = new ADRFund.Huisnummer();</span>
+<span class="nc" id="L434">        h.setValue(huisnummer);</span>
+<span class="nc" id="L435">        h.setGegevengroep(&quot;ADR1&quot;);</span>
+<span class="nc" id="L436">        calculateNoValue(h);</span>
+        
+<span class="nc" id="L438">        ADRFund.Gemeentecode g = new ADRFund.Gemeentecode();</span>
+<span class="nc" id="L439">        g.setValue(gemeentecode);</span>
+<span class="nc" id="L440">        calculateNoValue(g);</span>
+        
+<span class="nc" id="L442">        ADRFund.Huisletter hl = new ADRFund.Huisletter();</span>
+<span class="nc" id="L443">        hl.setValue(huisletter);</span>
+<span class="nc" id="L444">        hl.setGegevengroep(&quot;ADR1&quot;);</span>
+<span class="nc" id="L445">        calculateNoValue(hl);</span>
+        
+<span class="nc" id="L447">        ADRFund.Postcode p = new ADRFund.Postcode();</span>
+<span class="nc" id="L448">        p.setValue(postcode);</span>
+<span class="nc" id="L449">        p.setGegevengroep(&quot;ADR1&quot;);</span>
+<span class="nc" id="L450">        calculateNoValue(p);</span>
+        
+<span class="nc" id="L452">        ADRFund.Woonplaatsnaam w = new ADRFund.Woonplaatsnaam();</span>
+<span class="nc" id="L453">        w.setValue(&quot;Maassluis&quot;);</span>
+<span class="nc" id="L454">        calculateNoValue(w);</span>
+
+<span class="nc bnc" id="L456" title="All 2 branches missed.">        if (vraag.getStraatnaam() != null) {</span>
+<span class="nc" id="L457">            a.setStraatnaam(objFac.createADRFundStraatnaam(s));</span>
+        }
+<span class="nc bnc" id="L459" title="All 2 branches missed.">        if (vraag.getHuisnummer() != null) {</span>
+<span class="nc" id="L460">            a.setHuisnummer(objFac.createADRFundHuisnummer(h));</span>
+        }
+<span class="nc bnc" id="L462" title="All 2 branches missed.">        if (vraag.getHuisletter() != null) {</span>
+<span class="nc" id="L463">            a.setHuisletter(objFac.createADRFundHuisletter(hl));</span>
+        }
+<span class="nc bnc" id="L465" title="All 2 branches missed.">        if (vraag.getGemeentecode() != null) {</span>
+<span class="nc" id="L466">            a.setGemeentecode(objFac.createADRFundGemeentecode(g));</span>
+        }
+<span class="nc bnc" id="L468" title="All 2 branches missed.">        if (vraag.getPostcode() != null) {</span>
+<span class="nc" id="L469">            a.setPostcode(objFac.createADRFundPostcode(p));</span>
+        }
+<span class="nc bnc" id="L471" title="All 2 branches missed.">        if (vraag.getWoonplaatsnaam() != null) {</span>
+<span class="nc" id="L472">            a.setWoonplaatsnaam(objFac.createADRFundWoonplaatsnaam(w));</span>
+        }
+<span class="nc bnc" id="L474" title="All 2 branches missed.">        if (vraag.getAdresBuitenland1() != null) {</span>
+<span class="nc" id="L475">            ADRFund.AdresBuitenland1 ab = new ADRFund.AdresBuitenland1();</span>
+<span class="nc" id="L476">            ab.setGegevengroep(&quot;ADR4&quot;);</span>
+<span class="nc" id="L477">            a.setAdresBuitenland1(objFac.createADRFundAdresBuitenland1(ab));</span>
+<span class="nc" id="L478">            calculateNoValue(ab);</span>
+        }
+<span class="nc bnc" id="L480" title="All 2 branches missed.">        if (vraag.getAdresBuitenland2() != null) {</span>
+<span class="nc" id="L481">            ADRFund.AdresBuitenland2 ab = new ADRFund.AdresBuitenland2();</span>
+<span class="nc" id="L482">            ab.setGegevengroep(&quot;ADR4&quot;);</span>
+<span class="nc" id="L483">            a.setAdresBuitenland2(objFac.createADRFundAdresBuitenland2(ab));</span>
+<span class="nc" id="L484">            calculateNoValue(ab);</span>
+        }
+<span class="nc bnc" id="L486" title="All 2 branches missed.">        if (vraag.getAdresBuitenland3() != null) {</span>
+<span class="nc" id="L487">            ADRFund.AdresBuitenland3 ab = new ADRFund.AdresBuitenland3();</span>
+<span class="nc" id="L488">            ab.setGegevengroep(&quot;ADR4&quot;);</span>
+<span class="nc" id="L489">            a.setAdresBuitenland3(objFac.createADRFundAdresBuitenland3(ab));</span>
+<span class="nc" id="L490">            calculateNoValue(ab);</span>
+        }
+<span class="nc bnc" id="L492" title="All 2 branches missed.">        if (vraag.getLandcode() != null) {</span>
+<span class="nc" id="L493">            ADRFund.Landcode lc = new ADRFund.Landcode();</span>
+<span class="nc" id="L494">            calculateNoValue(lc);</span>
+<span class="nc" id="L495">            a.setLandcode(objFac.createADRFundLandcode(lc));</span>
+        }
+<span class="nc bnc" id="L497" title="All 2 branches missed.">        if (vraag.getPostbusnummer() != null) {</span>
+<span class="nc" id="L498">            ADRFund.Postbusnummer pn = new ADRFund.Postbusnummer();</span>
+<span class="nc" id="L499">            calculateNoValue(pn);</span>
+<span class="nc" id="L500">            a.setPostbusnummer(objFac.createADRFundPostbusnummer(pn));</span>
+        }
+<span class="nc bnc" id="L502" title="All 2 branches missed.">        if (vraag.getAntwoordnummer() != null) {</span>
+<span class="nc" id="L503">            ADRFund.Antwoordnummer an = new ADRFund.Antwoordnummer();</span>
+<span class="nc" id="L504">            calculateNoValue(an);</span>
+<span class="nc" id="L505">            a.setAntwoordnummer(objFac.createADRFundAntwoordnummer(an));</span>
+        }
+<span class="nc bnc" id="L507" title="All 2 branches missed.">        if (vraag.getHuisnummertoevoeging() != null) {</span>
+<span class="nc" id="L508">            ADRFund.Huisnummertoevoeging ht = new ADRFund.Huisnummertoevoeging();</span>
+<span class="nc" id="L509">            calculateNoValue(ht);</span>
+<span class="nc" id="L510">            a.setHuisnummertoevoeging(objFac.createADRFundHuisnummertoevoeging(ht));</span>
+        }
+<span class="nc bnc" id="L512" title="All 2 branches missed.">        if (vraag.getAanduidingBijHuisnummer() != null) {</span>
+<span class="nc" id="L513">            ADRFund.AanduidingBijHuisnummer ah = new ADRFund.AanduidingBijHuisnummer();</span>
+<span class="nc" id="L514">            calculateNoValue(ah);</span>
+<span class="nc" id="L515">            a.setAanduidingBijHuisnummer(objFac.createADRFundAanduidingBijHuisnummer(ah));</span>
+        }
+
+<span class="nc" id="L518">        aa.setADR(a);</span>
+<span class="nc" id="L519">        return aa;</span>
+    }
+
+    public static String nullIfEmpty(Object e) {
+<span class="nc bnc" id="L523" title="All 2 branches missed.">        return e == null ? null : e.toString();</span>
+    }
+
+    public static BigDecimal nullIfEmptyBD(Object e) {
+<span class="nc bnc" id="L527" title="All 2 branches missed.">        return e == null ? null : new BigDecimal(e.toString());</span>
+    }
+
+    public static BigInteger nullIfEmptyBI(Object e) {
+<span class="nc bnc" id="L531" title="All 2 branches missed.">        return e == null ? null : new BigInteger(e.toString());</span>
+    }
+
+    // &lt;/editor-fold&gt;
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

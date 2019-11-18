@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>BrkInfoRequest.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO distributie</a> &gt; <a href="../index.html" class="el_bundle">brmo-soap</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.soap.brk</a> &gt; <span class="el_source">BrkInfoRequest.java</span></div><h1>BrkInfoRequest.java</h1><pre class="source lang-java linenums">package nl.b3p.brmo.soap.brk;
+
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+
+/**
+ *
+ * @author Chris
+ */
+
+@XmlType
+public class BrkInfoRequest {
+
+<span class="nc" id="L15">    private Boolean subjectsToevoegen = false;</span>
+<span class="nc" id="L16">    private Boolean adressenToevoegen = false;</span>
+    private Integer maxAantalResultaten; // = Integer.parseInt(&quot;15&quot;);
+<span class="nc" id="L18">    private Boolean gevoeligeInfoOphalen = false;</span>
+
+    private String zoekgebied;
+    private Integer bufferAfstand;
+
+    private KadOnrndZkInfoRequest kadOnrndZk;
+
+    private String subjectNaam;
+
+    private PerceelAdresInfoRequest perceelAdres;
+
+<span class="nc" id="L29">     public BrkInfoRequest() {</span>
+
+<span class="nc" id="L31">    }</span>
+
+    /**
+     * In de response dient subject informatie te worden opgenomen (indien
+     * beschikbaar)
+     *
+     * @return the subjectsToevoegen
+     */
+    @XmlAttribute
+    public Boolean getSubjectsToevoegen() {
+<span class="nc" id="L41">        return subjectsToevoegen;</span>
+    }
+
+    /**
+     * @param subjectsToevoegen the subjectsToevoegen to set
+     */
+    public void setSubjectsToevoegen(Boolean subjectsToevoegen) {
+<span class="nc" id="L48">        this.subjectsToevoegen = subjectsToevoegen;</span>
+<span class="nc" id="L49">    }</span>
+
+    /**
+     * In de response moet adres info worden opgenomen (indien beschikbaar)
+     *
+     * @return the adressenToevoegen
+     */
+    @XmlAttribute
+    public Boolean getAdressenToevoegen() {
+<span class="nc" id="L58">        return adressenToevoegen;</span>
+    }
+
+    /**
+     * @param adressenToevoegen the adressenToevoegen to set
+     */
+    public void setAdressenToevoegen(Boolean adressenToevoegen) {
+<span class="nc" id="L65">        this.adressenToevoegen = adressenToevoegen;</span>
+<span class="nc" id="L66">    }</span>
+
+    /**
+     * De response mag maximaal het hier opgegeven aantal gegevensrecords worden
+     * opgenomen, default= 15, bij meer resultaten een foutmelding
+     *
+     * @return the maxAantalResultaten
+     */
+    @XmlAttribute
+    public Integer getMaxAantalResultaten() {
+<span class="nc" id="L76">        return maxAantalResultaten;</span>
+    }
+
+    /**
+     * @param maxAantalResultaten the maxAantalResultaten to set
+     */
+    public void setMaxAantalResultaten(Integer maxAantalResultaten) {
+<span class="nc" id="L83">        this.maxAantalResultaten = maxAantalResultaten;</span>
+<span class="nc" id="L84">    }</span>
+
+    /**
+     * In de response mag privacygevoelige informatie (BSN nummer) worden
+     * opgenomen (of dit ook daadwerkelijk gebeurt hangt af van autorisaties)
+     *
+     * @return the gevoeligeInfoOphalen
+     */
+    @XmlAttribute
+    public Boolean getGevoeligeInfoOphalen() {
+<span class="nc" id="L94">        return gevoeligeInfoOphalen;</span>
+    }
+
+    /**
+     * @param gevoeligeInfoOphalen the gevoeligeInfoOphalen to set
+     */
+    public void setGevoeligeInfoOphalen(Boolean gevoeligeInfoOphalen) {
+<span class="nc" id="L101">        this.gevoeligeInfoOphalen = gevoeligeInfoOphalen;</span>
+<span class="nc" id="L102">    }</span>
+
+    /**
+     * Het zoekgebied is een aanduiding van de locatie als WKT. Zoeken op een
+     * klikpunt wordt hiermee ondersteund doordat een POINT opgenomen kan worden
+     * in de WKT
+     *
+     * @return the zoekgebied
+     */
+    public String getZoekgebied() {
+<span class="nc" id="L112">        return zoekgebied;</span>
+    }
+
+    /**
+     * @param zoekgebied the zoekgebied to set
+     */
+    public void setZoekgebied(String zoekgebied) {
+<span class="nc" id="L119">        this.zoekgebied = zoekgebied;</span>
+<span class="nc" id="L120">    }</span>
+
+    /**
+     * De bufferafstand is een getal met als eenheid [meters]. Indien een
+     * zoekgebied is opgegeven wordt de opgegeven locatie gebufferd met de
+     * genoemde bufferafstand voordat deze wordt toegepast voor de selectie
+     *
+     * @return the bufferAfstand
+     */
+    public Integer getBufferAfstand() {
+<span class="nc" id="L130">        return bufferAfstand;</span>
+    }
+
+    /**
+     * @param bufferAfstand the bufferAfstand to set
+     */
+    public void setBufferAfstand(Integer bufferAfstand) {
+<span class="nc" id="L137">        this.bufferAfstand = bufferAfstand;</span>
+<span class="nc" id="L138">    }</span>
+
+    /**
+     * @return the kadOnrndZk
+     */
+    public KadOnrndZkInfoRequest getKadOnrndZk() {
+<span class="nc" id="L144">        return kadOnrndZk;</span>
+    }
+
+    /**
+     * @param kadOnrndZk the kadOnrndZk to set
+     */
+    public void setKadOnrndZk(KadOnrndZkInfoRequest kadOnrndZk) {
+<span class="nc" id="L151">        this.kadOnrndZk = kadOnrndZk;</span>
+<span class="nc" id="L152">    }</span>
+
+    /**
+     * Naam waarop gezocht moet worden binnen de gerelateerde subjecten, welke
+     * als comfort informatie via de BRK beschikbaar is. Er wordt minimaal
+     * gezocht op achternaam en op bedrijfsnaam.
+     *
+     * @return the subjectNaam
+     */
+    public String getSubjectNaam() {
+<span class="nc" id="L162">        return subjectNaam;</span>
+    }
+
+    /**
+     * Naam waarop gezocht moet worden binnen de gerelateerde subjecten, welke
+     * als comfort informatie via de BRK beschikbaar is. Er wordt minimaal
+     * gezocht op achternaam en op bedrijfsnaam.
+     *
+     * @param subjectNaam the subjectNaam to set
+     */
+    public void setSubjectNaam(String subjectNaam) {
+<span class="nc" id="L173">        this.subjectNaam = subjectNaam;</span>
+<span class="nc" id="L174">    }</span>
+
+    /**
+     * @return the perceelAdres
+     */
+    public PerceelAdresInfoRequest getPerceelAdres() {
+<span class="nc" id="L180">        return perceelAdres;</span>
+    }
+
+    /**
+     * @param perceelAdres the perceelAdres to set
+     */
+    public void setPerceelAdres(PerceelAdresInfoRequest perceelAdres) {
+<span class="nc" id="L187">        this.perceelAdres = perceelAdres;</span>
+<span class="nc" id="L188">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

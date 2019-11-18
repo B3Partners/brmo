@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>DiagnosticsServlet.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO soap bevragingsservice</a> &gt; <a href="../index.html" class="el_bundle">brmo-init-util</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.service.util</a> &gt; <span class="el_source">DiagnosticsServlet.java</span></div><h1>DiagnosticsServlet.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2016 B3Partners B.V.
+ */
+package nl.b3p.brmo.service.util;
+
+import java.io.IOException;
+import java.sql.DatabaseMetaData;
+import javax.servlet.Servlet;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.sql.DataSource;
+import nl.b3p.brmo.service.util.ConfigUtil;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+/**
+ *
+ * @author mprins
+ */
+<span class="nc" id="L22">public class DiagnosticsServlet implements Servlet {</span>
+
+<span class="nc" id="L24">    private static final Log LOG = LogFactory.getLog(DiagnosticsServlet.class);</span>
+
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+
+        try {
+            // lookup db connectie en log info
+<span class="nc" id="L31">            DataSource rsgb = ConfigUtil.getDataSourceRsgb();</span>
+<span class="nc" id="L32">            DatabaseMetaData metadata = rsgb.getConnection().getMetaData();</span>
+<span class="nc" id="L33">            LOG.info(String.format(&quot;\nDatabase en driver informatie\n\n  Database product: %s\n  Database version: %s\n  Database major:   %s\n  Database minor:   %s\n\n  DBdriver product: %s\n  DBdriver version: %s\n  DBdriver major:   %s\n  DBdriver minor:   %s&quot;,</span>
+<span class="nc" id="L34">                    metadata.getDatabaseProductName(),</span>
+<span class="nc" id="L35">                    metadata.getDatabaseProductVersion().replace('\n', ' '),</span>
+<span class="nc" id="L36">                    metadata.getDatabaseMajorVersion(),</span>
+<span class="nc" id="L37">                    metadata.getDatabaseMinorVersion(),</span>
+<span class="nc" id="L38">                    metadata.getDriverName(),</span>
+<span class="nc" id="L39">                    metadata.getDriverVersion(),</span>
+<span class="nc" id="L40">                    metadata.getDriverMajorVersion(),</span>
+<span class="nc" id="L41">                    metadata.getDriverMinorVersion()</span>
+            ));
+
+            // foute oracle drivers loggen
+<span class="nc bnc" id="L45" title="All 2 branches missed.">            if (metadata.getDriverName().startsWith(&quot;Oracle&quot;)) {</span>
+<span class="nc bnc" id="L46" title="All 2 branches missed.">                if (metadata.getDriverVersion().startsWith(&quot;12.1.0.1&quot;)) {</span>
+<span class="nc" id="L47">                    LOG.error(&quot;De geïnstalleerde JDBC driver heeft bekende problemen met prepared statements, de applicatie zal niet goed werken. Issue #322&quot;);</span>
+<span class="nc" id="L48">                    LOG.info(&quot;zie: https://github.com/B3Partners/brmo/wiki/Welke-jdbc-driver voor meer informatie&quot;);</span>
+                }
+
+                // 11.2.0.3
+<span class="nc bnc" id="L52" title="All 2 branches missed.">                if (metadata.getDriverVersion().startsWith(&quot;11.2.0.3&quot;)) {</span>
+<span class="nc" id="L53">                    LOG.error(&quot;De geïnstalleerde JDBC driver heeft bekende problemen met type conversies, de applicatie zal mogelijk niet goed werken. Issue #322&quot;);</span>
+<span class="nc" id="L54">                    LOG.info(&quot;zie: https://github.com/B3Partners/brmo/wiki/Welke-jdbc-driver voor meer informatie&quot;);</span>
+                }
+            }
+<span class="nc" id="L57">            metadata.getConnection().close();</span>
+<span class="nc" id="L58">        } catch (Exception ex) {</span>
+<span class="nc" id="L59">            LOG.error(ex);</span>
+<span class="nc" id="L60">        }</span>
+
+<span class="nc" id="L62">    }</span>
+
+    @Override
+    public ServletConfig getServletConfig() {
+<span class="nc" id="L66">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;);</span>
+    }
+
+    @Override
+    public void service(ServletRequest req, ServletResponse res) throws ServletException, IOException {
+<span class="nc" id="L71">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;);</span>
+    }
+
+    @Override
+    public String getServletInfo() {
+<span class="nc" id="L76">        return &quot;Diagnostics info logging servlet&quot;;</span>
+    }
+
+    @Override
+    public void destroy() {
+        // nothing
+<span class="nc" id="L82">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

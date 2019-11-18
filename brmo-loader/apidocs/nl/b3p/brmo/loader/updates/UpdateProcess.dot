@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.loader.updates.UpdateProcess
-	c2257 [label=<<table title="nl.b3p.brmo.loader.updates.UpdateProcess" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./UpdateProcess.html">
+	c2915 [label=<<table title="nl.b3p.brmo.loader.updates.UpdateProcess" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./UpdateProcess.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> UpdateProcess </td></tr>
 		</table></td></tr>
@@ -19,16 +19,19 @@ digraph G {
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> + UpdateProcess(name : String, soort : String, xsl : String) </td></tr>
+<tr><td align="left" balign="left"> + UpdateProcess(name : String, soort : String, xsl : String, updateDbXml : boolean) </td></tr>
 <tr><td align="left" balign="left"> + getName() : String </td></tr>
 <tr><td align="left" balign="left"> + setName(name : String) </td></tr>
 <tr><td align="left" balign="left"> + getSoort() : String </td></tr>
 <tr><td align="left" balign="left"> + setSoort(soort : String) </td></tr>
 <tr><td align="left" balign="left"> + getXsl() : String </td></tr>
 <tr><td align="left" balign="left"> + setXsl(xsl : String) </td></tr>
+<tr><td align="left" balign="left"> + isUpdateDbXml() : boolean </td></tr>
+<tr><td align="left" balign="left"> + setUpdateDbXml(updateDbXml : boolean) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./UpdateProcess.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.RsgbProxy
-	c2258 [label=<<table title="nl.b3p.brmo.loader.RsgbProxy" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../RsgbProxy.html">
+	c2917 [label=<<table title="nl.b3p.brmo.loader.RsgbProxy" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../RsgbProxy.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> RsgbProxy </td></tr>
 		</table></td></tr>
@@ -57,13 +60,13 @@ digraph G {
 <tr><td align="left" balign="left"> + updateBerichtException(ber : Bericht, e : Throwable) </td></tr>
 <tr><td align="left" balign="left"> + updateBerichtProcessing(ber : Bericht) </td></tr>
 <tr><td align="left" balign="left"> + handle(ber : Bericht, pretransformedTableData : List&lt;TableData&gt;, updateResult : boolean) </td></tr>
-<tr><td align="left" balign="left"> + update(ber : Bericht, pretransformedTableData : List&lt;TableData&gt;) </td></tr>
+<tr><td align="left" balign="left"> + update(jobBericht : Bericht, pretransformedTableData : List&lt;TableData&gt;) </td></tr>
 <tr><td align="left" balign="left"> + isAlreadyInMetadata(row : TableRow, loadLog : StringBuilder) : boolean </td></tr>
 <tr><td align="left" balign="left"> + getHerkomstMetadata() : String </td></tr>
 <tr><td align="left" balign="left"> + setHerkomstMetadata(herkomstMetadata : String) </td></tr>
 		</table></td></tr>
 		</table>>, URL="../RsgbProxy.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.RsgbProxy NAVASSOC nl.b3p.brmo.loader.updates.UpdateProcess
-	c2258:p -> c2257:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c2917:p -> c2915:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>StagingRowHandler.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO soap bevragingsservice</a> &gt; <a href="../index.html" class="el_bundle">brmo-loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.loader.util</a> &gt; <span class="el_source">StagingRowHandler.java</span></div><h1>StagingRowHandler.java</h1><pre class="source lang-java linenums">package nl.b3p.brmo.loader.util;
+
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import nl.b3p.brmo.loader.entity.Bericht;
+import nl.b3p.brmo.loader.entity.LaadProces;
+import org.apache.commons.dbutils.BasicRowProcessor;
+
+/**
+ * creates laadproces or bericht bean from database row.
+ *
+ * @author Chris van Lith
+ */
+<span class="nc" id="L17">public class StagingRowHandler extends BasicRowProcessor {</span>
+
+    @Override
+    public List toBeanList(ResultSet rs, Class clazz) {
+        try {
+<span class="nc" id="L22">            List newlist = new ArrayList();</span>
+<span class="nc bnc" id="L23" title="All 2 branches missed.">            while (rs.next()) {</span>
+<span class="nc" id="L24">                newlist.add(toBean(rs, clazz));</span>
+            }
+<span class="nc" id="L26">            return newlist;</span>
+<span class="nc" id="L27">        } catch (SQLException ex) {</span>
+<span class="nc" id="L28">            throw new RuntimeException(ex);</span>
+        }
+    }
+
+    @Override
+    public Object toBean(ResultSet rs, Class type) throws SQLException {
+        
+        //vind beschikbare kolomnamen
+<span class="nc" id="L36">        ResultSetMetaData rsm = rs.getMetaData();</span>
+<span class="nc" id="L37">        IgnoreCaseStringList namesList = new IgnoreCaseStringList();</span>
+<span class="nc bnc" id="L38" title="All 2 branches missed.">        for (int i = 1; i &lt;= rsm.getColumnCount(); i++) {</span>
+<span class="nc" id="L39">            namesList.add(rsm.getColumnLabel(i));</span>
+        }
+
+<span class="nc bnc" id="L42" title="All 2 branches missed.">        if (type.getName().contains(&quot;LaadProces&quot;)) {</span>
+<span class="nc" id="L43">            LaadProces lp = new LaadProces();</span>
+
+<span class="nc bnc" id="L45" title="All 2 branches missed.">            if (namesList.contains(&quot;id&quot;)) {</span>
+<span class="nc" id="L46">                lp.setId(rs.getLong(&quot;id&quot;));</span>
+            }
+<span class="nc bnc" id="L48" title="All 2 branches missed.">            if (namesList.contains(&quot;bestand_naam&quot;)) {</span>
+<span class="nc" id="L49">                lp.setBestandNaam(rs.getString(&quot;bestand_naam&quot;));</span>
+            }
+<span class="nc bnc" id="L51" title="All 2 branches missed.">            if (namesList.contains(&quot;bestand_datum&quot;)) {</span>
+<span class="nc" id="L52">                lp.setBestandDatum(rs.getDate(&quot;bestand_datum&quot;));</span>
+            }
+<span class="nc bnc" id="L54" title="All 2 branches missed.">            if (namesList.contains(&quot;soort&quot;)) {</span>
+<span class="nc" id="L55">                lp.setSoort(rs.getString(&quot;soort&quot;));</span>
+            }
+<span class="nc bnc" id="L57" title="All 2 branches missed.">            if (namesList.contains(&quot;gebied&quot;)) {</span>
+<span class="nc" id="L58">                lp.setGebied(rs.getString(&quot;gebied&quot;));</span>
+            }
+<span class="nc bnc" id="L60" title="All 2 branches missed.">            if (namesList.contains(&quot;opmerking&quot;)) {</span>
+<span class="nc" id="L61">                lp.setOpmerking(rs.getString(&quot;opmerking&quot;));</span>
+            }
+<span class="nc bnc" id="L63" title="All 2 branches missed.">            if (namesList.contains(&quot;status&quot;)) {</span>
+<span class="nc" id="L64">                lp.setStatus(LaadProces.STATUS.valueOf(rs.getString(&quot;status&quot;)));</span>
+            }
+<span class="nc bnc" id="L66" title="All 2 branches missed.">            if (namesList.contains(&quot;status_datum&quot;)) {</span>
+<span class="nc" id="L67">                lp.setStatusDatum(rs.getDate(&quot;status_datum&quot;));</span>
+            }
+<span class="nc bnc" id="L69" title="All 2 branches missed.">            if (namesList.contains(&quot;contact_email&quot;)) {</span>
+<span class="nc" id="L70">                lp.setContactEmail(rs.getString(&quot;contact_email&quot;));</span>
+            }
+<span class="nc bnc" id="L72" title="All 4 branches missed.">            if (namesList.contains(&quot;klantafgiftenummer&quot;) &amp;&amp; rs.getBigDecimal(&quot;klantafgiftenummer&quot;) != null) {</span>
+<span class="nc" id="L73">                lp.setKlantafgiftenummer((rs.getBigDecimal(&quot;klantafgiftenummer&quot;).toBigInteger()));</span>
+            }
+<span class="nc bnc" id="L75" title="All 4 branches missed.">            if (namesList.contains(&quot;contractafgiftenummer&quot;) &amp;&amp; rs.getBigDecimal(&quot;contractafgiftenummer&quot;) != null) {</span>
+<span class="nc" id="L76">                lp.setContractafgiftenummer((rs.getBigDecimal(&quot;contractafgiftenummer&quot;).toBigInteger()));</span>
+            }
+<span class="nc bnc" id="L78" title="All 2 branches missed.">            if (namesList.contains(&quot;artikelnummer&quot;)) {</span>
+<span class="nc" id="L79">                lp.setArtikelnummer(rs.getString(&quot;artikelnummer&quot;));</span>
+            }
+<span class="nc bnc" id="L81" title="All 2 branches missed.">            if (namesList.contains(&quot;contractnummer&quot;)) {</span>
+<span class="nc" id="L82">                lp.setContractnummer(rs.getString(&quot;contractnummer&quot;));</span>
+            }
+<span class="nc bnc" id="L84" title="All 2 branches missed.">            if (namesList.contains(&quot;afgifteid&quot;)) {</span>
+<span class="nc" id="L85">                lp.setAfgifteid(rs.getString(&quot;afgifteid&quot;));</span>
+            }
+<span class="nc bnc" id="L87" title="All 2 branches missed.">            if (namesList.contains(&quot;afgiftereferentie&quot;)) {</span>
+<span class="nc" id="L88">                lp.setAfgiftereferentie(rs.getString(&quot;afgiftereferentie&quot;));</span>
+            }
+<span class="nc bnc" id="L90" title="All 2 branches missed.">            if (namesList.contains(&quot;bestandsreferentie&quot;)) {</span>
+<span class="nc" id="L91">                lp.setBestandsreferentie(rs.getString(&quot;bestandsreferentie&quot;));</span>
+            }
+<span class="nc bnc" id="L93" title="All 2 branches missed.">            if (namesList.contains(&quot;beschikbaar_tot&quot;)) {</span>
+<span class="nc" id="L94">                lp.setBeschikbaar_tot(rs.getDate(&quot;beschikbaar_tot&quot;));</span>
+            }
+<span class="nc bnc" id="L96" title="All 2 branches missed.">            if (namesList.contains(&quot;bestand_naam_hersteld&quot;)) {</span>
+<span class="nc" id="L97">                lp.setBestandNaamHersteld(rs.getString(&quot;bestand_naam_hersteld&quot;));</span>
+            }
+<span class="nc" id="L99">            return lp;</span>
+        }
+
+<span class="nc bnc" id="L102" title="All 2 branches missed.">        if (type.getName().contains(&quot;Bericht&quot;)) {</span>
+<span class="nc" id="L103">            Bericht b = null;</span>
+<span class="nc bnc" id="L104" title="All 2 branches missed.">            if (namesList.contains(&quot;br_xml&quot;)) {</span>
+<span class="nc" id="L105">                b = new Bericht(rs.getString(&quot;br_xml&quot;));</span>
+            } else {
+<span class="nc" id="L107">                b = new Bericht(&quot;&quot;);</span>
+            }
+
+<span class="nc bnc" id="L110" title="All 2 branches missed.">            if (namesList.contains(&quot;id&quot;)) {</span>
+<span class="nc" id="L111">                b.setId(rs.getLong(&quot;id&quot;));</span>
+            }
+<span class="nc bnc" id="L113" title="All 2 branches missed.">            if (namesList.contains(&quot;laadprocesid&quot;)) {</span>
+<span class="nc" id="L114">                b.setLaadProcesId(rs.getInt(&quot;laadprocesid&quot;));</span>
+            }
+<span class="nc bnc" id="L116" title="All 2 branches missed.">            if (namesList.contains(&quot;object_ref&quot;)) {</span>
+<span class="nc" id="L117">                b.setObjectRef(rs.getString(&quot;object_ref&quot;));</span>
+            }
+<span class="nc bnc" id="L119" title="All 2 branches missed.">            if (namesList.contains(&quot;datum&quot;)) {</span>
+                // gebruik getTimestamp() (en niet getDate()) om tijdinfo ook op te halen.
+                // zie ook: https://stackoverflow.com/questions/3266530/jdbc-resultset-getdate-losing-precision
+<span class="nc" id="L122">                b.setDatum(rs.getTimestamp(&quot;datum&quot;));</span>
+            }
+<span class="nc bnc" id="L124" title="All 2 branches missed.">            if (namesList.contains(&quot;volgordenummer&quot;)) {</span>
+<span class="nc" id="L125">                b.setVolgordeNummer(rs.getInt(&quot;volgordenummer&quot;));</span>
+            }
+<span class="nc bnc" id="L127" title="All 2 branches missed.">            if (namesList.contains(&quot;soort&quot;)) {</span>
+<span class="nc" id="L128">                b.setSoort(rs.getString(&quot;soort&quot;));</span>
+            }
+<span class="nc bnc" id="L130" title="All 2 branches missed.">            if (namesList.contains(&quot;opmerking&quot;)) {</span>
+<span class="nc" id="L131">                b.setOpmerking(rs.getString(&quot;opmerking&quot;));</span>
+            }
+<span class="nc bnc" id="L133" title="All 2 branches missed.">            if (namesList.contains(&quot;status&quot;)) {</span>
+<span class="nc" id="L134">                b.setStatus(Bericht.STATUS.valueOf(rs.getString(&quot;status&quot;)));</span>
+            }
+<span class="nc bnc" id="L136" title="All 2 branches missed.">            if (namesList.contains(&quot;status_datum&quot;)) {</span>
+<span class="nc" id="L137">                b.setStatusDatum(rs.getTimestamp(&quot;status_datum&quot;));</span>
+            }
+<span class="nc bnc" id="L139" title="All 2 branches missed.">            if (namesList.contains(&quot;job_id&quot;)) {</span>
+<span class="nc" id="L140">                b.setJobId(rs.getString(&quot;job_id&quot;));</span>
+            }
+<span class="nc bnc" id="L142" title="All 2 branches missed.">            if (namesList.contains(&quot;br_orgineel_xml&quot;)) {</span>
+<span class="nc" id="L143">                b.setBrOrgineelXml(rs.getString(&quot;br_orgineel_xml&quot;));</span>
+            }
+<span class="nc bnc" id="L145" title="All 2 branches missed.">            if (namesList.contains(&quot;db_xml&quot;)) {</span>
+<span class="nc" id="L146">                b.setDbXml(rs.getString(&quot;db_xml&quot;));</span>
+            }
+<span class="nc bnc" id="L148" title="All 2 branches missed.">            if (namesList.contains(&quot;xsl_version&quot;)) {</span>
+<span class="nc" id="L149">                b.setXslVersion(rs.getString(&quot;xsl_version&quot;));</span>
+            }
+
+<span class="nc" id="L152">            return b;</span>
+        }
+
+<span class="nc" id="L155">        return null;</span>
+    }
+    
+<span class="nc" id="L158">    class IgnoreCaseStringList extends ArrayList&lt;String&gt; {</span>
+
+        @Override
+        public boolean contains(Object o) {
+<span class="nc" id="L162">            String paramStr = (String) o;</span>
+<span class="nc bnc" id="L163" title="All 2 branches missed.">            for (String s : this) {</span>
+<span class="nc bnc" id="L164" title="All 2 branches missed.">                if (paramStr.equalsIgnoreCase(s)) {</span>
+<span class="nc" id="L165">                    return true;</span>
+                }
+<span class="nc" id="L167">            }</span>
+<span class="nc" id="L168">            return false;</span>
+        }
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>MailRapportageProces.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO service</a> &gt; <a href="../index.html" class="el_bundle">brmo-persistence</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.persistence.staging</a> &gt; <span class="el_source">MailRapportageProces.java</span></div><h1>MailRapportageProces.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2015 B3Partners B.V.
+ */
+package nl.b3p.brmo.persistence.staging;
+
+import javax.persistence.Entity;
+
+/**
+ * Mail rapportage proces.
+ *
+ * @author mprins
+ */
+@Entity
+<span class="fc" id="L14">public class MailRapportageProces extends AutomatischProces {</span>
+
+    public static final String DELIM = &quot;,&quot;;
+    /**
+     * de sleutel {@value EMAIL}.
+     */
+    public static final String EMAIL = &quot;email&quot;;
+    /**
+     * de sleutel {@value PIDS}.
+     */
+    public static final String PIDS = &quot;pIDS&quot;;
+
+    /**
+     * de sleutel {@value FOR_STATUS}. Geldige waarden komen uit de verzameling
+     * van {@link AutomatischProces#status }
+     */
+    public static final String FOR_STATUS = &quot;forStatus&quot;;
+
+    /**
+     * haalt de lijst van email adressen op.
+     *
+     * @return string met adressen
+     */
+    public String getMailAdressen() {
+<span class="fc" id="L38">        return ClobElement.nullSafeGet(this.getConfig().get(EMAIL));</span>
+    }
+
+    /**
+     * haalt de lijst van email adressen op.
+     *
+     * @return array van string met adressen
+     */
+    public String[] getMailAdressenArray() {
+<span class="fc" id="L47">        final String adreslijst = this.getMailAdressen();</span>
+<span class="pc bpc" id="L48" title="1 of 2 branches missed.">        if (adreslijst != null) {</span>
+<span class="fc" id="L49">            return adreslijst.split(DELIM);</span>
+        } else {
+<span class="nc" id="L51">            return null;</span>
+        }
+    }
+
+    /**
+     * wordt gebruikt om opslag van mailadressen te normaliseren.
+     *
+     * @param adressen een lijst adressen
+     */
+    public void setMailAdressen(String... adressen) {
+<span class="fc" id="L61">        StringBuilder sb = new StringBuilder();</span>
+<span class="fc bfc" id="L62" title="All 2 branches covered.">        for (String adres : adressen) {</span>
+<span class="fc" id="L63">            sb.append(adres.trim()).append(DELIM);</span>
+        }
+<span class="fc" id="L65">        sb.setLength(sb.length() - 1);</span>
+<span class="fc" id="L66">        this.getConfig().put(EMAIL, new ClobElement(sb.toString()));</span>
+<span class="fc" id="L67">    }</span>
+
+    /**
+     * voor stripes formulier input...
+     *
+     * @param adres een (lijst) adres(sen)
+     */
+    public void setMailAdressen(String adres) {
+<span class="pc bpc" id="L75" title="1 of 2 branches missed.">        if (adres == null) {</span>
+<span class="nc" id="L76">            this.getConfig().put(EMAIL, null);</span>
+<span class="pc bpc" id="L77" title="1 of 2 branches missed.">        } else if (adres.contains(DELIM)) {</span>
+<span class="nc" id="L78">            this.setMailAdressen(adres.split(DELIM));</span>
+        } else {
+<span class="fc" id="L80">            this.getConfig().put(EMAIL, new ClobElement(adres.trim()));</span>
+        }
+<span class="fc" id="L82">    }</span>
+
+    public void setForStatus(ProcessingStatus status) {
+<span class="pc bpc" id="L85" title="1 of 2 branches missed.">        if (status == null) {</span>
+<span class="nc" id="L86">            this.getConfig().put(FOR_STATUS, null);</span>
+        } else {
+<span class="fc" id="L88">            this.getConfig().put(FOR_STATUS, new ClobElement(status.name()));</span>
+        }
+<span class="fc" id="L90">    }</span>
+
+    public ProcessingStatus getForStatus() {
+<span class="pc bpc" id="L93" title="1 of 2 branches missed.">        if (this.getConfig().get(FOR_STATUS) == null) {</span>
+<span class="nc" id="L94">            return null;</span>
+        } else {
+<span class="fc" id="L96">            return ProcessingStatus.valueOf(this.getConfig().get(FOR_STATUS).getValue());</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

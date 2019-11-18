@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>WebMirrorBAGDirectoryScanner.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO service</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.service.scanner</a> &gt; <span class="el_source">WebMirrorBAGDirectoryScanner.java</span></div><h1>WebMirrorBAGDirectoryScanner.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2015 B3Partners B.V.
+ */
+package nl.b3p.brmo.service.scanner;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.SocketTimeoutException;
+import java.net.URI;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
+import nl.b3p.brmo.loader.BrmoFramework;
+import nl.b3p.brmo.loader.util.BrmoDuplicaatLaadprocesException;
+import nl.b3p.brmo.loader.util.BrmoException;
+import nl.b3p.brmo.loader.util.BrmoLeegBestandException;
+import nl.b3p.brmo.persistence.staging.AutomatischProces;
+import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.ERROR;
+import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.WAITING;
+import nl.b3p.brmo.persistence.staging.WebMirrorBAGScannerProces;
+import nl.b3p.brmo.service.util.ConfigUtil;
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.io.input.CloseShieldInputStream;
+import org.apache.commons.io.input.TeeInputStream;
+import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.jsoup.HttpStatusException;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
+import org.stripesstuff.stripersist.Stripersist;
+
+/**
+ * Proces dat een web directory uitleest voor BAG mutaties in zipfiles.
+ *
+ * @author mprins
+ */
+public class WebMirrorBAGDirectoryScanner extends AbstractExecutableProces {
+
+<span class="nc" id="L47">    private static final Log log = LogFactory.getLog(WebMirrorBAGDirectoryScanner.class);</span>
+
+    /**
+     * proces data.
+     */
+    private final WebMirrorBAGScannerProces config;
+
+    private ProgressUpdateListener listener;
+
+<span class="nc" id="L56">    private BrmoFramework brmo = null;</span>
+
+<span class="nc" id="L58">    private int progress = 0, aantalZipGeladen = 0, aantalXMLGeladen = 0, filterXMLAlVerwerkt = 0;</span>
+
+<span class="nc" id="L60">    public WebMirrorBAGDirectoryScanner(WebMirrorBAGScannerProces config) {</span>
+<span class="nc" id="L61">        this.config = config;</span>
+        try {
+<span class="nc" id="L63">            brmo = new BrmoFramework(ConfigUtil.getDataSourceStaging(), null);</span>
+<span class="nc" id="L64">        } catch (BrmoException ex) {</span>
+<span class="nc" id="L65">            log.fatal(&quot;Initialisatie van BRMO framework is mislukt&quot;, ex);</span>
+<span class="nc" id="L66">        }</span>
+<span class="nc" id="L67">    }</span>
+
+    @Override
+    public void execute() throws BrmoException {
+<span class="nc" id="L71">        this.execute(new ProgressUpdateListener() {</span>
+            @Override
+            public void total(long total) {
+<span class="nc" id="L74">            }</span>
+
+            @Override
+            public void progress(long progress) {
+<span class="nc" id="L78">            }</span>
+
+            @Override
+            public void exception(Throwable t) {
+<span class="nc" id="L82">                log.error(t);</span>
+<span class="nc" id="L83">            }</span>
+
+            @Override
+            public void updateStatus(String status) {
+<span class="nc" id="L87">            }</span>
+
+            @Override
+            public void addLog(String log) {
+<span class="nc" id="L91">            }</span>
+        });
+<span class="nc" id="L93">    }</span>
+
+    @Override
+    public void execute(ProgressUpdateListener listener) {
+<span class="nc" id="L97">        this.listener = listener;</span>
+
+<span class="nc" id="L99">        String msg = String.format(&quot;Initialiseren... %tc&quot;, new Date());</span>
+<span class="nc" id="L100">        listener.updateStatus(msg);</span>
+<span class="nc" id="L101">        listener.addLog(msg);</span>
+<span class="nc" id="L102">        config.addLogLine(msg);</span>
+<span class="nc" id="L103">        config.setStatus(AutomatischProces.ProcessingStatus.PROCESSING);</span>
+<span class="nc" id="L104">        Stripersist.getEntityManager().flush();</span>
+
+        try {
+<span class="nc" id="L107">            String url = this.config.getScanDirectory();</span>
+<span class="nc" id="L108">            msg = String.format(&quot;Ophalen van de lijst van links van %s.&quot;, url);</span>
+<span class="nc" id="L109">            listener.addLog(msg);</span>
+<span class="nc" id="L110">            config.addLogLine(msg);</span>
+<span class="nc" id="L111">            Document doc = Jsoup.connect(url).timeout(5000).followRedirects(true).ignoreHttpErrors(false).get();</span>
+<span class="nc" id="L112">            msg = &quot;De lijst met download links is succesvol opgehaald.&quot;;</span>
+<span class="nc" id="L113">            listener.updateStatus(msg);</span>
+<span class="nc" id="L114">            listener.addLog(msg);</span>
+<span class="nc" id="L115">            config.addLogLine(msg);</span>
+
+<span class="nc" id="L117">            String expression = this.config.getConfig().get(&quot;csspath&quot;).getValue();</span>
+<span class="nc" id="L118">            Elements links = doc.select(expression);</span>
+
+            // verwijder een eventuele parent directory link uit de set links
+<span class="nc" id="L121">            URI uri = new URI(url);</span>
+<span class="nc bnc" id="L122" title="All 2 branches missed.">            URI parent = uri.getPath().endsWith(&quot;/&quot;) ? uri.resolve(&quot;..&quot;) : uri.resolve(&quot;.&quot;);</span>
+<span class="nc bnc" id="L123" title="All 2 branches missed.">            if (parent.toString().equalsIgnoreCase(links.first().attr(&quot;abs:href&quot;))) {</span>
+<span class="nc" id="L124">                msg = String.format(&quot;Overslaan van (parent) link %s&quot;, parent);</span>
+<span class="nc" id="L125">                listener.updateStatus(msg);</span>
+<span class="nc" id="L126">                listener.addLog(msg);</span>
+<span class="nc" id="L127">                config.addLogLine(msg);</span>
+<span class="nc" id="L128">                log.info(msg);</span>
+<span class="nc" id="L129">                links.remove(links.first());</span>
+            }
+<span class="nc" id="L131">            int items = links.size();</span>
+<span class="nc" id="L132">            listener.total(items);</span>
+
+            String berichtUrl, bestandsnaam;
+<span class="nc" id="L135">            progress = 0;</span>
+<span class="nc" id="L136">            filterXMLAlVerwerkt = 0;</span>
+<span class="nc" id="L137">            aantalZipGeladen = 0;</span>
+<span class="nc" id="L138">            aantalXMLGeladen = 0;</span>
+<span class="nc bnc" id="L139" title="All 2 branches missed.">            for (int i = 0; i &lt; items; i++) {</span>
+<span class="nc" id="L140">                berichtUrl = links.get(i).attr(&quot;abs:href&quot;);</span>
+<span class="nc" id="L141">                bestandsnaam = links.get(i).text();</span>
+<span class="nc" id="L142">                laadBestand(berichtUrl, bestandsnaam);</span>
+<span class="nc" id="L143">                aantalZipGeladen++;</span>
+<span class="nc" id="L144">                listener.progress(++progress);</span>
+            }
+
+<span class="nc" id="L147">            msg = String.format(&quot;Klaar met run op %tc.&quot;, Calendar.getInstance());</span>
+<span class="nc" id="L148">            listener.updateStatus(msg);</span>
+<span class="nc" id="L149">            listener.addLog(msg);</span>
+<span class="nc" id="L150">            listener.addLog(&quot;\n**** resultaat ****\n&quot;);</span>
+<span class="nc" id="L151">            listener.addLog(&quot;Aantal url's gedownloaded: &quot; + aantalZipGeladen);</span>
+<span class="nc" id="L152">            listener.addLog(&quot;Aantal xml's geladen: &quot; + aantalXMLGeladen);</span>
+<span class="nc" id="L153">            listener.addLog(&quot;Aantal xml's die al waren geladen: &quot; + filterXMLAlVerwerkt);</span>
+
+<span class="nc" id="L155">            config.updateSamenvattingEnLogfile(msg</span>
+                    + &quot;\nAantal url's gedownloaded: &quot; + aantalZipGeladen
+                    + &quot;\nAantal xml's geladen: &quot; + aantalXMLGeladen
+                    + &quot;\nAantal xml's die al waren geladen: &quot; + filterXMLAlVerwerkt
+            );
+<span class="nc" id="L160">            config.setStatus(WAITING);</span>
+<span class="nc" id="L161">            this.config.setLastrun(new Date());</span>
+<span class="nc" id="L162">            Stripersist.getEntityManager().merge(this.config);</span>
+<span class="nc" id="L163">            Stripersist.getEntityManager().getTransaction().commit();</span>
+<span class="nc" id="L164">        } catch (MalformedURLException | SocketTimeoutException ex) {</span>
+<span class="nc" id="L165">            log.error(ex);</span>
+<span class="nc" id="L166">            config.addLogLine(ex.getLocalizedMessage());</span>
+<span class="nc" id="L167">            config.setStatus(ERROR);</span>
+<span class="nc" id="L168">            listener.exception(ex);</span>
+<span class="nc" id="L169">        } catch (HttpStatusException ex) {</span>
+<span class="nc" id="L170">            msg = String.format(&quot;Er is een fout opgetreden bij het uitlezen van de url %s. Status code %s&quot;,</span>
+<span class="nc" id="L171">                    ex.getUrl(), ex.getStatusCode());</span>
+<span class="nc" id="L172">            log.error(msg);</span>
+<span class="nc" id="L173">            config.addLogLine(msg);</span>
+<span class="nc" id="L174">            config.setStatus(ERROR);</span>
+<span class="nc" id="L175">            listener.exception(ex);</span>
+<span class="nc" id="L176">        } catch (IOException ex) {</span>
+<span class="nc" id="L177">            log.error(ex);</span>
+<span class="nc" id="L178">            config.addLogLine(ex.getLocalizedMessage());</span>
+<span class="nc" id="L179">            config.setStatus(ERROR);</span>
+<span class="nc" id="L180">            listener.exception(ex);</span>
+<span class="nc" id="L181">        } catch (Exception ex) {</span>
+<span class="nc" id="L182">            log.error(ex);</span>
+<span class="nc" id="L183">            config.addLogLine(ex.getLocalizedMessage());</span>
+<span class="nc" id="L184">            listener.exception(ex);</span>
+<span class="nc" id="L185">            String m = &quot;Fout bij inladen van berichten: &quot; + ExceptionUtils.getMessage(ex);</span>
+<span class="nc bnc" id="L186" title="All 2 branches missed.">            if (ex.getCause() != null) {</span>
+<span class="nc" id="L187">                m += &quot;, oorzaak: &quot; + ExceptionUtils.getRootCauseMessage(ex);</span>
+            }
+<span class="nc" id="L189">            log.error(m, ex);</span>
+<span class="nc" id="L190">            this.config.updateSamenvattingEnLogfile(m);</span>
+<span class="nc" id="L191">            config.setStatus(ERROR);</span>
+        } finally {
+<span class="nc" id="L193">            config.setLastrun(new Date());</span>
+<span class="nc" id="L194">            Stripersist.getEntityManager().merge(this.config);</span>
+<span class="nc bnc" id="L195" title="All 2 branches missed.">            if (Stripersist.getEntityManager().getTransaction().getRollbackOnly()) {</span>
+                // XXX bij rollback only wordt status niet naar ERROR gezet vanwege
+                // rollback, zou in aparte transactie moeten
+<span class="nc" id="L198">                Stripersist.getEntityManager().getTransaction().rollback();</span>
+            } else {
+<span class="nc" id="L200">                Stripersist.getEntityManager().merge(this.config);</span>
+<span class="nc" id="L201">                Stripersist.getEntityManager().getTransaction().commit();</span>
+            }
+        }
+<span class="nc" id="L204">    }</span>
+
+    /**
+     * Laadt de berichten uit de xml documenten in een zipfile.
+     *
+     * @param sUrl te downloaden url van zip file
+     * @param naam te gebruiken naam voor zip file
+     * @throws Exception if any
+     */
+    private void laadBestand(String sUrl, final String naam) throws Exception {
+<span class="nc" id="L214">        String msg = &quot;Downloaden &quot; + sUrl;</span>
+<span class="nc" id="L215">        listener.updateStatus(msg);</span>
+<span class="nc" id="L216">        listener.addLog(msg);</span>
+<span class="nc" id="L217">        log.info(msg);</span>
+
+<span class="nc" id="L219">        final URL url = new URL(sUrl);</span>
+<span class="nc" id="L220">        URLConnection conn = url.openConnection();</span>
+<span class="nc" id="L221">        conn.setDoInput(true);</span>
+<span class="nc" id="L222">        conn.setDoOutput(false);</span>
+<span class="nc" id="L223">        conn.setUseCaches(false);</span>
+<span class="nc" id="L224">        conn.setDefaultUseCaches(false);</span>
+<span class="nc" id="L225">        conn.setConnectTimeout(30 * 1000);</span>
+<span class="nc" id="L226">        conn.setReadTimeout(60 * 1000);</span>
+<span class="nc" id="L227">        conn.connect();</span>
+
+<span class="nc" id="L229">        InputStream zipData = conn.getInputStream();</span>
+<span class="nc bnc" id="L230" title="All 2 branches missed.">        if (isArchivingOK()) {</span>
+<span class="nc" id="L231">            FileOutputStream archiveFile = new FileOutputStream(</span>
+<span class="nc" id="L232">                    new File(this.config.getArchiefDirectory(), naam));</span>
+<span class="nc" id="L233">            zipData = new TeeInputStream(zipData, archiveFile, true);</span>
+        }
+
+<span class="nc" id="L236">        ZipInputStream zis = new ZipInputStream(zipData);</span>
+<span class="nc" id="L237">        ZipEntry entry = zis.getNextEntry();</span>
+<span class="nc bnc" id="L238" title="All 2 branches missed.">        if (entry == null) {</span>
+<span class="nc" id="L239">            msg = String.format(&quot;  Geen geschikt bestand gevonden in download %s.&quot;, sUrl);</span>
+<span class="nc" id="L240">            listener.addLog(msg);</span>
+<span class="nc" id="L241">            return;</span>
+        }
+
+<span class="nc bnc" id="L244" title="All 2 branches missed.">        while (entry != null) {</span>
+<span class="nc bnc" id="L245" title="All 2 branches missed.">            if (!entry.getName().toLowerCase().endsWith(&quot;.xml&quot;)) {</span>
+<span class="nc" id="L246">                msg = &quot;Overslaan zip entry geen XML: &quot; + entry.getName();</span>
+<span class="nc" id="L247">                listener.updateStatus(msg);</span>
+<span class="nc" id="L248">                listener.addLog(msg);</span>
+<span class="nc" id="L249">                log.info(msg);</span>
+            } else {
+<span class="nc" id="L251">                msg = String.format(&quot;  Lezen XML bestand: %s uit zip&quot;, entry.getName());</span>
+<span class="nc" id="L252">                listener.updateStatus(msg);</span>
+<span class="nc" id="L253">                listener.addLog(msg);</span>
+<span class="nc" id="L254">                log.info(msg);</span>
+<span class="nc" id="L255">                final String bestandNaam = naam + &quot;/&quot; + entry.getName();</span>
+
+                try {
+<span class="nc" id="L258">                    brmo.loadFromStream(BrmoFramework.BR_BAG, new CloseShieldInputStream(zis), bestandNaam,</span>
+<span class="nc" id="L259">                            new nl.b3p.brmo.loader.ProgressUpdateListener() {</span>
+                                @Override
+                                public void total(long total) {
+<span class="nc" id="L262">                                    listener.addLog(total + &quot; berichten gelezen uit &quot; + bestandNaam);</span>
+<span class="nc" id="L263">                                    log.info(total + &quot; berichten gelezen uit &quot; + bestandNaam);</span>
+<span class="nc" id="L264">                                }</span>
+
+                                @Override
+                                public void progress(long progress) {
+<span class="nc" id="L268">                                }</span>
+
+                                @Override
+                        public void exception(Throwable t) {
+<span class="nc" id="L272">                            listener.exception(t);</span>
+<span class="nc" id="L273">                        }</span>
+<span class="nc" id="L274">                    }, config.getId());</span>
+<span class="nc" id="L275">                    this.aantalXMLGeladen++;</span>
+<span class="nc" id="L276">                } catch (BrmoDuplicaatLaadprocesException dup) {</span>
+<span class="nc" id="L277">                    this.filterXMLAlVerwerkt++;</span>
+<span class="nc" id="L278">                    msg = dup.getLocalizedMessage();</span>
+<span class="nc" id="L279">                    listener.updateStatus(msg);</span>
+<span class="nc" id="L280">                    listener.addLog(msg);</span>
+<span class="nc" id="L281">                    log.info(msg);</span>
+<span class="nc" id="L282">                } catch (BrmoLeegBestandException ex) {</span>
+<span class="nc" id="L283">                    this.aantalXMLGeladen++;</span>
+<span class="nc" id="L284">                    msg = ex.getLocalizedMessage();</span>
+<span class="nc" id="L285">                    listener.updateStatus(msg);</span>
+<span class="nc" id="L286">                    listener.addLog(msg);</span>
+<span class="nc" id="L287">                    log.info(msg);</span>
+<span class="nc" id="L288">                }</span>
+            }
+<span class="nc" id="L290">            entry = zis.getNextEntry();</span>
+        }
+<span class="nc" id="L292">        IOUtils.closeQuietly(zis);</span>
+<span class="nc" id="L293">    }</span>
+
+    /**
+     * Bepaal of de zipfile kan worden opgeslagen in de geconfigureerde
+     * directory. Als de directory niet bestaat wordt deze aangemaakt.
+     *
+     * @return true als we de zipfile lokaal kunnen opslaan.
+     */
+    private boolean isArchivingOK() {
+<span class="nc" id="L302">        final String aDir = this.config.getArchiefDirectory();</span>
+<span class="nc bnc" id="L303" title="All 2 branches missed.">        boolean isArchiving = (aDir != null);</span>
+<span class="nc bnc" id="L304" title="All 2 branches missed.">        if (isArchiving) {</span>
+<span class="nc" id="L305">            final File archiefDirectory = new File(aDir);</span>
+            try {
+<span class="nc" id="L307">                archiefDirectory.mkdirs();</span>
+<span class="nc bnc" id="L308" title="All 4 branches missed.">                if (!archiefDirectory.isDirectory() || !archiefDirectory.canWrite()) {</span>
+<span class="nc" id="L309">                    config.setStatus(ERROR);</span>
+<span class="nc" id="L310">                    String msg = String.format(&quot;FOUT: De archief directory '%s' is geen beschrijfbare directory, zipfiles worden niet gearchiveerd.&quot;, archiefDirectory);</span>
+<span class="nc" id="L311">                    listener.addLog(msg);</span>
+<span class="nc" id="L312">                    config.addLogLine(msg);</span>
+<span class="nc" id="L313">                    isArchiving = false;</span>
+                }
+<span class="nc" id="L315">            } catch (SecurityException e) {</span>
+<span class="nc" id="L316">                String msg = String.format(&quot;SecurityException voor archief directory '%s', zipfiles worden niet gearchiveerd.&quot;, archiefDirectory);</span>
+<span class="nc" id="L317">                listener.addLog(msg);</span>
+<span class="nc" id="L318">                config.addLogLine(msg);</span>
+<span class="nc" id="L319">                log.error(msg, e);</span>
+<span class="nc" id="L320">                isArchiving = false;</span>
+<span class="nc" id="L321">            }</span>
+        }
+<span class="nc" id="L323">        log.debug(&quot;Archief directory ingesteld op &quot; + aDir);</span>
+<span class="nc" id="L324">        return isArchiving;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

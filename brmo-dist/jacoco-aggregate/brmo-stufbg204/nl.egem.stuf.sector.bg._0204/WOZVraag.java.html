@@ -1,0 +1,630 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>WOZVraag.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO distributie</a> &gt; <a href="../index.html" class="el_bundle">brmo-stufbg204</a> &gt; <a href="index.source.html" class="el_package">nl.egem.stuf.sector.bg._0204</a> &gt; <span class="el_source">WOZVraag.java</span></div><h1>WOZVraag.java</h1><pre class="source lang-java linenums">
+package nl.egem.stuf.sector.bg._0204;
+
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementRef;
+import javax.xml.bind.annotation.XmlType;
+
+
+/**
+ * WOZ-object binnen vraagbericht
+ * 
+ * &lt;p&gt;Java class for WOZ-vraag complex type.
+ * 
+ * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+ * 
+ * &lt;pre&gt;
+ * &amp;lt;complexType name=&quot;WOZ-vraag&quot;&amp;gt;
+ *   &amp;lt;complexContent&amp;gt;
+ *     &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}WOZ-fund&quot;&amp;gt;
+ *       &amp;lt;sequence&amp;gt;
+ *         &amp;lt;element name=&quot;WOZADRHFD&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}ADR-relFund&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;WOZADRNVN&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}ADR-relFund&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;WOZKDO&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;complexContent&amp;gt;
+ *               &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}Relatie&quot;&amp;gt;
+ *                 &amp;lt;sequence&amp;gt;
+ *                   &amp;lt;element name=&quot;KDO&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}KDO-kennisgeving&quot;/&amp;gt;
+ *                 &amp;lt;/sequence&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/complexContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;WOZOBW&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;complexContent&amp;gt;
+ *               &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}Relatie&quot;&amp;gt;
+ *                 &amp;lt;sequence&amp;gt;
+ *                   &amp;lt;element name=&quot;OBW&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}OBW-kennisgeving&quot;/&amp;gt;
+ *                 &amp;lt;/sequence&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/complexContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;WOZSUBEIG&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;complexContent&amp;gt;
+ *               &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}Relatie&quot;&amp;gt;
+ *                 &amp;lt;choice&amp;gt;
+ *                   &amp;lt;element name=&quot;NNP&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}NNP-kerngegevens&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;PRS&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}PRS-kerngegevens&quot;/&amp;gt;
+ *                 &amp;lt;/choice&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/complexContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;WOZSUBGBR&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;complexContent&amp;gt;
+ *               &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}Relatie&quot;&amp;gt;
+ *                 &amp;lt;choice&amp;gt;
+ *                   &amp;lt;element name=&quot;NNP&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}NNP-kerngegevens&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;PRS&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}PRS-kerngegevens&quot;/&amp;gt;
+ *                 &amp;lt;/choice&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/complexContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;WOZVBO&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;complexContent&amp;gt;
+ *               &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}Relatie&quot;&amp;gt;
+ *                 &amp;lt;sequence&amp;gt;
+ *                   &amp;lt;element name=&quot;VBO&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}VBO-kennisgeving&quot;/&amp;gt;
+ *                 &amp;lt;/sequence&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/complexContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *       &amp;lt;/sequence&amp;gt;
+ *     &amp;lt;/extension&amp;gt;
+ *   &amp;lt;/complexContent&amp;gt;
+ * &amp;lt;/complexType&amp;gt;
+ * &lt;/pre&gt;
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = &quot;WOZ-vraag&quot;, propOrder = {
+    &quot;wozadrhfd&quot;,
+    &quot;wozadrnvn&quot;,
+    &quot;wozkdo&quot;,
+    &quot;wozobw&quot;,
+    &quot;wozsubeig&quot;,
+    &quot;wozsubgbr&quot;,
+    &quot;wozvbo&quot;
+})
+<span class="nc" id="L101">public class WOZVraag</span>
+    extends WOZFund
+{
+
+    @XmlElementRef(name = &quot;WOZADRHFD&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+    protected JAXBElement&lt;ADRRelFund&gt; wozadrhfd;
+    @XmlElementRef(name = &quot;WOZADRNVN&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+    protected JAXBElement&lt;ADRRelFund&gt; wozadrnvn;
+    @XmlElementRef(name = &quot;WOZKDO&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+    protected JAXBElement&lt;WOZVraag.WOZKDO&gt; wozkdo;
+    @XmlElementRef(name = &quot;WOZOBW&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+    protected JAXBElement&lt;WOZVraag.WOZOBW&gt; wozobw;
+    @XmlElementRef(name = &quot;WOZSUBEIG&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+    protected JAXBElement&lt;WOZVraag.WOZSUBEIG&gt; wozsubeig;
+    @XmlElementRef(name = &quot;WOZSUBGBR&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+    protected JAXBElement&lt;WOZVraag.WOZSUBGBR&gt; wozsubgbr;
+    @XmlElementRef(name = &quot;WOZVBO&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+    protected JAXBElement&lt;WOZVraag.WOZVBO&gt; wozvbo;
+
+    /**
+     * Gets the value of the wozadrhfd property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code &lt;}{@link ADRRelFund }{@code &gt;}
+     *     
+     */
+    public JAXBElement&lt;ADRRelFund&gt; getWOZADRHFD() {
+<span class="nc" id="L129">        return wozadrhfd;</span>
+    }
+
+    /**
+     * Sets the value of the wozadrhfd property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code &lt;}{@link ADRRelFund }{@code &gt;}
+     *     
+     */
+    public void setWOZADRHFD(JAXBElement&lt;ADRRelFund&gt; value) {
+<span class="nc" id="L141">        this.wozadrhfd = value;</span>
+<span class="nc" id="L142">    }</span>
+
+    /**
+     * Gets the value of the wozadrnvn property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code &lt;}{@link ADRRelFund }{@code &gt;}
+     *     
+     */
+    public JAXBElement&lt;ADRRelFund&gt; getWOZADRNVN() {
+<span class="nc" id="L153">        return wozadrnvn;</span>
+    }
+
+    /**
+     * Sets the value of the wozadrnvn property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code &lt;}{@link ADRRelFund }{@code &gt;}
+     *     
+     */
+    public void setWOZADRNVN(JAXBElement&lt;ADRRelFund&gt; value) {
+<span class="nc" id="L165">        this.wozadrnvn = value;</span>
+<span class="nc" id="L166">    }</span>
+
+    /**
+     * Gets the value of the wozkdo property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code &lt;}{@link WOZVraag.WOZKDO }{@code &gt;}
+     *     
+     */
+    public JAXBElement&lt;WOZVraag.WOZKDO&gt; getWOZKDO() {
+<span class="nc" id="L177">        return wozkdo;</span>
+    }
+
+    /**
+     * Sets the value of the wozkdo property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code &lt;}{@link WOZVraag.WOZKDO }{@code &gt;}
+     *     
+     */
+    public void setWOZKDO(JAXBElement&lt;WOZVraag.WOZKDO&gt; value) {
+<span class="nc" id="L189">        this.wozkdo = value;</span>
+<span class="nc" id="L190">    }</span>
+
+    /**
+     * Gets the value of the wozobw property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code &lt;}{@link WOZVraag.WOZOBW }{@code &gt;}
+     *     
+     */
+    public JAXBElement&lt;WOZVraag.WOZOBW&gt; getWOZOBW() {
+<span class="nc" id="L201">        return wozobw;</span>
+    }
+
+    /**
+     * Sets the value of the wozobw property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code &lt;}{@link WOZVraag.WOZOBW }{@code &gt;}
+     *     
+     */
+    public void setWOZOBW(JAXBElement&lt;WOZVraag.WOZOBW&gt; value) {
+<span class="nc" id="L213">        this.wozobw = value;</span>
+<span class="nc" id="L214">    }</span>
+
+    /**
+     * Gets the value of the wozsubeig property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code &lt;}{@link WOZVraag.WOZSUBEIG }{@code &gt;}
+     *     
+     */
+    public JAXBElement&lt;WOZVraag.WOZSUBEIG&gt; getWOZSUBEIG() {
+<span class="nc" id="L225">        return wozsubeig;</span>
+    }
+
+    /**
+     * Sets the value of the wozsubeig property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code &lt;}{@link WOZVraag.WOZSUBEIG }{@code &gt;}
+     *     
+     */
+    public void setWOZSUBEIG(JAXBElement&lt;WOZVraag.WOZSUBEIG&gt; value) {
+<span class="nc" id="L237">        this.wozsubeig = value;</span>
+<span class="nc" id="L238">    }</span>
+
+    /**
+     * Gets the value of the wozsubgbr property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code &lt;}{@link WOZVraag.WOZSUBGBR }{@code &gt;}
+     *     
+     */
+    public JAXBElement&lt;WOZVraag.WOZSUBGBR&gt; getWOZSUBGBR() {
+<span class="nc" id="L249">        return wozsubgbr;</span>
+    }
+
+    /**
+     * Sets the value of the wozsubgbr property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code &lt;}{@link WOZVraag.WOZSUBGBR }{@code &gt;}
+     *     
+     */
+    public void setWOZSUBGBR(JAXBElement&lt;WOZVraag.WOZSUBGBR&gt; value) {
+<span class="nc" id="L261">        this.wozsubgbr = value;</span>
+<span class="nc" id="L262">    }</span>
+
+    /**
+     * Gets the value of the wozvbo property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code &lt;}{@link WOZVraag.WOZVBO }{@code &gt;}
+     *     
+     */
+    public JAXBElement&lt;WOZVraag.WOZVBO&gt; getWOZVBO() {
+<span class="nc" id="L273">        return wozvbo;</span>
+    }
+
+    /**
+     * Sets the value of the wozvbo property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code &lt;}{@link WOZVraag.WOZVBO }{@code &gt;}
+     *     
+     */
+    public void setWOZVBO(JAXBElement&lt;WOZVraag.WOZVBO&gt; value) {
+<span class="nc" id="L285">        this.wozvbo = value;</span>
+<span class="nc" id="L286">    }</span>
+
+
+    /**
+     * &lt;p&gt;Java class for anonymous complex type.
+     * 
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * 
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;complexContent&amp;gt;
+     *     &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}Relatie&quot;&amp;gt;
+     *       &amp;lt;sequence&amp;gt;
+     *         &amp;lt;element name=&quot;KDO&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}KDO-kennisgeving&quot;/&amp;gt;
+     *       &amp;lt;/sequence&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/complexContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = &quot;&quot;, propOrder = {
+        &quot;kdo&quot;
+    })
+<span class="nc" id="L312">    public static class WOZKDO</span>
+        extends Relatie
+    {
+
+        @XmlElement(name = &quot;KDO&quot;, required = true, nillable = true)
+        protected KDOKennisgeving kdo;
+
+        /**
+         * Gets the value of the kdo property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link KDOKennisgeving }
+         *     
+         */
+        public KDOKennisgeving getKDO() {
+<span class="nc" id="L328">            return kdo;</span>
+        }
+
+        /**
+         * Sets the value of the kdo property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link KDOKennisgeving }
+         *     
+         */
+        public void setKDO(KDOKennisgeving value) {
+<span class="nc" id="L340">            this.kdo = value;</span>
+<span class="nc" id="L341">        }</span>
+
+    }
+
+
+    /**
+     * &lt;p&gt;Java class for anonymous complex type.
+     * 
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * 
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;complexContent&amp;gt;
+     *     &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}Relatie&quot;&amp;gt;
+     *       &amp;lt;sequence&amp;gt;
+     *         &amp;lt;element name=&quot;OBW&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}OBW-kennisgeving&quot;/&amp;gt;
+     *       &amp;lt;/sequence&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/complexContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = &quot;&quot;, propOrder = {
+        &quot;obw&quot;
+    })
+<span class="nc" id="L369">    public static class WOZOBW</span>
+        extends Relatie
+    {
+
+        @XmlElement(name = &quot;OBW&quot;, required = true, nillable = true)
+        protected OBWKennisgeving obw;
+
+        /**
+         * Gets the value of the obw property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link OBWKennisgeving }
+         *     
+         */
+        public OBWKennisgeving getOBW() {
+<span class="nc" id="L385">            return obw;</span>
+        }
+
+        /**
+         * Sets the value of the obw property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link OBWKennisgeving }
+         *     
+         */
+        public void setOBW(OBWKennisgeving value) {
+<span class="nc" id="L397">            this.obw = value;</span>
+<span class="nc" id="L398">        }</span>
+
+    }
+
+
+    /**
+     * &lt;p&gt;Java class for anonymous complex type.
+     * 
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * 
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;complexContent&amp;gt;
+     *     &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}Relatie&quot;&amp;gt;
+     *       &amp;lt;choice&amp;gt;
+     *         &amp;lt;element name=&quot;NNP&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}NNP-kerngegevens&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;PRS&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}PRS-kerngegevens&quot;/&amp;gt;
+     *       &amp;lt;/choice&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/complexContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = &quot;&quot;, propOrder = {
+        &quot;nnp&quot;,
+        &quot;prs&quot;
+    })
+<span class="nc" id="L428">    public static class WOZSUBEIG</span>
+        extends Relatie
+    {
+
+        @XmlElementRef(name = &quot;NNP&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+        protected JAXBElement&lt;NNPKerngegevens&gt; nnp;
+        @XmlElementRef(name = &quot;PRS&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+        protected JAXBElement&lt;PRSKerngegevens&gt; prs;
+
+        /**
+         * Gets the value of the nnp property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link JAXBElement }{@code &lt;}{@link NNPKerngegevens }{@code &gt;}
+         *     
+         */
+        public JAXBElement&lt;NNPKerngegevens&gt; getNNP() {
+<span class="nc" id="L446">            return nnp;</span>
+        }
+
+        /**
+         * Sets the value of the nnp property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link JAXBElement }{@code &lt;}{@link NNPKerngegevens }{@code &gt;}
+         *     
+         */
+        public void setNNP(JAXBElement&lt;NNPKerngegevens&gt; value) {
+<span class="nc" id="L458">            this.nnp = value;</span>
+<span class="nc" id="L459">        }</span>
+
+        /**
+         * Gets the value of the prs property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link JAXBElement }{@code &lt;}{@link PRSKerngegevens }{@code &gt;}
+         *     
+         */
+        public JAXBElement&lt;PRSKerngegevens&gt; getPRS() {
+<span class="nc" id="L470">            return prs;</span>
+        }
+
+        /**
+         * Sets the value of the prs property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link JAXBElement }{@code &lt;}{@link PRSKerngegevens }{@code &gt;}
+         *     
+         */
+        public void setPRS(JAXBElement&lt;PRSKerngegevens&gt; value) {
+<span class="nc" id="L482">            this.prs = value;</span>
+<span class="nc" id="L483">        }</span>
+
+    }
+
+
+    /**
+     * &lt;p&gt;Java class for anonymous complex type.
+     * 
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * 
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;complexContent&amp;gt;
+     *     &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}Relatie&quot;&amp;gt;
+     *       &amp;lt;choice&amp;gt;
+     *         &amp;lt;element name=&quot;NNP&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}NNP-kerngegevens&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;PRS&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}PRS-kerngegevens&quot;/&amp;gt;
+     *       &amp;lt;/choice&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/complexContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = &quot;&quot;, propOrder = {
+        &quot;nnp&quot;,
+        &quot;prs&quot;
+    })
+<span class="nc" id="L513">    public static class WOZSUBGBR</span>
+        extends Relatie
+    {
+
+        @XmlElementRef(name = &quot;NNP&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+        protected JAXBElement&lt;NNPKerngegevens&gt; nnp;
+        @XmlElementRef(name = &quot;PRS&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+        protected JAXBElement&lt;PRSKerngegevens&gt; prs;
+
+        /**
+         * Gets the value of the nnp property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link JAXBElement }{@code &lt;}{@link NNPKerngegevens }{@code &gt;}
+         *     
+         */
+        public JAXBElement&lt;NNPKerngegevens&gt; getNNP() {
+<span class="nc" id="L531">            return nnp;</span>
+        }
+
+        /**
+         * Sets the value of the nnp property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link JAXBElement }{@code &lt;}{@link NNPKerngegevens }{@code &gt;}
+         *     
+         */
+        public void setNNP(JAXBElement&lt;NNPKerngegevens&gt; value) {
+<span class="nc" id="L543">            this.nnp = value;</span>
+<span class="nc" id="L544">        }</span>
+
+        /**
+         * Gets the value of the prs property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link JAXBElement }{@code &lt;}{@link PRSKerngegevens }{@code &gt;}
+         *     
+         */
+        public JAXBElement&lt;PRSKerngegevens&gt; getPRS() {
+<span class="nc" id="L555">            return prs;</span>
+        }
+
+        /**
+         * Sets the value of the prs property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link JAXBElement }{@code &lt;}{@link PRSKerngegevens }{@code &gt;}
+         *     
+         */
+        public void setPRS(JAXBElement&lt;PRSKerngegevens&gt; value) {
+<span class="nc" id="L567">            this.prs = value;</span>
+<span class="nc" id="L568">        }</span>
+
+    }
+
+
+    /**
+     * &lt;p&gt;Java class for anonymous complex type.
+     * 
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * 
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;complexContent&amp;gt;
+     *     &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}Relatie&quot;&amp;gt;
+     *       &amp;lt;sequence&amp;gt;
+     *         &amp;lt;element name=&quot;VBO&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}VBO-kennisgeving&quot;/&amp;gt;
+     *       &amp;lt;/sequence&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/complexContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = &quot;&quot;, propOrder = {
+        &quot;vbo&quot;
+    })
+<span class="nc" id="L596">    public static class WOZVBO</span>
+        extends Relatie
+    {
+
+        @XmlElement(name = &quot;VBO&quot;, required = true, nillable = true)
+        protected VBOKennisgeving vbo;
+
+        /**
+         * Gets the value of the vbo property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link VBOKennisgeving }
+         *     
+         */
+        public VBOKennisgeving getVBO() {
+<span class="nc" id="L612">            return vbo;</span>
+        }
+
+        /**
+         * Sets the value of the vbo property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link VBOKennisgeving }
+         *     
+         */
+        public void setVBO(VBOKennisgeving value) {
+<span class="nc" id="L624">            this.vbo = value;</span>
+<span class="nc" id="L625">        }</span>
+
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

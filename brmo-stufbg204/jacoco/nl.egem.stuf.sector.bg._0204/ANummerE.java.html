@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ANummerE.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO STUF BG 204</a> &gt; <a href="index.source.html" class="el_package">nl.egem.stuf.sector.bg._0204</a> &gt; <span class="el_source">ANummerE.java</span></div><h1>ANummerE.java</h1><pre class="source lang-java linenums">
+package nl.egem.stuf.sector.bg._0204;
+
+import java.math.BigInteger;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.XmlValue;
+import nl.egem.stuf.stuf0204.NoValue;
+
+
+/**
+ * &lt;p&gt;Java class for A-nummer-e complex type.
+ * 
+ * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+ * 
+ * &lt;pre&gt;
+ * &amp;lt;complexType name=&quot;A-nummer-e&quot;&amp;gt;
+ *   &amp;lt;simpleContent&amp;gt;
+ *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;A-nummer&quot;&amp;gt;
+ *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+ *       &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
+ *     &amp;lt;/extension&amp;gt;
+ *   &amp;lt;/simpleContent&amp;gt;
+ * &amp;lt;/complexType&amp;gt;
+ * &lt;/pre&gt;
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = &quot;A-nummer-e&quot;, propOrder = {
+    &quot;value&quot;
+})
+<span class="nc" id="L35">public class ANummerE {</span>
+
+    @XmlValue
+    protected BigInteger value;
+    @XmlAttribute(name = &quot;kerngegeven&quot;)
+    protected Boolean kerngegeven;
+    @XmlAttribute(name = &quot;noValue&quot;, namespace = &quot;http://www.egem.nl/StUF/StUF0204&quot;)
+    protected NoValue noValue;
+    @XmlAttribute(name = &quot;exact&quot;, namespace = &quot;http://www.egem.nl/StUF/StUF0204&quot;)
+    protected Boolean exact;
+
+    /**
+     * Gets the value of the value property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link BigInteger }
+     *     
+     */
+    public BigInteger getValue() {
+<span class="nc" id="L55">        return value;</span>
+    }
+
+    /**
+     * Sets the value of the value property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link BigInteger }
+     *     
+     */
+    public void setValue(BigInteger value) {
+<span class="nc" id="L67">        this.value = value;</span>
+<span class="nc" id="L68">    }</span>
+
+    /**
+     * Gets the value of the kerngegeven property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public boolean isKerngegeven() {
+<span class="nc bnc" id="L79" title="All 2 branches missed.">        if (kerngegeven == null) {</span>
+<span class="nc" id="L80">            return true;</span>
+        } else {
+<span class="nc" id="L82">            return kerngegeven;</span>
+        }
+    }
+
+    /**
+     * Sets the value of the kerngegeven property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setKerngegeven(Boolean value) {
+<span class="nc" id="L95">        this.kerngegeven = value;</span>
+<span class="nc" id="L96">    }</span>
+
+    /**
+     * Gets the value of the noValue property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link NoValue }
+     *     
+     */
+    public NoValue getNoValue() {
+<span class="nc" id="L107">        return noValue;</span>
+    }
+
+    /**
+     * Sets the value of the noValue property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link NoValue }
+     *     
+     */
+    public void setNoValue(NoValue value) {
+<span class="nc" id="L119">        this.noValue = value;</span>
+<span class="nc" id="L120">    }</span>
+
+    /**
+     * Gets the value of the exact property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public boolean isExact() {
+<span class="nc bnc" id="L131" title="All 2 branches missed.">        if (exact == null) {</span>
+<span class="nc" id="L132">            return true;</span>
+        } else {
+<span class="nc" id="L134">            return exact;</span>
+        }
+    }
+
+    /**
+     * Sets the value of the exact property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setExact(Boolean value) {
+<span class="nc" id="L147">        this.exact = value;</span>
+<span class="nc" id="L148">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

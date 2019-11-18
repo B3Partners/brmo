@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ObjectFactory.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO STUF BG 204</a> &gt; <a href="index.source.html" class="el_package">nl.egem.stuf.stuf0204</a> &gt; <span class="el_source">ObjectFactory.java</span></div><h1>ObjectFactory.java</h1><pre class="source lang-java linenums">
+package nl.egem.stuf.stuf0204;
+
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.annotation.XmlElementDecl;
+import javax.xml.bind.annotation.XmlRegistry;
+import javax.xml.namespace.QName;
+
+
+/**
+ * This object contains factory methods for each 
+ * Java content interface and Java element interface 
+ * generated in the nl.egem.stuf.stuf0204 package. 
+ * &lt;p&gt;An ObjectFactory allows you to programatically 
+ * construct new instances of the Java representation 
+ * for XML content. The Java representation of XML 
+ * content can consist of schema derived interfaces 
+ * and classes representing the binding of schema 
+ * type definitions, element declarations and model 
+ * groups.  Factory methods for each of these are 
+ * provided in this class.
+ * 
+ */
+@XmlRegistry
+public class ObjectFactory {
+
+<span class="nc" id="L27">    private final static QName _TransmissionError_QNAME = new QName(&quot;http://www.egem.nl/StUF/StUF0204&quot;, &quot;transmissionError&quot;);</span>
+<span class="nc" id="L28">    private final static QName _ExtraElement_QNAME = new QName(&quot;http://www.egem.nl/StUF/StUF0204&quot;, &quot;extraElement&quot;);</span>
+<span class="nc" id="L29">    private final static QName _StUFBerichtenSetKennisgevingsBericht_QNAME = new QName(&quot;http://www.egem.nl/StUF/StUF0204&quot;, &quot;kennisgevingsBericht&quot;);</span>
+<span class="nc" id="L30">    private final static QName _StUFBerichtenSetVraagBericht_QNAME = new QName(&quot;http://www.egem.nl/StUF/StUF0204&quot;, &quot;vraagBericht&quot;);</span>
+<span class="nc" id="L31">    private final static QName _StUFBerichtenSetAsynchroonAntwoordBericht_QNAME = new QName(&quot;http://www.egem.nl/StUF/StUF0204&quot;, &quot;asynchroonAntwoordBericht&quot;);</span>
+
+    /**
+     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: nl.egem.stuf.stuf0204
+     * 
+     */
+<span class="nc" id="L37">    public ObjectFactory() {</span>
+<span class="nc" id="L38">    }</span>
+
+    /**
+     * Create an instance of {@link Stuurgegevens }
+     * 
+     */
+    public Stuurgegevens createStuurgegevens() {
+<span class="nc" id="L45">        return new Stuurgegevens();</span>
+    }
+
+    /**
+     * Create an instance of {@link FoutBericht }
+     * 
+     */
+    public FoutBericht createFoutBericht() {
+<span class="nc" id="L53">        return new FoutBericht();</span>
+    }
+
+    /**
+     * Create an instance of {@link Systeem }
+     * 
+     */
+    public Systeem createSysteem() {
+<span class="nc" id="L61">        return new Systeem();</span>
+    }
+
+    /**
+     * Create an instance of {@link Stuurgegevens.Kennisgeving }
+     * 
+     */
+    public Stuurgegevens.Kennisgeving createStuurgegevensKennisgeving() {
+<span class="nc" id="L69">        return new Stuurgegevens.Kennisgeving();</span>
+    }
+
+    /**
+     * Create an instance of {@link Stuurgegevens.Vraag }
+     * 
+     */
+    public Stuurgegevens.Vraag createStuurgegevensVraag() {
+<span class="nc" id="L77">        return new Stuurgegevens.Vraag();</span>
+    }
+
+    /**
+     * Create an instance of {@link Stuurgegevens.Antwoord }
+     * 
+     */
+    public Stuurgegevens.Antwoord createStuurgegevensAntwoord() {
+<span class="nc" id="L85">        return new Stuurgegevens.Antwoord();</span>
+    }
+
+    /**
+     * Create an instance of {@link Stuurgegevens.Bevestiging }
+     * 
+     */
+    public Stuurgegevens.Bevestiging createStuurgegevensBevestiging() {
+<span class="nc" id="L93">        return new Stuurgegevens.Bevestiging();</span>
+    }
+
+    /**
+     * Create an instance of {@link Stuurgegevens.Fout }
+     * 
+     */
+    public Stuurgegevens.Fout createStuurgegevensFout() {
+<span class="nc" id="L101">        return new Stuurgegevens.Fout();</span>
+    }
+
+    /**
+     * Create an instance of {@link FoutBericht.Body }
+     * 
+     */
+    public FoutBericht.Body createFoutBerichtBody() {
+<span class="nc" id="L109">        return new FoutBericht.Body();</span>
+    }
+
+    /**
+     * Create an instance of {@link BevestigingsBericht }
+     * 
+     */
+    public BevestigingsBericht createBevestigingsBericht() {
+<span class="nc" id="L117">        return new BevestigingsBericht();</span>
+    }
+
+    /**
+     * Create an instance of {@link StUFBerichtenSet }
+     * 
+     */
+    public StUFBerichtenSet createStUFBerichtenSet() {
+<span class="nc" id="L125">        return new StUFBerichtenSet();</span>
+    }
+
+    /**
+     * Create an instance of {@link ExtraElement }
+     * 
+     */
+    public ExtraElement createExtraElement() {
+<span class="nc" id="L133">        return new ExtraElement();</span>
+    }
+
+    /**
+     * Create an instance of {@link ExtraElementen }
+     * 
+     */
+    public ExtraElementen createExtraElementen() {
+<span class="nc" id="L141">        return new ExtraElementen();</span>
+    }
+
+    /**
+     * Create an instance of {@link DatumMetIndicator }
+     * 
+     */
+    public DatumMetIndicator createDatumMetIndicator() {
+<span class="nc" id="L149">        return new DatumMetIndicator();</span>
+    }
+
+    /**
+     * Create an instance of {@link TijdvakGeldigheid }
+     * 
+     */
+    public TijdvakGeldigheid createTijdvakGeldigheid() {
+<span class="nc" id="L157">        return new TijdvakGeldigheid();</span>
+    }
+
+    /**
+     * Create an instance of {@link TijdvakRelatie }
+     * 
+     */
+    public TijdvakRelatie createTijdvakRelatie() {
+<span class="nc" id="L165">        return new TijdvakRelatie();</span>
+    }
+
+    /**
+     * Create an instance of {@link DatumMetIndicatorKerngegeven }
+     * 
+     */
+    public DatumMetIndicatorKerngegeven createDatumMetIndicatorKerngegeven() {
+<span class="nc" id="L173">        return new DatumMetIndicatorKerngegeven();</span>
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code &lt;}{@link String }{@code &gt;}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code &lt;}{@link String }{@code &gt;}
+     */
+    @XmlElementDecl(namespace = &quot;http://www.egem.nl/StUF/StUF0204&quot;, name = &quot;transmissionError&quot;)
+    public JAXBElement&lt;String&gt; createTransmissionError(String value) {
+<span class="nc" id="L186">        return new JAXBElement&lt;String&gt;(_TransmissionError_QNAME, String.class, null, value);</span>
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code &lt;}{@link ExtraElement }{@code &gt;}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code &lt;}{@link ExtraElement }{@code &gt;}
+     */
+    @XmlElementDecl(namespace = &quot;http://www.egem.nl/StUF/StUF0204&quot;, name = &quot;extraElement&quot;)
+    public JAXBElement&lt;ExtraElement&gt; createExtraElement(ExtraElement value) {
+<span class="nc" id="L199">        return new JAXBElement&lt;ExtraElement&gt;(_ExtraElement_QNAME, ExtraElement.class, null, value);</span>
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code &lt;}{@link Object }{@code &gt;}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code &lt;}{@link Object }{@code &gt;}
+     */
+    @XmlElementDecl(namespace = &quot;http://www.egem.nl/StUF/StUF0204&quot;, name = &quot;kennisgevingsBericht&quot;, scope = StUFBerichtenSet.class)
+    public JAXBElement&lt;Object&gt; createStUFBerichtenSetKennisgevingsBericht(Object value) {
+<span class="nc" id="L212">        return new JAXBElement&lt;Object&gt;(_StUFBerichtenSetKennisgevingsBericht_QNAME, Object.class, StUFBerichtenSet.class, value);</span>
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code &lt;}{@link Object }{@code &gt;}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code &lt;}{@link Object }{@code &gt;}
+     */
+    @XmlElementDecl(namespace = &quot;http://www.egem.nl/StUF/StUF0204&quot;, name = &quot;vraagBericht&quot;, scope = StUFBerichtenSet.class)
+    public JAXBElement&lt;Object&gt; createStUFBerichtenSetVraagBericht(Object value) {
+<span class="nc" id="L225">        return new JAXBElement&lt;Object&gt;(_StUFBerichtenSetVraagBericht_QNAME, Object.class, StUFBerichtenSet.class, value);</span>
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code &lt;}{@link Object }{@code &gt;}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code &lt;}{@link Object }{@code &gt;}
+     */
+    @XmlElementDecl(namespace = &quot;http://www.egem.nl/StUF/StUF0204&quot;, name = &quot;asynchroonAntwoordBericht&quot;, scope = StUFBerichtenSet.class)
+    public JAXBElement&lt;Object&gt; createStUFBerichtenSetAsynchroonAntwoordBericht(Object value) {
+<span class="nc" id="L238">        return new JAXBElement&lt;Object&gt;(_StUFBerichtenSetAsynchroonAntwoordBericht_QNAME, Object.class, StUFBerichtenSet.class, value);</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

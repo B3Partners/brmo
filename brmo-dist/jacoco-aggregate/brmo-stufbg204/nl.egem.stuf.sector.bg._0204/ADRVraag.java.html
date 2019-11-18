@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>ADRVraag.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO distributie</a> &gt; <a href="../index.html" class="el_bundle">brmo-stufbg204</a> &gt; <a href="index.source.html" class="el_package">nl.egem.stuf.sector.bg._0204</a> &gt; <span class="el_source">ADRVraag.java</span></div><h1>ADRVraag.java</h1><pre class="source lang-java linenums">
+package nl.egem.stuf.sector.bg._0204;
+
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementRef;
+import javax.xml.bind.annotation.XmlType;
+
+
+/**
+ * adres binnen vraagberichten
+ * 
+ * &lt;p&gt;Java class for ADR-vraag complex type.
+ * 
+ * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+ * 
+ * &lt;pre&gt;
+ * &amp;lt;complexType name=&quot;ADR-vraag&quot;&amp;gt;
+ *   &amp;lt;complexContent&amp;gt;
+ *     &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}ADR-fund&quot;&amp;gt;
+ *       &amp;lt;sequence&amp;gt;
+ *         &amp;lt;element name=&quot;ADRADROSU&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;complexContent&amp;gt;
+ *               &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}ADRADROSU-rel&quot;&amp;gt;
+ *                 &amp;lt;sequence&amp;gt;
+ *                   &amp;lt;element name=&quot;ADR&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}ADR-kennisgeving&quot;/&amp;gt;
+ *                 &amp;lt;/sequence&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/complexContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *       &amp;lt;/sequence&amp;gt;
+ *     &amp;lt;/extension&amp;gt;
+ *   &amp;lt;/complexContent&amp;gt;
+ * &amp;lt;/complexType&amp;gt;
+ * &lt;/pre&gt;
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = &quot;ADR-vraag&quot;, propOrder = {
+    &quot;adradrosu&quot;
+})
+<span class="nc" id="L47">public class ADRVraag</span>
+    extends ADRFund
+{
+
+    @XmlElementRef(name = &quot;ADRADROSU&quot;, namespace = &quot;http://www.egem.nl/StUF/sector/bg/0204&quot;, type = JAXBElement.class, required = false)
+    protected JAXBElement&lt;ADRVraag.ADRADROSU&gt; adradrosu;
+
+    /**
+     * Gets the value of the adradrosu property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link JAXBElement }{@code &lt;}{@link ADRVraag.ADRADROSU }{@code &gt;}
+     *     
+     */
+    public JAXBElement&lt;ADRVraag.ADRADROSU&gt; getADRADROSU() {
+<span class="nc" id="L63">        return adradrosu;</span>
+    }
+
+    /**
+     * Sets the value of the adradrosu property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link JAXBElement }{@code &lt;}{@link ADRVraag.ADRADROSU }{@code &gt;}
+     *     
+     */
+    public void setADRADROSU(JAXBElement&lt;ADRVraag.ADRADROSU&gt; value) {
+<span class="nc" id="L75">        this.adradrosu = value;</span>
+<span class="nc" id="L76">    }</span>
+
+
+    /**
+     * &lt;p&gt;Java class for anonymous complex type.
+     * 
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * 
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;complexContent&amp;gt;
+     *     &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}ADRADROSU-rel&quot;&amp;gt;
+     *       &amp;lt;sequence&amp;gt;
+     *         &amp;lt;element name=&quot;ADR&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}ADR-kennisgeving&quot;/&amp;gt;
+     *       &amp;lt;/sequence&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/complexContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = &quot;&quot;, propOrder = {
+        &quot;adr&quot;
+    })
+<span class="nc" id="L102">    public static class ADRADROSU</span>
+        extends ADRADROSURel
+    {
+
+        @XmlElement(name = &quot;ADR&quot;, required = true, nillable = true)
+        protected ADRKennisgeving adr;
+
+        /**
+         * Gets the value of the adr property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link ADRKennisgeving }
+         *     
+         */
+        public ADRKennisgeving getADR() {
+<span class="nc" id="L118">            return adr;</span>
+        }
+
+        /**
+         * Sets the value of the adr property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link ADRKennisgeving }
+         *     
+         */
+        public void setADR(ADRKennisgeving value) {
+<span class="nc" id="L130">            this.adr = value;</span>
+<span class="nc" id="L131">        }</span>
+
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

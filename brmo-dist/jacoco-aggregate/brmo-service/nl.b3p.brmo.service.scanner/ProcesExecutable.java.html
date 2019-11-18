@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>ProcesExecutable.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO distributie</a> &gt; <a href="../index.html" class="el_bundle">brmo-service</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.service.scanner</a> &gt; <span class="el_source">ProcesExecutable.java</span></div><h1>ProcesExecutable.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2015 B3Partners B.V.
+ */
+package nl.b3p.brmo.service.scanner;
+
+import nl.b3p.brmo.loader.util.BrmoException;
+
+/**
+ * Specifies ProcesExecutable functionaliteit.
+ *
+ * @author Mark Prins
+ */
+public interface ProcesExecutable extends Runnable {
+
+    /**
+     *
+     *
+     */
+<span class="nc" id="L19">    enum ProcessingImple {</span>
+        // klassen uit nl.b3p.brmo.persistence.staging package
+<span class="nc" id="L21">        BAGScannerProces, BRKScannerProces, MailRapportageProces, GDS2OphaalProces, BerichtTransformatieProces,</span>
+<span class="nc" id="L22">        BerichtDoorstuurProces, WebMirrorBAGScannerProces, BGTLightScannerProces, BGTLightOphaalProces, LaadprocesTransformatieProces,</span>
+<span class="nc" id="L23">        MaterializedViewRefresh, BerichtstatusRapportProces, TopNLScannerProces, AfgifteNummerScannerProces;</span>
+    }
+
+    /**
+     * Voert deze taak eenmalig uit.
+     *
+     * @exception BrmoException als er een fout optreed in het uitvoeren van het
+     * proces.
+     */
+    void execute() throws BrmoException;
+
+    /**
+     * Voert de taak uit en rapporteert de voortgang.
+     *
+     * @param listener voortgangs listener
+     */
+    void execute(ProgressUpdateListener listener);
+
+    /**
+     * probeert het lopende proces te stoppen.
+     */
+    void stop();
+
+    /**
+     *
+     * @return true als deze processor runt.
+     */
+    boolean isRunning();
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

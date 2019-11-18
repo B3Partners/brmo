@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>GMLLightFeatureTransformerImpl.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO loader</a> &gt; <a href="../index.html" class="el_bundle">bgt-gml-loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.loader.gml.light</a> &gt; <span class="el_source">GMLLightFeatureTransformerImpl.java</span></div><h1>GMLLightFeatureTransformerImpl.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2016 B3Partners B.V.
+ */
+package nl.b3p.brmo.loader.gml.light;
+
+import java.util.Date;
+import nl.b3p.brmo.loader.gml.GMLLightFeatureTransformer;
+import java.util.HashMap;
+import java.util.Map.Entry;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.geotools.factory.CommonFactoryFinder;
+import org.geotools.util.factory.Hints;
+import org.geotools.feature.AttributeTypeBuilder;
+import org.geotools.feature.simple.SimpleFeatureBuilder;
+import org.geotools.feature.simple.SimpleFeatureTypeBuilder;
+import org.geotools.feature.type.FeatureTypeFactoryImpl;
+import org.geotools.referencing.CRS;
+import org.geotools.util.SimpleInternationalString;
+import org.opengis.feature.simple.SimpleFeature;
+import org.opengis.feature.simple.SimpleFeatureType;
+import org.opengis.feature.type.AttributeDescriptor;
+import org.opengis.feature.type.FeatureTypeFactory;
+import org.opengis.referencing.FactoryException;
+import org.opengis.referencing.crs.CoordinateReferenceSystem;
+
+/**
+ * Default implementatie van GML Light transformer.
+ *
+ * @author mprins
+ */
+class GMLLightFeatureTransformerImpl implements GMLLightFeatureTransformer {
+
+<span class="nc" id="L34">    private static final Log LOG = LogFactory.getLog(GMLLightFeatureTransformerImpl.class);</span>
+
+    /**
+     * bevat paren van: 'gml attribuut naam', 'rsgb attribuut naam', deze
+     * laatste mag {@code null} zijn, dan wordt het veld overgeslagen. 'plus'
+     * velden komen uit IMGeo, 'bgt' velden komen uit BGT.
+     */
+<span class="nc" id="L41">    protected final HashMap&lt;String, String&gt; attrMapping = new HashMap();</span>
+
+    /**
+     * bevat paren van: 'gml attribuut naam 1+gml attribuut naam 2', 'rsgb
+     * attribuut' waarbij de rgsb attribuut waarde wordt samengesteld uit de
+     * waarden van de gml attributen. bijv. de NEN3610ID.
+     *
+     * Niet alle velden uit de GML worden in de database gezet; overgeslagen oa:
+     * &lt;ul&gt;
+     * &lt;li&gt;inOnderzoek&lt;/li&gt;
+     * &lt;li&gt;tijdstipRegistratie&lt;/li&gt;
+     * &lt;li&gt;eindRegistratie&lt;/li&gt;
+     * &lt;li&gt;LV-publicatiedatum&lt;/li&gt;
+     * &lt;li&gt;bronhouder&lt;/li&gt;
+     * &lt;/ul&gt;
+     * (IMgeo / BGT attributen) en (GML 3 attributen)
+     * &lt;ul&gt;
+     * &lt;li&gt;name&lt;/li&gt;
+     * &lt;li&gt;description&lt;/li&gt;
+     * &lt;li&gt;boundedBy&lt;/li&gt;
+     * &lt;li&gt;LV-publicatiedatum&lt;/li&gt;
+     * &lt;/ul&gt;
+     */
+<span class="nc" id="L64">    protected final HashMap&lt;String, AttributeDescriptor&gt; composedAttr = new HashMap();</span>
+
+    // fail, see: https://osgeo-org.atlassian.net/browse/GEOT-5400
+<span class="nc" id="L67">    private final FeatureTypeFactory typeFactory = CommonFactoryFinder.getFeatureTypeFactory(null);</span>
+    // gebruik:
+    //private final FeatureTypeFactory typeFactory = new FeatureTypeFactoryImpl();
+<span class="nc" id="L70">    private final AttributeTypeBuilder builder = new AttributeTypeBuilder();</span>
+<span class="nc" id="L71">    private CoordinateReferenceSystem crs = null;</span>
+
+    /**
+     * default constructor. Zorgt voor initiele vulling van de
+     * {@link #composedAttr} en {@link #attrMapping} transformatie mappings.
+     */
+<span class="nc" id="L77">    public GMLLightFeatureTransformerImpl() {</span>
+        /* onderstaande GML 3 attributen overslaan/niet transformeren */
+<span class="nc" id="L79">        attrMapping.put(&quot;name&quot;, null);</span>
+<span class="nc" id="L80">        attrMapping.put(&quot;description&quot;, null);</span>
+<span class="nc" id="L81">        attrMapping.put(&quot;boundedBy&quot;, null);</span>
+<span class="nc" id="L82">        attrMapping.put(&quot;metaDataProperty&quot;, null);</span>
+        /* bovenstaande GML 3 attributen overslaan/niet transformeren */
+
+ /* onderstaande niet in RSBG 3.0 */
+        // attrMapping.put(&quot;inOnderzoek&quot;, &quot;inonderzoek&quot;);
+<span class="nc" id="L87">        attrMapping.put(&quot;inOnderzoek&quot;, null);</span>
+<span class="nc" id="L88">        attrMapping.put(&quot;tijdstipRegistratie&quot;, &quot;tijdstip_registratie&quot;);</span>
+        // attrMapping.put(&quot;eindRegistratie&quot;, &quot;eind_registratie&quot;);
+<span class="nc" id="L90">        attrMapping.put(&quot;eindRegistratie&quot;, null);</span>
+        // attrMapping.put(&quot;LV-publicatiedatum&quot;, &quot;lv_publicatiedatum&quot;);
+<span class="nc" id="L92">        attrMapping.put(&quot;LV-publicatiedatum&quot;, null);</span>
+        // attrMapping.put(&quot;bronhouder&quot;, &quot;bronhouder&quot;);
+<span class="nc" id="L94">        attrMapping.put(&quot;bronhouder&quot;, null);</span>
+        /* bovenstaande niet in RSBG 3.0 */
+
+        // (gedeelde) model attributen
+<span class="nc" id="L98">        attrMapping.put(&quot;objectBeginTijd&quot;, BEGINTIJD_NAME);</span>
+<span class="nc" id="L99">        attrMapping.put(&quot;objectEindTijd&quot;, null);</span>
+<span class="nc" id="L100">        attrMapping.put(&quot;bgt-status&quot;, &quot;bgt_status&quot;);</span>
+<span class="nc" id="L101">        attrMapping.put(&quot;plus-status&quot;, &quot;plus_status&quot;);</span>
+<span class="nc" id="L102">        attrMapping.put(&quot;relatieveHoogteligging&quot;, &quot;relve_hoogteligging&quot;);</span>
+
+        // NEN 3610 ID velden worden samengevoegd in 'identif' zie hieronder
+        //   attrMapping.put(&quot;identificatie.namespace&quot;, &quot;identificatie_namespace&quot;);
+        //   attrMapping.put(&quot;identificatie.lokaalID&quot;, &quot;identificatie_lokaalid&quot;);
+<span class="nc" id="L107">        builder.setFactory(typeFactory);</span>
+<span class="nc" id="L108">        builder.name(ID_NAME)</span>
+<span class="nc" id="L109">                .binding(String.class)</span>
+<span class="nc" id="L110">                .identifiable(true)</span>
+<span class="nc" id="L111">                .abstrct(false)</span>
+<span class="nc" id="L112">                .minOccurs(1)</span>
+<span class="nc" id="L113">                .maxOccurs(1)</span>
+<span class="nc" id="L114">                .nillable(false)</span>
+<span class="nc" id="L115">                .description(&quot;NEN3610 indentificatie&quot;);</span>
+<span class="nc" id="L116">        AttributeDescriptor NEN3610ID = builder.buildDescriptor(ID_NAME);</span>
+<span class="nc" id="L117">        composedAttr.put(&quot;identificatie.namespace+identificatie.lokaalID&quot;, NEN3610ID);</span>
+        try {
+<span class="nc" id="L119">            crs = CRS.decode(&quot;EPSG:28992&quot;);</span>
+<span class="nc" id="L120">        } catch (FactoryException ex) {</span>
+<span class="nc" id="L121">            LOG.warn(&quot;CRS opzoeken is mislukt&quot;, ex);</span>
+<span class="nc" id="L122">        }</span>
+<span class="nc" id="L123">    }</span>
+
+    @Override
+    public SimpleFeatureType getTargetSchema(SimpleFeatureType gmlSchema, String targetTableName, boolean shouldUppercase) {
+<span class="nc" id="L127">        SimpleFeatureTypeBuilder tb = new SimpleFeatureTypeBuilder();</span>
+<span class="nc bnc" id="L128" title="All 2 branches missed.">        if (shouldUppercase) {</span>
+<span class="nc" id="L129">            tb.setName(targetTableName.toUpperCase());</span>
+        } else {
+<span class="nc" id="L131">            tb.setName(targetTableName);</span>
+        }
+
+<span class="nc" id="L134">        tb.setCRS(crs);</span>
+<span class="nc" id="L135">        tb.setSRS(&quot;EPSG:28992&quot;);</span>
+<span class="nc" id="L136">        tb.setNamespaceURI((String) null);</span>
+<span class="nc" id="L137">        tb.setDescription(new SimpleInternationalString(&quot;RSGB 3.0 BGT &quot; + gmlSchema.getTypeName()));</span>
+
+<span class="nc" id="L139">        AttributeTypeBuilder bldr = new AttributeTypeBuilder();</span>
+<span class="nc bnc" id="L140" title="All 2 branches missed.">        for (AttributeDescriptor attr : composedAttr.values()) {</span>
+<span class="nc bnc" id="L141" title="All 2 branches missed.">            if (shouldUppercase) {</span>
+<span class="nc" id="L142">                tb.srid(28992).add(</span>
+<span class="nc" id="L143">                        bldr.init(attr.getType())</span>
+<span class="nc" id="L144">                        .name(attr.getLocalName().toUpperCase())</span>
+<span class="nc" id="L145">                        .defaultValue(attr.getDefaultValue())</span>
+<span class="nc" id="L146">                        .buildDescriptor(attr.getLocalName().toUpperCase()));</span>
+            } else {
+<span class="nc" id="L148">                tb.srid(28992).add(attr);</span>
+            }
+<span class="nc" id="L150">        }</span>
+
+        String gmlAttrLocalName;
+        String dbAttrName;
+<span class="nc bnc" id="L154" title="All 2 branches missed.">        for (AttributeDescriptor att : gmlSchema.getAttributeDescriptors()) {</span>
+<span class="nc" id="L155">            gmlAttrLocalName = att.getLocalName();</span>
+<span class="nc bnc" id="L156" title="All 2 branches missed.">            if (gmlAttrLocalName == null) {</span>
+<span class="nc" id="L157">                LOG.warn(&quot;'Null' local name van attribuut &quot; + att);</span>
+<span class="nc" id="L158">                gmlAttrLocalName = att.toString();</span>
+            }
+<span class="nc" id="L160">            dbAttrName = attrMapping.get(gmlAttrLocalName);</span>
+
+<span class="nc" id="L162">            LOG.debug(&quot;aanmaken AttributeDescriptor voor: &quot; + gmlAttrLocalName + &quot; (wordt: &quot; + dbAttrName + &quot;)&quot;);</span>
+<span class="nc bnc" id="L163" title="All 2 branches missed.">            if (dbAttrName != null) {</span>
+                // hernoem attribuut als de db naam niet gelijk is aan gml naam
+<span class="nc bnc" id="L165" title="All 2 branches missed.">                if (shouldUppercase) {</span>
+<span class="nc" id="L166">                    dbAttrName = dbAttrName.toUpperCase();</span>
+                }
+<span class="nc bnc" id="L168" title="All 2 branches missed.">                if (dbAttrName.equals(gmlAttrLocalName)) {</span>
+<span class="nc" id="L169">                    tb.srid(28992).add(att);</span>
+                } else {
+<span class="nc" id="L171">                    tb.srid(28992).add(</span>
+<span class="nc" id="L172">                            bldr.init(att.getType())</span>
+<span class="nc" id="L173">                            .name(dbAttrName)</span>
+<span class="nc" id="L174">                            .defaultValue(att.getDefaultValue())</span>
+<span class="nc" id="L175">                            .buildDescriptor(dbAttrName));</span>
+                }
+<span class="nc bnc" id="L177" title="All 2 branches missed.">                if (dbAttrName.equals(DEFAULT_GEOM_NAME)) {</span>
+<span class="nc" id="L178">                    tb.setDefaultGeometry(DEFAULT_GEOM_NAME);</span>
+                }
+<span class="nc bnc" id="L180" title="All 2 branches missed.">                if (dbAttrName.equals(DEFAULT_GEOM_NAME.toUpperCase())) {</span>
+<span class="nc" id="L181">                    tb.setDefaultGeometry(DEFAULT_GEOM_NAME.toUpperCase());</span>
+                }
+            }
+<span class="nc" id="L184">        }</span>
+
+<span class="nc" id="L186">        return tb.crs(crs).buildFeatureType();</span>
+    }
+
+    @Override
+    public SimpleFeature transform(SimpleFeature inFeature, SimpleFeatureType targetType, boolean shouldUppercaseFieldnames, boolean userDefinedPrimaryKey) {
+<span class="nc" id="L191">        SimpleFeatureBuilder featureBuilder = new SimpleFeatureBuilder(targetType);</span>
+        String targetAttrName;
+<span class="nc bnc" id="L193" title="All 2 branches missed.">        for (String key : attrMapping.keySet()) {</span>
+<span class="nc" id="L194">            targetAttrName = attrMapping.get(key);</span>
+<span class="nc bnc" id="L195" title="All 2 branches missed.">            if (targetAttrName != null) {</span>
+<span class="nc bnc" id="L196" title="All 2 branches missed.">                if (shouldUppercaseFieldnames) {</span>
+<span class="nc" id="L197">                    targetAttrName = targetAttrName.toUpperCase();</span>
+                }
+<span class="nc" id="L199">                featureBuilder.set(targetAttrName, inFeature.getAttribute(key));</span>
+            }
+<span class="nc" id="L201">        }</span>
+
+        String composed;
+<span class="nc" id="L204">        String id = null;</span>
+<span class="nc bnc" id="L205" title="All 2 branches missed.">        for (Entry&lt;String, AttributeDescriptor&gt; e : composedAttr.entrySet()) {</span>
+<span class="nc" id="L206">            targetAttrName = e.getValue().getLocalName();</span>
+<span class="nc bnc" id="L207" title="All 2 branches missed.">            if (shouldUppercaseFieldnames) {</span>
+<span class="nc" id="L208">                targetAttrName = targetAttrName.toUpperCase();</span>
+            }
+            // splits op '+' en voeg samen met ':'
+<span class="nc" id="L211">            String[] keys = e.getKey().split(&quot;\\+&quot;);</span>
+<span class="nc" id="L212">            StringBuilder composition = new StringBuilder();</span>
+<span class="nc bnc" id="L213" title="All 2 branches missed.">            for (String key : keys) {</span>
+<span class="nc" id="L214">                composition.append(inFeature.getAttribute(key)).append(&quot;:&quot;);</span>
+            }
+<span class="nc" id="L216">            composed = composition.substring(0, composition.length() - 1);</span>
+<span class="nc" id="L217">            featureBuilder.set(targetAttrName, composed);</span>
+<span class="nc bnc" id="L218" title="All 2 branches missed.">            if (targetAttrName.equalsIgnoreCase(ID_NAME)) {</span>
+<span class="nc" id="L219">                id = composed;</span>
+            }
+<span class="nc" id="L221">        }</span>
+
+<span class="nc" id="L223">        featureBuilder.featureUserData(Hints.USE_PROVIDED_FID, userDefinedPrimaryKey);</span>
+<span class="nc" id="L224">        return featureBuilder.buildFeature(id);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

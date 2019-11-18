@@ -116,7 +116,7 @@
 <a class="jxr_linenumber" name="L108" href="#L108">108</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> cleanup() <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L109" href="#L109">109</a>         brmo.closeBrmoFramework();
 <a class="jxr_linenumber" name="L110" href="#L110">110</a> 
-<a class="jxr_linenumber" name="L111" href="#L111">111</a>         CleanUtil.cleanSTAGING(staging);
+<a class="jxr_linenumber" name="L111" href="#L111">111</a>         CleanUtil.cleanSTAGING(staging, false);
 <a class="jxr_linenumber" name="L112" href="#L112">112</a>         staging.close();
 <a class="jxr_linenumber" name="L113" href="#L113">113</a> 
 <a class="jxr_linenumber" name="L114" href="#L114">114</a>         CleanUtil.cleanRSGB_NHR(rsgb);
@@ -159,11 +159,12 @@
 <a class="jxr_linenumber" name="L151" href="#L151">151</a> 
 <a class="jxr_linenumber" name="L152" href="#L152">152</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> checkWaarde(String tabelNaam, String kolom) <strong class="jxr_keyword">throws</strong> DataSetException, SQLException {
 <a class="jxr_linenumber" name="L153" href="#L153">153</a>         ITable tabel = rsgb.createDataSet().getTable(tabelNaam);
-<a class="jxr_linenumber" name="L154" href="#L154">154</a>         <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; tabel.getRowCount(); i++) {
-<a class="jxr_linenumber" name="L155" href="#L155">155</a>             assertFalse(<span class="jxr_string">"kolom "</span> + kolom + <span class="jxr_string">" van tabel "</span> + tabelNaam + <span class="jxr_string">" bevat quote"</span>, tabel.getValue(i, kolom).toString().contains(<span class="jxr_string">"'"</span>));
-<a class="jxr_linenumber" name="L156" href="#L156">156</a>         }
-<a class="jxr_linenumber" name="L157" href="#L157">157</a>     }
-<a class="jxr_linenumber" name="L158" href="#L158">158</a> }
+<a class="jxr_linenumber" name="L154" href="#L154">154</a>         LOG.info(<span class="jxr_string">"check "</span> + tabelNaam + <span class="jxr_string">":"</span> + kolom);
+<a class="jxr_linenumber" name="L155" href="#L155">155</a>         <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; tabel.getRowCount(); i++) {
+<a class="jxr_linenumber" name="L156" href="#L156">156</a>             assertFalse(<span class="jxr_string">"kolom "</span> + kolom + <span class="jxr_string">" van tabel "</span> + tabelNaam + <span class="jxr_string">" bevat quote"</span>, tabel.getValue(i, kolom).toString().contains(<span class="jxr_string">"'"</span>));
+<a class="jxr_linenumber" name="L157" href="#L157">157</a>         }
+<a class="jxr_linenumber" name="L158" href="#L158">158</a>     }
+<a class="jxr_linenumber" name="L159" href="#L159">159</a> }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2014&#x2013;2019 <a href="http://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>

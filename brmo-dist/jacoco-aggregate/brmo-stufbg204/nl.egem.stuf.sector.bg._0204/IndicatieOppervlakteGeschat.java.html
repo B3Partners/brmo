@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>IndicatieOppervlakteGeschat.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO distributie</a> &gt; <a href="../index.html" class="el_bundle">brmo-stufbg204</a> &gt; <a href="index.source.html" class="el_package">nl.egem.stuf.sector.bg._0204</a> &gt; <span class="el_source">IndicatieOppervlakteGeschat.java</span></div><h1>IndicatieOppervlakteGeschat.java</h1><pre class="source lang-java linenums">
+package nl.egem.stuf.sector.bg._0204;
+
+import javax.xml.bind.annotation.XmlEnum;
+import javax.xml.bind.annotation.XmlType;
+
+
+/**
+ * &lt;p&gt;Java class for IndicatieOppervlakteGeschat.
+ * 
+ * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+ * &lt;p&gt;
+ * &lt;pre&gt;
+ * &amp;lt;simpleType name=&quot;IndicatieOppervlakteGeschat&quot;&amp;gt;
+ *   &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}string&quot;&amp;gt;
+ *     &amp;lt;enumeration value=&quot;J&quot;/&amp;gt;
+ *     &amp;lt;enumeration value=&quot;N&quot;/&amp;gt;
+ *   &amp;lt;/restriction&amp;gt;
+ * &amp;lt;/simpleType&amp;gt;
+ * &lt;/pre&gt;
+ * 
+ */
+<span class="nc" id="L23">@XmlType(name = &quot;IndicatieOppervlakteGeschat&quot;)</span>
+@XmlEnum
+public enum IndicatieOppervlakteGeschat {
+
+<span class="nc" id="L27">    J,</span>
+<span class="nc" id="L28">    N;</span>
+
+    public String value() {
+<span class="nc" id="L31">        return name();</span>
+    }
+
+    public static IndicatieOppervlakteGeschat fromValue(String v) {
+<span class="nc" id="L35">        return valueOf(v);</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

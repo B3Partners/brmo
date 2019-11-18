@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>GbavXMLReader.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO commandline</a> &gt; <a href="../index.html" class="el_bundle">brmo-loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.loader.xml</a> &gt; <span class="el_source">GbavXMLReader.java</span></div><h1>GbavXMLReader.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2018 B3Partners B.V.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+ */
+package nl.b3p.brmo.loader.xml;
+
+import java.io.InputStream;
+import java.io.StringWriter;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLOutputFactory;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.stax.StAXResult;
+import javax.xml.transform.stax.StAXSource;
+import nl.b3p.brmo.loader.BrmoFramework;
+import nl.b3p.brmo.loader.entity.GbavBericht;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+/**
+ *
+ * @author Mark Prins
+ */
+public class GbavXMLReader extends BrmoXMLReader {
+
+<span class="fc" id="L44">    private static final Log log = LogFactory.getLog(GbavXMLReader.class);</span>
+    private static final String PERSOON = &quot;persoon&quot;;
+    public static final String PREFIX = &quot;NL.BRP.Persoon.&quot;;
+<span class="fc" id="L47">    private final XMLInputFactory factory = XMLInputFactory.newInstance();</span>
+    private final XMLStreamReader streamReader;
+    private final Transformer transformer;
+    private final XMLOutputFactory xmlof;
+<span class="fc" id="L51">    private GbavBericht nextBericht = null;</span>
+<span class="fc" id="L52">    private int volgordeNummer = 0;</span>
+
+<span class="fc" id="L54">    public GbavXMLReader(InputStream in) throws XMLStreamException, TransformerConfigurationException {</span>
+<span class="fc" id="L55">        streamReader = factory.createXMLStreamReader(in);</span>
+<span class="fc" id="L56">        TransformerFactory tf = TransformerFactory.newInstance();</span>
+<span class="fc" id="L57">        transformer = tf.newTransformer();</span>
+<span class="fc" id="L58">        xmlof = XMLOutputFactory.newInstance();</span>
+        // xmlof.setProperty(XMLOutputFactory.IS_REPAIRING_NAMESPACES, Boolean.TRUE);
+
+<span class="fc" id="L61">        init();</span>
+<span class="fc" id="L62">    }</span>
+
+    @Override
+    public void init() throws XMLStreamException {
+<span class="fc" id="L66">        soort = BrmoFramework.BR_GBAV;</span>
+        try {
+<span class="pc bpc" id="L68" title="1 of 2 branches missed.">            while (streamReader.hasNext()) {</span>
+<span class="fc bfc" id="L69" title="All 2 branches covered.">                if (streamReader.isStartElement()) {</span>
+<span class="fc" id="L70">                    String localName = streamReader.getLocalName();</span>
+<span class="fc bfc" id="L71" title="All 2 branches covered.">                    if (localName.equals(PERSOON)) {</span>
+<span class="fc" id="L72">                        break;</span>
+                    }
+                }
+<span class="fc" id="L75">                streamReader.next();</span>
+            }
+<span class="nc" id="L77">        } catch (XMLStreamException ex) {</span>
+<span class="nc" id="L78">            log.error(&quot;Error while streaming XML&quot;, ex);</span>
+<span class="fc" id="L79">        }</span>
+<span class="pc bpc" id="L80" title="1 of 2 branches missed.">        if (getBestandsDatum() == null) {</span>
+<span class="fc" id="L81">            setBestandsDatum(new Date());</span>
+        }
+<span class="fc" id="L83">    }</span>
+
+    @Override
+    public boolean hasNext() throws Exception {
+<span class="fc bfc" id="L87" title="All 2 branches covered.">        if (nextBericht != null) {</span>
+<span class="fc" id="L88">            return true;</span>
+        }
+        try {
+<span class="fc bfc" id="L91" title="All 2 branches covered.">            while (streamReader.hasNext()) {</span>
+<span class="pc bpc" id="L92" title="1 of 4 branches missed.">                if (streamReader.isStartElement() &amp;&amp; streamReader.getLocalName().equals(PERSOON)) {</span>
+<span class="fc" id="L93">                    StringWriter sw = new StringWriter();</span>
+<span class="fc" id="L94">                    transformer.transform(new StAXSource(streamReader), new StAXResult(xmlof.createXMLStreamWriter(sw)));</span>
+<span class="fc" id="L95">                    nextBericht = new GbavBericht(sw.toString());</span>
+<span class="fc" id="L96">                    nextBericht.setDatum(nextBericht.parseDatum());</span>
+<span class="fc bfc" id="L97" title="All 2 branches covered.">                    if (nextBericht.getDatum() == null) {</span>
+<span class="fc" id="L98">                        nextBericht.setDatum(new Date());</span>
+                    }
+<span class="fc" id="L100">                    nextBericht.setVolgordeNummer(volgordeNummer);</span>
+
+<span class="fc" id="L102">                    String bsn = nextBericht.getBsn();</span>
+<span class="fc" id="L103">                    String bsnHash = this.getHash(bsn);</span>
+<span class="fc" id="L104">                    nextBericht.setObjectRef(PREFIX + bsnHash);</span>
+
+<span class="fc" id="L106">                    Map&lt;String, String&gt; bsns = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L107">                    nextBericht.getBsnList().forEach((_bsn) -&gt; {</span>
+<span class="fc" id="L108">                        log.debug(&quot;toevoegen bsn en hash: &quot; + _bsn + &quot;:&quot; + this.getHash(_bsn));</span>
+<span class="fc" id="L109">                        bsns.put(_bsn, this.getHash(_bsn));</span>
+<span class="fc" id="L110">                    });</span>
+<span class="fc" id="L111">                    log.debug(&quot;aantal BSN in bericht:&quot; + bsns.size());</span>
+<span class="fc" id="L112">                    nextBericht.setBsnMap(bsns);</span>
+<span class="fc" id="L113">                    return true;</span>
+                } else {
+<span class="fc" id="L115">                    streamReader.next();</span>
+                }
+            }
+<span class="nc" id="L118">        } catch (XMLStreamException ex) {</span>
+<span class="nc" id="L119">            log.error(&quot;Streamfout tijdens parsen GBA-V XML&quot;, ex);</span>
+<span class="fc" id="L120">        }</span>
+<span class="fc" id="L121">        return false;</span>
+    }
+
+    /**
+     * geeft het volgende bericht uit de stream, mits
+     * {@link #hasNext() } {@code true} geeft. Gebruik dus eerst
+     * {@link #hasNext()}.
+     *
+     * @return volgend bericht
+     * @throws Exception soms
+     */
+    @Override
+    public GbavBericht next() throws Exception {
+<span class="fc" id="L134">        GbavBericht b = nextBericht;</span>
+<span class="fc" id="L135">        nextBericht = null;</span>
+<span class="fc" id="L136">        volgordeNummer++;</span>
+<span class="fc" id="L137">        return b;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
