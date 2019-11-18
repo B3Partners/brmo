@@ -3,6 +3,8 @@
 import java.io.StringWriter;
 import org.apache.commons.io.IOUtils;
 import static org.junit.Assert.assertEquals;
+
+import org.junit.Ignore;
 import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -17,7 +19,8 @@ import org.w3c.dom.NodeList;
 
 public class RsgbBRPTransformerTest {
     
-   // @Test
+    @Test
+    @Ignore("test bestanden van meine ontbreken")
     public void mergeTest() throws Exception{
         StringWriter writerOld = new StringWriter();
         IOUtils.copy(RsgbBRPTransformerTest.class.getResourceAsStream("old.xml"), writerOld, "UTF-8");

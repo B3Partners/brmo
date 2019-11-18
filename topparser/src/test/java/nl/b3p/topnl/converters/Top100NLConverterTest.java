@@ -16,6 +16,7 @@
  */
 package nl.b3p.topnl.converters;
 
+import org.junit.Ignore;
 import org.locationtech.jts.geom.LineString;
 import org.locationtech.jts.geom.Point;
 import org.locationtech.jts.geom.Polygon;
@@ -124,8 +125,8 @@ public class Top100NLConverterTest extends TestUtil{
         assertEquals(Point.class, real.getGeometrie().getClass());
     }
 
-    // GeografischGebied niet in Top100NL
-    //@Test
+    @Test
+    @Ignore("GeografischGebied niet in Top100NL")
     public void testConvertGeografischGebied() throws IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
         TopNLEntity entity = getEntity("top100nl/GeografischGebied.xml");
 
@@ -187,8 +188,8 @@ public class Top100NLConverterTest extends TestUtil{
         assertEquals(new Long("0"), real.getHoogteniveau());
     }
  
-    // Plaats niet in Top100NL
-    //@Test
+    @Test
+    @Ignore("Plaats niet in Top100NL")
     public void testConvertPlaats() throws IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
         TopNLEntity entity = getEntity("top100nl/Plaats.xml");
 

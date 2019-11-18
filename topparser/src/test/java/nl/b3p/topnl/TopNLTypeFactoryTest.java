@@ -61,10 +61,9 @@ public class TopNLTypeFactoryTest {
     /**
      * Test of getTopNLType method, of class TopNLTypeFactory.
      */
-    //@Test
+    @Test
     public void testGetTopNLType50() throws JDOMException, IOException {
-        URL is = null;
-        TopNLTypeFactory instance = new TopNLTypeFactory();
+        URL is = TopNLTypeFactoryTest.class.getResource("top50nl_Gebouw.xml");
         TopNLType expResult = TopNLType.TOP50NL;
         TopNLType result = instance.getTopNLType(is);
         assertEquals(expResult, result);

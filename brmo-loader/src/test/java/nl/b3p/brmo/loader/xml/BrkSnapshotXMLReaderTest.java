@@ -115,7 +115,7 @@ public class BrkSnapshotXMLReaderTest {
      *
      * @throws Exception if any
      */
-    //@Test
+    @Test
     public void mutTestZipFile() throws Exception {
         ZipInputStream zis = new ZipInputStream(
                 BrkSnapshotXMLReader.class.getResourceAsStream(mutZipName));
@@ -167,15 +167,4 @@ public class BrkSnapshotXMLReaderTest {
         }
         assertEquals("Verwacht dat het aantal mutaties gelijk is.", standZipSnapshotCount, total);
     }
-//    /**
-//     * Test next() methode met leeg levering bestand.
-//     *
-//     * @throws Exception if any
-//     */
-//    @Test
-//    public void testLvcEmptyXML() throws Exception {
-//        BrkSnapshotXMLReader bReader;
-//        bReader = new BrkSnapshotXMLReader(BrkSnapshotXMLReader.class.getResourceAsStream(lvcEmpty));
-//        assertTrue(!bReader.hasNext());
-//    }
 }
