@@ -6,14 +6,13 @@ MINOR="${NEXTRELEASE##*.}"
 PREVMINOR=$(($MINOR-1))
 PREVRELEASE=$MAJOR.$PREVMINOR
 
-if [ $CURSNAPSHOT = "2.0.0-SNAPSHOT" ]
-then
-    PREVRELEASE="1.6.3"
-fi
+#if [ $CURSNAPSHOT = "2.0.0-SNAPSHOT" ]
+#then
+#    PREVRELEASE="1.6.3"
+#fi
 
 echo "Huidige snapshot:" $CURSNAPSHOT", vorige release: "$PREVRELEASE", komende release: "$NEXTRELEASE
 echo "Verwerk upgrade script voor: " $1
 
-# afbreken na fout tijdelijk uit tot na 2.0.0 release
-# export SQLPATH=./.jenkins
+export SQLPATH=./.jenkins
 sqlplus -l -S jenkins_$1/jenkins_$1@192.168.1.11:1521/ORCL < ./datamodel/upgrade_scripts/$PREVRELEASE-$NEXTRELEASE/oracle/$1.sql

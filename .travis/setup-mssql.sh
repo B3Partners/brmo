@@ -1,5 +1,6 @@
 #!/bin/bash -e
 export PATH="$PATH:/opt/mssql-tools/bin"
+export SQLCMDINI=.appveyor/init.sql
 # set up staging db
 sqlcmd -S localhost -U sa -P Password12! -Q "CREATE DATABASE staging" -d "master"
 sqlcmd -S localhost -U sa -P Password12! -d staging -i ./brmo-persistence/db/create-brmo-persistence-sqlserver.sql
@@ -7,7 +8,6 @@ sqlcmd -S localhost -U sa -P Password12! -d staging -i ./brmo-persistence/db/01_
 sqlcmd -S localhost -U sa -P Password12! -d staging -i ./brmo-persistence/db/02_insert_default_user.sql
 sqlcmd -S localhost -U sa -P Password12! -d staging -i ./brmo-persistence/db/05_create_brmo_metadata_sqlserver.sql
 # set up rsgb tabellen
-export SQLCMDINI=.appveyor/init.sql
 sqlcmd -S localhost -U sa -P Password12! -Q "CREATE DATABASE rsgb" -d "master"
 sqlcmd -r0 -x -b -S localhost -U sa -P Password12! -d "rsgb" -I -i ./datamodel/generated_scripts/datamodel_sqlserver.sql
 # set up rsgbbgt tabellen
