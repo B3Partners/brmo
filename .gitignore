@@ -25,6 +25,8 @@
 **/dependency-reduced-pom.xml
 **/buildNumber.properties
 
+/old/**
+
 # log files
 mvn.log
 rel-prepare.log

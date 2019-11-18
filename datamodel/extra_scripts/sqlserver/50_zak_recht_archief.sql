@@ -1,8 +1,5 @@
--- 
--- upgrade SQLserver RSGB datamodel van 1.6.3 naar 2.0.0
---
+GO
 
--- onderstaande dienen als laatste stappen van een upgrade uitgevoerd
 CREATE TABLE zak_recht_archief
 (
    kadaster_identif character varying(255) NOT NULL,
@@ -17,4 +14,4 @@ CREATE TABLE zak_recht_archief
    fk_3avr_aand character varying(6),
    CONSTRAINT zak_recht_archief_pk PRIMARY KEY (kadaster_identif,ingangsdatum_recht)
 );
- 
+GO

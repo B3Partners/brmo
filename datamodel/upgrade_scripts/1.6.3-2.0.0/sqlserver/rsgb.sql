@@ -31,14 +31,12 @@ DROP VIEW IF EXISTS vb_vbo_adres;
 DROP VIEW IF EXISTS vb_adres;
 GO
 
--- onderstaande dienen als laatste stappen van een upgrade uitgevoerd
-INSERT INTO brmo_metadata (naam,waarde) SELECT 'upgrade_1.6.3_naar_2.0.0','vorige versie was ' + waarde FROM brmo_metadata WHERE naam='brmoversie';
 CREATE TABLE zak_recht_archief
 (
    kadaster_identif character varying(255) NOT NULL,
    eindd_recht character varying(255),
    indic_betrokken_in_splitsing character varying(255),
-   ingangsdatum_recht character varying(19 NOT NULL,
+   ingangsdatum_recht character varying(19) NOT NULL,
    fk_7koz_kad_identif numeric(15,0),
    fk_8pes_sc_identif character varying(255),
    ar_noemer numeric(8,0),
@@ -49,7 +47,8 @@ CREATE TABLE zak_recht_archief
 );
  
 CREATE INDEX idx_gebrdoel  ON gebouwd_obj_gebruiksdoel (fk_gbo_sc_identif);
-CREATE INDEX mb_kad_onrr_z_ar_overgeg_idx  ON mb_kad_onrrnd_zk_archief (overgegaan_in);
 
+-- onderstaande dienen als laatste stappen van een upgrade uitgevoerd
+INSERT INTO brmo_metadata (naam,waarde) SELECT 'upgrade_1.6.3_naar_2.0.0','vorige versie was ' + waarde FROM brmo_metadata WHERE naam='brmoversie';
 -- versienummer update
 UPDATE brmo_metadata SET waarde='2.0.0' WHERE naam='brmoversie';
