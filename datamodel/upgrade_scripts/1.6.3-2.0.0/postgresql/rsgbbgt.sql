@@ -1,6 +1,7 @@
 -- 
 -- upgrade PostgreSQL RSGBBGT datamodel van 1.6.3 naar 2.0.0
 --
+
 -- Klasse: Waterschap
 CREATE TABLE waterschap (
         identif character varying(255) NOT NULL,
