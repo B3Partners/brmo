@@ -6,7 +6,7 @@ echo "Verwerk extra upgrade script voor: " $1
 
 export SQLPATH=./.jenkins
 
-if [ $CURSNAPSHOT = "1.6.4-SNAPSHOT" ] && [ $1 = "rsgb" ]
+if [ $CURSNAPSHOT = "2.0.0-SNAPSHOT" ] && [ $1 = "rsgb" ]
 then
     sqlplus -l -S jenkins_$1/jenkins_$1@192.168.1.11:1521/ORCL < ./datamodel/extra_scripts/oracle/206_bag_views.sql
     sqlplus -l -S jenkins_$1/jenkins_$1@192.168.1.11:1521/ORCL < ./datamodel/extra_scripts/oracle/207_brk_views.sql

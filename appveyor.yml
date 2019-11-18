@@ -118,7 +118,7 @@ test_script:
   - if "%BGT_ONLY_ITESTS%"=="false" mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-stufbg204" -Dmssql.instancename=%INSTANCENAME%
   # run integratie tests voor brmo-commandline module
   - if "%BGT_ONLY_ITESTS%"=="false" mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-commandline" -Dmssql.instancename=%INSTANCENAME%
-  - codecov -v -f target/site/jacoco-it/jacoco.xml target/site/jacoco/jacoco.xml
+  - codecov -f target/site/jacoco-it/jacoco.xml target/site/jacoco/jacoco.xml
 
 cache:
   - C:\Users\appveyor\.m2\repository -> pom.xml

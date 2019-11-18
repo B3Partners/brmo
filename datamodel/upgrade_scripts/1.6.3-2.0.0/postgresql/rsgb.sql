@@ -1,5 +1,5 @@
 -- 
--- upgrade PostgreSQL RSGB datamodel van 1.6.3 naar 1.6.4 
+-- upgrade PostgreSQL RSGB datamodel van 1.6.3 naar 2.0.0
 --
 
 UPDATE aard_verkregen_recht SET omschr_aard_verkregenr_recht='Zakelijk recht als bedoeld in artikel 5, lid 3, onder b, van de Belemmeringenwet Privaatrecht' WHERE aand='10';
@@ -42,14 +42,6 @@ DROP VIEW IF EXISTS vb_standplaats_adres;
 DROP VIEW IF EXISTS vb_vbo_adres;
 DROP VIEW IF EXISTS vb_adres;
 
--- onderstaande dienen als laatste stappen van een upgrade uitgevoerd
-INSERT INTO brmo_metadata (naam,waarde) SELECT 'upgrade_1.6.3_naar_1.6.4','vorige versie was ' || waarde FROM brmo_metadata WHERE naam='brmoversie';
--- versienummer update
-
--- Table: public.zak_recht_archief
-
--- DROP TABLE public.zak_recht_archief;
-
 CREATE TABLE zak_recht_archief
 (
     kadaster_identif character varying(255) NOT NULL,
@@ -66,4 +58,7 @@ CREATE TABLE zak_recht_archief
 );
 CREATE INDEX idx_gebrdoel ON gebouwd_obj_gebruiksdoel USING btree (fk_gbo_sc_identif ASC NULLS LAST);
 
-UPDATE brmo_metadata SET waarde='1.6.4' WHERE naam='brmoversie';
+-- onderstaande dienen als laatste stappen van een upgrade uitgevoerd
+INSERT INTO brmo_metadata (naam,waarde) SELECT 'upgrade_1.6.3_naar_2.0.0','vorige versie was ' || waarde FROM brmo_metadata WHERE naam='brmoversie';
+-- versienummer update
+UPDATE brmo_metadata SET waarde='2.0.0' WHERE naam='brmoversie';

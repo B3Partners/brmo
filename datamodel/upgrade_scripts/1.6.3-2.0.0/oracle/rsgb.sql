@@ -1,5 +1,5 @@
 -- 
--- upgrade Oracle RSGB datamodel van 1.6.3 naar 1.6.4 
+-- upgrade Oracle RSGB datamodel van 1.6.3 naar 2.0.0
 --
 
 UPDATE aard_verkregen_recht SET omschr_aard_verkregenr_recht='Zakelijk recht als bedoeld in artikel 5, lid 3, onder b, van de Belemmeringenwet Privaatrecht' WHERE aand='10';
@@ -43,9 +43,6 @@ DROP VIEW vb_standplaats_adres;
 DROP VIEW vb_vbo_adres;
 DROP VIEW vb_adres;
 
--- onderstaande dienen als laatste stappen van een upgrade uitgevoerd
-INSERT INTO brmo_metadata (naam,waarde) SELECT 'upgrade_1.6.3_naar_1.6.4','vorige versie was ' || waarde FROM brmo_metadata WHERE naam='brmoversie';
-
 CREATE TABLE zak_recht_archief
 (
     kadaster_identif varchar2(255)NOT NULL,
@@ -61,8 +58,9 @@ CREATE TABLE zak_recht_archief
     CONSTRAINT zak_recht_archief_pk PRIMARY KEY (kadaster_identif,ingangsdatum_recht)
 );
 
-
 CREATE INDEX idx_gebrdoel  ON gebouwd_obj_gebruiksdoel (fk_gbo_sc_identif);
 
+-- onderstaande dienen als laatste stappen van een upgrade uitgevoerd
+INSERT INTO brmo_metadata (naam,waarde) SELECT 'upgrade_1.6.3_naar_2.0.0','vorige versie was ' || waarde FROM brmo_metadata WHERE naam='brmoversie';
 -- versienummer update
-UPDATE brmo_metadata SET waarde='1.6.4' WHERE naam='brmoversie';
+UPDATE brmo_metadata SET waarde='2.0.0' WHERE naam='brmoversie';

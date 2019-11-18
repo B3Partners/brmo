@@ -4,7 +4,7 @@ CURSNAPSHOT=$(grep "<version>.*<.version>" -m1 pom.xml | sed -e "s/^.*<version/<
 echo "Huidige snapshot:" $CURSNAPSHOT
 echo "Verwerk extra upgrade script voor: " $1
 
-if [ $CURSNAPSHOT = "1.6.4-SNAPSHOT" ] && [ $1 = "rsgb" ]
+if [ $CURSNAPSHOT = "2.0.0-SNAPSHOT" ] && [ $1 = "rsgb" ]
 then
     psql -U postgres -d $1 -f ./datamodel/extra_scripts/postgresql/206_bag_views.sql
     psql -U postgres -d $1 -f ./datamodel/extra_scripts/postgresql/207_brk_views.sql
