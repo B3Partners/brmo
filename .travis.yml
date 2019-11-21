@@ -1,144 +1,70 @@
-dist: trusty
 sudo: required
 language: java
 
 env:
   global:
-    - secure: "mmLyX+VjQpLA7LQ79iIrBPjw/vnJC4Loda7BOyIy+H2seQJAwqDczG09aToTOkM/mmENAb08xv6JJ2PbsZqSZ3tTMXNxTOh4dGtR9DnTjtDzD4O6IHEDVOSbFndIsSEsQw4LXJWbbJwRJwF5Q+UPl+VLV+HyXbYOAmPAD96hXTA="
-    - secure: "NynQI56H74dDi6sK4wxPawnLoLsrzADKmD8Jl7w3yQnYTfVU7zP07KeJKoIWhFaYB3GCKyG2qdeM1I5DOeim183c0h51WcQTVvHX3o1D3DyrdfuhqKTBXmAUXJObp/jUoABD2KKejSKZj+mkzqutITMUUbHDiMu5PD6WXEuCYT8="
-    - PG_VERSION="9.6"
-    - PROFILE="postgresql"
     - MVN_VERSION="3.6.2"
     - MVN_ARGS="-Dit.test=!TopNLIntegrationTest"
-    - PGPORT=5432
     - MAVEN_OPTS=-Djava.awt.headless=true -Xms8G -Xmx12G
+    - PGPORT=5432
+    - PGUSER=postgres
+    - PGDATABASE=postgres
+    - PGOPTIONS='-c client_min_messages=NOTICE'
 
 addons:
-  postgresql: 9.6
   apt:
     packages:
-      - postgresql-9.6-postgis-2.3
-      - graphviz
       - xmlstarlet
-  hostname: travis-brmo
-  hosts: travis-brmo
+      - graphviz
 
-jdk:
-  - oraclejdk8
-  - oraclejdk11
-  - openjdk8
-  - openjdk11
+jobs:
+  include:
+      # final release van 9.4 (==EOL): Feb 13, 2020
+      # https://www.postgresql.org/support/versioning/
+    - name: "PostgreSQL 9.4 (oudste)"
+      env: POSTGRESQL_VERSION="9.4" POSTGIS_VERSION="2.4" PROFILE="postgresql"
+      jdk: openjdk8
+    - name: "PostgreSQL 9.5"
+      env: POSTGRESQL_VERSION="9.5" POSTGIS_VERSION="2.4" PROFILE="postgresql"
+      jdk: openjdk8
+    - name: "PostgreSQL 9.6"
+      env: POSTGRESQL_VERSION="9.6" POSTGIS_VERSION="2.5" PROFILE="postgresql"
+      jdk: openjdk8
+    - name: "PostgreSQL 10"
+      env: POSTGRESQL_VERSION="10" POSTGIS_VERSION="2.5" PROFILE="postgresql"
+      jdk: openjdk8
+    - name: "PostgreSQL 11"
+      env: POSTGRESQL_VERSION="11" POSTGIS_VERSION="2.5" PROFILE="postgresql"
+      jdk: openjdk11
+    - name: "PostgreSQL 12"
+      env: POSTGRESQL_VERSION="12" POSTGIS_VERSION="3" PROFILE="postgresql"
+      jdk: openjdk11
+    - name: "database upgrades"
+      jdk: openjdk8
+      env: POSTGRESQL_VERSION="9.6" POSTGIS_VERSION="2.5" PROFILE="postgresql" MVN_ARGS="-Ddatabase.upgrade=true -Dit.test=!TopNLIntegrationTest"
+    - name: "TopNL tests"
+      jdk: openjdk8
+      env: POSTGRESQL_VERSION="11" POSTGIS_VERSION="2.5" PROFILE="postgresql" MVN_ARGS="-Dit.test=TopNLIntegrationTest"
+    - name: "MS SQL server 2017"
+      jdk: openjdk8
+      dist: xenial
+      env: MSSQL_VERSION="2017" POSTGRESQL_VERSION="" POSTGIS_VERSION="" PROFILE="mssql" MVN_ARGS="-Dmssql.instancename='' -Dit.test=!TopNLIntegrationTest"
+    - name: "MS SQL server 2019"
+      jdk: openjdk11
+      dist: xenial
+      env:
+        - MSSQL_VERSION="2019" POSTGRESQL_VERSION="" POSTGIS_VERSION="" PROFILE="mssql" MVN_ARGS="-Dmssql.instancename='' -Dit.test=!TopNLIntegrationTest"
 
-matrix:
-  fast_finish: true
-  allow_failures:
+#matrix:
+#  fast_finish: true
+#  allow_failures:
     # vanwege build timeout (soms)
     #- name: "MS SQL server 2017"
-    # kan vaak postgis niet installeren...
-    - name: "PostgreSQL 10"
-    - jdk: oraclejdk11
-    - name: "MS SQL server 2019"
-  include:
-  - name: "Oudste supported PostgreSQL"
-    dist: xenial
-    jdk: openjdk8
-    sudo: required
-    # final release van 9.4 (==EOL): Feb 13, 2020
-    # https://www.postgresql.org/support/versioning/
-    env: PG_VERSION="9.4"
-    addons:
-      postgresql: 9.4
-      apt:
-        packages:
-          - postgresql-9.4
-          - postgresql-client-9.4
-          - postgresql-9.4-postgis-2.5
-          - postgresql-9.4-postgis-2.5-scripts
-          - graphviz
-          - xmlstarlet
-  - name: "PostgreSQL 11"
-    group: edge
-    dist: xenial
-    jdk: openjdk8
-    sudo: required
-    env: PG_VERSION="11"
-    addons:
-      postgresql: 11
-      apt:
-        packages:
-          - postgresql-11
-          - postgresql-client-11
-          - postgresql-11-postgis-2.5
-          - postgresql-11-postgis-2.5-scripts
-          - graphviz
-          - xmlstarlet
-  - name: "PostgreSQL 10"
-    group: edge
-    dist: xenial
-    jdk: openjdk8
-    sudo: required
-    env: PG_VERSION="10"
-    addons:
-      postgresql: 10
-      apt:
-        packages:
-          - postgresql-10
-          - postgresql-client-10
-          - postgresql-10-postgis-2.5
-          - postgresql-10-postgis-2.5-scripts
-          - graphviz
-          - xmlstarlet
-  - name: "MS SQL server 2017"
-    jdk: openjdk8
-    group: edge
-    dist: xenial
-    sudo: required
-    env:
-      - PG_VERSION=""
-      - PROFILE="mssql"
-      - MVN_ARGS="-Dmssql.instancename='' -Dit.test=!TopNLIntegrationTest"
-  - name: "MS SQL server 2019"
-    jdk: openjdk8
-    group: edge
-    dist: xenial
-    sudo: required
-    env:
-      - PG_VERSION=""
-      - MSSQL_VERSION="2019"
-      - PROFILE="mssql"
-      - MVN_ARGS="-Dmssql.instancename='' -Dit.test=!TopNLIntegrationTest"
-  - name: "database upgrades"
-    jdk: openjdk8
-    sudo: required
-    env:
-      - PROFILE="postgresql"
-      - MVN_ARGS="-Ddatabase.upgrade=true -Dit.test=!TopNLIntegrationTest"
-    addons:
-      postgresql: 9.6
-      apt:
-        packages:
-          - xmlstarlet
-          - graphviz
-          - postgresql-9.6-postgis-2.3
-          - postgresql-9.6-postgis-2.3-scripts
-  - name: "TopNL tests"
-    group: edge
-    dist: xenial
-    jdk: openjdk8
-    sudo: required
-    env:
-      - PG_VERSION="11"
-      - MVN_ARGS="-Dit.test=TopNLIntegrationTest"
-    addons:
-      postgresql: 11
-      apt:
-        packages:
-          - postgresql-11
-          - postgresql-client-11
-          - postgresql-11-postgis-2.5
-          - postgresql-11-postgis-2.5-scripts
-          - xmlstarlet
-          - graphviz
+    #- name: "MS SQL server 2019"
+    #- jdk: oraclejdk11
+    #- name: "PostgreSQL 10"
+    #- name: "PostgreSQL 12"
+
 
 cache:
   directories:
@@ -153,11 +79,6 @@ git:
 
 before_install:
   - git lfs pull
-  # hack voor travis xenial images, zie: https://github.com/travis-ci/travis-ci/issues/10290
-  - if [ "$PG_VERSION" == "" ] || [ "$PG_VERSION" == "10" ] || [ "$PG_VERSION" == "11" ]; then
-       PATH=$(echo "$PATH" | sed -e 's/:\/usr\/local\/lib\/jvm\/openjdk11\/bin//');
-       JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64;
-    fi
   # installeer een up-2-date Maven versie
   - wget -nc https://www-eu.apache.org/dist/maven/maven-3/$MVN_VERSION/binaries/apache-maven-$MVN_VERSION-bin.zip -P $HOME/downloads/
   - unzip -qq $HOME/downloads/apache-maven-$MVN_VERSION-bin.zip
@@ -165,43 +86,48 @@ before_install:
   - export PATH=$M2_HOME/bin:$PATH
   - mvn -v
   - export PAGER=cat
-  - if [ "$PG_VERSION" == "11" ]; then
-       sudo sed -i 's/port = 5433/port = 5432/' /etc/postgresql/11/main/postgresql.conf;
-       sudo cp /etc/postgresql/{10,11}/main/pg_hba.conf;
-    fi
+  - sudo service postgresql stop
+  # installeer postgresql of mssql
   - if [ "$PROFILE" == "postgresql" ]; then
+       sudo apt-get remove postgresql* -y;
+       sudo apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests postgresql-$POSTGRESQL_VERSION postgresql-client-$POSTGRESQL_VERSION postgresql-common;
+       sudo apt-get install -y --allow-unauthenticated postgresql-$POSTGRESQL_VERSION-postgis-$POSTGIS_VERSION postgresql-$POSTGRESQL_VERSION-postgis-$POSTGIS_VERSION-scripts postgis;
+       sudo pg_dropcluster --stop $POSTGRESQL_VERSION main;
+       sudo rm -rf /etc/postgresql/$POSTGRESQL_VERSION /var/lib/postgresql/$POSTGRESQL_VERSION;
+       sudo pg_createcluster -u postgres $POSTGRESQL_VERSION main -- --auth-local trust --auth-host password;
+       sudo /etc/init.d/postgresql start $POSTGRESQL_VERSION || sudo journalctl -xe;
        sh ".travis/install-pgsql.sh";
     elif [ "$PROFILE" == "mssql" ]; then
-        sudo service postgresql stop;
         if [ "$MSSQL_VERSION" == "2019" ]; then
           sh ".travis/install-mssql2019.sh";
         else
           sh ".travis/install-mssql.sh";
         fi
     fi
+  # ophalen vorige release zodat we schema van die versie kunnen aanmaken
   - if  [ "$TRAVIS_JOB_NAME" == "database upgrades" ]; then
        sh ".travis/getlastRelease.sh";
     fi
-    # ophalen actuele topnl test data alleen voor postgresql
+  # ophalen actuele topnl test data alleen voor postgresql
   - if  [ "$PROFILE" == "postgresql" ] && [ "$TRAVIS_JOB_NAME" != "database upgrades" ]; then
        bash ".jenkins/data-prepare-topnl.sh";
     fi
-
   - unset _JAVA_OPTIONS
   - ulimit -a
   - free -h
 
 install:
-  # installeer dependencies + artifacts en maak DB scripts, zonder testen
+  # installeer dependencies + artifacts en maak DB scripts, zonder iets te testen
   - travis_wait 20 mvn install -Dmaven.test.skip=true -Dtest.onlyITs= -B -V -fae -Pstandard-with-extra-repos,$PROFILE
   - projectversion=$(grep "<version>.*<.version>" -m1 pom.xml | sed -e "s/^.*<version/<version/" | cut -f2 -d">"| cut -f1 -d"<")
   - echo $projectversion
   - export PROJECTVERSION=$projectversion
   - sed -i s/\${project.version}/$projectversion/g ./brmo-persistence/db/05_create_brmo_metadata_postgresql.sql
   - sed -i s/\${project.version}/$projectversion/g ./brmo-persistence/db/05_create_brmo_metadata_sqlserver.sql
-  - cat ./brmo-persistence/db/05_create_brmo_metadata_postgresql.sql
+  #- cat ./brmo-persistence/db/05_create_brmo_metadata_postgresql.sql
 
 before_script:
+  # opzetten van database schema's
   # dit dient na afloop van de 'install' gedaan te worden omdat (een deel van) de sql gegenereerd wordt
   - ls -l ./brmo-persistence/db/*.sql
   - ls -l ./datamodel/generated_scripts/*.sql
@@ -266,27 +192,41 @@ script:
   # Linting
   # test of de javadoc compliant is met java-8 strict checks, noodzakelijk voor succesvolle release
   #
-  - if [ "$TRAVIS_JDK_VERSION" == openjdk8 ] && [ "$PG_VERSION" == "9.6" ] && [ "$TRAVIS_JOB_NAME" != "database upgrades" ]; then
+  - if [ "$TRAVIS_JOB_NAME" == "PostgreSQL 10" ]; then
         printf %'s\n\n' 'Javadoc checks';
         travis_wait 30 mvn javadoc:javadoc;
     fi
-  - if [ "$TRAVIS_JDK_VERSION" == openjdk8 ] && [ "$PG_VERSION" == "9.6" ] && [ "$TRAVIS_JOB_NAME" != "database upgrades" ]; then
+  - if [ "$TRAVIS_JOB_NAME" == "PostgreSQL 10" ]; then
         printf %'s\n\n' 'Test Javadoc checks';
         travis_wait 30 mvn javadoc:test-javadoc;
     fi
 
 after_script:
-  # deploy maven site van master branch als test succes
-  - if [ "$TRAVIS_JDK_VERSION" == openjdk8 ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_TEST_RESULT" == 0 ] && [ "$PG_VERSION" == "9.6" ]; then
-         travis_wait 30 mvn -B -e -T1 site site:stage --settings .travis/settings.xml;
-         mvn scm-publish:publish-scm --settings .travis/settings.xml;
+  # deploy maven site van master branch test succes
+  - if [ "$TRAVIS_JOB_NAME" == "PostgreSQL 10" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_TEST_RESULT" == 0 ]; then
+    travis_wait 30 mvn -B -e -T1 site site:stage --settings .travis/settings.xml;
     fi
+
+#before_deploy:
+#
+#deploy:
+#  provider: pages
+#  skip_cleanup: true
+#  cleanup: false
+#  # https://docs.travis-ci.com/user/deployment/pages/
+#  # Set in the settings page of your repository, as a secure variable
+#  github_token: $GITHUB_TOKEN
+#  keep_history: false
+#  allow_empty_commit: false
+#  verbose: true
+#  local_dir: target/staging
+#  on:
+#    branch: master
+
+#after_deploy:
 
 after_success:
   - bash <(curl -s https://codecov.io/bash) -f */jacoco.xml || echo 'Codecov failed to upload'
 
-# after_failure:
+#after_failure:
 
-notifications:
-  slack:
-    secure: C6gBHY3vYCn80KOvZhTeoJWbSy22PWdq8+fQtd32v/9/ZhsIxbeN7tHQE0IE/MKp/bQ0YijTeLr4LFQfOAozxM3qwyP7fTNfu0MZG2J/tvReMoJnylQ8pdFIsHlTTXD8RicfhjP+6pRjorctK11htC+uE+aN0TzdprNeSnsdNvk=
