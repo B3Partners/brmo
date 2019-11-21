@@ -24,6 +24,9 @@ jobs:
     - name: "PostgreSQL 9.4 (oudste)"
       env: POSTGRESQL_VERSION="9.4" POSTGIS_VERSION="2.4" PROFILE="postgresql"
       jdk: openjdk8
+    - name: "PostgreSQL 9.5"
+      env: POSTGRESQL_VERSION="9.5" POSTGIS_VERSION="2.4" PROFILE="postgresql"
+      jdk: openjdk8
     - name: "PostgreSQL 9.6"
       env: POSTGRESQL_VERSION="9.6" POSTGIS_VERSION="2.5" PROFILE="postgresql"
       jdk: openjdk8
@@ -83,7 +86,8 @@ before_install:
   - export PATH=$M2_HOME/bin:$PATH
   - mvn -v
   - export PAGER=cat
-  - sudo service postgresql stop;
+  - sudo service postgresql stop
+  # installeer postgresql of mssql
   - if [ "$PROFILE" == "postgresql" ]; then
        sudo apt-get remove postgresql* -y;
        sudo apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests postgresql-$POSTGRESQL_VERSION postgresql-client-$POSTGRESQL_VERSION postgresql-common;
@@ -100,10 +104,11 @@ before_install:
           sh ".travis/install-mssql.sh";
         fi
     fi
+  # ophalen vorige release zodat we schema van die versie kunnen aanmaken
   - if  [ "$TRAVIS_JOB_NAME" == "database upgrades" ]; then
        sh ".travis/getlastRelease.sh";
     fi
-    # ophalen actuele topnl test data alleen voor postgresql
+  # ophalen actuele topnl test data alleen voor postgresql
   - if  [ "$PROFILE" == "postgresql" ] && [ "$TRAVIS_JOB_NAME" != "database upgrades" ]; then
        bash ".jenkins/data-prepare-topnl.sh";
     fi
@@ -112,16 +117,17 @@ before_install:
   - free -h
 
 install:
-  # installeer dependencies + artifacts en maak DB scripts, zonder testen
+  # installeer dependencies + artifacts en maak DB scripts, zonder iets te testen
   - travis_wait 20 mvn install -Dmaven.test.skip=true -Dtest.onlyITs= -B -V -fae -Pstandard-with-extra-repos,$PROFILE
   - projectversion=$(grep "<version>.*<.version>" -m1 pom.xml | sed -e "s/^.*<version/<version/" | cut -f2 -d">"| cut -f1 -d"<")
   - echo $projectversion
   - export PROJECTVERSION=$projectversion
   - sed -i s/\${project.version}/$projectversion/g ./brmo-persistence/db/05_create_brmo_metadata_postgresql.sql
   - sed -i s/\${project.version}/$projectversion/g ./brmo-persistence/db/05_create_brmo_metadata_sqlserver.sql
-  - cat ./brmo-persistence/db/05_create_brmo_metadata_postgresql.sql
+  #- cat ./brmo-persistence/db/05_create_brmo_metadata_postgresql.sql
 
 before_script:
+  # opzetten van database schema's
   # dit dient na afloop van de 'install' gedaan te worden omdat (een deel van) de sql gegenereerd wordt
   - ls -l ./brmo-persistence/db/*.sql
   - ls -l ./datamodel/generated_scripts/*.sql
@@ -186,23 +192,41 @@ script:
   # Linting
   # test of de javadoc compliant is met java-8 strict checks, noodzakelijk voor succesvolle release
   #
-  - if [ "$TRAVIS_JOB_NAME" == "PostgreSQL 9.6" ]; then
+  - if [ "$TRAVIS_JOB_NAME" == "PostgreSQL 10" ]; then
         printf %'s\n\n' 'Javadoc checks';
         travis_wait 30 mvn javadoc:javadoc;
     fi
-  - if [ "$TRAVIS_JOB_NAME" == "PostgreSQL 9.6" ]; then
+  - if [ "$TRAVIS_JOB_NAME" == "PostgreSQL 10" ]; then
         printf %'s\n\n' 'Test Javadoc checks';
         travis_wait 30 mvn javadoc:test-javadoc;
     fi
 
 after_script:
   # deploy maven site van master branch test succes
-  - if [ "$TRAVIS_JOB_NAME" == "PostgreSQL 9.6" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_TEST_RESULT" == 0 ]; then
-         travis_wait 30 mvn -B -e -T1 site site:stage --settings .travis/settings.xml;
+  - if [ "$TRAVIS_JOB_NAME" == "PostgreSQL 10" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_TEST_RESULT" == 0 ]; then
+    travis_wait 30 mvn -B -e -T1 site site:stage --settings .travis/settings.xml;
     fi
+
+#before_deploy:
+#
+#deploy:
+#  provider: pages
+#  skip_cleanup: true
+#  cleanup: false
+#  # https://docs.travis-ci.com/user/deployment/pages/
+#  # Set in the settings page of your repository, as a secure variable
+#  github_token: $GITHUB_TOKEN
+#  keep_history: false
+#  allow_empty_commit: false
+#  verbose: true
+#  local_dir: target/staging
+#  on:
+#    branch: master
+
+#after_deploy:
 
 after_success:
   - bash <(curl -s https://codecov.io/bash) -f */jacoco.xml || echo 'Codecov failed to upload'
 
-# after_failure:
+#after_failure:
 

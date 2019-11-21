@@ -41,9 +41,20 @@
             </activation>
             <repositories>
                 <repository>
+                    <id>apache_central</id>
+                    <name>Apache Central Repository</name>
+                    <url>https://repo.maven.apache.org/maven2/</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                </repository>
+                <repository>
                     <id>central</id>
                     <name>Central Repository</name>
-                    <url>https://repo.maven.apache.org/maven2/</url>
+                    <url>https://repo1.maven.org/maven2/</url>
                     <releases>
                         <enabled>true</enabled>
                     </releases>
@@ -142,6 +153,7 @@
                     </releases>
                     <snapshots>
                         <enabled>true</enabled>
+                        <updatePolicy>interval:30</updatePolicy>
                     </snapshots>
                 </repository>
             </repositories>
