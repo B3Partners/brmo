@@ -46,9 +46,17 @@
             <artifactId>postgis-jdbc</artifactId>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>commons-dbcp</groupId>
+            <artifactId>commons-dbcp</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>nl.b3p</groupId>
+            <artifactId>jdbc-util</artifactId>
+        </dependency>
     </dependencies>
     <build>
-        <defaultGoal>compile</defaultGoal>
+        <defaultGoal>install</defaultGoal>
         <plugins>
             <plugin>
             <groupId>org.jacoco</groupId>
