@@ -138,19 +138,19 @@ timestamps {
                                     sh "sqlplus -l -S jenkins_staging/jenkins_staging@192.168.1.11:1521/ORCL < ./brmo-persistence/db/drop-brmo-persistence-oracle.sql"
                                     sh "sqlplus -l -S jenkins_rsgb/jenkins_rsgb@192.168.1.11:1521/ORCL < ./.jenkins/clear-schema.sql"
                                 }
-                            }
-
-                            configFileProvider([
-                                configFile(
-                                    fileId: 'local.P8.properties',
-                                    targetLocation: 'datamodel/src/test/resources/local.P8.properties'
-                                    )
-                                ]) {
-                                lock('rsgb-p8') {
-                                    stage("P8 datamodel Integration Test") {
-                                        sh "mvn -Pp8 process-test-resources -pl 'datamodel'"
-                                        sh "./datamodel/target/reinstall-rsgb-views-pgsql.sh"
-                                        sh "mvn -e verify -B -Pp8 -T1 -pl 'datamodel' -fae"
+                                
+                                configFileProvider([
+                                    configFile(
+                                        fileId: 'local.P8.properties',
+                                        targetLocation: 'datamodel/src/test/resources/local.P8.properties'
+                                        )
+                                    ]) {
+                                    lock('rsgb-p8') {
+                                        stage("P8 datamodel Integration Test") {
+                                            sh "mvn -Pp8 process-test-resources -pl 'datamodel'"
+                                            sh "./datamodel/target/reinstall-rsgb-views-pgsql.sh"
+                                            sh "mvn -e verify -B -Pp8 -T1 -pl 'datamodel' -fae"
+                                        }
                                     }
                                 }
                             }
