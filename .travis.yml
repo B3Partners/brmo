@@ -55,13 +55,12 @@ jobs:
       env:
         - MSSQL_VERSION="2019" POSTGRESQL_VERSION="" POSTGIS_VERSION="" PROFILE="mssql" MVN_ARGS="-Dmssql.instancename='' -Dit.test=!TopNLIntegrationTest"
 
-#matrix:
-#  fast_finish: true
-#  allow_failures:
+matrix:
+  fast_finish: true
+  allow_failures:
     # vanwege build timeout (soms)
     #- name: "MS SQL server 2017"
-    #- name: "MS SQL server 2019"
-    #- jdk: oraclejdk11
+    - name: "MS SQL server 2019"
     #- name: "PostgreSQL 10"
     #- name: "PostgreSQL 12"
 
@@ -229,4 +228,3 @@ after_success:
   - bash <(curl -s https://codecov.io/bash) -f */jacoco.xml || echo 'Codecov failed to upload'
 
 #after_failure:
-
