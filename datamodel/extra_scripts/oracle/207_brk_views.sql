@@ -561,14 +561,14 @@ AS
         qry.ka_perceelnummer            AS perceelnummer,
         qry.ka_kad_gemeentecode         AS gemeentecode,
         qry.aand_soort_grootte,
-        CAST(qry.grootte_perceel AS INTEGER),
+        CAST(qry.grootte_perceel AS INTEGER) AS grootte_perceel,
         CASE
             WHEN qry.begrenzing_perceel.get_gtype() IS NOT NULL THEN sdo_geom.sdo_area(qry.begrenzing_perceel,0.1)
             ELSE NULL
         END AS oppervlakte_geom,
         b.datum                         AS verkoop_datum,
         koz.cu_aard_cultuur_onbebouwd   AS aard_cultuur_onbebouwd,
-        CAST(koz.ks_bedrag AS INTEGER) AS bedrag,
+        CAST(koz.ks_bedrag AS INTEGER)  AS bedrag,
         koz.ks_koopjaar                 AS koopjaar,
         koz.ks_meer_onroerendgoed       AS meer_onroerendgoed,
         koz.ks_valutasoort              AS valutasoort,
