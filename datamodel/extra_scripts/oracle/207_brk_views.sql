@@ -677,6 +677,7 @@ beschikbare kolommen:
 
 CREATE OR REPLACE VIEW vb_util_zk_recht (
     zr_identif,
+    ingangsdatum_recht,
     aandeel,
     ar_teller,
     ar_noemer,
@@ -689,6 +690,7 @@ CREATE OR REPLACE VIEW vb_util_zk_recht (
 ) AS
     SELECT
         zr.kadaster_identif      AS zr_identif,
+        zr.ingangsdatum_recht,
         ( CAST( (coalesce(CAST(zr.ar_teller AS CHARACTER VARYING(7) ), ('0') )
                    || ('/')
                    || coalesce(CAST(zr.ar_noemer AS CHARACTER VARYING(7) ), ('0') ) ) AS CHARACTER VARYING(20) ) ) AS aandeel,
@@ -739,6 +741,7 @@ IS 'commentaar view vb_util_zk_recht:
 zakelijk recht met opgezocht aard recht en berekend aandeel
 beschikbare kolommen:
 * zr_identif: natuurlijke id van zakelijk recht
+* ingangsdatum_recht: -
 * aandeel: samenvoeging van teller en noemer (1/2),
 * ar_teller: teller van aandeel,
 * ar_noemer: noemer van aandeel,
@@ -753,6 +756,7 @@ CREATE MATERIALIZED VIEW mb_zr_rechth
     (
         objectid,
         zr_identif,
+        ingangsdatum_recht,
         subject_identif,
         koz_identif,
         aandeel,
@@ -783,6 +787,7 @@ AS
 SELECT
     CAST(ROWNUM AS INTEGER) AS objectid,
     uzr.zr_identif as zr_identif,
+    uzr.ingangsdatum_recht,
     uzr.subject_identif,
     uzr.koz_identif,
     uzr.aandeel,
@@ -821,7 +826,8 @@ IS 'commentaar view mb_zr_rechth:
 alle zakelijke rechten met rechthebbenden en referentie naar kadastraal onroerende zaak (perceel of appartementsrecht)
 beschikbare kolommen:
 * objectid: uniek id bruikbaar voor geoserver/arcgis,
-* zr_identif: natuurlijke id van zakelijk recht
+* zr_identif: natuurlijke id van zakelijk recht,
+* ingangsdatum_recht: -
 * subject_identif: natuurlijk id van subject (natuurlijk of niet natuurlijk) welke rechthebbende is,
 * koz_identif: natuurlijk id van kadastrale onroerende zaak (perceel of appratementsrecht) dat gekoppeld is,
 * aandeel: samenvoeging van teller en noemer (1/2),
@@ -853,6 +859,7 @@ beschikbare kolommen:
 CREATE MATERIALIZED VIEW mb_avg_zr_rechth (
     objectid,
     zr_identif,
+    ingangsdatum_recht,
     subject_identif,
     koz_identif,
     aandeel,
@@ -884,6 +891,7 @@ AS
     SELECT
         CAST(ROWNUM AS INTEGER) AS objectid,
         uzr.zr_identif   AS zr_identif,
+        uzr.ingangsdatum_recht,
         uzr.subject_identif,
         uzr.koz_identif,
         uzr.aandeel,
@@ -919,7 +927,8 @@ IS 'commentaar view mb_avg_zr_rechth:
 alle zakelijke rechten met voor avg geschoonde rechthebbenden en referentie naar kadastraal onroerende zaak (perceel of appartementsrecht)
 beschikbare kolommen:
 * objectid: uniek id bruikbaar voor geoserver/arcgis,
-* zr_identif: natuurlijke id van zakelijk recht
+* zr_identif: natuurlijke id van zakelijk recht,
+* ingangsdatum_recht: -,
 * subject_identif: natuurlijk id van subject (natuurlijk of niet natuurlijk) welke rechthebbende is,
 * koz_identif: natuurlijk id van kadastrale onroerende zaak (perceel of appratementsrecht) dat gekoppeld is,
 * aandeel: samenvoeging van teller en noemer (1/2),
@@ -969,6 +978,7 @@ CREATE MATERIALIZED VIEW mb_koz_rechth (
         valutasoort,
         loc_omschr,
         zr_identif,
+        ingangsdatum_recht,
         subject_identif,
         aandeel,
         omschr_aard_verkregenr_recht,
@@ -1028,6 +1038,7 @@ SELECT
     koz.valutasoort,
     koz.loc_omschr,
     zrr.zr_identif,
+    zrr.ingangsdatum_recht,
     zrr.subject_identif,
     zrr.aandeel,
     zrr.omschr_aard_verkregenr_recht,
@@ -1100,6 +1111,7 @@ beschikbare kolommen:
 * valutasoort: -,
 * loc_omschr: adres buiten BAG om meegegeven,
 * zr_identif: natuurlijk id van zakelijk recht,
+* ingangsdatum_recht: - ,
 * subject_identif: natuurlijk id van rechthebbende,
 * aandeel: samenvoeging van teller en noemer (1/2),
 * omschr_aard_verkregen_recht: tekstuele omschrijving aard recht,
@@ -1162,6 +1174,7 @@ CREATE MATERIALIZED VIEW mb_avg_koz_rechth (
     valutasoort,
     loc_omschr,
     zr_identif,
+    ingangsdatum_recht,
     subject_identif,
     aandeel,
     omschr_aard_verkregenr_recht,
@@ -1221,6 +1234,7 @@ SELECT
     koz.valutasoort,
     koz.loc_omschr,
     zrr.zr_identif,
+    zrr.ingangsdatum_recht,
     zrr.subject_identif,
     zrr.aandeel,
     zrr.omschr_aard_verkregenr_recht,
@@ -1292,6 +1306,7 @@ beschikbare kolommen:
 * valutasoort: -,
 * loc_omschr: adres buiten BAG om meegegeven,
 * zr_identif: natuurlijk id van zakelijk recht,
+* ingangsdatum_recht: - ,
 * subject_identif: natuurlijk id van rechthebbende,
 * aandeel: samenvoeging van teller en noemer (1/2),
 * omschr_aard_verkregen_recht: tekstuele omschrijving aard recht,
