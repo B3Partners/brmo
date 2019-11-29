@@ -93,6 +93,7 @@ after_build:
 test_script:
   # unit tests
   - mvn -e test -fae -B -Pmssql -pl "!brmo-dist"
+  - mvn -e -B -Pmssql -pl "datamodel" resources:testResources compiler:testCompile surefire:test -Dtest="!*UpgradeTest,!P8*"
   # integratie tests
   # run integratie tests voor bgt-gml-loader module (30min)
   - if "%BGT_ONLY_ITESTS%"=="true" mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "bgt-gml-loader" -Dmssql.instancename=%INSTANCENAME%

@@ -52,8 +52,7 @@ jobs:
     - name: "MS SQL server 2019"
       jdk: openjdk11
       dist: xenial
-      env:
-        - MSSQL_VERSION="2019" POSTGRESQL_VERSION="" POSTGIS_VERSION="" PROFILE="mssql" MVN_ARGS="-Dmssql.instancename='' -Dit.test=!TopNLIntegrationTest"
+      env: MSSQL_VERSION="2019" POSTGRESQL_VERSION="" POSTGIS_VERSION="" PROFILE="mssql" MVN_ARGS="-Dmssql.instancename='' -Dit.test=!TopNLIntegrationTest"
 
 matrix:
   fast_finish: true
@@ -61,9 +60,6 @@ matrix:
     # vanwege build timeout (soms)
     #- name: "MS SQL server 2017"
     - name: "MS SQL server 2019"
-    #- name: "PostgreSQL 10"
-    #- name: "PostgreSQL 12"
-
 
 cache:
   directories:
@@ -142,8 +138,10 @@ before_script:
 
 script:
   # run unit tests voor alle modules
+  # datamodel is een pom module die heeft geen test phase
   - if [ "$TRAVIS_JOB_NAME" != "database upgrades" ]; then
        travis_wait 20 mvn --settings .travis/settings.xml -e test -B -Pstandard-with-extra-repos,$PROFILE -pl '!brmo-dist' -Dtest.onlyITs=false;
+       mvn resources:testResources compiler:testCompile surefire:test -P$PROFILE -pl datamodel -Dtest='!*UpgradeTest,!P8*';
     fi
   # test upgrade script voor postgresql
   - if  [ "$TRAVIS_JOB_NAME" == "database upgrades" ]; then
@@ -151,7 +149,7 @@ script:
         .travis/execute-upgrades-pgsql.sh rsgb;
         .travis/execute-upgrade-extras-pgsql.sh rsgb;
         .travis/execute-upgrades-pgsql.sh rsgbbgt;
-        mvn -e -B -P$PROFILE $MVN_ARGS -pl 'datamodel' resources:testResources compiler:testCompile surefire:test;
+        mvn -e -B -P$PROFILE $MVN_ARGS -pl 'datamodel' resources:testResources compiler:testCompile surefire:test -Dtest='*UpgradeTest';
     fi
   #
   # run integratie tests voor brmo-loader module of alleen topnl, afhankelijk van $MVN_ARGS

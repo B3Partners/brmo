@@ -71,6 +71,10 @@ timestamps {
                                 sh ".jenkins/db-prepare-topnl.sh"
                             }
 
+                            stage("datamodel tests"){
+                                sh "mvn -e -B -Poracle -pl 'datamodel' resources:testResources compiler:testCompile surefire:test -Dtest='!*UpgradeTest,!P8*'"
+                            }
+
                             stage("bgt-gml-loader Integration Test: ${jdkTestName}") {
                                 echo "run integratie tests voor bgt-gml-loader module"
                                 sh "mvn -e verify -B -Poracle -T1 -Dtest.onlyITs=true -pl 'bgt-gml-loader'"
@@ -130,7 +134,7 @@ timestamps {
                                     sh "\".jenkins/execute-upgrades-oracle.sh\" rsgb"
                                     sh "\".jenkins/execute-upgrade-extras-oracle.sh\" rsgb"
                                     sh "\".jenkins/execute-upgrades-oracle.sh\" rsgbbgt"
-                                    sh "mvn -e -B -Poracle -pl 'datamodel' resources:testResources compiler:testCompile surefire:test"
+                                    sh "mvn -e -B -Poracle -pl 'datamodel' resources:testResources compiler:testCompile surefire:test -Dtest='*UpgradeTest'"
                                 }
 
                                 stage("Cleanup Database 2: ${indexOfJdk}") {
