@@ -24,7 +24,7 @@ timestamps {
             jdks.eachWithIndex { jdk, indexOfJdk ->
                 final String jdkTestName = jdk.toString()
 
-                withEnv(["JAVA_HOME=${ tool jdkTestName }", "PATH+MAVEN=${tool 'Maven 3.6.2'}/bin:${env.JAVA_HOME}/bin"]) {
+                withEnv(["JAVA_HOME=${ tool jdkTestName }", "PATH+MAVEN=${tool 'Maven CURRENT'}/bin:${env.JAVA_HOME}/bin"]) {
 
                     echo "Using JDK: ${jdkTestName} at ${env.JAVA_HOME}"
 

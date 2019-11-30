@@ -3,7 +3,7 @@ language: java
 
 env:
   global:
-    - MVN_VERSION="3.6.2"
+    - MVN_VERSION="3.6.3"
     - MVN_ARGS="-Dit.test=!TopNLIntegrationTest"
     - MAVEN_OPTS=-Djava.awt.headless=true -Xms8G -Xmx12G
     - PGPORT=5432
