@@ -26,10 +26,28 @@ import org.apache.commons.logging.LogFactory;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.List;
 
 public final class ViewUtils {
     private static final Log LOG = LogFactory.getLog(ViewUtils.class);
+
+    /**
+     * maak een lijst van de materialized views.
+     *
+     * @param ds (rsgb) database koppeling
+     * @return lijst met namen
+     * @throws SQLException als de query op de databron mislukt
+     */
+    public static List<String> listAllMaterializedViews(final BasicDataSource ds) throws SQLException {
+        List<String> mviews;
+        try (Connection conn = ds.getConnection()) {
+            final GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
+            mviews = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, geomToJdbc.getMViewsSQL(), new ColumnListHandler<>());
+            LOG.debug("Gevonden materialized views: " + mviews);
+        }
+        return mviews;
+    }
 
     /**
      * refresh alle materialized views in de database.
@@ -38,13 +56,8 @@ public final class ViewUtils {
      * @param ds (rsgb) database koppeling
      * @throws SQLException bij het benaderen van de database (nb als de refresh mislukt om wat voor reden wordt dat alleen gelogd)
      */
-    public static void refreshKnownMViews(final BasicDataSource ds) throws SQLException {
-        List<String> mviews;
-        try (Connection conn = ds.getConnection()) {
-            final GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
-            mviews = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, geomToJdbc.getMViewsSQL(), new ColumnListHandler<>());
-            LOG.debug("Gevonden materilized views: " + mviews);
-        }
+    public static void refreshAllMaterializedViews(final BasicDataSource ds) throws SQLException {
+        List<String> mviews = listAllMaterializedViews(ds);
         if (mviews != null && mviews.size() > 1) {
             refreshMViews(mviews.toArray(new String[mviews.size()]), ds);
         }

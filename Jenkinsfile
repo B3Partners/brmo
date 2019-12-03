@@ -24,7 +24,7 @@ timestamps {
             jdks.eachWithIndex { jdk, indexOfJdk ->
                 final String jdkTestName = jdk.toString()
 
-                withEnv(["JAVA_HOME=${ tool jdkTestName }", "PATH+MAVEN=${tool 'Maven 3.6.2'}/bin:${env.JAVA_HOME}/bin"]) {
+                withEnv(["JAVA_HOME=${ tool jdkTestName }", "PATH+MAVEN=${tool 'Maven CURRENT'}/bin:${env.JAVA_HOME}/bin"]) {
 
                     echo "Using JDK: ${jdkTestName} at ${env.JAVA_HOME}"
 
@@ -69,6 +69,10 @@ timestamps {
                             stage("Prepare Oracle topnl: ${indexOfJdk}") {
                                 echo "init topnl schema"
                                 sh ".jenkins/db-prepare-topnl.sh"
+                            }
+
+                            stage("datamodel tests"){
+                                sh "mvn -e -B -Poracle -pl 'datamodel' resources:testResources compiler:testCompile surefire:test -Dtest='!*UpgradeTest,!P8*'"
                             }
 
                             stage("bgt-gml-loader Integration Test: ${jdkTestName}") {
@@ -130,7 +134,7 @@ timestamps {
                                     sh "\".jenkins/execute-upgrades-oracle.sh\" rsgb"
                                     sh "\".jenkins/execute-upgrade-extras-oracle.sh\" rsgb"
                                     sh "\".jenkins/execute-upgrades-oracle.sh\" rsgbbgt"
-                                    sh "mvn -e -B -Poracle -pl 'datamodel' resources:testResources compiler:testCompile surefire:test"
+                                    sh "mvn -e -B -Poracle -pl 'datamodel' resources:testResources compiler:testCompile surefire:test -Dtest='*UpgradeTest'"
                                 }
 
                                 stage("Cleanup Database 2: ${indexOfJdk}") {

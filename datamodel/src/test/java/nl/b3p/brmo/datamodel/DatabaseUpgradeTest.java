@@ -5,9 +5,9 @@ package nl.b3p.brmo.datamodel;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Properties;
+import java.util.*;
+
+import nl.b3p.brmo.test.util.database.ViewUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.dbunit.database.DatabaseDataSourceConnection;
@@ -24,8 +24,9 @@ import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+
+import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assume.assumeNotNull;
 import static org.junit.Assume.assumeTrue;
 
@@ -74,6 +75,7 @@ public class DatabaseUpgradeTest {
     }
     private final String dbName;
     private IDatabaseConnection db;
+    private BasicDataSource ds;
 
     /**
      * properties uit {@code <DB smaak>.properties} en
@@ -105,7 +107,7 @@ public class DatabaseUpgradeTest {
     @Before
     public void setUpDB() throws Exception {
         this.loadProps();
-        BasicDataSource ds = new BasicDataSource();
+        ds = new BasicDataSource();
         ds.setUrl(params.getProperty(this.dbName + ".url"));
         ds.setUsername(params.getProperty(this.dbName + ".username"));
         ds.setPassword(params.getProperty(this.dbName + ".password"));
@@ -156,9 +158,56 @@ public class DatabaseUpgradeTest {
         assertTrue("Update text niet gevonden voor " + this.dbName, foundUpdate);
     }
 
+    /**
+     * test of de bekende set met materialized in de database(s) bestaan na upgrade.
+     *
+     * @throws SQLException als opzoeken in de dabase mislukt
+     */
+    @Test
+    public void testBasisMViews() throws SQLException {
+        List<String> viewsFound = ViewUtils.listAllMaterializedViews(ds);
+        assertNotNull("Geen materialized views gevonden", viewsFound);
+
+        if (this.dbName == "rsgb") {
+            if (isMsSQL) {
+                // geen m-views in mssql
+                assertTrue("Gek! sqlserver heeft materialized views", viewsFound.isEmpty());
+            } else {
+                List<String> views = Arrays.asList(
+                    // bag
+                    "mb_adres",
+                    "mb_pand",
+                    "mb_benoemd_obj_adres",
+                    "mb_ben_obj_nevenadres",
+                    // brk
+                    "mb_subject",
+                    "mb_avg_subject",
+                    "mb_util_app_re_kad_perceel",
+                    "mb_kad_onrrnd_zk_adres",
+                    "mb_percelenkaart",
+                    "mb_zr_rechth",
+                    "mb_avg_zr_rechth",
+                    "mb_koz_rechth",
+                    "mb_avg_koz_rechth",
+                    "mb_kad_onrrnd_zk_archief"
+                );
+
+                // alles lower-case (ORACLE!) en gesorteerd vergelijken
+                viewsFound.replaceAll(String::toLowerCase);
+                views.replaceAll(String::toLowerCase);
+                Collections.sort(viewsFound);
+                Collections.sort(views);
+                assertEquals("lijsten met materialized views zijn ongelijk", views, viewsFound);
+            }
+        } else {
+            assertTrue(this.dbName + "heeft materialized views", viewsFound.isEmpty());
+        }
+    }
+
     @After
     public void cleanup() throws SQLException {
         db.close();
+        ds.close();
     }
 
     /**
