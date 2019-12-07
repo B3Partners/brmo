@@ -110,7 +110,7 @@ public class Mantis6166IntegrationTest extends AbstractDatabaseIntegrationTest {
         rsgb = new DatabaseDataSourceConnection(dsRsgb);
         staging = new DatabaseDataSourceConnection(dsStaging);
 
-        assumeTrue("Deze test werkt niet met de jTDS driver omdat die geen JtdsPreparedStatement#setNull() methode heeft.", !this.isMsSQL);
+        // assumeTrue("Deze test werkt niet met de jTDS driver omdat die geen JtdsPreparedStatement#setNull() methode heeft.", !this.isMsSQL);
 
         if (this.isMsSQL) {
             rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MsSqlDataTypeFactory());

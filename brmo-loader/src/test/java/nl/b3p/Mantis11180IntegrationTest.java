@@ -5,7 +5,6 @@ import java.io.FileInputStream;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import nl.b3p.brmo.loader.BrmoFramework;
-import nl.b3p.brmo.test.util.database.JTDSDriverBasedFailures;
 import nl.b3p.brmo.test.util.database.dbunit.CleanUtil;
 import nl.b3p.loader.jdbc.OracleConnectionUnwrapper;
 import org.apache.commons.dbcp.BasicDataSource;
@@ -31,7 +30,6 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assume.assumeTrue;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 /**
  * Testcases voor mantis-11180; ontbrekende clazz waarde voor NIET INGEZETENE

@@ -106,8 +106,7 @@ public class AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest exte
     public void setUp() throws Exception {
         assumeTrue("Het bestand met staging testdata zou moeten bestaan.", AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest.class.getResource(sBestandsNaam) != null);
         assumeTrue("Het bestand met rsgb testdata zou moeten bestaan.", AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest.class.getResource(rBestandsNaam) != null);
-        assumeTrue("Deze test werkt niet met de jTDS driver omdat die geen PreparedStatement.setNull(int, int, String) methode heeft geimplementeerd.",
-                !this.isMsSQL);
+        // assumeTrue("Deze test werkt niet met de jTDS driver omdat die geen PreparedStatement.setNull(int, int, String) methode heeft geimplementeerd.", !this.isMsSQL);
 
         bean = new AdvancedFunctionsActionBean();
         
