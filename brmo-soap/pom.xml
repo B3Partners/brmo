@@ -41,8 +41,8 @@
                     <artifactId>postgis-jdbc</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>net.sourceforge.jtds</groupId>
-                    <artifactId>jtds</artifactId>
+                    <groupId>com.microsoft.sqlserver</groupId>
+                    <artifactId>mssql-jdbc</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -69,8 +69,8 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>net.sourceforge.jtds</groupId>
-            <artifactId>jtds</artifactId>
+            <groupId>com.microsoft.sqlserver</groupId>
+            <artifactId>mssql-jdbc</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -208,8 +208,8 @@
             </properties>
             <dependencies>
                 <dependency>
-                    <groupId>net.sourceforge.jtds</groupId>
-                    <artifactId>jtds</artifactId>
+                    <groupId>com.microsoft.sqlserver</groupId>
+                    <artifactId>mssql-jdbc</artifactId>
                 </dependency>
             </dependencies>
             <build>

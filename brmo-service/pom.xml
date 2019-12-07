@@ -87,8 +87,8 @@
                     <artifactId>postgis-jdbc</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>net.sourceforge.jtds</groupId>
-                    <artifactId>jtds</artifactId>
+                    <groupId>com.microsoft.sqlserver</groupId>
+                    <artifactId>mssql-jdbc</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -466,8 +466,8 @@
             </properties>
             <dependencies>
                 <dependency>
-                    <groupId>net.sourceforge.jtds</groupId>
-                    <artifactId>jtds</artifactId>
+                    <groupId>com.microsoft.sqlserver</groupId>
+                    <artifactId>mssql-jdbc</artifactId>
                 </dependency>
             </dependencies>
             <build>
@@ -546,11 +546,6 @@
                                 <artifactId>jakarta.mail</artifactId>
                                 <version>${jakarta.mail.version}</version>
                             </dependency>
-<!--                            <dependency>-->
-<!--                                <groupId>net.sourceforge.jtds</groupId>-->
-<!--                                <artifactId>jtds</artifactId>-->
-<!--                                <version>${sqlserver.jtds.version}</version>-->
-<!--                            </dependency>-->
                         </dependencies>
                     </plugin>
                     <plugin>

@@ -70,7 +70,7 @@
         <oracle.jdbc.version>19.6.0.0</oracle.jdbc.version>
         <!-- <oracle.jdbc.version>18.3.0.0</oracle.jdbc.version> -->
         <!-- <oracle.jdbc.version>19.3.0.0</oracle.jdbc.version> -->
-        <sqlserver.jtds.version>1.3.1</sqlserver.jtds.version>
+        <sqlserver.jdbc.version>8.1.0.jre8-preview</sqlserver.jdbc.version>
         <mssql.instancename />
         <javasimon.version>4.2.0</javasimon.version>
         <jakarta.mail.version>1.6.5</jakarta.mail.version>
@@ -301,26 +301,21 @@
                 <groupId>org.postgresql</groupId>
                 <artifactId>postgresql</artifactId>
                 <version>${postgresql.jdbc.version}</version>
-                <!-- Bij JNDI db verbinding moeten postgis jars in tomcat lib samen
-                met postgresql jdbc driver staan -->
             </dependency>
             <dependency>
                 <groupId>net.postgis</groupId>
                 <artifactId>postgis-jdbc</artifactId>
                 <version>${postgresql.postgis-jdbc.version}</version>
-                <!-- Bij JNDI db voor postgis verbinding moeten postgis jars in tomcat lib staan -->
             </dependency>
             <dependency>
                 <groupId>com.oracle.database.jdbc</groupId>
                 <artifactId>ojdbc8</artifactId>
                 <version>${oracle.jdbc.version}</version>
-                <!-- Bij JNDI db verbinding moeten Oracle jars in tomcat lib staan -->
             </dependency>
             <dependency>
-                <groupId>net.sourceforge.jtds</groupId>
-                <artifactId>jtds</artifactId>
-                <version>${sqlserver.jtds.version}</version>
-                <!-- Bij JNDI db verbinding moeten jtds jars in tomcat lib staan -->
+                <groupId>com.microsoft.sqlserver</groupId>
+                <artifactId>mssql-jdbc</artifactId>
+                <version>${sqlserver.jdbc.version}</version>
             </dependency>
             <dependency>
                 <groupId>nl.b3p</groupId>

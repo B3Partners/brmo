@@ -86,9 +86,8 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>net.sourceforge.jtds</groupId>
-            <artifactId>jtds</artifactId>
-            <!-- Bij JNDI db verbinding moet de jtds driver jar in tomcat lib staan -->
+            <groupId>com.microsoft.sqlserver</groupId>
+            <artifactId>mssql-jdbc</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -134,8 +133,8 @@
                     <artifactId>postgis-jdbc</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>net.sourceforge.jtds</groupId>
-                    <artifactId>jtds</artifactId>
+                    <groupId>com.microsoft.sqlserver</groupId>
+                    <artifactId>mssql-jdbc</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
