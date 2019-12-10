@@ -17,6 +17,8 @@ truncate kad_perceel cascade;
 truncate kad_perceel_archief cascade;
 truncate zak_recht cascade;
 truncate zak_recht_aantek cascade;
+truncate zak_recht_archief cascade;
+
 --
 -- personen/subjecten ed. die mogelijk uit kadaster komen, mogelijk 
 --    uit andere BR met personen (NHR, BRP)
