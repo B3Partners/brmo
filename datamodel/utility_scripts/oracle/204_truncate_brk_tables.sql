@@ -19,6 +19,7 @@ TRUNCATE TABLE kad_onrrnd_zk_aantek CASCADE;
 TRUNCATE TABLE zak_recht_aantek CASCADE;
 TRUNCATE TABLE kad_onrrnd_zk_his_rel CASCADE;
 TRUNCATE TABLE kad_onrrnd_zk CASCADE;
+TRUNCATE TABLE kad_onrrnd_zk_archief CASCADE;
 
 --
 -- personen/subjecten ed. die mogelijk uit kadaster komen,
