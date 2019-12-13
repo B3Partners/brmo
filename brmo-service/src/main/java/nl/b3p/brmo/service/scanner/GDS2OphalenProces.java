@@ -629,6 +629,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         lp.setAfgiftereferentie(a.getAfgiftereferentie());
         lp.setBestandsreferentie(a.getBestand().getBestandsreferentie());
         lp.setBeschikbaar_tot(a.getBeschikbaarTot().toGregorianCalendar().getTime());
+        lp.setBestand_naam_hersteld(a.getBestand().getBestandsnaam());
 
         if (a.getDigikoppelingExternalDatareferences() != null
                 && a.getDigikoppelingExternalDatareferences().getDataReference() != null) {
