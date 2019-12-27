@@ -85,25 +85,27 @@ timestamps {
                                 sh "mvn -e verify -B -Poracle -T1 -Dtest.onlyITs=true -pl 'brmo-loader' -Dit.test=!TopNLIntegrationTest"
                             }
 
-                            stage("brmo-service Integration Test: ${jdkTestName}") {
-                                echo "run integratie tests voor brmo-service module"
-                                timeout(10) {
-                                    try {
-                                        sh "mvn -e verify -B -Poracle -T1 -Dtest.onlyITs=true -pl 'brmo-service'"
-                                    } catch (Exception e) {
-                                        currentBuild.result = 'UNSTABLE'
+                            lock(brmo-tomcat-9091) {
+                                stage("brmo-service Integration Test: ${jdkTestName}") {
+                                    echo "run integratie tests voor brmo-service module"
+                                    timeout(10) {
+                                        try {
+                                            sh "mvn -e verify -B -Poracle -T1 -Dtest.onlyITs=true -pl 'brmo-service'"
+                                        } catch (Exception e) {
+                                            currentBuild.result = 'UNSTABLE'
+                                        }
                                     }
                                 }
-                            }
 
-                            stage("brmo-soap Integration Test: ${jdkTestName}") {
-                                echo "run integratie tests voor brmo-soap module"
-                                sh "mvn -e verify -B -Poracle -T1 -Dtest.onlyITs=true -pl 'brmo-soap'"
-                            }
+                                stage("brmo-soap Integration Test: ${jdkTestName}") {
+                                    echo "run integratie tests voor brmo-soap module"
+                                    sh "mvn -e verify -B -Poracle -T1 -Dtest.onlyITs=true -pl 'brmo-soap'"
+                                }
 
-                            stage("brmo-stufbg204 Integration Test: ${jdkTestName}") {
-                                echo "run integratie tests voor brmo-stufbg204 module"
-                                sh "mvn -e verify -B -Poracle -T1 -Dtest.onlyITs=true -pl 'brmo-stufbg204'"
+                                stage("brmo-stufbg204 Integration Test: ${jdkTestName}") {
+                                    echo "run integratie tests voor brmo-stufbg204 module"
+                                    sh "mvn -e verify -B -Poracle -T1 -Dtest.onlyITs=true -pl 'brmo-stufbg204'"
+                                }
                             }
 
                             stage("brmo-commandline Integration Test: ${jdkTestName}") {
