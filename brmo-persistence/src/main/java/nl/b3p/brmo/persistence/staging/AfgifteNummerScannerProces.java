@@ -27,7 +27,7 @@ public class AfgifteNummerScannerProces extends AutomatischProces {
 
     private static final String CONTRACTNUMMER = "contractnummer";
     private static final String AFGIFTENUMMERTYPE = "afgiftenummertype";
-    private static final String MISSINGNUMBERSFOUND = "ontbrekendenummersgevonden";
+    public static final String MISSINGNUMBERSFOUND = "ontbrekendenummersgevonden";
 
     /**
      * Zoekt het geconfigureerde contractnummer op.
