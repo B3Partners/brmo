@@ -2,6 +2,11 @@
 -- upgrade SQLserver RSGB datamodel van 2.0.0 naar 2.0.1 
 --
 
+-- GH #766 update nationaliteiten tabel
+UPDATE nation SET eindd_geldh = '20190212' WHERE code = 86;
+INSERT INTO nation (code, omschr, begindatum_geldh, eindd_geldh) VALUES (88,'Burger van de Republiek Noord-Macedonië','20190212',null);
+
+
 -- GH issue #736 toevoegen ingangsdatum_recht aan de views
 DROP VIEW vb_koz_rechth;
 DROP VIEW vb_zr_rechth;
