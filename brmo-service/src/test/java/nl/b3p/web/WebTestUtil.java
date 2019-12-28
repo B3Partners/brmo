@@ -24,7 +24,7 @@ public abstract class WebTestUtil extends TestUtil {
     /**
      * the server root url. {@value}
      */
-    public static final String BASE_TEST_URL = "http://localhost:9090/brmo-service/";
+    public static final String BASE_TEST_URL = "http://localhost:9091/brmo-service/";
 
 
     /**

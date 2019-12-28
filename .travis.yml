@@ -21,10 +21,7 @@ jobs:
   include:
       # final release van 9.4 (==EOL): Feb 13, 2020
       # https://www.postgresql.org/support/versioning/
-    - name: "PostgreSQL 9.4 (oudste)"
-      env: POSTGRESQL_VERSION="9.4" POSTGIS_VERSION="2.4" PROFILE="postgresql"
-      jdk: openjdk8
-    - name: "PostgreSQL 9.5"
+    - name: "PostgreSQL 9.5 (oudste)"
       env: POSTGRESQL_VERSION="9.5" POSTGIS_VERSION="2.4" PROFILE="postgresql"
       jdk: openjdk8
     - name: "PostgreSQL 9.6"

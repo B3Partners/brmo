@@ -67,6 +67,7 @@ public class MaterializedViewRefreshUitvoeren extends AbstractExecutableProces {
 
             @Override
             public void addLog(String log) {
+                MaterializedViewRefreshUitvoeren.LOG.info(log);
             }
         });
     }
@@ -74,15 +75,15 @@ public class MaterializedViewRefreshUitvoeren extends AbstractExecutableProces {
     @Override
     public void execute(ProgressUpdateListener listener) {
         this.listener = listener;
+        listener.updateStatus("Initialiseren...");
         config.setStatus(PROCESSING);
         config.setLastrun(new Date());
-        Stripersist.getEntityManager().merge(config);
-        Stripersist.getEntityManager().flush();
-
         String msg = String.format("De materialized view ververser met ID %d is gestart op %tc.", config.getId(), Calendar.getInstance());
-        LOG.info(msg);
+        this.config.updateSamenvattingEnLogfile(msg);
         listener.updateStatus(msg);
         listener.addLog(msg);
+        Stripersist.getEntityManager().merge(config);
+        Stripersist.getEntityManager().flush();
 
         String mview = "onbekend";
         try {
@@ -103,15 +104,17 @@ public class MaterializedViewRefreshUitvoeren extends AbstractExecutableProces {
             }
             DbUtils.closeQuietly(conn);
 
-            msg = String.format("De materialized view %s is ververst met resultaat %s om %tc", mview, resultaat, Calendar.getInstance());
-            LOG.info(msg);
+            msg = String.format("De materialized view %s is ververst met resultaat %s op %tc", mview, resultaat, Calendar.getInstance());
             listener.updateStatus(msg);
             listener.addLog(msg);
 
+            config.updateSamenvattingEnLogfile(msg);
             config.setStatus(WAITING);
             config.setLastrun(new Date());
         } catch (BrmoException | SQLException e) {
             config.setStatus(ERROR);
+            config.setLastrun(new Date());
+            config.setSamenvatting("Er is een fout opgetreden, details staan in de logs");
             LOG.error("Fout tijdens verversen materialized view: " + mview, e);
             listener.exception(e);
         } finally {

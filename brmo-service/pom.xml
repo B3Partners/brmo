@@ -298,7 +298,7 @@
                         <groupId>org.apache.tomcat.maven</groupId>
                         <artifactId>tomcat7-maven-plugin</artifactId>
                         <configuration>
-                            <port>9090</port>
+                            <port>9091</port>
                             <!-- Note: dit bestand wordt neergezet tijdens 'test' phase.
                             Om Tomcat standalone te draaien gebruik je
                             'mvn clean test tomcat7:run -Ppostgresql' -->
@@ -408,7 +408,7 @@
                         <groupId>org.apache.tomcat.maven</groupId>
                         <artifactId>tomcat7-maven-plugin</artifactId>
                         <configuration>
-                            <port>9090</port>
+                            <port>9091</port>
                             <!-- Note: dit bestand wordt neergezet tijdens 'test' phase.
                             Om Tomcat standalone te draaien gebruik je
                             'mvn clean test tomcat7:run -Poracle' -->
@@ -515,7 +515,7 @@
                         <groupId>org.apache.tomcat.maven</groupId>
                         <artifactId>tomcat7-maven-plugin</artifactId>
                         <configuration>
-                            <port>9090</port>
+                            <port>9091</port>
                             <!-- Note: dit bestand wordt neergezet tijdens 'test' phase.
                             Om Tomcat standalone te draaien gebruik je
                             'mvn clean test tomcat7:run -Pmssql' -->

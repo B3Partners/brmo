@@ -25,7 +25,7 @@ import org.junit.BeforeClass;
  */
 public abstract class WebTestStub extends TestStub {
 
-    public static final int HTTP_PORT = 9090;
+    public static final int HTTP_PORT = 9091;
     /**
      * the server root url. {@value}
      */

@@ -61,8 +61,9 @@ INSERT INTO nation (code, omschr, begindatum_geldh, eindd_geldh) VALUES (82,'Oos
 INSERT INTO nation (code, omschr, begindatum_geldh, eindd_geldh) VALUES (83,'Brits onderdaan',null,null);
 INSERT INTO nation (code, omschr, begindatum_geldh, eindd_geldh) VALUES (84,'Eritrese','19930528',null);
 INSERT INTO nation (code, omschr, begindatum_geldh, eindd_geldh) VALUES (85,'Brits overzees burger',null,null);
-INSERT INTO nation (code, omschr, begindatum_geldh, eindd_geldh) VALUES (86,'Macedonische','19930419',null);
+INSERT INTO nation (code, omschr, begindatum_geldh, eindd_geldh) VALUES (86,'Macedonische','19930419',20190212);
 INSERT INTO nation (code, omschr, begindatum_geldh, eindd_geldh) VALUES (87,'Kosovaarse','20080615',null);
+INSERT INTO nation (code, omschr, begindatum_geldh, eindd_geldh) VALUES (88,'Burger van de Republiek Noord-Macedonië','20190212',null);
 INSERT INTO nation (code, omschr, begindatum_geldh, eindd_geldh) VALUES (100,'Algerijnse',null,null);
 INSERT INTO nation (code, omschr, begindatum_geldh, eindd_geldh) VALUES (101,'Angolese',null,null);
 INSERT INTO nation (code, omschr, begindatum_geldh, eindd_geldh) VALUES (104,'Burundese',null,null);
