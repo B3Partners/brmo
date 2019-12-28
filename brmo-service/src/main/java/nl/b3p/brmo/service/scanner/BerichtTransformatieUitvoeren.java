@@ -12,6 +12,7 @@ import nl.b3p.brmo.persistence.staging.AutomatischProces;
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.ERROR;
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.PROCESSING;
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.WAITING;
+import static nl.b3p.brmo.persistence.staging.AfgifteNummerScannerProces.MISSINGNUMBERSFOUND;
 import nl.b3p.brmo.persistence.staging.BerichtTransformatieProces;
 import nl.b3p.brmo.service.util.ConfigUtil;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -40,7 +41,6 @@ public class BerichtTransformatieUitvoeren extends AbstractExecutableProces {
     public BerichtTransformatieUitvoeren(BerichtTransformatieProces config) {
         this.config = config;
     }
-
 
     @Override
     public void execute() throws BrmoException {
@@ -95,68 +95,85 @@ public class BerichtTransformatieUitvoeren extends AbstractExecutableProces {
         l.addLog(msg);
         sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
 
-        BrmoFramework brmo = null;
-        try {
-            DataSource dataSourceStaging = ConfigUtil.getDataSourceStaging();
-            DataSource dataSourceRsgb = ConfigUtil.getDataSourceRsgb();
-            brmo = new BrmoFramework(dataSourceStaging, dataSourceRsgb);
-            brmo.setEnablePipeline(true);
-            brmo.setOrderBerichten(true);
-            brmo.setTransformPipelineCapacity(100);
-
-            Thread t = brmo.toRsgb(new nl.b3p.brmo.loader.ProgressUpdateListener() {
-                @Override
-                public void total(long total) {
-                    sb.append("Totaal te transformeren: ")
-                            .append(total).append(AutomatischProces.LOG_NEWLINE);
-                    l.total(total);
-                }
-
-                @Override
-                public void progress(long progress) {
-                    l.progress(progress);
-                }
-
-                @Override
-                public void exception(Throwable t) {
-                    sb.append("Fout tijdens transformeren: ")
-                            .append(t.getLocalizedMessage()).append(AutomatischProces.LOG_NEWLINE);
-                    l.exception(t);
-                }
-            });
-            t.join();
-
-            if (transformErrorOccured) {
-                this.config.setStatus(ERROR);
-                msg = "Handmatige transformatie vanuit de berichten pagina is noodzakelijk.";
-                sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
-                log.warn(msg);
-                msg = String.format("Bericht transformatie proces met ID %d is niet succesvol afgerond op %tc.", config.getId(), Calendar.getInstance());
-                log.error(msg);
-            } else {
-                this.config.setStatus(WAITING);
-                msg = String.format("Bericht transformatie proces met ID %d is succesvol afgerond op %tc.", config.getId(), Calendar.getInstance());
-                log.info(msg);
-            }
-            sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
+        long foundBlocking = this.shouldBlockTransformation();
+        if (config.getBlockOnMissingNumbers() && foundBlocking > 0) {
+            msg = "Er zijn " + foundBlocking + " indicaties voor ontbrekende afgiftenummers, de automatische transformatie wordt niet gestart";
+            log.warn(msg);
             l.addLog(msg);
+            sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
             this.config.setSamenvatting(msg);
             this.config.setLogfile(sb.toString());
-        } catch (BrmoException | InterruptedException t) {
-            log.error("Fout bij transformeren berichten naar RSGB", t);
-            String m = "Fout bij transformeren berichten naar RSGB: " + ExceptionUtils.getMessage(t);
-            if (t.getCause() != null) {
-                m += ", oorzaak: " + ExceptionUtils.getRootCauseMessage(t);
+            this.config.setStatus(WAITING);
+        } else {
+            BrmoFramework brmo = null;
+            try {
+                DataSource dataSourceStaging = ConfigUtil.getDataSourceStaging();
+                DataSource dataSourceRsgb = ConfigUtil.getDataSourceRsgb();
+                brmo = new BrmoFramework(dataSourceStaging, dataSourceRsgb);
+                brmo.setEnablePipeline(true);
+                brmo.setOrderBerichten(true);
+                brmo.setTransformPipelineCapacity(100);
+
+                Thread t = brmo.toRsgb(new nl.b3p.brmo.loader.ProgressUpdateListener() {
+                    @Override
+                    public void total(long total) {
+                        sb.append("Totaal te transformeren: ")
+                                .append(total).append(AutomatischProces.LOG_NEWLINE);
+                        l.total(total);
+                    }
+
+                    @Override
+                    public void progress(long progress) {
+                        l.progress(progress);
+                    }
+
+                    @Override
+                    public void exception(Throwable t) {
+                        sb.append("Fout tijdens transformeren: ")
+                                .append(t.getLocalizedMessage()).append(AutomatischProces.LOG_NEWLINE);
+                        l.exception(t);
+                    }
+                });
+                t.join();
+
+                if (transformErrorOccured) {
+                    this.config.setStatus(ERROR);
+                    msg = "Handmatige transformatie vanuit de berichten pagina is noodzakelijk.";
+                    sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
+                    log.warn(msg);
+                    msg = String.format("Bericht transformatie proces met ID %d is niet succesvol afgerond op %tc.", config.getId(), Calendar.getInstance());
+                    log.error(msg);
+                } else {
+                    this.config.setStatus(WAITING);
+                    msg = String.format("Bericht transformatie proces met ID %d is succesvol afgerond op %tc.", config.getId(), Calendar.getInstance());
+                    log.info(msg);
+                }
+                sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
+                l.addLog(msg);
+                this.config.setSamenvatting(msg);
+                this.config.setLogfile(sb.toString());
+            } catch (BrmoException | InterruptedException t) {
+                log.error("Fout bij transformeren berichten naar RSGB", t);
+                String m = "Fout bij transformeren berichten naar RSGB: " + ExceptionUtils.getMessage(t);
+                if (t.getCause() != null) {
+                    m += ", oorzaak: " + ExceptionUtils.getRootCauseMessage(t);
+                }
+                this.config.setLogfile(sb.toString());
+                this.config.updateSamenvattingEnLogfile(m);
+                this.config.setStatus(ERROR);
+            } finally {
+                if (brmo != null) {
+                    brmo.closeBrmoFramework();
+                }
             }
-            this.config.setLogfile(sb.toString());
-            this.config.updateSamenvattingEnLogfile(m);
-            this.config.setStatus(ERROR);
-        } finally {
-            if (brmo != null) {
-                brmo.closeBrmoFramework();
-            }
-            Stripersist.getEntityManager().merge(this.config);
-            Stripersist.getEntityManager().flush();
         }
+        Stripersist.getEntityManager().merge(this.config);
+        Stripersist.getEntityManager().flush();
+    }
+
+    private long shouldBlockTransformation() {
+        final String sql = "select count(config_key) from automatisch_proces_config where config_key='" + MISSINGNUMBERSFOUND + "' and value = 'true' ";
+        Object o = Stripersist.getEntityManager().createNativeQuery(sql).getSingleResult();
+        return ((Number) o).longValue();
     }
 }
