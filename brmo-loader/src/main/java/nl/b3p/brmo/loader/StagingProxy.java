@@ -858,6 +858,7 @@ public class StagingProxy {
                     lastErrorMessage = String.format("Laden bericht uit %s mislukt vanwege: %s",
                             fileName, e.getLocalizedMessage());
                     log.error(lastErrorMessage);
+                    log.trace(e.fillInStackTrace());
                     if (listener != null) {
                         listener.exception(e);
                     }
@@ -887,7 +888,7 @@ public class StagingProxy {
             brXML += " ";
             log.debug("BR XML is nu " + brXML.length() + " bytes.");
         }
-        new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(),
+        Number berId = new QueryRunner(geomToJdbc.isPmdKnownBroken()).insert(getConnection(),
                 "INSERT INTO " + BrmoFramework.BERICHT_TABLE + " (laadprocesid, "
                 + "object_ref, "
                 + "datum, "
@@ -900,6 +901,7 @@ public class StagingProxy {
                 + "br_orgineel_xml, "
                 + "db_xml, "
                 + "xsl_version) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
+                new ScalarHandler<>(),
                 b.getLaadProcesId(),
                 b.getObjectRef(),
                 new Timestamp(b.getDatum().getTime()),
@@ -913,6 +915,7 @@ public class StagingProxy {
                 b.getDbXml(),
                 b.getXslVersion()
         );
+        log.trace("opgeslagen bericht heeft id: " + berId);
      }
 
     /**
@@ -934,16 +937,21 @@ public class StagingProxy {
     }
 
     private LaadProces writeLaadProces(LaadProces lp) throws SQLException {
+        log.trace("opslaan van laadproces: " + lp);
         if (lp == null) {
             return null;
         }
 
-        String sql = "INSERT INTO " + BrmoFramework.LAADPROCES_TABEL + "(bestand_naam,"
-                + "bestand_datum, soort, gebied, opmerking, status,"
-                + "status_datum, contact_email, automatisch_proces) VALUES"
-                + " (?,?,?,?,?,?,?,?,?)";
-        new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(),
+        final String sql = "INSERT INTO " + BrmoFramework.LAADPROCES_TABEL + "(bestand_naam, "
+                + "bestand_datum, soort, gebied, opmerking, status, "
+                + "status_datum, contact_email, automatisch_proces, "
+                //
+                + "afgifteid, afgiftereferentie, artikelnummer, beschikbaar_tot, bestandsreferentie, "
+                + "contractafgiftenummer, contractnummer, klantafgiftenummer, bestand_naam_hersteld"
+                + ") VALUES (?,?,?,?,?,?,?,?,?" + ",?,?,?,?,?,?,?,?,?" + ")";
+        Number lpId = new QueryRunner(geomToJdbc.isPmdKnownBroken()).insert(getConnection(),
                 sql,
+                new ScalarHandler<>(),
                 lp.getBestandNaam(),
                 new Timestamp(lp.getBestandDatum().getTime()),
                 lp.getSoort(),
@@ -952,15 +960,29 @@ public class StagingProxy {
                 lp.getStatus().toString(),
                 new Timestamp(lp.getStatusDatum().getTime()),
                 lp.getContactEmail(),
-                lp.getAutomatischProcesId()
+                lp.getAutomatischProcesId(),
+                //
+                lp.getAfgifteid(),
+                lp.getAfgiftereferentie(),
+                lp.getArtikelnummer(),
+                (lp.getBeschikbaar_tot() == null) ? null : new Timestamp(lp.getBeschikbaar_tot().getTime()),
+                lp.getBestandsreferentie(),
+                lp.getContractafgiftenummer(),
+                lp.getContractnummer(),
+                lp.getKlantafgiftenummer(),
+                lp.getBestandNaamHersteld()
         );
-
-        return getLaadProcesByNaturalKey(lp.getBestandNaam(), lp.getBestandDatum().getTime());
+        log.trace("opgeslagen laadproces heeft id: " + lpId);
+        return this.getLaadProcesById(lpId.longValue());
     }
 
     public void updateLaadProcesStatus(LaadProces lp, LaadProces.STATUS status, String opmerking) throws SQLException {
-        new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(), "update " + BrmoFramework.LAADPROCES_TABEL + " set status = ?, opmerking = ?, status_datum = ? where id = ?",
-                        status.toString(), opmerking, new Timestamp(new Date().getTime()), lp.getId());
+        log.trace("update van laadproces status: " + lp);
+        new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(
+                getConnection(),
+                "update " + BrmoFramework.LAADPROCES_TABEL + " set status = ?, opmerking = ?, status_datum = ? where id = ?",
+                status.toString(), opmerking, new Timestamp(new Date().getTime()), lp.getId()
+        );
     }
 
     /**
@@ -1011,8 +1033,11 @@ public class StagingProxy {
     }
 
     public void updateLaadProcesBestandNaamHersteld(LaadProces lp) throws SQLException {
-        new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(), "update " + BrmoFramework.LAADPROCES_TABEL + " set bestand_naam_hersteld = ? where id = ?",
-                        lp.getBestandNaamHersteld(), lp.getId());
+        new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(
+                getConnection(),
+            "update " + BrmoFramework.LAADPROCES_TABEL + " set bestand_naam_hersteld = ? where id = ?",
+                lp.getBestandNaamHersteld(), lp.getId()
+        );
     }
 
 
