@@ -60,18 +60,23 @@ public class AfgifteNummerScanUitvoerenActionBean implements ActionBean, Progres
             return new ForwardResolution(JSP);
         }
         AfgifteNummerScanner _proces = (AfgifteNummerScanner) AbstractExecutableProces.getProces(proces);
+        String samenvatting = null;
         try {
             _proces.execute(this);
             proces.setOntbrekendeNummersGevonden(_proces.getOntbrekendeNummersGevonden());
             getContext().getMessages().add(new SimpleMessage("Afgiftenummer scan is afgerond."));
-            getContext().getMessages().add(new SimpleMessage("Er zijn " + (_proces.getOntbrekendeNummersGevonden() ? "" : "geen") + " ontbrekende afgiftenummers geconstateerd."));
+            samenvatting = "Er zijn " + (_proces.getOntbrekendeNummersGevonden() ? "" : "geen") + " ontbrekende afgiftenummers geconstateerd.";
+            getContext().getMessages().add(new SimpleMessage(samenvatting));
         } catch (Exception ex) {
             proces.setStatus(AutomatischProces.ProcessingStatus.ERROR);
+            samenvatting = "Er is een fout opgetreden tijdens het bepalen van ontbrekende afgiftenummers.";
             getContext().getMessages().add(
                     new SimpleError("Er is een fout opgetreden tijdens het bepalen van ontbrekende afgiftenummers. {2}",
                             ex.getMessage()));
         } finally {
             proces.updateSamenvattingEnLogfile(this.log.toString());
+            // de hele log is te groot voor de samenvatting, maar #updateSamenvattingEnLogfile is wel handig om te gebruiken
+            proces.setSamenvatting(samenvatting);
             Stripersist.getEntityManager().merge(proces);
             Stripersist.getEntityManager().getTransaction().commit();
         }
