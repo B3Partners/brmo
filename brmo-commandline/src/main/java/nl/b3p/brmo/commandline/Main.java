@@ -569,7 +569,7 @@ public class Main {
         BrmoFramework brmo = new BrmoFramework(ds, null);
         brmo.setOrderBerichten(true);
         brmo.setErrorState("ignore");
-        brmo.loadFromFile(brType, fileName,null);
+        brmo.loadFromFile(brType, fileName, null);
         brmo.closeBrmoFramework();
         LOG.info(String.format("Klaar met laden van bestand: %s, type %s", fileName, brType));
         archiveerBestand(fileName, archiefDir);
