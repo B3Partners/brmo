@@ -1,5 +1,6 @@
 package nl.b3p.brmo.loader.xml;
 
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -10,6 +11,9 @@ import nl.b3p.brmo.loader.entity.BagBericht;
 import org.apache.commons.io.input.CloseShieldInputStream;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assume.assumeNotNull;
+import static org.junit.Assume.assumeTrue;
+
 import org.junit.Test;
 
 /**
@@ -123,8 +127,9 @@ public class BagXMLReaderTest {
      */
     @Test
     public void mutTestZipFile() throws Exception {
-        ZipInputStream zis = new ZipInputStream(
-                BagXMLReaderTest.class.getResourceAsStream(mutZipName));
+        InputStream zipIn = BrkSnapshotXMLReader.class.getResourceAsStream(mutZipName);
+        assumeNotNull("Neem aan dat de zipfile er staat.", zipIn);
+        ZipInputStream zis = new ZipInputStream(zipIn);
         int total = 0;
         try {
             ZipEntry entry = zis.getNextEntry();
