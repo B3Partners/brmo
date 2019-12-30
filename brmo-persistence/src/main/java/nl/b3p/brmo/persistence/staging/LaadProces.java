@@ -229,7 +229,6 @@ public class LaadProces implements Serializable {
     public void setBeschikbaar_tot(Date beschikbaar_tot) {
         this.beschikbaar_tot = beschikbaar_tot;
     }
-    // </editor-fold>
 
     public String getBestand_naam_hersteld() {
         return bestand_naam_hersteld;
@@ -240,4 +239,28 @@ public class LaadProces implements Serializable {
     }
     // </editor-fold>
 
+    @Override
+    public String toString() {
+        return "LaadProces{" +
+                "id=" + id +
+                ", bestandNaam='" + bestand_naam + '\'' +
+                ", bestandNaamHersteld='" + bestand_naam_hersteld + '\'' +
+                ", bestandDatum=" + bestand_datum +
+                ", soort='" + soort + '\'' +
+                ", gebied='" + gebied + '\'' +
+                ", opmerking='" + opmerking + '\'' +
+                ", status=" + status +
+                ", statusDatum=" + status_datum +
+                ", contactEmail='" + contact_email + '\'' +
+                ", automatischProces=" + automatischProces +
+                ", klantafgiftenummer=" + klantafgiftenummer +
+                ", contractafgiftenummer=" + contractafgiftenummer +
+                ", artikelnummer='" + artikelnummer + '\'' +
+                ", contractnummer='" + contractnummer + '\'' +
+                ", afgifteid='" + afgifteid + '\'' +
+                ", afgiftereferentie='" + afgiftereferentie + '\'' +
+                ", bestandsreferentie='" + bestandsreferentie + '\'' +
+                ", beschikbaar_tot=" + beschikbaar_tot +
+                '}';
+    }
 }

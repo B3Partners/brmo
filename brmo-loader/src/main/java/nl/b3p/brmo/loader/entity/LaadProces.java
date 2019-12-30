@@ -216,4 +216,29 @@ public class LaadProces {
     public void setBeschikbaar_tot(Date beschikbaar_tot) {
         this.beschikbaar_tot = beschikbaar_tot;
     }
+
+    @Override
+    public String toString() {
+        return "LaadProces{" +
+                "id=" + id +
+                ", bestandNaam='" + bestandNaam + '\'' +
+                ", bestandNaamHersteld='" + bestandNaamHersteld + '\'' +
+                ", bestandDatum=" + bestandDatum +
+                ", soort='" + soort + '\'' +
+                ", gebied='" + gebied + '\'' +
+                ", opmerking='" + opmerking + '\'' +
+                ", status=" + status +
+                ", statusDatum=" + statusDatum +
+                ", contactEmail='" + contactEmail + '\'' +
+                ", automatischProces=" + automatischProces +
+                ", klantafgiftenummer=" + klantafgiftenummer +
+                ", contractafgiftenummer=" + contractafgiftenummer +
+                ", artikelnummer='" + artikelnummer + '\'' +
+                ", contractnummer='" + contractnummer + '\'' +
+                ", afgifteid='" + afgifteid + '\'' +
+                ", afgiftereferentie='" + afgiftereferentie + '\'' +
+                ", bestandsreferentie='" + bestandsreferentie + '\'' +
+                ", beschikbaar_tot=" + beschikbaar_tot +
+                '}';
+    }
 }
