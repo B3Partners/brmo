@@ -5,12 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.sql.Types;
+import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -888,7 +883,7 @@ public class StagingProxy {
             brXML += " ";
             log.debug("BR XML is nu " + brXML.length() + " bytes.");
         }
-        Number berId = new QueryRunner(geomToJdbc.isPmdKnownBroken()).insert(getConnection(),
+        Object berId = new QueryRunner(geomToJdbc.isPmdKnownBroken()).insert(getConnection(),
                 "INSERT INTO " + BrmoFramework.BERICHT_TABLE + " (laadprocesid, "
                 + "object_ref, "
                 + "datum, "
@@ -949,9 +944,38 @@ public class StagingProxy {
                 + "afgifteid, afgiftereferentie, artikelnummer, beschikbaar_tot, bestandsreferentie, "
                 + "contractafgiftenummer, contractnummer, klantafgiftenummer, bestand_naam_hersteld"
                 + ") VALUES (?,?,?,?,?,?,?,?,?" + ",?,?,?,?,?,?,?,?,?" + ")";
-        Number lpId = new QueryRunner(geomToJdbc.isPmdKnownBroken()).insert(getConnection(),
-                sql,
-                new ScalarHandler<>(),
+
+//        Object lpId = new QueryRunner(geomToJdbc.isPmdKnownBroken()).insert(getConnection(),
+//                sql,
+//                new ScalarHandler<>(),
+//                lp.getBestandNaam(),
+//                new Timestamp(lp.getBestandDatum().getTime()),
+//                lp.getSoort(),
+//                lp.getGebied(),
+//                lp.getOpmerking(),
+//                lp.getStatus().toString(),
+//                new Timestamp(lp.getStatusDatum().getTime()),
+//                lp.getContactEmail(),
+//                lp.getAutomatischProcesId(),
+//                //
+//                lp.getAfgifteid(),
+//                lp.getAfgiftereferentie(),
+//                lp.getArtikelnummer(),
+//                (lp.getBeschikbaar_tot() == null) ? null : new Timestamp(lp.getBeschikbaar_tot().getTime()),
+//                lp.getBestandsreferentie(),
+//                lp.getContractafgiftenummer(),
+//                lp.getContractnummer(),
+//                lp.getKlantafgiftenummer(),
+//                lp.getBestandNaamHersteld()
+//        );
+
+
+// Oracle geeft een ROWID terug als "generated key" en niet de PK id die we willen hebben
+        QueryRunner queryRunner=  new QueryRunner(geomToJdbc.isPmdKnownBroken());
+        PreparedStatement stmt = getConnection().prepareStatement(sql, 1);
+        //PreparedStatement stmt = getConnection().prepareStatement(sql, new String[]{"ID"});
+
+        queryRunner.fillStatement(stmt,
                 lp.getBestandNaam(),
                 new Timestamp(lp.getBestandDatum().getTime()),
                 lp.getSoort(),
@@ -971,7 +995,11 @@ public class StagingProxy {
                 lp.getContractnummer(),
                 lp.getKlantafgiftenummer(),
                 lp.getBestandNaamHersteld()
-        );
+                );
+        stmt.executeUpdate();
+        ResultSetHandler<Number> rsh =new ScalarHandler<>();
+        Number lpId = rsh.handle(stmt.getGeneratedKeys());
+
         log.trace("opgeslagen laadproces heeft id: " + lpId);
         return this.getLaadProcesById(lpId.longValue());
     }
