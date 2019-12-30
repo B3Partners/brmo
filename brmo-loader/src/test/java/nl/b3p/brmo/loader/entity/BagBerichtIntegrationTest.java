@@ -43,7 +43,7 @@ import static org.junit.Assume.assumeTrue;
 /**
  *
  * Draaien met:
- * {@code mvn -Dit.test=BagBerichtIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql > target/postgresql.log}
+ * {@code mvn -Dit.test=BagBerichtIntegrationTest -Dtest.onlyITs=true verify -pl brmo-loader -Ppostgresql > target/postgresql.log}
  * voor bijvoorbeeld PostgreSQL.
  *
  * @author mprins
