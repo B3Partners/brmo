@@ -70,7 +70,7 @@
         <oracle.jdbc.version>19.6.0.0</oracle.jdbc.version>
         <!-- <oracle.jdbc.version>18.3.0.0</oracle.jdbc.version> -->
         <!-- <oracle.jdbc.version>19.3.0.0</oracle.jdbc.version> -->
-        <sqlserver.jdbc.version>8.1.0.jre8-preview</sqlserver.jdbc.version>
+        <sqlserver.jdbc.version>8.1.1.jre8-preview</sqlserver.jdbc.version>
         <mssql.instancename />
         <javasimon.version>4.2.0</javasimon.version>
         <jakarta.mail.version>1.6.5</jakarta.mail.version>
@@ -276,6 +276,12 @@
                 <groupId>org.geotools.jdbc</groupId>
                 <artifactId>gt-jdbc-sqlserver</artifactId>
                 <version>${geotools.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>net.sourceforge.jtds</groupId>
+                        <artifactId>jtds</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.geotools.jdbc</groupId>

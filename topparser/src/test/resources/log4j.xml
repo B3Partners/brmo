@@ -12,7 +12,7 @@ LEVELS: debug, info, warn, error, fatal en off, all -->
     </appender>
     <appender name="file" class="org.apache.log4j.RollingFileAppender">
         <param name="append" value="false" />
-        <param name="maxFileSize" value="10KB" />
+        <param name="maxFileSize" value="1MB" />
         <param name="maxBackupIndex" value="5" />
         <!-- For Tomcat -->
         <param name="file" value="target/topparser.log" />
