@@ -910,7 +910,7 @@ public class StagingProxy {
                 b.getDbXml(),
                 b.getXslVersion()
         );
-        log.trace("opgeslagen bericht heeft id: " + berId);
+        log.trace("opgeslagen bericht heeft (row) id: " + berId);
      }
 
     /**
@@ -939,69 +939,49 @@ public class StagingProxy {
 
         final String sql = "INSERT INTO " + BrmoFramework.LAADPROCES_TABEL + "(bestand_naam, "
                 + "bestand_datum, soort, gebied, opmerking, status, "
-                + "status_datum, contact_email, automatisch_proces, "
-                //
-                + "afgifteid, afgiftereferentie, artikelnummer, beschikbaar_tot, bestandsreferentie, "
+                + "status_datum, contact_email, automatisch_proces "
+                // nieuwe kolommen in 2.0.0
+                + ", afgifteid, afgiftereferentie, artikelnummer, beschikbaar_tot, bestandsreferentie, "
                 + "contractafgiftenummer, contractnummer, klantafgiftenummer, bestand_naam_hersteld"
                 + ") VALUES (?,?,?,?,?,?,?,?,?" + ",?,?,?,?,?,?,?,?,?" + ")";
 
-//        Object lpId = new QueryRunner(geomToJdbc.isPmdKnownBroken()).insert(getConnection(),
-//                sql,
-//                new ScalarHandler<>(),
-//                lp.getBestandNaam(),
-//                new Timestamp(lp.getBestandDatum().getTime()),
-//                lp.getSoort(),
-//                lp.getGebied(),
-//                lp.getOpmerking(),
-//                lp.getStatus().toString(),
-//                new Timestamp(lp.getStatusDatum().getTime()),
-//                lp.getContactEmail(),
-//                lp.getAutomatischProcesId(),
-//                //
-//                lp.getAfgifteid(),
-//                lp.getAfgiftereferentie(),
-//                lp.getArtikelnummer(),
-//                (lp.getBeschikbaar_tot() == null) ? null : new Timestamp(lp.getBeschikbaar_tot().getTime()),
-//                lp.getBestandsreferentie(),
-//                lp.getContractafgiftenummer(),
-//                lp.getContractnummer(),
-//                lp.getKlantafgiftenummer(),
-//                lp.getBestandNaamHersteld()
-//        );
-
-
-// Oracle geeft een ROWID terug als "generated key" en niet de PK id die we willen hebben
-        QueryRunner queryRunner=  new QueryRunner(geomToJdbc.isPmdKnownBroken());
-        PreparedStatement stmt = getConnection().prepareStatement(sql, 1);
-        //PreparedStatement stmt = getConnection().prepareStatement(sql, new String[]{"ID"});
-
-        queryRunner.fillStatement(stmt,
-                lp.getBestandNaam(),
-                new Timestamp(lp.getBestandDatum().getTime()),
-                lp.getSoort(),
-                lp.getGebied(),
-                lp.getOpmerking(),
-                lp.getStatus().toString(),
-                new Timestamp(lp.getStatusDatum().getTime()),
-                lp.getContactEmail(),
-                lp.getAutomatischProcesId(),
-                //
-                lp.getAfgifteid(),
-                lp.getAfgiftereferentie(),
-                lp.getArtikelnummer(),
-                (lp.getBeschikbaar_tot() == null) ? null : new Timestamp(lp.getBeschikbaar_tot().getTime()),
-                lp.getBestandsreferentie(),
-                lp.getContractafgiftenummer(),
-                lp.getContractnummer(),
-                lp.getKlantafgiftenummer(),
-                lp.getBestandNaamHersteld()
-                );
-        stmt.executeUpdate();
-        ResultSetHandler<Number> rsh =new ScalarHandler<>();
-        Number lpId = rsh.handle(stmt.getGeneratedKeys());
-
-        log.trace("opgeslagen laadproces heeft id: " + lpId);
-        return this.getLaadProcesById(lpId.longValue());
+        // Oracle geeft een ROWID terug als "generated key" en niet de PK-kolom "ID" die we willen hebben, daarom zelf doen
+        // zie ook: https://issues.apache.org/jira/browse/DBUTILS-54
+        QueryRunner queryRunner = new QueryRunner(geomToJdbc.isPmdKnownBroken());
+        try (
+                // PG: Caused by: org.postgresql.util.PSQLException: ERROR: column "ID" does not exist
+                // maar lowercase werkt ook met oracle
+                PreparedStatement stmt = getConnection().prepareStatement(sql, new String[]{"id"});
+                // door een bug in de PG driver geen kolom index gebruiken, zie https://github.com/pgjdbc/pgjdbc/issues/1661
+                // PreparedStatement stmt = getConnection().prepareStatement(sql, new int[]{1});
+        ) {
+            queryRunner.fillStatement(stmt,
+                    lp.getBestandNaam(),
+                    new Timestamp(lp.getBestandDatum().getTime()),
+                    lp.getSoort(),
+                    lp.getGebied(),
+                    lp.getOpmerking(),
+                    lp.getStatus().toString(),
+                    new Timestamp(lp.getStatusDatum().getTime()),
+                    lp.getContactEmail(),
+                    lp.getAutomatischProcesId(),
+                    // nieuwe kolommen in 2.0.0
+                    lp.getAfgifteid(),
+                    lp.getAfgiftereferentie(),
+                    lp.getArtikelnummer(),
+                    (lp.getBeschikbaar_tot() == null) ? null : new Timestamp(lp.getBeschikbaar_tot().getTime()),
+                    lp.getBestandsreferentie(),
+                    lp.getContractafgiftenummer(),
+                    lp.getContractnummer(),
+                    lp.getKlantafgiftenummer(),
+                    lp.getBestandNaamHersteld()
+            );
+            stmt.executeUpdate();
+            ResultSetHandler<Number> rsh = new ScalarHandler<>();
+            Number lpId = rsh.handle(stmt.getGeneratedKeys());
+            log.trace("opgeslagen laadproces heeft id: " + lpId);
+            return this.getLaadProcesById(lpId.longValue());
+        }
     }
 
     public void updateLaadProcesStatus(LaadProces lp, LaadProces.STATUS status, String opmerking) throws SQLException {
