@@ -1,0 +1,31 @@
+name: Github Java CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        # java: [1.8, 11]
+        java: [11]
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          lfs: true
+      - uses: actions/cache@v1
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: ${{ matrix.java }}
+      - name: Build with Maven
+        run: |
+          mvn -B test -fae
+          mvn -e -B -pl "datamodel" resources:testResources compiler:testCompile surefire:test -Dtest="!*UpgradeTest,!P8*"
