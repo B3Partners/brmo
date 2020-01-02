@@ -117,8 +117,9 @@ public class BrkSnapshotXMLReaderTest {
      */
     @Test
     public void mutTestZipFile() throws Exception {
-        ZipInputStream zis = new ZipInputStream(
-                BrkSnapshotXMLReader.class.getResourceAsStream(mutZipName));
+        InputStream zipIn = BrkSnapshotXMLReader.class.getResourceAsStream(mutZipName);
+        assumeNotNull("Neem aan dat de zipfile er staat.", zipIn);
+        ZipInputStream zis = new ZipInputStream(zipIn);
         int total = 0;
         try {
             ZipEntry entry = zis.getNextEntry();
