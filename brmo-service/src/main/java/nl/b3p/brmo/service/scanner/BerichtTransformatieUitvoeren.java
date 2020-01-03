@@ -7,7 +7,6 @@ import java.util.Calendar;
 import java.util.Date;
 import javax.sql.DataSource;
 import nl.b3p.brmo.loader.BrmoFramework;
-import nl.b3p.brmo.loader.entity.LaadProces;
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.persistence.staging.AutomatischProces;
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.ERROR;
@@ -189,7 +188,7 @@ public class BerichtTransformatieUitvoeren extends AbstractExecutableProces {
     }
 
     private boolean shouldBlockTransformationByStatus() {
-        final String sql = "select count(status) from laadproces where status='" + LaadProces.STATUS.STAGING_MISSING.name() + "'";
+        final String sql = "select count(status) from laadproces where status = 'STAGING_MISSING'";
         Object o = Stripersist.getEntityManager().createNativeQuery(sql).getSingleResult();
         statusMissingFound = ((Number) o).longValue();
         return statusMissingFound > 0;
