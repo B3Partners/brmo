@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<dataset>
-  <laadproces id="1" contractafgiftenummer="1554632" contractnummer="6666666" klantafgiftenummer="2285729"/>
-  <laadproces id="2368" contractafgiftenummer="1556999" contractnummer="999999" klantafgiftenummer="2288096"/>
-  <laadproces id="2369" contractafgiftenummer="1557000" contractnummer="999999" klantafgiftenummer="2288097"/>
-  <laadproces id="2370" contractafgiftenummer="1557001" contractnummer="999999" klantafgiftenummer="2288098"/>
-  <laadproces id="2371" contractafgiftenummer="1557002" contractnummer="999999" klantafgiftenummer="2288099"/>
-  <laadproces id="2372" contractafgiftenummer="1557003" contractnummer="999999" klantafgiftenummer="2288100"/>
+<dataset reset_sequences="laadproces_id_seq">
+  <laadproces contractafgiftenummer="1554632" contractnummer="6666666" klantafgiftenummer="2285729"/>
+  <laadproces contractafgiftenummer="1556999" contractnummer="999999" klantafgiftenummer="2288096"/>
+  <laadproces contractafgiftenummer="1557000" contractnummer="999999" klantafgiftenummer="2288097"/>
+  <laadproces contractafgiftenummer="1557001" contractnummer="999999" klantafgiftenummer="2288098"/>
+  <laadproces contractafgiftenummer="1557002" contractnummer="999999" klantafgiftenummer="2288099"/>
+  <laadproces contractafgiftenummer="1557003" contractnummer="999999" klantafgiftenummer="2288100"/>
   <automatisch_proces dtype="GDS2OphaalProces" id="1"/>
   <automatisch_proces dtype="GDS2OphaalProces" id="2"/>
   <automatisch_proces dtype="GDS2OphaalProces" id="3"/>

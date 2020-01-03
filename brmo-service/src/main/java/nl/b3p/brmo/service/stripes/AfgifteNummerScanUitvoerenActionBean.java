@@ -18,8 +18,11 @@ package nl.b3p.brmo.service.stripes;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.Date;
 import net.sourceforge.stripes.action.ActionBean;
 import net.sourceforge.stripes.action.ActionBeanContext;
+import net.sourceforge.stripes.action.After;
+import net.sourceforge.stripes.action.Before;
 import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.Resolution;
@@ -31,12 +34,15 @@ import nl.b3p.brmo.persistence.staging.AutomatischProces;
 import nl.b3p.brmo.service.scanner.AbstractExecutableProces;
 import nl.b3p.brmo.service.scanner.AfgifteNummerScanner;
 import nl.b3p.brmo.service.scanner.ProgressUpdateListener;
+import org.stripesstuff.plugin.waitpage.WaitPage;
 import org.stripesstuff.stripersist.EntityTypeConverter;
 import org.stripesstuff.stripersist.Stripersist;
 
 /**
+ * actionbean voor uitvoeren van afgiftenummer scan.
  *
- * @author Mark Prins <mark@b3partners.nl>
+ * @since 2.0.0
+ * @author mprins
  */
 public class AfgifteNummerScanUitvoerenActionBean implements ActionBean, ProgressUpdateListener {
 
@@ -51,44 +57,67 @@ public class AfgifteNummerScanUitvoerenActionBean implements ActionBean, Progres
 
     private String status;
 
+    private long total;
+
+    private boolean complete;
+
+    private Date start;
+
+    private Date update;
+
     private StringBuilder log = new StringBuilder();
 
     @DefaultHandler
+    @WaitPage(path = JSP, delay = 1000, refresh = 1000)
     public Resolution execute() {
+        String samenvatting = null;
+
         if (proces == null) {
             getContext().getMessages().add(new SimpleMessage("Proces ongeldig!"));
+            completed();
             return new ForwardResolution(JSP);
         }
+
+        proces = Stripersist.getEntityManager().find(AfgifteNummerScannerProces.class, proces.getId());
         AfgifteNummerScanner _proces = (AfgifteNummerScanner) AbstractExecutableProces.getProces(proces);
-        String samenvatting = null;
+
         try {
             _proces.execute(this);
-            proces.setOntbrekendeNummersGevonden(_proces.getOntbrekendeNummersGevonden());
+            this.proces.setOntbrekendeNummersGevonden(_proces.getOntbrekendeNummersGevonden());
             getContext().getMessages().add(new SimpleMessage("Afgiftenummer scan is afgerond."));
             samenvatting = "Er zijn " + (_proces.getOntbrekendeNummersGevonden() ? "" : "geen") + " ontbrekende afgiftenummers geconstateerd.";
             getContext().getMessages().add(new SimpleMessage(samenvatting));
         } catch (Exception ex) {
-            proces.setStatus(AutomatischProces.ProcessingStatus.ERROR);
+            this.proces.setStatus(AutomatischProces.ProcessingStatus.ERROR);
+            Stripersist.getEntityManager().merge(this.proces);
+            exception(ex);
             samenvatting = "Er is een fout opgetreden tijdens het bepalen van ontbrekende afgiftenummers.";
             getContext().getMessages().add(
                     new SimpleError("Er is een fout opgetreden tijdens het bepalen van ontbrekende afgiftenummers. {2}",
                             ex.getMessage()));
         } finally {
-            proces.updateSamenvattingEnLogfile(this.log.toString());
+            this.completed();
+            this.proces.updateSamenvattingEnLogfile(this.log.toString());
             // de hele log is te groot voor de samenvatting, maar #updateSamenvattingEnLogfile is wel handig om te gebruiken
-            proces.setSamenvatting(samenvatting);
-            Stripersist.getEntityManager().merge(proces);
-            Stripersist.getEntityManager().getTransaction().commit();
+            this.proces.setSamenvatting(samenvatting);
+
+            if (Stripersist.getEntityManager().getTransaction().isActive()) {
+                Stripersist.getEntityManager().getTransaction().commit();
+            }
         }
         return new ForwardResolution(JSP);
     }
 
     @Override
     public void total(long total) {
+        this.total = total;
     }
 
     @Override
     public void progress(long progress) {
+        //this.processed = progress;
+        this.total = progress;
+        this.update = new Date();
     }
 
     @Override
@@ -106,6 +135,17 @@ public class AfgifteNummerScanUitvoerenActionBean implements ActionBean, Progres
     @Override
     public void addLog(String line) {
         this.log.append(line).append("\n");
+    }
+
+    @Before
+    public void before() {
+        start = new Date();
+    }
+
+    @After
+    public void completed() {
+        complete = true;
+        proces.setLastrun(this.update);
     }
 
     // <editor-fold defaultstate="collapsed" desc="getters en setters">
@@ -149,6 +189,38 @@ public class AfgifteNummerScanUitvoerenActionBean implements ActionBean, Progres
 
     public void setExceptionStacktrace(String exceptionStacktrace) {
         this.exceptionStacktrace = exceptionStacktrace;
+    }
+
+    public boolean isComplete() {
+        return complete;
+    }
+
+    public void setComplete(boolean complete) {
+        this.complete = complete;
+    }
+
+    public Date getStart() {
+        return start;
+    }
+
+    public void setStart(Date start) {
+        this.start = start;
+    }
+
+    public Date getUpdate() {
+        return update;
+    }
+
+    public void setUpdate(Date update) {
+        this.update = update;
+    }
+
+    public long getTotal() {
+        return this.total;
+    }
+
+    public void setTotal(long total) {
+        this.total = total;
     }
     // </editor-fold>
 }

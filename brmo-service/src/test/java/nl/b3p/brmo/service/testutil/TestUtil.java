@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.Properties;
 import javax.naming.Context;
 import javax.naming.InitialContext;
+import javax.naming.NameAlreadyBoundException;
 import javax.naming.NamingException;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.commons.logging.Log;
@@ -24,7 +25,7 @@ import org.junit.rules.TestName;
  */
 public abstract class TestUtil {
 
-    private static boolean haveSetupJNDI = false;
+    protected static boolean haveSetupJNDI = false;
 
     private static final Log LOG = LogFactory.getLog(TestUtil.class);
     /**
@@ -162,6 +163,8 @@ public abstract class TestUtil {
                 ic.bind("java:comp/env/jdbc/brmo/staging", dsStaging);
                 ic.bind("java:comp/env/jdbc/brmo/staging", dsRsgbBgt);
                 haveSetupJNDI = true;
+            } catch (NameAlreadyBoundException ex) {
+                LOG.trace("Opzetten van nieuwe datasource jndi is mislukt: " + ex.getLocalizedMessage());
             } catch (NamingException ex) {
                 LOG.warn("Opzetten van datasource jndi is mislukt", ex);
             }
