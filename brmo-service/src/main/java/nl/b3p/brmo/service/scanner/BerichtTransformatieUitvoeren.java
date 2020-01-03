@@ -7,6 +7,7 @@ import java.util.Calendar;
 import java.util.Date;
 import javax.sql.DataSource;
 import nl.b3p.brmo.loader.BrmoFramework;
+import nl.b3p.brmo.loader.entity.LaadProces;
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.persistence.staging.AutomatischProces;
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.ERROR;
@@ -37,6 +38,9 @@ public class BerichtTransformatieUitvoeren extends AbstractExecutableProces {
     private ProgressUpdateListener l;
 
     private boolean transformErrorOccured = false;
+
+    private long blockTransformIndicators;
+    private long statusMissingFound;
 
     public BerichtTransformatieUitvoeren(BerichtTransformatieProces config) {
         this.config = config;
@@ -95,10 +99,16 @@ public class BerichtTransformatieUitvoeren extends AbstractExecutableProces {
         l.addLog(msg);
         sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
 
-        long foundBlocking = this.shouldBlockTransformation();
-        if (config.getBlockOnMissingNumbers() && foundBlocking > 0) {
-            msg = "Er zijn " + foundBlocking + " indicaties voor ontbrekende afgiftenummers, de automatische transformatie wordt niet gestart";
+        if (this.config.getBlockOnMissingNumbers() && (this.shouldBlockTransformationByChecks() && this.shouldBlockTransformationByStatus())) {
+            msg = "Er zijn " + blockTransformIndicators + " indicaties voor ontbrekende afgiftenummers";
             log.warn(msg);
+            l.addLog(msg);
+            sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
+            msg = "Er zijn " + statusMissingFound + " laadprocessen met status STAGING_MISSING";
+            log.warn(msg);
+            l.addLog(msg);
+            sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
+            msg = "De automatische transformatie wordt niet gestart";
             l.addLog(msg);
             sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
             this.config.setSamenvatting(msg);
@@ -171,9 +181,17 @@ public class BerichtTransformatieUitvoeren extends AbstractExecutableProces {
         Stripersist.getEntityManager().flush();
     }
 
-    private long shouldBlockTransformation() {
+    private boolean shouldBlockTransformationByChecks() {
         final String sql = "select count(config_key) from automatisch_proces_config where config_key='" + MISSINGNUMBERSFOUND + "' and value = 'true' ";
         Object o = Stripersist.getEntityManager().createNativeQuery(sql).getSingleResult();
-        return ((Number) o).longValue();
+        blockTransformIndicators = ((Number) o).longValue();
+        return blockTransformIndicators > 0;
+    }
+
+    private boolean shouldBlockTransformationByStatus() {
+        final String sql = "select count(status) from laadproces where status='" + LaadProces.STATUS.STAGING_MISSING.name() + "'";
+        Object o = Stripersist.getEntityManager().createNativeQuery(sql).getSingleResult();
+        statusMissingFound = ((Number) o).longValue();
+        return statusMissingFound > 0;
     }
 }
