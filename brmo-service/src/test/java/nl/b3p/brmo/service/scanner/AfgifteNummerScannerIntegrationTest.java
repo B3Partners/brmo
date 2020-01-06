@@ -31,6 +31,7 @@ import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.persistence.staging.AfgifteNummerScannerProces;
 import nl.b3p.brmo.service.testutil.TestUtil;
+import nl.b3p.brmo.test.util.database.SequenceUtil;
 import nl.b3p.brmo.test.util.database.dbunit.CleanUtil;
 import nl.b3p.loader.jdbc.OracleConnectionUnwrapper;
 import org.apache.commons.lang3.reflect.FieldUtils;
@@ -41,6 +42,7 @@ import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.DatabaseDataSourceConnection;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
+import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.ext.mssql.InsertIdentityOperation;
 import org.dbunit.ext.mssql.MsSqlDataTypeFactory;
@@ -162,6 +164,17 @@ public class AfgifteNummerScannerIntegrationTest extends TestUtil {
         }, true);
 
         assumeTrue("Er zijn anders dan verwacht aantal laadprocessen", lAantalLaadProcessen == brmo.getCountLaadProcessen(null, null, null, null));
+
+        if (!this.isMsSQL) {
+            // mssql gebruikt identity kolom
+            try {
+                ITable lp = staging.createQueryTable("laadproces", "select max(id) as maxid from laadproces");
+                Number maxLP = (Number) lp.getValue(0, "maxid");
+                SequenceUtil.updateSequence("laadproces_id_seq", maxLP.longValue() + 9999999, dsStaging);
+            } catch (SQLException s) {
+                LOG.error("Bijwerken laadproces sequnce is mislukt", s);
+            }
+        }
     }
 
     @After
@@ -179,7 +192,6 @@ public class AfgifteNummerScannerIntegrationTest extends TestUtil {
             // in geval van niet waar gemaakte assumptions
             LOG.debug("unlock van thread is mislukt, mogelijk niet ge-lock-ed of test overgeslagen.");
         }
-
     }
 
     @Test
