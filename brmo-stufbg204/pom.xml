@@ -471,7 +471,7 @@
                             <systemPropertyVariables>
                                 <database.properties.file>sqlserver.properties</database.properties.file>
                             </systemPropertyVariables>
-                            <excludedGroups>nl.b3p.brmo.test.util.database.JTDSDriverBasedFailures</excludedGroups>
+                            <excludedGroups>nl.b3p.brmo.test.util.database.MSSqlServerDriverBasedFailures</excludedGroups>
                             <argLine>-XX:+TieredCompilation -XX:TieredStopAtLevel=1</argLine>
                         </configuration>
                     </plugin>
