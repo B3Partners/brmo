@@ -167,7 +167,7 @@ public class BrkInfo {
                 sql.append(createWhereSQL(searchContext, dbType));
                 sql.append("LIMIT ");
                 sql.append(maxrows);
-                return sql;
+                break;
             case DB_ORACLE:
                 sql.append("SELECT ");
                 sql.append("    DISTINCT kad_onrrnd_zk.kad_identif AS identificatie ");
@@ -181,22 +181,23 @@ public class BrkInfo {
                 tempSql.append(" ) WHERE ROWNUM <= ");
                 tempSql.append(maxrows);
                 sql = tempSql;
-                return sql;
+                break;
             case DB_MSSQL:
-                sql.append("SELECT ");
+                sql.append("SELECT DISTINCT ");
                 sql.append("TOP ");
                 sql.append("( ");
                 sql.append(maxrows);
                 sql.append(") ");
-                sql.append("    DISTINCT kad_onrrnd_zk.kad_identif AS identificatie ");
+                sql.append("     kad_onrrnd_zk.kad_identif AS identificatie ");
                 sql.append("FROM ");
                 sql.append(createFromSQL());
                 sql.append("WHERE ");
                 sql.append(createWhereSQL(searchContext, dbType));
-                return sql;
+                break;
             default:
-                throw new UnsupportedOperationException("Unknown database!");
+                throw new UnsupportedOperationException("Unknown database! '" + dbType + "'");
         }
+        return sql;
     }
 
     private static StringBuilder createCountSQL(
@@ -394,20 +395,20 @@ public class BrkInfo {
             case DB_MSSQL:
                 if (bl != null) {
                     condition = "kad_perceel.begrenzing_perceel.STIntersects( "
-                            + "STGeomFromText('"
+                            + "geometry::STGeomFromText('"
                             + zg
                             + "',28992).STBuffer("
                             + bl
-                            + ") ) ";
+                            + ") ) = 1";
                 } else {
                     condition = "kad_perceel.begrenzing_perceel.STIntersects( "
-                            + "STGeomFromText('"
+                            + "geometry::STGeomFromText('"
                             + zg
-                            + "',28992) ) ";
-                    break;
+                            + "',28992) ) = 1";
                 }
+                break;
             default:
-                throw new UnsupportedOperationException("Unknown database!");
+                throw new UnsupportedOperationException("Unknown database! '" + dbType + "'");
         }
         if (!first) {
             sql.append("AND ");

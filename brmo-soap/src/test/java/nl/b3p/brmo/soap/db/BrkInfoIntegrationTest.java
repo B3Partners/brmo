@@ -12,12 +12,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
-import nl.b3p.brmo.service.util.ConfigUtil;
 import nl.b3p.brmo.soap.brk.BrkInfoRequest;
 import nl.b3p.brmo.soap.brk.BrkInfoResponse;
 import nl.b3p.brmo.soap.brk.KadOnrndZkInfoRequest;
 import nl.b3p.brmo.soap.brk.KadOnrndZkInfoResponse;
-import nl.b3p.brmo.test.util.database.JTDSDriverBasedFailures;
 import nl.b3p.brmo.test.util.database.dbunit.CleanUtil;
 import org.dbunit.database.DatabaseConfig;
 import org.dbunit.database.DatabaseDataSourceConnection;
@@ -32,12 +30,10 @@ import org.dbunit.operation.DatabaseOperation;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
 
 /**
  *
@@ -45,17 +41,12 @@ import static org.junit.Assert.assertNotNull;
  * {@code mvn -Dit.test=BrkInfoIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql > target/postgresql.log}
  * voor bijvoorbeeld PostgreSQL.
  *
- * <strong>Werkt niet met MS SQl server omdat de JTDS een
- * {@code java.lang.AbstractMethodError} opwerpt op aanroep van
- * {@code JtdsConnection.isValid(..)}</strong>
- *
  * @author mprins
  */
 @RunWith(Parameterized.class)
-@Category(JTDSDriverBasedFailures.class)
 public class BrkInfoIntegrationTest extends TestUtil {
 
-    @Parameterized.Parameters(name = "{index}: verwerken bestand: {0}")
+    @Parameterized.Parameters(name = "{index}: laden bestand: {0}")
     public static Collection params() {
         return Arrays.asList(new Object[][]{
             // {"sBestandsNaam", aantalPercelen, zoekLocatie, bufferAfstand,eersteKadId,oppPerceel,aardCultuurOnbebouwd, gemCode, perceelNummer},
@@ -102,8 +93,9 @@ public class BrkInfoIntegrationTest extends TestUtil {
         IDataSet rsgbDataSet = new XmlDataSet(new FileInputStream(new File(BrkInfoIntegrationTest.class.getResource(sBestandsNaam).toURI())));
 
         if (this.isMsSQL) {
-            // TODO kijken of en hoe dit op mssql werkt, vooralsnog problemen met jDTS driver
             rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MsSqlDataTypeFactory());
+
+            rsgbDataSet = new XmlDataSet(new FileInputStream(new File(BrkInfoIntegrationTest.class.getResource("/mssql-" + sBestandsNaam.substring(1)).toURI())));
         } else if (this.isOracle) {
             rsgb = new DatabaseConnection(dsRsgb.getConnection().unwrap(oracle.jdbc.OracleConnection.class), DBPROPS.getProperty("rsgb.username").toUpperCase());
             rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());

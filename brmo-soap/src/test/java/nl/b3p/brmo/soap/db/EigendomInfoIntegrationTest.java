@@ -21,7 +21,6 @@ import nl.b3p.brmo.soap.eigendom.EigendomMutatieResponse;
 import nl.b3p.brmo.soap.eigendom.MutatieEntry;
 import nl.b3p.brmo.soap.eigendom.MutatieListRequest;
 import nl.b3p.brmo.soap.eigendom.MutatieListResponse;
-import nl.b3p.brmo.test.util.database.JTDSDriverBasedFailures;
 import nl.b3p.brmo.test.util.database.dbunit.CleanUtil;
 import org.dbunit.database.DatabaseConfig;
 import org.dbunit.database.DatabaseDataSourceConnection;
@@ -30,6 +29,7 @@ import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.dataset.xml.XmlDataSet;
+import org.dbunit.ext.mssql.InsertIdentityOperation;
 import org.dbunit.ext.mssql.MsSqlDataTypeFactory;
 import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
@@ -39,7 +39,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
@@ -49,17 +48,12 @@ import org.junit.runners.Parameterized;
  * {@code mvn -Dit.test=EigendomInfoIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql > target/postgresql.log}
  * voor bijvoorbeeld PostgreSQL.
  *
- * <strong>Werkt niet met MS SQl server omdat de JTDS een
- * {@code java.lang.AbstractMethodError} opwerpt op aanroep van
- * {@code JtdsConnection.isValid(..)}</strong>
- *
  * @author mprins
  */
 @RunWith(Parameterized.class)
-@Category(JTDSDriverBasedFailures.class)
 public class EigendomInfoIntegrationTest extends TestUtil {
 
-    @Parameterized.Parameters(name = "{index}: verwerken bestand: {0}")
+    @Parameterized.Parameters(name = "{index}: laden bestand: {0} en bestand {4}")
     public static Collection params() {
         return Arrays.asList(new Object[][]{
             // {"rBestandsNaam", "objNamespace", "kadId", aantalBronDoc, "sBestandsNaam", "volgordeNummer"},
@@ -105,9 +99,10 @@ public class EigendomInfoIntegrationTest extends TestUtil {
         IDataSet stagingDataSet = fxdb.build(new FileInputStream(new File(BrkInfoIntegrationTest.class.getResource(sBestandsNaam).toURI())));
 
         if (this.isMsSQL) {
-            // TODO kijken of en hoe dit op mssql werkt, vooralsnog problemen met jDTS driver
             rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MsSqlDataTypeFactory());
             staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MsSqlDataTypeFactory());
+
+            rsgbDataSet = new XmlDataSet(new FileInputStream(new File(BrkInfoIntegrationTest.class.getResource("/mssql-" + rBestandsNaam.substring(1)).toURI())));
         } else if (this.isOracle) {
             rsgb = new DatabaseConnection(dsRsgb.getConnection().unwrap(oracle.jdbc.OracleConnection.class), DBPROPS.getProperty("rsgb.username").toUpperCase());
             rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
@@ -125,16 +120,19 @@ public class EigendomInfoIntegrationTest extends TestUtil {
 
         sequential.lock();
 
-        DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
+        if(this.isMsSQL){
+            InsertIdentityOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
+        } else {
+            DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
+        }
         DatabaseOperation.CLEAN_INSERT.execute(rsgb, rsgbDataSet);
-
         refreshMViews(new String[]{"mb_util_app_re_kad_perceel"}, this.dsRsgb);
     }
 
     @After
     public void cleanup() throws Exception {
         CleanUtil.cleanRSGB_BRK(rsgb, true);
-        CleanUtil.cleanSTAGING(staging);
+        CleanUtil.cleanSTAGING(staging, false);
 
         rsgb.close();
         staging.close();
