@@ -5,7 +5,6 @@ import java.io.FileInputStream;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import nl.b3p.brmo.loader.BrmoFramework;
-import nl.b3p.brmo.test.util.database.JTDSDriverBasedFailures;
 import nl.b3p.brmo.test.util.database.dbunit.CleanUtil;
 import nl.b3p.loader.jdbc.OracleConnectionUnwrapper;
 import org.apache.commons.dbcp.BasicDataSource;
@@ -31,7 +30,6 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assume.assumeTrue;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 /**
  * Testcases voor mantis-10315; ontbrekende rechthebbende bij KAD_RECHT. <br>
@@ -39,12 +37,9 @@ import org.junit.experimental.categories.Category;
  * {@code mvn -Dit.test=Mantis10315IntegrationTest -Dtest.onlyITs=true verify -Poracle > target/oracle.log}
  * voor bijvoorbeeld Oracle of
  * {@code mvn -Dit.test=Mantis10315IntegrationTest -Dtest.onlyITs=true verify -Ppostgresql > target/postgresql.log}.
- * <strong>NB.</strong> werkt niet op mssql, althans niet met de jTDS driver
- * omdat die geen JtdsPreparedStatement#setNull() methode heeft.
  *
  * @author mprins
  */
-@Category(JTDSDriverBasedFailures.class)
 public class Mantis10315IntegrationTest extends AbstractDatabaseIntegrationTest {
 
     private static final Log LOG = LogFactory.getLog(Mantis10315IntegrationTest.class);

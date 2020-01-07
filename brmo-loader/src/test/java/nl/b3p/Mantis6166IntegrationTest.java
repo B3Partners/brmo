@@ -11,7 +11,6 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.RsgbProxy;
-import nl.b3p.brmo.test.util.database.JTDSDriverBasedFailures;
 import nl.b3p.brmo.test.util.database.dbunit.CleanUtil;
 import nl.b3p.loader.jdbc.OracleConnectionUnwrapper;
 import org.apache.commons.dbcp.BasicDataSource;
@@ -24,8 +23,6 @@ import org.dbunit.dataset.IDataSet;
 import org.dbunit.operation.DatabaseOperation;
 import org.dbunit.ext.mssql.InsertIdentityOperation;
 import org.dbunit.database.DatabaseDataSourceConnection;
-import org.dbunit.dataset.DefaultDataSet;
-import org.dbunit.dataset.DefaultTable;
 import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.xml.XmlDataSet;
 import org.dbunit.ext.mssql.MsSqlDataTypeFactory;
@@ -37,7 +34,6 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import static org.junit.Assume.assumeTrue;
-import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
@@ -47,13 +43,10 @@ import org.junit.runners.Parameterized;
  * {@code mvn -Dit.test=Mantis6166IntegrationTest -Dtest.onlyITs=true verify -Poracle > target/oracle.log}
  * voor bijvoorbeeld Oracle.
  *
- * <strong>NB. werkt niet op mssql, althans niet met de jTDS driver omdat die
- * geen JtdsPreparedStatement#setNull() methode heeft.</strong>
  *
  * @author mprins
  */
 @RunWith(Parameterized.class)
-@Category(JTDSDriverBasedFailures.class)
 public class Mantis6166IntegrationTest extends AbstractDatabaseIntegrationTest {
 
     private static final Log LOG = LogFactory.getLog(Mantis6166IntegrationTest.class);
@@ -109,8 +102,6 @@ public class Mantis6166IntegrationTest extends AbstractDatabaseIntegrationTest {
 
         rsgb = new DatabaseDataSourceConnection(dsRsgb);
         staging = new DatabaseDataSourceConnection(dsStaging);
-
-        // assumeTrue("Deze test werkt niet met de jTDS driver omdat die geen JtdsPreparedStatement#setNull() methode heeft.", !this.isMsSQL);
 
         if (this.isMsSQL) {
             rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MsSqlDataTypeFactory());

@@ -12,7 +12,6 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.entity.Bericht;
-import nl.b3p.brmo.test.util.database.JTDSDriverBasedFailures;
 import nl.b3p.brmo.test.util.database.dbunit.CleanUtil;
 import nl.b3p.loader.jdbc.OracleConnectionUnwrapper;
 import org.apache.commons.dbcp.BasicDataSource;
@@ -25,6 +24,7 @@ import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.xml.XmlDataSet;
+import org.dbunit.ext.mssql.InsertIdentityOperation;
 import org.dbunit.ext.mssql.MsSqlDataTypeFactory;
 import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
@@ -35,7 +35,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assume.assumeTrue;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
@@ -47,13 +46,9 @@ import org.junit.runners.Parameterized;
  * {@code mvn -Dit.test=BRKLocatiebeschrijvingIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql > target/postgresql.log}
  * voor PostgreSQL.
  *
- * <strong>NB. werkt niet op mssql</strong>, althans niet met de jTDS driver
- * omdat die geen JtdsPreparedStatement#setNull() methode heeft.
- *
  * @author mprins
  */
 @RunWith(Parameterized.class)
-@Category(JTDSDriverBasedFailures.class)
 public class BRKLocatiebeschrijvingIntegrationTest extends AbstractDatabaseIntegrationTest {
 
     private static final Log LOG = LogFactory.getLog(BRKLocatiebeschrijvingIntegrationTest.class);
@@ -136,7 +131,11 @@ public class BRKLocatiebeschrijvingIntegrationTest extends AbstractDatabaseInteg
         IDataSet stagingDataSet = new XmlDataSet(new FileInputStream(new File(Mantis6166IntegrationTest.class.getResource(bestandNaam).toURI())));
 
         sequential.lock();
-        DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
+        if(this.isMsSQL){
+            InsertIdentityOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
+        } else {
+            DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
+        }
 
         assumeTrue("Het aantal STAGING_OK berichten is anders dan verwacht", aantalBerichten == brmo.getCountBerichten(null, null, "brk", "STAGING_OK"));
     }

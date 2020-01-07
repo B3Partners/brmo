@@ -14,7 +14,7 @@ import java.util.concurrent.locks.ReentrantLock;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.loader.entity.LaadProces;
-import nl.b3p.brmo.test.util.database.JTDSDriverBasedFailures;
+import nl.b3p.brmo.test.util.database.MSSqlServerDriverBasedFailures;
 import nl.b3p.brmo.test.util.database.PostgreSQLDriverBasedFailures;
 import nl.b3p.brmo.test.util.database.dbunit.CleanUtil;
 import nl.b3p.loader.jdbc.OracleConnectionUnwrapper;
@@ -24,8 +24,6 @@ import org.apache.commons.logging.LogFactory;
 import org.dbunit.database.DatabaseConfig;
 import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.IDatabaseConnection;
-import org.dbunit.dataset.DefaultDataSet;
-import org.dbunit.dataset.DefaultTable;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
@@ -61,7 +59,7 @@ import org.junit.runners.Parameterized;
  * @author mprins
  */
 @RunWith(Parameterized.class)
-@Category({JTDSDriverBasedFailures.class, PostgreSQLDriverBasedFailures.class})
+@Category({MSSqlServerDriverBasedFailures.class, PostgreSQLDriverBasedFailures.class})
 public class Oracle8000byteBugIntegrationTest extends AbstractDatabaseIntegrationTest {
 
     private static final Log LOG = LogFactory.getLog(Oracle8000byteBugIntegrationTest.class);

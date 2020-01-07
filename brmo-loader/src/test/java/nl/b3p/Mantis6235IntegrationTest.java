@@ -8,7 +8,6 @@ import java.io.FileInputStream;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import nl.b3p.brmo.loader.BrmoFramework;
-import nl.b3p.brmo.test.util.database.JTDSDriverBasedFailures;
 import nl.b3p.brmo.test.util.database.dbunit.CleanUtil;
 import nl.b3p.loader.jdbc.OracleConnectionUnwrapper;
 import org.apache.commons.dbcp.BasicDataSource;
@@ -32,7 +31,6 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assume.assumeTrue;
-import org.junit.experimental.categories.Category;
 
 /**
  * Testcases voor mantis-6235; incorrect parsen van VVE identificatie. Draaien
@@ -45,7 +43,6 @@ import org.junit.experimental.categories.Category;
  *
  * @author mprins
  */
-@Category(JTDSDriverBasedFailures.class)
 public class Mantis6235IntegrationTest extends AbstractDatabaseIntegrationTest {
 
     private static final Log LOG = LogFactory.getLog(Mantis6235IntegrationTest.class);
