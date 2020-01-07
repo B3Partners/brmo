@@ -14,10 +14,8 @@ import net.sourceforge.stripes.action.ActionBeanContext;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.service.testutil.TestUtil;
-import nl.b3p.brmo.test.util.database.JTDSDriverBasedFailures;
 import nl.b3p.brmo.test.util.database.dbunit.CleanUtil;
 import nl.b3p.loader.jdbc.OracleConnectionUnwrapper;
-import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.dbunit.database.DatabaseConfig;
@@ -53,14 +51,9 @@ import static org.mockito.Mockito.when;
  * {@code mvn -Dit.test=AdvancedFunctionsActionBeanIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql > target/postgresql.log}
  * voor PostgreSQL.
  *
- * <strong>Deze test werkt niet met de jTDS driver omdat die geen
- * {@code PreparedStatement.setNull(int, int, String)} methode heeft
- * geimplementeerd.</strong>
- *
  * @author mprins
  */
 @RunWith(Parameterized.class)
-@Category(JTDSDriverBasedFailures.class)
 public class AdvancedFunctionsActionBeanIntegrationTest extends TestUtil {
 
     private static final Log LOG = LogFactory.getLog(AdvancedFunctionsActionBeanIntegrationTest.class);
