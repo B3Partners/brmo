@@ -38,7 +38,7 @@ jobs:
       jdk: openjdk11
     - name: "database upgrades"
       jdk: openjdk8
-      env: POSTGRESQL_VERSION="9.6" POSTGIS_VERSION="2.5" PROFILE="postgresql" MVN_ARGS="-Ddatabase.upgrade=true -Dit.test=!TopNLIntegrationTest"
+      env: POSTGRESQL_VERSION="11" POSTGIS_VERSION="2.5" PROFILE="postgresql" MVN_ARGS="-Ddatabase.upgrade=true -Dit.test=!TopNLIntegrationTest"
     - name: "TopNL tests"
       jdk: openjdk8
       env: POSTGRESQL_VERSION="11" POSTGIS_VERSION="2.5" PROFILE="postgresql" MVN_ARGS="-Dit.test=TopNLIntegrationTest"
