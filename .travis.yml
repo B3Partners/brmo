@@ -223,3 +223,10 @@ after_success:
   - bash <(curl -s https://codecov.io/bash) -f */jacoco.xml || echo 'Codecov failed to upload'
 
 #after_failure:
+
+notifications:
+  webhooks: https://www.travisbuddy.com/
+  on_success: never
+travisBuddy:
+  successBuildLog: false
+  insertMode: update
