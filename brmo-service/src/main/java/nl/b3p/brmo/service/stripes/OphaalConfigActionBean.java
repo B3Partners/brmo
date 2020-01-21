@@ -32,6 +32,7 @@ import nl.b3p.brmo.persistence.staging.BRKScannerProces;
 import nl.b3p.brmo.persistence.staging.BerichtDoorstuurProces;
 import nl.b3p.brmo.persistence.staging.BerichtTransformatieProces;
 import nl.b3p.brmo.persistence.staging.BerichtstatusRapportProces;
+import nl.b3p.brmo.persistence.staging.LaadprocesStatusRapportProces;
 import nl.b3p.brmo.persistence.staging.ClobElement;
 import nl.b3p.brmo.persistence.staging.GDS2OphaalProces;
 import nl.b3p.brmo.persistence.staging.LaadprocesTransformatieProces;
@@ -188,6 +189,8 @@ public class OphaalConfigActionBean implements ActionBean {
                 return new MaterializedViewRefresh();
             case BerichtstatusRapportProces:
                 return new BerichtstatusRapportProces();
+            case LaadprocesStatusRapportProces:
+                return new LaadprocesStatusRapportProces();
             case TopNLScannerProces:
                 return new TopNLScannerProces();
             case AfgifteNummerScannerProces:
