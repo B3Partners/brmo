@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 import javax.naming.Context;
 import javax.naming.InitialContext;
+import javax.naming.NameAlreadyBoundException;
 import javax.naming.NamingException;
 import nl.b3p.loader.jdbc.GeometryJdbcConverter;
 import nl.b3p.loader.jdbc.GeometryJdbcConverterFactory;
@@ -16,11 +17,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.commons.dbutils.QueryRunner;
-import org.junit.After;
+import org.junit.*;
+
 import static org.junit.Assume.assumeNotNull;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Rule;
+
 import org.junit.rules.TestName;
 
 /**
@@ -162,6 +162,8 @@ public abstract class TestUtil {
                 ic.bind("java:comp/env/jdbc/brmo/rsgb", dsRsgb);
                 ic.bind("java:comp/env/jdbc/brmo/staging", dsStaging);
                 haveSetupJNDI = true;
+            } catch (NameAlreadyBoundException ex) {
+                LOG.trace("Opzetten van nieuwe datasource jndi is mislukt: " + ex.getLocalizedMessage());
             } catch (NamingException ex) {
                 LOG.warn("Opzetten van datasource jndi is mislukt", ex);
             }
