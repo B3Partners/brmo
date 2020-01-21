@@ -174,6 +174,13 @@
 							<stripes:param name="proces">${actionBean.proces.id}</stripes:param>
 						</stripes:url>
 					</c:when>
+
+					<c:when test="${actionBean.type eq 'LaadprocesStatusRapportProces'}">
+						<jsp:include page="laadprocesstatusrapportedit.jsp" />
+						<stripes:url var="url" beanclass="nl.b3p.brmo.service.stripes.LaadprocesStatusRapportActionBean">
+							<stripes:param name="proces">${actionBean.proces.id}</stripes:param>
+						</stripes:url>
+					</c:when>
 					
 					<c:when test="${actionBean.type eq 'AfgifteNummerScannerProces'}">
 						<jsp:include page="editafgiftescannerproces.jsp" />
