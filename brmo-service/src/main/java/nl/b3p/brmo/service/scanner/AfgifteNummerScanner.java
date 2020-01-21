@@ -17,11 +17,13 @@
 package nl.b3p.brmo.service.scanner;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.*;
 import javax.persistence.Transient;
 import javax.sql.DataSource;
 
+import nl.b3p.brmo.loader.entity.LaadProces;
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.persistence.staging.AfgifteNummerScannerProces;
 
@@ -32,11 +34,12 @@ import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus
 import nl.b3p.brmo.service.util.ConfigUtil;
 import nl.b3p.loader.jdbc.GeometryJdbcConverter;
 import nl.b3p.loader.jdbc.GeometryJdbcConverterFactory;
-import org.apache.commons.compress.utils.Sets;
 import org.apache.commons.dbutils.DbUtils;
 import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.ColumnListHandler;
 import org.apache.commons.dbutils.handlers.MapListHandler;
+import org.apache.commons.dbutils.handlers.ScalarHandler;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.stripesstuff.stripersist.Stripersist;
@@ -142,7 +145,7 @@ public class AfgifteNummerScanner extends AbstractExecutableProces {
 
             if (contractnummer == null) {
                 msg = "Geen contractnummer opgegeven voor opzoeken van ontbrekende afgiftenummers.";
-                LOG.error(msg);
+                LOG.info(msg);
                 listener.updateStatus(msg);
                 listener.addLog(msg);
             }
@@ -155,20 +158,45 @@ public class AfgifteNummerScanner extends AbstractExecutableProces {
                 Map<String, Object> rec;
 
                 msg = "Ontbrekende " + afgiftenummertype + "s voor contractnummer: " + contractnummer;
+                if (contractnummer == null) {
+                    msg = "Ontbrekende " + afgiftenummertype + "s";
+                }
                 LOG.info(msg);
                 listener.addLog(msg);
 
+                long totaalToegevoegd = 0L;
                 while (records.hasNext()) {
                     rec = records.next();
-
                     if (rec.get("eerst_ontbrekend").equals(rec.get("laatst_ontbrekend"))) {
-                        msg = "    " + afgiftenummertype + " " + rec.get("eerst_ontbrekend") + " ontbreekt (tussen laadproces.id " + rec.get("laatste_aanwezige_id") + " en " + rec.get("eerst_opvolgende_id") + ")";
+                        msg = afgiftenummertype + " " + rec.get("eerst_ontbrekend") + " ontbreekt (tussen laadproces.id " + rec.get("laatste_aanwezige_id") + " en " + rec.get("eerst_opvolgende_id") + ")";
                     } else {
-                        msg = "    Meerdere " + afgiftenummertype + "s ontbreken; eerst ontbrekende " + afgiftenummertype + " " + rec.get("eerst_ontbrekend") + ", laatst ontbrekende " + afgiftenummertype + " " + rec.get("laatst_ontbrekend") + " (tussen laadproces.id " + rec.get("laatste_aanwezige_id") + " en " + rec.get("eerst_opvolgende_id") + ")";
+                        msg = "Meerdere " + afgiftenummertype + "s ontbreken; eerst ontbrekende " + afgiftenummertype + " " + rec.get("eerst_ontbrekend") + ", laatst ontbrekende " + afgiftenummertype + " " + rec.get("laatst_ontbrekend") + " (tussen laadproces.id " + rec.get("laatste_aanwezige_id") + " en " + rec.get("eerst_opvolgende_id") + ")";
                     }
                     LOG.info(msg);
                     listener.addLog(msg);
+
+                    if (this.config.getOntbrekendeAfgiftenummersToevoegen()) {
+                        msg = "Toevoegen ontbrekende " + afgiftenummertype + "(s)";
+                        LOG.debug(msg);
+                        listener.addLog(msg);
+                        listener.updateStatus(msg);
+                        long aantalToegevoegd = insertOntbrekendeAfgiftenummers(
+                                ((Number) rec.get("eerst_ontbrekend")).longValue(),
+                                ((Number) rec.get("laatst_ontbrekend")).longValue(),
+                                contractnummer, afgiftenummertype
+                        );
+                        totaalToegevoegd += aantalToegevoegd;
+                        msg = aantalToegevoegd + " ontbrekende " + afgiftenummertype + "(s) toegevoegd";
+                        LOG.info(msg);
+                        listener.addLog(msg);
+                        listener.updateStatus(msg);
+                    }
                 }
+                listener.total(totaalToegevoegd);
+                msg = totaalToegevoegd + " ontbrekende " + afgiftenummertype + "(s) toegevoegd";
+                LOG.info(msg);
+                listener.addLog(msg);
+                listener.updateStatus(msg);
             }
 
             msg = "Klaar met bepalen ontbrekende " + afgiftenummertype + "s.";
@@ -180,11 +208,61 @@ public class AfgifteNummerScanner extends AbstractExecutableProces {
             config.setLastrun(new Date());
         } catch (BrmoException | SQLException e) {
             config.setStatus(ERROR);
-            LOG.error("Fout tijdens scannen voor onbrekende afgiftenummers van contract nummer: " + contractnummer, e);
+            LOG.error("Fout tijdens scannen voor ontbrekende afgiftenummers van contract nummer: " + contractnummer, e);
             listener.exception(e);
         } finally {
             Stripersist.getEntityManager().merge(config);
         }
+    }
+
+    long insertOntbrekendeAfgiftenummers(long eersteNummer, long laatsteNummer, final String contractnummer, final String afgiftenummertype) throws BrmoException {
+        final DataSource ds = ConfigUtil.getDataSourceStaging();
+        final String sql = "insert into laadproces (status, opmerking, soort, contractafgiftenummer, contractnummer, klantafgiftenummer) values (?,?,?,?,?,?)";
+        Number contractafgiftenummer = null;
+        Number klantafgiftenummer = null;
+        long added = 0L;
+
+        for (long number = eersteNummer; number <= laatsteNummer; number++) {
+            switch (afgiftenummertype) {
+                case "contractafgiftenummer":
+                    contractafgiftenummer = number;
+                    break;
+                case "klantafgiftenummer":
+                default:
+                    klantafgiftenummer = number;
+                    break;
+            }
+            
+            LOG.debug("toevoegen " + afgiftenummertype + ": " + number);
+
+            try (final Connection conn = ds.getConnection();
+                    PreparedStatement stmt = conn.prepareStatement(sql, new String[]{"id"});) {
+
+                final GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
+                QueryRunner queryRunner = new QueryRunner(geomToJdbc.isPmdKnownBroken());
+
+                queryRunner.fillStatement(stmt,
+                        LaadProces.STATUS.STAGING_MISSING.name(),
+                        "Toegevoegd vanwege ontbrekend " + afgiftenummertype,
+                        "onbekend",
+                        contractafgiftenummer,
+                        contractnummer,
+                        klantafgiftenummer
+                );
+                stmt.executeUpdate();
+                ResultSetHandler<Number> rsh = new ScalarHandler<>();
+                Number lpId = rsh.handle(stmt.getGeneratedKeys());
+                added++;
+                String msg = String.format("Toegevoegd laadproces voor %s %s (contractnummer %s) heeft id: %s.", afgiftenummertype, number, contractnummer, lpId);
+                this.listener.addLog(msg);
+                this.listener.progress(added);
+                LOG.info(msg);
+            } catch (SQLException s) {
+                LOG.error(s);
+                this.listener.exception(s);
+            }
+        }
+        return added;
     }
 
     /**
@@ -197,13 +275,12 @@ public class AfgifteNummerScanner extends AbstractExecutableProces {
      * @throws SQLException  if any
      */
     /*package private tbv. unit test*/ List<Map<String, Object>> getOntbrekendeAfgiftenummers(final String contractnummer, final String afgiftenummertype) throws BrmoException, SQLException {
-        if (contractnummer == null) {
+        if (contractnummer == null && afgiftenummertype.equalsIgnoreCase("contractafgiftenummer")) {
             throw new BrmoException("Contractnummer voor bepalen van ontbrekende afgiftenummers ontbreekt.");
         }
 
         final DataSource ds = ConfigUtil.getDataSourceStaging();
         try (final Connection conn = ds.getConnection()) {
-            ;
             final GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
             final String sql;
             switch (afgiftenummertype) {
@@ -240,14 +317,14 @@ public class AfgifteNummerScanner extends AbstractExecutableProces {
                             + "    laadproces"
                             + " LEFT JOIN laadproces r ON"
                             + "    laadproces.klantafgiftenummer = r.klantafgiftenummer - 1"
-                            + "    AND r.contractnummer = ? "
+                            + (contractnummer == null ? "" : "    AND r.contractnummer = ? ")
                             + " LEFT JOIN laadproces fr ON"
                             + "    laadproces.klantafgiftenummer < fr.klantafgiftenummer"
-                            + "    AND fr.contractnummer = ? "
+                            + (contractnummer == null ? "" : "    AND fr.contractnummer = ? ")
                             + " WHERE"
                             + "    r.klantafgiftenummer IS NULL"
                             + "    AND fr.klantafgiftenummer IS NOT NULL"
-                            + "    AND laadproces.contractnummer = ? "
+                            + (contractnummer == null ? "" : "    AND laadproces.contractnummer = ? ")
                             + " GROUP BY"
                             + "    laadproces.klantafgiftenummer,"
                             + "    r.klantafgiftenummer";
@@ -255,10 +332,15 @@ public class AfgifteNummerScanner extends AbstractExecutableProces {
 
             }
 
-            List<Map<String, Object>> afgiftenummers = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, sql, new MapListHandler(), contractnummer, contractnummer, contractnummer);
+            List<Map<String, Object>> afgiftenummers;
+            if (contractnummer == null) {
+                afgiftenummers = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, sql, new MapListHandler());
+            } else {
+                afgiftenummers = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, sql, new MapListHandler(), contractnummer, contractnummer, contractnummer);
+            }
 
             this.ontbrekendeNummersGevonden = !afgiftenummers.isEmpty();
-            LOG.debug("Ontbrekende " + (afgiftenummertype == "" ? "klantafgiftenummer" : afgiftenummertype) + "s voor contractnummer " + contractnummer + ": " + afgiftenummers);
+            LOG.debug("Ontbrekende " + ("".equals(afgiftenummertype) ? "klantafgiftenummer" : afgiftenummertype) + "s voor contractnummer " + contractnummer + ": " + afgiftenummers);
 
             DbUtils.closeQuietly(conn);
             return afgiftenummers;

@@ -38,10 +38,13 @@
    <logger name="nl.b3p">
         <level value="info" />
     </logger>
-    <logger name="nl.b3p.brmo">
-        <level value="debug" />
-    </logger>
    <logger name="nl.b3p.topnl">
+        <level value="info" />
+    </logger>
+    <logger name="nl.b3p.brmo">
+        <level value="info" />
+    </logger>
+    <logger name="nl.b3p.brmo.service">
         <level value="info" />
     </logger>
     <logger name="nl.b3p.brmo.loader">

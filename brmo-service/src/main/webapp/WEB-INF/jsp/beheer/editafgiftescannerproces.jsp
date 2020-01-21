@@ -8,19 +8,16 @@
         <td><stripes:text name="config['label']"/></td>
     </tr>
     <tr>
-        <c:choose>
-            <c:when test="${empty contractnummers}">
-                <td colspan="2">Geen GDS2 contractnummers gevonden</td>
-            </c:when>
-            <c:otherwise>
-                <td><stripes:label name="">Te onderzoeken GDS2 contractnummer</stripes:label></td>
-                <td>
-                    <stripes:select name="config['contractnummer']">
-                    <stripes:options-collection collection="${contractnummers}"/>
-                    </stripes:select>
-                </td>
-            </c:otherwise>
-        </c:choose>
+        <td>
+            <stripes:label name="">Te onderzoeken GDS2 contractnummer <br/>(mag leeg zijn voor Klantafgiftenummer controle)</stripes:label>
+            <c:if test="${empty contractnummers}"><span class="errors"><br/>Geen GDS2 contractnummers gevonden...</span></c:if>
+        </td>
+        <td>
+            <stripes:select name="config['contractnummer']">
+                <stripes:option value=""></stripes:option>
+                <stripes:options-collection collection="${contractnummers}"/>
+            </stripes:select>
+        </td>
     </tr>
     <tr>
         <td><stripes:label name="">Scan type</stripes:label></td>
@@ -30,6 +27,10 @@
                 <stripes:option value="contractafgiftenummer">Contractafgiftenummer</stripes:option>
             </stripes:select>
         </td>
+    </tr>
+    <tr>
+        <td><stripes:label name="">Ontbrekende afgiftenummers als laadprocessen toevoegen?</stripes:label></td>
+        <td><stripes:checkbox name="config['laadprocessen_toevoegen']"/></td>
     </tr>
 
     <%-- hidden field onderaan de pagina zodat deze niet wordt weggegooid bij opslaan --%>
