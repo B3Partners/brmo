@@ -40,6 +40,9 @@ jobs:
     - name: "PostgreSQL 12"
       env: POSTGRESQL_VERSION="12" POSTGIS_VERSION="3" PROFILE="postgresql" MVN_ARGS="-Dtest.persistence.unit=brmo.persistence.postgresql"
       jdk: openjdk11
+    - name: "PIT mutation testing"
+      env: POSTGRESQL_VERSION="12" POSTGIS_VERSION="3" PROFILE="postgresql"
+      jdk: openjdk11
     - name: "database upgrades"
       jdk: openjdk8
       env: POSTGRESQL_VERSION="11" POSTGIS_VERSION="2.5" PROFILE="postgresql" MVN_ARGS="-Ddatabase.upgrade=true -Dit.test=!TopNLIntegrationTest"
