@@ -1,5 +1,5 @@
-sudo: required
 language: java
+os: linux
 
 env:
   global:
@@ -18,6 +18,10 @@ addons:
       - graphviz
 
 jobs:
+  fast_finish: true
+  allow_failures:
+    # vanwege build timeout (soms)
+    - name: "MS SQL server 2019"
   include:
       # final release van 9.4 (==EOL): Feb 13, 2020
       # https://www.postgresql.org/support/versioning/
@@ -50,13 +54,6 @@ jobs:
       jdk: openjdk11
       dist: xenial
       env: MSSQL_VERSION="2019" POSTGRESQL_VERSION="" POSTGIS_VERSION="" PROFILE="mssql" MVN_ARGS="-Dmssql.instancename='' -Dit.test=!TopNLIntegrationTest"
-
-matrix:
-  fast_finish: true
-  allow_failures:
-    # vanwege build timeout (soms)
-    #- name: "MS SQL server 2017"
-    - name: "MS SQL server 2019"
 
 cache:
   directories:
