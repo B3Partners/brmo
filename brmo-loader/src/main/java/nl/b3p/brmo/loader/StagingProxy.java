@@ -820,7 +820,7 @@ public class StagingProxy {
                 Bericht b = null;
                 try {
                     b = brmoXMLReader.next();
-                    b.setLaadProcesId(lp.getId().intValue());
+                    b.setLaadProcesId(lp.getId());
                     b.setStatus(Bericht.STATUS.STAGING_OK);
                     b.setStatusDatum(new Date());
                     b.setSoort(type);

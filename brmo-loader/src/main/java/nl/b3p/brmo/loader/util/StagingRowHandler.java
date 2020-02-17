@@ -111,7 +111,7 @@ public class StagingRowHandler extends BasicRowProcessor {
                 b.setId(rs.getLong("id"));
             }
             if (namesList.contains("laadprocesid")) {
-                b.setLaadProcesId(rs.getInt("laadprocesid"));
+                b.setLaadProcesId(rs.getLong("laadprocesid"));
             }
             if (namesList.contains("object_ref")) {
                 b.setObjectRef(rs.getString("object_ref"));
