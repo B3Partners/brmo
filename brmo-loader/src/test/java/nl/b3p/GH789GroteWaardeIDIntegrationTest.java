@@ -34,20 +34,19 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 /**
- * Testcases voor mantis-11180; ontbrekende clazz waarde voor NIET INGEZETENE
- * GBA persoon. <br>
+ * Testcases voor mantis-14743 / GH #789; te grote waarde voor een int (laadprocesid)
  * Draaien met:
- * {@code mvn -Dit.test=Mantis11180IntegrationTest -Dtest.onlyITs=true verify -Poracle > target/oracle.log}
+ * {@code mvn -Dit.test=GH789GroteWaardeIDIntegrationTest -Dtest.onlyITs=true verify -Poracle -pl brmo-loader > target/oracle.log}
  * voor bijvoorbeeld Oracle of
- * {@code mvn -Dit.test=Mantis11180IntegrationTest -Dtest.onlyITs=true verify -Ppostgresql > target/postgresql.log}
+ * {@code mvn -Dit.test=GH789GroteWaardeIDIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql -pl brmo-loader > target/postgresql.log}
  * of
- * {@code mvn -Dit.test=Mantis11180IntegrationTest -Dtest.onlyITs=true verify -Pmssql > target/mssql.log}.
+ * {@code mvn -Dit.test=GH789GroteWaardeIDIntegrationTest -Dtest.onlyITs=true verify -Pmssql -pl brmo-loader > target/mssql.log}.
  *
  * @author mprins
  */
-public class Mantis11180IntegrationTest extends AbstractDatabaseIntegrationTest {
+public class GH789GroteWaardeIDIntegrationTest  extends AbstractDatabaseIntegrationTest {
 
-    private static final Log LOG = LogFactory.getLog(Mantis11180IntegrationTest.class);
+    private static final Log LOG = LogFactory.getLog(GH789GroteWaardeIDIntegrationTest.class);
 
     private BrmoFramework brmo;
 
@@ -90,7 +89,7 @@ public class Mantis11180IntegrationTest extends AbstractDatabaseIntegrationTest 
             staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
         }
 
-        IDataSet stagingDataSet = new XmlDataSet(new FileInputStream(new File(Mantis11180IntegrationTest.class.getResource("/mantis11180/staging.xml").toURI())));
+        IDataSet stagingDataSet = new XmlDataSet(new FileInputStream(new File(GH789GroteWaardeIDIntegrationTest.class.getResource("/GH-789-grote-id/staging.xml").toURI())));
 
         sequential.lock();
 
@@ -143,26 +142,26 @@ public class Mantis11180IntegrationTest extends AbstractDatabaseIntegrationTest 
         assertEquals("Aantal actuele percelen is incorrect", 1, kad_perceel.getRowCount());
         assertEquals("Perceel identif is incorrect", "54690041070000", kad_perceel.getValue(0, "sc_kad_identif").toString());
 
-        // test of de records in de tabellen de juiste clazz hebben en volledig zijn
-        String[] tables = {"subject", "prs", "nat_prs"};
-        for (String table : tables) {
-            ITable tbl = rsgb.createDataSet().getTable(table);
-            assertEquals("Aantal rijen klopt niet in tabel " + table, 3, tbl.getRowCount());
-            for (int row=0;row < 3; row++) {
-                assertNotNull("'clazz' is null voor rij "+ row + 1 +", tabel " + table, tbl.getValue(0, "clazz"));
-                assertEquals("'clazz' klopt niet in tabel " + table, "INGESCHREVEN NATUURLIJK PERSOON", tbl.getValue(0, "clazz"));
-            }
-        }
-        // ingeschr_nat_prs
-        ITable ingeschr_nat_prs = rsgb.createDataSet().getTable("ingeschr_nat_prs");
-        assertEquals("Aantal ingeschr_nat_prs klopt niet.", 3, ingeschr_nat_prs.getRowCount());
-        for (int row=0;row < 3; row++) {
-            assertNull("'clazz' is niet null voor rij "+ row + 1 +", tabel ingeschr_nat_prs", ingeschr_nat_prs.getValue(row, "clazz"));
-
-        }
-        // niet_ingezetene
-        ITable niet_ingezetene = rsgb.createDataSet().getTable("niet_ingezetene");
-        assertEquals("Aantal niet_ingezetene klopt niet", 1, niet_ingezetene.getRowCount());
-        assertEquals("NL.KAD.Persoon.428924922", niet_ingezetene.getValue(0, "sc_identif"));
+//        // test of de records in de tabellen de juiste clazz hebben en volledig zijn
+//        String[] tables = {"subject", "prs", "nat_prs"};
+//        for (String table : tables) {
+//            ITable tbl = rsgb.createDataSet().getTable(table);
+//            assertEquals("Aantal rijen klopt niet in tabel " + table, 3, tbl.getRowCount());
+//            for (int row=0;row < 3; row++) {
+//                assertNotNull("'clazz' is null voor rij "+ row + 1 +", tabel " + table, tbl.getValue(0, "clazz"));
+//                assertEquals("'clazz' klopt niet in tabel " + table, "INGESCHREVEN NATUURLIJK PERSOON", tbl.getValue(0, "clazz"));
+//            }
+//        }
+//        // ingeschr_nat_prs
+//        ITable ingeschr_nat_prs = rsgb.createDataSet().getTable("ingeschr_nat_prs");
+//        assertEquals("Aantal ingeschr_nat_prs klopt niet.", 3, ingeschr_nat_prs.getRowCount());
+//        for (int row=0;row < 3; row++) {
+//            assertNull("'clazz' is niet null voor rij "+ row + 1 +", tabel ingeschr_nat_prs", ingeschr_nat_prs.getValue(row, "clazz"));
+//
+//        }
+//        // niet_ingezetene
+//        ITable niet_ingezetene = rsgb.createDataSet().getTable("niet_ingezetene");
+//        assertEquals("Aantal niet_ingezetene klopt niet", 1, niet_ingezetene.getRowCount());
+//        assertEquals("NL.KAD.Persoon.428924922", niet_ingezetene.getValue(0, "sc_identif"));
     }
 }
