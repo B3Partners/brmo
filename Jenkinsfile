@@ -1,12 +1,10 @@
 timestamps {
     node {
         properties([
-            [$class: 'jenkins.model.BuildDiscarderProperty', strategy: [$class: 'LogRotator',
-                artifactDaysToKeepStr: '8',
-                artifactNumToKeepStr: '3',
-                daysToKeepStr: '15',
-                numToKeepStr: '5']
-            ]]);
+            [$class: 'jenkins.model.BuildDiscarderProperty', strategy: 
+                [$class: 'LogRotator', artifactDaysToKeepStr: '8', artifactNumToKeepStr: '3', daysToKeepStr: '15', numToKeepStr: '5']
+            ]
+        ]);
 
         final def jdks = ['OpenJDK11','JDK8']
 
@@ -173,7 +171,7 @@ timestamps {
             }
         }
 
-        withEnv(["JAVA_HOME=${ tool 'JDK8' }", "PATH+MAVEN=${tool 'Maven 3.6.3'}/bin:${env.JAVA_HOME}/bin"]) {
+        withEnv(["JAVA_HOME=${ tool 'JDK8' }", "PATH+MAVEN=${tool 'Maven CURRENT'}/bin:${env.JAVA_HOME}/bin"]) {
             stage('Publish Results') {
                 junit allowEmptyResults: true, testResults: '**/target/surefire-reports/TEST-*.xml, **/target/failsafe-reports/TEST-*.xml'
             }
@@ -186,8 +184,7 @@ timestamps {
             stage('OWASP Dependency Check') {
                 echo "Uitvoeren OWASP dependency check"
                 sh "mvn org.owasp:dependency-check-maven:aggregate"
-                // dependencyCheckPublisher pattern: '**/dependency-check-report.xml', failedNewCritical: 1, failedNewHigh: 1, failedTotalCritical: 1, failedTotalHigh: 3, unstableTotalHigh: 2
-                dependencyCheckPublisher pattern: '**/dependency-check-report.xml', failedTotalCritical: 1, failedTotalHigh: 2, failedTotalLow: 10, failedTotalMedium: 5
+                dependencyCheckPublisher failedNewCritical: 1, failedNewHigh: 1, failedNewLow: 2, failedNewMedium: 2, failedTotalCritical: 1, failedTotalHigh: 1, failedTotalLow: 5, failedTotalMedium: 5, pattern: '**/dependency-check-report.xml'
             }
 
             cleanWs cleanWhenFailure: false, cleanWhenNotBuilt: false, cleanWhenUnstable: false, notFailBuild: true
