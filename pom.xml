@@ -368,7 +368,7 @@
             <dependency>
                 <groupId>jakarta.activation</groupId>
                 <artifactId>jakarta.activation-api</artifactId>
-                <version>1.2.2</version>
+                <version>${activation.api.version}</version>
             </dependency>
             <dependency>
                 <!-- de volledige mail impelentatie dient door de servlet container te worden geleverd. -->
