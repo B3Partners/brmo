@@ -17,7 +17,7 @@ BRMO loader,nl.b3p.brmo.loader,BrmoFramework,1038,0,58,0,257,0,76,0,47,0
 BRMO loader,nl.b3p.brmo.loader,StagingProxy.new ResultSetHandler() {...},172,0,10,0,29,0,7,0,2,0
 BRMO loader,nl.b3p.brmo.loader,RsgbProxy.BerichtSelectMode,54,0,0,0,2,0,1,0,1,0
 BRMO loader,nl.b3p.brmo.loader,RsgbBRPTransformer,244,0,16,0,65,0,16,0,8,0
-BRMO loader,nl.b3p.brmo.loader,StagingProxy,2920,0,248,0,519,0,172,0,48,0
+BRMO loader,nl.b3p.brmo.loader,StagingProxy,2918,0,248,0,519,0,172,0,48,0
 BRMO loader,nl.b3p.brmo.loader,RsgbProxy,4529,0,400,0,918,0,250,0,48,0
 BRMO loader,nl.b3p.brmo.loader,BrmoFramework.new CountingInputStream() {...},22,0,2,0,5,0,3,0,2,0
 BRMO loader,nl.b3p.brmo.loader.xml,BrkSnapshotXMLReader.MutatieGegevens,0,15,0,0,0,5,0,1,0,1
@@ -42,7 +42,7 @@ BRMO loader,nl.b3p.brmo.loader.entity,LaadProces,142,3,0,0,61,2,39,1,39,1
 BRMO loader,nl.b3p.brmo.loader.entity,NhrBericht,24,0,0,0,9,0,4,0,4,0
 BRMO loader,nl.b3p.brmo.loader.entity,BerichtenSorter,26,0,0,0,7,0,3,0,3,0
 BRMO loader,nl.b3p.brmo.loader.entity,BrkBericht,139,192,11,7,33,39,10,7,2,6
-BRMO loader,nl.b3p.brmo.loader.entity,LaadProces.STATUS,104,0,0,0,2,0,1,0,1,0
+BRMO loader,nl.b3p.brmo.loader.entity,LaadProces.STATUS,114,0,0,0,2,0,1,0,1,0
 BRMO loader,nl.b3p.brmo.loader.pipeline,BerichtWorkUnit,30,0,0,0,13,0,7,0,7,0
 BRMO loader,nl.b3p.brmo.loader.pipeline,BerichtPipelineThread,182,0,12,0,47,0,11,0,5,0
 BRMO loader,nl.b3p.brmo.loader.pipeline,UpdateResultPipeline,19,0,0,0,4,0,2,0,2,0

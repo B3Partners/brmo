@@ -123,7 +123,7 @@
 <a class="jxr_linenumber" name="L115" href="#L115">115</a> <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L116" href="#L116">116</a> <em class="jxr_javadoccomment">     * @throws Exception if any</em>
 <a class="jxr_linenumber" name="L117" href="#L117">117</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L118" href="#L118">118</a>     <em class="jxr_comment">//@Test</em>
+<a class="jxr_linenumber" name="L118" href="#L118">118</a>     @Test
 <a class="jxr_linenumber" name="L119" href="#L119">119</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> mutTestZipFile() <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L120" href="#L120">120</a>         ZipInputStream zis = <strong class="jxr_keyword">new</strong> ZipInputStream(
 <a class="jxr_linenumber" name="L121" href="#L121">121</a>                 BrkSnapshotXMLReader.<strong class="jxr_keyword">class</strong>.getResourceAsStream(mutZipName));
@@ -175,20 +175,9 @@
 <a class="jxr_linenumber" name="L167" href="#L167">167</a>         }
 <a class="jxr_linenumber" name="L168" href="#L168">168</a>         assertEquals(<span class="jxr_string">"Verwacht dat het aantal mutaties gelijk is."</span>, standZipSnapshotCount, total);
 <a class="jxr_linenumber" name="L169" href="#L169">169</a>     }
-<a class="jxr_linenumber" name="L170" href="#L170">170</a> <em class="jxr_comment">//    /**</em>
-<a class="jxr_linenumber" name="L171" href="#L171">171</a> <em class="jxr_comment">//     * Test next() methode met leeg levering bestand.</em>
-<a class="jxr_linenumber" name="L172" href="#L172">172</a> <em class="jxr_comment">//     *</em>
-<a class="jxr_linenumber" name="L173" href="#L173">173</a> <em class="jxr_comment">//     * @throws Exception if any</em>
-<a class="jxr_linenumber" name="L174" href="#L174">174</a> <em class="jxr_comment">//     */</em>
-<a class="jxr_linenumber" name="L175" href="#L175">175</a> <em class="jxr_comment">//    @Test</em>
-<a class="jxr_linenumber" name="L176" href="#L176">176</a> <em class="jxr_comment">//    public void testLvcEmptyXML() throws Exception {</em>
-<a class="jxr_linenumber" name="L177" href="#L177">177</a> <em class="jxr_comment">//        BrkSnapshotXMLReader bReader;</em>
-<a class="jxr_linenumber" name="L178" href="#L178">178</a> <em class="jxr_comment">//        bReader = new BrkSnapshotXMLReader(BrkSnapshotXMLReader.class.getResourceAsStream(lvcEmpty));</em>
-<a class="jxr_linenumber" name="L179" href="#L179">179</a> <em class="jxr_comment">//        assertTrue(!bReader.hasNext());</em>
-<a class="jxr_linenumber" name="L180" href="#L180">180</a> <em class="jxr_comment">//    }</em>
-<a class="jxr_linenumber" name="L181" href="#L181">181</a> }
+<a class="jxr_linenumber" name="L170" href="#L170">170</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2014&#x2013;2019 <a href="http://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2014&#x2013;2020 <a href="http://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>
 </body>
 </html>

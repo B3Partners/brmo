@@ -828,7 +828,7 @@
 <a class="jxr_linenumber" name="L820" href="#L820">820</a>                 <a name="Bericht" href="../../../../nl/b3p/brmo/loader/entity/Bericht.html#Bericht">Bericht</a> b = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L821" href="#L821">821</a>                 <strong class="jxr_keyword">try</strong> {
 <a class="jxr_linenumber" name="L822" href="#L822">822</a>                     b = brmoXMLReader.next();
-<a class="jxr_linenumber" name="L823" href="#L823">823</a>                     b.setLaadProcesId(lp.getId().intValue());
+<a class="jxr_linenumber" name="L823" href="#L823">823</a>                     b.setLaadProcesId(lp.getId());
 <a class="jxr_linenumber" name="L824" href="#L824">824</a>                     b.setStatus(Bericht.STATUS.STAGING_OK);
 <a class="jxr_linenumber" name="L825" href="#L825">825</a>                     b.setStatusDatum(<strong class="jxr_keyword">new</strong> Date());
 <a class="jxr_linenumber" name="L826" href="#L826">826</a>                     b.setSoort(type);
@@ -1220,6 +1220,6 @@
 <a class="jxr_linenumber" name="L1212" href="#L1212">1212</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2014&#x2013;2019 <a href="http://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2014&#x2013;2020 <a href="http://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>
 </body>
 </html>

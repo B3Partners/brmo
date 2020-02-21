@@ -18,8 +18,11 @@ package nl.b3p.brmo.service.stripes;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.Date;
 import net.sourceforge.stripes.action.ActionBean;
 import net.sourceforge.stripes.action.ActionBeanContext;
+import net.sourceforge.stripes.action.After;
+import net.sourceforge.stripes.action.Before;
 import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.Resolution;
@@ -31,14 +34,17 @@ import nl.b3p.brmo.persistence.staging.AutomatischProces;
 import nl.b3p.brmo.service.scanner.AbstractExecutableProces;
 import nl.b3p.brmo.service.scanner.AfgifteNummerScanner;
 import nl.b3p.brmo.service.scanner.ProgressUpdateListener;
+import org.stripesstuff.plugin.waitpage.WaitPage;
 import org.stripesstuff.stripersist.EntityTypeConverter;
 import org.stripesstuff.stripersist.Stripersist;
 
 /**
+ * actionbean voor uitvoeren van afgiftenummer scan.
  *
- * @author Mark Prins &lt;mark@b3partners.nl&gt;
+ * @since 2.0.0
+ * @author mprins
  */
-<span class="nc" id="L41">public class AfgifteNummerScanUitvoerenActionBean implements ActionBean, ProgressUpdateListener {</span>
+<span class="nc" id="L47">public class AfgifteNummerScanUitvoerenActionBean implements ActionBean, ProgressUpdateListener {</span>
 
     private static final String JSP = &quot;/WEB-INF/jsp/beheer/afgiftenummerscanneruitvoeren.jsp&quot;;
 
@@ -51,100 +57,171 @@ import org.stripesstuff.stripersist.Stripersist;
 
     private String status;
 
-<span class="nc" id="L54">    private StringBuilder log = new StringBuilder();</span>
+    private long total;
+
+    private boolean complete;
+
+    private Date start;
+
+    private Date update;
+
+<span class="nc" id="L68">    private StringBuilder log = new StringBuilder();</span>
 
     @DefaultHandler
+    @WaitPage(path = JSP, delay = 1000, refresh = 1000)
     public Resolution execute() {
-<span class="nc bnc" id="L58" title="All 2 branches missed.">        if (proces == null) {</span>
-<span class="nc" id="L59">            getContext().getMessages().add(new SimpleMessage(&quot;Proces ongeldig!&quot;));</span>
-<span class="nc" id="L60">            return new ForwardResolution(JSP);</span>
+<span class="nc" id="L73">        String samenvatting = null;</span>
+
+<span class="nc bnc" id="L75" title="All 2 branches missed.">        if (proces == null) {</span>
+<span class="nc" id="L76">            getContext().getMessages().add(new SimpleMessage(&quot;Proces ongeldig!&quot;));</span>
+<span class="nc" id="L77">            completed();</span>
+<span class="nc" id="L78">            return new ForwardResolution(JSP);</span>
         }
-<span class="nc" id="L62">        AfgifteNummerScanner _proces = (AfgifteNummerScanner) AbstractExecutableProces.getProces(proces);</span>
+
+<span class="nc" id="L81">        proces = Stripersist.getEntityManager().find(AfgifteNummerScannerProces.class, proces.getId());</span>
+<span class="nc" id="L82">        AfgifteNummerScanner _proces = (AfgifteNummerScanner) AbstractExecutableProces.getProces(proces);</span>
+
         try {
-<span class="nc" id="L64">            _proces.execute(this);</span>
-<span class="nc" id="L65">            proces.setOntbrekendeNummersGevonden(_proces.getOntbrekendeNummersGevonden());</span>
-<span class="nc" id="L66">            getContext().getMessages().add(new SimpleMessage(&quot;Afgiftenummer scan is afgerond.&quot;));</span>
-<span class="nc bnc" id="L67" title="All 2 branches missed.">            getContext().getMessages().add(new SimpleMessage(&quot;Er zijn &quot; + (_proces.getOntbrekendeNummersGevonden() ? &quot;&quot; : &quot;geen&quot;) + &quot; ontbrekende afgiftenummers geconstateerd.&quot;));</span>
-<span class="nc" id="L68">        } catch (Exception ex) {</span>
-<span class="nc" id="L69">            proces.setStatus(AutomatischProces.ProcessingStatus.ERROR);</span>
-<span class="nc" id="L70">            getContext().getMessages().add(</span>
+<span class="nc" id="L85">            _proces.execute(this);</span>
+<span class="nc" id="L86">            this.proces.setOntbrekendeNummersGevonden(_proces.getOntbrekendeNummersGevonden());</span>
+<span class="nc" id="L87">            getContext().getMessages().add(new SimpleMessage(&quot;Afgiftenummer scan is afgerond.&quot;));</span>
+<span class="nc bnc" id="L88" title="All 2 branches missed.">            samenvatting = &quot;Er zijn &quot; + (_proces.getOntbrekendeNummersGevonden() ? &quot;&quot; : &quot;geen&quot;) + &quot; ontbrekende afgiftenummers geconstateerd.&quot;;</span>
+<span class="nc" id="L89">            getContext().getMessages().add(new SimpleMessage(samenvatting));</span>
+<span class="nc" id="L90">        } catch (Exception ex) {</span>
+<span class="nc" id="L91">            this.proces.setStatus(AutomatischProces.ProcessingStatus.ERROR);</span>
+<span class="nc" id="L92">            Stripersist.getEntityManager().merge(this.proces);</span>
+<span class="nc" id="L93">            exception(ex);</span>
+<span class="nc" id="L94">            samenvatting = &quot;Er is een fout opgetreden tijdens het bepalen van ontbrekende afgiftenummers.&quot;;</span>
+<span class="nc" id="L95">            getContext().getMessages().add(</span>
                     new SimpleError(&quot;Er is een fout opgetreden tijdens het bepalen van ontbrekende afgiftenummers. {2}&quot;,
-<span class="nc" id="L72">                            ex.getMessage()));</span>
+<span class="nc" id="L97">                            ex.getMessage()));</span>
         } finally {
-<span class="nc" id="L74">            proces.updateSamenvattingEnLogfile(this.log.toString());</span>
-<span class="nc" id="L75">            Stripersist.getEntityManager().merge(proces);</span>
-<span class="nc" id="L76">            Stripersist.getEntityManager().getTransaction().commit();</span>
+<span class="nc" id="L99">            this.completed();</span>
+<span class="nc" id="L100">            this.proces.updateSamenvattingEnLogfile(this.log.toString());</span>
+            // de hele log is te groot voor de samenvatting, maar #updateSamenvattingEnLogfile is wel handig om te gebruiken
+<span class="nc" id="L102">            this.proces.setSamenvatting(samenvatting);</span>
+
+<span class="nc bnc" id="L104" title="All 2 branches missed.">            if (Stripersist.getEntityManager().getTransaction().isActive()) {</span>
+<span class="nc" id="L105">                Stripersist.getEntityManager().getTransaction().commit();</span>
+            }
         }
-<span class="nc" id="L78">        return new ForwardResolution(JSP);</span>
+<span class="nc" id="L108">        return new ForwardResolution(JSP);</span>
     }
 
     @Override
     public void total(long total) {
-<span class="nc" id="L83">    }</span>
+<span class="nc" id="L113">        this.total = total;</span>
+<span class="nc" id="L114">    }</span>
 
     @Override
     public void progress(long progress) {
-<span class="nc" id="L87">    }</span>
+        //this.processed = progress;
+<span class="nc" id="L119">        this.total = progress;</span>
+<span class="nc" id="L120">        this.update = new Date();</span>
+<span class="nc" id="L121">    }</span>
 
     @Override
     public void exception(Throwable t) {
-<span class="nc" id="L91">        StringWriter sw = new StringWriter();</span>
-<span class="nc" id="L92">        t.printStackTrace(new PrintWriter(sw));</span>
-<span class="nc" id="L93">        this.exceptionStacktrace = sw.toString();</span>
-<span class="nc" id="L94">    }</span>
+<span class="nc" id="L125">        StringWriter sw = new StringWriter();</span>
+<span class="nc" id="L126">        t.printStackTrace(new PrintWriter(sw));</span>
+<span class="nc" id="L127">        this.exceptionStacktrace = sw.toString();</span>
+<span class="nc" id="L128">    }</span>
 
     @Override
     public void updateStatus(String status) {
-<span class="nc" id="L98">        this.status = status;</span>
-<span class="nc" id="L99">    }</span>
+<span class="nc" id="L132">        this.status = status;</span>
+<span class="nc" id="L133">    }</span>
 
     @Override
     public void addLog(String line) {
-<span class="nc" id="L103">        this.log.append(line).append(&quot;\n&quot;);</span>
-<span class="nc" id="L104">    }</span>
+<span class="nc" id="L137">        this.log.append(line).append(&quot;\n&quot;);</span>
+<span class="nc" id="L138">    }</span>
+
+    @Before
+    public void before() {
+<span class="nc" id="L142">        start = new Date();</span>
+<span class="nc" id="L143">    }</span>
+
+    @After
+    public void completed() {
+<span class="nc" id="L147">        complete = true;</span>
+<span class="nc" id="L148">        proces.setLastrun(this.update);</span>
+<span class="nc" id="L149">    }</span>
 
     // &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;getters en setters&quot;&gt;
     @Override
     public void setContext(ActionBeanContext context) {
-<span class="nc" id="L109">        this.context = context;</span>
-<span class="nc" id="L110">    }</span>
+<span class="nc" id="L154">        this.context = context;</span>
+<span class="nc" id="L155">    }</span>
 
     @Override
     public ActionBeanContext getContext() {
-<span class="nc" id="L114">        return this.context;</span>
+<span class="nc" id="L159">        return this.context;</span>
     }
 
     public AfgifteNummerScannerProces getProces() {
-<span class="nc" id="L118">        return proces;</span>
+<span class="nc" id="L163">        return proces;</span>
     }
 
     public void setProces(AfgifteNummerScannerProces proces) {
-<span class="nc" id="L122">        this.proces = proces;</span>
-<span class="nc" id="L123">    }</span>
+<span class="nc" id="L167">        this.proces = proces;</span>
+<span class="nc" id="L168">    }</span>
 
     public String getLog() {
-<span class="nc" id="L126">        return log.toString();</span>
+<span class="nc" id="L171">        return log.toString();</span>
     }
 
     public void setLog(String log) {
-<span class="nc" id="L130">        this.log = new StringBuilder(log);</span>
-<span class="nc" id="L131">    }</span>
+<span class="nc" id="L175">        this.log = new StringBuilder(log);</span>
+<span class="nc" id="L176">    }</span>
 
     public String getStatus() {
-<span class="nc" id="L134">        return status;</span>
+<span class="nc" id="L179">        return status;</span>
     }
 
     public void setStatus(String status) {
-<span class="nc" id="L138">        this.status = status;</span>
-<span class="nc" id="L139">    }</span>
+<span class="nc" id="L183">        this.status = status;</span>
+<span class="nc" id="L184">    }</span>
 
     public String getExceptionStacktrace() {
-<span class="nc" id="L142">        return exceptionStacktrace;</span>
+<span class="nc" id="L187">        return exceptionStacktrace;</span>
     }
 
     public void setExceptionStacktrace(String exceptionStacktrace) {
-<span class="nc" id="L146">        this.exceptionStacktrace = exceptionStacktrace;</span>
-<span class="nc" id="L147">    }</span>
+<span class="nc" id="L191">        this.exceptionStacktrace = exceptionStacktrace;</span>
+<span class="nc" id="L192">    }</span>
+
+    public boolean isComplete() {
+<span class="nc" id="L195">        return complete;</span>
+    }
+
+    public void setComplete(boolean complete) {
+<span class="nc" id="L199">        this.complete = complete;</span>
+<span class="nc" id="L200">    }</span>
+
+    public Date getStart() {
+<span class="nc" id="L203">        return start;</span>
+    }
+
+    public void setStart(Date start) {
+<span class="nc" id="L207">        this.start = start;</span>
+<span class="nc" id="L208">    }</span>
+
+    public Date getUpdate() {
+<span class="nc" id="L211">        return update;</span>
+    }
+
+    public void setUpdate(Date update) {
+<span class="nc" id="L215">        this.update = update;</span>
+<span class="nc" id="L216">    }</span>
+
+    public long getTotal() {
+<span class="nc" id="L219">        return this.total;</span>
+    }
+
+    public void setTotal(long total) {
+<span class="nc" id="L223">        this.total = total;</span>
+<span class="nc" id="L224">    }</span>
     // &lt;/editor-fold&gt;
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

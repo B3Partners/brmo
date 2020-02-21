@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.service.stripes.OphaalConfigActionBean
-	c2064 [label=<<table title="nl.b3p.brmo.service.stripes.OphaalConfigActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./OphaalConfigActionBean.html">
+	c2250 [label=<<table title="nl.b3p.brmo.service.stripes.OphaalConfigActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./OphaalConfigActionBean.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> OphaalConfigActionBean </td></tr>
 		</table></td></tr>
@@ -39,7 +39,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./OphaalConfigActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.scanner.ProcesExecutable.ProcessingImple
-	c2079 [label=<<table title="nl.b3p.brmo.service.scanner.ProcesExecutable.ProcessingImple" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../scanner/ProcesExecutable.ProcessingImple.html">
+	c2265 [label=<<table title="nl.b3p.brmo.service.scanner.ProcesExecutable.ProcessingImple" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../scanner/ProcesExecutable.ProcessingImple.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> ProcessingImple </td></tr>
@@ -60,20 +60,21 @@ digraph G {
 <tr><td align="left" balign="left"> LaadprocesTransformatieProces </td></tr>
 <tr><td align="left" balign="left"> MaterializedViewRefresh </td></tr>
 <tr><td align="left" balign="left"> BerichtstatusRapportProces </td></tr>
+<tr><td align="left" balign="left"> LaadprocesStatusRapportProces </td></tr>
 <tr><td align="left" balign="left"> TopNLScannerProces </td></tr>
 <tr><td align="left" balign="left"> AfgifteNummerScannerProces </td></tr>
 		</table></td></tr>
 		</table>>, URL="../scanner/ProcesExecutable.ProcessingImple.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.service.stripes.OphaalConfigActionBean implements net.sourceforge.stripes.action.ActionBean
-	c2091:p -> c2064:p [dir=back,arrowtail=empty,style=dashed];
+	c2278:p -> c2250:p [dir=back,arrowtail=empty,style=dashed];
 	// nl.b3p.brmo.service.stripes.OphaalConfigActionBean NAVASSOC net.sourceforge.stripes.action.ActionBeanContext
-	c2064:p -> c2092:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c2250:p -> c2279:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.service.stripes.OphaalConfigActionBean NAVASSOC nl.b3p.brmo.persistence.staging.AutomatischProces
-	c2064:p -> c2093:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c2250:p -> c2280:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.service.stripes.OphaalConfigActionBean NAVASSOC nl.b3p.brmo.service.scanner.ProcesExecutable.ProcessingImple
-	c2064:p -> c2079:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c2250:p -> c2265:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.persistence.staging.AutomatischProces
-	c2093 [label=<<table title="nl.b3p.brmo.persistence.staging.AutomatischProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+	c2280 [label=<<table title="nl.b3p.brmo.persistence.staging.AutomatischProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> AutomatischProces </font></td></tr>
 		</table></td></tr>
@@ -101,7 +102,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// net.sourceforge.stripes.action.ActionBean
-	c2091 [label=<<table title="net.sourceforge.stripes.action.ActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+	c2278 [label=<<table title="net.sourceforge.stripes.action.ActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> ActionBean </td></tr>
@@ -115,7 +116,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// net.sourceforge.stripes.action.ActionBeanContext
-	c2092 [label=<<table title="net.sourceforge.stripes.action.ActionBeanContext" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+	c2279 [label=<<table title="net.sourceforge.stripes.action.ActionBeanContext" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ActionBeanContext </td></tr>
 		</table></td></tr>

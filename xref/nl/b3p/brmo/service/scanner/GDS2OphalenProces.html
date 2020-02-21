@@ -637,302 +637,303 @@
 <a class="jxr_linenumber" name="L629" href="#L629">629</a>         lp.setAfgiftereferentie(a.getAfgiftereferentie());
 <a class="jxr_linenumber" name="L630" href="#L630">630</a>         lp.setBestandsreferentie(a.getBestand().getBestandsreferentie());
 <a class="jxr_linenumber" name="L631" href="#L631">631</a>         lp.setBeschikbaar_tot(a.getBeschikbaarTot().toGregorianCalendar().getTime());
-<a class="jxr_linenumber" name="L632" href="#L632">632</a> 
-<a class="jxr_linenumber" name="L633" href="#L633">633</a>         <strong class="jxr_keyword">if</strong> (a.getDigikoppelingExternalDatareferences() != <strong class="jxr_keyword">null</strong>
-<a class="jxr_linenumber" name="L634" href="#L634">634</a>                 &amp;&amp; a.getDigikoppelingExternalDatareferences().getDataReference() != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L635" href="#L635">635</a>             <strong class="jxr_keyword">for</strong> (DataReference dr : a.getDigikoppelingExternalDatareferences().getDataReference()) {
-<a class="jxr_linenumber" name="L636" href="#L636">636</a>                 lp.setBestand_datum(dr.getLifetime().getCreationTime().getValue().toGregorianCalendar().getTime());
-<a class="jxr_linenumber" name="L637" href="#L637">637</a>                 <strong class="jxr_keyword">break</strong>;
-<a class="jxr_linenumber" name="L638" href="#L638">638</a>             }
-<a class="jxr_linenumber" name="L639" href="#L639">639</a>         }
-<a class="jxr_linenumber" name="L640" href="#L640">640</a>         lp.setSoort(<span class="jxr_string">"brk"</span>);
-<a class="jxr_linenumber" name="L641" href="#L641">641</a>         lp.setStatus(LaadProces.STATUS.STAGING_OK);
-<a class="jxr_linenumber" name="L642" href="#L642">642</a>         SimpleDateFormat sdf = <strong class="jxr_keyword">new</strong> SimpleDateFormat(<span class="jxr_string">"dd-MM-yyyy HH:mm:ss"</span>);
-<a class="jxr_linenumber" name="L643" href="#L643">643</a>         lp.setOpmerking(<span class="jxr_string">"GDS2 download van "</span> + url + <span class="jxr_string">" op "</span> + sdf.format(<strong class="jxr_keyword">new</strong> Date()));
-<a class="jxr_linenumber" name="L644" href="#L644">644</a>         lp.setAutomatischProces(em.find(AutomatischProces.<strong class="jxr_keyword">class</strong>, config.getId()));
-<a class="jxr_linenumber" name="L645" href="#L645">645</a> 
-<a class="jxr_linenumber" name="L646" href="#L646">646</a>         <a name="Bericht" href="../../../../../nl/b3p/brmo/lo<a name="Bericht" href="../../../../../nl/b3p/brmo/loader/entity/Bericht.html#Bericht">Bericht</a>tity/Bericht.html#Bericht">Bericht</a> b = <strong class="jxr_keyword">new</strong> <a name="Bericht" href="../../../../../nl/b3p/brmo/persistence/staging/Bericht.html#Bericht">Bericht</a>();
-<a class="jxr_linenumber" name="L647" href="#L647">647</a>         b.setLaadprocesid(lp);
-<a class="jxr_linenumber" name="L648" href="#L648">648</a>         b.setDatum(lp.getBestand_datum());
-<a class="jxr_linenumber" name="L649" href="#L649">649</a>         b.setSoort(<span class="jxr_string">"brk"</span>);
-<a class="jxr_linenumber" name="L650" href="#L650">650</a>         b.setStatus_datum(<strong class="jxr_keyword">new</strong> Date());
-<a class="jxr_linenumber" name="L651" href="#L651">651</a> 
-<a class="jxr_linenumber" name="L652" href="#L652">652</a>         ZipInputStream zip = <strong class="jxr_keyword">new</strong> ZipInputStream(<strong class="jxr_keyword">new</strong> ByteArrayInputStream(bos.toByteArray()));
-<a class="jxr_linenumber" name="L653" href="#L653">653</a>         ZipEntry entry = zip.getNextEntry();
-<a class="jxr_linenumber" name="L654" href="#L654">654</a>         <strong class="jxr_keyword">while</strong> (entry != <strong class="jxr_keyword">null</strong> &amp;&amp; !entry.getName().toLowerCase().endsWith(<span class="jxr_string">".xml"</span>)) {
-<a class="jxr_linenumber" name="L655" href="#L655">655</a>             msg = <span class="jxr_string">"Overslaan zip entry geen XML: "</span> + entry.getName();
-<a class="jxr_linenumber" name="L656" href="#L656">656</a>             l.addLog(msg);
-<a class="jxr_linenumber" name="L657" href="#L657">657</a>             entry = zip.getNextEntry();
-<a class="jxr_linenumber" name="L658" href="#L658">658</a>         }
-<a class="jxr_linenumber" name="L659" href="#L659">659</a>         <strong class="jxr_keyword">if</strong> (entry == <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L660" href="#L660">660</a>             msg = <span class="jxr_string">"Geen geschikt XML bestand gevonden in zip bestand!"</span>;
-<a class="jxr_linenumber" name="L661" href="#L661">661</a>             l.addLog(msg);
-<a class="jxr_linenumber" name="L662" href="#L662">662</a>             <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L663" href="#L663">663</a>         }
-<a class="jxr_linenumber" name="L664" href="#L664">664</a>         b.setBr_orgineel_xml(IOUtils.toString(zip, <span class="jxr_string">"UTF-8"</span>));
-<a class="jxr_linenumber" name="L665" href="#L665">665</a> 
-<a class="jxr_linenumber" name="L666" href="#L666">666</a>         <strong class="jxr_keyword">if</strong> (log.isDebugEnabled()) {
-<a class="jxr_linenumber" name="L667" href="#L667">667</a>             <em class="jxr_comment">// dump xml bestand naar /tmp/ voordat de xml wordt geparsed</em>
-<a class="jxr_linenumber" name="L668" href="#L668">668</a>             String fName = File.createTempFile(lp.getBestand_naam(), <span class="jxr_string">".xml"</span>).getAbsolutePath();
-<a class="jxr_linenumber" name="L669" href="#L669">669</a>             log.debug(<span class="jxr_string">"Dump xml bericht naar: "</span> + fName);
-<a class="jxr_linenumber" name="L670" href="#L670">670</a>             IOUtils.write(b.getBr_orgineel_xml(), <strong class="jxr_keyword">new</strong> FileWriter(fName));
-<a class="jxr_linenumber" name="L671" href="#L671">671</a>         }
-<a class="jxr_linenumber" name="L672" href="#L672">672</a> 
-<a class="jxr_linenumber" name="L673" href="#L673">673</a>         <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L674" href="#L674">674</a>             <a name="BrkSnapshotXMLReader" href="../../../../../nl/b3p/brmo/loader/<a name="BrkSnapshotXMLReader" href="../../../../../nl/b3p/brmo/loader/xml/BrkSnapshotXMLReader.html#BrkSnapshotXMLReader">BrkSnapshotXMLReader</a>ader.html#BrkSnapshotXMLReader">BrkSnapshotXMLReader</a> reader = <strong class="jxr_keyword">new</strong> <a name="BrkSnapshotXMLReader" href="../../../../../nl/b3p/brmo/loader/xml/BrkSnapshotXMLReader.html#BrkSnapshotXMLReader">BrkSnapshotXMLReader</a>(<strong class="jxr_keyword">new</strong> ByteArrayInputStream(b.getBr_orgineel_xml().getBytes(<span class="jxr_string">"UTF-8"</span>)));
-<a class="jxr_linenumber" name="L675" href="#L675">675</a>             <a name="BrkBericht" href="../../../../../nl/b3p/brmo/loader/entity/BrkBericht.html#BrkBericht">BrkBericht</a> bericht = reader.next();
-<a class="jxr_linenumber" name="L676" href="#L676">676</a> 
-<a class="jxr_linenumber" name="L677" href="#L677">677</a>             <strong class="jxr_keyword">if</strong> (bericht.getDatum() != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L678" href="#L678">678</a>                 b.setDatum(bericht.getDatum());
-<a class="jxr_linenumber" name="L679" href="#L679">679</a>             }
-<a class="jxr_linenumber" name="L680" href="#L680">680</a>             b.setBr_xml(bericht.getBrXml());
-<a class="jxr_linenumber" name="L681" href="#L681">681</a>             b.setVolgordenummer(bericht.getVolgordeNummer());
-<a class="jxr_linenumber" name="L682" href="#L682">682</a> 
-<a class="jxr_linenumber" name="L683" href="#L683">683</a>             <em class="jxr_comment">//Als objectRef niet opgehaald kan worden,dan kan het</em>
-<a class="jxr_linenumber" name="L684" href="#L684">684</a>             <em class="jxr_comment">//bericht niet verwerkt worden.</em>
-<a class="jxr_linenumber" name="L685" href="#L685">685</a>             String objectRef = bericht.getObjectRef();
-<a class="jxr_linenumber" name="L686" href="#L686">686</a>             <strong class="jxr_keyword">if</strong> (objectRef != <strong class="jxr_keyword">null</strong> &amp;&amp; !objectRef.isEmpty()) {
-<a class="jxr_linenumber" name="L687" href="#L687">687</a>                 b.setObject_ref(bericht.getObjectRef());
-<a class="jxr_linenumber" name="L688" href="#L688">688</a>                 b.setStatus(Bericht.STATUS.STAGING_OK);
-<a class="jxr_linenumber" name="L689" href="#L689">689</a>                 b.setOpmerking(<span class="jxr_string">"Klaar voor verwerking."</span>);
-<a class="jxr_linenumber" name="L690" href="#L690">690</a>             } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L691" href="#L691">691</a>                 b.setStatus(Bericht.STATUS.STAGING_NOK);
-<a class="jxr_linenumber" name="L692" href="#L692">692</a>                 b.setOpmerking(<span class="jxr_string">"Object Ref niet gevonden in bericht-xml, neem contact op met leverancier."</span>);
-<a class="jxr_linenumber" name="L693" href="#L693">693</a>             }
-<a class="jxr_linenumber" name="L694" href="#L694">694</a>         } <strong class="jxr_keyword">catch</strong> (Exception e) {
-<a class="jxr_linenumber" name="L695" href="#L695">695</a>             b.setStatus(Bericht.STATUS.STAGING_NOK);
-<a class="jxr_linenumber" name="L696" href="#L696">696</a>             StringWriter sw = <strong class="jxr_keyword">new</strong> StringWriter();
-<a class="jxr_linenumber" name="L697" href="#L697">697</a>             e.printStackTrace(<strong class="jxr_keyword">new</strong> PrintWriter(sw));
-<a class="jxr_linenumber" name="L698" href="#L698">698</a>             b.setOpmerking(<span class="jxr_string">"Fout bij parsen BRK bericht: "</span> + sw.toString());
-<a class="jxr_linenumber" name="L699" href="#L699">699</a>         }
-<a class="jxr_linenumber" name="L700" href="#L700">700</a>         <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L701" href="#L701">701</a>             em.persist(lp);
-<a class="jxr_linenumber" name="L702" href="#L702">702</a>             em.persist(b);
-<a class="jxr_linenumber" name="L703" href="#L703">703</a>             em.merge(<strong class="jxr_keyword">this</strong>.config);
-<a class="jxr_linenumber" name="L704" href="#L704">704</a>             em.flush();
-<a class="jxr_linenumber" name="L705" href="#L705">705</a>             em.getTransaction().commit();
-<a class="jxr_linenumber" name="L706" href="#L706">706</a>             em.clear();
-<a class="jxr_linenumber" name="L707" href="#L707">707</a>         } <strong class="jxr_keyword">catch</strong> (PersistenceException pe) {
-<a class="jxr_linenumber" name="L708" href="#L708">708</a>             <strong class="jxr_keyword">if</strong> (!em.getTransaction().isActive()) {
-<a class="jxr_linenumber" name="L709" href="#L709">709</a>                 em.getTransaction().begin();
-<a class="jxr_linenumber" name="L710" href="#L710">710</a>             }
-<a class="jxr_linenumber" name="L711" href="#L711">711</a>             em.getTransaction().rollback();
-<a class="jxr_linenumber" name="L712" href="#L712">712</a>             em.getTransaction().begin();
-<a class="jxr_linenumber" name="L713" href="#L713">713</a>             lp.setId(<strong class="jxr_keyword">null</strong>);
-<a class="jxr_linenumber" name="L714" href="#L714">714</a>             log.warn(<span class="jxr_string">"Opslaan van bericht uit laadproces "</span> + lp.getBestand_naam() + <span class="jxr_string">" is mislukt."</span>, pe);
-<a class="jxr_linenumber" name="L715" href="#L715">715</a>             log.warn(<span class="jxr_string">"Duplicaat bericht: "</span> + b.getObject_ref() + <span class="jxr_string">":"</span> + b.getBr_orgineel_xml() + <span class="jxr_string">"("</span> + b.getBr_xml() + <span class="jxr_string">")"</span>);
-<a class="jxr_linenumber" name="L716" href="#L716">716</a>             lp.setStatus(LaadProces.STATUS.STAGING_DUPLICAAT);
-<a class="jxr_linenumber" name="L717" href="#L717">717</a>             lp.setOpmerking(lp.getOpmerking() + <span class="jxr_string">": Fout, duplicaat bericht. Inhoud: \n"</span> + b.getBr_xml());
-<a class="jxr_linenumber" name="L718" href="#L718">718</a>             em.merge(<strong class="jxr_keyword">this</strong>.config);
-<a class="jxr_linenumber" name="L719" href="#L719">719</a>             em.persist(lp);
-<a class="jxr_linenumber" name="L720" href="#L720">720</a>             em.flush();
-<a class="jxr_linenumber" name="L721" href="#L721">721</a>             em.getTransaction().commit();
-<a class="jxr_linenumber" name="L722" href="#L722">722</a>             em.clear();
-<a class="jxr_linenumber" name="L723" href="#L723">723</a>             b = <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L724" href="#L724">724</a>         }
-<a class="jxr_linenumber" name="L725" href="#L725">725</a>         <strong class="jxr_keyword">return</strong> b;
-<a class="jxr_linenumber" name="L726" href="#L726">726</a>     }
-<a class="jxr_linenumber" name="L727" href="#L727">727</a> 
-<a class="jxr_linenumber" name="L728" href="#L728">728</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L729" href="#L729">729</a> <em class="jxr_javadoccomment">     * Post de xml naar de geconfigureerde url.</em>
-<a class="jxr_linenumber" name="L730" href="#L730">730</a> <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="L731" href="#L731">731</a> <em class="jxr_javadoccomment">     * @param proces proces waarvoor doorgetuurd wordt</em>
-<a class="jxr_linenumber" name="L732" href="#L732">732</a> <em class="jxr_javadoccomment">     * @param l update listener</em>
-<a class="jxr_linenumber" name="L733" href="#L733">733</a> <em class="jxr_javadoccomment">     * @param b door te sturen bericht</em>
-<a class="jxr_linenumber" name="L734" href="#L734">734</a> <em class="jxr_javadoccomment">     * @param endpoint url waarnaartoe wordt gepost</em>
-<a class="jxr_linenumber" name="L735" href="#L735">735</a> <em class="jxr_javadoccomment">     * @return {@code true} als succesvol doorgestuurd</em>
-<a class="jxr_linenumber" name="L736" href="#L736">736</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L737" href="#L737">737</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">boolean</strong> doorsturenBericht(<a name="AutomatischProces" href="../../../../../nl/b3p/brmo/persistence/staging/AutomatischProces.html#AutomatischProces">AutomatischProces</a> proces, <a name="ProgressUpdateListener" href="../../../../../nl/b3p/brmo/loader/ProgressUpdateListener.html#ProgressUpdateListener">ProgressUpdateListener</a> l, <a name="Bericht" href="../../../../../nl/b3p/brmo/loader/entity/Bericht.html#Bericht">Bericht</a> b, String endpoint) {
-<a class="jxr_linenumber" name="L738" href="#L738">738</a>         String msg;
-<a class="jxr_linenumber" name="L739" href="#L739">739</a>         SimpleDateFormat sdf = <strong class="jxr_keyword">new</strong> SimpleDateFormat(<span class="jxr_string">"dd-MM-yyyy HH:mm:ss"</span>);
-<a class="jxr_linenumber" name="L740" href="#L740">740</a>         <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L741" href="#L741">741</a>             <strong class="jxr_keyword">if</strong> (endpoint == <strong class="jxr_keyword">null</strong> || endpoint.length() &lt; 1) {
-<a class="jxr_linenumber" name="L742" href="#L742">742</a>                 <strong class="jxr_keyword">return</strong> false;
-<a class="jxr_linenumber" name="L743" href="#L743">743</a>             }
-<a class="jxr_linenumber" name="L744" href="#L744">744</a>             URL url = <strong class="jxr_keyword">new</strong> URL(endpoint);
-<a class="jxr_linenumber" name="L745" href="#L745">745</a>             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-<a class="jxr_linenumber" name="L746" href="#L746">746</a>             conn.setDoOutput(<strong class="jxr_keyword">true</strong>);
-<a class="jxr_linenumber" name="L747" href="#L747">747</a>             conn.setRequestMethod(<span class="jxr_string">"POST"</span>);
-<a class="jxr_linenumber" name="L748" href="#L748">748</a>             conn.setRequestProperty(<span class="jxr_string">"Content-Length"</span>, <span class="jxr_string">""</span> + b.getBr_orgineel_xml().length());
-<a class="jxr_linenumber" name="L749" href="#L749">749</a>             conn.setRequestProperty(<span class="jxr_string">"Content-Type"</span>, <span class="jxr_string">"application/octet-stream"</span>);
-<a class="jxr_linenumber" name="L750" href="#L750">750</a>             IOUtils.copy(IOUtils.toInputStream(b.getBr_orgineel_xml(), <span class="jxr_string">"UTF-8"</span>), conn.getOutputStream());
-<a class="jxr_linenumber" name="L751" href="#L751">751</a>             conn.disconnect();
-<a class="jxr_linenumber" name="L752" href="#L752">752</a>             <strong class="jxr_keyword">if</strong> ((conn.getResponseCode() == HttpURLConnection.HTTP_OK)
-<a class="jxr_linenumber" name="L753" href="#L753">753</a>                     || (conn.getResponseCode() == HttpURLConnection.HTTP_CREATED)
-<a class="jxr_linenumber" name="L754" href="#L754">754</a>                     || (conn.getResponseCode() == HttpURLConnection.HTTP_ACCEPTED)) {
-<a class="jxr_linenumber" name="L755" href="#L755">755</a>                 msg = <span class="jxr_string">"Bericht "</span> + b.getObject_ref() + <span class="jxr_string">" op "</span> + sdf.format(<strong class="jxr_keyword">new</strong> Date()) + <span class="jxr_string">" doorgestuurd naar "</span> + endpoint;
-<a class="jxr_linenumber" name="L756" href="#L756">756</a>                 b.setStatus(Bericht.STATUS.STAGING_FORWARDED);
-<a class="jxr_linenumber" name="L757" href="#L757">757</a>             } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L758" href="#L758">758</a>                 msg = String.format(<span class="jxr_string">"HTTP foutcode bij doorsturen bericht %s op %s naar endpoint %s: %s"</span>,
-<a class="jxr_linenumber" name="L759" href="#L759">759</a>                         b.getObject_ref(),
-<a class="jxr_linenumber" name="L760" href="#L760">760</a>                         sdf.format(<strong class="jxr_keyword">new</strong> Date()), endpoint, conn.getResponseCode() + <span class="jxr_string">": "</span> + conn.getResponseMessage());
-<a class="jxr_linenumber" name="L761" href="#L761">761</a>                 b.setStatus(Bericht.STATUS.STAGING_NOK);
-<a class="jxr_linenumber" name="L762" href="#L762">762</a>             }
-<a class="jxr_linenumber" name="L763" href="#L763">763</a>             b.setOpmerking(msg);
-<a class="jxr_linenumber" name="L764" href="#L764">764</a>             l.addLog(msg);
-<a class="jxr_linenumber" name="L765" href="#L765">765</a> 
-<a class="jxr_linenumber" name="L766" href="#L766">766</a>             <strong class="jxr_keyword">return</strong> b.getStatus() == Bericht.STATUS.STAGING_FORWARDED;
-<a class="jxr_linenumber" name="L767" href="#L767">767</a>         } <strong class="jxr_keyword">catch</strong> (Exception e) {
-<a class="jxr_linenumber" name="L768" href="#L768">768</a>             msg = String.format(<span class="jxr_string">"Fout bij doorsturen bericht op %s naar endpoint %s: %s"</span>,
-<a class="jxr_linenumber" name="L769" href="#L769">769</a>                     sdf.format(<strong class="jxr_keyword">new</strong> Date()), endpoint, e.getClass() + <span class="jxr_string">": "</span> + e.getMessage());
-<a class="jxr_linenumber" name="L770" href="#L770">770</a>             b.setOpmerking(msg);
-<a class="jxr_linenumber" name="L771" href="#L771">771</a>             b.setStatus(Bericht.STATUS.STAGING_NOK);
-<a class="jxr_linenumber" name="L772" href="#L772">772</a>             l.addLog(msg);
-<a class="jxr_linenumber" name="L773" href="#L773">773</a>             log.error(msg, e);
-<a class="jxr_linenumber" name="L774" href="#L774">774</a>             <strong class="jxr_keyword">return</strong> false;
-<a class="jxr_linenumber" name="L775" href="#L775">775</a>         }
-<a class="jxr_linenumber" name="L776" href="#L776">776</a>     }
-<a class="jxr_linenumber" name="L777" href="#L777">777</a> 
-<a class="jxr_linenumber" name="L778" href="#L778">778</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L779" href="#L779">779</a> <em class="jxr_javadoccomment">     * verwerk de afgiftes in de response en stuur eventueel door.</em>
-<a class="jxr_linenumber" name="L780" href="#L780">780</a> <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="L781" href="#L781">781</a> <em class="jxr_javadoccomment">     * @param afgiftes lijst afgiftes</em>
-<a class="jxr_linenumber" name="L782" href="#L782">782</a> <em class="jxr_javadoccomment">     * @throws Exception if any</em>
-<a class="jxr_linenumber" name="L783" href="#L783">783</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L784" href="#L784">784</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> verwerkAfgiftes(List&lt;AfgifteType&gt; afgiftes, BaseURLType baseUrl) <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L785" href="#L785">785</a>         <strong class="jxr_keyword">int</strong> filterAlVerwerkt = 0;
-<a class="jxr_linenumber" name="L786" href="#L786">786</a>         <strong class="jxr_keyword">int</strong> aantalGeladen = 0;
-<a class="jxr_linenumber" name="L787" href="#L787">787</a>         <strong class="jxr_keyword">int</strong> aantalDoorgestuurd = 0;
-<a class="jxr_linenumber" name="L788" href="#L788">788</a>         <strong class="jxr_keyword">int</strong> progress = 0;
-<a class="jxr_linenumber" name="L789" href="#L789">789</a>         List&lt;Long&gt; geladenBerichtIds = <strong class="jxr_keyword">new</strong> ArrayList();
-<a class="jxr_linenumber" name="L790" href="#L790">790</a>         String doorsturenUrl = ClobElement.nullSafeGet(<strong class="jxr_keyword">this</strong>.config.getConfig().get(<span class="jxr_string">"delivery_endpoint"</span>));
-<a class="jxr_linenumber" name="L791" href="#L791">791</a>         <strong class="jxr_keyword">final</strong> String soort = <strong class="jxr_keyword">this</strong>.config.getConfig().getOrDefault(<span class="jxr_string">"gds2_br_soort"</span>, <strong class="jxr_keyword">new</strong> <a name="ClobElement" href="../../../../../nl/b3p/brmo/persistence/staging/ClobElement.html#ClobElement">ClobElement</a>(<span class="jxr_string">"brk"</span>)).getValue();
-<a class="jxr_linenumber" name="L792" href="#L792">792</a> 
-<a class="jxr_linenumber" name="L793" href="#L793">793</a>         <strong class="jxr_keyword">for</strong> (AfgifteType a : afgiftes) {
-<a class="jxr_linenumber" name="L794" href="#L794">794</a>             String url = getAfgifteURL(a, baseUrl);
-<a class="jxr_linenumber" name="L795" href="#L795">795</a> 
-<a class="jxr_linenumber" name="L796" href="#L796">796</a>             <strong class="jxr_keyword">if</strong> (url != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L797" href="#L797">797</a>                 <strong class="jxr_keyword">if</strong> (isAfgifteAlGeladen(a, url)) {
-<a class="jxr_linenumber" name="L798" href="#L798">798</a>                     filterAlVerwerkt++;
-<a class="jxr_linenumber" name="L799" href="#L799">799</a>                 } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (soort.equalsIgnoreCase(<span class="jxr_string">"bag"</span>)) {
-<a class="jxr_linenumber" name="L800" href="#L800">800</a>                     laadBagAfgifte(a, url);
-<a class="jxr_linenumber" name="L801" href="#L801">801</a>                     aantalGeladen++;
-<a class="jxr_linenumber" name="L802" href="#L802">802</a>                 } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L803" href="#L803">803</a>                     <a name="Bericht" href="../../../../../nl/b3p/brmo/loader/entity/Bericht.html#Bericht">Bericht</a> b = laadAfgifte(a, url);
-<a class="jxr_linenumber" name="L804" href="#L804">804</a>                     <strong class="jxr_keyword">if</strong> (b != <strong class="jxr_keyword">null</strong> &amp;&amp; doorsturenUrl != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L805" href="#L805">805</a>                         geladenBerichtIds.add(b.getId());
-<a class="jxr_linenumber" name="L806" href="#L806">806</a>                     }
-<a class="jxr_linenumber" name="L807" href="#L807">807</a>                     aantalGeladen++;
-<a class="jxr_linenumber" name="L808" href="#L808">808</a>                 }
-<a class="jxr_linenumber" name="L809" href="#L809">809</a>             }
-<a class="jxr_linenumber" name="L810" href="#L810">810</a>             l.progress(++progress);
-<a class="jxr_linenumber" name="L811" href="#L811">811</a>         }
-<a class="jxr_linenumber" name="L812" href="#L812">812</a> 
-<a class="jxr_linenumber" name="L813" href="#L813">813</a>         <a name="Bericht" href="../../../../../nl/b3p/brmo/loader/entity/Bericht.html#Bericht">Bericht</a> b;
-<a class="jxr_linenumber" name="L814" href="#L814">814</a>         <strong class="jxr_keyword">if</strong> (doorsturenUrl != <strong class="jxr_keyword">null</strong> &amp;&amp; !geladenBerichtIds.isEmpty()) {
-<a class="jxr_linenumber" name="L815" href="#L815">815</a>             l.addLog(<span class="jxr_string">"Doorsturen van de opgehaalde berichten, in totaal "</span> + geladenBerichtIds.size());
-<a class="jxr_linenumber" name="L816" href="#L816">816</a>             l.total(geladenBerichtIds.size());
-<a class="jxr_linenumber" name="L817" href="#L817">817</a>             progress = 0;
-<a class="jxr_linenumber" name="L818" href="#L818">818</a> 
-<a class="jxr_linenumber" name="L819" href="#L819">819</a>             <strong class="jxr_keyword">for</strong> (Long bId : geladenBerichtIds) {
-<a class="jxr_linenumber" name="L820" href="#L820">820</a>                 b = Stripersist.getEntityManager().find(Bericht.<strong class="jxr_keyword">class</strong>, bId);
-<a class="jxr_linenumber" name="L821" href="#L821">821</a>                 l.updateStatus(<span class="jxr_string">"Doorsturen bericht: "</span> + b.getObject_ref());
-<a class="jxr_linenumber" name="L822" href="#L822">822</a>                 doorsturenBericht(<strong class="jxr_keyword">this</strong>.config, l, b, doorsturenUrl);
-<a class="jxr_linenumber" name="L823" href="#L823">823</a>                 Stripersist.getEntityManager().merge(b);
-<a class="jxr_linenumber" name="L824" href="#L824">824</a>                 Stripersist.getEntityManager().merge(<strong class="jxr_keyword">this</strong>.config);
-<a class="jxr_linenumber" name="L825" href="#L825">825</a>                 Stripersist.getEntityManager().flush();
-<a class="jxr_linenumber" name="L826" href="#L826">826</a>                 Stripersist.getEntityManager().getTransaction().commit();
-<a class="jxr_linenumber" name="L827" href="#L827">827</a>                 Stripersist.getEntityManager().clear();
-<a class="jxr_linenumber" name="L828" href="#L828">828</a>                 aantalDoorgestuurd++;
-<a class="jxr_linenumber" name="L829" href="#L829">829</a>                 l.progress(++progress);
-<a class="jxr_linenumber" name="L830" href="#L830">830</a>             }
-<a class="jxr_linenumber" name="L831" href="#L831">831</a>         }
-<a class="jxr_linenumber" name="L832" href="#L832">832</a> 
-<a class="jxr_linenumber" name="L833" href="#L833">833</a>         l.addLog(<span class="jxr_string">"\n\n**** resultaat ****\n"</span>);
-<a class="jxr_linenumber" name="L834" href="#L834">834</a>         l.addLog(<span class="jxr_string">"Aantal afgiftes die al waren verwerkt: "</span> + filterAlVerwerkt);
-<a class="jxr_linenumber" name="L835" href="#L835">835</a>         l.addLog(<span class="jxr_string">"\nAantal afgiftes geladen: "</span> + aantalGeladen);
-<a class="jxr_linenumber" name="L836" href="#L836">836</a>         l.addLog(<span class="jxr_string">"\nAantal afgiftes doorgestuurd: "</span> + aantalDoorgestuurd + <span class="jxr_string">"\n"</span>);
-<a class="jxr_linenumber" name="L837" href="#L837">837</a> 
-<a class="jxr_linenumber" name="L838" href="#L838">838</a>         l.addLog(String.format(<span class="jxr_string">"Het GDS2 ophalen proces met ID %d is afgerond op %tc"</span>, config.getId(), Calendar.getInstance()));
-<a class="jxr_linenumber" name="L839" href="#L839">839</a>         <strong class="jxr_keyword">this</strong>.config.updateSamenvattingEnLogfile(
-<a class="jxr_linenumber" name="L840" href="#L840">840</a>                 String.format(<span class="jxr_string">"Het GDS2 ophalen proces, gestart op %tc, is afgerond op %tc. "</span> + LOG_NEWLINE
-<a class="jxr_linenumber" name="L841" href="#L841">841</a>                         + <span class="jxr_string">"Aantal afgiftes die al waren verwerkt: %d"</span> + LOG_NEWLINE
-<a class="jxr_linenumber" name="L842" href="#L842">842</a>                         + <span class="jxr_string">"Aantal afgiftes geladen: %d"</span> + LOG_NEWLINE
-<a class="jxr_linenumber" name="L843" href="#L843">843</a>                         + <span class="jxr_string">"Aantal afgiftes doorgestuurd: %d"</span> + LOG_NEWLINE
-<a class="jxr_linenumber" name="L844" href="#L844">844</a>                         + <span class="jxr_string">"Hoogste klantafgiftenummer: %s"</span>,
-<a class="jxr_linenumber" name="L845" href="#L845">845</a>                         <strong class="jxr_keyword">this</strong>.config.getLastrun(), Calendar.getInstance(), filterAlVerwerkt, aantalGeladen, aantalDoorgestuurd,
-<a class="jxr_linenumber" name="L846" href="#L846">846</a>                         ClobElement.nullSafeGet(<strong class="jxr_keyword">this</strong>.config.getConfig().get(<span class="jxr_string">"hoogste_afgiftenummer"</span>)))
-<a class="jxr_linenumber" name="L847" href="#L847">847</a>         );
-<a class="jxr_linenumber" name="L848" href="#L848">848</a> 
-<a class="jxr_linenumber" name="L849" href="#L849">849</a>         <strong class="jxr_keyword">this</strong>.config.setStatus(AutomatischProces.ProcessingStatus.WAITING);
-<a class="jxr_linenumber" name="L850" href="#L850">850</a>         <strong class="jxr_keyword">this</strong>.config.setLastrun(<strong class="jxr_keyword">new</strong> Date());
-<a class="jxr_linenumber" name="L851" href="#L851">851</a>         Stripersist.getEntityManager().merge(<strong class="jxr_keyword">this</strong>.config);
-<a class="jxr_linenumber" name="L852" href="#L852">852</a>         <em class="jxr_comment">// om geheugen problemen te vookomen bij runs met veel downloads en berichten</em>
-<a class="jxr_linenumber" name="L853" href="#L853">853</a>         <em class="jxr_comment">// een flush/commit/clear forceren</em>
-<a class="jxr_linenumber" name="L854" href="#L854">854</a>         Stripersist.getEntityManager().flush();
-<a class="jxr_linenumber" name="L855" href="#L855">855</a>         Stripersist.getEntityManager().getTransaction().commit();
-<a class="jxr_linenumber" name="L856" href="#L856">856</a>         Stripersist.getEntityManager().clear();
-<a class="jxr_linenumber" name="L857" href="#L857">857</a>     }
-<a class="jxr_linenumber" name="L858" href="#L858">858</a> 
-<a class="jxr_linenumber" name="L859" href="#L859">859</a>     <strong class="jxr_keyword">private</strong> Gds2AfgifteServiceV20170401 initGDS2() <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L860" href="#L860">860</a>         Gds2AfgifteServiceV20170401 gds2 = <strong class="jxr_keyword">new</strong> Gds2AfgifteServiceV20170401Service().getAGds2AfgifteServiceV20170401();
-<a class="jxr_linenumber" name="L861" href="#L861">861</a>         BindingProvider bp = (BindingProvider) gds2;
-<a class="jxr_linenumber" name="L862" href="#L862">862</a>         Map&lt;String, Object&gt; ctxt = bp.getRequestContext();
-<a class="jxr_linenumber" name="L863" href="#L863">863</a> 
-<a class="jxr_linenumber" name="L864" href="#L864">864</a>         <em class="jxr_comment">// soap berichten logger inhaken (actief met TRACE level)</em>
-<a class="jxr_linenumber" name="L865" href="#L865">865</a>         List&lt;Handler&gt; handlerChain = bp.getBinding().getHandlerChain();
-<a class="jxr_linenumber" name="L866" href="#L866">866</a>         handlerChain.add(<strong class="jxr_keyword">new</strong> <a name="LogMessageHandler" href="../../../../../nl/b3p/brmo/soap/util/LogMessageHandler.html#LogMessageHandler">LogMessageHandler</a>());
-<a class="jxr_linenumber" name="L867" href="#L867">867</a>         bp.getBinding().setHandlerChain(handlerChain);
-<a class="jxr_linenumber" name="L868" href="#L868">868</a> 
-<a class="jxr_linenumber" name="L869" href="#L869">869</a>         String endpoint = (String) ctxt.get(BindingProvider.ENDPOINT_ADDRESS_PROPERTY);
-<a class="jxr_linenumber" name="L870" href="#L870">870</a>         l.addLog(<span class="jxr_string">"Kadaster endpoint: "</span> + endpoint);
-<a class="jxr_linenumber" name="L871" href="#L871">871</a>         l.updateStatus(<span class="jxr_string">"Laden keys..."</span>);
-<a class="jxr_linenumber" name="L872" href="#L872">872</a> 
-<a class="jxr_linenumber" name="L873" href="#L873">873</a>         l.addLog(<span class="jxr_string">"Initializing KeyManagerFactory"</span>);
-<a class="jxr_linenumber" name="L874" href="#L874">874</a>         KeyManagerFactory kmf = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
-<a class="jxr_linenumber" name="L875" href="#L875">875</a>         KeyStore ks = KeyStore.getInstance(<span class="jxr_string">"jks"</span>);
-<a class="jxr_linenumber" name="L876" href="#L876">876</a>         <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">char</strong>[] thePassword = <span class="jxr_string">"changeit"</span>.toCharArray();
-<a class="jxr_linenumber" name="L877" href="#L877">877</a>         PrivateKey privateKey = getPrivateKeyFromPEM(<strong class="jxr_keyword">this</strong>.config.getConfig().get(<span class="jxr_string">"gds2_privkey"</span>).getValue());
-<a class="jxr_linenumber" name="L878" href="#L878">878</a>         Certificate certificate = getCertificateFromPEM(<strong class="jxr_keyword">this</strong>.config.getConfig().get(<span class="jxr_string">"gds2_pubkey"</span>).getValue());
-<a class="jxr_linenumber" name="L879" href="#L879">879</a>         ks.load(<strong class="jxr_keyword">null</strong>);
-<a class="jxr_linenumber" name="L880" href="#L880">880</a>         ks.setKeyEntry(<span class="jxr_string">"thekey"</span>, privateKey, thePassword, <strong class="jxr_keyword">new</strong> Certificate[]{certificate});
-<a class="jxr_linenumber" name="L881" href="#L881">881</a>         kmf.init(ks, thePassword);
-<a class="jxr_linenumber" name="L882" href="#L882">882</a> 
-<a class="jxr_linenumber" name="L883" href="#L883">883</a>         l.updateStatus(<span class="jxr_string">"Opzetten SSL context..."</span>);
-<a class="jxr_linenumber" name="L884" href="#L884">884</a>         context = createSslContext(kmf);
-<a class="jxr_linenumber" name="L885" href="#L885">885</a>         ctxt.put(JAXWSProperties.SSL_SOCKET_FACTORY, context.getSocketFactory());
-<a class="jxr_linenumber" name="L886" href="#L886">886</a> 
-<a class="jxr_linenumber" name="L887" href="#L887">887</a>         <strong class="jxr_keyword">return</strong> gds2;
-<a class="jxr_linenumber" name="L888" href="#L888">888</a>     }
-<a class="jxr_linenumber" name="L889" href="#L889">889</a> 
-<a class="jxr_linenumber" name="L890" href="#L890">890</a>     <strong class="jxr_keyword">private</strong> SSLContext createSslContext(KeyManagerFactory kmf) <strong class="jxr_keyword">throws</strong> KeyStoreException, IOException, CertificateException, NoSuchProviderException, NoSuchAlgorithmException, KeyManagementException {
-<a class="jxr_linenumber" name="L891" href="#L891">891</a>         <strong class="jxr_keyword">final</strong> SSLContext sslContext = SSLContext.getInstance(<span class="jxr_string">"TLS"</span>, <span class="jxr_string">"SunJSSE"</span>);
-<a class="jxr_linenumber" name="L892" href="#L892">892</a> 
-<a class="jxr_linenumber" name="L893" href="#L893">893</a>         l.addLog(<span class="jxr_string">"Loading PKIX Overheid keystore"</span>);
-<a class="jxr_linenumber" name="L894" href="#L894">894</a>         KeyStore ks = KeyStore.getInstance(<span class="jxr_string">"jks"</span>);
-<a class="jxr_linenumber" name="L895" href="#L895">895</a>         ks.load(nl.b3p.gds2.GDS2Util.<strong class="jxr_keyword">class</strong>.getResourceAsStream(<span class="jxr_string">"/pkioverheid.jks"</span>), <span class="jxr_string">"changeit"</span>.toCharArray());
-<a class="jxr_linenumber" name="L896" href="#L896">896</a> 
-<a class="jxr_linenumber" name="L897" href="#L897">897</a>         l.addLog(<span class="jxr_string">"Initializing default TrustManagerFactory"</span>);
-<a class="jxr_linenumber" name="L898" href="#L898">898</a>         <strong class="jxr_keyword">final</strong> TrustManagerFactory javaDefaultTrustManager = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
-<a class="jxr_linenumber" name="L899" href="#L899">899</a>         javaDefaultTrustManager.init((KeyStore) <strong class="jxr_keyword">null</strong>);
-<a class="jxr_linenumber" name="L900" href="#L900">900</a>         X509TrustManager defaultX509TrustManager = <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L901" href="#L901">901</a>         <strong class="jxr_keyword">for</strong> (TrustManager t : javaDefaultTrustManager.getTrustManagers()) {
-<a class="jxr_linenumber" name="L902" href="#L902">902</a>             <strong class="jxr_keyword">if</strong> (t instanceof X509TrustManager) {
-<a class="jxr_linenumber" name="L903" href="#L903">903</a>                 defaultX509TrustManager = (X509TrustManager) t;
-<a class="jxr_linenumber" name="L904" href="#L904">904</a>                 <strong class="jxr_keyword">break</strong>;
-<a class="jxr_linenumber" name="L905" href="#L905">905</a>             }
-<a class="jxr_linenumber" name="L906" href="#L906">906</a>         }
-<a class="jxr_linenumber" name="L907" href="#L907">907</a>         l.addLog(<span class="jxr_string">"Initializing PKIX TrustManagerFactory"</span>);
-<a class="jxr_linenumber" name="L908" href="#L908">908</a>         <strong class="jxr_keyword">final</strong> TrustManagerFactory customCaTrustManager = TrustManagerFactory.getInstance(<span class="jxr_string">"PKIX"</span>);
-<a class="jxr_linenumber" name="L909" href="#L909">909</a>         customCaTrustManager.init(ks);
-<a class="jxr_linenumber" name="L910" href="#L910">910</a> 
-<a class="jxr_linenumber" name="L911" href="#L911">911</a>         l.addLog(<span class="jxr_string">"Initializing SSLContext"</span>);
-<a class="jxr_linenumber" name="L912" href="#L912">912</a>         sslContext.init(
-<a class="jxr_linenumber" name="L913" href="#L913">913</a>                 kmf.getKeyManagers(),
-<a class="jxr_linenumber" name="L914" href="#L914">914</a>                 <strong class="jxr_keyword">new</strong> TrustManager[]{
-<a class="jxr_linenumber" name="L915" href="#L915">915</a>                     <strong class="jxr_keyword">new</strong> <a name="TrustManagerDelegate" href="../../../../../nl/b3p/brmo/service/util/TrustManagerDelegate.html#TrustManagerDelegate">TrustManagerDelegate</a>(
-<a class="jxr_linenumber" name="L916" href="#L916">916</a>                             <em class="jxr_comment">// customCaTrustManager is PKIX dus altijd X.509 (RFC3280)</em>
-<a class="jxr_linenumber" name="L917" href="#L917">917</a>                             (X509TrustManager) customCaTrustManager.getTrustManagers()[0],
-<a class="jxr_linenumber" name="L918" href="#L918">918</a>                             defaultX509TrustManager
-<a class="jxr_linenumber" name="L919" href="#L919">919</a>                     )
-<a class="jxr_linenumber" name="L920" href="#L920">920</a>                 },
-<a class="jxr_linenumber" name="L921" href="#L921">921</a>                 <strong class="jxr_keyword">null</strong>
-<a class="jxr_linenumber" name="L922" href="#L922">922</a>         );
-<a class="jxr_linenumber" name="L923" href="#L923">923</a>         <strong class="jxr_keyword">return</strong> sslContext;
-<a class="jxr_linenumber" name="L924" href="#L924">924</a>     }
-<a class="jxr_linenumber" name="L925" href="#L925">925</a> }
+<a class="jxr_linenumber" name="L632" href="#L632">632</a>         lp.setBestand_naam_hersteld(a.getBestand().getBestandsnaam());
+<a class="jxr_linenumber" name="L633" href="#L633">633</a> 
+<a class="jxr_linenumber" name="L634" href="#L634">634</a>         <strong class="jxr_keyword">if</strong> (a.getDigikoppelingExternalDatareferences() != <strong class="jxr_keyword">null</strong>
+<a class="jxr_linenumber" name="L635" href="#L635">635</a>                 &amp;&amp; a.getDigikoppelingExternalDatareferences().getDataReference() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L636" href="#L636">636</a>             <strong class="jxr_keyword">for</strong> (DataReference dr : a.getDigikoppelingExternalDatareferences().getDataReference()) {
+<a class="jxr_linenumber" name="L637" href="#L637">637</a>                 lp.setBestand_datum(dr.getLifetime().getCreationTime().getValue().toGregorianCalendar().getTime());
+<a class="jxr_linenumber" name="L638" href="#L638">638</a>                 <strong class="jxr_keyword">break</strong>;
+<a class="jxr_linenumber" name="L639" href="#L639">639</a>             }
+<a class="jxr_linenumber" name="L640" href="#L640">640</a>         }
+<a class="jxr_linenumber" name="L641" href="#L641">641</a>         lp.setSoort(<span class="jxr_string">"brk"</span>);
+<a class="jxr_linenumber" name="L642" href="#L642">642</a>         lp.setStatus(LaadProces.STATUS.STAGING_OK);
+<a class="jxr_linenumber" name="L643" href="#L643">643</a>         SimpleDateFormat sdf = <strong class="jxr_keyword">new</strong> SimpleDateFormat(<span class="jxr_string">"dd-MM-yyyy HH:mm:ss"</span>);
+<a class="jxr_linenumber" name="L644" href="#L644">644</a>         lp.setOpmerking(<span class="jxr_string">"GDS2 download van "</span> + url + <span class="jxr_string">" op "</span> + sdf.format(<strong class="jxr_keyword">new</strong> Date()));
+<a class="jxr_linenumber" name="L645" href="#L645">645</a>         lp.setAutomatischProces(em.find(AutomatischProces.<strong class="jxr_keyword">class</strong>, config.getId()));
+<a class="jxr_linenumber" name="L646" href="#L646">646</a> 
+<a class="jxr_linenumber" name="L647" href="#L647">647</a>         <a name="Bericht" href="../../../../../nl/b3p/brmo/lo<a name="Bericht" href="../../../../../nl/b3p/brmo/loader/entity/Bericht.html#Bericht">Bericht</a>tity/Bericht.html#Bericht">Bericht</a> b = <strong class="jxr_keyword">new</strong> <a name="Bericht" href="../../../../../nl/b3p/brmo/persistence/staging/Bericht.html#Bericht">Bericht</a>();
+<a class="jxr_linenumber" name="L648" href="#L648">648</a>         b.setLaadprocesid(lp);
+<a class="jxr_linenumber" name="L649" href="#L649">649</a>         b.setDatum(lp.getBestand_datum());
+<a class="jxr_linenumber" name="L650" href="#L650">650</a>         b.setSoort(<span class="jxr_string">"brk"</span>);
+<a class="jxr_linenumber" name="L651" href="#L651">651</a>         b.setStatus_datum(<strong class="jxr_keyword">new</strong> Date());
+<a class="jxr_linenumber" name="L652" href="#L652">652</a> 
+<a class="jxr_linenumber" name="L653" href="#L653">653</a>         ZipInputStream zip = <strong class="jxr_keyword">new</strong> ZipInputStream(<strong class="jxr_keyword">new</strong> ByteArrayInputStream(bos.toByteArray()));
+<a class="jxr_linenumber" name="L654" href="#L654">654</a>         ZipEntry entry = zip.getNextEntry();
+<a class="jxr_linenumber" name="L655" href="#L655">655</a>         <strong class="jxr_keyword">while</strong> (entry != <strong class="jxr_keyword">null</strong> &amp;&amp; !entry.getName().toLowerCase().endsWith(<span class="jxr_string">".xml"</span>)) {
+<a class="jxr_linenumber" name="L656" href="#L656">656</a>             msg = <span class="jxr_string">"Overslaan zip entry geen XML: "</span> + entry.getName();
+<a class="jxr_linenumber" name="L657" href="#L657">657</a>             l.addLog(msg);
+<a class="jxr_linenumber" name="L658" href="#L658">658</a>             entry = zip.getNextEntry();
+<a class="jxr_linenumber" name="L659" href="#L659">659</a>         }
+<a class="jxr_linenumber" name="L660" href="#L660">660</a>         <strong class="jxr_keyword">if</strong> (entry == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L661" href="#L661">661</a>             msg = <span class="jxr_string">"Geen geschikt XML bestand gevonden in zip bestand!"</span>;
+<a class="jxr_linenumber" name="L662" href="#L662">662</a>             l.addLog(msg);
+<a class="jxr_linenumber" name="L663" href="#L663">663</a>             <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L664" href="#L664">664</a>         }
+<a class="jxr_linenumber" name="L665" href="#L665">665</a>         b.setBr_orgineel_xml(IOUtils.toString(zip, <span class="jxr_string">"UTF-8"</span>));
+<a class="jxr_linenumber" name="L666" href="#L666">666</a> 
+<a class="jxr_linenumber" name="L667" href="#L667">667</a>         <strong class="jxr_keyword">if</strong> (log.isDebugEnabled()) {
+<a class="jxr_linenumber" name="L668" href="#L668">668</a>             <em class="jxr_comment">// dump xml bestand naar /tmp/ voordat de xml wordt geparsed</em>
+<a class="jxr_linenumber" name="L669" href="#L669">669</a>             String fName = File.createTempFile(lp.getBestand_naam(), <span class="jxr_string">".xml"</span>).getAbsolutePath();
+<a class="jxr_linenumber" name="L670" href="#L670">670</a>             log.debug(<span class="jxr_string">"Dump xml bericht naar: "</span> + fName);
+<a class="jxr_linenumber" name="L671" href="#L671">671</a>             IOUtils.write(b.getBr_orgineel_xml(), <strong class="jxr_keyword">new</strong> FileWriter(fName));
+<a class="jxr_linenumber" name="L672" href="#L672">672</a>         }
+<a class="jxr_linenumber" name="L673" href="#L673">673</a> 
+<a class="jxr_linenumber" name="L674" href="#L674">674</a>         <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L675" href="#L675">675</a>             <a name="BrkSnapshotXMLReader" href="../../../../../nl/b3p/brmo/loader/<a name="BrkSnapshotXMLReader" href="../../../../../nl/b3p/brmo/loader/xml/BrkSnapshotXMLReader.html#BrkSnapshotXMLReader">BrkSnapshotXMLReader</a>ader.html#BrkSnapshotXMLReader">BrkSnapshotXMLReader</a> reader = <strong class="jxr_keyword">new</strong> <a name="BrkSnapshotXMLReader" href="../../../../../nl/b3p/brmo/loader/xml/BrkSnapshotXMLReader.html#BrkSnapshotXMLReader">BrkSnapshotXMLReader</a>(<strong class="jxr_keyword">new</strong> ByteArrayInputStream(b.getBr_orgineel_xml().getBytes(<span class="jxr_string">"UTF-8"</span>)));
+<a class="jxr_linenumber" name="L676" href="#L676">676</a>             <a name="BrkBericht" href="../../../../../nl/b3p/brmo/loader/entity/BrkBericht.html#BrkBericht">BrkBericht</a> bericht = reader.next();
+<a class="jxr_linenumber" name="L677" href="#L677">677</a> 
+<a class="jxr_linenumber" name="L678" href="#L678">678</a>             <strong class="jxr_keyword">if</strong> (bericht.getDatum() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L679" href="#L679">679</a>                 b.setDatum(bericht.getDatum());
+<a class="jxr_linenumber" name="L680" href="#L680">680</a>             }
+<a class="jxr_linenumber" name="L681" href="#L681">681</a>             b.setBr_xml(bericht.getBrXml());
+<a class="jxr_linenumber" name="L682" href="#L682">682</a>             b.setVolgordenummer(bericht.getVolgordeNummer());
+<a class="jxr_linenumber" name="L683" href="#L683">683</a> 
+<a class="jxr_linenumber" name="L684" href="#L684">684</a>             <em class="jxr_comment">//Als objectRef niet opgehaald kan worden,dan kan het</em>
+<a class="jxr_linenumber" name="L685" href="#L685">685</a>             <em class="jxr_comment">//bericht niet verwerkt worden.</em>
+<a class="jxr_linenumber" name="L686" href="#L686">686</a>             String objectRef = bericht.getObjectRef();
+<a class="jxr_linenumber" name="L687" href="#L687">687</a>             <strong class="jxr_keyword">if</strong> (objectRef != <strong class="jxr_keyword">null</strong> &amp;&amp; !objectRef.isEmpty()) {
+<a class="jxr_linenumber" name="L688" href="#L688">688</a>                 b.setObject_ref(bericht.getObjectRef());
+<a class="jxr_linenumber" name="L689" href="#L689">689</a>                 b.setStatus(Bericht.STATUS.STAGING_OK);
+<a class="jxr_linenumber" name="L690" href="#L690">690</a>                 b.setOpmerking(<span class="jxr_string">"Klaar voor verwerking."</span>);
+<a class="jxr_linenumber" name="L691" href="#L691">691</a>             } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L692" href="#L692">692</a>                 b.setStatus(Bericht.STATUS.STAGING_NOK);
+<a class="jxr_linenumber" name="L693" href="#L693">693</a>                 b.setOpmerking(<span class="jxr_string">"Object Ref niet gevonden in bericht-xml, neem contact op met leverancier."</span>);
+<a class="jxr_linenumber" name="L694" href="#L694">694</a>             }
+<a class="jxr_linenumber" name="L695" href="#L695">695</a>         } <strong class="jxr_keyword">catch</strong> (Exception e) {
+<a class="jxr_linenumber" name="L696" href="#L696">696</a>             b.setStatus(Bericht.STATUS.STAGING_NOK);
+<a class="jxr_linenumber" name="L697" href="#L697">697</a>             StringWriter sw = <strong class="jxr_keyword">new</strong> StringWriter();
+<a class="jxr_linenumber" name="L698" href="#L698">698</a>             e.printStackTrace(<strong class="jxr_keyword">new</strong> PrintWriter(sw));
+<a class="jxr_linenumber" name="L699" href="#L699">699</a>             b.setOpmerking(<span class="jxr_string">"Fout bij parsen BRK bericht: "</span> + sw.toString());
+<a class="jxr_linenumber" name="L700" href="#L700">700</a>         }
+<a class="jxr_linenumber" name="L701" href="#L701">701</a>         <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L702" href="#L702">702</a>             em.persist(lp);
+<a class="jxr_linenumber" name="L703" href="#L703">703</a>             em.persist(b);
+<a class="jxr_linenumber" name="L704" href="#L704">704</a>             em.merge(<strong class="jxr_keyword">this</strong>.config);
+<a class="jxr_linenumber" name="L705" href="#L705">705</a>             em.flush();
+<a class="jxr_linenumber" name="L706" href="#L706">706</a>             em.getTransaction().commit();
+<a class="jxr_linenumber" name="L707" href="#L707">707</a>             em.clear();
+<a class="jxr_linenumber" name="L708" href="#L708">708</a>         } <strong class="jxr_keyword">catch</strong> (PersistenceException pe) {
+<a class="jxr_linenumber" name="L709" href="#L709">709</a>             <strong class="jxr_keyword">if</strong> (!em.getTransaction().isActive()) {
+<a class="jxr_linenumber" name="L710" href="#L710">710</a>                 em.getTransaction().begin();
+<a class="jxr_linenumber" name="L711" href="#L711">711</a>             }
+<a class="jxr_linenumber" name="L712" href="#L712">712</a>             em.getTransaction().rollback();
+<a class="jxr_linenumber" name="L713" href="#L713">713</a>             em.getTransaction().begin();
+<a class="jxr_linenumber" name="L714" href="#L714">714</a>             lp.setId(<strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L715" href="#L715">715</a>             log.warn(<span class="jxr_string">"Opslaan van bericht uit laadproces "</span> + lp.getBestand_naam() + <span class="jxr_string">" is mislukt."</span>, pe);
+<a class="jxr_linenumber" name="L716" href="#L716">716</a>             log.warn(<span class="jxr_string">"Duplicaat bericht: "</span> + b.getObject_ref() + <span class="jxr_string">":"</span> + b.getBr_orgineel_xml() + <span class="jxr_string">"("</span> + b.getBr_xml() + <span class="jxr_string">")"</span>);
+<a class="jxr_linenumber" name="L717" href="#L717">717</a>             lp.setStatus(LaadProces.STATUS.STAGING_DUPLICAAT);
+<a class="jxr_linenumber" name="L718" href="#L718">718</a>             lp.setOpmerking(lp.getOpmerking() + <span class="jxr_string">": Fout, duplicaat bericht. Inhoud: \n"</span> + b.getBr_xml());
+<a class="jxr_linenumber" name="L719" href="#L719">719</a>             em.merge(<strong class="jxr_keyword">this</strong>.config);
+<a class="jxr_linenumber" name="L720" href="#L720">720</a>             em.persist(lp);
+<a class="jxr_linenumber" name="L721" href="#L721">721</a>             em.flush();
+<a class="jxr_linenumber" name="L722" href="#L722">722</a>             em.getTransaction().commit();
+<a class="jxr_linenumber" name="L723" href="#L723">723</a>             em.clear();
+<a class="jxr_linenumber" name="L724" href="#L724">724</a>             b = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L725" href="#L725">725</a>         }
+<a class="jxr_linenumber" name="L726" href="#L726">726</a>         <strong class="jxr_keyword">return</strong> b;
+<a class="jxr_linenumber" name="L727" href="#L727">727</a>     }
+<a class="jxr_linenumber" name="L728" href="#L728">728</a> 
+<a class="jxr_linenumber" name="L729" href="#L729">729</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L730" href="#L730">730</a> <em class="jxr_javadoccomment">     * Post de xml naar de geconfigureerde url.</em>
+<a class="jxr_linenumber" name="L731" href="#L731">731</a> <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="L732" href="#L732">732</a> <em class="jxr_javadoccomment">     * @param proces proces waarvoor doorgetuurd wordt</em>
+<a class="jxr_linenumber" name="L733" href="#L733">733</a> <em class="jxr_javadoccomment">     * @param l update listener</em>
+<a class="jxr_linenumber" name="L734" href="#L734">734</a> <em class="jxr_javadoccomment">     * @param b door te sturen bericht</em>
+<a class="jxr_linenumber" name="L735" href="#L735">735</a> <em class="jxr_javadoccomment">     * @param endpoint url waarnaartoe wordt gepost</em>
+<a class="jxr_linenumber" name="L736" href="#L736">736</a> <em class="jxr_javadoccomment">     * @return {@code true} als succesvol doorgestuurd</em>
+<a class="jxr_linenumber" name="L737" href="#L737">737</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L738" href="#L738">738</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">boolean</strong> doorsturenBericht(<a name="AutomatischProces" href="../../../../../nl/b3p/brmo/persistence/staging/AutomatischProces.html#AutomatischProces">AutomatischProces</a> proces, <a name="ProgressUpdateListener" href="../../../../../nl/b3p/brmo/loader/ProgressUpdateListener.html#ProgressUpdateListener">ProgressUpdateListener</a> l, <a name="Bericht" href="../../../../../nl/b3p/brmo/loader/entity/Bericht.html#Bericht">Bericht</a> b, String endpoint) {
+<a class="jxr_linenumber" name="L739" href="#L739">739</a>         String msg;
+<a class="jxr_linenumber" name="L740" href="#L740">740</a>         SimpleDateFormat sdf = <strong class="jxr_keyword">new</strong> SimpleDateFormat(<span class="jxr_string">"dd-MM-yyyy HH:mm:ss"</span>);
+<a class="jxr_linenumber" name="L741" href="#L741">741</a>         <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L742" href="#L742">742</a>             <strong class="jxr_keyword">if</strong> (endpoint == <strong class="jxr_keyword">null</strong> || endpoint.length() &lt; 1) {
+<a class="jxr_linenumber" name="L743" href="#L743">743</a>                 <strong class="jxr_keyword">return</strong> false;
+<a class="jxr_linenumber" name="L744" href="#L744">744</a>             }
+<a class="jxr_linenumber" name="L745" href="#L745">745</a>             URL url = <strong class="jxr_keyword">new</strong> URL(endpoint);
+<a class="jxr_linenumber" name="L746" href="#L746">746</a>             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+<a class="jxr_linenumber" name="L747" href="#L747">747</a>             conn.setDoOutput(<strong class="jxr_keyword">true</strong>);
+<a class="jxr_linenumber" name="L748" href="#L748">748</a>             conn.setRequestMethod(<span class="jxr_string">"POST"</span>);
+<a class="jxr_linenumber" name="L749" href="#L749">749</a>             conn.setRequestProperty(<span class="jxr_string">"Content-Length"</span>, <span class="jxr_string">""</span> + b.getBr_orgineel_xml().length());
+<a class="jxr_linenumber" name="L750" href="#L750">750</a>             conn.setRequestProperty(<span class="jxr_string">"Content-Type"</span>, <span class="jxr_string">"application/octet-stream"</span>);
+<a class="jxr_linenumber" name="L751" href="#L751">751</a>             IOUtils.copy(IOUtils.toInputStream(b.getBr_orgineel_xml(), <span class="jxr_string">"UTF-8"</span>), conn.getOutputStream());
+<a class="jxr_linenumber" name="L752" href="#L752">752</a>             conn.disconnect();
+<a class="jxr_linenumber" name="L753" href="#L753">753</a>             <strong class="jxr_keyword">if</strong> ((conn.getResponseCode() == HttpURLConnection.HTTP_OK)
+<a class="jxr_linenumber" name="L754" href="#L754">754</a>                     || (conn.getResponseCode() == HttpURLConnection.HTTP_CREATED)
+<a class="jxr_linenumber" name="L755" href="#L755">755</a>                     || (conn.getResponseCode() == HttpURLConnection.HTTP_ACCEPTED)) {
+<a class="jxr_linenumber" name="L756" href="#L756">756</a>                 msg = <span class="jxr_string">"Bericht "</span> + b.getObject_ref() + <span class="jxr_string">" op "</span> + sdf.format(<strong class="jxr_keyword">new</strong> Date()) + <span class="jxr_string">" doorgestuurd naar "</span> + endpoint;
+<a class="jxr_linenumber" name="L757" href="#L757">757</a>                 b.setStatus(Bericht.STATUS.STAGING_FORWARDED);
+<a class="jxr_linenumber" name="L758" href="#L758">758</a>             } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L759" href="#L759">759</a>                 msg = String.format(<span class="jxr_string">"HTTP foutcode bij doorsturen bericht %s op %s naar endpoint %s: %s"</span>,
+<a class="jxr_linenumber" name="L760" href="#L760">760</a>                         b.getObject_ref(),
+<a class="jxr_linenumber" name="L761" href="#L761">761</a>                         sdf.format(<strong class="jxr_keyword">new</strong> Date()), endpoint, conn.getResponseCode() + <span class="jxr_string">": "</span> + conn.getResponseMessage());
+<a class="jxr_linenumber" name="L762" href="#L762">762</a>                 b.setStatus(Bericht.STATUS.STAGING_NOK);
+<a class="jxr_linenumber" name="L763" href="#L763">763</a>             }
+<a class="jxr_linenumber" name="L764" href="#L764">764</a>             b.setOpmerking(msg);
+<a class="jxr_linenumber" name="L765" href="#L765">765</a>             l.addLog(msg);
+<a class="jxr_linenumber" name="L766" href="#L766">766</a> 
+<a class="jxr_linenumber" name="L767" href="#L767">767</a>             <strong class="jxr_keyword">return</strong> b.getStatus() == Bericht.STATUS.STAGING_FORWARDED;
+<a class="jxr_linenumber" name="L768" href="#L768">768</a>         } <strong class="jxr_keyword">catch</strong> (Exception e) {
+<a class="jxr_linenumber" name="L769" href="#L769">769</a>             msg = String.format(<span class="jxr_string">"Fout bij doorsturen bericht op %s naar endpoint %s: %s"</span>,
+<a class="jxr_linenumber" name="L770" href="#L770">770</a>                     sdf.format(<strong class="jxr_keyword">new</strong> Date()), endpoint, e.getClass() + <span class="jxr_string">": "</span> + e.getMessage());
+<a class="jxr_linenumber" name="L771" href="#L771">771</a>             b.setOpmerking(msg);
+<a class="jxr_linenumber" name="L772" href="#L772">772</a>             b.setStatus(Bericht.STATUS.STAGING_NOK);
+<a class="jxr_linenumber" name="L773" href="#L773">773</a>             l.addLog(msg);
+<a class="jxr_linenumber" name="L774" href="#L774">774</a>             log.error(msg, e);
+<a class="jxr_linenumber" name="L775" href="#L775">775</a>             <strong class="jxr_keyword">return</strong> false;
+<a class="jxr_linenumber" name="L776" href="#L776">776</a>         }
+<a class="jxr_linenumber" name="L777" href="#L777">777</a>     }
+<a class="jxr_linenumber" name="L778" href="#L778">778</a> 
+<a class="jxr_linenumber" name="L779" href="#L779">779</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L780" href="#L780">780</a> <em class="jxr_javadoccomment">     * verwerk de afgiftes in de response en stuur eventueel door.</em>
+<a class="jxr_linenumber" name="L781" href="#L781">781</a> <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="L782" href="#L782">782</a> <em class="jxr_javadoccomment">     * @param afgiftes lijst afgiftes</em>
+<a class="jxr_linenumber" name="L783" href="#L783">783</a> <em class="jxr_javadoccomment">     * @throws Exception if any</em>
+<a class="jxr_linenumber" name="L784" href="#L784">784</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L785" href="#L785">785</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> verwerkAfgiftes(List&lt;AfgifteType&gt; afgiftes, BaseURLType baseUrl) <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L786" href="#L786">786</a>         <strong class="jxr_keyword">int</strong> filterAlVerwerkt = 0;
+<a class="jxr_linenumber" name="L787" href="#L787">787</a>         <strong class="jxr_keyword">int</strong> aantalGeladen = 0;
+<a class="jxr_linenumber" name="L788" href="#L788">788</a>         <strong class="jxr_keyword">int</strong> aantalDoorgestuurd = 0;
+<a class="jxr_linenumber" name="L789" href="#L789">789</a>         <strong class="jxr_keyword">int</strong> progress = 0;
+<a class="jxr_linenumber" name="L790" href="#L790">790</a>         List&lt;Long&gt; geladenBerichtIds = <strong class="jxr_keyword">new</strong> ArrayList();
+<a class="jxr_linenumber" name="L791" href="#L791">791</a>         String doorsturenUrl = ClobElement.nullSafeGet(<strong class="jxr_keyword">this</strong>.config.getConfig().get(<span class="jxr_string">"delivery_endpoint"</span>));
+<a class="jxr_linenumber" name="L792" href="#L792">792</a>         <strong class="jxr_keyword">final</strong> String soort = <strong class="jxr_keyword">this</strong>.config.getConfig().getOrDefault(<span class="jxr_string">"gds2_br_soort"</span>, <strong class="jxr_keyword">new</strong> <a name="ClobElement" href="../../../../../nl/b3p/brmo/persistence/staging/ClobElement.html#ClobElement">ClobElement</a>(<span class="jxr_string">"brk"</span>)).getValue();
+<a class="jxr_linenumber" name="L793" href="#L793">793</a> 
+<a class="jxr_linenumber" name="L794" href="#L794">794</a>         <strong class="jxr_keyword">for</strong> (AfgifteType a : afgiftes) {
+<a class="jxr_linenumber" name="L795" href="#L795">795</a>             String url = getAfgifteURL(a, baseUrl);
+<a class="jxr_linenumber" name="L796" href="#L796">796</a> 
+<a class="jxr_linenumber" name="L797" href="#L797">797</a>             <strong class="jxr_keyword">if</strong> (url != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L798" href="#L798">798</a>                 <strong class="jxr_keyword">if</strong> (isAfgifteAlGeladen(a, url)) {
+<a class="jxr_linenumber" name="L799" href="#L799">799</a>                     filterAlVerwerkt++;
+<a class="jxr_linenumber" name="L800" href="#L800">800</a>                 } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (soort.equalsIgnoreCase(<span class="jxr_string">"bag"</span>)) {
+<a class="jxr_linenumber" name="L801" href="#L801">801</a>                     laadBagAfgifte(a, url);
+<a class="jxr_linenumber" name="L802" href="#L802">802</a>                     aantalGeladen++;
+<a class="jxr_linenumber" name="L803" href="#L803">803</a>                 } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L804" href="#L804">804</a>                     <a name="Bericht" href="../../../../../nl/b3p/brmo/loader/entity/Bericht.html#Bericht">Bericht</a> b = laadAfgifte(a, url);
+<a class="jxr_linenumber" name="L805" href="#L805">805</a>                     <strong class="jxr_keyword">if</strong> (b != <strong class="jxr_keyword">null</strong> &amp;&amp; doorsturenUrl != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L806" href="#L806">806</a>                         geladenBerichtIds.add(b.getId());
+<a class="jxr_linenumber" name="L807" href="#L807">807</a>                     }
+<a class="jxr_linenumber" name="L808" href="#L808">808</a>                     aantalGeladen++;
+<a class="jxr_linenumber" name="L809" href="#L809">809</a>                 }
+<a class="jxr_linenumber" name="L810" href="#L810">810</a>             }
+<a class="jxr_linenumber" name="L811" href="#L811">811</a>             l.progress(++progress);
+<a class="jxr_linenumber" name="L812" href="#L812">812</a>         }
+<a class="jxr_linenumber" name="L813" href="#L813">813</a> 
+<a class="jxr_linenumber" name="L814" href="#L814">814</a>         <a name="Bericht" href="../../../../../nl/b3p/brmo/loader/entity/Bericht.html#Bericht">Bericht</a> b;
+<a class="jxr_linenumber" name="L815" href="#L815">815</a>         <strong class="jxr_keyword">if</strong> (doorsturenUrl != <strong class="jxr_keyword">null</strong> &amp;&amp; !geladenBerichtIds.isEmpty()) {
+<a class="jxr_linenumber" name="L816" href="#L816">816</a>             l.addLog(<span class="jxr_string">"Doorsturen van de opgehaalde berichten, in totaal "</span> + geladenBerichtIds.size());
+<a class="jxr_linenumber" name="L817" href="#L817">817</a>             l.total(geladenBerichtIds.size());
+<a class="jxr_linenumber" name="L818" href="#L818">818</a>             progress = 0;
+<a class="jxr_linenumber" name="L819" href="#L819">819</a> 
+<a class="jxr_linenumber" name="L820" href="#L820">820</a>             <strong class="jxr_keyword">for</strong> (Long bId : geladenBerichtIds) {
+<a class="jxr_linenumber" name="L821" href="#L821">821</a>                 b = Stripersist.getEntityManager().find(Bericht.<strong class="jxr_keyword">class</strong>, bId);
+<a class="jxr_linenumber" name="L822" href="#L822">822</a>                 l.updateStatus(<span class="jxr_string">"Doorsturen bericht: "</span> + b.getObject_ref());
+<a class="jxr_linenumber" name="L823" href="#L823">823</a>                 doorsturenBericht(<strong class="jxr_keyword">this</strong>.config, l, b, doorsturenUrl);
+<a class="jxr_linenumber" name="L824" href="#L824">824</a>                 Stripersist.getEntityManager().merge(b);
+<a class="jxr_linenumber" name="L825" href="#L825">825</a>                 Stripersist.getEntityManager().merge(<strong class="jxr_keyword">this</strong>.config);
+<a class="jxr_linenumber" name="L826" href="#L826">826</a>                 Stripersist.getEntityManager().flush();
+<a class="jxr_linenumber" name="L827" href="#L827">827</a>                 Stripersist.getEntityManager().getTransaction().commit();
+<a class="jxr_linenumber" name="L828" href="#L828">828</a>                 Stripersist.getEntityManager().clear();
+<a class="jxr_linenumber" name="L829" href="#L829">829</a>                 aantalDoorgestuurd++;
+<a class="jxr_linenumber" name="L830" href="#L830">830</a>                 l.progress(++progress);
+<a class="jxr_linenumber" name="L831" href="#L831">831</a>             }
+<a class="jxr_linenumber" name="L832" href="#L832">832</a>         }
+<a class="jxr_linenumber" name="L833" href="#L833">833</a> 
+<a class="jxr_linenumber" name="L834" href="#L834">834</a>         l.addLog(<span class="jxr_string">"\n\n**** resultaat ****\n"</span>);
+<a class="jxr_linenumber" name="L835" href="#L835">835</a>         l.addLog(<span class="jxr_string">"Aantal afgiftes die al waren verwerkt: "</span> + filterAlVerwerkt);
+<a class="jxr_linenumber" name="L836" href="#L836">836</a>         l.addLog(<span class="jxr_string">"\nAantal afgiftes geladen: "</span> + aantalGeladen);
+<a class="jxr_linenumber" name="L837" href="#L837">837</a>         l.addLog(<span class="jxr_string">"\nAantal afgiftes doorgestuurd: "</span> + aantalDoorgestuurd + <span class="jxr_string">"\n"</span>);
+<a class="jxr_linenumber" name="L838" href="#L838">838</a> 
+<a class="jxr_linenumber" name="L839" href="#L839">839</a>         l.addLog(String.format(<span class="jxr_string">"Het GDS2 ophalen proces met ID %d is afgerond op %tc"</span>, config.getId(), Calendar.getInstance()));
+<a class="jxr_linenumber" name="L840" href="#L840">840</a>         <strong class="jxr_keyword">this</strong>.config.updateSamenvattingEnLogfile(
+<a class="jxr_linenumber" name="L841" href="#L841">841</a>                 String.format(<span class="jxr_string">"Het GDS2 ophalen proces, gestart op %tc, is afgerond op %tc. "</span> + LOG_NEWLINE
+<a class="jxr_linenumber" name="L842" href="#L842">842</a>                         + <span class="jxr_string">"Aantal afgiftes die al waren verwerkt: %d"</span> + LOG_NEWLINE
+<a class="jxr_linenumber" name="L843" href="#L843">843</a>                         + <span class="jxr_string">"Aantal afgiftes geladen: %d"</span> + LOG_NEWLINE
+<a class="jxr_linenumber" name="L844" href="#L844">844</a>                         + <span class="jxr_string">"Aantal afgiftes doorgestuurd: %d"</span> + LOG_NEWLINE
+<a class="jxr_linenumber" name="L845" href="#L845">845</a>                         + <span class="jxr_string">"Hoogste klantafgiftenummer: %s"</span>,
+<a class="jxr_linenumber" name="L846" href="#L846">846</a>                         <strong class="jxr_keyword">this</strong>.config.getLastrun(), Calendar.getInstance(), filterAlVerwerkt, aantalGeladen, aantalDoorgestuurd,
+<a class="jxr_linenumber" name="L847" href="#L847">847</a>                         ClobElement.nullSafeGet(<strong class="jxr_keyword">this</strong>.config.getConfig().get(<span class="jxr_string">"hoogste_afgiftenummer"</span>)))
+<a class="jxr_linenumber" name="L848" href="#L848">848</a>         );
+<a class="jxr_linenumber" name="L849" href="#L849">849</a> 
+<a class="jxr_linenumber" name="L850" href="#L850">850</a>         <strong class="jxr_keyword">this</strong>.config.setStatus(AutomatischProces.ProcessingStatus.WAITING);
+<a class="jxr_linenumber" name="L851" href="#L851">851</a>         <strong class="jxr_keyword">this</strong>.config.setLastrun(<strong class="jxr_keyword">new</strong> Date());
+<a class="jxr_linenumber" name="L852" href="#L852">852</a>         Stripersist.getEntityManager().merge(<strong class="jxr_keyword">this</strong>.config);
+<a class="jxr_linenumber" name="L853" href="#L853">853</a>         <em class="jxr_comment">// om geheugen problemen te vookomen bij runs met veel downloads en berichten</em>
+<a class="jxr_linenumber" name="L854" href="#L854">854</a>         <em class="jxr_comment">// een flush/commit/clear forceren</em>
+<a class="jxr_linenumber" name="L855" href="#L855">855</a>         Stripersist.getEntityManager().flush();
+<a class="jxr_linenumber" name="L856" href="#L856">856</a>         Stripersist.getEntityManager().getTransaction().commit();
+<a class="jxr_linenumber" name="L857" href="#L857">857</a>         Stripersist.getEntityManager().clear();
+<a class="jxr_linenumber" name="L858" href="#L858">858</a>     }
+<a class="jxr_linenumber" name="L859" href="#L859">859</a> 
+<a class="jxr_linenumber" name="L860" href="#L860">860</a>     <strong class="jxr_keyword">private</strong> Gds2AfgifteServiceV20170401 initGDS2() <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L861" href="#L861">861</a>         Gds2AfgifteServiceV20170401 gds2 = <strong class="jxr_keyword">new</strong> Gds2AfgifteServiceV20170401Service().getAGds2AfgifteServiceV20170401();
+<a class="jxr_linenumber" name="L862" href="#L862">862</a>         BindingProvider bp = (BindingProvider) gds2;
+<a class="jxr_linenumber" name="L863" href="#L863">863</a>         Map&lt;String, Object&gt; ctxt = bp.getRequestContext();
+<a class="jxr_linenumber" name="L864" href="#L864">864</a> 
+<a class="jxr_linenumber" name="L865" href="#L865">865</a>         <em class="jxr_comment">// soap berichten logger inhaken (actief met TRACE level)</em>
+<a class="jxr_linenumber" name="L866" href="#L866">866</a>         List&lt;Handler&gt; handlerChain = bp.getBinding().getHandlerChain();
+<a class="jxr_linenumber" name="L867" href="#L867">867</a>         handlerChain.add(<strong class="jxr_keyword">new</strong> <a name="LogMessageHandler" href="../../../../../nl/b3p/brmo/soap/util/LogMessageHandler.html#LogMessageHandler">LogMessageHandler</a>());
+<a class="jxr_linenumber" name="L868" href="#L868">868</a>         bp.getBinding().setHandlerChain(handlerChain);
+<a class="jxr_linenumber" name="L869" href="#L869">869</a> 
+<a class="jxr_linenumber" name="L870" href="#L870">870</a>         String endpoint = (String) ctxt.get(BindingProvider.ENDPOINT_ADDRESS_PROPERTY);
+<a class="jxr_linenumber" name="L871" href="#L871">871</a>         l.addLog(<span class="jxr_string">"Kadaster endpoint: "</span> + endpoint);
+<a class="jxr_linenumber" name="L872" href="#L872">872</a>         l.updateStatus(<span class="jxr_string">"Laden keys..."</span>);
+<a class="jxr_linenumber" name="L873" href="#L873">873</a> 
+<a class="jxr_linenumber" name="L874" href="#L874">874</a>         l.addLog(<span class="jxr_string">"Initializing KeyManagerFactory"</span>);
+<a class="jxr_linenumber" name="L875" href="#L875">875</a>         KeyManagerFactory kmf = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
+<a class="jxr_linenumber" name="L876" href="#L876">876</a>         KeyStore ks = KeyStore.getInstance(<span class="jxr_string">"jks"</span>);
+<a class="jxr_linenumber" name="L877" href="#L877">877</a>         <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">char</strong>[] thePassword = <span class="jxr_string">"changeit"</span>.toCharArray();
+<a class="jxr_linenumber" name="L878" href="#L878">878</a>         PrivateKey privateKey = getPrivateKeyFromPEM(<strong class="jxr_keyword">this</strong>.config.getConfig().get(<span class="jxr_string">"gds2_privkey"</span>).getValue());
+<a class="jxr_linenumber" name="L879" href="#L879">879</a>         Certificate certificate = getCertificateFromPEM(<strong class="jxr_keyword">this</strong>.config.getConfig().get(<span class="jxr_string">"gds2_pubkey"</span>).getValue());
+<a class="jxr_linenumber" name="L880" href="#L880">880</a>         ks.load(<strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L881" href="#L881">881</a>         ks.setKeyEntry(<span class="jxr_string">"thekey"</span>, privateKey, thePassword, <strong class="jxr_keyword">new</strong> Certificate[]{certificate});
+<a class="jxr_linenumber" name="L882" href="#L882">882</a>         kmf.init(ks, thePassword);
+<a class="jxr_linenumber" name="L883" href="#L883">883</a> 
+<a class="jxr_linenumber" name="L884" href="#L884">884</a>         l.updateStatus(<span class="jxr_string">"Opzetten SSL context..."</span>);
+<a class="jxr_linenumber" name="L885" href="#L885">885</a>         context = createSslContext(kmf);
+<a class="jxr_linenumber" name="L886" href="#L886">886</a>         ctxt.put(JAXWSProperties.SSL_SOCKET_FACTORY, context.getSocketFactory());
+<a class="jxr_linenumber" name="L887" href="#L887">887</a> 
+<a class="jxr_linenumber" name="L888" href="#L888">888</a>         <strong class="jxr_keyword">return</strong> gds2;
+<a class="jxr_linenumber" name="L889" href="#L889">889</a>     }
+<a class="jxr_linenumber" name="L890" href="#L890">890</a> 
+<a class="jxr_linenumber" name="L891" href="#L891">891</a>     <strong class="jxr_keyword">private</strong> SSLContext createSslContext(KeyManagerFactory kmf) <strong class="jxr_keyword">throws</strong> KeyStoreException, IOException, CertificateException, NoSuchProviderException, NoSuchAlgorithmException, KeyManagementException {
+<a class="jxr_linenumber" name="L892" href="#L892">892</a>         <strong class="jxr_keyword">final</strong> SSLContext sslContext = SSLContext.getInstance(<span class="jxr_string">"TLS"</span>, <span class="jxr_string">"SunJSSE"</span>);
+<a class="jxr_linenumber" name="L893" href="#L893">893</a> 
+<a class="jxr_linenumber" name="L894" href="#L894">894</a>         l.addLog(<span class="jxr_string">"Loading PKIX Overheid keystore"</span>);
+<a class="jxr_linenumber" name="L895" href="#L895">895</a>         KeyStore ks = KeyStore.getInstance(<span class="jxr_string">"jks"</span>);
+<a class="jxr_linenumber" name="L896" href="#L896">896</a>         ks.load(nl.b3p.gds2.GDS2Util.<strong class="jxr_keyword">class</strong>.getResourceAsStream(<span class="jxr_string">"/pkioverheid.jks"</span>), <span class="jxr_string">"changeit"</span>.toCharArray());
+<a class="jxr_linenumber" name="L897" href="#L897">897</a> 
+<a class="jxr_linenumber" name="L898" href="#L898">898</a>         l.addLog(<span class="jxr_string">"Initializing default TrustManagerFactory"</span>);
+<a class="jxr_linenumber" name="L899" href="#L899">899</a>         <strong class="jxr_keyword">final</strong> TrustManagerFactory javaDefaultTrustManager = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
+<a class="jxr_linenumber" name="L900" href="#L900">900</a>         javaDefaultTrustManager.init((KeyStore) <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L901" href="#L901">901</a>         X509TrustManager defaultX509TrustManager = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L902" href="#L902">902</a>         <strong class="jxr_keyword">for</strong> (TrustManager t : javaDefaultTrustManager.getTrustManagers()) {
+<a class="jxr_linenumber" name="L903" href="#L903">903</a>             <strong class="jxr_keyword">if</strong> (t instanceof X509TrustManager) {
+<a class="jxr_linenumber" name="L904" href="#L904">904</a>                 defaultX509TrustManager = (X509TrustManager) t;
+<a class="jxr_linenumber" name="L905" href="#L905">905</a>                 <strong class="jxr_keyword">break</strong>;
+<a class="jxr_linenumber" name="L906" href="#L906">906</a>             }
+<a class="jxr_linenumber" name="L907" href="#L907">907</a>         }
+<a class="jxr_linenumber" name="L908" href="#L908">908</a>         l.addLog(<span class="jxr_string">"Initializing PKIX TrustManagerFactory"</span>);
+<a class="jxr_linenumber" name="L909" href="#L909">909</a>         <strong class="jxr_keyword">final</strong> TrustManagerFactory customCaTrustManager = TrustManagerFactory.getInstance(<span class="jxr_string">"PKIX"</span>);
+<a class="jxr_linenumber" name="L910" href="#L910">910</a>         customCaTrustManager.init(ks);
+<a class="jxr_linenumber" name="L911" href="#L911">911</a> 
+<a class="jxr_linenumber" name="L912" href="#L912">912</a>         l.addLog(<span class="jxr_string">"Initializing SSLContext"</span>);
+<a class="jxr_linenumber" name="L913" href="#L913">913</a>         sslContext.init(
+<a class="jxr_linenumber" name="L914" href="#L914">914</a>                 kmf.getKeyManagers(),
+<a class="jxr_linenumber" name="L915" href="#L915">915</a>                 <strong class="jxr_keyword">new</strong> TrustManager[]{
+<a class="jxr_linenumber" name="L916" href="#L916">916</a>                     <strong class="jxr_keyword">new</strong> <a name="TrustManagerDelegate" href="../../../../../nl/b3p/brmo/service/util/TrustManagerDelegate.html#TrustManagerDelegate">TrustManagerDelegate</a>(
+<a class="jxr_linenumber" name="L917" href="#L917">917</a>                             <em class="jxr_comment">// customCaTrustManager is PKIX dus altijd X.509 (RFC3280)</em>
+<a class="jxr_linenumber" name="L918" href="#L918">918</a>                             (X509TrustManager) customCaTrustManager.getTrustManagers()[0],
+<a class="jxr_linenumber" name="L919" href="#L919">919</a>                             defaultX509TrustManager
+<a class="jxr_linenumber" name="L920" href="#L920">920</a>                     )
+<a class="jxr_linenumber" name="L921" href="#L921">921</a>                 },
+<a class="jxr_linenumber" name="L922" href="#L922">922</a>                 <strong class="jxr_keyword">null</strong>
+<a class="jxr_linenumber" name="L923" href="#L923">923</a>         );
+<a class="jxr_linenumber" name="L924" href="#L924">924</a>         <strong class="jxr_keyword">return</strong> sslContext;
+<a class="jxr_linenumber" name="L925" href="#L925">925</a>     }
+<a class="jxr_linenumber" name="L926" href="#L926">926</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2014&#x2013;2019 <a href="http://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2014&#x2013;2020 <a href="http://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>
 </body>
 </html>

@@ -30,6 +30,7 @@ digraph G {
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> TestUtil </font></td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # haveSetupJNDI : boolean </td></tr>
 <tr><td align="left" balign="left"> # DBPROPS : Properties </td></tr>
 <tr><td align="left" balign="left"> # isOracle : boolean </td></tr>
 <tr><td align="left" balign="left"> # isMsSQL : boolean </td></tr>

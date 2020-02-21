@@ -111,7 +111,7 @@ import org.apache.commons.dbutils.BasicRowProcessor;
 <span class="nc" id="L111">                b.setId(rs.getLong(&quot;id&quot;));</span>
             }
 <span class="nc bnc" id="L113" title="All 2 branches missed.">            if (namesList.contains(&quot;laadprocesid&quot;)) {</span>
-<span class="nc" id="L114">                b.setLaadProcesId(rs.getInt(&quot;laadprocesid&quot;));</span>
+<span class="nc" id="L114">                b.setLaadProcesId(rs.getLong(&quot;laadprocesid&quot;));</span>
             }
 <span class="nc bnc" id="L116" title="All 2 branches missed.">            if (namesList.contains(&quot;object_ref&quot;)) {</span>
 <span class="nc" id="L117">                b.setObjectRef(rs.getString(&quot;object_ref&quot;));</span>

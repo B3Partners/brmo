@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LaadprocesStatusRapport.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO service</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.service.scanner</a> &gt; <span class="el_source">LaadprocesStatusRapport.java</span></div><h1>LaadprocesStatusRapport.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2020 B3Partners B.V.
+ */
+package nl.b3p.brmo.service.scanner;
+
+import nl.b3p.brmo.loader.BrmoFramework;
+import nl.b3p.brmo.loader.entity.LaadProces;
+import nl.b3p.brmo.loader.util.BrmoException;
+import nl.b3p.brmo.persistence.staging.AutomatischProces;
+import nl.b3p.brmo.persistence.staging.LaadprocesStatusRapportProces;
+import nl.b3p.brmo.service.util.ConfigUtil;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.stripesstuff.stripersist.Stripersist;
+
+import javax.persistence.EntityManager;
+import javax.persistence.Transient;
+import java.util.Calendar;
+import java.util.Date;
+
+import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.PROCESSING;
+import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.WAITING;
+
+/**
+ *
+ * @author mprins
+ */
+public class LaadprocesStatusRapport extends AbstractExecutableProces {
+
+<span class="nc" id="L30">    private static final Log LOG = LogFactory.getLog(MailRapportage.class);</span>
+    private LaadprocesStatusRapportProces config;
+    @Transient
+    private ProgressUpdateListener listener;
+
+<span class="nc" id="L35">    public LaadprocesStatusRapport(LaadprocesStatusRapportProces config) {</span>
+<span class="nc" id="L36">        this.config = config;</span>
+<span class="nc" id="L37">    }</span>
+
+    @Override
+    public void execute() throws BrmoException {
+<span class="nc" id="L41">        this.execute(new ProgressUpdateListener() {</span>
+            @Override
+            public void total(long total) {
+<span class="nc" id="L44">            }</span>
+
+            @Override
+            public void progress(long progress) {
+<span class="nc" id="L48">            }</span>
+
+            @Override
+            public void exception(Throwable t) {
+<span class="nc" id="L52">                LOG.error(t);</span>
+<span class="nc" id="L53">            }</span>
+
+            @Override
+            public void updateStatus(String status) {
+<span class="nc" id="L57">            }</span>
+
+            @Override
+            public void addLog(String log) {
+<span class="nc" id="L61">            }</span>
+        });
+<span class="nc" id="L63">    }</span>
+
+    @Override
+    public void execute(ProgressUpdateListener listener) {
+<span class="nc" id="L67">        EntityManager em = Stripersist.getEntityManager();</span>
+
+<span class="nc" id="L69">        this.listener = listener;</span>
+<span class="nc" id="L70">        config.setStatus(PROCESSING);</span>
+<span class="nc" id="L71">        config.setLastrun(new Date());</span>
+<span class="nc" id="L72">        em.merge(config);</span>
+<span class="nc" id="L73">        em.flush();</span>
+
+<span class="nc" id="L75">        StringBuilder sb = new StringBuilder(AutomatischProces.LOG_NEWLINE);</span>
+<span class="nc" id="L76">        String oldLog = config.getLogfile();</span>
+<span class="nc bnc" id="L77" title="All 2 branches missed.">        if (oldLog != null) {</span>
+<span class="nc bnc" id="L78" title="All 2 branches missed.">            if (oldLog.length() &gt; OLD_LOG_LENGTH) {</span>
+<span class="nc" id="L79">                sb.append(oldLog.substring(oldLog.length() - OLD_LOG_LENGTH / 10));</span>
+            } else {
+<span class="nc" id="L81">                sb.append(oldLog).append(AutomatischProces.LOG_NEWLINE);</span>
+            }
+        }
+
+<span class="nc" id="L85">        config.setStatus(PROCESSING);</span>
+<span class="nc" id="L86">        String msg = String.format(&quot;De Laadproces Status Rapportage met ID %d is gestart op %tc.&quot;, config.getId(), Calendar.getInstance());</span>
+<span class="nc" id="L87">        LOG.info(msg);</span>
+<span class="nc" id="L88">        listener.updateStatus(msg);</span>
+<span class="nc" id="L89">        listener.addLog(msg);</span>
+<span class="nc" id="L90">        sb.append(msg).append(AutomatischProces.LOG_NEWLINE);</span>
+<span class="nc" id="L91">        this.active = true;</span>
+
+<span class="nc" id="L93">        LOG.info(&quot;Ophalen Laadproces Status informatie.&quot;);</span>
+<span class="nc" id="L94">        BrmoFramework brmo = null;</span>
+<span class="nc" id="L95">        long aantal = -1L;</span>
+<span class="nc" id="L96">        StringBuilder samenvatting = new StringBuilder(&quot;Laadproces Status overzicht&quot;);</span>
+<span class="nc" id="L97">        samenvatting.append(AutomatischProces.LOG_NEWLINE);</span>
+        try {
+<span class="nc" id="L99">            brmo = new BrmoFramework(ConfigUtil.getDataSourceStaging(), null);</span>
+<span class="nc bnc" id="L100" title="All 2 branches missed.">            for (LaadProces.STATUS status : LaadProces.STATUS.values()) {</span>
+<span class="nc" id="L101">                aantal = brmo.getCountLaadProcessen(null, null, null, status.name());</span>
+<span class="nc" id="L102">                msg = String.format(&quot;Aantal laadprocessen met status %s: %s.&quot;, status.name(), aantal);</span>
+<span class="nc" id="L103">                sb.append(msg).append(AutomatischProces.LOG_NEWLINE);</span>
+<span class="nc" id="L104">                samenvatting.append(msg).append(AutomatischProces.LOG_NEWLINE);</span>
+<span class="nc" id="L105">                LOG.info(msg);</span>
+<span class="nc" id="L106">                listener.updateStatus(msg);</span>
+<span class="nc" id="L107">                listener.addLog(msg);</span>
+            }
+<span class="nc" id="L109">        } catch (BrmoException ex) {</span>
+<span class="nc" id="L110">            LOG.error(ex.getLocalizedMessage());</span>
+<span class="nc" id="L111">            listener.exception(ex);</span>
+<span class="nc" id="L112">            sb.append(ex.getLocalizedMessage()).append(AutomatischProces.LOG_NEWLINE);</span>
+        } finally {
+<span class="nc bnc" id="L114" title="All 2 branches missed.">            if (brmo != null) {</span>
+<span class="nc" id="L115">                brmo.closeBrmoFramework();</span>
+            }
+
+        }
+<span class="nc" id="L119">        msg = String.format(&quot;De Laadproces Status Rapportage met ID %d is afgerond op %tc.&quot;, config.getId(), Calendar.getInstance());</span>
+<span class="nc" id="L120">        LOG.info(msg);</span>
+<span class="nc" id="L121">        listener.updateStatus(msg);</span>
+<span class="nc" id="L122">        listener.addLog(msg);</span>
+<span class="nc" id="L123">        sb.append(msg).append(AutomatischProces.LOG_NEWLINE);</span>
+<span class="nc" id="L124">        config.setSamenvatting(samenvatting.toString());</span>
+<span class="nc" id="L125">        config.setStatus(WAITING);</span>
+<span class="nc" id="L126">        config.setLastrun(new Date());</span>
+<span class="nc" id="L127">        config.setLogfile(sb.toString());</span>
+<span class="nc" id="L128">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

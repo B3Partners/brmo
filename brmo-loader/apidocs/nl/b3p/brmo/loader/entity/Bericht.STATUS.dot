@@ -58,8 +58,8 @@ digraph G {
 <tr><td align="left" balign="left"> + Bericht(brXml : String) </td></tr>
 <tr><td align="left" balign="left"> + getId() : Long </td></tr>
 <tr><td align="left" balign="left"> + setId(id : Long) </td></tr>
-<tr><td align="left" balign="left"> + getLaadProcesId() : Integer </td></tr>
-<tr><td align="left" balign="left"> + setLaadProcesId(laadProcesId : Integer) </td></tr>
+<tr><td align="left" balign="left"> + getLaadProcesId() : Long </td></tr>
+<tr><td align="left" balign="left"> + setLaadProcesId(laadProcesId : Long) </td></tr>
 <tr><td align="left" balign="left"> + getObjectRef() : String </td></tr>
 <tr><td align="left" balign="left"> + setObjectRef(objectRef : String) </td></tr>
 <tr><td align="left" balign="left"> + getDatum() : Date </td></tr>

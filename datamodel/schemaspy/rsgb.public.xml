@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<database name="rsgb" schema="public" type="PostgreSQL - 12.1 (Ubuntu 12.1-1.pgdg19.04+1)">
+<database name="rsgb" schema="public" type="PostgreSQL - 12.2 (Ubuntu 12.2-1.pgdg19.10+1)">
    <tables>
       <table name="aard_recht_verkort" numRows="24" remarks="RSGB referentielijst AARD RECHT VERKORT" schema="public" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="aand" nullable="false" remarks="Referentielijst property AARD RECHT VERKORT.Aanduiding aard recht verkort - Aanduiding aard recht verkort" size="4" type="varchar">
@@ -312,7 +312,7 @@
             <column ascending="true" name="fk_nn_rh_btr_sc_identif"/>
          </index>
       </table>
-      <table name="brmo_metadata" numRows="1" remarks="BRMO systeem metadata en versie gegevens" schema="public" type="TABLE">
+      <table name="brmo_metadata" numRows="2" remarks="BRMO systeem metadata en versie gegevens" schema="public" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="naam" nullable="false" remarks="" size="255" type="varchar"/>
          <column autoUpdated="false" digits="0" id="1" name="waarde" nullable="true" remarks="" size="255" type="varchar"/>
          <primaryKey column="naam" sequenceNumberInPK="1"/>
@@ -1357,7 +1357,7 @@
             <column ascending="true" name="sc_identif"/>
          </index>
       </table>
-      <table name="nation" numRows="215" remarks="RSGB referentielijst NATIONALITEIT" schema="public" type="TABLE">
+      <table name="nation" numRows="216" remarks="RSGB referentielijst NATIONALITEIT" schema="public" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="begindatum_geldh" nullable="true" remarks="Referentielijst property NATIONALITEIT.Begindatum geldigheid nationaliteit - Begindatum geldigheid nationaliteit" size="19" type="varchar"/>
          <column autoUpdated="false" digits="0" id="1" name="eindd_geldh" nullable="true" remarks="Referentielijst property NATIONALITEIT.Einddatum geldigheid nationaliteit - Einddatum geldigheid nationaliteit" size="19" type="varchar"/>
          <column autoUpdated="false" digits="0" id="2" name="code" nullable="false" remarks="Referentielijst property NATIONALITEIT.Nationaliteitcode - Nationaliteitcode" size="4" type="numeric">
@@ -2161,17 +2161,18 @@
          <column autoUpdated="false" digits="0" id="0" name="child_identif" nullable="true" remarks="" size="50" type="varchar"/>
          <column autoUpdated="false" digits="0" id="1" name="parent_identif" nullable="true" remarks="" size="2147483647" type="text"/>
       </table>
-      <table name="vb_util_zk_recht" numRows="0" remarks="commentaar view vb_util_zk_recht:&#10;zakelijk recht met opgezocht aard recht en berekend aandeel&#10;&#10;beschikbare kolommen:&#10;* zr_identif: natuurlijke id van zakelijk recht     &#10;* aandeel: samenvoeging van teller en noemer (1/2),&#10;* ar_teller: teller van aandeel,&#10;* ar_noemer: noemer van aandeel,&#10;* subject_identif: natuurlijk id van subject (natuurlijk of niet natuurlijk) welke rechthebbende is,&#10;* koz_identif: natuurlijk id van kadastrale onroerende zaak (perceel of appratementsrecht) dat gekoppeld is,&#10;* indic_betrokken_in_splitsing: -,&#10;* omschr_aard_verkregen_recht: tekstuele omschrijving aard recht,&#10;* fk_3avr_aand: code aard recht,&#10;* aantekeningen: samenvoeging van alle aantekening op dit recht" schema="public" type="VIEW">
+      <table name="vb_util_zk_recht" numRows="0" remarks="commentaar view vb_util_zk_recht:&#10;zakelijk recht met opgezocht aard recht en berekend aandeel&#10;&#10;beschikbare kolommen:&#10;* zr_identif: natuurlijke id van zakelijk recht&#10;* ingangsdatum_recht: -&#10;* aandeel: samenvoeging van teller en noemer (1/2),&#10;* ar_teller: teller van aandeel,&#10;* ar_noemer: noemer van aandeel,&#10;* subject_identif: natuurlijk id van subject (natuurlijk of niet natuurlijk) welke rechthebbende is,&#10;* koz_identif: natuurlijk id van kadastrale onroerende zaak (perceel of appratementsrecht) dat gekoppeld is,&#10;* indic_betrokken_in_splitsing: -,&#10;* omschr_aard_verkregen_recht: tekstuele omschrijving aard recht,&#10;* fk_3avr_aand: code aard recht,&#10;* aantekeningen: samenvoeging van alle aantekening op dit recht" schema="public" type="VIEW">
          <column autoUpdated="false" digits="0" id="0" name="zr_identif" nullable="true" remarks="" size="255" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="1" name="aandeel" nullable="true" remarks="" size="20" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="2" name="ar_teller" nullable="true" remarks="" size="10" type="int4"/>
-         <column autoUpdated="false" digits="0" id="3" name="ar_noemer" nullable="true" remarks="" size="10" type="int4"/>
-         <column autoUpdated="false" digits="0" id="4" name="subject_identif" nullable="true" remarks="" size="255" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="5" name="koz_identif" nullable="true" remarks="" size="15" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="6" name="indic_betrokken_in_splitsing" nullable="true" remarks="" size="255" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="7" name="omschr_aard_verkregen_recht" nullable="true" remarks="" size="200" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="8" name="fk_3avr_aand" nullable="true" remarks="" size="6" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="9" name="aantekeningen" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="1" name="ingangsdatum_recht" nullable="true" remarks="" size="19" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="aandeel" nullable="true" remarks="" size="20" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="ar_teller" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="4" name="ar_noemer" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="5" name="subject_identif" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="6" name="koz_identif" nullable="true" remarks="" size="15" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="7" name="indic_betrokken_in_splitsing" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="8" name="omschr_aard_verkregen_recht" nullable="true" remarks="" size="200" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="9" name="fk_3avr_aand" nullable="true" remarks="" size="6" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="10" name="aantekeningen" nullable="true" remarks="" size="2147483647" type="text"/>
       </table>
       <table name="vb_vbo_adres" numRows="0" remarks="commentaar view vb_vbo_adres:&#10;vbo met adres, puntlocatie en referentie naar pand&#10;&#10;beschikbare kolommen:&#10;* vbo_identif: natuurlijke id van vbo      &#10;* begin_geldigheid: datum wanneer dit object geldig geworden is (ontstaat of bijgewerkt),&#10;* pand_identif: natuurlijk id van pand dat aan dit vbo gekoppeld is,&#10;* na_identif: natuurlijk id van nummeraanduiding,&#10;* na_status: status van de nummeraanduiding,   &#10;* gemeente: -,&#10;* woonplaats: -,&#10;* straatnaam: -,&#10;* huisnummer: -,&#10;* huisletter: -,&#10;* huisnummer_toev: -,&#10;* postcode: -,&#10;* status: -,&#10;* gebruiksdoelen: alle gebruiksdoel gescheiden door komma,&#10;* the_geom: puntlocatie" schema="public" type="VIEW">
          <column autoUpdated="false" digits="0" id="0" name="vbo_identif" nullable="true" remarks="" size="16" type="varchar"/>

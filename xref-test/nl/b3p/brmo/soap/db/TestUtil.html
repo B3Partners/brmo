@@ -17,18 +17,18 @@
 <a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> java.util.Properties;
 <a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> javax.naming.Context;
 <a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> javax.naming.InitialContext;
-<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> javax.naming.NamingException;
-<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> nl.b3p.loader.jdbc.GeometryJdbcConverter;
-<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> nl.b3p.loader.jdbc.GeometryJdbcConverterFactory;
-<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">import</strong> org.apache.commons.logging.Log;
-<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> org.apache.commons.logging.LogFactory;
-<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <strong class="jxr_keyword">import</strong> org.apache.commons.dbcp.BasicDataSource;
-<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <strong class="jxr_keyword">import</strong> org.apache.commons.dbutils.QueryRunner;
-<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <strong class="jxr_keyword">import</strong> org.junit.After;
-<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assume.assumeNotNull;
-<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <strong class="jxr_keyword">import</strong> org.junit.Before;
-<a class="jxr_linenumber" name="L22" href="#L22">22</a>  <strong class="jxr_keyword">import</strong> org.junit.BeforeClass;
-<a class="jxr_linenumber" name="L23" href="#L23">23</a>  <strong class="jxr_keyword">import</strong> org.junit.Rule;
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> javax.naming.NameAlreadyBoundException;
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> javax.naming.NamingException;
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> nl.b3p.loader.jdbc.GeometryJdbcConverter;
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">import</strong> nl.b3p.loader.jdbc.GeometryJdbcConverterFactory;
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> org.apache.commons.logging.Log;
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <strong class="jxr_keyword">import</strong> org.apache.commons.logging.LogFactory;
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <strong class="jxr_keyword">import</strong> org.apache.commons.dbcp.BasicDataSource;
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <strong class="jxr_keyword">import</strong> org.apache.commons.dbutils.QueryRunner;
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <strong class="jxr_keyword">import</strong> org.junit.*;
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>  
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>  <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assume.assumeNotNull;
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>  
 <a class="jxr_linenumber" name="L24" href="#L24">24</a>  <strong class="jxr_keyword">import</strong> org.junit.rules.TestName;
 <a class="jxr_linenumber" name="L25" href="#L25">25</a>  
 <a class="jxr_linenumber" name="L26" href="#L26">26</a>  <em class="jxr_javadoccomment">/**</em>
@@ -170,33 +170,35 @@
 <a class="jxr_linenumber" name="L162" href="#L162">162</a>                 ic.bind(<span class="jxr_string">"java:comp/env/jdbc/brmo/rsgb"</span>, dsRsgb);
 <a class="jxr_linenumber" name="L163" href="#L163">163</a>                 ic.bind(<span class="jxr_string">"java:comp/env/jdbc/brmo/staging"</span>, dsStaging);
 <a class="jxr_linenumber" name="L164" href="#L164">164</a>                 haveSetupJNDI = <strong class="jxr_keyword">true</strong>;
-<a class="jxr_linenumber" name="L165" href="#L165">165</a>             } <strong class="jxr_keyword">catch</strong> (NamingException ex) {
-<a class="jxr_linenumber" name="L166" href="#L166">166</a>                 LOG.warn(<span class="jxr_string">"Opzetten van datasource jndi is mislukt"</span>, ex);
-<a class="jxr_linenumber" name="L167" href="#L167">167</a>             }
-<a class="jxr_linenumber" name="L168" href="#L168">168</a>         }
-<a class="jxr_linenumber" name="L169" href="#L169">169</a>     }
-<a class="jxr_linenumber" name="L170" href="#L170">170</a> 
-<a class="jxr_linenumber" name="L171" href="#L171">171</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L172" href="#L172">172</a> <em class="jxr_javadoccomment">     * refresh de gegeven lijst van materialized views in de database.</em>
-<a class="jxr_linenumber" name="L173" href="#L173">173</a> <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="L174" href="#L174">174</a> <em class="jxr_javadoccomment">     * @param mviews lijst van views</em>
-<a class="jxr_linenumber" name="L175" href="#L175">175</a> <em class="jxr_javadoccomment">     * @param ds database koppeling</em>
-<a class="jxr_linenumber" name="L176" href="#L176">176</a> <em class="jxr_javadoccomment">     * @throws SQLException if any</em>
-<a class="jxr_linenumber" name="L177" href="#L177">177</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L178" href="#L178">178</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> refreshMViews(<strong class="jxr_keyword">final</strong> String[] mviews, <strong class="jxr_keyword">final</strong> BasicDataSource ds) <strong class="jxr_keyword">throws</strong> SQLException {
-<a class="jxr_linenumber" name="L179" href="#L179">179</a>         <em class="jxr_comment">// refresh materialized views</em>
-<a class="jxr_linenumber" name="L180" href="#L180">180</a>         <strong class="jxr_keyword">try</strong> (Connection conn = ds.getConnection()) {
-<a class="jxr_linenumber" name="L181" href="#L181">181</a>             conn.setAutoCommit(<strong class="jxr_keyword">true</strong>);
-<a class="jxr_linenumber" name="L182" href="#L182">182</a>             <strong class="jxr_keyword">final</strong> GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
-<a class="jxr_linenumber" name="L183" href="#L183">183</a>             <strong class="jxr_keyword">for</strong> (String mview : mviews) {
-<a class="jxr_linenumber" name="L184" href="#L184">184</a>                 <em class="jxr_comment">// "update" gebruiken omdat we een oracle stored procedure benaderen</em>
-<a class="jxr_linenumber" name="L185" href="#L185">185</a>                 Object o = <strong class="jxr_keyword">new</strong> QueryRunner(geomToJdbc.isPmdKnownBroken()).update(conn, geomToJdbc.getMViewRefreshSQL(mview));
-<a class="jxr_linenumber" name="L186" href="#L186">186</a>             }
-<a class="jxr_linenumber" name="L187" href="#L187">187</a>         }
-<a class="jxr_linenumber" name="L188" href="#L188">188</a>     }
-<a class="jxr_linenumber" name="L189" href="#L189">189</a> }
+<a class="jxr_linenumber" name="L165" href="#L165">165</a>             } <strong class="jxr_keyword">catch</strong> (NameAlreadyBoundException ex) {
+<a class="jxr_linenumber" name="L166" href="#L166">166</a>                 LOG.trace(<span class="jxr_string">"Opzetten van nieuwe datasource jndi is mislukt: "</span> + ex.getLocalizedMessage());
+<a class="jxr_linenumber" name="L167" href="#L167">167</a>             } <strong class="jxr_keyword">catch</strong> (NamingException ex) {
+<a class="jxr_linenumber" name="L168" href="#L168">168</a>                 LOG.warn(<span class="jxr_string">"Opzetten van datasource jndi is mislukt"</span>, ex);
+<a class="jxr_linenumber" name="L169" href="#L169">169</a>             }
+<a class="jxr_linenumber" name="L170" href="#L170">170</a>         }
+<a class="jxr_linenumber" name="L171" href="#L171">171</a>     }
+<a class="jxr_linenumber" name="L172" href="#L172">172</a> 
+<a class="jxr_linenumber" name="L173" href="#L173">173</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L174" href="#L174">174</a> <em class="jxr_javadoccomment">     * refresh de gegeven lijst van materialized views in de database.</em>
+<a class="jxr_linenumber" name="L175" href="#L175">175</a> <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="L176" href="#L176">176</a> <em class="jxr_javadoccomment">     * @param mviews lijst van views</em>
+<a class="jxr_linenumber" name="L177" href="#L177">177</a> <em class="jxr_javadoccomment">     * @param ds database koppeling</em>
+<a class="jxr_linenumber" name="L178" href="#L178">178</a> <em class="jxr_javadoccomment">     * @throws SQLException if any</em>
+<a class="jxr_linenumber" name="L179" href="#L179">179</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L180" href="#L180">180</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> refreshMViews(<strong class="jxr_keyword">final</strong> String[] mviews, <strong class="jxr_keyword">final</strong> BasicDataSource ds) <strong class="jxr_keyword">throws</strong> SQLException {
+<a class="jxr_linenumber" name="L181" href="#L181">181</a>         <em class="jxr_comment">// refresh materialized views</em>
+<a class="jxr_linenumber" name="L182" href="#L182">182</a>         <strong class="jxr_keyword">try</strong> (Connection conn = ds.getConnection()) {
+<a class="jxr_linenumber" name="L183" href="#L183">183</a>             conn.setAutoCommit(<strong class="jxr_keyword">true</strong>);
+<a class="jxr_linenumber" name="L184" href="#L184">184</a>             <strong class="jxr_keyword">final</strong> GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
+<a class="jxr_linenumber" name="L185" href="#L185">185</a>             <strong class="jxr_keyword">for</strong> (String mview : mviews) {
+<a class="jxr_linenumber" name="L186" href="#L186">186</a>                 <em class="jxr_comment">// "update" gebruiken omdat we een oracle stored procedure benaderen</em>
+<a class="jxr_linenumber" name="L187" href="#L187">187</a>                 Object o = <strong class="jxr_keyword">new</strong> QueryRunner(geomToJdbc.isPmdKnownBroken()).update(conn, geomToJdbc.getMViewRefreshSQL(mview));
+<a class="jxr_linenumber" name="L188" href="#L188">188</a>             }
+<a class="jxr_linenumber" name="L189" href="#L189">189</a>         }
+<a class="jxr_linenumber" name="L190" href="#L190">190</a>     }
+<a class="jxr_linenumber" name="L191" href="#L191">191</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2014&#x2013;2019 <a href="http://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2014&#x2013;2020 <a href="http://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>
 </body>
 </html>

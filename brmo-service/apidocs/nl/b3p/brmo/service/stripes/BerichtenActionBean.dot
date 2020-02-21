@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.service.stripes.BerichtenActionBean
-	c1177 [label=<<table title="nl.b3p.brmo.service.stripes.BerichtenActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BerichtenActionBean.html">
+	c1227 [label=<<table title="nl.b3p.brmo.service.stripes.BerichtenActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BerichtenActionBean.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BerichtenActionBean </td></tr>
 		</table></td></tr>
@@ -46,11 +46,11 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BerichtenActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.service.stripes.BerichtenActionBean implements net.sourceforge.stripes.action.ActionBean
-	c1202:p -> c1177:p [dir=back,arrowtail=empty,style=dashed];
+	c1253:p -> c1227:p [dir=back,arrowtail=empty,style=dashed];
 	// nl.b3p.brmo.service.stripes.BerichtenActionBean NAVASSOC net.sourceforge.stripes.action.ActionBeanContext
-	c1177:p -> c1203:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c1227:p -> c1254:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// net.sourceforge.stripes.action.ActionBean
-	c1202 [label=<<table title="net.sourceforge.stripes.action.ActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+	c1253 [label=<<table title="net.sourceforge.stripes.action.ActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> ActionBean </td></tr>
@@ -64,7 +64,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// net.sourceforge.stripes.action.ActionBeanContext
-	c1203 [label=<<table title="net.sourceforge.stripes.action.ActionBeanContext" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+	c1254 [label=<<table title="net.sourceforge.stripes.action.ActionBeanContext" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ActionBeanContext </td></tr>
 		</table></td></tr>

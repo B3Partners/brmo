@@ -629,100 +629,101 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
 <span class="nc" id="L629">        lp.setAfgiftereferentie(a.getAfgiftereferentie());</span>
 <span class="nc" id="L630">        lp.setBestandsreferentie(a.getBestand().getBestandsreferentie());</span>
 <span class="nc" id="L631">        lp.setBeschikbaar_tot(a.getBeschikbaarTot().toGregorianCalendar().getTime());</span>
+<span class="nc" id="L632">        lp.setBestand_naam_hersteld(a.getBestand().getBestandsnaam());</span>
 
-<span class="nc bnc" id="L633" title="All 2 branches missed.">        if (a.getDigikoppelingExternalDatareferences() != null</span>
-<span class="nc bnc" id="L634" title="All 2 branches missed.">                &amp;&amp; a.getDigikoppelingExternalDatareferences().getDataReference() != null) {</span>
-<span class="nc bnc" id="L635" title="All 2 branches missed.">            for (DataReference dr : a.getDigikoppelingExternalDatareferences().getDataReference()) {</span>
-<span class="nc" id="L636">                lp.setBestand_datum(dr.getLifetime().getCreationTime().getValue().toGregorianCalendar().getTime());</span>
-<span class="nc" id="L637">                break;</span>
+<span class="nc bnc" id="L634" title="All 2 branches missed.">        if (a.getDigikoppelingExternalDatareferences() != null</span>
+<span class="nc bnc" id="L635" title="All 2 branches missed.">                &amp;&amp; a.getDigikoppelingExternalDatareferences().getDataReference() != null) {</span>
+<span class="nc bnc" id="L636" title="All 2 branches missed.">            for (DataReference dr : a.getDigikoppelingExternalDatareferences().getDataReference()) {</span>
+<span class="nc" id="L637">                lp.setBestand_datum(dr.getLifetime().getCreationTime().getValue().toGregorianCalendar().getTime());</span>
+<span class="nc" id="L638">                break;</span>
             }
         }
-<span class="nc" id="L640">        lp.setSoort(&quot;brk&quot;);</span>
-<span class="nc" id="L641">        lp.setStatus(LaadProces.STATUS.STAGING_OK);</span>
-<span class="nc" id="L642">        SimpleDateFormat sdf = new SimpleDateFormat(&quot;dd-MM-yyyy HH:mm:ss&quot;);</span>
-<span class="nc" id="L643">        lp.setOpmerking(&quot;GDS2 download van &quot; + url + &quot; op &quot; + sdf.format(new Date()));</span>
-<span class="nc" id="L644">        lp.setAutomatischProces(em.find(AutomatischProces.class, config.getId()));</span>
+<span class="nc" id="L641">        lp.setSoort(&quot;brk&quot;);</span>
+<span class="nc" id="L642">        lp.setStatus(LaadProces.STATUS.STAGING_OK);</span>
+<span class="nc" id="L643">        SimpleDateFormat sdf = new SimpleDateFormat(&quot;dd-MM-yyyy HH:mm:ss&quot;);</span>
+<span class="nc" id="L644">        lp.setOpmerking(&quot;GDS2 download van &quot; + url + &quot; op &quot; + sdf.format(new Date()));</span>
+<span class="nc" id="L645">        lp.setAutomatischProces(em.find(AutomatischProces.class, config.getId()));</span>
 
-<span class="nc" id="L646">        Bericht b = new Bericht();</span>
-<span class="nc" id="L647">        b.setLaadprocesid(lp);</span>
-<span class="nc" id="L648">        b.setDatum(lp.getBestand_datum());</span>
-<span class="nc" id="L649">        b.setSoort(&quot;brk&quot;);</span>
-<span class="nc" id="L650">        b.setStatus_datum(new Date());</span>
+<span class="nc" id="L647">        Bericht b = new Bericht();</span>
+<span class="nc" id="L648">        b.setLaadprocesid(lp);</span>
+<span class="nc" id="L649">        b.setDatum(lp.getBestand_datum());</span>
+<span class="nc" id="L650">        b.setSoort(&quot;brk&quot;);</span>
+<span class="nc" id="L651">        b.setStatus_datum(new Date());</span>
 
-<span class="nc" id="L652">        ZipInputStream zip = new ZipInputStream(new ByteArrayInputStream(bos.toByteArray()));</span>
-<span class="nc" id="L653">        ZipEntry entry = zip.getNextEntry();</span>
-<span class="nc bnc" id="L654" title="All 4 branches missed.">        while (entry != null &amp;&amp; !entry.getName().toLowerCase().endsWith(&quot;.xml&quot;)) {</span>
-<span class="nc" id="L655">            msg = &quot;Overslaan zip entry geen XML: &quot; + entry.getName();</span>
-<span class="nc" id="L656">            l.addLog(msg);</span>
-<span class="nc" id="L657">            entry = zip.getNextEntry();</span>
+<span class="nc" id="L653">        ZipInputStream zip = new ZipInputStream(new ByteArrayInputStream(bos.toByteArray()));</span>
+<span class="nc" id="L654">        ZipEntry entry = zip.getNextEntry();</span>
+<span class="nc bnc" id="L655" title="All 4 branches missed.">        while (entry != null &amp;&amp; !entry.getName().toLowerCase().endsWith(&quot;.xml&quot;)) {</span>
+<span class="nc" id="L656">            msg = &quot;Overslaan zip entry geen XML: &quot; + entry.getName();</span>
+<span class="nc" id="L657">            l.addLog(msg);</span>
+<span class="nc" id="L658">            entry = zip.getNextEntry();</span>
         }
-<span class="nc bnc" id="L659" title="All 2 branches missed.">        if (entry == null) {</span>
-<span class="nc" id="L660">            msg = &quot;Geen geschikt XML bestand gevonden in zip bestand!&quot;;</span>
-<span class="nc" id="L661">            l.addLog(msg);</span>
-<span class="nc" id="L662">            return null;</span>
+<span class="nc bnc" id="L660" title="All 2 branches missed.">        if (entry == null) {</span>
+<span class="nc" id="L661">            msg = &quot;Geen geschikt XML bestand gevonden in zip bestand!&quot;;</span>
+<span class="nc" id="L662">            l.addLog(msg);</span>
+<span class="nc" id="L663">            return null;</span>
         }
-<span class="nc" id="L664">        b.setBr_orgineel_xml(IOUtils.toString(zip, &quot;UTF-8&quot;));</span>
+<span class="nc" id="L665">        b.setBr_orgineel_xml(IOUtils.toString(zip, &quot;UTF-8&quot;));</span>
 
-<span class="nc bnc" id="L666" title="All 2 branches missed.">        if (log.isDebugEnabled()) {</span>
+<span class="nc bnc" id="L667" title="All 2 branches missed.">        if (log.isDebugEnabled()) {</span>
             // dump xml bestand naar /tmp/ voordat de xml wordt geparsed
-<span class="nc" id="L668">            String fName = File.createTempFile(lp.getBestand_naam(), &quot;.xml&quot;).getAbsolutePath();</span>
-<span class="nc" id="L669">            log.debug(&quot;Dump xml bericht naar: &quot; + fName);</span>
-<span class="nc" id="L670">            IOUtils.write(b.getBr_orgineel_xml(), new FileWriter(fName));</span>
+<span class="nc" id="L669">            String fName = File.createTempFile(lp.getBestand_naam(), &quot;.xml&quot;).getAbsolutePath();</span>
+<span class="nc" id="L670">            log.debug(&quot;Dump xml bericht naar: &quot; + fName);</span>
+<span class="nc" id="L671">            IOUtils.write(b.getBr_orgineel_xml(), new FileWriter(fName));</span>
         }
 
         try {
-<span class="nc" id="L674">            BrkSnapshotXMLReader reader = new BrkSnapshotXMLReader(new ByteArrayInputStream(b.getBr_orgineel_xml().getBytes(&quot;UTF-8&quot;)));</span>
-<span class="nc" id="L675">            BrkBericht bericht = reader.next();</span>
+<span class="nc" id="L675">            BrkSnapshotXMLReader reader = new BrkSnapshotXMLReader(new ByteArrayInputStream(b.getBr_orgineel_xml().getBytes(&quot;UTF-8&quot;)));</span>
+<span class="nc" id="L676">            BrkBericht bericht = reader.next();</span>
 
-<span class="nc bnc" id="L677" title="All 2 branches missed.">            if (bericht.getDatum() != null) {</span>
-<span class="nc" id="L678">                b.setDatum(bericht.getDatum());</span>
+<span class="nc bnc" id="L678" title="All 2 branches missed.">            if (bericht.getDatum() != null) {</span>
+<span class="nc" id="L679">                b.setDatum(bericht.getDatum());</span>
             }
-<span class="nc" id="L680">            b.setBr_xml(bericht.getBrXml());</span>
-<span class="nc" id="L681">            b.setVolgordenummer(bericht.getVolgordeNummer());</span>
+<span class="nc" id="L681">            b.setBr_xml(bericht.getBrXml());</span>
+<span class="nc" id="L682">            b.setVolgordenummer(bericht.getVolgordeNummer());</span>
 
             //Als objectRef niet opgehaald kan worden,dan kan het
             //bericht niet verwerkt worden.
-<span class="nc" id="L685">            String objectRef = bericht.getObjectRef();</span>
-<span class="nc bnc" id="L686" title="All 4 branches missed.">            if (objectRef != null &amp;&amp; !objectRef.isEmpty()) {</span>
-<span class="nc" id="L687">                b.setObject_ref(bericht.getObjectRef());</span>
-<span class="nc" id="L688">                b.setStatus(Bericht.STATUS.STAGING_OK);</span>
-<span class="nc" id="L689">                b.setOpmerking(&quot;Klaar voor verwerking.&quot;);</span>
+<span class="nc" id="L686">            String objectRef = bericht.getObjectRef();</span>
+<span class="nc bnc" id="L687" title="All 4 branches missed.">            if (objectRef != null &amp;&amp; !objectRef.isEmpty()) {</span>
+<span class="nc" id="L688">                b.setObject_ref(bericht.getObjectRef());</span>
+<span class="nc" id="L689">                b.setStatus(Bericht.STATUS.STAGING_OK);</span>
+<span class="nc" id="L690">                b.setOpmerking(&quot;Klaar voor verwerking.&quot;);</span>
             } else {
-<span class="nc" id="L691">                b.setStatus(Bericht.STATUS.STAGING_NOK);</span>
-<span class="nc" id="L692">                b.setOpmerking(&quot;Object Ref niet gevonden in bericht-xml, neem contact op met leverancier.&quot;);</span>
+<span class="nc" id="L692">                b.setStatus(Bericht.STATUS.STAGING_NOK);</span>
+<span class="nc" id="L693">                b.setOpmerking(&quot;Object Ref niet gevonden in bericht-xml, neem contact op met leverancier.&quot;);</span>
             }
-<span class="nc" id="L694">        } catch (Exception e) {</span>
-<span class="nc" id="L695">            b.setStatus(Bericht.STATUS.STAGING_NOK);</span>
-<span class="nc" id="L696">            StringWriter sw = new StringWriter();</span>
-<span class="nc" id="L697">            e.printStackTrace(new PrintWriter(sw));</span>
-<span class="nc" id="L698">            b.setOpmerking(&quot;Fout bij parsen BRK bericht: &quot; + sw.toString());</span>
-<span class="nc" id="L699">        }</span>
+<span class="nc" id="L695">        } catch (Exception e) {</span>
+<span class="nc" id="L696">            b.setStatus(Bericht.STATUS.STAGING_NOK);</span>
+<span class="nc" id="L697">            StringWriter sw = new StringWriter();</span>
+<span class="nc" id="L698">            e.printStackTrace(new PrintWriter(sw));</span>
+<span class="nc" id="L699">            b.setOpmerking(&quot;Fout bij parsen BRK bericht: &quot; + sw.toString());</span>
+<span class="nc" id="L700">        }</span>
         try {
-<span class="nc" id="L701">            em.persist(lp);</span>
-<span class="nc" id="L702">            em.persist(b);</span>
-<span class="nc" id="L703">            em.merge(this.config);</span>
-<span class="nc" id="L704">            em.flush();</span>
-<span class="nc" id="L705">            em.getTransaction().commit();</span>
-<span class="nc" id="L706">            em.clear();</span>
-<span class="nc" id="L707">        } catch (PersistenceException pe) {</span>
-<span class="nc bnc" id="L708" title="All 2 branches missed.">            if (!em.getTransaction().isActive()) {</span>
-<span class="nc" id="L709">                em.getTransaction().begin();</span>
+<span class="nc" id="L702">            em.persist(lp);</span>
+<span class="nc" id="L703">            em.persist(b);</span>
+<span class="nc" id="L704">            em.merge(this.config);</span>
+<span class="nc" id="L705">            em.flush();</span>
+<span class="nc" id="L706">            em.getTransaction().commit();</span>
+<span class="nc" id="L707">            em.clear();</span>
+<span class="nc" id="L708">        } catch (PersistenceException pe) {</span>
+<span class="nc bnc" id="L709" title="All 2 branches missed.">            if (!em.getTransaction().isActive()) {</span>
+<span class="nc" id="L710">                em.getTransaction().begin();</span>
             }
-<span class="nc" id="L711">            em.getTransaction().rollback();</span>
-<span class="nc" id="L712">            em.getTransaction().begin();</span>
-<span class="nc" id="L713">            lp.setId(null);</span>
-<span class="nc" id="L714">            log.warn(&quot;Opslaan van bericht uit laadproces &quot; + lp.getBestand_naam() + &quot; is mislukt.&quot;, pe);</span>
-<span class="nc" id="L715">            log.warn(&quot;Duplicaat bericht: &quot; + b.getObject_ref() + &quot;:&quot; + b.getBr_orgineel_xml() + &quot;(&quot; + b.getBr_xml() + &quot;)&quot;);</span>
-<span class="nc" id="L716">            lp.setStatus(LaadProces.STATUS.STAGING_DUPLICAAT);</span>
-<span class="nc" id="L717">            lp.setOpmerking(lp.getOpmerking() + &quot;: Fout, duplicaat bericht. Inhoud: \n&quot; + b.getBr_xml());</span>
-<span class="nc" id="L718">            em.merge(this.config);</span>
-<span class="nc" id="L719">            em.persist(lp);</span>
-<span class="nc" id="L720">            em.flush();</span>
-<span class="nc" id="L721">            em.getTransaction().commit();</span>
-<span class="nc" id="L722">            em.clear();</span>
-<span class="nc" id="L723">            b = null;</span>
-<span class="nc" id="L724">        }</span>
-<span class="nc" id="L725">        return b;</span>
+<span class="nc" id="L712">            em.getTransaction().rollback();</span>
+<span class="nc" id="L713">            em.getTransaction().begin();</span>
+<span class="nc" id="L714">            lp.setId(null);</span>
+<span class="nc" id="L715">            log.warn(&quot;Opslaan van bericht uit laadproces &quot; + lp.getBestand_naam() + &quot; is mislukt.&quot;, pe);</span>
+<span class="nc" id="L716">            log.warn(&quot;Duplicaat bericht: &quot; + b.getObject_ref() + &quot;:&quot; + b.getBr_orgineel_xml() + &quot;(&quot; + b.getBr_xml() + &quot;)&quot;);</span>
+<span class="nc" id="L717">            lp.setStatus(LaadProces.STATUS.STAGING_DUPLICAAT);</span>
+<span class="nc" id="L718">            lp.setOpmerking(lp.getOpmerking() + &quot;: Fout, duplicaat bericht. Inhoud: \n&quot; + b.getBr_xml());</span>
+<span class="nc" id="L719">            em.merge(this.config);</span>
+<span class="nc" id="L720">            em.persist(lp);</span>
+<span class="nc" id="L721">            em.flush();</span>
+<span class="nc" id="L722">            em.getTransaction().commit();</span>
+<span class="nc" id="L723">            em.clear();</span>
+<span class="nc" id="L724">            b = null;</span>
+<span class="nc" id="L725">        }</span>
+<span class="nc" id="L726">        return b;</span>
     }
 
     /**
@@ -736,42 +737,42 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
      */
     public static boolean doorsturenBericht(AutomatischProces proces, ProgressUpdateListener l, Bericht b, String endpoint) {
         String msg;
-<span class="nc" id="L739">        SimpleDateFormat sdf = new SimpleDateFormat(&quot;dd-MM-yyyy HH:mm:ss&quot;);</span>
+<span class="nc" id="L740">        SimpleDateFormat sdf = new SimpleDateFormat(&quot;dd-MM-yyyy HH:mm:ss&quot;);</span>
         try {
-<span class="nc bnc" id="L741" title="All 4 branches missed.">            if (endpoint == null || endpoint.length() &lt; 1) {</span>
-<span class="nc" id="L742">                return false;</span>
+<span class="nc bnc" id="L742" title="All 4 branches missed.">            if (endpoint == null || endpoint.length() &lt; 1) {</span>
+<span class="nc" id="L743">                return false;</span>
             }
-<span class="nc" id="L744">            URL url = new URL(endpoint);</span>
-<span class="nc" id="L745">            HttpURLConnection conn = (HttpURLConnection) url.openConnection();</span>
-<span class="nc" id="L746">            conn.setDoOutput(true);</span>
-<span class="nc" id="L747">            conn.setRequestMethod(&quot;POST&quot;);</span>
-<span class="nc" id="L748">            conn.setRequestProperty(&quot;Content-Length&quot;, &quot;&quot; + b.getBr_orgineel_xml().length());</span>
-<span class="nc" id="L749">            conn.setRequestProperty(&quot;Content-Type&quot;, &quot;application/octet-stream&quot;);</span>
-<span class="nc" id="L750">            IOUtils.copy(IOUtils.toInputStream(b.getBr_orgineel_xml(), &quot;UTF-8&quot;), conn.getOutputStream());</span>
-<span class="nc" id="L751">            conn.disconnect();</span>
-<span class="nc bnc" id="L752" title="All 2 branches missed.">            if ((conn.getResponseCode() == HttpURLConnection.HTTP_OK)</span>
-<span class="nc bnc" id="L753" title="All 2 branches missed.">                    || (conn.getResponseCode() == HttpURLConnection.HTTP_CREATED)</span>
-<span class="nc bnc" id="L754" title="All 2 branches missed.">                    || (conn.getResponseCode() == HttpURLConnection.HTTP_ACCEPTED)) {</span>
-<span class="nc" id="L755">                msg = &quot;Bericht &quot; + b.getObject_ref() + &quot; op &quot; + sdf.format(new Date()) + &quot; doorgestuurd naar &quot; + endpoint;</span>
-<span class="nc" id="L756">                b.setStatus(Bericht.STATUS.STAGING_FORWARDED);</span>
+<span class="nc" id="L745">            URL url = new URL(endpoint);</span>
+<span class="nc" id="L746">            HttpURLConnection conn = (HttpURLConnection) url.openConnection();</span>
+<span class="nc" id="L747">            conn.setDoOutput(true);</span>
+<span class="nc" id="L748">            conn.setRequestMethod(&quot;POST&quot;);</span>
+<span class="nc" id="L749">            conn.setRequestProperty(&quot;Content-Length&quot;, &quot;&quot; + b.getBr_orgineel_xml().length());</span>
+<span class="nc" id="L750">            conn.setRequestProperty(&quot;Content-Type&quot;, &quot;application/octet-stream&quot;);</span>
+<span class="nc" id="L751">            IOUtils.copy(IOUtils.toInputStream(b.getBr_orgineel_xml(), &quot;UTF-8&quot;), conn.getOutputStream());</span>
+<span class="nc" id="L752">            conn.disconnect();</span>
+<span class="nc bnc" id="L753" title="All 2 branches missed.">            if ((conn.getResponseCode() == HttpURLConnection.HTTP_OK)</span>
+<span class="nc bnc" id="L754" title="All 2 branches missed.">                    || (conn.getResponseCode() == HttpURLConnection.HTTP_CREATED)</span>
+<span class="nc bnc" id="L755" title="All 2 branches missed.">                    || (conn.getResponseCode() == HttpURLConnection.HTTP_ACCEPTED)) {</span>
+<span class="nc" id="L756">                msg = &quot;Bericht &quot; + b.getObject_ref() + &quot; op &quot; + sdf.format(new Date()) + &quot; doorgestuurd naar &quot; + endpoint;</span>
+<span class="nc" id="L757">                b.setStatus(Bericht.STATUS.STAGING_FORWARDED);</span>
             } else {
-<span class="nc" id="L758">                msg = String.format(&quot;HTTP foutcode bij doorsturen bericht %s op %s naar endpoint %s: %s&quot;,</span>
-<span class="nc" id="L759">                        b.getObject_ref(),</span>
-<span class="nc" id="L760">                        sdf.format(new Date()), endpoint, conn.getResponseCode() + &quot;: &quot; + conn.getResponseMessage());</span>
-<span class="nc" id="L761">                b.setStatus(Bericht.STATUS.STAGING_NOK);</span>
+<span class="nc" id="L759">                msg = String.format(&quot;HTTP foutcode bij doorsturen bericht %s op %s naar endpoint %s: %s&quot;,</span>
+<span class="nc" id="L760">                        b.getObject_ref(),</span>
+<span class="nc" id="L761">                        sdf.format(new Date()), endpoint, conn.getResponseCode() + &quot;: &quot; + conn.getResponseMessage());</span>
+<span class="nc" id="L762">                b.setStatus(Bericht.STATUS.STAGING_NOK);</span>
             }
-<span class="nc" id="L763">            b.setOpmerking(msg);</span>
-<span class="nc" id="L764">            l.addLog(msg);</span>
+<span class="nc" id="L764">            b.setOpmerking(msg);</span>
+<span class="nc" id="L765">            l.addLog(msg);</span>
 
-<span class="nc bnc" id="L766" title="All 2 branches missed.">            return b.getStatus() == Bericht.STATUS.STAGING_FORWARDED;</span>
-<span class="nc" id="L767">        } catch (Exception e) {</span>
-<span class="nc" id="L768">            msg = String.format(&quot;Fout bij doorsturen bericht op %s naar endpoint %s: %s&quot;,</span>
-<span class="nc" id="L769">                    sdf.format(new Date()), endpoint, e.getClass() + &quot;: &quot; + e.getMessage());</span>
-<span class="nc" id="L770">            b.setOpmerking(msg);</span>
-<span class="nc" id="L771">            b.setStatus(Bericht.STATUS.STAGING_NOK);</span>
-<span class="nc" id="L772">            l.addLog(msg);</span>
-<span class="nc" id="L773">            log.error(msg, e);</span>
-<span class="nc" id="L774">            return false;</span>
+<span class="nc bnc" id="L767" title="All 2 branches missed.">            return b.getStatus() == Bericht.STATUS.STAGING_FORWARDED;</span>
+<span class="nc" id="L768">        } catch (Exception e) {</span>
+<span class="nc" id="L769">            msg = String.format(&quot;Fout bij doorsturen bericht op %s naar endpoint %s: %s&quot;,</span>
+<span class="nc" id="L770">                    sdf.format(new Date()), endpoint, e.getClass() + &quot;: &quot; + e.getMessage());</span>
+<span class="nc" id="L771">            b.setOpmerking(msg);</span>
+<span class="nc" id="L772">            b.setStatus(Bericht.STATUS.STAGING_NOK);</span>
+<span class="nc" id="L773">            l.addLog(msg);</span>
+<span class="nc" id="L774">            log.error(msg, e);</span>
+<span class="nc" id="L775">            return false;</span>
         }
     }
 
@@ -782,145 +783,145 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
      * @throws Exception if any
      */
     private void verwerkAfgiftes(List&lt;AfgifteType&gt; afgiftes, BaseURLType baseUrl) throws Exception {
-<span class="nc" id="L785">        int filterAlVerwerkt = 0;</span>
-<span class="nc" id="L786">        int aantalGeladen = 0;</span>
-<span class="nc" id="L787">        int aantalDoorgestuurd = 0;</span>
-<span class="nc" id="L788">        int progress = 0;</span>
-<span class="nc" id="L789">        List&lt;Long&gt; geladenBerichtIds = new ArrayList();</span>
-<span class="nc" id="L790">        String doorsturenUrl = ClobElement.nullSafeGet(this.config.getConfig().get(&quot;delivery_endpoint&quot;));</span>
-<span class="nc" id="L791">        final String soort = this.config.getConfig().getOrDefault(&quot;gds2_br_soort&quot;, new ClobElement(&quot;brk&quot;)).getValue();</span>
+<span class="nc" id="L786">        int filterAlVerwerkt = 0;</span>
+<span class="nc" id="L787">        int aantalGeladen = 0;</span>
+<span class="nc" id="L788">        int aantalDoorgestuurd = 0;</span>
+<span class="nc" id="L789">        int progress = 0;</span>
+<span class="nc" id="L790">        List&lt;Long&gt; geladenBerichtIds = new ArrayList();</span>
+<span class="nc" id="L791">        String doorsturenUrl = ClobElement.nullSafeGet(this.config.getConfig().get(&quot;delivery_endpoint&quot;));</span>
+<span class="nc" id="L792">        final String soort = this.config.getConfig().getOrDefault(&quot;gds2_br_soort&quot;, new ClobElement(&quot;brk&quot;)).getValue();</span>
 
-<span class="nc bnc" id="L793" title="All 2 branches missed.">        for (AfgifteType a : afgiftes) {</span>
-<span class="nc" id="L794">            String url = getAfgifteURL(a, baseUrl);</span>
+<span class="nc bnc" id="L794" title="All 2 branches missed.">        for (AfgifteType a : afgiftes) {</span>
+<span class="nc" id="L795">            String url = getAfgifteURL(a, baseUrl);</span>
 
-<span class="nc bnc" id="L796" title="All 2 branches missed.">            if (url != null) {</span>
-<span class="nc bnc" id="L797" title="All 2 branches missed.">                if (isAfgifteAlGeladen(a, url)) {</span>
-<span class="nc" id="L798">                    filterAlVerwerkt++;</span>
-<span class="nc bnc" id="L799" title="All 2 branches missed.">                } else if (soort.equalsIgnoreCase(&quot;bag&quot;)) {</span>
-<span class="nc" id="L800">                    laadBagAfgifte(a, url);</span>
-<span class="nc" id="L801">                    aantalGeladen++;</span>
+<span class="nc bnc" id="L797" title="All 2 branches missed.">            if (url != null) {</span>
+<span class="nc bnc" id="L798" title="All 2 branches missed.">                if (isAfgifteAlGeladen(a, url)) {</span>
+<span class="nc" id="L799">                    filterAlVerwerkt++;</span>
+<span class="nc bnc" id="L800" title="All 2 branches missed.">                } else if (soort.equalsIgnoreCase(&quot;bag&quot;)) {</span>
+<span class="nc" id="L801">                    laadBagAfgifte(a, url);</span>
+<span class="nc" id="L802">                    aantalGeladen++;</span>
                 } else {
-<span class="nc" id="L803">                    Bericht b = laadAfgifte(a, url);</span>
-<span class="nc bnc" id="L804" title="All 4 branches missed.">                    if (b != null &amp;&amp; doorsturenUrl != null) {</span>
-<span class="nc" id="L805">                        geladenBerichtIds.add(b.getId());</span>
+<span class="nc" id="L804">                    Bericht b = laadAfgifte(a, url);</span>
+<span class="nc bnc" id="L805" title="All 4 branches missed.">                    if (b != null &amp;&amp; doorsturenUrl != null) {</span>
+<span class="nc" id="L806">                        geladenBerichtIds.add(b.getId());</span>
                     }
-<span class="nc" id="L807">                    aantalGeladen++;</span>
+<span class="nc" id="L808">                    aantalGeladen++;</span>
                 }
             }
-<span class="nc" id="L810">            l.progress(++progress);</span>
-<span class="nc" id="L811">        }</span>
+<span class="nc" id="L811">            l.progress(++progress);</span>
+<span class="nc" id="L812">        }</span>
 
         Bericht b;
-<span class="nc bnc" id="L814" title="All 4 branches missed.">        if (doorsturenUrl != null &amp;&amp; !geladenBerichtIds.isEmpty()) {</span>
-<span class="nc" id="L815">            l.addLog(&quot;Doorsturen van de opgehaalde berichten, in totaal &quot; + geladenBerichtIds.size());</span>
-<span class="nc" id="L816">            l.total(geladenBerichtIds.size());</span>
-<span class="nc" id="L817">            progress = 0;</span>
+<span class="nc bnc" id="L815" title="All 4 branches missed.">        if (doorsturenUrl != null &amp;&amp; !geladenBerichtIds.isEmpty()) {</span>
+<span class="nc" id="L816">            l.addLog(&quot;Doorsturen van de opgehaalde berichten, in totaal &quot; + geladenBerichtIds.size());</span>
+<span class="nc" id="L817">            l.total(geladenBerichtIds.size());</span>
+<span class="nc" id="L818">            progress = 0;</span>
 
-<span class="nc bnc" id="L819" title="All 2 branches missed.">            for (Long bId : geladenBerichtIds) {</span>
-<span class="nc" id="L820">                b = Stripersist.getEntityManager().find(Bericht.class, bId);</span>
-<span class="nc" id="L821">                l.updateStatus(&quot;Doorsturen bericht: &quot; + b.getObject_ref());</span>
-<span class="nc" id="L822">                doorsturenBericht(this.config, l, b, doorsturenUrl);</span>
-<span class="nc" id="L823">                Stripersist.getEntityManager().merge(b);</span>
-<span class="nc" id="L824">                Stripersist.getEntityManager().merge(this.config);</span>
-<span class="nc" id="L825">                Stripersist.getEntityManager().flush();</span>
-<span class="nc" id="L826">                Stripersist.getEntityManager().getTransaction().commit();</span>
-<span class="nc" id="L827">                Stripersist.getEntityManager().clear();</span>
-<span class="nc" id="L828">                aantalDoorgestuurd++;</span>
-<span class="nc" id="L829">                l.progress(++progress);</span>
-<span class="nc" id="L830">            }</span>
+<span class="nc bnc" id="L820" title="All 2 branches missed.">            for (Long bId : geladenBerichtIds) {</span>
+<span class="nc" id="L821">                b = Stripersist.getEntityManager().find(Bericht.class, bId);</span>
+<span class="nc" id="L822">                l.updateStatus(&quot;Doorsturen bericht: &quot; + b.getObject_ref());</span>
+<span class="nc" id="L823">                doorsturenBericht(this.config, l, b, doorsturenUrl);</span>
+<span class="nc" id="L824">                Stripersist.getEntityManager().merge(b);</span>
+<span class="nc" id="L825">                Stripersist.getEntityManager().merge(this.config);</span>
+<span class="nc" id="L826">                Stripersist.getEntityManager().flush();</span>
+<span class="nc" id="L827">                Stripersist.getEntityManager().getTransaction().commit();</span>
+<span class="nc" id="L828">                Stripersist.getEntityManager().clear();</span>
+<span class="nc" id="L829">                aantalDoorgestuurd++;</span>
+<span class="nc" id="L830">                l.progress(++progress);</span>
+<span class="nc" id="L831">            }</span>
         }
 
-<span class="nc" id="L833">        l.addLog(&quot;\n\n**** resultaat ****\n&quot;);</span>
-<span class="nc" id="L834">        l.addLog(&quot;Aantal afgiftes die al waren verwerkt: &quot; + filterAlVerwerkt);</span>
-<span class="nc" id="L835">        l.addLog(&quot;\nAantal afgiftes geladen: &quot; + aantalGeladen);</span>
-<span class="nc" id="L836">        l.addLog(&quot;\nAantal afgiftes doorgestuurd: &quot; + aantalDoorgestuurd + &quot;\n&quot;);</span>
+<span class="nc" id="L834">        l.addLog(&quot;\n\n**** resultaat ****\n&quot;);</span>
+<span class="nc" id="L835">        l.addLog(&quot;Aantal afgiftes die al waren verwerkt: &quot; + filterAlVerwerkt);</span>
+<span class="nc" id="L836">        l.addLog(&quot;\nAantal afgiftes geladen: &quot; + aantalGeladen);</span>
+<span class="nc" id="L837">        l.addLog(&quot;\nAantal afgiftes doorgestuurd: &quot; + aantalDoorgestuurd + &quot;\n&quot;);</span>
 
-<span class="nc" id="L838">        l.addLog(String.format(&quot;Het GDS2 ophalen proces met ID %d is afgerond op %tc&quot;, config.getId(), Calendar.getInstance()));</span>
-<span class="nc" id="L839">        this.config.updateSamenvattingEnLogfile(</span>
-<span class="nc" id="L840">                String.format(&quot;Het GDS2 ophalen proces, gestart op %tc, is afgerond op %tc. &quot; + LOG_NEWLINE</span>
+<span class="nc" id="L839">        l.addLog(String.format(&quot;Het GDS2 ophalen proces met ID %d is afgerond op %tc&quot;, config.getId(), Calendar.getInstance()));</span>
+<span class="nc" id="L840">        this.config.updateSamenvattingEnLogfile(</span>
+<span class="nc" id="L841">                String.format(&quot;Het GDS2 ophalen proces, gestart op %tc, is afgerond op %tc. &quot; + LOG_NEWLINE</span>
                         + &quot;Aantal afgiftes die al waren verwerkt: %d&quot; + LOG_NEWLINE
                         + &quot;Aantal afgiftes geladen: %d&quot; + LOG_NEWLINE
                         + &quot;Aantal afgiftes doorgestuurd: %d&quot; + LOG_NEWLINE
                         + &quot;Hoogste klantafgiftenummer: %s&quot;,
-<span class="nc" id="L845">                        this.config.getLastrun(), Calendar.getInstance(), filterAlVerwerkt, aantalGeladen, aantalDoorgestuurd,</span>
-<span class="nc" id="L846">                        ClobElement.nullSafeGet(this.config.getConfig().get(&quot;hoogste_afgiftenummer&quot;)))</span>
+<span class="nc" id="L846">                        this.config.getLastrun(), Calendar.getInstance(), filterAlVerwerkt, aantalGeladen, aantalDoorgestuurd,</span>
+<span class="nc" id="L847">                        ClobElement.nullSafeGet(this.config.getConfig().get(&quot;hoogste_afgiftenummer&quot;)))</span>
         );
 
-<span class="nc" id="L849">        this.config.setStatus(AutomatischProces.ProcessingStatus.WAITING);</span>
-<span class="nc" id="L850">        this.config.setLastrun(new Date());</span>
-<span class="nc" id="L851">        Stripersist.getEntityManager().merge(this.config);</span>
+<span class="nc" id="L850">        this.config.setStatus(AutomatischProces.ProcessingStatus.WAITING);</span>
+<span class="nc" id="L851">        this.config.setLastrun(new Date());</span>
+<span class="nc" id="L852">        Stripersist.getEntityManager().merge(this.config);</span>
         // om geheugen problemen te vookomen bij runs met veel downloads en berichten
         // een flush/commit/clear forceren
-<span class="nc" id="L854">        Stripersist.getEntityManager().flush();</span>
-<span class="nc" id="L855">        Stripersist.getEntityManager().getTransaction().commit();</span>
-<span class="nc" id="L856">        Stripersist.getEntityManager().clear();</span>
-<span class="nc" id="L857">    }</span>
+<span class="nc" id="L855">        Stripersist.getEntityManager().flush();</span>
+<span class="nc" id="L856">        Stripersist.getEntityManager().getTransaction().commit();</span>
+<span class="nc" id="L857">        Stripersist.getEntityManager().clear();</span>
+<span class="nc" id="L858">    }</span>
 
     private Gds2AfgifteServiceV20170401 initGDS2() throws Exception {
-<span class="nc" id="L860">        Gds2AfgifteServiceV20170401 gds2 = new Gds2AfgifteServiceV20170401Service().getAGds2AfgifteServiceV20170401();</span>
-<span class="nc" id="L861">        BindingProvider bp = (BindingProvider) gds2;</span>
-<span class="nc" id="L862">        Map&lt;String, Object&gt; ctxt = bp.getRequestContext();</span>
+<span class="nc" id="L861">        Gds2AfgifteServiceV20170401 gds2 = new Gds2AfgifteServiceV20170401Service().getAGds2AfgifteServiceV20170401();</span>
+<span class="nc" id="L862">        BindingProvider bp = (BindingProvider) gds2;</span>
+<span class="nc" id="L863">        Map&lt;String, Object&gt; ctxt = bp.getRequestContext();</span>
 
         // soap berichten logger inhaken (actief met TRACE level)
-<span class="nc" id="L865">        List&lt;Handler&gt; handlerChain = bp.getBinding().getHandlerChain();</span>
-<span class="nc" id="L866">        handlerChain.add(new LogMessageHandler());</span>
-<span class="nc" id="L867">        bp.getBinding().setHandlerChain(handlerChain);</span>
+<span class="nc" id="L866">        List&lt;Handler&gt; handlerChain = bp.getBinding().getHandlerChain();</span>
+<span class="nc" id="L867">        handlerChain.add(new LogMessageHandler());</span>
+<span class="nc" id="L868">        bp.getBinding().setHandlerChain(handlerChain);</span>
 
-<span class="nc" id="L869">        String endpoint = (String) ctxt.get(BindingProvider.ENDPOINT_ADDRESS_PROPERTY);</span>
-<span class="nc" id="L870">        l.addLog(&quot;Kadaster endpoint: &quot; + endpoint);</span>
-<span class="nc" id="L871">        l.updateStatus(&quot;Laden keys...&quot;);</span>
+<span class="nc" id="L870">        String endpoint = (String) ctxt.get(BindingProvider.ENDPOINT_ADDRESS_PROPERTY);</span>
+<span class="nc" id="L871">        l.addLog(&quot;Kadaster endpoint: &quot; + endpoint);</span>
+<span class="nc" id="L872">        l.updateStatus(&quot;Laden keys...&quot;);</span>
 
-<span class="nc" id="L873">        l.addLog(&quot;Initializing KeyManagerFactory&quot;);</span>
-<span class="nc" id="L874">        KeyManagerFactory kmf = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());</span>
-<span class="nc" id="L875">        KeyStore ks = KeyStore.getInstance(&quot;jks&quot;);</span>
-<span class="nc" id="L876">        final char[] thePassword = &quot;changeit&quot;.toCharArray();</span>
-<span class="nc" id="L877">        PrivateKey privateKey = getPrivateKeyFromPEM(this.config.getConfig().get(&quot;gds2_privkey&quot;).getValue());</span>
-<span class="nc" id="L878">        Certificate certificate = getCertificateFromPEM(this.config.getConfig().get(&quot;gds2_pubkey&quot;).getValue());</span>
-<span class="nc" id="L879">        ks.load(null);</span>
-<span class="nc" id="L880">        ks.setKeyEntry(&quot;thekey&quot;, privateKey, thePassword, new Certificate[]{certificate});</span>
-<span class="nc" id="L881">        kmf.init(ks, thePassword);</span>
+<span class="nc" id="L874">        l.addLog(&quot;Initializing KeyManagerFactory&quot;);</span>
+<span class="nc" id="L875">        KeyManagerFactory kmf = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());</span>
+<span class="nc" id="L876">        KeyStore ks = KeyStore.getInstance(&quot;jks&quot;);</span>
+<span class="nc" id="L877">        final char[] thePassword = &quot;changeit&quot;.toCharArray();</span>
+<span class="nc" id="L878">        PrivateKey privateKey = getPrivateKeyFromPEM(this.config.getConfig().get(&quot;gds2_privkey&quot;).getValue());</span>
+<span class="nc" id="L879">        Certificate certificate = getCertificateFromPEM(this.config.getConfig().get(&quot;gds2_pubkey&quot;).getValue());</span>
+<span class="nc" id="L880">        ks.load(null);</span>
+<span class="nc" id="L881">        ks.setKeyEntry(&quot;thekey&quot;, privateKey, thePassword, new Certificate[]{certificate});</span>
+<span class="nc" id="L882">        kmf.init(ks, thePassword);</span>
 
-<span class="nc" id="L883">        l.updateStatus(&quot;Opzetten SSL context...&quot;);</span>
-<span class="nc" id="L884">        context = createSslContext(kmf);</span>
-<span class="nc" id="L885">        ctxt.put(JAXWSProperties.SSL_SOCKET_FACTORY, context.getSocketFactory());</span>
+<span class="nc" id="L884">        l.updateStatus(&quot;Opzetten SSL context...&quot;);</span>
+<span class="nc" id="L885">        context = createSslContext(kmf);</span>
+<span class="nc" id="L886">        ctxt.put(JAXWSProperties.SSL_SOCKET_FACTORY, context.getSocketFactory());</span>
 
-<span class="nc" id="L887">        return gds2;</span>
+<span class="nc" id="L888">        return gds2;</span>
     }
 
     private SSLContext createSslContext(KeyManagerFactory kmf) throws KeyStoreException, IOException, CertificateException, NoSuchProviderException, NoSuchAlgorithmException, KeyManagementException {
-<span class="nc" id="L891">        final SSLContext sslContext = SSLContext.getInstance(&quot;TLS&quot;, &quot;SunJSSE&quot;);</span>
+<span class="nc" id="L892">        final SSLContext sslContext = SSLContext.getInstance(&quot;TLS&quot;, &quot;SunJSSE&quot;);</span>
 
-<span class="nc" id="L893">        l.addLog(&quot;Loading PKIX Overheid keystore&quot;);</span>
-<span class="nc" id="L894">        KeyStore ks = KeyStore.getInstance(&quot;jks&quot;);</span>
-<span class="nc" id="L895">        ks.load(nl.b3p.gds2.GDS2Util.class.getResourceAsStream(&quot;/pkioverheid.jks&quot;), &quot;changeit&quot;.toCharArray());</span>
+<span class="nc" id="L894">        l.addLog(&quot;Loading PKIX Overheid keystore&quot;);</span>
+<span class="nc" id="L895">        KeyStore ks = KeyStore.getInstance(&quot;jks&quot;);</span>
+<span class="nc" id="L896">        ks.load(nl.b3p.gds2.GDS2Util.class.getResourceAsStream(&quot;/pkioverheid.jks&quot;), &quot;changeit&quot;.toCharArray());</span>
 
-<span class="nc" id="L897">        l.addLog(&quot;Initializing default TrustManagerFactory&quot;);</span>
-<span class="nc" id="L898">        final TrustManagerFactory javaDefaultTrustManager = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());</span>
-<span class="nc" id="L899">        javaDefaultTrustManager.init((KeyStore) null);</span>
-<span class="nc" id="L900">        X509TrustManager defaultX509TrustManager = null;</span>
-<span class="nc bnc" id="L901" title="All 2 branches missed.">        for (TrustManager t : javaDefaultTrustManager.getTrustManagers()) {</span>
-<span class="nc bnc" id="L902" title="All 2 branches missed.">            if (t instanceof X509TrustManager) {</span>
-<span class="nc" id="L903">                defaultX509TrustManager = (X509TrustManager) t;</span>
-<span class="nc" id="L904">                break;</span>
+<span class="nc" id="L898">        l.addLog(&quot;Initializing default TrustManagerFactory&quot;);</span>
+<span class="nc" id="L899">        final TrustManagerFactory javaDefaultTrustManager = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());</span>
+<span class="nc" id="L900">        javaDefaultTrustManager.init((KeyStore) null);</span>
+<span class="nc" id="L901">        X509TrustManager defaultX509TrustManager = null;</span>
+<span class="nc bnc" id="L902" title="All 2 branches missed.">        for (TrustManager t : javaDefaultTrustManager.getTrustManagers()) {</span>
+<span class="nc bnc" id="L903" title="All 2 branches missed.">            if (t instanceof X509TrustManager) {</span>
+<span class="nc" id="L904">                defaultX509TrustManager = (X509TrustManager) t;</span>
+<span class="nc" id="L905">                break;</span>
             }
         }
-<span class="nc" id="L907">        l.addLog(&quot;Initializing PKIX TrustManagerFactory&quot;);</span>
-<span class="nc" id="L908">        final TrustManagerFactory customCaTrustManager = TrustManagerFactory.getInstance(&quot;PKIX&quot;);</span>
-<span class="nc" id="L909">        customCaTrustManager.init(ks);</span>
+<span class="nc" id="L908">        l.addLog(&quot;Initializing PKIX TrustManagerFactory&quot;);</span>
+<span class="nc" id="L909">        final TrustManagerFactory customCaTrustManager = TrustManagerFactory.getInstance(&quot;PKIX&quot;);</span>
+<span class="nc" id="L910">        customCaTrustManager.init(ks);</span>
 
-<span class="nc" id="L911">        l.addLog(&quot;Initializing SSLContext&quot;);</span>
-<span class="nc" id="L912">        sslContext.init(</span>
-<span class="nc" id="L913">                kmf.getKeyManagers(),</span>
+<span class="nc" id="L912">        l.addLog(&quot;Initializing SSLContext&quot;);</span>
+<span class="nc" id="L913">        sslContext.init(</span>
+<span class="nc" id="L914">                kmf.getKeyManagers(),</span>
                 new TrustManager[]{
                     new TrustManagerDelegate(
                             // customCaTrustManager is PKIX dus altijd X.509 (RFC3280)
-<span class="nc" id="L917">                            (X509TrustManager) customCaTrustManager.getTrustManagers()[0],</span>
+<span class="nc" id="L918">                            (X509TrustManager) customCaTrustManager.getTrustManagers()[0],</span>
                             defaultX509TrustManager
                     )
                 },
                 null
         );
-<span class="nc" id="L923">        return sslContext;</span>
+<span class="nc" id="L924">        return sslContext;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

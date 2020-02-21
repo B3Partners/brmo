@@ -10,12 +10,12 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.persistence.staging.AfgifteNummerScannerProces
-	c57 [label=<<table title="nl.b3p.brmo.persistence.staging.AfgifteNummerScannerProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./AfgifteNummerScannerProces.html">
+	c59 [label=<<table title="nl.b3p.brmo.persistence.staging.AfgifteNummerScannerProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./AfgifteNummerScannerProces.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> AfgifteNummerScannerProces </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
+<tr><td align="left" balign="left"> + MISSINGNUMBERSFOUND : String </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> + AfgifteNummerScannerProces() </td></tr>
@@ -25,10 +25,12 @@ digraph G {
 <tr><td align="left" balign="left"> + setAfgifteNummerType(afgiftenummertype : String) </td></tr>
 <tr><td align="left" balign="left"> + setOntbrekendeNummersGevonden(gevonden : boolean) </td></tr>
 <tr><td align="left" balign="left"> + getOntbrekendeNummersGevonden() : boolean </td></tr>
+<tr><td align="left" balign="left"> + setOntbrekendeAfgiftenummersToevoegen(toevoegen : boolean) </td></tr>
+<tr><td align="left" balign="left"> + getOntbrekendeAfgiftenummersToevoegen() : boolean </td></tr>
 		</table></td></tr>
 		</table>>, URL="./AfgifteNummerScannerProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.persistence.staging.AutomatischProces
-	c64 [label=<<table title="nl.b3p.brmo.persistence.staging.AutomatischProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AutomatischProces.html">
+	c66 [label=<<table title="nl.b3p.brmo.persistence.staging.AutomatischProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AutomatischProces.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> AutomatischProces </font></td></tr>
 		</table></td></tr>
@@ -56,13 +58,13 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./AutomatischProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// Note annotation
-	n0cc64 [label=<<table title="nl.b3p.brmo.persistence.staging.AutomatischProces" border="0" cellborder="0" cellspacing="0" cellpadding="2" port="p" href="./AutomatischProces.html">
+	n0cc66 [label=<<table title="nl.b3p.brmo.persistence.staging.AutomatischProces" border="0" cellborder="0" cellspacing="0" cellpadding="2" port="p" href="./AutomatischProces.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> Tabel "automatisch_proces" in de database. </td></tr>
 		</table></td></tr>
 		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0, shape=note];
-	n0cc64 -> c64:p[arrowhead=none];
+	n0cc66 -> c66:p[arrowhead=none];
 	//nl.b3p.brmo.persistence.staging.AfgifteNummerScannerProces extends nl.b3p.brmo.persistence.staging.AutomatischProces
-	c64:p -> c57:p [dir=back,arrowtail=empty];
+	c66:p -> c59:p [dir=back,arrowtail=empty];
 }
 

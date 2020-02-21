@@ -14,7 +14,7 @@ import static nl.b3p.brmo.loader.entity.NhrBerichten.NS_BRMO_BERICHT;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Bericht {
     private Long id;
-    private Integer laadProcesId;
+    private Long laadProcesId;
     @XmlElement(namespace=NS_BRMO_BERICHT,name=&quot;object_ref&quot;)
     protected String objectRef;
     @XmlElement(namespace=NS_BRMO_BERICHT)
@@ -48,11 +48,11 @@ public class Bericht {
 <span class="nc" id="L48">        this.id = id;</span>
 <span class="nc" id="L49">    }</span>
 
-    public Integer getLaadProcesId() {
+    public Long getLaadProcesId() {
 <span class="nc" id="L52">        return laadProcesId;</span>
     }
 
-    public void setLaadProcesId(Integer laadProcesId) {
+    public void setLaadProcesId(Long laadProcesId) {
 <span class="nc" id="L56">        this.laadProcesId = laadProcesId;</span>
 <span class="nc" id="L57">    }</span>
 

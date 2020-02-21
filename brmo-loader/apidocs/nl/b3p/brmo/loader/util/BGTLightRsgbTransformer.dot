@@ -126,6 +126,8 @@ digraph G {
 <tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + isPmdKnownBroken() : boolean </font></td></tr>
 <tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + getMViewsSQL() : String </font></td></tr>
 <tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + getMViewRefreshSQL(arg0 : String) : String </font></td></tr>
+<tr><td align="left" balign="left"> + getUpdateSequenceSQL(arg0 : String, arg1 : long) : String </td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + getSelectNextValueFromSequenceSQL(arg0 : String) : String </font></td></tr>
 <tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + getGeotoolsDBTypeName() : String </font></td></tr>
 <tr><td align="left" balign="left"> + convertToNativeGeometryObject(arg0 : String) : Object </td></tr>
 <tr><td align="left" balign="left"> + createNativePoint(arg0 : double, arg1 : double, arg2 : int) : Object </td></tr>

@@ -27,7 +27,8 @@ import javax.persistence.Entity;
 
     private static final String CONTRACTNUMMER = &quot;contractnummer&quot;;
     private static final String AFGIFTENUMMERTYPE = &quot;afgiftenummertype&quot;;
-    private static final String MISSINGNUMBERSFOUND = &quot;ontbrekendenummersgevonden&quot;;
+    public static final String MISSINGNUMBERSFOUND = &quot;ontbrekendenummersgevonden&quot;;
+    private static final String INSERT_LAADPROCESSEN = &quot;laadprocessen_toevoegen&quot;;
 
     /**
      * Zoekt het geconfigureerde contractnummer op.
@@ -35,7 +36,7 @@ import javax.persistence.Entity;
      * @return contractnummer of null
      */
     public String getContracNummer() {
-<span class="nc" id="L38">        return ClobElement.nullSafeGet(this.getConfig().get(CONTRACTNUMMER));</span>
+<span class="nc" id="L39">        return ClobElement.nullSafeGet(this.getConfig().get(CONTRACTNUMMER));</span>
     }
 
     /**
@@ -44,12 +45,12 @@ import javax.persistence.Entity;
      * @param contractnummer of null
      */
     public void setContracNummer(String contractnummer) {
-<span class="nc bnc" id="L47" title="All 2 branches missed.">        if (contractnummer == null) {</span>
-<span class="nc" id="L48">            this.getConfig().put(CONTRACTNUMMER, null);</span>
+<span class="nc bnc" id="L48" title="All 2 branches missed.">        if (contractnummer == null) {</span>
+<span class="nc" id="L49">            this.getConfig().put(CONTRACTNUMMER, null);</span>
         } else {
-<span class="nc" id="L50">            this.getConfig().put(CONTRACTNUMMER, new ClobElement(contractnummer));</span>
+<span class="nc" id="L51">            this.getConfig().put(CONTRACTNUMMER, new ClobElement(contractnummer));</span>
         }
-<span class="nc" id="L52">    }</span>
+<span class="nc" id="L53">    }</span>
 
     /**
      * Zoekt het geconfigureerde afgifte nummer type op.
@@ -57,7 +58,7 @@ import javax.persistence.Entity;
      * @return afgiftenummertype of een lege String
      */
     public String getAfgifteNummerType() {
-<span class="nc" id="L60">        return ClobElement.nullSafeGet(this.getConfig().get(AFGIFTENUMMERTYPE));</span>
+<span class="nc" id="L61">        return ClobElement.nullSafeGet(this.getConfig().get(AFGIFTENUMMERTYPE));</span>
     }
 
     /**
@@ -66,20 +67,29 @@ import javax.persistence.Entity;
      * @param afgiftenummertype of null
      */
     public void setAfgifteNummerType(String afgiftenummertype) {
-<span class="nc bnc" id="L69" title="All 2 branches missed.">        if (afgiftenummertype == null) {</span>
-<span class="nc" id="L70">            this.getConfig().put(AFGIFTENUMMERTYPE, null);</span>
+<span class="nc bnc" id="L70" title="All 2 branches missed.">        if (afgiftenummertype == null) {</span>
+<span class="nc" id="L71">            this.getConfig().put(AFGIFTENUMMERTYPE, null);</span>
         } else {
-<span class="nc" id="L72">            this.getConfig().put(AFGIFTENUMMERTYPE, new ClobElement(afgiftenummertype));</span>
+<span class="nc" id="L73">            this.getConfig().put(AFGIFTENUMMERTYPE, new ClobElement(afgiftenummertype));</span>
         }
-<span class="nc" id="L74">    }</span>
+<span class="nc" id="L75">    }</span>
 
     public void setOntbrekendeNummersGevonden(boolean gevonden) {
-<span class="nc" id="L77">        this.getConfig().put(MISSINGNUMBERSFOUND, new ClobElement(Boolean.toString(gevonden)));</span>
-<span class="nc" id="L78">    }</span>
+<span class="nc" id="L78">        this.getConfig().put(MISSINGNUMBERSFOUND, new ClobElement(Boolean.toString(gevonden)));</span>
+<span class="nc" id="L79">    }</span>
 
     public boolean getOntbrekendeNummersGevonden() {
-<span class="nc" id="L81">        String s = ClobElement.nullSafeGet(this.getConfig().get(MISSINGNUMBERSFOUND));</span>
-<span class="nc bnc" id="L82" title="All 2 branches missed.">        return (s == null ? false : Boolean.parseBoolean(s));</span>
+<span class="nc" id="L82">        String s = ClobElement.nullSafeGet(this.getConfig().get(MISSINGNUMBERSFOUND));</span>
+<span class="nc bnc" id="L83" title="All 2 branches missed.">        return (s == null ? false : Boolean.parseBoolean(s));</span>
+    }
+
+    public void setOntbrekendeAfgiftenummersToevoegen(boolean toevoegen) {
+<span class="nc" id="L87">        this.getConfig().put(INSERT_LAADPROCESSEN, new ClobElement(Boolean.toString(toevoegen)));</span>
+<span class="nc" id="L88">    }</span>
+
+    public boolean getOntbrekendeAfgiftenummersToevoegen() {
+<span class="nc" id="L91">        String s = ClobElement.nullSafeGet(this.getConfig().get(INSERT_LAADPROCESSEN));</span>
+<span class="nc bnc" id="L92" title="All 2 branches missed.">        return (s == null ? false : Boolean.parseBoolean(s));</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

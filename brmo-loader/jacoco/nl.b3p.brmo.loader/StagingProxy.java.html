@@ -820,7 +820,7 @@ public class StagingProxy {
 <span class="nc" id="L820">                Bericht b = null;</span>
                 try {
 <span class="nc" id="L822">                    b = brmoXMLReader.next();</span>
-<span class="nc" id="L823">                    b.setLaadProcesId(lp.getId().intValue());</span>
+<span class="nc" id="L823">                    b.setLaadProcesId(lp.getId());</span>
 <span class="nc" id="L824">                    b.setStatus(Bericht.STATUS.STAGING_OK);</span>
 <span class="nc" id="L825">                    b.setStatusDatum(new Date());</span>
 <span class="nc" id="L826">                    b.setSoort(type);</span>

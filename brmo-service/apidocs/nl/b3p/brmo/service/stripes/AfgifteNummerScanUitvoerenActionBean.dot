@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.service.stripes.AfgifteNummerScanUitvoerenActionBean
-	c503 [label=<<table title="nl.b3p.brmo.service.stripes.AfgifteNummerScanUitvoerenActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./AfgifteNummerScanUitvoerenActionBean.html">
+	c524 [label=<<table title="nl.b3p.brmo.service.stripes.AfgifteNummerScanUitvoerenActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./AfgifteNummerScanUitvoerenActionBean.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> AfgifteNummerScanUitvoerenActionBean </td></tr>
 		</table></td></tr>
@@ -25,6 +25,8 @@ digraph G {
 <tr><td align="left" balign="left"> + exception(t : Throwable) </td></tr>
 <tr><td align="left" balign="left"> + updateStatus(status : String) </td></tr>
 <tr><td align="left" balign="left"> + addLog(line : String) </td></tr>
+<tr><td align="left" balign="left"> + before() </td></tr>
+<tr><td align="left" balign="left"> + completed() </td></tr>
 <tr><td align="left" balign="left"> + setContext(context : ActionBeanContext) </td></tr>
 <tr><td align="left" balign="left"> + getContext() : ActionBeanContext </td></tr>
 <tr><td align="left" balign="left"> + getProces() : AfgifteNummerScannerProces </td></tr>
@@ -35,10 +37,18 @@ digraph G {
 <tr><td align="left" balign="left"> + setStatus(status : String) </td></tr>
 <tr><td align="left" balign="left"> + getExceptionStacktrace() : String </td></tr>
 <tr><td align="left" balign="left"> + setExceptionStacktrace(exceptionStacktrace : String) </td></tr>
+<tr><td align="left" balign="left"> + isComplete() : boolean </td></tr>
+<tr><td align="left" balign="left"> + setComplete(complete : boolean) </td></tr>
+<tr><td align="left" balign="left"> + getStart() : Date </td></tr>
+<tr><td align="left" balign="left"> + setStart(start : Date) </td></tr>
+<tr><td align="left" balign="left"> + getUpdate() : Date </td></tr>
+<tr><td align="left" balign="left"> + setUpdate(update : Date) </td></tr>
+<tr><td align="left" balign="left"> + getTotal() : long </td></tr>
+<tr><td align="left" balign="left"> + setTotal(total : long) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./AfgifteNummerScanUitvoerenActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.scanner.ProgressUpdateListener
-	c530 [label=<<table title="nl.b3p.brmo.service.scanner.ProgressUpdateListener" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../scanner/ProgressUpdateListener.html">
+	c552 [label=<<table title="nl.b3p.brmo.service.scanner.ProgressUpdateListener" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../scanner/ProgressUpdateListener.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> ProgressUpdateListener </td></tr>
@@ -55,20 +65,20 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="../scanner/ProgressUpdateListener.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.service.stripes.AfgifteNummerScanUitvoerenActionBean implements net.sourceforge.stripes.action.ActionBean
-	c545:p -> c503:p [dir=back,arrowtail=empty,style=dashed];
+	c568:p -> c524:p [dir=back,arrowtail=empty,style=dashed];
 	//nl.b3p.brmo.service.stripes.AfgifteNummerScanUitvoerenActionBean implements nl.b3p.brmo.service.scanner.ProgressUpdateListener
-	c530:p -> c503:p [dir=back,arrowtail=empty,style=dashed];
+	c552:p -> c524:p [dir=back,arrowtail=empty,style=dashed];
 	// nl.b3p.brmo.service.stripes.AfgifteNummerScanUitvoerenActionBean NAVASSOC nl.b3p.brmo.persistence.staging.AfgifteNummerScannerProces
-	c503:p -> c546:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c524:p -> c569:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.service.stripes.AfgifteNummerScanUitvoerenActionBean NAVASSOC net.sourceforge.stripes.action.ActionBeanContext
-	c503:p -> c547:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c524:p -> c570:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.persistence.staging.AfgifteNummerScannerProces
-	c546 [label=<<table title="nl.b3p.brmo.persistence.staging.AfgifteNummerScannerProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+	c569 [label=<<table title="nl.b3p.brmo.persistence.staging.AfgifteNummerScannerProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> AfgifteNummerScannerProces </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
+<tr><td align="left" balign="left"> + MISSINGNUMBERSFOUND : String </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> + AfgifteNummerScannerProces() </td></tr>
@@ -78,10 +88,12 @@ digraph G {
 <tr><td align="left" balign="left"> + setAfgifteNummerType(arg0 : String) </td></tr>
 <tr><td align="left" balign="left"> + setOntbrekendeNummersGevonden(arg0 : boolean) </td></tr>
 <tr><td align="left" balign="left"> + getOntbrekendeNummersGevonden() : boolean </td></tr>
+<tr><td align="left" balign="left"> + setOntbrekendeAfgiftenummersToevoegen(arg0 : boolean) </td></tr>
+<tr><td align="left" balign="left"> + getOntbrekendeAfgiftenummersToevoegen() : boolean </td></tr>
 		</table></td></tr>
 		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// net.sourceforge.stripes.action.ActionBean
-	c545 [label=<<table title="net.sourceforge.stripes.action.ActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+	c568 [label=<<table title="net.sourceforge.stripes.action.ActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> ActionBean </td></tr>
@@ -95,7 +107,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// net.sourceforge.stripes.action.ActionBeanContext
-	c547 [label=<<table title="net.sourceforge.stripes.action.ActionBeanContext" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+	c570 [label=<<table title="net.sourceforge.stripes.action.ActionBeanContext" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ActionBeanContext </td></tr>
 		</table></td></tr>

@@ -20,9 +20,19 @@
 <a class="jxr_linenumber" name="L12" href="#L12">12</a>  @Entity
 <a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="BerichtTransformatieProces" href="../../../../../nl/b3p/brmo/persistence/staging/BerichtTransformatieProces.html#BerichtTransformatieProces">BerichtTransformatieProces</a> <strong class="jxr_keyword">extends</strong> <a name="AutomatischProces" href="../../../../../nl/b3p/brmo/persistence/staging/AutomatischProces.html#AutomatischProces">AutomatischProces</a> {
 <a class="jxr_linenumber" name="L14" href="#L14">14</a>  
-<a class="jxr_linenumber" name="L15" href="#L15">15</a>  }
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String BLOCK_ON_MISSINGNUMBERSFOUND = <span class="jxr_string">"blokkeer_transformatie"</span>;
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setBlockOnMissingNumbers(<strong class="jxr_keyword">boolean</strong> block) {
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>          <strong class="jxr_keyword">this</strong>.getConfig().put(BLOCK_ON_MISSINGNUMBERSFOUND, <strong class="jxr_keyword">new</strong> <a name="ClobElement" href="../../../../../nl/b3p/brmo/persistence/staging/ClobElement.html#ClobElement">ClobElement</a>(Boolean.toString(block)));
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>      }
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>  
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> getBlockOnMissingNumbers() {
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>          String s = ClobElement.nullSafeGet(<strong class="jxr_keyword">this</strong>.getConfig().get(BLOCK_ON_MISSINGNUMBERSFOUND));
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>          <strong class="jxr_keyword">return</strong> (s == <strong class="jxr_keyword">null</strong> ? false : Boolean.parseBoolean(s));
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>      }
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>  }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2015&#x2013;2019 <a href="http://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2015&#x2013;2020 <a href="http://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>
 </body>
 </html>

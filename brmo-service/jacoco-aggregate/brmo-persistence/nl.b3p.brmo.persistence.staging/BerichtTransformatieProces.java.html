@@ -12,5 +12,15 @@ import javax.persistence.Entity;
 @Entity
 <span class="fc" id="L13">public class BerichtTransformatieProces extends AutomatischProces {</span>
 
+    private static final String BLOCK_ON_MISSINGNUMBERSFOUND = &quot;blokkeer_transformatie&quot;;
+
+    public void setBlockOnMissingNumbers(boolean block) {
+<span class="nc" id="L18">        this.getConfig().put(BLOCK_ON_MISSINGNUMBERSFOUND, new ClobElement(Boolean.toString(block)));</span>
+<span class="nc" id="L19">    }</span>
+
+    public boolean getBlockOnMissingNumbers() {
+<span class="nc" id="L22">        String s = ClobElement.nullSafeGet(this.getConfig().get(BLOCK_ON_MISSINGNUMBERSFOUND));</span>
+<span class="nc bnc" id="L23" title="All 2 branches missed.">        return (s == null ? false : Boolean.parseBoolean(s));</span>
+    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

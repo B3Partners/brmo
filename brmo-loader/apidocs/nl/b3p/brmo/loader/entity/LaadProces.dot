@@ -72,8 +72,9 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> STAGING_OK </td></tr>
 <tr><td align="left" balign="left"> STAGING_NOK </td></tr>
-<tr><td align="left" balign="left"> ARCHIVE </td></tr>
+<tr><td align="left" balign="left"> STAGING_MISSING </td></tr>
 <tr><td align="left" balign="left"> STAGING_DUPLICAAT </td></tr>
+<tr><td align="left" balign="left"> ARCHIVE </td></tr>
 <tr><td align="left" balign="left"> RSGB_BGT_OK </td></tr>
 <tr><td align="left" balign="left"> RSGB_BGT_NOK </td></tr>
 <tr><td align="left" balign="left"> RSGB_BGT_WAITING </td></tr>

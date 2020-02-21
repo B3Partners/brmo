@@ -39,7 +39,7 @@ digraph G {
 <tr><td align="center" balign="center"> AfgifteNummerScannerProces </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
+<tr><td align="left" balign="left"> + MISSINGNUMBERSFOUND : String </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> + AfgifteNummerScannerProces() </td></tr>
@@ -49,6 +49,8 @@ digraph G {
 <tr><td align="left" balign="left"> + setAfgifteNummerType(afgiftenummertype : String) </td></tr>
 <tr><td align="left" balign="left"> + setOntbrekendeNummersGevonden(gevonden : boolean) </td></tr>
 <tr><td align="left" balign="left"> + getOntbrekendeNummersGevonden() : boolean </td></tr>
+<tr><td align="left" balign="left"> + setOntbrekendeAfgiftenummersToevoegen(toevoegen : boolean) </td></tr>
+<tr><td align="left" balign="left"> + getOntbrekendeAfgiftenummersToevoegen() : boolean </td></tr>
 		</table></td></tr>
 		</table>>, URL="./AfgifteNummerScannerProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.persistence.staging.AutomatischProces
@@ -198,6 +200,8 @@ digraph G {
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> + BerichtTransformatieProces() </td></tr>
+<tr><td align="left" balign="left"> + setBlockOnMissingNumbers(block : boolean) </td></tr>
+<tr><td align="left" balign="left"> + getBlockOnMissingNumbers() : boolean </td></tr>
 		</table></td></tr>
 		</table>>, URL="./BerichtTransformatieProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.persistence.staging.BerichtDoorstuurProces
@@ -410,8 +414,9 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> STAGING_OK </td></tr>
 <tr><td align="left" balign="left"> STAGING_NOK </td></tr>
-<tr><td align="left" balign="left"> ARCHIVE </td></tr>
+<tr><td align="left" balign="left"> STAGING_MISSING </td></tr>
 <tr><td align="left" balign="left"> STAGING_DUPLICAAT </td></tr>
+<tr><td align="left" balign="left"> ARCHIVE </td></tr>
 <tr><td align="left" balign="left"> RSGB_BGT_OK </td></tr>
 <tr><td align="left" balign="left"> RSGB_BGT_NOK </td></tr>
 <tr><td align="left" balign="left"> RSGB_BGT_WAITING </td></tr>
@@ -438,6 +443,18 @@ digraph G {
 <tr><td align="left" balign="left"> + getGridIds() : Set&lt;Integer&gt; </td></tr>
 		</table></td></tr>
 		</table>>, URL="./BGTLightOphaalProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.persistence.staging.LaadprocesStatusRapportProces
+	c23 [label=<<table title="nl.b3p.brmo.persistence.staging.LaadprocesStatusRapportProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./LaadprocesStatusRapportProces.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> LaadprocesStatusRapportProces </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + LaadprocesStatusRapportProces() </td></tr>
+		</table></td></tr>
+		</table>>, URL="./LaadprocesStatusRapportProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.persistence.staging.TopNLScannerProces extends nl.b3p.brmo.persistence.staging.DirectoryScannerProces
 	c15:p -> c0:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.persistence.staging.BGTLightScannerProces extends nl.b3p.brmo.persistence.staging.DirectoryScannerProces
@@ -468,6 +485,8 @@ digraph G {
 	c15:p -> c19:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.persistence.staging.BGTLightOphaalProces extends nl.b3p.brmo.persistence.staging.AutomatischProces
 	c3:p -> c22:p [dir=back,arrowtail=empty];
+	//nl.b3p.brmo.persistence.staging.LaadprocesStatusRapportProces extends nl.b3p.brmo.persistence.staging.AutomatischProces
+	c3:p -> c23:p [dir=back,arrowtail=empty];
 	// nl.b3p.brmo.persistence.staging.AutomatischProces NAVASSOC nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus
 	c3:p -> c4:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.persistence.staging.Bericht NAVASSOC nl.b3p.brmo.persistence.staging.LaadProces

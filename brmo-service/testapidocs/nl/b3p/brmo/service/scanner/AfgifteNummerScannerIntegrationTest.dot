@@ -15,6 +15,7 @@ digraph G {
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> TestUtil </font></td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # haveSetupJNDI : boolean </td></tr>
 <tr><td align="left" balign="left"> # DBPROPS : Properties </td></tr>
 <tr><td align="left" balign="left"> # isOracle : boolean </td></tr>
 <tr><td align="left" balign="left"> # isMsSQL : boolean </td></tr>
@@ -43,15 +44,16 @@ digraph G {
 <tr><td align="left" balign="left">  </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + AfgifteNummerScannerIntegrationTest(sBestandsNaam : String, lAantalLaadProcessen : long, iAantalOntbrekendRecords : int, sContractNummer : String, sContractNummers : String[]) </td></tr>
+<tr><td align="left" balign="left"> + AfgifteNummerScannerIntegrationTest(sBestandsNaam : String, lAantalLaadProcessen : long, iAantalOntbrekendeNummerRanges : int, sContractNummer : String, sContractNummers : String[], iAantalOntbrekendRecords : int) </td></tr>
 <tr><td align="left" balign="left"> + testdata() : Collection&lt;&gt; </td></tr>
 <tr><td align="left" balign="left"> + setUp() </td></tr>
 <tr><td align="left" balign="left"> + tearDown() </td></tr>
 <tr><td align="left" balign="left"> + testGetOntbrekendeAfgiftenummersDefault() </td></tr>
 <tr><td align="left" balign="left"> + testGetOntbrekendeKlantAfgiftenummers() </td></tr>
 <tr><td align="left" balign="left"> + testGetOntbrekendeContractAfgiftenummers() </td></tr>
-<tr><td align="left" balign="left"> + testGetOntbrekendeAfgiftenummersZonderContractnummer() </td></tr>
-<tr><td align="left" balign="left"> + testGetOntbrekendeAfgiftenummersZonderNummerType() </td></tr>
+<tr><td align="left" balign="left"> + testInsertOntbrekendeContractAfgiftenummers() </td></tr>
+<tr><td align="left" balign="left"> + testInsertOntbrekendeKlantAfgiftenummers() </td></tr>
+<tr><td align="left" balign="left"> + testGetOntbrekendeContractAfgiftenummersZonderContractnummer() </td></tr>
 <tr><td align="left" balign="left"> + testContractnummers() </td></tr>
 		</table></td></tr>
 		</table>>, URL="./AfgifteNummerScannerIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
@@ -74,6 +76,7 @@ digraph G {
 <tr><td align="left" balign="left"> + contractnummers() : List&lt;String&gt; </td></tr>
 <tr><td align="left" balign="left"> + execute() </td></tr>
 <tr><td align="left" balign="left"> + execute(arg0 : ProgressUpdateListener) </td></tr>
+<tr><td align="left" balign="left"> ~ insertOntbrekendeAfgiftenummers(arg0 : long, arg1 : long, arg2 : String, arg3 : String) : long </td></tr>
 <tr><td align="left" balign="left"> ~ getOntbrekendeAfgiftenummers(arg0 : String, arg1 : String) : List&lt;Map&lt;String, Object&gt;&gt; </td></tr>
 <tr><td align="left" balign="left"> + getOntbrekendeNummersGevonden() : boolean </td></tr>
 		</table></td></tr>

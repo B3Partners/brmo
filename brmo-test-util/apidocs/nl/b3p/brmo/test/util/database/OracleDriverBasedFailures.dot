@@ -10,18 +10,18 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.test.util.database.OracleDriverBasedFailures
-	c43 [label=<<table title="nl.b3p.brmo.test.util.database.OracleDriverBasedFailures" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./OracleDriverBasedFailures.html">
+	c58 [label=<<table title="nl.b3p.brmo.test.util.database.OracleDriverBasedFailures" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./OracleDriverBasedFailures.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> OracleDriverBasedFailures </td></tr>
 		</table></td></tr>
 		</table>>, URL="./OracleDriverBasedFailures.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// Note annotation
-	n0cc43 [label=<<table title="nl.b3p.brmo.test.util.database.OracleDriverBasedFailures" border="0" cellborder="0" cellspacing="0" cellpadding="2" port="p" href="./OracleDriverBasedFailures.html">
+	n0cc58 [label=<<table title="nl.b3p.brmo.test.util.database.OracleDriverBasedFailures" border="0" cellborder="0" cellspacing="0" cellpadding="2" port="p" href="./OracleDriverBasedFailures.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> marker interface </td></tr>
 		</table></td></tr>
 		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0, shape=note];
-	n0cc43 -> c43:p[arrowhead=none];
+	n0cc58 -> c58:p[arrowhead=none];
 }
 

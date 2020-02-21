@@ -1,4 +1,4 @@
-// dot 2.40.1 on Linux 5.0.0-36-generic
+// dot 2.40.1 on Linux 5.3.0-40-generic
 // SchemaSpy rev Unknown
 digraph "vb_util_zk_recht" {
   graph [
@@ -22,6 +22,7 @@ digraph "vb_util_zk_recht" {
     <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
       <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">vb_util_zk_recht</TD></TR>
       <TR><TD PORT="zr_identif" COLSPAN="3" ALIGN="LEFT">zr_identif</TD></TR>
+      <TR><TD PORT="ingangsdatum_recht" COLSPAN="3" ALIGN="LEFT">ingangsdatum_recht</TD></TR>
       <TR><TD PORT="aandeel" COLSPAN="3" ALIGN="LEFT">aandeel</TD></TR>
       <TR><TD PORT="ar_teller" COLSPAN="3" ALIGN="LEFT">ar_teller</TD></TR>
       <TR><TD PORT="ar_noemer" COLSPAN="3" ALIGN="LEFT">ar_noemer</TD></TR>
