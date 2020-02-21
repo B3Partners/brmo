@@ -78,7 +78,7 @@
         <slf4j.version>1.7.30</slf4j.version>
         <jaxb.api.version>2.3.2</jaxb.api.version>
         <jaxb.impl.version>2.3.2</jaxb.impl.version>
-        <activation.api.version>1.2.1</activation.api.version>
+        <activation.api.version>1.2.2</activation.api.version>
         <!-- bij ophogen van tomcat versie evt. ook de .mvn/owasp-suppression.xml file bijwerken -->
         <tomcat.version>7.0.99</tomcat.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -368,7 +368,7 @@
             <dependency>
                 <groupId>jakarta.activation</groupId>
                 <artifactId>jakarta.activation-api</artifactId>
-                <version>1.2.1</version>
+                <version>1.2.2</version>
             </dependency>
             <dependency>
                 <!-- de volledige mail impelentatie dient door de servlet container te worden geleverd. -->
