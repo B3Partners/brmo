@@ -50,7 +50,9 @@ import static org.mockito.Mockito.when;
  * {@code mvn -Dit.test=AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest -Dtest.onlyITs=true verify -Poracle > target/oracle.log}
  * voor bijvoorbeeld Oracle of
  * {@code mvn -Dit.test=AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql -pl brmo-service > target/postgresql.log}
- * voor PostgreSQL.
+ * voor PostgreSQL of
+ * {@code mvn -Dit.test=AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest -Dtest.onlyITs=true verify -Pmssql -pl brmo-service > target/mssql.log}
+ * voor MS SQL.
  *
  * @see AdvancedFunctionsActionBeanIntegrationTest
  *
@@ -99,7 +101,6 @@ public class AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest exte
     public void setUp() throws Exception {
         assumeTrue("Het bestand met staging testdata zou moeten bestaan.", AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest.class.getResource(sBestandsNaam) != null);
         assumeTrue("Het bestand met rsgb testdata zou moeten bestaan.", AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest.class.getResource(rBestandsNaam) != null);
-        // assumeTrue("Deze test werkt niet met de jTDS driver omdat die geen PreparedStatement.setNull(int, int, String) methode heeft geimplementeerd.", !this.isMsSQL);
 
         bean = new AdvancedFunctionsActionBean();
         

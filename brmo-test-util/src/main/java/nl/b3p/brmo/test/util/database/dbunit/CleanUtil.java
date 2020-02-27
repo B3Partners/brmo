@@ -86,8 +86,37 @@ public final class CleanUtil {
             new DefaultTable("zak_recht_archief"),
             new DefaultTable("zak_recht_aantek"),
             new DefaultTable("benoemd_obj_kad_onrrnd_zk"),
-            new DefaultTable("herkomst_metadata")}
-        ));
+            new DefaultTable("herkomst_metadata"),
+            // schemaspy geeft de volgende volgorde
+            //  new DefaultTable("subject"),
+            //  new DefaultTable("prs"),
+            //  new DefaultTable("kad_onrrnd_zk"),
+            //  new DefaultTable("kad_perceel"),
+            //  new DefaultTable("niet_nat_prs"),
+            //  new DefaultTable("nat_prs"),
+            //  new DefaultTable("ingeschr_nat_prs"),
+            //  new DefaultTable("app_re"),
+            //  new DefaultTable("zak_recht"),
+            //  new DefaultTable("ander_btnlnds_niet_nat_prs"),
+            //  new DefaultTable("ander_nat_prs"),
+            //  new DefaultTable("benoemd_obj_kad_onrrnd_zk"),
+            //  new DefaultTable("ingeschr_niet_nat_prs"),
+            //  new DefaultTable("kad_onrrnd_zk_his_rel"),
+            //  new DefaultTable("niet_ingezetene"),
+            //  new DefaultTable("app_re_kad_perceel"),
+            //  new DefaultTable("ingezetene"),
+            //  new DefaultTable("kad_onrrnd_zk_aantek"),
+            //  new DefaultTable("kad_onrrnd_zk_kad_onrrnd_zk"),
+            //  new DefaultTable("zak_recht_aantek"),
+            //  new DefaultTable("app_re_archief"),
+            //  new DefaultTable("app_re_kad_perceel_archief"),
+            ////  new DefaultTable("brondocument"),
+            //  new DefaultTable("kad_onrrnd_zk_aantek_archief"),
+            //  new DefaultTable("kad_onrrnd_zk_archief"),
+            //  new DefaultTable("kad_onrrnd_zk_kad_onrr_archief"),
+            //  new DefaultTable("kad_perceel_archief"),
+            //  new DefaultTable("zak_recht_archief"),
+        }));
     }
 
     /**
