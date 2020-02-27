@@ -15,6 +15,7 @@ import net.sourceforge.stripes.action.ActionBeanContext;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.service.testutil.TestUtil;
+import nl.b3p.brmo.test.util.database.MSSqlServerDriverBasedFailures;
 import nl.b3p.brmo.test.util.database.dbunit.CleanUtil;
 import nl.b3p.loader.jdbc.OracleConnectionUnwrapper;
 import org.apache.commons.logging.Log;
@@ -59,6 +60,7 @@ import static org.mockito.Mockito.when;
  * @author mprins
  */
 @RunWith(Parameterized.class)
+@Category({ MSSqlServerDriverBasedFailures.class })
 public class AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest extends TestUtil {
 
     private static final Log LOG = LogFactory.getLog(AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest.class);
