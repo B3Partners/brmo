@@ -3,11 +3,11 @@
     <suppress>
         <notes>
             <![CDATA[
-                     Negeer meldingen mbt tomcat-catalina-7.0.99.jar
+                     Negeer meldingen mbt tomcat-catalina-7.0.100.jar
                      omdat we geen tomcat mee leveren en deze alleen voor bepaalde deployments geldt.
             ]]>
         </notes>
-        <filePath regex="true">.*\btomcat-catalina-7\.0\.99\.jar</filePath>
+        <filePath regex="true">.*\btomcat-catalina-7\.0\.100\.jar</filePath>
         <cve>CVE-2016-5388</cve>
         <cve>CVE-2016-5425</cve>
         <cve>CVE-2016-6325</cve>
