@@ -78,7 +78,10 @@ before_install:
   - sudo service postgresql stop
   # installeer postgresql of mssql
   - if [ "$PROFILE" == "postgresql" ]; then
-       sudo apt-get remove postgresql* -y;
+       sudo apt-get --purge remove postgresql* -y;
+       sudo rm -rf /etc/postgresql/
+       sudo rm /etc/init.d/postgresql
+       sudo rm /lib/systemd/system/postgresql.service
        sudo apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests postgresql-$POSTGRESQL_VERSION postgresql-client-$POSTGRESQL_VERSION postgresql-common;
        sudo apt-get install -y --allow-unauthenticated postgresql-$POSTGRESQL_VERSION-postgis-$POSTGIS_VERSION postgresql-$POSTGRESQL_VERSION-postgis-$POSTGIS_VERSION-scripts postgis;
        sudo pg_dropcluster --stop $POSTGRESQL_VERSION main;
