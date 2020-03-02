@@ -68,6 +68,7 @@
         <postgresql.jdbc.version>42.2.10</postgresql.jdbc.version>
         <postgresql.postgis-jdbc.version>2.3.0</postgresql.postgis-jdbc.version>
         <oracle.jdbc.version>12.2.0.1</oracle.jdbc.version>
+        <!-- <oracle.jdbc.version>18.3.0.0</oracle.jdbc.version> -->
         <!-- <oracle.jdbc.version>19.3.0.0</oracle.jdbc.version> -->
         <sqlserver.jtds.version>1.3.1</sqlserver.jtds.version>
         <mssql.instancename />
@@ -87,7 +88,7 @@
         -Dtest.persistence.unit=brmo.persistence.postgresql
         voor oracle:
         -Dtest.persistence.unit=brmo.persistence.oracle
-        de schema's voor posgresql en oracle worden niet automatisch aangemaakt.
+        de schema's voor postgresql en oracle worden niet automatisch aangemaakt.
         -->
         <test.persistence.unit>brmo.persistence.h2</test.persistence.unit>
         <test.h2.version>1.4.200</test.h2.version>
@@ -333,7 +334,7 @@
                 <!-- Bij JNDI db voor postgis verbinding moeten postgis jars in tomcat lib staan -->
             </dependency>
             <dependency>
-                <groupId>com.oracle.jdbc</groupId>
+                <groupId>com.oracle.database.jdbc</groupId>
                 <artifactId>ojdbc8</artifactId>
                 <version>${oracle.jdbc.version}</version>
                 <!-- Bij JNDI db verbinding moeten Oracle jars in tomcat lib staan -->
@@ -1182,18 +1183,16 @@
             <!-- actief voor Travis-CI builds -->
             <id>postgresql</id>
             <properties>
-                <oracle.jdbc.groupId>com.oracle.jdbc</oracle.jdbc.groupId>
+                <oracle.jdbc.groupId>com.oracle.database.jdbc</oracle.jdbc.groupId>
                 <oracle.jdbc.artifactId>ojdbc8</oracle.jdbc.artifactId>
-                <oracle.jdbc.version>12.2.0.1</oracle.jdbc.version>
             </properties>
         </profile>
         <profile>
             <!-- actief voor AppVeyor builds -->
             <id>mssql</id>
             <properties>
-                <oracle.jdbc.groupId>com.oracle.jdbc</oracle.jdbc.groupId>
+                <oracle.jdbc.groupId>com.oracle.database.jdbc</oracle.jdbc.groupId>
                 <oracle.jdbc.artifactId>ojdbc8</oracle.jdbc.artifactId>
-                <oracle.jdbc.version>12.2.0.1</oracle.jdbc.version>
                 <mssql.instancename>SQL2016</mssql.instancename>
             </properties>
         </profile>
