@@ -7,6 +7,8 @@ sudo service postgresql stop
 sudo service postgresql start $PG_VERSION
 psql --version
 psql -U postgres -d postgres -c 'SELECT Version();'
+psql -U postgres -d postgres -c 'SHOW config_file;'
+psql -U postgres -d postgres -c 'SHOW max_connections;'
 psql -U postgres -a -c "CREATE ROLE staging LOGIN PASSWORD 'staging' SUPERUSER CREATEDB;"
 psql -U postgres -a -c "CREATE ROLE rsgb LOGIN PASSWORD 'rsgb' SUPERUSER CREATEDB;"
 psql -U postgres -a -c "CREATE ROLE rsgbbgt LOGIN PASSWORD 'rsgbbgt' SUPERUSER CREATEDB;"
