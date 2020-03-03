@@ -43,9 +43,9 @@ import static org.junit.Assume.assumeTrue;
  *
  * testcases voor GH issue 287; opschonen en archiveren van berichten ouder dan
  * 3 maanden. Draaien met:
- * {@code mvn -Dit.test=AdvancedFunctionsActionBeanCleanupIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql > target/postgresql.log}
+ * {@code mvn -Dit.test=AdvancedFunctionsActionBeanCleanupIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql -pl brmo-service > target/postgresql.log}
  * voor bijvoorbeeld PostgreSQL en
- * {@code mvn -Dit.test=AdvancedFunctionsActionBeanCleanupIntegrationTest -Dtest.onlyITs=true verify -Poracle > target/oracle.log}
+ * {@code mvn -Dit.test=AdvancedFunctionsActionBeanCleanupIntegrationTest -Dtest.onlyITs=true verify -Poracle  -pl brmo-service > target/oracle.log}
  * voor Oracle.
  *
  * <strong>Deze test werkt niet met de jTDS driver omdat die geen
@@ -103,8 +103,6 @@ public class AdvancedFunctionsActionBeanCleanupIntegrationTest extends TestUtil 
     public void setUp() throws Exception {
         assumeTrue("Het bestand met staging testdata zou moeten bestaan.", AdvancedFunctionsActionBeanCleanupIntegrationTest.class.getResource(sBestandsNaam) != null);
         bean = new AdvancedFunctionsActionBean();
-
-
 
         staging = new DatabaseDataSourceConnection(dsStaging);
 
