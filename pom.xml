@@ -62,7 +62,7 @@
         <hibernate.version>3.6.10.Final</hibernate.version>
         <!-- ook jdbc-util updaten bij geotools update -->
         <geotools.version>22.2</geotools.version>
-        <jdbc-util.version>4.4</jdbc-util.version>
+        <jdbc-util.version>4.5</jdbc-util.version>
         <jts.version>1.16.1</jts.version>
         <itextpdf.version>7.1.10</itextpdf.version>
         <postgresql.jdbc.version>42.2.10</postgresql.jdbc.version>
