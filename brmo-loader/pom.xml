@@ -91,16 +91,8 @@
             <!-- Bij JNDI db verbinding moet de jtds driver jar in tomcat lib staan -->
             <scope>provided</scope>
         </dependency>
-        <!--
-            Bij gebruik van oracle met maven moet je de oracle jdbc driver
-            handmatig toevoegen aan je locale mvn repo (licentie blabla): Dit
-            kan met: mvn install:install-file
-            -Dfile=/mnt/x_b3p_install/Databases/JDBC\ drivers/ojdbc5.jar
-            -DgroupId=com.oracle -DartifactId=ojdbc5 -Dversion=11.1.0.7.0
-            -Dpackaging=jar -DgeneratePom=true
-        -->
         <dependency>
-            <groupId>com.oracle.jdbc</groupId>
+            <groupId>com.oracle.database.jdbc</groupId>
             <artifactId>ojdbc8</artifactId>
             <!-- Bij JNDI db verbinding moeten Oracle jars in tomcat lib staan -->
             <scope>provided</scope>
@@ -130,7 +122,7 @@
             <artifactId>bgt-gml-loader</artifactId>
             <exclusions>
                 <exclusion>
-                    <groupId>com.oracle.jdbc</groupId>
+                    <groupId>com.oracle.database.jdbc</groupId>
                     <artifactId>ojdbc8</artifactId>
                 </exclusion>
                 <exclusion>
@@ -187,11 +179,6 @@
         <profile>
             <id>oracle</id>
             <properties>
-                <!--
-                <oracle.jdbc.groupId>com.oracle</oracle.jdbc.groupId>
-                <oracle.jdbc.artifactId>ojdbc7</oracle.jdbc.artifactId>
-                <oracle.jdbc.version>12.1.0.2.0</oracle.jdbc.version>
-                -->
             </properties>
             <build>
                 <plugins>

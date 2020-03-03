@@ -86,6 +86,10 @@
             <groupId>net.sourceforge.jtds</groupId>
             <artifactId>jtds</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.oracle.database.jdbc</groupId>
+            <artifactId>ojdbc8</artifactId>
+        </dependency>
         <!-- niet nodig; zitten in de webapps 
         <dependency>
             <groupId>jakarta.xml.bind</groupId>

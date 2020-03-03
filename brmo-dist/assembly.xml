@@ -61,6 +61,7 @@
             <includes>
                 <include>com.sun.mail:jakarta.mail</include>
                 <include>jakarta.activation:jakarta.activation-api</include>
+                <include>com.oracle.database.jdbc:ojdbc8</include>
             </includes>
             <outputFileNameMapping>${artifact.artifactId}-${artifact.version}.${artifact.extension}</outputFileNameMapping>
         </dependencySet>

@@ -11,9 +11,6 @@ usage: java -jar brmo-commandline.jar --<actie> --dbprops <db-props>
 usage: [Oracle] java -cp "bin/brmo-commandline.jar;lib/*"
                 nl.b3p.brmo.commandline.Main --<actie> --dbprops <db-props>
 
-                [Omdat de Oracle jdbc driver niet gedistribueerd mag worden
-                 dient deze zelf op de commando regel te worden opgegeven.]
-
 Acties:
   -v,--versieinfo <[format]>                                 Versie informatie van de verschillende
                                                              schema's
@@ -54,8 +51,6 @@ De `[error-state]` is optioneel, default is "ignore".
 De `[loadingUpdate]` optie is optioneel met een default waarde van "false".
 
 __De `--afgiftelijst` is beschikbaar vanaf versie 2.0.0__
-
-Omdat de Oracle jdbc driver niet gedistribueerd mag worden dient deze zelf in de lib directory te worden gezet met de aangepaste commando regel zal deze worden opgepikt.
 
 De transformatie naar rsgb wordt normaal met de "ignore" `error-state` optie gestart om te voorkomen dat het proces afbreekt als er een transformatie fout optreed bij de verwerking van een bericht, om dit te voorkomen kan er een andere waarde worden opgegeven, bijvoorbeeld "false".
 Na afloop van een transformatie kan de status van de berichten worden gecontroleerd met de `--berichtstatus` optie.
