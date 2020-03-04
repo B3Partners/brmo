@@ -86,7 +86,7 @@ timestamps {
                             lock('brmo-tomcat-9091') {
                                 stage("brmo-service Integration Test: ${jdkTestName}") {
                                     echo "run integratie tests voor brmo-service module"
-                                    timeout(10) {
+                                    timeout(20) {
                                         try {
                                             sh "mvn -e verify -B -Poracle -T1 -Dtest.onlyITs=true -pl 'brmo-service'"
                                         } catch (Exception e) {
