@@ -4,6 +4,7 @@
 package nl.b3p.brmo.service.testutil;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Properties;
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -107,24 +108,30 @@ public abstract class TestUtil {
         } catch (ClassNotFoundException ex) {
             LOG.error("Database driver niet gevonden.", ex);
         }
-
+LOG.info("create ds staging");
         dsStaging = new BasicDataSource();
         dsStaging.setUrl(DBPROPS.getProperty("staging.url"));
         dsStaging.setUsername(DBPROPS.getProperty("staging.username"));
         dsStaging.setPassword(DBPROPS.getProperty("staging.password"));
         dsStaging.setAccessToUnderlyingConnectionAllowed(true);
+        dsStaging.setInitialSize(1);
+        dsStaging.setMaxActive(5);
 
         dsRsgb = new BasicDataSource();
         dsRsgb.setUrl(DBPROPS.getProperty("rsgb.url"));
         dsRsgb.setUsername(DBPROPS.getProperty("rsgb.username"));
         dsRsgb.setPassword(DBPROPS.getProperty("rsgb.password"));
         dsRsgb.setAccessToUnderlyingConnectionAllowed(true);
+        dsRsgb.setInitialSize(1);
+        dsRsgb.setMaxActive(5);
 
         dsRsgbBgt = new BasicDataSource();
         dsRsgbBgt.setUrl(DBPROPS.getProperty("rsgb.url"));
         dsRsgbBgt.setUsername(DBPROPS.getProperty("rsgb.username"));
         dsRsgbBgt.setPassword(DBPROPS.getProperty("rsgb.password"));
         dsRsgbBgt.setAccessToUnderlyingConnectionAllowed(true);
+        dsRsgbBgt.setInitialSize(1);
+        dsRsgbBgt.setMaxActive(5);
 
         setupJNDI();
     }
@@ -143,6 +150,14 @@ public abstract class TestUtil {
     @After
     public void endTest() {
         LOG.info("==== Einde test methode: " + name.getMethodName());
+    }
+
+    @After
+    public void closeConnections() throws SQLException {
+        // JNDI connecties niet sluiten!
+        // dsStaging.close();
+        // dsRsgb.close();
+        // dsRsgbBgt.close();
     }
 
     /**

@@ -26,3 +26,6 @@ psql -U postgres -c 'create database topnl;'
 psql -U postgres -d topnl -c 'create extension postgis;'
 psql -U postgres -d topnl -c 'ALTER EXTENSION postgis UPDATE;'
 psql -U postgres -d topnl -c 'SELECT PostGIS_full_version();'
+psql -U postgres -d postgres -c 'alter system set max_connections = 200;'
+sudo service postgresql restart $PG_VERSION
+psql -U postgres -d postgres -c 'SHOW max_connections;'
