@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<identifiers xmlns:xs="http://www.w3.org/2001/XMLSchema"
+<identifiers xmlns:b3p="http://www.b3partners.nl/"
              xmlns:fn="http://www.w3.org/2005/xpath-functions"
-             xmlns:b3p="http://www.b3partners.nl/">
+             xmlns:xs="http://www.w3.org/2001/XMLSchema">
    <class name="ADRESSEERBAAR OBJECT AANDUIDING" table="addresseerb_obj_aand">
       <property name="Datum begin geldigheid addresserbaar object aanduiding"
                 column="dat_beg_geldh"/>
