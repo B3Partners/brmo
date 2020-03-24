@@ -15,8 +15,8 @@
     <inceptionYear>2015</inceptionYear>
     <dependencies>
         <dependency>
-            <groupId>org.javassist</groupId>
-            <artifactId>javassist</artifactId>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -42,92 +42,19 @@
             <artifactId>h2</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>nl.b3p</groupId>
-            <artifactId>kadaster-gds2</artifactId>
-        </dependency>
+
         <dependency>
             <groupId>org.stripesstuff</groupId>
             <artifactId>stripersist</artifactId>
         </dependency>
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>commons-io</groupId>-->
+<!--            <artifactId>commons-io</artifactId>-->
+<!--        </dependency>-->
     </dependencies>
     <build>
         <defaultGoal>compile</defaultGoal>
         <plugins>
-            <!-- plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>hibernate3-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>schema-export</id>
-                        <phase>process-classes</phase>
-                        <configuration>
-                            <hibernatetool destdir="${project.build.directory}/ddlscripts">
-                                <classpath>
-                                    <path location="target" />
-                                </classpath>
-                                <!- om drop en create scripts afzonderlijk te krijgen draaien we hbm2ddl 2x ->
-                                <hbm2ddl export="false" drop="false" create="true" outputfilename="create-brmo-persistence-postgresql.sql" format="true">
-                                    <jpaconfiguration persistenceUnit="brmo.persistence.postgresql" />
-                                </hbm2ddl>
-                                <hbm2ddl export="false" drop="true" create="false" outputfilename="drop-brmo-persistence-postgresql.sql" format="true">
-                                    <jpaconfiguration persistenceUnit="brmo.persistence.postgresql" />
-                                </hbm2ddl>
-                                <hbm2ddl export="false" drop="false" create="true" outputfilename="create-brmo-persistence-oracle.sql" format="true">
-                                    <jpaconfiguration persistenceUnit="brmo.persistence.oracle" />
-                                </hbm2ddl>
-                                <hbm2ddl export="false" drop="true" create="false" outputfilename="drop-brmo-persistence-oracle.sql" format="true">
-                                    <jpaconfiguration persistenceUnit="brmo.persistence.oracle" />
-                                </hbm2ddl>
-                                <hbm2ddl export="false" drop="false" create="true" outputfilename="create-brmo-persistence-sqlserver.sql" format="true">
-                                    <jpaconfiguration persistenceUnit="brmo.persistence.microsoftsqlserver" />
-                                </hbm2ddl>
-                                <hbm2ddl export="false" drop="true" create="false" outputfilename="drop-brmo-persistence-sqlserver.sql" format="true">
-                                    <jpaconfiguration persistenceUnit="brmo.persistence.microsoftsqlserver" />
-                                </hbm2ddl>
-                            </hibernatetool>
-                        </configuration>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>test-schema-export</id>
-                        <phase>generate-test-resources</phase>
-                        <configuration>
-                            <hibernatetool destdir="${project.build.directory}/ddlscripts">
-                                <classpath>
-                                    <path location="target" />
-                                </classpath>
-                                <!- voor de unit tests met H2 ->
-                                <hbm2ddl export="true" drop="true" create="true" outputfilename="brmo-persistence-h2.sql" format="true">
-                                    <jpaconfiguration persistenceUnit="brmo.persistence.h2" />
-                                </hbm2ddl>
-                            </hibernatetool>
-                        </configuration>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <!- h2 wordt allen voor unit tests gebruikt, maar als deze
-                        als test scope dep wordt opgevoerd treedt er een CNFE op tijdens de build. ->
-                        <groupId>com.h2database</groupId>
-                        <artifactId>h2</artifactId>
-                        <version>${test.h2.version}</version>
-                    </dependency>
-                </dependencies>
-            </plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>

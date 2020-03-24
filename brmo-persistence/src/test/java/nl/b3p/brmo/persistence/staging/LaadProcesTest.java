@@ -3,9 +3,21 @@
  */
 package nl.b3p.brmo.persistence.staging;
 
+import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+
 import nl.b3p.brmo.persistence.TestUtil;
 import org.junit.Test;
+import org.stripesstuff.stripersist.Stripersist;
+
+import java.io.File;
+
+import static org.junit.Assert.assertTrue;
 
 /**
  * Testcase voor {@link  nl.b3p.brmo.persistence.staging.LaadProces}.
@@ -31,5 +43,20 @@ public class LaadProcesTest extends TestUtil {
         Query q = entityManager.createQuery("DELETE FROM LaadProces");
         int deleted = q.executeUpdate();
         entityManager.getTransaction().commit();
+    }
+
+    @Test
+    public void testDuplicateQuery() {
+        // zit in nl.b3p.brmo.service.scanner.AbstractExecutableProces#isDuplicaatLaadProces(...)
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<LaadProces> criteriaQuery = criteriaBuilder.createQuery(LaadProces.class);
+        Root<LaadProces> from = criteriaQuery.from(LaadProces.class);
+        CriteriaQuery<LaadProces> select = criteriaQuery.select(from);
+        Predicate _bestand_naam = criteriaBuilder.equal(from.get("bestand_naam"), "naam");
+        Predicate _soort = criteriaBuilder.equal(from.get("soort"), "soort");
+        criteriaQuery.where(criteriaBuilder.and(_bestand_naam, _soort));
+        TypedQuery<LaadProces> typedQuery = entityManager.createQuery(select);
+        // verwacht dat er geen resultaten zijn / lege lijst
+        assertTrue(typedQuery.getResultList().isEmpty());
     }
 }

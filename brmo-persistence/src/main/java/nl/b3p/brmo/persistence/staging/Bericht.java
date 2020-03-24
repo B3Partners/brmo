@@ -45,7 +45,7 @@ public class Bericht implements Serializable {
     private String soort;
 
     @Lob
-    @Type(type = "org.hibernate.type.StringClobType")
+    @Type(type = "org.hibernate.type.TextType")
     private String opmerking;
 
     @Enumerated(EnumType.STRING)
@@ -57,15 +57,15 @@ public class Bericht implements Serializable {
     private String job_id;
 
     @Lob
-    @Type(type = "org.hibernate.type.StringClobType")
+    @Type(type = "org.hibernate.type.TextType")
     private String br_xml;
 
     @Lob
-    @Type(type = "org.hibernate.type.StringClobType")
+    @Type(type = "org.hibernate.type.TextType")
     private String br_orgineel_xml;
 
     @Lob
-    @Type(type = "org.hibernate.type.StringClobType")
+    @Type(type = "org.hibernate.type.TextType")
     private String db_xml;
 
     private String xsl_version;

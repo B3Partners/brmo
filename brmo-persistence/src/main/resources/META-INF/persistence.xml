@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
-             version="2.0" >
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://www.oracle.com/webfolder/technetwork/jsc/xml/ns/persistence/persistence_2_2.xsd"
+             version="2.2" >
 
 
     <persistence-unit name="brmo.persistence.postgresql" transaction-type="RESOURCE_LOCAL">
-        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+<!-- niet nodig..       <provider>org.hibernate.ejb.HibernatePersistenceProvider</provider>-->
         <non-jta-data-source>java:comp/env/jdbc/brmo/staging</non-jta-data-source>
         <mapping-file>META-INF/orm-postgresql.xml</mapping-file>
         <class>nl.b3p.brmo.persistence.staging.Bericht</class>
@@ -21,20 +21,21 @@
             <property name="javax.persistence.jdbc.user" value="brmo"/>
             <property name="javax.persistence.schema-generation.database.action" />
             -->
-            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL95Dialect"/>
             <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
+            <property name="javax.persistence.validation.mode" value="none"/>
             <!-- workaround for Hibernate bug expecting the generated id to be the first column
                  http://postgresql.1045698.n5.nabble.com/Problems-with-Hibernate-Discriminators-and-9-0-801-jdbc4-td4259788.html
             -->
             <property name="hibernate.jdbc.use_get_generated_keys" value="false"/>
-            <property name="hibernate.ejb.naming_strategy" value="org.hibernate.cfg.ImprovedNamingStrategy"/>
+            <property name="hibernate.physical_naming_strategy" value="nl.b3p.brmo.persistence.SnakeCasePhysicalNamingStrategy" />
             <!-- property name="hibernate.hbm2ddl.auto" value="update"/ -->
         </properties>
         
     </persistence-unit>
     
     <persistence-unit name="brmo.persistence.microsoftsqlserver" transaction-type="RESOURCE_LOCAL">
-        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+<!--   niet nodig..     <provider>org.hibernate.ejb.HibernatePersistenceProvider</provider>-->
         <non-jta-data-source>java:comp/env/jdbc/brmo/staging</non-jta-data-source>
         <mapping-file>META-INF/orm-sqlserver.xml</mapping-file>
         <class>nl.b3p.brmo.persistence.staging.Bericht</class>
@@ -44,17 +45,18 @@
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect"/>
             <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
+            <property name="javax.persistence.validation.mode" value="none"/>
             <!-- workaround for Hibernate bug expecting the generated id to be the first column
                  http://postgresql.1045698.n5.nabble.com/Problems-with-Hibernate-Discriminators-and-9-0-801-jdbc4-td4259788.html
             -->
             <property name="hibernate.jdbc.use_get_generated_keys" value="false"/>
-            <property name="hibernate.ejb.naming_strategy" value="org.hibernate.cfg.ImprovedNamingStrategy"/>
+            <property name="hibernate.physical_naming_strategy" value="nl.b3p.brmo.persistence.SnakeCasePhysicalNamingStrategy" />
             <!-- property name="hibernate.hbm2ddl.auto" value="update"/ -->
         </properties>
     </persistence-unit>
 
     <persistence-unit name="brmo.persistence.oracle" transaction-type="RESOURCE_LOCAL">
-        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+<!--  niet nodig..    <provider>org.hibernate.ejb.HibernatePersistenceProvider</provider>-->
         <non-jta-data-source>java:comp/env/jdbc/brmo/staging</non-jta-data-source>
         <mapping-file>META-INF/orm-oracle.xml</mapping-file>
         <class>nl.b3p.brmo.persistence.staging.Bericht</class>
@@ -62,7 +64,7 @@
         <class>nl.b3p.brmo.persistence.staging.BRKScannerProces</class>
         <class>nl.b3p.brmo.persistence.staging.AutomatischProces</class>
         <properties>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.Oracle12cDialect"/>
 
             <!-- Oracle JDBC driver does not work with
             PreparedStatement.setBlob() of PreparedStatement.setClob()
@@ -77,28 +79,30 @@
                  http://postgresql.1045698.n5.nabble.com/Problems-with-Hibernate-Discriminators-and-9-0-801-jdbc4-td4259788.html
             -->
             <property name="hibernate.jdbc.use_get_generated_keys" value="false"/>
-            <property name="hibernate.ejb.naming_strategy" value="org.hibernate.cfg.ImprovedNamingStrategy"/>
+            <property name="hibernate.physical_naming_strategy" value="nl.b3p.brmo.persistence.SnakeCasePhysicalNamingStrategy" />
             <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
+            <property name="javax.persistence.validation.mode" value="none"/>
         </properties>
     </persistence-unit>
 
     <persistence-unit name="brmo.persistence.h2" transaction-type="RESOURCE_LOCAL">
         <!-- de H2 in-memory of file database wordt gebruikt voor unit tests. -->
-        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+<!-- niet nodig..       <provider>org.hibernate.ejb.HibernatePersistenceProvider</provider>-->
         <mapping-file>META-INF/orm-h2.xml</mapping-file>
         <properties>
             <property name="hibernate.archive.autodetection" value="class"/>
             <property name="hibernate.format_sql" value="true"/>
             <property name="hibernate.hbm2ddl.auto" value="create"/>
+            <property name="javax.persistence.validation.mode" value="none"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
-            <property name="hibernate.ejb.naming_strategy" value="org.hibernate.cfg.ImprovedNamingStrategy"/>
+            <property name="hibernate.physical_naming_strategy" value="nl.b3p.brmo.persistence.SnakeCasePhysicalNamingStrategy" />
             <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
+            <property name="javax.persistence.validation.mode" value="none"/>
             <!-- eventueel testen met Oracle Compatibility Mode ';MODE=Oracle' of
             PostgreSQL Compatibility Mode ';MODE=PostgreSQL'
             zie:http://www.h2database.com/html/features.html#compatibility -->
             <!-- property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:test;DB_CLOSE_DELAY=-1"/ -->
             <property name="javax.persistence.jdbc.url" value="jdbc:h2:file:./target/unittest-h2/db"/>
-            <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
         </properties>
     </persistence-unit>
 </persistence>

@@ -13,7 +13,7 @@ import org.apache.commons.lang3.StringUtils;
 @Embeddable
 public class ClobElement implements Serializable {
     @Lob
-    @org.hibernate.annotations.Type(type="org.hibernate.type.StringClobType")
+    @org.hibernate.annotations.Type(type="org.hibernate.type.TextType")
     private String value;
 
     public ClobElement() {
