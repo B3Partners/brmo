@@ -3,11 +3,11 @@
     <suppress>
         <notes>
             <![CDATA[
-                     Negeer meldingen mbt tomcat-catalina-7.0.100.jar
+                     Negeer meldingen mbt tomcat-catalina-7.0.103.jar
                      omdat we geen tomcat mee leveren en deze alleen voor bepaalde deployments geldt.
             ]]>
         </notes>
-        <filePath regex="true">.*\btomcat-catalina-7\.0\.100\.jar</filePath>
+        <filePath regex="true">.*\btomcat-catalina-7\.0\.103\.jar</filePath>
         <cve>CVE-2016-5388</cve>
         <cve>CVE-2016-5425</cve>
         <cve>CVE-2016-6325</cve>
@@ -96,23 +96,5 @@
         </notes>
         <gav regex="true">^net\.sourceforge\.jtds:jtds:.*$</gav>
         <cpe>cpe:/a:microsoft:sql_server</cpe>
-    </suppress>
-    <suppress>
-        <notes>
-            <![CDATA[
-                    dom4j:dom4j:jar:1.6.1 wordt alleen gebruikt door hibernate-core, derhalve is de xml injection kwetsbaarheid (CVE-2018-1000632)
-                    niet relevant/exploitable, dom4j 1.6.1 wordt niet gebruikt voor parsen van gebruiker xml
-
-                    nl.b3p:brmo-persistence:jar:2.0.1-SNAPSHOT
-                    +- org.javassist:javassist:jar:3.26.0-GA:compile
-                    +- org.hibernate:hibernate-entitymanager:jar:3.6.10.Final:compile
-                    |  +- org.hibernate:hibernate-core:jar:3.6.10.Final:compile
-                    |  |  +- antlr:antlr:jar:2.7.6:compile
-                    |  |  +- commons-collections:commons-collections:jar:3.2.2:compile
-                    |  |  +- dom4j:dom4j:jar:1.6.1:compile
-            ]]>
-        </notes>
-        <gav regex="true">^dom4j:dom4j:1.6.1$</gav>
-        <cve>CVE-2018-1000632</cve>
     </suppress>
 </suppressions>
