@@ -65,7 +65,7 @@ public abstract class AutomatischProces implements Serializable {
     //dit is alleen nodig voor sql server, script faalt bij maken primary key
     @MapKeyJoinColumn(nullable=false)
     // Element wrapper required because of https://hibernate.atlassian.net/browse/JPA-11
-    private Map<String, ClobElement> config = new HashMap<String, ClobElement>();
+    private Map<String, ClobElement> config = new HashMap<>();
 
     /**
      * laatste run tijdtip vasthouden ten behoeve van logging en rapportage.
@@ -83,14 +83,14 @@ public abstract class AutomatischProces implements Serializable {
      * samenvatting van de laatste run.
      */
     @Lob
-    @Type(type = "org.hibernate.type.StringClobType")
+    @Type(type = "org.hibernate.type.TextType")
     private String samenvatting;
 
     /**
      * logfile
      */
     @Lob
-    @Type(type = "org.hibernate.type.StringClobType")
+    @Type(type = "org.hibernate.type.TextType")
     private String logfile;
 
     /**

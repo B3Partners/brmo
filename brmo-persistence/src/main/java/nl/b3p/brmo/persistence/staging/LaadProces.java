@@ -6,17 +6,9 @@ package nl.b3p.brmo.persistence.staging;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Date;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
+
+import org.hibernate.annotations.ForeignKey;
 import org.hibernate.annotations.Type;
 
 /**
@@ -45,7 +37,7 @@ public class LaadProces implements Serializable {
 
     @Column
     @Lob
-    @Type(type = "org.hibernate.type.StringClobType")
+    @Type(type = "org.hibernate.type.TextType")
     private String opmerking;
 
     @Enumerated(EnumType.STRING)
@@ -57,6 +49,7 @@ public class LaadProces implements Serializable {
     private String contact_email;
 
     @ManyToOne
+    @JoinColumn(name="automatisch_proces")
     private AutomatischProces automatischProces;
 
     private BigInteger klantafgiftenummer;

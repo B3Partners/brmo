@@ -59,7 +59,7 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <netbeans.hint.license>gpl30</netbeans.hint.license>
-        <hibernate.version>3.6.10.Final</hibernate.version>
+        <hibernate.version>5.4.13.Final</hibernate.version>
         <!-- ook jdbc-util updaten bij geotools update -->
         <geotools.version>22.2</geotools.version>
         <jdbc-util.version>4.5</jdbc-util.version>
@@ -81,7 +81,7 @@
         <jaxb.impl.version>2.3.2</jaxb.impl.version>
         <activation.api.version>1.2.2</activation.api.version>
         <!-- bij ophogen van tomcat versie evt. ook de .mvn/owasp-suppression.xml file bijwerken -->
-        <tomcat.version>7.0.100</tomcat.version>
+        <tomcat.version>7.0.103</tomcat.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <!-- om unit tests met postgres te draaien gebruik je
@@ -290,30 +290,10 @@
                 <artifactId>gt-geojson</artifactId>
                 <version>${geotools.version}</version>
             </dependency>
-            <!-- database en persistence -->
-            <dependency>
-                <!-- override v 3.1 die met hibernate meekomt, eigenlijk zouden we naar 4.4 moeten, maar die is ws. niet compatibel -->
-                <groupId>commons-collections</groupId>
-                <artifactId>commons-collections</artifactId>
-                <version>3.2.2</version>
-            </dependency>
-            <dependency>
-                <!-- override verouderde versie die met hibernate meekomt -->
-                <groupId>org.javassist</groupId>
-                <artifactId>javassist</artifactId>
-                <version>3.27.0-GA</version>
-            </dependency>
             <dependency>
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-entitymanager</artifactId>
                 <version>${hibernate.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <!-- exclude oude javassist zodat we de actule versie van herboven kunnen gebruiken -->
-                        <groupId>org.javassist</groupId>
-                        <artifactId>javassist</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>commons-dbutils</groupId>
@@ -678,7 +658,16 @@
                     <artifactId>maven-resources-plugin</artifactId>
                     <version>3.1.0</version>
                     <configuration>
-                        <nonFilteredFileExtensions>zip,gml,md,json,geojson,txt,sql,xlsx</nonFilteredFileExtensions>
+                        <nonFilteredFileExtensions>
+                            <nonFilteredFileExtension>zip</nonFilteredFileExtension>
+                            <nonFilteredFileExtension>gml</nonFilteredFileExtension>
+                            <nonFilteredFileExtension>md</nonFilteredFileExtension>
+                            <nonFilteredFileExtension>json</nonFilteredFileExtension>
+                            <nonFilteredFileExtension>geojson</nonFilteredFileExtension>
+                            <nonFilteredFileExtension>txt</nonFilteredFileExtension>
+                            <nonFilteredFileExtension>sql</nonFilteredFileExtension>
+                            <nonFilteredFileExtension>xlsx</nonFilteredFileExtension>
+                        </nonFilteredFileExtensions>
                     </configuration>
                 </plugin>
                 <plugin>
@@ -758,7 +747,7 @@
                         <links>
                             <link>https://www.slf4j.org/apidocs/</link>
                             <link>https://download.oracle.com/javaee/7/api/</link>
-                            <link>https://docs.jboss.org/hibernate/core/3.6/javadocs/</link>
+                            <link>https://docs.jboss.org/hibernate/stable/core/javadocs/</link>
                             <link>http://docs.geotools.org/stable/javadocs/</link>
                             <link>https://logging.apache.org/log4j/1.2/apidocs/</link>
                             <link>http://junit.sourceforge.net/javadoc/</link>
@@ -819,11 +808,6 @@
                     <artifactId>maven-clean-plugin</artifactId>
                     <version>3.1.0</version>
                 </plugin>
-                <!-- plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>hibernate3-maven-plugin</artifactId>
-                    <version>3.0</version>
-                </plugin -->
                 <plugin>
                     <groupId>pl.project13.maven</groupId>
                     <artifactId>git-commit-id-plugin</artifactId>

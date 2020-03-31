@@ -37,7 +37,7 @@ public class Groep implements Serializable {
     private String naam;
 
     @Lob
-    @org.hibernate.annotations.Type(type = "org.hibernate.type.StringClobType")
+    @org.hibernate.annotations.Type(type = "org.hibernate.type.TextType")
     private String beschrijving;
 
     @ManyToMany(mappedBy = "groepen")

@@ -16,7 +16,7 @@ import static org.hamcrest.CoreMatchers.is;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * test cases voor {@link nl.b3p.brmo.persistence.staging.MailRapportageProces}.
@@ -94,7 +94,7 @@ public class MailRapportageProcesTest extends TestUtil {
         m.getConfig().put(MailRapportageProces.PIDS, new ClobElement(pId + "," + pId2 + "," + pId3));
         entityManager.persist(m);
 
-        List<Predicate> predicates = new ArrayList<Predicate>();
+        List<Predicate> predicates = new ArrayList<>();
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<AutomatischProces> cq = cb.createQuery(AutomatischProces.class);
         Root<AutomatischProces> from = cq.from(AutomatischProces.class);
@@ -107,7 +107,7 @@ public class MailRapportageProcesTest extends TestUtil {
         // id in... filter
         String pids = m.getConfig().get(MailRapportageProces.PIDS).getValue();
         if (pids != null) {
-            List<Long> pidLijst = new ArrayList<Long>();
+            List<Long> pidLijst = new ArrayList<>();
             Matcher match = (Pattern.compile("[0-9]+")).matcher(pids);
             while (match.find()) {
                 pidLijst.add(Long.valueOf(match.group()));

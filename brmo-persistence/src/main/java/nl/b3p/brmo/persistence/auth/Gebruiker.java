@@ -50,15 +50,12 @@ public class Gebruiker implements Serializable {
     @JoinTable(name = "gebruiker_groepen", joinColumns = @JoinColumn(name = "gebruikersnaam"), inverseJoinColumns = @JoinColumn(name = "groep_"))
     private Set<Groep> groepen = new HashSet<Groep>();
 
-    //    @ElementCollection
-    //    @JoinTable(joinColumns=@JoinColumn(name="gebruikersnaam"))
-    //    private Map<String,String> details = new HashMap<String,String>();
     /**
      *
      * @param password wachtwoord
      * @throws NoSuchAlgorithmException als er geen DIGEST_ALGORITM bestaat
-     * @throws UnsupportedEncodingException als er een onbekendeencodingsfout
-     * optreed
+     * @throws UnsupportedEncodingException als er een onbekende encodingsfout
+     * optreedt
      */
     public void changePassword(String password) throws NoSuchAlgorithmException, UnsupportedEncodingException {
         MessageDigest md = (MessageDigest) MessageDigest.getInstance(DIGEST_ALGORITM);
