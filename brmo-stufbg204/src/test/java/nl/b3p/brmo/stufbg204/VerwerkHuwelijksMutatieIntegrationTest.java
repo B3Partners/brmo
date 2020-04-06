@@ -14,7 +14,6 @@ import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.test.util.database.dbunit.CleanUtil;
 import nl.b3p.loader.jdbc.OracleConnectionUnwrapper;
-import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.http.HttpStatus;
@@ -38,6 +37,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.*;
 
 /**
@@ -132,16 +132,16 @@ public class VerwerkHuwelijksMutatieIntegrationTest extends WebTestStub {
         t.join();
 
         ITable subject = rsgb.createDataSet().getTable("subject");
-        assertTrue("Aantal rijen klopt niet", subject.getRowCount() == 1);
+        assertEquals("Aantal rijen klopt niet", 1, subject.getRowCount());
         assertEquals("naam niet als verwacht", "J de Cuykelaer", subject.getValue(0, "naam"));
 
         ITable nat_prs = rsgb.createDataSet().getTable("nat_prs");
-        assertTrue("Aantal rijen klopt niet", nat_prs.getRowCount() == 1);
+        assertEquals("Aantal rijen klopt niet", 1, nat_prs.getRowCount());
         assertEquals("geslacht niet als verwacht", "M", nat_prs.getValue(1, "geslachtsaand"));
         assertEquals("geslachtsnaam niet als verwacht", "Cuykelaer", nat_prs.getValue(0, "nm_geslachtsnaam"));
 
         ITable ingeschr_nat_prs = rsgb.createDataSet().getTable("ingeschr_nat_prs");
-        assertTrue("Aantal rijen klopt niet", ingeschr_nat_prs.getRowCount() == 1);
+        assertEquals("Aantal rijen klopt niet", 1, ingeschr_nat_prs.getRowCount());
         assertEquals("a nummer niet als verwacht", "9173658014", ingeschr_nat_prs.getValue(0, "a_nummer"));
         assertEquals("bsn nummer niet als verwacht", "301571818", ingeschr_nat_prs.getValue(0, "bsn"));
     }
@@ -167,7 +167,7 @@ public class VerwerkHuwelijksMutatieIntegrationTest extends WebTestStub {
         assertThat("Response status is OK.", response.getStatusLine().getStatusCode(), equalTo(HttpStatus.SC_OK));
 
         // check staging database inhoud
-        assertTrue("Er zijn anders dan 1 STAGING_OK laadprocessen", 1l == brmo.getCountLaadProcessen(null, null, BrmoFramework.BR_BRP, "STAGING_OK"));
+        assertEquals("Er zijn anders dan 1 STAGING_OK laadprocessen", 1l, brmo.getCountLaadProcessen(null, null, BrmoFramework.BR_BRP, "STAGING_OK"));
 
         ITable laadproces = staging.createDataSet().getTable("laadproces");
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss.SS");
@@ -187,12 +187,12 @@ public class VerwerkHuwelijksMutatieIntegrationTest extends WebTestStub {
         assertEquals("naam niet als verwacht", "727b5940 900ed1be 8b701201 935a9e ba5b4d6e d9b9226a", subject.getValue(0, "naam"));
 
         ITable nat_prs = rsgb.createDataSet().getTable("nat_prs");
-        assertTrue("Aantal rijen klopt niet", nat_prs.getRowCount() == 1);
+        assertEquals("Aantal rijen klopt niet", 1, nat_prs.getRowCount());
         assertEquals("geslacht niet als verwacht", "M", nat_prs.getValue(1, "geslachtsaand"));
         // assertEquals("geslachtsnaam niet als verwacht", "Cuykelaer", nat_prs.getValue(0, "nm_geslachtsnaam"));
 
         ITable ingeschr_nat_prs = rsgb.createDataSet().getTable("ingeschr_nat_prs");
-        assertTrue("Aantal rijen klopt niet", ingeschr_nat_prs.getRowCount() == 1);
+        assertEquals("Aantal rijen klopt niet", 1, ingeschr_nat_prs.getRowCount());
         assertEquals("a nummer niet als verwacht", "6171717520", ingeschr_nat_prs.getValue(0, "a_nummer"));
         assertEquals("bsn nummer niet als verwacht", "749069273", ingeschr_nat_prs.getValue(0, "bsn"));
     }
@@ -234,16 +234,16 @@ public class VerwerkHuwelijksMutatieIntegrationTest extends WebTestStub {
         t.join();
 
         ITable subject = rsgb.createDataSet().getTable("subject");
-        assertTrue("Aantal rijen klopt niet", subject.getRowCount() == 1);
+        assertEquals("Aantal rijen klopt niet", 1, subject.getRowCount());
         assertEquals("naam niet als verwacht", "J de Cuykelaer", subject.getValue(0, "naam"));
 
         ITable nat_prs = rsgb.createDataSet().getTable("nat_prs");
-        assertTrue("Aantal rijen klopt niet", nat_prs.getRowCount() == 1);
+        assertEquals("Aantal rijen klopt niet", 1, nat_prs.getRowCount());
         assertEquals("geslacht niet als verwacht", "M", nat_prs.getValue(1, "geslachtsaand"));
         assertEquals("geslachtsnaam niet als verwacht", "Cuykelaer", nat_prs.getValue(0, "nm_geslachtsnaam"));
 
         ITable ingeschr_nat_prs = rsgb.createDataSet().getTable("ingeschr_nat_prs");
-        assertTrue("Aantal rijen klopt niet", ingeschr_nat_prs.getRowCount() == 1);
+        assertEquals("Aantal rijen klopt niet", 1, ingeschr_nat_prs.getRowCount());
         assertEquals("a nummer niet als verwacht", "9173658014", ingeschr_nat_prs.getValue(0, "a_nummer"));
         assertEquals("bsn nummer niet als verwacht", "301571818", ingeschr_nat_prs.getValue(0, "bsn"));
     }

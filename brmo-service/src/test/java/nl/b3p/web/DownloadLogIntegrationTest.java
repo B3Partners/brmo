@@ -19,7 +19,6 @@ package nl.b3p.web;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import static nl.b3p.web.WebTestUtil.client;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.HttpGet;
@@ -28,7 +27,7 @@ import org.apache.http.client.methods.RequestBuilder;
 import org.apache.http.util.EntityUtils;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 

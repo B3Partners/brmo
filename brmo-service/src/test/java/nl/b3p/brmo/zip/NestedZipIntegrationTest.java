@@ -8,7 +8,6 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.service.testutil.TestUtil;
-import nl.b3p.brmo.service.util.ConfigUtil;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.commons.io.input.CloseShieldInputStream;
 import org.apache.commons.logging.Log;
@@ -62,7 +61,7 @@ public class NestedZipIntegrationTest extends TestUtil {
                     ZipEntry innerentry = innerzip.getNextEntry();
                     while (innerentry != null && innerentry.getName().toLowerCase().endsWith(".xml")) {
                         LOG.info("verwerken " + innerentry.getName());
-                        brmo.loadFromStream("bag", new CloseShieldInputStream(innerzip), "DNLDLXAM02-15967-5014117-31032017-01042017.zip/" + innerentry.getName());
+                        brmo.loadFromStream("bag", new CloseShieldInputStream(innerzip), "DNLDLXAM02-15967-5014117-31032017-01042017.zip/" + innerentry.getName(), (Long)null);
                         innerentry = innerzip.getNextEntry();
                     }
                     LOG.debug("einde verwerken " + entry.getName());
