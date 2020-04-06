@@ -569,7 +569,7 @@ public class Main {
         BrmoFramework brmo = new BrmoFramework(ds, null);
         brmo.setOrderBerichten(true);
         brmo.setErrorState("ignore");
-        brmo.loadFromFile(brType, fileName);
+        brmo.loadFromFile(brType, fileName,null);
         brmo.closeBrmoFramework();
         LOG.info(String.format("Klaar met laden van bestand: %s, type %s", fileName, brType));
         archiveerBestand(fileName, archiefDir);
@@ -609,7 +609,7 @@ public class Main {
             for (String fName : fNames) {
                 try {
                     LOG.debug(String.format("Begin laden van bestand: %s, type %s", fName, brType));
-                    brmo.loadFromFile(brType, scanDir + fName);
+                    brmo.loadFromFile(brType, scanDir + fName, null);
                     LOG.info(String.format("Klaar met laden van bestand: %s, type %s", fName, brType));
                 } catch (BrmoDuplicaatLaadprocesException dup) {
                     LOG.warn(String.format("Laden duplicaat bestand %s overgeslagen. Oorzaak: %s", fName, dup.getLocalizedMessage()));
