@@ -9,6 +9,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -528,7 +529,8 @@ public class Main {
     private static void writeXML(String xml, String filename, String directory) {
         ZipOutputStream out = null;
         try {
-            final File f = new File(directory + "/" + filename + ".zip");
+            filename = Paths.get(filename + ".zip").normalize().toString();
+            final File f = new File(directory, filename );
             out = new ZipOutputStream(new FileOutputStream(f));
             ZipEntry e = new ZipEntry(filename);
             out.putNextEntry(e);
@@ -575,7 +577,7 @@ public class Main {
     }
 
     /**
-     * verwerk xml en zip betsanden uit directory naar staging db.
+     * verwerk xml en zip bestanden uit directory naar staging db.
      *
      * @param ds datasource
      * @param opts array met {directory, type BR, optionele archief directory}
@@ -650,12 +652,12 @@ public class Main {
         }
     }
 
-    static enum sysexits {
-        // zie: https://www.freebsd.org/cgi/man.cgi?query=sysexits&apropos=0&sektion=3&manpath=OpenBSD+5.8&arch=default&format=html
+    enum sysexits {
+        // zie: https://man.openbsd.org/man3/sysexits.3
         EX_USAGE(64), EX_DATAERR(65), EX_NOINPUT(66), EX_UNAVAILABLE(69), EX_CANTCREAT(73), EX_IOERR(74);
         int code;
 
-        private sysexits(final int code) {
+        sysexits(final int code) {
             this.code = code;
         }
     }
