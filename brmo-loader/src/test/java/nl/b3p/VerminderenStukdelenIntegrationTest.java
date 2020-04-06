@@ -102,7 +102,7 @@ public class VerminderenStukdelenIntegrationTest extends AbstractDatabaseIntegra
 
         FlatXmlDataSetBuilder fxdb = new FlatXmlDataSetBuilder();
         fxdb.setCaseSensitiveTableNames(false);
-        IDataSet stagingDataSet = fxdb.build(new FileInputStream(new File(BrkToStagingToRsgbIntegrationTest.class.getResource("/staging-empty-flat.xml").toURI())));
+        IDataSet stagingDataSet = fxdb.build(new FileInputStream(new File(VerminderenStukdelenIntegrationTest.class.getResource("/staging-empty-flat.xml").toURI())));
 
         sequential.lock();
 
@@ -127,11 +127,11 @@ public class VerminderenStukdelenIntegrationTest extends AbstractDatabaseIntegra
 
     @Test
     public void testMinderStukdelenInMutatie() throws Exception {
-        assumeNotNull("Het ontstaan test bestand moet er zijn.", BrkToStagingToRsgbIntegrationTest.class.getResource(ontstaanBestand));
-        assumeNotNull("Het mutatie test bestand moet er zijn.", BrkToStagingToRsgbIntegrationTest.class.getResource(mutatieBestand));
+        assumeNotNull("Het ontstaan test bestand moet er zijn.", VerminderenStukdelenIntegrationTest.class.getResource(ontstaanBestand));
+        assumeNotNull("Het mutatie test bestand moet er zijn.", VerminderenStukdelenIntegrationTest.class.getResource(mutatieBestand));
 
         LOG.debug("laden van ontstaan bericht in staging DB.");
-        brmo.loadFromFile(BrmoFramework.BR_BRK, BrkToStagingToRsgbIntegrationTest.class.getResource(ontstaanBestand).getFile());
+        brmo.loadFromFile(BrmoFramework.BR_BRK, VerminderenStukdelenIntegrationTest.class.getResource(ontstaanBestand).getFile(), null);
 
         List<Bericht> berichten = brmo.listBerichten();
         List<LaadProces> processen = brmo.listLaadProcessen();
@@ -155,7 +155,7 @@ public class VerminderenStukdelenIntegrationTest extends AbstractDatabaseIntegra
         assertEquals("Het aantal brondocument records komt niet overeen", brondocOntstaan, brondocument.getRowCount());
 
         // mutatie laden
-        brmo.loadFromFile(BrmoFramework.BR_BRK, BrkToStagingToRsgbIntegrationTest.class.getResource(mutatieBestand).getFile());
+        brmo.loadFromFile(BrmoFramework.BR_BRK, VerminderenStukdelenIntegrationTest.class.getResource(mutatieBestand).getFile(), null);
         LOG.debug("klaar met laden van mutatie bericht in staging DB.");
 
         LOG.debug("Transformeren mutatie bericht naar rsgb DB.");

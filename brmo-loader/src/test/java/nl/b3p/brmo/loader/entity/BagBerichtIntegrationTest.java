@@ -140,7 +140,7 @@ public class BagBerichtIntegrationTest extends AbstractDatabaseIntegrationTest {
         FlatXmlDataSetBuilder fxdb = new FlatXmlDataSetBuilder();
         fxdb.setCaseSensitiveTableNames(false);
         // lege bericht en laadproces tabellen
-        IDataSet stagingDataSet = fxdb.build(new FileInputStream(new File(BagBerichtTest.class.getResource("/staging-empty-flat.xml").toURI())));
+        IDataSet stagingDataSet = fxdb.build(new FileInputStream(new File(BagBerichtIntegrationTest.class.getResource("/staging-empty-flat.xml").toURI())));
 
         sequential.lock();
 
@@ -169,7 +169,7 @@ public class BagBerichtIntegrationTest extends AbstractDatabaseIntegrationTest {
 
     @Test
     public void loadInStaging() throws Exception {
-        brmo.loadFromFile(BR_BAG, BagBerichtTest.class.getResource(bestandNaam).getFile());
+        brmo.loadFromFile(BR_BAG, BagBerichtIntegrationTest.class.getResource(bestandNaam).getFile(), null);
         assertEquals("Aantal berichten is niet als verwacht", aantalBerichten, brmo.getCountBerichten(null, null, BR_BAG, "STAGING_OK"));
         assertEquals("Aantal laadprocessen is niet als verwacht", aantalProcessen, brmo.getCountLaadProcessen(null, null, BR_BAG, "STAGING_OK"));
 
@@ -204,7 +204,7 @@ public class BagBerichtIntegrationTest extends AbstractDatabaseIntegrationTest {
             // LOG.debug("aantalBerichten: " + data[1]);
             // LOG.debug("aantalProcessen: " + data[2]);
             // LOG.debug("timestamp:       " + data[3]);
-            brmo.loadFromFile(BR_BAG, BagBerichtTest.class.getResource(data[0].toString()).getFile());
+            brmo.loadFromFile(BR_BAG, BagBerichtIntegrationTest.class.getResource(data[0].toString()).getFile(), null);
             _aantalBerichten += (int) data[1];
             _aantalProcessen += (int) data[2];
         }

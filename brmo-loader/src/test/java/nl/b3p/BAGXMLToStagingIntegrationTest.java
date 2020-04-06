@@ -129,7 +129,7 @@ public class BAGXMLToStagingIntegrationTest extends AbstractDatabaseIntegrationT
     @Test
     public void testBagStandToStaging() throws BrmoException {
         try {
-            brmo.loadFromFile(bestandType, BAGXMLToStagingIntegrationTest.class.getResource(bestandNaam).getFile());
+            brmo.loadFromFile(bestandType, BAGXMLToStagingIntegrationTest.class.getResource(bestandNaam).getFile(), null);
         } catch (BrmoLeegBestandException blbe) {
             LOG.debug("Er is een bestand zonder berichten geladen (kan voorkomen).");
         }

@@ -141,7 +141,7 @@ public class ContraintViolationIntegrationTest extends AbstractDatabaseIntegrati
      */
     @Test
     public void testForeignKeyConstraintViolation() throws Exception {
-        brmo.loadFromFile(bestandType, ContraintViolationIntegrationTest.class.getResource(bestandNaam).getFile());
+        brmo.loadFromFile(bestandType, ContraintViolationIntegrationTest.class.getResource(bestandNaam).getFile(), null);
         LOG.debug("klaar met laden van berichten in staging DB.");
 
         List<Bericht> berichten = brmo.listBerichten();
