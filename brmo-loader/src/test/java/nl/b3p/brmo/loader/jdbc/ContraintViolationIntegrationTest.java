@@ -103,7 +103,7 @@ public class ContraintViolationIntegrationTest extends AbstractDatabaseIntegrati
         assumeNotNull("Het bestand met testdata zou moeten bestaan.", ContraintViolationIntegrationTest.class.getResource(bestandNaam));
 
         sequential.lock();
-        CleanUtil.cleanSTAGING(staging);
+        CleanUtil.cleanSTAGING(staging, false);
 
         assumeTrue("Er zijn geen STAGING_OK berichten", 0l == brmo.getCountBerichten(null, null, "bag", "STAGING_OK"));
         assumeTrue("Er zijn geen STAGING_OK laadprocessen", 0l == brmo.getCountLaadProcessen(null, null, "bag", "STAGING_OK"));
