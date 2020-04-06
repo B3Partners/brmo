@@ -114,7 +114,6 @@ public class BGTOphalenUitvoerActionBean implements ActionBean, ProgressUpdateLi
     @Override
     public void exception(Throwable t) {
         StringWriter sw = new StringWriter();
-        PrintWriter pw = new PrintWriter(sw);
         t.printStackTrace(new PrintWriter(sw));
         this.exceptionStacktrace = sw.toString();
     }
