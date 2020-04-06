@@ -74,7 +74,7 @@ public class BagXMLReaderTest {
         LocalDateTime d = LocalDateTime.parse("2015-01-01T07:30:51.843495");
         Date d2 = Date.from(d.atZone(ZoneId.systemDefault()).toInstant());
         assertEquals(d2, bag.getDatum());
-        assertEquals(new Integer(0), bag.getVolgordeNummer());
+        assertEquals((Integer)0, bag.getVolgordeNummer());
     }
 
     /**

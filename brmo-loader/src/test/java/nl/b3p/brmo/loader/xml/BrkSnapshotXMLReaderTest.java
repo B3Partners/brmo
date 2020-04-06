@@ -68,7 +68,7 @@ public class BrkSnapshotXMLReaderTest {
         assertEquals("NL.KAD.OnroerendeZaak:53860293910012", brk.getObjectRef());
         assertEquals(new SimpleDateFormat("yyyy-MM-dd").parse("2009-11-30"),
                 brk.getDatum());
-        assertEquals(new Integer(1), brk.getVolgordeNummer());
+        assertEquals((Integer)1, brk.getVolgordeNummer());
     }
 
     /**

@@ -140,7 +140,7 @@ public class Main {
                 for (List l : lists) {
                     int lhsIndex = l.indexOf(lhs);
                     if (lhsIndex != -1) {
-                        return new Integer(lhsIndex).compareTo(l.indexOf(rhs));
+                        return Integer.compare(lhsIndex, l.indexOf(rhs));
                     }
                 }
                 return lhs.getArgName().compareTo(rhs.getArgName());
