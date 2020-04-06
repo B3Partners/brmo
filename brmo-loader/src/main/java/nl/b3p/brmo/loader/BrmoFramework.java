@@ -391,12 +391,9 @@ public class BrmoFramework {
                 if(listener != null) {
                     listener.total(f.length());
                 }
-                FileInputStream fis = null;
-                try {
-                    fis = new FileInputStream(fileName);
+
+                try (FileInputStream fis = new FileInputStream(fileName)){
                     stagingProxy.loadBr(fis, type, fileName, null, listener);
-                } finally {
-                    IOUtils.closeQuietly(fis);
                 }
             }
         } catch(Exception e) {
