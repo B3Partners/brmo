@@ -210,7 +210,7 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
 
         // XXX move to configuration file
         // bij een nieuw proces ook de wiki bijwerken: https://github.com/B3Partners/brmo/wiki/Geavanceerde-functies
-        advancedFunctionProcesses = Arrays.asList(new AdvancedFunctionProcess[]{
+        advancedFunctionProcesses = Arrays.asList(
             new AdvancedFunctionProcess("Exporteren BRK mutaties", BrmoFramework.BR_BRK, brkExportDir == null ? "/tmp/brkmutaties" : brkExportDir),
             new AdvancedFunctionProcess("Repareren BRK mutaties met status STAGING_NOK", BrmoFramework.BR_BRK, Bericht.STATUS.STAGING_NOK.toString()),
             new AdvancedFunctionProcess("Repareren BAG mutaties met status STAGING_NOK", BrmoFramework.BR_BAG, Bericht.STATUS.STAGING_NOK.toString()),
@@ -223,7 +223,7 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
             new AdvancedFunctionProcess(BRK_VERWIJDEREN_NOGMAALS_UITVOEREN, BrmoFramework.BR_BRK, Bericht.STATUS.RSGB_OK.toString()),
             new AdvancedFunctionProcess(NHR_FIX_TYPERING, BrmoFramework.BR_NHR, null),
             new AdvancedFunctionProcess(BRK_HERSTEL_BESTANDSNAAM, BrmoFramework.BR_BRK, "0")
-        });
+        );
     }
 
     @DefaultHandler
@@ -594,7 +594,7 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
                     + " and status='" + config + "'"
                     + " and status_datum < ? ";
         Object o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn,
-                countsql, new Timestamp(c.getTimeInMillis()), new ScalarHandler());
+                countsql, new ScalarHandler(), new Timestamp(c.getTimeInMillis()));
         if (o instanceof BigDecimal) {
             total(((BigDecimal) o).longValue());
         } else if (o instanceof Integer) {
