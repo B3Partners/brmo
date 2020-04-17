@@ -325,7 +325,7 @@
                                 <id>prepare</id>
                                 <phase>generate-sources</phase>
                                 <configuration>
-                                    <tasks>
+                                    <target>
                                         <echo message="unzip GEM-WPL koppeling xml bestanden" />
                                         <unzip dest="${project.build.directory}/GEM-WPL" failOnEmptyArchive="true">
                                             <fileset dir="${project.basedir}/referentiedata">
@@ -336,7 +336,7 @@
                                             </patternset>
                                         </unzip>
                                         <echo message="GEM-WPL koppeling xml bestand klaar voor transformatie naar SQL" />
-                                    </tasks>
+                                    </target>
                                 </configuration>
                                 <goals>
                                     <goal>run</goal>
@@ -346,7 +346,7 @@
                                 <id>copy</id>
                                 <phase>process-resources</phase>
                                 <configuration>
-                                    <tasks>
+                                    <target>
                                         <copy todir="${project.basedir}/utility_scripts/oracle" verbose="true">
                                             <fileset dir="${project.build.directory}/generated_data_scripts/GEM-WPL" includes="${filename.base.201_update_wnplts_gemcode}*.sql" />
                                         </copy>
@@ -356,7 +356,7 @@
                                         <copy todir="${project.basedir}/utility_scripts/sqlserver" verbose="true">
                                             <fileset dir="${project.build.directory}/generated_data_scripts/GEM-WPL" includes="${filename.base.201_update_wnplts_gemcode}*.sql" />
                                         </copy>
-                                    </tasks>
+                                    </target>
                                 </configuration>
                                 <goals>
                                     <goal>run</goal>

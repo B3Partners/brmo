@@ -5,58 +5,32 @@
             <![CDATA[
                      Negeer meldingen mbt tomcat-catalina-7.0.103.jar
                      omdat we geen tomcat mee leveren en deze alleen voor bepaalde deployments geldt.
+                     file name: tomcat-catalina-7.0.103.jar
             ]]>
         </notes>
-        <filePath regex="true">.*\btomcat-catalina-7\.0\.103\.jar</filePath>
-        <cve>CVE-2016-5388</cve>
-        <cve>CVE-2016-5425</cve>
-        <cve>CVE-2016-6325</cve>
+        <packageUrl regex="true">^pkg:maven/org\.apache\.tomcat/tomcat\-catalina@.*$</packageUrl>
+        <cve>CVE-2016-5425</cve>        
         <cve>CVE-2017-6056</cve>
     </suppress>
     <suppress>
         <notes>
             <![CDATA[
                      Negeer melding mbt gt-jdbc jar, false positive "data-tools" wat iets heel anders is.
+                     file name: gt-jdbc-23.0.jar
             ]]>
         </notes>
-        <gav regex="true">^org\.geotools:gt-jdbc:.*$</gav>
-        <cpe>cpe:/a:data-tools_project:data_tools</cpe>
+        <packageUrl regex="true">^pkg:maven/org\.geotools/gt\-jdbc@.*$</packageUrl>
+        <cpe>cpe:/a:data_tools_project:data_tools</cpe>
     </suppress>
     <suppress>
         <notes>
             <![CDATA[
                      Negeer melding mbt gt-jdbc-sqlserver jar, false positive "data-tools" wat iets heel anders is.
+                     file name: gt-jdbc-sqlserver-23.0.jar
             ]]>
         </notes>
-        <gav regex="true">^org\.geotools\.jdbc:gt-jdbc-sqlserver:.*$</gav>
-        <cpe>cpe:/a:data-tools_project:data_tools</cpe>
-    </suppress>
-    <suppress>
-        <notes>
-            <![CDATA[
-                     Negeer melding mbt gt-coverage jar, false positive mbt jpeg thumbnail disclosure.
-            ]]>
-        </notes>
-        <gav regex="true">^org\.geotools:gt-coverage:.*$</gav>
-        <cve>CVE-2005-0406</cve>
-    </suppress>
-    <suppress>
-        <notes>
-            <![CDATA[
-                     Negeer melding mbt gt-main jar, false positive mbt integer overflow in "data-tools" wat iets heel anders is.
-            ]]>
-        </notes>
-        <gav regex="true">^org\.geotools:gt-main:.*$</gav>
-        <cpe>cpe:/a:data-tools_project:data_tools</cpe>
-    </suppress>
-    <suppress>
-        <notes>
-            <![CDATA[
-                     Negeer melding mbt gt-data jar, false positive mbt integer overflow in data-tools
-            ]]>
-        </notes>
-        <gav regex="true">^org\.geotools:gt-data:.*$</gav>
-        <cpe>cpe:/a:data-tools_project:data_tools</cpe>
+        <packageUrl regex="true">^pkg:maven/org\.geotools\.jdbc/gt\-jdbc\-sqlserver@.*$</packageUrl>
+        <cpe>cpe:/a:data_tools_project:data_tools</cpe>
     </suppress>
     <suppress>
         <notes>
@@ -72,29 +46,10 @@
     <suppress>
         <notes>
             <![CDATA[
-                     False positive voor xss kwetsbaarheden in de Eclipse help server
-            ]]>
-        </notes>
-        <gav regex="true">^org\.glassfish\.ha:ha-api:3\.1\.12$</gav>
-        <cve>CVE-2010-4647</cve>
-        <cve>CVE-2008-7271</cve>
-    </suppress>
-    <suppress>
-        <notes>
-            <![CDATA[
                      Negeer meldingen mbt postgis-jdbc jar, hebben allemaal betrekking op de database engine
             ]]>
         </notes>
         <gav regex="true">^net\.postgis:postgis-jdbc:.*$</gav>
         <cpe>cpe:/a:postgis:postgis</cpe>
-    </suppress>
-    <suppress>
-        <notes>
-            <![CDATA[
-                     Negeer meldingen mbt jtds jar, hebben allemaal betrekking op de database engine
-            ]]>
-        </notes>
-        <gav regex="true">^net\.sourceforge\.jtds:jtds:.*$</gav>
-        <cpe>cpe:/a:microsoft:sql_server</cpe>
     </suppress>
 </suppressions>
