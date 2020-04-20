@@ -99,11 +99,6 @@ public class BGTNullGeomIntegrationTest extends TestingBase {
      */
     @Test
     public void testProcessGMLFile() throws Exception {
-        if (isMsSQL && gmlFileName.equalsIgnoreCase("/gmllight/mantis6028/bgt_begroeidterreindeel.gml")) {
-            // overslaan vanwege https://osgeo-org.atlassian.net/browse/GEOT-5512
-            return;
-        }
-
         int nullGeomCount = expectedNumOfElements - expectedKruinlijnElements;
 
         File gml = new File(BGTLightKruinlijnIntegrationTest.class.getResource(gmlFileName).toURI());
@@ -115,7 +110,8 @@ public class BGTNullGeomIntegrationTest extends TestingBase {
         try (Connection connection = DriverManager.getConnection(
                 params.getProperty("jdbc.url"),
                 params.getProperty("user"),
-                params.getProperty("passwd"))) {
+                params.getProperty("passwd"))
+        ) {
 
             connection.setAutoCommit(true);
 
@@ -133,7 +129,6 @@ public class BGTNullGeomIntegrationTest extends TestingBase {
                 LOG.error("Fout tijdens tellen 'null' kruinlijn elementen: ", se);
                 fail("Fout tijdens tellen 'null' kruinlijn elementen: " + se.getLocalizedMessage());
             }
-            connection.close();
         }
 
     }
