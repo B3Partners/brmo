@@ -48,10 +48,8 @@ class GMLLightFeatureTransformerImpl implements GMLLightFeatureTransformer {
      * Niet alle velden uit de GML worden in de database gezet; overgeslagen oa:
      * <ul>
      * <li>inOnderzoek</li>
-     * <li>tijdstipRegistratie</li>
      * <li>eindRegistratie</li>
      * <li>LV-publicatiedatum</li>
-     * <li>bronhouder</li>
      * </ul>
      * (IMgeo / BGT attributen) en (GML 3 attributen)
      * <ul>
@@ -82,7 +80,7 @@ class GMLLightFeatureTransformerImpl implements GMLLightFeatureTransformer {
         attrMapping.put("metaDataProperty", null);
         /* bovenstaande GML 3 attributen overslaan/niet transformeren */
 
- /* onderstaande niet in RSBG 3.0 */
+        /* onderstaande niet in RSBG 3.0 */
         // attrMapping.put("inOnderzoek", "inonderzoek");
         attrMapping.put("inOnderzoek", null);
         attrMapping.put("tijdstipRegistratie", "tijdstip_registratie");
@@ -90,8 +88,7 @@ class GMLLightFeatureTransformerImpl implements GMLLightFeatureTransformer {
         attrMapping.put("eindRegistratie", null);
         // attrMapping.put("LV-publicatiedatum", "lv_publicatiedatum");
         attrMapping.put("LV-publicatiedatum", null);
-        // attrMapping.put("bronhouder", "bronhouder");
-        attrMapping.put("bronhouder", null);
+        attrMapping.put("bronhouder", "bronhouder");
         /* bovenstaande niet in RSBG 3.0 */
 
         // (gedeelde) model attributen

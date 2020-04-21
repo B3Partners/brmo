@@ -66,6 +66,9 @@ CREATE TABLE </xsl:text>
         plus_status </xsl:text>
         <xsl:value-of select="db:type('varchar(255)')"/>
         <xsl:text>,
+        bronhouder </xsl:text>
+        <xsl:value-of select="db:type('varchar(5)')"/>
+        <xsl:text>,
         </xsl:text>
         <!-- specifieke objecttype velden -->
         <xsl:for-each select="attribuut">
