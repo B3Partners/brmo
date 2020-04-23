@@ -440,7 +440,7 @@
                 <xsl:value-of select="$bagid"/>
             </sc_identif>
             <indic_geconstateerd>
-                <xsl:value-of select="<xsl:value-of select=" Objecten:geconstateerd"/>"/>
+                <xsl:value-of select=" Objecten:geconstateerd"/>
             </indic_geconstateerd>
             <status>
                 <xsl:value-of select="Objecten:status"/>
@@ -598,24 +598,24 @@
 
 
     <!-- jjjj-mm-dd -> jjjjmmdd -->
-    <xsl:template name="numeric-date">
-        <xsl:value-of select="concat(substring(.,1,4),substring(.,6,2),substring(.,9,2))"/>
-    </xsl:template>
+    <!--    <xsl:template name="numeric-date">-->
+    <!--        <xsl:value-of select="concat(substring(.,1,4),substring(.,6,2),substring(.,9,2))"/>-->
+    <!--    </xsl:template>-->
 
     <!-- jjjjmmdd -> jjjj-mm-dd -->
-    <xsl:template name="date-numeric">
-        <xsl:choose>
-            <xsl:when test="string-length(.) &gt; 9">
-                <xsl:value-of select="concat(substring(.,1,4),'-',substring(.,5,2),'-',substring(.,7,2))"/>
-            </xsl:when>
-            <xsl:when test="string-length(.) &gt; 7">
-                <xsl:value-of select="concat(substring(.,1,4),'-',substring(.,5,2),'-01')"/>
-            </xsl:when>
-            <xsl:when test="string-length(.) &gt; 5">
-                <xsl:value-of select="concat(substring(.,1,4),'-01-01')"/>
-            </xsl:when>
-        </xsl:choose>
-    </xsl:template>
+    <!--    <xsl:template name="date-numeric">-->
+    <!--        <xsl:choose>-->
+    <!--            <xsl:when test="string-length(.) &gt; 9">-->
+    <!--                <xsl:value-of select="concat(substring(.,1,4),'-',substring(.,5,2),'-',substring(.,7,2))"/>-->
+    <!--            </xsl:when>-->
+    <!--            <xsl:when test="string-length(.) &gt; 7">-->
+    <!--                <xsl:value-of select="concat(substring(.,1,4),'-',substring(.,5,2),'-01')"/>-->
+    <!--            </xsl:when>-->
+    <!--            <xsl:when test="string-length(.) &gt; 5">-->
+    <!--                <xsl:value-of select="concat(substring(.,1,4),'-01-01')"/>-->
+    <!--            </xsl:when>-->
+    <!--        </xsl:choose>-->
+    <!--    </xsl:template>-->
 
     <!-- bijv. NL.IMBAG.NUMMERAANDUIDING.0003200000140496 -> 0003200000140496 -->
     <xsl:template name="aanduiding-referentie">
