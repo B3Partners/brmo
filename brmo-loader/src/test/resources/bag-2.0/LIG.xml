@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<sl-bag-extract:bagStand xmlns:DatatypenNEN3610="www.kadaster.nl/schemas/lvbag/imbag/datatypennen3610/v20180601" xmlns:Objecten="www.kadaster.nl/schemas/lvbag/imbag/objecten/v20180601" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:Historie="www.kadaster.nl/schemas/lvbag/imbag/historie/v20180601" xmlns:Objecten-ref="www.kadaster.nl/schemas/lvbag/imbag/objecten-ref/v20180601" xmlns:nen5825="www.kadaster.nl/schemas/lvbag/imbag/nen5825/v20180601" xmlns:KenmerkInOnderzoek="www.kadaster.nl/schemas/lvbag/imbag/kenmerkinonderzoek/v20180601" xmlns:selecties-extract="http://www.kadaster.nl/schemas/lvbag/extract-selecties/v20180601" xmlns:sl-bag-extract="http://www.kadaster.nl/schemas/lvbag/extract-deelbestand-lvc/v20180601" xmlns:sl="http://www.kadaster.nl/schemas/standlevering-generiek/1.0">
+    <sl-bag-extract:bagInfo>
+        <selecties-extract:Gebied-Registratief>
+            <selecties-extract:Gebied-GEM>
+                <selecties-extract:GemeenteCollectie>
+                    <selecties-extract:Gemeente>
+                        <selecties-extract:GemeenteIdentificatie>0003</selecties-extract:GemeenteIdentificatie>
+                    </selecties-extract:Gemeente>
+                </selecties-extract:GemeenteCollectie>
+            </selecties-extract:Gebied-GEM>
+        </selecties-extract:Gebied-Registratief>
+        <selecties-extract:LVC-Extract>
+            <selecties-extract:StandTechnischeDatum>2020-03-01</selecties-extract:StandTechnischeDatum>
+        </selecties-extract:LVC-Extract>
+    </sl-bag-extract:bagInfo>
+    <sl:standBestand>
+        <sl:dataset>LVBAG</sl:dataset>
+        <sl:inhoud>
+            <sl:gebied>GEMEENTE</sl:gebied>
+            <sl:leveringsId>0000000001</sl:leveringsId>
+            <sl:objectTypen>
+                <sl:objectType>LIG</sl:objectType>
+            </sl:objectTypen>
+        </sl:inhoud>
+        <sl:stand>
+            <sl-bag-extract:bagObject>
+                <Objecten:Ligplaats>
+                    <Objecten:heeftAlsHoofdadres>
+                        <Objecten-ref:NummeraanduidingRef xlink:href="NL.IMBAG.NUMMERAANDUIDING.0479200000075928" />
+                    </Objecten:heeftAlsHoofdadres>
+                    <Objecten:voorkomen>
+                        <Historie:Voorkomen>
+                            <Historie:voorkomenidentificatie>1</Historie:voorkomenidentificatie>
+                            <Historie:beginGeldigheid>2010-11-25</Historie:beginGeldigheid>
+                            <Historie:tijdstipRegistratie>2010-12-23T16:19:07.000</Historie:tijdstipRegistratie>
+                            <Historie:BeschikbaarLV>
+                                <Historie:tijdstipRegistratieLV>2010-12-23T16:31:58.243</Historie:tijdstipRegistratieLV>
+                            </Historie:BeschikbaarLV>
+                        </Historie:Voorkomen>
+                    </Objecten:voorkomen>
+                    <Objecten:heeftAlsNevenadres>
+                        <Objecten-ref:NummeraanduidingRef xlink:href="NL.IMBAG.NUMMERAANDUIDING.0479200000075929" />
+                    </Objecten:heeftAlsNevenadres>
+                    <Objecten:identificatie>
+                        <DatatypenNEN3610:namespace>NL.IMBAG.Ligplaats</DatatypenNEN3610:namespace>
+                        <DatatypenNEN3610:lokaalID>0479020000000202</DatatypenNEN3610:lokaalID>
+                    </Objecten:identificatie>
+                    <Objecten:status>Plaats aangewezen</Objecten:status>
+                    <Objecten:geometrie>
+                        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::28992" srsDimension="2" gml:id="LIG_0479020000000202_1_1293118318">
+                            <gml:exterior>
+                                <gml:LinearRing>
+                                    <gml:posList count="5">115728.042 499357.82 115716.112 499301.99 115724.473 499300.204 115736.403 499356.034 115728.042 499357.82</gml:posList>
+                                </gml:LinearRing>
+                            </gml:exterior>
+                        </gml:Polygon>
+                    </Objecten:geometrie>
+                    <Objecten:geconstateerd>N</Objecten:geconstateerd>
+                    <Objecten:documentdatum>2010-11-25</Objecten:documentdatum>
+                    <Objecten:documentnummer>Z/2010/374300</Objecten:documentnummer>
+                </Objecten:Ligplaats>
+            </sl-bag-extract:bagObject>
+        </sl:stand>
+    </sl:standBestand>
+</sl-bag-extract:bagStand>

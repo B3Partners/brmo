@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<sl-bag-extract:bagStand xmlns:DatatypenNEN3610="www.kadaster.nl/schemas/lvbag/imbag/datatypennen3610/v20180601" xmlns:Objecten="www.kadaster.nl/schemas/lvbag/imbag/objecten/v20180601" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:Historie="www.kadaster.nl/schemas/lvbag/imbag/historie/v20180601" xmlns:Objecten-ref="www.kadaster.nl/schemas/lvbag/imbag/objecten-ref/v20180601" xmlns:nen5825="www.kadaster.nl/schemas/lvbag/imbag/nen5825/v20180601" xmlns:KenmerkInOnderzoek="www.kadaster.nl/schemas/lvbag/imbag/kenmerkinonderzoek/v20180601" xmlns:selecties-extract="http://www.kadaster.nl/schemas/lvbag/extract-selecties/v20180601" xmlns:sl-bag-extract="http://www.kadaster.nl/schemas/lvbag/extract-deelbestand-lvc/v20180601" xmlns:sl="http://www.kadaster.nl/schemas/standlevering-generiek/1.0">
+    <sl-bag-extract:bagInfo>
+        <selecties-extract:Gebied-Registratief>
+            <selecties-extract:Gebied-GEM>
+                <selecties-extract:GemeenteCollectie>
+                    <selecties-extract:Gemeente>
+                        <selecties-extract:GemeenteIdentificatie>0479</selecties-extract:GemeenteIdentificatie>
+                    </selecties-extract:Gemeente>
+                </selecties-extract:GemeenteCollectie>
+            </selecties-extract:Gebied-GEM>
+        </selecties-extract:Gebied-Registratief>
+        <selecties-extract:LVC-Extract>
+            <selecties-extract:StandTechnischeDatum>2020-03-01</selecties-extract:StandTechnischeDatum>
+        </selecties-extract:LVC-Extract>
+    </sl-bag-extract:bagInfo>
+    <sl:standBestand>
+        <sl:dataset>LVBAG</sl:dataset>
+        <sl:inhoud>
+            <sl:gebied>GEMEENTE</sl:gebied>
+            <sl:leveringsId>0000000001</sl:leveringsId>
+            <sl:objectTypen>
+                <sl:objectType>STA</sl:objectType>
+            </sl:objectTypen>
+        </sl:inhoud>
+        <sl:stand>
+            <sl-bag-extract:bagObject>
+                <Objecten:Standplaats>
+                    <Objecten:heeftAlsHoofdadres>
+                        <Objecten-ref:NummeraanduidingRef xlink:href="NL.IMBAG.NUMMERAANDUIDING.0479200000014435" />
+                    </Objecten:heeftAlsHoofdadres>
+                    <Objecten:voorkomen>
+                        <Historie:Voorkomen>
+                            <Historie:voorkomenidentificatie>1</Historie:voorkomenidentificatie>
+                            <Historie:beginGeldigheid>2009-08-05</Historie:beginGeldigheid>
+                            <Historie:tijdstipRegistratie>2010-12-23T16:19:07.000</Historie:tijdstipRegistratie>
+                            <Historie:BeschikbaarLV>
+                                <Historie:tijdstipRegistratieLV>2010-12-23T16:31:58.263</Historie:tijdstipRegistratieLV>
+                            </Historie:BeschikbaarLV>
+                        </Historie:Voorkomen>
+                    </Objecten:voorkomen>
+                    <Objecten:identificatie>
+                        <DatatypenNEN3610:namespace>NL.IMBAG.Standplaats</DatatypenNEN3610:namespace>
+                        <DatatypenNEN3610:lokaalID>0479030000000001</DatatypenNEN3610:lokaalID>
+                    </Objecten:identificatie>
+                    <Objecten:status>Plaats aangewezen</Objecten:status>
+                    <Objecten:geometrie>
+                        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::28992" srsDimension="2" gml:id="STA_0479030000000001_1_1293118318">
+                            <gml:exterior>
+                                <gml:LinearRing>
+                                    <gml:posList count="10">111846.189 502280.486 111845.42 502285.32 111844.97 502288.205 111824.515 502284.994 111825.649 502277.465 111833.997 502274.158 111842.447 502270.777 111842.629 502271.249 111844.481 502276.06 111846.189 502280.486</gml:posList>
+                                </gml:LinearRing>
+                            </gml:exterior>
+                        </gml:Polygon>
+                    </Objecten:geometrie>
+                    <Objecten:geconstateerd>N</Objecten:geconstateerd>
+                    <Objecten:documentdatum>2009-08-05</Objecten:documentdatum>
+                    <Objecten:documentnummer>61429</Objecten:documentnummer>
+                </Objecten:Standplaats>
+            </sl-bag-extract:bagObject>
+        </sl:stand>
+    </sl:standBestand>
+</sl-bag-extract:bagStand>
