@@ -93,7 +93,6 @@ public class BagXMLReader extends BrmoXMLReader {
 
         DocumentBuilderFactory dbfactory = DocumentBuilderFactory.newInstance();
         dbfactory.setNamespaceAware(true);
-        dbfactory.setNamespaceAware(true);
         builder = dbfactory.newDocumentBuilder();
 
         init();
