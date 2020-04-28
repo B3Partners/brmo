@@ -43,6 +43,7 @@ public class BrmoFramework {
     private static final Log log = LogFactory.getLog(BrmoFramework.class);
 
     public static final String BR_BAG = "bag";
+    public static final String BR_BAG20 = "bag20";
     public static final String BR_BRK = "brk";
     public static final String BR_NHR = "nhr";
     public static final String BR_BGTLIGHT = "bgtlight";
@@ -52,6 +53,7 @@ public class BrmoFramework {
 
     public static final String XSL_BRK = "/xsl/brk-snapshot-to-rsgb-xml.xsl";
     public static final String XSL_BAG = "/xsl/bag-mutatie-to-rsgb-xml.xsl";
+    public static final String XSL_BAG20 = "/xsl/bag-mutatie-to-rsgb-xml-2.0.xsl";
     public static final String XSL_NHR = "/xsl/nhr-to-rsgb-xml-3.0.xsl";
     public static final String XSL_BRP = "/xsl/brp-to-rsgb-xml.xsl";
     public static final String XSL_GBAV = "/xsl/gbav-to-rsgb-xml.xsl";
