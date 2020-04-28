@@ -229,7 +229,7 @@ public class NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
     public void testNhrXMLToStagingToRsgb() throws Exception {
         assumeNotNull("Het test bestand moet er zijn.", NhrToStagingToRsgbIntegrationTest.class.getResource(bestandNaam));
 
-        brmo.loadFromFile(BESTANDTYPE, NhrToStagingToRsgbIntegrationTest.class.getResource(bestandNaam).getFile(), 1L);
+        brmo.loadFromFile(BESTANDTYPE, NhrToStagingToRsgbIntegrationTest.class.getResource(bestandNaam).getFile(), null);
         LOG.info("klaar met laden van berichten in staging DB.");
 
         List<Bericht> berichten = brmo.listBerichten();
