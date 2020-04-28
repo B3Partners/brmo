@@ -188,7 +188,7 @@ public class Bag20XMLReader extends BrmoXMLReader {
     }
 
     @Override
-    public Bag20Bericht next() throws TransformerException, XMLStreamException {
+    public Bag20Bericht next() {
         Bag20Bericht b = nextBericht;
         nextBericht = null;
         return b;
@@ -274,6 +274,7 @@ public class Bag20XMLReader extends BrmoXMLReader {
                         }
                         if (eindGeldigheidDatum != null
                                 && getBestandsDatum().after(eindGeldigheidDatum)) {
+                            LOG.trace("Overslaan van standbericht want bestandsDatum is na eindGeldigheidDatum");
                             return false;
                         }
                     }
@@ -281,6 +282,7 @@ public class Bag20XMLReader extends BrmoXMLReader {
             }
             // als stijdstipInactief, dan verwijderen
             if ("tijdstipInactief".equals(child.getLocalName())) {
+                LOG.trace("Overslaan van standbericht want er is een indicatie tijdstipInactief");
                 return false;
             }
         }

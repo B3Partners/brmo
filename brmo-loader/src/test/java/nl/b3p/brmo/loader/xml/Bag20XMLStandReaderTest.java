@@ -80,7 +80,7 @@ public class Bag20XMLStandReaderTest {
                 {File.separator + "bag-2.0" + File.separator + "STA.xml", "2020-03-01", "STA:0479030000000001", 1},
                 {File.separator + "bag-2.0" + File.separator + "VBO.xml", "2020-03-01", "VBO:0479010000081514", 1},
                 {File.separator + "bag-2.0" + File.separator + "WPL.xml", "2020-03-01", "WPL:1878", 1},
-                // leeg bestand
+                // leeg stand bestand
                 {File.separator + "bag-2.0" + File.separator + "STA01042020_000001-leeg.xml", "2020-04-01", null, 0},
         });
     }
