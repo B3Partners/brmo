@@ -99,7 +99,6 @@ public class WebMirrorBAGDirectoryScanner extends AbstractExecutableProces {
         String msg = String.format("Initialiseren... %tc", new Date());
         listener.updateStatus(msg);
         listener.addLog(msg);
-        config.addLogLine(msg);
         config.setStatus(AutomatischProces.ProcessingStatus.PROCESSING);
         Stripersist.getEntityManager().flush();
 
@@ -107,12 +106,10 @@ public class WebMirrorBAGDirectoryScanner extends AbstractExecutableProces {
             String url = this.config.getScanDirectory();
             msg = String.format("Ophalen van de lijst van links van %s.", url);
             listener.addLog(msg);
-            config.addLogLine(msg);
             Document doc = Jsoup.connect(url).timeout(5000).followRedirects(true).ignoreHttpErrors(false).get();
             msg = "De lijst met download links is succesvol opgehaald.";
             listener.updateStatus(msg);
             listener.addLog(msg);
-            config.addLogLine(msg);
 
             String expression = this.config.getConfig().get("csspath").getValue();
             Elements links = doc.select(expression);
@@ -124,7 +121,6 @@ public class WebMirrorBAGDirectoryScanner extends AbstractExecutableProces {
                 msg = String.format("Overslaan van (parent) link %s", parent);
                 listener.updateStatus(msg);
                 listener.addLog(msg);
-                config.addLogLine(msg);
                 log.info(msg);
                 links.remove(links.first());
             }
@@ -163,24 +159,20 @@ public class WebMirrorBAGDirectoryScanner extends AbstractExecutableProces {
             Stripersist.getEntityManager().getTransaction().commit();
         } catch (MalformedURLException | SocketTimeoutException ex) {
             log.error(ex);
-            config.addLogLine(ex.getLocalizedMessage());
             config.setStatus(ERROR);
             listener.exception(ex);
         } catch (HttpStatusException ex) {
             msg = String.format("Er is een fout opgetreden bij het uitlezen van de url %s. Status code %s",
                     ex.getUrl(), ex.getStatusCode());
             log.error(msg);
-            config.addLogLine(msg);
             config.setStatus(ERROR);
             listener.exception(ex);
         } catch (IOException ex) {
             log.error(ex);
-            config.addLogLine(ex.getLocalizedMessage());
             config.setStatus(ERROR);
             listener.exception(ex);
         } catch (Exception ex) {
             log.error(ex);
-            config.addLogLine(ex.getLocalizedMessage());
             listener.exception(ex);
             String m = "Fout bij inladen van berichten: " + ExceptionUtils.getMessage(ex);
             if (ex.getCause() != null) {
@@ -309,13 +301,11 @@ public class WebMirrorBAGDirectoryScanner extends AbstractExecutableProces {
                     config.setStatus(ERROR);
                     String msg = String.format("FOUT: De archief directory '%s' is geen beschrijfbare directory, zipfiles worden niet gearchiveerd.", archiefDirectory);
                     listener.addLog(msg);
-                    config.addLogLine(msg);
                     isArchiving = false;
                 }
             } catch (SecurityException e) {
                 String msg = String.format("SecurityException voor archief directory '%s', zipfiles worden niet gearchiveerd.", archiefDirectory);
                 listener.addLog(msg);
-                config.addLogLine(msg);
                 log.error(msg, e);
                 isArchiving = false;
             }

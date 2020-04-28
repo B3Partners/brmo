@@ -125,9 +125,6 @@ public class BGTOphalenUitvoerActionBean implements ActionBean, ProgressUpdateLi
 
     @Override
     public void addLog(String log) {
-        // voorkom dubbele log uitvoer
-        // this.proces.addLogLine(log);
-        // Stripersist.getEntityManager().merge(this.proces);
         this.log += log + "\n";
     }
 
