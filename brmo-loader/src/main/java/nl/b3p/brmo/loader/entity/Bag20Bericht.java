@@ -70,6 +70,7 @@ public class Bag20Bericht extends Bericht {
 
             if (doc == null) {
                 DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+                factory.setFeature(javax.xml.XMLConstants.FEATURE_SECURE_PROCESSING ,true);
                 DocumentBuilder builder = factory.newDocumentBuilder();
                 doc = builder.parse(new InputSource(new StringReader(getBrXml())));
             }
@@ -87,7 +88,7 @@ public class Bag20Bericht extends Bericht {
                     if (StringUtils.isBlank(_volgordeNr)){
                         _volgordeNr = "1";
                     }
-                    setVolgordeNummer(new Integer(_volgordeNr));
+                    setVolgordeNummer(Integer.valueOf(_volgordeNr));
                 }
 
                 objectType = mutObjectType.evaluate(doc);

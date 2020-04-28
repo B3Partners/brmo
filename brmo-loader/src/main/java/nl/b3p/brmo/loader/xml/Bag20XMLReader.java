@@ -89,6 +89,7 @@ public class Bag20XMLReader extends BrmoXMLReader {
         xmlof.setProperty(XMLOutputFactory.IS_REPAIRING_NAMESPACES, Boolean.TRUE);
 
         DocumentBuilderFactory dbfactory = DocumentBuilderFactory.newInstance();
+        dbfactory.setFeature(javax.xml.XMLConstants.FEATURE_SECURE_PROCESSING ,true);
         dbfactory.setNamespaceAware(true);
         builder = dbfactory.newDocumentBuilder();
 
