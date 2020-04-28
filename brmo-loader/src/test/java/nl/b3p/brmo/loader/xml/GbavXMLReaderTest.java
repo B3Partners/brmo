@@ -17,7 +17,7 @@
 package nl.b3p.brmo.loader.xml;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 
 import nl.b3p.brmo.loader.BrmoFramework;
@@ -44,6 +44,7 @@ public class GbavXMLReaderTest {
     @Test
     public void berichtTest() throws Exception {
         GbavXMLReader r;
+        Calendar calendar = Calendar.getInstance();
         GbavBericht b = null;
         assumeNotNull("testdata moet aanwezig zijn", GbavXMLReaderTest.class.getResourceAsStream("gbav-voorbeeld.xml"));
         r = new GbavXMLReader(GbavXMLReader.class.getResourceAsStream("gbav-voorbeeld.xml"));
@@ -61,7 +62,8 @@ public class GbavXMLReaderTest {
             total++;
             assertEquals("Soort komt niet overeen", BrmoFramework.BR_GBAV, b.getSoort());
             assertEquals("Volgordenummer komt niet overeen", 0, b.getVolgordeNummer().intValue());
-            assertEquals("Datum komt niet overeen", new Date(2018 - 1900, 1, 1), b.getDatum());
+            calendar.setTimeInMillis(1517439600000L);
+            assertEquals("Datum komt niet overeen", calendar.getTime(), b.getDatum());
         }
 
         assertEquals(1, total);
