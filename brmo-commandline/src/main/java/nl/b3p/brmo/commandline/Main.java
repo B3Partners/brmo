@@ -472,7 +472,7 @@ public class Main {
         LOG.info("Verwijderen laadproces " + id + " met aanhangende berichten uit staging.");
         long laadProcesId = 0;
         if (id != null && !id.isEmpty()) {
-            laadProcesId = new Long(id);
+            laadProcesId = Long.valueOf(id);
         }
 
         BrmoFramework brmo = new BrmoFramework(ds, null);
