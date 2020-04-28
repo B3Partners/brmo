@@ -14,7 +14,6 @@ import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.stream.XMLStreamException;
-import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import java.io.File;
 import java.io.IOException;
@@ -63,22 +62,6 @@ public class Bag20XMLStandReaderTest {
     @Rule
     public TestName name = new TestName();
 
-    /**
-     * Log de naam van de test als deze begint.
-     */
-    @Before
-    public void startTest() {
-        LOG.info("==== Start test methode: " + name.getMethodName());
-    }
-
-    /**
-     * Log de naam van de test als deze eindigt.
-     */
-    @After
-    public void endTest() {
-        LOG.info("==== Einde test methode: " + name.getMethodName());
-    }
-
     public Bag20XMLStandReaderTest(String bestandNaam, String datum, String objectRef, int totalObj) throws ParseException {
         this.bestandNaam = bestandNaam;
         this.datum = SDF.parse(datum);
@@ -97,7 +80,25 @@ public class Bag20XMLStandReaderTest {
                 {File.separator + "bag-2.0" + File.separator + "STA.xml", "2020-03-01", "STA:0479030000000001", 1},
                 {File.separator + "bag-2.0" + File.separator + "VBO.xml", "2020-03-01", "VBO:0479010000081514", 1},
                 {File.separator + "bag-2.0" + File.separator + "WPL.xml", "2020-03-01", "WPL:1878", 1},
+                // leeg bestand
+                {File.separator + "bag-2.0" + File.separator + "STA01042020_000001-leeg.xml", "2020-04-01", null, 0},
         });
+    }
+
+    /**
+     * Log de naam van de test als deze begint.
+     */
+    @Before
+    public void startTest() {
+        LOG.info("==== Start test methode: " + name.getMethodName());
+    }
+
+    /**
+     * Log de naam van de test als deze eindigt.
+     */
+    @After
+    public void endTest() {
+        LOG.info("==== Einde test methode: " + name.getMethodName());
     }
 
     @Test
@@ -108,18 +109,22 @@ public class Bag20XMLStandReaderTest {
 
         bReader = new Bag20XMLReader(Bag20XMLStandReaderTest.class.getResourceAsStream(bestandNaam));
 
-        assertTrue(bReader.hasNext());
-        while (bReader.hasNext()) {
-            bag = bReader.next();
-            total++;
-        }
+        if (totalObj > 0) {
+            assertTrue(bReader.hasNext());
+            while (bReader.hasNext()) {
+                bag = bReader.next();
+                total++;
+            }
 
-        assertNotNull(bag);
+            assertNotNull(bag);
+            assertEquals(BR_BAG20, bag.getSoort());
+            assertEquals(objectRef, bag.getObjectRef());
+            assertEquals(-1, bag.getVolgordeNummer().intValue());
+            assertEquals(datum, bag.getDatum());
+        } else {
+            assertNull(bag);
+        }
         assertEquals(totalObj, total);
-        assertEquals(BR_BAG20, bag.getSoort());
-        assertEquals(objectRef, bag.getObjectRef());
-        assertEquals(-1, bag.getVolgordeNummer().intValue());
-        assertEquals(datum, bag.getDatum());
     }
 
 }

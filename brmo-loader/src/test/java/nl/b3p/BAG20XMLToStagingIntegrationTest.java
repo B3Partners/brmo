@@ -84,6 +84,8 @@ public class BAG20XMLToStagingIntegrationTest extends AbstractDatabaseIntegratio
                 {"bag20", "/bag-2.0/LIG.xml", 1, 1},
                 {"bag20", "/bag-2.0/STA.xml", 1, 1},
                 {"bag20", "/bag-2.0/VBO.xml", 1, 1},
+                // leeg bestand
+                {"bag20", File.separator + "bag-2.0" + File.separator + "STA01042020_000001-leeg.xml", 0, 1},
                 //{/*bestand heeft 4 berichten voor object, maar we houden alleen de laatste mutatie in staging*/"bag", "/GH-275/OPR-1884300000000464.xml", 1, 1}
         });
     }
