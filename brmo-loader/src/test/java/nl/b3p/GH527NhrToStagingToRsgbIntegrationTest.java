@@ -37,7 +37,7 @@ import static org.junit.Assume.assumeTrue;
  * transformeren, bevat een testcase voor GH issue#527 (Soms is de typering en class
  * van een persoon uit de nHR voorzien van enkele quotes).
  * <br>Draaien met:
- * {@code mvn -Dit.test=GH527NhrToStagingToRsgbIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql > target/postgresql.log}
+ * {@code mvn -Dit.test=GH527NhrToStagingToRsgbIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql -pl :brmo-loader > /tmp/postgresql.log}
  * voor bijvoorbeeld PostgreSQL
  */
 public class GH527NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrationTest {

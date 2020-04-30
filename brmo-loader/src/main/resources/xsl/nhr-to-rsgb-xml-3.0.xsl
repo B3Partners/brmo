@@ -11,7 +11,6 @@
     <xsl:param name="datum" />
     <xsl:param name="volgordeNummer" />
     <xsl:param name="soort" />
-
     <xsl:variable name="hoofdvestiging" select="/cat:maatschappelijkeActiviteit/cat:wordtGeleidVanuit//cat:vestigingsnummer"/>
     <xsl:variable name="peilmoment" select="/*/@peilmoment"/>
     <xsl:variable name="peilmoment-dateTime"><xsl:value-of select="substring($peilmoment,1,4)"/>-<xsl:value-of select="substring($peilmoment,5,2)"/>-<xsl:value-of select="substring($peilmoment,7,2)"/>T<xsl:value-of select="substring($peilmoment,9,2)"/>:<xsl:value-of select="substring($peilmoment,11,2)"/>:<xsl:value-of select="substring($peilmoment,13,2)"/></xsl:variable>
@@ -114,11 +113,11 @@
             <xsl:for-each select="cat:door">
                 <xsl:variable name="key"><xsl:apply-templates select="*[1]" mode="object_ref" /></xsl:variable>
                 <xsl:if test="$key =''">
-                    <xsl:comment>dataprobleem - geen sleutel gevonden voor persoon en functionaris</xsl:comment>
+                    <xsl:comment>dataprobleem - geen natuurlijke sleutel gevonden voor persoon en functionaris</xsl:comment>
                 </xsl:if>
                 <xsl:if test="$key !=''">
                     <!-- zonder key kunnen we geen persoon vastleggen -->
-                    <xsl:comment>heeft: <xsl:value-of select="name(.)" /> door: <xsl:value-of select="name(*[1])" />; <xsl:value-of select="$key" /></xsl:comment>
+                    <xsl:comment>heeft node: <xsl:value-of select="name(.)" /> door: <xsl:value-of select="name(*[1])" />; <xsl:value-of select="$key" /></xsl:comment>
                     <xsl:choose>
                         <xsl:when test="name(*[1]) = 'cat:natuurlijkPersoon'">
                             <xsl:for-each select="cat:natuurlijkPersoon">
@@ -372,6 +371,15 @@
                 <!-- [FK] N8, FK naar maatschapp_activiteit.kvk_nummer: "betreft uitoefening van activiteiten door" -->
                 <fk_17mac_kvk_nummer><xsl:value-of select="cat:kvkNummer"/></fk_17mac_kvk_nummer>
             </xsl:for-each>
+
+            <xsl:comment>
+                <xsl:text>(hoofd) vestigings nummer: </xsl:text><xsl:value-of select="cat:wordtGeleidVanuit/cat:vestigingsnummer"/>
+                <xsl:text>(neven) vestigings nummer: </xsl:text><xsl:value-of select="cat:vestigingsnummer"/>
+            </xsl:comment>
+            <xsl:if test="not(cat:wordtGeleidVanuit/cat:vestigingsnummer)">
+                <!-- [FK] N8, FK naar maatschapp_activiteit.kvk_nummer: "is hoofdvestiging van" -->
+                <fk_19mac_kvk_nummer><xsl:value-of select="cat:wordtUitgeoefendDoor/cat:onderneming/cat:kvkNummer"/></fk_19mac_kvk_nummer>
+            </xsl:if>
 
             <typering>
                 <xsl:choose>
