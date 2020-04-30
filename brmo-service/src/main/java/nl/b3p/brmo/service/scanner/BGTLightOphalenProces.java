@@ -267,13 +267,11 @@ public class BGTLightOphalenProces extends AbstractExecutableProces {
                     String msg = String.format("FOUT: De archief directory '%s' is geen beschrijfbare directory, zipfiles kunnen niet worden niet opgeslagen.", archiefDirectory);
                     LOG.error(msg);
                     listener.addLog(msg);
-                    config.addLogLine(msg);
                     isArchiving = false;
                 }
             } catch (SecurityException e) {
                 String msg = String.format("SecurityException voor archief directory '%s', zipfiles kunnen niet worden niet opgeslagen.", archiefDirectory);
                 listener.addLog(msg);
-                config.addLogLine(msg);
                 LOG.error(msg, e);
                 isArchiving = false;
                 listener.exception(e);

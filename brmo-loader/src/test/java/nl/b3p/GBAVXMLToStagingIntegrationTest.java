@@ -175,7 +175,7 @@ public class GBAVXMLToStagingIntegrationTest extends AbstractDatabaseIntegration
 
         FlatXmlDataSetBuilder fxdb = new FlatXmlDataSetBuilder();
         fxdb.setCaseSensitiveTableNames(false);
-        IDataSet stagingDataSet = fxdb.build(new FileInputStream(new File(BAGXMLToStagingIntegrationTest.class.getResource("/staging-empty-flat.xml").toURI())));
+        IDataSet stagingDataSet = fxdb.build(new FileInputStream(new File(GBAVXMLToStagingIntegrationTest.class.getResource("/staging-empty-flat.xml").toURI())));
 
         sequential.lock();
 
@@ -198,7 +198,7 @@ public class GBAVXMLToStagingIntegrationTest extends AbstractDatabaseIntegration
     @Test
     public void testGbavBerichtToStagingToRsgb() throws Exception {
         try {
-            brmo.loadFromFile(bestandType, BAGXMLToStagingIntegrationTest.class.getResource(bestandNaam).getFile());
+            brmo.loadFromFile(bestandType, GBAVXMLToStagingIntegrationTest.class.getResource(bestandNaam).getFile(), null);
         } catch (BrmoLeegBestandException blbe) {
             LOG.debug("Er is een bestand zonder berichten geladen (kan voorkomen...).");
         }

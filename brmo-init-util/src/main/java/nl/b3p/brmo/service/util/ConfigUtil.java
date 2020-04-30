@@ -35,7 +35,7 @@ public class ConfigUtil implements Servlet {
     public void init(ServletConfig config) throws ServletException {
         String tempSize = config.getInitParameter("max_upload_size");
         if (tempSize != null && !tempSize.isEmpty()) {
-            MAX_UPLOAD_SIZE = new Integer(tempSize) * 1024;
+            MAX_UPLOAD_SIZE = Integer.valueOf(tempSize) * 1024;
         } else {
             MAX_UPLOAD_SIZE = 500 * 1024;
         }

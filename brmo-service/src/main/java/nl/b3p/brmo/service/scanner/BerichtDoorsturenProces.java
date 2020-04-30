@@ -38,7 +38,7 @@ public class BerichtDoorsturenProces extends AbstractExecutableProces {
             /* doet bijna niks listener */
             @Override
             public void total(long total) {
-                config.addLogLine("Totaal aantal opgehaalde berichten: " + total);
+                log.info("Totaal aantal opgehaalde berichten: " + total);
             }
 
             @Override
@@ -47,7 +47,6 @@ public class BerichtDoorsturenProces extends AbstractExecutableProces {
 
             @Override
             public void exception(Throwable t) {
-                config.addLogLine("FOUT:" + t.getLocalizedMessage());
                 log.error(t);
             }
 
@@ -56,8 +55,8 @@ public class BerichtDoorsturenProces extends AbstractExecutableProces {
             }
 
             @Override
-            public void addLog(String log) {
-                config.addLogLine(log);
+            public void addLog(String msg) {
+                log.info(msg);
             }
         });
     }

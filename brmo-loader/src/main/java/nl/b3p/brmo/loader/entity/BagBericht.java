@@ -80,8 +80,8 @@ public class BagBericht extends Bericht {
                     setDatumAsString(d);
                 }
 
-                if (super.getVolgordeNummer()==null) {
-                    setVolgordeNummer(new Integer(mutVolgnr.evaluate(doc)));
+                if (super.getVolgordeNummer() == null) {
+                    setVolgordeNummer(Integer.valueOf(mutVolgnr.evaluate(doc)));
                 }
                 
                 objectType = mutObjectType.evaluate(doc);

@@ -376,7 +376,7 @@ public class BrmoFramework {
                             log.warn("Overslaan zip entry geen XML: " + entry.getName());
                         } else {
                             log.info("Lezen XML bestand uit zip: " + entry.getName());
-                            stagingProxy.loadBr(new CloseShieldInputStream(zip), type, fileName + "/" + entry.getName(), null, null);
+                            stagingProxy.loadBr(new CloseShieldInputStream(zip), type, fileName + "/" + entry.getName(), null, null, automatischProces);
                         }
                         entry = zip.getNextEntry();
                     }
@@ -391,12 +391,9 @@ public class BrmoFramework {
                 if(listener != null) {
                     listener.total(f.length());
                 }
-                FileInputStream fis = null;
-                try {
-                    fis = new FileInputStream(fileName);
-                    stagingProxy.loadBr(fis, type, fileName, null, listener);
-                } finally {
-                    IOUtils.closeQuietly(fis);
+
+                try (FileInputStream fis = new FileInputStream(fileName)){
+                    stagingProxy.loadBr(fis, type, fileName, null, listener, automatischProces);
                 }
             }
         } catch(Exception e) {

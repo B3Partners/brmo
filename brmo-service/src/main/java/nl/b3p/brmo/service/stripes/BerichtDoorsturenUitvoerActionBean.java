@@ -84,7 +84,6 @@ public class BerichtDoorsturenUitvoerActionBean implements ActionBean, ProgressU
     @Override
     public void exception(Throwable t) {
         StringWriter sw = new StringWriter();
-        PrintWriter pw = new PrintWriter(sw);
         t.printStackTrace(new PrintWriter(sw));
         this.exceptionStacktrace = sw.toString();
     }
@@ -96,8 +95,6 @@ public class BerichtDoorsturenUitvoerActionBean implements ActionBean, ProgressU
 
     @Override
     public void addLog(String log) {
-        this.proces.addLogLine(log);
-        //aangezien addLogLine een null-op is Stripersist.getEntityManager().merge(this.proces);
         this.log += log + "\n";
     }
 

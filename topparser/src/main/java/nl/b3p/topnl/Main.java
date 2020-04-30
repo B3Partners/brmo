@@ -1,4 +1,3 @@
-
 /*
  * Copyright (C) 2016 - 2017 B3Partners B.V.
  *
@@ -44,14 +43,13 @@ public class Main {
             BasicDataSource ds = new BasicDataSource();
             ds.setUrl("jdbc:postgresql://localhost:5432/topnl");
             ds.setDriverClassName("org.postgresql.Driver");
-            ds.setUsername("rsgb");
-            ds.setPassword("rsgb");
+            // ds.setUsername("rsgb");
+            // ds.setPassword("rsgb");
           
-           /* BasicDataSource ds = new BasicDataSource();
-            ds.setUrl("jdbc:oracle:thin:@b3p-demoserver:1521/ORCL");
-            ds.setDriverClassName("oracle.jdbc.driver.OracleDriver");
-            ds.setUsername("top50nl");
-            ds.setPassword("top50nl");*/
+            // ds.setUrl("jdbc:oracle:thin:@b3p-demoserver:1521/ORCL");
+            // ds.setDriverClassName("oracle.jdbc.driver.OracleDriver");
+            // ds.setUsername("top50nl");
+            // ds.setPassword("top50nl");
             Processor p = new Processor(ds);
          //   loadtopnl("/mnt/data/Documents/TopNL/Top50NL/TOP50NL_GML_Filechunks_november_2016/TOP50NL_GML_Filechunks", p,  TopNLType.TOP50NL);
             //loadtopnl("/mnt/data/Documents/TopNL/Top10NL/TOP10NL_GML_Filechuncks_november_2016/TOP10NL_GML_Filechuncks", p,  TopNLType.TOP10NL);
@@ -68,20 +66,13 @@ public class Main {
     
     private static void loadtopnl(String dir, Processor p, TopNLType type)  throws ParseException, IOException, SAXException, ParserConfigurationException, JAXBException, TransformerException, JDOMException {
         File f = new File (dir);
-        FilenameFilter filter = new  FilenameFilter() {
-            @Override
-            public boolean accept(File dir, String name) {
-                return name.toLowerCase().endsWith(".gml");
-            }
-        };
+        FilenameFilter filter = (dir1, name) -> name.toLowerCase().endsWith(".gml");
         /*File f = new File("/mnt/data/Documents/TopNL/TOP100NL_GML_Filechunks_november_2016/TOP100NL_GML_Filechunks/Top100NL_000002.gml");
         p.importIntoDb(f.toURL(), TopNLType.TOP100NL);*/
         File[] files = f.listFiles(filter);
         for (File file : files) {
-            
-            String fileString = file.getCanonicalPath();
-            p.importIntoDb(file.toURL(), type);
-            
+            // String fileString = file.getCanonicalPath();
+            p.importIntoDb(file.toURI().toURL(), type);
         }
     }
 
@@ -91,6 +82,5 @@ public class Main {
        /* List obj = p.parse(in, type);
         List<TopNLEntity> entities = p.convert(obj, type);
         p.save(entities, type);*/
-        int a = 0;
     }
 }

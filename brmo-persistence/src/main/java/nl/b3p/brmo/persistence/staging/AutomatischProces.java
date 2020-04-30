@@ -61,9 +61,7 @@ public abstract class AutomatischProces implements Serializable {
      */
     @ElementCollection
     @JoinTable(joinColumns = @JoinColumn(name = "proces_id"))
-    //volgende annotatie wordt nu niet uitgevoerd, mogelijk volgende hibernate versie
-    //dit is alleen nodig voor sql server, script faalt bij maken primary key
-    @MapKeyJoinColumn(nullable=false)
+    @MapKeyJoinColumn
     // Element wrapper required because of https://hibernate.atlassian.net/browse/JPA-11
     private Map<String, ClobElement> config = new HashMap<>();
 
@@ -122,20 +120,6 @@ public abstract class AutomatischProces implements Serializable {
                     + samenvatting);
         }
 
-    }
-
-    /**
-     * Voeg een regel toe aan de log en de samenvatting. <strong>DOET
-     * NIETS</strong> op dit moment.
-     *
-     * @todo make this work
-     * @deprecated doet niets!
-     *
-     * @param line toe te voegen regel
-     */
-    @Deprecated
-    public void addLogLine(String line) {
-        //this.setLogfile(this.getLogfile() + LOG_NEWLINE + line);
     }
 
     // <editor-fold defaultstate="collapsed" desc="getters and setters">

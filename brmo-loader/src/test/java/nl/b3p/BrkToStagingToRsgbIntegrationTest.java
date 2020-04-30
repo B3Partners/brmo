@@ -166,7 +166,7 @@ public class BrkToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
     public void testBrkXMLToStaging() throws Exception {
         assumeNotNull("Het test bestand moet er zijn.", BrkToStagingToRsgbIntegrationTest.class.getResource(bestandNaam));
 
-        brmo.loadFromFile(bestandType, BrkToStagingToRsgbIntegrationTest.class.getResource(bestandNaam).getFile());
+        brmo.loadFromFile(bestandType, BrkToStagingToRsgbIntegrationTest.class.getResource(bestandNaam).getFile(), null);
         LOG.debug("klaar met laden van berichten in staging DB.");
 
         List<Bericht> berichten = brmo.listBerichten();

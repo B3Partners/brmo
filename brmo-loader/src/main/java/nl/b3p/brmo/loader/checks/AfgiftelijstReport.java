@@ -180,7 +180,7 @@ public class AfgiftelijstReport {
             int pageNumber = pdf.getPageNumber(page);
             Rectangle pageSize = page.getPageSize();
             PdfCanvas pdfCanvas = new PdfCanvas(page.getLastContentStream(), page.getResources(), pdf);
-            Canvas canvas = new Canvas(pdfCanvas, pdf, pageSize);
+            Canvas canvas = new Canvas(pdfCanvas, pageSize);
             Paragraph p = new Paragraph().add("Pagina ").add(String.valueOf(pageNumber)).add(" van");
             Paragraph p2 = new Paragraph().add("B3Partners BRMO controlemodule - " + datum);
             canvas.showTextAligned(p2, 35, y, TextAlignment.LEFT);

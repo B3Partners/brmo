@@ -30,7 +30,7 @@ import java.io.IOException;
 import static net.javacrumbs.jsonunit.JsonAssert.assertJsonEquals;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * testcases om te kijken of we de P8 rest api niet stuk maken als er iets aan de views wordt geleuteld.

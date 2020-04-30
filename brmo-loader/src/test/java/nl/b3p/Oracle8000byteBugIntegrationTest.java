@@ -184,7 +184,7 @@ public class Oracle8000byteBugIntegrationTest extends AbstractDatabaseIntegratio
     public void testBrkXMLToStaging() throws Exception {
         assumeNotNull("Het test bestand moet er zijn.", Oracle8000byteBugIntegrationTest.class.getResource(bestandNaam));
 
-        brmo.loadFromFile(bestandType, Oracle8000byteBugIntegrationTest.class.getResource(bestandNaam).getFile());
+        brmo.loadFromFile(bestandType, Oracle8000byteBugIntegrationTest.class.getResource(bestandNaam).getFile(), null);
         LOG.debug("klaar met laden van berichten in staging DB.");
 
         List<Bericht> berichten = brmo.listBerichten();

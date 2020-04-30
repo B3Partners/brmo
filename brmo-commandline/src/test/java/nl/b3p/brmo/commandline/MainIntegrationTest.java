@@ -80,7 +80,7 @@ public class MainIntegrationTest {
             staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
             staging.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
         }
-        CleanUtil.cleanSTAGING(staging);
+        CleanUtil.cleanSTAGING(staging, false);
         // omdat de insert van het bag object mislukt vanwege referentie check hoeft er niet opgeruimd in rsgb
         staging.close();
         dsStaging.close();

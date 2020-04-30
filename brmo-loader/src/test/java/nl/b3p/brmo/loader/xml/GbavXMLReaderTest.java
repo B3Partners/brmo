@@ -16,8 +16,8 @@
  */
 package nl.b3p.brmo.loader.xml;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import nl.b3p.brmo.loader.BrmoFramework;
@@ -61,7 +61,7 @@ public class GbavXMLReaderTest {
             total++;
             assertEquals("Soort komt niet overeen", BrmoFramework.BR_GBAV, b.getSoort());
             assertEquals("Volgordenummer komt niet overeen", 0, b.getVolgordeNummer().intValue());
-            assertEquals("Datum komt niet overeen", new Date(2018 - 1900, 1, 1), b.getDatum());
+            assertEquals("Datum komt niet overeen", new SimpleDateFormat("yyyy-MM-dd").parse("2018-02-01"), b.getDatum());
         }
 
         assertEquals(1, total);

@@ -115,7 +115,6 @@ public class DirectoryScannerUitvoerActionBean implements ActionBean, ProgressUp
     @Override
     public void exception(Throwable t) {
         StringWriter sw = new StringWriter();
-        PrintWriter pw = new PrintWriter(sw);
         t.printStackTrace(new PrintWriter(sw));
         this.exceptionStacktrace = sw.toString();
     }
@@ -127,9 +126,6 @@ public class DirectoryScannerUitvoerActionBean implements ActionBean, ProgressUp
 
     @Override
     public void addLog(String log) {
-        // voorkom dubbele log uitvoer
-        // this.proces.addLogLine(log);
-        // Stripersist.getEntityManager().merge(this.proces);
         if (this.logLineCounter > 1000) {
             // trim buffer
             int i900regels = 100;

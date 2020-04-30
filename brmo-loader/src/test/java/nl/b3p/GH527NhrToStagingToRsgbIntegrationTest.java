@@ -122,7 +122,7 @@ public class GH527NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseInte
         final String bestandNaam = "/nhr-v3/33257455,23052007.anon.xml";
         assumeNotNull("Het test bestand moet er zijn.", GH527NhrToStagingToRsgbIntegrationTest.class.getResource(bestandNaam));
 
-        brmo.loadFromFile("nhr", GH527NhrToStagingToRsgbIntegrationTest.class.getResource(bestandNaam).getFile(), 1L);
+        brmo.loadFromFile("nhr", GH527NhrToStagingToRsgbIntegrationTest.class.getResource(bestandNaam).getFile(), null);
         LOG.info("klaar met laden van berichten in staging DB.");
 
         // alleen het eerste bericht heeft br_orgineel_xml, de rest niet

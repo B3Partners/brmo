@@ -35,9 +35,9 @@ public class AutomatischProcesJob implements Job {
             Stripersist.requestInit();
             p = Stripersist.getEntityManager().find(AutomatischProces.class, id);
             if (p != null) {
-                p.addLogLine(String.format("Geplande taak gestart op %tc.", new Date()));
+                log.info(String.format("Geplande taak gestart op %tc.", new Date()));
                 AbstractExecutableProces.getProces(p).execute();
-                p.addLogLine(String.format("Geplande taak afgerond op %tc.", new Date()));
+                log.info(String.format("Geplande taak afgerond op %tc.", new Date()));
                 p.setLastrun(new Date());
                 Stripersist.getEntityManager().merge(p);
                 Stripersist.getEntityManager().flush();

@@ -3,6 +3,7 @@
  */
 package nl.b3p.brmo.loader.gml;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -80,7 +81,6 @@ public enum BGTGMLLightTransformerFactory {
 
     static {
         for (BGTGMLLightTransformerFactory d : BGTGMLLightTransformerFactory.values()) {
-            //lookup.put(d.getGmlFileName(), d);
             lookup.put(d.getTransformerClassName(), d);
         }
     }
@@ -118,8 +118,8 @@ public enum BGTGMLLightTransformerFactory {
     public static GMLLightFeatureTransformer getTransformer(String gmlFileName) {
         try {
             Class c = Class.forName(GMLLightFeatureTransformer.class.getPackage().getName() + ".light." + lookup.get(gmlFileName).getTransformerClassName());
-            return (GMLLightFeatureTransformer) c.newInstance();
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | NullPointerException ex) {
+            return (GMLLightFeatureTransformer) c.getDeclaredConstructor().newInstance();
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | NullPointerException | NoSuchMethodException | InvocationTargetException ex) {
             return null;
         }
     }
