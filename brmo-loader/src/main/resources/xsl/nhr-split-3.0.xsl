@@ -24,7 +24,7 @@
             <brmo:datum><xsl:value-of select="../../@peilmoment"/></brmo:datum>
         </xsl:variable>
 
-        <xsl:for-each select="cat:heeftAlsEigenaar/*[cat:bsn or cat:rsin]">
+        <xsl:for-each select="cat:heeftAlsEigenaar/*[cat:bsn or cat:rsin or cat:natuurlijkPersoon/cat:volledigeNaam]">
             <!-- TODO: afsplitsen door/voor Persoon -->
             <brmo:bericht>
                 <brmo:object_ref><xsl:apply-templates select="." mode="object_ref"/></brmo:object_ref>
