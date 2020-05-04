@@ -43,7 +43,7 @@ public class DBUnitExportStaging {
 
     // oracle
     // private static final String _driverClass = "oracle.jdbc.OracleDriver";
-    // private static final String _jdbcConnection = "jdbc:oracle:thin:@192.168.1.40:1521:db01";
+    // private static final String _jdbcConnection = "jdbc:oracle:thin:@127.0.0.1:1521:XE";
     // private static final String _user = "stagingitest";
     // private static final String _passwd = "stagingitest";
     // volgorde van tabellen belangrijk vanwege de constraint op laadproces-id
