@@ -475,9 +475,23 @@
     <!-- Werkt voor elementen met cat:bezoekLocatie -->
     <xsl:template name="subject">
         <!-- Lengte mismatch: NHR 500, RSGB 257 -->
-        <adres_binnenland><xsl:value-of select="cat:bezoekLocatie/cat:volledigAdres"/></adres_binnenland>
+        <adres_binnenland>
+            <xsl:if test="cat:bezoekLocatie/cat:adres/cat:binnenlandsAdres">
+                <xsl:value-of select="normalize-space(cat:bezoekLocatie/cat:volledigAdres)"/>
+            </xsl:if>
+            <xsl:if test="cat:bezoekLocatiePersoon/cat:adres/cat:binnenlandsAdres">
+                <xsl:value-of select="normalize-space(cat:bezoekLocatiePersoon/cat:volledigAdres)"/>
+            </xsl:if>
+        </adres_binnenland>
         <!-- Lengte mismatch: NHR 500, RSGB 149 (???) -->
-        <adres_buitenland><xsl:value-of select="cat:bezoekLocatie[cat:buitenlandsAdres]/cat:volledigAdres"/></adres_buitenland>
+        <adres_buitenland>
+            <xsl:if test="cat:bezoekLocatie/cat:adres/cat:buitenlandsAdres">
+                <xsl:value-of select="normalize-space(cat:bezoekLocatie/cat:volledigAdres)"/>
+            </xsl:if>
+            <xsl:if test="cat:bezoekLocatiePersoon/cat:adres/cat:buitenlandsAdres">
+                <xsl:value-of select="normalize-space(cat:bezoekLocatiePersoon/cat:volledigAdres)"/>
+            </xsl:if>
+        </adres_buitenland>
 
         <xsl:for-each select="cat:postLocatie/cat:binnenlandsAdres[cat:postbusnummer]">
             <pa_postadres_postcode><xsl:value-of select="cat:postcode/cat:cijfercombinatie"/><xsl:value-of select="cat:postcode/cat:lettercombinatie"/></pa_postadres_postcode>
