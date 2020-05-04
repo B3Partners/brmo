@@ -395,7 +395,14 @@
             </xsl:comment>
             <xsl:if test="not(cat:wordtGeleidVanuit/cat:vestigingsnummer)">
                 <!-- [FK] N8, FK naar maatschapp_activiteit.kvk_nummer: "is hoofdvestiging van" -->
-                <fk_19mac_kvk_nummer><xsl:value-of select="cat:wordtUitgeoefendDoor/cat:onderneming/cat:kvkNummer"/></fk_19mac_kvk_nummer>
+                <fk_19mac_kvk_nummer>
+                    <!--
+                    <xsl:value-of select="cat:wordtUitgeoefendDoor/cat:onderneming/cat:kvkNummer"/>
+                    of
+                    <xsl:value-of select="cat:wordtUitgeoefendDoor/cat:nietCommercieleVestiging/cat:kvkNummer"/>
+                    -->
+                    <xsl:value-of select="cat:wordtUitgeoefendDoor/*/cat:kvkNummer"/>
+                </fk_19mac_kvk_nummer>
             </xsl:if>
 
             <typering>

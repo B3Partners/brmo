@@ -105,6 +105,14 @@ public class GH522NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseInte
                         {"select sc_identif as hoofdvestiging from vestg where fk_19mac_kvk_nummer is not null", 1},
                         {"functionaris", 1/*rsin*/}
                 })},
+                // min EZ. (nietCommercieleVestiging)
+                {"/nhr-v3/52813150.anon.xml", MapUtils.putAll(new HashMap<String, Integer>(), new Object[][]{
+                        {"maatschapp_activiteit", 1},
+                        {"vestg", 1 + 7},
+                        // maar 1 hoofdvestiging
+                        {"select sc_identif as hoofdvestiging from vestg where fk_19mac_kvk_nummer is not null", 1},
+                        {"functionaris", 0}
+                })},
         });
     }
 
@@ -185,8 +193,8 @@ public class GH522NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseInte
         assertNotNull("BR origineel xml is null", bericht.getValue(0, "br_orgineel_xml"));
         Object berichtId = bericht.getValue(0, "id");
 
-        bericht = staging.createQueryTable("bericht", "select * from bericht where object_ref like 'nhr.comVestg%'");
-        assertEquals("aantal commerciele vestiging berichten onjuist", rowCounts.get("vestg"), Integer.valueOf(bericht.getRowCount()));
+        bericht = staging.createQueryTable("bericht", "select * from bericht where object_ref like 'nhr.%Vestg%'");
+        assertEquals("aantal (niet)commerciele vestiging berichten onjuist", rowCounts.get("vestg"), Integer.valueOf(bericht.getRowCount()));
 
         LOG.info("Transformeren berichten naar rsgb DB.");
         Thread t = brmo.toRsgb();
