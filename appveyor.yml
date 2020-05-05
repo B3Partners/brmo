@@ -56,7 +56,8 @@ build_script:
 # services worden na install gestart en we hebben gegenereerde sql nodig
 after_build:
   - cmd: echo "aanmaken en opzetten STAGING DB"
-  - sqlcmd -S (local)\%INSTANCENAME% -U sa -P Password12! -Q "CREATE DATABASE staging" -d "master"
+  - sqlcmd -S (local)\%INSTANCENAME% -U sa -P Password12! -d "master" -Q "CREATE DATABASE staging"
+  - sqlcmd -S (local)\%INSTANCENAME% -U sa -P Password12! -d "master" -Q "ALTER DATABASE staging SET RECOVERY SIMPLE"
   - dir -w .\brmo-persistence\db\
   - sqlcmd -S (local)\%INSTANCENAME% -U sa -P Password12! -d "staging" -i .\brmo-persistence\db\create-brmo-persistence-sqlserver.sql
   - sqlcmd -S (local)\%INSTANCENAME% -U sa -P Password12! -d "staging" -i .\brmo-persistence\db\01_create_indexes.sql
@@ -67,7 +68,8 @@ after_build:
 #
   - cmd: echo "aanmaken en opzetten RSGB DB"
   - cmd: SET SQLCMDINI=.\.appveyor\init.sql
-  - sqlcmd -S (local)\%INSTANCENAME% -U sa -P Password12! -Q "CREATE DATABASE rsgb" -d "master"
+  - sqlcmd -S (local)\%INSTANCENAME% -U sa -P Password12! -d "master" -Q "CREATE DATABASE rsgb"
+  - sqlcmd -S (local)\%INSTANCENAME% -U sa -P Password12! -d "master" -Q "ALTER DATABASE rsgb SET RECOVERY SIMPLE"
   - dir -w .\datamodel\generated_scripts\
   - sqlcmd -r0 -x -b -S (local)\%INSTANCENAME% -U sa -P Password12! -d "rsgb" -I -i .\datamodel\generated_scripts\datamodel_sqlserver.sql
 # duurt lang en gemeente/wijk geom hebben we niet echt nodig voor de tests
@@ -76,12 +78,14 @@ after_build:
 #  - sqlcmd -r0 -x -b -S (local)\%INSTANCENAME% -U sa -P Password12! -d "rsgb" -I -i .\datamodel\utility_scripts\sqlserver\113a_update_wijk_geom.sql
 #
   - cmd: echo "aanmaken en opzetten RSGBBGT DB"
-  - sqlcmd -S (local)\%INSTANCENAME% -U sa -P Password12! -Q "CREATE DATABASE bgttest" -d "master"
+  - sqlcmd -S (local)\%INSTANCENAME% -U sa -P Password12! -d "master" -Q "CREATE DATABASE bgttest"
+  - sqlcmd -S (local)\%INSTANCENAME% -U sa -P Password12! -d "master" -Q "ALTER DATABASE bgttest SET RECOVERY SIMPLE"
   - dir -w .\bgt-gml-loader\target\generated-resources\ddl\sqlserver\
   - sqlcmd -r0 -b -S (local)\%INSTANCENAME% -I -U sa -P Password12! -d "bgttest" -i .\bgt-gml-loader\target\generated-resources\ddl\sqlserver\create_rsgb_bgt.sql
 #
   - cmd: echo "aanmaken en opzetten TOPNL DB"
-  - sqlcmd -S (local)\%INSTANCENAME% -U sa -P Password12! -Q "CREATE DATABASE topnl" -d "master"
+  - sqlcmd -S (local)\%INSTANCENAME% -U sa -P Password12! -d "master" -Q "CREATE DATABASE topnl"
+  - sqlcmd -S (local)\%INSTANCENAME% -U sa -P Password12! -d "master" -Q "ALTER DATABASE topnl SET RECOVERY SIMPLE"
   - dir -w .\topparser\src\main\resources\nl\b3p\topnl\database
   - sqlcmd -r0 -b -S (local)\%INSTANCENAME% -I -U sa -P Password12! -d "topnl" -i .\topparser\src\main\resources\nl\b3p\topnl\database\sqlserver.sql
 #
