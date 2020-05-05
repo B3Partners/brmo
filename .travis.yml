@@ -10,6 +10,7 @@ env:
     - PGUSER=postgres
     - PGDATABASE=postgres
     - PGOPTIONS='-c client_min_messages=NOTICE'
+    - BRMO_LOADER_ITEST="true"
 
 addons:
   apt:
@@ -23,7 +24,6 @@ jobs:
     # vanwege build timeout (soms)
     - name: "MS SQL server 2019"
   include:
-      # final release van 9.4 (==EOL): Feb 13, 2020
       # https://www.postgresql.org/support/versioning/
     - name: "PostgreSQL 9.5 (oudste)"
       env: POSTGRESQL_VERSION="9.5" POSTGIS_VERSION="2.4" PROFILE="postgresql"
@@ -49,11 +49,18 @@ jobs:
     - name: "MS SQL server 2017"
       jdk: openjdk8
       dist: xenial
+      env: MSSQL_VERSION="2017" POSTGRESQL_VERSION="" POSTGIS_VERSION="" PROFILE="mssql" MVN_ARGS="-Dmssql.instancename='' -Dit.test=!TopNLIntegrationTest" BRMO_LOADER_ITEST="false"
+    - name: "MS SQL server 2017 brmo-loader"
+      jdk: openjdk8
+      dist: xenial
       env: MSSQL_VERSION="2017" POSTGRESQL_VERSION="" POSTGIS_VERSION="" PROFILE="mssql" MVN_ARGS="-Dmssql.instancename='' -Dit.test=!TopNLIntegrationTest"
     - name: "MS SQL server 2019"
       jdk: openjdk11
       dist: xenial
-      env: MSSQL_VERSION="2019" POSTGRESQL_VERSION="" POSTGIS_VERSION="" PROFILE="mssql" MVN_ARGS="-Dmssql.instancename='' -Dit.test=!TopNLIntegrationTest"
+      env: MSSQL_VERSION="2019" POSTGRESQL_VERSION="" POSTGIS_VERSION="" PROFILE="mssql" MVN_ARGS="-Dmssql.instancename='' -Dit.test=!TopNLIntegrationTest" BRMO_LOADER_ITEST="false"
+    - name: "JavaDoc"
+      jdk: openjdk8
+      env: PROFILE="default"
 
 cache:
   directories:
@@ -136,7 +143,7 @@ before_script:
 script:
   # run unit tests voor alle modules
   # datamodel is een pom module die heeft geen test phase
-  - if [ "$TRAVIS_JOB_NAME" != "database upgrades" ]; then
+  - if [ "$TRAVIS_JOB_NAME" != "database upgrades" ] && [ "$BRMO_LOADER_ITEST" != "true" ]; then
        travis_wait 20 mvn --settings .travis/settings.xml -e test -B -Pstandard-with-extra-repos,$PROFILE -pl '!brmo-dist' -Dtest.onlyITs=false;
        mvn resources:testResources compiler:testCompile surefire:test -P$PROFILE -pl datamodel -Dtest='!*UpgradeTest,!P8*';
     fi
@@ -150,11 +157,13 @@ script:
     fi
   #
   # run integratie tests voor brmo-loader module of alleen topnl, afhankelijk van $MVN_ARGS
-  - printf %'s\n\n' 'start integratie tests voor brmo-loader module'
-  - travis_wait 40 mvn -e verify -B -P$PROFILE $MVN_ARGS -Dtest.onlyITs=true -pl 'brmo-loader'
+  - if [ "$BRMO_LOADER_ITEST" == "true" ]; then
+        printf %'s\n\n' 'start integratie tests voor brmo-loader module';
+        travis_wait 40 mvn -e verify -B -P$PROFILE $MVN_ARGS -Dtest.onlyITs=true -pl 'brmo-loader';
+    fi
   #
   # run integratie tests voor brmo-service module
-  - if [ "$TRAVIS_JOB_NAME" != "TopNL tests" ]; then
+  - if [ "$PROFILE" == "postgresql" ] && [ "$TRAVIS_JOB_NAME" != "TopNL tests" ]; then
         printf %'s\n\n'  'start integratie tests voor brmo-service module';
         mvn -e verify -B -P$PROFILE $MVN_ARGS -Dtest.onlyITs=true -pl 'brmo-service';
     fi
@@ -182,23 +191,20 @@ script:
         printf %'s\n\n' 'start integratie tests voor brmo-commandline module';
         mvn -e verify -B -P$PROFILE $MVN_ARGS -Dtest.onlyITs=true -pl 'brmo-commandline';
     fi
-  #
-  # Linting
   # test of de javadoc compliant is met java-8 strict checks, noodzakelijk voor succesvolle release
-  #
-  - if [ "$TRAVIS_JOB_NAME" == "PostgreSQL 10" ]; then
+  - if [ "$TRAVIS_JOB_NAME" == "JavaDoc" ]; then
         printf %'s\n\n' 'Javadoc checks';
         travis_wait 30 mvn javadoc:javadoc;
     fi
-  - if [ "$TRAVIS_JOB_NAME" == "PostgreSQL 10" ]; then
+  - if [ "$TRAVIS_JOB_NAME" == "JavaDoc" ]; then
         printf %'s\n\n' 'Test Javadoc checks';
         travis_wait 30 mvn javadoc:test-javadoc;
     fi
 
 after_script:
   # deploy maven site van master branch test succes
-  - if [ "$TRAVIS_JOB_NAME" == "PostgreSQL 10" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_TEST_RESULT" == 0 ]; then
-    travis_wait 30 mvn -B -e -T1 site site:stage --settings .travis/settings.xml;
+  - if [ "$TRAVIS_JOB_NAME" == "JavaDoc" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_TEST_RESULT" == 0 ]; then
+        travis_wait 30 mvn -B -e -T1 site site:stage --settings .travis/settings.xml;
     fi
 
 #before_deploy:

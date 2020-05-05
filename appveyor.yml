@@ -4,32 +4,50 @@ pull_requests:
 clone_folder: c:\projects\brmo
 clone_script: echo skip
 skip_tags: true
-max_jobs: 2
+max_jobs: 4
+image: Visual Studio 2019
+
+environment:
+  BGT_ONLY_ITESTS : false
+  LOADER_ONLY_ITESTS : false
+  OTHER_ITESTS : true
+  SQL: MSSQL$SQL2017
+  INSTANCENAME: SQL2017
+  # Microsoft SQL Server 2016 Service Pack 2 heeft een EOL (einde basisondersteuning) van 13-7-2021
+  # wegens in de views gebruikte functies wordt mssql 2016 niet meer ondersteund voor brmo
+  # Microsoft SQL Server 2019 is de jongst-beschikbare release op AppVeyor, maar testen we (ook) op Travis-CI (veel sneller)
+  matrix:
+    - JAVA_HOME: C:\Program Files\Java\jdk11
+      SQL: MSSQL$SQL2019
+      INSTANCENAME: SQL2019
+
+    - JAVA_HOME: C:\Program Files\Java\jdk1.8.0
+
+    - BGT_ONLY_ITESTS : true
+      JAVA_HOME: C:\Program Files\Java\jdk1.8.0
+      OTHER_ITESTS : false
+
+    - LOADER_ONLY_ITESTS : true
+      JAVA_HOME: C:\Program Files\Java\jdk11
+      SQL: MSSQL$SQL2019
+      INSTANCENAME: SQL2019
+      OTHER_ITESTS : false
+
+    - LOADER_ONLY_ITESTS : true
+      JAVA_HOME: C:\Program Files\Java\jdk1.8.0
+      OTHER_ITESTS : false
+
+matrix:
+  fast_finish: false
 
 init:
   - git config --global core.autocrlf input
   - git config --global core.safecrlf true
   - cmd: net start %SQL%
 
-environment:
-  BGT_ONLY_ITESTS : false
-  SQL: MSSQL$SQL2017
-  INSTANCENAME: SQL2017
-  # Microsoft SQL Server 2016 Service Pack 2 heeft een EOL (einde basisondersteuning) van 13-7-2021
-  # wegens in de views gebruikte functies wordt mssql 2016 niet meer ondersteund voor brmo
-  # Microsoft SQL Server 2017 is de jongst-beschikbare release op AppVeyor, maar testen we (ook) op Travis-CI (veel sneller)
-  matrix:
-    - JAVA_HOME: C:\Program Files\Java\jdk11
-    - JAVA_HOME: C:\Program Files\Java\jdk1.8.0
-    - BGT_ONLY_ITESTS : true
-      JAVA_HOME: C:\Program Files\Java\jdk1.8.0
-
-matrix:
-  fast_finish: false
-
 install:
   - choco install codecov
-  #- choco install maven
+  - choco install maven
   - cmd: echo %PATH%
   - cmd: java -version
   - cmd: mvn -v
@@ -51,14 +69,14 @@ install:
 
 # initial build/code generation, no testing
 build_script:
-  - mvn install -Dmaven.test.skip=true -B -V -fae -q -Pmssql -pl "!brmo-dist"
+  - mvn install -Dmaven.test.skip=true -Dtest.onlyITs= -B -V -fae -q -Pmssql -pl "!brmo-dist"
 
 # services worden na install gestart en we hebben gegenereerde sql nodig
 after_build:
   - cmd: echo "aanmaken en opzetten STAGING DB"
   - sqlcmd -S (local)\%INSTANCENAME% -U sa -P Password12! -d "master" -Q "CREATE DATABASE staging"
   - sqlcmd -S (local)\%INSTANCENAME% -U sa -P Password12! -d "master" -Q "ALTER DATABASE staging SET RECOVERY SIMPLE"
-  - dir -w .\brmo-persistence\db\
+  - dir .\brmo-persistence\db\
   - sqlcmd -S (local)\%INSTANCENAME% -U sa -P Password12! -d "staging" -i .\brmo-persistence\db\create-brmo-persistence-sqlserver.sql
   - sqlcmd -S (local)\%INSTANCENAME% -U sa -P Password12! -d "staging" -i .\brmo-persistence\db\01_create_indexes.sql
   - sqlcmd -S (local)\%INSTANCENAME% -U sa -P Password12! -d "staging" -i .\brmo-persistence\db\02_insert_default_user.sql
@@ -70,7 +88,7 @@ after_build:
   - cmd: SET SQLCMDINI=.\.appveyor\init.sql
   - sqlcmd -S (local)\%INSTANCENAME% -U sa -P Password12! -d "master" -Q "CREATE DATABASE rsgb"
   - sqlcmd -S (local)\%INSTANCENAME% -U sa -P Password12! -d "master" -Q "ALTER DATABASE rsgb SET RECOVERY SIMPLE"
-  - dir -w .\datamodel\generated_scripts\
+  - dir .\datamodel\generated_scripts\
   - sqlcmd -r0 -x -b -S (local)\%INSTANCENAME% -U sa -P Password12! -d "rsgb" -I -i .\datamodel\generated_scripts\datamodel_sqlserver.sql
 # duurt lang en gemeente/wijk geom hebben we niet echt nodig voor de tests
 #  - sqlcmd -r0 -x -b -S (local)\%INSTANCENAME% -U sa -P Password12! -d "rsgb" -I -i .\datamodel\utility_scripts\sqlserver\111a_update_gemeente_geom.sql
@@ -80,13 +98,13 @@ after_build:
   - cmd: echo "aanmaken en opzetten RSGBBGT DB"
   - sqlcmd -S (local)\%INSTANCENAME% -U sa -P Password12! -d "master" -Q "CREATE DATABASE bgttest"
   - sqlcmd -S (local)\%INSTANCENAME% -U sa -P Password12! -d "master" -Q "ALTER DATABASE bgttest SET RECOVERY SIMPLE"
-  - dir -w .\bgt-gml-loader\target\generated-resources\ddl\sqlserver\
+  - dir .\bgt-gml-loader\target\generated-resources\ddl\sqlserver\
   - sqlcmd -r0 -b -S (local)\%INSTANCENAME% -I -U sa -P Password12! -d "bgttest" -i .\bgt-gml-loader\target\generated-resources\ddl\sqlserver\create_rsgb_bgt.sql
 #
   - cmd: echo "aanmaken en opzetten TOPNL DB"
   - sqlcmd -S (local)\%INSTANCENAME% -U sa -P Password12! -d "master" -Q "CREATE DATABASE topnl"
   - sqlcmd -S (local)\%INSTANCENAME% -U sa -P Password12! -d "master" -Q "ALTER DATABASE topnl SET RECOVERY SIMPLE"
-  - dir -w .\topparser\src\main\resources\nl\b3p\topnl\database
+  - dir .\topparser\src\main\resources\nl\b3p\topnl\database
   - sqlcmd -r0 -b -S (local)\%INSTANCENAME% -I -U sa -P Password12! -d "topnl" -i .\topparser\src\main\resources\nl\b3p\topnl\database\sqlserver.sql
 #
   - cmd: echo "computer name:" %COMPUTERNAME%
@@ -96,21 +114,22 @@ after_build:
 
 test_script:
   # unit tests
-  - mvn -e test -fae -B -Pmssql -pl "!brmo-dist"
-  - mvn -e -B -Pmssql -pl "datamodel" resources:testResources compiler:testCompile surefire:test -Dtest="!*UpgradeTest,!P8*"
+  - if "%OTHER_ITESTS%"=="true" mvn -e test -fae -B -Pmssql -pl "!brmo-dist"
+  - if "%OTHER_ITESTS%"=="true" mvn -e -B -Pmssql -pl "datamodel" resources:testResources compiler:testCompile surefire:test -Dtest="!*UpgradeTest,!P8*"
   # integratie tests
+  # run integratie tests voor brmo-loader module
+  - if "%LOADER_ONLY_ITESTS%"=="true" mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-loader" -Dmssql.instancename=%INSTANCENAME%
   # run integratie tests voor bgt-gml-loader module (30min)
   - if "%BGT_ONLY_ITESTS%"=="true" mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "bgt-gml-loader" -Dmssql.instancename=%INSTANCENAME%
-  # run integratie tests voor brmo-loader module
-  - if "%BGT_ONLY_ITESTS%"=="false" mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-loader" -Dmssql.instancename=%INSTANCENAME%
   # run integratie tests voor brmo-service module
-  - if "%BGT_ONLY_ITESTS%"=="false" mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-service" -Dmssql.instancename=%INSTANCENAME%
+  - if "%OTHER_ITESTS%"=="true" mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-service" -Dmssql.instancename=%INSTANCENAME%
   # run integratie tests voor brmo-soap module
-  - if "%BGT_ONLY_ITESTS%"=="false" mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-soap" -Dmssql.instancename=%INSTANCENAME%
+  - if "%OTHER_ITESTS%"=="true" mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-soap" -Dmssql.instancename=%INSTANCENAME%
   # run integratie tests voor brmo-stufbg204 module
-  - if "%BGT_ONLY_ITESTS%"=="false" mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-stufbg204" -Dmssql.instancename=%INSTANCENAME%
+  - if "%OTHER_ITESTS%"=="true" mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-stufbg204" -Dmssql.instancename=%INSTANCENAME%
   # run integratie tests voor brmo-commandline module
-  - if "%BGT_ONLY_ITESTS%"=="false" mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-commandline" -Dmssql.instancename=%INSTANCENAME%
+  - if "%OTHER_ITESTS%"=="true" mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-commandline" -Dmssql.instancename=%INSTANCENAME%
+  # report code coverage
   - codecov -f target/site/jacoco-it/jacoco.xml target/site/jacoco/jacoco.xml
 
 cache:
