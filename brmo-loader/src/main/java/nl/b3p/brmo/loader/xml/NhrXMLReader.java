@@ -183,7 +183,8 @@ public class NhrXMLReader extends BrmoXMLReader {
             for (Map.Entry<String, String> entry : map.entrySet()) {
                 if (!entry.getKey().isEmpty() && !entry.getValue().isEmpty()) {
                     root.append("<cat:");
-                    if (NumberUtils.isCreatable(entry.getKey())){
+                    // NB BSN's kunnen met een 0 beginnen, dus niet NumberUtils#isCreatable gebruiken
+                    if (NumberUtils.isParsable(entry.getKey())){
                         type = PREFIX_BSN;
                     } else {
                         type = PREFIX_NAAM;

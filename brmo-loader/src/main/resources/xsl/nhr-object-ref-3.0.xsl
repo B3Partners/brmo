@@ -66,7 +66,7 @@
                     <xsl:with-param name="hashsoort" select="$hashsoort" />
                 </xsl:call-template>
             </xsl:when>
-            <xsl:otherwise>
+            <xsl:when test="cat:volledigeNaam">
                 <!-- verwijder ongeldige chars zoals spatie, apostrof, -->
                 <xsl:variable name="APOS">'</xsl:variable>
                 <xsl:variable name="lookfor" select="translate(translate(cat:volledigeNaam,' ',''),$APOS,'')"/>
@@ -77,7 +77,8 @@
                     <xsl:with-param name="bsn" select="$lookfor" />
                     <xsl:with-param name="hashsoort" select="$hashsoort" />
                 </xsl:call-template>
-            </xsl:otherwise>
+            </xsl:when>
+            <xsl:otherwise />
         </xsl:choose>
 <!--        <xsl:if test="cat:bsn">-->
 <!--            <xsl:text>bsn.</xsl:text>-->
