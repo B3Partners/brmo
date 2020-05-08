@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet version="1.0" 
+<xsl:stylesheet version="1.0"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:cat="http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02"
                 xmlns:fn="http://www.w3.org/2005/xpath-functions">
@@ -11,7 +11,6 @@
     <xsl:param name="datum" />
     <xsl:param name="volgordeNummer" />
     <xsl:param name="soort" />
-
     <xsl:variable name="hoofdvestiging" select="/cat:maatschappelijkeActiviteit/cat:wordtGeleidVanuit//cat:vestigingsnummer"/>
     <xsl:variable name="peilmoment" select="/*/@peilmoment"/>
     <xsl:variable name="peilmoment-dateTime"><xsl:value-of select="substring($peilmoment,1,4)"/>-<xsl:value-of select="substring($peilmoment,5,2)"/>-<xsl:value-of select="substring($peilmoment,7,2)"/>T<xsl:value-of select="substring($peilmoment,9,2)"/>:<xsl:value-of select="substring($peilmoment,11,2)"/>:<xsl:value-of select="substring($peilmoment,13,2)"/></xsl:variable>
@@ -70,6 +69,7 @@
 
                 <xsl:call-template name="subject"/>
             </subject>
+
             <prs>
                 <sc_identif><xsl:value-of select="$key"/></sc_identif>
                 <clazz><xsl:value-of select="$class"/></clazz>
@@ -113,19 +113,28 @@
             <!--persoon-->
             <xsl:for-each select="cat:door">
                 <xsl:variable name="key"><xsl:apply-templates select="*[1]" mode="object_ref" /></xsl:variable>
+                <xsl:comment>
+                    <xsl:text>node name: </xsl:text><xsl:value-of select="name(*[1])"/><xsl:text> heeft </xsl:text>
+                    <xsl:choose>
+                        <xsl:when test="*[1]//cat:bsn">wel</xsl:when>
+                        <xsl:when test="not(*[1]//cat:bsn)">geen</xsl:when>
+                        <xsl:otherwise>onbekend</xsl:otherwise>
+                    </xsl:choose>
+                    <xsl:text> BSN</xsl:text>
+                </xsl:comment>
                 <xsl:if test="$key =''">
-                    <xsl:comment>dataprobleem - geen sleutel gevonden voor persoon en functionaris</xsl:comment>
+                    <xsl:comment>dataprobleem - geen natuurlijke sleutel gevonden voor persoon en functionaris</xsl:comment>
                 </xsl:if>
                 <xsl:if test="$key !=''">
                     <!-- zonder key kunnen we geen persoon vastleggen -->
-                    <xsl:comment>heeft: <xsl:value-of select="name(.)" /> door: <xsl:value-of select="name(*[1])" />; <xsl:value-of select="$key" /></xsl:comment>
+                    <xsl:comment>heeft node: "<xsl:value-of select="local-name(.)" />" met "<xsl:value-of select="local-name(*[1])" />" en waarde persoon: <xsl:value-of select="name(*[1])" />; <xsl:value-of select="$key" /></xsl:comment>
                     <xsl:choose>
-                        <xsl:when test="name(*[1]) = 'cat:natuurlijkPersoon'">
+                        <xsl:when test="local-name(*[1]) = 'natuurlijkPersoon'">
                             <xsl:for-each select="cat:natuurlijkPersoon">
                                 <xsl:call-template name="natPersoon" />
                             </xsl:for-each>
                         </xsl:when>
-                        <xsl:when test="name(*[1]) = 'cat:rechtspersoon'">
+                        <xsl:when test="local-name(*[1]) = 'rechtspersoon'">
                             <xsl:variable name="class">INGESCHREVEN NIET-NATUURLIJK PERSOON</xsl:variable>
                             <subject>
                                 <identif><xsl:value-of select="$key" /></identif>
@@ -161,6 +170,13 @@
                                 <publiekrechtelijke_rechtsvorm><xsl:value-of select="cat:publiekrechtelijkeRechtsvorm/cat:omschrijving"/></publiekrechtelijke_rechtsvorm>
                             </ingeschr_niet_nat_prs>
                         </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:comment>
+                                <xsl:text>namespace probleem voor node met naam: </xsl:text><xsl:value-of select="name(*[1])"/>
+                                <xsl:text> - local-name: </xsl:text><xsl:value-of select="local-name(*[1])"/>
+                                <xsl:text> - geen subject records aangemaakt</xsl:text>
+                            </xsl:comment>
+                        </xsl:otherwise>
                     </xsl:choose>
 
                     <!--functionaris-->
@@ -174,7 +190,7 @@
                         <!--<beperking_bev_in_euros></beperking_bev_in_euros>-->
                         <!-- numeric(18,0), - Groepsattribuut Beperkte volmacht FUNCTIONARIS.Beperking in geld - Beperking in geld-->
                         <!--<bv_beperking_in_geld></bv_beperking_in_geld>-->
-                         <!--character vary ing(2000), - Groepsattribuut Beperkte volmacht FUNCTIONARIS.Omschrijving overige beperkingen - Omschrijving overige beperkingen-->
+                        <!--character vary ing(2000), - Groepsattribuut Beperkte volmacht FUNCTIONARIS.Omschrijving overige beperkingen - Omschrijving overige beperkingen-->
                         <!--<bv_omschr_ovrg_beperkingen></bv_omschr_ovrg_beperkingen>-->
                         <bv_ovrg_volmacht><xsl:value-of select="../cat:volmacht/cat:beperkteVolmacht/cat:heeftOverigeVolmacht/cat:omschrijving"/></bv_ovrg_volmacht>
 
@@ -192,7 +208,7 @@
                         <indic_statutair_volmacht><xsl:value-of select="../cat:volmacht/cat:isStatutair/cat:omschrijving"/></indic_statutair_volmacht>
                         <!-- character varying(3), - AN3 - Overige beperking bevoegdheid, alleen optioneel gevuld indien Aansprakelijke-->
                         <xsl:if test="../cat:functie/cat:omschrijving = 'Aansprakelijke'">
-                                <ovrg_beperking_bev></ovrg_beperking_bev>
+                            <ovrg_beperking_bev/>
                         </xsl:if>
 
 
@@ -373,6 +389,30 @@
                 <fk_17mac_kvk_nummer><xsl:value-of select="cat:kvkNummer"/></fk_17mac_kvk_nummer>
             </xsl:for-each>
 
+            <xsl:comment>
+                <xsl:text>(hoofd) vestigings nummer: </xsl:text><xsl:value-of select="cat:wordtGeleidVanuit/cat:vestigingsnummer"/>
+                <xsl:text>(neven) vestigings nummer: </xsl:text><xsl:value-of select="cat:vestigingsnummer"/>
+            </xsl:comment>
+            <xsl:choose>
+                <xsl:when test="not(cat:wordtGeleidVanuit/cat:vestigingsnummer)">
+                    <!-- [FK] N8, FK naar maatschapp_activiteit.kvk_nummer: "is hoofdvestiging van" -->
+                    <fk_19mac_kvk_nummer>
+                        <!--
+                        <xsl:value-of select="cat:wordtUitgeoefendDoor/cat:onderneming/cat:kvkNummer"/>
+                        of
+                        <xsl:value-of select="cat:wordtUitgeoefendDoor/cat:nietCommercieleVestiging/cat:kvkNummer"/>
+                        -->
+                        <xsl:value-of select="cat:wordtUitgeoefendDoor/*/cat:kvkNummer"/>
+                    </fk_19mac_kvk_nummer>
+                    <hoofdvestiging>
+                        <xsl:text>Ja</xsl:text>
+                    </hoofdvestiging>
+                </xsl:when>
+                <xsl:otherwise>
+                    <hoofdvestiging><xsl:text>Nee</xsl:text></hoofdvestiging>
+                </xsl:otherwise>
+            </xsl:choose>
+
             <typering>
                 <xsl:choose>
                     <xsl:when test="local-name(.) = 'nietCommercieleVestiging'">Niet-commerciele vestiging</xsl:when>
@@ -443,9 +483,23 @@
     <!-- Werkt voor elementen met cat:bezoekLocatie -->
     <xsl:template name="subject">
         <!-- Lengte mismatch: NHR 500, RSGB 257 -->
-        <adres_binnenland><xsl:value-of select="cat:bezoekLocatie/cat:volledigAdres"/></adres_binnenland>
+        <adres_binnenland>
+            <xsl:if test="cat:bezoekLocatie/cat:adres/cat:binnenlandsAdres">
+                <xsl:value-of select="normalize-space(cat:bezoekLocatie/cat:volledigAdres)"/>
+            </xsl:if>
+            <xsl:if test="cat:bezoekLocatiePersoon/cat:adres/cat:binnenlandsAdres">
+                <xsl:value-of select="normalize-space(cat:bezoekLocatiePersoon/cat:volledigAdres)"/>
+            </xsl:if>
+        </adres_binnenland>
         <!-- Lengte mismatch: NHR 500, RSGB 149 (???) -->
-        <adres_buitenland><xsl:value-of select="cat:bezoekLocatie[cat:buitenlandsAdres]/cat:volledigAdres"/></adres_buitenland>
+        <adres_buitenland>
+            <xsl:if test="cat:bezoekLocatie/cat:adres/cat:buitenlandsAdres">
+                <xsl:value-of select="normalize-space(cat:bezoekLocatie/cat:volledigAdres)"/>
+            </xsl:if>
+            <xsl:if test="cat:bezoekLocatiePersoon/cat:adres/cat:buitenlandsAdres">
+                <xsl:value-of select="normalize-space(cat:bezoekLocatiePersoon/cat:volledigAdres)"/>
+            </xsl:if>
+        </adres_buitenland>
 
         <xsl:for-each select="cat:postLocatie/cat:binnenlandsAdres[cat:postbusnummer]">
             <pa_postadres_postcode><xsl:value-of select="cat:postcode/cat:cijfercombinatie"/><xsl:value-of select="cat:postcode/cat:lettercombinatie"/></pa_postadres_postcode>

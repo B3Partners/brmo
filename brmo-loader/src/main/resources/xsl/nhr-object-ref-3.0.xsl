@@ -6,12 +6,16 @@
     <!-- zoek hash op in mapping tabel -->
     <xsl:template name="getHash">
         <xsl:param name="bsn" />
+        <xsl:param name="hashsoort" />
+
         <xsl:variable name="bsnwithprefix">
-            <xsl:text>cat:nhr.bsn.natPers.</xsl:text>
+            <xsl:text>nhr.</xsl:text>
+            <xsl:value-of select="$hashsoort" />
+            <xsl:text>natPers.</xsl:text>
             <xsl:value-of select="$bsn" />
         </xsl:variable>
         <xsl:variable name="hashedbsn">
-            <xsl:value-of select="//cat:bsnhashes/*[name()=$bsnwithprefix]" />
+            <xsl:value-of select="//cat:bsnhashes/*[local-name()=$bsnwithprefix]" />
         </xsl:variable>
         <xsl:value-of select="$hashedbsn" />
     </xsl:template>
@@ -19,7 +23,8 @@
     <xsl:template name="get-name-abbr">
         <xsl:variable name="n" select="local-name(.)"/>
         <xsl:choose>
-            <!-- slecht idee, zie hieronder: <xsl:when test="$n ='naamPersoon'">naamPers</xsl:when>-->
+            <!-- slecht idee, zie hieronder:-->
+<!--            <xsl:when test="$n ='volledigeNaam'">naamPers</xsl:when>-->
             <xsl:when test="$n ='natuurlijkPersoon'">natPers</xsl:when>
             <xsl:when test="$n ='buitenlandseVennootschap'">buitenlVenn</xsl:when>
             <xsl:when test="$n ='eenmanszaakMetMeerdereEigenaren'">eenmZMeerEig</xsl:when>
@@ -43,28 +48,59 @@
 
     <xsl:template match="*[cat:vestigingsnummer]" mode="object_ref">
         <xsl:text>nhr.</xsl:text><xsl:call-template name="get-name-abbr"/><xsl:text>.</xsl:text>
-        <xsl:value-of select="cat:vestigingsnummer"/></xsl:template>
-
-    <xsl:template match="*[cat:bsn or cat:rsin]" mode="object_ref">
-        <xsl:text>nhr.</xsl:text><xsl:call-template name="get-name-abbr"/><xsl:text>.</xsl:text>
-        <xsl:if test="cat:bsn">
-            <xsl:text>bsn.</xsl:text>
-            <xsl:call-template name="getHash">
-                <xsl:with-param name="bsn" select="cat:bsn" />
-            </xsl:call-template>
-        </xsl:if>
-        <xsl:if test="cat:rsin">
-            <xsl:text>rsin.</xsl:text><xsl:value-of select="cat:rsin"/>
-        </xsl:if>
+        <xsl:value-of select="cat:vestigingsnummer"/>
     </xsl:template>
 
-    <!--
-        slecht idee, we will geen eigennaam gebruiken als sleutel, zie bijvoorbeeld testbestand
-    <xsl:template match="*[cat:naamPersoon]" mode="object_ref">
+    <xsl:template match="*[cat:bsn or cat:rsin or cat:volledigeNaam]" mode="object_ref">
         <xsl:text>nhr.</xsl:text><xsl:call-template name="get-name-abbr"/><xsl:text>.</xsl:text>
-        <xsl:text>naam.</xsl:text><xsl:value-of select="cat:naamPersoon"/>
+        <xsl:choose>
+            <xsl:when test="cat:rsin">
+                <xsl:text>rsin.</xsl:text><xsl:value-of select="cat:rsin"/>
+            </xsl:when>
+            <xsl:when test="cat:bsn">
+                <xsl:variable name="hashsoort" select="'bsn.'"/>
+
+                <xsl:value-of select="$hashsoort"/>
+                <xsl:call-template name="getHash">
+                    <xsl:with-param name="bsn" select="cat:bsn" />
+                    <xsl:with-param name="hashsoort" select="$hashsoort" />
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:when test="cat:volledigeNaam">
+                <!-- verwijder ongeldige chars zoals spatie, apostrof, -->
+                <xsl:variable name="APOS">'</xsl:variable>
+                <xsl:variable name="lookfor" select="translate(translate(cat:volledigeNaam,' ',''),$APOS,'')"/>
+                <xsl:variable name="hashsoort" select="'naam.'"/>
+
+                <xsl:value-of select="$hashsoort"/>
+                <xsl:call-template name="getHash">
+                    <xsl:with-param name="bsn" select="$lookfor" />
+                    <xsl:with-param name="hashsoort" select="$hashsoort" />
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise />
+        </xsl:choose>
+<!--        <xsl:if test="cat:bsn">-->
+<!--            <xsl:text>bsn.</xsl:text>-->
+<!--            <xsl:call-template name="getHash">-->
+<!--                <xsl:with-param name="bsn" select="cat:bsn" />-->
+<!--            </xsl:call-template>-->
+<!--        </xsl:if>-->
+<!--        <xsl:if test="cat:rsin">-->
+<!--            <xsl:text>rsin.</xsl:text><xsl:value-of select="cat:rsin"/>-->
+<!--        </xsl:if>-->
     </xsl:template>
-    -->
+
+    <!-- slecht idee, we will geen eigennaam gebruiken als sleutel, zie bijvoorbeeld testbestand -->
+<!--    <xsl:template match="*[cat:natuurlijkPersoon/cat:volledigeNaam]" mode="object_ref">-->
+<!--        <xsl:text>nhr.</xsl:text>-->
+<!--        <xsl:call-template name="get-name-abbr"/>-->
+<!--        <xsl:text>.</xsl:text>-->
+<!--        <xsl:text>naam.</xsl:text>-->
+<!--        <xsl:text>nhr.naam.natPers</xsl:text>-->
+<!--        <xsl:value-of select="translate(cat:natuurlijkPersoon/cat:volledigeNaam,' ','')"/>-->
+<!--    </xsl:template>-->
+
 
     <!--<xsl:template match="*[cat:rechtspersoon/cat:bsn or cat:rechtspersoon/cat:rsin]" mode="object_ref">-->
         <!--<xsl:text>nhr.</xsl:text><xsl:call-template name="get-name-abbr"/><xsl:text>.</xsl:text>-->

@@ -60,7 +60,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
 /**
- * {@code mvn -Dit.test=AfgifteNummerScannerIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql -pl brmo-service > target/pg.log}
+ * {@code mvn -Dit.test=AfgifteNummerScannerIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql -pl brmo-service > /tmp/mvn.log}
  *
  * @author mprins
  */
@@ -144,6 +144,7 @@ public class AfgifteNummerScannerIntegrationTest extends TestUtil {
         FieldUtils.writeField(scanner, "listener", new ProgressUpdateListener() {
             @Override
             public void total(long total) {
+                LOG.info("Totaal verwerkt: " + total);
             }
 
             @Override
@@ -152,6 +153,7 @@ public class AfgifteNummerScannerIntegrationTest extends TestUtil {
 
             @Override
             public void exception(Throwable t) {
+                LOG.error("Fout in AfgifteNummerScannerTest", t);
             }
 
             @Override
@@ -160,6 +162,7 @@ public class AfgifteNummerScannerIntegrationTest extends TestUtil {
 
             @Override
             public void addLog(String log) {
+                LOG.info(log);
             }
         }, true);
 
@@ -172,7 +175,7 @@ public class AfgifteNummerScannerIntegrationTest extends TestUtil {
                 Number maxLP = (Number) lp.getValue(0, "maxid");
                 SequenceUtil.updateSequence("laadproces_id_seq", maxLP.longValue() + 9999999, dsStaging);
             } catch (SQLException s) {
-                LOG.error("Bijwerken laadproces sequnce is mislukt", s);
+                LOG.error("Bijwerken laadproces sequence is mislukt", s);
             }
         }
     }

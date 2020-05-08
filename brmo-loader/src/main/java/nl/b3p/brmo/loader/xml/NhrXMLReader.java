@@ -1,37 +1,34 @@
 package nl.b3p.brmo.loader.xml;
 
-import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.Source;
-import javax.xml.transform.Templates;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.URIResolver;
-import javax.xml.transform.dom.DOMResult;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-import javax.xml.transform.stream.StreamSource;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.loader.entity.NhrBericht;
 import nl.b3p.brmo.loader.entity.NhrBerichten;
 import nl.b3p.brmo.loader.util.BrmoLeegBestandException;
 import org.apache.commons.io.input.TeeInputStream;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Unmarshaller;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.*;
+import javax.xml.transform.dom.DOMResult;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * Deze reader splitst een nHR soap response in berichten.
@@ -41,7 +38,8 @@ import org.xml.sax.SAXException;
  */
 public class NhrXMLReader extends BrmoXMLReader {
 
-    public static final String PREFIX = "nhr.bsn.natPers.";
+    public static final String PREFIX_BSN = "nhr.bsn.natPers.";
+    public static final String PREFIX_NAAM = "nhr.naam.natPers.";
 
     private static final Log LOG = LogFactory.getLog(NhrXMLReader.class);
 
@@ -119,9 +117,10 @@ public class NhrXMLReader extends BrmoXMLReader {
 
         StringWriter sw = new StringWriter();
         t.transform(new DOMSource(b.getNode().getFirstChild()), new StreamResult(sw));
-        // opzoeklijst van bsn en hash toevoegen
+        // opzoeklijst van bsn en/of volledige naam en hash toevoegen
         StringBuilder xml = new StringBuilder(sw.toString());
         String bsns = getXML(extractBSN(xml.toString()));
+        LOG.trace("gevonden bsn en naam sleutels: "+ bsns);
         // insert bsnhashes voor de laatste node
         xml.insert(xml.lastIndexOf("</"), bsns);
 
@@ -140,20 +139,34 @@ public class NhrXMLReader extends BrmoXMLReader {
      * maakt een map met bsn,bsnhash.
      *
      * @param brXml string
-     * @return hashmap met bsn,bsnhash
+     * @return hashmap met bsn/naamzonderspaties,bsnhash
      *
      */
     public Map<String, String> extractBSN(String brXml) {
         Map<String, String> bsnHashes = new HashMap<>();
+//        LOG.trace("deel bericht xml: "+brXml);
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            factory.setNamespaceAware(true);
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document doc = builder.parse(new InputSource(new StringReader(brXml)));
-            NodeList nodeList = doc.getElementsByTagName("cat:bsn");
-            int length = nodeList.getLength();
-            for (int i = 0; i < length; i++) {
-                LOG.debug(nodeList.item(i).getTextContent());
+
+            NodeList nodeList = doc.getElementsByTagNameNS("*","bsn");
+            for (int i = 0; i < nodeList.getLength(); i++) {
+                LOG.debug("BSN: " + i+": "+nodeList.item(i).getNodeName() +" - "+ nodeList.item(i).getTextContent());
                 bsnHashes.put(nodeList.item(i).getTextContent(), getHash(nodeList.item(i).getTextContent()));
+            }
+
+            nodeList = doc.getElementsByTagNameNS("*", "volledigeNaam");
+            String _cleanName;
+            for (int i = 0; i < nodeList.getLength(); i++) {
+                if (nodeList.item(i).getParentNode().getLocalName().equals("natuurlijkPersoon")) {
+                    LOG.debug("NAAM: " + i + ": " + nodeList.item(i).getNodeName() + " - " + nodeList.item(i).getTextContent());
+                    _cleanName = nodeList.item(i).getTextContent()
+                            .replace(" ", "")
+                            .replace("'", "");
+                    bsnHashes.put(_cleanName, getHash(_cleanName));
+                }
             }
         } catch (ParserConfigurationException | SAXException | IOException e) {
             LOG.error("Fout tijdens toevoegen bsn hashes", e);
@@ -161,15 +174,24 @@ public class NhrXMLReader extends BrmoXMLReader {
         return bsnHashes;
     }
 
-    public String getXML(Map<String, String> map) throws ParserConfigurationException {
+    public String getXML(Map<String, String> map) {
         StringBuilder root = new StringBuilder();
         if (!map.isEmpty()) {
-            root.append("<cat:bsnhashes>");
+            root.append("<cat:bsnhashes xmlns:cat=\"http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02\">");
+
+            String type;
             for (Map.Entry<String, String> entry : map.entrySet()) {
                 if (!entry.getKey().isEmpty() && !entry.getValue().isEmpty()) {
-                    root.append("<cat:").append(PREFIX).append(entry.getKey()).append(">")
+                    root.append("<cat:");
+                    // NB BSN's kunnen met een 0 beginnen, dus niet NumberUtils#isCreatable gebruiken
+                    if (NumberUtils.isParsable(entry.getKey())){
+                        type = PREFIX_BSN;
+                    } else {
+                        type = PREFIX_NAAM;
+                    }
+                    root.append(type).append(entry.getKey()).append(">")
                             .append(entry.getValue())
-                            .append("</cat:").append(PREFIX).append(entry.getKey()).append(">");
+                            .append("</cat:").append(type).append(entry.getKey()).append(">");
                 }
             }
             root.append("</cat:bsnhashes>");

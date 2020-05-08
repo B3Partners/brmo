@@ -27,6 +27,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.Arrays;
@@ -34,9 +35,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
+
+import static org.junit.Assert.*;
 import static org.junit.Assume.assumeNotNull;
 import static org.junit.Assume.assumeTrue;
 
@@ -44,9 +44,9 @@ import static org.junit.Assume.assumeTrue;
  * Integratie test om een nhr dataservice sopa bericht te laden en te
  * transformeren, bevat een testcase voor mantis10752.
  * <br>Draaien met:
- * {@code mvn -Dit.test=NhrToStagingToRsgbIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql > target/postgresql.log}
+ * {@code mvn -Dit.test=NhrToStagingToRsgbIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql -pl :brmo-loader > /tmp/postgresql.log}
  * voor bijvoorbeeld PostgreSQL of
- * {@code mvn -Dit.test=NhrToStagingToRsgbIntegrationTest -Dtest.onlyITs=true verify -Pmssql > target/mssql.log}
+ * {@code mvn -Dit.test=NhrToStagingToRsgbIntegrationTest -Dtest.onlyITs=true verify -Pmssql  -pl :brmo-loader > /tmp/mssql.log}
  * voor bijvoorbeeld MS SQL.
  *
  * @author Mark Prins
@@ -59,7 +59,7 @@ public class NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
     @Parameterized.Parameters(name = "{index}: bestand: {0}")
     public static Collection params() {
         return Arrays.asList(new Object[][]{
-            // {"filename", aantalBerichten, aantalProcessen, aantalPrs, aantalSubj, aantalNiet_nat_prs, aantalNat_prs, hoofd vestgID, aantalVestg_activiteit,aantal Subj, kvkNummer v MaatschAct},
+            // {"filename", aantalBerichten, aantalProcessen, aantalPrs, aantalSubj, aantalNiet_nat_prs, aantalNat_prs, hoofd vestgID, aantalVestg_activiteit, kvkNummer v MaatschAct, sbiCodes, aantalFunctionarissen},
             {"/mantis10752/52019667.xml", 2, 1, 1,/*subj*/ 2, 1, 0, "nhr.comVestg.000021991235", 1, 52019667, new String[]{"86912"}, 0},
             /*Verhoef ortho*/
             {"/nhr-v3/52019667.anon.xml", 2, 1, 1,/*subj*/ 2, 1, 0, "nhr.comVestg.000021991235", 1, 52019667, new String[]{"86912"}, 0},
@@ -74,12 +74,11 @@ public class NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
             /*stichting geo*/
             {"/nhr-v3/32122905.anon.xml", 2, 1, 2 + 4, /*subj*/ 2 + 4, 2, 0 + 4, null, 0, 32122905, new String[]{"7112"}, 4},
             /* min EZ. (nietCommercieleVestiging) */
-            {"/nhr-v3/52813150.anon.xml", 3, 1, 2, /*subj*/ 3, 2, 0, "nhr.nietComVestg.000022724362", 1, 52813150, new String[]{"8411"}, 0},
+            {"/nhr-v3/52813150.anon.xml", 1/*rechtspers*/ + 1/*maatsch act.*/ + 1/*hfd vestg*/ + 7/*neven vestg*/, 1, 2,  3 + 7/*subj*/, 2, 0, "nhr.nietComVestg.000022724362", 1 + 7, 52813150, new String[]{"8411", "8411", "8411", "8411", "8411", "8411", "8411", "8411"}, 0},
             /*sbb*/
-            {"/nhr-v3/30263544.anon.xml", 3, 1, 2, /*subj*/ 3, 2, 0, "nhr.comVestg.000012461547", 1, 30263544, new String[]{"91042"}, 0},
+            {"/nhr-v3/30263544.anon.xml", 1/*rechtspers*/ + 1/*maatsch act.*/ + 1/*hfd vestg*/ + 13/*neven vestg*/, 1, 2, 3 + 13/*subj*/, 2, 0, "nhr.comVestg.000012461547", 1 + 13, 30263544, new String[]{"91042"}, 0},
             // apart geval 1 functionaris heef 2 rollen: issue #521
-            // het lijkt dat ook niet alle vestigingen worden geladen, alleen de leidende Vestiging #522
-            {"/nhr-v3/33257455,23052007.anon.xml", 3, 1, 12, /*subj*/ 13, 3, 9, "nhr.comVestg.000019483104", 5, 33257455, new String[]{"8010", "4321", "4652", "85592", "6202"}, 10}
+            {"/nhr-v3/33257455,23052007.anon.xml", 1/*rechtspers*/ + 1/*maatsch act.*/ + 1/*hfd vestg*/ + 8/*neven vestg*/, 1, 12, 13 + 8/*subj*/, 3, 9, "nhr.comVestg.000019483104", 45, 33257455, new String[]{"8010", "4652", "85592", "6202", "4321", "8010", "4652", "85592", "6202", "4321", "8010", "4652", "85592", "6202", "4321", "8010", "4652", "85592", "6202", "4321", "8010", "4652", "85592", "6202", "4321", "8010", "85592", "4652", "6202", "4321", "8010", "4652", "85592", "6202", "4321", "8010", "4652", "85592", "6202", "4321", "8010", "4652", "85592", "6202", "4321"}, 10}
         });
     }
 
@@ -326,11 +325,12 @@ public class NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
         ITable functionaris = rsgb.createDataSet().getTable("functionaris");
         assertEquals("Het aantal 'functionaris' records klopt niet", aantalFunctionarissen, functionaris.getRowCount());
         if (kvkNummer == 41177576) {
-            // er is een Gevolmachtigde Directeur met beperkte volmacht in rij 2
-            // dit is fout gevoelig omdat de volgorde van de rijen anders kan zijn terwijl je dan toch dezelfde data hebt geladen
-            assertEquals("Gevolmachtigde", functionaris.getValue(1, "functie"));
-            assertEquals("Directeur", functionaris.getValue(1, "functionaristypering"));
-            assertEquals("B", functionaris.getValue(1, "volledig_beperkt_volmacht"));
+            // gebruik een gesorteerde weergaven van functionaris tabel omdat de volgorde van de rijen anders kan zijn terwijl je dan toch dezelfde data hebt geladen
+            // er is een Gevolmachtigde Directeur met beperkte volmacht in de laatste rij
+            functionaris = rsgb.createQueryTable("functionaris", "select * from functionaris order by functie ASC");
+            assertEquals("Gevolmachtigde", functionaris.getValue(aantalFunctionarissen - 1, "functie"));
+            assertEquals("Directeur", functionaris.getValue(aantalFunctionarissen - 1, "functionaristypering"));
+            assertEquals("B", functionaris.getValue(aantalFunctionarissen - 1, "volledig_beperkt_volmacht"));
         }
     }
 }
