@@ -9,6 +9,7 @@ timestamps {
         final def jdks = ['OpenJDK11','JDK8']
 
         stage('Prepare') {
+            sh "id"
             sh "ulimit -a"
             sh "free -h"
             checkout scm
@@ -37,16 +38,19 @@ timestamps {
                     }
 
                     lock('brmo-oracle') {
+                        /* docker run -m 4g --cpus=2 -p 15210:1521 --name oracle-brmo -h oracle-brmo -d pvargacl/oracle-xe-18.4.0:latest */
+                        sh "docker start oracle-brmo"
+
                         timeout(90) {
                             stage("Prepare Oracle Databases: ${indexOfJdk}") {
                                 echo "cleanup schema's"
-                                sh "sqlplus -l -S jenkins_rsgb/jenkins_rsgb@192.168.1.11:1521/ORCL < ./.jenkins/clear-schema.sql"
-                                sh "sqlplus -l -S jenkins_rsgbbgt/jenkins_rsgbbgt@192.168.1.11:1521/ORCL < ./.jenkins/clear-schema.sql"
-                                sh "sqlplus -l -S jenkins_staging/jenkins_staging@192.168.1.11:1521/ORCL < ./.jenkins/clear-schema.sql"
-                                sh "sqlplus -l -S top10nl/top10nl@192.168.1.11:1521/ORCL < ./.jenkins/clear-schema.sql"
-                                sh "sqlplus -l -S top50nl/top50nl@192.168.1.11:1521/ORCL < ./.jenkins/clear-schema.sql"
-                                sh "sqlplus -l -S top100nl/top100nl@192.168.1.11:1521/ORCL < ./.jenkins/clear-schema.sql"
-                                sh "sqlplus -l -S top250nl/top250nl@192.168.1.11:1521/ORCL < ./.jenkins/clear-schema.sql"
+                                sh "sqlplus -l -S jenkins_rsgb/jenkins_rsgb@192.168.1.26:15210/XE < ./.jenkins/clear-schema.sql"
+                                sh "sqlplus -l -S jenkins_rsgbbgt/jenkins_rsgbbgt@192.168.1.26:15210/XE < ./.jenkins/clear-schema.sql"
+                                sh "sqlplus -l -S jenkins_staging/jenkins_staging@192.168.1.26:15210/XE < ./.jenkins/clear-schema.sql"
+                                sh "sqlplus -l -S top10nl/top10nl@192.168.1.26:15210/XE < ./.jenkins/clear-schema.sql"
+                                sh "sqlplus -l -S top50nl/top50nl@192.168.1.26:15210/XE < ./.jenkins/clear-schema.sql"
+                                sh "sqlplus -l -S top100nl/top100nl@192.168.1.26:15210/XE < ./.jenkins/clear-schema.sql"
+                                sh "sqlplus -l -S top250nl/top250nl@192.168.1.26:15210/XE < ./.jenkins/clear-schema.sql"
                             }
 
                             stage("Prepare Oracle staging: ${indexOfJdk}") {
@@ -116,14 +120,14 @@ timestamps {
                             }
 
                             stage("Cleanup Database: ${indexOfJdk}") {
-                                sh "sqlplus -l -S jenkins_rsgbbgt/jenkins_rsgbbgt@192.168.1.11:1521/ORCL < ./bgt-gml-loader/target/generated-resources/ddl/oracle/drop_rsgb_bgt.sql"
-                                sh "sqlplus -l -S jenkins_rsgbbgt/jenkins_rsgbbgt@192.168.1.11:1521/ORCL < ./bgt-gml-loader/target/generated-resources/ddl/oracle/drop_rsgb_bgt.sql"
-                                sh "sqlplus -l -S jenkins_staging/jenkins_staging@192.168.1.11:1521/ORCL < ./brmo-persistence/db/drop-brmo-persistence-oracle.sql"
-                                sh "sqlplus -l -S jenkins_rsgb/jenkins_rsgb@192.168.1.11:1521/ORCL < ./.jenkins/clear-schema.sql"
-                                sh "sqlplus -l -S top10nl/top10nl@192.168.1.11:1521/ORCL < ./.jenkins/clear-schema.sql"
-                                sh "sqlplus -l -S top50nl/top50nl@192.168.1.11:1521/ORCL < ./.jenkins/clear-schema.sql"
-                                sh "sqlplus -l -S top100nl/top100nl@192.168.1.11:1521/ORCL < ./.jenkins/clear-schema.sql"
-                                sh "sqlplus -l -S top250nl/top250nl@192.168.1.11:1521/ORCL < ./.jenkins/clear-schema.sql"
+                                sh "sqlplus -l -S jenkins_rsgbbgt/jenkins_rsgbbgt@192.168.1.26:15210/XE < ./bgt-gml-loader/target/generated-resources/ddl/oracle/drop_rsgb_bgt.sql"
+                                sh "sqlplus -l -S jenkins_rsgbbgt/jenkins_rsgbbgt@192.168.1.26:15210/XE < ./bgt-gml-loader/target/generated-resources/ddl/oracle/drop_rsgb_bgt.sql"
+                                sh "sqlplus -l -S jenkins_staging/jenkins_staging@192.168.1.26:15210/XE < ./brmo-persistence/db/drop-brmo-persistence-oracle.sql"
+                                sh "sqlplus -l -S jenkins_rsgb/jenkins_rsgb@192.168.1.26:15210/XE < ./.jenkins/clear-schema.sql"
+                                sh "sqlplus -l -S top10nl/top10nl@192.168.1.26:15210/XE < ./.jenkins/clear-schema.sql"
+                                sh "sqlplus -l -S top50nl/top50nl@192.168.1.26:15210/XE < ./.jenkins/clear-schema.sql"
+                                sh "sqlplus -l -S top100nl/top100nl@192.168.1.26:15210/XE < ./.jenkins/clear-schema.sql"
+                                sh "sqlplus -l -S top250nl/top250nl@192.168.1.26:15210/XE < ./.jenkins/clear-schema.sql"
                             }
 
                             if(jdkTestName == 'JDK8') {
@@ -138,11 +142,11 @@ timestamps {
                                 }
 
                                 stage("Cleanup Database 2: ${indexOfJdk}") {
-                                    sh "sqlplus -l -S jenkins_rsgbbgt/jenkins_rsgbbgt@192.168.1.11:1521/ORCL < ./bgt-gml-loader/target/generated-resources/ddl/oracle/drop_rsgb_bgt.sql"
-                                    sh "sqlplus -l -S jenkins_staging/jenkins_staging@192.168.1.11:1521/ORCL < ./brmo-persistence/db/drop-brmo-persistence-oracle.sql"
-                                    sh "sqlplus -l -S jenkins_rsgb/jenkins_rsgb@192.168.1.11:1521/ORCL < ./.jenkins/clear-schema.sql"
+                                    sh "sqlplus -l -S jenkins_rsgbbgt/jenkins_rsgbbgt@192.168.1.26:15210/XE < ./bgt-gml-loader/target/generated-resources/ddl/oracle/drop_rsgb_bgt.sql"
+                                    sh "sqlplus -l -S jenkins_staging/jenkins_staging@192.168.1.26:15210/XE < ./brmo-persistence/db/drop-brmo-persistence-oracle.sql"
+                                    sh "sqlplus -l -S jenkins_rsgb/jenkins_rsgb@192.168.1.26:15210/XE < ./.jenkins/clear-schema.sql"
                                 }
-                                
+
                                 configFileProvider([
                                     configFile(
                                         fileId: 'local.P8.properties',
@@ -159,6 +163,7 @@ timestamps {
                                 }
                             }
                         }
+                        sh "docker stop oracle-brmo"
                     }
 
                     if (jdkTestName == 'OpenJDK11') {

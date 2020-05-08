@@ -8,6 +8,6 @@ export SQLPATH=./.jenkins
 
 #if [ $CURSNAPSHOT = "2.0.0-SNAPSHOT" ] && [ $1 = "rsgb" ]
 #then
-#    sqlplus -l -S jenkins_$1/jenkins_$1@192.168.1.11:1521/ORCL < ./datamodel/extra_scripts/oracle/206_bag_views.sql
-#    sqlplus -l -S jenkins_$1/jenkins_$1@192.168.1.11:1521/ORCL < ./datamodel/extra_scripts/oracle/207_brk_views.sql
+#    sqlplus -l -S jenkins_$1/jenkins_$1@192.168.1.26:15210/XE < ./datamodel/extra_scripts/oracle/206_bag_views.sql
+#    sqlplus -l -S jenkins_$1/jenkins_$1@192.168.1.26:15210/XE < ./datamodel/extra_scripts/oracle/207_brk_views.sql
 #fi

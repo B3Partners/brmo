@@ -15,4 +15,4 @@ echo "Huidige snapshot:" $CURSNAPSHOT", vorige release: "$PREVRELEASE", komende 
 echo "Verwerk upgrade script voor: " $1
 
 export SQLPATH=./.jenkins
-sqlplus -l -S jenkins_$1/jenkins_$1@192.168.1.11:1521/ORCL < ./datamodel/upgrade_scripts/$PREVRELEASE-$NEXTRELEASE/oracle/$1.sql
+sqlplus -l -S jenkins_$1/jenkins_$1@192.168.1.26:15210/XE < ./datamodel/upgrade_scripts/$PREVRELEASE-$NEXTRELEASE/oracle/$1.sql
