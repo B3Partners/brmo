@@ -52,6 +52,7 @@
 				<script>120_increase_identifsize.sql</script>
 				<script>121_insert_nation.sql</script>
 				<script>122_idx_gebr_doel.sql</script>
+				<script>123_add_hoofdvestiging.sql</script>
 				<script>206_bag_views.sql</script>
 				<script>207_brk_views.sql</script>
 			</extra-scripts>

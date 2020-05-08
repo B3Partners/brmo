@@ -71,6 +71,9 @@ public class GH522NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseInte
                         {"vestg", 1188},
                         // maar 1 hoofdvestiging
                         {"select sc_identif as hoofdvestiging from vestg where fk_19mac_kvk_nummer is not null", 1},
+                        {"select sc_identif as hoofdvestiging from vestg where hoofdvestiging is null", 0},
+                        {"select sc_identif as hoofdvestiging from vestg where hoofdvestiging = 'Ja'", 1},
+                        {"select sc_identif as hoofdvestiging from vestg where hoofdvestiging = 'Nee'", 1188 - 1},
                         {"functionaris", 1 + 7}
                 })},
                 //HEMA B.V.
@@ -95,6 +98,8 @@ public class GH522NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseInte
                         {"vestg", 9},
                         // maar 1 hoofdvestiging
                         {"select sc_identif as hoofdvestiging from vestg where fk_19mac_kvk_nummer is not null", 1},
+                        {"select sc_identif as hoofdvestiging from vestg where hoofdvestiging = 'Ja'", 1},
+                        {"select sc_identif as hoofdvestiging from vestg where hoofdvestiging = 'Nee'", 9 - 1},
                         {"functionaris", 9 /*unieke BSN */ + 1/*rsin*/}
                 })},
                 // B3Partners
@@ -111,6 +116,9 @@ public class GH522NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseInte
                         {"vestg", 1 + 7},
                         // maar 1 hoofdvestiging
                         {"select sc_identif as hoofdvestiging from vestg where fk_19mac_kvk_nummer is not null", 1},
+                        {"select sc_identif as hoofdvestiging from vestg where hoofdvestiging is null", 0},
+                        {"select sc_identif as hoofdvestiging from vestg where hoofdvestiging = 'Ja'", 1},
+                        {"select sc_identif as hoofdvestiging from vestg where hoofdvestiging = 'Nee'", 7},
                         {"functionaris", 0}
                 })},
         });

@@ -393,17 +393,25 @@
                 <xsl:text>(hoofd) vestigings nummer: </xsl:text><xsl:value-of select="cat:wordtGeleidVanuit/cat:vestigingsnummer"/>
                 <xsl:text>(neven) vestigings nummer: </xsl:text><xsl:value-of select="cat:vestigingsnummer"/>
             </xsl:comment>
-            <xsl:if test="not(cat:wordtGeleidVanuit/cat:vestigingsnummer)">
-                <!-- [FK] N8, FK naar maatschapp_activiteit.kvk_nummer: "is hoofdvestiging van" -->
-                <fk_19mac_kvk_nummer>
-                    <!--
-                    <xsl:value-of select="cat:wordtUitgeoefendDoor/cat:onderneming/cat:kvkNummer"/>
-                    of
-                    <xsl:value-of select="cat:wordtUitgeoefendDoor/cat:nietCommercieleVestiging/cat:kvkNummer"/>
-                    -->
-                    <xsl:value-of select="cat:wordtUitgeoefendDoor/*/cat:kvkNummer"/>
-                </fk_19mac_kvk_nummer>
-            </xsl:if>
+            <xsl:choose>
+                <xsl:when test="not(cat:wordtGeleidVanuit/cat:vestigingsnummer)">
+                    <!-- [FK] N8, FK naar maatschapp_activiteit.kvk_nummer: "is hoofdvestiging van" -->
+                    <fk_19mac_kvk_nummer>
+                        <!--
+                        <xsl:value-of select="cat:wordtUitgeoefendDoor/cat:onderneming/cat:kvkNummer"/>
+                        of
+                        <xsl:value-of select="cat:wordtUitgeoefendDoor/cat:nietCommercieleVestiging/cat:kvkNummer"/>
+                        -->
+                        <xsl:value-of select="cat:wordtUitgeoefendDoor/*/cat:kvkNummer"/>
+                    </fk_19mac_kvk_nummer>
+                    <hoofdvestiging>
+                        <xsl:text>Ja</xsl:text>
+                    </hoofdvestiging>
+                </xsl:when>
+                <xsl:otherwise>
+                    <hoofdvestiging><xsl:text>Nee</xsl:text></hoofdvestiging>
+                </xsl:otherwise>
+            </xsl:choose>
 
             <typering>
                 <xsl:choose>
