@@ -38,10 +38,9 @@ timestamps {
                     }
 
                     lock('brmo-oracle') {
-                        /* docker run -m 4g --cpus=2 -p 15210:1521 --name oracle-brmo -h oracle-brmo -d pvargacl/oracle-xe-18.4.0:latest */
-                        sh "docker start oracle-brmo"
-
                         timeout(90) {
+                            sh ".jenkins/start-oracle-brmo.sh"
+
                             stage("Prepare Oracle Databases: ${indexOfJdk}") {
                                 echo "cleanup schema's"
                                 sh "sqlplus -l -S jenkins_rsgb/jenkins_rsgb@192.168.1.26:15210/XE < ./.jenkins/clear-schema.sql"
@@ -162,8 +161,8 @@ timestamps {
                                     }
                                 }
                             }
+                            sh "docker stop oracle-brmo"
                         }
-                        sh "docker stop oracle-brmo"
                     }
 
                     if (jdkTestName == 'OpenJDK11') {
