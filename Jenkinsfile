@@ -38,9 +38,8 @@ timestamps {
                     }
 
                     lock('brmo-oracle') {
-                        timeout(90) {
-                            sh ".jenkins/start-oracle-brmo.sh"
-
+                        sh ".jenkins/start-oracle-brmo.sh"
+                        timeout(180) {
                             stage("Prepare Oracle Databases: ${indexOfJdk}") {
                                 echo "cleanup schema's"
                                 sh "sqlplus -l -S jenkins_rsgb/jenkins_rsgb@192.168.1.26:15210/XE < ./.jenkins/clear-schema.sql"
@@ -89,7 +88,7 @@ timestamps {
                             lock('brmo-tomcat-9091') {
                                 stage("brmo-service Integration Test: ${jdkTestName}") {
                                     echo "run integratie tests voor brmo-service module"
-                                    timeout(20) {
+                                    timeout(30) {
                                         try {
                                             sh "mvn -e verify -B -Poracle -T1 -Dtest.onlyITs=true -pl 'brmo-service'"
                                         } catch (Exception e) {
