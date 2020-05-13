@@ -160,7 +160,7 @@ timestamps {
                                     }
                                 }
                             }
-                            sh "docker stop oracle-brmo"
+                            /* sh "docker stop oracle-brmo" */
                         }
                     }
 
