@@ -61,6 +61,8 @@ import org.junit.runners.Parameterized;
 
 /**
  * {@code mvn -Dit.test=AfgifteNummerScannerIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql -pl brmo-service > /tmp/mvn.log}
+ * of
+ * {@code mvn -Dit.test=AfgifteNummerScannerIntegrationTest -Dtest.onlyITs=true verify -Poracle -pl brmo-service > /tmp/mvn.log}
  *
  * @author mprins
  */
