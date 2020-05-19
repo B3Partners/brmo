@@ -93,7 +93,6 @@
             <property name="hibernate.archive.autodetection" value="class"/>
             <property name="hibernate.format_sql" value="true"/>
             <property name="hibernate.hbm2ddl.auto" value="create"/>
-            <property name="javax.persistence.validation.mode" value="none"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
             <property name="hibernate.physical_naming_strategy" value="nl.b3p.brmo.persistence.SnakeCasePhysicalNamingStrategy" />
             <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>

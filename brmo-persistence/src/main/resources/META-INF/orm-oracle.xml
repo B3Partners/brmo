@@ -16,7 +16,7 @@
         <attributes>
             <id name="id">
                 <generated-value strategy="SEQUENCE" generator="laadproces_id_seq" />
-                <sequence-generator name="laadproces_id_seq" sequence-name="laadproces_id_seq"/>
+                <sequence-generator name="laadproces_id_seq" sequence-name="laadproces_id_seq" allocation-size="1"/>
             </id>
         </attributes>
     </entity>
@@ -24,7 +24,7 @@
         <attributes>
             <id name="id">
                 <generated-value strategy="SEQUENCE" generator="bericht_id_seq" />
-                <sequence-generator name="bericht_id_seq" sequence-name="bericht_id_seq"/>
+                <sequence-generator name="bericht_id_seq" sequence-name="bericht_id_seq" allocation-size="1"/>
             </id>
         </attributes>
     </entity>
@@ -32,7 +32,7 @@
         <attributes>
             <id name="id">
                 <generated-value strategy="SEQUENCE" generator="automatischproces_id_seq" />
-                <sequence-generator name="automatischproces_id_seq" sequence-name="automatischproces_id_seq"/>
+                <sequence-generator name="automatischproces_id_seq" sequence-name="automatischproces_id_seq" allocation-size="1"/>
             </id>
         </attributes>
     </entity>
