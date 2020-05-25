@@ -114,7 +114,7 @@ after_build:
 
 test_script:
   # unit tests
-  - if "%OTHER_ITESTS%"=="true" mvn -e test -fae -B -Pmssql -pl "!brmo-dist"
+  - if "%OTHER_ITESTS%"=="true" mvn -e test -fae -B -Pmssql -Dtest.persistence.unit=brmo.persistence.microsoftsqlserver -pl "!brmo-dist"
   - if "%OTHER_ITESTS%"=="true" mvn -e -B -Pmssql -pl "datamodel" resources:testResources compiler:testCompile surefire:test -Dtest="!*UpgradeTest,!P8*"
   # integratie tests
   # run integratie tests voor brmo-loader module

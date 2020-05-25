@@ -32,7 +32,6 @@ public class GroepTest extends TestUtil {
         g.getLeden().add(gebA);
 
         entityManager.persist(g);
-        entityManager.getTransaction().commit();
 
         Groep gg = entityManager.find(Groep.class, TestUtil.NAAM);
         assertEquals("Verwacht dezelfde naam voor de groep.", TestUtil.NAAM, gg.getNaam());
@@ -43,5 +42,8 @@ public class GroepTest extends TestUtil {
             lid = leden.next();
         }
         assertEquals("Verwacht de gebruiker in de groep.", gebA, lid);
+
+        entityManager.remove(g);
+        entityManager.getTransaction().commit();
     }
 }

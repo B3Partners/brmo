@@ -71,6 +71,10 @@ timestamps {
                                 sh ".jenkins/db-prepare-topnl.sh"
                             }
 
+                            stage("brmo-persistence tests"){
+                                sh "mvn -e -B -Poracle -pl :brmo-persistence -Dtest.persistence.unit=brmo.persistence.oracle test"
+                            }
+
                             stage("datamodel tests"){
                                 sh "mvn -e -B -Poracle -pl 'datamodel' resources:testResources compiler:testCompile surefire:test -Dtest='!*UpgradeTest,!P8*'"
                             }

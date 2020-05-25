@@ -19,6 +19,8 @@ public class BerichtTest extends TestUtil {
         Bericht b = new Bericht();
         b.setStatus(Bericht.STATUS.RSGB_OK);
         entityManager.persist(b);
+
+        entityManager.remove(b);
         entityManager.getTransaction().commit();
     }
 
