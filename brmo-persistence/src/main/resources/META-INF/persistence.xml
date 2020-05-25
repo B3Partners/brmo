@@ -44,6 +44,7 @@
     </persistence-unit>
 
     <persistence-unit name="brmo.persistence.oracle" transaction-type="RESOURCE_LOCAL">
+        <non-jta-data-source>java:comp/env/jdbc/brmo/staging</non-jta-data-source>
         <mapping-file>META-INF/orm-oracle.xml</mapping-file>
         <class>nl.b3p.brmo.persistence.staging.Bericht</class>
         <class>nl.b3p.brmo.persistence.staging.LaadProces</class>
