@@ -39,13 +39,6 @@ public class LaadProcesTest extends TestUtil {
     }
 
     @Test
-    public void shouldDeleteAllLaadProces() {
-        Query q = entityManager.createQuery("DELETE FROM LaadProces");
-        int deleted = q.executeUpdate();
-        entityManager.getTransaction().commit();
-    }
-
-    @Test
     public void testDuplicateQuery() {
         // zit in nl.b3p.brmo.service.scanner.AbstractExecutableProces#isDuplicaatLaadProces(...)
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
@@ -59,4 +52,12 @@ public class LaadProcesTest extends TestUtil {
         // verwacht dat er geen resultaten zijn / lege lijst
         assertTrue(typedQuery.getResultList().isEmpty());
     }
+
+    @Test
+    public void shouldDeleteAllLaadProces() {
+        Query q = entityManager.createQuery("DELETE FROM LaadProces");
+        int deleted = q.executeUpdate();
+        entityManager.getTransaction().commit();
+    }
+
 }

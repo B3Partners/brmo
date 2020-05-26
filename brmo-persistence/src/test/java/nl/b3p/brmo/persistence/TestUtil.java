@@ -3,10 +3,15 @@
  */
 package nl.b3p.brmo.persistence;
 
-import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
+import org.junit.rules.TestName;
+
+import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
 
 /**
  * utility methoden voor unit tests.
@@ -23,34 +28,50 @@ public abstract class TestUtil {
      * een naam.
      */
     public static final String NAAM = "Gangsta's";
-
     /**
      * een directory.
      */
     public static final String DIR = "/home/mark/dev/projects/rsgb/brmo-persistence/";
-
     /**
      * een email adres.
      */
     public static final String EEN_ADRES = "test@test.com";
-
     /**
      * een lijst email adressen.
      */
     public static final String[] ADRESLIJST = {"test@test.com", "test.twee@test.com"};
 
+    private static final Log LOG = LogFactory.getLog(TestUtil.class);
+
+    @Rule
+    public TestName name = new TestName();
+
     protected EntityManager entityManager;
+
+    /**
+     * Log de naam van de test als deze begint.
+     */
+    @Before
+    public void startTest() {
+        LOG.info("==== Start test methode: " + name.getMethodName());
+    }
+
+    /**
+     * Log de naam van de test als deze eindigt.
+     */
+    @After
+    public void endTest() {
+        LOG.info("==== Einde test methode: " + name.getMethodName());
+    }
 
     /**
      * initialisatie van EntityManager {@link #entityManager} en starten
      * transactie.
      *
-     * @throws Exception if any
-     *
      * @see #entityManager
      */
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         final String persistenceUnit = System.getProperty("test.persistence.unit");
         entityManager = Persistence.createEntityManagerFactory(persistenceUnit).createEntityManager();
         entityManager.getTransaction().begin();
@@ -59,11 +80,10 @@ public abstract class TestUtil {
     /**
      * sluiten van van EntityManager {@link #entityManager}.
      *
-     * @throws Exception if any
      * @see #entityManager
      */
     @After
-    public void close() throws Exception {
+    public void close() {
         if (entityManager != null && entityManager.isOpen()) {
             entityManager.close();
         }

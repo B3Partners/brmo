@@ -88,7 +88,8 @@
         -Dtest.persistence.unit=brmo.persistence.postgresql
         voor oracle:
         -Dtest.persistence.unit=brmo.persistence.oracle
-        de schema's voor postgresql en oracle worden niet automatisch aangemaakt.
+        voor ms sql
+        -Dtest.persistence.unit=brmo.persistence.microsoftsqlserver
         -->
         <test.persistence.unit>brmo.persistence.h2</test.persistence.unit>
         <test.h2.version>1.4.200</test.h2.version>

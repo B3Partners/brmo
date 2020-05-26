@@ -26,19 +26,19 @@ jobs:
   include:
       # https://www.postgresql.org/support/versioning/
     - name: "PostgreSQL 9.5 (oudste)"
-      env: POSTGRESQL_VERSION="9.5" POSTGIS_VERSION="2.4" PROFILE="postgresql"
+      env: POSTGRESQL_VERSION="9.5" POSTGIS_VERSION="2.4" PROFILE="postgresql" MVN_ARGS="-Dtest.persistence.unit=brmo.persistence.postgresql"
       jdk: openjdk8
     - name: "PostgreSQL 9.6"
-      env: POSTGRESQL_VERSION="9.6" POSTGIS_VERSION="2.5" PROFILE="postgresql"
+      env: POSTGRESQL_VERSION="9.6" POSTGIS_VERSION="2.5" PROFILE="postgresql" MVN_ARGS="-Dtest.persistence.unit=brmo.persistence.postgresql"
       jdk: openjdk8
     - name: "PostgreSQL 10"
-      env: POSTGRESQL_VERSION="10" POSTGIS_VERSION="2.5" PROFILE="postgresql"
+      env: POSTGRESQL_VERSION="10" POSTGIS_VERSION="2.5" PROFILE="postgresql" MVN_ARGS="-Dtest.persistence.unit=brmo.persistence.postgresql"
       jdk: openjdk8
     - name: "PostgreSQL 11"
-      env: POSTGRESQL_VERSION="11" POSTGIS_VERSION="2.5" PROFILE="postgresql"
+      env: POSTGRESQL_VERSION="11" POSTGIS_VERSION="2.5" PROFILE="postgresql" MVN_ARGS="-Dtest.persistence.unit=brmo.persistence.postgresql"
       jdk: openjdk11
     - name: "PostgreSQL 12"
-      env: POSTGRESQL_VERSION="12" POSTGIS_VERSION="3" PROFILE="postgresql"
+      env: POSTGRESQL_VERSION="12" POSTGIS_VERSION="3" PROFILE="postgresql" MVN_ARGS="-Dtest.persistence.unit=brmo.persistence.postgresql"
       jdk: openjdk11
     - name: "database upgrades"
       jdk: openjdk8
@@ -49,7 +49,7 @@ jobs:
     - name: "MS SQL server 2017"
       jdk: openjdk8
       dist: xenial
-      env: MSSQL_VERSION="2017" POSTGRESQL_VERSION="" POSTGIS_VERSION="" PROFILE="mssql" MVN_ARGS="-Dmssql.instancename='' -Dit.test=!TopNLIntegrationTest" BRMO_LOADER_ITEST="false"
+      env: MSSQL_VERSION="2017" POSTGRESQL_VERSION="" POSTGIS_VERSION="" PROFILE="mssql" MVN_ARGS="-Dmssql.instancename='' -Dtest.persistence.unit=brmo.persistence.microsoftsqlserver -Dit.test=!TopNLIntegrationTest" BRMO_LOADER_ITEST="false"
     - name: "MS SQL server 2017 brmo-loader"
       jdk: openjdk8
       dist: xenial
@@ -57,7 +57,7 @@ jobs:
     - name: "MS SQL server 2019"
       jdk: openjdk11
       dist: xenial
-      env: MSSQL_VERSION="2019" POSTGRESQL_VERSION="" POSTGIS_VERSION="" PROFILE="mssql" MVN_ARGS="-Dmssql.instancename='' -Dit.test=!TopNLIntegrationTest" BRMO_LOADER_ITEST="false"
+      env: MSSQL_VERSION="2019" POSTGRESQL_VERSION="" POSTGIS_VERSION="" PROFILE="mssql" MVN_ARGS="-Dmssql.instancename='' -Dtest.persistence.unit=brmo.persistence.microsoftsqlserver -Dit.test=!TopNLIntegrationTest" BRMO_LOADER_ITEST="false"
     - name: "JavaDoc"
       jdk: openjdk8
       env: PROFILE="default"
@@ -144,7 +144,7 @@ script:
   # run unit tests voor alle modules
   # datamodel is een pom module die heeft geen test phase
   - if [ "$TRAVIS_JOB_NAME" != "database upgrades" ] && [ "$BRMO_LOADER_ITEST" != "true" ]; then
-       travis_wait 20 mvn --settings .travis/settings.xml -e test -B -Pstandard-with-extra-repos,$PROFILE -pl '!brmo-dist' -Dtest.onlyITs=false;
+       travis_wait 20 mvn --settings .travis/settings.xml -e test -B -Pstandard-with-extra-repos,$PROFILE -pl '!brmo-dist' -Dtest.onlyITs=false $MVN_ARGS;
        mvn resources:testResources compiler:testCompile surefire:test -P$PROFILE -pl datamodel -Dtest='!*UpgradeTest,!P8*';
     fi
   # test upgrade script voor postgresql

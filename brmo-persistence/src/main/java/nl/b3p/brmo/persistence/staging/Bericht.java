@@ -3,20 +3,11 @@
  */
 package nl.b3p.brmo.persistence.staging;
 
+import org.hibernate.annotations.Type;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-import org.hibernate.annotations.ForeignKey;
-import org.hibernate.annotations.Type;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  * Beschrijft een (xml) bericht in de staging database.
@@ -32,7 +23,13 @@ public class Bericht implements Serializable {
     private Long id;
 
     @OneToOne
-    @ForeignKey(name = "bericht_laadprocesid_fkey")
+    @JoinColumn(
+            name = "laadprocesid",
+            referencedColumnName = "id",
+            foreignKey = @ForeignKey(
+                    name = "bericht_laadprocesid_fkey"
+            )
+    )
     private LaadProces laadprocesid;
 
     @Temporal(TemporalType.TIMESTAMP)

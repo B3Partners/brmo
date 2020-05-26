@@ -4,14 +4,24 @@
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://www.oracle.com/webfolder/technetwork/jsc/xml/ns/persistence/persistence_2_2.xsd"
              version="2.2" >
 
+
     <persistence-unit name="brmo.persistence.postgresql" transaction-type="RESOURCE_LOCAL">
-        <non-jta-data-source>java:comp/env/jdbc/brmo/staging</non-jta-data-source>
         <mapping-file>META-INF/orm-postgresql.xml</mapping-file>
         <class>nl.b3p.brmo.persistence.staging.Bericht</class>
         <class>nl.b3p.brmo.persistence.staging.LaadProces</class>
         <class>nl.b3p.brmo.persistence.staging.BRKScannerProces</class>
         <class>nl.b3p.brmo.persistence.staging.AutomatischProces</class>
+        <class>nl.b3p.brmo.persistence.staging.MailRapportageProces</class>
+        <class>nl.b3p.brmo.persistence.staging.BAGScannerProces</class>
+        <class>nl.b3p.brmo.persistence.auth.Gebruiker</class>
+        <class>nl.b3p.brmo.persistence.auth.Groep</class>
         <properties>
+            <property name="javax.persistence.jdbc.url" value="${postgresql.url}"/>
+            <property name="javax.persistence.jdbc.driver" value="${postgresql.driverClass}"/>
+            <property name="javax.persistence.jdbc.password" value="${postgresql.password}"/>
+            <property name="javax.persistence.jdbc.user" value="${postgresql.user}"/>
+            <property name="javax.persistence.schema-generation.database.action" value="none"/>
+
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL95Dialect"/>
             <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
             <property name="javax.persistence.validation.mode" value="none"/>
@@ -25,13 +35,23 @@
     </persistence-unit>
     
     <persistence-unit name="brmo.persistence.microsoftsqlserver" transaction-type="RESOURCE_LOCAL">
-        <non-jta-data-source>java:comp/env/jdbc/brmo/staging</non-jta-data-source>
+
         <mapping-file>META-INF/orm-sqlserver.xml</mapping-file>
         <class>nl.b3p.brmo.persistence.staging.Bericht</class>
         <class>nl.b3p.brmo.persistence.staging.LaadProces</class>
         <class>nl.b3p.brmo.persistence.staging.BRKScannerProces</class>
         <class>nl.b3p.brmo.persistence.staging.AutomatischProces</class>
+        <class>nl.b3p.brmo.persistence.staging.MailRapportageProces</class>
+        <class>nl.b3p.brmo.persistence.staging.BAGScannerProces</class>
+        <class>nl.b3p.brmo.persistence.auth.Gebruiker</class>
+        <class>nl.b3p.brmo.persistence.auth.Groep</class>
         <properties>
+            <property name="javax.persistence.jdbc.url" value="${microsoftsqlserver.url}"/>
+            <property name="javax.persistence.jdbc.driver" value="${microsoftsqlserver.driverClass}"/>
+            <property name="javax.persistence.jdbc.password" value="${microsoftsqlserver.password}"/>
+            <property name="javax.persistence.jdbc.user" value="${microsoftsqlserver.user}"/>
+            <property name="javax.persistence.schema-generation.database.action" value="none"/>
+
             <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect"/>
             <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
             <property name="javax.persistence.validation.mode" value="none"/>
@@ -44,15 +64,23 @@
     </persistence-unit>
 
     <persistence-unit name="brmo.persistence.oracle" transaction-type="RESOURCE_LOCAL">
-        <non-jta-data-source>java:comp/env/jdbc/brmo/staging</non-jta-data-source>
         <mapping-file>META-INF/orm-oracle.xml</mapping-file>
         <class>nl.b3p.brmo.persistence.staging.Bericht</class>
         <class>nl.b3p.brmo.persistence.staging.LaadProces</class>
         <class>nl.b3p.brmo.persistence.staging.BRKScannerProces</class>
         <class>nl.b3p.brmo.persistence.staging.AutomatischProces</class>
+        <class>nl.b3p.brmo.persistence.staging.MailRapportageProces</class>
+        <class>nl.b3p.brmo.persistence.staging.BAGScannerProces</class>
+        <class>nl.b3p.brmo.persistence.auth.Gebruiker</class>
+        <class>nl.b3p.brmo.persistence.auth.Groep</class>
         <properties>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.Oracle12cDialect"/>
+            <property name="javax.persistence.jdbc.url" value="${oracle.url}"/>
+            <property name="javax.persistence.jdbc.driver" value="${oracle.driverClass}"/>
+            <property name="javax.persistence.jdbc.user" value="${oracle.user}"/>
+            <property name="javax.persistence.jdbc.password" value="${oracle.password}"/>
+            <property name="javax.persistence.schema-generation.database.action" value="none"/>
 
+            <property name="hibernate.dialect" value="org.hibernate.dialect.Oracle12cDialect"/>
             <!-- Oracle JDBC driver does not work with
             PreparedStatement.setBlob() of PreparedStatement.setClob()
             but only with
@@ -69,6 +97,33 @@
             <property name="hibernate.physical_naming_strategy" value="nl.b3p.brmo.persistence.SnakeCasePhysicalNamingStrategy" />
             <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
             <property name="javax.persistence.validation.mode" value="none"/>
+        </properties>
+    </persistence-unit>
+
+    <persistence-unit name="brmo.persistence.h2" transaction-type="RESOURCE_LOCAL">
+        <!-- de H2 in-memory of file database wordt gebruikt voor (default) unit tests. -->
+        <mapping-file>META-INF/orm-h2.xml</mapping-file>
+        <class>nl.b3p.brmo.persistence.staging.Bericht</class>
+        <class>nl.b3p.brmo.persistence.staging.LaadProces</class>
+        <class>nl.b3p.brmo.persistence.staging.BRKScannerProces</class>
+        <class>nl.b3p.brmo.persistence.staging.AutomatischProces</class>
+        <class>nl.b3p.brmo.persistence.staging.MailRapportageProces</class>
+        <class>nl.b3p.brmo.persistence.staging.BAGScannerProces</class>
+        <class>nl.b3p.brmo.persistence.auth.Gebruiker</class>
+        <class>nl.b3p.brmo.persistence.auth.Groep</class>
+        <properties>
+            <property name="hibernate.archive.autodetection" value="class"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.hbm2ddl.auto" value="create"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
+            <property name="hibernate.physical_naming_strategy" value="nl.b3p.brmo.persistence.SnakeCasePhysicalNamingStrategy" />
+            <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
+            <property name="javax.persistence.validation.mode" value="none"/>
+            <!-- eventueel testen met Oracle Compatibility Mode ';MODE=Oracle' of
+            PostgreSQL Compatibility Mode ';MODE=PostgreSQL'
+            zie:http://www.h2database.com/html/features.html#compatibility -->
+            <!-- property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:test;DB_CLOSE_DELAY=-1"/ -->
+            <property name="javax.persistence.jdbc.url" value="jdbc:h2:file:./target/unittest-h2/db"/>
         </properties>
     </persistence-unit>
 </persistence>
