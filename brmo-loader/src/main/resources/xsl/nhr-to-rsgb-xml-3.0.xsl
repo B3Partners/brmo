@@ -491,7 +491,6 @@
                 <xsl:value-of select="normalize-space(cat:bezoekLocatiePersoon/cat:volledigAdres)"/>
             </xsl:if>
         </adres_binnenland>
-        <!-- Lengte mismatch: NHR 500, RSGB 149 (???) -->
         <adres_buitenland>
             <xsl:if test="cat:bezoekLocatie/cat:adres/cat:buitenlandsAdres">
                 <xsl:value-of select="normalize-space(cat:bezoekLocatie/cat:volledigAdres)"/>

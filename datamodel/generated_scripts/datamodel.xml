@@ -2438,8 +2438,8 @@
               desc="AN257"/>
       <column name="adres_buitenland"
               fullname="Adres buitenland"
-              type="varchar(149)"
-              desc="AN149"/>
+              type="varchar(500)"
+              desc="AN500"/>
       <column name="emailadres"
               fullname="Emailadres"
               type="varchar(254)"
