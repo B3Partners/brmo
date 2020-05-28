@@ -37,7 +37,7 @@ public class ConfigUtil implements Servlet {
         if (tempSize != null && !tempSize.isEmpty()) {
             MAX_UPLOAD_SIZE = Integer.valueOf(tempSize) * 1024;
         } else {
-            MAX_UPLOAD_SIZE = 500 * 1024;
+            MAX_UPLOAD_SIZE = 10000 * 1024;
         }
         
         String tempFolder = config.getInitParameter("temp_folder");

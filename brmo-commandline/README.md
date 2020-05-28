@@ -20,7 +20,7 @@ Acties:
                                                              staging database
   -j,--jobstatus <[format]>                                  Geef aantal berichten in job tabel van
                                                              staging database
-  -a,--load <bestandsnaam <type-br> <[archief-directory]>    Laad totaalstand of mutatie uit bestand
+  -a,--load <bestandsnaam> <type-br> <[archief-directory]>   Laad totaalstand of mutatie uit bestand
                                                              (.zip of .xml) in database
   -ad,--loaddir <directory> <type-br> <[archief-directory]>  Laad stand of mutatie berichten (.zip
                                                              of .xml) uit directory in database

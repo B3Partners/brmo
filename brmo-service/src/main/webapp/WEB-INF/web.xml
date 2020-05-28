@@ -103,10 +103,12 @@
         <servlet-name>ConfigUtil</servlet-name>
         <servlet-class>nl.b3p.brmo.service.util.ConfigUtil</servlet-class>
         <init-param>
+            <description>maximaal toegestane bericht grootte in MiB, default 10000</description>
             <param-name>max_upload_size</param-name>
-            <param-value>5000</param-value>
+            <param-value>10000</param-value>
         </init-param>
         <init-param>
+            <description>directory voor tijdelijke bestanden (met mogelijk persoonsgegevens)</description>
             <param-name>temp_folder</param-name>
             <param-value>/tmp</param-value>
         </init-param>
@@ -196,9 +198,7 @@
         <role-name>Admin</role-name>
     </security-role>
     <session-config>
-        <session-timeout>
-            30
-        </session-timeout>
+        <session-timeout>30</session-timeout>
     </session-config>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
