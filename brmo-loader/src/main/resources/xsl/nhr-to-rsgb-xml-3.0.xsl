@@ -127,7 +127,7 @@
                 </xsl:if>
                 <xsl:if test="$key !=''">
                     <!-- zonder key kunnen we geen persoon vastleggen -->
-                    <xsl:comment>heeft node: "<xsl:value-of select="local-name(.)" />" met "<xsl:value-of select="local-name(*[1])" />" en waarde persoon: <xsl:value-of select="name(*[1])" />; <xsl:value-of select="$key" /></xsl:comment>
+                    <xsl:comment>heeft node: "<xsl:value-of select="local-name(.)" />" met "<xsl:value-of select="local-name(*[1])" />" en persoon: <xsl:value-of select="name(*[1])" />; <xsl:value-of select="$key" /></xsl:comment>
                     <xsl:choose>
                         <xsl:when test="local-name(*[1]) = 'natuurlijkPersoon'">
                             <xsl:for-each select="cat:natuurlijkPersoon">
@@ -136,40 +136,70 @@
                         </xsl:when>
                         <xsl:when test="local-name(*[1]) = 'rechtspersoon'">
                             <xsl:variable name="class">INGESCHREVEN NIET-NATUURLIJK PERSOON</xsl:variable>
+
                             <subject>
                                 <identif><xsl:value-of select="$key" /></identif>
                                 <clazz><xsl:value-of select="$class" /></clazz>
                                 <typering><xsl:value-of select="substring($class,1,35)" /></typering>
-                                <naam><xsl:value-of select="cat:naam" /></naam>
+                                <naam>
+                                    <xsl:choose>
+                                        <xsl:when test="cat:rechtspersoon/cat:volledigeNaam"><xsl:value-of select="cat:rechtspersoon/cat:volledigeNaam" /></xsl:when>
+                                        <xsl:otherwise><xsl:value-of select="cat:naam" /></xsl:otherwise>
+                                    </xsl:choose>
+                                </naam>
                                 <xsl:for-each select="cat:manifesteertZichAls/cat:onderneming/cat:kvkNummer">
                                     <kvk_nummer><xsl:value-of select="."/></kvk_nummer>
                                 </xsl:for-each>
 
                                 <xsl:call-template name="subject" />
                             </subject>
+
                             <prs>
                                 <sc_identif><xsl:value-of select="$key" /></sc_identif>
                                 <clazz><xsl:value-of select="$class" /></clazz>
                             </prs>
+
                             <niet_nat_prs>
                                 <sc_identif><xsl:value-of select="$key" /></sc_identif>
                                 <clazz><xsl:value-of select="$class" /></clazz>
-                                <naam><xsl:value-of select="cat:naam" /></naam>
+                                <naam>
+                                    <xsl:choose>
+                                        <xsl:when test="cat:rechtspersoon/cat:volledigeNaam"><xsl:value-of select="cat:rechtspersoon/cat:volledigeNaam" /></xsl:when>
+                                        <xsl:otherwise><xsl:value-of select="cat:naam" /></xsl:otherwise>
+                                    </xsl:choose>
+                                </naam>
                                 <verkorte_naam><xsl:value-of select="substring(cat:naam,1,45)" /></verkorte_naam>
                                 <xsl:call-template name="registratie-datum">
                                     <xsl:with-param name="einde" select="'datum_beeindiging'" />
                                 </xsl:call-template>
                             </niet_nat_prs>
+
                             <ingeschr_niet_nat_prs>
                                 <sc_identif><xsl:value-of select="$key" /></sc_identif>
                                 <typering><xsl:value-of select="substring($class,1,35)" /></typering>
                                 <fk_8aoa_identif>
-                                    <xsl:value-of select="cat:bezoekLocatie/cat:adres/cat:binnenlandsAdres/cat:bagId/cat:identificatieAdresseerbaarObject" />
+                                    <xsl:choose>
+                                        <xsl:when test="cat:rechtspersoon/cat:bezoekLocatie/cat:adres/cat:binnenlandsAdres/cat:bagId/cat:identificatieAdresseerbaarObject">
+                                            <xsl:value-of select="cat:rechtspersoon/cat:bezoekLocatie/cat:adres/cat:binnenlandsAdres/cat:bagId/cat:identificatieAdresseerbaarObject" />
+                                        </xsl:when>
+                                        <xsl:when test="cat:rechtspersoon/cat:bezoekLocatiePersoon/cat:adres/cat:binnenlandsAdres/cat:bagId/cat:identificatieAdresseerbaarObject">
+                                            <xsl:value-of select="cat:rechtspersoon/cat:bezoekLocatiePersoon/cat:adres/cat:binnenlandsAdres/cat:bagId/cat:identificatieAdresseerbaarObject" />
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <xsl:value-of select="cat:bezoekLocatie/cat:adres/cat:binnenlandsAdres/cat:bagId/cat:identificatieAdresseerbaarObject" />
+                                        </xsl:otherwise>
+                                    </xsl:choose>
                                 </fk_8aoa_identif>
-                                <rechtsvorm><xsl:value-of select="cat:persoonRechtsvorm"/></rechtsvorm>
+                                <rechtsvorm>
+                                    <xsl:if test="cat:rechtspersoon/cat:persoonRechtsvorm"><xsl:value-of select="cat:rechtspersoon/cat:persoonRechtsvorm"/></xsl:if>
+                                    <xsl:if test="cat:persoonRechtsvorm"><xsl:value-of select="cat:persoonRechtsvorm"/></xsl:if>
+                                </rechtsvorm>
                                 <publiekrechtelijke_rechtsvorm><xsl:value-of select="cat:publiekrechtelijkeRechtsvorm/cat:omschrijving"/></publiekrechtelijke_rechtsvorm>
+                                <rsin><xsl:value-of select="cat:rechtspersoon/cat:rsin"/></rsin>
                             </ingeschr_niet_nat_prs>
+
                         </xsl:when>
+
                         <xsl:otherwise>
                             <xsl:comment>
                                 <xsl:text>namespace probleem voor node met naam: </xsl:text><xsl:value-of select="name(*[1])"/>
@@ -187,7 +217,7 @@
                         <fk_sc_rh_pes_sc_identif><xsl:value-of select="$objectRef" /></fk_sc_rh_pes_sc_identif>
 
                         <!-- numeric(18,0), - N18 - Beperking bevoegdheid  in euros-->
-                        <!--<beperking_bev_in_euros></beperking_bev_in_euros>-->
+                        <beperking_bev_in_euros><xsl:value-of select="../cat:bevoegdheid/cat:beperkingInEuros/cat:waarde"/></beperking_bev_in_euros>
                         <!-- numeric(18,0), - Groepsattribuut Beperkte volmacht FUNCTIONARIS.Beperking in geld - Beperking in geld-->
                         <!--<bv_beperking_in_geld></bv_beperking_in_geld>-->
                         <!--character vary ing(2000), - Groepsattribuut Beperkte volmacht FUNCTIONARIS.Omschrijving overige beperkingen - Omschrijving overige beperkingen-->
@@ -208,7 +238,10 @@
                         <indic_statutair_volmacht><xsl:value-of select="../cat:volmacht/cat:isStatutair/cat:omschrijving"/></indic_statutair_volmacht>
                         <!-- character varying(3), - AN3 - Overige beperking bevoegdheid, alleen optioneel gevuld indien Aansprakelijke-->
                         <xsl:if test="../cat:functie/cat:omschrijving = 'Aansprakelijke'">
-                            <ovrg_beperking_bev/>
+                            <ovrg_beperking_bev><xsl:value-of select="../cat:bevoegdheid/cat:overigeBeperking/cat:omschrijving"/></ovrg_beperking_bev>
+                        </xsl:if>
+                        <xsl:if test="../cat:functie/cat:omschrijving = 'Vennoot'">
+                            <ovrg_beperking_bev><xsl:value-of select="../cat:bevoegdheid/cat:overigeBeperking/cat:omschrijving"/></ovrg_beperking_bev>
                         </xsl:if>
 
 
@@ -482,6 +515,7 @@
 
     <!-- Werkt voor elementen met cat:bezoekLocatie -->
     <xsl:template name="subject">
+        <xsl:comment>gegevens uit template subject</xsl:comment>
         <!-- Lengte mismatch: NHR 500, RSGB 257 -->
         <adres_binnenland>
             <xsl:if test="cat:bezoekLocatie/cat:adres/cat:binnenlandsAdres">
@@ -490,6 +524,9 @@
             <xsl:if test="cat:bezoekLocatiePersoon/cat:adres/cat:binnenlandsAdres">
                 <xsl:value-of select="normalize-space(cat:bezoekLocatiePersoon/cat:volledigAdres)"/>
             </xsl:if>
+            <xsl:if test="cat:rechtspersoon/cat:bezoekLocatiePersoon/cat:adres/cat:binnenlandsAdres">
+                <xsl:value-of select="normalize-space(cat:rechtspersoon/cat:bezoekLocatiePersoon/cat:volledigAdres)"/>
+            </xsl:if>
         </adres_binnenland>
         <adres_buitenland>
             <xsl:if test="cat:bezoekLocatie/cat:adres/cat:buitenlandsAdres">
@@ -497,6 +534,9 @@
             </xsl:if>
             <xsl:if test="cat:bezoekLocatiePersoon/cat:adres/cat:buitenlandsAdres">
                 <xsl:value-of select="normalize-space(cat:bezoekLocatiePersoon/cat:volledigAdres)"/>
+            </xsl:if>
+            <xsl:if test="cat:rechtspersoon/cat:bezoekLocatiePersoon/cat:adres/cat:buitenlandsAdres">
+                <xsl:value-of select="normalize-space(cat:rechtspersoon/cat:bezoekLocatiePersoon/cat:volledigAdres)"/>
             </xsl:if>
         </adres_buitenland>
 
@@ -528,7 +568,7 @@
     <xsl:template match="cat:rechtspersoon | cat:samenwerkingsverband">
         <xsl:variable name="key"><xsl:apply-templates select="." mode="object_ref"/></xsl:variable>
         <xsl:variable name="class">INGESCHREVEN NIET-NATUURLIJK PERSOON</xsl:variable>
-
+        <xsl:comment>template voor cat:rechtspersoon | cat:samenwerkingsverband</xsl:comment>
         <subject>
             <identif><xsl:value-of select="$key"/></identif>
             <clazz><xsl:value-of select="$class"/></clazz>
