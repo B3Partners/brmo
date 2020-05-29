@@ -261,4 +261,13 @@
 			<xsl:apply-templates select="@*[name()!='typeName']|node()"/>
 		</xsl:copy>
 	</xsl:template>
+	<xsl:template match="*[@elementType='Objecttype - Property' and @id='EAID_31CC2AB2_A6D1_4a6e_B452_EEC92B1E2EEB']">
+		<xsl:comment>
+			<xsl:text>repair.xsl: Adres buitenland -  kolom vergroot van 149 naar 500</xsl:text>
+		</xsl:comment>
+		<xsl:copy>
+			<xsl:attribute name="typeName" select="'AN500'"/>
+			<xsl:apply-templates select="@*[name()!='typeName']|node()"/>
+		</xsl:copy>
+	</xsl:template>
 </xsl:stylesheet>

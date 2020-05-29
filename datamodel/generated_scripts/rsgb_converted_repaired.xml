@@ -23696,7 +23696,9 @@
                    typeName="AN257"
                    visibility=""
                    association=""/>
-         <Property elementType="Objecttype - Property"
+         <!--repair.xsl: Adres buitenland -  kolom vergroot van 149 naar 500-->
+         <Property typeName="AN500"
+                   elementType="Objecttype - Property"
                    id="EAID_31CC2AB2_A6D1_4a6e_B452_EEC92B1E2EEB"
                    name="Adres buitenland"
                    lowerValueType="uml:LiteralInteger"
@@ -23704,7 +23706,6 @@
                    upperValueType="uml:LiteralUnlimitedNatural"
                    upperValueValue="1"
                    type="EAJava_AN149"
-                   typeName="AN149"
                    visibility=""
                    association=""/>
          <Property elementType="Objecttype - Property"
