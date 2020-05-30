@@ -1,0 +1,636 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Geanonimiseerd door B3Partners BV op 2020-05-29+02:00, zie commentaar in bericht.-->
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+    <wstxns1:Header xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:wstxns1="http://schemas.xmlsoap.org/soap/envelope/" />
+    <wstxns8:Body xmlns:wstxns8="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" wsu:Id="id-1-12755b0f5b5b6e64c1950daf74b2054b">
+        <ophalenInschrijvingResponse xmlns="http://schemas.kvk.nl/schemas/hrip/dataservice/2015/02" peilmoment="20200528104323355">
+            <meldingen>
+                <informatie>
+                    <code>IPD0000</code>
+                    <omschrijving>Het product is succesvol geproduceerd</omschrijving>
+                    <referentie>77513010</referentie>
+                </informatie>
+            </meldingen>
+            <product>
+                <maatschappelijkeActiviteit xmlns="http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02">
+                    <registratie registratieTijdstip="20200303112843056">
+                        <datumAanvang>20200101</datumAanvang>
+                    </registratie>
+                    <kvkNummer>77513010</kvkNummer>
+                    <nonMailing>
+                        <code>J</code>
+                        <omschrijving>Ja</omschrijving>
+                        <referentieType>geenRT</referentieType>
+                    </nonMailing>
+                    <incidenteelUitlenenArbeidskrachten>
+                        <code>N</code>
+                        <omschrijving>Nee</omschrijving>
+                        <referentieType>geenRT</referentieType>
+                    </incidenteelUitlenenArbeidskrachten>
+                    <bezoekLocatie>
+                        <registratie registratieTijdstip="20200303112843056">
+                            <datumAanvang>20200101</datumAanvang>
+                        </registratie>
+                        <afgeschermd>
+                            <code>N</code>
+                            <omschrijving>Nee</omschrijving>
+                            <referentieType>geenRT</referentieType>
+                        </afgeschermd>
+                        <adres>
+                            <binnenlandsAdres>
+                                <straatnaam>Vosmatenweg</straatnaam>
+                                <huisnummer>7</huisnummer>
+                                <postcode>
+                                    <cijfercombinatie>7742</cijfercombinatie>
+                                    <lettercombinatie>SX</lettercombinatie>
+                                </postcode>
+                                <plaats>Coevorden</plaats>
+                                <bagId>
+                                    <identificatieNummeraanduiding>0109200000015751</identificatieNummeraanduiding>
+                                    <identificatieAdresseerbaarObject>0109010000001272</identificatieAdresseerbaarObject>
+                                </bagId>
+                            </binnenlandsAdres>
+                        </adres>
+                        <volledigAdres>
+                            Vosmatenweg 7
+                            7742SX Coevorden
+                        </volledigAdres>
+                    </bezoekLocatie>
+                    <postLocatie>
+                        <registratie registratieTijdstip="20200303112843056">
+                            <datumAanvang>20200101</datumAanvang>
+                        </registratie>
+                        <afgeschermd>
+                            <code>N</code>
+                            <omschrijving>Nee</omschrijving>
+                            <referentieType>geenRT</referentieType>
+                        </afgeschermd>
+                        <adres>
+                            <binnenlandsAdres>
+                                <straatnaam>Vosmatenweg</straatnaam>
+                                <huisnummer>7</huisnummer>
+                                <postcode>
+                                    <cijfercombinatie>7742</cijfercombinatie>
+                                    <lettercombinatie>SX</lettercombinatie>
+                                </postcode>
+                                <plaats>Coevorden</plaats>
+                                <bagId>
+                                    <identificatieNummeraanduiding>0109200000015751</identificatieNummeraanduiding>
+                                    <identificatieAdresseerbaarObject>0109010000001272</identificatieAdresseerbaarObject>
+                                </bagId>
+                            </binnenlandsAdres>
+                        </adres>
+                        <volledigAdres>
+                            Vosmatenweg 7
+                            7742SX Coevorden
+                        </volledigAdres>
+                    </postLocatie>
+                    <communicatiegegevens>
+                        <registratie registratieTijdstip="20200303112843056">
+                            <datumAanvang>20200101</datumAanvang>
+                        </registratie>
+                        <communicatienummer>
+                            <toegangscode>+31</toegangscode>
+                            <nummer>0524745218</nummer>
+                            <soort>
+                                <code>T</code>
+                                <omschrijving>Telefoon</omschrijving>
+                            </soort>
+                        </communicatienummer>
+                    </communicatiegegevens>
+                    <naam>DHMU V.O.F.</naam>
+                    <manifesteertZichAls>
+                        <relatieRegistratie registratieTijdstip="20200303112843056">
+                            <datumAanvang>20200101</datumAanvang>
+                        </relatieRegistratie>
+                        <onderneming>
+                            <registratie registratieTijdstip="20200303112843056">
+                                <datumAanvang>20200101</datumAanvang>
+                            </registratie>
+                            <kvkNummer>77513010</kvkNummer>
+                            <sbiActiviteit>
+                                <registratie registratieTijdstip="20200303112843056">
+                                    <datumAanvang>20200101</datumAanvang>
+                                </registratie>
+                                <sbiCode>
+                                    <code>2825</code>
+                                    <omschrijving>Vervaardiging van machines en apparaten voor industriële koeltechniek en klimaatregeling</omschrijving>
+                                    <referentieType>ActiviteitCode</referentieType>
+                                </sbiCode>
+                                <isHoofdactiviteit>
+                                    <code>J</code>
+                                    <omschrijving>Ja</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                </isHoofdactiviteit>
+                            </sbiActiviteit>
+                            <sbiActiviteit>
+                                <registratie registratieTijdstip="20200303112843056">
+                                    <datumAanvang>20200101</datumAanvang>
+                                </registratie>
+                                <sbiCode>
+                                    <code>7112</code>
+                                    <omschrijving>Ingenieurs en overig technisch ontwerp en advies</omschrijving>
+                                    <referentieType>ActiviteitCode</referentieType>
+                                </sbiCode>
+                                <isHoofdactiviteit>
+                                    <code>N</code>
+                                    <omschrijving>Nee</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                </isHoofdactiviteit>
+                            </sbiActiviteit>
+                            <voltijdWerkzamePersonen>0</voltijdWerkzamePersonen>
+                            <deeltijdWerkzamePersonen>0</deeltijdWerkzamePersonen>
+                            <totaalWerkzamePersonen>0</totaalWerkzamePersonen>
+                            <handeltOnder>
+                                <handelsnaam>
+                                    <registratie registratieTijdstip="20200303112843056">
+                                        <datumAanvang>20200101</datumAanvang>
+                                    </registratie>
+                                    <naam>DHMU V.O.F.</naam>
+                                    <volgorde>0</volgorde>
+                                </handelsnaam>
+                            </handeltOnder>
+                            <wordtUitgeoefendIn>
+                                <relatieRegistratie registratieTijdstip="20200303112843056">
+                                    <datumAanvang>20200101</datumAanvang>
+                                </relatieRegistratie>
+                                <commercieleVestiging>
+                                    <registratie registratieTijdstip="20200303112843056">
+                                        <datumAanvang>20200101</datumAanvang>
+                                    </registratie>
+                                    <vestigingsnummer>000045210608</vestigingsnummer>
+                                    <bezoekLocatie>
+                                        <registratie registratieTijdstip="20200303112843056">
+                                            <datumAanvang>20200101</datumAanvang>
+                                        </registratie>
+                                        <afgeschermd>
+                                            <code>N</code>
+                                            <omschrijving>Nee</omschrijving>
+                                            <referentieType>geenRT</referentieType>
+                                        </afgeschermd>
+                                        <adres>
+                                            <binnenlandsAdres>
+                                                <straatnaam>Vosmatenweg</straatnaam>
+                                                <huisnummer>7</huisnummer>
+                                                <postcode>
+                                                    <cijfercombinatie>7742</cijfercombinatie>
+                                                    <lettercombinatie>SX</lettercombinatie>
+                                                </postcode>
+                                                <plaats>Coevorden</plaats>
+                                                <bagId>
+                                                    <identificatieNummeraanduiding>0109200000015751</identificatieNummeraanduiding>
+                                                    <identificatieAdresseerbaarObject>0109010000001272</identificatieAdresseerbaarObject>
+                                                </bagId>
+                                            </binnenlandsAdres>
+                                        </adres>
+                                        <volledigAdres>
+                                            Vosmatenweg 7
+                                            7742SX Coevorden
+                                        </volledigAdres>
+                                    </bezoekLocatie>
+                                    <postLocatie>
+                                        <registratie registratieTijdstip="20200303112843056">
+                                            <datumAanvang>20200101</datumAanvang>
+                                        </registratie>
+                                        <afgeschermd>
+                                            <code>N</code>
+                                            <omschrijving>Nee</omschrijving>
+                                            <referentieType>geenRT</referentieType>
+                                        </afgeschermd>
+                                        <adres>
+                                            <binnenlandsAdres>
+                                                <straatnaam>Vosmatenweg</straatnaam>
+                                                <huisnummer>7</huisnummer>
+                                                <postcode>
+                                                    <cijfercombinatie>7742</cijfercombinatie>
+                                                    <lettercombinatie>SX</lettercombinatie>
+                                                </postcode>
+                                                <plaats>Coevorden</plaats>
+                                                <bagId>
+                                                    <identificatieNummeraanduiding>0109200000015751</identificatieNummeraanduiding>
+                                                    <identificatieAdresseerbaarObject>0109010000001272</identificatieAdresseerbaarObject>
+                                                </bagId>
+                                            </binnenlandsAdres>
+                                        </adres>
+                                        <volledigAdres>
+                                            Vosmatenweg 7
+                                            7742SX Coevorden
+                                        </volledigAdres>
+                                    </postLocatie>
+                                    <communicatiegegevens>
+                                        <registratie registratieTijdstip="20200303112843056">
+                                            <datumAanvang>20200101</datumAanvang>
+                                        </registratie>
+                                        <communicatienummer>
+                                            <toegangscode>+31</toegangscode>
+                                            <nummer>0524745218</nummer>
+                                            <soort>
+                                                <code>T</code>
+                                                <omschrijving>Telefoon</omschrijving>
+                                            </soort>
+                                        </communicatienummer>
+                                    </communicatiegegevens>
+                                    <eersteHandelsnaam>DHMU V.O.F.</eersteHandelsnaam>
+                                    <voltijdWerkzamePersonen>0</voltijdWerkzamePersonen>
+                                    <deeltijdWerkzamePersonen>0</deeltijdWerkzamePersonen>
+                                    <totaalWerkzamePersonen>0</totaalWerkzamePersonen>
+                                    <activiteiten>
+                                        <omschrijving>Het ontwikkelen, het door ontwikkelen en het (laten) produceren van geluidsarme passieve en of actieve koelunits t.b.v. de inbouw daarvan in (glasvezel)stations. Alsmede de verkoop van voorgaande. Het ontwikkelen en door ontwikkelen van allerlei innovaties op het gebied van koeling en geluid en het eventueel produceren en vermarkten van deze innovaties.</omschrijving>
+                                        <sbiActiviteit>
+                                            <registratie registratieTijdstip="20200303112843056">
+                                                <datumAanvang>20200101</datumAanvang>
+                                            </registratie>
+                                            <sbiCode>
+                                                <code>2825</code>
+                                                <omschrijving>Vervaardiging van machines en apparaten voor industriële koeltechniek en klimaatregeling</omschrijving>
+                                                <referentieType>ActiviteitCode</referentieType>
+                                            </sbiCode>
+                                            <isHoofdactiviteit>
+                                                <code>J</code>
+                                                <omschrijving>Ja</omschrijving>
+                                                <referentieType>geenRT</referentieType>
+                                            </isHoofdactiviteit>
+                                        </sbiActiviteit>
+                                        <sbiActiviteit>
+                                            <registratie registratieTijdstip="20200303112843056">
+                                                <datumAanvang>20200101</datumAanvang>
+                                            </registratie>
+                                            <sbiCode>
+                                                <code>7112</code>
+                                                <omschrijving>Ingenieurs en overig technisch ontwerp en advies</omschrijving>
+                                                <referentieType>ActiviteitCode</referentieType>
+                                            </sbiCode>
+                                            <isHoofdactiviteit>
+                                                <code>N</code>
+                                                <omschrijving>Nee</omschrijving>
+                                                <referentieType>geenRT</referentieType>
+                                            </isHoofdactiviteit>
+                                        </sbiActiviteit>
+                                        <exporteert>
+                                            <code>N</code>
+                                            <omschrijving>Nee</omschrijving>
+                                            <referentieType>geenRT</referentieType>
+                                        </exporteert>
+                                        <importeert>
+                                            <code>N</code>
+                                            <omschrijving>Nee</omschrijving>
+                                            <referentieType>geenRT</referentieType>
+                                        </importeert>
+                                    </activiteiten>
+                                    <handeltOnder>
+                                        <relatieRegistratie registratieTijdstip="20200303112843056">
+                                            <datumAanvang>20200101</datumAanvang>
+                                        </relatieRegistratie>
+                                        <handelsnaam>
+                                            <registratie registratieTijdstip="20200303112843056">
+                                                <datumAanvang>20200101</datumAanvang>
+                                            </registratie>
+                                            <naam>DHMU V.O.F.</naam>
+                                            <volgorde>0</volgorde>
+                                        </handelsnaam>
+                                    </handeltOnder>
+                                </commercieleVestiging>
+                            </wordtUitgeoefendIn>
+                        </onderneming>
+                    </manifesteertZichAls>
+                    <wordtGeleidVanuit>
+                        <commercieleVestiging>
+                            <registratie registratieTijdstip="20200303112843056">
+                                <datumAanvang>20200101</datumAanvang>
+                            </registratie>
+                            <vestigingsnummer>000045210608</vestigingsnummer>
+                            <bezoekLocatie>
+                                <registratie registratieTijdstip="20200303112843056">
+                                    <datumAanvang>20200101</datumAanvang>
+                                </registratie>
+                                <afgeschermd>
+                                    <code>N</code>
+                                    <omschrijving>Nee</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                </afgeschermd>
+                                <adres>
+                                    <binnenlandsAdres>
+                                        <straatnaam>Vosmatenweg</straatnaam>
+                                        <huisnummer>7</huisnummer>
+                                        <postcode>
+                                            <cijfercombinatie>7742</cijfercombinatie>
+                                            <lettercombinatie>SX</lettercombinatie>
+                                        </postcode>
+                                        <plaats>Coevorden</plaats>
+                                        <bagId>
+                                            <identificatieNummeraanduiding>0109200000015751</identificatieNummeraanduiding>
+                                            <identificatieAdresseerbaarObject>0109010000001272</identificatieAdresseerbaarObject>
+                                        </bagId>
+                                    </binnenlandsAdres>
+                                </adres>
+                                <volledigAdres>
+                                    Vosmatenweg 7
+                                    7742SX Coevorden
+                                </volledigAdres>
+                            </bezoekLocatie>
+                            <postLocatie>
+                                <registratie registratieTijdstip="20200303112843056">
+                                    <datumAanvang>20200101</datumAanvang>
+                                </registratie>
+                                <afgeschermd>
+                                    <code>N</code>
+                                    <omschrijving>Nee</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                </afgeschermd>
+                                <adres>
+                                    <binnenlandsAdres>
+                                        <straatnaam>Vosmatenweg</straatnaam>
+                                        <huisnummer>7</huisnummer>
+                                        <postcode>
+                                            <cijfercombinatie>7742</cijfercombinatie>
+                                            <lettercombinatie>SX</lettercombinatie>
+                                        </postcode>
+                                        <plaats>Coevorden</plaats>
+                                        <bagId>
+                                            <identificatieNummeraanduiding>0109200000015751</identificatieNummeraanduiding>
+                                            <identificatieAdresseerbaarObject>0109010000001272</identificatieAdresseerbaarObject>
+                                        </bagId>
+                                    </binnenlandsAdres>
+                                </adres>
+                                <volledigAdres>
+                                    Vosmatenweg 7
+                                    7742SX Coevorden
+                                </volledigAdres>
+                            </postLocatie>
+                            <communicatiegegevens>
+                                <registratie registratieTijdstip="20200303112843056">
+                                    <datumAanvang>20200101</datumAanvang>
+                                </registratie>
+                                <communicatienummer>
+                                    <toegangscode>+31</toegangscode>
+                                    <nummer>0524745218</nummer>
+                                    <soort>
+                                        <code>T</code>
+                                        <omschrijving>Telefoon</omschrijving>
+                                    </soort>
+                                </communicatienummer>
+                            </communicatiegegevens>
+                            <eersteHandelsnaam>DHMU V.O.F.</eersteHandelsnaam>
+                            <voltijdWerkzamePersonen>0</voltijdWerkzamePersonen>
+                            <deeltijdWerkzamePersonen>0</deeltijdWerkzamePersonen>
+                            <totaalWerkzamePersonen>0</totaalWerkzamePersonen>
+                            <activiteiten>
+                                <omschrijving>Het ontwikkelen, het door ontwikkelen en het (laten) produceren van geluidsarme passieve en of actieve koelunits t.b.v. de inbouw daarvan in (glasvezel)stations. Alsmede de verkoop van voorgaande. Het ontwikkelen en door ontwikkelen van allerlei innovaties op het gebied van koeling en geluid en het eventueel produceren en vermarkten van deze innovaties.</omschrijving>
+                                <sbiActiviteit>
+                                    <registratie registratieTijdstip="20200303112843056">
+                                        <datumAanvang>20200101</datumAanvang>
+                                    </registratie>
+                                    <sbiCode>
+                                        <code>2825</code>
+                                        <omschrijving>Vervaardiging van machines en apparaten voor industriële koeltechniek en klimaatregeling</omschrijving>
+                                        <referentieType>ActiviteitCode</referentieType>
+                                    </sbiCode>
+                                    <isHoofdactiviteit>
+                                        <code>J</code>
+                                        <omschrijving>Ja</omschrijving>
+                                        <referentieType>geenRT</referentieType>
+                                    </isHoofdactiviteit>
+                                </sbiActiviteit>
+                                <sbiActiviteit>
+                                    <registratie registratieTijdstip="20200303112843056">
+                                        <datumAanvang>20200101</datumAanvang>
+                                    </registratie>
+                                    <sbiCode>
+                                        <code>7112</code>
+                                        <omschrijving>Ingenieurs en overig technisch ontwerp en advies</omschrijving>
+                                        <referentieType>ActiviteitCode</referentieType>
+                                    </sbiCode>
+                                    <isHoofdactiviteit>
+                                        <code>N</code>
+                                        <omschrijving>Nee</omschrijving>
+                                        <referentieType>geenRT</referentieType>
+                                    </isHoofdactiviteit>
+                                </sbiActiviteit>
+                                <exporteert>
+                                    <code>N</code>
+                                    <omschrijving>Nee</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                </exporteert>
+                                <importeert>
+                                    <code>N</code>
+                                    <omschrijving>Nee</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                </importeert>
+                            </activiteiten>
+                            <handeltOnder>
+                                <relatieRegistratie registratieTijdstip="20200303112843056">
+                                    <datumAanvang>20200101</datumAanvang>
+                                </relatieRegistratie>
+                                <handelsnaam>
+                                    <registratie registratieTijdstip="20200303112843056">
+                                        <datumAanvang>20200101</datumAanvang>
+                                    </registratie>
+                                    <naam>DHMU V.O.F.</naam>
+                                    <volgorde>0</volgorde>
+                                </handelsnaam>
+                            </handeltOnder>
+                        </commercieleVestiging>
+                    </wordtGeleidVanuit>
+                    <heeftAlsEigenaar>
+                        <relatieRegistratie registratieTijdstip="20200303112843056">
+                            <datumAanvang>20200101</datumAanvang>
+                        </relatieRegistratie>
+                        <samenwerkingsverband>
+                            <registratie registratieTijdstip="20200303112843056">
+                                <datumAanvang>20200101</datumAanvang>
+                            </registratie>
+                            <persoonRechtsvorm>Vennootschap Onder Firma</persoonRechtsvorm>
+                            <volledigeNaam>DHMU V.O.F.</volledigeNaam>
+                            <uitgebreideRechtsvorm>Vennootschap Onder Firma</uitgebreideRechtsvorm>
+                            <heeft>
+                                <aansprakelijke>
+                                    <registratie registratieTijdstip="20200303112843056">
+                                        <datumAanvang>20200101</datumAanvang>
+                                    </registratie>
+                                    <door>
+                                        <rechtspersoon>
+                                            <persoonRechtsvorm>Besloten Vennootschap</persoonRechtsvorm>
+                                            <volledigeNaam>PB Solutions B.V.</volledigeNaam>
+                                            <bezoekLocatiePersoon>
+                                                <registratie registratieTijdstip="20200228110751789">
+                                                    <datumAanvang>20191218</datumAanvang>
+                                                </registratie>
+                                                <afgeschermd>
+                                                    <code>N</code>
+                                                    <omschrijving>Nee</omschrijving>
+                                                    <referentieType>geenRT</referentieType>
+                                                </afgeschermd>
+                                                <adres>
+                                                    <binnenlandsAdres>
+                                                        <straatnaam>Vosmatenweg</straatnaam>
+                                                        <huisnummer>7</huisnummer>
+                                                        <postcode>
+                                                            <cijfercombinatie>7742</cijfercombinatie>
+                                                            <lettercombinatie>SX</lettercombinatie>
+                                                        </postcode>
+                                                        <plaats>Coevorden</plaats>
+                                                        <bagId>
+                                                            <identificatieNummeraanduiding>0109200000015751</identificatieNummeraanduiding>
+                                                            <identificatieAdresseerbaarObject>0109010000001272</identificatieAdresseerbaarObject>
+                                                        </bagId>
+                                                    </binnenlandsAdres>
+                                                </adres>
+                                                <volledigAdres>
+                                                    Vosmatenweg 7
+                                                    7742SX Coevorden
+                                                </volledigAdres>
+                                            </bezoekLocatiePersoon>
+                                            <isEigenaarVan>
+                                                <maatschappelijkeActiviteit>
+                                                    <kvkNummer>76682633</kvkNummer>
+                                                    <nonMailing>
+                                                        <code>N</code>
+                                                        <omschrijving>Nee</omschrijving>
+                                                        <referentieType>geenRT</referentieType>
+                                                    </nonMailing>
+                                                </maatschappelijkeActiviteit>
+                                            </isEigenaarVan>
+                                            <rsin>860745570</rsin>
+                                        </rechtspersoon>
+                                    </door>
+                                    <functie>
+                                        <code>13</code>
+                                        <omschrijving>Vennoot</omschrijving>
+                                        <referentieType>FunctionarisRol</referentieType>
+                                    </functie>
+                                    <bevoegdheid>
+                                        <registratie registratieTijdstip="20200303112843056">
+                                            <datumAanvang>20200101</datumAanvang>
+                                        </registratie>
+                                        <soort>
+                                            <code>bb</code>
+                                            <omschrijving>Beperkt bevoegd</omschrijving>
+                                            <referentieType>SoortBevoegdheidAansprakelijkeBijSamenwerkingsverband</referentieType>
+                                        </soort>
+                                        <beperkingInEuros>
+                                            <waarde>10000</waarde>
+                                            <valuta>
+                                                <code>EUR</code>
+                                                <omschrijving>Euro</omschrijving>
+                                                <referentieType>Valuta</referentieType>
+                                            </valuta>
+                                        </beperkingInEuros>
+                                        <overigeBeperking>
+                                            <code>J</code>
+                                            <omschrijving>Ja</omschrijving>
+                                            <referentieType>geenRT</referentieType>
+                                        </overigeBeperking>
+                                    </bevoegdheid>
+                                </aansprakelijke>
+                            </heeft>
+                            <heeft>
+                                <aansprakelijke>
+                                    <registratie registratieTijdstip="20200303112843056">
+                                        <datumAanvang>20200101</datumAanvang>
+                                    </registratie>
+                                    <door>
+                                        <rechtspersoon>
+                                            <persoonRechtsvorm>Besloten Vennootschap</persoonRechtsvorm>
+                                            <volledigeNaam>TIG-DMO B.V.</volledigeNaam>
+                                            <bezoekLocatiePersoon>
+                                                <registratie registratieTijdstip="20191227105007543">
+                                                    <datumAanvang>20191227</datumAanvang>
+                                                </registratie>
+                                                <afgeschermd>
+                                                    <code>N</code>
+                                                    <omschrijving>Nee</omschrijving>
+                                                    <referentieType>geenRT</referentieType>
+                                                </afgeschermd>
+                                                <adres>
+                                                    <binnenlandsAdres>
+                                                        <straatnaam>Krommendijk</straatnaam>
+                                                        <huisnummer>20</huisnummer>
+                                                        <huisletter>a</huisletter>
+                                                        <postcode>
+                                                            <cijfercombinatie>7603</cijfercombinatie>
+                                                            <lettercombinatie>NK</lettercombinatie>
+                                                        </postcode>
+                                                        <plaats>Almelo</plaats>
+                                                        <bagId>
+                                                            <identificatieNummeraanduiding>0141200000045080</identificatieNummeraanduiding>
+                                                            <identificatieAdresseerbaarObject>0141010000070113</identificatieAdresseerbaarObject>
+                                                        </bagId>
+                                                    </binnenlandsAdres>
+                                                </adres>
+                                                <volledigAdres>
+                                                    Krommendijk 20 a
+                                                    7603NK Almelo
+                                                </volledigAdres>
+                                            </bezoekLocatiePersoon>
+                                            <isEigenaarVan>
+                                                <maatschappelijkeActiviteit>
+                                                    <kvkNummer>76764060</kvkNummer>
+                                                    <nonMailing>
+                                                        <code>N</code>
+                                                        <omschrijving>Nee</omschrijving>
+                                                        <referentieType>geenRT</referentieType>
+                                                    </nonMailing>
+                                                </maatschappelijkeActiviteit>
+                                            </isEigenaarVan>
+                                            <rsin>860787783</rsin>
+                                        </rechtspersoon>
+                                    </door>
+                                    <functie>
+                                        <code>13</code>
+                                        <omschrijving>Vennoot</omschrijving>
+                                        <referentieType>FunctionarisRol</referentieType>
+                                    </functie>
+                                    <bevoegdheid>
+                                        <registratie registratieTijdstip="20200303112843056">
+                                            <datumAanvang>20200101</datumAanvang>
+                                        </registratie>
+                                        <soort>
+                                            <code>bb</code>
+                                            <omschrijving>Beperkt bevoegd</omschrijving>
+                                            <referentieType>SoortBevoegdheidAansprakelijkeBijSamenwerkingsverband</referentieType>
+                                        </soort>
+                                        <beperkingInEuros>
+                                            <waarde>10000</waarde>
+                                            <valuta>
+                                                <code>EUR</code>
+                                                <omschrijving>Euro</omschrijving>
+                                                <referentieType>Valuta</referentieType>
+                                            </valuta>
+                                        </beperkingInEuros>
+                                        <overigeBeperking>
+                                            <code>J</code>
+                                            <omschrijving>Ja</omschrijving>
+                                            <referentieType>geenRT</referentieType>
+                                        </overigeBeperking>
+                                    </bevoegdheid>
+                                </aansprakelijke>
+                            </heeft>
+                            <rsin>861030874</rsin>
+                            <naamgeving>
+                                <registratie registratieTijdstip="20200303112843056">
+                                    <datumAanvang>20200101</datumAanvang>
+                                </registratie>
+                                <naam>DHMU V.O.F.</naam>
+                            </naamgeving>
+                            <rechtsvorm>
+                                <code>VOF</code>
+                                <omschrijving>Vennootschap Onder Firma</omschrijving>
+                                <referentieType>Rechtsvorm</referentieType>
+                            </rechtsvorm>
+                            <duur>
+                                <registratie registratieTijdstip="20200303112843056">
+                                    <datumAanvang>20200101</datumAanvang>
+                                </registratie>
+                                <heeftOnbepaaldeDuur>
+                                    <code>J</code>
+                                    <omschrijving>Ja</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                </heeftOnbepaaldeDuur>
+                            </duur>
+                        </samenwerkingsverband>
+                    </heeftAlsEigenaar>
+                </maatschappelijkeActiviteit>
+            </product>
+        </ophalenInschrijvingResponse>
+    </wstxns8:Body>
+</soap:Envelope>
