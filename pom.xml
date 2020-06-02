@@ -61,8 +61,8 @@
         <netbeans.hint.license>gpl30</netbeans.hint.license>
         <hibernate.version>5.4.16.Final</hibernate.version>
         <!-- ook jdbc-util updaten bij geotools update -->
-        <geotools.version>23.0</geotools.version>
-        <jdbc-util.version>5.1</jdbc-util.version>
+        <geotools.version>23.1</geotools.version>
+        <jdbc-util.version>5.2</jdbc-util.version>
         <jts.version>1.16.1</jts.version>
         <itextpdf.version>7.1.11</itextpdf.version>
         <postgresql.jdbc.version>42.2.12</postgresql.jdbc.version>
