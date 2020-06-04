@@ -349,7 +349,12 @@
                 <version>${activation.api.version}</version>
             </dependency>
             <dependency>
-                <!-- de volledige mail impelentatie dient door de servlet container te worden geleverd. -->
+                <groupId>com.sun.activation</groupId>
+                <artifactId>jakarta.activation</artifactId>
+                <version>${activation.api.version}</version>
+            </dependency>
+            <dependency>
+                <!-- de volledige mail implementatie dient door de servlet container te worden geleverd. -->
                 <groupId>jakarta.mail</groupId>
                 <artifactId>jakarta.mail-api</artifactId>
                 <version>${jakarta.mail.version}</version>

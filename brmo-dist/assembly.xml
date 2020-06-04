@@ -35,7 +35,7 @@
             <unpack>false</unpack>
             <includes>
                 <include>com.sun.mail:jakarta.mail</include>
-                <include>jakarta.activation:jakarta.activation-api</include>
+                <include>com.sun.activation:jakarta.activation</include>
                 <include>org.postgresql:postgresql</include>
                 <include>net.postgis:postgis-jdbc</include>
             </includes>
@@ -48,7 +48,7 @@
             <unpack>false</unpack>
             <includes>
                 <include>com.sun.mail:jakarta.mail</include>
-                <include>jakarta.activation:jakarta.activation-api</include>
+                <include>com.sun.activation:jakarta.activation</include>
                 <include>net.sourceforge.jtds:jtds</include>
             </includes>
             <outputFileNameMapping>${artifact.artifactId}-${artifact.version}.${artifact.extension}</outputFileNameMapping>
@@ -60,21 +60,23 @@
             <unpack>false</unpack>
             <includes>
                 <include>com.sun.mail:jakarta.mail</include>
-                <include>jakarta.activation:jakarta.activation-api</include>
+                <include>com.sun.activation:jakarta.activation</include>
                 <include>com.oracle.database.jdbc:ojdbc8</include>
             </includes>
             <outputFileNameMapping>${artifact.artifactId}-${artifact.version}.${artifact.extension}</outputFileNameMapping>
         </dependencySet>
-        <!-- dependencySet>
+        <dependencySet>
             <useTransitiveDependencies>false</useTransitiveDependencies>
-            <outputDirectory>drivers/java11-libs/</outputDirectory>
+            <outputDirectory>drivers/optional-java11-libs/</outputDirectory>
             <unpack>false</unpack>
             <includes>
+                <include>jakarta.activation</include>
+                <include>jakarta.mail</include>
                 <include>jakarta.xml.bind</include>
                 <include>org.glassfish.jaxb</include>
             </includes>
             <outputFileNameMapping>${artifact.artifactId}-${artifact.version}.${artifact.extension}</outputFileNameMapping>
-        </dependencySet -->
+        </dependencySet>
     </dependencySets>
     <fileSets>
         <fileSet>
