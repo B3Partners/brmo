@@ -2319,4 +2319,6 @@
   <laadproces id="2372" contractafgiftenummer="1557003" contractnummer="999999" klantafgiftenummer="2288100"/>
   <automatisch_proces dtype="GDS2OphaalProces" id="2"/>
   <automatisch_proces_config proces_id="2" value="999999" config_key="gds2_contractnummer"/>
+  <bericht/>
+  <job/>
 </dataset>
