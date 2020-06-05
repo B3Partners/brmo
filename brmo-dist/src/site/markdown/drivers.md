@@ -6,10 +6,13 @@ Ten behoeve van een snelle installatie worden de volgende drivers meegepakt (voo
 
   - PostgreSQL JDBC, Postgis en mail drivers
   - jTDS JDBC driver voor MSSQL en mail drivers
-  - Oracle JDBC en mail drivers (De Oracle JDBC driver wordt beschikbaar gesteld onder de "Oracle Free Use Terms and Conditions (FUTC)", zie hieronder.)
+  - Oracle JDBC en mail drivers (De Oracle JDBC driver wordt beschikbaar gesteld onder de "Oracle Free Use Terms and Conditions (FUTC)", zie hieronder).
 
 De bestanden dienen in de `lib` directory van Tomcat te worden geplaatst zodat ze gebruikt kunnen worden in de verschillende JNDI bronnen.
 
+### Optionale libraries
+
+Er worden een aantal optionele libraries meegeleverd die soms nodig zijn bij Java 11 deployments; indien nodig zullen er in de log file `ClassNotFoundExceptions` optreden bijvoorbeeld tijdens het sturen van mail, in dat geval kunne de optionele interface libraries in de `lib` directory van tomcat worden neergezet om het probleem te verhelpen.  
 
 ---
 
