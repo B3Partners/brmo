@@ -56,7 +56,7 @@ public class BrkToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
             // {"type","filename", aantalBerichten, aantalProcessen, "datumEersteMutatie"},
              {"brk", "/nl/b3p/brmo/loader/xml/MUTBX01-ASN00T1660-20091119-1-singleline.xml", 1, 1, "2009-11-19"},
                 // mislukt op SQL server met melding mbt ongeldige geom
-             {"brk", "/nl/b3p/brmo/loader/xml/BURBX01-ASN00-AA331-big-geom.xml", 1, 1, "2009-11-30"},
+             {"brk", "/nl/b3p/brmo/loader/xml/BURBX01-ASN00-AA331-big-geom.xml", 1, 1, "2009-10-31"},
                 /* dit bestand zit in de DVD Proefbestanden BRK Levering oktober 2012 (Totaalstanden)
                 * /mnt/v_b3p_projecten/BRMO/BRK/BRK_STUF_IMKAD/BRK/Levering(dvd)/Proefbestanden BRK Levering oktober 2012 (Totaalstanden)/20091130/
                 * en staat op de git-ignore lijst omdat 't 18.5MB groot is, `grep -o KadastraalObjectSnapshot BURBX01.xml | wc -w`/2 geeft aantal berichten
