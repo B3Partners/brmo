@@ -20,6 +20,7 @@
             </testResource>
             <testResource>
                 <directory>src/test/resources</directory>
+                <filtering>true</filtering>
             </testResource>
         </testResources>
         <resources>
@@ -306,8 +307,8 @@
             <artifactId>gt-jdbc-oracle</artifactId>
         </dependency>
         <dependency>
-            <groupId>net.sourceforge.jtds</groupId>
-            <artifactId>jtds</artifactId>
+            <groupId>com.microsoft.sqlserver</groupId>
+            <artifactId>mssql-jdbc</artifactId>
         </dependency>
         <dependency>
             <groupId>org.geotools.jdbc</groupId>

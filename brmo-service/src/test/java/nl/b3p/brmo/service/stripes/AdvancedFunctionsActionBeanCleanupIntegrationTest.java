@@ -12,10 +12,8 @@ import java.util.concurrent.locks.ReentrantLock;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.service.testutil.TestUtil;
-import nl.b3p.brmo.test.util.database.JTDSDriverBasedFailures;
 import nl.b3p.brmo.test.util.database.dbunit.CleanUtil;
 import nl.b3p.loader.jdbc.OracleConnectionUnwrapper;
-import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.dbunit.database.DatabaseConfig;
@@ -33,7 +31,6 @@ import org.junit.After;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import static org.junit.Assert.fail;
@@ -48,14 +45,9 @@ import static org.junit.Assume.assumeTrue;
  * {@code mvn -Dit.test=AdvancedFunctionsActionBeanCleanupIntegrationTest -Dtest.onlyITs=true verify -Poracle  -pl brmo-service > target/oracle.log}
  * voor Oracle.
  *
- * <strong>Deze test werkt niet met de jTDS driver omdat die geen
- * {@code PreparedStatement.setNull(int, int, String)} methode heeft
- * geimplementeerd.</strong>
- *
  * @author Mark Prins
  */
 @RunWith(Parameterized.class)
-@Category(JTDSDriverBasedFailures.class)
 public class AdvancedFunctionsActionBeanCleanupIntegrationTest extends TestUtil {
 
     private static final Log LOG = LogFactory.getLog(AdvancedFunctionsActionBeanCleanupIntegrationTest.class);

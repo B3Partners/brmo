@@ -96,7 +96,7 @@ public abstract class TestStub {
         }
 
         isOracle = "oracle".equalsIgnoreCase(DBPROPS.getProperty("dbtype"));
-        isMsSQL = "jtds-sqlserver".equalsIgnoreCase(DBPROPS.getProperty("dbtype"));
+        isMsSQL = "sqlserver".equalsIgnoreCase(DBPROPS.getProperty("dbtype"));
         isPostgis = "postgis".equalsIgnoreCase(DBPROPS.getProperty("dbtype"));
 
         try {

@@ -192,7 +192,7 @@ public class MaterializedViewsTest {
             // negeren; het override bestand is normaal niet aanwezig
         }
         isOracle = "oracle".equalsIgnoreCase(params.getProperty("dbtype"));
-        isMsSQL = "jtds-sqlserver".equalsIgnoreCase(params.getProperty("dbtype"));
+        isMsSQL = "sqlserver".equalsIgnoreCase(params.getProperty("dbtype"));
         isPostgis = "postgis".equalsIgnoreCase(params.getProperty("dbtype"));
 
         try {

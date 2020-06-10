@@ -37,15 +37,23 @@ public class DBUnitExportRSGB {
     private static final String _dbFile2 = "rsgb.xml";
 
     // postgis
-    private static final String _driverClass = "org.postgresql.Driver";
-    private static final String _jdbcConnection = "jdbc:postgresql://localhost:5434/itest_rsgb";
-    private static final String _user = "rsgb";
-    private static final String _passwd = "rsgb";
-    // ms sql
+//    private static final String _driverClass = "org.postgresql.Driver";
+//    private static final String _jdbcConnection = "jdbc:postgresql://localhost:5434/itest_rsgb";
+//    private static final String _user = "rsgb";
+//    private static final String _passwd = "rsgb";
+    // ms sql / jtds
     // private static final String _driverClass = "net.sourceforge.jtds.jdbc.Driver";
     // private static final String _jdbcConnection = "jdbc:jtds:sqlserver://192.168.1.15:1433/itest_brmo_rsgb;instance=SQLEXPRESS";
     // private static final String _user = "brmotest";
     // private static final String _passwd = "brmotest";
+
+    // ms sql
+     private static final String _driverClass = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+     private static final String _jdbcConnection = "jdbc:sqlserver://localhost:1401;databaseName=rsgb;instance=sql1";
+     private static final String _user = "sa";
+     private static final String _passwd = "YourStrong!Passw0rd";
+
+
     // oracle
     // private static final String _driverClass = "oracle.jdbc.OracleDriver";
     // private static final String _jdbcConnection = "jdbc:oracle:thin:@127.0.0.1:1521:XE";
@@ -76,8 +84,8 @@ public class DBUnitExportRSGB {
         IDatabaseConnection connection = new DatabaseConnection(jdbcConnection);
 
         // connection.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
-        // connection.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MsSqlDataTypeFactory());
-        connection.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
+         connection.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MsSqlDataTypeFactory());
+//        connection.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
 
         // voor alle tabellen:
         // ITableFilter filter = new DatabaseSequenceFilter(connection);

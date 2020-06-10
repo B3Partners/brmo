@@ -50,7 +50,10 @@ package nl.b3p.brmo.test.util.database;
  * @author mprins
  * @note marker interface
  * @see org.junit.experimental.categories.Category
+ *
+ * @deprecated gebruik van de jTDS driver wordt afgeraden vanwege tal van ontbrekende functies in de driver.
  */
+@Deprecated
 public interface JTDSDriverBasedFailures {
 
 }

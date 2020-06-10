@@ -15,10 +15,9 @@ import net.sourceforge.stripes.action.ActionBeanContext;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.service.testutil.TestUtil;
-import nl.b3p.brmo.test.util.database.JTDSDriverBasedFailures;
+import nl.b3p.brmo.test.util.database.MSSqlServerDriverBasedFailures;
 import nl.b3p.brmo.test.util.database.dbunit.CleanUtil;
 import nl.b3p.loader.jdbc.OracleConnectionUnwrapper;
-import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.dbunit.database.DatabaseConfig;
@@ -52,18 +51,16 @@ import static org.mockito.Mockito.when;
  * {@code mvn -Dit.test=AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest -Dtest.onlyITs=true verify -Poracle > target/oracle.log}
  * voor bijvoorbeeld Oracle of
  * {@code mvn -Dit.test=AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql -pl brmo-service > target/postgresql.log}
- * voor PostgreSQL.
+ * voor PostgreSQL of
+ * {@code mvn -Dit.test=AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest -Dtest.onlyITs=true verify -Pmssql -pl brmo-service > target/mssql.log}
+ * voor MS SQL.
  *
  * @see AdvancedFunctionsActionBeanIntegrationTest
- *
- * <strong>Deze test werkt niet met de jTDS driver omdat die geen
- * {@code PreparedStatement.setNull(int, int, String)} methode heeft
- * geimplementeerd.</strong>
  *
  * @author mprins
  */
 @RunWith(Parameterized.class)
-@Category(JTDSDriverBasedFailures.class)
+@Category({ MSSqlServerDriverBasedFailures.class })
 public class AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest extends TestUtil {
 
     private static final Log LOG = LogFactory.getLog(AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest.class);
@@ -106,8 +103,6 @@ public class AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest exte
     public void setUp() throws Exception {
         assumeTrue("Het bestand met staging testdata zou moeten bestaan.", AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest.class.getResource(sBestandsNaam) != null);
         assumeTrue("Het bestand met rsgb testdata zou moeten bestaan.", AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest.class.getResource(rBestandsNaam) != null);
-        assumeTrue("Deze test werkt niet met de jTDS driver omdat die geen PreparedStatement.setNull(int, int, String) methode heeft geimplementeerd.",
-                !this.isMsSQL);
 
         bean = new AdvancedFunctionsActionBean();
         

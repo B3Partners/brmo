@@ -49,7 +49,7 @@
             <includes>
                 <include>com.sun.mail:jakarta.mail</include>
                 <include>com.sun.activation:jakarta.activation</include>
-                <include>net.sourceforge.jtds:jtds</include>
+                <include>com.microsoft.sqlserver:mssql-jdbc</include>
             </includes>
             <outputFileNameMapping>${artifact.artifactId}-${artifact.version}.${artifact.extension}</outputFileNameMapping>
         </dependencySet>

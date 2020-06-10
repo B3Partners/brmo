@@ -87,14 +87,14 @@ public abstract class AbstractDatabaseIntegrationTest {
             // negeren; het override bestand is normaal niet aanwezig
         }
         isOracle = "oracle".equalsIgnoreCase(params.getProperty("dbtype"));
-        isMsSQL = "jtds-sqlserver".equalsIgnoreCase(params.getProperty("dbtype"));
+        isMsSQL = "sqlserver".equalsIgnoreCase(params.getProperty("dbtype"));
         isPostgis = "postgis".equalsIgnoreCase(params.getProperty("dbtype"));
 
         try {
-            Class rsgbDriverClass = Class.forName(params.getProperty("rsgb.jdbc.driverClassName"));
-            Class stagingDriverClass = Class.forName(params.getProperty("staging.jdbc.driverClassName"));
-            Class rsgbbgtDriverClass = Class.forName(params.getProperty("rsgbbgt.jdbc.driverClassName"));
-            Class topnlDriverClass = Class.forName(params.getProperty("topnl.jdbc.driverClassName"));
+            Class<?> rsgbDriverClass = Class.forName(params.getProperty("rsgb.jdbc.driverClassName"));
+            Class<?> stagingDriverClass = Class.forName(params.getProperty("staging.jdbc.driverClassName"));
+            Class<?> rsgbbgtDriverClass = Class.forName(params.getProperty("rsgbbgt.jdbc.driverClassName"));
+            Class<?> topnlDriverClass = Class.forName(params.getProperty("topnl.jdbc.driverClassName"));
         } catch (ClassNotFoundException ex) {
             LOG.error("Database driver niet gevonden.", ex);
         }

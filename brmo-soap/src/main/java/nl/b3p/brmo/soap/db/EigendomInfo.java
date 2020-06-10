@@ -488,6 +488,9 @@ public class EigendomInfo {
             StringBuilder resultNames = new StringBuilder();
             resultNames.append(" gpa.perceel_identif as perceel_identif ");
             StringBuilder fromSQL = new StringBuilder(" mb_util_app_re_kad_perceel gpa ");
+            if (dbType.equalsIgnoreCase(DB_MSSQL)) {
+                fromSQL = new StringBuilder(" vb_util_app_re_kad_perceel gpa ");
+            }
             StringBuilder whereSQL = new StringBuilder(" gpa.app_re_identif = ? ");
 
             StringBuilder sql = createSelectSQL(resultNames, fromSQL, whereSQL, null, dbType);

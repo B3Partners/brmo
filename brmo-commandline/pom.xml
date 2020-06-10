@@ -81,8 +81,8 @@
             </exclusions>
         </dependency>
         <dependency>
-            <groupId>net.sourceforge.jtds</groupId>
-            <artifactId>jtds</artifactId>
+            <groupId>com.microsoft.sqlserver</groupId>
+            <artifactId>mssql-jdbc</artifactId>
         </dependency>
         <dependency>
             <groupId>com.oracle.database.jdbc</groupId>
@@ -255,11 +255,15 @@
                                     <target>
                                         <mkdir dir="${project.build.directory}/itest" />
                                         <unzip src="${project.build.directory}/${project.build.finalName}.zip" dest="${project.build.directory}/itest" overwrite="true" />
-                                        <copy todir="${project.build.directory}/itest/conf">
+                                        <copy todir="${project.build.directory}/itest/conf" overwrite="true">
                                             <fileset dir="${project.build.testSourceDirectory}/../resources/" />
+                                        </copy>
+                                        <copy todir="${project.build.directory}/itest/conf" overwrite="true">
+                                            <fileset dir="${project.build.testOutputDirectory}/" includes="*.properties"/>
                                         </copy>
                                         <move file="${project.build.directory}/itest/conf/mssql.properties" tofile="${project.build.directory}/itest/conf/test.properties" />
                                     </target>
+                                    <skip>${maven.test.skip}</skip>
                                 </configuration>
                                 <goals>
                                     <goal>run</goal>

@@ -89,7 +89,7 @@ timestamps {
                                 sh "mvn -e verify -B -Poracle -T1 -Dtest.onlyITs=true -pl 'brmo-loader' -Dit.test=!TopNLIntegrationTest"
                             }
 
-                            lock('brmo-tomcat-9091') {
+                            lock('tomcat-tcp9091') {
                                 stage("brmo-service Integration Test: ${jdkTestName}") {
                                     echo "run integratie tests voor brmo-service module"
                                     timeout(30) {

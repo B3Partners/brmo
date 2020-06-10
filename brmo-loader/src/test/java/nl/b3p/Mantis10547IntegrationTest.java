@@ -4,7 +4,6 @@
 package nl.b3p;
 
 import nl.b3p.brmo.loader.BrmoFramework;
-import nl.b3p.brmo.test.util.database.JTDSDriverBasedFailures;
 import nl.b3p.brmo.test.util.database.dbunit.CleanUtil;
 import nl.b3p.loader.jdbc.OracleConnectionUnwrapper;
 import org.apache.commons.dbcp.BasicDataSource;
@@ -14,8 +13,6 @@ import org.dbunit.database.DatabaseConfig;
 import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.DatabaseDataSourceConnection;
 import org.dbunit.database.IDatabaseConnection;
-import org.dbunit.dataset.DefaultDataSet;
-import org.dbunit.dataset.DefaultTable;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.xml.XmlDataSet;
@@ -27,10 +24,8 @@ import org.dbunit.operation.DatabaseOperation;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.Arrays;
@@ -38,7 +33,6 @@ import java.util.Collection;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.regex.Pattern;
-
 import static org.junit.Assert.*;
 import static org.junit.Assume.assumeTrue;
 
@@ -50,13 +44,9 @@ import static org.junit.Assume.assumeTrue;
  * {@code mvn -Dit.test=Mantis10315IntegrationTest -Dtest.onlyITs=true verify -Ppostgresql > target/postgresql.log}
  * voor postgresql.
  *
- * <strong>NB. werkt niet op mssql, althans niet met de jTDS driver omdat die
- * geen JtdsPreparedStatement#setNull() methode heeft.</strong>
- *
  * @author mprins
  */
 @RunWith(Parameterized.class)
-@Category(JTDSDriverBasedFailures.class)
 public class Mantis10547IntegrationTest extends AbstractDatabaseIntegrationTest {
 
     private static final Log LOG = LogFactory.getLog(Mantis10547IntegrationTest.class);
@@ -107,8 +97,6 @@ public class Mantis10547IntegrationTest extends AbstractDatabaseIntegrationTest 
         rsgb = new DatabaseDataSourceConnection(dsRsgb);
         staging = new DatabaseDataSourceConnection(dsStaging);
 
-        assumeTrue("Deze test werkt niet met de jTDS driver omdat die geen JtdsPreparedStatement#setNull() methode heeft.", !this.isMsSQL);
-
         if (this.isMsSQL) {
             rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MsSqlDataTypeFactory());
             staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MsSqlDataTypeFactory());
@@ -154,8 +142,6 @@ public class Mantis10547IntegrationTest extends AbstractDatabaseIntegrationTest 
             // in geval van niet waar gemaakte assumptions
             brmo.closeBrmoFramework();
         }
-        assumeTrue("Deze test werkt niet met de jTDS driver omdat die geen JtdsPreparedStatement#setNull() methode heeft.", !this.isMsSQL);
-
         CleanUtil.cleanRSGB_BRK(rsgb, true);
         rsgb.close();
 

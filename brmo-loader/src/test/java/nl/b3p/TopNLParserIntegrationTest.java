@@ -16,25 +16,20 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-import nl.b3p.brmo.test.util.database.JTDSDriverBasedFailures;
-import nl.b3p.brmo.test.util.database.MSSqlServerDriverBasedFailures;
 import nl.b3p.topnl.Processor;
 import nl.b3p.topnl.TopNLType;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-import org.junit.experimental.categories.Category;
 
 /**
  * Deze test dient om onaangekondigde aanpassingen in het schema te vangen, pdok
  * heeft dat nu een paar keer gedaan. Draaien met:
- * {@code mvn -Dit.test=TopNLParserIntegrationTest -Dtest.onlyITs=true -Ppostgresql verify > target/TopNLParserIntegrationTest.log}
+ * {@code mvn -Dit.test=TopNLParserIntegrationTest -Dtest.onlyITs=true -Ppostgresql verify -pl brmo-loader > mvn.log}
  *
  * @author Mark Prins
  */
 @RunWith(Parameterized.class)
-// overslaan voor mssql profielen
-@Category({JTDSDriverBasedFailures.class, MSSqlServerDriverBasedFailures.class})
 public class TopNLParserIntegrationTest {
 
     private static final Log LOG = LogFactory.getLog(TopNLParserIntegrationTest.class);

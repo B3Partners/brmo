@@ -55,6 +55,7 @@ public abstract class TestUtil {
     protected BasicDataSource dsStaging;
     protected BasicDataSource dsRsgb;
     protected BasicDataSource dsRsgbBgt;
+    protected BasicDataSource dsTopnl;
 
     /**
      * logging rule.
@@ -100,7 +101,7 @@ public abstract class TestUtil {
         }
 
         isOracle = "oracle".equalsIgnoreCase(DBPROPS.getProperty("dbtype"));
-        isMsSQL = "jtds-sqlserver".equalsIgnoreCase(DBPROPS.getProperty("dbtype"));
+        isMsSQL = "sqlserver".equalsIgnoreCase(DBPROPS.getProperty("dbtype"));
         isPostgis = "postgis".equalsIgnoreCase(DBPROPS.getProperty("dbtype"));
 
         try {
@@ -126,12 +127,18 @@ LOG.info("create ds staging");
         dsRsgb.setMaxActive(5);
 
         dsRsgbBgt = new BasicDataSource();
-        dsRsgbBgt.setUrl(DBPROPS.getProperty("rsgb.url"));
-        dsRsgbBgt.setUsername(DBPROPS.getProperty("rsgb.username"));
-        dsRsgbBgt.setPassword(DBPROPS.getProperty("rsgb.password"));
+        dsRsgbBgt.setUrl(DBPROPS.getProperty("rsgbbgt.url"));
+        dsRsgbBgt.setUsername(DBPROPS.getProperty("rsgbbgt.username"));
+        dsRsgbBgt.setPassword(DBPROPS.getProperty("rsgbbgt.password"));
         dsRsgbBgt.setAccessToUnderlyingConnectionAllowed(true);
         dsRsgbBgt.setInitialSize(1);
         dsRsgbBgt.setMaxActive(5);
+
+        dsTopnl= new BasicDataSource();
+        dsTopnl.setUrl(DBPROPS.getProperty("topnl.url"));
+        dsTopnl.setUsername(DBPROPS.getProperty("topnl.username"));
+        dsTopnl.setPassword(DBPROPS.getProperty("topnl.password"));
+        dsTopnl.setAccessToUnderlyingConnectionAllowed(true);
 
         setupJNDI();
     }
@@ -165,10 +172,11 @@ LOG.info("create ds staging");
      */
     protected void setupJNDI() {
         if (!haveSetupJNDI) {
+            System.setProperty(Context.INITIAL_CONTEXT_FACTORY, "org.apache.naming.java.javaURLContextFactory");
+            System.setProperty(Context.URL_PKG_PREFIXES, "org.apache.naming");
+            InitialContext ic;
             try {
-                System.setProperty(Context.INITIAL_CONTEXT_FACTORY, "org.apache.naming.java.javaURLContextFactory");
-                System.setProperty(Context.URL_PKG_PREFIXES, "org.apache.naming");
-                InitialContext ic = new InitialContext();
+                ic = new InitialContext();
                 ic.createSubcontext("java:");
                 ic.createSubcontext("java:comp");
                 ic.createSubcontext("java:comp/env");
@@ -176,12 +184,13 @@ LOG.info("create ds staging");
                 ic.createSubcontext("java:comp/env/jdbc/brmo");
                 ic.bind("java:comp/env/jdbc/brmo/rsgb", dsRsgb);
                 ic.bind("java:comp/env/jdbc/brmo/staging", dsStaging);
-                ic.bind("java:comp/env/jdbc/brmo/staging", dsRsgbBgt);
-                haveSetupJNDI = true;
-            } catch (NameAlreadyBoundException ex) {
-                LOG.trace("Opzetten van nieuwe datasource jndi is mislukt: " + ex.getLocalizedMessage());
+                ic.bind("java:comp/env/jdbc/brmo/rsgbbgt", dsRsgbBgt);
+                ic.bind("java:comp/env/jdbc/brmo/topnl", dsTopnl);
             } catch (NamingException ex) {
-                LOG.warn("Opzetten van datasource jndi is mislukt", ex);
+                LOG.warn("Opzetten van datasource jndi is mislukt: " + ex.getLocalizedMessage());
+                LOG.trace("Opzetten van datasource jndi is mislukt:", ex);
+            } finally {
+                haveSetupJNDI = true;
             }
         }
     }

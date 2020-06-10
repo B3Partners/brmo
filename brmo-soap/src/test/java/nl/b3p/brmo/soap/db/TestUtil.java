@@ -29,7 +29,7 @@ import org.junit.rules.TestName;
  */
 public abstract class TestUtil {
 
-    private static boolean haveSetupJNDI = false;
+    protected static boolean haveSetupJNDI = false;
 
     private static final Log LOG = LogFactory.getLog(TestUtil.class);
     /**
@@ -102,7 +102,7 @@ public abstract class TestUtil {
         }
 
         isOracle = "oracle".equalsIgnoreCase(DBPROPS.getProperty("dbtype"));
-        isMsSQL = "jtds-sqlserver".equalsIgnoreCase(DBPROPS.getProperty("dbtype"));
+        isMsSQL = "sqlserver".equalsIgnoreCase(DBPROPS.getProperty("dbtype"));
         isPostgis = "postgis".equalsIgnoreCase(DBPROPS.getProperty("dbtype"));
 
         try {
@@ -123,7 +123,7 @@ public abstract class TestUtil {
         dsStaging.setPassword(DBPROPS.getProperty("staging.password"));
         dsStaging.setAccessToUnderlyingConnectionAllowed(true);
 
-        this.setupJNDI(dsRsgb, dsStaging);
+        this.setupJNDI();
     }
 
     /**
@@ -143,17 +143,15 @@ public abstract class TestUtil {
     }
 
     /**
-     * setup jndi voor testcases.
-     *
-     * @param dsRsgb rsgb databron
-     * @param dsStaging staging databron
+     * setup jndi voor testcases, doet 1 poging om jndi context te initialiseren.
      */
-    protected void setupJNDI(final BasicDataSource dsRsgb, final BasicDataSource dsStaging) {
+    protected void setupJNDI() {
         if (!haveSetupJNDI) {
+            System.setProperty(Context.INITIAL_CONTEXT_FACTORY, "org.apache.naming.java.javaURLContextFactory");
+            System.setProperty(Context.URL_PKG_PREFIXES, "org.apache.naming");
+            InitialContext ic;
             try {
-                System.setProperty(Context.INITIAL_CONTEXT_FACTORY, "org.apache.naming.java.javaURLContextFactory");
-                System.setProperty(Context.URL_PKG_PREFIXES, "org.apache.naming");
-                InitialContext ic = new InitialContext();
+                ic = new InitialContext();
                 ic.createSubcontext("java:");
                 ic.createSubcontext("java:comp");
                 ic.createSubcontext("java:comp/env");
@@ -161,11 +159,11 @@ public abstract class TestUtil {
                 ic.createSubcontext("java:comp/env/jdbc/brmo");
                 ic.bind("java:comp/env/jdbc/brmo/rsgb", dsRsgb);
                 ic.bind("java:comp/env/jdbc/brmo/staging", dsStaging);
-                haveSetupJNDI = true;
-            } catch (NameAlreadyBoundException ex) {
-                LOG.trace("Opzetten van nieuwe datasource jndi is mislukt: " + ex.getLocalizedMessage());
             } catch (NamingException ex) {
-                LOG.warn("Opzetten van datasource jndi is mislukt", ex);
+                LOG.warn("Opzetten van datasource jndi is mislukt: " + ex.getLocalizedMessage());
+                LOG.trace("Opzetten van datasource jndi is mislukt", ex);
+            } finally {
+                haveSetupJNDI = true;
             }
         }
     }

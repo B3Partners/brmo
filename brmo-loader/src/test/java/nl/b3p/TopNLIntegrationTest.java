@@ -31,7 +31,7 @@ import nl.b3p.brmo.loader.RsgbProxy;
 import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.loader.entity.LaadProces;
 import nl.b3p.brmo.loader.util.BrmoException;
-import nl.b3p.brmo.test.util.database.JTDSDriverBasedFailures;
+import nl.b3p.brmo.test.util.database.MSSqlServerDriverBasedFailures;
 import nl.b3p.brmo.test.util.database.dbunit.CleanUtil;
 import nl.b3p.loader.jdbc.OracleConnectionUnwrapper;
 import nl.b3p.topnl.TopNLType;
@@ -51,7 +51,6 @@ import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 import org.dbunit.operation.DatabaseOperation;
 import org.junit.After;
-import static org.junit.Assume.assumeNotNull;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -73,8 +72,8 @@ import static org.junit.Assume.assumeTrue;
  * @author Mark Prins
  */
 @RunWith(Parameterized.class)
-// overslaan op mssql
-@Category(JTDSDriverBasedFailures.class)
+// overslaan op mssql; daar is geen topnl ondersteuning, zie ook https://github.com/B3Partners/brmo/issues/773
+@Category({MSSqlServerDriverBasedFailures.class})
 public class TopNLIntegrationTest extends AbstractDatabaseIntegrationTest {
 
     private final static Log LOG = LogFactory.getLog(TopNLIntegrationTest.class);
@@ -144,6 +143,7 @@ public class TopNLIntegrationTest extends AbstractDatabaseIntegrationTest {
         brmo = new BrmoFramework(dsStaging, null, null, dsTopnl);
 
         if (this.isMsSQL) {
+            // TODO https://github.com/B3Partners/brmo/issues/773
             staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MsSqlDataTypeFactory());
             topnl.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MsSqlDataTypeFactory());
         } else if (this.isOracle) {

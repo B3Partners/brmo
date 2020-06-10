@@ -5,7 +5,7 @@
 Ten behoeve van een snelle installatie worden de volgende drivers meegepakt (voor iedere database omgeving een setje):
 
   - PostgreSQL JDBC, Postgis en mail drivers
-  - jTDS JDBC driver voor MSSQL en mail drivers
+  - Microsoft JDBC driver voor MSSQL en mail drivers
   - Oracle JDBC en mail drivers (De Oracle JDBC driver wordt beschikbaar gesteld onder de "Oracle Free Use Terms and Conditions (FUTC)", zie hieronder).
 
 De bestanden dienen in de `lib` directory van Tomcat te worden geplaatst zodat ze gebruikt kunnen worden in de verschillende JNDI bronnen.

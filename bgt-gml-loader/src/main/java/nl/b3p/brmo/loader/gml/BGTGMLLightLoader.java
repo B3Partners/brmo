@@ -158,7 +158,7 @@ public class BGTGMLLightLoader {
         this.dbConnProps = dbConnProps;
 
         this.isOracle = "oracle".equalsIgnoreCase(dbConnProps.getProperty("dbtype"));
-        this.isMSSQL = ("jtds-sqlserver".equalsIgnoreCase(dbConnProps.getProperty("dbtype")) | "sqlserver".equalsIgnoreCase(dbConnProps.getProperty("dbtype")));
+        this.isMSSQL = ("sqlserver".equalsIgnoreCase(dbConnProps.getProperty("dbtype")) | "sqlserver".equalsIgnoreCase(dbConnProps.getProperty("dbtype")));
     }
 
     /**
@@ -560,7 +560,7 @@ public class BGTGMLLightLoader {
     public void setDbConnProps(Properties dbConnProps) {
         this.dbConnProps = dbConnProps;
         this.isOracle = "oracle".equalsIgnoreCase(dbConnProps.getProperty("dbtype"));
-        this.isMSSQL = ("jtds-sqlserver".equalsIgnoreCase(dbConnProps.getProperty("dbtype")) | "sqlserver".equalsIgnoreCase(dbConnProps.getProperty("dbtype")));
+        this.isMSSQL = ("sqlserver".equalsIgnoreCase(dbConnProps.getProperty("dbtype")) | "sqlserver".equalsIgnoreCase(dbConnProps.getProperty("dbtype")));
     }
 
     /**
