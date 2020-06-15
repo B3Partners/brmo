@@ -70,10 +70,10 @@
             <outputDirectory>drivers/optional-java11-libs/</outputDirectory>
             <unpack>false</unpack>
             <includes>
-                <include>jakarta.activation</include>
-                <include>jakarta.mail</include>
-                <include>jakarta.xml.bind</include>
-                <include>org.glassfish.jaxb</include>
+                <include>jakarta.activation:jakarta.activation-api</include>
+                <include>jakarta.mail:jakarta.mail-api</include>
+                <include>jakarta.xml.bind:jakarta.xml.bind-api</include>
+                <include>org.glassfish.jaxb:jaxb-runtime</include>
             </includes>
             <outputFileNameMapping>${artifact.artifactId}-${artifact.version}.${artifact.extension}</outputFileNameMapping>
         </dependencySet>

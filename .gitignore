@@ -16,6 +16,8 @@
 /datamodel/referentiedata/*.qg*
 /TOP*.zip
 
+/docker/src/main/docker/bin_unzipped/**
+
 # maven release procedure files
 **/pom.xml.tag
 **/pom.xml.releaseBackup

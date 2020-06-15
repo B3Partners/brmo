@@ -13,6 +13,7 @@ environment:
   OTHER_ITESTS : true
   SQL: MSSQL$SQL2017
   INSTANCENAME: SQL2017
+  DOCKERHOST: "-DdockerHost=tcp://localhost:2375"
   # Microsoft SQL Server 2016 Service Pack 2 heeft een EOL (einde basisondersteuning) van 13-7-2021
   # wegens in de views gebruikte functies wordt mssql 2016 niet meer ondersteund voor brmo
   # Microsoft SQL Server 2019 is de jongst-beschikbare release op AppVeyor, maar testen we (ook) op Travis-CI (veel sneller)
@@ -46,6 +47,7 @@ init:
   - cmd: net start %SQL%
 
 install:
+  - docker version
   - choco install codecov
   - choco install maven
   - cmd: echo %PATH%
@@ -69,7 +71,7 @@ install:
 
 # initial build/code generation, no testing
 build_script:
-  - mvn install -Dmaven.test.skip=true -Dtest.onlyITs= -B -V -fae -q -Pmssql -pl "!brmo-dist"
+  - mvn install -Dmaven.test.skip=true -Dtest.onlyITs= -B -V -fae -q -Pmssql -pl "!brmo-dist" %DOCKERHOST%
 
 # services worden na install gestart en we hebben gegenereerde sql nodig
 after_build:
@@ -111,7 +113,7 @@ after_build:
 
 test_script:
   # unit tests
-  - if "%OTHER_ITESTS%"=="true" mvn -e test -fae -B -Pmssql -Dtest.persistence.unit=brmo.persistence.microsoftsqlserver -pl "!brmo-dist"
+  - if "%OTHER_ITESTS%"=="true" mvn -e test -fae -B -Pmssql -Dtest.persistence.unit=brmo.persistence.microsoftsqlserver -pl "!brmo-dist" %DOCKERHOST%
   - if "%OTHER_ITESTS%"=="true" mvn -e -B -Pmssql -pl "datamodel" resources:testResources compiler:testCompile surefire:test -Dtest="!*UpgradeTest,!P8*"
   # integratie tests
   # run integratie tests voor brmo-loader module

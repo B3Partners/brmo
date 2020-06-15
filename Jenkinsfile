@@ -179,7 +179,12 @@ timestamps {
         }
 
         withEnv(["JAVA_HOME=${ tool 'JDK8' }", "PATH+MAVEN=${tool 'Maven CURRENT'}/bin:${env.JAVA_HOME}/bin"]) {
-            stage('Publish Results') {
+            stage("Docker image build & push") {
+                sh "mvn install -Dmaven.test.skip=true -B -V -e -fae -q"
+                sh "mvn deploy -B -pl :docker -P docker"
+            }
+
+            stage('Publish Test Results') {
                 junit allowEmptyResults: true, testResults: '**/target/surefire-reports/TEST-*.xml, **/target/failsafe-reports/TEST-*.xml'
             }
 

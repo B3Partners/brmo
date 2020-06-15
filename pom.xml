@@ -21,6 +21,7 @@
         <module>brmo-soap</module>
         <module>brmo-stufbg204</module>
         <module>brmo-dist</module>
+        <module>docker</module>
     </modules>
     <name>BRMO</name>
     <description>B3Partners BRMO applicatie</description>
@@ -971,6 +972,11 @@
                 <plugin>
                     <artifactId>maven-scm-publish-plugin</artifactId>
                     <version>3.0.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>io.fabric8</groupId>
+                    <artifactId>docker-maven-plugin</artifactId>
+                    <version>0.33.0</version>
                 </plugin>
             </plugins>
         </pluginManagement>
