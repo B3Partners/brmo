@@ -540,22 +540,23 @@
             </xsl:if>
         </adres_buitenland>
 
-        <xsl:for-each select="cat:postLocatie/cat:binnenlandsAdres[cat:postbusnummer]">
+        <!-- <fk_13wpl_identif /> [FK] AN4, FK naar wnplts.identif: "heeft als correspondentieadres" -->
+        <!-- <fk_14aoa_identif /> [FK] AN16, FK naar addresseerb_obj_aand.identif: "heeft als factuuradres" -->
+        <fk_15aoa_identif><xsl:value-of select="cat:postLocatie/cat:adres/cat:binnenlandsAdres/cat:bagId/cat:identificatieAdresseerbaarObject"/></fk_15aoa_identif>
+
+        <xsl:for-each select="cat:postLocatie/cat:adres/cat:binnenlandsAdres[cat:postbusnummer]">
             <pa_postadres_postcode><xsl:value-of select="cat:postcode/cat:cijfercombinatie"/><xsl:value-of select="cat:postcode/cat:lettercombinatie"/></pa_postadres_postcode>
             <pa_postadrestype>P</pa_postadrestype>
             <pa_postbus__of_antwoordnummer><xsl:value-of select="cat:postbusnummer"/></pa_postbus__of_antwoordnummer>
         </xsl:for-each>
-
-        <fk_15aoa_identif><xsl:value-of select="cat:postLocatie/cat:adres/cat:binnenlandsAdres/cat:bagId/cat:identificatieAdresseerbaarObject"/></fk_15aoa_identif>
+        <!-- <fk_pa_4_wpl_identif /> [FK] AN4, FK naar wnplts.identif: "Groepsattribuut Postadres SUBJECT.woonplaats" -->
 
         <emailadres><xsl:value-of select="cat:communicatiegegevens/cat:emailAdres"/></emailadres>
-
         <xsl:for-each select="cat:communicatiegegevens/cat:communicatienummer[cat:soort/cat:omschrijving = 'Fax']/cat:nummer">
             <xsl:if test="position() = 1">
                 <fax_nummer><xsl:value-of select="."/></fax_nummer>
             </xsl:if>
         </xsl:for-each>
-
         <xsl:for-each select="cat:communicatiegegevens/cat:communicatienummer[cat:soort/cat:omschrijving = 'Telefoon']/cat:nummer">
             <xsl:if test="position() = 1">
                 <telefoonnummer><xsl:value-of select="."/></telefoonnummer>
