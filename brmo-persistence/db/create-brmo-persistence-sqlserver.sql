@@ -76,6 +76,8 @@
         primary key (id)
     );
 
+GO
+
     alter table automatisch_proces_config 
         add constraint FK39F3573E561B9F9B 
         foreign key (proces_id) 
@@ -111,3 +113,31 @@
         volgordenummer int null,
         primary key (jid)
     );
+
+GO
+
+create index idx_bericht_job_id on bericht(job_id);
+create index idx_bericht_object_ref on bericht(object_ref);
+create index idx_bericht_laadprocesid on bericht(laadprocesid);
+create index idx_bericht_soort on bericht (soort);
+create index idx_bericht_status on bericht (status);
+create unique index idx_bericht_refiddatumnr on bericht(object_ref,datum,volgordenummer);
+create index idx_laadproces_soort on laadproces(soort);
+
+GO
+
+
+CREATE TABLE brmo_metadata (
+        naam VARCHAR(255) NOT NULL,
+        waarde VARCHAR(255),
+        PRIMARY KEY (naam)
+);
+
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'comment', @value=N'BRMO metadata en versie gegevens' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'brmo_metadata'
+
+GO
+
+-- brmo versienummer
+INSERT INTO brmo_metadata (naam, waarde) VALUES ('brmoversie','${project.version}');

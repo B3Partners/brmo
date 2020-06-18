@@ -111,3 +111,23 @@
         volgordenummer INTEGER,
         PRIMARY KEY (jid)
     );
+
+create index idx_bericht_job_id on bericht(job_id);
+create index idx_bericht_object_ref on bericht(object_ref);
+create index idx_bericht_laadprocesid on bericht(laadprocesid);
+create index idx_bericht_soort on bericht (soort);
+create index idx_bericht_status on bericht (status);
+create unique index idx_bericht_refiddatumnr on bericht(object_ref,datum,volgordenummer);
+create index idx_laadproces_soort on laadproces(soort);
+
+
+CREATE TABLE brmo_metadata (
+        naam CHARACTER VARYING(255) NOT NULL,
+        waarde CHARACTER VARYING(255),
+        CONSTRAINT brmo_metadata_pk PRIMARY KEY (naam)
+);
+COMMENT ON TABLE brmo_metadata IS 'BRMO metadata en versie gegevens';
+
+-- brmo versienummer
+INSERT INTO brmo_metadata (naam, waarde) VALUES ('brmoversie','${project.version}');
+
