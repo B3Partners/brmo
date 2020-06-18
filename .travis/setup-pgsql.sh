@@ -1,7 +1,6 @@
 #!/bin/bash -e
 # set up staging db
 psql -U postgres -d staging -f ./brmo-persistence/db/create-brmo-persistence-postgresql.sql
-psql -U postgres -d staging -f ./brmo-persistence/db/02_insert_default_user.sql
 # set up rsgb tabellen
 psql -U postgres -w -q -d rsgb -f ./datamodel/generated_scripts/datamodel_postgresql.sql
 # set up rsgbbgt tabellen
