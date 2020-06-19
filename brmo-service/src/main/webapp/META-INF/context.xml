@@ -1,108 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context antiJARLocking="true" path="/brmo-service">
-  <!-- ResourceLink werkt via server.xml van tomcat
-    1. Plaats DataSource Resource xml blokken onder <GlobalNamingResources> in server.xml van tomcat.
-
-    NB. de opties kunnen per Tomcat versie verschillen, zie:
-        https://tomcat.apache.org/tomcat-8.5-doc/jndi-datasource-examples-howto.html
-        https://tomcat.apache.org/tomcat-8.0-doc/jndi-datasource-examples-howto.html
-        https://tomcat.apache.org/tomcat-7.0-doc/jndi-datasource-examples-howto.html
-        daarnaast kunnen database drivers bepaalde eigenschappen wel/niet ondersteunen
-
-    <Resource name="jdbc/brmo/staging"
-        auth="Container"
-        type="javax.sql.DataSource"
-        username="staging"
-        password="**"
-        driverClassName="org.postgresql.Driver"
-        url="jdbc:postgresql://hostname/staging"
-        maxTotal="40"
-        validationQuery="select 1"
-        timeBetweenEvictionRunsMillis="30000"
-        minEvictableIdleTimeMillis="5000"
-    />
-    <Resource name="jdbc/brmo/rsgb"
-        auth="Container"
-        type="javax.sql.DataSource"
-        username="rsgb"
-        password="**"
-        driverClassName="org.postgresql.Driver"
-        url="jdbc:postgresql://hostname/rsgb"
-        maxTotal="40"
-        validationQuery="select 1"
-        timeBetweenEvictionRunsMillis="30000"
-        minEvictableIdleTimeMillis="5000"
-    />
-    <Resource name="jdbc/brmo/rsgbbgt"
-        auth="Container"
-        type="javax.sql.DataSource"
-        username="rsgb"
-        password="**"
-        driverClassName="org.postgresql.Driver"
-        url="jdbc:postgresql://hostname/rsgbbgt"
-        maxTotal="40"
-        validationQuery="select 1"
-        timeBetweenEvictionRunsMillis="30000"
-        minEvictableIdleTimeMillis="5000"
-    />
-
-    <Resource name="jdbc/brmo/staging"
-        auth="Container"
-        type="javax.sql.DataSource"
-        driverClassName="oracle.driver.OracleDriver"
-        url="jdbc:oracle:thin:@hostname:1521:orcl"
-        username="brmo_staging"
-        password="**"
-        maxActive="100"
-        maxIdle="30"
-        maxWaitMillis="8000"
-        validationQuery="select 1 from dual"
-        timeBetweenEvictionRunsMillis="30000"
-        minEvictableIdleTimeMillis="5000"
-    />
-    <Resource name="jdbc/brmo/rsgb"
-        auth="Container"
-        type="javax.sql.DataSource"
-        driverClassName="oracle.jdbc.driver.OracleDriver"
-        url="jdbc:oracle:thin:@hostname:1521:orcl"
-        username="brmo_rsgb"
-        password="**"
-        maxActive="100"
-        maxIdle="30"
-        maxWaitMillis="8000"
-        validationQuery="select 1 from dual"
-        timeBetweenEvictionRunsMillis="30000"
-        minEvictableIdleTimeMillis="5000"
-    />
-
-    2. Plaats postgresql, oracle of sqlserver driver in tomcat lib
-    -->
-  <ResourceLink global="jdbc/brmo/staging" name="jdbc/brmo/staging" type="javax.sql.DataSource"/>
-  <ResourceLink global="jdbc/brmo/rsgb" name="jdbc/brmo/rsgb" type="javax.sql.DataSource"/>
-  <ResourceLink global="jdbc/brmo/rsgbbgt" name="jdbc/brmo/rsgbbgt" type="javax.sql.DataSource"/>
-  <ResourceLink global="jdbc/brmo/rsgbtopnl" name="jdbc/brmo/rsgbtopnl" type="javax.sql.DataSource"/>
-  <!-- For Tomcat: define JavaMail resource in server.xml. See:
-    http://tomcat.apache.org/tomcat-8.0-doc/jndi-resources-howto.html#JavaMail_Sessions
-    Don't forget to put mail.jar in the Tomcat lib directory.
-    To configure your mail server, use attributes like "mail.smtp.host" for
-    the Resource element. See Appendix A of the JavaMail spec for which
-    attributes you can use, possibly accessible at
-    http://www.oracle.com/technetwork/java/javamail/index.html
-    <Server ...>
-        ...
-        <GlobalNamingResources>
-            <Resource name="mail/session"
-                    auth="Container"
-                    type="javax.mail.Session"
-                    mail.smtp.host="smtp.b3partners.nl"
-                    mail.from="brmo-no-reply@b3partners.nl"
-            />
-        </GlobalNamingResources>
-        ...
-    </Server>
-    -->
-  <ResourceLink global="mail/session" name="mail/session" type="javax.mail.Session"/>
-  <Realm allRolesMode="authOnly" className="org.apache.catalina.realm.DataSourceRealm" dataSourceName="jdbc/brmo/staging" digest="SHA-1" roleNameCol="groep_" userCredCol="wachtwoord" userNameCol="gebruikersnaam" userRoleTable="gebruiker_groepen" userTable="gebruiker_">
-    <CredentialHandler algorithm="SHA-1" className="org.apache.catalina.realm.MessageDigestCredentialHandler"/>
-  </Realm>
+    <!-- de datasources dienen in de servlet container aangemaakt te worden -->
+    <ResourceLink global="jdbc/brmo/staging" name="jdbc/brmo/staging" type="javax.sql.DataSource"/>
+    <ResourceLink global="jdbc/brmo/rsgb" name="jdbc/brmo/rsgb" type="javax.sql.DataSource"/>
+    <ResourceLink global="jdbc/brmo/rsgbbgt" name="jdbc/brmo/rsgbbgt" type="javax.sql.DataSource"/>
+    <ResourceLink global="jdbc/brmo/rsgbtopnl" name="jdbc/brmo/rsgbtopnl" type="javax.sql.DataSource"/>
+    <ResourceLink global="mail/session" name="mail/session" type="javax.mail.Session"/>
+    <Realm allRolesMode="authOnly" className="org.apache.catalina.realm.DataSourceRealm"
+           dataSourceName="jdbc/brmo/staging" digest="SHA-1" roleNameCol="groep_" userCredCol="wachtwoord"
+           userNameCol="gebruikersnaam" userRoleTable="gebruiker_groepen" userTable="gebruiker_">
+        <CredentialHandler algorithm="SHA-1" className="org.apache.catalina.realm.MessageDigestCredentialHandler"/>
+    </Realm>
 </Context>

@@ -121,9 +121,8 @@ install:
   - projectversion=$(grep "<version>.*<.version>" -m1 pom.xml | sed -e "s/^.*<version/<version/" | cut -f2 -d">"| cut -f1 -d"<")
   - echo $projectversion
   - export PROJECTVERSION=$projectversion
-  - sed -i s/\${project.version}/$projectversion/g ./brmo-persistence/db/05_create_brmo_metadata_postgresql.sql
-  - sed -i s/\${project.version}/$projectversion/g ./brmo-persistence/db/05_create_brmo_metadata_sqlserver.sql
-  #- cat ./brmo-persistence/db/05_create_brmo_metadata_postgresql.sql
+  - sed -i s/\${project.version}/$projectversion/g ./brmo-persistence/db/create-brmo-persistence-postgresql.sql
+  - sed -i s/\${project.version}/$projectversion/g ./brmo-persistence/db/create-brmo-persistence-sqlserver.sql
 
 before_script:
   # opzetten van database schema's

@@ -1,6 +1,5 @@
 -- dit is voor de H2 database die tijdens unit tests wordt gebruikt
-
-    alter table automatisch_proces_config 
+    alter table automatisch_proces_config
         drop constraint FK39F3573E561B9F9B;
 
     alter table bericht 

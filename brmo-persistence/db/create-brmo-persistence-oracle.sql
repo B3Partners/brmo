@@ -119,3 +119,61 @@
     );
 
     create sequence JOB_JID_SEQ;
+
+-- create triggers om (conditioneel) een id uit de sequence te halen
+-- fix voor issue #86
+CREATE OR REPLACE TRIGGER LAADPROCES_INSERT_TRIGGER
+        BEFORE INSERT ON LAADPROCES
+        FOR EACH ROW
+BEGIN
+    IF :new.ID IS NULL THEN
+                SELECT LAADPROCES_ID_SEQ.nextval INTO :new.ID FROM DUAL;
+    END IF;
+END;
+/
+
+
+CREATE OR REPLACE TRIGGER BERICHT_INSERT_TRIGGER
+        BEFORE INSERT ON BERICHT
+        FOR EACH ROW
+BEGIN
+    IF :new.ID IS NULL THEN
+                SELECT BERICHT_ID_SEQ.nextval INTO :new.ID FROM DUAL;
+    END IF;
+END;
+/
+
+
+CREATE OR REPLACE TRIGGER JOB_INSERT_TRIGGER
+        BEFORE INSERT ON JOB
+        FOR EACH ROW
+BEGIN
+    IF :new.JID IS NULL THEN
+                SELECT JOB_JID_SEQ.nextval INTO :new.JID FROM DUAL;
+    END IF;
+END;
+/
+
+
+create index idx_bericht_job_id on bericht(job_id);
+create index idx_bericht_object_ref on bericht(object_ref);
+create index idx_bericht_laadprocesid on bericht(laadprocesid);
+create index idx_bericht_soort on bericht (soort);
+create index idx_bericht_status on bericht (status);
+create unique index idx_bericht_refiddatumnr on bericht(object_ref,datum,volgordenummer);
+create index idx_laadproces_soort on laadproces(soort);
+
+
+CREATE TABLE BRMO_METADATA (
+        NAAM VARCHAR2(255 CHAR) NOT NULL,
+        WAARDE VARCHAR2(255 CHAR),
+        PRIMARY KEY (NAAM)
+);
+COMMENT ON TABLE BRMO_METADATA IS 'BRMO metadata en versie gegevens';
+
+-- brmo versienummer
+INSERT INTO brmo_metadata (naam, waarde) VALUES ('brmoversie','${project.version}');
+
+INSERT INTO groep_ VALUES ('Admin', 'Groep met toegang tot BRMO service');
+INSERT INTO gebruiker_ VALUES ('brmo', '6310227872580fec7d1262ab7ab3b4b3902a9f61');
+INSERT INTO gebruiker_groepen VALUES ('brmo', 'Admin');

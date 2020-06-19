@@ -77,12 +77,9 @@ after_build:
   - sqlcmd -S (local)\%INSTANCENAME% -U sa -P Password12! -d "master" -Q "CREATE DATABASE staging"
   - sqlcmd -S (local)\%INSTANCENAME% -U sa -P Password12! -d "master" -Q "ALTER DATABASE staging SET RECOVERY SIMPLE"
   - dir .\brmo-persistence\db\
-  - sqlcmd -S (local)\%INSTANCENAME% -U sa -P Password12! -d "staging" -i .\brmo-persistence\db\create-brmo-persistence-sqlserver.sql
-  - sqlcmd -S (local)\%INSTANCENAME% -U sa -P Password12! -d "staging" -i .\brmo-persistence\db\01_create_indexes.sql
-  - sqlcmd -S (local)\%INSTANCENAME% -U sa -P Password12! -d "staging" -i .\brmo-persistence\db\02_insert_default_user.sql
   - ps: ([xml]$pom=Get-Content .\pom.xml)
-  - ps: (Get-Content .\brmo-persistence\db\05_create_brmo_metadata_sqlserver.sql) -replace '\${project.version}', $pom.project.version | Set-Content .\brmo-persistence\db\05_create_brmo_metadata_sqlserver.sql
-  - sqlcmd -S (local)\%INSTANCENAME% -U sa -P Password12! -d "staging" -i .\brmo-persistence\db\05_create_brmo_metadata_sqlserver.sql
+  - ps: (Get-Content .\brmo-persistence\db\create-brmo-persistence-sqlserver.sql) -replace '\${project.version}', $pom.project.version | Set-Content .\brmo-persistence\db\create-brmo-persistence-sqlserver.sql
+  - sqlcmd -S (local)\%INSTANCENAME% -U sa -P Password12! -d "staging" -i .\brmo-persistence\db\create-brmo-persistence-sqlserver.sql
 #
   - cmd: echo "aanmaken en opzetten RSGB DB"
   - cmd: SET SQLCMDINI=.\.appveyor\init.sql

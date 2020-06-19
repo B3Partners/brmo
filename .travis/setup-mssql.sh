@@ -5,9 +5,6 @@ export SQLCMDINI=.appveyor/init.sql
 sqlcmd -S localhost -U sa -P Password12! -d "master" -Q "CREATE DATABASE staging"
 sqlcmd -S localhost -U sa -P Password12! -d "master" -Q "ALTER DATABASE staging SET RECOVERY SIMPLE"
 sqlcmd -S localhost -U sa -P Password12! -d staging -i ./brmo-persistence/db/create-brmo-persistence-sqlserver.sql
-sqlcmd -S localhost -U sa -P Password12! -d staging -i ./brmo-persistence/db/01_create_indexes.sql
-sqlcmd -S localhost -U sa -P Password12! -d staging -i ./brmo-persistence/db/02_insert_default_user.sql
-sqlcmd -S localhost -U sa -P Password12! -d staging -i ./brmo-persistence/db/05_create_brmo_metadata_sqlserver.sql
 # set up rsgb tabellen
 sqlcmd -S localhost -U sa -P Password12! -d "master" -Q "CREATE DATABASE rsgb"
 sqlcmd -S localhost -U sa -P Password12! -d "master" -Q "ALTER DATABASE rsgb SET RECOVERY SIMPLE"

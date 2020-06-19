@@ -60,7 +60,7 @@ public class IndexPageIntegrationTest extends WebTestUtil {
      */
     @Test
     public void testDefaultUserPresent() throws SQLException {
-        // staat in /brmo-persistence/db/02_insert_default_user.sql
+        // staat in /brmo-persistence/db/create-brmo-persistence-XXXXX.sql
         String default_gebruikersnaam = "brmo";
         String default_hash = "6310227872580fec7d1262ab7ab3b4b3902a9f61";
 
