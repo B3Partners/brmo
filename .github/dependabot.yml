@@ -1,0 +1,36 @@
+version: 2
+updates:
+- package-ecosystem: maven
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "06:00"
+    timezone: Europe/Amsterdam
+  open-pull-requests-limit: 25
+  target-branch: master
+  reviewers:
+  - mprins
+  assignees:
+  - mprins
+  labels:
+  - bouw- en testinfrastuctuur
+  - dependency update
+  ignore:
+  - dependency-name: com.microsoft.sqlserver:mssql-jdbc
+    versions:
+    - "> 8.3.1.jre8.pre.preview, < 8.4"
+  - dependency-name: commons-cli:commons-cli
+    versions:
+    - ">= 2.a, < 3"
+  - dependency-name: javax:javaee-web-api
+    versions:
+    - ">= 8.a, < 9"
+  - dependency-name: javax.servlet:javax.servlet-api
+    versions:
+    - "> 3.0.1, < 4"
+  - dependency-name: javax.servlet:javax.servlet-api
+    versions:
+    - ">= 4.a, < 5"
+  - dependency-name: org.stripesstuff:stripesstuff
+    versions:
+    - ">= 1.a, < 2"
