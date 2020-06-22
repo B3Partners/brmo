@@ -21,8 +21,7 @@ public class BrkBerichtTest {
 
     private BrkSnapshotXMLReader bReader;
 
-    private static final String B = "../xml/MUTBX01-ASN00T1660-20091119-1-prettyprinted.xml";
-    
+    private static final String B = "/nl/b3p/brmo/loader/xml/xml/MUTBX01-ASN00T1660-20091119-1-prettyprinted.xml";
 
     @After
     public void cleanup() throws Exception {
