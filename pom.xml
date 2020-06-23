@@ -59,7 +59,7 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <netbeans.hint.license>gpl30</netbeans.hint.license>
-        <hibernate.version>5.4.17.Final</hibernate.version>
+        <hibernate.version>5.4.18.Final</hibernate.version>
         <!-- ook jdbc-util updaten bij geotools update -->
         <geotools.version>23.1</geotools.version>
         <jdbc-util.version>6.0</jdbc-util.version>
