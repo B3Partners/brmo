@@ -43,5 +43,8 @@ updates:
 - package-ecosystem: "github-actions"
   directory: "/"
   schedule:
-    interval: "daily"
-    time: "02:00"
+    interval: "weekly"
+    day: saturday
+    timezone: Europe/Amsterdam
+  labels:
+  - bouw- en testinfrastuctuur
