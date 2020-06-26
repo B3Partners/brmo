@@ -66,7 +66,7 @@ public class GH522NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseInte
     public static Collection params() {
         return Arrays.asList(new Object[][]{
                 // A.S. Watson (Health & Beauty Continental Europe) B.V.
-                {"/nhr-v3/orig/2020-04-30-120558-31035585.xml", MapUtils.putAll(new HashMap<String, Integer>(), new Object[][]{
+                {"/nhr-v3/2020-04-30-120558-31035585.anon.xml", MapUtils.putAll(new HashMap<String, Integer>(), new Object[][]{
                         {"maatschapp_activiteit", 1},
                         {"vestg", 1188},
                         // maar 1 hoofdvestiging
