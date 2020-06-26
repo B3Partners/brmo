@@ -74,7 +74,9 @@ public class GH522NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseInte
                         {"select sc_identif as hoofdvestiging from vestg where hoofdvestiging is null", 0},
                         {"select sc_identif as hoofdvestiging from vestg where hoofdvestiging = 'Ja'", 1},
                         {"select sc_identif as hoofdvestiging from vestg where hoofdvestiging = 'Nee'", 1188 - 1},
-                        {"functionaris", 1 + 7}
+                        {"functionaris", 1 + 7},
+                        {"select * from subject where identif='nhr.comVestg.000017320496' and pa_postadres_postcode='3927ZL' and pa_postadrestype='P' and pa_postbus__of_antwoordnummer='34'", 1},
+                        {"select * from subject where identif='nhr.comVestg.000019946252' and fk_15aoa_identif='0482010001255998'", 1},
                 })},
                 //HEMA B.V.
                 {"/nhr-v3/2020-04-30-121846-34215639.anon.xml", MapUtils.putAll(new HashMap<String, Integer>(), new Object[][]{
@@ -83,10 +85,13 @@ public class GH522NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseInte
                 // Boekenvoordeel B.V.
                 {"/nhr-v3/2020-04-30-121909-39082874.anon.xml", MapUtils.putAll(new HashMap<String, Integer>(), new Object[][]{
                         {"vestg", 87},
+                        {"select * from subject where identif='nhr.comVestg.000016834623' and fk_15aoa_identif='0034010000049149'", 1},
+                        {"select * from subject where identif='nhr.comVestg.000016833503' and fk_15aoa_identif='0758010000023411'", 1},
                 })},
                 // FrieslandCampina Nederland B.V.
                 {"/nhr-v3/2020-04-30-121929-01070163.anon.xml", MapUtils.putAll(new HashMap<String, Integer>(), new Object[][]{
                         {"vestg", 37},
+                        {"select * from subject where identif='nhr.comVestg.000019021232' and pa_postadres_postcode='1850AB' and pa_postadrestype='P' and pa_postbus__of_antwoordnummer='53'", 1},
                 })},
                 // Prysmian Netherlands B.V.
                 {"/nhr-v3/2020-04-30-121952-58087850.anon.xml", MapUtils.putAll(new HashMap<String, Integer>(), new Object[][]{
@@ -100,7 +105,7 @@ public class GH522NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseInte
                         {"select sc_identif as hoofdvestiging from vestg where fk_19mac_kvk_nummer is not null", 1},
                         {"select sc_identif as hoofdvestiging from vestg where hoofdvestiging = 'Ja'", 1},
                         {"select sc_identif as hoofdvestiging from vestg where hoofdvestiging = 'Nee'", 9 - 1},
-                        {"functionaris", 9 /*unieke BSN */ + 1/*rsin*/}
+                        {"functionaris", 9 /*unieke BSN */ + 1/*rsin*/},
                 })},
                 // B3Partners
                 {"/nhr-v3/34122633,32076598.anon.xml", MapUtils.putAll(new HashMap<String, Integer>(), new Object[][]{
@@ -108,7 +113,7 @@ public class GH522NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseInte
                         {"vestg", 1},
                         // maar 1 hoofdvestiging
                         {"select sc_identif as hoofdvestiging from vestg where fk_19mac_kvk_nummer is not null", 1},
-                        {"functionaris", 1/*rsin*/}
+                        {"functionaris", 1/*rsin*/},
                 })},
                 // min EZ. (nietCommercieleVestiging)
                 {"/nhr-v3/52813150.anon.xml", MapUtils.putAll(new HashMap<String, Integer>(), new Object[][]{
@@ -119,7 +124,7 @@ public class GH522NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseInte
                         {"select sc_identif as hoofdvestiging from vestg where hoofdvestiging is null", 0},
                         {"select sc_identif as hoofdvestiging from vestg where hoofdvestiging = 'Ja'", 1},
                         {"select sc_identif as hoofdvestiging from vestg where hoofdvestiging = 'Nee'", 7},
-                        {"functionaris", 0}
+                        {"functionaris", 0},
                 })},
         });
     }
