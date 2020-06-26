@@ -1,0 +1,2237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Geanonimiseerd door B3Partners BV op 2020-06-26+02:00, zie commentaar in bericht.-->
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+   <wstxns1:Header xmlns:wsa="http://www.w3.org/2005/08/addressing"
+                   xmlns:wstxns1="http://schemas.xmlsoap.org/soap/envelope/"/>
+   <wstxns8:Body xmlns:wstxns8="http://schemas.xmlsoap.org/soap/envelope/"
+                 xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+                 wsu:Id="id-1-b74c6e43d03112430ccdfe29fcc06e60">
+      <ophalenInschrijvingResponse xmlns="http://schemas.kvk.nl/schemas/hrip/dataservice/2015/02"
+                                   peilmoment="20200618154147826">
+         <meldingen>
+            <informatie>
+               <code>IPD0000</code>
+               <omschrijving>Het product is succesvol geproduceerd</omschrijving>
+               <referentie>04040443</referentie>
+            </informatie>
+         </meldingen>
+         <product>
+            <maatschappelijkeActiviteit xmlns="http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02">
+               <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                  <datumAanvang>19910815</datumAanvang>
+               </registratie>
+               <kvkNummer>04040443</kvkNummer>
+               <nonMailing>
+                  <code>N</code>
+                  <omschrijving>Nee</omschrijving>
+                  <referentieType>geenRT</referentieType>
+               </nonMailing>
+               <incidenteelUitlenenArbeidskrachten>
+                  <code>N</code>
+                  <omschrijving>Nee</omschrijving>
+                  <referentieType>geenRT</referentieType>
+               </incidenteelUitlenenArbeidskrachten>
+               <bezoekLocatie>
+                  <registratie registratieTijdstip="20160107100402219">
+                     <datumAanvang>20151215</datumAanvang>
+                  </registratie>
+                  <afgeschermd>
+                     <code>N</code>
+                     <omschrijving>Nee</omschrijving>
+                     <referentieType>geenRT</referentieType>
+                  </afgeschermd>
+                  <adres>
+                     <binnenlandsAdres>
+                        <straatnaam>Edisonstraat</straatnaam>
+                        <huisnummer>2</huisnummer>
+                        <huisletter>D</huisletter>
+                        <postcode>
+                           <cijfercombinatie>7825</cijfercombinatie>
+                           <lettercombinatie>GS</lettercombinatie>
+                        </postcode>
+                        <plaats>Emmen</plaats>
+                        <bagId>
+                           <identificatieNummeraanduiding>0114200000386067</identificatieNummeraanduiding>
+                           <identificatieAdresseerbaarObject>0114010000386066</identificatieAdresseerbaarObject>
+                        </bagId>
+                     </binnenlandsAdres>
+                  </adres>
+                  <volledigAdres>Edisonstraat 2 D
+7825GS Emmen</volledigAdres>
+               </bezoekLocatie>
+               <postLocatie>
+                  <registratie registratieTijdstip="20160107100402219">
+                     <datumAanvang>20151215</datumAanvang>
+                  </registratie>
+                  <afgeschermd>
+                     <code>N</code>
+                     <omschrijving>Nee</omschrijving>
+                     <referentieType>geenRT</referentieType>
+                  </afgeschermd>
+                  <adres>
+                     <binnenlandsAdres>
+                        <straatnaam>Edisonstraat</straatnaam>
+                        <huisnummer>2</huisnummer>
+                        <huisletter>D</huisletter>
+                        <postcode>
+                           <cijfercombinatie>7825</cijfercombinatie>
+                           <lettercombinatie>GS</lettercombinatie>
+                        </postcode>
+                        <plaats>Emmen</plaats>
+                        <bagId>
+                           <identificatieNummeraanduiding>0114200000386067</identificatieNummeraanduiding>
+                           <identificatieAdresseerbaarObject>0114010000386066</identificatieAdresseerbaarObject>
+                        </bagId>
+                     </binnenlandsAdres>
+                  </adres>
+                  <volledigAdres>Edisonstraat 2 D
+7825GS Emmen</volledigAdres>
+               </postLocatie>
+               <communicatiegegevens>
+                  <registratie registratieTijdstip="20170926153126358">
+                     <datumAanvang>20170901</datumAanvang>
+                  </registratie>
+                  <communicatienummer>
+                     <toegangscode>+31</toegangscode>
+                     <nummer>0886481875</nummer>
+                     <soort>
+                        <code>T</code>
+                        <omschrijving>Telefoon</omschrijving>
+                     </soort>
+                  </communicatienummer>
+                  <communicatienummer>
+                     <toegangscode>+31</toegangscode>
+                     <nummer>0886481881</nummer>
+                     <soort>
+                        <code>F</code>
+                        <omschrijving>Fax</omschrijving>
+                     </soort>
+                  </communicatienummer>
+                  <emailAdres>info.nl@kghcustoms.com</emailAdres>
+                  <domeinNaam>www.kghcustoms.com</domeinNaam>
+               </communicatiegegevens>
+               <naam>KGH Customs Services B.V.</naam>
+               <manifesteertZichAls>
+                  <relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <datumAanvang>19910815</datumAanvang>
+                  </relatieRegistratie>
+                  <onderneming>
+                     <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                        <datumAanvang>19910515</datumAanvang>
+                     </registratie>
+                     <kvkNummer>04040443</kvkNummer>
+                     <sbiActiviteit>
+                        <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>19910515</datumAanvang>
+                        </registratie>
+                        <sbiCode>
+                           <code>52291</code>
+                           <omschrijving>Expediteurs, cargadoors, bevrachters en andere tussenpersonen in het goederenvervoer</omschrijving>
+                           <referentieType>ActiviteitCode</referentieType>
+                        </sbiCode>
+                        <isHoofdactiviteit>
+                           <code>J</code>
+                           <omschrijving>Ja</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </isHoofdactiviteit>
+                     </sbiActiviteit>
+                     <sbiActiviteit>
+                        <registratie registratieTijdstip="20171110150825742">
+                           <datumAanvang>20171023</datumAanvang>
+                        </registratie>
+                        <sbiCode>
+                           <code>78202</code>
+                           <omschrijving>Uitleenbureaus</omschrijving>
+                           <referentieType>ActiviteitCode</referentieType>
+                        </sbiCode>
+                        <isHoofdactiviteit>
+                           <code>N</code>
+                           <omschrijving>Nee</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </isHoofdactiviteit>
+                     </sbiActiviteit>
+                     <voltijdWerkzamePersonen>28</voltijdWerkzamePersonen>
+                     <deeltijdWerkzamePersonen>0</deeltijdWerkzamePersonen>
+                     <totaalWerkzamePersonen>28</totaalWerkzamePersonen>
+                     <handeltOnder>
+                        <handelsnaam>
+                           <registratie registratieTijdstip="20121231093823684">
+                              <datumAanvang>19910815</datumAanvang>
+                           </registratie>
+                           <naam>KGH Kuper Douaneservice</naam>
+                           <volgorde>0</volgorde>
+                        </handelsnaam>
+                     </handeltOnder>
+                     <handeltOnder>
+                        <handelsnaam>
+                           <registratie registratieTijdstip="20121231094525467">
+                              <datumAanvang>20121228</datumAanvang>
+                           </registratie>
+                           <naam>KGH Douaneopleidingen</naam>
+                           <volgorde>1</volgorde>
+                        </handelsnaam>
+                     </handeltOnder>
+                     <handeltOnder>
+                        <handelsnaam>
+                           <registratie registratieTijdstip="20121231094525467">
+                              <datumAanvang>20121228</datumAanvang>
+                           </registratie>
+                           <naam>KGH</naam>
+                           <volgorde>2</volgorde>
+                        </handelsnaam>
+                     </handeltOnder>
+                     <handeltOnder>
+                        <handelsnaam>
+                           <registratie registratieTijdstip="20121231094525467">
+                              <datumAanvang>20121228</datumAanvang>
+                           </registratie>
+                           <naam>Kuper</naam>
+                           <volgorde>3</volgorde>
+                        </handelsnaam>
+                     </handeltOnder>
+                     <handeltOnder>
+                        <handelsnaam>
+                           <registratie registratieTijdstip="20121231094525467">
+                              <datumAanvang>20121228</datumAanvang>
+                           </registratie>
+                           <naam>KGH Customs Academy</naam>
+                           <volgorde>4</volgorde>
+                        </handelsnaam>
+                     </handeltOnder>
+                     <handeltOnder>
+                        <handelsnaam>
+                           <registratie registratieTijdstip="20130320090224697">
+                              <datumAanvang>20130314</datumAanvang>
+                           </registratie>
+                           <naam>KGH Customs Services</naam>
+                           <volgorde>5</volgorde>
+                        </handelsnaam>
+                     </handeltOnder>
+                     <handeltOnder>
+                        <handelsnaam>
+                           <registratie registratieTijdstip="20131212151029745">
+                              <datumAanvang>20131201</datumAanvang>
+                           </registratie>
+                           <naam>KGH Douaneopleidingen Nederland</naam>
+                           <volgorde>6</volgorde>
+                        </handelsnaam>
+                     </handeltOnder>
+                     <handeltOnder>
+                        <handelsnaam>
+                           <registratie registratieTijdstip="20131212151029745">
+                              <datumAanvang>20131201</datumAanvang>
+                           </registratie>
+                           <naam>Customs Academy</naam>
+                           <volgorde>7</volgorde>
+                        </handelsnaam>
+                     </handeltOnder>
+                     <handeltOnder>
+                        <handelsnaam>
+                           <registratie registratieTijdstip="20150226100116100">
+                              <datumAanvang>20150224</datumAanvang>
+                           </registratie>
+                           <naam>KGH Customs Services B.V.</naam>
+                           <volgorde>8</volgorde>
+                        </handelsnaam>
+                     </handeltOnder>
+                     <handeltOnder>
+                        <handelsnaam>
+                           <registratie registratieTijdstip="20170515114028591">
+                              <datumAanvang>20170511</datumAanvang>
+                           </registratie>
+                           <naam>GCS</naam>
+                           <volgorde>9</volgorde>
+                        </handelsnaam>
+                     </handeltOnder>
+                     <handeltOnder>
+                        <handelsnaam>
+                           <registratie registratieTijdstip="20170515114028591">
+                              <datumAanvang>20170511</datumAanvang>
+                           </registratie>
+                           <naam>GCS International</naam>
+                           <volgorde>10</volgorde>
+                        </handelsnaam>
+                     </handeltOnder>
+                     <handeltOnder>
+                        <handelsnaam>
+                           <registratie registratieTijdstip="20170516135121279">
+                              <datumAanvang>20170511</datumAanvang>
+                           </registratie>
+                           <naam>Gee's Customs Solutions</naam>
+                           <volgorde>11</volgorde>
+                        </handelsnaam>
+                     </handeltOnder>
+                     <wordtUitgeoefendIn>
+                        <relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>19910815</datumAanvang>
+                        </relatieRegistratie>
+                        <commercieleVestiging>
+                           <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <datumAanvang>19910515</datumAanvang>
+                           </registratie>
+                           <vestigingsnummer>000018147860</vestigingsnummer>
+                           <bezoekLocatie>
+                              <registratie registratieTijdstip="20160107100402219">
+                                 <datumAanvang>20151215</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <straatnaam>Edisonstraat</straatnaam>
+                                    <huisnummer>2</huisnummer>
+                                    <huisletter>D</huisletter>
+                                    <postcode>
+                                       <cijfercombinatie>7825</cijfercombinatie>
+                                       <lettercombinatie>GS</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Emmen</plaats>
+                                    <bagId>
+                                       <identificatieNummeraanduiding>0114200000386067</identificatieNummeraanduiding>
+                                       <identificatieAdresseerbaarObject>0114010000386066</identificatieAdresseerbaarObject>
+                                    </bagId>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Edisonstraat 2 D
+7825GS Emmen</volledigAdres>
+                           </bezoekLocatie>
+                           <postLocatie>
+                              <registratie registratieTijdstip="20160107100402219">
+                                 <datumAanvang>20151215</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <straatnaam>Edisonstraat</straatnaam>
+                                    <huisnummer>2</huisnummer>
+                                    <huisletter>D</huisletter>
+                                    <postcode>
+                                       <cijfercombinatie>7825</cijfercombinatie>
+                                       <lettercombinatie>GS</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Emmen</plaats>
+                                    <bagId>
+                                       <identificatieNummeraanduiding>0114200000386067</identificatieNummeraanduiding>
+                                       <identificatieAdresseerbaarObject>0114010000386066</identificatieAdresseerbaarObject>
+                                    </bagId>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Edisonstraat 2 D
+7825GS Emmen</volledigAdres>
+                           </postLocatie>
+                           <communicatiegegevens>
+                              <registratie registratieTijdstip="20170926153126358">
+                                 <datumAanvang>20170901</datumAanvang>
+                              </registratie>
+                              <communicatienummer>
+                                 <toegangscode>+31</toegangscode>
+                                 <nummer>0886481875</nummer>
+                                 <soort>
+                                    <code>T</code>
+                                    <omschrijving>Telefoon</omschrijving>
+                                 </soort>
+                              </communicatienummer>
+                              <communicatienummer>
+                                 <toegangscode>+31</toegangscode>
+                                 <nummer>0886481881</nummer>
+                                 <soort>
+                                    <code>F</code>
+                                    <omschrijving>Fax</omschrijving>
+                                 </soort>
+                              </communicatienummer>
+                              <emailAdres>info.nl@kghcustoms.com</emailAdres>
+                              <domeinNaam>www.kghcustoms.com</domeinNaam>
+                           </communicatiegegevens>
+                           <eersteHandelsnaam>KGH Customs Services B.V.</eersteHandelsnaam>
+                           <voltijdWerkzamePersonen>17</voltijdWerkzamePersonen>
+                           <deeltijdWerkzamePersonen>0</deeltijdWerkzamePersonen>
+                           <totaalWerkzamePersonen>17</totaalWerkzamePersonen>
+                           <activiteiten>
+                              <omschrijving>Verrichten van douaneformaliteiten voor derden, administratieve dienstverlening op het gebied van douaneaangelegenheden, het verstrekken van adviezen op genoemde terreinen, het verlenen van diensten op het gebied van in- en uitklaren van goederen en het (doen) verzorgen van douaneopleidingen en andersoortige opleidingen en meer in het algemeen het verstrekken van adviezen op deze terreinen. Ter beschikking stellen van arbeidskrachten.</omschrijving>
+                              <sbiActiviteit>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>19910515</datumAanvang>
+                                 </registratie>
+                                 <sbiCode>
+                                    <code>52291</code>
+                                    <omschrijving>Expediteurs, cargadoors, bevrachters en andere tussenpersonen in het goederenvervoer</omschrijving>
+                                    <referentieType>ActiviteitCode</referentieType>
+                                 </sbiCode>
+                                 <isHoofdactiviteit>
+                                    <code>J</code>
+                                    <omschrijving>Ja</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </isHoofdactiviteit>
+                              </sbiActiviteit>
+                              <sbiActiviteit>
+                                 <registratie registratieTijdstip="20171110150825742">
+                                    <datumAanvang>20171023</datumAanvang>
+                                 </registratie>
+                                 <sbiCode>
+                                    <code>78202</code>
+                                    <omschrijving>Uitleenbureaus</omschrijving>
+                                    <referentieType>ActiviteitCode</referentieType>
+                                 </sbiCode>
+                                 <isHoofdactiviteit>
+                                    <code>N</code>
+                                    <omschrijving>Nee</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </isHoofdactiviteit>
+                              </sbiActiviteit>
+                              <exporteert>
+                                 <code>J</code>
+                                 <omschrijving>Ja</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </exporteert>
+                              <importeert>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </importeert>
+                           </activiteiten>
+                           <handeltOnder>
+                              <relatieRegistratie registratieTijdstip="20170515114028591">
+                                 <datumAanvang>20150224</datumAanvang>
+                              </relatieRegistratie>
+                              <handelsnaam>
+                                 <registratie registratieTijdstip="20150226100116100">
+                                    <datumAanvang>20150224</datumAanvang>
+                                 </registratie>
+                                 <naam>KGH Customs Services B.V.</naam>
+                                 <volgorde>0</volgorde>
+                              </handelsnaam>
+                           </handeltOnder>
+                           <handeltOnder>
+                              <relatieRegistratie registratieTijdstip="20170515114028591">
+                                 <datumAanvang>20121228</datumAanvang>
+                              </relatieRegistratie>
+                              <handelsnaam>
+                                 <registratie registratieTijdstip="20121231093823684">
+                                    <datumAanvang>19910815</datumAanvang>
+                                 </registratie>
+                                 <naam>KGH Kuper Douaneservice</naam>
+                                 <volgorde>1</volgorde>
+                              </handelsnaam>
+                           </handeltOnder>
+                           <handeltOnder>
+                              <relatieRegistratie registratieTijdstip="20170515114028591">
+                                 <datumAanvang>20121228</datumAanvang>
+                              </relatieRegistratie>
+                              <handelsnaam>
+                                 <registratie registratieTijdstip="20121231094525467">
+                                    <datumAanvang>20121228</datumAanvang>
+                                 </registratie>
+                                 <naam>KGH Douaneopleidingen</naam>
+                                 <volgorde>2</volgorde>
+                              </handelsnaam>
+                           </handeltOnder>
+                           <handeltOnder>
+                              <relatieRegistratie registratieTijdstip="20170515114028591">
+                                 <datumAanvang>20121228</datumAanvang>
+                              </relatieRegistratie>
+                              <handelsnaam>
+                                 <registratie registratieTijdstip="20121231094525467">
+                                    <datumAanvang>20121228</datumAanvang>
+                                 </registratie>
+                                 <naam>KGH</naam>
+                                 <volgorde>3</volgorde>
+                              </handelsnaam>
+                           </handeltOnder>
+                           <handeltOnder>
+                              <relatieRegistratie registratieTijdstip="20170515114028591">
+                                 <datumAanvang>20121228</datumAanvang>
+                              </relatieRegistratie>
+                              <handelsnaam>
+                                 <registratie registratieTijdstip="20121231094525467">
+                                    <datumAanvang>20121228</datumAanvang>
+                                 </registratie>
+                                 <naam>Kuper</naam>
+                                 <volgorde>4</volgorde>
+                              </handelsnaam>
+                           </handeltOnder>
+                           <handeltOnder>
+                              <relatieRegistratie registratieTijdstip="20170515114028591">
+                                 <datumAanvang>20121228</datumAanvang>
+                              </relatieRegistratie>
+                              <handelsnaam>
+                                 <registratie registratieTijdstip="20121231094525467">
+                                    <datumAanvang>20121228</datumAanvang>
+                                 </registratie>
+                                 <naam>KGH Customs Academy</naam>
+                                 <volgorde>5</volgorde>
+                              </handelsnaam>
+                           </handeltOnder>
+                           <handeltOnder>
+                              <relatieRegistratie registratieTijdstip="20170515114028591">
+                                 <datumAanvang>20130314</datumAanvang>
+                              </relatieRegistratie>
+                              <handelsnaam>
+                                 <registratie registratieTijdstip="20130320090224697">
+                                    <datumAanvang>20130314</datumAanvang>
+                                 </registratie>
+                                 <naam>KGH Customs Services</naam>
+                                 <volgorde>6</volgorde>
+                              </handelsnaam>
+                           </handeltOnder>
+                           <handeltOnder>
+                              <relatieRegistratie registratieTijdstip="20170515114028591">
+                                 <datumAanvang>20131201</datumAanvang>
+                              </relatieRegistratie>
+                              <handelsnaam>
+                                 <registratie registratieTijdstip="20131212151029745">
+                                    <datumAanvang>20131201</datumAanvang>
+                                 </registratie>
+                                 <naam>KGH Douaneopleidingen Nederland</naam>
+                                 <volgorde>7</volgorde>
+                              </handelsnaam>
+                           </handeltOnder>
+                           <handeltOnder>
+                              <relatieRegistratie registratieTijdstip="20170515114028591">
+                                 <datumAanvang>20131201</datumAanvang>
+                              </relatieRegistratie>
+                              <handelsnaam>
+                                 <registratie registratieTijdstip="20131212151029745">
+                                    <datumAanvang>20131201</datumAanvang>
+                                 </registratie>
+                                 <naam>Customs Academy</naam>
+                                 <volgorde>8</volgorde>
+                              </handelsnaam>
+                           </handeltOnder>
+                           <handeltOnder>
+                              <relatieRegistratie registratieTijdstip="20170515114028591">
+                                 <datumAanvang>20170511</datumAanvang>
+                              </relatieRegistratie>
+                              <handelsnaam>
+                                 <registratie registratieTijdstip="20170515114028591">
+                                    <datumAanvang>20170511</datumAanvang>
+                                 </registratie>
+                                 <naam>GCS</naam>
+                                 <volgorde>9</volgorde>
+                              </handelsnaam>
+                           </handeltOnder>
+                           <handeltOnder>
+                              <relatieRegistratie registratieTijdstip="20170515114028591">
+                                 <datumAanvang>20170511</datumAanvang>
+                              </relatieRegistratie>
+                              <handelsnaam>
+                                 <registratie registratieTijdstip="20170515114028591">
+                                    <datumAanvang>20170511</datumAanvang>
+                                 </registratie>
+                                 <naam>GCS International</naam>
+                                 <volgorde>10</volgorde>
+                              </handelsnaam>
+                           </handeltOnder>
+                           <handeltOnder>
+                              <relatieRegistratie registratieTijdstip="20170516135121279">
+                                 <datumAanvang>20170511</datumAanvang>
+                              </relatieRegistratie>
+                              <handelsnaam>
+                                 <registratie registratieTijdstip="20170516135121279">
+                                    <datumAanvang>20170511</datumAanvang>
+                                 </registratie>
+                                 <naam>Gee's Customs Solutions</naam>
+                                 <volgorde>11</volgorde>
+                              </handelsnaam>
+                           </handeltOnder>
+                        </commercieleVestiging>
+                     </wordtUitgeoefendIn>
+                     <wordtUitgeoefendIn>
+                        <relatieRegistratie registratieTijdstip="20130423152020534">
+                           <datumAanvang>20121228</datumAanvang>
+                        </relatieRegistratie>
+                        <commercieleVestiging>
+                           <registratie registratieTijdstip="20130423152020534">
+                              <datumAanvang>20121228</datumAanvang>
+                           </registratie>
+                           <vestigingsnummer>000027192792</vestigingsnummer>
+                           <bezoekLocatie>
+                              <registratie registratieTijdstip="20160107100402219">
+                                 <datumAanvang>20151209</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <straatnaam>Beechavenue</straatnaam>
+                                    <huisnummer>121</huisnummer>
+                                    <postcode>
+                                       <cijfercombinatie>1119</cijfercombinatie>
+                                       <lettercombinatie>RB</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Schiphol-Rijk</plaats>
+                                    <bagId>
+                                       <identificatieNummeraanduiding>0394200000005186</identificatieNummeraanduiding>
+                                       <identificatieAdresseerbaarObject>0394010000302992</identificatieAdresseerbaarObject>
+                                    </bagId>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Beechavenue 121
+1119RB Schiphol-Rijk</volledigAdres>
+                           </bezoekLocatie>
+                           <postLocatie>
+                              <registratie registratieTijdstip="20160107100402219">
+                                 <datumAanvang>20151209</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <straatnaam>Beechavenue</straatnaam>
+                                    <huisnummer>121</huisnummer>
+                                    <postcode>
+                                       <cijfercombinatie>1119</cijfercombinatie>
+                                       <lettercombinatie>RB</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Schiphol-Rijk</plaats>
+                                    <bagId>
+                                       <identificatieNummeraanduiding>0394200000005186</identificatieNummeraanduiding>
+                                       <identificatieAdresseerbaarObject>0394010000302992</identificatieAdresseerbaarObject>
+                                    </bagId>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Beechavenue 121
+1119RB Schiphol-Rijk</volledigAdres>
+                           </postLocatie>
+                           <communicatiegegevens>
+                              <registratie registratieTijdstip="20130423152020534">
+                                 <datumAanvang>20121228</datumAanvang>
+                              </registratie>
+                              <communicatienummer>
+                                 <toegangscode>+31</toegangscode>
+                                 <nummer>0886481890</nummer>
+                                 <soort>
+                                    <code>T</code>
+                                    <omschrijving>Telefoon</omschrijving>
+                                 </soort>
+                              </communicatienummer>
+                              <communicatienummer>
+                                 <toegangscode>+31</toegangscode>
+                                 <nummer>0886481881</nummer>
+                                 <soort>
+                                    <code>F</code>
+                                    <omschrijving>Fax</omschrijving>
+                                 </soort>
+                              </communicatienummer>
+                              <emailAdres>kgh-netherlands@kghcustoms.com</emailAdres>
+                              <domeinNaam>www.kghcustoms.com</domeinNaam>
+                           </communicatiegegevens>
+                           <eersteHandelsnaam>KGH Customs Services B.V.</eersteHandelsnaam>
+                           <voltijdWerkzamePersonen>2</voltijdWerkzamePersonen>
+                           <deeltijdWerkzamePersonen>0</deeltijdWerkzamePersonen>
+                           <totaalWerkzamePersonen>2</totaalWerkzamePersonen>
+                           <activiteiten>
+                              <omschrijving>Verrichten van douaneformaliteiten voor derden, administratieve dienstverlening op het gebied van douaneaangelegenheden, het verstrekken van adviezen op genoemde terreinen, het verlenen van diensten op het gebied van in- en uitklaren van goederen en het (doen) verzorgen van douaneopleidingen en andersoortige opleidingen en meer in het algemeen het verstrekken van adviezen op deze terreinen.</omschrijving>
+                              <sbiActiviteit>
+                                 <registratie registratieTijdstip="20130423152020534">
+                                    <datumAanvang>20121228</datumAanvang>
+                                 </registratie>
+                                 <sbiCode>
+                                    <code>52291</code>
+                                    <omschrijving>Expediteurs, cargadoors, bevrachters en andere tussenpersonen in het goederenvervoer</omschrijving>
+                                    <referentieType>ActiviteitCode</referentieType>
+                                 </sbiCode>
+                                 <isHoofdactiviteit>
+                                    <code>J</code>
+                                    <omschrijving>Ja</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </isHoofdactiviteit>
+                              </sbiActiviteit>
+                              <exporteert>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </exporteert>
+                              <importeert>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </importeert>
+                           </activiteiten>
+                           <handeltOnder>
+                              <relatieRegistratie registratieTijdstip="20160120120852797">
+                                 <datumAanvang>20150224</datumAanvang>
+                              </relatieRegistratie>
+                              <handelsnaam>
+                                 <registratie registratieTijdstip="20150226100116100">
+                                    <datumAanvang>20150224</datumAanvang>
+                                 </registratie>
+                                 <naam>KGH Customs Services B.V.</naam>
+                                 <volgorde>0</volgorde>
+                              </handelsnaam>
+                           </handeltOnder>
+                           <handeltOnder>
+                              <relatieRegistratie registratieTijdstip="20160120120852797">
+                                 <datumAanvang>20121228</datumAanvang>
+                              </relatieRegistratie>
+                              <handelsnaam>
+                                 <registratie registratieTijdstip="20121231093823684">
+                                    <datumAanvang>19910815</datumAanvang>
+                                 </registratie>
+                                 <naam>KGH Kuper Douaneservice</naam>
+                                 <volgorde>1</volgorde>
+                              </handelsnaam>
+                           </handeltOnder>
+                           <handeltOnder>
+                              <relatieRegistratie registratieTijdstip="20160120120852797">
+                                 <datumAanvang>20121228</datumAanvang>
+                              </relatieRegistratie>
+                              <handelsnaam>
+                                 <registratie registratieTijdstip="20121231094525467">
+                                    <datumAanvang>20121228</datumAanvang>
+                                 </registratie>
+                                 <naam>KGH Douaneopleidingen</naam>
+                                 <volgorde>2</volgorde>
+                              </handelsnaam>
+                           </handeltOnder>
+                           <handeltOnder>
+                              <relatieRegistratie registratieTijdstip="20160120120852797">
+                                 <datumAanvang>20121228</datumAanvang>
+                              </relatieRegistratie>
+                              <handelsnaam>
+                                 <registratie registratieTijdstip="20121231094525467">
+                                    <datumAanvang>20121228</datumAanvang>
+                                 </registratie>
+                                 <naam>KGH</naam>
+                                 <volgorde>3</volgorde>
+                              </handelsnaam>
+                           </handeltOnder>
+                           <handeltOnder>
+                              <relatieRegistratie registratieTijdstip="20160120120852797">
+                                 <datumAanvang>20121228</datumAanvang>
+                              </relatieRegistratie>
+                              <handelsnaam>
+                                 <registratie registratieTijdstip="20121231094525467">
+                                    <datumAanvang>20121228</datumAanvang>
+                                 </registratie>
+                                 <naam>Kuper</naam>
+                                 <volgorde>4</volgorde>
+                              </handelsnaam>
+                           </handeltOnder>
+                           <handeltOnder>
+                              <relatieRegistratie registratieTijdstip="20160120120852797">
+                                 <datumAanvang>20121228</datumAanvang>
+                              </relatieRegistratie>
+                              <handelsnaam>
+                                 <registratie registratieTijdstip="20121231094525467">
+                                    <datumAanvang>20121228</datumAanvang>
+                                 </registratie>
+                                 <naam>KGH Customs Academy</naam>
+                                 <volgorde>5</volgorde>
+                              </handelsnaam>
+                           </handeltOnder>
+                           <handeltOnder>
+                              <relatieRegistratie registratieTijdstip="20160120120852797">
+                                 <datumAanvang>20121228</datumAanvang>
+                              </relatieRegistratie>
+                              <handelsnaam>
+                                 <registratie registratieTijdstip="20130320090224697">
+                                    <datumAanvang>20130314</datumAanvang>
+                                 </registratie>
+                                 <naam>KGH Customs Services</naam>
+                                 <volgorde>6</volgorde>
+                              </handelsnaam>
+                           </handeltOnder>
+                        </commercieleVestiging>
+                     </wordtUitgeoefendIn>
+                     <wordtUitgeoefendIn>
+                        <relatieRegistratie registratieTijdstip="20130423152020534">
+                           <datumAanvang>20121228</datumAanvang>
+                        </relatieRegistratie>
+                        <commercieleVestiging>
+                           <registratie registratieTijdstip="20130423152020534">
+                              <datumAanvang>20121228</datumAanvang>
+                           </registratie>
+                           <vestigingsnummer>000027192806</vestigingsnummer>
+                           <bezoekLocatie>
+                              <registratie registratieTijdstip="20151019134007432">
+                                 <datumAanvang>20150907</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <straatnaam>Zuideinde</straatnaam>
+                                    <huisnummer>65</huisnummer>
+                                    <postcode>
+                                       <cijfercombinatie>2991</cijfercombinatie>
+                                       <lettercombinatie>LJ</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Barendrecht</plaats>
+                                    <bagId>
+                                       <identificatieNummeraanduiding>0489200000219385</identificatieNummeraanduiding>
+                                       <identificatieAdresseerbaarObject>0489010000219386</identificatieAdresseerbaarObject>
+                                    </bagId>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Zuideinde 65
+2991LJ Barendrecht</volledigAdres>
+                           </bezoekLocatie>
+                           <postLocatie>
+                              <registratie registratieTijdstip="20151019134007432">
+                                 <datumAanvang>20150907</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <straatnaam>Zuideinde</straatnaam>
+                                    <huisnummer>65</huisnummer>
+                                    <postcode>
+                                       <cijfercombinatie>2991</cijfercombinatie>
+                                       <lettercombinatie>LJ</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Barendrecht</plaats>
+                                    <bagId>
+                                       <identificatieNummeraanduiding>0489200000219385</identificatieNummeraanduiding>
+                                       <identificatieAdresseerbaarObject>0489010000219386</identificatieAdresseerbaarObject>
+                                    </bagId>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Zuideinde 65
+2991LJ Barendrecht</volledigAdres>
+                           </postLocatie>
+                           <communicatiegegevens>
+                              <registratie registratieTijdstip="20130423152020534">
+                                 <datumAanvang>20121228</datumAanvang>
+                              </registratie>
+                              <communicatienummer>
+                                 <toegangscode>+31</toegangscode>
+                                 <nummer>0886481894</nummer>
+                                 <soort>
+                                    <code>T</code>
+                                    <omschrijving>Telefoon</omschrijving>
+                                 </soort>
+                              </communicatienummer>
+                              <communicatienummer>
+                                 <toegangscode>+31</toegangscode>
+                                 <nummer>0886481895</nummer>
+                                 <soort>
+                                    <code>F</code>
+                                    <omschrijving>Fax</omschrijving>
+                                 </soort>
+                              </communicatienummer>
+                              <emailAdres>kgh-netherlands@kghcustoms.com</emailAdres>
+                              <domeinNaam>www.kghcustoms.com</domeinNaam>
+                           </communicatiegegevens>
+                           <eersteHandelsnaam>KGH Customs Services B.V.</eersteHandelsnaam>
+                           <voltijdWerkzamePersonen>9</voltijdWerkzamePersonen>
+                           <deeltijdWerkzamePersonen>0</deeltijdWerkzamePersonen>
+                           <totaalWerkzamePersonen>9</totaalWerkzamePersonen>
+                           <activiteiten>
+                              <omschrijving>Verrichten van douaneformaliteiten voor derden, administratieve dienstverlening op het gebied van douaneaangelegenheden, het verstrekken van adviezen op genoemde terreinen, het verlenen van diensten op het gebied van in- en uitklaren van goederen en het (doen) verzorgen van douaneopleidingen en andersoortige opleidingen en meer in het algemeen het verstrekken van adviezen op deze terreinen.</omschrijving>
+                              <sbiActiviteit>
+                                 <registratie registratieTijdstip="20130423152020534">
+                                    <datumAanvang>20121228</datumAanvang>
+                                 </registratie>
+                                 <sbiCode>
+                                    <code>52291</code>
+                                    <omschrijving>Expediteurs, cargadoors, bevrachters en andere tussenpersonen in het goederenvervoer</omschrijving>
+                                    <referentieType>ActiviteitCode</referentieType>
+                                 </sbiCode>
+                                 <isHoofdactiviteit>
+                                    <code>J</code>
+                                    <omschrijving>Ja</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </isHoofdactiviteit>
+                              </sbiActiviteit>
+                              <exporteert>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </exporteert>
+                              <importeert>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </importeert>
+                           </activiteiten>
+                           <handeltOnder>
+                              <relatieRegistratie registratieTijdstip="20160120120852797">
+                                 <datumAanvang>20150224</datumAanvang>
+                              </relatieRegistratie>
+                              <handelsnaam>
+                                 <registratie registratieTijdstip="20150226100116100">
+                                    <datumAanvang>20150224</datumAanvang>
+                                 </registratie>
+                                 <naam>KGH Customs Services B.V.</naam>
+                                 <volgorde>0</volgorde>
+                              </handelsnaam>
+                           </handeltOnder>
+                           <handeltOnder>
+                              <relatieRegistratie registratieTijdstip="20160120120852797">
+                                 <datumAanvang>20121228</datumAanvang>
+                              </relatieRegistratie>
+                              <handelsnaam>
+                                 <registratie registratieTijdstip="20121231093823684">
+                                    <datumAanvang>19910815</datumAanvang>
+                                 </registratie>
+                                 <naam>KGH Kuper Douaneservice</naam>
+                                 <volgorde>1</volgorde>
+                              </handelsnaam>
+                           </handeltOnder>
+                           <handeltOnder>
+                              <relatieRegistratie registratieTijdstip="20160120120852797">
+                                 <datumAanvang>20121228</datumAanvang>
+                              </relatieRegistratie>
+                              <handelsnaam>
+                                 <registratie registratieTijdstip="20121231094525467">
+                                    <datumAanvang>20121228</datumAanvang>
+                                 </registratie>
+                                 <naam>KGH Douaneopleidingen</naam>
+                                 <volgorde>2</volgorde>
+                              </handelsnaam>
+                           </handeltOnder>
+                           <handeltOnder>
+                              <relatieRegistratie registratieTijdstip="20160120120852797">
+                                 <datumAanvang>20121228</datumAanvang>
+                              </relatieRegistratie>
+                              <handelsnaam>
+                                 <registratie registratieTijdstip="20121231094525467">
+                                    <datumAanvang>20121228</datumAanvang>
+                                 </registratie>
+                                 <naam>KGH</naam>
+                                 <volgorde>3</volgorde>
+                              </handelsnaam>
+                           </handeltOnder>
+                           <handeltOnder>
+                              <relatieRegistratie registratieTijdstip="20160120120852797">
+                                 <datumAanvang>20121228</datumAanvang>
+                              </relatieRegistratie>
+                              <handelsnaam>
+                                 <registratie registratieTijdstip="20121231094525467">
+                                    <datumAanvang>20121228</datumAanvang>
+                                 </registratie>
+                                 <naam>Kuper</naam>
+                                 <volgorde>4</volgorde>
+                              </handelsnaam>
+                           </handeltOnder>
+                           <handeltOnder>
+                              <relatieRegistratie registratieTijdstip="20160120120852797">
+                                 <datumAanvang>20121228</datumAanvang>
+                              </relatieRegistratie>
+                              <handelsnaam>
+                                 <registratie registratieTijdstip="20121231094525467">
+                                    <datumAanvang>20121228</datumAanvang>
+                                 </registratie>
+                                 <naam>KGH Customs Academy</naam>
+                                 <volgorde>5</volgorde>
+                              </handelsnaam>
+                           </handeltOnder>
+                           <handeltOnder>
+                              <relatieRegistratie registratieTijdstip="20160120120852797">
+                                 <datumAanvang>20121228</datumAanvang>
+                              </relatieRegistratie>
+                              <handelsnaam>
+                                 <registratie registratieTijdstip="20130320090224697">
+                                    <datumAanvang>20130314</datumAanvang>
+                                 </registratie>
+                                 <naam>KGH Customs Services</naam>
+                                 <volgorde>6</volgorde>
+                              </handelsnaam>
+                           </handeltOnder>
+                        </commercieleVestiging>
+                     </wordtUitgeoefendIn>
+                  </onderneming>
+               </manifesteertZichAls>
+               <wordtGeleidVanuit>
+                  <commercieleVestiging>
+                     <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                        <datumAanvang>19910515</datumAanvang>
+                     </registratie>
+                     <vestigingsnummer>000018147860</vestigingsnummer>
+                     <bezoekLocatie>
+                        <registratie registratieTijdstip="20160107100402219">
+                           <datumAanvang>20151215</datumAanvang>
+                        </registratie>
+                        <afgeschermd>
+                           <code>N</code>
+                           <omschrijving>Nee</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </afgeschermd>
+                        <adres>
+                           <binnenlandsAdres>
+                              <straatnaam>Edisonstraat</straatnaam>
+                              <huisnummer>2</huisnummer>
+                              <huisletter>D</huisletter>
+                              <postcode>
+                                 <cijfercombinatie>7825</cijfercombinatie>
+                                 <lettercombinatie>GS</lettercombinatie>
+                              </postcode>
+                              <plaats>Emmen</plaats>
+                              <bagId>
+                                 <identificatieNummeraanduiding>0114200000386067</identificatieNummeraanduiding>
+                                 <identificatieAdresseerbaarObject>0114010000386066</identificatieAdresseerbaarObject>
+                              </bagId>
+                           </binnenlandsAdres>
+                        </adres>
+                        <volledigAdres>Edisonstraat 2 D
+7825GS Emmen</volledigAdres>
+                     </bezoekLocatie>
+                     <postLocatie>
+                        <registratie registratieTijdstip="20160107100402219">
+                           <datumAanvang>20151215</datumAanvang>
+                        </registratie>
+                        <afgeschermd>
+                           <code>N</code>
+                           <omschrijving>Nee</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </afgeschermd>
+                        <adres>
+                           <binnenlandsAdres>
+                              <straatnaam>Edisonstraat</straatnaam>
+                              <huisnummer>2</huisnummer>
+                              <huisletter>D</huisletter>
+                              <postcode>
+                                 <cijfercombinatie>7825</cijfercombinatie>
+                                 <lettercombinatie>GS</lettercombinatie>
+                              </postcode>
+                              <plaats>Emmen</plaats>
+                              <bagId>
+                                 <identificatieNummeraanduiding>0114200000386067</identificatieNummeraanduiding>
+                                 <identificatieAdresseerbaarObject>0114010000386066</identificatieAdresseerbaarObject>
+                              </bagId>
+                           </binnenlandsAdres>
+                        </adres>
+                        <volledigAdres>Edisonstraat 2 D
+7825GS Emmen</volledigAdres>
+                     </postLocatie>
+                     <communicatiegegevens>
+                        <registratie registratieTijdstip="20170926153126358">
+                           <datumAanvang>20170901</datumAanvang>
+                        </registratie>
+                        <communicatienummer>
+                           <toegangscode>+31</toegangscode>
+                           <nummer>0886481875</nummer>
+                           <soort>
+                              <code>T</code>
+                              <omschrijving>Telefoon</omschrijving>
+                           </soort>
+                        </communicatienummer>
+                        <communicatienummer>
+                           <toegangscode>+31</toegangscode>
+                           <nummer>0886481881</nummer>
+                           <soort>
+                              <code>F</code>
+                              <omschrijving>Fax</omschrijving>
+                           </soort>
+                        </communicatienummer>
+                        <emailAdres>info.nl@kghcustoms.com</emailAdres>
+                        <domeinNaam>www.kghcustoms.com</domeinNaam>
+                     </communicatiegegevens>
+                     <eersteHandelsnaam>KGH Customs Services B.V.</eersteHandelsnaam>
+                     <voltijdWerkzamePersonen>17</voltijdWerkzamePersonen>
+                     <deeltijdWerkzamePersonen>0</deeltijdWerkzamePersonen>
+                     <totaalWerkzamePersonen>17</totaalWerkzamePersonen>
+                     <activiteiten>
+                        <omschrijving>Verrichten van douaneformaliteiten voor derden, administratieve dienstverlening op het gebied van douaneaangelegenheden, het verstrekken van adviezen op genoemde terreinen, het verlenen van diensten op het gebied van in- en uitklaren van goederen en het (doen) verzorgen van douaneopleidingen en andersoortige opleidingen en meer in het algemeen het verstrekken van adviezen op deze terreinen. Ter beschikking stellen van arbeidskrachten.</omschrijving>
+                        <sbiActiviteit>
+                           <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <datumAanvang>19910515</datumAanvang>
+                           </registratie>
+                           <sbiCode>
+                              <code>52291</code>
+                              <omschrijving>Expediteurs, cargadoors, bevrachters en andere tussenpersonen in het goederenvervoer</omschrijving>
+                              <referentieType>ActiviteitCode</referentieType>
+                           </sbiCode>
+                           <isHoofdactiviteit>
+                              <code>J</code>
+                              <omschrijving>Ja</omschrijving>
+                              <referentieType>geenRT</referentieType>
+                           </isHoofdactiviteit>
+                        </sbiActiviteit>
+                        <sbiActiviteit>
+                           <registratie registratieTijdstip="20171110150825742">
+                              <datumAanvang>20171023</datumAanvang>
+                           </registratie>
+                           <sbiCode>
+                              <code>78202</code>
+                              <omschrijving>Uitleenbureaus</omschrijving>
+                              <referentieType>ActiviteitCode</referentieType>
+                           </sbiCode>
+                           <isHoofdactiviteit>
+                              <code>N</code>
+                              <omschrijving>Nee</omschrijving>
+                              <referentieType>geenRT</referentieType>
+                           </isHoofdactiviteit>
+                        </sbiActiviteit>
+                        <exporteert>
+                           <code>J</code>
+                           <omschrijving>Ja</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </exporteert>
+                        <importeert>
+                           <code>N</code>
+                           <omschrijving>Nee</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </importeert>
+                     </activiteiten>
+                     <handeltOnder>
+                        <relatieRegistratie registratieTijdstip="20170515114028591">
+                           <datumAanvang>20150224</datumAanvang>
+                        </relatieRegistratie>
+                        <handelsnaam>
+                           <registratie registratieTijdstip="20150226100116100">
+                              <datumAanvang>20150224</datumAanvang>
+                           </registratie>
+                           <naam>KGH Customs Services B.V.</naam>
+                           <volgorde>0</volgorde>
+                        </handelsnaam>
+                     </handeltOnder>
+                     <handeltOnder>
+                        <relatieRegistratie registratieTijdstip="20170515114028591">
+                           <datumAanvang>20121228</datumAanvang>
+                        </relatieRegistratie>
+                        <handelsnaam>
+                           <registratie registratieTijdstip="20121231093823684">
+                              <datumAanvang>19910815</datumAanvang>
+                           </registratie>
+                           <naam>KGH Kuper Douaneservice</naam>
+                           <volgorde>1</volgorde>
+                        </handelsnaam>
+                     </handeltOnder>
+                     <handeltOnder>
+                        <relatieRegistratie registratieTijdstip="20170515114028591">
+                           <datumAanvang>20121228</datumAanvang>
+                        </relatieRegistratie>
+                        <handelsnaam>
+                           <registratie registratieTijdstip="20121231094525467">
+                              <datumAanvang>20121228</datumAanvang>
+                           </registratie>
+                           <naam>KGH Douaneopleidingen</naam>
+                           <volgorde>2</volgorde>
+                        </handelsnaam>
+                     </handeltOnder>
+                     <handeltOnder>
+                        <relatieRegistratie registratieTijdstip="20170515114028591">
+                           <datumAanvang>20121228</datumAanvang>
+                        </relatieRegistratie>
+                        <handelsnaam>
+                           <registratie registratieTijdstip="20121231094525467">
+                              <datumAanvang>20121228</datumAanvang>
+                           </registratie>
+                           <naam>KGH</naam>
+                           <volgorde>3</volgorde>
+                        </handelsnaam>
+                     </handeltOnder>
+                     <handeltOnder>
+                        <relatieRegistratie registratieTijdstip="20170515114028591">
+                           <datumAanvang>20121228</datumAanvang>
+                        </relatieRegistratie>
+                        <handelsnaam>
+                           <registratie registratieTijdstip="20121231094525467">
+                              <datumAanvang>20121228</datumAanvang>
+                           </registratie>
+                           <naam>Kuper</naam>
+                           <volgorde>4</volgorde>
+                        </handelsnaam>
+                     </handeltOnder>
+                     <handeltOnder>
+                        <relatieRegistratie registratieTijdstip="20170515114028591">
+                           <datumAanvang>20121228</datumAanvang>
+                        </relatieRegistratie>
+                        <handelsnaam>
+                           <registratie registratieTijdstip="20121231094525467">
+                              <datumAanvang>20121228</datumAanvang>
+                           </registratie>
+                           <naam>KGH Customs Academy</naam>
+                           <volgorde>5</volgorde>
+                        </handelsnaam>
+                     </handeltOnder>
+                     <handeltOnder>
+                        <relatieRegistratie registratieTijdstip="20170515114028591">
+                           <datumAanvang>20130314</datumAanvang>
+                        </relatieRegistratie>
+                        <handelsnaam>
+                           <registratie registratieTijdstip="20130320090224697">
+                              <datumAanvang>20130314</datumAanvang>
+                           </registratie>
+                           <naam>KGH Customs Services</naam>
+                           <volgorde>6</volgorde>
+                        </handelsnaam>
+                     </handeltOnder>
+                     <handeltOnder>
+                        <relatieRegistratie registratieTijdstip="20170515114028591">
+                           <datumAanvang>20131201</datumAanvang>
+                        </relatieRegistratie>
+                        <handelsnaam>
+                           <registratie registratieTijdstip="20131212151029745">
+                              <datumAanvang>20131201</datumAanvang>
+                           </registratie>
+                           <naam>KGH Douaneopleidingen Nederland</naam>
+                           <volgorde>7</volgorde>
+                        </handelsnaam>
+                     </handeltOnder>
+                     <handeltOnder>
+                        <relatieRegistratie registratieTijdstip="20170515114028591">
+                           <datumAanvang>20131201</datumAanvang>
+                        </relatieRegistratie>
+                        <handelsnaam>
+                           <registratie registratieTijdstip="20131212151029745">
+                              <datumAanvang>20131201</datumAanvang>
+                           </registratie>
+                           <naam>Customs Academy</naam>
+                           <volgorde>8</volgorde>
+                        </handelsnaam>
+                     </handeltOnder>
+                     <handeltOnder>
+                        <relatieRegistratie registratieTijdstip="20170515114028591">
+                           <datumAanvang>20170511</datumAanvang>
+                        </relatieRegistratie>
+                        <handelsnaam>
+                           <registratie registratieTijdstip="20170515114028591">
+                              <datumAanvang>20170511</datumAanvang>
+                           </registratie>
+                           <naam>GCS</naam>
+                           <volgorde>9</volgorde>
+                        </handelsnaam>
+                     </handeltOnder>
+                     <handeltOnder>
+                        <relatieRegistratie registratieTijdstip="20170515114028591">
+                           <datumAanvang>20170511</datumAanvang>
+                        </relatieRegistratie>
+                        <handelsnaam>
+                           <registratie registratieTijdstip="20170515114028591">
+                              <datumAanvang>20170511</datumAanvang>
+                           </registratie>
+                           <naam>GCS International</naam>
+                           <volgorde>10</volgorde>
+                        </handelsnaam>
+                     </handeltOnder>
+                     <handeltOnder>
+                        <relatieRegistratie registratieTijdstip="20170516135121279">
+                           <datumAanvang>20170511</datumAanvang>
+                        </relatieRegistratie>
+                        <handelsnaam>
+                           <registratie registratieTijdstip="20170516135121279">
+                              <datumAanvang>20170511</datumAanvang>
+                           </registratie>
+                           <naam>Gee's Customs Solutions</naam>
+                           <volgorde>11</volgorde>
+                        </handelsnaam>
+                     </handeltOnder>
+                  </commercieleVestiging>
+               </wordtGeleidVanuit>
+               <heeftAlsEigenaar>
+                  <relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <datumAanvang>19910815</datumAanvang>
+                  </relatieRegistratie>
+                  <rechtspersoon>
+                     <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                        <datumAanvang>19910815</datumAanvang>
+                     </registratie>
+                     <persoonRechtsvorm>Besloten Vennootschap</persoonRechtsvorm>
+                     <volledigeNaam>KGH Customs Services B.V.</volledigeNaam>
+                     <uitgebreideRechtsvorm>Besloten Vennootschap</uitgebreideRechtsvorm>
+                     <heeft>
+                        <overigeFunctionaris>
+                           <registratie registratieTijdstip="20110406105319554">
+                              <datumAanvang>20110125</datumAanvang>
+                           </registratie>
+                           <door>
+                              <buitenlandseVennootschap>
+                                 <volledigeNaam>Atlantic Continental Holding AB</volledigeNaam>
+                                 <bezoekLocatiePersoon>
+                                    <registratie registratieTijdstip="20121114094920770">
+                                       <datumAanvang>20121113</datumAanvang>
+                                    </registratie>
+                                    <afgeschermd>
+                                       <code>N</code>
+                                       <omschrijving>Nee</omschrijving>
+                                       <referentieType>geenRT</referentieType>
+                                    </afgeschermd>
+                                    <adres>
+                                       <buitenlandsAdres>
+                                          <straatHuisnummer>Tangenvägen 10</straatHuisnummer>
+                                          <postcodeWoonplaats>S-452 32 Strömstad</postcodeWoonplaats>
+                                          <land>
+                                             <code>5039</code>
+                                             <omschrijving>Zweden</omschrijving>
+                                             <referentieType>Land</referentieType>
+                                          </land>
+                                       </buitenlandsAdres>
+                                    </adres>
+                                    <volledigAdres>Tangenvägen 10
+S-452 32 Strömstad
+Zweden</volledigAdres>
+                                 </bezoekLocatiePersoon>
+                                 <buitenlandseRegistratieGegevens>
+                                    <naam>Bolagsverket</naam>
+                                    <plaats>Strömstad</plaats>
+                                    <land>
+                                       <code>5039</code>
+                                       <omschrijving>Zweden</omschrijving>
+                                       <referentieType>Land</referentieType>
+                                    </land>
+                                    <inschrijfnummer>556722-5999</inschrijfnummer>
+                                    <buitenlandseRegistratie>Bolagsverket
+Strömstad, Zweden
+Onder nummer 556722-5999</buitenlandseRegistratie>
+                                 </buitenlandseRegistratieGegevens>
+                                 <landVanVestiging>
+                                    <code>5039</code>
+                                    <omschrijving>Zweden</omschrijving>
+                                    <referentieType>Land</referentieType>
+                                 </landVanVestiging>
+                              </buitenlandseVennootschap>
+                           </door>
+                           <functie>
+                              <code>08</code>
+                              <omschrijving>Enig aandeelhouder</omschrijving>
+                              <referentieType>FunctionarisRol</referentieType>
+                           </functie>
+                        </overigeFunctionaris>
+                     </heeft>
+                     <heeft>
+                        <gemachtigde>
+                           <registratie registratieTijdstip="20121026145424057">
+                              <datumAanvang>20120801</datumAanvang>
+                           </registratie>
+                           <functietitel>
+                              <registratie registratieTijdstip="20170926153126358">
+                                 <datumAanvang>20170901</datumAanvang>
+                              </registratie>
+                              <titel>Finance Manager</titel>
+                              <isStatutaireTitel>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isStatutaireTitel>
+                           </functietitel>
+                           <door>
+                              <natuurlijkPersoon>
+                                 <extraElementen>
+                                    <extraElement naam="achternaam">300bb1</extraElement>
+                                    <!--Anonimisatie 'extraElement': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--></extraElementen>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>19710109</datumAanvang>
+                                    <!--Anonimisatie 'datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></registratie>
+                                 <volledigeNaam>6740a0 8fe b8863f</volledigeNaam>
+                                 <!--Anonimisatie 'volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><bezoekLocatiePersoon>
+                                    <registratie registratieTijdstip="20121104202036413"/>
+                                    <afgeschermd>
+                                       <code>N</code>
+                                       <omschrijving>Nee</omschrijving>
+                                       <referentieType>geenRT</referentieType>
+                                    </afgeschermd>
+                                    <adres>
+                                       <binnenlandsAdres>
+                                          <straatnaam>Zuiderdiep</straatnaam>
+                                          <huisnummer>243</huisnummer>
+                                          <postcode>
+                                             <cijfercombinatie>9571</cijfercombinatie>
+                                             <lettercombinatie>BN</lettercombinatie>
+                                          </postcode>
+                                          <plaats>2e Exloërmond</plaats>
+                                          <bagId>
+                                             <identificatieNummeraanduiding>1681200000001417</identificatieNummeraanduiding>
+                                             <identificatieAdresseerbaarObject>1681010000001417</identificatieAdresseerbaarObject>
+                                          </bagId>
+                                       </binnenlandsAdres>
+                                    </adres>
+                                    <volledigAdres>Zuiderdiep 243
+9571BN 2e Exloërmond</volledigAdres>
+                                 </bezoekLocatiePersoon>
+                                 <bsn>215771824</bsn>
+                                 <!--Anonimisatie 'bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><geslachtsnaam>300bb1</geslachtsnaam>
+                                 <!--Anonimisatie 'geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><voornamen>0dcbcf 02e</voornamen>
+                                 <!--Anonimisatie 'voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geslachtsaanduiding>
+                                    <code>m</code>
+                                    <omschrijving>Mannelijk</omschrijving>
+                                    <referentieType>Geslacht</referentieType>
+                                 </geslachtsaanduiding>
+                                 <geboorteplaats>724a8</geboorteplaats>
+                                 <!--Anonimisatie 'geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geboorteland>
+                                    <code>6030</code>
+                                    <omschrijving>Nederland</omschrijving>
+                                    <referentieType>Land</referentieType>
+                                 </geboorteland>
+                                 <geboortedatum>19710109</geboortedatum>
+                                 <!--Anonimisatie 'geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></natuurlijkPersoon>
+                           </door>
+                           <functie>
+                              <code>01</code>
+                              <omschrijving>Gevolmachtigde</omschrijving>
+                              <referentieType>FunctionarisRol</referentieType>
+                           </functie>
+                           <volmacht>
+                              <registratie registratieTijdstip="20121026145424057">
+                                 <datumAanvang>20120801</datumAanvang>
+                              </registratie>
+                              <typeVolmacht>
+                                 <code>b</code>
+                                 <omschrijving>Beperkte volmacht</omschrijving>
+                                 <referentieType>VolmachtType</referentieType>
+                              </typeVolmacht>
+                              <isStatutair>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isStatutair>
+                              <beperkteVolmacht>
+                                 <magOpgaveHandelsregisterDoen>
+                                    <code>N</code>
+                                    <omschrijving>Nee</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </magOpgaveHandelsregisterDoen>
+                                 <heeftOverigeVolmacht>
+                                    <code>J</code>
+                                    <omschrijving>Ja</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </heeftOverigeVolmacht>
+                              </beperkteVolmacht>
+                           </volmacht>
+                        </gemachtigde>
+                     </heeft>
+                     <heeft>
+                        <bestuursfunctie>
+                           <registratie registratieTijdstip="20121231094525467">
+                              <datumAanvang>20121228</datumAanvang>
+                           </registratie>
+                           <functietitel>
+                              <registratie registratieTijdstip="20170515114028591">
+                                 <datumAanvang>20170511</datumAanvang>
+                              </registratie>
+                              <titel>Gevolmachtigd directeur</titel>
+                              <isStatutaireTitel>
+                                 <code>J</code>
+                                 <omschrijving>Ja</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isStatutaireTitel>
+                           </functietitel>
+                           <door>
+                              <natuurlijkPersoon>
+                                 <extraElementen>
+                                    <extraElement naam="achternaam">39741cf4</extraElement>
+                                    <!--Anonimisatie 'extraElement': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--></extraElementen>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>20020404</datumAanvang>
+                                    <!--Anonimisatie 'datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></registratie>
+                                 <volledigeNaam>e65 968c94 1cd6244d</volledigeNaam>
+                                 <!--Anonimisatie 'volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><bezoekLocatiePersoon>
+                                    <registratie registratieTijdstip="20121231094525467"/>
+                                    <afgeschermd>
+                                       <code>N</code>
+                                       <omschrijving>Nee</omschrijving>
+                                       <referentieType>geenRT</referentieType>
+                                    </afgeschermd>
+                                    <adres>
+                                       <buitenlandsAdres>
+                                          <straatHuisnummer>Holmenbacken 24</straatHuisnummer>
+                                          <postcodeWoonplaats>443 38 Lerum</postcodeWoonplaats>
+                                          <land>
+                                             <code>5039</code>
+                                             <omschrijving>Zweden</omschrijving>
+                                             <referentieType>Land</referentieType>
+                                          </land>
+                                       </buitenlandsAdres>
+                                    </adres>
+                                    <volledigAdres>Holmenbacken 24
+443 38 Lerum
+Zweden</volledigAdres>
+                                 </bezoekLocatiePersoon>
+                                 <geslachtsnaam>39741cf4</geslachtsnaam>
+                                 <!--Anonimisatie 'geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><voornamen>e8c 735645</voornamen>
+                                 <!--Anonimisatie 'voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geslachtsaanduiding>
+                                    <code>m</code>
+                                    <omschrijving>Mannelijk</omschrijving>
+                                    <referentieType>Geslacht</referentieType>
+                                 </geslachtsaanduiding>
+                                 <geboorteplaats>32b63</geboorteplaats>
+                                 <!--Anonimisatie 'geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geboorteland>
+                                    <code>6036</code>
+                                    <omschrijving>Zuid-Korea</omschrijving>
+                                    <referentieType>Land</referentieType>
+                                 </geboorteland>
+                                 <geboortedatum>20020404</geboortedatum>
+                                 <!--Anonimisatie 'geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></natuurlijkPersoon>
+                           </door>
+                           <functie>
+                              <code>02</code>
+                              <omschrijving>Bestuurder</omschrijving>
+                              <referentieType>FunctionarisRol</referentieType>
+                           </functie>
+                           <bevoegdheid>
+                              <registratie registratieTijdstip="20170515114028591">
+                                 <datumAanvang>20170511</datumAanvang>
+                              </registratie>
+                              <soort>
+                                 <code>azb</code>
+                                 <omschrijving>Alleen/zelfstandig bevoegd</omschrijving>
+                                 <referentieType>SoortBevoegdheidBestuurder</referentieType>
+                              </soort>
+                              <isBevoegdMetAnderePersonen>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isBevoegdMetAnderePersonen>
+                           </bevoegdheid>
+                        </bestuursfunctie>
+                     </heeft>
+                     <heeft>
+                        <gemachtigde>
+                           <registratie registratieTijdstip="20150220144501607">
+                              <datumAanvang>20150114</datumAanvang>
+                           </registratie>
+                           <functietitel>
+                              <registratie registratieTijdstip="20170926153126358">
+                                 <datumAanvang>20170901</datumAanvang>
+                              </registratie>
+                              <titel>Managing Director Business Region</titel>
+                              <isStatutaireTitel>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isStatutaireTitel>
+                           </functietitel>
+                           <door>
+                              <natuurlijkPersoon>
+                                 <extraElementen>
+                                    <extraElement naam="voorvoegsel">970</extraElement>
+                                    <!--Anonimisatie 'extraElement': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><extraElement naam="achternaam">4cd6f2</extraElement>
+                                    <!--Anonimisatie 'extraElement': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--></extraElementen>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>20140408</datumAanvang>
+                                    <!--Anonimisatie 'datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></registratie>
+                                 <volledigeNaam>e302b7 ead bb964c</volledigeNaam>
+                                 <!--Anonimisatie 'volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><bezoekLocatiePersoon>
+                                    <registratie registratieTijdstipNoValue="vastgesteldOnbekend"/>
+                                    <afgeschermd>
+                                       <code>N</code>
+                                       <omschrijving>Nee</omschrijving>
+                                       <referentieType>geenRT</referentieType>
+                                    </afgeschermd>
+                                    <adres>
+                                       <binnenlandsAdres>
+                                          <straatnaam>Augustijnenlaan</straatnaam>
+                                          <huisnummer>51</huisnummer>
+                                          <postcode>
+                                             <cijfercombinatie>2408</cijfercombinatie>
+                                             <lettercombinatie>DV</lettercombinatie>
+                                          </postcode>
+                                          <plaats>Alphen aan den Rijn</plaats>
+                                          <bagId>
+                                             <identificatieNummeraanduiding>0484200000036727</identificatieNummeraanduiding>
+                                             <identificatieAdresseerbaarObject>0484010000036727</identificatieAdresseerbaarObject>
+                                          </bagId>
+                                       </binnenlandsAdres>
+                                    </adres>
+                                    <volledigAdres>Augustijnenlaan 51
+2408DV Alphen aan den Rijn</volledigAdres>
+                                 </bezoekLocatiePersoon>
+                                 <bsn>109434828</bsn>
+                                 <!--Anonimisatie 'bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><geslachtsnaam>4cd6f2</geslachtsnaam>
+                                 <!--Anonimisatie 'geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><voorvoegselGeslachtsnaam>970</voorvoegselGeslachtsnaam>
+                                 <!--Anonimisatie 'voorvoegselGeslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><voornamen>c7da90</voornamen>
+                                 <!--Anonimisatie 'voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geslachtsaanduiding>
+                                    <code>m</code>
+                                    <omschrijving>Mannelijk</omschrijving>
+                                    <referentieType>Geslacht</referentieType>
+                                 </geslachtsaanduiding>
+                                 <geboorteplaats>e56b42 5cb 292 56f6</geboorteplaats>
+                                 <!--Anonimisatie 'geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geboorteland>
+                                    <code>6030</code>
+                                    <omschrijving>Nederland</omschrijving>
+                                    <referentieType>Land</referentieType>
+                                 </geboorteland>
+                                 <geboortedatum>20140408</geboortedatum>
+                                 <!--Anonimisatie 'geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></natuurlijkPersoon>
+                           </door>
+                           <functie>
+                              <code>01</code>
+                              <omschrijving>Gevolmachtigde</omschrijving>
+                              <referentieType>FunctionarisRol</referentieType>
+                           </functie>
+                           <volmacht>
+                              <registratie registratieTijdstip="20170515114028591">
+                                 <datumAanvang>20170511</datumAanvang>
+                              </registratie>
+                              <typeVolmacht>
+                                 <code>v</code>
+                                 <omschrijving>Volledige volmacht</omschrijving>
+                                 <referentieType>VolmachtType</referentieType>
+                              </typeVolmacht>
+                              <isStatutair>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isStatutair>
+                           </volmacht>
+                        </gemachtigde>
+                     </heeft>
+                     <heeft>
+                        <bestuursfunctie>
+                           <registratie registratieTijdstip="20170515114028591">
+                              <datumAanvang>20170511</datumAanvang>
+                           </registratie>
+                           <functietitel>
+                              <registratie registratieTijdstip="20170515114028591">
+                                 <datumAanvang>20170511</datumAanvang>
+                              </registratie>
+                              <titel>Gevolmachtigd directeur</titel>
+                              <isStatutaireTitel>
+                                 <code>J</code>
+                                 <omschrijving>Ja</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isStatutaireTitel>
+                           </functietitel>
+                           <door>
+                              <natuurlijkPersoon>
+                                 <extraElementen>
+                                    <extraElement naam="achternaam">d543456c2</extraElement>
+                                    <!--Anonimisatie 'extraElement': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--></extraElementen>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>19700830</datumAanvang>
+                                    <!--Anonimisatie 'datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></registratie>
+                                 <volledigeNaam>4640 d8db 1ab6ba7be</volledigeNaam>
+                                 <!--Anonimisatie 'volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><bezoekLocatiePersoon>
+                                    <registratie registratieTijdstip="20170515114028591"/>
+                                    <afgeschermd>
+                                       <code>N</code>
+                                       <omschrijving>Nee</omschrijving>
+                                       <referentieType>geenRT</referentieType>
+                                    </afgeschermd>
+                                    <adres>
+                                       <buitenlandsAdres>
+                                          <straatHuisnummer>Viktoriagatan 22 A</straatHuisnummer>
+                                          <postcodeWoonplaats>SE-411 25 Göteborg</postcodeWoonplaats>
+                                          <land>
+                                             <code>5039</code>
+                                             <omschrijving>Zweden</omschrijving>
+                                             <referentieType>Land</referentieType>
+                                          </land>
+                                       </buitenlandsAdres>
+                                    </adres>
+                                    <volledigAdres>Viktoriagatan 22 A
+SE-411 25 Göteborg
+Zweden</volledigAdres>
+                                 </bezoekLocatiePersoon>
+                                 <geslachtsnaam>d543456c2</geslachtsnaam>
+                                 <!--Anonimisatie 'geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><voornamen>a049 3635</voornamen>
+                                 <!--Anonimisatie 'voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geslachtsaanduiding>
+                                    <code>m</code>
+                                    <omschrijving>Mannelijk</omschrijving>
+                                    <referentieType>Geslacht</referentieType>
+                                 </geslachtsaanduiding>
+                                 <geboorteplaats>bcbb35 3a</geboorteplaats>
+                                 <!--Anonimisatie 'geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geboorteland>
+                                    <code>5039</code>
+                                    <omschrijving>Zweden</omschrijving>
+                                    <referentieType>Land</referentieType>
+                                 </geboorteland>
+                                 <geboortedatum>19700830</geboortedatum>
+                                 <!--Anonimisatie 'geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></natuurlijkPersoon>
+                           </door>
+                           <functie>
+                              <code>02</code>
+                              <omschrijving>Bestuurder</omschrijving>
+                              <referentieType>FunctionarisRol</referentieType>
+                           </functie>
+                           <bevoegdheid>
+                              <registratie registratieTijdstip="20170515114028591">
+                                 <datumAanvang>20170511</datumAanvang>
+                              </registratie>
+                              <soort>
+                                 <code>azb</code>
+                                 <omschrijving>Alleen/zelfstandig bevoegd</omschrijving>
+                                 <referentieType>SoortBevoegdheidBestuurder</referentieType>
+                              </soort>
+                              <isBevoegdMetAnderePersonen>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isBevoegdMetAnderePersonen>
+                           </bevoegdheid>
+                        </bestuursfunctie>
+                     </heeft>
+                     <heeft>
+                        <gemachtigde>
+                           <registratie registratieTijdstip="20171010164034060">
+                              <datumAanvang>20170922</datumAanvang>
+                           </registratie>
+                           <functietitel>
+                              <registratie registratieTijdstip="20171010164034060">
+                                 <datumAanvang>20170922</datumAanvang>
+                              </registratie>
+                              <titel>IT Manager</titel>
+                              <isStatutaireTitel>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isStatutaireTitel>
+                           </functietitel>
+                           <door>
+                              <natuurlijkPersoon>
+                                 <extraElementen>
+                                    <extraElement naam="voorvoegsel">970</extraElement>
+                                    <!--Anonimisatie 'extraElement': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><extraElement naam="achternaam">f53d6</extraElement>
+                                    <!--Anonimisatie 'extraElement': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--></extraElementen>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>19760924</datumAanvang>
+                                    <!--Anonimisatie 'datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></registratie>
+                                 <volledigeNaam>20e5a97 4b55c1 854 ab111</volledigeNaam>
+                                 <!--Anonimisatie 'volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><bezoekLocatiePersoon>
+                                    <registratie registratieTijdstip="20171010164034060"/>
+                                    <afgeschermd>
+                                       <code>N</code>
+                                       <omschrijving>Nee</omschrijving>
+                                       <referentieType>geenRT</referentieType>
+                                    </afgeschermd>
+                                    <adres>
+                                       <binnenlandsAdres>
+                                          <straatnaam>Seringenweg</straatnaam>
+                                          <huisnummer>12</huisnummer>
+                                          <postcode>
+                                             <cijfercombinatie>9753</cijfercombinatie>
+                                             <lettercombinatie>EK</lettercombinatie>
+                                          </postcode>
+                                          <plaats>Haren Gn</plaats>
+                                          <bagId>
+                                             <identificatieNummeraanduiding>0017200000017019</identificatieNummeraanduiding>
+                                             <identificatieAdresseerbaarObject>0017010000010306</identificatieAdresseerbaarObject>
+                                          </bagId>
+                                       </binnenlandsAdres>
+                                    </adres>
+                                    <volledigAdres>Seringenweg 12
+9753EK Haren Gn</volledigAdres>
+                                 </bezoekLocatiePersoon>
+                                 <bsn>505281302</bsn>
+                                 <!--Anonimisatie 'bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><geslachtsnaam>f53d6</geslachtsnaam>
+                                 <!--Anonimisatie 'geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><voorvoegselGeslachtsnaam>970</voorvoegselGeslachtsnaam>
+                                 <!--Anonimisatie 'voorvoegselGeslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><voornamen>83f4e7d 4991ad</voornamen>
+                                 <!--Anonimisatie 'voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geslachtsaanduiding>
+                                    <code>m</code>
+                                    <omschrijving>Mannelijk</omschrijving>
+                                    <referentieType>Geslacht</referentieType>
+                                 </geslachtsaanduiding>
+                                 <geboorteplaats>5f24a7182ef</geboorteplaats>
+                                 <!--Anonimisatie 'geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geboorteland>
+                                    <code>6030</code>
+                                    <omschrijving>Nederland</omschrijving>
+                                    <referentieType>Land</referentieType>
+                                 </geboorteland>
+                                 <geboortedatum>19760924</geboortedatum>
+                                 <!--Anonimisatie 'geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></natuurlijkPersoon>
+                           </door>
+                           <functie>
+                              <code>01</code>
+                              <omschrijving>Gevolmachtigde</omschrijving>
+                              <referentieType>FunctionarisRol</referentieType>
+                           </functie>
+                           <volmacht>
+                              <registratie registratieTijdstip="20171010164034060">
+                                 <datumAanvang>20170922</datumAanvang>
+                              </registratie>
+                              <typeVolmacht>
+                                 <code>b</code>
+                                 <omschrijving>Beperkte volmacht</omschrijving>
+                                 <referentieType>VolmachtType</referentieType>
+                              </typeVolmacht>
+                              <isStatutair>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isStatutair>
+                              <beperkteVolmacht>
+                                 <magOpgaveHandelsregisterDoen>
+                                    <code>N</code>
+                                    <omschrijving>Nee</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </magOpgaveHandelsregisterDoen>
+                                 <heeftOverigeVolmacht>
+                                    <code>J</code>
+                                    <omschrijving>Ja</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </heeftOverigeVolmacht>
+                                 <omschrijvingOverigeVolmacht>Raadpleeg de opgave.</omschrijvingOverigeVolmacht>
+                              </beperkteVolmacht>
+                           </volmacht>
+                        </gemachtigde>
+                     </heeft>
+                     <heeft>
+                        <gemachtigde>
+                           <registratie registratieTijdstip="20190715085126016">
+                              <datumAanvang>20190601</datumAanvang>
+                           </registratie>
+                           <functietitel>
+                              <registratie registratieTijdstip="20190715085126016">
+                                 <datumAanvang>20190601</datumAanvang>
+                              </registratie>
+                              <titel>Regional Finance Manager</titel>
+                              <isStatutaireTitel>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isStatutaireTitel>
+                           </functietitel>
+                           <door>
+                              <natuurlijkPersoon>
+                                 <extraElementen>
+                                    <extraElement naam="achternaam">604530</extraElement>
+                                    <!--Anonimisatie 'extraElement': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--></extraElementen>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>20070918</datumAanvang>
+                                    <!--Anonimisatie 'datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></registratie>
+                                 <volledigeNaam>577f ceaa06</volledigeNaam>
+                                 <!--Anonimisatie 'volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><bezoekLocatiePersoon>
+                                    <registratie registratieTijdstip="20190715085126016"/>
+                                    <afgeschermd>
+                                       <code>N</code>
+                                       <omschrijving>Nee</omschrijving>
+                                       <referentieType>geenRT</referentieType>
+                                    </afgeschermd>
+                                    <adres>
+                                       <buitenlandsAdres>
+                                          <straatHuisnummer>Molenzijde 104</straatHuisnummer>
+                                          <postcodeWoonplaats>2330 Merksplas</postcodeWoonplaats>
+                                          <land>
+                                             <code>5010</code>
+                                             <omschrijving>België</omschrijving>
+                                             <referentieType>Land</referentieType>
+                                          </land>
+                                       </buitenlandsAdres>
+                                    </adres>
+                                    <volledigAdres>Molenzijde 104
+2330 Merksplas
+België</volledigAdres>
+                                 </bezoekLocatiePersoon>
+                                 <geslachtsnaam>604530</geslachtsnaam>
+                                 <!--Anonimisatie 'geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><voornamen>d70b</voornamen>
+                                 <!--Anonimisatie 'voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geslachtsaanduiding>
+                                    <code>m</code>
+                                    <omschrijving>Mannelijk</omschrijving>
+                                    <referentieType>Geslacht</referentieType>
+                                 </geslachtsaanduiding>
+                                 <geboorteplaats>67218c1b</geboorteplaats>
+                                 <!--Anonimisatie 'geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geboorteland>
+                                    <code>5010</code>
+                                    <omschrijving>België</omschrijving>
+                                    <referentieType>Land</referentieType>
+                                 </geboorteland>
+                                 <geboortedatum>20070918</geboortedatum>
+                                 <!--Anonimisatie 'geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></natuurlijkPersoon>
+                           </door>
+                           <functie>
+                              <code>01</code>
+                              <omschrijving>Gevolmachtigde</omschrijving>
+                              <referentieType>FunctionarisRol</referentieType>
+                           </functie>
+                           <volmacht>
+                              <registratie registratieTijdstip="20190715085126016">
+                                 <datumAanvang>20190601</datumAanvang>
+                              </registratie>
+                              <typeVolmacht>
+                                 <code>b</code>
+                                 <omschrijving>Beperkte volmacht</omschrijving>
+                                 <referentieType>VolmachtType</referentieType>
+                              </typeVolmacht>
+                              <isStatutair>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isStatutair>
+                              <beperkteVolmacht>
+                                 <beperkingInGeld>
+                                    <waarde>200000</waarde>
+                                    <valuta>
+                                       <code>EUR</code>
+                                       <omschrijving>Euro</omschrijving>
+                                       <referentieType>Valuta</referentieType>
+                                    </valuta>
+                                 </beperkingInGeld>
+                                 <magOpgaveHandelsregisterDoen>
+                                    <code>J</code>
+                                    <omschrijving>Ja</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </magOpgaveHandelsregisterDoen>
+                                 <heeftOverigeVolmacht>
+                                    <code>J</code>
+                                    <omschrijving>Ja</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </heeftOverigeVolmacht>
+                                 <omschrijvingOverigeVolmacht>Belastingdienst, douane: onbeperkt</omschrijvingOverigeVolmacht>
+                                 <beperkingInHandeling>
+                                    <soortHandeling>
+                                       <code>opstoff</code>
+                                       <omschrijving>Opstellen offertes</omschrijving>
+                                       <referentieType>SoortHandeling</referentieType>
+                                    </soortHandeling>
+                                 </beperkingInHandeling>
+                                 <beperkingInHandeling>
+                                    <soortHandeling>
+                                       <code>afslic</code>
+                                       <omschrijving>Afsluiten inkoopcontracten</omschrijving>
+                                       <referentieType>SoortHandeling</referentieType>
+                                    </soortHandeling>
+                                 </beperkingInHandeling>
+                                 <beperkingInHandeling>
+                                    <soortHandeling>
+                                       <code>afslvc</code>
+                                       <omschrijving>Afsluiten verkoopcontracten</omschrijving>
+                                       <referentieType>SoortHandeling</referentieType>
+                                    </soortHandeling>
+                                 </beperkingInHandeling>
+                                 <beperkingInHandeling>
+                                    <soortHandeling>
+                                       <code>afslgar</code>
+                                       <omschrijving>Afsluiten garantieovereenkomsten</omschrijving>
+                                       <referentieType>SoortHandeling</referentieType>
+                                    </soortHandeling>
+                                 </beperkingInHandeling>
+                                 <beperkingInHandeling>
+                                    <soortHandeling>
+                                       <code>afslc</code>
+                                       <omschrijving>Afsluiten leasecontracten</omschrijving>
+                                       <referentieType>SoortHandeling</referentieType>
+                                    </soortHandeling>
+                                 </beperkingInHandeling>
+                                 <beperkingInHandeling>
+                                    <soortHandeling>
+                                       <code>afslfin</code>
+                                       <omschrijving>Afsluiten financieringscontracten</omschrijving>
+                                       <referentieType>SoortHandeling</referentieType>
+                                    </soortHandeling>
+                                 </beperkingInHandeling>
+                                 <beperkingInHandeling>
+                                    <soortHandeling>
+                                       <code>afslsc</code>
+                                       <omschrijving>Afsluiten software-contracten</omschrijving>
+                                       <referentieType>SoortHandeling</referentieType>
+                                    </soortHandeling>
+                                 </beperkingInHandeling>
+                                 <beperkingInHandeling>
+                                    <soortHandeling>
+                                       <code>afsloc</code>
+                                       <omschrijving>Afsluiten onderhoudscontracten</omschrijving>
+                                       <referentieType>SoortHandeling</referentieType>
+                                    </soortHandeling>
+                                 </beperkingInHandeling>
+                              </beperkteVolmacht>
+                           </volmacht>
+                        </gemachtigde>
+                     </heeft>
+                     <heeft>
+                        <gemachtigde>
+                           <registratie registratieTijdstip="20190715085126016">
+                              <datumAanvang>20190601</datumAanvang>
+                           </registratie>
+                           <functietitel>
+                              <registratie registratieTijdstip="20190715085126016">
+                                 <datumAanvang>20190601</datumAanvang>
+                              </registratie>
+                              <titel>Regional Managing Director</titel>
+                              <isStatutaireTitel>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isStatutaireTitel>
+                           </functietitel>
+                           <door>
+                              <natuurlijkPersoon>
+                                 <extraElementen>
+                                    <extraElement naam="achternaam">480 2b485</extraElement>
+                                    <!--Anonimisatie 'extraElement': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--></extraElementen>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>20020011</datumAanvang>
+                                    <!--Anonimisatie 'datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></registratie>
+                                 <volledigeNaam>1668e b3d587 97b05539 e2f e054e</volledigeNaam>
+                                 <!--Anonimisatie 'volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><bezoekLocatiePersoon>
+                                    <registratie registratieTijdstip="20190715085126016"/>
+                                    <afgeschermd>
+                                       <code>N</code>
+                                       <omschrijving>Nee</omschrijving>
+                                       <referentieType>geenRT</referentieType>
+                                    </afgeschermd>
+                                    <adres>
+                                       <buitenlandsAdres>
+                                          <straatHuisnummer>Platanenlaan 136</straatHuisnummer>
+                                          <postcodeWoonplaats>2940 Stabroek</postcodeWoonplaats>
+                                          <land>
+                                             <code>5010</code>
+                                             <omschrijving>België</omschrijving>
+                                             <referentieType>Land</referentieType>
+                                          </land>
+                                       </buitenlandsAdres>
+                                    </adres>
+                                    <volledigAdres>Platanenlaan 136
+2940 Stabroek
+België</volledigAdres>
+                                 </bezoekLocatiePersoon>
+                                 <geslachtsnaam>480 2b485</geslachtsnaam>
+                                 <!--Anonimisatie 'geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><voornamen>7a343 3b16e3 cd9d0b14</voornamen>
+                                 <!--Anonimisatie 'voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geslachtsaanduiding>
+                                    <code>v</code>
+                                    <omschrijving>Vrouwelijk</omschrijving>
+                                    <referentieType>Geslacht</referentieType>
+                                 </geslachtsaanduiding>
+                                 <geboorteplaats>b6507b</geboorteplaats>
+                                 <!--Anonimisatie 'geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geboorteland>
+                                    <code>5010</code>
+                                    <omschrijving>België</omschrijving>
+                                    <referentieType>Land</referentieType>
+                                 </geboorteland>
+                                 <geboortedatum>20020011</geboortedatum>
+                                 <!--Anonimisatie 'geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></natuurlijkPersoon>
+                           </door>
+                           <functie>
+                              <code>01</code>
+                              <omschrijving>Gevolmachtigde</omschrijving>
+                              <referentieType>FunctionarisRol</referentieType>
+                           </functie>
+                           <volmacht>
+                              <registratie registratieTijdstip="20190715085126016">
+                                 <datumAanvang>20190601</datumAanvang>
+                              </registratie>
+                              <typeVolmacht>
+                                 <code>v</code>
+                                 <omschrijving>Volledige volmacht</omschrijving>
+                                 <referentieType>VolmachtType</referentieType>
+                              </typeVolmacht>
+                              <isStatutair>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isStatutair>
+                           </volmacht>
+                        </gemachtigde>
+                     </heeft>
+                     <heeft>
+                        <gemachtigde>
+                           <registratie registratieTijdstip="20190715085126016">
+                              <datumAanvang>20190601</datumAanvang>
+                           </registratie>
+                           <functietitel>
+                              <registratie registratieTijdstip="20190715085126016">
+                                 <datumAanvang>20190601</datumAanvang>
+                              </registratie>
+                              <titel>Regional Compliance Manager</titel>
+                              <isStatutaireTitel>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isStatutaireTitel>
+                           </functietitel>
+                           <door>
+                              <natuurlijkPersoon>
+                                 <extraElementen>
+                                    <extraElement naam="achternaam">f895e</extraElement>
+                                    <!--Anonimisatie 'extraElement': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--></extraElementen>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>20220925</datumAanvang>
+                                    <!--Anonimisatie 'datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></registratie>
+                                 <volledigeNaam>f6d60 ff38ec f82d3</volledigeNaam>
+                                 <!--Anonimisatie 'volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><bezoekLocatiePersoon>
+                                    <registratie registratieTijdstip="20190715085126016"/>
+                                    <afgeschermd>
+                                       <code>N</code>
+                                       <omschrijving>Nee</omschrijving>
+                                       <referentieType>geenRT</referentieType>
+                                    </afgeschermd>
+                                    <adres>
+                                       <buitenlandsAdres>
+                                          <straatHuisnummer>Liersebaan 41</straatHuisnummer>
+                                          <postcodeWoonplaats>2970 Schilde</postcodeWoonplaats>
+                                          <land>
+                                             <code>5010</code>
+                                             <omschrijving>België</omschrijving>
+                                             <referentieType>Land</referentieType>
+                                          </land>
+                                       </buitenlandsAdres>
+                                    </adres>
+                                    <volledigAdres>Liersebaan 41
+2970 Schilde
+België</volledigAdres>
+                                 </bezoekLocatiePersoon>
+                                 <geslachtsnaam>f895e</geslachtsnaam>
+                                 <!--Anonimisatie 'geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><voornamen>e3aac e238e1</voornamen>
+                                 <!--Anonimisatie 'voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geslachtsaanduiding>
+                                    <code>v</code>
+                                    <omschrijving>Vrouwelijk</omschrijving>
+                                    <referentieType>Geslacht</referentieType>
+                                 </geslachtsaanduiding>
+                                 <geboorteplaats>0a55f3b51 77206155613a</geboorteplaats>
+                                 <!--Anonimisatie 'geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geboorteland>
+                                    <code>5010</code>
+                                    <omschrijving>België</omschrijving>
+                                    <referentieType>Land</referentieType>
+                                 </geboorteland>
+                                 <geboortedatum>20220925</geboortedatum>
+                                 <!--Anonimisatie 'geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></natuurlijkPersoon>
+                           </door>
+                           <functie>
+                              <code>01</code>
+                              <omschrijving>Gevolmachtigde</omschrijving>
+                              <referentieType>FunctionarisRol</referentieType>
+                           </functie>
+                           <volmacht>
+                              <registratie registratieTijdstip="20190715085126016">
+                                 <datumAanvang>20190601</datumAanvang>
+                              </registratie>
+                              <typeVolmacht>
+                                 <code>b</code>
+                                 <omschrijving>Beperkte volmacht</omschrijving>
+                                 <referentieType>VolmachtType</referentieType>
+                              </typeVolmacht>
+                              <isStatutair>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isStatutair>
+                              <beperkteVolmacht>
+                                 <magOpgaveHandelsregisterDoen>
+                                    <code>J</code>
+                                    <omschrijving>Ja</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </magOpgaveHandelsregisterDoen>
+                                 <heeftOverigeVolmacht>
+                                    <code>J</code>
+                                    <omschrijving>Ja</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </heeftOverigeVolmacht>
+                                 <omschrijvingOverigeVolmacht>Belastingdienst, douane: onbeperkt</omschrijvingOverigeVolmacht>
+                                 <beperkingInHandeling>
+                                    <soortHandeling>
+                                       <code>opstoff</code>
+                                       <omschrijving>Opstellen offertes</omschrijving>
+                                       <referentieType>SoortHandeling</referentieType>
+                                    </soortHandeling>
+                                 </beperkingInHandeling>
+                                 <beperkingInHandeling>
+                                    <soortHandeling>
+                                       <code>afslvc</code>
+                                       <omschrijving>Afsluiten verkoopcontracten</omschrijving>
+                                       <referentieType>SoortHandeling</referentieType>
+                                    </soortHandeling>
+                                 </beperkingInHandeling>
+                                 <beperkingInHandeling>
+                                    <soortHandeling>
+                                       <code>afslgar</code>
+                                       <omschrijving>Afsluiten garantieovereenkomsten</omschrijving>
+                                       <referentieType>SoortHandeling</referentieType>
+                                    </soortHandeling>
+                                 </beperkingInHandeling>
+                              </beperkteVolmacht>
+                           </volmacht>
+                        </gemachtigde>
+                     </heeft>
+                     <rsin>800343268</rsin>
+                     <naamgeving>
+                        <registratie registratieTijdstip="20150226100116100">
+                           <datumAanvang>20150224</datumAanvang>
+                        </registratie>
+                        <naam>KGH Customs Services B.V.</naam>
+                     </naamgeving>
+                     <heeftGedeponeerd>
+                        <jaarstukInstemming>
+                           <depotId>3dbe074f:1709a3afb60:2da1</depotId>
+                           <status>
+                              <code>1</code>
+                              <omschrijving>Actueel</omschrijving>
+                              <referentieType>StatusDepotstuk</referentieType>
+                           </status>
+                           <datumDeponering>20200226</datumDeponering>
+                           <boekjaar>2019</boekjaar>
+                           <groepsjaarrekeningHouder>
+                              <rsin>800343268</rsin>
+                           </groepsjaarrekeningHouder>
+                        </jaarstukInstemming>
+                     </heeftGedeponeerd>
+                     <rechtsvorm>
+                        <code>BV</code>
+                        <omschrijving>Besloten Vennootschap</omschrijving>
+                        <referentieType>Rechtsvorm</referentieType>
+                     </rechtsvorm>
+                     <statutaireZetel>Emmen</statutaireZetel>
+                     <aanvangStatutaireZetel>20170511</aanvangStatutaireZetel>
+                     <datumAkteOprichting>19910815</datumAkteOprichting>
+                     <datumEersteInschrijvingHandelsregister>19910819</datumEersteInschrijvingHandelsregister>
+                     <datumAkteStatutenwijziging>20170511</datumAkteStatutenwijziging>
+                     <stelselInrichting>
+                        <code>D</code>
+                        <omschrijving>Dualistisch</omschrijving>
+                        <referentieType>StelselInrichting</referentieType>
+                     </stelselInrichting>
+                     <structuur>
+                        <code>GS</code>
+                        <omschrijving>Gewone structuur</omschrijving>
+                        <referentieType>RechtsvormStructuur</referentieType>
+                     </structuur>
+                     <geplaatstKapitaal>
+                        <registratie registratieTijdstip="20121231093823684">
+                           <datumAanvang>20121228</datumAanvang>
+                        </registratie>
+                        <bedrag>
+                           <waarde>18152</waarde>
+                           <valuta>
+                              <code>EUR</code>
+                              <omschrijving>Euro</omschrijving>
+                              <referentieType>Valuta</referentieType>
+                           </valuta>
+                        </bedrag>
+                     </geplaatstKapitaal>
+                     <gestortKapitaal>
+                        <registratie registratieTijdstip="20121231093823684">
+                           <datumAanvang>20121228</datumAanvang>
+                        </registratie>
+                        <bedrag>
+                           <waarde>18152</waarde>
+                           <valuta>
+                              <code>EUR</code>
+                              <omschrijving>Euro</omschrijving>
+                              <referentieType>Valuta</referentieType>
+                           </valuta>
+                        </bedrag>
+                     </gestortKapitaal>
+                     <bezoekLocatie>
+                        <registratie registratieTijdstip="20160107100402219">
+                           <datumAanvang>20151215</datumAanvang>
+                        </registratie>
+                        <afgeschermd>
+                           <code>N</code>
+                           <omschrijving>Nee</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </afgeschermd>
+                        <adres>
+                           <binnenlandsAdres>
+                              <straatnaam>Edisonstraat</straatnaam>
+                              <huisnummer>2</huisnummer>
+                              <huisletter>D</huisletter>
+                              <postcode>
+                                 <cijfercombinatie>7825</cijfercombinatie>
+                                 <lettercombinatie>GS</lettercombinatie>
+                              </postcode>
+                              <plaats>Emmen</plaats>
+                              <bagId>
+                                 <identificatieNummeraanduiding>0114200000386067</identificatieNummeraanduiding>
+                                 <identificatieAdresseerbaarObject>0114010000386066</identificatieAdresseerbaarObject>
+                              </bagId>
+                           </binnenlandsAdres>
+                        </adres>
+                        <volledigAdres>Edisonstraat 2 D
+7825GS Emmen</volledigAdres>
+                     </bezoekLocatie>
+                  </rechtspersoon>
+               </heeftAlsEigenaar>
+            </maatschappelijkeActiviteit>
+         </product>
+      </ophalenInschrijvingResponse>
+   </wstxns8:Body>
+</soap:Envelope>

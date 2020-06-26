@@ -1,0 +1,1458 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Geanonimiseerd door B3Partners BV op 2020-06-26+02:00, zie commentaar in bericht.-->
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+   <wstxns1:Header xmlns:wsa="http://www.w3.org/2005/08/addressing"
+                   xmlns:wstxns1="http://schemas.xmlsoap.org/soap/envelope/"/>
+   <wstxns8:Body xmlns:wstxns8="http://schemas.xmlsoap.org/soap/envelope/"
+                 xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+                 wsu:Id="id-1-70c746cbe0aef8ef7f7f0140c7cd1e44">
+      <ophalenInschrijvingResponse xmlns="http://schemas.kvk.nl/schemas/hrip/dataservice/2015/02"
+                                   peilmoment="20200618154227581">
+         <meldingen>
+            <informatie>
+               <code>IPD0000</code>
+               <omschrijving>Het product is succesvol geproduceerd</omschrijving>
+               <referentie>09131564</referentie>
+            </informatie>
+         </meldingen>
+         <product>
+            <maatschappelijkeActiviteit xmlns="http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02">
+               <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                  <datumAanvang>20021113</datumAanvang>
+               </registratie>
+               <kvkNummer>09131564</kvkNummer>
+               <nonMailing>
+                  <code>N</code>
+                  <omschrijving>Nee</omschrijving>
+                  <referentieType>geenRT</referentieType>
+               </nonMailing>
+               <incidenteelUitlenenArbeidskrachten>
+                  <code>N</code>
+                  <omschrijving>Nee</omschrijving>
+                  <referentieType>geenRT</referentieType>
+               </incidenteelUitlenenArbeidskrachten>
+               <bezoekLocatie>
+                  <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <datumAanvang>20060704</datumAanvang>
+                  </registratie>
+                  <afgeschermd>
+                     <code>N</code>
+                     <omschrijving>Nee</omschrijving>
+                     <referentieType>geenRT</referentieType>
+                  </afgeschermd>
+                  <adres>
+                     <binnenlandsAdres>
+                        <straatnaam>Arnhemsestraatweg</straatnaam>
+                        <huisnummer>8</huisnummer>
+                        <postcode>
+                           <cijfercombinatie>6881</cijfercombinatie>
+                           <lettercombinatie>NG</lettercombinatie>
+                        </postcode>
+                        <plaats>Velp</plaats>
+                        <bagId>
+                           <identificatieNummeraanduiding>0275200000093073</identificatieNummeraanduiding>
+                           <identificatieAdresseerbaarObject>0275010000000969</identificatieAdresseerbaarObject>
+                        </bagId>
+                     </binnenlandsAdres>
+                  </adres>
+                  <volledigAdres>Arnhemsestraatweg 8
+6881NG Velp</volledigAdres>
+               </bezoekLocatie>
+               <postLocatie>
+                  <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <datumAanvang>20021113</datumAanvang>
+                  </registratie>
+                  <afgeschermd>
+                     <code>N</code>
+                     <omschrijving>Nee</omschrijving>
+                     <referentieType>geenRT</referentieType>
+                  </afgeschermd>
+                  <adres>
+                     <binnenlandsAdres>
+                        <postbusnummer>268</postbusnummer>
+                        <postcode>
+                           <cijfercombinatie>6880</cijfercombinatie>
+                           <lettercombinatie>AG</lettercombinatie>
+                        </postcode>
+                        <plaats>Velp</plaats>
+                     </binnenlandsAdres>
+                  </adres>
+                  <volledigAdres>Postbus 268
+6880AG Velp</volledigAdres>
+               </postLocatie>
+               <communicatiegegevens>
+                  <registratie registratieTijdstip="20130307100152227">
+                     <datumAanvang>20130301</datumAanvang>
+                  </registratie>
+                  <communicatienummer>
+                     <toegangscode>+31</toegangscode>
+                     <nummer>0263842000</nummer>
+                     <soort>
+                        <code>T</code>
+                        <omschrijving>Telefoon</omschrijving>
+                     </soort>
+                  </communicatienummer>
+                  <communicatienummer>
+                     <toegangscode>+31</toegangscode>
+                     <nummer>0263842011</nummer>
+                     <soort>
+                        <code>F</code>
+                        <omschrijving>Fax</omschrijving>
+                     </soort>
+                  </communicatienummer>
+               </communicatiegegevens>
+               <naam>Melspring International B.V.</naam>
+               <manifesteertZichAls>
+                  <relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <datumAanvang>20021113</datumAanvang>
+                  </relatieRegistratie>
+                  <onderneming>
+                     <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                        <datumAanvang>20021113</datumAanvang>
+                     </registratie>
+                     <kvkNummer>09131564</kvkNummer>
+                     <sbiActiviteit>
+                        <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>20021113</datumAanvang>
+                        </registratie>
+                        <sbiCode>
+                           <code>4611</code>
+                           <omschrijving>Handelsbemiddeling in landbouwproducten, levende dieren en grondstoffen voor textiel en voedingsmiddelen</omschrijving>
+                           <referentieType>ActiviteitCode</referentieType>
+                        </sbiCode>
+                        <isHoofdactiviteit>
+                           <code>J</code>
+                           <omschrijving>Ja</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </isHoofdactiviteit>
+                     </sbiActiviteit>
+                     <sbiActiviteit>
+                        <registratie registratieTijdstip="20181126140004275">
+                           <datumAanvang>20181122</datumAanvang>
+                        </registratie>
+                        <sbiCode>
+                           <code>2015</code>
+                           <omschrijving>Vervaardiging van kunstmeststoffen en stikstofverbindingen</omschrijving>
+                           <referentieType>ActiviteitCode</referentieType>
+                        </sbiCode>
+                        <isHoofdactiviteit>
+                           <code>J</code>
+                           <omschrijving>Ja</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </isHoofdactiviteit>
+                     </sbiActiviteit>
+                     <voltijdWerkzamePersonen>29</voltijdWerkzamePersonen>
+                     <deeltijdWerkzamePersonen>2</deeltijdWerkzamePersonen>
+                     <totaalWerkzamePersonen>31</totaalWerkzamePersonen>
+                     <handeltOnder>
+                        <handelsnaam>
+                           <registratie registratieTijdstip="20131212103634665">
+                              <datumAanvang>20021113</datumAanvang>
+                           </registratie>
+                           <naam>Melspring International B.V.</naam>
+                           <volgorde>0</volgorde>
+                        </handelsnaam>
+                     </handeltOnder>
+                     <handeltOnder>
+                        <handelsnaam>
+                           <registratie registratieTijdstip="20181126140004275">
+                              <datumAanvang>20181122</datumAanvang>
+                           </registratie>
+                           <naam>Melspring-Farmershouse</naam>
+                           <volgorde>1</volgorde>
+                        </handelsnaam>
+                     </handeltOnder>
+                     <handeltOnder>
+                        <handelsnaam>
+                           <registratie registratieTijdstip="20181126140004275">
+                              <datumAanvang>20181122</datumAanvang>
+                           </registratie>
+                           <naam>Melspring international</naam>
+                           <volgorde>2</volgorde>
+                        </handelsnaam>
+                     </handeltOnder>
+                     <handeltOnder>
+                        <handelsnaam>
+                           <registratie registratieTijdstip="20190801082112621">
+                              <datumAanvang>20190801</datumAanvang>
+                           </registratie>
+                           <naam>Melspring Veeningen</naam>
+                           <volgorde>3</volgorde>
+                        </handelsnaam>
+                     </handeltOnder>
+                     <wordtUitgeoefendIn>
+                        <relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>20021113</datumAanvang>
+                        </relatieRegistratie>
+                        <commercieleVestiging>
+                           <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <datumAanvang>20021113</datumAanvang>
+                           </registratie>
+                           <vestigingsnummer>000018299539</vestigingsnummer>
+                           <bezoekLocatie>
+                              <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <datumAanvang>20060704</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <straatnaam>Arnhemsestraatweg</straatnaam>
+                                    <huisnummer>8</huisnummer>
+                                    <postcode>
+                                       <cijfercombinatie>6881</cijfercombinatie>
+                                       <lettercombinatie>NG</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Velp</plaats>
+                                    <bagId>
+                                       <identificatieNummeraanduiding>0275200000093073</identificatieNummeraanduiding>
+                                       <identificatieAdresseerbaarObject>0275010000000969</identificatieAdresseerbaarObject>
+                                    </bagId>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Arnhemsestraatweg 8
+6881NG Velp</volledigAdres>
+                           </bezoekLocatie>
+                           <postLocatie>
+                              <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <datumAanvang>20021113</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <postbusnummer>268</postbusnummer>
+                                    <postcode>
+                                       <cijfercombinatie>6880</cijfercombinatie>
+                                       <lettercombinatie>AG</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Velp</plaats>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Postbus 268
+6880AG Velp</volledigAdres>
+                           </postLocatie>
+                           <communicatiegegevens>
+                              <registratie registratieTijdstip="20130307100152227">
+                                 <datumAanvang>20130301</datumAanvang>
+                              </registratie>
+                              <communicatienummer>
+                                 <toegangscode>+31</toegangscode>
+                                 <nummer>0263842000</nummer>
+                                 <soort>
+                                    <code>T</code>
+                                    <omschrijving>Telefoon</omschrijving>
+                                 </soort>
+                              </communicatienummer>
+                              <communicatienummer>
+                                 <toegangscode>+31</toegangscode>
+                                 <nummer>0263842011</nummer>
+                                 <soort>
+                                    <code>F</code>
+                                    <omschrijving>Fax</omschrijving>
+                                 </soort>
+                              </communicatienummer>
+                           </communicatiegegevens>
+                           <eersteHandelsnaam>Melspring International B.V.</eersteHandelsnaam>
+                           <voltijdWerkzamePersonen>16</voltijdWerkzamePersonen>
+                           <deeltijdWerkzamePersonen>0</deeltijdWerkzamePersonen>
+                           <totaalWerkzamePersonen>16</totaalWerkzamePersonen>
+                           <activiteiten>
+                              <omschrijving>De handel in, alsmede de ontwikkeling, productie en bewerking van meststoffen, agrarische bestrijdingsmiddelen, chemische- en pharmaceutische producten, industriële grondstoffen en bijproducten.</omschrijving>
+                              <sbiActiviteit>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>20021113</datumAanvang>
+                                 </registratie>
+                                 <sbiCode>
+                                    <code>4611</code>
+                                    <omschrijving>Handelsbemiddeling in landbouwproducten, levende dieren en grondstoffen voor textiel en voedingsmiddelen</omschrijving>
+                                    <referentieType>ActiviteitCode</referentieType>
+                                 </sbiCode>
+                                 <isHoofdactiviteit>
+                                    <code>J</code>
+                                    <omschrijving>Ja</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </isHoofdactiviteit>
+                              </sbiActiviteit>
+                              <exporteert>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </exporteert>
+                              <importeert>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </importeert>
+                           </activiteiten>
+                           <handeltOnder>
+                              <relatieRegistratie registratieTijdstip="20131212103634665">
+                                 <datumAanvang>20131212</datumAanvang>
+                              </relatieRegistratie>
+                              <handelsnaam>
+                                 <registratie registratieTijdstip="20131212103634665">
+                                    <datumAanvang>20021113</datumAanvang>
+                                 </registratie>
+                                 <naam>Melspring International B.V.</naam>
+                                 <volgorde>0</volgorde>
+                              </handelsnaam>
+                           </handeltOnder>
+                        </commercieleVestiging>
+                     </wordtUitgeoefendIn>
+                     <wordtUitgeoefendIn>
+                        <relatieRegistratie registratieTijdstip="20181126140004275">
+                           <datumAanvang>20181122</datumAanvang>
+                        </relatieRegistratie>
+                        <commercieleVestiging>
+                           <registratie registratieTijdstip="20181126140004275">
+                              <datumAanvang>20181122</datumAanvang>
+                           </registratie>
+                           <vestigingsnummer>000041251865</vestigingsnummer>
+                           <bezoekLocatie>
+                              <registratie registratieTijdstip="20181126140004275">
+                                 <datumAanvang>20181122</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <straatnaam>Industrieweg</straatnaam>
+                                    <huisnummer>37</huisnummer>
+                                    <postcode>
+                                       <cijfercombinatie>7949</cijfercombinatie>
+                                       <lettercombinatie>AJ</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Rogat</plaats>
+                                    <bagId>
+                                       <identificatieNummeraanduiding>0119200000002704</identificatieNummeraanduiding>
+                                       <identificatieAdresseerbaarObject>0119010000002106</identificatieAdresseerbaarObject>
+                                    </bagId>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Industrieweg 37
+7949AJ Rogat</volledigAdres>
+                           </bezoekLocatie>
+                           <postLocatie>
+                              <registratie registratieTijdstip="20181126140004275">
+                                 <datumAanvang>20181122</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <straatnaam>Industrieweg</straatnaam>
+                                    <huisnummer>37</huisnummer>
+                                    <postcode>
+                                       <cijfercombinatie>7949</cijfercombinatie>
+                                       <lettercombinatie>AJ</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Rogat</plaats>
+                                    <bagId>
+                                       <identificatieNummeraanduiding>0119200000002704</identificatieNummeraanduiding>
+                                       <identificatieAdresseerbaarObject>0119010000002106</identificatieAdresseerbaarObject>
+                                    </bagId>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Industrieweg 37
+7949AJ Rogat</volledigAdres>
+                           </postLocatie>
+                           <communicatiegegevens>
+                              <registratie registratieTijdstip="20181126140004275">
+                                 <datumAanvang>20181122</datumAanvang>
+                              </registratie>
+                              <communicatienummer>
+                                 <toegangscode>+31</toegangscode>
+                                 <nummer>0522441682</nummer>
+                                 <soort>
+                                    <code>T</code>
+                                    <omschrijving>Telefoon</omschrijving>
+                                 </soort>
+                              </communicatienummer>
+                              <emailAdres>nap@melspring.com</emailAdres>
+                              <emailAdres>mulder@melspring.com</emailAdres>
+                           </communicatiegegevens>
+                           <eersteHandelsnaam>Melspring-Farmershouse</eersteHandelsnaam>
+                           <voltijdWerkzamePersonen>13</voltijdWerkzamePersonen>
+                           <deeltijdWerkzamePersonen>0</deeltijdWerkzamePersonen>
+                           <totaalWerkzamePersonen>13</totaalWerkzamePersonen>
+                           <activiteiten>
+                              <omschrijving>Verwerken van pluimveemest en het vervaardigen van stikstofverbindingen kunstmeststoffen.</omschrijving>
+                              <sbiActiviteit>
+                                 <registratie registratieTijdstip="20181126140004275">
+                                    <datumAanvang>20181122</datumAanvang>
+                                 </registratie>
+                                 <sbiCode>
+                                    <code>2015</code>
+                                    <omschrijving>Vervaardiging van kunstmeststoffen en stikstofverbindingen</omschrijving>
+                                    <referentieType>ActiviteitCode</referentieType>
+                                 </sbiCode>
+                                 <isHoofdactiviteit>
+                                    <code>J</code>
+                                    <omschrijving>Ja</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </isHoofdactiviteit>
+                              </sbiActiviteit>
+                              <exporteert>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </exporteert>
+                              <importeert>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </importeert>
+                           </activiteiten>
+                           <handeltOnder>
+                              <relatieRegistratie registratieTijdstip="20181126140004275">
+                                 <datumAanvang>20181122</datumAanvang>
+                              </relatieRegistratie>
+                              <handelsnaam>
+                                 <registratie registratieTijdstip="20181126140004275">
+                                    <datumAanvang>20181122</datumAanvang>
+                                 </registratie>
+                                 <naam>Melspring-Farmershouse</naam>
+                                 <volgorde>0</volgorde>
+                              </handelsnaam>
+                           </handeltOnder>
+                           <handeltOnder>
+                              <relatieRegistratie registratieTijdstip="20181126140004275">
+                                 <datumAanvang>20181122</datumAanvang>
+                              </relatieRegistratie>
+                              <handelsnaam>
+                                 <registratie registratieTijdstip="20181126140004275">
+                                    <datumAanvang>20181122</datumAanvang>
+                                 </registratie>
+                                 <naam>Melspring international</naam>
+                                 <volgorde>1</volgorde>
+                              </handelsnaam>
+                           </handeltOnder>
+                        </commercieleVestiging>
+                     </wordtUitgeoefendIn>
+                     <wordtUitgeoefendIn>
+                        <relatieRegistratie registratieTijdstip="20190801082112621">
+                           <datumAanvang>20190801</datumAanvang>
+                        </relatieRegistratie>
+                        <commercieleVestiging>
+                           <registratie registratieTijdstip="20190801082112621">
+                              <datumAanvang>20190801</datumAanvang>
+                           </registratie>
+                           <vestigingsnummer>000043362788</vestigingsnummer>
+                           <bezoekLocatie>
+                              <registratie registratieTijdstip="20190801082112621">
+                                 <datumAanvang>20190801</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <straatnaam>Fort</straatnaam>
+                                    <huisnummer>10</huisnummer>
+                                    <postcode>
+                                       <cijfercombinatie>7924</cijfercombinatie>
+                                       <lettercombinatie>RB</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Veeningen</plaats>
+                                    <bagId>
+                                       <identificatieNummeraanduiding>1690200000002682</identificatieNummeraanduiding>
+                                       <identificatieAdresseerbaarObject>1690010000002682</identificatieAdresseerbaarObject>
+                                    </bagId>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Fort 10
+7924RB Veeningen</volledigAdres>
+                           </bezoekLocatie>
+                           <postLocatie>
+                              <registratie registratieTijdstip="20190801082112621">
+                                 <datumAanvang>20190801</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <straatnaam>Arnhemsestraatweg</straatnaam>
+                                    <huisnummer>8</huisnummer>
+                                    <postcode>
+                                       <cijfercombinatie>6881</cijfercombinatie>
+                                       <lettercombinatie>NG</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Velp</plaats>
+                                    <bagId>
+                                       <identificatieNummeraanduiding>0275200000093073</identificatieNummeraanduiding>
+                                       <identificatieAdresseerbaarObject>0275010000000969</identificatieAdresseerbaarObject>
+                                    </bagId>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Arnhemsestraatweg 8
+6881NG Velp</volledigAdres>
+                           </postLocatie>
+                           <communicatiegegevens>
+                              <registratie registratieTijdstip="20190801082112621">
+                                 <datumAanvang>20190801</datumAanvang>
+                              </registratie>
+                              <communicatienummer>
+                                 <toegangscode>+31</toegangscode>
+                                 <nummer>0263842000</nummer>
+                                 <soort>
+                                    <code>T</code>
+                                    <omschrijving>Telefoon</omschrijving>
+                                 </soort>
+                              </communicatienummer>
+                              <communicatienummer>
+                                 <toegangscode>+31</toegangscode>
+                                 <nummer>0263842011</nummer>
+                                 <soort>
+                                    <code>F</code>
+                                    <omschrijving>Fax</omschrijving>
+                                 </soort>
+                              </communicatienummer>
+                              <emailAdres>info@melspring.com</emailAdres>
+                              <domeinNaam>www.melspring.com</domeinNaam>
+                           </communicatiegegevens>
+                           <eersteHandelsnaam>Melspring Veeningen</eersteHandelsnaam>
+                           <voltijdWerkzamePersonen>0</voltijdWerkzamePersonen>
+                           <deeltijdWerkzamePersonen>2</deeltijdWerkzamePersonen>
+                           <totaalWerkzamePersonen>2</totaalWerkzamePersonen>
+                           <activiteiten>
+                              <omschrijving>Ontvangst, opslag en verlading van organische meststoffen.</omschrijving>
+                              <sbiActiviteit>
+                                 <registratie registratieTijdstip="20190801082112621">
+                                    <datumAanvang>20190801</datumAanvang>
+                                 </registratie>
+                                 <sbiCode>
+                                    <code>4611</code>
+                                    <omschrijving>Handelsbemiddeling in landbouwproducten, levende dieren en grondstoffen voor textiel en voedingsmiddelen</omschrijving>
+                                    <referentieType>ActiviteitCode</referentieType>
+                                 </sbiCode>
+                                 <isHoofdactiviteit>
+                                    <code>J</code>
+                                    <omschrijving>Ja</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </isHoofdactiviteit>
+                              </sbiActiviteit>
+                              <exporteert>
+                                 <code>J</code>
+                                 <omschrijving>Ja</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </exporteert>
+                              <importeert>
+                                 <code>J</code>
+                                 <omschrijving>Ja</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </importeert>
+                           </activiteiten>
+                           <handeltOnder>
+                              <relatieRegistratie registratieTijdstip="20190801082112621">
+                                 <datumAanvang>20190801</datumAanvang>
+                              </relatieRegistratie>
+                              <handelsnaam>
+                                 <registratie registratieTijdstip="20190801082112621">
+                                    <datumAanvang>20190801</datumAanvang>
+                                 </registratie>
+                                 <naam>Melspring Veeningen</naam>
+                                 <volgorde>0</volgorde>
+                              </handelsnaam>
+                           </handeltOnder>
+                        </commercieleVestiging>
+                     </wordtUitgeoefendIn>
+                  </onderneming>
+               </manifesteertZichAls>
+               <wordtGeleidVanuit>
+                  <commercieleVestiging>
+                     <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                        <datumAanvang>20021113</datumAanvang>
+                     </registratie>
+                     <vestigingsnummer>000018299539</vestigingsnummer>
+                     <bezoekLocatie>
+                        <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>20060704</datumAanvang>
+                        </registratie>
+                        <afgeschermd>
+                           <code>N</code>
+                           <omschrijving>Nee</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </afgeschermd>
+                        <adres>
+                           <binnenlandsAdres>
+                              <straatnaam>Arnhemsestraatweg</straatnaam>
+                              <huisnummer>8</huisnummer>
+                              <postcode>
+                                 <cijfercombinatie>6881</cijfercombinatie>
+                                 <lettercombinatie>NG</lettercombinatie>
+                              </postcode>
+                              <plaats>Velp</plaats>
+                              <bagId>
+                                 <identificatieNummeraanduiding>0275200000093073</identificatieNummeraanduiding>
+                                 <identificatieAdresseerbaarObject>0275010000000969</identificatieAdresseerbaarObject>
+                              </bagId>
+                           </binnenlandsAdres>
+                        </adres>
+                        <volledigAdres>Arnhemsestraatweg 8
+6881NG Velp</volledigAdres>
+                     </bezoekLocatie>
+                     <postLocatie>
+                        <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>20021113</datumAanvang>
+                        </registratie>
+                        <afgeschermd>
+                           <code>N</code>
+                           <omschrijving>Nee</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </afgeschermd>
+                        <adres>
+                           <binnenlandsAdres>
+                              <postbusnummer>268</postbusnummer>
+                              <postcode>
+                                 <cijfercombinatie>6880</cijfercombinatie>
+                                 <lettercombinatie>AG</lettercombinatie>
+                              </postcode>
+                              <plaats>Velp</plaats>
+                           </binnenlandsAdres>
+                        </adres>
+                        <volledigAdres>Postbus 268
+6880AG Velp</volledigAdres>
+                     </postLocatie>
+                     <communicatiegegevens>
+                        <registratie registratieTijdstip="20130307100152227">
+                           <datumAanvang>20130301</datumAanvang>
+                        </registratie>
+                        <communicatienummer>
+                           <toegangscode>+31</toegangscode>
+                           <nummer>0263842000</nummer>
+                           <soort>
+                              <code>T</code>
+                              <omschrijving>Telefoon</omschrijving>
+                           </soort>
+                        </communicatienummer>
+                        <communicatienummer>
+                           <toegangscode>+31</toegangscode>
+                           <nummer>0263842011</nummer>
+                           <soort>
+                              <code>F</code>
+                              <omschrijving>Fax</omschrijving>
+                           </soort>
+                        </communicatienummer>
+                     </communicatiegegevens>
+                     <eersteHandelsnaam>Melspring International B.V.</eersteHandelsnaam>
+                     <voltijdWerkzamePersonen>16</voltijdWerkzamePersonen>
+                     <deeltijdWerkzamePersonen>0</deeltijdWerkzamePersonen>
+                     <totaalWerkzamePersonen>16</totaalWerkzamePersonen>
+                     <activiteiten>
+                        <omschrijving>De handel in, alsmede de ontwikkeling, productie en bewerking van meststoffen, agrarische bestrijdingsmiddelen, chemische- en pharmaceutische producten, industriële grondstoffen en bijproducten.</omschrijving>
+                        <sbiActiviteit>
+                           <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <datumAanvang>20021113</datumAanvang>
+                           </registratie>
+                           <sbiCode>
+                              <code>4611</code>
+                              <omschrijving>Handelsbemiddeling in landbouwproducten, levende dieren en grondstoffen voor textiel en voedingsmiddelen</omschrijving>
+                              <referentieType>ActiviteitCode</referentieType>
+                           </sbiCode>
+                           <isHoofdactiviteit>
+                              <code>J</code>
+                              <omschrijving>Ja</omschrijving>
+                              <referentieType>geenRT</referentieType>
+                           </isHoofdactiviteit>
+                        </sbiActiviteit>
+                        <exporteert>
+                           <code>N</code>
+                           <omschrijving>Nee</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </exporteert>
+                        <importeert>
+                           <code>N</code>
+                           <omschrijving>Nee</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </importeert>
+                     </activiteiten>
+                     <handeltOnder>
+                        <relatieRegistratie registratieTijdstip="20131212103634665">
+                           <datumAanvang>20131212</datumAanvang>
+                        </relatieRegistratie>
+                        <handelsnaam>
+                           <registratie registratieTijdstip="20131212103634665">
+                              <datumAanvang>20021113</datumAanvang>
+                           </registratie>
+                           <naam>Melspring International B.V.</naam>
+                           <volgorde>0</volgorde>
+                        </handelsnaam>
+                     </handeltOnder>
+                  </commercieleVestiging>
+               </wordtGeleidVanuit>
+               <heeftAlsEigenaar>
+                  <relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <datumAanvang>20021113</datumAanvang>
+                  </relatieRegistratie>
+                  <rechtspersoon>
+                     <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                        <datumAanvang>20021113</datumAanvang>
+                     </registratie>
+                     <persoonRechtsvorm>Besloten Vennootschap</persoonRechtsvorm>
+                     <volledigeNaam>Melspring International B.V.</volledigeNaam>
+                     <uitgebreideRechtsvorm>Besloten Vennootschap</uitgebreideRechtsvorm>
+                     <heeft>
+                        <gemachtigde>
+                           <registratie registratieTijdstip="20131218125126195">
+                              <datumAanvang>20131211</datumAanvang>
+                           </registratie>
+                           <functietitel>
+                              <registratie registratieTijdstip="20151203110508509">
+                                 <datumAanvang>20151101</datumAanvang>
+                              </registratie>
+                              <titel>Division manager</titel>
+                              <isStatutaireTitel>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isStatutaireTitel>
+                           </functietitel>
+                           <door>
+                              <natuurlijkPersoon>
+                                 <extraElementen>
+                                    <extraElement naam="achternaam">0a654</extraElement>
+                                    <!--Anonimisatie 'extraElement': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--></extraElementen>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>19430911</datumAanvang>
+                                    <!--Anonimisatie 'datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></registratie>
+                                 <volledigeNaam>dee80e5 95d7c</volledigeNaam>
+                                 <!--Anonimisatie 'volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><bezoekLocatiePersoon>
+                                    <registratie registratieTijdstipNoValue="vastgesteldOnbekend"/>
+                                    <afgeschermd>
+                                       <code>N</code>
+                                       <omschrijving>Nee</omschrijving>
+                                       <referentieType>geenRT</referentieType>
+                                    </afgeschermd>
+                                    <adres>
+                                       <binnenlandsAdres>
+                                          <straatnaam>Karel van Egmondstraat</straatnaam>
+                                          <huisnummer>17</huisnummer>
+                                          <postcode>
+                                             <cijfercombinatie>5913</cijfercombinatie>
+                                             <lettercombinatie>CK</lettercombinatie>
+                                          </postcode>
+                                          <plaats>Venlo</plaats>
+                                          <bagId>
+                                             <identificatieNummeraanduiding>0983200000017746</identificatieNummeraanduiding>
+                                             <identificatieAdresseerbaarObject>0983010000017746</identificatieAdresseerbaarObject>
+                                          </bagId>
+                                       </binnenlandsAdres>
+                                    </adres>
+                                    <volledigAdres>Karel van Egmondstraat 17
+5913CK Venlo</volledigAdres>
+                                 </bezoekLocatiePersoon>
+                                 <bsn>782946630</bsn>
+                                 <!--Anonimisatie 'bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><geslachtsnaam>0a654</geslachtsnaam>
+                                 <!--Anonimisatie 'geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><voornamen>f5aa505</voornamen>
+                                 <!--Anonimisatie 'voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geslachtsaanduiding>
+                                    <code>m</code>
+                                    <omschrijving>Mannelijk</omschrijving>
+                                    <referentieType>Geslacht</referentieType>
+                                 </geslachtsaanduiding>
+                                 <geboorteplaats>662cf5c7c</geboorteplaats>
+                                 <!--Anonimisatie 'geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geboorteland>
+                                    <code>6030</code>
+                                    <omschrijving>Nederland</omschrijving>
+                                    <referentieType>Land</referentieType>
+                                 </geboorteland>
+                                 <geboortedatum>19430911</geboortedatum>
+                                 <!--Anonimisatie 'geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></natuurlijkPersoon>
+                           </door>
+                           <functie>
+                              <code>01</code>
+                              <omschrijving>Gevolmachtigde</omschrijving>
+                              <referentieType>FunctionarisRol</referentieType>
+                           </functie>
+                           <volmacht>
+                              <registratie registratieTijdstip="20131218125126195">
+                                 <datumAanvang>20131211</datumAanvang>
+                              </registratie>
+                              <typeVolmacht>
+                                 <code>b</code>
+                                 <omschrijving>Beperkte volmacht</omschrijving>
+                                 <referentieType>VolmachtType</referentieType>
+                              </typeVolmacht>
+                              <isStatutair>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isStatutair>
+                              <beperkteVolmacht>
+                                 <magOpgaveHandelsregisterDoen>
+                                    <code>N</code>
+                                    <omschrijving>Nee</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </magOpgaveHandelsregisterDoen>
+                                 <heeftOverigeVolmacht>
+                                    <code>J</code>
+                                    <omschrijving>Ja</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </heeftOverigeVolmacht>
+                                 <beperkingInHandeling>
+                                    <beperkingInGeld>
+                                       <waarde>50000</waarde>
+                                       <valuta>
+                                          <code>EUR</code>
+                                          <omschrijving>Euro</omschrijving>
+                                          <referentieType>Valuta</referentieType>
+                                       </valuta>
+                                    </beperkingInGeld>
+                                    <soortHandeling>
+                                       <code>afslic</code>
+                                       <omschrijving>Afsluiten inkoopcontracten</omschrijving>
+                                       <referentieType>SoortHandeling</referentieType>
+                                    </soortHandeling>
+                                 </beperkingInHandeling>
+                                 <beperkingInHandeling>
+                                    <beperkingInGeld>
+                                       <waarde>50000</waarde>
+                                       <valuta>
+                                          <code>EUR</code>
+                                          <omschrijving>Euro</omschrijving>
+                                          <referentieType>Valuta</referentieType>
+                                       </valuta>
+                                    </beperkingInGeld>
+                                    <soortHandeling>
+                                       <code>afslvc</code>
+                                       <omschrijving>Afsluiten verkoopcontracten</omschrijving>
+                                       <referentieType>SoortHandeling</referentieType>
+                                    </soortHandeling>
+                                 </beperkingInHandeling>
+                                 <beperkingInHandeling>
+                                    <beperkingInGeld>
+                                       <waarde>50000</waarde>
+                                       <valuta>
+                                          <code>EUR</code>
+                                          <omschrijving>Euro</omschrijving>
+                                          <referentieType>Valuta</referentieType>
+                                       </valuta>
+                                    </beperkingInGeld>
+                                    <soortHandeling>
+                                       <code>afslgar</code>
+                                       <omschrijving>Afsluiten garantieovereenkomsten</omschrijving>
+                                       <referentieType>SoortHandeling</referentieType>
+                                    </soortHandeling>
+                                 </beperkingInHandeling>
+                              </beperkteVolmacht>
+                           </volmacht>
+                        </gemachtigde>
+                     </heeft>
+                     <heeft>
+                        <gemachtigde>
+                           <registratie registratieTijdstip="20131218125126195">
+                              <datumAanvang>20131211</datumAanvang>
+                           </registratie>
+                           <functietitel>
+                              <registratie registratieTijdstip="20131218125126195">
+                                 <datumAanvang>20131211</datumAanvang>
+                              </registratie>
+                              <titel>Management assistant</titel>
+                              <isStatutaireTitel>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isStatutaireTitel>
+                           </functietitel>
+                           <door>
+                              <natuurlijkPersoon>
+                                 <extraElementen>
+                                    <extraElement naam="achternaam">de76b</extraElement>
+                                    <!--Anonimisatie 'extraElement': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--></extraElementen>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>20130802</datumAanvang>
+                                    <!--Anonimisatie 'datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></registratie>
+                                 <volledigeNaam>9ccf259d 85779</volledigeNaam>
+                                 <!--Anonimisatie 'volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><bezoekLocatiePersoon>
+                                    <registratie registratieTijdstipNoValue="vastgesteldOnbekend"/>
+                                    <afgeschermd>
+                                       <code>N</code>
+                                       <omschrijving>Nee</omschrijving>
+                                       <referentieType>geenRT</referentieType>
+                                    </afgeschermd>
+                                    <adres>
+                                       <binnenlandsAdres>
+                                          <straatnaam>Hardenbroeklaan</straatnaam>
+                                          <huisnummer>29</huisnummer>
+                                          <postcode>
+                                             <cijfercombinatie>6825</cijfercombinatie>
+                                             <lettercombinatie>AG</lettercombinatie>
+                                          </postcode>
+                                          <plaats>Arnhem</plaats>
+                                          <bagId>
+                                             <identificatieNummeraanduiding>0202200000417710</identificatieNummeraanduiding>
+                                             <identificatieAdresseerbaarObject>0202010000417711</identificatieAdresseerbaarObject>
+                                          </bagId>
+                                       </binnenlandsAdres>
+                                    </adres>
+                                    <volledigAdres>Hardenbroeklaan 29
+6825AG Arnhem</volledigAdres>
+                                 </bezoekLocatiePersoon>
+                                 <bsn>176767535</bsn>
+                                 <!--Anonimisatie 'bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><geslachtsnaam>de76b</geslachtsnaam>
+                                 <!--Anonimisatie 'geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><voornamen>41a33193</voornamen>
+                                 <!--Anonimisatie 'voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geslachtsaanduiding>
+                                    <code>v</code>
+                                    <omschrijving>Vrouwelijk</omschrijving>
+                                    <referentieType>Geslacht</referentieType>
+                                 </geslachtsaanduiding>
+                                 <geboorteplaats>95ab1e</geboorteplaats>
+                                 <!--Anonimisatie 'geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geboorteland>
+                                    <code>6030</code>
+                                    <omschrijving>Nederland</omschrijving>
+                                    <referentieType>Land</referentieType>
+                                 </geboorteland>
+                                 <geboortedatum>20130802</geboortedatum>
+                                 <!--Anonimisatie 'geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></natuurlijkPersoon>
+                           </door>
+                           <functie>
+                              <code>01</code>
+                              <omschrijving>Gevolmachtigde</omschrijving>
+                              <referentieType>FunctionarisRol</referentieType>
+                           </functie>
+                           <volmacht>
+                              <registratie registratieTijdstip="20200120090230720">
+                                 <datumAanvang>20200101</datumAanvang>
+                              </registratie>
+                              <typeVolmacht>
+                                 <code>b</code>
+                                 <omschrijving>Beperkte volmacht</omschrijving>
+                                 <referentieType>VolmachtType</referentieType>
+                              </typeVolmacht>
+                              <isStatutair>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isStatutair>
+                              <beperkteVolmacht>
+                                 <beperkingInGeld>
+                                    <waarde>25000</waarde>
+                                    <valuta>
+                                       <code>EUR</code>
+                                       <omschrijving>Euro</omschrijving>
+                                       <referentieType>Valuta</referentieType>
+                                    </valuta>
+                                 </beperkingInGeld>
+                                 <magOpgaveHandelsregisterDoen>
+                                    <code>N</code>
+                                    <omschrijving>Nee</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </magOpgaveHandelsregisterDoen>
+                                 <heeftOverigeVolmacht>
+                                    <code>N</code>
+                                    <omschrijving>Nee</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </heeftOverigeVolmacht>
+                              </beperkteVolmacht>
+                           </volmacht>
+                        </gemachtigde>
+                     </heeft>
+                     <heeft>
+                        <gemachtigde>
+                           <registratie registratieTijdstip="20160921140817669">
+                              <datumAanvang>20160920</datumAanvang>
+                           </registratie>
+                           <functietitel>
+                              <registratie registratieTijdstip="20190919095135746">
+                                 <datumAanvang>20190901</datumAanvang>
+                              </registratie>
+                              <titel>Operational Director</titel>
+                              <isStatutaireTitel>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isStatutaireTitel>
+                           </functietitel>
+                           <door>
+                              <natuurlijkPersoon>
+                                 <extraElementen>
+                                    <extraElement naam="achternaam">f520089</extraElement>
+                                    <!--Anonimisatie 'extraElement': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--></extraElementen>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>19560618</datumAanvang>
+                                    <!--Anonimisatie 'datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></registratie>
+                                 <volledigeNaam>bdb3fc10 6e48547</volledigeNaam>
+                                 <!--Anonimisatie 'volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><bezoekLocatiePersoon>
+                                    <registratie registratieTijdstipNoValue="vastgesteldOnbekend"/>
+                                    <afgeschermd>
+                                       <code>N</code>
+                                       <omschrijving>Nee</omschrijving>
+                                       <referentieType>geenRT</referentieType>
+                                    </afgeschermd>
+                                    <adres>
+                                       <binnenlandsAdres>
+                                          <straatnaam>De Savornin Lohmanlaan</straatnaam>
+                                          <huisnummer>23</huisnummer>
+                                          <postcode>
+                                             <cijfercombinatie>3771</cijfercombinatie>
+                                             <lettercombinatie>HH</lettercombinatie>
+                                          </postcode>
+                                          <plaats>Barneveld</plaats>
+                                          <bagId>
+                                             <identificatieNummeraanduiding>0203200000368874</identificatieNummeraanduiding>
+                                             <identificatieAdresseerbaarObject>0203010000368875</identificatieAdresseerbaarObject>
+                                          </bagId>
+                                       </binnenlandsAdres>
+                                    </adres>
+                                    <volledigAdres>De Savornin Lohmanlaan 23
+3771HH Barneveld</volledigAdres>
+                                 </bezoekLocatiePersoon>
+                                 <bsn>462325122</bsn>
+                                 <!--Anonimisatie 'bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><geslachtsnaam>f520089</geslachtsnaam>
+                                 <!--Anonimisatie 'geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><voornamen>69361702</voornamen>
+                                 <!--Anonimisatie 'voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geslachtsaanduiding>
+                                    <code>m</code>
+                                    <omschrijving>Mannelijk</omschrijving>
+                                    <referentieType>Geslacht</referentieType>
+                                 </geslachtsaanduiding>
+                                 <geboorteplaats>65c50aec69592e5</geboorteplaats>
+                                 <!--Anonimisatie 'geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geboorteland>
+                                    <code>6030</code>
+                                    <omschrijving>Nederland</omschrijving>
+                                    <referentieType>Land</referentieType>
+                                 </geboorteland>
+                                 <geboortedatum>19560618</geboortedatum>
+                                 <!--Anonimisatie 'geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></natuurlijkPersoon>
+                           </door>
+                           <functie>
+                              <code>01</code>
+                              <omschrijving>Gevolmachtigde</omschrijving>
+                              <referentieType>FunctionarisRol</referentieType>
+                           </functie>
+                           <volmacht>
+                              <registratie registratieTijdstip="20200120090230720">
+                                 <datumAanvang>20200101</datumAanvang>
+                              </registratie>
+                              <typeVolmacht>
+                                 <code>b</code>
+                                 <omschrijving>Beperkte volmacht</omschrijving>
+                                 <referentieType>VolmachtType</referentieType>
+                              </typeVolmacht>
+                              <isStatutair>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isStatutair>
+                              <beperkteVolmacht>
+                                 <beperkingInGeld>
+                                    <waarde>25000</waarde>
+                                    <valuta>
+                                       <code>EUR</code>
+                                       <omschrijving>Euro</omschrijving>
+                                       <referentieType>Valuta</referentieType>
+                                    </valuta>
+                                 </beperkingInGeld>
+                                 <magOpgaveHandelsregisterDoen>
+                                    <code>N</code>
+                                    <omschrijving>Nee</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </magOpgaveHandelsregisterDoen>
+                                 <heeftOverigeVolmacht>
+                                    <code>N</code>
+                                    <omschrijving>Nee</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </heeftOverigeVolmacht>
+                              </beperkteVolmacht>
+                           </volmacht>
+                        </gemachtigde>
+                     </heeft>
+                     <heeft>
+                        <gemachtigde>
+                           <registratie registratieTijdstip="20171006134355553">
+                              <datumAanvang>20171001</datumAanvang>
+                           </registratie>
+                           <functietitel>
+                              <registratie registratieTijdstip="20190919095135746">
+                                 <datumAanvang>20190718</datumAanvang>
+                              </registratie>
+                              <titel>CFO</titel>
+                              <isStatutaireTitel>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isStatutaireTitel>
+                           </functietitel>
+                           <door>
+                              <natuurlijkPersoon>
+                                 <extraElementen>
+                                    <extraElement naam="achternaam">cf73f85c</extraElement>
+                                    <!--Anonimisatie 'extraElement': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--></extraElementen>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>19770305</datumAanvang>
+                                    <!--Anonimisatie 'datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></registratie>
+                                 <volledigeNaam>614e4 cb35f9afa1 751bb88f</volledigeNaam>
+                                 <!--Anonimisatie 'volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><bezoekLocatiePersoon>
+                                    <registratie registratieTijdstip="20170331094932594"/>
+                                    <afgeschermd>
+                                       <code>N</code>
+                                       <omschrijving>Nee</omschrijving>
+                                       <referentieType>geenRT</referentieType>
+                                    </afgeschermd>
+                                    <adres>
+                                       <binnenlandsAdres>
+                                          <straatnaam>Elstweg</straatnaam>
+                                          <huisnummer>4</huisnummer>
+                                          <postcode>
+                                             <cijfercombinatie>6601</cijfercombinatie>
+                                             <lettercombinatie>AC</lettercombinatie>
+                                          </postcode>
+                                          <plaats>Wijchen</plaats>
+                                          <bagId>
+                                             <identificatieNummeraanduiding>0296200000006171</identificatieNummeraanduiding>
+                                             <identificatieAdresseerbaarObject>0296010000010645</identificatieAdresseerbaarObject>
+                                          </bagId>
+                                       </binnenlandsAdres>
+                                    </adres>
+                                    <volledigAdres>Elstweg 4
+6601AC Wijchen</volledigAdres>
+                                 </bezoekLocatiePersoon>
+                                 <bsn>603292082</bsn>
+                                 <!--Anonimisatie 'bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><geslachtsnaam>cf73f85c</geslachtsnaam>
+                                 <!--Anonimisatie 'geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><voornamen>9b602 1dd2522c1a</voornamen>
+                                 <!--Anonimisatie 'voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geslachtsaanduiding>
+                                    <code>m</code>
+                                    <omschrijving>Mannelijk</omschrijving>
+                                    <referentieType>Geslacht</referentieType>
+                                 </geslachtsaanduiding>
+                                 <geboorteplaats>479f597c</geboorteplaats>
+                                 <!--Anonimisatie 'geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geboorteland>
+                                    <code>6030</code>
+                                    <omschrijving>Nederland</omschrijving>
+                                    <referentieType>Land</referentieType>
+                                 </geboorteland>
+                                 <geboortedatum>19770305</geboortedatum>
+                                 <!--Anonimisatie 'geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></natuurlijkPersoon>
+                           </door>
+                           <functie>
+                              <code>01</code>
+                              <omschrijving>Gevolmachtigde</omschrijving>
+                              <referentieType>FunctionarisRol</referentieType>
+                           </functie>
+                           <volmacht>
+                              <registratie registratieTijdstip="20200203142817590">
+                                 <datumAanvang>20200101</datumAanvang>
+                              </registratie>
+                              <typeVolmacht>
+                                 <code>b</code>
+                                 <omschrijving>Beperkte volmacht</omschrijving>
+                                 <referentieType>VolmachtType</referentieType>
+                              </typeVolmacht>
+                              <isStatutair>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isStatutair>
+                              <beperkteVolmacht>
+                                 <beperkingInGeld>
+                                    <waarde>1000000</waarde>
+                                    <valuta>
+                                       <code>EUR</code>
+                                       <omschrijving>Euro</omschrijving>
+                                       <referentieType>Valuta</referentieType>
+                                    </valuta>
+                                 </beperkingInGeld>
+                                 <magOpgaveHandelsregisterDoen>
+                                    <code>J</code>
+                                    <omschrijving>Ja</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </magOpgaveHandelsregisterDoen>
+                                 <heeftOverigeVolmacht>
+                                    <code>N</code>
+                                    <omschrijving>Nee</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </heeftOverigeVolmacht>
+                              </beperkteVolmacht>
+                           </volmacht>
+                        </gemachtigde>
+                     </heeft>
+                     <heeft>
+                        <overigeFunctionaris>
+                           <registratie registratieTijdstip="20190625085145291">
+                              <datumAanvang>20190101</datumAanvang>
+                           </registratie>
+                           <door>
+                              <buitenlandseVennootschap>
+                                 <volledigeNaam>Olmix S.A.</volledigeNaam>
+                                 <bezoekLocatiePersoon>
+                                    <registratie registratieTijdstip="20190625085145291"/>
+                                    <afgeschermd>
+                                       <code>N</code>
+                                       <omschrijving>Nee</omschrijving>
+                                       <referentieType>geenRT</referentieType>
+                                    </afgeschermd>
+                                    <adres>
+                                       <buitenlandsAdres>
+                                          <straatHuisnummer>Lieudit l Lintan </straatHuisnummer>
+                                          <postcodeWoonplaats>56580 Bréhan</postcodeWoonplaats>
+                                          <land>
+                                             <code>5002</code>
+                                             <omschrijving>Frankrijk</omschrijving>
+                                             <referentieType>Land</referentieType>
+                                          </land>
+                                       </buitenlandsAdres>
+                                    </adres>
+                                    <volledigAdres>Lieudit l Lintan 
+56580 Bréhan
+Frankrijk</volledigAdres>
+                                 </bezoekLocatiePersoon>
+                                 <buitenlandseRegistratieGegevens>
+                                    <naam>Vannes - Registre du commerce</naam>
+                                    <plaats>Vannes</plaats>
+                                    <land>
+                                       <code>5002</code>
+                                       <omschrijving>Frankrijk</omschrijving>
+                                       <referentieType>Land</referentieType>
+                                    </land>
+                                    <inschrijfnummer>402 120 034 R.C.S.</inschrijfnummer>
+                                    <buitenlandseRegistratie>Vannes - Registre du commerce
+Vannes, Frankrijk
+Onder nummer 402 120 034 R.C.S.</buitenlandseRegistratie>
+                                 </buitenlandseRegistratieGegevens>
+                                 <landVanVestiging>
+                                    <code>5002</code>
+                                    <omschrijving>Frankrijk</omschrijving>
+                                    <referentieType>Land</referentieType>
+                                 </landVanVestiging>
+                              </buitenlandseVennootschap>
+                           </door>
+                           <functie>
+                              <code>08</code>
+                              <omschrijving>Enig aandeelhouder</omschrijving>
+                              <referentieType>FunctionarisRol</referentieType>
+                           </functie>
+                        </overigeFunctionaris>
+                     </heeft>
+                     <heeft>
+                        <bestuursfunctie>
+                           <registratie registratieTijdstip="20200120090230720">
+                              <datumAanvang>20200101</datumAanvang>
+                           </registratie>
+                           <door>
+                              <buitenlandseVennootschap>
+                                 <volledigeNaam>Olmix S.A.</volledigeNaam>
+                                 <bezoekLocatiePersoon>
+                                    <registratie registratieTijdstip="20190625085145291"/>
+                                    <afgeschermd>
+                                       <code>N</code>
+                                       <omschrijving>Nee</omschrijving>
+                                       <referentieType>geenRT</referentieType>
+                                    </afgeschermd>
+                                    <adres>
+                                       <buitenlandsAdres>
+                                          <straatHuisnummer>Lieudit l Lintan </straatHuisnummer>
+                                          <postcodeWoonplaats>56580 Bréhan</postcodeWoonplaats>
+                                          <land>
+                                             <code>5002</code>
+                                             <omschrijving>Frankrijk</omschrijving>
+                                             <referentieType>Land</referentieType>
+                                          </land>
+                                       </buitenlandsAdres>
+                                    </adres>
+                                    <volledigAdres>Lieudit l Lintan 
+56580 Bréhan
+Frankrijk</volledigAdres>
+                                 </bezoekLocatiePersoon>
+                                 <buitenlandseRegistratieGegevens>
+                                    <naam>Vannes - Registre du commerce</naam>
+                                    <plaats>Vannes</plaats>
+                                    <land>
+                                       <code>5002</code>
+                                       <omschrijving>Frankrijk</omschrijving>
+                                       <referentieType>Land</referentieType>
+                                    </land>
+                                    <inschrijfnummer>402 120 034 R.C.S.</inschrijfnummer>
+                                    <buitenlandseRegistratie>Vannes - Registre du commerce
+Vannes, Frankrijk
+Onder nummer 402 120 034 R.C.S.</buitenlandseRegistratie>
+                                 </buitenlandseRegistratieGegevens>
+                                 <landVanVestiging>
+                                    <code>5002</code>
+                                    <omschrijving>Frankrijk</omschrijving>
+                                    <referentieType>Land</referentieType>
+                                 </landVanVestiging>
+                              </buitenlandseVennootschap>
+                           </door>
+                           <functie>
+                              <code>02</code>
+                              <omschrijving>Bestuurder</omschrijving>
+                              <referentieType>FunctionarisRol</referentieType>
+                           </functie>
+                           <bevoegdheid>
+                              <registratie registratieTijdstip="20200120090230720">
+                                 <datumAanvang>20200101</datumAanvang>
+                              </registratie>
+                              <soort>
+                                 <code>azb</code>
+                                 <omschrijving>Alleen/zelfstandig bevoegd</omschrijving>
+                                 <referentieType>SoortBevoegdheidBestuurder</referentieType>
+                              </soort>
+                              <isBevoegdMetAnderePersonen>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isBevoegdMetAnderePersonen>
+                           </bevoegdheid>
+                        </bestuursfunctie>
+                     </heeft>
+                     <rsin>811098576</rsin>
+                     <naamgeving>
+                        <registratie registratieTijdstip="20131212103634665">
+                           <datumAanvang>20131212</datumAanvang>
+                        </registratie>
+                        <naam>Melspring International B.V.</naam>
+                     </naamgeving>
+                     <splitsing>
+                        <registratie registratieTijdstip="20200109084316439">
+                           <datumAanvang>20200108</datumAanvang>
+                        </registratie>
+                        <datumAkte>20200107</datumAkte>
+                        <status>
+                           <code>gerealiseerd</code>
+                           <omschrijving>Gerealiseerd</omschrijving>
+                           <referentieType>StatusFusieSplitsing</referentieType>
+                        </status>
+                        <opTeRichtenVerkrijgendeRechtspersoon>
+                           <rechtsvorm>
+                              <code>BV</code>
+                              <omschrijving>Besloten Vennootschap</omschrijving>
+                              <referentieType>Rechtsvorm</referentieType>
+                           </rechtsvorm>
+                           <naam>Olmix B.V.</naam>
+                        </opTeRichtenVerkrijgendeRechtspersoon>
+                        <splitsendeRechtspersoon>
+                           <rechtspersoon>
+                              <volledigeNaam>Melspring International B.V.</volledigeNaam>
+                              <rsin>811098576</rsin>
+                              <rechtsvorm>
+                                 <code>BV</code>
+                                 <omschrijving>Besloten Vennootschap</omschrijving>
+                                 <referentieType>Rechtsvorm</referentieType>
+                              </rechtsvorm>
+                           </rechtspersoon>
+                        </splitsendeRechtspersoon>
+                        <verkrijgendeRechtspersoon>
+                           <rechtspersoon>
+                              <volledigeNaam>Olmix B.V.</volledigeNaam>
+                              <rsin>860851448</rsin>
+                              <rechtsvorm>
+                                 <code>BV</code>
+                                 <omschrijving>Besloten Vennootschap</omschrijving>
+                                 <referentieType>Rechtsvorm</referentieType>
+                              </rechtsvorm>
+                           </rechtspersoon>
+                        </verkrijgendeRechtspersoon>
+                        <zuivereSplitsing>
+                           <code>N</code>
+                           <omschrijving>Nee</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </zuivereSplitsing>
+                     </splitsing>
+                     <heeftGedeponeerd>
+                        <jaarstukJaarrekening>
+                           <depotId>7edbbc4c:16e93403a18:3e43</depotId>
+                           <status>
+                              <code>1</code>
+                              <omschrijving>Actueel</omschrijving>
+                              <referentieType>StatusDepotstuk</referentieType>
+                           </status>
+                           <datumDeponering>20191122</datumDeponering>
+                           <boekjaar>2018</boekjaar>
+                           <vaststelling>
+                              <code>D</code>
+                              <omschrijving>Definitief</omschrijving>
+                              <referentieType>VaststellingJaarrekening</referentieType>
+                           </vaststelling>
+                        </jaarstukJaarrekening>
+                     </heeftGedeponeerd>
+                     <rechtsvorm>
+                        <code>BV</code>
+                        <omschrijving>Besloten Vennootschap</omschrijving>
+                        <referentieType>Rechtsvorm</referentieType>
+                     </rechtsvorm>
+                     <statutaireZetel>Velp</statutaireZetel>
+                     <aanvangStatutaireZetel>20021113</aanvangStatutaireZetel>
+                     <datumAkteOprichting>20021113</datumAkteOprichting>
+                     <datumEersteInschrijvingHandelsregister>20021114</datumEersteInschrijvingHandelsregister>
+                     <datumAkteStatutenwijziging>20191016</datumAkteStatutenwijziging>
+                     <stelselInrichting>
+                        <code>D</code>
+                        <omschrijving>Dualistisch</omschrijving>
+                        <referentieType>StelselInrichting</referentieType>
+                     </stelselInrichting>
+                     <structuur>
+                        <code>GS</code>
+                        <omschrijving>Gewone structuur</omschrijving>
+                        <referentieType>RechtsvormStructuur</referentieType>
+                     </structuur>
+                     <geplaatstKapitaal>
+                        <registratie registratieTijdstipNoValue="vastgesteldOnbekend"/>
+                        <bedrag>
+                           <waarde>18000</waarde>
+                           <valuta>
+                              <code>EUR</code>
+                              <omschrijving>Euro</omschrijving>
+                              <referentieType>Valuta</referentieType>
+                           </valuta>
+                        </bedrag>
+                     </geplaatstKapitaal>
+                     <gestortKapitaal>
+                        <registratie registratieTijdstipNoValue="vastgesteldOnbekend"/>
+                        <bedrag>
+                           <waarde>18000</waarde>
+                           <valuta>
+                              <code>EUR</code>
+                              <omschrijving>Euro</omschrijving>
+                              <referentieType>Valuta</referentieType>
+                           </valuta>
+                        </bedrag>
+                     </gestortKapitaal>
+                     <bezoekLocatie>
+                        <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>20060704</datumAanvang>
+                        </registratie>
+                        <afgeschermd>
+                           <code>N</code>
+                           <omschrijving>Nee</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </afgeschermd>
+                        <adres>
+                           <binnenlandsAdres>
+                              <straatnaam>Arnhemsestraatweg</straatnaam>
+                              <huisnummer>8</huisnummer>
+                              <postcode>
+                                 <cijfercombinatie>6881</cijfercombinatie>
+                                 <lettercombinatie>NG</lettercombinatie>
+                              </postcode>
+                              <plaats>Velp</plaats>
+                              <bagId>
+                                 <identificatieNummeraanduiding>0275200000093073</identificatieNummeraanduiding>
+                                 <identificatieAdresseerbaarObject>0275010000000969</identificatieAdresseerbaarObject>
+                              </bagId>
+                           </binnenlandsAdres>
+                        </adres>
+                        <volledigAdres>Arnhemsestraatweg 8
+6881NG Velp</volledigAdres>
+                     </bezoekLocatie>
+                  </rechtspersoon>
+               </heeftAlsEigenaar>
+            </maatschappelijkeActiviteit>
+         </product>
+      </ophalenInschrijvingResponse>
+   </wstxns8:Body>
+</soap:Envelope>
