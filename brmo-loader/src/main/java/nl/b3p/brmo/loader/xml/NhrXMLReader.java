@@ -166,6 +166,8 @@ public class NhrXMLReader extends BrmoXMLReader {
                     LOG.debug("NAAM: " + i + ": " + nodeList.item(i).getNodeName() + " - " + nodeList.item(i).getTextContent());
                     _cleanName = nodeList.item(i).getTextContent()
                             .replace(" ", "")
+                            // komt soms in bedrijfsnaam voor '& Co'
+                            .replace("&", "")
                             .replace("'", "");
                     bsnHashes.put(_cleanName, getHash(_cleanName));
                 }

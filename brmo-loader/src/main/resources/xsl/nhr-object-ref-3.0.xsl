@@ -69,7 +69,14 @@
             <xsl:when test="cat:volledigeNaam">
                 <!-- verwijder ongeldige chars zoals spatie, apostrof, -->
                 <xsl:variable name="APOS">'</xsl:variable>
-                <xsl:variable name="lookfor" select="translate(translate(cat:volledigeNaam,' ',''),$APOS,'')"/>
+                <xsl:variable name="lookfor"
+                              select="translate(
+                                      translate(
+                                      translate(
+                                        cat:volledigeNaam,' ','')
+                                                         ,$APOS,'')
+                                                         ,'&amp;', '')"
+                />
                 <xsl:variable name="hashsoort" select="'naam.'"/>
 
                 <xsl:value-of select="$hashsoort"/>

@@ -1,0 +1,1126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Geanonimiseerd door B3Partners BV op 2020-06-26+02:00, zie commentaar in bericht.-->
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+   <wstxns1:Header xmlns:wsa="http://www.w3.org/2005/08/addressing"
+                   xmlns:wstxns1="http://schemas.xmlsoap.org/soap/envelope/"/>
+   <wstxns8:Body xmlns:wstxns8="http://schemas.xmlsoap.org/soap/envelope/"
+                 xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+                 wsu:Id="id-1-42b2f1eeb0070fdc9ef8b8be647d4b85">
+      <ophalenInschrijvingResponse xmlns="http://schemas.kvk.nl/schemas/hrip/dataservice/2015/02"
+                                   peilmoment="20200618154128904">
+         <meldingen>
+            <informatie>
+               <code>IPD0000</code>
+               <omschrijving>Het product is succesvol geproduceerd</omschrijving>
+               <referentie>02014331</referentie>
+            </informatie>
+         </meldingen>
+         <product>
+            <maatschappelijkeActiviteit xmlns="http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02">
+               <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                  <datumAanvang>19671227</datumAanvang>
+               </registratie>
+               <kvkNummer>02014331</kvkNummer>
+               <nonMailing>
+                  <code>N</code>
+                  <omschrijving>Nee</omschrijving>
+                  <referentieType>geenRT</referentieType>
+               </nonMailing>
+               <incidenteelUitlenenArbeidskrachten>
+                  <code>N</code>
+                  <omschrijving>Nee</omschrijving>
+                  <referentieType>geenRT</referentieType>
+               </incidenteelUitlenenArbeidskrachten>
+               <bezoekLocatie>
+                  <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <datumAanvang>20041101</datumAanvang>
+                  </registratie>
+                  <afgeschermd>
+                     <code>N</code>
+                     <omschrijving>Nee</omschrijving>
+                     <referentieType>geenRT</referentieType>
+                  </afgeschermd>
+                  <adres>
+                     <binnenlandsAdres>
+                        <straatnaam>Kustweg</straatnaam>
+                        <huisnummer>12</huisnummer>
+                        <postcode>
+                           <cijfercombinatie>9976</cijfercombinatie>
+                           <lettercombinatie>VP</lettercombinatie>
+                        </postcode>
+                        <plaats>Lauwersoog</plaats>
+                        <bagId>
+                           <identificatieNummeraanduiding>1663200000001915</identificatieNummeraanduiding>
+                           <identificatieAdresseerbaarObject>1663010000001915</identificatieAdresseerbaarObject>
+                        </bagId>
+                     </binnenlandsAdres>
+                  </adres>
+                  <volledigAdres>Kustweg 12
+9976VP Lauwersoog</volledigAdres>
+               </bezoekLocatie>
+               <postLocatie>
+                  <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <datumAanvang>20041101</datumAanvang>
+                  </registratie>
+                  <afgeschermd>
+                     <code>N</code>
+                     <omschrijving>Nee</omschrijving>
+                     <referentieType>geenRT</referentieType>
+                  </afgeschermd>
+                  <adres>
+                     <binnenlandsAdres>
+                        <straatnaam>Kustweg</straatnaam>
+                        <huisnummer>12</huisnummer>
+                        <postcode>
+                           <cijfercombinatie>9976</cijfercombinatie>
+                           <lettercombinatie>VP</lettercombinatie>
+                        </postcode>
+                        <plaats>Lauwersoog</plaats>
+                        <bagId>
+                           <identificatieNummeraanduiding>1663200000001915</identificatieNummeraanduiding>
+                           <identificatieAdresseerbaarObject>1663010000001915</identificatieAdresseerbaarObject>
+                        </bagId>
+                     </binnenlandsAdres>
+                  </adres>
+                  <volledigAdres>Kustweg 12
+9976VP Lauwersoog</volledigAdres>
+               </postLocatie>
+               <communicatiegegevens>
+                  <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <datumAanvang>19180000</datumAanvang>
+                  </registratie>
+                  <communicatienummer>
+                     <toegangscode>+31</toegangscode>
+                     <nummer>0519349999</nummer>
+                     <soort>
+                        <code>T</code>
+                        <omschrijving>Telefoon</omschrijving>
+                     </soort>
+                  </communicatienummer>
+                  <communicatienummer>
+                     <toegangscode>+31</toegangscode>
+                     <nummer>0519349366</nummer>
+                     <soort>
+                        <code>F</code>
+                        <omschrijving>Fax</omschrijving>
+                     </soort>
+                  </communicatienummer>
+                  <emailAdres>info@visserlauwersoog.nl</emailAdres>
+                  <domeinNaam>www.visserlauwersoog.nl</domeinNaam>
+               </communicatiegegevens>
+               <naam>Visser Transport B.V.</naam>
+               <manifesteertZichAls>
+                  <relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <datumAanvang>19720705</datumAanvang>
+                  </relatieRegistratie>
+                  <onderneming>
+                     <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                        <datumAanvang>19180000</datumAanvang>
+                     </registratie>
+                     <kvkNummer>02014331</kvkNummer>
+                     <sbiActiviteit>
+                        <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>19180000</datumAanvang>
+                        </registratie>
+                        <sbiCode>
+                           <code>4941</code>
+                           <omschrijving>Goederenvervoer over de weg (geen verhuizingen)</omschrijving>
+                           <referentieType>ActiviteitCode</referentieType>
+                        </sbiCode>
+                        <isHoofdactiviteit>
+                           <code>J</code>
+                           <omschrijving>Ja</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </isHoofdactiviteit>
+                     </sbiActiviteit>
+                     <sbiActiviteit>
+                        <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>19180000</datumAanvang>
+                        </registratie>
+                        <sbiCode>
+                           <code>46382</code>
+                           <omschrijving>Groothandel in vis, schaal- en weekdieren</omschrijving>
+                           <referentieType>ActiviteitCode</referentieType>
+                        </sbiCode>
+                        <isHoofdactiviteit>
+                           <code>N</code>
+                           <omschrijving>Nee</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </isHoofdactiviteit>
+                     </sbiActiviteit>
+                     <sbiActiviteit>
+                        <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>19180000</datumAanvang>
+                        </registratie>
+                        <sbiCode>
+                           <code>45112</code>
+                           <omschrijving>Handel in en reparatie van personenauto's en lichte bedrijfsauto's (geen import van nieuwe)</omschrijving>
+                           <referentieType>ActiviteitCode</referentieType>
+                        </sbiCode>
+                        <isHoofdactiviteit>
+                           <code>N</code>
+                           <omschrijving>Nee</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </isHoofdactiviteit>
+                     </sbiActiviteit>
+                     <voltijdWerkzamePersonen>41</voltijdWerkzamePersonen>
+                     <deeltijdWerkzamePersonen>2</deeltijdWerkzamePersonen>
+                     <totaalWerkzamePersonen>43</totaalWerkzamePersonen>
+                     <handeltOnder>
+                        <handelsnaam>
+                           <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <datumAanvang>20050408</datumAanvang>
+                           </registratie>
+                           <naam>Visser Transport B.V.</naam>
+                           <volgorde>0</volgorde>
+                        </handelsnaam>
+                     </handeltOnder>
+                     <wordtUitgeoefendIn>
+                        <relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>19720705</datumAanvang>
+                        </relatieRegistratie>
+                        <commercieleVestiging>
+                           <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <datumAanvang>19180000</datumAanvang>
+                           </registratie>
+                           <vestigingsnummer>000016459105</vestigingsnummer>
+                           <bezoekLocatie>
+                              <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <datumAanvang>20041101</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <straatnaam>Kustweg</straatnaam>
+                                    <huisnummer>12</huisnummer>
+                                    <postcode>
+                                       <cijfercombinatie>9976</cijfercombinatie>
+                                       <lettercombinatie>VP</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Lauwersoog</plaats>
+                                    <bagId>
+                                       <identificatieNummeraanduiding>1663200000001915</identificatieNummeraanduiding>
+                                       <identificatieAdresseerbaarObject>1663010000001915</identificatieAdresseerbaarObject>
+                                    </bagId>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Kustweg 12
+9976VP Lauwersoog</volledigAdres>
+                           </bezoekLocatie>
+                           <postLocatie>
+                              <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <datumAanvang>20041101</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <straatnaam>Kustweg</straatnaam>
+                                    <huisnummer>12</huisnummer>
+                                    <postcode>
+                                       <cijfercombinatie>9976</cijfercombinatie>
+                                       <lettercombinatie>VP</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Lauwersoog</plaats>
+                                    <bagId>
+                                       <identificatieNummeraanduiding>1663200000001915</identificatieNummeraanduiding>
+                                       <identificatieAdresseerbaarObject>1663010000001915</identificatieAdresseerbaarObject>
+                                    </bagId>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Kustweg 12
+9976VP Lauwersoog</volledigAdres>
+                           </postLocatie>
+                           <communicatiegegevens>
+                              <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <datumAanvang>19180000</datumAanvang>
+                              </registratie>
+                              <communicatienummer>
+                                 <toegangscode>+31</toegangscode>
+                                 <nummer>0519349999</nummer>
+                                 <soort>
+                                    <code>T</code>
+                                    <omschrijving>Telefoon</omschrijving>
+                                 </soort>
+                              </communicatienummer>
+                              <communicatienummer>
+                                 <toegangscode>+31</toegangscode>
+                                 <nummer>0519349366</nummer>
+                                 <soort>
+                                    <code>F</code>
+                                    <omschrijving>Fax</omschrijving>
+                                 </soort>
+                              </communicatienummer>
+                              <emailAdres>info@visserlauwersoog.nl</emailAdres>
+                              <domeinNaam>www.visserlauwersoog.nl</domeinNaam>
+                           </communicatiegegevens>
+                           <eersteHandelsnaam>Visser Transport B.V.</eersteHandelsnaam>
+                           <voltijdWerkzamePersonen>38</voltijdWerkzamePersonen>
+                           <deeltijdWerkzamePersonen>2</deeltijdWerkzamePersonen>
+                           <totaalWerkzamePersonen>40</totaalWerkzamePersonen>
+                           <activiteiten>
+                              <omschrijving>Transport- en expeditiebedrijf, automobiel- en garagebedrijf, verhuur van auto's; Bedrijfstakken welke verwant zijn aan of verband houden met het bovengenoemde. Kleinhandel in brandstoffen. Groothandel in vis, visproducten, visafval, puf, nest en gedroogde garnalen. Groothandel in granen en andere landbouwproducten. Groothandel in zand, grint, schelpen, grit en aanverwante artikelen. Het deelnemen in soortgelijke en aanverwante bedrijven en in andere bedrijven welke direct of indirect kunnen bijdragen tot bevordering van de reeds bestaande activiteiten en benutting van het productieapparaat.</omschrijving>
+                              <sbiActiviteit>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>19180000</datumAanvang>
+                                 </registratie>
+                                 <sbiCode>
+                                    <code>4941</code>
+                                    <omschrijving>Goederenvervoer over de weg (geen verhuizingen)</omschrijving>
+                                    <referentieType>ActiviteitCode</referentieType>
+                                 </sbiCode>
+                                 <isHoofdactiviteit>
+                                    <code>J</code>
+                                    <omschrijving>Ja</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </isHoofdactiviteit>
+                              </sbiActiviteit>
+                              <sbiActiviteit>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>19180000</datumAanvang>
+                                 </registratie>
+                                 <sbiCode>
+                                    <code>46382</code>
+                                    <omschrijving>Groothandel in vis, schaal- en weekdieren</omschrijving>
+                                    <referentieType>ActiviteitCode</referentieType>
+                                 </sbiCode>
+                                 <isHoofdactiviteit>
+                                    <code>N</code>
+                                    <omschrijving>Nee</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </isHoofdactiviteit>
+                              </sbiActiviteit>
+                              <sbiActiviteit>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>19180000</datumAanvang>
+                                 </registratie>
+                                 <sbiCode>
+                                    <code>45112</code>
+                                    <omschrijving>Handel in en reparatie van personenauto's en lichte bedrijfsauto's (geen import van nieuwe)</omschrijving>
+                                    <referentieType>ActiviteitCode</referentieType>
+                                 </sbiCode>
+                                 <isHoofdactiviteit>
+                                    <code>N</code>
+                                    <omschrijving>Nee</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </isHoofdactiviteit>
+                              </sbiActiviteit>
+                              <exporteert>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </exporteert>
+                              <importeert>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </importeert>
+                           </activiteiten>
+                           <handeltOnder>
+                              <relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <datumAanvang>20050408</datumAanvang>
+                              </relatieRegistratie>
+                              <handelsnaam>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>20050408</datumAanvang>
+                                 </registratie>
+                                 <naam>Visser Transport B.V.</naam>
+                                 <volgorde>0</volgorde>
+                              </handelsnaam>
+                           </handeltOnder>
+                        </commercieleVestiging>
+                     </wordtUitgeoefendIn>
+                     <wordtUitgeoefendIn>
+                        <relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>20041101</datumAanvang>
+                        </relatieRegistratie>
+                        <commercieleVestiging>
+                           <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <datumAanvang>19790326</datumAanvang>
+                           </registratie>
+                           <vestigingsnummer>000016459148</vestigingsnummer>
+                           <bezoekLocatie>
+                              <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <datumAanvang>19790326</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <straatnaam>Aisterbun</straatnaam>
+                                    <huisnummer>11</huisnummer>
+                                    <postcode>
+                                       <cijfercombinatie>9166</cijfercombinatie>
+                                       <lettercombinatie>SM</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Schiermonnikoog</plaats>
+                                    <bagId>
+                                       <identificatieNummeraanduiding>0088200000139043</identificatieNummeraanduiding>
+                                       <identificatieAdresseerbaarObject>0088010000139044</identificatieAdresseerbaarObject>
+                                    </bagId>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Aisterbun 11
+9166SM Schiermonnikoog</volledigAdres>
+                           </bezoekLocatie>
+                           <postLocatie>
+                              <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <datumAanvang>19790326</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <straatnaam>Aisterbun</straatnaam>
+                                    <huisnummer>11</huisnummer>
+                                    <postcode>
+                                       <cijfercombinatie>9166</cijfercombinatie>
+                                       <lettercombinatie>SM</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Schiermonnikoog</plaats>
+                                    <bagId>
+                                       <identificatieNummeraanduiding>0088200000139043</identificatieNummeraanduiding>
+                                       <identificatieAdresseerbaarObject>0088010000139044</identificatieAdresseerbaarObject>
+                                    </bagId>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Aisterbun 11
+9166SM Schiermonnikoog</volledigAdres>
+                           </postLocatie>
+                           <communicatiegegevens>
+                              <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <datumAanvang>19790326</datumAanvang>
+                              </registratie>
+                              <communicatienummer>
+                                 <toegangscode>+31</toegangscode>
+                                 <nummer>0519531213</nummer>
+                                 <soort>
+                                    <code>T</code>
+                                    <omschrijving>Telefoon</omschrijving>
+                                 </soort>
+                              </communicatienummer>
+                           </communicatiegegevens>
+                           <eersteHandelsnaam>Visser Transport B.V.</eersteHandelsnaam>
+                           <voltijdWerkzamePersonen>0</voltijdWerkzamePersonen>
+                           <deeltijdWerkzamePersonen>0</deeltijdWerkzamePersonen>
+                           <totaalWerkzamePersonen>0</totaalWerkzamePersonen>
+                           <activiteiten>
+                              <omschrijving>Transport- en expeditiebedrijf alsmede op- en overslagbedrijf</omschrijving>
+                              <sbiActiviteit>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>19790326</datumAanvang>
+                                 </registratie>
+                                 <sbiCode>
+                                    <code>4941</code>
+                                    <omschrijving>Goederenvervoer over de weg (geen verhuizingen)</omschrijving>
+                                    <referentieType>ActiviteitCode</referentieType>
+                                 </sbiCode>
+                                 <isHoofdactiviteit>
+                                    <code>J</code>
+                                    <omschrijving>Ja</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </isHoofdactiviteit>
+                              </sbiActiviteit>
+                              <exporteert>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </exporteert>
+                              <importeert>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </importeert>
+                           </activiteiten>
+                           <handeltOnder>
+                              <relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <datumAanvang>20050408</datumAanvang>
+                              </relatieRegistratie>
+                              <handelsnaam>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>20050408</datumAanvang>
+                                 </registratie>
+                                 <naam>Visser Transport B.V.</naam>
+                                 <volgorde>0</volgorde>
+                              </handelsnaam>
+                           </handeltOnder>
+                        </commercieleVestiging>
+                     </wordtUitgeoefendIn>
+                     <wordtUitgeoefendIn>
+                        <relatieRegistratie registratieTijdstip="20190208122239462">
+                           <datumAanvang>20190101</datumAanvang>
+                        </relatieRegistratie>
+                        <commercieleVestiging>
+                           <registratie registratieTijdstip="20190208122239462">
+                              <datumAanvang>20190101</datumAanvang>
+                           </registratie>
+                           <vestigingsnummer>000041935020</vestigingsnummer>
+                           <bezoekLocatie>
+                              <registratie registratieTijdstip="20190208122239462">
+                                 <datumAanvang>20190101</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <straatnaam>Noordgat</straatnaam>
+                                    <huisnummer>4</huisnummer>
+                                    <postcode>
+                                       <cijfercombinatie>8321</cijfercombinatie>
+                                       <lettercombinatie>ME</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Urk</plaats>
+                                    <bagId>
+                                       <identificatieNummeraanduiding>0184200000003547</identificatieNummeraanduiding>
+                                       <identificatieAdresseerbaarObject>0184010000003780</identificatieAdresseerbaarObject>
+                                    </bagId>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Noordgat 4
+8321ME Urk</volledigAdres>
+                           </bezoekLocatie>
+                           <postLocatie>
+                              <registratie registratieTijdstip="20190208122239462">
+                                 <datumAanvang>20190101</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <straatnaam>Noordgat</straatnaam>
+                                    <huisnummer>4</huisnummer>
+                                    <postcode>
+                                       <cijfercombinatie>8321</cijfercombinatie>
+                                       <lettercombinatie>ME</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Urk</plaats>
+                                    <bagId>
+                                       <identificatieNummeraanduiding>0184200000003547</identificatieNummeraanduiding>
+                                       <identificatieAdresseerbaarObject>0184010000003780</identificatieAdresseerbaarObject>
+                                    </bagId>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Noordgat 4
+8321ME Urk</volledigAdres>
+                           </postLocatie>
+                           <communicatiegegevens>
+                              <registratie registratieTijdstip="20190208122239462">
+                                 <datumAanvang>20190101</datumAanvang>
+                              </registratie>
+                              <communicatienummer>
+                                 <toegangscode>+31</toegangscode>
+                                 <nummer>0519349999</nummer>
+                                 <soort>
+                                    <code>T</code>
+                                    <omschrijving>Telefoon</omschrijving>
+                                 </soort>
+                              </communicatienummer>
+                              <emailAdres>info@visserlauwersoog.nl</emailAdres>
+                              <domeinNaam>www.visserlauwersoog.nl</domeinNaam>
+                           </communicatiegegevens>
+                           <eersteHandelsnaam>Visser Transport B.V.</eersteHandelsnaam>
+                           <voltijdWerkzamePersonen>3</voltijdWerkzamePersonen>
+                           <deeltijdWerkzamePersonen>0</deeltijdWerkzamePersonen>
+                           <totaalWerkzamePersonen>3</totaalWerkzamePersonen>
+                           <activiteiten>
+                              <omschrijving>Goederenvervoer over de weg. Groothandel in vis, schaal- en weekdieren.</omschrijving>
+                              <sbiActiviteit>
+                                 <registratie registratieTijdstip="20190208122239462">
+                                    <datumAanvang>20190101</datumAanvang>
+                                 </registratie>
+                                 <sbiCode>
+                                    <code>4941</code>
+                                    <omschrijving>Goederenvervoer over de weg (geen verhuizingen)</omschrijving>
+                                    <referentieType>ActiviteitCode</referentieType>
+                                 </sbiCode>
+                                 <isHoofdactiviteit>
+                                    <code>J</code>
+                                    <omschrijving>Ja</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </isHoofdactiviteit>
+                              </sbiActiviteit>
+                              <sbiActiviteit>
+                                 <registratie registratieTijdstip="20190208122239462">
+                                    <datumAanvang>20190101</datumAanvang>
+                                 </registratie>
+                                 <sbiCode>
+                                    <code>46382</code>
+                                    <omschrijving>Groothandel in vis, schaal- en weekdieren</omschrijving>
+                                    <referentieType>ActiviteitCode</referentieType>
+                                 </sbiCode>
+                                 <isHoofdactiviteit>
+                                    <code>N</code>
+                                    <omschrijving>Nee</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </isHoofdactiviteit>
+                              </sbiActiviteit>
+                              <exporteert>
+                                 <code>J</code>
+                                 <omschrijving>Ja</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </exporteert>
+                              <importeert>
+                                 <code>J</code>
+                                 <omschrijving>Ja</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </importeert>
+                           </activiteiten>
+                           <handeltOnder>
+                              <relatieRegistratie registratieTijdstip="20190208122239462">
+                                 <datumAanvang>20190101</datumAanvang>
+                              </relatieRegistratie>
+                              <handelsnaam>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>20050408</datumAanvang>
+                                 </registratie>
+                                 <naam>Visser Transport B.V.</naam>
+                                 <volgorde>0</volgorde>
+                              </handelsnaam>
+                           </handeltOnder>
+                        </commercieleVestiging>
+                     </wordtUitgeoefendIn>
+                  </onderneming>
+               </manifesteertZichAls>
+               <wordtGeleidVanuit>
+                  <commercieleVestiging>
+                     <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                        <datumAanvang>19180000</datumAanvang>
+                     </registratie>
+                     <vestigingsnummer>000016459105</vestigingsnummer>
+                     <bezoekLocatie>
+                        <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>20041101</datumAanvang>
+                        </registratie>
+                        <afgeschermd>
+                           <code>N</code>
+                           <omschrijving>Nee</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </afgeschermd>
+                        <adres>
+                           <binnenlandsAdres>
+                              <straatnaam>Kustweg</straatnaam>
+                              <huisnummer>12</huisnummer>
+                              <postcode>
+                                 <cijfercombinatie>9976</cijfercombinatie>
+                                 <lettercombinatie>VP</lettercombinatie>
+                              </postcode>
+                              <plaats>Lauwersoog</plaats>
+                              <bagId>
+                                 <identificatieNummeraanduiding>1663200000001915</identificatieNummeraanduiding>
+                                 <identificatieAdresseerbaarObject>1663010000001915</identificatieAdresseerbaarObject>
+                              </bagId>
+                           </binnenlandsAdres>
+                        </adres>
+                        <volledigAdres>Kustweg 12
+9976VP Lauwersoog</volledigAdres>
+                     </bezoekLocatie>
+                     <postLocatie>
+                        <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>20041101</datumAanvang>
+                        </registratie>
+                        <afgeschermd>
+                           <code>N</code>
+                           <omschrijving>Nee</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </afgeschermd>
+                        <adres>
+                           <binnenlandsAdres>
+                              <straatnaam>Kustweg</straatnaam>
+                              <huisnummer>12</huisnummer>
+                              <postcode>
+                                 <cijfercombinatie>9976</cijfercombinatie>
+                                 <lettercombinatie>VP</lettercombinatie>
+                              </postcode>
+                              <plaats>Lauwersoog</plaats>
+                              <bagId>
+                                 <identificatieNummeraanduiding>1663200000001915</identificatieNummeraanduiding>
+                                 <identificatieAdresseerbaarObject>1663010000001915</identificatieAdresseerbaarObject>
+                              </bagId>
+                           </binnenlandsAdres>
+                        </adres>
+                        <volledigAdres>Kustweg 12
+9976VP Lauwersoog</volledigAdres>
+                     </postLocatie>
+                     <communicatiegegevens>
+                        <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>19180000</datumAanvang>
+                        </registratie>
+                        <communicatienummer>
+                           <toegangscode>+31</toegangscode>
+                           <nummer>0519349999</nummer>
+                           <soort>
+                              <code>T</code>
+                              <omschrijving>Telefoon</omschrijving>
+                           </soort>
+                        </communicatienummer>
+                        <communicatienummer>
+                           <toegangscode>+31</toegangscode>
+                           <nummer>0519349366</nummer>
+                           <soort>
+                              <code>F</code>
+                              <omschrijving>Fax</omschrijving>
+                           </soort>
+                        </communicatienummer>
+                        <emailAdres>info@visserlauwersoog.nl</emailAdres>
+                        <domeinNaam>www.visserlauwersoog.nl</domeinNaam>
+                     </communicatiegegevens>
+                     <eersteHandelsnaam>Visser Transport B.V.</eersteHandelsnaam>
+                     <voltijdWerkzamePersonen>38</voltijdWerkzamePersonen>
+                     <deeltijdWerkzamePersonen>2</deeltijdWerkzamePersonen>
+                     <totaalWerkzamePersonen>40</totaalWerkzamePersonen>
+                     <activiteiten>
+                        <omschrijving>Transport- en expeditiebedrijf, automobiel- en garagebedrijf, verhuur van auto's; Bedrijfstakken welke verwant zijn aan of verband houden met het bovengenoemde. Kleinhandel in brandstoffen. Groothandel in vis, visproducten, visafval, puf, nest en gedroogde garnalen. Groothandel in granen en andere landbouwproducten. Groothandel in zand, grint, schelpen, grit en aanverwante artikelen. Het deelnemen in soortgelijke en aanverwante bedrijven en in andere bedrijven welke direct of indirect kunnen bijdragen tot bevordering van de reeds bestaande activiteiten en benutting van het productieapparaat.</omschrijving>
+                        <sbiActiviteit>
+                           <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <datumAanvang>19180000</datumAanvang>
+                           </registratie>
+                           <sbiCode>
+                              <code>4941</code>
+                              <omschrijving>Goederenvervoer over de weg (geen verhuizingen)</omschrijving>
+                              <referentieType>ActiviteitCode</referentieType>
+                           </sbiCode>
+                           <isHoofdactiviteit>
+                              <code>J</code>
+                              <omschrijving>Ja</omschrijving>
+                              <referentieType>geenRT</referentieType>
+                           </isHoofdactiviteit>
+                        </sbiActiviteit>
+                        <sbiActiviteit>
+                           <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <datumAanvang>19180000</datumAanvang>
+                           </registratie>
+                           <sbiCode>
+                              <code>46382</code>
+                              <omschrijving>Groothandel in vis, schaal- en weekdieren</omschrijving>
+                              <referentieType>ActiviteitCode</referentieType>
+                           </sbiCode>
+                           <isHoofdactiviteit>
+                              <code>N</code>
+                              <omschrijving>Nee</omschrijving>
+                              <referentieType>geenRT</referentieType>
+                           </isHoofdactiviteit>
+                        </sbiActiviteit>
+                        <sbiActiviteit>
+                           <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <datumAanvang>19180000</datumAanvang>
+                           </registratie>
+                           <sbiCode>
+                              <code>45112</code>
+                              <omschrijving>Handel in en reparatie van personenauto's en lichte bedrijfsauto's (geen import van nieuwe)</omschrijving>
+                              <referentieType>ActiviteitCode</referentieType>
+                           </sbiCode>
+                           <isHoofdactiviteit>
+                              <code>N</code>
+                              <omschrijving>Nee</omschrijving>
+                              <referentieType>geenRT</referentieType>
+                           </isHoofdactiviteit>
+                        </sbiActiviteit>
+                        <exporteert>
+                           <code>N</code>
+                           <omschrijving>Nee</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </exporteert>
+                        <importeert>
+                           <code>N</code>
+                           <omschrijving>Nee</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </importeert>
+                     </activiteiten>
+                     <handeltOnder>
+                        <relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>20050408</datumAanvang>
+                        </relatieRegistratie>
+                        <handelsnaam>
+                           <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <datumAanvang>20050408</datumAanvang>
+                           </registratie>
+                           <naam>Visser Transport B.V.</naam>
+                           <volgorde>0</volgorde>
+                        </handelsnaam>
+                     </handeltOnder>
+                  </commercieleVestiging>
+               </wordtGeleidVanuit>
+               <heeftAlsEigenaar>
+                  <relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <datumAanvang>19720705</datumAanvang>
+                  </relatieRegistratie>
+                  <rechtspersoon>
+                     <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                        <datumAanvang>19671227</datumAanvang>
+                     </registratie>
+                     <persoonRechtsvorm>Besloten Vennootschap</persoonRechtsvorm>
+                     <volledigeNaam>Visser Transport B.V.</volledigeNaam>
+                     <uitgebreideRechtsvorm>Besloten Vennootschap</uitgebreideRechtsvorm>
+                     <heeft>
+                        <bestuursfunctie>
+                           <registratie registratieTijdstip="20100916150521133">
+                              <datumAanvang>20100915</datumAanvang>
+                           </registratie>
+                           <door>
+                              <natuurlijkPersoon>
+                                 <extraElementen>
+                                    <extraElement naam="achternaam">b75 e4e1c5</extraElement>
+                                    <!--Anonimisatie 'extraElement': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--></extraElementen>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>20280130</datumAanvang>
+                                    <!--Anonimisatie 'datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></registratie>
+                                 <volledigeNaam>9d7b 89c796bec ba4922 fdd 1fc9e2</volledigeNaam>
+                                 <!--Anonimisatie 'volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><bezoekLocatiePersoon>
+                                    <registratie registratieTijdstip="20100916144456560"/>
+                                    <afgeschermd>
+                                       <code>N</code>
+                                       <omschrijving>Nee</omschrijving>
+                                       <referentieType>geenRT</referentieType>
+                                    </afgeschermd>
+                                    <adres>
+                                       <buitenlandsAdres>
+                                          <straatHuisnummer>Debstedter Chaussee 14a</straatHuisnummer>
+                                          <postcodeWoonplaats>D 27607 Langen-Neuenwalde</postcodeWoonplaats>
+                                          <land>
+                                             <code>9089</code>
+                                             <omschrijving>Bondsrepubliek Duitsland</omschrijving>
+                                             <referentieType>Land</referentieType>
+                                          </land>
+                                       </buitenlandsAdres>
+                                    </adres>
+                                    <volledigAdres>Debstedter Chaussee 14a
+D 27607 Langen-Neuenwalde
+Bondsrepubliek Duitsland</volledigAdres>
+                                 </bezoekLocatiePersoon>
+                                 <geslachtsnaam>b75 e4e1c5</geslachtsnaam>
+                                 <!--Anonimisatie 'geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><voornamen>472b 28d1bfe46 3eb82e</voornamen>
+                                 <!--Anonimisatie 'voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geslachtsaanduiding>
+                                    <code>m</code>
+                                    <omschrijving>Mannelijk</omschrijving>
+                                    <referentieType>Geslacht</referentieType>
+                                 </geslachtsaanduiding>
+                                 <geboorteplaats>51870a7ff3</geboorteplaats>
+                                 <!--Anonimisatie 'geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geboorteland>
+                                    <code>9089</code>
+                                    <omschrijving>Bondsrepubliek Duitsland</omschrijving>
+                                    <referentieType>Land</referentieType>
+                                 </geboorteland>
+                                 <geboortedatum>20280130</geboortedatum>
+                                 <!--Anonimisatie 'geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></natuurlijkPersoon>
+                           </door>
+                           <functie>
+                              <code>02</code>
+                              <omschrijving>Bestuurder</omschrijving>
+                              <referentieType>FunctionarisRol</referentieType>
+                           </functie>
+                           <bevoegdheid>
+                              <registratie registratieTijdstip="20100916150521133">
+                                 <datumAanvang>20100915</datumAanvang>
+                              </registratie>
+                              <soort>
+                                 <code>azb</code>
+                                 <omschrijving>Alleen/zelfstandig bevoegd</omschrijving>
+                                 <referentieType>SoortBevoegdheidBestuurder</referentieType>
+                              </soort>
+                              <isBevoegdMetAnderePersonen>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isBevoegdMetAnderePersonen>
+                           </bevoegdheid>
+                        </bestuursfunctie>
+                     </heeft>
+                     <heeft>
+                        <overigeFunctionaris>
+                           <registratie registratieTijdstip="20100916150521133">
+                              <datumAanvang>20100915</datumAanvang>
+                           </registratie>
+                           <door>
+                              <buitenlandseVennootschap>
+                                 <volledigeNaam>BIOCEVAL GmbH &amp; Co. KG</volledigeNaam>
+                                 <bezoekLocatiePersoon>
+                                    <registratie registratieTijdstip="20100916144456560"/>
+                                    <afgeschermd>
+                                       <code>N</code>
+                                       <omschrijving>Nee</omschrijving>
+                                       <referentieType>geenRT</referentieType>
+                                    </afgeschermd>
+                                    <adres>
+                                       <buitenlandsAdres>
+                                          <straatHuisnummer>Neufelder Strasse 44</straatHuisnummer>
+                                          <postcodeWoonplaats>D 27472 Cuxhaven</postcodeWoonplaats>
+                                          <land>
+                                             <code>9089</code>
+                                             <omschrijving>Bondsrepubliek Duitsland</omschrijving>
+                                             <referentieType>Land</referentieType>
+                                          </land>
+                                       </buitenlandsAdres>
+                                    </adres>
+                                    <volledigAdres>Neufelder Strasse 44
+D 27472 Cuxhaven
+Bondsrepubliek Duitsland</volledigAdres>
+                                 </bezoekLocatiePersoon>
+                                 <buitenlandseRegistratieGegevens>
+                                    <naam>Tostedt - Handelsregister</naam>
+                                    <plaats>Tostedt</plaats>
+                                    <land>
+                                       <code>9089</code>
+                                       <omschrijving>Bondsrepubliek Duitsland</omschrijving>
+                                       <referentieType>Land</referentieType>
+                                    </land>
+                                    <inschrijfnummer>HRA 110464</inschrijfnummer>
+                                    <buitenlandseRegistratie>Tostedt - Handelsregister
+Tostedt, Bondsrepubliek Duitsland
+Onder nummer HRA 110464</buitenlandseRegistratie>
+                                 </buitenlandseRegistratieGegevens>
+                                 <landVanVestiging>
+                                    <code>9089</code>
+                                    <omschrijving>Bondsrepubliek Duitsland</omschrijving>
+                                    <referentieType>Land</referentieType>
+                                 </landVanVestiging>
+                              </buitenlandseVennootschap>
+                           </door>
+                           <functie>
+                              <code>08</code>
+                              <omschrijving>Enig aandeelhouder</omschrijving>
+                              <referentieType>FunctionarisRol</referentieType>
+                           </functie>
+                        </overigeFunctionaris>
+                     </heeft>
+                     <heeft>
+                        <gemachtigde>
+                           <registratie registratieTijdstip="20190520163513067">
+                              <datumAanvang>20190501</datumAanvang>
+                           </registratie>
+                           <functietitel>
+                              <registratie registratieTijdstip="20190520163513067">
+                                 <datumAanvang>20190501</datumAanvang>
+                              </registratie>
+                              <titel>Vervoersmanager</titel>
+                              <isStatutaireTitel>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isStatutaireTitel>
+                           </functietitel>
+                           <door>
+                              <natuurlijkPersoon>
+                                 <extraElementen>
+                                    <extraElement naam="achternaam">b0bf51</extraElement>
+                                    <!--Anonimisatie 'extraElement': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--></extraElementen>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>19930304</datumAanvang>
+                                    <!--Anonimisatie 'datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></registratie>
+                                 <volledigeNaam>f7c46d0 bbb0ab</volledigeNaam>
+                                 <!--Anonimisatie 'volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><bezoekLocatiePersoon>
+                                    <registratie registratieTijdstip="20190520163513067"/>
+                                    <afgeschermd>
+                                       <code>N</code>
+                                       <omschrijving>Nee</omschrijving>
+                                       <referentieType>geenRT</referentieType>
+                                    </afgeschermd>
+                                    <adres>
+                                       <binnenlandsAdres>
+                                          <straatnaam>Ereprijs</straatnaam>
+                                          <huisnummer>3</huisnummer>
+                                          <postcode>
+                                             <cijfercombinatie>9302</cijfercombinatie>
+                                             <lettercombinatie>AM</lettercombinatie>
+                                          </postcode>
+                                          <plaats>Roden</plaats>
+                                          <bagId>
+                                             <identificatieNummeraanduiding>1699200000004340</identificatieNummeraanduiding>
+                                             <identificatieAdresseerbaarObject>1699010000006752</identificatieAdresseerbaarObject>
+                                          </bagId>
+                                       </binnenlandsAdres>
+                                    </adres>
+                                    <volledigAdres>Ereprijs 3
+9302AM Roden</volledigAdres>
+                                 </bezoekLocatiePersoon>
+                                 <bsn>984449544</bsn>
+                                 <!--Anonimisatie 'bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><geslachtsnaam>b0bf51</geslachtsnaam>
+                                 <!--Anonimisatie 'geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><voornamen>f5aa505</voornamen>
+                                 <!--Anonimisatie 'voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geslachtsaanduiding>
+                                    <code>m</code>
+                                    <omschrijving>Mannelijk</omschrijving>
+                                    <referentieType>Geslacht</referentieType>
+                                 </geslachtsaanduiding>
+                                 <geboorteplaats>52238</geboorteplaats>
+                                 <!--Anonimisatie 'geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geboorteland>
+                                    <code>6030</code>
+                                    <omschrijving>Nederland</omschrijving>
+                                    <referentieType>Land</referentieType>
+                                 </geboorteland>
+                                 <geboortedatum>19930304</geboortedatum>
+                                 <!--Anonimisatie 'geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></natuurlijkPersoon>
+                           </door>
+                           <functie>
+                              <code>01</code>
+                              <omschrijving>Gevolmachtigde</omschrijving>
+                              <referentieType>FunctionarisRol</referentieType>
+                           </functie>
+                           <volmacht>
+                              <registratie registratieTijdstip="20190711115151447">
+                                 <datumAanvang>20190501</datumAanvang>
+                              </registratie>
+                              <typeVolmacht>
+                                 <code>b</code>
+                                 <omschrijving>Beperkte volmacht</omschrijving>
+                                 <referentieType>VolmachtType</referentieType>
+                              </typeVolmacht>
+                              <isStatutair>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isStatutair>
+                              <beperkteVolmacht>
+                                 <beperkingInGeld>
+                                    <waarde>250</waarde>
+                                    <valuta>
+                                       <code>EUR</code>
+                                       <omschrijving>Euro</omschrijving>
+                                       <referentieType>Valuta</referentieType>
+                                    </valuta>
+                                 </beperkingInGeld>
+                                 <magOpgaveHandelsregisterDoen>
+                                    <code>N</code>
+                                    <omschrijving>Nee</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </magOpgaveHandelsregisterDoen>
+                                 <heeftOverigeVolmacht>
+                                    <code>J</code>
+                                    <omschrijving>Ja</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </heeftOverigeVolmacht>
+                                 <omschrijvingOverigeVolmacht>Volledige volmacht m.b.t. de vervoersactiviteiten van de onderneming</omschrijvingOverigeVolmacht>
+                                 <beperkingInHandeling>
+                                    <soortHandeling>
+                                       <code>opstoff</code>
+                                       <omschrijving>Opstellen offertes</omschrijving>
+                                       <referentieType>SoortHandeling</referentieType>
+                                    </soortHandeling>
+                                 </beperkingInHandeling>
+                                 <beperkingInHandeling>
+                                    <soortHandeling>
+                                       <code>RDWEKD</code>
+                                       <omschrijving>RDW eDienst Kentekendiensten</omschrijving>
+                                       <referentieType>SoortHandeling</referentieType>
+                                    </soortHandeling>
+                                 </beperkingInHandeling>
+                              </beperkteVolmacht>
+                           </volmacht>
+                        </gemachtigde>
+                     </heeft>
+                     <rsin>001082632</rsin>
+                     <naamgeving>
+                        <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>20050408</datumAanvang>
+                        </registratie>
+                        <naam>Visser Transport B.V.</naam>
+                     </naamgeving>
+                     <heeftGedeponeerd>
+                        <jaarstukJaarrekening>
+                           <depotId>43ba85fd:170f41a85df:-16</depotId>
+                           <status>
+                              <code>1</code>
+                              <omschrijving>Actueel</omschrijving>
+                              <referentieType>StatusDepotstuk</referentieType>
+                           </status>
+                           <datumDeponering>20200319</datumDeponering>
+                           <boekjaar>2019</boekjaar>
+                           <vaststelling>
+                              <code>D</code>
+                              <omschrijving>Definitief</omschrijving>
+                              <referentieType>VaststellingJaarrekening</referentieType>
+                           </vaststelling>
+                        </jaarstukJaarrekening>
+                     </heeftGedeponeerd>
+                     <rechtsvorm>
+                        <code>BV</code>
+                        <omschrijving>Besloten Vennootschap</omschrijving>
+                        <referentieType>Rechtsvorm</referentieType>
+                     </rechtsvorm>
+                     <statutaireZetel>Lauwersoog, in de gemeente De Marne</statutaireZetel>
+                     <aanvangStatutaireZetel>19671227</aanvangStatutaireZetel>
+                     <datumAkteOprichting>19671227</datumAkteOprichting>
+                     <datumAkteStatutenwijziging>20140128</datumAkteStatutenwijziging>
+                     <stelselInrichting>
+                        <code>D</code>
+                        <omschrijving>Dualistisch</omschrijving>
+                        <referentieType>StelselInrichting</referentieType>
+                     </stelselInrichting>
+                     <structuur>
+                        <code>GS</code>
+                        <omschrijving>Gewone structuur</omschrijving>
+                        <referentieType>RechtsvormStructuur</referentieType>
+                     </structuur>
+                     <geplaatstKapitaal>
+                        <registratie registratieTijdstip="20120929144654567"/>
+                        <bedrag>
+                           <waarde>22689.01</waarde>
+                           <valuta>
+                              <code>EUR</code>
+                              <omschrijving>Euro</omschrijving>
+                              <referentieType>Valuta</referentieType>
+                           </valuta>
+                        </bedrag>
+                     </geplaatstKapitaal>
+                     <gestortKapitaal>
+                        <registratie registratieTijdstip="20120929144654567"/>
+                        <bedrag>
+                           <waarde>22689.01</waarde>
+                           <valuta>
+                              <code>EUR</code>
+                              <omschrijving>Euro</omschrijving>
+                              <referentieType>Valuta</referentieType>
+                           </valuta>
+                        </bedrag>
+                     </gestortKapitaal>
+                     <bezoekLocatie>
+                        <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>20041101</datumAanvang>
+                        </registratie>
+                        <afgeschermd>
+                           <code>N</code>
+                           <omschrijving>Nee</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </afgeschermd>
+                        <adres>
+                           <binnenlandsAdres>
+                              <straatnaam>Kustweg</straatnaam>
+                              <huisnummer>12</huisnummer>
+                              <postcode>
+                                 <cijfercombinatie>9976</cijfercombinatie>
+                                 <lettercombinatie>VP</lettercombinatie>
+                              </postcode>
+                              <plaats>Lauwersoog</plaats>
+                              <bagId>
+                                 <identificatieNummeraanduiding>1663200000001915</identificatieNummeraanduiding>
+                                 <identificatieAdresseerbaarObject>1663010000001915</identificatieAdresseerbaarObject>
+                              </bagId>
+                           </binnenlandsAdres>
+                        </adres>
+                        <volledigAdres>Kustweg 12
+9976VP Lauwersoog</volledigAdres>
+                     </bezoekLocatie>
+                  </rechtspersoon>
+               </heeftAlsEigenaar>
+            </maatschappelijkeActiviteit>
+         </product>
+      </ophalenInschrijvingResponse>
+   </wstxns8:Body>
+</soap:Envelope>

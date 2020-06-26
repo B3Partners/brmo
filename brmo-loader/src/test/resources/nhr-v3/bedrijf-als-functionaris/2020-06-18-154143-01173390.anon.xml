@@ -1,0 +1,980 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Geanonimiseerd door B3Partners BV op 2020-06-26+02:00, zie commentaar in bericht.-->
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+   <wstxns1:Header xmlns:wsa="http://www.w3.org/2005/08/addressing"
+                   xmlns:wstxns1="http://schemas.xmlsoap.org/soap/envelope/"/>
+   <wstxns8:Body xmlns:wstxns8="http://schemas.xmlsoap.org/soap/envelope/"
+                 xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+                 wsu:Id="id-1-784729a063bdeb02afa288be5515d9dd">
+      <ophalenInschrijvingResponse xmlns="http://schemas.kvk.nl/schemas/hrip/dataservice/2015/02"
+                                   peilmoment="20200618154128904">
+         <meldingen>
+            <informatie>
+               <code>IPD0000</code>
+               <omschrijving>Het product is succesvol geproduceerd</omschrijving>
+               <referentie>01173390</referentie>
+            </informatie>
+         </meldingen>
+         <product>
+            <maatschappelijkeActiviteit xmlns="http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02">
+               <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                  <datumAanvang>19940501</datumAanvang>
+               </registratie>
+               <kvkNummer>01173390</kvkNummer>
+               <nonMailing>
+                  <code>N</code>
+                  <omschrijving>Nee</omschrijving>
+                  <referentieType>geenRT</referentieType>
+               </nonMailing>
+               <incidenteelUitlenenArbeidskrachten>
+                  <code>N</code>
+                  <omschrijving>Nee</omschrijving>
+                  <referentieType>geenRT</referentieType>
+               </incidenteelUitlenenArbeidskrachten>
+               <bezoekLocatie>
+                  <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <datumAanvang>19900101</datumAanvang>
+                  </registratie>
+                  <afgeschermd>
+                     <code>N</code>
+                     <omschrijving>Nee</omschrijving>
+                     <referentieType>geenRT</referentieType>
+                  </afgeschermd>
+                  <adres>
+                     <binnenlandsAdres>
+                        <straatnaam>Biskopsreed</straatnaam>
+                        <huisnummer>1</huisnummer>
+                        <postcode>
+                           <cijfercombinatie>9241</cijfercombinatie>
+                           <lettercombinatie>WR</lettercombinatie>
+                        </postcode>
+                        <plaats>Wijnjewoude</plaats>
+                        <bagId>
+                           <identificatieNummeraanduiding>0086200000384365</identificatieNummeraanduiding>
+                           <identificatieAdresseerbaarObject>0086010000384366</identificatieAdresseerbaarObject>
+                        </bagId>
+                     </binnenlandsAdres>
+                  </adres>
+                  <volledigAdres>Biskopsreed 1
+9241WR Wijnjewoude</volledigAdres>
+               </bezoekLocatie>
+               <postLocatie>
+                  <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <datumAanvang>19900101</datumAanvang>
+                  </registratie>
+                  <afgeschermd>
+                     <code>N</code>
+                     <omschrijving>Nee</omschrijving>
+                     <referentieType>geenRT</referentieType>
+                  </afgeschermd>
+                  <adres>
+                     <binnenlandsAdres>
+                        <straatnaam>Biskopsreed</straatnaam>
+                        <huisnummer>1</huisnummer>
+                        <postcode>
+                           <cijfercombinatie>9241</cijfercombinatie>
+                           <lettercombinatie>WR</lettercombinatie>
+                        </postcode>
+                        <plaats>Wijnjewoude</plaats>
+                        <bagId>
+                           <identificatieNummeraanduiding>0086200000384365</identificatieNummeraanduiding>
+                           <identificatieAdresseerbaarObject>0086010000384366</identificatieAdresseerbaarObject>
+                        </bagId>
+                     </binnenlandsAdres>
+                  </adres>
+                  <volledigAdres>Biskopsreed 1
+9241WR Wijnjewoude</volledigAdres>
+               </postLocatie>
+               <communicatiegegevens>
+                  <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <datumAanvang>19900101</datumAanvang>
+                  </registratie>
+                  <communicatienummer>
+                     <toegangscode>+31</toegangscode>
+                     <nummer>0516541086</nummer>
+                     <soort>
+                        <code>T</code>
+                        <omschrijving>Telefoon</omschrijving>
+                     </soort>
+                  </communicatienummer>
+                  <emailAdres>rozema163@hotmail.com</emailAdres>
+               </communicatiegegevens>
+               <naam>Maatschap Rozema-Kist</naam>
+               <manifesteertZichAls>
+                  <relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <datumAanvang>19940501</datumAanvang>
+                  </relatieRegistratie>
+                  <onderneming>
+                     <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                        <datumAanvang>19900101</datumAanvang>
+                     </registratie>
+                     <kvkNummer>01173390</kvkNummer>
+                     <sbiActiviteit>
+                        <registratie registratieTijdstip="20170714081638092">
+                           <datumAanvang>20161114</datumAanvang>
+                        </registratie>
+                        <sbiCode>
+                           <code>01471</code>
+                           <omschrijving>Opfokken en/of houden van leghennen</omschrijving>
+                           <referentieType>ActiviteitCode</referentieType>
+                        </sbiCode>
+                        <isHoofdactiviteit>
+                           <code>J</code>
+                           <omschrijving>Ja</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </isHoofdactiviteit>
+                     </sbiActiviteit>
+                     <sbiActiviteit>
+                        <registratie registratieTijdstip="20170714081638092">
+                           <datumAanvang>20161114</datumAanvang>
+                        </registratie>
+                        <sbiCode>
+                           <code>01411</code>
+                           <omschrijving>Houden van melkvee</omschrijving>
+                           <referentieType>ActiviteitCode</referentieType>
+                        </sbiCode>
+                        <isHoofdactiviteit>
+                           <code>N</code>
+                           <omschrijving>Nee</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </isHoofdactiviteit>
+                     </sbiActiviteit>
+                     <voltijdWerkzamePersonen>5</voltijdWerkzamePersonen>
+                     <deeltijdWerkzamePersonen>0</deeltijdWerkzamePersonen>
+                     <totaalWerkzamePersonen>5</totaalWerkzamePersonen>
+                     <handeltOnder>
+                        <handelsnaam>
+                           <registratie registratieTijdstip="20141027160204453">
+                              <datumAanvang>19940501</datumAanvang>
+                           </registratie>
+                           <naam>Maatschap Rozema-Kist</naam>
+                           <volgorde>0</volgorde>
+                        </handelsnaam>
+                     </handeltOnder>
+                     <wordtUitgeoefendIn>
+                        <relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>19940501</datumAanvang>
+                        </relatieRegistratie>
+                        <commercieleVestiging>
+                           <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <datumAanvang>19900101</datumAanvang>
+                           </registratie>
+                           <vestigingsnummer>000015412725</vestigingsnummer>
+                           <bezoekLocatie>
+                              <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <datumAanvang>19900101</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <straatnaam>Biskopsreed</straatnaam>
+                                    <huisnummer>1</huisnummer>
+                                    <postcode>
+                                       <cijfercombinatie>9241</cijfercombinatie>
+                                       <lettercombinatie>WR</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Wijnjewoude</plaats>
+                                    <bagId>
+                                       <identificatieNummeraanduiding>0086200000384365</identificatieNummeraanduiding>
+                                       <identificatieAdresseerbaarObject>0086010000384366</identificatieAdresseerbaarObject>
+                                    </bagId>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Biskopsreed 1
+9241WR Wijnjewoude</volledigAdres>
+                           </bezoekLocatie>
+                           <postLocatie>
+                              <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <datumAanvang>19900101</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <straatnaam>Biskopsreed</straatnaam>
+                                    <huisnummer>1</huisnummer>
+                                    <postcode>
+                                       <cijfercombinatie>9241</cijfercombinatie>
+                                       <lettercombinatie>WR</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Wijnjewoude</plaats>
+                                    <bagId>
+                                       <identificatieNummeraanduiding>0086200000384365</identificatieNummeraanduiding>
+                                       <identificatieAdresseerbaarObject>0086010000384366</identificatieAdresseerbaarObject>
+                                    </bagId>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Biskopsreed 1
+9241WR Wijnjewoude</volledigAdres>
+                           </postLocatie>
+                           <communicatiegegevens>
+                              <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <datumAanvang>19900101</datumAanvang>
+                              </registratie>
+                              <communicatienummer>
+                                 <toegangscode>+31</toegangscode>
+                                 <nummer>0516541086</nummer>
+                                 <soort>
+                                    <code>T</code>
+                                    <omschrijving>Telefoon</omschrijving>
+                                 </soort>
+                              </communicatienummer>
+                              <emailAdres>rozema163@hotmail.com</emailAdres>
+                           </communicatiegegevens>
+                           <eersteHandelsnaam>Maatschap Rozema-Kist</eersteHandelsnaam>
+                           <voltijdWerkzamePersonen>3</voltijdWerkzamePersonen>
+                           <deeltijdWerkzamePersonen>0</deeltijdWerkzamePersonen>
+                           <totaalWerkzamePersonen>3</totaalWerkzamePersonen>
+                           <activiteiten>
+                              <omschrijving>Fokken en houden van pluimvee. Fokken en houden van melkvee.</omschrijving>
+                              <sbiActiviteit>
+                                 <registratie registratieTijdstip="20170714081638092">
+                                    <datumAanvang>20161114</datumAanvang>
+                                 </registratie>
+                                 <sbiCode>
+                                    <code>01471</code>
+                                    <omschrijving>Opfokken en/of houden van leghennen</omschrijving>
+                                    <referentieType>ActiviteitCode</referentieType>
+                                 </sbiCode>
+                                 <isHoofdactiviteit>
+                                    <code>J</code>
+                                    <omschrijving>Ja</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </isHoofdactiviteit>
+                              </sbiActiviteit>
+                              <sbiActiviteit>
+                                 <registratie registratieTijdstip="20170714081638092">
+                                    <datumAanvang>20161114</datumAanvang>
+                                 </registratie>
+                                 <sbiCode>
+                                    <code>01411</code>
+                                    <omschrijving>Houden van melkvee</omschrijving>
+                                    <referentieType>ActiviteitCode</referentieType>
+                                 </sbiCode>
+                                 <isHoofdactiviteit>
+                                    <code>N</code>
+                                    <omschrijving>Nee</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </isHoofdactiviteit>
+                              </sbiActiviteit>
+                              <exporteert>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </exporteert>
+                              <importeert>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </importeert>
+                           </activiteiten>
+                           <handeltOnder>
+                              <relatieRegistratie registratieTijdstip="20141027160204453">
+                                 <datumAanvang>20140501</datumAanvang>
+                              </relatieRegistratie>
+                              <handelsnaam>
+                                 <registratie registratieTijdstip="20141027160204453">
+                                    <datumAanvang>19940501</datumAanvang>
+                                 </registratie>
+                                 <naam>Maatschap Rozema-Kist</naam>
+                                 <volgorde>0</volgorde>
+                              </handelsnaam>
+                           </handeltOnder>
+                        </commercieleVestiging>
+                     </wordtUitgeoefendIn>
+                     <wordtUitgeoefendIn>
+                        <relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>20050501</datumAanvang>
+                        </relatieRegistratie>
+                        <commercieleVestiging>
+                           <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <datumAanvang>20050501</datumAanvang>
+                           </registratie>
+                           <vestigingsnummer>000015412717</vestigingsnummer>
+                           <bezoekLocatie>
+                              <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <datumAanvang>20050501</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <straatnaam>De Bult</straatnaam>
+                                    <huisnummer>6</huisnummer>
+                                    <postcode>
+                                       <cijfercombinatie>9243</cijfercombinatie>
+                                       <lettercombinatie>WE</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Bakkeveen</plaats>
+                                    <bagId>
+                                       <identificatieNummeraanduiding>0086200000388438</identificatieNummeraanduiding>
+                                       <identificatieAdresseerbaarObject>0086010000388439</identificatieAdresseerbaarObject>
+                                    </bagId>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>De Bult 6
+9243WE Bakkeveen</volledigAdres>
+                           </bezoekLocatie>
+                           <postLocatie>
+                              <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <datumAanvang>20050501</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <straatnaam>De Bult</straatnaam>
+                                    <huisnummer>6</huisnummer>
+                                    <postcode>
+                                       <cijfercombinatie>9243</cijfercombinatie>
+                                       <lettercombinatie>WE</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Bakkeveen</plaats>
+                                    <bagId>
+                                       <identificatieNummeraanduiding>0086200000388438</identificatieNummeraanduiding>
+                                       <identificatieAdresseerbaarObject>0086010000388439</identificatieAdresseerbaarObject>
+                                    </bagId>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>De Bult 6
+9243WE Bakkeveen</volledigAdres>
+                           </postLocatie>
+                           <communicatiegegevens>
+                              <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <datumAanvang>20050501</datumAanvang>
+                              </registratie>
+                              <communicatienummer>
+                                 <toegangscode>+31</toegangscode>
+                                 <nummer>0516541086</nummer>
+                                 <soort>
+                                    <code>T</code>
+                                    <omschrijving>Telefoon</omschrijving>
+                                 </soort>
+                              </communicatienummer>
+                           </communicatiegegevens>
+                           <eersteHandelsnaam>Maatschap Rozema-Kist</eersteHandelsnaam>
+                           <voltijdWerkzamePersonen>2</voltijdWerkzamePersonen>
+                           <deeltijdWerkzamePersonen>0</deeltijdWerkzamePersonen>
+                           <totaalWerkzamePersonen>2</totaalWerkzamePersonen>
+                           <activiteiten>
+                              <omschrijving>Fokken en houden van pluimvee</omschrijving>
+                              <sbiActiviteit>
+                                 <registratie registratieTijdstip="20170714081638092">
+                                    <datumAanvang>20161114</datumAanvang>
+                                 </registratie>
+                                 <sbiCode>
+                                    <code>01471</code>
+                                    <omschrijving>Opfokken en/of houden van leghennen</omschrijving>
+                                    <referentieType>ActiviteitCode</referentieType>
+                                 </sbiCode>
+                                 <isHoofdactiviteit>
+                                    <code>J</code>
+                                    <omschrijving>Ja</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </isHoofdactiviteit>
+                              </sbiActiviteit>
+                              <exporteert>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </exporteert>
+                              <importeert>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </importeert>
+                           </activiteiten>
+                           <handeltOnder>
+                              <relatieRegistratie registratieTijdstip="20141027160204453">
+                                 <datumAanvang>20140501</datumAanvang>
+                              </relatieRegistratie>
+                              <handelsnaam>
+                                 <registratie registratieTijdstip="20141027160204453">
+                                    <datumAanvang>19940501</datumAanvang>
+                                 </registratie>
+                                 <naam>Maatschap Rozema-Kist</naam>
+                                 <volgorde>0</volgorde>
+                              </handelsnaam>
+                           </handeltOnder>
+                        </commercieleVestiging>
+                     </wordtUitgeoefendIn>
+                  </onderneming>
+               </manifesteertZichAls>
+               <wordtGeleidVanuit>
+                  <commercieleVestiging>
+                     <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                        <datumAanvang>19900101</datumAanvang>
+                     </registratie>
+                     <vestigingsnummer>000015412725</vestigingsnummer>
+                     <bezoekLocatie>
+                        <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>19900101</datumAanvang>
+                        </registratie>
+                        <afgeschermd>
+                           <code>N</code>
+                           <omschrijving>Nee</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </afgeschermd>
+                        <adres>
+                           <binnenlandsAdres>
+                              <straatnaam>Biskopsreed</straatnaam>
+                              <huisnummer>1</huisnummer>
+                              <postcode>
+                                 <cijfercombinatie>9241</cijfercombinatie>
+                                 <lettercombinatie>WR</lettercombinatie>
+                              </postcode>
+                              <plaats>Wijnjewoude</plaats>
+                              <bagId>
+                                 <identificatieNummeraanduiding>0086200000384365</identificatieNummeraanduiding>
+                                 <identificatieAdresseerbaarObject>0086010000384366</identificatieAdresseerbaarObject>
+                              </bagId>
+                           </binnenlandsAdres>
+                        </adres>
+                        <volledigAdres>Biskopsreed 1
+9241WR Wijnjewoude</volledigAdres>
+                     </bezoekLocatie>
+                     <postLocatie>
+                        <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>19900101</datumAanvang>
+                        </registratie>
+                        <afgeschermd>
+                           <code>N</code>
+                           <omschrijving>Nee</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </afgeschermd>
+                        <adres>
+                           <binnenlandsAdres>
+                              <straatnaam>Biskopsreed</straatnaam>
+                              <huisnummer>1</huisnummer>
+                              <postcode>
+                                 <cijfercombinatie>9241</cijfercombinatie>
+                                 <lettercombinatie>WR</lettercombinatie>
+                              </postcode>
+                              <plaats>Wijnjewoude</plaats>
+                              <bagId>
+                                 <identificatieNummeraanduiding>0086200000384365</identificatieNummeraanduiding>
+                                 <identificatieAdresseerbaarObject>0086010000384366</identificatieAdresseerbaarObject>
+                              </bagId>
+                           </binnenlandsAdres>
+                        </adres>
+                        <volledigAdres>Biskopsreed 1
+9241WR Wijnjewoude</volledigAdres>
+                     </postLocatie>
+                     <communicatiegegevens>
+                        <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>19900101</datumAanvang>
+                        </registratie>
+                        <communicatienummer>
+                           <toegangscode>+31</toegangscode>
+                           <nummer>0516541086</nummer>
+                           <soort>
+                              <code>T</code>
+                              <omschrijving>Telefoon</omschrijving>
+                           </soort>
+                        </communicatienummer>
+                        <emailAdres>rozema163@hotmail.com</emailAdres>
+                     </communicatiegegevens>
+                     <eersteHandelsnaam>Maatschap Rozema-Kist</eersteHandelsnaam>
+                     <voltijdWerkzamePersonen>3</voltijdWerkzamePersonen>
+                     <deeltijdWerkzamePersonen>0</deeltijdWerkzamePersonen>
+                     <totaalWerkzamePersonen>3</totaalWerkzamePersonen>
+                     <activiteiten>
+                        <omschrijving>Fokken en houden van pluimvee. Fokken en houden van melkvee.</omschrijving>
+                        <sbiActiviteit>
+                           <registratie registratieTijdstip="20170714081638092">
+                              <datumAanvang>20161114</datumAanvang>
+                           </registratie>
+                           <sbiCode>
+                              <code>01471</code>
+                              <omschrijving>Opfokken en/of houden van leghennen</omschrijving>
+                              <referentieType>ActiviteitCode</referentieType>
+                           </sbiCode>
+                           <isHoofdactiviteit>
+                              <code>J</code>
+                              <omschrijving>Ja</omschrijving>
+                              <referentieType>geenRT</referentieType>
+                           </isHoofdactiviteit>
+                        </sbiActiviteit>
+                        <sbiActiviteit>
+                           <registratie registratieTijdstip="20170714081638092">
+                              <datumAanvang>20161114</datumAanvang>
+                           </registratie>
+                           <sbiCode>
+                              <code>01411</code>
+                              <omschrijving>Houden van melkvee</omschrijving>
+                              <referentieType>ActiviteitCode</referentieType>
+                           </sbiCode>
+                           <isHoofdactiviteit>
+                              <code>N</code>
+                              <omschrijving>Nee</omschrijving>
+                              <referentieType>geenRT</referentieType>
+                           </isHoofdactiviteit>
+                        </sbiActiviteit>
+                        <exporteert>
+                           <code>N</code>
+                           <omschrijving>Nee</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </exporteert>
+                        <importeert>
+                           <code>N</code>
+                           <omschrijving>Nee</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </importeert>
+                     </activiteiten>
+                     <handeltOnder>
+                        <relatieRegistratie registratieTijdstip="20141027160204453">
+                           <datumAanvang>20140501</datumAanvang>
+                        </relatieRegistratie>
+                        <handelsnaam>
+                           <registratie registratieTijdstip="20141027160204453">
+                              <datumAanvang>19940501</datumAanvang>
+                           </registratie>
+                           <naam>Maatschap Rozema-Kist</naam>
+                           <volgorde>0</volgorde>
+                        </handelsnaam>
+                     </handeltOnder>
+                  </commercieleVestiging>
+               </wordtGeleidVanuit>
+               <heeftAlsEigenaar>
+                  <relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <datumAanvang>19940501</datumAanvang>
+                  </relatieRegistratie>
+                  <samenwerkingsverband>
+                     <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                        <datumAanvang>19940501</datumAanvang>
+                     </registratie>
+                     <persoonRechtsvorm>Maatschap</persoonRechtsvorm>
+                     <volledigeNaam>Maatschap Rozema-Kist</volledigeNaam>
+                     <uitgebreideRechtsvorm>Maatschap</uitgebreideRechtsvorm>
+                     <heeft>
+                        <aansprakelijke>
+                           <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <datumAanvang>19940501</datumAanvang>
+                           </registratie>
+                           <door>
+                              <natuurlijkPersoon>
+                                 <extraElementen>
+                                    <extraElement naam="achternaam">866a86</extraElement>
+                                    <!--Anonimisatie 'extraElement': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--></extraElementen>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>19340412</datumAanvang>
+                                    <!--Anonimisatie 'datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></registratie>
+                                 <volledigeNaam>b6b8d 2aa509 649246</volledigeNaam>
+                                 <!--Anonimisatie 'volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><bezoekLocatiePersoon>
+                                    <registratie registratieTijdstip="20150211212041813"/>
+                                    <afgeschermd>
+                                       <code>N</code>
+                                       <omschrijving>Nee</omschrijving>
+                                       <referentieType>geenRT</referentieType>
+                                    </afgeschermd>
+                                    <adres>
+                                       <binnenlandsAdres>
+                                          <straatnaam>De Bult</straatnaam>
+                                          <huisnummer>6</huisnummer>
+                                          <postcode>
+                                             <cijfercombinatie>9243</cijfercombinatie>
+                                             <lettercombinatie>WE</lettercombinatie>
+                                          </postcode>
+                                          <plaats>Bakkeveen</plaats>
+                                          <bagId>
+                                             <identificatieNummeraanduiding>0086200000388438</identificatieNummeraanduiding>
+                                             <identificatieAdresseerbaarObject>0086010000388439</identificatieAdresseerbaarObject>
+                                          </bagId>
+                                       </binnenlandsAdres>
+                                    </adres>
+                                    <volledigAdres>De Bult 6
+9243WE Bakkeveen</volledigAdres>
+                                 </bezoekLocatiePersoon>
+                                 <bsn>892892715</bsn>
+                                 <!--Anonimisatie 'bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><geslachtsnaam>866a86</geslachtsnaam>
+                                 <!--Anonimisatie 'geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><voornamen>992d7 1f60c0</voornamen>
+                                 <!--Anonimisatie 'voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geslachtsaanduiding>
+                                    <code>m</code>
+                                    <omschrijving>Mannelijk</omschrijving>
+                                    <referentieType>Geslacht</referentieType>
+                                 </geslachtsaanduiding>
+                                 <geboorteplaats>d2c43010e2</geboorteplaats>
+                                 <!--Anonimisatie 'geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geboorteland>
+                                    <code>6030</code>
+                                    <omschrijving>Nederland</omschrijving>
+                                    <referentieType>Land</referentieType>
+                                 </geboorteland>
+                                 <geboortedatum>19340412</geboortedatum>
+                                 <!--Anonimisatie 'geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></natuurlijkPersoon>
+                           </door>
+                           <functie>
+                              <code>15</code>
+                              <omschrijving>Maat</omschrijving>
+                              <referentieType>FunctionarisRol</referentieType>
+                           </functie>
+                           <bevoegdheid>
+                              <registratie registratieTijdstip="20141126092048085">
+                                 <datumAanvang>20140501</datumAanvang>
+                              </registratie>
+                              <soort>
+                                 <code>bb</code>
+                                 <omschrijving>Beperkt bevoegd</omschrijving>
+                                 <referentieType>SoortBevoegdheidAansprakelijkeBijSamenwerkingsverband</referentieType>
+                              </soort>
+                              <overigeBeperking>
+                                 <code>J</code>
+                                 <omschrijving>Ja</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </overigeBeperking>
+                           </bevoegdheid>
+                        </aansprakelijke>
+                     </heeft>
+                     <heeft>
+                        <aansprakelijke>
+                           <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <datumAanvang>19940501</datumAanvang>
+                           </registratie>
+                           <door>
+                              <natuurlijkPersoon>
+                                 <extraElementen>
+                                    <extraElement naam="achternaam">2aaaba 0 2f816f71</extraElement>
+                                    <!--Anonimisatie 'extraElement': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--></extraElementen>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>19700911</datumAanvang>
+                                    <!--Anonimisatie 'datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></registratie>
+                                 <volledigeNaam>43eca a1e346 a2d1ae e 1e9d134f</volledigeNaam>
+                                 <!--Anonimisatie 'volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><bezoekLocatiePersoon>
+                                    <registratie registratieTijdstip="20150211212040265"/>
+                                    <afgeschermd>
+                                       <code>N</code>
+                                       <omschrijving>Nee</omschrijving>
+                                       <referentieType>geenRT</referentieType>
+                                    </afgeschermd>
+                                    <adres>
+                                       <binnenlandsAdres>
+                                          <straatnaam>De Bult</straatnaam>
+                                          <huisnummer>6</huisnummer>
+                                          <postcode>
+                                             <cijfercombinatie>9243</cijfercombinatie>
+                                             <lettercombinatie>WE</lettercombinatie>
+                                          </postcode>
+                                          <plaats>Bakkeveen</plaats>
+                                          <bagId>
+                                             <identificatieNummeraanduiding>0086200000388438</identificatieNummeraanduiding>
+                                             <identificatieAdresseerbaarObject>0086010000388439</identificatieAdresseerbaarObject>
+                                          </bagId>
+                                       </binnenlandsAdres>
+                                    </adres>
+                                    <volledigAdres>De Bult 6
+9243WE Bakkeveen</volledigAdres>
+                                 </bezoekLocatiePersoon>
+                                 <bsn>376151145</bsn>
+                                 <!--Anonimisatie 'bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><geslachtsnaam>2aaaba 0 2f816f71</geslachtsnaam>
+                                 <!--Anonimisatie 'geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><voornamen>35717 fb8084</voornamen>
+                                 <!--Anonimisatie 'voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geslachtsaanduiding>
+                                    <code>v</code>
+                                    <omschrijving>Vrouwelijk</omschrijving>
+                                    <referentieType>Geslacht</referentieType>
+                                 </geslachtsaanduiding>
+                                 <geboorteplaats>ee6b41c65fc07c</geboorteplaats>
+                                 <!--Anonimisatie 'geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geboorteland>
+                                    <code>6030</code>
+                                    <omschrijving>Nederland</omschrijving>
+                                    <referentieType>Land</referentieType>
+                                 </geboorteland>
+                                 <geboortedatum>19700911</geboortedatum>
+                                 <!--Anonimisatie 'geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></natuurlijkPersoon>
+                           </door>
+                           <functie>
+                              <code>15</code>
+                              <omschrijving>Maat</omschrijving>
+                              <referentieType>FunctionarisRol</referentieType>
+                           </functie>
+                           <bevoegdheid>
+                              <registratie registratieTijdstip="20141126092048085">
+                                 <datumAanvang>20140501</datumAanvang>
+                              </registratie>
+                              <soort>
+                                 <code>bb</code>
+                                 <omschrijving>Beperkt bevoegd</omschrijving>
+                                 <referentieType>SoortBevoegdheidAansprakelijkeBijSamenwerkingsverband</referentieType>
+                              </soort>
+                              <overigeBeperking>
+                                 <code>J</code>
+                                 <omschrijving>Ja</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </overigeBeperking>
+                           </bevoegdheid>
+                        </aansprakelijke>
+                     </heeft>
+                     <heeft>
+                        <aansprakelijke>
+                           <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <datumAanvang>20090501</datumAanvang>
+                           </registratie>
+                           <door>
+                              <natuurlijkPersoon>
+                                 <extraElementen>
+                                    <extraElement naam="achternaam">866a86</extraElement>
+                                    <!--Anonimisatie 'extraElement': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--></extraElementen>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>19700527</datumAanvang>
+                                    <!--Anonimisatie 'datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></registratie>
+                                 <volledigeNaam>89e3d75 afd39 c80ed3</volledigeNaam>
+                                 <!--Anonimisatie 'volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><bezoekLocatiePersoon>
+                                    <registratie registratieTijdstip="20110816214601896"/>
+                                    <afgeschermd>
+                                       <code>N</code>
+                                       <omschrijving>Nee</omschrijving>
+                                       <referentieType>geenRT</referentieType>
+                                    </afgeschermd>
+                                    <adres>
+                                       <binnenlandsAdres>
+                                          <straatnaam>De Bult</straatnaam>
+                                          <huisnummer>5</huisnummer>
+                                          <postcode>
+                                             <cijfercombinatie>9243</cijfercombinatie>
+                                             <lettercombinatie>WE</lettercombinatie>
+                                          </postcode>
+                                          <plaats>Bakkeveen</plaats>
+                                          <bagId>
+                                             <identificatieNummeraanduiding>0086200000388430</identificatieNummeraanduiding>
+                                             <identificatieAdresseerbaarObject>0086010000388431</identificatieAdresseerbaarObject>
+                                          </bagId>
+                                       </binnenlandsAdres>
+                                    </adres>
+                                    <volledigAdres>De Bult 5
+9243WE Bakkeveen</volledigAdres>
+                                 </bezoekLocatiePersoon>
+                                 <bsn>027980722</bsn>
+                                 <!--Anonimisatie 'bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><geslachtsnaam>866a86</geslachtsnaam>
+                                 <!--Anonimisatie 'geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><voornamen>909a5ed 6c4a7</voornamen>
+                                 <!--Anonimisatie 'voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geslachtsaanduiding>
+                                    <code>m</code>
+                                    <omschrijving>Mannelijk</omschrijving>
+                                    <referentieType>Geslacht</referentieType>
+                                 </geslachtsaanduiding>
+                                 <geboorteplaats>d2c43010e2</geboorteplaats>
+                                 <!--Anonimisatie 'geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geboorteland>
+                                    <code>6030</code>
+                                    <omschrijving>Nederland</omschrijving>
+                                    <referentieType>Land</referentieType>
+                                 </geboorteland>
+                                 <geboortedatum>19700527</geboortedatum>
+                                 <!--Anonimisatie 'geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></natuurlijkPersoon>
+                           </door>
+                           <functie>
+                              <code>15</code>
+                              <omschrijving>Maat</omschrijving>
+                              <referentieType>FunctionarisRol</referentieType>
+                           </functie>
+                           <bevoegdheid>
+                              <registratie registratieTijdstip="20141126092048085">
+                                 <datumAanvang>20140501</datumAanvang>
+                              </registratie>
+                              <soort>
+                                 <code>bb</code>
+                                 <omschrijving>Beperkt bevoegd</omschrijving>
+                                 <referentieType>SoortBevoegdheidAansprakelijkeBijSamenwerkingsverband</referentieType>
+                              </soort>
+                              <overigeBeperking>
+                                 <code>J</code>
+                                 <omschrijving>Ja</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </overigeBeperking>
+                           </bevoegdheid>
+                        </aansprakelijke>
+                     </heeft>
+                     <heeft>
+                        <aansprakelijke>
+                           <registratie registratieTijdstip="20141027160204453">
+                              <datumAanvang>20140501</datumAanvang>
+                           </registratie>
+                           <door>
+                              <natuurlijkPersoon>
+                                 <extraElementen>
+                                    <extraElement naam="achternaam">866a86</extraElement>
+                                    <!--Anonimisatie 'extraElement': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--></extraElementen>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>19360928</datumAanvang>
+                                    <!--Anonimisatie 'datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></registratie>
+                                 <volledigeNaam>f4829 9ac99 20cc6d</volledigeNaam>
+                                 <!--Anonimisatie 'volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><bezoekLocatiePersoon>
+                                    <registratie registratieTijdstip="20150218210652262"/>
+                                    <afgeschermd>
+                                       <code>N</code>
+                                       <omschrijving>Nee</omschrijving>
+                                       <referentieType>geenRT</referentieType>
+                                    </afgeschermd>
+                                    <adres>
+                                       <binnenlandsAdres>
+                                          <straatnaam>Biskopsreed</straatnaam>
+                                          <huisnummer>1</huisnummer>
+                                          <postcode>
+                                             <cijfercombinatie>9241</cijfercombinatie>
+                                             <lettercombinatie>WR</lettercombinatie>
+                                          </postcode>
+                                          <plaats>Wijnjewoude</plaats>
+                                          <bagId>
+                                             <identificatieNummeraanduiding>0086200000384365</identificatieNummeraanduiding>
+                                             <identificatieAdresseerbaarObject>0086010000384366</identificatieAdresseerbaarObject>
+                                          </bagId>
+                                       </binnenlandsAdres>
+                                    </adres>
+                                    <volledigAdres>Biskopsreed 1
+9241WR Wijnjewoude</volledigAdres>
+                                 </bezoekLocatiePersoon>
+                                 <bsn>887508135</bsn>
+                                 <!--Anonimisatie 'bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><geslachtsnaam>866a86</geslachtsnaam>
+                                 <!--Anonimisatie 'geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><voornamen>e40a0 e950f</voornamen>
+                                 <!--Anonimisatie 'voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geslachtsaanduiding>
+                                    <code>v</code>
+                                    <omschrijving>Vrouwelijk</omschrijving>
+                                    <referentieType>Geslacht</referentieType>
+                                 </geslachtsaanduiding>
+                                 <geboorteplaats>d2c43010e2</geboorteplaats>
+                                 <!--Anonimisatie 'geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geboorteland>
+                                    <code>6030</code>
+                                    <omschrijving>Nederland</omschrijving>
+                                    <referentieType>Land</referentieType>
+                                 </geboorteland>
+                                 <geboortedatum>19360928</geboortedatum>
+                                 <!--Anonimisatie 'geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></natuurlijkPersoon>
+                           </door>
+                           <functie>
+                              <code>15</code>
+                              <omschrijving>Maat</omschrijving>
+                              <referentieType>FunctionarisRol</referentieType>
+                           </functie>
+                           <bevoegdheid>
+                              <registratie registratieTijdstip="20141126092048085">
+                                 <datumAanvang>20140501</datumAanvang>
+                              </registratie>
+                              <soort>
+                                 <code>bb</code>
+                                 <omschrijving>Beperkt bevoegd</omschrijving>
+                                 <referentieType>SoortBevoegdheidAansprakelijkeBijSamenwerkingsverband</referentieType>
+                              </soort>
+                              <overigeBeperking>
+                                 <code>J</code>
+                                 <omschrijving>Ja</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </overigeBeperking>
+                           </bevoegdheid>
+                        </aansprakelijke>
+                     </heeft>
+                     <heeft>
+                        <aansprakelijke>
+                           <registratie registratieTijdstip="20141027160204453">
+                              <datumAanvang>20140501</datumAanvang>
+                           </registratie>
+                           <door>
+                              <natuurlijkPersoon>
+                                 <extraElementen>
+                                    <extraElement naam="achternaam">1d6d</extraElement>
+                                    <!--Anonimisatie 'extraElement': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--></extraElementen>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>19820112</datumAanvang>
+                                    <!--Anonimisatie 'datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></registratie>
+                                 <volledigeNaam>4a9bb2 1bd84c d66af 0ad2</volledigeNaam>
+                                 <!--Anonimisatie 'volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><bezoekLocatiePersoon>
+                                    <registratie registratieTijdstip="20150218210651015"/>
+                                    <afgeschermd>
+                                       <code>N</code>
+                                       <omschrijving>Nee</omschrijving>
+                                       <referentieType>geenRT</referentieType>
+                                    </afgeschermd>
+                                    <adres>
+                                       <binnenlandsAdres>
+                                          <straatnaam>Biskopsreed</straatnaam>
+                                          <huisnummer>1</huisnummer>
+                                          <postcode>
+                                             <cijfercombinatie>9241</cijfercombinatie>
+                                             <lettercombinatie>WR</lettercombinatie>
+                                          </postcode>
+                                          <plaats>Wijnjewoude</plaats>
+                                          <bagId>
+                                             <identificatieNummeraanduiding>0086200000384365</identificatieNummeraanduiding>
+                                             <identificatieAdresseerbaarObject>0086010000384366</identificatieAdresseerbaarObject>
+                                          </bagId>
+                                       </binnenlandsAdres>
+                                    </adres>
+                                    <volledigAdres>Biskopsreed 1
+9241WR Wijnjewoude</volledigAdres>
+                                 </bezoekLocatiePersoon>
+                                 <bsn>438857828</bsn>
+                                 <!--Anonimisatie 'bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><geslachtsnaam>1d6d</geslachtsnaam>
+                                 <!--Anonimisatie 'geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><voornamen>7b655f cea0e4 27d02</voornamen>
+                                 <!--Anonimisatie 'voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geslachtsaanduiding>
+                                    <code>m</code>
+                                    <omschrijving>Mannelijk</omschrijving>
+                                    <referentieType>Geslacht</referentieType>
+                                 </geslachtsaanduiding>
+                                 <geboorteplaats>646da3e55</geboorteplaats>
+                                 <!--Anonimisatie 'geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geboorteland>
+                                    <code>6030</code>
+                                    <omschrijving>Nederland</omschrijving>
+                                    <referentieType>Land</referentieType>
+                                 </geboorteland>
+                                 <geboortedatum>19820112</geboortedatum>
+                                 <!--Anonimisatie 'geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></natuurlijkPersoon>
+                           </door>
+                           <functie>
+                              <code>15</code>
+                              <omschrijving>Maat</omschrijving>
+                              <referentieType>FunctionarisRol</referentieType>
+                           </functie>
+                           <bevoegdheid>
+                              <registratie registratieTijdstip="20141126092048085">
+                                 <datumAanvang>20140501</datumAanvang>
+                              </registratie>
+                              <soort>
+                                 <code>bb</code>
+                                 <omschrijving>Beperkt bevoegd</omschrijving>
+                                 <referentieType>SoortBevoegdheidAansprakelijkeBijSamenwerkingsverband</referentieType>
+                              </soort>
+                              <overigeBeperking>
+                                 <code>J</code>
+                                 <omschrijving>Ja</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </overigeBeperking>
+                           </bevoegdheid>
+                        </aansprakelijke>
+                     </heeft>
+                     <rsin>805871160</rsin>
+                     <naamgeving>
+                        <registratie registratieTijdstip="20141027160204453">
+                           <datumAanvang>20140501</datumAanvang>
+                        </registratie>
+                        <naam>Maatschap Rozema-Kist</naam>
+                     </naamgeving>
+                     <rechtsvorm>
+                        <code>MA</code>
+                        <omschrijving>Maatschap</omschrijving>
+                        <referentieType>Rechtsvorm</referentieType>
+                     </rechtsvorm>
+                     <duur>
+                        <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>19940501</datumAanvang>
+                        </registratie>
+                        <heeftOnbepaaldeDuur>
+                           <code>J</code>
+                           <omschrijving>Ja</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </heeftOnbepaaldeDuur>
+                     </duur>
+                  </samenwerkingsverband>
+               </heeftAlsEigenaar>
+            </maatschappelijkeActiviteit>
+         </product>
+      </ophalenInschrijvingResponse>
+   </wstxns8:Body>
+</soap:Envelope>

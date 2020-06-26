@@ -74,13 +74,31 @@ public class BedrijfAlsFuntionarisNhrToStagingToRsgbIntegrationTest extends Abst
                         {"select sc_identif as hoofdvestiging from vestg where hoofdvestiging = 'Ja'", 1},
                         {"select sc_identif as hoofdvestiging from vestg where hoofdvestiging = 'Nee'", 1},
                         {"functionaris", 5},
-                        {"select * from functionaris where fk_sc_lh_pes_sc_identif='nhr.buitenlVenn.naam.782f4c4bef5a6bf48206ed2c6c6b9fbe138af4a7' and functie='Enig aandeelhouder'",1},
+                        {"select * from functionaris where fk_sc_lh_pes_sc_identif='nhr.buitenlVenn.naam.782f4c4bef5a6bf48206ed2c6c6b9fbe138af4a7' and functie='Enig aandeelhouder'", 1},
                         {"select * from subject where identif='nhr.buitenlVenn.naam.782f4c4bef5a6bf48206ed2c6c6b9fbe138af4a7'", 1},
                 })},
                 // BVNN/Boskalis Dolman V.O.F. / 01083730 / 2 samenwerkingsverbanden als functionaris
                 {"/nhr-v3/bedrijf-als-functionaris/2020-06-18-154135-01083730.anon.xml", MapUtils.putAll(new HashMap<String, Integer>(), new Object[][]{
                         {"maatschapp_activiteit", 1},
                         {"vestg", 2},
+                        {"functionaris", 3},
+                })},
+                // Maatschap Rozema-Kist / 5 natuurlijke personen in samenwerkingsverband
+                {"/nhr-v3/bedrijf-als-functionaris/2020-06-18-154143-01173390.anon.xml", MapUtils.putAll(new HashMap<String, Integer>(), new Object[][]{
+                        {"maatschapp_activiteit", 1},
+                        {"vestg", 2},
+                        {"functionaris", 5},
+                })},
+                // Tiktak/Segafredo Zanetti Nederland B.V. / 4 nat. personen als functionaris, met een aantal buitenlandse pers. en een buitenlandseVennootschap
+                {"/nhr-v3/bedrijf-als-functionaris/2020-06-18-154147-02000099.anon.xml", MapUtils.putAll(new HashMap<String, Integer>(), new Object[][]{
+                        {"maatschapp_activiteit", 1},
+                        {"vestg", 1},
+                        {"functionaris", 4},
+                })},
+                // Visser Transport B.V. / heeft een buitenlandseVennootschap als functionaris met een ampersand in de naam..
+                {"/nhr-v3/bedrijf-als-functionaris/2020-06-18-154151-02014331.anon.xml", MapUtils.putAll(new HashMap<String, Integer>(), new Object[][]{
+                        {"maatschapp_activiteit", 1},
+                        {"vestg", 3},
                         {"functionaris", 3},
                 })},
         });
@@ -133,7 +151,7 @@ public class BedrijfAlsFuntionarisNhrToStagingToRsgbIntegrationTest extends Abst
         sequential.lock();
 
         DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
-
+        CleanUtil.cleanRSGB_NHR(rsgb);
         assumeTrue("Er zijn geen STAGING_OK berichten", 0l == brmo.getCountBerichten(null, null, "nhr", "STAGING_OK"));
         assumeTrue("Er zijn geen STAGING_OK laadprocessen", 0l == brmo.getCountLaadProcessen(null, null, "nhr", "STAGING_OK"));
     }
@@ -141,9 +159,9 @@ public class BedrijfAlsFuntionarisNhrToStagingToRsgbIntegrationTest extends Abst
     @After
     public void cleanup() throws Exception {
         brmo.closeBrmoFramework();
-        CleanUtil.cleanSTAGING(staging, false);
+//        CleanUtil.cleanSTAGING(staging, false);
         staging.close();
-        CleanUtil.cleanRSGB_NHR(rsgb);
+//        CleanUtil.cleanRSGB_NHR(rsgb);
         rsgb.close();
         sequential.unlock();
     }

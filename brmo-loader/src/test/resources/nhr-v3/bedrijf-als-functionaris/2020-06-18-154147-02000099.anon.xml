@@ -1,0 +1,866 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Geanonimiseerd door B3Partners BV op 2020-06-26+02:00, zie commentaar in bericht.-->
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+   <wstxns1:Header xmlns:wsa="http://www.w3.org/2005/08/addressing"
+                   xmlns:wstxns1="http://schemas.xmlsoap.org/soap/envelope/"/>
+   <wstxns8:Body xmlns:wstxns8="http://schemas.xmlsoap.org/soap/envelope/"
+                 xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+                 wsu:Id="id-1-24edd735bd99dd18b3b9652ce28d32e2">
+      <ophalenInschrijvingResponse xmlns="http://schemas.kvk.nl/schemas/hrip/dataservice/2015/02"
+                                   peilmoment="20200618154128904">
+         <meldingen>
+            <informatie>
+               <code>IPD0000</code>
+               <omschrijving>Het product is succesvol geproduceerd</omschrijving>
+               <referentie>02000099</referentie>
+            </informatie>
+         </meldingen>
+         <product>
+            <maatschappelijkeActiviteit xmlns="http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02">
+               <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                  <datumAanvang>19110424</datumAanvang>
+               </registratie>
+               <kvkNummer>02000099</kvkNummer>
+               <nonMailing>
+                  <code>N</code>
+                  <omschrijving>Nee</omschrijving>
+                  <referentieType>geenRT</referentieType>
+               </nonMailing>
+               <incidenteelUitlenenArbeidskrachten>
+                  <code>N</code>
+                  <omschrijving>Nee</omschrijving>
+                  <referentieType>geenRT</referentieType>
+               </incidenteelUitlenenArbeidskrachten>
+               <bezoekLocatie>
+                  <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <datumAanvang>19880101</datumAanvang>
+                  </registratie>
+                  <afgeschermd>
+                     <code>N</code>
+                     <omschrijving>Nee</omschrijving>
+                     <referentieType>geenRT</referentieType>
+                  </afgeschermd>
+                  <adres>
+                     <binnenlandsAdres>
+                        <straatnaam>Rouaanstraat</straatnaam>
+                        <huisnummer>10</huisnummer>
+                        <postcode>
+                           <cijfercombinatie>9723</cijfercombinatie>
+                           <lettercombinatie>CD</lettercombinatie>
+                        </postcode>
+                        <plaats>Groningen</plaats>
+                        <bagId>
+                           <identificatieNummeraanduiding>0014200010873258</identificatieNummeraanduiding>
+                           <identificatieAdresseerbaarObject>0014010011065395</identificatieAdresseerbaarObject>
+                        </bagId>
+                     </binnenlandsAdres>
+                  </adres>
+                  <volledigAdres>Rouaanstraat 10
+9723CD Groningen</volledigAdres>
+               </bezoekLocatie>
+               <postLocatie>
+                  <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <datumAanvang>19880101</datumAanvang>
+                  </registratie>
+                  <afgeschermd>
+                     <code>N</code>
+                     <omschrijving>Nee</omschrijving>
+                     <referentieType>geenRT</referentieType>
+                  </afgeschermd>
+                  <adres>
+                     <binnenlandsAdres>
+                        <postbusnummer>115</postbusnummer>
+                        <postcode>
+                           <cijfercombinatie>9700</cijfercombinatie>
+                           <lettercombinatie>AC</lettercombinatie>
+                        </postcode>
+                        <plaats>Groningen</plaats>
+                     </binnenlandsAdres>
+                  </adres>
+                  <volledigAdres>Postbus 115
+9700AC Groningen</volledigAdres>
+               </postLocatie>
+               <communicatiegegevens>
+                  <registratie registratieTijdstip="20200528115224476">
+                     <datumAanvang>20200519</datumAanvang>
+                  </registratie>
+                  <communicatienummer>
+                     <toegangscode>+31</toegangscode>
+                     <nummer>0503176300</nummer>
+                     <soort>
+                        <code>T</code>
+                        <omschrijving>Telefoon</omschrijving>
+                     </soort>
+                  </communicatienummer>
+               </communicatiegegevens>
+               <naam>Tiktak/Segafredo Zanetti Nederland B.V.</naam>
+               <manifesteertZichAls>
+                  <relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <datumAanvang>19880101</datumAanvang>
+                  </relatieRegistratie>
+                  <onderneming>
+                     <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                        <datumAanvang>19880101</datumAanvang>
+                     </registratie>
+                     <kvkNummer>02000099</kvkNummer>
+                     <sbiActiviteit>
+                        <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>19880101</datumAanvang>
+                        </registratie>
+                        <sbiCode>
+                           <code>1083</code>
+                           <omschrijving>Verwerking van koffie en thee</omschrijving>
+                           <referentieType>ActiviteitCode</referentieType>
+                        </sbiCode>
+                        <isHoofdactiviteit>
+                           <code>J</code>
+                           <omschrijving>Ja</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </isHoofdactiviteit>
+                     </sbiActiviteit>
+                     <sbiActiviteit>
+                        <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>19880101</datumAanvang>
+                        </registratie>
+                        <sbiCode>
+                           <code>4637</code>
+                           <omschrijving>Groothandel in koffie, thee, cacao en specerijen (geen ruwe)</omschrijving>
+                           <referentieType>ActiviteitCode</referentieType>
+                        </sbiCode>
+                        <isHoofdactiviteit>
+                           <code>N</code>
+                           <omschrijving>Nee</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </isHoofdactiviteit>
+                     </sbiActiviteit>
+                     <sbiActiviteit>
+                        <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>19880101</datumAanvang>
+                        </registratie>
+                        <sbiCode>
+                           <code>4636</code>
+                           <omschrijving>Groothandel in suiker, chocolade en suikerwerk</omschrijving>
+                           <referentieType>ActiviteitCode</referentieType>
+                        </sbiCode>
+                        <isHoofdactiviteit>
+                           <code>N</code>
+                           <omschrijving>Nee</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </isHoofdactiviteit>
+                     </sbiActiviteit>
+                     <voltijdWerkzamePersonen>43</voltijdWerkzamePersonen>
+                     <deeltijdWerkzamePersonen>0</deeltijdWerkzamePersonen>
+                     <totaalWerkzamePersonen>43</totaalWerkzamePersonen>
+                     <handeltOnder>
+                        <handelsnaam>
+                           <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <datumAanvang>20021121</datumAanvang>
+                           </registratie>
+                           <naam>Tiktak/Segafredo Zanetti Nederland B.V.</naam>
+                           <volgorde>0</volgorde>
+                        </handelsnaam>
+                     </handeltOnder>
+                     <wordtUitgeoefendIn>
+                        <relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>19880101</datumAanvang>
+                        </relatieRegistratie>
+                        <commercieleVestiging>
+                           <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <datumAanvang>19880101</datumAanvang>
+                           </registratie>
+                           <vestigingsnummer>000019682808</vestigingsnummer>
+                           <bezoekLocatie>
+                              <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <datumAanvang>19880101</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <straatnaam>Rouaanstraat</straatnaam>
+                                    <huisnummer>10</huisnummer>
+                                    <postcode>
+                                       <cijfercombinatie>9723</cijfercombinatie>
+                                       <lettercombinatie>CD</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Groningen</plaats>
+                                    <bagId>
+                                       <identificatieNummeraanduiding>0014200010873258</identificatieNummeraanduiding>
+                                       <identificatieAdresseerbaarObject>0014010011065395</identificatieAdresseerbaarObject>
+                                    </bagId>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Rouaanstraat 10
+9723CD Groningen</volledigAdres>
+                           </bezoekLocatie>
+                           <postLocatie>
+                              <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <datumAanvang>19880101</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <postbusnummer>115</postbusnummer>
+                                    <postcode>
+                                       <cijfercombinatie>9700</cijfercombinatie>
+                                       <lettercombinatie>AC</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Groningen</plaats>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Postbus 115
+9700AC Groningen</volledigAdres>
+                           </postLocatie>
+                           <communicatiegegevens>
+                              <registratie registratieTijdstip="20200528115224476">
+                                 <datumAanvang>20200519</datumAanvang>
+                              </registratie>
+                              <communicatienummer>
+                                 <toegangscode>+31</toegangscode>
+                                 <nummer>0503176300</nummer>
+                                 <soort>
+                                    <code>T</code>
+                                    <omschrijving>Telefoon</omschrijving>
+                                 </soort>
+                              </communicatienummer>
+                           </communicatiegegevens>
+                           <eersteHandelsnaam>Tiktak/Segafredo Zanetti Nederland B.V.</eersteHandelsnaam>
+                           <voltijdWerkzamePersonen>43</voltijdWerkzamePersonen>
+                           <deeltijdWerkzamePersonen>0</deeltijdWerkzamePersonen>
+                           <totaalWerkzamePersonen>43</totaalWerkzamePersonen>
+                           <activiteiten>
+                              <omschrijving>Koffiebranderij Groothandel in koffie, thee, coffeïnevrije koffie, porcelein, aardewerk, huishoudelijke artikelen, zoetwaren, cacao en chocolade speelgoederen en Italiaanse espresso koffie</omschrijving>
+                              <sbiActiviteit>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>19880101</datumAanvang>
+                                 </registratie>
+                                 <sbiCode>
+                                    <code>1083</code>
+                                    <omschrijving>Verwerking van koffie en thee</omschrijving>
+                                    <referentieType>ActiviteitCode</referentieType>
+                                 </sbiCode>
+                                 <isHoofdactiviteit>
+                                    <code>J</code>
+                                    <omschrijving>Ja</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </isHoofdactiviteit>
+                              </sbiActiviteit>
+                              <sbiActiviteit>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>19880101</datumAanvang>
+                                 </registratie>
+                                 <sbiCode>
+                                    <code>4637</code>
+                                    <omschrijving>Groothandel in koffie, thee, cacao en specerijen (geen ruwe)</omschrijving>
+                                    <referentieType>ActiviteitCode</referentieType>
+                                 </sbiCode>
+                                 <isHoofdactiviteit>
+                                    <code>N</code>
+                                    <omschrijving>Nee</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </isHoofdactiviteit>
+                              </sbiActiviteit>
+                              <sbiActiviteit>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>19880101</datumAanvang>
+                                 </registratie>
+                                 <sbiCode>
+                                    <code>4636</code>
+                                    <omschrijving>Groothandel in suiker, chocolade en suikerwerk</omschrijving>
+                                    <referentieType>ActiviteitCode</referentieType>
+                                 </sbiCode>
+                                 <isHoofdactiviteit>
+                                    <code>N</code>
+                                    <omschrijving>Nee</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </isHoofdactiviteit>
+                              </sbiActiviteit>
+                              <exporteert>
+                                 <code>J</code>
+                                 <omschrijving>Ja</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </exporteert>
+                              <importeert>
+                                 <code>J</code>
+                                 <omschrijving>Ja</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </importeert>
+                           </activiteiten>
+                           <handeltOnder>
+                              <relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <datumAanvang>20021121</datumAanvang>
+                              </relatieRegistratie>
+                              <handelsnaam>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>20021121</datumAanvang>
+                                 </registratie>
+                                 <naam>Tiktak/Segafredo Zanetti Nederland B.V.</naam>
+                                 <volgorde>0</volgorde>
+                              </handelsnaam>
+                           </handeltOnder>
+                        </commercieleVestiging>
+                     </wordtUitgeoefendIn>
+                  </onderneming>
+               </manifesteertZichAls>
+               <wordtGeleidVanuit>
+                  <commercieleVestiging>
+                     <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                        <datumAanvang>19880101</datumAanvang>
+                     </registratie>
+                     <vestigingsnummer>000019682808</vestigingsnummer>
+                     <bezoekLocatie>
+                        <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>19880101</datumAanvang>
+                        </registratie>
+                        <afgeschermd>
+                           <code>N</code>
+                           <omschrijving>Nee</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </afgeschermd>
+                        <adres>
+                           <binnenlandsAdres>
+                              <straatnaam>Rouaanstraat</straatnaam>
+                              <huisnummer>10</huisnummer>
+                              <postcode>
+                                 <cijfercombinatie>9723</cijfercombinatie>
+                                 <lettercombinatie>CD</lettercombinatie>
+                              </postcode>
+                              <plaats>Groningen</plaats>
+                              <bagId>
+                                 <identificatieNummeraanduiding>0014200010873258</identificatieNummeraanduiding>
+                                 <identificatieAdresseerbaarObject>0014010011065395</identificatieAdresseerbaarObject>
+                              </bagId>
+                           </binnenlandsAdres>
+                        </adres>
+                        <volledigAdres>Rouaanstraat 10
+9723CD Groningen</volledigAdres>
+                     </bezoekLocatie>
+                     <postLocatie>
+                        <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>19880101</datumAanvang>
+                        </registratie>
+                        <afgeschermd>
+                           <code>N</code>
+                           <omschrijving>Nee</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </afgeschermd>
+                        <adres>
+                           <binnenlandsAdres>
+                              <postbusnummer>115</postbusnummer>
+                              <postcode>
+                                 <cijfercombinatie>9700</cijfercombinatie>
+                                 <lettercombinatie>AC</lettercombinatie>
+                              </postcode>
+                              <plaats>Groningen</plaats>
+                           </binnenlandsAdres>
+                        </adres>
+                        <volledigAdres>Postbus 115
+9700AC Groningen</volledigAdres>
+                     </postLocatie>
+                     <communicatiegegevens>
+                        <registratie registratieTijdstip="20200528115224476">
+                           <datumAanvang>20200519</datumAanvang>
+                        </registratie>
+                        <communicatienummer>
+                           <toegangscode>+31</toegangscode>
+                           <nummer>0503176300</nummer>
+                           <soort>
+                              <code>T</code>
+                              <omschrijving>Telefoon</omschrijving>
+                           </soort>
+                        </communicatienummer>
+                     </communicatiegegevens>
+                     <eersteHandelsnaam>Tiktak/Segafredo Zanetti Nederland B.V.</eersteHandelsnaam>
+                     <voltijdWerkzamePersonen>43</voltijdWerkzamePersonen>
+                     <deeltijdWerkzamePersonen>0</deeltijdWerkzamePersonen>
+                     <totaalWerkzamePersonen>43</totaalWerkzamePersonen>
+                     <activiteiten>
+                        <omschrijving>Koffiebranderij Groothandel in koffie, thee, coffeïnevrije koffie, porcelein, aardewerk, huishoudelijke artikelen, zoetwaren, cacao en chocolade speelgoederen en Italiaanse espresso koffie</omschrijving>
+                        <sbiActiviteit>
+                           <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <datumAanvang>19880101</datumAanvang>
+                           </registratie>
+                           <sbiCode>
+                              <code>1083</code>
+                              <omschrijving>Verwerking van koffie en thee</omschrijving>
+                              <referentieType>ActiviteitCode</referentieType>
+                           </sbiCode>
+                           <isHoofdactiviteit>
+                              <code>J</code>
+                              <omschrijving>Ja</omschrijving>
+                              <referentieType>geenRT</referentieType>
+                           </isHoofdactiviteit>
+                        </sbiActiviteit>
+                        <sbiActiviteit>
+                           <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <datumAanvang>19880101</datumAanvang>
+                           </registratie>
+                           <sbiCode>
+                              <code>4637</code>
+                              <omschrijving>Groothandel in koffie, thee, cacao en specerijen (geen ruwe)</omschrijving>
+                              <referentieType>ActiviteitCode</referentieType>
+                           </sbiCode>
+                           <isHoofdactiviteit>
+                              <code>N</code>
+                              <omschrijving>Nee</omschrijving>
+                              <referentieType>geenRT</referentieType>
+                           </isHoofdactiviteit>
+                        </sbiActiviteit>
+                        <sbiActiviteit>
+                           <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <datumAanvang>19880101</datumAanvang>
+                           </registratie>
+                           <sbiCode>
+                              <code>4636</code>
+                              <omschrijving>Groothandel in suiker, chocolade en suikerwerk</omschrijving>
+                              <referentieType>ActiviteitCode</referentieType>
+                           </sbiCode>
+                           <isHoofdactiviteit>
+                              <code>N</code>
+                              <omschrijving>Nee</omschrijving>
+                              <referentieType>geenRT</referentieType>
+                           </isHoofdactiviteit>
+                        </sbiActiviteit>
+                        <exporteert>
+                           <code>J</code>
+                           <omschrijving>Ja</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </exporteert>
+                        <importeert>
+                           <code>J</code>
+                           <omschrijving>Ja</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </importeert>
+                     </activiteiten>
+                     <handeltOnder>
+                        <relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>20021121</datumAanvang>
+                        </relatieRegistratie>
+                        <handelsnaam>
+                           <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <datumAanvang>20021121</datumAanvang>
+                           </registratie>
+                           <naam>Tiktak/Segafredo Zanetti Nederland B.V.</naam>
+                           <volgorde>0</volgorde>
+                        </handelsnaam>
+                     </handeltOnder>
+                  </commercieleVestiging>
+               </wordtGeleidVanuit>
+               <heeftAlsEigenaar>
+                  <relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <datumAanvang>19880101</datumAanvang>
+                  </relatieRegistratie>
+                  <rechtspersoon>
+                     <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                        <datumAanvang>19110424</datumAanvang>
+                     </registratie>
+                     <persoonRechtsvorm>Besloten Vennootschap</persoonRechtsvorm>
+                     <volledigeNaam>Tiktak/Segafredo Zanetti Nederland B.V.</volledigeNaam>
+                     <uitgebreideRechtsvorm>Besloten Vennootschap</uitgebreideRechtsvorm>
+                     <heeft>
+                        <bestuursfunctie>
+                           <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <datumAanvang>20070101</datumAanvang>
+                           </registratie>
+                           <functietitel>
+                              <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <datumAanvang>20070101</datumAanvang>
+                              </registratie>
+                              <titel>Directeur</titel>
+                              <isStatutaireTitel>
+                                 <code>J</code>
+                                 <omschrijving>Ja</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isStatutaireTitel>
+                           </functietitel>
+                           <door>
+                              <natuurlijkPersoon>
+                                 <extraElementen>
+                                    <extraElement naam="voorvoegsel">970</extraElement>
+                                    <!--Anonimisatie 'extraElement': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><extraElement naam="achternaam">ed</extraElement>
+                                    <!--Anonimisatie 'extraElement': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--></extraElementen>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>19430822</datumAanvang>
+                                    <!--Anonimisatie 'datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></registratie>
+                                 <volledigeNaam>f58a5 17f03075 562 9d</volledigeNaam>
+                                 <!--Anonimisatie 'volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><bezoekLocatiePersoon>
+                                    <registratie registratieTijdstip="20111215214130110"/>
+                                    <afgeschermd>
+                                       <code>N</code>
+                                       <omschrijving>Nee</omschrijving>
+                                       <referentieType>geenRT</referentieType>
+                                    </afgeschermd>
+                                    <adres>
+                                       <binnenlandsAdres>
+                                          <straatnaam>Korte Brinkweg</straatnaam>
+                                          <huisnummer>26</huisnummer>
+                                          <huisletter>C</huisletter>
+                                          <postcode>
+                                             <cijfercombinatie>3761</cijfercombinatie>
+                                             <lettercombinatie>EE</lettercombinatie>
+                                          </postcode>
+                                          <plaats>Soest</plaats>
+                                          <bagId>
+                                             <identificatieNummeraanduiding>0342200000005176</identificatieNummeraanduiding>
+                                             <identificatieAdresseerbaarObject>0342010000005100</identificatieAdresseerbaarObject>
+                                          </bagId>
+                                       </binnenlandsAdres>
+                                    </adres>
+                                    <volledigAdres>Korte Brinkweg 26 C
+3761EE Soest</volledigAdres>
+                                 </bezoekLocatiePersoon>
+                                 <bsn>006793771</bsn>
+                                 <!--Anonimisatie 'bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><geslachtsnaam>ed</geslachtsnaam>
+                                 <!--Anonimisatie 'geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><voorvoegselGeslachtsnaam>970</voorvoegselGeslachtsnaam>
+                                 <!--Anonimisatie 'voorvoegselGeslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><voornamen>70622 3ddf5ab3</voornamen>
+                                 <!--Anonimisatie 'voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geslachtsaanduiding>
+                                    <code>m</code>
+                                    <omschrijving>Mannelijk</omschrijving>
+                                    <referentieType>Geslacht</referentieType>
+                                 </geslachtsaanduiding>
+                                 <geboorteplaats>0baa4ff934</geboorteplaats>
+                                 <!--Anonimisatie 'geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geboorteland>
+                                    <code>6030</code>
+                                    <omschrijving>Nederland</omschrijving>
+                                    <referentieType>Land</referentieType>
+                                 </geboorteland>
+                                 <geboortedatum>19430822</geboortedatum>
+                                 <!--Anonimisatie 'geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></natuurlijkPersoon>
+                           </door>
+                           <functie>
+                              <code>02</code>
+                              <omschrijving>Bestuurder</omschrijving>
+                              <referentieType>FunctionarisRol</referentieType>
+                           </functie>
+                           <bevoegdheid>
+                              <registratie registratieTijdstip="20160331152105083">
+                                 <datumAanvang>20160226</datumAanvang>
+                              </registratie>
+                              <soort>
+                                 <code>azb</code>
+                                 <omschrijving>Alleen/zelfstandig bevoegd</omschrijving>
+                                 <referentieType>SoortBevoegdheidBestuurder</referentieType>
+                              </soort>
+                              <isBevoegdMetAnderePersonen>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isBevoegdMetAnderePersonen>
+                           </bevoegdheid>
+                        </bestuursfunctie>
+                     </heeft>
+                     <heeft>
+                        <overigeFunctionaris>
+                           <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <datumAanvang>20080701</datumAanvang>
+                           </registratie>
+                           <door>
+                              <natuurlijkPersoon>
+                                 <extraElementen>
+                                    <extraElement naam="achternaam">81a8c8</extraElement>
+                                    <!--Anonimisatie 'extraElement': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--></extraElementen>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>19820825</datumAanvang>
+                                    <!--Anonimisatie 'datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></registratie>
+                                 <volledigeNaam>63e3df64 4b5e8a</volledigeNaam>
+                                 <!--Anonimisatie 'volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><bezoekLocatiePersoon>
+                                    <registratie registratieTijdstipNoValue="vastgesteldOnbekend"/>
+                                    <afgeschermd>
+                                       <code>N</code>
+                                       <omschrijving>Nee</omschrijving>
+                                       <referentieType>geenRT</referentieType>
+                                    </afgeschermd>
+                                    <adres>
+                                       <buitenlandsAdres>
+                                          <straatHuisnummer>Ehrgottstrasse 6 A</straatHuisnummer>
+                                          <postcodeWoonplaats>5020 Salzburg</postcodeWoonplaats>
+                                          <land>
+                                             <code>5009</code>
+                                             <omschrijving>Oostenrijk</omschrijving>
+                                             <referentieType>Land</referentieType>
+                                          </land>
+                                       </buitenlandsAdres>
+                                    </adres>
+                                    <volledigAdres>Ehrgottstrasse 6 A
+5020 Salzburg
+Oostenrijk</volledigAdres>
+                                 </bezoekLocatiePersoon>
+                                 <geslachtsnaam>81a8c8</geslachtsnaam>
+                                 <!--Anonimisatie 'geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><voornamen>8cc12415</voornamen>
+                                 <!--Anonimisatie 'voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geslachtsaanduiding>
+                                    <code>o</code>
+                                    <omschrijving>Onbekend</omschrijving>
+                                    <referentieType>Geslacht</referentieType>
+                                 </geslachtsaanduiding>
+                                 <geboorteplaats>1fc0d366</geboorteplaats>
+                                 <!--Anonimisatie 'geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geboorteland>
+                                    <code>5009</code>
+                                    <omschrijving>Oostenrijk</omschrijving>
+                                    <referentieType>Land</referentieType>
+                                 </geboorteland>
+                                 <geboortedatum>19820825</geboortedatum>
+                                 <!--Anonimisatie 'geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></natuurlijkPersoon>
+                           </door>
+                           <functie>
+                              <code>03</code>
+                              <omschrijving>Commissaris</omschrijving>
+                              <referentieType>FunctionarisRol</referentieType>
+                           </functie>
+                        </overigeFunctionaris>
+                     </heeft>
+                     <heeft>
+                        <gemachtigde>
+                           <registratie registratieTijdstip="20160331152105083">
+                              <datumAanvang>20160226</datumAanvang>
+                           </registratie>
+                           <door>
+                              <natuurlijkPersoon>
+                                 <extraElementen>
+                                    <extraElement naam="achternaam">a55c96</extraElement>
+                                    <!--Anonimisatie 'extraElement': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--></extraElementen>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>19670808</datumAanvang>
+                                    <!--Anonimisatie 'datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></registratie>
+                                 <volledigeNaam>1615145b a7bfcf</volledigeNaam>
+                                 <!--Anonimisatie 'volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><bezoekLocatiePersoon>
+                                    <registratie registratieTijdstip="20160331152105083"/>
+                                    <afgeschermd>
+                                       <code>N</code>
+                                       <omschrijving>Nee</omschrijving>
+                                       <referentieType>geenRT</referentieType>
+                                    </afgeschermd>
+                                    <adres>
+                                       <binnenlandsAdres>
+                                          <straatnaam>Bevrijdingslaan</straatnaam>
+                                          <huisnummer>26</huisnummer>
+                                          <postcode>
+                                             <cijfercombinatie>7943</cijfercombinatie>
+                                             <lettercombinatie>CB</lettercombinatie>
+                                          </postcode>
+                                          <plaats>Meppel</plaats>
+                                          <bagId>
+                                             <identificatieNummeraanduiding>0119200000013006</identificatieNummeraanduiding>
+                                             <identificatieAdresseerbaarObject>0119010000015882</identificatieAdresseerbaarObject>
+                                          </bagId>
+                                       </binnenlandsAdres>
+                                    </adres>
+                                    <volledigAdres>Bevrijdingslaan 26
+7943CB Meppel</volledigAdres>
+                                 </bezoekLocatiePersoon>
+                                 <bsn>231892870</bsn>
+                                 <!--Anonimisatie 'bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><geslachtsnaam>a55c96</geslachtsnaam>
+                                 <!--Anonimisatie 'geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><voornamen>2d6716ac</voornamen>
+                                 <!--Anonimisatie 'voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geslachtsaanduiding>
+                                    <code>m</code>
+                                    <omschrijving>Mannelijk</omschrijving>
+                                    <referentieType>Geslacht</referentieType>
+                                 </geslachtsaanduiding>
+                                 <geboorteplaats>a1bea4c4c7</geboorteplaats>
+                                 <!--Anonimisatie 'geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geboorteland>
+                                    <code>6030</code>
+                                    <omschrijving>Nederland</omschrijving>
+                                    <referentieType>Land</referentieType>
+                                 </geboorteland>
+                                 <geboortedatum>19670808</geboortedatum>
+                                 <!--Anonimisatie 'geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></natuurlijkPersoon>
+                           </door>
+                           <functie>
+                              <code>01</code>
+                              <omschrijving>Gevolmachtigde</omschrijving>
+                              <referentieType>FunctionarisRol</referentieType>
+                           </functie>
+                           <volmacht>
+                              <registratie registratieTijdstip="20160331152105083">
+                                 <datumAanvang>20160226</datumAanvang>
+                              </registratie>
+                              <typeVolmacht>
+                                 <code>b</code>
+                                 <omschrijving>Beperkte volmacht</omschrijving>
+                                 <referentieType>VolmachtType</referentieType>
+                              </typeVolmacht>
+                              <isStatutair>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isStatutair>
+                              <beperkteVolmacht>
+                                 <magOpgaveHandelsregisterDoen>
+                                    <code>N</code>
+                                    <omschrijving>Nee</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </magOpgaveHandelsregisterDoen>
+                                 <heeftOverigeVolmacht>
+                                    <code>J</code>
+                                    <omschrijving>Ja</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </heeftOverigeVolmacht>
+                                 <omschrijvingOverigeVolmacht>De heer G.J. Mulder heeft onbeperkte gezamenlijke tekenbevoegdheid met de heer G.C. van As</omschrijvingOverigeVolmacht>
+                              </beperkteVolmacht>
+                           </volmacht>
+                        </gemachtigde>
+                     </heeft>
+                     <heeft>
+                        <overigeFunctionaris>
+                           <registratie registratieTijdstip="20160628082125836">
+                              <datumAanvang>20020625</datumAanvang>
+                           </registratie>
+                           <door>
+                              <buitenlandseVennootschap>
+                                 <volledigeNaam>Massimo Zanetti Beverage S.A.</volledigeNaam>
+                                 <bezoekLocatiePersoon>
+                                    <registratie registratieTijdstip="20160628082125836">
+                                       <datumAanvang>20020625</datumAanvang>
+                                    </registratie>
+                                    <afgeschermd>
+                                       <code>N</code>
+                                       <omschrijving>Nee</omschrijving>
+                                       <referentieType>geenRT</referentieType>
+                                    </afgeschermd>
+                                    <adres>
+                                       <buitenlandsAdres>
+                                          <straatHuisnummer>Rue de Rhone 67</straatHuisnummer>
+                                          <postcodeWoonplaats>1207 Geneve</postcodeWoonplaats>
+                                          <land>
+                                             <code>5003</code>
+                                             <omschrijving>Zwitserland</omschrijving>
+                                             <referentieType>Land</referentieType>
+                                          </land>
+                                       </buitenlandsAdres>
+                                    </adres>
+                                    <volledigAdres>Rue de Rhone 67
+1207 Geneve
+Zwitserland</volledigAdres>
+                                 </bezoekLocatiePersoon>
+                                 <buitenlandseRegistratieGegevens>
+                                    <naam>Registre du Commerce</naam>
+                                    <plaats>Geneve</plaats>
+                                    <land>
+                                       <code>5003</code>
+                                       <omschrijving>Zwitserland</omschrijving>
+                                       <referentieType>Land</referentieType>
+                                    </land>
+                                    <inschrijfnummer>CHE-103.515.979</inschrijfnummer>
+                                    <buitenlandseRegistratie>Registre du Commerce
+Geneve, Zwitserland
+Onder nummer CHE-103.515.979</buitenlandseRegistratie>
+                                 </buitenlandseRegistratieGegevens>
+                                 <landVanVestiging>
+                                    <code>5003</code>
+                                    <omschrijving>Zwitserland</omschrijving>
+                                    <referentieType>Land</referentieType>
+                                 </landVanVestiging>
+                              </buitenlandseVennootschap>
+                           </door>
+                           <functie>
+                              <code>08</code>
+                              <omschrijving>Enig aandeelhouder</omschrijving>
+                              <referentieType>FunctionarisRol</referentieType>
+                           </functie>
+                        </overigeFunctionaris>
+                     </heeft>
+                     <rsin>001359988</rsin>
+                     <naamgeving>
+                        <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>20021121</datumAanvang>
+                        </registratie>
+                        <naam>Tiktak/Segafredo Zanetti Nederland B.V.</naam>
+                     </naamgeving>
+                     <heeftGedeponeerd>
+                        <jaarstukJaarrekening>
+                           <depotId>-4201eb75:17080bd2dad:-1df</depotId>
+                           <status>
+                              <code>1</code>
+                              <omschrijving>Actueel</omschrijving>
+                              <referentieType>StatusDepotstuk</referentieType>
+                           </status>
+                           <datumDeponering>20200224</datumDeponering>
+                           <boekjaar>2019</boekjaar>
+                           <vaststelling>
+                              <code>D</code>
+                              <omschrijving>Definitief</omschrijving>
+                              <referentieType>VaststellingJaarrekening</referentieType>
+                           </vaststelling>
+                        </jaarstukJaarrekening>
+                     </heeftGedeponeerd>
+                     <rechtsvorm>
+                        <code>BV</code>
+                        <omschrijving>Besloten Vennootschap</omschrijving>
+                        <referentieType>Rechtsvorm</referentieType>
+                     </rechtsvorm>
+                     <statutaireZetel>Groningen</statutaireZetel>
+                     <aanvangStatutaireZetel>19110424</aanvangStatutaireZetel>
+                     <datumAkteOprichting>19110424</datumAkteOprichting>
+                     <datumAkteStatutenwijziging>20021120</datumAkteStatutenwijziging>
+                     <stelselInrichting>
+                        <code>D</code>
+                        <omschrijving>Dualistisch</omschrijving>
+                        <referentieType>StelselInrichting</referentieType>
+                     </stelselInrichting>
+                     <structuur>
+                        <code>GS</code>
+                        <omschrijving>Gewone structuur</omschrijving>
+                        <referentieType>RechtsvormStructuur</referentieType>
+                     </structuur>
+                     <geplaatstKapitaal>
+                        <registratie registratieTijdstipNoValue="vastgesteldOnbekend"/>
+                        <bedrag>
+                           <waarde>18190</waarde>
+                           <valuta>
+                              <code>EUR</code>
+                              <omschrijving>Euro</omschrijving>
+                              <referentieType>Valuta</referentieType>
+                           </valuta>
+                        </bedrag>
+                     </geplaatstKapitaal>
+                     <gestortKapitaal>
+                        <registratie registratieTijdstipNoValue="vastgesteldOnbekend"/>
+                        <bedrag>
+                           <waarde>18190</waarde>
+                           <valuta>
+                              <code>EUR</code>
+                              <omschrijving>Euro</omschrijving>
+                              <referentieType>Valuta</referentieType>
+                           </valuta>
+                        </bedrag>
+                     </gestortKapitaal>
+                     <bezoekLocatie>
+                        <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>19880101</datumAanvang>
+                        </registratie>
+                        <afgeschermd>
+                           <code>N</code>
+                           <omschrijving>Nee</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </afgeschermd>
+                        <adres>
+                           <binnenlandsAdres>
+                              <straatnaam>Rouaanstraat</straatnaam>
+                              <huisnummer>10</huisnummer>
+                              <postcode>
+                                 <cijfercombinatie>9723</cijfercombinatie>
+                                 <lettercombinatie>CD</lettercombinatie>
+                              </postcode>
+                              <plaats>Groningen</plaats>
+                              <bagId>
+                                 <identificatieNummeraanduiding>0014200010873258</identificatieNummeraanduiding>
+                                 <identificatieAdresseerbaarObject>0014010011065395</identificatieAdresseerbaarObject>
+                              </bagId>
+                           </binnenlandsAdres>
+                        </adres>
+                        <volledigAdres>Rouaanstraat 10
+9723CD Groningen</volledigAdres>
+                     </bezoekLocatie>
+                  </rechtspersoon>
+               </heeftAlsEigenaar>
+            </maatschappelijkeActiviteit>
+         </product>
+      </ophalenInschrijvingResponse>
+   </wstxns8:Body>
+</soap:Envelope>
