@@ -160,7 +160,9 @@ public class NhrXMLReader extends BrmoXMLReader {
             nodeList = doc.getElementsByTagNameNS("*", "volledigeNaam");
             String _cleanName;
             for (int i = 0; i < nodeList.getLength(); i++) {
-                if (nodeList.item(i).getParentNode().getLocalName().equals("natuurlijkPersoon")) {
+                if (nodeList.item(i).getParentNode().getLocalName().equals("natuurlijkPersoon")
+                        ||  nodeList.item(i).getParentNode().getLocalName().equals("buitenlandseVennootschap")
+                ) {
                     LOG.debug("NAAM: " + i + ": " + nodeList.item(i).getNodeName() + " - " + nodeList.item(i).getTextContent());
                     _cleanName = nodeList.item(i).getTextContent()
                             .replace(" ", "")

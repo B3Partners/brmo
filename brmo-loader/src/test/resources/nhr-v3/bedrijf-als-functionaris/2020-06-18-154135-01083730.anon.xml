@@ -1,0 +1,792 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Geanonimiseerd door B3Partners BV op 2020-06-26+02:00, zie commentaar in bericht.-->
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+   <wstxns1:Header xmlns:wsa="http://www.w3.org/2005/08/addressing"
+                   xmlns:wstxns1="http://schemas.xmlsoap.org/soap/envelope/"/>
+   <wstxns8:Body xmlns:wstxns8="http://schemas.xmlsoap.org/soap/envelope/"
+                 xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+                 wsu:Id="id-1-c8265e5710a9bb531cded7eef2af8707">
+      <ophalenInschrijvingResponse xmlns="http://schemas.kvk.nl/schemas/hrip/dataservice/2015/02"
+                                   peilmoment="20200618154125140">
+         <meldingen>
+            <informatie>
+               <code>IPD0000</code>
+               <omschrijving>Het product is succesvol geproduceerd</omschrijving>
+               <referentie>01083730</referentie>
+            </informatie>
+         </meldingen>
+         <product>
+            <maatschappelijkeActiviteit xmlns="http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02">
+               <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                  <datumAanvang>19980731</datumAanvang>
+               </registratie>
+               <kvkNummer>01083730</kvkNummer>
+               <nonMailing>
+                  <code>N</code>
+                  <omschrijving>Nee</omschrijving>
+                  <referentieType>geenRT</referentieType>
+               </nonMailing>
+               <incidenteelUitlenenArbeidskrachten>
+                  <code>N</code>
+                  <omschrijving>Nee</omschrijving>
+                  <referentieType>geenRT</referentieType>
+               </incidenteelUitlenenArbeidskrachten>
+               <bezoekLocatie>
+                  <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <datumAanvang>20060601</datumAanvang>
+                  </registratie>
+                  <afgeschermd>
+                     <code>N</code>
+                     <omschrijving>Nee</omschrijving>
+                     <referentieType>geenRT</referentieType>
+                  </afgeschermd>
+                  <adres>
+                     <binnenlandsAdres>
+                        <straatnaam>Winschoterweg</straatnaam>
+                        <huisnummer>1</huisnummer>
+                        <postcode>
+                           <cijfercombinatie>9723</cijfercombinatie>
+                           <lettercombinatie>CG</lettercombinatie>
+                        </postcode>
+                        <plaats>Groningen</plaats>
+                        <bagId>
+                           <identificatieNummeraanduiding>0014200010881187</identificatieNummeraanduiding>
+                           <identificatieAdresseerbaarObject>0014010011072980</identificatieAdresseerbaarObject>
+                        </bagId>
+                     </binnenlandsAdres>
+                  </adres>
+                  <volledigAdres>Winschoterweg 1
+9723CG Groningen</volledigAdres>
+               </bezoekLocatie>
+               <postLocatie>
+                  <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <datumAanvang>19980731</datumAanvang>
+                  </registratie>
+                  <afgeschermd>
+                     <code>N</code>
+                     <omschrijving>Nee</omschrijving>
+                     <referentieType>geenRT</referentieType>
+                  </afgeschermd>
+                  <adres>
+                     <binnenlandsAdres>
+                        <postbusnummer>17</postbusnummer>
+                        <postcode>
+                           <cijfercombinatie>9640</cijfercombinatie>
+                           <lettercombinatie>AA</lettercombinatie>
+                        </postcode>
+                        <plaats>Veendam</plaats>
+                     </binnenlandsAdres>
+                  </adres>
+                  <volledigAdres>Postbus 17
+9640AA Veendam</volledigAdres>
+               </postLocatie>
+               <communicatiegegevens>
+                  <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <datumAanvang>19980731</datumAanvang>
+                  </registratie>
+                  <communicatienummer>
+                     <toegangscode>+31</toegangscode>
+                     <nummer>0505491840</nummer>
+                     <soort>
+                        <code>T</code>
+                        <omschrijving>Telefoon</omschrijving>
+                     </soort>
+                  </communicatienummer>
+                  <communicatienummer>
+                     <toegangscode>+31</toegangscode>
+                     <nummer>0598632912</nummer>
+                     <soort>
+                        <code>F</code>
+                        <omschrijving>Fax</omschrijving>
+                     </soort>
+                  </communicatienummer>
+               </communicatiegegevens>
+               <naam>BVNN/Boskalis Dolman V.O.F.</naam>
+               <manifesteertZichAls>
+                  <relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <datumAanvang>19980731</datumAanvang>
+                  </relatieRegistratie>
+                  <onderneming>
+                     <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                        <datumAanvang>19980731</datumAanvang>
+                     </registratie>
+                     <kvkNummer>01083730</kvkNummer>
+                     <sbiActiviteit>
+                        <registratie registratieTijdstip="20140412134319822">
+                           <datumAanvang>20140412</datumAanvang>
+                        </registratie>
+                        <sbiCode>
+                           <code>3832</code>
+                           <omschrijving>Gesorteerd materiaal voorbereiden tot recycling</omschrijving>
+                           <referentieType>ActiviteitCode</referentieType>
+                        </sbiCode>
+                        <isHoofdactiviteit>
+                           <code>J</code>
+                           <omschrijving>Ja</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </isHoofdactiviteit>
+                     </sbiActiviteit>
+                     <voltijdWerkzamePersonen>3</voltijdWerkzamePersonen>
+                     <deeltijdWerkzamePersonen>3</deeltijdWerkzamePersonen>
+                     <totaalWerkzamePersonen>6</totaalWerkzamePersonen>
+                     <handeltOnder>
+                        <handelsnaam>
+                           <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <datumAanvang>19980731</datumAanvang>
+                           </registratie>
+                           <naam>BVNN/Boskalis Dolman V.O.F.</naam>
+                           <volgorde>0</volgorde>
+                        </handelsnaam>
+                     </handeltOnder>
+                     <wordtUitgeoefendIn>
+                        <relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>19980731</datumAanvang>
+                        </relatieRegistratie>
+                        <commercieleVestiging>
+                           <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <datumAanvang>19980731</datumAanvang>
+                           </registratie>
+                           <vestigingsnummer>000016073738</vestigingsnummer>
+                           <bezoekLocatie>
+                              <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <datumAanvang>20060601</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <straatnaam>Winschoterweg</straatnaam>
+                                    <huisnummer>1</huisnummer>
+                                    <postcode>
+                                       <cijfercombinatie>9723</cijfercombinatie>
+                                       <lettercombinatie>CG</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Groningen</plaats>
+                                    <bagId>
+                                       <identificatieNummeraanduiding>0014200010881187</identificatieNummeraanduiding>
+                                       <identificatieAdresseerbaarObject>0014010011072980</identificatieAdresseerbaarObject>
+                                    </bagId>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Winschoterweg 1
+9723CG Groningen</volledigAdres>
+                           </bezoekLocatie>
+                           <postLocatie>
+                              <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <datumAanvang>19980731</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <postbusnummer>17</postbusnummer>
+                                    <postcode>
+                                       <cijfercombinatie>9640</cijfercombinatie>
+                                       <lettercombinatie>AA</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Veendam</plaats>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Postbus 17
+9640AA Veendam</volledigAdres>
+                           </postLocatie>
+                           <communicatiegegevens>
+                              <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <datumAanvang>19980731</datumAanvang>
+                              </registratie>
+                              <communicatienummer>
+                                 <toegangscode>+31</toegangscode>
+                                 <nummer>0505491840</nummer>
+                                 <soort>
+                                    <code>T</code>
+                                    <omschrijving>Telefoon</omschrijving>
+                                 </soort>
+                              </communicatienummer>
+                              <communicatienummer>
+                                 <toegangscode>+31</toegangscode>
+                                 <nummer>0598632912</nummer>
+                                 <soort>
+                                    <code>F</code>
+                                    <omschrijving>Fax</omschrijving>
+                                 </soort>
+                              </communicatienummer>
+                           </communicatiegegevens>
+                           <eersteHandelsnaam>BVNN/Boskalis Dolman V.O.F.</eersteHandelsnaam>
+                           <voltijdWerkzamePersonen>0</voltijdWerkzamePersonen>
+                           <deeltijdWerkzamePersonen>0</deeltijdWerkzamePersonen>
+                           <totaalWerkzamePersonen>0</totaalWerkzamePersonen>
+                           <activiteiten>
+                              <omschrijving>Inzamelen en bewerken van mineraalrijke afvalstoffen met behulp van een fractie- scheidingsinstallatie tot een herbruikbare deelstroom en een te storten restfractie.</omschrijving>
+                              <sbiActiviteit>
+                                 <registratie registratieTijdstip="20140412134319822">
+                                    <datumAanvang>20140412</datumAanvang>
+                                 </registratie>
+                                 <sbiCode>
+                                    <code>3832</code>
+                                    <omschrijving>Gesorteerd materiaal voorbereiden tot recycling</omschrijving>
+                                    <referentieType>ActiviteitCode</referentieType>
+                                 </sbiCode>
+                                 <isHoofdactiviteit>
+                                    <code>J</code>
+                                    <omschrijving>Ja</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </isHoofdactiviteit>
+                              </sbiActiviteit>
+                              <exporteert>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </exporteert>
+                              <importeert>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </importeert>
+                           </activiteiten>
+                           <handeltOnder>
+                              <relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <datumAanvang>19980731</datumAanvang>
+                              </relatieRegistratie>
+                              <handelsnaam>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>19980731</datumAanvang>
+                                 </registratie>
+                                 <naam>BVNN/Boskalis Dolman V.O.F.</naam>
+                                 <volgorde>0</volgorde>
+                              </handelsnaam>
+                           </handeltOnder>
+                        </commercieleVestiging>
+                     </wordtUitgeoefendIn>
+                     <wordtUitgeoefendIn>
+                        <relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>20081001</datumAanvang>
+                        </relatieRegistratie>
+                        <commercieleVestiging>
+                           <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <datumAanvang>20081001</datumAanvang>
+                           </registratie>
+                           <vestigingsnummer>000016073762</vestigingsnummer>
+                           <bezoekLocatie>
+                              <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <datumAanvang>20081001</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <straatnaam>De Dolten</straatnaam>
+                                    <huisnummer>11</huisnummer>
+                                    <postcode>
+                                       <cijfercombinatie>8447</cijfercombinatie>
+                                       <lettercombinatie>SB</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Heerenveen</plaats>
+                                    <bagId>
+                                       <identificatieNummeraanduiding>0051200001251424</identificatieNummeraanduiding>
+                                       <identificatieAdresseerbaarObject>0051010001251425</identificatieAdresseerbaarObject>
+                                    </bagId>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>De Dolten 11
+8447SB Heerenveen</volledigAdres>
+                           </bezoekLocatie>
+                           <postLocatie>
+                              <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <datumAanvang>20081001</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <straatnaam>De Dolten</straatnaam>
+                                    <huisnummer>11</huisnummer>
+                                    <postcode>
+                                       <cijfercombinatie>8447</cijfercombinatie>
+                                       <lettercombinatie>SB</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Heerenveen</plaats>
+                                    <bagId>
+                                       <identificatieNummeraanduiding>0051200001251424</identificatieNummeraanduiding>
+                                       <identificatieAdresseerbaarObject>0051010001251425</identificatieAdresseerbaarObject>
+                                    </bagId>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>De Dolten 11
+8447SB Heerenveen</volledigAdres>
+                           </postLocatie>
+                           <communicatiegegevens>
+                              <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <datumAanvang>20081001</datumAanvang>
+                              </registratie>
+                              <communicatienummer>
+                                 <toegangscode>+31</toegangscode>
+                                 <nummer>0598690022</nummer>
+                                 <soort>
+                                    <code>T</code>
+                                    <omschrijving>Telefoon</omschrijving>
+                                 </soort>
+                              </communicatienummer>
+                              <communicatienummer>
+                                 <toegangscode>+31</toegangscode>
+                                 <nummer>0598632912</nummer>
+                                 <soort>
+                                    <code>F</code>
+                                    <omschrijving>Fax</omschrijving>
+                                 </soort>
+                              </communicatienummer>
+                           </communicatiegegevens>
+                           <eersteHandelsnaam>BVNN/Boskalis Dolman V.O.F.</eersteHandelsnaam>
+                           <voltijdWerkzamePersonen>3</voltijdWerkzamePersonen>
+                           <deeltijdWerkzamePersonen>3</deeltijdWerkzamePersonen>
+                           <totaalWerkzamePersonen>6</totaalWerkzamePersonen>
+                           <activiteiten>
+                              <omschrijving>Acceptatie en bewerking van verontreinigde minerale afvalstoffen.</omschrijving>
+                              <sbiActiviteit>
+                                 <registratie registratieTijdstip="20140412134319822">
+                                    <datumAanvang>20140412</datumAanvang>
+                                 </registratie>
+                                 <sbiCode>
+                                    <code>3832</code>
+                                    <omschrijving>Gesorteerd materiaal voorbereiden tot recycling</omschrijving>
+                                    <referentieType>ActiviteitCode</referentieType>
+                                 </sbiCode>
+                                 <isHoofdactiviteit>
+                                    <code>J</code>
+                                    <omschrijving>Ja</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </isHoofdactiviteit>
+                              </sbiActiviteit>
+                              <exporteert>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </exporteert>
+                              <importeert>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </importeert>
+                           </activiteiten>
+                           <handeltOnder>
+                              <relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <datumAanvang>20081001</datumAanvang>
+                              </relatieRegistratie>
+                              <handelsnaam>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>19980731</datumAanvang>
+                                 </registratie>
+                                 <naam>BVNN/Boskalis Dolman V.O.F.</naam>
+                                 <volgorde>0</volgorde>
+                              </handelsnaam>
+                           </handeltOnder>
+                        </commercieleVestiging>
+                     </wordtUitgeoefendIn>
+                  </onderneming>
+               </manifesteertZichAls>
+               <wordtGeleidVanuit>
+                  <commercieleVestiging>
+                     <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                        <datumAanvang>19980731</datumAanvang>
+                     </registratie>
+                     <vestigingsnummer>000016073738</vestigingsnummer>
+                     <bezoekLocatie>
+                        <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>20060601</datumAanvang>
+                        </registratie>
+                        <afgeschermd>
+                           <code>N</code>
+                           <omschrijving>Nee</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </afgeschermd>
+                        <adres>
+                           <binnenlandsAdres>
+                              <straatnaam>Winschoterweg</straatnaam>
+                              <huisnummer>1</huisnummer>
+                              <postcode>
+                                 <cijfercombinatie>9723</cijfercombinatie>
+                                 <lettercombinatie>CG</lettercombinatie>
+                              </postcode>
+                              <plaats>Groningen</plaats>
+                              <bagId>
+                                 <identificatieNummeraanduiding>0014200010881187</identificatieNummeraanduiding>
+                                 <identificatieAdresseerbaarObject>0014010011072980</identificatieAdresseerbaarObject>
+                              </bagId>
+                           </binnenlandsAdres>
+                        </adres>
+                        <volledigAdres>Winschoterweg 1
+9723CG Groningen</volledigAdres>
+                     </bezoekLocatie>
+                     <postLocatie>
+                        <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>19980731</datumAanvang>
+                        </registratie>
+                        <afgeschermd>
+                           <code>N</code>
+                           <omschrijving>Nee</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </afgeschermd>
+                        <adres>
+                           <binnenlandsAdres>
+                              <postbusnummer>17</postbusnummer>
+                              <postcode>
+                                 <cijfercombinatie>9640</cijfercombinatie>
+                                 <lettercombinatie>AA</lettercombinatie>
+                              </postcode>
+                              <plaats>Veendam</plaats>
+                           </binnenlandsAdres>
+                        </adres>
+                        <volledigAdres>Postbus 17
+9640AA Veendam</volledigAdres>
+                     </postLocatie>
+                     <communicatiegegevens>
+                        <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>19980731</datumAanvang>
+                        </registratie>
+                        <communicatienummer>
+                           <toegangscode>+31</toegangscode>
+                           <nummer>0505491840</nummer>
+                           <soort>
+                              <code>T</code>
+                              <omschrijving>Telefoon</omschrijving>
+                           </soort>
+                        </communicatienummer>
+                        <communicatienummer>
+                           <toegangscode>+31</toegangscode>
+                           <nummer>0598632912</nummer>
+                           <soort>
+                              <code>F</code>
+                              <omschrijving>Fax</omschrijving>
+                           </soort>
+                        </communicatienummer>
+                     </communicatiegegevens>
+                     <eersteHandelsnaam>BVNN/Boskalis Dolman V.O.F.</eersteHandelsnaam>
+                     <voltijdWerkzamePersonen>0</voltijdWerkzamePersonen>
+                     <deeltijdWerkzamePersonen>0</deeltijdWerkzamePersonen>
+                     <totaalWerkzamePersonen>0</totaalWerkzamePersonen>
+                     <activiteiten>
+                        <omschrijving>Inzamelen en bewerken van mineraalrijke afvalstoffen met behulp van een fractie- scheidingsinstallatie tot een herbruikbare deelstroom en een te storten restfractie.</omschrijving>
+                        <sbiActiviteit>
+                           <registratie registratieTijdstip="20140412134319822">
+                              <datumAanvang>20140412</datumAanvang>
+                           </registratie>
+                           <sbiCode>
+                              <code>3832</code>
+                              <omschrijving>Gesorteerd materiaal voorbereiden tot recycling</omschrijving>
+                              <referentieType>ActiviteitCode</referentieType>
+                           </sbiCode>
+                           <isHoofdactiviteit>
+                              <code>J</code>
+                              <omschrijving>Ja</omschrijving>
+                              <referentieType>geenRT</referentieType>
+                           </isHoofdactiviteit>
+                        </sbiActiviteit>
+                        <exporteert>
+                           <code>N</code>
+                           <omschrijving>Nee</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </exporteert>
+                        <importeert>
+                           <code>N</code>
+                           <omschrijving>Nee</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </importeert>
+                     </activiteiten>
+                     <handeltOnder>
+                        <relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>19980731</datumAanvang>
+                        </relatieRegistratie>
+                        <handelsnaam>
+                           <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <datumAanvang>19980731</datumAanvang>
+                           </registratie>
+                           <naam>BVNN/Boskalis Dolman V.O.F.</naam>
+                           <volgorde>0</volgorde>
+                        </handelsnaam>
+                     </handeltOnder>
+                  </commercieleVestiging>
+               </wordtGeleidVanuit>
+               <heeftAlsEigenaar>
+                  <relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <datumAanvang>19980731</datumAanvang>
+                  </relatieRegistratie>
+                  <samenwerkingsverband>
+                     <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                        <datumAanvang>19980731</datumAanvang>
+                     </registratie>
+                     <persoonRechtsvorm>Vennootschap Onder Firma</persoonRechtsvorm>
+                     <volledigeNaam>BVNN/Boskalis Dolman V.O.F.</volledigeNaam>
+                     <uitgebreideRechtsvorm>Vennootschap Onder Firma</uitgebreideRechtsvorm>
+                     <heeft>
+                        <aansprakelijke>
+                           <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <datumAanvang>19980731</datumAanvang>
+                           </registratie>
+                           <door>
+                              <rechtspersoon>
+                                 <persoonRechtsvorm>Besloten Vennootschap</persoonRechtsvorm>
+                                 <volledigeNaam>Boskalis Environmental B.V.</volledigeNaam>
+                                 <bezoekLocatiePersoon>
+                                    <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                       <datumAanvang>20090301</datumAanvang>
+                                    </registratie>
+                                    <afgeschermd>
+                                       <code>N</code>
+                                       <omschrijving>Nee</omschrijving>
+                                       <referentieType>geenRT</referentieType>
+                                    </afgeschermd>
+                                    <adres>
+                                       <binnenlandsAdres>
+                                          <straatnaam>Rosmolenweg</straatnaam>
+                                          <huisnummer>20</huisnummer>
+                                          <postcode>
+                                             <cijfercombinatie>3356</cijfercombinatie>
+                                             <lettercombinatie>LK</lettercombinatie>
+                                          </postcode>
+                                          <plaats>Papendrecht</plaats>
+                                          <bagId>
+                                             <identificatieNummeraanduiding>0590200000011039</identificatieNummeraanduiding>
+                                             <identificatieAdresseerbaarObject>0590010000014143</identificatieAdresseerbaarObject>
+                                          </bagId>
+                                       </binnenlandsAdres>
+                                    </adres>
+                                    <volledigAdres>Rosmolenweg 20
+3356LK Papendrecht</volledigAdres>
+                                 </bezoekLocatiePersoon>
+                                 <isEigenaarVan>
+                                    <maatschappelijkeActiviteit>
+                                       <kvkNummer>24276501</kvkNummer>
+                                       <nonMailing>
+                                          <code>N</code>
+                                          <omschrijving>Nee</omschrijving>
+                                          <referentieType>geenRT</referentieType>
+                                       </nonMailing>
+                                    </maatschappelijkeActiviteit>
+                                 </isEigenaarVan>
+                                 <rsin>004822833</rsin>
+                              </rechtspersoon>
+                           </door>
+                           <functie>
+                              <code>13</code>
+                              <omschrijving>Vennoot</omschrijving>
+                              <referentieType>FunctionarisRol</referentieType>
+                           </functie>
+                           <bevoegdheid>
+                              <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <datumAanvang>19980731</datumAanvang>
+                              </registratie>
+                              <soort>
+                                 <code>bb</code>
+                                 <omschrijving>Beperkt bevoegd</omschrijving>
+                                 <referentieType>SoortBevoegdheidAansprakelijkeBijSamenwerkingsverband</referentieType>
+                              </soort>
+                              <overigeBeperking>
+                                 <code>J</code>
+                                 <omschrijving>Ja</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </overigeBeperking>
+                           </bevoegdheid>
+                        </aansprakelijke>
+                     </heeft>
+                     <heeft>
+                        <aansprakelijke>
+                           <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <datumAanvang>19980731</datumAanvang>
+                           </registratie>
+                           <door>
+                              <samenwerkingsverband>
+                                 <persoonRechtsvorm>Vennootschap Onder Firma</persoonRechtsvorm>
+                                 <volledigeNaam>Baggerspecieverwerking Noord-Nederland V.O.F.</volledigeNaam>
+                                 <bezoekLocatiePersoon>
+                                    <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                       <datumAanvang>19960201</datumAanvang>
+                                    </registratie>
+                                    <afgeschermd>
+                                       <code>N</code>
+                                       <omschrijving>Nee</omschrijving>
+                                       <referentieType>geenRT</referentieType>
+                                    </afgeschermd>
+                                    <adres>
+                                       <binnenlandsAdres>
+                                          <straatnaam>Newtonweg</straatnaam>
+                                          <huisnummer>1</huisnummer>
+                                          <postcode>
+                                             <cijfercombinatie>8912</cijfercombinatie>
+                                             <lettercombinatie>BD</lettercombinatie>
+                                          </postcode>
+                                          <plaats>Leeuwarden</plaats>
+                                          <bagId>
+                                             <identificatieNummeraanduiding>0080200000405813</identificatieNummeraanduiding>
+                                             <identificatieAdresseerbaarObject>0080010000405814</identificatieAdresseerbaarObject>
+                                          </bagId>
+                                       </binnenlandsAdres>
+                                    </adres>
+                                    <volledigAdres>Newtonweg 1
+8912BD Leeuwarden</volledigAdres>
+                                 </bezoekLocatiePersoon>
+                                 <isEigenaarVan>
+                                    <maatschappelijkeActiviteit>
+                                       <kvkNummer>01073317</kvkNummer>
+                                       <nonMailing>
+                                          <code>N</code>
+                                          <omschrijving>Nee</omschrijving>
+                                          <referentieType>geenRT</referentieType>
+                                       </nonMailing>
+                                    </maatschappelijkeActiviteit>
+                                 </isEigenaarVan>
+                                 <rsin>805281769</rsin>
+                              </samenwerkingsverband>
+                           </door>
+                           <functie>
+                              <code>13</code>
+                              <omschrijving>Vennoot</omschrijving>
+                              <referentieType>FunctionarisRol</referentieType>
+                           </functie>
+                           <bevoegdheid>
+                              <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <datumAanvang>19980731</datumAanvang>
+                              </registratie>
+                              <soort>
+                                 <code>bb</code>
+                                 <omschrijving>Beperkt bevoegd</omschrijving>
+                                 <referentieType>SoortBevoegdheidAansprakelijkeBijSamenwerkingsverband</referentieType>
+                              </soort>
+                              <overigeBeperking>
+                                 <code>J</code>
+                                 <omschrijving>Ja</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </overigeBeperking>
+                           </bevoegdheid>
+                        </aansprakelijke>
+                     </heeft>
+                     <heeft>
+                        <gemachtigde>
+                           <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <datumAanvang>20000101</datumAanvang>
+                           </registratie>
+                           <door>
+                              <natuurlijkPersoon>
+                                 <extraElementen>
+                                    <extraElement naam="achternaam">b0bf51</extraElement>
+                                    <!--Anonimisatie 'extraElement': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--></extraElementen>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>19520124</datumAanvang>
+                                    <!--Anonimisatie 'datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></registratie>
+                                 <volledigeNaam>dd64a 082fe 97083c</volledigeNaam>
+                                 <!--Anonimisatie 'volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><bezoekLocatiePersoon>
+                                    <registratie registratieTijdstipNoValue="vastgesteldOnbekend"/>
+                                    <afgeschermd>
+                                       <code>N</code>
+                                       <omschrijving>Nee</omschrijving>
+                                       <referentieType>geenRT</referentieType>
+                                    </afgeschermd>
+                                    <adres>
+                                       <binnenlandsAdres>
+                                          <straatnaam>De Wetterwille</straatnaam>
+                                          <huisnummer>116</huisnummer>
+                                          <postcode>
+                                             <cijfercombinatie>9207</cijfercombinatie>
+                                             <lettercombinatie>BL</lettercombinatie>
+                                          </postcode>
+                                          <plaats>Drachten</plaats>
+                                          <bagId>
+                                             <identificatieNummeraanduiding>0090200000647769</identificatieNummeraanduiding>
+                                             <identificatieAdresseerbaarObject>0090010000647770</identificatieAdresseerbaarObject>
+                                          </bagId>
+                                       </binnenlandsAdres>
+                                    </adres>
+                                    <volledigAdres>De Wetterwille 116
+9207BL Drachten</volledigAdres>
+                                 </bezoekLocatiePersoon>
+                                 <bsn>053211652</bsn>
+                                 <!--Anonimisatie 'bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><geslachtsnaam>b0bf51</geslachtsnaam>
+                                 <!--Anonimisatie 'geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><voornamen>a0637 56b3d</voornamen>
+                                 <!--Anonimisatie 'voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geslachtsaanduiding>
+                                    <code>m</code>
+                                    <omschrijving>Mannelijk</omschrijving>
+                                    <referentieType>Geslacht</referentieType>
+                                 </geslachtsaanduiding>
+                                 <geboorteplaats>056ea12cd 3293045ec5 27 3</geboorteplaats>
+                                 <!--Anonimisatie 'geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geboorteland>
+                                    <code>6030</code>
+                                    <omschrijving>Nederland</omschrijving>
+                                    <referentieType>Land</referentieType>
+                                 </geboorteland>
+                                 <geboortedatum>19520124</geboortedatum>
+                                 <!--Anonimisatie 'geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></natuurlijkPersoon>
+                           </door>
+                           <functie>
+                              <code>01</code>
+                              <omschrijving>Gevolmachtigde</omschrijving>
+                              <referentieType>FunctionarisRol</referentieType>
+                           </functie>
+                           <volmacht>
+                              <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <datumAanvang>20000101</datumAanvang>
+                              </registratie>
+                              <typeVolmacht>
+                                 <code>b</code>
+                                 <omschrijving>Beperkte volmacht</omschrijving>
+                                 <referentieType>VolmachtType</referentieType>
+                              </typeVolmacht>
+                              <isStatutair>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isStatutair>
+                              <beperkteVolmacht>
+                                 <magOpgaveHandelsregisterDoen>
+                                    <code>N</code>
+                                    <omschrijving>Nee</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </magOpgaveHandelsregisterDoen>
+                                 <heeftOverigeVolmacht>
+                                    <code>J</code>
+                                    <omschrijving>Ja</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </heeftOverigeVolmacht>
+                                 <omschrijvingOverigeVolmacht>Voor inhoud volmacht raadpleeg dossier</omschrijvingOverigeVolmacht>
+                              </beperkteVolmacht>
+                           </volmacht>
+                        </gemachtigde>
+                     </heeft>
+                     <rsin>807340200</rsin>
+                     <naamgeving>
+                        <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>19980731</datumAanvang>
+                        </registratie>
+                        <naam>BVNN/Boskalis Dolman V.O.F.</naam>
+                     </naamgeving>
+                     <rechtsvorm>
+                        <code>VOF</code>
+                        <omschrijving>Vennootschap Onder Firma</omschrijving>
+                        <referentieType>Rechtsvorm</referentieType>
+                     </rechtsvorm>
+                     <duur>
+                        <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>19980731</datumAanvang>
+                        </registratie>
+                        <heeftOnbepaaldeDuur>
+                           <code>J</code>
+                           <omschrijving>Ja</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </heeftOnbepaaldeDuur>
+                     </duur>
+                  </samenwerkingsverband>
+               </heeftAlsEigenaar>
+            </maatschappelijkeActiviteit>
+         </product>
+      </ophalenInschrijvingResponse>
+   </wstxns8:Body>
+</soap:Envelope>

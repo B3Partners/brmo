@@ -1,0 +1,1085 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Geanonimiseerd door B3Partners BV op 2020-06-26+02:00, zie commentaar in bericht.-->
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+   <wstxns1:Header xmlns:wsa="http://www.w3.org/2005/08/addressing"
+                   xmlns:wstxns1="http://schemas.xmlsoap.org/soap/envelope/"/>
+   <wstxns8:Body xmlns:wstxns8="http://schemas.xmlsoap.org/soap/envelope/"
+                 xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+                 wsu:Id="id-1-20daa3709ce97b54675fcc3a8ee537c1">
+      <ophalenInschrijvingResponse xmlns="http://schemas.kvk.nl/schemas/hrip/dataservice/2015/02"
+                                   peilmoment="20200618153421291">
+         <meldingen>
+            <informatie>
+               <code>IPD0000</code>
+               <omschrijving>Het product is succesvol geproduceerd</omschrijving>
+               <referentie>01037917</referentie>
+            </informatie>
+         </meldingen>
+         <product>
+            <maatschappelijkeActiviteit xmlns="http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02">
+               <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                  <datumAanvang>19701223</datumAanvang>
+               </registratie>
+               <kvkNummer>01037917</kvkNummer>
+               <nonMailing>
+                  <code>N</code>
+                  <omschrijving>Nee</omschrijving>
+                  <referentieType>geenRT</referentieType>
+               </nonMailing>
+               <incidenteelUitlenenArbeidskrachten>
+                  <code>N</code>
+                  <omschrijving>Nee</omschrijving>
+                  <referentieType>geenRT</referentieType>
+               </incidenteelUitlenenArbeidskrachten>
+               <bezoekLocatie>
+                  <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <datumAanvang>19820614</datumAanvang>
+                  </registratie>
+                  <afgeschermd>
+                     <code>N</code>
+                     <omschrijving>Nee</omschrijving>
+                     <referentieType>geenRT</referentieType>
+                  </afgeschermd>
+                  <adres>
+                     <binnenlandsAdres>
+                        <straatnaam>Tussendiepen</straatnaam>
+                        <huisnummer>64</huisnummer>
+                        <huisnummerToevoeging>66</huisnummerToevoeging>
+                        <postcode>
+                           <cijfercombinatie>9206</cijfercombinatie>
+                           <lettercombinatie>AE</lettercombinatie>
+                        </postcode>
+                        <plaats>Drachten</plaats>
+                        <bagId>
+                           <identificatieNummeraanduiding>0090200000665683</identificatieNummeraanduiding>
+                           <identificatieAdresseerbaarObject>0090010000665684</identificatieAdresseerbaarObject>
+                        </bagId>
+                     </binnenlandsAdres>
+                  </adres>
+                  <volledigAdres>Tussendiepen 64 66
+9206AE Drachten</volledigAdres>
+               </bezoekLocatie>
+               <postLocatie>
+                  <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <datumAanvang>19820614</datumAanvang>
+                  </registratie>
+                  <afgeschermd>
+                     <code>N</code>
+                     <omschrijving>Nee</omschrijving>
+                     <referentieType>geenRT</referentieType>
+                  </afgeschermd>
+                  <adres>
+                     <binnenlandsAdres>
+                        <straatnaam>Tussendiepen</straatnaam>
+                        <huisnummer>64</huisnummer>
+                        <huisnummerToevoeging>66</huisnummerToevoeging>
+                        <postcode>
+                           <cijfercombinatie>9206</cijfercombinatie>
+                           <lettercombinatie>AE</lettercombinatie>
+                        </postcode>
+                        <plaats>Drachten</plaats>
+                        <bagId>
+                           <identificatieNummeraanduiding>0090200000665683</identificatieNummeraanduiding>
+                           <identificatieAdresseerbaarObject>0090010000665684</identificatieAdresseerbaarObject>
+                        </bagId>
+                     </binnenlandsAdres>
+                  </adres>
+                  <volledigAdres>Tussendiepen 64 66
+9206AE Drachten</volledigAdres>
+               </postLocatie>
+               <communicatiegegevens>
+                  <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <datumAanvang>19701223</datumAanvang>
+                  </registratie>
+                  <communicatienummer>
+                     <toegangscode>+31</toegangscode>
+                     <nummer>0512580123</nummer>
+                     <soort>
+                        <code>T</code>
+                        <omschrijving>Telefoon</omschrijving>
+                     </soort>
+                  </communicatienummer>
+                  <communicatienummer>
+                     <toegangscode>+31</toegangscode>
+                     <nummer>0512517117</nummer>
+                     <soort>
+                        <code>F</code>
+                        <omschrijving>Fax</omschrijving>
+                     </soort>
+                  </communicatienummer>
+                  <emailAdres>info.nl@eldon.com</emailAdres>
+                  <domeinNaam>www.eldon.nl</domeinNaam>
+               </communicatiegegevens>
+               <naam>Eldon N.V.</naam>
+               <manifesteertZichAls>
+                  <relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <datumAanvang>19701223</datumAanvang>
+                  </relatieRegistratie>
+                  <onderneming>
+                     <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                        <datumAanvang>19701223</datumAanvang>
+                     </registratie>
+                     <kvkNummer>01037917</kvkNummer>
+                     <sbiActiviteit>
+                        <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>19701223</datumAanvang>
+                        </registratie>
+                        <sbiCode>
+                           <code>2712</code>
+                           <omschrijving>Vervaardiging van schakel- en verdeelinrichtingen</omschrijving>
+                           <referentieType>ActiviteitCode</referentieType>
+                        </sbiCode>
+                        <isHoofdactiviteit>
+                           <code>J</code>
+                           <omschrijving>Ja</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </isHoofdactiviteit>
+                     </sbiActiviteit>
+                     <sbiActiviteit>
+                        <registratie registratieTijdstip="20151026112900267">
+                           <datumAanvang>20150921</datumAanvang>
+                        </registratie>
+                        <sbiCode>
+                           <code>69209</code>
+                           <omschrijving>Overige administratiekantoren</omschrijving>
+                           <referentieType>ActiviteitCode</referentieType>
+                        </sbiCode>
+                        <isHoofdactiviteit>
+                           <code>J</code>
+                           <omschrijving>Ja</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </isHoofdactiviteit>
+                     </sbiActiviteit>
+                     <voltijdWerkzamePersonen>35</voltijdWerkzamePersonen>
+                     <deeltijdWerkzamePersonen>0</deeltijdWerkzamePersonen>
+                     <totaalWerkzamePersonen>35</totaalWerkzamePersonen>
+                     <handeltOnder>
+                        <handelsnaam>
+                           <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <datumAanvang>19701223</datumAanvang>
+                           </registratie>
+                           <naam>Eldon N.V.</naam>
+                           <volgorde>0</volgorde>
+                        </handelsnaam>
+                     </handeltOnder>
+                     <wordtUitgeoefendIn>
+                        <relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>19701223</datumAanvang>
+                        </relatieRegistratie>
+                        <commercieleVestiging>
+                           <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <datumAanvang>19701223</datumAanvang>
+                           </registratie>
+                           <vestigingsnummer>000017271606</vestigingsnummer>
+                           <bezoekLocatie>
+                              <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <datumAanvang>19820614</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <straatnaam>Tussendiepen</straatnaam>
+                                    <huisnummer>64</huisnummer>
+                                    <huisnummerToevoeging>66</huisnummerToevoeging>
+                                    <postcode>
+                                       <cijfercombinatie>9206</cijfercombinatie>
+                                       <lettercombinatie>AE</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Drachten</plaats>
+                                    <bagId>
+                                       <identificatieNummeraanduiding>0090200000665683</identificatieNummeraanduiding>
+                                       <identificatieAdresseerbaarObject>0090010000665684</identificatieAdresseerbaarObject>
+                                    </bagId>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Tussendiepen 64 66
+9206AE Drachten</volledigAdres>
+                           </bezoekLocatie>
+                           <postLocatie>
+                              <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <datumAanvang>19820614</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <straatnaam>Tussendiepen</straatnaam>
+                                    <huisnummer>64</huisnummer>
+                                    <huisnummerToevoeging>66</huisnummerToevoeging>
+                                    <postcode>
+                                       <cijfercombinatie>9206</cijfercombinatie>
+                                       <lettercombinatie>AE</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Drachten</plaats>
+                                    <bagId>
+                                       <identificatieNummeraanduiding>0090200000665683</identificatieNummeraanduiding>
+                                       <identificatieAdresseerbaarObject>0090010000665684</identificatieAdresseerbaarObject>
+                                    </bagId>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Tussendiepen 64 66
+9206AE Drachten</volledigAdres>
+                           </postLocatie>
+                           <communicatiegegevens>
+                              <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <datumAanvang>19701223</datumAanvang>
+                              </registratie>
+                              <communicatienummer>
+                                 <toegangscode>+31</toegangscode>
+                                 <nummer>0512580123</nummer>
+                                 <soort>
+                                    <code>T</code>
+                                    <omschrijving>Telefoon</omschrijving>
+                                 </soort>
+                              </communicatienummer>
+                              <communicatienummer>
+                                 <toegangscode>+31</toegangscode>
+                                 <nummer>0512517117</nummer>
+                                 <soort>
+                                    <code>F</code>
+                                    <omschrijving>Fax</omschrijving>
+                                 </soort>
+                              </communicatienummer>
+                              <emailAdres>info.nl@eldon.com</emailAdres>
+                              <domeinNaam>www.eldon.nl</domeinNaam>
+                           </communicatiegegevens>
+                           <eersteHandelsnaam>Eldon N.V.</eersteHandelsnaam>
+                           <voltijdWerkzamePersonen>30</voltijdWerkzamePersonen>
+                           <deeltijdWerkzamePersonen>0</deeltijdWerkzamePersonen>
+                           <totaalWerkzamePersonen>30</totaalWerkzamePersonen>
+                           <activiteiten>
+                              <omschrijving>De verkoop, montage en reparatie van schakelkasten en toebehoren.</omschrijving>
+                              <sbiActiviteit>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>19701223</datumAanvang>
+                                 </registratie>
+                                 <sbiCode>
+                                    <code>2712</code>
+                                    <omschrijving>Vervaardiging van schakel- en verdeelinrichtingen</omschrijving>
+                                    <referentieType>ActiviteitCode</referentieType>
+                                 </sbiCode>
+                                 <isHoofdactiviteit>
+                                    <code>J</code>
+                                    <omschrijving>Ja</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </isHoofdactiviteit>
+                              </sbiActiviteit>
+                              <exporteert>
+                                 <code>J</code>
+                                 <omschrijving>Ja</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </exporteert>
+                              <importeert>
+                                 <code>J</code>
+                                 <omschrijving>Ja</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </importeert>
+                           </activiteiten>
+                           <handeltOnder>
+                              <relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <datumAanvang>19701223</datumAanvang>
+                              </relatieRegistratie>
+                              <handelsnaam>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>19701223</datumAanvang>
+                                 </registratie>
+                                 <naam>Eldon N.V.</naam>
+                                 <volgorde>0</volgorde>
+                              </handelsnaam>
+                           </handeltOnder>
+                        </commercieleVestiging>
+                     </wordtUitgeoefendIn>
+                     <wordtUitgeoefendIn>
+                        <relatieRegistratie registratieTijdstip="20151026112900267">
+                           <datumAanvang>20150921</datumAanvang>
+                        </relatieRegistratie>
+                        <commercieleVestiging>
+                           <registratie registratieTijdstip="20151026112900267">
+                              <datumAanvang>20150921</datumAanvang>
+                           </registratie>
+                           <vestigingsnummer>000033239304</vestigingsnummer>
+                           <bezoekLocatie>
+                              <registratie registratieTijdstip="20151026112900267">
+                                 <datumAanvang>20150921</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <straatnaam>Beechavenue</straatnaam>
+                                    <huisnummer>133</huisnummer>
+                                    <postcode>
+                                       <cijfercombinatie>1119</cijfercombinatie>
+                                       <lettercombinatie>RB</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Schiphol-Rijk</plaats>
+                                    <bagId>
+                                       <identificatieNummeraanduiding>0394200000005450</identificatieNummeraanduiding>
+                                       <identificatieAdresseerbaarObject>0394010000332186</identificatieAdresseerbaarObject>
+                                    </bagId>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Beechavenue 133
+1119RB Schiphol-Rijk</volledigAdres>
+                           </bezoekLocatie>
+                           <postLocatie>
+                              <registratie registratieTijdstip="20151026112900267">
+                                 <datumAanvang>20150921</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <straatnaam>Beechavenue</straatnaam>
+                                    <huisnummer>133</huisnummer>
+                                    <postcode>
+                                       <cijfercombinatie>1119</cijfercombinatie>
+                                       <lettercombinatie>RB</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Schiphol-Rijk</plaats>
+                                    <bagId>
+                                       <identificatieNummeraanduiding>0394200000005450</identificatieNummeraanduiding>
+                                       <identificatieAdresseerbaarObject>0394010000332186</identificatieAdresseerbaarObject>
+                                    </bagId>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Beechavenue 133
+1119RB Schiphol-Rijk</volledigAdres>
+                           </postLocatie>
+                           <communicatiegegevens>
+                              <registratie registratieTijdstip="20151026112900267">
+                                 <datumAanvang>20150921</datumAanvang>
+                              </registratie>
+                              <communicatienummer>
+                                 <toegangscode>+31</toegangscode>
+                                 <nummer>0512580123</nummer>
+                                 <soort>
+                                    <code>T</code>
+                                    <omschrijving>Telefoon</omschrijving>
+                                 </soort>
+                              </communicatienummer>
+                              <emailAdres>info.nl@eldon.com</emailAdres>
+                              <domeinNaam>www.eldon.com</domeinNaam>
+                           </communicatiegegevens>
+                           <eersteHandelsnaam>Eldon N.V.</eersteHandelsnaam>
+                           <voltijdWerkzamePersonen>5</voltijdWerkzamePersonen>
+                           <deeltijdWerkzamePersonen>0</deeltijdWerkzamePersonen>
+                           <totaalWerkzamePersonen>5</totaalWerkzamePersonen>
+                           <activiteiten>
+                              <omschrijving>Sales office.</omschrijving>
+                              <sbiActiviteit>
+                                 <registratie registratieTijdstip="20151026112900267">
+                                    <datumAanvang>20150921</datumAanvang>
+                                 </registratie>
+                                 <sbiCode>
+                                    <code>69209</code>
+                                    <omschrijving>Overige administratiekantoren</omschrijving>
+                                    <referentieType>ActiviteitCode</referentieType>
+                                 </sbiCode>
+                                 <isHoofdactiviteit>
+                                    <code>J</code>
+                                    <omschrijving>Ja</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </isHoofdactiviteit>
+                              </sbiActiviteit>
+                              <exporteert>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </exporteert>
+                              <importeert>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </importeert>
+                           </activiteiten>
+                           <handeltOnder>
+                              <relatieRegistratie registratieTijdstip="20151026112900267">
+                                 <datumAanvang>20150921</datumAanvang>
+                              </relatieRegistratie>
+                              <handelsnaam>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>19701223</datumAanvang>
+                                 </registratie>
+                                 <naam>Eldon N.V.</naam>
+                                 <volgorde>0</volgorde>
+                              </handelsnaam>
+                           </handeltOnder>
+                        </commercieleVestiging>
+                     </wordtUitgeoefendIn>
+                  </onderneming>
+               </manifesteertZichAls>
+               <wordtGeleidVanuit>
+                  <commercieleVestiging>
+                     <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                        <datumAanvang>19701223</datumAanvang>
+                     </registratie>
+                     <vestigingsnummer>000017271606</vestigingsnummer>
+                     <bezoekLocatie>
+                        <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>19820614</datumAanvang>
+                        </registratie>
+                        <afgeschermd>
+                           <code>N</code>
+                           <omschrijving>Nee</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </afgeschermd>
+                        <adres>
+                           <binnenlandsAdres>
+                              <straatnaam>Tussendiepen</straatnaam>
+                              <huisnummer>64</huisnummer>
+                              <huisnummerToevoeging>66</huisnummerToevoeging>
+                              <postcode>
+                                 <cijfercombinatie>9206</cijfercombinatie>
+                                 <lettercombinatie>AE</lettercombinatie>
+                              </postcode>
+                              <plaats>Drachten</plaats>
+                              <bagId>
+                                 <identificatieNummeraanduiding>0090200000665683</identificatieNummeraanduiding>
+                                 <identificatieAdresseerbaarObject>0090010000665684</identificatieAdresseerbaarObject>
+                              </bagId>
+                           </binnenlandsAdres>
+                        </adres>
+                        <volledigAdres>Tussendiepen 64 66
+9206AE Drachten</volledigAdres>
+                     </bezoekLocatie>
+                     <postLocatie>
+                        <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>19820614</datumAanvang>
+                        </registratie>
+                        <afgeschermd>
+                           <code>N</code>
+                           <omschrijving>Nee</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </afgeschermd>
+                        <adres>
+                           <binnenlandsAdres>
+                              <straatnaam>Tussendiepen</straatnaam>
+                              <huisnummer>64</huisnummer>
+                              <huisnummerToevoeging>66</huisnummerToevoeging>
+                              <postcode>
+                                 <cijfercombinatie>9206</cijfercombinatie>
+                                 <lettercombinatie>AE</lettercombinatie>
+                              </postcode>
+                              <plaats>Drachten</plaats>
+                              <bagId>
+                                 <identificatieNummeraanduiding>0090200000665683</identificatieNummeraanduiding>
+                                 <identificatieAdresseerbaarObject>0090010000665684</identificatieAdresseerbaarObject>
+                              </bagId>
+                           </binnenlandsAdres>
+                        </adres>
+                        <volledigAdres>Tussendiepen 64 66
+9206AE Drachten</volledigAdres>
+                     </postLocatie>
+                     <communicatiegegevens>
+                        <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>19701223</datumAanvang>
+                        </registratie>
+                        <communicatienummer>
+                           <toegangscode>+31</toegangscode>
+                           <nummer>0512580123</nummer>
+                           <soort>
+                              <code>T</code>
+                              <omschrijving>Telefoon</omschrijving>
+                           </soort>
+                        </communicatienummer>
+                        <communicatienummer>
+                           <toegangscode>+31</toegangscode>
+                           <nummer>0512517117</nummer>
+                           <soort>
+                              <code>F</code>
+                              <omschrijving>Fax</omschrijving>
+                           </soort>
+                        </communicatienummer>
+                        <emailAdres>info.nl@eldon.com</emailAdres>
+                        <domeinNaam>www.eldon.nl</domeinNaam>
+                     </communicatiegegevens>
+                     <eersteHandelsnaam>Eldon N.V.</eersteHandelsnaam>
+                     <voltijdWerkzamePersonen>30</voltijdWerkzamePersonen>
+                     <deeltijdWerkzamePersonen>0</deeltijdWerkzamePersonen>
+                     <totaalWerkzamePersonen>30</totaalWerkzamePersonen>
+                     <activiteiten>
+                        <omschrijving>De verkoop, montage en reparatie van schakelkasten en toebehoren.</omschrijving>
+                        <sbiActiviteit>
+                           <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <datumAanvang>19701223</datumAanvang>
+                           </registratie>
+                           <sbiCode>
+                              <code>2712</code>
+                              <omschrijving>Vervaardiging van schakel- en verdeelinrichtingen</omschrijving>
+                              <referentieType>ActiviteitCode</referentieType>
+                           </sbiCode>
+                           <isHoofdactiviteit>
+                              <code>J</code>
+                              <omschrijving>Ja</omschrijving>
+                              <referentieType>geenRT</referentieType>
+                           </isHoofdactiviteit>
+                        </sbiActiviteit>
+                        <exporteert>
+                           <code>J</code>
+                           <omschrijving>Ja</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </exporteert>
+                        <importeert>
+                           <code>J</code>
+                           <omschrijving>Ja</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </importeert>
+                     </activiteiten>
+                     <handeltOnder>
+                        <relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>19701223</datumAanvang>
+                        </relatieRegistratie>
+                        <handelsnaam>
+                           <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <datumAanvang>19701223</datumAanvang>
+                           </registratie>
+                           <naam>Eldon N.V.</naam>
+                           <volgorde>0</volgorde>
+                        </handelsnaam>
+                     </handeltOnder>
+                  </commercieleVestiging>
+               </wordtGeleidVanuit>
+               <heeftAlsEigenaar>
+                  <relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <datumAanvang>19701223</datumAanvang>
+                  </relatieRegistratie>
+                  <rechtspersoon>
+                     <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                        <datumAanvang>19701223</datumAanvang>
+                     </registratie>
+                     <persoonRechtsvorm>Naamloze Vennootschap</persoonRechtsvorm>
+                     <volledigeNaam>Eldon N.V.</volledigeNaam>
+                     <uitgebreideRechtsvorm>Naamloze Vennootschap</uitgebreideRechtsvorm>
+                     <heeft>
+                        <gemachtigde>
+                           <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <datumAanvang>19950713</datumAanvang>
+                           </registratie>
+                           <functietitel>
+                              <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <datumAanvang>19950713</datumAanvang>
+                              </registratie>
+                              <titel>HR / Treasurer Coördinator</titel>
+                              <isStatutaireTitel>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isStatutaireTitel>
+                           </functietitel>
+                           <door>
+                              <natuurlijkPersoon>
+                                 <extraElementen>
+                                    <extraElement naam="achternaam">880f17b</extraElement>
+                                    <!--Anonimisatie 'extraElement': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--></extraElementen>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>19531027</datumAanvang>
+                                    <!--Anonimisatie 'datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></registratie>
+                                 <volledigeNaam>435e84 e84a867 89cacd6</volledigeNaam>
+                                 <!--Anonimisatie 'volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><bezoekLocatiePersoon>
+                                    <registratie registratieTijdstipNoValue="vastgesteldOnbekend"/>
+                                    <afgeschermd>
+                                       <code>N</code>
+                                       <omschrijving>Nee</omschrijving>
+                                       <referentieType>geenRT</referentieType>
+                                    </afgeschermd>
+                                    <adres>
+                                       <binnenlandsAdres>
+                                          <straatnaam>Jellen</straatnaam>
+                                          <huisnummer>14</huisnummer>
+                                          <postcode>
+                                             <cijfercombinatie>8603</cijfercombinatie>
+                                             <lettercombinatie>DK</lettercombinatie>
+                                          </postcode>
+                                          <plaats>Sneek</plaats>
+                                          <bagId>
+                                             <identificatieNummeraanduiding>0091200000043876</identificatieNummeraanduiding>
+                                             <identificatieAdresseerbaarObject>0091010000023991</identificatieAdresseerbaarObject>
+                                          </bagId>
+                                       </binnenlandsAdres>
+                                    </adres>
+                                    <volledigAdres>Jellen 14
+8603DK Sneek</volledigAdres>
+                                 </bezoekLocatiePersoon>
+                                 <bsn>574517677</bsn>
+                                 <!--Anonimisatie 'bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><geslachtsnaam>880f17b</geslachtsnaam>
+                                 <!--Anonimisatie 'geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><voornamen>2f8bd8 99ff0fb</voornamen>
+                                 <!--Anonimisatie 'voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geslachtsaanduiding>
+                                    <code>m</code>
+                                    <omschrijving>Mannelijk</omschrijving>
+                                    <referentieType>Geslacht</referentieType>
+                                 </geslachtsaanduiding>
+                                 <geboorteplaats>d2c43010e2</geboorteplaats>
+                                 <!--Anonimisatie 'geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geboorteland>
+                                    <code>6030</code>
+                                    <omschrijving>Nederland</omschrijving>
+                                    <referentieType>Land</referentieType>
+                                 </geboorteland>
+                                 <geboortedatum>19531027</geboortedatum>
+                                 <!--Anonimisatie 'geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></natuurlijkPersoon>
+                           </door>
+                           <functie>
+                              <code>01</code>
+                              <omschrijving>Gevolmachtigde</omschrijving>
+                              <referentieType>FunctionarisRol</referentieType>
+                           </functie>
+                           <volmacht>
+                              <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <datumAanvang>19950713</datumAanvang>
+                              </registratie>
+                              <typeVolmacht>
+                                 <code>b</code>
+                                 <omschrijving>Beperkte volmacht</omschrijving>
+                                 <referentieType>VolmachtType</referentieType>
+                              </typeVolmacht>
+                              <isStatutair>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isStatutair>
+                              <beperkteVolmacht>
+                                 <magOpgaveHandelsregisterDoen>
+                                    <code>N</code>
+                                    <omschrijving>Nee</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </magOpgaveHandelsregisterDoen>
+                                 <heeftOverigeVolmacht>
+                                    <code>J</code>
+                                    <omschrijving>Ja</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </heeftOverigeVolmacht>
+                              </beperkteVolmacht>
+                           </volmacht>
+                        </gemachtigde>
+                     </heeft>
+                     <heeft>
+                        <gemachtigde>
+                           <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <datumAanvang>20090922</datumAanvang>
+                           </registratie>
+                           <door>
+                              <natuurlijkPersoon>
+                                 <extraElementen>
+                                    <extraElement naam="achternaam">c13</extraElement>
+                                    <!--Anonimisatie 'extraElement': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--></extraElementen>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>19690715</datumAanvang>
+                                    <!--Anonimisatie 'datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></registratie>
+                                 <volledigeNaam>1722ba 4f1779d7 6d8</volledigeNaam>
+                                 <!--Anonimisatie 'volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><bezoekLocatiePersoon>
+                                    <registratie registratieTijdstipNoValue="vastgesteldOnbekend"/>
+                                    <afgeschermd>
+                                       <code>N</code>
+                                       <omschrijving>Nee</omschrijving>
+                                       <referentieType>geenRT</referentieType>
+                                    </afgeschermd>
+                                    <adres>
+                                       <binnenlandsAdres>
+                                          <straatnaam>Brouwerssingel</straatnaam>
+                                          <huisnummer>55</huisnummer>
+                                          <postcode>
+                                             <cijfercombinatie>9201</cijfercombinatie>
+                                             <lettercombinatie>VB</lettercombinatie>
+                                          </postcode>
+                                          <plaats>Drachten</plaats>
+                                          <bagId>
+                                             <identificatieNummeraanduiding>0090200000635607</identificatieNummeraanduiding>
+                                             <identificatieAdresseerbaarObject>0090010000635608</identificatieAdresseerbaarObject>
+                                          </bagId>
+                                       </binnenlandsAdres>
+                                    </adres>
+                                    <volledigAdres>Brouwerssingel 55
+9201VB Drachten</volledigAdres>
+                                 </bezoekLocatiePersoon>
+                                 <bsn>490919250</bsn>
+                                 <!--Anonimisatie 'bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><geslachtsnaam>c13</geslachtsnaam>
+                                 <!--Anonimisatie 'geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><voornamen>981c93 287df57f</voornamen>
+                                 <!--Anonimisatie 'voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geslachtsaanduiding>
+                                    <code>m</code>
+                                    <omschrijving>Mannelijk</omschrijving>
+                                    <referentieType>Geslacht</referentieType>
+                                 </geslachtsaanduiding>
+                                 <geboorteplaats>fea265fe59d2</geboorteplaats>
+                                 <!--Anonimisatie 'geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geboorteland>
+                                    <code>6030</code>
+                                    <omschrijving>Nederland</omschrijving>
+                                    <referentieType>Land</referentieType>
+                                 </geboorteland>
+                                 <geboortedatum>19690715</geboortedatum>
+                                 <!--Anonimisatie 'geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></natuurlijkPersoon>
+                           </door>
+                           <functie>
+                              <code>01</code>
+                              <omschrijving>Gevolmachtigde</omschrijving>
+                              <referentieType>FunctionarisRol</referentieType>
+                           </functie>
+                           <volmacht>
+                              <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <datumAanvang>20090922</datumAanvang>
+                              </registratie>
+                              <typeVolmacht>
+                                 <code>b</code>
+                                 <omschrijving>Beperkte volmacht</omschrijving>
+                                 <referentieType>VolmachtType</referentieType>
+                              </typeVolmacht>
+                              <isStatutair>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isStatutair>
+                              <beperkteVolmacht>
+                                 <magOpgaveHandelsregisterDoen>
+                                    <code>N</code>
+                                    <omschrijving>Nee</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </magOpgaveHandelsregisterDoen>
+                                 <heeftOverigeVolmacht>
+                                    <code>J</code>
+                                    <omschrijving>Ja</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </heeftOverigeVolmacht>
+                              </beperkteVolmacht>
+                           </volmacht>
+                        </gemachtigde>
+                     </heeft>
+                     <heeft>
+                        <overigeFunctionaris>
+                           <registratie registratieTijdstip="20170329145942780">
+                              <datumAanvang>20041208</datumAanvang>
+                           </registratie>
+                           <door>
+                              <buitenlandseVennootschap>
+                                 <volledigeNaam>Eldon Holding Aktiebolag</volledigeNaam>
+                                 <bezoekLocatiePersoon>
+                                    <registratie registratieTijdstip="20170329145942780"/>
+                                    <afgeschermd>
+                                       <code>N</code>
+                                       <omschrijving>Nee</omschrijving>
+                                       <referentieType>geenRT</referentieType>
+                                    </afgeschermd>
+                                    <adres>
+                                       <buitenlandsAdres>
+                                          <straatHuisnummer>Egnahemsgatan 39</straatHuisnummer>
+                                          <postcodeWoonplaats>571 34 Nässjö</postcodeWoonplaats>
+                                          <land>
+                                             <code>5039</code>
+                                             <omschrijving>Zweden</omschrijving>
+                                             <referentieType>Land</referentieType>
+                                          </land>
+                                       </buitenlandsAdres>
+                                    </adres>
+                                    <volledigAdres>Egnahemsgatan 39
+571 34 Nässjö
+Zweden</volledigAdres>
+                                 </bezoekLocatiePersoon>
+                                 <buitenlandseRegistratieGegevens>
+                                    <naam>Bolagsverket</naam>
+                                    <plaats>Sundsvall</plaats>
+                                    <land>
+                                       <code>5039</code>
+                                       <omschrijving>Zweden</omschrijving>
+                                       <referentieType>Land</referentieType>
+                                    </land>
+                                    <inschrijfnummer>556598-2773</inschrijfnummer>
+                                    <buitenlandseRegistratie>Bolagsverket
+Sundsvall, Zweden
+Onder nummer 556598-2773</buitenlandseRegistratie>
+                                 </buitenlandseRegistratieGegevens>
+                                 <landVanVestiging>
+                                    <code>5039</code>
+                                    <omschrijving>Zweden</omschrijving>
+                                    <referentieType>Land</referentieType>
+                                 </landVanVestiging>
+                              </buitenlandseVennootschap>
+                           </door>
+                           <functie>
+                              <code>08</code>
+                              <omschrijving>Enig aandeelhouder</omschrijving>
+                              <referentieType>FunctionarisRol</referentieType>
+                           </functie>
+                        </overigeFunctionaris>
+                     </heeft>
+                     <heeft>
+                        <bestuursfunctie>
+                           <registratie registratieTijdstip="20200127145754875">
+                              <datumAanvang>20191016</datumAanvang>
+                           </registratie>
+                           <door>
+                              <natuurlijkPersoon>
+                                 <extraElementen>
+                                    <extraElement naam="achternaam">5d8b7ef3</extraElement>
+                                    <!--Anonimisatie 'extraElement': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--></extraElementen>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>20001024</datumAanvang>
+                                    <!--Anonimisatie 'datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></registratie>
+                                 <volledigeNaam>099eb 92f6659a</volledigeNaam>
+                                 <!--Anonimisatie 'volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><bezoekLocatiePersoon>
+                                    <registratie registratieTijdstip="20200127145754875"/>
+                                    <toevoegingAdres>Arabian Ranches</toevoegingAdres>
+                                    <afgeschermd>
+                                       <code>N</code>
+                                       <omschrijving>Nee</omschrijving>
+                                       <referentieType>geenRT</referentieType>
+                                    </afgeschermd>
+                                    <adres>
+                                       <buitenlandsAdres>
+                                          <straatHuisnummer>Villa 11, Alvorada 4</straatHuisnummer>
+                                          <postcodeWoonplaats>Dubai</postcodeWoonplaats>
+                                          <land>
+                                             <code>7054</code>
+                                             <omschrijving>Verenigde Arabische Emiraten</omschrijving>
+                                             <referentieType>Land</referentieType>
+                                          </land>
+                                       </buitenlandsAdres>
+                                    </adres>
+                                    <volledigAdres>Villa 11, Alvorada 4
+Arabian Ranches
+Dubai
+Verenigde Arabische Emiraten</volledigAdres>
+                                 </bezoekLocatiePersoon>
+                                 <geslachtsnaam>5d8b7ef3</geslachtsnaam>
+                                 <!--Anonimisatie 'geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><voornamen>d52a3</voornamen>
+                                 <!--Anonimisatie 'voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geslachtsaanduiding>
+                                    <code>m</code>
+                                    <omschrijving>Mannelijk</omschrijving>
+                                    <referentieType>Geslacht</referentieType>
+                                 </geslachtsaanduiding>
+                                 <geboorteplaats>2696128bb6 8da07da6</geboorteplaats>
+                                 <!--Anonimisatie 'geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geboorteland>
+                                    <code>6030</code>
+                                    <omschrijving>Nederland</omschrijving>
+                                    <referentieType>Land</referentieType>
+                                 </geboorteland>
+                                 <geboortedatum>20001024</geboortedatum>
+                                 <!--Anonimisatie 'geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></natuurlijkPersoon>
+                           </door>
+                           <functie>
+                              <code>02</code>
+                              <omschrijving>Bestuurder</omschrijving>
+                              <referentieType>FunctionarisRol</referentieType>
+                           </functie>
+                           <bevoegdheid>
+                              <registratie registratieTijdstip="20200127145754875">
+                                 <datumAanvang>20191016</datumAanvang>
+                              </registratie>
+                              <soort>
+                                 <code>azb</code>
+                                 <omschrijving>Alleen/zelfstandig bevoegd</omschrijving>
+                                 <referentieType>SoortBevoegdheidBestuurder</referentieType>
+                              </soort>
+                              <isBevoegdMetAnderePersonen>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isBevoegdMetAnderePersonen>
+                           </bevoegdheid>
+                        </bestuursfunctie>
+                     </heeft>
+                     <heeft>
+                        <bestuursfunctie>
+                           <registratie registratieTijdstip="20200127145754875">
+                              <datumAanvang>20191016</datumAanvang>
+                           </registratie>
+                           <door>
+                              <natuurlijkPersoon>
+                                 <extraElementen>
+                                    <extraElement naam="achternaam">a3dcb8</extraElement>
+                                    <!--Anonimisatie 'extraElement': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--></extraElementen>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>19980516</datumAanvang>
+                                    <!--Anonimisatie 'datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></registratie>
+                                 <volledigeNaam>158b3 d54c4b</volledigeNaam>
+                                 <!--Anonimisatie 'volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><bezoekLocatiePersoon>
+                                    <registratie registratieTijdstip="20200127145754875"/>
+                                    <afgeschermd>
+                                       <code>N</code>
+                                       <omschrijving>Nee</omschrijving>
+                                       <referentieType>geenRT</referentieType>
+                                    </afgeschermd>
+                                    <adres>
+                                       <buitenlandsAdres>
+                                          <straatHuisnummer>Kyselska 290/26</straatHuisnummer>
+                                          <postcodeWoonplaats>418 01 Bilina</postcodeWoonplaats>
+                                          <land>
+                                             <code>6066</code>
+                                             <omschrijving>Tsjechië</omschrijving>
+                                             <referentieType>Land</referentieType>
+                                          </land>
+                                       </buitenlandsAdres>
+                                    </adres>
+                                    <volledigAdres>Kyselska 290/26
+418 01 Bilina
+Tsjechië</volledigAdres>
+                                 </bezoekLocatiePersoon>
+                                 <geslachtsnaam>a3dcb8</geslachtsnaam>
+                                 <!--Anonimisatie 'geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><voornamen>ec16c</voornamen>
+                                 <!--Anonimisatie 'voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geslachtsaanduiding>
+                                    <code>m</code>
+                                    <omschrijving>Mannelijk</omschrijving>
+                                    <referentieType>Geslacht</referentieType>
+                                 </geslachtsaanduiding>
+                                 <geboorteplaats>0f1a3f</geboorteplaats>
+                                 <!--Anonimisatie 'geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geboorteland>
+                                    <code>6030</code>
+                                    <omschrijving>Nederland</omschrijving>
+                                    <referentieType>Land</referentieType>
+                                 </geboorteland>
+                                 <geboortedatum>19980516</geboortedatum>
+                                 <!--Anonimisatie 'geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></natuurlijkPersoon>
+                           </door>
+                           <functie>
+                              <code>02</code>
+                              <omschrijving>Bestuurder</omschrijving>
+                              <referentieType>FunctionarisRol</referentieType>
+                           </functie>
+                           <bevoegdheid>
+                              <registratie registratieTijdstip="20200127145754875">
+                                 <datumAanvang>20191016</datumAanvang>
+                              </registratie>
+                              <soort>
+                                 <code>azb</code>
+                                 <omschrijving>Alleen/zelfstandig bevoegd</omschrijving>
+                                 <referentieType>SoortBevoegdheidBestuurder</referentieType>
+                              </soort>
+                              <isBevoegdMetAnderePersonen>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isBevoegdMetAnderePersonen>
+                           </bevoegdheid>
+                        </bestuursfunctie>
+                     </heeft>
+                     <rsin>001024796</rsin>
+                     <naamgeving>
+                        <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>19701223</datumAanvang>
+                        </registratie>
+                        <naam>Eldon N.V.</naam>
+                     </naamgeving>
+                     <heeftGedeponeerd>
+                        <jaarstukInstemming>
+                           <depotId>561649eb:1700b13eba4:-7e0a</depotId>
+                           <status>
+                              <code>1</code>
+                              <omschrijving>Actueel</omschrijving>
+                              <referentieType>StatusDepotstuk</referentieType>
+                           </status>
+                           <datumDeponering>20200122</datumDeponering>
+                           <boekjaar>2019</boekjaar>
+                           <groepsjaarrekeningHouder>
+                              <rsin>001024796</rsin>
+                           </groepsjaarrekeningHouder>
+                        </jaarstukInstemming>
+                     </heeftGedeponeerd>
+                     <rechtsvorm>
+                        <code>NV</code>
+                        <omschrijving>Naamloze Vennootschap</omschrijving>
+                        <referentieType>Rechtsvorm</referentieType>
+                     </rechtsvorm>
+                     <statutaireZetel>Drachten</statutaireZetel>
+                     <aanvangStatutaireZetel>19701223</aanvangStatutaireZetel>
+                     <datumAkteOprichting>19701223</datumAkteOprichting>
+                     <datumEersteInschrijvingHandelsregister>19701224</datumEersteInschrijvingHandelsregister>
+                     <datumAkteStatutenwijziging>20181129</datumAkteStatutenwijziging>
+                     <beleggingsMijMetVeranderlijkKapitaal>
+                        <code>N</code>
+                        <omschrijving>Nee</omschrijving>
+                        <referentieType>geenRT</referentieType>
+                     </beleggingsMijMetVeranderlijkKapitaal>
+                     <stelselInrichting>
+                        <code>D</code>
+                        <omschrijving>Dualistisch</omschrijving>
+                        <referentieType>StelselInrichting</referentieType>
+                     </stelselInrichting>
+                     <structuur>
+                        <code>GS</code>
+                        <omschrijving>Gewone structuur</omschrijving>
+                        <referentieType>RechtsvormStructuur</referentieType>
+                     </structuur>
+                     <maatschappelijkKapitaal>
+                        <registratie registratieTijdstip="20181129151335629">
+                           <datumAanvang>20181129</datumAanvang>
+                        </registratie>
+                        <bedrag>
+                           <waarde>907600</waarde>
+                           <valuta>
+                              <code>EUR</code>
+                              <omschrijving>Euro</omschrijving>
+                              <referentieType>Valuta</referentieType>
+                           </valuta>
+                        </bedrag>
+                     </maatschappelijkKapitaal>
+                     <geplaatstKapitaal>
+                        <registratie registratieTijdstip="20181129151335629">
+                           <datumAanvang>20181129</datumAanvang>
+                        </registratie>
+                        <bedrag>
+                           <waarde>907600</waarde>
+                           <valuta>
+                              <code>EUR</code>
+                              <omschrijving>Euro</omschrijving>
+                              <referentieType>Valuta</referentieType>
+                           </valuta>
+                        </bedrag>
+                     </geplaatstKapitaal>
+                     <gestortKapitaal>
+                        <registratie registratieTijdstip="20181129151335629">
+                           <datumAanvang>20181129</datumAanvang>
+                        </registratie>
+                        <bedrag>
+                           <waarde>907600</waarde>
+                           <valuta>
+                              <code>EUR</code>
+                              <omschrijving>Euro</omschrijving>
+                              <referentieType>Valuta</referentieType>
+                           </valuta>
+                        </bedrag>
+                     </gestortKapitaal>
+                     <bezoekLocatie>
+                        <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>19820614</datumAanvang>
+                        </registratie>
+                        <afgeschermd>
+                           <code>N</code>
+                           <omschrijving>Nee</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </afgeschermd>
+                        <adres>
+                           <binnenlandsAdres>
+                              <straatnaam>Tussendiepen</straatnaam>
+                              <huisnummer>64</huisnummer>
+                              <huisnummerToevoeging>66</huisnummerToevoeging>
+                              <postcode>
+                                 <cijfercombinatie>9206</cijfercombinatie>
+                                 <lettercombinatie>AE</lettercombinatie>
+                              </postcode>
+                              <plaats>Drachten</plaats>
+                              <bagId>
+                                 <identificatieNummeraanduiding>0090200000665683</identificatieNummeraanduiding>
+                                 <identificatieAdresseerbaarObject>0090010000665684</identificatieAdresseerbaarObject>
+                              </bagId>
+                           </binnenlandsAdres>
+                        </adres>
+                        <volledigAdres>Tussendiepen 64 66
+9206AE Drachten</volledigAdres>
+                     </bezoekLocatie>
+                  </rechtspersoon>
+               </heeftAlsEigenaar>
+            </maatschappelijkeActiviteit>
+         </product>
+      </ophalenInschrijvingResponse>
+   </wstxns8:Body>
+</soap:Envelope>
