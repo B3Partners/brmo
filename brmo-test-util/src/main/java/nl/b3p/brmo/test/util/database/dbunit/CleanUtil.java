@@ -252,12 +252,12 @@ public final class CleanUtil {
     }
 
     /**
-     * ruimt personen en kvk tabellen op.
+     * ruimt personen en kvk tabellen op (en ook BRP tabellen).
      *
      * @param rsgb database welke opgeruimd moet worden
      * @param deleteBrondocument {@code true} als brondocumenten ook verwijderd
-     * @throws DatabaseUnitException
-     * @throws SQLException
+     * @throws DatabaseUnitException als er iets mis gaat met DBunit, bijv verkeerde volgorde van verwijderen
+     * @throws SQLException als er iets mis gaat met uitvieren van de deletes
      */
     public static void cleanRSGB_NHR(final IDatabaseConnection rsgb, final boolean deleteBrondocument)
             throws DatabaseUnitException, SQLException {
@@ -269,8 +269,9 @@ public final class CleanUtil {
             new DefaultTable("maatschapp_activiteit"),
             new DefaultTable("vestg"),
             new DefaultTable("vestg_activiteit"),
-            new DefaultTable("vestg_naam"),}
-        ));
+            new DefaultTable("vestg_naam"),
+            new DefaultTable("ander_btnlnds_niet_nat_prs"),
+        }));
         cleanRSGB_BRP(rsgb, deleteBrondocument);
     }
 

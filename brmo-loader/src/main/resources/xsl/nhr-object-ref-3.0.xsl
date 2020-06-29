@@ -78,9 +78,11 @@
                                       translate(
                                       translate(
                                       translate(
+                                      translate(
                                         cat:volledigeNaam,' ','')
                                                          ,$APOS,'')
                                                          ,'.','')
+                                                         ,',','')
                                                          ,'/','')
                                                          ,'(','')
                                                          ,')','')

@@ -168,6 +168,7 @@ public class NhrXMLReader extends BrmoXMLReader {
                             .replace(" ", "")
                             .replace("'", "")
                             .replace(".", "")
+                            .replace(",", "")
                             // komt in bedrijfsnaam voor 'A/S'
                             .replace("/", "")
                             // komt in bedrijfsnaam voor '(Nederland)'
