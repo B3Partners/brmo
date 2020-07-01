@@ -74,14 +74,135 @@ public class BedrijfAlsFuntionarisNhrToStagingToRsgbIntegrationTest extends Abst
                         {"select sc_identif as hoofdvestiging from vestg where hoofdvestiging = 'Ja'", 1},
                         {"select sc_identif as hoofdvestiging from vestg where hoofdvestiging = 'Nee'", 1},
                         {"functionaris", 5},
-                        {"select * from functionaris where fk_sc_lh_pes_sc_identif='nhr.buitenlVenn.naam.782f4c4bef5a6bf48206ed2c6c6b9fbe138af4a7' and functie='Enig aandeelhouder'",1},
+                        {"select * from functionaris where fk_sc_lh_pes_sc_identif='nhr.buitenlVenn.naam.782f4c4bef5a6bf48206ed2c6c6b9fbe138af4a7' and functie='Enig aandeelhouder'", 1},
                         {"select * from subject where identif='nhr.buitenlVenn.naam.782f4c4bef5a6bf48206ed2c6c6b9fbe138af4a7'", 1},
+                        {"ander_btnlnds_niet_nat_prs", 1},
                 })},
                 // BVNN/Boskalis Dolman V.O.F. / 01083730 / 2 samenwerkingsverbanden als functionaris
                 {"/nhr-v3/bedrijf-als-functionaris/2020-06-18-154135-01083730.anon.xml", MapUtils.putAll(new HashMap<String, Integer>(), new Object[][]{
                         {"maatschapp_activiteit", 1},
                         {"vestg", 2},
                         {"functionaris", 3},
+                })},
+                // Maatschap Rozema-Kist / 5 natuurlijke personen in samenwerkingsverband
+                {"/nhr-v3/bedrijf-als-functionaris/2020-06-18-154143-01173390.anon.xml", MapUtils.putAll(new HashMap<String, Integer>(), new Object[][]{
+                        {"maatschapp_activiteit", 1},
+                        {"vestg", 2},
+                        {"functionaris", 5},
+                })},
+                // Tiktak/Segafredo Zanetti Nederland B.V. / 4 nat. personen als functionaris, met een aantal buitenlandse pers. en een buitenlandseVennootschap
+                {"/nhr-v3/bedrijf-als-functionaris/2020-06-18-154147-02000099.anon.xml", MapUtils.putAll(new HashMap<String, Integer>(), new Object[][]{
+                        {"maatschapp_activiteit", 1},
+                        {"vestg", 1},
+                        {"functionaris", 4},
+                })},
+                // Visser Transport B.V. / heeft een buitenlandseVennootschap als functionaris met een ampersand in de naam..
+                {"/nhr-v3/bedrijf-als-functionaris/2020-06-18-154151-02014331.anon.xml", MapUtils.putAll(new HashMap<String, Integer>(), new Object[][]{
+                        {"maatschapp_activiteit", 1},
+                        {"vestg", 3},
+                        {"functionaris", 3},
+                        {"ander_btnlnds_niet_nat_prs", 1},
+                })},
+                // Etex Building Performance B.V. / heeft een buitenlandseVennootschap als functionaris + een aantal andere personen
+                {"/nhr-v3/bedrijf-als-functionaris/2020-06-18-154155-02320379.anon.xml", MapUtils.putAll(new HashMap<String, Integer>(), new Object[][]{
+                        {"maatschapp_activiteit", 1},
+                        {"vestg", 2},
+                        {"functionaris", 11},
+                        {"ander_btnlnds_niet_nat_prs", 1},
+                })},
+                {"/nhr-v3/bedrijf-als-functionaris/2020-06-18-154200-02328563.anon.xml", MapUtils.putAll(new HashMap<String, Integer>(), new Object[][]{
+                        {"maatschapp_activiteit", 1},
+                        {"vestg", 2},
+                        {"functionaris", 6},
+                })},
+                // Handelsonderneming Koen Meijer B.V. /
+                {"/nhr-v3/bedrijf-als-functionaris/2020-06-18-154203-02334440.anon.xml", MapUtils.putAll(new HashMap<String, Integer>(), new Object[][]{
+                        {"maatschapp_activiteit", 1},
+                        {"vestg", 2},
+                        {"functionaris", 1},
+                })},
+                // Aareon Nederland B.V. / buitenlandseVennootschap en natuurlijke personen als functionaris
+                {"/nhr-v3/bedrijf-als-functionaris/2020-06-18-154209-04026125.anon.xml", MapUtils.putAll(new HashMap<String, Integer>(), new Object[][]{
+                        {"maatschapp_activiteit", 1},
+                        {"vestg", 5},
+                        {"functionaris", 16},
+                        {"ander_btnlnds_niet_nat_prs", 1},
+                })},
+                {"/nhr-v3/bedrijf-als-functionaris/2020-06-18-154213-04033993.anon.xml", MapUtils.putAll(new HashMap<String, Integer>(), new Object[][]{
+                        {"maatschapp_activiteit", 1},
+                        {"vestg", 3},
+                        {"functionaris", 2},
+                })},
+                // KGH Customs Services B.V.
+                {"/nhr-v3/bedrijf-als-functionaris/2020-06-18-154218-04040443.anon.xml", MapUtils.putAll(new HashMap<String, Integer>(), new Object[][]{
+                        {"maatschapp_activiteit", 1},
+                        {"vestg", 3},
+                        {"functionaris", 9},
+                        {"ander_btnlnds_niet_nat_prs", 1},
+                })},
+                // Animal Lovers B.V.
+                {"/nhr-v3/bedrijf-als-functionaris/2020-06-18-154222-04058882.anon.xml", MapUtils.putAll(new HashMap<String, Integer>(), new Object[][]{
+                        {"maatschapp_activiteit", 1},
+                        {"vestg", 2},
+                        {"ander_btnlnds_niet_nat_prs", 3},
+                        {"functionaris", 4},
+                })},
+                // Molecaten Horeca B.V.
+                {"/nhr-v3/bedrijf-als-functionaris/2020-06-18-154225-08059166.anon.xml", MapUtils.putAll(new HashMap<String, Integer>(), new Object[][]{
+                        {"maatschapp_activiteit", 1},
+                        {"vestg", 9},
+                        {"ander_btnlnds_niet_nat_prs", 1},
+                        {"functionaris", 2},
+                })},
+                // DNV GL Netherlands B.V.
+                {"/nhr-v3/bedrijf-als-functionaris/2020-06-18-154229-09006404.anon.xml", MapUtils.putAll(new HashMap<String, Integer>(), new Object[][]{
+                        {"maatschapp_activiteit", 1},
+                        {"vestg", 2},
+                        {"ander_btnlnds_niet_nat_prs", 1},
+                        {"functionaris", 10},
+                })},
+                // Solar Nederland B.V.
+                {"/nhr-v3/bedrijf-als-functionaris/2020-06-18-154232-09013687.anon.xml", MapUtils.putAll(new HashMap<String, Integer>(), new Object[][]{
+                        {"maatschapp_activiteit", 1},
+                        {"vestg", 18},
+                        {"ander_btnlnds_niet_nat_prs", 1},
+                        {"functionaris", 6},
+                })},
+                // Eismann B.V.
+                {"/nhr-v3/bedrijf-als-functionaris/2020-06-18-154235-09049151.anon.xml", MapUtils.putAll(new HashMap<String, Integer>(), new Object[][]{
+                        {"maatschapp_activiteit", 1},
+                        {"vestg", 6},
+                        {"ander_btnlnds_niet_nat_prs", 1},
+                        {"functionaris", 4},
+                })},
+                // Sonoco Alcore Nederland B.V.
+                {"/nhr-v3/bedrijf-als-functionaris/2020-06-18-154239-09107097.anon.xml", MapUtils.putAll(new HashMap<String, Integer>(), new Object[][]{
+                        {"maatschapp_activiteit", 1},
+                        {"vestg", 2},
+                        {"ander_btnlnds_niet_nat_prs", 1},
+                        {"functionaris", 4},
+                })},
+                // DPD (Nederland) B.V.
+                {"/nhr-v3/bedrijf-als-functionaris/2020-06-18-154242-09118128.anon.xml", MapUtils.putAll(new HashMap<String, Integer>(), new Object[][]{
+                        {"maatschapp_activiteit", 1},
+                        {"vestg", 11},
+                        {"ander_btnlnds_niet_nat_prs", 1},
+                        // er zitten subjecten in met >1 functionaris rol
+                        {"functionaris", 14},
+                })},
+                // Melspring International B.V.
+                {"/nhr-v3/bedrijf-als-functionaris/2020-06-18-154245-09131564.anon.xml", MapUtils.putAll(new HashMap<String, Integer>(), new Object[][]{
+                        {"maatschapp_activiteit", 1},
+                        {"vestg", 3},
+                        // "Melspring-Farmershouse" en "Melspring international" hebben hetzelfde vestigingsnummer
+                        {"vestg_naam", 4},
+                        {"ander_btnlnds_niet_nat_prs", 1},
+                        // er zitten subjecten in met >1 functionaris rol
+                        {"functionaris", 5},
+                        {"ingeschr_nat_prs", 4},
+                        {"niet_nat_prs", 3},
+                        {"ingeschr_niet_nat_prs", 2},
+                        {"subject", 10},
                 })},
         });
     }

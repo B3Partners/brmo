@@ -1,0 +1,1485 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Geanonimiseerd door B3Partners BV op 2020-06-26+02:00, zie commentaar in bericht.-->
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+   <wstxns1:Header xmlns:wsa="http://www.w3.org/2005/08/addressing"
+                   xmlns:wstxns1="http://schemas.xmlsoap.org/soap/envelope/"/>
+   <wstxns8:Body xmlns:wstxns8="http://schemas.xmlsoap.org/soap/envelope/"
+                 xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+                 wsu:Id="id-1-017333672b3a6cbb35251378059c5c34">
+      <ophalenInschrijvingResponse xmlns="http://schemas.kvk.nl/schemas/hrip/dataservice/2015/02"
+                                   peilmoment="20200618154216703">
+         <meldingen>
+            <informatie>
+               <code>IPD0000</code>
+               <omschrijving>Het product is succesvol geproduceerd</omschrijving>
+               <referentie>09049151</referentie>
+            </informatie>
+         </meldingen>
+         <product>
+            <maatschappelijkeActiviteit xmlns="http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02">
+               <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                  <datumAanvang>19820226</datumAanvang>
+               </registratie>
+               <kvkNummer>09049151</kvkNummer>
+               <nonMailing>
+                  <code>N</code>
+                  <omschrijving>Nee</omschrijving>
+                  <referentieType>geenRT</referentieType>
+               </nonMailing>
+               <incidenteelUitlenenArbeidskrachten>
+                  <code>N</code>
+                  <omschrijving>Nee</omschrijving>
+                  <referentieType>geenRT</referentieType>
+               </incidenteelUitlenenArbeidskrachten>
+               <bezoekLocatie>
+                  <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <datumAanvang>20050826</datumAanvang>
+                  </registratie>
+                  <afgeschermd>
+                     <code>N</code>
+                     <omschrijving>Nee</omschrijving>
+                     <referentieType>geenRT</referentieType>
+                  </afgeschermd>
+                  <adres>
+                     <binnenlandsAdres>
+                        <straatnaam>Nieuwgraaf</straatnaam>
+                        <huisnummer>17</huisnummer>
+                        <postcode>
+                           <cijfercombinatie>6921</cijfercombinatie>
+                           <lettercombinatie>RJ</lettercombinatie>
+                        </postcode>
+                        <plaats>Duiven</plaats>
+                        <bagId>
+                           <identificatieNummeraanduiding>0226200000025593</identificatieNummeraanduiding>
+                           <identificatieAdresseerbaarObject>0226010000025594</identificatieAdresseerbaarObject>
+                        </bagId>
+                     </binnenlandsAdres>
+                  </adres>
+                  <volledigAdres>Nieuwgraaf 17
+6921RJ Duiven</volledigAdres>
+               </bezoekLocatie>
+               <postLocatie>
+                  <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <datumAanvang>20050826</datumAanvang>
+                  </registratie>
+                  <afgeschermd>
+                     <code>N</code>
+                     <omschrijving>Nee</omschrijving>
+                     <referentieType>geenRT</referentieType>
+                  </afgeschermd>
+                  <adres>
+                     <binnenlandsAdres>
+                        <straatnaam>Nieuwgraaf</straatnaam>
+                        <huisnummer>17</huisnummer>
+                        <postcode>
+                           <cijfercombinatie>6921</cijfercombinatie>
+                           <lettercombinatie>RJ</lettercombinatie>
+                        </postcode>
+                        <plaats>Duiven</plaats>
+                        <bagId>
+                           <identificatieNummeraanduiding>0226200000025593</identificatieNummeraanduiding>
+                           <identificatieAdresseerbaarObject>0226010000025594</identificatieAdresseerbaarObject>
+                        </bagId>
+                     </binnenlandsAdres>
+                  </adres>
+                  <volledigAdres>Nieuwgraaf 17
+6921RJ Duiven</volledigAdres>
+               </postLocatie>
+               <communicatiegegevens>
+                  <registratie registratieTijdstip="20171018150708364">
+                     <datumAanvang>20171001</datumAanvang>
+                  </registratie>
+                  <communicatienummer>
+                     <toegangscode>+31</toegangscode>
+                     <nummer>0263115535</nummer>
+                     <soort>
+                        <code>T</code>
+                        <omschrijving>Telefoon</omschrijving>
+                     </soort>
+                  </communicatienummer>
+                  <emailAdres>eismann-info@eismann.nl</emailAdres>
+                  <domeinNaam>www.eismann.nl</domeinNaam>
+               </communicatiegegevens>
+               <naam>Eismann B.V.</naam>
+               <manifesteertZichAls>
+                  <relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <datumAanvang>19820226</datumAanvang>
+                  </relatieRegistratie>
+                  <onderneming>
+                     <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                        <datumAanvang>19801201</datumAanvang>
+                     </registratie>
+                     <kvkNummer>09049151</kvkNummer>
+                     <sbiActiviteit>
+                        <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>19801201</datumAanvang>
+                        </registratie>
+                        <sbiCode>
+                           <code>46311</code>
+                           <omschrijving>Groothandel in groenten en fruit</omschrijving>
+                           <referentieType>ActiviteitCode</referentieType>
+                        </sbiCode>
+                        <isHoofdactiviteit>
+                           <code>J</code>
+                           <omschrijving>Ja</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </isHoofdactiviteit>
+                     </sbiActiviteit>
+                     <sbiActiviteit>
+                        <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>19970101</datumAanvang>
+                        </registratie>
+                        <sbiCode>
+                           <code>47992</code>
+                           <omschrijving>Straathandel</omschrijving>
+                           <referentieType>ActiviteitCode</referentieType>
+                        </sbiCode>
+                        <isHoofdactiviteit>
+                           <code>J</code>
+                           <omschrijving>Ja</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </isHoofdactiviteit>
+                     </sbiActiviteit>
+                     <sbiActiviteit>
+                        <registratie registratieTijdstip="20120521131720986">
+                           <datumAanvang>20120501</datumAanvang>
+                        </registratie>
+                        <sbiCode>
+                           <code>47299</code>
+                           <omschrijving>Gespecialiseerde winkels in overige voedings- en genotmiddelen (rest)</omschrijving>
+                           <referentieType>ActiviteitCode</referentieType>
+                        </sbiCode>
+                        <isHoofdactiviteit>
+                           <code>J</code>
+                           <omschrijving>Ja</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </isHoofdactiviteit>
+                     </sbiActiviteit>
+                     <voltijdWerkzamePersonen>17</voltijdWerkzamePersonen>
+                     <deeltijdWerkzamePersonen>3</deeltijdWerkzamePersonen>
+                     <totaalWerkzamePersonen>20</totaalWerkzamePersonen>
+                     <handeltOnder>
+                        <handelsnaam>
+                           <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <datumAanvang>19930101</datumAanvang>
+                           </registratie>
+                           <naam>Eismann B.V.</naam>
+                           <volgorde>0</volgorde>
+                        </handelsnaam>
+                     </handeltOnder>
+                     <wordtUitgeoefendIn>
+                        <relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>19820226</datumAanvang>
+                        </relatieRegistratie>
+                        <commercieleVestiging>
+                           <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <datumAanvang>19801201</datumAanvang>
+                           </registratie>
+                           <vestigingsnummer>000018531261</vestigingsnummer>
+                           <bezoekLocatie>
+                              <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <datumAanvang>20050826</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <straatnaam>Nieuwgraaf</straatnaam>
+                                    <huisnummer>17</huisnummer>
+                                    <postcode>
+                                       <cijfercombinatie>6921</cijfercombinatie>
+                                       <lettercombinatie>RJ</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Duiven</plaats>
+                                    <bagId>
+                                       <identificatieNummeraanduiding>0226200000025593</identificatieNummeraanduiding>
+                                       <identificatieAdresseerbaarObject>0226010000025594</identificatieAdresseerbaarObject>
+                                    </bagId>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Nieuwgraaf 17
+6921RJ Duiven</volledigAdres>
+                           </bezoekLocatie>
+                           <postLocatie>
+                              <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <datumAanvang>20050826</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <straatnaam>Nieuwgraaf</straatnaam>
+                                    <huisnummer>17</huisnummer>
+                                    <postcode>
+                                       <cijfercombinatie>6921</cijfercombinatie>
+                                       <lettercombinatie>RJ</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Duiven</plaats>
+                                    <bagId>
+                                       <identificatieNummeraanduiding>0226200000025593</identificatieNummeraanduiding>
+                                       <identificatieAdresseerbaarObject>0226010000025594</identificatieAdresseerbaarObject>
+                                    </bagId>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Nieuwgraaf 17
+6921RJ Duiven</volledigAdres>
+                           </postLocatie>
+                           <communicatiegegevens>
+                              <registratie registratieTijdstip="20171018150708364">
+                                 <datumAanvang>20171001</datumAanvang>
+                              </registratie>
+                              <communicatienummer>
+                                 <toegangscode>+31</toegangscode>
+                                 <nummer>0263115535</nummer>
+                                 <soort>
+                                    <code>T</code>
+                                    <omschrijving>Telefoon</omschrijving>
+                                 </soort>
+                              </communicatienummer>
+                              <emailAdres>eismann-info@eismann.nl</emailAdres>
+                              <domeinNaam>www.eismann.nl</domeinNaam>
+                           </communicatiegegevens>
+                           <eersteHandelsnaam>Eismann B.V.</eersteHandelsnaam>
+                           <voltijdWerkzamePersonen>12</voltijdWerkzamePersonen>
+                           <deeltijdWerkzamePersonen>0</deeltijdWerkzamePersonen>
+                           <totaalWerkzamePersonen>12</totaalWerkzamePersonen>
+                           <activiteiten>
+                              <omschrijving>De import van, klein- en groothandel in diepvriesprodukten in de meest uitgebreide zin van het woord</omschrijving>
+                              <sbiActiviteit>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>19801201</datumAanvang>
+                                 </registratie>
+                                 <sbiCode>
+                                    <code>46311</code>
+                                    <omschrijving>Groothandel in groenten en fruit</omschrijving>
+                                    <referentieType>ActiviteitCode</referentieType>
+                                 </sbiCode>
+                                 <isHoofdactiviteit>
+                                    <code>J</code>
+                                    <omschrijving>Ja</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </isHoofdactiviteit>
+                              </sbiActiviteit>
+                              <exporteert>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </exporteert>
+                              <importeert>
+                                 <code>J</code>
+                                 <omschrijving>Ja</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </importeert>
+                           </activiteiten>
+                           <handeltOnder>
+                              <relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <datumAanvang>19930101</datumAanvang>
+                              </relatieRegistratie>
+                              <handelsnaam>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>19930101</datumAanvang>
+                                 </registratie>
+                                 <naam>Eismann B.V.</naam>
+                                 <volgorde>0</volgorde>
+                              </handelsnaam>
+                           </handeltOnder>
+                        </commercieleVestiging>
+                     </wordtUitgeoefendIn>
+                     <wordtUitgeoefendIn>
+                        <relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>20010601</datumAanvang>
+                        </relatieRegistratie>
+                        <commercieleVestiging>
+                           <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <datumAanvang>20010601</datumAanvang>
+                           </registratie>
+                           <vestigingsnummer>000018531253</vestigingsnummer>
+                           <bezoekLocatie>
+                              <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <datumAanvang>20010601</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <straatnaam>Fahrenheitstraat</straatnaam>
+                                    <huisnummer>6</huisnummer>
+                                    <huisletter>E</huisletter>
+                                    <postcode>
+                                       <cijfercombinatie>7461</cijfercombinatie>
+                                       <lettercombinatie>JA</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Rijssen</plaats>
+                                    <bagId>
+                                       <identificatieNummeraanduiding>1742200000033163</identificatieNummeraanduiding>
+                                       <identificatieAdresseerbaarObject>1742010000000904</identificatieAdresseerbaarObject>
+                                    </bagId>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Fahrenheitstraat 6 E
+7461JA Rijssen</volledigAdres>
+                           </bezoekLocatie>
+                           <postLocatie>
+                              <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <datumAanvang>20010601</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <straatnaam>Fahrenheitstraat</straatnaam>
+                                    <huisnummer>6</huisnummer>
+                                    <huisletter>E</huisletter>
+                                    <postcode>
+                                       <cijfercombinatie>7461</cijfercombinatie>
+                                       <lettercombinatie>JA</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Rijssen</plaats>
+                                    <bagId>
+                                       <identificatieNummeraanduiding>1742200000033163</identificatieNummeraanduiding>
+                                       <identificatieAdresseerbaarObject>1742010000000904</identificatieAdresseerbaarObject>
+                                    </bagId>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Fahrenheitstraat 6 E
+7461JA Rijssen</volledigAdres>
+                           </postLocatie>
+                           <communicatiegegevens>
+                              <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <datumAanvang>20010601</datumAanvang>
+                              </registratie>
+                              <communicatienummer>
+                                 <toegangscode>+31</toegangscode>
+                                 <nummer>0548365355</nummer>
+                                 <soort>
+                                    <code>T</code>
+                                    <omschrijving>Telefoon</omschrijving>
+                                 </soort>
+                              </communicatienummer>
+                              <communicatienummer>
+                                 <toegangscode>+31</toegangscode>
+                                 <nummer>0548365370</nummer>
+                                 <soort>
+                                    <code>F</code>
+                                    <omschrijving>Fax</omschrijving>
+                                 </soort>
+                              </communicatienummer>
+                              <emailAdres>depot.rijssen@eismann.nl</emailAdres>
+                           </communicatiegegevens>
+                           <eersteHandelsnaam>Eismann B.V.</eersteHandelsnaam>
+                           <voltijdWerkzamePersonen>1</voltijdWerkzamePersonen>
+                           <deeltijdWerkzamePersonen>0</deeltijdWerkzamePersonen>
+                           <totaalWerkzamePersonen>1</totaalWerkzamePersonen>
+                           <activiteiten>
+                              <omschrijving>Aanlevering en distributie van diepvriesproducten aan franchisenemers (overladen in vrachtauto's), aangevuld met administratieve werkzaamheden door binnendienst.</omschrijving>
+                              <sbiActiviteit>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>20010601</datumAanvang>
+                                 </registratie>
+                                 <sbiCode>
+                                    <code>47992</code>
+                                    <omschrijving>Straathandel</omschrijving>
+                                    <referentieType>ActiviteitCode</referentieType>
+                                 </sbiCode>
+                                 <isHoofdactiviteit>
+                                    <code>J</code>
+                                    <omschrijving>Ja</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </isHoofdactiviteit>
+                              </sbiActiviteit>
+                              <exporteert>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </exporteert>
+                              <importeert>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </importeert>
+                           </activiteiten>
+                           <handeltOnder>
+                              <relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <datumAanvang>20010601</datumAanvang>
+                              </relatieRegistratie>
+                              <handelsnaam>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>19930101</datumAanvang>
+                                 </registratie>
+                                 <naam>Eismann B.V.</naam>
+                                 <volgorde>0</volgorde>
+                              </handelsnaam>
+                           </handeltOnder>
+                        </commercieleVestiging>
+                     </wordtUitgeoefendIn>
+                     <wordtUitgeoefendIn>
+                        <relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>19970101</datumAanvang>
+                        </relatieRegistratie>
+                        <commercieleVestiging>
+                           <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <datumAanvang>19970101</datumAanvang>
+                           </registratie>
+                           <vestigingsnummer>000018531202</vestigingsnummer>
+                           <bezoekLocatie>
+                              <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <datumAanvang>19970101</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <straatnaam>Ketellapperstraat</straatnaam>
+                                    <huisnummer>11</huisnummer>
+                                    <postcode>
+                                       <cijfercombinatie>9403</cijfercombinatie>
+                                       <lettercombinatie>VS</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Assen</plaats>
+                                    <bagId>
+                                       <identificatieNummeraanduiding>0106200000011835</identificatieNummeraanduiding>
+                                       <identificatieAdresseerbaarObject>0106010000011835</identificatieAdresseerbaarObject>
+                                    </bagId>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Ketellapperstraat 11
+9403VS Assen</volledigAdres>
+                           </bezoekLocatie>
+                           <postLocatie>
+                              <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <datumAanvang>19970101</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <straatnaam>Ketellapperstraat</straatnaam>
+                                    <huisnummer>11</huisnummer>
+                                    <postcode>
+                                       <cijfercombinatie>9403</cijfercombinatie>
+                                       <lettercombinatie>VS</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Assen</plaats>
+                                    <bagId>
+                                       <identificatieNummeraanduiding>0106200000011835</identificatieNummeraanduiding>
+                                       <identificatieAdresseerbaarObject>0106010000011835</identificatieAdresseerbaarObject>
+                                    </bagId>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Ketellapperstraat 11
+9403VS Assen</volledigAdres>
+                           </postLocatie>
+                           <communicatiegegevens>
+                              <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <datumAanvang>19970101</datumAanvang>
+                              </registratie>
+                              <communicatienummer>
+                                 <toegangscode>+31</toegangscode>
+                                 <nummer>0592370041</nummer>
+                                 <soort>
+                                    <code>T</code>
+                                    <omschrijving>Telefoon</omschrijving>
+                                 </soort>
+                              </communicatienummer>
+                              <communicatienummer>
+                                 <toegangscode>+31</toegangscode>
+                                 <nummer>0592346856</nummer>
+                                 <soort>
+                                    <code>F</code>
+                                    <omschrijving>Fax</omschrijving>
+                                 </soort>
+                              </communicatienummer>
+                              <emailAdres>depot.assen@eismann.nl</emailAdres>
+                           </communicatiegegevens>
+                           <eersteHandelsnaam>Eismann B.V.</eersteHandelsnaam>
+                           <voltijdWerkzamePersonen>1</voltijdWerkzamePersonen>
+                           <deeltijdWerkzamePersonen>1</deeltijdWerkzamePersonen>
+                           <totaalWerkzamePersonen>2</totaalWerkzamePersonen>
+                           <activiteiten>
+                              <omschrijving>Aanlevering en distributie van diepvriesproducten aan franchisenemers (overladen in vrachtauto's), aangevuld met administratieve werkzaamheden door binnendienst.</omschrijving>
+                              <sbiActiviteit>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>19970101</datumAanvang>
+                                 </registratie>
+                                 <sbiCode>
+                                    <code>47992</code>
+                                    <omschrijving>Straathandel</omschrijving>
+                                    <referentieType>ActiviteitCode</referentieType>
+                                 </sbiCode>
+                                 <isHoofdactiviteit>
+                                    <code>J</code>
+                                    <omschrijving>Ja</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </isHoofdactiviteit>
+                              </sbiActiviteit>
+                              <exporteert>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </exporteert>
+                              <importeert>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </importeert>
+                           </activiteiten>
+                           <handeltOnder>
+                              <relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <datumAanvang>19970101</datumAanvang>
+                              </relatieRegistratie>
+                              <handelsnaam>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>19930101</datumAanvang>
+                                 </registratie>
+                                 <naam>Eismann B.V.</naam>
+                                 <volgorde>0</volgorde>
+                              </handelsnaam>
+                           </handeltOnder>
+                        </commercieleVestiging>
+                     </wordtUitgeoefendIn>
+                     <wordtUitgeoefendIn>
+                        <relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>20000501</datumAanvang>
+                        </relatieRegistratie>
+                        <commercieleVestiging>
+                           <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <datumAanvang>20000501</datumAanvang>
+                           </registratie>
+                           <vestigingsnummer>000018531199</vestigingsnummer>
+                           <bezoekLocatie>
+                              <registratie registratieTijdstip="20160705113111323">
+                                 <datumAanvang>20000501</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <straatnaam>Aan de Heijgraef</straatnaam>
+                                    <huisnummer>12</huisnummer>
+                                    <postcode>
+                                       <cijfercombinatie>6161</cijfercombinatie>
+                                       <lettercombinatie>DK</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Geleen</plaats>
+                                    <bagId>
+                                       <identificatieNummeraanduiding>1883200000000213</identificatieNummeraanduiding>
+                                       <identificatieAdresseerbaarObject>1883010000000213</identificatieAdresseerbaarObject>
+                                    </bagId>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Aan de Heijgraef 12
+6161DK Geleen</volledigAdres>
+                           </bezoekLocatie>
+                           <postLocatie>
+                              <registratie registratieTijdstip="20160705113111323">
+                                 <datumAanvang>20000501</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <straatnaam>Aan de Heijgraef</straatnaam>
+                                    <huisnummer>12</huisnummer>
+                                    <postcode>
+                                       <cijfercombinatie>6161</cijfercombinatie>
+                                       <lettercombinatie>DK</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Geleen</plaats>
+                                    <bagId>
+                                       <identificatieNummeraanduiding>1883200000000213</identificatieNummeraanduiding>
+                                       <identificatieAdresseerbaarObject>1883010000000213</identificatieAdresseerbaarObject>
+                                    </bagId>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Aan de Heijgraef 12
+6161DK Geleen</volledigAdres>
+                           </postLocatie>
+                           <communicatiegegevens>
+                              <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <datumAanvang>20000501</datumAanvang>
+                              </registratie>
+                              <communicatienummer>
+                                 <toegangscode>+31</toegangscode>
+                                 <nummer>0464338595</nummer>
+                                 <soort>
+                                    <code>T</code>
+                                    <omschrijving>Telefoon</omschrijving>
+                                 </soort>
+                              </communicatienummer>
+                              <communicatienummer>
+                                 <toegangscode>+31</toegangscode>
+                                 <nummer>0464339755</nummer>
+                                 <soort>
+                                    <code>F</code>
+                                    <omschrijving>Fax</omschrijving>
+                                 </soort>
+                              </communicatienummer>
+                              <emailAdres>depot.geleen@eismann.nl</emailAdres>
+                           </communicatiegegevens>
+                           <eersteHandelsnaam>Eismann B.V.</eersteHandelsnaam>
+                           <voltijdWerkzamePersonen>1</voltijdWerkzamePersonen>
+                           <deeltijdWerkzamePersonen>1</deeltijdWerkzamePersonen>
+                           <totaalWerkzamePersonen>2</totaalWerkzamePersonen>
+                           <activiteiten>
+                              <omschrijving>Aanlevering en distributie van diepvriesproducten aan franchisnemers (overladen in vrachtauto's), aangevuld met administratieve werkzaamheden door binnendienst.</omschrijving>
+                              <sbiActiviteit>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>20000501</datumAanvang>
+                                 </registratie>
+                                 <sbiCode>
+                                    <code>47992</code>
+                                    <omschrijving>Straathandel</omschrijving>
+                                    <referentieType>ActiviteitCode</referentieType>
+                                 </sbiCode>
+                                 <isHoofdactiviteit>
+                                    <code>J</code>
+                                    <omschrijving>Ja</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </isHoofdactiviteit>
+                              </sbiActiviteit>
+                              <exporteert>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </exporteert>
+                              <importeert>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </importeert>
+                           </activiteiten>
+                           <handeltOnder>
+                              <relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <datumAanvang>20000501</datumAanvang>
+                              </relatieRegistratie>
+                              <handelsnaam>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>19930101</datumAanvang>
+                                 </registratie>
+                                 <naam>Eismann B.V.</naam>
+                                 <volgorde>0</volgorde>
+                              </handelsnaam>
+                           </handeltOnder>
+                        </commercieleVestiging>
+                     </wordtUitgeoefendIn>
+                     <wordtUitgeoefendIn>
+                        <relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>20000401</datumAanvang>
+                        </relatieRegistratie>
+                        <commercieleVestiging>
+                           <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <datumAanvang>20000401</datumAanvang>
+                           </registratie>
+                           <vestigingsnummer>000018531180</vestigingsnummer>
+                           <bezoekLocatie>
+                              <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <datumAanvang>20000401</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <straatnaam>Kroonstraat</straatnaam>
+                                    <huisnummer>2</huisnummer>
+                                    <postcode>
+                                       <cijfercombinatie>4879</cijfercombinatie>
+                                       <lettercombinatie>AV</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Etten-Leur</plaats>
+                                    <bagId>
+                                       <identificatieNummeraanduiding>0777200000186114</identificatieNummeraanduiding>
+                                       <identificatieAdresseerbaarObject>0777010000186115</identificatieAdresseerbaarObject>
+                                    </bagId>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Kroonstraat 2
+4879AV Etten-Leur</volledigAdres>
+                           </bezoekLocatie>
+                           <postLocatie>
+                              <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <datumAanvang>20000401</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <straatnaam>Kroonstraat</straatnaam>
+                                    <huisnummer>2</huisnummer>
+                                    <postcode>
+                                       <cijfercombinatie>4879</cijfercombinatie>
+                                       <lettercombinatie>AV</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Etten-Leur</plaats>
+                                    <bagId>
+                                       <identificatieNummeraanduiding>0777200000186114</identificatieNummeraanduiding>
+                                       <identificatieAdresseerbaarObject>0777010000186115</identificatieAdresseerbaarObject>
+                                    </bagId>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Kroonstraat 2
+4879AV Etten-Leur</volledigAdres>
+                           </postLocatie>
+                           <communicatiegegevens>
+                              <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <datumAanvang>20000401</datumAanvang>
+                              </registratie>
+                              <communicatienummer>
+                                 <toegangscode>+31</toegangscode>
+                                 <nummer>0765035991</nummer>
+                                 <soort>
+                                    <code>T</code>
+                                    <omschrijving>Telefoon</omschrijving>
+                                 </soort>
+                              </communicatienummer>
+                              <communicatienummer>
+                                 <toegangscode>+31</toegangscode>
+                                 <nummer>0765016007</nummer>
+                                 <soort>
+                                    <code>F</code>
+                                    <omschrijving>Fax</omschrijving>
+                                 </soort>
+                              </communicatienummer>
+                              <emailAdres>depot.ettenleur@eismann.nl</emailAdres>
+                           </communicatiegegevens>
+                           <eersteHandelsnaam>Eismann B.V.</eersteHandelsnaam>
+                           <voltijdWerkzamePersonen>1</voltijdWerkzamePersonen>
+                           <deeltijdWerkzamePersonen>1</deeltijdWerkzamePersonen>
+                           <totaalWerkzamePersonen>2</totaalWerkzamePersonen>
+                           <activiteiten>
+                              <omschrijving>Aanlevering en distributie van diepvriesproducten aan franchisenemers (overladen in vrachtauto's), aangevuld met administratieve werkzaamheden door binnendienst.</omschrijving>
+                              <sbiActiviteit>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>20000401</datumAanvang>
+                                 </registratie>
+                                 <sbiCode>
+                                    <code>47992</code>
+                                    <omschrijving>Straathandel</omschrijving>
+                                    <referentieType>ActiviteitCode</referentieType>
+                                 </sbiCode>
+                                 <isHoofdactiviteit>
+                                    <code>J</code>
+                                    <omschrijving>Ja</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </isHoofdactiviteit>
+                              </sbiActiviteit>
+                              <exporteert>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </exporteert>
+                              <importeert>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </importeert>
+                           </activiteiten>
+                           <handeltOnder>
+                              <relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <datumAanvang>20000401</datumAanvang>
+                              </relatieRegistratie>
+                              <handelsnaam>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>19930101</datumAanvang>
+                                 </registratie>
+                                 <naam>Eismann B.V.</naam>
+                                 <volgorde>0</volgorde>
+                              </handelsnaam>
+                           </handeltOnder>
+                        </commercieleVestiging>
+                     </wordtUitgeoefendIn>
+                     <wordtUitgeoefendIn>
+                        <relatieRegistratie registratieTijdstip="20120521131720986">
+                           <datumAanvang>20120501</datumAanvang>
+                        </relatieRegistratie>
+                        <commercieleVestiging>
+                           <registratie registratieTijdstip="20120521131720986">
+                              <datumAanvang>20120501</datumAanvang>
+                           </registratie>
+                           <vestigingsnummer>000024991236</vestigingsnummer>
+                           <bezoekLocatie>
+                              <registratie registratieTijdstip="20120521131720986">
+                                 <datumAanvang>20120501</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <straatnaam>Geograaf</straatnaam>
+                                    <huisnummer>42</huisnummer>
+                                    <huisletter>a</huisletter>
+                                    <postcode>
+                                       <cijfercombinatie>6921</cijfercombinatie>
+                                       <lettercombinatie>EW</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Duiven</plaats>
+                                    <bagId>
+                                       <identificatieNummeraanduiding>0226200000038516</identificatieNummeraanduiding>
+                                       <identificatieAdresseerbaarObject>0226010000038403</identificatieAdresseerbaarObject>
+                                    </bagId>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Geograaf 42 a
+6921EW Duiven</volledigAdres>
+                           </bezoekLocatie>
+                           <postLocatie>
+                              <registratie registratieTijdstip="20120521131720986">
+                                 <datumAanvang>20120501</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <straatnaam>Geograaf</straatnaam>
+                                    <huisnummer>42</huisnummer>
+                                    <huisletter>a</huisletter>
+                                    <postcode>
+                                       <cijfercombinatie>6921</cijfercombinatie>
+                                       <lettercombinatie>EW</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Duiven</plaats>
+                                    <bagId>
+                                       <identificatieNummeraanduiding>0226200000038516</identificatieNummeraanduiding>
+                                       <identificatieAdresseerbaarObject>0226010000038403</identificatieAdresseerbaarObject>
+                                    </bagId>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Geograaf 42 a
+6921EW Duiven</volledigAdres>
+                           </postLocatie>
+                           <communicatiegegevens>
+                              <registratie registratieTijdstip="20120521131720986">
+                                 <datumAanvang>20120501</datumAanvang>
+                              </registratie>
+                              <communicatienummer>
+                                 <toegangscode>+31</toegangscode>
+                                 <nummer>0263115535</nummer>
+                                 <soort>
+                                    <code>T</code>
+                                    <omschrijving>Telefoon</omschrijving>
+                                 </soort>
+                              </communicatienummer>
+                              <communicatienummer>
+                                 <toegangscode>+31</toegangscode>
+                                 <nummer>0263116474</nummer>
+                                 <soort>
+                                    <code>F</code>
+                                    <omschrijving>Fax</omschrijving>
+                                 </soort>
+                              </communicatienummer>
+                              <emailAdres>depot.duiven@eismann.nl</emailAdres>
+                              <domeinNaam>www.eismann.nl</domeinNaam>
+                           </communicatiegegevens>
+                           <eersteHandelsnaam>Eismann B.V.</eersteHandelsnaam>
+                           <voltijdWerkzamePersonen>1</voltijdWerkzamePersonen>
+                           <deeltijdWerkzamePersonen>0</deeltijdWerkzamePersonen>
+                           <totaalWerkzamePersonen>1</totaalWerkzamePersonen>
+                           <activiteiten>
+                              <omschrijving>De verkoop van diepvriesproducten.</omschrijving>
+                              <sbiActiviteit>
+                                 <registratie registratieTijdstip="20120521131720986">
+                                    <datumAanvang>20120501</datumAanvang>
+                                 </registratie>
+                                 <sbiCode>
+                                    <code>47299</code>
+                                    <omschrijving>Gespecialiseerde winkels in overige voedings- en genotmiddelen (rest)</omschrijving>
+                                    <referentieType>ActiviteitCode</referentieType>
+                                 </sbiCode>
+                                 <isHoofdactiviteit>
+                                    <code>J</code>
+                                    <omschrijving>Ja</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </isHoofdactiviteit>
+                              </sbiActiviteit>
+                              <exporteert>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </exporteert>
+                              <importeert>
+                                 <code>J</code>
+                                 <omschrijving>Ja</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </importeert>
+                           </activiteiten>
+                           <handeltOnder>
+                              <relatieRegistratie registratieTijdstip="20120521131720986">
+                                 <datumAanvang>20120501</datumAanvang>
+                              </relatieRegistratie>
+                              <handelsnaam>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>19930101</datumAanvang>
+                                 </registratie>
+                                 <naam>Eismann B.V.</naam>
+                                 <volgorde>0</volgorde>
+                              </handelsnaam>
+                           </handeltOnder>
+                        </commercieleVestiging>
+                     </wordtUitgeoefendIn>
+                  </onderneming>
+               </manifesteertZichAls>
+               <wordtGeleidVanuit>
+                  <commercieleVestiging>
+                     <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                        <datumAanvang>19801201</datumAanvang>
+                     </registratie>
+                     <vestigingsnummer>000018531261</vestigingsnummer>
+                     <bezoekLocatie>
+                        <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>20050826</datumAanvang>
+                        </registratie>
+                        <afgeschermd>
+                           <code>N</code>
+                           <omschrijving>Nee</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </afgeschermd>
+                        <adres>
+                           <binnenlandsAdres>
+                              <straatnaam>Nieuwgraaf</straatnaam>
+                              <huisnummer>17</huisnummer>
+                              <postcode>
+                                 <cijfercombinatie>6921</cijfercombinatie>
+                                 <lettercombinatie>RJ</lettercombinatie>
+                              </postcode>
+                              <plaats>Duiven</plaats>
+                              <bagId>
+                                 <identificatieNummeraanduiding>0226200000025593</identificatieNummeraanduiding>
+                                 <identificatieAdresseerbaarObject>0226010000025594</identificatieAdresseerbaarObject>
+                              </bagId>
+                           </binnenlandsAdres>
+                        </adres>
+                        <volledigAdres>Nieuwgraaf 17
+6921RJ Duiven</volledigAdres>
+                     </bezoekLocatie>
+                     <postLocatie>
+                        <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>20050826</datumAanvang>
+                        </registratie>
+                        <afgeschermd>
+                           <code>N</code>
+                           <omschrijving>Nee</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </afgeschermd>
+                        <adres>
+                           <binnenlandsAdres>
+                              <straatnaam>Nieuwgraaf</straatnaam>
+                              <huisnummer>17</huisnummer>
+                              <postcode>
+                                 <cijfercombinatie>6921</cijfercombinatie>
+                                 <lettercombinatie>RJ</lettercombinatie>
+                              </postcode>
+                              <plaats>Duiven</plaats>
+                              <bagId>
+                                 <identificatieNummeraanduiding>0226200000025593</identificatieNummeraanduiding>
+                                 <identificatieAdresseerbaarObject>0226010000025594</identificatieAdresseerbaarObject>
+                              </bagId>
+                           </binnenlandsAdres>
+                        </adres>
+                        <volledigAdres>Nieuwgraaf 17
+6921RJ Duiven</volledigAdres>
+                     </postLocatie>
+                     <communicatiegegevens>
+                        <registratie registratieTijdstip="20171018150708364">
+                           <datumAanvang>20171001</datumAanvang>
+                        </registratie>
+                        <communicatienummer>
+                           <toegangscode>+31</toegangscode>
+                           <nummer>0263115535</nummer>
+                           <soort>
+                              <code>T</code>
+                              <omschrijving>Telefoon</omschrijving>
+                           </soort>
+                        </communicatienummer>
+                        <emailAdres>eismann-info@eismann.nl</emailAdres>
+                        <domeinNaam>www.eismann.nl</domeinNaam>
+                     </communicatiegegevens>
+                     <eersteHandelsnaam>Eismann B.V.</eersteHandelsnaam>
+                     <voltijdWerkzamePersonen>12</voltijdWerkzamePersonen>
+                     <deeltijdWerkzamePersonen>0</deeltijdWerkzamePersonen>
+                     <totaalWerkzamePersonen>12</totaalWerkzamePersonen>
+                     <activiteiten>
+                        <omschrijving>De import van, klein- en groothandel in diepvriesprodukten in de meest uitgebreide zin van het woord</omschrijving>
+                        <sbiActiviteit>
+                           <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <datumAanvang>19801201</datumAanvang>
+                           </registratie>
+                           <sbiCode>
+                              <code>46311</code>
+                              <omschrijving>Groothandel in groenten en fruit</omschrijving>
+                              <referentieType>ActiviteitCode</referentieType>
+                           </sbiCode>
+                           <isHoofdactiviteit>
+                              <code>J</code>
+                              <omschrijving>Ja</omschrijving>
+                              <referentieType>geenRT</referentieType>
+                           </isHoofdactiviteit>
+                        </sbiActiviteit>
+                        <exporteert>
+                           <code>N</code>
+                           <omschrijving>Nee</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </exporteert>
+                        <importeert>
+                           <code>J</code>
+                           <omschrijving>Ja</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </importeert>
+                     </activiteiten>
+                     <handeltOnder>
+                        <relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>19930101</datumAanvang>
+                        </relatieRegistratie>
+                        <handelsnaam>
+                           <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <datumAanvang>19930101</datumAanvang>
+                           </registratie>
+                           <naam>Eismann B.V.</naam>
+                           <volgorde>0</volgorde>
+                        </handelsnaam>
+                     </handeltOnder>
+                  </commercieleVestiging>
+               </wordtGeleidVanuit>
+               <heeftAlsEigenaar>
+                  <relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <datumAanvang>19820226</datumAanvang>
+                  </relatieRegistratie>
+                  <rechtspersoon>
+                     <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                        <datumAanvang>19820226</datumAanvang>
+                     </registratie>
+                     <persoonRechtsvorm>Besloten Vennootschap</persoonRechtsvorm>
+                     <volledigeNaam>Eismann B.V.</volledigeNaam>
+                     <uitgebreideRechtsvorm>Besloten Vennootschap</uitgebreideRechtsvorm>
+                     <heeft>
+                        <bestuursfunctie>
+                           <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <datumAanvang>20010601</datumAanvang>
+                           </registratie>
+                           <functietitel>
+                              <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <datumAanvang>20010601</datumAanvang>
+                              </registratie>
+                              <titel>Directeur</titel>
+                              <isStatutaireTitel>
+                                 <code>J</code>
+                                 <omschrijving>Ja</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isStatutaireTitel>
+                           </functietitel>
+                           <door>
+                              <natuurlijkPersoon>
+                                 <extraElementen>
+                                    <extraElement naam="achternaam">7e96eb94b1</extraElement>
+                                    <!--Anonimisatie 'extraElement': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--></extraElementen>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>20190821</datumAanvang>
+                                    <!--Anonimisatie 'datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></registratie>
+                                 <volledigeNaam>9c416d9 a13 dd476cab30</volledigeNaam>
+                                 <!--Anonimisatie 'volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><bezoekLocatiePersoon>
+                                    <registratie registratieTijdstip="20160510223811082"/>
+                                    <afgeschermd>
+                                       <code>N</code>
+                                       <omschrijving>Nee</omschrijving>
+                                       <referentieType>geenRT</referentieType>
+                                    </afgeschermd>
+                                    <adres>
+                                       <binnenlandsAdres>
+                                          <straatnaam>Emmerikseweg</straatnaam>
+                                          <huisnummer>83</huisnummer>
+                                          <postcode>
+                                             <cijfercombinatie>7041</cijfercombinatie>
+                                             <lettercombinatie>AV</lettercombinatie>
+                                          </postcode>
+                                          <plaats>'s-Heerenberg</plaats>
+                                          <bagId>
+                                             <identificatieNummeraanduiding>1955200000058982</identificatieNummeraanduiding>
+                                             <identificatieAdresseerbaarObject>1955010000042461</identificatieAdresseerbaarObject>
+                                          </bagId>
+                                       </binnenlandsAdres>
+                                    </adres>
+                                    <volledigAdres>Emmerikseweg 83
+7041AV 's-Heerenberg</volledigAdres>
+                                 </bezoekLocatiePersoon>
+                                 <bsn>619761540</bsn>
+                                 <!--Anonimisatie 'bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><geslachtsnaam>7e96eb94b1</geslachtsnaam>
+                                 <!--Anonimisatie 'geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><voornamen>cc80bf1 7a4</voornamen>
+                                 <!--Anonimisatie 'voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geslachtsaanduiding>
+                                    <code>m</code>
+                                    <omschrijving>Mannelijk</omschrijving>
+                                    <referentieType>Geslacht</referentieType>
+                                 </geslachtsaanduiding>
+                                 <geboorteplaats>19334789</geboorteplaats>
+                                 <!--Anonimisatie 'geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geboorteland>
+                                    <code>6030</code>
+                                    <omschrijving>Nederland</omschrijving>
+                                    <referentieType>Land</referentieType>
+                                 </geboorteland>
+                                 <geboortedatum>20190821</geboortedatum>
+                                 <!--Anonimisatie 'geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></natuurlijkPersoon>
+                           </door>
+                           <functie>
+                              <code>02</code>
+                              <omschrijving>Bestuurder</omschrijving>
+                              <referentieType>FunctionarisRol</referentieType>
+                           </functie>
+                           <bevoegdheid>
+                              <registratie registratieTijdstip="20110107152531280">
+                                 <datumAanvang>20101231</datumAanvang>
+                              </registratie>
+                              <soort>
+                                 <code>azb</code>
+                                 <omschrijving>Alleen/zelfstandig bevoegd</omschrijving>
+                                 <referentieType>SoortBevoegdheidBestuurder</referentieType>
+                              </soort>
+                              <isBevoegdMetAnderePersonen>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isBevoegdMetAnderePersonen>
+                           </bevoegdheid>
+                        </bestuursfunctie>
+                     </heeft>
+                     <heeft>
+                        <overigeFunctionaris>
+                           <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <datumAanvang>20041028</datumAanvang>
+                           </registratie>
+                           <door>
+                              <buitenlandseVennootschap>
+                                 <volledigeNaam>Eismann International GmbH</volledigeNaam>
+                                 <bezoekLocatiePersoon>
+                                    <registratie registratieTijdstipNoValue="vastgesteldOnbekend"/>
+                                    <afgeschermd>
+                                       <code>N</code>
+                                       <omschrijving>Nee</omschrijving>
+                                       <referentieType>geenRT</referentieType>
+                                    </afgeschermd>
+                                    <adres>
+                                       <buitenlandsAdres>
+                                          <straatHuisnummer>Seibelstrasse 36</straatHuisnummer>
+                                          <postcodeWoonplaats>D-40822 Mettmann</postcodeWoonplaats>
+                                          <land>
+                                             <code>9089</code>
+                                             <omschrijving>Bondsrepubliek Duitsland</omschrijving>
+                                             <referentieType>Land</referentieType>
+                                          </land>
+                                       </buitenlandsAdres>
+                                    </adres>
+                                    <volledigAdres>Seibelstrasse 36
+D-40822 Mettmann
+Bondsrepubliek Duitsland</volledigAdres>
+                                 </bezoekLocatiePersoon>
+                                 <buitenlandseRegistratieGegevens>
+                                    <naam>Wuppertal - Handelsregister</naam>
+                                    <plaats>Wuppertal</plaats>
+                                    <land>
+                                       <code>9089</code>
+                                       <omschrijving>Bondsrepubliek Duitsland</omschrijving>
+                                       <referentieType>Land</referentieType>
+                                    </land>
+                                    <inschrijfnummer>HRB 18885</inschrijfnummer>
+                                    <buitenlandseRegistratie>Wuppertal - Handelsregister
+Wuppertal, Bondsrepubliek Duitsland
+Onder nummer HRB 18885</buitenlandseRegistratie>
+                                 </buitenlandseRegistratieGegevens>
+                                 <landVanVestiging>
+                                    <code>9089</code>
+                                    <omschrijving>Bondsrepubliek Duitsland</omschrijving>
+                                    <referentieType>Land</referentieType>
+                                 </landVanVestiging>
+                              </buitenlandseVennootschap>
+                           </door>
+                           <functie>
+                              <code>08</code>
+                              <omschrijving>Enig aandeelhouder</omschrijving>
+                              <referentieType>FunctionarisRol</referentieType>
+                           </functie>
+                        </overigeFunctionaris>
+                     </heeft>
+                     <heeft>
+                        <gemachtigde>
+                           <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <datumAanvang>20100201</datumAanvang>
+                           </registratie>
+                           <door>
+                              <natuurlijkPersoon>
+                                 <extraElementen>
+                                    <extraElement naam="achternaam">fd0e50888 e 513e23d</extraElement>
+                                    <!--Anonimisatie 'extraElement': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--></extraElementen>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>20080930</datumAanvang>
+                                    <!--Anonimisatie 'datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></registratie>
+                                 <volledigeNaam>b6dad4 c4578997 5525c 6e0392db2 9 f811709</volledigeNaam>
+                                 <!--Anonimisatie 'volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><bezoekLocatiePersoon>
+                                    <registratie registratieTijdstipNoValue="vastgesteldOnbekend"/>
+                                    <afgeschermd>
+                                       <code>N</code>
+                                       <omschrijving>Nee</omschrijving>
+                                       <referentieType>geenRT</referentieType>
+                                    </afgeschermd>
+                                    <adres>
+                                       <binnenlandsAdres>
+                                          <straatnaam>Peter Meistersstraat</straatnaam>
+                                          <huisnummer>23</huisnummer>
+                                          <postcode>
+                                             <cijfercombinatie>7037</cijfercombinatie>
+                                             <lettercombinatie>AE</lettercombinatie>
+                                          </postcode>
+                                          <plaats>Beek</plaats>
+                                          <bagId>
+                                             <identificatieNummeraanduiding>1955200000046720</identificatieNummeraanduiding>
+                                             <identificatieAdresseerbaarObject>1955010000031474</identificatieAdresseerbaarObject>
+                                          </bagId>
+                                       </binnenlandsAdres>
+                                    </adres>
+                                    <volledigAdres>Peter Meistersstraat 23
+7037AE Beek</volledigAdres>
+                                 </bezoekLocatiePersoon>
+                                 <bsn>818082783</bsn>
+                                 <!--Anonimisatie 'bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><geslachtsnaam>fd0e50888 e 513e23d</geslachtsnaam>
+                                 <!--Anonimisatie 'geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><voornamen>33fb91 d2d5c3e6 03e8f</voornamen>
+                                 <!--Anonimisatie 'voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geslachtsaanduiding>
+                                    <code>v</code>
+                                    <omschrijving>Vrouwelijk</omschrijving>
+                                    <referentieType>Geslacht</referentieType>
+                                 </geslachtsaanduiding>
+                                 <geboorteplaats>840da</geboorteplaats>
+                                 <!--Anonimisatie 'geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geboorteland>
+                                    <code>6030</code>
+                                    <omschrijving>Nederland</omschrijving>
+                                    <referentieType>Land</referentieType>
+                                 </geboorteland>
+                                 <geboortedatum>20080930</geboortedatum>
+                                 <!--Anonimisatie 'geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></natuurlijkPersoon>
+                           </door>
+                           <functie>
+                              <code>01</code>
+                              <omschrijving>Gevolmachtigde</omschrijving>
+                              <referentieType>FunctionarisRol</referentieType>
+                           </functie>
+                           <volmacht>
+                              <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <datumAanvang>20100201</datumAanvang>
+                              </registratie>
+                              <typeVolmacht>
+                                 <code>b</code>
+                                 <omschrijving>Beperkte volmacht</omschrijving>
+                                 <referentieType>VolmachtType</referentieType>
+                              </typeVolmacht>
+                              <isStatutair>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isStatutair>
+                              <beperkteVolmacht>
+                                 <magOpgaveHandelsregisterDoen>
+                                    <code>N</code>
+                                    <omschrijving>Nee</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </magOpgaveHandelsregisterDoen>
+                                 <heeftOverigeVolmacht>
+                                    <code>J</code>
+                                    <omschrijving>Ja</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </heeftOverigeVolmacht>
+                              </beperkteVolmacht>
+                           </volmacht>
+                        </gemachtigde>
+                     </heeft>
+                     <heeft>
+                        <overigeFunctionaris>
+                           <registratie registratieTijdstip="20200108125929248">
+                              <datumAanvang>20200101</datumAanvang>
+                           </registratie>
+                           <door>
+                              <natuurlijkPersoon>
+                                 <extraElementen>
+                                    <extraElement naam="achternaam">f71419</extraElement>
+                                    <!--Anonimisatie 'extraElement': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--></extraElementen>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>19580101</datumAanvang>
+                                    <!--Anonimisatie 'datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></registratie>
+                                 <volledigeNaam>cbbf 0a321c</volledigeNaam>
+                                 <!--Anonimisatie 'volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><bezoekLocatiePersoon>
+                                    <registratie registratieTijdstip="20200108125929248"/>
+                                    <afgeschermd>
+                                       <code>N</code>
+                                       <omschrijving>Nee</omschrijving>
+                                       <referentieType>geenRT</referentieType>
+                                    </afgeschermd>
+                                    <adres>
+                                       <buitenlandsAdres>
+                                          <straatHuisnummer>Wolfstall 27</straatHuisnummer>
+                                          <postcodeWoonplaats>42799 Leichlingen</postcodeWoonplaats>
+                                          <land>
+                                             <code>9089</code>
+                                             <omschrijving>Bondsrepubliek Duitsland</omschrijving>
+                                             <referentieType>Land</referentieType>
+                                          </land>
+                                       </buitenlandsAdres>
+                                    </adres>
+                                    <volledigAdres>Wolfstall 27
+42799 Leichlingen
+Bondsrepubliek Duitsland</volledigAdres>
+                                 </bezoekLocatiePersoon>
+                                 <geslachtsnaam>f71419</geslachtsnaam>
+                                 <!--Anonimisatie 'geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><voornamen>da6d</voornamen>
+                                 <!--Anonimisatie 'voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geslachtsaanduiding>
+                                    <code>m</code>
+                                    <omschrijving>Mannelijk</omschrijving>
+                                    <referentieType>Geslacht</referentieType>
+                                 </geslachtsaanduiding>
+                                 <geboorteplaats>cce2e7513</geboorteplaats>
+                                 <!--Anonimisatie 'geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geboorteland>
+                                    <code>6029</code>
+                                    <omschrijving>Duitsland</omschrijving>
+                                    <referentieType>Land</referentieType>
+                                 </geboorteland>
+                                 <geboortedatum>19580101</geboortedatum>
+                                 <!--Anonimisatie 'geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></natuurlijkPersoon>
+                           </door>
+                           <functie>
+                              <code>03</code>
+                              <omschrijving>Commissaris</omschrijving>
+                              <referentieType>FunctionarisRol</referentieType>
+                           </functie>
+                        </overigeFunctionaris>
+                     </heeft>
+                     <rsin>005845750</rsin>
+                     <naamgeving>
+                        <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>19820226</datumAanvang>
+                        </registratie>
+                        <naam>Eismann B.V.</naam>
+                     </naamgeving>
+                     <heeftGedeponeerd>
+                        <jaarstukJaarrekening>
+                           <depotId>721a429d:1724b0bcf63:-467</depotId>
+                           <status>
+                              <code>1</code>
+                              <omschrijving>Actueel</omschrijving>
+                              <referentieType>StatusDepotstuk</referentieType>
+                           </status>
+                           <datumDeponering>20200525</datumDeponering>
+                           <boekjaar>2019</boekjaar>
+                           <vaststelling>
+                              <code>D</code>
+                              <omschrijving>Definitief</omschrijving>
+                              <referentieType>VaststellingJaarrekening</referentieType>
+                           </vaststelling>
+                        </jaarstukJaarrekening>
+                     </heeftGedeponeerd>
+                     <rechtsvorm>
+                        <code>BV</code>
+                        <omschrijving>Besloten Vennootschap</omschrijving>
+                        <referentieType>Rechtsvorm</referentieType>
+                     </rechtsvorm>
+                     <statutaireZetel>Duiven</statutaireZetel>
+                     <aanvangStatutaireZetel>19820226</aanvangStatutaireZetel>
+                     <datumAkteOprichting>19820226</datumAkteOprichting>
+                     <datumAkteStatutenwijziging>20150331</datumAkteStatutenwijziging>
+                     <stelselInrichting>
+                        <code>D</code>
+                        <omschrijving>Dualistisch</omschrijving>
+                        <referentieType>StelselInrichting</referentieType>
+                     </stelselInrichting>
+                     <structuur>
+                        <code>GS</code>
+                        <omschrijving>Gewone structuur</omschrijving>
+                        <referentieType>RechtsvormStructuur</referentieType>
+                     </structuur>
+                     <geplaatstKapitaal>
+                        <registratie registratieTijdstip="20150331162642695">
+                           <datumAanvang>20150331</datumAanvang>
+                        </registratie>
+                        <bedrag>
+                           <waarde>292000</waarde>
+                           <valuta>
+                              <code>EUR</code>
+                              <omschrijving>Euro</omschrijving>
+                              <referentieType>Valuta</referentieType>
+                           </valuta>
+                        </bedrag>
+                     </geplaatstKapitaal>
+                     <gestortKapitaal>
+                        <registratie registratieTijdstip="20150331162642695">
+                           <datumAanvang>20150331</datumAanvang>
+                        </registratie>
+                        <bedrag>
+                           <waarde>292000</waarde>
+                           <valuta>
+                              <code>EUR</code>
+                              <omschrijving>Euro</omschrijving>
+                              <referentieType>Valuta</referentieType>
+                           </valuta>
+                        </bedrag>
+                     </gestortKapitaal>
+                     <bezoekLocatie>
+                        <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>20050826</datumAanvang>
+                        </registratie>
+                        <afgeschermd>
+                           <code>N</code>
+                           <omschrijving>Nee</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </afgeschermd>
+                        <adres>
+                           <binnenlandsAdres>
+                              <straatnaam>Nieuwgraaf</straatnaam>
+                              <huisnummer>17</huisnummer>
+                              <postcode>
+                                 <cijfercombinatie>6921</cijfercombinatie>
+                                 <lettercombinatie>RJ</lettercombinatie>
+                              </postcode>
+                              <plaats>Duiven</plaats>
+                              <bagId>
+                                 <identificatieNummeraanduiding>0226200000025593</identificatieNummeraanduiding>
+                                 <identificatieAdresseerbaarObject>0226010000025594</identificatieAdresseerbaarObject>
+                              </bagId>
+                           </binnenlandsAdres>
+                        </adres>
+                        <volledigAdres>Nieuwgraaf 17
+6921RJ Duiven</volledigAdres>
+                     </bezoekLocatie>
+                  </rechtspersoon>
+               </heeftAlsEigenaar>
+            </maatschappelijkeActiviteit>
+         </product>
+      </ophalenInschrijvingResponse>
+   </wstxns8:Body>
+</soap:Envelope>

@@ -1,0 +1,1589 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Geanonimiseerd door B3Partners BV op 2020-06-26+02:00, zie commentaar in bericht.-->
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+   <wstxns1:Header xmlns:wsa="http://www.w3.org/2005/08/addressing"
+                   xmlns:wstxns1="http://schemas.xmlsoap.org/soap/envelope/"/>
+   <wstxns8:Body xmlns:wstxns8="http://schemas.xmlsoap.org/soap/envelope/"
+                 xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+                 wsu:Id="id-1-967e4f7569bbef75db06a5573d4ee41f">
+      <ophalenInschrijvingResponse xmlns="http://schemas.kvk.nl/schemas/hrip/dataservice/2015/02"
+                                   peilmoment="20200618154147826">
+         <meldingen>
+            <informatie>
+               <code>IPD0000</code>
+               <omschrijving>Het product is succesvol geproduceerd</omschrijving>
+               <referentie>09006404</referentie>
+            </informatie>
+         </meldingen>
+         <product>
+            <maatschappelijkeActiviteit xmlns="http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02">
+               <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                  <datumAanvang>19271020</datumAanvang>
+               </registratie>
+               <kvkNummer>09006404</kvkNummer>
+               <nonMailing>
+                  <code>N</code>
+                  <omschrijving>Nee</omschrijving>
+                  <referentieType>geenRT</referentieType>
+               </nonMailing>
+               <incidenteelUitlenenArbeidskrachten>
+                  <code>J</code>
+                  <omschrijving>Ja</omschrijving>
+                  <referentieType>geenRT</referentieType>
+               </incidenteelUitlenenArbeidskrachten>
+               <bezoekLocatie>
+                  <registratie registratieTijdstip="20170707165112935">
+                     <datumAanvang>20150814</datumAanvang>
+                  </registratie>
+                  <afgeschermd>
+                     <code>N</code>
+                     <omschrijving>Nee</omschrijving>
+                     <referentieType>geenRT</referentieType>
+                  </afgeschermd>
+                  <adres>
+                     <binnenlandsAdres>
+                        <straatnaam>Utrechtseweg</straatnaam>
+                        <huisnummer>310</huisnummer>
+                        <huisnummerToevoeging>B50</huisnummerToevoeging>
+                        <postcode>
+                           <cijfercombinatie>6812</cijfercombinatie>
+                           <lettercombinatie>AR</lettercombinatie>
+                        </postcode>
+                        <plaats>Arnhem</plaats>
+                        <bagId>
+                           <identificatieNummeraanduiding>0202200000838002</identificatieNummeraanduiding>
+                           <identificatieAdresseerbaarObject>0202010000838001</identificatieAdresseerbaarObject>
+                        </bagId>
+                     </binnenlandsAdres>
+                  </adres>
+                  <volledigAdres>Utrechtseweg 310 B50
+6812AR Arnhem</volledigAdres>
+               </bezoekLocatie>
+               <postLocatie>
+                  <registratie registratieTijdstip="20170707165112935">
+                     <datumAanvang>20150814</datumAanvang>
+                  </registratie>
+                  <afgeschermd>
+                     <code>N</code>
+                     <omschrijving>Nee</omschrijving>
+                     <referentieType>geenRT</referentieType>
+                  </afgeschermd>
+                  <adres>
+                     <binnenlandsAdres>
+                        <postbusnummer>9035</postbusnummer>
+                        <postcode>
+                           <cijfercombinatie>6800</cijfercombinatie>
+                           <lettercombinatie>ET</lettercombinatie>
+                        </postcode>
+                        <plaats>Arnhem</plaats>
+                     </binnenlandsAdres>
+                  </adres>
+                  <volledigAdres>Postbus 9035
+6800ET Arnhem</volledigAdres>
+               </postLocatie>
+               <communicatiegegevens>
+                  <registratie registratieTijdstip="20161004085122734">
+                     <datumAanvang>20161003</datumAanvang>
+                  </registratie>
+                  <communicatienummer>
+                     <toegangscode>+31</toegangscode>
+                     <nummer>0263569111</nummer>
+                     <soort>
+                        <code>T</code>
+                        <omschrijving>Telefoon</omschrijving>
+                     </soort>
+                  </communicatienummer>
+                  <communicatienummer>
+                     <toegangscode>+31</toegangscode>
+                     <nummer>0263511809</nummer>
+                     <soort>
+                        <code>F</code>
+                        <omschrijving>Fax</omschrijving>
+                     </soort>
+                  </communicatienummer>
+                  <emailAdres>contact.energy@dnvgl.com</emailAdres>
+                  <domeinNaam>www.dnvgl.com</domeinNaam>
+               </communicatiegegevens>
+               <naam>DNV GL Netherlands B.V.</naam>
+               <manifesteertZichAls>
+                  <relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <datumAanvang>19271020</datumAanvang>
+                  </relatieRegistratie>
+                  <onderneming>
+                     <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                        <datumAanvang>19271020</datumAanvang>
+                     </registratie>
+                     <kvkNummer>09006404</kvkNummer>
+                     <sbiActiviteit>
+                        <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>19271020</datumAanvang>
+                        </registratie>
+                        <sbiCode>
+                           <code>72192</code>
+                           <omschrijving>Technisch speur- en ontwikkelingswerk</omschrijving>
+                           <referentieType>ActiviteitCode</referentieType>
+                        </sbiCode>
+                        <isHoofdactiviteit>
+                           <code>J</code>
+                           <omschrijving>Ja</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </isHoofdactiviteit>
+                     </sbiActiviteit>
+                     <voltijdWerkzamePersonen>851</voltijdWerkzamePersonen>
+                     <deeltijdWerkzamePersonen>6</deeltijdWerkzamePersonen>
+                     <totaalWerkzamePersonen>857</totaalWerkzamePersonen>
+                     <handeltOnder>
+                        <handelsnaam>
+                           <registratie registratieTijdstip="20161003110542410">
+                              <datumAanvang>19271020</datumAanvang>
+                           </registratie>
+                           <naam>DNV GL Netherlands B.V.</naam>
+                           <volgorde>0</volgorde>
+                        </handelsnaam>
+                     </handeltOnder>
+                     <handeltOnder>
+                        <handelsnaam>
+                           <registratie registratieTijdstip="20180626094317954">
+                              <datumAanvang>20161001</datumAanvang>
+                           </registratie>
+                           <naam>DNV GL Netherlands</naam>
+                           <volgorde>1</volgorde>
+                        </handelsnaam>
+                     </handeltOnder>
+                     <wordtUitgeoefendIn>
+                        <relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>19271020</datumAanvang>
+                        </relatieRegistratie>
+                        <commercieleVestiging>
+                           <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <datumAanvang>19271020</datumAanvang>
+                           </registratie>
+                           <vestigingsnummer>000001523007</vestigingsnummer>
+                           <bezoekLocatie>
+                              <registratie registratieTijdstip="20170707165112935">
+                                 <datumAanvang>20150814</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <straatnaam>Utrechtseweg</straatnaam>
+                                    <huisnummer>310</huisnummer>
+                                    <huisnummerToevoeging>B50</huisnummerToevoeging>
+                                    <postcode>
+                                       <cijfercombinatie>6812</cijfercombinatie>
+                                       <lettercombinatie>AR</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Arnhem</plaats>
+                                    <bagId>
+                                       <identificatieNummeraanduiding>0202200000838002</identificatieNummeraanduiding>
+                                       <identificatieAdresseerbaarObject>0202010000838001</identificatieAdresseerbaarObject>
+                                    </bagId>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Utrechtseweg 310 B50
+6812AR Arnhem</volledigAdres>
+                           </bezoekLocatie>
+                           <postLocatie>
+                              <registratie registratieTijdstip="20170707165112935">
+                                 <datumAanvang>20150814</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <postbusnummer>9035</postbusnummer>
+                                    <postcode>
+                                       <cijfercombinatie>6800</cijfercombinatie>
+                                       <lettercombinatie>ET</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Arnhem</plaats>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Postbus 9035
+6800ET Arnhem</volledigAdres>
+                           </postLocatie>
+                           <communicatiegegevens>
+                              <registratie registratieTijdstip="20161004085122734">
+                                 <datumAanvang>20161003</datumAanvang>
+                              </registratie>
+                              <communicatienummer>
+                                 <toegangscode>+31</toegangscode>
+                                 <nummer>0263569111</nummer>
+                                 <soort>
+                                    <code>T</code>
+                                    <omschrijving>Telefoon</omschrijving>
+                                 </soort>
+                              </communicatienummer>
+                              <communicatienummer>
+                                 <toegangscode>+31</toegangscode>
+                                 <nummer>0263511809</nummer>
+                                 <soort>
+                                    <code>F</code>
+                                    <omschrijving>Fax</omschrijving>
+                                 </soort>
+                              </communicatienummer>
+                              <emailAdres>contact.energy@dnvgl.com</emailAdres>
+                              <domeinNaam>www.dnvgl.com</domeinNaam>
+                           </communicatiegegevens>
+                           <eersteHandelsnaam>DNV GL Netherlands B.V.</eersteHandelsnaam>
+                           <voltijdWerkzamePersonen>768</voltijdWerkzamePersonen>
+                           <deeltijdWerkzamePersonen>0</deeltijdWerkzamePersonen>
+                           <totaalWerkzamePersonen>768</totaalWerkzamePersonen>
+                           <activiteiten>
+                              <omschrijving>Het verlenen van diensten voornamelijk ter bevordering van een doelmatige, veilige en het milieu zo goed mogelijk ontziende energievoorziening alsmede van een deugdelijk, doelmatig en veilig gebruik van energie.</omschrijving>
+                              <sbiActiviteit>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>19271020</datumAanvang>
+                                 </registratie>
+                                 <sbiCode>
+                                    <code>72192</code>
+                                    <omschrijving>Technisch speur- en ontwikkelingswerk</omschrijving>
+                                    <referentieType>ActiviteitCode</referentieType>
+                                 </sbiCode>
+                                 <isHoofdactiviteit>
+                                    <code>J</code>
+                                    <omschrijving>Ja</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </isHoofdactiviteit>
+                              </sbiActiviteit>
+                              <exporteert>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </exporteert>
+                              <importeert>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </importeert>
+                           </activiteiten>
+                           <handeltOnder>
+                              <relatieRegistratie registratieTijdstip="20161003110542410">
+                                 <datumAanvang>20161002</datumAanvang>
+                              </relatieRegistratie>
+                              <handelsnaam>
+                                 <registratie registratieTijdstip="20161003110542410">
+                                    <datumAanvang>19271020</datumAanvang>
+                                 </registratie>
+                                 <naam>DNV GL Netherlands B.V.</naam>
+                                 <volgorde>0</volgorde>
+                              </handelsnaam>
+                           </handeltOnder>
+                        </commercieleVestiging>
+                     </wordtUitgeoefendIn>
+                     <wordtUitgeoefendIn>
+                        <relatieRegistratie registratieTijdstip="20180626094317954">
+                           <datumAanvang>20161001</datumAanvang>
+                        </relatieRegistratie>
+                        <commercieleVestiging>
+                           <registratie registratieTijdstip="20180626094317954">
+                              <datumAanvang>20161001</datumAanvang>
+                           </registratie>
+                           <vestigingsnummer>000040117766</vestigingsnummer>
+                           <bezoekLocatie>
+                              <registratie registratieTijdstip="20180626094317954">
+                                 <datumAanvang>20161001</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <straatnaam>Energieweg</straatnaam>
+                                    <huisnummer>17</huisnummer>
+                                    <postcode>
+                                       <cijfercombinatie>9743</cijfercombinatie>
+                                       <lettercombinatie>AN</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Groningen</plaats>
+                                    <bagId>
+                                       <identificatieNummeraanduiding>0014200010879741</identificatieNummeraanduiding>
+                                       <identificatieAdresseerbaarObject>0014010011071619</identificatieAdresseerbaarObject>
+                                    </bagId>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Energieweg 17
+9743AN Groningen</volledigAdres>
+                           </bezoekLocatie>
+                           <postLocatie>
+                              <registratie registratieTijdstip="20180626094317954">
+                                 <datumAanvang>20161001</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <postbusnummer>2029</postbusnummer>
+                                    <postcode>
+                                       <cijfercombinatie>9704</cijfercombinatie>
+                                       <lettercombinatie>CA</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Groningen</plaats>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Postbus 2029
+9704CA Groningen</volledigAdres>
+                           </postLocatie>
+                           <communicatiegegevens>
+                              <registratie registratieTijdstip="20180626094317954">
+                                 <datumAanvang>20161001</datumAanvang>
+                              </registratie>
+                              <communicatienummer>
+                                 <toegangscode>+31</toegangscode>
+                                 <nummer>0507009700</nummer>
+                                 <soort>
+                                    <code>T</code>
+                                    <omschrijving>Telefoon</omschrijving>
+                                 </soort>
+                              </communicatienummer>
+                              <communicatienummer>
+                                 <toegangscode>+31</toegangscode>
+                                 <nummer>0507009859</nummer>
+                                 <soort>
+                                    <code>F</code>
+                                    <omschrijving>Fax</omschrijving>
+                                 </soort>
+                              </communicatienummer>
+                           </communicatiegegevens>
+                           <eersteHandelsnaam>DNV GL Netherlands</eersteHandelsnaam>
+                           <voltijdWerkzamePersonen>83</voltijdWerkzamePersonen>
+                           <deeltijdWerkzamePersonen>6</deeltijdWerkzamePersonen>
+                           <totaalWerkzamePersonen>89</totaalWerkzamePersonen>
+                           <activiteiten>
+                              <omschrijving>Het verlenen of doen verlenen van diensten, dan wel het verrichten van andere werkzaamheden binnen en buiten Nederland op het gebied van energievoorziening, de milieu- en de kwaliteitszorg.</omschrijving>
+                              <sbiActiviteit>
+                                 <registratie registratieTijdstip="20180626094317954">
+                                    <datumAanvang>20161001</datumAanvang>
+                                 </registratie>
+                                 <sbiCode>
+                                    <code>72192</code>
+                                    <omschrijving>Technisch speur- en ontwikkelingswerk</omschrijving>
+                                    <referentieType>ActiviteitCode</referentieType>
+                                 </sbiCode>
+                                 <isHoofdactiviteit>
+                                    <code>J</code>
+                                    <omschrijving>Ja</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </isHoofdactiviteit>
+                              </sbiActiviteit>
+                              <exporteert>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </exporteert>
+                              <importeert>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </importeert>
+                           </activiteiten>
+                           <handeltOnder>
+                              <relatieRegistratie registratieTijdstip="20180626094317954">
+                                 <datumAanvang>20161001</datumAanvang>
+                              </relatieRegistratie>
+                              <handelsnaam>
+                                 <registratie registratieTijdstip="20180626094317954">
+                                    <datumAanvang>20161001</datumAanvang>
+                                 </registratie>
+                                 <naam>DNV GL Netherlands</naam>
+                                 <volgorde>0</volgorde>
+                              </handelsnaam>
+                           </handeltOnder>
+                        </commercieleVestiging>
+                     </wordtUitgeoefendIn>
+                  </onderneming>
+               </manifesteertZichAls>
+               <wordtGeleidVanuit>
+                  <commercieleVestiging>
+                     <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                        <datumAanvang>19271020</datumAanvang>
+                     </registratie>
+                     <vestigingsnummer>000001523007</vestigingsnummer>
+                     <bezoekLocatie>
+                        <registratie registratieTijdstip="20170707165112935">
+                           <datumAanvang>20150814</datumAanvang>
+                        </registratie>
+                        <afgeschermd>
+                           <code>N</code>
+                           <omschrijving>Nee</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </afgeschermd>
+                        <adres>
+                           <binnenlandsAdres>
+                              <straatnaam>Utrechtseweg</straatnaam>
+                              <huisnummer>310</huisnummer>
+                              <huisnummerToevoeging>B50</huisnummerToevoeging>
+                              <postcode>
+                                 <cijfercombinatie>6812</cijfercombinatie>
+                                 <lettercombinatie>AR</lettercombinatie>
+                              </postcode>
+                              <plaats>Arnhem</plaats>
+                              <bagId>
+                                 <identificatieNummeraanduiding>0202200000838002</identificatieNummeraanduiding>
+                                 <identificatieAdresseerbaarObject>0202010000838001</identificatieAdresseerbaarObject>
+                              </bagId>
+                           </binnenlandsAdres>
+                        </adres>
+                        <volledigAdres>Utrechtseweg 310 B50
+6812AR Arnhem</volledigAdres>
+                     </bezoekLocatie>
+                     <postLocatie>
+                        <registratie registratieTijdstip="20170707165112935">
+                           <datumAanvang>20150814</datumAanvang>
+                        </registratie>
+                        <afgeschermd>
+                           <code>N</code>
+                           <omschrijving>Nee</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </afgeschermd>
+                        <adres>
+                           <binnenlandsAdres>
+                              <postbusnummer>9035</postbusnummer>
+                              <postcode>
+                                 <cijfercombinatie>6800</cijfercombinatie>
+                                 <lettercombinatie>ET</lettercombinatie>
+                              </postcode>
+                              <plaats>Arnhem</plaats>
+                           </binnenlandsAdres>
+                        </adres>
+                        <volledigAdres>Postbus 9035
+6800ET Arnhem</volledigAdres>
+                     </postLocatie>
+                     <communicatiegegevens>
+                        <registratie registratieTijdstip="20161004085122734">
+                           <datumAanvang>20161003</datumAanvang>
+                        </registratie>
+                        <communicatienummer>
+                           <toegangscode>+31</toegangscode>
+                           <nummer>0263569111</nummer>
+                           <soort>
+                              <code>T</code>
+                              <omschrijving>Telefoon</omschrijving>
+                           </soort>
+                        </communicatienummer>
+                        <communicatienummer>
+                           <toegangscode>+31</toegangscode>
+                           <nummer>0263511809</nummer>
+                           <soort>
+                              <code>F</code>
+                              <omschrijving>Fax</omschrijving>
+                           </soort>
+                        </communicatienummer>
+                        <emailAdres>contact.energy@dnvgl.com</emailAdres>
+                        <domeinNaam>www.dnvgl.com</domeinNaam>
+                     </communicatiegegevens>
+                     <eersteHandelsnaam>DNV GL Netherlands B.V.</eersteHandelsnaam>
+                     <voltijdWerkzamePersonen>768</voltijdWerkzamePersonen>
+                     <deeltijdWerkzamePersonen>0</deeltijdWerkzamePersonen>
+                     <totaalWerkzamePersonen>768</totaalWerkzamePersonen>
+                     <activiteiten>
+                        <omschrijving>Het verlenen van diensten voornamelijk ter bevordering van een doelmatige, veilige en het milieu zo goed mogelijk ontziende energievoorziening alsmede van een deugdelijk, doelmatig en veilig gebruik van energie.</omschrijving>
+                        <sbiActiviteit>
+                           <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <datumAanvang>19271020</datumAanvang>
+                           </registratie>
+                           <sbiCode>
+                              <code>72192</code>
+                              <omschrijving>Technisch speur- en ontwikkelingswerk</omschrijving>
+                              <referentieType>ActiviteitCode</referentieType>
+                           </sbiCode>
+                           <isHoofdactiviteit>
+                              <code>J</code>
+                              <omschrijving>Ja</omschrijving>
+                              <referentieType>geenRT</referentieType>
+                           </isHoofdactiviteit>
+                        </sbiActiviteit>
+                        <exporteert>
+                           <code>N</code>
+                           <omschrijving>Nee</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </exporteert>
+                        <importeert>
+                           <code>N</code>
+                           <omschrijving>Nee</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </importeert>
+                     </activiteiten>
+                     <handeltOnder>
+                        <relatieRegistratie registratieTijdstip="20161003110542410">
+                           <datumAanvang>20161002</datumAanvang>
+                        </relatieRegistratie>
+                        <handelsnaam>
+                           <registratie registratieTijdstip="20161003110542410">
+                              <datumAanvang>19271020</datumAanvang>
+                           </registratie>
+                           <naam>DNV GL Netherlands B.V.</naam>
+                           <volgorde>0</volgorde>
+                        </handelsnaam>
+                     </handeltOnder>
+                  </commercieleVestiging>
+               </wordtGeleidVanuit>
+               <heeftAlsEigenaar>
+                  <relatieRegistratie registratieTijdstip="20161003110542410">
+                     <datumAanvang>20161002</datumAanvang>
+                  </relatieRegistratie>
+                  <rechtspersoon>
+                     <registratie registratieTijdstip="20161003110542410">
+                        <datumAanvang>19271020</datumAanvang>
+                     </registratie>
+                     <persoonRechtsvorm>Besloten Vennootschap</persoonRechtsvorm>
+                     <volledigeNaam>DNV GL Netherlands B.V.</volledigeNaam>
+                     <uitgebreideRechtsvorm>Besloten Vennootschap (blijkens statuten structuurvennootschap)</uitgebreideRechtsvorm>
+                     <heeft>
+                        <overigeFunctionaris>
+                           <registratie registratieTijdstip="20120302154046614">
+                              <datumAanvang>20120228</datumAanvang>
+                           </registratie>
+                           <functietitel>
+                              <registratie registratieTijdstip="20141218083930563">
+                                 <datumAanvang>20141217</datumAanvang>
+                              </registratie>
+                              <titel>member of the Supervisory Board</titel>
+                              <isStatutaireTitel>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isStatutaireTitel>
+                           </functietitel>
+                           <door>
+                              <natuurlijkPersoon>
+                                 <extraElementen>
+                                    <extraElement naam="achternaam">e592b0af644b5</extraElement>
+                                    <!--Anonimisatie 'extraElement': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--></extraElementen>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>19890805</datumAanvang>
+                                    <!--Anonimisatie 'datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></registratie>
+                                 <volledigeNaam>904b3b 81337414c2f3d</volledigeNaam>
+                                 <!--Anonimisatie 'volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><bezoekLocatiePersoon>
+                                    <registratie registratieTijdstip="20120302154046614"/>
+                                    <afgeschermd>
+                                       <code>N</code>
+                                       <omschrijving>Nee</omschrijving>
+                                       <referentieType>geenRT</referentieType>
+                                    </afgeschermd>
+                                    <adres>
+                                       <buitenlandsAdres>
+                                          <straatHuisnummer>Husarveien 8 a</straatHuisnummer>
+                                          <postcodeWoonplaats>1396 Billingstad</postcodeWoonplaats>
+                                          <land>
+                                             <code>6027</code>
+                                             <omschrijving>Noorwegen</omschrijving>
+                                             <referentieType>Land</referentieType>
+                                          </land>
+                                       </buitenlandsAdres>
+                                    </adres>
+                                    <volledigAdres>Husarveien 8 a
+1396 Billingstad
+Noorwegen</volledigAdres>
+                                 </bezoekLocatiePersoon>
+                                 <geslachtsnaam>e592b0af644b5</geslachtsnaam>
+                                 <!--Anonimisatie 'geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><voornamen>5dfcf9</voornamen>
+                                 <!--Anonimisatie 'voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geslachtsaanduiding>
+                                    <code>m</code>
+                                    <omschrijving>Mannelijk</omschrijving>
+                                    <referentieType>Geslacht</referentieType>
+                                 </geslachtsaanduiding>
+                                 <geboorteplaats>4315</geboorteplaats>
+                                 <!--Anonimisatie 'geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geboorteland>
+                                    <code>6027</code>
+                                    <omschrijving>Noorwegen</omschrijving>
+                                    <referentieType>Land</referentieType>
+                                 </geboorteland>
+                                 <geboortedatum>19890805</geboortedatum>
+                                 <!--Anonimisatie 'geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></natuurlijkPersoon>
+                           </door>
+                           <functie>
+                              <code>03</code>
+                              <omschrijving>Commissaris</omschrijving>
+                              <referentieType>FunctionarisRol</referentieType>
+                           </functie>
+                        </overigeFunctionaris>
+                     </heeft>
+                     <heeft>
+                        <overigeFunctionaris>
+                           <registratie registratieTijdstip="20120425151134416">
+                              <datumAanvang>20120228</datumAanvang>
+                           </registratie>
+                           <functietitel>
+                              <registratie registratieTijdstip="20141218083930563">
+                                 <datumAanvang>20141217</datumAanvang>
+                              </registratie>
+                              <titel>member of the Supervisory Board</titel>
+                              <isStatutaireTitel>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isStatutaireTitel>
+                           </functietitel>
+                           <door>
+                              <natuurlijkPersoon>
+                                 <extraElementen>
+                                    <extraElement naam="achternaam">16dc2c727a</extraElement>
+                                    <!--Anonimisatie 'extraElement': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--></extraElementen>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>19780710</datumAanvang>
+                                    <!--Anonimisatie 'datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></registratie>
+                                 <volledigeNaam>469cc5 a1d22e5 e46c2b01 fd19c1d9e4</volledigeNaam>
+                                 <!--Anonimisatie 'volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><bezoekLocatiePersoon>
+                                    <registratie registratieTijdstip="20130704120813889"/>
+                                    <afgeschermd>
+                                       <code>N</code>
+                                       <omschrijving>Nee</omschrijving>
+                                       <referentieType>geenRT</referentieType>
+                                    </afgeschermd>
+                                    <adres>
+                                       <binnenlandsAdres>
+                                          <straatnaam>Ruitersteeg</straatnaam>
+                                          <huisnummer>1</huisnummer>
+                                          <postcode>
+                                             <cijfercombinatie>9752</cijfercombinatie>
+                                             <lettercombinatie>VA</lettercombinatie>
+                                          </postcode>
+                                          <plaats>Haren Gn</plaats>
+                                          <bagId>
+                                             <identificatieNummeraanduiding>0017200000016861</identificatieNummeraanduiding>
+                                             <identificatieAdresseerbaarObject>0017010000010453</identificatieAdresseerbaarObject>
+                                          </bagId>
+                                       </binnenlandsAdres>
+                                    </adres>
+                                    <volledigAdres>Ruitersteeg 1
+9752VA Haren Gn</volledigAdres>
+                                 </bezoekLocatiePersoon>
+                                 <bsn>289440691</bsn>
+                                 <!--Anonimisatie 'bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><geslachtsnaam>16dc2c727a</geslachtsnaam>
+                                 <!--Anonimisatie 'geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><voornamen>205c12 61d470c 1f689402</voornamen>
+                                 <!--Anonimisatie 'voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geslachtsaanduiding>
+                                    <code>m</code>
+                                    <omschrijving>Mannelijk</omschrijving>
+                                    <referentieType>Geslacht</referentieType>
+                                 </geslachtsaanduiding>
+                                 <geboorteplaats>b65fd20</geboorteplaats>
+                                 <!--Anonimisatie 'geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geboorteland>
+                                    <code>6030</code>
+                                    <omschrijving>Nederland</omschrijving>
+                                    <referentieType>Land</referentieType>
+                                 </geboorteland>
+                                 <geboortedatum>19780710</geboortedatum>
+                                 <!--Anonimisatie 'geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></natuurlijkPersoon>
+                           </door>
+                           <functie>
+                              <code>03</code>
+                              <omschrijving>Commissaris</omschrijving>
+                              <referentieType>FunctionarisRol</referentieType>
+                           </functie>
+                        </overigeFunctionaris>
+                     </heeft>
+                     <heeft>
+                        <overigeFunctionaris>
+                           <registratie registratieTijdstip="20140514153213298">
+                              <datumAanvang>20140512</datumAanvang>
+                           </registratie>
+                           <door>
+                              <buitenlandseVennootschap>
+                                 <volledigeNaam>DNV GL Group AS</volledigeNaam>
+                                 <bezoekLocatiePersoon>
+                                    <registratie registratieTijdstip="20140514153213298">
+                                       <datumAanvang>20140512</datumAanvang>
+                                    </registratie>
+                                    <afgeschermd>
+                                       <code>N</code>
+                                       <omschrijving>Nee</omschrijving>
+                                       <referentieType>geenRT</referentieType>
+                                    </afgeschermd>
+                                    <adres>
+                                       <buitenlandsAdres>
+                                          <straatHuisnummer>Veritasveien 1</straatHuisnummer>
+                                          <postcodeWoonplaats>1363 Høvik</postcodeWoonplaats>
+                                          <land>
+                                             <code>6027</code>
+                                             <omschrijving>Noorwegen</omschrijving>
+                                             <referentieType>Land</referentieType>
+                                          </land>
+                                       </buitenlandsAdres>
+                                    </adres>
+                                    <volledigAdres>Veritasveien 1
+1363 Høvik
+Noorwegen</volledigAdres>
+                                 </bezoekLocatiePersoon>
+                                 <buitenlandseRegistratieGegevens>
+                                    <naam>Brønnøysundregistrene</naam>
+                                    <plaats>Brønnøysund</plaats>
+                                    <land>
+                                       <code>6027</code>
+                                       <omschrijving>Noorwegen</omschrijving>
+                                       <referentieType>Land</referentieType>
+                                    </land>
+                                    <inschrijfnummer>934763149</inschrijfnummer>
+                                    <buitenlandseRegistratie>Brønnøysundregistrene
+Brønnøysund, Noorwegen
+Onder nummer 934763149</buitenlandseRegistratie>
+                                 </buitenlandseRegistratieGegevens>
+                                 <landVanVestiging>
+                                    <code>6027</code>
+                                    <omschrijving>Noorwegen</omschrijving>
+                                    <referentieType>Land</referentieType>
+                                 </landVanVestiging>
+                              </buitenlandseVennootschap>
+                           </door>
+                           <functie>
+                              <code>08</code>
+                              <omschrijving>Enig aandeelhouder</omschrijving>
+                              <referentieType>FunctionarisRol</referentieType>
+                           </functie>
+                        </overigeFunctionaris>
+                     </heeft>
+                     <heeft>
+                        <gemachtigde>
+                           <registratie registratieTijdstip="20170929100619913">
+                              <datumAanvang>20170920</datumAanvang>
+                           </registratie>
+                           <functietitel>
+                              <registratie registratieTijdstip="20170929100619913">
+                                 <datumAanvang>20170920</datumAanvang>
+                              </registratie>
+                              <titel>proxy holder</titel>
+                              <isStatutaireTitel>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isStatutaireTitel>
+                           </functietitel>
+                           <door>
+                              <natuurlijkPersoon>
+                                 <extraElementen>
+                                    <extraElement naam="achternaam">fabdb</extraElement>
+                                    <!--Anonimisatie 'extraElement': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--></extraElementen>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>19380828</datumAanvang>
+                                    <!--Anonimisatie 'datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></registratie>
+                                 <volledigeNaam>6cb57d25 8d0c9449 76d5b921 ad2a2</volledigeNaam>
+                                 <!--Anonimisatie 'volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><bezoekLocatiePersoon>
+                                    <registratie registratieTijdstip="20191126224920131"/>
+                                    <afgeschermd>
+                                       <code>N</code>
+                                       <omschrijving>Nee</omschrijving>
+                                       <referentieType>geenRT</referentieType>
+                                    </afgeschermd>
+                                    <adres>
+                                       <binnenlandsAdres>
+                                          <straatnaam>Zonneheuvelweg</straatnaam>
+                                          <huisnummer>22</huisnummer>
+                                          <postcode>
+                                             <cijfercombinatie>6861</cijfercombinatie>
+                                             <lettercombinatie>AE</lettercombinatie>
+                                          </postcode>
+                                          <plaats>Oosterbeek</plaats>
+                                          <bagId>
+                                             <identificatieNummeraanduiding>0274200000015084</identificatieNummeraanduiding>
+                                             <identificatieAdresseerbaarObject>0274010000248077</identificatieAdresseerbaarObject>
+                                          </bagId>
+                                       </binnenlandsAdres>
+                                    </adres>
+                                    <volledigAdres>Zonneheuvelweg 22
+6861AE Oosterbeek</volledigAdres>
+                                 </bezoekLocatiePersoon>
+                                 <bsn>894487241</bsn>
+                                 <!--Anonimisatie 'bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><geslachtsnaam>fabdb</geslachtsnaam>
+                                 <!--Anonimisatie 'geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><voornamen>25e2ff48 86a6a9bf 7b522587</voornamen>
+                                 <!--Anonimisatie 'voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geslachtsaanduiding>
+                                    <code>m</code>
+                                    <omschrijving>Mannelijk</omschrijving>
+                                    <referentieType>Geslacht</referentieType>
+                                 </geslachtsaanduiding>
+                                 <geboorteplaats>5c4fbcdc0</geboorteplaats>
+                                 <!--Anonimisatie 'geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geboorteland>
+                                    <code>6030</code>
+                                    <omschrijving>Nederland</omschrijving>
+                                    <referentieType>Land</referentieType>
+                                 </geboorteland>
+                                 <geboortedatum>19380828</geboortedatum>
+                                 <!--Anonimisatie 'geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></natuurlijkPersoon>
+                           </door>
+                           <functie>
+                              <code>01</code>
+                              <omschrijving>Gevolmachtigde</omschrijving>
+                              <referentieType>FunctionarisRol</referentieType>
+                           </functie>
+                           <volmacht>
+                              <registratie registratieTijdstip="20170929100619913">
+                                 <datumAanvang>20170920</datumAanvang>
+                              </registratie>
+                              <typeVolmacht>
+                                 <code>b</code>
+                                 <omschrijving>Beperkte volmacht</omschrijving>
+                                 <referentieType>VolmachtType</referentieType>
+                              </typeVolmacht>
+                              <isStatutair>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isStatutair>
+                              <beperkteVolmacht>
+                                 <magOpgaveHandelsregisterDoen>
+                                    <code>N</code>
+                                    <omschrijving>Nee</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </magOpgaveHandelsregisterDoen>
+                                 <heeftOverigeVolmacht>
+                                    <code>N</code>
+                                    <omschrijving>Nee</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </heeftOverigeVolmacht>
+                                 <beperkingInHandeling>
+                                    <beperkingInGeld>
+                                       <waarde>1100000</waarde>
+                                       <valuta>
+                                          <code>EUR</code>
+                                          <omschrijving>Euro</omschrijving>
+                                          <referentieType>Valuta</referentieType>
+                                       </valuta>
+                                    </beperkingInGeld>
+                                    <soortHandeling>
+                                       <code>afslic</code>
+                                       <omschrijving>Afsluiten inkoopcontracten</omschrijving>
+                                       <referentieType>SoortHandeling</referentieType>
+                                    </soortHandeling>
+                                 </beperkingInHandeling>
+                                 <beperkingInHandeling>
+                                    <beperkingInGeld>
+                                       <waarde>4800000</waarde>
+                                       <valuta>
+                                          <code>EUR</code>
+                                          <omschrijving>Euro</omschrijving>
+                                          <referentieType>Valuta</referentieType>
+                                       </valuta>
+                                    </beperkingInGeld>
+                                    <soortHandeling>
+                                       <code>afslvc</code>
+                                       <omschrijving>Afsluiten verkoopcontracten</omschrijving>
+                                       <referentieType>SoortHandeling</referentieType>
+                                    </soortHandeling>
+                                 </beperkingInHandeling>
+                              </beperkteVolmacht>
+                           </volmacht>
+                        </gemachtigde>
+                     </heeft>
+                     <heeft>
+                        <gemachtigde>
+                           <registratie registratieTijdstip="20170929100619913">
+                              <datumAanvang>20170920</datumAanvang>
+                           </registratie>
+                           <functietitel>
+                              <registratie registratieTijdstip="20170929100619913">
+                                 <datumAanvang>20170920</datumAanvang>
+                              </registratie>
+                              <titel>proxy holder</titel>
+                              <isStatutaireTitel>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isStatutaireTitel>
+                           </functietitel>
+                           <door>
+                              <natuurlijkPersoon>
+                                 <extraElementen>
+                                    <extraElement naam="achternaam">39f0762319</extraElement>
+                                    <!--Anonimisatie 'extraElement': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--></extraElementen>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>20151003</datumAanvang>
+                                    <!--Anonimisatie 'datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></registratie>
+                                 <volledigeNaam>2cc533c 3eb5c06fa7</volledigeNaam>
+                                 <!--Anonimisatie 'volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><bezoekLocatiePersoon>
+                                    <registratie registratieTijdstip="20170929100619913"/>
+                                    <afgeschermd>
+                                       <code>N</code>
+                                       <omschrijving>Nee</omschrijving>
+                                       <referentieType>geenRT</referentieType>
+                                    </afgeschermd>
+                                    <adres>
+                                       <binnenlandsAdres>
+                                          <straatnaam>De Grote Pol</straatnaam>
+                                          <huisnummer>41</huisnummer>
+                                          <postcode>
+                                             <cijfercombinatie>6932</cijfercombinatie>
+                                             <lettercombinatie>DS</lettercombinatie>
+                                          </postcode>
+                                          <plaats>Westervoort</plaats>
+                                          <bagId>
+                                             <identificatieNummeraanduiding>0293200000007991</identificatieNummeraanduiding>
+                                             <identificatieAdresseerbaarObject>0293010000007985</identificatieAdresseerbaarObject>
+                                          </bagId>
+                                       </binnenlandsAdres>
+                                    </adres>
+                                    <volledigAdres>De Grote Pol 41
+6932DS Westervoort</volledigAdres>
+                                 </bezoekLocatiePersoon>
+                                 <bsn>660103557</bsn>
+                                 <!--Anonimisatie 'bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><geslachtsnaam>39f0762319</geslachtsnaam>
+                                 <!--Anonimisatie 'geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><voornamen>679946f</voornamen>
+                                 <!--Anonimisatie 'voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geslachtsaanduiding>
+                                    <code>m</code>
+                                    <omschrijving>Mannelijk</omschrijving>
+                                    <referentieType>Geslacht</referentieType>
+                                 </geslachtsaanduiding>
+                                 <geboorteplaats>95ab1e</geboorteplaats>
+                                 <!--Anonimisatie 'geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geboorteland>
+                                    <code>6030</code>
+                                    <omschrijving>Nederland</omschrijving>
+                                    <referentieType>Land</referentieType>
+                                 </geboorteland>
+                                 <geboortedatum>20151003</geboortedatum>
+                                 <!--Anonimisatie 'geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></natuurlijkPersoon>
+                           </door>
+                           <functie>
+                              <code>01</code>
+                              <omschrijving>Gevolmachtigde</omschrijving>
+                              <referentieType>FunctionarisRol</referentieType>
+                           </functie>
+                           <volmacht>
+                              <registratie registratieTijdstip="20170929100619913">
+                                 <datumAanvang>20170920</datumAanvang>
+                              </registratie>
+                              <typeVolmacht>
+                                 <code>b</code>
+                                 <omschrijving>Beperkte volmacht</omschrijving>
+                                 <referentieType>VolmachtType</referentieType>
+                              </typeVolmacht>
+                              <isStatutair>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isStatutair>
+                              <beperkteVolmacht>
+                                 <magOpgaveHandelsregisterDoen>
+                                    <code>N</code>
+                                    <omschrijving>Nee</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </magOpgaveHandelsregisterDoen>
+                                 <heeftOverigeVolmacht>
+                                    <code>N</code>
+                                    <omschrijving>Nee</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </heeftOverigeVolmacht>
+                                 <beperkingInHandeling>
+                                    <beperkingInGeld>
+                                       <waarde>1100000</waarde>
+                                       <valuta>
+                                          <code>EUR</code>
+                                          <omschrijving>Euro</omschrijving>
+                                          <referentieType>Valuta</referentieType>
+                                       </valuta>
+                                    </beperkingInGeld>
+                                    <soortHandeling>
+                                       <code>afslic</code>
+                                       <omschrijving>Afsluiten inkoopcontracten</omschrijving>
+                                       <referentieType>SoortHandeling</referentieType>
+                                    </soortHandeling>
+                                 </beperkingInHandeling>
+                                 <beperkingInHandeling>
+                                    <beperkingInGeld>
+                                       <waarde>4800000</waarde>
+                                       <valuta>
+                                          <code>EUR</code>
+                                          <omschrijving>Euro</omschrijving>
+                                          <referentieType>Valuta</referentieType>
+                                       </valuta>
+                                    </beperkingInGeld>
+                                    <soortHandeling>
+                                       <code>afslvc</code>
+                                       <omschrijving>Afsluiten verkoopcontracten</omschrijving>
+                                       <referentieType>SoortHandeling</referentieType>
+                                    </soortHandeling>
+                                 </beperkingInHandeling>
+                              </beperkteVolmacht>
+                           </volmacht>
+                        </gemachtigde>
+                     </heeft>
+                     <heeft>
+                        <overigeFunctionaris>
+                           <registratie registratieTijdstip="20171211154313794">
+                              <datumAanvang>20171201</datumAanvang>
+                           </registratie>
+                           <functietitel>
+                              <registratie registratieTijdstip="20171214085918770">
+                                 <datumAanvang>20171201</datumAanvang>
+                              </registratie>
+                              <titel>member of the Supervisory Board</titel>
+                              <isStatutaireTitel>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isStatutaireTitel>
+                           </functietitel>
+                           <door>
+                              <natuurlijkPersoon>
+                                 <extraElementen>
+                                    <extraElement naam="achternaam">4935e4b10</extraElement>
+                                    <!--Anonimisatie 'extraElement': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--></extraElementen>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>19890825</datumAanvang>
+                                    <!--Anonimisatie 'datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></registratie>
+                                 <volledigeNaam>969 23a7a44d 20e55f4dd</volledigeNaam>
+                                 <!--Anonimisatie 'volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><bezoekLocatiePersoon>
+                                    <registratie registratieTijdstip="20180205111120636"/>
+                                    <afgeschermd>
+                                       <code>N</code>
+                                       <omschrijving>Nee</omschrijving>
+                                       <referentieType>geenRT</referentieType>
+                                    </afgeschermd>
+                                    <adres>
+                                       <buitenlandsAdres>
+                                          <straatHuisnummer>Presidentgt. 6</straatHuisnummer>
+                                          <postcodeWoonplaats>0474 Oslo</postcodeWoonplaats>
+                                          <land>
+                                             <code>6027</code>
+                                             <omschrijving>Noorwegen</omschrijving>
+                                             <referentieType>Land</referentieType>
+                                          </land>
+                                       </buitenlandsAdres>
+                                    </adres>
+                                    <volledigAdres>Presidentgt. 6
+0474 Oslo
+Noorwegen</volledigAdres>
+                                 </bezoekLocatiePersoon>
+                                 <geslachtsnaam>4935e4b10</geslachtsnaam>
+                                 <!--Anonimisatie 'geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><voornamen>9d0 1be0a773</voornamen>
+                                 <!--Anonimisatie 'voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geslachtsaanduiding>
+                                    <code>v</code>
+                                    <omschrijving>Vrouwelijk</omschrijving>
+                                    <referentieType>Geslacht</referentieType>
+                                 </geslachtsaanduiding>
+                                 <geboorteplaats>142ad63</geboorteplaats>
+                                 <!--Anonimisatie 'geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geboorteland>
+                                    <code>6027</code>
+                                    <omschrijving>Noorwegen</omschrijving>
+                                    <referentieType>Land</referentieType>
+                                 </geboorteland>
+                                 <geboortedatum>19890825</geboortedatum>
+                                 <!--Anonimisatie 'geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></natuurlijkPersoon>
+                           </door>
+                           <functie>
+                              <code>03</code>
+                              <omschrijving>Commissaris</omschrijving>
+                              <referentieType>FunctionarisRol</referentieType>
+                           </functie>
+                        </overigeFunctionaris>
+                     </heeft>
+                     <heeft>
+                        <gemachtigde>
+                           <registratie registratieTijdstip="20180313163606680">
+                              <datumAanvang>20180129</datumAanvang>
+                           </registratie>
+                           <functietitel>
+                              <registratie registratieTijdstip="20180313163606680">
+                                 <datumAanvang>20180129</datumAanvang>
+                              </registratie>
+                              <titel>Proxyholder</titel>
+                              <isStatutaireTitel>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isStatutaireTitel>
+                           </functietitel>
+                           <door>
+                              <natuurlijkPersoon>
+                                 <extraElementen>
+                                    <extraElement naam="achternaam">35ffe</extraElement>
+                                    <!--Anonimisatie 'extraElement': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--></extraElementen>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>19300610</datumAanvang>
+                                    <!--Anonimisatie 'datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></registratie>
+                                 <volledigeNaam>0a059 39d37</volledigeNaam>
+                                 <!--Anonimisatie 'volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><bezoekLocatiePersoon>
+                                    <registratie registratieTijdstip="20150109091235227"/>
+                                    <afgeschermd>
+                                       <code>N</code>
+                                       <omschrijving>Nee</omschrijving>
+                                       <referentieType>geenRT</referentieType>
+                                    </afgeschermd>
+                                    <adres>
+                                       <binnenlandsAdres>
+                                          <straatnaam>Langakkers</straatnaam>
+                                          <huisnummer>38</huisnummer>
+                                          <postcode>
+                                             <cijfercombinatie>9469</cijfercombinatie>
+                                             <lettercombinatie>RA</lettercombinatie>
+                                          </postcode>
+                                          <plaats>Schipborg</plaats>
+                                          <bagId>
+                                             <identificatieNummeraanduiding>1680200000010117</identificatieNummeraanduiding>
+                                             <identificatieAdresseerbaarObject>1680010000004505</identificatieAdresseerbaarObject>
+                                          </bagId>
+                                       </binnenlandsAdres>
+                                    </adres>
+                                    <volledigAdres>Langakkers 38
+9469RA Schipborg</volledigAdres>
+                                 </bezoekLocatiePersoon>
+                                 <bsn>273939096</bsn>
+                                 <!--Anonimisatie 'bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><geslachtsnaam>35ffe</geslachtsnaam>
+                                 <!--Anonimisatie 'geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><voornamen>f0365</voornamen>
+                                 <!--Anonimisatie 'voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geslachtsaanduiding>
+                                    <code>m</code>
+                                    <omschrijving>Mannelijk</omschrijving>
+                                    <referentieType>Geslacht</referentieType>
+                                 </geslachtsaanduiding>
+                                 <geboorteplaats>1540f</geboorteplaats>
+                                 <!--Anonimisatie 'geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geboorteland>
+                                    <code>6030</code>
+                                    <omschrijving>Nederland</omschrijving>
+                                    <referentieType>Land</referentieType>
+                                 </geboorteland>
+                                 <geboortedatum>19300610</geboortedatum>
+                                 <!--Anonimisatie 'geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></natuurlijkPersoon>
+                           </door>
+                           <functie>
+                              <code>01</code>
+                              <omschrijving>Gevolmachtigde</omschrijving>
+                              <referentieType>FunctionarisRol</referentieType>
+                           </functie>
+                           <volmacht>
+                              <registratie registratieTijdstip="20180313163606680">
+                                 <datumAanvang>20180129</datumAanvang>
+                              </registratie>
+                              <typeVolmacht>
+                                 <code>b</code>
+                                 <omschrijving>Beperkte volmacht</omschrijving>
+                                 <referentieType>VolmachtType</referentieType>
+                              </typeVolmacht>
+                              <isStatutair>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isStatutair>
+                              <beperkteVolmacht>
+                                 <magOpgaveHandelsregisterDoen>
+                                    <code>N</code>
+                                    <omschrijving>Nee</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </magOpgaveHandelsregisterDoen>
+                                 <heeftOverigeVolmacht>
+                                    <code>J</code>
+                                    <omschrijving>Ja</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </heeftOverigeVolmacht>
+                                 <omschrijvingOverigeVolmacht>Er zijn beperkingen, raadpleeg de opgave.</omschrijvingOverigeVolmacht>
+                              </beperkteVolmacht>
+                           </volmacht>
+                        </gemachtigde>
+                     </heeft>
+                     <heeft>
+                        <gemachtigde>
+                           <registratie registratieTijdstip="20180514152511866">
+                              <datumAanvang>20180507</datumAanvang>
+                           </registratie>
+                           <functietitel>
+                              <registratie registratieTijdstip="20180514152511866">
+                                 <datumAanvang>20180507</datumAanvang>
+                              </registratie>
+                              <titel>proxy holder</titel>
+                              <isStatutaireTitel>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isStatutaireTitel>
+                           </functietitel>
+                           <door>
+                              <natuurlijkPersoon>
+                                 <extraElementen>
+                                    <extraElement naam="achternaam">cfa97</extraElement>
+                                    <!--Anonimisatie 'extraElement': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--></extraElementen>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>19340512</datumAanvang>
+                                    <!--Anonimisatie 'datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></registratie>
+                                 <volledigeNaam>21a 24ae3e eaabf</volledigeNaam>
+                                 <!--Anonimisatie 'volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><bezoekLocatiePersoon>
+                                    <registratie registratieTijdstip="20180514152511866"/>
+                                    <afgeschermd>
+                                       <code>N</code>
+                                       <omschrijving>Nee</omschrijving>
+                                       <referentieType>geenRT</referentieType>
+                                    </afgeschermd>
+                                    <adres>
+                                       <binnenlandsAdres>
+                                          <straatnaam>Binnenwater</straatnaam>
+                                          <huisnummer>126</huisnummer>
+                                          <postcode>
+                                             <cijfercombinatie>6851</cijfercombinatie>
+                                             <lettercombinatie>NS</lettercombinatie>
+                                          </postcode>
+                                          <plaats>Huissen</plaats>
+                                          <bagId>
+                                             <identificatieNummeraanduiding>1705200000101993</identificatieNummeraanduiding>
+                                             <identificatieAdresseerbaarObject>1705010000032136</identificatieAdresseerbaarObject>
+                                          </bagId>
+                                       </binnenlandsAdres>
+                                    </adres>
+                                    <volledigAdres>Binnenwater 126
+6851NS Huissen</volledigAdres>
+                                 </bezoekLocatiePersoon>
+                                 <bsn>848575248</bsn>
+                                 <!--Anonimisatie 'bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><geslachtsnaam>cfa97</geslachtsnaam>
+                                 <!--Anonimisatie 'geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><voornamen>9ea 262f1c</voornamen>
+                                 <!--Anonimisatie 'voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geslachtsaanduiding>
+                                    <code>v</code>
+                                    <omschrijving>Vrouwelijk</omschrijving>
+                                    <referentieType>Geslacht</referentieType>
+                                 </geslachtsaanduiding>
+                                 <geboorteplaats>35d9d3</geboorteplaats>
+                                 <!--Anonimisatie 'geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geboorteland>
+                                    <code>6027</code>
+                                    <omschrijving>Noorwegen</omschrijving>
+                                    <referentieType>Land</referentieType>
+                                 </geboorteland>
+                                 <geboortedatum>19340512</geboortedatum>
+                                 <!--Anonimisatie 'geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></natuurlijkPersoon>
+                           </door>
+                           <functie>
+                              <code>01</code>
+                              <omschrijving>Gevolmachtigde</omschrijving>
+                              <referentieType>FunctionarisRol</referentieType>
+                           </functie>
+                           <volmacht>
+                              <registratie registratieTijdstip="20180514152511866">
+                                 <datumAanvang>20180507</datumAanvang>
+                              </registratie>
+                              <typeVolmacht>
+                                 <code>b</code>
+                                 <omschrijving>Beperkte volmacht</omschrijving>
+                                 <referentieType>VolmachtType</referentieType>
+                              </typeVolmacht>
+                              <isStatutair>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isStatutair>
+                              <beperkteVolmacht>
+                                 <beperkingInGeld>
+                                    <waarde>2000000</waarde>
+                                    <valuta>
+                                       <code>EUR</code>
+                                       <omschrijving>Euro</omschrijving>
+                                       <referentieType>Valuta</referentieType>
+                                    </valuta>
+                                 </beperkingInGeld>
+                                 <magOpgaveHandelsregisterDoen>
+                                    <code>N</code>
+                                    <omschrijving>Nee</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </magOpgaveHandelsregisterDoen>
+                                 <heeftOverigeVolmacht>
+                                    <code>J</code>
+                                    <omschrijving>Ja</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </heeftOverigeVolmacht>
+                                 <beperkingInHandeling>
+                                    <beperkingInGeld>
+                                       <waarde>2000000</waarde>
+                                       <valuta>
+                                          <code>EUR</code>
+                                          <omschrijving>Euro</omschrijving>
+                                          <referentieType>Valuta</referentieType>
+                                       </valuta>
+                                    </beperkingInGeld>
+                                    <soortHandeling>
+                                       <code>afslic</code>
+                                       <omschrijving>Afsluiten inkoopcontracten</omschrijving>
+                                       <referentieType>SoortHandeling</referentieType>
+                                    </soortHandeling>
+                                 </beperkingInHandeling>
+                              </beperkteVolmacht>
+                           </volmacht>
+                        </gemachtigde>
+                     </heeft>
+                     <heeft>
+                        <bestuursfunctie>
+                           <registratie registratieTijdstip="20181204153606650">
+                              <datumAanvang>20181201</datumAanvang>
+                           </registratie>
+                           <functietitel>
+                              <registratie registratieTijdstip="20181204153606650">
+                                 <datumAanvang>20181201</datumAanvang>
+                              </registratie>
+                              <titel>General Director</titel>
+                              <isStatutaireTitel>
+                                 <code>J</code>
+                                 <omschrijving>Ja</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isStatutaireTitel>
+                           </functietitel>
+                           <door>
+                              <natuurlijkPersoon>
+                                 <extraElementen>
+                                    <extraElement naam="voorvoegsel">74f 97f</extraElement>
+                                    <!--Anonimisatie 'extraElement': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><extraElement naam="achternaam">0062668</extraElement>
+                                    <!--Anonimisatie 'extraElement': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--></extraElementen>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>19460910</datumAanvang>
+                                    <!--Anonimisatie 'datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></registratie>
+                                 <volledigeNaam>cfe00ae3b 43ddd218 15645c0d4f 08f 6c6 a2f20cc</volledigeNaam>
+                                 <!--Anonimisatie 'volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><bezoekLocatiePersoon>
+                                    <registratie registratieTijdstip="20200615222404424"/>
+                                    <afgeschermd>
+                                       <code>N</code>
+                                       <omschrijving>Nee</omschrijving>
+                                       <referentieType>geenRT</referentieType>
+                                    </afgeschermd>
+                                    <adres>
+                                       <binnenlandsAdres>
+                                          <straatnaam>Kruispan</straatnaam>
+                                          <huisnummer>4</huisnummer>
+                                          <postcode>
+                                             <cijfercombinatie>3851</cijfercombinatie>
+                                             <lettercombinatie>CX</lettercombinatie>
+                                          </postcode>
+                                          <plaats>Ermelo</plaats>
+                                          <bagId>
+                                             <identificatieNummeraanduiding>0233200000387544</identificatieNummeraanduiding>
+                                             <identificatieAdresseerbaarObject>0233010000387640</identificatieAdresseerbaarObject>
+                                          </bagId>
+                                       </binnenlandsAdres>
+                                    </adres>
+                                    <volledigAdres>Kruispan 4
+3851CX Ermelo</volledigAdres>
+                                 </bezoekLocatiePersoon>
+                                 <bsn>431667313</bsn>
+                                 <!--Anonimisatie 'bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><geslachtsnaam>0062668</geslachtsnaam>
+                                 <!--Anonimisatie 'geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><voorvoegselGeslachtsnaam>74f 97f</voorvoegselGeslachtsnaam>
+                                 <!--Anonimisatie 'voorvoegselGeslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><voornamen>deb8a0e25 da9c8a8b 01bab59182</voornamen>
+                                 <!--Anonimisatie 'voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geslachtsaanduiding>
+                                    <code>m</code>
+                                    <omschrijving>Mannelijk</omschrijving>
+                                    <referentieType>Geslacht</referentieType>
+                                 </geslachtsaanduiding>
+                                 <geboorteplaats>646da3e55</geboorteplaats>
+                                 <!--Anonimisatie 'geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geboorteland>
+                                    <code>6030</code>
+                                    <omschrijving>Nederland</omschrijving>
+                                    <referentieType>Land</referentieType>
+                                 </geboorteland>
+                                 <geboortedatum>19460910</geboortedatum>
+                                 <!--Anonimisatie 'geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></natuurlijkPersoon>
+                           </door>
+                           <functie>
+                              <code>02</code>
+                              <omschrijving>Bestuurder</omschrijving>
+                              <referentieType>FunctionarisRol</referentieType>
+                           </functie>
+                           <bevoegdheid>
+                              <registratie registratieTijdstip="20181204153606650">
+                                 <datumAanvang>20181201</datumAanvang>
+                              </registratie>
+                              <soort>
+                                 <code>azb</code>
+                                 <omschrijving>Alleen/zelfstandig bevoegd</omschrijving>
+                                 <referentieType>SoortBevoegdheidBestuurder</referentieType>
+                              </soort>
+                              <isBevoegdMetAnderePersonen>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isBevoegdMetAnderePersonen>
+                           </bevoegdheid>
+                        </bestuursfunctie>
+                     </heeft>
+                     <heeft>
+                        <bestuursfunctie>
+                           <registratie registratieTijdstip="20190314105059507">
+                              <datumAanvang>20190312</datumAanvang>
+                           </registratie>
+                           <functietitel>
+                              <registratie registratieTijdstip="20190314105059507">
+                                 <datumAanvang>20190312</datumAanvang>
+                              </registratie>
+                              <titel>General Director</titel>
+                              <isStatutaireTitel>
+                                 <code>J</code>
+                                 <omschrijving>Ja</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isStatutaireTitel>
+                           </functietitel>
+                           <door>
+                              <natuurlijkPersoon>
+                                 <extraElementen>
+                                    <extraElement naam="achternaam">185ec3</extraElement>
+                                    <!--Anonimisatie 'extraElement': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--></extraElementen>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>19370910</datumAanvang>
+                                    <!--Anonimisatie 'datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></registratie>
+                                 <volledigeNaam>5eb5d3fc 35c05 7b5d38</volledigeNaam>
+                                 <!--Anonimisatie 'volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><bezoekLocatiePersoon>
+                                    <registratie registratieTijdstip="20191206222345301"/>
+                                    <afgeschermd>
+                                       <code>N</code>
+                                       <omschrijving>Nee</omschrijving>
+                                       <referentieType>geenRT</referentieType>
+                                    </afgeschermd>
+                                    <adres>
+                                       <binnenlandsAdres>
+                                          <straatnaam>Drieteenspecht</straatnaam>
+                                          <huisnummer>41</huisnummer>
+                                          <postcode>
+                                             <cijfercombinatie>7827</cijfercombinatie>
+                                             <lettercombinatie>RG</lettercombinatie>
+                                          </postcode>
+                                          <plaats>Emmen</plaats>
+                                          <bagId>
+                                             <identificatieNummeraanduiding>0114200000333265</identificatieNummeraanduiding>
+                                             <identificatieAdresseerbaarObject>0114010000333266</identificatieAdresseerbaarObject>
+                                          </bagId>
+                                       </binnenlandsAdres>
+                                    </adres>
+                                    <volledigAdres>Drieteenspecht 41
+7827RG Emmen</volledigAdres>
+                                 </bezoekLocatiePersoon>
+                                 <bsn>141983345</bsn>
+                                 <!--Anonimisatie 'bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><geslachtsnaam>185ec3</geslachtsnaam>
+                                 <!--Anonimisatie 'geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><voornamen>0c88b35b 89fef</voornamen>
+                                 <!--Anonimisatie 'voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geslachtsaanduiding>
+                                    <code>m</code>
+                                    <omschrijving>Mannelijk</omschrijving>
+                                    <referentieType>Geslacht</referentieType>
+                                 </geslachtsaanduiding>
+                                 <geboorteplaats>9a07dd3</geboorteplaats>
+                                 <!--Anonimisatie 'geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geboorteland>
+                                    <code>6014</code>
+                                    <omschrijving>Verenigde Staten van Amerika</omschrijving>
+                                    <referentieType>Land</referentieType>
+                                 </geboorteland>
+                                 <geboortedatum>19370910</geboortedatum>
+                                 <!--Anonimisatie 'geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></natuurlijkPersoon>
+                           </door>
+                           <functie>
+                              <code>02</code>
+                              <omschrijving>Bestuurder</omschrijving>
+                              <referentieType>FunctionarisRol</referentieType>
+                           </functie>
+                           <bevoegdheid>
+                              <registratie registratieTijdstip="20190314105059507">
+                                 <datumAanvang>20190312</datumAanvang>
+                              </registratie>
+                              <soort>
+                                 <code>azb</code>
+                                 <omschrijving>Alleen/zelfstandig bevoegd</omschrijving>
+                                 <referentieType>SoortBevoegdheidBestuurder</referentieType>
+                              </soort>
+                              <isBevoegdMetAnderePersonen>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isBevoegdMetAnderePersonen>
+                           </bevoegdheid>
+                        </bestuursfunctie>
+                     </heeft>
+                     <rsin>003104990</rsin>
+                     <naamgeving>
+                        <registratie registratieTijdstip="20161003110542410">
+                           <datumAanvang>20161002</datumAanvang>
+                        </registratie>
+                        <naam>DNV GL Netherlands B.V.</naam>
+                     </naamgeving>
+                     <heeftGedeponeerd>
+                        <jaarstukJaarrekening>
+                           <depotId>65d53e6b:17284cb3bfa:4e38</depotId>
+                           <status>
+                              <code>1</code>
+                              <omschrijving>Actueel</omschrijving>
+                              <referentieType>StatusDepotstuk</referentieType>
+                           </status>
+                           <datumDeponering>20200520</datumDeponering>
+                           <boekjaar>2019</boekjaar>
+                           <vaststelling>
+                              <code>D</code>
+                              <omschrijving>Definitief</omschrijving>
+                              <referentieType>VaststellingJaarrekening</referentieType>
+                           </vaststelling>
+                        </jaarstukJaarrekening>
+                     </heeftGedeponeerd>
+                     <rechtsvorm>
+                        <code>BV</code>
+                        <omschrijving>Besloten Vennootschap</omschrijving>
+                        <referentieType>Rechtsvorm</referentieType>
+                     </rechtsvorm>
+                     <statutaireZetel>Arnhem</statutaireZetel>
+                     <aanvangStatutaireZetel>19271020</aanvangStatutaireZetel>
+                     <datumAkteOprichting>19271020</datumAkteOprichting>
+                     <datumOprichting>19271020</datumOprichting>
+                     <datumAkteStatutenwijziging>20161002</datumAkteStatutenwijziging>
+                     <stelselInrichting>
+                        <code>D</code>
+                        <omschrijving>Dualistisch</omschrijving>
+                        <referentieType>StelselInrichting</referentieType>
+                     </stelselInrichting>
+                     <structuur>
+                        <code>BS</code>
+                        <omschrijving>Bijzondere structuur</omschrijving>
+                        <referentieType>RechtsvormStructuur</referentieType>
+                     </structuur>
+                     <geplaatstKapitaal>
+                        <registratie registratieTijdstip="20161003110542410">
+                           <datumAanvang>20161002</datumAanvang>
+                        </registratie>
+                        <bedrag>
+                           <waarde>9014624</waarde>
+                           <valuta>
+                              <code>EUR</code>
+                              <omschrijving>Euro</omschrijving>
+                              <referentieType>Valuta</referentieType>
+                           </valuta>
+                        </bedrag>
+                     </geplaatstKapitaal>
+                     <gestortKapitaal>
+                        <registratie registratieTijdstip="20161003110542410">
+                           <datumAanvang>20161002</datumAanvang>
+                        </registratie>
+                        <bedrag>
+                           <waarde>9014624</waarde>
+                           <valuta>
+                              <code>EUR</code>
+                              <omschrijving>Euro</omschrijving>
+                              <referentieType>Valuta</referentieType>
+                           </valuta>
+                        </bedrag>
+                     </gestortKapitaal>
+                     <bezoekLocatie>
+                        <registratie registratieTijdstip="20170707165112935">
+                           <datumAanvang>20150814</datumAanvang>
+                        </registratie>
+                        <afgeschermd>
+                           <code>N</code>
+                           <omschrijving>Nee</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </afgeschermd>
+                        <adres>
+                           <binnenlandsAdres>
+                              <straatnaam>Utrechtseweg</straatnaam>
+                              <huisnummer>310</huisnummer>
+                              <huisnummerToevoeging>B50</huisnummerToevoeging>
+                              <postcode>
+                                 <cijfercombinatie>6812</cijfercombinatie>
+                                 <lettercombinatie>AR</lettercombinatie>
+                              </postcode>
+                              <plaats>Arnhem</plaats>
+                              <bagId>
+                                 <identificatieNummeraanduiding>0202200000838002</identificatieNummeraanduiding>
+                                 <identificatieAdresseerbaarObject>0202010000838001</identificatieAdresseerbaarObject>
+                              </bagId>
+                           </binnenlandsAdres>
+                        </adres>
+                        <volledigAdres>Utrechtseweg 310 B50
+6812AR Arnhem</volledigAdres>
+                     </bezoekLocatie>
+                  </rechtspersoon>
+               </heeftAlsEigenaar>
+            </maatschappelijkeActiviteit>
+         </product>
+      </ophalenInschrijvingResponse>
+   </wstxns8:Body>
+</soap:Envelope>

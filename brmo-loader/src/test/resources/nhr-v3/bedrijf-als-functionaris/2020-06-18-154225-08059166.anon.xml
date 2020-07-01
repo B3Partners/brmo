@@ -1,0 +1,1843 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Geanonimiseerd door B3Partners BV op 2020-06-26+02:00, zie commentaar in bericht.-->
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+   <wstxns1:Header xmlns:wsa="http://www.w3.org/2005/08/addressing"
+                   xmlns:wstxns1="http://schemas.xmlsoap.org/soap/envelope/"/>
+   <wstxns8:Body xmlns:wstxns8="http://schemas.xmlsoap.org/soap/envelope/"
+                 xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+                 wsu:Id="id-1-40830a21ab3b6ca9fda827fae6446124">
+      <ophalenInschrijvingResponse xmlns="http://schemas.kvk.nl/schemas/hrip/dataservice/2015/02"
+                                   peilmoment="20200618154147826">
+         <meldingen>
+            <informatie>
+               <code>IPD0000</code>
+               <omschrijving>Het product is succesvol geproduceerd</omschrijving>
+               <referentie>08059166</referentie>
+            </informatie>
+         </meldingen>
+         <product>
+            <maatschappelijkeActiviteit xmlns="http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02">
+               <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                  <datumAanvang>19930917</datumAanvang>
+               </registratie>
+               <kvkNummer>08059166</kvkNummer>
+               <nonMailing>
+                  <code>N</code>
+                  <omschrijving>Nee</omschrijving>
+                  <referentieType>geenRT</referentieType>
+               </nonMailing>
+               <incidenteelUitlenenArbeidskrachten>
+                  <code>N</code>
+                  <omschrijving>Nee</omschrijving>
+                  <referentieType>geenRT</referentieType>
+               </incidenteelUitlenenArbeidskrachten>
+               <bezoekLocatie>
+                  <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <datumAanvang>19930917</datumAanvang>
+                  </registratie>
+                  <afgeschermd>
+                     <code>N</code>
+                     <omschrijving>Nee</omschrijving>
+                     <referentieType>geenRT</referentieType>
+                  </afgeschermd>
+                  <adres>
+                     <binnenlandsAdres>
+                        <straatnaam>Molecaten</straatnaam>
+                        <huisnummer>1</huisnummer>
+                        <postcode>
+                           <cijfercombinatie>8051</cijfercombinatie>
+                           <lettercombinatie>PN</lettercombinatie>
+                        </postcode>
+                        <plaats>Hattem</plaats>
+                        <bagId>
+                           <identificatieNummeraanduiding>0244200000003662</identificatieNummeraanduiding>
+                           <identificatieAdresseerbaarObject>0244010000003662</identificatieAdresseerbaarObject>
+                        </bagId>
+                     </binnenlandsAdres>
+                  </adres>
+                  <volledigAdres>Molecaten 1
+8051PN Hattem</volledigAdres>
+               </bezoekLocatie>
+               <postLocatie>
+                  <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <datumAanvang>19930917</datumAanvang>
+                  </registratie>
+                  <afgeschermd>
+                     <code>N</code>
+                     <omschrijving>Nee</omschrijving>
+                     <referentieType>geenRT</referentieType>
+                  </afgeschermd>
+                  <adres>
+                     <binnenlandsAdres>
+                        <straatnaam>Molecaten</straatnaam>
+                        <huisnummer>1</huisnummer>
+                        <postcode>
+                           <cijfercombinatie>8051</cijfercombinatie>
+                           <lettercombinatie>PN</lettercombinatie>
+                        </postcode>
+                        <plaats>Hattem</plaats>
+                        <bagId>
+                           <identificatieNummeraanduiding>0244200000003662</identificatieNummeraanduiding>
+                           <identificatieAdresseerbaarObject>0244010000003662</identificatieAdresseerbaarObject>
+                        </bagId>
+                     </binnenlandsAdres>
+                  </adres>
+                  <volledigAdres>Molecaten 1
+8051PN Hattem</volledigAdres>
+               </postLocatie>
+               <communicatiegegevens>
+                  <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <datumAanvang>19930917</datumAanvang>
+                  </registratie>
+                  <communicatienummer>
+                     <toegangscode>+31</toegangscode>
+                     <nummer>0384446455</nummer>
+                     <soort>
+                        <code>T</code>
+                        <omschrijving>Telefoon</omschrijving>
+                     </soort>
+                  </communicatienummer>
+               </communicatiegegevens>
+               <naam>Molecaten Horeca B.V.</naam>
+               <manifesteertZichAls>
+                  <relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <datumAanvang>19930917</datumAanvang>
+                  </relatieRegistratie>
+                  <onderneming>
+                     <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                        <datumAanvang>19930917</datumAanvang>
+                     </registratie>
+                     <kvkNummer>08059166</kvkNummer>
+                     <sbiActiviteit>
+                        <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>19930917</datumAanvang>
+                        </registratie>
+                        <sbiCode>
+                           <code>6832</code>
+                           <omschrijving>Beheer van onroerend goed</omschrijving>
+                           <referentieType>ActiviteitCode</referentieType>
+                        </sbiCode>
+                        <isHoofdactiviteit>
+                           <code>J</code>
+                           <omschrijving>Ja</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </isHoofdactiviteit>
+                     </sbiActiviteit>
+                     <sbiActiviteit>
+                        <registratie registratieTijdstip="20121011162059734">
+                           <datumAanvang>20100709</datumAanvang>
+                        </registratie>
+                        <sbiCode>
+                           <code>56101</code>
+                           <omschrijving>Restaurants</omschrijving>
+                           <referentieType>ActiviteitCode</referentieType>
+                        </sbiCode>
+                        <isHoofdactiviteit>
+                           <code>J</code>
+                           <omschrijving>Ja</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </isHoofdactiviteit>
+                     </sbiActiviteit>
+                     <sbiActiviteit>
+                        <registratie registratieTijdstip="20150317154739526">
+                           <datumAanvang>20150101</datumAanvang>
+                        </registratie>
+                        <sbiCode>
+                           <code>56102</code>
+                           <omschrijving>Fastfoodrestaurants, cafetaria's, ijssalons, eetkramen e.d.</omschrijving>
+                           <referentieType>ActiviteitCode</referentieType>
+                        </sbiCode>
+                        <isHoofdactiviteit>
+                           <code>J</code>
+                           <omschrijving>Ja</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </isHoofdactiviteit>
+                     </sbiActiviteit>
+                     <sbiActiviteit>
+                        <registratie registratieTijdstip="20181106120523954">
+                           <datumAanvang>20130101</datumAanvang>
+                        </registratie>
+                        <sbiCode>
+                           <code>93211</code>
+                           <omschrijving>Pret- en themaparken</omschrijving>
+                           <referentieType>ActiviteitCode</referentieType>
+                        </sbiCode>
+                        <isHoofdactiviteit>
+                           <code>N</code>
+                           <omschrijving>Nee</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </isHoofdactiviteit>
+                     </sbiActiviteit>
+                     <voltijdWerkzamePersonen>27</voltijdWerkzamePersonen>
+                     <deeltijdWerkzamePersonen>37</deeltijdWerkzamePersonen>
+                     <totaalWerkzamePersonen>64</totaalWerkzamePersonen>
+                     <handeltOnder>
+                        <handelsnaam>
+                           <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <datumAanvang>20040204</datumAanvang>
+                           </registratie>
+                           <naam>Molecaten Horeca B.V.</naam>
+                           <volgorde>0</volgorde>
+                        </handelsnaam>
+                     </handeltOnder>
+                     <handeltOnder>
+                        <handelsnaam>
+                           <registratie registratieTijdstip="20121011162059734">
+                              <datumAanvang>20100709</datumAanvang>
+                           </registratie>
+                           <naam>Zuid, Zoet, Zout</naam>
+                           <volgorde>1</volgorde>
+                        </handelsnaam>
+                     </handeltOnder>
+                     <handeltOnder>
+                        <handelsnaam>
+                           <registratie registratieTijdstip="20130710111910581">
+                              <datumAanvang>20110819</datumAanvang>
+                           </registratie>
+                           <naam>Zoet &amp; Zout</naam>
+                           <volgorde>2</volgorde>
+                        </handelsnaam>
+                     </handeltOnder>
+                     <handeltOnder>
+                        <handelsnaam>
+                           <registratie registratieTijdstip="20140722104743365">
+                              <datumAanvang>20140401</datumAanvang>
+                           </registratie>
+                           <naam>Restaurant Zomerzoen</naam>
+                           <volgorde>3</volgorde>
+                        </handelsnaam>
+                     </handeltOnder>
+                     <handeltOnder>
+                        <handelsnaam>
+                           <registratie registratieTijdstip="20150317154739526">
+                              <datumAanvang>20150101</datumAanvang>
+                           </registratie>
+                           <naam>De Keuken van Caatje</naam>
+                           <volgorde>4</volgorde>
+                        </handelsnaam>
+                     </handeltOnder>
+                     <handeltOnder>
+                        <handelsnaam>
+                           <registratie registratieTijdstip="20170710125059587">
+                              <datumAanvang>20170101</datumAanvang>
+                           </registratie>
+                           <naam>Huys te Britten</naam>
+                           <volgorde>5</volgorde>
+                        </handelsnaam>
+                     </handeltOnder>
+                     <handeltOnder>
+                        <handelsnaam>
+                           <registratie registratieTijdstip="20171108142257460">
+                              <datumAanvang>20171101</datumAanvang>
+                           </registratie>
+                           <naam>Boofoor</naam>
+                           <volgorde>6</volgorde>
+                        </handelsnaam>
+                     </handeltOnder>
+                     <handeltOnder>
+                        <handelsnaam>
+                           <registratie registratieTijdstip="20180319112624061">
+                              <datumAanvang>20180101</datumAanvang>
+                           </registratie>
+                           <naam>De Huiskamer</naam>
+                           <volgorde>7</volgorde>
+                        </handelsnaam>
+                     </handeltOnder>
+                     <handeltOnder>
+                        <handelsnaam>
+                           <registratie registratieTijdstip="20180319112624061">
+                              <datumAanvang>20180101</datumAanvang>
+                           </registratie>
+                           <naam>Deksels</naam>
+                           <volgorde>8</volgorde>
+                        </handelsnaam>
+                     </handeltOnder>
+                     <handeltOnder>
+                        <handelsnaam>
+                           <registratie registratieTijdstip="20181106120523954">
+                              <datumAanvang>20130101</datumAanvang>
+                           </registratie>
+                           <naam>Flippies Pretpaleis</naam>
+                           <volgorde>9</volgorde>
+                        </handelsnaam>
+                     </handeltOnder>
+                     <wordtUitgeoefendIn>
+                        <relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>19930917</datumAanvang>
+                        </relatieRegistratie>
+                        <commercieleVestiging>
+                           <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <datumAanvang>19930917</datumAanvang>
+                           </registratie>
+                           <vestigingsnummer>000016881931</vestigingsnummer>
+                           <bezoekLocatie>
+                              <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <datumAanvang>19930917</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <straatnaam>Molecaten</straatnaam>
+                                    <huisnummer>1</huisnummer>
+                                    <postcode>
+                                       <cijfercombinatie>8051</cijfercombinatie>
+                                       <lettercombinatie>PN</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Hattem</plaats>
+                                    <bagId>
+                                       <identificatieNummeraanduiding>0244200000003662</identificatieNummeraanduiding>
+                                       <identificatieAdresseerbaarObject>0244010000003662</identificatieAdresseerbaarObject>
+                                    </bagId>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Molecaten 1
+8051PN Hattem</volledigAdres>
+                           </bezoekLocatie>
+                           <postLocatie>
+                              <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <datumAanvang>19930917</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <straatnaam>Molecaten</straatnaam>
+                                    <huisnummer>1</huisnummer>
+                                    <postcode>
+                                       <cijfercombinatie>8051</cijfercombinatie>
+                                       <lettercombinatie>PN</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Hattem</plaats>
+                                    <bagId>
+                                       <identificatieNummeraanduiding>0244200000003662</identificatieNummeraanduiding>
+                                       <identificatieAdresseerbaarObject>0244010000003662</identificatieAdresseerbaarObject>
+                                    </bagId>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Molecaten 1
+8051PN Hattem</volledigAdres>
+                           </postLocatie>
+                           <communicatiegegevens>
+                              <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <datumAanvang>19930917</datumAanvang>
+                              </registratie>
+                              <communicatienummer>
+                                 <toegangscode>+31</toegangscode>
+                                 <nummer>0384446455</nummer>
+                                 <soort>
+                                    <code>T</code>
+                                    <omschrijving>Telefoon</omschrijving>
+                                 </soort>
+                              </communicatienummer>
+                           </communicatiegegevens>
+                           <eersteHandelsnaam>Molecaten Horeca B.V.</eersteHandelsnaam>
+                           <voltijdWerkzamePersonen>0</voltijdWerkzamePersonen>
+                           <deeltijdWerkzamePersonen>0</deeltijdWerkzamePersonen>
+                           <totaalWerkzamePersonen>0</totaalWerkzamePersonen>
+                           <activiteiten>
+                              <omschrijving>Het exploiteren van campingwinkels, van horecagelegenheden en restaurants in recreatieparken en jachthavens</omschrijving>
+                              <sbiActiviteit>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>19930917</datumAanvang>
+                                 </registratie>
+                                 <sbiCode>
+                                    <code>6832</code>
+                                    <omschrijving>Beheer van onroerend goed</omschrijving>
+                                    <referentieType>ActiviteitCode</referentieType>
+                                 </sbiCode>
+                                 <isHoofdactiviteit>
+                                    <code>J</code>
+                                    <omschrijving>Ja</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </isHoofdactiviteit>
+                              </sbiActiviteit>
+                              <exporteert>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </exporteert>
+                              <importeert>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </importeert>
+                           </activiteiten>
+                           <handeltOnder>
+                              <relatieRegistratie registratieTijdstip="20181106120523954">
+                                 <datumAanvang>20040204</datumAanvang>
+                              </relatieRegistratie>
+                              <handelsnaam>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>20040204</datumAanvang>
+                                 </registratie>
+                                 <naam>Molecaten Horeca B.V.</naam>
+                                 <volgorde>0</volgorde>
+                              </handelsnaam>
+                           </handeltOnder>
+                           <handeltOnder>
+                              <relatieRegistratie registratieTijdstip="20181106120523954">
+                                 <datumAanvang>20170101</datumAanvang>
+                              </relatieRegistratie>
+                              <handelsnaam>
+                                 <registratie registratieTijdstip="20170710125059587">
+                                    <datumAanvang>20170101</datumAanvang>
+                                 </registratie>
+                                 <naam>Huys te Britten</naam>
+                                 <volgorde>1</volgorde>
+                              </handelsnaam>
+                           </handeltOnder>
+                           <handeltOnder>
+                              <relatieRegistratie registratieTijdstip="20181106120523954">
+                                 <datumAanvang>20171101</datumAanvang>
+                              </relatieRegistratie>
+                              <handelsnaam>
+                                 <registratie registratieTijdstip="20171108142257460">
+                                    <datumAanvang>20171101</datumAanvang>
+                                 </registratie>
+                                 <naam>Boofoor</naam>
+                                 <volgorde>2</volgorde>
+                              </handelsnaam>
+                           </handeltOnder>
+                           <handeltOnder>
+                              <relatieRegistratie registratieTijdstip="20181106120523954">
+                                 <datumAanvang>20130101</datumAanvang>
+                              </relatieRegistratie>
+                              <handelsnaam>
+                                 <registratie registratieTijdstip="20181106120523954">
+                                    <datumAanvang>20130101</datumAanvang>
+                                 </registratie>
+                                 <naam>Flippies Pretpaleis</naam>
+                                 <volgorde>3</volgorde>
+                              </handelsnaam>
+                           </handeltOnder>
+                        </commercieleVestiging>
+                     </wordtUitgeoefendIn>
+                     <wordtUitgeoefendIn>
+                        <relatieRegistratie registratieTijdstip="20121011162059734">
+                           <datumAanvang>20100709</datumAanvang>
+                        </relatieRegistratie>
+                        <commercieleVestiging>
+                           <registratie registratieTijdstip="20121011162059734">
+                              <datumAanvang>20100709</datumAanvang>
+                           </registratie>
+                           <vestigingsnummer>000025808702</vestigingsnummer>
+                           <bezoekLocatie>
+                              <registratie registratieTijdstip="20121011162059734">
+                                 <datumAanvang>20100709</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <straatnaam>Strandweg</straatnaam>
+                                    <huisnummer>1</huisnummer>
+                                    <postcode>
+                                       <cijfercombinatie>8256</cijfercombinatie>
+                                       <lettercombinatie>RZ</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Biddinghuizen</plaats>
+                                    <bagId>
+                                       <identificatieNummeraanduiding>0303200000644461</identificatieNummeraanduiding>
+                                       <identificatieAdresseerbaarObject>0303010000644462</identificatieAdresseerbaarObject>
+                                    </bagId>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Strandweg 1
+8256RZ Biddinghuizen</volledigAdres>
+                           </bezoekLocatie>
+                           <postLocatie>
+                              <registratie registratieTijdstip="20121011162059734">
+                                 <datumAanvang>20100709</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <straatnaam>Strandweg</straatnaam>
+                                    <huisnummer>1</huisnummer>
+                                    <postcode>
+                                       <cijfercombinatie>8256</cijfercombinatie>
+                                       <lettercombinatie>RZ</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Biddinghuizen</plaats>
+                                    <bagId>
+                                       <identificatieNummeraanduiding>0303200000644461</identificatieNummeraanduiding>
+                                       <identificatieAdresseerbaarObject>0303010000644462</identificatieAdresseerbaarObject>
+                                    </bagId>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Strandweg 1
+8256RZ Biddinghuizen</volledigAdres>
+                           </postLocatie>
+                           <communicatiegegevens>
+                              <registratie registratieTijdstip="20121011162059734">
+                                 <datumAanvang>20100709</datumAanvang>
+                              </registratie>
+                              <communicatienummer>
+                                 <toegangscode>+31</toegangscode>
+                                 <nummer>0320288480</nummer>
+                                 <soort>
+                                    <code>T</code>
+                                    <omschrijving>Telefoon</omschrijving>
+                                 </soort>
+                              </communicatienummer>
+                              <communicatienummer>
+                                 <toegangscode>+31</toegangscode>
+                                 <nummer>0320288617</nummer>
+                                 <soort>
+                                    <code>F</code>
+                                    <omschrijving>Fax</omschrijving>
+                                 </soort>
+                              </communicatienummer>
+                           </communicatiegegevens>
+                           <eersteHandelsnaam>Zuid, Zoet, Zout</eersteHandelsnaam>
+                           <voltijdWerkzamePersonen>8</voltijdWerkzamePersonen>
+                           <deeltijdWerkzamePersonen>20</deeltijdWerkzamePersonen>
+                           <totaalWerkzamePersonen>28</totaalWerkzamePersonen>
+                           <activiteiten>
+                              <omschrijving>Horeca op recreatiepark.</omschrijving>
+                              <sbiActiviteit>
+                                 <registratie registratieTijdstip="20121011162059734">
+                                    <datumAanvang>20100709</datumAanvang>
+                                 </registratie>
+                                 <sbiCode>
+                                    <code>56101</code>
+                                    <omschrijving>Restaurants</omschrijving>
+                                    <referentieType>ActiviteitCode</referentieType>
+                                 </sbiCode>
+                                 <isHoofdactiviteit>
+                                    <code>J</code>
+                                    <omschrijving>Ja</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </isHoofdactiviteit>
+                              </sbiActiviteit>
+                              <exporteert>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </exporteert>
+                              <importeert>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </importeert>
+                           </activiteiten>
+                           <handeltOnder>
+                              <relatieRegistratie registratieTijdstip="20121011162059734">
+                                 <datumAanvang>20100709</datumAanvang>
+                              </relatieRegistratie>
+                              <handelsnaam>
+                                 <registratie registratieTijdstip="20121011162059734">
+                                    <datumAanvang>20100709</datumAanvang>
+                                 </registratie>
+                                 <naam>Zuid, Zoet, Zout</naam>
+                                 <volgorde>0</volgorde>
+                              </handelsnaam>
+                           </handeltOnder>
+                        </commercieleVestiging>
+                     </wordtUitgeoefendIn>
+                     <wordtUitgeoefendIn>
+                        <relatieRegistratie registratieTijdstip="20130710111910581">
+                           <datumAanvang>20110819</datumAanvang>
+                        </relatieRegistratie>
+                        <commercieleVestiging>
+                           <registratie registratieTijdstip="20130710111910581">
+                              <datumAanvang>20110819</datumAanvang>
+                           </registratie>
+                           <vestigingsnummer>000027686604</vestigingsnummer>
+                           <bezoekLocatie>
+                              <registratie registratieTijdstip="20130710111910581">
+                                 <datumAanvang>20110819</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <straatnaam>Zwartepolderweg</straatnaam>
+                                    <huisnummer>1</huisnummer>
+                                    <postcode>
+                                       <cijfercombinatie>4506</cijfercombinatie>
+                                       <lettercombinatie>HT</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Cadzand</plaats>
+                                    <bagId>
+                                       <identificatieNummeraanduiding>1714200000786645</identificatieNummeraanduiding>
+                                       <identificatieAdresseerbaarObject>1714010000786644</identificatieAdresseerbaarObject>
+                                    </bagId>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Zwartepolderweg 1
+4506HT Cadzand</volledigAdres>
+                           </bezoekLocatie>
+                           <postLocatie>
+                              <registratie registratieTijdstip="20130710111910581">
+                                 <datumAanvang>20110819</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <straatnaam>Zwartepolderweg</straatnaam>
+                                    <huisnummer>1</huisnummer>
+                                    <postcode>
+                                       <cijfercombinatie>4506</cijfercombinatie>
+                                       <lettercombinatie>HT</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Cadzand</plaats>
+                                    <bagId>
+                                       <identificatieNummeraanduiding>1714200000786645</identificatieNummeraanduiding>
+                                       <identificatieAdresseerbaarObject>1714010000786644</identificatieAdresseerbaarObject>
+                                    </bagId>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Zwartepolderweg 1
+4506HT Cadzand</volledigAdres>
+                           </postLocatie>
+                           <communicatiegegevens>
+                              <registratie registratieTijdstip="20130710111910581">
+                                 <datumAanvang>20110819</datumAanvang>
+                              </registratie>
+                              <communicatienummer>
+                                 <toegangscode>+31</toegangscode>
+                                 <nummer>0117391235</nummer>
+                                 <soort>
+                                    <code>T</code>
+                                    <omschrijving>Telefoon</omschrijving>
+                                 </soort>
+                              </communicatienummer>
+                              <emailAdres>info@hoogduin.nl</emailAdres>
+                           </communicatiegegevens>
+                           <eersteHandelsnaam>Zoet &amp; Zout</eersteHandelsnaam>
+                           <voltijdWerkzamePersonen>7</voltijdWerkzamePersonen>
+                           <deeltijdWerkzamePersonen>0</deeltijdWerkzamePersonen>
+                           <totaalWerkzamePersonen>7</totaalWerkzamePersonen>
+                           <activiteiten>
+                              <omschrijving>Horeca op recreatiepark.</omschrijving>
+                              <sbiActiviteit>
+                                 <registratie registratieTijdstip="20130710111910581">
+                                    <datumAanvang>20110819</datumAanvang>
+                                 </registratie>
+                                 <sbiCode>
+                                    <code>56101</code>
+                                    <omschrijving>Restaurants</omschrijving>
+                                    <referentieType>ActiviteitCode</referentieType>
+                                 </sbiCode>
+                                 <isHoofdactiviteit>
+                                    <code>J</code>
+                                    <omschrijving>Ja</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </isHoofdactiviteit>
+                              </sbiActiviteit>
+                              <exporteert>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </exporteert>
+                              <importeert>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </importeert>
+                           </activiteiten>
+                           <handeltOnder>
+                              <relatieRegistratie registratieTijdstip="20130710111910581">
+                                 <datumAanvang>20110819</datumAanvang>
+                              </relatieRegistratie>
+                              <handelsnaam>
+                                 <registratie registratieTijdstip="20130710111910581">
+                                    <datumAanvang>20110819</datumAanvang>
+                                 </registratie>
+                                 <naam>Zoet &amp; Zout</naam>
+                                 <volgorde>0</volgorde>
+                              </handelsnaam>
+                           </handeltOnder>
+                        </commercieleVestiging>
+                     </wordtUitgeoefendIn>
+                     <wordtUitgeoefendIn>
+                        <relatieRegistratie registratieTijdstip="20140722104743365">
+                           <datumAanvang>20140401</datumAanvang>
+                        </relatieRegistratie>
+                        <commercieleVestiging>
+                           <registratie registratieTijdstip="20140722104743365">
+                              <datumAanvang>20140401</datumAanvang>
+                           </registratie>
+                           <vestigingsnummer>000030251540</vestigingsnummer>
+                           <bezoekLocatie>
+                              <registratie registratieTijdstip="20140722104743365">
+                                 <datumAanvang>20140401</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <straatnaam>Duinrand</straatnaam>
+                                    <huisnummer>11</huisnummer>
+                                    <postcode>
+                                       <cijfercombinatie>3235</cijfercombinatie>
+                                       <lettercombinatie>CC</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Rockanje</plaats>
+                                    <bagId>
+                                       <identificatieNummeraanduiding>0614200000004583</identificatieNummeraanduiding>
+                                       <identificatieAdresseerbaarObject>0614010000001145</identificatieAdresseerbaarObject>
+                                    </bagId>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Duinrand 11
+3235CC Rockanje</volledigAdres>
+                           </bezoekLocatie>
+                           <postLocatie>
+                              <registratie registratieTijdstip="20140722104743365">
+                                 <datumAanvang>20140401</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <straatnaam>Duinrand</straatnaam>
+                                    <huisnummer>11</huisnummer>
+                                    <postcode>
+                                       <cijfercombinatie>3235</cijfercombinatie>
+                                       <lettercombinatie>CC</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Rockanje</plaats>
+                                    <bagId>
+                                       <identificatieNummeraanduiding>0614200000004583</identificatieNummeraanduiding>
+                                       <identificatieAdresseerbaarObject>0614010000001145</identificatieAdresseerbaarObject>
+                                    </bagId>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Duinrand 11
+3235CC Rockanje</volledigAdres>
+                           </postLocatie>
+                           <communicatiegegevens>
+                              <registratie registratieTijdstip="20140722104743365">
+                                 <datumAanvang>20140401</datumAanvang>
+                              </registratie>
+                              <communicatienummer>
+                                 <toegangscode>+31</toegangscode>
+                                 <nummer>0181401900</nummer>
+                                 <soort>
+                                    <code>T</code>
+                                    <omschrijving>Telefoon</omschrijving>
+                                 </soort>
+                              </communicatienummer>
+                              <emailAdres>waterbos@molecaten.nl</emailAdres>
+                           </communicatiegegevens>
+                           <eersteHandelsnaam>Restaurant Zomerzoen</eersteHandelsnaam>
+                           <voltijdWerkzamePersonen>2</voltijdWerkzamePersonen>
+                           <deeltijdWerkzamePersonen>8</deeltijdWerkzamePersonen>
+                           <totaalWerkzamePersonen>10</totaalWerkzamePersonen>
+                           <activiteiten>
+                              <omschrijving>Horeca op recreatiepark.</omschrijving>
+                              <sbiActiviteit>
+                                 <registratie registratieTijdstip="20140722104743365">
+                                    <datumAanvang>20140401</datumAanvang>
+                                 </registratie>
+                                 <sbiCode>
+                                    <code>56101</code>
+                                    <omschrijving>Restaurants</omschrijving>
+                                    <referentieType>ActiviteitCode</referentieType>
+                                 </sbiCode>
+                                 <isHoofdactiviteit>
+                                    <code>J</code>
+                                    <omschrijving>Ja</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </isHoofdactiviteit>
+                              </sbiActiviteit>
+                              <exporteert>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </exporteert>
+                              <importeert>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </importeert>
+                           </activiteiten>
+                           <handeltOnder>
+                              <relatieRegistratie registratieTijdstip="20140722104743365">
+                                 <datumAanvang>20140401</datumAanvang>
+                              </relatieRegistratie>
+                              <handelsnaam>
+                                 <registratie registratieTijdstip="20140722104743365">
+                                    <datumAanvang>20140401</datumAanvang>
+                                 </registratie>
+                                 <naam>Restaurant Zomerzoen</naam>
+                                 <volgorde>0</volgorde>
+                              </handelsnaam>
+                           </handeltOnder>
+                        </commercieleVestiging>
+                     </wordtUitgeoefendIn>
+                     <wordtUitgeoefendIn>
+                        <relatieRegistratie registratieTijdstip="20150317154739526">
+                           <datumAanvang>20150101</datumAanvang>
+                        </relatieRegistratie>
+                        <commercieleVestiging>
+                           <registratie registratieTijdstip="20150317154739526">
+                              <datumAanvang>20150101</datumAanvang>
+                           </registratie>
+                           <vestigingsnummer>000031857809</vestigingsnummer>
+                           <bezoekLocatie>
+                              <registratie registratieTijdstip="20150317154739526">
+                                 <datumAanvang>20150101</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <straatnaam>Leemkuilen</straatnaam>
+                                    <huisnummer>6</huisnummer>
+                                    <postcode>
+                                       <cijfercombinatie>8051</cijfercombinatie>
+                                       <lettercombinatie>PW</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Hattem</plaats>
+                                    <bagId>
+                                       <identificatieNummeraanduiding>0244200000003404</identificatieNummeraanduiding>
+                                       <identificatieAdresseerbaarObject>0244010000003404</identificatieAdresseerbaarObject>
+                                    </bagId>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Leemkuilen 6
+8051PW Hattem</volledigAdres>
+                           </bezoekLocatie>
+                           <postLocatie>
+                              <registratie registratieTijdstip="20150317154739526">
+                                 <datumAanvang>20150101</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <straatnaam>Leemkuilen</straatnaam>
+                                    <huisnummer>6</huisnummer>
+                                    <postcode>
+                                       <cijfercombinatie>8051</cijfercombinatie>
+                                       <lettercombinatie>PW</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Hattem</plaats>
+                                    <bagId>
+                                       <identificatieNummeraanduiding>0244200000003404</identificatieNummeraanduiding>
+                                       <identificatieAdresseerbaarObject>0244010000003404</identificatieAdresseerbaarObject>
+                                    </bagId>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Leemkuilen 6
+8051PW Hattem</volledigAdres>
+                           </postLocatie>
+                           <communicatiegegevens>
+                              <registratie registratieTijdstip="20150317154739526">
+                                 <datumAanvang>20150101</datumAanvang>
+                              </registratie>
+                              <communicatienummer>
+                                 <toegangscode>+31</toegangscode>
+                                 <nummer>0384445130</nummer>
+                                 <soort>
+                                    <code>T</code>
+                                    <omschrijving>Telefoon</omschrijving>
+                                 </soort>
+                              </communicatienummer>
+                              <communicatienummer>
+                                 <toegangscode>+31</toegangscode>
+                                 <nummer>0384441945</nummer>
+                                 <soort>
+                                    <code>T</code>
+                                    <omschrijving>Telefoon</omschrijving>
+                                 </soort>
+                              </communicatienummer>
+                              <emailAdres>deleemkule@molecaten.nl</emailAdres>
+                              <domeinNaam>www.molecaten.nl/de-leemkule</domeinNaam>
+                           </communicatiegegevens>
+                           <eersteHandelsnaam>De Keuken van Caatje</eersteHandelsnaam>
+                           <voltijdWerkzamePersonen>5</voltijdWerkzamePersonen>
+                           <deeltijdWerkzamePersonen>4</deeltijdWerkzamePersonen>
+                           <totaalWerkzamePersonen>9</totaalWerkzamePersonen>
+                           <activiteiten>
+                              <omschrijving>Horeca op recreatiepark.</omschrijving>
+                              <sbiActiviteit>
+                                 <registratie registratieTijdstip="20150317154739526">
+                                    <datumAanvang>20150101</datumAanvang>
+                                 </registratie>
+                                 <sbiCode>
+                                    <code>56102</code>
+                                    <omschrijving>Fastfoodrestaurants, cafetaria's, ijssalons, eetkramen e.d.</omschrijving>
+                                    <referentieType>ActiviteitCode</referentieType>
+                                 </sbiCode>
+                                 <isHoofdactiviteit>
+                                    <code>J</code>
+                                    <omschrijving>Ja</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </isHoofdactiviteit>
+                              </sbiActiviteit>
+                              <exporteert>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </exporteert>
+                              <importeert>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </importeert>
+                           </activiteiten>
+                           <handeltOnder>
+                              <relatieRegistratie registratieTijdstip="20150317154739526">
+                                 <datumAanvang>20150101</datumAanvang>
+                              </relatieRegistratie>
+                              <handelsnaam>
+                                 <registratie registratieTijdstip="20150317154739526">
+                                    <datumAanvang>20150101</datumAanvang>
+                                 </registratie>
+                                 <naam>De Keuken van Caatje</naam>
+                                 <volgorde>0</volgorde>
+                              </handelsnaam>
+                           </handeltOnder>
+                        </commercieleVestiging>
+                     </wordtUitgeoefendIn>
+                     <wordtUitgeoefendIn>
+                        <relatieRegistratie registratieTijdstip="20180319112624061">
+                           <datumAanvang>20180101</datumAanvang>
+                        </relatieRegistratie>
+                        <commercieleVestiging>
+                           <registratie registratieTijdstip="20180319112624061">
+                              <datumAanvang>20180101</datumAanvang>
+                           </registratie>
+                           <vestigingsnummer>000039384586</vestigingsnummer>
+                           <bezoekLocatie>
+                              <registratie registratieTijdstip="20180319112624061">
+                                 <datumAanvang>20180101</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <straatnaam>Schurerslaan</straatnaam>
+                                    <huisnummer>4</huisnummer>
+                                    <postcode>
+                                       <cijfercombinatie>8438</cijfercombinatie>
+                                       <lettercombinatie>SC</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Wateren</plaats>
+                                    <bagId>
+                                       <identificatieNummeraanduiding>1701200000231716</identificatieNummeraanduiding>
+                                       <identificatieAdresseerbaarObject>1701010000231717</identificatieAdresseerbaarObject>
+                                    </bagId>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Schurerslaan 4
+8438SC Wateren</volledigAdres>
+                           </bezoekLocatie>
+                           <postLocatie>
+                              <registratie registratieTijdstip="20180319112624061">
+                                 <datumAanvang>20180101</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <straatnaam>Schurerslaan</straatnaam>
+                                    <huisnummer>4</huisnummer>
+                                    <postcode>
+                                       <cijfercombinatie>8438</cijfercombinatie>
+                                       <lettercombinatie>SC</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Wateren</plaats>
+                                    <bagId>
+                                       <identificatieNummeraanduiding>1701200000231716</identificatieNummeraanduiding>
+                                       <identificatieAdresseerbaarObject>1701010000231717</identificatieAdresseerbaarObject>
+                                    </bagId>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Schurerslaan 4
+8438SC Wateren</volledigAdres>
+                           </postLocatie>
+                           <communicatiegegevens>
+                              <registratie registratieTijdstip="20180319112624061">
+                                 <datumAanvang>20180101</datumAanvang>
+                              </registratie>
+                              <communicatienummer>
+                                 <toegangscode>+31</toegangscode>
+                                 <nummer>0521387244</nummer>
+                                 <soort>
+                                    <code>T</code>
+                                    <omschrijving>Telefoon</omschrijving>
+                                 </soort>
+                              </communicatienummer>
+                           </communicatiegegevens>
+                           <eersteHandelsnaam>De Huiskamer</eersteHandelsnaam>
+                           <voltijdWerkzamePersonen>1</voltijdWerkzamePersonen>
+                           <deeltijdWerkzamePersonen>1</deeltijdWerkzamePersonen>
+                           <totaalWerkzamePersonen>2</totaalWerkzamePersonen>
+                           <activiteiten>
+                              <omschrijving>Restaurant</omschrijving>
+                              <sbiActiviteit>
+                                 <registratie registratieTijdstip="20180319112624061">
+                                    <datumAanvang>20180101</datumAanvang>
+                                 </registratie>
+                                 <sbiCode>
+                                    <code>56101</code>
+                                    <omschrijving>Restaurants</omschrijving>
+                                    <referentieType>ActiviteitCode</referentieType>
+                                 </sbiCode>
+                                 <isHoofdactiviteit>
+                                    <code>J</code>
+                                    <omschrijving>Ja</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </isHoofdactiviteit>
+                              </sbiActiviteit>
+                              <exporteert>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </exporteert>
+                              <importeert>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </importeert>
+                           </activiteiten>
+                           <handeltOnder>
+                              <relatieRegistratie registratieTijdstip="20180319112624061">
+                                 <datumAanvang>20180101</datumAanvang>
+                              </relatieRegistratie>
+                              <handelsnaam>
+                                 <registratie registratieTijdstip="20180319112624061">
+                                    <datumAanvang>20180101</datumAanvang>
+                                 </registratie>
+                                 <naam>De Huiskamer</naam>
+                                 <volgorde>0</volgorde>
+                              </handelsnaam>
+                           </handeltOnder>
+                        </commercieleVestiging>
+                     </wordtUitgeoefendIn>
+                     <wordtUitgeoefendIn>
+                        <relatieRegistratie registratieTijdstip="20180319112624061">
+                           <datumAanvang>20180101</datumAanvang>
+                        </relatieRegistratie>
+                        <commercieleVestiging>
+                           <registratie registratieTijdstip="20180319112624061">
+                              <datumAanvang>20180101</datumAanvang>
+                           </registratie>
+                           <vestigingsnummer>000039384594</vestigingsnummer>
+                           <bezoekLocatie>
+                              <registratie registratieTijdstip="20180319112624061">
+                                 <datumAanvang>20180101</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <straatnaam>Oranjekanaal NZ</straatnaam>
+                                    <huisnummer>10</huisnummer>
+                                    <postcode>
+                                       <cijfercombinatie>7853</cijfercombinatie>
+                                       <lettercombinatie>TA</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Wezuperbrug</plaats>
+                                    <bagId>
+                                       <identificatieNummeraanduiding>0109200000011255</identificatieNummeraanduiding>
+                                       <identificatieAdresseerbaarObject>0109010000004702</identificatieAdresseerbaarObject>
+                                    </bagId>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Oranjekanaal NZ 10
+7853TA Wezuperbrug</volledigAdres>
+                           </bezoekLocatie>
+                           <postLocatie>
+                              <registratie registratieTijdstip="20180319112624061">
+                                 <datumAanvang>20180101</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <straatnaam>Oranjekanaal NZ</straatnaam>
+                                    <huisnummer>10</huisnummer>
+                                    <postcode>
+                                       <cijfercombinatie>7853</cijfercombinatie>
+                                       <lettercombinatie>TA</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Wezuperbrug</plaats>
+                                    <bagId>
+                                       <identificatieNummeraanduiding>0109200000011255</identificatieNummeraanduiding>
+                                       <identificatieAdresseerbaarObject>0109010000004702</identificatieAdresseerbaarObject>
+                                    </bagId>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Oranjekanaal NZ 10
+7853TA Wezuperbrug</volledigAdres>
+                           </postLocatie>
+                           <communicatiegegevens>
+                              <registratie registratieTijdstip="20180319112624061">
+                                 <datumAanvang>20180101</datumAanvang>
+                              </registratie>
+                              <communicatienummer>
+                                 <toegangscode>+31</toegangscode>
+                                 <nummer>0591381415</nummer>
+                                 <soort>
+                                    <code>T</code>
+                                    <omschrijving>Telefoon</omschrijving>
+                                 </soort>
+                              </communicatienummer>
+                           </communicatiegegevens>
+                           <eersteHandelsnaam>Deksels</eersteHandelsnaam>
+                           <voltijdWerkzamePersonen>0</voltijdWerkzamePersonen>
+                           <deeltijdWerkzamePersonen>2</deeltijdWerkzamePersonen>
+                           <totaalWerkzamePersonen>2</totaalWerkzamePersonen>
+                           <activiteiten>
+                              <omschrijving>Restaurant</omschrijving>
+                              <sbiActiviteit>
+                                 <registratie registratieTijdstip="20180319112624061">
+                                    <datumAanvang>20180101</datumAanvang>
+                                 </registratie>
+                                 <sbiCode>
+                                    <code>56101</code>
+                                    <omschrijving>Restaurants</omschrijving>
+                                    <referentieType>ActiviteitCode</referentieType>
+                                 </sbiCode>
+                                 <isHoofdactiviteit>
+                                    <code>J</code>
+                                    <omschrijving>Ja</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </isHoofdactiviteit>
+                              </sbiActiviteit>
+                              <exporteert>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </exporteert>
+                              <importeert>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </importeert>
+                           </activiteiten>
+                           <handeltOnder>
+                              <relatieRegistratie registratieTijdstip="20180319112624061">
+                                 <datumAanvang>20180101</datumAanvang>
+                              </relatieRegistratie>
+                              <handelsnaam>
+                                 <registratie registratieTijdstip="20180319112624061">
+                                    <datumAanvang>20180101</datumAanvang>
+                                 </registratie>
+                                 <naam>Deksels</naam>
+                                 <volgorde>0</volgorde>
+                              </handelsnaam>
+                           </handeltOnder>
+                        </commercieleVestiging>
+                     </wordtUitgeoefendIn>
+                     <wordtUitgeoefendIn>
+                        <relatieRegistratie registratieTijdstip="20180319112624061">
+                           <datumAanvang>20171101</datumAanvang>
+                        </relatieRegistratie>
+                        <commercieleVestiging>
+                           <registratie registratieTijdstip="20180319112624061">
+                              <datumAanvang>20171101</datumAanvang>
+                           </registratie>
+                           <vestigingsnummer>000039384608</vestigingsnummer>
+                           <bezoekLocatie>
+                              <registratie registratieTijdstip="20180319112624061">
+                                 <datumAanvang>20171101</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <straatnaam>Zuiderzee op Zuid</straatnaam>
+                                    <huisnummer>13</huisnummer>
+                                    <postcode>
+                                       <cijfercombinatie>8256</cijfercombinatie>
+                                       <lettercombinatie>SP</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Biddinghuizen</plaats>
+                                    <bagId>
+                                       <identificatieNummeraanduiding>0303200000524520</identificatieNummeraanduiding>
+                                       <identificatieAdresseerbaarObject>0303010000524519</identificatieAdresseerbaarObject>
+                                    </bagId>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Zuiderzee op Zuid 13
+8256SP Biddinghuizen</volledigAdres>
+                           </bezoekLocatie>
+                           <postLocatie>
+                              <registratie registratieTijdstip="20180319112624061">
+                                 <datumAanvang>20171101</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <straatnaam>Zuiderzee op Zuid</straatnaam>
+                                    <huisnummer>13</huisnummer>
+                                    <postcode>
+                                       <cijfercombinatie>8256</cijfercombinatie>
+                                       <lettercombinatie>SP</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Biddinghuizen</plaats>
+                                    <bagId>
+                                       <identificatieNummeraanduiding>0303200000524520</identificatieNummeraanduiding>
+                                       <identificatieAdresseerbaarObject>0303010000524519</identificatieAdresseerbaarObject>
+                                    </bagId>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Zuiderzee op Zuid 13
+8256SP Biddinghuizen</volledigAdres>
+                           </postLocatie>
+                           <communicatiegegevens>
+                              <registratie registratieTijdstip="20180319112624061">
+                                 <datumAanvang>20171101</datumAanvang>
+                              </registratie>
+                              <communicatienummer>
+                                 <toegangscode>+31</toegangscode>
+                                 <nummer>0321841745</nummer>
+                                 <soort>
+                                    <code>T</code>
+                                    <omschrijving>Telefoon</omschrijving>
+                                 </soort>
+                              </communicatienummer>
+                           </communicatiegegevens>
+                           <eersteHandelsnaam>Boofoor</eersteHandelsnaam>
+                           <voltijdWerkzamePersonen>3</voltijdWerkzamePersonen>
+                           <deeltijdWerkzamePersonen>2</deeltijdWerkzamePersonen>
+                           <totaalWerkzamePersonen>5</totaalWerkzamePersonen>
+                           <activiteiten>
+                              <omschrijving>Restaurant</omschrijving>
+                              <sbiActiviteit>
+                                 <registratie registratieTijdstip="20180319112624061">
+                                    <datumAanvang>20171101</datumAanvang>
+                                 </registratie>
+                                 <sbiCode>
+                                    <code>56101</code>
+                                    <omschrijving>Restaurants</omschrijving>
+                                    <referentieType>ActiviteitCode</referentieType>
+                                 </sbiCode>
+                                 <isHoofdactiviteit>
+                                    <code>J</code>
+                                    <omschrijving>Ja</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </isHoofdactiviteit>
+                              </sbiActiviteit>
+                              <exporteert>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </exporteert>
+                              <importeert>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </importeert>
+                           </activiteiten>
+                           <handeltOnder>
+                              <relatieRegistratie registratieTijdstip="20180319112624061">
+                                 <datumAanvang>20171101</datumAanvang>
+                              </relatieRegistratie>
+                              <handelsnaam>
+                                 <registratie registratieTijdstip="20171108142257460">
+                                    <datumAanvang>20171101</datumAanvang>
+                                 </registratie>
+                                 <naam>Boofoor</naam>
+                                 <volgorde>0</volgorde>
+                              </handelsnaam>
+                           </handeltOnder>
+                        </commercieleVestiging>
+                     </wordtUitgeoefendIn>
+                     <wordtUitgeoefendIn>
+                        <relatieRegistratie registratieTijdstip="20181106120523954">
+                           <datumAanvang>20130101</datumAanvang>
+                        </relatieRegistratie>
+                        <commercieleVestiging>
+                           <registratie registratieTijdstip="20181106120523954">
+                              <datumAanvang>20130101</datumAanvang>
+                           </registratie>
+                           <vestigingsnummer>000041100719</vestigingsnummer>
+                           <bezoekLocatie>
+                              <registratie registratieTijdstip="20181106120523954">
+                                 <datumAanvang>20130101</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <straatnaam>Duerswâldmer Wei</straatnaam>
+                                    <huisnummer>11</huisnummer>
+                                    <postcode>
+                                       <cijfercombinatie>9243</cijfercombinatie>
+                                       <lettercombinatie>KA</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Bakkeveen</plaats>
+                                    <bagId>
+                                       <identificatieNummeraanduiding>0086200000389501</identificatieNummeraanduiding>
+                                       <identificatieAdresseerbaarObject>0086010000389502</identificatieAdresseerbaarObject>
+                                    </bagId>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Duerswâldmer Wei 11
+9243KA Bakkeveen</volledigAdres>
+                           </bezoekLocatie>
+                           <postLocatie>
+                              <registratie registratieTijdstip="20181106120523954">
+                                 <datumAanvang>20130101</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <straatnaam>Duerswâldmer Wei</straatnaam>
+                                    <huisnummer>11</huisnummer>
+                                    <postcode>
+                                       <cijfercombinatie>9243</cijfercombinatie>
+                                       <lettercombinatie>KA</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Bakkeveen</plaats>
+                                    <bagId>
+                                       <identificatieNummeraanduiding>0086200000389501</identificatieNummeraanduiding>
+                                       <identificatieAdresseerbaarObject>0086010000389502</identificatieAdresseerbaarObject>
+                                    </bagId>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Duerswâldmer Wei 11
+9243KA Bakkeveen</volledigAdres>
+                           </postLocatie>
+                           <communicatiegegevens>
+                              <registratie registratieTijdstip="20181106120523954">
+                                 <datumAanvang>20130101</datumAanvang>
+                              </registratie>
+                              <communicatienummer>
+                                 <toegangscode>+31</toegangscode>
+                                 <nummer>0516541287</nummer>
+                                 <soort>
+                                    <code>T</code>
+                                    <omschrijving>Telefoon</omschrijving>
+                                 </soort>
+                              </communicatienummer>
+                              <emailAdres>thout@molecaten.nl</emailAdres>
+                              <domeinNaam>www.molecaten.nl</domeinNaam>
+                           </communicatiegegevens>
+                           <eersteHandelsnaam>Flippies Pretpaleis</eersteHandelsnaam>
+                           <voltijdWerkzamePersonen>1</voltijdWerkzamePersonen>
+                           <deeltijdWerkzamePersonen>0</deeltijdWerkzamePersonen>
+                           <totaalWerkzamePersonen>1</totaalWerkzamePersonen>
+                           <activiteiten>
+                              <omschrijving>Horeca: Restaurant en binnenspeeltuin</omschrijving>
+                              <sbiActiviteit>
+                                 <registratie registratieTijdstip="20181106120523954">
+                                    <datumAanvang>20130101</datumAanvang>
+                                 </registratie>
+                                 <sbiCode>
+                                    <code>56101</code>
+                                    <omschrijving>Restaurants</omschrijving>
+                                    <referentieType>ActiviteitCode</referentieType>
+                                 </sbiCode>
+                                 <isHoofdactiviteit>
+                                    <code>J</code>
+                                    <omschrijving>Ja</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </isHoofdactiviteit>
+                              </sbiActiviteit>
+                              <sbiActiviteit>
+                                 <registratie registratieTijdstip="20181106120523954">
+                                    <datumAanvang>20130101</datumAanvang>
+                                 </registratie>
+                                 <sbiCode>
+                                    <code>93211</code>
+                                    <omschrijving>Pret- en themaparken</omschrijving>
+                                    <referentieType>ActiviteitCode</referentieType>
+                                 </sbiCode>
+                                 <isHoofdactiviteit>
+                                    <code>N</code>
+                                    <omschrijving>Nee</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </isHoofdactiviteit>
+                              </sbiActiviteit>
+                              <exporteert>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </exporteert>
+                              <importeert>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </importeert>
+                           </activiteiten>
+                           <handeltOnder>
+                              <relatieRegistratie registratieTijdstip="20181106120523954">
+                                 <datumAanvang>20130101</datumAanvang>
+                              </relatieRegistratie>
+                              <handelsnaam>
+                                 <registratie registratieTijdstip="20181106120523954">
+                                    <datumAanvang>20130101</datumAanvang>
+                                 </registratie>
+                                 <naam>Flippies Pretpaleis</naam>
+                                 <volgorde>0</volgorde>
+                              </handelsnaam>
+                           </handeltOnder>
+                        </commercieleVestiging>
+                     </wordtUitgeoefendIn>
+                  </onderneming>
+               </manifesteertZichAls>
+               <wordtGeleidVanuit>
+                  <commercieleVestiging>
+                     <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                        <datumAanvang>19930917</datumAanvang>
+                     </registratie>
+                     <vestigingsnummer>000016881931</vestigingsnummer>
+                     <bezoekLocatie>
+                        <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>19930917</datumAanvang>
+                        </registratie>
+                        <afgeschermd>
+                           <code>N</code>
+                           <omschrijving>Nee</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </afgeschermd>
+                        <adres>
+                           <binnenlandsAdres>
+                              <straatnaam>Molecaten</straatnaam>
+                              <huisnummer>1</huisnummer>
+                              <postcode>
+                                 <cijfercombinatie>8051</cijfercombinatie>
+                                 <lettercombinatie>PN</lettercombinatie>
+                              </postcode>
+                              <plaats>Hattem</plaats>
+                              <bagId>
+                                 <identificatieNummeraanduiding>0244200000003662</identificatieNummeraanduiding>
+                                 <identificatieAdresseerbaarObject>0244010000003662</identificatieAdresseerbaarObject>
+                              </bagId>
+                           </binnenlandsAdres>
+                        </adres>
+                        <volledigAdres>Molecaten 1
+8051PN Hattem</volledigAdres>
+                     </bezoekLocatie>
+                     <postLocatie>
+                        <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>19930917</datumAanvang>
+                        </registratie>
+                        <afgeschermd>
+                           <code>N</code>
+                           <omschrijving>Nee</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </afgeschermd>
+                        <adres>
+                           <binnenlandsAdres>
+                              <straatnaam>Molecaten</straatnaam>
+                              <huisnummer>1</huisnummer>
+                              <postcode>
+                                 <cijfercombinatie>8051</cijfercombinatie>
+                                 <lettercombinatie>PN</lettercombinatie>
+                              </postcode>
+                              <plaats>Hattem</plaats>
+                              <bagId>
+                                 <identificatieNummeraanduiding>0244200000003662</identificatieNummeraanduiding>
+                                 <identificatieAdresseerbaarObject>0244010000003662</identificatieAdresseerbaarObject>
+                              </bagId>
+                           </binnenlandsAdres>
+                        </adres>
+                        <volledigAdres>Molecaten 1
+8051PN Hattem</volledigAdres>
+                     </postLocatie>
+                     <communicatiegegevens>
+                        <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>19930917</datumAanvang>
+                        </registratie>
+                        <communicatienummer>
+                           <toegangscode>+31</toegangscode>
+                           <nummer>0384446455</nummer>
+                           <soort>
+                              <code>T</code>
+                              <omschrijving>Telefoon</omschrijving>
+                           </soort>
+                        </communicatienummer>
+                     </communicatiegegevens>
+                     <eersteHandelsnaam>Molecaten Horeca B.V.</eersteHandelsnaam>
+                     <voltijdWerkzamePersonen>0</voltijdWerkzamePersonen>
+                     <deeltijdWerkzamePersonen>0</deeltijdWerkzamePersonen>
+                     <totaalWerkzamePersonen>0</totaalWerkzamePersonen>
+                     <activiteiten>
+                        <omschrijving>Het exploiteren van campingwinkels, van horecagelegenheden en restaurants in recreatieparken en jachthavens</omschrijving>
+                        <sbiActiviteit>
+                           <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <datumAanvang>19930917</datumAanvang>
+                           </registratie>
+                           <sbiCode>
+                              <code>6832</code>
+                              <omschrijving>Beheer van onroerend goed</omschrijving>
+                              <referentieType>ActiviteitCode</referentieType>
+                           </sbiCode>
+                           <isHoofdactiviteit>
+                              <code>J</code>
+                              <omschrijving>Ja</omschrijving>
+                              <referentieType>geenRT</referentieType>
+                           </isHoofdactiviteit>
+                        </sbiActiviteit>
+                        <exporteert>
+                           <code>N</code>
+                           <omschrijving>Nee</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </exporteert>
+                        <importeert>
+                           <code>N</code>
+                           <omschrijving>Nee</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </importeert>
+                     </activiteiten>
+                     <handeltOnder>
+                        <relatieRegistratie registratieTijdstip="20181106120523954">
+                           <datumAanvang>20040204</datumAanvang>
+                        </relatieRegistratie>
+                        <handelsnaam>
+                           <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <datumAanvang>20040204</datumAanvang>
+                           </registratie>
+                           <naam>Molecaten Horeca B.V.</naam>
+                           <volgorde>0</volgorde>
+                        </handelsnaam>
+                     </handeltOnder>
+                     <handeltOnder>
+                        <relatieRegistratie registratieTijdstip="20181106120523954">
+                           <datumAanvang>20170101</datumAanvang>
+                        </relatieRegistratie>
+                        <handelsnaam>
+                           <registratie registratieTijdstip="20170710125059587">
+                              <datumAanvang>20170101</datumAanvang>
+                           </registratie>
+                           <naam>Huys te Britten</naam>
+                           <volgorde>1</volgorde>
+                        </handelsnaam>
+                     </handeltOnder>
+                     <handeltOnder>
+                        <relatieRegistratie registratieTijdstip="20181106120523954">
+                           <datumAanvang>20171101</datumAanvang>
+                        </relatieRegistratie>
+                        <handelsnaam>
+                           <registratie registratieTijdstip="20171108142257460">
+                              <datumAanvang>20171101</datumAanvang>
+                           </registratie>
+                           <naam>Boofoor</naam>
+                           <volgorde>2</volgorde>
+                        </handelsnaam>
+                     </handeltOnder>
+                     <handeltOnder>
+                        <relatieRegistratie registratieTijdstip="20181106120523954">
+                           <datumAanvang>20130101</datumAanvang>
+                        </relatieRegistratie>
+                        <handelsnaam>
+                           <registratie registratieTijdstip="20181106120523954">
+                              <datumAanvang>20130101</datumAanvang>
+                           </registratie>
+                           <naam>Flippies Pretpaleis</naam>
+                           <volgorde>3</volgorde>
+                        </handelsnaam>
+                     </handeltOnder>
+                  </commercieleVestiging>
+               </wordtGeleidVanuit>
+               <heeftAlsEigenaar>
+                  <relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <datumAanvang>19930917</datumAanvang>
+                  </relatieRegistratie>
+                  <rechtspersoon>
+                     <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                        <datumAanvang>19930917</datumAanvang>
+                     </registratie>
+                     <persoonRechtsvorm>Besloten Vennootschap</persoonRechtsvorm>
+                     <volledigeNaam>Molecaten Horeca B.V.</volledigeNaam>
+                     <uitgebreideRechtsvorm>Besloten Vennootschap</uitgebreideRechtsvorm>
+                     <heeft>
+                        <bestuursfunctie>
+                           <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <datumAanvang>19931231</datumAanvang>
+                           </registratie>
+                           <functietitel>
+                              <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <datumAanvang>19931231</datumAanvang>
+                              </registratie>
+                              <titel>Directeur</titel>
+                              <isStatutaireTitel>
+                                 <code>J</code>
+                                 <omschrijving>Ja</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isStatutaireTitel>
+                           </functietitel>
+                           <door>
+                              <buitenlandseVennootschap>
+                                 <volledigeNaam>Tradespot Limited </volledigeNaam>
+                                 <bezoekLocatiePersoon>
+                                    <registratie registratieTijdstip="20140425091459462">
+                                       <datumAanvang>20140424</datumAanvang>
+                                    </registratie>
+                                    <afgeschermd>
+                                       <code>N</code>
+                                       <omschrijving>Nee</omschrijving>
+                                       <referentieType>geenRT</referentieType>
+                                    </afgeschermd>
+                                    <adres>
+                                       <buitenlandsAdres>
+                                          <straatHuisnummer>c/o TAYLOR BRIDGE 32 KELLY AVENUE</straatHuisnummer>
+                                          <postcodeWoonplaats>LONDON SE15 5LL</postcodeWoonplaats>
+                                          <land>
+                                             <code>6039</code>
+                                             <omschrijving>Verenigd Koninkrijk</omschrijving>
+                                             <referentieType>Land</referentieType>
+                                          </land>
+                                       </buitenlandsAdres>
+                                    </adres>
+                                    <volledigAdres>c/o TAYLOR BRIDGE 32 KELLY AVENUE
+LONDON SE15 5LL
+Verenigd Koninkrijk</volledigAdres>
+                                 </bezoekLocatiePersoon>
+                                 <buitenlandseRegistratieGegevens>
+                                    <naam>Companies Registration Office</naam>
+                                    <plaats>Cardiff</plaats>
+                                    <land>
+                                       <code>6039</code>
+                                       <omschrijving>Verenigd Koninkrijk</omschrijving>
+                                       <referentieType>Land</referentieType>
+                                    </land>
+                                    <inschrijfnummer>02868191</inschrijfnummer>
+                                    <buitenlandseRegistratie>Companies Registration Office
+Cardiff, Verenigd Koninkrijk
+Onder nummer 02868191</buitenlandseRegistratie>
+                                 </buitenlandseRegistratieGegevens>
+                                 <landVanVestiging>
+                                    <code>6039</code>
+                                    <omschrijving>Verenigd Koninkrijk</omschrijving>
+                                    <referentieType>Land</referentieType>
+                                 </landVanVestiging>
+                              </buitenlandseVennootschap>
+                           </door>
+                           <functie>
+                              <code>02</code>
+                              <omschrijving>Bestuurder</omschrijving>
+                              <referentieType>FunctionarisRol</referentieType>
+                           </functie>
+                           <bevoegdheid>
+                              <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <datumAanvang>19931231</datumAanvang>
+                              </registratie>
+                              <soort>
+                                 <code>azb</code>
+                                 <omschrijving>Alleen/zelfstandig bevoegd</omschrijving>
+                                 <referentieType>SoortBevoegdheidBestuurder</referentieType>
+                              </soort>
+                              <isBevoegdMetAnderePersonen>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isBevoegdMetAnderePersonen>
+                           </bevoegdheid>
+                        </bestuursfunctie>
+                     </heeft>
+                     <heeft>
+                        <overigeFunctionaris>
+                           <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <datumAanvang>19961021</datumAanvang>
+                           </registratie>
+                           <door>
+                              <rechtspersoon>
+                                 <persoonRechtsvorm>Besloten Vennootschap</persoonRechtsvorm>
+                                 <volledigeNaam>Molecaten Europe B.V.</volledigeNaam>
+                                 <bezoekLocatiePersoon>
+                                    <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                       <datumAanvang>19891002</datumAanvang>
+                                    </registratie>
+                                    <afgeschermd>
+                                       <code>N</code>
+                                       <omschrijving>Nee</omschrijving>
+                                       <referentieType>geenRT</referentieType>
+                                    </afgeschermd>
+                                    <adres>
+                                       <binnenlandsAdres>
+                                          <straatnaam>Molecaten</straatnaam>
+                                          <huisnummer>1</huisnummer>
+                                          <postcode>
+                                             <cijfercombinatie>8051</cijfercombinatie>
+                                             <lettercombinatie>PN</lettercombinatie>
+                                          </postcode>
+                                          <plaats>Hattem</plaats>
+                                          <bagId>
+                                             <identificatieNummeraanduiding>0244200000003662</identificatieNummeraanduiding>
+                                             <identificatieAdresseerbaarObject>0244010000003662</identificatieAdresseerbaarObject>
+                                          </bagId>
+                                       </binnenlandsAdres>
+                                    </adres>
+                                    <volledigAdres>Molecaten 1
+8051PN Hattem</volledigAdres>
+                                 </bezoekLocatiePersoon>
+                                 <isEigenaarVan>
+                                    <maatschappelijkeActiviteit>
+                                       <kvkNummer>08049288</kvkNummer>
+                                       <nonMailing>
+                                          <code>N</code>
+                                          <omschrijving>Nee</omschrijving>
+                                          <referentieType>geenRT</referentieType>
+                                       </nonMailing>
+                                    </maatschappelijkeActiviteit>
+                                 </isEigenaarVan>
+                                 <rsin>002726208</rsin>
+                              </rechtspersoon>
+                           </door>
+                           <functie>
+                              <code>08</code>
+                              <omschrijving>Enig aandeelhouder</omschrijving>
+                              <referentieType>FunctionarisRol</referentieType>
+                           </functie>
+                        </overigeFunctionaris>
+                     </heeft>
+                     <rsin>802724085</rsin>
+                     <naamgeving>
+                        <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>20040204</datumAanvang>
+                        </registratie>
+                        <naam>Molecaten Horeca B.V.</naam>
+                     </naamgeving>
+                     <heeftGedeponeerd>
+                        <jaarstukJaarrekening>
+                           <depotId>a1d65ff:16bd85f9f66:-6770</depotId>
+                           <status>
+                              <code>1</code>
+                              <omschrijving>Actueel</omschrijving>
+                              <referentieType>StatusDepotstuk</referentieType>
+                           </status>
+                           <datumDeponering>20190709</datumDeponering>
+                           <boekjaar>2018</boekjaar>
+                           <vaststelling>
+                              <code>D</code>
+                              <omschrijving>Definitief</omschrijving>
+                              <referentieType>VaststellingJaarrekening</referentieType>
+                           </vaststelling>
+                        </jaarstukJaarrekening>
+                     </heeftGedeponeerd>
+                     <rechtsvorm>
+                        <code>BV</code>
+                        <omschrijving>Besloten Vennootschap</omschrijving>
+                        <referentieType>Rechtsvorm</referentieType>
+                     </rechtsvorm>
+                     <statutaireZetel>Hattem</statutaireZetel>
+                     <aanvangStatutaireZetel>20160902</aanvangStatutaireZetel>
+                     <datumAkteOprichting>19930917</datumAkteOprichting>
+                     <datumEersteInschrijvingHandelsregister>19930924</datumEersteInschrijvingHandelsregister>
+                     <datumAkteStatutenwijziging>20160902</datumAkteStatutenwijziging>
+                     <stelselInrichting>
+                        <code>D</code>
+                        <omschrijving>Dualistisch</omschrijving>
+                        <referentieType>StelselInrichting</referentieType>
+                     </stelselInrichting>
+                     <structuur>
+                        <code>GS</code>
+                        <omschrijving>Gewone structuur</omschrijving>
+                        <referentieType>RechtsvormStructuur</referentieType>
+                     </structuur>
+                     <geplaatstKapitaal>
+                        <registratie registratieTijdstipNoValue="vastgesteldOnbekend"/>
+                        <bedrag>
+                           <waarde>18200</waarde>
+                           <valuta>
+                              <code>EUR</code>
+                              <omschrijving>Euro</omschrijving>
+                              <referentieType>Valuta</referentieType>
+                           </valuta>
+                        </bedrag>
+                     </geplaatstKapitaal>
+                     <gestortKapitaal>
+                        <registratie registratieTijdstipNoValue="vastgesteldOnbekend"/>
+                        <bedrag>
+                           <waarde>18200</waarde>
+                           <valuta>
+                              <code>EUR</code>
+                              <omschrijving>Euro</omschrijving>
+                              <referentieType>Valuta</referentieType>
+                           </valuta>
+                        </bedrag>
+                     </gestortKapitaal>
+                     <bezoekLocatie>
+                        <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>19930917</datumAanvang>
+                        </registratie>
+                        <afgeschermd>
+                           <code>N</code>
+                           <omschrijving>Nee</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </afgeschermd>
+                        <adres>
+                           <binnenlandsAdres>
+                              <straatnaam>Molecaten</straatnaam>
+                              <huisnummer>1</huisnummer>
+                              <postcode>
+                                 <cijfercombinatie>8051</cijfercombinatie>
+                                 <lettercombinatie>PN</lettercombinatie>
+                              </postcode>
+                              <plaats>Hattem</plaats>
+                              <bagId>
+                                 <identificatieNummeraanduiding>0244200000003662</identificatieNummeraanduiding>
+                                 <identificatieAdresseerbaarObject>0244010000003662</identificatieAdresseerbaarObject>
+                              </bagId>
+                           </binnenlandsAdres>
+                        </adres>
+                        <volledigAdres>Molecaten 1
+8051PN Hattem</volledigAdres>
+                     </bezoekLocatie>
+                  </rechtspersoon>
+               </heeftAlsEigenaar>
+            </maatschappelijkeActiviteit>
+         </product>
+      </ophalenInschrijvingResponse>
+   </wstxns8:Body>
+</soap:Envelope>

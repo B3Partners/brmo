@@ -1,0 +1,1623 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Geanonimiseerd door B3Partners BV op 2020-06-26+02:00, zie commentaar in bericht.-->
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+   <wstxns1:Header xmlns:wsa="http://www.w3.org/2005/08/addressing"
+                   xmlns:wstxns1="http://schemas.xmlsoap.org/soap/envelope/"/>
+   <wstxns8:Body xmlns:wstxns8="http://schemas.xmlsoap.org/soap/envelope/"
+                 xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+                 wsu:Id="id-1-d15c2cd8964a039b06f97ad5dc431a37">
+      <ophalenInschrijvingResponse xmlns="http://schemas.kvk.nl/schemas/hrip/dataservice/2015/02"
+                                   peilmoment="20200618154128904">
+         <meldingen>
+            <informatie>
+               <code>IPD0000</code>
+               <omschrijving>Het product is succesvol geproduceerd</omschrijving>
+               <referentie>02320379</referentie>
+            </informatie>
+         </meldingen>
+         <product>
+            <maatschappelijkeActiviteit xmlns="http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02">
+               <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                  <datumAanvang>19731105</datumAanvang>
+               </registratie>
+               <kvkNummer>02320379</kvkNummer>
+               <nonMailing>
+                  <code>N</code>
+                  <omschrijving>Nee</omschrijving>
+                  <referentieType>geenRT</referentieType>
+               </nonMailing>
+               <incidenteelUitlenenArbeidskrachten>
+                  <code>N</code>
+                  <omschrijving>Nee</omschrijving>
+                  <referentieType>geenRT</referentieType>
+               </incidenteelUitlenenArbeidskrachten>
+               <bezoekLocatie>
+                  <registratie registratieTijdstip="20161212082824750">
+                     <datumAanvang>19730801</datumAanvang>
+                  </registratie>
+                  <afgeschermd>
+                     <code>N</code>
+                     <omschrijving>Nee</omschrijving>
+                     <referentieType>geenRT</referentieType>
+                  </afgeschermd>
+                  <adres>
+                     <binnenlandsAdres>
+                        <straatnaam>Oosterhorn</straatnaam>
+                        <huisnummer>32</huisnummer>
+                        <postcode>
+                           <cijfercombinatie>9936</cijfercombinatie>
+                           <lettercombinatie>HD</lettercombinatie>
+                        </postcode>
+                        <plaats>Farmsum</plaats>
+                        <bagId>
+                           <identificatieNummeraanduiding>0010200000112097</identificatieNummeraanduiding>
+                           <identificatieAdresseerbaarObject>0010010000061961</identificatieAdresseerbaarObject>
+                        </bagId>
+                     </binnenlandsAdres>
+                  </adres>
+                  <volledigAdres>Oosterhorn 32
+9936HD Farmsum</volledigAdres>
+               </bezoekLocatie>
+               <postLocatie>
+                  <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <datumAanvang>19730801</datumAanvang>
+                  </registratie>
+                  <afgeschermd>
+                     <code>N</code>
+                     <omschrijving>Nee</omschrijving>
+                     <referentieType>geenRT</referentieType>
+                  </afgeschermd>
+                  <adres>
+                     <binnenlandsAdres>
+                        <postbusnummer>45</postbusnummer>
+                        <postcode>
+                           <cijfercombinatie>9930</cijfercombinatie>
+                           <lettercombinatie>AA</lettercombinatie>
+                        </postcode>
+                        <plaats>Delfzijl</plaats>
+                     </binnenlandsAdres>
+                  </adres>
+                  <volledigAdres>Postbus 45
+9930AA Delfzijl</volledigAdres>
+               </postLocatie>
+               <communicatiegegevens>
+                  <registratie registratieTijdstip="20150303152120900">
+                     <datumAanvang>20150302</datumAanvang>
+                  </registratie>
+                  <communicatienummer>
+                     <toegangscode>+31</toegangscode>
+                     <nummer>0596649300</nummer>
+                     <soort>
+                        <code>T</code>
+                        <omschrijving>Telefoon</omschrijving>
+                     </soort>
+                  </communicatienummer>
+                  <communicatienummer>
+                     <toegangscode>+31</toegangscode>
+                     <nummer>0596617188</nummer>
+                     <soort>
+                        <code>F</code>
+                        <omschrijving>Fax</omschrijving>
+                     </soort>
+                  </communicatienummer>
+                  <emailAdres>info@siniat.nl</emailAdres>
+               </communicatiegegevens>
+               <naam>Etex Building Performance B.V.</naam>
+               <manifesteertZichAls>
+                  <relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <datumAanvang>19731105</datumAanvang>
+                  </relatieRegistratie>
+                  <onderneming>
+                     <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                        <datumAanvang>19730801</datumAanvang>
+                     </registratie>
+                     <kvkNummer>02320379</kvkNummer>
+                     <sbiActiviteit>
+                        <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>19730801</datumAanvang>
+                        </registratie>
+                        <sbiCode>
+                           <code>2362</code>
+                           <omschrijving>Vervaardiging van producten van gips voor de bouw</omschrijving>
+                           <referentieType>ActiviteitCode</referentieType>
+                        </sbiCode>
+                        <isHoofdactiviteit>
+                           <code>J</code>
+                           <omschrijving>Ja</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </isHoofdactiviteit>
+                     </sbiActiviteit>
+                     <sbiActiviteit>
+                        <registratie registratieTijdstip="20180508154924763">
+                           <datumAanvang>19750601</datumAanvang>
+                        </registratie>
+                        <sbiCode>
+                           <code>46738</code>
+                           <omschrijving>Groothandel gespecialiseerd in overige bouwmaterialen</omschrijving>
+                           <referentieType>ActiviteitCode</referentieType>
+                        </sbiCode>
+                        <isHoofdactiviteit>
+                           <code>J</code>
+                           <omschrijving>Ja</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </isHoofdactiviteit>
+                     </sbiActiviteit>
+                     <voltijdWerkzamePersonen>121</voltijdWerkzamePersonen>
+                     <deeltijdWerkzamePersonen>0</deeltijdWerkzamePersonen>
+                     <totaalWerkzamePersonen>121</totaalWerkzamePersonen>
+                     <handeltOnder>
+                        <handelsnaam>
+                           <registratie registratieTijdstip="20180502123315104">
+                              <datumAanvang>20180502</datumAanvang>
+                           </registratie>
+                           <naam>Etex Building Performance B.V.</naam>
+                           <volgorde>0</volgorde>
+                        </handelsnaam>
+                     </handeltOnder>
+                     <wordtUitgeoefendIn>
+                        <relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>19731105</datumAanvang>
+                        </relatieRegistratie>
+                        <commercieleVestiging>
+                           <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <datumAanvang>19730801</datumAanvang>
+                           </registratie>
+                           <vestigingsnummer>000020144792</vestigingsnummer>
+                           <bezoekLocatie>
+                              <registratie registratieTijdstip="20161212082824750">
+                                 <datumAanvang>19730801</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <straatnaam>Oosterhorn</straatnaam>
+                                    <huisnummer>32</huisnummer>
+                                    <postcode>
+                                       <cijfercombinatie>9936</cijfercombinatie>
+                                       <lettercombinatie>HD</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Farmsum</plaats>
+                                    <bagId>
+                                       <identificatieNummeraanduiding>0010200000112097</identificatieNummeraanduiding>
+                                       <identificatieAdresseerbaarObject>0010010000061961</identificatieAdresseerbaarObject>
+                                    </bagId>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Oosterhorn 32
+9936HD Farmsum</volledigAdres>
+                           </bezoekLocatie>
+                           <postLocatie>
+                              <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                 <datumAanvang>19730801</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <postbusnummer>45</postbusnummer>
+                                    <postcode>
+                                       <cijfercombinatie>9930</cijfercombinatie>
+                                       <lettercombinatie>AA</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Delfzijl</plaats>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Postbus 45
+9930AA Delfzijl</volledigAdres>
+                           </postLocatie>
+                           <communicatiegegevens>
+                              <registratie registratieTijdstip="20150303152120900">
+                                 <datumAanvang>20150302</datumAanvang>
+                              </registratie>
+                              <communicatienummer>
+                                 <toegangscode>+31</toegangscode>
+                                 <nummer>0596649300</nummer>
+                                 <soort>
+                                    <code>T</code>
+                                    <omschrijving>Telefoon</omschrijving>
+                                 </soort>
+                              </communicatienummer>
+                              <communicatienummer>
+                                 <toegangscode>+31</toegangscode>
+                                 <nummer>0596617188</nummer>
+                                 <soort>
+                                    <code>F</code>
+                                    <omschrijving>Fax</omschrijving>
+                                 </soort>
+                              </communicatienummer>
+                              <emailAdres>info@siniat.nl</emailAdres>
+                           </communicatiegegevens>
+                           <eersteHandelsnaam>Etex Building Performance B.V.</eersteHandelsnaam>
+                           <voltijdWerkzamePersonen>100</voltijdWerkzamePersonen>
+                           <deeltijdWerkzamePersonen>0</deeltijdWerkzamePersonen>
+                           <totaalWerkzamePersonen>100</totaalWerkzamePersonen>
+                           <activiteiten>
+                              <omschrijving>Oprichting en exploitatie van een fabriek voor gipsen platen, alsmede de handel in deze en aanverwante artikelen</omschrijving>
+                              <sbiActiviteit>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>19730801</datumAanvang>
+                                 </registratie>
+                                 <sbiCode>
+                                    <code>2362</code>
+                                    <omschrijving>Vervaardiging van producten van gips voor de bouw</omschrijving>
+                                    <referentieType>ActiviteitCode</referentieType>
+                                 </sbiCode>
+                                 <isHoofdactiviteit>
+                                    <code>J</code>
+                                    <omschrijving>Ja</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </isHoofdactiviteit>
+                              </sbiActiviteit>
+                              <exporteert>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </exporteert>
+                              <importeert>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </importeert>
+                           </activiteiten>
+                           <handeltOnder>
+                              <relatieRegistratie registratieTijdstip="20180502123315104">
+                                 <datumAanvang>20180502</datumAanvang>
+                              </relatieRegistratie>
+                              <handelsnaam>
+                                 <registratie registratieTijdstip="20180502123315104">
+                                    <datumAanvang>20180502</datumAanvang>
+                                 </registratie>
+                                 <naam>Etex Building Performance B.V.</naam>
+                                 <volgorde>0</volgorde>
+                              </handelsnaam>
+                           </handeltOnder>
+                        </commercieleVestiging>
+                     </wordtUitgeoefendIn>
+                     <wordtUitgeoefendIn>
+                        <relatieRegistratie registratieTijdstip="20180508154924763">
+                           <datumAanvang>20180502</datumAanvang>
+                        </relatieRegistratie>
+                        <commercieleVestiging>
+                           <registratie registratieTijdstip="20180508154924763">
+                              <datumAanvang>19750601</datumAanvang>
+                           </registratie>
+                           <vestigingsnummer>000020423276</vestigingsnummer>
+                           <bezoekLocatie>
+                              <registratie registratieTijdstip="20180508154924763">
+                                 <datumAanvang>20180502</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <straatnaam>Vleugelboot</straatnaam>
+                                    <huisnummer>22</huisnummer>
+                                    <postcode>
+                                       <cijfercombinatie>3991</cijfercombinatie>
+                                       <lettercombinatie>CL</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Houten</plaats>
+                                    <bagId>
+                                       <identificatieNummeraanduiding>0321200000017286</identificatieNummeraanduiding>
+                                       <identificatieAdresseerbaarObject>0321010000017286</identificatieAdresseerbaarObject>
+                                    </bagId>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Vleugelboot 22
+3991CL Houten</volledigAdres>
+                           </bezoekLocatie>
+                           <postLocatie>
+                              <registratie registratieTijdstip="20180508154924763">
+                                 <datumAanvang>20180502</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <postbusnummer>475</postbusnummer>
+                                    <postcode>
+                                       <cijfercombinatie>3990</cijfercombinatie>
+                                       <lettercombinatie>GG</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Houten</plaats>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Postbus 475
+3990GG Houten</volledigAdres>
+                           </postLocatie>
+                           <communicatiegegevens>
+                              <registratie registratieTijdstip="20180508154924763">
+                                 <datumAanvang>19750601</datumAanvang>
+                              </registratie>
+                              <communicatienummer>
+                                 <toegangscode>+31</toegangscode>
+                                 <nummer>0302410770</nummer>
+                                 <soort>
+                                    <code>T</code>
+                                    <omschrijving>Telefoon</omschrijving>
+                                 </soort>
+                              </communicatienummer>
+                              <communicatienummer>
+                                 <toegangscode>+31</toegangscode>
+                                 <nummer>0302410771</nummer>
+                                 <soort>
+                                    <code>F</code>
+                                    <omschrijving>Fax</omschrijving>
+                                 </soort>
+                              </communicatienummer>
+                           </communicatiegegevens>
+                           <eersteHandelsnaam>Etex Building Performance B.V.</eersteHandelsnaam>
+                           <isOvergenomenVan>
+                              <relatieRegistratie registratieTijdstip="20180508154924763">
+                                 <datumAanvang>20180502</datumAanvang>
+                              </relatieRegistratie>
+                              <maatschappelijkeActiviteit>
+                                 <registratie registratieTijdstip="20180508154924763">
+                                    <datumAanvang>19531114</datumAanvang>
+                                    <datumEinde>20180502</datumEinde>
+                                 </registratie>
+                                 <kvkNummer>30143143</kvkNummer>
+                              </maatschappelijkeActiviteit>
+                              <datumVoortzetting>20180502</datumVoortzetting>
+                           </isOvergenomenVan>
+                           <voltijdWerkzamePersonen>21</voltijdWerkzamePersonen>
+                           <deeltijdWerkzamePersonen>0</deeltijdWerkzamePersonen>
+                           <totaalWerkzamePersonen>21</totaalWerkzamePersonen>
+                           <activiteiten>
+                              <omschrijving>Groot- en tussenhandel in brandwerende produkten voor bouw en industrie en hoogtetemperatuur bestendige produkten, zomede het verrichten van onderzoek en het uitvoeren van verkoopbevorderende handelingen alsmede het deelnemen in andere ondernemingen.</omschrijving>
+                              <sbiActiviteit>
+                                 <registratie registratieTijdstip="20180508154924763">
+                                    <datumAanvang>19750601</datumAanvang>
+                                 </registratie>
+                                 <sbiCode>
+                                    <code>46738</code>
+                                    <omschrijving>Groothandel gespecialiseerd in overige bouwmaterialen</omschrijving>
+                                    <referentieType>ActiviteitCode</referentieType>
+                                 </sbiCode>
+                                 <isHoofdactiviteit>
+                                    <code>J</code>
+                                    <omschrijving>Ja</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </isHoofdactiviteit>
+                              </sbiActiviteit>
+                              <exporteert>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </exporteert>
+                              <importeert>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </importeert>
+                           </activiteiten>
+                           <handeltOnder>
+                              <relatieRegistratie registratieTijdstip="20180508154924763">
+                                 <datumAanvang>20180502</datumAanvang>
+                              </relatieRegistratie>
+                              <handelsnaam>
+                                 <registratie registratieTijdstip="20180502123315104">
+                                    <datumAanvang>20180502</datumAanvang>
+                                 </registratie>
+                                 <naam>Etex Building Performance B.V.</naam>
+                                 <volgorde>0</volgorde>
+                              </handelsnaam>
+                           </handeltOnder>
+                        </commercieleVestiging>
+                     </wordtUitgeoefendIn>
+                  </onderneming>
+               </manifesteertZichAls>
+               <wordtGeleidVanuit>
+                  <commercieleVestiging>
+                     <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                        <datumAanvang>19730801</datumAanvang>
+                     </registratie>
+                     <vestigingsnummer>000020144792</vestigingsnummer>
+                     <bezoekLocatie>
+                        <registratie registratieTijdstip="20161212082824750">
+                           <datumAanvang>19730801</datumAanvang>
+                        </registratie>
+                        <afgeschermd>
+                           <code>N</code>
+                           <omschrijving>Nee</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </afgeschermd>
+                        <adres>
+                           <binnenlandsAdres>
+                              <straatnaam>Oosterhorn</straatnaam>
+                              <huisnummer>32</huisnummer>
+                              <postcode>
+                                 <cijfercombinatie>9936</cijfercombinatie>
+                                 <lettercombinatie>HD</lettercombinatie>
+                              </postcode>
+                              <plaats>Farmsum</plaats>
+                              <bagId>
+                                 <identificatieNummeraanduiding>0010200000112097</identificatieNummeraanduiding>
+                                 <identificatieAdresseerbaarObject>0010010000061961</identificatieAdresseerbaarObject>
+                              </bagId>
+                           </binnenlandsAdres>
+                        </adres>
+                        <volledigAdres>Oosterhorn 32
+9936HD Farmsum</volledigAdres>
+                     </bezoekLocatie>
+                     <postLocatie>
+                        <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                           <datumAanvang>19730801</datumAanvang>
+                        </registratie>
+                        <afgeschermd>
+                           <code>N</code>
+                           <omschrijving>Nee</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </afgeschermd>
+                        <adres>
+                           <binnenlandsAdres>
+                              <postbusnummer>45</postbusnummer>
+                              <postcode>
+                                 <cijfercombinatie>9930</cijfercombinatie>
+                                 <lettercombinatie>AA</lettercombinatie>
+                              </postcode>
+                              <plaats>Delfzijl</plaats>
+                           </binnenlandsAdres>
+                        </adres>
+                        <volledigAdres>Postbus 45
+9930AA Delfzijl</volledigAdres>
+                     </postLocatie>
+                     <communicatiegegevens>
+                        <registratie registratieTijdstip="20150303152120900">
+                           <datumAanvang>20150302</datumAanvang>
+                        </registratie>
+                        <communicatienummer>
+                           <toegangscode>+31</toegangscode>
+                           <nummer>0596649300</nummer>
+                           <soort>
+                              <code>T</code>
+                              <omschrijving>Telefoon</omschrijving>
+                           </soort>
+                        </communicatienummer>
+                        <communicatienummer>
+                           <toegangscode>+31</toegangscode>
+                           <nummer>0596617188</nummer>
+                           <soort>
+                              <code>F</code>
+                              <omschrijving>Fax</omschrijving>
+                           </soort>
+                        </communicatienummer>
+                        <emailAdres>info@siniat.nl</emailAdres>
+                     </communicatiegegevens>
+                     <eersteHandelsnaam>Etex Building Performance B.V.</eersteHandelsnaam>
+                     <voltijdWerkzamePersonen>100</voltijdWerkzamePersonen>
+                     <deeltijdWerkzamePersonen>0</deeltijdWerkzamePersonen>
+                     <totaalWerkzamePersonen>100</totaalWerkzamePersonen>
+                     <activiteiten>
+                        <omschrijving>Oprichting en exploitatie van een fabriek voor gipsen platen, alsmede de handel in deze en aanverwante artikelen</omschrijving>
+                        <sbiActiviteit>
+                           <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <datumAanvang>19730801</datumAanvang>
+                           </registratie>
+                           <sbiCode>
+                              <code>2362</code>
+                              <omschrijving>Vervaardiging van producten van gips voor de bouw</omschrijving>
+                              <referentieType>ActiviteitCode</referentieType>
+                           </sbiCode>
+                           <isHoofdactiviteit>
+                              <code>J</code>
+                              <omschrijving>Ja</omschrijving>
+                              <referentieType>geenRT</referentieType>
+                           </isHoofdactiviteit>
+                        </sbiActiviteit>
+                        <exporteert>
+                           <code>N</code>
+                           <omschrijving>Nee</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </exporteert>
+                        <importeert>
+                           <code>N</code>
+                           <omschrijving>Nee</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </importeert>
+                     </activiteiten>
+                     <handeltOnder>
+                        <relatieRegistratie registratieTijdstip="20180502123315104">
+                           <datumAanvang>20180502</datumAanvang>
+                        </relatieRegistratie>
+                        <handelsnaam>
+                           <registratie registratieTijdstip="20180502123315104">
+                              <datumAanvang>20180502</datumAanvang>
+                           </registratie>
+                           <naam>Etex Building Performance B.V.</naam>
+                           <volgorde>0</volgorde>
+                        </handelsnaam>
+                     </handeltOnder>
+                  </commercieleVestiging>
+               </wordtGeleidVanuit>
+               <heeftAlsEigenaar>
+                  <relatieRegistratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                     <datumAanvang>19731105</datumAanvang>
+                  </relatieRegistratie>
+                  <rechtspersoon>
+                     <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                        <datumAanvang>19731105</datumAanvang>
+                     </registratie>
+                     <persoonRechtsvorm>Besloten Vennootschap</persoonRechtsvorm>
+                     <volledigeNaam>Etex Building Performance B.V.</volledigeNaam>
+                     <uitgebreideRechtsvorm>Besloten Vennootschap</uitgebreideRechtsvorm>
+                     <heeft>
+                        <gemachtigde>
+                           <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                              <datumAanvang>19990801</datumAanvang>
+                           </registratie>
+                           <functietitel>
+                              <registratie registratieTijdstip="20150325151728951">
+                                 <datumAanvang>20150310</datumAanvang>
+                              </registratie>
+                              <titel>Continuous Improvement Manager</titel>
+                              <isStatutaireTitel>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isStatutaireTitel>
+                           </functietitel>
+                           <door>
+                              <natuurlijkPersoon>
+                                 <extraElementen>
+                                    <extraElement naam="achternaam">cce0</extraElement>
+                                    <!--Anonimisatie 'extraElement': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--></extraElementen>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>19431115</datumAanvang>
+                                    <!--Anonimisatie 'datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></registratie>
+                                 <volledigeNaam>9818eb 6847</volledigeNaam>
+                                 <!--Anonimisatie 'volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><bezoekLocatiePersoon>
+                                    <registratie registratieTijdstipNoValue="vastgesteldOnbekend"/>
+                                    <afgeschermd>
+                                       <code>N</code>
+                                       <omschrijving>Nee</omschrijving>
+                                       <referentieType>geenRT</referentieType>
+                                    </afgeschermd>
+                                    <adres>
+                                       <binnenlandsAdres>
+                                          <straatnaam>Hoofdweg</straatnaam>
+                                          <huisnummer>2</huisnummer>
+                                          <postcode>
+                                             <cijfercombinatie>9908</cijfercombinatie>
+                                             <lettercombinatie>PB</lettercombinatie>
+                                          </postcode>
+                                          <plaats>Godlinze</plaats>
+                                          <bagId>
+                                             <identificatieNummeraanduiding>0010200000111498</identificatieNummeraanduiding>
+                                             <identificatieAdresseerbaarObject>0010010000061355</identificatieAdresseerbaarObject>
+                                          </bagId>
+                                       </binnenlandsAdres>
+                                    </adres>
+                                    <volledigAdres>Hoofdweg 2
+9908PB Godlinze</volledigAdres>
+                                 </bezoekLocatiePersoon>
+                                 <bsn>357555400</bsn>
+                                 <!--Anonimisatie 'bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><geslachtsnaam>cce0</geslachtsnaam>
+                                 <!--Anonimisatie 'geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><voornamen>087ae1</voornamen>
+                                 <!--Anonimisatie 'voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geslachtsaanduiding>
+                                    <code>m</code>
+                                    <omschrijving>Mannelijk</omschrijving>
+                                    <referentieType>Geslacht</referentieType>
+                                 </geslachtsaanduiding>
+                                 <geboorteplaats>96d4368c6194150</geboorteplaats>
+                                 <!--Anonimisatie 'geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geboorteland>
+                                    <code>6030</code>
+                                    <omschrijving>Nederland</omschrijving>
+                                    <referentieType>Land</referentieType>
+                                 </geboorteland>
+                                 <geboortedatum>19431115</geboortedatum>
+                                 <!--Anonimisatie 'geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></natuurlijkPersoon>
+                           </door>
+                           <functie>
+                              <code>01</code>
+                              <omschrijving>Gevolmachtigde</omschrijving>
+                              <referentieType>FunctionarisRol</referentieType>
+                           </functie>
+                           <volmacht>
+                              <registratie registratieTijdstip="20140205161725735">
+                                 <datumAanvang>20140101</datumAanvang>
+                              </registratie>
+                              <typeVolmacht>
+                                 <code>b</code>
+                                 <omschrijving>Beperkte volmacht</omschrijving>
+                                 <referentieType>VolmachtType</referentieType>
+                              </typeVolmacht>
+                              <isStatutair>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isStatutair>
+                              <beperkteVolmacht>
+                                 <beperkingInGeld>
+                                    <waarde>100000</waarde>
+                                    <valuta>
+                                       <code>EUR</code>
+                                       <omschrijving>Euro</omschrijving>
+                                       <referentieType>Valuta</referentieType>
+                                    </valuta>
+                                 </beperkingInGeld>
+                                 <magOpgaveHandelsregisterDoen>
+                                    <code>N</code>
+                                    <omschrijving>Nee</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </magOpgaveHandelsregisterDoen>
+                                 <heeftOverigeVolmacht>
+                                    <code>J</code>
+                                    <omschrijving>Ja</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </heeftOverigeVolmacht>
+                                 <omschrijvingOverigeVolmacht>Alleen tekeningsbevoegd samen met 2e gevolmachtigde</omschrijvingOverigeVolmacht>
+                              </beperkteVolmacht>
+                           </volmacht>
+                        </gemachtigde>
+                     </heeft>
+                     <heeft>
+                        <overigeFunctionaris>
+                           <registratie registratieTijdstip="20150917113110294">
+                              <datumAanvang>20150401</datumAanvang>
+                           </registratie>
+                           <door>
+                              <natuurlijkPersoon>
+                                 <extraElementen>
+                                    <extraElement naam="achternaam">3a4d5b8</extraElement>
+                                    <!--Anonimisatie 'extraElement': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--></extraElementen>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>19960401</datumAanvang>
+                                    <!--Anonimisatie 'datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></registratie>
+                                 <volledigeNaam>2b4f 3a636 04d0e93 7cf2359</volledigeNaam>
+                                 <!--Anonimisatie 'volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><bezoekLocatiePersoon>
+                                    <registratie registratieTijdstip="20170102113041854"/>
+                                    <afgeschermd>
+                                       <code>N</code>
+                                       <omschrijving>Nee</omschrijving>
+                                       <referentieType>geenRT</referentieType>
+                                    </afgeschermd>
+                                    <adres>
+                                       <buitenlandsAdres>
+                                          <straatHuisnummer>Avenue de Castonier 24</straatHuisnummer>
+                                          <postcodeWoonplaats>1640 Rhode-Saint-Genèse</postcodeWoonplaats>
+                                          <land>
+                                             <code>5010</code>
+                                             <omschrijving>België</omschrijving>
+                                             <referentieType>Land</referentieType>
+                                          </land>
+                                       </buitenlandsAdres>
+                                    </adres>
+                                    <volledigAdres>Avenue de Castonier 24
+1640 Rhode-Saint-Genèse
+België</volledigAdres>
+                                 </bezoekLocatiePersoon>
+                                 <geslachtsnaam>3a4d5b8</geslachtsnaam>
+                                 <!--Anonimisatie 'geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><voornamen>e53d 91435 f1e9813</voornamen>
+                                 <!--Anonimisatie 'voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geslachtsaanduiding>
+                                    <code>m</code>
+                                    <omschrijving>Mannelijk</omschrijving>
+                                    <referentieType>Geslacht</referentieType>
+                                 </geslachtsaanduiding>
+                                 <geboorteplaats>afbd3 a8 b9390c</geboorteplaats>
+                                 <!--Anonimisatie 'geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geboorteland>
+                                    <code>5002</code>
+                                    <omschrijving>Frankrijk</omschrijving>
+                                    <referentieType>Land</referentieType>
+                                 </geboorteland>
+                                 <geboortedatum>19960401</geboortedatum>
+                                 <!--Anonimisatie 'geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></natuurlijkPersoon>
+                           </door>
+                           <functie>
+                              <code>03</code>
+                              <omschrijving>Commissaris</omschrijving>
+                              <referentieType>FunctionarisRol</referentieType>
+                           </functie>
+                        </overigeFunctionaris>
+                     </heeft>
+                     <heeft>
+                        <overigeFunctionaris>
+                           <registratie registratieTijdstip="20170106142528668">
+                              <datumAanvang>20160315</datumAanvang>
+                           </registratie>
+                           <functietitel>
+                              <registratie registratieTijdstip="20170106142528668">
+                                 <datumAanvang>20160315</datumAanvang>
+                              </registratie>
+                              <titel>Lid van de raad van commissarissen</titel>
+                              <isStatutaireTitel>
+                                 <code>J</code>
+                                 <omschrijving>Ja</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isStatutaireTitel>
+                           </functietitel>
+                           <door>
+                              <natuurlijkPersoon>
+                                 <extraElementen>
+                                    <extraElement naam="achternaam">de362824658b5e</extraElement>
+                                    <!--Anonimisatie 'extraElement': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--></extraElementen>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>19500415</datumAanvang>
+                                    <!--Anonimisatie 'datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></registratie>
+                                 <volledigeNaam>f731 e878c 647044 2493f c012d81629d5b6</volledigeNaam>
+                                 <!--Anonimisatie 'volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><bezoekLocatiePersoon>
+                                    <registratie registratieTijdstip="20170106142528668"/>
+                                    <afgeschermd>
+                                       <code>N</code>
+                                       <omschrijving>Nee</omschrijving>
+                                       <referentieType>geenRT</referentieType>
+                                    </afgeschermd>
+                                    <adres>
+                                       <buitenlandsAdres>
+                                          <straatHuisnummer>Fruithoflaan 20</straatHuisnummer>
+                                          <postcodeWoonplaats>2500 Lier</postcodeWoonplaats>
+                                          <land>
+                                             <code>5010</code>
+                                             <omschrijving>België</omschrijving>
+                                             <referentieType>Land</referentieType>
+                                          </land>
+                                       </buitenlandsAdres>
+                                    </adres>
+                                    <volledigAdres>Fruithoflaan 20
+2500 Lier
+België</volledigAdres>
+                                 </bezoekLocatiePersoon>
+                                 <bsn>680694777</bsn>
+                                 <!--Anonimisatie 'bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><geslachtsnaam>de362824658b5e</geslachtsnaam>
+                                 <!--Anonimisatie 'geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><voornamen>92d1 7340d e2bcc6 b2bbe</voornamen>
+                                 <!--Anonimisatie 'voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geslachtsaanduiding>
+                                    <code>m</code>
+                                    <omschrijving>Mannelijk</omschrijving>
+                                    <referentieType>Geslacht</referentieType>
+                                 </geslachtsaanduiding>
+                                 <geboorteplaats>4d45c859</geboorteplaats>
+                                 <!--Anonimisatie 'geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geboorteland>
+                                    <code>0000</code>
+                                    <omschrijving>Onbekend</omschrijving>
+                                    <referentieType>Land</referentieType>
+                                 </geboorteland>
+                                 <geboortedatum>19500415</geboortedatum>
+                                 <!--Anonimisatie 'geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></natuurlijkPersoon>
+                           </door>
+                           <functie>
+                              <code>03</code>
+                              <omschrijving>Commissaris</omschrijving>
+                              <referentieType>FunctionarisRol</referentieType>
+                           </functie>
+                        </overigeFunctionaris>
+                     </heeft>
+                     <heeft>
+                        <overigeFunctionaris>
+                           <registratie registratieTijdstip="20180321142124282">
+                              <datumAanvang>20180305</datumAanvang>
+                           </registratie>
+                           <door>
+                              <natuurlijkPersoon>
+                                 <extraElementen>
+                                    <extraElement naam="achternaam">bda</extraElement>
+                                    <!--Anonimisatie 'extraElement': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--></extraElementen>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>19460216</datumAanvang>
+                                    <!--Anonimisatie 'datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></registratie>
+                                 <volledigeNaam>10b9 f1a3fb5d0 629</volledigeNaam>
+                                 <!--Anonimisatie 'volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><bezoekLocatiePersoon>
+                                    <registratie registratieTijdstip="20180321142124282"/>
+                                    <afgeschermd>
+                                       <code>N</code>
+                                       <omschrijving>Nee</omschrijving>
+                                       <referentieType>geenRT</referentieType>
+                                    </afgeschermd>
+                                    <adres>
+                                       <buitenlandsAdres>
+                                          <straatHuisnummer>Brambling Lane 3</straatHuisnummer>
+                                          <postcodeWoonplaats>BS207GR Portishead</postcodeWoonplaats>
+                                          <regio>Bristol</regio>
+                                          <land>
+                                             <code>6039</code>
+                                             <omschrijving>Verenigd Koninkrijk</omschrijving>
+                                             <referentieType>Land</referentieType>
+                                          </land>
+                                       </buitenlandsAdres>
+                                    </adres>
+                                    <volledigAdres>Brambling Lane 3
+BS207GR Portishead
+Bristol
+Verenigd Koninkrijk</volledigAdres>
+                                 </bezoekLocatiePersoon>
+                                 <geslachtsnaam>bda</geslachtsnaam>
+                                 <!--Anonimisatie 'geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><voornamen>2326 2c72f984f</voornamen>
+                                 <!--Anonimisatie 'voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geslachtsaanduiding>
+                                    <code>m</code>
+                                    <omschrijving>Mannelijk</omschrijving>
+                                    <referentieType>Geslacht</referentieType>
+                                 </geslachtsaanduiding>
+                                 <geboorteplaats>13d4b96</geboorteplaats>
+                                 <!--Anonimisatie 'geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geboorteland>
+                                    <code>6039</code>
+                                    <omschrijving>Verenigd Koninkrijk</omschrijving>
+                                    <referentieType>Land</referentieType>
+                                 </geboorteland>
+                                 <geboortedatum>19460216</geboortedatum>
+                                 <!--Anonimisatie 'geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></natuurlijkPersoon>
+                           </door>
+                           <functie>
+                              <code>03</code>
+                              <omschrijving>Commissaris</omschrijving>
+                              <referentieType>FunctionarisRol</referentieType>
+                           </functie>
+                        </overigeFunctionaris>
+                     </heeft>
+                     <heeft>
+                        <gemachtigde>
+                           <registratie registratieTijdstip="20180507163712318">
+                              <datumAanvang>20180507</datumAanvang>
+                           </registratie>
+                           <door>
+                              <natuurlijkPersoon>
+                                 <extraElementen>
+                                    <extraElement naam="achternaam">94ced64</extraElement>
+                                    <!--Anonimisatie 'extraElement': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--></extraElementen>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>20070901</datumAanvang>
+                                    <!--Anonimisatie 'datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></registratie>
+                                 <volledigeNaam>7c8bd d1f2be d1dda5a</volledigeNaam>
+                                 <!--Anonimisatie 'volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><bezoekLocatiePersoon>
+                                    <registratie registratieTijdstip="20190405221549050"/>
+                                    <afgeschermd>
+                                       <code>N</code>
+                                       <omschrijving>Nee</omschrijving>
+                                       <referentieType>geenRT</referentieType>
+                                    </afgeschermd>
+                                    <adres>
+                                       <binnenlandsAdres>
+                                          <straatnaam>Henk Plenterlaan</straatnaam>
+                                          <huisnummer>58</huisnummer>
+                                          <postcode>
+                                             <cijfercombinatie>9731</cijfercombinatie>
+                                             <lettercombinatie>KG</lettercombinatie>
+                                          </postcode>
+                                          <plaats>Groningen</plaats>
+                                          <bagId>
+                                             <identificatieNummeraanduiding>0014200010887995</identificatieNummeraanduiding>
+                                             <identificatieAdresseerbaarObject>0014010011079345</identificatieAdresseerbaarObject>
+                                          </bagId>
+                                       </binnenlandsAdres>
+                                    </adres>
+                                    <volledigAdres>Henk Plenterlaan 58
+9731KG Groningen</volledigAdres>
+                                 </bezoekLocatiePersoon>
+                                 <bsn>609296218</bsn>
+                                 <!--Anonimisatie 'bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><geslachtsnaam>94ced64</geslachtsnaam>
+                                 <!--Anonimisatie 'geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><voornamen>ec6d2 f76904</voornamen>
+                                 <!--Anonimisatie 'voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geslachtsaanduiding>
+                                    <code>m</code>
+                                    <omschrijving>Mannelijk</omschrijving>
+                                    <referentieType>Geslacht</referentieType>
+                                 </geslachtsaanduiding>
+                                 <geboorteplaats>600fe1</geboorteplaats>
+                                 <!--Anonimisatie 'geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geboorteland>
+                                    <code>6030</code>
+                                    <omschrijving>Nederland</omschrijving>
+                                    <referentieType>Land</referentieType>
+                                 </geboorteland>
+                                 <geboortedatum>20070901</geboortedatum>
+                                 <!--Anonimisatie 'geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></natuurlijkPersoon>
+                           </door>
+                           <functie>
+                              <code>01</code>
+                              <omschrijving>Gevolmachtigde</omschrijving>
+                              <referentieType>FunctionarisRol</referentieType>
+                           </functie>
+                           <volmacht>
+                              <registratie registratieTijdstip="20180507163712318">
+                                 <datumAanvang>20180507</datumAanvang>
+                              </registratie>
+                              <typeVolmacht>
+                                 <code>b</code>
+                                 <omschrijving>Beperkte volmacht</omschrijving>
+                                 <referentieType>VolmachtType</referentieType>
+                              </typeVolmacht>
+                              <isStatutair>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isStatutair>
+                              <beperkteVolmacht>
+                                 <beperkingInGeld>
+                                    <waarde>50000</waarde>
+                                    <valuta>
+                                       <code>EUR</code>
+                                       <omschrijving>Euro</omschrijving>
+                                       <referentieType>Valuta</referentieType>
+                                    </valuta>
+                                 </beperkingInGeld>
+                                 <magOpgaveHandelsregisterDoen>
+                                    <code>N</code>
+                                    <omschrijving>Nee</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </magOpgaveHandelsregisterDoen>
+                                 <heeftOverigeVolmacht>
+                                    <code>J</code>
+                                    <omschrijving>Ja</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </heeftOverigeVolmacht>
+                                 <omschrijvingOverigeVolmacht>Gevolmachtigde mag alleen tekenen samen met andere gevolmachtigde.</omschrijvingOverigeVolmacht>
+                              </beperkteVolmacht>
+                           </volmacht>
+                        </gemachtigde>
+                     </heeft>
+                     <heeft>
+                        <gemachtigde>
+                           <registratie registratieTijdstip="20180517151944630">
+                              <datumAanvang>20180501</datumAanvang>
+                           </registratie>
+                           <functietitel>
+                              <registratie registratieTijdstip="20180517151944630">
+                                 <datumAanvang>20180501</datumAanvang>
+                              </registratie>
+                              <titel>Finance Manager</titel>
+                              <isStatutaireTitel>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isStatutaireTitel>
+                           </functietitel>
+                           <door>
+                              <natuurlijkPersoon>
+                                 <extraElementen>
+                                    <extraElement naam="achternaam">694ed3f75</extraElement>
+                                    <!--Anonimisatie 'extraElement': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--></extraElementen>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>20200724</datumAanvang>
+                                    <!--Anonimisatie 'datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></registratie>
+                                 <volledigeNaam>f123573 677d0 1e17a0560</volledigeNaam>
+                                 <!--Anonimisatie 'volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><bezoekLocatiePersoon>
+                                    <registratie registratieTijdstip="20180517151944630"/>
+                                    <afgeschermd>
+                                       <code>N</code>
+                                       <omschrijving>Nee</omschrijving>
+                                       <referentieType>geenRT</referentieType>
+                                    </afgeschermd>
+                                    <adres>
+                                       <binnenlandsAdres>
+                                          <straatnaam>Strekel</straatnaam>
+                                          <huisnummer>5</huisnummer>
+                                          <postcode>
+                                             <cijfercombinatie>9932</cijfercombinatie>
+                                             <lettercombinatie>BE</lettercombinatie>
+                                          </postcode>
+                                          <plaats>Delfzijl</plaats>
+                                          <bagId>
+                                             <identificatieNummeraanduiding>0010200000103080</identificatieNummeraanduiding>
+                                             <identificatieAdresseerbaarObject>0010010000052833</identificatieAdresseerbaarObject>
+                                          </bagId>
+                                       </binnenlandsAdres>
+                                    </adres>
+                                    <volledigAdres>Strekel 5
+9932BE Delfzijl</volledigAdres>
+                                 </bezoekLocatiePersoon>
+                                 <bsn>280858443</bsn>
+                                 <!--Anonimisatie 'bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><geslachtsnaam>694ed3f75</geslachtsnaam>
+                                 <!--Anonimisatie 'geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><voornamen>90a0089 bed2e</voornamen>
+                                 <!--Anonimisatie 'voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geslachtsaanduiding>
+                                    <code>m</code>
+                                    <omschrijving>Mannelijk</omschrijving>
+                                    <referentieType>Geslacht</referentieType>
+                                 </geslachtsaanduiding>
+                                 <geboorteplaats>655177066</geboorteplaats>
+                                 <!--Anonimisatie 'geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geboorteland>
+                                    <code>6030</code>
+                                    <omschrijving>Nederland</omschrijving>
+                                    <referentieType>Land</referentieType>
+                                 </geboorteland>
+                                 <geboortedatum>20200724</geboortedatum>
+                                 <!--Anonimisatie 'geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></natuurlijkPersoon>
+                           </door>
+                           <functie>
+                              <code>01</code>
+                              <omschrijving>Gevolmachtigde</omschrijving>
+                              <referentieType>FunctionarisRol</referentieType>
+                           </functie>
+                           <volmacht>
+                              <registratie registratieTijdstip="20180517151944630">
+                                 <datumAanvang>20180501</datumAanvang>
+                              </registratie>
+                              <typeVolmacht>
+                                 <code>b</code>
+                                 <omschrijving>Beperkte volmacht</omschrijving>
+                                 <referentieType>VolmachtType</referentieType>
+                              </typeVolmacht>
+                              <isStatutair>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isStatutair>
+                              <beperkteVolmacht>
+                                 <beperkingInGeld>
+                                    <waarde>50000</waarde>
+                                    <valuta>
+                                       <code>EUR</code>
+                                       <omschrijving>Euro</omschrijving>
+                                       <referentieType>Valuta</referentieType>
+                                    </valuta>
+                                 </beperkingInGeld>
+                                 <magOpgaveHandelsregisterDoen>
+                                    <code>N</code>
+                                    <omschrijving>Nee</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </magOpgaveHandelsregisterDoen>
+                                 <heeftOverigeVolmacht>
+                                    <code>J</code>
+                                    <omschrijving>Ja</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </heeftOverigeVolmacht>
+                                 <omschrijvingOverigeVolmacht>De gevolmachtigde mag alleen tekenen met een tweede gevolmachtigde.</omschrijvingOverigeVolmacht>
+                              </beperkteVolmacht>
+                           </volmacht>
+                        </gemachtigde>
+                     </heeft>
+                     <heeft>
+                        <gemachtigde>
+                           <registratie registratieTijdstip="20180530103758024">
+                              <datumAanvang>20180501</datumAanvang>
+                           </registratie>
+                           <door>
+                              <natuurlijkPersoon>
+                                 <extraElementen>
+                                    <extraElement naam="voorvoegsel">970</extraElement>
+                                    <!--Anonimisatie 'extraElement': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><extraElement naam="achternaam">3af6</extraElement>
+                                    <!--Anonimisatie 'extraElement': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--></extraElementen>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>19411130</datumAanvang>
+                                    <!--Anonimisatie 'datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></registratie>
+                                 <volledigeNaam>135288 c36528e0 8f5 8121</volledigeNaam>
+                                 <!--Anonimisatie 'volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><bezoekLocatiePersoon>
+                                    <registratie registratieTijdstip="20161117221208897"/>
+                                    <afgeschermd>
+                                       <code>N</code>
+                                       <omschrijving>Nee</omschrijving>
+                                       <referentieType>geenRT</referentieType>
+                                    </afgeschermd>
+                                    <adres>
+                                       <binnenlandsAdres>
+                                          <straatnaam>Sonsbrug</straatnaam>
+                                          <huisnummer>20</huisnummer>
+                                          <postcode>
+                                             <cijfercombinatie>4151</cijfercombinatie>
+                                             <lettercombinatie>ML</lettercombinatie>
+                                          </postcode>
+                                          <plaats>Acquoy</plaats>
+                                          <bagId>
+                                             <identificatieNummeraanduiding>0236200000000096</identificatieNummeraanduiding>
+                                             <identificatieAdresseerbaarObject>0236010000000096</identificatieAdresseerbaarObject>
+                                          </bagId>
+                                       </binnenlandsAdres>
+                                    </adres>
+                                    <volledigAdres>Sonsbrug 20
+4151ML Acquoy</volledigAdres>
+                                 </bezoekLocatiePersoon>
+                                 <bsn>469269497</bsn>
+                                 <!--Anonimisatie 'bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><geslachtsnaam>3af6</geslachtsnaam>
+                                 <!--Anonimisatie 'geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><voorvoegselGeslachtsnaam>970</voorvoegselGeslachtsnaam>
+                                 <!--Anonimisatie 'voorvoegselGeslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><voornamen>0168da b62f0fee</voornamen>
+                                 <!--Anonimisatie 'voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geslachtsaanduiding>
+                                    <code>m</code>
+                                    <omschrijving>Mannelijk</omschrijving>
+                                    <referentieType>Geslacht</referentieType>
+                                 </geslachtsaanduiding>
+                                 <geboorteplaats>62f44</geboorteplaats>
+                                 <!--Anonimisatie 'geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geboorteland>
+                                    <code>6030</code>
+                                    <omschrijving>Nederland</omschrijving>
+                                    <referentieType>Land</referentieType>
+                                 </geboorteland>
+                                 <geboortedatum>19411130</geboortedatum>
+                                 <!--Anonimisatie 'geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></natuurlijkPersoon>
+                           </door>
+                           <functie>
+                              <code>01</code>
+                              <omschrijving>Gevolmachtigde</omschrijving>
+                              <referentieType>FunctionarisRol</referentieType>
+                           </functie>
+                           <volmacht>
+                              <registratie registratieTijdstip="20180530103758024">
+                                 <datumAanvang>20180501</datumAanvang>
+                              </registratie>
+                              <typeVolmacht>
+                                 <code>b</code>
+                                 <omschrijving>Beperkte volmacht</omschrijving>
+                                 <referentieType>VolmachtType</referentieType>
+                              </typeVolmacht>
+                              <isStatutair>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isStatutair>
+                              <beperkteVolmacht>
+                                 <beperkingInGeld>
+                                    <waarde>50000</waarde>
+                                    <valuta>
+                                       <code>EUR</code>
+                                       <omschrijving>Euro</omschrijving>
+                                       <referentieType>Valuta</referentieType>
+                                    </valuta>
+                                 </beperkingInGeld>
+                                 <magOpgaveHandelsregisterDoen>
+                                    <code>N</code>
+                                    <omschrijving>Nee</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </magOpgaveHandelsregisterDoen>
+                                 <heeftOverigeVolmacht>
+                                    <code>J</code>
+                                    <omschrijving>Ja</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </heeftOverigeVolmacht>
+                                 <omschrijvingOverigeVolmacht>Gevolmachtigde mag alleen tekenen met een tweede gevolmachtigde.</omschrijvingOverigeVolmacht>
+                              </beperkteVolmacht>
+                           </volmacht>
+                        </gemachtigde>
+                     </heeft>
+                     <heeft>
+                        <gemachtigde>
+                           <registratie registratieTijdstip="20181019120627765">
+                              <datumAanvang>20180802</datumAanvang>
+                           </registratie>
+                           <door>
+                              <natuurlijkPersoon>
+                                 <extraElementen>
+                                    <extraElement naam="achternaam">3572</extraElement>
+                                    <!--Anonimisatie 'extraElement': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--></extraElementen>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>19990803</datumAanvang>
+                                    <!--Anonimisatie 'datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></registratie>
+                                 <volledigeNaam>e7092d94b 97270b33c 4f14</volledigeNaam>
+                                 <!--Anonimisatie 'volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><bezoekLocatiePersoon>
+                                    <registratie registratieTijdstip="20110510154538331"/>
+                                    <afgeschermd>
+                                       <code>N</code>
+                                       <omschrijving>Nee</omschrijving>
+                                       <referentieType>geenRT</referentieType>
+                                    </afgeschermd>
+                                    <adres>
+                                       <binnenlandsAdres>
+                                          <straatnaam>Vossenlaan</straatnaam>
+                                          <huisnummer>11</huisnummer>
+                                          <postcode>
+                                             <cijfercombinatie>9751</cijfercombinatie>
+                                             <lettercombinatie>GD</lettercombinatie>
+                                          </postcode>
+                                          <plaats>Haren Gn</plaats>
+                                          <bagId>
+                                             <identificatieNummeraanduiding>0017200000017997</identificatieNummeraanduiding>
+                                             <identificatieAdresseerbaarObject>0017010000006491</identificatieAdresseerbaarObject>
+                                          </bagId>
+                                       </binnenlandsAdres>
+                                    </adres>
+                                    <volledigAdres>Vossenlaan 11
+9751GD Haren Gn</volledigAdres>
+                                 </bezoekLocatiePersoon>
+                                 <bsn>756194630</bsn>
+                                 <!--Anonimisatie 'bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><geslachtsnaam>3572</geslachtsnaam>
+                                 <!--Anonimisatie 'geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><voornamen>598483304 0aa71970e</voornamen>
+                                 <!--Anonimisatie 'voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geslachtsaanduiding>
+                                    <code>m</code>
+                                    <omschrijving>Mannelijk</omschrijving>
+                                    <referentieType>Geslacht</referentieType>
+                                 </geslachtsaanduiding>
+                                 <geboorteplaats>456fe9bd95</geboorteplaats>
+                                 <!--Anonimisatie 'geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geboorteland>
+                                    <code>6030</code>
+                                    <omschrijving>Nederland</omschrijving>
+                                    <referentieType>Land</referentieType>
+                                 </geboorteland>
+                                 <geboortedatum>19990803</geboortedatum>
+                                 <!--Anonimisatie 'geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></natuurlijkPersoon>
+                           </door>
+                           <functie>
+                              <code>01</code>
+                              <omschrijving>Gevolmachtigde</omschrijving>
+                              <referentieType>FunctionarisRol</referentieType>
+                           </functie>
+                           <volmacht>
+                              <registratie registratieTijdstip="20181019120627765">
+                                 <datumAanvang>20180802</datumAanvang>
+                              </registratie>
+                              <typeVolmacht>
+                                 <code>b</code>
+                                 <omschrijving>Beperkte volmacht</omschrijving>
+                                 <referentieType>VolmachtType</referentieType>
+                              </typeVolmacht>
+                              <isStatutair>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isStatutair>
+                              <beperkteVolmacht>
+                                 <beperkingInGeld>
+                                    <waarde>50000</waarde>
+                                    <valuta>
+                                       <code>EUR</code>
+                                       <omschrijving>Euro</omschrijving>
+                                       <referentieType>Valuta</referentieType>
+                                    </valuta>
+                                 </beperkingInGeld>
+                                 <magOpgaveHandelsregisterDoen>
+                                    <code>N</code>
+                                    <omschrijving>Nee</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </magOpgaveHandelsregisterDoen>
+                                 <heeftOverigeVolmacht>
+                                    <code>J</code>
+                                    <omschrijving>Ja</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </heeftOverigeVolmacht>
+                                 <omschrijvingOverigeVolmacht>Gevolmachtigde mag alleen tekenen samen met andere gevolmachtigde.</omschrijvingOverigeVolmacht>
+                              </beperkteVolmacht>
+                           </volmacht>
+                        </gemachtigde>
+                     </heeft>
+                     <heeft>
+                        <gemachtigde>
+                           <registratie registratieTijdstip="20181205154812879">
+                              <datumAanvang>20181203</datumAanvang>
+                           </registratie>
+                           <functietitel>
+                              <registratie registratieTijdstip="20181205154812879">
+                                 <datumAanvang>20181203</datumAanvang>
+                              </registratie>
+                              <titel>Plant Manager</titel>
+                              <isStatutaireTitel>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isStatutaireTitel>
+                           </functietitel>
+                           <door>
+                              <natuurlijkPersoon>
+                                 <extraElementen>
+                                    <extraElement naam="achternaam">2c7b1053</extraElement>
+                                    <!--Anonimisatie 'extraElement': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--></extraElementen>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>20280305</datumAanvang>
+                                    <!--Anonimisatie 'datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></registratie>
+                                 <volledigeNaam>649f0c2ae e9119be162 63097ba7</volledigeNaam>
+                                 <!--Anonimisatie 'volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><bezoekLocatiePersoon>
+                                    <registratie registratieTijdstipNoValue="vastgesteldOnbekend"/>
+                                    <afgeschermd>
+                                       <code>N</code>
+                                       <omschrijving>Nee</omschrijving>
+                                       <referentieType>geenRT</referentieType>
+                                    </afgeschermd>
+                                    <adres>
+                                       <binnenlandsAdres>
+                                          <straatnaam>Beneden Veensloot</straatnaam>
+                                          <huisnummer>55</huisnummer>
+                                          <postcode>
+                                             <cijfercombinatie>9651</cijfercombinatie>
+                                             <lettercombinatie>CJ</lettercombinatie>
+                                          </postcode>
+                                          <plaats>Meeden</plaats>
+                                          <bagId>
+                                             <identificatieNummeraanduiding>1987200000005301</identificatieNummeraanduiding>
+                                             <identificatieAdresseerbaarObject>1987010000005287</identificatieAdresseerbaarObject>
+                                          </bagId>
+                                       </binnenlandsAdres>
+                                    </adres>
+                                    <volledigAdres>Beneden Veensloot 55
+9651CJ Meeden</volledigAdres>
+                                 </bezoekLocatiePersoon>
+                                 <bsn>527483074</bsn>
+                                 <!--Anonimisatie 'bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><geslachtsnaam>2c7b1053</geslachtsnaam>
+                                 <!--Anonimisatie 'geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><voornamen>80e378272 cdc240d9de</voornamen>
+                                 <!--Anonimisatie 'voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geslachtsaanduiding>
+                                    <code>m</code>
+                                    <omschrijving>Mannelijk</omschrijving>
+                                    <referentieType>Geslacht</referentieType>
+                                 </geslachtsaanduiding>
+                                 <geboorteplaats>826737e</geboorteplaats>
+                                 <!--Anonimisatie 'geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geboorteland>
+                                    <code>6030</code>
+                                    <omschrijving>Nederland</omschrijving>
+                                    <referentieType>Land</referentieType>
+                                 </geboorteland>
+                                 <geboortedatum>20280305</geboortedatum>
+                                 <!--Anonimisatie 'geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></natuurlijkPersoon>
+                           </door>
+                           <functie>
+                              <code>01</code>
+                              <omschrijving>Gevolmachtigde</omschrijving>
+                              <referentieType>FunctionarisRol</referentieType>
+                           </functie>
+                           <volmacht>
+                              <registratie registratieTijdstip="20181205154812879">
+                                 <datumAanvang>20181203</datumAanvang>
+                              </registratie>
+                              <typeVolmacht>
+                                 <code>b</code>
+                                 <omschrijving>Beperkte volmacht</omschrijving>
+                                 <referentieType>VolmachtType</referentieType>
+                              </typeVolmacht>
+                              <isStatutair>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isStatutair>
+                              <beperkteVolmacht>
+                                 <beperkingInGeld>
+                                    <waarde>100000</waarde>
+                                    <valuta>
+                                       <code>EUR</code>
+                                       <omschrijving>Euro</omschrijving>
+                                       <referentieType>Valuta</referentieType>
+                                    </valuta>
+                                 </beperkingInGeld>
+                                 <magOpgaveHandelsregisterDoen>
+                                    <code>N</code>
+                                    <omschrijving>Nee</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </magOpgaveHandelsregisterDoen>
+                                 <heeftOverigeVolmacht>
+                                    <code>N</code>
+                                    <omschrijving>Nee</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </heeftOverigeVolmacht>
+                              </beperkteVolmacht>
+                           </volmacht>
+                        </gemachtigde>
+                     </heeft>
+                     <heeft>
+                        <bestuursfunctie>
+                           <registratie registratieTijdstip="20190212085740252">
+                              <datumAanvang>20190101</datumAanvang>
+                           </registratie>
+                           <functietitel>
+                              <registratie registratieTijdstip="20190212085740252">
+                                 <datumAanvang>20190101</datumAanvang>
+                              </registratie>
+                              <titel>Algemeen directeur</titel>
+                              <isStatutaireTitel>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isStatutaireTitel>
+                           </functietitel>
+                           <door>
+                              <natuurlijkPersoon>
+                                 <extraElementen>
+                                    <extraElement naam="achternaam">e9427c66c2</extraElement>
+                                    <!--Anonimisatie 'extraElement': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--></extraElementen>
+                                 <registratie registratieTijdstipNoValue="vastgesteldOnbekend">
+                                    <datumAanvang>19740413</datumAanvang>
+                                    <!--Anonimisatie 'datumAanvang': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></registratie>
+                                 <volledigeNaam>097 e78acb6c86</volledigeNaam>
+                                 <!--Anonimisatie 'volledigeNaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><bezoekLocatiePersoon>
+                                    <registratie registratieTijdstip="20190212085740252"/>
+                                    <afgeschermd>
+                                       <code>N</code>
+                                       <omschrijving>Nee</omschrijving>
+                                       <referentieType>geenRT</referentieType>
+                                    </afgeschermd>
+                                    <adres>
+                                       <buitenlandsAdres>
+                                          <straatHuisnummer>Smisstraat 32</straatHuisnummer>
+                                          <postcodeWoonplaats>1840 Londerzeel</postcodeWoonplaats>
+                                          <land>
+                                             <code>5010</code>
+                                             <omschrijving>België</omschrijving>
+                                             <referentieType>Land</referentieType>
+                                          </land>
+                                       </buitenlandsAdres>
+                                    </adres>
+                                    <volledigAdres>Smisstraat 32
+1840 Londerzeel
+België</volledigAdres>
+                                 </bezoekLocatiePersoon>
+                                 <geslachtsnaam>e9427c66c2</geslachtsnaam>
+                                 <!--Anonimisatie 'geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><voornamen>bbd</voornamen>
+                                 <!--Anonimisatie 'voornamen': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geslachtsaanduiding>
+                                    <code>m</code>
+                                    <omschrijving>Mannelijk</omschrijving>
+                                    <referentieType>Geslacht</referentieType>
+                                 </geslachtsaanduiding>
+                                 <geboorteplaats>828744f6f01</geboorteplaats>
+                                 <!--Anonimisatie 'geboorteplaats': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><geboorteland>
+                                    <code>5010</code>
+                                    <omschrijving>België</omschrijving>
+                                    <referentieType>Land</referentieType>
+                                 </geboorteland>
+                                 <geboortedatum>19740413</geboortedatum>
+                                 <!--Anonimisatie 'geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--></natuurlijkPersoon>
+                           </door>
+                           <functie>
+                              <code>02</code>
+                              <omschrijving>Bestuurder</omschrijving>
+                              <referentieType>FunctionarisRol</referentieType>
+                           </functie>
+                           <bevoegdheid>
+                              <registratie registratieTijdstip="20190212085740252">
+                                 <datumAanvang>20190101</datumAanvang>
+                              </registratie>
+                              <soort>
+                                 <code>azb</code>
+                                 <omschrijving>Alleen/zelfstandig bevoegd</omschrijving>
+                                 <referentieType>SoortBevoegdheidBestuurder</referentieType>
+                              </soort>
+                              <isBevoegdMetAnderePersonen>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isBevoegdMetAnderePersonen>
+                           </bevoegdheid>
+                        </bestuursfunctie>
+                     </heeft>
+                     <heeft>
+                        <overigeFunctionaris>
+                           <registratie registratieTijdstip="20191220142113661">
+                              <datumAanvang>20191220</datumAanvang>
+                           </registratie>
+                           <door>
+                              <buitenlandseVennootschap>
+                                 <volledigeNaam>Merilux S.à r.l.</volledigeNaam>
+                                 <bezoekLocatiePersoon>
+                                    <registratie registratieTijdstip="20191220142113661">
+                                       <datumAanvang>20191220</datumAanvang>
+                                    </registratie>
+                                    <afgeschermd>
+                                       <code>N</code>
+                                       <omschrijving>Nee</omschrijving>
+                                       <referentieType>geenRT</referentieType>
+                                    </afgeschermd>
+                                    <adres>
+                                       <buitenlandsAdres>
+                                          <straatHuisnummer>163 rue du Kiem</straatHuisnummer>
+                                          <postcodeWoonplaats>L-8030 Strassen</postcodeWoonplaats>
+                                          <land>
+                                             <code>6018</code>
+                                             <omschrijving>Luxemburg</omschrijving>
+                                             <referentieType>Land</referentieType>
+                                          </land>
+                                       </buitenlandsAdres>
+                                    </adres>
+                                    <volledigAdres>163 rue du Kiem
+L-8030 Strassen
+Luxemburg</volledigAdres>
+                                 </bezoekLocatiePersoon>
+                                 <buitenlandseRegistratieGegevens>
+                                    <naam>Registre de Commerce et des sociétés</naam>
+                                    <plaats>Luxemburg</plaats>
+                                    <land>
+                                       <code>6018</code>
+                                       <omschrijving>Luxemburg</omschrijving>
+                                       <referentieType>Land</referentieType>
+                                    </land>
+                                    <inschrijfnummer>B35118</inschrijfnummer>
+                                    <buitenlandseRegistratie>Registre de Commerce et des sociétés
+Luxemburg, Luxemburg
+Onder nummer B35118</buitenlandseRegistratie>
+                                 </buitenlandseRegistratieGegevens>
+                                 <landVanVestiging>
+                                    <code>6018</code>
+                                    <omschrijving>Luxemburg</omschrijving>
+                                    <referentieType>Land</referentieType>
+                                 </landVanVestiging>
+                              </buitenlandseVennootschap>
+                           </door>
+                           <functie>
+                              <code>08</code>
+                              <omschrijving>Enig aandeelhouder</omschrijving>
+                              <referentieType>FunctionarisRol</referentieType>
+                           </functie>
+                        </overigeFunctionaris>
+                     </heeft>
+                     <rsin>002851908</rsin>
+                     <naamgeving>
+                        <registratie registratieTijdstip="20180502123315104">
+                           <datumAanvang>20180502</datumAanvang>
+                        </registratie>
+                        <naam>Etex Building Performance B.V.</naam>
+                     </naamgeving>
+                     <heeftGedeponeerd>
+                        <jaarstukJaarrekening>
+                           <depotId>-50912a58:1708b6a5bf1:-1790</depotId>
+                           <status>
+                              <code>1</code>
+                              <omschrijving>Actueel</omschrijving>
+                              <referentieType>StatusDepotstuk</referentieType>
+                           </status>
+                           <datumDeponering>20200226</datumDeponering>
+                           <boekjaar>2018</boekjaar>
+                           <vaststelling>
+                              <code>V</code>
+                              <omschrijving>Voorlopig</omschrijving>
+                              <referentieType>VaststellingJaarrekening</referentieType>
+                           </vaststelling>
+                        </jaarstukJaarrekening>
+                     </heeftGedeponeerd>
+                     <rechtsvorm>
+                        <code>BV</code>
+                        <omschrijving>Besloten Vennootschap</omschrijving>
+                        <referentieType>Rechtsvorm</referentieType>
+                     </rechtsvorm>
+                     <statutaireZetel>Delfzijl</statutaireZetel>
+                     <aanvangStatutaireZetel>19731105</aanvangStatutaireZetel>
+                     <datumAkteOprichting>19731105</datumAkteOprichting>
+                     <datumEersteInschrijvingHandelsregister>19731106</datumEersteInschrijvingHandelsregister>
+                     <datumAkteStatutenwijziging>20180502</datumAkteStatutenwijziging>
+                     <stelselInrichting>
+                        <code>D</code>
+                        <omschrijving>Dualistisch</omschrijving>
+                        <referentieType>StelselInrichting</referentieType>
+                     </stelselInrichting>
+                     <structuur>
+                        <code>GS</code>
+                        <omschrijving>Gewone structuur</omschrijving>
+                        <referentieType>RechtsvormStructuur</referentieType>
+                     </structuur>
+                     <geplaatstKapitaal>
+                        <registratie registratieTijdstip="20180502123315104">
+                           <datumAanvang>20180502</datumAanvang>
+                        </registratie>
+                        <bedrag>
+                           <waarde>1928566</waarde>
+                           <valuta>
+                              <code>EUR</code>
+                              <omschrijving>Euro</omschrijving>
+                              <referentieType>Valuta</referentieType>
+                           </valuta>
+                        </bedrag>
+                     </geplaatstKapitaal>
+                     <gestortKapitaal>
+                        <registratie registratieTijdstip="20180502123315104">
+                           <datumAanvang>20180502</datumAanvang>
+                        </registratie>
+                        <bedrag>
+                           <waarde>1928566</waarde>
+                           <valuta>
+                              <code>EUR</code>
+                              <omschrijving>Euro</omschrijving>
+                              <referentieType>Valuta</referentieType>
+                           </valuta>
+                        </bedrag>
+                     </gestortKapitaal>
+                     <bezoekLocatie>
+                        <registratie registratieTijdstip="20161212082824750">
+                           <datumAanvang>19730801</datumAanvang>
+                        </registratie>
+                        <afgeschermd>
+                           <code>N</code>
+                           <omschrijving>Nee</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </afgeschermd>
+                        <adres>
+                           <binnenlandsAdres>
+                              <straatnaam>Oosterhorn</straatnaam>
+                              <huisnummer>32</huisnummer>
+                              <postcode>
+                                 <cijfercombinatie>9936</cijfercombinatie>
+                                 <lettercombinatie>HD</lettercombinatie>
+                              </postcode>
+                              <plaats>Farmsum</plaats>
+                              <bagId>
+                                 <identificatieNummeraanduiding>0010200000112097</identificatieNummeraanduiding>
+                                 <identificatieAdresseerbaarObject>0010010000061961</identificatieAdresseerbaarObject>
+                              </bagId>
+                           </binnenlandsAdres>
+                        </adres>
+                        <volledigAdres>Oosterhorn 32
+9936HD Farmsum</volledigAdres>
+                     </bezoekLocatie>
+                  </rechtspersoon>
+               </heeftAlsEigenaar>
+            </maatschappelijkeActiviteit>
+         </product>
+      </ophalenInschrijvingResponse>
+   </wstxns8:Body>
+</soap:Envelope>
