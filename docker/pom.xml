@@ -14,16 +14,6 @@
     <description>Maak een docker image van de brmo-service</description>
     <properties>
     </properties>
-    <dependencies>
-        <dependency>
-            <groupId>nl.b3p</groupId>
-            <artifactId>brmo-dist</artifactId>
-            <version>${project.version}</version>
-            <classifier>bin</classifier>
-            <type>zip</type>
-            <scope>compile</scope>
-        </dependency>
-    </dependencies>
     <build>
         <defaultGoal>process-resources</defaultGoal>
         <plugins>
@@ -56,6 +46,16 @@
     <profiles>
         <profile>
             <id>docker</id>
+            <dependencies>
+                <dependency>
+                    <groupId>nl.b3p</groupId>
+                    <artifactId>brmo-dist</artifactId>
+                    <version>${project.version}</version>
+                    <classifier>bin</classifier>
+                    <type>zip</type>
+                    <scope>compile</scope>
+                </dependency>
+            </dependencies>
             <build>
                 <plugins>
                     <plugin>
