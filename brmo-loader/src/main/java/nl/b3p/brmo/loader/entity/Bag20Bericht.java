@@ -45,7 +45,7 @@ public class Bag20Bericht extends Bericht {
 
     public Bag20Bericht(String brXml) {
         super(brXml);
-        setSoort("bag20");
+        setSoort(BrmoFramework.BR_BAG20);
     }
 
     public Bag20Bericht(String brXml, Document doc) {

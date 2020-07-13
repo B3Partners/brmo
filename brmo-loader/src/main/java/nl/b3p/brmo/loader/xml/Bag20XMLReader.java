@@ -89,7 +89,7 @@ public class Bag20XMLReader extends BrmoXMLReader {
         xmlof.setProperty(XMLOutputFactory.IS_REPAIRING_NAMESPACES, Boolean.TRUE);
 
         DocumentBuilderFactory dbfactory = DocumentBuilderFactory.newInstance();
-        dbfactory.setFeature(javax.xml.XMLConstants.FEATURE_SECURE_PROCESSING ,true);
+        dbfactory.setFeature(javax.xml.XMLConstants.FEATURE_SECURE_PROCESSING, true);
         dbfactory.setNamespaceAware(true);
         builder = dbfactory.newDocumentBuilder();
 
@@ -160,18 +160,25 @@ public class Bag20XMLReader extends BrmoXMLReader {
         try {
             while (streamReader.hasNext()) {
                 if (streamReader.isStartElement() && streamReader.getLocalName().equals(MUTATIE_PRODUCT)) {
-                    // parse en check voor "Nieuw" element en niet "Origineel"/"Wijziging"
+                    // in mutatieGroep
+                    // een mutatieGroep levert meerder berichten, bijvoorbeeld 3
+                    // mutatieGroep
+                    // +- toevoeging
+                    // |  + wordt
+                    // + wijziging
+                    // |  + was
+                    // |  + wordt
+                    // + wijziging
+                    // |  + was
+                    // |  + wordt
                     StringWriter sw = new StringWriter();
-                    // Hiermee wordt de StreamReader het volgende product geforward
                     transformer.transform(new StAXSource(streamReader), new StAXResult(xmlof.createXMLStreamWriter(sw)));
-                    LOG.trace("volgende bag20 mutatie bericht uit de stream: " + sw.toString());
-
+                    LOG.trace("volgende bag20 mutatieGroep uit de stream: \n" + sw.toString());
                     if (createMutatieBag20Bericht(sw.toString())) {
                         return true;
                     }
                 } else if (streamReader.isStartElement() && lvcProductToObjectType.containsKey(streamReader.getLocalName())) {
                     StringWriter sw = new StringWriter();
-                    // Hiermee wordt de StreamReader het volgende product geforward
                     transformer.transform(new StAXSource(streamReader), new StAXResult(xmlof.createXMLStreamWriter(sw)));
                     LOG.trace("volgende bag20 stand bericht uit de stream: " + sw.toString());
                     if (createStandBag20Bericht(sw.toString())) {
@@ -203,6 +210,7 @@ public class Bag20XMLReader extends BrmoXMLReader {
                 //uitzondering: begindatum in toekomst
                 //sla op als mutatie met datum in de toekomst
                 //als dit 2x voorkomt voor zelfde object, jammer dan!
+                LOG.debug("begindatum in toekomst voor object: " + nextBericht.getObjectRef());
                 nextBericht.setDatum(datBegGeld);
                 nextBericht.setVolgordeNummer(0);
             } else {
@@ -216,34 +224,40 @@ public class Bag20XMLReader extends BrmoXMLReader {
         return false;
     }
 
-    private boolean createMutatieBag20Bericht(String brXml) throws IOException, SAXException {
-        Document d = builder.parse(new InputSource(new StringReader(brXml)));
+    /**
+     * @param mutatieGroepXML heeft verzameling van toevoeging (met wordt), wijziging (met was en wordt) en verwijdering (met was)
+     * @return
+     * @throws IOException
+     * @throws SAXException
+     */
+    private boolean createMutatieBag20Bericht(String mutatieGroepXML) throws IOException, SAXException {
+        Document d = builder.parse(new InputSource(new StringReader(mutatieGroepXML)));
         NodeList children = d.getDocumentElement().getChildNodes();
         for (int i = 0; i < children.getLength(); i++) {
             Node child = children.item(i);
-
-            LOG.trace("child: " + child.getLocalName() + " - " + child.getNodeName() + " - " + child.getNodeValue());
-
-            // Mutatie-product met Nieuw als child element gevonden
-            // Origineel/Wijziging kunnen overgeslagen worden omdat er altijd een Nieuw
-            // element voor hetzelfde object is. In de BRMO wordt de historie zelf
-            // bijgehouden dus zijn de wijzigingen niet interessant
-//            if ("Nieuw".equals(child.getLocalName())) {
             if ("toevoeging".equals(child.getLocalName())) {
+                // maak een bericht met de "wordt" (enige child node)
+                LOG.debug("verwerk toevoeging");
                 NodeList grandchildren = child.getChildNodes();
                 for (int j = 0; j < grandchildren.getLength(); j++) {
-                    Node grandchild = grandchildren.item(j);
-                    if (grandchild.getNodeType() == Node.ELEMENT_NODE) {
-                        nextBericht = new Bag20Bericht(brXml, d);
-                        Date datBegGeld = getBerichtBeginGeldigheid(grandchild);
-                        if (datBegGeld != null && getBestandsDatum().before(datBegGeld)) {
-                            //uitzondering: begindatum in toekomst
-                            //sla op met datum in de toekomst
-                            nextBericht.setDatum(datBegGeld);
-                        }
-                        return true;
-                    }
+//                    Node grandchild = grandchildren.item(j);
+//                    if (grandchild.getNodeType() == Node.ELEMENT_NODE) {
+//                        nextBericht = new Bag20Bericht(mutatieGroepXML, d);
+//                        Date datBegGeld = getBerichtBeginGeldigheid(grandchild);
+//                        if (datBegGeld != null && getBestandsDatum().before(datBegGeld)) {
+//                            //uitzondering: begindatum in toekomst
+//                            //sla op met datum in de toekomst
+//                            nextBericht.setDatum(datBegGeld);
+//                        }
+//                        return true;
+//                    }
                 }
+            } else if ("wijziging".equals(child.getLocalName())) {
+                // maak een bericht met de "wordt" , negeer de "was"
+                LOG.debug("verwerk wijziging");
+            } else if ("verwijdering".equals(child.getLocalName())) {
+                // maak een "<empty/>" bericht met de "was"
+                LOG.debug("verwerk verwijdering");
             }
         }
         return false;
