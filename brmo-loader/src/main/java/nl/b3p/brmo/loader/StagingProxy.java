@@ -832,6 +832,7 @@ public class StagingProxy {
                         writeBericht(b);
                         isBerichtGeschreven = true;
                     } else if (existingBericht.getStatus().equals(Bericht.STATUS.STAGING_OK)) {
+                        log.debug("Overschrijven van bestaand bericht " + b.getObjectRef());
                         //als bericht nog niet getransformeerd is, dan overschrijven.
                         //als een BAG bericht inactief wordt gezet dan zal het
                         //oorspronkelijke bericht nog getransformeerd
@@ -839,6 +840,8 @@ public class StagingProxy {
                         //en zal nooit getransformeerd worden.
                         b.setId(existingBericht.getId());
                         this.updateBericht(b);
+                    } else {
+                        log.debug("Overslaan van bestaand bericht " + b.getObjectRef());
                     }
                     if (listener != null) {
                         listener.progress(cis.getByteCount());

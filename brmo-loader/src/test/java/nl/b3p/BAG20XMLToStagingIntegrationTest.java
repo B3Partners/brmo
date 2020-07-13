@@ -77,6 +77,7 @@ public class BAG20XMLToStagingIntegrationTest extends AbstractDatabaseIntegratio
     public static Collection params() {
         return Arrays.asList(new Object[][]{
                 // {"type","filename", aantalBerichten, aantalLaadProcessen},
+                // STAND
                 {"bag20", "/bag-2.0/WPL.xml", 1, 1},
                 {"bag20", "/bag-2.0/PND.xml", 1, 1},
                 {"bag20", "/bag-2.0/OPR.xml", 1, 1},
@@ -85,8 +86,11 @@ public class BAG20XMLToStagingIntegrationTest extends AbstractDatabaseIntegratio
                 {"bag20", "/bag-2.0/STA.xml", 1, 1},
                 {"bag20", "/bag-2.0/VBO.xml", 1, 1},
                 // leeg bestand
-                {"bag20", File.separator + "bag-2.0" + File.separator + "STA01042020_000001-leeg.xml", 0, 1},
-                //{/*bestand heeft 4 berichten voor object, maar we houden alleen de laatste mutatie in staging*/"bag", "/GH-275/OPR-1884300000000464.xml", 1, 1}
+                {"bag20", "/bag-2.0/STA01042020_000001-leeg.xml", 0, 1},
+                // grep -o "Objecten:Pand" 0106PND01012020_000001.xml | wc -w = 10000
+                // er zijn 1477 berichten die een bestaand object/bericht bijwerken, dus "dubbel" of meer
+                {"bag20", "/bag-2.0/0106PND01012020_000001.xml", 10000 / 2 - 1477, 1},
+                // MUTATIES
         });
     }
 
@@ -120,8 +124,8 @@ public class BAG20XMLToStagingIntegrationTest extends AbstractDatabaseIntegratio
 
         DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
 
-        assumeTrue("Er zijn geen STAGING_OK berichten", 0l == brmo.getCountBerichten(null, null, "bag", "STAGING_OK"));
-        assumeTrue("Er zijn geen STAGING_OK laadprocessen", 0l == brmo.getCountLaadProcessen(null, null, "bag", "STAGING_OK"));
+        assumeTrue("Er zijn geen STAGING_OK berichten", 0l == brmo.getCountBerichten(null, null, "bag20", "STAGING_OK"));
+        assumeTrue("Er zijn geen STAGING_OK laadprocessen", 0l == brmo.getCountLaadProcessen(null, null, "bag20", "STAGING_OK"));
     }
 
     @After
@@ -137,7 +141,7 @@ public class BAG20XMLToStagingIntegrationTest extends AbstractDatabaseIntegratio
         try {
             brmo.loadFromFile(bestandType, BAG20XMLToStagingIntegrationTest.class.getResource(bestandNaam).getFile(), null);
         } catch (BrmoLeegBestandException blbe) {
-            LOG.debug("Er is een bestand zonder berichten geladen (kan voorkomen).");
+            LOG.info("Er is een bestand zonder berichten geladen (kan voorkomen). " + blbe.getLocalizedMessage());
         }
 
         assertEquals("Verwacht aantal berichten", aantalBerichten, brmo.getCountBerichten(null, null, bestandType, "STAGING_OK"));

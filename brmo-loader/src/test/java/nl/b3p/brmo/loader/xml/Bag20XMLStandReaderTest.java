@@ -82,6 +82,8 @@ public class Bag20XMLStandReaderTest {
                 {File.separator + "bag-2.0" + File.separator + "WPL.xml", "2020-03-01", "WPL:1878", 1},
                 // leeg stand bestand
                 {File.separator + "bag-2.0" + File.separator + "STA01042020_000001-leeg.xml", "2020-04-01", null, 0},
+                // grep -o "Objecten:Pand" 0106PND01012020_000001.xml | wc -w / 2
+                {File.separator + "bag-2.0" + File.separator + "0106PND01012020_000001.xml", "2020-01-01", null, 10000 / 2},
         });
     }
 
@@ -109,7 +111,7 @@ public class Bag20XMLStandReaderTest {
 
         bReader = new Bag20XMLReader(Bag20XMLStandReaderTest.class.getResourceAsStream(bestandNaam));
 
-        if (totalObj > 0) {
+        if (totalObj >= 1) {
             assertTrue(bReader.hasNext());
             while (bReader.hasNext()) {
                 bag = bReader.next();
@@ -118,9 +120,11 @@ public class Bag20XMLStandReaderTest {
 
             assertNotNull(bag);
             assertEquals(BR_BAG20, bag.getSoort());
-            assertEquals(objectRef, bag.getObjectRef());
-            assertEquals(-1, bag.getVolgordeNummer().intValue());
-            assertEquals(datum, bag.getDatum());
+            if (totalObj == 1) {
+                assertEquals(objectRef, bag.getObjectRef());
+                assertEquals(-1, bag.getVolgordeNummer().intValue());
+                assertEquals(datum, bag.getDatum());
+            }
         } else {
             assertNull(bag);
         }
