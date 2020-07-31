@@ -118,7 +118,10 @@ public class MainIntegrationTest {
     public void commandLine() throws Exception {
         Process p = Runtime.getRuntime().exec(BASE_COMMAND + args, new String[]{}, WORKDIR);
         LOG.info(IOUtils.toString(p.getInputStream(), Charset.defaultCharset()));
-        LOG.error(IOUtils.toString(p.getErrorStream(), Charset.defaultCharset()));
+        String err = IOUtils.toString(p.getErrorStream(), Charset.defaultCharset());
+        if (!err.isEmpty()) {
+            LOG.error(err);
+        }
         p.waitFor(30, TimeUnit.SECONDS);
         assertTrue("exit value is geen 0", p.exitValue() == 0);
     }

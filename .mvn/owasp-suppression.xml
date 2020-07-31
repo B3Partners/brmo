@@ -3,20 +3,21 @@
     <suppress>
         <notes>
             <![CDATA[
-                     Negeer meldingen mbt tomcat-catalina-7.0.103.jar
+                     Negeer meldingen mbt tomcat-catalina-*.jar
                      omdat we geen tomcat mee leveren en deze alleen voor bepaalde deployments geldt.
-                     file name: tomcat-catalina-7.0.103.jar
+                     file name: tomcat-catalina-*.jar
             ]]>
         </notes>
         <packageUrl regex="true">^pkg:maven/org\.apache\.tomcat/tomcat\-catalina@.*$</packageUrl>
         <cve>CVE-2016-5425</cve>        
         <cve>CVE-2017-6056</cve>
+        <cve>CVE-2020-8022</cve>
     </suppress>
     <suppress>
         <notes>
             <![CDATA[
                      Negeer melding mbt gt-jdbc jar, false positive "data-tools" wat iets heel anders is.
-                     file name: gt-jdbc-23.0.jar
+                     file name: gt-jdbc-*.jar
             ]]>
         </notes>
         <packageUrl regex="true">^pkg:maven/org\.geotools/gt\-jdbc@.*$</packageUrl>
@@ -26,7 +27,7 @@
         <notes>
             <![CDATA[
                      Negeer melding mbt gt-jdbc-sqlserver jar, false positive "data-tools" wat iets heel anders is.
-                     file name: gt-jdbc-sqlserver-23.0.jar
+                     file name: gt-jdbc-sqlserver-*.jar
             ]]>
         </notes>
         <packageUrl regex="true">^pkg:maven/org\.geotools\.jdbc/gt\-jdbc\-sqlserver@.*$</packageUrl>
