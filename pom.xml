@@ -660,10 +660,11 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-resources-plugin</artifactId>
-                    <version>3.1.0</version>
+                    <version>3.2.0</version>
                     <configuration>
                         <nonFilteredFileExtensions>
                             <nonFilteredFileExtension>zip</nonFilteredFileExtension>
+                            <nonFilteredFileExtension>gz</nonFilteredFileExtension>
                             <nonFilteredFileExtension>gml</nonFilteredFileExtension>
                             <nonFilteredFileExtension>md</nonFilteredFileExtension>
                             <nonFilteredFileExtension>json</nonFilteredFileExtension>
@@ -671,7 +672,11 @@
                             <nonFilteredFileExtension>txt</nonFilteredFileExtension>
                             <nonFilteredFileExtension>sql</nonFilteredFileExtension>
                             <nonFilteredFileExtension>xlsx</nonFilteredFileExtension>
+                            <nonFilteredFileExtension>xls</nonFilteredFileExtension>
+                            <nonFilteredFileExtension>pdf</nonFilteredFileExtension>
                         </nonFilteredFileExtensions>
+                        <encoding>UTF-8</encoding>
+                        <propertiesEncoding>UTF-8</propertiesEncoding>
                     </configuration>
                 </plugin>
                 <plugin>
