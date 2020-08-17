@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.3.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.3.xsd https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.3.xsd">
+<suppressions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.3.xsd"
+              xsi:schemaLocation="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.3.xsd https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.3.xsd">
     <suppress>
         <notes>
             <![CDATA[
@@ -9,7 +11,7 @@
             ]]>
         </notes>
         <packageUrl regex="true">^pkg:maven/org\.apache\.tomcat/tomcat\-catalina@.*$</packageUrl>
-        <cve>CVE-2016-5425</cve>        
+        <cve>CVE-2016-5425</cve>
         <cve>CVE-2017-6056</cve>
         <cve>CVE-2020-8022</cve>
     </suppress>
@@ -54,5 +56,22 @@
         </notes>
         <gav regex="true">^net\.postgis:postgis-jdbc:.*$</gav>
         <cpe>cpe:/a:postgis:postgis</cpe>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+            file name: javasimon-console-embed-4.2.0.jar: jquery.js
+
+            Negeer meldingen mbt jquery in de simon console;
+            moet upstream worden gefixt, maar is onwaarschijnlijk dat dat gaat gebeuren
+            zie: https://github.com/virgo47/javasimon/issues/27
+
+            de impact lijkt gering
+   ]]></notes>
+        <packageUrl regex="true">^pkg:javascript/jquery@.*$</packageUrl>
+        <cve>CVE-2012-6708</cve>
+        <cve>CVE-2015-9251</cve>
+        <cve>CVE-2019-11358</cve>
+        <cve>CVE-2020-11022</cve>
+        <cve>CVE-2020-11023</cve>
     </suppress>
 </suppressions>

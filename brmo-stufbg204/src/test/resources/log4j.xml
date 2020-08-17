@@ -52,7 +52,7 @@
         <level value="info" />
     </logger>
     <logger name="nl.b3p.loader.jdbc">
-        <level value="trace" />
+        <level value="debug" />
     </logger>
     <root>
         <level value="info" />
