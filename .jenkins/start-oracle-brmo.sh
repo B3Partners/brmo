@@ -31,4 +31,4 @@ done
 
 # docker ps -a
 # print logs
-docker logs oracle-brmo
+# docker logs oracle-brmo
