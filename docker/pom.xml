@@ -87,7 +87,7 @@
                             <imagePullPolicy>Always</imagePullPolicy>
                             <images>
                                 <image>
-                                    <name>docker.b3p.nl/b3partners/brmo:%l</name>
+                                    <name>docker.b3p.nl/b3partners/b3partners/brmo:%l</name>
                                     <build>
                                         <dockerFile>Dockerfile</dockerFile>
                                         <args>
