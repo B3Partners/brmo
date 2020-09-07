@@ -1,6 +1,6 @@
 FROM tomcat:9-jdk8
 
-ARG BRMO_VERSION=2.0.1
+ARG BRMO_VERSION=2.0.2
 ARG MAIL_FROM=brmo-no-reply@b3partners.nl
 ARG MAIL_HOST=mail.b3partners.nl
 ARG AJP_ADDRESS=::1
