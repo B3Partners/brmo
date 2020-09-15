@@ -74,4 +74,16 @@
         <cve>CVE-2020-11022</cve>
         <cve>CVE-2020-11023</cve>
     </suppress>
+
+    <suppress>
+        <notes><![CDATA[
+            file name: json-simple-1.1.1.jar False positive, json-siple wordt voor iets anders aangezien
+        ]]>
+        </notes>
+        <packageUrl regex="true">^pkg:maven/com\.googlecode\.json\-simple/json\-simple@.*$</packageUrl>
+        <!-- <cpe>cpe:/a:json_project:json</cpe> -->
+        <cve>CVE-2020-10663</cve>
+        <cve>CVE-2020-7712</cve>
+    </suppress>
+
 </suppressions>
