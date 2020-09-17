@@ -488,9 +488,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
      * @param a de afgifte uit het soap verzoek
      * @param url te downloaden bestand
      * @throws Exception if any
-     * @see
-     * #laadAfgifte(nl.kadaster.schemas.gds2.afgifte_bestandenlijstgbresultaat.afgifte.v20130701.AfgifteGBType,
-     * java.lang.String)
+     * @see #laadAfgifte(AfgifteType, String)
      */
     private void laadBagAfgifte(AfgifteType a, String url) throws Exception {
         String msg = "Downloaden " + url;
@@ -640,6 +638,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         }
         lp.setSoort("brk");
         lp.setStatus(LaadProces.STATUS.STAGING_OK);
+        lp.setStatus_datum(new Date());
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         lp.setOpmerking("GDS2 download van " + url + " op " + sdf.format(new Date()));
         lp.setAutomatischProces(em.find(AutomatischProces.class, config.getId()));
@@ -714,14 +713,15 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             lp.setId(null);
             log.warn("Opslaan van bericht uit laadproces " + lp.getBestand_naam() + " is mislukt.", pe);
             log.warn("Duplicaat bericht: " + b.getObject_ref() + ":" + b.getBr_orgineel_xml() + "(" + b.getBr_xml() + ")");
+            lp.setOpmerking(lp.getOpmerking() + ": Fout, duplicaat bericht. Berichtinhoud: \n\n" + b.getBr_xml());
+            b = null;
             lp.setStatus(LaadProces.STATUS.STAGING_DUPLICAAT);
-            lp.setOpmerking(lp.getOpmerking() + ": Fout, duplicaat bericht. Inhoud: \n" + b.getBr_xml());
+            lp.setAutomatischProces(em.find(AutomatischProces.class, this.config.getId()));
             em.merge(this.config);
             em.persist(lp);
             em.flush();
             em.getTransaction().commit();
             em.clear();
-            b = null;
         }
         return b;
     }
