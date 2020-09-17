@@ -638,6 +638,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         }
         lp.setSoort("brk");
         lp.setStatus(LaadProces.STATUS.STAGING_OK);
+        lp.setStatus_datum(new Date());
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         lp.setOpmerking("GDS2 download van " + url + " op " + sdf.format(new Date()));
         lp.setAutomatischProces(em.find(AutomatischProces.class, config.getId()));
