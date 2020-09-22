@@ -252,10 +252,11 @@ public class BRKDirectoryScanner extends AbstractExecutableProces {
                         em.getTransaction().begin();
                         lp.setId(null);
                         log.warn("Opslaan van bericht uit laadproces " + lp.getBestand_naam() + " is mislukt. Object referentie is: " + b.getObject_ref(), pe);
-                        log.debug("Duplicaat bericht: " + b.getObject_ref() + ":" + b.getBr_orgineel_xml());
-                        lp.setStatus(LaadProces.STATUS.STAGING_DUPLICAAT);
-                        lp.setOpmerking(lp.getOpmerking() + ": Fout, duplicaat bericht. Inhoud: \n" + b.getBr_xml());
+                        log.warn("Duplicaat bericht: " + b.getObject_ref() + ":" + b.getBr_orgineel_xml());
+                        lp.setOpmerking(lp.getOpmerking() + ": Fout, duplicaat bericht. Berichtinhoud: \n\n" + b.getBr_xml());
                         b = null;
+                        lp.setStatus(LaadProces.STATUS.STAGING_DUPLICAAT);
+                        lp.setAutomatischProces(em.find(AutomatischProces.class, this.config.getId()));
                         em.merge(this.config);
                         em.persist(lp);
                         em.flush();
