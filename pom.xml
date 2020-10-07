@@ -96,6 +96,8 @@
         <test.h2.version>1.4.200</test.h2.version>
         <test.hsqldb.version>2.5.1</test.hsqldb.version>
         <test.onlyITs>false</test.onlyITs>
+        <test.junit.version>4.13</test.junit.version>
+        <test.junit-jupiter.version>5.7.0</test.junit-jupiter.version>
         <maven.surefire.version>3.0.0-M4</maven.surefire.version>
         <jacoco-maven-plugin.version>0.8.6</jacoco-maven-plugin.version>
         <versions-maven-plugin.version>2.8.1</versions-maven-plugin.version>
@@ -491,6 +493,7 @@
             </dependency>
 
             <!-- test dependencies -->
+
             <dependency>
                 <groupId>com.h2database</groupId>
                 <artifactId>h2</artifactId>
@@ -500,21 +503,36 @@
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
-                <version>4.13</version>
+                <version>${test.junit.version}</version>
                 <scope>test</scope>
             </dependency>
+            <dependency>
+                <groupId>org.junit</groupId>
+                <artifactId>junit-bom</artifactId>
+                <version>${test.junit-jupiter.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>org.junit.jupiter</groupId>-->
+<!--                <artifactId>junit-jupiter-api</artifactId>-->
+<!--                <scope>test</scope>-->
+<!--            </dependency>-->
+<!--            <dependency>-->
+<!--                <groupId>org.junit.jupiter</groupId>-->
+<!--                <artifactId>junit-jupiter-engine</artifactId>-->
+<!--                <scope>test</scope>-->
+<!--            </dependency>-->
+<!--            <dependency>-->
+<!--                <groupId>org.junit.vintage</groupId>-->
+<!--                <artifactId>junit-vintage-engine</artifactId>-->
+<!--                <scope>test</scope>-->
+<!--            </dependency>-->
             <dependency>
                 <groupId>org.dbunit</groupId>
                 <artifactId>dbunit</artifactId>
                 <version>2.7.0</version>
                 <scope>test</scope>
-                <exclusions>
-                    <!-- vanwege CVE-2018-10936 -->
-                    <exclusion>
-                        <groupId>postgresql</groupId>
-                        <artifactId>postgresql</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.httpunit</groupId>
@@ -591,10 +609,10 @@
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
         </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>junit</groupId>-->
+<!--            <artifactId>junit</artifactId>-->
+<!--        </dependency>-->
     </dependencies>
     <build>
         <defaultGoal>package</defaultGoal>

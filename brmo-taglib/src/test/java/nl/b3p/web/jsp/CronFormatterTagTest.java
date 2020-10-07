@@ -3,9 +3,9 @@
  */
 package nl.b3p.web.jsp;
 
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Testcase voor {@link CronFormatterTag}.
@@ -16,7 +16,7 @@ public class CronFormatterTagTest {
 
     private CronFormatterTag tag;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         tag = new CronFormatterTag();
 
@@ -26,11 +26,11 @@ public class CronFormatterTagTest {
     public void testBuildOutputLocale() {
         tag.setLocale("nl");
         tag.setCronExpression("0 0 12 1/1 * ? *");
-        assertEquals("Tag should output 'Om 12:00, elke dag, elk jaar'", "Om 12:00, elke dag, elk jaar", tag.buildOutput());
+        assertEquals("Om 12:00, elke dag, elk jaar", tag.buildOutput(), "Tag should output 'Om 12:00, elke dag, elk jaar'");
     }
     @Test
     public void testBuildOutputNoLocale() {
         tag.setCronExpression("0 0 12 1/1 * ? *");
-        assertEquals("Tag should output 'Om 12:00, elke dag, elk jaar'", "Om 12:00, elke dag, elk jaar", tag.buildOutput());
+        assertEquals("Om 12:00, elke dag, elk jaar", tag.buildOutput(), "Tag should output 'Om 12:00, elke dag, elk jaar'");
     }
 }

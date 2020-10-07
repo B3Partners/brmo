@@ -3,10 +3,11 @@
  */
 package nl.b3p.web.jsp;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Testcase voor {@link TailTag}.
@@ -16,7 +17,7 @@ import static org.junit.Assert.assertEquals;
 public class TailTagTest {
     private TailTag tag;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         tag = new TailTag();
     }
