@@ -3,23 +3,14 @@
  */
 package nl.b3p.brmo.soap.db;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 import nl.b3p.brmo.soap.brk.BrkInfoRequest;
 import nl.b3p.brmo.soap.brk.BrkInfoResponse;
 import nl.b3p.brmo.soap.brk.KadOnrndZkInfoRequest;
 import nl.b3p.brmo.soap.brk.KadOnrndZkInfoResponse;
 import nl.b3p.brmo.test.util.database.dbunit.CleanUtil;
 import org.dbunit.database.DatabaseConfig;
-import org.dbunit.database.DatabaseDataSourceConnection;
 import org.dbunit.database.DatabaseConnection;
+import org.dbunit.database.DatabaseDataSourceConnection;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.XmlDataSet;
@@ -27,66 +18,47 @@ import org.dbunit.ext.mssql.MsSqlDataTypeFactory;
 import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 import org.dbunit.operation.DatabaseOperation;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
- *
  * Draaien met:
  * {@code mvn -Dit.test=BrkInfoIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql > target/postgresql.log}
  * voor bijvoorbeeld PostgreSQL.
  *
  * @author mprins
  */
-@RunWith(Parameterized.class)
+
 public class BrkInfoIntegrationTest extends TestUtil {
 
-    @Parameterized.Parameters(name = "{index}: laden bestand: {0}")
-    public static Collection params() {
-        return Arrays.asList(new Object[][]{
-            // {"sBestandsNaam", aantalPercelen, zoekLocatie, bufferAfstand,eersteKadId,oppPerceel,aardCultuurOnbebouwd, gemCode, perceelNummer},
-            {"/rsgb.xml", 1, "POINT(230341 472237)", 100, 66860489870000L, 1050, "Wegen", "MKL00", 4898}
-        });
-    }
-
-    private IDatabaseConnection rsgb;
 
     private final Lock sequential = new ReentrantLock(true);
-
     /*
      * test parameters.
      */
-    private final String sBestandsNaam;
-    private final int aantalPercelen;
-    private final String zoekLocatie;
-    private final int bufferAfstand;
-    private final long eersteKadId;
-    private final double oppPerceel;
-    private final String aardCultuurOnbebouwd;
-    private final String gemCode;
-    private final int perceelNummer;
+    private final String sBestandsNaam = "/rsgb.xml";
+    private final int aantalPercelen = 1;
+    private final String zoekLocatie = "POINT(230341 472237)";
+    private final int bufferAfstand = 100;
+    private final long eersteKadId = 66860489870000L;
+    private final double oppPerceel = 1050;
+    private final String aardCultuurOnbebouwd = "Wegen";
+    private final String gemCode = "MKL00";
+    private final int perceelNummer = 4898;
+    private IDatabaseConnection rsgb;
 
-    public BrkInfoIntegrationTest(String sBestandsNaam, int aantalPercelen, String zoekLocatie, int bufferAfstand, long eersteKadId,
-            double oppPerceel, String aardCultuurOnbebouwd, String gemCode, int perceelNummer) {
-
-        this.sBestandsNaam = sBestandsNaam;
-        this.aantalPercelen = aantalPercelen;
-        this.zoekLocatie = zoekLocatie;
-        this.bufferAfstand = bufferAfstand;
-        this.eersteKadId = eersteKadId;
-        this.oppPerceel = oppPerceel;
-        this.aardCultuurOnbebouwd = aardCultuurOnbebouwd;
-        this.gemCode = gemCode;
-        this.perceelNummer = perceelNummer;
-
-    }
-
-    @Before
+    @BeforeEach
     @Override
     public void setUp() throws Exception {
         rsgb = new DatabaseDataSourceConnection(this.dsRsgb);
@@ -111,7 +83,7 @@ public class BrkInfoIntegrationTest extends TestUtil {
         DatabaseOperation.CLEAN_INSERT.execute(rsgb, rsgbDataSet);
     }
 
-    @After
+    @AfterEach
     public void cleanup() throws Exception {
         CleanUtil.cleanRSGB_BRK(rsgb, true);
         rsgb.close();
@@ -127,9 +99,9 @@ public class BrkInfoIntegrationTest extends TestUtil {
      */
     @Test
     public void testGetDbType() throws Exception {
-        assertEquals(this.isPostgis, BrkInfo.DB_POSTGRES.equals(BrkInfo.getDbType(this.dsRsgb.getConnection())));
-        assertEquals(this.isMsSQL, BrkInfo.DB_MSSQL.equals(BrkInfo.getDbType(this.dsRsgb.getConnection())));
-        assertEquals(this.isOracle, BrkInfo.DB_ORACLE.equals(BrkInfo.getDbType(this.dsRsgb.getConnection())));
+        Assertions.assertEquals(this.isPostgis, BrkInfo.DB_POSTGRES.equals(BrkInfo.getDbType(this.dsRsgb.getConnection())));
+        Assertions.assertEquals(this.isMsSQL, BrkInfo.DB_MSSQL.equals(BrkInfo.getDbType(this.dsRsgb.getConnection())));
+        Assertions.assertEquals(this.isOracle, BrkInfo.DB_ORACLE.equals(BrkInfo.getDbType(this.dsRsgb.getConnection())));
     }
 
     /**
@@ -149,8 +121,8 @@ public class BrkInfoIntegrationTest extends TestUtil {
         Map<String, Object> searchContext = BrkInfo.createSearchContext(r);
 
         ArrayList<Long> kozIds = BrkInfo.findKozIDs(searchContext);
-        assertFalse(kozIds.isEmpty());
-        assertEquals(Long.valueOf(eersteKadId), kozIds.get(0));
+        Assertions.assertFalse(kozIds.isEmpty());
+        Assertions.assertEquals(Long.valueOf(eersteKadId), kozIds.get(0));
     }
 
     /**
@@ -171,8 +143,8 @@ public class BrkInfoIntegrationTest extends TestUtil {
         Map<String, Object> searchContext = BrkInfo.createSearchContext(r);
 
         ArrayList<Long> kozIds = BrkInfo.findKozIDs(searchContext);
-        assertFalse(kozIds.isEmpty());
-        assertEquals(Long.valueOf(eersteKadId), kozIds.get(0));
+        Assertions.assertFalse(kozIds.isEmpty());
+        Assertions.assertEquals(Long.valueOf(eersteKadId), kozIds.get(0));
     }
 
     /**
@@ -194,8 +166,8 @@ public class BrkInfoIntegrationTest extends TestUtil {
         Map<String, Object> searchContext = BrkInfo.createSearchContext(r);
 
         ArrayList<Long> kozIds = BrkInfo.findKozIDs(searchContext);
-        assertFalse(kozIds.isEmpty());
-        assertEquals(Long.valueOf(eersteKadId), kozIds.get(0));
+        Assertions.assertFalse(kozIds.isEmpty());
+        Assertions.assertEquals(Long.valueOf(eersteKadId), kozIds.get(0));
     }
 
     /**
@@ -215,7 +187,7 @@ public class BrkInfoIntegrationTest extends TestUtil {
         Map<String, Object> searchContext = BrkInfo.createSearchContext(r);
 
         Integer aantal = BrkInfo.countResults(searchContext);
-        assertEquals(Integer.valueOf(aantalPercelen), aantal);
+        Assertions.assertEquals(Integer.valueOf(aantalPercelen), aantal);
     }
 
     /**
@@ -234,12 +206,12 @@ public class BrkInfoIntegrationTest extends TestUtil {
 
         Map<String, Object> searchContext = BrkInfo.createSearchContext(r);
 
-        BrkInfoResponse resp = BrkInfo.createResponse(Arrays.asList(new Long[]{eersteKadId}), searchContext);
+        BrkInfoResponse resp = BrkInfo.createResponse(Arrays.asList(eersteKadId), searchContext);
         List<KadOnrndZkInfoResponse> kadrnrdzkn = resp.getKadOnrndZk();
-        assertFalse(kadrnrdzkn.isEmpty());
+        Assertions.assertFalse(kadrnrdzkn.isEmpty());
 
         KadOnrndZkInfoResponse koz = kadrnrdzkn.get(0);
-        assertEquals(oppPerceel, koz.getGroottePerceel(), 5);
-        assertEquals(aardCultuurOnbebouwd, koz.getAardCultuurOnbebouwd());
+        Assertions.assertEquals(oppPerceel, koz.getGroottePerceel(), 5);
+        Assertions.assertEquals(aardCultuurOnbebouwd, koz.getAardCultuurOnbebouwd());
     }
 }
