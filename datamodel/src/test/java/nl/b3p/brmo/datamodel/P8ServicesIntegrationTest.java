@@ -23,9 +23,10 @@ import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.methods.RequestBuilder;
 import org.apache.http.util.EntityUtils;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -33,7 +34,6 @@ import java.sql.SQLException;
 import static net.javacrumbs.jsonunit.JsonAssert.*;
 import static net.javacrumbs.jsonunit.core.Option.IGNORING_ARRAY_ORDER;
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertNotNull;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
@@ -56,15 +56,15 @@ public class P8ServicesIntegrationTest extends P8TestFramework {
     private HttpResponse response;
 
     @Override
-    @After
+    @AfterEach
     public void cleanup() throws SQLException {
         rsgb.close();
         dsRsgb.close();
     }
 
     @Override
-    @Before
-    public void setup() throws IOException, SQLException {
+    @BeforeEach
+    public void setup() throws SQLException {
         this.setUpDB();
 
         if (!didThisAllready) {
@@ -92,7 +92,7 @@ public class P8ServicesIntegrationTest extends P8TestFramework {
         String body = EntityUtils.toString(response.getEntity());
         LOG.debug("antwoord: " + body);
         assertThat("Response status is OK.", response.getStatusLine().getStatusCode(), equalTo(HttpStatus.SC_OK));
-        assertNotNull("Response body mag niet null zijn.", body);
+        assertNotNull(body, "Response body mag niet null zijn.");
         assertJsonEquals(
                 "{\"kadastrale_percelen\":[{\"kadastrale_code\":\"VDG00B1708\",\"gemeente_code\":\"VDG00\",\"sectie\":\"B\",\"perceelnummer\":1708,\"oppervlakte\":65,\"straat\":\"Oosterstraat\",\"huisnummer\":\"33\",\"postcode\":\"3134NM\",\"woonplaats\":\"Vlaardingen\",\"percnr17\":\"VDG00B1708\"},{\"kadastrale_code\":\"VDG00B1708\",\"gemeente_code\":\"VDG00\",\"sectie\":\"B\",\"perceelnummer\":1708,\"oppervlakte\":65,\"straat\":\"Oosterstraat\",\"huisnummer\":\"35\",\"postcode\":\"3134NM\",\"woonplaats\":\"Vlaardingen\",\"percnr17\":\"VDG00B1708\"},{\"kadastrale_code\":\"VDG00B1709\",\"gemeente_code\":\"VDG00\",\"sectie\":\"B\",\"perceelnummer\":1709,\"oppervlakte\":65,\"straat\":\"Oosterstraat\",\"huisnummer\":\"29\",\"postcode\":\"3134NM\",\"woonplaats\":\"Vlaardingen\",\"percnr17\":\"VDG00B1709\"}],\"offset\":\"0\",\"limit\":\"3\",\"total_item_count\":1000}",
                 body,
@@ -113,7 +113,7 @@ public class P8ServicesIntegrationTest extends P8TestFramework {
         String body = EntityUtils.toString(response.getEntity());
         LOG.debug("antwoord: " + body);
         assertThat("Response status is OK.", response.getStatusLine().getStatusCode(), equalTo(HttpStatus.SC_OK));
-        assertNotNull("Response body mag niet null zijn.", body);
+        assertNotNull(body, "Response body mag niet null zijn.");
         assertJsonEquals(
                 "{\"kadastrale_code\":\"VDG00B1708\",\"gemeente_code\":\"VDG00\",\"sectie\":\"B\",\"perceelnummer\":1708,\"oppervlakte\":65,\"adres\":\"OOSTERSTR 33, 3134NM VLAARDINGEN  (1 meer adressen)\",\"postcode\":\"3134NM\",\"woonplaats\":\"Vlaardingen\",\"gemeente\":\"Vlaardingen\",\"geom\":\"MULTIPOLYGON (((83442.009 435842.213, 83445.535 435831.176, 83451.303 435833.022, 83447.831 435844.075, 83442.009 435842.213)))\",\"rechten\":[{\"subject\":{\"naam\":\"5a063d4c 251bf\",\"type\":\"perceel\",\"persoonid\":\"NL.KAD.Persoon.157125580\",\"woonplaats\":\"Vlaardingen\"},\"aandeel\":\"1\\/1\",\"recht_soort\":\"INGESCHREVEN NATUURLIJK PERSOON\",\"datum_ingang\":\"2012-12-31T09:02:46+00:00\"},{\"subject\":{\"naam\":\"Gemeente Vlaardingen (Kad Gem Vlaardingen Sectie B)\",\"type\":\"perceel\",\"persoonid\":\"NL.KAD.Persoon.159287767\",\"woonplaats\":\"Vlaardingen\"},\"aandeel\":\"1\\/1\",\"recht_soort\":\"INGESCHREVEN NIET-NATUURLIJK PERSOON\",\"datum_ingang\":\"2012-12-31T09:02:46+00:00\"},{\"subject\":{\"naam\":\"5a063d4c 251bf\",\"type\":\"perceel\",\"persoonid\":\"NL.KAD.Persoon.157125580\",\"woonplaats\":\"Vlaardingen\"},\"aandeel\":\"1\\/1\",\"recht_soort\":\"INGESCHREVEN NATUURLIJK PERSOON\",\"datum_ingang\":\"2012-12-31T09:02:46+00:00\"},{\"subject\":{\"naam\":\"Gemeente Vlaardingen (Kad Gem Vlaardingen Sectie B)\",\"type\":\"perceel\",\"persoonid\":\"NL.KAD.Persoon.159287767\",\"woonplaats\":\"Vlaardingen\"},\"aandeel\":\"1\\/1\",\"recht_soort\":\"INGESCHREVEN NIET-NATUURLIJK PERSOON\",\"datum_ingang\":\"2012-12-31T09:02:46+00:00\"}],\"adressen\":[{\"woonplaats\":\"Vlaardingen\",\"straat\":\"Oosterstraat\",\"postcode\":\"3134NM\",\"huisnummer\":\"33\",\"postadres\":false},{\"woonplaats\":\"Vlaardingen\",\"straat\":\"Oosterstraat\",\"postcode\":\"3134NM\",\"huisnummer\":\"35\",\"postadres\":false}]}",
                 body,
@@ -134,7 +134,7 @@ public class P8ServicesIntegrationTest extends P8TestFramework {
         String body = EntityUtils.toString(response.getEntity());
         LOG.debug("antwoord: " + body);
         assertThat("Response status is OK.", response.getStatusLine().getStatusCode(), equalTo(HttpStatus.SC_OK));
-        assertNotNull("Response body mag niet null zijn.", body);
+        assertNotNull(body, "Response body mag niet null zijn.");
         assertJsonEquals(
                 "{\"kadastrale_percelen\":[{\"kadastrale_code\":\"VDG00B1708\",\"gemeente_code\":\"VDG00\",\"sectie\":\"B\",\"perceelnummer\":1708,\"oppervlakte\":65,\"straat\":\"Oosterstraat\",\"huisnummer\":\"33\",\"postcode\":\"3134NM\",\"woonplaats\":\"Vlaardingen\",\"percnr17\":\"VDG00B1708\"},{\"kadastrale_code\":\"VDG00B1708\",\"gemeente_code\":\"VDG00\",\"sectie\":\"B\",\"perceelnummer\":1708,\"oppervlakte\":65,\"straat\":\"Oosterstraat\",\"huisnummer\":\"35\",\"postcode\":\"3134NM\",\"woonplaats\":\"Vlaardingen\",\"percnr17\":\"VDG00B1708\"},{\"kadastrale_code\":\"VDG00B1709\",\"gemeente_code\":\"VDG00\",\"sectie\":\"B\",\"perceelnummer\":1709,\"oppervlakte\":65,\"straat\":\"Oosterstraat\",\"huisnummer\":\"29\",\"postcode\":\"3134NM\",\"woonplaats\":\"Vlaardingen\",\"percnr17\":\"VDG00B1709\"}],\"offset\":\"0\",\"limit\":\"3\",\"total_item_count\":1000}",
                 body,
@@ -155,7 +155,7 @@ public class P8ServicesIntegrationTest extends P8TestFramework {
         String body = EntityUtils.toString(response.getEntity());
         LOG.debug("antwoord: " + body);
         assertThat("Response status is OK.", response.getStatusLine().getStatusCode(), equalTo(HttpStatus.SC_OK));
-        assertNotNull("Response body mag niet null zijn.", body);
+        assertNotNull(body, "Response body mag niet null zijn.");
         assertJsonEquals(
                 "{\"kadastrale_percelen\":[{\"kadastrale_code\":\"VDG00B1712\",\"gemeente_code\":\"VDG00\",\"sectie\":\"B\",\"perceelnummer\":1712,\"oppervlakte\":68,\"percnr17\":\"VDG00B1712\",\"aandeel\":\"1\\/2\",\"rechtsoort\":\"INGESCHREVEN NATUURLIJK PERSOON\",\"datum_ingang\":\"2012-12-31T09:06:24+00:00\"}],\"offset\":\"0\",\"limit\":\"3\",\"total_item_count\":1}",
                 body,
@@ -177,7 +177,7 @@ public class P8ServicesIntegrationTest extends P8TestFramework {
         String body = EntityUtils.toString(response.getEntity());
         LOG.debug("antwoord: " + body);
         assertThat("Response status is OK.", response.getStatusLine().getStatusCode(), equalTo(HttpStatus.SC_OK));
-        assertNotNull("Response body mag niet null zijn.", body);
+        assertNotNull(body, "Response body mag niet null zijn.");
         assertJsonEquals(
                 "{\"subjectid\":\"NL.KAD.Persoon.157450463\",\"type\":\"KadastraalNatuurlijkSubject\",\"adres\":\"Oosterstraat 17, 3134NM VLAARDINGEN\",\"natuurlijk_subject\":{\"voornaam\":\"d941\",\"achternaam\":\"abda6a2\",\"geslacht\":\"M\",\"geboorte_datum\":\"1964-01-09T09:07:45+00:00\",\"geboorte_plaats\":\"4379c2\"}}",
                 body,
@@ -198,7 +198,7 @@ public class P8ServicesIntegrationTest extends P8TestFramework {
         String body = EntityUtils.toString(response.getEntity());
         LOG.debug("antwoord: " + body);
         assertThat("Response status is OK.", response.getStatusLine().getStatusCode(), equalTo(HttpStatus.SC_OK));
-        assertNotNull("Response body mag niet null zijn.", body);
+        assertNotNull(body, "Response body mag niet null zijn.");
         assertJsonEquals(
                 "{\"subjecten\":[{\"subjectid\":\"NL.KAD.Persoon.158819809\",\"voornamen\":\"7efe9\",\"achternaam\":\"ec3e8\",\"geslacht\":\"V\",\"adres\":\"\"},{\"subjectid\":\"NL.KAD.Persoon.157125580\",\"voornamen\":\"5a063d4c\",\"achternaam\":\"251bf\",\"geslacht\":\"M\",\"geboorte_datum\":{},\"adres\":\"Oosterstraat 35, 3134NM VLAARDINGEN\"},{\"subjectid\":\"NL.KAD.Persoon.158911578\",\"voornamen\":\"73427d 7345\",\"achternaam\":\"11fba2\",\"geslacht\":\"M\",\"geboorte_datum\":{},\"adres\":\"van der Waalsstraat 86, 3132TN VLAARDINGEN\"}],\"offset\":\"0\",\"limit\":\"3\",\"total_item_count\":1000}",
                 body,

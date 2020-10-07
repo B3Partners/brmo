@@ -11,8 +11,7 @@ import org.dbunit.database.DatabaseConfig;
 import org.dbunit.database.DatabaseDataSourceConnection;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
-import org.junit.*;
-import org.junit.rules.TestName;
+import org.junit.jupiter.api.*;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -40,35 +39,30 @@ public abstract class P8TestFramework {
      * voor jdbc interactie.
      */
     protected BasicDataSource dsRsgb;
-    /**
-     * logging rule.
-     */
-    @Rule
-    public TestName name = new TestName();
 
     /**
      * Log de naam van de test als deze begint.
      */
-    @Before
-    public void startTest() {
-        LOG.info("==== Start test methode: " + name.getMethodName());
+    @BeforeEach
+    public void startTest(TestInfo testInfo) {
+        LOG.info("==== Start test methode: " + testInfo.getDisplayName());
     }
 
-    @After
-    public void endTest() {
-        LOG.info("==== Einde test methode: " + name.getMethodName());
+    @AfterEach
+    public void endTest(TestInfo testInfo) {
+        LOG.info("==== Einde test methode: " + testInfo.getDisplayName());
     }
 
-    @After
+    @AfterEach
     public abstract void cleanup() throws Exception;
 
-    @Before
+    @BeforeEach
     public abstract void setup() throws Exception;
 
     /**
      * initialize http client aan de hand van de aangegeven properties.
      */
-    @BeforeClass
+    @BeforeAll
     public static void setUpClass() throws IOException {
         //assumeNotNull("Verwacht P8 properties te zijn aangegeven.", System.getProperty("p8.properties.file"));
 
@@ -95,7 +89,7 @@ public abstract class P8TestFramework {
      *
      * @throws IOException if any occurs closing the http connection
      */
-    @AfterClass
+    @AfterAll
     public static void tearDownClass() throws IOException {
         if (client != null) {
             client.close();
@@ -120,7 +114,7 @@ public abstract class P8TestFramework {
             LOG.debug("geen extra parameters geladen.");
         }
         try {
-            Class driverClass = Class.forName(params.getProperty("rsgb.jdbc.driverClassName"));
+            Class.forName(params.getProperty("rsgb.jdbc.driverClassName"));
         } catch (ClassNotFoundException ex) {
             LOG.error("Database driver niet gevonden.", ex);
         }

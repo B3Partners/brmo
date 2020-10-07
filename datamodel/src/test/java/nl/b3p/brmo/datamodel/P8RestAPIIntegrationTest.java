@@ -21,15 +21,15 @@ import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.methods.RequestBuilder;
 import org.apache.http.util.EntityUtils;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
 import static net.javacrumbs.jsonunit.JsonAssert.assertJsonEquals;
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertNotNull;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
@@ -44,12 +44,12 @@ public class P8RestAPIIntegrationTest extends P8TestFramework {
     private HttpResponse response;
 
     @Override
-    @After
+    @AfterEach
     public void cleanup() {
     }
 
     @Override
-    @Before
+    @BeforeEach
     public void setup() {
     }
 
@@ -63,7 +63,7 @@ public class P8RestAPIIntegrationTest extends P8TestFramework {
         String body = EntityUtils.toString(response.getEntity());
 
         assertThat("Response status is OK.", response.getStatusLine().getStatusCode(), equalTo(HttpStatus.SC_OK));
-        assertNotNull("Response body mag niet null zijn.", body);
+        Assertions.assertNotNull(body, "Response body mag niet null zijn.");
         assertJsonEquals("\"imkad_api_1.8.20\"", body);
     }
 
@@ -77,7 +77,7 @@ public class P8RestAPIIntegrationTest extends P8TestFramework {
         String body = EntityUtils.toString(response.getEntity());
 
         assertThat("Response status is OK.", response.getStatusLine().getStatusCode(), equalTo(HttpStatus.SC_OK));
-        assertNotNull("Response body mag niet null zijn.", body);
+        Assertions.assertNotNull(body, "Response body mag niet null zijn.");
         assertJsonEquals("{\"errors\":[]}", body);
     }
 
