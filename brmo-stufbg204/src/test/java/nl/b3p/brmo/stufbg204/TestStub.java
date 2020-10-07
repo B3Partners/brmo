@@ -1,22 +1,23 @@
 package nl.b3p.brmo.stufbg204;
-
 /*
  * Copyright (C) 2016 B3Partners B.V.
  */
-import java.io.IOException;
-import java.util.Properties;
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.junit.After;
-import static org.junit.Assume.assumeNotNull;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Rule;
-import org.junit.rules.TestName;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.TestInfo;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import java.io.IOException;
+import java.util.Properties;
+
+import static java.lang.System.getProperty;
+import static org.junit.jupiter.api.Assumptions.assumeFalse;
 
 /**
  *
@@ -52,19 +53,14 @@ public abstract class TestStub {
 
     protected BasicDataSource dsStaging;
     protected BasicDataSource dsRsgb;
-    /**
-     * logging rule.
-     */
-    @Rule
-    public TestName name = new TestName();
 
     /**
      * test of de database properties zijn aangegeven, zo niet dan skippen we
      * alle tests in deze test.
      */
-    @BeforeClass
+    @BeforeAll
     public static void checkDatabaseIsProvided() {
-        assumeNotNull("Verwacht database omgeving te zijn aangegeven.", System.getProperty("database.properties.file"));
+        assumeFalse(getProperty("database.properties.file") == null, "Verwacht database omgeving te zijn aangegeven.");
     }
 
     /**
@@ -74,7 +70,7 @@ public abstract class TestStub {
      *
      * @throws Exception if any
      */
-    @Before
+    @BeforeEach
     abstract public void setUp() throws Exception;
 
     /**
@@ -82,7 +78,7 @@ public abstract class TestStub {
      *
      * @throws java.io.IOException if loading the property file fails
      */
-    @Before
+    @BeforeEach
     public void loadDBprop() throws IOException {
         // the `database.properties.file`  is set in the pom.xml or using the commandline
         DBPROPS.load(TestStub.class.getClassLoader()
@@ -100,7 +96,7 @@ public abstract class TestStub {
         isPostgis = "postgis".equalsIgnoreCase(DBPROPS.getProperty("dbtype"));
 
         try {
-            Class driverClass = Class.forName(DBPROPS.getProperty("jdbc.driverClassName"));
+            Class.forName(DBPROPS.getProperty("jdbc.driverClassName"));
         } catch (ClassNotFoundException ex) {
             LOG.error("Database driver niet gevonden.", ex);
         }
@@ -123,17 +119,14 @@ public abstract class TestStub {
     /**
      * Log de naam van de test als deze begint.
      */
-    @Before
-    public void startTest() {
-        LOG.info("==== Start test methode: " + name.getMethodName());
+    @BeforeEach
+    public void startTest(TestInfo testInfo) {
+        LOG.info("==== Start test methode: " + testInfo.getDisplayName());
     }
 
-    /**
-     * Log de naam van de test als deze eindigt.
-     */
-    @After
-    public void endTest() {
-        LOG.info("==== Einde test methode: " + name.getMethodName());
+    @AfterEach
+    public void endTest(TestInfo testInfo) {
+        LOG.info("==== Einde test methode: " + testInfo.getDisplayName());
     }
 
     /**

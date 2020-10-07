@@ -4,20 +4,16 @@
 package nl.b3p.brmo.stufbg204;
 
 import nl.egem.stuf.sector.bg._0204.KennisgevingsBericht;
-import nl.egem.stuf.sector.bg._0204.KennisgevingsBericht.Body;
 import nl.egem.stuf.stuf0204.BevestigingsBericht;
 import nl.egem.stuf.stuf0204.Mutatiesoort;
 import nl.egem.stuf.stuf0204.Stuurgegevens;
 import nl.egem.stuf.stuf0204.Stuurgegevens.Kennisgeving;
-import org.apache.commons.dbcp.BasicDataSource;
-import org.junit.After;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 /**
  *
  * @author Mark Prins
@@ -26,14 +22,13 @@ public class Stufbg204ServiceIntegrationTest extends TestStub {
 
     private StUFBGasynchroon service;
 
-
-    @Before
+    @BeforeEach
     @Override
     public void setUp() {
         service = new StUFBGasynchroon();
     }
 
-    @After
+    @AfterEach
     public void tearDown() {
         service = null;
     }
@@ -50,7 +45,7 @@ public class Stufbg204ServiceIntegrationTest extends TestStub {
         kb.setStuurgegevens(s);
 
         BevestigingsBericht b = service.ontvangKennisgeving(kb);
-        assertNotNull("BevestigingsBericht is null.", b);
-        assertEquals("Verwacht 'BRMO'", "BRMO", b.getStuurgegevens().getZender().getApplicatie());
+        assertNotNull(b, "BevestigingsBericht is null.");
+        assertEquals("BRMO", b.getStuurgegevens().getZender().getApplicatie(), "Verwacht 'BRMO'");
     }
 }

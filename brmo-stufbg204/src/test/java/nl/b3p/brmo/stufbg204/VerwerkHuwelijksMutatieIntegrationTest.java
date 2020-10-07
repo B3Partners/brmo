@@ -31,14 +31,14 @@ import org.dbunit.dataset.ITable;
 import org.dbunit.ext.mssql.MsSqlDataTypeFactory;
 import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.BeforeEach;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Deze testcase verwerkt een soap bericht uit een bestand als kennisgeving. Het
@@ -57,7 +57,7 @@ public class VerwerkHuwelijksMutatieIntegrationTest extends WebTestStub {
     private final Lock sequential = new ReentrantLock();
     private BrmoFramework brmo;
 
-    @Before
+    @BeforeEach
     @Override
     public void setUp() throws SQLException, BrmoException, DatabaseUnitException {
         brmo = new BrmoFramework(dsStaging, dsRsgb, null);
@@ -86,7 +86,7 @@ public class VerwerkHuwelijksMutatieIntegrationTest extends WebTestStub {
         sequential.lock();
     }
 
-    @After
+    @AfterEach
     public void cleanup() throws Exception {
         brmo.closeBrmoFramework();
         CleanUtil.cleanSTAGING(staging, false);
@@ -97,7 +97,7 @@ public class VerwerkHuwelijksMutatieIntegrationTest extends WebTestStub {
     }
 
     @Test
-    @Ignore("Deze test mislukt omdat in het bericht de gegevens van de partner ontbreken, het bericht kan daardoor niet verwerkt worden")
+    @Disabled("Deze test mislukt omdat in het bericht de gegevens van de partner ontbreken, het bericht kan daardoor niet verwerkt worden")
     public void testBericht() throws IOException, DataSetException, SQLException, BrmoException, InterruptedException, ParseException {
         InputStreamEntity reqEntity = new InputStreamEntity(
                 VerwerkHuwelijksMutatieIntegrationTest.class.getResourceAsStream("/OpnemenHuwelijkScenario/StUF_request.xml"),
@@ -117,37 +117,37 @@ public class VerwerkHuwelijksMutatieIntegrationTest extends WebTestStub {
         assertThat("Response status is OK.", response.getStatusLine().getStatusCode(), equalTo(HttpStatus.SC_OK));
 
         // check staging database inhoud
-        assertTrue("Er zijn anders dan 1 STAGING_OK laadprocessen", 1l <= brmo.getCountLaadProcessen(null, null, BrmoFramework.BR_BRP, "STAGING_OK"));
+        assertTrue(1l <= brmo.getCountLaadProcessen(null, null, BrmoFramework.BR_BRP, "STAGING_OK"), "Er zijn anders dan 1 STAGING_OK laadprocessen");
 
         ITable laadproces = staging.createDataSet().getTable("laadproces");
-        assertEquals("datum klopt niet", /* StUFbg204Util.sdf.parse("201812211418450000") */ "2018-12-21 14:18:45.0", laadproces.getValue(0, "bestand_datum").toString());
+        assertEquals( /* StUFbg204Util.sdf.parse("201812211418450000") */ "2018-12-21 14:18:45.0", laadproces.getValue(0, "bestand_datum").toString(), "datum klopt niet");
 
-        assertTrue("Er zijn anders dan 1 STAGING_OK berichten", 1l <= brmo.getCountBerichten(null, null, BrmoFramework.BR_BRP, "STAGING_OK"));
+        assertTrue(1l <= brmo.getCountBerichten(null, null, BrmoFramework.BR_BRP, "STAGING_OK"), "Er zijn anders dan 1 STAGING_OK berichten");
         ITable bericht = staging.createDataSet().getTable("bericht");
-        assertEquals("object ref klopt niet", "NL.BRP.Persoon.df2e41b72f8a3421ef575617fc247a77018a573f", bericht.getValue(0, "object_ref"));
-        assertEquals("datum klopt niet", "2018-12-21 14:18:45.0", bericht.getValue(0, "datum").toString());
+        assertEquals("NL.BRP.Persoon.df2e41b72f8a3421ef575617fc247a77018a573f", bericht.getValue(0, "object_ref"), "object ref klopt niet");
+        assertEquals("2018-12-21 14:18:45.0", bericht.getValue(0, "datum").toString(), "datum klopt niet");
 
         // transformeren van bericht en check rsgb database inhoud
         Thread t = brmo.toRsgb();
         t.join();
 
         ITable subject = rsgb.createDataSet().getTable("subject");
-        assertEquals("Aantal rijen klopt niet", 1, subject.getRowCount());
-        assertEquals("naam niet als verwacht", "J de Cuykelaer", subject.getValue(0, "naam"));
+        assertEquals(1, subject.getRowCount(), "Aantal rijen klopt niet");
+        assertEquals("J de Cuykelaer", subject.getValue(0, "naam"), "naam niet als verwacht");
 
         ITable nat_prs = rsgb.createDataSet().getTable("nat_prs");
-        assertEquals("Aantal rijen klopt niet", 1, nat_prs.getRowCount());
-        assertEquals("geslacht niet als verwacht", "M", nat_prs.getValue(1, "geslachtsaand"));
-        assertEquals("geslachtsnaam niet als verwacht", "Cuykelaer", nat_prs.getValue(0, "nm_geslachtsnaam"));
+        assertEquals(1, nat_prs.getRowCount(), "Aantal rijen klopt niet");
+        assertEquals("M", nat_prs.getValue(1, "geslachtsaand"), "geslacht niet als verwacht");
+        assertEquals("Cuykelaer", nat_prs.getValue(0, "nm_geslachtsnaam"), "geslachtsnaam niet als verwacht");
 
         ITable ingeschr_nat_prs = rsgb.createDataSet().getTable("ingeschr_nat_prs");
-        assertEquals("Aantal rijen klopt niet", 1, ingeschr_nat_prs.getRowCount());
-        assertEquals("a nummer niet als verwacht", "9173658014", ingeschr_nat_prs.getValue(0, "a_nummer"));
-        assertEquals("bsn nummer niet als verwacht", "301571818", ingeschr_nat_prs.getValue(0, "bsn"));
+        assertEquals(1, ingeschr_nat_prs.getRowCount(), "Aantal rijen klopt niet");
+        assertEquals("9173658014", ingeschr_nat_prs.getValue(0, "a_nummer"), "a nummer niet als verwacht");
+        assertEquals("301571818", ingeschr_nat_prs.getValue(0, "bsn"), "bsn nummer niet als verwacht");
     }
 
     @Test
-    @Ignore("Deze test mislukt omdat in het bericht de gegevens van de partner ontbreken, het bericht kan daardoor niet verwerkt worden")
+    @Disabled("Deze test mislukt omdat in het bericht de gegevens van de partner ontbreken, het bericht kan daardoor niet verwerkt worden")
     public void testToevoegingMetHuwelijkAlsComfort() throws IOException, DataSetException, SQLException, InterruptedException, ParseException, BrmoException {
         InputStreamEntity reqEntity = new InputStreamEntity(
                 VerwerkToevoegingMutatieIntegrationTest.class.getResourceAsStream("/testdata-tnt/SoapBerichten/toevoeging_huwelijk_als_comfort.xml"),
@@ -167,39 +167,39 @@ public class VerwerkHuwelijksMutatieIntegrationTest extends WebTestStub {
         assertThat("Response status is OK.", response.getStatusLine().getStatusCode(), equalTo(HttpStatus.SC_OK));
 
         // check staging database inhoud
-        assertEquals("Er zijn anders dan 1 STAGING_OK laadprocessen", 1l, brmo.getCountLaadProcessen(null, null, BrmoFramework.BR_BRP, "STAGING_OK"));
+        assertEquals(1l, brmo.getCountLaadProcessen(null, null, BrmoFramework.BR_BRP, "STAGING_OK"), "Er zijn anders dan 1 STAGING_OK laadprocessen");
 
         ITable laadproces = staging.createDataSet().getTable("laadproces");
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss.SS");
-        assertEquals("datum klopt niet", "2019-01-14 16:04:37.0", laadproces.getValue(0, "bestand_datum").toString());
+        assertEquals("2019-01-14 16:04:37.0", laadproces.getValue(0, "bestand_datum").toString(), "datum klopt niet");
 
-        assertTrue("Er zijn anders dan 1 STAGING_OK berichten", 1l <= brmo.getCountBerichten(null, null, BrmoFramework.BR_BRP, "STAGING_OK"));
+        assertTrue(1l <= brmo.getCountBerichten(null, null, BrmoFramework.BR_BRP, "STAGING_OK"), "Er zijn anders dan 1 STAGING_OK berichten");
         ITable bericht = staging.createDataSet().getTable("bericht");
-        assertEquals("object ref klopt niet", "NL.BRP.Persoon.fcd17242d8211342df48efd67341ca9765de8347", bericht.getValue(0, "object_ref"));
-        assertEquals("datum klopt niet", "2019-01-14 16:04:37.0", bericht.getValue(0, "datum").toString());
+        assertEquals("NL.BRP.Persoon.fcd17242d8211342df48efd67341ca9765de8347", bericht.getValue(0, "object_ref"), "object ref klopt niet");
+        assertEquals("2019-01-14 16:04:37.0", bericht.getValue(0, "datum").toString(), "datum klopt niet");
 
         // transformeren van bericht en check rsgb database inhoud
         Thread t = brmo.toRsgb();
         t.join();
 
         ITable subject = rsgb.createDataSet().getTable("subject");
-        assertEquals("Aantal rijen klopt niet", 1, subject.getRowCount());
-        assertEquals("naam niet als verwacht", "727b5940 900ed1be 8b701201 935a9e ba5b4d6e d9b9226a", subject.getValue(0, "naam"));
+        assertEquals(1, subject.getRowCount(), "Aantal rijen klopt niet");
+        assertEquals("727b5940 900ed1be 8b701201 935a9e ba5b4d6e d9b9226a", subject.getValue(0, "naam"), "naam niet als verwacht");
 
         ITable nat_prs = rsgb.createDataSet().getTable("nat_prs");
-        assertEquals("Aantal rijen klopt niet", 1, nat_prs.getRowCount());
-        assertEquals("geslacht niet als verwacht", "M", nat_prs.getValue(1, "geslachtsaand"));
+        assertEquals(1, nat_prs.getRowCount(), "Aantal rijen klopt niet");
+        assertEquals("M", nat_prs.getValue(1, "geslachtsaand"), "geslacht niet als verwacht");
         // assertEquals("geslachtsnaam niet als verwacht", "Cuykelaer", nat_prs.getValue(0, "nm_geslachtsnaam"));
 
         ITable ingeschr_nat_prs = rsgb.createDataSet().getTable("ingeschr_nat_prs");
-        assertEquals("Aantal rijen klopt niet", 1, ingeschr_nat_prs.getRowCount());
-        assertEquals("a nummer niet als verwacht", "6171717520", ingeschr_nat_prs.getValue(0, "a_nummer"));
-        assertEquals("bsn nummer niet als verwacht", "749069273", ingeschr_nat_prs.getValue(0, "bsn"));
+        assertEquals(1, ingeschr_nat_prs.getRowCount(), "Aantal rijen klopt niet");
+        assertEquals("6171717520", ingeschr_nat_prs.getValue(0, "a_nummer"), "a nummer niet als verwacht");
+        assertEquals("749069273", ingeschr_nat_prs.getValue(0, "bsn"), "bsn nummer niet als verwacht");
     }
 
 
     @Test
-    @Ignore("TODO de 2e persoon wordt niet uitgeparsed")
+    @Disabled("TODO de 2e persoon wordt niet uitgeparsed")
     public void testBericht2() throws IOException, DataSetException, SQLException, BrmoException, InterruptedException, ParseException {
         InputStreamEntity reqEntity = new InputStreamEntity(
                 VerwerkHuwelijksMutatieIntegrationTest.class.getResourceAsStream("/OpnemenHuwelijkScenario/StUF_request2.xml"),
@@ -219,32 +219,32 @@ public class VerwerkHuwelijksMutatieIntegrationTest extends WebTestStub {
         assertThat("Response status is OK.", response.getStatusLine().getStatusCode(), equalTo(HttpStatus.SC_OK));
 
         // check staging database inhoud
-        assertTrue("Er zijn anders dan 1 STAGING_OK laadprocessen", 1l <= brmo.getCountLaadProcessen(null, null, BrmoFramework.BR_BRP, "STAGING_OK"));
+        assertTrue(1l <= brmo.getCountLaadProcessen(null, null, BrmoFramework.BR_BRP, "STAGING_OK"), "Er zijn anders dan 1 STAGING_OK laadprocessen");
 
         ITable laadproces = staging.createDataSet().getTable("laadproces");
-        assertEquals("datum klopt niet", /* StUFbg204Util.sdf.parse("201812211418450000") */ "2018-12-21 14:18:45.0", laadproces.getValue(0, "bestand_datum").toString());
+        assertEquals( /* StUFbg204Util.sdf.parse("201812211418450000") */ "2018-12-21 14:18:45.0", laadproces.getValue(0, "bestand_datum").toString(), "datum klopt niet");
 
-        assertTrue("Er zijn anders dan 1 STAGING_OK berichten", 1l <= brmo.getCountBerichten(null, null, BrmoFramework.BR_BRP, "STAGING_OK"));
+        assertTrue(1l <= brmo.getCountBerichten(null, null, BrmoFramework.BR_BRP, "STAGING_OK"), "Er zijn anders dan 1 STAGING_OK berichten");
         ITable bericht = staging.createDataSet().getTable("bericht");
-        assertEquals("object ref klopt niet", "NL.BRP.Persoon.df2e41b72f8a3421ef575617fc247a77018a573f", bericht.getValue(0, "object_ref"));
-        assertEquals("datum klopt niet", "2018-12-21 14:18:45.0", bericht.getValue(0, "datum").toString());
+        assertEquals("NL.BRP.Persoon.df2e41b72f8a3421ef575617fc247a77018a573f", bericht.getValue(0, "object_ref"), "object ref klopt niet");
+        assertEquals("2018-12-21 14:18:45.0", bericht.getValue(0, "datum").toString(), "datum klopt niet");
 
         // transformeren van bericht en check rsgb database inhoud
         Thread t = brmo.toRsgb();
         t.join();
 
         ITable subject = rsgb.createDataSet().getTable("subject");
-        assertEquals("Aantal rijen klopt niet", 1, subject.getRowCount());
-        assertEquals("naam niet als verwacht", "J de Cuykelaer", subject.getValue(0, "naam"));
+        assertEquals(1, subject.getRowCount(), "Aantal rijen klopt niet");
+        assertEquals("J de Cuykelaer", subject.getValue(0, "naam"), "naam niet als verwacht");
 
         ITable nat_prs = rsgb.createDataSet().getTable("nat_prs");
-        assertEquals("Aantal rijen klopt niet", 1, nat_prs.getRowCount());
-        assertEquals("geslacht niet als verwacht", "M", nat_prs.getValue(1, "geslachtsaand"));
-        assertEquals("geslachtsnaam niet als verwacht", "Cuykelaer", nat_prs.getValue(0, "nm_geslachtsnaam"));
+        assertEquals(1, nat_prs.getRowCount(), "Aantal rijen klopt niet");
+        assertEquals("M", nat_prs.getValue(1, "geslachtsaand"), "geslacht niet als verwacht");
+        assertEquals("Cuykelaer", nat_prs.getValue(0, "nm_geslachtsnaam"), "geslachtsnaam niet als verwacht");
 
         ITable ingeschr_nat_prs = rsgb.createDataSet().getTable("ingeschr_nat_prs");
-        assertEquals("Aantal rijen klopt niet", 1, ingeschr_nat_prs.getRowCount());
-        assertEquals("a nummer niet als verwacht", "9173658014", ingeschr_nat_prs.getValue(0, "a_nummer"));
-        assertEquals("bsn nummer niet als verwacht", "301571818", ingeschr_nat_prs.getValue(0, "bsn"));
+        assertEquals(1, ingeschr_nat_prs.getRowCount(), "Aantal rijen klopt niet");
+        assertEquals("9173658014", ingeschr_nat_prs.getValue(0, "a_nummer"), "a nummer niet als verwacht");
+        assertEquals("301571818", ingeschr_nat_prs.getValue(0, "bsn"), "bsn nummer niet als verwacht");
     }
 }

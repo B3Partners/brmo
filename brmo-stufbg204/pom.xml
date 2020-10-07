@@ -14,10 +14,6 @@
     <description>StufBG2.04 soap service voor de BRMO applicatie</description>
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
-        <org-netbeans-modules-maven-j2ee.netbeans_2e_hint_2e_j2eeVersion>1.7-web</org-netbeans-modules-maven-j2ee.netbeans_2e_hint_2e_j2eeVersion>
-        <org-netbeans-modules-maven-j2ee.netbeans_2e_hint_2e_deploy_2e_server>Tomcat</org-netbeans-modules-maven-j2ee.netbeans_2e_hint_2e_deploy_2e_server>
-        <org-netbeans-modules-maven-jaxws._5f_S_5f_bg0204_5f_3>src/main/webapp/WEB-INF/wsdl/bg0204.wsdl</org-netbeans-modules-maven-jaxws._5f_S_5f_bg0204_5f_3>
-        <org-netbeans-modules-maven-jaxws.generate_5f_nonjsr109>false</org-netbeans-modules-maven-jaxws.generate_5f_nonjsr109>
     </properties>
     <dependencies>
         <dependency>
@@ -91,6 +87,11 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
