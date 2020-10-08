@@ -4,8 +4,9 @@
 package nl.b3p.brmo.persistence.staging;
 
 import nl.b3p.brmo.persistence.TestUtil;
-import static org.junit.Assert.assertEquals;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Testcase voor {@link nl.b3p.brmo.persistence.staging.BAGScannerProces}.

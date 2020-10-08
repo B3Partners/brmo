@@ -4,9 +4,10 @@
 package nl.b3p.brmo.persistence.staging;
 
 import nl.b3p.brmo.persistence.TestUtil;
+import org.junit.jupiter.api.Test;
+
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.LOG_NEWLINE;
-import org.junit.Test;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Testcase voor {@link nl.b3p.brmo.persistence.staging.BRKScannerProces}.
@@ -28,8 +29,8 @@ public class BRKScannerProcesTest extends TestUtil {
         final long id = p.getId();
 
         BRKScannerProces c = entityManager.find(BRKScannerProces.class, id);
-        assertEquals("De directory is zoals geconfigureerd.", DIR, c.getScanDirectory());
-        assertEquals("Verwacht dat de parameter is zoals geconfigureerd.", "true", c.getConfig().get("isActive").getValue());
+        assertEquals(DIR, c.getScanDirectory(), "De directory is zoals geconfigureerd.");
+        assertEquals("true", c.getConfig().get("isActive").getValue(), "Verwacht dat de parameter is zoals geconfigureerd.");
 
         entityManager.remove(c);
         entityManager.getTransaction().commit();
@@ -46,7 +47,7 @@ public class BRKScannerProcesTest extends TestUtil {
         final long id = p.getId();
 
         BRKScannerProces c = entityManager.find(BRKScannerProces.class, id);
-        assertEquals("Verwacht dat de logfile en de samenvatting hetzelfde zijn.", c.getLogfile(), c.getSamenvatting());
+        assertEquals(c.getLogfile(), c.getSamenvatting(), "Verwacht dat de logfile en de samenvatting hetzelfde zijn.");
 
         c.updateSamenvattingEnLogfile(NAAM);
 
@@ -60,7 +61,7 @@ public class BRKScannerProcesTest extends TestUtil {
         String[] s = p.getLogfile().split(NAAM);
         String expected = s[0].replace(LOG_NEWLINE, "");
         String actual = s[1].substring(TWEEDE.length() + 1).replace(LOG_NEWLINE, "");
-        assertEquals("Verwacht dat de logfile twee dezelfde delen bevat.", expected, actual);
+        assertEquals(expected, actual, "Verwacht dat de logfile twee dezelfde delen bevat.");
 
         entityManager.remove(c);
         entityManager.getTransaction().commit();

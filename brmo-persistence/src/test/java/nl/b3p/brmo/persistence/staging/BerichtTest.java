@@ -3,9 +3,10 @@
  */
 package nl.b3p.brmo.persistence.staging;
 
-import javax.persistence.Query;
 import nl.b3p.brmo.persistence.TestUtil;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import javax.persistence.Query;
 
 /**
  * Testcase voor {@link  nl.b3p.brmo.persistence.staging.Bericht}.

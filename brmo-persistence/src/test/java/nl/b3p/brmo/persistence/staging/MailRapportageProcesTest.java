@@ -3,20 +3,20 @@
  */
 package nl.b3p.brmo.persistence.staging;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import nl.b3p.brmo.persistence.TestUtil;
+import org.junit.jupiter.api.Test;
+
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import nl.b3p.brmo.persistence.TestUtil;
-import static org.hamcrest.CoreMatchers.is;
-import org.junit.Test;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertArrayEquals;
-import static org.hamcrest.MatcherAssert.assertThat;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * test cases voor {@link nl.b3p.brmo.persistence.staging.MailRapportageProces}.
@@ -33,10 +33,8 @@ public class MailRapportageProcesTest extends TestUtil {
         MailRapportageProces m = new MailRapportageProces();
         m.setMailAdressen(EEN_ADRES);
         entityManager.persist(m);
-        assertEquals("Verwacht dat opgeslagen email adres identiek is.",
-                EEN_ADRES, m.getMailAdressenArray()[0]);
-        assertEquals("Verwacht dat opgeslagen email adres identiek is.",
-                EEN_ADRES, m.getMailAdressen());
+        assertEquals(EEN_ADRES, m.getMailAdressenArray()[0], "Verwacht dat opgeslagen email adres identiek is.");
+        assertEquals(EEN_ADRES, m.getMailAdressen(), "Verwacht dat opgeslagen email adres identiek is.");
 
         entityManager.remove(m);
         entityManager.getTransaction().commit();
@@ -51,8 +49,8 @@ public class MailRapportageProcesTest extends TestUtil {
         m.setMailAdressen(ADRESLIJST);
         entityManager.persist(m);
 
-        assertArrayEquals("Verwacht dat opgeslagen email adressen identiek zijn.",
-                ADRESLIJST, m.getMailAdressenArray());
+        assertArrayEquals(
+                ADRESLIJST, m.getMailAdressenArray(), "Verwacht dat opgeslagen email adressen identiek zijn.");
 
         entityManager.remove(m);
         entityManager.getTransaction().commit();
@@ -123,11 +121,10 @@ public class MailRapportageProcesTest extends TestUtil {
         cq.orderBy(cb.asc(from.get("status")));
 
         List<AutomatischProces> list = entityManager.createQuery(cq).getResultList();
-        assertThat("Het aantal processen met status ERROR.", 2, is(list.size()));
+        assertEquals(2, list.size(), "Het aantal processen met status ERROR.");
 
         entityManager.remove(p);
         entityManager.remove(m);
         entityManager.getTransaction().commit();
     }
-
 }

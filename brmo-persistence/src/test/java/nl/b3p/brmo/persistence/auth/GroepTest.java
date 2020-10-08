@@ -3,10 +3,12 @@
  */
 package nl.b3p.brmo.persistence.auth;
 
-import java.util.Iterator;
 import nl.b3p.brmo.persistence.TestUtil;
-import org.junit.Test;
-import static org.junit.Assert.assertEquals;
+import org.junit.jupiter.api.Test;
+
+import java.util.Iterator;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * testcases voor {@link nl.b3p.brmo.persistence.auth.Groep }.
@@ -41,7 +43,7 @@ public class GroepTest extends TestUtil {
         while (leden.hasNext()) {
             lid = leden.next();
         }
-        assertEquals("Verwacht de gebruiker in de groep.", gebA, lid);
+        assertEquals(gebA, lid, "Verwacht de gebruiker in de groep.");
 
         entityManager.remove(g);
         entityManager.getTransaction().commit();
