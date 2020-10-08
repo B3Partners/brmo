@@ -16,10 +16,20 @@
  */
 package nl.b3p.topnl.converters;
 
-import org.junit.Ignore;
+import nl.b3p.topnl.Processor;
+import nl.b3p.topnl.TestUtil;
+import nl.b3p.topnl.TopNLType;
+import nl.b3p.topnl.entities.*;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.locationtech.jts.geom.LineString;
 import org.locationtech.jts.geom.Point;
 import org.locationtech.jts.geom.Polygon;
+import org.xml.sax.SAXException;
+
+import javax.xml.bind.JAXBException;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -28,28 +38,8 @@ import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
-import javax.xml.bind.JAXBException;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
-import nl.b3p.topnl.Processor;
-import nl.b3p.topnl.TestUtil;
-import nl.b3p.topnl.TopNLType;
-import nl.b3p.topnl.entities.FunctioneelGebied;
-import nl.b3p.topnl.entities.Gebouw;
-import nl.b3p.topnl.entities.GeografischGebied;
-import nl.b3p.topnl.entities.Hoogte;
-import nl.b3p.topnl.entities.Inrichtingselement;
-import nl.b3p.topnl.entities.Plaats;
-import nl.b3p.topnl.entities.RegistratiefGebied;
-import nl.b3p.topnl.entities.Relief;
-import nl.b3p.topnl.entities.Spoorbaandeel;
-import nl.b3p.topnl.entities.Terrein;
-import nl.b3p.topnl.entities.TopNLEntity;
-import nl.b3p.topnl.entities.Waterdeel;
-import nl.b3p.topnl.entities.Wegdeel;
-import org.junit.Test;
-import static org.junit.Assert.*;
-import org.xml.sax.SAXException;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  *
@@ -124,7 +114,7 @@ public class Top50NLConverterTest extends TestUtil{
     }
 
     @Test
-    @Ignore("GeografischGebied niet in TOP50NL")
+    @Disabled("GeografischGebied niet in TOP50NL")
     public void testConvertGeografischGebied() throws IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
         TopNLEntity entity = getEntity("top50nl/GeografischGebied.xml");
 
@@ -187,7 +177,7 @@ public class Top50NLConverterTest extends TestUtil{
     }
 
     @Test
-    @Ignore("Plaats niet in TOP50NL")
+    @Disabled("Plaats niet in TOP50NL")
     public void testConvertPlaats() throws IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
         TopNLEntity entity = getEntity("top50nl/Plaats.xml");
 
