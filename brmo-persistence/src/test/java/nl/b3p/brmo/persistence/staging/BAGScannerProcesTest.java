@@ -29,12 +29,11 @@ public class BAGScannerProcesTest extends TestUtil {
         final long id = p.getId();
         BAGScannerProces c = entityManager.find(BAGScannerProces.class, id);
 
-        assertEquals("Verwacht dat de scan directory is zoals geconfigureerd.", DIR, c.getScanDirectory());
-        assertEquals("Verwacht dat de archief directory is zoals geconfigureerd.", DIR, c.getArchiefDirectory());
-        assertEquals("Verwacht dat de parameter is zoals geconfigureerd.", "true", c.getConfig().get("isActive").getValue());
+        assertEquals(DIR, c.getScanDirectory(), "Verwacht dat de scan directory is zoals geconfigureerd.");
+        assertEquals(DIR, c.getArchiefDirectory(), "Verwacht dat de archief directory is zoals geconfigureerd.");
+        assertEquals("true", c.getConfig().get("isActive").getValue(), "Verwacht dat de parameter is zoals geconfigureerd.");
 
         entityManager.remove(p);
         entityManager.getTransaction().commit();
     }
-
 }

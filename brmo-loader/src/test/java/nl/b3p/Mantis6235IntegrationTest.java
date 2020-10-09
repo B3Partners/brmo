@@ -25,12 +25,13 @@ import org.dbunit.dataset.xml.XmlDataSet;
 import org.dbunit.ext.mssql.MsSqlDataTypeFactory;
 import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assume.assumeTrue;
+import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeEach;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
+
 
 /**
  * Testcases voor mantis-6235; incorrect parsen van VVE identificatie. Draaien
@@ -48,14 +49,12 @@ public class Mantis6235IntegrationTest extends AbstractDatabaseIntegrationTest {
     private static final Log LOG = LogFactory.getLog(Mantis6235IntegrationTest.class);
 
     private BrmoFramework brmo;
-
     private IDatabaseConnection rsgb;
     private IDatabaseConnection staging;
-
     private final Lock sequential = new ReentrantLock();
 
     @Override
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         BasicDataSource dsStaging = new BasicDataSource();
         dsStaging.setUrl(params.getProperty("staging.jdbc.url"));
@@ -101,11 +100,13 @@ public class Mantis6235IntegrationTest extends AbstractDatabaseIntegrationTest {
 
         brmo = new BrmoFramework(dsStaging, dsRsgb);
 
-        assumeTrue("Er zijn 2 STAGING_OK berichten", 2l == brmo.getCountBerichten(null, null, "brk", "STAGING_OK"));
-        assumeTrue("Er is 1 STAGING_OK laadproces", 1l == brmo.getCountLaadProcessen(null, null, "brk", "STAGING_OK"));
+        assumeTrue(2l == brmo.getCountBerichten(null, null, "brk", "STAGING_OK"),
+                "Er zijn 2 STAGING_OK berichten");
+        assumeTrue(1l == brmo.getCountLaadProcessen(null, null, "brk", "STAGING_OK"),
+                "Er is 1 STAGING_OK laadproces");
     }
 
-    @After
+    @AfterEach
     public void cleanup() throws Exception {
         brmo.closeBrmoFramework();
 
@@ -128,19 +129,23 @@ public class Mantis6235IntegrationTest extends AbstractDatabaseIntegrationTest {
         Thread t = brmo.toRsgb();
         t.join();
 
-        assertEquals("Niet alle berichten zijn OK getransformeerd", 2l, brmo.getCountBerichten(null, null, "brk", "RSGB_OK"));
-        assertEquals("Niet alle berichten zijn OK getransformeerd", 0l, brmo.getCountBerichten(null, null, "brk", "RSGB_NOK"));
+        assertEquals(2l, brmo.getCountBerichten(null, null, "brk", "RSGB_OK"),
+                "Niet alle berichten zijn OK getransformeerd");
+        assertEquals(0l, brmo.getCountBerichten(null, null, "brk", "RSGB_NOK"),
+                "Niet alle berichten zijn OK getransformeerd");
 
         ITable brondocument = rsgb.createDataSet().getTable("brondocument");
-        assertTrue("Er zijn geen brondocumenten", brondocument.getRowCount() > 0);
+        assertTrue(brondocument.getRowCount() > 0, "Er zijn geen brondocumenten");
 
         ITable kad_onrrnd_zk = rsgb.createDataSet().getTable("kad_onrrnd_zk");
-        assertEquals("Er zijn geen actuele onroerende zaken", 2, kad_onrrnd_zk.getRowCount());
+        assertEquals(2, kad_onrrnd_zk.getRowCount(), "Er zijn geen actuele onroerende zaken");
 
         ITable app_re = rsgb.createDataSet().getTable("app_re");
-        assertEquals("Er zijn geen actuele appartmentsrechten", 2, app_re.getRowCount());
+        assertEquals(2, app_re.getRowCount(), "Er zijn geen actuele appartmentsrechten");
 
-        assertEquals("Eerste rij bevat niet verwachte VVE 'fk_2nnp_sc_identif'", "NL.KAD.Persoon.58193932", app_re.getValue(0, "fk_2nnp_sc_identif").toString());
-        assertEquals("Tweede rij bevat niet verwachte VVE 'fk_2nnp_sc_identif'", "NL.KAD.Persoon.58201049", app_re.getValue(1, "fk_2nnp_sc_identif").toString());
+        assertEquals("NL.KAD.Persoon.58193932", app_re.getValue(0, "fk_2nnp_sc_identif").toString(),
+                "Eerste rij bevat niet verwachte VVE 'fk_2nnp_sc_identif'");
+        assertEquals("NL.KAD.Persoon.58201049", app_re.getValue(1, "fk_2nnp_sc_identif").toString(),
+                "Tweede rij bevat niet verwachte VVE 'fk_2nnp_sc_identif'");
     }
 }

@@ -49,7 +49,7 @@ package nl.b3p.brmo.test.util.database;
  * @author mprins
  * @note marker interface
  * @see org.junit.experimental.categories.Category
- * @deprecated sinds upgrade naar junit 5 
+ * @deprecated sinds upgrade naar junit 5
  */
 @Deprecated
 public interface PostgreSQLDriverBasedFailures {

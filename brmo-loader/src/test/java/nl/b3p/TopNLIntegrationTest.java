@@ -16,22 +16,12 @@
  */
 package nl.b3p;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.ProgressUpdateListener;
 import nl.b3p.brmo.loader.RsgbProxy;
 import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.loader.entity.LaadProces;
 import nl.b3p.brmo.loader.util.BrmoException;
-import nl.b3p.brmo.test.util.database.MSSqlServerDriverBasedFailures;
 import nl.b3p.brmo.test.util.database.dbunit.CleanUtil;
 import nl.b3p.loader.jdbc.OracleConnectionUnwrapper;
 import nl.b3p.topnl.TopNLType;
@@ -43,27 +33,36 @@ import org.dbunit.database.DatabaseConfig;
 import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.DatabaseDataSourceConnection;
 import org.dbunit.database.IDatabaseConnection;
-import org.dbunit.dataset.DataSetException;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.ext.mssql.MsSqlDataTypeFactory;
 import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 import org.dbunit.operation.DatabaseOperation;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
-import static org.junit.Assume.assumeTrue;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+import java.util.stream.Stream;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 /**
   * Draaien met:
- * {@code mvn -Dit.test=TopNLIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql > target/postgresql.log}
+ * {@code mvn -Dit.test=TopNLIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql -pl brmo-loader > /tmp/postgresql.log}
  * voor bijvoorbeeld PostgreSQL of
  * {@code mvn -Dit.test=TopNLIntegrationTest -Dtest.onlyITs=true verify -Poracle > target/oracle.log}
  * voor Oracle.
@@ -71,60 +70,28 @@ import static org.junit.Assume.assumeTrue;
  *
  * @author Mark Prins
  */
-@RunWith(Parameterized.class)
 // overslaan op mssql; daar is geen topnl ondersteuning, zie ook https://github.com/B3Partners/brmo/issues/773
-@Category({MSSqlServerDriverBasedFailures.class})
+@Tag("not-mssql")
 public class TopNLIntegrationTest extends AbstractDatabaseIntegrationTest {
 
     private final static Log LOG = LogFactory.getLog(TopNLIntegrationTest.class);
 
-    @Parameterized.Parameters(name = "argumenten rij {index}: type: {0}, bestand: {1}, gebied: {4}")
-    public static Collection params() {
-        return Arrays.asList(new Object[][]{
-            // {"bestandType","filename", aantalBerichten, aantalProcessen, "lpGebied"},
-            {TopNLType.TOP250NL, "/topnl/TOP250NL.gml", 0, 1, "Nederland"},
-            {TopNLType.TOP100NL, "/topnl/Top100NL_000001.gml", 0, 1, "Top100NL blad 000001"},
-            {TopNLType.TOP50NL, "/topnl/Top50NL_07W.gml", 0, 1, "Top50NL blad 07W"},
-            {TopNLType.TOP10NL, "/topnl/TOP10NL_07W.gml", 0, 1, "TOP10NL blad 07W"}
-        });
+    static Stream<Arguments> argumentsProvider() {
+        return Stream.of(
+                // {"bestandType","filename", aantalBerichten, aantalProcessen, "lpGebied"},
+                arguments(TopNLType.TOP250NL, "/topnl/TOP250NL.gml", 0, 1, "Nederland"),
+                arguments(TopNLType.TOP100NL, "/topnl/Top100NL_000001.gml", 0, 1, "Top100NL blad 000001"),
+                arguments(TopNLType.TOP50NL, "/topnl/Top50NL_07W.gml", 0, 1, "Top50NL blad 07W"),
+                arguments(TopNLType.TOP10NL, "/topnl/TOP10NL_07W.gml", 0, 1, "TOP10NL blad 07W")
+        );
     }
 
     private final Lock sequential = new ReentrantLock(true);
-    /**
-     * test parameter.
-     */
-    private final String bestandNaam;
-    /**
-     * test parameter.
-     */
-    private final TopNLType bestandType;
-    /**
-     * test parameter.
-     */
-    private final long aantalBerichten;
-    /**
-     * test parameter.
-     */
-    private final long aantalProcessen;
-
-    /**
-     * test parameter.
-     */
-    private final String lpGebied;
-
     private IDatabaseConnection staging;
     private IDatabaseConnection topnl;
     private BrmoFramework brmo;
 
-    public TopNLIntegrationTest(TopNLType bestandType, String bestandNaam, long aantalBerichten, long aantalProcessen, String lpGebied) {
-        this.bestandType = bestandType;
-        this.bestandNaam = bestandNaam;
-        this.aantalBerichten = aantalBerichten;
-        this.aantalProcessen = aantalProcessen;
-        this.lpGebied = lpGebied;
-    }
-
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         BasicDataSource dsStaging = new BasicDataSource();
         dsStaging.setUrl(params.getProperty("staging.jdbc.url"));
@@ -167,15 +134,13 @@ public class TopNLIntegrationTest extends AbstractDatabaseIntegrationTest {
 
         DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
 
-        assumeTrue("Er zijn STAGING_OK berichten", 0l == brmo.getCountBerichten(null, null, null, "STAGING_OK"));
-        assumeTrue("Er zijn STAGING_OK laadprocessen", 0l == brmo.getCountLaadProcessen(null, null, null, "STAGING_OK"));
-
-        // omdat soms de bestandsnaam wordt aangepast moet dit een harde test fout zijn, dus geen assumeNotNull
-        assertNotNull("Het test bestand moet er zijn.", TopNLIntegrationTest.class.getResource(bestandNaam));
-
+        assumeTrue(0L == brmo.getCountBerichten(null, null, null, "STAGING_OK"),
+                "Er zijn STAGING_OK berichten");
+        assumeTrue(0L == brmo.getCountLaadProcessen(null, null, null, "STAGING_OK"),
+                "Er zijn STAGING_OK laadprocessen");
     }
 
-    @After
+    @AfterEach
     public void cleanup() throws Exception {
         brmo.closeBrmoFramework();
 
@@ -191,25 +156,36 @@ public class TopNLIntegrationTest extends AbstractDatabaseIntegrationTest {
         }
     }
 
-    @Test
-    public void loadTopNLInStaging() throws BrmoException {
+    @DisplayName("TopNL in Staging")
+    @ParameterizedTest(name = "argumenten rij {index}: type: {0}, bestand: {1}, gebied: {4}")
+    @MethodSource("argumentsProvider")
+    public void loadTopNLInStaging(TopNLType bestandType, String bestandNaam, long aantalBerichten, long aantalProcessen, String lpGebied) throws BrmoException {
+        // omdat soms de bestandsnaam wordt aangepast moet dit een harde test fout zijn, dus geen assumeNotNull
+        assertNotNull(TopNLIntegrationTest.class.getResource(bestandNaam), "Het test bestand moet er zijn.");
+
         brmo.loadFromFile(bestandType.getType(), TopNLIntegrationTest.class.getResource(bestandNaam).getFile(), null);
 
         final List<LaadProces> processen = brmo.listLaadProcessen();
         final List<Bericht> berichten = brmo.listBerichten();
 
-        assertNotNull("De verzameling berichten bestaat niet.", berichten);
-        assertEquals("Het aantal berichten is niet als verwacht.", aantalBerichten, berichten.size());
-        assertNotNull("De verzameling processen bestaat niet.", processen);
-        assertEquals("Het aantal processen is niet als verwacht.", aantalProcessen, processen.size());
-        assertEquals("Het gebied moet als verwacht zijn.", lpGebied, processen.get(0).getGebied());
+        assertNotNull(berichten, "De verzameling berichten bestaat niet.");
+        assertEquals(aantalBerichten, berichten.size(), "Het aantal berichten is niet als verwacht.");
+        assertNotNull(processen, "De verzameling processen bestaat niet.");
+        assertEquals(aantalProcessen, processen.size(), "Het aantal processen is niet als verwacht.");
+        assertEquals(lpGebied, processen.get(0).getGebied(), "Het gebied moet als verwacht zijn.");
     }
 
-    @Test
-    public void processTopNL() throws BrmoException, InterruptedException, SQLException, DataSetException {
+    @DisplayName("verwerk TopNL")
+    @ParameterizedTest(name = "argumenten rij {index}: type: {0}, bestand: {1}, gebied: {4}")
+    @MethodSource("argumentsProvider")
+    public void processTopNL(TopNLType bestandType, String bestandNaam, long aantalBerichten, long aantalProcessen, String lpGebied)
+            throws Exception {
+        // omdat soms de bestandsnaam wordt aangepast moet dit een harde test fout zijn, dus geen assumeNotNull
+        assertNotNull(TopNLIntegrationTest.class.getResource(bestandNaam), "Het test bestand moet er zijn.");
+
         brmo.loadFromFile(bestandType.getType(), TopNLIntegrationTest.class.getResource(bestandNaam).getFile(), null);
         final List<LaadProces> processen = brmo.listLaadProcessen();
-        assertEquals("Er is 1 laadproces.", aantalProcessen, processen.size());
+        assertEquals(aantalProcessen, processen.size(), "Er is 1 laadproces.");
 
         List<Long> ids = new ArrayList<>();
         for (TopNLType type : TopNLType.values()) {
@@ -237,7 +213,8 @@ public class TopNLIntegrationTest extends AbstractDatabaseIntegrationTest {
             }
         });
         t.join();
-        assertEquals("Alles OK", LaadProces.STATUS.RSGB_TOPNL_OK.toString(), staging.createDataSet().getTable("laadproces").getValue(0, "status"));
+        assertEquals(LaadProces.STATUS.RSGB_TOPNL_OK.toString(), staging.createDataSet().getTable("laadproces").getValue(0, "status"),
+                "Alles OK");
     }
 
 }

@@ -4,17 +4,6 @@
 package nl.b3p.brmo.loader.entity;
 
 import nl.b3p.AbstractDatabaseIntegrationTest;
-import static nl.b3p.brmo.loader.BrmoFramework.BR_BAG;
-import java.io.File;
-import java.io.FileInputStream;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.test.util.database.dbunit.CleanUtil;
 import nl.b3p.loader.jdbc.OracleConnectionUnwrapper;
@@ -32,76 +21,58 @@ import org.dbunit.ext.mssql.MsSqlDataTypeFactory;
 import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 import org.dbunit.operation.DatabaseOperation;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assume.assumeTrue;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
+import static nl.b3p.brmo.loader.BrmoFramework.BR_BAG;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 /**
- *
  * Draaien met:
- * {@code mvn -Dit.test=BagBerichtIntegrationTest -Dtest.onlyITs=true verify -pl brmo-loader -Ppostgresql > target/postgresql.log}
+ * {@code mvn -Dit.test=BagBerichtIntegrationTest -Dtest.onlyITs=true verify -pl brmo-loader -Ppostgresql >
+ * /tmp/postgresql.log}
  * voor bijvoorbeeld PostgreSQL.
  *
  * @author mprins
  */
-@RunWith(Parameterized.class)
 public class BagBerichtIntegrationTest extends AbstractDatabaseIntegrationTest {
 
     private static final Log LOG = LogFactory.getLog(BagBerichtIntegrationTest.class);
-
-    private static boolean runloadAllTestAgain = true;
-
-    /**
-     * testdata.
-     *
-     * @return een test data {@code Object[]} met daarin
-     * {@code {"bestandNaam", aantalBerichten, aantalLaadProcessen, "timestamp"}}
-     * boor bag berichten
-     */
-    @Parameterized.Parameters(name = "{index}: bestand: {0}")
-    public static Collection testdata() {
-        return Arrays.asList(new Object[][]{
-            // {"bestandNaam", aantalBerichten, aantalLaadProcessen, timestamp},
-            {"/GH-280/b1.xml", 1, 1, "2016-03-08T16:00:09.000023"},
-            {"/GH-280/b2.xml", 1, 1, "2016-03-08T16:00:12.000199"}
-        });
-    }
-
-    /**
-     * test parameter.
-     */
-    private final String bestandNaam;
-
-    /**
-     * test parameter.
-     */
-    private final long aantalBerichten;
-    /**
-     * test parameter.
-     */
-    private final long aantalProcessen;
-    /**
-     * test parameter.
-     */
-    private final String timestamp;
 
     private final Lock sequential = new ReentrantLock();
     private IDatabaseConnection staging;
     private IDatabaseConnection rsgb;
     private BrmoFramework brmo;
 
-    public BagBerichtIntegrationTest(String bestandNaam, long aantalBerichten, long aantalProcessen, String timestamp) {
-        this.bestandNaam = bestandNaam;
-        this.aantalBerichten = aantalBerichten;
-        this.aantalProcessen = aantalProcessen;
-        this.timestamp = timestamp;
+    /**
+     * testdata.
+     *
+     * @return een test data {@code Object[]} met daarin
+     * {@code {"bestandNaam", aantalBerichten, aantalLaadProcessen, "timestamp"}}
+     * voor bag berichten
+     */
+    public static Collection<Object[]> testdata() {
+        return Arrays.asList(new Object[][]{
+                // {"bestandNaam", aantalBerichten, aantalLaadProcessen, timestamp},
+                {"/GH-280/b1.xml", 1, 1, "2016-03-08T16:00:09.000023"},
+                {"/GH-280/b2.xml", 1, 1, "2016-03-08T16:00:12.000199"}
+        });
     }
 
-    @Before
+    @BeforeEach
     @Override
     public void setUp() throws Exception {
         BasicDataSource dsStaging = new BasicDataSource();
@@ -125,11 +96,13 @@ public class BagBerichtIntegrationTest extends AbstractDatabaseIntegrationTest {
             staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MsSqlDataTypeFactory());
             rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MsSqlDataTypeFactory());
         } else if (this.isOracle) {
-            staging = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsStaging.getConnection()), params.getProperty("staging.user").toUpperCase());
+            staging = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsStaging.getConnection()),
+                    params.getProperty("staging.user").toUpperCase());
             staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
             staging.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
 
-            rsgb = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsRsgb.getConnection()), params.getProperty("rsgb.user").toUpperCase());
+            rsgb = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsRsgb.getConnection()),
+                    params.getProperty("rsgb.user").toUpperCase());
             rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
             rsgb.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
         } else if (this.isPostgis) {
@@ -140,16 +113,19 @@ public class BagBerichtIntegrationTest extends AbstractDatabaseIntegrationTest {
         FlatXmlDataSetBuilder fxdb = new FlatXmlDataSetBuilder();
         fxdb.setCaseSensitiveTableNames(false);
         // lege bericht en laadproces tabellen
-        IDataSet stagingDataSet = fxdb.build(new FileInputStream(new File(BagBerichtIntegrationTest.class.getResource("/staging-empty-flat.xml").toURI())));
+        IDataSet stagingDataSet = fxdb.build(new FileInputStream(
+                new File(BagBerichtIntegrationTest.class.getResource("/staging-empty-flat.xml").toURI())));
 
         sequential.lock();
 
         DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
-        assumeTrue("Er zijn STAGING_OK berichten", 0l == brmo.getCountBerichten(null, null, BR_BAG, "STAGING_OK"));
-        assumeTrue("Er zijn STAGING_OK laadprocessen", 0l == brmo.getCountLaadProcessen(null, null, BR_BAG, "STAGING_OK"));
+        assumeTrue(0L == brmo.getCountBerichten(null, null, BR_BAG, "STAGING_OK"),
+                "Er zijn STAGING_OK berichten");
+        assumeTrue(0L == brmo.getCountLaadProcessen(null, null, BR_BAG, "STAGING_OK"),
+                "Er zijn STAGING_OK laadprocessen");
     }
 
-    @After
+    @AfterEach
     public void cleanup() throws Exception {
         brmo.closeBrmoFramework();
 
@@ -169,30 +145,33 @@ public class BagBerichtIntegrationTest extends AbstractDatabaseIntegrationTest {
 
     @Test
     public void loadInStaging() throws Exception {
+        Iterator<Object[]> i = testdata().iterator();
+        Object[] data = i.next();
+        String bestandNaam = (String) data[0];
+        int aantalBerichten = (int) data[1];
+        int aantalProcessen = (int) data[2];
+        String timestamp = (String) data[3];
+
         brmo.loadFromFile(BR_BAG, BagBerichtIntegrationTest.class.getResource(bestandNaam).getFile(), null);
-        assertEquals("Aantal berichten is niet als verwacht", aantalBerichten, brmo.getCountBerichten(null, null, BR_BAG, "STAGING_OK"));
-        assertEquals("Aantal laadprocessen is niet als verwacht", aantalProcessen, brmo.getCountLaadProcessen(null, null, BR_BAG, "STAGING_OK"));
+        assertEquals(aantalBerichten, brmo.getCountBerichten(null, null, BR_BAG, "STAGING_OK"),
+                "Aantal berichten is niet als verwacht");
+        assertEquals(aantalProcessen, brmo.getCountLaadProcessen(null, null, BR_BAG, "STAGING_OK"),
+                "Aantal laadprocessen is niet als verwacht");
 
         ITable bericht = staging.createDataSet().getTable("bericht");
-        assertEquals("Datum komt niet overeen",
+        assertEquals(
                 LocalDateTime.parse(timestamp).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S")),
-                bericht.getValue(0, "datum").toString()
-        );
+                bericht.getValue(0, "datum").toString(),
+                "Datum komt niet overeen");
     }
 
     /**
-     * laadt de berichten in de staging db, verwerk vervolgens naar rsgb.
+     * laad de berichten in de staging db, verwerk vervolgens naar rsgb.
      *
      * @throws Exception if any
      */
     @Test
     public void loadAll() throws Exception {
-        // deze test maar 1x draaien, vanwege testdata parametrisatie wordt de test voor iedere testdata gestart
-        // met een assumption staat deze case 1x skipped in de lijst
-        assumeTrue("Test is al een keer gestart.", runloadAllTestAgain);
-        // if (runloadAllTestAgain) { return; }
-        runloadAllTestAgain = false;
-
         int _aantalBerichten = 0;
         int _aantalProcessen = 0;
 
@@ -209,11 +188,13 @@ public class BagBerichtIntegrationTest extends AbstractDatabaseIntegrationTest {
             _aantalProcessen += (int) data[2];
         }
 
-        assertEquals("Aantal berichten is niet als verwacht", _aantalBerichten, brmo.getCountBerichten(null, null, BR_BAG, "STAGING_OK"));
-        assertEquals("Aantal laadprocessen is niet als verwacht", _aantalProcessen, brmo.getCountLaadProcessen(null, null, BR_BAG, "STAGING_OK"));
+        assertEquals(_aantalBerichten, brmo.getCountBerichten(null, null, BR_BAG, "STAGING_OK"),
+                "Aantal berichten is niet als verwacht");
+        assertEquals(_aantalProcessen, brmo.getCountLaadProcessen(null, null, BR_BAG, "STAGING_OK"),
+                "Aantal laadprocessen is niet als verwacht");
 
         ITable bericht = staging.createDataSet().getTable("bericht");
-        assertEquals("Het aantal bericht", 2, bericht.getRowCount());
+        assertEquals(2, bericht.getRowCount(), "Het aantal bericht");
         Date datum_b1 = (Date) bericht.getValue(0, "datum");
         Date datum_b2 = (Date) bericht.getValue(1, "datum");
 
@@ -221,21 +202,26 @@ public class BagBerichtIntegrationTest extends AbstractDatabaseIntegrationTest {
         t.join();
 
         ITable pand = rsgb.createDataSet().getTable("pand");
-        assertEquals("Het aantal panden klopt niet", 1, pand.getRowCount());
-        assertEquals("Pand identificatie klopt niet", "0613100000136918", pand.getValue(0, "identif"));
+        assertEquals(1, pand.getRowCount(), "Het aantal panden klopt niet");
+        assertEquals("0613100000136918", pand.getValue(0, "identif"), "Pand identificatie klopt niet");
 
         ITable pand_archief = rsgb.createDataSet().getTable("pand_archief");
-        assertEquals("Het aantal archief panden", 1, pand_archief.getRowCount());
-        assertEquals("Datums komen niet overeen", pand_archief.getValue(0, "datum_einde_geldh"), pand_archief.getValue(0, "dat_beg_geldh"));
+        assertEquals(1, pand_archief.getRowCount(), "Het aantal archief panden");
+        assertEquals(
+                pand_archief.getValue(0, "datum_einde_geldh"), pand_archief.getValue(0, "dat_beg_geldh"),
+                "Datums komen niet overeen");
 
         ITable brondocument = rsgb.createDataSet().getTable("brondocument");
-        assertEquals("Het aantal brondocumenten klopt niet", 1, brondocument.getRowCount());
-        assertEquals("brondocumentnummer klopt niet", "VA1071182", brondocument.getValue(0, "identificatie"));
+        assertEquals(1, brondocument.getRowCount(), "Het aantal brondocumenten klopt niet");
+        assertEquals("VA1071182", brondocument.getValue(0, "identificatie"), "brondocumentnummer klopt niet");
 
-        assertEquals("Aantal verwerkte berichten is niet als verwacht", 0, brmo.getCountBerichten(null, null, BR_BAG, "STAGING_OK"));
+        assertEquals(0, brmo.getCountBerichten(null, null, BR_BAG, "STAGING_OK"),
+                "Aantal verwerkte berichten is niet als verwacht");
 
         ITable bericht2 = staging.createDataSet().getTable("bericht");
-        assertEquals("Datum voorafgaan en na afloop van transformatie komt niet overeen", datum_b1, bericht2.getValue(0, "datum"));
-        assertEquals("Datum voorafgaan en na afloop van transformatie komt niet overeen", datum_b2, bericht2.getValue(1, "datum"));
+        assertEquals(datum_b1, bericht2.getValue(0, "datum"),
+                "Datum voorafgaan en na afloop van transformatie komt niet overeen");
+        assertEquals(datum_b2, bericht2.getValue(1, "datum"),
+                "Datum voorafgaan en na afloop van transformatie komt niet overeen");
     }
 }

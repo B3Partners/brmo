@@ -5,16 +5,17 @@
  */
 package nl.b3p.brmo.loader.xml;
 
+import nl.b3p.brmo.loader.entity.BrkBericht;
+import org.apache.commons.io.input.CloseShieldInputStream;
+import org.junit.jupiter.api.Test;
+
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
-import nl.b3p.brmo.loader.entity.BrkBericht;
-import org.apache.commons.io.input.CloseShieldInputStream;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertEquals;
+
 import static org.junit.Assume.assumeNotNull;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Testcases voor {@link nl.b3p.brmo.loader.xml.BrkSnapshotXMLReader}.
@@ -65,6 +66,7 @@ public class BrkSnapshotXMLReaderTest {
             total++;
         }
         assertEquals(mutSmallXmlNieuwCount, total);
+        assertNotNull(brk);
         assertEquals("NL.KAD.OnroerendeZaak:53860293910012", brk.getObjectRef());
         assertEquals(new SimpleDateFormat("yyyy-MM-dd").parse("2009-11-30"),
                 brk.getDatum());
@@ -91,7 +93,7 @@ public class BrkSnapshotXMLReaderTest {
             total++;
         }
         assertEquals(mutXmlNieuwCount, total);
-
+        assertNotNull(brk);
         
         bReader = new BrkSnapshotXMLReader(BrkSnapshotXMLReader.class.getResourceAsStream(mutXMLReformatted));
         assertTrue(bReader.hasNext());
@@ -101,14 +103,17 @@ public class BrkSnapshotXMLReaderTest {
             total++;
         }
         assertEquals(mutXmlNieuwCount, total);
-
+        assertNotNull(brkReformatted);
         // vergelijk resultaat van de twee readers
-        assertEquals("van beide laatste mutaties moet ObjectRef hetzelfde zijn",
-                brk.getObjectRef(), brkReformatted.getObjectRef());
-        assertEquals("van beide laatste mutaties moet datum van laatste hetzelfde zijn",
-                brk.getDatum(), brkReformatted.getDatum());
-        assertEquals("van beide laatste mutaties moet VolgordeNummer hetzelfde zijn",
-                brk.getVolgordeNummer(), brkReformatted.getVolgordeNummer());
+        assertEquals(
+                brk.getObjectRef(), brkReformatted.getObjectRef(),
+                "van beide laatste mutaties moet ObjectRef hetzelfde zijn");
+        assertEquals(
+                brk.getDatum(), brkReformatted.getDatum(),
+                "van beide laatste mutaties moet datum van laatste hetzelfde zijn");
+        assertEquals(
+                brk.getVolgordeNummer(), brkReformatted.getVolgordeNummer(),
+                "van beide laatste mutaties moet VolgordeNummer hetzelfde zijn");
     }
     /**
      * Test next() methode met xml bestanden in een zip met mutaties.
@@ -125,7 +130,7 @@ public class BrkSnapshotXMLReaderTest {
             while (entry != null) {
                 BrkSnapshotXMLReader brkreader = new BrkSnapshotXMLReader(new CloseShieldInputStream(zis));
 
-                assertEquals("De bestandsnaam moet kloppen.", mutXmlsInZip[0], entry.getName());
+                assertEquals(mutXmlsInZip[0], entry.getName(), "De bestandsnaam moet kloppen.");
                 while (brkreader.hasNext()) {
                     BrkBericht brk = brkreader.next();
                     total++;
@@ -135,7 +140,7 @@ public class BrkSnapshotXMLReaderTest {
         } finally {
             zis.close();
         }
-        assertEquals("Verwacht dat het aantal mutaties gelijk is.", mutZipNameNieuwCount, total);
+        assertEquals(mutZipNameNieuwCount, total, "Verwacht dat het aantal mutaties gelijk is.");
     }
 
     /**
@@ -155,7 +160,7 @@ public class BrkSnapshotXMLReaderTest {
             while (entry != null) {
                 BrkSnapshotXMLReader brkreader = new BrkSnapshotXMLReader(new CloseShieldInputStream(zis));
 
-                assertEquals("De bestandsnaam moet kloppen.", standXmlsInZip[0], entry.getName());
+                assertEquals(standXmlsInZip[0], entry.getName(), "De bestandsnaam moet kloppen.");
                 while (brkreader.hasNext()) {
                     BrkBericht brk = brkreader.next();
                     total++;
@@ -165,6 +170,6 @@ public class BrkSnapshotXMLReaderTest {
         } finally {
             zis.close();
         }
-        assertEquals("Verwacht dat het aantal mutaties gelijk is.", standZipSnapshotCount, total);
+        assertEquals(standZipSnapshotCount, total, "Verwacht dat het aantal mutaties gelijk is.");
     }
 }

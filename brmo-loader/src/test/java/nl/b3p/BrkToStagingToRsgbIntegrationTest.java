@@ -1,15 +1,8 @@
 package nl.b3p;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
+import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.loader.entity.LaadProces;
-import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.test.util.database.dbunit.CleanUtil;
 import nl.b3p.loader.jdbc.OracleConnectionUnwrapper;
 import org.apache.commons.dbcp.BasicDataSource;
@@ -26,15 +19,25 @@ import org.dbunit.ext.mssql.MsSqlDataTypeFactory;
 import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 import org.dbunit.operation.DatabaseOperation;
-import org.junit.After;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assume.assumeNotNull;
-import static org.junit.Assume.assumeTrue;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assumptions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.List;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+import java.util.stream.Stream;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assumptions.assumeFalse;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 /**
  *
@@ -45,64 +48,33 @@ import org.junit.runners.Parameterized;
  * @author Boy de Wit
  * @author mprins
  */
-@RunWith(Parameterized.class)
 public class BrkToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrationTest {
 
     private static final Log LOG = LogFactory.getLog(BrkToStagingToRsgbIntegrationTest.class);
 
-    @Parameterized.Parameters(name = "{index}: type: {0}, bestand: {1}, mutatiedatum: {4}")
-    public static Collection params() {
-        return Arrays.asList(new Object[][]{
-            // {"type","filename", aantalBerichten, aantalProcessen, "datumEersteMutatie"},
-             {"brk", "/nl/b3p/brmo/loader/xml/MUTBX01-ASN00T1660-20091119-1-singleline.xml", 1, 1, "2009-11-19"},
+    static Stream<Arguments> argumentsProvider() {
+        return Stream.of(
+                // {"type","filename", aantalBerichten, aantalProcessen, "datumEersteMutatie"},
+                arguments("brk", "/nl/b3p/brmo/loader/xml/MUTBX01-ASN00T1660-20091119-1-singleline.xml", 1, 1,
+                        "2009-11-19"),
                 // mislukt op SQL server met melding mbt ongeldige geom
-             {"brk", "/nl/b3p/brmo/loader/xml/BURBX01-ASN00-AA331-big-geom.xml", 1, 1, "2009-10-31"},
+                arguments("brk", "/nl/b3p/brmo/loader/xml/BURBX01-ASN00-AA331-big-geom.xml", 1, 1, "2009-10-31"),
                 /* dit bestand zit in de DVD Proefbestanden BRK Levering oktober 2012 (Totaalstanden)
-                * /mnt/v_b3p_projecten/BRMO/BRK/BRK_STUF_IMKAD/BRK/Levering(dvd)/Proefbestanden BRK Levering oktober 2012 (Totaalstanden)/20091130/
-                * en staat op de git-ignore lijst omdat 't 18.5MB groot is, `grep -o KadastraalObjectSnapshot BURBX01.xml | wc -w`/2 geeft aantal berichten
-                */
-             {"brk", "/nl/b3p/brmo/loader/xml/BURBX01-ASN00-20091130-6000015280-9100000039.zip", (63104 / 2), 1, "2009-10-31"},
-        });
+                 * /mnt/v_b3p_projecten/BRMO/BRK/BRK_STUF_IMKAD/BRK/Levering(dvd)/Proefbestanden BRK Levering oktober
+                 * 2012 (Totaalstanden)/20091130/ en staat op de git-ignore lijst omdat 't 18.5MB groot is, `grep -o KadastraalObjectSnapshot BURBX01.xml | wc -w`/2 geeft aantal berichten
+                 */
+                arguments("brk", "/nl/b3p/brmo/loader/xml/BURBX01-ASN00-20091130-6000015280-9100000039.zip",
+                        (63104 / 2), 1, "2009-10-31")
+                );
     }
 
-    /**
-     * test parameter.
-     */
-    private final String bestandNaam;
-    /**
-     * test parameter.
-     */
-    private final String bestandType;
-    /**
-     * test parameter.
-     */
-    private final long aantalBerichten;
-    /**
-     * test parameter.
-     */
-    private final long aantalProcessen;
-    /**
-     * test parameter.
-     */
-    private final String datumEersteMutatie;
-
     private BrmoFramework brmo;
-
     // dbunit
     private IDatabaseConnection staging;
     private IDatabaseConnection rsgb;
-
     private final Lock sequential = new ReentrantLock(true);
 
-    public BrkToStagingToRsgbIntegrationTest(String bestandType, String bestandNaam, long aantalBerichten, long aantalProcessen, String datumEersteMutatie) {
-        this.bestandType = bestandType;
-        this.bestandNaam = bestandNaam;
-        this.aantalBerichten = aantalBerichten;
-        this.aantalProcessen = aantalProcessen;
-        this.datumEersteMutatie = datumEersteMutatie;
-    }
-
-    @Before
+    @BeforeEach
     @Override
     public void setUp() throws Exception {
         BasicDataSource dsStaging = new BasicDataSource();
@@ -147,11 +119,13 @@ public class BrkToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
 
         DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
 
-        assumeTrue("Er zijn geen STAGING_OK berichten", 0l == brmo.getCountBerichten(null, null, "brk", "STAGING_OK"));
-        assumeTrue("Er zijn geen STAGING_OK laadprocessen", 0l == brmo.getCountLaadProcessen(null, null, "brk", "STAGING_OK"));
+        Assumptions.assumeTrue(0L == brmo.getCountBerichten(null, null, "brk", "STAGING_OK"),
+                "Er zijn geen STAGING_OK berichten");
+        Assumptions.assumeTrue(0L == brmo.getCountLaadProcessen(null, null, "brk", "STAGING_OK"),
+                "Er zijn geen STAGING_OK laadprocessen");
     }
 
-    @After
+    @AfterEach
     public void cleanup() throws Exception {
         brmo.closeBrmoFramework();
 
@@ -164,33 +138,37 @@ public class BrkToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
         sequential.unlock();
     }
 
-    @Test
-    public void testBrkXMLToStaging() throws Exception {
-        assumeNotNull("Het test bestand moet er zijn.", BrkToStagingToRsgbIntegrationTest.class.getResource(bestandNaam));
+    @DisplayName("BRK XML in staging")
+    @ParameterizedTest(name = "{index}: type: {0}, bestand: {1}, mutatiedatum: {4}")
+    @MethodSource("argumentsProvider")
+    public void testBrkXMLToStaging(String bestandType, String bestandNaam, long aantalBerichten, long aantalProcessen, String datumEersteMutatie) throws Exception {
+        assumeFalse(null == BrkToStagingToRsgbIntegrationTest.class.getResource(bestandNaam), "Het test bestand moet er zijn.");
 
         brmo.loadFromFile(bestandType, BrkToStagingToRsgbIntegrationTest.class.getResource(bestandNaam).getFile(), null);
         LOG.debug("klaar met laden van berichten in staging DB.");
 
         List<Bericht> berichten = brmo.listBerichten();
         List<LaadProces> processen = brmo.listLaadProcessen();
-        assertNotNull("De verzameling berichten bestaat niet.", berichten);
-        assertEquals("Het aantal berichten is niet als verwacht.", aantalBerichten, berichten.size());
-        assertNotNull("De verzameling processen bestaat niet.", processen);
-        assertEquals("Het aantal processen is niet als verwacht.", aantalProcessen, processen.size());
+        assertNotNull(berichten, "De verzameling berichten bestaat niet.");
+        assertEquals(aantalBerichten, berichten.size(), "Het aantal berichten is niet als verwacht.");
+        assertNotNull(processen, "De verzameling processen bestaat niet.");
+        assertEquals(aantalProcessen, processen.size(), "Het aantal processen is niet als verwacht.");
 
         LOG.debug("Transformeren berichten naar rsgb DB.");
         Thread t = brmo.toRsgb();
         t.join();
 
-        assertEquals("Niet alle berichten zijn OK getransformeerd", aantalBerichten, brmo.getCountBerichten(null, null, "brk", "RSGB_OK"));
+        assertEquals(aantalBerichten, brmo.getCountBerichten(null, null, "brk", "RSGB_OK"),
+                "Niet alle berichten zijn OK getransformeerd");
         berichten = brmo.listBerichten();
         for (Bericht b : berichten) {
-            assertNotNull("Bericht is 'null'", b);
-            assertNotNull("'db-xml' van bericht is 'null'", b.getDbXml());
+            assertNotNull(b, "Bericht is 'null'");
+            assertNotNull(b.getDbXml(), "'db-xml' van bericht is 'null'");
         }
 
         ITable kad_onrrnd_zk = rsgb.createDataSet().getTable("kad_onrrnd_zk");
-        assertEquals("Het aantal on", aantalBerichten, kad_onrrnd_zk.getRowCount());
-        assertEquals("Datum eerste record komt niet overeen", datumEersteMutatie, kad_onrrnd_zk.getValue(0, "dat_beg_geldh"));
+        assertEquals(aantalBerichten, kad_onrrnd_zk.getRowCount(), "Het aantal on");
+        assertEquals(datumEersteMutatie, kad_onrrnd_zk.getValue(0, "dat_beg_geldh"),
+                "Datum eerste record komt niet overeen");
     }
 }

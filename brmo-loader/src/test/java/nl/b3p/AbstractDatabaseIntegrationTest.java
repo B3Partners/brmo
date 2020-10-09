@@ -3,16 +3,17 @@
  */
 package nl.b3p;
 
-import java.io.IOException;
-import java.util.Properties;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.junit.After;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.TestInfo;
+
+import java.io.IOException;
+import java.util.Properties;
+
 import static org.junit.Assume.assumeNotNull;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Rule;
-import org.junit.rules.TestName;
 
 /**
  * Utility om database properties te laden en methods te loggen.
@@ -27,7 +28,7 @@ public abstract class AbstractDatabaseIntegrationTest {
      * test of de database properties zijn aangegeven, zo niet dan skippen we
      * alle tests in deze test.
      */
-    @BeforeClass
+    @BeforeAll
     public static void checkDatabaseIsProvided() {
         assumeNotNull("Verwacht database omgeving te zijn aangegeven.", System.getProperty("database.properties.file"));
     }
@@ -56,25 +57,19 @@ public abstract class AbstractDatabaseIntegrationTest {
     protected boolean isPostgis;
 
     /**
-     * logging rule.
-     */
-    @Rule
-    public TestName name = new TestName();
-
-    /**
      * subklassen dienen zelf een setup te hebben.
      *
      * @throws Exception if any
      */
-    @Before
+    @BeforeEach
     abstract public void setUp() throws Exception;
 
     /**
-     * Laadt de database propery file en eventuele overrides.
+     * Laadt de database property file en eventuele overrides.
      *
      * @throws IOException als laden van property file mislukt
      */
-    @Before
+    @BeforeEach
     public void loadProps() throws IOException {
         // de `database.properties.file` is in de pom.xml of via commandline ingesteld
         params.load(AbstractDatabaseIntegrationTest.class.getClassLoader()
@@ -91,10 +86,10 @@ public abstract class AbstractDatabaseIntegrationTest {
         isPostgis = "postgis".equalsIgnoreCase(params.getProperty("dbtype"));
 
         try {
-            Class<?> rsgbDriverClass = Class.forName(params.getProperty("rsgb.jdbc.driverClassName"));
-            Class<?> stagingDriverClass = Class.forName(params.getProperty("staging.jdbc.driverClassName"));
-            Class<?> rsgbbgtDriverClass = Class.forName(params.getProperty("rsgbbgt.jdbc.driverClassName"));
-            Class<?> topnlDriverClass = Class.forName(params.getProperty("topnl.jdbc.driverClassName"));
+            Class.forName(params.getProperty("rsgb.jdbc.driverClassName"));
+            Class.forName(params.getProperty("staging.jdbc.driverClassName"));
+            Class.forName(params.getProperty("rsgbbgt.jdbc.driverClassName"));
+            Class.forName(params.getProperty("topnl.jdbc.driverClassName"));
         } catch (ClassNotFoundException ex) {
             LOG.error("Database driver niet gevonden.", ex);
         }
@@ -103,17 +98,17 @@ public abstract class AbstractDatabaseIntegrationTest {
     /**
      * Log de naam van de test als deze begint.
      */
-    @Before
-    public void startTest() {
-        LOG.info("==== Start test methode: " + name.getMethodName());
+    @BeforeEach
+    public void startTest(TestInfo testInfo) {
+        LOG.info("==== Start test methode: " + testInfo.getDisplayName());
     }
 
     /**
      * Log de naam van de test als deze eindigt.
      */
-    @After
-    public void endTest() {
-        LOG.info("==== Einde test methode: " + name.getMethodName());
+    @AfterEach
+    public void endTest(TestInfo testInfo) {
+        LOG.info("==== Einde test methode: " + testInfo.getDisplayName());
     }
 
 }

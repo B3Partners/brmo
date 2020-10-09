@@ -36,7 +36,7 @@ public class GroepTest extends TestUtil {
         entityManager.persist(g);
 
         Groep gg = entityManager.find(Groep.class, TestUtil.NAAM);
-        assertEquals("Verwacht dezelfde naam voor de groep.", TestUtil.NAAM, gg.getNaam());
+        assertEquals(TestUtil.NAAM, gg.getNaam(), "Verwacht dezelfde naam voor de groep.");
 
         Iterator<Gebruiker> leden = gg.getLeden().iterator();
         Gebruiker lid = null;

@@ -1,12 +1,5 @@
 package nl.b3p;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.sql.SQLException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.loader.entity.LaadProces;
@@ -28,19 +21,22 @@ import org.dbunit.ext.mssql.MsSqlDataTypeFactory;
 import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 import org.dbunit.operation.DatabaseOperation;
-import org.junit.After;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assume.assumeNotNull;
-import static org.junit.Assume.assumeTrue;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-/**
- *
- * @author mprins
- */
+import java.io.File;
+import java.io.FileInputStream;
+import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assumptions.assumeFalse;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
+
 /**
  * testcase voor bericht met afgeschermde persoonsgegevens.
  *
@@ -64,7 +60,7 @@ public class Art37aIntegrationTest extends AbstractDatabaseIntegrationTest {
 
     private final Lock sequential = new ReentrantLock(true);
 
-    @Before
+    @BeforeEach
     @Override
     public void setUp() throws Exception {
         BasicDataSource dsStaging = new BasicDataSource();
@@ -109,8 +105,10 @@ public class Art37aIntegrationTest extends AbstractDatabaseIntegrationTest {
 
         DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
 
-        assumeTrue("Er zijn geen STAGING_OK berichten", 0l == brmo.getCountBerichten(null, null, BrmoFramework.BR_BRK, "STAGING_OK"));
-        assumeTrue("Er zijn geen STAGING_OK laadprocessen", 0l == brmo.getCountLaadProcessen(null, null, BrmoFramework.BR_BRK, "STAGING_OK"));
+        assumeTrue(0l == brmo.getCountBerichten(null, null, BrmoFramework.BR_BRK, "STAGING_OK"),
+                "Er zijn geen STAGING_OK berichten");
+        assumeTrue(0l == brmo.getCountLaadProcessen(null, null, BrmoFramework.BR_BRK, "STAGING_OK"),
+                "Er zijn geen STAGING_OK laadprocessen");
     }
 
     /**
@@ -118,7 +116,7 @@ public class Art37aIntegrationTest extends AbstractDatabaseIntegrationTest {
      *
      * @throws Exception if any
      */
-    @After
+    @AfterEach
     public void cleanup() throws Exception {
         brmo.closeBrmoFramework();
 
@@ -133,27 +131,28 @@ public class Art37aIntegrationTest extends AbstractDatabaseIntegrationTest {
 
     @Test
     public void testAfgeschermdBericht() throws BrmoException, InterruptedException, SQLException, DataSetException {
-        assumeNotNull("Het test bestand moet er zijn.", Art37aIntegrationTest.class.getResource(bestandNaam));
+        assumeFalse(null == Art37aIntegrationTest.class.getResource(bestandNaam), "Het test bestand moet er zijn.");
 
         brmo.loadFromFile(BrmoFramework.BR_BRK, Art37aIntegrationTest.class.getResource(bestandNaam).getFile(), null);
         LOG.debug("klaar met laden van berichten in staging DB.");
 
         List<Bericht> berichten = brmo.listBerichten();
         List<LaadProces> processen = brmo.listLaadProcessen();
-        assertNotNull("De verzameling berichten bestaat niet.", berichten);
-        assertEquals("Het aantal berichten is niet als verwacht.", 1, berichten.size());
-        assertNotNull("De verzameling processen bestaat niet.", processen);
-        assertEquals("Het aantal processen is niet als verwacht.", 1, processen.size());
+        assertNotNull(berichten, "De verzameling berichten bestaat niet.");
+        assertEquals(1, berichten.size(), "Het aantal berichten is niet als verwacht.");
+        assertNotNull(processen, "De verzameling processen bestaat niet.");
+        assertEquals(1, processen.size(), "Het aantal processen is niet als verwacht.");
 
         LOG.debug("Transformeren berichten naar rsgb DB.");
         Thread t = brmo.toRsgb();
         t.join();
 
-        assertEquals("Niet alle berichten zijn OK getransformeerd", 1, brmo.getCountBerichten(null, null, BrmoFramework.BR_BRK, "RSGB_OK"));
+        assertEquals(1, brmo.getCountBerichten(null, null, BrmoFramework.BR_BRK, "RSGB_OK"),
+                "Niet alle berichten zijn OK getransformeerd");
         berichten = brmo.listBerichten();
         for (Bericht b : berichten) {
-            assertNotNull("Bericht is 'null'", b);
-            assertNotNull("'db-xml' van bericht is 'null'", b.getDbXml());
+            assertNotNull(b, "Bericht is 'null'");
+            assertNotNull(b.getDbXml(), "'db-xml' van bericht is 'null'");
         }
 
         // test RSGB tabellen
@@ -161,36 +160,39 @@ public class Art37aIntegrationTest extends AbstractDatabaseIntegrationTest {
         final List<String> sc_indentifs = Arrays.asList("NL.KAD.Persoon.888888888888888", "NL.KAD.Persoon.172059846");
 
         ITable kad_onrrnd_zk = rsgb.createDataSet().getTable("kad_onrrnd_zk");
-        assertEquals("Het aantal onroerende zaak is incorrect", 1, kad_onrrnd_zk.getRowCount());
-        assertEquals("Datum eerste record komt niet overeen", "2018-10-11", kad_onrrnd_zk.getValue(0, "dat_beg_geldh"));
-        assertEquals("kad_identif eerste record komt niet overeen", "11540745610018", kad_onrrnd_zk.getValue(0, "kad_identif").toString());
+        assertEquals(1, kad_onrrnd_zk.getRowCount(), "Het aantal onroerende zaak is incorrect");
+        assertEquals("2018-10-11", kad_onrrnd_zk.getValue(0, "dat_beg_geldh"),
+                "Datum eerste record komt niet overeen");
+        assertEquals("11540745610018", kad_onrrnd_zk.getValue(0, "kad_identif").toString(),
+                "kad_identif eerste record komt niet overeen");
 
         ITable zak_recht = rsgb.createDataSet().getTable("zak_recht");
-        assertEquals("Het aantal zak_recht is incorrect", 2, zak_recht.getRowCount());
+        assertEquals(2, zak_recht.getRowCount(), "Het aantal zak_recht is incorrect");
         for (int row = 0; row < zak_recht.getRowCount(); row++) {
-            assertTrue("Gevonden waarde zit niet in de lijst verwachte waarden.",
-                    kadaster_indentifs.contains(zak_recht.getValue(row, "kadaster_identif").toString())
-            );
+            assertTrue(
+                    kadaster_indentifs.contains(zak_recht.getValue(row, "kadaster_identif").toString()),
+                    "Gevonden waarde zit niet in de lijst verwachte waarden.");
         }
 
         // subject structuur
         // er zitten meerdere natuurlijk personen in het bericht maar allemaal met dezelfde identifier, dus die worden overschreven, er blijft 1 nat pers over
         ITable nat_prs = rsgb.createDataSet().getTable("nat_prs");
-        assertEquals("Het aantal natuurlijke personen is incorrect", 1, nat_prs.getRowCount());
-        assertEquals("sc_identif klopt niet", "NL.KAD.Persoon.888888888888888", nat_prs.getValue(0, "sc_identif"));
-        assertEquals("geslachtsaand klopt niet", "O", nat_prs.getValue(0, "geslachtsaand"));
-        assertEquals("nm_geslachtsnaam klopt niet",
+        assertEquals(1, nat_prs.getRowCount(), "Het aantal natuurlijke personen is incorrect");
+        assertEquals("NL.KAD.Persoon.888888888888888", nat_prs.getValue(0, "sc_identif"),
+                "sc_identif klopt niet");
+        assertEquals("O", nat_prs.getValue(0, "geslachtsaand"), "geslachtsaand klopt niet");
+        assertEquals(
                 "Dit is afgeschermde informatie. Verstrekking is alleen mogelijk op grond van artikel 37a Kadasterbesluit. Neem contact op met het Kadaster via (088) 183 22 43 of APGloket@kadaster.nl",
-                nat_prs.getValue(0, "nm_geslachtsnaam"));
-        assertEquals("nm_voornamen klopt niet", null, nat_prs.getValue(0, "nm_voornamen"));
+                nat_prs.getValue(0, "nm_geslachtsnaam"), "nm_geslachtsnaam klopt niet");
+        assertEquals(null, nat_prs.getValue(0, "nm_voornamen"), "nm_voornamen klopt niet");
 
         ITable prs = rsgb.createDataSet().getTable("prs");
         // prs bevat nat. + niet-nat. pers
-        assertEquals("Het aantal personen is incorrect", 2, prs.getRowCount());
+        assertEquals(2, prs.getRowCount(), "Het aantal personen is incorrect");
         for (int row = 0; row < prs.getRowCount(); row++) {
-            assertTrue("Gevonden waarde zit niet in de lijst verwachte waarden.",
-                    sc_indentifs.contains(prs.getValue(row, "sc_identif").toString())
-            );
+            assertTrue(
+                    sc_indentifs.contains(prs.getValue(row, "sc_identif").toString()),
+                    "Gevonden waarde zit niet in de lijst verwachte waarden.");
         }
 
     }

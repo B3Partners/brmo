@@ -16,21 +16,18 @@
  */
 package nl.b3p.brmo.loader.xml;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
-
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.entity.GbavBericht;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assume.assumeNotNull;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assumptions.assumeFalse;
 
 /**
  * Testcase voor GbavXMLReader.
@@ -44,12 +41,12 @@ public class GbavXMLReaderTest {
     @Test
     public void berichtTest() throws Exception {
         GbavXMLReader r;
-        GbavBericht b = null;
-        assumeNotNull("testdata moet aanwezig zijn", GbavXMLReaderTest.class.getResourceAsStream("gbav-voorbeeld.xml"));
+        GbavBericht b;
+        assumeFalse(null == GbavXMLReaderTest.class.getResourceAsStream("gbav-voorbeeld.xml"), "testdata moet aanwezig zijn");
         r = new GbavXMLReader(GbavXMLReader.class.getResourceAsStream("gbav-voorbeeld.xml"));
         assertTrue(r.hasNext());
         int total = 0;
-        List<String> objectRefs = new ArrayList();
+        List<String> objectRefs = new ArrayList<>();
         while (r.hasNext()) {
             b = r.next();
             objectRefs.add(b.getObjectRef());
@@ -59,9 +56,10 @@ public class GbavXMLReaderTest {
                     b.getObjectRef()
             ));
             total++;
-            assertEquals("Soort komt niet overeen", BrmoFramework.BR_GBAV, b.getSoort());
-            assertEquals("Volgordenummer komt niet overeen", 0, b.getVolgordeNummer().intValue());
-            assertEquals("Datum komt niet overeen", new SimpleDateFormat("yyyy-MM-dd").parse("2018-02-01"), b.getDatum());
+            assertEquals(BrmoFramework.BR_GBAV, b.getSoort(), "Soort komt niet overeen");
+            assertEquals(0, b.getVolgordeNummer().intValue(), "Volgordenummer komt niet overeen");
+            assertEquals(new SimpleDateFormat("yyyy-MM-dd").parse("2018-02-01"), b.getDatum(),
+                    "Datum komt niet overeen");
         }
 
         assertEquals(1, total);
@@ -71,13 +69,13 @@ public class GbavXMLReaderTest {
     @Test
     public void meerderePersonenTest() throws Exception {
         GbavXMLReader r;
-        GbavBericht b = null;
+        GbavBericht b;
 
-        assumeNotNull("testdata moet aanwezig zijn", GbavXMLReaderTest.class.getResourceAsStream("persoonslijst.xml"));
+        assumeFalse(null == GbavXMLReaderTest.class.getResourceAsStream("persoonslijst.xml"), "testdata moet aanwezig zijn");
         r = new GbavXMLReader(GbavXMLReaderTest.class.getResourceAsStream("persoonslijst.xml"));
         assertTrue(r.hasNext());
         int total = 0;
-        List<String> objectRefs = new ArrayList();
+        List<String> objectRefs = new ArrayList<>();
         while (r.hasNext()) {
             b = r.next();
             objectRefs.add(b.getObjectRef());
@@ -86,8 +84,8 @@ public class GbavXMLReaderTest {
                     b.getDatum(),
                     b.getObjectRef()
             ));
-            assertEquals("Soort komt niet overeen", BrmoFramework.BR_GBAV, b.getSoort());
-            assertEquals("Volgordenummer komt niet overeen", total, b.getVolgordeNummer().intValue());
+            assertEquals(BrmoFramework.BR_GBAV, b.getSoort(), "Soort komt niet overeen");
+            assertEquals(total, b.getVolgordeNummer().intValue(), "Volgordenummer komt niet overeen");
             total++;
         }
 

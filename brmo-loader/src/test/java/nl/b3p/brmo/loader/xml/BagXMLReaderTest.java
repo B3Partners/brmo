@@ -1,16 +1,17 @@
 package nl.b3p.brmo.loader.xml;
 
+import nl.b3p.brmo.loader.entity.BagBericht;
+import org.apache.commons.io.input.CloseShieldInputStream;
+import org.junit.jupiter.api.Test;
+
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
-import nl.b3p.brmo.loader.entity.BagBericht;
-import org.apache.commons.io.input.CloseShieldInputStream;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import org.junit.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Testcases voor {@link nl.b3p.brmo.loader.xml.BagXMLReader}.
@@ -69,6 +70,7 @@ public class BagXMLReaderTest {
             total++;
         }
         assertEquals(mutSmallXmlNieuwCount, total);
+        assertNotNull(bag);
         assertEquals("PND:1901100000021963", bag.getObjectRef());
         
         LocalDateTime d = LocalDateTime.parse("2015-01-01T07:30:51.843495");
@@ -97,7 +99,7 @@ public class BagXMLReaderTest {
             total++;
         }
         assertEquals(mutLargeXmlNieuwCount, total);
-
+        assertNotNull(bag);
         total = 0;
         bReader = new BagXMLReader(BagXMLReaderTest.class.getResourceAsStream(mutLargeXMLReformatted));
         assertTrue(bReader.hasNext());
@@ -106,14 +108,17 @@ public class BagXMLReaderTest {
             total++;
         }
         assertEquals(mutLargeXmlNieuwCount, total);
-
+        assertNotNull(bagReformatted);
         // vergelijk resultaat van de twee readers
-        assertEquals("van beide laatste mutaties moet ObjectRef hetzelfde zijn",
-                bag.getObjectRef(), bagReformatted.getObjectRef());
-        assertEquals("van beide laatste mutaties moet datum van laatste hetzelfde zijn",
-                bag.getDatum(), bagReformatted.getDatum());
-        assertEquals("van beide laatste mutaties moet VolgordeNummer hetzelfde zijn",
-                bag.getVolgordeNummer(), bagReformatted.getVolgordeNummer());
+        assertEquals(
+                bag.getObjectRef(), bagReformatted.getObjectRef(),
+                "van beide laatste mutaties moet ObjectRef hetzelfde zijn");
+        assertEquals(
+                bag.getDatum(), bagReformatted.getDatum(),
+                "van beide laatste mutaties moet datum van laatste hetzelfde zijn");
+        assertEquals(
+                bag.getVolgordeNummer(), bagReformatted.getVolgordeNummer(),
+                "van beide laatste mutaties moet VolgordeNummer hetzelfde zijn");
     }
 
     /**
@@ -141,7 +146,7 @@ public class BagXMLReaderTest {
             zis.close();
         }
 
-        assertEquals("Verwacht dat het aantal 'Nieuw' mutaties gelijk is.", mutZipNameNieuwCount, total);
+        assertEquals(mutZipNameNieuwCount, total, "Verwacht dat het aantal 'Nieuw' mutaties gelijk is.");
     }
 
     /**
@@ -153,7 +158,7 @@ public class BagXMLReaderTest {
     public void testLvcEmptyXML() throws Exception {
         BagXMLReader bReader;
         bReader = new BagXMLReader(BagXMLReaderTest.class.getResourceAsStream(lvcEmpty));
-        assertTrue(!bReader.hasNext());
+        assertFalse(bReader.hasNext());
     }
 
     /**
