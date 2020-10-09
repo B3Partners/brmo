@@ -3,15 +3,15 @@
  */
 package nl.b3p.brmo.bgt.util;
 
+import org.geotools.util.factory.GeoTools;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
 import java.util.Set;
 import java.util.TreeSet;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
-import org.geotools.util.factory.GeoTools;
-import org.junit.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Testcases voor {@link PDOKBGTLightUtil}.
@@ -20,7 +20,7 @@ import org.junit.*;
  */
 public class PDOKBGTLightUtilTest {
 
-    @BeforeClass
+    @BeforeAll
     public static void initGeotools() {
         GeoTools.init();
     }
@@ -34,8 +34,8 @@ public class PDOKBGTLightUtilTest {
                 "POLYGON ((143850 487030, 149760 486760, 149470 490950, 143600 491000, 143850 487030))",
                 PDOKBGTLightUtilTest.class.getResource("/geojson/tileinfo.json").toString()
         );
-        assertTrue("Er zit 1 element in de lijst met ids", ids.size() == 1);
-        assertEquals("Het element in de lijst met ids is", 38725, ids.iterator().next().intValue());
+        assertTrue(ids.size() == 1, "Er zit 1 element in de lijst met ids");
+        assertEquals(38725, ids.iterator().next().intValue(), "Het element in de lijst met ids is");
     }
 
     /**
@@ -48,7 +48,7 @@ public class PDOKBGTLightUtilTest {
                 "POLYGON ((146000 488000, 148000 488000, 148000 490000, 146000 490000, 146000 488000))",
                 "http://files.b3p.nl/brmo/bgt/tileinfo.geojson"
         );
-        assertTrue("Er zitten 9 elementen in de lijst met ids", ids.size() == 9);
-        assertEquals("Het element in de lijst met ids is", 38382, ids.first().intValue());
+        assertTrue(ids.size() == 9, "Er zitten 9 elementen in de lijst met ids");
+        assertEquals(38382, ids.first().intValue(), "Het element in de lijst met ids is");
     }
 }

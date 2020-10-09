@@ -3,19 +3,20 @@
  */
 package nl.b3p.brmo.loader.gml;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assume.assumeNotNull;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assume.assumeFalse;
-import static org.junit.Assume.assumeTrue;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assumptions.assumeFalse;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 public class BGTGMLLightLoaderNederlandIntegrationTest extends TestingBase {
 
@@ -28,7 +29,7 @@ public class BGTGMLLightLoaderNederlandIntegrationTest extends TestingBase {
      *
      * @throws IOException als laden van property file mislukt
      */
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         loadProps();
 
@@ -46,15 +47,14 @@ public class BGTGMLLightLoaderNederlandIntegrationTest extends TestingBase {
     @Test
     public void testLaadNederland() throws Exception {
         URL zipUrl = BGTGMLLightLoaderNederlandIntegrationTest.class.getResource("/nederland/NL-BGT-gmllight.zip");
-        assumeNotNull("Verwacht de zipfile met data van heel NL te bestaan.", zipUrl);
-
+        assumeFalse(null == zipUrl, "Verwacht de zipfile met data van heel NL te bestaan.");
         clearTables();
 
         File zip = new File(zipUrl.getFile());
-        assertNotNull("Zipfile is niet null", zip);
+        assertNotNull(zip, "Zipfile is niet null");
 
         int actual = ldr.processZipFile(zip);
-        assertTrue("Verwacht meer dan 1 geschreven feature", (actual > 1));
+        assertTrue((actual > 1), "Verwacht meer dan 1 geschreven feature");
     }
 
     /**
@@ -66,18 +66,18 @@ public class BGTGMLLightLoaderNederlandIntegrationTest extends TestingBase {
     public void testLaadNederlandMultiZip() throws Exception {
         String listDir = BGTGMLLightLoaderIntegrationTest.class.getResource("/nederlandmultizip/").getFile();
         File dir = new File(listDir);
-        assumeNotNull("Verwacht de directory met data van heel NL te bestaan.", dir);
-        assumeTrue("Verwacht de directory met data van heel NL te bestaan.", dir.isDirectory());
+        assumeFalse(null == dir, "Verwacht de directory met data van heel NL te bestaan.");
+        assumeTrue(dir.isDirectory(), "Verwacht de directory met data van heel NL te bestaan.");
 
         ldr.setScanDirectory(dir);
         List<File> zips = ldr.scanDirectory();
 
-        assumeFalse("Verwacht meer dan 0 zipfiles om te verwerken.", zips.isEmpty());
+        assumeFalse(zips.isEmpty(), "Verwacht meer dan 0 zipfiles om te verwerken.");
 
         clearTables();
         for (File zip : zips) {
             int actual = ldr.processZipFile(zip);
-            assertTrue("Verwacht meer dan 1 geschreven feature per zipfile", (actual > 1));
+            assertTrue((actual > 1), "Verwacht meer dan 1 geschreven feature per zipfile");
         }
     }
 }
