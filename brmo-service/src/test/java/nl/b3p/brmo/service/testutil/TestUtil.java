@@ -3,22 +3,23 @@
  */
 package nl.b3p.brmo.service.testutil;
 
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.Properties;
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NameAlreadyBoundException;
-import javax.naming.NamingException;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.junit.After;
-import static org.junit.Assume.assumeNotNull;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Rule;
-import org.junit.rules.TestName;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.TestInfo;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.Properties;
+
+import static java.lang.System.getProperty;
+import static org.junit.jupiter.api.Assumptions.assumeFalse;
 
 /**
  *
@@ -58,18 +59,12 @@ public abstract class TestUtil {
     protected BasicDataSource dsTopnl;
 
     /**
-     * logging rule.
-     */
-    @Rule
-    public TestName name = new TestName();
-
-    /**
      * test of de database properties zijn aangegeven, zo niet dan skippen we
      * alle tests in deze test.
      */
-    @BeforeClass
+    @BeforeAll
     public static void checkDatabaseIsProvided() {
-        assumeNotNull("Verwacht database omgeving te zijn aangegeven.", System.getProperty("database.properties.file"));
+        assumeFalse(getProperty("database.properties.file") == null, "Verwacht database omgeving te zijn aangegeven.");
     }
 
     /**
@@ -79,7 +74,7 @@ public abstract class TestUtil {
      *
      * @throws Exception if any
      */
-    @Before
+    @BeforeEach
     abstract public void setUp() throws Exception;
 
     /**
@@ -87,7 +82,7 @@ public abstract class TestUtil {
      *
      * @throws java.io.IOException if loading the property file fails
      */
-    @Before
+    @BeforeEach
     public void loadDBprop() throws IOException {
         // the `database.properties.file`  is set in the pom.xml or using the commandline
         DBPROPS.load(TestUtil.class.getClassLoader()
@@ -105,11 +100,11 @@ public abstract class TestUtil {
         isPostgis = "postgis".equalsIgnoreCase(DBPROPS.getProperty("dbtype"));
 
         try {
-            Class driverClass = Class.forName(DBPROPS.getProperty("jdbc.driverClassName"));
+            Class.forName(DBPROPS.getProperty("jdbc.driverClassName"));
         } catch (ClassNotFoundException ex) {
             LOG.error("Database driver niet gevonden.", ex);
         }
-LOG.info("create ds staging");
+
         dsStaging = new BasicDataSource();
         dsStaging.setUrl(DBPROPS.getProperty("staging.url"));
         dsStaging.setUsername(DBPROPS.getProperty("staging.username"));
@@ -146,20 +141,20 @@ LOG.info("create ds staging");
     /**
      * Log de naam van de test als deze begint.
      */
-    @Before
-    public void startTest() {
-        LOG.info("==== Start test methode: " + name.getMethodName());
+    @BeforeEach
+    public void startTest(TestInfo testInfo) {
+        LOG.info("==== Start test methode: " + testInfo.getDisplayName());
     }
 
     /**
      * Log de naam van de test als deze eindigt.
      */
-    @After
-    public void endTest() {
-        LOG.info("==== Einde test methode: " + name.getMethodName());
+    @AfterEach
+    public void endTest(TestInfo testInfo) {
+        LOG.info("==== Einde test methode: " + testInfo.getDisplayName());
     }
 
-    @After
+    @AfterEach
     public void closeConnections() throws SQLException {
         // JNDI connecties niet sluiten!
         // dsStaging.close();

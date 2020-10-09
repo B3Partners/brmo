@@ -16,27 +16,24 @@
  */
 package nl.b3p.brmo.service.scanner;
 
-import java.io.File;
-import nl.b3p.brmo.persistence.staging.BRKScannerProces;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.util.BrmoException;
+import nl.b3p.brmo.persistence.staging.BRKScannerProces;
 import nl.b3p.brmo.service.testutil.TestUtil;
-import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.assertEquals;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+
+import java.io.File;
+
 import static nl.b3p.brmo.loader.BrmoFramework.BR_BRK;
-import static nl.b3p.brmo.persistence.staging.LaadProces.STATUS.STAGING_OK;
 import static nl.b3p.brmo.persistence.staging.LaadProces.STATUS.STAGING_DUPLICAAT;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assume.assumeNotNull;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertEquals;
-import org.junit.Ignore;
-import org.stripesstuff.stripersist.Stripersist;
+import static nl.b3p.brmo.persistence.staging.LaadProces.STATUS.STAGING_OK;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assumptions.assumeFalse;
 
 /**
  *
@@ -52,7 +49,7 @@ public class BRKDirectoryScannerIntegrationTest extends TestUtil {
     private BrmoFramework brmo;
     private BRKDirectoryScanner scanner;
 
-    @Before
+    @BeforeEach
     @Override
     public void setUp() throws BrmoException {
         brmo = new BrmoFramework(dsStaging, null);
@@ -66,7 +63,7 @@ public class BRKDirectoryScannerIntegrationTest extends TestUtil {
          * Mockito.when(METHOD_EXPECTED_TO_BE_CALLED).thenReturn(AnyObjectoftheReturnType);
          *
          */
-        assumeNotNull("Het test bestand moet er zijn.", BRKDirectoryScannerIntegrationTest.class.getResource("/duplicaatberichten/MUTBX01.xml"));
+        assumeFalse(BRKDirectoryScannerIntegrationTest.class.getResource("/duplicaatberichten/MUTBX01.xml") == null, "Het test bestand moet er zijn.");
         String scanDirectory = BRKDirectoryScannerIntegrationTest.class.getResource("/duplicaatberichten/MUTBX01.xml").getPath();
 
         BRKScannerProces config = new BRKScannerProces();
@@ -75,7 +72,7 @@ public class BRKDirectoryScannerIntegrationTest extends TestUtil {
         scanner = new BRKDirectoryScanner(config);
     }
 
-    @After
+    @AfterEach
     public void tearDown() throws BrmoException {
 //        Stripersist.requestComplete();
         brmo.emptyStagingDb();
@@ -83,11 +80,11 @@ public class BRKDirectoryScannerIntegrationTest extends TestUtil {
     }
 
     @Test
-    @Ignore("TODO deze test werkt nu niet omdat de stripes entity manager niet geinitialiseerd wordt, de test draait niet in de servlet container.")
+    @Disabled("TODO deze test werkt nu niet omdat de stripes entity manager niet geinitialiseerd wordt, de test draait niet in de servlet container.")
     public void testDuplicaatBerichten() throws BrmoException {
         scanner.execute();
-        assertEquals("Aantal berichten is niet gelijk.", 2L, brmo.getCountBerichten(null, null, BR_BRK, STAGING_OK.toString()));
-        assertEquals("Aantal OK laadprocessen is niet gelijk.", 2L, brmo.getCountLaadProcessen(null, null, BR_BRK, STAGING_OK.toString()));
-        assertEquals("Aantal duplicaat laadprocessen is niet gelijk.", 3L, brmo.getCountLaadProcessen(null, null, BR_BRK, STAGING_DUPLICAAT.toString()));
+        assertEquals(2L, brmo.getCountBerichten(null, null, BR_BRK, STAGING_OK.toString()), "Aantal berichten is niet gelijk.");
+        assertEquals(2L, brmo.getCountLaadProcessen(null, null, BR_BRK, STAGING_OK.toString()), "Aantal OK laadprocessen is niet gelijk.");
+        assertEquals(3L, brmo.getCountLaadProcessen(null, null, BR_BRK, STAGING_DUPLICAAT.toString()), "Aantal duplicaat laadprocessen is niet gelijk.");
     }
 }

@@ -3,13 +3,6 @@
  */
 package nl.b3p.brmo.service.stripes;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-import javax.servlet.ServletContext;
 import net.sourceforge.stripes.action.ActionBeanContext;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.entity.Bericht;
@@ -30,77 +23,61 @@ import org.dbunit.ext.mssql.MsSqlDataTypeFactory;
 import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 import org.dbunit.operation.DatabaseOperation;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.*;
-import static org.junit.Assume.assumeTrue;
-import org.junit.experimental.categories.Category;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.when;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assumptions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import javax.servlet.ServletContext;
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+import java.util.stream.Stream;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
+import static org.mockito.Mockito.*;
 
 /**
- *
  * testcases voor GH issue 260; herhalen van brk verwijder berichten. Draaien
  * met:
- * {@code mvn -Dit.test=AdvancedFunctionsActionBeanIntegrationTest -Dtest.onlyITs=true verify -Poracle > target/oracle.log}
+ * {@code mvn -Dit.test=AdvancedFunctionsActionBeanIntegrationTest -Dtest.onlyITs=true verify -Poracle -pl brmo-service >
+ * /tmp/oracle.log}
  * voor bijvoorbeeld Oracle of
- * {@code mvn -Dit.test=AdvancedFunctionsActionBeanIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql > target/postgresql.log}
- * voor PostgreSQL.
+ * {@code mvn -Dit.test=AdvancedFunctionsActionBeanIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql -pl brmo-service >
+ * /tmp/postgresql.log} voor PostgreSQL.
  *
  * @author mprins
  */
-@RunWith(Parameterized.class)
 public class AdvancedFunctionsActionBeanIntegrationTest extends TestUtil {
 
     private static final Log LOG = LogFactory.getLog(AdvancedFunctionsActionBeanIntegrationTest.class);
-
-    @Parameterized.Parameters(name = "{index}: verwerken bestand: {0}")
-    public static Collection params() {
-        return Arrays.asList(new Object[][]{
-            // {"sBestandsNaam", aantalProcessen, aantalBerichten, rBestandsNaam},
-            {"/gh-issue-260/staging-flat.xml", 2, 2, "/gh-issue-260/rsgb-spook_kad_onrrnd_zk-flat.xml"},
-            {"/gh-issue-260/staging-flat-4.xml", 4, 4, "/gh-issue-260/rsgb-spook_kad_onrrnd_zk-flat-4.xml"}
-        });
-    }
-
+    private final Lock sequential = new ReentrantLock();
     private AdvancedFunctionsActionBean bean;
-    
+
     private UpdatesActionBean updatesBean;
-    
     private BrmoFramework brmo;
     private IDatabaseConnection rsgb;
     private IDatabaseConnection staging;
 
-    private final Lock sequential = new ReentrantLock();
-
-    /*
-     * test parameters.
-     */
-    private final String sBestandsNaam;
-    private final String rBestandsNaam;
-    private final long aantalBerichten;
-    private final long aantalProcessen;
-
-    public AdvancedFunctionsActionBeanIntegrationTest(String sBestandsNaam, long aantalBerichten, long aantalProcessen, String rBestandsNaam) {
-        this.sBestandsNaam = sBestandsNaam;
-        this.rBestandsNaam = rBestandsNaam;
-        this.aantalBerichten = aantalBerichten;
-        this.aantalProcessen = aantalProcessen;
+    static Stream<Arguments> argumentsProvider() {
+        return Stream.of(
+                /*"sBestandsNaam", aantalProcessen, aantalBerichten, rBestandsNaam,*/
+                arguments("/gh-issue-260/staging-flat.xml", 2, 2, "/gh-issue-260/rsgb-spook_kad_onrrnd_zk-flat.xml"),
+                arguments("/gh-issue-260/staging-flat-4.xml", 4, 4, "/gh-issue-260/rsgb-spook_kad_onrrnd_zk-flat-4.xml")
+        );
     }
 
-    @Before
+    @BeforeEach
+    @Override
     public void setUp() throws Exception {
-        assumeTrue("Het bestand met staging testdata zou moeten bestaan.", AdvancedFunctionsActionBeanIntegrationTest.class.getResource(sBestandsNaam) != null);
-        assumeTrue("Het bestand met rsgb testdata zou moeten bestaan.", AdvancedFunctionsActionBeanIntegrationTest.class.getResource(rBestandsNaam) != null);
-        // assumeTrue("Deze test werkt niet met de jTDS driver omdat die geen PreparedStatement.setNull(int, int, String) methode heeft geimplementeerd.", !this.isMsSQL);
-
         bean = new AdvancedFunctionsActionBean();
-        
         updatesBean = spy(UpdatesActionBean.class);
+
         ServletContext sctx = mock(ServletContext.class);
         ActionBeanContext actx = mock(ActionBeanContext.class);
         updatesBean = spy(UpdatesActionBean.class);
@@ -114,10 +91,12 @@ public class AdvancedFunctionsActionBeanIntegrationTest extends TestUtil {
             rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MsSqlDataTypeFactory());
             staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MsSqlDataTypeFactory());
         } else if (this.isOracle) {
-            rsgb = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsRsgb.getConnection()), DBPROPS.getProperty("rsgb.username").toUpperCase());
+            rsgb = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsRsgb.getConnection()),
+                    DBPROPS.getProperty("rsgb.username").toUpperCase());
             rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
             rsgb.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
-            staging = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsStaging.getConnection()), DBPROPS.getProperty("staging.username").toUpperCase());
+            staging = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsStaging.getConnection()),
+                    DBPROPS.getProperty("staging.username").toUpperCase());
             staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
             staging.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
         } else if (this.isPostgis) {
@@ -127,12 +106,23 @@ public class AdvancedFunctionsActionBeanIntegrationTest extends TestUtil {
             fail("Geen ondersteunde database aangegegeven");
         }
 
+        brmo = new BrmoFramework(dsStaging, dsRsgb);
+        brmo.setOrderBerichten(true);
+        sequential.lock();
+    }
+
+    private void loadData(String sBestandsNaam, long aantalBerichten, long aantalProcessen, String rBestandsNaam)
+            throws Exception {
+        Assumptions.assumeTrue(AdvancedFunctionsActionBeanIntegrationTest.class.getResource(sBestandsNaam) != null,
+                "Het bestand met staging testdata zou moeten bestaan.");
+        Assumptions.assumeTrue(AdvancedFunctionsActionBeanIntegrationTest.class.getResource(rBestandsNaam) != null,
+                "Het bestand met rsgb testdata zou moeten bestaan.");
         FlatXmlDataSetBuilder fxdb = new FlatXmlDataSetBuilder();
         fxdb.setCaseSensitiveTableNames(false);
-        IDataSet stagingDataSet = fxdb.build(new FileInputStream(new File(AdvancedFunctionsActionBeanIntegrationTest.class.getResource(sBestandsNaam).toURI())));
-        IDataSet rsgbDataSet = fxdb.build(new FileInputStream(new File(AdvancedFunctionsActionBeanIntegrationTest.class.getResource(rBestandsNaam).toURI())));
-
-        sequential.lock();
+        IDataSet stagingDataSet = fxdb.build(new FileInputStream(
+                new File(AdvancedFunctionsActionBeanIntegrationTest.class.getResource(sBestandsNaam).toURI())));
+        IDataSet rsgbDataSet = fxdb.build(new FileInputStream(
+                new File(AdvancedFunctionsActionBeanIntegrationTest.class.getResource(rBestandsNaam).toURI())));
 
         if (this.isMsSQL) {
             // SET IDENTITY_INSERT op ON
@@ -142,15 +132,13 @@ public class AdvancedFunctionsActionBeanIntegrationTest extends TestUtil {
             DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
             DatabaseOperation.CLEAN_INSERT.execute(rsgb, rsgbDataSet);
         }
-
-        brmo = new BrmoFramework(dsStaging, dsRsgb);
-        brmo.setOrderBerichten(true);
-
-        assumeTrue("Er zijn x RSGB_OK berichten", aantalBerichten == brmo.getCountBerichten(null, null, "brk", "RSGB_OK"));
-        assumeTrue("Er zijn x STAGING_OK laadprocessen", aantalProcessen == brmo.getCountLaadProcessen(null, null, "brk", "STAGING_OK"));
+        Assumptions.assumeTrue(aantalBerichten == brmo.getCountBerichten(null, null, "brk", "RSGB_OK"),
+                "Er zijn x RSGB_OK berichten");
+        Assumptions.assumeTrue(aantalProcessen == brmo.getCountLaadProcessen(null, null, "brk", "STAGING_OK"),
+                "Er zijn x STAGING_OK laadprocessen");
     }
 
-    @After
+    @AfterEach
     public void cleanup() throws Exception {
         if (brmo != null) {
             // in geval van niet waar gemaakte assumptions
@@ -173,42 +161,62 @@ public class AdvancedFunctionsActionBeanIntegrationTest extends TestUtil {
         }
     }
 
-    @Test
-    public void testReplayBRKVerwijderBerichten() throws Exception {
+    @DisplayName("Cleanup")
+    @ParameterizedTest(name = "{index}: verwerken bestand: ''{0}''")
+    @MethodSource("argumentsProvider")
+    public void testReplayBRKVerwijderBerichten(String sBestandsNaam, long aantalBerichten, long aantalProcessen,
+                                                String rBestandsNaam) throws Exception {
+        loadData(sBestandsNaam, aantalBerichten, aantalProcessen, rBestandsNaam);
         final IDataSet rds = rsgb.createDataSet();
 
-        assertEquals("Er is een spook record in de kad_onrrnd_zk tabel", 1, rds.getTable("kad_onrrnd_zk").getRowCount());
-        assertEquals("De perceel tabel is leeg", 0, rds.getTable("kad_perceel").getRowCount());
-        assertEquals("De kad_onrrnd_zk_archief komt een record te kort", aantalBerichten - (1 + 1), rds.getTable("kad_onrrnd_zk_archief").getRowCount());
-        assertTrue("Er is minstens een perceel in kad_perceel_archief", 0 < rds.getTable("kad_perceel_archief").getRowCount());
+        assertEquals(1, rds.getTable("kad_onrrnd_zk").getRowCount(),
+                "Er is een spook record in de kad_onrrnd_zk tabel");
+        assertEquals(0, rds.getTable("kad_perceel").getRowCount(), "De perceel tabel is leeg");
+        assertEquals(aantalBerichten - (1 + 1), rds.getTable("kad_onrrnd_zk_archief").getRowCount(),
+                "De kad_onrrnd_zk_archief komt een record te kort");
+        assertTrue(0 < rds.getTable("kad_perceel_archief").getRowCount(),
+                "Er is minstens een perceel in kad_perceel_archief");
 
         bean.replayBRKVerwijderBerichten(BrmoFramework.BR_BRK, Bericht.STATUS.RSGB_OK.toString());
 
-        assertEquals("Er zijn geen spook records in de kad_onrrnd_zk tabel", 0, rds.getTable("kad_onrrnd_zk").getRowCount());
-        assertTrue("De kad_onrrnd_zk_archief tabel is niet leeg", 0 < rds.getTable("kad_onrrnd_zk_archief").getRowCount());
-        assertEquals("Er zit voor ieder bericht met perceel in record in kad_perceel_archief",
+        assertEquals(0, rds.getTable("kad_onrrnd_zk").getRowCount(),
+                "Er zijn geen spook records in de kad_onrrnd_zk tabel");
+        assertTrue(0 < rds.getTable("kad_onrrnd_zk_archief").getRowCount(),
+                "De kad_onrrnd_zk_archief tabel is niet leeg");
+        assertEquals(
                 aantalBerichten - 1,
-                rds.getTable("kad_perceel_archief").getRowCount()
-        );
+                rds.getTable("kad_perceel_archief").getRowCount(),
+                "Er zit voor ieder bericht met perceel in record in kad_perceel_archief");
 
         ITable bericht = staging.createDataSet().getTable("bericht");
-        assertEquals("Alle berichten hebben status RSGB_OK", aantalBerichten, bericht.getRowCount());
+        assertEquals(aantalBerichten, bericht.getRowCount(), "Alle berichten hebben status RSGB_OK");
     }
 
-    @Test
-    public void testFillbestandsNaamHersteld() throws Exception {
+    @DisplayName("Cleanup")
+    @ParameterizedTest(name = "{index}: verwerken bestand: ''{0}''")
+    @MethodSource("argumentsProvider")
+    public void testFillbestandsNaamHersteld(String sBestandsNaam, long aantalBerichten, long aantalProcessen,
+                                             String rBestandsNaam) throws Exception {
+        loadData(sBestandsNaam, aantalBerichten, aantalProcessen, rBestandsNaam);
         bean.fillbestandsNaamHersteld(BrmoFramework.BR_BRK, "0");
         ITable laadproces = staging.createDataSet().getTable("laadproces");
 
         for (int i = 1; i < laadproces.getRowCount(); i++) {
             if (laadproces.getValue(i, "bestand_naam").toString().equals("stand")) {
-                assertNull("'bestand_naam_hersteld' moet leeg zijn voor stand", laadproces.getValue(i, "bestand_naam_hersteld"));
+                assertNull(laadproces.getValue(i, "bestand_naam_hersteld"),
+                        "'bestand_naam_hersteld' moet leeg zijn voor stand");
             } else if (laadproces.getValue(i, "bestand_naam").toString().equals("verwijder")) {
-                assertNotNull("'bestand_naam_hersteld' mag niet leeg zijn", laadproces.getValue(i, "bestand_naam_hersteld"));
-                assertEquals("inhoud mag niet herstelbaar zijn", "bestandsnaam kon niet worden hersteld", laadproces.getValue(i, "bestand_naam_hersteld"));
+                assertNotNull(laadproces.getValue(i, "bestand_naam_hersteld"),
+                        "'bestand_naam_hersteld' mag niet leeg zijn");
+                assertEquals(
+                        "bestandsnaam kon niet worden hersteld", laadproces.getValue(i, "bestand_naam_hersteld"),
+                        "inhoud mag niet herstelbaar zijn");
             } else {
-                assertNotNull("'bestand_naam_hersteld' mag niet leeg zijn", laadproces.getValue(i, "bestand_naam_hersteld"));
-                assertNotEquals("inhoud moet herstelbaar zijn", "bestandsnaam kon niet worden hersteld", laadproces.getValue(i, "bestand_naam_hersteld"));
+                assertNotNull(laadproces.getValue(i, "bestand_naam_hersteld"),
+                        "'bestand_naam_hersteld' mag niet leeg zijn");
+                assertNotEquals(
+                        "bestandsnaam kon niet worden hersteld", laadproces.getValue(i, "bestand_naam_hersteld"),
+                        "inhoud moet herstelbaar zijn");
             }
         }
     }
