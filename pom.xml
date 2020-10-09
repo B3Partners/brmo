@@ -524,10 +524,21 @@
 <!--                <scope>test</scope>-->
 <!--            </dependency>-->
 <!--            <dependency>-->
+<!--                <groupId>org.junit.jupiter</groupId>-->
+<!--                <artifactId>junit-jupiter-params</artifactId>-->
+<!--                <scope>test</scope>-->
+<!--            </dependency>-->
+<!--            <dependency>-->
 <!--                <groupId>org.junit.vintage</groupId>-->
 <!--                <artifactId>junit-vintage-engine</artifactId>-->
 <!--                <scope>test</scope>-->
 <!--            </dependency>-->
+            <dependency>
+                <groupId>org.hamcrest</groupId>
+                <artifactId>hamcrest</artifactId>
+                <version>2.2</version>
+                <scope>test</scope>
+            </dependency>
             <dependency>
                 <groupId>org.dbunit</groupId>
                 <artifactId>dbunit</artifactId>
@@ -609,10 +620,6 @@
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>junit</groupId>-->
-<!--            <artifactId>junit</artifactId>-->
-<!--        </dependency>-->
     </dependencies>
     <build>
         <defaultGoal>package</defaultGoal>
@@ -739,13 +746,6 @@
                             </goals>
                         </execution>
                     </executions>
-                    <dependencies>
-                        <dependency>
-                            <groupId>org.apache.maven.surefire</groupId>
-                            <artifactId>surefire-junit47</artifactId>
-                            <version>${maven.surefire.version}</version>
-                        </dependency>
-                    </dependencies>
                 </plugin>
                 <plugin>
                     <artifactId>maven-surefire-report-plugin</artifactId>
