@@ -25,7 +25,9 @@ package nl.b3p.brmo.test.util.database;
  * @see PostgreSQLDriverBasedFailures
  * @note marker interface
  * @see org.junit.experimental.categories.Category
+ * @deprecated sinds upgrade naar junit 5
  */
+@Deprecated
 public interface MSSqlServerDriverBasedFailures {
 
 }
