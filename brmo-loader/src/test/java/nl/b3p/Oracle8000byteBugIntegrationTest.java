@@ -58,8 +58,8 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
  *
  * @author mprins
  */
-@Tag("not-mssql")
-@Tag("not-pgsql")
+@Tag("skip-mssql")
+@Tag("skip-pgsql")
 public class Oracle8000byteBugIntegrationTest extends AbstractDatabaseIntegrationTest {
 
     private static final Log LOG = LogFactory.getLog(Oracle8000byteBugIntegrationTest.class);

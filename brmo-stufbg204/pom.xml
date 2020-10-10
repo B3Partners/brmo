@@ -283,7 +283,7 @@
                             <systemPropertyVariables>
                                 <database.properties.file>postgres.properties</database.properties.file>
                             </systemPropertyVariables>
-                            <excludedGroups>nl.b3p.brmo.test.util.database.PostgreSQLDriverBasedFailures</excludedGroups>
+                            <excludedGroups>skip-pgsql</excludedGroups>
                             <argLine>-XX:+TieredCompilation -XX:TieredStopAtLevel=1</argLine>
                         </configuration>
                     </plugin>
@@ -377,7 +377,7 @@
                             <systemPropertyVariables>
                                 <database.properties.file>oracle.properties</database.properties.file>
                             </systemPropertyVariables>
-                            <excludedGroups>nl.b3p.brmo.test.util.database.OracleDriverBasedFailures</excludedGroups>
+                            <excludedGroups>skip-oracle</excludedGroups>
                             <argLine>-XX:+TieredCompilation -XX:TieredStopAtLevel=1</argLine>
                         </configuration>
                     </plugin>
@@ -472,7 +472,7 @@
                             <systemPropertyVariables>
                                 <database.properties.file>sqlserver.properties</database.properties.file>
                             </systemPropertyVariables>
-                            <excludedGroups>nl.b3p.brmo.test.util.database.MSSqlServerDriverBasedFailures</excludedGroups>
+                            <excludedGroups>skip-mssql</excludedGroups>
                             <argLine>-XX:+TieredCompilation -XX:TieredStopAtLevel=1</argLine>
                         </configuration>
                     </plugin>

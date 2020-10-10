@@ -9,7 +9,7 @@ package nl.b3p.brmo.test.util.database;
  * @see PostgreSQLDriverBasedFailures
  * @note marker interface
  * @see org.junit.experimental.categories.Category
- * @deprecated sinds upgrade naar junit 5
+ * @deprecated sinds upgrade naar junit 5, gebruik {@code @Tag("skip-hsqldb")}
  */
 @Deprecated
 public interface HSQLDBDriverBasedFailures {

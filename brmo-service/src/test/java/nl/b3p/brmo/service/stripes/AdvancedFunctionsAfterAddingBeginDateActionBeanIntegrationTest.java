@@ -55,7 +55,7 @@ import static org.mockito.Mockito.*;
  * @author mprins
  * @see AdvancedFunctionsActionBeanIntegrationTest
  */
-//@Category({ MSSqlServerDriverBasedFailures.class })
+@Tag("skip-mssql")
 public class AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest extends TestUtil {
 
     private static final Log LOG = LogFactory.getLog(

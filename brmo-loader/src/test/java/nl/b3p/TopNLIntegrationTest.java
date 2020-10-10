@@ -71,7 +71,7 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
  * @author Mark Prins
  */
 // overslaan op mssql; daar is geen topnl ondersteuning, zie ook https://github.com/B3Partners/brmo/issues/773
-@Tag("not-mssql")
+@Tag("skip-mssql")
 public class TopNLIntegrationTest extends AbstractDatabaseIntegrationTest {
 
     private final static Log LOG = LogFactory.getLog(TopNLIntegrationTest.class);

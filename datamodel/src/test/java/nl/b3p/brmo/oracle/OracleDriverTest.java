@@ -2,19 +2,19 @@ package nl.b3p.brmo.oracle;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.io.IOException;
 import java.sql.*;
 import java.util.Properties;
 
 import static java.lang.System.getProperty;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assumptions.assumeFalse;
 
+@Tag("skip-mssql")
+@Tag("skip-pgsql")
+@Tag("skip-hsqldb")
 public class OracleDriverTest {
     private static final Log LOG = LogFactory.getLog(OracleDriverTest.class);
     private final String dbName = "staging";
@@ -100,6 +100,8 @@ public class OracleDriverTest {
                     fail(e.getLocalizedMessage());
                 }
             }
+        } else {
+            assertFalse(isOracle);
         }
     }
 }
