@@ -16,6 +16,17 @@
  */
 package nl.b3p.web;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.client.methods.RequestBuilder;
+import org.apache.http.util.EntityUtils;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -23,28 +34,18 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpUriRequest;
-import org.apache.http.client.methods.RequestBuilder;
-import org.apache.http.util.EntityUtils;
+
 import static org.hamcrest.CoreMatchers.equalTo;
-import org.junit.Test;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-import org.junit.FixMethodOrder;
-import org.junit.runners.MethodSorters;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * Integration test for the index page.
  *
  * @author mprins
  */
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+@TestMethodOrder(MethodOrderer.MethodName.class)
 public class IndexPageIntegrationTest extends WebTestUtil {
 
     /**
@@ -67,7 +68,8 @@ public class IndexPageIntegrationTest extends WebTestUtil {
         try {
             Class.forName(DBPROPS.getProperty("jdbc.driverClassName"));
         } catch (ClassNotFoundException ex) {
-            fail("Laden van database driver (" + DBPROPS.getProperty("jdbc.driverClassName") + ") is mislukt.");
+            Assertions.fail(
+                    "Laden van database driver (" + DBPROPS.getProperty("jdbc.driverClassName") + ") is mislukt.");
         }
         Connection connection = DriverManager.getConnection(DBPROPS.getProperty("staging.url"),
                 DBPROPS.getProperty("staging.username"),
@@ -98,8 +100,9 @@ public class IndexPageIntegrationTest extends WebTestUtil {
         rs.close();
         connection.close();
 
-        assertEquals("De record moet de verwachte naam hebben.", default_gebruikersnaam, actual_gebruikersnaam);
-        assertEquals("De record moet de verwachte password hash hebben.", default_hash, actual_hash);
+        assertEquals(default_gebruikersnaam, actual_gebruikersnaam,
+                "De record moet de verwachte naam hebben.");
+        assertEquals(default_hash, actual_hash, "De record moet de verwachte password hash hebben.");
     }
 
     /**
@@ -115,7 +118,7 @@ public class IndexPageIntegrationTest extends WebTestUtil {
         final String body = EntityUtils.toString(response.getEntity());
         assertThat("Response status is OK.", response.getStatusLine().getStatusCode(),
                 equalTo(HttpStatus.SC_OK));
-        assertNotNull("Response body mag niet null zijn.", body);
+        assertNotNull(body, "Response body mag niet null zijn.");
     }
 
     /**
@@ -125,7 +128,7 @@ public class IndexPageIntegrationTest extends WebTestUtil {
      * @throws URISyntaxException mag niet optreden
      */
     @Test
-    public void testLoginLogout() throws IOException, URISyntaxException {
+    public void testLoginLogout() throws Exception {
         // login
         response = client.execute(new HttpGet(BASE_TEST_URL));
         EntityUtils.consume(response.getEntity());
@@ -143,26 +146,27 @@ public class IndexPageIntegrationTest extends WebTestUtil {
         // index
         response = client.execute(new HttpGet(BASE_TEST_URL + "index.jsp"));
         String body = EntityUtils.toString(response.getEntity());
-        assertNotNull("Response body mag niet null zijn.", body);
-        assertTrue("Response moet 'BRMO Service' header hebben.", body.contains("<h1>BRMO Service</h1>"));
+        Assertions.assertNotNull(body, "Response body mag niet null zijn.");
+        Assertions.assertTrue(body.contains("<h1>BRMO Service</h1>"), "Response moet 'BRMO Service' header hebben.");
 
         // about
         response = client.execute(new HttpGet(BASE_TEST_URL + "about.jsp"));
         body = EntityUtils.toString(response.getEntity());
-        assertNotNull("Response body mag niet null zijn.", body);
-        assertTrue("Response moet 'BRMO versie' header hebben.", body.contains("<h1>BRMO versie informatie</h1>"));
+        Assertions.assertNotNull(body, "Response body mag niet null zijn.");
+        Assertions.assertTrue(body.contains("<h1>BRMO versie informatie</h1>"),
+                "Response moet 'BRMO versie' header hebben.");
 
         // logout
         response = client.execute(new HttpGet(BASE_TEST_URL + "logout.jsp"));
         body = EntityUtils.toString(response.getEntity());
         assertThat("Response status is OK.", response.getStatusLine().getStatusCode(),
                 equalTo(HttpStatus.SC_OK));
-        assertNotNull("Response body mag niet null zijn.", body);
-        assertTrue("Response moet 'Opnieuw inloggen' tekst hebben.", body.contains("Opnieuw inloggen"));
+        Assertions.assertNotNull(body, "Response body mag niet null zijn.");
+        Assertions.assertTrue(body.contains("Opnieuw inloggen"), "Response moet 'Opnieuw inloggen' tekst hebben.");
     }
 
     @Override
-    public void setUp() throws Exception {
+    public void setUp() {
         // void implementatie
     }
 }

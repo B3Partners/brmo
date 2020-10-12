@@ -16,17 +16,17 @@
  */
 package nl.b3p.brmo.loader.util;
 
-import java.io.InputStream;
-import java.util.List;
-import javax.xml.transform.stream.StreamSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import javax.xml.transform.stream.StreamSource;
+import java.io.InputStream;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  *
@@ -35,18 +35,17 @@ import static org.junit.Assert.fail;
 public class DataComfortXMLReaderTest {
 
     private static final Log log = LogFactory.getLog(DataComfortXMLReaderTest.class);
-    private static DataComfortXMLReader reader = new DataComfortXMLReader();
+    private static final DataComfortXMLReader reader = new DataComfortXMLReader();
     
-    @Before
+    @BeforeEach
     public void setUp(){
         log.debug("Testing DataComfortXMLReader");
     }
 
-    @After
+    @AfterEach
     public void tearDown() {
     }
 
-    
     @Test
     public void testEmptyStackExceptionXML() throws Exception {
         InputStream stream = DataComfortXMLReaderTest.class.getResourceAsStream("EmptyStackException.xml");
@@ -75,10 +74,10 @@ public class DataComfortXMLReaderTest {
         StreamSource source = new StreamSource(stream);
         List<TableData> data = reader.readDataXML(source);
         try {
-            assertEquals("Er zijn drie table data elementen", 3, data.size());
+            assertEquals(3, data.size(), "Er zijn drie table data elementen");
             TableData d = data.get(0);
-            assertTrue("eerste table data is comfort data.", d.isComfortData());
-            assertEquals("Er zijn vier table rows", 4, d.getRows().size());
+            assertTrue(d.isComfortData(), "eerste table data is comfort data.");
+            assertEquals(4, d.getRows().size(), "Er zijn vier table rows");
             TableRow row = d.getRows().get(0);
             assertEquals("50656082", row.getColumnValue("kvk_nummer"));
 

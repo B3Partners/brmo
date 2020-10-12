@@ -1,17 +1,18 @@
 package nl.b3p.brmo.loader.gml;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.geotools.data.DataStoreFinder;
+import org.geotools.data.FeatureStore;
+import org.geotools.jdbc.JDBCDataStore;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
-import org.geotools.data.DataStoreFinder;
-import org.geotools.data.FeatureStore;
-import org.geotools.jdbc.JDBCDataStore;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Testcases voor
@@ -41,7 +42,7 @@ public class Mantis11620GmlLightLoaderIntegrationTest extends TestingBase {
      *
      * @throws IOException als laden van property file mislukt
      */
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         loadProps();
 
@@ -54,7 +55,7 @@ public class Mantis11620GmlLightLoaderIntegrationTest extends TestingBase {
         clearTables();
     }
 
-    @After
+    @AfterEach
     public void resetDatabase() throws Exception {
         clearTables();
         sequential.unlock();
@@ -72,14 +73,14 @@ public class Mantis11620GmlLightLoaderIntegrationTest extends TestingBase {
         int result = ldr.processGMLFile(gml);
         int expected = 0;
 
-        assertEquals("Aantal geschreven features moet 0 zijn want object is vervallen.", expected, result);
+        assertEquals(expected, result, "Aantal geschreven features moet 0 zijn want object is vervallen.");
 
         // doublecheck met geotools want die hebben we toch al
         JDBCDataStore dataStore = null;
         try {
             dataStore = (JDBCDataStore) DataStoreFinder.getDataStore(params);
             FeatureStore store = (FeatureStore) dataStore.getFeatureSource(isOracle ? "wegdeel".toUpperCase() : "wegdeel");
-            assertEquals("Aantal features is groter dan verwacht. ", expected, store.getFeatures().size());
+            assertEquals(expected, store.getFeatures().size(), "Aantal features is groter dan verwacht. ");
             dataStore.dispose();
         } finally {
             if (dataStore != null) {

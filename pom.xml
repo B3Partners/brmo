@@ -96,6 +96,7 @@
         <test.h2.version>1.4.200</test.h2.version>
         <test.hsqldb.version>2.5.1</test.hsqldb.version>
         <test.onlyITs>false</test.onlyITs>
+        <test.junit-jupiter.version>5.7.0</test.junit-jupiter.version>
         <maven.surefire.version>3.0.0-M4</maven.surefire.version>
         <jacoco-maven-plugin.version>0.8.6</jacoco-maven-plugin.version>
         <versions-maven-plugin.version>2.8.1</versions-maven-plugin.version>
@@ -489,7 +490,6 @@
                 <artifactId>layout</artifactId>
                 <version>${itextpdf.version}</version>
             </dependency>
-
             <!-- test dependencies -->
             <dependency>
                 <groupId>com.h2database</groupId>
@@ -498,9 +498,16 @@
                 <scope>test</scope>
             </dependency>
             <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>4.13</version>
+                <groupId>org.junit</groupId>
+                <artifactId>junit-bom</artifactId>
+                <version>${test.junit-jupiter.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.hamcrest</groupId>
+                <artifactId>hamcrest</artifactId>
+                <version>2.2</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
@@ -508,13 +515,6 @@
                 <artifactId>dbunit</artifactId>
                 <version>2.7.0</version>
                 <scope>test</scope>
-                <exclusions>
-                    <!-- vanwege CVE-2018-10936 -->
-                    <exclusion>
-                        <groupId>postgresql</groupId>
-                        <artifactId>postgresql</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.httpunit</groupId>
@@ -590,10 +590,6 @@
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
         </dependency>
     </dependencies>
     <build>
@@ -721,13 +717,6 @@
                             </goals>
                         </execution>
                     </executions>
-                    <dependencies>
-                        <dependency>
-                            <groupId>org.apache.maven.surefire</groupId>
-                            <artifactId>surefire-junit47</artifactId>
-                            <version>${maven.surefire.version}</version>
-                        </dependency>
-                    </dependencies>
                 </plugin>
                 <plugin>
                     <artifactId>maven-surefire-report-plugin</artifactId>
@@ -759,7 +748,8 @@
                             <link>https://docs.jboss.org/hibernate/stable/core/javadocs/</link>
                             <link>http://docs.geotools.org/stable/javadocs/</link>
                             <link>https://logging.apache.org/log4j/1.2/apidocs/</link>
-                            <link>http://junit.sourceforge.net/javadoc/</link>
+                            <link>https://junit.org/junit4/javadoc/latest/</link>
+                            <link>https://junit.org/junit5/docs/current/api/</link>
                             <link>https://b3partners.github.io/kadaster-gds2/apidocs/</link>
                             <link>https://b3partners.github.io/jdbc-util/apidocs/</link>
                         </links>

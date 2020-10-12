@@ -1,12 +1,7 @@
 package nl.b3p;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.util.List;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.loader.BrmoFramework;
+import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.test.util.database.dbunit.CleanUtil;
 import nl.b3p.loader.jdbc.OracleConnectionUnwrapper;
@@ -15,8 +10,6 @@ import org.dbunit.database.DatabaseConfig;
 import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.DatabaseDataSourceConnection;
 import org.dbunit.database.IDatabaseConnection;
-import org.dbunit.dataset.DefaultDataSet;
-import org.dbunit.dataset.DefaultTable;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.ext.mssql.InsertIdentityOperation;
@@ -24,13 +17,18 @@ import org.dbunit.ext.mssql.MsSqlDataTypeFactory;
 import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 import org.dbunit.operation.DatabaseOperation;
-import org.junit.After;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assume.assumeTrue;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.List;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 /**
  * Draaien met:
@@ -55,7 +53,7 @@ public class BerichtenFilterSqlIntegrationTest extends AbstractDatabaseIntegrati
     private final Lock sequential = new ReentrantLock();
     private BrmoFramework brmo;
 
-    @Before
+    @BeforeEach
     @Override
     public void setUp() throws Exception {
         BasicDataSource dsStaging = new BasicDataSource();
@@ -90,17 +88,19 @@ public class BerichtenFilterSqlIntegrationTest extends AbstractDatabaseIntegrati
             DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
         }
 
-        assumeTrue("Er zijn geen STAGING_OK berichten", 60l == brmo.getCountBerichten(null, null, "brk,bag,nhr", "STAGING_OK"));
-        assumeTrue("Er zijn BAG geen STAGING_OK laadprocessen", 6l == brmo.getCountLaadProcessen(null, null, "bag", "STAGING_OK"));
-        assumeTrue("Er zijn BRK STAGING_OK laadprocessen", 0l == brmo.getCountLaadProcessen(null, null, "brk", "STAGING_OK"));
+        assumeTrue(60l == brmo.getCountBerichten(null, null, "brk,bag,nhr", "STAGING_OK"),
+                "Er zijn geen STAGING_OK berichten");
+        assumeTrue(6l == brmo.getCountLaadProcessen(null, null, "bag", "STAGING_OK"),
+                "Er zijn BAG geen STAGING_OK laadprocessen");
+        assumeTrue(0l == brmo.getCountLaadProcessen(null, null, "brk", "STAGING_OK"),
+                "Er zijn BRK STAGING_OK laadprocessen");
     }
 
-    @After
+    @AfterEach
     public void cleanup() throws Exception {
         brmo.closeBrmoFramework();
         CleanUtil.cleanSTAGING(staging, false);
         staging.close();
-
         sequential.unlock();
     }
 
@@ -108,8 +108,10 @@ public class BerichtenFilterSqlIntegrationTest extends AbstractDatabaseIntegrati
     public void emptyStagingDb() throws BrmoException {
         brmo.emptyStagingDb();
 
-        assertTrue("Er zijn STAGING_OK berichten", 0l == brmo.getCountBerichten(null, null, "brk,bag,nhr", "STAGING_OK"));
-        assertTrue("Er zijn STAGING_OK laadprocessen", 0l == brmo.getCountLaadProcessen(null, null, "bag", "STAGING_OK"));
+        assertTrue(0l == brmo.getCountBerichten(null, null, "brk,bag,nhr", "STAGING_OK"),
+                "Er zijn STAGING_OK berichten");
+        assertTrue(0l == brmo.getCountLaadProcessen(null, null, "bag", "STAGING_OK"),
+                "Er zijn STAGING_OK laadprocessen");
     }
 
     @Test
@@ -119,8 +121,8 @@ public class BerichtenFilterSqlIntegrationTest extends AbstractDatabaseIntegrati
 
         List<Bericht> berichten = brmo.getBerichten(page, start, limit, sort, dir, filterSoort, filterStatus);
 
-        assertNotNull("Er moet een aantal bag berichten zijn.", berichten);
-        assertTrue("Het aantal bag berichten is groter dan 0", berichten.size() > 0);
+        assertNotNull(berichten, "Er moet een aantal bag berichten zijn.");
+        assertTrue(berichten.size() > 0, "Het aantal bag berichten is groter dan 0");
     }
 
     @Test
@@ -129,7 +131,7 @@ public class BerichtenFilterSqlIntegrationTest extends AbstractDatabaseIntegrati
         sort = "soort";
 
         List<Bericht> berichten = brmo.getBerichten(page, start, limit, sort, dir, filterSoort, filterStatus);
-        assertNotNull("Er moet een aantal bag berichten zijn.", berichten);
+        assertNotNull(berichten, "Er moet een aantal bag berichten zijn.");
     }
 
     @Test
@@ -141,8 +143,8 @@ public class BerichtenFilterSqlIntegrationTest extends AbstractDatabaseIntegrati
         long id1 = berichten.get(0).getId();
         long id2 = berichten.get(1).getId();
 
-        assertNotNull("Er moet een aantal berichten zijn.", berichten);
-        assertTrue("De DESC sortering moet kloppen", id1 > id2);
+        assertNotNull(berichten, "Er moet een aantal berichten zijn.");
+        assertTrue(id1 > id2, "De DESC sortering moet kloppen");
     }
 
     @Test
@@ -154,8 +156,8 @@ public class BerichtenFilterSqlIntegrationTest extends AbstractDatabaseIntegrati
         long id1 = berichten.get(0).getId();
         long id2 = berichten.get(1).getId();
 
-        assertNotNull("Er moet een aantal berichten zijn.", berichten);
-        assertTrue("De ASC sortering moet kloppen", id1 < id2);
+        assertNotNull(berichten, "Er moet een aantal berichten zijn.");
+        assertTrue(id1 < id2, "De ASC sortering moet kloppen");
     }
 
     @Test
@@ -165,7 +167,7 @@ public class BerichtenFilterSqlIntegrationTest extends AbstractDatabaseIntegrati
         limit = 3;
 
         List<Bericht> berichten = brmo.getBerichten(page, start, limit, sort, dir, filterSoort, filterStatus);
-        assertNotNull("Er moet een aantal berichten zijn.", berichten);
-        assertEquals("Het aantal in de selectie", limit, berichten.size());
+        assertNotNull(berichten, "Er moet een aantal berichten zijn.");
+        assertEquals(limit, berichten.size(), "Het aantal in de selectie");
     }
 }

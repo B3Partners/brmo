@@ -16,14 +16,6 @@
  */
 package nl.b3p.topnl;
 
-import org.locationtech.jts.io.ParseException;
-import java.io.IOException;
-import java.net.URL;
-import java.sql.SQLException;
-import java.util.List;
-import javax.xml.bind.JAXBException;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
 import nl.b3p.loader.jdbc.GeometryJdbcConverterFactory;
 import nl.b3p.topnl.converters.DbUtilsGeometryColumnConverter;
 import nl.b3p.topnl.entities.Hoogte;
@@ -32,12 +24,20 @@ import org.apache.commons.dbutils.BasicRowProcessor;
 import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.jdom2.JDOMException;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.locationtech.jts.io.ParseException;
 import org.xml.sax.SAXException;
+
+import javax.xml.bind.JAXBException;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
+import java.io.IOException;
+import java.net.URL;
+import java.sql.SQLException;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  *
@@ -51,7 +51,7 @@ public class ProcessorTest extends TestUtil{
         this.useDB = true; 
     }
 
-    @Before
+    @BeforeEach
     public void setUp() throws JAXBException, SQLException {
         instance = new Processor(datasource);
     }

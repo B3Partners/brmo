@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 - 2017 B3Partners B.V.
+ * Copyright (C) 2016 - 2020 B3Partners B.V.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -16,79 +16,46 @@
  */
 package nl.b3p.topnl;
 
-import org.locationtech.jts.geom.Geometry;
-import org.locationtech.jts.geom.LineString;
-import org.locationtech.jts.geom.Polygon;
-import org.locationtech.jts.io.WKTReader;
-import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Collection;
 import nl.b3p.topnl.converters.DbUtilsGeometryColumnConverter;
-import nl.b3p.topnl.entities.FunctioneelGebied;
-import nl.b3p.topnl.entities.Gebouw;
-import nl.b3p.topnl.entities.GeografischGebied;
-import nl.b3p.topnl.entities.Hoogte;
-import nl.b3p.topnl.entities.Inrichtingselement;
-import nl.b3p.topnl.entities.Plaats;
-import nl.b3p.topnl.entities.PlanTopografie;
-import nl.b3p.topnl.entities.RegistratiefGebied;
-import nl.b3p.topnl.entities.Relief;
-import nl.b3p.topnl.entities.Spoorbaandeel;
-import nl.b3p.topnl.entities.Terrein;
-import nl.b3p.topnl.entities.TopNLEntity;
-import nl.b3p.topnl.entities.Waterdeel;
-import nl.b3p.topnl.entities.Wegdeel;
+import nl.b3p.topnl.entities.*;
 import org.apache.commons.dbutils.BasicRowProcessor;
 import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.junit.Test;
-import static org.junit.Assert.*;
-import org.junit.Before;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
+import org.locationtech.jts.geom.Geometry;
+import org.locationtech.jts.geom.LineString;
+import org.locationtech.jts.geom.Polygon;
+import org.locationtech.jts.io.WKTReader;
+
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
- *
  * @author Meine Toonen meinetoonen@b3partners.nl
+ * @author mprins
  */
-@RunWith(Parameterized.class)
 public class DatabaseTest extends TestUtil {
 
     private final static Log LOG = LogFactory.getLog(DatabaseTest.class);
-    private Database instance = null;
     private final WKTReader wkt = new WKTReader();
     private final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     private final String identificatie = "1616161616";
-    private TopNLType type;
+    private Database instance = null;
 
-    @Parameters(name = "Type: {0}")
-    public static Collection<Object[]> params() {
-        return Arrays.asList(new Object[][]{
-            {TopNLType.TOP10NL},
-            {TopNLType.TOP50NL},
-            {TopNLType.TOP100NL},
-            {TopNLType.TOP250NL}
-        }
-        );
-    }
-
-    public DatabaseTest(TopNLType type) {
-        this.type = type;
+    public DatabaseTest() {
         this.useDB = true;
     }
 
-    @Before
-    public void before() throws SQLException {
-        instance = new Database(datasource);
-    }
-
-    @Test
-    public void testSaveHoogte() throws SQLException, ParseException, org.locationtech.jts.io.ParseException {
+    @ParameterizedTest(name = "{index}: testen Hoogte met database voor: {0}")
+    @EnumSource(TopNLType.class)
+    public void testSaveHoogte(TopNLType type) throws Exception {
         LOG.debug("save");
         Geometry p = wkt.read("POINT (1 2)");
         Hoogte e = new Hoogte();
@@ -97,13 +64,13 @@ public class DatabaseTest extends TestUtil {
         e.setReferentieVlak("uitgevlakt");
         e.setTypeHoogte("superhoog");
         e.setHoogte(16.06);
-
+        instance = new Database(datasource);
         instance.save(e);
 
         ResultSetHandler<Hoogte> h = new BeanHandler<>(Hoogte.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(instance.getGjc())));
 
         Hoogte real = run.query("SELECT * FROM " + type.getType() + ".hoogte WHERE identificatie=?", h, identificatie);
-        assertNotNull("Insert failed", real);
+        assertNotNull(real, "Insert failed");
         testStandardTopNLEntity(real, e);
 
         assertEquals(e.getReferentieVlak(), real.getReferentieVlak());
@@ -112,29 +79,31 @@ public class DatabaseTest extends TestUtil {
         assertEquals(p, real.getGeometrie());
     }
 
-    @Test
-    public void testSavePlanTopografie() throws SQLException, ParseException, org.locationtech.jts.io.ParseException {
+    @ParameterizedTest(name = "{index}: testen PlanTopografie met database voor: {0}")
+    @EnumSource(TopNLType.class)
+    public void testSavePlanTopografie(TopNLType type) throws SQLException, ParseException, org.locationtech.jts.io.ParseException {
         Geometry p = wkt.read("POINT (1 2)");
         PlanTopografie e = new PlanTopografie();
         getStandardTestTopNLEntity(e, type);
         e.setGeometrie(p);
         e.setNaam("plannetje");
         e.setTypePlanTopografie("Typetje");
-
+        instance = new Database(datasource);
         instance.save(e);
 
         ResultSetHandler<PlanTopografie> h = new BeanHandler<>(PlanTopografie.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(instance.getGjc())));
 
         PlanTopografie real = run.query("SELECT * FROM " + type.getType() + ".plantopografie WHERE identificatie=?", h, identificatie);
-        assertNotNull("Insert failed", real);
+        assertNotNull(real, "Insert failed");
         testStandardTopNLEntity(real, e);
         assertEquals(p, real.getGeometrie());
         assertEquals(e.getNaam(), real.getNaam());
         assertEquals(e.getTypePlanTopografie(), real.getTypePlanTopografie());
     }
 
-    @Test
-    public void testSaveGebouw() throws SQLException, ParseException, org.locationtech.jts.io.ParseException {
+    @ParameterizedTest(name = "{index}: testen Gebouw met database voor: {0}")
+    @EnumSource(TopNLType.class)
+    public void testSaveGebouw(TopNLType type) throws SQLException, ParseException, org.locationtech.jts.io.ParseException {
         Geometry p = wkt.read("POINT (1 2)");
         Gebouw e = new Gebouw();
         getStandardTestTopNLEntity(e, type);
@@ -147,13 +116,13 @@ public class DatabaseTest extends TestUtil {
         e.setSoortnaam("superflat");
         e.setNaam("flatje");
         e.setNaamFries("flaotjah");
-
+        instance = new Database(datasource);
         instance.save(e);
 
         ResultSetHandler<Gebouw> h = new BeanHandler<>(Gebouw.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(instance.getGjc())));
 
         Gebouw real = run.query("SELECT * FROM " + type.getType() + ".gebouw WHERE identificatie=?", h, identificatie);
-        assertNotNull("Insert failed", real);
+        assertNotNull(real, "Insert failed");
         testStandardTopNLEntity(real, e);
 
         assertEquals(e.getHoogte(), real.getHoogte());
@@ -167,8 +136,9 @@ public class DatabaseTest extends TestUtil {
         assertEquals(e.getNaamFries(), real.getNaamFries());
     }
 
-    @Test
-    public void testSaveGeografischGebied() throws SQLException, ParseException, org.locationtech.jts.io.ParseException {
+    @ParameterizedTest(name = "{index}: testen GeografischGebied met database voor: {0}")
+    @EnumSource(TopNLType.class)
+    public void testSaveGeografischGebied(TopNLType type) throws SQLException, ParseException, org.locationtech.jts.io.ParseException {
         Geometry p = wkt.read("POINT (1 2)");
         GeografischGebied e = new GeografischGebied();
         getStandardTestTopNLEntity(e, type);
@@ -176,13 +146,13 @@ public class DatabaseTest extends TestUtil {
         e.setTypeGeografischGebied("landgoed");
         e.setNaamNL("Naamnl");
         e.setNaamFries("NaamFrysk");
-
+        instance = new Database(datasource);
         instance.save(e);
 
         ResultSetHandler<GeografischGebied> h = new BeanHandler<>(GeografischGebied.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(instance.getGjc())));
 
         GeografischGebied real = run.query("SELECT * FROM " + type.getType() + ".geografischgebied WHERE identificatie=?", h, identificatie);
-        assertNotNull("Insert failed", real);
+        assertNotNull(real, "Insert failed");
         testStandardTopNLEntity(real, e);
 
         assertEquals(p, real.getGeometrie());
@@ -191,8 +161,9 @@ public class DatabaseTest extends TestUtil {
         assertEquals(e.getTypeGeografischGebied(), real.getTypeGeografischGebied());
     }
 
-    @Test
-    public void testSaveInrichtingselement() throws SQLException, ParseException, org.locationtech.jts.io.ParseException {
+    @ParameterizedTest(name = "{index}: testen Inrichtingselement met database voor: {0}")
+    @EnumSource(TopNLType.class)
+    public void testSaveInrichtingselement(TopNLType type) throws SQLException, ParseException, org.locationtech.jts.io.ParseException {
         Geometry p = wkt.read("POINT (1 2)");
         Inrichtingselement e = new Inrichtingselement();
         getStandardTestTopNLEntity(e, type);
@@ -201,13 +172,13 @@ public class DatabaseTest extends TestUtil {
         e.setHoogteniveau(778L);
         e.setSoortnaam("MaxPen");
         e.setStatus("in gebruik");
-
+        instance = new Database(datasource);
         instance.save(e);
 
         ResultSetHandler<Inrichtingselement> h = new BeanHandler<>(Inrichtingselement.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(instance.getGjc())));
 
         Inrichtingselement real = run.query("SELECT * FROM " + type.getType() + ".inrichtingselement WHERE identificatie=?", h, identificatie);
-        assertNotNull("Insert failed", real);
+        assertNotNull(real, "Insert failed");
         testStandardTopNLEntity(real, e);
 
         assertEquals(p, real.getGeometrie());
@@ -217,8 +188,9 @@ public class DatabaseTest extends TestUtil {
         assertEquals(e.getStatus(), real.getStatus());
     }
 
-    @Test
-    public void testSavePlaats() throws SQLException, ParseException, org.locationtech.jts.io.ParseException {
+    @ParameterizedTest(name = "{index}: testen Plaats met database voor: {0}")
+    @EnumSource(TopNLType.class)
+    public void testSavePlaats(TopNLType type) throws SQLException, ParseException, org.locationtech.jts.io.ParseException {
         Geometry p = wkt.read("POINT (1 2)");
         Plaats e = new Plaats();
         getStandardTestTopNLEntity(e, type);
@@ -228,12 +200,13 @@ public class DatabaseTest extends TestUtil {
         e.setNaamOfficieel("Gouda");
         e.setNaamNL("Gouda");
         e.setNaamFries("mompelmompel");
+        instance = new Database(datasource);
         instance.save(e);
 
         ResultSetHandler<Plaats> h = new BeanHandler<>(Plaats.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(instance.getGjc())));
 
         Plaats real = run.query("SELECT * FROM " + type.getType() + ".plaats WHERE identificatie=?", h, identificatie);
-        assertNotNull("Insert failed", real);
+        assertNotNull(real, "Insert failed");
         testStandardTopNLEntity(real, e);
 
         assertEquals(p, real.getGeometrie());
@@ -244,8 +217,9 @@ public class DatabaseTest extends TestUtil {
         assertEquals(e.getNaamFries(), real.getNaamFries());
     }
 
-    @Test
-    public void testSaveRegistratiefGebied() throws SQLException, ParseException, org.locationtech.jts.io.ParseException {
+    @ParameterizedTest(name = "{index}: testen RegistratiefGebied met database voor: {0}")
+    @EnumSource(TopNLType.class)
+    public void testSaveRegistratiefGebied(TopNLType type) throws SQLException, ParseException, org.locationtech.jts.io.ParseException {
         Geometry p = wkt.read("POINT (1 2)");
         RegistratiefGebied e = new RegistratiefGebied();
         getStandardTestTopNLEntity(e, type);
@@ -255,12 +229,13 @@ public class DatabaseTest extends TestUtil {
         e.setNaamOfficieel("Gouda");
         e.setNaamNL("Gouda");
         e.setNaamFries("mompelmompel");
+        instance = new Database(datasource);
         instance.save(e);
 
         ResultSetHandler<RegistratiefGebied> h = new BeanHandler<>(RegistratiefGebied.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(instance.getGjc())));
 
         RegistratiefGebied real = run.query("SELECT * FROM " + type.getType() + ".registratiefgebied WHERE identificatie=?", h, identificatie);
-        assertNotNull("Insert failed", real);
+        assertNotNull(real, "Insert failed");
         testStandardTopNLEntity(real, e);
 
         assertEquals(p, real.getGeometrie());
@@ -271,8 +246,9 @@ public class DatabaseTest extends TestUtil {
         assertEquals(e.getNaamFries(), real.getNaamFries());
     }
 
-    @Test
-    public void testSaveRelief() throws SQLException, ParseException, org.locationtech.jts.io.ParseException {
+    @ParameterizedTest(name = "{index}: testen Relief met database voor: {0}")
+    @EnumSource(TopNLType.class)
+    public void testSaveRelief(TopNLType type) throws SQLException, ParseException, org.locationtech.jts.io.ParseException {
         LineString p = (LineString) wkt.read("LineString(1 2, 3 4, 5 6)");
         Relief e = new Relief();
         getStandardTestTopNLEntity(e, type);
@@ -282,13 +258,13 @@ public class DatabaseTest extends TestUtil {
         e.setTypeRelief("Berg");
         e.setHoogteklasse("Superhoog");
         e.setHoogteniveau(666L);
-
+        instance = new Database(datasource);
         instance.save(e);
 
         ResultSetHandler<Relief> h = new BeanHandler<>(Relief.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(instance.getGjc())));
 
         Relief real = run.query("SELECT * FROM " + type.getType() + ".relief WHERE identificatie=?", h, identificatie);
-        assertNotNull("Insert failed", real);
+        assertNotNull(real, "Insert failed");
         testStandardTopNLEntity(real, e);
 
         assertEquals(p, real.getGeometrie());
@@ -299,8 +275,9 @@ public class DatabaseTest extends TestUtil {
         assertEquals(e.getHoogteniveau(), real.getHoogteniveau());
     }
 
-    @Test
-    public void testSaveReliefEmptyTaludGeoms() throws SQLException, ParseException, org.locationtech.jts.io.ParseException {
+    @ParameterizedTest(name = "{index}: testen Relief met database voor: {0}")
+    @EnumSource(TopNLType.class)
+    public void testSaveReliefEmptyTaludGeoms(TopNLType type) throws SQLException, ParseException, org.locationtech.jts.io.ParseException {
         LineString p = (LineString) wkt.read("LineString(1 2, 3 4, 5 6)");
         Relief e = new Relief();
         getStandardTestTopNLEntity(e, type);
@@ -310,13 +287,13 @@ public class DatabaseTest extends TestUtil {
         e.setTypeRelief("Berg");
         e.setHoogteklasse("Superhoog");
         e.setHoogteniveau(666L);
-
+        instance = new Database(datasource);
         instance.save(e);
 
         ResultSetHandler<Relief> h = new BeanHandler<>(Relief.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(instance.getGjc())));
 
         Relief real = run.query("SELECT * FROM " + type.getType() + ".relief WHERE identificatie=?", h, identificatie);
-        assertNotNull("Insert failed", real);
+        assertNotNull(real, "Insert failed");
         testStandardTopNLEntity(real, e);
 
         assertEquals(p, real.getGeometrie());
@@ -327,8 +304,9 @@ public class DatabaseTest extends TestUtil {
         assertEquals(e.getHoogteniveau(), real.getHoogteniveau());
     }
 
-    @Test
-    public void testSaveReliefEmptyHoofdGeom() throws SQLException, ParseException, org.locationtech.jts.io.ParseException {
+    @ParameterizedTest(name = "{index}: testen Relief met database voor: {0}")
+    @EnumSource(TopNLType.class)
+    public void testSaveReliefEmptyHoofdGeom(TopNLType type) throws SQLException, ParseException, org.locationtech.jts.io.ParseException {
         LineString p = (LineString) wkt.read("LineString(1 2, 3 4, 5 6)");
         Relief e = new Relief();
         getStandardTestTopNLEntity(e, type);
@@ -338,13 +316,13 @@ public class DatabaseTest extends TestUtil {
         e.setTypeRelief("Berg");
         e.setHoogteklasse("Superhoog");
         e.setHoogteniveau(666L);
-
+        instance = new Database(datasource);
         instance.save(e);
 
         ResultSetHandler<Relief> h = new BeanHandler<>(Relief.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(instance.getGjc())));
 
         Relief real = run.query("SELECT * FROM " + type.getType() + ".relief WHERE identificatie=?", h, identificatie);
-        assertNotNull("Insert failed", real);
+        assertNotNull(real, "Insert failed");
         testStandardTopNLEntity(real, e);
 
         assertEquals(null, real.getGeometrie());
@@ -355,8 +333,9 @@ public class DatabaseTest extends TestUtil {
         assertEquals(e.getHoogteniveau(), real.getHoogteniveau());
     }
 
-    @Test
-    public void testSaveSpoorbaandeel() throws SQLException, ParseException, org.locationtech.jts.io.ParseException {
+    @ParameterizedTest(name = "{index}: testen Spoorbaandeel met database voor: {0}")
+    @EnumSource(TopNLType.class)
+    public void testSaveSpoorbaandeel(TopNLType type) throws SQLException, ParseException, org.locationtech.jts.io.ParseException {
         LineString p = (LineString) wkt.read("LineString(1 2, 3 4, 5 6)");
         Spoorbaandeel e = new Spoorbaandeel();
         getStandardTestTopNLEntity(e, type);
@@ -373,13 +352,13 @@ public class DatabaseTest extends TestUtil {
         e.setTunnelnaam("Tunnele");
         e.setBaanvaknaam("lalala");
         e.setHoogteniveau(1L);
-
+        instance = new Database(datasource);
         instance.save(e);
 
         ResultSetHandler<Spoorbaandeel> h = new BeanHandler<>(Spoorbaandeel.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(instance.getGjc())));
 
         Spoorbaandeel real = run.query("SELECT * FROM " + type.getType() + ".spoorbaandeel WHERE identificatie=?", h, identificatie);
-        assertNotNull("Insert failed", real);
+        assertNotNull(real, "Insert failed");
         testStandardTopNLEntity(real, e);
 
         assertEquals(p, real.getGeometrie());
@@ -397,21 +376,22 @@ public class DatabaseTest extends TestUtil {
         assertEquals(e.getHoogteniveau(), real.getHoogteniveau());
     }
 
-    @Test
-    public void testSaveTerrein() throws SQLException, ParseException, org.locationtech.jts.io.ParseException {
+    @ParameterizedTest(name = "{index}: testen met database voor: {0}")
+    @EnumSource(TopNLType.class)
+    public void testSaveTerrein(TopNLType type) throws SQLException, ParseException, org.locationtech.jts.io.ParseException {
         Polygon p = (Polygon) wkt.read("Polygon((1 2, 3 4, 5 6, 1 2))");
         Terrein e = new Terrein();
         getStandardTestTopNLEntity(e, type);
         e.setGeometrie(p);
         e.setTypeLandgebruik("festivalterrein");
         e.setNaam("biddinghuizen");
-
+        instance = new Database(datasource);
         instance.save(e);
 
         ResultSetHandler<Terrein> h = new BeanHandler<>(Terrein.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(instance.getGjc())));
 
         Terrein real = run.query("SELECT * FROM " + type.getType() + ".terrein WHERE identificatie=?", h, identificatie);
-        assertNotNull("Insert failed", real);
+        assertNotNull(real, "Insert failed");
         testStandardTopNLEntity(real, e);
 
         assertEquals(p, real.getGeometrie());
@@ -419,8 +399,9 @@ public class DatabaseTest extends TestUtil {
         assertEquals(e.getNaam(), real.getNaam());
     }
 
-    @Test
-    public void testWaterdeel() throws SQLException, ParseException, org.locationtech.jts.io.ParseException {
+    @ParameterizedTest(name = "{index}: testen Waterdeel met database voor: {0}")
+    @EnumSource(TopNLType.class)
+    public void testWaterdeel(TopNLType type) throws SQLException, ParseException, org.locationtech.jts.io.ParseException {
         Geometry p = wkt.read("Polygon((1 2, 3 4, 5 6, 1 2))");
         Waterdeel e = new Waterdeel();
         getStandardTestTopNLEntity(e, type);
@@ -440,12 +421,13 @@ public class DatabaseTest extends TestUtil {
         e.setHoogteniveau(8L);
         e.setFunctie("functie");
         e.setHoofdAfwatering(true);
+        instance = new Database(datasource);
         instance.save(e);
 
         ResultSetHandler<Waterdeel> h = new BeanHandler<>(Waterdeel.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(instance.getGjc())));
 
         Waterdeel real = run.query("SELECT * FROM " + type.getType() + ".waterdeel WHERE identificatie=?", h, identificatie);
-        assertNotNull("Insert failed", real);
+        assertNotNull(real, "Insert failed");
         testStandardTopNLEntity(real, e);
 
         assertEquals(p, real.getGeometrie());
@@ -466,8 +448,9 @@ public class DatabaseTest extends TestUtil {
         assertEquals(e.isHoofdAfwatering(), real.isHoofdAfwatering());
     }
 
-    @Test
-    public void testSaveFunctioneelgebied() throws SQLException, ParseException, org.locationtech.jts.io.ParseException {
+    @ParameterizedTest(name = "{index}: testen FunctioneelGebied met database voor: {0}")
+    @EnumSource(TopNLType.class)
+    public void testSaveFunctioneelgebied(TopNLType type) throws SQLException, ParseException, org.locationtech.jts.io.ParseException {
         Geometry p = wkt.read("POINT (1 2)");
         FunctioneelGebied e = new FunctioneelGebied();
         getStandardTestTopNLEntity(e, type);
@@ -476,13 +459,13 @@ public class DatabaseTest extends TestUtil {
         e.setNaamNL("normaal");
         e.setSoortnaam("iets");
         e.setTypeFunctioneelGebied("typerdepiep");
-
+        instance = new Database(datasource);
         instance.save(e);
 
         ResultSetHandler<FunctioneelGebied> h = new BeanHandler<>(FunctioneelGebied.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(instance.getGjc())));
 
         FunctioneelGebied real = run.query("SELECT * FROM " + type.getType() + ".functioneelgebied WHERE identificatie=?", h, identificatie);
-        assertNotNull("Insert failed", real);
+        assertNotNull(real, "Insert failed");
         testStandardTopNLEntity(real, e);
 
         assertEquals(p, real.getGeometrie());
@@ -492,8 +475,9 @@ public class DatabaseTest extends TestUtil {
         assertEquals(e.getSoortnaam(), real.getSoortnaam());
     }
 
-    @Test
-    public void testSaveWegdeel() throws SQLException, ParseException, org.locationtech.jts.io.ParseException {
+    @ParameterizedTest(name = "{index}: testen Wegdeel met database voor: {0}")
+    @EnumSource(TopNLType.class)
+    public void testSaveWegdeel(TopNLType type) throws SQLException, ParseException, org.locationtech.jts.io.ParseException {
         Geometry p = wkt.read("POINT (1 2)");
         Wegdeel e = new Wegdeel();
         getStandardTestTopNLEntity(e, type);
@@ -520,13 +504,13 @@ public class DatabaseTest extends TestUtil {
         e.setKnooppuntnaam("Knooppunt lucifer");
         e.setBrugnaam("Vagevuur");
         e.setTunnelnaam("Hades");
-
+        instance = new Database(datasource);
         instance.save(e);
 
         ResultSetHandler<Wegdeel> h = new BeanHandler<>(Wegdeel.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(instance.getGjc())));
 
         Wegdeel real = run.query("SELECT * FROM " + type.getType() + ".wegdeel WHERE identificatie=?", h, identificatie);
-        assertNotNull("Insert failed", real);
+        assertNotNull(real, "Insert failed");
         testStandardTopNLEntity(real, e);
 
         assertEquals(p, real.getGeometrie());
@@ -554,7 +538,7 @@ public class DatabaseTest extends TestUtil {
         assertEquals(e.getTunnelnaam(), real.getTunnelnaam());
     }
 
-    public void getStandardTestTopNLEntity(TopNLEntity e, TopNLType type) throws ParseException {
+    private void getStandardTestTopNLEntity(TopNLEntity e, TopNLType type) throws ParseException {
         e.setIdentificatie(identificatie);
         e.setBronactualiteit(sdf.parse("2016-06-16"));
         e.setBronbeschrijving("beschrijving");
@@ -565,7 +549,7 @@ public class DatabaseTest extends TestUtil {
         e.setTopnltype(type.getType());
     }
 
-    public void testStandardTopNLEntity(TopNLEntity real, TopNLEntity e) {
+    private void testStandardTopNLEntity(TopNLEntity real, TopNLEntity e) {
         assertEquals(e.getBronactualiteit(), real.getBronactualiteit());
         assertEquals(e.getBronbeschrijving(), real.getBronbeschrijving());
         assertEquals(e.getBronnauwkeurigheid(), real.getBronnauwkeurigheid());

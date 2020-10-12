@@ -1,26 +1,25 @@
  package nl.b3p.brmo.loader;
 
-import java.io.StringWriter;
-import org.apache.commons.io.IOUtils;
-import static org.junit.Assert.assertEquals;
+ import org.apache.commons.io.IOUtils;
+ import org.junit.jupiter.api.Disabled;
+ import org.junit.jupiter.api.Test;
+ import org.w3c.dom.Document;
+ import org.w3c.dom.Element;
+ import org.w3c.dom.Node;
+ import org.w3c.dom.NodeList;
 
-import org.junit.Ignore;
-import org.junit.Test;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+ import java.io.StringWriter;
 
-/**
+ import static org.junit.jupiter.api.Assertions.assertEquals;
+
+ /**
  *
  * @author meine
  */
-
-
 public class RsgbBRPTransformerTest {
     
     @Test
-    @Ignore("test bestanden van meine ontbreken")
+    @Disabled("test bestanden van meine ontbreken")
     public void mergeTest() throws Exception{
         StringWriter writerOld = new StringWriter();
         IOUtils.copy(RsgbBRPTransformerTest.class.getResourceAsStream("old.xml"), writerOld, "UTF-8");
@@ -32,15 +31,18 @@ public class RsgbBRPTransformerTest {
         
         Document doc = RsgbBRPTransformer.merge( old, newFile);
         NodeList data = doc.getElementsByTagName("data");
-        assertEquals("Too many data elems", 1,data.getLength());
+        assertEquals(1,data.getLength(), "Too many data elems");
         Node dataNode = data.item(0);
         //assertEquals("Too many children in data", 6, dataChildren.getLength());
         NodeList huw = doc.getElementsByTagName("huw_ger_partn");
-        assertEquals("Huwelijk not present", 1, huw.getLength());
+        assertEquals(1, huw.getLength(), "Huwelijk not present");
         NodeList subjectList = doc.getElementsByTagName("subject");
-        assertEquals("too many subjects", 1, subjectList.getLength());
+        assertEquals(1, subjectList.getLength(), "too many subjects");
         Element subject = (Element)subjectList.item(0);
-        assertEquals("new value in adres_buitenland not merged", "daaro", subject.getElementsByTagName("adres_buitenland").item(0).getTextContent() );
-        assertEquals("old value in pa_postbus__of_antwoordnummer not retained", "666", subject.getElementsByTagName("pa_postbus__of_antwoordnummer").item(0).getTextContent() );
+        assertEquals("daaro", subject.getElementsByTagName("adres_buitenland").item(0).getTextContent(),
+                "new value in adres_buitenland not merged");
+        assertEquals(
+                "666", subject.getElementsByTagName("pa_postbus__of_antwoordnummer").item(0).getTextContent(),
+                "old value in pa_postbus__of_antwoordnummer not retained");
     }
 }

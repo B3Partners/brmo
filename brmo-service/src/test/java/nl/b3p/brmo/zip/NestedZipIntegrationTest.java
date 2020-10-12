@@ -3,19 +3,20 @@
  */
 package nl.b3p.brmo.zip;
 
-import java.io.InputStream;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.service.testutil.TestUtil;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.commons.io.input.CloseShieldInputStream;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.junit.After;
-import static org.junit.Assert.assertEquals;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.io.InputStream;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 /**
  * run:
@@ -28,7 +29,7 @@ public class NestedZipIntegrationTest extends TestUtil {
     private static final Log LOG = LogFactory.getLog(NestedZipIntegrationTest.class);
     private BrmoFramework brmo;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         BasicDataSource dsStaging = new BasicDataSource();
         dsStaging.setUrl(DBPROPS.getProperty("staging.url"));
@@ -39,7 +40,7 @@ public class NestedZipIntegrationTest extends TestUtil {
         brmo = new BrmoFramework(dsStaging, null);
     }
 
-    @After
+    @AfterEach
     public void cleanup() throws Exception {
         brmo.emptyStagingDb();
         brmo.closeBrmoFramework();
@@ -73,8 +74,15 @@ public class NestedZipIntegrationTest extends TestUtil {
         }
         zip.close();
 
-        assertEquals("het aantal LP mag niet afwijken", 2l, brmo.getCountLaadProcessen(null, null, "bag", null));
-        assertEquals("het aantal Bericht mag niet afwijken", /*<product_LVC:Nieuw> - 5723l + 3210l= 8933*/ 8921l /*<product_LVC:Mutatie-product>  10000l + 6301l*/,
-                brmo.getCountBerichten(null, null, "bag", null));
+        Assertions.assertEquals(
+                2l,
+                brmo.getCountLaadProcessen(null, null, "bag", null),
+                "het aantal LP mag niet afwijken"
+        );
+        Assertions.assertEquals(
+                /*<product_LVC:Nieuw> - 5723l + 3210l= 8933*/ 8921l /*<product_LVC:Mutatie-product>  10000l + 6301l*/,
+                brmo.getCountBerichten(null, null, "bag", null),
+                "het aantal Bericht mag niet afwijken"
+        );
     }
 }

@@ -3,32 +3,35 @@
  */
 package nl.b3p.brmo.datamodel;
 
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.*;
-
 import nl.b3p.brmo.test.util.database.ViewUtils;
+import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.dbunit.database.DatabaseDataSourceConnection;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.apache.commons.dbcp.BasicDataSource;
 import org.dbunit.database.DatabaseConfig;
+import org.dbunit.database.DatabaseDataSourceConnection;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.ITable;
 import org.dbunit.ext.mssql.MsSqlDataTypeFactory;
 import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
-import static org.junit.Assert.*;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assume.assumeNotNull;
-import static org.junit.Assume.assumeTrue;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Properties;
+import java.util.stream.Stream;
+
+import static java.lang.System.getProperty;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assumptions.assumeFalse;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 /**
  * Een testcase om te kijken of het upgrade script correct is verwerkt. De
@@ -37,21 +40,42 @@ import static org.junit.Assume.assumeTrue;
  *
  * @author Mark Prins
  */
-@RunWith(Parameterized.class)
 public class DatabaseUpgradeTest {
 
+    private static final Log LOG = LogFactory.getLog(DatabaseUpgradeTest.class);
     private static String nextRelease;
     private static String previousRelease;
-    private static final Log LOG = LogFactory.getLog(DatabaseUpgradeTest.class);
+    /**
+     * properties uit {@code <DB smaak>.properties} en
+     * {@code local.<DB smaak>.properties}.
+     *
+     * @see #loadProps()
+     */
+    private final Properties params = new Properties();
+    private IDatabaseConnection db;
+    private BasicDataSource ds;
+    /**
+     * {@code true} als we met een Oracle database bezig zijn.
+     */
+    private boolean isOracle;
+    /**
+     * {@code true} als we met een MS SQL Server database bezig zijn.
+     */
+    private boolean isMsSQL;
+    /**
+     * {@code true} als we met een Postgis database bezig zijn.
+     */
+    private boolean isPostgis;
 
-    @Parameterized.Parameters(name = "{index}: testen database: {0}")
-    public static Collection params() {
-        return Arrays.asList(new Object[][]{
-            {"staging"}, {"rsgb"}, {"rsgbbgt"}
-        });
+    static Stream<Arguments> localParameters() {
+        return Stream.of(
+                Arguments.of("staging"),
+                Arguments.of("rsgb"),
+                Arguments.of("rsgbbgt")
+        );
     }
 
-    @BeforeClass
+    @BeforeAll
     public static void getEnvironment() {
         nextRelease = System.getProperty("project.version").replace("-SNAPSHOT", "");
         LOG.debug("komende release is: " + nextRelease);
@@ -69,55 +93,23 @@ public class DatabaseUpgradeTest {
      * test of de database properties zijn aangegeven, zo niet dan skippen we
      * alle tests in deze test.
      */
-    @BeforeClass
+    @BeforeAll
     public static void checkDatabaseIsProvided() {
-        assumeNotNull("Verwacht database omgeving te zijn aangegeven.", System.getProperty("database.properties.file"));
-    }
-    private final String dbName;
-    private IDatabaseConnection db;
-    private BasicDataSource ds;
-
-    /**
-     * properties uit {@code <DB smaak>.properties} en
-     * {@code local.<DB smaak>.properties}.
-     *
-     * @see #loadProps()
-     */
-    protected final Properties params = new Properties();
-
-    /**
-     * {@code true} als we met een Oracle database bezig zijn.
-     */
-    protected boolean isOracle;
-
-    /**
-     * {@code true} als we met een MS SQL Server database bezig zijn.
-     */
-    protected boolean isMsSQL;
-
-    /**
-     * {@code true} als we met een Postgis database bezig zijn.
-     */
-    protected boolean isPostgis;
-
-    public DatabaseUpgradeTest(String dbName) {
-        this.dbName = dbName;
+        assumeFalse(getProperty("database.properties.file") == null, "Verwacht database omgeving te zijn aangegeven.");
     }
 
-    @Before
-    public void setUpDB() throws Exception {
+    private void setUpDB(String dbName) throws Exception {
         this.loadProps();
         ds = new BasicDataSource();
-        ds.setUrl(params.getProperty(this.dbName + ".url"));
-        ds.setUsername(params.getProperty(this.dbName + ".username"));
-        ds.setPassword(params.getProperty(this.dbName + ".password"));
+        ds.setUrl(params.getProperty(dbName + ".url"));
+        ds.setUsername(params.getProperty(dbName + ".username"));
+        ds.setPassword(params.getProperty(dbName + ".password"));
         ds.setAccessToUnderlyingConnectionAllowed(true);
         db = new DatabaseDataSourceConnection(ds);
 
         if (this.isMsSQL) {
             db.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MsSqlDataTypeFactory());
         } else if (this.isOracle) {
-            // db = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(db.getConnection()), params.getProperty(this.dbName + ".user").toUpperCase());
             db.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
             db.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
         } else if (this.isPostgis) {
@@ -125,24 +117,25 @@ public class DatabaseUpgradeTest {
         } else {
             fail("Geen ondersteunde database aangegegeven.");
         }
-
     }
 
-    @Test
-    public void testCurrentVersion() throws Exception {
+    @ParameterizedTest(name = "{index}: testen database versie voor: {0}")
+    @MethodSource("localParameters")
+    public void testCurrentVersion(String dbName) throws Exception {
+        setUpDB(dbName);
         ITable metadata = db.createTable("brmo_metadata");
 
         String waarde, naam;
         boolean foundVersion = false, foundUpdate = false;
 
         int rowCount = metadata.getRowCount();
-        assertTrue("Verwacht tenminste twee records.", (rowCount >= 2));
+        assertTrue((rowCount >= 2), "Verwacht tenminste twee records.");
 
         for (int i = 0; i < rowCount; i++) {
             waarde = metadata.getValue(i, "waarde").toString();
             naam = metadata.getValue(i, "naam").toString();
 
-            LOG.debug(String.format("database %s, metadata tabel record: %d: naam: %s, waarde: %s", this.dbName, i, naam, waarde));
+            LOG.debug(String.format("database %s, metadata tabel record: %d: naam: %s, waarde: %s", dbName, i, naam, waarde));
 
             if (nextRelease.equalsIgnoreCase(waarde)
                     && "brmoversie".equalsIgnoreCase(naam)) {
@@ -154,8 +147,8 @@ public class DatabaseUpgradeTest {
                 foundUpdate = true;
             }
         }
-        assertTrue("Update versienummer niet correct voor " + this.dbName, foundVersion);
-        assertTrue("Update text niet gevonden voor " + this.dbName, foundUpdate);
+        assertTrue(foundVersion, "Update versienummer niet correct voor " + dbName);
+        assertTrue(foundUpdate, "Update text niet gevonden voor " + dbName);
     }
 
     /**
@@ -163,17 +156,16 @@ public class DatabaseUpgradeTest {
      *
      * @throws SQLException als opzoeken in de dabase mislukt
      */
-    @Test
-    public void testBasisMViews() throws SQLException {
+    public void testBasisMViews(String dbName) throws Exception {
+        setUpDB("rsgb");
         List<String> viewsFound = ViewUtils.listAllMaterializedViews(ds);
-        assertNotNull("Geen materialized views gevonden", viewsFound);
+        assertNotNull(viewsFound, "Geen materialized views gevonden");
 
-        if (this.dbName == "rsgb") {
-            if (isMsSQL) {
-                // geen m-views in mssql
-                assertTrue("Gek! sqlserver heeft materialized views", viewsFound.isEmpty());
-            } else {
-                List<String> views = Arrays.asList(
+        if (isMsSQL) {
+            // geen m-views in mssql
+            assertTrue(viewsFound.isEmpty(), "Gek! sqlserver heeft materialized views");
+        } else {
+            List<String> views = Arrays.asList(
                     // bag
                     "mb_adres",
                     "mb_pand",
@@ -190,33 +182,31 @@ public class DatabaseUpgradeTest {
                     "mb_koz_rechth",
                     "mb_avg_koz_rechth",
                     "mb_kad_onrrnd_zk_archief"
-                );
+            );
 
-                // alles lower-case (ORACLE!) en gesorteerd vergelijken
-                viewsFound.replaceAll(String::toLowerCase);
-                views.replaceAll(String::toLowerCase);
-                Collections.sort(viewsFound);
-                Collections.sort(views);
-                assertEquals("lijsten met materialized views zijn ongelijk", views, viewsFound);
-            }
-        } else {
-            assertTrue(this.dbName + "heeft materialized views", viewsFound.isEmpty());
+            // alles lower-case (ORACLE!) en gesorteerd vergelijken
+            viewsFound.replaceAll(String::toLowerCase);
+            views.replaceAll(String::toLowerCase);
+            Collections.sort(viewsFound);
+            Collections.sort(views);
+            assertEquals(views, viewsFound, "lijsten met materialized views zijn ongelijk");
         }
     }
 
-    @After
+    @AfterEach
     public void cleanup() throws SQLException {
-        db.close();
-        ds.close();
+        if (ds != null) {
+            db.close();
+            ds.close();
+        }
     }
 
     /**
      * Laadt de database propery file en eventuele overrides.
      *
      * @throws IOException als laden van property file mislukt
-     * @todo evt naar superklasse extraheren
      */
-    public void loadProps() throws IOException {
+    private void loadProps() throws IOException {
         // de `database.properties.file` is in de pom.xml of via commandline ingesteld
         params.load(DatabaseUpgradeTest.class.getClassLoader()
                 .getResourceAsStream(System.getProperty("database.properties.file")));
@@ -232,7 +222,7 @@ public class DatabaseUpgradeTest {
         isPostgis = "postgis".equalsIgnoreCase(params.getProperty("dbtype"));
 
         try {
-            Class stagingDriverClass = Class.forName(params.getProperty("jdbc.driverClassName"));
+            Class.forName(params.getProperty("jdbc.driverClassName"));
         } catch (ClassNotFoundException ex) {
             LOG.error("Database driver niet gevonden.", ex);
         }

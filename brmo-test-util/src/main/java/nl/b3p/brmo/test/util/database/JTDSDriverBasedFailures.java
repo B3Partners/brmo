@@ -51,7 +51,8 @@ package nl.b3p.brmo.test.util.database;
  * @note marker interface
  * @see org.junit.experimental.categories.Category
  *
- * @deprecated gebruik van de jTDS driver wordt afgeraden vanwege tal van ontbrekende functies in de driver.
+ * @deprecated gebruik van de jTDS driver wordt afgeraden vanwege tal van ontbrekende functies in de driver,
+ * sinds upgrade naar junit 5, gebruik {@code @Tag("skip-mssql")}
  */
 @Deprecated
 public interface JTDSDriverBasedFailures {

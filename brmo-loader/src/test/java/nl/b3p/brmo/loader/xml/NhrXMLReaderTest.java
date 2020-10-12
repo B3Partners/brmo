@@ -1,14 +1,16 @@
 package nl.b3p.brmo.loader.xml;
 
-import java.util.ArrayList;
-import java.util.List;
 import nl.b3p.brmo.loader.entity.NhrBericht;
-import static org.junit.Assert.*;
-
-import org.junit.Ignore;
-import org.junit.Test;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 /**
  *
  * @author Matthijs Laan
@@ -18,7 +20,7 @@ public class NhrXMLReaderTest {
     private static final Log LOG = LogFactory.getLog(NhrXMLReaderTest.class);
 
     @Test
-    @Ignore("dit is HR dataservice v2.5 data; dat wordt niet langer ondersteund")
+    @Disabled("dit is HR dataservice v2.5 data; dat wordt niet langer ondersteund")
     public void testMaatschappelijkeActiviteit() throws Exception {
         NhrXMLReader r;
 
@@ -26,7 +28,7 @@ public class NhrXMLReaderTest {
         assertTrue(r.hasNext());
 
         int total = 0;
-        List<String> objectRefs = new ArrayList();
+        List<String> objectRefs = new ArrayList<>();
         while (r.hasNext()) {
             NhrBericht b = r.next();
             objectRefs.add(b.getObjectRef());

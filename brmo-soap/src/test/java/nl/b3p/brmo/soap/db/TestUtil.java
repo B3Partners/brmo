@@ -3,43 +3,35 @@
  */
 package nl.b3p.brmo.soap.db;
 
+import nl.b3p.loader.jdbc.GeometryJdbcConverter;
+import nl.b3p.loader.jdbc.GeometryJdbcConverterFactory;
+import org.apache.commons.dbcp.BasicDataSource;
+import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.TestInfo;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Properties;
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NameAlreadyBoundException;
-import javax.naming.NamingException;
-import nl.b3p.loader.jdbc.GeometryJdbcConverter;
-import nl.b3p.loader.jdbc.GeometryJdbcConverterFactory;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.commons.dbcp.BasicDataSource;
-import org.apache.commons.dbutils.QueryRunner;
-import org.junit.*;
 
-import static org.junit.Assume.assumeNotNull;
-
-import org.junit.rules.TestName;
+import static java.lang.System.getProperty;
+import static org.junit.jupiter.api.Assumptions.assumeFalse;
 
 /**
- *
  * @author mprins
  */
 public abstract class TestUtil {
 
-    protected static boolean haveSetupJNDI = false;
-
     private static final Log LOG = LogFactory.getLog(TestUtil.class);
-    /**
-     * test of de database properties zijn aangegeven, zo niet dan skippen we
-     * alle tests in deze test.
-     */
-    @BeforeClass
-    public static void checkDatabaseIsProvided() {
-        assumeNotNull("Verwacht database omgeving te zijn aangegeven.", System.getProperty("database.properties.file"));
-    }
+    protected static boolean haveSetupJNDI = false;
     /**
      * properties uit {@code <DB smaak>.properties} en
      * {@code local.<DB smaak>.properties}.
@@ -47,31 +39,29 @@ public abstract class TestUtil {
      * @see #loadDBprop()
      */
     protected final Properties DBPROPS = new Properties();
-
     /**
      * {@code true} als we met een Oracle database bezig zijn.
      */
     protected boolean isOracle;
-
     /**
      * {@code true} als we met een MS SQL Server database bezig zijn.
      */
     protected boolean isMsSQL;
-
     /**
      * {@code true} als we met een Postgis database bezig zijn.
      */
     protected boolean isPostgis;
-
     protected BasicDataSource dsRsgb;
     protected BasicDataSource dsStaging;
 
-
     /**
-     * logging rule.
+     * test of de database properties zijn aangegeven, zo niet dan skippen we
+     * alle tests in deze test.
      */
-    @Rule
-    public TestName name = new TestName();
+    @BeforeAll
+    public static void checkDatabaseIsProvided() {
+        assumeFalse(getProperty("database.properties.file") == null, "Verwacht database omgeving te zijn aangegeven.");
+    }
 
     /**
      * subklassen dienen zelf een setUp() te hebben; vanwege de overerving gaat
@@ -80,7 +70,7 @@ public abstract class TestUtil {
      *
      * @throws Exception if any
      */
-    @Before
+    @BeforeEach
     abstract public void setUp() throws Exception;
 
     /**
@@ -88,7 +78,7 @@ public abstract class TestUtil {
      *
      * @throws java.io.IOException if loading the property file fails
      */
-    @Before
+    @BeforeEach
     public void loadDBprop() throws IOException {
         // the `database.properties.file`  is set in the pom.xml or using the commandline
         DBPROPS.load(TestUtil.class.getClassLoader()
@@ -129,18 +119,19 @@ public abstract class TestUtil {
     /**
      * Log de naam van de test als deze begint.
      */
-    @Before
-    public void startTest() {
-        LOG.info("==== Start test methode: " + name.getMethodName());
+    @BeforeEach
+    public void startTest(TestInfo testInfo) {
+        LOG.info("==== Start test methode: " + testInfo.getDisplayName());
     }
 
     /**
      * Log de naam van de test als deze eindigt.
      */
-    @After
-    public void endTest() {
-        LOG.info("==== Einde test methode: " + name.getMethodName());
+    @AfterEach
+    public void endTest(TestInfo testInfo) {
+        LOG.info("==== Einde test methode: " + testInfo.getDisplayName());
     }
+
 
     /**
      * setup jndi voor testcases, doet 1 poging om jndi context te initialiseren.
@@ -172,7 +163,7 @@ public abstract class TestUtil {
      * refresh de gegeven lijst van materialized views in de database.
      *
      * @param mviews lijst van views
-     * @param ds database koppeling
+     * @param ds     database koppeling
      * @throws SQLException if any
      */
     protected void refreshMViews(final String[] mviews, final BasicDataSource ds) throws SQLException {

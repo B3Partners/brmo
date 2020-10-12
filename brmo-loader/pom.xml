@@ -153,6 +153,16 @@
             <artifactId>slf4j-log4j12</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <build>
         <finalName>${project.artifactId}</finalName>
@@ -188,7 +198,7 @@
                                 <database.properties.file>oracle.properties</database.properties.file>
                                 <project.version>${project.version}</project.version>
                             </systemPropertyVariables>
-                            <excludedGroups>nl.b3p.brmo.test.util.database.OracleDriverBasedFailures</excludedGroups>
+                            <excludedGroups>skip-oracle</excludedGroups>
                         </configuration>
                     </plugin>
                 </plugins>
@@ -207,7 +217,7 @@
                                 <project.version>${project.version}</project.version>
                                 <database.upgrade>${database.upgrade}</database.upgrade>
                             </systemPropertyVariables>
-                            <excludedGroups>nl.b3p.brmo.test.util.database.PostgreSQLDriverBasedFailures</excludedGroups>
+                            <excludedGroups>skip-pgsql</excludedGroups>
                         </configuration>
                     </plugin>
                 </plugins>
@@ -225,7 +235,7 @@
                                 <database.properties.file>sqlserver.properties</database.properties.file>
                                 <project.version>${project.version}</project.version>
                             </systemPropertyVariables>
-                            <excludedGroups>nl.b3p.brmo.test.util.database.MSSqlServerDriverBasedFailures</excludedGroups>
+                            <excludedGroups>skip-mssql</excludedGroups>
                         </configuration>
                     </plugin>
                 </plugins>

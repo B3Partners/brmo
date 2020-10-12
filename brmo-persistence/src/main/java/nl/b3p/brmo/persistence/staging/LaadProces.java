@@ -3,13 +3,12 @@
  */
 package nl.b3p.brmo.persistence.staging;
 
+import org.hibernate.annotations.Type;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Date;
-import javax.persistence.*;
-
-import org.hibernate.annotations.ForeignKey;
-import org.hibernate.annotations.Type;
 
 /**
  * Beschrijft een laad proces van een bericht of bestand.

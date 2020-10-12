@@ -1,9 +1,5 @@
 package nl.b3p;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.test.util.database.dbunit.CleanUtil;
 import nl.b3p.loader.jdbc.OracleConnectionUnwrapper;
@@ -22,12 +18,18 @@ import org.dbunit.ext.mssql.MsSqlDataTypeFactory;
 import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 import org.dbunit.operation.DatabaseOperation;
-import org.junit.After;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assume.assumeTrue;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 /**
  * Testcases voor mantis-14743 / GH #789; te grote waarde voor een int (laadprocesid)
@@ -52,7 +54,7 @@ public class GH789GroteWaardeIDIntegrationTest  extends AbstractDatabaseIntegrat
     private final Lock sequential = new ReentrantLock();
 
     @Override
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         BasicDataSource dsStaging = new BasicDataSource();
         dsStaging.setUrl(params.getProperty("staging.jdbc.url"));
@@ -96,11 +98,13 @@ public class GH789GroteWaardeIDIntegrationTest  extends AbstractDatabaseIntegrat
         }
         brmo = new BrmoFramework(dsStaging, dsRsgb);
 
-        assumeTrue("Er zijn geen 1 STAGING_OK berichten", 1l == brmo.getCountBerichten(null, null, "brk", "STAGING_OK"));
-        assumeTrue("Er zijn geen 1 STAGING_OK laadproces", 1l == brmo.getCountLaadProcessen(null, null, "brk", "STAGING_OK"));
+        assumeTrue(1l == brmo.getCountBerichten(null, null, "brk", "STAGING_OK"),
+                "Er zijn geen 1 STAGING_OK berichten");
+        assumeTrue(1l == brmo.getCountLaadProcessen(null, null, "brk", "STAGING_OK"),
+                "Er zijn geen 1 STAGING_OK laadproces");
     }
 
-    @After
+    @AfterEach
     public void cleanup() throws Exception {
         brmo.closeBrmoFramework();
 
@@ -124,19 +128,23 @@ public class GH789GroteWaardeIDIntegrationTest  extends AbstractDatabaseIntegrat
         Thread t = brmo.toRsgb();
         t.join();
 
-        assertEquals("Niet alle berichten zijn OK getransformeerd", 0l, brmo.getCountBerichten(null, null, "brk", "STAGING_OK"));
-        assertEquals("Niet alle berichten zijn OK getransformeerd", 1l, brmo.getCountBerichten(null, null, "brk", "RSGB_OK"));
-        assertEquals("Er zijn berichten met status RSGB_NOK", 0l, brmo.getCountBerichten(null, null, "brk", "RSGB_NOK"));
+        assertEquals(0l, brmo.getCountBerichten(null, null, "brk", "STAGING_OK"),
+                "Niet alle berichten zijn OK getransformeerd");
+        assertEquals(1l, brmo.getCountBerichten(null, null, "brk", "RSGB_OK"),
+                "Niet alle berichten zijn OK getransformeerd");
+        assertEquals(0l, brmo.getCountBerichten(null, null, "brk", "RSGB_NOK"),
+                "Er zijn berichten met status RSGB_NOK");
 
         ITable brondocument = rsgb.createDataSet().getTable("brondocument");
-        assertTrue("Er zijn geen brondocumenten", brondocument.getRowCount() > 0);
+        assertTrue(brondocument.getRowCount() > 0, "Er zijn geen brondocumenten");
 
         ITable kad_onrrnd_zk = rsgb.createDataSet().getTable("kad_onrrnd_zk");
-        assertEquals("Aantal actuele onroerende zaken is incorrect", 1, kad_onrrnd_zk.getRowCount());
+        assertEquals(1, kad_onrrnd_zk.getRowCount(), "Aantal actuele onroerende zaken is incorrect");
 
         ITable kad_perceel = rsgb.createDataSet().getTable("kad_perceel");
-        assertEquals("Aantal actuele percelen is incorrect", 1, kad_perceel.getRowCount());
-        assertEquals("Perceel identif is incorrect", "54690041070000", kad_perceel.getValue(0, "sc_kad_identif").toString());
+        assertEquals(1, kad_perceel.getRowCount(), "Aantal actuele percelen is incorrect");
+        assertEquals("54690041070000", kad_perceel.getValue(0, "sc_kad_identif").toString(),
+                "Perceel identif is incorrect");
 
 //        // test of de records in de tabellen de juiste clazz hebben en volledig zijn
 //        String[] tables = {"subject", "prs", "nat_prs"};

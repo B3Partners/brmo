@@ -22,39 +22,32 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.methods.RequestBuilder;
 import org.apache.http.util.EntityUtils;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Assumptions;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertNotNull;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assume.assumeTrue;
 
 /**
- *
  * @author Mark Prins
  */
 public class LogsPageIntegrationTest extends WebTestUtil {
 
     /**
-     * onze test response.
-     */
-    private HttpResponse response;
-
-    /**
      * Test login/logs/logout sequentie.
      *
-     * @throws IOException mag niet optreden
+     * @throws IOException        mag niet optreden
      * @throws URISyntaxException mag niet optreden
      */
     @Test
-    public void testLoginLogsLogoutPage() throws IOException, URISyntaxException {
+    public void testLoginLogsLogoutPage() throws Exception {
         // login
-        response = client.execute(new HttpGet(BASE_TEST_URL));
+        HttpResponse response = client.execute(new HttpGet(BASE_TEST_URL));
         EntityUtils.consume(response.getEntity());
 
         HttpUriRequest login = RequestBuilder.post()
@@ -72,21 +65,22 @@ public class LogsPageIntegrationTest extends WebTestUtil {
         assertThat("Response status is OK.", response.getStatusLine().getStatusCode(),
                 equalTo(HttpStatus.SC_OK));
         String body = EntityUtils.toString(response.getEntity());
-        assertNotNull("Response body mag niet null zijn.", body);
-        assertTrue("Response moet 'BRMO Service logfiles' header hebben.", body.contains("<h1>BRMO Service logfile</h1>"));
-        assumeTrue( body.contains("Database en driver informatie"));
+        Assertions.assertNotNull(body, "Response body mag niet null zijn.");
+        Assertions.assertTrue(body.contains("<h1>BRMO Service logfile</h1>"),
+                "Response moet 'BRMO Service logfiles' header hebben.");
+        Assumptions.assumeTrue(body.contains("Database en driver informatie"));
 
         // logout
         response = client.execute(new HttpGet(BASE_TEST_URL + "logout.jsp"));
         body = EntityUtils.toString(response.getEntity());
         assertThat("Response status is OK.", response.getStatusLine().getStatusCode(),
                 equalTo(HttpStatus.SC_OK));
-        assertNotNull("Response body mag niet null zijn.", body);
-        assertTrue("Response moet 'Opnieuw inloggen' tekst hebben.", body.contains("Opnieuw inloggen"));
+        Assertions.assertNotNull(body, "Response body mag niet null zijn.");
+        Assertions.assertTrue(body.contains("Opnieuw inloggen"), "Response moet 'Opnieuw inloggen' tekst hebben.");
     }
 
     @Override
-    public void setUp() throws Exception {
+    public void setUp() {
         // void implementatie
     }
 }

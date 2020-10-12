@@ -9,19 +9,19 @@ import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.servletunit.ServletRunner;
 import com.meterware.servletunit.ServletUnitClient;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.apache.commons.io.FileUtils;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+
 import java.io.File;
+import java.math.BigInteger;
 import java.nio.file.Files;
 import java.security.SecureRandom;
-import java.math.BigInteger;
 import java.util.Hashtable;
-import org.apache.commons.io.FileUtils;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import org.junit.Ignore;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  *
@@ -33,7 +33,7 @@ public class BerichtEndpointFileServletTest {
     private ServletUnitClient client;
     private ServletRunner sr;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         HttpUnitOptions.setDefaultCharacterSet("UTF-8");
         HttpUnitOptions.setLoggingHttpHeaders(true);
@@ -41,13 +41,13 @@ public class BerichtEndpointFileServletTest {
 
         saveDir = System.getProperty("java.io.tmpdir", "/tmp") + saveDir + new BigInteger(130, new SecureRandom()).toString(32);
         sr = new ServletRunner();
-        Hashtable<String, String> servletParams = new Hashtable();
+        Hashtable<String, String> servletParams = new Hashtable<>();
         servletParams.put("save_dir", saveDir);
         sr.registerServlet("/post/brk", BerichtEndpointFileServlet.class.getName(), servletParams);
         client = sr.newClient();
     }
 
-    @After
+    @AfterEach
     public void tearDown() throws Exception {
         sr.shutDown();
         FileUtils.cleanDirectory(new File(saveDir));
@@ -62,18 +62,18 @@ public class BerichtEndpointFileServletTest {
                 "text/xml; charset=utf-8'"
         );
         WebResponse response = client.getResponse(p);
-        assertNotNull("No response received", response);
-        assertEquals("Response not OK", 200, response.getResponseCode());
+        assertNotNull(response, "No response received");
+        assertEquals(200, response.getResponseCode(), "Response not OK");
 
         // servlet scrijft naar saveDir, /tmp/brk/post-op_<yyyy-MM-dd_HH-mm-ss-SSS>_<randomuniek>.xml
         File expected = new File(BerichtEndpointFileServletTest.class.getResource("/web.xml").getFile());
         File actual = Files.newDirectoryStream(new File(saveDir).toPath(), "*.{xml}").iterator().next().toFile();
 
-        assertTrue("Bestand begint niet met 'post-op", actual.getName().startsWith("post-op"));
-        assertTrue("File inhoud niet gelijk", FileUtils.contentEquals(
+        assertTrue(actual.getName().startsWith("post-op"), "Bestand begint niet met 'post-op");
+        assertTrue(FileUtils.contentEquals(
                 expected,
                 actual
-        ));
+        ), "File inhoud niet gelijk");
     }
 
     /**
@@ -89,7 +89,7 @@ public class BerichtEndpointFileServletTest {
      * @throws Exception if any
      */
     @Test
-    @Ignore("dit werkt niet zo, nog eens uitzoeken hoe dit moet met httpunit... (Not in GZIP format melding)")
+    @Disabled("dit werkt niet zo, nog eens uitzoeken hoe dit moet met httpunit... (Not in GZIP format melding)")
     public void testPostGzippedBRK() throws Exception {
         WebRequest p = new PostMethodWebRequest(
                 "http://localhost:8080/post/brk",
@@ -100,17 +100,17 @@ public class BerichtEndpointFileServletTest {
         client.getClientProperties().setAcceptGzip(true);
         WebResponse response = client.getResponse(p);
 
-        assertNotNull("No response received", response);
-        assertEquals("Response not OK", 200, response.getResponseCode());
+        assertNotNull(response, "No response received");
+        assertEquals(200, response.getResponseCode(), "Response not OK");
 
         // servlet schrijft naar saveDir, /tmp/brk/post-op_<yyyy-MM-dd_HH-mm-ss-SSS>_<randomuniek>.xml
         File expected = new File(BerichtEndpointFileServletTest.class.getResource("/web.xml").getFile());
         File actual = Files.newDirectoryStream(new File(saveDir).toPath(), "*.{xml}").iterator().next().toFile();
 
-        assertTrue("Bestand begint niet met 'post-op", actual.getName().startsWith("post-op"));
-        assertTrue("File inhoud niet gelijk", FileUtils.contentEquals(
+        assertTrue(actual.getName().startsWith("post-op"), "Bestand begint niet met 'post-op");
+        assertTrue(FileUtils.contentEquals(
                 expected,
                 actual
-        ));
+        ), "File inhoud niet gelijk");
     }
 }

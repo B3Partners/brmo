@@ -1,6 +1,5 @@
 package nl.b3p.brmo.stufbg204;
 
-import java.io.IOException;
 import org.apache.http.HttpHost;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
@@ -8,14 +7,11 @@ import org.apache.http.client.AuthCache;
 import org.apache.http.client.CredentialsProvider;
 import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.impl.auth.BasicScheme;
-import org.apache.http.impl.client.BasicAuthCache;
-import org.apache.http.impl.client.BasicCookieStore;
-import org.apache.http.impl.client.BasicCredentialsProvider;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.impl.client.LaxRedirectStrategy;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import org.apache.http.impl.client.*;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+
+import java.io.IOException;
 
 /**
  * Integratie test utility klasse om online integratie tests te bouwen welke
@@ -41,7 +37,7 @@ public abstract class WebTestStub extends TestStub {
     /**
      * initialize http client.
      */
-    @BeforeClass
+    @BeforeAll
     public static void setUpClass() {
         target = new HttpHost("localhost", HTTP_PORT, "http");
         AuthCache authCache = new BasicAuthCache();
@@ -69,7 +65,7 @@ public abstract class WebTestStub extends TestStub {
      *
      * @throws IOException if any occurs closing the http connection
      */
-    @AfterClass
+    @AfterAll
     public static void tearDownClass() throws IOException {
         client.close();
     }

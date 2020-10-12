@@ -19,23 +19,29 @@ import org.dbunit.ext.mssql.MsSqlDataTypeFactory;
 import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 import org.dbunit.operation.DatabaseOperation;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.stream.Stream;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assume.assumeNotNull;
-import static org.junit.Assume.assumeTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assumptions.assumeFalse;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 /**
  * Integratie test om een nHR dataservice soap bericht te laden en te
@@ -44,29 +50,19 @@ import static org.junit.Assume.assumeTrue;
  * {@code mvn -Dit.test=GH522NhrToStagingToRsgbIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql -pl :brmo-loader > /tmp/postgresql.log}
  * voor bijvoorbeeld PostgreSQL
  */
-@RunWith(Parameterized.class)
 public class GH522NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrationTest {
 
     private static final Log LOG = LogFactory.getLog(GH522NhrToStagingToRsgbIntegrationTest.class);
     private final Lock sequential = new ReentrantLock(true);
-    private final String bestandNaam;
-    private final Map<String, Integer> rowCounts;
     private BrmoFramework brmo;
-
     // dbunit
     private IDatabaseConnection staging;
     private IDatabaseConnection rsgb;
 
-    public GH522NhrToStagingToRsgbIntegrationTest(String bestandNaam, Map<String, Integer> rowCounts) {
-        this.bestandNaam = bestandNaam;
-        this.rowCounts = rowCounts;
-    }
-
-    @Parameterized.Parameters(name = "{index}: type: {0}, bestand: {1}")
-    public static Collection params() {
-        return Arrays.asList(new Object[][]{
+    static Stream<Arguments> argumentsProvider() {
+        return Stream.of(
                 // A.S. Watson (Health & Beauty Continental Europe) B.V.
-                {"/nhr-v3/2020-04-30-120558-31035585.anon.xml", MapUtils.putAll(new HashMap<String, Integer>(), new Object[][]{
+                arguments("/nhr-v3/2020-04-30-120558-31035585.anon.xml", MapUtils.putAll(new HashMap<String, Integer>(), new Object[][]{
                         {"maatschapp_activiteit", 1},
                         {"vestg", 1188},
                         // maar 1 hoofdvestiging
@@ -77,28 +73,28 @@ public class GH522NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseInte
                         {"functionaris", 1 + 7},
                         {"select * from subject where identif='nhr.comVestg.000017320496' and pa_postadres_postcode='3927ZL' and pa_postadrestype='P' and pa_postbus__of_antwoordnummer='34'", 1},
                         {"select * from subject where identif='nhr.comVestg.000019946252' and fk_15aoa_identif='0482010001255998'", 1},
-                })},
+                })),
                 //HEMA B.V.
-                {"/nhr-v3/2020-04-30-121846-34215639.anon.xml", MapUtils.putAll(new HashMap<String, Integer>(), new Object[][]{
+                arguments("/nhr-v3/2020-04-30-121846-34215639.anon.xml", MapUtils.putAll(new HashMap<String, Integer>(), new Object[][]{
                         {"vestg", 281},
-                })},
+                })),
                 // Boekenvoordeel B.V.
-                {"/nhr-v3/2020-04-30-121909-39082874.anon.xml", MapUtils.putAll(new HashMap<String, Integer>(), new Object[][]{
+                arguments("/nhr-v3/2020-04-30-121909-39082874.anon.xml", MapUtils.putAll(new HashMap<String, Integer>(), new Object[][]{
                         {"vestg", 87},
                         {"select * from subject where identif='nhr.comVestg.000016834623' and fk_15aoa_identif='0034010000049149'", 1},
                         {"select * from subject where identif='nhr.comVestg.000016833503' and fk_15aoa_identif='0758010000023411'", 1},
-                })},
+                })),
                 // FrieslandCampina Nederland B.V.
-                {"/nhr-v3/2020-04-30-121929-01070163.anon.xml", MapUtils.putAll(new HashMap<String, Integer>(), new Object[][]{
+                arguments("/nhr-v3/2020-04-30-121929-01070163.anon.xml", MapUtils.putAll(new HashMap<String, Integer>(), new Object[][]{
                         {"vestg", 37},
                         {"select * from subject where identif='nhr.comVestg.000019021232' and pa_postadres_postcode='1850AB' and pa_postadrestype='P' and pa_postbus__of_antwoordnummer='53'", 1},
-                })},
+                })),
                 // Prysmian Netherlands B.V.
-                {"/nhr-v3/2020-04-30-121952-58087850.anon.xml", MapUtils.putAll(new HashMap<String, Integer>(), new Object[][]{
+                arguments("/nhr-v3/2020-04-30-121952-58087850.anon.xml", MapUtils.putAll(new HashMap<String, Integer>(), new Object[][]{
                         {"vestg", 3},
-                })},
+                })),
                 // Chubb
-                {"/nhr-v3/33257455,23052007.anon.xml", MapUtils.putAll(new HashMap<String, Integer>(), new Object[][]{
+                arguments("/nhr-v3/33257455,23052007.anon.xml", MapUtils.putAll(new HashMap<String, Integer>(), new Object[][]{
                         {"maatschapp_activiteit", 1},
                         {"vestg", 9},
                         // maar 1 hoofdvestiging
@@ -106,17 +102,17 @@ public class GH522NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseInte
                         {"select sc_identif as hoofdvestiging from vestg where hoofdvestiging = 'Ja'", 1},
                         {"select sc_identif as hoofdvestiging from vestg where hoofdvestiging = 'Nee'", 9 - 1},
                         {"functionaris", 9 /*unieke BSN */ + 1/*rsin*/},
-                })},
+                })),
                 // B3Partners
-                {"/nhr-v3/34122633,32076598.anon.xml", MapUtils.putAll(new HashMap<String, Integer>(), new Object[][]{
+                arguments("/nhr-v3/34122633,32076598.anon.xml", MapUtils.putAll(new HashMap<String, Integer>(), new Object[][]{
                         {"maatschapp_activiteit", 1},
                         {"vestg", 1},
                         // maar 1 hoofdvestiging
                         {"select sc_identif as hoofdvestiging from vestg where fk_19mac_kvk_nummer is not null", 1},
                         {"functionaris", 1/*rsin*/},
-                })},
+                })),
                 // min EZ. (nietCommercieleVestiging)
-                {"/nhr-v3/52813150.anon.xml", MapUtils.putAll(new HashMap<String, Integer>(), new Object[][]{
+                arguments("/nhr-v3/52813150.anon.xml", MapUtils.putAll(new HashMap<String, Integer>(), new Object[][]{
                         {"maatschapp_activiteit", 1},
                         {"vestg", 1 + 7},
                         // maar 1 hoofdvestiging
@@ -125,11 +121,11 @@ public class GH522NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseInte
                         {"select sc_identif as hoofdvestiging from vestg where hoofdvestiging = 'Ja'", 1},
                         {"select sc_identif as hoofdvestiging from vestg where hoofdvestiging = 'Nee'", 7},
                         {"functionaris", 0},
-                })},
-        });
+                }))
+        );
     }
 
-    @Before
+    @BeforeEach
     @Override
     public void setUp() throws Exception {
         BasicDataSource dsStaging = new BasicDataSource();
@@ -177,11 +173,11 @@ public class GH522NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseInte
 
         DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
 
-        assumeTrue("Er zijn geen STAGING_OK berichten", 0l == brmo.getCountBerichten(null, null, "nhr", "STAGING_OK"));
-        assumeTrue("Er zijn geen STAGING_OK laadprocessen", 0l == brmo.getCountLaadProcessen(null, null, "nhr", "STAGING_OK"));
+        assumeTrue(0L == brmo.getCountBerichten(null, null, "nhr", "STAGING_OK"), "Er zijn geen STAGING_OK berichten");
+        assumeTrue(0L == brmo.getCountLaadProcessen(null, null, "nhr", "STAGING_OK"), "Er zijn geen STAGING_OK laadprocessen");
     }
 
-    @After
+    @AfterEach
     public void cleanup() throws Exception {
         brmo.closeBrmoFramework();
         CleanUtil.cleanSTAGING(staging, false);
@@ -191,23 +187,25 @@ public class GH522NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseInte
         sequential.unlock();
     }
 
-    @Test
-    public void testNhrXMLToStagingToRsgb() throws Exception {
+    @DisplayName("NHR to STAGING to RSGB")
+    @ParameterizedTest(name = "{index}: type: {0}, bestand: {1}")
+    @MethodSource("argumentsProvider")
+    public void testNhrXMLToStagingToRsgb(String bestandNaam, Map<String, Integer> rowCounts) throws Exception {
 
-        assumeNotNull("Het test bestand moet er zijn.", GH522NhrToStagingToRsgbIntegrationTest.class.getResource(bestandNaam));
+        assumeFalse(null == GH522NhrToStagingToRsgbIntegrationTest.class.getResource(bestandNaam), "Het test bestand moet er zijn.");
 
         brmo.loadFromFile("nhr", GH522NhrToStagingToRsgbIntegrationTest.class.getResource(bestandNaam).getFile(), null);
         LOG.info("klaar met laden van berichten in staging DB.");
 
         // alleen het eerste bericht heeft br_orgineel_xml, de rest niet
         ITable bericht = staging.createQueryTable("bericht", "select * from bericht where volgordenummer=0");
-        assertEquals("Er zijn meer of minder dan 1 rij", 1, bericht.getRowCount());
+        assertEquals(1, bericht.getRowCount(), "Er zijn meer of minder dan 1 rij");
         LOG.debug("\n\n" + bericht.getValue(0, "br_orgineel_xml") + "\n\n");
-        assertNotNull("BR origineel xml is null", bericht.getValue(0, "br_orgineel_xml"));
+        assertNotNull(bericht.getValue(0, "br_orgineel_xml"), "BR origineel xml is null");
         Object berichtId = bericht.getValue(0, "id");
 
         bericht = staging.createQueryTable("bericht", "select * from bericht where object_ref like 'nhr.%Vestg%'");
-        assertEquals("aantal (niet)commerciele vestiging berichten onjuist", rowCounts.get("vestg"), Integer.valueOf(bericht.getRowCount()));
+        assertEquals(rowCounts.get("vestg"), Integer.valueOf(bericht.getRowCount()), "aantal (niet)commerciele vestiging berichten onjuist");
 
         LOG.info("Transformeren berichten naar rsgb DB.");
         Thread t = brmo.toRsgb();
@@ -215,9 +213,9 @@ public class GH522NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseInte
 
         // na de verwerking moet soap payload er ook nog zijn
         bericht = staging.createQueryTable("bericht", "select * from bericht where br_orgineel_xml is not null");
-        assertEquals("Er zijn meer of minder dan 1 rij", 1, bericht.getRowCount());
-        assertNotNull("BR origineel xml is null na transformatie", bericht.getValue(0, "br_orgineel_xml"));
-        assertEquals("bericht met br_orgineel_xml moet hetzelfde id hebben na transformatie", berichtId, bericht.getValue(0, "id"));
+        assertEquals(1, bericht.getRowCount(), "Er zijn meer of minder dan 1 rij");
+        assertNotNull(bericht.getValue(0, "br_orgineel_xml"), "BR origineel xml is null na transformatie");
+        assertEquals(berichtId, bericht.getValue(0, "id"), "bericht met br_orgineel_xml moet hetzelfde id hebben na transformatie");
 
         // check RSGB tabellen voor aantallen
         for (String table : rowCounts.keySet()) {
@@ -234,6 +232,6 @@ public class GH522NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseInte
             _tbl = rsgb.createTable(table);
         }
 
-        assertEquals("aantal '" + table + "' records klopt niet", aantal, _tbl.getRowCount());
+        assertEquals(aantal, _tbl.getRowCount(), "aantal '" + table + "' records klopt niet");
     }
 }

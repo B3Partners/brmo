@@ -1,21 +1,21 @@
 package nl.b3p.brmo.loader.entity;
 
-import java.io.InputStream;
-import java.net.URL;
-import java.text.SimpleDateFormat;
 import nl.b3p.brmo.loader.xml.BrkSnapshotXMLReader;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.junit.After;
-import static org.junit.Assert.*;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
+
+import java.io.InputStream;
+import java.text.SimpleDateFormat;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  *
  * @author meine
  */
-
-
 public class BrkBerichtTest {
         private static final Log LOG = LogFactory.getLog(BrkBerichtTest.class);
 
@@ -24,7 +24,7 @@ public class BrkBerichtTest {
     private static final String B = "../xml/MUTBX01-ASN00T1660-20091119-1-prettyprinted.xml";
     
 
-    @After
+    @AfterEach
     public void cleanup() throws Exception {
         bReader = null;
     }
@@ -43,5 +43,4 @@ public class BrkBerichtTest {
         String expected = "BKE-MUTBX01-ASN00T1660-20091119-1.zip";
         assertEquals(expected,real);
     }
-
 }

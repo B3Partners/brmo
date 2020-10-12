@@ -3,6 +3,14 @@
  */
 package nl.b3p.brmo.loader.gml;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.geotools.util.factory.GeoTools;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.TestInfo;
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -12,16 +20,10 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.SortedMap;
 import java.util.TreeMap;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.geotools.util.factory.GeoTools;
-import org.junit.After;
-import static org.junit.Assert.fail;
-import static org.junit.Assume.assumeNotNull;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Rule;
-import org.junit.rules.TestName;
+
+import static java.lang.System.getProperty;
+import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assumptions.assumeFalse;
 
 /**
  * utilities voor de integratie tests.
@@ -47,36 +49,31 @@ public abstract class TestingBase {
      * {@code true} als we met een MS SQL Server database bezig zijn.
      */
     protected boolean isMsSQL;
-    /**
-     * logging rule.
-     */
-    @Rule
-    public TestName name = new TestName();
 
     /**
      * test of de database properties zijn aangegeven, zo niet dan skippen we
      * alle tests in deze test.
      */
-    @BeforeClass
+    @BeforeAll
     public static void checkDatabaseIsProvided() {
-        assumeNotNull("Verwacht database omgeving te zijn aangegeven.", System.getProperty("database.properties.file"));
+        assumeFalse(getProperty("database.properties.file") == null, "Verwacht database omgeving te zijn aangegeven.");
         GeoTools.init();
     }
 
     /**
      * Log de naam van de test als deze begint.
      */
-    @Before
-    public void startTest() {
-        LOG.info("==== Start test methode: " + name.getMethodName());
+    @BeforeEach
+    public void startTest(TestInfo testInfo) {
+        LOG.info("==== Start test methode: " + testInfo.getDisplayName());
     }
 
     /**
      * Log de naam van de test als deze eindigt.
      */
-    @After
-    public void endTest() {
-        LOG.info("==== Einde test methode: " + name.getMethodName());
+    @AfterEach
+    public void endTest(TestInfo testInfo) {
+        LOG.info("==== Einde test methode: " + testInfo.getDisplayName());
     }
 
     /**
@@ -87,11 +84,11 @@ public abstract class TestingBase {
     protected void loadProps() throws IOException {
         // de `database.properties.file` is in de pom.xml of via commandline ingesteld
         params.load(TestingBase.class.getClassLoader()
-                .getResourceAsStream(System.getProperty("database.properties.file")));
+                .getResourceAsStream(getProperty("database.properties.file")));
         try {
             // probeer een local (override) versie te laden als die bestaat
             params.load(TestingBase.class.getClassLoader()
-                    .getResourceAsStream("local." + System.getProperty("database.properties.file")));
+                    .getResourceAsStream("local." + getProperty("database.properties.file")));
         } catch (IOException | NullPointerException e) {
             // negeren; het override bestand is normaal niet aanwezig
         }

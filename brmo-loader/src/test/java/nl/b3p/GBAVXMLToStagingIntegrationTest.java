@@ -16,13 +16,6 @@
  */
 package nl.b3p;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.loader.util.BrmoLeegBestandException;
@@ -42,101 +35,55 @@ import org.dbunit.ext.mssql.MsSqlDataTypeFactory;
 import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 import org.dbunit.operation.DatabaseOperation;
-import org.junit.After;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assume.assumeTrue;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.math.BigDecimal;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+import java.util.stream.Stream;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 /**
  * Draaien met:
- * {@code mvn -Dit.test=GBAVXMLToStagingIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql > target/postgresql.log}
+ * {@code mvn -Dit.test=GBAVXMLToStagingIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql  -pl brmo-loader > /tmp/postgresql.log}
  * voor bijvoorbeeld PostgresQL of
  * {@code mvn -Dit.test=GBAVXMLToStagingIntegrationTest -Dtest.onlyITs=true verify -pl brmo-loader -Pmssql > mssql.log}
  * voor bijvoorbeeld MS SQL.
  *
  * @author Mark Prins
  */
-@RunWith(Parameterized.class)
 public class GBAVXMLToStagingIntegrationTest extends AbstractDatabaseIntegrationTest {
 
-    @Parameterized.Parameters(name = "{index}: type: {0}, bestand: {1}")
-    public static Collection params() {
-        return Arrays.asList(new Object[][]{
-            // {"type","filename", aantalBerichten, aantalLaadProcessen, aantalSubject, aNummer, bsnNummer, achterNaam, aandNaamgebruik, geslacht},
-            {"gbav", "/nl/b3p/brmo/loader/xml/gbav-voorbeeld.xml", 1, 1, 2, "5054783237", "123459916", "Kumari", "E", "V"},
-            {"gbav", "/nl/b3p/brmo/loader/xml/fictieve-persoonslijst-brp.xml", 1, 1, 1, "1234567890", "987654321", "Jansen", "E", "M"}
-        });
+    static Stream<Arguments> argumentsProvider() {
+        return Stream.of(
+                // {"type","filename", aantalBerichten, aantalLaadProcessen, aantalSubject, aNummer, bsnNummer,
+                // achterNaam, aandNaamgebruik, geslacht},
+                arguments("gbav", "/nl/b3p/brmo/loader/xml/gbav-voorbeeld.xml", 1, 1, 2, "5054783237", "123459916",
+                        "Kumari", "E", "V"),
+                arguments("gbav", "/nl/b3p/brmo/loader/xml/fictieve-persoonslijst-brp.xml", 1, 1, 1, "1234567890",
+                        "987654321", "Jansen", "E", "M")
+        );
     }
 
     private static final Log LOG = LogFactory.getLog(GBAVXMLToStagingIntegrationTest.class);
-
-    /**
-     * test parameter.
-     */
-    private final String bestandNaam;
-    /**
-     * test parameter.
-     */
-    private final String bestandType;
-    /**
-     * test parameter.
-     */
-    private final long aantalBerichten;
-    /**
-     * test parameter.
-     */
-    private final long aantalProcessen;
-    /**
-     * test parameter.
-     */
-    private final long aantalSubject;
-    /**
-     * test parameter.
-     */
-    private final String aNummer;
-    /**
-     * test parameter.
-     */
-    private final String bsnNummer;
-    /**
-     * test parameter.
-     */
-    private final String achterNaam;
-    /**
-     * test parameter.
-     */
-    private final String aandNaamgebruik;
-    /**
-     * test parameter.
-     */
-    private final String geslacht;
-
     private final Lock sequential = new ReentrantLock();
     private BrmoFramework brmo;
-
     // dbunit
     private IDatabaseConnection staging;
     private IDatabaseConnection rsgb;
 
-    public GBAVXMLToStagingIntegrationTest(String bestandType, String bestandNaam, long aantalBerichten, long aantalProcessen, long aantalSubject,
-            String aNummer, String bsnNummer, String achterNaam, String aandNaamgebruik, String geslacht) {
-        this.bestandType = bestandType;
-        this.bestandNaam = bestandNaam;
-        this.aantalBerichten = aantalBerichten;
-        this.aantalProcessen = aantalProcessen;
-        this.aantalSubject = aantalSubject;
-        this.aNummer = aNummer;
-        this.bsnNummer = bsnNummer;
-        this.achterNaam = achterNaam;
-        this.aandNaamgebruik = aandNaamgebruik;
-        this.geslacht = geslacht;
-    }
-
-    @Before
+    @BeforeEach
     @Override
     public void setUp() throws Exception {
         BasicDataSource dsStaging = new BasicDataSource();
@@ -180,12 +127,13 @@ public class GBAVXMLToStagingIntegrationTest extends AbstractDatabaseIntegration
         sequential.lock();
 
         DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
-
-        assumeTrue("Er zijn geen STAGING_OK berichten", 0l == brmo.getCountBerichten(null, null, this.bestandType, "STAGING_OK"));
-        assumeTrue("Er zijn geen STAGING_OK laadprocessen", 0l == brmo.getCountLaadProcessen(null, null, this.bestandType, "STAGING_OK"));
+        assumeTrue(0L == brmo.getCountBerichten(null, null, "gbav", "STAGING_OK"),
+                "Er zijn geen STAGING_OK berichten");
+        assumeTrue(0L == brmo.getCountLaadProcessen(null, null, "gbav", "STAGING_OK"),
+                "Er zijn geen STAGING_OK laadprocessen");
     }
 
-    @After
+    @AfterEach
     public void cleanup() throws Exception {
         brmo.closeBrmoFramework();
         CleanUtil.cleanSTAGING(staging, false);
@@ -195,45 +143,58 @@ public class GBAVXMLToStagingIntegrationTest extends AbstractDatabaseIntegration
         sequential.unlock();
     }
 
-    @Test
-    public void testGbavBerichtToStagingToRsgb() throws Exception {
+    @DisplayName("insertOntbrekendeKlantAfgiftenummers")
+    @ParameterizedTest(name = "{index}: type: {0}, bestand: {1}")
+    @MethodSource("argumentsProvider")
+    public void testGbavBerichtToStagingToRsgb(String bestandType, String bestandNaam, long aantalBerichten, long aantalProcessen, long aantalSubject,
+            String aNummer, String bsnNummer, String achterNaam, String aandNaamgebruik, String geslacht) throws Exception {
+
         try {
             brmo.loadFromFile(bestandType, GBAVXMLToStagingIntegrationTest.class.getResource(bestandNaam).getFile(), null);
         } catch (BrmoLeegBestandException blbe) {
             LOG.debug("Er is een bestand zonder berichten geladen (kan voorkomen...).");
         }
 
-        assertEquals("Verwacht aantal berichten", aantalBerichten, brmo.getCountBerichten(null, null, bestandType, "STAGING_OK"));
-        assertEquals("Verwacht aantal laadprocessen", aantalProcessen, brmo.getCountLaadProcessen(null, null, bestandType, "STAGING_OK"));
+        assertEquals(aantalBerichten, brmo.getCountBerichten(null, null, bestandType, "STAGING_OK"),
+                "Verwacht aantal berichten");
+        assertEquals(aantalProcessen, brmo.getCountLaadProcessen(null, null, bestandType, "STAGING_OK"),
+                "Verwacht aantal laadprocessen");
 
         LOG.debug("Transformeren berichten naar rsgb DB.");
         brmo.setOrderBerichten(true);
         Thread t = brmo.toRsgb();
         t.join();
 
-        assertEquals("Niet alle berichten zijn OK getransformeerd", aantalBerichten, brmo.getCountBerichten(null, null, bestandType, "RSGB_OK"));
+        assertEquals(aantalBerichten, brmo.getCountBerichten(null, null, bestandType, "RSGB_OK"),
+                "Niet alle berichten zijn OK getransformeerd");
 
         for (Bericht b : brmo.listBerichten()) {
-            assertNotNull("Bericht is 'null'", b);
-            assertNotNull("'db-xml' van bericht is 'null'", b.getDbXml());
+            Assertions.assertNotNull(b, "Bericht is 'null'");
+            Assertions.assertNotNull(b.getDbXml(), "'db-xml' van bericht is 'null'");
         }
 
         ITable subject = rsgb.createDataSet().getTable("subject");
-        assertEquals("Het aantal 'subject' klopt niet", aantalSubject, subject.getRowCount());
+        assertEquals(aantalSubject, subject.getRowCount(), "Het aantal 'subject' klopt niet");
 
         ITable prs = rsgb.createDataSet().getTable("prs");
-        assertEquals("Het aantal 'prs' klopt niet", aantalSubject, prs.getRowCount());
+        assertEquals(aantalSubject, prs.getRowCount(), "Het aantal 'prs' klopt niet");
 
         ITable nat_prs = rsgb.createDataSet().getTable("nat_prs");
-        assertEquals("Het aantal 'nat_prs' klopt niet", aantalSubject, nat_prs.getRowCount());
+        assertEquals(aantalSubject, nat_prs.getRowCount(), "Het aantal 'nat_prs' klopt niet");
         int rowNum = (int) (aantalSubject - 1);
-        assertEquals("Aanduiding naamgebruik komt niet overeen", aandNaamgebruik, nat_prs.getValue(rowNum, "aand_naamgebruik"));
-        assertEquals("Geslachtsaanduiding komt niet overeen", geslacht, nat_prs.getValue(rowNum, "geslachtsaand"));
-        assertEquals("Achternaam komt niet overeen", achterNaam, nat_prs.getValue(rowNum, "nm_geslachtsnaam"));
+        assertEquals(aandNaamgebruik, nat_prs.getValue(rowNum, "aand_naamgebruik"),
+                "Aanduiding naamgebruik komt niet overeen");
+        assertEquals(geslacht, nat_prs.getValue(rowNum, "geslachtsaand"),
+                "Geslachtsaanduiding komt niet overeen");
+        assertEquals(achterNaam, nat_prs.getValue(rowNum, "nm_geslachtsnaam"),
+                "Achternaam komt niet overeen");
 
         ITable ingeschr_nat_prs = rsgb.createDataSet().getTable("ingeschr_nat_prs");
-        assertEquals("Het aantal 'ingeschr_nat_prs' klopt niet", aantalSubject, ingeschr_nat_prs.getRowCount());
-        assertEquals("BSN komt niet overeen", new BigDecimal(bsnNummer), ingeschr_nat_prs.getValue(rowNum, "bsn"));
-        assertEquals("A-nummer komt niet overeen", new BigDecimal(aNummer), ingeschr_nat_prs.getValue(rowNum, "a_nummer"));
+        assertEquals(aantalSubject, ingeschr_nat_prs.getRowCount(),
+                "Het aantal 'ingeschr_nat_prs' klopt niet");
+        assertEquals(new BigDecimal(bsnNummer), ingeschr_nat_prs.getValue(rowNum, "bsn"),
+                "BSN komt niet overeen");
+        assertEquals(new BigDecimal(aNummer), ingeschr_nat_prs.getValue(rowNum, "a_nummer"),
+                "A-nummer komt niet overeen");
     }
 }

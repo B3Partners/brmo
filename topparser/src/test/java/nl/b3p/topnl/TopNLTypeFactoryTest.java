@@ -16,17 +16,18 @@
  */
 package nl.b3p.topnl;
 
-import java.io.IOException;
-import java.net.URL;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jdom2.JDOMException;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.*;
-import org.junit.Rule;
-import org.junit.rules.TestName;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInfo;
+
+import java.io.IOException;
+import java.net.URL;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  *
@@ -39,25 +40,23 @@ public class TopNLTypeFactoryTest {
     private final static Log LOG = LogFactory.getLog(TopNLTypeFactoryTest.class);
     private TopNLTypeFactory instance = new TopNLTypeFactory();
 
-    
-    @Rule
-    public TestName testName = new TestName();
 
     /**
      * Log de naam van de test als deze begint.
      */
-    @Before
-    public void startTest() {
-        LOG.info("==== Start test methode: " + testName.getMethodName());
+    @BeforeEach
+    public void startTest(TestInfo testInfo) {
+        LOG.info("==== Start test methode: " + testInfo.getDisplayName());
     }
 
     /**
      * Log de naam van de test als deze eindigt.
      */
-    @After
-    public void endTest() {
-        LOG.info("==== Einde test methode: " + testName.getMethodName());
+    @AfterEach
+    public void endTest(TestInfo testInfo) {
+        LOG.info("==== Einde test methode: " + testInfo.getDisplayName());
     }
+
     /**
      * Test of getTopNLType method, of class TopNLTypeFactory.
      */

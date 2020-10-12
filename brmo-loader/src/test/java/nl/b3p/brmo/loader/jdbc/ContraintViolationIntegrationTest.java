@@ -5,9 +5,6 @@
  */
 package nl.b3p.brmo.loader.jdbc;
 
-import java.util.List;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 import nl.b3p.AbstractDatabaseIntegrationTest;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.entity.Bericht;
@@ -21,22 +18,18 @@ import org.dbunit.database.DatabaseConfig;
 import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.DatabaseDataSourceConnection;
 import org.dbunit.database.IDatabaseConnection;
-import org.dbunit.dataset.DefaultDataSet;
-import org.dbunit.dataset.DefaultTable;
 import org.dbunit.dataset.ITable;
 import org.dbunit.ext.mssql.MsSqlDataTypeFactory;
 import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
-import org.dbunit.operation.DatabaseOperation;
-import org.junit.After;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
+import org.junit.jupiter.api.*;
+
+import java.util.List;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
 import static org.junit.Assume.assumeNotNull;
-import static org.junit.Assume.assumeTrue;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Draaien met:
@@ -61,10 +54,7 @@ public class ContraintViolationIntegrationTest extends AbstractDatabaseIntegrati
     private IDatabaseConnection staging;
     private final Lock sequential = new ReentrantLock();
 
-    public ContraintViolationIntegrationTest() {
-    }
-
-    @Before
+    @BeforeEach
     @Override
     public void setUp() throws Exception {
         BasicDataSource dsStaging = new BasicDataSource();
@@ -97,7 +87,7 @@ public class ContraintViolationIntegrationTest extends AbstractDatabaseIntegrati
             rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
             staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
         } else {
-            fail("Geen ondersteunde database aangegegeven.");
+            Assertions.fail("Geen ondersteunde database aangegegeven.");
         }
 
         assumeNotNull("Het bestand met testdata zou moeten bestaan.", ContraintViolationIntegrationTest.class.getResource(bestandNaam));
@@ -105,12 +95,14 @@ public class ContraintViolationIntegrationTest extends AbstractDatabaseIntegrati
         sequential.lock();
         CleanUtil.cleanSTAGING(staging, false);
 
-        assumeTrue("Er zijn geen STAGING_OK berichten", 0l == brmo.getCountBerichten(null, null, "bag", "STAGING_OK"));
-        assumeTrue("Er zijn geen STAGING_OK laadprocessen", 0l == brmo.getCountLaadProcessen(null, null, "bag", "STAGING_OK"));
+        Assumptions.assumeTrue(0l == brmo.getCountBerichten(null, null, "bag", "STAGING_OK"),
+                "Er zijn geen STAGING_OK berichten");
+        Assumptions.assumeTrue(0l == brmo.getCountLaadProcessen(null, null, "bag", "STAGING_OK"),
+                "Er zijn geen STAGING_OK laadprocessen");
 
     }
 
-    @After
+    @AfterEach
     public void cleanup() throws Exception {
         if (brmo != null) {
             brmo.closeBrmoFramework();
@@ -146,14 +138,14 @@ public class ContraintViolationIntegrationTest extends AbstractDatabaseIntegrati
 
         List<Bericht> berichten = brmo.listBerichten();
         List<LaadProces> processen = brmo.listLaadProcessen();
-        assertNotNull("De verzameling berichten bestaat niet.", berichten);
-        assertEquals("Het aantal berichten is niet als verwacht.", aantalBerichten, berichten.size());
-        assertNotNull("De verzameling processen bestaat niet.", processen);
-        assertEquals("Het aantal processen is niet als verwacht.", aantalProcessen, processen.size());
+        assertNotNull(berichten, "De verzameling berichten bestaat niet.");
+        assertEquals(aantalBerichten, berichten.size(), "Het aantal berichten is niet als verwacht.");
+        assertNotNull(processen, "De verzameling processen bestaat niet.");
+        assertEquals(aantalProcessen, processen.size(), "Het aantal processen is niet als verwacht.");
 
         ITable bericht = staging.createDataSet().getTable("bericht");
-        assertEquals("Het aantal berichten klopt niet", aantalBerichten, bericht.getRowCount());
-        assertNull("DB xml is niet null (want nog niet getransformeerd)", bericht.getValue(0, "db_xml"));
+        assertEquals(aantalBerichten, bericht.getRowCount(), "Het aantal berichten klopt niet");
+        assertNull(bericht.getValue(0, "db_xml"), "DB xml is niet null (want nog niet getransformeerd)");
 
         LOG.debug("Transformeren berichten naar rsgb DB.");
         brmo.setOrderBerichten(true);
@@ -161,14 +153,14 @@ public class ContraintViolationIntegrationTest extends AbstractDatabaseIntegrati
         t.join();
         LOG.debug("Klaar met transformeren berichten naar rsgb DB.");
 
-        assertEquals("Niet alle berichten zijn naar RSGB_BAG_NOK getransformeerd", aantalBerichten, brmo.getCountBerichten(null, null, "bag", "RSGB_BAG_NOK"));
+        assertEquals(aantalBerichten, brmo.getCountBerichten(null, null, "bag", "RSGB_BAG_NOK"),
+                "Niet alle berichten zijn naar RSGB_BAG_NOK getransformeerd");
 
         ITable gem_openb_rmte = rsgb.createDataSet().getTable("gem_openb_rmte");
-        assertEquals("Het aantal openbare ruimten klopt niet.", 0, gem_openb_rmte.getRowCount());
+        assertEquals(0, gem_openb_rmte.getRowCount(), "Het aantal openbare ruimten klopt niet.");
 
         // test voor de gerelateerde woonplaats
         ITable wnplts = rsgb.createQueryTable("wnplts", "select * from wnplts where identif='3042'");
-        assertEquals("Het aantal openbare ruimten klopt niet.", 0, wnplts.getRowCount());
-
+        assertEquals(0, wnplts.getRowCount(), "Het aantal openbare ruimten klopt niet.");
     }
 }

@@ -3,7 +3,9 @@
  */
 package nl.b3p.brmo.persistence.staging;
 
-import javax.persistence.EntityManager;
+import nl.b3p.brmo.persistence.TestUtil;
+import org.junit.jupiter.api.Test;
+
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -11,13 +13,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import nl.b3p.brmo.persistence.TestUtil;
-import org.junit.Test;
-import org.stripesstuff.stripersist.Stripersist;
-
-import java.io.File;
-
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Testcase voor {@link  nl.b3p.brmo.persistence.staging.LaadProces}.

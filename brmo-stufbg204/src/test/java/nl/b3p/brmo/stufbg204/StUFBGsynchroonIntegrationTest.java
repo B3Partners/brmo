@@ -3,20 +3,19 @@
  */
 package nl.b3p.brmo.stufbg204;
 
-import java.util.List;
 import nl.egem.stuf.sector.bg._0204.ACDTabel;
 import nl.egem.stuf.sector.bg._0204.StUFFout;
 import nl.egem.stuf.sector.bg._0204.SynchroonAntwoordBericht;
 import nl.egem.stuf.sector.bg._0204.SynchroonAntwoordBericht.Body;
 import nl.egem.stuf.sector.bg._0204.VraagBericht;
 import nl.egem.stuf.stuf0204.Stuurgegevens;
-import org.apache.commons.dbcp.BasicDataSource;
-import org.junit.After;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+
+import java.util.List;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  *
@@ -26,19 +25,19 @@ public class StUFBGsynchroonIntegrationTest extends TestStub {
 
     private StUFBGsynchroon stub;
 
-    @Before
+    @BeforeEach
     @Override
     public void setUp() {
         stub = new StUFBGsynchroon();
     }
 
-    @After
+    @AfterEach
     public void tearDown() {
         stub = null;
     }
 
     @Test
-    @Ignore("Faalt met melding: Entiteitstype niet ondersteund: ACD")
+    @Disabled("Faalt met melding: Entiteitstype niet ondersteund: ACD")
     public void helloStUFBGsynchroon() throws Exception {
         Stuurgegevens s = new Stuurgegevens();
         s.setBerichtsoort("test");
@@ -48,24 +47,26 @@ public class StUFBGsynchroonIntegrationTest extends TestStub {
         v.setStuurgegevens(s);
 
         SynchroonAntwoordBericht a = stub.beantwoordSynchroneVraag(v);
-        assertNotNull("Antwoord is null", a);
+        assertNotNull(a, "Antwoord is null");
     }
 
-    @Test(expected = StUFFout.class)
-    public void foutStUFBGsynchroon() throws Exception {
-        Stuurgegevens s = new Stuurgegevens();
-        s.setBerichtsoort("test");
-        s.setEntiteittype("ACD");
+    @Test
+    public void foutStUFBGsynchroon(){
+        assertThrows(StUFFout.class, () -> {
+            Stuurgegevens s = new Stuurgegevens();
+            s.setBerichtsoort("test");
+            s.setEntiteittype("ACD");
 
-        VraagBericht v = new VraagBericht();
-        v.setStuurgegevens(s);
+            VraagBericht v = new VraagBericht();
+            v.setStuurgegevens(s);
 
-        SynchroonAntwoordBericht a = stub.beantwoordSynchroneVraag(v);
-        assertNotNull("Antwoord is null", a);
+            SynchroonAntwoordBericht a = stub.beantwoordSynchroneVraag(v);
+            assertNotNull(a, "Antwoord is null");
+        });
     }
     
     @Test
-    @Ignore("Faalt met melding: Entiteitstype niet ondersteund: ACD")
+    @Disabled("Faalt met melding: Entiteitstype niet ondersteund: ACD")
     public void testAntwoordBodyACD() throws StUFFout {
         
         Stuurgegevens s = new Stuurgegevens();
@@ -81,6 +82,6 @@ public class StUFBGsynchroonIntegrationTest extends TestStub {
         assertNotNull(acd);
         assertEquals(1,acd.size());
         ACDTabel t = acd.get(0);
-        //assertEquals("pietje", t.getOmschrijving().getValue().getValue());
+        assertEquals("pietje", t.getOmschrijving().getValue().getValue());
     }
 }

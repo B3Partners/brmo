@@ -23,6 +23,16 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>nl.b3p</groupId>
             <artifactId>brmo-test-util</artifactId>
             <scope>test</scope>
@@ -438,6 +448,7 @@
                                 <project.version>${project.version}</project.version>
                                 <database.upgrade>${database.upgrade}</database.upgrade>
                             </systemPropertyVariables>
+                            <excludedGroups>skip-pgsql</excludedGroups>
                         </configuration>
                     </plugin>
                 </plugins>
@@ -456,6 +467,26 @@
                                 <project.version>${project.version}</project.version>
                                 <database.upgrade>${database.upgrade}</database.upgrade>
                             </systemPropertyVariables>
+                            <excludedGroups>skip-oracle</excludedGroups>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>mssql</id>
+            <build>
+                <defaultGoal>testCompile</defaultGoal>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <systemPropertyVariables>
+                                <database.properties.file>sqlserver.properties</database.properties.file>
+                                <project.version>${project.version}</project.version>
+                                <database.upgrade>${database.upgrade}</database.upgrade>
+                            </systemPropertyVariables>
+                            <excludedGroups>skip-mssql</excludedGroups>
                         </configuration>
                     </plugin>
                 </plugins>

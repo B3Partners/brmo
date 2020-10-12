@@ -6,11 +6,12 @@ package nl.b3p.brmo.loader;
 import nl.b3p.AbstractDatabaseIntegrationTest;
 import nl.b3p.brmo.loader.util.BrmoException;
 import org.apache.commons.dbcp.BasicDataSource;
-import org.junit.After;
-import static org.junit.Assert.assertEquals;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Testcases voor {@link BrmoFramework}. Om de tests te runnen gebruik je:
@@ -23,7 +24,7 @@ public class BrmoFrameworkIntegrationTest extends AbstractDatabaseIntegrationTes
 
     private static String currentVersion;
 
-    @BeforeClass
+    @BeforeAll
     public static void getEnvironment() {
         currentVersion = System.getProperty("project.version");
         if ("true".equalsIgnoreCase(System.getProperty("database.upgrade"))) {
@@ -38,7 +39,7 @@ public class BrmoFrameworkIntegrationTest extends AbstractDatabaseIntegrationTes
      *
      * @throws BrmoException if any
      */
-    @Before
+    @BeforeEach
     @Override
     public void setUp() throws BrmoException {
         BasicDataSource dsStaging = new BasicDataSource();
@@ -62,23 +63,23 @@ public class BrmoFrameworkIntegrationTest extends AbstractDatabaseIntegrationTes
         brmo = new BrmoFramework(dsStaging, dsRsgb, dsRsgbBgt);
     }
 
-    @After
+    @AfterEach
     public void tearDown() {
         brmo.closeBrmoFramework();
     }
 
     @Test
     public void testRsgbVersion() {
-        assertEquals("Versies komen niet overeen", currentVersion, brmo.getRsgbVersion());
+        assertEquals(currentVersion, brmo.getRsgbVersion(), "Versies komen niet overeen");
     }
 
     @Test
     public void testRsgbBgtVersion() {
-        assertEquals("Versies komen niet overeen", currentVersion, brmo.getRsgbBgtVersion());
+        assertEquals(currentVersion, brmo.getRsgbBgtVersion(), "Versies komen niet overeen");
     }
 
     @Test
     public void testStagingVersion() {
-        assertEquals("Versies komen niet overeen", currentVersion, brmo.getStagingVersion());
+        assertEquals(currentVersion, brmo.getStagingVersion(), "Versies komen niet overeen");
     }
 }

@@ -5,10 +5,9 @@ package nl.b3p.brmo.persistence;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.rules.TestName;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.TestInfo;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
@@ -43,25 +42,21 @@ public abstract class TestUtil {
 
     private static final Log LOG = LogFactory.getLog(TestUtil.class);
 
-    @Rule
-    public TestName name = new TestName();
-
     protected EntityManager entityManager;
 
     /**
      * Log de naam van de test als deze begint.
      */
-    @Before
-    public void startTest() {
-        LOG.info("==== Start test methode: " + name.getMethodName());
+    @BeforeEach
+    public void startTest(TestInfo testInfo) {
+        LOG.info("==== Start test methode: " + testInfo.getDisplayName());
     }
-
     /**
      * Log de naam van de test als deze eindigt.
      */
-    @After
-    public void endTest() {
-        LOG.info("==== Einde test methode: " + name.getMethodName());
+    @AfterEach
+    public void endTest(TestInfo testInfo) {
+        LOG.info("==== Einde test methode: " + testInfo.getDisplayName());
     }
 
     /**
@@ -70,7 +65,7 @@ public abstract class TestUtil {
      *
      * @see #entityManager
      */
-    @Before
+    @BeforeEach
     public void setUp() {
         final String persistenceUnit = System.getProperty("test.persistence.unit");
         entityManager = Persistence.createEntityManagerFactory(persistenceUnit).createEntityManager();
@@ -82,7 +77,7 @@ public abstract class TestUtil {
      *
      * @see #entityManager
      */
-    @After
+    @AfterEach
     public void close() {
         if (entityManager != null && entityManager.isOpen()) {
             entityManager.close();

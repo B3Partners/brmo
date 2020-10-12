@@ -1,13 +1,8 @@
 package nl.b3p;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.util.List;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
+import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.loader.entity.LaadProces;
-import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.test.util.database.dbunit.CleanUtil;
 import nl.b3p.loader.jdbc.OracleConnectionUnwrapper;
 import org.apache.commons.dbcp.BasicDataSource;
@@ -24,13 +19,20 @@ import org.dbunit.ext.mssql.MsSqlDataTypeFactory;
 import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 import org.dbunit.operation.DatabaseOperation;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assume.assumeNotNull;
-import static org.junit.Assume.assumeTrue;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.List;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assumptions.assumeFalse;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 /**
  *
@@ -63,7 +65,7 @@ public class VerminderenStukdelenIntegrationTest extends AbstractDatabaseIntegra
 
     private final Lock sequential = new ReentrantLock(true);
 
-    @Before
+    @BeforeEach
     @Override
     public void setUp() throws Exception {
         BasicDataSource dsStaging = new BasicDataSource();
@@ -108,11 +110,13 @@ public class VerminderenStukdelenIntegrationTest extends AbstractDatabaseIntegra
 
         DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
 
-        assumeTrue("Er zijn brk STAGING_OK berichten", 0l == brmo.getCountBerichten(null, null, BrmoFramework.BR_BRK, "STAGING_OK"));
-        assumeTrue("Er zijn brk STAGING_OK laadprocessen", 0l == brmo.getCountLaadProcessen(null, null, BrmoFramework.BR_BRK, "STAGING_OK"));
+        assumeTrue(0l == brmo.getCountBerichten(null, null, BrmoFramework.BR_BRK, "STAGING_OK"),
+                "Er zijn brk STAGING_OK berichten");
+        assumeTrue(0l == brmo.getCountLaadProcessen(null, null, BrmoFramework.BR_BRK, "STAGING_OK"),
+                "Er zijn brk STAGING_OK laadprocessen");
     }
 
-    @After
+    @AfterEach
     public void cleanup() throws Exception {
         brmo.closeBrmoFramework();
 
@@ -127,32 +131,35 @@ public class VerminderenStukdelenIntegrationTest extends AbstractDatabaseIntegra
 
     @Test
     public void testMinderStukdelenInMutatie() throws Exception {
-        assumeNotNull("Het ontstaan test bestand moet er zijn.", VerminderenStukdelenIntegrationTest.class.getResource(ontstaanBestand));
-        assumeNotNull("Het mutatie test bestand moet er zijn.", VerminderenStukdelenIntegrationTest.class.getResource(mutatieBestand));
+        assumeFalse(null == VerminderenStukdelenIntegrationTest.class.getResource(ontstaanBestand), "Het ontstaan test bestand moet er zijn.");
+        assumeFalse(null == VerminderenStukdelenIntegrationTest.class.getResource(mutatieBestand), "Het mutatie test bestand moet er zijn.");
 
         LOG.debug("laden van ontstaan bericht in staging DB.");
         brmo.loadFromFile(BrmoFramework.BR_BRK, VerminderenStukdelenIntegrationTest.class.getResource(ontstaanBestand).getFile(), null);
 
         List<Bericht> berichten = brmo.listBerichten();
         List<LaadProces> processen = brmo.listLaadProcessen();
-        assertNotNull("De verzameling berichten bestaat niet.", berichten);
-        assertEquals("Het aantal berichten is niet als verwacht.", 1, berichten.size());
-        assertNotNull("De verzameling processen bestaat niet.", processen);
-        assertEquals("Het aantal processen is niet als verwacht.", 1, processen.size());
+        assertNotNull(berichten, "De verzameling berichten bestaat niet.");
+        assertEquals(1, berichten.size(), "Het aantal berichten is niet als verwacht.");
+        assertNotNull(processen, "De verzameling processen bestaat niet.");
+        assertEquals(1, processen.size(), "Het aantal processen is niet als verwacht.");
 
         LOG.debug("Transformeren ontstaan bericht naar rsgb DB.");
         Thread t = brmo.toRsgb();
         t.join();
 
-        assertEquals("Niet alle berichten zijn OK getransformeerd", 1, brmo.getCountBerichten(null, null, BrmoFramework.BR_BRK, "RSGB_OK"));
+        assertEquals(1, brmo.getCountBerichten(null, null, BrmoFramework.BR_BRK, "RSGB_OK"),
+                "Niet alle berichten zijn OK getransformeerd");
 
         // test inhoud van rsgb tabellen na transformatie ontstaan bericht
         ITable kad_onrrnd_zk = rsgb.createDataSet().getTable("kad_onrrnd_zk");
-        assertEquals("Het aantal onroerende zaak records komt niet overeen", 1, kad_onrrnd_zk.getRowCount());
-        assertEquals("Datum eerste record komt niet overeen", datumOntstaan, kad_onrrnd_zk.getValue(0, "dat_beg_geldh"));
+        assertEquals(1, kad_onrrnd_zk.getRowCount(), "Het aantal onroerende zaak records komt niet overeen");
+        assertEquals(datumOntstaan, kad_onrrnd_zk.getValue(0, "dat_beg_geldh"),
+                "Datum eerste record komt niet overeen");
 
         ITable brondocument = rsgb.createDataSet().getTable("brondocument");
-        assertEquals("Het aantal brondocument records komt niet overeen", brondocOntstaan, brondocument.getRowCount());
+        assertEquals(brondocOntstaan, brondocument.getRowCount(),
+                "Het aantal brondocument records komt niet overeen");
 
         // mutatie laden
         brmo.loadFromFile(BrmoFramework.BR_BRK, VerminderenStukdelenIntegrationTest.class.getResource(mutatieBestand).getFile(), null);
@@ -163,25 +170,31 @@ public class VerminderenStukdelenIntegrationTest extends AbstractDatabaseIntegra
         t.join();
 
         // test staging inhoud
-        assertEquals("Het aantal berichten is niet als verwacht.", 2, brmo.listBerichten().size());
-        assertEquals("Het aantal processen is niet als verwacht.", 2, brmo.listLaadProcessen().size());
-        assertEquals("Niet alle berichten zijn OK getransformeerd", 2, brmo.getCountBerichten(null, null, BrmoFramework.BR_BRK, "RSGB_OK"));
+        assertEquals(2, brmo.listBerichten().size(), "Het aantal berichten is niet als verwacht.");
+        assertEquals(2, brmo.listLaadProcessen().size(), "Het aantal processen is niet als verwacht.");
+        assertEquals(2, brmo.getCountBerichten(null, null, BrmoFramework.BR_BRK, "RSGB_OK"),
+                "Niet alle berichten zijn OK getransformeerd");
         for (Bericht b : brmo.listBerichten()) {
-            assertNotNull("Bericht is 'null'", b);
-            assertNotNull("'db-xml' van bericht is 'null'", b.getDbXml());
+            assertNotNull(b, "Bericht is 'null'");
+            assertNotNull(b.getDbXml(), "'db-xml' van bericht is 'null'");
         }
 
         // test inhoud van rsgb tabellen na transformatie mutatie bericht
         kad_onrrnd_zk = rsgb.createDataSet().getTable("kad_onrrnd_zk");
-        assertEquals("Het aantal onroerende zaak records komt niet overeen", 1, kad_onrrnd_zk.getRowCount());
-        assertEquals("Datum eerste record komt niet overeen", datumMutatie, kad_onrrnd_zk.getValue(0, "dat_beg_geldh"));
+        assertEquals(1, kad_onrrnd_zk.getRowCount(), "Het aantal onroerende zaak records komt niet overeen");
+        assertEquals(datumMutatie, kad_onrrnd_zk.getValue(0, "dat_beg_geldh"),
+                "Datum eerste record komt niet overeen");
 
         ITable kad_onrrnd_zk_archief = rsgb.createDataSet().getTable("kad_onrrnd_zk_archief");
-        assertEquals("Het aantal onroerende zaak records komt niet overeen", 1, kad_onrrnd_zk_archief.getRowCount());
-        assertEquals("Einddatum eerste record komt niet overeen", datumMutatie, kad_onrrnd_zk_archief.getValue(0, "datum_einde_geldh"));
-        assertEquals("Begindatum eerste record komt niet overeen", datumOntstaan, kad_onrrnd_zk_archief.getValue(0, "dat_beg_geldh"));
+        assertEquals(1, kad_onrrnd_zk_archief.getRowCount(),
+                "Het aantal onroerende zaak records komt niet overeen");
+        assertEquals(datumMutatie, kad_onrrnd_zk_archief.getValue(0, "datum_einde_geldh"),
+                "Einddatum eerste record komt niet overeen");
+        assertEquals(datumOntstaan, kad_onrrnd_zk_archief.getValue(0, "dat_beg_geldh"),
+                "Begindatum eerste record komt niet overeen");
 
         brondocument = rsgb.createDataSet().getTable("brondocument");
-        assertEquals("Het aantal brondocument records komt niet overeen", brondocMutatie, brondocument.getRowCount());
+        assertEquals(brondocMutatie, brondocument.getRowCount(),
+                "Het aantal brondocument records komt niet overeen");
     }
 }

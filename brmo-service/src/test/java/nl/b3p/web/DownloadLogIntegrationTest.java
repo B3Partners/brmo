@@ -16,20 +16,22 @@
  */
 package nl.b3p.web;
 
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.methods.RequestBuilder;
 import org.apache.http.util.EntityUtils;
+import org.junit.jupiter.api.Test;
+
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertNotNull;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.assertTrue;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  *
@@ -38,20 +40,15 @@ import org.junit.Test;
 public class DownloadLogIntegrationTest extends WebTestUtil {
 
     /**
-     * onze test response.
-     */
-    private HttpResponse response;
-
-    /**
      * Test login/downloadlog/logout sequentie.
      *
      * @throws IOException mag niet optreden
      * @throws URISyntaxException mag niet optreden
      */
     @Test
-    public void testLoginDownloadLogsLogoutPage() throws IOException, URISyntaxException {
+    public void testLoginDownloadLogsLogoutPage() throws Exception {
         // login
-        response = client.execute(new HttpGet(BASE_TEST_URL));
+        HttpResponse response = client.execute(new HttpGet(BASE_TEST_URL));
         EntityUtils.consume(response.getEntity());
 
         HttpUriRequest login = RequestBuilder.post()
@@ -69,7 +66,7 @@ public class DownloadLogIntegrationTest extends WebTestUtil {
         assertThat("Response status is OK.", response.getStatusLine().getStatusCode(),
                 equalTo(HttpStatus.SC_OK));
         String body = EntityUtils.toString(response.getEntity());
-        assertNotNull("Response body mag niet null zijn.", body);
+        assertNotNull(body, "Response body mag niet null zijn.");
         // System.out.println("\n\n=============== BODY:=================\n" + body + "\n\n");
         // test eerste regel uit de logfile
         assertTrue(body.contains("Quartz scheduler 'BRMOgeplandeTaken' initialized from an externally provided properties instance."));
@@ -79,12 +76,12 @@ public class DownloadLogIntegrationTest extends WebTestUtil {
         body = EntityUtils.toString(response.getEntity());
         assertThat("Response status is OK.", response.getStatusLine().getStatusCode(),
                 equalTo(HttpStatus.SC_OK));
-        assertNotNull("Response body mag niet null zijn.", body);
-        assertTrue("Response moet 'Opnieuw inloggen' tekst hebben.", body.contains("Opnieuw inloggen"));
+        assertNotNull(body, "Response body mag niet null zijn.");
+        assertTrue(body.contains("Opnieuw inloggen"), "Response moet 'Opnieuw inloggen' tekst hebben.");
     }
 
     @Override
-    public void setUp() throws Exception {
+    public void setUp() {
         // void implementatie
     }
 }

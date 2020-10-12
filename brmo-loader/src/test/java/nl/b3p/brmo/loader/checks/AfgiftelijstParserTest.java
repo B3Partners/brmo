@@ -1,21 +1,19 @@
 package nl.b3p.brmo.loader.checks;
 
+import org.junit.jupiter.api.Test;
+
 import java.io.InputStream;
 import java.util.List;
-import org.junit.Test;
-import static org.junit.Assert.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  *
  * @author meine
  */
-
-
 public class AfgiftelijstParserTest {
     
-    public AfgiftelijstParserTest() {
-    }
-
     @Test
     public void testParse() throws Exception {
         System.out.println("parse");
@@ -30,8 +28,6 @@ public class AfgiftelijstParserTest {
             assertEquals("9700005117", afgifte.getContractnummer());
             assertTrue(afgifte.isRapport());
             assertTrue(afgifte.isGeleverd());
-            
         }
     }
-    
 }

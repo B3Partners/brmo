@@ -29,10 +29,9 @@ import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hsqldb.jdbc.JDBCDataSource;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.rules.TestName;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.TestInfo;
 
 /**
  *
@@ -46,23 +45,20 @@ public class TestUtil {
     protected boolean useDB = false;
     
     protected QueryRunner run;
-    
-    @Rule 
-    public TestName testName = new TestName();
 
     /**
      * Log de naam van de test als deze begint.
      */
-    @Before
-    public void startTest() {
-        LOG.info("==== Start test methode: " + testName.getMethodName());
+    @BeforeEach
+    public void startTest(TestInfo testInfo) {
+        LOG.info("==== Start test methode: " + testInfo.getDisplayName());
     }
 
-    @Before
-    public void setUpClass() throws SQLException, IOException {
+    @BeforeEach
+    public void setUpClass(TestInfo testInfo) throws SQLException, IOException {
         if(useDB){
             JDBCDataSource ds = new JDBCDataSource();
-            String testname = testName.getMethodName();
+            String testname = testInfo.getDisplayName();
             long randomizer = System.currentTimeMillis();
             ds.setUrl("jdbc:hsqldb:file:." + File.separator + "target" + File.separator + "unittest-hsqldb" + File.separator + testname + "_" + randomizer + File.separator + "db;shutdown=true");
             datasource = ds;
@@ -74,13 +70,13 @@ public class TestUtil {
             run = new QueryRunner(datasource, gjc.isPmdKnownBroken() );
         }
     }
-    
+
     /**
      * Log de naam van de test als deze eindigt.
      */
-    @After
-    public void endTest() {
-        LOG.info("==== Einde test methode: " + testName.getMethodName());
+    @AfterEach
+    public void endTest(TestInfo testInfo) {
+        LOG.info("==== Einde test methode: " + testInfo.getDisplayName());
     }
     
     private void initDB(String file) throws IOException{
@@ -95,17 +91,11 @@ public class TestUtil {
     
     
     public void executeScript(Reader f) throws IOException, SQLException {
-        Connection conn = null;
 
-        try {            
-            conn = (Connection) datasource.getConnection();
+        try (Connection conn = datasource.getConnection()) {
             ScriptRunner sr = new ScriptRunner(conn, true, true);
             sr.runScript(f);
             conn.commit();
-        } finally {
-            if (conn != null) {
-                conn.close();
-            }
         }
     }
     

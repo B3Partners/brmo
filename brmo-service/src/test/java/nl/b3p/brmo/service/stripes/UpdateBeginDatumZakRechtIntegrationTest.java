@@ -1,21 +1,10 @@
 package nl.b3p.brmo.service.stripes;
 
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.StringReader;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-import javax.servlet.ServletContext;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
 import net.sourceforge.stripes.action.ActionBeanContext;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.service.testutil.TestUtil;
 import nl.b3p.brmo.test.util.database.dbunit.CleanUtil;
 import nl.b3p.loader.jdbc.OracleConnectionUnwrapper;
-import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.dbunit.database.DatabaseConfig;
@@ -30,23 +19,26 @@ import org.dbunit.ext.mssql.MsSqlDataTypeFactory;
 import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 import org.dbunit.operation.DatabaseOperation;
-import org.junit.After;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
-import static org.junit.Assume.assumeTrue;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.when;
+import javax.servlet.ServletContext;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.StringReader;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
+import static org.mockito.Mockito.*;
 
 /**
  * Testcases voor updaten van zak_recht.begind_recht tabel
@@ -76,10 +68,9 @@ public class UpdateBeginDatumZakRechtIntegrationTest extends TestUtil{
     private final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 
     private UpdatesActionBean bean;
-    @Before
+    @BeforeEach
     @Override
     public void setUp() throws Exception {
-        
         // mock de context van de bean
         ServletContext sctx = mock(ServletContext.class);
         ActionBeanContext actx = mock(ActionBeanContext.class);
@@ -87,11 +78,8 @@ public class UpdateBeginDatumZakRechtIntegrationTest extends TestUtil{
         when(bean.getContext()).thenReturn(actx);
         when(actx.getServletContext()).thenReturn(sctx);
 
-        assumeTrue("Het bestand met staging testdata zou moeten bestaan.", UpdateBeginDatumZakRechtIntegrationTest.class.getResource(sBestandsNaam) != null);
-        assumeTrue("Het bestand met rsgb testdata zou moeten bestaan.", UpdateBeginDatumZakRechtIntegrationTest.class.getResource(rBestandsNaam) != null);
-
-
-
+        assumeTrue(UpdateBeginDatumZakRechtIntegrationTest.class.getResource(sBestandsNaam) != null, "Het bestand met staging testdata zou moeten bestaan.");
+        assumeTrue(UpdateBeginDatumZakRechtIntegrationTest.class.getResource(rBestandsNaam) != null, "Het bestand met rsgb testdata zou moeten bestaan.");
 
         rsgb = new DatabaseDataSourceConnection(dsRsgb);
         staging = new DatabaseDataSourceConnection(dsStaging);
@@ -135,12 +123,12 @@ public class UpdateBeginDatumZakRechtIntegrationTest extends TestUtil{
         brmo = new BrmoFramework(dsStaging, dsRsgb);
         brmo.setOrderBerichten(true);
 
-        assumeTrue("Er zijn x RSGB_OK berichten", 1 == brmo.getCountBerichten(null, null, "brk", "RSGB_OK"));
-        assumeTrue("Er zijn x STAGING_OK laadprocessen", 1 == brmo.getCountLaadProcessen(null, null, "brk", "STAGING_OK"));
+        assumeTrue(1 == brmo.getCountBerichten(null, null, "brk", "RSGB_OK"), "Er zijn x RSGB_OK berichten");
+        assumeTrue(1 == brmo.getCountLaadProcessen(null, null, "brk", "STAGING_OK"), "Er zijn x STAGING_OK laadprocessen");
     }
 
     
-    @After
+    @AfterEach
     public void cleanup() throws Exception {
         if (brmo != null) {
             // in geval van niet waar gemaakte assumptions
@@ -168,12 +156,12 @@ public class UpdateBeginDatumZakRechtIntegrationTest extends TestUtil{
     public void runUpdate() throws Exception {
 
         ITable zak_recht = rsgb.createDataSet().getTable("zak_recht");
-        assertEquals("Aantal zakelijk rechten klopt niet", 6, zak_recht.getRowCount());
+        assertEquals(6, zak_recht.getRowCount(), "Aantal zakelijk rechten klopt niet");
         /*
         eerst checken of de datum leeg is, anders klopt de testdata niet
          */
         for (int i = 0; i < 6; i++) {
-            assertNull("Ingangsdatum recht is gevuld", zak_recht.getValue(i, "ingangsdatum_recht"));
+            assertNull(zak_recht.getValue(i, "ingangsdatum_recht"), "Ingangsdatum recht is gevuld");
         }
        
         bean.populateUpdateProcesses();
@@ -181,11 +169,11 @@ public class UpdateBeginDatumZakRechtIntegrationTest extends TestUtil{
         bean.update();
 
         zak_recht = rsgb.createDataSet().getTable("zak_recht");
-        assertEquals("Aantal zakelijk rechten klopt niet", 6, zak_recht.getRowCount());
+        assertEquals(6, zak_recht.getRowCount(), "Aantal zakelijk rechten klopt niet");
 
         for (int i = 0; i < 6; i++) {
-            assertNotNull("Ingangsdatum recht is niet gevuld", zak_recht.getValue(i, "ingangsdatum_recht"));
-            assertNotNull("fk_3avr_aand recht is niet gevuld", zak_recht.getValue(i, "fk_3avr_aand"));
+            assertNotNull(zak_recht.getValue(i, "ingangsdatum_recht"), "Ingangsdatum recht is niet gevuld");
+            assertNotNull(zak_recht.getValue(i, "fk_3avr_aand"), "fk_3avr_aand recht is niet gevuld");
         }
 
         // check of de db_xml ook is bijgewerkt
@@ -198,8 +186,8 @@ public class UpdateBeginDatumZakRechtIntegrationTest extends TestUtil{
                 NodeList zakRechten = doc.getElementsByTagName("zak_recht");
                 for (int z = 0; i < zakRechten.getLength(); i++) {
                     Element zr = (Element) zakRechten.item(z);
-                    assertNotNull("Zakelijk recht heeft geen ingangsdatum", zr.getElementsByTagName("ingangsdatum_recht"));
-                    assertNotNull("Zakelijk recht heeft geen geldige ingangsdatum waarde", zr.getElementsByTagName("ingangsdatum_recht").item(0).getTextContent());
+                    assertNotNull(zr.getElementsByTagName("ingangsdatum_recht"), "Zakelijk recht heeft geen ingangsdatum");
+                    assertNotNull(zr.getElementsByTagName("ingangsdatum_recht").item(0).getTextContent(), "Zakelijk recht heeft geen geldige ingangsdatum waarde");
                 }
             }
         }

@@ -21,18 +21,15 @@ import org.dbunit.dataset.IDataSet;
 import org.dbunit.operation.DatabaseOperation;
 import org.dbunit.ext.mssql.InsertIdentityOperation;
 import org.dbunit.database.DatabaseDataSourceConnection;
-import org.dbunit.dataset.DefaultDataSet;
-import org.dbunit.dataset.DefaultTable;
 import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.ext.mssql.MsSqlDataTypeFactory;
 import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assume.assumeTrue;
+import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assumptions.*;
+
 
 /**
  * testcases voor mantis 6098; incorrecte verwijdering van berichten. Draaien
@@ -45,20 +42,18 @@ import static org.junit.Assume.assumeTrue;
 public class Mantis6098IntegrationTest extends AbstractDatabaseIntegrationTest {
 
     private static final Log LOG = LogFactory.getLog(Mantis6098IntegrationTest.class);
+    private static final long stand = 5521;
+    private static final long mutatie = 458403;
+    private static final long verwijder = 458408;
 
     private BrmoFramework brmo;
-
     private IDatabaseConnection rsgb;
     private IDatabaseConnection staging;
 
     private final Lock sequential = new ReentrantLock();
 
-    private static final long stand = 5521;
-    private static final long mutatie = 458403;
-    private static final long verwijder = 458408;
-
     @Override
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         BasicDataSource dsStaging = new BasicDataSource();
         dsStaging.setUrl(params.getProperty("staging.jdbc.url"));
@@ -106,11 +101,13 @@ public class Mantis6098IntegrationTest extends AbstractDatabaseIntegrationTest {
         brmo = new BrmoFramework(dsStaging, dsRsgb);
         brmo.setOrderBerichten(true);
 
-        assumeTrue("Er zijn 3 STAGING_OK berichten", 3l == brmo.getCountBerichten(null, null, "brk", "STAGING_OK"));
-        assumeTrue("Er zijn 3 STAGING_OK laadprocessen", 3l == brmo.getCountLaadProcessen(null, null, "brk", "STAGING_OK"));
+        assumeTrue(3L == brmo.getCountBerichten(null, null, "brk", "STAGING_OK"),
+                "Er zijn 3 STAGING_OK berichten");
+        assumeTrue(3L == brmo.getCountLaadProcessen(null, null, "brk", "STAGING_OK"),
+                "Er zijn 3 STAGING_OK laadprocessen");
     }
 
-    @After
+    @AfterEach
     public void cleanup() throws Exception {
         brmo.closeBrmoFramework();
 
@@ -133,17 +130,19 @@ public class Mantis6098IntegrationTest extends AbstractDatabaseIntegrationTest {
         Thread t = brmo.toRsgb(RsgbProxy.BerichtSelectMode.BY_IDS, new long[]{stand}, null);
         t.join();
 
-        assertEquals("Twee berichten zijn niet getransformeerd", 2l, brmo.getCountBerichten(null, null, "brk", "STAGING_OK"));
-        assertEquals("Een bericht is OK getransformeerd", 1l, brmo.getCountBerichten(null, null, "brk", "RSGB_OK"));
+        assertEquals(2L, brmo.getCountBerichten(null, null, "brk", "STAGING_OK"),
+                "Twee berichten zijn niet getransformeerd");
+        assertEquals(1L, brmo.getCountBerichten(null, null, "brk", "RSGB_OK"),
+                "Een bericht is OK getransformeerd");
 
         ITable kad_perceel = rsgb.createDataSet().getTable("kad_perceel");
-        assertEquals("Er is 1 perceel geladen", 1, kad_perceel.getRowCount());
+        assertEquals(1, kad_perceel.getRowCount(), "Er is 1 perceel geladen");
 
         ITable kad_onrrnd_zk = rsgb.createDataSet().getTable("kad_perceel");
-        assertEquals("Er is 1 onroerende zaak geladen", 1, kad_onrrnd_zk.getRowCount());
+        assertEquals(1, kad_onrrnd_zk.getRowCount(), "Er is 1 onroerende zaak geladen");
 
         ITable brondocument = rsgb.createDataSet().getTable("brondocument");
-        assertEquals("Er zijn 369 brondocumenten geladen", 369, brondocument.getRowCount());
+        assertEquals(369, brondocument.getRowCount(), "Er zijn 369 brondocumenten geladen");
     }
 
     /**
@@ -156,23 +155,25 @@ public class Mantis6098IntegrationTest extends AbstractDatabaseIntegrationTest {
         Thread t = brmo.toRsgb(RsgbProxy.BerichtSelectMode.BY_IDS, new long[]{stand, mutatie}, null);
         t.join();
 
-        assertEquals("Twee berichten zijn OK getransformeerd", 2l, brmo.getCountBerichten(null, null, "brk", "RSGB_OK"));
-        assertEquals("Een bericht is niet getransformeerd", 1l, brmo.getCountBerichten(null, null, "brk", "STAGING_OK"));
+        assertEquals(2L, brmo.getCountBerichten(null, null, "brk", "RSGB_OK"),
+                "Twee berichten zijn OK getransformeerd");
+        assertEquals(1L, brmo.getCountBerichten(null, null, "brk", "STAGING_OK"),
+                "Een bericht is niet getransformeerd");
 
         ITable kad_perceel = rsgb.createDataSet().getTable("kad_perceel");
-        assertEquals("Er is 1 perceel geladen", 1, kad_perceel.getRowCount());
+        assertEquals(1, kad_perceel.getRowCount(), "Er is 1 perceel geladen");
 
         ITable kad_onrrnd_zk = rsgb.createDataSet().getTable("kad_onrrnd_zk");
-        assertEquals("Er is 1 onroerende zaak geladen", 1, kad_onrrnd_zk.getRowCount());
+        assertEquals(1, kad_onrrnd_zk.getRowCount(), "Er is 1 onroerende zaak geladen");
 
         ITable kad_perceel_archief = rsgb.createDataSet().getTable("kad_perceel_archief");
-        assertEquals("Er is 1 perceel gearchiveerd", 1, kad_perceel_archief.getRowCount());
+        assertEquals(1, kad_perceel_archief.getRowCount(), "Er is 1 perceel gearchiveerd");
 
         ITable kad_onrrnd_zk_archief = rsgb.createDataSet().getTable("kad_onrrnd_zk_archief");
-        assertEquals("Er is 1 onroerende zaak gearchiveerd", 1, kad_onrrnd_zk_archief.getRowCount());
+        assertEquals(1, kad_onrrnd_zk_archief.getRowCount(), "Er is 1 onroerende zaak gearchiveerd");
 
         ITable brondocument = rsgb.createDataSet().getTable("brondocument");
-        assertEquals("Er zijn 369 brondocumenten geladen", 369, brondocument.getRowCount());
+        assertEquals(369, brondocument.getRowCount(), "Er zijn 369 brondocumenten geladen");
     }
 
     /**
@@ -185,16 +186,17 @@ public class Mantis6098IntegrationTest extends AbstractDatabaseIntegrationTest {
         Thread t = brmo.toRsgb();
         t.join();
 
-        assertEquals("Alle berichten zijn OK getransformeerd", 3l, brmo.getCountBerichten(null, null, "brk", "RSGB_OK"));
+        Assertions.assertEquals(3L, brmo.getCountBerichten(null, null, "brk", "RSGB_OK"),
+                "Alle berichten zijn OK getransformeerd");
 
         ITable brondocument = rsgb.createDataSet().getTable("brondocument");
-        assertEquals("Er zijn geen brondocumenten", 0, brondocument.getRowCount());
+        Assertions.assertEquals(0, brondocument.getRowCount(), "Er zijn geen brondocumenten");
 
         ITable kad_perceel = rsgb.createDataSet().getTable("kad_perceel");
-        assertEquals("Er zijn geen actuele percelen", 0, kad_perceel.getRowCount());
+        Assertions.assertEquals(0, kad_perceel.getRowCount(), "Er zijn geen actuele percelen");
 
         ITable kad_onrrnd_zk = rsgb.createDataSet().getTable("kad_onrrnd_zk");
-        assertEquals("Er zijn geen actuele onroerende zaken", 0, kad_onrrnd_zk.getRowCount());
+        Assertions.assertEquals(0, kad_onrrnd_zk.getRowCount(), "Er zijn geen actuele onroerende zaken");
     }
 
     /**
@@ -207,17 +209,19 @@ public class Mantis6098IntegrationTest extends AbstractDatabaseIntegrationTest {
         Thread t = brmo.toRsgb(RsgbProxy.BerichtSelectMode.BY_IDS, new long[]{stand, verwijder}, null);
         t.join();
 
-        assertEquals("Twee berichten zijn OK getransformeerd", 2l, brmo.getCountBerichten(null, null, "brk", "RSGB_OK"));
-        assertEquals("Een bericht is niet getransformeerd", 1l, brmo.getCountBerichten(null, null, "brk", "STAGING_OK"));
+        Assertions.assertEquals(2L, brmo.getCountBerichten(null, null, "brk", "RSGB_OK"),
+                "Twee berichten zijn OK getransformeerd");
+        Assertions.assertEquals(1L, brmo.getCountBerichten(null, null, "brk", "STAGING_OK"),
+                "Een bericht is niet getransformeerd");
 
         ITable kad_perceel = rsgb.createDataSet().getTable("kad_perceel");
-        assertEquals("Er zijn geen actuele percelen", 0, kad_perceel.getRowCount());
+        Assertions.assertEquals(0, kad_perceel.getRowCount(), "Er zijn geen actuele percelen");
 
         ITable kad_onrrnd_zk = rsgb.createDataSet().getTable("kad_onrrnd_zk");
-        assertEquals("Er zijn geen actuele onroerende zaken", 0, kad_onrrnd_zk.getRowCount());
+        Assertions.assertEquals(0, kad_onrrnd_zk.getRowCount(), "Er zijn geen actuele onroerende zaken");
 
         ITable brondocument = rsgb.createDataSet().getTable("brondocument");
-        assertEquals("Er zijn geen brondocumenten", 0, brondocument.getRowCount());
+        Assertions.assertEquals(0, brondocument.getRowCount(), "Er zijn geen brondocumenten");
     }
 
     /**
@@ -231,23 +235,27 @@ public class Mantis6098IntegrationTest extends AbstractDatabaseIntegrationTest {
         Thread t1 = brmo.toRsgb(RsgbProxy.BerichtSelectMode.BY_IDS, new long[]{stand, verwijder}, null);
         t1.join();
 
-        assertEquals("Verwacht 2 berichten zijn OK getransformeerd", 2l, brmo.getCountBerichten(null, null, "brk", "RSGB_OK"));
-        assertEquals("Verwacht 1 bericht is niet getransformeerd", 1l, brmo.getCountBerichten(null, null, "brk", "STAGING_OK"));
+        Assertions.assertEquals(2L, brmo.getCountBerichten(null, null, "brk", "RSGB_OK"),
+                "Verwacht 2 berichten zijn OK getransformeerd");
+        Assertions.assertEquals(1L, brmo.getCountBerichten(null, null, "brk", "STAGING_OK"),
+                "Verwacht 1 bericht is niet getransformeerd");
 
         Thread t2 = brmo.toRsgb(RsgbProxy.BerichtSelectMode.BY_IDS, new long[]{mutatie}, null);
         t2.join();
 
-        assertEquals("Twee berichten zijn OK getransformeerd", 2l, brmo.getCountBerichten(null, null, "brk", "RSGB_OK"));
-        assertEquals("Verwacht 1 bericht is outdated", 1l, brmo.getCountBerichten(null, null, "brk", "RSGB_OUTDATED"));
+        Assertions.assertEquals(2L, brmo.getCountBerichten(null, null, "brk", "RSGB_OK"),
+                "Twee berichten zijn OK getransformeerd");
+        Assertions.assertEquals(1L, brmo.getCountBerichten(null, null, "brk", "RSGB_OUTDATED"),
+                "Verwacht 1 bericht is outdated");
 
         ITable kad_perceel = rsgb.createDataSet().getTable("kad_perceel");
-        assertEquals("Er zijn geen actuele percelen", 0, kad_perceel.getRowCount());
+        Assertions.assertEquals(0, kad_perceel.getRowCount(), "Er zijn geen actuele percelen");
 
         ITable kad_onrrnd_zk = rsgb.createDataSet().getTable("kad_onrrnd_zk");
-        assertEquals("Verwacht geen actuele onroerende zaken", 0, kad_onrrnd_zk.getRowCount());
+        Assertions.assertEquals(0, kad_onrrnd_zk.getRowCount(), "Verwacht geen actuele onroerende zaken");
 
         ITable brondocument = rsgb.createDataSet().getTable("brondocument");
-        assertEquals("Verwacht geen brondocumenten", 0, brondocument.getRowCount());
+        Assertions.assertEquals(0, brondocument.getRowCount(), "Verwacht geen brondocumenten");
     }
 
 }

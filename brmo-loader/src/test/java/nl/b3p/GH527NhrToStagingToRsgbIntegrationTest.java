@@ -18,9 +18,9 @@ import org.dbunit.ext.mssql.MsSqlDataTypeFactory;
 import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 import org.dbunit.operation.DatabaseOperation;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -28,9 +28,9 @@ import java.sql.SQLException;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import static org.junit.Assert.*;
-import static org.junit.Assume.assumeNotNull;
-import static org.junit.Assume.assumeTrue;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assumptions.assumeFalse;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 /**
  * Integratie test om een nhr dataservice soap bericht te laden en te
@@ -52,7 +52,7 @@ public class GH527NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseInte
 
     private final Lock sequential = new ReentrantLock(true);
 
-    @Before
+    @BeforeEach
     @Override
     public void setUp() throws Exception {
         BasicDataSource dsStaging = new BasicDataSource();
@@ -100,11 +100,13 @@ public class GH527NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseInte
 
         DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
 
-        assumeTrue("Er zijn geen STAGING_OK berichten", 0l == brmo.getCountBerichten(null, null, "nhr", "STAGING_OK"));
-        assumeTrue("Er zijn geen STAGING_OK laadprocessen", 0l == brmo.getCountLaadProcessen(null, null, "nhr", "STAGING_OK"));
+        assumeTrue(0l == brmo.getCountBerichten(null, null, "nhr", "STAGING_OK"),
+                "Er zijn geen STAGING_OK berichten");
+        assumeTrue(0l == brmo.getCountLaadProcessen(null, null, "nhr", "STAGING_OK"),
+                "Er zijn geen STAGING_OK laadprocessen");
     }
 
-    @After
+    @AfterEach
     public void cleanup() throws Exception {
         brmo.closeBrmoFramework();
 
@@ -120,16 +122,16 @@ public class GH527NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseInte
     @Test
     public void testNhrXMLToStagingToRsgb() throws Exception {
         final String bestandNaam = "/nhr-v3/33257455,23052007.anon.xml";
-        assumeNotNull("Het test bestand moet er zijn.", GH527NhrToStagingToRsgbIntegrationTest.class.getResource(bestandNaam));
+        assumeFalse(null == GH527NhrToStagingToRsgbIntegrationTest.class.getResource(bestandNaam), "Het test bestand moet er zijn.");
 
         brmo.loadFromFile("nhr", GH527NhrToStagingToRsgbIntegrationTest.class.getResource(bestandNaam).getFile(), null);
         LOG.info("klaar met laden van berichten in staging DB.");
 
         // alleen het eerste bericht heeft br_orgineel_xml, de rest niet
         ITable bericht = staging.createQueryTable("bericht", "select * from bericht where volgordenummer=0");
-        assertEquals("Er zijn meer of minder dan 1 rij", 1, bericht.getRowCount());
+        assertEquals(1, bericht.getRowCount(), "Er zijn meer of minder dan 1 rij");
         LOG.debug("\n\n" + bericht.getValue(0, "br_orgineel_xml") + "\n\n");
-        assertNotNull("BR origineel xml is null", bericht.getValue(0, "br_orgineel_xml"));
+        assertNotNull(bericht.getValue(0, "br_orgineel_xml"), "BR origineel xml is null");
         Object berichtId = bericht.getValue(0, "id");
 
         LOG.info("Transformeren berichten naar rsgb DB.");
@@ -138,9 +140,10 @@ public class GH527NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseInte
 
         // na de verwerking moet soap payload er ook nog zijn
         bericht = staging.createQueryTable("bericht", "select * from bericht where br_orgineel_xml is not null");
-        assertEquals("Er zijn meer of minder dan 1 rij", 1, bericht.getRowCount());
-        assertNotNull("BR origineel xml is null na transformatie", bericht.getValue(0, "br_orgineel_xml"));
-        assertEquals("bericht met br_orgineel_xml moet hetzelfde id hebben na transformatie", berichtId, bericht.getValue(0, "id"));
+        assertEquals(1, bericht.getRowCount(), "Er zijn meer of minder dan 1 rij");
+        assertNotNull(bericht.getValue(0, "br_orgineel_xml"), "BR origineel xml is null na transformatie");
+        assertEquals(berichtId, bericht.getValue(0, "id"),
+                "bericht met br_orgineel_xml moet hetzelfde id hebben na transformatie");
 
         checkWaarde("subject", "clazz");
         checkWaarde("subject", "typering");
@@ -153,7 +156,8 @@ public class GH527NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseInte
         ITable tabel = rsgb.createDataSet().getTable(tabelNaam);
         LOG.info("check " + tabelNaam + ":" + kolom);
         for (int i = 0; i < tabel.getRowCount(); i++) {
-            assertFalse("kolom " + kolom + " van tabel " + tabelNaam + " bevat quote", tabel.getValue(i, kolom).toString().contains("'"));
+            assertFalse(tabel.getValue(i, kolom).toString().contains("'"),
+                    "kolom " + kolom + " van tabel " + tabelNaam + " bevat quote");
         }
     }
 }

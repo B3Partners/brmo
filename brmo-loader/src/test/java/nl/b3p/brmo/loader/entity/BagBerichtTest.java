@@ -4,12 +4,13 @@
 package nl.b3p.brmo.loader.entity;
 
 import nl.b3p.brmo.loader.xml.BagXMLReader;
-import static org.junit.Assert.assertTrue;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.junit.After;
-import org.junit.Test;
-import nl.b3p.AbstractDatabaseIntegrationTest;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  *
@@ -23,10 +24,8 @@ public class BagBerichtTest {
 
     private static final String B1 = "/GH-280/b1.xml";
     private static final String B2 = "/GH-280/b2.xml";
-    //String dt1 = "2016-03-08T16:00:09.000023";
-    //String dt2 = "2016-03-08T16:00:12.000199";
 
-    @After
+    @AfterEach
     public void cleanup() throws Exception {
         bReader = null;
     }
@@ -46,11 +45,9 @@ public class BagBerichtTest {
 
         LOG.debug("bericht 1: " + b1);
         LOG.debug("bericht 2: " + b2);
-        assertTrue("Objecten zijn gelijk",
-                !(b1.getObjectRef().equals(b2.getObjectRef())
+        assertFalse(b1.getObjectRef().equals(b2.getObjectRef())
                 && b1.getDatum().equals(b2.getDatum())
-                && b1.getVolgordeNummer().equals(b2.getVolgordeNummer()))
-        );
+                && b1.getVolgordeNummer().equals(b2.getVolgordeNummer()), "Objecten zijn gelijk");
     }
 
     @Test
@@ -69,10 +66,10 @@ public class BagBerichtTest {
 
         LOG.debug("bericht 1: " + b1);
         LOG.debug("bericht 2: " + b2);
-        assertTrue("Objecten zijn niet gelijk",
+        assertTrue(
                 (b1.getObjectRef().equals(b2.getObjectRef())
                 && b1.getDatum().equals(b2.getDatum())
-                && b1.getVolgordeNummer().equals(b2.getVolgordeNummer()))
-        );
+                && b1.getVolgordeNummer().equals(b2.getVolgordeNummer())),
+                "Objecten zijn niet gelijk");
     }
 }

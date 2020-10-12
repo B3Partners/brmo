@@ -1,6 +1,5 @@
 package nl.b3p.web;
 
-import java.io.IOException;
 import nl.b3p.brmo.service.testutil.TestUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -8,8 +7,10 @@ import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.client.LaxRedirectStrategy;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+
+import java.io.IOException;
 
 /**
  * Integratie test utility klasse om online integratie tests te bouwen welke
@@ -36,7 +37,7 @@ public abstract class WebTestUtil extends TestUtil {
     /**
      * initialize http client.
      */
-    @BeforeClass
+    @BeforeAll
     public static void setUpClass() {
         client = HttpClients.custom()
                 .useSystemProperties()
@@ -51,7 +52,7 @@ public abstract class WebTestUtil extends TestUtil {
      *
      * @throws IOException if any occurs closing the http connection
      */
-    @AfterClass
+    @AfterAll
     public static void tearDownClass() throws IOException {
         client.close();
     }

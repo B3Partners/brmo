@@ -3,10 +3,6 @@
  */
 package nl.b3p;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.test.util.database.dbunit.CleanUtil;
 import nl.b3p.loader.jdbc.OracleConnectionUnwrapper;
@@ -25,20 +21,24 @@ import org.dbunit.ext.mssql.MsSqlDataTypeFactory;
 import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 import org.dbunit.operation.DatabaseOperation;
-import org.junit.After;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assume.assumeTrue;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assumptions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Testcases voor mantis-6380 / GH#332; incorrect verwerken van commanditair
  * vennootschap rechten in mutatie. Draaien met:
  * {@code mvn -Dit.test=Mantis6380IntegrationTest -Dtest.onlyITs=true verify -Poracle > target/oracle.log}
  * voor bijvoorbeeld Oracle of
- * {@code mvn -Dit.test=Mantis6380IntegrationTest -Dtest.onlyITs=true verify -Ppostgresql > target/postgresql.log}.
+ * {@code mvn -Dit.test=Mantis6380IntegrationTest -Dtest.onlyITs=true verify -Ppostgresql -pl brmo-loader > /tmp/postgresql.log}.
  *
  * @author mprins
  */
@@ -47,14 +47,12 @@ public class Mantis6380IntegrationTest extends AbstractDatabaseIntegrationTest {
     private static final Log LOG = LogFactory.getLog(Mantis6380IntegrationTest.class);
 
     private BrmoFramework brmo;
-
     private IDatabaseConnection rsgb;
     private IDatabaseConnection staging;
-
     private final Lock sequential = new ReentrantLock();
 
     @Override
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         BasicDataSource dsStaging = new BasicDataSource();
         dsStaging.setUrl(params.getProperty("staging.jdbc.url"));
@@ -88,7 +86,6 @@ public class Mantis6380IntegrationTest extends AbstractDatabaseIntegrationTest {
         }
 
         IDataSet stagingDataSet = new XmlDataSet(new FileInputStream(new File(Mantis6380IntegrationTest.class.getResource("/mantis6380/staging.xml").toURI())));
-
         sequential.lock();
 
         if (this.isMsSQL) {
@@ -99,11 +96,13 @@ public class Mantis6380IntegrationTest extends AbstractDatabaseIntegrationTest {
         brmo = new BrmoFramework(dsStaging, dsRsgb);
 
         // skip als de bron data er niet is
-        assumeTrue("Er zijn geen 2 STAGING_OK berichten", 2l == brmo.getCountBerichten(null, null, "brk", "STAGING_OK"));
-        assumeTrue("Er zijn geen 2 STAGING_OK laadproces", 2l == brmo.getCountLaadProcessen(null, null, "brk", "STAGING_OK"));
+        Assumptions.assumeTrue(2L == brmo.getCountBerichten(null, null, "brk", "STAGING_OK"),
+                "Er zijn geen 2 STAGING_OK berichten");
+        Assumptions.assumeTrue(2L == brmo.getCountLaadProcessen(null, null, "brk", "STAGING_OK"),
+                "Er zijn geen 2 STAGING_OK laadproces");
     }
 
-    @After
+    @AfterEach
     public void cleanup() throws Exception {
         brmo.closeBrmoFramework();
 
@@ -122,33 +121,38 @@ public class Mantis6380IntegrationTest extends AbstractDatabaseIntegrationTest {
         Thread t = brmo.toRsgb();
         t.join();
 
-        assertEquals("Niet alle berichten zijn OK getransformeerd", 1l, brmo.getCountBerichten(null, null, "brk", "STAGING_OK"));
-        assertEquals("Niet alle berichten zijn OK getransformeerd", 1l, brmo.getCountBerichten(null, null, "brk", "RSGB_OK"));
-        assertEquals("Er zijn berichten met status RSGB_NOK", 0l, brmo.getCountBerichten(null, null, "brk", "RSGB_NOK"));
+        assertEquals(
+                1L, brmo.getCountBerichten(null, null, "brk", "STAGING_OK"),
+                "Niet alle berichten zijn OK getransformeerd");
+        assertEquals(
+                1L, brmo.getCountBerichten(null, null, "brk", "RSGB_OK"), "Niet alle berichten zijn OK getransformeerd");
+        assertEquals(0L, brmo.getCountBerichten(null, null, "brk", "RSGB_NOK"),
+                "Er zijn berichten met status RSGB_NOK");
 
         ITable kad_onrrnd_zk = rsgb.createDataSet().getTable("kad_onrrnd_zk");
-        assertEquals("Aantal actuele onroerende zaken is incorrect", 1, kad_onrrnd_zk.getRowCount());
+        assertEquals(1, kad_onrrnd_zk.getRowCount(), "Aantal actuele onroerende zaken is incorrect");
 
         ITable kad_perceel = rsgb.createDataSet().getTable("kad_perceel");
-        assertEquals("Aantal actuele percelen is incorrect", 1, kad_perceel.getRowCount());
-        assertEquals("Perceel identif is incorrect", "37640054270000", kad_perceel.getValue(0, "sc_kad_identif").toString());
+        assertEquals(1, kad_perceel.getRowCount(), "Aantal actuele percelen is incorrect");
+        assertEquals("37640054270000", kad_perceel.getValue(0, "sc_kad_identif").toString(),
+                "Perceel identif is incorrect");
 
         ITable subject = rsgb.createDataSet().getTable("subject");
-        assertEquals("Aantal subjecten klopt niet", 1, subject.getRowCount());
+        assertEquals(1, subject.getRowCount(), "Aantal subjecten klopt niet");
 
         ITable ingeschr_niet_nat_prs = rsgb.createDataSet().getTable("ingeschr_niet_nat_prs");
-        assertEquals("Aantal ingeschr_niet_nat_prs klopt niet", 1, ingeschr_niet_nat_prs.getRowCount());
+        assertEquals(1, ingeschr_niet_nat_prs.getRowCount(), "Aantal ingeschr_niet_nat_prs klopt niet");
 
         ITable zak_recht = rsgb.createDataSet().getTable("zak_recht");
-        assertEquals("Aantal zakelijke rechten klopt niet", 2, zak_recht.getRowCount());
+        assertEquals(2, zak_recht.getRowCount(), "Aantal zakelijke rechten klopt niet");
         // rij 1
         assertEquals("NL.KAD.Tenaamstelling.AKR1.100000007757634", zak_recht.getValue(0, "kadaster_identif").toString());
         assertEquals("1", zak_recht.getValue(0, "ar_noemer").toString());
         assertEquals("1", zak_recht.getValue(0, "ar_teller").toString());
         // rij 2
         assertEquals("NL.KAD.ZakelijkRecht.AKR1.100000007757634", zak_recht.getValue(1, "kadaster_identif").toString());
-        assertNull("noemer is niet null", zak_recht.getValue(1, "ar_noemer"));
-        assertNull("teller is niet null", zak_recht.getValue(1, "ar_teller"));
+        assertNull(zak_recht.getValue(1, "ar_noemer"), "noemer is niet null");
+        assertNull(zak_recht.getValue(1, "ar_teller"), "teller is niet null");
     }
 
     /**
@@ -162,28 +166,33 @@ public class Mantis6380IntegrationTest extends AbstractDatabaseIntegrationTest {
         Thread t = brmo.toRsgb();
         t.join();
 
-        assertEquals("Niet alle berichten zijn OK getransformeerd", 0l, brmo.getCountBerichten(null, null, "brk", "STAGING_OK"));
-        assertEquals("Niet alle berichten zijn OK getransformeerd", 2l, brmo.getCountBerichten(null, null, "brk", "RSGB_OK"));
-        assertEquals("Er zijn berichten met status RSGB_NOK", 0l, brmo.getCountBerichten(null, null, "brk", "RSGB_NOK"));
+        assertEquals(
+                0L, brmo.getCountBerichten(null, null, "brk", "STAGING_OK"),
+                "Niet alle berichten zijn OK getransformeerd");
+        assertEquals(
+                2L, brmo.getCountBerichten(null, null, "brk", "RSGB_OK"), "Niet alle berichten zijn OK getransformeerd");
+        assertEquals(0L, brmo.getCountBerichten(null, null, "brk", "RSGB_NOK"),
+                "Er zijn berichten met status RSGB_NOK");
 
         ITable brondocument = rsgb.createDataSet().getTable("brondocument");
-        assertTrue("Er zijn geen brondocumenten", brondocument.getRowCount() > 0);
+        assertTrue(brondocument.getRowCount() > 0, "Er zijn geen brondocumenten");
 
         ITable kad_onrrnd_zk = rsgb.createDataSet().getTable("kad_onrrnd_zk");
-        assertEquals("Aantal actuele onroerende zaken is incorrect", 1, kad_onrrnd_zk.getRowCount());
+        assertEquals(1, kad_onrrnd_zk.getRowCount(), "Aantal actuele onroerende zaken is incorrect");
 
         ITable kad_perceel = rsgb.createDataSet().getTable("kad_perceel");
-        assertEquals("Aantal actuele percelen is incorrect", 1, kad_perceel.getRowCount());
-        assertEquals("Perceel identif is incorrect", "37640054270000", kad_perceel.getValue(0, "sc_kad_identif").toString());
+        assertEquals(1, kad_perceel.getRowCount(), "Aantal actuele percelen is incorrect");
+        assertEquals("37640054270000", kad_perceel.getValue(0, "sc_kad_identif").toString(),
+                "Perceel identif is incorrect");
 
         ITable subject = rsgb.createDataSet().getTable("subject");
-        assertEquals("Aantal subjecten klopt niet", 3, subject.getRowCount());
+        assertEquals(3, subject.getRowCount(), "Aantal subjecten klopt niet");
 
         ITable ingeschr_niet_nat_prs = rsgb.createDataSet().getTable("ingeschr_niet_nat_prs");
-        assertEquals("Aantal ingeschr_niet_nat_prs klopt niet", 3, ingeschr_niet_nat_prs.getRowCount());
+        assertEquals(3, ingeschr_niet_nat_prs.getRowCount(), "Aantal ingeschr_niet_nat_prs klopt niet");
 
         ITable zak_recht = rsgb.createDataSet().getTable("zak_recht");
-        assertEquals("Aantal zakelijke rechten klopt niet", 3, zak_recht.getRowCount());
+        assertEquals(3, zak_recht.getRowCount(), "Aantal zakelijke rechten klopt niet");
         // rij 1
         assertEquals("NL.KAD.Tenaamstelling.AKR1.100000012798492", zak_recht.getValue(0, "kadaster_identif").toString());
         assertEquals("6", zak_recht.getValue(0, "ar_teller").toString());
@@ -194,8 +203,8 @@ public class Mantis6380IntegrationTest extends AbstractDatabaseIntegrationTest {
         assertEquals("25", zak_recht.getValue(1, "ar_noemer").toString());
         // rij 3
         assertEquals("NL.KAD.ZakelijkRecht.AKR1.100000007757634", zak_recht.getValue(2, "kadaster_identif").toString());
-        assertNull("teller is niet null", zak_recht.getValue(2, "ar_teller"));
-        assertNull("noemer is niet null", zak_recht.getValue(2, "ar_noemer"));
+        assertNull(zak_recht.getValue(2, "ar_teller"), "teller is niet null");
+        assertNull(zak_recht.getValue(2, "ar_noemer"), "noemer is niet null");
     }
 
     /**
@@ -210,38 +219,48 @@ public class Mantis6380IntegrationTest extends AbstractDatabaseIntegrationTest {
         Thread t = brmo.toRsgb();
         t.join();
 
-        assertEquals("Niet alle berichten zijn OK getransformeerd", 1l, brmo.getCountBerichten(null, null, "brk", "STAGING_OK"));
-        assertEquals("Niet alle berichten zijn OK getransformeerd", 1l, brmo.getCountBerichten(null, null, "brk", "RSGB_OK"));
-        assertEquals("Er zijn berichten met status RSGB_NOK", 0l, brmo.getCountBerichten(null, null, "brk", "RSGB_NOK"));
+        assertEquals(
+                1L, brmo.getCountBerichten(null, null, "brk", "STAGING_OK"),
+                "Niet alle berichten zijn OK getransformeerd");
+        assertEquals(
+                1L, brmo.getCountBerichten(null, null, "brk", "RSGB_OK"), "Niet alle berichten zijn OK getransformeerd");
+        assertEquals(0L, brmo.getCountBerichten(null, null, "brk", "RSGB_NOK"),
+                "Er zijn berichten met status RSGB_NOK");
 
         brmo.setOrderBerichten(true);
         t = brmo.toRsgb();
         t.join();
 
-        assertEquals("Niet alle berichten zijn OK getransformeerd", 0l, brmo.getCountBerichten(null, null, "brk", "STAGING_OK"));
-        assertEquals("Niet alle berichten zijn OK getransformeerd", 2l, brmo.getCountBerichten(null, null, "brk", "RSGB_OK"));
-        assertEquals("Er zijn berichten met status RSGB_NOK", 0l, brmo.getCountBerichten(null, null, "brk", "RSGB_NOK"));
+        assertEquals(
+                0L, brmo.getCountBerichten(null, null, "brk", "STAGING_OK"),
+                "Niet alle berichten zijn OK getransformeerd");
+        assertEquals(
+                2L, brmo.getCountBerichten(null, null, "brk", "RSGB_OK"), "Niet alle berichten zijn OK getransformeerd");
+        assertEquals(0L, brmo.getCountBerichten(null, null, "brk", "RSGB_NOK"),
+                "Er zijn berichten met status RSGB_NOK");
 
         ITable brondocument = rsgb.createDataSet().getTable("brondocument");
-        assertTrue("Er zijn geen brondocumenten", brondocument.getRowCount() > 0);
+        assertTrue(brondocument.getRowCount() > 0, "Er zijn geen brondocumenten");
 
         ITable kad_onrrnd_zk = rsgb.createDataSet().getTable("kad_onrrnd_zk");
-        assertEquals("Aantal actuele onroerende zaken is incorrect", 1, kad_onrrnd_zk.getRowCount());
+        assertEquals(1, kad_onrrnd_zk.getRowCount(), "Aantal actuele onroerende zaken is incorrect");
 
         ITable kad_perceel = rsgb.createDataSet().getTable("kad_perceel");
-        assertEquals("Aantal actuele percelen is incorrect", 1, kad_perceel.getRowCount());
-        assertEquals("Perceel identif is incorrect", "37640054270000", kad_perceel.getValue(0, "sc_kad_identif").toString());
+        assertEquals(1, kad_perceel.getRowCount(), "Aantal actuele percelen is incorrect");
+        assertEquals("37640054270000", kad_perceel.getValue(0, "sc_kad_identif").toString(),
+                "Perceel identif is incorrect");
 
         ITable subject = rsgb.createDataSet().getTable("subject");
-        assertEquals("Aantal subjecten klopt niet", 3, subject.getRowCount());
+        assertEquals(3, subject.getRowCount(), "Aantal subjecten klopt niet");
 
         ITable ingeschr_niet_nat_prs = rsgb.createDataSet().getTable("ingeschr_niet_nat_prs");
-        assertEquals("Aantal ingeschr_niet_nat_prs klopt niet", 3, ingeschr_niet_nat_prs.getRowCount());
+        assertEquals(3, ingeschr_niet_nat_prs.getRowCount(), "Aantal ingeschr_niet_nat_prs klopt niet");
 
         ITable zak_recht = rsgb.createDataSet().getTable("zak_recht");
-        assertEquals("Aantal zakelijke rechten klopt niet", 3, zak_recht.getRowCount());
+        assertEquals(3, zak_recht.getRowCount(), "Aantal zakelijke rechten klopt niet");
         // rij 1
-        assertEquals("NL.KAD.Tenaamstelling.AKR1.100000012798492", zak_recht.getValue(0, "kadaster_identif").toString());
+        assertEquals("NL.KAD.Tenaamstelling.AKR1.100000012798492", zak_recht.getValue(0, "kadaster_identif"
+        ).toString());
         assertEquals("6", zak_recht.getValue(0, "ar_teller").toString());
         assertEquals("25", zak_recht.getValue(0, "ar_noemer").toString());
         // rij 2
@@ -250,78 +269,92 @@ public class Mantis6380IntegrationTest extends AbstractDatabaseIntegrationTest {
         assertEquals("25", zak_recht.getValue(1, "ar_noemer").toString());
         // rij 3
         assertEquals("NL.KAD.ZakelijkRecht.AKR1.100000007757634", zak_recht.getValue(2, "kadaster_identif").toString());
-        assertNull("teller is niet null", zak_recht.getValue(2, "ar_teller"));
-        assertNull("noemer is niet null", zak_recht.getValue(2, "ar_noemer"));
+        assertNull(zak_recht.getValue(2, "ar_teller"), "teller is niet null");
+        assertNull(zak_recht.getValue(2, "ar_noemer"), "noemer is niet null");
     }
 
     /**
      * transformeer eerst stand bericht, verwijder dat dan en transformeer
      * daarna mutatie bericht en test of dat correct is gedaan. Verwacht een
-     * AssertionError omdat het aantal zakelijk rechten dan niet corrrect is
+     * AssertionError omdat het aantal zakelijk rechten dan niet correct is
      * (het oude zakelijk recht wordt niet opgeruimd).
      *
-     * @throws Exception if any
      */
-    @Test(expected = AssertionError.class)
-    public void testTransformDeleteStandDaarnaMutatieBerichten() throws Exception {
-        brmo.setOrderBerichten(false);
-        Thread t = brmo.toRsgb();
-        t.join();
+    @Test
+    public void testTransformDeleteStandDaarnaMutatieBerichten() {
+        assertThrows(AssertionError.class, ()->{
+            brmo.setOrderBerichten(false);
+            Thread t = brmo.toRsgb();
+            t.join();
 
-        assertEquals("Niet alle berichten zijn OK getransformeerd", 1l, brmo.getCountBerichten(null, null, "brk", "STAGING_OK"));
-        assertEquals("Niet alle berichten zijn OK getransformeerd", 1l, brmo.getCountBerichten(null, null, "brk", "RSGB_OK"));
-        assertEquals("Er zijn berichten met status RSGB_NOK", 0l, brmo.getCountBerichten(null, null, "brk", "RSGB_NOK"));
+            assertEquals(
+                    1L, brmo.getCountBerichten(null, null, "brk", "STAGING_OK"),
+                    "Niet alle berichten zijn OK getransformeerd");
+            assertEquals(
+                    1L, brmo.getCountBerichten(null, null, "brk", "RSGB_OK"), "Niet alle berichten zijn OK getransformeerd");
+            assertEquals(0L, brmo.getCountBerichten(null, null, "brk", "RSGB_NOK"),
+                    "Er zijn berichten met status RSGB_NOK");
 
-        // delete stand bericht
-        brmo.delete(1l);
+            // delete stand bericht
+            brmo.delete(1L);
 
-        assertEquals("Niet alle berichten zijn OK getransformeerd", 1l, brmo.getCountBerichten(null, null, "brk", "STAGING_OK"));
-        assertEquals("Niet alle berichten zijn OK getransformeerd", 0l, brmo.getCountBerichten(null, null, "brk", "RSGB_OK"));
-        assertEquals("Er zijn berichten met status RSGB_NOK", 0l, brmo.getCountBerichten(null, null, "brk", "RSGB_NOK"));
+            assertEquals(
+                    1L, brmo.getCountBerichten(null, null, "brk", "STAGING_OK"),
+                    "Niet alle berichten zijn OK getransformeerd");
+            assertEquals(
+                    0L, brmo.getCountBerichten(null, null, "brk", "RSGB_OK"), "Niet alle berichten zijn OK getransformeerd");
+            assertEquals(0L, brmo.getCountBerichten(null, null, "brk", "RSGB_NOK"),
+                    "Er zijn berichten met status RSGB_NOK");
 
-        // transformeer mutatie
-        brmo.setOrderBerichten(true);
-        t = brmo.toRsgb();
-        t.join();
+            // transformeer mutatie
+            brmo.setOrderBerichten(true);
+            t = brmo.toRsgb();
+            t.join();
 
-        assertEquals("Niet alle berichten zijn OK getransformeerd", 0l, brmo.getCountBerichten(null, null, "brk", "STAGING_OK"));
-        assertEquals("Niet alle berichten zijn OK getransformeerd", 1l, brmo.getCountBerichten(null, null, "brk", "RSGB_OK"));
-        assertEquals("Er zijn berichten met status RSGB_NOK", 0l, brmo.getCountBerichten(null, null, "brk", "RSGB_NOK"));
+            assertEquals(
+                    0L, brmo.getCountBerichten(null, null, "brk", "STAGING_OK"),
+                    "Niet alle berichten zijn OK getransformeerd");
+            assertEquals(
+                    1L, brmo.getCountBerichten(null, null, "brk", "RSGB_OK"), "Niet alle berichten zijn OK getransformeerd");
+            assertEquals(0L, brmo.getCountBerichten(null, null, "brk", "RSGB_NOK"),
+                    "Er zijn berichten met status RSGB_NOK");
 
-        ITable brondocument = rsgb.createDataSet().getTable("brondocument");
-        assertTrue("Er zijn geen brondocumenten", brondocument.getRowCount() > 0);
+            ITable brondocument = rsgb.createDataSet().getTable("brondocument");
+            assertTrue(brondocument.getRowCount() > 0, "Er zijn geen brondocumenten");
 
-        ITable kad_onrrnd_zk = rsgb.createDataSet().getTable("kad_onrrnd_zk");
-        assertEquals("Aantal actuele onroerende zaken is incorrect", 1, kad_onrrnd_zk.getRowCount());
+            ITable kad_onrrnd_zk = rsgb.createDataSet().getTable("kad_onrrnd_zk");
+            assertEquals(1, kad_onrrnd_zk.getRowCount(), "Aantal actuele onroerende zaken is incorrect");
 
-        ITable kad_perceel = rsgb.createDataSet().getTable("kad_perceel");
-        assertEquals("Aantal actuele percelen is incorrect", 1, kad_perceel.getRowCount());
-        assertEquals("Perceel identif is incorrect", "37640054270000", kad_perceel.getValue(0, "sc_kad_identif").toString());
+            ITable kad_perceel = rsgb.createDataSet().getTable("kad_perceel");
+            assertEquals(1, kad_perceel.getRowCount(), "Aantal actuele percelen is incorrect");
+            assertEquals("37640054270000", kad_perceel.getValue(0, "sc_kad_identif").toString(),
+                    "Perceel identif is incorrect");
 
-        ITable subject = rsgb.createDataSet().getTable("subject");
-        assertEquals("Aantal subjecten klopt niet", 3, subject.getRowCount());
+            ITable subject = rsgb.createDataSet().getTable("subject");
+            assertEquals(3, subject.getRowCount(), "Aantal subjecten klopt niet");
 
-        ITable ingeschr_niet_nat_prs = rsgb.createDataSet().getTable("ingeschr_niet_nat_prs");
-        assertEquals("Aantal ingeschr_niet_nat_prs klopt niet", 3, ingeschr_niet_nat_prs.getRowCount());
+            ITable ingeschr_niet_nat_prs = rsgb.createDataSet().getTable("ingeschr_niet_nat_prs");
+            assertEquals(3, ingeschr_niet_nat_prs.getRowCount(), "Aantal ingeschr_niet_nat_prs klopt niet");
 
-        ITable zak_recht = rsgb.createDataSet().getTable("zak_recht");
+            ITable zak_recht = rsgb.createDataSet().getTable("zak_recht");
 
-        // fail (met AssertionError), want als het stand bericht is verdwenen is er geen mogelijkheid meer om 
-        // te achterhalen wat opgeruimd moet worden en wordt de mutatie als stand/nieuw object verwerkt.
-        // De oude rechten blijven dan aanwezig - dus 3 + 1 oude
-        assertEquals("Aantal zakelijke rechten klopt niet", 3, zak_recht.getRowCount());
+            // fail (met AssertionError), want als het stand bericht is verdwenen is er geen mogelijkheid meer om
+            // te achterhalen wat opgeruimd moet worden en wordt de mutatie als stand/nieuw object verwerkt.
+            // De oude rechten blijven dan aanwezig - dus 3 + 1 oude
+            assertEquals(3, zak_recht.getRowCount(), "Aantal zakelijke rechten klopt niet");
 
-        // rij 1
-        assertEquals("NL.KAD.Tenaamstelling.AKR1.100000012798492", zak_recht.getValue(0, "kadaster_identif").toString());
-        assertEquals("6", zak_recht.getValue(0, "ar_teller").toString());
-        assertEquals("25", zak_recht.getValue(0, "ar_noemer").toString());
-        // rij 2
-        assertEquals("NL.KAD.Tenaamstelling.AKR1.100000012798558", zak_recht.getValue(1, "kadaster_identif").toString());
-        assertEquals("19", zak_recht.getValue(1, "ar_teller").toString());
-        assertEquals("25", zak_recht.getValue(1, "ar_noemer").toString());
-        // rij 3
-        assertEquals("NL.KAD.ZakelijkRecht.AKR1.100000007757634", zak_recht.getValue(2, "kadaster_identif").toString());
-        assertNull("teller is niet null", zak_recht.getValue(2, "ar_teller"));
-        assertNull("noemer is niet null", zak_recht.getValue(2, "ar_noemer"));
+            // rij 1
+            assertEquals("NL.KAD.Tenaamstelling.AKR1.100000012798492", zak_recht.getValue(0, "kadaster_identif").toString());
+            assertEquals("6", zak_recht.getValue(0, "ar_teller").toString());
+            assertEquals("25", zak_recht.getValue(0, "ar_noemer").toString());
+            // rij 2
+            assertEquals("NL.KAD.Tenaamstelling.AKR1.100000012798558", zak_recht.getValue(1, "kadaster_identif").toString());
+            assertEquals("19", zak_recht.getValue(1, "ar_teller").toString());
+            assertEquals("25", zak_recht.getValue(1, "ar_noemer").toString());
+            // rij 3
+            assertEquals("NL.KAD.ZakelijkRecht.AKR1.100000007757634", zak_recht.getValue(2, "kadaster_identif").toString());
+            assertNull(zak_recht.getValue(2, "ar_teller"), "teller is niet null");
+            assertNull(zak_recht.getValue(2, "ar_noemer"), "noemer is niet null");
+        });
     }
 }

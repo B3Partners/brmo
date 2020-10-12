@@ -12,10 +12,10 @@ import org.dbunit.dataset.ITable;
 import org.dbunit.ext.mssql.MsSqlDataTypeFactory;
 import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -24,8 +24,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
-import static org.junit.Assert.*;
-import static org.junit.Assume.assumeNotNull;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assumptions.assumeFalse;
 
 /**
  * test of database versie klopt en of alle materialized views er zijn.
@@ -61,7 +61,7 @@ public class MaterializedViewsTest {
     /**
      * init versienummer.
      */
-    @BeforeClass
+    @BeforeAll
     public static void getEnvironment() {
         currentVersion = System.getProperty("project.version");
         LOG.debug("Werkversie is: " + currentVersion);
@@ -71,12 +71,12 @@ public class MaterializedViewsTest {
      * test of de database properties zijn aangegeven, zo niet dan skippen we
      * alle tests in deze test.
      */
-    @BeforeClass
+    @BeforeAll
     public static void checkDatabaseIsProvided() {
-        assumeNotNull("Verwacht database omgeving te zijn aangegeven.", System.getProperty("database.properties.file"));
+        assumeFalse(System.getProperty("database.properties.file")==null, "Verwacht database omgeving te zijn aangegeven.");
     }
 
-    @Before
+    @BeforeEach
     public void setUpDB() throws Exception {
         this.loadProps();
         ds = new BasicDataSource();
@@ -100,7 +100,7 @@ public class MaterializedViewsTest {
 
     }
 
-    @After
+    @AfterEach
     public void cleanup() throws SQLException {
         db.close();
         ds.close();
@@ -116,7 +116,7 @@ public class MaterializedViewsTest {
     public void testCurrentVersion() throws SQLException, DataSetException {
         ITable metadata = db.createTable("brmo_metadata");
         int rowCount = metadata.getRowCount();
-        assertTrue("Verwacht tenminste 1 records.", (rowCount >= 1));
+        assertTrue((rowCount >= 1), "Verwacht tenminste 1 records.");
 
         boolean foundVersion = false;
         String waarde, naam;
@@ -125,11 +125,11 @@ public class MaterializedViewsTest {
             naam = (String) metadata.getValue(i, "naam");
             LOG.debug(String.format("rsgb metadata tabel record: %d: naam: %s, waarde: %s", i, naam, waarde));
             if ("brmoversie".equalsIgnoreCase(naam)) {
-                assertEquals("BRMO versinummer klopt niet", currentVersion, waarde);
+                assertEquals(currentVersion, waarde, "BRMO versinummer klopt niet");
                 foundVersion = true;
             }
         }
-        assertTrue("Geen versienummer gevonden voor rsgb", foundVersion);
+        assertTrue(foundVersion, "Geen versienummer gevonden voor rsgb");
     }
 
     /**
@@ -140,11 +140,11 @@ public class MaterializedViewsTest {
     @Test
     public void testBasisMViews() throws SQLException {
         List<String> viewsFound = ViewUtils.listAllMaterializedViews(ds);
-        assertNotNull("Geen materialized views gevonden", viewsFound);
+        assertNotNull(viewsFound, "Geen materialized views gevonden");
 
         if (isMsSQL) {
             // geen m-views in mssql
-            assertTrue("Gek! sqlserver heeft materialized views", viewsFound.isEmpty());
+            assertTrue(viewsFound.isEmpty(), "Gek! sqlserver heeft materialized views");
         } else {
             List<String> views = Arrays.asList(
                     // bag
@@ -170,7 +170,7 @@ public class MaterializedViewsTest {
             views.replaceAll(String::toLowerCase);
             Collections.sort(viewsFound);
             Collections.sort(views);
-            assertEquals("lijsten met materialized views zijn ongelijk", views, viewsFound);
+            assertEquals(views, viewsFound, "lijsten met materialized views zijn ongelijk");
         }
     }
 
@@ -196,7 +196,7 @@ public class MaterializedViewsTest {
         isPostgis = "postgis".equalsIgnoreCase(params.getProperty("dbtype"));
 
         try {
-            Class stagingDriverClass = Class.forName(params.getProperty("jdbc.driverClassName"));
+            Class.forName(params.getProperty("jdbc.driverClassName"));
         } catch (ClassNotFoundException ex) {
             LOG.error("Database driver niet gevonden.", ex);
         }

@@ -3,28 +3,11 @@
  */
 package nl.b3p.brmo.soap.db;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.GregorianCalendar;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-import javax.xml.datatype.DatatypeFactory;
-import javax.xml.datatype.XMLGregorianCalendar;
-import nl.b3p.brmo.soap.eigendom.Document;
-import nl.b3p.brmo.soap.eigendom.EigendomMutatie;
-import nl.b3p.brmo.soap.eigendom.EigendomMutatieRequest;
-import nl.b3p.brmo.soap.eigendom.EigendomMutatieResponse;
-import nl.b3p.brmo.soap.eigendom.MutatieEntry;
-import nl.b3p.brmo.soap.eigendom.MutatieListRequest;
-import nl.b3p.brmo.soap.eigendom.MutatieListResponse;
+import nl.b3p.brmo.soap.eigendom.*;
 import nl.b3p.brmo.test.util.database.dbunit.CleanUtil;
 import org.dbunit.database.DatabaseConfig;
-import org.dbunit.database.DatabaseDataSourceConnection;
 import org.dbunit.database.DatabaseConnection;
+import org.dbunit.database.DatabaseDataSourceConnection;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
@@ -34,60 +17,46 @@ import org.dbunit.ext.mssql.MsSqlDataTypeFactory;
 import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 import org.dbunit.operation.DatabaseOperation;
-import org.junit.After;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
 
 /**
- *
  * Draaien met:
  * {@code mvn -Dit.test=EigendomInfoIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql > target/postgresql.log}
  * voor bijvoorbeeld PostgreSQL.
  *
  * @author mprins
  */
-@RunWith(Parameterized.class)
 public class EigendomInfoIntegrationTest extends TestUtil {
 
-    @Parameterized.Parameters(name = "{index}: laden bestand: {0} en bestand {4}")
-    public static Collection params() {
-        return Arrays.asList(new Object[][]{
-            // {"rBestandsNaam", "objNamespace", "kadId", aantalBronDoc, "sBestandsNaam", "volgordeNummer"},
-            {"/rsgb.xml", "NL.KAD.OnroerendeZaak", "66860489870000", 3, "/staging-flat.xml", "0"}
-        });
-    }
-
-    private IDatabaseConnection rsgb;
-    private IDatabaseConnection staging;
 
     private final Lock sequential = new ReentrantLock(true);
-
     /*
      * test parameters.
      */
-    private final String rBestandsNaam;
-    private final String objNamespace;
-    private final String objId;
-    private final int aantalBronDoc;
-    private final String sBestandsNaam;
-    private final String volgordeNummer;
+    private final String rBestandsNaam = "/rsgb.xml";
+    private final String objNamespace = "NL.KAD.OnroerendeZaak";
+    private final String objId = "66860489870000";
+    private final int aantalBronDoc = 3;
+    private final String sBestandsNaam = "/staging-flat.xml";
+    private final String volgordeNummer = "0";
+    private IDatabaseConnection rsgb;
+    private IDatabaseConnection staging;
 
-    public EigendomInfoIntegrationTest(final String rBestandsNaam, final String objNamespace, final String objId,
-            final int aantalBronDoc, final String sBestandsNaam, final String volgordeNummer) {
-
-        this.rBestandsNaam = rBestandsNaam;
-        this.objNamespace = objNamespace;
-        this.objId = objId;
-        this.aantalBronDoc = aantalBronDoc;
-        this.sBestandsNaam = sBestandsNaam;
-        this.volgordeNummer = volgordeNummer;
-    }
-
-    @Before
+    @BeforeEach
     @Override
     public void setUp() throws Exception {
         rsgb = new DatabaseDataSourceConnection(this.dsRsgb);
@@ -120,7 +89,7 @@ public class EigendomInfoIntegrationTest extends TestUtil {
 
         sequential.lock();
 
-        if(this.isMsSQL){
+        if (this.isMsSQL) {
             InsertIdentityOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
         } else {
             DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
@@ -129,7 +98,7 @@ public class EigendomInfoIntegrationTest extends TestUtil {
         refreshMViews(new String[]{"mb_util_app_re_kad_perceel"}, this.dsRsgb);
     }
 
-    @After
+    @AfterEach
     public void cleanup() throws Exception {
         CleanUtil.cleanRSGB_BRK(rsgb, true);
         CleanUtil.cleanSTAGING(staging, false);
@@ -157,13 +126,13 @@ public class EigendomInfoIntegrationTest extends TestUtil {
         EigendomMutatieResponse response = EigendomInfo.createEigendomMutatieResponse(context);
         List<EigendomMutatie> mutaties = response.getEigendomMutatie();
 
-        assertFalse(mutaties.isEmpty());
+        Assertions.assertFalse(mutaties.isEmpty());
         EigendomMutatie mutatie = mutaties.get(0);
-        assertEquals(objId, mutatie.getIdentificatienummer());
+        Assertions.assertEquals(objId, mutatie.getIdentificatienummer());
 
         List<Document> documenten = mutatie.getBrondocumenten().getDocument();
-        assertFalse(documenten.isEmpty());
-        assertEquals(aantalBronDoc, documenten.size());
+        Assertions.assertFalse(documenten.isEmpty());
+        Assertions.assertEquals(aantalBronDoc, documenten.size());
     }
 
     /**
@@ -189,10 +158,10 @@ public class EigendomInfoIntegrationTest extends TestUtil {
         Map<String, Object> context = EigendomInfo.createMutatieListContext(request);
         MutatieListResponse response = EigendomInfo.createMutatieListResponse(context);
         List<MutatieEntry> mutatieentries = response.getMutatieEntry();
-        assertFalse(mutatieentries.isEmpty());
+        Assertions.assertFalse(mutatieentries.isEmpty());
 
         MutatieEntry mutatieentry = mutatieentries.get(0);
-        assertEquals(objNamespace + ":" + objId, mutatieentry.getObjectRef());
-        assertEquals(volgordeNummer, mutatieentry.getVolgnummer());
+        Assertions.assertEquals(objNamespace + ":" + objId, mutatieentry.getObjectRef());
+        Assertions.assertEquals(volgordeNummer, mutatieentry.getVolgnummer());
     }
 }
