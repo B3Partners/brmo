@@ -1,6 +1,6 @@
 language: java
 os: linux
-
+dist: xenial
 env:
   global:
     - MVN_VERSION="3.6.3"
@@ -22,24 +22,35 @@ jobs:
   fast_finish: true
   allow_failures:
     # vanwege build timeout (soms)
-    - name: "MS SQL server 2019"
+    # - name: "MS SQL server 2019"
+    # omdat het nieuwer dan nieuw is
+    - name: "PostgreSQL 13"
   include:
       # https://www.postgresql.org/support/versioning/
     - name: "PostgreSQL 9.5 (oudste)"
       env: POSTGRESQL_VERSION="9.5" POSTGIS_VERSION="2.4" PROFILE="postgresql" MVN_ARGS="-Dtest.persistence.unit=brmo.persistence.postgresql"
       jdk: openjdk8
+      dist: xenial
     - name: "PostgreSQL 9.6"
       env: POSTGRESQL_VERSION="9.6" POSTGIS_VERSION="2.5" PROFILE="postgresql" MVN_ARGS="-Dtest.persistence.unit=brmo.persistence.postgresql"
       jdk: openjdk8
+      dist: xenial
     - name: "PostgreSQL 10"
       env: POSTGRESQL_VERSION="10" POSTGIS_VERSION="2.5" PROFILE="postgresql" MVN_ARGS="-Dtest.persistence.unit=brmo.persistence.postgresql"
       jdk: openjdk8
+      dist: xenial
     - name: "PostgreSQL 11"
       env: POSTGRESQL_VERSION="11" POSTGIS_VERSION="2.5" PROFILE="postgresql" MVN_ARGS="-Dtest.persistence.unit=brmo.persistence.postgresql"
       jdk: openjdk11
+      dist: bionic
     - name: "PostgreSQL 12"
       env: POSTGRESQL_VERSION="12" POSTGIS_VERSION="3" PROFILE="postgresql" MVN_ARGS="-Dtest.persistence.unit=brmo.persistence.postgresql"
       jdk: openjdk11
+      dist: focal
+    - name: "PostgreSQL 13"
+      env: POSTGRESQL_VERSION="13" POSTGIS_VERSION="3" PROFILE="postgresql" MVN_ARGS="-Dtest.persistence.unit=brmo.persistence.postgresql"
+      jdk: openjdk11
+      dist: focal
     - name: "database upgrades"
       jdk: openjdk8
       env: POSTGRESQL_VERSION="11" POSTGIS_VERSION="2.5" PROFILE="postgresql" MVN_ARGS="-Ddatabase.upgrade=true -Dit.test=!TopNLIntegrationTest"
@@ -56,7 +67,7 @@ jobs:
       env: MSSQL_VERSION="2017" POSTGRESQL_VERSION="" POSTGIS_VERSION="" PROFILE="mssql" MVN_ARGS="-Dmssql.instancename='' -Dit.test=!TopNLIntegrationTest"
     - name: "MS SQL server 2019"
       jdk: openjdk11
-      dist: xenial
+      dist: bionic
       env: MSSQL_VERSION="2019" POSTGRESQL_VERSION="" POSTGIS_VERSION="" PROFILE="mssql" MVN_ARGS="-Dmssql.instancename='' -Dtest.persistence.unit=brmo.persistence.microsoftsqlserver -Dit.test=!TopNLIntegrationTest" BRMO_LOADER_ITEST="false"
     - name: "JavaDoc"
       jdk: openjdk8
@@ -86,9 +97,13 @@ before_install:
   # installeer postgresql of mssql
   - if [ "$PROFILE" == "postgresql" ]; then
        sudo apt-get --purge remove postgresql* -y;
-       sudo rm -rf /etc/postgresql/
-       sudo rm /etc/init.d/postgresql
-       sudo rm /lib/systemd/system/postgresql.service
+       sudo rm -rf /etc/postgresql/;
+       sudo rm /etc/init.d/postgresql;
+       sudo rm /lib/systemd/system/postgresql.service;
+       sudo apt-get install curl ca-certificates gnupg;
+       curl https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -;
+       sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list';
+       sudo apt-get update;
        sudo apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests postgresql-$POSTGRESQL_VERSION postgresql-client-$POSTGRESQL_VERSION postgresql-common;
        sudo apt-get install -y --allow-unauthenticated postgresql-$POSTGRESQL_VERSION-postgis-$POSTGIS_VERSION postgresql-$POSTGRESQL_VERSION-postgis-$POSTGIS_VERSION-scripts postgis;
        sudo pg_dropcluster --stop $POSTGRESQL_VERSION main;
