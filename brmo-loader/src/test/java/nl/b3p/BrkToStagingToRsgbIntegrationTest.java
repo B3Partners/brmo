@@ -42,8 +42,10 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 /**
  *
  * Draaien met:
- * {@code mvn -Dit.test=BrkToStagingToRsgbIntegrationTest -Dtest.onlyITs=true verify -Pmssql -pl brmo-loader > target/mssql.log}
- * voor bijvoorbeeld MSSQL.
+ * {@code mvn -Dit.test=BrkToStagingToRsgbIntegrationTest -Dtest.onlyITs=true verify -Pmssql -pl brmo-loader > /tmp/mssql.log}
+ * voor bijvoorbeeld MSSQL of
+ * {@code mvn -Dit.test=BrkToStagingToRsgbIntegrationTest -Dtest.onlyITs=true verify -Poracle -pl brmo-loader > /tmp/oracle.log}
+ * voor Oracle.
  *
  * @author Boy de Wit
  * @author mprins
@@ -55,17 +57,15 @@ public class BrkToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
     static Stream<Arguments> argumentsProvider() {
         return Stream.of(
                 // {"type","filename", aantalBerichten, aantalProcessen, "datumEersteMutatie"},
-                arguments("brk", "/nl/b3p/brmo/loader/xml/MUTBX01-ASN00T1660-20091119-1-singleline.xml", 1, 1,
-                        "2009-11-19"),
-                // mislukt op SQL server met melding mbt ongeldige geom
+                arguments("brk", "/nl/b3p/brmo/loader/xml/MUTBX01-ASN00T1660-20091119-1-singleline.xml", 1, 1, "2009-11-19"),
                 arguments("brk", "/nl/b3p/brmo/loader/xml/BURBX01-ASN00-AA331-big-geom.xml", 1, 1, "2009-10-31"),
                 /* dit bestand zit in de DVD Proefbestanden BRK Levering oktober 2012 (Totaalstanden)
                  * /mnt/v_b3p_projecten/BRMO/BRK/BRK_STUF_IMKAD/BRK/Levering(dvd)/Proefbestanden BRK Levering oktober
                  * 2012 (Totaalstanden)/20091130/ en staat op de git-ignore lijst omdat 't 18.5MB groot is, `grep -o KadastraalObjectSnapshot BURBX01.xml | wc -w`/2 geeft aantal berichten
                  */
-                arguments("brk", "/nl/b3p/brmo/loader/xml/BURBX01-ASN00-20091130-6000015280-9100000039.zip",
-                        (63104 / 2), 1, "2009-10-31")
-                );
+                // arguments("brk", "/nl/b3p/brmo/loader/xml/BURBX01-ASN00-20091130-6000015280-9100000039.zip", (63104 / 2), 1, "2009-10-31"),
+                arguments("brk", "/nl/b3p/brmo/loader/xml/BURBX01-ASN00-AA513.xml", 1, 1, "2009-10-31")
+            );
     }
 
     private BrmoFramework brmo;
@@ -129,7 +129,7 @@ public class BrkToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
     public void cleanup() throws Exception {
         brmo.closeBrmoFramework();
 
-        // CleanUtil.cleanSTAGING(staging, false);
+        CleanUtil.cleanSTAGING(staging, false);
         staging.close();
 
         CleanUtil.cleanRSGB_BRK(rsgb, true);
@@ -139,7 +139,7 @@ public class BrkToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
     }
 
     @DisplayName("BRK XML in staging")
-    @ParameterizedTest(name = "{index}: type: {0}, bestand: {1}, mutatiedatum: {4}")
+    @ParameterizedTest(name = "testBrkXMLToStaging #{index}: type: {0}, bestand: {1}, mutatiedatum: {4}")
     @MethodSource("argumentsProvider")
     public void testBrkXMLToStaging(String bestandType, String bestandNaam, long aantalBerichten, long aantalProcessen, String datumEersteMutatie) throws Exception {
         assumeFalse(null == BrkToStagingToRsgbIntegrationTest.class.getResource(bestandNaam), "Het test bestand moet er zijn.");

@@ -59,11 +59,9 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 /**
- * {@code mvn -Dit.test=AfgifteNummerScannerIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql -pl brmo-service
- * > /tmp/mvn.log}
+ * {@code mvn -Dit.test=AfgifteNummerScannerIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql -pl brmo-service > /tmp/mvn.log}
  * of
- * {@code mvn -Dit.test=AfgifteNummerScannerIntegrationTest -Dtest.onlyITs=true verify -Poracle -pl brmo-service >
- * /tmp/mvn.log}
+ * {@code mvn -Dit.test=AfgifteNummerScannerIntegrationTest -Dtest.onlyITs=true verify -Poracle -pl brmo-service > /tmp/mvn.log}
  *
  * @author mprins
  */
@@ -183,7 +181,8 @@ public class AfgifteNummerScannerIntegrationTest extends TestUtil {
         if (staging != null) {
             CleanUtil.cleanSTAGING(staging, true);
             staging.close();
-            dsStaging.close();
+            // gebeurt na alfloop van alle test in superklasse
+            // dsStaging.close();
         }
         try {
             sequential.unlock();

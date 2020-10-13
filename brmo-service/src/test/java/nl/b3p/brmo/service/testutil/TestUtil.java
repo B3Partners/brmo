@@ -3,25 +3,31 @@
  */
 package nl.b3p.brmo.service.testutil;
 
-import org.apache.commons.dbcp.BasicDataSource;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.junit.jupiter.api.*;
+import static java.lang.System.getProperty;
+import static org.junit.jupiter.api.Assumptions.assumeFalse;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Properties;
-
-import static java.lang.System.getProperty;
-import static org.junit.jupiter.api.Assumptions.assumeFalse;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import org.apache.commons.dbcp.BasicDataSource;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.TestInfo;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestInstance.Lifecycle;
 
 /**
  *
  * @author mprins
  */
+@TestInstance(Lifecycle.PER_CLASS)
 public abstract class TestUtil {
 
     protected static boolean haveSetupJNDI = false;
@@ -153,10 +159,16 @@ public abstract class TestUtil {
 
     @AfterAll
     public void closeConnections() throws SQLException {
-        // JNDI connecties wel sluiten!
-        dsStaging.close();
-        dsRsgb.close();
-        dsRsgbBgt.close();
+        // JNDI connecties wel sluiten! een ds kan null zijn als subklasse de #loadDBprop override
+        if (dsStaging != null) {
+            dsStaging.close();
+        }
+        if (dsRsgb != null) {
+            dsRsgb.close();
+        }
+        if (dsRsgbBgt != null) {
+            dsRsgbBgt.close();
+        }
         haveSetupJNDI = false;
     }
 
