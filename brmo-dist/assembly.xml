@@ -73,6 +73,7 @@
                 <include>jakarta.activation:jakarta.activation-api</include>
                 <include>jakarta.mail:jakarta.mail-api</include>
                 <include>jakarta.xml.bind:jakarta.xml.bind-api</include>
+                <include>com.sun.xml.bind:jaxb-impl</include>
                 <include>org.glassfish.jaxb:jaxb-runtime</include>
             </includes>
             <outputFileNameMapping>${artifact.artifactId}-${artifact.version}.${artifact.extension}</outputFileNameMapping>
