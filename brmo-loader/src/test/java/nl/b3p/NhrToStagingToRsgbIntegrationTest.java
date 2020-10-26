@@ -63,36 +63,37 @@ public class NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
                 // {"filename", aantalBerichten, aantalProcessen, aantalPrs, aantalSubj, aantalNiet_nat_prs,
                 // aantalNat_prs, hoofd vestgID, aantalVestg_activiteit, kvkNummer v MaatschAct, sbiCodes,
                 // aantalFunctionarissen},
+                // #1
                 arguments("/mantis10752/52019667.xml", 2, 1, 1,/*subj*/ 2, 1, 0, "nhr.comVestg.000021991235", 1,
                         52019667, new String[]{"86912"}, 0),
-                /*Verhoef ortho*/
+                /* #2 Verhoef ortho*/
                 arguments("/nhr-v3/52019667.anon.xml", 2, 1, 1,/*subj*/ 2, 1, 0, "nhr.comVestg.000021991235", 1,
                         52019667, new String[]{"86912"}, 0),
-                /*dactari*/
+                /* #3 dactari*/
                 arguments("/nhr-v3/16029104.anon.xml", 3, 1, 2 + 6, /*subj*/ 3 + 6, 2, 0 + 6,
                         "nhr.comVestg.000002706229", 1, 16029104, new String[]{"7500"}, 6),
-                /*b3p*/
+                /* #4 b3p*/
                 arguments("/nhr-v3/34122633,32076598.anon.xml", 3, 1, 2 + 1, /*subj*/ 3 + 1, 2 + 1, 0,
                         "nhr.comVestg.000019315708", 1, 34122633, new String[]{"6202"}, 1),
-                /*vereniging ukc*/
+                /* #5 vereniging ukc*/
                 arguments("/nhr-v3/40480283.anon.xml", 2, 1, 2 + 4, /*subj*/ 2 + 4, 2, 0 + 4, null, 0, 40480283,
                         new String[]{"93152"}, 4),
-                /*stichting utr landsch*/
+                /* #6 stichting utr landsch*/
                 arguments("/nhr-v3/41177576.anon.xml", 2, 1, 2 + 12, /*subj*/ 2 + 12, 2, 0 + 12, null, 0, 41177576,
                         new String[]{"91042", "0161", "0150"}, 12),
-                /*stichting geo*/
+                /* #7 stichting geo*/
                 arguments("/nhr-v3/32122905.anon.xml", 2, 1, 2 + 4, /*subj*/ 2 + 4, 2, 0 + 4, null, 0, 32122905,
                         new String[]{"7112"}, 4),
-                /* min EZ. (nietCommercieleVestiging) */
+                /* #8 min EZ. (nietCommercieleVestiging) */
                 arguments("/nhr-v3/52813150.anon.xml",
                         1/*rechtspers*/ + 1/*maatsch act.*/ + 1/*hfd vestg*/ + 7/*neven vestg*/, 1, 2, 3 + 7/*subj*/, 2,
                         0, "nhr.nietComVestg.000022724362", 1 + 7, 52813150,
                         new String[]{"8411", "8411", "8411", "8411", "8411", "8411", "8411", "8411"}, 0),
-                /*sbb*/
+                /* #9 sbb*/
                 arguments("/nhr-v3/30263544.anon.xml",
                         1/*rechtspers*/ + 1/*maatsch act.*/ + 1/*hfd vestg*/ + 13/*neven vestg*/, 1, 2, 3 + 13/*subj*/,
                         2, 0, "nhr.comVestg.000012461547", 1 + 13, 30263544, new String[]{"91042"}, 0),
-                // apart geval 1 functionaris heef 2 rollen: issue #521
+                // #10 apart geval 1 functionaris heef 2 rollen: issue #521
                 arguments("/nhr-v3/33257455,23052007.anon.xml",
                         1/*rechtspers*/ + 1/*maatsch act.*/ + 1/*hfd vestg*/ + 8/*neven vestg*/, 1, 12, 13 + 8/*subj*/,
                         3, 9, "nhr.comVestg.000019483104", 45, 33257455,
@@ -174,8 +175,8 @@ public class NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
         sequential.unlock();
     }
 
-    @DisplayName("XXXXXXXXXX")
-    @ParameterizedTest(name = "{index}: bestand: {0}")
+    @DisplayName("NHR to STAGING to RSGB")
+    @ParameterizedTest(name = "case #{index}: bestand: {0}")
     @MethodSource("argumentsProvider")
     public void testNhrXMLToStagingToRsgb(String bestandNaam, long aantalBerichten, long aantalProcessen,
                                           long aantalPrs, long aantalSubj, long aantalNiet_nat_prs, long aantalNat_prs, String vestgID,

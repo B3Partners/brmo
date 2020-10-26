@@ -157,7 +157,7 @@ public class TopNLIntegrationTest extends AbstractDatabaseIntegrationTest {
     }
 
     @DisplayName("TopNL in Staging")
-    @ParameterizedTest(name = "argumenten rij {index}: type: {0}, bestand: {1}, gebied: {4}")
+    @ParameterizedTest(name = "argumenten #{index}: type: {0}, bestand: {1}, gebied: {4}")
     @MethodSource("argumentsProvider")
     public void loadTopNLInStaging(TopNLType bestandType, String bestandNaam, long aantalBerichten, long aantalProcessen, String lpGebied) throws BrmoException {
         // omdat soms de bestandsnaam wordt aangepast moet dit een harde test fout zijn, dus geen assumeNotNull
