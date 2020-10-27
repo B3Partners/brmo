@@ -84,7 +84,7 @@
                         <configuration>
                             <verbose>true</verbose>
                             <skip>false</skip>
-                            <imagePullPolicy>Always</imagePullPolicy>
+                            <imagePullPolicy>IfNotPresent</imagePullPolicy>
                             <images>
                                 <image>
                                     <name>docker.b3p.nl/b3partners/b3partners/brmo:%l</name>
