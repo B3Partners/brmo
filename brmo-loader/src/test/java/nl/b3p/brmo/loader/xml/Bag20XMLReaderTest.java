@@ -3,12 +3,12 @@ package nl.b3p.brmo.loader.xml;
 import nl.b3p.brmo.loader.entity.Bag20Bericht;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.text.SimpleDateFormat;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /*
  * Testcases voor {@link Bag20XMLReader}.

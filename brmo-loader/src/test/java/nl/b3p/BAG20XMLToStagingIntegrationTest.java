@@ -18,21 +18,18 @@ import org.dbunit.ext.mssql.MsSqlDataTypeFactory;
 import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 import org.dbunit.operation.DatabaseOperation;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.stream.Stream;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assume.assumeTrue;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 /**
  * Draaien met:
@@ -42,59 +39,34 @@ import static org.junit.Assume.assumeTrue;
  *
  * @author mprins
  */
-@RunWith(Parameterized.class)
 public class BAG20XMLToStagingIntegrationTest extends AbstractDatabaseIntegrationTest {
 
     private static final Log LOG = LogFactory.getLog(BAG20XMLToStagingIntegrationTest.class);
-    /**
-     * test parameter.
-     */
-    private final String bestandNaam;
-    /**
-     * test parameter.
-     */
-    private final String bestandType;
-    /**
-     * test parameter.
-     */
-    private final long aantalBerichten;
-    /**
-     * test parameter.
-     */
-    private final long aantalProcessen;
     private final Lock sequential = new ReentrantLock();
     private IDatabaseConnection staging;
     private BrmoFramework brmo;
 
-    public BAG20XMLToStagingIntegrationTest(String bestandType, String bestandNaam, long aantalBerichten, long aantalProcessen) {
-        this.bestandType = bestandType;
-        this.bestandNaam = bestandNaam;
-        this.aantalBerichten = aantalBerichten;
-        this.aantalProcessen = aantalProcessen;
-    }
-
-    @Parameterized.Parameters(name = "{index}: type: {0}, bestand: {1}")
-    public static Collection params() {
-        return Arrays.asList(new Object[][]{
-                // {"type","filename", aantalBerichten, aantalLaadProcessen},
+    static Stream<Arguments> argumentsProvider() {
+        return Stream.of(
+                // ("type","filename", aantalBerichten, aantalLaadProcessen),
                 // STAND
-                {"bag20", "/bag-2.0/WPL.xml", 1, 1},
-                {"bag20", "/bag-2.0/PND.xml", 1, 1},
-                {"bag20", "/bag-2.0/OPR.xml", 1, 1},
-                {"bag20", "/bag-2.0/NUM.xml", 1, 1},
-                {"bag20", "/bag-2.0/LIG.xml", 1, 1},
-                {"bag20", "/bag-2.0/STA.xml", 1, 1},
-                {"bag20", "/bag-2.0/VBO.xml", 1, 1},
+                arguments("bag20", "/bag-2.0/WPL.xml", 1, 1),
+                arguments("bag20", "/bag-2.0/PND.xml", 1, 1),
+                arguments("bag20", "/bag-2.0/OPR.xml", 1, 1),
+                arguments("bag20", "/bag-2.0/NUM.xml", 1, 1),
+                arguments("bag20", "/bag-2.0/LIG.xml", 1, 1),
+                arguments("bag20", "/bag-2.0/STA.xml", 1, 1),
+                arguments("bag20", "/bag-2.0/VBO.xml", 1, 1),
                 // leeg bestand
-                {"bag20", "/bag-2.0/STA01042020_000001-leeg.xml", 0, 1},
+                arguments("bag20", "/bag-2.0/STA01042020_000001-leeg.xml", 0, 1),
                 // grep -o "Objecten:Pand" 0106PND01012020_000001.xml | wc -w = 10000
                 // er zijn 1477 berichten die een bestaand object/bericht bijwerken, dus "dubbel" of meer
-                {"bag20", "/bag-2.0/0106PND01012020_000001.xml", 10000 / 2 - 1477, 1},
+                arguments("bag20", "/bag-2.0/0106PND01012020_000001.xml", 10000 / 2 - 1477, 1)
                 // MUTATIES
-        });
+        );
     }
 
-    @Before
+    @BeforeEach
     @Override
     public void setUp() throws Exception {
         BasicDataSource dsStaging = new BasicDataSource();
@@ -124,11 +96,13 @@ public class BAG20XMLToStagingIntegrationTest extends AbstractDatabaseIntegratio
 
         DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
 
-        assumeTrue("Er zijn geen STAGING_OK berichten", 0l == brmo.getCountBerichten(null, null, "bag20", "STAGING_OK"));
-        assumeTrue("Er zijn geen STAGING_OK laadprocessen", 0l == brmo.getCountLaadProcessen(null, null, "bag20", "STAGING_OK"));
+        Assumptions.assumeTrue(0L == brmo.getCountBerichten(null, null, "bag20", "STAGING_OK"),
+                "Er zijn geen STAGING_OK berichten");
+        Assumptions.assumeTrue(0L == brmo.getCountLaadProcessen(null, null, "bag20", "STAGING_OK"),
+                "Er zijn geen STAGING_OK laadprocessen");
     }
 
-    @After
+    @AfterEach
     public void cleanup() throws Exception {
         brmo.closeBrmoFramework();
         CleanUtil.cleanSTAGING(staging, false);
@@ -136,15 +110,19 @@ public class BAG20XMLToStagingIntegrationTest extends AbstractDatabaseIntegratio
         sequential.unlock();
     }
 
-    @Test
-    public void testBagStandToStaging() throws BrmoException {
+    @DisplayName("BAG 2.0 stand in staging")
+    @ParameterizedTest(name = "{index}: type: {0}, bestand: {1}")
+    @MethodSource("argumentsProvider")
+    public void testBagStandToStaging(String bestandType, String bestandNaam, long aantalBerichten, long aantalProcessen) throws BrmoException {
         try {
             brmo.loadFromFile(bestandType, BAG20XMLToStagingIntegrationTest.class.getResource(bestandNaam).getFile(), null);
         } catch (BrmoLeegBestandException blbe) {
             LOG.info("Er is een bestand zonder berichten geladen (kan voorkomen). " + blbe.getLocalizedMessage());
         }
 
-        assertEquals("Verwacht aantal berichten", aantalBerichten, brmo.getCountBerichten(null, null, bestandType, "STAGING_OK"));
-        assertEquals("Verwacht aantal laadprocessen", aantalProcessen, brmo.getCountLaadProcessen(null, null, bestandType, "STAGING_OK"));
+        Assertions.assertEquals(aantalBerichten, brmo.getCountBerichten(null, null, bestandType, "STAGING_OK"),
+                "Verwacht aantal berichten");
+        Assertions.assertEquals(aantalProcessen, brmo.getCountLaadProcessen(null, null, bestandType, "STAGING_OK"),
+                "Verwacht aantal laadprocessen");
     }
 }
