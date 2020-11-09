@@ -73,13 +73,13 @@
         <mssql.instancename />
         <skip-windows />
         <javasimon.version>4.2.0</javasimon.version>
-        <jakarta.mail.version>1.6.6</jakarta.mail.version>
+        <jakarta.mail.version>2.0.1</jakarta.mail.version>
         <apache.poi.version>5.0.0</apache.poi.version>
         <quartz.version>2.3.2</quartz.version>
         <slf4j.version>1.7.30</slf4j.version>
-        <jaxb.api.version>2.3.3</jaxb.api.version>
-        <jaxb.impl.version>2.3.3</jaxb.impl.version>
-        <activation.api.version>1.2.2</activation.api.version>
+        <jaxb.api.version>3.0.1</jaxb.api.version>
+        <jaxb.impl.version>3.0.1</jaxb.impl.version>
+        <activation.api.version>2.0.1</activation.api.version>
         <tomcat.version>7.0.109</tomcat.version>
         <javaee-endorsed-api.version>7.0</javaee-endorsed-api.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -349,7 +349,7 @@
             <dependency>
                 <groupId>nl.b3p</groupId>
                 <artifactId>kadaster-gds2</artifactId>
-                <version>2.4</version>
+                <version>3.0-SNAPSHOT</version>
             </dependency>
             <!-- J2EE dependencies en stripes -->
             <dependency>
@@ -468,7 +468,7 @@
             <dependency>
                 <groupId>com.sun.xml.ws</groupId>
                 <artifactId>jaxws-rt</artifactId>
-                <version>2.3.3</version>
+                <version>3.0.1</version>
             </dependency>
             <dependency>
                 <groupId>org.json</groupId>
@@ -996,7 +996,7 @@
                 <plugin>
                     <groupId>com.sun.xml.ws</groupId>
                     <artifactId>jaxws-maven-plugin</artifactId>
-                    <version>2.3.3</version>
+                    <version>3.0.1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.owasp</groupId>
