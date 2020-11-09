@@ -2,12 +2,12 @@ package nl.b3p.brmo.soap.brk;
 
 import java.util.ArrayList;
 import java.util.Map;
-import javax.jws.HandlerChain;
-import javax.jws.WebMethod;
-import javax.jws.WebParam;
-import javax.jws.WebService;
-import javax.xml.ws.RequestWrapper;
-import javax.xml.ws.ResponseWrapper;
+import jakarta.jws.HandlerChain;
+import jakarta.jws.WebMethod;
+import jakarta.jws.WebParam;
+import jakarta.jws.WebService;
+import jakarta.xml.ws.RequestWrapper;
+import jakarta.xml.ws.ResponseWrapper;
 import nl.b3p.brmo.soap.db.BrkInfo;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
