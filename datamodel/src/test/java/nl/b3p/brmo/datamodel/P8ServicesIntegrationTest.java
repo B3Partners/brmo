@@ -24,7 +24,6 @@ import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.methods.RequestBuilder;
 import org.apache.http.util.EntityUtils;
 import org.junit.jupiter.api.AfterEach;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -35,6 +34,7 @@ import static net.javacrumbs.jsonunit.JsonAssert.*;
 import static net.javacrumbs.jsonunit.core.Option.IGNORING_ARRAY_ORDER;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * testcases om te kijken of we de P8 rest api niet stuk maken als er iets aan de views wordt geleuteld.
@@ -94,7 +94,17 @@ public class P8ServicesIntegrationTest extends P8TestFramework {
         assertThat("Response status is OK.", response.getStatusLine().getStatusCode(), equalTo(HttpStatus.SC_OK));
         assertNotNull(body, "Response body mag niet null zijn.");
         assertJsonEquals(
-                "{\"kadastrale_percelen\":[{\"kadastrale_code\":\"VDG00B1708\",\"gemeente_code\":\"VDG00\",\"sectie\":\"B\",\"perceelnummer\":1708,\"oppervlakte\":65,\"straat\":\"Oosterstraat\",\"huisnummer\":\"33\",\"postcode\":\"3134NM\",\"woonplaats\":\"Vlaardingen\",\"percnr17\":\"VDG00B1708\"},{\"kadastrale_code\":\"VDG00B1708\",\"gemeente_code\":\"VDG00\",\"sectie\":\"B\",\"perceelnummer\":1708,\"oppervlakte\":65,\"straat\":\"Oosterstraat\",\"huisnummer\":\"35\",\"postcode\":\"3134NM\",\"woonplaats\":\"Vlaardingen\",\"percnr17\":\"VDG00B1708\"},{\"kadastrale_code\":\"VDG00B1709\",\"gemeente_code\":\"VDG00\",\"sectie\":\"B\",\"perceelnummer\":1709,\"oppervlakte\":65,\"straat\":\"Oosterstraat\",\"huisnummer\":\"29\",\"postcode\":\"3134NM\",\"woonplaats\":\"Vlaardingen\",\"percnr17\":\"VDG00B1709\"}],\"offset\":\"0\",\"limit\":\"3\",\"total_item_count\":1000}",
+                "{\"kadastrale_percelen\":[{\"kadastrale_code\":\"VDG00B1708\",\"gemeente_code\":\"VDG00\"," +
+                        "\"sectie\":\"B\",\"perceelnummer\":1708,\"oppervlakte\":65,\"straat\":\"Oosterstraat\"," +
+                        "\"huisnummer\":\"33\",\"postcode\":\"3134NM\",\"woonplaats\":\"Vlaardingen\"," +
+                        "\"percnr17\":\"VDG00B1708\"},{\"kadastrale_code\":\"VDG00B1708\"," +
+                        "\"gemeente_code\":\"VDG00\",\"sectie\":\"B\",\"perceelnummer\":1708,\"oppervlakte\":65," +
+                        "\"straat\":\"Oosterstraat\",\"huisnummer\":\"35\",\"postcode\":\"3134NM\"," +
+                        "\"woonplaats\":\"Vlaardingen\",\"percnr17\":\"VDG00B1708\"}," +
+                        "{\"kadastrale_code\":\"VDG00B1709\",\"gemeente_code\":\"VDG00\",\"sectie\":\"B\"," +
+                        "\"perceelnummer\":1709,\"oppervlakte\":65,\"straat\":\"Oosterstraat\",\"huisnummer\":\"29\"," +
+                        "\"postcode\":\"3134NM\",\"woonplaats\":\"Vlaardingen\",\"percnr17\":\"VDG00B1709\"}]," +
+                        "\"offset\":\"0\",\"limit\":\"3\",\"total_item_count\":1000}",
                 body,
                 when(IGNORING_ARRAY_ORDER)
         );
@@ -115,7 +125,29 @@ public class P8ServicesIntegrationTest extends P8TestFramework {
         assertThat("Response status is OK.", response.getStatusLine().getStatusCode(), equalTo(HttpStatus.SC_OK));
         assertNotNull(body, "Response body mag niet null zijn.");
         assertJsonEquals(
-                "{\"kadastrale_code\":\"VDG00B1708\",\"gemeente_code\":\"VDG00\",\"sectie\":\"B\",\"perceelnummer\":1708,\"oppervlakte\":65,\"adres\":\"OOSTERSTR 33, 3134NM VLAARDINGEN  (1 meer adressen)\",\"postcode\":\"3134NM\",\"woonplaats\":\"Vlaardingen\",\"gemeente\":\"Vlaardingen\",\"geom\":\"MULTIPOLYGON (((83442.009 435842.213, 83445.535 435831.176, 83451.303 435833.022, 83447.831 435844.075, 83442.009 435842.213)))\",\"rechten\":[{\"subject\":{\"naam\":\"5a063d4c 251bf\",\"type\":\"perceel\",\"persoonid\":\"NL.KAD.Persoon.157125580\",\"woonplaats\":\"Vlaardingen\"},\"aandeel\":\"1\\/1\",\"recht_soort\":\"INGESCHREVEN NATUURLIJK PERSOON\",\"datum_ingang\":\"2012-12-31T09:02:46+00:00\"},{\"subject\":{\"naam\":\"Gemeente Vlaardingen (Kad Gem Vlaardingen Sectie B)\",\"type\":\"perceel\",\"persoonid\":\"NL.KAD.Persoon.159287767\",\"woonplaats\":\"Vlaardingen\"},\"aandeel\":\"1\\/1\",\"recht_soort\":\"INGESCHREVEN NIET-NATUURLIJK PERSOON\",\"datum_ingang\":\"2012-12-31T09:02:46+00:00\"},{\"subject\":{\"naam\":\"5a063d4c 251bf\",\"type\":\"perceel\",\"persoonid\":\"NL.KAD.Persoon.157125580\",\"woonplaats\":\"Vlaardingen\"},\"aandeel\":\"1\\/1\",\"recht_soort\":\"INGESCHREVEN NATUURLIJK PERSOON\",\"datum_ingang\":\"2012-12-31T09:02:46+00:00\"},{\"subject\":{\"naam\":\"Gemeente Vlaardingen (Kad Gem Vlaardingen Sectie B)\",\"type\":\"perceel\",\"persoonid\":\"NL.KAD.Persoon.159287767\",\"woonplaats\":\"Vlaardingen\"},\"aandeel\":\"1\\/1\",\"recht_soort\":\"INGESCHREVEN NIET-NATUURLIJK PERSOON\",\"datum_ingang\":\"2012-12-31T09:02:46+00:00\"}],\"adressen\":[{\"woonplaats\":\"Vlaardingen\",\"straat\":\"Oosterstraat\",\"postcode\":\"3134NM\",\"huisnummer\":\"33\",\"postadres\":false},{\"woonplaats\":\"Vlaardingen\",\"straat\":\"Oosterstraat\",\"postcode\":\"3134NM\",\"huisnummer\":\"35\",\"postadres\":false}]}",
+                "{\"kadastrale_code\":\"VDG00B1708\",\"gemeente_code\":\"VDG00\",\"sectie\":\"B\"," +
+                        "\"perceelnummer\":1708,\"oppervlakte\":65,\"adres\":\"OOSTERSTR 33, 3134NM VLAARDINGEN  (1 " +
+                        "meer adressen)\",\"postcode\":\"3134NM\",\"woonplaats\":\"Vlaardingen\"," +
+                        "\"gemeente\":\"Vlaardingen\",\"geom\":\"MULTIPOLYGON (((83442.009 435842.213, 83445.535 " +
+                        "435831.176, 83451.303 435833.022, 83447.831 435844.075, 83442.009 435842.213)))\"," +
+                        "\"rechten\":[{\"subject\":{\"naam\":\"5a063d4c 251bf\",\"type\":\"perceel\"," +
+                        "\"persoonid\":\"NL.KAD.Persoon.157125580\",\"woonplaats\":\"Vlaardingen\"}," +
+                        "\"aandeel\":\"1\\/1\",\"recht_soort\":\"Erfpacht (recht van)\"," +
+                        "\"datum_ingang\":\"2012-12-31T11:51:50+00:00\"},{\"subject\":{\"naam\":\"Gemeente " +
+                        "Vlaardingen (Kad Gem Vlaardingen Sectie B)\",\"type\":\"perceel\",\"persoonid\":\"NL.KAD" +
+                        ".Persoon.159287767\",\"woonplaats\":\"Vlaardingen\"},\"aandeel\":\"1\\/1\"," +
+                        "\"recht_soort\":\"Eigendom (recht van)\",\"datum_ingang\":\"2012-12-31T11:51:50+00:00\"}," +
+                        "{\"subject\":{\"naam\":\"5a063d4c 251bf\",\"type\":\"perceel\",\"persoonid\":\"NL.KAD" +
+                        ".Persoon.157125580\",\"woonplaats\":\"Vlaardingen\"},\"aandeel\":\"1\\/1\"," +
+                        "\"recht_soort\":\"Erfpacht (recht van)\",\"datum_ingang\":\"2012-12-31T11:51:50+00:00\"}," +
+                        "{\"subject\":{\"naam\":\"Gemeente Vlaardingen (Kad Gem Vlaardingen Sectie B)\"," +
+                        "\"type\":\"perceel\",\"persoonid\":\"NL.KAD.Persoon.159287767\"," +
+                        "\"woonplaats\":\"Vlaardingen\"},\"aandeel\":\"1\\/1\",\"recht_soort\":\"Eigendom (recht van)" +
+                        "\",\"datum_ingang\":\"2012-12-31T11:51:50+00:00\"}]," +
+                        "\"adressen\":[{\"woonplaats\":\"Vlaardingen\",\"straat\":\"Oosterstraat\"," +
+                        "\"postcode\":\"3134NM\",\"huisnummer\":\"33\",\"postadres\":false}," +
+                        "{\"woonplaats\":\"Vlaardingen\",\"straat\":\"Oosterstraat\",\"postcode\":\"3134NM\"," +
+                        "\"huisnummer\":\"35\",\"postadres\":false}]}",
                 body,
                 //when(IGNORING_ARRAY_ORDER),
                 whenIgnoringPaths("rechten[*].datum_ingang")
@@ -157,11 +189,15 @@ public class P8ServicesIntegrationTest extends P8TestFramework {
         assertThat("Response status is OK.", response.getStatusLine().getStatusCode(), equalTo(HttpStatus.SC_OK));
         assertNotNull(body, "Response body mag niet null zijn.");
         assertJsonEquals(
-                "{\"kadastrale_percelen\":[{\"kadastrale_code\":\"VDG00B1712\",\"gemeente_code\":\"VDG00\",\"sectie\":\"B\",\"perceelnummer\":1712,\"oppervlakte\":68,\"percnr17\":\"VDG00B1712\",\"aandeel\":\"1\\/2\",\"rechtsoort\":\"INGESCHREVEN NATUURLIJK PERSOON\",\"datum_ingang\":\"2012-12-31T09:06:24+00:00\"}],\"offset\":\"0\",\"limit\":\"3\",\"total_item_count\":1}",
-                body,
+                "{\"kadastrale_percelen\":[{\"kadastrale_code\":\"VDG00B1712\",\"gemeente_code\":\"VDG00\"," +
+                        "\"sectie\":\"B\",\"perceelnummer\":1712,\"oppervlakte\":68,\"percnr17\":\"VDG00B1712\"," +
+                        "\"aandeel\":\"1\\/2\",\"rechtsoort\":\"Erfpacht (recht van)\"," +
+                        "\"datum_ingang\":\"2012-12-31T11:54:49+00:00\"}],\"offset\":\"0\",\"limit\":\"3\"," +
+                        "\"total_item_count\":1}",
+                body
                 // when(IGNORING_ARRAY_ORDER)
                 // TODO bug in P8; verzint een tijdstip aan datums
-                whenIgnoringPaths("kadastrale_percelen[0].datum_ingang")
+                ,whenIgnoringPaths("kadastrale_percelen[0].datum_ingang")
 
         );
     }
