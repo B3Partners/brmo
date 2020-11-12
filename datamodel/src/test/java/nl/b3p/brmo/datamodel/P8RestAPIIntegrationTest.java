@@ -64,7 +64,7 @@ public class P8RestAPIIntegrationTest extends P8TestFramework {
 
         assertThat("Response status is OK.", response.getStatusLine().getStatusCode(), equalTo(HttpStatus.SC_OK));
         Assertions.assertNotNull(body, "Response body mag niet null zijn.");
-        assertJsonEquals("\"imkad_api_1.8.20\"", body);
+        assertJsonEquals("\"1.9.0\"", body);
     }
 
     @Test
