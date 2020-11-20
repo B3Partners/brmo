@@ -84,7 +84,7 @@ public class BGTGMLLightLoader {
      * Bewaar voor elk BGT feature type een map met feature type ids nodig in
      * storeFeatureCollection()
      */
-    private final Map<String, Map<String,Pair<Date,Boolean>>> allRecords = new HashMap();
+    private final Map<String, Map<String,Pair<Date,Boolean>>> allRecords = new HashMap<>();
 
     /**
      * Maak automatisch tabellen aan; normaal niet/default {@code false}.
@@ -95,7 +95,7 @@ public class BGTGMLLightLoader {
 
     /**
      * deze geometrie wordt gebruikt om het gebied van de mutaties in een
-     * ziefile bij te houden.
+     * zipfile bij te houden.
      */
     private Geometry omhullendeVanZipFile = null;
 
@@ -123,11 +123,10 @@ public class BGTGMLLightLoader {
      * kaartbladen worden ingeladen. Wordt aangeroepen voordat meerdere keren
      * processZipFile() wordt aangeroepen voor alle nieuwe BGT kaartbladen.
      *
-     * @throws java.sql.SQLException als legen van de tabellen niet lukt
      * @throws java.io.IOException als opzetten van database verbinding niet
      * lukt
      */
-    public void truncateTables() throws SQLException, IOException {
+    public void truncateTables() throws IOException {
         final JDBCDataStore dataStore = (JDBCDataStore) DataStoreFinder.getDataStore(dbConnProps);
         if (dataStore == null) {
             throw new IllegalStateException("Datastore mag niet 'null' zijn voor wissen van data.");
@@ -211,7 +210,7 @@ public class BGTGMLLightLoader {
                         LOG.warn("Overslaan zip entry geen GML bestand: " + entry.getName());
                     } else {
                         eName = entry.getName();
-                        LOG.debug("Lezen GML bestand: " + eName + " uit zip file: " + zipExtract.getCanonicalPath());
+                        LOG.info("Lezen GML bestand: " + eName + " uit zip file: " + zipExtract.getCanonicalPath());
                         result = storeFeatureCollection(new CloseShieldInputStream(zip), eName.toLowerCase());
                         if(result != 0 ) {
                             opmerkingen.append(result)
@@ -358,7 +357,7 @@ public class BGTGMLLightLoader {
         // FALSE: niet beeindigd, en in tabel
         Map<String,Pair<Date,Boolean>> records = allRecords.get(tableName);
         if(records == null) {
-            records = new HashMap();
+            records = new HashMap<>();
             allRecords.put(tableName, records);
         } else {
             LOG.debug("Aantal ID's voor deze tabel al bekend in geheugen van vorige GML bestanden: " + records.size());
@@ -467,7 +466,6 @@ public class BGTGMLLightLoader {
             String s = String.format("Fout opgetreden, hiervoor verwerkte features voor %s: %d, inserts: %d, updates: %d, deletes: %d", gmlFileName, features, inserts, updates, deletes);
             opmerkingen.append(s).append("\n");
             LOG.info(s);
-
             LOG.error("I/O database probleem tijdens insert van features", ioe);
             this.status = STATUS.NOK;
             transaction.rollback();
@@ -475,10 +473,10 @@ public class BGTGMLLightLoader {
             try {
                 transaction.close();
                 updatetransaction.close();
-                dataStore.dispose();
             } catch(Exception e) {
                 LOG.error("Fout sluiten datastores", e);
             }
+            dataStore.dispose();
         }
         return inserts;
     }
@@ -518,7 +516,7 @@ public class BGTGMLLightLoader {
                     return name.toLowerCase().endsWith("zip");
                 }
             };
-            File files[] = scanDirectory.listFiles(filter);
+            File[] files = scanDirectory.listFiles(filter);
             zipfiles = Arrays.asList(files);
         } else {
             LOG.fatal("De directory (" + scanDirectory + ") kan niet worden gelezen of doorbladerd.");
