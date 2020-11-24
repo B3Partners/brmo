@@ -82,7 +82,7 @@
         <jaxb.impl.version>2.3.3</jaxb.impl.version>
         <activation.api.version>1.2.2</activation.api.version>
         <!-- bij ophogen van tomcat versie evt. ook de .mvn/owasp-suppression.xml file bijwerken -->
-        <tomcat.version>7.0.106</tomcat.version>
+        <tomcat.version>7.0.107</tomcat.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <!-- om unit tests met postgres te draaien gebruik je
