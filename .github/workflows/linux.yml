@@ -1,0 +1,109 @@
+name: Ubuntu PostgreSQL build
+
+on: [push]
+
+env:
+  MAVEN_OPTS: -Djava.awt.headless=true -Xms8G -Xmx12G -Dmaven.wagon.httpconnectionManager.ttlSeconds=25 -Dmaven.wagon.http.retryHandler.count=3 -Dtest.persistence.unit=brmo.persistence.postgresql
+  PGPASSWORD: postgres
+  PGUSER: postgres
+  PGDATABASE: postgres
+
+jobs:
+  build:
+    name: Java ${{ matrix.java }} / PostGIS ${{ matrix.postgis }}
+    runs-on: [ubuntu-latest]
+    strategy:
+      matrix:
+        java: [ 11 ]
+        postgis: [ 10-2.5, 11-3.0, 12-3.0 ]
+        include:
+          - java: 8
+            postgis: 9.6-2.5
+          - java: 11
+            postgis: 13-3.0
+            experimental: true
+
+    services:
+      postgres:
+        image: postgis/postgis:${{ matrix.postgis }}
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
+        ports:
+          - 5432:5432
+        # needed because the postgres container does not provide a healthcheck
+        options: --health-cmd pg_isready --health-interval 15s --health-timeout 5s --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          lfs: true
+
+      - name: Cache Maven repository
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Cache test data
+        uses: actions/cache@v2
+        with:
+          path: ~/downloads
+          key: downloads-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            downloads-
+
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: ${{ matrix.java }}
+
+      - name: Priming build
+        run: |
+          mvn clean install -Dmaven.test.skip=true -Dtest.onlyITs= -B -V -fae -Ppostgresql -pl '!brmo-dist'
+          projectversion=$(grep "<version>.*<.version>" -m1 pom.xml | sed -e "s/^.*<version/<version/" | cut -f2 -d">"| cut -f1 -d"<")
+          echo $projectversion
+          export PROJECTVERSION=$projectversion
+          sed -i s/\${project.version}/$projectversion/g ./brmo-persistence/db/create-brmo-persistence-postgresql.sql
+
+      - name: Set up PostgreSQL
+        run: |
+          psql --version
+          psql -U postgres -h localhost -c 'SELECT version();'
+          .build/ci/pgsql-setup.sh
+
+      - name: Test
+        run: |
+          mvn -e test -B -Ppostgresql -pl '!brmo-dist' -Dtest.onlyITs=false
+          mvn resources:testResources compiler:testCompile surefire:test -Ppostgresql -pl datamodel -Dtest='!*UpgradeTest,!P8*'
+
+      - name: Verify brmo-loader
+        run: mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-loader'
+
+      - name: Verify brmo-service
+        run: mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-service'
+
+      - name: Verify bgt-gml-loader
+        run: mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'bgt-gml-loader'
+
+      - name: Verify brmo-soap
+        run: mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-soap'
+
+      - name: Verify brmo-stufbg204
+        run: mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-stufbg204'
+
+      - name: Verify brmo-commandline
+        run: mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-commandline'
+
+      - name: Javadoc
+        if: ${{ matrix.java == '1.8' }}
+        run: |
+          mvn javadoc:javadoc
+          mvn javadoc:test-javadoc
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          fail_ci_if_error: true
