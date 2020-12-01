@@ -6,10 +6,7 @@ package nl.b3p.brmo.service.testutil;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.TestInfo;
+import org.junit.jupiter.api.*;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -111,7 +108,7 @@ public abstract class TestUtil {
         dsStaging.setPassword(DBPROPS.getProperty("staging.password"));
         dsStaging.setAccessToUnderlyingConnectionAllowed(true);
         dsStaging.setInitialSize(1);
-        dsStaging.setMaxActive(5);
+        dsStaging.setMaxActive(10);
 
         dsRsgb = new BasicDataSource();
         dsRsgb.setUrl(DBPROPS.getProperty("rsgb.url"));
@@ -154,12 +151,13 @@ public abstract class TestUtil {
         LOG.info("==== Einde test methode: " + testInfo.getDisplayName());
     }
 
-    @AfterEach
+    @AfterAll
     public void closeConnections() throws SQLException {
-        // JNDI connecties niet sluiten!
-        // dsStaging.close();
-        // dsRsgb.close();
-        // dsRsgbBgt.close();
+        // JNDI connecties wel sluiten!
+        dsStaging.close();
+        dsRsgb.close();
+        dsRsgbBgt.close();
+        haveSetupJNDI = false;
     }
 
     /**

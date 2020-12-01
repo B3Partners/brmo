@@ -108,7 +108,7 @@ public class AfgifteNummerScannerIntegrationTest extends TestUtil {
         } else if (this.isPostgis) {
             staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
         } else {
-            fail("Geen ondersteunde database aangegegeven");
+            fail("Geen ondersteunde database aangegeven");
         }
         brmo = new BrmoFramework(dsStaging, null);
 
@@ -178,10 +178,12 @@ public class AfgifteNummerScannerIntegrationTest extends TestUtil {
     public void tearDown() throws Exception {
         if (brmo != null) {
             brmo.closeBrmoFramework();
+            brmo = null;
         }
         if (staging != null) {
             CleanUtil.cleanSTAGING(staging, true);
             staging.close();
+            dsStaging.close();
         }
         try {
             sequential.unlock();
