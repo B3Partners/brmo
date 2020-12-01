@@ -38,6 +38,7 @@
                 <include>com.sun.activation:jakarta.activation</include>
                 <include>org.postgresql:postgresql</include>
                 <include>net.postgis:postgis-jdbc</include>
+                <include>net.postgis:postgis-geometry</include>
             </includes>
             <outputFileNameMapping>${artifact.artifactId}-${artifact.version}.${artifact.extension}</outputFileNameMapping>
         </dependencySet>
