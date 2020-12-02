@@ -83,6 +83,10 @@
             <artifactId>postgis-jdbc</artifactId>
         </dependency>
         <dependency>
+            <groupId>net.postgis</groupId>
+            <artifactId>postgis-geometry</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.microsoft.sqlserver</groupId>
             <artifactId>mssql-jdbc</artifactId>
         </dependency>

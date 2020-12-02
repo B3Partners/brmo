@@ -316,6 +316,11 @@
                 <version>${postgresql.postgis-jdbc.version}</version>
             </dependency>
             <dependency>
+                <groupId>net.postgis</groupId>
+                <artifactId>postgis-geometry</artifactId>
+                <version>${postgresql.postgis-jdbc.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.oracle.database.jdbc</groupId>
                 <artifactId>ojdbc8</artifactId>
                 <version>${oracle.jdbc.version}</version>
