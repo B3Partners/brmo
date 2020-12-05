@@ -282,7 +282,7 @@ public final class CleanUtil {
      * @param staging database welke geleegd moet worden
      * @throws org.dbunit.DatabaseUnitException als er een DBunit fout optreedt
      * @throws java.sql.SQLException als er iets misgaat in de database
-     * @deprecated gebruik {@link #cleanSTAGING(org.dbunit.database.IDatabaseConnection, boolean)
+     * @deprecated gebruik {@link #cleanSTAGING(org.dbunit.database.IDatabaseConnection, boolean)}
      */
     @Deprecated
     public static void cleanSTAGING(final IDatabaseConnection staging) throws DatabaseUnitException, SQLException {
