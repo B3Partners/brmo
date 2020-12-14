@@ -23,34 +23,12 @@ jobs:
   allow_failures:
     # vanwege build timeout (soms)
     # - name: "MS SQL server 2019"
-    # omdat het nieuwer dan nieuw is
-    - name: "PostgreSQL 13"
   include:
       # https://www.postgresql.org/support/versioning/
-    - name: "PostgreSQL 9.5 (oudste)"
-      env: POSTGRESQL_VERSION="9.5" POSTGIS_VERSION="2.4" PROFILE="postgresql" MVN_ARGS="-Dtest.persistence.unit=brmo.persistence.postgresql"
-      jdk: openjdk8
-      dist: xenial
-    - name: "PostgreSQL 9.6"
+    - name: "PostgreSQL 9.6 (oudste)"
       env: POSTGRESQL_VERSION="9.6" POSTGIS_VERSION="2.5" PROFILE="postgresql" MVN_ARGS="-Dtest.persistence.unit=brmo.persistence.postgresql"
       jdk: openjdk8
       dist: xenial
-    - name: "PostgreSQL 10"
-      env: POSTGRESQL_VERSION="10" POSTGIS_VERSION="2.5" PROFILE="postgresql" MVN_ARGS="-Dtest.persistence.unit=brmo.persistence.postgresql"
-      jdk: openjdk8
-      dist: xenial
-    - name: "PostgreSQL 11"
-      env: POSTGRESQL_VERSION="11" POSTGIS_VERSION="2.5" PROFILE="postgresql" MVN_ARGS="-Dtest.persistence.unit=brmo.persistence.postgresql"
-      jdk: openjdk11
-      dist: bionic
-    - name: "PostgreSQL 12"
-      env: POSTGRESQL_VERSION="12" POSTGIS_VERSION="3" PROFILE="postgresql" MVN_ARGS="-Dtest.persistence.unit=brmo.persistence.postgresql"
-      jdk: openjdk11
-      dist: focal
-    - name: "PostgreSQL 13"
-      env: POSTGRESQL_VERSION="13" POSTGIS_VERSION="3" PROFILE="postgresql" MVN_ARGS="-Dtest.persistence.unit=brmo.persistence.postgresql"
-      jdk: openjdk11
-      dist: focal
     - name: "database upgrades"
       jdk: openjdk8
       env: POSTGRESQL_VERSION="11" POSTGIS_VERSION="2.5" PROFILE="postgresql" MVN_ARGS="-Ddatabase.upgrade=true -Dit.test=!TopNLIntegrationTest"
@@ -120,7 +98,7 @@ before_install:
     fi
   # ophalen vorige release zodat we schema van die versie kunnen aanmaken
   - if  [ "$TRAVIS_JOB_NAME" == "database upgrades" ]; then
-       sh ".travis/getlastRelease.sh";
+       sh ".build/ci/getlastRelease.sh";
     fi
   # ophalen actuele topnl test data alleen voor postgresql
   - if  [ "$PROFILE" == "postgresql" ] && [ "$TRAVIS_JOB_NAME" != "database upgrades" ]; then
