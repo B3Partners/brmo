@@ -1,0 +1,85 @@
+name: Database Upgrade
+
+on: [push]
+
+env:
+  MAVEN_OPTS: -Djava.awt.headless=true -Xms8G -Xmx12G -Dmaven.wagon.httpconnectionManager.ttlSeconds=25 -Dmaven.wagon.http.retryHandler.count=3 -Dtest.persistence.unit=brmo.persistence.postgresql
+  PGPASSWORD: postgres
+  PGUSER: postgres
+  PGDATABASE: postgres
+
+jobs:
+  build:
+    name: PostGIS ${{ matrix.postgis }}
+    runs-on: [ubuntu-latest]
+    strategy:
+      matrix:
+        java: [ 11 ]
+        postgis: [ 10-2.5 ]
+
+    services:
+      postgres:
+        image: postgis/postgis:${{ matrix.postgis }}
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
+        ports:
+          - 5432:5432
+        # needed because the postgres container does not provide a healthcheck
+        options: --health-cmd pg_isready --health-interval 15s --health-timeout 5s --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          lfs: true
+
+      - name: Cache Maven repository
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Cache test data en laatste release
+        uses: actions/cache@v2
+        with:
+          path: ~/downloads
+          key: downloads-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            downloads-
+
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: ${{ matrix.java }}
+
+      - name: Get last release
+        run: |
+          .build/ci/getlastRelease.sh
+
+      - name: Set up PostgreSQL
+        run: |
+          psql --version
+          psql -U postgres -h localhost -c 'SELECT version();'
+          .build/ci/pgsql-create-databases.sh
+          .build/ci/pgsql-setup-previous.sh
+
+      - name: Upgrade databases
+        run: |
+          .build/ci/pgsql-execute-upgrades.sh staging
+          .build/ci/pgsql-execute-upgrades.sh rsgb
+          .build/ci/pgsql-execute-upgrade-extras.sh rsgb
+          .build/ci/pgsql-execute-upgrades.sh rsgbbgt
+
+      - name: Test
+        run: |
+          mvn -e -B -Ppostgresql -pl 'datamodel' resources:testResources compiler:testCompile surefire:test -Dtest='*UpgradeTest' -Ddatabase.upgrade=true
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          fail_ci_if_error: true
+
+      - name: Cleanup build artifacts
+        run: mvn clean build-helper:remove-project-artifact

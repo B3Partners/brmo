@@ -72,6 +72,7 @@ jobs:
         run: |
           psql --version
           psql -U postgres -h localhost -c 'SELECT version();'
+          .build/ci/pgsql-create-databases.sh
           .build/ci/pgsql-setup.sh
 
       - name: Test
@@ -107,3 +108,6 @@ jobs:
         uses: codecov/codecov-action@v1
         with:
           fail_ci_if_error: true
+
+      - name: Cleanup build artifacts
+        run: mvn clean build-helper:remove-project-artifact

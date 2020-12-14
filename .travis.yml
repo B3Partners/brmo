@@ -98,7 +98,7 @@ before_install:
     fi
   # ophalen vorige release zodat we schema van die versie kunnen aanmaken
   - if  [ "$TRAVIS_JOB_NAME" == "database upgrades" ]; then
-       sh ".travis/getlastRelease.sh";
+       sh ".build/ci/getlastRelease.sh";
     fi
   # ophalen actuele topnl test data alleen voor postgresql
   - if  [ "$PROFILE" == "postgresql" ] && [ "$TRAVIS_JOB_NAME" != "database upgrades" ]; then
