@@ -1,0 +1,85 @@
+name: Ubuntu MS SQL build
+
+on: [push]
+
+env:
+  MAVEN_OPTS: -Djava.awt.headless=true -Xms8G -Xmx12G -Dmaven.wagon.httpconnectionManager.ttlSeconds=25 -Dmaven.wagon.http.retryHandler.count=3 -Dbrmo.persistence.microsoftsqlserver
+
+jobs:
+  build:
+    name: MS SQL ${{ matrix.mssql }} online test
+    runs-on: [ubuntu-latest]
+    strategy:
+      matrix:
+        mssql: [2019-latest]
+        java: [11]
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          lfs: true
+
+      - name: Cache Maven repository
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Cache test data
+        uses: actions/cache@v2
+        with:
+          path: ~/downloads
+          key: downloads-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            downloads-
+
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: ${{ matrix.java }}
+
+      - name: Priming build
+        run: |
+          mvn clean install -Dmaven.test.skip=true -Dtest.onlyITs= -B -V -fae -Pmssql -pl '!brmo-dist'
+          projectversion=$(grep "<version>.*<.version>" -m1 pom.xml | sed -e "s/^.*<version/<version/" | cut -f2 -d">"| cut -f1 -d"<")
+          echo $projectversion
+          export PROJECTVERSION=$projectversion
+          sed -i s/\${project.version}/$projectversion/g ./brmo-persistence/db/create-brmo-persistence-sqlserver.sql
+
+      - name: Setup MS SQL ${{ matrix.mssql }}
+        run: |
+          ./.build/ci/mssql-start-docker.sh ${{ matrix.mssql }}
+          ./.build/ci/mssql-setup.sh
+
+      - name: Test
+        run: |
+          mvn -e test -B -Pmssql -pl '!brmo-dist' -Dtest.onlyITs=false
+          mvn resources:testResources compiler:testCompile surefire:test -Pmssql -pl datamodel -Dtest='!*UpgradeTest,!P8*'
+
+      - name: Verify brmo-loader
+        run: mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl 'brmo-loader'
+
+      - name: Verify brmo-service
+        run: mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl 'brmo-service'
+
+      - name: Verify bgt-gml-loader
+        run: mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl 'bgt-gml-loader'
+
+      - name: Verify brmo-soap
+        run: mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl 'brmo-soap'
+
+      - name: Verify brmo-stufbg204
+        run: mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl 'brmo-stufbg204'
+
+      - name: Verify brmo-commandline
+        run: mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl 'brmo-commandline'
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          fail_ci_if_error: true
+
+      - name: Cleanup build artifacts
+        run: mvn clean build-helper:remove-project-artifact

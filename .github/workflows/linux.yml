@@ -98,12 +98,6 @@ jobs:
       - name: Verify brmo-commandline
         run: mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-commandline'
 
-      - name: Javadoc
-        if: ${{ matrix.java == '1.8' }}
-        run: |
-          mvn javadoc:javadoc
-          mvn javadoc:test-javadoc
-
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
         with:
@@ -111,3 +105,35 @@ jobs:
 
       - name: Cleanup build artifacts
         run: mvn clean build-helper:remove-project-artifact
+
+
+  javadoc:
+    name: JavaDoc Check ${{ matrix.java }}
+    runs-on: [ubuntu-latest]
+    strategy:
+      matrix:
+        java: [ 8 ]
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          lfs: false
+
+      - name: Cache Maven repository
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: ${{ matrix.java }}
+
+      - name: Javadoc
+        run: mvn javadoc:javadoc
+
+      - name: Test Javadoc
+        run: mvn javadoc:test-javadoc
