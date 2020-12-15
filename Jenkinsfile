@@ -133,7 +133,7 @@ timestamps {
 
                             if(jdkTestName == 'OpenJDK8') {
                                 stage("Upgrade Database Test: ${indexOfJdk}") {
-                                    sh ".travis/getlastRelease.sh"
+                                    sh ".build/ci/getlastRelease.sh"
                                     sh ".jenkins/setup-old.sh"
                                     sh "\".jenkins/execute-upgrades-oracle.sh\" staging"
                                     sh "\".jenkins/execute-upgrades-oracle.sh\" rsgb"
