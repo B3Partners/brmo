@@ -63,7 +63,7 @@
         <hibernate.version>5.4.27.Final</hibernate.version>
         <!-- ook jdbc-util updaten bij geotools update -->
         <geotools.version>24.1</geotools.version>
-        <jdbc-util.version>7.2</jdbc-util.version>
+        <jdbc-util.version>7.3-SNAPSHOT</jdbc-util.version>
         <jts.version>1.17.1</jts.version>
         <itextpdf.version>7.1.13</itextpdf.version>
         <postgresql.jdbc.version>42.2.18</postgresql.jdbc.version>
@@ -232,7 +232,7 @@
                 <artifactId>gt-referencing</artifactId>
                 <version>${geotools.version}</version>
                 <exclusions>
-                    <!--                    
+                    <!--
                     workaround voor https://osgeo-org.atlassian.net/browse/GEOT-6540
                     deze gt-referencing dependency mag weg na upgrade naar geotools to 23.0
                     -->
