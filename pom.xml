@@ -82,11 +82,12 @@
         <tomcat.version>7.0.107</tomcat.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <!-- om unit tests met postgres te draaien gebruik je
+        <!--
+             om unit tests met postgres te draaien gebruik je:
         -Dtest.persistence.unit=brmo.persistence.postgresql
-        voor oracle:
+             voor oracle:
         -Dtest.persistence.unit=brmo.persistence.oracle
-        voor ms sql
+             voor mssql
         -Dtest.persistence.unit=brmo.persistence.microsoftsqlserver
         -->
         <test.persistence.unit>brmo.persistence.h2</test.persistence.unit>

@@ -20,18 +20,12 @@ addons:
 
 jobs:
   fast_finish: true
-  allow_failures:
-    # vanwege build timeout (soms)
-    # - name: "MS SQL server 2019"
   include:
       # https://www.postgresql.org/support/versioning/
     - name: "PostgreSQL 9.6 (oudste)"
       env: POSTGRESQL_VERSION="9.6" POSTGIS_VERSION="2.5" PROFILE="postgresql" MVN_ARGS="-Dtest.persistence.unit=brmo.persistence.postgresql"
       jdk: openjdk8
       dist: xenial
-    - name: "database upgrades"
-      jdk: openjdk8
-      env: POSTGRESQL_VERSION="11" POSTGIS_VERSION="2.5" PROFILE="postgresql" MVN_ARGS="-Ddatabase.upgrade=true -Dit.test=!TopNLIntegrationTest"
     - name: "TopNL tests"
       jdk: openjdk8
       env: POSTGRESQL_VERSION="11" POSTGIS_VERSION="2.5" PROFILE="postgresql" MVN_ARGS="-Dit.test=TopNLIntegrationTest"
@@ -43,13 +37,6 @@ jobs:
       jdk: openjdk8
       dist: xenial
       env: MSSQL_VERSION="2017" POSTGRESQL_VERSION="" POSTGIS_VERSION="" PROFILE="mssql" MVN_ARGS="-Dmssql.instancename='' -Dit.test=!TopNLIntegrationTest"
-    - name: "MS SQL server 2019"
-      jdk: openjdk11
-      dist: bionic
-      env: MSSQL_VERSION="2019" POSTGRESQL_VERSION="" POSTGIS_VERSION="" PROFILE="mssql" MVN_ARGS="-Dmssql.instancename='' -Dtest.persistence.unit=brmo.persistence.microsoftsqlserver -Dit.test=!TopNLIntegrationTest" BRMO_LOADER_ITEST="false"
-    - name: "JavaDoc"
-      jdk: openjdk8
-      env: PROFILE="default"
 
 cache:
   directories:
