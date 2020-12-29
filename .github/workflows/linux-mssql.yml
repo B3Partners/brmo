@@ -82,4 +82,6 @@ jobs:
           fail_ci_if_error: true
 
       - name: Cleanup build artifacts
-        run: mvn clean build-helper:remove-project-artifact
+        run: |
+          mvn clean build-helper:remove-project-artifact
+          find ~/.m2/repository -name "*SNAPSHOT*" -type d | xargs rm -rf {}
