@@ -381,3 +381,17 @@ DELETE FROM gemeente_archief WHERE code = 589;
 
 UPDATE brmo_metadata SET waarde = '2019.1' WHERE naam = 'update_gem_tabel';
 COMMIT;
+
+SET TRANSACTION NAME 'jan2021';
+-- Samenvoeging van de gemeenten Appingedam (3), Delfzijl (10) en Loppersum (24) tot een nieuwe gemeente Eemsdelta (1979)
+-- Opsplitsen (en opheffen) van gemeente Haaren (788)
+UPDATE gemeente SET datum_einde_geldh = '2021-01-01', dat_beg_geldh = '2009-01-01' WHERE code IN (3, 10, 24, 788) AND dat_beg_geldh IS NULL;
+INSERT INTO gemeente_archief SELECT * FROM gemeente WHERE code IN (3, 10, 24, 788);
+UPDATE wnplts SET fk_7gem_code=null WHERE fk_7gem_code IN (3, 10, 24, 788);
+DELETE FROM gemeente WHERE code IN (3, 10, 24, 788);
+
+-- nieuw
+INSERT INTO gemeente (dat_beg_geldh, code, naam) SELECT '2021-01-01', 1979, 'Eemsdelta' FROM dual WHERE NOT EXISTS (SELECT code FROM gemeente WHERE code = 1979);
+
+UPDATE brmo_metadata SET waarde = '2021.0' WHERE naam = 'update_gem_tabel';
+COMMIT;
