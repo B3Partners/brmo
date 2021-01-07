@@ -514,6 +514,14 @@
                 <scope>test</scope>
             </dependency>
             <dependency>
+                <!-- override voor versies die met sommige dependencies meekomen
+                en de OWASP dependency scanner triggeren -->
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.13.1</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
                 <groupId>org.dbunit</groupId>
                 <artifactId>dbunit</artifactId>
                 <version>2.7.0</version>
@@ -751,7 +759,6 @@
                             <link>https://docs.jboss.org/hibernate/stable/core/javadocs/</link>
                             <link>http://docs.geotools.org/stable/javadocs/</link>
                             <link>https://logging.apache.org/log4j/1.2/apidocs/</link>
-                            <link>https://junit.org/junit4/javadoc/latest/</link>
                             <link>https://junit.org/junit5/docs/current/api/</link>
                             <link>https://b3partners.github.io/kadaster-gds2/apidocs/</link>
                             <link>https://b3partners.github.io/jdbc-util/apidocs/</link>
@@ -947,7 +954,7 @@
                 <plugin>
                     <groupId>org.owasp</groupId>
                     <artifactId>dependency-check-maven</artifactId>
-                    <version>6.0.4</version>
+                    <version>6.0.5</version>
                     <configuration>
                         <enableExperimental>true</enableExperimental>
                         <retirejs>

@@ -77,7 +77,7 @@
 
     <suppress>
         <notes><![CDATA[
-            file name: json-simple-1.1.1.jar False positive, json-siple wordt voor iets anders aangezien
+            file name: json-simple-1.1.1.jar False positive, json-simple wordt voor iets anders aangezien
         ]]>
         </notes>
         <packageUrl regex="true">^pkg:maven/com\.googlecode\.json\-simple/json\-simple@.*$</packageUrl>
