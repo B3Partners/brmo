@@ -3,7 +3,7 @@ docker version
 
 # this docker image has the following users/credentials (user/password = system/oracle)
 # docker pull pvargacl/oracle-xe-18.4.0:latest
-# docker run -m 4g --cpus=2 -p 15210:1521 --name oracle-brmo -h oracle-brmo -d pvargacl/oracle-xe-18.4.0:latest
+# docker run -m 4g --cpus=4 -p 1521:1521 --name oracle-brmo -h oracle-brmo -d pvargacl/oracle-xe-18.4.0:latest
 
 # start the dockerized oracle-xe instance
 # this container can be stopped using:

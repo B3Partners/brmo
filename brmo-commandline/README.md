@@ -8,8 +8,6 @@ De basis commandoregel is: `java -jar ./bin/brmo-commandline.jar` deze geeft out
 
 ```
 usage: java -jar brmo-commandline.jar --<actie> --dbprops <db-props>
-usage: [Oracle] java -cp "bin/brmo-commandline.jar;lib/*"
-                nl.b3p.brmo.commandline.Main --<actie> --dbprops <db-props>
 
 Acties:
   -v,--versieinfo <[format]>                                 Versie informatie van de verschillende
@@ -66,9 +64,9 @@ Onderstaand een aantal voorbeelden.
      output:  
      
      ```
-     staging versie: 1.6.0
-     rsgb    versie: 1.6.0
-     rsgbbgt versie: 1.6.0
+     staging versie: 2.0.3
+     rsgb    versie: 2.0.3
+     rsgbbgt versie: 2.0.3
      ```
      
   - `java -jar ./bin/brmo-commandline.jar -db conf/commandline-example.properties --load /home/mark/dev/projects/brmo/brmo-loader/src/test/resources/GH-275/OPR-1884300000000464.xml bag`

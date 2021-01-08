@@ -12,6 +12,7 @@
     <description>BRMO commandline tool</description>
     <properties>
         <include.scope.inPackaging>runtime</include.scope.inPackaging>
+        <exclude.groupIds.fromPackaging />
     </properties>
     <dependencies>
         <dependency>
@@ -131,6 +132,7 @@
                             <mainClass>nl.b3p.brmo.commandline.Main</mainClass>
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                             <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                            <addBuildEnvironmentEntries>true</addBuildEnvironmentEntries>
                             <useUniqueVersions>false</useUniqueVersions>
                         </manifest>
                     </archive>
@@ -291,16 +293,6 @@
         </profile>
         <profile>
             <id>oracle</id>
-            <properties>
-                <!-- voor oracle profiel wel de driver insluiten -->
-                <exclude.groupIds.fromPackaging />
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>com.oracle.database.jdbc</groupId>
-                    <artifactId>ojdbc8</artifactId>
-                </dependency>
-            </dependencies>
             <build>
                 <plugins>
                     <plugin>
@@ -343,9 +335,6 @@
             <activation>
                 <jdk>[11,)</jdk>
             </activation>
-            <properties>
-                <java.version>11</java.version>
-            </properties>
             <dependencies>
                 <dependency>
                     <groupId>jakarta.xml.bind</groupId>
