@@ -60,6 +60,9 @@ jobs:
         with:
           java-version: ${{ matrix.java }}
 
+      - name: Install extra software
+        run: sudo apt install -y --no-install-recommends xmlstarlet
+
       - name: Priming build
         run: |
           mvn clean install -Dmaven.test.skip=true -Dtest.onlyITs= -B -V -fae -Ppostgresql -pl '!brmo-dist'
@@ -127,6 +130,9 @@ jobs:
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven-
+
+      - name: Install extra software
+        run: sudo apt install -y --no-install-recommends graphviz
 
       - name: Set up JDK
         uses: actions/setup-java@v1

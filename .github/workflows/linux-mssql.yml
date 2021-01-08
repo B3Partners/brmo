@@ -40,6 +40,9 @@ jobs:
         with:
           java-version: ${{ matrix.java }}
 
+      - name: Install extra software
+        run: sudo apt install -y --no-install-recommends xmlstarlet
+
       - name: Priming build
         run: |
           mvn clean install -Dmaven.test.skip=true -Dtest.onlyITs= -B -V -fae -Pmssql -pl '!brmo-dist'
