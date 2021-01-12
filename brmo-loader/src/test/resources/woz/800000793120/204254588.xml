@@ -1,0 +1,258 @@
+<dgl:VerstrekkingAanAfnemer xmlns:dgl="http://www.digilevering.nl/digilevering.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.digilevering.nl/digilevering.xsd digilevering.xsd"><datumtijdstempelDigilevering>2020-07-12T05:27:23.300Z</datumtijdstempelDigilevering><datumtijdstempelLV>2020-07-12T05:25:14.000Z</datumtijdstempelLV><kenmerkDigilevering>13aa3839-925d-4828-8e80-1d8177622a95@digilevering.nl</kenmerkDigilevering><kenmerkLV>9bbbff52-d36e-4f34-a1fd-d40cec6906f9</kenmerkLV><versieBerichttype>1.0</versieBerichttype><abonnement><naam>WOZ test alles Waterschap De Dommel</naam><versie>1</versie></abonnement><basisregistratie>LVWOZ</basisregistratie><gebeurtenissoort><naam>OWOZ_Di01</naam><versie>312</versie></gebeurtenissoort><gebeurtenisinhoud>
+<WOZ:OWOZ_Di01 xmlns:WOZ="http://www.waarderingskamer.nl/StUF/0312" xmlns:BG="http://www.egem.nl/StUF/sector/bg/0310" xmlns:StUF="http://www.egem.nl/StUF/StUF0301" xsi:schemaLocation="http://www.waarderingskamer.nl/StUF/0312 file:///C:/temp/LV%20WOZ/woz0312_20150703/woz0312/lv_mutatieMetFo01/woz0312_msg_lv_mutatie.xsd">
+    <WOZ:stuurgegevens>
+        <StUF:berichtcode>Di01</StUF:berichtcode>
+        <StUF:zender>
+            <StUF:organisatie>00000001803577058000</StUF:organisatie>
+            <StUF:applicatie>xxx</StUF:applicatie>
+            <StUF:administratie>P</StUF:administratie>
+            <StUF:gebruiker>Waarderingskamer</StUF:gebruiker>
+        </StUF:zender>
+        <StUF:ontvanger>
+            <StUF:organisatie>KADASTER</StUF:organisatie>
+            <StUF:applicatie>LVWOZ</StUF:applicatie>
+            <StUF:administratie>P</StUF:administratie>
+            <StUF:gebruiker/>
+        </StUF:ontvanger>
+
+
+        <StUF:referentienummer>9bbbff52-d36e-4f34-a1fd-d40cec6906f9</StUF:referentienummer>
+        <StUF:tijdstipBericht>20200712072338469</StUF:tijdstipBericht>
+        <StUF:functie>WOZ-OWOZ</StUF:functie>
+    </WOZ:stuurgegevens>
+    <WOZ:routering StUF:entiteittype="WOZ" StUF:functie="entiteit">
+        <WOZ:verantwoordelijkeGemeente>
+            <BG:gemeenteCode>8000</BG:gemeenteCode>
+        </WOZ:verantwoordelijkeGemeente>
+        <WOZ:ligtIn StUF:entiteittype="WOZWSP">
+            <WOZ:gerelateerde StUF:entiteittype="WSP">
+                <WOZ:betrokkenWaterschap>8106</WOZ:betrokkenWaterschap>
+            </WOZ:gerelateerde>
+        </WOZ:ligtIn>
+    </WOZ:routering>
+    <WOZ:voegToeNPS StUF:entiteittype="NPS" StUF:functie="update">
+        <WOZ:parameters>
+            <StUF:mutatiesoort>T</StUF:mutatiesoort>
+            <StUF:indicatorOvername>V</StUF:indicatorOvername>
+        </WOZ:parameters>
+        <WOZ:object StUF:entiteittype="NPS" StUF:verwerkingssoort="T">
+            <WOZ:isEen StUF:entiteittype="NPSNPS" StUF:verwerkingssoort="T">
+                <WOZ:gerelateerde StUF:entiteittype="NPS" StUF:verwerkingssoort="T">
+                    <BG:inp.bsn>016948567</BG:inp.bsn>
+                    <BG:geslachtsnaam>Dienstdegenkolb</BG:geslachtsnaam>
+                    <BG:voorvoegselGeslachtsnaam StUF:noValue="geenWaarde" xsi:nil="true"/>
+                    <BG:voorletters>J.</BG:voorletters>
+                    <BG:aanduidingNaamgebruik>E</BG:aanduidingNaamgebruik>
+                    <BG:geslachtsnaamPartner StUF:noValue="geenWaarde" xsi:nil="true"/>
+                    <BG:voorvoegselGeslachtsnaamPartner StUF:noValue="geenWaarde" xsi:nil="true"/>
+                    <BG:aanhefAanschrijving>de heer</BG:aanhefAanschrijving>
+                    <BG:geslachtsnaamAanschrijving>Dienstdegenkolb</BG:geslachtsnaamAanschrijving>
+                    <BG:geslachtsaanduiding>M</BG:geslachtsaanduiding>
+                    <BG:geboortedatum>19891006</BG:geboortedatum>
+                    <BG:inp.verblijftIn StUF:entiteittype="NPSTGO" StUF:verwerkingssoort="T">
+                        <BG:gerelateerde StUF:entiteittype="TGO" StUF:verwerkingssoort="T">
+                            <BG:identificatie>8000010000000102</BG:identificatie>
+                            <BG:adresAanduidingGrp>
+                                <BG:num.identificatie>8000200000000117</BG:num.identificatie>
+                                <BG:wpl.woonplaatsNaam>DienstberichtDorp</BG:wpl.woonplaatsNaam>
+                                <BG:gor.openbareRuimteNaam>DienstberichtKerkpad</BG:gor.openbareRuimteNaam>
+                                <BG:gor.straatnaam>DienstberichtKerkpad</BG:gor.straatnaam>
+                                <BG:aoa.postcode>8510AA</BG:aoa.postcode>
+                                <BG:aoa.huisnummer>31</BG:aoa.huisnummer>
+                                <BG:aoa.huisletter StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                <BG:aoa.huisnummertoevoeging StUF:noValue="geenWaarde" xsi:nil="true"/>
+                            </BG:adresAanduidingGrp>
+                        </BG:gerelateerde>
+                    </BG:inp.verblijftIn>
+                    <BG:verblijfsadres>
+                        <BG:aoa.identificatie>8000200000000117</BG:aoa.identificatie>
+                        <BG:wpl.woonplaatsNaam>DienstberichtDorp</BG:wpl.woonplaatsNaam>
+                        <BG:gor.openbareRuimteNaam>DienstberichtKerkpad</BG:gor.openbareRuimteNaam>
+                        <BG:gor.straatnaam>DienstberichtKerkpad</BG:gor.straatnaam>
+                        <BG:aoa.postcode>8510AA</BG:aoa.postcode>
+                        <BG:aoa.huisnummer>31</BG:aoa.huisnummer>
+                        <BG:aoa.huisletter StUF:noValue="geenWaarde" xsi:nil="true"/>
+                        <BG:aoa.huisnummertoevoeging StUF:noValue="geenWaarde" xsi:nil="true"/>
+                        <BG:inp.locatiebeschrijving StUF:noValue="geenWaarde" xsi:nil="true"/>
+                    </BG:verblijfsadres>
+                    <BG:inp.indicatieGeheim>0</BG:inp.indicatieGeheim>
+                </WOZ:gerelateerde>
+            </WOZ:isEen>
+            <WOZ:soFiNummer>016948567</WOZ:soFiNummer>
+            <WOZ:aanvullingSoFiNummer StUF:noValue="geenWaarde" xsi:nil="true"/>
+            <WOZ:verantwoordelijkeGemeente>8000</WOZ:verantwoordelijkeGemeente>
+            <WOZ:datumEindeSynchronisatie StUF:noValue="geenWaarde" xsi:nil="true"/>
+        </WOZ:object>
+    </WOZ:voegToeNPS>
+    <WOZ:voegToeWOZ StUF:entiteittype="WOZ" StUF:functie="update">
+        <WOZ:parameters>
+            <StUF:mutatiesoort>T</StUF:mutatiesoort>
+            <StUF:indicatorOvername>V</StUF:indicatorOvername>
+        </WOZ:parameters>
+        <WOZ:object StUF:entiteittype="WOZ" StUF:verwerkingssoort="T">
+            <WOZ:wozObjectNummer>800000200016</WOZ:wozObjectNummer>
+            <WOZ:aanduidingWOZobject>
+                <BG:aoa.identificatie>8000200000000118</BG:aoa.identificatie>
+                <BG:wpl.woonplaatsNaam>DienstberichtDorp</BG:wpl.woonplaatsNaam>
+                <BG:aoa.postcode>8510AA</BG:aoa.postcode>
+                <BG:gor.openbareRuimteNaam>DienstberichtKerkpad</BG:gor.openbareRuimteNaam>
+                <BG:gor.straatnaam>DienstberichtKerkpad</BG:gor.straatnaam>
+                <BG:aoa.huisnummer>31</BG:aoa.huisnummer>
+                <BG:aoa.huisletter StUF:noValue="geenWaarde" xsi:nil="true"/>
+                <BG:aoa.huisnummertoevoeging StUF:noValue="geenWaarde" xsi:nil="true"/>
+                <BG:locatieOmschrijving StUF:noValue="geenWaarde" xsi:nil="true"/>
+            </WOZ:aanduidingWOZobject>
+            <WOZ:statusWozObject>0</WOZ:statusWozObject>
+            <WOZ:grondoppervlakte>1000</WOZ:grondoppervlakte>
+            <WOZ:gebruikscode>10</WOZ:gebruikscode>
+            <WOZ:codeGebouwdOngebouwd>G</WOZ:codeGebouwdOngebouwd>
+            <WOZ:meegetaxeerdeOppervlakteGebouwd StUF:noValue="geenWaarde" xsi:nil="true"/>
+            <WOZ:ozbVrijstelling StUF:noValue="nietGeautoriseerd" xsi:nil="true"/>
+            <WOZ:verantwoordelijkeGemeente>
+                <BG:gemeenteCode>8000</BG:gemeenteCode>
+            </WOZ:verantwoordelijkeGemeente>
+            <WOZ:wozObjectGeometrie StUF:noValue="waardeOnbekend" xsi:nil="true"/>
+            <WOZ:ingangsdatumObject>20100413</WOZ:ingangsdatumObject>
+            <WOZ:einddatumObject StUF:noValue="geenWaarde" xsi:nil="true"/>
+            <StUF:tijdvakGeldigheid>
+                <StUF:beginGeldigheid>20100413</StUF:beginGeldigheid>
+                <StUF:eindGeldigheid StUF:noValue="geenWaarde" xsi:nil="true"/>
+            </StUF:tijdvakGeldigheid>
+            <StUF:tijdstipRegistratie>20100501000000000</StUF:tijdstipRegistratie>
+            <WOZ:bevatKadastraleObjecten StUF:entiteittype="WOZKOZ" StUF:verwerkingssoort="T">
+                <WOZ:gerelateerde StUF:entiteittype="KOZ" StUF:verwerkingssoort="T">
+                    <BG:kadastraleIdentificatie>8000552570006</BG:kadastraleIdentificatie>
+                    <BG:kadastraleAanduiding>
+                        <BG:kadastraleGemeentecode>DIEN1</BG:kadastraleGemeentecode>
+                        <BG:kadastraleSectie>R</BG:kadastraleSectie>
+                        <BG:kadastraalPerceelnummer>1</BG:kadastraalPerceelnummer>
+                        <BG:kdp.deelperceelNummer>0003</BG:kdp.deelperceelNummer>
+                    </BG:kadastraleAanduiding>
+                </WOZ:gerelateerde>
+                <WOZ:toegekendeOppervlakte>1000</WOZ:toegekendeOppervlakte>
+                <WOZ:meegetaxeerdeOppervlakte StUF:noValue="geenWaarde" xsi:nil="true"/>
+                <StUF:tijdvakRelatie>
+                    <StUF:beginRelatie>20100413</StUF:beginRelatie>
+                    <StUF:eindRelatie StUF:noValue="geenWaarde" xsi:nil="true"/>
+                </StUF:tijdvakRelatie>
+                <StUF:tijdvakGeldigheid>
+                    <StUF:beginGeldigheid>20100413</StUF:beginGeldigheid>
+                    <StUF:eindGeldigheid StUF:noValue="geenWaarde" xsi:nil="true"/>
+                </StUF:tijdvakGeldigheid>
+                <StUF:tijdstipRegistratie>20100501000000000</StUF:tijdstipRegistratie>
+            </WOZ:bevatKadastraleObjecten>
+            <WOZ:heeftSluimerendObject StUF:entiteittype="WOZSWO" StUF:verwerkingssoort="T">
+                <WOZ:gerelateerde StUF:entiteittype="SWO" StUF:verwerkingssoort="I">
+                    <WOZ:wozObjectNummer>800000793120</WOZ:wozObjectNummer>
+                </WOZ:gerelateerde>
+                <StUF:tijdvakRelatie>
+                    <StUF:beginRelatie>20100413</StUF:beginRelatie>
+                </StUF:tijdvakRelatie>
+                <StUF:tijdvakGeldigheid>
+                    <StUF:beginGeldigheid>20100413</StUF:beginGeldigheid>
+                    <StUF:eindGeldigheid StUF:noValue="geenWaarde" xsi:nil="true"/>
+                </StUF:tijdvakGeldigheid>
+                <StUF:tijdstipRegistratie>20100501000000000</StUF:tijdstipRegistratie>
+            </WOZ:heeftSluimerendObject>
+            <WOZ:heeftBelanghebbende StUF:entiteittype="WOZSUB" StUF:verwerkingssoort="T">
+                <WOZ:gerelateerde>
+                    <WOZ:natuurlijkPersoon StUF:entiteittype="NPS" StUF:verwerkingssoort="I">
+                        <WOZ:isEen StUF:entiteittype="NPSNPS" StUF:verwerkingssoort="I">
+                            <WOZ:gerelateerde StUF:entiteittype="NPS" StUF:verwerkingssoort="I">
+                                <BG:inp.bsn>579107188</BG:inp.bsn>
+                                <BG:geslachtsnaam>DienstOranje</BG:geslachtsnaam>
+                                <BG:voorvoegselGeslachtsnaam>van</BG:voorvoegselGeslachtsnaam>
+                                <BG:voorletters>W.A.</BG:voorletters>
+                                <BG:geslachtsaanduiding>M</BG:geslachtsaanduiding>
+                                <BG:geboortedatum>19820126</BG:geboortedatum>
+                                <BG:verblijfsadres>
+                                    <BG:aoa.identificatie>8000200000000116</BG:aoa.identificatie>
+                                    <BG:wpl.woonplaatsNaam>DienstberichtDorp</BG:wpl.woonplaatsNaam>
+                                    <BG:gor.openbareRuimteNaam>DienstberichtKerkpad</BG:gor.openbareRuimteNaam>
+                                    <BG:aoa.postcode>8510AA</BG:aoa.postcode>
+                                    <BG:aoa.huisnummer>29</BG:aoa.huisnummer>
+                                    <BG:aoa.huisletter StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                    <BG:aoa.huisnummertoevoeging StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                    <BG:inp.locatiebeschrijving StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                </BG:verblijfsadres>
+                            </WOZ:gerelateerde>
+                        </WOZ:isEen>
+                        <WOZ:soFiNummer>579107188</WOZ:soFiNummer>
+                        <WOZ:aanvullingSoFiNummer StUF:noValue="geenWaarde" xsi:nil="true"/>
+                        <WOZ:verantwoordelijkeGemeente>8000</WOZ:verantwoordelijkeGemeente>
+                    </WOZ:natuurlijkPersoon>
+                </WOZ:gerelateerde>
+                <WOZ:aanduidingEigenaarGebruiker>E</WOZ:aanduidingEigenaarGebruiker>
+                <WOZ:statusBelang>0</WOZ:statusBelang>
+                <WOZ:avr.aard StUF:noValue="nietGeautoriseerd" xsi:nil="true"/>
+                <StUF:tijdvakRelatie>
+                    <StUF:beginRelatie>20100413</StUF:beginRelatie>
+                    <StUF:eindRelatie StUF:noValue="geenWaarde" xsi:nil="true"/>
+                </StUF:tijdvakRelatie>
+                <StUF:tijdvakGeldigheid>
+                    <StUF:beginGeldigheid>20100413</StUF:beginGeldigheid>
+                    <StUF:eindGeldigheid StUF:noValue="geenWaarde" xsi:nil="true"/>
+                </StUF:tijdvakGeldigheid>
+                <StUF:tijdstipRegistratie>20100501000000000</StUF:tijdstipRegistratie>
+            </WOZ:heeftBelanghebbende>
+            <WOZ:heeftBelanghebbende StUF:entiteittype="WOZSUB" StUF:verwerkingssoort="T">
+                <WOZ:gerelateerde>
+                    <WOZ:natuurlijkPersoon StUF:entiteittype="NPS" StUF:verwerkingssoort="I">
+                        <WOZ:isEen StUF:entiteittype="NPSNPS" StUF:verwerkingssoort="I">
+                            <WOZ:gerelateerde StUF:entiteittype="NPS" StUF:verwerkingssoort="I">
+                                <BG:inp.bsn>016948567</BG:inp.bsn>
+                                <BG:geslachtsnaam>Dienstdegenkolb</BG:geslachtsnaam>
+                                <BG:voorvoegselGeslachtsnaam StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                <BG:voorletters>J.</BG:voorletters>
+                                <BG:geslachtsaanduiding>M</BG:geslachtsaanduiding>
+                                <BG:geboortedatum>19891006</BG:geboortedatum>
+                                <BG:verblijfsadres>
+                                    <BG:aoa.identificatie>8000200000000117</BG:aoa.identificatie>
+                                    <BG:wpl.woonplaatsNaam>DienstberichtDorp</BG:wpl.woonplaatsNaam>
+                                    <BG:gor.openbareRuimteNaam>DienstberichtKerkpad</BG:gor.openbareRuimteNaam>
+                                    <BG:aoa.postcode>8510AA</BG:aoa.postcode>
+                                    <BG:aoa.huisnummer>31</BG:aoa.huisnummer>
+                                    <BG:aoa.huisletter StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                    <BG:aoa.huisnummertoevoeging StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                    <BG:inp.locatiebeschrijving StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                </BG:verblijfsadres>
+                            </WOZ:gerelateerde>
+                        </WOZ:isEen>
+                        <WOZ:soFiNummer>016948567</WOZ:soFiNummer>
+                        <WOZ:aanvullingSoFiNummer StUF:noValue="geenWaarde" xsi:nil="true"/>
+                        <WOZ:verantwoordelijkeGemeente>8000</WOZ:verantwoordelijkeGemeente>
+                    </WOZ:natuurlijkPersoon>
+                </WOZ:gerelateerde>
+                <WOZ:aanduidingEigenaarGebruiker>G</WOZ:aanduidingEigenaarGebruiker>
+                <WOZ:statusBelang>0</WOZ:statusBelang>
+                <WOZ:avr.aard StUF:noValue="nietGeautoriseerd" xsi:nil="true"/>
+                <StUF:tijdvakRelatie>
+                    <StUF:beginRelatie>20100413</StUF:beginRelatie>
+                    <StUF:eindRelatie StUF:noValue="geenWaarde" xsi:nil="true"/>
+                </StUF:tijdvakRelatie>
+                <StUF:tijdvakGeldigheid>
+                    <StUF:beginGeldigheid>20100413</StUF:beginGeldigheid>
+                    <StUF:eindGeldigheid StUF:noValue="geenWaarde" xsi:nil="true"/>
+                </StUF:tijdvakGeldigheid>
+                <StUF:tijdstipRegistratie>20100501000000000</StUF:tijdstipRegistratie>
+            </WOZ:heeftBelanghebbende>
+            <WOZ:ligtIn StUF:entiteittype="WOZWSP" StUF:verwerkingssoort="T">
+                <WOZ:gerelateerde StUF:entiteittype="WSP" StUF:verwerkingssoort="I">
+                    <WOZ:betrokkenWaterschap>8106</WOZ:betrokkenWaterschap>
+                </WOZ:gerelateerde>
+                <StUF:tijdvakRelatie>
+                    <StUF:beginRelatie>20100413</StUF:beginRelatie>
+                    <StUF:eindRelatie StUF:noValue="geenWaarde" xsi:nil="true"/>
+                </StUF:tijdvakRelatie>
+                <StUF:tijdvakGeldigheid>
+                    <StUF:beginGeldigheid>20100413</StUF:beginGeldigheid>
+                    <StUF:eindGeldigheid StUF:noValue="geenWaarde" xsi:nil="true"/>
+                </StUF:tijdvakGeldigheid>
+                <StUF:tijdstipRegistratie>20100501000000000</StUF:tijdstipRegistratie>
+            </WOZ:ligtIn>
+        </WOZ:object>
+    </WOZ:voegToeWOZ>
+</WOZ:OWOZ_Di01>
+
+    </gebeurtenisinhoud></dgl:VerstrekkingAanAfnemer>
+

@@ -764,6 +764,8 @@ public class StagingProxy {
             brmoXMLReader = new BRPXMLReader(cis, d, this);
         } else if (type.equals(BrmoFramework.BR_GBAV)) {
             brmoXMLReader = new GbavXMLReader(cis);
+        } else if(type.equals(BrmoFramework.BR_WOZ)){
+            brmoXMLReader = new WozXMLReader(cis, d, this);
         } else {
             throw new UnsupportedOperationException("Ongeldige basisregistratie: " + type);
         }
@@ -853,7 +855,7 @@ public class StagingProxy {
                     lastErrorMessage = String.format("Laden bericht uit %s mislukt vanwege: %s",
                             fileName, e.getLocalizedMessage());
                     log.error(lastErrorMessage);
-                    log.trace(e.fillInStackTrace());
+                    log.trace(lastErrorMessage, e);
                     if (listener != null) {
                         listener.exception(e);
                     }

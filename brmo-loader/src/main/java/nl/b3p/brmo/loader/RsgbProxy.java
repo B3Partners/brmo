@@ -692,6 +692,8 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 //                t = new BGTLightRsgbTransformer(this.stagingProxy);
             } else if (brType.equals(BrmoFramework.BR_GBAV)) {
                 t = new RsgbTransformer(BrmoFramework.XSL_GBAV);
+            } else if(brType.equals(BrmoFramework.BR_WOZ)){
+                t = new RsgbWOZTransformer(BrmoFramework.XSL_WOZ, this.stagingProxy);
             } else {
                 throw new IllegalArgumentException("Onbekende basisregistratie: " + brType);
             }
@@ -1311,8 +1313,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
         Date date = null;
         Calendar calendar = javax.xml.bind.DatatypeConverter.parseDateTime(datum);
         if (calendar != null) {
-            Calendar cal = (Calendar) calendar;
-            date = new java.sql.Date(cal.getTimeInMillis());
+            date = new java.sql.Date(calendar.getTimeInMillis());
         }
 
         insertMetadataStatement.setString(1, tabel);

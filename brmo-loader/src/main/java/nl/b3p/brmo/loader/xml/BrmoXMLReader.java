@@ -31,12 +31,12 @@ public abstract class BrmoXMLReader {
     public abstract boolean hasNext() throws Exception;
     public abstract Bericht next() throws Exception;
 
-    public void setDatumAsString(String brkDatumString, String simpleDateFormat) {
+    public void setDatumAsString(String datumString, String simpleDateFormat) {
         SimpleDateFormat sdf = new SimpleDateFormat(simpleDateFormat);
         try {
-            bestandsDatum = sdf.parse(brkDatumString);
+            bestandsDatum = sdf.parse(datumString);
         } catch (ParseException pe) {
-            log.error("Fout bij parsen BRK datum \"" + brkDatumString + "\" met formaat " + simpleDateFormat, pe);
+            log.error("Fout bij parsen bericht datum \"" + datumString + "\" met formaat " + simpleDateFormat, pe);
         }
     }
     public String getHash(String bsn) {
