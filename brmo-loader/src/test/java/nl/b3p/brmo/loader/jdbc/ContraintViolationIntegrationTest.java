@@ -161,6 +161,6 @@ public class ContraintViolationIntegrationTest extends AbstractDatabaseIntegrati
 
         // test voor de gerelateerde woonplaats
         ITable wnplts = rsgb.createQueryTable("wnplts", "select * from wnplts where identif='3042'");
-        assertEquals(0, wnplts.getRowCount(), "Het aantal openbare ruimten klopt niet.");
+        assertEquals(0, wnplts.getRowCount(), "Het aantal woonplaatsen klopt niet.");
     }
 }
