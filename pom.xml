@@ -477,6 +477,13 @@
                 <groupId>org.apache.poi</groupId>
                 <artifactId>poi-ooxml</artifactId>
                 <version>${apache.poi.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <!-- deze batik neemt allerlei xml parsing libs mee die conflicten opleveren -->
+                        <groupId>org.apache.xmlgraphics</groupId>
+                        <artifactId>batik-all</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>com.itextpdf</groupId>
