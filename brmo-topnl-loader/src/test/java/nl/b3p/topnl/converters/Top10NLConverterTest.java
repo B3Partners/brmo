@@ -57,7 +57,7 @@ public class Top10NLConverterTest extends TestUtil{
     }
 
     @Test
-    public void testConvertNoFeatureCollection() throws IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException {
+    public void testConvertNoFeatureCollection() throws Exception {
         Hoogte hoogte = new Hoogte();
         URL in = Top10NLConverterTest.class.getResource("top10nl/Hoogte.xml");
         List jaxb = processor.parse(in);
@@ -73,11 +73,11 @@ public class Top10NLConverterTest extends TestUtil{
      * Test of convertHoogte method, of class Top250NLConverter.
      */
     @Test
-    public void testConvertHoogte() throws IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
+    public void testConvertHoogte() throws Exception {
         TopNLEntity expected = getStandardTestTopNLEntity();
         expected.setBronnauwkeurigheid(20000.0);
         expected.setBronbeschrijving("Externe data: Hoogtegegevens. Gebaseerd op hoogtemodel Kadaster dat is bijgehouden met behulp van stereo luchtfoto's");
-        expected.setVisualisatieCode(new Long("16300"));
+        expected.setVisualisatieCode(16300L);
 
         expected.setIdentificatie("NL.TOP10NL.105441792");
         TopNLEntity entity = getEntity("top10nl/Hoogte.xml");
@@ -89,20 +89,20 @@ public class Top10NLConverterTest extends TestUtil{
         Hoogte h = (Hoogte) entity;
         
         assertEquals("hoogtepunt", h.getTypeHoogte());
-        assertEquals(new Double(31.5), h.getHoogte());
+        assertEquals(31.5d, h.getHoogte());
         assertEquals("NAP", h.getReferentieVlak());
         assertNotNull(h.getGeometrie());
         assertEquals(Point.class, h.getGeometrie().getClass());
     }
 
     @Test
-    public void testConvertFunctioneelGebied() throws IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
+    public void testConvertFunctioneelGebied() throws Exception {
         TopNLEntity entity = getEntity("top10nl/FunctioneelGebied.xml");
 
         TopNLEntity expected = getStandardTestTopNLEntity();
         expected.setIdentificatie("NL.TOP10NL.100002175");
 
-        expected.setVisualisatieCode(new Long("19450"));
+        expected.setVisualisatieCode(19450L);
 
         assertNotNull(entity);
         assertTrue(entity instanceof FunctioneelGebied);
@@ -115,13 +115,13 @@ public class Top10NLConverterTest extends TestUtil{
     }
 
     @Test
-    public void testConvertGeografischGebied() throws IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
+    public void testConvertGeografischGebied() throws Exception {
         TopNLEntity entity = getEntity("top10nl/GeografischGebied.xml");
 
         TopNLEntity expected = getStandardTestTopNLEntity();
 
         expected.setIdentificatie("NL.TOP10NL.121199089");
-        expected.setVisualisatieCode(new Long("18130"));
+        expected.setVisualisatieCode(18130L);
         expected.setObjectBeginTijd(sdf.parse("2011-08-25"));
 
         assertNotNull(entity);
@@ -136,7 +136,7 @@ public class Top10NLConverterTest extends TestUtil{
     }
     
     @Test
-    public void testConvertGebouw() throws IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
+    public void testConvertGebouw() throws Exception {
         TopNLEntity entity = getEntity("top10nl/Gebouw.xml");
 
         TopNLEntity expected = getStandardTestTopNLEntity();
@@ -144,8 +144,8 @@ public class Top10NLConverterTest extends TestUtil{
         expected.setObjectBeginTijd(sdf.parse("2014-05-29"));
 
         expected.setIdentificatie("NL.TOP10NL.127584838");
-        expected.setVisualisatieCode(new Long("13000"));
-        expected.setBronnauwkeurigheid(new Double("100"));
+        expected.setVisualisatieCode(13000L);
+        expected.setBronnauwkeurigheid(100d);
  
        assertNotNull(entity);
         assertTrue(entity instanceof Gebouw);
@@ -161,7 +161,7 @@ public class Top10NLConverterTest extends TestUtil{
     
        
     @Test
-    public void testConvertInrichtingselement() throws IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
+    public void testConvertInrichtingselement() throws Exception {
         TopNLEntity entity = getEntity("top10nl/InrichtingsElement.xml");
 
         TopNLEntity expected = getStandardTestTopNLEntity();
@@ -169,8 +169,8 @@ public class Top10NLConverterTest extends TestUtil{
         expected.setObjectBeginTijd(sdf.parse("2008-11-24"));
 
         expected.setIdentificatie("NL.TOP10NL.103869300");
-        expected.setVisualisatieCode(new Long("15090"));
-        expected.setBronnauwkeurigheid(new Double(400));
+        expected.setVisualisatieCode(15090L);
+        expected.setBronnauwkeurigheid(400d);
 
         assertNotNull(entity);
         assertTrue(entity instanceof Inrichtingselement);
@@ -180,11 +180,11 @@ public class Top10NLConverterTest extends TestUtil{
         testTopNLEntity(expected, real);
         assertEquals(LineString.class, real.getGeometrie().getClass());
         assertEquals( "koedam", real.getTypeInrichtingselement());
-        assertEquals(new Long("0"), real.getHoogteniveau());
+        assertEquals(0L, real.getHoogteniveau());
     }
  
     @Test
-    public void testConvertPlaats() throws IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
+    public void testConvertPlaats() throws Exception {
         TopNLEntity entity = getEntity("top10nl/Plaats.xml");
 
         assertNotNull(entity);
@@ -197,7 +197,7 @@ public class Top10NLConverterTest extends TestUtil{
         expected.setBronbeschrijving("Geometrie ingetekend door Kadaster, op basis van luchtfoto's van 2016. Aantal inwoners: in de BRP geregistreerde inwoners op 30 juni 2016, berekend door het Centraal Bureau\n" +
 " voor de Statistiek, Voorburg/Heerlen.");
         expected.setIdentificatie("NL.TOP10NL.128994154");
-        expected.setVisualisatieCode(new Long("18400"));
+        expected.setVisualisatieCode(18400L);
 
         assertNotNull(entity);
         assertTrue(entity instanceof Plaats);
@@ -207,19 +207,19 @@ public class Top10NLConverterTest extends TestUtil{
         testTopNLEntity(expected, real);
         assertEquals(Polygon.class, real.getGeometrie().getClass());
         assertEquals( "woonkern", real.getTypeGebied());
-        assertEquals( new Long(65), real.getAantalInwoners());
+        assertEquals( 65L, real.getAantalInwoners());
         assertEquals( "Stitswerd", real.getNaamNL());
     }
               
     @Test
-    public void testConvertPlantopografie() throws IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
+    public void testConvertPlantopografie() throws Exception {
         TopNLEntity entity = getEntity("top10nl/Plantopografie2.xml");
 
         TopNLEntity expected = getStandardTestTopNLEntity();
 
         expected.setIdentificatie("NL.TOP10NL.130146508");
-        expected.setVisualisatieCode(new Long("999"));
-        expected.setBronnauwkeurigheid(new Double("100"));
+        expected.setVisualisatieCode(999L);
+        expected.setBronnauwkeurigheid(100d);
         expected.setBrontype( "luchtfoto");
         expected.setBronbeschrijving("Geometrie ingetekend door Kadaster, op basis van luchtfoto's. Voor de objectklasse Terrein is het type_landgebruik gebaseerd op BRP-Gewaspercelen 2016, bron: RVO.nl");
         expected.setBronactualiteit(sdf.parse("2016-01-01"));
@@ -237,14 +237,14 @@ public class Top10NLConverterTest extends TestUtil{
     }
     
     @Test
-    public void testConvertRegistratiefGebied() throws IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
+    public void testConvertRegistratiefGebied() throws Exception {
         TopNLEntity entity = getEntity("top10nl/RegistratiefGebied.xml");
 
         TopNLEntity expected = getStandardTestTopNLEntity();
 
         expected.setIdentificatie("NL.TOP10NL.129704430");
-        expected.setVisualisatieCode(new Long("17010"));
-        expected.setBronnauwkeurigheid(new Double("20000"));
+        expected.setVisualisatieCode(17010L);
+        expected.setBronnauwkeurigheid(20000d);
         expected.setBrontype( "externe data");
         expected.setBronbeschrijving("Externe data: Gemeentegrenzen. Gemeentegrenzen gebaseerd op grenswijzigingen in de Basisregistratie Kadaster (BRK). De gemeentegrenzen zijn gegeneraliseerd in de BRT opgenomen.");
         expected.setBronactualiteit(sdf.parse("2016-01-01"));
@@ -263,13 +263,13 @@ public class Top10NLConverterTest extends TestUtil{
     }
 
     @Test
-    public void testConvertRelief() throws IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
+    public void testConvertRelief() throws Exception {
         TopNLEntity entity = getEntity("top10nl/Relief.xml");
 
         TopNLEntity expected = getStandardTestTopNLEntity();
 
         expected.setIdentificatie("NL.TOP10NL.105335729");
-        expected.setVisualisatieCode(new Long("16400"));
+        expected.setVisualisatieCode(16400L);
 
         assertNotNull(entity);
         assertTrue(entity instanceof Relief);
@@ -280,16 +280,16 @@ public class Top10NLConverterTest extends TestUtil{
         assertEquals(LineString.class, real.getGeometrie().getClass());
         assertEquals( "wal", real.getTypeRelief());
         assertEquals( "< 1 meter", real.getHoogteklasse());
-        assertEquals(new Long("0"), real.getHoogteniveau());
+        assertEquals(0L, real.getHoogteniveau());
     }
     @Test
-    public void testConvertReliefTalud() throws IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
+    public void testConvertReliefTalud() throws Exception {
         TopNLEntity entity = getEntity("top10nl/ReliefTalud.xml");
 
         TopNLEntity expected = getStandardTestTopNLEntity();
 
         expected.setIdentificatie("NL.TOP10NL.104681205");
-        expected.setVisualisatieCode(new Long("16810"));
+        expected.setVisualisatieCode(16810L);
         expected.setBrontype("TOP10vector");
         expected.setBronnauwkeurigheid(2000d);
         expected.setBronbeschrijving("Digitaal bestand met gecodeerde vectoren. Deze geven tezamen de topografie van Nederland weer op de schaal 1:10.000. Voorloper van TOP10NL.");
@@ -302,22 +302,22 @@ public class Top10NLConverterTest extends TestUtil{
         Relief real = (Relief) entity;
 
         testTopNLEntity(expected, real);
-        assertEquals(null, real.getGeometrie());
+        assertNull(real.getGeometrie());
         assertEquals(LineString.class, real.getTaludHogeZijde().getClass());
         assertEquals(LineString.class, real.getTaludLageZijde().getClass());
         assertEquals( "talud, hoogteverschil", real.getTypeRelief());
         assertEquals( "> 2,5 meter", real.getHoogteklasse());
-        assertEquals(new Long("0"), real.getHoogteniveau());
+        assertEquals(0, real.getHoogteniveau());
     }
     
     @Test
-    public void testConvertSpoorbaandeel() throws IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
+    public void testConvertSpoorbaandeel() throws Exception {
         TopNLEntity entity = getEntity("top10nl/Spoorbaandeel.xml");
 
         TopNLEntity expected = getStandardTestTopNLEntity();
         expected.setIdentificatie("NL.TOP10NL.129726022");
 
-        expected.setVisualisatieCode(new Long("-11000"));
+        expected.setVisualisatieCode(-11000L);
         expected.setObjectBeginTijd(sdf.parse("2016-11-01"));
 
         assertNotNull(entity);
@@ -334,17 +334,17 @@ public class Top10NLConverterTest extends TestUtil{
         assertEquals("enkel", real.getAantalSporen());
         assertEquals("personenvervoer", real.getVervoerfunctie());
         assertEquals(true, real.getElektrificatie());
-        assertEquals(new Long("-1"), real.getHoogteniveau());
+        assertEquals(-1L, real.getHoogteniveau());
     }
     
     @Test
-    public void testConvertTerrein() throws IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
+    public void testConvertTerrein() throws Exception {
         TopNLEntity entity = getEntity("top10nl/Terrein.xml");
 
         TopNLEntity expected = getStandardTestTopNLEntity();
 
         expected.setIdentificatie("NL.TOP10NL.106687191");
-        expected.setVisualisatieCode(new Long("14160"));
+        expected.setVisualisatieCode(14160L);
 
         assertNotNull(entity);
         assertTrue(entity instanceof Terrein);
@@ -357,12 +357,12 @@ public class Top10NLConverterTest extends TestUtil{
     }
     
     @Test
-    public void testConvertWaterdeel() throws IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
+    public void testConvertWaterdeel() throws Exception {
         TopNLEntity entity = getEntity("top10nl/Waterdeel.xml");
 
         TopNLEntity expected = getStandardTestTopNLEntity();
         expected.setIdentificatie("NL.TOP10NL.109888370");
-        expected.setVisualisatieCode(new Long("12100"));
+        expected.setVisualisatieCode(12100L);
         expected.setBronactualiteit(sdf.parse("2011-01-01"));
 
         assertNotNull(entity);
@@ -373,20 +373,20 @@ public class Top10NLConverterTest extends TestUtil{
         testTopNLEntity(expected, real);
         assertEquals(LineString.class, real.getGeometrie().getClass());
         assertEquals("greppel, droge sloot", real.getTypeWater());
-        assertEquals(false, real.isHoofdAfwatering());
+        assertFalse(real.isHoofdAfwatering());
         assertEquals(false, real.getGetijdeinvloed());
         assertEquals("overig", real.getFunctie());
-        assertEquals(new Long("0"), real.getHoogteniveau());
+        assertEquals(0L, real.getHoogteniveau());
     }
     
     @Test
-    public void testConvertWegdeel() throws IOException, SAXException, ParserConfigurationException, TransformerException, JAXBException, ParseException {
+    public void testConvertWegdeel() throws Exception {
         TopNLEntity entity = getEntity("top10nl/Wegdeel.xml");
 
         TopNLEntity expected = getStandardTestTopNLEntity();
 
         expected.setIdentificatie("NL.TOP10NL.114492184");
-        expected.setVisualisatieCode(new Long("10750"));
+        expected.setVisualisatieCode(10750L);
         expected.setBronactualiteit(sdf.parse("2011-01-01"));
 
         assertNotNull(entity);
@@ -402,9 +402,9 @@ public class Top10NLConverterTest extends TestUtil{
         assertEquals("voetgangers", real.getHoofdverkeersgebruik());
         assertEquals(false, real.getGescheidenRijbaan());
         assertEquals("onbekend", real.getVerhardingstype());
-        assertEquals(new Long("0"), real.getHoogteniveau());
+        assertEquals(0L, real.getHoogteniveau());
         assertEquals("in gebruik", real.getStatus());
-        assertEquals(null, real.getAantalRijstroken());
+        assertNull(real.getAantalRijstroken());
         assertEquals("< 2 meter", real.getVerhardingsbreedteklasse());
     }
 
@@ -441,8 +441,7 @@ public class Top10NLConverterTest extends TestUtil{
     private TopNLEntity getEntity(String file) throws JAXBException, IOException, SAXException, ParserConfigurationException, TransformerException {
         URL in = Top10NLConverterTest.class.getResource(file);
         List jaxb = processor.parse(in);
-        TopNLEntity entity = instance.convertObject(jaxb.get(0));
-        return entity;
+        return instance.convertObject(jaxb.get(0));
     }
     
       
