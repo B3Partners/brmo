@@ -11,9 +11,8 @@ Een project om een dockerfile te maken met daarin een Tomcat instantie waarin :
 Als de `brmo-dist` artifact is uitgepakt in `docker/src/main/docker/bin_unzipped`
 dan kun je met onderstaande de image bouwen en pushen: 
 ```
-docker build --file ./docker/src/main/docker/Dockerfile ./docker/src/main/docker/ --tag b3partners/brmo:latest
-docker tag b3partners/brmo:latest docker.b3p.nl/b3partners/b3partners/brmo:latest
-docker push docker.b3p.nl/b3partners/b3partners/brmo:latest
+docker build --file ./docker/src/main/docker/Dockerfile ./docker/src/main/docker/ --tag docker.b3p.nl/b3partners/brmo:latest
+docker push docker.b3p.nl/b3partners/brmo:latest
 ```
 (NB. voor `push` is authenticatie nodig middels `docker login`)
 
