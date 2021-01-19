@@ -38,7 +38,7 @@ timestamps {
                     }
 
                     lock('brmo-oracle') {
-                        sh ".jenkins/start-oracle-brmo.sh"
+                        // sh ".jenkins/start-oracle-brmo.sh" oracle draait al op 192.168.1.26:15210
                         timeout(180) {
                             stage("Prepare Oracle Databases: ${indexOfJdk}") {
                                 echo "cleanup schema's"
