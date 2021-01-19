@@ -92,7 +92,7 @@
         </dependency>
         <dependency>
             <groupId>com.oracle.database.jdbc</groupId>
-            <artifactId>ojdbc8</artifactId>
+            <artifactId>${oracle.jdbc.artifact}</artifactId>
             <!-- Bij JNDI db verbinding moeten Oracle jars in tomcat lib staan -->
             <scope>provided</scope>
         </dependency>
@@ -122,7 +122,7 @@
             <exclusions>
                 <exclusion>
                     <groupId>com.oracle.database.jdbc</groupId>
-                    <artifactId>ojdbc8</artifactId>
+                    <artifactId>${oracle.jdbc.artifact}</artifactId>
                 </exclusion>
                 <exclusion>
                     <artifactId>org.postgresql</artifactId>
