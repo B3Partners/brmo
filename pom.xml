@@ -62,13 +62,14 @@
         <netbeans.hint.license>gpl30</netbeans.hint.license>
         <hibernate.version>5.4.27.Final</hibernate.version>
         <!-- ook jdbc-util updaten bij geotools update -->
-        <geotools.version>24.1</geotools.version>
-        <jdbc-util.version>7.4</jdbc-util.version>
-        <jts.version>1.17.1</jts.version>
+        <geotools.version>24.2</geotools.version>
+        <jdbc-util.version>7.5</jdbc-util.version>
+        <jts.version>1.18.0</jts.version>
         <itextpdf.version>7.1.14</itextpdf.version>
         <postgresql.jdbc.version>42.2.18</postgresql.jdbc.version>
         <postgresql.postgis-jdbc.version>2.5.0</postgresql.postgis-jdbc.version>
         <oracle.jdbc.version>21.1.0.0</oracle.jdbc.version>
+        <oracle.jdbc.artifact>ojdbc8</oracle.jdbc.artifact>
         <sqlserver.jdbc.version>8.4.1.jre8</sqlserver.jdbc.version>
         <mssql.instancename />
         <javasimon.version>4.2.0</javasimon.version>
@@ -320,7 +321,7 @@
             </dependency>
             <dependency>
                 <groupId>com.oracle.database.jdbc</groupId>
-                <artifactId>ojdbc8</artifactId>
+                <artifactId>${oracle.jdbc.artifact}</artifactId>
                 <version>${oracle.jdbc.version}</version>
             </dependency>
             <dependency>
@@ -537,6 +538,12 @@
                 <groupId>net.javacrumbs.json-unit</groupId>
                 <artifactId>json-unit</artifactId>
                 <version>2.22.1</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.xmlunit</groupId>
+                <artifactId>xmlunit-core</artifactId>
+                <version>2.8.2</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
@@ -1215,6 +1222,7 @@
                 <project.build.targetVersion>1.8</project.build.targetVersion>
                 <maven.compiler.target>1.8</maven.compiler.target>
                 <sqlserver.jdbc.version>8.4.1.jre11</sqlserver.jdbc.version>
+                <oracle.jdbc.artifact>ojdbc11</oracle.jdbc.artifact>
             </properties>
             <dependencyManagement>
                 <dependencies>

@@ -30,7 +30,7 @@
             <exclusions>
                 <exclusion>
                     <groupId>com.oracle.database.jdbc</groupId>
-                    <artifactId>ojdbc8</artifactId>
+                    <artifactId>${oracle.jdbc.artifact}</artifactId>
                 </exclusion>
                 <exclusion>
                     <artifactId>org.postgresql</artifactId>
@@ -75,7 +75,7 @@
         </dependency>
         <dependency>
             <groupId>com.oracle.database.jdbc</groupId>
-            <artifactId>ojdbc8</artifactId>
+            <artifactId>${oracle.jdbc.artifact}</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -188,7 +188,7 @@
             <dependencies>
                 <dependency>
                     <groupId>com.oracle.database.jdbc</groupId>
-                    <artifactId>ojdbc8</artifactId>
+                    <artifactId>${oracle.jdbc.artifact}</artifactId>
                 </dependency>
             </dependencies>
             <build>
