@@ -6,7 +6,6 @@
         <artifactId>brmo</artifactId>
         <version>2.0.3-SNAPSHOT</version>
     </parent>
-    <groupId>nl.b3p</groupId>
     <artifactId>brmo-test-util</artifactId>
     <version>2.0.3-SNAPSHOT</version>
     <packaging>jar</packaging>
@@ -19,7 +18,10 @@
         <dependency>
             <groupId>org.dbunit</groupId>
             <artifactId>dbunit</artifactId>
-            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.xmlunit</groupId>
+            <artifactId>xmlunit-core</artifactId>
         </dependency>
         <dependency>
             <groupId>org.postgresql</groupId>
