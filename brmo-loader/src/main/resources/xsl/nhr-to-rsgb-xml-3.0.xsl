@@ -484,11 +484,14 @@
 
             <fk_16tgo_identif><xsl:value-of select="cat:bezoekLocatie/cat:adres/cat:binnenlandsAdres/cat:bagId/cat:identificatieNummeraanduiding"/></fk_16tgo_identif>
             <fk_20aoa_identif><xsl:value-of select="cat:bezoekLocatie/cat:adres/cat:binnenlandsAdres/cat:bagId/cat:identificatieAdresseerbaarObject"/></fk_20aoa_identif>
-            <!-- vullen als hoofd activiteit -->
-            <xsl:if test="cat:activiteiten/cat:sbiActiviteit/cat:isHoofdactiviteit/cat:code = 'J'">
-                <fk_sa_sbi_activiteit_sbi_code><xsl:value-of select="cat:activiteiten/cat:sbiActiviteit/cat:sbiCode/cat:code"/></fk_sa_sbi_activiteit_sbi_code>
-                <sa_indic_hoofdactiviteit><xsl:value-of select="cat:activiteiten/cat:sbiActiviteit/cat:isHoofdactiviteit/cat:omschrijving"/></sa_indic_hoofdactiviteit>
-            </xsl:if>
+
+            <xsl:for-each select="cat:activiteiten/cat:sbiActiviteit">
+                <!-- vullen als hoofd activiteit -->
+                <xsl:if test="./cat:isHoofdactiviteit/cat:code = 'J'">
+                    <fk_sa_sbi_activiteit_sbi_code><xsl:value-of select="./cat:sbiCode/cat:code"/></fk_sa_sbi_activiteit_sbi_code>
+                    <sa_indic_hoofdactiviteit><xsl:value-of select="./cat:isHoofdactiviteit/cat:omschrijving"/></sa_indic_hoofdactiviteit>
+                </xsl:if>
+            </xsl:for-each>
         </vestg>
 
         <!--xsl:comment> Gaat uit van fixed issue #139, #140</xsl:comment-->
