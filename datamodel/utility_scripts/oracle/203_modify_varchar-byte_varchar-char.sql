@@ -6,4 +6,5 @@
 -- Mogelijk zijn er meer tabellen/kolommen waar dit probleem naar voren komt, 
 --   die kunnen dan hieronder worden toegevoegd
 --
-ALTER TABLE GEM_OPENB_RMTE MODIFY (STRAATNAAM VARCHAR2(24 CHAR));
+ALTER TABLE GEM_OPENB_RMTE         MODIFY (STRAATNAAM VARCHAR2(24 CHAR));
+ALTER TABLE GEM_OPENB_RMTE_ARCHIEF MODIFY (STRAATNAAM VARCHAR2(24 CHAR));
