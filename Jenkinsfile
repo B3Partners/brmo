@@ -16,7 +16,7 @@ timestamps {
         }
 
         stage('Prepare data') {
-            sh ".jenkins/data-prepare-topnl.sh"
+            sh ".build/ci/data-prepare-topnl.sh"
         }
 
         lock('brmo-single-build') {
