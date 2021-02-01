@@ -11,7 +11,7 @@ env:
 jobs:
   build:
     name: Java ${{ matrix.java }} / PostGIS ${{ matrix.postgis }}
-    runs-on: [ubuntu-latest]
+    runs-on: [ubuntu-20.04]
     strategy:
       matrix:
         java: [ 11 ]
@@ -78,7 +78,7 @@ jobs:
           .build/ci/pgsql-create-databases.sh
           .build/ci/pgsql-setup.sh
 
-      - name: Prepare TopNL
+      - name: Prepare TopNL Data
         run: |
           .build/ci/data-prepare-topnl.sh
 
@@ -117,7 +117,7 @@ jobs:
 
   javadoc:
     name: JavaDoc Check ${{ matrix.java }}
-    runs-on: [ubuntu-latest]
+    runs-on: [ubuntu-18.04]
     strategy:
       matrix:
         java: [ 8 ]
