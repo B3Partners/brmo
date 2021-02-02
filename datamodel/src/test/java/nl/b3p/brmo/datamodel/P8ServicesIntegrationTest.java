@@ -72,7 +72,7 @@ public class P8ServicesIntegrationTest extends P8TestFramework {
             // TODO testdata laden
             // data wordt nu niet nieuw geladen,
             // alleen de views nieuw aangemaakt en ververst, dat gebeurt met een bash script
-            // zie .travis/reinstall-rsgb-views-pgsql.sh
+            // zie .build/ci/pgsql-reinstall-rsgb-views.sh
             // TODO verversen van de views na laden van test data
             // LOG.debug("ververs test data in rsgb views");
             // ViewUtils.refreshKnownMViews(dsRsgb);
