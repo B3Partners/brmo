@@ -63,7 +63,7 @@ tevens kan daarmee de juiste configuratie worden geladen.
 
 Het is mogelijk om bepaalde tests uit te sluiten voor een bepaalde omgeving, dat kan mbv. de marker interfaces in de [`brmo-test-util` module](/brmo/brmo-test-util/index.html).
 
-Bekijk de `.travis.yml`, `appveyor.yml` en `Jenkinsfile` hoe de integratie tests worden gestart.
+Bekijk de `.github/workflow/`, `appveyor.yml` en `Jenkinsfile` hoe de integratie tests worden gestart.
 
 ### database configuratie
 

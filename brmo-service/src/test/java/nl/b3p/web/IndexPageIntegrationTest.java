@@ -55,7 +55,7 @@ public class IndexPageIntegrationTest extends WebTestUtil {
 
     /**
      * Test of de database bestaat en de default admin gebruiker is aangemaakt.
-     * Test of de .travis.yml correct is uitgevoerd.
+     * Test of de CI setup correct is uitgevoerd.
      *
      * @throws SQLException als er iets misgaat met SQL parsen
      */

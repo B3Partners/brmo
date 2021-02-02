@@ -498,9 +498,9 @@
                 <defaultGoal>verify</defaultGoal>
                 <testResources>
                     <testResource>
-                        <directory>${maven.multiModuleProjectDirectory}/.travis/</directory>
+                        <directory>${maven.multiModuleProjectDirectory}/.build/ci/</directory>
                         <includes>
-                            <include>reinstall-rsgb-views-pgsql.sh</include>
+                            <include>pgsql-reinstall-rsgb-views.sh</include>
                         </includes>
                         <filtering>true</filtering>
                         <targetPath>${project.build.directory}/</targetPath>
@@ -541,7 +541,7 @@
                                 <phase>process-test-resources</phase>
                                 <configuration>
                                     <target>
-                                        <chmod file="${project.build.directory}/reinstall-rsgb-views-pgsql.sh" perm="ugo+x" />
+                                        <chmod file="${project.build.directory}/pgsql-reinstall-rsgb-views.sh" perm="ugo+x" />
                                     </target>
                                 </configuration>
                                 <goals>
