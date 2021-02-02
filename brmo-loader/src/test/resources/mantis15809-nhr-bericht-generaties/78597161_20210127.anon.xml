@@ -1,0 +1,669 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Geanonimiseerd door B3Partners BV op 2021-02-01+01:00, zie commentaar in bericht.-->
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+   <wstxns1:Header xmlns:wsa="http://www.w3.org/2005/08/addressing"
+                   xmlns:wstxns1="http://schemas.xmlsoap.org/soap/envelope/"/>
+   <wstxns8:Body xmlns:wstxns8="http://schemas.xmlsoap.org/soap/envelope/"
+                 xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+                 wsu:Id="id-1-108817da16bc15c1e41197e16e49717d">
+      <ophalenInschrijvingResponse xmlns="http://schemas.kvk.nl/schemas/hrip/dataservice/2015/02"
+                                   peilmoment="20210127115543680">
+         <meldingen>
+            <informatie>
+               <code>IPD0000</code>
+               <omschrijving>Het product is succesvol geproduceerd</omschrijving>
+               <referentie>78597161</referentie>
+            </informatie>
+         </meldingen>
+         <product>
+            <maatschappelijkeActiviteit xmlns="http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02">
+               <registratie registratieTijdstip="20200716115209608">
+                  <datumAanvang>20200629</datumAanvang>
+               </registratie>
+               <kvkNummer>78597161</kvkNummer>
+               <nonMailing>
+                  <code>N</code>
+                  <omschrijving>Nee</omschrijving>
+                  <referentieType>geenRT</referentieType>
+               </nonMailing>
+               <incidenteelUitlenenArbeidskrachten>
+                  <code>N</code>
+                  <omschrijving>Nee</omschrijving>
+                  <referentieType>geenRT</referentieType>
+               </incidenteelUitlenenArbeidskrachten>
+               <bezoekLocatie>
+                  <registratie registratieTijdstip="20201002151046518">
+                     <datumAanvang>20200601</datumAanvang>
+                  </registratie>
+                  <afgeschermd>
+                     <code>N</code>
+                     <omschrijving>Nee</omschrijving>
+                     <referentieType>geenRT</referentieType>
+                  </afgeschermd>
+                  <adres>
+                     <binnenlandsAdres>
+                        <straatnaam>Hoofdweg</straatnaam>
+                        <huisnummer>26</huisnummer>
+                        <postcode>
+                           <cijfercombinatie>8383</cijfercombinatie>
+                           <lettercombinatie>EG</lettercombinatie>
+                        </postcode>
+                        <plaats>Nijensleek</plaats>
+                        <bagId>
+                           <identificatieNummeraanduiding>1701200000224132</identificatieNummeraanduiding>
+                           <identificatieAdresseerbaarObject>1701010000224133</identificatieAdresseerbaarObject>
+                        </bagId>
+                     </binnenlandsAdres>
+                  </adres>
+                  <volledigAdres>Hoofdweg 26
+8383EG Nijensleek</volledigAdres>
+               </bezoekLocatie>
+               <postLocatie>
+                  <registratie registratieTijdstip="20201002151046518">
+                     <datumAanvang>20200601</datumAanvang>
+                  </registratie>
+                  <afgeschermd>
+                     <code>N</code>
+                     <omschrijving>Nee</omschrijving>
+                     <referentieType>geenRT</referentieType>
+                  </afgeschermd>
+                  <adres>
+                     <binnenlandsAdres>
+                        <straatnaam>Hoofdweg</straatnaam>
+                        <huisnummer>26</huisnummer>
+                        <postcode>
+                           <cijfercombinatie>8383</cijfercombinatie>
+                           <lettercombinatie>EG</lettercombinatie>
+                        </postcode>
+                        <plaats>Nijensleek</plaats>
+                        <bagId>
+                           <identificatieNummeraanduiding>1701200000224132</identificatieNummeraanduiding>
+                           <identificatieAdresseerbaarObject>1701010000224133</identificatieAdresseerbaarObject>
+                        </bagId>
+                     </binnenlandsAdres>
+                  </adres>
+                  <volledigAdres>Hoofdweg 26
+8383EG Nijensleek</volledigAdres>
+               </postLocatie>
+               <communicatiegegevens>
+                  <registratie registratieTijdstip="20200716115209608">
+                     <datumAanvang>20180306</datumAanvang>
+                  </registratie>
+                  <communicatienummer>
+                     <toegangscode>+31</toegangscode>
+                     <nummer>0854011783</nummer>
+                     <soort>
+                        <code>T</code>
+                        <omschrijving>Telefoon</omschrijving>
+                     </soort>
+                  </communicatienummer>
+                  <communicatienummer>
+                     <toegangscode>+31</toegangscode>
+                     <nummer>0521320465</nummer>
+                     <soort>
+                        <code>T</code>
+                        <omschrijving>Telefoon</omschrijving>
+                     </soort>
+                  </communicatienummer>
+                  <emailAdres>info@isocoat-isolatie.nl</emailAdres>
+                  <domeinNaam>www.isocoat-isolatie.nl</domeinNaam>
+               </communicatiegegevens>
+               <naam>Isocoat B.V.</naam>
+               <manifesteertZichAls>
+                  <relatieRegistratie registratieTijdstip="20200716115209608">
+                     <datumAanvang>20200629</datumAanvang>
+                  </relatieRegistratie>
+                  <onderneming>
+                     <registratie registratieTijdstip="20200716115209608">
+                        <datumAanvang>20050315</datumAanvang>
+                     </registratie>
+                     <kvkNummer>78597161</kvkNummer>
+                     <sbiActiviteit>
+                        <registratie registratieTijdstip="20201104164137503">
+                           <datumAanvang>20200701</datumAanvang>
+                        </registratie>
+                        <sbiCode>
+                           <code>4329</code>
+                           <omschrijving>Overige bouwinstallatie</omschrijving>
+                           <referentieType>ActiviteitCode</referentieType>
+                        </sbiCode>
+                        <isHoofdactiviteit>
+                           <code>J</code>
+                           <omschrijving>Ja</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </isHoofdactiviteit>
+                     </sbiActiviteit>
+                     <sbiActiviteit>
+                        <registratie registratieTijdstip="20201104164137503">
+                           <datumAanvang>20200701</datumAanvang>
+                        </registratie>
+                        <sbiCode>
+                           <code>4339</code>
+                           <omschrijving>Overige afwerking van gebouwen</omschrijving>
+                           <referentieType>ActiviteitCode</referentieType>
+                        </sbiCode>
+                        <isHoofdactiviteit>
+                           <code>N</code>
+                           <omschrijving>Nee</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </isHoofdactiviteit>
+                     </sbiActiviteit>
+                     <voltijdWerkzamePersonen>13</voltijdWerkzamePersonen>
+                     <deeltijdWerkzamePersonen>3</deeltijdWerkzamePersonen>
+                     <totaalWerkzamePersonen>16</totaalWerkzamePersonen>
+                     <handeltOnder>
+                        <handelsnaam>
+                           <registratie registratieTijdstip="20200716115209608">
+                              <datumAanvang>20200629</datumAanvang>
+                           </registratie>
+                           <naam>Isocoat B.V.</naam>
+                           <volgorde>0</volgorde>
+                        </handelsnaam>
+                     </handeltOnder>
+                     <wordtUitgeoefendIn>
+                        <relatieRegistratie registratieTijdstip="20200716115209608">
+                           <datumAanvang>20070105</datumAanvang>
+                        </relatieRegistratie>
+                        <commercieleVestiging>
+                           <registratie registratieTijdstip="20200716115209608">
+                              <datumAanvang>20050315</datumAanvang>
+                           </registratie>
+                           <vestigingsnummer>000006873758</vestigingsnummer>
+                           <bezoekLocatie>
+                              <registratie registratieTijdstip="20201002151046518">
+                                 <datumAanvang>20200601</datumAanvang>
+                              </registratie>
+                              <afgeschermd>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </afgeschermd>
+                              <adres>
+                                 <binnenlandsAdres>
+                                    <straatnaam>Hoofdweg</straatnaam>
+                                    <huisnummer>26</huisnummer>
+                                    <postcode>
+                                       <cijfercombinatie>8383</cijfercombinatie>
+                                       <lettercombinatie>EG</lettercombinatie>
+                                    </postcode>
+                                    <plaats>Nijensleek</plaats>
+                                    <bagId>
+                                       <identificatieNummeraanduiding>1701200000224132</identificatieNummeraanduiding>
+                                       <identificatieAdresseerbaarObject>1701010000224133</identificatieAdresseerbaarObject>
+                                    </bagId>
+                                 </binnenlandsAdres>
+                              </adres>
+                              <volledigAdres>Hoofdweg 26
+8383EG Nijensleek</volledigAdres>
+                           </bezoekLocatie>
+                           <communicatiegegevens>
+                              <registratie registratieTijdstip="20200716115209608">
+                                 <datumAanvang>20180306</datumAanvang>
+                              </registratie>
+                              <communicatienummer>
+                                 <toegangscode>+31</toegangscode>
+                                 <nummer>0854011783</nummer>
+                                 <soort>
+                                    <code>T</code>
+                                    <omschrijving>Telefoon</omschrijving>
+                                 </soort>
+                              </communicatienummer>
+                              <communicatienummer>
+                                 <toegangscode>+31</toegangscode>
+                                 <nummer>0521320465</nummer>
+                                 <soort>
+                                    <code>T</code>
+                                    <omschrijving>Telefoon</omschrijving>
+                                 </soort>
+                              </communicatienummer>
+                              <emailAdres>info@isocoat-isolatie.nl</emailAdres>
+                              <domeinNaam>www.isocoat-isolatie.nl</domeinNaam>
+                           </communicatiegegevens>
+                           <eersteHandelsnaam>Isocoat B.V.</eersteHandelsnaam>
+                           <isOvergenomenVan>
+                              <relatieRegistratie registratieTijdstip="20200716115209608">
+                                 <datumAanvang>20200629</datumAanvang>
+                              </relatieRegistratie>
+                              <maatschappelijkeActiviteit>
+                                 <registratie registratieTijdstip="20200716115209608">
+                                    <datumAanvang>20140101</datumAanvang>
+                                    <datumEinde>20200629</datumEinde>
+                                 </registratie>
+                                 <kvkNummer>62229303</kvkNummer>
+                              </maatschappelijkeActiviteit>
+                              <datumVoortzetting>20200629</datumVoortzetting>
+                           </isOvergenomenVan>
+                           <voltijdWerkzamePersonen>13</voltijdWerkzamePersonen>
+                           <deeltijdWerkzamePersonen>3</deeltijdWerkzamePersonen>
+                           <totaalWerkzamePersonen>16</totaalWerkzamePersonen>
+                           <activiteiten>
+                              <omschrijving>Het isoleren van spouwmuren, dakschotten en vloeren aan en in woningen, gebouwen en andere onroerende goederen. Het aanbrengen van coatings zoals PU, Polyurea, brandwerend etc. Luchtgommen diverse oppervlakken en coaten of impregneren.</omschrijving>
+                              <sbiActiviteit>
+                                 <registratie registratieTijdstip="20201104164137503">
+                                    <datumAanvang>20200701</datumAanvang>
+                                 </registratie>
+                                 <sbiCode>
+                                    <code>4329</code>
+                                    <omschrijving>Overige bouwinstallatie</omschrijving>
+                                    <referentieType>ActiviteitCode</referentieType>
+                                 </sbiCode>
+                                 <isHoofdactiviteit>
+                                    <code>J</code>
+                                    <omschrijving>Ja</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </isHoofdactiviteit>
+                              </sbiActiviteit>
+                              <sbiActiviteit>
+                                 <registratie registratieTijdstip="20201104164137503">
+                                    <datumAanvang>20200701</datumAanvang>
+                                 </registratie>
+                                 <sbiCode>
+                                    <code>4339</code>
+                                    <omschrijving>Overige afwerking van gebouwen</omschrijving>
+                                    <referentieType>ActiviteitCode</referentieType>
+                                 </sbiCode>
+                                 <isHoofdactiviteit>
+                                    <code>N</code>
+                                    <omschrijving>Nee</omschrijving>
+                                    <referentieType>geenRT</referentieType>
+                                 </isHoofdactiviteit>
+                              </sbiActiviteit>
+                              <exporteert>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </exporteert>
+                              <importeert>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </importeert>
+                           </activiteiten>
+                           <handeltOnder>
+                              <relatieRegistratie registratieTijdstip="20200716115209608">
+                                 <datumAanvang>20200629</datumAanvang>
+                              </relatieRegistratie>
+                              <handelsnaam>
+                                 <registratie registratieTijdstip="20200716115209608">
+                                    <datumAanvang>20200629</datumAanvang>
+                                 </registratie>
+                                 <naam>Isocoat B.V.</naam>
+                                 <volgorde>0</volgorde>
+                              </handelsnaam>
+                           </handeltOnder>
+                        </commercieleVestiging>
+                     </wordtUitgeoefendIn>
+                     <isOvergenomenVan>
+                        <maatschappelijkeActiviteit>
+                           <registratie registratieTijdstip="20200716115209608">
+                              <datumAanvang>20140101</datumAanvang>
+                              <datumEinde>20200629</datumEinde>
+                           </registratie>
+                           <kvkNummer>62229303</kvkNummer>
+                        </maatschappelijkeActiviteit>
+                        <datumVoortzetting>20200629</datumVoortzetting>
+                     </isOvergenomenVan>
+                  </onderneming>
+               </manifesteertZichAls>
+               <wordtGeleidVanuit>
+                  <commercieleVestiging>
+                     <registratie registratieTijdstip="20200716115209608">
+                        <datumAanvang>20050315</datumAanvang>
+                     </registratie>
+                     <vestigingsnummer>000006873758</vestigingsnummer>
+                     <bezoekLocatie>
+                        <registratie registratieTijdstip="20201002151046518">
+                           <datumAanvang>20200601</datumAanvang>
+                        </registratie>
+                        <afgeschermd>
+                           <code>N</code>
+                           <omschrijving>Nee</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </afgeschermd>
+                        <adres>
+                           <binnenlandsAdres>
+                              <straatnaam>Hoofdweg</straatnaam>
+                              <huisnummer>26</huisnummer>
+                              <postcode>
+                                 <cijfercombinatie>8383</cijfercombinatie>
+                                 <lettercombinatie>EG</lettercombinatie>
+                              </postcode>
+                              <plaats>Nijensleek</plaats>
+                              <bagId>
+                                 <identificatieNummeraanduiding>1701200000224132</identificatieNummeraanduiding>
+                                 <identificatieAdresseerbaarObject>1701010000224133</identificatieAdresseerbaarObject>
+                              </bagId>
+                           </binnenlandsAdres>
+                        </adres>
+                        <volledigAdres>Hoofdweg 26
+8383EG Nijensleek</volledigAdres>
+                     </bezoekLocatie>
+                     <communicatiegegevens>
+                        <registratie registratieTijdstip="20200716115209608">
+                           <datumAanvang>20180306</datumAanvang>
+                        </registratie>
+                        <communicatienummer>
+                           <toegangscode>+31</toegangscode>
+                           <nummer>0854011783</nummer>
+                           <soort>
+                              <code>T</code>
+                              <omschrijving>Telefoon</omschrijving>
+                           </soort>
+                        </communicatienummer>
+                        <communicatienummer>
+                           <toegangscode>+31</toegangscode>
+                           <nummer>0521320465</nummer>
+                           <soort>
+                              <code>T</code>
+                              <omschrijving>Telefoon</omschrijving>
+                           </soort>
+                        </communicatienummer>
+                        <emailAdres>info@isocoat-isolatie.nl</emailAdres>
+                        <domeinNaam>www.isocoat-isolatie.nl</domeinNaam>
+                     </communicatiegegevens>
+                     <eersteHandelsnaam>Isocoat B.V.</eersteHandelsnaam>
+                     <isOvergenomenVan>
+                        <relatieRegistratie registratieTijdstip="20200716115209608">
+                           <datumAanvang>20200629</datumAanvang>
+                        </relatieRegistratie>
+                        <maatschappelijkeActiviteit>
+                           <registratie registratieTijdstip="20200716115209608">
+                              <datumAanvang>20140101</datumAanvang>
+                              <datumEinde>20200629</datumEinde>
+                           </registratie>
+                           <kvkNummer>62229303</kvkNummer>
+                        </maatschappelijkeActiviteit>
+                        <datumVoortzetting>20200629</datumVoortzetting>
+                     </isOvergenomenVan>
+                     <voltijdWerkzamePersonen>13</voltijdWerkzamePersonen>
+                     <deeltijdWerkzamePersonen>3</deeltijdWerkzamePersonen>
+                     <totaalWerkzamePersonen>16</totaalWerkzamePersonen>
+                     <activiteiten>
+                        <omschrijving>Het isoleren van spouwmuren, dakschotten en vloeren aan en in woningen, gebouwen en andere onroerende goederen. Het aanbrengen van coatings zoals PU, Polyurea, brandwerend etc. Luchtgommen diverse oppervlakken en coaten of impregneren.</omschrijving>
+                        <sbiActiviteit>
+                           <registratie registratieTijdstip="20201104164137503">
+                              <datumAanvang>20200701</datumAanvang>
+                           </registratie>
+                           <sbiCode>
+                              <code>4329</code>
+                              <omschrijving>Overige bouwinstallatie</omschrijving>
+                              <referentieType>ActiviteitCode</referentieType>
+                           </sbiCode>
+                           <isHoofdactiviteit>
+                              <code>J</code>
+                              <omschrijving>Ja</omschrijving>
+                              <referentieType>geenRT</referentieType>
+                           </isHoofdactiviteit>
+                        </sbiActiviteit>
+                        <sbiActiviteit>
+                           <registratie registratieTijdstip="20201104164137503">
+                              <datumAanvang>20200701</datumAanvang>
+                           </registratie>
+                           <sbiCode>
+                              <code>4339</code>
+                              <omschrijving>Overige afwerking van gebouwen</omschrijving>
+                              <referentieType>ActiviteitCode</referentieType>
+                           </sbiCode>
+                           <isHoofdactiviteit>
+                              <code>N</code>
+                              <omschrijving>Nee</omschrijving>
+                              <referentieType>geenRT</referentieType>
+                           </isHoofdactiviteit>
+                        </sbiActiviteit>
+                        <exporteert>
+                           <code>N</code>
+                           <omschrijving>Nee</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </exporteert>
+                        <importeert>
+                           <code>N</code>
+                           <omschrijving>Nee</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </importeert>
+                     </activiteiten>
+                     <handeltOnder>
+                        <relatieRegistratie registratieTijdstip="20200716115209608">
+                           <datumAanvang>20200629</datumAanvang>
+                        </relatieRegistratie>
+                        <handelsnaam>
+                           <registratie registratieTijdstip="20200716115209608">
+                              <datumAanvang>20200629</datumAanvang>
+                           </registratie>
+                           <naam>Isocoat B.V.</naam>
+                           <volgorde>0</volgorde>
+                        </handelsnaam>
+                     </handeltOnder>
+                  </commercieleVestiging>
+               </wordtGeleidVanuit>
+               <heeftAlsEigenaar>
+                  <relatieRegistratie registratieTijdstip="20200716115209608">
+                     <datumAanvang>20200629</datumAanvang>
+                  </relatieRegistratie>
+                  <rechtspersoon>
+                     <extraElementen>
+                        <extraElement naam="datumAanvangStatuten">20200629</extraElement>
+                        <extraElement naam="datumAkteStatuten">20200629</extraElement>
+                     </extraElementen>
+                     <registratie registratieTijdstip="20200716115209608">
+                        <datumAanvang>20200629</datumAanvang>
+                     </registratie>
+                     <persoonRechtsvorm>Besloten Vennootschap</persoonRechtsvorm>
+                     <volledigeNaam>Isocoat B.V.</volledigeNaam>
+                     <uitgebreideRechtsvorm>Besloten Vennootschap</uitgebreideRechtsvorm>
+                     <heeft>
+                        <bestuursfunctie>
+                           <registratie registratieTijdstip="20200716115209608">
+                              <datumAanvang>20200629</datumAanvang>
+                           </registratie>
+                           <door>
+                              <rechtspersoon>
+                                 <persoonRechtsvorm>Besloten Vennootschap</persoonRechtsvorm>
+                                 <volledigeNaam>Isocoat Vastgoed B.V.</volledigeNaam>
+                                 <bezoekLocatiePersoon>
+                                    <registratie registratieTijdstip="20200716114107129">
+                                       <datumAanvang>20200629</datumAanvang>
+                                    </registratie>
+                                    <afgeschermd>
+                                       <code>N</code>
+                                       <omschrijving>Nee</omschrijving>
+                                       <referentieType>geenRT</referentieType>
+                                    </afgeschermd>
+                                    <adres>
+                                       <binnenlandsAdres>
+                                          <straatnaam>Westeinde</straatnaam>
+                                          <huisnummer>206</huisnummer>
+                                          <huisletter>a</huisletter>
+                                          <postcode>
+                                             <cijfercombinatie>8351</cijfercombinatie>
+                                             <lettercombinatie>HP</lettercombinatie>
+                                          </postcode>
+                                          <plaats>Wapserveen</plaats>
+                                          <bagId>
+                                             <identificatieNummeraanduiding>1701200000234432</identificatieNummeraanduiding>
+                                             <identificatieAdresseerbaarObject>1701010000234433</identificatieAdresseerbaarObject>
+                                          </bagId>
+                                       </binnenlandsAdres>
+                                    </adres>
+                                    <volledigAdres>Westeinde 206 a
+8351HP Wapserveen</volledigAdres>
+                                 </bezoekLocatiePersoon>
+                                 <isEigenaarVan>
+                                    <maatschappelijkeActiviteit>
+                                       <kvkNummer>78596874</kvkNummer>
+                                       <nonMailing>
+                                          <code>J</code>
+                                          <omschrijving>Ja</omschrijving>
+                                          <referentieType>geenRT</referentieType>
+                                       </nonMailing>
+                                    </maatschappelijkeActiviteit>
+                                 </isEigenaarVan>
+                                 <rsin>861463961</rsin>
+                              </rechtspersoon>
+                           </door>
+                           <functie>
+                              <code>02</code>
+                              <omschrijving>Bestuurder</omschrijving>
+                              <referentieType>FunctionarisRol</referentieType>
+                           </functie>
+                           <bevoegdheid>
+                              <registratie registratieTijdstip="20200716115209608">
+                                 <datumAanvang>20200629</datumAanvang>
+                              </registratie>
+                              <soort>
+                                 <code>azb</code>
+                                 <omschrijving>Alleen/zelfstandig bevoegd</omschrijving>
+                                 <referentieType>SoortBevoegdheidBestuurder</referentieType>
+                              </soort>
+                              <isBevoegdMetAnderePersonen>
+                                 <code>N</code>
+                                 <omschrijving>Nee</omschrijving>
+                                 <referentieType>geenRT</referentieType>
+                              </isBevoegdMetAnderePersonen>
+                           </bevoegdheid>
+                        </bestuursfunctie>
+                     </heeft>
+                     <heeft>
+                        <overigeFunctionaris>
+                           <registratie registratieTijdstip="20200716115209608">
+                              <datumAanvang>20200629</datumAanvang>
+                           </registratie>
+                           <door>
+                              <rechtspersoon>
+                                 <persoonRechtsvorm>Besloten Vennootschap</persoonRechtsvorm>
+                                 <volledigeNaam>Isocoat Vastgoed B.V.</volledigeNaam>
+                                 <bezoekLocatiePersoon>
+                                    <registratie registratieTijdstip="20200716114107129">
+                                       <datumAanvang>20200629</datumAanvang>
+                                    </registratie>
+                                    <afgeschermd>
+                                       <code>N</code>
+                                       <omschrijving>Nee</omschrijving>
+                                       <referentieType>geenRT</referentieType>
+                                    </afgeschermd>
+                                    <adres>
+                                       <binnenlandsAdres>
+                                          <straatnaam>Westeinde</straatnaam>
+                                          <huisnummer>206</huisnummer>
+                                          <huisletter>a</huisletter>
+                                          <postcode>
+                                             <cijfercombinatie>8351</cijfercombinatie>
+                                             <lettercombinatie>HP</lettercombinatie>
+                                          </postcode>
+                                          <plaats>Wapserveen</plaats>
+                                          <bagId>
+                                             <identificatieNummeraanduiding>1701200000234432</identificatieNummeraanduiding>
+                                             <identificatieAdresseerbaarObject>1701010000234433</identificatieAdresseerbaarObject>
+                                          </bagId>
+                                       </binnenlandsAdres>
+                                    </adres>
+                                    <volledigAdres>Westeinde 206 a
+8351HP Wapserveen</volledigAdres>
+                                 </bezoekLocatiePersoon>
+                                 <isEigenaarVan>
+                                    <maatschappelijkeActiviteit>
+                                       <kvkNummer>78596874</kvkNummer>
+                                       <nonMailing>
+                                          <code>J</code>
+                                          <omschrijving>Ja</omschrijving>
+                                          <referentieType>geenRT</referentieType>
+                                       </nonMailing>
+                                    </maatschappelijkeActiviteit>
+                                 </isEigenaarVan>
+                                 <rsin>861463961</rsin>
+                              </rechtspersoon>
+                           </door>
+                           <functie>
+                              <code>08</code>
+                              <omschrijving>Enig aandeelhouder</omschrijving>
+                              <referentieType>FunctionarisRol</referentieType>
+                           </functie>
+                        </overigeFunctionaris>
+                     </heeft>
+                     <rsin>861464072</rsin>
+                     <naamgeving>
+                        <registratie registratieTijdstip="20200716115209608">
+                           <datumAanvang>20200629</datumAanvang>
+                        </registratie>
+                        <naam>Isocoat B.V.</naam>
+                     </naamgeving>
+                     <rechtsvorm>
+                        <code>BV</code>
+                        <omschrijving>Besloten Vennootschap</omschrijving>
+                        <referentieType>Rechtsvorm</referentieType>
+                     </rechtsvorm>
+                     <statutaireZetel>Wapserveen</statutaireZetel>
+                     <aanvangStatutaireZetel>20200629</aanvangStatutaireZetel>
+                     <datumAkteOprichting>20200629</datumAkteOprichting>
+                     <datumOprichting>20200629</datumOprichting>
+                     <datumEersteInschrijvingHandelsregister>20200716</datumEersteInschrijvingHandelsregister>
+                     <datumAkteStatutenwijziging>20200629</datumAkteStatutenwijziging>
+                     <stelselInrichting>
+                        <code>D</code>
+                        <omschrijving>Dualistisch</omschrijving>
+                        <referentieType>StelselInrichting</referentieType>
+                     </stelselInrichting>
+                     <structuur>
+                        <code>GS</code>
+                        <omschrijving>Gewone structuur</omschrijving>
+                        <referentieType>RechtsvormStructuur</referentieType>
+                     </structuur>
+                     <geplaatstKapitaal>
+                        <registratie registratieTijdstip="20200716115209608">
+                           <datumAanvang>20200629</datumAanvang>
+                        </registratie>
+                        <bedrag>
+                           <waarde>1000</waarde>
+                           <valuta>
+                              <code>EUR</code>
+                              <omschrijving>Euro</omschrijving>
+                              <referentieType>Valuta</referentieType>
+                           </valuta>
+                        </bedrag>
+                     </geplaatstKapitaal>
+                     <gestortKapitaal>
+                        <registratie registratieTijdstip="20200716115209608">
+                           <datumAanvang>20200629</datumAanvang>
+                        </registratie>
+                        <bedrag>
+                           <waarde>1000</waarde>
+                           <valuta>
+                              <code>EUR</code>
+                              <omschrijving>Euro</omschrijving>
+                              <referentieType>Valuta</referentieType>
+                           </valuta>
+                        </bedrag>
+                     </gestortKapitaal>
+                     <bezoekLocatie>
+                        <registratie registratieTijdstip="20201002151046518">
+                           <datumAanvang>20200601</datumAanvang>
+                        </registratie>
+                        <afgeschermd>
+                           <code>N</code>
+                           <omschrijving>Nee</omschrijving>
+                           <referentieType>geenRT</referentieType>
+                        </afgeschermd>
+                        <adres>
+                           <binnenlandsAdres>
+                              <straatnaam>Hoofdweg</straatnaam>
+                              <huisnummer>26</huisnummer>
+                              <postcode>
+                                 <cijfercombinatie>8383</cijfercombinatie>
+                                 <lettercombinatie>EG</lettercombinatie>
+                              </postcode>
+                              <plaats>Nijensleek</plaats>
+                              <bagId>
+                                 <identificatieNummeraanduiding>1701200000224132</identificatieNummeraanduiding>
+                                 <identificatieAdresseerbaarObject>1701010000224133</identificatieAdresseerbaarObject>
+                              </bagId>
+                           </binnenlandsAdres>
+                        </adres>
+                        <volledigAdres>Hoofdweg 26
+8383EG Nijensleek</volledigAdres>
+                     </bezoekLocatie>
+                  </rechtspersoon>
+               </heeftAlsEigenaar>
+            </maatschappelijkeActiviteit>
+         </product>
+      </ophalenInschrijvingResponse>
+   </wstxns8:Body>
+</soap:Envelope>
