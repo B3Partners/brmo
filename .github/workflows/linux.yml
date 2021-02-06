@@ -40,7 +40,7 @@ jobs:
           lfs: true
 
       - name: Cache Maven repository
-        uses: actions/cache@v2
+        uses: actions/cache@v2.1.4
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
@@ -48,7 +48,7 @@ jobs:
             ${{ runner.os }}-maven-
 
       - name: Cache test data
-        uses: actions/cache@v2
+        uses: actions/cache@v2.1.4
         with:
           path: ~/downloads
           key: downloads-${{ hashFiles('**/pom.xml') }}
@@ -128,7 +128,7 @@ jobs:
           lfs: false
 
       - name: Cache Maven repository
-        uses: actions/cache@v2
+        uses: actions/cache@v2.1.4
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
