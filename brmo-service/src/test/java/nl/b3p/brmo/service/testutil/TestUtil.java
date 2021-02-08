@@ -114,7 +114,9 @@ public abstract class TestUtil {
         dsStaging.setPassword(DBPROPS.getProperty("staging.password"));
         dsStaging.setAccessToUnderlyingConnectionAllowed(true);
         dsStaging.setInitialSize(1);
-        dsStaging.setMaxActive(10);
+        dsStaging.setMaxActive(20);
+        dsStaging.setMaxIdle(1);
+        dsStaging.setPoolPreparedStatements(true);
 
         dsRsgb = new BasicDataSource();
         dsRsgb.setUrl(DBPROPS.getProperty("rsgb.url"));
@@ -122,7 +124,9 @@ public abstract class TestUtil {
         dsRsgb.setPassword(DBPROPS.getProperty("rsgb.password"));
         dsRsgb.setAccessToUnderlyingConnectionAllowed(true);
         dsRsgb.setInitialSize(1);
-        dsRsgb.setMaxActive(5);
+        dsRsgb.setMaxActive(20);
+        dsRsgb.setMaxIdle(1);
+        dsRsgb.setPoolPreparedStatements(true);
 
         dsRsgbBgt = new BasicDataSource();
         dsRsgbBgt.setUrl(DBPROPS.getProperty("rsgbbgt.url"));
@@ -130,13 +134,17 @@ public abstract class TestUtil {
         dsRsgbBgt.setPassword(DBPROPS.getProperty("rsgbbgt.password"));
         dsRsgbBgt.setAccessToUnderlyingConnectionAllowed(true);
         dsRsgbBgt.setInitialSize(1);
-        dsRsgbBgt.setMaxActive(5);
+        dsRsgbBgt.setMaxActive(20);
+        dsRsgbBgt.setMaxIdle(1);
 
         dsTopnl= new BasicDataSource();
         dsTopnl.setUrl(DBPROPS.getProperty("topnl.url"));
         dsTopnl.setUsername(DBPROPS.getProperty("topnl.username"));
         dsTopnl.setPassword(DBPROPS.getProperty("topnl.password"));
         dsTopnl.setAccessToUnderlyingConnectionAllowed(true);
+        dsTopnl.setInitialSize(1);
+        dsTopnl.setMaxActive(20);
+        dsTopnl.setMaxIdle(1);
 
         setupJNDI();
     }
@@ -159,7 +167,7 @@ public abstract class TestUtil {
 
     @AfterAll
     public void closeConnections() throws SQLException {
-        // JNDI connecties wel sluiten! een ds kan null zijn als subklasse de #loadDBprop override
+        // JNDI connectie pools wel sluiten! een ds kan null zijn als subklasse de #loadDBprop override
         if (dsStaging != null) {
             dsStaging.close();
         }
@@ -168,6 +176,9 @@ public abstract class TestUtil {
         }
         if (dsRsgbBgt != null) {
             dsRsgbBgt.close();
+        }
+        if (dsTopnl != null) {
+            dsTopnl.close();
         }
         haveSetupJNDI = false;
     }
