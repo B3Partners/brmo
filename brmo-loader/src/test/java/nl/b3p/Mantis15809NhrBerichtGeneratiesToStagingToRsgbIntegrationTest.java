@@ -33,13 +33,15 @@ import static org.junit.jupiter.api.Assumptions.assumeFalse;
 
 /**
  * Integratie test om een nhr dataservice soap bericht te laden en te transformeren,
- * bevat een testcase voor mantis15809 waarbij bercihten van dezelfde inschrijving op verschillende tijdstippen
+ * bevat een testcase voor mantis15809 waarbij berichten van dezelfde inschrijving op verschillende tijdstippen
  * worden geladen.
  * <br>Draaien met:
  * {@code mvn -Dit.test=Mantis15809NhrBerichtGeneratiesToStagingToRsgbIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql -pl :brmo-loader > /tmp/postgresql.log}
  * voor bijvoorbeeld PostgreSQL of
  * {@code mvn -Dit.test=Mantis15809NhrBerichtGeneratiesToStagingToRsgbIntegrationTest -Dtest.onlyITs=true verify -Pmssql  -pl :brmo-loader > /tmp/mssql.log}
- * voor bijvoorbeeld MS SQL.
+ * voor bijvoorbeeld MS SQL of
+ * {@code mvn -Dit.test=Mantis15809NhrBerichtGeneratiesToStagingToRsgbIntegrationTest -Dtest.onlyITs=true verify -Poracle  -pl :brmo-loader > /tmp/oracle.log}
+ * voor Oracle.
  *
  * @author Mark Prins
  */
@@ -201,7 +203,7 @@ public class Mantis15809NhrBerichtGeneratiesToStagingToRsgbIntegrationTest exten
         assertEquals(aantalProcessen, processen.size(), "Het aantal processen is niet als verwacht.");
 
         // alleen het eerste bericht van een nHR bericht heeft br_orgineel_xml, de rest niet, check dat
-        ITable bericht = staging.createQueryTable("bericht", "select * from bericht where volgordenummer=0");
+        ITable bericht = staging.createQueryTable("bericht", "select * from bericht where volgordenummer=0 order by id");
         assertEquals(verwerktNHr, bericht.getRowCount(), "Er zijn meer of minder dan 1 rij");
         LOG.debug("\n\n" + bericht.getValue(verwerktNHr - 1, "br_orgineel_xml") + "\n\n");
         assertNotNull(bericht.getValue(verwerktNHr - 1, "br_orgineel_xml"), "BR origineel xml is null");
@@ -212,8 +214,8 @@ public class Mantis15809NhrBerichtGeneratiesToStagingToRsgbIntegrationTest exten
         t.join();
 
         // na de verwerking moet soap payload er ook nog zijn
-        bericht = staging.createQueryTable("bericht", "select * from bericht where br_orgineel_xml is not null");
-        assertEquals(verwerktNHr, bericht.getRowCount(), "Er zijn meer of minder dan 1 rij");
+        bericht = staging.createQueryTable("bericht", "select * from bericht where br_orgineel_xml is not null order by id");
+        assertEquals(verwerktNHr, bericht.getRowCount(), "Er zijn meer of minder dan verwacht rijen");
         assertNotNull(bericht.getValue(verwerktNHr - 1, "br_orgineel_xml"),
                 "BR origineel xml is null na transformatie");
         assertEquals(berichtId, bericht.getValue(verwerktNHr - 1, "id"),
