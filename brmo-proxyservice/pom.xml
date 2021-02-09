@@ -27,10 +27,16 @@
         <dependency>
             <groupId>org.httpunit</groupId>
             <artifactId>httpunit</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>nl.b3p</groupId>
+            <artifactId>brmo-test-util</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>

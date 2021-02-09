@@ -4,18 +4,19 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
          version="3.0"
          metadata-complete="true">
-    <display-name>brmo-proxyservices test</display-name>
+    <display-name>brmo-proxyservices</display-name>
     <servlet>
         <servlet-name>BRK_file</servlet-name>
         <servlet-class>nl.b3p.brmo.service.proxy.BerichtEndpointFileServlet</servlet-class>
         <init-param>
-            <description>directory waar bestanden terecht komen</description>
             <param-name>save_dir</param-name>
-            <param-value>${java.io.tmpdir}/brk</param-value>
+            <param-value>/var/opt/brmo/brk/</param-value>
+            <description>expres ongeldig</description>
         </init-param>
     </servlet>
     <servlet-mapping>
         <servlet-name>BRK_file</servlet-name>
         <url-pattern>/post/brk</url-pattern>
     </servlet-mapping>
+
 </web-app>
