@@ -44,12 +44,17 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-dbcp2</artifactId>
+            <groupId>commons-dbutils</groupId>
+            <artifactId>commons-dbutils</artifactId>
         </dependency>
         <dependency>
             <groupId>nl.b3p</groupId>
             <artifactId>jdbc-util</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
     <build>

@@ -9,7 +9,6 @@ import org.xmlunit.validation.ValidationResult;
 import javax.xml.transform.stream.StreamSource;
 import java.io.File;
 import java.net.URISyntaxException;
-import java.util.Iterator;
 
 import static javax.xml.XMLConstants.W3C_XML_SCHEMA_NS_URI;
 
@@ -95,13 +94,12 @@ public final class WebXmlTest {
                         WebXmlTest.class.getResource(WEB_XML_SCHEMA + "JavaEE8/web-common_4_0.xsd").toURI().toString()),
                 new StreamSource(WebXmlTest.class.getResourceAsStream(WEB_XML_SCHEMA + "JavaEE8/javaee_8.xsd"),
                         WebXmlTest.class.getResource(WEB_XML_SCHEMA + "JavaEE8/javaee_8.xsd").toURI().toString()),
-                // worden gedeeld met Java EE 7
                 new StreamSource(WebXmlTest.class.getResourceAsStream(
-                        WEB_XML_SCHEMA + "JavaEE7/javaee_web_services_client_1_4.xsd"),
+                        WEB_XML_SCHEMA + "JavaEE8/javaee_web_services_client_1_4.xsd"),
                         WebXmlTest.class.getResource(
-                                WEB_XML_SCHEMA + "JavaEE7/javaee_web_services_client_1_4.xsd").toURI().toString()),
-                new StreamSource(WebXmlTest.class.getResourceAsStream(WEB_XML_SCHEMA + "JavaEE7/jsp_2_3.xsd"),
-                        WebXmlTest.class.getResource(WEB_XML_SCHEMA + "JavaEE7/jsp_2_3.xsd").toURI().toString()),
+                                WEB_XML_SCHEMA + "JavaEE8/javaee_web_services_client_1_4.xsd").toURI().toString()),
+                new StreamSource(WebXmlTest.class.getResourceAsStream(WEB_XML_SCHEMA + "JavaEE8/jsp_2_3.xsd"),
+                        WebXmlTest.class.getResource(WEB_XML_SCHEMA + "JavaEE8/jsp_2_3.xsd").toURI().toString()),
                 new StreamSource(WebXmlTest.class.getResourceAsStream(WEB_XML_SCHEMA + "xml.xsd"))
         );
 
@@ -111,9 +109,7 @@ public final class WebXmlTest {
     private static boolean validate(JAXPValidator validator, File webxml) {
         ValidationResult result = validator.validateInstance(new StreamSource(webxml));
         if (!result.isValid()) {
-            Iterator<ValidationProblem> problems = result.getProblems().iterator();
-            while (problems.hasNext()) {
-                ValidationProblem problem = problems.next();
+            for (ValidationProblem problem : result.getProblems()) {
                 LOG.error(problem.toString());
             }
         }
