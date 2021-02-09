@@ -125,8 +125,8 @@
         <load-on-startup>3</load-on-startup>
     </servlet>
     <servlet>
-        <servlet-name>VersieInfo</servlet-name>
         <description>versie info controle</description>
+        <servlet-name>VersieInfo</servlet-name>
         <servlet-class>nl.b3p.brmo.service.util.VersieInfo</servlet-class>
         <load-on-startup>4</load-on-startup>
     </servlet>
