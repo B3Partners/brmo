@@ -17,7 +17,7 @@ docker exec -i mssql_brmo /opt/mssql-tools/bin/sqlcmd -r0 -b -S localhost -I -U 
 # set up topnl tabellen
 docker exec -i mssql_brmo /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P Password12! -d "master" -Q "CREATE DATABASE topnl"
 docker exec -i mssql_brmo /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P Password12! -d "master" -Q "ALTER DATABASE topnl SET RECOVERY SIMPLE"
-docker cp ./topparser/src/main/resources/nl/b3p/topnl/database/sqlserver.sql mssql_brmo:/home/
+docker cp ./brmo-topnl-loader/src/main/resources/nl/b3p/topnl/database/sqlserver.sql mssql_brmo:/home/
 docker exec -i mssql_brmo /opt/mssql-tools/bin/sqlcmd -r0 -b -S localhost -I -U sa -P Password12! -d "topnl" -i /home/sqlserver.sql
 
 

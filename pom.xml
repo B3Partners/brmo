@@ -11,7 +11,7 @@
         <module>brmo-init-util</module>
         <module>brmo-persistence</module>
         <module>bgt-gml-loader</module>
-        <module>topparser</module>
+        <module>brmo-topnl-loader</module>
         <module>brmo-loader</module>
         <module>brmo-taglib</module>
         <module>brmo-service</module>
@@ -163,7 +163,7 @@
             </dependency>
             <dependency>
                 <groupId>nl.b3p</groupId>
-                <artifactId>topnlparser</artifactId>
+                <artifactId>brmo-topnl-loader</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
