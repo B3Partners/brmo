@@ -9,16 +9,8 @@
         <artifactId>brmo</artifactId>
         <version>2.0.3-SNAPSHOT</version>
     </parent>
-    <name>BRMO topnlparser</name>
-    <description>BRMO TopNL parser module</description>
-    <licenses>
-        <license>
-            <url>https://raw.githubusercontent.com/B3Partners/topparser/master/LICENSE</url>
-            <name>GNU AFFERO GENERAL PUBLIC LICENSE 3.0</name>
-            <distribution>repo</distribution>
-            <comments>Voor de code van de topparser applicatie.</comments>
-        </license>
-    </licenses>
+    <name>BRMO TopNL loader</name>
+    <description>BRMO TopNL parser/loader module</description>
     <dependencies>
         <dependency>
             <groupId>nl.b3p</groupId>
@@ -95,55 +87,6 @@
                         <exclude>**/nl/b3p/topnl/top100nl/*</exclude>
                     </excludes>
                 </configuration>
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <id>jacoco-initialize</id>-->
-<!--                        <goals>-->
-<!--                            <goal>prepare-agent</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                    <execution>-->
-<!--                        <id>jacoco-site</id>-->
-<!--                        <phase>package</phase>-->
-<!--                        <goals>-->
-<!--                            <goal>report</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-            </plugin>
-            <plugin>
-                <artifactId>maven-jar-plugin</artifactId>
-                <configuration>
-                    <!-- Build an executable JAR -->
-                    <archive>
-                        <manifest>
-                            <addClasspath>true</addClasspath>
-                            <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>nl.b3p.topnl.Main</mainClass>
-                        </manifest>
-                    </archive>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
-                </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>copy-dependencies</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>copy-dependencies</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
-                            <overWriteReleases>false</overWriteReleases>
-                            <overWriteSnapshots>false</overWriteSnapshots>
-                            <overWriteIfNewer>true</overWriteIfNewer>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
             <plugin>
                 <artifactId>maven-javadoc-plugin</artifactId>
@@ -156,18 +99,6 @@
     </build>
     <reporting>
         <plugins>
-<!--            <plugin>-->
-<!--                <groupId>org.jacoco</groupId>-->
-<!--                <artifactId>jacoco-maven-plugin</artifactId>-->
-<!--                <version>${jacoco-maven-plugin.version}</version>-->
-<!--                <reportSets>-->
-<!--                    <reportSet>-->
-<!--                        <reports>-->
-<!--                            <report>report</report>-->
-<!--                        </reports>-->
-<!--                    </reportSet>-->
-<!--                </reportSets>-->
-<!--            </plugin>-->
             <plugin>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <configuration>
