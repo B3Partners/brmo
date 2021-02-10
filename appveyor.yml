@@ -103,8 +103,8 @@ after_build:
   - cmd: echo "aanmaken en opzetten TOPNL DB"
   - sqlcmd -S (local)\%INSTANCENAME% -U sa -P Password12! -d "master" -Q "CREATE DATABASE topnl"
   - sqlcmd -S (local)\%INSTANCENAME% -U sa -P Password12! -d "master" -Q "ALTER DATABASE topnl SET RECOVERY SIMPLE"
-  - dir .\topparser\src\main\resources\nl\b3p\topnl\database
-  - sqlcmd -r0 -b -S (local)\%INSTANCENAME% -I -U sa -P Password12! -d "topnl" -i .\topparser\src\main\resources\nl\b3p\topnl\database\sqlserver.sql
+  - dir .\brmo-topnl-loader\src\main\resources\nl\b3p\topnl\database
+  - sqlcmd -r0 -b -S (local)\%INSTANCENAME% -I -U sa -P Password12! -d "topnl" -i .\brmo-topnl-loader\src\main\resources\nl\b3p\topnl\database\sqlserver.sql
 #
   - cmd: echo "computer name:" %COMPUTERNAME%
   - cmd: echo "instance name:" %INSTANCENAME%

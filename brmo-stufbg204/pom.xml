@@ -11,7 +11,7 @@
         <version>2.0.3-SNAPSHOT</version>
     </parent>
     <name>BRMO STUF BG 204</name>
-    <description>StufBG2.04 soap service voor de BRMO applicatie</description>
+    <description>StufBG 2.04 SOAP service voor de BRMO applicatie</description>
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
     </properties>
@@ -143,8 +143,6 @@
                                 <artifactItem>
                                     <groupId>javax</groupId>
                                     <artifactId>javaee-endorsed-api</artifactId>
-                                    <version>7.0</version>
-                                    <type>jar</type>
                                 </artifactItem>
                             </artifactItems>
                         </configuration>

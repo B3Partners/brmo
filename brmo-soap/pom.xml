@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>nl.b3p</groupId>
     <artifactId>brmo-soap</artifactId>
     <version>2.0.3-SNAPSHOT</version>
     <packaging>war</packaging>
@@ -10,8 +9,8 @@
         <artifactId>brmo</artifactId>
         <version>2.0.3-SNAPSHOT</version>
     </parent>
-    <name>BRMO soap bevragingsservice</name>
-    <description>soap bevragingsservice voor de BRMO applicatie</description>
+    <name>BRMO SOAP bevragingsservice</name>
+    <description>SOAP bevragingsservice voor de BRMO applicatie</description>
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
     </properties>
@@ -140,8 +139,6 @@
                                 <artifactItem>
                                     <groupId>javax</groupId>
                                     <artifactId>javaee-endorsed-api</artifactId>
-                                    <version>7.0</version>
-                                    <type>jar</type>
                                 </artifactItem>
                             </artifactItems>
                         </configuration>

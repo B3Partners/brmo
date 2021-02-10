@@ -124,7 +124,7 @@
             </includes>
         </fileSet>
         <fileSet>
-            <directory>../${project.basedir}/topparser/src/main/resources/nl/b3p/topnl/database/</directory>
+            <directory>../${project.basedir}/brmo-topnl-loader/src/main/resources/nl/b3p/topnl/database/</directory>
             <outputDirectory>db/topnl</outputDirectory>
             <includes>
                 <include>**/*.sql</include>

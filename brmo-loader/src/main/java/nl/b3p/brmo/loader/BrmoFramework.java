@@ -247,7 +247,7 @@ public class BrmoFramework {
             try{
                 worker = new TopNLRsgbTransformer(dataSourceTopNL, stagingProxy, ids, listener);
             } catch (JAXBException | SQLException ex) {
-                throw new BrmoException("Probleem met topparser initialiseren: ", ex);
+                throw new BrmoException("Probleem met TopNL parser initialiseren: ", ex);
             }
         }else{
             worker = new RsgbProxy(dataSourceRsgb, stagingProxy, mode, ids, listener);
