@@ -81,6 +81,7 @@
         <jaxb.impl.version>2.3.3</jaxb.impl.version>
         <activation.api.version>1.2.2</activation.api.version>
         <tomcat.version>7.0.108</tomcat.version>
+        <javaee-endorsed-api.version>7.0</javaee-endorsed-api.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <!--
@@ -375,13 +376,13 @@
             <dependency>
                 <groupId>javax</groupId>
                 <artifactId>javaee-web-api</artifactId>
-                <version>7.0</version>
+                <version>${javaee-endorsed-api.version}</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>javax</groupId>
                 <artifactId>javaee-endorsed-api</artifactId>
-                <version>7.0</version>
+                <version>${javaee-endorsed-api.version}</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
