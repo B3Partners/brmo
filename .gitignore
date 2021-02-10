@@ -46,7 +46,8 @@ hs_err_pid*
 # verschillende IDE meta files
 /nbproject/
 **/nbproject/
-nb-configuration.xml
+**/nb-configuration.xml
+**/nbactions.xml
 .idea/
 *.iml
 **/.settings
