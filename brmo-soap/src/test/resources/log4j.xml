@@ -29,7 +29,7 @@
         <level value="info" />
     </logger>
     <logger name="nl.b3p.brmo">
-        <level value="trace" />
+        <level value="debug" />
     </logger>
     <root>
         <level value="info" />

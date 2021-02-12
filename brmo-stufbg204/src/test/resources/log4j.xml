@@ -46,7 +46,7 @@
         <level value="trace" />
     </logger>
     <logger name="nl.b3p.brmo.loader">
-        <level value="debug" />
+        <level value="info" />
     </logger>
     <logger name="nl.b3p.brmo.loader.xml">
         <level value="info" />
