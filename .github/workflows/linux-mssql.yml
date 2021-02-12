@@ -65,7 +65,7 @@ jobs:
         run: mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl 'brmo-loader'
 
       - name: Verify brmo-service
-        run: mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl 'brmo-service'
+        run: mvn -e verify -B -Pmssql -T1 -Dtest.onlyITs=true -pl 'brmo-service'
 
       - name: Verify bgt-gml-loader
         run: mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl 'bgt-gml-loader'
