@@ -93,7 +93,8 @@ public class AfgifteNummerScannerIntegrationTest extends TestUtil {
     @BeforeEach
     @Override
     public void setUp() throws Exception {
-        staging = new DatabaseDataSourceConnection(dsStaging);
+        //staging = new DatabaseDataSourceConnection(dsStaging);
+        staging = new DatabaseConnection(dsStaging.getConnection());
 
         if (this.isMsSQL) {
             staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MsSqlDataTypeFactory());

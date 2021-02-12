@@ -153,8 +153,14 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <!-- voor JDNI context -->
             <groupId>org.apache.tomcat</groupId>
             <artifactId>tomcat-catalina</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-dbcp2</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>

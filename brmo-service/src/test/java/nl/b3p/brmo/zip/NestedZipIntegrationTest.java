@@ -5,7 +5,7 @@ package nl.b3p.brmo.zip;
 
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.service.testutil.TestUtil;
-import org.apache.commons.dbcp.BasicDataSource;
+import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.commons.io.input.CloseShieldInputStream;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

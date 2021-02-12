@@ -12,7 +12,10 @@ import java.util.Properties;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import org.apache.commons.dbcp.BasicDataSource;
+import javax.sql.DataSource;
+
+import org.apache.commons.dbcp2.BasicDataSource;
+import org.apache.commons.dbcp2.datasources.SharedPoolDataSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.jupiter.api.AfterAll;
@@ -114,7 +117,7 @@ public abstract class TestUtil {
         dsStaging.setPassword(DBPROPS.getProperty("staging.password"));
         dsStaging.setAccessToUnderlyingConnectionAllowed(true);
         dsStaging.setInitialSize(1);
-        dsStaging.setMaxActive(20);
+        dsStaging.setMaxTotal(20);
         dsStaging.setMaxIdle(1);
         dsStaging.setPoolPreparedStatements(true);
 
@@ -124,7 +127,7 @@ public abstract class TestUtil {
         dsRsgb.setPassword(DBPROPS.getProperty("rsgb.password"));
         dsRsgb.setAccessToUnderlyingConnectionAllowed(true);
         dsRsgb.setInitialSize(1);
-        dsRsgb.setMaxActive(20);
+        dsRsgb.setMaxTotal(20);
         dsRsgb.setMaxIdle(1);
         dsRsgb.setPoolPreparedStatements(true);
 
@@ -134,7 +137,7 @@ public abstract class TestUtil {
         dsRsgbBgt.setPassword(DBPROPS.getProperty("rsgbbgt.password"));
         dsRsgbBgt.setAccessToUnderlyingConnectionAllowed(true);
         dsRsgbBgt.setInitialSize(1);
-        dsRsgbBgt.setMaxActive(20);
+        dsRsgbBgt.setMaxTotal(20);
         dsRsgbBgt.setMaxIdle(1);
 
         dsTopnl= new BasicDataSource();
@@ -143,7 +146,7 @@ public abstract class TestUtil {
         dsTopnl.setPassword(DBPROPS.getProperty("topnl.password"));
         dsTopnl.setAccessToUnderlyingConnectionAllowed(true);
         dsTopnl.setInitialSize(1);
-        dsTopnl.setMaxActive(20);
+        dsTopnl.setMaxTotal(20);
         dsTopnl.setMaxIdle(1);
 
         setupJNDI();
@@ -167,7 +170,8 @@ public abstract class TestUtil {
 
     @AfterAll
     public void closeConnections() throws SQLException {
-        // JNDI connectie pools wel sluiten! een ds kan null zijn als subklasse de #loadDBprop override
+        // JNDI connectie pools wel sluiten!
+        // een ds kan null zijn als subklasse de #loadDBprop override
         if (dsStaging != null) {
             dsStaging.close();
         }
