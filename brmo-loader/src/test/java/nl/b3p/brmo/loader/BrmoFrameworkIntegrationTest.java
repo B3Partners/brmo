@@ -5,7 +5,7 @@ package nl.b3p.brmo.loader;
 
 import nl.b3p.AbstractDatabaseIntegrationTest;
 import nl.b3p.brmo.loader.util.BrmoException;
-import org.apache.commons.dbcp.BasicDataSource;
+import org.apache.commons.dbcp2.BasicDataSource;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;

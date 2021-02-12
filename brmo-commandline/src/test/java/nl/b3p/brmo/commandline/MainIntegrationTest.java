@@ -4,7 +4,7 @@
 package nl.b3p.brmo.commandline;
 
 import nl.b3p.brmo.test.util.database.dbunit.CleanUtil;
-import org.apache.commons.dbcp.BasicDataSource;
+import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

@@ -2,7 +2,7 @@ package nl.b3p.brmo.stufbg204;
 /*
  * Copyright (C) 2016 B3Partners B.V.
  */
-import org.apache.commons.dbcp.BasicDataSource;
+import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.jupiter.api.AfterEach;
