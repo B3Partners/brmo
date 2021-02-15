@@ -3,34 +3,26 @@
  */
 package nl.b3p.brmo.service.testutil;
 
-import static java.lang.System.getProperty;
-import static org.junit.jupiter.api.Assumptions.assumeFalse;
+import org.apache.commons.dbcp2.BasicDataSource;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.TestInstance.Lifecycle;
 
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.Properties;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.sql.DataSource;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.Properties;
 
-import org.apache.commons.dbcp2.BasicDataSource;
-import org.apache.commons.dbcp2.datasources.SharedPoolDataSource;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.TestInfo;
-import org.junit.jupiter.api.TestInstance;
-import org.junit.jupiter.api.TestInstance.Lifecycle;
+import static java.lang.System.getProperty;
+import static org.junit.jupiter.api.Assumptions.assumeFalse;
 
 /**
  *
  * @author mprins
  */
-@TestInstance(Lifecycle.PER_CLASS)
 public abstract class TestUtil {
 
     protected static boolean haveSetupJNDI = false;
@@ -42,27 +34,27 @@ public abstract class TestUtil {
      *
      * @see #loadDBprop()
      */
-    protected final Properties DBPROPS = new Properties();
+    protected static final Properties DBPROPS = new Properties();
 
     /**
      * {@code true} als we met een Oracle database bezig zijn.
      */
-    protected boolean isOracle;
+    protected static boolean isOracle;
 
     /**
      * {@code true} als we met een MS SQL Server database bezig zijn.
      */
-    protected boolean isMsSQL;
+    protected static boolean isMsSQL;
 
     /**
      * {@code true} als we met een Postgis database bezig zijn.
      */
-    protected boolean isPostgis;
+    protected static boolean isPostgis;
 
-    protected BasicDataSource dsStaging;
-    protected BasicDataSource dsRsgb;
-    protected BasicDataSource dsRsgbBgt;
-    protected BasicDataSource dsTopnl;
+    protected static BasicDataSource dsStaging;
+    protected static BasicDataSource dsRsgb;
+    protected static BasicDataSource dsRsgbBgt;
+    protected static BasicDataSource dsTopnl;
 
     /**
      * test of de database properties zijn aangegeven, zo niet dan skippen we
@@ -75,8 +67,7 @@ public abstract class TestUtil {
 
     /**
      * subklassen dienen zelf een setup te hebben; vanwege de overerving gaat
-     * deze methode af na de {@code @Before} methoden van de superklasse, bijv.
-     * {@link #loadDBprop()}.
+     * deze methode af na de {@code @Before} methoden van de superklasse.
      *
      * @throws Exception if any
      */
@@ -88,8 +79,9 @@ public abstract class TestUtil {
      *
      * @throws java.io.IOException if loading the property file fails
      */
-    @BeforeEach
-    public void loadDBprop() throws IOException {
+    @BeforeAll
+    public static void loadDBprop() throws IOException {
+        LOG.info("Loading database properties");
         // the `database.properties.file`  is set in the pom.xml or using the commandline
         DBPROPS.load(TestUtil.class.getClassLoader()
                 .getResourceAsStream(System.getProperty("database.properties.file")));
@@ -117,7 +109,7 @@ public abstract class TestUtil {
         dsStaging.setPassword(DBPROPS.getProperty("staging.password"));
         dsStaging.setAccessToUnderlyingConnectionAllowed(true);
         dsStaging.setInitialSize(1);
-        dsStaging.setMaxTotal(20);
+        dsStaging.setMaxTotal(40);
         dsStaging.setMaxIdle(1);
         dsStaging.setPoolPreparedStatements(true);
 
@@ -169,28 +161,28 @@ public abstract class TestUtil {
     }
 
     @AfterAll
-    public void closeConnections() throws SQLException {
-        // JNDI connectie pools wel sluiten!
+    public static void closeConnections() throws SQLException {
+        // JNDI connectie pools niet sluiten!
         // een ds kan null zijn als subklasse de #loadDBprop override
-        if (dsStaging != null) {
-            dsStaging.close();
-        }
-        if (dsRsgb != null) {
-            dsRsgb.close();
-        }
-        if (dsRsgbBgt != null) {
-            dsRsgbBgt.close();
-        }
-        if (dsTopnl != null) {
-            dsTopnl.close();
-        }
+//        if (dsStaging != null) {
+//            dsStaging.close();
+//        }
+//        if (dsRsgb != null) {
+//            dsRsgb.close();
+//        }
+//        if (dsRsgbBgt != null) {
+//            dsRsgbBgt.close();
+//        }
+//        if (dsTopnl != null) {
+//            dsTopnl.close();
+//        }
         haveSetupJNDI = false;
     }
 
     /**
      * setup jndi voor testcases.
      */
-    protected void setupJNDI() {
+    protected static void setupJNDI() {
         if (!haveSetupJNDI) {
             System.setProperty(Context.INITIAL_CONTEXT_FACTORY, "org.apache.naming.java.javaURLContextFactory");
             System.setProperty(Context.URL_PKG_PREFIXES, "org.apache.naming");

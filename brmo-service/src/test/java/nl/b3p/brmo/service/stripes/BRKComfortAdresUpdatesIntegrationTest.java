@@ -12,7 +12,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.dbunit.database.DatabaseConfig;
 import org.dbunit.database.DatabaseConnection;
-import org.dbunit.database.DatabaseDataSourceConnection;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ITable;
@@ -25,7 +24,6 @@ import org.dbunit.operation.DatabaseOperation;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -80,13 +78,13 @@ public class BRKComfortAdresUpdatesIntegrationTest extends TestUtil {
         when(bean.getContext()).thenReturn(actx);
         when(actx.getServletContext()).thenReturn(sctx);
 
-        rsgb = new DatabaseDataSourceConnection(dsRsgb);
-        staging = new DatabaseDataSourceConnection(dsStaging);
+        rsgb = new DatabaseConnection(dsRsgb.getConnection());
+        staging = new DatabaseConnection(dsStaging.getConnection());
 
-        if (this.isMsSQL) {
+        if (isMsSQL) {
             rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MsSqlDataTypeFactory());
             staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MsSqlDataTypeFactory());
-        } else if (this.isOracle) {
+        } else if (isOracle) {
             rsgb = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsRsgb.getConnection()),
                     DBPROPS.getProperty("rsgb.username").toUpperCase());
             rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
@@ -95,7 +93,7 @@ public class BRKComfortAdresUpdatesIntegrationTest extends TestUtil {
                     DBPROPS.getProperty("staging.username").toUpperCase());
             staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
             staging.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
-        } else if (this.isPostgis) {
+        } else if (isPostgis) {
             rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
             staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
         } else {
@@ -120,7 +118,7 @@ public class BRKComfortAdresUpdatesIntegrationTest extends TestUtil {
         IDataSet rsgbDataSet = fxdb.build(new FileInputStream(
                 new File(BRKComfortAdresUpdatesIntegrationTest.class.getResource(sRsgbBestand).toURI())));
 
-        if (this.isMsSQL) {
+        if (isMsSQL) {
             // SET IDENTITY_INSERT op ON
             InsertIdentityOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
             InsertIdentityOperation.CLEAN_INSERT.execute(rsgb, rsgbDataSet);
@@ -169,8 +167,7 @@ public class BRKComfortAdresUpdatesIntegrationTest extends TestUtil {
      *
      * @throws Exception if any
      */
-    @DisplayName("Snelle Update")
-    @ParameterizedTest(name =  "{index}: verwerken bestanden: ''{0}'' en ''{1}''")
+    @ParameterizedTest(name =  "Snelle Update {index}: verwerken bestanden: ''{0}'' en ''{1}''")
     @MethodSource("argumentsProvider")
     public void testSnelleUpdate(String sStagingBestand, String sRsgbBestand) throws Exception {
         loadData(sStagingBestand, sRsgbBestand);
