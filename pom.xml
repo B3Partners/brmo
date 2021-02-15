@@ -59,7 +59,6 @@
         <project.build.targetVersion>${java.version}</project.build.targetVersion>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
-        <netbeans.hint.license>gpl30</netbeans.hint.license>
         <hibernate.version>5.4.28.Final</hibernate.version>
         <!-- ook jdbc-util updaten bij geotools update -->
         <geotools.version>24.2</geotools.version>
@@ -1215,7 +1214,7 @@
                 <jdk>[11,)</jdk>
             </activation>
             <properties>
-                <java.version>11</java.version>
+                <java.version>8</java.version>
                 <project.build.targetVersion>1.8</project.build.targetVersion>
                 <maven.compiler.target>1.8</maven.compiler.target>
                 <sqlserver.jdbc.version>8.4.1.jre11</sqlserver.jdbc.version>
