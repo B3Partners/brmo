@@ -478,10 +478,19 @@
                 <artifactId>poi-ooxml</artifactId>
                 <version>${apache.poi.version}</version>
                 <exclusions>
+                    <!-- xml hell exclusions -->
                     <exclusion>
                         <!-- deze batik neemt allerlei xml parsing libs mee die conflicten opleveren -->
                         <groupId>org.apache.xmlgraphics</groupId>
                         <artifactId>batik-all</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.apache.santuario</groupId>
+                        <artifactId>xmlsec</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>de.rototor.pdfbox</groupId>
+                        <artifactId>graphics2d</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
