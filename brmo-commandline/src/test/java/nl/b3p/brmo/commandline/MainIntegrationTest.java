@@ -4,7 +4,7 @@
 package nl.b3p.brmo.commandline;
 
 import nl.b3p.brmo.test.util.database.dbunit.CleanUtil;
-import org.apache.commons.dbcp.BasicDataSource;
+import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -26,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * run met:
- * {@code mvn -Dit.test=MainIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql > target/postgresql.log}
+ * {@code mvn -Dit.test=MainIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql -pl brmo-commandline > target/postgresql.log}
  * NB. de zipfile wordt uitgepakt door Maven.
  *
  * @author mprins
@@ -38,7 +38,8 @@ public class MainIntegrationTest {
 
     @BeforeAll
     public static void getWorkDir() {
-        WORKDIR = new File(MainIntegrationTest.class.getResource("/").getPath() + "../itest/");
+        WORKDIR = new File(MainIntegrationTest.class.getProtectionDomain().getCodeSource().getLocation().getPath() + "../itest/");
+        LOG.info("work dir set: " + WORKDIR);
     }
 
     @AfterAll

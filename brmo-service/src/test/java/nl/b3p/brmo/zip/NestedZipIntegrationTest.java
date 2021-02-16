@@ -5,7 +5,7 @@ package nl.b3p.brmo.zip;
 
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.service.testutil.TestUtil;
-import org.apache.commons.dbcp.BasicDataSource;
+import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.commons.io.input.CloseShieldInputStream;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -31,12 +31,6 @@ public class NestedZipIntegrationTest extends TestUtil {
 
     @BeforeEach
     public void setUp() throws Exception {
-        BasicDataSource dsStaging = new BasicDataSource();
-        dsStaging.setUrl(DBPROPS.getProperty("staging.url"));
-        dsStaging.setUsername(DBPROPS.getProperty("staging.username"));
-        dsStaging.setPassword(DBPROPS.getProperty("staging.password"));
-        dsStaging.setAccessToUnderlyingConnectionAllowed(true);
-
         brmo = new BrmoFramework(dsStaging, null);
     }
 
@@ -47,7 +41,7 @@ public class NestedZipIntegrationTest extends TestUtil {
     }
 
     @Test
-    public void test() throws Exception {
+    public void testLadenNestedZipFiles() throws Exception {
         InputStream input = NestedZipIntegrationTest.class.getResourceAsStream("/GH-317-BAG-van-GDS2/DNLDLXAM02-15967-5014117-31032017-01042017.zip");
         ZipInputStream zip = new ZipInputStream(input);
         ZipEntry entry = zip.getNextEntry();

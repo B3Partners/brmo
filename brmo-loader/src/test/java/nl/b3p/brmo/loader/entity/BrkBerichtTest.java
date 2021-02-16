@@ -21,7 +21,7 @@ public class BrkBerichtTest {
 
     private BrkSnapshotXMLReader bReader;
 
-    private static final String B = "../xml/MUTBX01-ASN00T1660-20091119-1-prettyprinted.xml";
+    private static final String B = "/nl/b3p/brmo/loader/xml/MUTBX01-ASN00T1660-20091119-1-prettyprinted.xml";
     
 
     @AfterEach
@@ -30,14 +30,13 @@ public class BrkBerichtTest {
     }
 
     @Test
-    public void dateTimeUnequalTest() throws Exception {
+    public void getRestoredFileNameTest() throws Exception {
         InputStream is = BrkBerichtTest.class.getResourceAsStream(B);
         bReader = new BrkSnapshotXMLReader(is);
         assertTrue(bReader.hasNext());
         BrkBericht b = bReader.next();
 
         LOG.debug("bericht 1: " + b);
-        LaadProces lp = new LaadProces(); 
         SimpleDateFormat output = new SimpleDateFormat("yyyyMMdd");
         String real = b.getRestoredFileName(output.parse("20091119"), 1);
         String expected = "BKE-MUTBX01-ASN00T1660-20091119-1.zip";

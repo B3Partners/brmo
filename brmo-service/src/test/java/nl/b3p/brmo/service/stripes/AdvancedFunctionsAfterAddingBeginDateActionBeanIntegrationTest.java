@@ -13,7 +13,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.dbunit.database.DatabaseConfig;
 import org.dbunit.database.DatabaseConnection;
-import org.dbunit.database.DatabaseDataSourceConnection;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ITable;
@@ -91,13 +90,13 @@ public class AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest exte
         when(updatesBean.getContext()).thenReturn(actx);
         when(actx.getServletContext()).thenReturn(sctx);
 
-        rsgb = new DatabaseDataSourceConnection(dsRsgb);
-        staging = new DatabaseDataSourceConnection(dsStaging);
+        rsgb = new DatabaseConnection(dsRsgb.getConnection());
+        staging = new DatabaseConnection(dsStaging.getConnection());
 
-        if (this.isMsSQL) {
+        if (isMsSQL) {
             rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MsSqlDataTypeFactory());
             staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MsSqlDataTypeFactory());
-        } else if (this.isOracle) {
+        } else if (isOracle) {
             rsgb = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsRsgb.getConnection()),
                     DBPROPS.getProperty("rsgb.username").toUpperCase());
             rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
@@ -106,7 +105,7 @@ public class AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest exte
                     DBPROPS.getProperty("staging.username").toUpperCase());
             staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
             staging.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
-        } else if (this.isPostgis) {
+        } else if (isPostgis) {
             rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
             staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
         } else {
@@ -136,7 +135,7 @@ public class AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest exte
                 AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest.class.getResource(
                         rBestandsNaam).toURI())));
 
-        if (this.isMsSQL) {
+        if (isMsSQL) {
             // SET IDENTITY_INSERT op ON
             InsertIdentityOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
             InsertIdentityOperation.CLEAN_INSERT.execute(rsgb, rsgbDataSet);
@@ -173,8 +172,7 @@ public class AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest exte
         }
     }
 
-    @DisplayName("Replay BRK Verwijder berichten na update IngangsdatumRecht")
-    @ParameterizedTest(name = "{index}: verwerken bestand: ''{0}''")
+    @ParameterizedTest(name = "Replay BRK Verwijder berichten na update IngangsdatumRecht {index}: verwerken bestand: ''{0}''")
     @MethodSource("argumentsProvider")
     public void testReplayBRKVerwijderBerichtenNaUpdateIngangsdatumRecht(String sBestandsNaam, long aantalBerichten,
                                                                          long aantalProcessen, String rBestandsNaam)

@@ -3,10 +3,11 @@
  */
 package nl.b3p.brmo.service.testutil;
 
-import org.apache.commons.dbcp.BasicDataSource;
+import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.TestInstance.Lifecycle;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -33,27 +34,27 @@ public abstract class TestUtil {
      *
      * @see #loadDBprop()
      */
-    protected final Properties DBPROPS = new Properties();
+    protected static final Properties DBPROPS = new Properties();
 
     /**
      * {@code true} als we met een Oracle database bezig zijn.
      */
-    protected boolean isOracle;
+    protected static boolean isOracle;
 
     /**
      * {@code true} als we met een MS SQL Server database bezig zijn.
      */
-    protected boolean isMsSQL;
+    protected static boolean isMsSQL;
 
     /**
      * {@code true} als we met een Postgis database bezig zijn.
      */
-    protected boolean isPostgis;
+    protected static boolean isPostgis;
 
-    protected BasicDataSource dsStaging;
-    protected BasicDataSource dsRsgb;
-    protected BasicDataSource dsRsgbBgt;
-    protected BasicDataSource dsTopnl;
+    protected static BasicDataSource dsStaging;
+    protected static BasicDataSource dsRsgb;
+    protected static BasicDataSource dsRsgbBgt;
+    protected static BasicDataSource dsTopnl;
 
     /**
      * test of de database properties zijn aangegeven, zo niet dan skippen we
@@ -66,8 +67,7 @@ public abstract class TestUtil {
 
     /**
      * subklassen dienen zelf een setup te hebben; vanwege de overerving gaat
-     * deze methode af na de {@code @Before} methoden van de superklasse, bijv.
-     * {@link #loadDBprop()}.
+     * deze methode af na de {@code @Before} methoden van de superklasse.
      *
      * @throws Exception if any
      */
@@ -79,8 +79,9 @@ public abstract class TestUtil {
      *
      * @throws java.io.IOException if loading the property file fails
      */
-    @BeforeEach
-    public void loadDBprop() throws IOException {
+    @BeforeAll
+    public static void loadDBprop() throws IOException {
+        LOG.info("Loading database properties");
         // the `database.properties.file`  is set in the pom.xml or using the commandline
         DBPROPS.load(TestUtil.class.getClassLoader()
                 .getResourceAsStream(System.getProperty("database.properties.file")));
@@ -108,7 +109,9 @@ public abstract class TestUtil {
         dsStaging.setPassword(DBPROPS.getProperty("staging.password"));
         dsStaging.setAccessToUnderlyingConnectionAllowed(true);
         dsStaging.setInitialSize(1);
-        dsStaging.setMaxActive(10);
+        dsStaging.setMaxTotal(40);
+        dsStaging.setMaxIdle(1);
+        dsStaging.setPoolPreparedStatements(true);
 
         dsRsgb = new BasicDataSource();
         dsRsgb.setUrl(DBPROPS.getProperty("rsgb.url"));
@@ -116,7 +119,9 @@ public abstract class TestUtil {
         dsRsgb.setPassword(DBPROPS.getProperty("rsgb.password"));
         dsRsgb.setAccessToUnderlyingConnectionAllowed(true);
         dsRsgb.setInitialSize(1);
-        dsRsgb.setMaxActive(5);
+        dsRsgb.setMaxTotal(20);
+        dsRsgb.setMaxIdle(1);
+        dsRsgb.setPoolPreparedStatements(true);
 
         dsRsgbBgt = new BasicDataSource();
         dsRsgbBgt.setUrl(DBPROPS.getProperty("rsgbbgt.url"));
@@ -124,13 +129,17 @@ public abstract class TestUtil {
         dsRsgbBgt.setPassword(DBPROPS.getProperty("rsgbbgt.password"));
         dsRsgbBgt.setAccessToUnderlyingConnectionAllowed(true);
         dsRsgbBgt.setInitialSize(1);
-        dsRsgbBgt.setMaxActive(5);
+        dsRsgbBgt.setMaxTotal(20);
+        dsRsgbBgt.setMaxIdle(1);
 
         dsTopnl= new BasicDataSource();
         dsTopnl.setUrl(DBPROPS.getProperty("topnl.url"));
         dsTopnl.setUsername(DBPROPS.getProperty("topnl.username"));
         dsTopnl.setPassword(DBPROPS.getProperty("topnl.password"));
         dsTopnl.setAccessToUnderlyingConnectionAllowed(true);
+        dsTopnl.setInitialSize(1);
+        dsTopnl.setMaxTotal(20);
+        dsTopnl.setMaxIdle(1);
 
         setupJNDI();
     }
@@ -152,18 +161,28 @@ public abstract class TestUtil {
     }
 
     @AfterAll
-    public void closeConnections() throws SQLException {
-        // JNDI connecties wel sluiten!
-        dsStaging.close();
-        dsRsgb.close();
-        dsRsgbBgt.close();
+    public static void closeConnections() throws SQLException {
+        // JNDI connectie pools niet sluiten!
+        // een ds kan null zijn als subklasse de #loadDBprop override
+//        if (dsStaging != null) {
+//            dsStaging.close();
+//        }
+//        if (dsRsgb != null) {
+//            dsRsgb.close();
+//        }
+//        if (dsRsgbBgt != null) {
+//            dsRsgbBgt.close();
+//        }
+//        if (dsTopnl != null) {
+//            dsTopnl.close();
+//        }
         haveSetupJNDI = false;
     }
 
     /**
      * setup jndi voor testcases.
      */
-    protected void setupJNDI() {
+    protected static void setupJNDI() {
         if (!haveSetupJNDI) {
             System.setProperty(Context.INITIAL_CONTEXT_FACTORY, "org.apache.naming.java.javaURLContextFactory");
             System.setProperty(Context.URL_PKG_PREFIXES, "org.apache.naming");

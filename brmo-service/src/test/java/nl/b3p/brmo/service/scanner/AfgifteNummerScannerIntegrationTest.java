@@ -28,7 +28,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.dbunit.database.DatabaseConfig;
 import org.dbunit.database.DatabaseConnection;
-import org.dbunit.database.DatabaseDataSourceConnection;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ITable;
@@ -38,7 +37,10 @@ import org.dbunit.ext.mssql.MsSqlDataTypeFactory;
 import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 import org.dbunit.operation.DatabaseOperation;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -59,11 +61,9 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 /**
- * {@code mvn -Dit.test=AfgifteNummerScannerIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql -pl brmo-service
- * > /tmp/mvn.log}
+ * {@code mvn -Dit.test=AfgifteNummerScannerIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql -pl brmo-service > /tmp/mvn.log}
  * of
- * {@code mvn -Dit.test=AfgifteNummerScannerIntegrationTest -Dtest.onlyITs=true verify -Poracle -pl brmo-service >
- * /tmp/mvn.log}
+ * {@code mvn -Dit.test=AfgifteNummerScannerIntegrationTest -Dtest.onlyITs=true verify -Poracle -pl brmo-service > /tmp/mvn.log}
  *
  * @author mprins
  */
@@ -95,17 +95,17 @@ public class AfgifteNummerScannerIntegrationTest extends TestUtil {
     @BeforeEach
     @Override
     public void setUp() throws Exception {
-        staging = new DatabaseDataSourceConnection(dsStaging);
+        staging = new DatabaseConnection(dsStaging.getConnection());
 
-        if (this.isMsSQL) {
+        if (isMsSQL) {
             staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MsSqlDataTypeFactory());
-        } else if (this.isOracle) {
+        } else if (isOracle) {
             dsStaging.getConnection().setAutoCommit(true);
             staging = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsStaging.getConnection()),
                     DBPROPS.getProperty("staging.username").toUpperCase());
             staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
             staging.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
-        } else if (this.isPostgis) {
+        } else if (isPostgis) {
             staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
         } else {
             fail("Geen ondersteunde database aangegeven");
@@ -151,7 +151,7 @@ public class AfgifteNummerScannerIntegrationTest extends TestUtil {
         IDataSet stagingDataSet = fxdb.build(new FileInputStream(
                 new File(AfgifteNummerScannerIntegrationTest.class.getResource(sBestandsNaam).toURI())));
 
-        if (this.isMsSQL) {
+        if (isMsSQL) {
             // SET IDENTITY_INSERT op ON
             InsertIdentityOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
         } else {
@@ -162,7 +162,7 @@ public class AfgifteNummerScannerIntegrationTest extends TestUtil {
                 "Er zijn anders dan verwacht aantal laadprocessen"
         );
 
-        if (!this.isMsSQL) {
+        if (!isMsSQL) {
             // mssql gebruikt identity kolom
             try {
                 ITable lp = staging.createQueryTable("laadproces", "select max(id) as maxid from laadproces");
@@ -183,7 +183,6 @@ public class AfgifteNummerScannerIntegrationTest extends TestUtil {
         if (staging != null) {
             CleanUtil.cleanSTAGING(staging, true);
             staging.close();
-            dsStaging.close();
         }
         try {
             sequential.unlock();
@@ -193,8 +192,7 @@ public class AfgifteNummerScannerIntegrationTest extends TestUtil {
         }
     }
 
-    @DisplayName("getOntbrekendeAfgiftenummers default")
-    @ParameterizedTest(name = "{index}: testbestand ''{0}''")
+    @ParameterizedTest(name = "testGetOntbrekendeAfgiftenummersDefault {index}: testbestand ''{0}''")
     @MethodSource("argumentsProvider")
     public void testGetOntbrekendeAfgiftenummersDefault(String sBestandsNaam, long lAantalLaadProcessen,
                                                         int iAantalOntbrekendeNummerRanges, String sContractNummer,
@@ -209,16 +207,14 @@ public class AfgifteNummerScannerIntegrationTest extends TestUtil {
         assertEquals(iAantalOntbrekendeNummerRanges != 0, scanner.getOntbrekendeNummersGevonden(),
                 "gevonden ontbrekende records vlag klopt niet");
 
-        if (iAantalOntbrekendeNummerRanges > 0) {
-            Iterator<Map<String, Object>> records = afgiftenummers.iterator();
-            while (records.hasNext()) {
-                LOG.debug(records.next());
+        if (iAantalOntbrekendeNummerRanges > 0 && LOG.isDebugEnabled()) {
+            for (Map<String, Object> afgiftenummer : afgiftenummers) {
+                LOG.debug(afgiftenummer);
             }
         }
     }
 
-    @DisplayName("getOntbrekendeKlantAfgiftenummers")
-    @ParameterizedTest(name = "{index}: testbestand ''{0}''")
+    @ParameterizedTest(name = "testGetOntbrekendeKlantAfgiftenummers {index}: testbestand ''{0}''")
     @MethodSource("argumentsProvider")
     public void testGetOntbrekendeKlantAfgiftenummers(String sBestandsNaam, long lAantalLaadProcessen,
                                                       int iAantalOntbrekendeNummerRanges, String sContractNummer,
@@ -234,8 +230,7 @@ public class AfgifteNummerScannerIntegrationTest extends TestUtil {
                 "gevonden ontbrekende records vlag klopt niet");
     }
 
-    @DisplayName("getOntbrekendeContractAfgiftenummers")
-    @ParameterizedTest(name = "{index}: testbestand ''{0}''")
+    @ParameterizedTest(name = "testGetOntbrekendeContractAfgiftenummers {index}: testbestand ''{0}''")
     @MethodSource("argumentsProvider")
     public void testGetOntbrekendeContractAfgiftenummers(String sBestandsNaam, long lAantalLaadProcessen,
                                                          int iAantalOntbrekendeNummerRanges, String sContractNummer,
@@ -251,8 +246,7 @@ public class AfgifteNummerScannerIntegrationTest extends TestUtil {
                 "gevonden ontbrekende records vlag klopt niet");
     }
 
-    @DisplayName("insertOntbrekendeContractAfgiftenummers")
-    @ParameterizedTest(name = "{index}: testbestand ''{0}'' ontbrekende records {5}")
+    @ParameterizedTest(name = "testInsertOntbrekendeContractAfgiftenummers {index}: testbestand ''{0}'' ontbrekende records {5}")
     @MethodSource("argumentsProvider")
     public void testInsertOntbrekendeContractAfgiftenummers(String sBestandsNaam, long lAantalLaadProcessen,
                                                             int iAantalOntbrekendeNummerRanges, String sContractNummer,
@@ -279,8 +273,7 @@ public class AfgifteNummerScannerIntegrationTest extends TestUtil {
         assertEquals(iAantalOntbrekendRecords, inserted, "aantal toegevoegde laadprocessen klopt niet");
     }
 
-    @DisplayName("insertOntbrekendeKlantAfgiftenummers")
-    @ParameterizedTest(name = "{index}: testbestand ''{0}'' ontbrekende records {5}")
+    @ParameterizedTest(name = "testInsertOntbrekendeKlantAfgiftenummers {index}: testbestand ''{0}'' ontbrekende records {5}")
     @MethodSource("argumentsProvider")
     public void testInsertOntbrekendeKlantAfgiftenummers(String sBestandsNaam, long lAantalLaadProcessen,
                                                          int iAantalOntbrekendeNummerRanges, String sContractNummer,
@@ -317,8 +310,7 @@ public class AfgifteNummerScannerIntegrationTest extends TestUtil {
         });
     }
 
-    @DisplayName("Contractnummers test")
-    @ParameterizedTest(name = "{index}: testbestand ''{0}'' contractnummers {4}")
+    @ParameterizedTest(name = "testContractnummers {index}: testbestand ''{0}'' contractnummers {4}")
     @MethodSource("argumentsProvider")
     public void testContractnummers(String sBestandsNaam, long lAantalLaadProcessen, int iAantalOntbrekendeNummerRanges,
                                     String sContractNummer, String[] sContractNummers, int iAantalOntbrekendRecords)

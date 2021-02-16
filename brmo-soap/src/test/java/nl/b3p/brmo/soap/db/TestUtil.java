@@ -5,7 +5,7 @@ package nl.b3p.brmo.soap.db;
 
 import nl.b3p.loader.jdbc.GeometryJdbcConverter;
 import nl.b3p.loader.jdbc.GeometryJdbcConverterFactory;
-import org.apache.commons.dbcp.BasicDataSource;
+import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

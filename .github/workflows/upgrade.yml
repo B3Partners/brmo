@@ -15,7 +15,7 @@ jobs:
     strategy:
       matrix:
         java: [ 11 ]
-        postgis: [ 10-2.5 ]
+        postgis: [ 11-3.0 ]
 
     services:
       postgres:

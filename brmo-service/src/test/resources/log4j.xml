@@ -47,6 +47,9 @@
     <logger name="nl.b3p.brmo.service">
         <level value="info" />
     </logger>
+    <logger name="nl.b3p.brmo.service.testutil">
+        <level value="info" />
+    </logger>
     <logger name="nl.b3p.brmo.loader">
         <level value="info" />
     </logger>

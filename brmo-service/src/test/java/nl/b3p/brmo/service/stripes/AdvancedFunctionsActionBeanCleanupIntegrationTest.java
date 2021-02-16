@@ -12,7 +12,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.dbunit.database.DatabaseConfig;
 import org.dbunit.database.DatabaseConnection;
-import org.dbunit.database.DatabaseDataSourceConnection;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
@@ -74,17 +73,17 @@ public class AdvancedFunctionsActionBeanCleanupIntegrationTest extends TestUtil 
     @BeforeEach
     public void setUp() throws Exception {
         bean = new AdvancedFunctionsActionBean();
-        staging = new DatabaseDataSourceConnection(dsStaging);
+        staging = new DatabaseConnection(dsStaging.getConnection());
 
-        if (this.isMsSQL) {
+        if (isMsSQL) {
             staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MsSqlDataTypeFactory());
-        } else if (this.isOracle) {
+        } else if (isOracle) {
             dsStaging.getConnection().setAutoCommit(true);
             staging = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsStaging.getConnection()),
                     DBPROPS.getProperty("staging.username").toUpperCase());
             staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
             staging.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
-        } else if (this.isPostgis) {
+        } else if (isPostgis) {
             staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
         } else {
             Assertions.fail("Geen ondersteunde database aangegegeven");
@@ -108,7 +107,7 @@ public class AdvancedFunctionsActionBeanCleanupIntegrationTest extends TestUtil 
                 )
         );
 
-        if (this.isMsSQL) {
+        if (isMsSQL) {
             // SET IDENTITY_INSERT op ON
             InsertIdentityOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
         } else {
@@ -144,8 +143,7 @@ public class AdvancedFunctionsActionBeanCleanupIntegrationTest extends TestUtil 
         }
     }
 
-    @DisplayName("Cleanup Berichten")
-    @ParameterizedTest(name = "{index}: bestand: {0}, aantal berichten {1}")
+    @ParameterizedTest(name = "Cleanup Berichten {index}: bestand: {0}, aantal berichten {1}")
     @MethodSource("argumentsProvider")
     public void testCleanupBerichten(String sBestandsNaam, long aantalBerichtenRsgbOk, long aantalBerichtenToArchive,
                                      long aantalBerichtenArchive, long aantalBerichtenRsgbNok) throws Exception {
@@ -164,8 +162,7 @@ public class AdvancedFunctionsActionBeanCleanupIntegrationTest extends TestUtil 
         );
     }
 
-    @DisplayName("Delete Berichten")
-    @ParameterizedTest(name = "{index}: bestand: {0}, aantal berichten {1}")
+    @ParameterizedTest(name = "Delete Berichten{index}: bestand: {0}, aantal berichten {1}")
     @MethodSource("argumentsProvider")
     public void testDeleteBerichten(String sBestandsNaam, long aantalBerichtenRsgbOk, long aantalBerichtenToArchive,
                                     long aantalBerichtenArchive, long aantalBerichtenRsgbNok) throws Exception {
@@ -179,8 +176,7 @@ public class AdvancedFunctionsActionBeanCleanupIntegrationTest extends TestUtil 
         );
     }
 
-    @DisplayName("Cleanup en Delete Berichten")
-    @ParameterizedTest(name = "{index}: bestand: {0}, aantal berichten {1}")
+    @ParameterizedTest(name = "Cleanup en Delete Berichten {index}: bestand: {0}, aantal berichten {1}")
     @MethodSource("argumentsProvider")
     //@Disabled("Deze programma flow komt normaal niet voor; de GUI staat slechts 1 keuze per run toe.")
     public void testCleanupAndDeleteBerichten(String sBestandsNaam, long aantalBerichtenRsgbOk,
