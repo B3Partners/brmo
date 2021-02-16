@@ -123,6 +123,9 @@ create index idx_bericht_soort on bericht (soort);
 create index idx_bericht_status on bericht (status);
 create unique index idx_bericht_refiddatumnr on bericht(object_ref,datum,volgordenummer);
 create index idx_laadproces_soort on laadproces(soort);
+create index idx_laadproces_contractnummer on laadproces(contractnummer);
+create index idx_laadproces_contractafgiftenummer on laadproces(contractafgiftenummer);
+create index idx_laadproces_klantafgiftenummer on laadproces(klantafgiftenummer);
 
 GO
 

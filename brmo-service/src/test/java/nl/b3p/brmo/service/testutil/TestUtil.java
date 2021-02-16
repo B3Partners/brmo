@@ -108,8 +108,8 @@ public abstract class TestUtil {
         dsStaging.setUsername(DBPROPS.getProperty("staging.username"));
         dsStaging.setPassword(DBPROPS.getProperty("staging.password"));
         dsStaging.setAccessToUnderlyingConnectionAllowed(true);
-        dsStaging.setInitialSize(1);
-        dsStaging.setMaxTotal(40);
+        dsStaging.setInitialSize(5);
+        dsStaging.setMaxTotal(80);
         dsStaging.setMaxIdle(1);
         dsStaging.setPoolPreparedStatements(true);
 
