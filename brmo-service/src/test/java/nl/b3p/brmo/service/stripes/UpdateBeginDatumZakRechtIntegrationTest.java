@@ -132,14 +132,17 @@ public class UpdateBeginDatumZakRechtIntegrationTest extends TestUtil{
         if (brmo != null) {
             // in geval van niet waar gemaakte assumptions
             brmo.closeBrmoFramework();
+            brmo = null;
         }
         if (rsgb != null) {
             CleanUtil.cleanRSGB_BRK(rsgb, true);
             rsgb.close();
+            rsgb = null;
         }
         if (staging != null) {
             CleanUtil.cleanSTAGING(staging, true);
             staging.close();
+            staging = null;
         }
 
         try {

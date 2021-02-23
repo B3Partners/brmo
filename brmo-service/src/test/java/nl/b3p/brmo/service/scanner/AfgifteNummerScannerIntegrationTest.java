@@ -183,6 +183,7 @@ public class AfgifteNummerScannerIntegrationTest extends TestUtil {
         if (staging != null) {
             CleanUtil.cleanSTAGING(staging, true);
             staging.close();
+            staging = null;
         }
         try {
             sequential.unlock();
