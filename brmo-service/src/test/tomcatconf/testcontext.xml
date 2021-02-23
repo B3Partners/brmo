@@ -5,7 +5,7 @@
     <Resource name="jdbc/brmo/staging"
               auth="Container"
               type="javax.sql.DataSource"
-              maxActive="30"
+              maxActive="100"
               maxIdle="5"
               maxWait="10000"
               validationQuery="select 1"

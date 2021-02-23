@@ -38,6 +38,7 @@ public class NestedZipIntegrationTest extends TestUtil {
     public void cleanup() throws Exception {
         brmo.emptyStagingDb();
         brmo.closeBrmoFramework();
+        brmo = null;
     }
 
     @Test
