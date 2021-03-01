@@ -7,7 +7,6 @@ import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.jupiter.api.*;
-import org.junit.jupiter.api.TestInstance.Lifecycle;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -106,10 +105,11 @@ public abstract class TestUtil {
         dsStaging.setUsername(DBPROPS.getProperty("staging.username"));
         dsStaging.setPassword(DBPROPS.getProperty("staging.password"));
         dsStaging.setAccessToUnderlyingConnectionAllowed(true);
-        dsStaging.setInitialSize(1);
-        dsStaging.setMaxTotal(100);
+        dsStaging.setInitialSize(5);
+        dsStaging.setMaxTotal(150);
         dsStaging.setMaxIdle(1);
-        dsStaging.setPoolPreparedStatements(true);
+        dsStaging.setMaxConnLifetimeMillis(1000 * 60);
+        dsStaging.setMinEvictableIdleTimeMillis(1000 * 10);
 
         dsRsgb = new BasicDataSource();
         dsRsgb.setUrl(DBPROPS.getProperty("rsgb.url"));
@@ -119,6 +119,8 @@ public abstract class TestUtil {
         dsRsgb.setInitialSize(1);
         dsRsgb.setMaxTotal(20);
         dsRsgb.setMaxIdle(1);
+        dsRsgb.setMaxConnLifetimeMillis(1000 * 60);
+        dsRsgb.setMinEvictableIdleTimeMillis(1000 * 10);
         dsRsgb.setPoolPreparedStatements(true);
 
         setupJNDI();
@@ -143,12 +145,12 @@ public abstract class TestUtil {
     @AfterAll
     public static void closeConnections() throws SQLException {
         // JNDI connectie pools niet sluiten!
-//        if (dsStaging != null) {
-//            dsStaging.close();
-//        }
-//        if (dsRsgb != null) {
-//            dsRsgb.close();
-//        }
+        //if (dsStaging != null) {
+        //    dsStaging.close();
+        //}
+        //if (dsRsgb != null) {
+        //    dsRsgb.close();
+        //}
         try {
             InitialContext ic = new InitialContext();
             ic.unbind("java:comp/env/jdbc/brmo/rsgb");
@@ -160,7 +162,7 @@ public abstract class TestUtil {
             ic.destroySubcontext("java:");
         } catch (NamingException ex) {
             LOG.warn("Opruimen van jndi datasources is mislukt: " + ex.getLocalizedMessage());
-            LOG.trace("Opruimen van datasource jndi is mislukt:", ex);
+            LOG.trace("Opruimen van jndi datasources is mislukt:", ex);
         } finally {
             haveSetupJNDI = false;
         }
