@@ -162,7 +162,7 @@ public abstract class TestUtil {
             ic.destroySubcontext("java:");
         } catch (NamingException ex) {
             LOG.warn("Opruimen van jndi datasources is mislukt: " + ex.getLocalizedMessage());
-            LOG.trace("Opruimen van datasource jndi is mislukt:", ex);
+            LOG.trace("Opruimen van jndi datasources is mislukt:", ex);
         } finally {
             haveSetupJNDI = false;
         }
