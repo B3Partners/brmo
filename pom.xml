@@ -59,7 +59,7 @@
         <project.build.targetVersion>${java.version}</project.build.targetVersion>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
-        <hibernate.version>5.4.28.Final</hibernate.version>
+        <hibernate.version>5.4.29.Final</hibernate.version>
         <!-- ook jdbc-util updaten bij geotools update -->
         <geotools.version>24.2</geotools.version>
         <jdbc-util.version>7.5</jdbc-util.version>
