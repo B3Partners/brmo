@@ -272,6 +272,12 @@
                 <groupId>org.geotools.jdbc</groupId>
                 <artifactId>gt-jdbc-oracle</artifactId>
                 <version>${geotools.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.oracle.database.jdbc</groupId>
+                        <artifactId>ojdbc8</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.geotools.jdbc</groupId>
@@ -282,12 +288,22 @@
                         <groupId>net.sourceforge.jtds</groupId>
                         <artifactId>jtds</artifactId>
                     </exclusion>
+                    <exclusion>
+                        <groupId>com.microsoft.sqlserver</groupId>
+                        <artifactId>mssql-jdbc</artifactId>
+                    </exclusion>
                 </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.geotools.jdbc</groupId>
                 <artifactId>gt-jdbc-postgis</artifactId>
                 <version>${geotools.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.postgresql</groupId>
+                        <artifactId>postgresql</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.geotools</groupId>
@@ -1217,8 +1233,8 @@
                 <java.version>8</java.version>
                 <project.build.targetVersion>1.8</project.build.targetVersion>
                 <maven.compiler.target>1.8</maven.compiler.target>
-                <sqlserver.jdbc.version>8.4.1.jre11</sqlserver.jdbc.version>
-                <oracle.jdbc.artifact>ojdbc11</oracle.jdbc.artifact>
+<!--                <sqlserver.jdbc.version>8.4.1.jre11</sqlserver.jdbc.version>-->
+<!--                <oracle.jdbc.artifact>ojdbc11</oracle.jdbc.artifact>-->
             </properties>
             <dependencyManagement>
                 <dependencies>
