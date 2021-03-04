@@ -444,7 +444,7 @@ public class BGTGMLLightLoader {
                                 }
                             }
                             updatetransaction.commit();
-                            LOG.info(String.format("Object %s geupdate van tijdstip %tc naar nieuw tijdstipRegistratie %tc", id, record.getLeft(), tijdstipRegistratie));
+                            LOG.debug(String.format("Object %s geupdate van tijdstip %tc naar nieuw tijdstipRegistratie %tc", id, record.getLeft(), tijdstipRegistratie));
                             bestaandeFeats.close();
                             // maak een nieuw transactie voor toevoegen, de eerdere is aborted
                             transaction = new DefaultTransaction("add-bgt");
@@ -465,7 +465,7 @@ public class BGTGMLLightLoader {
         } catch (IOException ioe) {
             String s = String.format("Fout opgetreden, hiervoor verwerkte features voor %s: %d, inserts: %d, updates: %d, deletes: %d", gmlFileName, features, inserts, updates, deletes);
             opmerkingen.append(s).append("\n");
-            LOG.info(s);
+            LOG.warn(s);
             LOG.error("I/O database probleem tijdens insert van features", ioe);
             this.status = STATUS.NOK;
             transaction.rollback();
