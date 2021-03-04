@@ -8,9 +8,9 @@ max_jobs: 4
 image: Visual Studio 2019
 
 environment:
-  BGT_ONLY_ITESTS : false
-  LOADER_ONLY_ITESTS : false
-  OTHER_ITESTS : true
+  BGT_ONLY_ITESTS: false
+  LOADER_ONLY_ITESTS: false
+  OTHER_ITESTS: true
   SQL: MSSQL$SQL2017
   INSTANCENAME: SQL2017
   DOCKERHOST: "-DdockerHost=tcp://localhost:2375"
@@ -18,25 +18,25 @@ environment:
   # wegens in de views gebruikte functies wordt mssql 2016 niet meer ondersteund voor brmo
   # Microsoft SQL Server 2019 is de jongst-beschikbare release op AppVeyor, maar testen we (ook) op Travis-CI (veel sneller)
   matrix:
+    - JAVA_HOME: C:\Program Files\Java\jdk1.8.0
+
+    - BGT_ONLY_ITESTS: true
+      JAVA_HOME: C:\Program Files\Java\jdk1.8.0
+      OTHER_ITESTS: false
+
+    - LOADER_ONLY_ITESTS : true
+      JAVA_HOME: C:\Program Files\Java\jdk1.8.0
+      OTHER_ITESTS : false
+
     - JAVA_HOME: C:\Program Files\Java\jdk11
       SQL: MSSQL$SQL2019
       INSTANCENAME: SQL2019
 
-    - JAVA_HOME: C:\Program Files\Java\jdk1.8.0
-
-    - BGT_ONLY_ITESTS : true
-      JAVA_HOME: C:\Program Files\Java\jdk1.8.0
-      OTHER_ITESTS : false
-
-    - LOADER_ONLY_ITESTS : true
+    - LOADER_ONLY_ITESTS: true
       JAVA_HOME: C:\Program Files\Java\jdk11
       SQL: MSSQL$SQL2019
       INSTANCENAME: SQL2019
-      OTHER_ITESTS : false
-
-    - LOADER_ONLY_ITESTS : true
-      JAVA_HOME: C:\Program Files\Java\jdk1.8.0
-      OTHER_ITESTS : false
+      OTHER_ITESTS: false
 
 matrix:
   fast_finish: false
@@ -110,7 +110,6 @@ after_build:
   - cmd: echo "instance name:" %INSTANCENAME%
   - ps: .\.appveyor\setting-tcp-ip-ports.ps1
 
-
 test_script:
   # unit tests
   - if "%OTHER_ITESTS%"=="true" mvn -e -fae -B -Pmssql test -Dtest.persistence.unit=brmo.persistence.microsoftsqlserver -pl "!brmo-dist" %DOCKERHOST%
@@ -118,7 +117,7 @@ test_script:
   # integratie tests
   # run integratie tests voor brmo-loader module
   - if "%LOADER_ONLY_ITESTS%"=="true" mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-loader" -Dmssql.instancename=%INSTANCENAME%
-  # run integratie tests voor bgt-gml-loader module (30min)
+  # run integratie tests voor bgt-gml-loader module (~30min)
   - if "%BGT_ONLY_ITESTS%"=="true" mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "bgt-gml-loader" -Dmssql.instancename=%INSTANCENAME%
   # run integratie tests voor brmo-service module
   - if "%OTHER_ITESTS%"=="true" mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-service" -Dmssql.instancename=%INSTANCENAME%

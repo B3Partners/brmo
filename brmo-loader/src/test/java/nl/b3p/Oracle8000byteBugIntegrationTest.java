@@ -144,7 +144,7 @@ public class Oracle8000byteBugIntegrationTest extends AbstractDatabaseIntegratio
         }
     }
 
-    @ParameterizedTest(name = "{index}: bestand: {1}")
+    @ParameterizedTest(name = "testBrkXMLToStaging {index}: bestand: {1}")
     @MethodSource("argumentsProvider")
     public void testBrkXMLToStaging(String bestandType, String bestandNaam, int brxml_bytes, long aantalBerichten, long aantalProcessen, String datumEersteMutatie) throws Exception {
         assumeFalse(null == Oracle8000byteBugIntegrationTest.class.getResource(bestandNaam), "Het test bestand moet er zijn.");

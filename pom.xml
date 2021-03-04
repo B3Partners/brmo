@@ -73,7 +73,7 @@
         <mssql.instancename />
         <javasimon.version>4.2.0</javasimon.version>
         <jakarta.mail.version>1.6.5</jakarta.mail.version>
-        <apache.poi.version>4.1.2</apache.poi.version>
+        <apache.poi.version>5.0.0</apache.poi.version>
         <quartz.version>2.3.2</quartz.version>
         <slf4j.version>1.7.30</slf4j.version>
         <jaxb.api.version>2.3.3</jaxb.api.version>
@@ -477,6 +477,22 @@
                 <groupId>org.apache.poi</groupId>
                 <artifactId>poi-ooxml</artifactId>
                 <version>${apache.poi.version}</version>
+                <exclusions>
+                    <!-- xml hell exclusions -->
+                    <exclusion>
+                        <!-- deze batik neemt allerlei xml parsing libs mee die conflicten opleveren -->
+                        <groupId>org.apache.xmlgraphics</groupId>
+                        <artifactId>batik-all</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.apache.santuario</groupId>
+                        <artifactId>xmlsec</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>de.rototor.pdfbox</groupId>
+                        <artifactId>graphics2d</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>com.itextpdf</groupId>

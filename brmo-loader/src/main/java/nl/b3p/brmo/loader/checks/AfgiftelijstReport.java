@@ -185,7 +185,7 @@ public class AfgiftelijstReport {
             Paragraph p2 = new Paragraph().add("B3Partners BRMO controlemodule - " + datum);
             canvas.showTextAligned(p2, 35, y, TextAlignment.LEFT);
             canvas.showTextAligned(p, x, y, TextAlignment.RIGHT);
-            pdfCanvas.addXObject(placeholder, x + space, y - descent);
+            pdfCanvas.addXObjectAt(placeholder, x + space, y - descent);
             pdfCanvas.release();
         }
 
