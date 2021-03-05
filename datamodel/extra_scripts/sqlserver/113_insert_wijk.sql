@@ -3178,3 +3178,7 @@ INSERT INTO wijk (code, naam) VALUES (197817, 'Wijk17-Schelluinen');
 INSERT INTO wijk (code, naam) VALUES (197818, 'Wijk18-Streefkerk');
 INSERT INTO wijk (code, naam) VALUES (197819, 'Wijk19-Waal');
 INSERT INTO wijk (code, naam) VALUES (197820, 'Wijk20-Wijngaarden');
+
+GO
+SET NOCOUNT OFF;
+GO
