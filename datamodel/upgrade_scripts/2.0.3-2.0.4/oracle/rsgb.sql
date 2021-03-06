@@ -1,6 +1,7 @@
 -- 
 -- upgrade Oracle RSGB datamodel van 2.0.3 naar 2.0.4 
 --
+WHENEVER SQLERROR EXIT SQL.SQLCODE
 
 
 -- onderstaande dienen als laatste stappen van een upgrade uitgevoerd
