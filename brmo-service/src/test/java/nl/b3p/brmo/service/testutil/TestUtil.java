@@ -108,8 +108,9 @@ public abstract class TestUtil {
         dsStaging.setInitialSize(5);
         dsStaging.setMaxTotal(150);
         dsStaging.setMaxIdle(1);
-        dsStaging.setMaxConnLifetimeMillis(1000 * 60);
+        dsStaging.setMaxConnLifetimeMillis(1000 * 120);
         dsStaging.setMinEvictableIdleTimeMillis(1000 * 10);
+        dsStaging.setTimeBetweenEvictionRunsMillis(1000 * 30);
 
         dsRsgb = new BasicDataSource();
         dsRsgb.setUrl(DBPROPS.getProperty("rsgb.url"));
