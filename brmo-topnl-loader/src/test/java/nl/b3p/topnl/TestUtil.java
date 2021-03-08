@@ -58,9 +58,8 @@ public class TestUtil {
     public void setUpClass(TestInfo testInfo) throws SQLException, IOException {
         if(useDB){
             JDBCDataSource ds = new JDBCDataSource();
-            String testname = testInfo.getDisplayName();
-            long randomizer = System.currentTimeMillis();
-            ds.setUrl("jdbc:hsqldb:file:." + File.separator + "target" + File.separator + "unittest-hsqldb" + File.separator + testname + "_" + randomizer + File.separator + "db;shutdown=true");
+            String testname = testInfo.getDisplayName().replace(':','-').replace(' ','_');
+            ds.setUrl("jdbc:hsqldb:file:./target/unittest-hsqldb_" + testname + "_" + System.currentTimeMillis() + "/db;shutdown=true");
             datasource = ds;
             initDB("initdb250nl.sql");
             initDB("initdb100nl.sql");
