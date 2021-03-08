@@ -71,6 +71,7 @@
         <oracle.jdbc.artifact>ojdbc8</oracle.jdbc.artifact>
         <sqlserver.jdbc.version>9.2.1.jre8</sqlserver.jdbc.version>
         <mssql.instancename />
+        <skip-windows />
         <javasimon.version>4.2.0</javasimon.version>
         <jakarta.mail.version>1.6.5</jakarta.mail.version>
         <apache.poi.version>5.0.0</apache.poi.version>
@@ -1239,6 +1240,17 @@
                     <exists>pom.xml</exists>
                 </file>
             </activation>
+        </profile>
+        <profile>
+            <id>windows</id>
+            <activation>
+                <os>
+                    <family>Windows</family>
+                </os>
+            </activation>
+            <properties>
+                <skip-windows>,skip-windows</skip-windows>
+            </properties>
         </profile>
         <profile>
             <id>jdk11+</id>

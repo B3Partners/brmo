@@ -32,7 +32,7 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 /**
  * Draaien met:
- * {@code mvn -Dit.test=BerichtenFilterSqlIntegrationTest -Dtest.onlyITs=true verify -Pmssql > target/mssql.log}
+ * {@code mvn -Dit.test=BerichtenFilterSqlIntegrationTest -Dtest.onlyITs=true verify -Pmssql -pl brmo-loader > target/mssql.log}
  * voor bijvoorbeeld MSSQL.
  *
  * @author Boy de Wit
