@@ -33,7 +33,7 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@v1
         with:
-          java-version: 11
+          java-version: 8
 
 #      - name: Install extra software
 #        run: |
@@ -59,7 +59,7 @@ jobs:
 
       - name: Verify brmo-loader
       # uitzoeken waarom deze op windows faalt
-        continue-on-error: true
+      #  continue-on-error: true
         run: mvn --% -e verify -B -Pmssql -T1 -Dtest.onlyITs=true -pl "brmo-loader"
 
       - name: Verify brmo-service
@@ -81,5 +81,5 @@ jobs:
 
       - name: Cleanup build artifacts en snapshots
         run: |
-          mvn --% clean build-helper:remove-project-artifact
+          # mvn --% clean build-helper:remove-project-artifact
           cmd --% /c for /f %i in ('dir /a:d /s /b %userprofile%\*SNAPSHOT*') do rd /s /q %i

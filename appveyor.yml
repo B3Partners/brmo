@@ -14,6 +14,7 @@ environment:
   SQL: MSSQL$SQL2017
   INSTANCENAME: SQL2017
   DOCKERHOST: "-DdockerHost=tcp://localhost:2375"
+  SQLCMDINI: .\appveyor\init.sql
   # Microsoft SQL Server 2016 Service Pack 2 heeft een EOL (einde basisondersteuning) van 13-7-2021
   # wegens in de views gebruikte functies wordt mssql 2016 niet meer ondersteund voor brmo
   # Microsoft SQL Server 2019 is de jongst-beschikbare release op AppVeyor, maar testen we (ook) op Travis-CI (veel sneller)
@@ -24,19 +25,19 @@ environment:
       JAVA_HOME: C:\Program Files\Java\jdk1.8.0
       OTHER_ITESTS: false
 
-    - LOADER_ONLY_ITESTS : true
-      JAVA_HOME: C:\Program Files\Java\jdk1.8.0
-      OTHER_ITESTS : false
-
     - JAVA_HOME: C:\Program Files\Java\jdk11
       SQL: MSSQL$SQL2019
       INSTANCENAME: SQL2019
 
-    - LOADER_ONLY_ITESTS: true
-      JAVA_HOME: C:\Program Files\Java\jdk11
-      SQL: MSSQL$SQL2019
-      INSTANCENAME: SQL2019
-      OTHER_ITESTS: false
+    - LOADER_ONLY_ITESTS : true
+      JAVA_HOME: C:\Program Files\Java\jdk1.8.0
+      OTHER_ITESTS : false
+
+    #- LOADER_ONLY_ITESTS: true
+    #  JAVA_HOME: C:\Program Files\Java\jdk11
+    #  OTHER_ITESTS: false
+    #  SQL: MSSQL$SQL2019
+    #  INSTANCENAME: SQL2019
 
 matrix:
   fast_finish: false

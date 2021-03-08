@@ -1249,6 +1249,7 @@
                 </os>
             </activation>
             <properties>
+                <!-- zodat we getaggede tests kunnen skippen met failsafe -->
                 <skip-windows>,skip-windows</skip-windows>
             </properties>
         </profile>

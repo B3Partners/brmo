@@ -47,3 +47,4 @@ alter table zak_recht drop constraint fk_zkr_rl_3;
 -- Rechterkant mogelijk nog niet geinsert
 alter table kad_onrrnd_zk_his_rel drop constraint fk_kad_onrrnd_zk_his_rel_sc_rh;
 
+GO

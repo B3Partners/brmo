@@ -419,6 +419,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                 //betrekken.
             } else {
                 // volgorde belangrijk dus stoppen
+                log.fatal("Mutatieverwerking en foutief bericht, dus stoppen!", e);
                 throw new BrmoException("Mutatieverwerking en foutief bericht, dus stoppen!");
             }
         }

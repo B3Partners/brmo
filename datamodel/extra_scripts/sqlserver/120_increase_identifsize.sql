@@ -64,13 +64,16 @@ ALTER TABLE subject DROP CONSTRAINT subject_pk;
 ALTER TABLE vestg DROP CONSTRAINT vestg_pk;
 
 -- vestg_naam heeft een niet-benoemde PK
-DECLARE @PrimaryKeyName sysname = (SELECT constraint_name FROM information_schema.table_constraints WHERE constraint_type = 'PRIMARY KEY' AND table_schema='dbo' AND table_name = 'vestg_naam')
-IF @PrimaryKeyName IS NOT NULL
-BEGIN
-    DECLARE @SQL_PK NVARCHAR(MAX) = 'ALTER TABLE dbo.vestg_naam DROP CONSTRAINT ' + @PrimaryKeyName
-    -- PRINT N'Opruimen vestg_naam PK ' + @SQL_PK
-    EXEC sp_executesql @SQL_PK;
-END
+WHILE(EXISTS(SELECT 1 FROM information_schema.table_constraints WHERE table_name='vestg_naam' AND constraint_type='PRIMARY KEY'))
+    BEGIN
+        DECLARE @sqlpk NVARCHAR(MAX)
+        SELECT TOP 1 @sqlpk=('ALTER TABLE vestg_naam DROP CONSTRAINT ' + constraint_name)
+        FROM information_schema.table_constraints WHERE table_name='vestg_naam' AND constraint_type = 'PRIMARY KEY'
+        -- PRINT N'Opruimen vestg_naam PK: ' + @sqlpk
+        EXEC sp_executesql @sqlpk
+    END
+
+GO
 
 ALTER TABLE huishoudenrel DROP CONSTRAINT huishoudenrel_pk;
 ALTER TABLE huw_ger_partn DROP CONSTRAINT huw_ger_partn_pk;
