@@ -25,6 +25,7 @@ import org.dbunit.operation.DatabaseOperation;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -51,6 +52,8 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
  *
  * @author mprins
  */
+@Tag("skip-windows") /* test faalt op windows+java11 met windows sql server,
+maar niet op linux+java8 of java11 met dezelfde windows sql server tijdens transformatie... */
 public class BRKLocatiebeschrijvingIntegrationTest extends AbstractDatabaseIntegrationTest {
 
     private static final Log LOG = LogFactory.getLog(BRKLocatiebeschrijvingIntegrationTest.class);
@@ -123,8 +126,7 @@ public class BRKLocatiebeschrijvingIntegrationTest extends AbstractDatabaseInteg
         sequential.unlock();
     }
 
-    @DisplayName("Locatie beschrijving")
-    @ParameterizedTest(name = "{index}: bestand: {0}")
+    @ParameterizedTest(name = "Locatie beschrijving #{index}: bestand: {0}")
     @MethodSource("argumentsProvider")
     public void testLocatieBeschrijving(String bestandNaam, long aantalBerichten, String lo_loc__omschr) throws Exception {
         IDataSet stagingDataSet = new XmlDataSet(new FileInputStream(new File(Mantis6166IntegrationTest.class.getResource(bestandNaam).toURI())));

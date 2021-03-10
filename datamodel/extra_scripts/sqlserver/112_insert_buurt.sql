@@ -1,6 +1,9 @@
 --ALTER TABLE buurt ALTER COLUMN code TYPE NUMERIC(8,0);
 --ALTER TABLE buurt ALTER COLUMN naam TYPE CHARACTER VARYING(80);
 -- cbs buurten 2020
+SET NOCOUNT ON;
+GO
+
 INSERT INTO buurt (code, naam) VALUES (30000, 'Appingedam-Centrum');
 INSERT INTO buurt (code, naam) VALUES (30001, 'Appingedam-West');
 INSERT INTO buurt (code, naam) VALUES (30002, 'Appingedam-Oost');
@@ -13809,3 +13812,7 @@ INSERT INTO buurt (code, naam) VALUES (19782001, 'Wijngaarden-Buitengebied');
 INSERT INTO buurt (code, naam) VALUES (19782002, 'Kern-Dorp');
 INSERT INTO buurt (code, naam) VALUES (19782003, 'Lintbebouwing-Oost');
 INSERT INTO buurt (code, naam) VALUES (19782004, 'Lintbebouwing-West');
+
+GO
+SET NOCOUNT OFF;
+GO

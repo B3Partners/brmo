@@ -1,4 +1,7 @@
 -- nationaliteiten tabel dd. 20180301, zie http://publicaties.rvig.nl/Landelijke_tabellen
+SET NOCOUNT ON;
+GO
+
 INSERT INTO nation (code, omschr, begindatum_geldh, eindd_geldh) VALUES (0,'Onbekend',null,null);
 INSERT INTO nation (code, omschr, begindatum_geldh, eindd_geldh) VALUES (1,'Nederlandse',null,null);
 INSERT INTO nation (code, omschr, begindatum_geldh, eindd_geldh) VALUES (2,'Behandeld als Nederlander','20070401','20070401');
@@ -216,4 +219,6 @@ INSERT INTO nation (code, omschr, begindatum_geldh, eindd_geldh) VALUES (455,'Mo
 INSERT INTO nation (code, omschr, begindatum_geldh, eindd_geldh) VALUES (499,'Staatloos',null,null);
 INSERT INTO nation (code, omschr, begindatum_geldh, eindd_geldh) VALUES (500,'Vastgesteld niet-Nederlander','20070401','20070401');
 
+GO
+SET NOCOUNT OFF;
 GO

@@ -1,0 +1,85 @@
+name: Windows MS SQL build
+
+env:
+  MAVEN_OPTS: -Djava.awt.headless=true -Dmaven.wagon.httpconnectionManager.ttlSeconds=25 -Dmaven.wagon.http.retryHandler.count=3 -Dbrmo.persistence.microsoftsqlserver
+
+on: [ push ]
+jobs:
+  build:
+    name: MS SQL developer online test
+    runs-on: windows-2019
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          lfs: true
+
+      - name: Cache Maven repository
+        uses: actions/cache@v2.1.4
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+#      - name: Cache test data
+#        uses: actions/cache@v2.1.4
+#        with:
+#          path: ~/downloads
+#          key: downloads-${{ hashFiles('**/pom.xml') }}
+#          restore-keys: |
+#            downloads-
+
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 8
+
+#      - name: Install extra software
+#        run: |
+#          choco install xmlstarlet
+
+      - name: Priming build
+        run: |
+          mvn --% clean install -Dmaven.test.skip=true -Dtest.onlyITs= -B -V -fae -Pmssql -pl "!brmo-dist"
+
+      - name: Setup MS SQL
+        run: |
+          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login docker.b3p.nl -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+          ./.build/ci/mssql-start-docker.ps1
+          ./.build/ci/mssql-setup.ps1
+
+      - name: Test
+        run: |
+          mvn --% -e test -B -Pmssql -pl "!brmo-dist" -Dtest.onlyITs=false
+          mvn --% resources:testResources compiler:testCompile surefire:test -Pmssql -pl datamodel -Dtest="!*UpgradeTest,!P8*"
+
+      - name: Verify bgt-gml-loader
+        run: mvn --% -e verify -B -Pmssql -Dtest.onlyITs=true -pl "bgt-gml-loader"
+
+      - name: Verify brmo-loader
+      # uitzoeken waarom deze op windows faalt
+      #  continue-on-error: true
+        run: mvn --% -e verify -B -Pmssql -T1 -Dtest.onlyITs=true -pl "brmo-loader"
+
+      - name: Verify brmo-service
+        run: mvn --% -e verify -B -Pmssql -T1 -Dtest.onlyITs=true -pl "brmo-service"
+
+      - name: Verify brmo-soap
+        run: mvn --% -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-soap"
+
+      - name: Verify brmo-stufbg204
+        run: mvn --% -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-stufbg204"
+
+      - name: Verify brmo-commandline
+        run: mvn --% -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-commandline"
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          fail_ci_if_error: true
+
+      - name: Cleanup build artifacts en snapshots
+        run: |
+          # mvn --% clean build-helper:remove-project-artifact
+          cmd --% /c for /f %i in ('dir /a:d /s /b %userprofile%\*SNAPSHOT*') do rd /s /q %i

@@ -1,6 +1,10 @@
 --ALTER TABLE wijk ALTER COLUMN code TYPE NUMERIC(6,0);
 --ALTER TABLE wijk ALTER COLUMN naam TYPE CHARACTER VARYING(80);
 -- cbs wijken 2020
+
+SET NOCOUNT ON;
+GO
+
 INSERT INTO wijk (code, naam) VALUES (300, 'Wijk 00');
 INSERT INTO wijk (code, naam) VALUES (1001, 'Centrum');
 INSERT INTO wijk (code, naam) VALUES (1002, 'West');
@@ -3178,3 +3182,7 @@ INSERT INTO wijk (code, naam) VALUES (197817, 'Wijk17-Schelluinen');
 INSERT INTO wijk (code, naam) VALUES (197818, 'Wijk18-Streefkerk');
 INSERT INTO wijk (code, naam) VALUES (197819, 'Wijk19-Waal');
 INSERT INTO wijk (code, naam) VALUES (197820, 'Wijk20-Wijngaarden');
+
+GO
+SET NOCOUNT OFF;
+GO

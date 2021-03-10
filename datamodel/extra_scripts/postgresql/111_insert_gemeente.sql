@@ -1,4 +1,4 @@
--- gemeenten 2019
+-- gemeenten 2021
 INSERT INTO gemeente (code, naam) VALUES (1680, 'Aa en Hunze');
 INSERT INTO gemeente (code, naam) VALUES (358, 'Aalsmeer');
 INSERT INTO gemeente (code, naam) VALUES (197, 'Aalten');

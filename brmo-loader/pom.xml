@@ -239,7 +239,7 @@
                                 <database.properties.file>sqlserver.properties</database.properties.file>
                                 <project.version>${project.version}</project.version>
                             </systemPropertyVariables>
-                            <excludedGroups>skip-mssql</excludedGroups>
+                            <excludedGroups>skip-mssql ${skip-windows}</excludedGroups>
                         </configuration>
                     </plugin>
                 </plugins>

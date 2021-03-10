@@ -1,3 +1,6 @@
+SET NOCOUNT ON;
+GO
+
 INSERT INTO aard_recht_verkort (aand, omschr) VALUES ('1', 'Beklemrecht');
 INSERT INTO aard_recht_verkort (aand, omschr) VALUES ('2', 'Eigendom (recht van)');
 INSERT INTO aard_recht_verkort (aand, omschr) VALUES ('3', 'Erfpacht (recht van)');
@@ -22,3 +25,7 @@ INSERT INTO aard_recht_verkort (aand, omschr) VALUES ('21', 'Zakelijke belasting
 INSERT INTO aard_recht_verkort (aand, omschr) VALUES ('22', 'BP-recht');
 INSERT INTO aard_recht_verkort (aand, omschr) VALUES ('23', 'Opstalrecht Nutsvoorzieningen op gedeelte van perceel');
 INSERT INTO aard_recht_verkort (aand, omschr) VALUES ('24', 'Zakelijk recht op gedeelte van perceel (als bedoeld in artikel 5, lid 3, onder b)');
+
+GO
+SET NOCOUNT OFF;
+GO

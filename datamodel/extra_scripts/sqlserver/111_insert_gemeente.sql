@@ -1,4 +1,7 @@
--- gemeenten 2019
+-- gemeenten 2021
+SET NOCOUNT ON;
+GO
+
 INSERT INTO gemeente (code, naam) VALUES (1680, 'Aa en Hunze');
 INSERT INTO gemeente (code, naam) VALUES (358, 'Aalsmeer');
 INSERT INTO gemeente (code, naam) VALUES (197, 'Aalten');
@@ -351,3 +354,8 @@ INSERT INTO gemeente (code, naam) VALUES (1896, 'Zwartewaterland');
 INSERT INTO gemeente (code, naam) VALUES (642, 'Zwijndrecht');
 INSERT INTO gemeente (code, naam) VALUES (193, 'Zwolle');
 INSERT INTO gemeente (code, naam) VALUES (1979, 'Eemsdelta');
+
+GO
+SET NOCOUNT OFF;
+GO
+
