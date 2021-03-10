@@ -39,6 +39,7 @@ import static org.junit.jupiter.api.Assumptions.*;
  *
  * @author mprins
  */
+@Tag("skip-windows-java11")
 public class Mantis6098IntegrationTest extends AbstractDatabaseIntegrationTest {
 
     private static final Log LOG = LogFactory.getLog(Mantis6098IntegrationTest.class);

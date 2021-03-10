@@ -52,8 +52,7 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
  *
  * @author mprins
  */
-@Tag("skip-windows") /* test faalt op windows+java11 met windows sql server,
-maar niet op linux+java8 of java11 met dezelfde windows sql server tijdens transformatie... */
+@Tag("skip-windows-java11")
 public class BRKLocatiebeschrijvingIntegrationTest extends AbstractDatabaseIntegrationTest {
 
     private static final Log LOG = LogFactory.getLog(BRKLocatiebeschrijvingIntegrationTest.class);
@@ -129,7 +128,7 @@ public class BRKLocatiebeschrijvingIntegrationTest extends AbstractDatabaseInteg
     @ParameterizedTest(name = "Locatie beschrijving #{index}: bestand: {0}")
     @MethodSource("argumentsProvider")
     public void testLocatieBeschrijving(String bestandNaam, long aantalBerichten, String lo_loc__omschr) throws Exception {
-        IDataSet stagingDataSet = new XmlDataSet(new FileInputStream(new File(Mantis6166IntegrationTest.class.getResource(bestandNaam).toURI())));
+        IDataSet stagingDataSet = new XmlDataSet(new FileInputStream(new File(BRKLocatiebeschrijvingIntegrationTest.class.getResource(bestandNaam).toURI())));
 
         if(this.isMsSQL){
             InsertIdentityOperation.CLEAN_INSERT.execute(staging, stagingDataSet);

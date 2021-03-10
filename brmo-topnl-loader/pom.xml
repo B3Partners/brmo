@@ -17,30 +17,20 @@
             <artifactId>jdbc-util</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.geotools.xsd</groupId>
-            <artifactId>gt-xsd-gml3</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.geotools</groupId>
             <artifactId>gt-epsg-hsql</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.geotools.jdbc</groupId>
-            <artifactId>gt-jdbc-oracle</artifactId>
+            <groupId>org.geotools.xsd</groupId>
+            <artifactId>gt-xsd-gml3</artifactId>
         </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.geotools.jdbc</groupId>-->
+<!--            <artifactId>gt-jdbc-oracle</artifactId>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-params</artifactId>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.jdom</groupId>
@@ -49,14 +39,6 @@
         <dependency>
             <groupId>commons-dbutils</groupId>
             <artifactId>commons-dbutils</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-dbcp2</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.hsqldb</groupId>
-            <artifactId>hsqldb</artifactId>
         </dependency>
         <dependency>
             <groupId>org.postgresql</groupId>
@@ -69,11 +51,25 @@
         <dependency>
             <groupId>com.oracle.database.jdbc</groupId>
             <artifactId>${oracle.jdbc.artifact}</artifactId>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.microsoft.sqlserver</groupId>
             <artifactId>mssql-jdbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
     <build>
@@ -129,61 +125,10 @@
         </activation>
             <dependencies>
                 <dependency>
-                    <groupId>jakarta.xml.bind</groupId>
-                    <artifactId>jakarta.xml.bind-api</artifactId>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
-                    <groupId>jakarta.activation</groupId>
-                    <artifactId>jakarta.activation-api</artifactId>
-                </dependency>
-                <dependency>
                     <groupId>org.glassfish.jaxb</groupId>
                     <artifactId>jaxb-runtime</artifactId>
                 </dependency>
             </dependencies>
-<!--            <build>-->
-<!--                <pluginManagement>-->
-<!--                    <plugins>-->
-<!--                        <plugin>-->
-<!--                            <artifactId>maven-compiler-plugin</artifactId>-->
-<!--                            <executions>-->
-<!--                                <execution>-->
-<!--                                    <id>default-compile</id>-->
-<!--                                    <configuration>-->
-<!--                                        &lt;!&ndash; compile everything to ensure module-info contains right entries &ndash;&gt;-->
-<!--                                        <release>9</release>-->
-<!--                                    </configuration>-->
-<!--                                </execution>-->
-<!--                                <execution>-->
-<!--                                    <id>base-compile</id>-->
-<!--                                    <goals>-->
-<!--                                        <goal>compile</goal>-->
-<!--                                    </goals>-->
-<!--                                    &lt;!&ndash; recompile everything for target VM except the module-info.java &ndash;&gt;-->
-<!--                                    <configuration>-->
-<!--                                        <excludes>-->
-<!--                                            <exclude>module-info.java</exclude>-->
-<!--                                        </excludes>-->
-<!--                                        <source>${java.version}</source>-->
-<!--                                        <target>${java.version}</target>-->
-<!--                                    </configuration>-->
-<!--                                </execution>-->
-<!--                            </executions>-->
-<!--                            <configuration>-->
-<!--                                <source>${java.version}</source>-->
-<!--                                <target>${java.version}</target>-->
-<!--                            </configuration>-->
-<!--                        </plugin>-->
-<!--                        <plugin>-->
-<!--                            <artifactId>maven-surefire-plugin</artifactId>-->
-<!--                            <configuration>-->
-<!--                                <argLine>&#45;&#45;add-opens java.ws.rs/javax.ws.rs.core=java.xml.bind</argLine>-->
-<!--                            </configuration>-->
-<!--                        </plugin>-->
-<!--                    </plugins>-->
-<!--                </pluginManagement>-->
-<!--            </build>-->
         </profile>
     </profiles>
 </project>

@@ -1242,15 +1242,20 @@
             </activation>
         </profile>
         <profile>
-            <id>windows</id>
+            <id>windows-java11-mvn</id>
             <activation>
                 <os>
                     <family>Windows</family>
                 </os>
+                <jdk>[11,)</jdk>
+                <property>
+                    <name>maven.version</name>
+                    <value>3.6.3</value>
+                </property>
             </activation>
             <properties>
                 <!-- zodat we getaggede tests kunnen skippen met failsafe -->
-                <skip-windows>,skip-windows</skip-windows>
+                <skip-windows>,skip-windows-java11</skip-windows>
             </properties>
         </profile>
         <profile>
@@ -1262,8 +1267,6 @@
                 <java.version>8</java.version>
                 <project.build.targetVersion>1.8</project.build.targetVersion>
                 <maven.compiler.target>1.8</maven.compiler.target>
-<!--                <sqlserver.jdbc.version>8.4.1.jre11</sqlserver.jdbc.version>-->
-<!--                <oracle.jdbc.artifact>ojdbc11</oracle.jdbc.artifact>-->
             </properties>
             <dependencyManagement>
                 <dependencies>

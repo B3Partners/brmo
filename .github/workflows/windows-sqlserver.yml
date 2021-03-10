@@ -8,6 +8,9 @@ jobs:
   build:
     name: MS SQL developer online test
     runs-on: windows-2019
+    strategy:
+      matrix:
+        java: [ 8, 11 ]
 
     steps:
       - uses: actions/checkout@v2
@@ -22,6 +25,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
+# voor TopNL en upgrade test
 #      - name: Cache test data
 #        uses: actions/cache@v2.1.4
 #        with:
@@ -29,15 +33,15 @@ jobs:
 #          key: downloads-${{ hashFiles('**/pom.xml') }}
 #          restore-keys: |
 #            downloads-
+#
+#      - name: Install extra software
+#        run: |
+#          choco install xmlstarlet
 
       - name: Set up JDK
         uses: actions/setup-java@v1
         with:
-          java-version: 8
-
-#      - name: Install extra software
-#        run: |
-#          choco install xmlstarlet
+          java-version: ${{ matrix.java }}
 
       - name: Priming build
         run: |
@@ -58,8 +62,6 @@ jobs:
         run: mvn --% -e verify -B -Pmssql -Dtest.onlyITs=true -pl "bgt-gml-loader"
 
       - name: Verify brmo-loader
-      # uitzoeken waarom deze op windows faalt
-      #  continue-on-error: true
         run: mvn --% -e verify -B -Pmssql -T1 -Dtest.onlyITs=true -pl "brmo-loader"
 
       - name: Verify brmo-service
@@ -81,5 +83,5 @@ jobs:
 
       - name: Cleanup build artifacts en snapshots
         run: |
-          # mvn --% clean build-helper:remove-project-artifact
-          cmd --% /c for /f %i in ('dir /a:d /s /b %userprofile%\*SNAPSHOT*') do rd /s /q %i
+          mvn --% clean build-helper:remove-project-artifact
+          # cmd --% /c for /f %i in ('dir /a:d /s /b %userprofile%\*SNAPSHOT*') do rd /s /q %i

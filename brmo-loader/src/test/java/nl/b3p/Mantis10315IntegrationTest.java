@@ -20,6 +20,7 @@ import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 import org.dbunit.operation.DatabaseOperation;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -39,6 +40,7 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
  *
  * @author mprins
  */
+@Tag("skip-windows-java11")
 public class Mantis10315IntegrationTest extends AbstractDatabaseIntegrationTest {
 
     private static final Log LOG = LogFactory.getLog(Mantis10315IntegrationTest.class);
@@ -82,7 +84,7 @@ public class Mantis10315IntegrationTest extends AbstractDatabaseIntegrationTest 
             staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
         }
 
-        IDataSet stagingDataSet = new XmlDataSet(new FileInputStream(new File(Mantis6380IntegrationTest.class.getResource("/mantis10315/staging.xml").toURI())));
+        IDataSet stagingDataSet = new XmlDataSet(new FileInputStream(new File(Mantis10315IntegrationTest.class.getResource("/mantis10315/staging.xml").toURI())));
 
         sequential.lock();
 
