@@ -127,7 +127,7 @@ public class BGTGMLLightLoader {
      * lukt
      */
     public void truncateTables() throws IOException {
-        final JDBCDataStore dataStore = (JDBCDataStore) DataStoreFinder.getDataStore(dbConnProps);
+        final JDBCDataStore dataStore = (JDBCDataStore) DataStoreFinder.getDataStore(DataUtilities.toConnectionParameters(dbConnProps));
         if (dataStore == null) {
             throw new IllegalStateException("Datastore mag niet 'null' zijn voor wissen van data.");
         }
@@ -278,7 +278,7 @@ public class BGTGMLLightLoader {
      */
     private int storeFeatureCollection(InputStream in, String gmlFileName) throws IOException, IllegalStateException, SAXException, ParserConfigurationException {
         int inserts = 0, updates = 0, deletes = 0, features = 0;
-        JDBCDataStore dataStore = (JDBCDataStore) DataStoreFinder.getDataStore(dbConnProps);
+        JDBCDataStore dataStore = (JDBCDataStore) DataStoreFinder.getDataStore(DataUtilities.toConnectionParameters(dbConnProps));
         if (dataStore == null) {
             throw new IllegalStateException("Datastore mag niet 'null' zijn voor opslaan van data.");
         }
