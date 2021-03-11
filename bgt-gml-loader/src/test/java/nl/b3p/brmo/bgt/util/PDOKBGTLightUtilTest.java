@@ -46,7 +46,7 @@ public class PDOKBGTLightUtilTest {
         TreeSet<Integer> ids = (TreeSet<Integer>) PDOKBGTLightUtil.calculateGridIds(
                 /* dit is de geometrie van grid cel 38725 */
                 "POLYGON ((146000 488000, 148000 488000, 148000 490000, 146000 490000, 146000 488000))",
-                "http://files.b3p.nl/brmo/bgt/tileinfo.geojson"
+                "https://files.b3p.nl/brmo/bgt/tileinfo.geojson"
         );
         assertTrue(ids.size() == 9, "Er zitten 9 elementen in de lijst met ids");
         assertEquals(38382, ids.first().intValue(), "Het element in de lijst met ids is");
