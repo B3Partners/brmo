@@ -21,6 +21,7 @@ import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 import org.dbunit.operation.DatabaseOperation;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -43,6 +44,7 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
  *
  * @author mprins
  */
+@Tag("skip-windows-java11")
 public class VerminderenStukdelenIntegrationTest extends AbstractDatabaseIntegrationTest {
 
     private static final Log LOG = LogFactory.getLog(VerminderenStukdelenIntegrationTest.class);

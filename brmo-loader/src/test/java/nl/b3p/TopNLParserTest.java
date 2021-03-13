@@ -28,9 +28,9 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
  *
  * @author Mark Prins
  */
-public class TopNLParserIntegrationTest {
+public class TopNLParserTest {
 
-    private static final Log LOG = LogFactory.getLog(TopNLParserIntegrationTest.class);
+    private static final Log LOG = LogFactory.getLog(TopNLParserTest.class);
 
     static Stream<Arguments> argumentsProvider() {
         return Stream.of(
@@ -79,10 +79,10 @@ public class TopNLParserIntegrationTest {
     public void testParse(final TopNLType bestandType, final String bestandNaam) throws Exception {
 
         // omdat soms de bestandsnaam wordt aangepast moet dit een harde test fout zijn, dus geen assumeNotNull
-        assertNotNull(TopNLParserIntegrationTest.class.getResource(bestandNaam),
+        assertNotNull(TopNLParserTest.class.getResource(bestandNaam),
                 "Het opgehaalde test bestand moet er zijn in deze omgeving.");
 
-        URL in = TopNLParserIntegrationTest.class.getResource(bestandNaam);
+        URL in = TopNLParserTest.class.getResource(bestandNaam);
         List jaxb = instance.parse(in);
         assertNotNull(jaxb);
         assertTrue(jaxb.size() > 1, "Er moet meer dan 1 element in de parse lijst zitten");

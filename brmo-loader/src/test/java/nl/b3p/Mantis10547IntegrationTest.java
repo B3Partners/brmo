@@ -24,6 +24,7 @@ import org.dbunit.operation.DatabaseOperation;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -50,6 +51,7 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
  *
  * @author mprins
  */
+@Tag("skip-windows-java11")
 public class Mantis10547IntegrationTest extends AbstractDatabaseIntegrationTest {
 
     private static final Log LOG = LogFactory.getLog(Mantis10547IntegrationTest.class);
@@ -135,9 +137,9 @@ public class Mantis10547IntegrationTest extends AbstractDatabaseIntegrationTest 
     @ParameterizedTest(name = "{index}: verwerken bestand: {0}")
     @MethodSource("argumentsProvider")
     public void testAll(final String bestandsNaam, final long aantalProcessen, final long aantalBerichten) throws Exception {
-        assumeTrue(Mantis6166IntegrationTest.class.getResource(bestandsNaam) != null,
+        assumeTrue(Mantis10547IntegrationTest.class.getResource(bestandsNaam) != null,
                 "Het bestand met testdata zou moeten bestaan.");
-        IDataSet stagingDataSet = new XmlDataSet(new FileInputStream(new File(Mantis6166IntegrationTest.class.getResource(bestandsNaam).toURI())));
+        IDataSet stagingDataSet = new XmlDataSet(new FileInputStream(new File(Mantis10547IntegrationTest.class.getResource(bestandsNaam).toURI())));
         if (this.isMsSQL) {
             // SET IDENTITY_INSERT op ON
             InsertIdentityOperation.CLEAN_INSERT.execute(staging, stagingDataSet);

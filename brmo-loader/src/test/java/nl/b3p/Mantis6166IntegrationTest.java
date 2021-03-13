@@ -23,9 +23,9 @@ import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 import org.dbunit.operation.DatabaseOperation;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -37,6 +37,7 @@ import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
@@ -49,6 +50,7 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
  *
  * @author mprins
  */
+@Tag("skip-windows-java11")
 public class Mantis6166IntegrationTest extends AbstractDatabaseIntegrationTest {
 
     private static final Log LOG = LogFactory.getLog(Mantis6166IntegrationTest.class);
@@ -102,7 +104,7 @@ public class Mantis6166IntegrationTest extends AbstractDatabaseIntegrationTest {
             rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
             staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
         } else {
-            Assertions.fail("Geen ondersteunde database aangegegeven.");
+            fail("Geen ondersteunde database aangegegeven.");
         }
 
         brmo = new BrmoFramework(dsStaging, dsRsgb);
@@ -184,8 +186,7 @@ public class Mantis6166IntegrationTest extends AbstractDatabaseIntegrationTest {
      *
      * @throws Exception if any
      */
-    @DisplayName("Stand en mutatie")
-    @ParameterizedTest(name = "{index}: verwerken bestand: {0}")
+    @ParameterizedTest(name = "Stand en mutatie #{index}: verwerken bestand: {0}")
     @MethodSource("argumentsProvider")
     public void testStandMutatie(final String bestandsNaam, final long aantalProcessen, final long aantalBerichten, final long stand, final long verwijder, final long[] mutaties) throws Exception {
         loadData( bestandsNaam,   aantalProcessen,   aantalBerichten);
@@ -222,8 +223,7 @@ public class Mantis6166IntegrationTest extends AbstractDatabaseIntegrationTest {
      *
      * @throws Exception if any
      */
-    @DisplayName("All")
-    @ParameterizedTest(name = "{index}: verwerken bestand: {0}")
+    @ParameterizedTest(name = "All #{index}: verwerken bestand: {0}")
     @MethodSource("argumentsProvider")
     public void testAll(final String bestandsNaam, final long aantalProcessen, final long aantalBerichten, final long stand, final long verwijder, final long[] mutaties) throws Exception {
         loadData( bestandsNaam,   aantalProcessen,   aantalBerichten);
@@ -256,8 +256,7 @@ public class Mantis6166IntegrationTest extends AbstractDatabaseIntegrationTest {
      *
      * @throws Exception if any
      */
-    @DisplayName("Stand en delete")
-    @ParameterizedTest(name = "{index}: verwerken bestand: {0}")
+    @ParameterizedTest(name = "Stand en delete #{index}: verwerken bestand: {0}")
     @MethodSource("argumentsProvider")
     public void testStandDelete(final String bestandsNaam, final long aantalProcessen, final long aantalBerichten, final long stand, final long verwijder, final long[] mutaties) throws Exception {
         loadData( bestandsNaam,   aantalProcessen,   aantalBerichten);
@@ -294,8 +293,7 @@ public class Mantis6166IntegrationTest extends AbstractDatabaseIntegrationTest {
      *
      * @throws Exception if any
      */
-    @DisplayName("Stand en delete en mutatie")
-    @ParameterizedTest(name = "{index}: verwerken bestand: {0}")
+    @ParameterizedTest(name = "Stand en delete en mutatie #{index}: verwerken bestand: {0}")
     @MethodSource("argumentsProvider")
     public void testStandDeleteMutatie(final String bestandsNaam, final long aantalProcessen, final long aantalBerichten, final long stand, final long verwijder, final long[] mutaties) throws Exception {
         loadData( bestandsNaam,   aantalProcessen,   aantalBerichten);

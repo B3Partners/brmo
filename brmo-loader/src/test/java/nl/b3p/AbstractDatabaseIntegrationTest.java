@@ -30,6 +30,9 @@ public abstract class AbstractDatabaseIntegrationTest {
      */
     @BeforeAll
     public static void checkDatabaseIsProvided() {
+        // als je vanuit de IDE wilt draaien kun je hier de props instellen
+        // System.setProperty("database.properties.file", "sqlserver.properties");
+        LOG.info("Running with Java version: " + System.getProperty("java.version"));
         assumeNotNull("Verwacht database omgeving te zijn aangegeven.", System.getProperty("database.properties.file"));
     }
 

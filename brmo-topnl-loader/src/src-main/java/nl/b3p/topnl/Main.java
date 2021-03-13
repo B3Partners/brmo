@@ -37,7 +37,13 @@ import org.xml.sax.SAXException;
  */
 public class Main {
     protected final static Log log = LogFactory.getLog(Main.class);
-    
+
+    // voeg deze dependency toe als je wilt draaien
+    // <dependency>
+    //     <groupId>org.apache.commons</groupId>
+    //     <artifactId>commons-dbcp2</artifactId>
+    // </dependency>
+
     public static void main (String[] args) throws IOException, JAXBException, ParseException, SQLException, JDOMException{
         try {
             BasicDataSource ds = new BasicDataSource();

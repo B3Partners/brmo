@@ -21,6 +21,7 @@ import org.dbunit.operation.DatabaseOperation;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -35,15 +36,15 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
  * Testcases voor creeeren van zak_recht_archief tabel
 
  * Draaien met:
- * {@code mvn -Dit.test=ZakRechtArchiefIntegrationTest -Dtest.onlyITs=true verify -Poracle > target/oracle.log}
+ * {@code mvn -Dit.test=ZakRechtArchiefIntegrationTest -Dtest.onlyITs=true verify -Poracle -pl brmo-loader > target/oracle.log}
  * voor bijvoorbeeld Oracle of
- * {@code mvn -Dit.test=ZakRechtArchiefIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql > target/postgresql.log}
+ * {@code mvn -Dit.test=ZakRechtArchiefIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql -pl brmo-loader > target/postgresql.log}
  * of
- * {@code mvn -Dit.test=ZakRechtArchiefIntegrationTest -Dtest.onlyITs=true verify -Pmssql > target/mssql.log}.
+ * {@code mvn -Dit.test=ZakRechtArchiefIntegrationTest -Dtest.onlyITs=true verify -Pmssql -pl brmo-loader > target/mssql.log}.
  *
  * @author meine
  */
-
+@Tag("skip-windows-java11")
 public class ZakRechtArchiefIntegrationTest extends AbstractDatabaseIntegrationTest{
 
     private static final Log LOG = LogFactory.getLog(ZakRechtArchiefIntegrationTest.class);
@@ -88,7 +89,7 @@ public class ZakRechtArchiefIntegrationTest extends AbstractDatabaseIntegrationT
             rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
             staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
         }
-        IDataSet stagingDataSet = new XmlDataSet(new FileInputStream(new File(Mantis6380IntegrationTest.class.getResource("/zak_recht_archief/staging.xml").toURI())));
+        IDataSet stagingDataSet = new XmlDataSet(new FileInputStream(new File(ZakRechtArchiefIntegrationTest.class.getResource("/zak_recht_archief/staging.xml").toURI())));
 
         sequential.lock();
 
