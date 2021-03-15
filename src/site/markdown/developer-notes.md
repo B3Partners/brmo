@@ -26,7 +26,9 @@ De Maven site voor de BRMO leeft in de `gh-pages` branch van de repository, met 
 
 - `cd target/checkout` (als je dit direct na een release doet)
 - `mvn -T1 site site:stage`
-- `mvn scm-publish:publish-scm`
+- `mvn scm-publish:publish-scm -T1`
+
+_NB_ de git acties willen wel eens mislukken omdat de commandline te lang wordt
 
 ### nieuwe ontwikkel cyclus
 
@@ -41,7 +43,7 @@ git push
 
 ### git configuratie
 
-Op sommige systeme en bij sommige versie van git moet er eea worden ingesteld voorafgaand aan het starten van de release procedure.
+Op sommige systemen en bij sommige versies van git moet er eea. worden ingesteld voorafgaand aan het starten van de release procedure.
 
 ```
 git config --add status.displayCommentPrefix true
@@ -76,11 +78,11 @@ omgeving door een bestand naast het bestaande te zetten met de naam `local.<DB s
 De te gebruiken database smaak wordt middels de `database.properties.file` property in de pom.xml van de
 module of via commandline ingesteld.
 
-| property file       | gebruikt op | override                  |
-| ------------------- | ----------- | ------------------------- |
-|postgres.properties  |Travis-CI    |local.postgres.properties  |
-|sqlserver.properties |AppVeyor     |local.sqlserver.properties |
-|oracle.properties    |Jenkins      |local.oracle.properties    |
+| property file       | gebruikt op     | override                  |
+| ------------------- | --------------- | ------------------------- |
+|postgres.properties  |Github           |local.postgres.properties  |
+|sqlserver.properties |AppVeyor, Github |local.sqlserver.properties |
+|oracle.properties    |Jenkins          |local.oracle.properties    |
 
 Voor gebruik van de propertyfile in een integratie test kun je overerven van een
 abstracte klasse in verschillende modules.

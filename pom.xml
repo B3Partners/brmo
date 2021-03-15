@@ -50,8 +50,8 @@
         <url>https://github.com/B3Partners/brmo/issues</url>
     </issueManagement>
     <ciManagement>
-        <system>Travis-CI</system>
-        <url>https://travis-ci.org/B3Partners/brmo</url>
+        <system>Github Actions</system>
+        <url>https://github.com/B3Partners/brmo/actions</url>
     </ciManagement>
     <properties>
         <java.version>1.8</java.version>
@@ -1097,6 +1097,7 @@
                     <outputEncoding>${project.build.sourceEncoding}</outputEncoding>
                     <locales>nl</locales>
                     <relativizeDecorationLinks>false</relativizeDecorationLinks>
+                    <stagingDirectory>/tmp/staging</stagingDirectory>
                 </configuration>
             </plugin>
             <plugin>
@@ -1104,6 +1105,10 @@
                 <configuration>
                     <scmBranch>gh-pages</scmBranch>
                     <tryUpdate>true</tryUpdate>
+                    <addUniqueDirectory>true</addUniqueDirectory>
+                    <checkoutDirectory>/tmp/gh-pages</checkoutDirectory>
+                    <content>/tmp/staging</content>
+                    <!-- skipCheckin>true</skipCheckin -->
                 </configuration>
             </plugin>
             <plugin>
