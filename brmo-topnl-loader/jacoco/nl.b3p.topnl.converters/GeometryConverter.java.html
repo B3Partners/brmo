@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GeometryConverter.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO TopNL loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.topnl.converters</a> &gt; <span class="el_source">GeometryConverter.java</span></div><h1>GeometryConverter.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2016 - 2017 B3Partners B.V.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+ */
+package nl.b3p.topnl.converters;
+
+import org.locationtech.jts.geom.Geometry;
+import org.locationtech.jts.geom.GeometryFactory;
+import org.locationtech.jts.geom.PrecisionModel;
+import org.locationtech.jts.simplify.DouglasPeuckerSimplifier;
+import java.io.IOException;
+import java.io.InvalidClassException;
+import java.io.StringReader;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.geotools.gml3.ArcParameters;
+import org.geotools.gml3.CircleRadiusTolerance;
+import org.geotools.xsd.Parser;
+import org.jdom2.input.DOMBuilder;
+import org.jdom2.output.XMLOutputter;
+import org.w3c.dom.Element;
+import org.xml.sax.SAXException;
+
+/**
+ *
+ * @author Meine Toonen meinetoonen@b3partners.nl
+ */
+public class GeometryConverter {
+
+<span class="fc" id="L44">    protected final static Log log = LogFactory.getLog(GeometryConverter.class);</span>
+
+    private final static double DISTANCE_TOLERANCE = 0.001;
+    protected final static double LINEARIZATION_TOLERANCE_MULTIPLIER = 0.01;//0.001;
+
+    private Parser parser;
+    private GeometryFactory geometryFactory;
+
+    protected final static int SRID = 28992;
+
+<span class="fc" id="L54">    public GeometryConverter() {</span>
+<span class="fc" id="L55">        GeometryFactory gf = new GeometryFactory(new PrecisionModel(), SRID);</span>
+
+      /*  GMLConfiguration gml3Config = new GMLConfiguration(true);
+        gml3Config.setGeometryFactory(gf);
+        gml3Config.setExtendedArcSurfaceSupport(true);*/
+
+
+<span class="fc" id="L62">        ArcParameters arcParameters = new ArcParameters(new CircleRadiusTolerance(LINEARIZATION_TOLERANCE_MULTIPLIER));//new AbsoluteTolerance(LINEARIZATION_TOLERANCE));</span>
+
+<span class="fc" id="L64">        org.geotools.gml3.GMLConfiguration gml3Config = new org.geotools.gml3.GMLConfiguration();</span>
+<span class="fc" id="L65">        gml3Config.setExtendedArcSurfaceSupport(true);</span>
+<span class="fc" id="L66">        gml3Config.getContext().registerComponentInstance(gf);</span>
+<span class="fc" id="L67">        gml3Config.getContext().registerComponentInstance(arcParameters);</span>
+<span class="fc" id="L68">        parser = new Parser(gml3Config);</span>
+<span class="fc" id="L69">        this.geometryFactory = gf;</span>
+<span class="fc" id="L70">    }</span>
+
+    public Geometry convertGeometry(Element el)
+            throws IOException, SAXException, ParserConfigurationException, TransformerException {
+<span class="pc bpc" id="L74" title="1 of 2 branches missed.">        if (!(el instanceof org.w3c.dom.Element)) {</span>
+<span class="nc" id="L75">            throw new IllegalArgumentException(&quot;gml org.w3c.node is not an org.w3c.Element&quot;);</span>
+        }
+        // TODO: maybe convert node directly to a source / inputsource / reader / stream for parser.
+        // instead of JDOM detour.
+<span class="fc" id="L79">        org.jdom2.Element elem = new DOMBuilder().build((org.w3c.dom.Element) el);</span>
+<span class="fc" id="L80">        String gmlString = new XMLOutputter().outputString(elem);</span>
+<span class="fc" id="L81">        gmlString = gmlString.replaceAll(&quot;gml:&quot;, &quot;&quot;);</span>
+        //tySstem.out.println(&quot;gmlString:&quot; + gmlString);
+     //   parser.getNamespaces().declarePrefix(&quot;gml&quot;, &quot;http://www.opengis.net/gml/3.2&quot;);
+<span class="fc" id="L84">        Object parsedObject = parser.parse(new StringReader(gmlString));</span>
+<span class="pc bpc" id="L85" title="1 of 2 branches missed.">        if (parsedObject instanceof Geometry) {</span>
+<span class="fc" id="L86">            Geometry geom = (Geometry) parsedObject;</span>
+<span class="pc bpc" id="L87" title="1 of 2 branches missed.">            if (!geom.isValid()) {</span>
+<span class="nc" id="L88">                geom = geom.buffer(0.0);</span>
+<span class="nc" id="L89">                log.debug(&quot;Geometry is invalid. Made valid by buffering with 0&quot;);</span>
+            }
+            // arcs can have nodes that are on the same point (28992; 3 digit precision): simplify
+<span class="fc" id="L92">            Geometry simplGeom = DouglasPeuckerSimplifier.simplify(geom, DISTANCE_TOLERANCE);</span>
+<span class="fc" id="L93">            return simplGeom;</span>
+        } else {
+<span class="nc" id="L95">            throw new InvalidClassException(parsedObject.getClass().getCanonicalName(), &quot;Parsed object not of class Geometry.&quot;);</span>
+        }
+
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

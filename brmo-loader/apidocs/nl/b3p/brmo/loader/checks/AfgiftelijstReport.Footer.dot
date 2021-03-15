@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.loader.checks.AfgiftelijstReport.Footer
-	c791 [label=<<table title="nl.b3p.brmo.loader.checks.AfgiftelijstReport.Footer" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./AfgiftelijstReport.Footer.html">
+	c783 [label=<<table title="nl.b3p.brmo.loader.checks.AfgiftelijstReport.Footer" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./AfgiftelijstReport.Footer.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Footer </td></tr>
 		</table></td></tr>
@@ -29,9 +29,9 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./AfgiftelijstReport.Footer.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.loader.checks.AfgiftelijstReport.Footer implements com.itextpdf.kernel.events.IEventHandler
-	c798:p -> c791:p [dir=back,arrowtail=empty,style=dashed];
+	c798:p -> c783:p [dir=back,arrowtail=empty,style=dashed];
 	// nl.b3p.brmo.loader.checks.AfgiftelijstReport.Footer NAVASSOC com.itextpdf.kernel.pdf.xobject.PdfFormXObject
-	c791:p -> c801:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c783:p -> c801:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// com.itextpdf.kernel.pdf.xobject.PdfFormXObject
 	c801 [label=<<table title="com.itextpdf.kernel.pdf.xobject.PdfFormXObject" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
@@ -45,6 +45,7 @@ digraph G {
 <tr><td align="left" balign="left"> + PdfFormXObject(arg0 : PdfStream) </td></tr>
 <tr><td align="left" balign="left"> + PdfFormXObject(arg0 : PdfPage) </td></tr>
 <tr><td align="left" balign="left"> + PdfFormXObject(arg0 : WmfImageData, arg1 : PdfDocument) </td></tr>
+<tr><td align="left" balign="left"> + calculateBBoxMultipliedByMatrix(arg0 : PdfFormXObject) : Rectangle </td></tr>
 <tr><td align="left" balign="left"> + getResources() : PdfResources </td></tr>
 <tr><td align="left" balign="left"> + getBBox() : PdfArray </td></tr>
 <tr><td align="left" balign="left"> + setBBox(arg0 : PdfArray) : PdfFormXObject </td></tr>

@@ -16,94 +16,94 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 /**
  * Niet natuurlijk persoon kerngegevens
  * 
- * &lt;p&gt;Java class for NNP-kerngegevens complex type.
+ * &amp;lt;p&amp;gt;Java class for NNP-kerngegevens complex type.
  * 
- * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+ * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
  * 
- * &lt;pre&gt;
- * &amp;lt;complexType name=&quot;NNP-kerngegevens&quot;&amp;gt;
- *   &amp;lt;complexContent&amp;gt;
- *     &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
- *       &amp;lt;sequence&amp;gt;
- *         &amp;lt;element name=&quot;sofi-nummer&quot;&amp;gt;
- *           &amp;lt;complexType&amp;gt;
- *             &amp;lt;simpleContent&amp;gt;
- *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;SoFi-nummer&quot;&amp;gt;
- *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
- *                 &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
- *                 &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;NNP2&quot; /&amp;gt;
- *               &amp;lt;/extension&amp;gt;
- *             &amp;lt;/simpleContent&amp;gt;
- *           &amp;lt;/complexType&amp;gt;
- *         &amp;lt;/element&amp;gt;
- *         &amp;lt;element name=&quot;aanvullingSoFi-nummer&quot;&amp;gt;
- *           &amp;lt;complexType&amp;gt;
- *             &amp;lt;simpleContent&amp;gt;
- *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;AanvullingSoFiNummer&quot;&amp;gt;
- *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
- *                 &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
- *                 &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;NNP2&quot; /&amp;gt;
- *               &amp;lt;/extension&amp;gt;
- *             &amp;lt;/simpleContent&amp;gt;
- *           &amp;lt;/complexType&amp;gt;
- *         &amp;lt;/element&amp;gt;
- *         &amp;lt;element name=&quot;handelsnaam&quot;&amp;gt;
- *           &amp;lt;complexType&amp;gt;
- *             &amp;lt;simpleContent&amp;gt;
- *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;Handelsnaam&quot;&amp;gt;
- *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
- *                 &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
- *                 &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;NNP1&quot; /&amp;gt;
- *               &amp;lt;/extension&amp;gt;
- *             &amp;lt;/simpleContent&amp;gt;
- *           &amp;lt;/complexType&amp;gt;
- *         &amp;lt;/element&amp;gt;
- *         &amp;lt;element name=&quot;statutaireNaamVennootschapsnaam&quot;&amp;gt;
- *           &amp;lt;complexType&amp;gt;
- *             &amp;lt;simpleContent&amp;gt;
- *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;StatutaireNaamVennootschapsnaam&quot;&amp;gt;
- *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
- *                 &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
- *                 &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;NNP1&quot; /&amp;gt;
- *               &amp;lt;/extension&amp;gt;
- *             &amp;lt;/simpleContent&amp;gt;
- *           &amp;lt;/complexType&amp;gt;
- *         &amp;lt;/element&amp;gt;
- *         &amp;lt;element name=&quot;zaaknaam&quot;&amp;gt;
- *           &amp;lt;complexType&amp;gt;
- *             &amp;lt;simpleContent&amp;gt;
- *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;Zaaknaam&quot;&amp;gt;
- *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
- *                 &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
- *                 &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;NNP1&quot; /&amp;gt;
- *               &amp;lt;/extension&amp;gt;
- *             &amp;lt;/simpleContent&amp;gt;
- *           &amp;lt;/complexType&amp;gt;
- *         &amp;lt;/element&amp;gt;
- *         &amp;lt;element name=&quot;datumOprichtingNietNatuurlijkPersoon&quot;&amp;gt;
- *           &amp;lt;complexType&amp;gt;
- *             &amp;lt;simpleContent&amp;gt;
- *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/StUF0204&amp;gt;DatumMetIndicator&quot;&amp;gt;
- *                 &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
- *               &amp;lt;/extension&amp;gt;
- *             &amp;lt;/simpleContent&amp;gt;
- *           &amp;lt;/complexType&amp;gt;
- *         &amp;lt;/element&amp;gt;
- *         &amp;lt;element name=&quot;NNPADRVBL&quot;&amp;gt;
- *           &amp;lt;complexType&amp;gt;
- *             &amp;lt;complexContent&amp;gt;
- *               &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}ADR-relKerngegevens&quot;&amp;gt;
- *                 &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
- *               &amp;lt;/extension&amp;gt;
- *             &amp;lt;/complexContent&amp;gt;
- *           &amp;lt;/complexType&amp;gt;
- *         &amp;lt;/element&amp;gt;
- *       &amp;lt;/sequence&amp;gt;
- *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}fundamenteel&quot;/&amp;gt;
- *     &amp;lt;/restriction&amp;gt;
- *   &amp;lt;/complexContent&amp;gt;
- * &amp;lt;/complexType&amp;gt;
- * &lt;/pre&gt;
+ * &amp;lt;pre&amp;gt;
+ * &amp;amp;lt;complexType name=&quot;NNP-kerngegevens&quot;&amp;amp;gt;
+ *   &amp;amp;lt;complexContent&amp;amp;gt;
+ *     &amp;amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;amp;gt;
+ *       &amp;amp;lt;sequence&amp;amp;gt;
+ *         &amp;amp;lt;element name=&quot;sofi-nummer&quot;&amp;amp;gt;
+ *           &amp;amp;lt;complexType&amp;amp;gt;
+ *             &amp;amp;lt;simpleContent&amp;amp;gt;
+ *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;SoFi-nummer&quot;&amp;amp;gt;
+ *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
+ *                 &amp;amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;amp;gt;
+ *                 &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;NNP2&quot; /&amp;amp;gt;
+ *               &amp;amp;lt;/extension&amp;amp;gt;
+ *             &amp;amp;lt;/simpleContent&amp;amp;gt;
+ *           &amp;amp;lt;/complexType&amp;amp;gt;
+ *         &amp;amp;lt;/element&amp;amp;gt;
+ *         &amp;amp;lt;element name=&quot;aanvullingSoFi-nummer&quot;&amp;amp;gt;
+ *           &amp;amp;lt;complexType&amp;amp;gt;
+ *             &amp;amp;lt;simpleContent&amp;amp;gt;
+ *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;AanvullingSoFiNummer&quot;&amp;amp;gt;
+ *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
+ *                 &amp;amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;amp;gt;
+ *                 &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;NNP2&quot; /&amp;amp;gt;
+ *               &amp;amp;lt;/extension&amp;amp;gt;
+ *             &amp;amp;lt;/simpleContent&amp;amp;gt;
+ *           &amp;amp;lt;/complexType&amp;amp;gt;
+ *         &amp;amp;lt;/element&amp;amp;gt;
+ *         &amp;amp;lt;element name=&quot;handelsnaam&quot;&amp;amp;gt;
+ *           &amp;amp;lt;complexType&amp;amp;gt;
+ *             &amp;amp;lt;simpleContent&amp;amp;gt;
+ *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;Handelsnaam&quot;&amp;amp;gt;
+ *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
+ *                 &amp;amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;amp;gt;
+ *                 &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;NNP1&quot; /&amp;amp;gt;
+ *               &amp;amp;lt;/extension&amp;amp;gt;
+ *             &amp;amp;lt;/simpleContent&amp;amp;gt;
+ *           &amp;amp;lt;/complexType&amp;amp;gt;
+ *         &amp;amp;lt;/element&amp;amp;gt;
+ *         &amp;amp;lt;element name=&quot;statutaireNaamVennootschapsnaam&quot;&amp;amp;gt;
+ *           &amp;amp;lt;complexType&amp;amp;gt;
+ *             &amp;amp;lt;simpleContent&amp;amp;gt;
+ *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;StatutaireNaamVennootschapsnaam&quot;&amp;amp;gt;
+ *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
+ *                 &amp;amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;amp;gt;
+ *                 &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;NNP1&quot; /&amp;amp;gt;
+ *               &amp;amp;lt;/extension&amp;amp;gt;
+ *             &amp;amp;lt;/simpleContent&amp;amp;gt;
+ *           &amp;amp;lt;/complexType&amp;amp;gt;
+ *         &amp;amp;lt;/element&amp;amp;gt;
+ *         &amp;amp;lt;element name=&quot;zaaknaam&quot;&amp;amp;gt;
+ *           &amp;amp;lt;complexType&amp;amp;gt;
+ *             &amp;amp;lt;simpleContent&amp;amp;gt;
+ *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;Zaaknaam&quot;&amp;amp;gt;
+ *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
+ *                 &amp;amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;amp;gt;
+ *                 &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;NNP1&quot; /&amp;amp;gt;
+ *               &amp;amp;lt;/extension&amp;amp;gt;
+ *             &amp;amp;lt;/simpleContent&amp;amp;gt;
+ *           &amp;amp;lt;/complexType&amp;amp;gt;
+ *         &amp;amp;lt;/element&amp;amp;gt;
+ *         &amp;amp;lt;element name=&quot;datumOprichtingNietNatuurlijkPersoon&quot;&amp;amp;gt;
+ *           &amp;amp;lt;complexType&amp;amp;gt;
+ *             &amp;amp;lt;simpleContent&amp;amp;gt;
+ *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/StUF0204&amp;amp;gt;DatumMetIndicator&quot;&amp;amp;gt;
+ *                 &amp;amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;amp;gt;
+ *               &amp;amp;lt;/extension&amp;amp;gt;
+ *             &amp;amp;lt;/simpleContent&amp;amp;gt;
+ *           &amp;amp;lt;/complexType&amp;amp;gt;
+ *         &amp;amp;lt;/element&amp;amp;gt;
+ *         &amp;amp;lt;element name=&quot;NNPADRVBL&quot;&amp;amp;gt;
+ *           &amp;amp;lt;complexType&amp;amp;gt;
+ *             &amp;amp;lt;complexContent&amp;amp;gt;
+ *               &amp;amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}ADR-relKerngegevens&quot;&amp;amp;gt;
+ *                 &amp;amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;amp;gt;
+ *               &amp;amp;lt;/extension&amp;amp;gt;
+ *             &amp;amp;lt;/complexContent&amp;amp;gt;
+ *           &amp;amp;lt;/complexType&amp;amp;gt;
+ *         &amp;amp;lt;/element&amp;amp;gt;
+ *       &amp;amp;lt;/sequence&amp;amp;gt;
+ *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}fundamenteel&quot;/&amp;amp;gt;
+ *     &amp;amp;lt;/restriction&amp;amp;gt;
+ *   &amp;amp;lt;/complexContent&amp;amp;gt;
+ * &amp;amp;lt;/complexType&amp;amp;gt;
+ * &amp;lt;/pre&amp;gt;
  * 
  * 
  */
@@ -464,21 +464,21 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &lt;p&gt;Java class for anonymous complex type.
+     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
      * 
-     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &lt;pre&gt;
-     * &amp;lt;complexType&amp;gt;
-     *   &amp;lt;simpleContent&amp;gt;
-     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;AanvullingSoFiNummer&quot;&amp;gt;
-     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
-     *       &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
-     *       &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;NNP2&quot; /&amp;gt;
-     *     &amp;lt;/extension&amp;gt;
-     *   &amp;lt;/simpleContent&amp;gt;
-     * &amp;lt;/complexType&amp;gt;
-     * &lt;/pre&gt;
+     * &amp;lt;pre&amp;gt;
+     * &amp;amp;lt;complexType&amp;amp;gt;
+     *   &amp;amp;lt;simpleContent&amp;amp;gt;
+     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;AanvullingSoFiNummer&quot;&amp;amp;gt;
+     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
+     *       &amp;amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;amp;gt;
+     *       &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;NNP2&quot; /&amp;amp;gt;
+     *     &amp;amp;lt;/extension&amp;amp;gt;
+     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
+     * &amp;amp;lt;/complexType&amp;amp;gt;
+     * &amp;lt;/pre&amp;gt;
      * 
      * 
      */
@@ -635,19 +635,19 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &lt;p&gt;Java class for anonymous complex type.
+     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
      * 
-     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &lt;pre&gt;
-     * &amp;lt;complexType&amp;gt;
-     *   &amp;lt;simpleContent&amp;gt;
-     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/StUF0204&amp;gt;DatumMetIndicator&quot;&amp;gt;
-     *       &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
-     *     &amp;lt;/extension&amp;gt;
-     *   &amp;lt;/simpleContent&amp;gt;
-     * &amp;lt;/complexType&amp;gt;
-     * &lt;/pre&gt;
+     * &amp;lt;pre&amp;gt;
+     * &amp;amp;lt;complexType&amp;amp;gt;
+     *   &amp;amp;lt;simpleContent&amp;amp;gt;
+     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/StUF0204&amp;amp;gt;DatumMetIndicator&quot;&amp;amp;gt;
+     *       &amp;amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;amp;gt;
+     *     &amp;amp;lt;/extension&amp;amp;gt;
+     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
+     * &amp;amp;lt;/complexType&amp;amp;gt;
+     * &amp;lt;/pre&amp;gt;
      * 
      * 
      */
@@ -692,21 +692,21 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &lt;p&gt;Java class for anonymous complex type.
+     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
      * 
-     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &lt;pre&gt;
-     * &amp;lt;complexType&amp;gt;
-     *   &amp;lt;simpleContent&amp;gt;
-     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;Handelsnaam&quot;&amp;gt;
-     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
-     *       &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
-     *       &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;NNP1&quot; /&amp;gt;
-     *     &amp;lt;/extension&amp;gt;
-     *   &amp;lt;/simpleContent&amp;gt;
-     * &amp;lt;/complexType&amp;gt;
-     * &lt;/pre&gt;
+     * &amp;lt;pre&amp;gt;
+     * &amp;amp;lt;complexType&amp;amp;gt;
+     *   &amp;amp;lt;simpleContent&amp;amp;gt;
+     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;Handelsnaam&quot;&amp;amp;gt;
+     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
+     *       &amp;amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;amp;gt;
+     *       &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;NNP1&quot; /&amp;amp;gt;
+     *     &amp;amp;lt;/extension&amp;amp;gt;
+     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
+     * &amp;amp;lt;/complexType&amp;amp;gt;
+     * &amp;lt;/pre&amp;gt;
      * 
      * 
      */
@@ -863,19 +863,19 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &lt;p&gt;Java class for anonymous complex type.
+     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
      * 
-     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &lt;pre&gt;
-     * &amp;lt;complexType&amp;gt;
-     *   &amp;lt;complexContent&amp;gt;
-     *     &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}ADR-relKerngegevens&quot;&amp;gt;
-     *       &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
-     *     &amp;lt;/extension&amp;gt;
-     *   &amp;lt;/complexContent&amp;gt;
-     * &amp;lt;/complexType&amp;gt;
-     * &lt;/pre&gt;
+     * &amp;lt;pre&amp;gt;
+     * &amp;amp;lt;complexType&amp;amp;gt;
+     *   &amp;amp;lt;complexContent&amp;amp;gt;
+     *     &amp;amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}ADR-relKerngegevens&quot;&amp;amp;gt;
+     *       &amp;amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;amp;gt;
+     *     &amp;amp;lt;/extension&amp;amp;gt;
+     *   &amp;amp;lt;/complexContent&amp;amp;gt;
+     * &amp;amp;lt;/complexType&amp;amp;gt;
+     * &amp;lt;/pre&amp;gt;
      * 
      * 
      */
@@ -920,21 +920,21 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &lt;p&gt;Java class for anonymous complex type.
+     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
      * 
-     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &lt;pre&gt;
-     * &amp;lt;complexType&amp;gt;
-     *   &amp;lt;simpleContent&amp;gt;
-     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;SoFi-nummer&quot;&amp;gt;
-     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
-     *       &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
-     *       &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;NNP2&quot; /&amp;gt;
-     *     &amp;lt;/extension&amp;gt;
-     *   &amp;lt;/simpleContent&amp;gt;
-     * &amp;lt;/complexType&amp;gt;
-     * &lt;/pre&gt;
+     * &amp;lt;pre&amp;gt;
+     * &amp;amp;lt;complexType&amp;amp;gt;
+     *   &amp;amp;lt;simpleContent&amp;amp;gt;
+     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;SoFi-nummer&quot;&amp;amp;gt;
+     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
+     *       &amp;amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;amp;gt;
+     *       &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;NNP2&quot; /&amp;amp;gt;
+     *     &amp;amp;lt;/extension&amp;amp;gt;
+     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
+     * &amp;amp;lt;/complexType&amp;amp;gt;
+     * &amp;lt;/pre&amp;gt;
      * 
      * 
      */
@@ -1091,21 +1091,21 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &lt;p&gt;Java class for anonymous complex type.
+     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
      * 
-     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &lt;pre&gt;
-     * &amp;lt;complexType&amp;gt;
-     *   &amp;lt;simpleContent&amp;gt;
-     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;StatutaireNaamVennootschapsnaam&quot;&amp;gt;
-     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
-     *       &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
-     *       &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;NNP1&quot; /&amp;gt;
-     *     &amp;lt;/extension&amp;gt;
-     *   &amp;lt;/simpleContent&amp;gt;
-     * &amp;lt;/complexType&amp;gt;
-     * &lt;/pre&gt;
+     * &amp;lt;pre&amp;gt;
+     * &amp;amp;lt;complexType&amp;amp;gt;
+     *   &amp;amp;lt;simpleContent&amp;amp;gt;
+     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;StatutaireNaamVennootschapsnaam&quot;&amp;amp;gt;
+     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
+     *       &amp;amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;amp;gt;
+     *       &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;NNP1&quot; /&amp;amp;gt;
+     *     &amp;amp;lt;/extension&amp;amp;gt;
+     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
+     * &amp;amp;lt;/complexType&amp;amp;gt;
+     * &amp;lt;/pre&amp;gt;
      * 
      * 
      */
@@ -1262,21 +1262,21 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &lt;p&gt;Java class for anonymous complex type.
+     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
      * 
-     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &lt;pre&gt;
-     * &amp;lt;complexType&amp;gt;
-     *   &amp;lt;simpleContent&amp;gt;
-     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;Zaaknaam&quot;&amp;gt;
-     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
-     *       &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
-     *       &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;NNP1&quot; /&amp;gt;
-     *     &amp;lt;/extension&amp;gt;
-     *   &amp;lt;/simpleContent&amp;gt;
-     * &amp;lt;/complexType&amp;gt;
-     * &lt;/pre&gt;
+     * &amp;lt;pre&amp;gt;
+     * &amp;amp;lt;complexType&amp;amp;gt;
+     *   &amp;amp;lt;simpleContent&amp;amp;gt;
+     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;Zaaknaam&quot;&amp;amp;gt;
+     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
+     *       &amp;amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;amp;gt;
+     *       &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;NNP1&quot; /&amp;amp;gt;
+     *     &amp;amp;lt;/extension&amp;amp;gt;
+     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
+     * &amp;amp;lt;/complexType&amp;amp;gt;
+     * &amp;lt;/pre&amp;gt;
      * 
      * 
      */
@@ -1432,4 +1432,4 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
     }
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

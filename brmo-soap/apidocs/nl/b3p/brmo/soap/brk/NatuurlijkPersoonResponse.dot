@@ -9,6 +9,30 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// nl.b3p.brmo.soap.brk.ZakelijkRechtResponse
+	c1303 [label=<<table title="nl.b3p.brmo.soap.brk.ZakelijkRechtResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ZakelijkRechtResponse.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> ZakelijkRechtResponse </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + ZakelijkRechtResponse() </td></tr>
+<tr><td align="left" balign="left"> + getNoemer() : Integer </td></tr>
+<tr><td align="left" balign="left"> + setNoemer(noemer : Integer) </td></tr>
+<tr><td align="left" balign="left"> + getTeller() : Integer </td></tr>
+<tr><td align="left" balign="left"> + setTeller(teller : Integer) </td></tr>
+<tr><td align="left" balign="left"> + isIndicatieBetrokkenInSplitsing() : boolean </td></tr>
+<tr><td align="left" balign="left"> + setIndicatieBetrokkenInSplitsing(indicatieBetrokkenInSplitsing : boolean) </td></tr>
+<tr><td align="left" balign="left"> + getAardVerkregenRecht() : String </td></tr>
+<tr><td align="left" balign="left"> + setAardVerkregenRecht(aardVerkregenRecht : String) </td></tr>
+<tr><td align="left" balign="left"> + getNatuurlijkPersoon() : NatuurlijkPersoonResponse </td></tr>
+<tr><td align="left" balign="left"> + setNatuurlijkPersoon(natuurlijkPersoon : NatuurlijkPersoonResponse) </td></tr>
+<tr><td align="left" balign="left"> + getNietNatuurlijkPersoon() : NietNatuurlijkPersoonResponse </td></tr>
+<tr><td align="left" balign="left"> + setNietNatuurlijkPersoon(nietNatuurlijkPersoon : NietNatuurlijkPersoonResponse) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./ZakelijkRechtResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.soap.brk.NatuurlijkPersoonResponse
 	c1312 [label=<<table title="nl.b3p.brmo.soap.brk.NatuurlijkPersoonResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./NatuurlijkPersoonResponse.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
@@ -44,31 +68,7 @@ digraph G {
 <tr><td align="left" balign="left"> + getRecordById(id : String, searchContext : Map&lt;String, Object&gt;) : NatuurlijkPersoonResponse </td></tr>
 		</table></td></tr>
 		</table>>, URL="./NatuurlijkPersoonResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.soap.brk.ZakelijkRechtResponse
-	c1316 [label=<<table title="nl.b3p.brmo.soap.brk.ZakelijkRechtResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ZakelijkRechtResponse.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> ZakelijkRechtResponse </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + ZakelijkRechtResponse() </td></tr>
-<tr><td align="left" balign="left"> + getNoemer() : Integer </td></tr>
-<tr><td align="left" balign="left"> + setNoemer(noemer : Integer) </td></tr>
-<tr><td align="left" balign="left"> + getTeller() : Integer </td></tr>
-<tr><td align="left" balign="left"> + setTeller(teller : Integer) </td></tr>
-<tr><td align="left" balign="left"> + isIndicatieBetrokkenInSplitsing() : boolean </td></tr>
-<tr><td align="left" balign="left"> + setIndicatieBetrokkenInSplitsing(indicatieBetrokkenInSplitsing : boolean) </td></tr>
-<tr><td align="left" balign="left"> + getAardVerkregenRecht() : String </td></tr>
-<tr><td align="left" balign="left"> + setAardVerkregenRecht(aardVerkregenRecht : String) </td></tr>
-<tr><td align="left" balign="left"> + getNatuurlijkPersoon() : NatuurlijkPersoonResponse </td></tr>
-<tr><td align="left" balign="left"> + setNatuurlijkPersoon(natuurlijkPersoon : NatuurlijkPersoonResponse) </td></tr>
-<tr><td align="left" balign="left"> + getNietNatuurlijkPersoon() : NietNatuurlijkPersoonResponse </td></tr>
-<tr><td align="left" balign="left"> + setNietNatuurlijkPersoon(nietNatuurlijkPersoon : NietNatuurlijkPersoonResponse) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./ZakelijkRechtResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.soap.brk.ZakelijkRechtResponse NAVASSOC nl.b3p.brmo.soap.brk.NatuurlijkPersoonResponse
-	c1316:p -> c1312:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c1303:p -> c1312:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

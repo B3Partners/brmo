@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.KDOKennisgeving.KDOSUBZKR
-	c94835 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOKennisgeving.KDOSUBZKR" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOKennisgeving.KDOSUBZKR.html">
+	c94740 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOKennisgeving.KDOSUBZKR" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOKennisgeving.KDOSUBZKR.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> KDOSUBZKR </td></tr>
 		</table></td></tr>
@@ -27,7 +27,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./KDOKennisgeving.KDOSUBZKR.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.KDOAntwoord.KDOSUBZKR
-	c94913 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOAntwoord.KDOSUBZKR" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOAntwoord.KDOSUBZKR.html">
+	c94763 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOAntwoord.KDOSUBZKR" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOAntwoord.KDOSUBZKR.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> KDOSUBZKR </td></tr>
 		</table></td></tr>
@@ -43,25 +43,8 @@ digraph G {
 <tr><td align="left" balign="left"> + setNNP(value : JAXBElement&lt;NNPKerngegevens&gt;) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./KDOAntwoord.KDOSUBZKR.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.KDOVraag.KDOSUBZKR
-	c95085 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOVraag.KDOSUBZKR" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOVraag.KDOSUBZKR.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> KDOSUBZKR </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # prs : JAXBElement&lt;PRSKerngegevens&gt; </td></tr>
-<tr><td align="left" balign="left"> # nnp : JAXBElement&lt;NNPKerngegevens&gt; </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + KDOSUBZKR() </td></tr>
-<tr><td align="left" balign="left"> + getPRS() : JAXBElement&lt;PRSKerngegevens&gt; </td></tr>
-<tr><td align="left" balign="left"> + setPRS(value : JAXBElement&lt;PRSKerngegevens&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getNNP() : JAXBElement&lt;NNPKerngegevens&gt; </td></tr>
-<tr><td align="left" balign="left"> + setNNP(value : JAXBElement&lt;NNPKerngegevens&gt;) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./KDOVraag.KDOSUBZKR.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.KDOZKRRel
-	c95101 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOZKRRel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./KDOZKRRel.html">
+	c94821 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOZKRRel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./KDOZKRRel.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> KDOZKRRel </td></tr>
 		</table></td></tr>
@@ -125,24 +108,25 @@ digraph G {
 <tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./KDOZKRRel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.stuf0204.NoValue
-	c95114 [label=<<table title="nl.egem.stuf.stuf0204.NoValue" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/NoValue.html">
+	// nl.egem.stuf.sector.bg._0204.KDOVraag.KDOSUBZKR
+	c94883 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOVraag.KDOSUBZKR" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOVraag.KDOSUBZKR.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
-<tr><td align="center" balign="center"> NoValue </td></tr>
+<tr><td align="center" balign="center"> KDOSUBZKR </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
+<tr><td align="left" balign="left"> # prs : JAXBElement&lt;PRSKerngegevens&gt; </td></tr>
+<tr><td align="left" balign="left"> # nnp : JAXBElement&lt;NNPKerngegevens&gt; </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> NIET_ONDERSTEUND </td></tr>
-<tr><td align="left" balign="left"> NIET_GEAUTORISEERD </td></tr>
-<tr><td align="left" balign="left"> GEEN_WAARDE </td></tr>
-<tr><td align="left" balign="left"> WAARDE_ONBEKEND </td></tr>
+<tr><td align="left" balign="left"> + KDOSUBZKR() </td></tr>
+<tr><td align="left" balign="left"> + getPRS() : JAXBElement&lt;PRSKerngegevens&gt; </td></tr>
+<tr><td align="left" balign="left"> + setPRS(value : JAXBElement&lt;PRSKerngegevens&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getNNP() : JAXBElement&lt;NNPKerngegevens&gt; </td></tr>
+<tr><td align="left" balign="left"> + setNNP(value : JAXBElement&lt;NNPKerngegevens&gt;) </td></tr>
 		</table></td></tr>
-		</table>>, URL="../../../stuf0204/NoValue.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, URL="./KDOVraag.KDOSUBZKR.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.stuf0204.Verwerkingssoort
-	c95117 [label=<<table title="nl.egem.stuf.stuf0204.Verwerkingssoort" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/Verwerkingssoort.html">
+	c95125 [label=<<table title="nl.egem.stuf.stuf0204.Verwerkingssoort" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/Verwerkingssoort.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> Verwerkingssoort </td></tr>
@@ -160,8 +144,21 @@ digraph G {
 <tr><td align="left" balign="left"> S </td></tr>
 		</table></td></tr>
 		</table>>, URL="../../../stuf0204/Verwerkingssoort.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.stuf0204.ExtraElementen
+	c95128 [label=<<table title="nl.egem.stuf.stuf0204.ExtraElementen" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/ExtraElementen.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> ExtraElementen </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # extraElement : List&lt;ExtraElement&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + ExtraElementen() </td></tr>
+<tr><td align="left" balign="left"> + getExtraElement() : List&lt;ExtraElement&gt; </td></tr>
+		</table></td></tr>
+		</table>>, URL="../../../stuf0204/ExtraElementen.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.stuf0204.TijdvakGeldigheid
-	c95118 [label=<<table title="nl.egem.stuf.stuf0204.TijdvakGeldigheid" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/TijdvakGeldigheid.html">
+	c95131 [label=<<table title="nl.egem.stuf.stuf0204.TijdvakGeldigheid" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/TijdvakGeldigheid.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> TijdvakGeldigheid </td></tr>
 		</table></td></tr>
@@ -177,21 +174,8 @@ digraph G {
 <tr><td align="left" balign="left"> + setEinddatumTijdvakGeldigheid(value : DatumMetIndicator) </td></tr>
 		</table></td></tr>
 		</table>>, URL="../../../stuf0204/TijdvakGeldigheid.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.stuf0204.ExtraElementen
-	c95129 [label=<<table title="nl.egem.stuf.stuf0204.ExtraElementen" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/ExtraElementen.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> ExtraElementen </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # extraElement : List&lt;ExtraElement&gt; </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + ExtraElementen() </td></tr>
-<tr><td align="left" balign="left"> + getExtraElement() : List&lt;ExtraElement&gt; </td></tr>
-		</table></td></tr>
-		</table>>, URL="../../../stuf0204/ExtraElementen.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.stuf0204.TijdvakRelatie
-	c95132 [label=<<table title="nl.egem.stuf.stuf0204.TijdvakRelatie" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/TijdvakRelatie.html">
+	c95133 [label=<<table title="nl.egem.stuf.stuf0204.TijdvakRelatie" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/TijdvakRelatie.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> TijdvakRelatie </td></tr>
 		</table></td></tr>
@@ -207,21 +191,37 @@ digraph G {
 <tr><td align="left" balign="left"> + setEinddatumRelatie(value : DatumMetIndicator) </td></tr>
 		</table></td></tr>
 		</table>>, URL="../../../stuf0204/TijdvakRelatie.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.stuf0204.NoValue
+	c95135 [label=<<table title="nl.egem.stuf.stuf0204.NoValue" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/NoValue.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
+<tr><td align="center" balign="center"> NoValue </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> NIET_ONDERSTEUND </td></tr>
+<tr><td align="left" balign="left"> NIET_GEAUTORISEERD </td></tr>
+<tr><td align="left" balign="left"> GEEN_WAARDE </td></tr>
+<tr><td align="left" balign="left"> WAARDE_ONBEKEND </td></tr>
+		</table></td></tr>
+		</table>>, URL="../../../stuf0204/NoValue.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.KDOKennisgeving.KDOSUBZKR extends nl.egem.stuf.sector.bg._0204.KDOZKRRel
-	c95101:p -> c94835:p [dir=back,arrowtail=empty];
+	c94821:p -> c94740:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.KDOAntwoord.KDOSUBZKR extends nl.egem.stuf.sector.bg._0204.KDOZKRRel
-	c95101:p -> c94913:p [dir=back,arrowtail=empty];
+	c94821:p -> c94763:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.KDOVraag.KDOSUBZKR extends nl.egem.stuf.sector.bg._0204.KDOZKRRel
-	c95101:p -> c95085:p [dir=back,arrowtail=empty];
+	c94821:p -> c94883:p [dir=back,arrowtail=empty];
 	// nl.egem.stuf.sector.bg._0204.KDOZKRRel NAVASSOC nl.egem.stuf.stuf0204.TijdvakRelatie
-	c95101:p -> c95132:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c94821:p -> c95133:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.egem.stuf.sector.bg._0204.KDOZKRRel NAVASSOC nl.egem.stuf.stuf0204.TijdvakGeldigheid
-	c95101:p -> c95118:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c94821:p -> c95131:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.egem.stuf.sector.bg._0204.KDOZKRRel NAVASSOC nl.egem.stuf.stuf0204.ExtraElementen
-	c95101:p -> c95129:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c94821:p -> c95128:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.egem.stuf.sector.bg._0204.KDOZKRRel NAVASSOC nl.egem.stuf.stuf0204.Verwerkingssoort
-	c95101:p -> c95117:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c94821:p -> c95125:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.egem.stuf.sector.bg._0204.KDOZKRRel NAVASSOC nl.egem.stuf.stuf0204.NoValue
-	c95101:p -> c95114:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c94821:p -> c95135:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

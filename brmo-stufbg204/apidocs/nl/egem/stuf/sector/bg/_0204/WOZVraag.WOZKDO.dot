@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.KDOKennisgeving
-	c253208 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOKennisgeving" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOKennisgeving.html">
+	c253113 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOKennisgeving" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOKennisgeving.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> KDOKennisgeving </td></tr>
 		</table></td></tr>
@@ -33,22 +33,8 @@ digraph G {
 <tr><td align="left" balign="left"> + getKDOSUBZKR() : List&lt;KDOKennisgeving.KDOSUBZKR&gt; </td></tr>
 		</table></td></tr>
 		</table>>, URL="./KDOKennisgeving.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.WOZVraag.WOZKDO
-	c253244 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZVraag.WOZKDO" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./WOZVraag.WOZKDO.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> WOZKDO </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # kdo : KDOKennisgeving </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + WOZKDO() </td></tr>
-<tr><td align="left" balign="left"> + getKDO() : KDOKennisgeving </td></tr>
-<tr><td align="left" balign="left"> + setKDO(value : KDOKennisgeving) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./WOZVraag.WOZKDO.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.Relatie
-	c253334 [label=<<table title="nl.egem.stuf.sector.bg._0204.Relatie" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Relatie.html">
+	c253119 [label=<<table title="nl.egem.stuf.sector.bg._0204.Relatie" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Relatie.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Relatie </td></tr>
 		</table></td></tr>
@@ -85,9 +71,23 @@ digraph G {
 <tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Relatie.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.WOZVraag.WOZKDO
+	c253445 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZVraag.WOZKDO" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./WOZVraag.WOZKDO.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> WOZKDO </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # kdo : KDOKennisgeving </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + WOZKDO() </td></tr>
+<tr><td align="left" balign="left"> + getKDO() : KDOKennisgeving </td></tr>
+<tr><td align="left" balign="left"> + setKDO(value : KDOKennisgeving) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./WOZVraag.WOZKDO.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.WOZVraag.WOZKDO extends nl.egem.stuf.sector.bg._0204.Relatie
-	c253334:p -> c253244:p [dir=back,arrowtail=empty];
+	c253119:p -> c253445:p [dir=back,arrowtail=empty];
 	// nl.egem.stuf.sector.bg._0204.WOZVraag.WOZKDO NAVASSOC nl.egem.stuf.sector.bg._0204.KDOKennisgeving
-	c253244:p -> c253208:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c253445:p -> c253113:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

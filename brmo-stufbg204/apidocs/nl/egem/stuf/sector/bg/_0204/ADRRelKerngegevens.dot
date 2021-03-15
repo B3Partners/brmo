@@ -9,22 +9,8 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// nl.egem.stuf.sector.bg._0204.NNPKerngegevens.NNPADRVBL
-	c30495 [label=<<table title="nl.egem.stuf.sector.bg._0204.NNPKerngegevens.NNPADRVBL" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NNPKerngegevens.NNPADRVBL.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> NNPADRVBL </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # kerngegeven : Boolean </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + NNPADRVBL() </td></tr>
-<tr><td align="left" balign="left"> + isKerngegeven() : boolean </td></tr>
-<tr><td align="left" balign="left"> + setKerngegeven(value : Boolean) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./NNPKerngegevens.NNPADRVBL.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.PRSADRVBL
-	c30585 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSADRVBL" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSADRVBL.html">
+	c30387 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSADRVBL" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSADRVBL.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PRSADRVBL </td></tr>
 		</table></td></tr>
@@ -37,22 +23,22 @@ digraph G {
 <tr><td align="left" balign="left"> + setKerngegeven(value : Boolean) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./PRSADRVBL.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.WOZKerngegevens.WOZADRHFD
-	c30613 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZKerngegevens.WOZADRHFD" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WOZKerngegevens.WOZADRHFD.html">
+	// nl.egem.stuf.sector.bg._0204.ADRRelKerngegevens
+	c30418 [label=<<table title="nl.egem.stuf.sector.bg._0204.ADRRelKerngegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ADRRelKerngegevens.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> WOZADRHFD </td></tr>
+<tr><td align="center" balign="center"> ADRRelKerngegevens </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # kerngegeven : Boolean </td></tr>
+<tr><td align="left" balign="left"> # adr : ADRFund </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + WOZADRHFD() </td></tr>
-<tr><td align="left" balign="left"> + isKerngegeven() : boolean </td></tr>
-<tr><td align="left" balign="left"> + setKerngegeven(value : Boolean) </td></tr>
+<tr><td align="left" balign="left"> + ADRRelKerngegevens() </td></tr>
+<tr><td align="left" balign="left"> + getADR() : ADRFund </td></tr>
+<tr><td align="left" balign="left"> + setADR(value : ADRFund) </td></tr>
 		</table></td></tr>
-		</table>>, URL="./WOZKerngegevens.WOZADRHFD.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, URL="./ADRRelKerngegevens.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.ADRFund
-	c30660 [label=<<table title="nl.egem.stuf.sector.bg._0204.ADRFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ADRFund.html">
+	c30432 [label=<<table title="nl.egem.stuf.sector.bg._0204.ADRFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ADRFund.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ADRFund </td></tr>
 		</table></td></tr>
@@ -159,7 +145,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./ADRFund.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.Relatie
-	c30694 [label=<<table title="nl.egem.stuf.sector.bg._0204.Relatie" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Relatie.html">
+	c30479 [label=<<table title="nl.egem.stuf.sector.bg._0204.Relatie" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Relatie.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Relatie </td></tr>
 		</table></td></tr>
@@ -196,22 +182,8 @@ digraph G {
 <tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Relatie.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.ADRRelKerngegevens
-	c30695 [label=<<table title="nl.egem.stuf.sector.bg._0204.ADRRelKerngegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ADRRelKerngegevens.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> ADRRelKerngegevens </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # adr : ADRFund </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + ADRRelKerngegevens() </td></tr>
-<tr><td align="left" balign="left"> + getADR() : ADRFund </td></tr>
-<tr><td align="left" balign="left"> + setADR(value : ADRFund) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./ADRRelKerngegevens.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.VBOKerngegevens.VBOADR
-	c30785 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOKerngegevens.VBOADR" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VBOKerngegevens.VBOADR.html">
+	c30482 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOKerngegevens.VBOADR" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VBOKerngegevens.VBOADR.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> VBOADR </td></tr>
 		</table></td></tr>
@@ -224,17 +196,45 @@ digraph G {
 <tr><td align="left" balign="left"> + setKerngegeven(value : Boolean) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./VBOKerngegevens.VBOADR.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	//nl.egem.stuf.sector.bg._0204.NNPKerngegevens.NNPADRVBL extends nl.egem.stuf.sector.bg._0204.ADRRelKerngegevens
-	c30695:p -> c30495:p [dir=back,arrowtail=empty];
+	// nl.egem.stuf.sector.bg._0204.NNPKerngegevens.NNPADRVBL
+	c30824 [label=<<table title="nl.egem.stuf.sector.bg._0204.NNPKerngegevens.NNPADRVBL" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NNPKerngegevens.NNPADRVBL.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> NNPADRVBL </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # kerngegeven : Boolean </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + NNPADRVBL() </td></tr>
+<tr><td align="left" balign="left"> + isKerngegeven() : boolean </td></tr>
+<tr><td align="left" balign="left"> + setKerngegeven(value : Boolean) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./NNPKerngegevens.NNPADRVBL.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.WOZKerngegevens.WOZADRHFD
+	c30833 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZKerngegevens.WOZADRHFD" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WOZKerngegevens.WOZADRHFD.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> WOZADRHFD </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # kerngegeven : Boolean </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + WOZADRHFD() </td></tr>
+<tr><td align="left" balign="left"> + isKerngegeven() : boolean </td></tr>
+<tr><td align="left" balign="left"> + setKerngegeven(value : Boolean) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./WOZKerngegevens.WOZADRHFD.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.PRSADRVBL extends nl.egem.stuf.sector.bg._0204.ADRRelKerngegevens
-	c30695:p -> c30585:p [dir=back,arrowtail=empty];
-	//nl.egem.stuf.sector.bg._0204.WOZKerngegevens.WOZADRHFD extends nl.egem.stuf.sector.bg._0204.ADRRelKerngegevens
-	c30695:p -> c30613:p [dir=back,arrowtail=empty];
+	c30418:p -> c30387:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.ADRRelKerngegevens extends nl.egem.stuf.sector.bg._0204.Relatie
-	c30694:p -> c30695:p [dir=back,arrowtail=empty];
+	c30479:p -> c30418:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.VBOKerngegevens.VBOADR extends nl.egem.stuf.sector.bg._0204.ADRRelKerngegevens
-	c30695:p -> c30785:p [dir=back,arrowtail=empty];
+	c30418:p -> c30482:p [dir=back,arrowtail=empty];
+	//nl.egem.stuf.sector.bg._0204.NNPKerngegevens.NNPADRVBL extends nl.egem.stuf.sector.bg._0204.ADRRelKerngegevens
+	c30418:p -> c30824:p [dir=back,arrowtail=empty];
+	//nl.egem.stuf.sector.bg._0204.WOZKerngegevens.WOZADRHFD extends nl.egem.stuf.sector.bg._0204.ADRRelKerngegevens
+	c30418:p -> c30833:p [dir=back,arrowtail=empty];
 	// nl.egem.stuf.sector.bg._0204.ADRRelKerngegevens NAVASSOC nl.egem.stuf.sector.bg._0204.ADRFund
-	c30695:p -> c30660:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c30418:p -> c30432:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

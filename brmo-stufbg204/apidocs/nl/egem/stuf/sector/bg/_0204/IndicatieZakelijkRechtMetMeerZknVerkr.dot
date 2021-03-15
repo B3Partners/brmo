@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.IndicatieZakelijkRechtMetMeerZknVerkr
-	c71454 [label=<<table title="nl.egem.stuf.sector.bg._0204.IndicatieZakelijkRechtMetMeerZknVerkr" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./IndicatieZakelijkRechtMetMeerZknVerkr.html">
+	c71390 [label=<<table title="nl.egem.stuf.sector.bg._0204.IndicatieZakelijkRechtMetMeerZknVerkr" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./IndicatieZakelijkRechtMetMeerZknVerkr.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> IndicatieZakelijkRechtMetMeerZknVerkr </td></tr>
@@ -24,7 +24,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./IndicatieZakelijkRechtMetMeerZknVerkr.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.KDOZKRRel.IndicatieZakelijkRechtMetMeerZknVerkr
-	c71827 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOZKRRel.IndicatieZakelijkRechtMetMeerZknVerkr" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOZKRRel.IndicatieZakelijkRechtMetMeerZknVerkr.html">
+	c71547 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOZKRRel.IndicatieZakelijkRechtMetMeerZknVerkr" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOZKRRel.IndicatieZakelijkRechtMetMeerZknVerkr.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> IndicatieZakelijkRechtMetMeerZknVerkr </td></tr>
 		</table></td></tr>
@@ -44,6 +44,6 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./KDOZKRRel.IndicatieZakelijkRechtMetMeerZknVerkr.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.KDOZKRRel.IndicatieZakelijkRechtMetMeerZknVerkr NAVASSOC nl.egem.stuf.sector.bg._0204.IndicatieZakelijkRechtMetMeerZknVerkr
-	c71827:p -> c71454:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c71547:p -> c71390:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

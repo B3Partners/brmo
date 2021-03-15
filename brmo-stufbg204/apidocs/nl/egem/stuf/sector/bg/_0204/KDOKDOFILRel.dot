@@ -9,8 +9,50 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// nl.egem.stuf.sector.bg._0204.KDOKennisgeving.KDOKDOFIL
+	c84617 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOKennisgeving.KDOKDOFIL" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOKennisgeving.KDOKDOFIL.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> KDOKDOFIL </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # kdo : KDOKerngegevens </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + KDOKDOFIL() </td></tr>
+<tr><td align="left" balign="left"> + getKDO() : KDOKerngegevens </td></tr>
+<tr><td align="left" balign="left"> + setKDO(value : KDOKerngegevens) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./KDOKennisgeving.KDOKDOFIL.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.KDOAntwoord.KDOKDOFIL
+	c84640 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOAntwoord.KDOKDOFIL" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOAntwoord.KDOKDOFIL.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> KDOKDOFIL </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # kdo : KDOKennisgeving </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + KDOKDOFIL() </td></tr>
+<tr><td align="left" balign="left"> + getKDO() : KDOKennisgeving </td></tr>
+<tr><td align="left" balign="left"> + setKDO(value : KDOKennisgeving) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./KDOAntwoord.KDOKDOFIL.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.KDOVraag.KDOKDOFIL
+	c84760 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOVraag.KDOKDOFIL" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOVraag.KDOKDOFIL.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> KDOKDOFIL </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # kdo : KDOKennisgeving </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + KDOKDOFIL() </td></tr>
+<tr><td align="left" balign="left"> + getKDO() : KDOKennisgeving </td></tr>
+<tr><td align="left" balign="left"> + setKDO(value : KDOKennisgeving) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./KDOVraag.KDOKDOFIL.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.KDOKDOFILRel
-	c84542 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOKDOFILRel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./KDOKDOFILRel.html">
+	c84908 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOKDOFILRel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./KDOKDOFILRel.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> KDOKDOFILRel </td></tr>
 		</table></td></tr>
@@ -50,66 +92,8 @@ digraph G {
 <tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./KDOKDOFILRel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.KDOKennisgeving.KDOKDOFIL
-	c84712 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOKennisgeving.KDOKDOFIL" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOKennisgeving.KDOKDOFIL.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> KDOKDOFIL </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # kdo : KDOKerngegevens </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + KDOKDOFIL() </td></tr>
-<tr><td align="left" balign="left"> + getKDO() : KDOKerngegevens </td></tr>
-<tr><td align="left" balign="left"> + setKDO(value : KDOKerngegevens) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./KDOKennisgeving.KDOKDOFIL.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.KDOAntwoord.KDOKDOFIL
-	c84790 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOAntwoord.KDOKDOFIL" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOAntwoord.KDOKDOFIL.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> KDOKDOFIL </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # kdo : KDOKennisgeving </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + KDOKDOFIL() </td></tr>
-<tr><td align="left" balign="left"> + getKDO() : KDOKennisgeving </td></tr>
-<tr><td align="left" balign="left"> + setKDO(value : KDOKennisgeving) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./KDOAntwoord.KDOKDOFIL.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.KDOVraag.KDOKDOFIL
-	c84962 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOVraag.KDOKDOFIL" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOVraag.KDOKDOFIL.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> KDOKDOFIL </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # kdo : KDOKennisgeving </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + KDOKDOFIL() </td></tr>
-<tr><td align="left" balign="left"> + getKDO() : KDOKennisgeving </td></tr>
-<tr><td align="left" balign="left"> + setKDO(value : KDOKennisgeving) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./KDOVraag.KDOKDOFIL.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.stuf0204.NoValue
-	c84994 [label=<<table title="nl.egem.stuf.stuf0204.NoValue" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/NoValue.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
-<tr><td align="center" balign="center"> NoValue </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> NIET_ONDERSTEUND </td></tr>
-<tr><td align="left" balign="left"> NIET_GEAUTORISEERD </td></tr>
-<tr><td align="left" balign="left"> GEEN_WAARDE </td></tr>
-<tr><td align="left" balign="left"> WAARDE_ONBEKEND </td></tr>
-		</table></td></tr>
-		</table>>, URL="../../../stuf0204/NoValue.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.stuf0204.Verwerkingssoort
-	c84997 [label=<<table title="nl.egem.stuf.stuf0204.Verwerkingssoort" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/Verwerkingssoort.html">
+	c85005 [label=<<table title="nl.egem.stuf.stuf0204.Verwerkingssoort" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/Verwerkingssoort.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> Verwerkingssoort </td></tr>
@@ -127,8 +111,21 @@ digraph G {
 <tr><td align="left" balign="left"> S </td></tr>
 		</table></td></tr>
 		</table>>, URL="../../../stuf0204/Verwerkingssoort.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.stuf0204.ExtraElementen
+	c85008 [label=<<table title="nl.egem.stuf.stuf0204.ExtraElementen" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/ExtraElementen.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> ExtraElementen </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # extraElement : List&lt;ExtraElement&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + ExtraElementen() </td></tr>
+<tr><td align="left" balign="left"> + getExtraElement() : List&lt;ExtraElement&gt; </td></tr>
+		</table></td></tr>
+		</table>>, URL="../../../stuf0204/ExtraElementen.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.stuf0204.TijdvakGeldigheid
-	c84998 [label=<<table title="nl.egem.stuf.stuf0204.TijdvakGeldigheid" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/TijdvakGeldigheid.html">
+	c85011 [label=<<table title="nl.egem.stuf.stuf0204.TijdvakGeldigheid" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/TijdvakGeldigheid.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> TijdvakGeldigheid </td></tr>
 		</table></td></tr>
@@ -144,21 +141,8 @@ digraph G {
 <tr><td align="left" balign="left"> + setEinddatumTijdvakGeldigheid(value : DatumMetIndicator) </td></tr>
 		</table></td></tr>
 		</table>>, URL="../../../stuf0204/TijdvakGeldigheid.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.stuf0204.ExtraElementen
-	c85009 [label=<<table title="nl.egem.stuf.stuf0204.ExtraElementen" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/ExtraElementen.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> ExtraElementen </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # extraElement : List&lt;ExtraElement&gt; </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + ExtraElementen() </td></tr>
-<tr><td align="left" balign="left"> + getExtraElement() : List&lt;ExtraElement&gt; </td></tr>
-		</table></td></tr>
-		</table>>, URL="../../../stuf0204/ExtraElementen.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.stuf0204.TijdvakRelatie
-	c85012 [label=<<table title="nl.egem.stuf.stuf0204.TijdvakRelatie" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/TijdvakRelatie.html">
+	c85013 [label=<<table title="nl.egem.stuf.stuf0204.TijdvakRelatie" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/TijdvakRelatie.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> TijdvakRelatie </td></tr>
 		</table></td></tr>
@@ -174,21 +158,37 @@ digraph G {
 <tr><td align="left" balign="left"> + setEinddatumRelatie(value : DatumMetIndicator) </td></tr>
 		</table></td></tr>
 		</table>>, URL="../../../stuf0204/TijdvakRelatie.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.stuf0204.NoValue
+	c85015 [label=<<table title="nl.egem.stuf.stuf0204.NoValue" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/NoValue.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
+<tr><td align="center" balign="center"> NoValue </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> NIET_ONDERSTEUND </td></tr>
+<tr><td align="left" balign="left"> NIET_GEAUTORISEERD </td></tr>
+<tr><td align="left" balign="left"> GEEN_WAARDE </td></tr>
+<tr><td align="left" balign="left"> WAARDE_ONBEKEND </td></tr>
+		</table></td></tr>
+		</table>>, URL="../../../stuf0204/NoValue.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.KDOKennisgeving.KDOKDOFIL extends nl.egem.stuf.sector.bg._0204.KDOKDOFILRel
-	c84542:p -> c84712:p [dir=back,arrowtail=empty];
+	c84908:p -> c84617:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.KDOAntwoord.KDOKDOFIL extends nl.egem.stuf.sector.bg._0204.KDOKDOFILRel
-	c84542:p -> c84790:p [dir=back,arrowtail=empty];
+	c84908:p -> c84640:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.KDOVraag.KDOKDOFIL extends nl.egem.stuf.sector.bg._0204.KDOKDOFILRel
-	c84542:p -> c84962:p [dir=back,arrowtail=empty];
+	c84908:p -> c84760:p [dir=back,arrowtail=empty];
 	// nl.egem.stuf.sector.bg._0204.KDOKDOFILRel NAVASSOC nl.egem.stuf.stuf0204.TijdvakRelatie
-	c84542:p -> c85012:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c84908:p -> c85013:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.egem.stuf.sector.bg._0204.KDOKDOFILRel NAVASSOC nl.egem.stuf.stuf0204.TijdvakGeldigheid
-	c84542:p -> c84998:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c84908:p -> c85011:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.egem.stuf.sector.bg._0204.KDOKDOFILRel NAVASSOC nl.egem.stuf.stuf0204.ExtraElementen
-	c84542:p -> c85009:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c84908:p -> c85008:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.egem.stuf.sector.bg._0204.KDOKDOFILRel NAVASSOC nl.egem.stuf.stuf0204.Verwerkingssoort
-	c84542:p -> c84997:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c84908:p -> c85005:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.egem.stuf.sector.bg._0204.KDOKDOFILRel NAVASSOC nl.egem.stuf.stuf0204.NoValue
-	c84542:p -> c84994:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c84908:p -> c85015:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

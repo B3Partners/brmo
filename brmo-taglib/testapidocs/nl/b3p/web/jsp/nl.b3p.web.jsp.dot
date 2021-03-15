@@ -9,36 +9,8 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// nl.b3p.web.jsp.TailTagTest
-	c0 [label=<<table title="nl.b3p.web.jsp.TailTagTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TailTagTest.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> TailTagTest </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + TailTagTest() </td></tr>
-<tr><td align="left" balign="left"> + setUp() </td></tr>
-<tr><td align="left" balign="left"> + testdefaultId() </td></tr>
-		</table></td></tr>
-		</table>>, URL="./TailTagTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.web.jsp.LogfileUtilTest
-	c1 [label=<<table title="nl.b3p.web.jsp.LogfileUtilTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./LogfileUtilTest.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> LogfileUtilTest </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + LogfileUtilTest() </td></tr>
-<tr><td align="left" balign="left"> + testGetLogFile() </td></tr>
-<tr><td align="left" balign="left"> + getLogfileList() </td></tr>
-		</table></td></tr>
-		</table>>, URL="./LogfileUtilTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.web.jsp.CronFormatterTagTest
-	c2 [label=<<table title="nl.b3p.web.jsp.CronFormatterTagTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./CronFormatterTagTest.html">
+	c0 [label=<<table title="nl.b3p.web.jsp.CronFormatterTagTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./CronFormatterTagTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> CronFormatterTagTest </td></tr>
 		</table></td></tr>
@@ -52,12 +24,40 @@ digraph G {
 <tr><td align="left" balign="left"> + testBuildOutputNoLocale() </td></tr>
 		</table></td></tr>
 		</table>>, URL="./CronFormatterTagTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.web.jsp.TailTagTest NAVASSOC nl.b3p.web.jsp.TailTag
-	c0:p -> c3:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.web.jsp.TailTagTest
+	c1 [label=<<table title="nl.b3p.web.jsp.TailTagTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TailTagTest.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> TailTagTest </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + TailTagTest() </td></tr>
+<tr><td align="left" balign="left"> + setUp() </td></tr>
+<tr><td align="left" balign="left"> + testdefaultId() </td></tr>
+		</table></td></tr>
+		</table>>, URL="./TailTagTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.web.jsp.LogfileUtilTest
+	c2 [label=<<table title="nl.b3p.web.jsp.LogfileUtilTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./LogfileUtilTest.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> LogfileUtilTest </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + LogfileUtilTest() </td></tr>
+<tr><td align="left" balign="left"> + testGetLogFile() </td></tr>
+<tr><td align="left" balign="left"> + getLogfileList() </td></tr>
+		</table></td></tr>
+		</table>>, URL="./LogfileUtilTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.web.jsp.CronFormatterTagTest NAVASSOC nl.b3p.web.jsp.CronFormatterTag
-	c2:p -> c4:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c0:p -> c3:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.web.jsp.TailTagTest NAVASSOC nl.b3p.web.jsp.TailTag
+	c1:p -> c4:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.web.jsp.CronFormatterTag
-	c4 [label=<<table title="nl.b3p.web.jsp.CronFormatterTag" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+	c3 [label=<<table title="nl.b3p.web.jsp.CronFormatterTag" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> CronFormatterTag </td></tr>
 		</table></td></tr>
@@ -73,7 +73,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.web.jsp.TailTag
-	c3 [label=<<table title="nl.b3p.web.jsp.TailTag" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+	c4 [label=<<table title="nl.b3p.web.jsp.TailTag" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> TailTag </td></tr>
 		</table></td></tr>

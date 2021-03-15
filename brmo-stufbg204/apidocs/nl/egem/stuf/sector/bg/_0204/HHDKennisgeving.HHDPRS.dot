@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.HHDPRSRel
-	c65479 [label=<<table title="nl.egem.stuf.sector.bg._0204.HHDPRSRel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./HHDPRSRel.html">
+	c65633 [label=<<table title="nl.egem.stuf.sector.bg._0204.HHDPRSRel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./HHDPRSRel.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> HHDPRSRel </td></tr>
 		</table></td></tr>
@@ -51,7 +51,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./HHDPRSRel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.HHDKennisgeving.HHDPRS
-	c65491 [label=<<table title="nl.egem.stuf.sector.bg._0204.HHDKennisgeving.HHDPRS" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./HHDKennisgeving.HHDPRS.html">
+	c65684 [label=<<table title="nl.egem.stuf.sector.bg._0204.HHDKennisgeving.HHDPRS" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./HHDKennisgeving.HHDPRS.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> HHDPRS </td></tr>
 		</table></td></tr>
@@ -65,7 +65,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./HHDKennisgeving.HHDPRS.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.PRSKerngegevens
-	c65739 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSKerngegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSKerngegevens.html">
+	c65725 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSKerngegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSKerngegevens.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PRSKerngegevens </td></tr>
 		</table></td></tr>
@@ -121,8 +121,8 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./PRSKerngegevens.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.HHDKennisgeving.HHDPRS extends nl.egem.stuf.sector.bg._0204.HHDPRSRel
-	c65479:p -> c65491:p [dir=back,arrowtail=empty];
+	c65633:p -> c65684:p [dir=back,arrowtail=empty];
 	// nl.egem.stuf.sector.bg._0204.HHDKennisgeving.HHDPRS NAVASSOC nl.egem.stuf.sector.bg._0204.PRSKerngegevens
-	c65491:p -> c65739:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c65684:p -> c65725:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

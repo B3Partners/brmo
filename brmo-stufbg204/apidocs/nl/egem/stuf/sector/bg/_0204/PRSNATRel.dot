@@ -9,8 +9,22 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// nl.egem.stuf.sector.bg._0204.PRSAntwoord.PRSNAT
+	c168552 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSAntwoord.PRSNAT" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSAntwoord.PRSNAT.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> PRSNAT </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # nat : NATTabel </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + PRSNAT() </td></tr>
+<tr><td align="left" balign="left"> + getNAT() : NATTabel </td></tr>
+<tr><td align="left" balign="left"> + setNAT(value : NATTabel) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./PRSAntwoord.PRSNAT.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.PRSNATRel
-	c168525 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSNATRel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PRSNATRel.html">
+	c168602 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSNATRel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PRSNATRel.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PRSNATRel </td></tr>
 		</table></td></tr>
@@ -53,22 +67,8 @@ digraph G {
 <tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./PRSNATRel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.PRSAntwoord.PRSNAT
-	c168728 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSAntwoord.PRSNAT" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSAntwoord.PRSNAT.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> PRSNAT </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # nat : NATTabel </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + PRSNAT() </td></tr>
-<tr><td align="left" balign="left"> + getNAT() : NATTabel </td></tr>
-<tr><td align="left" balign="left"> + setNAT(value : NATTabel) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./PRSAntwoord.PRSNAT.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.PRSVraag.PRSNAT
-	c168767 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSVraag.PRSNAT" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSVraag.PRSNAT.html">
+	c168647 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSVraag.PRSNAT" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSVraag.PRSNAT.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PRSNAT </td></tr>
 		</table></td></tr>
@@ -82,7 +82,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./PRSVraag.PRSNAT.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.PRSKennisgeving.PRSNAT
-	c168793 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSKennisgeving.PRSNAT" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSKennisgeving.PRSNAT.html">
+	c168781 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSKennisgeving.PRSNAT" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSKennisgeving.PRSNAT.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PRSNAT </td></tr>
 		</table></td></tr>
@@ -95,24 +95,8 @@ digraph G {
 <tr><td align="left" balign="left"> + setNAT(value : NATTabel) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./PRSKennisgeving.PRSNAT.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.stuf0204.NoValue
-	c168990 [label=<<table title="nl.egem.stuf.stuf0204.NoValue" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/NoValue.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
-<tr><td align="center" balign="center"> NoValue </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> NIET_ONDERSTEUND </td></tr>
-<tr><td align="left" balign="left"> NIET_GEAUTORISEERD </td></tr>
-<tr><td align="left" balign="left"> GEEN_WAARDE </td></tr>
-<tr><td align="left" balign="left"> WAARDE_ONBEKEND </td></tr>
-		</table></td></tr>
-		</table>>, URL="../../../stuf0204/NoValue.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.stuf0204.Verwerkingssoort
-	c168993 [label=<<table title="nl.egem.stuf.stuf0204.Verwerkingssoort" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/Verwerkingssoort.html">
+	c169001 [label=<<table title="nl.egem.stuf.stuf0204.Verwerkingssoort" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/Verwerkingssoort.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> Verwerkingssoort </td></tr>
@@ -130,8 +114,21 @@ digraph G {
 <tr><td align="left" balign="left"> S </td></tr>
 		</table></td></tr>
 		</table>>, URL="../../../stuf0204/Verwerkingssoort.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.stuf0204.ExtraElementen
+	c169004 [label=<<table title="nl.egem.stuf.stuf0204.ExtraElementen" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/ExtraElementen.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> ExtraElementen </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # extraElement : List&lt;ExtraElement&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + ExtraElementen() </td></tr>
+<tr><td align="left" balign="left"> + getExtraElement() : List&lt;ExtraElement&gt; </td></tr>
+		</table></td></tr>
+		</table>>, URL="../../../stuf0204/ExtraElementen.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.stuf0204.TijdvakGeldigheid
-	c168994 [label=<<table title="nl.egem.stuf.stuf0204.TijdvakGeldigheid" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/TijdvakGeldigheid.html">
+	c169007 [label=<<table title="nl.egem.stuf.stuf0204.TijdvakGeldigheid" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/TijdvakGeldigheid.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> TijdvakGeldigheid </td></tr>
 		</table></td></tr>
@@ -147,21 +144,8 @@ digraph G {
 <tr><td align="left" balign="left"> + setEinddatumTijdvakGeldigheid(value : DatumMetIndicator) </td></tr>
 		</table></td></tr>
 		</table>>, URL="../../../stuf0204/TijdvakGeldigheid.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.stuf0204.ExtraElementen
-	c169005 [label=<<table title="nl.egem.stuf.stuf0204.ExtraElementen" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/ExtraElementen.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> ExtraElementen </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # extraElement : List&lt;ExtraElement&gt; </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + ExtraElementen() </td></tr>
-<tr><td align="left" balign="left"> + getExtraElement() : List&lt;ExtraElement&gt; </td></tr>
-		</table></td></tr>
-		</table>>, URL="../../../stuf0204/ExtraElementen.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.stuf0204.TijdvakRelatie
-	c169008 [label=<<table title="nl.egem.stuf.stuf0204.TijdvakRelatie" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/TijdvakRelatie.html">
+	c169009 [label=<<table title="nl.egem.stuf.stuf0204.TijdvakRelatie" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/TijdvakRelatie.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> TijdvakRelatie </td></tr>
 		</table></td></tr>
@@ -177,21 +161,37 @@ digraph G {
 <tr><td align="left" balign="left"> + setEinddatumRelatie(value : DatumMetIndicator) </td></tr>
 		</table></td></tr>
 		</table>>, URL="../../../stuf0204/TijdvakRelatie.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.stuf0204.NoValue
+	c169011 [label=<<table title="nl.egem.stuf.stuf0204.NoValue" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/NoValue.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
+<tr><td align="center" balign="center"> NoValue </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> NIET_ONDERSTEUND </td></tr>
+<tr><td align="left" balign="left"> NIET_GEAUTORISEERD </td></tr>
+<tr><td align="left" balign="left"> GEEN_WAARDE </td></tr>
+<tr><td align="left" balign="left"> WAARDE_ONBEKEND </td></tr>
+		</table></td></tr>
+		</table>>, URL="../../../stuf0204/NoValue.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.PRSAntwoord.PRSNAT extends nl.egem.stuf.sector.bg._0204.PRSNATRel
-	c168525:p -> c168728:p [dir=back,arrowtail=empty];
+	c168602:p -> c168552:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.PRSVraag.PRSNAT extends nl.egem.stuf.sector.bg._0204.PRSNATRel
-	c168525:p -> c168767:p [dir=back,arrowtail=empty];
+	c168602:p -> c168647:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.PRSKennisgeving.PRSNAT extends nl.egem.stuf.sector.bg._0204.PRSNATRel
-	c168525:p -> c168793:p [dir=back,arrowtail=empty];
+	c168602:p -> c168781:p [dir=back,arrowtail=empty];
 	// nl.egem.stuf.sector.bg._0204.PRSNATRel NAVASSOC nl.egem.stuf.stuf0204.TijdvakRelatie
-	c168525:p -> c169008:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c168602:p -> c169009:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.egem.stuf.sector.bg._0204.PRSNATRel NAVASSOC nl.egem.stuf.stuf0204.TijdvakGeldigheid
-	c168525:p -> c168994:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c168602:p -> c169007:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.egem.stuf.sector.bg._0204.PRSNATRel NAVASSOC nl.egem.stuf.stuf0204.ExtraElementen
-	c168525:p -> c169005:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c168602:p -> c169004:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.egem.stuf.sector.bg._0204.PRSNATRel NAVASSOC nl.egem.stuf.stuf0204.Verwerkingssoort
-	c168525:p -> c168993:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c168602:p -> c169001:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.egem.stuf.sector.bg._0204.PRSNATRel NAVASSOC nl.egem.stuf.stuf0204.NoValue
-	c168525:p -> c168990:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c168602:p -> c169011:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

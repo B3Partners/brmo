@@ -9,8 +9,22 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// nl.egem.stuf.sector.bg._0204.ADRRelKerngegevens
+	c251540 [label=<<table title="nl.egem.stuf.sector.bg._0204.ADRRelKerngegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ADRRelKerngegevens.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> ADRRelKerngegevens </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # adr : ADRFund </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + ADRRelKerngegevens() </td></tr>
+<tr><td align="left" balign="left"> + getADR() : ADRFund </td></tr>
+<tr><td align="left" balign="left"> + setADR(value : ADRFund) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./ADRRelKerngegevens.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.WOZKerngegevens
-	c251734 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZKerngegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WOZKerngegevens.html">
+	c251954 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZKerngegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WOZKerngegevens.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> WOZKerngegevens </td></tr>
 		</table></td></tr>
@@ -45,7 +59,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./WOZKerngegevens.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.WOZKerngegevens.WOZADRHFD
-	c251735 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZKerngegevens.WOZADRHFD" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./WOZKerngegevens.WOZADRHFD.html">
+	c251955 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZKerngegevens.WOZADRHFD" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./WOZKerngegevens.WOZADRHFD.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> WOZADRHFD </td></tr>
 		</table></td></tr>
@@ -58,23 +72,9 @@ digraph G {
 <tr><td align="left" balign="left"> + setKerngegeven(value : Boolean) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./WOZKerngegevens.WOZADRHFD.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.ADRRelKerngegevens
-	c251817 [label=<<table title="nl.egem.stuf.sector.bg._0204.ADRRelKerngegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ADRRelKerngegevens.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> ADRRelKerngegevens </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # adr : ADRFund </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + ADRRelKerngegevens() </td></tr>
-<tr><td align="left" balign="left"> + getADR() : ADRFund </td></tr>
-<tr><td align="left" balign="left"> + setADR(value : ADRFund) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./ADRRelKerngegevens.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.WOZKerngegevens.WOZADRHFD extends nl.egem.stuf.sector.bg._0204.ADRRelKerngegevens
-	c251817:p -> c251735:p [dir=back,arrowtail=empty];
+	c251540:p -> c251955:p [dir=back,arrowtail=empty];
 	// nl.egem.stuf.sector.bg._0204.WOZKerngegevens NAVASSOC nl.egem.stuf.sector.bg._0204.WOZKerngegevens.WOZADRHFD
-	c251734:p -> c251735:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c251954:p -> c251955:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

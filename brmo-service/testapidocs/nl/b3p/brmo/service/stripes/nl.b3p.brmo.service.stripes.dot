@@ -9,8 +9,75 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// nl.b3p.brmo.service.stripes.AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest
+	c60 [label=<<table title="nl.b3p.brmo.service.stripes.AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest() </td></tr>
+<tr><td align="left" balign="left"> ~ argumentsProvider() : Stream&lt;Arguments&gt; </td></tr>
+<tr><td align="left" balign="left"> + setUp() </td></tr>
+<tr><td align="left" balign="left"> + cleanup() </td></tr>
+<tr><td align="left" balign="left"> + testReplayBRKVerwijderBerichtenNaUpdateIngangsdatumRecht(sBestandsNaam : String, aantalBerichten : long, aantalProcessen : long, rBestandsNaam : String) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.service.stripes.BRKComfortAdresUpdatesIntegrationTest
+	c61 [label=<<table title="nl.b3p.brmo.service.stripes.BRKComfortAdresUpdatesIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BRKComfortAdresUpdatesIntegrationTest.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> BRKComfortAdresUpdatesIntegrationTest </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BRKComfortAdresUpdatesIntegrationTest() </td></tr>
+<tr><td align="left" balign="left"> ~ argumentsProvider() : Stream&lt;Arguments&gt; </td></tr>
+<tr><td align="left" balign="left"> + setUp() </td></tr>
+<tr><td align="left" balign="left"> + cleanup() </td></tr>
+<tr><td align="left" balign="left"> + testSnelleUpdate(sStagingBestand : String, sRsgbBestand : String) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./BRKComfortAdresUpdatesIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBeanIntegrationTest
+	c62 [label=<<table title="nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBeanIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AdvancedFunctionsActionBeanIntegrationTest.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> AdvancedFunctionsActionBeanIntegrationTest </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + AdvancedFunctionsActionBeanIntegrationTest() </td></tr>
+<tr><td align="left" balign="left"> ~ argumentsProvider() : Stream&lt;Arguments&gt; </td></tr>
+<tr><td align="left" balign="left"> + setUp() </td></tr>
+<tr><td align="left" balign="left"> + cleanup() </td></tr>
+<tr><td align="left" balign="left"> + testReplayBRKVerwijderBerichten(sBestandsNaam : String, aantalBerichten : long, aantalProcessen : long, rBestandsNaam : String) </td></tr>
+<tr><td align="left" balign="left"> + testFillbestandsNaamHersteld(sBestandsNaam : String, aantalBerichten : long, aantalProcessen : long, rBestandsNaam : String) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./AdvancedFunctionsActionBeanIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBeanCleanupIntegrationTest
+	c63 [label=<<table title="nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBeanCleanupIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AdvancedFunctionsActionBeanCleanupIntegrationTest.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> AdvancedFunctionsActionBeanCleanupIntegrationTest </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + AdvancedFunctionsActionBeanCleanupIntegrationTest() </td></tr>
+<tr><td align="left" balign="left"> ~ argumentsProvider() : Stream&lt;Arguments&gt; </td></tr>
+<tr><td align="left" balign="left"> + setUp() </td></tr>
+<tr><td align="left" balign="left"> + cleanup() </td></tr>
+<tr><td align="left" balign="left"> + testCleanupBerichten(sBestandsNaam : String, aantalBerichtenRsgbOk : long, aantalBerichtenToArchive : long, aantalBerichtenArchive : long, aantalBerichtenRsgbNok : long) </td></tr>
+<tr><td align="left" balign="left"> + testDeleteBerichten(sBestandsNaam : String, aantalBerichtenRsgbOk : long, aantalBerichtenToArchive : long, aantalBerichtenArchive : long, aantalBerichtenRsgbNok : long) </td></tr>
+<tr><td align="left" balign="left"> + testCleanupAndDeleteBerichten(sBestandsNaam : String, aantalBerichtenRsgbOk : long, aantalBerichtenToArchive : long, aantalBerichtenArchive : long, aantalBerichtenRsgbNok : long) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./AdvancedFunctionsActionBeanCleanupIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.stripes.UpdateBeginDatumZakRechtIntegrationTest
-	c14 [label=<<table title="nl.b3p.brmo.service.stripes.UpdateBeginDatumZakRechtIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./UpdateBeginDatumZakRechtIntegrationTest.html">
+	c64 [label=<<table title="nl.b3p.brmo.service.stripes.UpdateBeginDatumZakRechtIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./UpdateBeginDatumZakRechtIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> UpdateBeginDatumZakRechtIntegrationTest </td></tr>
 		</table></td></tr>
@@ -24,89 +91,20 @@ digraph G {
 <tr><td align="left" balign="left"> + runUpdate() </td></tr>
 		</table></td></tr>
 		</table>>, URL="./UpdateBeginDatumZakRechtIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.service.stripes.AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest
-	c15 [label=<<table title="nl.b3p.brmo.service.stripes.AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest(sBestandsNaam : String, aantalBerichten : long, aantalProcessen : long, rBestandsNaam : String) </td></tr>
-<tr><td align="left" balign="left"> + params() : Collection&lt;&gt; </td></tr>
-<tr><td align="left" balign="left"> + setUp() </td></tr>
-<tr><td align="left" balign="left"> + cleanup() </td></tr>
-<tr><td align="left" balign="left"> + testReplayBRKVerwijderBerichtenNaUpdateIngangsdatumRecht() </td></tr>
-		</table></td></tr>
-		</table>>, URL="./AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBeanIntegrationTest
-	c16 [label=<<table title="nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBeanIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AdvancedFunctionsActionBeanIntegrationTest.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> AdvancedFunctionsActionBeanIntegrationTest </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + AdvancedFunctionsActionBeanIntegrationTest(sBestandsNaam : String, aantalBerichten : long, aantalProcessen : long, rBestandsNaam : String) </td></tr>
-<tr><td align="left" balign="left"> + params() : Collection&lt;&gt; </td></tr>
-<tr><td align="left" balign="left"> + setUp() </td></tr>
-<tr><td align="left" balign="left"> + cleanup() </td></tr>
-<tr><td align="left" balign="left"> + testReplayBRKVerwijderBerichten() </td></tr>
-<tr><td align="left" balign="left"> + testFillbestandsNaamHersteld() </td></tr>
-		</table></td></tr>
-		</table>>, URL="./AdvancedFunctionsActionBeanIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBeanCleanupIntegrationTest
-	c17 [label=<<table title="nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBeanCleanupIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AdvancedFunctionsActionBeanCleanupIntegrationTest.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> AdvancedFunctionsActionBeanCleanupIntegrationTest </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + AdvancedFunctionsActionBeanCleanupIntegrationTest(sBestandsNaam : String, aantalBerichtenRsgbOk : long, aantalBerichtenToArchive : long, aantalBerichtenArchive : long, aantalBerichtenRsgbNok : long) </td></tr>
-<tr><td align="left" balign="left"> + testdata() : Collection&lt;&gt; </td></tr>
-<tr><td align="left" balign="left"> + setUp() </td></tr>
-<tr><td align="left" balign="left"> + cleanup() </td></tr>
-<tr><td align="left" balign="left"> + testCleanupBerichten() </td></tr>
-<tr><td align="left" balign="left"> + testDeleteBerichten() </td></tr>
-<tr><td align="left" balign="left"> + testCleanupAndDeleteBerichten() </td></tr>
-		</table></td></tr>
-		</table>>, URL="./AdvancedFunctionsActionBeanCleanupIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.service.stripes.BRKComfortAdresUpdatesIntegrationTest
-	c18 [label=<<table title="nl.b3p.brmo.service.stripes.BRKComfortAdresUpdatesIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BRKComfortAdresUpdatesIntegrationTest.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> BRKComfortAdresUpdatesIntegrationTest </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BRKComfortAdresUpdatesIntegrationTest(sStagingBestand : String, sRsgbBestand : String) </td></tr>
-<tr><td align="left" balign="left"> + params() : Collection&lt;&gt; </td></tr>
-<tr><td align="left" balign="left"> + setUp() </td></tr>
-<tr><td align="left" balign="left"> + cleanup() </td></tr>
-<tr><td align="left" balign="left"> + testSnelleUpdate() </td></tr>
-		</table></td></tr>
-		</table>>, URL="./BRKComfortAdresUpdatesIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.service.stripes.UpdateBeginDatumZakRechtIntegrationTest NAVASSOC nl.b3p.brmo.service.stripes.UpdatesActionBean
-	c14:p -> c26:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.service.stripes.AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest NAVASSOC nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBean
-	c15:p -> c27:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c60:p -> c66:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.service.stripes.AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest NAVASSOC nl.b3p.brmo.service.stripes.UpdatesActionBean
-	c15:p -> c26:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBeanIntegrationTest NAVASSOC nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBean
-	c16:p -> c27:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBeanIntegrationTest NAVASSOC nl.b3p.brmo.service.stripes.UpdatesActionBean
-	c16:p -> c26:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBeanCleanupIntegrationTest NAVASSOC nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBean
-	c17:p -> c27:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c60:p -> c67:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.service.stripes.BRKComfortAdresUpdatesIntegrationTest NAVASSOC nl.b3p.brmo.service.stripes.UpdatesActionBean
-	c18:p -> c26:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c61:p -> c67:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBeanIntegrationTest NAVASSOC nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBean
+	c62:p -> c66:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBeanCleanupIntegrationTest NAVASSOC nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBean
+	c63:p -> c66:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.brmo.service.stripes.UpdateBeginDatumZakRechtIntegrationTest NAVASSOC nl.b3p.brmo.service.stripes.UpdatesActionBean
+	c64:p -> c67:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.service.stripes.UpdatesActionBean
-	c26 [label=<<table title="nl.b3p.brmo.service.stripes.UpdatesActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+	c67 [label=<<table title="nl.b3p.brmo.service.stripes.UpdatesActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> UpdatesActionBean </td></tr>
 		</table></td></tr>
@@ -144,7 +142,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBean
-	c27 [label=<<table title="nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+	c66 [label=<<table title="nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> AdvancedFunctionsActionBean </td></tr>
 		</table></td></tr>

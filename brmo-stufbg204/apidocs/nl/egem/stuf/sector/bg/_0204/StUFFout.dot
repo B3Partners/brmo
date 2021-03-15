@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.StUFFout
-	c198644 [label=<<table title="nl.egem.stuf.sector.bg._0204.StUFFout" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./StUFFout.html">
+	c198625 [label=<<table title="nl.egem.stuf.sector.bg._0204.StUFFout" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./StUFFout.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> StUFFout </td></tr>
 		</table></td></tr>
@@ -24,7 +24,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./StUFFout.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.stuf0204.FoutBericht
-	c198842 [label=<<table title="nl.egem.stuf.stuf0204.FoutBericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/FoutBericht.html">
+	c198859 [label=<<table title="nl.egem.stuf.stuf0204.FoutBericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/FoutBericht.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> FoutBericht </td></tr>
 		</table></td></tr>
@@ -41,6 +41,6 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="../../../stuf0204/FoutBericht.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.StUFFout NAVASSOC nl.egem.stuf.stuf0204.FoutBericht
-	c198644:p -> c198842:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c198625:p -> c198859:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

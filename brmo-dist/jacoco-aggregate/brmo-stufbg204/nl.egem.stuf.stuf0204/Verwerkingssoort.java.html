@@ -6,27 +6,26 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * &lt;p&gt;Java class for Verwerkingssoort.
+ * &amp;lt;p&amp;gt;Java class for Verwerkingssoort.
  * 
- * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
- * &lt;p&gt;
- * &lt;pre&gt;
- * &amp;lt;simpleType name=&quot;Verwerkingssoort&quot;&amp;gt;
- *   &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}string&quot;&amp;gt;
- *     &amp;lt;maxLength value=&quot;1&quot;/&amp;gt;
- *     &amp;lt;enumeration value=&quot;T&quot;/&amp;gt;
- *     &amp;lt;enumeration value=&quot;W&quot;/&amp;gt;
- *     &amp;lt;enumeration value=&quot;V&quot;/&amp;gt;
- *     &amp;lt;enumeration value=&quot;E&quot;/&amp;gt;
- *     &amp;lt;enumeration value=&quot;I&quot;/&amp;gt;
- *     &amp;lt;enumeration value=&quot;R&quot;/&amp;gt;
- *     &amp;lt;enumeration value=&quot;S&quot;/&amp;gt;
- *   &amp;lt;/restriction&amp;gt;
- * &amp;lt;/simpleType&amp;gt;
- * &lt;/pre&gt;
+ * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+ * &amp;lt;pre&amp;gt;
+ * &amp;amp;lt;simpleType name=&quot;Verwerkingssoort&quot;&amp;amp;gt;
+ *   &amp;amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}string&quot;&amp;amp;gt;
+ *     &amp;amp;lt;maxLength value=&quot;1&quot;/&amp;amp;gt;
+ *     &amp;amp;lt;enumeration value=&quot;T&quot;/&amp;amp;gt;
+ *     &amp;amp;lt;enumeration value=&quot;W&quot;/&amp;amp;gt;
+ *     &amp;amp;lt;enumeration value=&quot;V&quot;/&amp;amp;gt;
+ *     &amp;amp;lt;enumeration value=&quot;E&quot;/&amp;amp;gt;
+ *     &amp;amp;lt;enumeration value=&quot;I&quot;/&amp;amp;gt;
+ *     &amp;amp;lt;enumeration value=&quot;R&quot;/&amp;amp;gt;
+ *     &amp;amp;lt;enumeration value=&quot;S&quot;/&amp;amp;gt;
+ *   &amp;amp;lt;/restriction&amp;amp;gt;
+ * &amp;amp;lt;/simpleType&amp;amp;gt;
+ * &amp;lt;/pre&amp;gt;
  * 
  */
-<span class="nc" id="L29">@XmlType(name = &quot;Verwerkingssoort&quot;)</span>
+<span class="nc" id="L28">@XmlType(name = &quot;Verwerkingssoort&quot;)</span>
 @XmlEnum
 public enum Verwerkingssoort {
 
@@ -35,51 +34,51 @@ public enum Verwerkingssoort {
      * Toevoeging
      * 
      */
-<span class="nc" id="L38">    T,</span>
+<span class="nc" id="L37">    T,</span>
 
     /**
      * Wijziging of correctie
      * 
      */
-<span class="nc" id="L44">    W,</span>
+<span class="nc" id="L43">    W,</span>
 
     /**
      * Verwijdering
      * 
      */
-<span class="nc" id="L50">    V,</span>
+<span class="nc" id="L49">    V,</span>
 
     /**
      *  Een relatie entiteit wordt beeindigd.
      * 
      */
-<span class="nc" id="L56">    E,</span>
+<span class="nc" id="L55">    E,</span>
 
     /**
      * Entiteit bevat alleen identificerende gegevens.
      * 
      */
-<span class="nc" id="L62">    I,</span>
+<span class="nc" id="L61">    I,</span>
 
     /**
      * Een relatie entiteit wordt vervangen door een nieuwe relatie entiteit.
      * 
      */
-<span class="nc" id="L68">    R,</span>
+<span class="nc" id="L67">    R,</span>
 
     /**
      *  De sleutel van een fundamentele entiteit wordt gewijzigd.
      * 
      */
-<span class="nc" id="L74">    S;</span>
+<span class="nc" id="L73">    S;</span>
 
     public String value() {
-<span class="nc" id="L77">        return name();</span>
+<span class="nc" id="L76">        return name();</span>
     }
 
     public static Verwerkingssoort fromValue(String v) {
-<span class="nc" id="L81">        return valueOf(v);</span>
+<span class="nc" id="L80">        return valueOf(v);</span>
     }
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

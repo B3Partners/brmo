@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.AbstractDatabaseIntegrationTest
-	c541 [label=<<table title="nl.b3p.AbstractDatabaseIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../AbstractDatabaseIntegrationTest.html">
+	c514 [label=<<table title="nl.b3p.AbstractDatabaseIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../AbstractDatabaseIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> AbstractDatabaseIntegrationTest </font></td></tr>
 		</table></td></tr>
@@ -19,19 +19,18 @@ digraph G {
 <tr><td align="left" balign="left"> # isOracle : boolean </td></tr>
 <tr><td align="left" balign="left"> # isMsSQL : boolean </td></tr>
 <tr><td align="left" balign="left"> # isPostgis : boolean </td></tr>
-<tr><td align="left" balign="left"> + name : TestName </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> + AbstractDatabaseIntegrationTest() </td></tr>
 <tr><td align="left" balign="left"> + checkDatabaseIsProvided() </td></tr>
 <tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + setUp() </font></td></tr>
 <tr><td align="left" balign="left"> + loadProps() </td></tr>
-<tr><td align="left" balign="left"> + startTest() </td></tr>
-<tr><td align="left" balign="left"> + endTest() </td></tr>
+<tr><td align="left" balign="left"> + startTest(testInfo : TestInfo) </td></tr>
+<tr><td align="left" balign="left"> + endTest(testInfo : TestInfo) </td></tr>
 		</table></td></tr>
 		</table>>, URL="../../../AbstractDatabaseIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.entity.BagBerichtIntegrationTest
-	c555 [label=<<table title="nl.b3p.brmo.loader.entity.BagBerichtIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BagBerichtIntegrationTest.html">
+	c539 [label=<<table title="nl.b3p.brmo.loader.entity.BagBerichtIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BagBerichtIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BagBerichtIntegrationTest </td></tr>
 		</table></td></tr>
@@ -39,8 +38,8 @@ digraph G {
 <tr><td align="left" balign="left">  </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BagBerichtIntegrationTest(bestandNaam : String, aantalBerichten : long, aantalProcessen : long, timestamp : String) </td></tr>
-<tr><td align="left" balign="left"> + testdata() : Collection&lt;&gt; </td></tr>
+<tr><td align="left" balign="left"> + BagBerichtIntegrationTest() </td></tr>
+<tr><td align="left" balign="left"> + testdata() : Collection&lt;Object&gt; </td></tr>
 <tr><td align="left" balign="left"> + setUp() </td></tr>
 <tr><td align="left" balign="left"> + cleanup() </td></tr>
 <tr><td align="left" balign="left"> + loadInStaging() </td></tr>
@@ -48,11 +47,11 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BagBerichtIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.loader.entity.BagBerichtIntegrationTest extends nl.b3p.AbstractDatabaseIntegrationTest
-	c541:p -> c555:p [dir=back,arrowtail=empty];
+	c514:p -> c539:p [dir=back,arrowtail=empty];
 	// nl.b3p.brmo.loader.entity.BagBerichtIntegrationTest NAVASSOC nl.b3p.brmo.loader.BrmoFramework
-	c555:p -> c558:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c539:p -> c547:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.loader.BrmoFramework
-	c558 [label=<<table title="nl.b3p.brmo.loader.BrmoFramework" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+	c547 [label=<<table title="nl.b3p.brmo.loader.BrmoFramework" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BrmoFramework </td></tr>
 		</table></td></tr>

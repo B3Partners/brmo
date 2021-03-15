@@ -9,8 +9,22 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// nl.b3p.brmo.persistence.staging.BerichtTransformatieProces
+	c393 [label=<<table title="nl.b3p.brmo.persistence.staging.BerichtTransformatieProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BerichtTransformatieProces.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> BerichtTransformatieProces </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BerichtTransformatieProces() </td></tr>
+<tr><td align="left" balign="left"> + setBlockOnMissingNumbers(block : boolean) </td></tr>
+<tr><td align="left" balign="left"> + getBlockOnMissingNumbers() : boolean </td></tr>
+		</table></td></tr>
+		</table>>, URL="./BerichtTransformatieProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.persistence.staging.AutomatischProces
-	c349 [label=<<table title="nl.b3p.brmo.persistence.staging.AutomatischProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AutomatischProces.html">
+	c398 [label=<<table title="nl.b3p.brmo.persistence.staging.AutomatischProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AutomatischProces.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> AutomatischProces </font></td></tr>
 		</table></td></tr>
@@ -20,7 +34,6 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> + AutomatischProces() </td></tr>
 <tr><td align="left" balign="left"> + updateSamenvattingEnLogfile(samenvatting : String) </td></tr>
-<tr><td align="left" balign="left"> + addLogLine(line : String) </td></tr>
 <tr><td align="left" balign="left"> + getConfig() : Map&lt;String, ClobElement&gt; </td></tr>
 <tr><td align="left" balign="left"> + setConfig(config : Map&lt;String, ClobElement&gt;) </td></tr>
 <tr><td align="left" balign="left"> + getLastrun() : Date </td></tr>
@@ -38,27 +51,13 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./AutomatischProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// Note annotation
-	n0cc349 [label=<<table title="nl.b3p.brmo.persistence.staging.AutomatischProces" border="0" cellborder="0" cellspacing="0" cellpadding="2" port="p" href="./AutomatischProces.html">
+	n0cc398 [label=<<table title="nl.b3p.brmo.persistence.staging.AutomatischProces" border="0" cellborder="0" cellspacing="0" cellpadding="2" port="p" href="./AutomatischProces.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> Tabel "automatisch_proces" in de database. </td></tr>
 		</table></td></tr>
 		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0, shape=note];
-	n0cc349 -> c349:p[arrowhead=none];
-	// nl.b3p.brmo.persistence.staging.BerichtTransformatieProces
-	c357 [label=<<table title="nl.b3p.brmo.persistence.staging.BerichtTransformatieProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BerichtTransformatieProces.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> BerichtTransformatieProces </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BerichtTransformatieProces() </td></tr>
-<tr><td align="left" balign="left"> + setBlockOnMissingNumbers(block : boolean) </td></tr>
-<tr><td align="left" balign="left"> + getBlockOnMissingNumbers() : boolean </td></tr>
-		</table></td></tr>
-		</table>>, URL="./BerichtTransformatieProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	n0cc398 -> c398:p[arrowhead=none];
 	//nl.b3p.brmo.persistence.staging.BerichtTransformatieProces extends nl.b3p.brmo.persistence.staging.AutomatischProces
-	c349:p -> c357:p [dir=back,arrowtail=empty];
+	c398:p -> c393:p [dir=back,arrowtail=empty];
 }
 

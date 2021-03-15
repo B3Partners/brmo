@@ -9,22 +9,8 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// nl.egem.stuf.sector.bg._0204.NNPAntwoord.NNPNNPNVN
-	c110327 [label=<<table title="nl.egem.stuf.sector.bg._0204.NNPAntwoord.NNPNNPNVN" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./NNPAntwoord.NNPNNPNVN.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> NNPNNPNVN </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # nnp : JAXBElement&lt;NNPKennisgeving&gt; </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + NNPNNPNVN() </td></tr>
-<tr><td align="left" balign="left"> + getNNP() : JAXBElement&lt;NNPKennisgeving&gt; </td></tr>
-<tr><td align="left" balign="left"> + setNNP(value : JAXBElement&lt;NNPKennisgeving&gt;) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./NNPAntwoord.NNPNNPNVN.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.Relatie
-	c110642 [label=<<table title="nl.egem.stuf.sector.bg._0204.Relatie" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Relatie.html">
+	c110427 [label=<<table title="nl.egem.stuf.sector.bg._0204.Relatie" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Relatie.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Relatie </td></tr>
 		</table></td></tr>
@@ -61,7 +47,21 @@ digraph G {
 <tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Relatie.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.NNPAntwoord.NNPNNPNVN
+	c110473 [label=<<table title="nl.egem.stuf.sector.bg._0204.NNPAntwoord.NNPNNPNVN" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./NNPAntwoord.NNPNNPNVN.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> NNPNNPNVN </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # nnp : JAXBElement&lt;NNPKennisgeving&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + NNPNNPNVN() </td></tr>
+<tr><td align="left" balign="left"> + getNNP() : JAXBElement&lt;NNPKennisgeving&gt; </td></tr>
+<tr><td align="left" balign="left"> + setNNP(value : JAXBElement&lt;NNPKennisgeving&gt;) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./NNPAntwoord.NNPNNPNVN.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.NNPAntwoord.NNPNNPNVN extends nl.egem.stuf.sector.bg._0204.Relatie
-	c110642:p -> c110327:p [dir=back,arrowtail=empty];
+	c110427:p -> c110473:p [dir=back,arrowtail=empty];
 }
 

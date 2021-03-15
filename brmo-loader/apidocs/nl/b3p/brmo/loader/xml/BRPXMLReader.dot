@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.loader.StagingProxy
-	c914 [label=<<table title="nl.b3p.brmo.loader.StagingProxy" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../StagingProxy.html">
+	c915 [label=<<table title="nl.b3p.brmo.loader.StagingProxy" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../StagingProxy.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> StagingProxy </td></tr>
 		</table></td></tr>
@@ -61,8 +61,25 @@ digraph G {
 <tr><td align="left" balign="left"> + setLimitStandBerichtenToTransform(limitStandBerichtenToTransform : Integer) </td></tr>
 		</table></td></tr>
 		</table>>, URL="../StagingProxy.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.loader.xml.BRPXMLReader
+	c922 [label=<<table title="nl.b3p.brmo.loader.xml.BRPXMLReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BRPXMLReader.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> BRPXMLReader </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + PREFIX : String </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BRPXMLReader(in : InputStream, d : Date, staging : StagingProxy) </td></tr>
+<tr><td align="left" balign="left"> + init() </td></tr>
+<tr><td align="left" balign="left"> + hasNext() : boolean </td></tr>
+<tr><td align="left" balign="left"> + next() : Bericht </td></tr>
+<tr><td align="left" balign="left"> + extractBSN(n : Node) : Map&lt;String, String&gt; </td></tr>
+<tr><td align="left" balign="left"> + getXML(map : Map&lt;String, String&gt;) : String </td></tr>
+		</table></td></tr>
+		</table>>, URL="./BRPXMLReader.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.xml.BrmoXMLReader
-	c916 [label=<<table title="nl.b3p.brmo.loader.xml.BrmoXMLReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BrmoXMLReader.html">
+	c927 [label=<<table title="nl.b3p.brmo.loader.xml.BrmoXMLReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BrmoXMLReader.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> BrmoXMLReader </font></td></tr>
 		</table></td></tr>
@@ -95,26 +112,9 @@ digraph G {
 <tr><td align="left" balign="left"> + setContactEmail(contactEmail : String) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./BrmoXMLReader.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.loader.xml.BRPXMLReader
-	c917 [label=<<table title="nl.b3p.brmo.loader.xml.BRPXMLReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BRPXMLReader.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> BRPXMLReader </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + PREFIX : String </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BRPXMLReader(in : InputStream, d : Date, staging : StagingProxy) </td></tr>
-<tr><td align="left" balign="left"> + init() </td></tr>
-<tr><td align="left" balign="left"> + hasNext() : boolean </td></tr>
-<tr><td align="left" balign="left"> + next() : Bericht </td></tr>
-<tr><td align="left" balign="left"> + extractBSN(n : Node) : Map&lt;String, String&gt; </td></tr>
-<tr><td align="left" balign="left"> + getXML(map : Map&lt;String, String&gt;) : String </td></tr>
-		</table></td></tr>
-		</table>>, URL="./BRPXMLReader.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.loader.xml.BRPXMLReader extends nl.b3p.brmo.loader.xml.BrmoXMLReader
-	c916:p -> c917:p [dir=back,arrowtail=empty];
+	c927:p -> c922:p [dir=back,arrowtail=empty];
 	// nl.b3p.brmo.loader.xml.BRPXMLReader NAVASSOC nl.b3p.brmo.loader.StagingProxy
-	c917:p -> c914:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c922:p -> c915:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

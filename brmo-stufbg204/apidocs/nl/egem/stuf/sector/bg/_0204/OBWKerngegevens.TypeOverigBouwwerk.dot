@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.OBWKerngegevens
-	c137250 [label=<<table title="nl.egem.stuf.sector.bg._0204.OBWKerngegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./OBWKerngegevens.html">
+	c137446 [label=<<table title="nl.egem.stuf.sector.bg._0204.OBWKerngegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./OBWKerngegevens.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> OBWKerngegevens </td></tr>
 		</table></td></tr>
@@ -48,7 +48,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./OBWKerngegevens.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.OBWKerngegevens.TypeOverigBouwwerk
-	c137253 [label=<<table title="nl.egem.stuf.sector.bg._0204.OBWKerngegevens.TypeOverigBouwwerk" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./OBWKerngegevens.TypeOverigBouwwerk.html">
+	c137449 [label=<<table title="nl.egem.stuf.sector.bg._0204.OBWKerngegevens.TypeOverigBouwwerk" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./OBWKerngegevens.TypeOverigBouwwerk.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> TypeOverigBouwwerk </td></tr>
 		</table></td></tr>
@@ -71,7 +71,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./OBWKerngegevens.TypeOverigBouwwerk.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.stuf0204.NoValue
-	c137618 [label=<<table title="nl.egem.stuf.stuf0204.NoValue" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/NoValue.html">
+	c137639 [label=<<table title="nl.egem.stuf.stuf0204.NoValue" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/NoValue.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> NoValue </td></tr>
@@ -87,10 +87,10 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="../../../stuf0204/NoValue.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.OBWKerngegevens NAVASSOC nl.egem.stuf.sector.bg._0204.OBWKerngegevens.TypeOverigBouwwerk
-	c137250:p -> c137253:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c137446:p -> c137449:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.egem.stuf.sector.bg._0204.OBWKerngegevens NAVASSOC nl.egem.stuf.stuf0204.NoValue
-	c137250:p -> c137618:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c137446:p -> c137639:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.egem.stuf.sector.bg._0204.OBWKerngegevens.TypeOverigBouwwerk NAVASSOC nl.egem.stuf.stuf0204.NoValue
-	c137253:p -> c137618:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c137449:p -> c137639:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

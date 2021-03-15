@@ -9,29 +9,8 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// nl.egem.stuf.sector.bg._0204.NNPAntwoord
-	c110831 [label=<<table title="nl.egem.stuf.sector.bg._0204.NNPAntwoord" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NNPAntwoord.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> NNPAntwoord </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # nnp : List&lt;NNPFund&gt; </td></tr>
-<tr><td align="left" balign="left"> # nnpadrcor : List&lt;ADRRelFund&gt; </td></tr>
-<tr><td align="left" balign="left"> # nnpadrvbl : List&lt;ADRRelFund&gt; </td></tr>
-<tr><td align="left" balign="left"> # nnpnnphfd : List&lt;NNPAntwoord.NNPNNPHFD&gt; </td></tr>
-<tr><td align="left" balign="left"> # nnpnnpnvn : List&lt;NNPAntwoord.NNPNNPNVN&gt; </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + NNPAntwoord() </td></tr>
-<tr><td align="left" balign="left"> + getNNP() : List&lt;NNPFund&gt; </td></tr>
-<tr><td align="left" balign="left"> + getNNPADRCOR() : List&lt;ADRRelFund&gt; </td></tr>
-<tr><td align="left" balign="left"> + getNNPADRVBL() : List&lt;ADRRelFund&gt; </td></tr>
-<tr><td align="left" balign="left"> + getNNPNNPHFD() : List&lt;NNPAntwoord.NNPNNPHFD&gt; </td></tr>
-<tr><td align="left" balign="left"> + getNNPNNPNVN() : List&lt;NNPAntwoord.NNPNNPNVN&gt; </td></tr>
-		</table></td></tr>
-		</table>>, URL="./NNPAntwoord.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.NNPKennisgeving
-	c110846 [label=<<table title="nl.egem.stuf.sector.bg._0204.NNPKennisgeving" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NNPKennisgeving.html">
+	c110957 [label=<<table title="nl.egem.stuf.sector.bg._0204.NNPKennisgeving" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NNPKennisgeving.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> NNPKennisgeving </td></tr>
 		</table></td></tr>
@@ -52,8 +31,29 @@ digraph G {
 <tr><td align="left" balign="left"> + getNNPNNPNVN() : List&lt;NNPKennisgeving.NNPNNPNVN&gt; </td></tr>
 		</table></td></tr>
 		</table>>, URL="./NNPKennisgeving.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.NNPAntwoord
+	c110977 [label=<<table title="nl.egem.stuf.sector.bg._0204.NNPAntwoord" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NNPAntwoord.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> NNPAntwoord </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # nnp : List&lt;NNPFund&gt; </td></tr>
+<tr><td align="left" balign="left"> # nnpadrcor : List&lt;ADRRelFund&gt; </td></tr>
+<tr><td align="left" balign="left"> # nnpadrvbl : List&lt;ADRRelFund&gt; </td></tr>
+<tr><td align="left" balign="left"> # nnpnnphfd : List&lt;NNPAntwoord.NNPNNPHFD&gt; </td></tr>
+<tr><td align="left" balign="left"> # nnpnnpnvn : List&lt;NNPAntwoord.NNPNNPNVN&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + NNPAntwoord() </td></tr>
+<tr><td align="left" balign="left"> + getNNP() : List&lt;NNPFund&gt; </td></tr>
+<tr><td align="left" balign="left"> + getNNPADRCOR() : List&lt;ADRRelFund&gt; </td></tr>
+<tr><td align="left" balign="left"> + getNNPADRVBL() : List&lt;ADRRelFund&gt; </td></tr>
+<tr><td align="left" balign="left"> + getNNPNNPHFD() : List&lt;NNPAntwoord.NNPNNPHFD&gt; </td></tr>
+<tr><td align="left" balign="left"> + getNNPNNPNVN() : List&lt;NNPAntwoord.NNPNNPNVN&gt; </td></tr>
+		</table></td></tr>
+		</table>>, URL="./NNPAntwoord.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.NNPVraag
-	c111070 [label=<<table title="nl.egem.stuf.sector.bg._0204.NNPVraag" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NNPVraag.html">
+	c111030 [label=<<table title="nl.egem.stuf.sector.bg._0204.NNPVraag" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NNPVraag.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> NNPVraag </td></tr>
 		</table></td></tr>
@@ -76,7 +76,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./NNPVraag.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.NNPFund
-	c111178 [label=<<table title="nl.egem.stuf.sector.bg._0204.NNPFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./NNPFund.html">
+	c111176 [label=<<table title="nl.egem.stuf.sector.bg._0204.NNPFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./NNPFund.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> NNPFund </td></tr>
 		</table></td></tr>
@@ -180,24 +180,8 @@ digraph G {
 <tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./NNPFund.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.stuf0204.NoValue
-	c111306 [label=<<table title="nl.egem.stuf.stuf0204.NoValue" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/NoValue.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
-<tr><td align="center" balign="center"> NoValue </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> NIET_ONDERSTEUND </td></tr>
-<tr><td align="left" balign="left"> NIET_GEAUTORISEERD </td></tr>
-<tr><td align="left" balign="left"> GEEN_WAARDE </td></tr>
-<tr><td align="left" balign="left"> WAARDE_ONBEKEND </td></tr>
-		</table></td></tr>
-		</table>>, URL="../../../stuf0204/NoValue.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.stuf0204.Verwerkingssoort
-	c111309 [label=<<table title="nl.egem.stuf.stuf0204.Verwerkingssoort" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/Verwerkingssoort.html">
+	c111317 [label=<<table title="nl.egem.stuf.stuf0204.Verwerkingssoort" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/Verwerkingssoort.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> Verwerkingssoort </td></tr>
@@ -215,8 +199,21 @@ digraph G {
 <tr><td align="left" balign="left"> S </td></tr>
 		</table></td></tr>
 		</table>>, URL="../../../stuf0204/Verwerkingssoort.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.stuf0204.ExtraElementen
+	c111320 [label=<<table title="nl.egem.stuf.stuf0204.ExtraElementen" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/ExtraElementen.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> ExtraElementen </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # extraElement : List&lt;ExtraElement&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + ExtraElementen() </td></tr>
+<tr><td align="left" balign="left"> + getExtraElement() : List&lt;ExtraElement&gt; </td></tr>
+		</table></td></tr>
+		</table>>, URL="../../../stuf0204/ExtraElementen.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.stuf0204.TijdvakGeldigheid
-	c111310 [label=<<table title="nl.egem.stuf.stuf0204.TijdvakGeldigheid" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/TijdvakGeldigheid.html">
+	c111323 [label=<<table title="nl.egem.stuf.stuf0204.TijdvakGeldigheid" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/TijdvakGeldigheid.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> TijdvakGeldigheid </td></tr>
 		</table></td></tr>
@@ -232,32 +229,35 @@ digraph G {
 <tr><td align="left" balign="left"> + setEinddatumTijdvakGeldigheid(value : DatumMetIndicator) </td></tr>
 		</table></td></tr>
 		</table>>, URL="../../../stuf0204/TijdvakGeldigheid.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.stuf0204.ExtraElementen
-	c111321 [label=<<table title="nl.egem.stuf.stuf0204.ExtraElementen" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/ExtraElementen.html">
+	// nl.egem.stuf.stuf0204.NoValue
+	c111327 [label=<<table title="nl.egem.stuf.stuf0204.NoValue" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/NoValue.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> ExtraElementen </td></tr>
+<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
+<tr><td align="center" balign="center"> NoValue </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # extraElement : List&lt;ExtraElement&gt; </td></tr>
+<tr><td align="left" balign="left">  </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + ExtraElementen() </td></tr>
-<tr><td align="left" balign="left"> + getExtraElement() : List&lt;ExtraElement&gt; </td></tr>
+<tr><td align="left" balign="left"> NIET_ONDERSTEUND </td></tr>
+<tr><td align="left" balign="left"> NIET_GEAUTORISEERD </td></tr>
+<tr><td align="left" balign="left"> GEEN_WAARDE </td></tr>
+<tr><td align="left" balign="left"> WAARDE_ONBEKEND </td></tr>
 		</table></td></tr>
-		</table>>, URL="../../../stuf0204/ExtraElementen.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	//nl.egem.stuf.sector.bg._0204.NNPAntwoord extends nl.egem.stuf.sector.bg._0204.NNPFund
-	c111178:p -> c110831:p [dir=back,arrowtail=empty];
+		</table>>, URL="../../../stuf0204/NoValue.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.NNPKennisgeving extends nl.egem.stuf.sector.bg._0204.NNPFund
-	c111178:p -> c110846:p [dir=back,arrowtail=empty];
+	c111176:p -> c110957:p [dir=back,arrowtail=empty];
+	//nl.egem.stuf.sector.bg._0204.NNPAntwoord extends nl.egem.stuf.sector.bg._0204.NNPFund
+	c111176:p -> c110977:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.NNPVraag extends nl.egem.stuf.sector.bg._0204.NNPFund
-	c111178:p -> c111070:p [dir=back,arrowtail=empty];
+	c111176:p -> c111030:p [dir=back,arrowtail=empty];
 	// nl.egem.stuf.sector.bg._0204.NNPFund NAVASSOC nl.egem.stuf.stuf0204.TijdvakGeldigheid
-	c111178:p -> c111310:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c111176:p -> c111323:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.egem.stuf.sector.bg._0204.NNPFund NAVASSOC nl.egem.stuf.stuf0204.ExtraElementen
-	c111178:p -> c111321:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c111176:p -> c111320:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.egem.stuf.sector.bg._0204.NNPFund NAVASSOC nl.egem.stuf.stuf0204.Verwerkingssoort
-	c111178:p -> c111309:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c111176:p -> c111317:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.egem.stuf.sector.bg._0204.NNPFund NAVASSOC nl.egem.stuf.stuf0204.NoValue
-	c111178:p -> c111306:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c111176:p -> c111327:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

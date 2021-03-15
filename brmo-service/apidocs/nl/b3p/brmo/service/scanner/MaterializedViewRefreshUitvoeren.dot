@@ -9,8 +9,40 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// nl.b3p.brmo.service.scanner.MaterializedViewRefreshUitvoeren
+	c2192 [label=<<table title="nl.b3p.brmo.service.scanner.MaterializedViewRefreshUitvoeren" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./MaterializedViewRefreshUitvoeren.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> MaterializedViewRefreshUitvoeren </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + MaterializedViewRefreshUitvoeren(config : MaterializedViewRefresh) </td></tr>
+<tr><td align="left" balign="left"> + execute() </td></tr>
+<tr><td align="left" balign="left"> + execute(listener : ProgressUpdateListener) </td></tr>
+<tr><td align="left" balign="left"> + mviews() : List&lt;String&gt; </td></tr>
+		</table></td></tr>
+		</table>>, URL="./MaterializedViewRefreshUitvoeren.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.service.scanner.ProgressUpdateListener
+	c2200 [label=<<table title="nl.b3p.brmo.service.scanner.ProgressUpdateListener" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ProgressUpdateListener.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
+<tr><td align="center" balign="center"> ProgressUpdateListener </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + total(total : long) </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + progress(progress : long) </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + exception(t : Throwable) </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + updateStatus(status : String) </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + addLog(log : String) </font></td></tr>
+		</table></td></tr>
+		</table>>, URL="./ProgressUpdateListener.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.scanner.AbstractExecutableProces
-	c2212 [label=<<table title="nl.b3p.brmo.service.scanner.AbstractExecutableProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AbstractExecutableProces.html">
+	c2206 [label=<<table title="nl.b3p.brmo.service.scanner.AbstractExecutableProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AbstractExecutableProces.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> AbstractExecutableProces </font></td></tr>
 		</table></td></tr>
@@ -29,44 +61,12 @@ digraph G {
 <tr><td align="left" balign="left"> # getBestandsDatum(f : File) : Date </td></tr>
 		</table></td></tr>
 		</table>>, URL="./AbstractExecutableProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.service.scanner.MaterializedViewRefreshUitvoeren
-	c2213 [label=<<table title="nl.b3p.brmo.service.scanner.MaterializedViewRefreshUitvoeren" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./MaterializedViewRefreshUitvoeren.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> MaterializedViewRefreshUitvoeren </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + MaterializedViewRefreshUitvoeren(config : MaterializedViewRefresh) </td></tr>
-<tr><td align="left" balign="left"> + execute() </td></tr>
-<tr><td align="left" balign="left"> + execute(listener : ProgressUpdateListener) </td></tr>
-<tr><td align="left" balign="left"> + mviews() : List&lt;String&gt; </td></tr>
-		</table></td></tr>
-		</table>>, URL="./MaterializedViewRefreshUitvoeren.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.service.scanner.ProgressUpdateListener
-	c2214 [label=<<table title="nl.b3p.brmo.service.scanner.ProgressUpdateListener" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ProgressUpdateListener.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
-<tr><td align="center" balign="center"> ProgressUpdateListener </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + total(total : long) </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + progress(progress : long) </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + exception(t : Throwable) </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + updateStatus(status : String) </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + addLog(log : String) </font></td></tr>
-		</table></td></tr>
-		</table>>, URL="./ProgressUpdateListener.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.service.scanner.MaterializedViewRefreshUitvoeren extends nl.b3p.brmo.service.scanner.AbstractExecutableProces
-	c2212:p -> c2213:p [dir=back,arrowtail=empty];
+	c2206:p -> c2192:p [dir=back,arrowtail=empty];
 	// nl.b3p.brmo.service.scanner.MaterializedViewRefreshUitvoeren NAVASSOC nl.b3p.brmo.persistence.staging.MaterializedViewRefresh
-	c2213:p -> c2230:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c2192:p -> c2230:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.service.scanner.MaterializedViewRefreshUitvoeren NAVASSOC nl.b3p.brmo.service.scanner.ProgressUpdateListener
-	c2213:p -> c2214:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c2192:p -> c2200:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.persistence.staging.MaterializedViewRefresh
 	c2230 [label=<<table title="nl.b3p.brmo.persistence.staging.MaterializedViewRefresh" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">

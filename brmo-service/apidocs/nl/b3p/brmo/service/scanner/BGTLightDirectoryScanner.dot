@@ -9,8 +9,39 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// nl.b3p.brmo.service.scanner.BGTLightDirectoryScanner
+	c728 [label=<<table title="nl.b3p.brmo.service.scanner.BGTLightDirectoryScanner" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BGTLightDirectoryScanner.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> BGTLightDirectoryScanner </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BGTLightDirectoryScanner(config : BGTLightScannerProces) </td></tr>
+<tr><td align="left" balign="left"> + execute() </td></tr>
+<tr><td align="left" balign="left"> + execute(listener : ProgressUpdateListener) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./BGTLightDirectoryScanner.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.service.scanner.ProgressUpdateListener
+	c731 [label=<<table title="nl.b3p.brmo.service.scanner.ProgressUpdateListener" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ProgressUpdateListener.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
+<tr><td align="center" balign="center"> ProgressUpdateListener </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + total(total : long) </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + progress(progress : long) </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + exception(t : Throwable) </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + updateStatus(status : String) </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + addLog(log : String) </font></td></tr>
+		</table></td></tr>
+		</table>>, URL="./ProgressUpdateListener.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.scanner.AbstractExecutableProces
-	c743 [label=<<table title="nl.b3p.brmo.service.scanner.AbstractExecutableProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AbstractExecutableProces.html">
+	c737 [label=<<table title="nl.b3p.brmo.service.scanner.AbstractExecutableProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AbstractExecutableProces.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> AbstractExecutableProces </font></td></tr>
 		</table></td></tr>
@@ -29,43 +60,12 @@ digraph G {
 <tr><td align="left" balign="left"> # getBestandsDatum(f : File) : Date </td></tr>
 		</table></td></tr>
 		</table>>, URL="./AbstractExecutableProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.service.scanner.ProgressUpdateListener
-	c745 [label=<<table title="nl.b3p.brmo.service.scanner.ProgressUpdateListener" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ProgressUpdateListener.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
-<tr><td align="center" balign="center"> ProgressUpdateListener </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + total(total : long) </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + progress(progress : long) </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + exception(t : Throwable) </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + updateStatus(status : String) </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + addLog(log : String) </font></td></tr>
-		</table></td></tr>
-		</table>>, URL="./ProgressUpdateListener.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.service.scanner.BGTLightDirectoryScanner
-	c751 [label=<<table title="nl.b3p.brmo.service.scanner.BGTLightDirectoryScanner" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BGTLightDirectoryScanner.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> BGTLightDirectoryScanner </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BGTLightDirectoryScanner(config : BGTLightScannerProces) </td></tr>
-<tr><td align="left" balign="left"> + execute() </td></tr>
-<tr><td align="left" balign="left"> + execute(listener : ProgressUpdateListener) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./BGTLightDirectoryScanner.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.service.scanner.BGTLightDirectoryScanner extends nl.b3p.brmo.service.scanner.AbstractExecutableProces
-	c743:p -> c751:p [dir=back,arrowtail=empty];
+	c737:p -> c728:p [dir=back,arrowtail=empty];
 	// nl.b3p.brmo.service.scanner.BGTLightDirectoryScanner NAVASSOC nl.b3p.brmo.persistence.staging.BGTLightScannerProces
-	c751:p -> c761:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c728:p -> c761:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.service.scanner.BGTLightDirectoryScanner NAVASSOC nl.b3p.brmo.service.scanner.ProgressUpdateListener
-	c751:p -> c745:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c728:p -> c731:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.persistence.staging.BGTLightScannerProces
 	c761 [label=<<table title="nl.b3p.brmo.persistence.staging.BGTLightScannerProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">

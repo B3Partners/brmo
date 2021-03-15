@@ -1,6 +1,6 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
 BRMO BGT GML loader,nl.b3p.brmo.loader.gml,BGTGMLLightLoader,1512,0,102,0,283,0,74,0,23,0
-BRMO BGT GML loader,nl.b3p.brmo.loader.gml,BGTGMLLightTransformerFactory,498,0,2,0,51,0,7,0,6,0
+BRMO BGT GML loader,nl.b3p.brmo.loader.gml,BGTGMLLightTransformerFactory,503,0,2,0,51,0,7,0,6,0
 BRMO BGT GML loader,nl.b3p.brmo.loader.gml,BGTGMLLightLoader.new FilenameFilter() {...},11,0,0,0,2,0,2,0,2,0
 BRMO BGT GML loader,nl.b3p.brmo.loader.gml,BGTGMLLightLoader.STATUS,24,0,0,0,2,0,1,0,1,0
 BRMO BGT GML loader,nl.b3p.brmo.loader.gml.light,OpenbareRuimteLabel,57,0,0,0,11,0,1,0,1,0
@@ -9,11 +9,11 @@ BRMO BGT GML loader,nl.b3p.brmo.loader.gml.light,GMLLightFeatureTransformerImpl,
 BRMO BGT GML loader,nl.b3p.brmo.loader.gml.light,VegetatieObject,27,0,0,0,6,0,1,0,1,0
 BRMO BGT GML loader,nl.b3p.brmo.loader.gml.light,Weginrichtingselement,27,0,0,0,6,0,1,0,1,0
 BRMO BGT GML loader,nl.b3p.brmo.loader.gml.light,Tunneldeel,15,0,0,0,4,0,1,0,1,0
-BRMO BGT GML loader,nl.b3p.brmo.loader.gml.light,Installatie,27,0,0,0,6,0,1,0,1,0
 BRMO BGT GML loader,nl.b3p.brmo.loader.gml.light,Waterschap,15,0,0,0,4,0,1,0,1,0
+BRMO BGT GML loader,nl.b3p.brmo.loader.gml.light,Installatie,27,0,0,0,6,0,1,0,1,0
 BRMO BGT GML loader,nl.b3p.brmo.loader.gml.light,Pand,177,0,0,0,31,0,1,0,1,0
-BRMO BGT GML loader,nl.b3p.brmo.loader.gml.light,Scheiding,21,0,0,0,5,0,1,0,1,0
 BRMO BGT GML loader,nl.b3p.brmo.loader.gml.light,FunctioneelGebied,27,0,0,0,6,0,1,0,1,0
+BRMO BGT GML loader,nl.b3p.brmo.loader.gml.light,Scheiding,21,0,0,0,5,0,1,0,1,0
 BRMO BGT GML loader,nl.b3p.brmo.loader.gml.light,BegroeidTerreindeel,39,0,0,0,8,0,1,0,1,0
 BRMO BGT GML loader,nl.b3p.brmo.loader.gml.light,Mast,27,0,0,0,6,0,1,0,1,0
 BRMO BGT GML loader,nl.b3p.brmo.loader.gml.light,Kast,27,0,0,0,6,0,1,0,1,0
@@ -28,8 +28,8 @@ BRMO BGT GML loader,nl.b3p.brmo.loader.gml.light,Waterinrichtingselement,27,0,0,
 BRMO BGT GML loader,nl.b3p.brmo.loader.gml.light,Wegdeel,51,0,0,0,10,0,1,0,1,0
 BRMO BGT GML loader,nl.b3p.brmo.loader.gml.light,OnbegroeidTerreindeel,33,0,0,0,7,0,1,0,1,0
 BRMO BGT GML loader,nl.b3p.brmo.loader.gml.light,Kunstwerkdeel,21,0,0,0,5,0,1,0,1,0
-BRMO BGT GML loader,nl.b3p.brmo.loader.gml.light,Bak,27,0,0,0,6,0,1,0,1,0
 BRMO BGT GML loader,nl.b3p.brmo.loader.gml.light,Wijk,27,0,0,0,6,0,1,0,1,0
+BRMO BGT GML loader,nl.b3p.brmo.loader.gml.light,Bak,27,0,0,0,6,0,1,0,1,0
 BRMO BGT GML loader,nl.b3p.brmo.loader.gml.light,Spoor,27,0,0,0,6,0,1,0,1,0
 BRMO BGT GML loader,nl.b3p.brmo.loader.gml.light,OndersteunendWegdeel,51,0,0,0,10,0,1,0,1,0
 BRMO BGT GML loader,nl.b3p.brmo.loader.gml.light,Sensor,27,0,0,0,6,0,1,0,1,0
@@ -39,5 +39,5 @@ BRMO BGT GML loader,nl.b3p.brmo.loader.gml.light,Waterdeel,21,0,0,0,5,0,1,0,1,0
 BRMO BGT GML loader,nl.b3p.brmo.loader.gml.light,OndersteunendWaterdeel,21,0,0,0,5,0,1,0,1,0
 BRMO BGT GML loader,nl.b3p.brmo.loader.gml.light,Paal,33,0,0,0,7,0,1,0,1,0
 BRMO BGT GML loader,nl.b3p.brmo.loader.gml.light,Stadsdeel,15,0,0,0,4,0,1,0,1,0
-BRMO BGT GML loader,nl.b3p.brmo.bgt.util,PDOKBGTLightUtil,16,122,0,4,6,27,0,5,0,3
+BRMO BGT GML loader,nl.b3p.brmo.bgt.util,PDOKBGTLightUtil,11,127,0,4,4,29,0,5,0,3
 BRMO BGT GML loader,nl.b3p.brmo.bgt.util,JDBCDataStoreUtil,187,0,2,0,26,0,3,0,2,0

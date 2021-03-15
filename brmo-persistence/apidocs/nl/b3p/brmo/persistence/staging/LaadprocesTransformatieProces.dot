@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.persistence.staging.AutomatischProces
-	c609 [label=<<table title="nl.b3p.brmo.persistence.staging.AutomatischProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AutomatischProces.html">
+	c668 [label=<<table title="nl.b3p.brmo.persistence.staging.AutomatischProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AutomatischProces.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> AutomatischProces </font></td></tr>
 		</table></td></tr>
@@ -20,7 +20,6 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> + AutomatischProces() </td></tr>
 <tr><td align="left" balign="left"> + updateSamenvattingEnLogfile(samenvatting : String) </td></tr>
-<tr><td align="left" balign="left"> + addLogLine(line : String) </td></tr>
 <tr><td align="left" balign="left"> + getConfig() : Map&lt;String, ClobElement&gt; </td></tr>
 <tr><td align="left" balign="left"> + setConfig(config : Map&lt;String, ClobElement&gt;) </td></tr>
 <tr><td align="left" balign="left"> + getLastrun() : Date </td></tr>
@@ -38,14 +37,14 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./AutomatischProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// Note annotation
-	n0cc609 [label=<<table title="nl.b3p.brmo.persistence.staging.AutomatischProces" border="0" cellborder="0" cellspacing="0" cellpadding="2" port="p" href="./AutomatischProces.html">
+	n0cc668 [label=<<table title="nl.b3p.brmo.persistence.staging.AutomatischProces" border="0" cellborder="0" cellspacing="0" cellpadding="2" port="p" href="./AutomatischProces.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> Tabel "automatisch_proces" in de database. </td></tr>
 		</table></td></tr>
 		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0, shape=note];
-	n0cc609 -> c609:p[arrowhead=none];
+	n0cc668 -> c668:p[arrowhead=none];
 	// nl.b3p.brmo.persistence.staging.LaadprocesTransformatieProces
-	c612 [label=<<table title="nl.b3p.brmo.persistence.staging.LaadprocesTransformatieProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./LaadprocesTransformatieProces.html">
+	c678 [label=<<table title="nl.b3p.brmo.persistence.staging.LaadprocesTransformatieProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./LaadprocesTransformatieProces.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> LaadprocesTransformatieProces </td></tr>
 		</table></td></tr>
@@ -59,6 +58,6 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./LaadprocesTransformatieProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.persistence.staging.LaadprocesTransformatieProces extends nl.b3p.brmo.persistence.staging.AutomatischProces
-	c609:p -> c612:p [dir=back,arrowtail=empty];
+	c668:p -> c678:p [dir=back,arrowtail=empty];
 }
 

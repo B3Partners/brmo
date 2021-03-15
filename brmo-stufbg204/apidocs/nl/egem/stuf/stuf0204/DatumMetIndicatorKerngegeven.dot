@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.stuf0204.DatumMetIndicator
-	c53135 [label=<<table title="nl.egem.stuf.stuf0204.DatumMetIndicator" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DatumMetIndicator.html">
+	c53124 [label=<<table title="nl.egem.stuf.stuf0204.DatumMetIndicator" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DatumMetIndicator.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DatumMetIndicator </td></tr>
 		</table></td></tr>
@@ -33,7 +33,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./DatumMetIndicator.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.stuf0204.DatumMetIndicatorKerngegeven
-	c53136 [label=<<table title="nl.egem.stuf.stuf0204.DatumMetIndicatorKerngegeven" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./DatumMetIndicatorKerngegeven.html">
+	c53126 [label=<<table title="nl.egem.stuf.stuf0204.DatumMetIndicatorKerngegeven" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./DatumMetIndicatorKerngegeven.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DatumMetIndicatorKerngegeven </td></tr>
 		</table></td></tr>
@@ -47,6 +47,6 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./DatumMetIndicatorKerngegeven.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.stuf0204.DatumMetIndicatorKerngegeven extends nl.egem.stuf.stuf0204.DatumMetIndicator
-	c53135:p -> c53136:p [dir=back,arrowtail=empty];
+	c53124:p -> c53126:p [dir=back,arrowtail=empty];
 }
 

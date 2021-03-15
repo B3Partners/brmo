@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.IndicatieHoofdVestiging
-	c69536 [label=<<table title="nl.egem.stuf.sector.bg._0204.IndicatieHoofdVestiging" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./IndicatieHoofdVestiging.html">
+	c69420 [label=<<table title="nl.egem.stuf.sector.bg._0204.IndicatieHoofdVestiging" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./IndicatieHoofdVestiging.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> IndicatieHoofdVestiging </td></tr>
@@ -24,7 +24,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./IndicatieHoofdVestiging.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.NNPFund.IndicatieHoofdVestiging
-	c69700 [label=<<table title="nl.egem.stuf.sector.bg._0204.NNPFund.IndicatieHoofdVestiging" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NNPFund.IndicatieHoofdVestiging.html">
+	c69698 [label=<<table title="nl.egem.stuf.sector.bg._0204.NNPFund.IndicatieHoofdVestiging" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NNPFund.IndicatieHoofdVestiging.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> IndicatieHoofdVestiging </td></tr>
 		</table></td></tr>
@@ -44,6 +44,6 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./NNPFund.IndicatieHoofdVestiging.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.NNPFund.IndicatieHoofdVestiging NAVASSOC nl.egem.stuf.sector.bg._0204.IndicatieHoofdVestiging
-	c69700:p -> c69536:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c69698:p -> c69420:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

@@ -6,36 +6,35 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * &lt;p&gt;Java class for Geslachtsaanduiding.
+ * &amp;lt;p&amp;gt;Java class for Geslachtsaanduiding.
  * 
- * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
- * &lt;p&gt;
- * &lt;pre&gt;
- * &amp;lt;simpleType name=&quot;Geslachtsaanduiding&quot;&amp;gt;
- *   &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}string&quot;&amp;gt;
- *     &amp;lt;enumeration value=&quot;M&quot;/&amp;gt;
- *     &amp;lt;enumeration value=&quot;O&quot;/&amp;gt;
- *     &amp;lt;enumeration value=&quot;V&quot;/&amp;gt;
- *   &amp;lt;/restriction&amp;gt;
- * &amp;lt;/simpleType&amp;gt;
- * &lt;/pre&gt;
+ * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+ * &amp;lt;pre&amp;gt;
+ * &amp;amp;lt;simpleType name=&quot;Geslachtsaanduiding&quot;&amp;amp;gt;
+ *   &amp;amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}string&quot;&amp;amp;gt;
+ *     &amp;amp;lt;enumeration value=&quot;M&quot;/&amp;amp;gt;
+ *     &amp;amp;lt;enumeration value=&quot;O&quot;/&amp;amp;gt;
+ *     &amp;amp;lt;enumeration value=&quot;V&quot;/&amp;amp;gt;
+ *   &amp;amp;lt;/restriction&amp;amp;gt;
+ * &amp;amp;lt;/simpleType&amp;amp;gt;
+ * &amp;lt;/pre&amp;gt;
  * 
  */
-<span class="nc" id="L24">@XmlType(name = &quot;Geslachtsaanduiding&quot;)</span>
+<span class="nc" id="L23">@XmlType(name = &quot;Geslachtsaanduiding&quot;)</span>
 @XmlEnum
 public enum Geslachtsaanduiding {
 
-<span class="nc" id="L28">    M,</span>
-<span class="nc" id="L29">    O,</span>
-<span class="nc" id="L30">    V;</span>
+<span class="nc" id="L27">    M,</span>
+<span class="nc" id="L28">    O,</span>
+<span class="nc" id="L29">    V;</span>
 
     public String value() {
-<span class="nc" id="L33">        return name();</span>
+<span class="nc" id="L32">        return name();</span>
     }
 
     public static Geslachtsaanduiding fromValue(String v) {
-<span class="nc" id="L37">        return valueOf(v);</span>
+<span class="nc" id="L36">        return valueOf(v);</span>
     }
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

@@ -9,38 +9,8 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// nl.b3p.brmo.soap.brk.RechtenResponse
-	c1151 [label=<<table title="nl.b3p.brmo.soap.brk.RechtenResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RechtenResponse.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> RechtenResponse </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + RechtenResponse() </td></tr>
-<tr><td align="left" balign="left"> + getZakelijkRecht() : List&lt;ZakelijkRechtResponse&gt; </td></tr>
-<tr><td align="left" balign="left"> + setZakelijkRecht(zakelijkRecht : List&lt;ZakelijkRechtResponse&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getRechtenByKoz(kozId : Long, searchContext : Map&lt;String, Object&gt;) : RechtenResponse </td></tr>
-		</table></td></tr>
-		</table>>, URL="./RechtenResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.soap.brk.AdressenResponse
-	c1154 [label=<<table title="nl.b3p.brmo.soap.brk.AdressenResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AdressenResponse.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> AdressenResponse </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + AdressenResponse() </td></tr>
-<tr><td align="left" balign="left"> + getBAGAdres() : List&lt;AdresResponse&gt; </td></tr>
-<tr><td align="left" balign="left"> + setBAGAdres(BAGAdres : List&lt;AdresResponse&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getAdressenByKoz(kozId : Long) : AdressenResponse </td></tr>
-		</table></td></tr>
-		</table>>, URL="./AdressenResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.soap.brk.KadOnrndZkInfoResponse
-	c1155 [label=<<table title="nl.b3p.brmo.soap.brk.KadOnrndZkInfoResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./KadOnrndZkInfoResponse.html">
+	c1148 [label=<<table title="nl.b3p.brmo.soap.brk.KadOnrndZkInfoResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./KadOnrndZkInfoResponse.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> KadOnrndZkInfoResponse </td></tr>
 		</table></td></tr>
@@ -90,8 +60,23 @@ digraph G {
 <tr><td align="left" balign="left"> + getRecord(id : Long, searchContext : Map&lt;String, Object&gt;) : KadOnrndZkInfoResponse </td></tr>
 		</table></td></tr>
 		</table>>, URL="./KadOnrndZkInfoResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.soap.brk.AdressenResponse
+	c1154 [label=<<table title="nl.b3p.brmo.soap.brk.AdressenResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AdressenResponse.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> AdressenResponse </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + AdressenResponse() </td></tr>
+<tr><td align="left" balign="left"> + getBAGAdres() : List&lt;AdresResponse&gt; </td></tr>
+<tr><td align="left" balign="left"> + setBAGAdres(BAGAdres : List&lt;AdresResponse&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getAdressenByKoz(kozId : Long) : AdressenResponse </td></tr>
+		</table></td></tr>
+		</table>>, URL="./AdressenResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.soap.brk.RelatiesResponse
-	c1161 [label=<<table title="nl.b3p.brmo.soap.brk.RelatiesResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RelatiesResponse.html">
+	c1159 [label=<<table title="nl.b3p.brmo.soap.brk.RelatiesResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RelatiesResponse.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> RelatiesResponse </td></tr>
 		</table></td></tr>
@@ -106,11 +91,26 @@ digraph G {
 <tr><td align="left" balign="left"> + setGrondPerceel(grondPerceel : String) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./RelatiesResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.soap.brk.RechtenResponse
+	c1161 [label=<<table title="nl.b3p.brmo.soap.brk.RechtenResponse" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RechtenResponse.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> RechtenResponse </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + RechtenResponse() </td></tr>
+<tr><td align="left" balign="left"> + getZakelijkRecht() : List&lt;ZakelijkRechtResponse&gt; </td></tr>
+<tr><td align="left" balign="left"> + setZakelijkRecht(zakelijkRecht : List&lt;ZakelijkRechtResponse&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getRechtenByKoz(kozId : Long, searchContext : Map&lt;String, Object&gt;) : RechtenResponse </td></tr>
+		</table></td></tr>
+		</table>>, URL="./RechtenResponse.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.soap.brk.KadOnrndZkInfoResponse NAVASSOC nl.b3p.brmo.soap.brk.AdressenResponse
-	c1155:p -> c1154:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c1148:p -> c1154:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.soap.brk.KadOnrndZkInfoResponse NAVASSOC nl.b3p.brmo.soap.brk.RechtenResponse
-	c1155:p -> c1151:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c1148:p -> c1161:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.soap.brk.KadOnrndZkInfoResponse NAVASSOC nl.b3p.brmo.soap.brk.RelatiesResponse
-	c1155:p -> c1161:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c1148:p -> c1159:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

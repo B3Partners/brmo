@@ -9,8 +9,22 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// nl.egem.stuf.stuf0204.IndicatorOvername
+	c72343 [label=<<table title="nl.egem.stuf.stuf0204.IndicatorOvername" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./IndicatorOvername.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
+<tr><td align="center" balign="center"> IndicatorOvername </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> I </td></tr>
+<tr><td align="left" balign="left"> V </td></tr>
+		</table></td></tr>
+		</table>>, URL="./IndicatorOvername.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.stuf0204.Stuurgegevens.Kennisgeving
-	c72353 [label=<<table title="nl.egem.stuf.stuf0204.Stuurgegevens.Kennisgeving" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Stuurgegevens.Kennisgeving.html">
+	c72349 [label=<<table title="nl.egem.stuf.stuf0204.Stuurgegevens.Kennisgeving" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Stuurgegevens.Kennisgeving.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Kennisgeving </td></tr>
 		</table></td></tr>
@@ -29,21 +43,7 @@ digraph G {
 <tr><td align="left" balign="left"> + setTijdstipMutatie(value : String) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Stuurgegevens.Kennisgeving.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.stuf0204.IndicatorOvername
-	c72358 [label=<<table title="nl.egem.stuf.stuf0204.IndicatorOvername" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./IndicatorOvername.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
-<tr><td align="center" balign="center"> IndicatorOvername </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> I </td></tr>
-<tr><td align="left" balign="left"> V </td></tr>
-		</table></td></tr>
-		</table>>, URL="./IndicatorOvername.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.stuf0204.Stuurgegevens.Kennisgeving NAVASSOC nl.egem.stuf.stuf0204.IndicatorOvername
-	c72353:p -> c72358:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c72349:p -> c72343:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

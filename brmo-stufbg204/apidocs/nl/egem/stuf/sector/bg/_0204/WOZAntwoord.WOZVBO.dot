@@ -9,22 +9,8 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// nl.egem.stuf.sector.bg._0204.WOZAntwoord.WOZVBO
-	c244077 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZAntwoord.WOZVBO" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./WOZAntwoord.WOZVBO.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> WOZVBO </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # vbo : VBOKennisgeving </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + WOZVBO() </td></tr>
-<tr><td align="left" balign="left"> + getVBO() : VBOKennisgeving </td></tr>
-<tr><td align="left" balign="left"> + setVBO(value : VBOKennisgeving) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./WOZAntwoord.WOZVBO.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.Relatie
-	c244226 [label=<<table title="nl.egem.stuf.sector.bg._0204.Relatie" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Relatie.html">
+	c244011 [label=<<table title="nl.egem.stuf.sector.bg._0204.Relatie" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Relatie.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Relatie </td></tr>
 		</table></td></tr>
@@ -61,8 +47,22 @@ digraph G {
 <tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Relatie.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.WOZAntwoord.WOZVBO
+	c244082 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZAntwoord.WOZVBO" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./WOZAntwoord.WOZVBO.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> WOZVBO </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # vbo : VBOKennisgeving </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + WOZVBO() </td></tr>
+<tr><td align="left" balign="left"> + getVBO() : VBOKennisgeving </td></tr>
+<tr><td align="left" balign="left"> + setVBO(value : VBOKennisgeving) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./WOZAntwoord.WOZVBO.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.VBOKennisgeving
-	c244334 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOKennisgeving" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VBOKennisgeving.html">
+	c244377 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOKennisgeving" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VBOKennisgeving.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> VBOKennisgeving </td></tr>
 		</table></td></tr>
@@ -85,8 +85,8 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./VBOKennisgeving.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.WOZAntwoord.WOZVBO extends nl.egem.stuf.sector.bg._0204.Relatie
-	c244226:p -> c244077:p [dir=back,arrowtail=empty];
+	c244011:p -> c244082:p [dir=back,arrowtail=empty];
 	// nl.egem.stuf.sector.bg._0204.WOZAntwoord.WOZVBO NAVASSOC nl.egem.stuf.sector.bg._0204.VBOKennisgeving
-	c244077:p -> c244334:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c244082:p -> c244377:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

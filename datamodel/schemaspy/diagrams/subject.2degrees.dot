@@ -1,4 +1,4 @@
-// dot 2.40.1 on Linux 5.3.0-40-generic
+// dot 2.43.0 on Linux 5.8.0-44-generic
 // SchemaSpy rev Unknown
 digraph "twoDegreesRelationshipsDiagram" {
   graph [
@@ -112,7 +112,7 @@ digraph "twoDegreesRelationshipsDiagram" {
       <TR><TD PORT="identif" COLSPAN="2" BGCOLOR="#bed1b8" ALIGN="LEFT">identif</TD><TD PORT="identif.type" ALIGN="LEFT">varchar[255]</TD></TR>
       <TR><TD PORT="clazz" COLSPAN="2" ALIGN="LEFT">clazz</TD><TD PORT="clazz.type" ALIGN="LEFT">varchar[255]</TD></TR>
       <TR><TD PORT="adres_binnenland" COLSPAN="2" ALIGN="LEFT">adres_binnenland</TD><TD PORT="adres_binnenland.type" ALIGN="LEFT">varchar[257]</TD></TR>
-      <TR><TD PORT="adres_buitenland" COLSPAN="2" ALIGN="LEFT">adres_buitenland</TD><TD PORT="adres_buitenland.type" ALIGN="LEFT">varchar[149]</TD></TR>
+      <TR><TD PORT="adres_buitenland" COLSPAN="2" ALIGN="LEFT">adres_buitenland</TD><TD PORT="adres_buitenland.type" ALIGN="LEFT">varchar[500]</TD></TR>
       <TR><TD PORT="emailadres" COLSPAN="2" ALIGN="LEFT">emailadres</TD><TD PORT="emailadres.type" ALIGN="LEFT">varchar[254]</TD></TR>
       <TR><TD PORT="fax_nummer" COLSPAN="2" ALIGN="LEFT">fax_nummer</TD><TD PORT="fax_nummer.type" ALIGN="LEFT">varchar[20]</TD></TR>
       <TR><TD PORT="kvk_nummer" COLSPAN="2" ALIGN="LEFT">kvk_nummer</TD><TD PORT="kvk_nummer.type" ALIGN="LEFT">numeric[8]</TD></TR>

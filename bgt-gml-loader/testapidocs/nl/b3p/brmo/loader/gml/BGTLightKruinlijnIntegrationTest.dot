@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.loader.gml.BGTLightKruinlijnIntegrationTest
-	c133 [label=<<table title="nl.b3p.brmo.loader.gml.BGTLightKruinlijnIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BGTLightKruinlijnIntegrationTest.html">
+	c125 [label=<<table title="nl.b3p.brmo.loader.gml.BGTLightKruinlijnIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BGTLightKruinlijnIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BGTLightKruinlijnIntegrationTest </td></tr>
 		</table></td></tr>
@@ -18,15 +18,15 @@ digraph G {
 <tr><td align="left" balign="left">  </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BGTLightKruinlijnIntegrationTest(gmlFileName : String, tableName : String, expectedNumOfElements : int, expectedKruinlijnElements : int) </td></tr>
-<tr><td align="left" balign="left"> + params() : Collection&lt;Object&gt; </td></tr>
+<tr><td align="left" balign="left"> + BGTLightKruinlijnIntegrationTest() </td></tr>
+<tr><td align="left" balign="left"> ~ argumentsProvider() : Stream&lt;Arguments&gt; </td></tr>
 <tr><td align="left" balign="left"> + setUp() </td></tr>
 <tr><td align="left" balign="left"> + cleanUp() </td></tr>
-<tr><td align="left" balign="left"> + testProcessGMLFile() </td></tr>
+<tr><td align="left" balign="left"> + testProcessGMLFile(gmlFileName : String, tableName : String, expectedNumOfElements : int, expectedKruinlijnElements : int) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./BGTLightKruinlijnIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.TestingBase
-	c134 [label=<<table title="nl.b3p.brmo.loader.gml.TestingBase" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TestingBase.html">
+	c133 [label=<<table title="nl.b3p.brmo.loader.gml.TestingBase" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TestingBase.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> TestingBase </font></td></tr>
 		</table></td></tr>
@@ -34,13 +34,12 @@ digraph G {
 <tr><td align="left" balign="left"> # params : Properties </td></tr>
 <tr><td align="left" balign="left"> # isOracle : boolean </td></tr>
 <tr><td align="left" balign="left"> # isMsSQL : boolean </td></tr>
-<tr><td align="left" balign="left"> + name : TestName </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> + TestingBase() </td></tr>
 <tr><td align="left" balign="left"> + checkDatabaseIsProvided() </td></tr>
-<tr><td align="left" balign="left"> + startTest() </td></tr>
-<tr><td align="left" balign="left"> + endTest() </td></tr>
+<tr><td align="left" balign="left"> + startTest(testInfo : TestInfo) </td></tr>
+<tr><td align="left" balign="left"> + endTest(testInfo : TestInfo) </td></tr>
 <tr><td align="left" balign="left"> # loadProps() </td></tr>
 <tr><td align="left" balign="left"> # clearTables() </td></tr>
 <tr><td align="left" balign="left"> # dropTables() </td></tr>
@@ -48,11 +47,11 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./TestingBase.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.loader.gml.BGTLightKruinlijnIntegrationTest extends nl.b3p.brmo.loader.gml.TestingBase
-	c134:p -> c133:p [dir=back,arrowtail=empty];
+	c133:p -> c125:p [dir=back,arrowtail=empty];
 	// nl.b3p.brmo.loader.gml.BGTLightKruinlijnIntegrationTest NAVASSOC nl.b3p.brmo.loader.gml.BGTGMLLightLoader
-	c133:p -> c137:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c125:p -> c135:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.loader.gml.BGTGMLLightLoader
-	c137 [label=<<table title="nl.b3p.brmo.loader.gml.BGTGMLLightLoader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+	c135 [label=<<table title="nl.b3p.brmo.loader.gml.BGTGMLLightLoader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BGTGMLLightLoader </td></tr>
 		</table></td></tr>

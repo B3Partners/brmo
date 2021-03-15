@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.loader.xml.GbavXMLReader
-	c1824 [label=<<table title="nl.b3p.brmo.loader.xml.GbavXMLReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../xml/GbavXMLReader.html">
+	c1826 [label=<<table title="nl.b3p.brmo.loader.xml.GbavXMLReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../xml/GbavXMLReader.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> GbavXMLReader </td></tr>
 		</table></td></tr>
@@ -25,7 +25,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="../xml/GbavXMLReader.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.entity.GbavBericht
-	c1843 [label=<<table title="nl.b3p.brmo.loader.entity.GbavBericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./GbavBericht.html">
+	c1837 [label=<<table title="nl.b3p.brmo.loader.entity.GbavBericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./GbavBericht.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> GbavBericht </td></tr>
 		</table></td></tr>
@@ -42,7 +42,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./GbavBericht.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.entity.Bericht
-	c1844 [label=<<table title="nl.b3p.brmo.loader.entity.Bericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Bericht.html">
+	c1839 [label=<<table title="nl.b3p.brmo.loader.entity.Bericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Bericht.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Bericht </td></tr>
 		</table></td></tr>
@@ -84,8 +84,8 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./Bericht.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.loader.entity.GbavBericht extends nl.b3p.brmo.loader.entity.Bericht
-	c1844:p -> c1843:p [dir=back,arrowtail=empty];
+	c1839:p -> c1837:p [dir=back,arrowtail=empty];
 	// nl.b3p.brmo.loader.xml.GbavXMLReader NAVASSOC nl.b3p.brmo.loader.entity.GbavBericht
-	c1824:p -> c1843:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c1826:p -> c1837:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

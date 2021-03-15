@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.stuf0204.FoutBericht.Body
-	c56151 [label=<<table title="nl.egem.stuf.stuf0204.FoutBericht.Body" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./FoutBericht.Body.html">
+	c56168 [label=<<table title="nl.egem.stuf.stuf0204.FoutBericht.Body" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./FoutBericht.Body.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Body </td></tr>
 		</table></td></tr>
@@ -30,7 +30,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./FoutBericht.Body.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.stuf0204.FoutPlek
-	c56169 [label=<<table title="nl.egem.stuf.stuf0204.FoutPlek" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./FoutPlek.html">
+	c56170 [label=<<table title="nl.egem.stuf.stuf0204.FoutPlek" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./FoutPlek.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> FoutPlek </td></tr>
@@ -44,6 +44,6 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./FoutPlek.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.stuf0204.FoutBericht.Body NAVASSOC nl.egem.stuf.stuf0204.FoutPlek
-	c56151:p -> c56169:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c56168:p -> c56170:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

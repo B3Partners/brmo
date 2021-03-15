@@ -18,10 +18,10 @@ digraph G {
 <tr><td align="left" balign="left">  </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BGTGMLLightParserTest(gmlFileName : String, typeNamespace : String, elementName : String, expectedNumOfElements : int, expectedNumOfAtrr : int) </td></tr>
-<tr><td align="left" balign="left"> + params() : Collection&lt;Object&gt; </td></tr>
+<tr><td align="left" balign="left"> + BGTGMLLightParserTest() </td></tr>
+<tr><td align="left" balign="left"> ~ argumentsProvider() : Stream&lt;Arguments&gt; </td></tr>
 <tr><td align="left" balign="left"> + setUpParser() </td></tr>
-<tr><td align="left" balign="left"> + testGMLFile() </td></tr>
+<tr><td align="left" balign="left"> + testGMLFile(gmlFileName : String, typeNamespace : String, elementName : String, expectedNumOfElements : int, expectedNumOfAtrr : int) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./BGTGMLLightParserTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }

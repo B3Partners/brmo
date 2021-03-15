@@ -172,81 +172,82 @@
 <a class="jxr_linenumber" name="L164" href="#L164">164</a>             <strong class="jxr_keyword">new</strong> <a name="UpdateProcess" href="../../../../../nl/b3p/brmo/loader/updates/UpdateProcess.html#UpdateProcess">UpdateProcess</a>(<span class="jxr_string">"Bijwerken van rechthebbende VVE op zakelijk recht"</span>, BrmoFramework.BR_BRK, <span class="jxr_string">"/xsl/update-zak_recht-vve.xsl"</span>),
 <a class="jxr_linenumber" name="L165" href="#L165">165</a>             <strong class="jxr_keyword">new</strong> <a name="UpdateProcess" href="../../../../../nl/b3p/brmo/loader/updates/UpdateProcess.html#UpdateProcess">UpdateProcess</a>(<span class="jxr_string">"Bijwerken van GBA Niet Ingezetene 'clazz' in personen tabellen"</span>, BrmoFramework.BR_BRK, <span class="jxr_string">"/xsl/update-niet_ingezetene-clazz.xsl"</span>),
 <a class="jxr_linenumber" name="L166" href="#L166">166</a>             <strong class="jxr_keyword">new</strong> <a name="UpdateProcess" href="../../../../../nl/b3p/brmo/loader/updates/UpdateProcess.html#UpdateProcess">UpdateProcess</a>(<span class="jxr_string">"Bijwerken subject adres comfort data"</span>, BrmoFramework.BR_BRK, <span class="jxr_string">"/xsl/update-comfort-adres.xsl"</span>),
-<a class="jxr_linenumber" name="L167" href="#L167">167</a>             <strong class="jxr_keyword">new</strong> <a name="UpdateProcess" href="../../../../../nl/b3p/brmo/loader/updates/UpdateProcess.html#UpdateProcess">UpdateProcess</a>(<span class="jxr_string">"Bijwerken ingangsdatum_recht zakelijk recht"</span>, BrmoFramework.BR_BRK, <span class="jxr_string">"/xsl/update-zak_recht-begindatum.xsl"</span>, <strong class="jxr_keyword">true</strong>)
-<a class="jxr_linenumber" name="L168" href="#L168">168</a>         });
-<a class="jxr_linenumber" name="L169" href="#L169">169</a>     }
-<a class="jxr_linenumber" name="L170" href="#L170">170</a> 
-<a class="jxr_linenumber" name="L171" href="#L171">171</a>     @DefaultHandler
-<a class="jxr_linenumber" name="L172" href="#L172">172</a>     <strong class="jxr_keyword">public</strong> Resolution form() {
-<a class="jxr_linenumber" name="L173" href="#L173">173</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> ForwardResolution(complete ? JSP_PROGRESS : JSP);
-<a class="jxr_linenumber" name="L174" href="#L174">174</a>     }
-<a class="jxr_linenumber" name="L175" href="#L175">175</a> 
-<a class="jxr_linenumber" name="L176" href="#L176">176</a>     @WaitPage(path=JSP_PROGRESS, delay=1000, refresh=1000)
-<a class="jxr_linenumber" name="L177" href="#L177">177</a>     <strong class="jxr_keyword">public</strong> Resolution update() {
-<a class="jxr_linenumber" name="L178" href="#L178">178</a>         <a name="UpdateProcess" href="../../../../../nl/b3p/brmo/loader/updates/UpdateProcess.html#UpdateProcess">UpdateProcess</a> process = <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L179" href="#L179">179</a> 
-<a class="jxr_linenumber" name="L180" href="#L180">180</a>         <strong class="jxr_keyword">for</strong>(<a name="UpdateProcess" href="../../../../../nl/b3p/brmo/loader/updates/UpdateProcess.html#UpdateProcess">UpdateProcess</a> p: updateProcesses) {
-<a class="jxr_linenumber" name="L181" href="#L181">181</a>             <strong class="jxr_keyword">if</strong>(p.getName().equals(updateProcessName)) {
-<a class="jxr_linenumber" name="L182" href="#L182">182</a>                 process = p;
-<a class="jxr_linenumber" name="L183" href="#L183">183</a>                 <strong class="jxr_keyword">break</strong>;
-<a class="jxr_linenumber" name="L184" href="#L184">184</a>             }
-<a class="jxr_linenumber" name="L185" href="#L185">185</a>         }
-<a class="jxr_linenumber" name="L186" href="#L186">186</a>         <strong class="jxr_keyword">if</strong>(process == <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L187" href="#L187">187</a>             getContext().getMessages().add(<strong class="jxr_keyword">new</strong> SimpleMessage(<span class="jxr_string">"Ongeldig proces"</span>));
-<a class="jxr_linenumber" name="L188" href="#L188">188</a>             <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> ForwardResolution(JSP);
-<a class="jxr_linenumber" name="L189" href="#L189">189</a>         }
-<a class="jxr_linenumber" name="L190" href="#L190">190</a> 
-<a class="jxr_linenumber" name="L191" href="#L191">191</a>         start = <strong class="jxr_keyword">new</strong> Date();
-<a class="jxr_linenumber" name="L192" href="#L192">192</a>         log.info(<span class="jxr_string">"Start update process: "</span> + process.getName());
-<a class="jxr_linenumber" name="L193" href="#L193">193</a> 
-<a class="jxr_linenumber" name="L194" href="#L194">194</a>         <em class="jxr_comment">// Get berichten</em>
-<a class="jxr_linenumber" name="L195" href="#L195">195</a>         <a name="BrmoFramework" href="../../../../../nl/b3p/brmo/loader/BrmoFramework.html#BrmoFramework">BrmoFramework</a> brmo = <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L196" href="#L196">196</a>         <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L197" href="#L197">197</a>             DataSource dataSourceStaging = ConfigUtil.getDataSourceStaging();
-<a class="jxr_linenumber" name="L198" href="#L198">198</a>             DataSource dataSourceRsgb = ConfigUtil.getDataSourceRsgb();
-<a class="jxr_linenumber" name="L199" href="#L199">199</a>             brmo = <strong class="jxr_keyword">new</strong> <a name="BrmoFramework" href="../../../../../nl/b3p/brmo/loader/BrmoFramework.html#BrmoFramework">BrmoFramework</a>(dataSourceStaging, dataSourceRsgb);
-<a class="jxr_linenumber" name="L200" href="#L200">200</a> 
-<a class="jxr_linenumber" name="L201" href="#L201">201</a>             <strong class="jxr_keyword">boolean</strong> enableTransformPipeline = <span class="jxr_string">"true"</span>.equals(getContext().getServletContext().getInitParameter(<span class="jxr_string">"pipelining.enabled"</span>));
-<a class="jxr_linenumber" name="L202" href="#L202">202</a>             brmo.setEnablePipeline(enableTransformPipeline);
-<a class="jxr_linenumber" name="L203" href="#L203">203</a>             <strong class="jxr_keyword">if</strong>(enableTransformPipeline) {
-<a class="jxr_linenumber" name="L204" href="#L204">204</a>                 String capacityString = getContext().getServletContext().getInitParameter(<span class="jxr_string">"pipelining.capacity"</span>);
-<a class="jxr_linenumber" name="L205" href="#L205">205</a>                 <strong class="jxr_keyword">if</strong>(capacityString != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L206" href="#L206">206</a>                     brmo.setTransformPipelineCapacity(Integer.parseInt(capacityString));
-<a class="jxr_linenumber" name="L207" href="#L207">207</a>                 }
-<a class="jxr_linenumber" name="L208" href="#L208">208</a>             }
-<a class="jxr_linenumber" name="L209" href="#L209">209</a>             String batchString = getContext().getServletContext().getInitParameter(<span class="jxr_string">"batch.capacity"</span>);
-<a class="jxr_linenumber" name="L210" href="#L210">210</a>             <strong class="jxr_keyword">if</strong>(batchString != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L211" href="#L211">211</a>                 brmo.setBatchCapacity(Integer.parseInt(batchString));
-<a class="jxr_linenumber" name="L212" href="#L212">212</a>             }
-<a class="jxr_linenumber" name="L213" href="#L213">213</a>             String errorState = getContext().getServletContext().getInitParameter(<span class="jxr_string">"error.state"</span>);
-<a class="jxr_linenumber" name="L214" href="#L214">214</a>             <strong class="jxr_keyword">if</strong> (errorState != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L215" href="#L215">215</a>                 brmo.setErrorState(errorState);
-<a class="jxr_linenumber" name="L216" href="#L216">216</a>             }
-<a class="jxr_linenumber" name="L217" href="#L217">217</a> 
-<a class="jxr_linenumber" name="L218" href="#L218">218</a>             Thread t = brmo.toRsgb(process, <strong class="jxr_keyword">this</strong>);
-<a class="jxr_linenumber" name="L219" href="#L219">219</a>             t.join();
-<a class="jxr_linenumber" name="L220" href="#L220">220</a> 
-<a class="jxr_linenumber" name="L221" href="#L221">221</a>             <strong class="jxr_keyword">if</strong>(<strong class="jxr_keyword">this</strong>.exceptionStacktrace == <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L222" href="#L222">222</a>                 getContext().getMessages().add(<strong class="jxr_keyword">new</strong> SimpleMessage(<span class="jxr_string">"Transformatie afgerond, controleer berichtenstatus."</span>));
-<a class="jxr_linenumber" name="L223" href="#L223">223</a>             }
-<a class="jxr_linenumber" name="L224" href="#L224">224</a>         } <strong class="jxr_keyword">catch</strong>(Throwable t) {
-<a class="jxr_linenumber" name="L225" href="#L225">225</a>             log.error(<span class="jxr_string">"Fout bij updaten"</span>, t);
-<a class="jxr_linenumber" name="L226" href="#L226">226</a>             String m = <span class="jxr_string">"Fout bij updaten: "</span> + ExceptionUtils.getMessage(t);
-<a class="jxr_linenumber" name="L227" href="#L227">227</a>             <strong class="jxr_keyword">if</strong>(t.getCause() != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L228" href="#L228">228</a>                 m += <span class="jxr_string">", oorzaak: "</span> + ExceptionUtils.getRootCauseMessage(t);
-<a class="jxr_linenumber" name="L229" href="#L229">229</a>             }
-<a class="jxr_linenumber" name="L230" href="#L230">230</a>             getContext().getMessages().add(<strong class="jxr_keyword">new</strong> SimpleMessage(m));
-<a class="jxr_linenumber" name="L231" href="#L231">231</a>         } <strong class="jxr_keyword">finally</strong> {
-<a class="jxr_linenumber" name="L232" href="#L232">232</a>             <strong class="jxr_keyword">if</strong> (brmo!=<strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L233" href="#L233">233</a>                 brmo.closeBrmoFramework();
-<a class="jxr_linenumber" name="L234" href="#L234">234</a>             }
-<a class="jxr_linenumber" name="L235" href="#L235">235</a>             complete = <strong class="jxr_keyword">true</strong>;
-<a class="jxr_linenumber" name="L236" href="#L236">236</a>         }
-<a class="jxr_linenumber" name="L237" href="#L237">237</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> ForwardResolution(JSP_PROGRESS);
-<a class="jxr_linenumber" name="L238" href="#L238">238</a>     }
-<a class="jxr_linenumber" name="L239" href="#L239">239</a> }
+<a class="jxr_linenumber" name="L167" href="#L167">167</a>             <strong class="jxr_keyword">new</strong> <a name="UpdateProcess" href="../../../../../nl/b3p/brmo/loader/updates/UpdateProcess.html#UpdateProcess">UpdateProcess</a>(<span class="jxr_string">"Bijwerken ingangsdatum_recht zakelijk recht"</span>, BrmoFramework.BR_BRK, <span class="jxr_string">"/xsl/update-zak_recht-begindatum.xsl"</span>, <strong class="jxr_keyword">true</strong>),
+<a class="jxr_linenumber" name="L168" href="#L168">168</a>             <strong class="jxr_keyword">new</strong> <a name="UpdateProcess" href="../../../../../nl/b3p/brmo/loader/updates/UpdateProcess.html#UpdateProcess">UpdateProcess</a>(<span class="jxr_string">"Bijwerken vestiging activiteit"</span>, BrmoFramework.BR_NHR, <span class="jxr_string">"/xsl/update-vestg-activiteit.xsl"</span>)
+<a class="jxr_linenumber" name="L169" href="#L169">169</a>         });
+<a class="jxr_linenumber" name="L170" href="#L170">170</a>     }
+<a class="jxr_linenumber" name="L171" href="#L171">171</a> 
+<a class="jxr_linenumber" name="L172" href="#L172">172</a>     @DefaultHandler
+<a class="jxr_linenumber" name="L173" href="#L173">173</a>     <strong class="jxr_keyword">public</strong> Resolution form() {
+<a class="jxr_linenumber" name="L174" href="#L174">174</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> ForwardResolution(complete ? JSP_PROGRESS : JSP);
+<a class="jxr_linenumber" name="L175" href="#L175">175</a>     }
+<a class="jxr_linenumber" name="L176" href="#L176">176</a> 
+<a class="jxr_linenumber" name="L177" href="#L177">177</a>     @WaitPage(path=JSP_PROGRESS, delay=1000, refresh=1000)
+<a class="jxr_linenumber" name="L178" href="#L178">178</a>     <strong class="jxr_keyword">public</strong> Resolution update() {
+<a class="jxr_linenumber" name="L179" href="#L179">179</a>         <a name="UpdateProcess" href="../../../../../nl/b3p/brmo/loader/updates/UpdateProcess.html#UpdateProcess">UpdateProcess</a> process = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L180" href="#L180">180</a> 
+<a class="jxr_linenumber" name="L181" href="#L181">181</a>         <strong class="jxr_keyword">for</strong>(<a name="UpdateProcess" href="../../../../../nl/b3p/brmo/loader/updates/UpdateProcess.html#UpdateProcess">UpdateProcess</a> p: updateProcesses) {
+<a class="jxr_linenumber" name="L182" href="#L182">182</a>             <strong class="jxr_keyword">if</strong>(p.getName().equals(updateProcessName)) {
+<a class="jxr_linenumber" name="L183" href="#L183">183</a>                 process = p;
+<a class="jxr_linenumber" name="L184" href="#L184">184</a>                 <strong class="jxr_keyword">break</strong>;
+<a class="jxr_linenumber" name="L185" href="#L185">185</a>             }
+<a class="jxr_linenumber" name="L186" href="#L186">186</a>         }
+<a class="jxr_linenumber" name="L187" href="#L187">187</a>         <strong class="jxr_keyword">if</strong>(process == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L188" href="#L188">188</a>             getContext().getMessages().add(<strong class="jxr_keyword">new</strong> SimpleMessage(<span class="jxr_string">"Ongeldig proces"</span>));
+<a class="jxr_linenumber" name="L189" href="#L189">189</a>             <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> ForwardResolution(JSP);
+<a class="jxr_linenumber" name="L190" href="#L190">190</a>         }
+<a class="jxr_linenumber" name="L191" href="#L191">191</a> 
+<a class="jxr_linenumber" name="L192" href="#L192">192</a>         start = <strong class="jxr_keyword">new</strong> Date();
+<a class="jxr_linenumber" name="L193" href="#L193">193</a>         log.info(<span class="jxr_string">"Start update process: "</span> + process.getName());
+<a class="jxr_linenumber" name="L194" href="#L194">194</a> 
+<a class="jxr_linenumber" name="L195" href="#L195">195</a>         <em class="jxr_comment">// Get berichten</em>
+<a class="jxr_linenumber" name="L196" href="#L196">196</a>         <a name="BrmoFramework" href="../../../../../nl/b3p/brmo/loader/BrmoFramework.html#BrmoFramework">BrmoFramework</a> brmo = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L197" href="#L197">197</a>         <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L198" href="#L198">198</a>             DataSource dataSourceStaging = ConfigUtil.getDataSourceStaging();
+<a class="jxr_linenumber" name="L199" href="#L199">199</a>             DataSource dataSourceRsgb = ConfigUtil.getDataSourceRsgb();
+<a class="jxr_linenumber" name="L200" href="#L200">200</a>             brmo = <strong class="jxr_keyword">new</strong> <a name="BrmoFramework" href="../../../../../nl/b3p/brmo/loader/BrmoFramework.html#BrmoFramework">BrmoFramework</a>(dataSourceStaging, dataSourceRsgb);
+<a class="jxr_linenumber" name="L201" href="#L201">201</a> 
+<a class="jxr_linenumber" name="L202" href="#L202">202</a>             <strong class="jxr_keyword">boolean</strong> enableTransformPipeline = <span class="jxr_string">"true"</span>.equals(getContext().getServletContext().getInitParameter(<span class="jxr_string">"pipelining.enabled"</span>));
+<a class="jxr_linenumber" name="L203" href="#L203">203</a>             brmo.setEnablePipeline(enableTransformPipeline);
+<a class="jxr_linenumber" name="L204" href="#L204">204</a>             <strong class="jxr_keyword">if</strong>(enableTransformPipeline) {
+<a class="jxr_linenumber" name="L205" href="#L205">205</a>                 String capacityString = getContext().getServletContext().getInitParameter(<span class="jxr_string">"pipelining.capacity"</span>);
+<a class="jxr_linenumber" name="L206" href="#L206">206</a>                 <strong class="jxr_keyword">if</strong>(capacityString != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L207" href="#L207">207</a>                     brmo.setTransformPipelineCapacity(Integer.parseInt(capacityString));
+<a class="jxr_linenumber" name="L208" href="#L208">208</a>                 }
+<a class="jxr_linenumber" name="L209" href="#L209">209</a>             }
+<a class="jxr_linenumber" name="L210" href="#L210">210</a>             String batchString = getContext().getServletContext().getInitParameter(<span class="jxr_string">"batch.capacity"</span>);
+<a class="jxr_linenumber" name="L211" href="#L211">211</a>             <strong class="jxr_keyword">if</strong>(batchString != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L212" href="#L212">212</a>                 brmo.setBatchCapacity(Integer.parseInt(batchString));
+<a class="jxr_linenumber" name="L213" href="#L213">213</a>             }
+<a class="jxr_linenumber" name="L214" href="#L214">214</a>             String errorState = getContext().getServletContext().getInitParameter(<span class="jxr_string">"error.state"</span>);
+<a class="jxr_linenumber" name="L215" href="#L215">215</a>             <strong class="jxr_keyword">if</strong> (errorState != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L216" href="#L216">216</a>                 brmo.setErrorState(errorState);
+<a class="jxr_linenumber" name="L217" href="#L217">217</a>             }
+<a class="jxr_linenumber" name="L218" href="#L218">218</a> 
+<a class="jxr_linenumber" name="L219" href="#L219">219</a>             Thread t = brmo.toRsgb(process, <strong class="jxr_keyword">this</strong>);
+<a class="jxr_linenumber" name="L220" href="#L220">220</a>             t.join();
+<a class="jxr_linenumber" name="L221" href="#L221">221</a> 
+<a class="jxr_linenumber" name="L222" href="#L222">222</a>             <strong class="jxr_keyword">if</strong>(<strong class="jxr_keyword">this</strong>.exceptionStacktrace == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L223" href="#L223">223</a>                 getContext().getMessages().add(<strong class="jxr_keyword">new</strong> SimpleMessage(<span class="jxr_string">"Transformatie afgerond, controleer berichtenstatus."</span>));
+<a class="jxr_linenumber" name="L224" href="#L224">224</a>             }
+<a class="jxr_linenumber" name="L225" href="#L225">225</a>         } <strong class="jxr_keyword">catch</strong>(Throwable t) {
+<a class="jxr_linenumber" name="L226" href="#L226">226</a>             log.error(<span class="jxr_string">"Fout bij updaten"</span>, t);
+<a class="jxr_linenumber" name="L227" href="#L227">227</a>             String m = <span class="jxr_string">"Fout bij updaten: "</span> + ExceptionUtils.getMessage(t);
+<a class="jxr_linenumber" name="L228" href="#L228">228</a>             <strong class="jxr_keyword">if</strong>(t.getCause() != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L229" href="#L229">229</a>                 m += <span class="jxr_string">", oorzaak: "</span> + ExceptionUtils.getRootCauseMessage(t);
+<a class="jxr_linenumber" name="L230" href="#L230">230</a>             }
+<a class="jxr_linenumber" name="L231" href="#L231">231</a>             getContext().getMessages().add(<strong class="jxr_keyword">new</strong> SimpleMessage(m));
+<a class="jxr_linenumber" name="L232" href="#L232">232</a>         } <strong class="jxr_keyword">finally</strong> {
+<a class="jxr_linenumber" name="L233" href="#L233">233</a>             <strong class="jxr_keyword">if</strong> (brmo!=<strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L234" href="#L234">234</a>                 brmo.closeBrmoFramework();
+<a class="jxr_linenumber" name="L235" href="#L235">235</a>             }
+<a class="jxr_linenumber" name="L236" href="#L236">236</a>             complete = <strong class="jxr_keyword">true</strong>;
+<a class="jxr_linenumber" name="L237" href="#L237">237</a>         }
+<a class="jxr_linenumber" name="L238" href="#L238">238</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> ForwardResolution(JSP_PROGRESS);
+<a class="jxr_linenumber" name="L239" href="#L239">239</a>     }
+<a class="jxr_linenumber" name="L240" href="#L240">240</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2014&#x2013;2020 <a href="http://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2014&#x2013;2021 <a href="http://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>
 </body>
 </html>

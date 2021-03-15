@@ -83,7 +83,7 @@
 </tr>
 </thead>
 <tbody valign='top'>
-<tr class='odd'>
+<tr class='even'>
  <td class='primaryKey' title='Primary Key'>kadaster_identif_aantek_recht</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>255</td>
@@ -94,7 +94,7 @@
  <td class='detail'> </td>
  <td class='comment detail'>[PK]  - Kadaster identificatie aantekening recht</td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='detail'>aard_aantek_recht</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>255</td>
@@ -105,7 +105,7 @@
  <td class='detail'> </td>
  <td class='comment detail'>[geen RSGB type] - Aard aantekening recht</td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='detail'>begindatum_aantek_recht</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>19</td>
@@ -116,7 +116,7 @@
  <td class='detail'> </td>
  <td class='comment detail'>OnvolledigeDatum - Begindatum aantekening recht</td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='detail'>beschrijving_aantek_recht</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>255</td>
@@ -127,7 +127,7 @@
  <td class='detail'> </td>
  <td class='comment detail'>[geen RSGB type] - Beschrijving aantekening recht</td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='detail'>eindd_aantek_recht</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>255</td>
@@ -138,7 +138,7 @@
  <td class='detail'> </td>
  <td class='comment detail'>[geen RSGB type] - Einddatum aantekening recht</td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='indexedColumn' title='Indexed'>fk_5zkr_kadaster_identif</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>255</td>
@@ -148,7 +148,7 @@
  <td class='detail'></td>
  <td class='detail'>
   <table border='0' width='100%' cellspacing='0' cellpadding='0'>
-   <tr class='relative even' valign='top'>
+   <tr class='relative odd' valign='top'>
     <td class='relatedTable detail' title="zak_recht_aantek.fk_5zkr_kadaster_identif refs zak_recht.kadaster_identif via fk_zra_as_5"><a href='zak_recht.html'>zak_recht</a><span class='relatedKey'>.kadaster_identif</span>
     </td>
     <td class='constraint detail'>fk_zra_as_5<span title='Cascade on delete:
@@ -158,7 +158,7 @@
  </td>
  <td class='comment detail'>[FK] , FK naar zak_recht.kadaster_identif: "behoort bij"</td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='detail'>fk_6pes_sc_identif</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>255</td>
@@ -168,7 +168,7 @@
  <td class='detail'></td>
  <td class='detail'>
   <table border='0' width='100%' cellspacing='0' cellpadding='0'>
-   <tr class='relative odd' valign='top'>
+   <tr class='relative even' valign='top'>
     <td class='relatedTable detail' title="zak_recht_aantek.fk_6pes_sc_identif refs prs.sc_identif via fk_zra_as_6"><a href='prs.html'>prs</a><span class='relatedKey'>.sc_identif</span>
     </td>
     <td class='constraint detail'>fk_zra_as_6<span title='Cascade on delete:
@@ -179,7 +179,7 @@
  <td class='comment detail'>[FK] AN32, FK naar prs.sc_identif (is FK naar superclass SUBJECT): "heeft betrokken"</td>
 </tr>
 </table>
-<p title='7 columns'>Table contained 0 rows at vr feb 21 15:40 CET 2020<p/>
+<p title='7 columns'>Table contained 0 rows at ma mrt 15 10:56 CET 2021<p/>
 </td></tr></table>
 <div class='indent'>
 <b>Indexes:</b>
@@ -211,23 +211,23 @@
 <br><form action='get'><b>Close relationships</b><span class='degrees' id='degrees' title='Detail diminishes with increased separation from zak_recht_aantek'>
 &nbsp;within <label for='oneDegree'><input type='radio' name='degrees' id='oneDegree' checked>one</label>  <label for='twoDegrees'><input type='radio' name='degrees' id='twoDegrees'>two degrees</label> of separation</span><b>:</b></form>
 <map id="oneDegreeRelationshipsDiagram" name="oneDegreeRelationshipsDiagram">
-<area shape="rect" id="node1" href="zak_recht.html" title="zak_recht" alt="" coords="181,5,400,304">
-<area shape="rect" id="node2" href="prs.html" title="prs" alt="" coords="5,208,137,315">
-<area shape="rect" id="node3" href="zak_recht_aantek.html" title="zak_recht_aantek" alt="" coords="444,13,761,245">
+<area shape="rect" id="node1" href="zak_recht.html" title="zak_recht" alt="" coords="197,5,437,304">
+<area shape="rect" id="node2" href="prs.html" title="prs" alt="" coords="5,208,153,315">
+<area shape="rect" id="node3" href="zak_recht_aantek.html" title="zak_recht_aantek" alt="" coords="481,13,840,245">
 </map>
   <a name='diagram'><img id='oneDegreeImg' src='../diagrams/zak_recht_aantek.1degree.png' usemap='#oneDegreeRelationshipsDiagram' class='diagram' border='0' alt='' align='left'></a>
 <map id="twoDegreesRelationshipsDiagram" name="twoDegreesRelationshipsDiagram">
-<area shape="rect" id="node1" href="functionaris.html" title="functionaris" alt="" coords="369,49,489,132">
-<area shape="rect" id="node2" href="prs.html" title="prs" alt="" coords="169,253,301,360">
-<area shape="rect" id="node8" href="subject.html" title="subject" alt="" coords="5,253,125,336">
-<area shape="rect" id="node3" href="kad_onrrnd_zk.html" title="kad_onrrnd_zk" alt="" coords="363,185,495,268">
-<area shape="rect" id="node4" href="kad_onrrnd_zk_aantek.html" title="kad_onrrnd_zk_aantek" alt="" coords="577,5,753,88">
-<area shape="rect" id="node5" href="maatschapp_activiteit.html" title="maatschapp_activiteit" alt="" coords="345,457,512,540">
-<area shape="rect" id="node6" href="nat_prs.html" title="nat_prs" alt="" coords="363,557,495,640">
-<area shape="rect" id="node7" href="niet_nat_prs.html" title="niet_nat_prs" alt="" coords="363,657,495,740">
-<area shape="rect" id="node9" href="zak_recht.html" title="zak_recht" alt="" coords="556,105,775,404">
-<area shape="rect" id="node10" href="aard_recht_verkort.html" title="aard_recht_verkort" alt="" coords="353,321,504,404">
-<area shape="rect" id="node11" href="zak_recht_aantek.html" title="zak_recht_aantek" alt="" coords="819,113,1136,345">
+<area shape="rect" id="node1" href="functionaris.html" title="functionaris" alt="" coords="403,49,535,132">
+<area shape="rect" id="node2" href="prs.html" title="prs" alt="" coords="181,253,329,360">
+<area shape="rect" id="node8" href="subject.html" title="subject" alt="" coords="5,253,137,336">
+<area shape="rect" id="node3" href="kad_onrrnd_zk.html" title="kad_onrrnd_zk" alt="" coords="395,185,543,268">
+<area shape="rect" id="node4" href="kad_onrrnd_zk_aantek.html" title="kad_onrrnd_zk_aantek" alt="" coords="634,5,825,88">
+<area shape="rect" id="node5" href="maatschapp_activiteit.html" title="maatschapp_activiteit" alt="" coords="373,457,565,540">
+<area shape="rect" id="node6" href="nat_prs.html" title="nat_prs" alt="" coords="395,557,543,640">
+<area shape="rect" id="node7" href="niet_nat_prs.html" title="niet_nat_prs" alt="" coords="395,657,543,740">
+<area shape="rect" id="node9" href="zak_recht.html" title="zak_recht" alt="" coords="609,105,849,404">
+<area shape="rect" id="node10" href="aard_recht_verkort.html" title="aard_recht_verkort" alt="" coords="385,321,553,404">
+<area shape="rect" id="node11" href="zak_recht_aantek.html" title="zak_recht_aantek" alt="" coords="893,113,1252,345">
 </map>
 
   <a name='diagram'><img id='twoDegreesImg' src='../diagrams/zak_recht_aantek.2degrees.png' usemap='#twoDegreesRelationshipsDiagram' class='diagram' border='0' alt='' align='left'></a>

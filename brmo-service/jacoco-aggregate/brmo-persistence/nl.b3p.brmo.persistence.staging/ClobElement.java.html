@@ -13,7 +13,7 @@ import org.apache.commons.lang3.StringUtils;
 @Embeddable
 public class ClobElement implements Serializable {
     @Lob
-    @org.hibernate.annotations.Type(type=&quot;org.hibernate.type.StringClobType&quot;)
+    @org.hibernate.annotations.Type(type=&quot;org.hibernate.type.TextType&quot;)
     private String value;
 
 <span class="fc" id="L19">    public ClobElement() {</span>
@@ -66,4 +66,4 @@ public class ClobElement implements Serializable {
 <span class="pc bpc" id="L66" title="1 of 2 branches missed.">        return e == null ? null : e.getValue();</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

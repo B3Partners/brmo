@@ -210,7 +210,7 @@ import org.stripesstuff.plugin.waitpage.WaitPage;
 
         // XXX move to configuration file
         // bij een nieuw proces ook de wiki bijwerken: https://github.com/B3Partners/brmo/wiki/Geavanceerde-functies
-<span class="nc bnc" id="L213" title="All 2 branches missed.">        advancedFunctionProcesses = Arrays.asList(new AdvancedFunctionProcess[]{</span>
+<span class="nc bnc" id="L213" title="All 2 branches missed.">        advancedFunctionProcesses = Arrays.asList(</span>
             new AdvancedFunctionProcess(&quot;Exporteren BRK mutaties&quot;, BrmoFramework.BR_BRK, brkExportDir == null ? &quot;/tmp/brkmutaties&quot; : brkExportDir),
 <span class="nc" id="L215">            new AdvancedFunctionProcess(&quot;Repareren BRK mutaties met status STAGING_NOK&quot;, BrmoFramework.BR_BRK, Bericht.STATUS.STAGING_NOK.toString()),</span>
 <span class="nc" id="L216">            new AdvancedFunctionProcess(&quot;Repareren BAG mutaties met status STAGING_NOK&quot;, BrmoFramework.BR_BAG, Bericht.STATUS.STAGING_NOK.toString()),</span>
@@ -223,7 +223,7 @@ import org.stripesstuff.plugin.waitpage.WaitPage;
 <span class="nc" id="L223">            new AdvancedFunctionProcess(BRK_VERWIJDEREN_NOGMAALS_UITVOEREN, BrmoFramework.BR_BRK, Bericht.STATUS.RSGB_OK.toString()),</span>
             new AdvancedFunctionProcess(NHR_FIX_TYPERING, BrmoFramework.BR_NHR, null),
             new AdvancedFunctionProcess(BRK_HERSTEL_BESTANDSNAAM, BrmoFramework.BR_BRK, &quot;0&quot;)
-        });
+        );
 <span class="nc" id="L227">    }</span>
 
     @DefaultHandler
@@ -594,7 +594,7 @@ import org.stripesstuff.plugin.waitpage.WaitPage;
                     + &quot; and status='&quot; + config + &quot;'&quot;
                     + &quot; and status_datum &lt; ? &quot;;
 <span class="nc" id="L596">        Object o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn,</span>
-<span class="nc" id="L597">                countsql, new Timestamp(c.getTimeInMillis()), new ScalarHandler());</span>
+<span class="nc" id="L597">                countsql, new ScalarHandler(), new Timestamp(c.getTimeInMillis()));</span>
 <span class="nc bnc" id="L598" title="All 2 branches missed.">        if (o instanceof BigDecimal) {</span>
 <span class="nc" id="L599">            total(((BigDecimal) o).longValue());</span>
 <span class="nc bnc" id="L600" title="All 2 branches missed.">        } else if (o instanceof Integer) {</span>
@@ -965,4 +965,4 @@ import org.stripesstuff.plugin.waitpage.WaitPage;
 <span class="nc" id="L965">        DbUtils.closeQuietly(conn);</span>
 <span class="nc" id="L966">    }</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

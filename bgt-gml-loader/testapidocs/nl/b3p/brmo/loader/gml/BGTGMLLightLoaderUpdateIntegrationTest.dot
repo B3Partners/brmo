@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.loader.gml.BGTGMLLightLoaderUpdateIntegrationTest
-	c89 [label=<<table title="nl.b3p.brmo.loader.gml.BGTGMLLightLoaderUpdateIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BGTGMLLightLoaderUpdateIntegrationTest.html">
+	c90 [label=<<table title="nl.b3p.brmo.loader.gml.BGTGMLLightLoaderUpdateIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BGTGMLLightLoaderUpdateIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BGTGMLLightLoaderUpdateIntegrationTest </td></tr>
 		</table></td></tr>
@@ -26,7 +26,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BGTGMLLightLoaderUpdateIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.TestingBase
-	c97 [label=<<table title="nl.b3p.brmo.loader.gml.TestingBase" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TestingBase.html">
+	c96 [label=<<table title="nl.b3p.brmo.loader.gml.TestingBase" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TestingBase.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> TestingBase </font></td></tr>
 		</table></td></tr>
@@ -34,13 +34,12 @@ digraph G {
 <tr><td align="left" balign="left"> # params : Properties </td></tr>
 <tr><td align="left" balign="left"> # isOracle : boolean </td></tr>
 <tr><td align="left" balign="left"> # isMsSQL : boolean </td></tr>
-<tr><td align="left" balign="left"> + name : TestName </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> + TestingBase() </td></tr>
 <tr><td align="left" balign="left"> + checkDatabaseIsProvided() </td></tr>
-<tr><td align="left" balign="left"> + startTest() </td></tr>
-<tr><td align="left" balign="left"> + endTest() </td></tr>
+<tr><td align="left" balign="left"> + startTest(testInfo : TestInfo) </td></tr>
+<tr><td align="left" balign="left"> + endTest(testInfo : TestInfo) </td></tr>
 <tr><td align="left" balign="left"> # loadProps() </td></tr>
 <tr><td align="left" balign="left"> # clearTables() </td></tr>
 <tr><td align="left" balign="left"> # dropTables() </td></tr>
@@ -48,11 +47,11 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./TestingBase.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.loader.gml.BGTGMLLightLoaderUpdateIntegrationTest extends nl.b3p.brmo.loader.gml.TestingBase
-	c97:p -> c89:p [dir=back,arrowtail=empty];
+	c96:p -> c90:p [dir=back,arrowtail=empty];
 	// nl.b3p.brmo.loader.gml.BGTGMLLightLoaderUpdateIntegrationTest NAVASSOC nl.b3p.brmo.loader.gml.BGTGMLLightLoader
-	c89:p -> c100:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c90:p -> c98:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.loader.gml.BGTGMLLightLoader
-	c100 [label=<<table title="nl.b3p.brmo.loader.gml.BGTGMLLightLoader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+	c98 [label=<<table title="nl.b3p.brmo.loader.gml.BGTGMLLightLoader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BGTGMLLightLoader </td></tr>
 		</table></td></tr>

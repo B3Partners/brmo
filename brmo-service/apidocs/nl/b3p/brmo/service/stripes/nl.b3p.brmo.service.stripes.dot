@@ -9,28 +9,314 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// nl.b3p.brmo.service.stripes.BasisregistratieFileUploadActionBean
-	c48 [label=<<table title="nl.b3p.brmo.service.stripes.BasisregistratieFileUploadActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BasisregistratieFileUploadActionBean.html">
+	// nl.b3p.brmo.service.stripes.BerichtenActionBean
+	c260 [label=<<table title="nl.b3p.brmo.service.stripes.BerichtenActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BerichtenActionBean.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> BasisregistratieFileUploadActionBean </td></tr>
+<tr><td align="center" balign="center"> BerichtenActionBean </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left">  </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BasisregistratieFileUploadActionBean() </td></tr>
+<tr><td align="left" balign="left"> + BerichtenActionBean() </td></tr>
+<tr><td align="left" balign="left"> + list() : Resolution </td></tr>
+<tr><td align="left" balign="left"> + getGridData() : Resolution </td></tr>
+<tr><td align="left" balign="left"> + saveRecord() : Resolution </td></tr>
+<tr><td align="left" balign="left"> + log() : Resolution </td></tr>
+<tr><td align="left" balign="left"> + getContext() : ActionBeanContext </td></tr>
+<tr><td align="left" balign="left"> + setContext(context : ActionBeanContext) </td></tr>
+<tr><td align="left" balign="left"> + getBerichten() : List&lt;Bericht&gt; </td></tr>
+<tr><td align="left" balign="left"> + setBerichten(berichten : List&lt;Bericht&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getSelectedIds() : long[] </td></tr>
+<tr><td align="left" balign="left"> + setSelectedIds(selectedIds : long[]) </td></tr>
+<tr><td align="left" balign="left"> + getPage() : int </td></tr>
+<tr><td align="left" balign="left"> + setPage(page : int) </td></tr>
+<tr><td align="left" balign="left"> + getStart() : int </td></tr>
+<tr><td align="left" balign="left"> + setStart(start : int) </td></tr>
+<tr><td align="left" balign="left"> + getLimit() : int </td></tr>
+<tr><td align="left" balign="left"> + setLimit(limit : int) </td></tr>
+<tr><td align="left" balign="left"> + getSort() : String </td></tr>
+<tr><td align="left" balign="left"> + setSort(sort : String) </td></tr>
+<tr><td align="left" balign="left"> + getDir() : String </td></tr>
+<tr><td align="left" balign="left"> + setDir(dir : String) </td></tr>
+<tr><td align="left" balign="left"> + getFilter() : JSONArray </td></tr>
+<tr><td align="left" balign="left"> + setFilter(filter : JSONArray) </td></tr>
+<tr><td align="left" balign="left"> + getChangedItem() : JSONObject </td></tr>
+<tr><td align="left" balign="left"> + setChangedItem(changedItem : JSONObject) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./BerichtenActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.service.stripes.TransformActionBean
+	c261 [label=<<table title="nl.b3p.brmo.service.stripes.TransformActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TransformActionBean.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> TransformActionBean </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + TransformActionBean() </td></tr>
+<tr><td align="left" balign="left"> + before() </td></tr>
+<tr><td align="left" balign="left"> + completed() </td></tr>
+<tr><td align="left" balign="left"> + total(total : long) </td></tr>
+<tr><td align="left" balign="left"> + progress(progress : long) </td></tr>
+<tr><td align="left" balign="left"> + exception(t : Throwable) </td></tr>
+<tr><td align="left" balign="left"> + transformUnknown() : Resolution </td></tr>
+<tr><td align="left" balign="left"> + transformSelected() : Resolution </td></tr>
+<tr><td align="left" balign="left"> + transformAll() : Resolution </td></tr>
+<tr><td align="left" balign="left"> + transformAllStand() : Resolution </td></tr>
+<tr><td align="left" balign="left"> + transformRetry() : Resolution </td></tr>
+<tr><td align="left" balign="left"> + transformRetryStand() : Resolution </td></tr>
+<tr><td align="left" balign="left"> + transformSelectedLaadprocessen() : Resolution </td></tr>
+<tr><td align="left" balign="left"> + transformSelectedLaadprocessenStand() : Resolution </td></tr>
+<tr><td align="left" balign="left"> + getContext() : ActionBeanContext </td></tr>
+<tr><td align="left" balign="left"> + setContext(context : ActionBeanContext) </td></tr>
+<tr><td align="left" balign="left"> + getSelectedIds() : long[] </td></tr>
+<tr><td align="left" balign="left"> + setSelectedIds(selectedIds : long[]) </td></tr>
+<tr><td align="left" balign="left"> + getTotal() : long </td></tr>
+<tr><td align="left" balign="left"> + setTotal(total : long) </td></tr>
+<tr><td align="left" balign="left"> + getProcessed() : long </td></tr>
+<tr><td align="left" balign="left"> + setProcessed(processed : long) </td></tr>
+<tr><td align="left" balign="left"> + isComplete() : boolean </td></tr>
+<tr><td align="left" balign="left"> + setComplete(complete : boolean) </td></tr>
+<tr><td align="left" balign="left"> + getStart() : Date </td></tr>
+<tr><td align="left" balign="left"> + setStart(start : Date) </td></tr>
+<tr><td align="left" balign="left"> + getUpdate() : Date </td></tr>
+<tr><td align="left" balign="left"> + setUpdate(update : Date) </td></tr>
+<tr><td align="left" balign="left"> + getProgress() : double </td></tr>
+<tr><td align="left" balign="left"> + setProgress(progress : double) </td></tr>
+<tr><td align="left" balign="left"> + getExceptionStacktrace() : String </td></tr>
+<tr><td align="left" balign="left"> + setExceptionStacktrace(exceptionStacktrace : String) </td></tr>
+<tr><td align="left" balign="left"> + getStandBerichtenVerwerkingsLimiet() : long </td></tr>
+<tr><td align="left" balign="left"> + setStandBerichtenVerwerkingsLimiet(standBerichtenVerwerkingsLimiet : long) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./TransformActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.service.stripes.BerichtDoorsturenUitvoerActionBean
+	c262 [label=<<table title="nl.b3p.brmo.service.stripes.BerichtDoorsturenUitvoerActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BerichtDoorsturenUitvoerActionBean.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> BerichtDoorsturenUitvoerActionBean </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BerichtDoorsturenUitvoerActionBean() </td></tr>
+<tr><td align="left" balign="left"> + before() </td></tr>
+<tr><td align="left" balign="left"> + completed() </td></tr>
+<tr><td align="left" balign="left"> + total(total : long) </td></tr>
+<tr><td align="left" balign="left"> + progress(progress : long) </td></tr>
+<tr><td align="left" balign="left"> + exception(t : Throwable) </td></tr>
+<tr><td align="left" balign="left"> + updateStatus(status : String) </td></tr>
+<tr><td align="left" balign="left"> + addLog(log : String) </td></tr>
+<tr><td align="left" balign="left"> + execute() : Resolution </td></tr>
+<tr><td align="left" balign="left"> + getContext() : ActionBeanContext </td></tr>
+<tr><td align="left" balign="left"> + setContext(context : ActionBeanContext) </td></tr>
+<tr><td align="left" balign="left"> + getLog() : String </td></tr>
+<tr><td align="left" balign="left"> + setLog(log : String) </td></tr>
+<tr><td align="left" balign="left"> + getTotal() : long </td></tr>
+<tr><td align="left" balign="left"> + setTotal(total : long) </td></tr>
+<tr><td align="left" balign="left"> + getProcessed() : long </td></tr>
+<tr><td align="left" balign="left"> + setProcessed(processed : long) </td></tr>
+<tr><td align="left" balign="left"> + isComplete() : boolean </td></tr>
+<tr><td align="left" balign="left"> + setComplete(complete : boolean) </td></tr>
+<tr><td align="left" balign="left"> + getStart() : Date </td></tr>
+<tr><td align="left" balign="left"> + setStart(start : Date) </td></tr>
+<tr><td align="left" balign="left"> + getUpdate() : Date </td></tr>
+<tr><td align="left" balign="left"> + setUpdate(update : Date) </td></tr>
+<tr><td align="left" balign="left"> + getProgress() : double </td></tr>
+<tr><td align="left" balign="left"> + setProgress(progress : double) </td></tr>
+<tr><td align="left" balign="left"> + getExceptionStacktrace() : String </td></tr>
+<tr><td align="left" balign="left"> + setExceptionStacktrace(exceptionStacktrace : String) </td></tr>
+<tr><td align="left" balign="left"> + getProces() : BerichtDoorstuurProces </td></tr>
+<tr><td align="left" balign="left"> + setProces(proces : BerichtDoorstuurProces) </td></tr>
+<tr><td align="left" balign="left"> + getStatus() : String </td></tr>
+<tr><td align="left" balign="left"> + setStatus(status : String) </td></tr>
+<tr><td align="left" balign="left"> + getLabel() : String </td></tr>
+<tr><td align="left" balign="left"> + setLabel(label : String) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./BerichtDoorsturenUitvoerActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.service.stripes.MailProcesUitvoerActionBean
+	c263 [label=<<table title="nl.b3p.brmo.service.stripes.MailProcesUitvoerActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MailProcesUitvoerActionBean.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> MailProcesUitvoerActionBean </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + MailProcesUitvoerActionBean() </td></tr>
+<tr><td align="left" balign="left"> + execute() : Resolution </td></tr>
+<tr><td align="left" balign="left"> + getProces() : MailRapportageProces </td></tr>
+<tr><td align="left" balign="left"> + setProces(proces : MailRapportageProces) </td></tr>
+<tr><td align="left" balign="left"> + getContext() : ActionBeanContext </td></tr>
+<tr><td align="left" balign="left"> + setContext(context : ActionBeanContext) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./MailProcesUitvoerActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.service.stripes.GDS2OphalenUitvoerActionBean
+	c264 [label=<<table title="nl.b3p.brmo.service.stripes.GDS2OphalenUitvoerActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GDS2OphalenUitvoerActionBean.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> GDS2OphalenUitvoerActionBean </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + GDS2OphalenUitvoerActionBean() </td></tr>
+<tr><td align="left" balign="left"> + before() </td></tr>
+<tr><td align="left" balign="left"> + completed() </td></tr>
+<tr><td align="left" balign="left"> + total(total : long) </td></tr>
+<tr><td align="left" balign="left"> + progress(progress : long) </td></tr>
+<tr><td align="left" balign="left"> + exception(t : Throwable) </td></tr>
+<tr><td align="left" balign="left"> + updateStatus(status : String) </td></tr>
+<tr><td align="left" balign="left"> + addLog(line : String) </td></tr>
+<tr><td align="left" balign="left"> + execute() : Resolution </td></tr>
+<tr><td align="left" balign="left"> + getContext() : ActionBeanContext </td></tr>
+<tr><td align="left" balign="left"> + setContext(context : ActionBeanContext) </td></tr>
+<tr><td align="left" balign="left"> + getLog() : String </td></tr>
+<tr><td align="left" balign="left"> + setLog(log : String) </td></tr>
+<tr><td align="left" balign="left"> + getTotal() : long </td></tr>
+<tr><td align="left" balign="left"> + setTotal(total : long) </td></tr>
+<tr><td align="left" balign="left"> + getProcessed() : long </td></tr>
+<tr><td align="left" balign="left"> + setProcessed(processed : long) </td></tr>
+<tr><td align="left" balign="left"> + isComplete() : boolean </td></tr>
+<tr><td align="left" balign="left"> + setComplete(complete : boolean) </td></tr>
+<tr><td align="left" balign="left"> + getStart() : Date </td></tr>
+<tr><td align="left" balign="left"> + setStart(start : Date) </td></tr>
+<tr><td align="left" balign="left"> + getUpdate() : Date </td></tr>
+<tr><td align="left" balign="left"> + setUpdate(update : Date) </td></tr>
+<tr><td align="left" balign="left"> + getProgress() : double </td></tr>
+<tr><td align="left" balign="left"> + setProgress(progress : double) </td></tr>
+<tr><td align="left" balign="left"> + getExceptionStacktrace() : String </td></tr>
+<tr><td align="left" balign="left"> + setExceptionStacktrace(exceptionStacktrace : String) </td></tr>
+<tr><td align="left" balign="left"> + getProces() : GDS2OphaalProces </td></tr>
+<tr><td align="left" balign="left"> + setProces(proces : GDS2OphaalProces) </td></tr>
+<tr><td align="left" balign="left"> + getStatus() : String </td></tr>
+<tr><td align="left" balign="left"> + setStatus(status : String) </td></tr>
+<tr><td align="left" balign="left"> + getLabel() : String </td></tr>
+<tr><td align="left" balign="left"> + setLabel(label : String) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./GDS2OphalenUitvoerActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.service.stripes.SamenvattingActionBean
+	c265 [label=<<table title="nl.b3p.brmo.service.stripes.SamenvattingActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./SamenvattingActionBean.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> SamenvattingActionBean </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + SamenvattingActionBean() </td></tr>
+<tr><td align="left" balign="left"> + view() : Resolution </td></tr>
+<tr><td align="left" balign="left"> + eraseLog() : Resolution </td></tr>
+<tr><td align="left" balign="left"> + setContext(context : ActionBeanContext) </td></tr>
+<tr><td align="left" balign="left"> + getContext() : ActionBeanContext </td></tr>
+<tr><td align="left" balign="left"> + getProces() : AutomatischProces </td></tr>
+<tr><td align="left" balign="left"> + setProces(proces : AutomatischProces) </td></tr>
+<tr><td align="left" balign="left"> + getProcesId() : Long </td></tr>
+<tr><td align="left" balign="left"> + setProcesId(procesId : Long) </td></tr>
+<tr><td align="left" balign="left"> + getNewLine() : String </td></tr>
+		</table></td></tr>
+		</table>>, URL="./SamenvattingActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.service.stripes.BasisregistratieBigFileLoadActionBean
+	c266 [label=<<table title="nl.b3p.brmo.service.stripes.BasisregistratieBigFileLoadActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BasisregistratieBigFileLoadActionBean.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> BasisregistratieBigFileLoadActionBean </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BasisregistratieBigFileLoadActionBean() </td></tr>
 <tr><td align="left" balign="left"> + form() : Resolution </td></tr>
-<tr><td align="left" balign="left"> + upload() : Resolution </td></tr>
+<tr><td align="left" balign="left"> + total(bytes : long) </td></tr>
+<tr><td align="left" balign="left"> + progress(bytes : long) </td></tr>
+<tr><td align="left" balign="left"> + exception(t : Throwable) </td></tr>
+<tr><td align="left" balign="left"> + load() : Resolution </td></tr>
 <tr><td align="left" balign="left"> + getContext() : ActionBeanContext </td></tr>
 <tr><td align="left" balign="left"> + setContext(context : ActionBeanContext) </td></tr>
 <tr><td align="left" balign="left"> + getBasisregistratie() : String </td></tr>
 <tr><td align="left" balign="left"> + setBasisregistratie(basisregistratie : String) </td></tr>
-<tr><td align="left" balign="left"> + getBestand() : FileBean </td></tr>
-<tr><td align="left" balign="left"> + setBestand(bestand : FileBean) </td></tr>
+<tr><td align="left" balign="left"> + getFilename() : String </td></tr>
+<tr><td align="left" balign="left"> + setFilename(filename : String) </td></tr>
+<tr><td align="left" balign="left"> + getProgress() : double </td></tr>
+<tr><td align="left" balign="left"> + setProgress(progress : double) </td></tr>
+<tr><td align="left" balign="left"> + isComplete() : boolean </td></tr>
+<tr><td align="left" balign="left"> + setComplete(complete : boolean) </td></tr>
+<tr><td align="left" balign="left"> + getStart() : Date </td></tr>
+<tr><td align="left" balign="left"> + setStart(start : Date) </td></tr>
+<tr><td align="left" balign="left"> + getUpdate() : Date </td></tr>
+<tr><td align="left" balign="left"> + setUpdate(update : Date) </td></tr>
+<tr><td align="left" balign="left"> + getTotalBytes() : long </td></tr>
+<tr><td align="left" balign="left"> + setTotalBytes(totalBytes : long) </td></tr>
+<tr><td align="left" balign="left"> + getProcessedBytes() : long </td></tr>
+<tr><td align="left" balign="left"> + setProcessedBytes(processedBytes : long) </td></tr>
+<tr><td align="left" balign="left"> + getProgressDisplay() : String </td></tr>
+<tr><td align="left" balign="left"> + setProgressDisplay(progressDisplay : String) </td></tr>
 		</table></td></tr>
-		</table>>, URL="./BasisregistratieFileUploadActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, URL="./BasisregistratieBigFileLoadActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.service.stripes.ControleActionBean
+	c267 [label=<<table title="nl.b3p.brmo.service.stripes.ControleActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ControleActionBean.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> ControleActionBean </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + ControleActionBean() </td></tr>
+<tr><td align="left" balign="left"> + getContext() : ActionBeanContext </td></tr>
+<tr><td align="left" balign="left"> + setContext(context : ActionBeanContext) </td></tr>
+<tr><td align="left" balign="left"> + getFile() : FileBean </td></tr>
+<tr><td align="left" balign="left"> + setFile(file : FileBean) </td></tr>
+<tr><td align="left" balign="left"> + view() : Resolution </td></tr>
+<tr><td align="left" balign="left"> + check() : Resolution </td></tr>
+		</table></td></tr>
+		</table>>, URL="./ControleActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.service.stripes.LaadprocesTransformatieUitvoerActionBean
+	c268 [label=<<table title="nl.b3p.brmo.service.stripes.LaadprocesTransformatieUitvoerActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./LaadprocesTransformatieUitvoerActionBean.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> LaadprocesTransformatieUitvoerActionBean </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + LaadprocesTransformatieUitvoerActionBean() </td></tr>
+<tr><td align="left" balign="left"> + execute() : Resolution </td></tr>
+<tr><td align="left" balign="left"> + before() </td></tr>
+<tr><td align="left" balign="left"> + completed() </td></tr>
+<tr><td align="left" balign="left"> + total(total : long) </td></tr>
+<tr><td align="left" balign="left"> + progress(progress : long) </td></tr>
+<tr><td align="left" balign="left"> + exception(t : Throwable) </td></tr>
+<tr><td align="left" balign="left"> + updateStatus(status : String) </td></tr>
+<tr><td align="left" balign="left"> + addLog(line : String) </td></tr>
+<tr><td align="left" balign="left"> + getContext() : ActionBeanContext </td></tr>
+<tr><td align="left" balign="left"> + setContext(context : ActionBeanContext) </td></tr>
+<tr><td align="left" balign="left"> + getLog() : String </td></tr>
+<tr><td align="left" balign="left"> + setLog(log : String) </td></tr>
+<tr><td align="left" balign="left"> + getTotal() : long </td></tr>
+<tr><td align="left" balign="left"> + setTotal(total : long) </td></tr>
+<tr><td align="left" balign="left"> + getProcessed() : long </td></tr>
+<tr><td align="left" balign="left"> + setProcessed(processed : long) </td></tr>
+<tr><td align="left" balign="left"> + isComplete() : boolean </td></tr>
+<tr><td align="left" balign="left"> + setComplete(complete : boolean) </td></tr>
+<tr><td align="left" balign="left"> + getStart() : Date </td></tr>
+<tr><td align="left" balign="left"> + setStart(start : Date) </td></tr>
+<tr><td align="left" balign="left"> + getUpdate() : Date </td></tr>
+<tr><td align="left" balign="left"> + setUpdate(update : Date) </td></tr>
+<tr><td align="left" balign="left"> + getProgress() : double </td></tr>
+<tr><td align="left" balign="left"> + setProgress(progress : double) </td></tr>
+<tr><td align="left" balign="left"> + getExceptionStacktrace() : String </td></tr>
+<tr><td align="left" balign="left"> + setExceptionStacktrace(exceptionStacktrace : String) </td></tr>
+<tr><td align="left" balign="left"> + getProces() : LaadprocesTransformatieProces </td></tr>
+<tr><td align="left" balign="left"> + setProces(proces : LaadprocesTransformatieProces) </td></tr>
+<tr><td align="left" balign="left"> + getLabel() : String </td></tr>
+<tr><td align="left" balign="left"> + setLabel(label : String) </td></tr>
+<tr><td align="left" balign="left"> + getStatus() : String </td></tr>
+<tr><td align="left" balign="left"> + setStatus(status : String) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./LaadprocesTransformatieUitvoerActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBean
-	c49 [label=<<table title="nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AdvancedFunctionsActionBean.html">
+	c269 [label=<<table title="nl.b3p.brmo.service.stripes.AdvancedFunctionsActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AdvancedFunctionsActionBean.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> AdvancedFunctionsActionBean </td></tr>
 		</table></td></tr>
@@ -75,461 +361,57 @@ digraph G {
 <tr><td align="left" balign="left"> + fillbestandsNaamHersteld(soort : String, config : String) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./AdvancedFunctionsActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.service.stripes.AfgifteNummerScanUitvoerenActionBean
-	c50 [label=<<table title="nl.b3p.brmo.service.stripes.AfgifteNummerScanUitvoerenActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AfgifteNummerScanUitvoerenActionBean.html">
+	// nl.b3p.brmo.service.stripes.BasisregistratieFileUploadActionBean
+	c270 [label=<<table title="nl.b3p.brmo.service.stripes.BasisregistratieFileUploadActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BasisregistratieFileUploadActionBean.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> AfgifteNummerScanUitvoerenActionBean </td></tr>
+<tr><td align="center" balign="center"> BasisregistratieFileUploadActionBean </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left">  </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + AfgifteNummerScanUitvoerenActionBean() </td></tr>
-<tr><td align="left" balign="left"> + execute() : Resolution </td></tr>
-<tr><td align="left" balign="left"> + total(total : long) </td></tr>
-<tr><td align="left" balign="left"> + progress(progress : long) </td></tr>
-<tr><td align="left" balign="left"> + exception(t : Throwable) </td></tr>
-<tr><td align="left" balign="left"> + updateStatus(status : String) </td></tr>
-<tr><td align="left" balign="left"> + addLog(line : String) </td></tr>
-<tr><td align="left" balign="left"> + before() </td></tr>
-<tr><td align="left" balign="left"> + completed() </td></tr>
-<tr><td align="left" balign="left"> + setContext(context : ActionBeanContext) </td></tr>
-<tr><td align="left" balign="left"> + getContext() : ActionBeanContext </td></tr>
-<tr><td align="left" balign="left"> + getProces() : AfgifteNummerScannerProces </td></tr>
-<tr><td align="left" balign="left"> + setProces(proces : AfgifteNummerScannerProces) </td></tr>
-<tr><td align="left" balign="left"> + getLog() : String </td></tr>
-<tr><td align="left" balign="left"> + setLog(log : String) </td></tr>
-<tr><td align="left" balign="left"> + getStatus() : String </td></tr>
-<tr><td align="left" balign="left"> + setStatus(status : String) </td></tr>
-<tr><td align="left" balign="left"> + getExceptionStacktrace() : String </td></tr>
-<tr><td align="left" balign="left"> + setExceptionStacktrace(exceptionStacktrace : String) </td></tr>
-<tr><td align="left" balign="left"> + isComplete() : boolean </td></tr>
-<tr><td align="left" balign="left"> + setComplete(complete : boolean) </td></tr>
-<tr><td align="left" balign="left"> + getStart() : Date </td></tr>
-<tr><td align="left" balign="left"> + setStart(start : Date) </td></tr>
-<tr><td align="left" balign="left"> + getUpdate() : Date </td></tr>
-<tr><td align="left" balign="left"> + setUpdate(update : Date) </td></tr>
-<tr><td align="left" balign="left"> + getTotal() : long </td></tr>
-<tr><td align="left" balign="left"> + setTotal(total : long) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./AfgifteNummerScanUitvoerenActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.service.stripes.ControleActionBean
-	c51 [label=<<table title="nl.b3p.brmo.service.stripes.ControleActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ControleActionBean.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> ControleActionBean </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + ControleActionBean() </td></tr>
-<tr><td align="left" balign="left"> + getContext() : ActionBeanContext </td></tr>
-<tr><td align="left" balign="left"> + setContext(context : ActionBeanContext) </td></tr>
-<tr><td align="left" balign="left"> + getFile() : FileBean </td></tr>
-<tr><td align="left" balign="left"> + setFile(file : FileBean) </td></tr>
-<tr><td align="left" balign="left"> + view() : Resolution </td></tr>
-<tr><td align="left" balign="left"> + check() : Resolution </td></tr>
-		</table></td></tr>
-		</table>>, URL="./ControleActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.service.stripes.TransformActionBean
-	c52 [label=<<table title="nl.b3p.brmo.service.stripes.TransformActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TransformActionBean.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> TransformActionBean </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + TransformActionBean() </td></tr>
-<tr><td align="left" balign="left"> + before() </td></tr>
-<tr><td align="left" balign="left"> + completed() </td></tr>
-<tr><td align="left" balign="left"> + total(total : long) </td></tr>
-<tr><td align="left" balign="left"> + progress(progress : long) </td></tr>
-<tr><td align="left" balign="left"> + exception(t : Throwable) </td></tr>
-<tr><td align="left" balign="left"> + transformUnknown() : Resolution </td></tr>
-<tr><td align="left" balign="left"> + transformSelected() : Resolution </td></tr>
-<tr><td align="left" balign="left"> + transformAll() : Resolution </td></tr>
-<tr><td align="left" balign="left"> + transformAllStand() : Resolution </td></tr>
-<tr><td align="left" balign="left"> + transformRetry() : Resolution </td></tr>
-<tr><td align="left" balign="left"> + transformRetryStand() : Resolution </td></tr>
-<tr><td align="left" balign="left"> + transformSelectedLaadprocessen() : Resolution </td></tr>
-<tr><td align="left" balign="left"> + transformSelectedLaadprocessenStand() : Resolution </td></tr>
-<tr><td align="left" balign="left"> + getContext() : ActionBeanContext </td></tr>
-<tr><td align="left" balign="left"> + setContext(context : ActionBeanContext) </td></tr>
-<tr><td align="left" balign="left"> + getSelectedIds() : long[] </td></tr>
-<tr><td align="left" balign="left"> + setSelectedIds(selectedIds : long[]) </td></tr>
-<tr><td align="left" balign="left"> + getTotal() : long </td></tr>
-<tr><td align="left" balign="left"> + setTotal(total : long) </td></tr>
-<tr><td align="left" balign="left"> + getProcessed() : long </td></tr>
-<tr><td align="left" balign="left"> + setProcessed(processed : long) </td></tr>
-<tr><td align="left" balign="left"> + isComplete() : boolean </td></tr>
-<tr><td align="left" balign="left"> + setComplete(complete : boolean) </td></tr>
-<tr><td align="left" balign="left"> + getStart() : Date </td></tr>
-<tr><td align="left" balign="left"> + setStart(start : Date) </td></tr>
-<tr><td align="left" balign="left"> + getUpdate() : Date </td></tr>
-<tr><td align="left" balign="left"> + setUpdate(update : Date) </td></tr>
-<tr><td align="left" balign="left"> + getProgress() : double </td></tr>
-<tr><td align="left" balign="left"> + setProgress(progress : double) </td></tr>
-<tr><td align="left" balign="left"> + getExceptionStacktrace() : String </td></tr>
-<tr><td align="left" balign="left"> + setExceptionStacktrace(exceptionStacktrace : String) </td></tr>
-<tr><td align="left" balign="left"> + getStandBerichtenVerwerkingsLimiet() : long </td></tr>
-<tr><td align="left" balign="left"> + setStandBerichtenVerwerkingsLimiet(standBerichtenVerwerkingsLimiet : long) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./TransformActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.service.stripes.UpdatesActionBean
-	c53 [label=<<table title="nl.b3p.brmo.service.stripes.UpdatesActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./UpdatesActionBean.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> UpdatesActionBean </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + UpdatesActionBean() </td></tr>
-<tr><td align="left" balign="left"> + getContext() : ActionBeanContext </td></tr>
-<tr><td align="left" balign="left"> + setContext(context : ActionBeanContext) </td></tr>
-<tr><td align="left" balign="left"> + getProgress() : double </td></tr>
-<tr><td align="left" balign="left"> + setProgress(progress : double) </td></tr>
-<tr><td align="left" balign="left"> + getTotal() : long </td></tr>
-<tr><td align="left" balign="left"> + setTotal(total : long) </td></tr>
-<tr><td align="left" balign="left"> + getProcessed() : long </td></tr>
-<tr><td align="left" balign="left"> + setProcessed(processed : long) </td></tr>
-<tr><td align="left" balign="left"> + isComplete() : boolean </td></tr>
-<tr><td align="left" balign="left"> + setComplete(complete : boolean) </td></tr>
-<tr><td align="left" balign="left"> + getStart() : Date </td></tr>
-<tr><td align="left" balign="left"> + setStart(start : Date) </td></tr>
-<tr><td align="left" balign="left"> + getUpdate() : Date </td></tr>
-<tr><td align="left" balign="left"> + setUpdate(update : Date) </td></tr>
-<tr><td align="left" balign="left"> + getExceptionStacktrace() : String </td></tr>
-<tr><td align="left" balign="left"> + setExceptionStacktrace(exceptionStacktrace : String) </td></tr>
-<tr><td align="left" balign="left"> + total(total : long) </td></tr>
-<tr><td align="left" balign="left"> + progress(progress : long) </td></tr>
-<tr><td align="left" balign="left"> + exception(t : Throwable) </td></tr>
-<tr><td align="left" balign="left"> + getUpdateProcesses() : List&lt;UpdateProcess&gt; </td></tr>
-<tr><td align="left" balign="left"> + setUpdateProcesses(updateProcesses : List&lt;UpdateProcess&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getUpdateProcessName() : String </td></tr>
-<tr><td align="left" balign="left"> + setUpdateProcessName(updateProcessName : String) </td></tr>
-<tr><td align="left" balign="left"> + populateUpdateProcesses() </td></tr>
+<tr><td align="left" balign="left"> + BasisregistratieFileUploadActionBean() </td></tr>
 <tr><td align="left" balign="left"> + form() : Resolution </td></tr>
-<tr><td align="left" balign="left"> + update() : Resolution </td></tr>
-		</table></td></tr>
-		</table>>, URL="./UpdatesActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.service.stripes.GDS2OphalenUitvoerActionBean
-	c54 [label=<<table title="nl.b3p.brmo.service.stripes.GDS2OphalenUitvoerActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GDS2OphalenUitvoerActionBean.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> GDS2OphalenUitvoerActionBean </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + GDS2OphalenUitvoerActionBean() </td></tr>
-<tr><td align="left" balign="left"> + before() </td></tr>
-<tr><td align="left" balign="left"> + completed() </td></tr>
-<tr><td align="left" balign="left"> + total(total : long) </td></tr>
-<tr><td align="left" balign="left"> + progress(progress : long) </td></tr>
-<tr><td align="left" balign="left"> + exception(t : Throwable) </td></tr>
-<tr><td align="left" balign="left"> + updateStatus(status : String) </td></tr>
-<tr><td align="left" balign="left"> + addLog(line : String) </td></tr>
-<tr><td align="left" balign="left"> + execute() : Resolution </td></tr>
-<tr><td align="left" balign="left"> + getContext() : ActionBeanContext </td></tr>
-<tr><td align="left" balign="left"> + setContext(context : ActionBeanContext) </td></tr>
-<tr><td align="left" balign="left"> + getLog() : String </td></tr>
-<tr><td align="left" balign="left"> + setLog(log : String) </td></tr>
-<tr><td align="left" balign="left"> + getTotal() : long </td></tr>
-<tr><td align="left" balign="left"> + setTotal(total : long) </td></tr>
-<tr><td align="left" balign="left"> + getProcessed() : long </td></tr>
-<tr><td align="left" balign="left"> + setProcessed(processed : long) </td></tr>
-<tr><td align="left" balign="left"> + isComplete() : boolean </td></tr>
-<tr><td align="left" balign="left"> + setComplete(complete : boolean) </td></tr>
-<tr><td align="left" balign="left"> + getStart() : Date </td></tr>
-<tr><td align="left" balign="left"> + setStart(start : Date) </td></tr>
-<tr><td align="left" balign="left"> + getUpdate() : Date </td></tr>
-<tr><td align="left" balign="left"> + setUpdate(update : Date) </td></tr>
-<tr><td align="left" balign="left"> + getProgress() : double </td></tr>
-<tr><td align="left" balign="left"> + setProgress(progress : double) </td></tr>
-<tr><td align="left" balign="left"> + getExceptionStacktrace() : String </td></tr>
-<tr><td align="left" balign="left"> + setExceptionStacktrace(exceptionStacktrace : String) </td></tr>
-<tr><td align="left" balign="left"> + getProces() : GDS2OphaalProces </td></tr>
-<tr><td align="left" balign="left"> + setProces(proces : GDS2OphaalProces) </td></tr>
-<tr><td align="left" balign="left"> + getStatus() : String </td></tr>
-<tr><td align="left" balign="left"> + setStatus(status : String) </td></tr>
-<tr><td align="left" balign="left"> + getLabel() : String </td></tr>
-<tr><td align="left" balign="left"> + setLabel(label : String) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./GDS2OphalenUitvoerActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.service.stripes.MViewRefreshActionBean
-	c55 [label=<<table title="nl.b3p.brmo.service.stripes.MViewRefreshActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MViewRefreshActionBean.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> MViewRefreshActionBean </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + MViewRefreshActionBean() </td></tr>
-<tr><td align="left" balign="left"> + execute() : Resolution </td></tr>
-<tr><td align="left" balign="left"> + total(total : long) </td></tr>
-<tr><td align="left" balign="left"> + progress(progress : long) </td></tr>
-<tr><td align="left" balign="left"> + exception(t : Throwable) </td></tr>
-<tr><td align="left" balign="left"> + updateStatus(status : String) </td></tr>
-<tr><td align="left" balign="left"> + addLog(line : String) </td></tr>
-<tr><td align="left" balign="left"> + getProces() : MaterializedViewRefresh </td></tr>
-<tr><td align="left" balign="left"> + setProces(proces : MaterializedViewRefresh) </td></tr>
-<tr><td align="left" balign="left"> + getContext() : ActionBeanContext </td></tr>
-<tr><td align="left" balign="left"> + setContext(context : ActionBeanContext) </td></tr>
-<tr><td align="left" balign="left"> + getLog() : String </td></tr>
-<tr><td align="left" balign="left"> + setLog(log : String) </td></tr>
-<tr><td align="left" balign="left"> + getStatus() : String </td></tr>
-<tr><td align="left" balign="left"> + setStatus(status : String) </td></tr>
-<tr><td align="left" balign="left"> + getExceptionStacktrace() : String </td></tr>
-<tr><td align="left" balign="left"> + setExceptionStacktrace(exceptionStacktrace : String) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./MViewRefreshActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.service.stripes.BasisregistratieServiceActionBean
-	c56 [label=<<table title="nl.b3p.brmo.service.stripes.BasisregistratieServiceActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BasisregistratieServiceActionBean.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> BasisregistratieServiceActionBean </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BasisregistratieServiceActionBean() </td></tr>
+<tr><td align="left" balign="left"> + upload() : Resolution </td></tr>
 <tr><td align="left" balign="left"> + getContext() : ActionBeanContext </td></tr>
 <tr><td align="left" balign="left"> + setContext(context : ActionBeanContext) </td></tr>
 <tr><td align="left" balign="left"> + getBasisregistratie() : String </td></tr>
 <tr><td align="left" balign="left"> + setBasisregistratie(basisregistratie : String) </td></tr>
-<tr><td align="left" balign="left"> + read() : Resolution </td></tr>
+<tr><td align="left" balign="left"> + getBestand() : FileBean </td></tr>
+<tr><td align="left" balign="left"> + setBestand(bestand : FileBean) </td></tr>
 		</table></td></tr>
-		</table>>, URL="./BasisregistratieServiceActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.service.stripes.LaadProcesActionBean
-	c57 [label=<<table title="nl.b3p.brmo.service.stripes.LaadProcesActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./LaadProcesActionBean.html">
+		</table>>, URL="./BasisregistratieFileUploadActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.service.stripes.OphaalConfigActionBean
+	c271 [label=<<table title="nl.b3p.brmo.service.stripes.OphaalConfigActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./OphaalConfigActionBean.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> LaadProcesActionBean </td></tr>
+<tr><td align="center" balign="center"> OphaalConfigActionBean </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left">  </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + LaadProcesActionBean() </td></tr>
-<tr><td align="left" balign="left"> + list() : Resolution </td></tr>
-<tr><td align="left" balign="left"> + log() : Resolution </td></tr>
+<tr><td align="left" balign="left"> + OphaalConfigActionBean() </td></tr>
+<tr><td align="left" balign="left"> + load() </td></tr>
+<tr><td align="left" balign="left"> + view() : Resolution </td></tr>
+<tr><td align="left" balign="left"> + cancel() : Resolution </td></tr>
 <tr><td align="left" balign="left"> + delete() : Resolution </td></tr>
-<tr><td align="left" balign="left"> + getGridData() : Resolution </td></tr>
-<tr><td align="left" balign="left"> + saveRecord() : Resolution </td></tr>
+<tr><td align="left" balign="left"> + add() : Resolution </td></tr>
+<tr><td align="left" balign="left"> + save() : Resolution </td></tr>
+<tr><td align="left" balign="left"> + validateCronExpressie() </td></tr>
 <tr><td align="left" balign="left"> + getContext() : ActionBeanContext </td></tr>
 <tr><td align="left" balign="left"> + setContext(context : ActionBeanContext) </td></tr>
-<tr><td align="left" balign="left"> + getProcessen() : List&lt;LaadProces&gt; </td></tr>
-<tr><td align="left" balign="left"> + setProcessen(processen : List&lt;LaadProces&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getSelectedIds() : long[] </td></tr>
-<tr><td align="left" balign="left"> + setSelectedIds(selectedIds : long[]) </td></tr>
-<tr><td align="left" balign="left"> + getPage() : int </td></tr>
-<tr><td align="left" balign="left"> + setPage(page : int) </td></tr>
-<tr><td align="left" balign="left"> + getStart() : int </td></tr>
-<tr><td align="left" balign="left"> + setStart(start : int) </td></tr>
-<tr><td align="left" balign="left"> + getLimit() : int </td></tr>
-<tr><td align="left" balign="left"> + setLimit(limit : int) </td></tr>
-<tr><td align="left" balign="left"> + getSort() : String </td></tr>
-<tr><td align="left" balign="left"> + setSort(sort : String) </td></tr>
-<tr><td align="left" balign="left"> + getDir() : String </td></tr>
-<tr><td align="left" balign="left"> + setDir(dir : String) </td></tr>
-<tr><td align="left" balign="left"> + getFilter() : JSONArray </td></tr>
-<tr><td align="left" balign="left"> + setFilter(filter : JSONArray) </td></tr>
-<tr><td align="left" balign="left"> + getChangedItem() : JSONObject </td></tr>
-<tr><td align="left" balign="left"> + setChangedItem(changedItem : JSONObject) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./LaadProcesActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.service.stripes.BerichtDoorsturenUitvoerActionBean
-	c58 [label=<<table title="nl.b3p.brmo.service.stripes.BerichtDoorsturenUitvoerActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BerichtDoorsturenUitvoerActionBean.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> BerichtDoorsturenUitvoerActionBean </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BerichtDoorsturenUitvoerActionBean() </td></tr>
-<tr><td align="left" balign="left"> + before() </td></tr>
-<tr><td align="left" balign="left"> + completed() </td></tr>
-<tr><td align="left" balign="left"> + total(total : long) </td></tr>
-<tr><td align="left" balign="left"> + progress(progress : long) </td></tr>
-<tr><td align="left" balign="left"> + exception(t : Throwable) </td></tr>
-<tr><td align="left" balign="left"> + updateStatus(status : String) </td></tr>
-<tr><td align="left" balign="left"> + addLog(log : String) </td></tr>
-<tr><td align="left" balign="left"> + execute() : Resolution </td></tr>
-<tr><td align="left" balign="left"> + getContext() : ActionBeanContext </td></tr>
-<tr><td align="left" balign="left"> + setContext(context : ActionBeanContext) </td></tr>
-<tr><td align="left" balign="left"> + getLog() : String </td></tr>
-<tr><td align="left" balign="left"> + setLog(log : String) </td></tr>
-<tr><td align="left" balign="left"> + getTotal() : long </td></tr>
-<tr><td align="left" balign="left"> + setTotal(total : long) </td></tr>
-<tr><td align="left" balign="left"> + getProcessed() : long </td></tr>
-<tr><td align="left" balign="left"> + setProcessed(processed : long) </td></tr>
-<tr><td align="left" balign="left"> + isComplete() : boolean </td></tr>
-<tr><td align="left" balign="left"> + setComplete(complete : boolean) </td></tr>
-<tr><td align="left" balign="left"> + getStart() : Date </td></tr>
-<tr><td align="left" balign="left"> + setStart(start : Date) </td></tr>
-<tr><td align="left" balign="left"> + getUpdate() : Date </td></tr>
-<tr><td align="left" balign="left"> + setUpdate(update : Date) </td></tr>
-<tr><td align="left" balign="left"> + getProgress() : double </td></tr>
-<tr><td align="left" balign="left"> + setProgress(progress : double) </td></tr>
-<tr><td align="left" balign="left"> + getExceptionStacktrace() : String </td></tr>
-<tr><td align="left" balign="left"> + setExceptionStacktrace(exceptionStacktrace : String) </td></tr>
-<tr><td align="left" balign="left"> + getProces() : BerichtDoorstuurProces </td></tr>
-<tr><td align="left" balign="left"> + setProces(proces : BerichtDoorstuurProces) </td></tr>
-<tr><td align="left" balign="left"> + getStatus() : String </td></tr>
-<tr><td align="left" balign="left"> + setStatus(status : String) </td></tr>
-<tr><td align="left" balign="left"> + getLabel() : String </td></tr>
-<tr><td align="left" balign="left"> + setLabel(label : String) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./BerichtDoorsturenUitvoerActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.service.stripes.LaadprocesStatusRapportActionBean
-	c59 [label=<<table title="nl.b3p.brmo.service.stripes.LaadprocesStatusRapportActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./LaadprocesStatusRapportActionBean.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> LaadprocesStatusRapportActionBean </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + LaadprocesStatusRapportActionBean() </td></tr>
-<tr><td align="left" balign="left"> + execute() : Resolution </td></tr>
-<tr><td align="left" balign="left"> + total(total : long) </td></tr>
-<tr><td align="left" balign="left"> + progress(progress : long) </td></tr>
-<tr><td align="left" balign="left"> + exception(t : Throwable) </td></tr>
-<tr><td align="left" balign="left"> + updateStatus(status : String) </td></tr>
-<tr><td align="left" balign="left"> + addLog(line : String) </td></tr>
-<tr><td align="left" balign="left"> + getProces() : LaadprocesStatusRapportProces </td></tr>
-<tr><td align="left" balign="left"> + setProces(proces : LaadprocesStatusRapportProces) </td></tr>
-<tr><td align="left" balign="left"> + getContext() : ActionBeanContext </td></tr>
-<tr><td align="left" balign="left"> + setContext(context : ActionBeanContext) </td></tr>
-<tr><td align="left" balign="left"> + getLog() : String </td></tr>
-<tr><td align="left" balign="left"> + setLog(log : String) </td></tr>
-<tr><td align="left" balign="left"> + getStatus() : String </td></tr>
-<tr><td align="left" balign="left"> + setStatus(status : String) </td></tr>
-<tr><td align="left" balign="left"> + getExceptionStacktrace() : String </td></tr>
-<tr><td align="left" balign="left"> + setExceptionStacktrace(exceptionStacktrace : String) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./LaadprocesStatusRapportActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.service.stripes.BerichtstatusRapportActionBean
-	c60 [label=<<table title="nl.b3p.brmo.service.stripes.BerichtstatusRapportActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BerichtstatusRapportActionBean.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> BerichtstatusRapportActionBean </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BerichtstatusRapportActionBean() </td></tr>
-<tr><td align="left" balign="left"> + execute() : Resolution </td></tr>
-<tr><td align="left" balign="left"> + total(total : long) </td></tr>
-<tr><td align="left" balign="left"> + progress(progress : long) </td></tr>
-<tr><td align="left" balign="left"> + exception(t : Throwable) </td></tr>
-<tr><td align="left" balign="left"> + updateStatus(status : String) </td></tr>
-<tr><td align="left" balign="left"> + addLog(line : String) </td></tr>
-<tr><td align="left" balign="left"> + getProces() : BerichtstatusRapportProces </td></tr>
-<tr><td align="left" balign="left"> + setProces(proces : BerichtstatusRapportProces) </td></tr>
-<tr><td align="left" balign="left"> + getContext() : ActionBeanContext </td></tr>
-<tr><td align="left" balign="left"> + setContext(context : ActionBeanContext) </td></tr>
-<tr><td align="left" balign="left"> + getLog() : String </td></tr>
-<tr><td align="left" balign="left"> + setLog(log : String) </td></tr>
-<tr><td align="left" balign="left"> + getStatus() : String </td></tr>
-<tr><td align="left" balign="left"> + setStatus(status : String) </td></tr>
-<tr><td align="left" balign="left"> + getExceptionStacktrace() : String </td></tr>
-<tr><td align="left" balign="left"> + setExceptionStacktrace(exceptionStacktrace : String) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./BerichtstatusRapportActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.service.stripes.LaadprocesTransformatieUitvoerActionBean
-	c61 [label=<<table title="nl.b3p.brmo.service.stripes.LaadprocesTransformatieUitvoerActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./LaadprocesTransformatieUitvoerActionBean.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> LaadprocesTransformatieUitvoerActionBean </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + LaadprocesTransformatieUitvoerActionBean() </td></tr>
-<tr><td align="left" balign="left"> + execute() : Resolution </td></tr>
-<tr><td align="left" balign="left"> + before() </td></tr>
-<tr><td align="left" balign="left"> + completed() </td></tr>
-<tr><td align="left" balign="left"> + total(total : long) </td></tr>
-<tr><td align="left" balign="left"> + progress(progress : long) </td></tr>
-<tr><td align="left" balign="left"> + exception(t : Throwable) </td></tr>
-<tr><td align="left" balign="left"> + updateStatus(status : String) </td></tr>
-<tr><td align="left" balign="left"> + addLog(line : String) </td></tr>
-<tr><td align="left" balign="left"> + getContext() : ActionBeanContext </td></tr>
-<tr><td align="left" balign="left"> + setContext(context : ActionBeanContext) </td></tr>
-<tr><td align="left" balign="left"> + getLog() : String </td></tr>
-<tr><td align="left" balign="left"> + setLog(log : String) </td></tr>
-<tr><td align="left" balign="left"> + getTotal() : long </td></tr>
-<tr><td align="left" balign="left"> + setTotal(total : long) </td></tr>
-<tr><td align="left" balign="left"> + getProcessed() : long </td></tr>
-<tr><td align="left" balign="left"> + setProcessed(processed : long) </td></tr>
-<tr><td align="left" balign="left"> + isComplete() : boolean </td></tr>
-<tr><td align="left" balign="left"> + setComplete(complete : boolean) </td></tr>
-<tr><td align="left" balign="left"> + getStart() : Date </td></tr>
-<tr><td align="left" balign="left"> + setStart(start : Date) </td></tr>
-<tr><td align="left" balign="left"> + getUpdate() : Date </td></tr>
-<tr><td align="left" balign="left"> + setUpdate(update : Date) </td></tr>
-<tr><td align="left" balign="left"> + getProgress() : double </td></tr>
-<tr><td align="left" balign="left"> + setProgress(progress : double) </td></tr>
-<tr><td align="left" balign="left"> + getExceptionStacktrace() : String </td></tr>
-<tr><td align="left" balign="left"> + setExceptionStacktrace(exceptionStacktrace : String) </td></tr>
-<tr><td align="left" balign="left"> + getProces() : LaadprocesTransformatieProces </td></tr>
-<tr><td align="left" balign="left"> + setProces(proces : LaadprocesTransformatieProces) </td></tr>
-<tr><td align="left" balign="left"> + getLabel() : String </td></tr>
-<tr><td align="left" balign="left"> + setLabel(label : String) </td></tr>
-<tr><td align="left" balign="left"> + getStatus() : String </td></tr>
-<tr><td align="left" balign="left"> + setStatus(status : String) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./LaadprocesTransformatieUitvoerActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.service.stripes.DirectoryScannerUitvoerActionBean
-	c62 [label=<<table title="nl.b3p.brmo.service.stripes.DirectoryScannerUitvoerActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DirectoryScannerUitvoerActionBean.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> DirectoryScannerUitvoerActionBean </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + DirectoryScannerUitvoerActionBean() </td></tr>
-<tr><td align="left" balign="left"> + execute() : Resolution </td></tr>
-<tr><td align="left" balign="left"> + before() </td></tr>
-<tr><td align="left" balign="left"> + completed() </td></tr>
-<tr><td align="left" balign="left"> + total(total : long) </td></tr>
-<tr><td align="left" balign="left"> + progress(progress : long) </td></tr>
-<tr><td align="left" balign="left"> + exception(t : Throwable) </td></tr>
-<tr><td align="left" balign="left"> + updateStatus(status : String) </td></tr>
-<tr><td align="left" balign="left"> + addLog(log : String) </td></tr>
-<tr><td align="left" balign="left"> + getContext() : ActionBeanContext </td></tr>
-<tr><td align="left" balign="left"> + setContext(context : ActionBeanContext) </td></tr>
+<tr><td align="left" balign="left"> + getProcessen() : List&lt;AutomatischProces&gt; </td></tr>
+<tr><td align="left" balign="left"> + setProcessen(processen : List&lt;AutomatischProces&gt;) </td></tr>
 <tr><td align="left" balign="left"> + getProces() : AutomatischProces </td></tr>
 <tr><td align="left" balign="left"> + setProces(proces : AutomatischProces) </td></tr>
-<tr><td align="left" balign="left"> + getProgress() : double </td></tr>
-<tr><td align="left" balign="left"> + setProgress(progress : double) </td></tr>
-<tr><td align="left" balign="left"> + getTotal() : long </td></tr>
-<tr><td align="left" balign="left"> + setTotal(total : long) </td></tr>
-<tr><td align="left" balign="left"> + getProcessed() : long </td></tr>
-<tr><td align="left" balign="left"> + setProcessed(processed : long) </td></tr>
-<tr><td align="left" balign="left"> + isComplete() : boolean </td></tr>
-<tr><td align="left" balign="left"> + setComplete(complete : boolean) </td></tr>
-<tr><td align="left" balign="left"> + getStatus() : String </td></tr>
-<tr><td align="left" balign="left"> + setStatus(status : String) </td></tr>
-<tr><td align="left" balign="left"> + getLabel() : String </td></tr>
-<tr><td align="left" balign="left"> + setLabel(label : String) </td></tr>
-<tr><td align="left" balign="left"> + getLog() : String </td></tr>
-<tr><td align="left" balign="left"> + setLog(log : String) </td></tr>
-<tr><td align="left" balign="left"> + getStart() : Date </td></tr>
-<tr><td align="left" balign="left"> + setStart(start : Date) </td></tr>
-<tr><td align="left" balign="left"> + getUpdate() : Date </td></tr>
-<tr><td align="left" balign="left"> + setUpdate(update : Date) </td></tr>
-<tr><td align="left" balign="left"> + getExceptionStacktrace() : String </td></tr>
-<tr><td align="left" balign="left"> + setExceptionStacktrace(exceptionStacktrace : String) </td></tr>
+<tr><td align="left" balign="left"> + getConfig() : Map&lt;String, ClobElement&gt; </td></tr>
+<tr><td align="left" balign="left"> + setConfig(config : Map&lt;String, ClobElement&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getType() : ProcesExecutable.ProcessingImple </td></tr>
+<tr><td align="left" balign="left"> + setType(type : ProcesExecutable.ProcessingImple) </td></tr>
 		</table></td></tr>
-		</table>>, URL="./DirectoryScannerUitvoerActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, URL="./OphaalConfigActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.stripes.BGTOphalenUitvoerActionBean
-	c63 [label=<<table title="nl.b3p.brmo.service.stripes.BGTOphalenUitvoerActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTOphalenUitvoerActionBean.html">
+	c272 [label=<<table title="nl.b3p.brmo.service.stripes.BGTOphalenUitvoerActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTOphalenUitvoerActionBean.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BGTOphalenUitvoerActionBean </td></tr>
 		</table></td></tr>
@@ -574,128 +456,81 @@ digraph G {
 <tr><td align="left" balign="left"> + setTitle(title : String) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./BGTOphalenUitvoerActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.service.stripes.MailProcesUitvoerActionBean
-	c64 [label=<<table title="nl.b3p.brmo.service.stripes.MailProcesUitvoerActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MailProcesUitvoerActionBean.html">
+	// nl.b3p.brmo.service.stripes.LaadprocesStatusRapportActionBean
+	c273 [label=<<table title="nl.b3p.brmo.service.stripes.LaadprocesStatusRapportActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./LaadprocesStatusRapportActionBean.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> MailProcesUitvoerActionBean </td></tr>
+<tr><td align="center" balign="center"> LaadprocesStatusRapportActionBean </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left">  </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + MailProcesUitvoerActionBean() </td></tr>
+<tr><td align="left" balign="left"> + LaadprocesStatusRapportActionBean() </td></tr>
 <tr><td align="left" balign="left"> + execute() : Resolution </td></tr>
-<tr><td align="left" balign="left"> + getProces() : MailRapportageProces </td></tr>
-<tr><td align="left" balign="left"> + setProces(proces : MailRapportageProces) </td></tr>
-<tr><td align="left" balign="left"> + getContext() : ActionBeanContext </td></tr>
-<tr><td align="left" balign="left"> + setContext(context : ActionBeanContext) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./MailProcesUitvoerActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.service.stripes.BasisregistratieBigFileLoadActionBean
-	c65 [label=<<table title="nl.b3p.brmo.service.stripes.BasisregistratieBigFileLoadActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BasisregistratieBigFileLoadActionBean.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> BasisregistratieBigFileLoadActionBean </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BasisregistratieBigFileLoadActionBean() </td></tr>
-<tr><td align="left" balign="left"> + form() : Resolution </td></tr>
-<tr><td align="left" balign="left"> + total(bytes : long) </td></tr>
-<tr><td align="left" balign="left"> + progress(bytes : long) </td></tr>
+<tr><td align="left" balign="left"> + total(total : long) </td></tr>
+<tr><td align="left" balign="left"> + progress(progress : long) </td></tr>
 <tr><td align="left" balign="left"> + exception(t : Throwable) </td></tr>
-<tr><td align="left" balign="left"> + load() : Resolution </td></tr>
+<tr><td align="left" balign="left"> + updateStatus(status : String) </td></tr>
+<tr><td align="left" balign="left"> + addLog(line : String) </td></tr>
+<tr><td align="left" balign="left"> + getProces() : LaadprocesStatusRapportProces </td></tr>
+<tr><td align="left" balign="left"> + setProces(proces : LaadprocesStatusRapportProces) </td></tr>
 <tr><td align="left" balign="left"> + getContext() : ActionBeanContext </td></tr>
 <tr><td align="left" balign="left"> + setContext(context : ActionBeanContext) </td></tr>
-<tr><td align="left" balign="left"> + getBasisregistratie() : String </td></tr>
-<tr><td align="left" balign="left"> + setBasisregistratie(basisregistratie : String) </td></tr>
-<tr><td align="left" balign="left"> + getFilename() : String </td></tr>
-<tr><td align="left" balign="left"> + setFilename(filename : String) </td></tr>
-<tr><td align="left" balign="left"> + getProgress() : double </td></tr>
-<tr><td align="left" balign="left"> + setProgress(progress : double) </td></tr>
-<tr><td align="left" balign="left"> + isComplete() : boolean </td></tr>
-<tr><td align="left" balign="left"> + setComplete(complete : boolean) </td></tr>
-<tr><td align="left" balign="left"> + getStart() : Date </td></tr>
-<tr><td align="left" balign="left"> + setStart(start : Date) </td></tr>
-<tr><td align="left" balign="left"> + getUpdate() : Date </td></tr>
-<tr><td align="left" balign="left"> + setUpdate(update : Date) </td></tr>
-<tr><td align="left" balign="left"> + getTotalBytes() : long </td></tr>
-<tr><td align="left" balign="left"> + setTotalBytes(totalBytes : long) </td></tr>
-<tr><td align="left" balign="left"> + getProcessedBytes() : long </td></tr>
-<tr><td align="left" balign="left"> + setProcessedBytes(processedBytes : long) </td></tr>
-<tr><td align="left" balign="left"> + getProgressDisplay() : String </td></tr>
-<tr><td align="left" balign="left"> + setProgressDisplay(progressDisplay : String) </td></tr>
+<tr><td align="left" balign="left"> + getLog() : String </td></tr>
+<tr><td align="left" balign="left"> + setLog(log : String) </td></tr>
+<tr><td align="left" balign="left"> + getStatus() : String </td></tr>
+<tr><td align="left" balign="left"> + setStatus(status : String) </td></tr>
+<tr><td align="left" balign="left"> + getExceptionStacktrace() : String </td></tr>
+<tr><td align="left" balign="left"> + setExceptionStacktrace(exceptionStacktrace : String) </td></tr>
 		</table></td></tr>
-		</table>>, URL="./BasisregistratieBigFileLoadActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.service.stripes.OphaalConfigActionBean
-	c66 [label=<<table title="nl.b3p.brmo.service.stripes.OphaalConfigActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./OphaalConfigActionBean.html">
+		</table>>, URL="./LaadprocesStatusRapportActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.service.stripes.MViewRefreshActionBean
+	c274 [label=<<table title="nl.b3p.brmo.service.stripes.MViewRefreshActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MViewRefreshActionBean.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> OphaalConfigActionBean </td></tr>
+<tr><td align="center" balign="center"> MViewRefreshActionBean </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left">  </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + OphaalConfigActionBean() </td></tr>
-<tr><td align="left" balign="left"> + load() </td></tr>
-<tr><td align="left" balign="left"> + view() : Resolution </td></tr>
-<tr><td align="left" balign="left"> + cancel() : Resolution </td></tr>
-<tr><td align="left" balign="left"> + delete() : Resolution </td></tr>
-<tr><td align="left" balign="left"> + add() : Resolution </td></tr>
-<tr><td align="left" balign="left"> + save() : Resolution </td></tr>
-<tr><td align="left" balign="left"> + validateCronExpressie() </td></tr>
+<tr><td align="left" balign="left"> + MViewRefreshActionBean() </td></tr>
+<tr><td align="left" balign="left"> + execute() : Resolution </td></tr>
+<tr><td align="left" balign="left"> + total(total : long) </td></tr>
+<tr><td align="left" balign="left"> + progress(progress : long) </td></tr>
+<tr><td align="left" balign="left"> + exception(t : Throwable) </td></tr>
+<tr><td align="left" balign="left"> + updateStatus(status : String) </td></tr>
+<tr><td align="left" balign="left"> + addLog(line : String) </td></tr>
+<tr><td align="left" balign="left"> + getProces() : MaterializedViewRefresh </td></tr>
+<tr><td align="left" balign="left"> + setProces(proces : MaterializedViewRefresh) </td></tr>
 <tr><td align="left" balign="left"> + getContext() : ActionBeanContext </td></tr>
 <tr><td align="left" balign="left"> + setContext(context : ActionBeanContext) </td></tr>
-<tr><td align="left" balign="left"> + getProcessen() : List&lt;AutomatischProces&gt; </td></tr>
-<tr><td align="left" balign="left"> + setProcessen(processen : List&lt;AutomatischProces&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getProces() : AutomatischProces </td></tr>
-<tr><td align="left" balign="left"> + setProces(proces : AutomatischProces) </td></tr>
-<tr><td align="left" balign="left"> + getConfig() : Map&lt;String, ClobElement&gt; </td></tr>
-<tr><td align="left" balign="left"> + setConfig(config : Map&lt;String, ClobElement&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getType() : ProcesExecutable.ProcessingImple </td></tr>
-<tr><td align="left" balign="left"> + setType(type : ProcesExecutable.ProcessingImple) </td></tr>
+<tr><td align="left" balign="left"> + getLog() : String </td></tr>
+<tr><td align="left" balign="left"> + setLog(log : String) </td></tr>
+<tr><td align="left" balign="left"> + getStatus() : String </td></tr>
+<tr><td align="left" balign="left"> + setStatus(status : String) </td></tr>
+<tr><td align="left" balign="left"> + getExceptionStacktrace() : String </td></tr>
+<tr><td align="left" balign="left"> + setExceptionStacktrace(exceptionStacktrace : String) </td></tr>
 		</table></td></tr>
-		</table>>, URL="./OphaalConfigActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.service.stripes.SamenvattingActionBean
-	c67 [label=<<table title="nl.b3p.brmo.service.stripes.SamenvattingActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./SamenvattingActionBean.html">
+		</table>>, URL="./MViewRefreshActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.service.stripes.LaadProcesActionBean
+	c275 [label=<<table title="nl.b3p.brmo.service.stripes.LaadProcesActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./LaadProcesActionBean.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> SamenvattingActionBean </td></tr>
+<tr><td align="center" balign="center"> LaadProcesActionBean </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left">  </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + SamenvattingActionBean() </td></tr>
-<tr><td align="left" balign="left"> + view() : Resolution </td></tr>
-<tr><td align="left" balign="left"> + eraseLog() : Resolution </td></tr>
-<tr><td align="left" balign="left"> + setContext(context : ActionBeanContext) </td></tr>
-<tr><td align="left" balign="left"> + getContext() : ActionBeanContext </td></tr>
-<tr><td align="left" balign="left"> + getProces() : AutomatischProces </td></tr>
-<tr><td align="left" balign="left"> + setProces(proces : AutomatischProces) </td></tr>
-<tr><td align="left" balign="left"> + getProcesId() : Long </td></tr>
-<tr><td align="left" balign="left"> + setProcesId(procesId : Long) </td></tr>
-<tr><td align="left" balign="left"> + getNewLine() : String </td></tr>
-		</table></td></tr>
-		</table>>, URL="./SamenvattingActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.service.stripes.BerichtenActionBean
-	c68 [label=<<table title="nl.b3p.brmo.service.stripes.BerichtenActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BerichtenActionBean.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> BerichtenActionBean </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BerichtenActionBean() </td></tr>
+<tr><td align="left" balign="left"> + LaadProcesActionBean() </td></tr>
 <tr><td align="left" balign="left"> + list() : Resolution </td></tr>
+<tr><td align="left" balign="left"> + log() : Resolution </td></tr>
+<tr><td align="left" balign="left"> + delete() : Resolution </td></tr>
 <tr><td align="left" balign="left"> + getGridData() : Resolution </td></tr>
 <tr><td align="left" balign="left"> + saveRecord() : Resolution </td></tr>
-<tr><td align="left" balign="left"> + log() : Resolution </td></tr>
 <tr><td align="left" balign="left"> + getContext() : ActionBeanContext </td></tr>
 <tr><td align="left" balign="left"> + setContext(context : ActionBeanContext) </td></tr>
-<tr><td align="left" balign="left"> + getBerichten() : List&lt;Bericht&gt; </td></tr>
-<tr><td align="left" balign="left"> + setBerichten(berichten : List&lt;Bericht&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getProcessen() : List&lt;LaadProces&gt; </td></tr>
+<tr><td align="left" balign="left"> + setProcessen(processen : List&lt;LaadProces&gt;) </td></tr>
 <tr><td align="left" balign="left"> + getSelectedIds() : long[] </td></tr>
 <tr><td align="left" balign="left"> + setSelectedIds(selectedIds : long[]) </td></tr>
 <tr><td align="left" balign="left"> + getPage() : int </td></tr>
@@ -713,6 +548,171 @@ digraph G {
 <tr><td align="left" balign="left"> + getChangedItem() : JSONObject </td></tr>
 <tr><td align="left" balign="left"> + setChangedItem(changedItem : JSONObject) </td></tr>
 		</table></td></tr>
-		</table>>, URL="./BerichtenActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, URL="./LaadProcesActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.service.stripes.UpdatesActionBean
+	c276 [label=<<table title="nl.b3p.brmo.service.stripes.UpdatesActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./UpdatesActionBean.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> UpdatesActionBean </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + UpdatesActionBean() </td></tr>
+<tr><td align="left" balign="left"> + getContext() : ActionBeanContext </td></tr>
+<tr><td align="left" balign="left"> + setContext(context : ActionBeanContext) </td></tr>
+<tr><td align="left" balign="left"> + getProgress() : double </td></tr>
+<tr><td align="left" balign="left"> + setProgress(progress : double) </td></tr>
+<tr><td align="left" balign="left"> + getTotal() : long </td></tr>
+<tr><td align="left" balign="left"> + setTotal(total : long) </td></tr>
+<tr><td align="left" balign="left"> + getProcessed() : long </td></tr>
+<tr><td align="left" balign="left"> + setProcessed(processed : long) </td></tr>
+<tr><td align="left" balign="left"> + isComplete() : boolean </td></tr>
+<tr><td align="left" balign="left"> + setComplete(complete : boolean) </td></tr>
+<tr><td align="left" balign="left"> + getStart() : Date </td></tr>
+<tr><td align="left" balign="left"> + setStart(start : Date) </td></tr>
+<tr><td align="left" balign="left"> + getUpdate() : Date </td></tr>
+<tr><td align="left" balign="left"> + setUpdate(update : Date) </td></tr>
+<tr><td align="left" balign="left"> + getExceptionStacktrace() : String </td></tr>
+<tr><td align="left" balign="left"> + setExceptionStacktrace(exceptionStacktrace : String) </td></tr>
+<tr><td align="left" balign="left"> + total(total : long) </td></tr>
+<tr><td align="left" balign="left"> + progress(progress : long) </td></tr>
+<tr><td align="left" balign="left"> + exception(t : Throwable) </td></tr>
+<tr><td align="left" balign="left"> + getUpdateProcesses() : List&lt;UpdateProcess&gt; </td></tr>
+<tr><td align="left" balign="left"> + setUpdateProcesses(updateProcesses : List&lt;UpdateProcess&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getUpdateProcessName() : String </td></tr>
+<tr><td align="left" balign="left"> + setUpdateProcessName(updateProcessName : String) </td></tr>
+<tr><td align="left" balign="left"> + populateUpdateProcesses() </td></tr>
+<tr><td align="left" balign="left"> + form() : Resolution </td></tr>
+<tr><td align="left" balign="left"> + update() : Resolution </td></tr>
+		</table></td></tr>
+		</table>>, URL="./UpdatesActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.service.stripes.BerichtstatusRapportActionBean
+	c277 [label=<<table title="nl.b3p.brmo.service.stripes.BerichtstatusRapportActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BerichtstatusRapportActionBean.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> BerichtstatusRapportActionBean </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BerichtstatusRapportActionBean() </td></tr>
+<tr><td align="left" balign="left"> + execute() : Resolution </td></tr>
+<tr><td align="left" balign="left"> + total(total : long) </td></tr>
+<tr><td align="left" balign="left"> + progress(progress : long) </td></tr>
+<tr><td align="left" balign="left"> + exception(t : Throwable) </td></tr>
+<tr><td align="left" balign="left"> + updateStatus(status : String) </td></tr>
+<tr><td align="left" balign="left"> + addLog(line : String) </td></tr>
+<tr><td align="left" balign="left"> + getProces() : BerichtstatusRapportProces </td></tr>
+<tr><td align="left" balign="left"> + setProces(proces : BerichtstatusRapportProces) </td></tr>
+<tr><td align="left" balign="left"> + getContext() : ActionBeanContext </td></tr>
+<tr><td align="left" balign="left"> + setContext(context : ActionBeanContext) </td></tr>
+<tr><td align="left" balign="left"> + getLog() : String </td></tr>
+<tr><td align="left" balign="left"> + setLog(log : String) </td></tr>
+<tr><td align="left" balign="left"> + getStatus() : String </td></tr>
+<tr><td align="left" balign="left"> + setStatus(status : String) </td></tr>
+<tr><td align="left" balign="left"> + getExceptionStacktrace() : String </td></tr>
+<tr><td align="left" balign="left"> + setExceptionStacktrace(exceptionStacktrace : String) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./BerichtstatusRapportActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.service.stripes.AfgifteNummerScanUitvoerenActionBean
+	c278 [label=<<table title="nl.b3p.brmo.service.stripes.AfgifteNummerScanUitvoerenActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AfgifteNummerScanUitvoerenActionBean.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> AfgifteNummerScanUitvoerenActionBean </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + AfgifteNummerScanUitvoerenActionBean() </td></tr>
+<tr><td align="left" balign="left"> + execute() : Resolution </td></tr>
+<tr><td align="left" balign="left"> + total(total : long) </td></tr>
+<tr><td align="left" balign="left"> + progress(progress : long) </td></tr>
+<tr><td align="left" balign="left"> + exception(t : Throwable) </td></tr>
+<tr><td align="left" balign="left"> + updateStatus(status : String) </td></tr>
+<tr><td align="left" balign="left"> + addLog(line : String) </td></tr>
+<tr><td align="left" balign="left"> + before() </td></tr>
+<tr><td align="left" balign="left"> + completed() </td></tr>
+<tr><td align="left" balign="left"> + setContext(context : ActionBeanContext) </td></tr>
+<tr><td align="left" balign="left"> + getContext() : ActionBeanContext </td></tr>
+<tr><td align="left" balign="left"> + getProces() : AfgifteNummerScannerProces </td></tr>
+<tr><td align="left" balign="left"> + setProces(proces : AfgifteNummerScannerProces) </td></tr>
+<tr><td align="left" balign="left"> + getLog() : String </td></tr>
+<tr><td align="left" balign="left"> + setLog(log : String) </td></tr>
+<tr><td align="left" balign="left"> + getStatus() : String </td></tr>
+<tr><td align="left" balign="left"> + setStatus(status : String) </td></tr>
+<tr><td align="left" balign="left"> + getExceptionStacktrace() : String </td></tr>
+<tr><td align="left" balign="left"> + setExceptionStacktrace(exceptionStacktrace : String) </td></tr>
+<tr><td align="left" balign="left"> + isComplete() : boolean </td></tr>
+<tr><td align="left" balign="left"> + setComplete(complete : boolean) </td></tr>
+<tr><td align="left" balign="left"> + getStart() : Date </td></tr>
+<tr><td align="left" balign="left"> + setStart(start : Date) </td></tr>
+<tr><td align="left" balign="left"> + getUpdate() : Date </td></tr>
+<tr><td align="left" balign="left"> + setUpdate(update : Date) </td></tr>
+<tr><td align="left" balign="left"> + getTotal() : long </td></tr>
+<tr><td align="left" balign="left"> + setTotal(total : long) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./AfgifteNummerScanUitvoerenActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.service.stripes.BasisregistratieServiceActionBean
+	c279 [label=<<table title="nl.b3p.brmo.service.stripes.BasisregistratieServiceActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BasisregistratieServiceActionBean.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> BasisregistratieServiceActionBean </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BasisregistratieServiceActionBean() </td></tr>
+<tr><td align="left" balign="left"> + getContext() : ActionBeanContext </td></tr>
+<tr><td align="left" balign="left"> + setContext(context : ActionBeanContext) </td></tr>
+<tr><td align="left" balign="left"> + getBasisregistratie() : String </td></tr>
+<tr><td align="left" balign="left"> + setBasisregistratie(basisregistratie : String) </td></tr>
+<tr><td align="left" balign="left"> + read() : Resolution </td></tr>
+		</table></td></tr>
+		</table>>, URL="./BasisregistratieServiceActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.service.stripes.DirectoryScannerUitvoerActionBean
+	c280 [label=<<table title="nl.b3p.brmo.service.stripes.DirectoryScannerUitvoerActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DirectoryScannerUitvoerActionBean.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> DirectoryScannerUitvoerActionBean </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + DirectoryScannerUitvoerActionBean() </td></tr>
+<tr><td align="left" balign="left"> + execute() : Resolution </td></tr>
+<tr><td align="left" balign="left"> + before() </td></tr>
+<tr><td align="left" balign="left"> + completed() </td></tr>
+<tr><td align="left" balign="left"> + total(total : long) </td></tr>
+<tr><td align="left" balign="left"> + progress(progress : long) </td></tr>
+<tr><td align="left" balign="left"> + exception(t : Throwable) </td></tr>
+<tr><td align="left" balign="left"> + updateStatus(status : String) </td></tr>
+<tr><td align="left" balign="left"> + addLog(log : String) </td></tr>
+<tr><td align="left" balign="left"> + getContext() : ActionBeanContext </td></tr>
+<tr><td align="left" balign="left"> + setContext(context : ActionBeanContext) </td></tr>
+<tr><td align="left" balign="left"> + getProces() : AutomatischProces </td></tr>
+<tr><td align="left" balign="left"> + setProces(proces : AutomatischProces) </td></tr>
+<tr><td align="left" balign="left"> + getProgress() : double </td></tr>
+<tr><td align="left" balign="left"> + setProgress(progress : double) </td></tr>
+<tr><td align="left" balign="left"> + getTotal() : long </td></tr>
+<tr><td align="left" balign="left"> + setTotal(total : long) </td></tr>
+<tr><td align="left" balign="left"> + getProcessed() : long </td></tr>
+<tr><td align="left" balign="left"> + setProcessed(processed : long) </td></tr>
+<tr><td align="left" balign="left"> + isComplete() : boolean </td></tr>
+<tr><td align="left" balign="left"> + setComplete(complete : boolean) </td></tr>
+<tr><td align="left" balign="left"> + getStatus() : String </td></tr>
+<tr><td align="left" balign="left"> + setStatus(status : String) </td></tr>
+<tr><td align="left" balign="left"> + getLabel() : String </td></tr>
+<tr><td align="left" balign="left"> + setLabel(label : String) </td></tr>
+<tr><td align="left" balign="left"> + getLog() : String </td></tr>
+<tr><td align="left" balign="left"> + setLog(log : String) </td></tr>
+<tr><td align="left" balign="left"> + getStart() : Date </td></tr>
+<tr><td align="left" balign="left"> + setStart(start : Date) </td></tr>
+<tr><td align="left" balign="left"> + getUpdate() : Date </td></tr>
+<tr><td align="left" balign="left"> + setUpdate(update : Date) </td></tr>
+<tr><td align="left" balign="left"> + getExceptionStacktrace() : String </td></tr>
+<tr><td align="left" balign="left"> + setExceptionStacktrace(exceptionStacktrace : String) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./DirectoryScannerUitvoerActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 

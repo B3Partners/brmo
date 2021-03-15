@@ -488,63 +488,66 @@ import org.apache.commons.logging.LogFactory;
 <span class="nc" id="L488">            StringBuilder resultNames = new StringBuilder();</span>
 <span class="nc" id="L489">            resultNames.append(&quot; gpa.perceel_identif as perceel_identif &quot;);</span>
 <span class="nc" id="L490">            StringBuilder fromSQL = new StringBuilder(&quot; mb_util_app_re_kad_perceel gpa &quot;);</span>
-<span class="nc" id="L491">            StringBuilder whereSQL = new StringBuilder(&quot; gpa.app_re_identif = ? &quot;);</span>
+<span class="nc bnc" id="L491" title="All 2 branches missed.">            if (dbType.equalsIgnoreCase(DB_MSSQL)) {</span>
+<span class="nc" id="L492">                fromSQL = new StringBuilder(&quot; vb_util_app_re_kad_perceel gpa &quot;);</span>
+            }
+<span class="nc" id="L494">            StringBuilder whereSQL = new StringBuilder(&quot; gpa.app_re_identif = ? &quot;);</span>
 
-<span class="nc" id="L493">            StringBuilder sql = createSelectSQL(resultNames, fromSQL, whereSQL, null, dbType);</span>
-<span class="nc" id="L494">            LOG.trace(sql);</span>
-<span class="nc" id="L495">            LOG.trace(kad_id);</span>
-<span class="nc" id="L496">            stm = conn.prepareStatement(sql.toString());</span>
-<span class="nc" id="L497">            stm.setString(1, Long.toString(kad_id));</span>
-<span class="nc" id="L498">            rs = stm.executeQuery();</span>
+<span class="nc" id="L496">            StringBuilder sql = createSelectSQL(resultNames, fromSQL, whereSQL, null, dbType);</span>
+<span class="nc" id="L497">            LOG.trace(sql);</span>
+<span class="nc" id="L498">            LOG.trace(kad_id);</span>
+<span class="nc" id="L499">            stm = conn.prepareStatement(sql.toString());</span>
+<span class="nc" id="L500">            stm.setString(1, Long.toString(kad_id));</span>
+<span class="nc" id="L501">            rs = stm.executeQuery();</span>
 
-<span class="nc bnc" id="L500" title="All 2 branches missed.">            if (rs.next()) {</span>
-<span class="nc" id="L501">                grondperceel_kad_id = rs.getLong(&quot;perceel_identif&quot;);</span>
+<span class="nc bnc" id="L503" title="All 2 branches missed.">            if (rs.next()) {</span>
+<span class="nc" id="L504">                grondperceel_kad_id = rs.getLong(&quot;perceel_identif&quot;);</span>
             }
         } finally {
-<span class="nc" id="L504">            DbUtils.closeQuietly(rs);</span>
-<span class="nc" id="L505">            DbUtils.closeQuietly(stm);</span>
+<span class="nc" id="L507">            DbUtils.closeQuietly(rs);</span>
+<span class="nc" id="L508">            DbUtils.closeQuietly(stm);</span>
         }
 
-<span class="nc bnc" id="L508" title="All 2 branches missed.">        if (grondperceel_kad_id != 0l) {</span>
-<span class="nc" id="L509">            addZakelijkeRechten(zrn, grondperceel_kad_id, &quot;grondperceel&quot;);</span>
+<span class="nc bnc" id="L511" title="All 2 branches missed.">        if (grondperceel_kad_id != 0l) {</span>
+<span class="nc" id="L512">            addZakelijkeRechten(zrn, grondperceel_kad_id, &quot;grondperceel&quot;);</span>
         }
-<span class="nc" id="L511">        return zrn;</span>
+<span class="nc" id="L514">        return zrn;</span>
     }
     
     private static ZakelijkeRechten addZakelijkeRechten(ZakelijkeRechten zrn, long kad_id, String type) throws Exception {
-<span class="nc" id="L515">        DataSource ds = ConfigUtil.getDataSourceRsgb();</span>
-<span class="nc" id="L516">        StringBuilder sql = null;</span>
-<span class="nc" id="L517">        PreparedStatement stm = null;</span>
-<span class="nc" id="L518">        ResultSet rs = null;</span>
-<span class="nc" id="L519">        try (Connection conn = ds.getConnection();) {</span>
-<span class="nc" id="L520">            String dbType = getDbType(conn);</span>
+<span class="nc" id="L518">        DataSource ds = ConfigUtil.getDataSourceRsgb();</span>
+<span class="nc" id="L519">        StringBuilder sql = null;</span>
+<span class="nc" id="L520">        PreparedStatement stm = null;</span>
+<span class="nc" id="L521">        ResultSet rs = null;</span>
+<span class="nc" id="L522">        try (Connection conn = ds.getConnection();) {</span>
+<span class="nc" id="L523">            String dbType = getDbType(conn);</span>
 
-<span class="nc" id="L522">            StringBuilder resultNames = new StringBuilder();</span>
-<span class="nc" id="L523">            resultNames.append(&quot; zr.kadaster_identif as identificatie,  &quot;);</span>
-<span class="nc" id="L524">            resultNames.append(&quot; ar.omschr_aard_verkregenr_recht as aardrecht, &quot;);</span>
-<span class="nc" id="L525">            resultNames.append(&quot; zr.fk_8pes_sc_identif as subject_id, &quot;);</span>
-<span class="nc" id="L526">            resultNames.append(&quot; zr.ar_teller as teller, &quot;);</span>
-<span class="nc" id="L527">            resultNames.append(&quot; zr.ar_noemer as noemer, &quot;);</span>
-<span class="nc" id="L528">            resultNames.append(&quot; inp.bsn as bsn, &quot;);</span>
-<span class="nc" id="L529">            resultNames.append(&quot; innp.rsin as rsin, &quot;);</span>
-<span class="nc" id="L530">            resultNames.append(&quot; su.kvk_nummer as kvk, &quot;);</span>
-<span class="nc" id="L531">            resultNames.append(&quot; zra.aard_aantek_recht as aard, &quot;);</span>
-<span class="nc" id="L532">            resultNames.append(&quot; zra.beschrijving_aantek_recht as beschrijving, &quot;);</span>
-<span class="nc" id="L533">            resultNames.append(&quot; zra.eindd_aantek_recht as einddatum &quot;);</span>
+<span class="nc" id="L525">            StringBuilder resultNames = new StringBuilder();</span>
+<span class="nc" id="L526">            resultNames.append(&quot; zr.kadaster_identif as identificatie,  &quot;);</span>
+<span class="nc" id="L527">            resultNames.append(&quot; ar.omschr_aard_verkregenr_recht as aardrecht, &quot;);</span>
+<span class="nc" id="L528">            resultNames.append(&quot; zr.fk_8pes_sc_identif as subject_id, &quot;);</span>
+<span class="nc" id="L529">            resultNames.append(&quot; zr.ar_teller as teller, &quot;);</span>
+<span class="nc" id="L530">            resultNames.append(&quot; zr.ar_noemer as noemer, &quot;);</span>
+<span class="nc" id="L531">            resultNames.append(&quot; inp.bsn as bsn, &quot;);</span>
+<span class="nc" id="L532">            resultNames.append(&quot; innp.rsin as rsin, &quot;);</span>
+<span class="nc" id="L533">            resultNames.append(&quot; su.kvk_nummer as kvk, &quot;);</span>
+<span class="nc" id="L534">            resultNames.append(&quot; zra.aard_aantek_recht as aard, &quot;);</span>
+<span class="nc" id="L535">            resultNames.append(&quot; zra.beschrijving_aantek_recht as beschrijving, &quot;);</span>
+<span class="nc" id="L536">            resultNames.append(&quot; zra.eindd_aantek_recht as einddatum &quot;);</span>
 
-<span class="nc" id="L535">            StringBuilder fromSQL = new StringBuilder(&quot;  zak_recht zr &quot;);</span>
-<span class="nc" id="L536">            fromSQL.append(&quot; LEFT OUTER JOIN aard_verkregen_recht ar &quot;);</span>
-<span class="nc" id="L537">            fromSQL.append(&quot; ON (zr.fk_3avr_aand = ar.aand) &quot;);</span>
-<span class="nc" id="L538">            fromSQL.append(&quot; LEFT OUTER JOIN zak_recht_aantek zra &quot;);</span>
-<span class="nc" id="L539">            fromSQL.append(&quot; ON ( zr.kadaster_identif = zra.fk_5zkr_kadaster_identif) &quot;);</span>
-<span class="nc" id="L540">            fromSQL.append(&quot; LEFT OUTER JOIN subject su &quot;);</span>
-<span class="nc" id="L541">            fromSQL.append(&quot; ON (su.identif = zr.fk_8pes_sc_identif) &quot;);</span>
-<span class="nc" id="L542">            fromSQL.append(&quot; LEFT OUTER JOIN ingeschr_nat_prs inp &quot;);</span>
-<span class="nc" id="L543">            fromSQL.append(&quot; ON (su.identif = inp.sc_identif) &quot;);</span>
-<span class="nc" id="L544">            fromSQL.append(&quot; LEFT OUTER JOIN ingeschr_niet_nat_prs innp &quot;);</span>
-<span class="nc" id="L545">            fromSQL.append(&quot; ON (su.identif = innp.sc_identif)  &quot;);</span>
+<span class="nc" id="L538">            StringBuilder fromSQL = new StringBuilder(&quot;  zak_recht zr &quot;);</span>
+<span class="nc" id="L539">            fromSQL.append(&quot; LEFT OUTER JOIN aard_verkregen_recht ar &quot;);</span>
+<span class="nc" id="L540">            fromSQL.append(&quot; ON (zr.fk_3avr_aand = ar.aand) &quot;);</span>
+<span class="nc" id="L541">            fromSQL.append(&quot; LEFT OUTER JOIN zak_recht_aantek zra &quot;);</span>
+<span class="nc" id="L542">            fromSQL.append(&quot; ON ( zr.kadaster_identif = zra.fk_5zkr_kadaster_identif) &quot;);</span>
+<span class="nc" id="L543">            fromSQL.append(&quot; LEFT OUTER JOIN subject su &quot;);</span>
+<span class="nc" id="L544">            fromSQL.append(&quot; ON (su.identif = zr.fk_8pes_sc_identif) &quot;);</span>
+<span class="nc" id="L545">            fromSQL.append(&quot; LEFT OUTER JOIN ingeschr_nat_prs inp &quot;);</span>
+<span class="nc" id="L546">            fromSQL.append(&quot; ON (su.identif = inp.sc_identif) &quot;);</span>
+<span class="nc" id="L547">            fromSQL.append(&quot; LEFT OUTER JOIN ingeschr_niet_nat_prs innp &quot;);</span>
+<span class="nc" id="L548">            fromSQL.append(&quot; ON (su.identif = innp.sc_identif)  &quot;);</span>
 
-<span class="nc" id="L547">            StringBuilder whereSQL = new StringBuilder();</span>
+<span class="nc" id="L550">            StringBuilder whereSQL = new StringBuilder();</span>
 //            if (type!=null &amp;&amp; type.equals(&quot;grondperceel&quot;)) {
 //                //van grondperceel bij app_re is alleen erfpacht interessant
 //                //onderscheid tussen tenaamstelling en ander zakelijk recht onduidelijk
@@ -555,133 +558,133 @@ import org.apache.commons.logging.LogFactory;
 //            whereSQL.append(&quot; and &quot;);
             //zra.aard_aantek_recht &lt;&gt; 'Raadpleeg brondocument' ;            
 
-<span class="nc" id="L558">            whereSQL.append(&quot; zr.fk_7koz_kad_identif = ? &quot;);</span>
+<span class="nc" id="L561">            whereSQL.append(&quot; zr.fk_7koz_kad_identif = ? &quot;);</span>
             
-<span class="nc" id="L560">            sql = createSelectSQL(resultNames, fromSQL, whereSQL, null, dbType);</span>
-<span class="nc" id="L561">            LOG.trace(sql);</span>
-<span class="nc" id="L562">            LOG.trace(kad_id);</span>
-<span class="nc" id="L563">            stm = conn.prepareStatement(sql.toString());</span>
-<span class="nc" id="L564">            stm.setLong(1, kad_id);</span>
-<span class="nc" id="L565">            rs = stm.executeQuery();</span>
+<span class="nc" id="L563">            sql = createSelectSQL(resultNames, fromSQL, whereSQL, null, dbType);</span>
+<span class="nc" id="L564">            LOG.trace(sql);</span>
+<span class="nc" id="L565">            LOG.trace(kad_id);</span>
+<span class="nc" id="L566">            stm = conn.prepareStatement(sql.toString());</span>
+<span class="nc" id="L567">            stm.setLong(1, kad_id);</span>
+<span class="nc" id="L568">            rs = stm.executeQuery();</span>
 
-<span class="nc bnc" id="L567" title="All 2 branches missed.">            while (rs.next()) {</span>
-<span class="nc" id="L568">                ZakelijkRecht entry = new ZakelijkRecht();</span>
-<span class="nc bnc" id="L569" title="All 2 branches missed.">                if (rs.getString(&quot;identificatie&quot;) != null) {</span>
-<span class="nc" id="L570">                    entry.setIdentificatienummer(rs.getString(&quot;identificatie&quot;));</span>
+<span class="nc bnc" id="L570" title="All 2 branches missed.">            while (rs.next()) {</span>
+<span class="nc" id="L571">                ZakelijkRecht entry = new ZakelijkRecht();</span>
+<span class="nc bnc" id="L572" title="All 2 branches missed.">                if (rs.getString(&quot;identificatie&quot;) != null) {</span>
+<span class="nc" id="L573">                    entry.setIdentificatienummer(rs.getString(&quot;identificatie&quot;));</span>
                 }
-<span class="nc bnc" id="L572" title="All 2 branches missed.">                if (rs.getString(&quot;aardrecht&quot;) != null) {</span>
-<span class="nc" id="L573">                    entry.setAardRecht(rs.getString(&quot;aardrecht&quot;));</span>
+<span class="nc bnc" id="L575" title="All 2 branches missed.">                if (rs.getString(&quot;aardrecht&quot;) != null) {</span>
+<span class="nc" id="L576">                    entry.setAardRecht(rs.getString(&quot;aardrecht&quot;));</span>
                 }
-<span class="nc bnc" id="L575" title="All 2 branches missed.">                if (rs.getString(&quot;subject_id&quot;) != null) {</span>
-<span class="nc" id="L576">                    entry.setBSN(&quot;Kad-ID: &quot; + rs.getString(&quot;subject_id&quot;));</span>
+<span class="nc bnc" id="L578" title="All 2 branches missed.">                if (rs.getString(&quot;subject_id&quot;) != null) {</span>
+<span class="nc" id="L579">                    entry.setBSN(&quot;Kad-ID: &quot; + rs.getString(&quot;subject_id&quot;));</span>
                 }
-<span class="nc bnc" id="L578" title="All 2 branches missed.">                if (rs.getString(&quot;kvk&quot;)!=null) {</span>
-<span class="nc" id="L579">                    entry.setBSN(&quot;KvK: &quot; + rs.getString(&quot;kvk&quot;));</span>
+<span class="nc bnc" id="L581" title="All 2 branches missed.">                if (rs.getString(&quot;kvk&quot;)!=null) {</span>
+<span class="nc" id="L582">                    entry.setBSN(&quot;KvK: &quot; + rs.getString(&quot;kvk&quot;));</span>
                 }
-<span class="nc bnc" id="L581" title="All 2 branches missed.">                if (rs.getString(&quot;rsin&quot;)!=null) {</span>
-<span class="nc" id="L582">                    entry.setBSN(&quot;RSIN: &quot; + rs.getString(&quot;rsin&quot;));</span>
+<span class="nc bnc" id="L584" title="All 2 branches missed.">                if (rs.getString(&quot;rsin&quot;)!=null) {</span>
+<span class="nc" id="L585">                    entry.setBSN(&quot;RSIN: &quot; + rs.getString(&quot;rsin&quot;));</span>
                 }
-<span class="nc bnc" id="L584" title="All 2 branches missed.">                if (rs.getString(&quot;bsn&quot;)!=null) {</span>
-<span class="nc" id="L585">                    entry.setBSN(rs.getString(&quot;bsn&quot;));</span>
+<span class="nc bnc" id="L587" title="All 2 branches missed.">                if (rs.getString(&quot;bsn&quot;)!=null) {</span>
+<span class="nc" id="L588">                    entry.setBSN(rs.getString(&quot;bsn&quot;));</span>
                 }
-<span class="nc bnc" id="L587" title="All 2 branches missed.">                if (rs.getString(&quot;teller&quot;) != null) {</span>
-<span class="nc" id="L588">                    entry.setTeller(rs.getString(&quot;teller&quot;));</span>
+<span class="nc bnc" id="L590" title="All 2 branches missed.">                if (rs.getString(&quot;teller&quot;) != null) {</span>
+<span class="nc" id="L591">                    entry.setTeller(rs.getString(&quot;teller&quot;));</span>
                 }
-<span class="nc bnc" id="L590" title="All 2 branches missed.">                if (rs.getString(&quot;noemer&quot;) != null) {</span>
-<span class="nc" id="L591">                    entry.setNoemer(rs.getString(&quot;noemer&quot;));</span>
+<span class="nc bnc" id="L593" title="All 2 branches missed.">                if (rs.getString(&quot;noemer&quot;) != null) {</span>
+<span class="nc" id="L594">                    entry.setNoemer(rs.getString(&quot;noemer&quot;));</span>
                 }
 
-<span class="nc bnc" id="L594" title="All 2 branches missed.">                if (rs.getString(&quot;aard&quot;) != null) {</span>
-<span class="nc" id="L595">                    entry.setAardRecht(entry.getAardRecht() + </span>
-<span class="nc" id="L596">                            &quot; - &quot; + rs.getString(&quot;aard&quot;));</span>
+<span class="nc bnc" id="L597" title="All 2 branches missed.">                if (rs.getString(&quot;aard&quot;) != null) {</span>
+<span class="nc" id="L598">                    entry.setAardRecht(entry.getAardRecht() + </span>
+<span class="nc" id="L599">                            &quot; - &quot; + rs.getString(&quot;aard&quot;));</span>
                 }
-<span class="nc bnc" id="L598" title="All 2 branches missed.">                if (rs.getString(&quot;beschrijving&quot;) != null) {</span>
-<span class="nc" id="L599">                    entry.setAardRecht(entry.getAardRecht() + </span>
-<span class="nc" id="L600">                            &quot; - &quot; + rs.getString(&quot;beschrijving&quot;));</span>
+<span class="nc bnc" id="L601" title="All 2 branches missed.">                if (rs.getString(&quot;beschrijving&quot;) != null) {</span>
+<span class="nc" id="L602">                    entry.setAardRecht(entry.getAardRecht() + </span>
+<span class="nc" id="L603">                            &quot; - &quot; + rs.getString(&quot;beschrijving&quot;));</span>
                 }
-<span class="nc bnc" id="L602" title="All 2 branches missed.">                if (rs.getString(&quot;einddatum&quot;) != null) {</span>
-<span class="nc" id="L603">                    entry.setAardRecht(entry.getAardRecht() + </span>
-<span class="nc" id="L604">                            &quot; - &quot; + rs.getString(&quot;einddatum&quot;));</span>
+<span class="nc bnc" id="L605" title="All 2 branches missed.">                if (rs.getString(&quot;einddatum&quot;) != null) {</span>
+<span class="nc" id="L606">                    entry.setAardRecht(entry.getAardRecht() + </span>
+<span class="nc" id="L607">                            &quot; - &quot; + rs.getString(&quot;einddatum&quot;));</span>
                 }
-<span class="nc bnc" id="L606" title="All 4 branches missed.">                if (type!=null &amp;&amp; type.equals(&quot;grondperceel&quot;)) {</span>
-<span class="nc" id="L607">                    entry.setAardRecht(entry.getAardRecht() + </span>
+<span class="nc bnc" id="L609" title="All 4 branches missed.">                if (type!=null &amp;&amp; type.equals(&quot;grondperceel&quot;)) {</span>
+<span class="nc" id="L610">                    entry.setAardRecht(entry.getAardRecht() + </span>
                             &quot; [&quot; + type + &quot;]&quot;);
                 }
                 
-<span class="nc" id="L611">                zrn.getZakelijkRecht().add(entry);</span>
-<span class="nc" id="L612">            }</span>
+<span class="nc" id="L614">                zrn.getZakelijkRecht().add(entry);</span>
+<span class="nc" id="L615">            }</span>
 
-<span class="nc" id="L614">            return zrn;</span>
+<span class="nc" id="L617">            return zrn;</span>
         } finally {
-<span class="nc" id="L616">            DbUtils.closeQuietly(rs);</span>
-<span class="nc" id="L617">            DbUtils.closeQuietly(stm);</span>
+<span class="nc" id="L619">            DbUtils.closeQuietly(rs);</span>
+<span class="nc" id="L620">            DbUtils.closeQuietly(stm);</span>
         }
     }
 
     private static StringBuilder createSelectRsgbSQL(Map&lt;String, Object&gt; searchContext, String dbType) throws ParseException {
 
-<span class="nc" id="L623">        Integer maxrows = (Integer) searchContext.get(MAXAANTALRESULTATEN);</span>
-<span class="nc bnc" id="L624" title="All 2 branches missed.">        if (maxrows == null) {</span>
-<span class="nc" id="L625">            maxrows = DBMAXRESULTS;</span>
-<span class="nc" id="L626">            searchContext.put(MAXAANTALRESULTATEN, DBMAXRESULTS);</span>
-<span class="nc bnc" id="L627" title="All 2 branches missed.">        } else if (maxrows &gt; DBMAXRESULTS) {</span>
-<span class="nc" id="L628">            searchContext.put(MAXAANTALRESULTATEN, DBMAXRESULTS);</span>
+<span class="nc" id="L626">        Integer maxrows = (Integer) searchContext.get(MAXAANTALRESULTATEN);</span>
+<span class="nc bnc" id="L627" title="All 2 branches missed.">        if (maxrows == null) {</span>
+<span class="nc" id="L628">            maxrows = DBMAXRESULTS;</span>
+<span class="nc" id="L629">            searchContext.put(MAXAANTALRESULTATEN, DBMAXRESULTS);</span>
+<span class="nc bnc" id="L630" title="All 2 branches missed.">        } else if (maxrows &gt; DBMAXRESULTS) {</span>
+<span class="nc" id="L631">            searchContext.put(MAXAANTALRESULTATEN, DBMAXRESULTS);</span>
         }
         // één meer ophalen zodat je kunt weten of er meer zijn
-<span class="nc" id="L631">        maxrows += 1;</span>
+<span class="nc" id="L634">        maxrows += 1;</span>
 
-<span class="nc" id="L633">        StringBuilder resultNames = new StringBuilder();</span>
-<span class="nc" id="L634">        resultNames.append(&quot;koz.kad_identif as kad_identif, &quot;);</span>
-<span class="nc" id="L635">        resultNames.append(&quot;ar.ka_appartementsindex as app_appartementsindex, &quot;);</span>
-<span class="nc" id="L636">        resultNames.append(&quot;ar.ka_kad_gemeentecode as app_gemeentecode, &quot;);</span>
-<span class="nc" id="L637">        resultNames.append(&quot;ar.sc_kad_identif as app_identif, &quot;);</span>
-<span class="nc" id="L638">        resultNames.append(&quot;ar.ka_perceelnummer as app_perceelnummer, &quot;);</span>
-<span class="nc" id="L639">        resultNames.append(&quot;ar.ka_sectie as app_sectie, &quot;);</span>
-<span class="nc" id="L640">        resultNames.append(&quot;kp.ka_kad_gemeentecode as perceel_gemeentecode, &quot;);</span>
-<span class="nc" id="L641">        resultNames.append(&quot;kp.sc_kad_identif as perceel_identif, &quot;);</span>
-<span class="nc" id="L642">        resultNames.append(&quot;kp.ka_perceelnummer as perceel_perceelnummer, &quot;);</span>
-<span class="nc" id="L643">        resultNames.append(&quot;kp.ka_sectie as perceel_sectie, &quot;);</span>
-<span class="nc" id="L644">        resultNames.append(&quot;vo.sc_identif as vo_identif&quot;);</span>
+<span class="nc" id="L636">        StringBuilder resultNames = new StringBuilder();</span>
+<span class="nc" id="L637">        resultNames.append(&quot;koz.kad_identif as kad_identif, &quot;);</span>
+<span class="nc" id="L638">        resultNames.append(&quot;ar.ka_appartementsindex as app_appartementsindex, &quot;);</span>
+<span class="nc" id="L639">        resultNames.append(&quot;ar.ka_kad_gemeentecode as app_gemeentecode, &quot;);</span>
+<span class="nc" id="L640">        resultNames.append(&quot;ar.sc_kad_identif as app_identif, &quot;);</span>
+<span class="nc" id="L641">        resultNames.append(&quot;ar.ka_perceelnummer as app_perceelnummer, &quot;);</span>
+<span class="nc" id="L642">        resultNames.append(&quot;ar.ka_sectie as app_sectie, &quot;);</span>
+<span class="nc" id="L643">        resultNames.append(&quot;kp.ka_kad_gemeentecode as perceel_gemeentecode, &quot;);</span>
+<span class="nc" id="L644">        resultNames.append(&quot;kp.sc_kad_identif as perceel_identif, &quot;);</span>
+<span class="nc" id="L645">        resultNames.append(&quot;kp.ka_perceelnummer as perceel_perceelnummer, &quot;);</span>
+<span class="nc" id="L646">        resultNames.append(&quot;kp.ka_sectie as perceel_sectie, &quot;);</span>
+<span class="nc" id="L647">        resultNames.append(&quot;vo.sc_identif as vo_identif&quot;);</span>
 
-<span class="nc" id="L646">        StringBuilder fromSQL = new StringBuilder(&quot; kad_onrrnd_zk koz &quot;);</span>
-<span class="nc" id="L647">        fromSQL.append(&quot;LEFT OUTER JOIN kad_perceel kp &quot;);</span>
-<span class="nc" id="L648">        fromSQL.append(&quot;ON ( koz.kad_identif = kp.sc_kad_identif) &quot;);</span>
-<span class="nc" id="L649">        fromSQL.append(&quot;LEFT OUTER JOIN app_re ar &quot;);</span>
-<span class="nc" id="L650">        fromSQL.append(&quot;ON ( koz.kad_identif = ar.sc_kad_identif) &quot;);</span>
-<span class="nc" id="L651">        fromSQL.append(&quot;LEFT OUTER JOIN benoemd_obj_kad_onrrnd_zk bokoz &quot;);</span>
-<span class="nc" id="L652">        fromSQL.append(&quot;ON ( koz.kad_identif = bokoz.fk_nn_rh_koz_kad_identif) &quot;);</span>
-<span class="nc" id="L653">        fromSQL.append(&quot;LEFT OUTER JOIN verblijfsobj vo &quot;);</span>
-<span class="nc" id="L654">        fromSQL.append(&quot;ON ( bokoz.fk_nn_lh_tgo_identif = vo.sc_identif) &quot;);</span>
+<span class="nc" id="L649">        StringBuilder fromSQL = new StringBuilder(&quot; kad_onrrnd_zk koz &quot;);</span>
+<span class="nc" id="L650">        fromSQL.append(&quot;LEFT OUTER JOIN kad_perceel kp &quot;);</span>
+<span class="nc" id="L651">        fromSQL.append(&quot;ON ( koz.kad_identif = kp.sc_kad_identif) &quot;);</span>
+<span class="nc" id="L652">        fromSQL.append(&quot;LEFT OUTER JOIN app_re ar &quot;);</span>
+<span class="nc" id="L653">        fromSQL.append(&quot;ON ( koz.kad_identif = ar.sc_kad_identif) &quot;);</span>
+<span class="nc" id="L654">        fromSQL.append(&quot;LEFT OUTER JOIN benoemd_obj_kad_onrrnd_zk bokoz &quot;);</span>
+<span class="nc" id="L655">        fromSQL.append(&quot;ON ( koz.kad_identif = bokoz.fk_nn_rh_koz_kad_identif) &quot;);</span>
+<span class="nc" id="L656">        fromSQL.append(&quot;LEFT OUTER JOIN verblijfsobj vo &quot;);</span>
+<span class="nc" id="L657">        fromSQL.append(&quot;ON ( bokoz.fk_nn_lh_tgo_identif = vo.sc_identif) &quot;);</span>
 
-<span class="nc" id="L656">        StringBuilder whereSQL = createWhereRsgbSQL(searchContext);</span>
+<span class="nc" id="L659">        StringBuilder whereSQL = createWhereRsgbSQL(searchContext);</span>
 
-<span class="nc" id="L658">        return createSelectSQL(resultNames, fromSQL, whereSQL, searchContext, dbType);</span>
+<span class="nc" id="L661">        return createSelectSQL(resultNames, fromSQL, whereSQL, searchContext, dbType);</span>
     }
 
     private static StringBuilder createSelectStagingSQL(
             Map&lt;String, Object&gt; searchContext, String dbType) throws ParseException {
 
-<span class="nc" id="L664">        Integer maxrows = (Integer) searchContext.get(MAXAANTALRESULTATEN);</span>
-<span class="nc bnc" id="L665" title="All 2 branches missed.">        if (maxrows == null) {</span>
-<span class="nc" id="L666">            maxrows = DBMAXRESULTS;</span>
-<span class="nc" id="L667">            searchContext.put(MAXAANTALRESULTATEN, DBMAXRESULTS);</span>
-<span class="nc bnc" id="L668" title="All 2 branches missed.">        } else if (maxrows &gt; DBMAXRESULTS) {</span>
-<span class="nc" id="L669">            searchContext.put(MAXAANTALRESULTATEN, DBMAXRESULTS);</span>
+<span class="nc" id="L667">        Integer maxrows = (Integer) searchContext.get(MAXAANTALRESULTATEN);</span>
+<span class="nc bnc" id="L668" title="All 2 branches missed.">        if (maxrows == null) {</span>
+<span class="nc" id="L669">            maxrows = DBMAXRESULTS;</span>
+<span class="nc" id="L670">            searchContext.put(MAXAANTALRESULTATEN, DBMAXRESULTS);</span>
+<span class="nc bnc" id="L671" title="All 2 branches missed.">        } else if (maxrows &gt; DBMAXRESULTS) {</span>
+<span class="nc" id="L672">            searchContext.put(MAXAANTALRESULTATEN, DBMAXRESULTS);</span>
         }
         // één meer ophalen zodat je kunt weten of er meer zijn
-<span class="nc" id="L672">        maxrows += 1;</span>
+<span class="nc" id="L675">        maxrows += 1;</span>
 
-<span class="nc" id="L674">        StringBuilder resultNames = new StringBuilder();</span>
-<span class="nc" id="L675">        resultNames.append(&quot; b.object_ref as object_ref, &quot;);</span>
-<span class="nc" id="L676">        resultNames.append(&quot; b.datum as datum, &quot;);</span>
-<span class="nc" id="L677">        resultNames.append(&quot; b.volgordenummer as volgordenummer, &quot;);</span>
-<span class="nc" id="L678">        resultNames.append(&quot; b.status_datum as status_datum&quot;);</span>
+<span class="nc" id="L677">        StringBuilder resultNames = new StringBuilder();</span>
+<span class="nc" id="L678">        resultNames.append(&quot; b.object_ref as object_ref, &quot;);</span>
+<span class="nc" id="L679">        resultNames.append(&quot; b.datum as datum, &quot;);</span>
+<span class="nc" id="L680">        resultNames.append(&quot; b.volgordenummer as volgordenummer, &quot;);</span>
+<span class="nc" id="L681">        resultNames.append(&quot; b.status_datum as status_datum&quot;);</span>
 
-<span class="nc" id="L680">        StringBuilder fromSQL = new StringBuilder(&quot; bericht b &quot;);</span>
+<span class="nc" id="L683">        StringBuilder fromSQL = new StringBuilder(&quot; bericht b &quot;);</span>
 
-<span class="nc" id="L682">        StringBuilder whereSQL = createWhereStagingSQL(searchContext);</span>
+<span class="nc" id="L685">        StringBuilder whereSQL = createWhereStagingSQL(searchContext);</span>
 
-<span class="nc" id="L684">        return createSelectSQL(resultNames, fromSQL,</span>
+<span class="nc" id="L687">        return createSelectSQL(resultNames, fromSQL,</span>
                 whereSQL, searchContext, dbType);
 
     }
@@ -689,156 +692,156 @@ import org.apache.commons.logging.LogFactory;
     private static StringBuilder createSelectSQL(StringBuilder resultNames, StringBuilder fromSQL,
             StringBuilder whereSQL, Map&lt;String, Object&gt; searchContext, String dbType) throws ParseException {
 
-<span class="nc" id="L692">        Integer maxrows = DBMAXRESULTS;</span>
-<span class="nc bnc" id="L693" title="All 2 branches missed.">        if (searchContext != null) {</span>
-<span class="nc" id="L694">            maxrows = (Integer) searchContext.get(MAXAANTALRESULTATEN);</span>
-<span class="nc bnc" id="L695" title="All 2 branches missed.">            if (maxrows == null) {</span>
-<span class="nc" id="L696">                maxrows = DBMAXRESULTS;</span>
-<span class="nc" id="L697">                searchContext.put(MAXAANTALRESULTATEN, DBMAXRESULTS);</span>
-<span class="nc bnc" id="L698" title="All 2 branches missed.">            } else if (maxrows &gt; DBMAXRESULTS) {</span>
-<span class="nc" id="L699">                searchContext.put(MAXAANTALRESULTATEN, DBMAXRESULTS);</span>
+<span class="nc" id="L695">        Integer maxrows = DBMAXRESULTS;</span>
+<span class="nc bnc" id="L696" title="All 2 branches missed.">        if (searchContext != null) {</span>
+<span class="nc" id="L697">            maxrows = (Integer) searchContext.get(MAXAANTALRESULTATEN);</span>
+<span class="nc bnc" id="L698" title="All 2 branches missed.">            if (maxrows == null) {</span>
+<span class="nc" id="L699">                maxrows = DBMAXRESULTS;</span>
+<span class="nc" id="L700">                searchContext.put(MAXAANTALRESULTATEN, DBMAXRESULTS);</span>
+<span class="nc bnc" id="L701" title="All 2 branches missed.">            } else if (maxrows &gt; DBMAXRESULTS) {</span>
+<span class="nc" id="L702">                searchContext.put(MAXAANTALRESULTATEN, DBMAXRESULTS);</span>
             }
         }
         // één meer ophalen zodat je kunt weten of er meer zijn
-<span class="nc" id="L703">        maxrows += 1;</span>
+<span class="nc" id="L706">        maxrows += 1;</span>
 
-<span class="nc" id="L705">        StringBuilder sql = new StringBuilder();</span>
-<span class="nc bnc" id="L706" title="All 4 branches missed.">        switch (dbType) {</span>
+<span class="nc" id="L708">        StringBuilder sql = new StringBuilder();</span>
+<span class="nc bnc" id="L709" title="All 4 branches missed.">        switch (dbType) {</span>
             case DB_POSTGRES:
-<span class="nc" id="L708">                sql.append(&quot; SELECT &quot;);</span>
-<span class="nc" id="L709">                sql.append(resultNames);</span>
-<span class="nc" id="L710">                sql.append(&quot; FROM &quot;);</span>
-<span class="nc" id="L711">                sql.append(fromSQL);</span>
-<span class="nc" id="L712">                sql.append(&quot; WHERE &quot;);</span>
-<span class="nc" id="L713">                sql.append(whereSQL);</span>
-<span class="nc" id="L714">                sql.append(&quot; LIMIT &quot;);</span>
-<span class="nc" id="L715">                sql.append(maxrows);</span>
-<span class="nc" id="L716">                return sql;</span>
+<span class="nc" id="L711">                sql.append(&quot; SELECT &quot;);</span>
+<span class="nc" id="L712">                sql.append(resultNames);</span>
+<span class="nc" id="L713">                sql.append(&quot; FROM &quot;);</span>
+<span class="nc" id="L714">                sql.append(fromSQL);</span>
+<span class="nc" id="L715">                sql.append(&quot; WHERE &quot;);</span>
+<span class="nc" id="L716">                sql.append(whereSQL);</span>
+<span class="nc" id="L717">                sql.append(&quot; LIMIT &quot;);</span>
+<span class="nc" id="L718">                sql.append(maxrows);</span>
+<span class="nc" id="L719">                return sql;</span>
             case DB_ORACLE:
-<span class="nc" id="L718">                sql.append(&quot; SELECT &quot;);</span>
-<span class="nc" id="L719">                sql.append(resultNames);</span>
-<span class="nc" id="L720">                sql.append(&quot; FROM &quot;);</span>
-<span class="nc" id="L721">                sql.append(fromSQL);</span>
-<span class="nc" id="L722">                sql.append(&quot; WHERE &quot;);</span>
-<span class="nc" id="L723">                sql.append(whereSQL);</span>
-<span class="nc" id="L724">                StringBuilder tempSql = new StringBuilder();</span>
-<span class="nc" id="L725">                tempSql.append(&quot; SELECT * FROM ( &quot;);</span>
-<span class="nc" id="L726">                tempSql.append(sql);</span>
-<span class="nc" id="L727">                tempSql.append(&quot; ) WHERE ROWNUM &lt;= &quot;);</span>
-<span class="nc" id="L728">                tempSql.append(maxrows);</span>
-<span class="nc" id="L729">                sql = tempSql;</span>
-<span class="nc" id="L730">                return sql;</span>
+<span class="nc" id="L721">                sql.append(&quot; SELECT &quot;);</span>
+<span class="nc" id="L722">                sql.append(resultNames);</span>
+<span class="nc" id="L723">                sql.append(&quot; FROM &quot;);</span>
+<span class="nc" id="L724">                sql.append(fromSQL);</span>
+<span class="nc" id="L725">                sql.append(&quot; WHERE &quot;);</span>
+<span class="nc" id="L726">                sql.append(whereSQL);</span>
+<span class="nc" id="L727">                StringBuilder tempSql = new StringBuilder();</span>
+<span class="nc" id="L728">                tempSql.append(&quot; SELECT * FROM ( &quot;);</span>
+<span class="nc" id="L729">                tempSql.append(sql);</span>
+<span class="nc" id="L730">                tempSql.append(&quot; ) WHERE ROWNUM &lt;= &quot;);</span>
+<span class="nc" id="L731">                tempSql.append(maxrows);</span>
+<span class="nc" id="L732">                sql = tempSql;</span>
+<span class="nc" id="L733">                return sql;</span>
             case DB_MSSQL:
-<span class="nc" id="L732">                sql.append(&quot; SELECT &quot;);</span>
-<span class="nc" id="L733">                sql.append(&quot; TOP &quot;);</span>
-<span class="nc" id="L734">                sql.append(&quot; ( &quot;);</span>
-<span class="nc" id="L735">                sql.append(maxrows);</span>
-<span class="nc" id="L736">                sql.append(&quot; ) &quot;);</span>
-<span class="nc" id="L737">                sql.append(resultNames);</span>
-<span class="nc" id="L738">                sql.append(&quot; FROM &quot;);</span>
-<span class="nc" id="L739">                sql.append(fromSQL);</span>
-<span class="nc" id="L740">                sql.append(&quot; WHERE &quot;);</span>
-<span class="nc" id="L741">                sql.append(whereSQL);</span>
-<span class="nc" id="L742">                return sql;</span>
+<span class="nc" id="L735">                sql.append(&quot; SELECT &quot;);</span>
+<span class="nc" id="L736">                sql.append(&quot; TOP &quot;);</span>
+<span class="nc" id="L737">                sql.append(&quot; ( &quot;);</span>
+<span class="nc" id="L738">                sql.append(maxrows);</span>
+<span class="nc" id="L739">                sql.append(&quot; ) &quot;);</span>
+<span class="nc" id="L740">                sql.append(resultNames);</span>
+<span class="nc" id="L741">                sql.append(&quot; FROM &quot;);</span>
+<span class="nc" id="L742">                sql.append(fromSQL);</span>
+<span class="nc" id="L743">                sql.append(&quot; WHERE &quot;);</span>
+<span class="nc" id="L744">                sql.append(whereSQL);</span>
+<span class="nc" id="L745">                return sql;</span>
             default:
-<span class="nc" id="L744">                throw new UnsupportedOperationException(&quot;Unknown database!&quot;);</span>
+<span class="nc" id="L747">                throw new UnsupportedOperationException(&quot;Unknown database!&quot;);</span>
         }
     }
 
     private static StringBuilder createWhereRsgbSQL(
             Map&lt;String, Object&gt; searchContext) throws ParseException {
-<span class="nc" id="L750">        StringBuilder sql = new StringBuilder();</span>
+<span class="nc" id="L753">        StringBuilder sql = new StringBuilder();</span>
 
-<span class="nc" id="L752">        boolean first = true;</span>
-<span class="nc" id="L753">        String condition = null;</span>
-<span class="nc bnc" id="L754" title="All 2 branches missed.">        if (searchContext.get(EigendomInfo.NAMESPACE).equals(&quot;VBO&quot;)) {</span>
-<span class="nc" id="L755">            condition = &quot;    vo.sc_identif = ? &quot;;</span>
-<span class="nc bnc" id="L756" title="All 2 branches missed.">        } else if (searchContext.get(EigendomInfo.NAMESPACE).equals(&quot;NL.KAD.OnroerendeZaak&quot;)) {</span>
-<span class="nc" id="L757">            condition = &quot;    koz.kad_identif = ? &quot;;</span>
+<span class="nc" id="L755">        boolean first = true;</span>
+<span class="nc" id="L756">        String condition = null;</span>
+<span class="nc bnc" id="L757" title="All 2 branches missed.">        if (searchContext.get(EigendomInfo.NAMESPACE).equals(&quot;VBO&quot;)) {</span>
+<span class="nc" id="L758">            condition = &quot;    vo.sc_identif = ? &quot;;</span>
+<span class="nc bnc" id="L759" title="All 2 branches missed.">        } else if (searchContext.get(EigendomInfo.NAMESPACE).equals(&quot;NL.KAD.OnroerendeZaak&quot;)) {</span>
+<span class="nc" id="L760">            condition = &quot;    koz.kad_identif = ? &quot;;</span>
             //hack: waarom hier numeric en hierboven string?
-<span class="nc" id="L759">            Long i = null;</span>
-<span class="nc bnc" id="L760" title="All 2 branches missed.">            if (searchContext.get(IDENTIFICATIE) instanceof String) {</span>
-<span class="nc" id="L761">                String id = (String) searchContext.get(IDENTIFICATIE);</span>
+<span class="nc" id="L762">            Long i = null;</span>
+<span class="nc bnc" id="L763" title="All 2 branches missed.">            if (searchContext.get(IDENTIFICATIE) instanceof String) {</span>
+<span class="nc" id="L764">                String id = (String) searchContext.get(IDENTIFICATIE);</span>
                 try {
-<span class="nc" id="L763">                    i = Long.parseLong(id);</span>
-<span class="nc" id="L764">                } catch (NumberFormatException nfe) {</span>
-<span class="nc" id="L765">                    LOG.error(&quot;Identificatie is geen nummer. &quot;, nfe);</span>
-<span class="nc" id="L766">                }</span>
-<span class="nc" id="L767">                searchContext.put(IDENTIFICATIE, i);</span>
+<span class="nc" id="L766">                    i = Long.parseLong(id);</span>
+<span class="nc" id="L767">                } catch (NumberFormatException nfe) {</span>
+<span class="nc" id="L768">                    LOG.error(&quot;Identificatie is geen nummer. &quot;, nfe);</span>
+<span class="nc" id="L769">                }</span>
+<span class="nc" id="L770">                searchContext.put(IDENTIFICATIE, i);</span>
             }
         }
-<span class="nc" id="L770">        addTerm(first, searchContext.get(IDENTIFICATIE), sql, condition);</span>
+<span class="nc" id="L773">        addTerm(first, searchContext.get(IDENTIFICATIE), sql, condition);</span>
 
-<span class="nc" id="L772">        return sql;</span>
+<span class="nc" id="L775">        return sql;</span>
     }
 
     private static StringBuilder createWhereStagingSQL(Map&lt;String, Object&gt; searchContext) throws ParseException {
-<span class="nc" id="L776">        StringBuilder sql = new StringBuilder();</span>
+<span class="nc" id="L779">        StringBuilder sql = new StringBuilder();</span>
 
-<span class="nc" id="L778">        boolean first = true;</span>
+<span class="nc" id="L781">        boolean first = true;</span>
         String condition;
-<span class="nc" id="L780">        condition = &quot;    b.object_ref like ? &quot;;</span>
-<span class="nc" id="L781">        first = addTerm(first, searchContext.get(OBJECT_PREFIX), sql, condition);</span>
+<span class="nc" id="L783">        condition = &quot;    b.object_ref like ? &quot;;</span>
+<span class="nc" id="L784">        first = addTerm(first, searchContext.get(OBJECT_PREFIX), sql, condition);</span>
 
-<span class="nc" id="L783">        condition = &quot;    b.status_datum &gt;= ? &quot;;</span>
-<span class="nc" id="L784">        first = addTerm(first, searchContext.get(FROMDATE), sql, condition);</span>
+<span class="nc" id="L786">        condition = &quot;    b.status_datum &gt;= ? &quot;;</span>
+<span class="nc" id="L787">        first = addTerm(first, searchContext.get(FROMDATE), sql, condition);</span>
 
-<span class="nc" id="L786">        condition = &quot;    b.status_datum &lt;= ? &quot;;</span>
-<span class="nc" id="L787">        addTerm(first, searchContext.get(TODATE), sql, condition);</span>
+<span class="nc" id="L789">        condition = &quot;    b.status_datum &lt;= ? &quot;;</span>
+<span class="nc" id="L790">        addTerm(first, searchContext.get(TODATE), sql, condition);</span>
 
-<span class="nc" id="L789">        return sql;</span>
+<span class="nc" id="L792">        return sql;</span>
     }
 
     private static boolean addTerm(boolean first, Object o, StringBuilder sql, String condition) {
-<span class="nc bnc" id="L793" title="All 2 branches missed.">        if (o != null) {</span>
-<span class="nc bnc" id="L794" title="All 4 branches missed.">            if (!(o instanceof String) || !((String) o).isEmpty()) {</span>
-<span class="nc bnc" id="L795" title="All 2 branches missed.">                if (!first) {</span>
-<span class="nc" id="L796">                    sql.append(&quot;AND &quot;);</span>
+<span class="nc bnc" id="L796" title="All 2 branches missed.">        if (o != null) {</span>
+<span class="nc bnc" id="L797" title="All 4 branches missed.">            if (!(o instanceof String) || !((String) o).isEmpty()) {</span>
+<span class="nc bnc" id="L798" title="All 2 branches missed.">                if (!first) {</span>
+<span class="nc" id="L799">                    sql.append(&quot;AND &quot;);</span>
                 }
-<span class="nc" id="L798">                sql.append(condition);</span>
-<span class="nc" id="L799">                first = false;</span>
+<span class="nc" id="L801">                sql.append(condition);</span>
+<span class="nc" id="L802">                first = false;</span>
             }
         }
-<span class="nc" id="L802">        return first;</span>
+<span class="nc" id="L805">        return first;</span>
     }
 
     private static PreparedStatement addParamsSQL(PreparedStatement stm, Map&lt;String, Object&gt; searchContext) throws SQLException {
-<span class="nc" id="L806">        int index = 1;</span>
-<span class="nc" id="L807">        index = addParam(index, searchContext.get(OBJECT_PREFIX), stm);</span>
-<span class="nc" id="L808">        index = addParam(index, searchContext.get(FROMDATE), stm);</span>
-<span class="nc" id="L809">        index = addParam(index, searchContext.get(TODATE), stm);</span>
-<span class="nc" id="L810">        addParam(index, searchContext.get(IDENTIFICATIE), stm);</span>
+<span class="nc" id="L809">        int index = 1;</span>
+<span class="nc" id="L810">        index = addParam(index, searchContext.get(OBJECT_PREFIX), stm);</span>
+<span class="nc" id="L811">        index = addParam(index, searchContext.get(FROMDATE), stm);</span>
+<span class="nc" id="L812">        index = addParam(index, searchContext.get(TODATE), stm);</span>
+<span class="nc" id="L813">        addParam(index, searchContext.get(IDENTIFICATIE), stm);</span>
 
-<span class="nc" id="L812">        return stm;</span>
+<span class="nc" id="L815">        return stm;</span>
     }
 
     private static int addParam(int index, Object o, PreparedStatement stm) throws SQLException {
-<span class="nc bnc" id="L816" title="All 2 branches missed.">        if (o != null) {</span>
-<span class="nc bnc" id="L817" title="All 4 branches missed.">            if (!(o instanceof String) || !((String) o).isEmpty()) {</span>
-<span class="nc bnc" id="L818" title="All 2 branches missed.">                if (o instanceof String) {</span>
-<span class="nc" id="L819">                    stm.setString(index++, &quot;&quot; + ((String) o) + &quot;%&quot;);</span>
-<span class="nc bnc" id="L820" title="All 2 branches missed.">                } else if (o instanceof java.sql.Timestamp) {</span>
-<span class="nc" id="L821">                    stm.setTimestamp(index++, (java.sql.Timestamp) o);</span>
+<span class="nc bnc" id="L819" title="All 2 branches missed.">        if (o != null) {</span>
+<span class="nc bnc" id="L820" title="All 4 branches missed.">            if (!(o instanceof String) || !((String) o).isEmpty()) {</span>
+<span class="nc bnc" id="L821" title="All 2 branches missed.">                if (o instanceof String) {</span>
+<span class="nc" id="L822">                    stm.setString(index++, &quot;&quot; + ((String) o) + &quot;%&quot;);</span>
+<span class="nc bnc" id="L823" title="All 2 branches missed.">                } else if (o instanceof java.sql.Timestamp) {</span>
+<span class="nc" id="L824">                    stm.setTimestamp(index++, (java.sql.Timestamp) o);</span>
                 } else {
-<span class="nc" id="L823">                    stm.setObject(index++, o);</span>
+<span class="nc" id="L826">                    stm.setObject(index++, o);</span>
                 }
             }
         }
-<span class="nc" id="L827">        return index;</span>
+<span class="nc" id="L830">        return index;</span>
     }
 
     private static String getDbType(Connection conn) throws SQLException {
-<span class="nc" id="L831">        String databaseProductName = conn.getMetaData().getDatabaseProductName();</span>
-<span class="nc bnc" id="L832" title="All 2 branches missed.">        if (databaseProductName.contains(&quot;PostgreSQL&quot;)) {</span>
-<span class="nc" id="L833">            return DB_POSTGRES;</span>
-<span class="nc bnc" id="L834" title="All 2 branches missed.">        } else if (databaseProductName.contains(&quot;Oracle&quot;)) {</span>
-<span class="nc" id="L835">            return DB_ORACLE;</span>
-<span class="nc bnc" id="L836" title="All 2 branches missed.">        } else if (databaseProductName.contains(&quot;Microsoft&quot;)) {</span>
-<span class="nc" id="L837">            return DB_MSSQL;</span>
+<span class="nc" id="L834">        String databaseProductName = conn.getMetaData().getDatabaseProductName();</span>
+<span class="nc bnc" id="L835" title="All 2 branches missed.">        if (databaseProductName.contains(&quot;PostgreSQL&quot;)) {</span>
+<span class="nc" id="L836">            return DB_POSTGRES;</span>
+<span class="nc bnc" id="L837" title="All 2 branches missed.">        } else if (databaseProductName.contains(&quot;Oracle&quot;)) {</span>
+<span class="nc" id="L838">            return DB_ORACLE;</span>
+<span class="nc bnc" id="L839" title="All 2 branches missed.">        } else if (databaseProductName.contains(&quot;Microsoft&quot;)) {</span>
+<span class="nc" id="L840">            return DB_MSSQL;</span>
         } else {
-<span class="nc" id="L839">            throw new UnsupportedOperationException(&quot;Unknown database: &quot; + conn.getMetaData().getDatabaseProductName());</span>
+<span class="nc" id="L842">            throw new UnsupportedOperationException(&quot;Unknown database: &quot; + conn.getMetaData().getDatabaseProductName());</span>
         }
     }
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

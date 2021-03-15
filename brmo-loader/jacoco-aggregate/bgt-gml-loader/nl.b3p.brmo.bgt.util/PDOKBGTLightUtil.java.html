@@ -67,8 +67,8 @@ public class PDOKBGTLightUtil {
 <span class="fc" id="L67">            fc = (SimpleFeatureCollection) io.readFeatureCollection(json.toString());</span>
 <span class="nc" id="L68">        } catch (org.locationtech.jts.io.ParseException ex) {</span>
 <span class="nc" id="L69">            LOG.error(&quot;Parsen van de WKT selectie geometrie is mislukt&quot;, ex);</span>
-<span class="nc" id="L70">        } catch (IOException | org.json.simple.parser.ParseException io) {</span>
-<span class="nc" id="L71">            LOG.error(&quot;Ophalen of parsen van de geojson file met tiles is mislukt&quot;, io);</span>
+<span class="fc" id="L70">        } catch (IOException | org.json.simple.parser.ParseException io) {</span>
+<span class="fc" id="L71">            LOG.error(&quot;Ophalen of parsen van de geojson file met tiles is mislukt&quot;, io);</span>
 <span class="pc" id="L72">        }</span>
 <span class="fc" id="L73">        return calculateGridIds(geometry, fc);</span>
     }
@@ -93,4 +93,4 @@ public class PDOKBGTLightUtil {
     private PDOKBGTLightUtil() {
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

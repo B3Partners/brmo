@@ -9,8 +9,42 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// nl.b3p.brmo.persistence.staging.AutomatischProces
+	c113 [label=<<table title="nl.b3p.brmo.persistence.staging.AutomatischProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AutomatischProces.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"><font face="Helvetica-Oblique"> AutomatischProces </font></td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + LOG_NEWLINE : String </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + AutomatischProces() </td></tr>
+<tr><td align="left" balign="left"> + updateSamenvattingEnLogfile(samenvatting : String) </td></tr>
+<tr><td align="left" balign="left"> + getConfig() : Map&lt;String, ClobElement&gt; </td></tr>
+<tr><td align="left" balign="left"> + setConfig(config : Map&lt;String, ClobElement&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getLastrun() : Date </td></tr>
+<tr><td align="left" balign="left"> + setLastrun(lastrun : Date) </td></tr>
+<tr><td align="left" balign="left"> + getStatus() : AutomatischProces.ProcessingStatus </td></tr>
+<tr><td align="left" balign="left"> + setStatus(status : AutomatischProces.ProcessingStatus) </td></tr>
+<tr><td align="left" balign="left"> + getSamenvatting() : String </td></tr>
+<tr><td align="left" balign="left"> + setSamenvatting(samenvatting : String) </td></tr>
+<tr><td align="left" balign="left"> + getLogfile() : String </td></tr>
+<tr><td align="left" balign="left"> + setLogfile(logfile : String) </td></tr>
+<tr><td align="left" balign="left"> + getId() : Long </td></tr>
+<tr><td align="left" balign="left"> + setId(id : Long) </td></tr>
+<tr><td align="left" balign="left"> + getCronExpressie() : String </td></tr>
+<tr><td align="left" balign="left"> + setCronExpressie(cronExpressie : String) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./AutomatischProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// Note annotation
+	n0cc113 [label=<<table title="nl.b3p.brmo.persistence.staging.AutomatischProces" border="0" cellborder="0" cellspacing="0" cellpadding="2" port="p" href="./AutomatischProces.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> Tabel "automatisch_proces" in de database. </td></tr>
+		</table></td></tr>
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0, shape=note];
+	n0cc113 -> c113:p[arrowhead=none];
 	// nl.b3p.brmo.persistence.staging.AfgifteNummerScannerProces
-	c59 [label=<<table title="nl.b3p.brmo.persistence.staging.AfgifteNummerScannerProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./AfgifteNummerScannerProces.html">
+	c121 [label=<<table title="nl.b3p.brmo.persistence.staging.AfgifteNummerScannerProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./AfgifteNummerScannerProces.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> AfgifteNummerScannerProces </td></tr>
 		</table></td></tr>
@@ -29,42 +63,7 @@ digraph G {
 <tr><td align="left" balign="left"> + getOntbrekendeAfgiftenummersToevoegen() : boolean </td></tr>
 		</table></td></tr>
 		</table>>, URL="./AfgifteNummerScannerProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.persistence.staging.AutomatischProces
-	c66 [label=<<table title="nl.b3p.brmo.persistence.staging.AutomatischProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AutomatischProces.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"><font face="Helvetica-Oblique"> AutomatischProces </font></td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + LOG_NEWLINE : String </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + AutomatischProces() </td></tr>
-<tr><td align="left" balign="left"> + updateSamenvattingEnLogfile(samenvatting : String) </td></tr>
-<tr><td align="left" balign="left"> + addLogLine(line : String) </td></tr>
-<tr><td align="left" balign="left"> + getConfig() : Map&lt;String, ClobElement&gt; </td></tr>
-<tr><td align="left" balign="left"> + setConfig(config : Map&lt;String, ClobElement&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getLastrun() : Date </td></tr>
-<tr><td align="left" balign="left"> + setLastrun(lastrun : Date) </td></tr>
-<tr><td align="left" balign="left"> + getStatus() : AutomatischProces.ProcessingStatus </td></tr>
-<tr><td align="left" balign="left"> + setStatus(status : AutomatischProces.ProcessingStatus) </td></tr>
-<tr><td align="left" balign="left"> + getSamenvatting() : String </td></tr>
-<tr><td align="left" balign="left"> + setSamenvatting(samenvatting : String) </td></tr>
-<tr><td align="left" balign="left"> + getLogfile() : String </td></tr>
-<tr><td align="left" balign="left"> + setLogfile(logfile : String) </td></tr>
-<tr><td align="left" balign="left"> + getId() : Long </td></tr>
-<tr><td align="left" balign="left"> + setId(id : Long) </td></tr>
-<tr><td align="left" balign="left"> + getCronExpressie() : String </td></tr>
-<tr><td align="left" balign="left"> + setCronExpressie(cronExpressie : String) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./AutomatischProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// Note annotation
-	n0cc66 [label=<<table title="nl.b3p.brmo.persistence.staging.AutomatischProces" border="0" cellborder="0" cellspacing="0" cellpadding="2" port="p" href="./AutomatischProces.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> Tabel "automatisch_proces" in de database. </td></tr>
-		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0, shape=note];
-	n0cc66 -> c66:p[arrowhead=none];
 	//nl.b3p.brmo.persistence.staging.AfgifteNummerScannerProces extends nl.b3p.brmo.persistence.staging.AutomatischProces
-	c66:p -> c59:p [dir=back,arrowtail=empty];
+	c113:p -> c121:p [dir=back,arrowtail=empty];
 }
 

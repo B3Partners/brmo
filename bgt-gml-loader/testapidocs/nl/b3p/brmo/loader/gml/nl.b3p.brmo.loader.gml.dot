@@ -9,8 +9,52 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// nl.b3p.brmo.loader.gml.BGTGMLLightValidatieTest
+	c13 [label=<<table title="nl.b3p.brmo.loader.gml.BGTGMLLightValidatieTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTGMLLightValidatieTest.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> BGTGMLLightValidatieTest </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BGTGMLLightValidatieTest() </td></tr>
+<tr><td align="left" balign="left"> + validateFile() </td></tr>
+		</table></td></tr>
+		</table>>, URL="./BGTGMLLightValidatieTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.loader.gml.BGTLightKruinlijnIntegrationTest
+	c14 [label=<<table title="nl.b3p.brmo.loader.gml.BGTLightKruinlijnIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTLightKruinlijnIntegrationTest.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> BGTLightKruinlijnIntegrationTest </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BGTLightKruinlijnIntegrationTest() </td></tr>
+<tr><td align="left" balign="left"> ~ argumentsProvider() : Stream&lt;Arguments&gt; </td></tr>
+<tr><td align="left" balign="left"> + setUp() </td></tr>
+<tr><td align="left" balign="left"> + cleanUp() </td></tr>
+<tr><td align="left" balign="left"> + testProcessGMLFile(gmlFileName : String, tableName : String, expectedNumOfElements : int, expectedKruinlijnElements : int) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./BGTLightKruinlijnIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.loader.gml.Mantis11620GmlLightLoaderIntegrationTest
+	c15 [label=<<table title="nl.b3p.brmo.loader.gml.Mantis11620GmlLightLoaderIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Mantis11620GmlLightLoaderIntegrationTest.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> Mantis11620GmlLightLoaderIntegrationTest </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + Mantis11620GmlLightLoaderIntegrationTest() </td></tr>
+<tr><td align="left" balign="left"> + setUp() </td></tr>
+<tr><td align="left" balign="left"> + resetDatabase() </td></tr>
+<tr><td align="left" balign="left"> + testProcessGMLFile() </td></tr>
+		</table></td></tr>
+		</table>>, URL="./Mantis11620GmlLightLoaderIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.BGTGMLLightLoaderUpdateIntegrationTest
-	c13 [label=<<table title="nl.b3p.brmo.loader.gml.BGTGMLLightLoaderUpdateIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTGMLLightLoaderUpdateIntegrationTest.html">
+	c16 [label=<<table title="nl.b3p.brmo.loader.gml.BGTGMLLightLoaderUpdateIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTGMLLightLoaderUpdateIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BGTGMLLightLoaderUpdateIntegrationTest </td></tr>
 		</table></td></tr>
@@ -25,39 +69,55 @@ digraph G {
 <tr><td align="left" balign="left"> + testUpdateFromDirectoryTwoDates() </td></tr>
 		</table></td></tr>
 		</table>>, URL="./BGTGMLLightLoaderUpdateIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.loader.gml.Mantis11620GmlLightLoaderIntegrationTest
-	c14 [label=<<table title="nl.b3p.brmo.loader.gml.Mantis11620GmlLightLoaderIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Mantis11620GmlLightLoaderIntegrationTest.html">
+	// nl.b3p.brmo.loader.gml.BGTGMLLightLoaderCreateTablesIntegrationTest
+	c17 [label=<<table title="nl.b3p.brmo.loader.gml.BGTGMLLightLoaderCreateTablesIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTGMLLightLoaderCreateTablesIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> Mantis11620GmlLightLoaderIntegrationTest </td></tr>
+<tr><td align="center" balign="center"> BGTGMLLightLoaderCreateTablesIntegrationTest </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left">  </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + Mantis11620GmlLightLoaderIntegrationTest() </td></tr>
+<tr><td align="left" balign="left"> + BGTGMLLightLoaderCreateTablesIntegrationTest() </td></tr>
 <tr><td align="left" balign="left"> + setUp() </td></tr>
-<tr><td align="left" balign="left"> + resetDatabase() </td></tr>
+<tr><td align="left" balign="left"> + testProcessGMLFileFail() </td></tr>
 <tr><td align="left" balign="left"> + testProcessGMLFile() </td></tr>
+<tr><td align="left" balign="left"> + testScanDirectory() </td></tr>
 		</table></td></tr>
-		</table>>, URL="./Mantis11620GmlLightLoaderIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.loader.gml.BGTNullGeomIntegrationTest
-	c15 [label=<<table title="nl.b3p.brmo.loader.gml.BGTNullGeomIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTNullGeomIntegrationTest.html">
+		</table>>, URL="./BGTGMLLightLoaderCreateTablesIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.loader.gml.BGTLightZipsLoaderIntegrationTest
+	c18 [label=<<table title="nl.b3p.brmo.loader.gml.BGTLightZipsLoaderIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTLightZipsLoaderIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> BGTNullGeomIntegrationTest </td></tr>
+<tr><td align="center" balign="center"> BGTLightZipsLoaderIntegrationTest </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left">  </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BGTNullGeomIntegrationTest(gmlFileName : String, tableName : String, expectedNumOfElements : int, expectedKruinlijnElements : int) </td></tr>
-<tr><td align="left" balign="left"> + params() : Collection&lt;Object&gt; </td></tr>
+<tr><td align="left" balign="left"> + BGTLightZipsLoaderIntegrationTest() </td></tr>
 <tr><td align="left" balign="left"> + setUp() </td></tr>
 <tr><td align="left" balign="left"> + cleanUp() </td></tr>
-<tr><td align="left" balign="left"> + testProcessGMLFile() </td></tr>
+<tr><td align="left" balign="left"> + testCombiKaartbladTegenLosseKaartbladenInZipFiles() </td></tr>
+<tr><td align="left" balign="left"> + testCombiKaartbladPlusLosseKaartbladenInZipFiles() </td></tr>
 		</table></td></tr>
-		</table>>, URL="./BGTNullGeomIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, URL="./BGTLightZipsLoaderIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.loader.gml.BGTGMLLightParserTest
+	c19 [label=<<table title="nl.b3p.brmo.loader.gml.BGTGMLLightParserTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTGMLLightParserTest.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> BGTGMLLightParserTest </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BGTGMLLightParserTest() </td></tr>
+<tr><td align="left" balign="left"> ~ argumentsProvider() : Stream&lt;Arguments&gt; </td></tr>
+<tr><td align="left" balign="left"> + setUpParser() </td></tr>
+<tr><td align="left" balign="left"> + testGMLFile(gmlFileName : String, typeNamespace : String, elementName : String, expectedNumOfElements : int, expectedNumOfAtrr : int) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./BGTGMLLightParserTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.BGTGMLLightLoaderIntegrationTest
-	c16 [label=<<table title="nl.b3p.brmo.loader.gml.BGTGMLLightLoaderIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTGMLLightLoaderIntegrationTest.html">
+	c20 [label=<<table title="nl.b3p.brmo.loader.gml.BGTGMLLightLoaderIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTGMLLightLoaderIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BGTGMLLightLoaderIntegrationTest </td></tr>
 		</table></td></tr>
@@ -80,107 +140,8 @@ digraph G {
 <tr><td align="left" balign="left"> + testScanDirectoryTwo() </td></tr>
 		</table></td></tr>
 		</table>>, URL="./BGTGMLLightLoaderIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.loader.gml.BGTGMLLightParserTest
-	c17 [label=<<table title="nl.b3p.brmo.loader.gml.BGTGMLLightParserTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTGMLLightParserTest.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> BGTGMLLightParserTest </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BGTGMLLightParserTest(gmlFileName : String, typeNamespace : String, elementName : String, expectedNumOfElements : int, expectedNumOfAtrr : int) </td></tr>
-<tr><td align="left" balign="left"> + params() : Collection&lt;Object&gt; </td></tr>
-<tr><td align="left" balign="left"> + setUpParser() </td></tr>
-<tr><td align="left" balign="left"> + testGMLFile() </td></tr>
-		</table></td></tr>
-		</table>>, URL="./BGTGMLLightParserTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.loader.gml.BGTGMLLightLoaderCreateTablesIntegrationTest
-	c18 [label=<<table title="nl.b3p.brmo.loader.gml.BGTGMLLightLoaderCreateTablesIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTGMLLightLoaderCreateTablesIntegrationTest.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> BGTGMLLightLoaderCreateTablesIntegrationTest </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BGTGMLLightLoaderCreateTablesIntegrationTest() </td></tr>
-<tr><td align="left" balign="left"> + setUp() </td></tr>
-<tr><td align="left" balign="left"> + testProcessGMLFileFail() </td></tr>
-<tr><td align="left" balign="left"> + testProcessGMLFile() </td></tr>
-<tr><td align="left" balign="left"> + testScanDirectory() </td></tr>
-		</table></td></tr>
-		</table>>, URL="./BGTGMLLightLoaderCreateTablesIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.loader.gml.BGTLightZipsLoaderIntegrationTest
-	c19 [label=<<table title="nl.b3p.brmo.loader.gml.BGTLightZipsLoaderIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTLightZipsLoaderIntegrationTest.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> BGTLightZipsLoaderIntegrationTest </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BGTLightZipsLoaderIntegrationTest() </td></tr>
-<tr><td align="left" balign="left"> + setUp() </td></tr>
-<tr><td align="left" balign="left"> + cleanUp() </td></tr>
-<tr><td align="left" balign="left"> + testCombiKaartbladTegenLosseKaartbladenInZipFiles() </td></tr>
-<tr><td align="left" balign="left"> + testCombiKaartbladPlusLosseKaartbladenInZipFiles() </td></tr>
-		</table></td></tr>
-		</table>>, URL="./BGTLightZipsLoaderIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.loader.gml.BGTLightKruinlijnIntegrationTest
-	c20 [label=<<table title="nl.b3p.brmo.loader.gml.BGTLightKruinlijnIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTLightKruinlijnIntegrationTest.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> BGTLightKruinlijnIntegrationTest </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BGTLightKruinlijnIntegrationTest(gmlFileName : String, tableName : String, expectedNumOfElements : int, expectedKruinlijnElements : int) </td></tr>
-<tr><td align="left" balign="left"> + params() : Collection&lt;Object&gt; </td></tr>
-<tr><td align="left" balign="left"> + setUp() </td></tr>
-<tr><td align="left" balign="left"> + cleanUp() </td></tr>
-<tr><td align="left" balign="left"> + testProcessGMLFile() </td></tr>
-		</table></td></tr>
-		</table>>, URL="./BGTLightKruinlijnIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.loader.gml.TestingBase
-	c21 [label=<<table title="nl.b3p.brmo.loader.gml.TestingBase" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TestingBase.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"><font face="Helvetica-Oblique"> TestingBase </font></td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # params : Properties </td></tr>
-<tr><td align="left" balign="left"> # isOracle : boolean </td></tr>
-<tr><td align="left" balign="left"> # isMsSQL : boolean </td></tr>
-<tr><td align="left" balign="left"> + name : TestName </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + TestingBase() </td></tr>
-<tr><td align="left" balign="left"> + checkDatabaseIsProvided() </td></tr>
-<tr><td align="left" balign="left"> + startTest() </td></tr>
-<tr><td align="left" balign="left"> + endTest() </td></tr>
-<tr><td align="left" balign="left"> # loadProps() </td></tr>
-<tr><td align="left" balign="left"> # clearTables() </td></tr>
-<tr><td align="left" balign="left"> # dropTables() </td></tr>
-<tr><td align="left" balign="left"> # countRows() : SortedMap&lt;String, Long&gt; </td></tr>
-		</table></td></tr>
-		</table>>, URL="./TestingBase.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.loader.gml.BGTGMLLightValidatieTest
-	c22 [label=<<table title="nl.b3p.brmo.loader.gml.BGTGMLLightValidatieTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTGMLLightValidatieTest.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> BGTGMLLightValidatieTest </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BGTGMLLightValidatieTest(gmlFileName : String, hasKruinlijnElements : boolean) </td></tr>
-<tr><td align="left" balign="left"> + params() : Collection&lt;Object&gt; </td></tr>
-<tr><td align="left" balign="left"> + validateFile() </td></tr>
-		</table></td></tr>
-		</table>>, URL="./BGTGMLLightValidatieTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.gml.BGTGMLLightLoaderNederlandIntegrationTest
-	c23 [label=<<table title="nl.b3p.brmo.loader.gml.BGTGMLLightLoaderNederlandIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTGMLLightLoaderNederlandIntegrationTest.html">
+	c21 [label=<<table title="nl.b3p.brmo.loader.gml.BGTGMLLightLoaderNederlandIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTGMLLightLoaderNederlandIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BGTGMLLightLoaderNederlandIntegrationTest </td></tr>
 		</table></td></tr>
@@ -194,37 +155,74 @@ digraph G {
 <tr><td align="left" balign="left"> + testLaadNederlandMultiZip() </td></tr>
 		</table></td></tr>
 		</table>>, URL="./BGTGMLLightLoaderNederlandIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	//nl.b3p.brmo.loader.gml.BGTGMLLightLoaderUpdateIntegrationTest extends nl.b3p.brmo.loader.gml.TestingBase
-	c21:p -> c13:p [dir=back,arrowtail=empty];
-	//nl.b3p.brmo.loader.gml.Mantis11620GmlLightLoaderIntegrationTest extends nl.b3p.brmo.loader.gml.TestingBase
-	c21:p -> c14:p [dir=back,arrowtail=empty];
-	//nl.b3p.brmo.loader.gml.BGTNullGeomIntegrationTest extends nl.b3p.brmo.loader.gml.TestingBase
-	c21:p -> c15:p [dir=back,arrowtail=empty];
-	//nl.b3p.brmo.loader.gml.BGTGMLLightLoaderIntegrationTest extends nl.b3p.brmo.loader.gml.TestingBase
-	c21:p -> c16:p [dir=back,arrowtail=empty];
-	//nl.b3p.brmo.loader.gml.BGTGMLLightLoaderCreateTablesIntegrationTest extends nl.b3p.brmo.loader.gml.TestingBase
-	c21:p -> c18:p [dir=back,arrowtail=empty];
-	//nl.b3p.brmo.loader.gml.BGTLightZipsLoaderIntegrationTest extends nl.b3p.brmo.loader.gml.TestingBase
-	c21:p -> c19:p [dir=back,arrowtail=empty];
+	// nl.b3p.brmo.loader.gml.TestingBase
+	c22 [label=<<table title="nl.b3p.brmo.loader.gml.TestingBase" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TestingBase.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"><font face="Helvetica-Oblique"> TestingBase </font></td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # params : Properties </td></tr>
+<tr><td align="left" balign="left"> # isOracle : boolean </td></tr>
+<tr><td align="left" balign="left"> # isMsSQL : boolean </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + TestingBase() </td></tr>
+<tr><td align="left" balign="left"> + checkDatabaseIsProvided() </td></tr>
+<tr><td align="left" balign="left"> + startTest(testInfo : TestInfo) </td></tr>
+<tr><td align="left" balign="left"> + endTest(testInfo : TestInfo) </td></tr>
+<tr><td align="left" balign="left"> # loadProps() </td></tr>
+<tr><td align="left" balign="left"> # clearTables() </td></tr>
+<tr><td align="left" balign="left"> # dropTables() </td></tr>
+<tr><td align="left" balign="left"> # countRows() : SortedMap&lt;String, Long&gt; </td></tr>
+		</table></td></tr>
+		</table>>, URL="./TestingBase.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.loader.gml.BGTNullGeomIntegrationTest
+	c23 [label=<<table title="nl.b3p.brmo.loader.gml.BGTNullGeomIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTNullGeomIntegrationTest.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> BGTNullGeomIntegrationTest </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BGTNullGeomIntegrationTest() </td></tr>
+<tr><td align="left" balign="left"> ~ argumentsProvider() : Stream&lt;Arguments&gt; </td></tr>
+<tr><td align="left" balign="left"> + setUp() </td></tr>
+<tr><td align="left" balign="left"> + cleanUp() </td></tr>
+<tr><td align="left" balign="left"> + testProcessGMLFile(gmlFileName : String, tableName : String, expectedNumOfElements : int, expectedKruinlijnElements : int) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./BGTNullGeomIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.loader.gml.BGTLightKruinlijnIntegrationTest extends nl.b3p.brmo.loader.gml.TestingBase
-	c21:p -> c20:p [dir=back,arrowtail=empty];
+	c22:p -> c14:p [dir=back,arrowtail=empty];
+	//nl.b3p.brmo.loader.gml.Mantis11620GmlLightLoaderIntegrationTest extends nl.b3p.brmo.loader.gml.TestingBase
+	c22:p -> c15:p [dir=back,arrowtail=empty];
+	//nl.b3p.brmo.loader.gml.BGTGMLLightLoaderUpdateIntegrationTest extends nl.b3p.brmo.loader.gml.TestingBase
+	c22:p -> c16:p [dir=back,arrowtail=empty];
+	//nl.b3p.brmo.loader.gml.BGTGMLLightLoaderCreateTablesIntegrationTest extends nl.b3p.brmo.loader.gml.TestingBase
+	c22:p -> c17:p [dir=back,arrowtail=empty];
+	//nl.b3p.brmo.loader.gml.BGTLightZipsLoaderIntegrationTest extends nl.b3p.brmo.loader.gml.TestingBase
+	c22:p -> c18:p [dir=back,arrowtail=empty];
+	//nl.b3p.brmo.loader.gml.BGTGMLLightLoaderIntegrationTest extends nl.b3p.brmo.loader.gml.TestingBase
+	c22:p -> c20:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.loader.gml.BGTGMLLightLoaderNederlandIntegrationTest extends nl.b3p.brmo.loader.gml.TestingBase
-	c21:p -> c23:p [dir=back,arrowtail=empty];
-	// nl.b3p.brmo.loader.gml.BGTGMLLightLoaderUpdateIntegrationTest NAVASSOC nl.b3p.brmo.loader.gml.BGTGMLLightLoader
-	c13:p -> c24:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.b3p.brmo.loader.gml.Mantis11620GmlLightLoaderIntegrationTest NAVASSOC nl.b3p.brmo.loader.gml.BGTGMLLightLoader
+	c22:p -> c21:p [dir=back,arrowtail=empty];
+	//nl.b3p.brmo.loader.gml.BGTNullGeomIntegrationTest extends nl.b3p.brmo.loader.gml.TestingBase
+	c22:p -> c23:p [dir=back,arrowtail=empty];
+	// nl.b3p.brmo.loader.gml.BGTLightKruinlijnIntegrationTest NAVASSOC nl.b3p.brmo.loader.gml.BGTGMLLightLoader
 	c14:p -> c24:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.b3p.brmo.loader.gml.BGTNullGeomIntegrationTest NAVASSOC nl.b3p.brmo.loader.gml.BGTGMLLightLoader
+	// nl.b3p.brmo.loader.gml.Mantis11620GmlLightLoaderIntegrationTest NAVASSOC nl.b3p.brmo.loader.gml.BGTGMLLightLoader
 	c15:p -> c24:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.b3p.brmo.loader.gml.BGTGMLLightLoaderIntegrationTest NAVASSOC nl.b3p.brmo.loader.gml.BGTGMLLightLoader
+	// nl.b3p.brmo.loader.gml.BGTGMLLightLoaderUpdateIntegrationTest NAVASSOC nl.b3p.brmo.loader.gml.BGTGMLLightLoader
 	c16:p -> c24:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.loader.gml.BGTGMLLightLoaderCreateTablesIntegrationTest NAVASSOC nl.b3p.brmo.loader.gml.BGTGMLLightLoader
-	c18:p -> c24:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c17:p -> c24:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.loader.gml.BGTLightZipsLoaderIntegrationTest NAVASSOC nl.b3p.brmo.loader.gml.BGTGMLLightLoader
-	c19:p -> c24:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.b3p.brmo.loader.gml.BGTLightKruinlijnIntegrationTest NAVASSOC nl.b3p.brmo.loader.gml.BGTGMLLightLoader
+	c18:p -> c24:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.brmo.loader.gml.BGTGMLLightLoaderIntegrationTest NAVASSOC nl.b3p.brmo.loader.gml.BGTGMLLightLoader
 	c20:p -> c24:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.loader.gml.BGTGMLLightLoaderNederlandIntegrationTest NAVASSOC nl.b3p.brmo.loader.gml.BGTGMLLightLoader
+	c21:p -> c24:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.brmo.loader.gml.BGTNullGeomIntegrationTest NAVASSOC nl.b3p.brmo.loader.gml.BGTGMLLightLoader
 	c23:p -> c24:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.loader.gml.BGTGMLLightLoader
 	c24 [label=<<table title="nl.b3p.brmo.loader.gml.BGTGMLLightLoader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">

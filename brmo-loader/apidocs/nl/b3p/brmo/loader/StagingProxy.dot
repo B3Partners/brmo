@@ -9,60 +9,8 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// nl.b3p.brmo.loader.RsgbBRPTransformer
-	c2564 [label=<<table title="nl.b3p.brmo.loader.RsgbBRPTransformer" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RsgbBRPTransformer.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> RsgbBRPTransformer </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + RsgbBRPTransformer(pathToXsl : String, staging : StagingProxy) </td></tr>
-<tr><td align="left" balign="left"> + transformToDbXml(bericht : Bericht) : String </td></tr>
-<tr><td align="left" balign="left"> + transformToDbXmlNode(bericht : Bericht) : Node </td></tr>
-<tr><td align="left" balign="left"> # merge(oldFile : String, newFile : String) : Document </td></tr>
-<tr><td align="left" balign="left"> # print(doc : Document) : String </td></tr>
-		</table></td></tr>
-		</table>>, URL="./RsgbBRPTransformer.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.loader.RsgbProxy
-	c2565 [label=<<table title="nl.b3p.brmo.loader.RsgbProxy" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RsgbProxy.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> RsgbProxy </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + RsgbProxy(dataSourceRsgb : DataSource, stagingProxy : StagingProxy, status : Bericht.STATUS, listener : ProgressUpdateListener) </td></tr>
-<tr><td align="left" balign="left"> + RsgbProxy(dataSourceRsgb : DataSource, stagingProxy : StagingProxy, mode : RsgbProxy.BerichtSelectMode, ids : long[], listener : ProgressUpdateListener) </td></tr>
-<tr><td align="left" balign="left"> + RsgbProxy(dataSourceRsgb : DataSource, stagingProxy : StagingProxy, updateProcess : UpdateProcess, listener : ProgressUpdateListener) </td></tr>
-<tr><td align="left" balign="left"> + setSimonNamePrefix(prefix : String) </td></tr>
-<tr><td align="left" balign="left"> + setEnablePipeline(enablePipeline : boolean) </td></tr>
-<tr><td align="left" balign="left"> + setPipelineCapacity(pipelineCapacity : int) </td></tr>
-<tr><td align="left" balign="left"> + setRenewConnectionAfterCommit(renewConnectionAfterCommit : boolean) </td></tr>
-<tr><td align="left" balign="left"> + setOrderBerichten(orderBerichten : boolean) </td></tr>
-<tr><td align="left" balign="left"> + setErrorState(errorState : String) </td></tr>
-<tr><td align="left" balign="left"> + init() </td></tr>
-<tr><td align="left" balign="left"> + checkAndCloseStatement(stmt : PreparedStatement) </td></tr>
-<tr><td align="left" balign="left"> + checkAndAddStatement(m : Map&lt;String, PreparedStatement&gt;, tableName : String, stmt : PreparedStatement) </td></tr>
-<tr><td align="left" balign="left"> + close() </td></tr>
-<tr><td align="left" balign="left"> + renewConnection() </td></tr>
-<tr><td align="left" balign="left"> + run() </td></tr>
-<tr><td align="left" balign="left"> + updateProcessingResult(ber : Bericht) </td></tr>
-<tr><td align="left" balign="left"> + transformToTableData(ber : Bericht) : List&lt;TableData&gt; </td></tr>
-<tr><td align="left" balign="left"> + transformUpdateTableData(ber : Bericht) : List&lt;TableData&gt; </td></tr>
-<tr><td align="left" balign="left"> + updateBerichtException(ber : Bericht, e : Throwable) </td></tr>
-<tr><td align="left" balign="left"> + updateBerichtProcessing(ber : Bericht) </td></tr>
-<tr><td align="left" balign="left"> + handle(ber : Bericht, pretransformedTableData : List&lt;TableData&gt;, updateResult : boolean) </td></tr>
-<tr><td align="left" balign="left"> + update(jobBericht : Bericht, pretransformedTableData : List&lt;TableData&gt;) </td></tr>
-<tr><td align="left" balign="left"> + isAlreadyInMetadata(row : TableRow, loadLog : StringBuilder) : boolean </td></tr>
-<tr><td align="left" balign="left"> + getHerkomstMetadata() : String </td></tr>
-<tr><td align="left" balign="left"> + setHerkomstMetadata(herkomstMetadata : String) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./RsgbProxy.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.BrmoFramework
-	c2568 [label=<<table title="nl.b3p.brmo.loader.BrmoFramework" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BrmoFramework.html">
+	c2565 [label=<<table title="nl.b3p.brmo.loader.BrmoFramework" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BrmoFramework.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BrmoFramework </td></tr>
 		</table></td></tr>
@@ -132,8 +80,60 @@ digraph G {
 <tr><td align="left" balign="left"> + checkAfgiftelijst(bestandsnaam : String, is : InputStream, output : File) : File </td></tr>
 		</table></td></tr>
 		</table>>, URL="./BrmoFramework.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.loader.RsgbProxy
+	c2566 [label=<<table title="nl.b3p.brmo.loader.RsgbProxy" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RsgbProxy.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> RsgbProxy </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + RsgbProxy(dataSourceRsgb : DataSource, stagingProxy : StagingProxy, status : Bericht.STATUS, listener : ProgressUpdateListener) </td></tr>
+<tr><td align="left" balign="left"> + RsgbProxy(dataSourceRsgb : DataSource, stagingProxy : StagingProxy, mode : RsgbProxy.BerichtSelectMode, ids : long[], listener : ProgressUpdateListener) </td></tr>
+<tr><td align="left" balign="left"> + RsgbProxy(dataSourceRsgb : DataSource, stagingProxy : StagingProxy, updateProcess : UpdateProcess, listener : ProgressUpdateListener) </td></tr>
+<tr><td align="left" balign="left"> + setSimonNamePrefix(prefix : String) </td></tr>
+<tr><td align="left" balign="left"> + setEnablePipeline(enablePipeline : boolean) </td></tr>
+<tr><td align="left" balign="left"> + setPipelineCapacity(pipelineCapacity : int) </td></tr>
+<tr><td align="left" balign="left"> + setRenewConnectionAfterCommit(renewConnectionAfterCommit : boolean) </td></tr>
+<tr><td align="left" balign="left"> + setOrderBerichten(orderBerichten : boolean) </td></tr>
+<tr><td align="left" balign="left"> + setErrorState(errorState : String) </td></tr>
+<tr><td align="left" balign="left"> + init() </td></tr>
+<tr><td align="left" balign="left"> + checkAndCloseStatement(stmt : PreparedStatement) </td></tr>
+<tr><td align="left" balign="left"> + checkAndAddStatement(m : Map&lt;String, PreparedStatement&gt;, tableName : String, stmt : PreparedStatement) </td></tr>
+<tr><td align="left" balign="left"> + close() </td></tr>
+<tr><td align="left" balign="left"> + renewConnection() </td></tr>
+<tr><td align="left" balign="left"> + run() </td></tr>
+<tr><td align="left" balign="left"> + updateProcessingResult(ber : Bericht) </td></tr>
+<tr><td align="left" balign="left"> + transformToTableData(ber : Bericht) : List&lt;TableData&gt; </td></tr>
+<tr><td align="left" balign="left"> + transformUpdateTableData(ber : Bericht) : List&lt;TableData&gt; </td></tr>
+<tr><td align="left" balign="left"> + updateBerichtException(ber : Bericht, e : Throwable) </td></tr>
+<tr><td align="left" balign="left"> + updateBerichtProcessing(ber : Bericht) </td></tr>
+<tr><td align="left" balign="left"> + handle(ber : Bericht, pretransformedTableData : List&lt;TableData&gt;, updateResult : boolean) </td></tr>
+<tr><td align="left" balign="left"> + update(jobBericht : Bericht, pretransformedTableData : List&lt;TableData&gt;) </td></tr>
+<tr><td align="left" balign="left"> + isAlreadyInMetadata(row : TableRow, loadLog : StringBuilder) : boolean </td></tr>
+<tr><td align="left" balign="left"> + getHerkomstMetadata() : String </td></tr>
+<tr><td align="left" balign="left"> + setHerkomstMetadata(herkomstMetadata : String) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./RsgbProxy.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.loader.RsgbBRPTransformer
+	c2569 [label=<<table title="nl.b3p.brmo.loader.RsgbBRPTransformer" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RsgbBRPTransformer.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> RsgbBRPTransformer </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + RsgbBRPTransformer(pathToXsl : String, staging : StagingProxy) </td></tr>
+<tr><td align="left" balign="left"> + transformToDbXml(bericht : Bericht) : String </td></tr>
+<tr><td align="left" balign="left"> + transformToDbXmlNode(bericht : Bericht) : Node </td></tr>
+<tr><td align="left" balign="left"> # merge(oldFile : String, newFile : String) : Document </td></tr>
+<tr><td align="left" balign="left"> # print(doc : Document) : String </td></tr>
+		</table></td></tr>
+		</table>>, URL="./RsgbBRPTransformer.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.StagingProxy
-	c2569 [label=<<table title="nl.b3p.brmo.loader.StagingProxy" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./StagingProxy.html">
+	c2570 [label=<<table title="nl.b3p.brmo.loader.StagingProxy" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./StagingProxy.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> StagingProxy </td></tr>
 		</table></td></tr>
@@ -185,7 +185,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./StagingProxy.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.xml.BRPXMLReader
-	c2572 [label=<<table title="nl.b3p.brmo.loader.xml.BRPXMLReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./xml/BRPXMLReader.html">
+	c2577 [label=<<table title="nl.b3p.brmo.loader.xml.BRPXMLReader" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./xml/BRPXMLReader.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BRPXMLReader </td></tr>
 		</table></td></tr>
@@ -201,36 +201,8 @@ digraph G {
 <tr><td align="left" balign="left"> + getXML(map : Map&lt;String, String&gt;) : String </td></tr>
 		</table></td></tr>
 		</table>>, URL="./xml/BRPXMLReader.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.loader.util.TopNLRsgbTransformer
-	c2579 [label=<<table title="nl.b3p.brmo.loader.util.TopNLRsgbTransformer" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./util/TopNLRsgbTransformer.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> TopNLRsgbTransformer </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + TopNLRsgbTransformer(dataSourceTopNL : DataSource, stagingProxy : StagingProxy, lpIDs : long[], listener : ProgressUpdateListener) </td></tr>
-<tr><td align="left" balign="left"> + init() </td></tr>
-<tr><td align="left" balign="left"> + run() </td></tr>
-		</table></td></tr>
-		</table>>, URL="./util/TopNLRsgbTransformer.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.loader.util.BGTLightRsgbTransformer
-	c2583 [label=<<table title="nl.b3p.brmo.loader.util.BGTLightRsgbTransformer" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./util/BGTLightRsgbTransformer.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> BGTLightRsgbTransformer </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BGTLightRsgbTransformer(dataSourceRsgbBgt : DataSource, stagingProxy : StagingProxy, lpIDs : long[], listener : ProgressUpdateListener) </td></tr>
-<tr><td align="left" balign="left"> + init() </td></tr>
-<tr><td align="left" balign="left"> + run() </td></tr>
-		</table></td></tr>
-		</table>>, URL="./util/BGTLightRsgbTransformer.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.checks.AfgifteChecker
-	c2603 [label=<<table title="nl.b3p.brmo.loader.checks.AfgifteChecker" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./checks/AfgifteChecker.html">
+	c2599 [label=<<table title="nl.b3p.brmo.loader.checks.AfgifteChecker" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./checks/AfgifteChecker.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> AfgifteChecker </td></tr>
 		</table></td></tr>
@@ -246,26 +218,54 @@ digraph G {
 <tr><td align="left" balign="left"> + getResults(input : String, f : File) : File </td></tr>
 		</table></td></tr>
 		</table>>, URL="./checks/AfgifteChecker.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.loader.RsgbBRPTransformer NAVASSOC nl.b3p.brmo.loader.StagingProxy
-	c2564:p -> c2569:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.b3p.brmo.loader.RsgbProxy NAVASSOC nl.b3p.loader.jdbc.GeometryJdbcConverter
-	c2565:p -> c2613:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.b3p.brmo.loader.RsgbProxy NAVASSOC nl.b3p.brmo.loader.StagingProxy
-	c2565:p -> c2569:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.brmo.loader.util.TopNLRsgbTransformer
+	c2606 [label=<<table title="nl.b3p.brmo.loader.util.TopNLRsgbTransformer" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./util/TopNLRsgbTransformer.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> TopNLRsgbTransformer </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + TopNLRsgbTransformer(dataSourceTopNL : DataSource, stagingProxy : StagingProxy, lpIDs : long[], listener : ProgressUpdateListener) </td></tr>
+<tr><td align="left" balign="left"> + init() </td></tr>
+<tr><td align="left" balign="left"> + run() </td></tr>
+		</table></td></tr>
+		</table>>, URL="./util/TopNLRsgbTransformer.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.loader.util.BGTLightRsgbTransformer
+	c2608 [label=<<table title="nl.b3p.brmo.loader.util.BGTLightRsgbTransformer" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./util/BGTLightRsgbTransformer.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> BGTLightRsgbTransformer </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BGTLightRsgbTransformer(dataSourceRsgbBgt : DataSource, stagingProxy : StagingProxy, lpIDs : long[], listener : ProgressUpdateListener) </td></tr>
+<tr><td align="left" balign="left"> + init() </td></tr>
+<tr><td align="left" balign="left"> + run() </td></tr>
+		</table></td></tr>
+		</table>>, URL="./util/BGTLightRsgbTransformer.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.BrmoFramework NAVASSOC nl.b3p.brmo.loader.StagingProxy
-	c2568:p -> c2569:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c2565:p -> c2570:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.brmo.loader.RsgbProxy NAVASSOC nl.b3p.loader.jdbc.GeometryJdbcConverter
+	c2566:p -> c2613:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.brmo.loader.RsgbProxy NAVASSOC nl.b3p.brmo.loader.StagingProxy
+	c2566:p -> c2570:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.brmo.loader.RsgbBRPTransformer NAVASSOC nl.b3p.brmo.loader.StagingProxy
+	c2569:p -> c2570:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.loader.StagingProxy NAVASSOC nl.b3p.loader.jdbc.GeometryJdbcConverter
-	c2569:p -> c2613:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c2570:p -> c2613:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.loader.xml.BRPXMLReader NAVASSOC nl.b3p.brmo.loader.StagingProxy
-	c2572:p -> c2569:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.b3p.brmo.loader.util.TopNLRsgbTransformer NAVASSOC nl.b3p.brmo.loader.StagingProxy
-	c2579:p -> c2569:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.b3p.brmo.loader.util.BGTLightRsgbTransformer NAVASSOC nl.b3p.brmo.loader.StagingProxy
-	c2583:p -> c2569:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.b3p.brmo.loader.util.BGTLightRsgbTransformer NAVASSOC nl.b3p.loader.jdbc.GeometryJdbcConverter
-	c2583:p -> c2613:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c2577:p -> c2570:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.loader.checks.AfgifteChecker NAVASSOC nl.b3p.brmo.loader.StagingProxy
-	c2603:p -> c2569:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c2599:p -> c2570:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.brmo.loader.util.TopNLRsgbTransformer NAVASSOC nl.b3p.brmo.loader.StagingProxy
+	c2606:p -> c2570:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.brmo.loader.util.BGTLightRsgbTransformer NAVASSOC nl.b3p.brmo.loader.StagingProxy
+	c2608:p -> c2570:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.brmo.loader.util.BGTLightRsgbTransformer NAVASSOC nl.b3p.loader.jdbc.GeometryJdbcConverter
+	c2608:p -> c2613:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.loader.jdbc.GeometryJdbcConverter
 	c2613 [label=<<table title="nl.b3p.loader.jdbc.GeometryJdbcConverter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="https://b3partners.github.io/jdbc-util/apidocs/nl/b3p/loader/jdbc/GeometryJdbcConverter.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">

@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.OBWKennisgeving
-	c253708 [label=<<table title="nl.egem.stuf.sector.bg._0204.OBWKennisgeving" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./OBWKennisgeving.html">
+	c253539 [label=<<table title="nl.egem.stuf.sector.bg._0204.OBWKennisgeving" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./OBWKennisgeving.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> OBWKennisgeving </td></tr>
 		</table></td></tr>
@@ -26,22 +26,8 @@ digraph G {
 <tr><td align="left" balign="left"> + getOBWBSG() : List&lt;OBWKennisgeving.OBWBSG&gt; </td></tr>
 		</table></td></tr>
 		</table>>, URL="./OBWKennisgeving.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.WOZVraag.WOZOBW
-	c253751 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZVraag.WOZOBW" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./WOZVraag.WOZOBW.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> WOZOBW </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # obw : OBWKennisgeving </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + WOZOBW() </td></tr>
-<tr><td align="left" balign="left"> + getOBW() : OBWKennisgeving </td></tr>
-<tr><td align="left" balign="left"> + setOBW(value : OBWKennisgeving) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./WOZVraag.WOZOBW.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.Relatie
-	c253840 [label=<<table title="nl.egem.stuf.sector.bg._0204.Relatie" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Relatie.html">
+	c253625 [label=<<table title="nl.egem.stuf.sector.bg._0204.Relatie" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Relatie.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Relatie </td></tr>
 		</table></td></tr>
@@ -78,9 +64,23 @@ digraph G {
 <tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Relatie.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.WOZVraag.WOZOBW
+	c253952 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZVraag.WOZOBW" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./WOZVraag.WOZOBW.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> WOZOBW </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # obw : OBWKennisgeving </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + WOZOBW() </td></tr>
+<tr><td align="left" balign="left"> + getOBW() : OBWKennisgeving </td></tr>
+<tr><td align="left" balign="left"> + setOBW(value : OBWKennisgeving) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./WOZVraag.WOZOBW.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.WOZVraag.WOZOBW extends nl.egem.stuf.sector.bg._0204.Relatie
-	c253840:p -> c253751:p [dir=back,arrowtail=empty];
+	c253625:p -> c253952:p [dir=back,arrowtail=empty];
 	// nl.egem.stuf.sector.bg._0204.WOZVraag.WOZOBW NAVASSOC nl.egem.stuf.sector.bg._0204.OBWKennisgeving
-	c253751:p -> c253708:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c253952:p -> c253539:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

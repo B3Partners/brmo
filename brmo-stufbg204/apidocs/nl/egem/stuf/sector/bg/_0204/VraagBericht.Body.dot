@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.VraagBericht
-	c239598 [label=<<table title="nl.egem.stuf.sector.bg._0204.VraagBericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VraagBericht.html">
+	c239612 [label=<<table title="nl.egem.stuf.sector.bg._0204.VraagBericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VraagBericht.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> VraagBericht </td></tr>
 		</table></td></tr>
@@ -27,7 +27,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./VraagBericht.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.VraagBericht.Body
-	c239599 [label=<<table title="nl.egem.stuf.sector.bg._0204.VraagBericht.Body" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./VraagBericht.Body.html">
+	c239613 [label=<<table title="nl.egem.stuf.sector.bg._0204.VraagBericht.Body" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./VraagBericht.Body.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Body </td></tr>
 		</table></td></tr>
@@ -110,6 +110,6 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./VraagBericht.Body.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.VraagBericht NAVASSOC nl.egem.stuf.sector.bg._0204.VraagBericht.Body
-	c239598:p -> c239599:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c239612:p -> c239613:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

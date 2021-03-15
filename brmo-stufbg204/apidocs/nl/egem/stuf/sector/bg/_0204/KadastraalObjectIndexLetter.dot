@@ -9,8 +9,25 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// nl.egem.stuf.sector.bg._0204.KadastraalObjectIndexLetter
+	c101346 [label=<<table title="nl.egem.stuf.sector.bg._0204.KadastraalObjectIndexLetter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./KadastraalObjectIndexLetter.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
+<tr><td align="center" balign="center"> KadastraalObjectIndexLetter </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> A </td></tr>
+<tr><td align="left" balign="left"> B </td></tr>
+<tr><td align="left" balign="left"> D </td></tr>
+<tr><td align="left" balign="left"> F </td></tr>
+<tr><td align="left" balign="left"> G </td></tr>
+		</table></td></tr>
+		</table>>, URL="./KadastraalObjectIndexLetter.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.KDOKerngegevens.KadastraalObjectIndexLetter
-	c101347 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOKerngegevens.KadastraalObjectIndexLetter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOKerngegevens.KadastraalObjectIndexLetter.html">
+	c101376 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOKerngegevens.KadastraalObjectIndexLetter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOKerngegevens.KadastraalObjectIndexLetter.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> KadastraalObjectIndexLetter </td></tr>
 		</table></td></tr>
@@ -35,25 +52,8 @@ digraph G {
 <tr><td align="left" balign="left"> + setExact(value : Boolean) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./KDOKerngegevens.KadastraalObjectIndexLetter.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.KadastraalObjectIndexLetter
-	c101424 [label=<<table title="nl.egem.stuf.sector.bg._0204.KadastraalObjectIndexLetter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./KadastraalObjectIndexLetter.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
-<tr><td align="center" balign="center"> KadastraalObjectIndexLetter </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> A </td></tr>
-<tr><td align="left" balign="left"> B </td></tr>
-<tr><td align="left" balign="left"> D </td></tr>
-<tr><td align="left" balign="left"> F </td></tr>
-<tr><td align="left" balign="left"> G </td></tr>
-		</table></td></tr>
-		</table>>, URL="./KadastraalObjectIndexLetter.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.KDOFund.KadastraalObjectIndexLetter
-	c101554 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOFund.KadastraalObjectIndexLetter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOFund.KadastraalObjectIndexLetter.html">
+	c101624 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOFund.KadastraalObjectIndexLetter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOFund.KadastraalObjectIndexLetter.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> KadastraalObjectIndexLetter </td></tr>
 		</table></td></tr>
@@ -79,8 +79,8 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./KDOFund.KadastraalObjectIndexLetter.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.KDOKerngegevens.KadastraalObjectIndexLetter NAVASSOC nl.egem.stuf.sector.bg._0204.KadastraalObjectIndexLetter
-	c101347:p -> c101424:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c101376:p -> c101346:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.egem.stuf.sector.bg._0204.KDOFund.KadastraalObjectIndexLetter NAVASSOC nl.egem.stuf.sector.bg._0204.KadastraalObjectIndexLetter
-	c101554:p -> c101424:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c101624:p -> c101346:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

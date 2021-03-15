@@ -25,5 +25,19 @@ digraph G {
 <tr><td align="left" balign="left"> + testPostGzippedBRK() </td></tr>
 		</table></td></tr>
 		</table>>, URL="./BerichtEndpointFileServletTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.service.proxy.WebXmlTest
+	c1 [label=<<table title="nl.b3p.brmo.service.proxy.WebXmlTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WebXmlTest.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> WebXmlTest </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + WebXmlTest() </td></tr>
+<tr><td align="left" balign="left"> + validateWebXml() </td></tr>
+<tr><td align="left" balign="left"> + validateTestWebXml() </td></tr>
+		</table></td></tr>
+		</table>>, URL="./WebXmlTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 

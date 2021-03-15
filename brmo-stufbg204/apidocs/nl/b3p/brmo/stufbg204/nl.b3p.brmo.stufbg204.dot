@@ -9,8 +9,21 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// nl.b3p.brmo.stufbg204.StUFBGsynchroon
+	c0 [label=<<table title="nl.b3p.brmo.stufbg204.StUFBGsynchroon" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./StUFBGsynchroon.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> StUFBGsynchroon </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + StUFBGsynchroon() </td></tr>
+<tr><td align="left" balign="left"> + beantwoordSynchroneVraag(vraag : VraagBericht) : SynchroonAntwoordBericht </td></tr>
+		</table></td></tr>
+		</table>>, URL="./StUFBGsynchroon.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.stufbg204.AntwoordBodyFactory
-	c0 [label=<<table title="nl.b3p.brmo.stufbg204.AntwoordBodyFactory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AntwoordBodyFactory.html">
+	c1 [label=<<table title="nl.b3p.brmo.stufbg204.AntwoordBodyFactory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AntwoordBodyFactory.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> AntwoordBodyFactory </td></tr>
 		</table></td></tr>
@@ -34,7 +47,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./AntwoordBodyFactory.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.stufbg204.CriteriaParser
-	c1 [label=<<table title="nl.b3p.brmo.stufbg204.CriteriaParser" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./CriteriaParser.html">
+	c2 [label=<<table title="nl.b3p.brmo.stufbg204.CriteriaParser" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./CriteriaParser.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> CriteriaParser </td></tr>
 		</table></td></tr>
@@ -46,19 +59,6 @@ digraph G {
 <tr><td align="left" balign="left"> + getCriteria(bericht : VraagBericht) : String </td></tr>
 		</table></td></tr>
 		</table>>, URL="./CriteriaParser.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.stufbg204.StUFBGsynchroon
-	c2 [label=<<table title="nl.b3p.brmo.stufbg204.StUFBGsynchroon" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./StUFBGsynchroon.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> StUFBGsynchroon </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + StUFBGsynchroon() </td></tr>
-<tr><td align="left" balign="left"> + beantwoordSynchroneVraag(vraag : VraagBericht) : SynchroonAntwoordBericht </td></tr>
-		</table></td></tr>
-		</table>>, URL="./StUFBGsynchroon.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.stufbg204.StUFBGasynchroon
 	c3 [label=<<table title="nl.b3p.brmo.stufbg204.StUFBGasynchroon" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./StUFBGasynchroon.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">

@@ -9,27 +9,8 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// nl.egem.stuf.sector.bg._0204.OBWAntwoord
-	c130653 [label=<<table title="nl.egem.stuf.sector.bg._0204.OBWAntwoord" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./OBWAntwoord.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> OBWAntwoord </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # obw : List&lt;OBWFund&gt; </td></tr>
-<tr><td align="left" balign="left"> # obwadr : List&lt;ADRRelFund&gt; </td></tr>
-<tr><td align="left" balign="left"> # obwkdo : List&lt;OBWAntwoord.OBWKDO&gt; </td></tr>
-<tr><td align="left" balign="left"> # obwbsg : List&lt;OBWAntwoord.OBWBSG&gt; </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + OBWAntwoord() </td></tr>
-<tr><td align="left" balign="left"> + getOBW() : List&lt;OBWFund&gt; </td></tr>
-<tr><td align="left" balign="left"> + getOBWADR() : List&lt;ADRRelFund&gt; </td></tr>
-<tr><td align="left" balign="left"> + getOBWKDO() : List&lt;OBWAntwoord.OBWKDO&gt; </td></tr>
-<tr><td align="left" balign="left"> + getOBWBSG() : List&lt;OBWAntwoord.OBWBSG&gt; </td></tr>
-		</table></td></tr>
-		</table>>, URL="./OBWAntwoord.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.OBWFund
-	c130741 [label=<<table title="nl.egem.stuf.sector.bg._0204.OBWFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./OBWFund.html">
+	c130593 [label=<<table title="nl.egem.stuf.sector.bg._0204.OBWFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./OBWFund.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> OBWFund </td></tr>
 		</table></td></tr>
@@ -72,7 +53,26 @@ digraph G {
 <tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./OBWFund.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.OBWAntwoord
+	c131017 [label=<<table title="nl.egem.stuf.sector.bg._0204.OBWAntwoord" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./OBWAntwoord.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> OBWAntwoord </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # obw : List&lt;OBWFund&gt; </td></tr>
+<tr><td align="left" balign="left"> # obwadr : List&lt;ADRRelFund&gt; </td></tr>
+<tr><td align="left" balign="left"> # obwkdo : List&lt;OBWAntwoord.OBWKDO&gt; </td></tr>
+<tr><td align="left" balign="left"> # obwbsg : List&lt;OBWAntwoord.OBWBSG&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + OBWAntwoord() </td></tr>
+<tr><td align="left" balign="left"> + getOBW() : List&lt;OBWFund&gt; </td></tr>
+<tr><td align="left" balign="left"> + getOBWADR() : List&lt;ADRRelFund&gt; </td></tr>
+<tr><td align="left" balign="left"> + getOBWKDO() : List&lt;OBWAntwoord.OBWKDO&gt; </td></tr>
+<tr><td align="left" balign="left"> + getOBWBSG() : List&lt;OBWAntwoord.OBWBSG&gt; </td></tr>
+		</table></td></tr>
+		</table>>, URL="./OBWAntwoord.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.OBWAntwoord extends nl.egem.stuf.sector.bg._0204.OBWFund
-	c130741:p -> c130653:p [dir=back,arrowtail=empty];
+	c130593:p -> c131017:p [dir=back,arrowtail=empty];
 }
 

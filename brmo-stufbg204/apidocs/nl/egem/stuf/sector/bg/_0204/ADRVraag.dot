@@ -9,22 +9,8 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// nl.egem.stuf.sector.bg._0204.ADRVraag
-	c31116 [label=<<table title="nl.egem.stuf.sector.bg._0204.ADRVraag" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ADRVraag.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> ADRVraag </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # adradrosu : JAXBElement&lt;ADRVraag.ADRADROSU&gt; </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + ADRVraag() </td></tr>
-<tr><td align="left" balign="left"> + getADRADROSU() : JAXBElement&lt;ADRVraag.ADRADROSU&gt; </td></tr>
-<tr><td align="left" balign="left"> + setADRADROSU(value : JAXBElement&lt;ADRVraag.ADRADROSU&gt;) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./ADRVraag.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.ADRFund
-	c31166 [label=<<table title="nl.egem.stuf.sector.bg._0204.ADRFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ADRFund.html">
+	c30938 [label=<<table title="nl.egem.stuf.sector.bg._0204.ADRFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ADRFund.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ADRFund </td></tr>
 		</table></td></tr>
@@ -130,7 +116,21 @@ digraph G {
 <tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ADRFund.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.ADRVraag
+	c31057 [label=<<table title="nl.egem.stuf.sector.bg._0204.ADRVraag" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ADRVraag.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> ADRVraag </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # adradrosu : JAXBElement&lt;ADRVraag.ADRADROSU&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + ADRVraag() </td></tr>
+<tr><td align="left" balign="left"> + getADRADROSU() : JAXBElement&lt;ADRVraag.ADRADROSU&gt; </td></tr>
+<tr><td align="left" balign="left"> + setADRADROSU(value : JAXBElement&lt;ADRVraag.ADRADROSU&gt;) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./ADRVraag.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.ADRVraag extends nl.egem.stuf.sector.bg._0204.ADRFund
-	c31166:p -> c31116:p [dir=back,arrowtail=empty];
+	c30938:p -> c31057:p [dir=back,arrowtail=empty];
 }
 

@@ -9,78 +9,8 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// nl.egem.stuf.sector.bg._0204.PRSPRSHUWRel.DatumSluiting
-	c52203 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSPRSHUWRel.DatumSluiting" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/PRSPRSHUWRel.DatumSluiting.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> DatumSluiting </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # kerngegeven : Boolean </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + DatumSluiting() </td></tr>
-<tr><td align="left" balign="left"> + isKerngegeven() : boolean </td></tr>
-<tr><td align="left" balign="left"> + setKerngegeven(value : Boolean) </td></tr>
-		</table></td></tr>
-		</table>>, URL="../sector/bg/_0204/PRSPRSHUWRel.DatumSluiting.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.GeboortedatumE
-	c52227 [label=<<table title="nl.egem.stuf.sector.bg._0204.GeboortedatumE" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/GeboortedatumE.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> GeboortedatumE </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # kerngegeven : Boolean </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + GeboortedatumE() </td></tr>
-<tr><td align="left" balign="left"> + isKerngegeven() : boolean </td></tr>
-<tr><td align="left" balign="left"> + setKerngegeven(value : Boolean) </td></tr>
-		</table></td></tr>
-		</table>>, URL="../sector/bg/_0204/GeboortedatumE.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.NNPKerngegevens.DatumOprichtingNietNatuurlijkPersoon
-	c52251 [label=<<table title="nl.egem.stuf.sector.bg._0204.NNPKerngegevens.DatumOprichtingNietNatuurlijkPersoon" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/NNPKerngegevens.DatumOprichtingNietNatuurlijkPersoon.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> DatumOprichtingNietNatuurlijkPersoon </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # kerngegeven : Boolean </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + DatumOprichtingNietNatuurlijkPersoon() </td></tr>
-<tr><td align="left" balign="left"> + isKerngegeven() : boolean </td></tr>
-<tr><td align="left" balign="left"> + setKerngegeven(value : Boolean) </td></tr>
-		</table></td></tr>
-		</table>>, URL="../sector/bg/_0204/NNPKerngegevens.DatumOprichtingNietNatuurlijkPersoon.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.WOZFund.PeildatumWaarde
-	c52290 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZFund.PeildatumWaarde" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/WOZFund.PeildatumWaarde.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> PeildatumWaarde </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # gegevengroep : String </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + PeildatumWaarde() </td></tr>
-<tr><td align="left" balign="left"> + getGegevengroep() : String </td></tr>
-<tr><td align="left" balign="left"> + setGegevengroep(value : String) </td></tr>
-		</table></td></tr>
-		</table>>, URL="../sector/bg/_0204/WOZFund.PeildatumWaarde.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.PRBKerngegevens.Ingangsdatum
-	c52448 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRBKerngegevens.Ingangsdatum" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/PRBKerngegevens.Ingangsdatum.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> Ingangsdatum </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # kerngegeven : Boolean </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + Ingangsdatum() </td></tr>
-<tr><td align="left" balign="left"> + isKerngegeven() : boolean </td></tr>
-<tr><td align="left" balign="left"> + setKerngegeven(value : Boolean) </td></tr>
-		</table></td></tr>
-		</table>>, URL="../sector/bg/_0204/PRBKerngegevens.Ingangsdatum.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.PRBFund.Ingangsdatum
-	c52457 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRBFund.Ingangsdatum" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/PRBFund.Ingangsdatum.html">
+	c52137 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRBFund.Ingangsdatum" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/PRBFund.Ingangsdatum.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Ingangsdatum </td></tr>
 		</table></td></tr>
@@ -93,22 +23,64 @@ digraph G {
 <tr><td align="left" balign="left"> + setKerngegeven(value : Boolean) </td></tr>
 		</table></td></tr>
 		</table>>, URL="../sector/bg/_0204/PRBFund.Ingangsdatum.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.NNPFund.DatumOprichtingNietNatuurlijkPersoon
-	c52489 [label=<<table title="nl.egem.stuf.sector.bg._0204.NNPFund.DatumOprichtingNietNatuurlijkPersoon" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/NNPFund.DatumOprichtingNietNatuurlijkPersoon.html">
+	// nl.egem.stuf.sector.bg._0204.GeboortedatumE
+	c52161 [label=<<table title="nl.egem.stuf.sector.bg._0204.GeboortedatumE" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/GeboortedatumE.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> DatumOprichtingNietNatuurlijkPersoon </td></tr>
+<tr><td align="center" balign="center"> GeboortedatumE </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> # kerngegeven : Boolean </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + DatumOprichtingNietNatuurlijkPersoon() </td></tr>
+<tr><td align="left" balign="left"> + GeboortedatumE() </td></tr>
 <tr><td align="left" balign="left"> + isKerngegeven() : boolean </td></tr>
 <tr><td align="left" balign="left"> + setKerngegeven(value : Boolean) </td></tr>
 		</table></td></tr>
-		</table>>, URL="../sector/bg/_0204/NNPFund.DatumOprichtingNietNatuurlijkPersoon.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, URL="../sector/bg/_0204/GeboortedatumE.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.WOZFund.PeildatumWaarde
+	c52182 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZFund.PeildatumWaarde" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/WOZFund.PeildatumWaarde.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> PeildatumWaarde </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # gegevengroep : String </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + PeildatumWaarde() </td></tr>
+<tr><td align="left" balign="left"> + getGegevengroep() : String </td></tr>
+<tr><td align="left" balign="left"> + setGegevengroep(value : String) </td></tr>
+		</table></td></tr>
+		</table>>, URL="../sector/bg/_0204/WOZFund.PeildatumWaarde.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.PRSPRSHUWRel.DatumSluiting
+	c52273 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSPRSHUWRel.DatumSluiting" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/PRSPRSHUWRel.DatumSluiting.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> DatumSluiting </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # kerngegeven : Boolean </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + DatumSluiting() </td></tr>
+<tr><td align="left" balign="left"> + isKerngegeven() : boolean </td></tr>
+<tr><td align="left" balign="left"> + setKerngegeven(value : Boolean) </td></tr>
+		</table></td></tr>
+		</table>>, URL="../sector/bg/_0204/PRSPRSHUWRel.DatumSluiting.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.KDOZKRRel.IngangsDatumZakelijkRecht
+	c52320 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOZKRRel.IngangsDatumZakelijkRecht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/KDOZKRRel.IngangsDatumZakelijkRecht.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> IngangsDatumZakelijkRecht </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # kerngegeven : Boolean </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + IngangsDatumZakelijkRecht() </td></tr>
+<tr><td align="left" balign="left"> + isKerngegeven() : boolean </td></tr>
+<tr><td align="left" balign="left"> + setKerngegeven(value : Boolean) </td></tr>
+		</table></td></tr>
+		</table>>, URL="../sector/bg/_0204/KDOZKRRel.IngangsDatumZakelijkRecht.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.PRSFund.DatumVerkrijgingVerblijfstitel
-	c52529 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSFund.DatumVerkrijgingVerblijfstitel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/PRSFund.DatumVerkrijgingVerblijfstitel.html">
+	c52356 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSFund.DatumVerkrijgingVerblijfstitel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/PRSFund.DatumVerkrijgingVerblijfstitel.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DatumVerkrijgingVerblijfstitel </td></tr>
 		</table></td></tr>
@@ -122,7 +94,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="../sector/bg/_0204/PRSFund.DatumVerkrijgingVerblijfstitel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.PRSFund.DatumVerliesVerblijfstitel
-	c52530 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSFund.DatumVerliesVerblijfstitel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/PRSFund.DatumVerliesVerblijfstitel.html">
+	c52357 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSFund.DatumVerliesVerblijfstitel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/PRSFund.DatumVerliesVerblijfstitel.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DatumVerliesVerblijfstitel </td></tr>
 		</table></td></tr>
@@ -135,8 +107,36 @@ digraph G {
 <tr><td align="left" balign="left"> + setGegevengroep(value : String) </td></tr>
 		</table></td></tr>
 		</table>>, URL="../sector/bg/_0204/PRSFund.DatumVerliesVerblijfstitel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.NNPFund.DatumOprichtingNietNatuurlijkPersoon
+	c52487 [label=<<table title="nl.egem.stuf.sector.bg._0204.NNPFund.DatumOprichtingNietNatuurlijkPersoon" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/NNPFund.DatumOprichtingNietNatuurlijkPersoon.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> DatumOprichtingNietNatuurlijkPersoon </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # kerngegeven : Boolean </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + DatumOprichtingNietNatuurlijkPersoon() </td></tr>
+<tr><td align="left" balign="left"> + isKerngegeven() : boolean </td></tr>
+<tr><td align="left" balign="left"> + setKerngegeven(value : Boolean) </td></tr>
+		</table></td></tr>
+		</table>>, URL="../sector/bg/_0204/NNPFund.DatumOprichtingNietNatuurlijkPersoon.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.PRBKerngegevens.Ingangsdatum
+	c52511 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRBKerngegevens.Ingangsdatum" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/PRBKerngegevens.Ingangsdatum.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> Ingangsdatum </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # kerngegeven : Boolean </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + Ingangsdatum() </td></tr>
+<tr><td align="left" balign="left"> + isKerngegeven() : boolean </td></tr>
+<tr><td align="left" balign="left"> + setKerngegeven(value : Boolean) </td></tr>
+		</table></td></tr>
+		</table>>, URL="../sector/bg/_0204/PRBKerngegevens.Ingangsdatum.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.PRSKerngegevens.Geboortedatum
-	c52586 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSKerngegevens.Geboortedatum" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/PRSKerngegevens.Geboortedatum.html">
+	c52572 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSKerngegevens.Geboortedatum" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/PRSKerngegevens.Geboortedatum.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Geboortedatum </td></tr>
 		</table></td></tr>
@@ -149,38 +149,22 @@ digraph G {
 <tr><td align="left" balign="left"> + setKerngegeven(value : Boolean) </td></tr>
 		</table></td></tr>
 		</table>>, URL="../sector/bg/_0204/PRSKerngegevens.Geboortedatum.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.KDOZKRRel.IngangsDatumZakelijkRecht
-	c52600 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOZKRRel.IngangsDatumZakelijkRecht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/KDOZKRRel.IngangsDatumZakelijkRecht.html">
+	// nl.egem.stuf.sector.bg._0204.NNPKerngegevens.DatumOprichtingNietNatuurlijkPersoon
+	c52580 [label=<<table title="nl.egem.stuf.sector.bg._0204.NNPKerngegevens.DatumOprichtingNietNatuurlijkPersoon" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/NNPKerngegevens.DatumOprichtingNietNatuurlijkPersoon.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> IngangsDatumZakelijkRecht </td></tr>
+<tr><td align="center" balign="center"> DatumOprichtingNietNatuurlijkPersoon </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> # kerngegeven : Boolean </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + IngangsDatumZakelijkRecht() </td></tr>
+<tr><td align="left" balign="left"> + DatumOprichtingNietNatuurlijkPersoon() </td></tr>
 <tr><td align="left" balign="left"> + isKerngegeven() : boolean </td></tr>
 <tr><td align="left" balign="left"> + setKerngegeven(value : Boolean) </td></tr>
 		</table></td></tr>
-		</table>>, URL="../sector/bg/_0204/KDOZKRRel.IngangsDatumZakelijkRecht.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.stuf0204.NoValue
-	c52610 [label=<<table title="nl.egem.stuf.stuf0204.NoValue" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NoValue.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
-<tr><td align="center" balign="center"> NoValue </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> NIET_ONDERSTEUND </td></tr>
-<tr><td align="left" balign="left"> NIET_GEAUTORISEERD </td></tr>
-<tr><td align="left" balign="left"> GEEN_WAARDE </td></tr>
-<tr><td align="left" balign="left"> WAARDE_ONBEKEND </td></tr>
-		</table></td></tr>
-		</table>>, URL="./NoValue.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, URL="../sector/bg/_0204/NNPKerngegevens.DatumOprichtingNietNatuurlijkPersoon.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.stuf0204.IndOnvolledigeDatum
-	c52611 [label=<<table title="nl.egem.stuf.stuf0204.IndOnvolledigeDatum" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./IndOnvolledigeDatum.html">
+	c52610 [label=<<table title="nl.egem.stuf.stuf0204.IndOnvolledigeDatum" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./IndOnvolledigeDatum.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> IndOnvolledigeDatum </td></tr>
@@ -194,42 +178,8 @@ digraph G {
 <tr><td align="left" balign="left"> V </td></tr>
 		</table></td></tr>
 		</table>>, URL="./IndOnvolledigeDatum.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.stuf0204.TijdvakGeldigheid
-	c52614 [label=<<table title="nl.egem.stuf.stuf0204.TijdvakGeldigheid" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TijdvakGeldigheid.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> TijdvakGeldigheid </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # begindatumTijdvakGeldigheid : DatumMetIndicator </td></tr>
-<tr><td align="left" balign="left"> # einddatumTijdvakGeldigheid : DatumMetIndicator </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + TijdvakGeldigheid() </td></tr>
-<tr><td align="left" balign="left"> + getBegindatumTijdvakGeldigheid() : DatumMetIndicator </td></tr>
-<tr><td align="left" balign="left"> + setBegindatumTijdvakGeldigheid(value : DatumMetIndicator) </td></tr>
-<tr><td align="left" balign="left"> + getEinddatumTijdvakGeldigheid() : DatumMetIndicator </td></tr>
-<tr><td align="left" balign="left"> + setEinddatumTijdvakGeldigheid(value : DatumMetIndicator) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./TijdvakGeldigheid.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.stuf0204.TijdvakRelatie
-	c52628 [label=<<table title="nl.egem.stuf.stuf0204.TijdvakRelatie" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TijdvakRelatie.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> TijdvakRelatie </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # begindatumRelatie : DatumMetIndicator </td></tr>
-<tr><td align="left" balign="left"> # einddatumRelatie : DatumMetIndicator </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + TijdvakRelatie() </td></tr>
-<tr><td align="left" balign="left"> + getBegindatumRelatie() : DatumMetIndicator </td></tr>
-<tr><td align="left" balign="left"> + setBegindatumRelatie(value : DatumMetIndicator) </td></tr>
-<tr><td align="left" balign="left"> + getEinddatumRelatie() : DatumMetIndicator </td></tr>
-<tr><td align="left" balign="left"> + setEinddatumRelatie(value : DatumMetIndicator) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./TijdvakRelatie.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.stuf0204.DatumMetIndicator
-	c52629 [label=<<table title="nl.egem.stuf.stuf0204.DatumMetIndicator" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./DatumMetIndicator.html">
+	c52618 [label=<<table title="nl.egem.stuf.stuf0204.DatumMetIndicator" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./DatumMetIndicator.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DatumMetIndicator </td></tr>
 		</table></td></tr>
@@ -252,7 +202,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./DatumMetIndicator.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.stuf0204.DatumMetIndicatorKerngegeven
-	c52630 [label=<<table title="nl.egem.stuf.stuf0204.DatumMetIndicatorKerngegeven" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DatumMetIndicatorKerngegeven.html">
+	c52620 [label=<<table title="nl.egem.stuf.stuf0204.DatumMetIndicatorKerngegeven" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DatumMetIndicatorKerngegeven.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DatumMetIndicatorKerngegeven </td></tr>
 		</table></td></tr>
@@ -265,41 +215,91 @@ digraph G {
 <tr><td align="left" balign="left"> + setKerngegeven(value : Boolean) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./DatumMetIndicatorKerngegeven.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	//nl.egem.stuf.sector.bg._0204.PRSPRSHUWRel.DatumSluiting extends nl.egem.stuf.stuf0204.DatumMetIndicator
-	c52629:p -> c52203:p [dir=back,arrowtail=empty];
-	//nl.egem.stuf.sector.bg._0204.GeboortedatumE extends nl.egem.stuf.stuf0204.DatumMetIndicator
-	c52629:p -> c52227:p [dir=back,arrowtail=empty];
-	//nl.egem.stuf.sector.bg._0204.NNPKerngegevens.DatumOprichtingNietNatuurlijkPersoon extends nl.egem.stuf.stuf0204.DatumMetIndicator
-	c52629:p -> c52251:p [dir=back,arrowtail=empty];
-	//nl.egem.stuf.sector.bg._0204.WOZFund.PeildatumWaarde extends nl.egem.stuf.stuf0204.DatumMetIndicator
-	c52629:p -> c52290:p [dir=back,arrowtail=empty];
-	//nl.egem.stuf.sector.bg._0204.PRBKerngegevens.Ingangsdatum extends nl.egem.stuf.stuf0204.DatumMetIndicator
-	c52629:p -> c52448:p [dir=back,arrowtail=empty];
+	// nl.egem.stuf.stuf0204.TijdvakGeldigheid
+	c52627 [label=<<table title="nl.egem.stuf.stuf0204.TijdvakGeldigheid" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TijdvakGeldigheid.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> TijdvakGeldigheid </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # begindatumTijdvakGeldigheid : DatumMetIndicator </td></tr>
+<tr><td align="left" balign="left"> # einddatumTijdvakGeldigheid : DatumMetIndicator </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + TijdvakGeldigheid() </td></tr>
+<tr><td align="left" balign="left"> + getBegindatumTijdvakGeldigheid() : DatumMetIndicator </td></tr>
+<tr><td align="left" balign="left"> + setBegindatumTijdvakGeldigheid(value : DatumMetIndicator) </td></tr>
+<tr><td align="left" balign="left"> + getEinddatumTijdvakGeldigheid() : DatumMetIndicator </td></tr>
+<tr><td align="left" balign="left"> + setEinddatumTijdvakGeldigheid(value : DatumMetIndicator) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./TijdvakGeldigheid.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.stuf0204.TijdvakRelatie
+	c52629 [label=<<table title="nl.egem.stuf.stuf0204.TijdvakRelatie" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TijdvakRelatie.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> TijdvakRelatie </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # begindatumRelatie : DatumMetIndicator </td></tr>
+<tr><td align="left" balign="left"> # einddatumRelatie : DatumMetIndicator </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + TijdvakRelatie() </td></tr>
+<tr><td align="left" balign="left"> + getBegindatumRelatie() : DatumMetIndicator </td></tr>
+<tr><td align="left" balign="left"> + setBegindatumRelatie(value : DatumMetIndicator) </td></tr>
+<tr><td align="left" balign="left"> + getEinddatumRelatie() : DatumMetIndicator </td></tr>
+<tr><td align="left" balign="left"> + setEinddatumRelatie(value : DatumMetIndicator) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./TijdvakRelatie.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.stuf0204.NoValue
+	c52631 [label=<<table title="nl.egem.stuf.stuf0204.NoValue" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NoValue.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
+<tr><td align="center" balign="center"> NoValue </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> NIET_ONDERSTEUND </td></tr>
+<tr><td align="left" balign="left"> NIET_GEAUTORISEERD </td></tr>
+<tr><td align="left" balign="left"> GEEN_WAARDE </td></tr>
+<tr><td align="left" balign="left"> WAARDE_ONBEKEND </td></tr>
+		</table></td></tr>
+		</table>>, URL="./NoValue.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.PRBFund.Ingangsdatum extends nl.egem.stuf.stuf0204.DatumMetIndicator
-	c52629:p -> c52457:p [dir=back,arrowtail=empty];
-	//nl.egem.stuf.sector.bg._0204.NNPFund.DatumOprichtingNietNatuurlijkPersoon extends nl.egem.stuf.stuf0204.DatumMetIndicator
-	c52629:p -> c52489:p [dir=back,arrowtail=empty];
-	//nl.egem.stuf.sector.bg._0204.PRSFund.DatumVerkrijgingVerblijfstitel extends nl.egem.stuf.stuf0204.DatumMetIndicator
-	c52629:p -> c52529:p [dir=back,arrowtail=empty];
-	//nl.egem.stuf.sector.bg._0204.PRSFund.DatumVerliesVerblijfstitel extends nl.egem.stuf.stuf0204.DatumMetIndicator
-	c52629:p -> c52530:p [dir=back,arrowtail=empty];
-	//nl.egem.stuf.sector.bg._0204.PRSKerngegevens.Geboortedatum extends nl.egem.stuf.stuf0204.DatumMetIndicator
-	c52629:p -> c52586:p [dir=back,arrowtail=empty];
+	c52618:p -> c52137:p [dir=back,arrowtail=empty];
+	//nl.egem.stuf.sector.bg._0204.GeboortedatumE extends nl.egem.stuf.stuf0204.DatumMetIndicator
+	c52618:p -> c52161:p [dir=back,arrowtail=empty];
+	//nl.egem.stuf.sector.bg._0204.WOZFund.PeildatumWaarde extends nl.egem.stuf.stuf0204.DatumMetIndicator
+	c52618:p -> c52182:p [dir=back,arrowtail=empty];
+	//nl.egem.stuf.sector.bg._0204.PRSPRSHUWRel.DatumSluiting extends nl.egem.stuf.stuf0204.DatumMetIndicator
+	c52618:p -> c52273:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.KDOZKRRel.IngangsDatumZakelijkRecht extends nl.egem.stuf.stuf0204.DatumMetIndicator
-	c52629:p -> c52600:p [dir=back,arrowtail=empty];
+	c52618:p -> c52320:p [dir=back,arrowtail=empty];
+	//nl.egem.stuf.sector.bg._0204.PRSFund.DatumVerkrijgingVerblijfstitel extends nl.egem.stuf.stuf0204.DatumMetIndicator
+	c52618:p -> c52356:p [dir=back,arrowtail=empty];
+	//nl.egem.stuf.sector.bg._0204.PRSFund.DatumVerliesVerblijfstitel extends nl.egem.stuf.stuf0204.DatumMetIndicator
+	c52618:p -> c52357:p [dir=back,arrowtail=empty];
+	//nl.egem.stuf.sector.bg._0204.NNPFund.DatumOprichtingNietNatuurlijkPersoon extends nl.egem.stuf.stuf0204.DatumMetIndicator
+	c52618:p -> c52487:p [dir=back,arrowtail=empty];
+	//nl.egem.stuf.sector.bg._0204.PRBKerngegevens.Ingangsdatum extends nl.egem.stuf.stuf0204.DatumMetIndicator
+	c52618:p -> c52511:p [dir=back,arrowtail=empty];
+	//nl.egem.stuf.sector.bg._0204.PRSKerngegevens.Geboortedatum extends nl.egem.stuf.stuf0204.DatumMetIndicator
+	c52618:p -> c52572:p [dir=back,arrowtail=empty];
+	//nl.egem.stuf.sector.bg._0204.NNPKerngegevens.DatumOprichtingNietNatuurlijkPersoon extends nl.egem.stuf.stuf0204.DatumMetIndicator
+	c52618:p -> c52580:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.stuf0204.DatumMetIndicatorKerngegeven extends nl.egem.stuf.stuf0204.DatumMetIndicator
-	c52629:p -> c52630:p [dir=back,arrowtail=empty];
-	// nl.egem.stuf.stuf0204.TijdvakGeldigheid NAVASSOC nl.egem.stuf.stuf0204.DatumMetIndicator
-	c52614:p -> c52629:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.egem.stuf.stuf0204.TijdvakGeldigheid NAVASSOC nl.egem.stuf.stuf0204.DatumMetIndicator
-	c52614:p -> c52629:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.egem.stuf.stuf0204.TijdvakRelatie NAVASSOC nl.egem.stuf.stuf0204.DatumMetIndicator
-	c52628:p -> c52629:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.egem.stuf.stuf0204.TijdvakRelatie NAVASSOC nl.egem.stuf.stuf0204.DatumMetIndicator
-	c52628:p -> c52629:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c52618:p -> c52620:p [dir=back,arrowtail=empty];
 	// nl.egem.stuf.stuf0204.DatumMetIndicator NAVASSOC nl.egem.stuf.stuf0204.IndOnvolledigeDatum
-	c52629:p -> c52611:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c52618:p -> c52610:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.egem.stuf.stuf0204.DatumMetIndicator NAVASSOC nl.egem.stuf.stuf0204.NoValue
-	c52629:p -> c52610:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c52618:p -> c52631:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.stuf0204.TijdvakGeldigheid NAVASSOC nl.egem.stuf.stuf0204.DatumMetIndicator
+	c52627:p -> c52618:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.stuf0204.TijdvakGeldigheid NAVASSOC nl.egem.stuf.stuf0204.DatumMetIndicator
+	c52627:p -> c52618:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.stuf0204.TijdvakRelatie NAVASSOC nl.egem.stuf.stuf0204.DatumMetIndicator
+	c52629:p -> c52618:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.stuf0204.TijdvakRelatie NAVASSOC nl.egem.stuf.stuf0204.DatumMetIndicator
+	c52629:p -> c52618:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

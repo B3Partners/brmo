@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.NNPKerngegevens
-	c128149 [label=<<table title="nl.egem.stuf.sector.bg._0204.NNPKerngegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NNPKerngegevens.html">
+	c128478 [label=<<table title="nl.egem.stuf.sector.bg._0204.NNPKerngegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NNPKerngegevens.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> NNPKerngegevens </td></tr>
 		</table></td></tr>
@@ -60,7 +60,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./NNPKerngegevens.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.NNPKerngegevens.Zaaknaam
-	c128156 [label=<<table title="nl.egem.stuf.sector.bg._0204.NNPKerngegevens.Zaaknaam" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./NNPKerngegevens.Zaaknaam.html">
+	c128485 [label=<<table title="nl.egem.stuf.sector.bg._0204.NNPKerngegevens.Zaaknaam" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./NNPKerngegevens.Zaaknaam.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Zaaknaam </td></tr>
 		</table></td></tr>
@@ -86,7 +86,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./NNPKerngegevens.Zaaknaam.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.stuf0204.NoValue
-	c128510 [label=<<table title="nl.egem.stuf.stuf0204.NoValue" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/NoValue.html">
+	c128531 [label=<<table title="nl.egem.stuf.stuf0204.NoValue" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/NoValue.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> NoValue </td></tr>
@@ -102,10 +102,10 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="../../../stuf0204/NoValue.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.NNPKerngegevens NAVASSOC nl.egem.stuf.sector.bg._0204.NNPKerngegevens.Zaaknaam
-	c128149:p -> c128156:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c128478:p -> c128485:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.egem.stuf.sector.bg._0204.NNPKerngegevens NAVASSOC nl.egem.stuf.stuf0204.NoValue
-	c128149:p -> c128510:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c128478:p -> c128531:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.egem.stuf.sector.bg._0204.NNPKerngegevens.Zaaknaam NAVASSOC nl.egem.stuf.stuf0204.NoValue
-	c128156:p -> c128510:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c128485:p -> c128531:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

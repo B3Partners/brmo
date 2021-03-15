@@ -9,22 +9,8 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// nl.b3p.brmo.soap.eigendom.GetMutatieList
-	c940 [label=<<table title="nl.b3p.brmo.soap.eigendom.GetMutatieList" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./GetMutatieList.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> GetMutatieList </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # request : MutatieListRequest </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + GetMutatieList() </td></tr>
-<tr><td align="left" balign="left"> + getRequest() : MutatieListRequest </td></tr>
-<tr><td align="left" balign="left"> + setRequest(value : MutatieListRequest) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./GetMutatieList.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.soap.eigendom.MutatieListRequest
-	c947 [label=<<table title="nl.b3p.brmo.soap.eigendom.MutatieListRequest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MutatieListRequest.html">
+	c937 [label=<<table title="nl.b3p.brmo.soap.eigendom.MutatieListRequest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MutatieListRequest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MutatieListRequest </td></tr>
 		</table></td></tr>
@@ -43,7 +29,21 @@ digraph G {
 <tr><td align="left" balign="left"> + setToDate(value : XMLGregorianCalendar) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./MutatieListRequest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.soap.eigendom.GetMutatieList
+	c939 [label=<<table title="nl.b3p.brmo.soap.eigendom.GetMutatieList" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./GetMutatieList.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> GetMutatieList </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # request : MutatieListRequest </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + GetMutatieList() </td></tr>
+<tr><td align="left" balign="left"> + getRequest() : MutatieListRequest </td></tr>
+<tr><td align="left" balign="left"> + setRequest(value : MutatieListRequest) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./GetMutatieList.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.soap.eigendom.GetMutatieList NAVASSOC nl.b3p.brmo.soap.eigendom.MutatieListRequest
-	c940:p -> c947:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c939:p -> c937:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

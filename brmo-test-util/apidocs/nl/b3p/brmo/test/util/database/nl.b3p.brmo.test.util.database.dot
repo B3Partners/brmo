@@ -9,50 +9,8 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// nl.b3p.brmo.test.util.database.ViewUtils
-	c9 [label=<<table title="nl.b3p.brmo.test.util.database.ViewUtils" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ViewUtils.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> ViewUtils </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + listAllMaterializedViews(ds : BasicDataSource) : List&lt;String&gt; </td></tr>
-<tr><td align="left" balign="left"> + refreshAllMaterializedViews(ds : BasicDataSource) </td></tr>
-<tr><td align="left" balign="left"> + refreshMViews(mviews : String[], ds : BasicDataSource) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./ViewUtils.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.test.util.database.OracleDriverBasedFailures
-	c10 [label=<<table title="nl.b3p.brmo.test.util.database.OracleDriverBasedFailures" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./OracleDriverBasedFailures.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
-<tr><td align="center" balign="center"> OracleDriverBasedFailures </td></tr>
-		</table></td></tr>
-		</table>>, URL="./OracleDriverBasedFailures.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// Note annotation
-	n0cc10 [label=<<table title="nl.b3p.brmo.test.util.database.OracleDriverBasedFailures" border="0" cellborder="0" cellspacing="0" cellpadding="2" port="p" href="./OracleDriverBasedFailures.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> marker interface </td></tr>
-		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0, shape=note];
-	n0cc10 -> c10:p[arrowhead=none];
-	// nl.b3p.brmo.test.util.database.JTDSDriverBasedFailures
-	c11 [label=<<table title="nl.b3p.brmo.test.util.database.JTDSDriverBasedFailures" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./JTDSDriverBasedFailures.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
-<tr><td align="center" balign="center"> JTDSDriverBasedFailures </td></tr>
-		</table></td></tr>
-		</table>>, URL="./JTDSDriverBasedFailures.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// Note annotation
-	n0cc11 [label=<<table title="nl.b3p.brmo.test.util.database.JTDSDriverBasedFailures" border="0" cellborder="0" cellspacing="0" cellpadding="2" port="p" href="./JTDSDriverBasedFailures.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> marker interface </td></tr>
-		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0, shape=note];
-	n0cc11 -> c11:p[arrowhead=none];
 	// nl.b3p.brmo.test.util.database.SequenceUtil
-	c12 [label=<<table title="nl.b3p.brmo.test.util.database.SequenceUtil" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./SequenceUtil.html">
+	c5 [label=<<table title="nl.b3p.brmo.test.util.database.SequenceUtil" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./SequenceUtil.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> SequenceUtil </td></tr>
 		</table></td></tr>
@@ -60,50 +18,22 @@ digraph G {
 <tr><td align="left" balign="left">  </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + updateSequence(sequenceName : String, nextVal : long, ds : BasicDataSource) </td></tr>
+<tr><td align="left" balign="left"> + updateSequence(sequenceName : String, nextVal : long, ds : DataSource) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./SequenceUtil.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.test.util.database.HSQLDBDriverBasedFailures
-	c13 [label=<<table title="nl.b3p.brmo.test.util.database.HSQLDBDriverBasedFailures" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./HSQLDBDriverBasedFailures.html">
+	// nl.b3p.brmo.test.util.database.ViewUtils
+	c6 [label=<<table title="nl.b3p.brmo.test.util.database.ViewUtils" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ViewUtils.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
-<tr><td align="center" balign="center"> HSQLDBDriverBasedFailures </td></tr>
+<tr><td align="center" balign="center"> ViewUtils </td></tr>
 		</table></td></tr>
-		</table>>, URL="./HSQLDBDriverBasedFailures.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// Note annotation
-	n0cc13 [label=<<table title="nl.b3p.brmo.test.util.database.HSQLDBDriverBasedFailures" border="0" cellborder="0" cellspacing="0" cellpadding="2" port="p" href="./HSQLDBDriverBasedFailures.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> marker interface </td></tr>
+<tr><td align="left" balign="left">  </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0, shape=note];
-	n0cc13 -> c13:p[arrowhead=none];
-	// nl.b3p.brmo.test.util.database.MSSqlServerDriverBasedFailures
-	c14 [label=<<table title="nl.b3p.brmo.test.util.database.MSSqlServerDriverBasedFailures" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MSSqlServerDriverBasedFailures.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
-<tr><td align="center" balign="center"> MSSqlServerDriverBasedFailures </td></tr>
+<tr><td align="left" balign="left"> + listAllMaterializedViews(ds : DataSource) : List&lt;String&gt; </td></tr>
+<tr><td align="left" balign="left"> + refreshAllMaterializedViews(ds : DataSource) </td></tr>
+<tr><td align="left" balign="left"> + refreshMViews(mviews : String[], ds : DataSource) </td></tr>
 		</table></td></tr>
-		</table>>, URL="./MSSqlServerDriverBasedFailures.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// Note annotation
-	n0cc14 [label=<<table title="nl.b3p.brmo.test.util.database.MSSqlServerDriverBasedFailures" border="0" cellborder="0" cellspacing="0" cellpadding="2" port="p" href="./MSSqlServerDriverBasedFailures.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> marker interface </td></tr>
-		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0, shape=note];
-	n0cc14 -> c14:p[arrowhead=none];
-	// nl.b3p.brmo.test.util.database.PostgreSQLDriverBasedFailures
-	c15 [label=<<table title="nl.b3p.brmo.test.util.database.PostgreSQLDriverBasedFailures" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PostgreSQLDriverBasedFailures.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
-<tr><td align="center" balign="center"> PostgreSQLDriverBasedFailures </td></tr>
-		</table></td></tr>
-		</table>>, URL="./PostgreSQLDriverBasedFailures.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// Note annotation
-	n0cc15 [label=<<table title="nl.b3p.brmo.test.util.database.PostgreSQLDriverBasedFailures" border="0" cellborder="0" cellspacing="0" cellpadding="2" port="p" href="./PostgreSQLDriverBasedFailures.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> marker interface </td></tr>
-		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0, shape=note];
-	n0cc15 -> c15:p[arrowhead=none];
+		</table>>, URL="./ViewUtils.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 

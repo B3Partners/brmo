@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.KDOAntwoord.KDOSUBZKR
-	c75179 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOAntwoord.KDOSUBZKR" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./KDOAntwoord.KDOSUBZKR.html">
+	c75029 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOAntwoord.KDOSUBZKR" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./KDOAntwoord.KDOSUBZKR.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> KDOSUBZKR </td></tr>
 		</table></td></tr>
@@ -27,7 +27,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./KDOAntwoord.KDOSUBZKR.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.KDOZKRRel
-	c75367 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOZKRRel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOZKRRel.html">
+	c75087 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOZKRRel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOZKRRel.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> KDOZKRRel </td></tr>
 		</table></td></tr>
@@ -92,6 +92,6 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./KDOZKRRel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.KDOAntwoord.KDOSUBZKR extends nl.egem.stuf.sector.bg._0204.KDOZKRRel
-	c75367:p -> c75179:p [dir=back,arrowtail=empty];
+	c75087:p -> c75029:p [dir=back,arrowtail=empty];
 }
 

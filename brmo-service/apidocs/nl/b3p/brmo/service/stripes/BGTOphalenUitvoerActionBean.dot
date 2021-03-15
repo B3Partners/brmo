@@ -9,8 +9,25 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// nl.b3p.brmo.service.scanner.ProgressUpdateListener
+	c827 [label=<<table title="nl.b3p.brmo.service.scanner.ProgressUpdateListener" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../scanner/ProgressUpdateListener.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
+<tr><td align="center" balign="center"> ProgressUpdateListener </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + total(total : long) </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + progress(progress : long) </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + exception(t : Throwable) </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + updateStatus(status : String) </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + addLog(log : String) </font></td></tr>
+		</table></td></tr>
+		</table>>, URL="../scanner/ProgressUpdateListener.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.stripes.BGTOphalenUitvoerActionBean
-	c826 [label=<<table title="nl.b3p.brmo.service.stripes.BGTOphalenUitvoerActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BGTOphalenUitvoerActionBean.html">
+	c847 [label=<<table title="nl.b3p.brmo.service.stripes.BGTOphalenUitvoerActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BGTOphalenUitvoerActionBean.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BGTOphalenUitvoerActionBean </td></tr>
 		</table></td></tr>
@@ -55,31 +72,14 @@ digraph G {
 <tr><td align="left" balign="left"> + setTitle(title : String) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./BGTOphalenUitvoerActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.service.scanner.ProgressUpdateListener
-	c841 [label=<<table title="nl.b3p.brmo.service.scanner.ProgressUpdateListener" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../scanner/ProgressUpdateListener.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
-<tr><td align="center" balign="center"> ProgressUpdateListener </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + total(total : long) </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + progress(progress : long) </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + exception(t : Throwable) </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + updateStatus(status : String) </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + addLog(log : String) </font></td></tr>
-		</table></td></tr>
-		</table>>, URL="../scanner/ProgressUpdateListener.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.service.stripes.BGTOphalenUitvoerActionBean implements net.sourceforge.stripes.action.ActionBean
-	c857:p -> c826:p [dir=back,arrowtail=empty,style=dashed];
+	c857:p -> c847:p [dir=back,arrowtail=empty,style=dashed];
 	//nl.b3p.brmo.service.stripes.BGTOphalenUitvoerActionBean implements nl.b3p.brmo.service.scanner.ProgressUpdateListener
-	c841:p -> c826:p [dir=back,arrowtail=empty,style=dashed];
+	c827:p -> c847:p [dir=back,arrowtail=empty,style=dashed];
 	// nl.b3p.brmo.service.stripes.BGTOphalenUitvoerActionBean NAVASSOC nl.b3p.brmo.persistence.staging.AutomatischProces
-	c826:p -> c860:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c847:p -> c860:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.service.stripes.BGTOphalenUitvoerActionBean NAVASSOC net.sourceforge.stripes.action.ActionBeanContext
-	c826:p -> c861:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c847:p -> c861:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.persistence.staging.AutomatischProces
 	c860 [label=<<table title="nl.b3p.brmo.persistence.staging.AutomatischProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
@@ -91,7 +91,6 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> + AutomatischProces() </td></tr>
 <tr><td align="left" balign="left"> + updateSamenvattingEnLogfile(arg0 : String) </td></tr>
-<tr><td align="left" balign="left"> + addLogLine(arg0 : String) </td></tr>
 <tr><td align="left" balign="left"> + getConfig() : Map&lt;String, ClobElement&gt; </td></tr>
 <tr><td align="left" balign="left"> + setConfig(arg0 : Map&lt;String, ClobElement&gt;) </td></tr>
 <tr><td align="left" balign="left"> + getLastrun() : Date </td></tr>

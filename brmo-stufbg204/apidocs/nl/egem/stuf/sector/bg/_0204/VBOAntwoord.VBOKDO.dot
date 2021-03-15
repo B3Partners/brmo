@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.VBOAntwoord.VBOKDO
-	c206044 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOAntwoord.VBOKDO" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./VBOAntwoord.VBOKDO.html">
+	c206043 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOAntwoord.VBOKDO" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./VBOAntwoord.VBOKDO.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> VBOKDO </td></tr>
 		</table></td></tr>
@@ -24,7 +24,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./VBOAntwoord.VBOKDO.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.KDOKennisgeving
-	c206150 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOKennisgeving" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOKennisgeving.html">
+	c206055 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOKennisgeving" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOKennisgeving.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> KDOKennisgeving </td></tr>
 		</table></td></tr>
@@ -48,7 +48,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./KDOKennisgeving.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.Relatie
-	c206276 [label=<<table title="nl.egem.stuf.sector.bg._0204.Relatie" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Relatie.html">
+	c206061 [label=<<table title="nl.egem.stuf.sector.bg._0204.Relatie" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Relatie.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Relatie </td></tr>
 		</table></td></tr>
@@ -86,8 +86,8 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./Relatie.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.VBOAntwoord.VBOKDO extends nl.egem.stuf.sector.bg._0204.Relatie
-	c206276:p -> c206044:p [dir=back,arrowtail=empty];
+	c206061:p -> c206043:p [dir=back,arrowtail=empty];
 	// nl.egem.stuf.sector.bg._0204.VBOAntwoord.VBOKDO NAVASSOC nl.egem.stuf.sector.bg._0204.KDOKennisgeving
-	c206044:p -> c206150:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c206043:p -> c206055:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

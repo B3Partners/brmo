@@ -1,37 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>NhrXMLReader.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO initialisatie utilities</a> &gt; <a href="../index.html" class="el_bundle">brmo-loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.loader.xml</a> &gt; <span class="el_source">NhrXMLReader.java</span></div><h1>NhrXMLReader.java</h1><pre class="source lang-java linenums">package nl.b3p.brmo.loader.xml;
 
-import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.Source;
-import javax.xml.transform.Templates;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.URIResolver;
-import javax.xml.transform.dom.DOMResult;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-import javax.xml.transform.stream.StreamSource;
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.loader.entity.NhrBericht;
 import nl.b3p.brmo.loader.entity.NhrBerichten;
 import nl.b3p.brmo.loader.util.BrmoLeegBestandException;
 import org.apache.commons.io.input.TeeInputStream;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Unmarshaller;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.*;
+import javax.xml.transform.dom.DOMResult;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * Deze reader splitst een nHR soap response in berichten.
@@ -41,9 +38,10 @@ import org.xml.sax.SAXException;
  */
 public class NhrXMLReader extends BrmoXMLReader {
 
-    public static final String PREFIX = &quot;nhr.bsn.natPers.&quot;;
+    public static final String PREFIX_BSN = &quot;nhr.bsn.natPers.&quot;;
+    public static final String PREFIX_NAAM = &quot;nhr.naam.natPers.&quot;;
 
-<span class="nc" id="L46">    private static final Log LOG = LogFactory.getLog(NhrXMLReader.class);</span>
+<span class="nc" id="L44">    private static final Log LOG = LogFactory.getLog(NhrXMLReader.class);</span>
 
     private static Templates splitTemplates;
 
@@ -51,130 +49,165 @@ public class NhrXMLReader extends BrmoXMLReader {
 
     private Iterator&lt;NhrBericht&gt; iterator;
 
-<span class="nc" id="L54">    private int volgorde = 0;</span>
+<span class="nc" id="L52">    private int volgorde = 0;</span>
 
-<span class="nc" id="L56">    private String brOrigXML = null;</span>
+<span class="nc" id="L54">    private String brOrigXML = null;</span>
 
-<span class="nc" id="L58">    public NhrXMLReader(InputStream in) throws Exception {</span>
-<span class="nc" id="L59">        initTemplates();</span>
+<span class="nc" id="L56">    public NhrXMLReader(InputStream in) throws Exception {</span>
+<span class="nc" id="L57">        initTemplates();</span>
 
-<span class="nc" id="L61">        ByteArrayOutputStream bos = new ByteArrayOutputStream();</span>
-<span class="nc" id="L62">        in = new TeeInputStream(in, bos, true);</span>
+<span class="nc" id="L59">        ByteArrayOutputStream bos = new ByteArrayOutputStream();</span>
+<span class="nc" id="L60">        in = new TeeInputStream(in, bos, true);</span>
 
         // Split input naar multiple berichten
-<span class="nc" id="L65">        DOMResult r = new DOMResult();</span>
-<span class="nc" id="L66">        splitTemplates.newTransformer().transform(new StreamSource(in), r);</span>
+<span class="nc" id="L63">        DOMResult r = new DOMResult();</span>
+<span class="nc" id="L64">        splitTemplates.newTransformer().transform(new StreamSource(in), r);</span>
 
-<span class="nc" id="L68">        JAXBContext jc = JAXBContext.newInstance(NhrBerichten.class, NhrBericht.class, Bericht.class);</span>
-<span class="nc" id="L69">        Unmarshaller unmarshaller = jc.createUnmarshaller();</span>
+<span class="nc" id="L66">        JAXBContext jc = JAXBContext.newInstance(NhrBerichten.class, NhrBericht.class, Bericht.class);</span>
+<span class="nc" id="L67">        Unmarshaller unmarshaller = jc.createUnmarshaller();</span>
 
-<span class="nc" id="L71">        NhrBerichten b = (NhrBerichten)unmarshaller.unmarshal(new DOMSource(r.getNode()));</span>
+<span class="nc" id="L69">        NhrBerichten b = (NhrBerichten)unmarshaller.unmarshal(new DOMSource(r.getNode()));</span>
 
-<span class="nc bnc" id="L73" title="All 4 branches missed.">        if(b == null || b.berichten == null) {</span>
-<span class="nc" id="L74">            throw new BrmoLeegBestandException(&quot;Geen BRMO berichten gevonden in NHR XML&quot;);</span>
+<span class="nc bnc" id="L71" title="All 4 branches missed.">        if(b == null || b.berichten == null) {</span>
+<span class="nc" id="L72">            throw new BrmoLeegBestandException(&quot;Geen BRMO berichten gevonden in NHR XML&quot;);</span>
         }
 
-<span class="nc bnc" id="L77" title="All 2 branches missed.">        if(!b.berichten.isEmpty()) {</span>
-<span class="nc" id="L78">            setBestandsDatum(b.berichten.get(0).getDatum());</span>
+<span class="nc bnc" id="L75" title="All 2 branches missed.">        if(!b.berichten.isEmpty()) {</span>
+<span class="nc" id="L76">            setBestandsDatum(b.berichten.get(0).getDatum());</span>
         }
 
-<span class="nc" id="L81">        iterator = b.berichten.iterator();</span>
+<span class="nc" id="L79">        iterator = b.berichten.iterator();</span>
 
-<span class="nc" id="L83">        brOrigXML = bos.toString(StandardCharsets.UTF_8.name());</span>
-<span class="nc" id="L84">        LOG.debug(&quot;Originele nHR xml is: \n&quot; + brOrigXML);</span>
+<span class="nc" id="L81">        brOrigXML = bos.toString(StandardCharsets.UTF_8.name());</span>
+<span class="nc" id="L82">        LOG.debug(&quot;Originele nHR xml is: \n&quot; + brOrigXML);</span>
 
-<span class="nc" id="L86">        init();</span>
-<span class="nc" id="L87">    }</span>
+<span class="nc" id="L84">        init();</span>
+<span class="nc" id="L85">    }</span>
 
     private synchronized void initTemplates() throws Exception {
-<span class="nc bnc" id="L90" title="All 2 branches missed.">        if(splitTemplates == null) {</span>
-<span class="nc" id="L91">            LOG.info(&quot;Initializing NHR split XSL templates...&quot;);</span>
-<span class="nc" id="L92">            Source xsl = new StreamSource(this.getClass().getResourceAsStream(&quot;/xsl/nhr-split-3.0.xsl&quot;));</span>
-<span class="nc" id="L93">            TransformerFactory tf = TransformerFactory.newInstance();</span>
-<span class="nc" id="L94">            tf.setURIResolver(new URIResolver() {</span>
+<span class="nc bnc" id="L88" title="All 2 branches missed.">        if(splitTemplates == null) {</span>
+<span class="nc" id="L89">            LOG.info(&quot;Initializing NHR split XSL templates...&quot;);</span>
+<span class="nc" id="L90">            Source xsl = new StreamSource(this.getClass().getResourceAsStream(&quot;/xsl/nhr-split-3.0.xsl&quot;));</span>
+<span class="nc" id="L91">            TransformerFactory tf = TransformerFactory.newInstance();</span>
+<span class="nc" id="L92">            tf.setURIResolver(new URIResolver() {</span>
                 @Override
                 public Source resolve(String href, String base) throws TransformerException {
-<span class="nc" id="L97">                    return new StreamSource(NhrXMLReader.class.getResourceAsStream(&quot;/xsl/&quot; + href));</span>
+<span class="nc" id="L95">                    return new StreamSource(NhrXMLReader.class.getResourceAsStream(&quot;/xsl/&quot; + href));</span>
                 }
             });
-<span class="nc" id="L100">            NhrXMLReader.splitTemplates = tf.newTemplates(xsl);</span>
+<span class="nc" id="L98">            NhrXMLReader.splitTemplates = tf.newTemplates(xsl);</span>
 
-<span class="nc" id="L102">            t = TransformerFactory.newInstance().newTransformer();</span>
+<span class="nc" id="L100">            t = TransformerFactory.newInstance().newTransformer();</span>
         }
-<span class="nc" id="L104">    }</span>
+<span class="nc" id="L102">    }</span>
 
     @Override
     public void init() throws Exception {
-<span class="nc" id="L108">        soort = BrmoFramework.BR_NHR;</span>
-<span class="nc" id="L109">    }</span>
+<span class="nc" id="L106">        soort = BrmoFramework.BR_NHR;</span>
+<span class="nc" id="L107">    }</span>
 
     @Override
     public boolean hasNext() throws Exception {
-<span class="nc" id="L113">        return iterator.hasNext();</span>
+<span class="nc" id="L111">        return iterator.hasNext();</span>
     }
 
     @Override
     public NhrBericht next() throws Exception {
-<span class="nc" id="L118">        NhrBericht b = iterator.next();</span>
+<span class="nc" id="L116">        NhrBericht b = iterator.next();</span>
 
-<span class="nc" id="L120">        StringWriter sw = new StringWriter();</span>
-<span class="nc" id="L121">        t.transform(new DOMSource(b.getNode().getFirstChild()), new StreamResult(sw));</span>
-        // opzoeklijst van bsn en hash toevoegen
-<span class="nc" id="L123">        StringBuilder xml = new StringBuilder(sw.toString());</span>
-<span class="nc" id="L124">        String bsns = getXML(extractBSN(xml.toString()));</span>
+<span class="nc" id="L118">        StringWriter sw = new StringWriter();</span>
+<span class="nc" id="L119">        t.transform(new DOMSource(b.getNode().getFirstChild()), new StreamResult(sw));</span>
+        // opzoeklijst van bsn en/of volledige naam en hash toevoegen
+<span class="nc" id="L121">        StringBuilder xml = new StringBuilder(sw.toString());</span>
+<span class="nc" id="L122">        String bsns = getXML(extractBSN(xml.toString()));</span>
+<span class="nc" id="L123">        LOG.trace(&quot;gevonden bsn en naam sleutels: &quot;+ bsns);</span>
         // insert bsnhashes voor de laatste node
-<span class="nc" id="L126">        xml.insert(xml.lastIndexOf(&quot;&lt;/&quot;), bsns);</span>
+<span class="nc" id="L125">        xml.insert(xml.lastIndexOf(&quot;&lt;/&quot;), bsns);</span>
 
-<span class="nc" id="L128">        b.setBrXml(xml.toString());</span>
+<span class="nc" id="L127">        b.setBrXml(xml.toString());</span>
 
         // we willen alleen bij het eerst geparsede nhr bericht de originele soap hebben
-<span class="nc bnc" id="L131" title="All 2 branches missed.">        if (volgorde == 0) {</span>
-<span class="nc" id="L132">            b.setBrOrgineelXml(brOrigXML);</span>
+<span class="nc bnc" id="L130" title="All 2 branches missed.">        if (volgorde == 0) {</span>
+<span class="nc" id="L131">            b.setBrOrgineelXml(brOrigXML);</span>
         }
 
-<span class="nc" id="L135">        b.setVolgordeNummer(volgorde++);</span>
-<span class="nc" id="L136">        return b;</span>
+<span class="nc" id="L134">        b.setVolgordeNummer(volgorde++);</span>
+<span class="nc" id="L135">        return b;</span>
     }
 
     /**
      * maakt een map met bsn,bsnhash.
      *
      * @param brXml string
-     * @return hashmap met bsn,bsnhash
+     * @return hashmap met bsn/naamzonderspaties,bsnhash
      *
      */
     public Map&lt;String, String&gt; extractBSN(String brXml) {
-<span class="nc" id="L147">        Map&lt;String, String&gt; bsnHashes = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L146">        Map&lt;String, String&gt; bsnHashes = new HashMap&lt;&gt;();</span>
+//        LOG.trace(&quot;deel bericht xml: &quot;+brXml);
         try {
 <span class="nc" id="L149">            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();</span>
-<span class="nc" id="L150">            DocumentBuilder builder = factory.newDocumentBuilder();</span>
-<span class="nc" id="L151">            Document doc = builder.parse(new InputSource(new StringReader(brXml)));</span>
-<span class="nc" id="L152">            NodeList nodeList = doc.getElementsByTagName(&quot;cat:bsn&quot;);</span>
-<span class="nc" id="L153">            int length = nodeList.getLength();</span>
-<span class="nc bnc" id="L154" title="All 2 branches missed.">            for (int i = 0; i &lt; length; i++) {</span>
-<span class="nc" id="L155">                LOG.debug(nodeList.item(i).getTextContent());</span>
-<span class="nc" id="L156">                bsnHashes.put(nodeList.item(i).getTextContent(), getHash(nodeList.item(i).getTextContent()));</span>
+<span class="nc" id="L150">            factory.setNamespaceAware(true);</span>
+<span class="nc" id="L151">            DocumentBuilder builder = factory.newDocumentBuilder();</span>
+<span class="nc" id="L152">            Document doc = builder.parse(new InputSource(new StringReader(brXml)));</span>
+
+<span class="nc" id="L154">            NodeList nodeList = doc.getElementsByTagNameNS(&quot;*&quot;,&quot;bsn&quot;);</span>
+<span class="nc bnc" id="L155" title="All 2 branches missed.">            for (int i = 0; i &lt; nodeList.getLength(); i++) {</span>
+<span class="nc" id="L156">                LOG.debug(&quot;BSN: &quot; + i+&quot;: &quot;+nodeList.item(i).getNodeName() +&quot; - &quot;+ nodeList.item(i).getTextContent());</span>
+<span class="nc" id="L157">                bsnHashes.put(nodeList.item(i).getTextContent(), getHash(nodeList.item(i).getTextContent()));</span>
             }
-<span class="nc" id="L158">        } catch (ParserConfigurationException | SAXException | IOException e) {</span>
-<span class="nc" id="L159">            LOG.error(&quot;Fout tijdens toevoegen bsn hashes&quot;, e);</span>
-<span class="nc" id="L160">        }</span>
-<span class="nc" id="L161">        return bsnHashes;</span>
+
+<span class="nc" id="L160">            nodeList = doc.getElementsByTagNameNS(&quot;*&quot;, &quot;volledigeNaam&quot;);</span>
+            String _cleanName;
+<span class="nc bnc" id="L162" title="All 2 branches missed.">            for (int i = 0; i &lt; nodeList.getLength(); i++) {</span>
+<span class="nc bnc" id="L163" title="All 2 branches missed.">                if (nodeList.item(i).getParentNode().getLocalName().equals(&quot;natuurlijkPersoon&quot;)</span>
+<span class="nc bnc" id="L164" title="All 2 branches missed.">                        ||  nodeList.item(i).getParentNode().getLocalName().equals(&quot;buitenlandseVennootschap&quot;)</span>
+                ) {
+<span class="nc" id="L166">                    LOG.debug(&quot;NAAM: &quot; + i + &quot;: &quot; + nodeList.item(i).getNodeName() + &quot; - &quot; + nodeList.item(i).getTextContent());</span>
+<span class="nc" id="L167">                    _cleanName = nodeList.item(i).getTextContent()</span>
+<span class="nc" id="L168">                            .replace(&quot; &quot;, &quot;&quot;)</span>
+<span class="nc" id="L169">                            .replace(&quot;'&quot;, &quot;&quot;)</span>
+<span class="nc" id="L170">                            .replace(&quot;.&quot;, &quot;&quot;)</span>
+<span class="nc" id="L171">                            .replace(&quot;,&quot;, &quot;&quot;)</span>
+                            // komt in bedrijfsnaam voor 'A/S'
+<span class="nc" id="L173">                            .replace(&quot;/&quot;, &quot;&quot;)</span>
+                            // komt in bedrijfsnaam voor '(Nederland)'
+<span class="nc" id="L175">                            .replace(&quot;(&quot;, &quot;&quot;)</span>
+<span class="nc" id="L176">                            .replace(&quot;)&quot;, &quot;&quot;)</span>
+                            // komt in bedrijfsnaam voor '&amp; Co'
+<span class="nc" id="L178">                            .replace(&quot;&amp;&quot;, &quot;&quot;);</span>
+<span class="nc" id="L179">                    bsnHashes.put(_cleanName, getHash(_cleanName));</span>
+                }
+            }
+<span class="nc" id="L182">        } catch (ParserConfigurationException | SAXException | IOException e) {</span>
+<span class="nc" id="L183">            LOG.error(&quot;Fout tijdens toevoegen bsn hashes&quot;, e);</span>
+<span class="nc" id="L184">        }</span>
+<span class="nc" id="L185">        return bsnHashes;</span>
     }
 
-    public String getXML(Map&lt;String, String&gt; map) throws ParserConfigurationException {
-<span class="nc" id="L165">        StringBuilder root = new StringBuilder();</span>
-<span class="nc bnc" id="L166" title="All 2 branches missed.">        if (!map.isEmpty()) {</span>
-<span class="nc" id="L167">            root.append(&quot;&lt;cat:bsnhashes&gt;&quot;);</span>
-<span class="nc bnc" id="L168" title="All 2 branches missed.">            for (Map.Entry&lt;String, String&gt; entry : map.entrySet()) {</span>
-<span class="nc bnc" id="L169" title="All 4 branches missed.">                if (!entry.getKey().isEmpty() &amp;&amp; !entry.getValue().isEmpty()) {</span>
-<span class="nc" id="L170">                    root.append(&quot;&lt;cat:&quot;).append(PREFIX).append(entry.getKey()).append(&quot;&gt;&quot;)</span>
-<span class="nc" id="L171">                            .append(entry.getValue())</span>
-<span class="nc" id="L172">                            .append(&quot;&lt;/cat:&quot;).append(PREFIX).append(entry.getKey()).append(&quot;&gt;&quot;);</span>
+    public String getXML(Map&lt;String, String&gt; map) {
+<span class="nc" id="L189">        StringBuilder root = new StringBuilder();</span>
+<span class="nc bnc" id="L190" title="All 2 branches missed.">        if (!map.isEmpty()) {</span>
+<span class="nc" id="L191">            root.append(&quot;&lt;cat:bsnhashes xmlns:cat=\&quot;http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02\&quot;&gt;&quot;);</span>
+
+            String type;
+<span class="nc bnc" id="L194" title="All 2 branches missed.">            for (Map.Entry&lt;String, String&gt; entry : map.entrySet()) {</span>
+<span class="nc bnc" id="L195" title="All 4 branches missed.">                if (!entry.getKey().isEmpty() &amp;&amp; !entry.getValue().isEmpty()) {</span>
+<span class="nc" id="L196">                    root.append(&quot;&lt;cat:&quot;);</span>
+                    // NB BSN's kunnen met een 0 beginnen, dus niet NumberUtils#isCreatable gebruiken
+<span class="nc bnc" id="L198" title="All 2 branches missed.">                    if (NumberUtils.isParsable(entry.getKey())){</span>
+<span class="nc" id="L199">                        type = PREFIX_BSN;</span>
+                    } else {
+<span class="nc" id="L201">                        type = PREFIX_NAAM;</span>
+                    }
+<span class="nc" id="L203">                    root.append(type).append(entry.getKey()).append(&quot;&gt;&quot;)</span>
+<span class="nc" id="L204">                            .append(entry.getValue())</span>
+<span class="nc" id="L205">                            .append(&quot;&lt;/cat:&quot;).append(type).append(entry.getKey()).append(&quot;&gt;&quot;);</span>
                 }
-<span class="nc" id="L174">            }</span>
-<span class="nc" id="L175">            root.append(&quot;&lt;/cat:bsnhashes&gt;&quot;);</span>
+<span class="nc" id="L207">            }</span>
+<span class="nc" id="L208">            root.append(&quot;&lt;/cat:bsnhashes&gt;&quot;);</span>
         }
-<span class="nc" id="L177">        return root.toString();</span>
+<span class="nc" id="L210">        return root.toString();</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

@@ -9,318 +9,8 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// nl.b3p.brmo.persistence.staging.TopNLScannerProces
-	c0 [label=<<table title="nl.b3p.brmo.persistence.staging.TopNLScannerProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TopNLScannerProces.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> TopNLScannerProces </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + TopNLScannerProces() </td></tr>
-		</table></td></tr>
-		</table>>, URL="./TopNLScannerProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.persistence.staging.BGTLightScannerProces
-	c1 [label=<<table title="nl.b3p.brmo.persistence.staging.BGTLightScannerProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTLightScannerProces.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> BGTLightScannerProces </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BGTLightScannerProces() </td></tr>
-		</table></td></tr>
-		</table>>, URL="./BGTLightScannerProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.persistence.staging.AfgifteNummerScannerProces
-	c2 [label=<<table title="nl.b3p.brmo.persistence.staging.AfgifteNummerScannerProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AfgifteNummerScannerProces.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> AfgifteNummerScannerProces </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + MISSINGNUMBERSFOUND : String </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + AfgifteNummerScannerProces() </td></tr>
-<tr><td align="left" balign="left"> + getContracNummer() : String </td></tr>
-<tr><td align="left" balign="left"> + setContracNummer(contractnummer : String) </td></tr>
-<tr><td align="left" balign="left"> + getAfgifteNummerType() : String </td></tr>
-<tr><td align="left" balign="left"> + setAfgifteNummerType(afgiftenummertype : String) </td></tr>
-<tr><td align="left" balign="left"> + setOntbrekendeNummersGevonden(gevonden : boolean) </td></tr>
-<tr><td align="left" balign="left"> + getOntbrekendeNummersGevonden() : boolean </td></tr>
-<tr><td align="left" balign="left"> + setOntbrekendeAfgiftenummersToevoegen(toevoegen : boolean) </td></tr>
-<tr><td align="left" balign="left"> + getOntbrekendeAfgiftenummersToevoegen() : boolean </td></tr>
-		</table></td></tr>
-		</table>>, URL="./AfgifteNummerScannerProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.persistence.staging.AutomatischProces
-	c3 [label=<<table title="nl.b3p.brmo.persistence.staging.AutomatischProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AutomatischProces.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"><font face="Helvetica-Oblique"> AutomatischProces </font></td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + LOG_NEWLINE : String </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + AutomatischProces() </td></tr>
-<tr><td align="left" balign="left"> + updateSamenvattingEnLogfile(samenvatting : String) </td></tr>
-<tr><td align="left" balign="left"> + addLogLine(line : String) </td></tr>
-<tr><td align="left" balign="left"> + getConfig() : Map&lt;String, ClobElement&gt; </td></tr>
-<tr><td align="left" balign="left"> + setConfig(config : Map&lt;String, ClobElement&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getLastrun() : Date </td></tr>
-<tr><td align="left" balign="left"> + setLastrun(lastrun : Date) </td></tr>
-<tr><td align="left" balign="left"> + getStatus() : AutomatischProces.ProcessingStatus </td></tr>
-<tr><td align="left" balign="left"> + setStatus(status : AutomatischProces.ProcessingStatus) </td></tr>
-<tr><td align="left" balign="left"> + getSamenvatting() : String </td></tr>
-<tr><td align="left" balign="left"> + setSamenvatting(samenvatting : String) </td></tr>
-<tr><td align="left" balign="left"> + getLogfile() : String </td></tr>
-<tr><td align="left" balign="left"> + setLogfile(logfile : String) </td></tr>
-<tr><td align="left" balign="left"> + getId() : Long </td></tr>
-<tr><td align="left" balign="left"> + setId(id : Long) </td></tr>
-<tr><td align="left" balign="left"> + getCronExpressie() : String </td></tr>
-<tr><td align="left" balign="left"> + setCronExpressie(cronExpressie : String) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./AutomatischProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// Note annotation
-	n0cc3 [label=<<table title="nl.b3p.brmo.persistence.staging.AutomatischProces" border="0" cellborder="0" cellspacing="0" cellpadding="2" port="p" href="./AutomatischProces.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> Tabel "automatisch_proces" in de database. </td></tr>
-		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0, shape=note];
-	n0cc3 -> c3:p[arrowhead=none];
-	// nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus
-	c4 [label=<<table title="nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AutomatischProces.ProcessingStatus.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
-<tr><td align="center" balign="center"> ProcessingStatus </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> PROCESSING </td></tr>
-<tr><td align="left" balign="left"> WAITING </td></tr>
-<tr><td align="left" balign="left"> ONBEKEND </td></tr>
-<tr><td align="left" balign="left"> ERROR </td></tr>
-		</table></td></tr>
-		</table>>, URL="./AutomatischProces.ProcessingStatus.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.persistence.staging.MaterializedViewRefresh
-	c5 [label=<<table title="nl.b3p.brmo.persistence.staging.MaterializedViewRefresh" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MaterializedViewRefresh.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> MaterializedViewRefresh </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + MVIEW : String </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + MaterializedViewRefresh() </td></tr>
-<tr><td align="left" balign="left"> + getMView() : String </td></tr>
-		</table></td></tr>
-		</table>>, URL="./MaterializedViewRefresh.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.persistence.staging.LaadprocesTransformatieProces
-	c6 [label=<<table title="nl.b3p.brmo.persistence.staging.LaadprocesTransformatieProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./LaadprocesTransformatieProces.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> LaadprocesTransformatieProces </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + LaadprocesTransformatieProces() </td></tr>
-<tr><td align="left" balign="left"> + getSoort() : String </td></tr>
-<tr><td align="left" balign="left"> + alsStandTransformeren() : boolean </td></tr>
-		</table></td></tr>
-		</table>>, URL="./LaadprocesTransformatieProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.persistence.staging.LaadprocesTransformatieProces.LaadprocesSoorten
-	c7 [label=<<table title="nl.b3p.brmo.persistence.staging.LaadprocesTransformatieProces.LaadprocesSoorten" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./LaadprocesTransformatieProces.LaadprocesSoorten.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
-<tr><td align="center" balign="center"> LaadprocesSoorten </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> BR_BGTLIGHT </td></tr>
-<tr><td align="left" balign="left"> BR_TOPNL </td></tr>
-		</table></td></tr>
-		</table>>, URL="./LaadprocesTransformatieProces.LaadprocesSoorten.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.persistence.staging.BRKScannerProces
-	c8 [label=<<table title="nl.b3p.brmo.persistence.staging.BRKScannerProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BRKScannerProces.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> BRKScannerProces </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BRKScannerProces() </td></tr>
-		</table></td></tr>
-		</table>>, URL="./BRKScannerProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.persistence.staging.MailRapportageProces
-	c9 [label=<<table title="nl.b3p.brmo.persistence.staging.MailRapportageProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MailRapportageProces.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> MailRapportageProces </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + DELIM : String </td></tr>
-<tr><td align="left" balign="left"> + EMAIL : String </td></tr>
-<tr><td align="left" balign="left"> + PIDS : String </td></tr>
-<tr><td align="left" balign="left"> + FOR_STATUS : String </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + MailRapportageProces() </td></tr>
-<tr><td align="left" balign="left"> + getMailAdressen() : String </td></tr>
-<tr><td align="left" balign="left"> + getMailAdressenArray() : String[] </td></tr>
-<tr><td align="left" balign="left"> + setMailAdressen(adressen : String[]) </td></tr>
-<tr><td align="left" balign="left"> + setMailAdressen(adres : String) </td></tr>
-<tr><td align="left" balign="left"> + setForStatus(status : AutomatischProces.ProcessingStatus) </td></tr>
-<tr><td align="left" balign="left"> + getForStatus() : AutomatischProces.ProcessingStatus </td></tr>
-		</table></td></tr>
-		</table>>, URL="./MailRapportageProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.persistence.staging.BerichtstatusRapportProces
-	c10 [label=<<table title="nl.b3p.brmo.persistence.staging.BerichtstatusRapportProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BerichtstatusRapportProces.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> BerichtstatusRapportProces </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BerichtstatusRapportProces() </td></tr>
-		</table></td></tr>
-		</table>>, URL="./BerichtstatusRapportProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.persistence.staging.BerichtTransformatieProces
-	c11 [label=<<table title="nl.b3p.brmo.persistence.staging.BerichtTransformatieProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BerichtTransformatieProces.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> BerichtTransformatieProces </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BerichtTransformatieProces() </td></tr>
-<tr><td align="left" balign="left"> + setBlockOnMissingNumbers(block : boolean) </td></tr>
-<tr><td align="left" balign="left"> + getBlockOnMissingNumbers() : boolean </td></tr>
-		</table></td></tr>
-		</table>>, URL="./BerichtTransformatieProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.persistence.staging.BerichtDoorstuurProces
-	c12 [label=<<table title="nl.b3p.brmo.persistence.staging.BerichtDoorstuurProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BerichtDoorstuurProces.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> BerichtDoorstuurProces </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BerichtDoorstuurProces() </td></tr>
-		</table></td></tr>
-		</table>>, URL="./BerichtDoorstuurProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.persistence.staging.WebMirrorBAGScannerProces
-	c13 [label=<<table title="nl.b3p.brmo.persistence.staging.WebMirrorBAGScannerProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WebMirrorBAGScannerProces.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> WebMirrorBAGScannerProces </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + WebMirrorBAGScannerProces() </td></tr>
-		</table></td></tr>
-		</table>>, URL="./WebMirrorBAGScannerProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.persistence.staging.GDS2OphaalProces
-	c14 [label=<<table title="nl.b3p.brmo.persistence.staging.GDS2OphaalProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GDS2OphaalProces.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> GDS2OphaalProces </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + GDS2OphaalProces() </td></tr>
-		</table></td></tr>
-		</table>>, URL="./GDS2OphaalProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.persistence.staging.DirectoryScannerProces
-	c15 [label=<<table title="nl.b3p.brmo.persistence.staging.DirectoryScannerProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DirectoryScannerProces.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"><font face="Helvetica-Oblique"> DirectoryScannerProces </font></td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + DirectoryScannerProces() </td></tr>
-<tr><td align="left" balign="left"> + getScanDirectory() : String </td></tr>
-<tr><td align="left" balign="left"> + getArchiefDirectory() : String </td></tr>
-<tr><td align="left" balign="left"> + setScanDirectory(scanDirectory : String) </td></tr>
-<tr><td align="left" balign="left"> + setArchiefDirectory(archiefDirectory : String) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./DirectoryScannerProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.persistence.staging.Bericht
-	c16 [label=<<table title="nl.b3p.brmo.persistence.staging.Bericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Bericht.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> Bericht </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + Bericht() </td></tr>
-<tr><td align="left" balign="left"> + Bericht(br_xml : String) </td></tr>
-<tr><td align="left" balign="left"> + getId() : Long </td></tr>
-<tr><td align="left" balign="left"> + setId(id : Long) </td></tr>
-<tr><td align="left" balign="left"> + getLaadprocesid() : LaadProces </td></tr>
-<tr><td align="left" balign="left"> + setLaadprocesid(laadprocesid : LaadProces) </td></tr>
-<tr><td align="left" balign="left"> + getDatum() : Date </td></tr>
-<tr><td align="left" balign="left"> + setDatum(datum : Date) </td></tr>
-<tr><td align="left" balign="left"> + getObject_ref() : String </td></tr>
-<tr><td align="left" balign="left"> + setObject_ref(object_ref : String) </td></tr>
-<tr><td align="left" balign="left"> + getVolgordenummer() : Integer </td></tr>
-<tr><td align="left" balign="left"> + setVolgordenummer(volgordenummer : Integer) </td></tr>
-<tr><td align="left" balign="left"> + getSoort() : String </td></tr>
-<tr><td align="left" balign="left"> + setSoort(soort : String) </td></tr>
-<tr><td align="left" balign="left"> + getOpmerking() : String </td></tr>
-<tr><td align="left" balign="left"> + setOpmerking(opmerking : String) </td></tr>
-<tr><td align="left" balign="left"> + getStatus() : Bericht.STATUS </td></tr>
-<tr><td align="left" balign="left"> + setStatus(status : Bericht.STATUS) </td></tr>
-<tr><td align="left" balign="left"> + getStatus_datum() : Date </td></tr>
-<tr><td align="left" balign="left"> + setStatus_datum(status_datum : Date) </td></tr>
-<tr><td align="left" balign="left"> + getJob_id() : String </td></tr>
-<tr><td align="left" balign="left"> + setJob_id(job_id : String) </td></tr>
-<tr><td align="left" balign="left"> + getBr_xml() : String </td></tr>
-<tr><td align="left" balign="left"> + setBr_xml(br_xml : String) </td></tr>
-<tr><td align="left" balign="left"> + getBr_orgineel_xml() : String </td></tr>
-<tr><td align="left" balign="left"> + setBr_orgineel_xml(br_orgineel_xml : String) </td></tr>
-<tr><td align="left" balign="left"> + getDb_xml() : String </td></tr>
-<tr><td align="left" balign="left"> + setDb_xml(db_xml : String) </td></tr>
-<tr><td align="left" balign="left"> + getXsl_version() : String </td></tr>
-<tr><td align="left" balign="left"> + setXsl_version(xsl_version : String) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./Bericht.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.persistence.staging.Bericht.STATUS
-	c17 [label=<<table title="nl.b3p.brmo.persistence.staging.Bericht.STATUS" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Bericht.STATUS.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
-<tr><td align="center" balign="center"> STATUS </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> STAGING_OK </td></tr>
-<tr><td align="left" balign="left"> STAGING_NOK </td></tr>
-<tr><td align="left" balign="left"> STAGING_FORWARDED </td></tr>
-<tr><td align="left" balign="left"> RSGB_WAITING </td></tr>
-<tr><td align="left" balign="left"> RSGB_PROCESSING </td></tr>
-<tr><td align="left" balign="left"> RSGB_OK </td></tr>
-<tr><td align="left" balign="left"> RSGB_OUTDATED </td></tr>
-<tr><td align="left" balign="left"> RSGB_NOK </td></tr>
-<tr><td align="left" balign="left"> ARCHIVE </td></tr>
-<tr><td align="left" balign="left"> RSGB_BAG_NOK </td></tr>
-		</table></td></tr>
-		</table>>, URL="./Bericht.STATUS.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.persistence.staging.ClobElement
-	c18 [label=<<table title="nl.b3p.brmo.persistence.staging.ClobElement" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ClobElement.html">
+	c29 [label=<<table title="nl.b3p.brmo.persistence.staging.ClobElement" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ClobElement.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ClobElement </td></tr>
 		</table></td></tr>
@@ -339,20 +29,8 @@ digraph G {
 <tr><td align="left" balign="left"> + nullSafeGet(e : ClobElement) : String </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ClobElement.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.persistence.staging.BAGScannerProces
-	c19 [label=<<table title="nl.b3p.brmo.persistence.staging.BAGScannerProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BAGScannerProces.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> BAGScannerProces </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BAGScannerProces() </td></tr>
-		</table></td></tr>
-		</table>>, URL="./BAGScannerProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.persistence.staging.LaadProces
-	c20 [label=<<table title="nl.b3p.brmo.persistence.staging.LaadProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./LaadProces.html">
+	c30 [label=<<table title="nl.b3p.brmo.persistence.staging.LaadProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./LaadProces.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> LaadProces </td></tr>
 		</table></td></tr>
@@ -400,10 +78,11 @@ digraph G {
 <tr><td align="left" balign="left"> + setBeschikbaar_tot(beschikbaar_tot : Date) </td></tr>
 <tr><td align="left" balign="left"> + getBestand_naam_hersteld() : String </td></tr>
 <tr><td align="left" balign="left"> + setBestand_naam_hersteld(bestand_naam_hersteld : String) </td></tr>
+<tr><td align="left" balign="left"> + toString() : String </td></tr>
 		</table></td></tr>
 		</table>>, URL="./LaadProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.persistence.staging.LaadProces.STATUS
-	c21 [label=<<table title="nl.b3p.brmo.persistence.staging.LaadProces.STATUS" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./LaadProces.STATUS.html">
+	c31 [label=<<table title="nl.b3p.brmo.persistence.staging.LaadProces.STATUS" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./LaadProces.STATUS.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> STATUS </td></tr>
@@ -425,8 +104,214 @@ digraph G {
 <tr><td align="left" balign="left"> RSGB_TOPNL_NOK </td></tr>
 		</table></td></tr>
 		</table>>, URL="./LaadProces.STATUS.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.persistence.staging.BerichtstatusRapportProces
+	c32 [label=<<table title="nl.b3p.brmo.persistence.staging.BerichtstatusRapportProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BerichtstatusRapportProces.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> BerichtstatusRapportProces </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BerichtstatusRapportProces() </td></tr>
+		</table></td></tr>
+		</table>>, URL="./BerichtstatusRapportProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.persistence.staging.BerichtTransformatieProces
+	c33 [label=<<table title="nl.b3p.brmo.persistence.staging.BerichtTransformatieProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BerichtTransformatieProces.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> BerichtTransformatieProces </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BerichtTransformatieProces() </td></tr>
+<tr><td align="left" balign="left"> + setBlockOnMissingNumbers(block : boolean) </td></tr>
+<tr><td align="left" balign="left"> + getBlockOnMissingNumbers() : boolean </td></tr>
+		</table></td></tr>
+		</table>>, URL="./BerichtTransformatieProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.persistence.staging.BerichtDoorstuurProces
+	c34 [label=<<table title="nl.b3p.brmo.persistence.staging.BerichtDoorstuurProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BerichtDoorstuurProces.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> BerichtDoorstuurProces </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BerichtDoorstuurProces() </td></tr>
+		</table></td></tr>
+		</table>>, URL="./BerichtDoorstuurProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.persistence.staging.TopNLScannerProces
+	c35 [label=<<table title="nl.b3p.brmo.persistence.staging.TopNLScannerProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TopNLScannerProces.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> TopNLScannerProces </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + TopNLScannerProces() </td></tr>
+		</table></td></tr>
+		</table>>, URL="./TopNLScannerProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.persistence.staging.MailRapportageProces
+	c36 [label=<<table title="nl.b3p.brmo.persistence.staging.MailRapportageProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MailRapportageProces.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> MailRapportageProces </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + DELIM : String </td></tr>
+<tr><td align="left" balign="left"> + EMAIL : String </td></tr>
+<tr><td align="left" balign="left"> + PIDS : String </td></tr>
+<tr><td align="left" balign="left"> + FOR_STATUS : String </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + MailRapportageProces() </td></tr>
+<tr><td align="left" balign="left"> + getMailAdressen() : String </td></tr>
+<tr><td align="left" balign="left"> + getMailAdressenArray() : String[] </td></tr>
+<tr><td align="left" balign="left"> + setMailAdressen(adressen : String[]) </td></tr>
+<tr><td align="left" balign="left"> + setMailAdressen(adres : String) </td></tr>
+<tr><td align="left" balign="left"> + setForStatus(status : AutomatischProces.ProcessingStatus) </td></tr>
+<tr><td align="left" balign="left"> + getForStatus() : AutomatischProces.ProcessingStatus </td></tr>
+		</table></td></tr>
+		</table>>, URL="./MailRapportageProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.persistence.staging.DirectoryScannerProces
+	c37 [label=<<table title="nl.b3p.brmo.persistence.staging.DirectoryScannerProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DirectoryScannerProces.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"><font face="Helvetica-Oblique"> DirectoryScannerProces </font></td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + DirectoryScannerProces() </td></tr>
+<tr><td align="left" balign="left"> + getScanDirectory() : String </td></tr>
+<tr><td align="left" balign="left"> + getArchiefDirectory() : String </td></tr>
+<tr><td align="left" balign="left"> + setScanDirectory(scanDirectory : String) </td></tr>
+<tr><td align="left" balign="left"> + setArchiefDirectory(archiefDirectory : String) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./DirectoryScannerProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.persistence.staging.AutomatischProces
+	c38 [label=<<table title="nl.b3p.brmo.persistence.staging.AutomatischProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AutomatischProces.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"><font face="Helvetica-Oblique"> AutomatischProces </font></td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + LOG_NEWLINE : String </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + AutomatischProces() </td></tr>
+<tr><td align="left" balign="left"> + updateSamenvattingEnLogfile(samenvatting : String) </td></tr>
+<tr><td align="left" balign="left"> + getConfig() : Map&lt;String, ClobElement&gt; </td></tr>
+<tr><td align="left" balign="left"> + setConfig(config : Map&lt;String, ClobElement&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getLastrun() : Date </td></tr>
+<tr><td align="left" balign="left"> + setLastrun(lastrun : Date) </td></tr>
+<tr><td align="left" balign="left"> + getStatus() : AutomatischProces.ProcessingStatus </td></tr>
+<tr><td align="left" balign="left"> + setStatus(status : AutomatischProces.ProcessingStatus) </td></tr>
+<tr><td align="left" balign="left"> + getSamenvatting() : String </td></tr>
+<tr><td align="left" balign="left"> + setSamenvatting(samenvatting : String) </td></tr>
+<tr><td align="left" balign="left"> + getLogfile() : String </td></tr>
+<tr><td align="left" balign="left"> + setLogfile(logfile : String) </td></tr>
+<tr><td align="left" balign="left"> + getId() : Long </td></tr>
+<tr><td align="left" balign="left"> + setId(id : Long) </td></tr>
+<tr><td align="left" balign="left"> + getCronExpressie() : String </td></tr>
+<tr><td align="left" balign="left"> + setCronExpressie(cronExpressie : String) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./AutomatischProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// Note annotation
+	n0cc38 [label=<<table title="nl.b3p.brmo.persistence.staging.AutomatischProces" border="0" cellborder="0" cellspacing="0" cellpadding="2" port="p" href="./AutomatischProces.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> Tabel "automatisch_proces" in de database. </td></tr>
+		</table></td></tr>
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0, shape=note];
+	n0cc38 -> c38:p[arrowhead=none];
+	// nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus
+	c39 [label=<<table title="nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AutomatischProces.ProcessingStatus.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
+<tr><td align="center" balign="center"> ProcessingStatus </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> PROCESSING </td></tr>
+<tr><td align="left" balign="left"> WAITING </td></tr>
+<tr><td align="left" balign="left"> ONBEKEND </td></tr>
+<tr><td align="left" balign="left"> ERROR </td></tr>
+		</table></td></tr>
+		</table>>, URL="./AutomatischProces.ProcessingStatus.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.persistence.staging.MaterializedViewRefresh
+	c40 [label=<<table title="nl.b3p.brmo.persistence.staging.MaterializedViewRefresh" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MaterializedViewRefresh.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> MaterializedViewRefresh </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + MVIEW : String </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + MaterializedViewRefresh() </td></tr>
+<tr><td align="left" balign="left"> + getMView() : String </td></tr>
+		</table></td></tr>
+		</table>>, URL="./MaterializedViewRefresh.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.persistence.staging.LaadprocesStatusRapportProces
+	c41 [label=<<table title="nl.b3p.brmo.persistence.staging.LaadprocesStatusRapportProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./LaadprocesStatusRapportProces.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> LaadprocesStatusRapportProces </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + LaadprocesStatusRapportProces() </td></tr>
+		</table></td></tr>
+		</table>>, URL="./LaadprocesStatusRapportProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.persistence.staging.BAGScannerProces
+	c42 [label=<<table title="nl.b3p.brmo.persistence.staging.BAGScannerProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BAGScannerProces.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> BAGScannerProces </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BAGScannerProces() </td></tr>
+		</table></td></tr>
+		</table>>, URL="./BAGScannerProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.persistence.staging.AfgifteNummerScannerProces
+	c43 [label=<<table title="nl.b3p.brmo.persistence.staging.AfgifteNummerScannerProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AfgifteNummerScannerProces.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> AfgifteNummerScannerProces </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + MISSINGNUMBERSFOUND : String </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + AfgifteNummerScannerProces() </td></tr>
+<tr><td align="left" balign="left"> + getContracNummer() : String </td></tr>
+<tr><td align="left" balign="left"> + setContracNummer(contractnummer : String) </td></tr>
+<tr><td align="left" balign="left"> + getAfgifteNummerType() : String </td></tr>
+<tr><td align="left" balign="left"> + setAfgifteNummerType(afgiftenummertype : String) </td></tr>
+<tr><td align="left" balign="left"> + setOntbrekendeNummersGevonden(gevonden : boolean) </td></tr>
+<tr><td align="left" balign="left"> + getOntbrekendeNummersGevonden() : boolean </td></tr>
+<tr><td align="left" balign="left"> + setOntbrekendeAfgiftenummersToevoegen(toevoegen : boolean) </td></tr>
+<tr><td align="left" balign="left"> + getOntbrekendeAfgiftenummersToevoegen() : boolean </td></tr>
+		</table></td></tr>
+		</table>>, URL="./AfgifteNummerScannerProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.persistence.staging.GDS2OphaalProces
+	c44 [label=<<table title="nl.b3p.brmo.persistence.staging.GDS2OphaalProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GDS2OphaalProces.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> GDS2OphaalProces </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + GDS2OphaalProces() </td></tr>
+		</table></td></tr>
+		</table>>, URL="./GDS2OphaalProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.persistence.staging.BGTLightOphaalProces
-	c22 [label=<<table title="nl.b3p.brmo.persistence.staging.BGTLightOphaalProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTLightOphaalProces.html">
+	c45 [label=<<table title="nl.b3p.brmo.persistence.staging.BGTLightOphaalProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTLightOphaalProces.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BGTLightOphaalProces </td></tr>
 		</table></td></tr>
@@ -443,59 +328,174 @@ digraph G {
 <tr><td align="left" balign="left"> + getGridIds() : Set&lt;Integer&gt; </td></tr>
 		</table></td></tr>
 		</table>>, URL="./BGTLightOphaalProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.persistence.staging.LaadprocesStatusRapportProces
-	c23 [label=<<table title="nl.b3p.brmo.persistence.staging.LaadprocesStatusRapportProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./LaadprocesStatusRapportProces.html">
+	// nl.b3p.brmo.persistence.staging.BGTLightScannerProces
+	c46 [label=<<table title="nl.b3p.brmo.persistence.staging.BGTLightScannerProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BGTLightScannerProces.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> LaadprocesStatusRapportProces </td></tr>
+<tr><td align="center" balign="center"> BGTLightScannerProces </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left">  </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + LaadprocesStatusRapportProces() </td></tr>
+<tr><td align="left" balign="left"> + BGTLightScannerProces() </td></tr>
 		</table></td></tr>
-		</table>>, URL="./LaadprocesStatusRapportProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	//nl.b3p.brmo.persistence.staging.TopNLScannerProces extends nl.b3p.brmo.persistence.staging.DirectoryScannerProces
-	c15:p -> c0:p [dir=back,arrowtail=empty];
-	//nl.b3p.brmo.persistence.staging.BGTLightScannerProces extends nl.b3p.brmo.persistence.staging.DirectoryScannerProces
-	c15:p -> c1:p [dir=back,arrowtail=empty];
-	//nl.b3p.brmo.persistence.staging.AfgifteNummerScannerProces extends nl.b3p.brmo.persistence.staging.AutomatischProces
-	c3:p -> c2:p [dir=back,arrowtail=empty];
-	//nl.b3p.brmo.persistence.staging.MaterializedViewRefresh extends nl.b3p.brmo.persistence.staging.AutomatischProces
-	c3:p -> c5:p [dir=back,arrowtail=empty];
-	//nl.b3p.brmo.persistence.staging.LaadprocesTransformatieProces extends nl.b3p.brmo.persistence.staging.AutomatischProces
-	c3:p -> c6:p [dir=back,arrowtail=empty];
-	//nl.b3p.brmo.persistence.staging.BRKScannerProces extends nl.b3p.brmo.persistence.staging.DirectoryScannerProces
-	c15:p -> c8:p [dir=back,arrowtail=empty];
-	//nl.b3p.brmo.persistence.staging.MailRapportageProces extends nl.b3p.brmo.persistence.staging.AutomatischProces
-	c3:p -> c9:p [dir=back,arrowtail=empty];
+		</table>>, URL="./BGTLightScannerProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.persistence.staging.WebMirrorBAGScannerProces
+	c47 [label=<<table title="nl.b3p.brmo.persistence.staging.WebMirrorBAGScannerProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WebMirrorBAGScannerProces.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> WebMirrorBAGScannerProces </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + WebMirrorBAGScannerProces() </td></tr>
+		</table></td></tr>
+		</table>>, URL="./WebMirrorBAGScannerProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.persistence.staging.LaadprocesTransformatieProces
+	c48 [label=<<table title="nl.b3p.brmo.persistence.staging.LaadprocesTransformatieProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./LaadprocesTransformatieProces.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> LaadprocesTransformatieProces </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + LaadprocesTransformatieProces() </td></tr>
+<tr><td align="left" balign="left"> + getSoort() : String </td></tr>
+<tr><td align="left" balign="left"> + alsStandTransformeren() : boolean </td></tr>
+		</table></td></tr>
+		</table>>, URL="./LaadprocesTransformatieProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.persistence.staging.LaadprocesTransformatieProces.LaadprocesSoorten
+	c49 [label=<<table title="nl.b3p.brmo.persistence.staging.LaadprocesTransformatieProces.LaadprocesSoorten" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./LaadprocesTransformatieProces.LaadprocesSoorten.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
+<tr><td align="center" balign="center"> LaadprocesSoorten </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> BR_BGTLIGHT </td></tr>
+<tr><td align="left" balign="left"> BR_TOPNL </td></tr>
+		</table></td></tr>
+		</table>>, URL="./LaadprocesTransformatieProces.LaadprocesSoorten.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.persistence.staging.Bericht
+	c50 [label=<<table title="nl.b3p.brmo.persistence.staging.Bericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Bericht.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> Bericht </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + Bericht() </td></tr>
+<tr><td align="left" balign="left"> + Bericht(br_xml : String) </td></tr>
+<tr><td align="left" balign="left"> + getId() : Long </td></tr>
+<tr><td align="left" balign="left"> + setId(id : Long) </td></tr>
+<tr><td align="left" balign="left"> + getLaadprocesid() : LaadProces </td></tr>
+<tr><td align="left" balign="left"> + setLaadprocesid(laadprocesid : LaadProces) </td></tr>
+<tr><td align="left" balign="left"> + getDatum() : Date </td></tr>
+<tr><td align="left" balign="left"> + setDatum(datum : Date) </td></tr>
+<tr><td align="left" balign="left"> + getObject_ref() : String </td></tr>
+<tr><td align="left" balign="left"> + setObject_ref(object_ref : String) </td></tr>
+<tr><td align="left" balign="left"> + getVolgordenummer() : Integer </td></tr>
+<tr><td align="left" balign="left"> + setVolgordenummer(volgordenummer : Integer) </td></tr>
+<tr><td align="left" balign="left"> + getSoort() : String </td></tr>
+<tr><td align="left" balign="left"> + setSoort(soort : String) </td></tr>
+<tr><td align="left" balign="left"> + getOpmerking() : String </td></tr>
+<tr><td align="left" balign="left"> + setOpmerking(opmerking : String) </td></tr>
+<tr><td align="left" balign="left"> + getStatus() : Bericht.STATUS </td></tr>
+<tr><td align="left" balign="left"> + setStatus(status : Bericht.STATUS) </td></tr>
+<tr><td align="left" balign="left"> + getStatus_datum() : Date </td></tr>
+<tr><td align="left" balign="left"> + setStatus_datum(status_datum : Date) </td></tr>
+<tr><td align="left" balign="left"> + getJob_id() : String </td></tr>
+<tr><td align="left" balign="left"> + setJob_id(job_id : String) </td></tr>
+<tr><td align="left" balign="left"> + getBr_xml() : String </td></tr>
+<tr><td align="left" balign="left"> + setBr_xml(br_xml : String) </td></tr>
+<tr><td align="left" balign="left"> + getBr_orgineel_xml() : String </td></tr>
+<tr><td align="left" balign="left"> + setBr_orgineel_xml(br_orgineel_xml : String) </td></tr>
+<tr><td align="left" balign="left"> + getDb_xml() : String </td></tr>
+<tr><td align="left" balign="left"> + setDb_xml(db_xml : String) </td></tr>
+<tr><td align="left" balign="left"> + getXsl_version() : String </td></tr>
+<tr><td align="left" balign="left"> + setXsl_version(xsl_version : String) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./Bericht.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.persistence.staging.Bericht.STATUS
+	c51 [label=<<table title="nl.b3p.brmo.persistence.staging.Bericht.STATUS" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Bericht.STATUS.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
+<tr><td align="center" balign="center"> STATUS </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> STAGING_OK </td></tr>
+<tr><td align="left" balign="left"> STAGING_NOK </td></tr>
+<tr><td align="left" balign="left"> STAGING_FORWARDED </td></tr>
+<tr><td align="left" balign="left"> RSGB_WAITING </td></tr>
+<tr><td align="left" balign="left"> RSGB_PROCESSING </td></tr>
+<tr><td align="left" balign="left"> RSGB_OK </td></tr>
+<tr><td align="left" balign="left"> RSGB_OUTDATED </td></tr>
+<tr><td align="left" balign="left"> RSGB_NOK </td></tr>
+<tr><td align="left" balign="left"> ARCHIVE </td></tr>
+<tr><td align="left" balign="left"> RSGB_BAG_NOK </td></tr>
+		</table></td></tr>
+		</table>>, URL="./Bericht.STATUS.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.persistence.staging.BRKScannerProces
+	c52 [label=<<table title="nl.b3p.brmo.persistence.staging.BRKScannerProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BRKScannerProces.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> BRKScannerProces </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BRKScannerProces() </td></tr>
+		</table></td></tr>
+		</table>>, URL="./BRKScannerProces.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.persistence.staging.BerichtstatusRapportProces extends nl.b3p.brmo.persistence.staging.AutomatischProces
-	c3:p -> c10:p [dir=back,arrowtail=empty];
+	c38:p -> c32:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.persistence.staging.BerichtTransformatieProces extends nl.b3p.brmo.persistence.staging.AutomatischProces
-	c3:p -> c11:p [dir=back,arrowtail=empty];
+	c38:p -> c33:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.persistence.staging.BerichtDoorstuurProces extends nl.b3p.brmo.persistence.staging.AutomatischProces
-	c3:p -> c12:p [dir=back,arrowtail=empty];
-	//nl.b3p.brmo.persistence.staging.WebMirrorBAGScannerProces extends nl.b3p.brmo.persistence.staging.DirectoryScannerProces
-	c15:p -> c13:p [dir=back,arrowtail=empty];
-	//nl.b3p.brmo.persistence.staging.GDS2OphaalProces extends nl.b3p.brmo.persistence.staging.AutomatischProces
-	c3:p -> c14:p [dir=back,arrowtail=empty];
+	c38:p -> c34:p [dir=back,arrowtail=empty];
+	//nl.b3p.brmo.persistence.staging.TopNLScannerProces extends nl.b3p.brmo.persistence.staging.DirectoryScannerProces
+	c37:p -> c35:p [dir=back,arrowtail=empty];
+	//nl.b3p.brmo.persistence.staging.MailRapportageProces extends nl.b3p.brmo.persistence.staging.AutomatischProces
+	c38:p -> c36:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.persistence.staging.DirectoryScannerProces extends nl.b3p.brmo.persistence.staging.AutomatischProces
-	c3:p -> c15:p [dir=back,arrowtail=empty];
-	//nl.b3p.brmo.persistence.staging.BAGScannerProces extends nl.b3p.brmo.persistence.staging.DirectoryScannerProces
-	c15:p -> c19:p [dir=back,arrowtail=empty];
-	//nl.b3p.brmo.persistence.staging.BGTLightOphaalProces extends nl.b3p.brmo.persistence.staging.AutomatischProces
-	c3:p -> c22:p [dir=back,arrowtail=empty];
+	c38:p -> c37:p [dir=back,arrowtail=empty];
+	//nl.b3p.brmo.persistence.staging.MaterializedViewRefresh extends nl.b3p.brmo.persistence.staging.AutomatischProces
+	c38:p -> c40:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.persistence.staging.LaadprocesStatusRapportProces extends nl.b3p.brmo.persistence.staging.AutomatischProces
-	c3:p -> c23:p [dir=back,arrowtail=empty];
-	// nl.b3p.brmo.persistence.staging.AutomatischProces NAVASSOC nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus
-	c3:p -> c4:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.b3p.brmo.persistence.staging.Bericht NAVASSOC nl.b3p.brmo.persistence.staging.LaadProces
-	c16:p -> c20:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.b3p.brmo.persistence.staging.Bericht NAVASSOC nl.b3p.brmo.persistence.staging.Bericht.STATUS
-	c16:p -> c17:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c38:p -> c41:p [dir=back,arrowtail=empty];
+	//nl.b3p.brmo.persistence.staging.BAGScannerProces extends nl.b3p.brmo.persistence.staging.DirectoryScannerProces
+	c37:p -> c42:p [dir=back,arrowtail=empty];
+	//nl.b3p.brmo.persistence.staging.AfgifteNummerScannerProces extends nl.b3p.brmo.persistence.staging.AutomatischProces
+	c38:p -> c43:p [dir=back,arrowtail=empty];
+	//nl.b3p.brmo.persistence.staging.GDS2OphaalProces extends nl.b3p.brmo.persistence.staging.AutomatischProces
+	c38:p -> c44:p [dir=back,arrowtail=empty];
+	//nl.b3p.brmo.persistence.staging.BGTLightOphaalProces extends nl.b3p.brmo.persistence.staging.AutomatischProces
+	c38:p -> c45:p [dir=back,arrowtail=empty];
+	//nl.b3p.brmo.persistence.staging.BGTLightScannerProces extends nl.b3p.brmo.persistence.staging.DirectoryScannerProces
+	c37:p -> c46:p [dir=back,arrowtail=empty];
+	//nl.b3p.brmo.persistence.staging.WebMirrorBAGScannerProces extends nl.b3p.brmo.persistence.staging.DirectoryScannerProces
+	c37:p -> c47:p [dir=back,arrowtail=empty];
+	//nl.b3p.brmo.persistence.staging.LaadprocesTransformatieProces extends nl.b3p.brmo.persistence.staging.AutomatischProces
+	c38:p -> c48:p [dir=back,arrowtail=empty];
+	//nl.b3p.brmo.persistence.staging.BRKScannerProces extends nl.b3p.brmo.persistence.staging.DirectoryScannerProces
+	c37:p -> c52:p [dir=back,arrowtail=empty];
 	// nl.b3p.brmo.persistence.staging.LaadProces NAVASSOC nl.b3p.brmo.persistence.staging.LaadProces.STATUS
-	c20:p -> c21:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c30:p -> c31:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.persistence.staging.LaadProces NAVASSOC nl.b3p.brmo.persistence.staging.AutomatischProces
-	c20:p -> c3:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c30:p -> c38:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.brmo.persistence.staging.AutomatischProces NAVASSOC nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus
+	c38:p -> c39:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.brmo.persistence.staging.Bericht NAVASSOC nl.b3p.brmo.persistence.staging.LaadProces
+	c50:p -> c30:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.brmo.persistence.staging.Bericht NAVASSOC nl.b3p.brmo.persistence.staging.Bericht.STATUS
+	c50:p -> c51:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

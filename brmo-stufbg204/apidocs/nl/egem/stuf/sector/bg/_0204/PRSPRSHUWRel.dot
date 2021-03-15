@@ -9,8 +9,36 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// nl.egem.stuf.sector.bg._0204.PRSAntwoord.PRSPRSHUW
+	c169059 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSAntwoord.PRSPRSHUW" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSAntwoord.PRSPRSHUW.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> PRSPRSHUW </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # prs : PRSKennisgeving </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + PRSPRSHUW() </td></tr>
+<tr><td align="left" balign="left"> + getPRS() : PRSKennisgeving </td></tr>
+<tr><td align="left" balign="left"> + setPRS(value : PRSKennisgeving) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./PRSAntwoord.PRSPRSHUW.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.PRSVraag.PRSPRSHUW
+	c169154 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSVraag.PRSPRSHUW" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSVraag.PRSPRSHUW.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> PRSPRSHUW </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # prs : PRSKennisgeving </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + PRSPRSHUW() </td></tr>
+<tr><td align="left" balign="left"> + getPRS() : PRSKennisgeving </td></tr>
+<tr><td align="left" balign="left"> + setPRS(value : PRSKennisgeving) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./PRSVraag.PRSPRSHUW.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.PRSPRSHUWRel
-	c169088 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSPRSHUWRel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PRSPRSHUWRel.html">
+	c169158 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSPRSHUWRel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PRSPRSHUWRel.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PRSPRSHUWRel </td></tr>
 		</table></td></tr>
@@ -74,36 +102,8 @@ digraph G {
 <tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./PRSPRSHUWRel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.PRSAntwoord.PRSPRSHUW
-	c169235 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSAntwoord.PRSPRSHUW" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSAntwoord.PRSPRSHUW.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> PRSPRSHUW </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # prs : PRSKennisgeving </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + PRSPRSHUW() </td></tr>
-<tr><td align="left" balign="left"> + getPRS() : PRSKennisgeving </td></tr>
-<tr><td align="left" balign="left"> + setPRS(value : PRSKennisgeving) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./PRSAntwoord.PRSPRSHUW.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.PRSVraag.PRSPRSHUW
-	c169274 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSVraag.PRSPRSHUW" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSVraag.PRSPRSHUW.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> PRSPRSHUW </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # prs : PRSKennisgeving </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + PRSPRSHUW() </td></tr>
-<tr><td align="left" balign="left"> + getPRS() : PRSKennisgeving </td></tr>
-<tr><td align="left" balign="left"> + setPRS(value : PRSKennisgeving) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./PRSVraag.PRSPRSHUW.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.PRSKennisgeving.PRSPRSHUW
-	c169300 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSKennisgeving.PRSPRSHUW" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSKennisgeving.PRSPRSHUW.html">
+	c169288 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSKennisgeving.PRSPRSHUW" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSKennisgeving.PRSPRSHUW.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PRSPRSHUW </td></tr>
 		</table></td></tr>
@@ -116,24 +116,8 @@ digraph G {
 <tr><td align="left" balign="left"> + setPRS(value : PRSGerelateerde) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./PRSKennisgeving.PRSPRSHUW.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.stuf0204.NoValue
-	c169496 [label=<<table title="nl.egem.stuf.stuf0204.NoValue" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/NoValue.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
-<tr><td align="center" balign="center"> NoValue </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> NIET_ONDERSTEUND </td></tr>
-<tr><td align="left" balign="left"> NIET_GEAUTORISEERD </td></tr>
-<tr><td align="left" balign="left"> GEEN_WAARDE </td></tr>
-<tr><td align="left" balign="left"> WAARDE_ONBEKEND </td></tr>
-		</table></td></tr>
-		</table>>, URL="../../../stuf0204/NoValue.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.stuf0204.Verwerkingssoort
-	c169499 [label=<<table title="nl.egem.stuf.stuf0204.Verwerkingssoort" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/Verwerkingssoort.html">
+	c169507 [label=<<table title="nl.egem.stuf.stuf0204.Verwerkingssoort" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/Verwerkingssoort.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> Verwerkingssoort </td></tr>
@@ -151,8 +135,21 @@ digraph G {
 <tr><td align="left" balign="left"> S </td></tr>
 		</table></td></tr>
 		</table>>, URL="../../../stuf0204/Verwerkingssoort.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.stuf0204.ExtraElementen
+	c169510 [label=<<table title="nl.egem.stuf.stuf0204.ExtraElementen" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/ExtraElementen.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> ExtraElementen </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # extraElement : List&lt;ExtraElement&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + ExtraElementen() </td></tr>
+<tr><td align="left" balign="left"> + getExtraElement() : List&lt;ExtraElement&gt; </td></tr>
+		</table></td></tr>
+		</table>>, URL="../../../stuf0204/ExtraElementen.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.stuf0204.TijdvakGeldigheid
-	c169500 [label=<<table title="nl.egem.stuf.stuf0204.TijdvakGeldigheid" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/TijdvakGeldigheid.html">
+	c169513 [label=<<table title="nl.egem.stuf.stuf0204.TijdvakGeldigheid" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/TijdvakGeldigheid.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> TijdvakGeldigheid </td></tr>
 		</table></td></tr>
@@ -168,21 +165,8 @@ digraph G {
 <tr><td align="left" balign="left"> + setEinddatumTijdvakGeldigheid(value : DatumMetIndicator) </td></tr>
 		</table></td></tr>
 		</table>>, URL="../../../stuf0204/TijdvakGeldigheid.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.stuf0204.ExtraElementen
-	c169511 [label=<<table title="nl.egem.stuf.stuf0204.ExtraElementen" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/ExtraElementen.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> ExtraElementen </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # extraElement : List&lt;ExtraElement&gt; </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + ExtraElementen() </td></tr>
-<tr><td align="left" balign="left"> + getExtraElement() : List&lt;ExtraElement&gt; </td></tr>
-		</table></td></tr>
-		</table>>, URL="../../../stuf0204/ExtraElementen.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.stuf0204.TijdvakRelatie
-	c169514 [label=<<table title="nl.egem.stuf.stuf0204.TijdvakRelatie" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/TijdvakRelatie.html">
+	c169515 [label=<<table title="nl.egem.stuf.stuf0204.TijdvakRelatie" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/TijdvakRelatie.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> TijdvakRelatie </td></tr>
 		</table></td></tr>
@@ -198,21 +182,37 @@ digraph G {
 <tr><td align="left" balign="left"> + setEinddatumRelatie(value : DatumMetIndicator) </td></tr>
 		</table></td></tr>
 		</table>>, URL="../../../stuf0204/TijdvakRelatie.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.stuf0204.NoValue
+	c169517 [label=<<table title="nl.egem.stuf.stuf0204.NoValue" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/NoValue.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
+<tr><td align="center" balign="center"> NoValue </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> NIET_ONDERSTEUND </td></tr>
+<tr><td align="left" balign="left"> NIET_GEAUTORISEERD </td></tr>
+<tr><td align="left" balign="left"> GEEN_WAARDE </td></tr>
+<tr><td align="left" balign="left"> WAARDE_ONBEKEND </td></tr>
+		</table></td></tr>
+		</table>>, URL="../../../stuf0204/NoValue.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.PRSAntwoord.PRSPRSHUW extends nl.egem.stuf.sector.bg._0204.PRSPRSHUWRel
-	c169088:p -> c169235:p [dir=back,arrowtail=empty];
+	c169158:p -> c169059:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.PRSVraag.PRSPRSHUW extends nl.egem.stuf.sector.bg._0204.PRSPRSHUWRel
-	c169088:p -> c169274:p [dir=back,arrowtail=empty];
+	c169158:p -> c169154:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.PRSKennisgeving.PRSPRSHUW extends nl.egem.stuf.sector.bg._0204.PRSPRSHUWRel
-	c169088:p -> c169300:p [dir=back,arrowtail=empty];
+	c169158:p -> c169288:p [dir=back,arrowtail=empty];
 	// nl.egem.stuf.sector.bg._0204.PRSPRSHUWRel NAVASSOC nl.egem.stuf.stuf0204.TijdvakRelatie
-	c169088:p -> c169514:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c169158:p -> c169515:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.egem.stuf.sector.bg._0204.PRSPRSHUWRel NAVASSOC nl.egem.stuf.stuf0204.TijdvakGeldigheid
-	c169088:p -> c169500:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c169158:p -> c169513:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.egem.stuf.sector.bg._0204.PRSPRSHUWRel NAVASSOC nl.egem.stuf.stuf0204.ExtraElementen
-	c169088:p -> c169511:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c169158:p -> c169510:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.egem.stuf.sector.bg._0204.PRSPRSHUWRel NAVASSOC nl.egem.stuf.stuf0204.Verwerkingssoort
-	c169088:p -> c169499:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c169158:p -> c169507:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.egem.stuf.sector.bg._0204.PRSPRSHUWRel NAVASSOC nl.egem.stuf.stuf0204.NoValue
-	c169088:p -> c169496:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c169158:p -> c169517:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

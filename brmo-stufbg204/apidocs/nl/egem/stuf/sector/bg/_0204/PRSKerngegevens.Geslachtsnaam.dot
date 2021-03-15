@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.PRSKerngegevens
-	c166939 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSKerngegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSKerngegevens.html">
+	c166925 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSKerngegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSKerngegevens.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PRSKerngegevens </td></tr>
 		</table></td></tr>
@@ -66,7 +66,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./PRSKerngegevens.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.PRSKerngegevens.Geslachtsnaam
-	c166944 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSKerngegevens.Geslachtsnaam" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PRSKerngegevens.Geslachtsnaam.html">
+	c166930 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSKerngegevens.Geslachtsnaam" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PRSKerngegevens.Geslachtsnaam.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Geslachtsnaam </td></tr>
 		</table></td></tr>
@@ -92,7 +92,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./PRSKerngegevens.Geslachtsnaam.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.stuf0204.NoValue
-	c166966 [label=<<table title="nl.egem.stuf.stuf0204.NoValue" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/NoValue.html">
+	c166987 [label=<<table title="nl.egem.stuf.stuf0204.NoValue" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/NoValue.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> NoValue </td></tr>
@@ -108,10 +108,10 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="../../../stuf0204/NoValue.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.PRSKerngegevens NAVASSOC nl.egem.stuf.sector.bg._0204.PRSKerngegevens.Geslachtsnaam
-	c166939:p -> c166944:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c166925:p -> c166930:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.egem.stuf.sector.bg._0204.PRSKerngegevens NAVASSOC nl.egem.stuf.stuf0204.NoValue
-	c166939:p -> c166966:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c166925:p -> c166987:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.egem.stuf.sector.bg._0204.PRSKerngegevens.Geslachtsnaam NAVASSOC nl.egem.stuf.stuf0204.NoValue
-	c166944:p -> c166966:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c166930:p -> c166987:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

@@ -11,116 +11,116 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * &lt;p&gt;Java class for anonymous complex type.
+ * &amp;lt;p&amp;gt;Java class for anonymous complex type.
  * 
- * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+ * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
  * 
- * &lt;pre&gt;
- * &amp;lt;complexType&amp;gt;
- *   &amp;lt;complexContent&amp;gt;
- *     &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
- *       &amp;lt;sequence&amp;gt;
- *         &amp;lt;element name=&quot;berichtsoort&quot;&amp;gt;
- *           &amp;lt;simpleType&amp;gt;
- *             &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}string&quot;&amp;gt;
- *               &amp;lt;minLength value=&quot;4&quot;/&amp;gt;
- *               &amp;lt;maxLength value=&quot;4&quot;/&amp;gt;
- *               &amp;lt;pattern value=&quot;Fo01&quot;/&amp;gt;
- *               &amp;lt;pattern value=&quot;Lv01&quot;/&amp;gt;
- *               &amp;lt;pattern value=&quot;Lv02&quot;/&amp;gt;
- *               &amp;lt;pattern value=&quot;La01&quot;/&amp;gt;
- *               &amp;lt;pattern value=&quot;La02&quot;/&amp;gt;
- *               &amp;lt;pattern value=&quot;Lk01&quot;/&amp;gt;
- *               &amp;lt;pattern value=&quot;Bv01&quot;/&amp;gt;
- *             &amp;lt;/restriction&amp;gt;
- *           &amp;lt;/simpleType&amp;gt;
- *         &amp;lt;/element&amp;gt;
- *         &amp;lt;element name=&quot;entiteittype&quot;&amp;gt;
- *           &amp;lt;simpleType&amp;gt;
- *             &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}string&quot;&amp;gt;
- *               &amp;lt;minLength value=&quot;3&quot;/&amp;gt;
- *               &amp;lt;maxLength value=&quot;3&quot;/&amp;gt;
- *             &amp;lt;/restriction&amp;gt;
- *           &amp;lt;/simpleType&amp;gt;
- *         &amp;lt;/element&amp;gt;
- *         &amp;lt;element name=&quot;sectormodel&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot;/&amp;gt;
- *         &amp;lt;element name=&quot;versieStUF&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}Versienr&quot;/&amp;gt;
- *         &amp;lt;element name=&quot;versieSectormodel&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}Versienr&quot;/&amp;gt;
- *         &amp;lt;element name=&quot;zender&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}Systeem&quot;/&amp;gt;
- *         &amp;lt;element name=&quot;ontvanger&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}Systeem&quot;/&amp;gt;
- *         &amp;lt;element name=&quot;referentienummer&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}RefNummer&quot;/&amp;gt;
- *         &amp;lt;element name=&quot;tijdstipBericht&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}Tijdstip&quot;/&amp;gt;
- *         &amp;lt;choice&amp;gt;
- *           &amp;lt;element name=&quot;kennisgeving&quot;&amp;gt;
- *             &amp;lt;complexType&amp;gt;
- *               &amp;lt;complexContent&amp;gt;
- *                 &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
- *                   &amp;lt;sequence&amp;gt;
- *                     &amp;lt;element name=&quot;mutatiesoort&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}Mutatiesoort&quot;/&amp;gt;
- *                     &amp;lt;element name=&quot;indicatorOvername&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}IndicatorOvername&quot;/&amp;gt;
- *                     &amp;lt;element name=&quot;tijdstipMutatie&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}Tijdstip&quot; minOccurs=&quot;0&quot;/&amp;gt;
- *                   &amp;lt;/sequence&amp;gt;
- *                 &amp;lt;/restriction&amp;gt;
- *               &amp;lt;/complexContent&amp;gt;
- *             &amp;lt;/complexType&amp;gt;
- *           &amp;lt;/element&amp;gt;
- *           &amp;lt;element name=&quot;vraag&quot;&amp;gt;
- *             &amp;lt;complexType&amp;gt;
- *               &amp;lt;complexContent&amp;gt;
- *                 &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
- *                   &amp;lt;sequence&amp;gt;
- *                     &amp;lt;element name=&quot;sortering&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}Sortering&quot; minOccurs=&quot;0&quot;/&amp;gt;
- *                     &amp;lt;element name=&quot;maximumAantal&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}MaximumAantal&quot; minOccurs=&quot;0&quot;/&amp;gt;
- *                     &amp;lt;element name=&quot;indicatorHistorisch&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; minOccurs=&quot;0&quot;/&amp;gt;
- *                     &amp;lt;element name=&quot;indicatorVervolgvraag&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; minOccurs=&quot;0&quot;/&amp;gt;
- *                     &amp;lt;element name=&quot;indicatorAfnemerIndicatie&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; minOccurs=&quot;0&quot;/&amp;gt;
- *                   &amp;lt;/sequence&amp;gt;
- *                 &amp;lt;/restriction&amp;gt;
- *               &amp;lt;/complexContent&amp;gt;
- *             &amp;lt;/complexType&amp;gt;
- *           &amp;lt;/element&amp;gt;
- *           &amp;lt;element name=&quot;antwoord&quot;&amp;gt;
- *             &amp;lt;complexType&amp;gt;
- *               &amp;lt;complexContent&amp;gt;
- *                 &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
- *                   &amp;lt;sequence&amp;gt;
- *                     &amp;lt;element name=&quot;indicatorVervolgvraag&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; minOccurs=&quot;0&quot;/&amp;gt;
- *                     &amp;lt;element name=&quot;indicatorAfnemerIndicatie&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; minOccurs=&quot;0&quot;/&amp;gt;
- *                     &amp;lt;element name=&quot;crossRefNummer&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}RefNummer&quot;/&amp;gt;
- *                     &amp;lt;element name=&quot;foutmelding&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; minOccurs=&quot;0&quot;/&amp;gt;
- *                   &amp;lt;/sequence&amp;gt;
- *                 &amp;lt;/restriction&amp;gt;
- *               &amp;lt;/complexContent&amp;gt;
- *             &amp;lt;/complexType&amp;gt;
- *           &amp;lt;/element&amp;gt;
- *           &amp;lt;element name=&quot;bevestiging&quot;&amp;gt;
- *             &amp;lt;complexType&amp;gt;
- *               &amp;lt;complexContent&amp;gt;
- *                 &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
- *                   &amp;lt;sequence&amp;gt;
- *                     &amp;lt;element name=&quot;crossRefNummer&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}RefNummer&quot;/&amp;gt;
- *                   &amp;lt;/sequence&amp;gt;
- *                 &amp;lt;/restriction&amp;gt;
- *               &amp;lt;/complexContent&amp;gt;
- *             &amp;lt;/complexType&amp;gt;
- *           &amp;lt;/element&amp;gt;
- *           &amp;lt;element name=&quot;fout&quot;&amp;gt;
- *             &amp;lt;complexType&amp;gt;
- *               &amp;lt;complexContent&amp;gt;
- *                 &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
- *                   &amp;lt;sequence&amp;gt;
- *                     &amp;lt;element name=&quot;crossRefNummer&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}RefNummer&quot;/&amp;gt;
- *                   &amp;lt;/sequence&amp;gt;
- *                 &amp;lt;/restriction&amp;gt;
- *               &amp;lt;/complexContent&amp;gt;
- *             &amp;lt;/complexType&amp;gt;
- *           &amp;lt;/element&amp;gt;
- *         &amp;lt;/choice&amp;gt;
- *       &amp;lt;/sequence&amp;gt;
- *     &amp;lt;/restriction&amp;gt;
- *   &amp;lt;/complexContent&amp;gt;
- * &amp;lt;/complexType&amp;gt;
- * &lt;/pre&gt;
+ * &amp;lt;pre&amp;gt;
+ * &amp;amp;lt;complexType&amp;amp;gt;
+ *   &amp;amp;lt;complexContent&amp;amp;gt;
+ *     &amp;amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;amp;gt;
+ *       &amp;amp;lt;sequence&amp;amp;gt;
+ *         &amp;amp;lt;element name=&quot;berichtsoort&quot;&amp;amp;gt;
+ *           &amp;amp;lt;simpleType&amp;amp;gt;
+ *             &amp;amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}string&quot;&amp;amp;gt;
+ *               &amp;amp;lt;minLength value=&quot;4&quot;/&amp;amp;gt;
+ *               &amp;amp;lt;maxLength value=&quot;4&quot;/&amp;amp;gt;
+ *               &amp;amp;lt;pattern value=&quot;Fo01&quot;/&amp;amp;gt;
+ *               &amp;amp;lt;pattern value=&quot;Lv01&quot;/&amp;amp;gt;
+ *               &amp;amp;lt;pattern value=&quot;Lv02&quot;/&amp;amp;gt;
+ *               &amp;amp;lt;pattern value=&quot;La01&quot;/&amp;amp;gt;
+ *               &amp;amp;lt;pattern value=&quot;La02&quot;/&amp;amp;gt;
+ *               &amp;amp;lt;pattern value=&quot;Lk01&quot;/&amp;amp;gt;
+ *               &amp;amp;lt;pattern value=&quot;Bv01&quot;/&amp;amp;gt;
+ *             &amp;amp;lt;/restriction&amp;amp;gt;
+ *           &amp;amp;lt;/simpleType&amp;amp;gt;
+ *         &amp;amp;lt;/element&amp;amp;gt;
+ *         &amp;amp;lt;element name=&quot;entiteittype&quot;&amp;amp;gt;
+ *           &amp;amp;lt;simpleType&amp;amp;gt;
+ *             &amp;amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}string&quot;&amp;amp;gt;
+ *               &amp;amp;lt;minLength value=&quot;3&quot;/&amp;amp;gt;
+ *               &amp;amp;lt;maxLength value=&quot;3&quot;/&amp;amp;gt;
+ *             &amp;amp;lt;/restriction&amp;amp;gt;
+ *           &amp;amp;lt;/simpleType&amp;amp;gt;
+ *         &amp;amp;lt;/element&amp;amp;gt;
+ *         &amp;amp;lt;element name=&quot;sectormodel&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot;/&amp;amp;gt;
+ *         &amp;amp;lt;element name=&quot;versieStUF&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}Versienr&quot;/&amp;amp;gt;
+ *         &amp;amp;lt;element name=&quot;versieSectormodel&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}Versienr&quot;/&amp;amp;gt;
+ *         &amp;amp;lt;element name=&quot;zender&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}Systeem&quot;/&amp;amp;gt;
+ *         &amp;amp;lt;element name=&quot;ontvanger&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}Systeem&quot;/&amp;amp;gt;
+ *         &amp;amp;lt;element name=&quot;referentienummer&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}RefNummer&quot;/&amp;amp;gt;
+ *         &amp;amp;lt;element name=&quot;tijdstipBericht&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}Tijdstip&quot;/&amp;amp;gt;
+ *         &amp;amp;lt;choice&amp;amp;gt;
+ *           &amp;amp;lt;element name=&quot;kennisgeving&quot;&amp;amp;gt;
+ *             &amp;amp;lt;complexType&amp;amp;gt;
+ *               &amp;amp;lt;complexContent&amp;amp;gt;
+ *                 &amp;amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;amp;gt;
+ *                   &amp;amp;lt;sequence&amp;amp;gt;
+ *                     &amp;amp;lt;element name=&quot;mutatiesoort&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}Mutatiesoort&quot;/&amp;amp;gt;
+ *                     &amp;amp;lt;element name=&quot;indicatorOvername&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}IndicatorOvername&quot;/&amp;amp;gt;
+ *                     &amp;amp;lt;element name=&quot;tijdstipMutatie&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}Tijdstip&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
+ *                   &amp;amp;lt;/sequence&amp;amp;gt;
+ *                 &amp;amp;lt;/restriction&amp;amp;gt;
+ *               &amp;amp;lt;/complexContent&amp;amp;gt;
+ *             &amp;amp;lt;/complexType&amp;amp;gt;
+ *           &amp;amp;lt;/element&amp;amp;gt;
+ *           &amp;amp;lt;element name=&quot;vraag&quot;&amp;amp;gt;
+ *             &amp;amp;lt;complexType&amp;amp;gt;
+ *               &amp;amp;lt;complexContent&amp;amp;gt;
+ *                 &amp;amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;amp;gt;
+ *                   &amp;amp;lt;sequence&amp;amp;gt;
+ *                     &amp;amp;lt;element name=&quot;sortering&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}Sortering&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
+ *                     &amp;amp;lt;element name=&quot;maximumAantal&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}MaximumAantal&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
+ *                     &amp;amp;lt;element name=&quot;indicatorHistorisch&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
+ *                     &amp;amp;lt;element name=&quot;indicatorVervolgvraag&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
+ *                     &amp;amp;lt;element name=&quot;indicatorAfnemerIndicatie&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
+ *                   &amp;amp;lt;/sequence&amp;amp;gt;
+ *                 &amp;amp;lt;/restriction&amp;amp;gt;
+ *               &amp;amp;lt;/complexContent&amp;amp;gt;
+ *             &amp;amp;lt;/complexType&amp;amp;gt;
+ *           &amp;amp;lt;/element&amp;amp;gt;
+ *           &amp;amp;lt;element name=&quot;antwoord&quot;&amp;amp;gt;
+ *             &amp;amp;lt;complexType&amp;amp;gt;
+ *               &amp;amp;lt;complexContent&amp;amp;gt;
+ *                 &amp;amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;amp;gt;
+ *                   &amp;amp;lt;sequence&amp;amp;gt;
+ *                     &amp;amp;lt;element name=&quot;indicatorVervolgvraag&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
+ *                     &amp;amp;lt;element name=&quot;indicatorAfnemerIndicatie&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
+ *                     &amp;amp;lt;element name=&quot;crossRefNummer&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}RefNummer&quot;/&amp;amp;gt;
+ *                     &amp;amp;lt;element name=&quot;foutmelding&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
+ *                   &amp;amp;lt;/sequence&amp;amp;gt;
+ *                 &amp;amp;lt;/restriction&amp;amp;gt;
+ *               &amp;amp;lt;/complexContent&amp;amp;gt;
+ *             &amp;amp;lt;/complexType&amp;amp;gt;
+ *           &amp;amp;lt;/element&amp;amp;gt;
+ *           &amp;amp;lt;element name=&quot;bevestiging&quot;&amp;amp;gt;
+ *             &amp;amp;lt;complexType&amp;amp;gt;
+ *               &amp;amp;lt;complexContent&amp;amp;gt;
+ *                 &amp;amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;amp;gt;
+ *                   &amp;amp;lt;sequence&amp;amp;gt;
+ *                     &amp;amp;lt;element name=&quot;crossRefNummer&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}RefNummer&quot;/&amp;amp;gt;
+ *                   &amp;amp;lt;/sequence&amp;amp;gt;
+ *                 &amp;amp;lt;/restriction&amp;amp;gt;
+ *               &amp;amp;lt;/complexContent&amp;amp;gt;
+ *             &amp;amp;lt;/complexType&amp;amp;gt;
+ *           &amp;amp;lt;/element&amp;amp;gt;
+ *           &amp;amp;lt;element name=&quot;fout&quot;&amp;amp;gt;
+ *             &amp;amp;lt;complexType&amp;amp;gt;
+ *               &amp;amp;lt;complexContent&amp;amp;gt;
+ *                 &amp;amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;amp;gt;
+ *                   &amp;amp;lt;sequence&amp;amp;gt;
+ *                     &amp;amp;lt;element name=&quot;crossRefNummer&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}RefNummer&quot;/&amp;amp;gt;
+ *                   &amp;amp;lt;/sequence&amp;amp;gt;
+ *                 &amp;amp;lt;/restriction&amp;amp;gt;
+ *               &amp;amp;lt;/complexContent&amp;amp;gt;
+ *             &amp;amp;lt;/complexType&amp;amp;gt;
+ *           &amp;amp;lt;/element&amp;amp;gt;
+ *         &amp;amp;lt;/choice&amp;amp;gt;
+ *       &amp;amp;lt;/sequence&amp;amp;gt;
+ *     &amp;amp;lt;/restriction&amp;amp;gt;
+ *   &amp;amp;lt;/complexContent&amp;amp;gt;
+ * &amp;amp;lt;/complexType&amp;amp;gt;
+ * &amp;lt;/pre&amp;gt;
  * 
  * 
  */
@@ -506,24 +506,24 @@ import javax.xml.bind.annotation.XmlType;
 
 
     /**
-     * &lt;p&gt;Java class for anonymous complex type.
+     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
      * 
-     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &lt;pre&gt;
-     * &amp;lt;complexType&amp;gt;
-     *   &amp;lt;complexContent&amp;gt;
-     *     &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
-     *       &amp;lt;sequence&amp;gt;
-     *         &amp;lt;element name=&quot;indicatorVervolgvraag&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; minOccurs=&quot;0&quot;/&amp;gt;
-     *         &amp;lt;element name=&quot;indicatorAfnemerIndicatie&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; minOccurs=&quot;0&quot;/&amp;gt;
-     *         &amp;lt;element name=&quot;crossRefNummer&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}RefNummer&quot;/&amp;gt;
-     *         &amp;lt;element name=&quot;foutmelding&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; minOccurs=&quot;0&quot;/&amp;gt;
-     *       &amp;lt;/sequence&amp;gt;
-     *     &amp;lt;/restriction&amp;gt;
-     *   &amp;lt;/complexContent&amp;gt;
-     * &amp;lt;/complexType&amp;gt;
-     * &lt;/pre&gt;
+     * &amp;lt;pre&amp;gt;
+     * &amp;amp;lt;complexType&amp;amp;gt;
+     *   &amp;amp;lt;complexContent&amp;amp;gt;
+     *     &amp;amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;amp;gt;
+     *       &amp;amp;lt;sequence&amp;amp;gt;
+     *         &amp;amp;lt;element name=&quot;indicatorVervolgvraag&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
+     *         &amp;amp;lt;element name=&quot;indicatorAfnemerIndicatie&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
+     *         &amp;amp;lt;element name=&quot;crossRefNummer&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}RefNummer&quot;/&amp;amp;gt;
+     *         &amp;amp;lt;element name=&quot;foutmelding&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
+     *       &amp;amp;lt;/sequence&amp;amp;gt;
+     *     &amp;amp;lt;/restriction&amp;amp;gt;
+     *   &amp;amp;lt;/complexContent&amp;amp;gt;
+     * &amp;amp;lt;/complexType&amp;amp;gt;
+     * &amp;lt;/pre&amp;gt;
      * 
      * 
      */
@@ -644,21 +644,21 @@ import javax.xml.bind.annotation.XmlType;
 
 
     /**
-     * &lt;p&gt;Java class for anonymous complex type.
+     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
      * 
-     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &lt;pre&gt;
-     * &amp;lt;complexType&amp;gt;
-     *   &amp;lt;complexContent&amp;gt;
-     *     &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
-     *       &amp;lt;sequence&amp;gt;
-     *         &amp;lt;element name=&quot;crossRefNummer&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}RefNummer&quot;/&amp;gt;
-     *       &amp;lt;/sequence&amp;gt;
-     *     &amp;lt;/restriction&amp;gt;
-     *   &amp;lt;/complexContent&amp;gt;
-     * &amp;lt;/complexType&amp;gt;
-     * &lt;/pre&gt;
+     * &amp;lt;pre&amp;gt;
+     * &amp;amp;lt;complexType&amp;amp;gt;
+     *   &amp;amp;lt;complexContent&amp;amp;gt;
+     *     &amp;amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;amp;gt;
+     *       &amp;amp;lt;sequence&amp;amp;gt;
+     *         &amp;amp;lt;element name=&quot;crossRefNummer&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}RefNummer&quot;/&amp;amp;gt;
+     *       &amp;amp;lt;/sequence&amp;amp;gt;
+     *     &amp;amp;lt;/restriction&amp;amp;gt;
+     *   &amp;amp;lt;/complexContent&amp;amp;gt;
+     * &amp;amp;lt;/complexType&amp;amp;gt;
+     * &amp;lt;/pre&amp;gt;
      * 
      * 
      */
@@ -699,21 +699,21 @@ import javax.xml.bind.annotation.XmlType;
 
 
     /**
-     * &lt;p&gt;Java class for anonymous complex type.
+     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
      * 
-     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &lt;pre&gt;
-     * &amp;lt;complexType&amp;gt;
-     *   &amp;lt;complexContent&amp;gt;
-     *     &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
-     *       &amp;lt;sequence&amp;gt;
-     *         &amp;lt;element name=&quot;crossRefNummer&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}RefNummer&quot;/&amp;gt;
-     *       &amp;lt;/sequence&amp;gt;
-     *     &amp;lt;/restriction&amp;gt;
-     *   &amp;lt;/complexContent&amp;gt;
-     * &amp;lt;/complexType&amp;gt;
-     * &lt;/pre&gt;
+     * &amp;lt;pre&amp;gt;
+     * &amp;amp;lt;complexType&amp;amp;gt;
+     *   &amp;amp;lt;complexContent&amp;amp;gt;
+     *     &amp;amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;amp;gt;
+     *       &amp;amp;lt;sequence&amp;amp;gt;
+     *         &amp;amp;lt;element name=&quot;crossRefNummer&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}RefNummer&quot;/&amp;amp;gt;
+     *       &amp;amp;lt;/sequence&amp;amp;gt;
+     *     &amp;amp;lt;/restriction&amp;amp;gt;
+     *   &amp;amp;lt;/complexContent&amp;amp;gt;
+     * &amp;amp;lt;/complexType&amp;amp;gt;
+     * &amp;lt;/pre&amp;gt;
      * 
      * 
      */
@@ -754,23 +754,23 @@ import javax.xml.bind.annotation.XmlType;
 
 
     /**
-     * &lt;p&gt;Java class for anonymous complex type.
+     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
      * 
-     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &lt;pre&gt;
-     * &amp;lt;complexType&amp;gt;
-     *   &amp;lt;complexContent&amp;gt;
-     *     &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
-     *       &amp;lt;sequence&amp;gt;
-     *         &amp;lt;element name=&quot;mutatiesoort&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}Mutatiesoort&quot;/&amp;gt;
-     *         &amp;lt;element name=&quot;indicatorOvername&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}IndicatorOvername&quot;/&amp;gt;
-     *         &amp;lt;element name=&quot;tijdstipMutatie&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}Tijdstip&quot; minOccurs=&quot;0&quot;/&amp;gt;
-     *       &amp;lt;/sequence&amp;gt;
-     *     &amp;lt;/restriction&amp;gt;
-     *   &amp;lt;/complexContent&amp;gt;
-     * &amp;lt;/complexType&amp;gt;
-     * &lt;/pre&gt;
+     * &amp;lt;pre&amp;gt;
+     * &amp;amp;lt;complexType&amp;amp;gt;
+     *   &amp;amp;lt;complexContent&amp;amp;gt;
+     *     &amp;amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;amp;gt;
+     *       &amp;amp;lt;sequence&amp;amp;gt;
+     *         &amp;amp;lt;element name=&quot;mutatiesoort&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}Mutatiesoort&quot;/&amp;amp;gt;
+     *         &amp;amp;lt;element name=&quot;indicatorOvername&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}IndicatorOvername&quot;/&amp;amp;gt;
+     *         &amp;amp;lt;element name=&quot;tijdstipMutatie&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}Tijdstip&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
+     *       &amp;amp;lt;/sequence&amp;amp;gt;
+     *     &amp;amp;lt;/restriction&amp;amp;gt;
+     *   &amp;amp;lt;/complexContent&amp;amp;gt;
+     * &amp;amp;lt;/complexType&amp;amp;gt;
+     * &amp;lt;/pre&amp;gt;
      * 
      * 
      */
@@ -866,25 +866,25 @@ import javax.xml.bind.annotation.XmlType;
 
 
     /**
-     * &lt;p&gt;Java class for anonymous complex type.
+     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
      * 
-     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &lt;pre&gt;
-     * &amp;lt;complexType&amp;gt;
-     *   &amp;lt;complexContent&amp;gt;
-     *     &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
-     *       &amp;lt;sequence&amp;gt;
-     *         &amp;lt;element name=&quot;sortering&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}Sortering&quot; minOccurs=&quot;0&quot;/&amp;gt;
-     *         &amp;lt;element name=&quot;maximumAantal&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}MaximumAantal&quot; minOccurs=&quot;0&quot;/&amp;gt;
-     *         &amp;lt;element name=&quot;indicatorHistorisch&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; minOccurs=&quot;0&quot;/&amp;gt;
-     *         &amp;lt;element name=&quot;indicatorVervolgvraag&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; minOccurs=&quot;0&quot;/&amp;gt;
-     *         &amp;lt;element name=&quot;indicatorAfnemerIndicatie&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; minOccurs=&quot;0&quot;/&amp;gt;
-     *       &amp;lt;/sequence&amp;gt;
-     *     &amp;lt;/restriction&amp;gt;
-     *   &amp;lt;/complexContent&amp;gt;
-     * &amp;lt;/complexType&amp;gt;
-     * &lt;/pre&gt;
+     * &amp;lt;pre&amp;gt;
+     * &amp;amp;lt;complexType&amp;amp;gt;
+     *   &amp;amp;lt;complexContent&amp;amp;gt;
+     *     &amp;amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;amp;gt;
+     *       &amp;amp;lt;sequence&amp;amp;gt;
+     *         &amp;amp;lt;element name=&quot;sortering&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}Sortering&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
+     *         &amp;amp;lt;element name=&quot;maximumAantal&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}MaximumAantal&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
+     *         &amp;amp;lt;element name=&quot;indicatorHistorisch&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
+     *         &amp;amp;lt;element name=&quot;indicatorVervolgvraag&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
+     *         &amp;amp;lt;element name=&quot;indicatorAfnemerIndicatie&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
+     *       &amp;amp;lt;/sequence&amp;amp;gt;
+     *     &amp;amp;lt;/restriction&amp;amp;gt;
+     *   &amp;amp;lt;/complexContent&amp;amp;gt;
+     * &amp;amp;lt;/complexType&amp;amp;gt;
+     * &amp;lt;/pre&amp;gt;
      * 
      * 
      */
@@ -1034,4 +1034,4 @@ import javax.xml.bind.annotation.XmlType;
     }
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

@@ -9,8 +9,22 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// nl.egem.stuf.sector.bg._0204.PRSVraag.PRSPRSHUW
+	c175732 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSVraag.PRSPRSHUW" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PRSVraag.PRSPRSHUW.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> PRSPRSHUW </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # prs : PRSKennisgeving </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + PRSPRSHUW() </td></tr>
+<tr><td align="left" balign="left"> + getPRS() : PRSKennisgeving </td></tr>
+<tr><td align="left" balign="left"> + setPRS(value : PRSKennisgeving) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./PRSVraag.PRSPRSHUW.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.PRSPRSHUWRel
-	c175666 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSPRSHUWRel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSPRSHUWRel.html">
+	c175736 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSPRSHUWRel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSPRSHUWRel.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PRSPRSHUWRel </td></tr>
 		</table></td></tr>
@@ -74,22 +88,8 @@ digraph G {
 <tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./PRSPRSHUWRel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.PRSVraag.PRSPRSHUW
-	c175852 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSVraag.PRSPRSHUW" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PRSVraag.PRSPRSHUW.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> PRSPRSHUW </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # prs : PRSKennisgeving </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + PRSPRSHUW() </td></tr>
-<tr><td align="left" balign="left"> + getPRS() : PRSKennisgeving </td></tr>
-<tr><td align="left" balign="left"> + setPRS(value : PRSKennisgeving) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./PRSVraag.PRSPRSHUW.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.PRSKennisgeving
-	c175875 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSKennisgeving" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSKennisgeving.html">
+	c175863 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSKennisgeving" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSKennisgeving.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PRSKennisgeving </td></tr>
 		</table></td></tr>
@@ -119,8 +119,8 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./PRSKennisgeving.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.PRSVraag.PRSPRSHUW extends nl.egem.stuf.sector.bg._0204.PRSPRSHUWRel
-	c175666:p -> c175852:p [dir=back,arrowtail=empty];
+	c175736:p -> c175732:p [dir=back,arrowtail=empty];
 	// nl.egem.stuf.sector.bg._0204.PRSVraag.PRSPRSHUW NAVASSOC nl.egem.stuf.sector.bg._0204.PRSKennisgeving
-	c175852:p -> c175875:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c175732:p -> c175863:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

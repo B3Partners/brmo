@@ -12,67 +12,67 @@ import nl.egem.stuf.stuf0204.Stuurgegevens;
 
 
 /**
- * &lt;p&gt;Java class for anonymous complex type.
+ * &amp;lt;p&amp;gt;Java class for anonymous complex type.
  * 
- * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+ * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
  * 
- * &lt;pre&gt;
- * &amp;lt;complexType&amp;gt;
- *   &amp;lt;complexContent&amp;gt;
- *     &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
- *       &amp;lt;sequence&amp;gt;
- *         &amp;lt;element ref=&quot;{http://www.egem.nl/StUF/StUF0204}stuurgegevens&quot;/&amp;gt;
- *         &amp;lt;element name=&quot;body&quot;&amp;gt;
- *           &amp;lt;complexType&amp;gt;
- *             &amp;lt;complexContent&amp;gt;
- *               &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
- *                 &amp;lt;choice&amp;gt;
- *                   &amp;lt;element name=&quot;ACD&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}ACD-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
- *                   &amp;lt;element name=&quot;ADL&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}ADL-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
- *                   &amp;lt;element name=&quot;ADR&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}ADR-vraag&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
- *                   &amp;lt;element name=&quot;BGB&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BGB-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
- *                   &amp;lt;element name=&quot;BHV&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BHV-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
- *                   &amp;lt;element name=&quot;BRT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BRT-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
- *                   &amp;lt;element name=&quot;BSG&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BSG-fund&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
- *                   &amp;lt;element name=&quot;BTK&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BTK-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
- *                   &amp;lt;element name=&quot;R04&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}R04-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
- *                   &amp;lt;element name=&quot;GEM&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}GEM-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
- *                   &amp;lt;element name=&quot;HHD&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}HHD-vraag&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
- *                   &amp;lt;element name=&quot;KDO&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}KDO-vraag&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
- *                   &amp;lt;element name=&quot;KGM&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}KGM-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
- *                   &amp;lt;element name=&quot;LFT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}LFT-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
- *                   &amp;lt;element name=&quot;LND&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}LND-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
- *                   &amp;lt;element name=&quot;MNA&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}MNA-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
- *                   &amp;lt;element name=&quot;NAT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}NAT-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
- *                   &amp;lt;element name=&quot;NNP&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}NNP-vraag&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
- *                   &amp;lt;element name=&quot;OBW&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}OBW-vraag&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
- *                   &amp;lt;element name=&quot;OHT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}OHT-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
- *                   &amp;lt;element name=&quot;PRB&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}PRB-fund&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
- *                   &amp;lt;element name=&quot;PRS&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}PRS-vraag&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
- *                   &amp;lt;element name=&quot;RTB&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}RTB-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
- *                   &amp;lt;element name=&quot;SBI&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}SBI-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
- *                   &amp;lt;element name=&quot;SIB&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}SIB-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
- *                   &amp;lt;element name=&quot;SPB&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}SPB-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
- *                   &amp;lt;element name=&quot;SRV&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}SRV-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
- *                   &amp;lt;element name=&quot;R02&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}R02-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
- *                   &amp;lt;element name=&quot;SZR&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}SZR-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
- *                   &amp;lt;element name=&quot;VBT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}VBT-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
- *                   &amp;lt;element name=&quot;VBO&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}VBO-vraag&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
- *                   &amp;lt;element name=&quot;VOT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}VOT-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
- *                   &amp;lt;element name=&quot;WOS&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}WOS-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
- *                   &amp;lt;element name=&quot;WOZ&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}WOZ-vraag&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
- *                   &amp;lt;element name=&quot;R03&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}R03-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
- *                   &amp;lt;element name=&quot;WYK&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}WYK-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
- *                 &amp;lt;/choice&amp;gt;
- *               &amp;lt;/restriction&amp;gt;
- *             &amp;lt;/complexContent&amp;gt;
- *           &amp;lt;/complexType&amp;gt;
- *         &amp;lt;/element&amp;gt;
- *       &amp;lt;/sequence&amp;gt;
- *     &amp;lt;/restriction&amp;gt;
- *   &amp;lt;/complexContent&amp;gt;
- * &amp;lt;/complexType&amp;gt;
- * &lt;/pre&gt;
+ * &amp;lt;pre&amp;gt;
+ * &amp;amp;lt;complexType&amp;amp;gt;
+ *   &amp;amp;lt;complexContent&amp;amp;gt;
+ *     &amp;amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;amp;gt;
+ *       &amp;amp;lt;sequence&amp;amp;gt;
+ *         &amp;amp;lt;element ref=&quot;{http://www.egem.nl/StUF/StUF0204}stuurgegevens&quot;/&amp;amp;gt;
+ *         &amp;amp;lt;element name=&quot;body&quot;&amp;amp;gt;
+ *           &amp;amp;lt;complexType&amp;amp;gt;
+ *             &amp;amp;lt;complexContent&amp;amp;gt;
+ *               &amp;amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;amp;gt;
+ *                 &amp;amp;lt;choice&amp;amp;gt;
+ *                   &amp;amp;lt;element name=&quot;ACD&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}ACD-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+ *                   &amp;amp;lt;element name=&quot;ADL&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}ADL-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+ *                   &amp;amp;lt;element name=&quot;ADR&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}ADR-vraag&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+ *                   &amp;amp;lt;element name=&quot;BGB&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BGB-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+ *                   &amp;amp;lt;element name=&quot;BHV&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BHV-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+ *                   &amp;amp;lt;element name=&quot;BRT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BRT-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+ *                   &amp;amp;lt;element name=&quot;BSG&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BSG-fund&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+ *                   &amp;amp;lt;element name=&quot;BTK&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BTK-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+ *                   &amp;amp;lt;element name=&quot;R04&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}R04-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+ *                   &amp;amp;lt;element name=&quot;GEM&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}GEM-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+ *                   &amp;amp;lt;element name=&quot;HHD&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}HHD-vraag&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+ *                   &amp;amp;lt;element name=&quot;KDO&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}KDO-vraag&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+ *                   &amp;amp;lt;element name=&quot;KGM&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}KGM-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+ *                   &amp;amp;lt;element name=&quot;LFT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}LFT-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+ *                   &amp;amp;lt;element name=&quot;LND&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}LND-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+ *                   &amp;amp;lt;element name=&quot;MNA&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}MNA-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+ *                   &amp;amp;lt;element name=&quot;NAT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}NAT-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+ *                   &amp;amp;lt;element name=&quot;NNP&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}NNP-vraag&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+ *                   &amp;amp;lt;element name=&quot;OBW&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}OBW-vraag&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+ *                   &amp;amp;lt;element name=&quot;OHT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}OHT-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+ *                   &amp;amp;lt;element name=&quot;PRB&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}PRB-fund&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+ *                   &amp;amp;lt;element name=&quot;PRS&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}PRS-vraag&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+ *                   &amp;amp;lt;element name=&quot;RTB&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}RTB-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+ *                   &amp;amp;lt;element name=&quot;SBI&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}SBI-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+ *                   &amp;amp;lt;element name=&quot;SIB&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}SIB-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+ *                   &amp;amp;lt;element name=&quot;SPB&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}SPB-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+ *                   &amp;amp;lt;element name=&quot;SRV&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}SRV-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+ *                   &amp;amp;lt;element name=&quot;R02&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}R02-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+ *                   &amp;amp;lt;element name=&quot;SZR&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}SZR-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+ *                   &amp;amp;lt;element name=&quot;VBT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}VBT-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+ *                   &amp;amp;lt;element name=&quot;VBO&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}VBO-vraag&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+ *                   &amp;amp;lt;element name=&quot;VOT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}VOT-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+ *                   &amp;amp;lt;element name=&quot;WOS&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}WOS-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+ *                   &amp;amp;lt;element name=&quot;WOZ&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}WOZ-vraag&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+ *                   &amp;amp;lt;element name=&quot;R03&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}R03-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+ *                   &amp;amp;lt;element name=&quot;WYK&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}WYK-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+ *                 &amp;amp;lt;/choice&amp;amp;gt;
+ *               &amp;amp;lt;/restriction&amp;amp;gt;
+ *             &amp;amp;lt;/complexContent&amp;amp;gt;
+ *           &amp;amp;lt;/complexType&amp;amp;gt;
+ *         &amp;amp;lt;/element&amp;amp;gt;
+ *       &amp;amp;lt;/sequence&amp;amp;gt;
+ *     &amp;amp;lt;/restriction&amp;amp;gt;
+ *   &amp;amp;lt;/complexContent&amp;amp;gt;
+ * &amp;amp;lt;/complexType&amp;amp;gt;
+ * &amp;lt;/pre&amp;gt;
  * 
  * 
  */
@@ -139,56 +139,56 @@ import nl.egem.stuf.stuf0204.Stuurgegevens;
 
 
     /**
-     * &lt;p&gt;Java class for anonymous complex type.
+     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
      * 
-     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &lt;pre&gt;
-     * &amp;lt;complexType&amp;gt;
-     *   &amp;lt;complexContent&amp;gt;
-     *     &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
-     *       &amp;lt;choice&amp;gt;
-     *         &amp;lt;element name=&quot;ACD&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}ACD-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
-     *         &amp;lt;element name=&quot;ADL&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}ADL-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
-     *         &amp;lt;element name=&quot;ADR&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}ADR-vraag&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
-     *         &amp;lt;element name=&quot;BGB&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BGB-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
-     *         &amp;lt;element name=&quot;BHV&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BHV-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
-     *         &amp;lt;element name=&quot;BRT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BRT-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
-     *         &amp;lt;element name=&quot;BSG&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BSG-fund&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
-     *         &amp;lt;element name=&quot;BTK&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BTK-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
-     *         &amp;lt;element name=&quot;R04&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}R04-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
-     *         &amp;lt;element name=&quot;GEM&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}GEM-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
-     *         &amp;lt;element name=&quot;HHD&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}HHD-vraag&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
-     *         &amp;lt;element name=&quot;KDO&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}KDO-vraag&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
-     *         &amp;lt;element name=&quot;KGM&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}KGM-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
-     *         &amp;lt;element name=&quot;LFT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}LFT-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
-     *         &amp;lt;element name=&quot;LND&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}LND-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
-     *         &amp;lt;element name=&quot;MNA&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}MNA-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
-     *         &amp;lt;element name=&quot;NAT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}NAT-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
-     *         &amp;lt;element name=&quot;NNP&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}NNP-vraag&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
-     *         &amp;lt;element name=&quot;OBW&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}OBW-vraag&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
-     *         &amp;lt;element name=&quot;OHT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}OHT-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
-     *         &amp;lt;element name=&quot;PRB&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}PRB-fund&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
-     *         &amp;lt;element name=&quot;PRS&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}PRS-vraag&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
-     *         &amp;lt;element name=&quot;RTB&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}RTB-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
-     *         &amp;lt;element name=&quot;SBI&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}SBI-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
-     *         &amp;lt;element name=&quot;SIB&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}SIB-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
-     *         &amp;lt;element name=&quot;SPB&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}SPB-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
-     *         &amp;lt;element name=&quot;SRV&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}SRV-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
-     *         &amp;lt;element name=&quot;R02&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}R02-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
-     *         &amp;lt;element name=&quot;SZR&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}SZR-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
-     *         &amp;lt;element name=&quot;VBT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}VBT-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
-     *         &amp;lt;element name=&quot;VBO&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}VBO-vraag&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
-     *         &amp;lt;element name=&quot;VOT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}VOT-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
-     *         &amp;lt;element name=&quot;WOS&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}WOS-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
-     *         &amp;lt;element name=&quot;WOZ&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}WOZ-vraag&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
-     *         &amp;lt;element name=&quot;R03&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}R03-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
-     *         &amp;lt;element name=&quot;WYK&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}WYK-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;gt;
-     *       &amp;lt;/choice&amp;gt;
-     *     &amp;lt;/restriction&amp;gt;
-     *   &amp;lt;/complexContent&amp;gt;
-     * &amp;lt;/complexType&amp;gt;
-     * &lt;/pre&gt;
+     * &amp;lt;pre&amp;gt;
+     * &amp;amp;lt;complexType&amp;amp;gt;
+     *   &amp;amp;lt;complexContent&amp;amp;gt;
+     *     &amp;amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;amp;gt;
+     *       &amp;amp;lt;choice&amp;amp;gt;
+     *         &amp;amp;lt;element name=&quot;ACD&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}ACD-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+     *         &amp;amp;lt;element name=&quot;ADL&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}ADL-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+     *         &amp;amp;lt;element name=&quot;ADR&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}ADR-vraag&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+     *         &amp;amp;lt;element name=&quot;BGB&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BGB-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+     *         &amp;amp;lt;element name=&quot;BHV&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BHV-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+     *         &amp;amp;lt;element name=&quot;BRT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BRT-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+     *         &amp;amp;lt;element name=&quot;BSG&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BSG-fund&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+     *         &amp;amp;lt;element name=&quot;BTK&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BTK-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+     *         &amp;amp;lt;element name=&quot;R04&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}R04-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+     *         &amp;amp;lt;element name=&quot;GEM&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}GEM-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+     *         &amp;amp;lt;element name=&quot;HHD&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}HHD-vraag&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+     *         &amp;amp;lt;element name=&quot;KDO&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}KDO-vraag&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+     *         &amp;amp;lt;element name=&quot;KGM&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}KGM-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+     *         &amp;amp;lt;element name=&quot;LFT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}LFT-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+     *         &amp;amp;lt;element name=&quot;LND&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}LND-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+     *         &amp;amp;lt;element name=&quot;MNA&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}MNA-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+     *         &amp;amp;lt;element name=&quot;NAT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}NAT-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+     *         &amp;amp;lt;element name=&quot;NNP&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}NNP-vraag&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+     *         &amp;amp;lt;element name=&quot;OBW&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}OBW-vraag&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+     *         &amp;amp;lt;element name=&quot;OHT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}OHT-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+     *         &amp;amp;lt;element name=&quot;PRB&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}PRB-fund&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+     *         &amp;amp;lt;element name=&quot;PRS&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}PRS-vraag&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+     *         &amp;amp;lt;element name=&quot;RTB&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}RTB-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+     *         &amp;amp;lt;element name=&quot;SBI&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}SBI-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+     *         &amp;amp;lt;element name=&quot;SIB&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}SIB-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+     *         &amp;amp;lt;element name=&quot;SPB&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}SPB-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+     *         &amp;amp;lt;element name=&quot;SRV&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}SRV-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+     *         &amp;amp;lt;element name=&quot;R02&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}R02-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+     *         &amp;amp;lt;element name=&quot;SZR&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}SZR-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+     *         &amp;amp;lt;element name=&quot;VBT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}VBT-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+     *         &amp;amp;lt;element name=&quot;VBO&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}VBO-vraag&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+     *         &amp;amp;lt;element name=&quot;VOT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}VOT-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+     *         &amp;amp;lt;element name=&quot;WOS&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}WOS-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+     *         &amp;amp;lt;element name=&quot;WOZ&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}WOZ-vraag&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+     *         &amp;amp;lt;element name=&quot;R03&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}R03-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+     *         &amp;amp;lt;element name=&quot;WYK&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}WYK-tabel&quot; maxOccurs=&quot;4&quot; minOccurs=&quot;3&quot;/&amp;amp;gt;
+     *       &amp;amp;lt;/choice&amp;amp;gt;
+     *     &amp;amp;lt;/restriction&amp;amp;gt;
+     *   &amp;amp;lt;/complexContent&amp;amp;gt;
+     * &amp;amp;lt;/complexType&amp;amp;gt;
+     * &amp;lt;/pre&amp;gt;
      * 
      * 
      */
@@ -309,20 +309,20 @@ import nl.egem.stuf.stuf0204.Stuurgegevens;
         /**
          * Gets the value of the acd property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
-         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the acd property.
+         * This is why there is not a &amp;lt;CODE&amp;gt;set&amp;lt;/CODE&amp;gt; method for the acd property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * For example, to add a new item, do as follows:
-         * &lt;pre&gt;
+         * &amp;lt;pre&amp;gt;
          *    getACD().add(newItem);
-         * &lt;/pre&gt;
+         * &amp;lt;/pre&amp;gt;
          * 
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * Objects of the following type(s) are allowed in the list
          * {@link ACDTabel }
          * 
@@ -338,20 +338,20 @@ import nl.egem.stuf.stuf0204.Stuurgegevens;
         /**
          * Gets the value of the adl property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
-         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the adl property.
+         * This is why there is not a &amp;lt;CODE&amp;gt;set&amp;lt;/CODE&amp;gt; method for the adl property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * For example, to add a new item, do as follows:
-         * &lt;pre&gt;
+         * &amp;lt;pre&amp;gt;
          *    getADL().add(newItem);
-         * &lt;/pre&gt;
+         * &amp;lt;/pre&amp;gt;
          * 
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * Objects of the following type(s) are allowed in the list
          * {@link ADLTabel }
          * 
@@ -367,20 +367,20 @@ import nl.egem.stuf.stuf0204.Stuurgegevens;
         /**
          * Gets the value of the adr property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
-         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the adr property.
+         * This is why there is not a &amp;lt;CODE&amp;gt;set&amp;lt;/CODE&amp;gt; method for the adr property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * For example, to add a new item, do as follows:
-         * &lt;pre&gt;
+         * &amp;lt;pre&amp;gt;
          *    getADR().add(newItem);
-         * &lt;/pre&gt;
+         * &amp;lt;/pre&amp;gt;
          * 
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * Objects of the following type(s) are allowed in the list
          * {@link ADRVraag }
          * 
@@ -396,20 +396,20 @@ import nl.egem.stuf.stuf0204.Stuurgegevens;
         /**
          * Gets the value of the bgb property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
-         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the bgb property.
+         * This is why there is not a &amp;lt;CODE&amp;gt;set&amp;lt;/CODE&amp;gt; method for the bgb property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * For example, to add a new item, do as follows:
-         * &lt;pre&gt;
+         * &amp;lt;pre&amp;gt;
          *    getBGB().add(newItem);
-         * &lt;/pre&gt;
+         * &amp;lt;/pre&amp;gt;
          * 
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * Objects of the following type(s) are allowed in the list
          * {@link BGBTabel }
          * 
@@ -425,20 +425,20 @@ import nl.egem.stuf.stuf0204.Stuurgegevens;
         /**
          * Gets the value of the bhv property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
-         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the bhv property.
+         * This is why there is not a &amp;lt;CODE&amp;gt;set&amp;lt;/CODE&amp;gt; method for the bhv property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * For example, to add a new item, do as follows:
-         * &lt;pre&gt;
+         * &amp;lt;pre&amp;gt;
          *    getBHV().add(newItem);
-         * &lt;/pre&gt;
+         * &amp;lt;/pre&amp;gt;
          * 
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * Objects of the following type(s) are allowed in the list
          * {@link BHVTabel }
          * 
@@ -454,20 +454,20 @@ import nl.egem.stuf.stuf0204.Stuurgegevens;
         /**
          * Gets the value of the brt property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
-         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the brt property.
+         * This is why there is not a &amp;lt;CODE&amp;gt;set&amp;lt;/CODE&amp;gt; method for the brt property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * For example, to add a new item, do as follows:
-         * &lt;pre&gt;
+         * &amp;lt;pre&amp;gt;
          *    getBRT().add(newItem);
-         * &lt;/pre&gt;
+         * &amp;lt;/pre&amp;gt;
          * 
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * Objects of the following type(s) are allowed in the list
          * {@link BRTTabel }
          * 
@@ -483,20 +483,20 @@ import nl.egem.stuf.stuf0204.Stuurgegevens;
         /**
          * Gets the value of the bsg property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
-         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the bsg property.
+         * This is why there is not a &amp;lt;CODE&amp;gt;set&amp;lt;/CODE&amp;gt; method for the bsg property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * For example, to add a new item, do as follows:
-         * &lt;pre&gt;
+         * &amp;lt;pre&amp;gt;
          *    getBSG().add(newItem);
-         * &lt;/pre&gt;
+         * &amp;lt;/pre&amp;gt;
          * 
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * Objects of the following type(s) are allowed in the list
          * {@link BSGFund }
          * 
@@ -512,20 +512,20 @@ import nl.egem.stuf.stuf0204.Stuurgegevens;
         /**
          * Gets the value of the btk property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
-         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the btk property.
+         * This is why there is not a &amp;lt;CODE&amp;gt;set&amp;lt;/CODE&amp;gt; method for the btk property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * For example, to add a new item, do as follows:
-         * &lt;pre&gt;
+         * &amp;lt;pre&amp;gt;
          *    getBTK().add(newItem);
-         * &lt;/pre&gt;
+         * &amp;lt;/pre&amp;gt;
          * 
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * Objects of the following type(s) are allowed in the list
          * {@link BTKTabel }
          * 
@@ -541,20 +541,20 @@ import nl.egem.stuf.stuf0204.Stuurgegevens;
         /**
          * Gets the value of the r04 property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
-         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the r04 property.
+         * This is why there is not a &amp;lt;CODE&amp;gt;set&amp;lt;/CODE&amp;gt; method for the r04 property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * For example, to add a new item, do as follows:
-         * &lt;pre&gt;
+         * &amp;lt;pre&amp;gt;
          *    getR04().add(newItem);
-         * &lt;/pre&gt;
+         * &amp;lt;/pre&amp;gt;
          * 
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * Objects of the following type(s) are allowed in the list
          * {@link R04Tabel }
          * 
@@ -570,20 +570,20 @@ import nl.egem.stuf.stuf0204.Stuurgegevens;
         /**
          * Gets the value of the gem property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
-         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the gem property.
+         * This is why there is not a &amp;lt;CODE&amp;gt;set&amp;lt;/CODE&amp;gt; method for the gem property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * For example, to add a new item, do as follows:
-         * &lt;pre&gt;
+         * &amp;lt;pre&amp;gt;
          *    getGEM().add(newItem);
-         * &lt;/pre&gt;
+         * &amp;lt;/pre&amp;gt;
          * 
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * Objects of the following type(s) are allowed in the list
          * {@link GEMTabel }
          * 
@@ -599,20 +599,20 @@ import nl.egem.stuf.stuf0204.Stuurgegevens;
         /**
          * Gets the value of the hhd property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
-         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the hhd property.
+         * This is why there is not a &amp;lt;CODE&amp;gt;set&amp;lt;/CODE&amp;gt; method for the hhd property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * For example, to add a new item, do as follows:
-         * &lt;pre&gt;
+         * &amp;lt;pre&amp;gt;
          *    getHHD().add(newItem);
-         * &lt;/pre&gt;
+         * &amp;lt;/pre&amp;gt;
          * 
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * Objects of the following type(s) are allowed in the list
          * {@link HHDVraag }
          * 
@@ -628,20 +628,20 @@ import nl.egem.stuf.stuf0204.Stuurgegevens;
         /**
          * Gets the value of the kdo property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
-         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the kdo property.
+         * This is why there is not a &amp;lt;CODE&amp;gt;set&amp;lt;/CODE&amp;gt; method for the kdo property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * For example, to add a new item, do as follows:
-         * &lt;pre&gt;
+         * &amp;lt;pre&amp;gt;
          *    getKDO().add(newItem);
-         * &lt;/pre&gt;
+         * &amp;lt;/pre&amp;gt;
          * 
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * Objects of the following type(s) are allowed in the list
          * {@link KDOVraag }
          * 
@@ -657,20 +657,20 @@ import nl.egem.stuf.stuf0204.Stuurgegevens;
         /**
          * Gets the value of the kgm property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
-         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the kgm property.
+         * This is why there is not a &amp;lt;CODE&amp;gt;set&amp;lt;/CODE&amp;gt; method for the kgm property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * For example, to add a new item, do as follows:
-         * &lt;pre&gt;
+         * &amp;lt;pre&amp;gt;
          *    getKGM().add(newItem);
-         * &lt;/pre&gt;
+         * &amp;lt;/pre&amp;gt;
          * 
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * Objects of the following type(s) are allowed in the list
          * {@link KGMTabel }
          * 
@@ -686,20 +686,20 @@ import nl.egem.stuf.stuf0204.Stuurgegevens;
         /**
          * Gets the value of the lft property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
-         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the lft property.
+         * This is why there is not a &amp;lt;CODE&amp;gt;set&amp;lt;/CODE&amp;gt; method for the lft property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * For example, to add a new item, do as follows:
-         * &lt;pre&gt;
+         * &amp;lt;pre&amp;gt;
          *    getLFT().add(newItem);
-         * &lt;/pre&gt;
+         * &amp;lt;/pre&amp;gt;
          * 
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * Objects of the following type(s) are allowed in the list
          * {@link LFTTabel }
          * 
@@ -715,20 +715,20 @@ import nl.egem.stuf.stuf0204.Stuurgegevens;
         /**
          * Gets the value of the lnd property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
-         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the lnd property.
+         * This is why there is not a &amp;lt;CODE&amp;gt;set&amp;lt;/CODE&amp;gt; method for the lnd property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * For example, to add a new item, do as follows:
-         * &lt;pre&gt;
+         * &amp;lt;pre&amp;gt;
          *    getLND().add(newItem);
-         * &lt;/pre&gt;
+         * &amp;lt;/pre&amp;gt;
          * 
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * Objects of the following type(s) are allowed in the list
          * {@link LNDTabel }
          * 
@@ -744,20 +744,20 @@ import nl.egem.stuf.stuf0204.Stuurgegevens;
         /**
          * Gets the value of the mna property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
-         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the mna property.
+         * This is why there is not a &amp;lt;CODE&amp;gt;set&amp;lt;/CODE&amp;gt; method for the mna property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * For example, to add a new item, do as follows:
-         * &lt;pre&gt;
+         * &amp;lt;pre&amp;gt;
          *    getMNA().add(newItem);
-         * &lt;/pre&gt;
+         * &amp;lt;/pre&amp;gt;
          * 
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * Objects of the following type(s) are allowed in the list
          * {@link MNATabel }
          * 
@@ -773,20 +773,20 @@ import nl.egem.stuf.stuf0204.Stuurgegevens;
         /**
          * Gets the value of the nat property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
-         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the nat property.
+         * This is why there is not a &amp;lt;CODE&amp;gt;set&amp;lt;/CODE&amp;gt; method for the nat property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * For example, to add a new item, do as follows:
-         * &lt;pre&gt;
+         * &amp;lt;pre&amp;gt;
          *    getNAT().add(newItem);
-         * &lt;/pre&gt;
+         * &amp;lt;/pre&amp;gt;
          * 
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * Objects of the following type(s) are allowed in the list
          * {@link NATTabel }
          * 
@@ -802,20 +802,20 @@ import nl.egem.stuf.stuf0204.Stuurgegevens;
         /**
          * Gets the value of the nnp property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
-         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the nnp property.
+         * This is why there is not a &amp;lt;CODE&amp;gt;set&amp;lt;/CODE&amp;gt; method for the nnp property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * For example, to add a new item, do as follows:
-         * &lt;pre&gt;
+         * &amp;lt;pre&amp;gt;
          *    getNNP().add(newItem);
-         * &lt;/pre&gt;
+         * &amp;lt;/pre&amp;gt;
          * 
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * Objects of the following type(s) are allowed in the list
          * {@link NNPVraag }
          * 
@@ -831,20 +831,20 @@ import nl.egem.stuf.stuf0204.Stuurgegevens;
         /**
          * Gets the value of the obw property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
-         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the obw property.
+         * This is why there is not a &amp;lt;CODE&amp;gt;set&amp;lt;/CODE&amp;gt; method for the obw property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * For example, to add a new item, do as follows:
-         * &lt;pre&gt;
+         * &amp;lt;pre&amp;gt;
          *    getOBW().add(newItem);
-         * &lt;/pre&gt;
+         * &amp;lt;/pre&amp;gt;
          * 
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * Objects of the following type(s) are allowed in the list
          * {@link OBWVraag }
          * 
@@ -860,20 +860,20 @@ import nl.egem.stuf.stuf0204.Stuurgegevens;
         /**
          * Gets the value of the oht property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
-         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the oht property.
+         * This is why there is not a &amp;lt;CODE&amp;gt;set&amp;lt;/CODE&amp;gt; method for the oht property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * For example, to add a new item, do as follows:
-         * &lt;pre&gt;
+         * &amp;lt;pre&amp;gt;
          *    getOHT().add(newItem);
-         * &lt;/pre&gt;
+         * &amp;lt;/pre&amp;gt;
          * 
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * Objects of the following type(s) are allowed in the list
          * {@link OHTTabel }
          * 
@@ -889,20 +889,20 @@ import nl.egem.stuf.stuf0204.Stuurgegevens;
         /**
          * Gets the value of the prb property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
-         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the prb property.
+         * This is why there is not a &amp;lt;CODE&amp;gt;set&amp;lt;/CODE&amp;gt; method for the prb property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * For example, to add a new item, do as follows:
-         * &lt;pre&gt;
+         * &amp;lt;pre&amp;gt;
          *    getPRB().add(newItem);
-         * &lt;/pre&gt;
+         * &amp;lt;/pre&amp;gt;
          * 
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * Objects of the following type(s) are allowed in the list
          * {@link PRBFund }
          * 
@@ -918,20 +918,20 @@ import nl.egem.stuf.stuf0204.Stuurgegevens;
         /**
          * Gets the value of the prs property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
-         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the prs property.
+         * This is why there is not a &amp;lt;CODE&amp;gt;set&amp;lt;/CODE&amp;gt; method for the prs property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * For example, to add a new item, do as follows:
-         * &lt;pre&gt;
+         * &amp;lt;pre&amp;gt;
          *    getPRS().add(newItem);
-         * &lt;/pre&gt;
+         * &amp;lt;/pre&amp;gt;
          * 
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * Objects of the following type(s) are allowed in the list
          * {@link PRSVraag }
          * 
@@ -947,20 +947,20 @@ import nl.egem.stuf.stuf0204.Stuurgegevens;
         /**
          * Gets the value of the rtb property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
-         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the rtb property.
+         * This is why there is not a &amp;lt;CODE&amp;gt;set&amp;lt;/CODE&amp;gt; method for the rtb property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * For example, to add a new item, do as follows:
-         * &lt;pre&gt;
+         * &amp;lt;pre&amp;gt;
          *    getRTB().add(newItem);
-         * &lt;/pre&gt;
+         * &amp;lt;/pre&amp;gt;
          * 
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * Objects of the following type(s) are allowed in the list
          * {@link RTBTabel }
          * 
@@ -976,20 +976,20 @@ import nl.egem.stuf.stuf0204.Stuurgegevens;
         /**
          * Gets the value of the sbi property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
-         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the sbi property.
+         * This is why there is not a &amp;lt;CODE&amp;gt;set&amp;lt;/CODE&amp;gt; method for the sbi property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * For example, to add a new item, do as follows:
-         * &lt;pre&gt;
+         * &amp;lt;pre&amp;gt;
          *    getSBI().add(newItem);
-         * &lt;/pre&gt;
+         * &amp;lt;/pre&amp;gt;
          * 
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * Objects of the following type(s) are allowed in the list
          * {@link SBITabel }
          * 
@@ -1005,20 +1005,20 @@ import nl.egem.stuf.stuf0204.Stuurgegevens;
         /**
          * Gets the value of the sib property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
-         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the sib property.
+         * This is why there is not a &amp;lt;CODE&amp;gt;set&amp;lt;/CODE&amp;gt; method for the sib property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * For example, to add a new item, do as follows:
-         * &lt;pre&gt;
+         * &amp;lt;pre&amp;gt;
          *    getSIB().add(newItem);
-         * &lt;/pre&gt;
+         * &amp;lt;/pre&amp;gt;
          * 
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * Objects of the following type(s) are allowed in the list
          * {@link SIBTabel }
          * 
@@ -1034,20 +1034,20 @@ import nl.egem.stuf.stuf0204.Stuurgegevens;
         /**
          * Gets the value of the spb property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
-         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the spb property.
+         * This is why there is not a &amp;lt;CODE&amp;gt;set&amp;lt;/CODE&amp;gt; method for the spb property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * For example, to add a new item, do as follows:
-         * &lt;pre&gt;
+         * &amp;lt;pre&amp;gt;
          *    getSPB().add(newItem);
-         * &lt;/pre&gt;
+         * &amp;lt;/pre&amp;gt;
          * 
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * Objects of the following type(s) are allowed in the list
          * {@link SPBTabel }
          * 
@@ -1063,20 +1063,20 @@ import nl.egem.stuf.stuf0204.Stuurgegevens;
         /**
          * Gets the value of the srv property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
-         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the srv property.
+         * This is why there is not a &amp;lt;CODE&amp;gt;set&amp;lt;/CODE&amp;gt; method for the srv property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * For example, to add a new item, do as follows:
-         * &lt;pre&gt;
+         * &amp;lt;pre&amp;gt;
          *    getSRV().add(newItem);
-         * &lt;/pre&gt;
+         * &amp;lt;/pre&amp;gt;
          * 
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * Objects of the following type(s) are allowed in the list
          * {@link SRVTabel }
          * 
@@ -1092,20 +1092,20 @@ import nl.egem.stuf.stuf0204.Stuurgegevens;
         /**
          * Gets the value of the r02 property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
-         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the r02 property.
+         * This is why there is not a &amp;lt;CODE&amp;gt;set&amp;lt;/CODE&amp;gt; method for the r02 property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * For example, to add a new item, do as follows:
-         * &lt;pre&gt;
+         * &amp;lt;pre&amp;gt;
          *    getR02().add(newItem);
-         * &lt;/pre&gt;
+         * &amp;lt;/pre&amp;gt;
          * 
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * Objects of the following type(s) are allowed in the list
          * {@link R02Tabel }
          * 
@@ -1121,20 +1121,20 @@ import nl.egem.stuf.stuf0204.Stuurgegevens;
         /**
          * Gets the value of the szr property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
-         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the szr property.
+         * This is why there is not a &amp;lt;CODE&amp;gt;set&amp;lt;/CODE&amp;gt; method for the szr property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * For example, to add a new item, do as follows:
-         * &lt;pre&gt;
+         * &amp;lt;pre&amp;gt;
          *    getSZR().add(newItem);
-         * &lt;/pre&gt;
+         * &amp;lt;/pre&amp;gt;
          * 
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * Objects of the following type(s) are allowed in the list
          * {@link SZRTabel }
          * 
@@ -1150,20 +1150,20 @@ import nl.egem.stuf.stuf0204.Stuurgegevens;
         /**
          * Gets the value of the vbt property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
-         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the vbt property.
+         * This is why there is not a &amp;lt;CODE&amp;gt;set&amp;lt;/CODE&amp;gt; method for the vbt property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * For example, to add a new item, do as follows:
-         * &lt;pre&gt;
+         * &amp;lt;pre&amp;gt;
          *    getVBT().add(newItem);
-         * &lt;/pre&gt;
+         * &amp;lt;/pre&amp;gt;
          * 
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * Objects of the following type(s) are allowed in the list
          * {@link VBTTabel }
          * 
@@ -1179,20 +1179,20 @@ import nl.egem.stuf.stuf0204.Stuurgegevens;
         /**
          * Gets the value of the vbo property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
-         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the vbo property.
+         * This is why there is not a &amp;lt;CODE&amp;gt;set&amp;lt;/CODE&amp;gt; method for the vbo property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * For example, to add a new item, do as follows:
-         * &lt;pre&gt;
+         * &amp;lt;pre&amp;gt;
          *    getVBO().add(newItem);
-         * &lt;/pre&gt;
+         * &amp;lt;/pre&amp;gt;
          * 
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * Objects of the following type(s) are allowed in the list
          * {@link VBOVraag }
          * 
@@ -1208,20 +1208,20 @@ import nl.egem.stuf.stuf0204.Stuurgegevens;
         /**
          * Gets the value of the vot property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
-         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the vot property.
+         * This is why there is not a &amp;lt;CODE&amp;gt;set&amp;lt;/CODE&amp;gt; method for the vot property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * For example, to add a new item, do as follows:
-         * &lt;pre&gt;
+         * &amp;lt;pre&amp;gt;
          *    getVOT().add(newItem);
-         * &lt;/pre&gt;
+         * &amp;lt;/pre&amp;gt;
          * 
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * Objects of the following type(s) are allowed in the list
          * {@link VOTTabel }
          * 
@@ -1237,20 +1237,20 @@ import nl.egem.stuf.stuf0204.Stuurgegevens;
         /**
          * Gets the value of the wos property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
-         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the wos property.
+         * This is why there is not a &amp;lt;CODE&amp;gt;set&amp;lt;/CODE&amp;gt; method for the wos property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * For example, to add a new item, do as follows:
-         * &lt;pre&gt;
+         * &amp;lt;pre&amp;gt;
          *    getWOS().add(newItem);
-         * &lt;/pre&gt;
+         * &amp;lt;/pre&amp;gt;
          * 
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * Objects of the following type(s) are allowed in the list
          * {@link WOSTabel }
          * 
@@ -1266,20 +1266,20 @@ import nl.egem.stuf.stuf0204.Stuurgegevens;
         /**
          * Gets the value of the woz property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
-         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the woz property.
+         * This is why there is not a &amp;lt;CODE&amp;gt;set&amp;lt;/CODE&amp;gt; method for the woz property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * For example, to add a new item, do as follows:
-         * &lt;pre&gt;
+         * &amp;lt;pre&amp;gt;
          *    getWOZ().add(newItem);
-         * &lt;/pre&gt;
+         * &amp;lt;/pre&amp;gt;
          * 
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * Objects of the following type(s) are allowed in the list
          * {@link WOZVraag }
          * 
@@ -1295,20 +1295,20 @@ import nl.egem.stuf.stuf0204.Stuurgegevens;
         /**
          * Gets the value of the r03 property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
-         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the r03 property.
+         * This is why there is not a &amp;lt;CODE&amp;gt;set&amp;lt;/CODE&amp;gt; method for the r03 property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * For example, to add a new item, do as follows:
-         * &lt;pre&gt;
+         * &amp;lt;pre&amp;gt;
          *    getR03().add(newItem);
-         * &lt;/pre&gt;
+         * &amp;lt;/pre&amp;gt;
          * 
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * Objects of the following type(s) are allowed in the list
          * {@link R03Tabel }
          * 
@@ -1324,20 +1324,20 @@ import nl.egem.stuf.stuf0204.Stuurgegevens;
         /**
          * Gets the value of the wyk property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
-         * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the wyk property.
+         * This is why there is not a &amp;lt;CODE&amp;gt;set&amp;lt;/CODE&amp;gt; method for the wyk property.
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * For example, to add a new item, do as follows:
-         * &lt;pre&gt;
+         * &amp;lt;pre&amp;gt;
          *    getWYK().add(newItem);
-         * &lt;/pre&gt;
+         * &amp;lt;/pre&amp;gt;
          * 
          * 
-         * &lt;p&gt;
+         * &amp;lt;p&amp;gt;
          * Objects of the following type(s) are allowed in the list
          * {@link WYKTabel }
          * 
@@ -1353,4 +1353,4 @@ import nl.egem.stuf.stuf0204.Stuurgegevens;
     }
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

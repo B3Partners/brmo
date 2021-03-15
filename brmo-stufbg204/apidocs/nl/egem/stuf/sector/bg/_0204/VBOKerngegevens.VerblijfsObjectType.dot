@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.VBOKerngegevens
-	c230147 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOKerngegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VBOKerngegevens.html">
+	c229844 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOKerngegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VBOKerngegevens.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> VBOKerngegevens </td></tr>
 		</table></td></tr>
@@ -51,7 +51,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./VBOKerngegevens.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.VBOKerngegevens.VerblijfsObjectType
-	c230151 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOKerngegevens.VerblijfsObjectType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./VBOKerngegevens.VerblijfsObjectType.html">
+	c229848 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOKerngegevens.VerblijfsObjectType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./VBOKerngegevens.VerblijfsObjectType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> VerblijfsObjectType </td></tr>
 		</table></td></tr>
@@ -74,7 +74,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./VBOKerngegevens.VerblijfsObjectType.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.stuf0204.NoValue
-	c230216 [label=<<table title="nl.egem.stuf.stuf0204.NoValue" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/NoValue.html">
+	c230237 [label=<<table title="nl.egem.stuf.stuf0204.NoValue" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/NoValue.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> NoValue </td></tr>
@@ -90,10 +90,10 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="../../../stuf0204/NoValue.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.VBOKerngegevens NAVASSOC nl.egem.stuf.sector.bg._0204.VBOKerngegevens.VerblijfsObjectType
-	c230147:p -> c230151:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c229844:p -> c229848:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.egem.stuf.sector.bg._0204.VBOKerngegevens NAVASSOC nl.egem.stuf.stuf0204.NoValue
-	c230147:p -> c230216:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c229844:p -> c230237:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.egem.stuf.sector.bg._0204.VBOKerngegevens.VerblijfsObjectType NAVASSOC nl.egem.stuf.stuf0204.NoValue
-	c230151:p -> c230216:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c229848:p -> c230237:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

@@ -9,92 +9,25 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// nl.b3p.brmo.loader.RsgbBRPTransformer
-	c51 [label=<<table title="nl.b3p.brmo.loader.RsgbBRPTransformer" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RsgbBRPTransformer.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> RsgbBRPTransformer </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + RsgbBRPTransformer(pathToXsl : String, staging : StagingProxy) </td></tr>
-<tr><td align="left" balign="left"> + transformToDbXml(bericht : Bericht) : String </td></tr>
-<tr><td align="left" balign="left"> + transformToDbXmlNode(bericht : Bericht) : Node </td></tr>
-<tr><td align="left" balign="left"> # merge(oldFile : String, newFile : String) : Document </td></tr>
-<tr><td align="left" balign="left"> # print(doc : Document) : String </td></tr>
-		</table></td></tr>
-		</table>>, URL="./RsgbBRPTransformer.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.loader.RsgbProxy
-	c52 [label=<<table title="nl.b3p.brmo.loader.RsgbProxy" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RsgbProxy.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> RsgbProxy </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + RsgbProxy(dataSourceRsgb : DataSource, stagingProxy : StagingProxy, status : Bericht.STATUS, listener : ProgressUpdateListener) </td></tr>
-<tr><td align="left" balign="left"> + RsgbProxy(dataSourceRsgb : DataSource, stagingProxy : StagingProxy, mode : RsgbProxy.BerichtSelectMode, ids : long[], listener : ProgressUpdateListener) </td></tr>
-<tr><td align="left" balign="left"> + RsgbProxy(dataSourceRsgb : DataSource, stagingProxy : StagingProxy, updateProcess : UpdateProcess, listener : ProgressUpdateListener) </td></tr>
-<tr><td align="left" balign="left"> + setSimonNamePrefix(prefix : String) </td></tr>
-<tr><td align="left" balign="left"> + setEnablePipeline(enablePipeline : boolean) </td></tr>
-<tr><td align="left" balign="left"> + setPipelineCapacity(pipelineCapacity : int) </td></tr>
-<tr><td align="left" balign="left"> + setRenewConnectionAfterCommit(renewConnectionAfterCommit : boolean) </td></tr>
-<tr><td align="left" balign="left"> + setOrderBerichten(orderBerichten : boolean) </td></tr>
-<tr><td align="left" balign="left"> + setErrorState(errorState : String) </td></tr>
-<tr><td align="left" balign="left"> + init() </td></tr>
-<tr><td align="left" balign="left"> + checkAndCloseStatement(stmt : PreparedStatement) </td></tr>
-<tr><td align="left" balign="left"> + checkAndAddStatement(m : Map&lt;String, PreparedStatement&gt;, tableName : String, stmt : PreparedStatement) </td></tr>
-<tr><td align="left" balign="left"> + close() </td></tr>
-<tr><td align="left" balign="left"> + renewConnection() </td></tr>
-<tr><td align="left" balign="left"> + run() </td></tr>
-<tr><td align="left" balign="left"> + updateProcessingResult(ber : Bericht) </td></tr>
-<tr><td align="left" balign="left"> + transformToTableData(ber : Bericht) : List&lt;TableData&gt; </td></tr>
-<tr><td align="left" balign="left"> + transformUpdateTableData(ber : Bericht) : List&lt;TableData&gt; </td></tr>
-<tr><td align="left" balign="left"> + updateBerichtException(ber : Bericht, e : Throwable) </td></tr>
-<tr><td align="left" balign="left"> + updateBerichtProcessing(ber : Bericht) </td></tr>
-<tr><td align="left" balign="left"> + handle(ber : Bericht, pretransformedTableData : List&lt;TableData&gt;, updateResult : boolean) </td></tr>
-<tr><td align="left" balign="left"> + update(jobBericht : Bericht, pretransformedTableData : List&lt;TableData&gt;) </td></tr>
-<tr><td align="left" balign="left"> + isAlreadyInMetadata(row : TableRow, loadLog : StringBuilder) : boolean </td></tr>
-<tr><td align="left" balign="left"> + getHerkomstMetadata() : String </td></tr>
-<tr><td align="left" balign="left"> + setHerkomstMetadata(herkomstMetadata : String) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./RsgbProxy.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.loader.RsgbProxy.BerichtSelectMode
-	c53 [label=<<table title="nl.b3p.brmo.loader.RsgbProxy.BerichtSelectMode" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RsgbProxy.BerichtSelectMode.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
-<tr><td align="center" balign="center"> BerichtSelectMode </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> BY_STATUS </td></tr>
-<tr><td align="left" balign="left"> BY_IDS </td></tr>
-<tr><td align="left" balign="left"> BY_LAADPROCES </td></tr>
-<tr><td align="left" balign="left"> FOR_UPDATE </td></tr>
-<tr><td align="left" balign="left"> RETRY_WAITING </td></tr>
-		</table></td></tr>
-		</table>>, URL="./RsgbProxy.BerichtSelectMode.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.loader.ProgressUpdateListener
-	c54 [label=<<table title="nl.b3p.brmo.loader.ProgressUpdateListener" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ProgressUpdateListener.html">
+	// nl.b3p.brmo.loader.BerichtenHandler
+	c51 [label=<<table title="nl.b3p.brmo.loader.BerichtenHandler" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BerichtenHandler.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
-<tr><td align="center" balign="center"> ProgressUpdateListener </td></tr>
+<tr><td align="center" balign="center"> BerichtenHandler </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left">  </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + total(total : long) </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + progress(progress : long) </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + exception(t : Throwable) </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + updateBerichtProcessing(b : Bericht) </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + transformToTableData(ber : Bericht) : List&lt;TableData&gt; </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + handle(b : Bericht, pretransformedTableData : List&lt;TableData&gt;, updateResult : boolean) </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + updateProcessingResult(b : Bericht) </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + renewConnection() </font></td></tr>
 		</table></td></tr>
-		</table>>, URL="./ProgressUpdateListener.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, URL="./BerichtenHandler.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.BrmoFramework
-	c55 [label=<<table title="nl.b3p.brmo.loader.BrmoFramework" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BrmoFramework.html">
+	c52 [label=<<table title="nl.b3p.brmo.loader.BrmoFramework" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BrmoFramework.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BrmoFramework </td></tr>
 		</table></td></tr>
@@ -164,8 +97,92 @@ digraph G {
 <tr><td align="left" balign="left"> + checkAfgiftelijst(bestandsnaam : String, is : InputStream, output : File) : File </td></tr>
 		</table></td></tr>
 		</table>>, URL="./BrmoFramework.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.loader.RsgbProxy
+	c53 [label=<<table title="nl.b3p.brmo.loader.RsgbProxy" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RsgbProxy.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> RsgbProxy </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + RsgbProxy(dataSourceRsgb : DataSource, stagingProxy : StagingProxy, status : Bericht.STATUS, listener : ProgressUpdateListener) </td></tr>
+<tr><td align="left" balign="left"> + RsgbProxy(dataSourceRsgb : DataSource, stagingProxy : StagingProxy, mode : RsgbProxy.BerichtSelectMode, ids : long[], listener : ProgressUpdateListener) </td></tr>
+<tr><td align="left" balign="left"> + RsgbProxy(dataSourceRsgb : DataSource, stagingProxy : StagingProxy, updateProcess : UpdateProcess, listener : ProgressUpdateListener) </td></tr>
+<tr><td align="left" balign="left"> + setSimonNamePrefix(prefix : String) </td></tr>
+<tr><td align="left" balign="left"> + setEnablePipeline(enablePipeline : boolean) </td></tr>
+<tr><td align="left" balign="left"> + setPipelineCapacity(pipelineCapacity : int) </td></tr>
+<tr><td align="left" balign="left"> + setRenewConnectionAfterCommit(renewConnectionAfterCommit : boolean) </td></tr>
+<tr><td align="left" balign="left"> + setOrderBerichten(orderBerichten : boolean) </td></tr>
+<tr><td align="left" balign="left"> + setErrorState(errorState : String) </td></tr>
+<tr><td align="left" balign="left"> + init() </td></tr>
+<tr><td align="left" balign="left"> + checkAndCloseStatement(stmt : PreparedStatement) </td></tr>
+<tr><td align="left" balign="left"> + checkAndAddStatement(m : Map&lt;String, PreparedStatement&gt;, tableName : String, stmt : PreparedStatement) </td></tr>
+<tr><td align="left" balign="left"> + close() </td></tr>
+<tr><td align="left" balign="left"> + renewConnection() </td></tr>
+<tr><td align="left" balign="left"> + run() </td></tr>
+<tr><td align="left" balign="left"> + updateProcessingResult(ber : Bericht) </td></tr>
+<tr><td align="left" balign="left"> + transformToTableData(ber : Bericht) : List&lt;TableData&gt; </td></tr>
+<tr><td align="left" balign="left"> + transformUpdateTableData(ber : Bericht) : List&lt;TableData&gt; </td></tr>
+<tr><td align="left" balign="left"> + updateBerichtException(ber : Bericht, e : Throwable) </td></tr>
+<tr><td align="left" balign="left"> + updateBerichtProcessing(ber : Bericht) </td></tr>
+<tr><td align="left" balign="left"> + handle(ber : Bericht, pretransformedTableData : List&lt;TableData&gt;, updateResult : boolean) </td></tr>
+<tr><td align="left" balign="left"> + update(jobBericht : Bericht, pretransformedTableData : List&lt;TableData&gt;) </td></tr>
+<tr><td align="left" balign="left"> + isAlreadyInMetadata(row : TableRow, loadLog : StringBuilder) : boolean </td></tr>
+<tr><td align="left" balign="left"> + getHerkomstMetadata() : String </td></tr>
+<tr><td align="left" balign="left"> + setHerkomstMetadata(herkomstMetadata : String) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./RsgbProxy.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.loader.RsgbProxy.BerichtSelectMode
+	c54 [label=<<table title="nl.b3p.brmo.loader.RsgbProxy.BerichtSelectMode" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RsgbProxy.BerichtSelectMode.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
+<tr><td align="center" balign="center"> BerichtSelectMode </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> BY_STATUS </td></tr>
+<tr><td align="left" balign="left"> BY_IDS </td></tr>
+<tr><td align="left" balign="left"> BY_LAADPROCES </td></tr>
+<tr><td align="left" balign="left"> FOR_UPDATE </td></tr>
+<tr><td align="left" balign="left"> RETRY_WAITING </td></tr>
+		</table></td></tr>
+		</table>>, URL="./RsgbProxy.BerichtSelectMode.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.loader.ProgressUpdateListener
+	c55 [label=<<table title="nl.b3p.brmo.loader.ProgressUpdateListener" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ProgressUpdateListener.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
+<tr><td align="center" balign="center"> ProgressUpdateListener </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + total(total : long) </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + progress(progress : long) </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + exception(t : Throwable) </font></td></tr>
+		</table></td></tr>
+		</table>>, URL="./ProgressUpdateListener.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.loader.RsgbBRPTransformer
+	c56 [label=<<table title="nl.b3p.brmo.loader.RsgbBRPTransformer" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RsgbBRPTransformer.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> RsgbBRPTransformer </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + RsgbBRPTransformer(pathToXsl : String, staging : StagingProxy) </td></tr>
+<tr><td align="left" balign="left"> + transformToDbXml(bericht : Bericht) : String </td></tr>
+<tr><td align="left" balign="left"> + transformToDbXmlNode(bericht : Bericht) : Node </td></tr>
+<tr><td align="left" balign="left"> # merge(oldFile : String, newFile : String) : Document </td></tr>
+<tr><td align="left" balign="left"> # print(doc : Document) : String </td></tr>
+		</table></td></tr>
+		</table>>, URL="./RsgbBRPTransformer.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.StagingProxy
-	c56 [label=<<table title="nl.b3p.brmo.loader.StagingProxy" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./StagingProxy.html">
+	c57 [label=<<table title="nl.b3p.brmo.loader.StagingProxy" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./StagingProxy.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> StagingProxy </td></tr>
 		</table></td></tr>
@@ -216,34 +233,17 @@ digraph G {
 <tr><td align="left" balign="left"> + setLimitStandBerichtenToTransform(limitStandBerichtenToTransform : Integer) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./StagingProxy.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.loader.BerichtenHandler
-	c57 [label=<<table title="nl.b3p.brmo.loader.BerichtenHandler" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BerichtenHandler.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
-<tr><td align="center" balign="center"> BerichtenHandler </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + updateBerichtProcessing(b : Bericht) </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + transformToTableData(ber : Bericht) : List&lt;TableData&gt; </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + handle(b : Bericht, pretransformedTableData : List&lt;TableData&gt;, updateResult : boolean) </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + updateProcessingResult(b : Bericht) </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + renewConnection() </font></td></tr>
-		</table></td></tr>
-		</table>>, URL="./BerichtenHandler.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.loader.RsgbProxy implements nl.b3p.brmo.loader.BerichtenHandler
-	c57:p -> c52:p [dir=back,arrowtail=empty,style=dashed];
-	// nl.b3p.brmo.loader.RsgbBRPTransformer NAVASSOC nl.b3p.brmo.loader.StagingProxy
-	c51:p -> c56:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.b3p.brmo.loader.RsgbProxy NAVASSOC nl.b3p.brmo.loader.ProgressUpdateListener
-	c52:p -> c54:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.b3p.brmo.loader.RsgbProxy NAVASSOC nl.b3p.brmo.loader.RsgbProxy.BerichtSelectMode
-	c52:p -> c53:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.b3p.brmo.loader.RsgbProxy NAVASSOC nl.b3p.brmo.loader.StagingProxy
-	c52:p -> c56:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c51:p -> c53:p [dir=back,arrowtail=empty,style=dashed];
 	// nl.b3p.brmo.loader.BrmoFramework NAVASSOC nl.b3p.brmo.loader.StagingProxy
-	c55:p -> c56:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c52:p -> c57:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.brmo.loader.RsgbProxy NAVASSOC nl.b3p.brmo.loader.ProgressUpdateListener
+	c53:p -> c55:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.brmo.loader.RsgbProxy NAVASSOC nl.b3p.brmo.loader.RsgbProxy.BerichtSelectMode
+	c53:p -> c54:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.brmo.loader.RsgbProxy NAVASSOC nl.b3p.brmo.loader.StagingProxy
+	c53:p -> c57:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.brmo.loader.RsgbBRPTransformer NAVASSOC nl.b3p.brmo.loader.StagingProxy
+	c56:p -> c57:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

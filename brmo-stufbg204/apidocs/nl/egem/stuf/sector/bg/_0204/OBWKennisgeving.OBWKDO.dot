@@ -9,8 +9,60 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// nl.egem.stuf.sector.bg._0204.OBWKennisgeving.OBWKDO
+	c135137 [label=<<table title="nl.egem.stuf.sector.bg._0204.OBWKennisgeving.OBWKDO" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./OBWKennisgeving.OBWKDO.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> OBWKDO </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # kdo : KDOKerngegevens </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + OBWKDO() </td></tr>
+<tr><td align="left" balign="left"> + getKDO() : KDOKerngegevens </td></tr>
+<tr><td align="left" balign="left"> + setKDO(value : KDOKerngegevens) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./OBWKennisgeving.OBWKDO.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.Relatie
+	c135221 [label=<<table title="nl.egem.stuf.sector.bg._0204.Relatie" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Relatie.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> Relatie </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # tijdvakRelatie : TijdvakRelatie </td></tr>
+<tr><td align="left" balign="left"> # tijdvakGeldigheid : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> # extraElementen : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> # soortEntiteit : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelVerzendend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelOntvangend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelGegevensbeheer : String </td></tr>
+<tr><td align="left" balign="left"> # verwerkingssoort : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + Relatie() </td></tr>
+<tr><td align="left" balign="left"> + getTijdvakRelatie() : TijdvakRelatie </td></tr>
+<tr><td align="left" balign="left"> + setTijdvakRelatie(value : TijdvakRelatie) </td></tr>
+<tr><td align="left" balign="left"> + getTijdvakGeldigheid() : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> + setTijdvakGeldigheid(value : TijdvakGeldigheid) </td></tr>
+<tr><td align="left" balign="left"> + getExtraElementen() : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> + setExtraElementen(value : ExtraElementen) </td></tr>
+<tr><td align="left" balign="left"> + getSoortEntiteit() : String </td></tr>
+<tr><td align="left" balign="left"> + setSoortEntiteit(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelVerzendend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelVerzendend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelOntvangend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelOntvangend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelGegevensbeheer() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelGegevensbeheer(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getVerwerkingssoort() : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> + setVerwerkingssoort(value : Verwerkingssoort) </td></tr>
+<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
+<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./Relatie.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.KDOKerngegevens
-	c135248 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOKerngegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOKerngegevens.html">
+	c135277 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOKerngegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOKerngegevens.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> KDOKerngegevens </td></tr>
 		</table></td></tr>
@@ -53,61 +105,9 @@ digraph G {
 <tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./KDOKerngegevens.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.OBWKennisgeving.OBWKDO
-	c135306 [label=<<table title="nl.egem.stuf.sector.bg._0204.OBWKennisgeving.OBWKDO" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./OBWKennisgeving.OBWKDO.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> OBWKDO </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # kdo : KDOKerngegevens </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + OBWKDO() </td></tr>
-<tr><td align="left" balign="left"> + getKDO() : KDOKerngegevens </td></tr>
-<tr><td align="left" balign="left"> + setKDO(value : KDOKerngegevens) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./OBWKennisgeving.OBWKDO.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.Relatie
-	c135436 [label=<<table title="nl.egem.stuf.sector.bg._0204.Relatie" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Relatie.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> Relatie </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # tijdvakRelatie : TijdvakRelatie </td></tr>
-<tr><td align="left" balign="left"> # tijdvakGeldigheid : TijdvakGeldigheid </td></tr>
-<tr><td align="left" balign="left"> # extraElementen : ExtraElementen </td></tr>
-<tr><td align="left" balign="left"> # soortEntiteit : String </td></tr>
-<tr><td align="left" balign="left"> # sleutelVerzendend : String </td></tr>
-<tr><td align="left" balign="left"> # sleutelOntvangend : String </td></tr>
-<tr><td align="left" balign="left"> # sleutelGegevensbeheer : String </td></tr>
-<tr><td align="left" balign="left"> # verwerkingssoort : Verwerkingssoort </td></tr>
-<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + Relatie() </td></tr>
-<tr><td align="left" balign="left"> + getTijdvakRelatie() : TijdvakRelatie </td></tr>
-<tr><td align="left" balign="left"> + setTijdvakRelatie(value : TijdvakRelatie) </td></tr>
-<tr><td align="left" balign="left"> + getTijdvakGeldigheid() : TijdvakGeldigheid </td></tr>
-<tr><td align="left" balign="left"> + setTijdvakGeldigheid(value : TijdvakGeldigheid) </td></tr>
-<tr><td align="left" balign="left"> + getExtraElementen() : ExtraElementen </td></tr>
-<tr><td align="left" balign="left"> + setExtraElementen(value : ExtraElementen) </td></tr>
-<tr><td align="left" balign="left"> + getSoortEntiteit() : String </td></tr>
-<tr><td align="left" balign="left"> + setSoortEntiteit(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getSleutelVerzendend() : String </td></tr>
-<tr><td align="left" balign="left"> + setSleutelVerzendend(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getSleutelOntvangend() : String </td></tr>
-<tr><td align="left" balign="left"> + setSleutelOntvangend(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getSleutelGegevensbeheer() : String </td></tr>
-<tr><td align="left" balign="left"> + setSleutelGegevensbeheer(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getVerwerkingssoort() : Verwerkingssoort </td></tr>
-<tr><td align="left" balign="left"> + setVerwerkingssoort(value : Verwerkingssoort) </td></tr>
-<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
-<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./Relatie.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.OBWKennisgeving.OBWKDO extends nl.egem.stuf.sector.bg._0204.Relatie
-	c135436:p -> c135306:p [dir=back,arrowtail=empty];
+	c135221:p -> c135137:p [dir=back,arrowtail=empty];
 	// nl.egem.stuf.sector.bg._0204.OBWKennisgeving.OBWKDO NAVASSOC nl.egem.stuf.sector.bg._0204.KDOKerngegevens
-	c135306:p -> c135248:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c135137:p -> c135277:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

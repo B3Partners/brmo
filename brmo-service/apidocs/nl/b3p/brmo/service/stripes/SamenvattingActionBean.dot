@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.service.stripes.SamenvattingActionBean
-	c2442 [label=<<table title="nl.b3p.brmo.service.stripes.SamenvattingActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./SamenvattingActionBean.html">
+	c2452 [label=<<table title="nl.b3p.brmo.service.stripes.SamenvattingActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./SamenvattingActionBean.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> SamenvattingActionBean </td></tr>
 		</table></td></tr>
@@ -31,11 +31,11 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./SamenvattingActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.service.stripes.SamenvattingActionBean implements net.sourceforge.stripes.action.ActionBean
-	c2469:p -> c2442:p [dir=back,arrowtail=empty,style=dashed];
+	c2469:p -> c2452:p [dir=back,arrowtail=empty,style=dashed];
 	// nl.b3p.brmo.service.stripes.SamenvattingActionBean NAVASSOC nl.b3p.brmo.persistence.staging.AutomatischProces
-	c2442:p -> c2470:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c2452:p -> c2470:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.service.stripes.SamenvattingActionBean NAVASSOC net.sourceforge.stripes.action.ActionBeanContext
-	c2442:p -> c2471:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c2452:p -> c2471:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.persistence.staging.AutomatischProces
 	c2470 [label=<<table title="nl.b3p.brmo.persistence.staging.AutomatischProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
@@ -47,7 +47,6 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> + AutomatischProces() </td></tr>
 <tr><td align="left" balign="left"> + updateSamenvattingEnLogfile(arg0 : String) </td></tr>
-<tr><td align="left" balign="left"> + addLogLine(arg0 : String) </td></tr>
 <tr><td align="left" balign="left"> + getConfig() : Map&lt;String, ClobElement&gt; </td></tr>
 <tr><td align="left" balign="left"> + setConfig(arg0 : Map&lt;String, ClobElement&gt;) </td></tr>
 <tr><td align="left" balign="left"> + getLastrun() : Date </td></tr>

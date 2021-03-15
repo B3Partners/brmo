@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Wegdeel.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO TopNL loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.topnl.entities</a> &gt; <span class="el_source">Wegdeel.java</span></div><h1>Wegdeel.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2016 - 2017 B3Partners B.V.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+ */
+package nl.b3p.topnl.entities;
+
+import org.locationtech.jts.geom.Geometry;
+import java.math.BigInteger;
+
+/**
+ *
+ * @author Meine Toonen meinetoonen@b3partners.nl
+ */
+<span class="fc" id="L26">public class Wegdeel extends TopNLEntity {</span>
+
+    private String typeInfrastructuur;
+    private String typeWeg;
+    private String hoofdverkeersgebruik;
+    private String fysiekVoorkomen;
+    private String verhardingsbreedteklasse;
+    private Boolean gescheidenRijbaan;
+    private String verhardingstype;
+    private Long aantalRijstroken;
+    private Long hoogteniveau;
+    private String status;
+    private String naam;
+    private Boolean isBAGnaam;
+    private String aWegnummer;
+    private String nWegnummer;
+    private String eWegnummer;
+    private String sWegnummer;
+    private String afritnummer;
+    private String afritnaam;
+    private String knooppuntnaam;
+    private String brugnaam;
+    private String tunnelnaam;
+
+    private Geometry geometrie;
+    private Geometry hartGeometrie;
+
+    public String getTypeInfrastructuur() {
+<span class="fc" id="L54">        return typeInfrastructuur;</span>
+    }
+
+    public void setTypeInfrastructuur(String typeInfrastructuur) {
+<span class="fc" id="L58">        this.typeInfrastructuur = typeInfrastructuur;</span>
+<span class="fc" id="L59">    }</span>
+
+    public String getTypeWeg() {
+<span class="fc" id="L62">        return typeWeg;</span>
+    }
+
+    public void setTypeWeg(String typeWeg) {
+<span class="fc" id="L66">        this.typeWeg = typeWeg;</span>
+<span class="fc" id="L67">    }</span>
+
+    public String getHoofdverkeersgebruik() {
+<span class="fc" id="L70">        return hoofdverkeersgebruik;</span>
+    }
+
+    public void setHoofdverkeersgebruik(String hoofdverkeersgebruik) {
+<span class="fc" id="L74">        this.hoofdverkeersgebruik = hoofdverkeersgebruik;</span>
+<span class="fc" id="L75">    }</span>
+
+    public String getFysiekVoorkomen() {
+<span class="fc" id="L78">        return fysiekVoorkomen;</span>
+    }
+
+    public void setFysiekVoorkomen(String fysiekVoorkomen) {
+<span class="fc" id="L82">        this.fysiekVoorkomen = fysiekVoorkomen;</span>
+<span class="fc" id="L83">    }</span>
+
+    public String getVerhardingsbreedteklasse() {
+<span class="fc" id="L86">        return verhardingsbreedteklasse;</span>
+    }
+
+    public void setVerhardingsbreedteklasse(String verhardingsbreedteklasse) {
+<span class="fc" id="L90">        this.verhardingsbreedteklasse = verhardingsbreedteklasse;</span>
+<span class="fc" id="L91">    }</span>
+
+    public Boolean getGescheidenRijbaan() {
+<span class="fc" id="L94">        return gescheidenRijbaan;</span>
+    }
+
+    public void setGescheidenRijbaan(Boolean gescheidenRijbaan) {
+<span class="fc" id="L98">        this.gescheidenRijbaan = gescheidenRijbaan;</span>
+<span class="fc" id="L99">    }</span>
+
+    public String getVerhardingstype() {
+<span class="fc" id="L102">        return verhardingstype;</span>
+    }
+
+    public void setVerhardingstype(String verhardingstype) {
+<span class="fc" id="L106">        this.verhardingstype = verhardingstype;</span>
+<span class="fc" id="L107">    }</span>
+
+    public Long getAantalRijstroken() {
+<span class="fc" id="L110">        return aantalRijstroken;</span>
+    }
+
+    public void setAantalRijstroken(Long aantalRijstroken) {
+<span class="fc" id="L114">        this.aantalRijstroken = aantalRijstroken;</span>
+<span class="fc" id="L115">    }</span>
+
+    public String getStatus() {
+<span class="fc" id="L118">        return status;</span>
+    }
+
+    public void setStatus(String status) {
+<span class="fc" id="L122">        this.status = status;</span>
+<span class="fc" id="L123">    }</span>
+
+    public String getNaam() {
+<span class="fc" id="L126">        return naam;</span>
+    }
+
+    public void setNaam(String naam) {
+<span class="fc" id="L130">        this.naam = naam;</span>
+<span class="fc" id="L131">    }</span>
+
+    public Boolean getIsBAGnaam() {
+<span class="fc" id="L134">        return isBAGnaam;</span>
+    }
+
+    public void setIsBAGnaam(Boolean isBAGnaam) {
+<span class="fc" id="L138">        this.isBAGnaam = isBAGnaam;</span>
+<span class="fc" id="L139">    }</span>
+
+    public String getaWegnummer() {
+<span class="fc" id="L142">        return aWegnummer;</span>
+    }
+
+    public void setaWegnummer(String aWegnummer) {
+<span class="fc" id="L146">        this.aWegnummer = aWegnummer;</span>
+<span class="fc" id="L147">    }</span>
+
+    public String getnWegnummer() {
+<span class="fc" id="L150">        return nWegnummer;</span>
+    }
+
+    public void setnWegnummer(String nWegnummer) {
+<span class="fc" id="L154">        this.nWegnummer = nWegnummer;</span>
+<span class="fc" id="L155">    }</span>
+
+    public String geteWegnummer() {
+<span class="fc" id="L158">        return eWegnummer;</span>
+    }
+
+    public void seteWegnummer(String eWegnummer) {
+<span class="fc" id="L162">        this.eWegnummer = eWegnummer;</span>
+<span class="fc" id="L163">    }</span>
+
+    public String getsWegnummer() {
+<span class="fc" id="L166">        return sWegnummer;</span>
+    }
+
+    public void setsWegnummer(String sWegnummer) {
+<span class="fc" id="L170">        this.sWegnummer = sWegnummer;</span>
+<span class="fc" id="L171">    }</span>
+
+    public String getAfritnummer() {
+<span class="fc" id="L174">        return afritnummer;</span>
+    }
+
+    public void setAfritnummer(String afritnummer) {
+<span class="fc" id="L178">        this.afritnummer = afritnummer;</span>
+<span class="fc" id="L179">    }</span>
+
+    public String getAfritnaam() {
+<span class="fc" id="L182">        return afritnaam;</span>
+    }
+
+    public void setAfritnaam(String afritnaam) {
+<span class="fc" id="L186">        this.afritnaam = afritnaam;</span>
+<span class="fc" id="L187">    }</span>
+
+    public String getKnooppuntnaam() {
+<span class="fc" id="L190">        return knooppuntnaam;</span>
+    }
+
+    public void setKnooppuntnaam(String knooppuntnaam) {
+<span class="fc" id="L194">        this.knooppuntnaam = knooppuntnaam;</span>
+<span class="fc" id="L195">    }</span>
+
+    public String getBrugnaam() {
+<span class="fc" id="L198">        return brugnaam;</span>
+    }
+
+    public void setBrugnaam(String brugnaam) {
+<span class="fc" id="L202">        this.brugnaam = brugnaam;</span>
+<span class="fc" id="L203">    }</span>
+
+    public String getTunnelnaam() {
+<span class="fc" id="L206">        return tunnelnaam;</span>
+    }
+
+    public void setTunnelnaam(String tunnelnaam) {
+<span class="fc" id="L210">        this.tunnelnaam = tunnelnaam;</span>
+<span class="fc" id="L211">    }</span>
+
+    public Geometry getGeometrie() {
+<span class="fc" id="L214">        return geometrie;</span>
+    }
+
+    public void setGeometrie(Geometry geometrie) {
+<span class="fc" id="L218">        this.geometrie = geometrie;</span>
+<span class="fc" id="L219">    }</span>
+
+    public Long getHoogteniveau() {
+<span class="fc" id="L222">        return hoogteniveau;</span>
+    }
+
+    public void setHoogteniveau(Long hoogteniveau) {
+<span class="fc" id="L226">        this.hoogteniveau = hoogteniveau;</span>
+<span class="fc" id="L227">    }    </span>
+
+    public Geometry getHartGeometrie() {
+<span class="fc" id="L230">        return hartGeometrie;</span>
+    }
+
+    public void setHartGeometrie(Geometry hartGeometrie) {
+<span class="fc" id="L234">        this.hartGeometrie = hartGeometrie;</span>
+<span class="fc" id="L235">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

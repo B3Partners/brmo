@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>ConfigUtil.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO soap bevragingsservice</a> &gt; <a href="../index.html" class="el_bundle">brmo-init-util</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.service.util</a> &gt; <span class="el_source">ConfigUtil.java</span></div><h1>ConfigUtil.java</h1><pre class="source lang-java linenums">package nl.b3p.brmo.service.util;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>ConfigUtil.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO SOAP bevragingsservice</a> &gt; <a href="../index.html" class="el_bundle">brmo-init-util</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.service.util</a> &gt; <span class="el_source">ConfigUtil.java</span></div><h1>ConfigUtil.java</h1><pre class="source lang-java linenums">package nl.b3p.brmo.service.util;
 
 import java.io.IOException;
 import javax.naming.Context;
@@ -35,9 +35,9 @@ import org.apache.commons.logging.LogFactory;
     public void init(ServletConfig config) throws ServletException {
 <span class="nc" id="L36">        String tempSize = config.getInitParameter(&quot;max_upload_size&quot;);</span>
 <span class="nc bnc" id="L37" title="All 4 branches missed.">        if (tempSize != null &amp;&amp; !tempSize.isEmpty()) {</span>
-<span class="nc" id="L38">            MAX_UPLOAD_SIZE = new Integer(tempSize) * 1024;</span>
+<span class="nc" id="L38">            MAX_UPLOAD_SIZE = Integer.valueOf(tempSize) * 1024;</span>
         } else {
-<span class="nc" id="L40">            MAX_UPLOAD_SIZE = 500 * 1024;</span>
+<span class="nc" id="L40">            MAX_UPLOAD_SIZE = 10000 * 1024;</span>
         }
         
 <span class="nc" id="L43">        String tempFolder = config.getInitParameter(&quot;temp_folder&quot;);</span>
@@ -130,4 +130,4 @@ import org.apache.commons.logging.LogFactory;
         // nothing
 <span class="nc" id="L131">    }</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

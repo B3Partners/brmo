@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BrkInfo.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO soap bevragingsservice</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.soap.db</a> &gt; <span class="el_source">BrkInfo.java</span></div><h1>BrkInfo.java</h1><pre class="source lang-java linenums">package nl.b3p.brmo.soap.db;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BrkInfo.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO SOAP bevragingsservice</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.soap.db</a> &gt; <span class="el_source">BrkInfo.java</span></div><h1>BrkInfo.java</h1><pre class="source lang-java linenums">package nl.b3p.brmo.soap.db;
 
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.io.ParseException;
@@ -167,7 +167,7 @@ import org.apache.commons.logging.LogFactory;
 <span class="nc" id="L167">                sql.append(createWhereSQL(searchContext, dbType));</span>
 <span class="nc" id="L168">                sql.append(&quot;LIMIT &quot;);</span>
 <span class="nc" id="L169">                sql.append(maxrows);</span>
-<span class="nc" id="L170">                return sql;</span>
+<span class="nc" id="L170">                break;</span>
             case DB_ORACLE:
 <span class="nc" id="L172">                sql.append(&quot;SELECT &quot;);</span>
 <span class="nc" id="L173">                sql.append(&quot;    DISTINCT kad_onrrnd_zk.kad_identif AS identificatie &quot;);</span>
@@ -181,376 +181,377 @@ import org.apache.commons.logging.LogFactory;
 <span class="nc" id="L181">                tempSql.append(&quot; ) WHERE ROWNUM &lt;= &quot;);</span>
 <span class="nc" id="L182">                tempSql.append(maxrows);</span>
 <span class="nc" id="L183">                sql = tempSql;</span>
-<span class="nc" id="L184">                return sql;</span>
+<span class="nc" id="L184">                break;</span>
             case DB_MSSQL:
-<span class="nc" id="L186">                sql.append(&quot;SELECT &quot;);</span>
+<span class="nc" id="L186">                sql.append(&quot;SELECT DISTINCT &quot;);</span>
 <span class="nc" id="L187">                sql.append(&quot;TOP &quot;);</span>
 <span class="nc" id="L188">                sql.append(&quot;( &quot;);</span>
 <span class="nc" id="L189">                sql.append(maxrows);</span>
 <span class="nc" id="L190">                sql.append(&quot;) &quot;);</span>
-<span class="nc" id="L191">                sql.append(&quot;    DISTINCT kad_onrrnd_zk.kad_identif AS identificatie &quot;);</span>
+<span class="nc" id="L191">                sql.append(&quot;     kad_onrrnd_zk.kad_identif AS identificatie &quot;);</span>
 <span class="nc" id="L192">                sql.append(&quot;FROM &quot;);</span>
 <span class="nc" id="L193">                sql.append(createFromSQL());</span>
 <span class="nc" id="L194">                sql.append(&quot;WHERE &quot;);</span>
 <span class="nc" id="L195">                sql.append(createWhereSQL(searchContext, dbType));</span>
-<span class="nc" id="L196">                return sql;</span>
+<span class="nc" id="L196">                break;</span>
             default:
-<span class="nc" id="L198">                throw new UnsupportedOperationException(&quot;Unknown database!&quot;);</span>
+<span class="nc" id="L198">                throw new UnsupportedOperationException(&quot;Unknown database! '&quot; + dbType + &quot;'&quot;);</span>
         }
+<span class="nc" id="L200">        return sql;</span>
     }
 
     private static StringBuilder createCountSQL(
             Map&lt;String, Object&gt; searchContext, String dbType) throws ParseException {
 
-<span class="nc" id="L205">        StringBuilder sql = new StringBuilder();</span>
-<span class="nc" id="L206">        sql.append(&quot;SELECT &quot;);</span>
-<span class="nc" id="L207">        sql.append(&quot;    COUNT(DISTINCT kad_onrrnd_zk.kad_identif) AS aantal &quot;);</span>
-<span class="nc" id="L208">        sql.append(&quot;FROM &quot;);</span>
-<span class="nc" id="L209">        sql.append(createFromSQL());</span>
-<span class="nc" id="L210">        sql.append(&quot;WHERE &quot;);</span>
-<span class="nc" id="L211">        sql.append(createWhereSQL(searchContext, dbType));</span>
-<span class="nc" id="L212">        return sql;</span>
+<span class="nc" id="L206">        StringBuilder sql = new StringBuilder();</span>
+<span class="nc" id="L207">        sql.append(&quot;SELECT &quot;);</span>
+<span class="nc" id="L208">        sql.append(&quot;    COUNT(DISTINCT kad_onrrnd_zk.kad_identif) AS aantal &quot;);</span>
+<span class="nc" id="L209">        sql.append(&quot;FROM &quot;);</span>
+<span class="nc" id="L210">        sql.append(createFromSQL());</span>
+<span class="nc" id="L211">        sql.append(&quot;WHERE &quot;);</span>
+<span class="nc" id="L212">        sql.append(createWhereSQL(searchContext, dbType));</span>
+<span class="nc" id="L213">        return sql;</span>
     }
 
     private static StringBuilder createFromSQL() {
-<span class="nc" id="L216">        StringBuilder sql = new StringBuilder();</span>
-<span class="nc" id="L217">        sql.append(&quot;    kad_onrrnd_zk &quot;);</span>
-<span class="nc" id="L218">        sql.append(&quot;LEFT OUTER JOIN &quot;);</span>
-<span class="nc" id="L219">        sql.append(&quot;    kad_perceel &quot;);</span>
-<span class="nc" id="L220">        sql.append(&quot;ON &quot;);</span>
-<span class="nc" id="L221">        sql.append(&quot;    ( &quot;);</span>
-<span class="nc" id="L222">        sql.append(&quot;        kad_onrrnd_zk.kad_identif = kad_perceel.sc_kad_identif) &quot;);</span>
-<span class="nc" id="L223">        sql.append(&quot;LEFT OUTER JOIN &quot;);</span>
-<span class="nc" id="L224">        sql.append(&quot;    app_re &quot;);</span>
-<span class="nc" id="L225">        sql.append(&quot;ON &quot;);</span>
-<span class="nc" id="L226">        sql.append(&quot;    ( &quot;);</span>
-<span class="nc" id="L227">        sql.append(&quot;        kad_onrrnd_zk.kad_identif = app_re.sc_kad_identif) &quot;);</span>
-<span class="nc" id="L228">        sql.append(&quot;LEFT OUTER JOIN &quot;);</span>
-<span class="nc" id="L229">        sql.append(&quot;    zak_recht &quot;);</span>
-<span class="nc" id="L230">        sql.append(&quot;ON &quot;);</span>
-<span class="nc" id="L231">        sql.append(&quot;    ( &quot;);</span>
-<span class="nc" id="L232">        sql.append(&quot;        kad_onrrnd_zk.kad_identif = zak_recht.fk_7koz_kad_identif) &quot;);</span>
-<span class="nc" id="L233">        sql.append(&quot;LEFT OUTER JOIN &quot;);</span>
-<span class="nc" id="L234">        sql.append(&quot;    niet_nat_prs &quot;);</span>
-<span class="nc" id="L235">        sql.append(&quot;ON &quot;);</span>
-<span class="nc" id="L236">        sql.append(&quot;    ( &quot;);</span>
-<span class="nc" id="L237">        sql.append(&quot;        zak_recht.fk_8pes_sc_identif = niet_nat_prs.sc_identif) &quot;);</span>
-<span class="nc" id="L238">        sql.append(&quot;LEFT OUTER JOIN &quot;);</span>
-<span class="nc" id="L239">        sql.append(&quot;    nat_prs &quot;);</span>
-<span class="nc" id="L240">        sql.append(&quot;ON &quot;);</span>
-<span class="nc" id="L241">        sql.append(&quot;    ( &quot;);</span>
-<span class="nc" id="L242">        sql.append(&quot;        zak_recht.fk_8pes_sc_identif = nat_prs.sc_identif) &quot;);</span>
-<span class="nc" id="L243">        sql.append(&quot;LEFT OUTER JOIN &quot;);</span>
-<span class="nc" id="L244">        sql.append(&quot;    ander_nat_prs &quot;);</span>
-<span class="nc" id="L245">        sql.append(&quot;ON &quot;);</span>
-<span class="nc" id="L246">        sql.append(&quot;    ( &quot;);</span>
-<span class="nc" id="L247">        sql.append(&quot;        nat_prs.sc_identif = ander_nat_prs.sc_identif) &quot;);</span>
-<span class="nc" id="L248">        sql.append(&quot;LEFT OUTER JOIN &quot;);</span>
-<span class="nc" id="L249">        sql.append(&quot;    ingeschr_nat_prs &quot;);</span>
-<span class="nc" id="L250">        sql.append(&quot;ON &quot;);</span>
-<span class="nc" id="L251">        sql.append(&quot;    ( &quot;);</span>
-<span class="nc" id="L252">        sql.append(&quot;        nat_prs.sc_identif = ingeschr_nat_prs.sc_identif) &quot;);</span>
-<span class="nc" id="L253">        sql.append(&quot;LEFT OUTER JOIN &quot;);</span>
-<span class="nc" id="L254">        sql.append(&quot;    ingeschr_niet_nat_prs &quot;);</span>
-<span class="nc" id="L255">        sql.append(&quot;ON &quot;);</span>
-<span class="nc" id="L256">        sql.append(&quot;    ( &quot;);</span>
-<span class="nc" id="L257">        sql.append(&quot;        niet_nat_prs.sc_identif = ingeschr_niet_nat_prs.sc_identif) &quot;);</span>
-<span class="nc" id="L258">        sql.append(&quot;LEFT OUTER JOIN &quot;);</span>
-<span class="nc" id="L259">        sql.append(&quot;    benoemd_obj_kad_onrrnd_zk &quot;);</span>
-<span class="nc" id="L260">        sql.append(&quot;ON &quot;);</span>
-<span class="nc" id="L261">        sql.append(&quot;    ( &quot;);</span>
-<span class="nc" id="L262">        sql.append(&quot;        kad_onrrnd_zk.kad_identif = &quot;);</span>
-<span class="nc" id="L263">        sql.append(&quot;        benoemd_obj_kad_onrrnd_zk.fk_nn_rh_koz_kad_identif) &quot;);</span>
-<span class="nc" id="L264">        sql.append(&quot;LEFT OUTER JOIN &quot;);</span>
-<span class="nc" id="L265">        sql.append(&quot;    verblijfsobj &quot;);</span>
-<span class="nc" id="L266">        sql.append(&quot;ON &quot;);</span>
-<span class="nc" id="L267">        sql.append(&quot;    ( &quot;);</span>
-<span class="nc" id="L268">        sql.append(&quot;        benoemd_obj_kad_onrrnd_zk.fk_nn_lh_tgo_identif = verblijfsobj.sc_identif) &quot;);</span>
-<span class="nc" id="L269">        sql.append(&quot;LEFT OUTER JOIN &quot;);</span>
-<span class="nc" id="L270">        sql.append(&quot;    addresseerb_obj_aand &quot;);</span>
-<span class="nc" id="L271">        sql.append(&quot;ON &quot;);</span>
-<span class="nc" id="L272">        sql.append(&quot;    ( &quot;);</span>
-<span class="nc" id="L273">        sql.append(&quot;        verblijfsobj.fk_11nra_sc_identif = addresseerb_obj_aand.identif) &quot;);</span>
-<span class="nc" id="L274">        sql.append(&quot;LEFT OUTER JOIN &quot;);</span>
-<span class="nc" id="L275">        sql.append(&quot;    gem_openb_rmte &quot;);</span>
-<span class="nc" id="L276">        sql.append(&quot;ON &quot;);</span>
-<span class="nc" id="L277">        sql.append(&quot;    ( &quot;);</span>
-<span class="nc" id="L278">        sql.append(&quot;        addresseerb_obj_aand.fk_7opr_identifcode = gem_openb_rmte.identifcode) &quot;);</span>
-<span class="nc" id="L279">        sql.append(&quot;LEFT OUTER JOIN &quot;);</span>
-<span class="nc" id="L280">        sql.append(&quot;    openb_rmte_wnplts &quot;);</span>
-<span class="nc" id="L281">        sql.append(&quot;ON &quot;);</span>
-<span class="nc" id="L282">        sql.append(&quot;    ( &quot;);</span>
-<span class="nc" id="L283">        sql.append(&quot;        gem_openb_rmte.identifcode = openb_rmte_wnplts.fk_nn_lh_opr_identifcode) &quot;);</span>
-<span class="nc" id="L284">        sql.append(&quot;LEFT OUTER JOIN &quot;);</span>
-<span class="nc" id="L285">        sql.append(&quot;    wnplts &quot;);</span>
-<span class="nc" id="L286">        sql.append(&quot;ON &quot;);</span>
-<span class="nc" id="L287">        sql.append(&quot;    ( &quot;);</span>
-<span class="nc" id="L288">        sql.append(&quot;        openb_rmte_wnplts.fk_nn_rh_wpl_identif = wnplts.identif) &quot;);</span>
+<span class="nc" id="L217">        StringBuilder sql = new StringBuilder();</span>
+<span class="nc" id="L218">        sql.append(&quot;    kad_onrrnd_zk &quot;);</span>
+<span class="nc" id="L219">        sql.append(&quot;LEFT OUTER JOIN &quot;);</span>
+<span class="nc" id="L220">        sql.append(&quot;    kad_perceel &quot;);</span>
+<span class="nc" id="L221">        sql.append(&quot;ON &quot;);</span>
+<span class="nc" id="L222">        sql.append(&quot;    ( &quot;);</span>
+<span class="nc" id="L223">        sql.append(&quot;        kad_onrrnd_zk.kad_identif = kad_perceel.sc_kad_identif) &quot;);</span>
+<span class="nc" id="L224">        sql.append(&quot;LEFT OUTER JOIN &quot;);</span>
+<span class="nc" id="L225">        sql.append(&quot;    app_re &quot;);</span>
+<span class="nc" id="L226">        sql.append(&quot;ON &quot;);</span>
+<span class="nc" id="L227">        sql.append(&quot;    ( &quot;);</span>
+<span class="nc" id="L228">        sql.append(&quot;        kad_onrrnd_zk.kad_identif = app_re.sc_kad_identif) &quot;);</span>
+<span class="nc" id="L229">        sql.append(&quot;LEFT OUTER JOIN &quot;);</span>
+<span class="nc" id="L230">        sql.append(&quot;    zak_recht &quot;);</span>
+<span class="nc" id="L231">        sql.append(&quot;ON &quot;);</span>
+<span class="nc" id="L232">        sql.append(&quot;    ( &quot;);</span>
+<span class="nc" id="L233">        sql.append(&quot;        kad_onrrnd_zk.kad_identif = zak_recht.fk_7koz_kad_identif) &quot;);</span>
+<span class="nc" id="L234">        sql.append(&quot;LEFT OUTER JOIN &quot;);</span>
+<span class="nc" id="L235">        sql.append(&quot;    niet_nat_prs &quot;);</span>
+<span class="nc" id="L236">        sql.append(&quot;ON &quot;);</span>
+<span class="nc" id="L237">        sql.append(&quot;    ( &quot;);</span>
+<span class="nc" id="L238">        sql.append(&quot;        zak_recht.fk_8pes_sc_identif = niet_nat_prs.sc_identif) &quot;);</span>
+<span class="nc" id="L239">        sql.append(&quot;LEFT OUTER JOIN &quot;);</span>
+<span class="nc" id="L240">        sql.append(&quot;    nat_prs &quot;);</span>
+<span class="nc" id="L241">        sql.append(&quot;ON &quot;);</span>
+<span class="nc" id="L242">        sql.append(&quot;    ( &quot;);</span>
+<span class="nc" id="L243">        sql.append(&quot;        zak_recht.fk_8pes_sc_identif = nat_prs.sc_identif) &quot;);</span>
+<span class="nc" id="L244">        sql.append(&quot;LEFT OUTER JOIN &quot;);</span>
+<span class="nc" id="L245">        sql.append(&quot;    ander_nat_prs &quot;);</span>
+<span class="nc" id="L246">        sql.append(&quot;ON &quot;);</span>
+<span class="nc" id="L247">        sql.append(&quot;    ( &quot;);</span>
+<span class="nc" id="L248">        sql.append(&quot;        nat_prs.sc_identif = ander_nat_prs.sc_identif) &quot;);</span>
+<span class="nc" id="L249">        sql.append(&quot;LEFT OUTER JOIN &quot;);</span>
+<span class="nc" id="L250">        sql.append(&quot;    ingeschr_nat_prs &quot;);</span>
+<span class="nc" id="L251">        sql.append(&quot;ON &quot;);</span>
+<span class="nc" id="L252">        sql.append(&quot;    ( &quot;);</span>
+<span class="nc" id="L253">        sql.append(&quot;        nat_prs.sc_identif = ingeschr_nat_prs.sc_identif) &quot;);</span>
+<span class="nc" id="L254">        sql.append(&quot;LEFT OUTER JOIN &quot;);</span>
+<span class="nc" id="L255">        sql.append(&quot;    ingeschr_niet_nat_prs &quot;);</span>
+<span class="nc" id="L256">        sql.append(&quot;ON &quot;);</span>
+<span class="nc" id="L257">        sql.append(&quot;    ( &quot;);</span>
+<span class="nc" id="L258">        sql.append(&quot;        niet_nat_prs.sc_identif = ingeschr_niet_nat_prs.sc_identif) &quot;);</span>
+<span class="nc" id="L259">        sql.append(&quot;LEFT OUTER JOIN &quot;);</span>
+<span class="nc" id="L260">        sql.append(&quot;    benoemd_obj_kad_onrrnd_zk &quot;);</span>
+<span class="nc" id="L261">        sql.append(&quot;ON &quot;);</span>
+<span class="nc" id="L262">        sql.append(&quot;    ( &quot;);</span>
+<span class="nc" id="L263">        sql.append(&quot;        kad_onrrnd_zk.kad_identif = &quot;);</span>
+<span class="nc" id="L264">        sql.append(&quot;        benoemd_obj_kad_onrrnd_zk.fk_nn_rh_koz_kad_identif) &quot;);</span>
+<span class="nc" id="L265">        sql.append(&quot;LEFT OUTER JOIN &quot;);</span>
+<span class="nc" id="L266">        sql.append(&quot;    verblijfsobj &quot;);</span>
+<span class="nc" id="L267">        sql.append(&quot;ON &quot;);</span>
+<span class="nc" id="L268">        sql.append(&quot;    ( &quot;);</span>
+<span class="nc" id="L269">        sql.append(&quot;        benoemd_obj_kad_onrrnd_zk.fk_nn_lh_tgo_identif = verblijfsobj.sc_identif) &quot;);</span>
+<span class="nc" id="L270">        sql.append(&quot;LEFT OUTER JOIN &quot;);</span>
+<span class="nc" id="L271">        sql.append(&quot;    addresseerb_obj_aand &quot;);</span>
+<span class="nc" id="L272">        sql.append(&quot;ON &quot;);</span>
+<span class="nc" id="L273">        sql.append(&quot;    ( &quot;);</span>
+<span class="nc" id="L274">        sql.append(&quot;        verblijfsobj.fk_11nra_sc_identif = addresseerb_obj_aand.identif) &quot;);</span>
+<span class="nc" id="L275">        sql.append(&quot;LEFT OUTER JOIN &quot;);</span>
+<span class="nc" id="L276">        sql.append(&quot;    gem_openb_rmte &quot;);</span>
+<span class="nc" id="L277">        sql.append(&quot;ON &quot;);</span>
+<span class="nc" id="L278">        sql.append(&quot;    ( &quot;);</span>
+<span class="nc" id="L279">        sql.append(&quot;        addresseerb_obj_aand.fk_7opr_identifcode = gem_openb_rmte.identifcode) &quot;);</span>
+<span class="nc" id="L280">        sql.append(&quot;LEFT OUTER JOIN &quot;);</span>
+<span class="nc" id="L281">        sql.append(&quot;    openb_rmte_wnplts &quot;);</span>
+<span class="nc" id="L282">        sql.append(&quot;ON &quot;);</span>
+<span class="nc" id="L283">        sql.append(&quot;    ( &quot;);</span>
+<span class="nc" id="L284">        sql.append(&quot;        gem_openb_rmte.identifcode = openb_rmte_wnplts.fk_nn_lh_opr_identifcode) &quot;);</span>
+<span class="nc" id="L285">        sql.append(&quot;LEFT OUTER JOIN &quot;);</span>
+<span class="nc" id="L286">        sql.append(&quot;    wnplts &quot;);</span>
+<span class="nc" id="L287">        sql.append(&quot;ON &quot;);</span>
+<span class="nc" id="L288">        sql.append(&quot;    ( &quot;);</span>
+<span class="nc" id="L289">        sql.append(&quot;        openb_rmte_wnplts.fk_nn_rh_wpl_identif = wnplts.identif) &quot;);</span>
 
-<span class="nc" id="L290">        return sql;</span>
+<span class="nc" id="L291">        return sql;</span>
     }
 
     private static StringBuilder createWhereSQL(
             Map&lt;String, Object&gt; searchContext, String dbType) throws ParseException {
-<span class="nc" id="L295">        StringBuilder sql = new StringBuilder();</span>
+<span class="nc" id="L296">        StringBuilder sql = new StringBuilder();</span>
 
-<span class="nc" id="L297">        boolean first = true;</span>
+<span class="nc" id="L298">        boolean first = true;</span>
         String condition;
-<span class="nc" id="L299">        condition = &quot;    kad_onrrnd_zk.kad_identif = ? &quot;; //1 Long</span>
-<span class="nc" id="L300">        first = addTerm(first, searchContext.get(IDENTIFICATIE), sql, condition);</span>
+<span class="nc" id="L300">        condition = &quot;    kad_onrrnd_zk.kad_identif = ? &quot;; //1 Long</span>
+<span class="nc" id="L301">        first = addTerm(first, searchContext.get(IDENTIFICATIE), sql, condition);</span>
 
-<span class="nc" id="L302">        condition = &quot;   (    nat_prs.nm_geslachtsnaam like ? &quot;</span>
+<span class="nc" id="L303">        condition = &quot;   (    nat_prs.nm_geslachtsnaam like ? &quot;</span>
                 + &quot;    OR niet_nat_prs.naam like ?)&quot;; //2 string
-<span class="nc" id="L304">        first = addTerm(first, searchContext.get(SUBJECTNAAM), sql, condition);</span>
+<span class="nc" id="L305">        first = addTerm(first, searchContext.get(SUBJECTNAAM), sql, condition);</span>
 
         //3+4 wkt en bufferlengte
-<span class="nc" id="L307">        first = addGeoTerm(first, sql, searchContext, dbType);</span>
+<span class="nc" id="L308">        first = addGeoTerm(first, sql, searchContext, dbType);</span>
 
-<span class="nc" id="L309">        condition = &quot;app_re.ka_appartementsindex like ? &quot;; //5 string</span>
-<span class="nc" id="L310">        first = addTerm(first, searchContext.get(APPREVOLGNUMMER), sql, condition);</span>
+<span class="nc" id="L310">        condition = &quot;app_re.ka_appartementsindex like ? &quot;; //5 string</span>
+<span class="nc" id="L311">        first = addTerm(first, searchContext.get(APPREVOLGNUMMER), sql, condition);</span>
 
-<span class="nc" id="L312">        condition = &quot;   (    app_re.ka_kad_gemeentecode like ? &quot;</span>
+<span class="nc" id="L313">        condition = &quot;   (    app_re.ka_kad_gemeentecode like ? &quot;</span>
                 + &quot;    OR kad_perceel.ka_kad_gemeentecode like ?) &quot;; //6 string
-<span class="nc" id="L314">        first = addTerm(first, searchContext.get(GEMEENTECODE), sql, condition);</span>
+<span class="nc" id="L315">        first = addTerm(first, searchContext.get(GEMEENTECODE), sql, condition);</span>
 
-<span class="nc" id="L316">        condition = &quot;   (    app_re.ka_perceelnummer like ? &quot;</span>
+<span class="nc" id="L317">        condition = &quot;   (    app_re.ka_perceelnummer like ? &quot;</span>
                 + &quot;    OR kad_perceel.ka_perceelnummer like ?) &quot;; //7 string
-<span class="nc" id="L318">        first = addTerm(first, searchContext.get(PERCEELNUMMER), sql, condition);</span>
+<span class="nc" id="L319">        first = addTerm(first, searchContext.get(PERCEELNUMMER), sql, condition);</span>
 
-<span class="nc" id="L320">        condition = &quot;   (    app_re.ka_sectie like ? &quot;</span>
+<span class="nc" id="L321">        condition = &quot;   (    app_re.ka_sectie like ? &quot;</span>
                 + &quot;    OR kad_perceel.ka_sectie like ?) &quot;; //8 string
-<span class="nc" id="L322">        first = addTerm(first, searchContext.get(SECTIE), sql, condition);</span>
+<span class="nc" id="L323">        first = addTerm(first, searchContext.get(SECTIE), sql, condition);</span>
 
-<span class="nc" id="L324">        condition = &quot;wnplts.naam like ? &quot;; //9 string</span>
-<span class="nc" id="L325">        first = addTerm(first, searchContext.get(WOONPLAATS), sql, condition);</span>
+<span class="nc" id="L325">        condition = &quot;wnplts.naam like ? &quot;; //9 string</span>
+<span class="nc" id="L326">        first = addTerm(first, searchContext.get(WOONPLAATS), sql, condition);</span>
 
-<span class="nc" id="L327">        condition = &quot;gem_openb_rmte.naam_openb_rmte like ? &quot;; //10 string </span>
-<span class="nc" id="L328">        first = addTerm(first, searchContext.get(STRAATNAAM), sql, condition);</span>
+<span class="nc" id="L328">        condition = &quot;gem_openb_rmte.naam_openb_rmte like ? &quot;; //10 string </span>
+<span class="nc" id="L329">        first = addTerm(first, searchContext.get(STRAATNAAM), sql, condition);</span>
 
-<span class="nc" id="L330">        condition = &quot;addresseerb_obj_aand.huinummer = ? &quot;; //11 Integer</span>
-<span class="nc" id="L331">        first = addTerm(first, searchContext.get(HUISNUMMER), sql, condition);</span>
+<span class="nc" id="L331">        condition = &quot;addresseerb_obj_aand.huinummer = ? &quot;; //11 Integer</span>
+<span class="nc" id="L332">        first = addTerm(first, searchContext.get(HUISNUMMER), sql, condition);</span>
 
-<span class="nc" id="L333">        condition = &quot;addresseerb_obj_aand.postcode like ? &quot;; //12 string</span>
-<span class="nc" id="L334">        addTerm(first, searchContext.get(POSTCODE), sql, condition);</span>
+<span class="nc" id="L334">        condition = &quot;addresseerb_obj_aand.postcode like ? &quot;; //12 string</span>
+<span class="nc" id="L335">        addTerm(first, searchContext.get(POSTCODE), sql, condition);</span>
 
-<span class="nc" id="L336">        return sql;</span>
+<span class="nc" id="L337">        return sql;</span>
     }
 
     private static boolean addTerm(boolean first, Object o, StringBuilder sql, String condition) {
-<span class="nc bnc" id="L340" title="All 2 branches missed.">        if (o != null) {</span>
-<span class="nc bnc" id="L341" title="All 2 branches missed.">            if (!first) {</span>
-<span class="nc" id="L342">                sql.append(&quot;AND &quot;);</span>
+<span class="nc bnc" id="L341" title="All 2 branches missed.">        if (o != null) {</span>
+<span class="nc bnc" id="L342" title="All 2 branches missed.">            if (!first) {</span>
+<span class="nc" id="L343">                sql.append(&quot;AND &quot;);</span>
             }
-<span class="nc" id="L344">            sql.append(condition);</span>
-<span class="nc" id="L345">            first = false;</span>
+<span class="nc" id="L345">            sql.append(condition);</span>
+<span class="nc" id="L346">            first = false;</span>
         }
-<span class="nc" id="L347">        return first;</span>
+<span class="nc" id="L348">        return first;</span>
     }
 
     private static boolean addGeoTerm(boolean first, StringBuilder sql,
             Map&lt;String, Object&gt; searchContext, String dbType) throws ParseException {
 
-<span class="nc" id="L353">        String zg = (String) searchContext.get(ZOEKGEBIED);</span>
-<span class="nc bnc" id="L354" title="All 2 branches missed.">        if (zg == null) {</span>
-<span class="nc" id="L355">            return first;</span>
+<span class="nc" id="L354">        String zg = (String) searchContext.get(ZOEKGEBIED);</span>
+<span class="nc bnc" id="L355" title="All 2 branches missed.">        if (zg == null) {</span>
+<span class="nc" id="L356">            return first;</span>
         }
-<span class="nc" id="L357">        WKTReader r = new WKTReader();</span>
+<span class="nc" id="L358">        WKTReader r = new WKTReader();</span>
         //test om injectie te voorkomen, exception indien niet geldig
-<span class="nc" id="L359">        Geometry g = r.read(zg);</span>
-<span class="nc" id="L360">        Integer bl = (Integer) searchContext.get(BUFFERLENGTE);</span>
+<span class="nc" id="L360">        Geometry g = r.read(zg);</span>
+<span class="nc" id="L361">        Integer bl = (Integer) searchContext.get(BUFFERLENGTE);</span>
 
         String condition;
-<span class="nc bnc" id="L363" title="All 4 branches missed.">        switch (dbType) {</span>
+<span class="nc bnc" id="L364" title="All 4 branches missed.">        switch (dbType) {</span>
             case DB_POSTGRES:
-<span class="nc bnc" id="L365" title="All 2 branches missed.">                if (bl != null) {</span>
-<span class="nc" id="L366">                    condition = &quot;ST_Intersects(kad_perceel.begrenzing_perceel, &quot;</span>
+<span class="nc bnc" id="L366" title="All 2 branches missed.">                if (bl != null) {</span>
+<span class="nc" id="L367">                    condition = &quot;ST_Intersects(kad_perceel.begrenzing_perceel, &quot;</span>
                             + &quot;ST_Buffer(ST_GeomFromEWKT('SRID=28992;&quot;
                             + zg
                             + &quot;'), &quot;
                             + bl
                             + &quot;) ) &quot;;
                 } else {
-<span class="nc" id="L373">                    condition = &quot;ST_Intersects(kad_perceel.begrenzing_perceel, &quot;</span>
+<span class="nc" id="L374">                    condition = &quot;ST_Intersects(kad_perceel.begrenzing_perceel, &quot;</span>
                             + &quot;ST_GeomFromEWKT('SRID=28992;&quot;
                             + zg
                             + &quot;') ) &quot;;
                 }
-<span class="nc" id="L378">                break;</span>
+<span class="nc" id="L379">                break;</span>
             case DB_ORACLE:
-<span class="nc bnc" id="L380" title="All 2 branches missed.">                if (bl != null) {</span>
-<span class="nc" id="L381">                    condition = &quot;SDO_GEOM.RELATE(kad_perceel.begrenzing_perceel, 'ANYINTERACT', &quot;</span>
+<span class="nc bnc" id="L381" title="All 2 branches missed.">                if (bl != null) {</span>
+<span class="nc" id="L382">                    condition = &quot;SDO_GEOM.RELATE(kad_perceel.begrenzing_perceel, 'ANYINTERACT', &quot;</span>
                             + &quot;SDO_GEOM.SDO_BUFFER(SDO_GEOMETRY(('&quot;
                             + zg
                             + &quot;'), 28992), 2, &quot;
                             + bl
                             + &quot;), 0.005 )  = 'TRUE' &quot;;
                 } else {
-<span class="nc" id="L388">                    condition = &quot;SDO_GEOM.RELATE(kad_perceel.begrenzing_perceel, 'ANYINTERACT', &quot;</span>
+<span class="nc" id="L389">                    condition = &quot;SDO_GEOM.RELATE(kad_perceel.begrenzing_perceel, 'ANYINTERACT', &quot;</span>
                             + &quot;SDO_GEOMETRY(('&quot;
                             + zg
                             + &quot;'), 28992), 0.005 ) = 'TRUE' &quot;;
                 }
-<span class="nc" id="L393">                break;</span>
+<span class="nc" id="L394">                break;</span>
             case DB_MSSQL:
-<span class="nc bnc" id="L395" title="All 2 branches missed.">                if (bl != null) {</span>
-<span class="nc" id="L396">                    condition = &quot;kad_perceel.begrenzing_perceel.STIntersects( &quot;</span>
-                            + &quot;STGeomFromText('&quot;
+<span class="nc bnc" id="L396" title="All 2 branches missed.">                if (bl != null) {</span>
+<span class="nc" id="L397">                    condition = &quot;kad_perceel.begrenzing_perceel.STIntersects( &quot;</span>
+                            + &quot;geometry::STGeomFromText('&quot;
                             + zg
                             + &quot;',28992).STBuffer(&quot;
                             + bl
-                            + &quot;) ) &quot;;
+                            + &quot;) ) = 1&quot;;
                 } else {
-<span class="nc" id="L403">                    condition = &quot;kad_perceel.begrenzing_perceel.STIntersects( &quot;</span>
-                            + &quot;STGeomFromText('&quot;
+<span class="nc" id="L404">                    condition = &quot;kad_perceel.begrenzing_perceel.STIntersects( &quot;</span>
+                            + &quot;geometry::STGeomFromText('&quot;
                             + zg
-                            + &quot;',28992) ) &quot;;
-<span class="nc" id="L407">                    break;</span>
+                            + &quot;',28992) ) = 1&quot;;
                 }
+<span class="nc" id="L409">                break;</span>
             default:
-<span class="nc" id="L410">                throw new UnsupportedOperationException(&quot;Unknown database!&quot;);</span>
+<span class="nc" id="L411">                throw new UnsupportedOperationException(&quot;Unknown database! '&quot; + dbType + &quot;'&quot;);</span>
         }
-<span class="nc bnc" id="L412" title="All 2 branches missed.">        if (!first) {</span>
-<span class="nc" id="L413">            sql.append(&quot;AND &quot;);</span>
+<span class="nc bnc" id="L413" title="All 2 branches missed.">        if (!first) {</span>
+<span class="nc" id="L414">            sql.append(&quot;AND &quot;);</span>
         }
-<span class="nc" id="L415">        sql.append(condition);</span>
-<span class="nc" id="L416">        first = false;</span>
-<span class="nc" id="L417">        return first;</span>
+<span class="nc" id="L416">        sql.append(condition);</span>
+<span class="nc" id="L417">        first = false;</span>
+<span class="nc" id="L418">        return first;</span>
     }
 
     private static PreparedStatement addParamsSQL(PreparedStatement stm,
             Map&lt;String, Object&gt; searchContext, String dbType) throws SQLException {
 
-<span class="nc" id="L423">        int index = 1;</span>
-<span class="nc" id="L424">        index = addParam(index, searchContext.get(IDENTIFICATIE), stm, dbType);</span>
-<span class="nc" id="L425">        index = addParam(index, searchContext.get(SUBJECTNAAM), stm, dbType);</span>
+<span class="nc" id="L424">        int index = 1;</span>
+<span class="nc" id="L425">        index = addParam(index, searchContext.get(IDENTIFICATIE), stm, dbType);</span>
 <span class="nc" id="L426">        index = addParam(index, searchContext.get(SUBJECTNAAM), stm, dbType);</span>
+<span class="nc" id="L427">        index = addParam(index, searchContext.get(SUBJECTNAAM), stm, dbType);</span>
         //bufferlengte en zoekgebied direct in de Where!
-<span class="nc" id="L428">        index = addParam(index, searchContext.get(APPREVOLGNUMMER), stm, dbType);</span>
-<span class="nc" id="L429">        index = addParam(index, searchContext.get(GEMEENTECODE), stm, dbType);</span>
+<span class="nc" id="L429">        index = addParam(index, searchContext.get(APPREVOLGNUMMER), stm, dbType);</span>
 <span class="nc" id="L430">        index = addParam(index, searchContext.get(GEMEENTECODE), stm, dbType);</span>
-<span class="nc" id="L431">        index = addParam(index, searchContext.get(PERCEELNUMMER), stm, dbType);</span>
+<span class="nc" id="L431">        index = addParam(index, searchContext.get(GEMEENTECODE), stm, dbType);</span>
 <span class="nc" id="L432">        index = addParam(index, searchContext.get(PERCEELNUMMER), stm, dbType);</span>
-<span class="nc" id="L433">        index = addParam(index, searchContext.get(SECTIE), stm, dbType);</span>
+<span class="nc" id="L433">        index = addParam(index, searchContext.get(PERCEELNUMMER), stm, dbType);</span>
 <span class="nc" id="L434">        index = addParam(index, searchContext.get(SECTIE), stm, dbType);</span>
-<span class="nc" id="L435">        index = addParam(index, searchContext.get(WOONPLAATS), stm, dbType);</span>
-<span class="nc" id="L436">        index = addParam(index, searchContext.get(STRAATNAAM), stm, dbType);</span>
-<span class="nc" id="L437">        index = addParam(index, searchContext.get(HUISNUMMER), stm, dbType);</span>
-<span class="nc" id="L438">        addParam(index, searchContext.get(POSTCODE), stm, dbType);</span>
+<span class="nc" id="L435">        index = addParam(index, searchContext.get(SECTIE), stm, dbType);</span>
+<span class="nc" id="L436">        index = addParam(index, searchContext.get(WOONPLAATS), stm, dbType);</span>
+<span class="nc" id="L437">        index = addParam(index, searchContext.get(STRAATNAAM), stm, dbType);</span>
+<span class="nc" id="L438">        index = addParam(index, searchContext.get(HUISNUMMER), stm, dbType);</span>
+<span class="nc" id="L439">        addParam(index, searchContext.get(POSTCODE), stm, dbType);</span>
 
-<span class="nc" id="L440">        return stm;</span>
+<span class="nc" id="L441">        return stm;</span>
     }
 
     private static int addParam(int index, Object o, PreparedStatement stm,
             String dbType) throws SQLException {
-<span class="nc bnc" id="L445" title="All 2 branches missed.">        if (o != null) {</span>
-<span class="nc bnc" id="L446" title="All 2 branches missed.">            if (o instanceof String) {</span>
-<span class="nc" id="L447">                stm.setString(index++, &quot;%&quot; + ((String) o) + &quot;%&quot;);</span>
+<span class="nc bnc" id="L446" title="All 2 branches missed.">        if (o != null) {</span>
+<span class="nc bnc" id="L447" title="All 2 branches missed.">            if (o instanceof String) {</span>
+<span class="nc" id="L448">                stm.setString(index++, &quot;%&quot; + ((String) o) + &quot;%&quot;);</span>
             } else {
-<span class="nc" id="L449">                stm.setObject(index++, o);</span>
+<span class="nc" id="L450">                stm.setObject(index++, o);</span>
             }
         }
-<span class="nc" id="L452">        return index;</span>
+<span class="nc" id="L453">        return index;</span>
     }
 
     public static String getDbType(Connection connRsgb) throws SQLException {
-<span class="nc" id="L456">        String databaseProductName = connRsgb.getMetaData().getDatabaseProductName();</span>
-<span class="nc bnc" id="L457" title="All 2 branches missed.">        if (databaseProductName.contains(&quot;PostgreSQL&quot;)) {</span>
-<span class="nc" id="L458">            return DB_POSTGRES;</span>
-<span class="nc bnc" id="L459" title="All 2 branches missed.">        } else if (databaseProductName.contains(&quot;Oracle&quot;)) {</span>
-<span class="nc" id="L460">            return DB_ORACLE;</span>
-<span class="nc bnc" id="L461" title="All 2 branches missed.">        } else if (databaseProductName.contains(&quot;Microsoft&quot;)) {</span>
-<span class="nc" id="L462">            return DB_MSSQL;</span>
+<span class="nc" id="L457">        String databaseProductName = connRsgb.getMetaData().getDatabaseProductName();</span>
+<span class="nc bnc" id="L458" title="All 2 branches missed.">        if (databaseProductName.contains(&quot;PostgreSQL&quot;)) {</span>
+<span class="nc" id="L459">            return DB_POSTGRES;</span>
+<span class="nc bnc" id="L460" title="All 2 branches missed.">        } else if (databaseProductName.contains(&quot;Oracle&quot;)) {</span>
+<span class="nc" id="L461">            return DB_ORACLE;</span>
+<span class="nc bnc" id="L462" title="All 2 branches missed.">        } else if (databaseProductName.contains(&quot;Microsoft&quot;)) {</span>
+<span class="nc" id="L463">            return DB_MSSQL;</span>
         } else {
-<span class="nc" id="L464">            throw new UnsupportedOperationException(&quot;Unknown database: &quot; + connRsgb.getMetaData().getDatabaseProductName());</span>
+<span class="nc" id="L465">            throw new UnsupportedOperationException(&quot;Unknown database: &quot; + connRsgb.getMetaData().getDatabaseProductName());</span>
         }
     }
 
     public static Map&lt;String, Object&gt; createSearchContext(BrkInfoRequest request) {
-<span class="nc" id="L469">        Map&lt;String, Object&gt; searchContext = new HashMap&lt;&gt;();</span>
-<span class="nc bnc" id="L470" title="All 2 branches missed.">        if (request == null) {</span>
-<span class="nc" id="L471">            return searchContext;</span>
+<span class="nc" id="L470">        Map&lt;String, Object&gt; searchContext = new HashMap&lt;&gt;();</span>
+<span class="nc bnc" id="L471" title="All 2 branches missed.">        if (request == null) {</span>
+<span class="nc" id="L472">            return searchContext;</span>
         }
-<span class="nc bnc" id="L473" title="All 2 branches missed.">        if (request.getSubjectNaam() != null) {</span>
-<span class="nc" id="L474">            searchContext.put(BrkInfo.SUBJECTNAAM, request.getSubjectNaam());</span>
+<span class="nc bnc" id="L474" title="All 2 branches missed.">        if (request.getSubjectNaam() != null) {</span>
+<span class="nc" id="L475">            searchContext.put(BrkInfo.SUBJECTNAAM, request.getSubjectNaam());</span>
         }
-<span class="nc bnc" id="L476" title="All 2 branches missed.">        if (request.getZoekgebied() != null) {</span>
-<span class="nc" id="L477">            searchContext.put(BrkInfo.ZOEKGEBIED, request.getZoekgebied());</span>
+<span class="nc bnc" id="L477" title="All 2 branches missed.">        if (request.getZoekgebied() != null) {</span>
+<span class="nc" id="L478">            searchContext.put(BrkInfo.ZOEKGEBIED, request.getZoekgebied());</span>
         }
-<span class="nc bnc" id="L479" title="All 2 branches missed.">        if (request.getBufferAfstand() != null) {</span>
-<span class="nc" id="L480">            searchContext.put(BrkInfo.BUFFERLENGTE, request.getBufferAfstand());</span>
+<span class="nc bnc" id="L480" title="All 2 branches missed.">        if (request.getBufferAfstand() != null) {</span>
+<span class="nc" id="L481">            searchContext.put(BrkInfo.BUFFERLENGTE, request.getBufferAfstand());</span>
         }
 
-<span class="nc" id="L483">        KadOnrndZkInfoRequest koz = request.getKadOnrndZk();</span>
-<span class="nc bnc" id="L484" title="All 2 branches missed.">        if (koz != null) {</span>
-<span class="nc bnc" id="L485" title="All 2 branches missed.">            if (koz.getIdentificatie() != null) {</span>
-<span class="nc" id="L486">                searchContext.put(BrkInfo.IDENTIFICATIE, Long.parseLong(koz.getIdentificatie()));</span>
+<span class="nc" id="L484">        KadOnrndZkInfoRequest koz = request.getKadOnrndZk();</span>
+<span class="nc bnc" id="L485" title="All 2 branches missed.">        if (koz != null) {</span>
+<span class="nc bnc" id="L486" title="All 2 branches missed.">            if (koz.getIdentificatie() != null) {</span>
+<span class="nc" id="L487">                searchContext.put(BrkInfo.IDENTIFICATIE, Long.parseLong(koz.getIdentificatie()));</span>
             }
-<span class="nc bnc" id="L488" title="All 2 branches missed.">            if (koz.getAppReVolgnummer() != null) {</span>
-<span class="nc" id="L489">                searchContext.put(BrkInfo.APPREVOLGNUMMER, koz.getAppReVolgnummer());</span>
+<span class="nc bnc" id="L489" title="All 2 branches missed.">            if (koz.getAppReVolgnummer() != null) {</span>
+<span class="nc" id="L490">                searchContext.put(BrkInfo.APPREVOLGNUMMER, koz.getAppReVolgnummer());</span>
             }
-<span class="nc bnc" id="L491" title="All 2 branches missed.">            if (koz.getGemeentecode() != null) {</span>
-<span class="nc" id="L492">                searchContext.put(BrkInfo.GEMEENTECODE, koz.getGemeentecode());</span>
+<span class="nc bnc" id="L492" title="All 2 branches missed.">            if (koz.getGemeentecode() != null) {</span>
+<span class="nc" id="L493">                searchContext.put(BrkInfo.GEMEENTECODE, koz.getGemeentecode());</span>
             }
-<span class="nc bnc" id="L494" title="All 2 branches missed.">            if (koz.getPerceelnummer() != null) {</span>
-<span class="nc" id="L495">                searchContext.put(BrkInfo.PERCEELNUMMER, koz.getPerceelnummer());</span>
+<span class="nc bnc" id="L495" title="All 2 branches missed.">            if (koz.getPerceelnummer() != null) {</span>
+<span class="nc" id="L496">                searchContext.put(BrkInfo.PERCEELNUMMER, koz.getPerceelnummer());</span>
             }
-<span class="nc bnc" id="L497" title="All 2 branches missed.">            if (koz.getSectie() != null) {</span>
-<span class="nc" id="L498">                searchContext.put(BrkInfo.SECTIE, koz.getSectie());</span>
-            }
-        }
-<span class="nc" id="L501">        PerceelAdresInfoRequest pa = request.getPerceelAdres();</span>
-<span class="nc bnc" id="L502" title="All 2 branches missed.">        if (pa != null) {</span>
-<span class="nc bnc" id="L503" title="All 2 branches missed.">            if (pa.getWoonplaatsNaam() != null) {</span>
-<span class="nc" id="L504">                searchContext.put(BrkInfo.WOONPLAATS, pa.getWoonplaatsNaam());</span>
-            }
-<span class="nc bnc" id="L506" title="All 2 branches missed.">            if (pa.getHuisnummer() != null) {</span>
-<span class="nc" id="L507">                searchContext.put(BrkInfo.HUISNUMMER, pa.getHuisnummer());</span>
-            }
-<span class="nc bnc" id="L509" title="All 2 branches missed.">            if (pa.getPostcode() != null) {</span>
-<span class="nc" id="L510">                searchContext.put(BrkInfo.POSTCODE, pa.getPostcode());</span>
-            }
-<span class="nc bnc" id="L512" title="All 2 branches missed.">            if (pa.getStraatNaam() != null) {</span>
-<span class="nc" id="L513">                searchContext.put(BrkInfo.STRAATNAAM, pa.getStraatNaam());</span>
+<span class="nc bnc" id="L498" title="All 2 branches missed.">            if (koz.getSectie() != null) {</span>
+<span class="nc" id="L499">                searchContext.put(BrkInfo.SECTIE, koz.getSectie());</span>
             }
         }
-<span class="nc bnc" id="L516" title="All 2 branches missed.">        if (!searchContext.isEmpty()) {</span>
-<span class="nc bnc" id="L517" title="All 2 branches missed.">            if (request.getMaxAantalResultaten() != null) {</span>
-<span class="nc" id="L518">                searchContext.put(BrkInfo.MAXAANTALRESULTATEN, request.getMaxAantalResultaten());</span>
+<span class="nc" id="L502">        PerceelAdresInfoRequest pa = request.getPerceelAdres();</span>
+<span class="nc bnc" id="L503" title="All 2 branches missed.">        if (pa != null) {</span>
+<span class="nc bnc" id="L504" title="All 2 branches missed.">            if (pa.getWoonplaatsNaam() != null) {</span>
+<span class="nc" id="L505">                searchContext.put(BrkInfo.WOONPLAATS, pa.getWoonplaatsNaam());</span>
             }
-<span class="nc bnc" id="L520" title="All 2 branches missed.">            if (request.getAdressenToevoegen() != null) {</span>
-<span class="nc" id="L521">                searchContext.put(BrkInfo.ADRESSENTOEVOEGEN, request.getAdressenToevoegen());</span>
+<span class="nc bnc" id="L507" title="All 2 branches missed.">            if (pa.getHuisnummer() != null) {</span>
+<span class="nc" id="L508">                searchContext.put(BrkInfo.HUISNUMMER, pa.getHuisnummer());</span>
             }
-<span class="nc bnc" id="L523" title="All 2 branches missed.">            if (request.getGevoeligeInfoOphalen() != null) {</span>
-<span class="nc" id="L524">                searchContext.put(BrkInfo.GEVOELIGEINFOOPHALEN, request.getGevoeligeInfoOphalen());</span>
+<span class="nc bnc" id="L510" title="All 2 branches missed.">            if (pa.getPostcode() != null) {</span>
+<span class="nc" id="L511">                searchContext.put(BrkInfo.POSTCODE, pa.getPostcode());</span>
             }
-<span class="nc bnc" id="L526" title="All 2 branches missed.">            if (request.getSubjectsToevoegen() != null) {</span>
-<span class="nc" id="L527">                searchContext.put(BrkInfo.SUBJECTSTOEVOEGEN, request.getSubjectsToevoegen());</span>
+<span class="nc bnc" id="L513" title="All 2 branches missed.">            if (pa.getStraatNaam() != null) {</span>
+<span class="nc" id="L514">                searchContext.put(BrkInfo.STRAATNAAM, pa.getStraatNaam());</span>
             }
         }
-<span class="nc" id="L530">        return searchContext;</span>
+<span class="nc bnc" id="L517" title="All 2 branches missed.">        if (!searchContext.isEmpty()) {</span>
+<span class="nc bnc" id="L518" title="All 2 branches missed.">            if (request.getMaxAantalResultaten() != null) {</span>
+<span class="nc" id="L519">                searchContext.put(BrkInfo.MAXAANTALRESULTATEN, request.getMaxAantalResultaten());</span>
+            }
+<span class="nc bnc" id="L521" title="All 2 branches missed.">            if (request.getAdressenToevoegen() != null) {</span>
+<span class="nc" id="L522">                searchContext.put(BrkInfo.ADRESSENTOEVOEGEN, request.getAdressenToevoegen());</span>
+            }
+<span class="nc bnc" id="L524" title="All 2 branches missed.">            if (request.getGevoeligeInfoOphalen() != null) {</span>
+<span class="nc" id="L525">                searchContext.put(BrkInfo.GEVOELIGEINFOOPHALEN, request.getGevoeligeInfoOphalen());</span>
+            }
+<span class="nc bnc" id="L527" title="All 2 branches missed.">            if (request.getSubjectsToevoegen() != null) {</span>
+<span class="nc" id="L528">                searchContext.put(BrkInfo.SUBJECTSTOEVOEGEN, request.getSubjectsToevoegen());</span>
+            }
+        }
+<span class="nc" id="L531">        return searchContext;</span>
     }
 
     public static BrkInfoResponse createResponse(List&lt;Long&gt; ids,
             Map&lt;String, Object&gt; searchContext) throws Exception {
-<span class="nc" id="L535">        BrkInfoResponse result = new BrkInfoResponse();</span>
+<span class="nc" id="L536">        BrkInfoResponse result = new BrkInfoResponse();</span>
 
-<span class="nc" id="L537">        Boolean at = (Boolean) searchContext.get(BrkInfo.SUBJECTSTOEVOEGEN);</span>
-<span class="nc bnc" id="L538" title="All 4 branches missed.">        if (at != null &amp;&amp; at) {</span>
-<span class="nc" id="L539">            at = (Boolean) searchContext.get(BrkInfo.GEVOELIGEINFOOPHALEN);</span>
-<span class="nc bnc" id="L540" title="All 4 branches missed.">            if (at != null &amp;&amp; at) {</span>
-<span class="nc" id="L541">                result.setBevatGevoeligeInfo(true);</span>
+<span class="nc" id="L538">        Boolean at = (Boolean) searchContext.get(BrkInfo.SUBJECTSTOEVOEGEN);</span>
+<span class="nc bnc" id="L539" title="All 4 branches missed.">        if (at != null &amp;&amp; at) {</span>
+<span class="nc" id="L540">            at = (Boolean) searchContext.get(BrkInfo.GEVOELIGEINFOOPHALEN);</span>
+<span class="nc bnc" id="L541" title="All 4 branches missed.">            if (at != null &amp;&amp; at) {</span>
+<span class="nc" id="L542">                result.setBevatGevoeligeInfo(true);</span>
             }
         }
-<span class="nc" id="L544">        result.setTimestamp(new Date());</span>
+<span class="nc" id="L545">        result.setTimestamp(new Date());</span>
 
-<span class="nc bnc" id="L546" title="All 2 branches missed.">        for (Long id : ids) {</span>
-<span class="nc" id="L547">            KadOnrndZkInfoResponse koz</span>
-<span class="nc" id="L548">                    = KadOnrndZkInfoResponse.getRecord(id, searchContext);</span>
-<span class="nc" id="L549">            result.addKadOnrndZk(koz);</span>
-<span class="nc" id="L550">        }</span>
+<span class="nc bnc" id="L547" title="All 2 branches missed.">        for (Long id : ids) {</span>
+<span class="nc" id="L548">            KadOnrndZkInfoResponse koz</span>
+<span class="nc" id="L549">                    = KadOnrndZkInfoResponse.getRecord(id, searchContext);</span>
+<span class="nc" id="L550">            result.addKadOnrndZk(koz);</span>
+<span class="nc" id="L551">        }</span>
 
-<span class="nc" id="L552">        return result;</span>
+<span class="nc" id="L553">        return result;</span>
     }
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

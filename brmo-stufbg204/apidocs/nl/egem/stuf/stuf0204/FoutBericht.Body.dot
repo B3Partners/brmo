@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.stuf0204.FoutBericht
-	c55644 [label=<<table title="nl.egem.stuf.stuf0204.FoutBericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./FoutBericht.html">
+	c55661 [label=<<table title="nl.egem.stuf.stuf0204.FoutBericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./FoutBericht.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> FoutBericht </td></tr>
 		</table></td></tr>
@@ -27,7 +27,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./FoutBericht.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.stuf0204.FoutBericht.Body
-	c55645 [label=<<table title="nl.egem.stuf.stuf0204.FoutBericht.Body" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./FoutBericht.Body.html">
+	c55662 [label=<<table title="nl.egem.stuf.stuf0204.FoutBericht.Body" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./FoutBericht.Body.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Body </td></tr>
 		</table></td></tr>
@@ -47,7 +47,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./FoutBericht.Body.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.stuf0204.FoutPlek
-	c55663 [label=<<table title="nl.egem.stuf.stuf0204.FoutPlek" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./FoutPlek.html">
+	c55664 [label=<<table title="nl.egem.stuf.stuf0204.FoutPlek" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./FoutPlek.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> FoutPlek </td></tr>
@@ -61,8 +61,8 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./FoutPlek.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.stuf0204.FoutBericht NAVASSOC nl.egem.stuf.stuf0204.FoutBericht.Body
-	c55644:p -> c55645:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c55661:p -> c55662:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.egem.stuf.stuf0204.FoutBericht.Body NAVASSOC nl.egem.stuf.stuf0204.FoutPlek
-	c55645:p -> c55663:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c55662:p -> c55664:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

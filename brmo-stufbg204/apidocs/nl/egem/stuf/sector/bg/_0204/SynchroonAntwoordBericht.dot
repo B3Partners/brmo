@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.SynchroonAntwoordBericht
-	c202618 [label=<<table title="nl.egem.stuf.sector.bg._0204.SynchroonAntwoordBericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./SynchroonAntwoordBericht.html">
+	c202428 [label=<<table title="nl.egem.stuf.sector.bg._0204.SynchroonAntwoordBericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./SynchroonAntwoordBericht.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> SynchroonAntwoordBericht </td></tr>
 		</table></td></tr>
@@ -27,7 +27,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./SynchroonAntwoordBericht.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.SynchroonAntwoordBericht.Body
-	c202619 [label=<<table title="nl.egem.stuf.sector.bg._0204.SynchroonAntwoordBericht.Body" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./SynchroonAntwoordBericht.Body.html">
+	c202429 [label=<<table title="nl.egem.stuf.sector.bg._0204.SynchroonAntwoordBericht.Body" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./SynchroonAntwoordBericht.Body.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Body </td></tr>
 		</table></td></tr>
@@ -110,7 +110,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./SynchroonAntwoordBericht.Body.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.stuf0204.Stuurgegevens
-	c202897 [label=<<table title="nl.egem.stuf.stuf0204.Stuurgegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/Stuurgegevens.html">
+	c202893 [label=<<table title="nl.egem.stuf.stuf0204.Stuurgegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/Stuurgegevens.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Stuurgegevens </td></tr>
 		</table></td></tr>
@@ -163,8 +163,8 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="../../../stuf0204/Stuurgegevens.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.SynchroonAntwoordBericht NAVASSOC nl.egem.stuf.stuf0204.Stuurgegevens
-	c202618:p -> c202897:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c202428:p -> c202893:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.egem.stuf.sector.bg._0204.SynchroonAntwoordBericht NAVASSOC nl.egem.stuf.sector.bg._0204.SynchroonAntwoordBericht.Body
-	c202618:p -> c202619:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c202428:p -> c202429:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

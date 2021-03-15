@@ -9,26 +9,8 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// nl.b3p.brmo.stufbg204.WebTestStub
-	c53 [label=<<table title="nl.b3p.brmo.stufbg204.WebTestStub" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WebTestStub.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"><font face="Helvetica-Oblique"> WebTestStub </font></td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + HTTP_PORT : int </td></tr>
-<tr><td align="left" balign="left"> + BASE_TEST_URL : String </td></tr>
-<tr><td align="left" balign="left"> # client : CloseableHttpClient </td></tr>
-<tr><td align="left" balign="left"> # target : HttpHost </td></tr>
-<tr><td align="left" balign="left"> # localContext : HttpClientContext </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + WebTestStub() </td></tr>
-<tr><td align="left" balign="left"> + setUpClass() </td></tr>
-<tr><td align="left" balign="left"> + tearDownClass() </td></tr>
-		</table></td></tr>
-		</table>>, URL="./WebTestStub.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.stufbg204.VerwerkToevoegingMutatieIntegrationTest
-	c55 [label=<<table title="nl.b3p.brmo.stufbg204.VerwerkToevoegingMutatieIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./VerwerkToevoegingMutatieIntegrationTest.html">
+	c63 [label=<<table title="nl.b3p.brmo.stufbg204.VerwerkToevoegingMutatieIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./VerwerkToevoegingMutatieIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> VerwerkToevoegingMutatieIntegrationTest </td></tr>
 		</table></td></tr>
@@ -47,12 +29,30 @@ digraph G {
 <tr><td align="left" balign="left"> + testMutatieGevuldNaarLeeg() </td></tr>
 		</table></td></tr>
 		</table>>, URL="./VerwerkToevoegingMutatieIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.stufbg204.WebTestStub
+	c64 [label=<<table title="nl.b3p.brmo.stufbg204.WebTestStub" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WebTestStub.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"><font face="Helvetica-Oblique"> WebTestStub </font></td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + HTTP_PORT : int </td></tr>
+<tr><td align="left" balign="left"> + BASE_TEST_URL : String </td></tr>
+<tr><td align="left" balign="left"> # client : CloseableHttpClient </td></tr>
+<tr><td align="left" balign="left"> # target : HttpHost </td></tr>
+<tr><td align="left" balign="left"> # localContext : HttpClientContext </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + WebTestStub() </td></tr>
+<tr><td align="left" balign="left"> + setUpClass() </td></tr>
+<tr><td align="left" balign="left"> + tearDownClass() </td></tr>
+		</table></td></tr>
+		</table>>, URL="./WebTestStub.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.stufbg204.VerwerkToevoegingMutatieIntegrationTest extends nl.b3p.brmo.stufbg204.WebTestStub
-	c53:p -> c55:p [dir=back,arrowtail=empty];
+	c64:p -> c63:p [dir=back,arrowtail=empty];
 	// nl.b3p.brmo.stufbg204.VerwerkToevoegingMutatieIntegrationTest NAVASSOC nl.b3p.brmo.loader.BrmoFramework
-	c55:p -> c59:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c63:p -> c65:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.loader.BrmoFramework
-	c59 [label=<<table title="nl.b3p.brmo.loader.BrmoFramework" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+	c65 [label=<<table title="nl.b3p.brmo.loader.BrmoFramework" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BrmoFramework </td></tr>
 		</table></td></tr>

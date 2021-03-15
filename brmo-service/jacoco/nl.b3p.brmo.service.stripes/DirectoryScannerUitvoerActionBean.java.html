@@ -115,128 +115,124 @@ import org.stripesstuff.stripersist.Stripersist;
     @Override
     public void exception(Throwable t) {
 <span class="nc" id="L117">        StringWriter sw = new StringWriter();</span>
-<span class="nc" id="L118">        PrintWriter pw = new PrintWriter(sw);</span>
-<span class="nc" id="L119">        t.printStackTrace(new PrintWriter(sw));</span>
-<span class="nc" id="L120">        this.exceptionStacktrace = sw.toString();</span>
-<span class="nc" id="L121">    }</span>
+<span class="nc" id="L118">        t.printStackTrace(new PrintWriter(sw));</span>
+<span class="nc" id="L119">        this.exceptionStacktrace = sw.toString();</span>
+<span class="nc" id="L120">    }</span>
 
     @Override
     public void updateStatus(String status) {
-<span class="nc" id="L125">        this.status = status;</span>
-<span class="nc" id="L126">    }</span>
+<span class="nc" id="L124">        this.status = status;</span>
+<span class="nc" id="L125">    }</span>
 
     @Override
     public void addLog(String log) {
-        // voorkom dubbele log uitvoer
-        // this.proces.addLogLine(log);
-        // Stripersist.getEntityManager().merge(this.proces);
-<span class="nc bnc" id="L133" title="All 2 branches missed.">        if (this.logLineCounter &gt; 1000) {</span>
+<span class="nc bnc" id="L129" title="All 2 branches missed.">        if (this.logLineCounter &gt; 1000) {</span>
             // trim buffer
-<span class="nc" id="L135">            int i900regels = 100;</span>
-<span class="nc" id="L136">            this.log.delete(0, i900regels);</span>
-<span class="nc" id="L137">            this.log.trimToSize();</span>
+<span class="nc" id="L131">            int i900regels = 100;</span>
+<span class="nc" id="L132">            this.log.delete(0, i900regels);</span>
+<span class="nc" id="L133">            this.log.trimToSize();</span>
         }
-<span class="nc" id="L139">        this.log.append(log).append(&quot;\n&quot;);</span>
-<span class="nc" id="L140">        this.logLineCounter++;</span>
-<span class="nc" id="L141">    }</span>
+<span class="nc" id="L135">        this.log.append(log).append(&quot;\n&quot;);</span>
+<span class="nc" id="L136">        this.logLineCounter++;</span>
+<span class="nc" id="L137">    }</span>
 
     @Override
     public ActionBeanContext getContext() {
-<span class="nc" id="L145">        return context;</span>
+<span class="nc" id="L141">        return context;</span>
     }
 
     @Override
     public void setContext(ActionBeanContext context) {
-<span class="nc" id="L150">        this.context = context;</span>
-<span class="nc" id="L151">    }</span>
+<span class="nc" id="L146">        this.context = context;</span>
+<span class="nc" id="L147">    }</span>
 
     public AutomatischProces getProces() {
-<span class="nc" id="L154">        return proces;</span>
+<span class="nc" id="L150">        return proces;</span>
     }
 
     public void setProces(AutomatischProces proces) {
-<span class="nc" id="L158">        this.proces = proces;</span>
-<span class="nc" id="L159">    }</span>
+<span class="nc" id="L154">        this.proces = proces;</span>
+<span class="nc" id="L155">    }</span>
 
     public double getProgress() {
-<span class="nc" id="L162">        return progress;</span>
+<span class="nc" id="L158">        return progress;</span>
     }
 
     public void setProgress(double progress) {
-<span class="nc" id="L166">        this.progress = progress;</span>
-<span class="nc" id="L167">    }</span>
+<span class="nc" id="L162">        this.progress = progress;</span>
+<span class="nc" id="L163">    }</span>
 
     public long getTotal() {
-<span class="nc" id="L170">        return total;</span>
+<span class="nc" id="L166">        return total;</span>
     }
 
     public void setTotal(long total) {
-<span class="nc" id="L174">        this.total = total;</span>
-<span class="nc" id="L175">    }</span>
+<span class="nc" id="L170">        this.total = total;</span>
+<span class="nc" id="L171">    }</span>
 
     public long getProcessed() {
-<span class="nc" id="L178">        return processed;</span>
+<span class="nc" id="L174">        return processed;</span>
     }
 
     public void setProcessed(long processed) {
-<span class="nc" id="L182">        this.processed = processed;</span>
-<span class="nc" id="L183">    }</span>
+<span class="nc" id="L178">        this.processed = processed;</span>
+<span class="nc" id="L179">    }</span>
 
     public boolean isComplete() {
-<span class="nc" id="L186">        return complete;</span>
+<span class="nc" id="L182">        return complete;</span>
     }
 
     public void setComplete(boolean complete) {
-<span class="nc" id="L190">        this.complete = complete;</span>
-<span class="nc" id="L191">    }</span>
+<span class="nc" id="L186">        this.complete = complete;</span>
+<span class="nc" id="L187">    }</span>
 
     public String getStatus() {
-<span class="nc" id="L194">        return status;</span>
+<span class="nc" id="L190">        return status;</span>
     }
 
     public void setStatus(String status) {
-<span class="nc" id="L198">        this.status = status;</span>
-<span class="nc" id="L199">    }</span>
+<span class="nc" id="L194">        this.status = status;</span>
+<span class="nc" id="L195">    }</span>
 
     public String getLabel() {
-<span class="nc" id="L202">        return label;</span>
+<span class="nc" id="L198">        return label;</span>
     }
 
     public void setLabel(String label) {
-<span class="nc" id="L206">        this.label = label;</span>
-<span class="nc" id="L207">    }</span>
+<span class="nc" id="L202">        this.label = label;</span>
+<span class="nc" id="L203">    }</span>
 
     public String getLog() {
-<span class="nc" id="L210">        return log.toString();</span>
+<span class="nc" id="L206">        return log.toString();</span>
     }
 
     public void setLog(String log) {
-<span class="nc" id="L214">        this.log = new StringBuilder(log);</span>
-<span class="nc" id="L215">    }</span>
+<span class="nc" id="L210">        this.log = new StringBuilder(log);</span>
+<span class="nc" id="L211">    }</span>
 
     public Date getStart() {
-<span class="nc" id="L218">        return start;</span>
+<span class="nc" id="L214">        return start;</span>
     }
 
     public void setStart(Date start) {
-<span class="nc" id="L222">        this.start = start;</span>
-<span class="nc" id="L223">    }</span>
+<span class="nc" id="L218">        this.start = start;</span>
+<span class="nc" id="L219">    }</span>
 
     public Date getUpdate() {
-<span class="nc" id="L226">        return update;</span>
+<span class="nc" id="L222">        return update;</span>
     }
 
     public void setUpdate(Date update) {
-<span class="nc" id="L230">        this.update = update;</span>
-<span class="nc" id="L231">    }</span>
+<span class="nc" id="L226">        this.update = update;</span>
+<span class="nc" id="L227">    }</span>
 
     public String getExceptionStacktrace() {
-<span class="nc" id="L234">        return exceptionStacktrace;</span>
+<span class="nc" id="L230">        return exceptionStacktrace;</span>
     }
 
     public void setExceptionStacktrace(String exceptionStacktrace) {
-<span class="nc" id="L238">        this.exceptionStacktrace = exceptionStacktrace;</span>
-<span class="nc" id="L239">    }</span>
+<span class="nc" id="L234">        this.exceptionStacktrace = exceptionStacktrace;</span>
+<span class="nc" id="L235">    }</span>
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

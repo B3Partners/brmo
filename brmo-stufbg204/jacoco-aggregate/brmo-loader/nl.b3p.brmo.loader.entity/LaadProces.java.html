@@ -46,8 +46,8 @@ public class LaadProces {
 <span class="nc" id="L46">        STAGING_OK, STAGING_NOK, STAGING_MISSING, STAGING_DUPLICAAT, ARCHIVE, RSGB_BGT_OK, RSGB_BGT_NOK, RSGB_BGT_WAITING, RSGB_TOPNL_WAITING, RSGB_TOPNL_OK, RSGB_TOPNL_NOK</span>
     };
 
-<span class="fc" id="L49">    public LaadProces() {</span>
-<span class="fc" id="L50">    }</span>
+<span class="nc" id="L49">    public LaadProces() {</span>
+<span class="nc" id="L50">    }</span>
 
 <span class="nc" id="L52">    public LaadProces(String bestandNaam, String soort) {</span>
 <span class="nc" id="L53">        this.bestandNaam = bestandNaam;</span>
@@ -216,5 +216,30 @@ public class LaadProces {
     public void setBeschikbaar_tot(Date beschikbaar_tot) {
 <span class="nc" id="L217">        this.beschikbaar_tot = beschikbaar_tot;</span>
 <span class="nc" id="L218">    }</span>
+
+    @Override
+    public String toString() {
+<span class="nc" id="L222">        return &quot;LaadProces{&quot; +</span>
+                &quot;id=&quot; + id +
+                &quot;, bestandNaam='&quot; + bestandNaam + '\'' +
+                &quot;, bestandNaamHersteld='&quot; + bestandNaamHersteld + '\'' +
+                &quot;, bestandDatum=&quot; + bestandDatum +
+                &quot;, soort='&quot; + soort + '\'' +
+                &quot;, gebied='&quot; + gebied + '\'' +
+                &quot;, opmerking='&quot; + opmerking + '\'' +
+                &quot;, status=&quot; + status +
+                &quot;, statusDatum=&quot; + statusDatum +
+                &quot;, contactEmail='&quot; + contactEmail + '\'' +
+                &quot;, automatischProces=&quot; + automatischProces +
+                &quot;, klantafgiftenummer=&quot; + klantafgiftenummer +
+                &quot;, contractafgiftenummer=&quot; + contractafgiftenummer +
+                &quot;, artikelnummer='&quot; + artikelnummer + '\'' +
+                &quot;, contractnummer='&quot; + contractnummer + '\'' +
+                &quot;, afgifteid='&quot; + afgifteid + '\'' +
+                &quot;, afgiftereferentie='&quot; + afgiftereferentie + '\'' +
+                &quot;, bestandsreferentie='&quot; + bestandsreferentie + '\'' +
+                &quot;, beschikbaar_tot=&quot; + beschikbaar_tot +
+                '}';
+    }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

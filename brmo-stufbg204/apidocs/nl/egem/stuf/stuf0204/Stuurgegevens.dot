@@ -9,25 +9,8 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// nl.egem.stuf.sector.bg._0204.AsynchroonAntwoordBericht
-	c199550 [label=<<table title="nl.egem.stuf.sector.bg._0204.AsynchroonAntwoordBericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/AsynchroonAntwoordBericht.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> AsynchroonAntwoordBericht </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # stuurgegevens : Stuurgegevens </td></tr>
-<tr><td align="left" balign="left"> # body : AsynchroonAntwoordBericht.Body </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + AsynchroonAntwoordBericht() </td></tr>
-<tr><td align="left" balign="left"> + getStuurgegevens() : Stuurgegevens </td></tr>
-<tr><td align="left" balign="left"> + setStuurgegevens(value : Stuurgegevens) </td></tr>
-<tr><td align="left" balign="left"> + getBody() : AsynchroonAntwoordBericht.Body </td></tr>
-<tr><td align="left" balign="left"> + setBody(value : AsynchroonAntwoordBericht.Body) </td></tr>
-		</table></td></tr>
-		</table>>, URL="../sector/bg/_0204/AsynchroonAntwoordBericht.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.SynchroonAntwoordBericht
-	c199582 [label=<<table title="nl.egem.stuf.sector.bg._0204.SynchroonAntwoordBericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/SynchroonAntwoordBericht.html">
+	c199392 [label=<<table title="nl.egem.stuf.sector.bg._0204.SynchroonAntwoordBericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/SynchroonAntwoordBericht.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> SynchroonAntwoordBericht </td></tr>
 		</table></td></tr>
@@ -43,25 +26,25 @@ digraph G {
 <tr><td align="left" balign="left"> + setBody(value : SynchroonAntwoordBericht.Body) </td></tr>
 		</table></td></tr>
 		</table>>, URL="../sector/bg/_0204/SynchroonAntwoordBericht.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.VraagBericht
-	c199624 [label=<<table title="nl.egem.stuf.sector.bg._0204.VraagBericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/VraagBericht.html">
+	// nl.egem.stuf.sector.bg._0204.AsynchroonAntwoordBericht
+	c199423 [label=<<table title="nl.egem.stuf.sector.bg._0204.AsynchroonAntwoordBericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/AsynchroonAntwoordBericht.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> VraagBericht </td></tr>
+<tr><td align="center" balign="center"> AsynchroonAntwoordBericht </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> # stuurgegevens : Stuurgegevens </td></tr>
-<tr><td align="left" balign="left"> # body : VraagBericht.Body </td></tr>
+<tr><td align="left" balign="left"> # body : AsynchroonAntwoordBericht.Body </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + VraagBericht() </td></tr>
+<tr><td align="left" balign="left"> + AsynchroonAntwoordBericht() </td></tr>
 <tr><td align="left" balign="left"> + getStuurgegevens() : Stuurgegevens </td></tr>
 <tr><td align="left" balign="left"> + setStuurgegevens(value : Stuurgegevens) </td></tr>
-<tr><td align="left" balign="left"> + getBody() : VraagBericht.Body </td></tr>
-<tr><td align="left" balign="left"> + setBody(value : VraagBericht.Body) </td></tr>
+<tr><td align="left" balign="left"> + getBody() : AsynchroonAntwoordBericht.Body </td></tr>
+<tr><td align="left" balign="left"> + setBody(value : AsynchroonAntwoordBericht.Body) </td></tr>
 		</table></td></tr>
-		</table>>, URL="../sector/bg/_0204/VraagBericht.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, URL="../sector/bg/_0204/AsynchroonAntwoordBericht.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.KennisgevingsBericht
-	c199819 [label=<<table title="nl.egem.stuf.sector.bg._0204.KennisgevingsBericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/KennisgevingsBericht.html">
+	c199557 [label=<<table title="nl.egem.stuf.sector.bg._0204.KennisgevingsBericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/KennisgevingsBericht.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> KennisgevingsBericht </td></tr>
 		</table></td></tr>
@@ -77,39 +60,25 @@ digraph G {
 <tr><td align="left" balign="left"> + setBody(value : KennisgevingsBericht.Body) </td></tr>
 		</table></td></tr>
 		</table>>, URL="../sector/bg/_0204/KennisgevingsBericht.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.stuf0204.FoutBericht
-	c199854 [label=<<table title="nl.egem.stuf.stuf0204.FoutBericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./FoutBericht.html">
+	// nl.egem.stuf.sector.bg._0204.VraagBericht
+	c199638 [label=<<table title="nl.egem.stuf.sector.bg._0204.VraagBericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/VraagBericht.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> FoutBericht </td></tr>
+<tr><td align="center" balign="center"> VraagBericht </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> # stuurgegevens : Stuurgegevens </td></tr>
-<tr><td align="left" balign="left"> # body : FoutBericht.Body </td></tr>
+<tr><td align="left" balign="left"> # body : VraagBericht.Body </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + FoutBericht() </td></tr>
+<tr><td align="left" balign="left"> + VraagBericht() </td></tr>
 <tr><td align="left" balign="left"> + getStuurgegevens() : Stuurgegevens </td></tr>
 <tr><td align="left" balign="left"> + setStuurgegevens(value : Stuurgegevens) </td></tr>
-<tr><td align="left" balign="left"> + getBody() : FoutBericht.Body </td></tr>
-<tr><td align="left" balign="left"> + setBody(value : FoutBericht.Body) </td></tr>
+<tr><td align="left" balign="left"> + getBody() : VraagBericht.Body </td></tr>
+<tr><td align="left" balign="left"> + setBody(value : VraagBericht.Body) </td></tr>
 		</table></td></tr>
-		</table>>, URL="./FoutBericht.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.stuf0204.BevestigingsBericht
-	c199858 [label=<<table title="nl.egem.stuf.stuf0204.BevestigingsBericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BevestigingsBericht.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> BevestigingsBericht </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # stuurgegevens : Stuurgegevens </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BevestigingsBericht() </td></tr>
-<tr><td align="left" balign="left"> + getStuurgegevens() : Stuurgegevens </td></tr>
-<tr><td align="left" balign="left"> + setStuurgegevens(value : Stuurgegevens) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./BevestigingsBericht.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, URL="../sector/bg/_0204/VraagBericht.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.stuf0204.Stuurgegevens
-	c199861 [label=<<table title="nl.egem.stuf.stuf0204.Stuurgegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Stuurgegevens.html">
+	c199857 [label=<<table title="nl.egem.stuf.stuf0204.Stuurgegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Stuurgegevens.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Stuurgegevens </td></tr>
 		</table></td></tr>
@@ -162,7 +131,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./Stuurgegevens.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.stuf0204.Stuurgegevens.Antwoord
-	c199862 [label=<<table title="nl.egem.stuf.stuf0204.Stuurgegevens.Antwoord" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Stuurgegevens.Antwoord.html">
+	c199858 [label=<<table title="nl.egem.stuf.stuf0204.Stuurgegevens.Antwoord" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Stuurgegevens.Antwoord.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Antwoord </td></tr>
 		</table></td></tr>
@@ -185,7 +154,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./Stuurgegevens.Antwoord.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.stuf0204.Stuurgegevens.Bevestiging
-	c199863 [label=<<table title="nl.egem.stuf.stuf0204.Stuurgegevens.Bevestiging" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Stuurgegevens.Bevestiging.html">
+	c199859 [label=<<table title="nl.egem.stuf.stuf0204.Stuurgegevens.Bevestiging" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Stuurgegevens.Bevestiging.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Bevestiging </td></tr>
 		</table></td></tr>
@@ -199,7 +168,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./Stuurgegevens.Bevestiging.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.stuf0204.Stuurgegevens.Fout
-	c199864 [label=<<table title="nl.egem.stuf.stuf0204.Stuurgegevens.Fout" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Stuurgegevens.Fout.html">
+	c199860 [label=<<table title="nl.egem.stuf.stuf0204.Stuurgegevens.Fout" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Stuurgegevens.Fout.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Fout </td></tr>
 		</table></td></tr>
@@ -213,7 +182,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./Stuurgegevens.Fout.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.stuf0204.Stuurgegevens.Kennisgeving
-	c199865 [label=<<table title="nl.egem.stuf.stuf0204.Stuurgegevens.Kennisgeving" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Stuurgegevens.Kennisgeving.html">
+	c199861 [label=<<table title="nl.egem.stuf.stuf0204.Stuurgegevens.Kennisgeving" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Stuurgegevens.Kennisgeving.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Kennisgeving </td></tr>
 		</table></td></tr>
@@ -233,7 +202,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./Stuurgegevens.Kennisgeving.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.stuf0204.Stuurgegevens.Vraag
-	c199866 [label=<<table title="nl.egem.stuf.stuf0204.Stuurgegevens.Vraag" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Stuurgegevens.Vraag.html">
+	c199862 [label=<<table title="nl.egem.stuf.stuf0204.Stuurgegevens.Vraag" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Stuurgegevens.Vraag.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Vraag </td></tr>
 		</table></td></tr>
@@ -259,7 +228,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./Stuurgegevens.Vraag.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.stuf0204.Systeem
-	c199877 [label=<<table title="nl.egem.stuf.stuf0204.Systeem" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Systeem.html">
+	c199868 [label=<<table title="nl.egem.stuf.stuf0204.Systeem" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Systeem.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Systeem </td></tr>
 		</table></td></tr>
@@ -281,31 +250,62 @@ digraph G {
 <tr><td align="left" balign="left"> + setGebruiker(value : String) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Systeem.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.AsynchroonAntwoordBericht NAVASSOC nl.egem.stuf.stuf0204.Stuurgegevens
-	c199550:p -> c199861:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.stuf0204.FoutBericht
+	c199871 [label=<<table title="nl.egem.stuf.stuf0204.FoutBericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./FoutBericht.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> FoutBericht </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # stuurgegevens : Stuurgegevens </td></tr>
+<tr><td align="left" balign="left"> # body : FoutBericht.Body </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + FoutBericht() </td></tr>
+<tr><td align="left" balign="left"> + getStuurgegevens() : Stuurgegevens </td></tr>
+<tr><td align="left" balign="left"> + setStuurgegevens(value : Stuurgegevens) </td></tr>
+<tr><td align="left" balign="left"> + getBody() : FoutBericht.Body </td></tr>
+<tr><td align="left" balign="left"> + setBody(value : FoutBericht.Body) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./FoutBericht.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.stuf0204.BevestigingsBericht
+	c199876 [label=<<table title="nl.egem.stuf.stuf0204.BevestigingsBericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BevestigingsBericht.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> BevestigingsBericht </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # stuurgegevens : Stuurgegevens </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + BevestigingsBericht() </td></tr>
+<tr><td align="left" balign="left"> + getStuurgegevens() : Stuurgegevens </td></tr>
+<tr><td align="left" balign="left"> + setStuurgegevens(value : Stuurgegevens) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./BevestigingsBericht.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.SynchroonAntwoordBericht NAVASSOC nl.egem.stuf.stuf0204.Stuurgegevens
-	c199582:p -> c199861:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.egem.stuf.sector.bg._0204.VraagBericht NAVASSOC nl.egem.stuf.stuf0204.Stuurgegevens
-	c199624:p -> c199861:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c199392:p -> c199857:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.AsynchroonAntwoordBericht NAVASSOC nl.egem.stuf.stuf0204.Stuurgegevens
+	c199423:p -> c199857:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.egem.stuf.sector.bg._0204.KennisgevingsBericht NAVASSOC nl.egem.stuf.stuf0204.Stuurgegevens
-	c199819:p -> c199861:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.egem.stuf.stuf0204.FoutBericht NAVASSOC nl.egem.stuf.stuf0204.Stuurgegevens
-	c199854:p -> c199861:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.egem.stuf.stuf0204.BevestigingsBericht NAVASSOC nl.egem.stuf.stuf0204.Stuurgegevens
-	c199858:p -> c199861:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c199557:p -> c199857:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.VraagBericht NAVASSOC nl.egem.stuf.stuf0204.Stuurgegevens
+	c199638:p -> c199857:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.egem.stuf.stuf0204.Stuurgegevens NAVASSOC nl.egem.stuf.stuf0204.Systeem
-	c199861:p -> c199877:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c199857:p -> c199868:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.egem.stuf.stuf0204.Stuurgegevens NAVASSOC nl.egem.stuf.stuf0204.Systeem
-	c199861:p -> c199877:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c199857:p -> c199868:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.egem.stuf.stuf0204.Stuurgegevens NAVASSOC nl.egem.stuf.stuf0204.Stuurgegevens.Kennisgeving
-	c199861:p -> c199865:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c199857:p -> c199861:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.egem.stuf.stuf0204.Stuurgegevens NAVASSOC nl.egem.stuf.stuf0204.Stuurgegevens.Vraag
-	c199861:p -> c199866:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c199857:p -> c199862:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.egem.stuf.stuf0204.Stuurgegevens NAVASSOC nl.egem.stuf.stuf0204.Stuurgegevens.Antwoord
-	c199861:p -> c199862:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c199857:p -> c199858:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.egem.stuf.stuf0204.Stuurgegevens NAVASSOC nl.egem.stuf.stuf0204.Stuurgegevens.Bevestiging
-	c199861:p -> c199863:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c199857:p -> c199859:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.egem.stuf.stuf0204.Stuurgegevens NAVASSOC nl.egem.stuf.stuf0204.Stuurgegevens.Fout
-	c199861:p -> c199864:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c199857:p -> c199860:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.stuf0204.FoutBericht NAVASSOC nl.egem.stuf.stuf0204.Stuurgegevens
+	c199871:p -> c199857:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.stuf0204.BevestigingsBericht NAVASSOC nl.egem.stuf.stuf0204.Stuurgegevens
+	c199876:p -> c199857:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

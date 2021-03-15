@@ -260,69 +260,70 @@
 <a class="jxr_linenumber" name="L252" href="#L252">252</a>                         em.getTransaction().begin();
 <a class="jxr_linenumber" name="L253" href="#L253">253</a>                         lp.setId(<strong class="jxr_keyword">null</strong>);
 <a class="jxr_linenumber" name="L254" href="#L254">254</a>                         log.warn(<span class="jxr_string">"Opslaan van bericht uit laadproces "</span> + lp.getBestand_naam() + <span class="jxr_string">" is mislukt. Object referentie is: "</span> + b.getObject_ref(), pe);
-<a class="jxr_linenumber" name="L255" href="#L255">255</a>                         log.debug(<span class="jxr_string">"Duplicaat bericht: "</span> + b.getObject_ref() + <span class="jxr_string">":"</span> + b.getBr_orgineel_xml());
-<a class="jxr_linenumber" name="L256" href="#L256">256</a>                         lp.setStatus(LaadProces.STATUS.STAGING_DUPLICAAT);
-<a class="jxr_linenumber" name="L257" href="#L257">257</a>                         lp.setOpmerking(lp.getOpmerking() + <span class="jxr_string">": Fout, duplicaat bericht. Inhoud: \n"</span> + b.getBr_xml());
-<a class="jxr_linenumber" name="L258" href="#L258">258</a>                         b = <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L259" href="#L259">259</a>                         em.merge(<strong class="jxr_keyword">this</strong>.config);
-<a class="jxr_linenumber" name="L260" href="#L260">260</a>                         em.persist(lp);
-<a class="jxr_linenumber" name="L261" href="#L261">261</a>                         em.flush();
-<a class="jxr_linenumber" name="L262" href="#L262">262</a>                         em.getTransaction().commit();
-<a class="jxr_linenumber" name="L263" href="#L263">263</a>                         em.clear();
-<a class="jxr_linenumber" name="L264" href="#L264">264</a>                     }
-<a class="jxr_linenumber" name="L265" href="#L265">265</a>                     log.info(msg);
-<a class="jxr_linenumber" name="L266" href="#L266">266</a>                     <strong class="jxr_keyword">this</strong>.listener.addLog(msg);
-<a class="jxr_linenumber" name="L267" href="#L267">267</a>                     sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
-<a class="jxr_linenumber" name="L268" href="#L268">268</a> 
-<a class="jxr_linenumber" name="L269" href="#L269">269</a>                 } <strong class="jxr_keyword">catch</strong> (IOException io) {
-<a class="jxr_linenumber" name="L270" href="#L270">270</a>                     <em class="jxr_comment">// mogelijk bij openen en lezen xml bestand</em>
-<a class="jxr_linenumber" name="L271" href="#L271">271</a>                     log.error(io.getLocalizedMessage());
-<a class="jxr_linenumber" name="L272" href="#L272">272</a>                     sb.append(io.getLocalizedMessage()).append(AutomatischProces.LOG_NEWLINE);
-<a class="jxr_linenumber" name="L273" href="#L273">273</a>                     listener.exception(io);
-<a class="jxr_linenumber" name="L274" href="#L274">274</a>                 }
-<a class="jxr_linenumber" name="L275" href="#L275">275</a>             }
-<a class="jxr_linenumber" name="L276" href="#L276">276</a>             listener.progress(++progress);
-<a class="jxr_linenumber" name="L277" href="#L277">277</a> 
-<a class="jxr_linenumber" name="L278" href="#L278">278</a>             <strong class="jxr_keyword">if</strong> (archiefDirectory != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L279" href="#L279">279</a>                 <em class="jxr_comment">// verplaats naar archief</em>
-<a class="jxr_linenumber" name="L280" href="#L280">280</a>                 <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L281" href="#L281">281</a>                     FileUtils.copyFileToDirectory(f, archiefDirectory);
-<a class="jxr_linenumber" name="L282" href="#L282">282</a>                     <strong class="jxr_keyword">boolean</strong> succes = FileUtils.deleteQuietly(f);
-<a class="jxr_linenumber" name="L283" href="#L283">283</a>                     <strong class="jxr_keyword">if</strong> (succes) {
-<a class="jxr_linenumber" name="L284" href="#L284">284</a>                         msg = String.format(<span class="jxr_string">"  Bestand %s is naar archief %s verplaatst."</span>, f, archiefDirectory);
-<a class="jxr_linenumber" name="L285" href="#L285">285</a>                     } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L286" href="#L286">286</a>                         msg = String.format(<span class="jxr_string">"  Bestand %s is naar archief %s verplaatst, maar origineel kon niet verwijderd worden."</span>, f, archiefDirectory); 
-<a class="jxr_linenumber" name="L287" href="#L287">287</a>                     }
-<a class="jxr_linenumber" name="L288" href="#L288">288</a>                 } <strong class="jxr_keyword">catch</strong> (IOException e) {
-<a class="jxr_linenumber" name="L289" href="#L289">289</a>                     msg = String.format(<span class="jxr_string">"  Bestand %s is NIET naar archief %s verplaatst, oorzaak: (%s)."</span>, f, archiefDirectory, e.getLocalizedMessage());
-<a class="jxr_linenumber" name="L290" href="#L290">290</a>                     log.error(msg);
-<a class="jxr_linenumber" name="L291" href="#L291">291</a>                 }
-<a class="jxr_linenumber" name="L292" href="#L292">292</a>             }
-<a class="jxr_linenumber" name="L293" href="#L293">293</a>             log.info(msg);
-<a class="jxr_linenumber" name="L294" href="#L294">294</a>             <strong class="jxr_keyword">this</strong>.listener.addLog(msg);
-<a class="jxr_linenumber" name="L295" href="#L295">295</a>             sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
-<a class="jxr_linenumber" name="L296" href="#L296">296</a>         }
-<a class="jxr_linenumber" name="L297" href="#L297">297</a>         msg = String.format(<span class="jxr_string">"Klaar met run op %tc"</span>, Calendar.getInstance());
-<a class="jxr_linenumber" name="L298" href="#L298">298</a>         log.info(msg);
-<a class="jxr_linenumber" name="L299" href="#L299">299</a>         listener.updateStatus(msg);
-<a class="jxr_linenumber" name="L300" href="#L300">300</a>         listener.addLog(msg);
-<a class="jxr_linenumber" name="L301" href="#L301">301</a>         sb.append(msg);
-<a class="jxr_linenumber" name="L302" href="#L302">302</a> 
-<a class="jxr_linenumber" name="L303" href="#L303">303</a>         listener.addLog(<span class="jxr_string">"\n\n**** resultaat ****"</span>);
-<a class="jxr_linenumber" name="L304" href="#L304">304</a>         listener.addLog(<span class="jxr_string">"\nAantal bestanden die al waren geladen: "</span> + filterAlVerwerkt);
-<a class="jxr_linenumber" name="L305" href="#L305">305</a>         listener.addLog(<span class="jxr_string">"\nAantal bestanden geladen: "</span> + aantalGeladen + <span class="jxr_string">"\n"</span>);
-<a class="jxr_linenumber" name="L306" href="#L306">306</a> 
-<a class="jxr_linenumber" name="L307" href="#L307">307</a>         config.setStatus(WAITING);
-<a class="jxr_linenumber" name="L308" href="#L308">308</a>         config.setLogfile(sb.toString());
-<a class="jxr_linenumber" name="L309" href="#L309">309</a>         config.setLastrun(<strong class="jxr_keyword">new</strong> Date());
-<a class="jxr_linenumber" name="L310" href="#L310">310</a>         config.updateSamenvattingEnLogfile(<span class="jxr_string">"Aantal bestanden die al waren verwerkt: "</span>
-<a class="jxr_linenumber" name="L311" href="#L311">311</a>                 + filterAlVerwerkt + AutomatischProces.LOG_NEWLINE
-<a class="jxr_linenumber" name="L312" href="#L312">312</a>                 + <span class="jxr_string">"Aantal bestanden geladen: "</span> + aantalGeladen + AutomatischProces.LOG_NEWLINE);
-<a class="jxr_linenumber" name="L313" href="#L313">313</a>         em.merge(config);
-<a class="jxr_linenumber" name="L314" href="#L314">314</a>     }
-<a class="jxr_linenumber" name="L315" href="#L315">315</a> }
+<a class="jxr_linenumber" name="L255" href="#L255">255</a>                         log.warn(<span class="jxr_string">"Duplicaat bericht: "</span> + b.getObject_ref() + <span class="jxr_string">":"</span> + b.getBr_orgineel_xml());
+<a class="jxr_linenumber" name="L256" href="#L256">256</a>                         lp.setOpmerking(lp.getOpmerking() + <span class="jxr_string">": Fout, duplicaat bericht. Berichtinhoud: \n\n"</span> + b.getBr_xml());
+<a class="jxr_linenumber" name="L257" href="#L257">257</a>                         b = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L258" href="#L258">258</a>                         lp.setStatus(LaadProces.STATUS.STAGING_DUPLICAAT);
+<a class="jxr_linenumber" name="L259" href="#L259">259</a>                         lp.setAutomatischProces(em.find(AutomatischProces.<strong class="jxr_keyword">class</strong>, <strong class="jxr_keyword">this</strong>.config.getId()));
+<a class="jxr_linenumber" name="L260" href="#L260">260</a>                         em.merge(<strong class="jxr_keyword">this</strong>.config);
+<a class="jxr_linenumber" name="L261" href="#L261">261</a>                         em.persist(lp);
+<a class="jxr_linenumber" name="L262" href="#L262">262</a>                         em.flush();
+<a class="jxr_linenumber" name="L263" href="#L263">263</a>                         em.getTransaction().commit();
+<a class="jxr_linenumber" name="L264" href="#L264">264</a>                         em.clear();
+<a class="jxr_linenumber" name="L265" href="#L265">265</a>                     }
+<a class="jxr_linenumber" name="L266" href="#L266">266</a>                     log.info(msg);
+<a class="jxr_linenumber" name="L267" href="#L267">267</a>                     <strong class="jxr_keyword">this</strong>.listener.addLog(msg);
+<a class="jxr_linenumber" name="L268" href="#L268">268</a>                     sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
+<a class="jxr_linenumber" name="L269" href="#L269">269</a> 
+<a class="jxr_linenumber" name="L270" href="#L270">270</a>                 } <strong class="jxr_keyword">catch</strong> (IOException io) {
+<a class="jxr_linenumber" name="L271" href="#L271">271</a>                     <em class="jxr_comment">// mogelijk bij openen en lezen xml bestand</em>
+<a class="jxr_linenumber" name="L272" href="#L272">272</a>                     log.error(io.getLocalizedMessage());
+<a class="jxr_linenumber" name="L273" href="#L273">273</a>                     sb.append(io.getLocalizedMessage()).append(AutomatischProces.LOG_NEWLINE);
+<a class="jxr_linenumber" name="L274" href="#L274">274</a>                     listener.exception(io);
+<a class="jxr_linenumber" name="L275" href="#L275">275</a>                 }
+<a class="jxr_linenumber" name="L276" href="#L276">276</a>             }
+<a class="jxr_linenumber" name="L277" href="#L277">277</a>             listener.progress(++progress);
+<a class="jxr_linenumber" name="L278" href="#L278">278</a> 
+<a class="jxr_linenumber" name="L279" href="#L279">279</a>             <strong class="jxr_keyword">if</strong> (archiefDirectory != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L280" href="#L280">280</a>                 <em class="jxr_comment">// verplaats naar archief</em>
+<a class="jxr_linenumber" name="L281" href="#L281">281</a>                 <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L282" href="#L282">282</a>                     FileUtils.copyFileToDirectory(f, archiefDirectory);
+<a class="jxr_linenumber" name="L283" href="#L283">283</a>                     <strong class="jxr_keyword">boolean</strong> succes = FileUtils.deleteQuietly(f);
+<a class="jxr_linenumber" name="L284" href="#L284">284</a>                     <strong class="jxr_keyword">if</strong> (succes) {
+<a class="jxr_linenumber" name="L285" href="#L285">285</a>                         msg = String.format(<span class="jxr_string">"  Bestand %s is naar archief %s verplaatst."</span>, f, archiefDirectory);
+<a class="jxr_linenumber" name="L286" href="#L286">286</a>                     } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L287" href="#L287">287</a>                         msg = String.format(<span class="jxr_string">"  Bestand %s is naar archief %s verplaatst, maar origineel kon niet verwijderd worden."</span>, f, archiefDirectory); 
+<a class="jxr_linenumber" name="L288" href="#L288">288</a>                     }
+<a class="jxr_linenumber" name="L289" href="#L289">289</a>                 } <strong class="jxr_keyword">catch</strong> (IOException e) {
+<a class="jxr_linenumber" name="L290" href="#L290">290</a>                     msg = String.format(<span class="jxr_string">"  Bestand %s is NIET naar archief %s verplaatst, oorzaak: (%s)."</span>, f, archiefDirectory, e.getLocalizedMessage());
+<a class="jxr_linenumber" name="L291" href="#L291">291</a>                     log.error(msg);
+<a class="jxr_linenumber" name="L292" href="#L292">292</a>                 }
+<a class="jxr_linenumber" name="L293" href="#L293">293</a>             }
+<a class="jxr_linenumber" name="L294" href="#L294">294</a>             log.info(msg);
+<a class="jxr_linenumber" name="L295" href="#L295">295</a>             <strong class="jxr_keyword">this</strong>.listener.addLog(msg);
+<a class="jxr_linenumber" name="L296" href="#L296">296</a>             sb.append(msg).append(AutomatischProces.LOG_NEWLINE);
+<a class="jxr_linenumber" name="L297" href="#L297">297</a>         }
+<a class="jxr_linenumber" name="L298" href="#L298">298</a>         msg = String.format(<span class="jxr_string">"Klaar met run op %tc"</span>, Calendar.getInstance());
+<a class="jxr_linenumber" name="L299" href="#L299">299</a>         log.info(msg);
+<a class="jxr_linenumber" name="L300" href="#L300">300</a>         listener.updateStatus(msg);
+<a class="jxr_linenumber" name="L301" href="#L301">301</a>         listener.addLog(msg);
+<a class="jxr_linenumber" name="L302" href="#L302">302</a>         sb.append(msg);
+<a class="jxr_linenumber" name="L303" href="#L303">303</a> 
+<a class="jxr_linenumber" name="L304" href="#L304">304</a>         listener.addLog(<span class="jxr_string">"\n\n**** resultaat ****"</span>);
+<a class="jxr_linenumber" name="L305" href="#L305">305</a>         listener.addLog(<span class="jxr_string">"\nAantal bestanden die al waren geladen: "</span> + filterAlVerwerkt);
+<a class="jxr_linenumber" name="L306" href="#L306">306</a>         listener.addLog(<span class="jxr_string">"\nAantal bestanden geladen: "</span> + aantalGeladen + <span class="jxr_string">"\n"</span>);
+<a class="jxr_linenumber" name="L307" href="#L307">307</a> 
+<a class="jxr_linenumber" name="L308" href="#L308">308</a>         config.setStatus(WAITING);
+<a class="jxr_linenumber" name="L309" href="#L309">309</a>         config.setLogfile(sb.toString());
+<a class="jxr_linenumber" name="L310" href="#L310">310</a>         config.setLastrun(<strong class="jxr_keyword">new</strong> Date());
+<a class="jxr_linenumber" name="L311" href="#L311">311</a>         config.updateSamenvattingEnLogfile(<span class="jxr_string">"Aantal bestanden die al waren verwerkt: "</span>
+<a class="jxr_linenumber" name="L312" href="#L312">312</a>                 + filterAlVerwerkt + AutomatischProces.LOG_NEWLINE
+<a class="jxr_linenumber" name="L313" href="#L313">313</a>                 + <span class="jxr_string">"Aantal bestanden geladen: "</span> + aantalGeladen + AutomatischProces.LOG_NEWLINE);
+<a class="jxr_linenumber" name="L314" href="#L314">314</a>         em.merge(config);
+<a class="jxr_linenumber" name="L315" href="#L315">315</a>     }
+<a class="jxr_linenumber" name="L316" href="#L316">316</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2014&#x2013;2020 <a href="http://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2014&#x2013;2021 <a href="http://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>
 </body>
 </html>

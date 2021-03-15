@@ -9,49 +9,8 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// nl.egem.stuf.sector.bg._0204.ADRADROSURel
-	c20784 [label=<<table title="nl.egem.stuf.sector.bg._0204.ADRADROSURel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ADRADROSURel.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> ADRADROSURel </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # filiatiecode : JAXBElement&lt;ADRADROSURel.Filiatiecode&gt; </td></tr>
-<tr><td align="left" balign="left"> # tijdvakRelatie : TijdvakRelatie </td></tr>
-<tr><td align="left" balign="left"> # tijdvakGeldigheid : TijdvakGeldigheid </td></tr>
-<tr><td align="left" balign="left"> # extraElementen : ExtraElementen </td></tr>
-<tr><td align="left" balign="left"> # soortEntiteit : String </td></tr>
-<tr><td align="left" balign="left"> # sleutelVerzendend : String </td></tr>
-<tr><td align="left" balign="left"> # sleutelOntvangend : String </td></tr>
-<tr><td align="left" balign="left"> # sleutelGegevensbeheer : String </td></tr>
-<tr><td align="left" balign="left"> # verwerkingssoort : Verwerkingssoort </td></tr>
-<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + ADRADROSURel() </td></tr>
-<tr><td align="left" balign="left"> + getFiliatiecode() : JAXBElement&lt;ADRADROSURel.Filiatiecode&gt; </td></tr>
-<tr><td align="left" balign="left"> + setFiliatiecode(value : JAXBElement&lt;ADRADROSURel.Filiatiecode&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getTijdvakRelatie() : TijdvakRelatie </td></tr>
-<tr><td align="left" balign="left"> + setTijdvakRelatie(value : TijdvakRelatie) </td></tr>
-<tr><td align="left" balign="left"> + getTijdvakGeldigheid() : TijdvakGeldigheid </td></tr>
-<tr><td align="left" balign="left"> + setTijdvakGeldigheid(value : TijdvakGeldigheid) </td></tr>
-<tr><td align="left" balign="left"> + getExtraElementen() : ExtraElementen </td></tr>
-<tr><td align="left" balign="left"> + setExtraElementen(value : ExtraElementen) </td></tr>
-<tr><td align="left" balign="left"> + getSoortEntiteit() : String </td></tr>
-<tr><td align="left" balign="left"> + setSoortEntiteit(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getSleutelVerzendend() : String </td></tr>
-<tr><td align="left" balign="left"> + setSleutelVerzendend(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getSleutelOntvangend() : String </td></tr>
-<tr><td align="left" balign="left"> + setSleutelOntvangend(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getSleutelGegevensbeheer() : String </td></tr>
-<tr><td align="left" balign="left"> + setSleutelGegevensbeheer(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getVerwerkingssoort() : Verwerkingssoort </td></tr>
-<tr><td align="left" balign="left"> + setVerwerkingssoort(value : Verwerkingssoort) </td></tr>
-<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
-<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./ADRADROSURel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.ADRKennisgeving.ADRADROSU
-	c20829 [label=<<table title="nl.egem.stuf.sector.bg._0204.ADRKennisgeving.ADRADROSU" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ADRKennisgeving.ADRADROSU.html">
+	c21009 [label=<<table title="nl.egem.stuf.sector.bg._0204.ADRKennisgeving.ADRADROSU" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ADRKennisgeving.ADRADROSU.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ADRADROSU </td></tr>
 		</table></td></tr>
@@ -65,7 +24,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./ADRKennisgeving.ADRADROSU.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.ADRKerngegevens
-	c20898 [label=<<table title="nl.egem.stuf.sector.bg._0204.ADRKerngegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ADRKerngegevens.html">
+	c21046 [label=<<table title="nl.egem.stuf.sector.bg._0204.ADRKerngegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ADRKerngegevens.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ADRKerngegevens </td></tr>
 		</table></td></tr>
@@ -141,9 +100,50 @@ digraph G {
 <tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ADRKerngegevens.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.ADRADROSURel
+	c21221 [label=<<table title="nl.egem.stuf.sector.bg._0204.ADRADROSURel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ADRADROSURel.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> ADRADROSURel </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # filiatiecode : JAXBElement&lt;ADRADROSURel.Filiatiecode&gt; </td></tr>
+<tr><td align="left" balign="left"> # tijdvakRelatie : TijdvakRelatie </td></tr>
+<tr><td align="left" balign="left"> # tijdvakGeldigheid : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> # extraElementen : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> # soortEntiteit : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelVerzendend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelOntvangend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelGegevensbeheer : String </td></tr>
+<tr><td align="left" balign="left"> # verwerkingssoort : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + ADRADROSURel() </td></tr>
+<tr><td align="left" balign="left"> + getFiliatiecode() : JAXBElement&lt;ADRADROSURel.Filiatiecode&gt; </td></tr>
+<tr><td align="left" balign="left"> + setFiliatiecode(value : JAXBElement&lt;ADRADROSURel.Filiatiecode&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getTijdvakRelatie() : TijdvakRelatie </td></tr>
+<tr><td align="left" balign="left"> + setTijdvakRelatie(value : TijdvakRelatie) </td></tr>
+<tr><td align="left" balign="left"> + getTijdvakGeldigheid() : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> + setTijdvakGeldigheid(value : TijdvakGeldigheid) </td></tr>
+<tr><td align="left" balign="left"> + getExtraElementen() : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> + setExtraElementen(value : ExtraElementen) </td></tr>
+<tr><td align="left" balign="left"> + getSoortEntiteit() : String </td></tr>
+<tr><td align="left" balign="left"> + setSoortEntiteit(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelVerzendend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelVerzendend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelOntvangend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelOntvangend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelGegevensbeheer() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelGegevensbeheer(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getVerwerkingssoort() : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> + setVerwerkingssoort(value : Verwerkingssoort) </td></tr>
+<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
+<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./ADRADROSURel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.ADRKennisgeving.ADRADROSU extends nl.egem.stuf.sector.bg._0204.ADRADROSURel
-	c20784:p -> c20829:p [dir=back,arrowtail=empty];
+	c21221:p -> c21009:p [dir=back,arrowtail=empty];
 	// nl.egem.stuf.sector.bg._0204.ADRKennisgeving.ADRADROSU NAVASSOC nl.egem.stuf.sector.bg._0204.ADRKerngegevens
-	c20829:p -> c20898:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c21009:p -> c21046:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

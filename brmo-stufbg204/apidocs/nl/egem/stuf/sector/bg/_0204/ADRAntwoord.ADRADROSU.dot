@@ -9,8 +9,35 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// nl.egem.stuf.sector.bg._0204.ADRAntwoord.ADRADROSU
+	c8222 [label=<<table title="nl.egem.stuf.sector.bg._0204.ADRAntwoord.ADRADROSU" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ADRAntwoord.ADRADROSU.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> ADRADROSU </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # adr : ADRKennisgeving </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + ADRADROSU() </td></tr>
+<tr><td align="left" balign="left"> + getADR() : ADRKennisgeving </td></tr>
+<tr><td align="left" balign="left"> + setADR(value : ADRKennisgeving) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./ADRAntwoord.ADRADROSU.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.ADRKennisgeving
+	c8358 [label=<<table title="nl.egem.stuf.sector.bg._0204.ADRKennisgeving" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ADRKennisgeving.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> ADRKennisgeving </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # adradrosu : List&lt;ADRKennisgeving.ADRADROSU&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + ADRKennisgeving() </td></tr>
+<tr><td align="left" balign="left"> + getADRADROSU() : List&lt;ADRKennisgeving.ADRADROSU&gt; </td></tr>
+		</table></td></tr>
+		</table>>, URL="./ADRKennisgeving.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.ADRADROSURel
-	c8134 [label=<<table title="nl.egem.stuf.sector.bg._0204.ADRADROSURel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ADRADROSURel.html">
+	c8571 [label=<<table title="nl.egem.stuf.sector.bg._0204.ADRADROSURel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ADRADROSURel.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ADRADROSURel </td></tr>
 		</table></td></tr>
@@ -50,36 +77,9 @@ digraph G {
 <tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ADRADROSURel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.ADRKennisgeving
-	c8178 [label=<<table title="nl.egem.stuf.sector.bg._0204.ADRKennisgeving" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ADRKennisgeving.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> ADRKennisgeving </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # adradrosu : List&lt;ADRKennisgeving.ADRADROSU&gt; </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + ADRKennisgeving() </td></tr>
-<tr><td align="left" balign="left"> + getADRADROSU() : List&lt;ADRKennisgeving.ADRADROSU&gt; </td></tr>
-		</table></td></tr>
-		</table>>, URL="./ADRKennisgeving.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.ADRAntwoord.ADRADROSU
-	c8441 [label=<<table title="nl.egem.stuf.sector.bg._0204.ADRAntwoord.ADRADROSU" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ADRAntwoord.ADRADROSU.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> ADRADROSU </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # adr : ADRKennisgeving </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + ADRADROSU() </td></tr>
-<tr><td align="left" balign="left"> + getADR() : ADRKennisgeving </td></tr>
-<tr><td align="left" balign="left"> + setADR(value : ADRKennisgeving) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./ADRAntwoord.ADRADROSU.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.ADRAntwoord.ADRADROSU extends nl.egem.stuf.sector.bg._0204.ADRADROSURel
-	c8134:p -> c8441:p [dir=back,arrowtail=empty];
+	c8571:p -> c8222:p [dir=back,arrowtail=empty];
 	// nl.egem.stuf.sector.bg._0204.ADRAntwoord.ADRADROSU NAVASSOC nl.egem.stuf.sector.bg._0204.ADRKennisgeving
-	c8441:p -> c8178:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c8222:p -> c8358:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

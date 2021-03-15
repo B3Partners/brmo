@@ -9,8 +9,22 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// nl.egem.stuf.sector.bg._0204.ADRRelKerngegevens
+	c126558 [label=<<table title="nl.egem.stuf.sector.bg._0204.ADRRelKerngegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ADRRelKerngegevens.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> ADRRelKerngegevens </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # adr : ADRFund </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + ADRRelKerngegevens() </td></tr>
+<tr><td align="left" balign="left"> + getADR() : ADRFund </td></tr>
+<tr><td align="left" balign="left"> + setADR(value : ADRFund) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./ADRRelKerngegevens.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.NNPKerngegevens
-	c126631 [label=<<table title="nl.egem.stuf.sector.bg._0204.NNPKerngegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NNPKerngegevens.html">
+	c126960 [label=<<table title="nl.egem.stuf.sector.bg._0204.NNPKerngegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NNPKerngegevens.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> NNPKerngegevens </td></tr>
 		</table></td></tr>
@@ -60,7 +74,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./NNPKerngegevens.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.NNPKerngegevens.NNPADRVBL
-	c126635 [label=<<table title="nl.egem.stuf.sector.bg._0204.NNPKerngegevens.NNPADRVBL" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./NNPKerngegevens.NNPADRVBL.html">
+	c126964 [label=<<table title="nl.egem.stuf.sector.bg._0204.NNPKerngegevens.NNPADRVBL" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./NNPKerngegevens.NNPADRVBL.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> NNPADRVBL </td></tr>
 		</table></td></tr>
@@ -73,23 +87,9 @@ digraph G {
 <tr><td align="left" balign="left"> + setKerngegeven(value : Boolean) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./NNPKerngegevens.NNPADRVBL.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.ADRRelKerngegevens
-	c126835 [label=<<table title="nl.egem.stuf.sector.bg._0204.ADRRelKerngegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ADRRelKerngegevens.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> ADRRelKerngegevens </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # adr : ADRFund </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + ADRRelKerngegevens() </td></tr>
-<tr><td align="left" balign="left"> + getADR() : ADRFund </td></tr>
-<tr><td align="left" balign="left"> + setADR(value : ADRFund) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./ADRRelKerngegevens.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.NNPKerngegevens.NNPADRVBL extends nl.egem.stuf.sector.bg._0204.ADRRelKerngegevens
-	c126835:p -> c126635:p [dir=back,arrowtail=empty];
+	c126558:p -> c126964:p [dir=back,arrowtail=empty];
 	// nl.egem.stuf.sector.bg._0204.NNPKerngegevens NAVASSOC nl.egem.stuf.sector.bg._0204.NNPKerngegevens.NNPADRVBL
-	c126631:p -> c126635:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c126960:p -> c126964:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

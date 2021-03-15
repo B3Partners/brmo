@@ -9,25 +9,8 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// nl.b3p.brmo.loader.checks.AfgifteChecker
-	c341 [label=<<table title="nl.b3p.brmo.loader.checks.AfgifteChecker" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AfgifteChecker.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> AfgifteChecker </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + AfgifteChecker() </td></tr>
-<tr><td align="left" balign="left"> + init(input : String, staging : StagingProxy) </td></tr>
-<tr><td align="left" balign="left"> + init(input : InputStream, staging : StagingProxy) </td></tr>
-<tr><td align="left" balign="left"> + check() </td></tr>
-<tr><td align="left" balign="left"> + getResults(input : String, f : String) : File </td></tr>
-<tr><td align="left" balign="left"> + getResults(input : String, f : File) : File </td></tr>
-		</table></td></tr>
-		</table>>, URL="./AfgifteChecker.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.checks.Afgifte
-	c342 [label=<<table title="nl.b3p.brmo.loader.checks.Afgifte" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Afgifte.html">
+	c283 [label=<<table title="nl.b3p.brmo.loader.checks.Afgifte" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Afgifte.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Afgifte </td></tr>
 		</table></td></tr>
@@ -55,8 +38,21 @@ digraph G {
 <tr><td align="left" balign="left"> + toString() : String </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Afgifte.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.loader.checks.AfgiftelijstParser
+	c284 [label=<<table title="nl.b3p.brmo.loader.checks.AfgiftelijstParser" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AfgiftelijstParser.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> AfgiftelijstParser </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + AfgiftelijstParser() </td></tr>
+<tr><td align="left" balign="left"> + parse(input : InputStream) : List&lt;Afgifte&gt; </td></tr>
+		</table></td></tr>
+		</table>>, URL="./AfgiftelijstParser.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.checks.AfgiftelijstReport
-	c343 [label=<<table title="nl.b3p.brmo.loader.checks.AfgiftelijstReport" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AfgiftelijstReport.html">
+	c285 [label=<<table title="nl.b3p.brmo.loader.checks.AfgiftelijstReport" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AfgiftelijstReport.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> AfgiftelijstReport </td></tr>
 		</table></td></tr>
@@ -70,7 +66,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./AfgiftelijstReport.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.loader.checks.AfgiftelijstReport.Footer
-	c344 [label=<<table title="nl.b3p.brmo.loader.checks.AfgiftelijstReport.Footer" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AfgiftelijstReport.Footer.html">
+	c286 [label=<<table title="nl.b3p.brmo.loader.checks.AfgiftelijstReport.Footer" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AfgiftelijstReport.Footer.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Footer </td></tr>
 		</table></td></tr>
@@ -88,18 +84,22 @@ digraph G {
 <tr><td align="left" balign="left"> + writeTotal(pdf : PdfDocument) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./AfgiftelijstReport.Footer.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.loader.checks.AfgiftelijstParser
-	c345 [label=<<table title="nl.b3p.brmo.loader.checks.AfgiftelijstParser" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AfgiftelijstParser.html">
+	// nl.b3p.brmo.loader.checks.AfgifteChecker
+	c287 [label=<<table title="nl.b3p.brmo.loader.checks.AfgifteChecker" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AfgifteChecker.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> AfgiftelijstParser </td></tr>
+<tr><td align="center" balign="center"> AfgifteChecker </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left">  </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + AfgiftelijstParser() </td></tr>
-<tr><td align="left" balign="left"> + parse(input : InputStream) : List&lt;Afgifte&gt; </td></tr>
+<tr><td align="left" balign="left"> + AfgifteChecker() </td></tr>
+<tr><td align="left" balign="left"> + init(input : String, staging : StagingProxy) </td></tr>
+<tr><td align="left" balign="left"> + init(input : InputStream, staging : StagingProxy) </td></tr>
+<tr><td align="left" balign="left"> + check() </td></tr>
+<tr><td align="left" balign="left"> + getResults(input : String, f : String) : File </td></tr>
+<tr><td align="left" balign="left"> + getResults(input : String, f : File) : File </td></tr>
 		</table></td></tr>
-		</table>>, URL="./AfgiftelijstParser.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, URL="./AfgifteChecker.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 

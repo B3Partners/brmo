@@ -9,8 +9,23 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// nl.egem.stuf.sector.bg._0204.Geslachtsaanduiding
+	c59456 [label=<<table title="nl.egem.stuf.sector.bg._0204.Geslachtsaanduiding" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Geslachtsaanduiding.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
+<tr><td align="center" balign="center"> Geslachtsaanduiding </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> M </td></tr>
+<tr><td align="left" balign="left"> O </td></tr>
+<tr><td align="left" balign="left"> V </td></tr>
+		</table></td></tr>
+		</table>>, URL="./Geslachtsaanduiding.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.GeslachtsaanduidingE
-	c59325 [label=<<table title="nl.egem.stuf.sector.bg._0204.GeslachtsaanduidingE" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GeslachtsaanduidingE.html">
+	c59605 [label=<<table title="nl.egem.stuf.sector.bg._0204.GeslachtsaanduidingE" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./GeslachtsaanduidingE.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> GeslachtsaanduidingE </td></tr>
 		</table></td></tr>
@@ -32,23 +47,8 @@ digraph G {
 <tr><td align="left" balign="left"> + setExact(value : Boolean) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./GeslachtsaanduidingE.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.Geslachtsaanduiding
-	c59630 [label=<<table title="nl.egem.stuf.sector.bg._0204.Geslachtsaanduiding" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Geslachtsaanduiding.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
-<tr><td align="center" balign="center"> Geslachtsaanduiding </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> M </td></tr>
-<tr><td align="left" balign="left"> O </td></tr>
-<tr><td align="left" balign="left"> V </td></tr>
-		</table></td></tr>
-		</table>>, URL="./Geslachtsaanduiding.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.PRSKerngegevens.Geslachtsaanduiding
-	c59671 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSKerngegevens.Geslachtsaanduiding" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSKerngegevens.Geslachtsaanduiding.html">
+	c59657 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSKerngegevens.Geslachtsaanduiding" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSKerngegevens.Geslachtsaanduiding.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Geslachtsaanduiding </td></tr>
 		</table></td></tr>
@@ -71,8 +71,8 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./PRSKerngegevens.Geslachtsaanduiding.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.GeslachtsaanduidingE NAVASSOC nl.egem.stuf.sector.bg._0204.Geslachtsaanduiding
-	c59325:p -> c59630:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c59605:p -> c59456:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.egem.stuf.sector.bg._0204.PRSKerngegevens.Geslachtsaanduiding NAVASSOC nl.egem.stuf.sector.bg._0204.Geslachtsaanduiding
-	c59671:p -> c59630:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c59657:p -> c59456:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

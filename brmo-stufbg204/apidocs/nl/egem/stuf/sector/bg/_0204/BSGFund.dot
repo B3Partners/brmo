@@ -9,22 +9,8 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// nl.egem.stuf.sector.bg._0204.VBOVraag.VBOBSG
-	c44065 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOVraag.VBOBSG" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VBOVraag.VBOBSG.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> VBOBSG </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # bsg : BSGFund </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + VBOBSG() </td></tr>
-<tr><td align="left" balign="left"> + getBSG() : BSGFund </td></tr>
-<tr><td align="left" balign="left"> + setBSG(value : BSGFund) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./VBOVraag.VBOBSG.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.VBOAntwoord.VBOBSG
-	c44123 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOAntwoord.VBOBSG" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VBOAntwoord.VBOBSG.html">
+	c44122 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOAntwoord.VBOBSG" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VBOAntwoord.VBOBSG.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> VBOBSG </td></tr>
 		</table></td></tr>
@@ -37,22 +23,50 @@ digraph G {
 <tr><td align="left" balign="left"> + setBSG(value : BSGFund) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./VBOAntwoord.VBOBSG.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.OBWAntwoord.OBWBSG
-	c44128 [label=<<table title="nl.egem.stuf.sector.bg._0204.OBWAntwoord.OBWBSG" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./OBWAntwoord.OBWBSG.html">
+	// nl.egem.stuf.sector.bg._0204.KDOAntwoord.KDOBSG
+	c44159 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOAntwoord.KDOBSG" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOAntwoord.KDOBSG.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> OBWBSG </td></tr>
+<tr><td align="center" balign="center"> KDOBSG </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> # bsg : BSGFund </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + OBWBSG() </td></tr>
+<tr><td align="left" balign="left"> + KDOBSG() </td></tr>
 <tr><td align="left" balign="left"> + getBSG() : BSGFund </td></tr>
 <tr><td align="left" balign="left"> + setBSG(value : BSGFund) </td></tr>
 		</table></td></tr>
-		</table>>, URL="./OBWAntwoord.OBWBSG.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, URL="./KDOAntwoord.KDOBSG.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.VBOVraag.VBOBSG
+	c44242 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOVraag.VBOBSG" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VBOVraag.VBOBSG.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> VBOBSG </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # bsg : BSGFund </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + VBOBSG() </td></tr>
+<tr><td align="left" balign="left"> + getBSG() : BSGFund </td></tr>
+<tr><td align="left" balign="left"> + setBSG(value : BSGFund) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./VBOVraag.VBOBSG.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.KDOVraag.KDOBSG
+	c44279 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOVraag.KDOBSG" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOVraag.KDOBSG.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> KDOBSG </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # bsg : BSGFund </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + KDOBSG() </td></tr>
+<tr><td align="left" balign="left"> + getBSG() : BSGFund </td></tr>
+<tr><td align="left" balign="left"> + setBSG(value : BSGFund) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./KDOVraag.KDOBSG.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.BSGFund
-	c44139 [label=<<table title="nl.egem.stuf.sector.bg._0204.BSGFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BSGFund.html">
+	c44433 [label=<<table title="nl.egem.stuf.sector.bg._0204.BSGFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BSGFund.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BSGFund </td></tr>
 		</table></td></tr>
@@ -98,22 +112,22 @@ digraph G {
 <tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./BSGFund.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.KDOAntwoord.KDOBSG
-	c44309 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOAntwoord.KDOBSG" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOAntwoord.KDOBSG.html">
+	// nl.egem.stuf.sector.bg._0204.OBWAntwoord.OBWBSG
+	c44492 [label=<<table title="nl.egem.stuf.sector.bg._0204.OBWAntwoord.OBWBSG" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./OBWAntwoord.OBWBSG.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> KDOBSG </td></tr>
+<tr><td align="center" balign="center"> OBWBSG </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> # bsg : BSGFund </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + KDOBSG() </td></tr>
+<tr><td align="left" balign="left"> + OBWBSG() </td></tr>
 <tr><td align="left" balign="left"> + getBSG() : BSGFund </td></tr>
 <tr><td align="left" balign="left"> + setBSG(value : BSGFund) </td></tr>
 		</table></td></tr>
-		</table>>, URL="./KDOAntwoord.KDOBSG.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, URL="./OBWAntwoord.OBWBSG.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.OBWVraag.OBWBSG
-	c44354 [label=<<table title="nl.egem.stuf.sector.bg._0204.OBWVraag.OBWBSG" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./OBWVraag.OBWBSG.html">
+	c44500 [label=<<table title="nl.egem.stuf.sector.bg._0204.OBWVraag.OBWBSG" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./OBWVraag.OBWBSG.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> OBWBSG </td></tr>
 		</table></td></tr>
@@ -126,38 +140,8 @@ digraph G {
 <tr><td align="left" balign="left"> + setBSG(value : BSGFund) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./OBWVraag.OBWBSG.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.KDOVraag.KDOBSG
-	c44481 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOVraag.KDOBSG" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOVraag.KDOBSG.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> KDOBSG </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # bsg : BSGFund </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + KDOBSG() </td></tr>
-<tr><td align="left" balign="left"> + getBSG() : BSGFund </td></tr>
-<tr><td align="left" balign="left"> + setBSG(value : BSGFund) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./KDOVraag.KDOBSG.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.stuf0204.NoValue
-	c44514 [label=<<table title="nl.egem.stuf.stuf0204.NoValue" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/NoValue.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
-<tr><td align="center" balign="center"> NoValue </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> NIET_ONDERSTEUND </td></tr>
-<tr><td align="left" balign="left"> NIET_GEAUTORISEERD </td></tr>
-<tr><td align="left" balign="left"> GEEN_WAARDE </td></tr>
-<tr><td align="left" balign="left"> WAARDE_ONBEKEND </td></tr>
-		</table></td></tr>
-		</table>>, URL="../../../stuf0204/NoValue.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.stuf0204.Verwerkingssoort
-	c44517 [label=<<table title="nl.egem.stuf.stuf0204.Verwerkingssoort" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/Verwerkingssoort.html">
+	c44525 [label=<<table title="nl.egem.stuf.stuf0204.Verwerkingssoort" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/Verwerkingssoort.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> Verwerkingssoort </td></tr>
@@ -175,8 +159,21 @@ digraph G {
 <tr><td align="left" balign="left"> S </td></tr>
 		</table></td></tr>
 		</table>>, URL="../../../stuf0204/Verwerkingssoort.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.stuf0204.ExtraElementen
+	c44528 [label=<<table title="nl.egem.stuf.stuf0204.ExtraElementen" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/ExtraElementen.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> ExtraElementen </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # extraElement : List&lt;ExtraElement&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + ExtraElementen() </td></tr>
+<tr><td align="left" balign="left"> + getExtraElement() : List&lt;ExtraElement&gt; </td></tr>
+		</table></td></tr>
+		</table>>, URL="../../../stuf0204/ExtraElementen.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.stuf0204.TijdvakGeldigheid
-	c44518 [label=<<table title="nl.egem.stuf.stuf0204.TijdvakGeldigheid" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/TijdvakGeldigheid.html">
+	c44531 [label=<<table title="nl.egem.stuf.stuf0204.TijdvakGeldigheid" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/TijdvakGeldigheid.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> TijdvakGeldigheid </td></tr>
 		</table></td></tr>
@@ -192,38 +189,41 @@ digraph G {
 <tr><td align="left" balign="left"> + setEinddatumTijdvakGeldigheid(value : DatumMetIndicator) </td></tr>
 		</table></td></tr>
 		</table>>, URL="../../../stuf0204/TijdvakGeldigheid.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.stuf0204.ExtraElementen
-	c44529 [label=<<table title="nl.egem.stuf.stuf0204.ExtraElementen" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/ExtraElementen.html">
+	// nl.egem.stuf.stuf0204.NoValue
+	c44535 [label=<<table title="nl.egem.stuf.stuf0204.NoValue" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/NoValue.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> ExtraElementen </td></tr>
+<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
+<tr><td align="center" balign="center"> NoValue </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # extraElement : List&lt;ExtraElement&gt; </td></tr>
+<tr><td align="left" balign="left">  </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + ExtraElementen() </td></tr>
-<tr><td align="left" balign="left"> + getExtraElement() : List&lt;ExtraElement&gt; </td></tr>
+<tr><td align="left" balign="left"> NIET_ONDERSTEUND </td></tr>
+<tr><td align="left" balign="left"> NIET_GEAUTORISEERD </td></tr>
+<tr><td align="left" balign="left"> GEEN_WAARDE </td></tr>
+<tr><td align="left" balign="left"> WAARDE_ONBEKEND </td></tr>
 		</table></td></tr>
-		</table>>, URL="../../../stuf0204/ExtraElementen.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.VBOVraag.VBOBSG NAVASSOC nl.egem.stuf.sector.bg._0204.BSGFund
-	c44065:p -> c44139:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+		</table>>, URL="../../../stuf0204/NoValue.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.VBOAntwoord.VBOBSG NAVASSOC nl.egem.stuf.sector.bg._0204.BSGFund
-	c44123:p -> c44139:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.egem.stuf.sector.bg._0204.OBWAntwoord.OBWBSG NAVASSOC nl.egem.stuf.sector.bg._0204.BSGFund
-	c44128:p -> c44139:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.egem.stuf.sector.bg._0204.BSGFund NAVASSOC nl.egem.stuf.stuf0204.TijdvakGeldigheid
-	c44139:p -> c44518:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.egem.stuf.sector.bg._0204.BSGFund NAVASSOC nl.egem.stuf.stuf0204.ExtraElementen
-	c44139:p -> c44529:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.egem.stuf.sector.bg._0204.BSGFund NAVASSOC nl.egem.stuf.stuf0204.Verwerkingssoort
-	c44139:p -> c44517:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.egem.stuf.sector.bg._0204.BSGFund NAVASSOC nl.egem.stuf.stuf0204.NoValue
-	c44139:p -> c44514:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c44122:p -> c44433:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.egem.stuf.sector.bg._0204.KDOAntwoord.KDOBSG NAVASSOC nl.egem.stuf.sector.bg._0204.BSGFund
-	c44309:p -> c44139:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.egem.stuf.sector.bg._0204.OBWVraag.OBWBSG NAVASSOC nl.egem.stuf.sector.bg._0204.BSGFund
-	c44354:p -> c44139:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c44159:p -> c44433:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.VBOVraag.VBOBSG NAVASSOC nl.egem.stuf.sector.bg._0204.BSGFund
+	c44242:p -> c44433:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.egem.stuf.sector.bg._0204.KDOVraag.KDOBSG NAVASSOC nl.egem.stuf.sector.bg._0204.BSGFund
-	c44481:p -> c44139:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c44279:p -> c44433:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.BSGFund NAVASSOC nl.egem.stuf.stuf0204.TijdvakGeldigheid
+	c44433:p -> c44531:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.BSGFund NAVASSOC nl.egem.stuf.stuf0204.ExtraElementen
+	c44433:p -> c44528:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.BSGFund NAVASSOC nl.egem.stuf.stuf0204.Verwerkingssoort
+	c44433:p -> c44525:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.BSGFund NAVASSOC nl.egem.stuf.stuf0204.NoValue
+	c44433:p -> c44535:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.OBWAntwoord.OBWBSG NAVASSOC nl.egem.stuf.sector.bg._0204.BSGFund
+	c44492:p -> c44433:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.OBWVraag.OBWBSG NAVASSOC nl.egem.stuf.sector.bg._0204.BSGFund
+	c44500:p -> c44433:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

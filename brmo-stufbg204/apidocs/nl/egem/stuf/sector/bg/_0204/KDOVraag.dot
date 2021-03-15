@@ -9,8 +9,35 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// nl.egem.stuf.sector.bg._0204.KDOVraag
+	c91842 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOVraag" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./KDOVraag.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> KDOVraag </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # kdoadr : JAXBElement&lt;ADRRelFund&gt; </td></tr>
+<tr><td align="left" balign="left"> # kdobsg : JAXBElement&lt;KDOVraag.KDOBSG&gt; </td></tr>
+<tr><td align="left" balign="left"> # kdokdofil : JAXBElement&lt;KDOVraag.KDOKDOFIL&gt; </td></tr>
+<tr><td align="left" balign="left"> # kdoprb : JAXBElement&lt;KDOVraag.KDOPRB&gt; </td></tr>
+<tr><td align="left" balign="left"> # kdosubvzg : List&lt;KDOVraag.KDOSUBVZG&gt; </td></tr>
+<tr><td align="left" balign="left"> # kdosubzkr : List&lt;KDOVraag.KDOSUBZKR&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + KDOVraag() </td></tr>
+<tr><td align="left" balign="left"> + getKDOADR() : JAXBElement&lt;ADRRelFund&gt; </td></tr>
+<tr><td align="left" balign="left"> + setKDOADR(value : JAXBElement&lt;ADRRelFund&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getKDOBSG() : JAXBElement&lt;KDOVraag.KDOBSG&gt; </td></tr>
+<tr><td align="left" balign="left"> + setKDOBSG(value : JAXBElement&lt;KDOVraag.KDOBSG&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getKDOKDOFIL() : JAXBElement&lt;KDOVraag.KDOKDOFIL&gt; </td></tr>
+<tr><td align="left" balign="left"> + setKDOKDOFIL(value : JAXBElement&lt;KDOVraag.KDOKDOFIL&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getKDOPRB() : JAXBElement&lt;KDOVraag.KDOPRB&gt; </td></tr>
+<tr><td align="left" balign="left"> + setKDOPRB(value : JAXBElement&lt;KDOVraag.KDOPRB&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getKDOSUBVZG() : List&lt;KDOVraag.KDOSUBVZG&gt; </td></tr>
+<tr><td align="left" balign="left"> + getKDOSUBZKR() : List&lt;KDOVraag.KDOSUBZKR&gt; </td></tr>
+		</table></td></tr>
+		</table>>, URL="./KDOVraag.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.KDOFund
-	c91932 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOFund.html">
+	c92002 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOFund.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> KDOFund </td></tr>
 		</table></td></tr>
@@ -101,34 +128,7 @@ digraph G {
 <tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./KDOFund.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.KDOVraag
-	c92044 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOVraag" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./KDOVraag.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> KDOVraag </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # kdoadr : JAXBElement&lt;ADRRelFund&gt; </td></tr>
-<tr><td align="left" balign="left"> # kdobsg : JAXBElement&lt;KDOVraag.KDOBSG&gt; </td></tr>
-<tr><td align="left" balign="left"> # kdokdofil : JAXBElement&lt;KDOVraag.KDOKDOFIL&gt; </td></tr>
-<tr><td align="left" balign="left"> # kdoprb : JAXBElement&lt;KDOVraag.KDOPRB&gt; </td></tr>
-<tr><td align="left" balign="left"> # kdosubvzg : List&lt;KDOVraag.KDOSUBVZG&gt; </td></tr>
-<tr><td align="left" balign="left"> # kdosubzkr : List&lt;KDOVraag.KDOSUBZKR&gt; </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + KDOVraag() </td></tr>
-<tr><td align="left" balign="left"> + getKDOADR() : JAXBElement&lt;ADRRelFund&gt; </td></tr>
-<tr><td align="left" balign="left"> + setKDOADR(value : JAXBElement&lt;ADRRelFund&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getKDOBSG() : JAXBElement&lt;KDOVraag.KDOBSG&gt; </td></tr>
-<tr><td align="left" balign="left"> + setKDOBSG(value : JAXBElement&lt;KDOVraag.KDOBSG&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getKDOKDOFIL() : JAXBElement&lt;KDOVraag.KDOKDOFIL&gt; </td></tr>
-<tr><td align="left" balign="left"> + setKDOKDOFIL(value : JAXBElement&lt;KDOVraag.KDOKDOFIL&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getKDOPRB() : JAXBElement&lt;KDOVraag.KDOPRB&gt; </td></tr>
-<tr><td align="left" balign="left"> + setKDOPRB(value : JAXBElement&lt;KDOVraag.KDOPRB&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getKDOSUBVZG() : List&lt;KDOVraag.KDOSUBVZG&gt; </td></tr>
-<tr><td align="left" balign="left"> + getKDOSUBZKR() : List&lt;KDOVraag.KDOSUBZKR&gt; </td></tr>
-		</table></td></tr>
-		</table>>, URL="./KDOVraag.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.KDOVraag extends nl.egem.stuf.sector.bg._0204.KDOFund
-	c91932:p -> c92044:p [dir=back,arrowtail=empty];
+	c92002:p -> c91842:p [dir=back,arrowtail=empty];
 }
 

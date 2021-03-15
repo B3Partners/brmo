@@ -61,11 +61,9 @@ import org.hibernate.annotations.Type;
      */
 <span class="fc" id="L62">    @ElementCollection</span>
     @JoinTable(joinColumns = @JoinColumn(name = &quot;proces_id&quot;))
-    //volgende annotatie wordt nu niet uitgevoerd, mogelijk volgende hibernate versie
-    //dit is alleen nodig voor sql server, script faalt bij maken primary key
-    @MapKeyJoinColumn(nullable=false)
+    @MapKeyJoinColumn
     // Element wrapper required because of https://hibernate.atlassian.net/browse/JPA-11
-    private Map&lt;String, ClobElement&gt; config = new HashMap&lt;String, ClobElement&gt;();
+    private Map&lt;String, ClobElement&gt; config = new HashMap&lt;&gt;();
 
     /**
      * laatste run tijdtip vasthouden ten behoeve van logging en rapportage.
@@ -76,21 +74,21 @@ import org.hibernate.annotations.Type;
     /**
      * status van de laatste run.
      */
-<span class="fc" id="L79">    @Enumerated(EnumType.STRING)</span>
+<span class="fc" id="L77">    @Enumerated(EnumType.STRING)</span>
     private ProcessingStatus status = ProcessingStatus.WAITING;
 
     /**
      * samenvatting van de laatste run.
      */
     @Lob
-    @Type(type = &quot;org.hibernate.type.StringClobType&quot;)
+    @Type(type = &quot;org.hibernate.type.TextType&quot;)
     private String samenvatting;
 
     /**
      * logfile
      */
     @Lob
-    @Type(type = &quot;org.hibernate.type.StringClobType&quot;)
+    @Type(type = &quot;org.hibernate.type.TextType&quot;)
     private String logfile;
 
     /**
@@ -110,91 +108,77 @@ import org.hibernate.annotations.Type;
      * (http://www.postgresql.org/docs/9.3/static/datatype-character.html)
      */
     public void updateSamenvattingEnLogfile(String samenvatting) {
-<span class="pc bpc" id="L113" title="1 of 2 branches missed.">        if (samenvatting == null) {</span>
-<span class="nc" id="L114">            samenvatting = &quot;&quot;;</span>
+<span class="pc bpc" id="L111" title="1 of 2 branches missed.">        if (samenvatting == null) {</span>
+<span class="nc" id="L112">            samenvatting = &quot;&quot;;</span>
         }
-<span class="fc" id="L116">        this.setSamenvatting(samenvatting);</span>
-<span class="fc bfc" id="L117" title="All 2 branches covered.">        if (this.logfile == null) {</span>
-<span class="fc" id="L118">            this.setLogfile(samenvatting);</span>
+<span class="fc" id="L114">        this.setSamenvatting(samenvatting);</span>
+<span class="fc bfc" id="L115" title="All 2 branches covered.">        if (this.logfile == null) {</span>
+<span class="fc" id="L116">            this.setLogfile(samenvatting);</span>
         } else {
-<span class="fc" id="L120">            this.setLogfile(this.logfile + LOG_NEWLINE</span>
+<span class="fc" id="L118">            this.setLogfile(this.logfile + LOG_NEWLINE</span>
                     // +&quot;----------------&quot;+ LOG_NEWLINE
                     + samenvatting);
         }
 
-<span class="fc" id="L125">    }</span>
-
-    /**
-     * Voeg een regel toe aan de log en de samenvatting. &lt;strong&gt;DOET
-     * NIETS&lt;/strong&gt; op dit moment.
-     *
-     * @todo make this work
-     * @deprecated doet niets!
-     *
-     * @param line toe te voegen regel
-     */
-    @Deprecated
-    public void addLogLine(String line) {
-        //this.setLogfile(this.getLogfile() + LOG_NEWLINE + line);
-<span class="nc" id="L139">    }</span>
+<span class="fc" id="L123">    }</span>
 
     // &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;getters and setters&quot;&gt;
     public Map&lt;String, ClobElement&gt; getConfig() {
-<span class="fc" id="L143">        return config;</span>
+<span class="fc" id="L127">        return config;</span>
     }
 
     public void setConfig(Map&lt;String, ClobElement&gt; config) {
-<span class="nc" id="L147">        this.config = config;</span>
-<span class="nc" id="L148">    }</span>
+<span class="nc" id="L131">        this.config = config;</span>
+<span class="nc" id="L132">    }</span>
 
     public Date getLastrun() {
-<span class="nc" id="L151">        return lastrun;</span>
+<span class="nc" id="L135">        return lastrun;</span>
     }
 
     public void setLastrun(Date lastrun) {
-<span class="nc" id="L155">        this.lastrun = lastrun;</span>
-<span class="nc" id="L156">    }</span>
+<span class="nc" id="L139">        this.lastrun = lastrun;</span>
+<span class="nc" id="L140">    }</span>
 
     public ProcessingStatus getStatus() {
-<span class="nc" id="L159">        return status;</span>
+<span class="nc" id="L143">        return status;</span>
     }
 
     public void setStatus(ProcessingStatus status) {
-<span class="fc" id="L163">        this.status = status;</span>
-<span class="fc" id="L164">    }</span>
+<span class="fc" id="L147">        this.status = status;</span>
+<span class="fc" id="L148">    }</span>
 
     public String getSamenvatting() {
-<span class="fc" id="L167">        return samenvatting;</span>
+<span class="fc" id="L151">        return samenvatting;</span>
     }
 
     public void setSamenvatting(String samenvatting) {
-<span class="fc" id="L171">        this.samenvatting = samenvatting;</span>
-<span class="fc" id="L172">    }</span>
+<span class="fc" id="L155">        this.samenvatting = samenvatting;</span>
+<span class="fc" id="L156">    }</span>
 
     public String getLogfile() {
-<span class="fc" id="L175">        return logfile;</span>
+<span class="fc" id="L159">        return logfile;</span>
     }
 
     public void setLogfile(String logfile) {
-<span class="fc" id="L179">        this.logfile = logfile;</span>
-<span class="fc" id="L180">    }</span>
+<span class="fc" id="L163">        this.logfile = logfile;</span>
+<span class="fc" id="L164">    }</span>
 
     public Long getId() {
-<span class="fc" id="L183">        return id;</span>
+<span class="fc" id="L167">        return id;</span>
     }
 
     public void setId(Long id) {
-<span class="nc" id="L187">        this.id = id;</span>
-<span class="nc" id="L188">    }</span>
+<span class="nc" id="L171">        this.id = id;</span>
+<span class="nc" id="L172">    }</span>
 
     public String getCronExpressie() {
-<span class="nc" id="L191">        return cronExpressie;</span>
+<span class="nc" id="L175">        return cronExpressie;</span>
     }
 
     public void setCronExpressie(String cronExpressie) {
-<span class="nc" id="L195">        this.cronExpressie = cronExpressie;</span>
-<span class="nc" id="L196">    }</span>
+<span class="nc" id="L179">        this.cronExpressie = cronExpressie;</span>
+<span class="nc" id="L180">    }</span>
 
     //&lt;/editor-fold&gt;
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

@@ -180,12 +180,12 @@ import org.apache.commons.logging.LogFactory;
 <span class="nc" id="L180">            int pageNumber = pdf.getPageNumber(page);</span>
 <span class="nc" id="L181">            Rectangle pageSize = page.getPageSize();</span>
 <span class="nc" id="L182">            PdfCanvas pdfCanvas = new PdfCanvas(page.getLastContentStream(), page.getResources(), pdf);</span>
-<span class="nc" id="L183">            Canvas canvas = new Canvas(pdfCanvas, pdf, pageSize);</span>
+<span class="nc" id="L183">            Canvas canvas = new Canvas(pdfCanvas, pageSize);</span>
 <span class="nc" id="L184">            Paragraph p = new Paragraph().add(&quot;Pagina &quot;).add(String.valueOf(pageNumber)).add(&quot; van&quot;);</span>
 <span class="nc" id="L185">            Paragraph p2 = new Paragraph().add(&quot;B3Partners BRMO controlemodule - &quot; + datum);</span>
 <span class="nc" id="L186">            canvas.showTextAligned(p2, 35, y, TextAlignment.LEFT);</span>
 <span class="nc" id="L187">            canvas.showTextAligned(p, x, y, TextAlignment.RIGHT);</span>
-<span class="nc" id="L188">            pdfCanvas.addXObject(placeholder, x + space, y - descent);</span>
+<span class="nc" id="L188">            pdfCanvas.addXObjectAt(placeholder, x + space, y - descent);</span>
 <span class="nc" id="L189">            pdfCanvas.release();</span>
 <span class="nc" id="L190">        }</span>
 
@@ -195,4 +195,4 @@ import org.apache.commons.logging.LogFactory;
 <span class="nc" id="L195">        }</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

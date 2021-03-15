@@ -267,20 +267,18 @@ public class BGTLightOphalenProces extends AbstractExecutableProces {
 <span class="nc" id="L267">                    String msg = String.format(&quot;FOUT: De archief directory '%s' is geen beschrijfbare directory, zipfiles kunnen niet worden niet opgeslagen.&quot;, archiefDirectory);</span>
 <span class="nc" id="L268">                    LOG.error(msg);</span>
 <span class="nc" id="L269">                    listener.addLog(msg);</span>
-<span class="nc" id="L270">                    config.addLogLine(msg);</span>
-<span class="nc" id="L271">                    isArchiving = false;</span>
+<span class="nc" id="L270">                    isArchiving = false;</span>
                 }
-<span class="nc" id="L273">            } catch (SecurityException e) {</span>
-<span class="nc" id="L274">                String msg = String.format(&quot;SecurityException voor archief directory '%s', zipfiles kunnen niet worden niet opgeslagen.&quot;, archiefDirectory);</span>
-<span class="nc" id="L275">                listener.addLog(msg);</span>
-<span class="nc" id="L276">                config.addLogLine(msg);</span>
-<span class="nc" id="L277">                LOG.error(msg, e);</span>
-<span class="nc" id="L278">                isArchiving = false;</span>
-<span class="nc" id="L279">                listener.exception(e);</span>
-<span class="nc" id="L280">            }</span>
+<span class="nc" id="L272">            } catch (SecurityException e) {</span>
+<span class="nc" id="L273">                String msg = String.format(&quot;SecurityException voor archief directory '%s', zipfiles kunnen niet worden niet opgeslagen.&quot;, archiefDirectory);</span>
+<span class="nc" id="L274">                listener.addLog(msg);</span>
+<span class="nc" id="L275">                LOG.error(msg, e);</span>
+<span class="nc" id="L276">                isArchiving = false;</span>
+<span class="nc" id="L277">                listener.exception(e);</span>
+<span class="nc" id="L278">            }</span>
         }
-<span class="nc" id="L282">        LOG.debug(&quot;Archief directory ingesteld op &quot; + aDir);</span>
-<span class="nc" id="L283">        return isArchiving;</span>
+<span class="nc" id="L280">        LOG.debug(&quot;Archief directory ingesteld op &quot; + aDir);</span>
+<span class="nc" id="L281">        return isArchiving;</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

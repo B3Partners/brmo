@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.PRBKerngegevens
-	c144538 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRBKerngegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRBKerngegevens.html">
+	c144601 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRBKerngegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRBKerngegevens.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PRBKerngegevens </td></tr>
 		</table></td></tr>
@@ -45,7 +45,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./PRBKerngegevens.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.PRBKerngegevens.Ingangsdatum
-	c144540 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRBKerngegevens.Ingangsdatum" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PRBKerngegevens.Ingangsdatum.html">
+	c144603 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRBKerngegevens.Ingangsdatum" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PRBKerngegevens.Ingangsdatum.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Ingangsdatum </td></tr>
 		</table></td></tr>
@@ -59,7 +59,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./PRBKerngegevens.Ingangsdatum.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.stuf0204.DatumMetIndicator
-	c144721 [label=<<table title="nl.egem.stuf.stuf0204.DatumMetIndicator" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/DatumMetIndicator.html">
+	c144710 [label=<<table title="nl.egem.stuf.stuf0204.DatumMetIndicator" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/DatumMetIndicator.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DatumMetIndicator </td></tr>
 		</table></td></tr>
@@ -82,8 +82,8 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="../../../stuf0204/DatumMetIndicator.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.PRBKerngegevens.Ingangsdatum extends nl.egem.stuf.stuf0204.DatumMetIndicator
-	c144721:p -> c144540:p [dir=back,arrowtail=empty];
+	c144710:p -> c144603:p [dir=back,arrowtail=empty];
 	// nl.egem.stuf.sector.bg._0204.PRBKerngegevens NAVASSOC nl.egem.stuf.sector.bg._0204.PRBKerngegevens.Ingangsdatum
-	c144538:p -> c144540:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c144601:p -> c144603:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

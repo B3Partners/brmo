@@ -50,52 +50,49 @@ import javax.persistence.Table;
     @JoinTable(name = &quot;gebruiker_groepen&quot;, joinColumns = @JoinColumn(name = &quot;gebruikersnaam&quot;), inverseJoinColumns = @JoinColumn(name = &quot;groep_&quot;))
     private Set&lt;Groep&gt; groepen = new HashSet&lt;Groep&gt;();
 
-    //    @ElementCollection
-    //    @JoinTable(joinColumns=@JoinColumn(name=&quot;gebruikersnaam&quot;))
-    //    private Map&lt;String,String&gt; details = new HashMap&lt;String,String&gt;();
     /**
      *
      * @param password wachtwoord
      * @throws NoSuchAlgorithmException als er geen DIGEST_ALGORITM bestaat
-     * @throws UnsupportedEncodingException als er een onbekendeencodingsfout
-     * optreed
+     * @throws UnsupportedEncodingException als er een onbekende encodingsfout
+     * optreedt
      */
     public void changePassword(String password) throws NoSuchAlgorithmException, UnsupportedEncodingException {
-<span class="fc" id="L64">        MessageDigest md = (MessageDigest) MessageDigest.getInstance(DIGEST_ALGORITM);</span>
-<span class="fc" id="L65">        md.update(password.getBytes(DIGEST_CHARSET));</span>
-<span class="fc" id="L66">        byte[] digest = md.digest();</span>
+<span class="fc" id="L61">        MessageDigest md = (MessageDigest) MessageDigest.getInstance(DIGEST_ALGORITM);</span>
+<span class="fc" id="L62">        md.update(password.getBytes(DIGEST_CHARSET));</span>
+<span class="fc" id="L63">        byte[] digest = md.digest();</span>
 
         /* Converteer byte array naar hex-weergave */
-<span class="fc" id="L69">        StringBuilder sb = new StringBuilder(digest.length * 2);</span>
-<span class="fc bfc" id="L70" title="All 2 branches covered.">        for (int i = 0; i &lt; digest.length; i++) {</span>
-<span class="fc" id="L71">            sb.append(Integer.toHexString(digest[i] &gt;&gt; 4 &amp; 0xf)); /* and mask met 0xf nodig door sign-extenden van bytes... */</span>
-<span class="fc" id="L72">            sb.append(Integer.toHexString(digest[i] &amp; 0xf));</span>
+<span class="fc" id="L66">        StringBuilder sb = new StringBuilder(digest.length * 2);</span>
+<span class="fc bfc" id="L67" title="All 2 branches covered.">        for (int i = 0; i &lt; digest.length; i++) {</span>
+<span class="fc" id="L68">            sb.append(Integer.toHexString(digest[i] &gt;&gt; 4 &amp; 0xf)); /* and mask met 0xf nodig door sign-extenden van bytes... */</span>
+<span class="fc" id="L69">            sb.append(Integer.toHexString(digest[i] &amp; 0xf));</span>
         }
-<span class="fc" id="L74">        setWachtwoord(sb.toString());</span>
-<span class="fc" id="L75">    }</span>
+<span class="fc" id="L71">        setWachtwoord(sb.toString());</span>
+<span class="fc" id="L72">    }</span>
 
     public String getWachtwoord() {
-<span class="nc" id="L78">        return wachtwoord;</span>
+<span class="nc" id="L75">        return wachtwoord;</span>
     }
 
     public void setWachtwoord(String wachtwoord) {
-<span class="fc" id="L82">        this.wachtwoord = wachtwoord;</span>
-<span class="fc" id="L83">    }</span>
+<span class="fc" id="L79">        this.wachtwoord = wachtwoord;</span>
+<span class="fc" id="L80">    }</span>
 
     public Set&lt;Groep&gt; getGroepen() {
-<span class="nc" id="L86">        return groepen;</span>
+<span class="nc" id="L83">        return groepen;</span>
     }
 
     public void setGroepen(Set&lt;Groep&gt; groepen) {
-<span class="nc" id="L90">        this.groepen = groepen;</span>
-<span class="nc" id="L91">    }</span>
+<span class="nc" id="L87">        this.groepen = groepen;</span>
+<span class="nc" id="L88">    }</span>
 
     public String getGebruikersnaam() {
-<span class="nc" id="L94">        return gebruikersnaam;</span>
+<span class="nc" id="L91">        return gebruikersnaam;</span>
     }
 
     public void setGebruikersnaam(String gebruikersnaam) {
-<span class="fc" id="L98">        this.gebruikersnaam = gebruikersnaam;</span>
-<span class="fc" id="L99">    }</span>
+<span class="fc" id="L95">        this.gebruikersnaam = gebruikersnaam;</span>
+<span class="fc" id="L96">    }</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

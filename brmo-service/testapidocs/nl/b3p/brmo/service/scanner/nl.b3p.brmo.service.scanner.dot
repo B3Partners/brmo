@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.service.scanner.AfgifteNummerScannerIntegrationTest
-	c48 [label=<<table title="nl.b3p.brmo.service.scanner.AfgifteNummerScannerIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AfgifteNummerScannerIntegrationTest.html">
+	c45 [label=<<table title="nl.b3p.brmo.service.scanner.AfgifteNummerScannerIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AfgifteNummerScannerIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> AfgifteNummerScannerIntegrationTest </td></tr>
 		</table></td></tr>
@@ -18,40 +18,23 @@ digraph G {
 <tr><td align="left" balign="left">  </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + AfgifteNummerScannerIntegrationTest(sBestandsNaam : String, lAantalLaadProcessen : long, iAantalOntbrekendeNummerRanges : int, sContractNummer : String, sContractNummers : String[], iAantalOntbrekendRecords : int) </td></tr>
-<tr><td align="left" balign="left"> + testdata() : Collection&lt;&gt; </td></tr>
+<tr><td align="left" balign="left"> + AfgifteNummerScannerIntegrationTest() </td></tr>
+<tr><td align="left" balign="left"> ~ argumentsProvider() : Stream&lt;Arguments&gt; </td></tr>
 <tr><td align="left" balign="left"> + setUp() </td></tr>
 <tr><td align="left" balign="left"> + tearDown() </td></tr>
-<tr><td align="left" balign="left"> + testGetOntbrekendeAfgiftenummersDefault() </td></tr>
-<tr><td align="left" balign="left"> + testGetOntbrekendeKlantAfgiftenummers() </td></tr>
-<tr><td align="left" balign="left"> + testGetOntbrekendeContractAfgiftenummers() </td></tr>
-<tr><td align="left" balign="left"> + testInsertOntbrekendeContractAfgiftenummers() </td></tr>
-<tr><td align="left" balign="left"> + testInsertOntbrekendeKlantAfgiftenummers() </td></tr>
+<tr><td align="left" balign="left"> + testGetOntbrekendeAfgiftenummersDefault(sBestandsNaam : String, lAantalLaadProcessen : long, iAantalOntbrekendeNummerRanges : int, sContractNummer : String, sContractNummers : String[], iAantalOntbrekendRecords : int) </td></tr>
+<tr><td align="left" balign="left"> + testGetOntbrekendeKlantAfgiftenummers(sBestandsNaam : String, lAantalLaadProcessen : long, iAantalOntbrekendeNummerRanges : int, sContractNummer : String, sContractNummers : String[], iAantalOntbrekendRecords : int) </td></tr>
+<tr><td align="left" balign="left"> + testGetOntbrekendeContractAfgiftenummers(sBestandsNaam : String, lAantalLaadProcessen : long, iAantalOntbrekendeNummerRanges : int, sContractNummer : String, sContractNummers : String[], iAantalOntbrekendRecords : int) </td></tr>
+<tr><td align="left" balign="left"> + testInsertOntbrekendeContractAfgiftenummers(sBestandsNaam : String, lAantalLaadProcessen : long, iAantalOntbrekendeNummerRanges : int, sContractNummer : String, sContractNummers : String[], iAantalOntbrekendRecords : int) </td></tr>
+<tr><td align="left" balign="left"> + testInsertOntbrekendeKlantAfgiftenummers(sBestandsNaam : String, lAantalLaadProcessen : long, iAantalOntbrekendeNummerRanges : int, sContractNummer : String, sContractNummers : String[], iAantalOntbrekendRecords : int) </td></tr>
 <tr><td align="left" balign="left"> + testGetOntbrekendeContractAfgiftenummersZonderContractnummer() </td></tr>
-<tr><td align="left" balign="left"> + testContractnummers() </td></tr>
+<tr><td align="left" balign="left"> + testContractnummers(sBestandsNaam : String, lAantalLaadProcessen : long, iAantalOntbrekendeNummerRanges : int, sContractNummer : String, sContractNummers : String[], iAantalOntbrekendRecords : int) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./AfgifteNummerScannerIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.service.scanner.BRKDirectoryScannerIntegrationTest
-	c49 [label=<<table title="nl.b3p.brmo.service.scanner.BRKDirectoryScannerIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BRKDirectoryScannerIntegrationTest.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> BRKDirectoryScannerIntegrationTest </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BRKDirectoryScannerIntegrationTest() </td></tr>
-<tr><td align="left" balign="left"> + setUp() </td></tr>
-<tr><td align="left" balign="left"> + tearDown() </td></tr>
-<tr><td align="left" balign="left"> + testDuplicaatBerichten() </td></tr>
-		</table></td></tr>
-		</table>>, URL="./BRKDirectoryScannerIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.scanner.AfgifteNummerScannerIntegrationTest NAVASSOC nl.b3p.brmo.service.scanner.AfgifteNummerScanner
-	c48:p -> c54:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.b3p.brmo.service.scanner.BRKDirectoryScannerIntegrationTest NAVASSOC nl.b3p.brmo.service.scanner.BRKDirectoryScanner
-	c49:p -> c55:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c45:p -> c52:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.service.scanner.AfgifteNummerScanner
-	c54 [label=<<table title="nl.b3p.brmo.service.scanner.AfgifteNummerScanner" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+	c52 [label=<<table title="nl.b3p.brmo.service.scanner.AfgifteNummerScanner" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> AfgifteNummerScanner </td></tr>
 		</table></td></tr>
@@ -66,20 +49,6 @@ digraph G {
 <tr><td align="left" balign="left"> ~ insertOntbrekendeAfgiftenummers(arg0 : long, arg1 : long, arg2 : String, arg3 : String) : long </td></tr>
 <tr><td align="left" balign="left"> ~ getOntbrekendeAfgiftenummers(arg0 : String, arg1 : String) : List&lt;Map&lt;String, Object&gt;&gt; </td></tr>
 <tr><td align="left" balign="left"> + getOntbrekendeNummersGevonden() : boolean </td></tr>
-		</table></td></tr>
-		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.service.scanner.BRKDirectoryScanner
-	c55 [label=<<table title="nl.b3p.brmo.service.scanner.BRKDirectoryScanner" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> BRKDirectoryScanner </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BRKDirectoryScanner(arg0 : BRKScannerProces) </td></tr>
-<tr><td align="left" balign="left"> + execute() </td></tr>
-<tr><td align="left" balign="left"> + execute(arg0 : ProgressUpdateListener) </td></tr>
 		</table></td></tr>
 		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }

@@ -9,22 +9,8 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// nl.egem.stuf.sector.bg._0204.ADRRelFund
-	c29976 [label=<<table title="nl.egem.stuf.sector.bg._0204.ADRRelFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ADRRelFund.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> ADRRelFund </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # adr : ADRFund </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + ADRRelFund() </td></tr>
-<tr><td align="left" balign="left"> + getADR() : ADRFund </td></tr>
-<tr><td align="left" balign="left"> + setADR(value : ADRFund) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./ADRRelFund.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.ADRFund
-	c30154 [label=<<table title="nl.egem.stuf.sector.bg._0204.ADRFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ADRFund.html">
+	c29926 [label=<<table title="nl.egem.stuf.sector.bg._0204.ADRFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ADRFund.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ADRFund </td></tr>
 		</table></td></tr>
@@ -131,7 +117,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./ADRFund.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.Relatie
-	c30188 [label=<<table title="nl.egem.stuf.sector.bg._0204.Relatie" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Relatie.html">
+	c29973 [label=<<table title="nl.egem.stuf.sector.bg._0204.Relatie" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Relatie.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Relatie </td></tr>
 		</table></td></tr>
@@ -168,9 +154,23 @@ digraph G {
 <tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Relatie.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.ADRRelFund
+	c30252 [label=<<table title="nl.egem.stuf.sector.bg._0204.ADRRelFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ADRRelFund.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> ADRRelFund </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # adr : ADRFund </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + ADRRelFund() </td></tr>
+<tr><td align="left" balign="left"> + getADR() : ADRFund </td></tr>
+<tr><td align="left" balign="left"> + setADR(value : ADRFund) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./ADRRelFund.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.ADRRelFund extends nl.egem.stuf.sector.bg._0204.Relatie
-	c30188:p -> c29976:p [dir=back,arrowtail=empty];
+	c29973:p -> c30252:p [dir=back,arrowtail=empty];
 	// nl.egem.stuf.sector.bg._0204.ADRRelFund NAVASSOC nl.egem.stuf.sector.bg._0204.ADRFund
-	c29976:p -> c30154:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c30252:p -> c29926:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

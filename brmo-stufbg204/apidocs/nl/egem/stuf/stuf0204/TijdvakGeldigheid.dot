@@ -9,13 +9,163 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// nl.egem.stuf.sector.bg._0204.PRSIDBRel
-	c203943 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSIDBRel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/PRSIDBRel.html">
+	// nl.egem.stuf.sector.bg._0204.PRBFund
+	c203935 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRBFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/PRBFund.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> PRSIDBRel </td></tr>
+<tr><td align="center" balign="center"> PRBFund </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # nummerIdentiteitsbewijs : JAXBElement&lt;PRSIDBRel.NummerIdentiteitsbewijs&gt; </td></tr>
+<tr><td align="left" balign="left"> # codePubliekRechtlijkeBeperking : JAXBElement&lt;PRBFund.CodePubliekRechtlijkeBeperking&gt; </td></tr>
+<tr><td align="left" balign="left"> # ingangsdatum : JAXBElement&lt;PRBFund.Ingangsdatum&gt; </td></tr>
+<tr><td align="left" balign="left"> # einddatum : JAXBElement&lt;Object&gt; </td></tr>
+<tr><td align="left" balign="left"> # vindplaatsDocument : JAXBElement&lt;PRBFund.VindplaatsDocument&gt; </td></tr>
+<tr><td align="left" balign="left"> # tijdvakGeldigheid : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> # extraElementen : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> # soortEntiteit : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelVerzendend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelOntvangend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelGegevensbeheer : String </td></tr>
+<tr><td align="left" balign="left"> # verwerkingssoort : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + PRBFund() </td></tr>
+<tr><td align="left" balign="left"> + getCodePubliekRechtlijkeBeperking() : JAXBElement&lt;PRBFund.CodePubliekRechtlijkeBeperking&gt; </td></tr>
+<tr><td align="left" balign="left"> + setCodePubliekRechtlijkeBeperking(value : JAXBElement&lt;PRBFund.CodePubliekRechtlijkeBeperking&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getIngangsdatum() : JAXBElement&lt;PRBFund.Ingangsdatum&gt; </td></tr>
+<tr><td align="left" balign="left"> + setIngangsdatum(value : JAXBElement&lt;PRBFund.Ingangsdatum&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getEinddatum() : JAXBElement&lt;Object&gt; </td></tr>
+<tr><td align="left" balign="left"> + setEinddatum(value : JAXBElement&lt;Object&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getVindplaatsDocument() : JAXBElement&lt;PRBFund.VindplaatsDocument&gt; </td></tr>
+<tr><td align="left" balign="left"> + setVindplaatsDocument(value : JAXBElement&lt;PRBFund.VindplaatsDocument&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getTijdvakGeldigheid() : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> + setTijdvakGeldigheid(value : TijdvakGeldigheid) </td></tr>
+<tr><td align="left" balign="left"> + getExtraElementen() : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> + setExtraElementen(value : ExtraElementen) </td></tr>
+<tr><td align="left" balign="left"> + getSoortEntiteit() : String </td></tr>
+<tr><td align="left" balign="left"> + setSoortEntiteit(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelVerzendend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelVerzendend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelOntvangend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelOntvangend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelGegevensbeheer() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelGegevensbeheer(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getVerwerkingssoort() : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> + setVerwerkingssoort(value : Verwerkingssoort) </td></tr>
+<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
+<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
+		</table></td></tr>
+		</table>>, URL="../sector/bg/_0204/PRBFund.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.OBWFund
+	c203963 [label=<<table title="nl.egem.stuf.sector.bg._0204.OBWFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/OBWFund.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> OBWFund </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # overigBouwwerkNummer : JAXBElement&lt;OBWFund.OverigBouwwerkNummer&gt; </td></tr>
+<tr><td align="left" balign="left"> # typeOverigBouwwerk : JAXBElement&lt;OBWFund.TypeOverigBouwwerk&gt; </td></tr>
+<tr><td align="left" balign="left"> # omschrijvingOverigBouwwerk : JAXBElement&lt;OBWFund.OmschrijvingOverigBouwwerk&gt; </td></tr>
+<tr><td align="left" balign="left"> # tijdvakGeldigheid : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> # extraElementen : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> # soortEntiteit : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelVerzendend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelOntvangend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelGegevensbeheer : String </td></tr>
+<tr><td align="left" balign="left"> # verwerkingssoort : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + OBWFund() </td></tr>
+<tr><td align="left" balign="left"> + getOverigBouwwerkNummer() : JAXBElement&lt;OBWFund.OverigBouwwerkNummer&gt; </td></tr>
+<tr><td align="left" balign="left"> + setOverigBouwwerkNummer(value : JAXBElement&lt;OBWFund.OverigBouwwerkNummer&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getTypeOverigBouwwerk() : JAXBElement&lt;OBWFund.TypeOverigBouwwerk&gt; </td></tr>
+<tr><td align="left" balign="left"> + setTypeOverigBouwwerk(value : JAXBElement&lt;OBWFund.TypeOverigBouwwerk&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getOmschrijvingOverigBouwwerk() : JAXBElement&lt;OBWFund.OmschrijvingOverigBouwwerk&gt; </td></tr>
+<tr><td align="left" balign="left"> + setOmschrijvingOverigBouwwerk(value : JAXBElement&lt;OBWFund.OmschrijvingOverigBouwwerk&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getTijdvakGeldigheid() : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> + setTijdvakGeldigheid(value : TijdvakGeldigheid) </td></tr>
+<tr><td align="left" balign="left"> + getExtraElementen() : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> + setExtraElementen(value : ExtraElementen) </td></tr>
+<tr><td align="left" balign="left"> + getSoortEntiteit() : String </td></tr>
+<tr><td align="left" balign="left"> + setSoortEntiteit(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelVerzendend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelVerzendend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelOntvangend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelOntvangend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelGegevensbeheer() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelGegevensbeheer(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getVerwerkingssoort() : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> + setVerwerkingssoort(value : Verwerkingssoort) </td></tr>
+<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
+<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
+		</table></td></tr>
+		</table>>, URL="../sector/bg/_0204/OBWFund.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.WOZFund
+	c203979 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/WOZFund.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> WOZFund </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # wozObjectNummer : JAXBElement&lt;WOZFund.WozObjectNummer&gt; </td></tr>
+<tr><td align="left" balign="left"> # activiteitFeitelijk : List&lt;WOZFund.ActiviteitFeitelijk&gt; </td></tr>
+<tr><td align="left" balign="left"> # vastgesteldeWaarde : JAXBElement&lt;WOZFund.VastgesteldeWaarde&gt; </td></tr>
+<tr><td align="left" balign="left"> # vastgesteldeWaardeEuro : JAXBElement&lt;WOZFund.VastgesteldeWaardeEuro&gt; </td></tr>
+<tr><td align="left" balign="left"> # peildatumWaarde : JAXBElement&lt;WOZFund.PeildatumWaarde&gt; </td></tr>
+<tr><td align="left" balign="left"> # huurprijs : JAXBElement&lt;WOZFund.Huurprijs&gt; </td></tr>
+<tr><td align="left" balign="left"> # huurprijsEuro : JAXBElement&lt;BigInteger&gt; </td></tr>
+<tr><td align="left" balign="left"> # peildatumHuurprijs : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
+<tr><td align="left" balign="left"> # tijdvakGeldigheid : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> # extraElementen : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> # soortEntiteit : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelVerzendend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelOntvangend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelGegevensbeheer : String </td></tr>
+<tr><td align="left" balign="left"> # verwerkingssoort : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + WOZFund() </td></tr>
+<tr><td align="left" balign="left"> + getWozObjectNummer() : JAXBElement&lt;WOZFund.WozObjectNummer&gt; </td></tr>
+<tr><td align="left" balign="left"> + setWozObjectNummer(value : JAXBElement&lt;WOZFund.WozObjectNummer&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getActiviteitFeitelijk() : List&lt;WOZFund.ActiviteitFeitelijk&gt; </td></tr>
+<tr><td align="left" balign="left"> + getVastgesteldeWaarde() : JAXBElement&lt;WOZFund.VastgesteldeWaarde&gt; </td></tr>
+<tr><td align="left" balign="left"> + setVastgesteldeWaarde(value : JAXBElement&lt;WOZFund.VastgesteldeWaarde&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getVastgesteldeWaardeEuro() : JAXBElement&lt;WOZFund.VastgesteldeWaardeEuro&gt; </td></tr>
+<tr><td align="left" balign="left"> + setVastgesteldeWaardeEuro(value : JAXBElement&lt;WOZFund.VastgesteldeWaardeEuro&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getPeildatumWaarde() : JAXBElement&lt;WOZFund.PeildatumWaarde&gt; </td></tr>
+<tr><td align="left" balign="left"> + setPeildatumWaarde(value : JAXBElement&lt;WOZFund.PeildatumWaarde&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getHuurprijs() : JAXBElement&lt;WOZFund.Huurprijs&gt; </td></tr>
+<tr><td align="left" balign="left"> + setHuurprijs(value : JAXBElement&lt;WOZFund.Huurprijs&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getHuurprijsEuro() : JAXBElement&lt;BigInteger&gt; </td></tr>
+<tr><td align="left" balign="left"> + setHuurprijsEuro(value : JAXBElement&lt;BigInteger&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getPeildatumHuurprijs() : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
+<tr><td align="left" balign="left"> + setPeildatumHuurprijs(value : JAXBElement&lt;DatumMetIndicator&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getTijdvakGeldigheid() : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> + setTijdvakGeldigheid(value : TijdvakGeldigheid) </td></tr>
+<tr><td align="left" balign="left"> + getExtraElementen() : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> + setExtraElementen(value : ExtraElementen) </td></tr>
+<tr><td align="left" balign="left"> + getSoortEntiteit() : String </td></tr>
+<tr><td align="left" balign="left"> + setSoortEntiteit(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelVerzendend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelVerzendend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelOntvangend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelOntvangend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelGegevensbeheer() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelGegevensbeheer(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getVerwerkingssoort() : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> + setVerwerkingssoort(value : Verwerkingssoort) </td></tr>
+<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
+<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
+		</table></td></tr>
+		</table>>, URL="../sector/bg/_0204/WOZFund.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.PRSPRSOUDRel
+	c203986 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSPRSOUDRel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/PRSPRSOUDRel.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> PRSPRSOUDRel </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # ingangsdatum : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
+<tr><td align="left" balign="left"> # einddatum : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
 <tr><td align="left" balign="left"> # tijdvakRelatie : TijdvakRelatie </td></tr>
 <tr><td align="left" balign="left"> # tijdvakGeldigheid : TijdvakGeldigheid </td></tr>
 <tr><td align="left" balign="left"> # extraElementen : ExtraElementen </td></tr>
@@ -27,9 +177,11 @@ digraph G {
 <tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + PRSIDBRel() </td></tr>
-<tr><td align="left" balign="left"> + getNummerIdentiteitsbewijs() : JAXBElement&lt;PRSIDBRel.NummerIdentiteitsbewijs&gt; </td></tr>
-<tr><td align="left" balign="left"> + setNummerIdentiteitsbewijs(value : JAXBElement&lt;PRSIDBRel.NummerIdentiteitsbewijs&gt;) </td></tr>
+<tr><td align="left" balign="left"> + PRSPRSOUDRel() </td></tr>
+<tr><td align="left" balign="left"> + getIngangsdatum() : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
+<tr><td align="left" balign="left"> + setIngangsdatum(value : JAXBElement&lt;DatumMetIndicator&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getEinddatum() : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
+<tr><td align="left" balign="left"> + setEinddatum(value : JAXBElement&lt;DatumMetIndicator&gt;) </td></tr>
 <tr><td align="left" balign="left"> + getTijdvakRelatie() : TijdvakRelatie </td></tr>
 <tr><td align="left" balign="left"> + setTijdvakRelatie(value : TijdvakRelatie) </td></tr>
 <tr><td align="left" balign="left"> + getTijdvakGeldigheid() : TijdvakGeldigheid </td></tr>
@@ -49,9 +201,116 @@ digraph G {
 <tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
 <tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
 		</table></td></tr>
-		</table>>, URL="../sector/bg/_0204/PRSIDBRel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, URL="../sector/bg/_0204/PRSPRSOUDRel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.ADRFund
+	c203990 [label=<<table title="nl.egem.stuf.sector.bg._0204.ADRFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/ADRFund.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> ADRFund </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # adresBuitenland1 : JAXBElement&lt;ADRFund.AdresBuitenland1&gt; </td></tr>
+<tr><td align="left" balign="left"> # adresBuitenland2 : JAXBElement&lt;ADRFund.AdresBuitenland2&gt; </td></tr>
+<tr><td align="left" balign="left"> # adresBuitenland3 : JAXBElement&lt;ADRFund.AdresBuitenland3&gt; </td></tr>
+<tr><td align="left" balign="left"> # landcode : JAXBElement&lt;ADRFund.Landcode&gt; </td></tr>
+<tr><td align="left" balign="left"> # postcode : JAXBElement&lt;ADRFund.Postcode&gt; </td></tr>
+<tr><td align="left" balign="left"> # woonplaatsnaam : JAXBElement&lt;ADRFund.Woonplaatsnaam&gt; </td></tr>
+<tr><td align="left" balign="left"> # postbusnummer : JAXBElement&lt;ADRFund.Postbusnummer&gt; </td></tr>
+<tr><td align="left" balign="left"> # antwoordnummer : JAXBElement&lt;ADRFund.Antwoordnummer&gt; </td></tr>
+<tr><td align="left" balign="left"> # straatnaam : JAXBElement&lt;ADRFund.Straatnaam&gt; </td></tr>
+<tr><td align="left" balign="left"> # huisnummer : JAXBElement&lt;ADRFund.Huisnummer&gt; </td></tr>
+<tr><td align="left" balign="left"> # huisletter : JAXBElement&lt;ADRFund.Huisletter&gt; </td></tr>
+<tr><td align="left" balign="left"> # huisnummertoevoeging : JAXBElement&lt;ADRFund.Huisnummertoevoeging&gt; </td></tr>
+<tr><td align="left" balign="left"> # aanduidingBijHuisnummer : JAXBElement&lt;ADRFund.AanduidingBijHuisnummer&gt; </td></tr>
+<tr><td align="left" balign="left"> # locatieomschrijving : JAXBElement&lt;ADRFund.Locatieomschrijving&gt; </td></tr>
+<tr><td align="left" balign="left"> # locatieadresnummer : JAXBElement&lt;ADRFund.Locatieadresnummer&gt; </td></tr>
+<tr><td align="left" balign="left"> # ingangsdatum : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
+<tr><td align="left" balign="left"> # einddatum : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
+<tr><td align="left" balign="left"> # straatcode : JAXBElement&lt;ADRFund.Straatcode&gt; </td></tr>
+<tr><td align="left" balign="left"> # buurtcode : JAXBElement&lt;ADRFund.Buurtcode&gt; </td></tr>
+<tr><td align="left" balign="left"> # wijkcode : JAXBElement&lt;ADRFund.Wijkcode&gt; </td></tr>
+<tr><td align="left" balign="left"> # gemeentecode : JAXBElement&lt;ADRFund.Gemeentecode&gt; </td></tr>
+<tr><td align="left" balign="left"> # centroidXCoordinaat : JAXBElement&lt;ADRFund.CentroidXCoordinaat&gt; </td></tr>
+<tr><td align="left" balign="left"> # centroidYCoordinaat : JAXBElement&lt;ADRFund.CentroidYCoordinaat&gt; </td></tr>
+<tr><td align="left" balign="left"> # centroidZCoordinaat : JAXBElement&lt;ADRFund.CentroidZCoordinaat&gt; </td></tr>
+<tr><td align="left" balign="left"> # tijdvakGeldigheid : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> # extraElementen : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> # soortEntiteit : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelVerzendend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelOntvangend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelGegevensbeheer : String </td></tr>
+<tr><td align="left" balign="left"> # verwerkingssoort : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + ADRFund() </td></tr>
+<tr><td align="left" balign="left"> + getAdresBuitenland1() : JAXBElement&lt;ADRFund.AdresBuitenland1&gt; </td></tr>
+<tr><td align="left" balign="left"> + setAdresBuitenland1(value : JAXBElement&lt;ADRFund.AdresBuitenland1&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getAdresBuitenland2() : JAXBElement&lt;ADRFund.AdresBuitenland2&gt; </td></tr>
+<tr><td align="left" balign="left"> + setAdresBuitenland2(value : JAXBElement&lt;ADRFund.AdresBuitenland2&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getAdresBuitenland3() : JAXBElement&lt;ADRFund.AdresBuitenland3&gt; </td></tr>
+<tr><td align="left" balign="left"> + setAdresBuitenland3(value : JAXBElement&lt;ADRFund.AdresBuitenland3&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getLandcode() : JAXBElement&lt;ADRFund.Landcode&gt; </td></tr>
+<tr><td align="left" balign="left"> + setLandcode(value : JAXBElement&lt;ADRFund.Landcode&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getPostcode() : JAXBElement&lt;ADRFund.Postcode&gt; </td></tr>
+<tr><td align="left" balign="left"> + setPostcode(value : JAXBElement&lt;ADRFund.Postcode&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getWoonplaatsnaam() : JAXBElement&lt;ADRFund.Woonplaatsnaam&gt; </td></tr>
+<tr><td align="left" balign="left"> + setWoonplaatsnaam(value : JAXBElement&lt;ADRFund.Woonplaatsnaam&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getPostbusnummer() : JAXBElement&lt;ADRFund.Postbusnummer&gt; </td></tr>
+<tr><td align="left" balign="left"> + setPostbusnummer(value : JAXBElement&lt;ADRFund.Postbusnummer&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getAntwoordnummer() : JAXBElement&lt;ADRFund.Antwoordnummer&gt; </td></tr>
+<tr><td align="left" balign="left"> + setAntwoordnummer(value : JAXBElement&lt;ADRFund.Antwoordnummer&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getStraatnaam() : JAXBElement&lt;ADRFund.Straatnaam&gt; </td></tr>
+<tr><td align="left" balign="left"> + setStraatnaam(value : JAXBElement&lt;ADRFund.Straatnaam&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getHuisnummer() : JAXBElement&lt;ADRFund.Huisnummer&gt; </td></tr>
+<tr><td align="left" balign="left"> + setHuisnummer(value : JAXBElement&lt;ADRFund.Huisnummer&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getHuisletter() : JAXBElement&lt;ADRFund.Huisletter&gt; </td></tr>
+<tr><td align="left" balign="left"> + setHuisletter(value : JAXBElement&lt;ADRFund.Huisletter&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getHuisnummertoevoeging() : JAXBElement&lt;ADRFund.Huisnummertoevoeging&gt; </td></tr>
+<tr><td align="left" balign="left"> + setHuisnummertoevoeging(value : JAXBElement&lt;ADRFund.Huisnummertoevoeging&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getAanduidingBijHuisnummer() : JAXBElement&lt;ADRFund.AanduidingBijHuisnummer&gt; </td></tr>
+<tr><td align="left" balign="left"> + setAanduidingBijHuisnummer(value : JAXBElement&lt;ADRFund.AanduidingBijHuisnummer&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getLocatieomschrijving() : JAXBElement&lt;ADRFund.Locatieomschrijving&gt; </td></tr>
+<tr><td align="left" balign="left"> + setLocatieomschrijving(value : JAXBElement&lt;ADRFund.Locatieomschrijving&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getLocatieadresnummer() : JAXBElement&lt;ADRFund.Locatieadresnummer&gt; </td></tr>
+<tr><td align="left" balign="left"> + setLocatieadresnummer(value : JAXBElement&lt;ADRFund.Locatieadresnummer&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getIngangsdatum() : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
+<tr><td align="left" balign="left"> + setIngangsdatum(value : JAXBElement&lt;DatumMetIndicator&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getEinddatum() : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
+<tr><td align="left" balign="left"> + setEinddatum(value : JAXBElement&lt;DatumMetIndicator&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getStraatcode() : JAXBElement&lt;ADRFund.Straatcode&gt; </td></tr>
+<tr><td align="left" balign="left"> + setStraatcode(value : JAXBElement&lt;ADRFund.Straatcode&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getBuurtcode() : JAXBElement&lt;ADRFund.Buurtcode&gt; </td></tr>
+<tr><td align="left" balign="left"> + setBuurtcode(value : JAXBElement&lt;ADRFund.Buurtcode&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getWijkcode() : JAXBElement&lt;ADRFund.Wijkcode&gt; </td></tr>
+<tr><td align="left" balign="left"> + setWijkcode(value : JAXBElement&lt;ADRFund.Wijkcode&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getGemeentecode() : JAXBElement&lt;ADRFund.Gemeentecode&gt; </td></tr>
+<tr><td align="left" balign="left"> + setGemeentecode(value : JAXBElement&lt;ADRFund.Gemeentecode&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getCentroidXCoordinaat() : JAXBElement&lt;ADRFund.CentroidXCoordinaat&gt; </td></tr>
+<tr><td align="left" balign="left"> + setCentroidXCoordinaat(value : JAXBElement&lt;ADRFund.CentroidXCoordinaat&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getCentroidYCoordinaat() : JAXBElement&lt;ADRFund.CentroidYCoordinaat&gt; </td></tr>
+<tr><td align="left" balign="left"> + setCentroidYCoordinaat(value : JAXBElement&lt;ADRFund.CentroidYCoordinaat&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getCentroidZCoordinaat() : JAXBElement&lt;ADRFund.CentroidZCoordinaat&gt; </td></tr>
+<tr><td align="left" balign="left"> + setCentroidZCoordinaat(value : JAXBElement&lt;ADRFund.CentroidZCoordinaat&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getTijdvakGeldigheid() : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> + setTijdvakGeldigheid(value : TijdvakGeldigheid) </td></tr>
+<tr><td align="left" balign="left"> + getExtraElementen() : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> + setExtraElementen(value : ExtraElementen) </td></tr>
+<tr><td align="left" balign="left"> + getSoortEntiteit() : String </td></tr>
+<tr><td align="left" balign="left"> + setSoortEntiteit(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelVerzendend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelVerzendend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelOntvangend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelOntvangend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelGegevensbeheer() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelGegevensbeheer(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getVerwerkingssoort() : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> + setVerwerkingssoort(value : Verwerkingssoort) </td></tr>
+<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
+<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
+		</table></td></tr>
+		</table>>, URL="../sector/bg/_0204/ADRFund.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.PRSNATRel
-	c203945 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSNATRel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/PRSNATRel.html">
+	c204022 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSNATRel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/PRSNATRel.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PRSNATRel </td></tr>
 		</table></td></tr>
@@ -94,13 +353,12 @@ digraph G {
 <tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
 		</table></td></tr>
 		</table>>, URL="../sector/bg/_0204/PRSNATRel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.ADRADROSURel
-	c203956 [label=<<table title="nl.egem.stuf.sector.bg._0204.ADRADROSURel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/ADRADROSURel.html">
+	// nl.egem.stuf.sector.bg._0204.Relatie
+	c204037 [label=<<table title="nl.egem.stuf.sector.bg._0204.Relatie" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/Relatie.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> ADRADROSURel </td></tr>
+<tr><td align="center" balign="center"> Relatie </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # filiatiecode : JAXBElement&lt;ADRADROSURel.Filiatiecode&gt; </td></tr>
 <tr><td align="left" balign="left"> # tijdvakRelatie : TijdvakRelatie </td></tr>
 <tr><td align="left" balign="left"> # tijdvakGeldigheid : TijdvakGeldigheid </td></tr>
 <tr><td align="left" balign="left"> # extraElementen : ExtraElementen </td></tr>
@@ -112,9 +370,7 @@ digraph G {
 <tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + ADRADROSURel() </td></tr>
-<tr><td align="left" balign="left"> + getFiliatiecode() : JAXBElement&lt;ADRADROSURel.Filiatiecode&gt; </td></tr>
-<tr><td align="left" balign="left"> + setFiliatiecode(value : JAXBElement&lt;ADRADROSURel.Filiatiecode&gt;) </td></tr>
+<tr><td align="left" balign="left"> + Relatie() </td></tr>
 <tr><td align="left" balign="left"> + getTijdvakRelatie() : TijdvakRelatie </td></tr>
 <tr><td align="left" balign="left"> + setTijdvakRelatie(value : TijdvakRelatie) </td></tr>
 <tr><td align="left" balign="left"> + getTijdvakGeldigheid() : TijdvakGeldigheid </td></tr>
@@ -134,14 +390,15 @@ digraph G {
 <tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
 <tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
 		</table></td></tr>
-		</table>>, URL="../sector/bg/_0204/ADRADROSURel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.KDOKDOFILRel
-	c203958 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOKDOFILRel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/KDOKDOFILRel.html">
+		</table>>, URL="../sector/bg/_0204/Relatie.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.PRSPRSKNDRel
+	c204071 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSPRSKNDRel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/PRSPRSKNDRel.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> KDOKDOFILRel </td></tr>
+<tr><td align="center" balign="center"> PRSPRSKNDRel </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # filiatiecodeKadastraalObject : JAXBElement&lt;KDOKDOFILRel.FiliatiecodeKadastraalObject&gt; </td></tr>
+<tr><td align="left" balign="left"> # ingangsdatum : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
+<tr><td align="left" balign="left"> # einddatum : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
 <tr><td align="left" balign="left"> # tijdvakRelatie : TijdvakRelatie </td></tr>
 <tr><td align="left" balign="left"> # tijdvakGeldigheid : TijdvakGeldigheid </td></tr>
 <tr><td align="left" balign="left"> # extraElementen : ExtraElementen </td></tr>
@@ -153,9 +410,11 @@ digraph G {
 <tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + KDOKDOFILRel() </td></tr>
-<tr><td align="left" balign="left"> + getFiliatiecodeKadastraalObject() : JAXBElement&lt;KDOKDOFILRel.FiliatiecodeKadastraalObject&gt; </td></tr>
-<tr><td align="left" balign="left"> + setFiliatiecodeKadastraalObject(value : JAXBElement&lt;KDOKDOFILRel.FiliatiecodeKadastraalObject&gt;) </td></tr>
+<tr><td align="left" balign="left"> + PRSPRSKNDRel() </td></tr>
+<tr><td align="left" balign="left"> + getIngangsdatum() : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
+<tr><td align="left" balign="left"> + setIngangsdatum(value : JAXBElement&lt;DatumMetIndicator&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getEinddatum() : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
+<tr><td align="left" balign="left"> + setEinddatum(value : JAXBElement&lt;DatumMetIndicator&gt;) </td></tr>
 <tr><td align="left" balign="left"> + getTijdvakRelatie() : TijdvakRelatie </td></tr>
 <tr><td align="left" balign="left"> + setTijdvakRelatie(value : TijdvakRelatie) </td></tr>
 <tr><td align="left" balign="left"> + getTijdvakGeldigheid() : TijdvakGeldigheid </td></tr>
@@ -175,9 +434,364 @@ digraph G {
 <tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
 <tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
 		</table></td></tr>
-		</table>>, URL="../sector/bg/_0204/KDOKDOFILRel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, URL="../sector/bg/_0204/PRSPRSKNDRel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.PRSPRSHUWRel
+	c204072 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSPRSHUWRel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/PRSPRSHUWRel.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> PRSPRSHUWRel </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # datumSluiting : JAXBElement&lt;PRSPRSHUWRel.DatumSluiting&gt; </td></tr>
+<tr><td align="left" balign="left"> # plaatsSluiting : JAXBElement&lt;PRSPRSHUWRel.PlaatsSluiting&gt; </td></tr>
+<tr><td align="left" balign="left"> # landSluiting : JAXBElement&lt;PRSPRSHUWRel.LandSluiting&gt; </td></tr>
+<tr><td align="left" balign="left"> # soortVerbintenis : JAXBElement&lt;PRSPRSHUWRel.SoortVerbintenis&gt; </td></tr>
+<tr><td align="left" balign="left"> # datumOntbinding : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
+<tr><td align="left" balign="left"> # plaatsOntbinding : JAXBElement&lt;PRSPRSHUWRel.PlaatsOntbinding&gt; </td></tr>
+<tr><td align="left" balign="left"> # landOntbinding : JAXBElement&lt;PRSPRSHUWRel.LandOntbinding&gt; </td></tr>
+<tr><td align="left" balign="left"> # redenOntbinding : JAXBElement&lt;PRSPRSHUWRel.RedenOntbinding&gt; </td></tr>
+<tr><td align="left" balign="left"> # datumInschrijvingVonnisOntbinding : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
+<tr><td align="left" balign="left"> # tijdvakRelatie : TijdvakRelatie </td></tr>
+<tr><td align="left" balign="left"> # tijdvakGeldigheid : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> # extraElementen : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> # soortEntiteit : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelVerzendend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelOntvangend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelGegevensbeheer : String </td></tr>
+<tr><td align="left" balign="left"> # verwerkingssoort : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + PRSPRSHUWRel() </td></tr>
+<tr><td align="left" balign="left"> + getDatumSluiting() : JAXBElement&lt;PRSPRSHUWRel.DatumSluiting&gt; </td></tr>
+<tr><td align="left" balign="left"> + setDatumSluiting(value : JAXBElement&lt;PRSPRSHUWRel.DatumSluiting&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getPlaatsSluiting() : JAXBElement&lt;PRSPRSHUWRel.PlaatsSluiting&gt; </td></tr>
+<tr><td align="left" balign="left"> + setPlaatsSluiting(value : JAXBElement&lt;PRSPRSHUWRel.PlaatsSluiting&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getLandSluiting() : JAXBElement&lt;PRSPRSHUWRel.LandSluiting&gt; </td></tr>
+<tr><td align="left" balign="left"> + setLandSluiting(value : JAXBElement&lt;PRSPRSHUWRel.LandSluiting&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getSoortVerbintenis() : JAXBElement&lt;PRSPRSHUWRel.SoortVerbintenis&gt; </td></tr>
+<tr><td align="left" balign="left"> + setSoortVerbintenis(value : JAXBElement&lt;PRSPRSHUWRel.SoortVerbintenis&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getDatumOntbinding() : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
+<tr><td align="left" balign="left"> + setDatumOntbinding(value : JAXBElement&lt;DatumMetIndicator&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getPlaatsOntbinding() : JAXBElement&lt;PRSPRSHUWRel.PlaatsOntbinding&gt; </td></tr>
+<tr><td align="left" balign="left"> + setPlaatsOntbinding(value : JAXBElement&lt;PRSPRSHUWRel.PlaatsOntbinding&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getLandOntbinding() : JAXBElement&lt;PRSPRSHUWRel.LandOntbinding&gt; </td></tr>
+<tr><td align="left" balign="left"> + setLandOntbinding(value : JAXBElement&lt;PRSPRSHUWRel.LandOntbinding&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getRedenOntbinding() : JAXBElement&lt;PRSPRSHUWRel.RedenOntbinding&gt; </td></tr>
+<tr><td align="left" balign="left"> + setRedenOntbinding(value : JAXBElement&lt;PRSPRSHUWRel.RedenOntbinding&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getDatumInschrijvingVonnisOntbinding() : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
+<tr><td align="left" balign="left"> + setDatumInschrijvingVonnisOntbinding(value : JAXBElement&lt;DatumMetIndicator&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getTijdvakRelatie() : TijdvakRelatie </td></tr>
+<tr><td align="left" balign="left"> + setTijdvakRelatie(value : TijdvakRelatie) </td></tr>
+<tr><td align="left" balign="left"> + getTijdvakGeldigheid() : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> + setTijdvakGeldigheid(value : TijdvakGeldigheid) </td></tr>
+<tr><td align="left" balign="left"> + getExtraElementen() : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> + setExtraElementen(value : ExtraElementen) </td></tr>
+<tr><td align="left" balign="left"> + getSoortEntiteit() : String </td></tr>
+<tr><td align="left" balign="left"> + setSoortEntiteit(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelVerzendend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelVerzendend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelOntvangend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelOntvangend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelGegevensbeheer() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelGegevensbeheer(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getVerwerkingssoort() : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> + setVerwerkingssoort(value : Verwerkingssoort) </td></tr>
+<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
+<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
+		</table></td></tr>
+		</table>>, URL="../sector/bg/_0204/PRSPRSHUWRel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.PRSIDBRel
+	c204101 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSIDBRel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/PRSIDBRel.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> PRSIDBRel </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # nummerIdentiteitsbewijs : JAXBElement&lt;PRSIDBRel.NummerIdentiteitsbewijs&gt; </td></tr>
+<tr><td align="left" balign="left"> # tijdvakRelatie : TijdvakRelatie </td></tr>
+<tr><td align="left" balign="left"> # tijdvakGeldigheid : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> # extraElementen : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> # soortEntiteit : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelVerzendend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelOntvangend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelGegevensbeheer : String </td></tr>
+<tr><td align="left" balign="left"> # verwerkingssoort : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + PRSIDBRel() </td></tr>
+<tr><td align="left" balign="left"> + getNummerIdentiteitsbewijs() : JAXBElement&lt;PRSIDBRel.NummerIdentiteitsbewijs&gt; </td></tr>
+<tr><td align="left" balign="left"> + setNummerIdentiteitsbewijs(value : JAXBElement&lt;PRSIDBRel.NummerIdentiteitsbewijs&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getTijdvakRelatie() : TijdvakRelatie </td></tr>
+<tr><td align="left" balign="left"> + setTijdvakRelatie(value : TijdvakRelatie) </td></tr>
+<tr><td align="left" balign="left"> + getTijdvakGeldigheid() : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> + setTijdvakGeldigheid(value : TijdvakGeldigheid) </td></tr>
+<tr><td align="left" balign="left"> + getExtraElementen() : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> + setExtraElementen(value : ExtraElementen) </td></tr>
+<tr><td align="left" balign="left"> + getSoortEntiteit() : String </td></tr>
+<tr><td align="left" balign="left"> + setSoortEntiteit(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelVerzendend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelVerzendend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelOntvangend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelOntvangend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelGegevensbeheer() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelGegevensbeheer(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getVerwerkingssoort() : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> + setVerwerkingssoort(value : Verwerkingssoort) </td></tr>
+<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
+<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
+		</table></td></tr>
+		</table>>, URL="../sector/bg/_0204/PRSIDBRel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.KDOZKRRel
+	c204117 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOZKRRel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/KDOZKRRel.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> KDOZKRRel </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # codeZakelijkRecht : JAXBElement&lt;KDOZKRRel.CodeZakelijkRecht&gt; </td></tr>
+<tr><td align="left" balign="left"> # ingangsDatumZakelijkRecht : JAXBElement&lt;KDOZKRRel.IngangsDatumZakelijkRecht&gt; </td></tr>
+<tr><td align="left" balign="left"> # einddatumZakelijkRecht : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
+<tr><td align="left" balign="left"> # indicatieZakelijkRechtMetMeerZknVerkr : JAXBElement&lt;KDOZKRRel.IndicatieZakelijkRechtMetMeerZknVerkr&gt; </td></tr>
+<tr><td align="left" balign="left"> # koopjaarZakelijkRecht : JAXBElement&lt;KDOZKRRel.KoopjaarZakelijkRecht&gt; </td></tr>
+<tr><td align="left" balign="left"> # koopsomZakelijkRecht : JAXBElement&lt;KDOZKRRel.KoopsomZakelijkRecht&gt; </td></tr>
+<tr><td align="left" balign="left"> # koopsomZakelijkRechtEuro : JAXBElement&lt;KDOZKRRel.KoopsomZakelijkRechtEuro&gt; </td></tr>
+<tr><td align="left" balign="left"> # tellerAandeelZakelijkRecht : JAXBElement&lt;KDOZKRRel.TellerAandeelZakelijkRecht&gt; </td></tr>
+<tr><td align="left" balign="left"> # noemerAandeelZakelijkRecht : JAXBElement&lt;KDOZKRRel.NoemerAandeelZakelijkRecht&gt; </td></tr>
+<tr><td align="left" balign="left"> # tijdvakRelatie : TijdvakRelatie </td></tr>
+<tr><td align="left" balign="left"> # tijdvakGeldigheid : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> # extraElementen : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> # soortEntiteit : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelVerzendend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelOntvangend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelGegevensbeheer : String </td></tr>
+<tr><td align="left" balign="left"> # verwerkingssoort : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + KDOZKRRel() </td></tr>
+<tr><td align="left" balign="left"> + getCodeZakelijkRecht() : JAXBElement&lt;KDOZKRRel.CodeZakelijkRecht&gt; </td></tr>
+<tr><td align="left" balign="left"> + setCodeZakelijkRecht(value : JAXBElement&lt;KDOZKRRel.CodeZakelijkRecht&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getIngangsDatumZakelijkRecht() : JAXBElement&lt;KDOZKRRel.IngangsDatumZakelijkRecht&gt; </td></tr>
+<tr><td align="left" balign="left"> + setIngangsDatumZakelijkRecht(value : JAXBElement&lt;KDOZKRRel.IngangsDatumZakelijkRecht&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getEinddatumZakelijkRecht() : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
+<tr><td align="left" balign="left"> + setEinddatumZakelijkRecht(value : JAXBElement&lt;DatumMetIndicator&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getIndicatieZakelijkRechtMetMeerZknVerkr() : JAXBElement&lt;KDOZKRRel.IndicatieZakelijkRechtMetMeerZknVerkr&gt; </td></tr>
+<tr><td align="left" balign="left"> + setIndicatieZakelijkRechtMetMeerZknVerkr(value : JAXBElement&lt;KDOZKRRel.IndicatieZakelijkRechtMetMeerZknVerkr&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getKoopjaarZakelijkRecht() : JAXBElement&lt;KDOZKRRel.KoopjaarZakelijkRecht&gt; </td></tr>
+<tr><td align="left" balign="left"> + setKoopjaarZakelijkRecht(value : JAXBElement&lt;KDOZKRRel.KoopjaarZakelijkRecht&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getKoopsomZakelijkRecht() : JAXBElement&lt;KDOZKRRel.KoopsomZakelijkRecht&gt; </td></tr>
+<tr><td align="left" balign="left"> + setKoopsomZakelijkRecht(value : JAXBElement&lt;KDOZKRRel.KoopsomZakelijkRecht&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getKoopsomZakelijkRechtEuro() : JAXBElement&lt;KDOZKRRel.KoopsomZakelijkRechtEuro&gt; </td></tr>
+<tr><td align="left" balign="left"> + setKoopsomZakelijkRechtEuro(value : JAXBElement&lt;KDOZKRRel.KoopsomZakelijkRechtEuro&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getTellerAandeelZakelijkRecht() : JAXBElement&lt;KDOZKRRel.TellerAandeelZakelijkRecht&gt; </td></tr>
+<tr><td align="left" balign="left"> + setTellerAandeelZakelijkRecht(value : JAXBElement&lt;KDOZKRRel.TellerAandeelZakelijkRecht&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getNoemerAandeelZakelijkRecht() : JAXBElement&lt;KDOZKRRel.NoemerAandeelZakelijkRecht&gt; </td></tr>
+<tr><td align="left" balign="left"> + setNoemerAandeelZakelijkRecht(value : JAXBElement&lt;KDOZKRRel.NoemerAandeelZakelijkRecht&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getTijdvakRelatie() : TijdvakRelatie </td></tr>
+<tr><td align="left" balign="left"> + setTijdvakRelatie(value : TijdvakRelatie) </td></tr>
+<tr><td align="left" balign="left"> + getTijdvakGeldigheid() : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> + setTijdvakGeldigheid(value : TijdvakGeldigheid) </td></tr>
+<tr><td align="left" balign="left"> + getExtraElementen() : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> + setExtraElementen(value : ExtraElementen) </td></tr>
+<tr><td align="left" balign="left"> + getSoortEntiteit() : String </td></tr>
+<tr><td align="left" balign="left"> + setSoortEntiteit(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelVerzendend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelVerzendend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelOntvangend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelOntvangend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelGegevensbeheer() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelGegevensbeheer(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getVerwerkingssoort() : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> + setVerwerkingssoort(value : Verwerkingssoort) </td></tr>
+<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
+<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
+		</table></td></tr>
+		</table>>, URL="../sector/bg/_0204/KDOZKRRel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.HHDFund
+	c204126 [label=<<table title="nl.egem.stuf.sector.bg._0204.HHDFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/HHDFund.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> HHDFund </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # huishoudennummer : JAXBElement&lt;HHDFund.Huishoudennummer&gt; </td></tr>
+<tr><td align="left" balign="left"> # soortHuishouden : JAXBElement&lt;HHDFund.SoortHuishouden&gt; </td></tr>
+<tr><td align="left" balign="left"> # grootteHuishouden : JAXBElement&lt;HHDFund.GrootteHuishouden&gt; </td></tr>
+<tr><td align="left" balign="left"> # tijdvakGeldigheid : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> # extraElementen : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> # soortEntiteit : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelVerzendend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelOntvangend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelGegevensbeheer : String </td></tr>
+<tr><td align="left" balign="left"> # verwerkingssoort : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + HHDFund() </td></tr>
+<tr><td align="left" balign="left"> + getHuishoudennummer() : JAXBElement&lt;HHDFund.Huishoudennummer&gt; </td></tr>
+<tr><td align="left" balign="left"> + setHuishoudennummer(value : JAXBElement&lt;HHDFund.Huishoudennummer&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getSoortHuishouden() : JAXBElement&lt;HHDFund.SoortHuishouden&gt; </td></tr>
+<tr><td align="left" balign="left"> + setSoortHuishouden(value : JAXBElement&lt;HHDFund.SoortHuishouden&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getGrootteHuishouden() : JAXBElement&lt;HHDFund.GrootteHuishouden&gt; </td></tr>
+<tr><td align="left" balign="left"> + setGrootteHuishouden(value : JAXBElement&lt;HHDFund.GrootteHuishouden&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getTijdvakGeldigheid() : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> + setTijdvakGeldigheid(value : TijdvakGeldigheid) </td></tr>
+<tr><td align="left" balign="left"> + getExtraElementen() : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> + setExtraElementen(value : ExtraElementen) </td></tr>
+<tr><td align="left" balign="left"> + getSoortEntiteit() : String </td></tr>
+<tr><td align="left" balign="left"> + setSoortEntiteit(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelVerzendend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelVerzendend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelOntvangend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelOntvangend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelGegevensbeheer() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelGegevensbeheer(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getVerwerkingssoort() : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> + setVerwerkingssoort(value : Verwerkingssoort) </td></tr>
+<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
+<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
+		</table></td></tr>
+		</table>>, URL="../sector/bg/_0204/HHDFund.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.PRSFund
+	c204146 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/PRSFund.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> PRSFund </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # aNummer : JAXBElement&lt;ANummerE&gt; </td></tr>
+<tr><td align="left" balign="left"> # bsnNummer : JAXBElement&lt;BsnNummerE&gt; </td></tr>
+<tr><td align="left" balign="left"> # voornamen : JAXBElement&lt;VoornamenE&gt; </td></tr>
+<tr><td align="left" balign="left"> # voorletters : JAXBElement&lt;VoorlettersE&gt; </td></tr>
+<tr><td align="left" balign="left"> # voorvoegselGeslachtsnaam : JAXBElement&lt;VoorvoegselGeslachtsnaamE&gt; </td></tr>
+<tr><td align="left" balign="left"> # geslachtsnaam : JAXBElement&lt;GeslachtsnaamE&gt; </td></tr>
+<tr><td align="left" balign="left"> # geboortedatum : JAXBElement&lt;GeboortedatumE&gt; </td></tr>
+<tr><td align="left" balign="left"> # geboorteplaats : JAXBElement&lt;GeboorteplaatsE&gt; </td></tr>
+<tr><td align="left" balign="left"> # codeGeboorteland : JAXBElement&lt;CodeGeboortelandE&gt; </td></tr>
+<tr><td align="left" balign="left"> # geslachtsaanduiding : JAXBElement&lt;GeslachtsaanduidingE&gt; </td></tr>
+<tr><td align="left" balign="left"> # datumOverlijden : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
+<tr><td align="left" balign="left"> # plaatsOverlijden : JAXBElement&lt;PRSFund.PlaatsOverlijden&gt; </td></tr>
+<tr><td align="left" balign="left"> # codeLandOverlijden : JAXBElement&lt;PRSFund.CodeLandOverlijden&gt; </td></tr>
+<tr><td align="left" balign="left"> # indicatieGeheim : JAXBElement&lt;PRSFund.IndicatieGeheim&gt; </td></tr>
+<tr><td align="left" balign="left"> # academischeTitel : List&lt;PRSFund.AcademischeTitel&gt; </td></tr>
+<tr><td align="left" balign="left"> # adellijkeTitelPredikaat : JAXBElement&lt;AdellijkeTitelPredikaatE&gt; </td></tr>
+<tr><td align="left" balign="left"> # codeGemeenteVanInschrijving : JAXBElement&lt;PRSFund.CodeGemeenteVanInschrijving&gt; </td></tr>
+<tr><td align="left" balign="left"> # datumInschrijvingGemeente : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
+<tr><td align="left" balign="left"> # datumOpschortingBijhouding : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
+<tr><td align="left" balign="left"> # omschrijvingRedenOpschortingBijhouding : JAXBElement&lt;PRSFund.OmschrijvingRedenOpschortingBijhouding&gt; </td></tr>
+<tr><td align="left" balign="left"> # codeLandEmigratie : JAXBElement&lt;PRSFund.CodeLandEmigratie&gt; </td></tr>
+<tr><td align="left" balign="left"> # datumVertrekUitNederland : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
+<tr><td align="left" balign="left"> # codeLandImmigratie : JAXBElement&lt;PRSFund.CodeLandImmigratie&gt; </td></tr>
+<tr><td align="left" balign="left"> # datumVestigingInNederland : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
+<tr><td align="left" balign="left"> # indicatieGezagMinderjarige : JAXBElement&lt;PRSFund.IndicatieGezagMinderjarige&gt; </td></tr>
+<tr><td align="left" balign="left"> # indicatieCuratelestelling : JAXBElement&lt;PRSFund.IndicatieCuratelestelling&gt; </td></tr>
+<tr><td align="left" balign="left"> # verblijfstitel : JAXBElement&lt;PRSFund.Verblijfstitel&gt; </td></tr>
+<tr><td align="left" balign="left"> # datumVerkrijgingVerblijfstitel : JAXBElement&lt;PRSFund.DatumVerkrijgingVerblijfstitel&gt; </td></tr>
+<tr><td align="left" balign="left"> # datumVerliesVerblijfstitel : JAXBElement&lt;PRSFund.DatumVerliesVerblijfstitel&gt; </td></tr>
+<tr><td align="left" balign="left"> # aanduidingBijzonderNederlanderschap : JAXBElement&lt;PRSFund.AanduidingBijzonderNederlanderschap&gt; </td></tr>
+<tr><td align="left" balign="left"> # burgerlijkeStaat : JAXBElement&lt;PRSFund.BurgerlijkeStaat&gt; </td></tr>
+<tr><td align="left" balign="left"> # aanduidingNaamgebruik : JAXBElement&lt;PRSFund.AanduidingNaamgebruik&gt; </td></tr>
+<tr><td align="left" balign="left"> # bankgiroRekeningnummer : List&lt;PRSFund.BankgiroRekeningnummer&gt; </td></tr>
+<tr><td align="left" balign="left"> # subjectnrAKR : List&lt;PRSFund.SubjectnrAKR&gt; </td></tr>
+<tr><td align="left" balign="left"> # eMailAdres : List&lt;PRSFund.EMailAdres&gt; </td></tr>
+<tr><td align="left" balign="left"> # telefoonnummer : List&lt;PRSFund.Telefoonnummer&gt; </td></tr>
+<tr><td align="left" balign="left"> # faxnummer : List&lt;PRSFund.Faxnummer&gt; </td></tr>
+<tr><td align="left" balign="left"> # tijdvakGeldigheid : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> # extraElementen : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> # soortEntiteit : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelVerzendend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelOntvangend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelGegevensbeheer : String </td></tr>
+<tr><td align="left" balign="left"> # verwerkingssoort : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + PRSFund() </td></tr>
+<tr><td align="left" balign="left"> + getANummer() : JAXBElement&lt;ANummerE&gt; </td></tr>
+<tr><td align="left" balign="left"> + setANummer(value : JAXBElement&lt;ANummerE&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getBsnNummer() : JAXBElement&lt;BsnNummerE&gt; </td></tr>
+<tr><td align="left" balign="left"> + setBsnNummer(value : JAXBElement&lt;BsnNummerE&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getVoornamen() : JAXBElement&lt;VoornamenE&gt; </td></tr>
+<tr><td align="left" balign="left"> + setVoornamen(value : JAXBElement&lt;VoornamenE&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getVoorletters() : JAXBElement&lt;VoorlettersE&gt; </td></tr>
+<tr><td align="left" balign="left"> + setVoorletters(value : JAXBElement&lt;VoorlettersE&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getVoorvoegselGeslachtsnaam() : JAXBElement&lt;VoorvoegselGeslachtsnaamE&gt; </td></tr>
+<tr><td align="left" balign="left"> + setVoorvoegselGeslachtsnaam(value : JAXBElement&lt;VoorvoegselGeslachtsnaamE&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getGeslachtsnaam() : JAXBElement&lt;GeslachtsnaamE&gt; </td></tr>
+<tr><td align="left" balign="left"> + setGeslachtsnaam(value : JAXBElement&lt;GeslachtsnaamE&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getGeboortedatum() : JAXBElement&lt;GeboortedatumE&gt; </td></tr>
+<tr><td align="left" balign="left"> + setGeboortedatum(value : JAXBElement&lt;GeboortedatumE&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getGeboorteplaats() : JAXBElement&lt;GeboorteplaatsE&gt; </td></tr>
+<tr><td align="left" balign="left"> + setGeboorteplaats(value : JAXBElement&lt;GeboorteplaatsE&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getCodeGeboorteland() : JAXBElement&lt;CodeGeboortelandE&gt; </td></tr>
+<tr><td align="left" balign="left"> + setCodeGeboorteland(value : JAXBElement&lt;CodeGeboortelandE&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getGeslachtsaanduiding() : JAXBElement&lt;GeslachtsaanduidingE&gt; </td></tr>
+<tr><td align="left" balign="left"> + setGeslachtsaanduiding(value : JAXBElement&lt;GeslachtsaanduidingE&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getDatumOverlijden() : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
+<tr><td align="left" balign="left"> + setDatumOverlijden(value : JAXBElement&lt;DatumMetIndicator&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getPlaatsOverlijden() : JAXBElement&lt;PRSFund.PlaatsOverlijden&gt; </td></tr>
+<tr><td align="left" balign="left"> + setPlaatsOverlijden(value : JAXBElement&lt;PRSFund.PlaatsOverlijden&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getCodeLandOverlijden() : JAXBElement&lt;PRSFund.CodeLandOverlijden&gt; </td></tr>
+<tr><td align="left" balign="left"> + setCodeLandOverlijden(value : JAXBElement&lt;PRSFund.CodeLandOverlijden&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getIndicatieGeheim() : JAXBElement&lt;PRSFund.IndicatieGeheim&gt; </td></tr>
+<tr><td align="left" balign="left"> + setIndicatieGeheim(value : JAXBElement&lt;PRSFund.IndicatieGeheim&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getAcademischeTitel() : List&lt;PRSFund.AcademischeTitel&gt; </td></tr>
+<tr><td align="left" balign="left"> + getAdellijkeTitelPredikaat() : JAXBElement&lt;AdellijkeTitelPredikaatE&gt; </td></tr>
+<tr><td align="left" balign="left"> + setAdellijkeTitelPredikaat(value : JAXBElement&lt;AdellijkeTitelPredikaatE&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getCodeGemeenteVanInschrijving() : JAXBElement&lt;PRSFund.CodeGemeenteVanInschrijving&gt; </td></tr>
+<tr><td align="left" balign="left"> + setCodeGemeenteVanInschrijving(value : JAXBElement&lt;PRSFund.CodeGemeenteVanInschrijving&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getDatumInschrijvingGemeente() : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
+<tr><td align="left" balign="left"> + setDatumInschrijvingGemeente(value : JAXBElement&lt;DatumMetIndicator&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getDatumOpschortingBijhouding() : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
+<tr><td align="left" balign="left"> + setDatumOpschortingBijhouding(value : JAXBElement&lt;DatumMetIndicator&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getOmschrijvingRedenOpschortingBijhouding() : JAXBElement&lt;PRSFund.OmschrijvingRedenOpschortingBijhouding&gt; </td></tr>
+<tr><td align="left" balign="left"> + setOmschrijvingRedenOpschortingBijhouding(value : JAXBElement&lt;PRSFund.OmschrijvingRedenOpschortingBijhouding&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getCodeLandEmigratie() : JAXBElement&lt;PRSFund.CodeLandEmigratie&gt; </td></tr>
+<tr><td align="left" balign="left"> + setCodeLandEmigratie(value : JAXBElement&lt;PRSFund.CodeLandEmigratie&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getDatumVertrekUitNederland() : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
+<tr><td align="left" balign="left"> + setDatumVertrekUitNederland(value : JAXBElement&lt;DatumMetIndicator&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getCodeLandImmigratie() : JAXBElement&lt;PRSFund.CodeLandImmigratie&gt; </td></tr>
+<tr><td align="left" balign="left"> + setCodeLandImmigratie(value : JAXBElement&lt;PRSFund.CodeLandImmigratie&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getDatumVestigingInNederland() : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
+<tr><td align="left" balign="left"> + setDatumVestigingInNederland(value : JAXBElement&lt;DatumMetIndicator&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getIndicatieGezagMinderjarige() : JAXBElement&lt;PRSFund.IndicatieGezagMinderjarige&gt; </td></tr>
+<tr><td align="left" balign="left"> + setIndicatieGezagMinderjarige(value : JAXBElement&lt;PRSFund.IndicatieGezagMinderjarige&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getIndicatieCuratelestelling() : JAXBElement&lt;PRSFund.IndicatieCuratelestelling&gt; </td></tr>
+<tr><td align="left" balign="left"> + setIndicatieCuratelestelling(value : JAXBElement&lt;PRSFund.IndicatieCuratelestelling&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getVerblijfstitel() : JAXBElement&lt;PRSFund.Verblijfstitel&gt; </td></tr>
+<tr><td align="left" balign="left"> + setVerblijfstitel(value : JAXBElement&lt;PRSFund.Verblijfstitel&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getDatumVerkrijgingVerblijfstitel() : JAXBElement&lt;PRSFund.DatumVerkrijgingVerblijfstitel&gt; </td></tr>
+<tr><td align="left" balign="left"> + setDatumVerkrijgingVerblijfstitel(value : JAXBElement&lt;PRSFund.DatumVerkrijgingVerblijfstitel&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getDatumVerliesVerblijfstitel() : JAXBElement&lt;PRSFund.DatumVerliesVerblijfstitel&gt; </td></tr>
+<tr><td align="left" balign="left"> + setDatumVerliesVerblijfstitel(value : JAXBElement&lt;PRSFund.DatumVerliesVerblijfstitel&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getAanduidingBijzonderNederlanderschap() : JAXBElement&lt;PRSFund.AanduidingBijzonderNederlanderschap&gt; </td></tr>
+<tr><td align="left" balign="left"> + setAanduidingBijzonderNederlanderschap(value : JAXBElement&lt;PRSFund.AanduidingBijzonderNederlanderschap&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getBurgerlijkeStaat() : JAXBElement&lt;PRSFund.BurgerlijkeStaat&gt; </td></tr>
+<tr><td align="left" balign="left"> + setBurgerlijkeStaat(value : JAXBElement&lt;PRSFund.BurgerlijkeStaat&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getAanduidingNaamgebruik() : JAXBElement&lt;PRSFund.AanduidingNaamgebruik&gt; </td></tr>
+<tr><td align="left" balign="left"> + setAanduidingNaamgebruik(value : JAXBElement&lt;PRSFund.AanduidingNaamgebruik&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getBankgiroRekeningnummer() : List&lt;PRSFund.BankgiroRekeningnummer&gt; </td></tr>
+<tr><td align="left" balign="left"> + getSubjectnrAKR() : List&lt;PRSFund.SubjectnrAKR&gt; </td></tr>
+<tr><td align="left" balign="left"> + getEMailAdres() : List&lt;PRSFund.EMailAdres&gt; </td></tr>
+<tr><td align="left" balign="left"> + getTelefoonnummer() : List&lt;PRSFund.Telefoonnummer&gt; </td></tr>
+<tr><td align="left" balign="left"> + getFaxnummer() : List&lt;PRSFund.Faxnummer&gt; </td></tr>
+<tr><td align="left" balign="left"> + getTijdvakGeldigheid() : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> + setTijdvakGeldigheid(value : TijdvakGeldigheid) </td></tr>
+<tr><td align="left" balign="left"> + getExtraElementen() : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> + setExtraElementen(value : ExtraElementen) </td></tr>
+<tr><td align="left" balign="left"> + getSoortEntiteit() : String </td></tr>
+<tr><td align="left" balign="left"> + setSoortEntiteit(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelVerzendend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelVerzendend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelOntvangend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelOntvangend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelGegevensbeheer() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelGegevensbeheer(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getVerwerkingssoort() : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> + setVerwerkingssoort(value : Verwerkingssoort) </td></tr>
+<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
+<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
+		</table></td></tr>
+		</table>>, URL="../sector/bg/_0204/PRSFund.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.VBOFund
-	c203965 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/VBOFund.html">
+	c204242 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/VBOFund.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> VBOFund </td></tr>
 		</table></td></tr>
@@ -319,307 +933,8 @@ digraph G {
 <tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
 		</table></td></tr>
 		</table>>, URL="../sector/bg/_0204/VBOFund.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.PRSPRSHUWRel
-	c204002 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSPRSHUWRel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/PRSPRSHUWRel.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> PRSPRSHUWRel </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # datumSluiting : JAXBElement&lt;PRSPRSHUWRel.DatumSluiting&gt; </td></tr>
-<tr><td align="left" balign="left"> # plaatsSluiting : JAXBElement&lt;PRSPRSHUWRel.PlaatsSluiting&gt; </td></tr>
-<tr><td align="left" balign="left"> # landSluiting : JAXBElement&lt;PRSPRSHUWRel.LandSluiting&gt; </td></tr>
-<tr><td align="left" balign="left"> # soortVerbintenis : JAXBElement&lt;PRSPRSHUWRel.SoortVerbintenis&gt; </td></tr>
-<tr><td align="left" balign="left"> # datumOntbinding : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
-<tr><td align="left" balign="left"> # plaatsOntbinding : JAXBElement&lt;PRSPRSHUWRel.PlaatsOntbinding&gt; </td></tr>
-<tr><td align="left" balign="left"> # landOntbinding : JAXBElement&lt;PRSPRSHUWRel.LandOntbinding&gt; </td></tr>
-<tr><td align="left" balign="left"> # redenOntbinding : JAXBElement&lt;PRSPRSHUWRel.RedenOntbinding&gt; </td></tr>
-<tr><td align="left" balign="left"> # datumInschrijvingVonnisOntbinding : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
-<tr><td align="left" balign="left"> # tijdvakRelatie : TijdvakRelatie </td></tr>
-<tr><td align="left" balign="left"> # tijdvakGeldigheid : TijdvakGeldigheid </td></tr>
-<tr><td align="left" balign="left"> # extraElementen : ExtraElementen </td></tr>
-<tr><td align="left" balign="left"> # soortEntiteit : String </td></tr>
-<tr><td align="left" balign="left"> # sleutelVerzendend : String </td></tr>
-<tr><td align="left" balign="left"> # sleutelOntvangend : String </td></tr>
-<tr><td align="left" balign="left"> # sleutelGegevensbeheer : String </td></tr>
-<tr><td align="left" balign="left"> # verwerkingssoort : Verwerkingssoort </td></tr>
-<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + PRSPRSHUWRel() </td></tr>
-<tr><td align="left" balign="left"> + getDatumSluiting() : JAXBElement&lt;PRSPRSHUWRel.DatumSluiting&gt; </td></tr>
-<tr><td align="left" balign="left"> + setDatumSluiting(value : JAXBElement&lt;PRSPRSHUWRel.DatumSluiting&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getPlaatsSluiting() : JAXBElement&lt;PRSPRSHUWRel.PlaatsSluiting&gt; </td></tr>
-<tr><td align="left" balign="left"> + setPlaatsSluiting(value : JAXBElement&lt;PRSPRSHUWRel.PlaatsSluiting&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getLandSluiting() : JAXBElement&lt;PRSPRSHUWRel.LandSluiting&gt; </td></tr>
-<tr><td align="left" balign="left"> + setLandSluiting(value : JAXBElement&lt;PRSPRSHUWRel.LandSluiting&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getSoortVerbintenis() : JAXBElement&lt;PRSPRSHUWRel.SoortVerbintenis&gt; </td></tr>
-<tr><td align="left" balign="left"> + setSoortVerbintenis(value : JAXBElement&lt;PRSPRSHUWRel.SoortVerbintenis&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getDatumOntbinding() : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
-<tr><td align="left" balign="left"> + setDatumOntbinding(value : JAXBElement&lt;DatumMetIndicator&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getPlaatsOntbinding() : JAXBElement&lt;PRSPRSHUWRel.PlaatsOntbinding&gt; </td></tr>
-<tr><td align="left" balign="left"> + setPlaatsOntbinding(value : JAXBElement&lt;PRSPRSHUWRel.PlaatsOntbinding&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getLandOntbinding() : JAXBElement&lt;PRSPRSHUWRel.LandOntbinding&gt; </td></tr>
-<tr><td align="left" balign="left"> + setLandOntbinding(value : JAXBElement&lt;PRSPRSHUWRel.LandOntbinding&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getRedenOntbinding() : JAXBElement&lt;PRSPRSHUWRel.RedenOntbinding&gt; </td></tr>
-<tr><td align="left" balign="left"> + setRedenOntbinding(value : JAXBElement&lt;PRSPRSHUWRel.RedenOntbinding&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getDatumInschrijvingVonnisOntbinding() : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
-<tr><td align="left" balign="left"> + setDatumInschrijvingVonnisOntbinding(value : JAXBElement&lt;DatumMetIndicator&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getTijdvakRelatie() : TijdvakRelatie </td></tr>
-<tr><td align="left" balign="left"> + setTijdvakRelatie(value : TijdvakRelatie) </td></tr>
-<tr><td align="left" balign="left"> + getTijdvakGeldigheid() : TijdvakGeldigheid </td></tr>
-<tr><td align="left" balign="left"> + setTijdvakGeldigheid(value : TijdvakGeldigheid) </td></tr>
-<tr><td align="left" balign="left"> + getExtraElementen() : ExtraElementen </td></tr>
-<tr><td align="left" balign="left"> + setExtraElementen(value : ExtraElementen) </td></tr>
-<tr><td align="left" balign="left"> + getSoortEntiteit() : String </td></tr>
-<tr><td align="left" balign="left"> + setSoortEntiteit(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getSleutelVerzendend() : String </td></tr>
-<tr><td align="left" balign="left"> + setSleutelVerzendend(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getSleutelOntvangend() : String </td></tr>
-<tr><td align="left" balign="left"> + setSleutelOntvangend(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getSleutelGegevensbeheer() : String </td></tr>
-<tr><td align="left" balign="left"> + setSleutelGegevensbeheer(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getVerwerkingssoort() : Verwerkingssoort </td></tr>
-<tr><td align="left" balign="left"> + setVerwerkingssoort(value : Verwerkingssoort) </td></tr>
-<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
-<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
-		</table></td></tr>
-		</table>>, URL="../sector/bg/_0204/PRSPRSHUWRel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.BSGFund
-	c204035 [label=<<table title="nl.egem.stuf.sector.bg._0204.BSGFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/BSGFund.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> BSGFund </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # naamBestemmingsplan : JAXBElement&lt;BSGFund.NaamBestemmingsplan&gt; </td></tr>
-<tr><td align="left" balign="left"> # omschrijvingBestemmingsgebied : JAXBElement&lt;BSGFund.OmschrijvingBestemmingsgebied&gt; </td></tr>
-<tr><td align="left" balign="left"> # bestemmingsplanHerziening : JAXBElement&lt;BSGFund.BestemmingsplanHerziening&gt; </td></tr>
-<tr><td align="left" balign="left"> # omschrijvingPlanologischeBestemming : JAXBElement&lt;BSGFund.OmschrijvingPlanologischeBestemming&gt; </td></tr>
-<tr><td align="left" balign="left"> # tijdvakGeldigheid : TijdvakGeldigheid </td></tr>
-<tr><td align="left" balign="left"> # extraElementen : ExtraElementen </td></tr>
-<tr><td align="left" balign="left"> # soortEntiteit : String </td></tr>
-<tr><td align="left" balign="left"> # sleutelVerzendend : String </td></tr>
-<tr><td align="left" balign="left"> # sleutelOntvangend : String </td></tr>
-<tr><td align="left" balign="left"> # sleutelGegevensbeheer : String </td></tr>
-<tr><td align="left" balign="left"> # verwerkingssoort : Verwerkingssoort </td></tr>
-<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + BSGFund() </td></tr>
-<tr><td align="left" balign="left"> + getNaamBestemmingsplan() : JAXBElement&lt;BSGFund.NaamBestemmingsplan&gt; </td></tr>
-<tr><td align="left" balign="left"> + setNaamBestemmingsplan(value : JAXBElement&lt;BSGFund.NaamBestemmingsplan&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getOmschrijvingBestemmingsgebied() : JAXBElement&lt;BSGFund.OmschrijvingBestemmingsgebied&gt; </td></tr>
-<tr><td align="left" balign="left"> + setOmschrijvingBestemmingsgebied(value : JAXBElement&lt;BSGFund.OmschrijvingBestemmingsgebied&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getBestemmingsplanHerziening() : JAXBElement&lt;BSGFund.BestemmingsplanHerziening&gt; </td></tr>
-<tr><td align="left" balign="left"> + setBestemmingsplanHerziening(value : JAXBElement&lt;BSGFund.BestemmingsplanHerziening&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getOmschrijvingPlanologischeBestemming() : JAXBElement&lt;BSGFund.OmschrijvingPlanologischeBestemming&gt; </td></tr>
-<tr><td align="left" balign="left"> + setOmschrijvingPlanologischeBestemming(value : JAXBElement&lt;BSGFund.OmschrijvingPlanologischeBestemming&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getTijdvakGeldigheid() : TijdvakGeldigheid </td></tr>
-<tr><td align="left" balign="left"> + setTijdvakGeldigheid(value : TijdvakGeldigheid) </td></tr>
-<tr><td align="left" balign="left"> + getExtraElementen() : ExtraElementen </td></tr>
-<tr><td align="left" balign="left"> + setExtraElementen(value : ExtraElementen) </td></tr>
-<tr><td align="left" balign="left"> + getSoortEntiteit() : String </td></tr>
-<tr><td align="left" balign="left"> + setSoortEntiteit(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getSleutelVerzendend() : String </td></tr>
-<tr><td align="left" balign="left"> + setSleutelVerzendend(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getSleutelOntvangend() : String </td></tr>
-<tr><td align="left" balign="left"> + setSleutelOntvangend(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getSleutelGegevensbeheer() : String </td></tr>
-<tr><td align="left" balign="left"> + setSleutelGegevensbeheer(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getVerwerkingssoort() : Verwerkingssoort </td></tr>
-<tr><td align="left" balign="left"> + setVerwerkingssoort(value : Verwerkingssoort) </td></tr>
-<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
-<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
-		</table></td></tr>
-		</table>>, URL="../sector/bg/_0204/BSGFund.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.HHDFund
-	c204060 [label=<<table title="nl.egem.stuf.sector.bg._0204.HHDFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/HHDFund.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> HHDFund </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # huishoudennummer : JAXBElement&lt;HHDFund.Huishoudennummer&gt; </td></tr>
-<tr><td align="left" balign="left"> # soortHuishouden : JAXBElement&lt;HHDFund.SoortHuishouden&gt; </td></tr>
-<tr><td align="left" balign="left"> # grootteHuishouden : JAXBElement&lt;HHDFund.GrootteHuishouden&gt; </td></tr>
-<tr><td align="left" balign="left"> # tijdvakGeldigheid : TijdvakGeldigheid </td></tr>
-<tr><td align="left" balign="left"> # extraElementen : ExtraElementen </td></tr>
-<tr><td align="left" balign="left"> # soortEntiteit : String </td></tr>
-<tr><td align="left" balign="left"> # sleutelVerzendend : String </td></tr>
-<tr><td align="left" balign="left"> # sleutelOntvangend : String </td></tr>
-<tr><td align="left" balign="left"> # sleutelGegevensbeheer : String </td></tr>
-<tr><td align="left" balign="left"> # verwerkingssoort : Verwerkingssoort </td></tr>
-<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + HHDFund() </td></tr>
-<tr><td align="left" balign="left"> + getHuishoudennummer() : JAXBElement&lt;HHDFund.Huishoudennummer&gt; </td></tr>
-<tr><td align="left" balign="left"> + setHuishoudennummer(value : JAXBElement&lt;HHDFund.Huishoudennummer&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getSoortHuishouden() : JAXBElement&lt;HHDFund.SoortHuishouden&gt; </td></tr>
-<tr><td align="left" balign="left"> + setSoortHuishouden(value : JAXBElement&lt;HHDFund.SoortHuishouden&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getGrootteHuishouden() : JAXBElement&lt;HHDFund.GrootteHuishouden&gt; </td></tr>
-<tr><td align="left" balign="left"> + setGrootteHuishouden(value : JAXBElement&lt;HHDFund.GrootteHuishouden&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getTijdvakGeldigheid() : TijdvakGeldigheid </td></tr>
-<tr><td align="left" balign="left"> + setTijdvakGeldigheid(value : TijdvakGeldigheid) </td></tr>
-<tr><td align="left" balign="left"> + getExtraElementen() : ExtraElementen </td></tr>
-<tr><td align="left" balign="left"> + setExtraElementen(value : ExtraElementen) </td></tr>
-<tr><td align="left" balign="left"> + getSoortEntiteit() : String </td></tr>
-<tr><td align="left" balign="left"> + setSoortEntiteit(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getSleutelVerzendend() : String </td></tr>
-<tr><td align="left" balign="left"> + setSleutelVerzendend(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getSleutelOntvangend() : String </td></tr>
-<tr><td align="left" balign="left"> + setSleutelOntvangend(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getSleutelGegevensbeheer() : String </td></tr>
-<tr><td align="left" balign="left"> + setSleutelGegevensbeheer(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getVerwerkingssoort() : Verwerkingssoort </td></tr>
-<tr><td align="left" balign="left"> + setVerwerkingssoort(value : Verwerkingssoort) </td></tr>
-<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
-<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
-		</table></td></tr>
-		</table>>, URL="../sector/bg/_0204/HHDFund.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.WOZFund
-	c204087 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/WOZFund.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> WOZFund </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # wozObjectNummer : JAXBElement&lt;WOZFund.WozObjectNummer&gt; </td></tr>
-<tr><td align="left" balign="left"> # activiteitFeitelijk : List&lt;WOZFund.ActiviteitFeitelijk&gt; </td></tr>
-<tr><td align="left" balign="left"> # vastgesteldeWaarde : JAXBElement&lt;WOZFund.VastgesteldeWaarde&gt; </td></tr>
-<tr><td align="left" balign="left"> # vastgesteldeWaardeEuro : JAXBElement&lt;WOZFund.VastgesteldeWaardeEuro&gt; </td></tr>
-<tr><td align="left" balign="left"> # peildatumWaarde : JAXBElement&lt;WOZFund.PeildatumWaarde&gt; </td></tr>
-<tr><td align="left" balign="left"> # huurprijs : JAXBElement&lt;WOZFund.Huurprijs&gt; </td></tr>
-<tr><td align="left" balign="left"> # huurprijsEuro : JAXBElement&lt;BigInteger&gt; </td></tr>
-<tr><td align="left" balign="left"> # peildatumHuurprijs : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
-<tr><td align="left" balign="left"> # tijdvakGeldigheid : TijdvakGeldigheid </td></tr>
-<tr><td align="left" balign="left"> # extraElementen : ExtraElementen </td></tr>
-<tr><td align="left" balign="left"> # soortEntiteit : String </td></tr>
-<tr><td align="left" balign="left"> # sleutelVerzendend : String </td></tr>
-<tr><td align="left" balign="left"> # sleutelOntvangend : String </td></tr>
-<tr><td align="left" balign="left"> # sleutelGegevensbeheer : String </td></tr>
-<tr><td align="left" balign="left"> # verwerkingssoort : Verwerkingssoort </td></tr>
-<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + WOZFund() </td></tr>
-<tr><td align="left" balign="left"> + getWozObjectNummer() : JAXBElement&lt;WOZFund.WozObjectNummer&gt; </td></tr>
-<tr><td align="left" balign="left"> + setWozObjectNummer(value : JAXBElement&lt;WOZFund.WozObjectNummer&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getActiviteitFeitelijk() : List&lt;WOZFund.ActiviteitFeitelijk&gt; </td></tr>
-<tr><td align="left" balign="left"> + getVastgesteldeWaarde() : JAXBElement&lt;WOZFund.VastgesteldeWaarde&gt; </td></tr>
-<tr><td align="left" balign="left"> + setVastgesteldeWaarde(value : JAXBElement&lt;WOZFund.VastgesteldeWaarde&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getVastgesteldeWaardeEuro() : JAXBElement&lt;WOZFund.VastgesteldeWaardeEuro&gt; </td></tr>
-<tr><td align="left" balign="left"> + setVastgesteldeWaardeEuro(value : JAXBElement&lt;WOZFund.VastgesteldeWaardeEuro&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getPeildatumWaarde() : JAXBElement&lt;WOZFund.PeildatumWaarde&gt; </td></tr>
-<tr><td align="left" balign="left"> + setPeildatumWaarde(value : JAXBElement&lt;WOZFund.PeildatumWaarde&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getHuurprijs() : JAXBElement&lt;WOZFund.Huurprijs&gt; </td></tr>
-<tr><td align="left" balign="left"> + setHuurprijs(value : JAXBElement&lt;WOZFund.Huurprijs&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getHuurprijsEuro() : JAXBElement&lt;BigInteger&gt; </td></tr>
-<tr><td align="left" balign="left"> + setHuurprijsEuro(value : JAXBElement&lt;BigInteger&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getPeildatumHuurprijs() : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
-<tr><td align="left" balign="left"> + setPeildatumHuurprijs(value : JAXBElement&lt;DatumMetIndicator&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getTijdvakGeldigheid() : TijdvakGeldigheid </td></tr>
-<tr><td align="left" balign="left"> + setTijdvakGeldigheid(value : TijdvakGeldigheid) </td></tr>
-<tr><td align="left" balign="left"> + getExtraElementen() : ExtraElementen </td></tr>
-<tr><td align="left" balign="left"> + setExtraElementen(value : ExtraElementen) </td></tr>
-<tr><td align="left" balign="left"> + getSoortEntiteit() : String </td></tr>
-<tr><td align="left" balign="left"> + setSoortEntiteit(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getSleutelVerzendend() : String </td></tr>
-<tr><td align="left" balign="left"> + setSleutelVerzendend(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getSleutelOntvangend() : String </td></tr>
-<tr><td align="left" balign="left"> + setSleutelOntvangend(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getSleutelGegevensbeheer() : String </td></tr>
-<tr><td align="left" balign="left"> + setSleutelGegevensbeheer(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getVerwerkingssoort() : Verwerkingssoort </td></tr>
-<tr><td align="left" balign="left"> + setVerwerkingssoort(value : Verwerkingssoort) </td></tr>
-<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
-<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
-		</table></td></tr>
-		</table>>, URL="../sector/bg/_0204/WOZFund.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.VBOVBOOSURel
-	c204109 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOVBOOSURel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/VBOVBOOSURel.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> VBOVBOOSURel </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # filiatieCode : JAXBElement&lt;VBOVBOOSURel.FiliatieCode&gt; </td></tr>
-<tr><td align="left" balign="left"> # tijdvakRelatie : TijdvakRelatie </td></tr>
-<tr><td align="left" balign="left"> # tijdvakGeldigheid : TijdvakGeldigheid </td></tr>
-<tr><td align="left" balign="left"> # extraElementen : ExtraElementen </td></tr>
-<tr><td align="left" balign="left"> # soortEntiteit : String </td></tr>
-<tr><td align="left" balign="left"> # sleutelVerzendend : String </td></tr>
-<tr><td align="left" balign="left"> # sleutelOntvangend : String </td></tr>
-<tr><td align="left" balign="left"> # sleutelGegevensbeheer : String </td></tr>
-<tr><td align="left" balign="left"> # verwerkingssoort : Verwerkingssoort </td></tr>
-<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + VBOVBOOSURel() </td></tr>
-<tr><td align="left" balign="left"> + getFiliatieCode() : JAXBElement&lt;VBOVBOOSURel.FiliatieCode&gt; </td></tr>
-<tr><td align="left" balign="left"> + setFiliatieCode(value : JAXBElement&lt;VBOVBOOSURel.FiliatieCode&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getTijdvakRelatie() : TijdvakRelatie </td></tr>
-<tr><td align="left" balign="left"> + setTijdvakRelatie(value : TijdvakRelatie) </td></tr>
-<tr><td align="left" balign="left"> + getTijdvakGeldigheid() : TijdvakGeldigheid </td></tr>
-<tr><td align="left" balign="left"> + setTijdvakGeldigheid(value : TijdvakGeldigheid) </td></tr>
-<tr><td align="left" balign="left"> + getExtraElementen() : ExtraElementen </td></tr>
-<tr><td align="left" balign="left"> + setExtraElementen(value : ExtraElementen) </td></tr>
-<tr><td align="left" balign="left"> + getSoortEntiteit() : String </td></tr>
-<tr><td align="left" balign="left"> + setSoortEntiteit(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getSleutelVerzendend() : String </td></tr>
-<tr><td align="left" balign="left"> + setSleutelVerzendend(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getSleutelOntvangend() : String </td></tr>
-<tr><td align="left" balign="left"> + setSleutelOntvangend(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getSleutelGegevensbeheer() : String </td></tr>
-<tr><td align="left" balign="left"> + setSleutelGegevensbeheer(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getVerwerkingssoort() : Verwerkingssoort </td></tr>
-<tr><td align="left" balign="left"> + setVerwerkingssoort(value : Verwerkingssoort) </td></tr>
-<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
-<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
-		</table></td></tr>
-		</table>>, URL="../sector/bg/_0204/VBOVBOOSURel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.OBWFund
-	c204111 [label=<<table title="nl.egem.stuf.sector.bg._0204.OBWFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/OBWFund.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> OBWFund </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # overigBouwwerkNummer : JAXBElement&lt;OBWFund.OverigBouwwerkNummer&gt; </td></tr>
-<tr><td align="left" balign="left"> # typeOverigBouwwerk : JAXBElement&lt;OBWFund.TypeOverigBouwwerk&gt; </td></tr>
-<tr><td align="left" balign="left"> # omschrijvingOverigBouwwerk : JAXBElement&lt;OBWFund.OmschrijvingOverigBouwwerk&gt; </td></tr>
-<tr><td align="left" balign="left"> # tijdvakGeldigheid : TijdvakGeldigheid </td></tr>
-<tr><td align="left" balign="left"> # extraElementen : ExtraElementen </td></tr>
-<tr><td align="left" balign="left"> # soortEntiteit : String </td></tr>
-<tr><td align="left" balign="left"> # sleutelVerzendend : String </td></tr>
-<tr><td align="left" balign="left"> # sleutelOntvangend : String </td></tr>
-<tr><td align="left" balign="left"> # sleutelGegevensbeheer : String </td></tr>
-<tr><td align="left" balign="left"> # verwerkingssoort : Verwerkingssoort </td></tr>
-<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + OBWFund() </td></tr>
-<tr><td align="left" balign="left"> + getOverigBouwwerkNummer() : JAXBElement&lt;OBWFund.OverigBouwwerkNummer&gt; </td></tr>
-<tr><td align="left" balign="left"> + setOverigBouwwerkNummer(value : JAXBElement&lt;OBWFund.OverigBouwwerkNummer&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getTypeOverigBouwwerk() : JAXBElement&lt;OBWFund.TypeOverigBouwwerk&gt; </td></tr>
-<tr><td align="left" balign="left"> + setTypeOverigBouwwerk(value : JAXBElement&lt;OBWFund.TypeOverigBouwwerk&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getOmschrijvingOverigBouwwerk() : JAXBElement&lt;OBWFund.OmschrijvingOverigBouwwerk&gt; </td></tr>
-<tr><td align="left" balign="left"> + setOmschrijvingOverigBouwwerk(value : JAXBElement&lt;OBWFund.OmschrijvingOverigBouwwerk&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getTijdvakGeldigheid() : TijdvakGeldigheid </td></tr>
-<tr><td align="left" balign="left"> + setTijdvakGeldigheid(value : TijdvakGeldigheid) </td></tr>
-<tr><td align="left" balign="left"> + getExtraElementen() : ExtraElementen </td></tr>
-<tr><td align="left" balign="left"> + setExtraElementen(value : ExtraElementen) </td></tr>
-<tr><td align="left" balign="left"> + getSoortEntiteit() : String </td></tr>
-<tr><td align="left" balign="left"> + setSoortEntiteit(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getSleutelVerzendend() : String </td></tr>
-<tr><td align="left" balign="left"> + setSleutelVerzendend(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getSleutelOntvangend() : String </td></tr>
-<tr><td align="left" balign="left"> + setSleutelOntvangend(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getSleutelGegevensbeheer() : String </td></tr>
-<tr><td align="left" balign="left"> + setSleutelGegevensbeheer(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getVerwerkingssoort() : Verwerkingssoort </td></tr>
-<tr><td align="left" balign="left"> + setVerwerkingssoort(value : Verwerkingssoort) </td></tr>
-<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
-<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
-		</table></td></tr>
-		</table>>, URL="../sector/bg/_0204/OBWFund.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.HHDPRSRel
-	c204123 [label=<<table title="nl.egem.stuf.sector.bg._0204.HHDPRSRel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/HHDPRSRel.html">
+	c204277 [label=<<table title="nl.egem.stuf.sector.bg._0204.HHDPRSRel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/HHDPRSRel.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> HHDPRSRel </td></tr>
 		</table></td></tr>
@@ -659,336 +974,8 @@ digraph G {
 <tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
 		</table></td></tr>
 		</table>>, URL="../sector/bg/_0204/HHDPRSRel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.PRSPRSOUDRel
-	c204177 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSPRSOUDRel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/PRSPRSOUDRel.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> PRSPRSOUDRel </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # ingangsdatum : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
-<tr><td align="left" balign="left"> # einddatum : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
-<tr><td align="left" balign="left"> # tijdvakRelatie : TijdvakRelatie </td></tr>
-<tr><td align="left" balign="left"> # tijdvakGeldigheid : TijdvakGeldigheid </td></tr>
-<tr><td align="left" balign="left"> # extraElementen : ExtraElementen </td></tr>
-<tr><td align="left" balign="left"> # soortEntiteit : String </td></tr>
-<tr><td align="left" balign="left"> # sleutelVerzendend : String </td></tr>
-<tr><td align="left" balign="left"> # sleutelOntvangend : String </td></tr>
-<tr><td align="left" balign="left"> # sleutelGegevensbeheer : String </td></tr>
-<tr><td align="left" balign="left"> # verwerkingssoort : Verwerkingssoort </td></tr>
-<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + PRSPRSOUDRel() </td></tr>
-<tr><td align="left" balign="left"> + getIngangsdatum() : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
-<tr><td align="left" balign="left"> + setIngangsdatum(value : JAXBElement&lt;DatumMetIndicator&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getEinddatum() : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
-<tr><td align="left" balign="left"> + setEinddatum(value : JAXBElement&lt;DatumMetIndicator&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getTijdvakRelatie() : TijdvakRelatie </td></tr>
-<tr><td align="left" balign="left"> + setTijdvakRelatie(value : TijdvakRelatie) </td></tr>
-<tr><td align="left" balign="left"> + getTijdvakGeldigheid() : TijdvakGeldigheid </td></tr>
-<tr><td align="left" balign="left"> + setTijdvakGeldigheid(value : TijdvakGeldigheid) </td></tr>
-<tr><td align="left" balign="left"> + getExtraElementen() : ExtraElementen </td></tr>
-<tr><td align="left" balign="left"> + setExtraElementen(value : ExtraElementen) </td></tr>
-<tr><td align="left" balign="left"> + getSoortEntiteit() : String </td></tr>
-<tr><td align="left" balign="left"> + setSoortEntiteit(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getSleutelVerzendend() : String </td></tr>
-<tr><td align="left" balign="left"> + setSleutelVerzendend(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getSleutelOntvangend() : String </td></tr>
-<tr><td align="left" balign="left"> + setSleutelOntvangend(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getSleutelGegevensbeheer() : String </td></tr>
-<tr><td align="left" balign="left"> + setSleutelGegevensbeheer(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getVerwerkingssoort() : Verwerkingssoort </td></tr>
-<tr><td align="left" balign="left"> + setVerwerkingssoort(value : Verwerkingssoort) </td></tr>
-<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
-<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
-		</table></td></tr>
-		</table>>, URL="../sector/bg/_0204/PRSPRSOUDRel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.ADRFund
-	c204218 [label=<<table title="nl.egem.stuf.sector.bg._0204.ADRFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/ADRFund.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> ADRFund </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # adresBuitenland1 : JAXBElement&lt;ADRFund.AdresBuitenland1&gt; </td></tr>
-<tr><td align="left" balign="left"> # adresBuitenland2 : JAXBElement&lt;ADRFund.AdresBuitenland2&gt; </td></tr>
-<tr><td align="left" balign="left"> # adresBuitenland3 : JAXBElement&lt;ADRFund.AdresBuitenland3&gt; </td></tr>
-<tr><td align="left" balign="left"> # landcode : JAXBElement&lt;ADRFund.Landcode&gt; </td></tr>
-<tr><td align="left" balign="left"> # postcode : JAXBElement&lt;ADRFund.Postcode&gt; </td></tr>
-<tr><td align="left" balign="left"> # woonplaatsnaam : JAXBElement&lt;ADRFund.Woonplaatsnaam&gt; </td></tr>
-<tr><td align="left" balign="left"> # postbusnummer : JAXBElement&lt;ADRFund.Postbusnummer&gt; </td></tr>
-<tr><td align="left" balign="left"> # antwoordnummer : JAXBElement&lt;ADRFund.Antwoordnummer&gt; </td></tr>
-<tr><td align="left" balign="left"> # straatnaam : JAXBElement&lt;ADRFund.Straatnaam&gt; </td></tr>
-<tr><td align="left" balign="left"> # huisnummer : JAXBElement&lt;ADRFund.Huisnummer&gt; </td></tr>
-<tr><td align="left" balign="left"> # huisletter : JAXBElement&lt;ADRFund.Huisletter&gt; </td></tr>
-<tr><td align="left" balign="left"> # huisnummertoevoeging : JAXBElement&lt;ADRFund.Huisnummertoevoeging&gt; </td></tr>
-<tr><td align="left" balign="left"> # aanduidingBijHuisnummer : JAXBElement&lt;ADRFund.AanduidingBijHuisnummer&gt; </td></tr>
-<tr><td align="left" balign="left"> # locatieomschrijving : JAXBElement&lt;ADRFund.Locatieomschrijving&gt; </td></tr>
-<tr><td align="left" balign="left"> # locatieadresnummer : JAXBElement&lt;ADRFund.Locatieadresnummer&gt; </td></tr>
-<tr><td align="left" balign="left"> # ingangsdatum : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
-<tr><td align="left" balign="left"> # einddatum : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
-<tr><td align="left" balign="left"> # straatcode : JAXBElement&lt;ADRFund.Straatcode&gt; </td></tr>
-<tr><td align="left" balign="left"> # buurtcode : JAXBElement&lt;ADRFund.Buurtcode&gt; </td></tr>
-<tr><td align="left" balign="left"> # wijkcode : JAXBElement&lt;ADRFund.Wijkcode&gt; </td></tr>
-<tr><td align="left" balign="left"> # gemeentecode : JAXBElement&lt;ADRFund.Gemeentecode&gt; </td></tr>
-<tr><td align="left" balign="left"> # centroidXCoordinaat : JAXBElement&lt;ADRFund.CentroidXCoordinaat&gt; </td></tr>
-<tr><td align="left" balign="left"> # centroidYCoordinaat : JAXBElement&lt;ADRFund.CentroidYCoordinaat&gt; </td></tr>
-<tr><td align="left" balign="left"> # centroidZCoordinaat : JAXBElement&lt;ADRFund.CentroidZCoordinaat&gt; </td></tr>
-<tr><td align="left" balign="left"> # tijdvakGeldigheid : TijdvakGeldigheid </td></tr>
-<tr><td align="left" balign="left"> # extraElementen : ExtraElementen </td></tr>
-<tr><td align="left" balign="left"> # soortEntiteit : String </td></tr>
-<tr><td align="left" balign="left"> # sleutelVerzendend : String </td></tr>
-<tr><td align="left" balign="left"> # sleutelOntvangend : String </td></tr>
-<tr><td align="left" balign="left"> # sleutelGegevensbeheer : String </td></tr>
-<tr><td align="left" balign="left"> # verwerkingssoort : Verwerkingssoort </td></tr>
-<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + ADRFund() </td></tr>
-<tr><td align="left" balign="left"> + getAdresBuitenland1() : JAXBElement&lt;ADRFund.AdresBuitenland1&gt; </td></tr>
-<tr><td align="left" balign="left"> + setAdresBuitenland1(value : JAXBElement&lt;ADRFund.AdresBuitenland1&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getAdresBuitenland2() : JAXBElement&lt;ADRFund.AdresBuitenland2&gt; </td></tr>
-<tr><td align="left" balign="left"> + setAdresBuitenland2(value : JAXBElement&lt;ADRFund.AdresBuitenland2&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getAdresBuitenland3() : JAXBElement&lt;ADRFund.AdresBuitenland3&gt; </td></tr>
-<tr><td align="left" balign="left"> + setAdresBuitenland3(value : JAXBElement&lt;ADRFund.AdresBuitenland3&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getLandcode() : JAXBElement&lt;ADRFund.Landcode&gt; </td></tr>
-<tr><td align="left" balign="left"> + setLandcode(value : JAXBElement&lt;ADRFund.Landcode&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getPostcode() : JAXBElement&lt;ADRFund.Postcode&gt; </td></tr>
-<tr><td align="left" balign="left"> + setPostcode(value : JAXBElement&lt;ADRFund.Postcode&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getWoonplaatsnaam() : JAXBElement&lt;ADRFund.Woonplaatsnaam&gt; </td></tr>
-<tr><td align="left" balign="left"> + setWoonplaatsnaam(value : JAXBElement&lt;ADRFund.Woonplaatsnaam&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getPostbusnummer() : JAXBElement&lt;ADRFund.Postbusnummer&gt; </td></tr>
-<tr><td align="left" balign="left"> + setPostbusnummer(value : JAXBElement&lt;ADRFund.Postbusnummer&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getAntwoordnummer() : JAXBElement&lt;ADRFund.Antwoordnummer&gt; </td></tr>
-<tr><td align="left" balign="left"> + setAntwoordnummer(value : JAXBElement&lt;ADRFund.Antwoordnummer&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getStraatnaam() : JAXBElement&lt;ADRFund.Straatnaam&gt; </td></tr>
-<tr><td align="left" balign="left"> + setStraatnaam(value : JAXBElement&lt;ADRFund.Straatnaam&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getHuisnummer() : JAXBElement&lt;ADRFund.Huisnummer&gt; </td></tr>
-<tr><td align="left" balign="left"> + setHuisnummer(value : JAXBElement&lt;ADRFund.Huisnummer&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getHuisletter() : JAXBElement&lt;ADRFund.Huisletter&gt; </td></tr>
-<tr><td align="left" balign="left"> + setHuisletter(value : JAXBElement&lt;ADRFund.Huisletter&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getHuisnummertoevoeging() : JAXBElement&lt;ADRFund.Huisnummertoevoeging&gt; </td></tr>
-<tr><td align="left" balign="left"> + setHuisnummertoevoeging(value : JAXBElement&lt;ADRFund.Huisnummertoevoeging&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getAanduidingBijHuisnummer() : JAXBElement&lt;ADRFund.AanduidingBijHuisnummer&gt; </td></tr>
-<tr><td align="left" balign="left"> + setAanduidingBijHuisnummer(value : JAXBElement&lt;ADRFund.AanduidingBijHuisnummer&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getLocatieomschrijving() : JAXBElement&lt;ADRFund.Locatieomschrijving&gt; </td></tr>
-<tr><td align="left" balign="left"> + setLocatieomschrijving(value : JAXBElement&lt;ADRFund.Locatieomschrijving&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getLocatieadresnummer() : JAXBElement&lt;ADRFund.Locatieadresnummer&gt; </td></tr>
-<tr><td align="left" balign="left"> + setLocatieadresnummer(value : JAXBElement&lt;ADRFund.Locatieadresnummer&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getIngangsdatum() : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
-<tr><td align="left" balign="left"> + setIngangsdatum(value : JAXBElement&lt;DatumMetIndicator&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getEinddatum() : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
-<tr><td align="left" balign="left"> + setEinddatum(value : JAXBElement&lt;DatumMetIndicator&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getStraatcode() : JAXBElement&lt;ADRFund.Straatcode&gt; </td></tr>
-<tr><td align="left" balign="left"> + setStraatcode(value : JAXBElement&lt;ADRFund.Straatcode&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getBuurtcode() : JAXBElement&lt;ADRFund.Buurtcode&gt; </td></tr>
-<tr><td align="left" balign="left"> + setBuurtcode(value : JAXBElement&lt;ADRFund.Buurtcode&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getWijkcode() : JAXBElement&lt;ADRFund.Wijkcode&gt; </td></tr>
-<tr><td align="left" balign="left"> + setWijkcode(value : JAXBElement&lt;ADRFund.Wijkcode&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getGemeentecode() : JAXBElement&lt;ADRFund.Gemeentecode&gt; </td></tr>
-<tr><td align="left" balign="left"> + setGemeentecode(value : JAXBElement&lt;ADRFund.Gemeentecode&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getCentroidXCoordinaat() : JAXBElement&lt;ADRFund.CentroidXCoordinaat&gt; </td></tr>
-<tr><td align="left" balign="left"> + setCentroidXCoordinaat(value : JAXBElement&lt;ADRFund.CentroidXCoordinaat&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getCentroidYCoordinaat() : JAXBElement&lt;ADRFund.CentroidYCoordinaat&gt; </td></tr>
-<tr><td align="left" balign="left"> + setCentroidYCoordinaat(value : JAXBElement&lt;ADRFund.CentroidYCoordinaat&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getCentroidZCoordinaat() : JAXBElement&lt;ADRFund.CentroidZCoordinaat&gt; </td></tr>
-<tr><td align="left" balign="left"> + setCentroidZCoordinaat(value : JAXBElement&lt;ADRFund.CentroidZCoordinaat&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getTijdvakGeldigheid() : TijdvakGeldigheid </td></tr>
-<tr><td align="left" balign="left"> + setTijdvakGeldigheid(value : TijdvakGeldigheid) </td></tr>
-<tr><td align="left" balign="left"> + getExtraElementen() : ExtraElementen </td></tr>
-<tr><td align="left" balign="left"> + setExtraElementen(value : ExtraElementen) </td></tr>
-<tr><td align="left" balign="left"> + getSoortEntiteit() : String </td></tr>
-<tr><td align="left" balign="left"> + setSoortEntiteit(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getSleutelVerzendend() : String </td></tr>
-<tr><td align="left" balign="left"> + setSleutelVerzendend(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getSleutelOntvangend() : String </td></tr>
-<tr><td align="left" balign="left"> + setSleutelOntvangend(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getSleutelGegevensbeheer() : String </td></tr>
-<tr><td align="left" balign="left"> + setSleutelGegevensbeheer(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getVerwerkingssoort() : Verwerkingssoort </td></tr>
-<tr><td align="left" balign="left"> + setVerwerkingssoort(value : Verwerkingssoort) </td></tr>
-<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
-<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
-		</table></td></tr>
-		</table>>, URL="../sector/bg/_0204/ADRFund.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.Relatie
-	c204252 [label=<<table title="nl.egem.stuf.sector.bg._0204.Relatie" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/Relatie.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> Relatie </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # tijdvakRelatie : TijdvakRelatie </td></tr>
-<tr><td align="left" balign="left"> # tijdvakGeldigheid : TijdvakGeldigheid </td></tr>
-<tr><td align="left" balign="left"> # extraElementen : ExtraElementen </td></tr>
-<tr><td align="left" balign="left"> # soortEntiteit : String </td></tr>
-<tr><td align="left" balign="left"> # sleutelVerzendend : String </td></tr>
-<tr><td align="left" balign="left"> # sleutelOntvangend : String </td></tr>
-<tr><td align="left" balign="left"> # sleutelGegevensbeheer : String </td></tr>
-<tr><td align="left" balign="left"> # verwerkingssoort : Verwerkingssoort </td></tr>
-<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + Relatie() </td></tr>
-<tr><td align="left" balign="left"> + getTijdvakRelatie() : TijdvakRelatie </td></tr>
-<tr><td align="left" balign="left"> + setTijdvakRelatie(value : TijdvakRelatie) </td></tr>
-<tr><td align="left" balign="left"> + getTijdvakGeldigheid() : TijdvakGeldigheid </td></tr>
-<tr><td align="left" balign="left"> + setTijdvakGeldigheid(value : TijdvakGeldigheid) </td></tr>
-<tr><td align="left" balign="left"> + getExtraElementen() : ExtraElementen </td></tr>
-<tr><td align="left" balign="left"> + setExtraElementen(value : ExtraElementen) </td></tr>
-<tr><td align="left" balign="left"> + getSoortEntiteit() : String </td></tr>
-<tr><td align="left" balign="left"> + setSoortEntiteit(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getSleutelVerzendend() : String </td></tr>
-<tr><td align="left" balign="left"> + setSleutelVerzendend(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getSleutelOntvangend() : String </td></tr>
-<tr><td align="left" balign="left"> + setSleutelOntvangend(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getSleutelGegevensbeheer() : String </td></tr>
-<tr><td align="left" balign="left"> + setSleutelGegevensbeheer(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getVerwerkingssoort() : Verwerkingssoort </td></tr>
-<tr><td align="left" balign="left"> + setVerwerkingssoort(value : Verwerkingssoort) </td></tr>
-<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
-<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
-		</table></td></tr>
-		</table>>, URL="../sector/bg/_0204/Relatie.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.PRBFund
-	c204255 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRBFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/PRBFund.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> PRBFund </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # codePubliekRechtlijkeBeperking : JAXBElement&lt;PRBFund.CodePubliekRechtlijkeBeperking&gt; </td></tr>
-<tr><td align="left" balign="left"> # ingangsdatum : JAXBElement&lt;PRBFund.Ingangsdatum&gt; </td></tr>
-<tr><td align="left" balign="left"> # einddatum : JAXBElement&lt;Object&gt; </td></tr>
-<tr><td align="left" balign="left"> # vindplaatsDocument : JAXBElement&lt;PRBFund.VindplaatsDocument&gt; </td></tr>
-<tr><td align="left" balign="left"> # tijdvakGeldigheid : TijdvakGeldigheid </td></tr>
-<tr><td align="left" balign="left"> # extraElementen : ExtraElementen </td></tr>
-<tr><td align="left" balign="left"> # soortEntiteit : String </td></tr>
-<tr><td align="left" balign="left"> # sleutelVerzendend : String </td></tr>
-<tr><td align="left" balign="left"> # sleutelOntvangend : String </td></tr>
-<tr><td align="left" balign="left"> # sleutelGegevensbeheer : String </td></tr>
-<tr><td align="left" balign="left"> # verwerkingssoort : Verwerkingssoort </td></tr>
-<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + PRBFund() </td></tr>
-<tr><td align="left" balign="left"> + getCodePubliekRechtlijkeBeperking() : JAXBElement&lt;PRBFund.CodePubliekRechtlijkeBeperking&gt; </td></tr>
-<tr><td align="left" balign="left"> + setCodePubliekRechtlijkeBeperking(value : JAXBElement&lt;PRBFund.CodePubliekRechtlijkeBeperking&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getIngangsdatum() : JAXBElement&lt;PRBFund.Ingangsdatum&gt; </td></tr>
-<tr><td align="left" balign="left"> + setIngangsdatum(value : JAXBElement&lt;PRBFund.Ingangsdatum&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getEinddatum() : JAXBElement&lt;Object&gt; </td></tr>
-<tr><td align="left" balign="left"> + setEinddatum(value : JAXBElement&lt;Object&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getVindplaatsDocument() : JAXBElement&lt;PRBFund.VindplaatsDocument&gt; </td></tr>
-<tr><td align="left" balign="left"> + setVindplaatsDocument(value : JAXBElement&lt;PRBFund.VindplaatsDocument&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getTijdvakGeldigheid() : TijdvakGeldigheid </td></tr>
-<tr><td align="left" balign="left"> + setTijdvakGeldigheid(value : TijdvakGeldigheid) </td></tr>
-<tr><td align="left" balign="left"> + getExtraElementen() : ExtraElementen </td></tr>
-<tr><td align="left" balign="left"> + setExtraElementen(value : ExtraElementen) </td></tr>
-<tr><td align="left" balign="left"> + getSoortEntiteit() : String </td></tr>
-<tr><td align="left" balign="left"> + setSoortEntiteit(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getSleutelVerzendend() : String </td></tr>
-<tr><td align="left" balign="left"> + setSleutelVerzendend(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getSleutelOntvangend() : String </td></tr>
-<tr><td align="left" balign="left"> + setSleutelOntvangend(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getSleutelGegevensbeheer() : String </td></tr>
-<tr><td align="left" balign="left"> + setSleutelGegevensbeheer(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getVerwerkingssoort() : Verwerkingssoort </td></tr>
-<tr><td align="left" balign="left"> + setVerwerkingssoort(value : Verwerkingssoort) </td></tr>
-<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
-<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
-		</table></td></tr>
-		</table>>, URL="../sector/bg/_0204/PRBFund.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.KDOFund
-	c204264 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/KDOFund.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> KDOFund </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # kadastraleGemeentecode : JAXBElement&lt;KDOFund.KadastraleGemeentecode&gt; </td></tr>
-<tr><td align="left" balign="left"> # kadastraleSectie : JAXBElement&lt;KDOFund.KadastraleSectie&gt; </td></tr>
-<tr><td align="left" balign="left"> # kadastraalPerceelnummer : JAXBElement&lt;KDOFund.KadastraalPerceelnummer&gt; </td></tr>
-<tr><td align="left" balign="left"> # kadastraalObjectIndexLetter : JAXBElement&lt;KDOFund.KadastraalObjectIndexLetter&gt; </td></tr>
-<tr><td align="left" balign="left"> # kadastraalObjectIndexNummer : JAXBElement&lt;KDOFund.KadastraalObjectIndexNummer&gt; </td></tr>
-<tr><td align="left" balign="left"> # omschrijvingDeelPerceel : JAXBElement&lt;KDOFund.OmschrijvingDeelPerceel&gt; </td></tr>
-<tr><td align="left" balign="left"> # oppervlakteKadastraalObject : JAXBElement&lt;KDOFund.OppervlakteKadastraalObject&gt; </td></tr>
-<tr><td align="left" balign="left"> # indicatieOppervlakteGeschat : JAXBElement&lt;KDOFund.IndicatieOppervlakteGeschat&gt; </td></tr>
-<tr><td align="left" balign="left"> # aanduidingErfdienstbaarheid : JAXBElement&lt;KDOFund.AanduidingErfdienstbaarheid&gt; </td></tr>
-<tr><td align="left" balign="left"> # aanduidingIndicatieMogelijk : JAXBElement&lt;KDOFund.AanduidingIndicatieMogelijk&gt; </td></tr>
-<tr><td align="left" balign="left"> # indicatieVervallen : JAXBElement&lt;KDOFund.IndicatieVervallen&gt; </td></tr>
-<tr><td align="left" balign="left"> # koopjaar : JAXBElement&lt;KDOFund.Koopjaar&gt; </td></tr>
-<tr><td align="left" balign="left"> # koopsom : JAXBElement&lt;KDOFund.Koopsom&gt; </td></tr>
-<tr><td align="left" balign="left"> # koopsomEuro : JAXBElement&lt;KDOFund.KoopsomEuro&gt; </td></tr>
-<tr><td align="left" balign="left"> # centroidXCoordinaat : JAXBElement&lt;KDOFund.CentroidXCoordinaat&gt; </td></tr>
-<tr><td align="left" balign="left"> # centroidYCoordinaat : JAXBElement&lt;KDOFund.CentroidYCoordinaat&gt; </td></tr>
-<tr><td align="left" balign="left"> # centroidZCoordinaat : JAXBElement&lt;KDOFund.CentroidZCoordinaat&gt; </td></tr>
-<tr><td align="left" balign="left"> # ingangsdatumKadastraalObject : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
-<tr><td align="left" balign="left"> # einddatumKadastraalObject : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
-<tr><td align="left" balign="left"> # tijdvakGeldigheid : TijdvakGeldigheid </td></tr>
-<tr><td align="left" balign="left"> # extraElementen : ExtraElementen </td></tr>
-<tr><td align="left" balign="left"> # soortEntiteit : String </td></tr>
-<tr><td align="left" balign="left"> # sleutelVerzendend : String </td></tr>
-<tr><td align="left" balign="left"> # sleutelOntvangend : String </td></tr>
-<tr><td align="left" balign="left"> # sleutelGegevensbeheer : String </td></tr>
-<tr><td align="left" balign="left"> # verwerkingssoort : Verwerkingssoort </td></tr>
-<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + KDOFund() </td></tr>
-<tr><td align="left" balign="left"> + getKadastraleGemeentecode() : JAXBElement&lt;KDOFund.KadastraleGemeentecode&gt; </td></tr>
-<tr><td align="left" balign="left"> + setKadastraleGemeentecode(value : JAXBElement&lt;KDOFund.KadastraleGemeentecode&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getKadastraleSectie() : JAXBElement&lt;KDOFund.KadastraleSectie&gt; </td></tr>
-<tr><td align="left" balign="left"> + setKadastraleSectie(value : JAXBElement&lt;KDOFund.KadastraleSectie&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getKadastraalPerceelnummer() : JAXBElement&lt;KDOFund.KadastraalPerceelnummer&gt; </td></tr>
-<tr><td align="left" balign="left"> + setKadastraalPerceelnummer(value : JAXBElement&lt;KDOFund.KadastraalPerceelnummer&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getKadastraalObjectIndexLetter() : JAXBElement&lt;KDOFund.KadastraalObjectIndexLetter&gt; </td></tr>
-<tr><td align="left" balign="left"> + setKadastraalObjectIndexLetter(value : JAXBElement&lt;KDOFund.KadastraalObjectIndexLetter&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getKadastraalObjectIndexNummer() : JAXBElement&lt;KDOFund.KadastraalObjectIndexNummer&gt; </td></tr>
-<tr><td align="left" balign="left"> + setKadastraalObjectIndexNummer(value : JAXBElement&lt;KDOFund.KadastraalObjectIndexNummer&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getOmschrijvingDeelPerceel() : JAXBElement&lt;KDOFund.OmschrijvingDeelPerceel&gt; </td></tr>
-<tr><td align="left" balign="left"> + setOmschrijvingDeelPerceel(value : JAXBElement&lt;KDOFund.OmschrijvingDeelPerceel&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getOppervlakteKadastraalObject() : JAXBElement&lt;KDOFund.OppervlakteKadastraalObject&gt; </td></tr>
-<tr><td align="left" balign="left"> + setOppervlakteKadastraalObject(value : JAXBElement&lt;KDOFund.OppervlakteKadastraalObject&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getIndicatieOppervlakteGeschat() : JAXBElement&lt;KDOFund.IndicatieOppervlakteGeschat&gt; </td></tr>
-<tr><td align="left" balign="left"> + setIndicatieOppervlakteGeschat(value : JAXBElement&lt;KDOFund.IndicatieOppervlakteGeschat&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getAanduidingErfdienstbaarheid() : JAXBElement&lt;KDOFund.AanduidingErfdienstbaarheid&gt; </td></tr>
-<tr><td align="left" balign="left"> + setAanduidingErfdienstbaarheid(value : JAXBElement&lt;KDOFund.AanduidingErfdienstbaarheid&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getAanduidingIndicatieMogelijk() : JAXBElement&lt;KDOFund.AanduidingIndicatieMogelijk&gt; </td></tr>
-<tr><td align="left" balign="left"> + setAanduidingIndicatieMogelijk(value : JAXBElement&lt;KDOFund.AanduidingIndicatieMogelijk&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getIndicatieVervallen() : JAXBElement&lt;KDOFund.IndicatieVervallen&gt; </td></tr>
-<tr><td align="left" balign="left"> + setIndicatieVervallen(value : JAXBElement&lt;KDOFund.IndicatieVervallen&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getKoopjaar() : JAXBElement&lt;KDOFund.Koopjaar&gt; </td></tr>
-<tr><td align="left" balign="left"> + setKoopjaar(value : JAXBElement&lt;KDOFund.Koopjaar&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getKoopsom() : JAXBElement&lt;KDOFund.Koopsom&gt; </td></tr>
-<tr><td align="left" balign="left"> + setKoopsom(value : JAXBElement&lt;KDOFund.Koopsom&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getKoopsomEuro() : JAXBElement&lt;KDOFund.KoopsomEuro&gt; </td></tr>
-<tr><td align="left" balign="left"> + setKoopsomEuro(value : JAXBElement&lt;KDOFund.KoopsomEuro&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getCentroidXCoordinaat() : JAXBElement&lt;KDOFund.CentroidXCoordinaat&gt; </td></tr>
-<tr><td align="left" balign="left"> + setCentroidXCoordinaat(value : JAXBElement&lt;KDOFund.CentroidXCoordinaat&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getCentroidYCoordinaat() : JAXBElement&lt;KDOFund.CentroidYCoordinaat&gt; </td></tr>
-<tr><td align="left" balign="left"> + setCentroidYCoordinaat(value : JAXBElement&lt;KDOFund.CentroidYCoordinaat&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getCentroidZCoordinaat() : JAXBElement&lt;KDOFund.CentroidZCoordinaat&gt; </td></tr>
-<tr><td align="left" balign="left"> + setCentroidZCoordinaat(value : JAXBElement&lt;KDOFund.CentroidZCoordinaat&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getIngangsdatumKadastraalObject() : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
-<tr><td align="left" balign="left"> + setIngangsdatumKadastraalObject(value : JAXBElement&lt;DatumMetIndicator&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getEinddatumKadastraalObject() : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
-<tr><td align="left" balign="left"> + setEinddatumKadastraalObject(value : JAXBElement&lt;DatumMetIndicator&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getTijdvakGeldigheid() : TijdvakGeldigheid </td></tr>
-<tr><td align="left" balign="left"> + setTijdvakGeldigheid(value : TijdvakGeldigheid) </td></tr>
-<tr><td align="left" balign="left"> + getExtraElementen() : ExtraElementen </td></tr>
-<tr><td align="left" balign="left"> + setExtraElementen(value : ExtraElementen) </td></tr>
-<tr><td align="left" balign="left"> + getSoortEntiteit() : String </td></tr>
-<tr><td align="left" balign="left"> + setSoortEntiteit(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getSleutelVerzendend() : String </td></tr>
-<tr><td align="left" balign="left"> + setSleutelVerzendend(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getSleutelOntvangend() : String </td></tr>
-<tr><td align="left" balign="left"> + setSleutelOntvangend(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getSleutelGegevensbeheer() : String </td></tr>
-<tr><td align="left" balign="left"> + setSleutelGegevensbeheer(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getVerwerkingssoort() : Verwerkingssoort </td></tr>
-<tr><td align="left" balign="left"> + setVerwerkingssoort(value : Verwerkingssoort) </td></tr>
-<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
-<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
-		</table></td></tr>
-		</table>>, URL="../sector/bg/_0204/KDOFund.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.NNPFund
-	c204282 [label=<<table title="nl.egem.stuf.sector.bg._0204.NNPFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/NNPFund.html">
+	c204280 [label=<<table title="nl.egem.stuf.sector.bg._0204.NNPFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/NNPFund.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> NNPFund </td></tr>
 		</table></td></tr>
@@ -1092,154 +1079,13 @@ digraph G {
 <tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
 		</table></td></tr>
 		</table>>, URL="../sector/bg/_0204/NNPFund.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.PRSFund
-	c204319 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/PRSFund.html">
+	// nl.egem.stuf.sector.bg._0204.VBOVBOOSURel
+	c204322 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOVBOOSURel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/VBOVBOOSURel.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> PRSFund </td></tr>
+<tr><td align="center" balign="center"> VBOVBOOSURel </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # aNummer : JAXBElement&lt;ANummerE&gt; </td></tr>
-<tr><td align="left" balign="left"> # bsnNummer : JAXBElement&lt;BsnNummerE&gt; </td></tr>
-<tr><td align="left" balign="left"> # voornamen : JAXBElement&lt;VoornamenE&gt; </td></tr>
-<tr><td align="left" balign="left"> # voorletters : JAXBElement&lt;VoorlettersE&gt; </td></tr>
-<tr><td align="left" balign="left"> # voorvoegselGeslachtsnaam : JAXBElement&lt;VoorvoegselGeslachtsnaamE&gt; </td></tr>
-<tr><td align="left" balign="left"> # geslachtsnaam : JAXBElement&lt;GeslachtsnaamE&gt; </td></tr>
-<tr><td align="left" balign="left"> # geboortedatum : JAXBElement&lt;GeboortedatumE&gt; </td></tr>
-<tr><td align="left" balign="left"> # geboorteplaats : JAXBElement&lt;GeboorteplaatsE&gt; </td></tr>
-<tr><td align="left" balign="left"> # codeGeboorteland : JAXBElement&lt;CodeGeboortelandE&gt; </td></tr>
-<tr><td align="left" balign="left"> # geslachtsaanduiding : JAXBElement&lt;GeslachtsaanduidingE&gt; </td></tr>
-<tr><td align="left" balign="left"> # datumOverlijden : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
-<tr><td align="left" balign="left"> # plaatsOverlijden : JAXBElement&lt;PRSFund.PlaatsOverlijden&gt; </td></tr>
-<tr><td align="left" balign="left"> # codeLandOverlijden : JAXBElement&lt;PRSFund.CodeLandOverlijden&gt; </td></tr>
-<tr><td align="left" balign="left"> # indicatieGeheim : JAXBElement&lt;PRSFund.IndicatieGeheim&gt; </td></tr>
-<tr><td align="left" balign="left"> # academischeTitel : List&lt;PRSFund.AcademischeTitel&gt; </td></tr>
-<tr><td align="left" balign="left"> # adellijkeTitelPredikaat : JAXBElement&lt;AdellijkeTitelPredikaatE&gt; </td></tr>
-<tr><td align="left" balign="left"> # codeGemeenteVanInschrijving : JAXBElement&lt;PRSFund.CodeGemeenteVanInschrijving&gt; </td></tr>
-<tr><td align="left" balign="left"> # datumInschrijvingGemeente : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
-<tr><td align="left" balign="left"> # datumOpschortingBijhouding : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
-<tr><td align="left" balign="left"> # omschrijvingRedenOpschortingBijhouding : JAXBElement&lt;PRSFund.OmschrijvingRedenOpschortingBijhouding&gt; </td></tr>
-<tr><td align="left" balign="left"> # codeLandEmigratie : JAXBElement&lt;PRSFund.CodeLandEmigratie&gt; </td></tr>
-<tr><td align="left" balign="left"> # datumVertrekUitNederland : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
-<tr><td align="left" balign="left"> # codeLandImmigratie : JAXBElement&lt;PRSFund.CodeLandImmigratie&gt; </td></tr>
-<tr><td align="left" balign="left"> # datumVestigingInNederland : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
-<tr><td align="left" balign="left"> # indicatieGezagMinderjarige : JAXBElement&lt;PRSFund.IndicatieGezagMinderjarige&gt; </td></tr>
-<tr><td align="left" balign="left"> # indicatieCuratelestelling : JAXBElement&lt;PRSFund.IndicatieCuratelestelling&gt; </td></tr>
-<tr><td align="left" balign="left"> # verblijfstitel : JAXBElement&lt;PRSFund.Verblijfstitel&gt; </td></tr>
-<tr><td align="left" balign="left"> # datumVerkrijgingVerblijfstitel : JAXBElement&lt;PRSFund.DatumVerkrijgingVerblijfstitel&gt; </td></tr>
-<tr><td align="left" balign="left"> # datumVerliesVerblijfstitel : JAXBElement&lt;PRSFund.DatumVerliesVerblijfstitel&gt; </td></tr>
-<tr><td align="left" balign="left"> # aanduidingBijzonderNederlanderschap : JAXBElement&lt;PRSFund.AanduidingBijzonderNederlanderschap&gt; </td></tr>
-<tr><td align="left" balign="left"> # burgerlijkeStaat : JAXBElement&lt;PRSFund.BurgerlijkeStaat&gt; </td></tr>
-<tr><td align="left" balign="left"> # aanduidingNaamgebruik : JAXBElement&lt;PRSFund.AanduidingNaamgebruik&gt; </td></tr>
-<tr><td align="left" balign="left"> # bankgiroRekeningnummer : List&lt;PRSFund.BankgiroRekeningnummer&gt; </td></tr>
-<tr><td align="left" balign="left"> # subjectnrAKR : List&lt;PRSFund.SubjectnrAKR&gt; </td></tr>
-<tr><td align="left" balign="left"> # eMailAdres : List&lt;PRSFund.EMailAdres&gt; </td></tr>
-<tr><td align="left" balign="left"> # telefoonnummer : List&lt;PRSFund.Telefoonnummer&gt; </td></tr>
-<tr><td align="left" balign="left"> # faxnummer : List&lt;PRSFund.Faxnummer&gt; </td></tr>
-<tr><td align="left" balign="left"> # tijdvakGeldigheid : TijdvakGeldigheid </td></tr>
-<tr><td align="left" balign="left"> # extraElementen : ExtraElementen </td></tr>
-<tr><td align="left" balign="left"> # soortEntiteit : String </td></tr>
-<tr><td align="left" balign="left"> # sleutelVerzendend : String </td></tr>
-<tr><td align="left" balign="left"> # sleutelOntvangend : String </td></tr>
-<tr><td align="left" balign="left"> # sleutelGegevensbeheer : String </td></tr>
-<tr><td align="left" balign="left"> # verwerkingssoort : Verwerkingssoort </td></tr>
-<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + PRSFund() </td></tr>
-<tr><td align="left" balign="left"> + getANummer() : JAXBElement&lt;ANummerE&gt; </td></tr>
-<tr><td align="left" balign="left"> + setANummer(value : JAXBElement&lt;ANummerE&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getBsnNummer() : JAXBElement&lt;BsnNummerE&gt; </td></tr>
-<tr><td align="left" balign="left"> + setBsnNummer(value : JAXBElement&lt;BsnNummerE&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getVoornamen() : JAXBElement&lt;VoornamenE&gt; </td></tr>
-<tr><td align="left" balign="left"> + setVoornamen(value : JAXBElement&lt;VoornamenE&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getVoorletters() : JAXBElement&lt;VoorlettersE&gt; </td></tr>
-<tr><td align="left" balign="left"> + setVoorletters(value : JAXBElement&lt;VoorlettersE&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getVoorvoegselGeslachtsnaam() : JAXBElement&lt;VoorvoegselGeslachtsnaamE&gt; </td></tr>
-<tr><td align="left" balign="left"> + setVoorvoegselGeslachtsnaam(value : JAXBElement&lt;VoorvoegselGeslachtsnaamE&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getGeslachtsnaam() : JAXBElement&lt;GeslachtsnaamE&gt; </td></tr>
-<tr><td align="left" balign="left"> + setGeslachtsnaam(value : JAXBElement&lt;GeslachtsnaamE&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getGeboortedatum() : JAXBElement&lt;GeboortedatumE&gt; </td></tr>
-<tr><td align="left" balign="left"> + setGeboortedatum(value : JAXBElement&lt;GeboortedatumE&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getGeboorteplaats() : JAXBElement&lt;GeboorteplaatsE&gt; </td></tr>
-<tr><td align="left" balign="left"> + setGeboorteplaats(value : JAXBElement&lt;GeboorteplaatsE&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getCodeGeboorteland() : JAXBElement&lt;CodeGeboortelandE&gt; </td></tr>
-<tr><td align="left" balign="left"> + setCodeGeboorteland(value : JAXBElement&lt;CodeGeboortelandE&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getGeslachtsaanduiding() : JAXBElement&lt;GeslachtsaanduidingE&gt; </td></tr>
-<tr><td align="left" balign="left"> + setGeslachtsaanduiding(value : JAXBElement&lt;GeslachtsaanduidingE&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getDatumOverlijden() : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
-<tr><td align="left" balign="left"> + setDatumOverlijden(value : JAXBElement&lt;DatumMetIndicator&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getPlaatsOverlijden() : JAXBElement&lt;PRSFund.PlaatsOverlijden&gt; </td></tr>
-<tr><td align="left" balign="left"> + setPlaatsOverlijden(value : JAXBElement&lt;PRSFund.PlaatsOverlijden&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getCodeLandOverlijden() : JAXBElement&lt;PRSFund.CodeLandOverlijden&gt; </td></tr>
-<tr><td align="left" balign="left"> + setCodeLandOverlijden(value : JAXBElement&lt;PRSFund.CodeLandOverlijden&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getIndicatieGeheim() : JAXBElement&lt;PRSFund.IndicatieGeheim&gt; </td></tr>
-<tr><td align="left" balign="left"> + setIndicatieGeheim(value : JAXBElement&lt;PRSFund.IndicatieGeheim&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getAcademischeTitel() : List&lt;PRSFund.AcademischeTitel&gt; </td></tr>
-<tr><td align="left" balign="left"> + getAdellijkeTitelPredikaat() : JAXBElement&lt;AdellijkeTitelPredikaatE&gt; </td></tr>
-<tr><td align="left" balign="left"> + setAdellijkeTitelPredikaat(value : JAXBElement&lt;AdellijkeTitelPredikaatE&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getCodeGemeenteVanInschrijving() : JAXBElement&lt;PRSFund.CodeGemeenteVanInschrijving&gt; </td></tr>
-<tr><td align="left" balign="left"> + setCodeGemeenteVanInschrijving(value : JAXBElement&lt;PRSFund.CodeGemeenteVanInschrijving&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getDatumInschrijvingGemeente() : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
-<tr><td align="left" balign="left"> + setDatumInschrijvingGemeente(value : JAXBElement&lt;DatumMetIndicator&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getDatumOpschortingBijhouding() : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
-<tr><td align="left" balign="left"> + setDatumOpschortingBijhouding(value : JAXBElement&lt;DatumMetIndicator&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getOmschrijvingRedenOpschortingBijhouding() : JAXBElement&lt;PRSFund.OmschrijvingRedenOpschortingBijhouding&gt; </td></tr>
-<tr><td align="left" balign="left"> + setOmschrijvingRedenOpschortingBijhouding(value : JAXBElement&lt;PRSFund.OmschrijvingRedenOpschortingBijhouding&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getCodeLandEmigratie() : JAXBElement&lt;PRSFund.CodeLandEmigratie&gt; </td></tr>
-<tr><td align="left" balign="left"> + setCodeLandEmigratie(value : JAXBElement&lt;PRSFund.CodeLandEmigratie&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getDatumVertrekUitNederland() : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
-<tr><td align="left" balign="left"> + setDatumVertrekUitNederland(value : JAXBElement&lt;DatumMetIndicator&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getCodeLandImmigratie() : JAXBElement&lt;PRSFund.CodeLandImmigratie&gt; </td></tr>
-<tr><td align="left" balign="left"> + setCodeLandImmigratie(value : JAXBElement&lt;PRSFund.CodeLandImmigratie&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getDatumVestigingInNederland() : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
-<tr><td align="left" balign="left"> + setDatumVestigingInNederland(value : JAXBElement&lt;DatumMetIndicator&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getIndicatieGezagMinderjarige() : JAXBElement&lt;PRSFund.IndicatieGezagMinderjarige&gt; </td></tr>
-<tr><td align="left" balign="left"> + setIndicatieGezagMinderjarige(value : JAXBElement&lt;PRSFund.IndicatieGezagMinderjarige&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getIndicatieCuratelestelling() : JAXBElement&lt;PRSFund.IndicatieCuratelestelling&gt; </td></tr>
-<tr><td align="left" balign="left"> + setIndicatieCuratelestelling(value : JAXBElement&lt;PRSFund.IndicatieCuratelestelling&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getVerblijfstitel() : JAXBElement&lt;PRSFund.Verblijfstitel&gt; </td></tr>
-<tr><td align="left" balign="left"> + setVerblijfstitel(value : JAXBElement&lt;PRSFund.Verblijfstitel&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getDatumVerkrijgingVerblijfstitel() : JAXBElement&lt;PRSFund.DatumVerkrijgingVerblijfstitel&gt; </td></tr>
-<tr><td align="left" balign="left"> + setDatumVerkrijgingVerblijfstitel(value : JAXBElement&lt;PRSFund.DatumVerkrijgingVerblijfstitel&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getDatumVerliesVerblijfstitel() : JAXBElement&lt;PRSFund.DatumVerliesVerblijfstitel&gt; </td></tr>
-<tr><td align="left" balign="left"> + setDatumVerliesVerblijfstitel(value : JAXBElement&lt;PRSFund.DatumVerliesVerblijfstitel&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getAanduidingBijzonderNederlanderschap() : JAXBElement&lt;PRSFund.AanduidingBijzonderNederlanderschap&gt; </td></tr>
-<tr><td align="left" balign="left"> + setAanduidingBijzonderNederlanderschap(value : JAXBElement&lt;PRSFund.AanduidingBijzonderNederlanderschap&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getBurgerlijkeStaat() : JAXBElement&lt;PRSFund.BurgerlijkeStaat&gt; </td></tr>
-<tr><td align="left" balign="left"> + setBurgerlijkeStaat(value : JAXBElement&lt;PRSFund.BurgerlijkeStaat&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getAanduidingNaamgebruik() : JAXBElement&lt;PRSFund.AanduidingNaamgebruik&gt; </td></tr>
-<tr><td align="left" balign="left"> + setAanduidingNaamgebruik(value : JAXBElement&lt;PRSFund.AanduidingNaamgebruik&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getBankgiroRekeningnummer() : List&lt;PRSFund.BankgiroRekeningnummer&gt; </td></tr>
-<tr><td align="left" balign="left"> + getSubjectnrAKR() : List&lt;PRSFund.SubjectnrAKR&gt; </td></tr>
-<tr><td align="left" balign="left"> + getEMailAdres() : List&lt;PRSFund.EMailAdres&gt; </td></tr>
-<tr><td align="left" balign="left"> + getTelefoonnummer() : List&lt;PRSFund.Telefoonnummer&gt; </td></tr>
-<tr><td align="left" balign="left"> + getFaxnummer() : List&lt;PRSFund.Faxnummer&gt; </td></tr>
-<tr><td align="left" balign="left"> + getTijdvakGeldigheid() : TijdvakGeldigheid </td></tr>
-<tr><td align="left" balign="left"> + setTijdvakGeldigheid(value : TijdvakGeldigheid) </td></tr>
-<tr><td align="left" balign="left"> + getExtraElementen() : ExtraElementen </td></tr>
-<tr><td align="left" balign="left"> + setExtraElementen(value : ExtraElementen) </td></tr>
-<tr><td align="left" balign="left"> + getSoortEntiteit() : String </td></tr>
-<tr><td align="left" balign="left"> + setSoortEntiteit(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getSleutelVerzendend() : String </td></tr>
-<tr><td align="left" balign="left"> + setSleutelVerzendend(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getSleutelOntvangend() : String </td></tr>
-<tr><td align="left" balign="left"> + setSleutelOntvangend(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getSleutelGegevensbeheer() : String </td></tr>
-<tr><td align="left" balign="left"> + setSleutelGegevensbeheer(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getVerwerkingssoort() : Verwerkingssoort </td></tr>
-<tr><td align="left" balign="left"> + setVerwerkingssoort(value : Verwerkingssoort) </td></tr>
-<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
-<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
-		</table></td></tr>
-		</table>>, URL="../sector/bg/_0204/PRSFund.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.PRSPRSKNDRel
-	c204382 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSPRSKNDRel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/PRSPRSKNDRel.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> PRSPRSKNDRel </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # ingangsdatum : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
-<tr><td align="left" balign="left"> # einddatum : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
+<tr><td align="left" balign="left"> # filiatieCode : JAXBElement&lt;VBOVBOOSURel.FiliatieCode&gt; </td></tr>
 <tr><td align="left" balign="left"> # tijdvakRelatie : TijdvakRelatie </td></tr>
 <tr><td align="left" balign="left"> # tijdvakGeldigheid : TijdvakGeldigheid </td></tr>
 <tr><td align="left" balign="left"> # extraElementen : ExtraElementen </td></tr>
@@ -1251,11 +1097,9 @@ digraph G {
 <tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + PRSPRSKNDRel() </td></tr>
-<tr><td align="left" balign="left"> + getIngangsdatum() : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
-<tr><td align="left" balign="left"> + setIngangsdatum(value : JAXBElement&lt;DatumMetIndicator&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getEinddatum() : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
-<tr><td align="left" balign="left"> + setEinddatum(value : JAXBElement&lt;DatumMetIndicator&gt;) </td></tr>
+<tr><td align="left" balign="left"> + VBOVBOOSURel() </td></tr>
+<tr><td align="left" balign="left"> + getFiliatieCode() : JAXBElement&lt;VBOVBOOSURel.FiliatieCode&gt; </td></tr>
+<tr><td align="left" balign="left"> + setFiliatieCode(value : JAXBElement&lt;VBOVBOOSURel.FiliatieCode&gt;) </td></tr>
 <tr><td align="left" balign="left"> + getTijdvakRelatie() : TijdvakRelatie </td></tr>
 <tr><td align="left" balign="left"> + setTijdvakRelatie(value : TijdvakRelatie) </td></tr>
 <tr><td align="left" balign="left"> + getTijdvakGeldigheid() : TijdvakGeldigheid </td></tr>
@@ -1275,22 +1119,14 @@ digraph G {
 <tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
 <tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
 		</table></td></tr>
-		</table>>, URL="../sector/bg/_0204/PRSPRSKNDRel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.KDOZKRRel
-	c204397 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOZKRRel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/KDOZKRRel.html">
+		</table>>, URL="../sector/bg/_0204/VBOVBOOSURel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.KDOKDOFILRel
+	c204324 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOKDOFILRel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/KDOKDOFILRel.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> KDOZKRRel </td></tr>
+<tr><td align="center" balign="center"> KDOKDOFILRel </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # codeZakelijkRecht : JAXBElement&lt;KDOZKRRel.CodeZakelijkRecht&gt; </td></tr>
-<tr><td align="left" balign="left"> # ingangsDatumZakelijkRecht : JAXBElement&lt;KDOZKRRel.IngangsDatumZakelijkRecht&gt; </td></tr>
-<tr><td align="left" balign="left"> # einddatumZakelijkRecht : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
-<tr><td align="left" balign="left"> # indicatieZakelijkRechtMetMeerZknVerkr : JAXBElement&lt;KDOZKRRel.IndicatieZakelijkRechtMetMeerZknVerkr&gt; </td></tr>
-<tr><td align="left" balign="left"> # koopjaarZakelijkRecht : JAXBElement&lt;KDOZKRRel.KoopjaarZakelijkRecht&gt; </td></tr>
-<tr><td align="left" balign="left"> # koopsomZakelijkRecht : JAXBElement&lt;KDOZKRRel.KoopsomZakelijkRecht&gt; </td></tr>
-<tr><td align="left" balign="left"> # koopsomZakelijkRechtEuro : JAXBElement&lt;KDOZKRRel.KoopsomZakelijkRechtEuro&gt; </td></tr>
-<tr><td align="left" balign="left"> # tellerAandeelZakelijkRecht : JAXBElement&lt;KDOZKRRel.TellerAandeelZakelijkRecht&gt; </td></tr>
-<tr><td align="left" balign="left"> # noemerAandeelZakelijkRecht : JAXBElement&lt;KDOZKRRel.NoemerAandeelZakelijkRecht&gt; </td></tr>
+<tr><td align="left" balign="left"> # filiatiecodeKadastraalObject : JAXBElement&lt;KDOKDOFILRel.FiliatiecodeKadastraalObject&gt; </td></tr>
 <tr><td align="left" balign="left"> # tijdvakRelatie : TijdvakRelatie </td></tr>
 <tr><td align="left" balign="left"> # tijdvakGeldigheid : TijdvakGeldigheid </td></tr>
 <tr><td align="left" balign="left"> # extraElementen : ExtraElementen </td></tr>
@@ -1302,25 +1138,9 @@ digraph G {
 <tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + KDOZKRRel() </td></tr>
-<tr><td align="left" balign="left"> + getCodeZakelijkRecht() : JAXBElement&lt;KDOZKRRel.CodeZakelijkRecht&gt; </td></tr>
-<tr><td align="left" balign="left"> + setCodeZakelijkRecht(value : JAXBElement&lt;KDOZKRRel.CodeZakelijkRecht&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getIngangsDatumZakelijkRecht() : JAXBElement&lt;KDOZKRRel.IngangsDatumZakelijkRecht&gt; </td></tr>
-<tr><td align="left" balign="left"> + setIngangsDatumZakelijkRecht(value : JAXBElement&lt;KDOZKRRel.IngangsDatumZakelijkRecht&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getEinddatumZakelijkRecht() : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
-<tr><td align="left" balign="left"> + setEinddatumZakelijkRecht(value : JAXBElement&lt;DatumMetIndicator&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getIndicatieZakelijkRechtMetMeerZknVerkr() : JAXBElement&lt;KDOZKRRel.IndicatieZakelijkRechtMetMeerZknVerkr&gt; </td></tr>
-<tr><td align="left" balign="left"> + setIndicatieZakelijkRechtMetMeerZknVerkr(value : JAXBElement&lt;KDOZKRRel.IndicatieZakelijkRechtMetMeerZknVerkr&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getKoopjaarZakelijkRecht() : JAXBElement&lt;KDOZKRRel.KoopjaarZakelijkRecht&gt; </td></tr>
-<tr><td align="left" balign="left"> + setKoopjaarZakelijkRecht(value : JAXBElement&lt;KDOZKRRel.KoopjaarZakelijkRecht&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getKoopsomZakelijkRecht() : JAXBElement&lt;KDOZKRRel.KoopsomZakelijkRecht&gt; </td></tr>
-<tr><td align="left" balign="left"> + setKoopsomZakelijkRecht(value : JAXBElement&lt;KDOZKRRel.KoopsomZakelijkRecht&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getKoopsomZakelijkRechtEuro() : JAXBElement&lt;KDOZKRRel.KoopsomZakelijkRechtEuro&gt; </td></tr>
-<tr><td align="left" balign="left"> + setKoopsomZakelijkRechtEuro(value : JAXBElement&lt;KDOZKRRel.KoopsomZakelijkRechtEuro&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getTellerAandeelZakelijkRecht() : JAXBElement&lt;KDOZKRRel.TellerAandeelZakelijkRecht&gt; </td></tr>
-<tr><td align="left" balign="left"> + setTellerAandeelZakelijkRecht(value : JAXBElement&lt;KDOZKRRel.TellerAandeelZakelijkRecht&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getNoemerAandeelZakelijkRecht() : JAXBElement&lt;KDOZKRRel.NoemerAandeelZakelijkRecht&gt; </td></tr>
-<tr><td align="left" balign="left"> + setNoemerAandeelZakelijkRecht(value : JAXBElement&lt;KDOZKRRel.NoemerAandeelZakelijkRecht&gt;) </td></tr>
+<tr><td align="left" balign="left"> + KDOKDOFILRel() </td></tr>
+<tr><td align="left" balign="left"> + getFiliatiecodeKadastraalObject() : JAXBElement&lt;KDOKDOFILRel.FiliatiecodeKadastraalObject&gt; </td></tr>
+<tr><td align="left" balign="left"> + setFiliatiecodeKadastraalObject(value : JAXBElement&lt;KDOKDOFILRel.FiliatiecodeKadastraalObject&gt;) </td></tr>
 <tr><td align="left" balign="left"> + getTijdvakRelatie() : TijdvakRelatie </td></tr>
 <tr><td align="left" balign="left"> + setTijdvakRelatie(value : TijdvakRelatie) </td></tr>
 <tr><td align="left" balign="left"> + getTijdvakGeldigheid() : TijdvakGeldigheid </td></tr>
@@ -1340,26 +1160,189 @@ digraph G {
 <tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
 <tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
 		</table></td></tr>
-		</table>>, URL="../sector/bg/_0204/KDOZKRRel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.stuf0204.TijdvakGeldigheid
-	c204414 [label=<<table title="nl.egem.stuf.stuf0204.TijdvakGeldigheid" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TijdvakGeldigheid.html">
+		</table>>, URL="../sector/bg/_0204/KDOKDOFILRel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.BSGFund
+	c204329 [label=<<table title="nl.egem.stuf.sector.bg._0204.BSGFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/BSGFund.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> TijdvakGeldigheid </td></tr>
+<tr><td align="center" balign="center"> BSGFund </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # begindatumTijdvakGeldigheid : DatumMetIndicator </td></tr>
-<tr><td align="left" balign="left"> # einddatumTijdvakGeldigheid : DatumMetIndicator </td></tr>
+<tr><td align="left" balign="left"> # naamBestemmingsplan : JAXBElement&lt;BSGFund.NaamBestemmingsplan&gt; </td></tr>
+<tr><td align="left" balign="left"> # omschrijvingBestemmingsgebied : JAXBElement&lt;BSGFund.OmschrijvingBestemmingsgebied&gt; </td></tr>
+<tr><td align="left" balign="left"> # bestemmingsplanHerziening : JAXBElement&lt;BSGFund.BestemmingsplanHerziening&gt; </td></tr>
+<tr><td align="left" balign="left"> # omschrijvingPlanologischeBestemming : JAXBElement&lt;BSGFund.OmschrijvingPlanologischeBestemming&gt; </td></tr>
+<tr><td align="left" balign="left"> # tijdvakGeldigheid : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> # extraElementen : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> # soortEntiteit : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelVerzendend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelOntvangend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelGegevensbeheer : String </td></tr>
+<tr><td align="left" balign="left"> # verwerkingssoort : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + TijdvakGeldigheid() </td></tr>
-<tr><td align="left" balign="left"> + getBegindatumTijdvakGeldigheid() : DatumMetIndicator </td></tr>
-<tr><td align="left" balign="left"> + setBegindatumTijdvakGeldigheid(value : DatumMetIndicator) </td></tr>
-<tr><td align="left" balign="left"> + getEinddatumTijdvakGeldigheid() : DatumMetIndicator </td></tr>
-<tr><td align="left" balign="left"> + setEinddatumTijdvakGeldigheid(value : DatumMetIndicator) </td></tr>
+<tr><td align="left" balign="left"> + BSGFund() </td></tr>
+<tr><td align="left" balign="left"> + getNaamBestemmingsplan() : JAXBElement&lt;BSGFund.NaamBestemmingsplan&gt; </td></tr>
+<tr><td align="left" balign="left"> + setNaamBestemmingsplan(value : JAXBElement&lt;BSGFund.NaamBestemmingsplan&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getOmschrijvingBestemmingsgebied() : JAXBElement&lt;BSGFund.OmschrijvingBestemmingsgebied&gt; </td></tr>
+<tr><td align="left" balign="left"> + setOmschrijvingBestemmingsgebied(value : JAXBElement&lt;BSGFund.OmschrijvingBestemmingsgebied&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getBestemmingsplanHerziening() : JAXBElement&lt;BSGFund.BestemmingsplanHerziening&gt; </td></tr>
+<tr><td align="left" balign="left"> + setBestemmingsplanHerziening(value : JAXBElement&lt;BSGFund.BestemmingsplanHerziening&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getOmschrijvingPlanologischeBestemming() : JAXBElement&lt;BSGFund.OmschrijvingPlanologischeBestemming&gt; </td></tr>
+<tr><td align="left" balign="left"> + setOmschrijvingPlanologischeBestemming(value : JAXBElement&lt;BSGFund.OmschrijvingPlanologischeBestemming&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getTijdvakGeldigheid() : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> + setTijdvakGeldigheid(value : TijdvakGeldigheid) </td></tr>
+<tr><td align="left" balign="left"> + getExtraElementen() : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> + setExtraElementen(value : ExtraElementen) </td></tr>
+<tr><td align="left" balign="left"> + getSoortEntiteit() : String </td></tr>
+<tr><td align="left" balign="left"> + setSoortEntiteit(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelVerzendend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelVerzendend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelOntvangend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelOntvangend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelGegevensbeheer() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelGegevensbeheer(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getVerwerkingssoort() : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> + setVerwerkingssoort(value : Verwerkingssoort) </td></tr>
+<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
+<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
 		</table></td></tr>
-		</table>>, URL="./TijdvakGeldigheid.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, URL="../sector/bg/_0204/BSGFund.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.KDOFund
+	c204334 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/KDOFund.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> KDOFund </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # kadastraleGemeentecode : JAXBElement&lt;KDOFund.KadastraleGemeentecode&gt; </td></tr>
+<tr><td align="left" balign="left"> # kadastraleSectie : JAXBElement&lt;KDOFund.KadastraleSectie&gt; </td></tr>
+<tr><td align="left" balign="left"> # kadastraalPerceelnummer : JAXBElement&lt;KDOFund.KadastraalPerceelnummer&gt; </td></tr>
+<tr><td align="left" balign="left"> # kadastraalObjectIndexLetter : JAXBElement&lt;KDOFund.KadastraalObjectIndexLetter&gt; </td></tr>
+<tr><td align="left" balign="left"> # kadastraalObjectIndexNummer : JAXBElement&lt;KDOFund.KadastraalObjectIndexNummer&gt; </td></tr>
+<tr><td align="left" balign="left"> # omschrijvingDeelPerceel : JAXBElement&lt;KDOFund.OmschrijvingDeelPerceel&gt; </td></tr>
+<tr><td align="left" balign="left"> # oppervlakteKadastraalObject : JAXBElement&lt;KDOFund.OppervlakteKadastraalObject&gt; </td></tr>
+<tr><td align="left" balign="left"> # indicatieOppervlakteGeschat : JAXBElement&lt;KDOFund.IndicatieOppervlakteGeschat&gt; </td></tr>
+<tr><td align="left" balign="left"> # aanduidingErfdienstbaarheid : JAXBElement&lt;KDOFund.AanduidingErfdienstbaarheid&gt; </td></tr>
+<tr><td align="left" balign="left"> # aanduidingIndicatieMogelijk : JAXBElement&lt;KDOFund.AanduidingIndicatieMogelijk&gt; </td></tr>
+<tr><td align="left" balign="left"> # indicatieVervallen : JAXBElement&lt;KDOFund.IndicatieVervallen&gt; </td></tr>
+<tr><td align="left" balign="left"> # koopjaar : JAXBElement&lt;KDOFund.Koopjaar&gt; </td></tr>
+<tr><td align="left" balign="left"> # koopsom : JAXBElement&lt;KDOFund.Koopsom&gt; </td></tr>
+<tr><td align="left" balign="left"> # koopsomEuro : JAXBElement&lt;KDOFund.KoopsomEuro&gt; </td></tr>
+<tr><td align="left" balign="left"> # centroidXCoordinaat : JAXBElement&lt;KDOFund.CentroidXCoordinaat&gt; </td></tr>
+<tr><td align="left" balign="left"> # centroidYCoordinaat : JAXBElement&lt;KDOFund.CentroidYCoordinaat&gt; </td></tr>
+<tr><td align="left" balign="left"> # centroidZCoordinaat : JAXBElement&lt;KDOFund.CentroidZCoordinaat&gt; </td></tr>
+<tr><td align="left" balign="left"> # ingangsdatumKadastraalObject : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
+<tr><td align="left" balign="left"> # einddatumKadastraalObject : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
+<tr><td align="left" balign="left"> # tijdvakGeldigheid : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> # extraElementen : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> # soortEntiteit : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelVerzendend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelOntvangend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelGegevensbeheer : String </td></tr>
+<tr><td align="left" balign="left"> # verwerkingssoort : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + KDOFund() </td></tr>
+<tr><td align="left" balign="left"> + getKadastraleGemeentecode() : JAXBElement&lt;KDOFund.KadastraleGemeentecode&gt; </td></tr>
+<tr><td align="left" balign="left"> + setKadastraleGemeentecode(value : JAXBElement&lt;KDOFund.KadastraleGemeentecode&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getKadastraleSectie() : JAXBElement&lt;KDOFund.KadastraleSectie&gt; </td></tr>
+<tr><td align="left" balign="left"> + setKadastraleSectie(value : JAXBElement&lt;KDOFund.KadastraleSectie&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getKadastraalPerceelnummer() : JAXBElement&lt;KDOFund.KadastraalPerceelnummer&gt; </td></tr>
+<tr><td align="left" balign="left"> + setKadastraalPerceelnummer(value : JAXBElement&lt;KDOFund.KadastraalPerceelnummer&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getKadastraalObjectIndexLetter() : JAXBElement&lt;KDOFund.KadastraalObjectIndexLetter&gt; </td></tr>
+<tr><td align="left" balign="left"> + setKadastraalObjectIndexLetter(value : JAXBElement&lt;KDOFund.KadastraalObjectIndexLetter&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getKadastraalObjectIndexNummer() : JAXBElement&lt;KDOFund.KadastraalObjectIndexNummer&gt; </td></tr>
+<tr><td align="left" balign="left"> + setKadastraalObjectIndexNummer(value : JAXBElement&lt;KDOFund.KadastraalObjectIndexNummer&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getOmschrijvingDeelPerceel() : JAXBElement&lt;KDOFund.OmschrijvingDeelPerceel&gt; </td></tr>
+<tr><td align="left" balign="left"> + setOmschrijvingDeelPerceel(value : JAXBElement&lt;KDOFund.OmschrijvingDeelPerceel&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getOppervlakteKadastraalObject() : JAXBElement&lt;KDOFund.OppervlakteKadastraalObject&gt; </td></tr>
+<tr><td align="left" balign="left"> + setOppervlakteKadastraalObject(value : JAXBElement&lt;KDOFund.OppervlakteKadastraalObject&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getIndicatieOppervlakteGeschat() : JAXBElement&lt;KDOFund.IndicatieOppervlakteGeschat&gt; </td></tr>
+<tr><td align="left" balign="left"> + setIndicatieOppervlakteGeschat(value : JAXBElement&lt;KDOFund.IndicatieOppervlakteGeschat&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getAanduidingErfdienstbaarheid() : JAXBElement&lt;KDOFund.AanduidingErfdienstbaarheid&gt; </td></tr>
+<tr><td align="left" balign="left"> + setAanduidingErfdienstbaarheid(value : JAXBElement&lt;KDOFund.AanduidingErfdienstbaarheid&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getAanduidingIndicatieMogelijk() : JAXBElement&lt;KDOFund.AanduidingIndicatieMogelijk&gt; </td></tr>
+<tr><td align="left" balign="left"> + setAanduidingIndicatieMogelijk(value : JAXBElement&lt;KDOFund.AanduidingIndicatieMogelijk&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getIndicatieVervallen() : JAXBElement&lt;KDOFund.IndicatieVervallen&gt; </td></tr>
+<tr><td align="left" balign="left"> + setIndicatieVervallen(value : JAXBElement&lt;KDOFund.IndicatieVervallen&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getKoopjaar() : JAXBElement&lt;KDOFund.Koopjaar&gt; </td></tr>
+<tr><td align="left" balign="left"> + setKoopjaar(value : JAXBElement&lt;KDOFund.Koopjaar&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getKoopsom() : JAXBElement&lt;KDOFund.Koopsom&gt; </td></tr>
+<tr><td align="left" balign="left"> + setKoopsom(value : JAXBElement&lt;KDOFund.Koopsom&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getKoopsomEuro() : JAXBElement&lt;KDOFund.KoopsomEuro&gt; </td></tr>
+<tr><td align="left" balign="left"> + setKoopsomEuro(value : JAXBElement&lt;KDOFund.KoopsomEuro&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getCentroidXCoordinaat() : JAXBElement&lt;KDOFund.CentroidXCoordinaat&gt; </td></tr>
+<tr><td align="left" balign="left"> + setCentroidXCoordinaat(value : JAXBElement&lt;KDOFund.CentroidXCoordinaat&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getCentroidYCoordinaat() : JAXBElement&lt;KDOFund.CentroidYCoordinaat&gt; </td></tr>
+<tr><td align="left" balign="left"> + setCentroidYCoordinaat(value : JAXBElement&lt;KDOFund.CentroidYCoordinaat&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getCentroidZCoordinaat() : JAXBElement&lt;KDOFund.CentroidZCoordinaat&gt; </td></tr>
+<tr><td align="left" balign="left"> + setCentroidZCoordinaat(value : JAXBElement&lt;KDOFund.CentroidZCoordinaat&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getIngangsdatumKadastraalObject() : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
+<tr><td align="left" balign="left"> + setIngangsdatumKadastraalObject(value : JAXBElement&lt;DatumMetIndicator&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getEinddatumKadastraalObject() : JAXBElement&lt;DatumMetIndicator&gt; </td></tr>
+<tr><td align="left" balign="left"> + setEinddatumKadastraalObject(value : JAXBElement&lt;DatumMetIndicator&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getTijdvakGeldigheid() : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> + setTijdvakGeldigheid(value : TijdvakGeldigheid) </td></tr>
+<tr><td align="left" balign="left"> + getExtraElementen() : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> + setExtraElementen(value : ExtraElementen) </td></tr>
+<tr><td align="left" balign="left"> + getSoortEntiteit() : String </td></tr>
+<tr><td align="left" balign="left"> + setSoortEntiteit(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelVerzendend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelVerzendend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelOntvangend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelOntvangend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelGegevensbeheer() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelGegevensbeheer(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getVerwerkingssoort() : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> + setVerwerkingssoort(value : Verwerkingssoort) </td></tr>
+<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
+<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
+		</table></td></tr>
+		</table>>, URL="../sector/bg/_0204/KDOFund.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.ADRADROSURel
+	c204393 [label=<<table title="nl.egem.stuf.sector.bg._0204.ADRADROSURel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/ADRADROSURel.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> ADRADROSURel </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # filiatiecode : JAXBElement&lt;ADRADROSURel.Filiatiecode&gt; </td></tr>
+<tr><td align="left" balign="left"> # tijdvakRelatie : TijdvakRelatie </td></tr>
+<tr><td align="left" balign="left"> # tijdvakGeldigheid : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> # extraElementen : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> # soortEntiteit : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelVerzendend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelOntvangend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelGegevensbeheer : String </td></tr>
+<tr><td align="left" balign="left"> # verwerkingssoort : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + ADRADROSURel() </td></tr>
+<tr><td align="left" balign="left"> + getFiliatiecode() : JAXBElement&lt;ADRADROSURel.Filiatiecode&gt; </td></tr>
+<tr><td align="left" balign="left"> + setFiliatiecode(value : JAXBElement&lt;ADRADROSURel.Filiatiecode&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getTijdvakRelatie() : TijdvakRelatie </td></tr>
+<tr><td align="left" balign="left"> + setTijdvakRelatie(value : TijdvakRelatie) </td></tr>
+<tr><td align="left" balign="left"> + getTijdvakGeldigheid() : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> + setTijdvakGeldigheid(value : TijdvakGeldigheid) </td></tr>
+<tr><td align="left" balign="left"> + getExtraElementen() : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> + setExtraElementen(value : ExtraElementen) </td></tr>
+<tr><td align="left" balign="left"> + getSoortEntiteit() : String </td></tr>
+<tr><td align="left" balign="left"> + setSoortEntiteit(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelVerzendend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelVerzendend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelOntvangend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelOntvangend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelGegevensbeheer() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelGegevensbeheer(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getVerwerkingssoort() : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> + setVerwerkingssoort(value : Verwerkingssoort) </td></tr>
+<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
+<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
+		</table></td></tr>
+		</table>>, URL="../sector/bg/_0204/ADRADROSURel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.stuf0204.DatumMetIndicator
-	c204429 [label=<<table title="nl.egem.stuf.stuf0204.DatumMetIndicator" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DatumMetIndicator.html">
+	c204418 [label=<<table title="nl.egem.stuf.stuf0204.DatumMetIndicator" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DatumMetIndicator.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DatumMetIndicator </td></tr>
 		</table></td></tr>
@@ -1381,51 +1364,68 @@ digraph G {
 <tr><td align="left" balign="left"> + setExact(value : Boolean) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./DatumMetIndicator.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.PRSIDBRel NAVASSOC nl.egem.stuf.stuf0204.TijdvakGeldigheid
-	c203943:p -> c204414:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.egem.stuf.sector.bg._0204.PRSNATRel NAVASSOC nl.egem.stuf.stuf0204.TijdvakGeldigheid
-	c203945:p -> c204414:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.egem.stuf.sector.bg._0204.ADRADROSURel NAVASSOC nl.egem.stuf.stuf0204.TijdvakGeldigheid
-	c203956:p -> c204414:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.egem.stuf.sector.bg._0204.KDOKDOFILRel NAVASSOC nl.egem.stuf.stuf0204.TijdvakGeldigheid
-	c203958:p -> c204414:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.egem.stuf.sector.bg._0204.VBOFund NAVASSOC nl.egem.stuf.stuf0204.TijdvakGeldigheid
-	c203965:p -> c204414:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.egem.stuf.sector.bg._0204.PRSPRSHUWRel NAVASSOC nl.egem.stuf.stuf0204.TijdvakGeldigheid
-	c204002:p -> c204414:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.egem.stuf.sector.bg._0204.BSGFund NAVASSOC nl.egem.stuf.stuf0204.TijdvakGeldigheid
-	c204035:p -> c204414:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.egem.stuf.sector.bg._0204.HHDFund NAVASSOC nl.egem.stuf.stuf0204.TijdvakGeldigheid
-	c204060:p -> c204414:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.egem.stuf.sector.bg._0204.WOZFund NAVASSOC nl.egem.stuf.stuf0204.TijdvakGeldigheid
-	c204087:p -> c204414:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.egem.stuf.sector.bg._0204.VBOVBOOSURel NAVASSOC nl.egem.stuf.stuf0204.TijdvakGeldigheid
-	c204109:p -> c204414:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.egem.stuf.sector.bg._0204.OBWFund NAVASSOC nl.egem.stuf.stuf0204.TijdvakGeldigheid
-	c204111:p -> c204414:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.egem.stuf.sector.bg._0204.HHDPRSRel NAVASSOC nl.egem.stuf.stuf0204.TijdvakGeldigheid
-	c204123:p -> c204414:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.egem.stuf.sector.bg._0204.PRSPRSOUDRel NAVASSOC nl.egem.stuf.stuf0204.TijdvakGeldigheid
-	c204177:p -> c204414:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.egem.stuf.sector.bg._0204.ADRFund NAVASSOC nl.egem.stuf.stuf0204.TijdvakGeldigheid
-	c204218:p -> c204414:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.egem.stuf.sector.bg._0204.Relatie NAVASSOC nl.egem.stuf.stuf0204.TijdvakGeldigheid
-	c204252:p -> c204414:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.stuf0204.TijdvakGeldigheid
+	c204427 [label=<<table title="nl.egem.stuf.stuf0204.TijdvakGeldigheid" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TijdvakGeldigheid.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> TijdvakGeldigheid </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # begindatumTijdvakGeldigheid : DatumMetIndicator </td></tr>
+<tr><td align="left" balign="left"> # einddatumTijdvakGeldigheid : DatumMetIndicator </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + TijdvakGeldigheid() </td></tr>
+<tr><td align="left" balign="left"> + getBegindatumTijdvakGeldigheid() : DatumMetIndicator </td></tr>
+<tr><td align="left" balign="left"> + setBegindatumTijdvakGeldigheid(value : DatumMetIndicator) </td></tr>
+<tr><td align="left" balign="left"> + getEinddatumTijdvakGeldigheid() : DatumMetIndicator </td></tr>
+<tr><td align="left" balign="left"> + setEinddatumTijdvakGeldigheid(value : DatumMetIndicator) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./TijdvakGeldigheid.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.PRBFund NAVASSOC nl.egem.stuf.stuf0204.TijdvakGeldigheid
-	c204255:p -> c204414:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.egem.stuf.sector.bg._0204.KDOFund NAVASSOC nl.egem.stuf.stuf0204.TijdvakGeldigheid
-	c204264:p -> c204414:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.egem.stuf.sector.bg._0204.NNPFund NAVASSOC nl.egem.stuf.stuf0204.TijdvakGeldigheid
-	c204282:p -> c204414:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.egem.stuf.sector.bg._0204.PRSFund NAVASSOC nl.egem.stuf.stuf0204.TijdvakGeldigheid
-	c204319:p -> c204414:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c203935:p -> c204427:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.OBWFund NAVASSOC nl.egem.stuf.stuf0204.TijdvakGeldigheid
+	c203963:p -> c204427:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.WOZFund NAVASSOC nl.egem.stuf.stuf0204.TijdvakGeldigheid
+	c203979:p -> c204427:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.PRSPRSOUDRel NAVASSOC nl.egem.stuf.stuf0204.TijdvakGeldigheid
+	c203986:p -> c204427:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.ADRFund NAVASSOC nl.egem.stuf.stuf0204.TijdvakGeldigheid
+	c203990:p -> c204427:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.PRSNATRel NAVASSOC nl.egem.stuf.stuf0204.TijdvakGeldigheid
+	c204022:p -> c204427:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.Relatie NAVASSOC nl.egem.stuf.stuf0204.TijdvakGeldigheid
+	c204037:p -> c204427:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.egem.stuf.sector.bg._0204.PRSPRSKNDRel NAVASSOC nl.egem.stuf.stuf0204.TijdvakGeldigheid
-	c204382:p -> c204414:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c204071:p -> c204427:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.PRSPRSHUWRel NAVASSOC nl.egem.stuf.stuf0204.TijdvakGeldigheid
+	c204072:p -> c204427:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.PRSIDBRel NAVASSOC nl.egem.stuf.stuf0204.TijdvakGeldigheid
+	c204101:p -> c204427:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.egem.stuf.sector.bg._0204.KDOZKRRel NAVASSOC nl.egem.stuf.stuf0204.TijdvakGeldigheid
-	c204397:p -> c204414:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c204117:p -> c204427:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.HHDFund NAVASSOC nl.egem.stuf.stuf0204.TijdvakGeldigheid
+	c204126:p -> c204427:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.PRSFund NAVASSOC nl.egem.stuf.stuf0204.TijdvakGeldigheid
+	c204146:p -> c204427:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.VBOFund NAVASSOC nl.egem.stuf.stuf0204.TijdvakGeldigheid
+	c204242:p -> c204427:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.HHDPRSRel NAVASSOC nl.egem.stuf.stuf0204.TijdvakGeldigheid
+	c204277:p -> c204427:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.NNPFund NAVASSOC nl.egem.stuf.stuf0204.TijdvakGeldigheid
+	c204280:p -> c204427:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.VBOVBOOSURel NAVASSOC nl.egem.stuf.stuf0204.TijdvakGeldigheid
+	c204322:p -> c204427:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.KDOKDOFILRel NAVASSOC nl.egem.stuf.stuf0204.TijdvakGeldigheid
+	c204324:p -> c204427:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.BSGFund NAVASSOC nl.egem.stuf.stuf0204.TijdvakGeldigheid
+	c204329:p -> c204427:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.KDOFund NAVASSOC nl.egem.stuf.stuf0204.TijdvakGeldigheid
+	c204334:p -> c204427:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.ADRADROSURel NAVASSOC nl.egem.stuf.stuf0204.TijdvakGeldigheid
+	c204393:p -> c204427:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.egem.stuf.stuf0204.TijdvakGeldigheid NAVASSOC nl.egem.stuf.stuf0204.DatumMetIndicator
-	c204414:p -> c204429:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c204427:p -> c204418:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.egem.stuf.stuf0204.TijdvakGeldigheid NAVASSOC nl.egem.stuf.stuf0204.DatumMetIndicator
-	c204414:p -> c204429:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c204427:p -> c204418:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

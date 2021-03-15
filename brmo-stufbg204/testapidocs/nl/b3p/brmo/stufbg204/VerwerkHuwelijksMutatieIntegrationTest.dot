@@ -9,8 +9,25 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// nl.b3p.brmo.stufbg204.VerwerkHuwelijksMutatieIntegrationTest
+	c48 [label=<<table title="nl.b3p.brmo.stufbg204.VerwerkHuwelijksMutatieIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./VerwerkHuwelijksMutatieIntegrationTest.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> VerwerkHuwelijksMutatieIntegrationTest </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + VerwerkHuwelijksMutatieIntegrationTest() </td></tr>
+<tr><td align="left" balign="left"> + setUp() </td></tr>
+<tr><td align="left" balign="left"> + cleanup() </td></tr>
+<tr><td align="left" balign="left"> + testBericht() </td></tr>
+<tr><td align="left" balign="left"> + testToevoegingMetHuwelijkAlsComfort() </td></tr>
+<tr><td align="left" balign="left"> + testBericht2() </td></tr>
+		</table></td></tr>
+		</table>>, URL="./VerwerkHuwelijksMutatieIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.stufbg204.WebTestStub
-	c42 [label=<<table title="nl.b3p.brmo.stufbg204.WebTestStub" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WebTestStub.html">
+	c52 [label=<<table title="nl.b3p.brmo.stufbg204.WebTestStub" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WebTestStub.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> WebTestStub </font></td></tr>
 		</table></td></tr>
@@ -27,29 +44,12 @@ digraph G {
 <tr><td align="left" balign="left"> + tearDownClass() </td></tr>
 		</table></td></tr>
 		</table>>, URL="./WebTestStub.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.stufbg204.VerwerkHuwelijksMutatieIntegrationTest
-	c46 [label=<<table title="nl.b3p.brmo.stufbg204.VerwerkHuwelijksMutatieIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./VerwerkHuwelijksMutatieIntegrationTest.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> VerwerkHuwelijksMutatieIntegrationTest </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + VerwerkHuwelijksMutatieIntegrationTest() </td></tr>
-<tr><td align="left" balign="left"> + setUp() </td></tr>
-<tr><td align="left" balign="left"> + cleanup() </td></tr>
-<tr><td align="left" balign="left"> + testBericht() </td></tr>
-<tr><td align="left" balign="left"> + testToevoegingMetHuwelijkAlsComfort() </td></tr>
-<tr><td align="left" balign="left"> + testBericht2() </td></tr>
-		</table></td></tr>
-		</table>>, URL="./VerwerkHuwelijksMutatieIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.stufbg204.VerwerkHuwelijksMutatieIntegrationTest extends nl.b3p.brmo.stufbg204.WebTestStub
-	c42:p -> c46:p [dir=back,arrowtail=empty];
+	c52:p -> c48:p [dir=back,arrowtail=empty];
 	// nl.b3p.brmo.stufbg204.VerwerkHuwelijksMutatieIntegrationTest NAVASSOC nl.b3p.brmo.loader.BrmoFramework
-	c46:p -> c52:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c48:p -> c57:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.loader.BrmoFramework
-	c52 [label=<<table title="nl.b3p.brmo.loader.BrmoFramework" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+	c57 [label=<<table title="nl.b3p.brmo.loader.BrmoFramework" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BrmoFramework </td></tr>
 		</table></td></tr>

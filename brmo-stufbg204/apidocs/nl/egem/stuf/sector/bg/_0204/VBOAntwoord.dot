@@ -9,8 +9,31 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// nl.egem.stuf.sector.bg._0204.VBOAntwoord
+	c205029 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOAntwoord" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./VBOAntwoord.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> VBOAntwoord </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # vbo : List&lt;VBOFund&gt; </td></tr>
+<tr><td align="left" balign="left"> # vboadr : List&lt;ADRRelFund&gt; </td></tr>
+<tr><td align="left" balign="left"> # vbobsg : List&lt;VBOAntwoord.VBOBSG&gt; </td></tr>
+<tr><td align="left" balign="left"> # vbokdo : List&lt;VBOAntwoord.VBOKDO&gt; </td></tr>
+<tr><td align="left" balign="left"> # vbosubgbr : List&lt;VBOAntwoord.VBOSUBGBR&gt; </td></tr>
+<tr><td align="left" balign="left"> # vbovboosu : List&lt;VBOAntwoord.VBOVBOOSU&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + VBOAntwoord() </td></tr>
+<tr><td align="left" balign="left"> + getVBO() : List&lt;VBOFund&gt; </td></tr>
+<tr><td align="left" balign="left"> + getVBOADR() : List&lt;ADRRelFund&gt; </td></tr>
+<tr><td align="left" balign="left"> + getVBOBSG() : List&lt;VBOAntwoord.VBOBSG&gt; </td></tr>
+<tr><td align="left" balign="left"> + getVBOKDO() : List&lt;VBOAntwoord.VBOKDO&gt; </td></tr>
+<tr><td align="left" balign="left"> + getVBOSUBGBR() : List&lt;VBOAntwoord.VBOSUBGBR&gt; </td></tr>
+<tr><td align="left" balign="left"> + getVBOVBOOSU() : List&lt;VBOAntwoord.VBOVBOOSU&gt; </td></tr>
+		</table></td></tr>
+		</table>>, URL="./VBOAntwoord.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.VBOFund
-	c204977 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VBOFund.html">
+	c205254 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VBOFund.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> VBOFund </td></tr>
 		</table></td></tr>
@@ -152,30 +175,7 @@ digraph G {
 <tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./VBOFund.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.VBOAntwoord
-	c205030 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOAntwoord" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./VBOAntwoord.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> VBOAntwoord </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # vbo : List&lt;VBOFund&gt; </td></tr>
-<tr><td align="left" balign="left"> # vboadr : List&lt;ADRRelFund&gt; </td></tr>
-<tr><td align="left" balign="left"> # vbobsg : List&lt;VBOAntwoord.VBOBSG&gt; </td></tr>
-<tr><td align="left" balign="left"> # vbokdo : List&lt;VBOAntwoord.VBOKDO&gt; </td></tr>
-<tr><td align="left" balign="left"> # vbosubgbr : List&lt;VBOAntwoord.VBOSUBGBR&gt; </td></tr>
-<tr><td align="left" balign="left"> # vbovboosu : List&lt;VBOAntwoord.VBOVBOOSU&gt; </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + VBOAntwoord() </td></tr>
-<tr><td align="left" balign="left"> + getVBO() : List&lt;VBOFund&gt; </td></tr>
-<tr><td align="left" balign="left"> + getVBOADR() : List&lt;ADRRelFund&gt; </td></tr>
-<tr><td align="left" balign="left"> + getVBOBSG() : List&lt;VBOAntwoord.VBOBSG&gt; </td></tr>
-<tr><td align="left" balign="left"> + getVBOKDO() : List&lt;VBOAntwoord.VBOKDO&gt; </td></tr>
-<tr><td align="left" balign="left"> + getVBOSUBGBR() : List&lt;VBOAntwoord.VBOSUBGBR&gt; </td></tr>
-<tr><td align="left" balign="left"> + getVBOVBOOSU() : List&lt;VBOAntwoord.VBOVBOOSU&gt; </td></tr>
-		</table></td></tr>
-		</table>>, URL="./VBOAntwoord.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.VBOAntwoord extends nl.egem.stuf.sector.bg._0204.VBOFund
-	c204977:p -> c205030:p [dir=back,arrowtail=empty];
+	c205254:p -> c205029:p [dir=back,arrowtail=empty];
 }
 

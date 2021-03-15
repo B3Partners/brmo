@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.NNPKennisgeving
-	c122990 [label=<<table title="nl.egem.stuf.sector.bg._0204.NNPKennisgeving" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./NNPKennisgeving.html">
+	c123101 [label=<<table title="nl.egem.stuf.sector.bg._0204.NNPKennisgeving" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./NNPKennisgeving.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> NNPKennisgeving </td></tr>
 		</table></td></tr>
@@ -32,7 +32,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./NNPKennisgeving.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.NNPFund
-	c123322 [label=<<table title="nl.egem.stuf.sector.bg._0204.NNPFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NNPFund.html">
+	c123320 [label=<<table title="nl.egem.stuf.sector.bg._0204.NNPFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NNPFund.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> NNPFund </td></tr>
 		</table></td></tr>
@@ -137,6 +137,6 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./NNPFund.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.NNPKennisgeving extends nl.egem.stuf.sector.bg._0204.NNPFund
-	c123322:p -> c122990:p [dir=back,arrowtail=empty];
+	c123320:p -> c123101:p [dir=back,arrowtail=empty];
 }
 

@@ -9,22 +9,8 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// nl.egem.stuf.sector.bg._0204.VBOVraag.VBOKDO
-	c85558 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOVraag.VBOKDO" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VBOVraag.VBOKDO.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> VBOKDO </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # kdo : KDOKennisgeving </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + VBOKDO() </td></tr>
-<tr><td align="left" balign="left"> + getKDO() : KDOKennisgeving </td></tr>
-<tr><td align="left" balign="left"> + setKDO(value : KDOKennisgeving) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./VBOVraag.VBOKDO.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.VBOAntwoord.VBOKDO
-	c85616 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOAntwoord.VBOKDO" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VBOAntwoord.VBOKDO.html">
+	c85615 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOAntwoord.VBOKDO" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VBOAntwoord.VBOKDO.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> VBOKDO </td></tr>
 		</table></td></tr>
@@ -37,36 +23,8 @@ digraph G {
 <tr><td align="left" balign="left"> + setKDO(value : KDOKennisgeving) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./VBOAntwoord.VBOKDO.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.OBWAntwoord.OBWKDO
-	c85621 [label=<<table title="nl.egem.stuf.sector.bg._0204.OBWAntwoord.OBWKDO" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./OBWAntwoord.OBWKDO.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> OBWKDO </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # kdo : KDOKennisgeving </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + OBWKDO() </td></tr>
-<tr><td align="left" balign="left"> + getKDO() : KDOKennisgeving </td></tr>
-<tr><td align="left" balign="left"> + setKDO(value : KDOKennisgeving) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./OBWAntwoord.OBWKDO.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.WOZAntwoord.WOZKDO
-	c85695 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZAntwoord.WOZKDO" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WOZAntwoord.WOZKDO.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> WOZKDO </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # kdo : KDOKennisgeving </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + WOZKDO() </td></tr>
-<tr><td align="left" balign="left"> + getKDO() : KDOKennisgeving </td></tr>
-<tr><td align="left" balign="left"> + setKDO(value : KDOKennisgeving) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./WOZAntwoord.WOZKDO.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.KDOKennisgeving
-	c85722 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOKennisgeving" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./KDOKennisgeving.html">
+	c85627 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOKennisgeving" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./KDOKennisgeving.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> KDOKennisgeving </td></tr>
 		</table></td></tr>
@@ -89,22 +47,8 @@ digraph G {
 <tr><td align="left" balign="left"> + getKDOSUBZKR() : List&lt;KDOKennisgeving.KDOSUBZKR&gt; </td></tr>
 		</table></td></tr>
 		</table>>, URL="./KDOKennisgeving.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.WOZVraag.WOZKDO
-	c85758 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZVraag.WOZKDO" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WOZVraag.WOZKDO.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> WOZKDO </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # kdo : KDOKennisgeving </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + WOZKDO() </td></tr>
-<tr><td align="left" balign="left"> + getKDO() : KDOKennisgeving </td></tr>
-<tr><td align="left" balign="left"> + setKDO(value : KDOKennisgeving) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./WOZVraag.WOZKDO.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.KDOAntwoord.KDOKDOFIL
-	c85802 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOAntwoord.KDOKDOFIL" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOAntwoord.KDOKDOFIL.html">
+	c85652 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOAntwoord.KDOKDOFIL" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOAntwoord.KDOKDOFIL.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> KDOKDOFIL </td></tr>
 		</table></td></tr>
@@ -117,22 +61,50 @@ digraph G {
 <tr><td align="left" balign="left"> + setKDO(value : KDOKennisgeving) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./KDOAntwoord.KDOKDOFIL.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.OBWVraag.OBWKDO
-	c85847 [label=<<table title="nl.egem.stuf.sector.bg._0204.OBWVraag.OBWKDO" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./OBWVraag.OBWKDO.html">
+	// nl.egem.stuf.sector.bg._0204.WOZAntwoord.WOZKDO
+	c85700 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZAntwoord.WOZKDO" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WOZAntwoord.WOZKDO.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> OBWKDO </td></tr>
+<tr><td align="center" balign="center"> WOZKDO </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> # kdo : KDOKennisgeving </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + OBWKDO() </td></tr>
+<tr><td align="left" balign="left"> + WOZKDO() </td></tr>
 <tr><td align="left" balign="left"> + getKDO() : KDOKennisgeving </td></tr>
 <tr><td align="left" balign="left"> + setKDO(value : KDOKennisgeving) </td></tr>
 		</table></td></tr>
-		</table>>, URL="./OBWVraag.OBWKDO.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, URL="./WOZAntwoord.WOZKDO.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.VBOVraag.VBOKDO
+	c85735 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOVraag.VBOKDO" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VBOVraag.VBOKDO.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> VBOKDO </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # kdo : KDOKennisgeving </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + VBOKDO() </td></tr>
+<tr><td align="left" balign="left"> + getKDO() : KDOKennisgeving </td></tr>
+<tr><td align="left" balign="left"> + setKDO(value : KDOKennisgeving) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./VBOVraag.VBOKDO.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.KDOVraag.KDOKDOFIL
+	c85772 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOVraag.KDOKDOFIL" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOVraag.KDOKDOFIL.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> KDOKDOFIL </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # kdo : KDOKennisgeving </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + KDOKDOFIL() </td></tr>
+<tr><td align="left" balign="left"> + getKDO() : KDOKennisgeving </td></tr>
+<tr><td align="left" balign="left"> + setKDO(value : KDOKennisgeving) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./KDOVraag.KDOKDOFIL.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.KDOFund
-	c85860 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOFund.html">
+	c85930 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOFund.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> KDOFund </td></tr>
 		</table></td></tr>
@@ -223,37 +195,65 @@ digraph G {
 <tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./KDOFund.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.KDOVraag.KDOKDOFIL
-	c85974 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOVraag.KDOKDOFIL" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOVraag.KDOKDOFIL.html">
+	// nl.egem.stuf.sector.bg._0204.WOZVraag.WOZKDO
+	c85959 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZVraag.WOZKDO" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WOZVraag.WOZKDO.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> KDOKDOFIL </td></tr>
+<tr><td align="center" balign="center"> WOZKDO </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> # kdo : KDOKennisgeving </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + KDOKDOFIL() </td></tr>
+<tr><td align="left" balign="left"> + WOZKDO() </td></tr>
 <tr><td align="left" balign="left"> + getKDO() : KDOKennisgeving </td></tr>
 <tr><td align="left" balign="left"> + setKDO(value : KDOKennisgeving) </td></tr>
 		</table></td></tr>
-		</table>>, URL="./KDOVraag.KDOKDOFIL.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, URL="./WOZVraag.WOZKDO.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.OBWAntwoord.OBWKDO
+	c85985 [label=<<table title="nl.egem.stuf.sector.bg._0204.OBWAntwoord.OBWKDO" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./OBWAntwoord.OBWKDO.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> OBWKDO </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # kdo : KDOKennisgeving </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + OBWKDO() </td></tr>
+<tr><td align="left" balign="left"> + getKDO() : KDOKennisgeving </td></tr>
+<tr><td align="left" balign="left"> + setKDO(value : KDOKennisgeving) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./OBWAntwoord.OBWKDO.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.OBWVraag.OBWKDO
+	c85993 [label=<<table title="nl.egem.stuf.sector.bg._0204.OBWVraag.OBWKDO" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./OBWVraag.OBWKDO.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> OBWKDO </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # kdo : KDOKennisgeving </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + OBWKDO() </td></tr>
+<tr><td align="left" balign="left"> + getKDO() : KDOKennisgeving </td></tr>
+<tr><td align="left" balign="left"> + setKDO(value : KDOKennisgeving) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./OBWVraag.OBWKDO.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.KDOKennisgeving extends nl.egem.stuf.sector.bg._0204.KDOFund
-	c85860:p -> c85722:p [dir=back,arrowtail=empty];
-	// nl.egem.stuf.sector.bg._0204.VBOVraag.VBOKDO NAVASSOC nl.egem.stuf.sector.bg._0204.KDOKennisgeving
-	c85558:p -> c85722:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c85930:p -> c85627:p [dir=back,arrowtail=empty];
 	// nl.egem.stuf.sector.bg._0204.VBOAntwoord.VBOKDO NAVASSOC nl.egem.stuf.sector.bg._0204.KDOKennisgeving
-	c85616:p -> c85722:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.egem.stuf.sector.bg._0204.OBWAntwoord.OBWKDO NAVASSOC nl.egem.stuf.sector.bg._0204.KDOKennisgeving
-	c85621:p -> c85722:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.egem.stuf.sector.bg._0204.WOZAntwoord.WOZKDO NAVASSOC nl.egem.stuf.sector.bg._0204.KDOKennisgeving
-	c85695:p -> c85722:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.egem.stuf.sector.bg._0204.WOZVraag.WOZKDO NAVASSOC nl.egem.stuf.sector.bg._0204.KDOKennisgeving
-	c85758:p -> c85722:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c85615:p -> c85627:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.egem.stuf.sector.bg._0204.KDOAntwoord.KDOKDOFIL NAVASSOC nl.egem.stuf.sector.bg._0204.KDOKennisgeving
-	c85802:p -> c85722:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.egem.stuf.sector.bg._0204.OBWVraag.OBWKDO NAVASSOC nl.egem.stuf.sector.bg._0204.KDOKennisgeving
-	c85847:p -> c85722:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c85652:p -> c85627:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.WOZAntwoord.WOZKDO NAVASSOC nl.egem.stuf.sector.bg._0204.KDOKennisgeving
+	c85700:p -> c85627:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.VBOVraag.VBOKDO NAVASSOC nl.egem.stuf.sector.bg._0204.KDOKennisgeving
+	c85735:p -> c85627:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.egem.stuf.sector.bg._0204.KDOVraag.KDOKDOFIL NAVASSOC nl.egem.stuf.sector.bg._0204.KDOKennisgeving
-	c85974:p -> c85722:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c85772:p -> c85627:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.WOZVraag.WOZKDO NAVASSOC nl.egem.stuf.sector.bg._0204.KDOKennisgeving
+	c85959:p -> c85627:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.OBWAntwoord.OBWKDO NAVASSOC nl.egem.stuf.sector.bg._0204.KDOKennisgeving
+	c85985:p -> c85627:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.OBWVraag.OBWKDO NAVASSOC nl.egem.stuf.sector.bg._0204.KDOKennisgeving
+	c85993:p -> c85627:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

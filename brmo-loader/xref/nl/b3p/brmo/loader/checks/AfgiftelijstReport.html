@@ -188,12 +188,12 @@
 <a class="jxr_linenumber" name="L180" href="#L180">180</a>             <strong class="jxr_keyword">int</strong> pageNumber = pdf.getPageNumber(page);
 <a class="jxr_linenumber" name="L181" href="#L181">181</a>             Rectangle pageSize = page.getPageSize();
 <a class="jxr_linenumber" name="L182" href="#L182">182</a>             PdfCanvas pdfCanvas = <strong class="jxr_keyword">new</strong> PdfCanvas(page.getLastContentStream(), page.getResources(), pdf);
-<a class="jxr_linenumber" name="L183" href="#L183">183</a>             Canvas canvas = <strong class="jxr_keyword">new</strong> Canvas(pdfCanvas, pdf, pageSize);
+<a class="jxr_linenumber" name="L183" href="#L183">183</a>             Canvas canvas = <strong class="jxr_keyword">new</strong> Canvas(pdfCanvas, pageSize);
 <a class="jxr_linenumber" name="L184" href="#L184">184</a>             Paragraph p = <strong class="jxr_keyword">new</strong> Paragraph().add(<span class="jxr_string">"Pagina "</span>).add(String.valueOf(pageNumber)).add(<span class="jxr_string">" van"</span>);
 <a class="jxr_linenumber" name="L185" href="#L185">185</a>             Paragraph p2 = <strong class="jxr_keyword">new</strong> Paragraph().add(<span class="jxr_string">"B3Partners BRMO controlemodule - "</span> + datum);
 <a class="jxr_linenumber" name="L186" href="#L186">186</a>             canvas.showTextAligned(p2, 35, y, TextAlignment.LEFT);
 <a class="jxr_linenumber" name="L187" href="#L187">187</a>             canvas.showTextAligned(p, x, y, TextAlignment.RIGHT);
-<a class="jxr_linenumber" name="L188" href="#L188">188</a>             pdfCanvas.addXObject(placeholder, x + space, y - descent);
+<a class="jxr_linenumber" name="L188" href="#L188">188</a>             pdfCanvas.addXObjectAt(placeholder, x + space, y - descent);
 <a class="jxr_linenumber" name="L189" href="#L189">189</a>             pdfCanvas.release();
 <a class="jxr_linenumber" name="L190" href="#L190">190</a>         }
 <a class="jxr_linenumber" name="L191" href="#L191">191</a> 
@@ -205,6 +205,6 @@
 <a class="jxr_linenumber" name="L197" href="#L197">197</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2014&#x2013;2020 <a href="http://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2014&#x2013;2021 <a href="http://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>
 </body>
 </html>

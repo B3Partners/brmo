@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.PRSPRSOUDRel
-	c176853 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSPRSOUDRel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSPRSOUDRel.html">
+	c176662 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSPRSOUDRel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSPRSOUDRel.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PRSPRSOUDRel </td></tr>
 		</table></td></tr>
@@ -54,7 +54,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./PRSPRSOUDRel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.PRSVraag.PRSPRSOUD
-	c176866 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSVraag.PRSPRSOUD" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PRSVraag.PRSPRSOUD.html">
+	c176746 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSVraag.PRSPRSOUD" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PRSVraag.PRSPRSOUD.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PRSPRSOUD </td></tr>
 		</table></td></tr>
@@ -68,7 +68,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./PRSVraag.PRSPRSOUD.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.PRSKennisgeving
-	c176887 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSKennisgeving" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSKennisgeving.html">
+	c176875 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSKennisgeving" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSKennisgeving.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PRSKennisgeving </td></tr>
 		</table></td></tr>
@@ -98,8 +98,8 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./PRSKennisgeving.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.PRSVraag.PRSPRSOUD extends nl.egem.stuf.sector.bg._0204.PRSPRSOUDRel
-	c176853:p -> c176866:p [dir=back,arrowtail=empty];
+	c176662:p -> c176746:p [dir=back,arrowtail=empty];
 	// nl.egem.stuf.sector.bg._0204.PRSVraag.PRSPRSOUD NAVASSOC nl.egem.stuf.sector.bg._0204.PRSKennisgeving
-	c176866:p -> c176887:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c176746:p -> c176875:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

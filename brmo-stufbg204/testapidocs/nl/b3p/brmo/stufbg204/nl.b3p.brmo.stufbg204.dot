@@ -9,26 +9,64 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// nl.b3p.brmo.stufbg204.WebTestStub
-	c0 [label=<<table title="nl.b3p.brmo.stufbg204.WebTestStub" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WebTestStub.html">
+	// nl.b3p.brmo.stufbg204.TestStub
+	c0 [label=<<table title="nl.b3p.brmo.stufbg204.TestStub" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TestStub.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"><font face="Helvetica-Oblique"> WebTestStub </font></td></tr>
+<tr><td align="center" balign="center"><font face="Helvetica-Oblique"> TestStub </font></td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + HTTP_PORT : int </td></tr>
-<tr><td align="left" balign="left"> + BASE_TEST_URL : String </td></tr>
-<tr><td align="left" balign="left"> # client : CloseableHttpClient </td></tr>
-<tr><td align="left" balign="left"> # target : HttpHost </td></tr>
-<tr><td align="left" balign="left"> # localContext : HttpClientContext </td></tr>
+<tr><td align="left" balign="left"> # DBPROPS : Properties </td></tr>
+<tr><td align="left" balign="left"> # isOracle : boolean </td></tr>
+<tr><td align="left" balign="left"> # isMsSQL : boolean </td></tr>
+<tr><td align="left" balign="left"> # isPostgis : boolean </td></tr>
+<tr><td align="left" balign="left"> # dsStaging : BasicDataSource </td></tr>
+<tr><td align="left" balign="left"> # dsRsgb : BasicDataSource </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + WebTestStub() </td></tr>
-<tr><td align="left" balign="left"> + setUpClass() </td></tr>
-<tr><td align="left" balign="left"> + tearDownClass() </td></tr>
+<tr><td align="left" balign="left"> + TestStub() </td></tr>
+<tr><td align="left" balign="left"> + checkDatabaseIsProvided() </td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + setUp() </font></td></tr>
+<tr><td align="left" balign="left"> + loadDBprop() </td></tr>
+<tr><td align="left" balign="left"> + startTest(testInfo : TestInfo) </td></tr>
+<tr><td align="left" balign="left"> + endTest(testInfo : TestInfo) </td></tr>
 		</table></td></tr>
-		</table>>, URL="./WebTestStub.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, URL="./TestStub.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.stufbg204.StUFBGsynchroonIntegrationTest
+	c1 [label=<<table title="nl.b3p.brmo.stufbg204.StUFBGsynchroonIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./StUFBGsynchroonIntegrationTest.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> StUFBGsynchroonIntegrationTest </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + StUFBGsynchroonIntegrationTest() </td></tr>
+<tr><td align="left" balign="left"> + setUp() </td></tr>
+<tr><td align="left" balign="left"> + tearDown() </td></tr>
+<tr><td align="left" balign="left"> + helloStUFBGsynchroon() </td></tr>
+<tr><td align="left" balign="left"> + foutStUFBGsynchroon() </td></tr>
+<tr><td align="left" balign="left"> + testAntwoordBodyACD() </td></tr>
+		</table></td></tr>
+		</table>>, URL="./StUFBGsynchroonIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.stufbg204.VerwerkHuwelijksMutatieIntegrationTest
+	c2 [label=<<table title="nl.b3p.brmo.stufbg204.VerwerkHuwelijksMutatieIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VerwerkHuwelijksMutatieIntegrationTest.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> VerwerkHuwelijksMutatieIntegrationTest </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + VerwerkHuwelijksMutatieIntegrationTest() </td></tr>
+<tr><td align="left" balign="left"> + setUp() </td></tr>
+<tr><td align="left" balign="left"> + cleanup() </td></tr>
+<tr><td align="left" balign="left"> + testBericht() </td></tr>
+<tr><td align="left" balign="left"> + testToevoegingMetHuwelijkAlsComfort() </td></tr>
+<tr><td align="left" balign="left"> + testBericht2() </td></tr>
+		</table></td></tr>
+		</table>>, URL="./VerwerkHuwelijksMutatieIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.stufbg204.Stufbg204ServiceIntegrationTest
-	c1 [label=<<table title="nl.b3p.brmo.stufbg204.Stufbg204ServiceIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Stufbg204ServiceIntegrationTest.html">
+	c3 [label=<<table title="nl.b3p.brmo.stufbg204.Stufbg204ServiceIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Stufbg204ServiceIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Stufbg204ServiceIntegrationTest </td></tr>
 		</table></td></tr>
@@ -42,8 +80,21 @@ digraph G {
 <tr><td align="left" balign="left"> + testOntvangKennisgeving() </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Stufbg204ServiceIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.b3p.brmo.stufbg204.WebXmlTest
+	c4 [label=<<table title="nl.b3p.brmo.stufbg204.WebXmlTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WebXmlTest.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> WebXmlTest </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + WebXmlTest() </td></tr>
+<tr><td align="left" balign="left"> + validateWebXml() </td></tr>
+		</table></td></tr>
+		</table>>, URL="./WebXmlTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.stufbg204.VerwerkToevoegingMutatieIntegrationTest
-	c2 [label=<<table title="nl.b3p.brmo.stufbg204.VerwerkToevoegingMutatieIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VerwerkToevoegingMutatieIntegrationTest.html">
+	c5 [label=<<table title="nl.b3p.brmo.stufbg204.VerwerkToevoegingMutatieIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VerwerkToevoegingMutatieIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> VerwerkToevoegingMutatieIntegrationTest </td></tr>
 		</table></td></tr>
@@ -62,77 +113,38 @@ digraph G {
 <tr><td align="left" balign="left"> + testMutatieGevuldNaarLeeg() </td></tr>
 		</table></td></tr>
 		</table>>, URL="./VerwerkToevoegingMutatieIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.stufbg204.StUFBGsynchroonIntegrationTest
-	c3 [label=<<table title="nl.b3p.brmo.stufbg204.StUFBGsynchroonIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./StUFBGsynchroonIntegrationTest.html">
+	// nl.b3p.brmo.stufbg204.WebTestStub
+	c6 [label=<<table title="nl.b3p.brmo.stufbg204.WebTestStub" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WebTestStub.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> StUFBGsynchroonIntegrationTest </td></tr>
+<tr><td align="center" balign="center"><font face="Helvetica-Oblique"> WebTestStub </font></td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
+<tr><td align="left" balign="left"> + HTTP_PORT : int </td></tr>
+<tr><td align="left" balign="left"> + BASE_TEST_URL : String </td></tr>
+<tr><td align="left" balign="left"> # client : CloseableHttpClient </td></tr>
+<tr><td align="left" balign="left"> # target : HttpHost </td></tr>
+<tr><td align="left" balign="left"> # localContext : HttpClientContext </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + StUFBGsynchroonIntegrationTest() </td></tr>
-<tr><td align="left" balign="left"> + setUp() </td></tr>
-<tr><td align="left" balign="left"> + tearDown() </td></tr>
-<tr><td align="left" balign="left"> + helloStUFBGsynchroon() </td></tr>
-<tr><td align="left" balign="left"> + foutStUFBGsynchroon() </td></tr>
-<tr><td align="left" balign="left"> + testAntwoordBodyACD() </td></tr>
+<tr><td align="left" balign="left"> + WebTestStub() </td></tr>
+<tr><td align="left" balign="left"> + setUpClass() </td></tr>
+<tr><td align="left" balign="left"> + tearDownClass() </td></tr>
 		</table></td></tr>
-		</table>>, URL="./StUFBGsynchroonIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.stufbg204.VerwerkHuwelijksMutatieIntegrationTest
-	c4 [label=<<table title="nl.b3p.brmo.stufbg204.VerwerkHuwelijksMutatieIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VerwerkHuwelijksMutatieIntegrationTest.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> VerwerkHuwelijksMutatieIntegrationTest </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + VerwerkHuwelijksMutatieIntegrationTest() </td></tr>
-<tr><td align="left" balign="left"> + setUp() </td></tr>
-<tr><td align="left" balign="left"> + cleanup() </td></tr>
-<tr><td align="left" balign="left"> + testBericht() </td></tr>
-<tr><td align="left" balign="left"> + testToevoegingMetHuwelijkAlsComfort() </td></tr>
-<tr><td align="left" balign="left"> + testBericht2() </td></tr>
-		</table></td></tr>
-		</table>>, URL="./VerwerkHuwelijksMutatieIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.stufbg204.TestStub
-	c5 [label=<<table title="nl.b3p.brmo.stufbg204.TestStub" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TestStub.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"><font face="Helvetica-Oblique"> TestStub </font></td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # DBPROPS : Properties </td></tr>
-<tr><td align="left" balign="left"> # isOracle : boolean </td></tr>
-<tr><td align="left" balign="left"> # isMsSQL : boolean </td></tr>
-<tr><td align="left" balign="left"> # isPostgis : boolean </td></tr>
-<tr><td align="left" balign="left"> # dsStaging : BasicDataSource </td></tr>
-<tr><td align="left" balign="left"> # dsRsgb : BasicDataSource </td></tr>
-<tr><td align="left" balign="left"> + name : TestName </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + TestStub() </td></tr>
-<tr><td align="left" balign="left"> + checkDatabaseIsProvided() </td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + setUp() </font></td></tr>
-<tr><td align="left" balign="left"> + loadDBprop() </td></tr>
-<tr><td align="left" balign="left"> + startTest() </td></tr>
-<tr><td align="left" balign="left"> + endTest() </td></tr>
-		</table></td></tr>
-		</table>>, URL="./TestStub.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	//nl.b3p.brmo.stufbg204.WebTestStub extends nl.b3p.brmo.stufbg204.TestStub
-	c5:p -> c0:p [dir=back,arrowtail=empty];
-	//nl.b3p.brmo.stufbg204.Stufbg204ServiceIntegrationTest extends nl.b3p.brmo.stufbg204.TestStub
-	c5:p -> c1:p [dir=back,arrowtail=empty];
-	//nl.b3p.brmo.stufbg204.VerwerkToevoegingMutatieIntegrationTest extends nl.b3p.brmo.stufbg204.WebTestStub
-	c0:p -> c2:p [dir=back,arrowtail=empty];
+		</table>>, URL="./WebTestStub.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.stufbg204.StUFBGsynchroonIntegrationTest extends nl.b3p.brmo.stufbg204.TestStub
-	c5:p -> c3:p [dir=back,arrowtail=empty];
+	c0:p -> c1:p [dir=back,arrowtail=empty];
 	//nl.b3p.brmo.stufbg204.VerwerkHuwelijksMutatieIntegrationTest extends nl.b3p.brmo.stufbg204.WebTestStub
-	c0:p -> c4:p [dir=back,arrowtail=empty];
-	// nl.b3p.brmo.stufbg204.Stufbg204ServiceIntegrationTest NAVASSOC nl.b3p.brmo.stufbg204.StUFBGasynchroon
-	c1:p -> c6:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c6:p -> c2:p [dir=back,arrowtail=empty];
+	//nl.b3p.brmo.stufbg204.Stufbg204ServiceIntegrationTest extends nl.b3p.brmo.stufbg204.TestStub
+	c0:p -> c3:p [dir=back,arrowtail=empty];
+	//nl.b3p.brmo.stufbg204.VerwerkToevoegingMutatieIntegrationTest extends nl.b3p.brmo.stufbg204.WebTestStub
+	c6:p -> c5:p [dir=back,arrowtail=empty];
+	//nl.b3p.brmo.stufbg204.WebTestStub extends nl.b3p.brmo.stufbg204.TestStub
+	c0:p -> c6:p [dir=back,arrowtail=empty];
 	// nl.b3p.brmo.stufbg204.StUFBGsynchroonIntegrationTest NAVASSOC nl.b3p.brmo.stufbg204.StUFBGsynchroon
-	c3:p -> c7:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c1:p -> c7:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.b3p.brmo.stufbg204.Stufbg204ServiceIntegrationTest NAVASSOC nl.b3p.brmo.stufbg204.StUFBGasynchroon
+	c3:p -> c8:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.stufbg204.StUFBGsynchroon
 	c7 [label=<<table title="nl.b3p.brmo.stufbg204.StUFBGsynchroon" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
@@ -147,7 +159,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.stufbg204.StUFBGasynchroon
-	c6 [label=<<table title="nl.b3p.brmo.stufbg204.StUFBGasynchroon" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+	c8 [label=<<table title="nl.b3p.brmo.stufbg204.StUFBGasynchroon" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> StUFBGasynchroon </td></tr>
 		</table></td></tr>

@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.persistence.staging.MailRapportageProcesTest
-	c68 [label=<<table title="nl.b3p.brmo.persistence.staging.MailRapportageProcesTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./MailRapportageProcesTest.html">
+	c66 [label=<<table title="nl.b3p.brmo.persistence.staging.MailRapportageProcesTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./MailRapportageProcesTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MailRapportageProcesTest </td></tr>
 		</table></td></tr>
@@ -25,7 +25,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./MailRapportageProcesTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.persistence.TestUtil
-	c69 [label=<<table title="nl.b3p.brmo.persistence.TestUtil" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../TestUtil.html">
+	c70 [label=<<table title="nl.b3p.brmo.persistence.TestUtil" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../TestUtil.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> TestUtil </font></td></tr>
 		</table></td></tr>
@@ -39,11 +39,13 @@ digraph G {
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> + TestUtil() </td></tr>
+<tr><td align="left" balign="left"> + startTest(testInfo : TestInfo) </td></tr>
+<tr><td align="left" balign="left"> + endTest(testInfo : TestInfo) </td></tr>
 <tr><td align="left" balign="left"> + setUp() </td></tr>
 <tr><td align="left" balign="left"> + close() </td></tr>
 		</table></td></tr>
 		</table>>, URL="../TestUtil.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.persistence.staging.MailRapportageProcesTest extends nl.b3p.brmo.persistence.TestUtil
-	c69:p -> c68:p [dir=back,arrowtail=empty];
+	c70:p -> c66:p [dir=back,arrowtail=empty];
 }
 

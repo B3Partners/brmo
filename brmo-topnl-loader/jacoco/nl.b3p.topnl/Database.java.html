@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Database.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO TopNL loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.topnl</a> &gt; <span class="el_source">Database.java</span></div><h1>Database.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2016 - 2017 B3Partners B.V.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+ */
+package nl.b3p.topnl;
+
+import org.locationtech.jts.io.ParseException;
+import java.sql.SQLException;
+import javax.sql.DataSource;
+import nl.b3p.loader.jdbc.GeometryJdbcConverter;
+import nl.b3p.loader.jdbc.GeometryJdbcConverterFactory;
+import nl.b3p.topnl.converters.DbUtilsGeometryColumnConverter;
+import nl.b3p.topnl.entities.FunctioneelGebied;
+import nl.b3p.topnl.entities.Gebouw;
+import nl.b3p.topnl.entities.GeografischGebied;
+import nl.b3p.topnl.entities.Hoogte;
+import nl.b3p.topnl.entities.Inrichtingselement;
+import nl.b3p.topnl.entities.Plaats;
+import nl.b3p.topnl.entities.PlanTopografie;
+import nl.b3p.topnl.entities.RegistratiefGebied;
+import nl.b3p.topnl.entities.Relief;
+import nl.b3p.topnl.entities.Spoorbaandeel;
+import nl.b3p.topnl.entities.Terrein;
+import nl.b3p.topnl.entities.TopNLEntity;
+import nl.b3p.topnl.entities.Waterdeel;
+import nl.b3p.topnl.entities.Wegdeel;
+import org.apache.commons.dbutils.BasicRowProcessor;
+import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.ResultSetHandler;
+import org.apache.commons.dbutils.handlers.BeanHandler;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+/**
+ *
+ * @author Meine Toonen meinetoonen@b3partners.nl
+ */
+public class Database {
+
+<span class="fc" id="L52">    protected final static Log log = LogFactory.getLog(Database.class);</span>
+
+    private final DataSource dataSource;
+    private GeometryJdbcConverter gjc;
+    private QueryRunner run;
+
+<span class="fc" id="L58">    public Database(DataSource ds) throws SQLException {</span>
+<span class="fc" id="L59">        this.dataSource = ds;</span>
+<span class="fc bfc" id="L60" title="All 2 branches covered.">        if (ds != null) {</span>
+<span class="fc" id="L61">            gjc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(dataSource.getConnection());</span>
+<span class="fc" id="L62">            run = new QueryRunner(dataSource, gjc.isPmdKnownBroken());</span>
+        }
+<span class="fc" id="L64">    }</span>
+
+    public void save(TopNLEntity entity) throws ParseException, SQLException {
+
+        try {
+
+<span class="fc bfc" id="L70" title="All 2 branches covered.">            if (entity instanceof Hoogte) {</span>
+<span class="fc" id="L71">                saveHoogte(entity);</span>
+<span class="fc bfc" id="L72" title="All 2 branches covered.">            } else if (entity instanceof FunctioneelGebied) {</span>
+<span class="fc" id="L73">                saveFunctioneelGebied(entity);</span>
+<span class="fc bfc" id="L74" title="All 2 branches covered.">            } else if (entity instanceof Gebouw) {</span>
+<span class="fc" id="L75">                saveGebouw(entity);</span>
+<span class="fc bfc" id="L76" title="All 2 branches covered.">            } else if (entity instanceof GeografischGebied) {</span>
+<span class="fc" id="L77">                saveGeografischGebied(entity);</span>
+<span class="fc bfc" id="L78" title="All 2 branches covered.">            } else if (entity instanceof Inrichtingselement) {</span>
+<span class="fc" id="L79">                saveInrichtingselement(entity);</span>
+<span class="fc bfc" id="L80" title="All 2 branches covered.">            } else if (entity instanceof Plaats) {</span>
+<span class="fc" id="L81">                savePlaats(entity);</span>
+<span class="fc bfc" id="L82" title="All 2 branches covered.">            } else if (entity instanceof RegistratiefGebied) {</span>
+<span class="fc" id="L83">                saveRegistratiefGebied(entity);</span>
+<span class="fc bfc" id="L84" title="All 2 branches covered.">            } else if (entity instanceof Relief) {</span>
+<span class="fc" id="L85">                saveRelief(entity);</span>
+<span class="fc bfc" id="L86" title="All 2 branches covered.">            } else if (entity instanceof Spoorbaandeel) {</span>
+<span class="fc" id="L87">                saveSpoorbaandeel(entity);</span>
+<span class="fc bfc" id="L88" title="All 2 branches covered.">            } else if (entity instanceof Terrein) {</span>
+<span class="fc" id="L89">                saveTerrein(entity);</span>
+<span class="fc bfc" id="L90" title="All 2 branches covered.">            } else if (entity instanceof Waterdeel) {</span>
+<span class="fc" id="L91">                saveWaterdeel(entity);</span>
+<span class="fc bfc" id="L92" title="All 2 branches covered.">            } else if (entity instanceof Wegdeel) {</span>
+<span class="fc" id="L93">                saveWegdeel(entity);</span>
+<span class="pc bpc" id="L94" title="1 of 2 branches missed.">            } else if (entity instanceof PlanTopografie) {</span>
+<span class="fc" id="L95">                savePlanTopografie(entity);</span>
+            } else{
+<span class="nc" id="L97">                throw new IllegalArgumentException(&quot;Type of entity not (yet) implemented.&quot;);</span>
+            }
+
+<span class="nc" id="L100">        } catch (SQLException e) {</span>
+<span class="nc" id="L101">            log.error(&quot;Error inserting entity: &quot;, e);</span>
+<span class="nc" id="L102">            throw e;</span>
+<span class="fc" id="L103">        }</span>
+<span class="fc" id="L104">    }</span>
+
+    private Gebouw saveGebouw(TopNLEntity entity) throws SQLException, ParseException {
+<span class="fc" id="L107">        Gebouw h = (Gebouw) entity;</span>
+
+<span class="fc" id="L109">        ResultSetHandler&lt;Gebouw&gt; handler = new BeanHandler(Gebouw.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(gjc)));</span>
+<span class="fc" id="L110">        Object nativeGeom = gjc.convertToNativeGeometryObject(h.getGeometrie());</span>
+<span class="fc" id="L111">        Object[] args = getVarargs(entity,</span>
+<span class="fc" id="L112">                h.getTypeGebouw(),</span>
+<span class="fc" id="L113">                h.getStatus(),</span>
+<span class="fc" id="L114">                h.getFysiekVoorkomen(),</span>
+<span class="fc" id="L115">                h.getHoogteklasse(),</span>
+<span class="fc" id="L116">                h.getHoogte(),</span>
+<span class="fc" id="L117">                h.getSoortnaam(),</span>
+<span class="fc" id="L118">                h.getNaam(),</span>
+<span class="fc" id="L119">                h.getNaamFries(),</span>
+                nativeGeom);
+<span class="fc" id="L121">        Gebouw inserted = run.insert(&quot;INSERT INTO &quot; + h.getTopnltype() + &quot;.gebouw (&quot; + getTopNLEntityColumns() + &quot;,typegebouw,status,fysiekvoorkomen,hoogteklasse,hoogte,soortnaam,naam,naamfries,geometrie) VALUES (&quot; + getTopNLEntityReplacementChars() + &quot;,?,?,?,?,?,?,?,?,?)&quot;,</span>
+                handler,
+                args);
+
+<span class="fc" id="L125">        return inserted;</span>
+    }
+
+    private PlanTopografie savePlanTopografie(TopNLEntity entity) throws SQLException, ParseException {
+<span class="fc" id="L129">        PlanTopografie h = (PlanTopografie) entity;</span>
+
+<span class="fc" id="L131">        ResultSetHandler&lt;PlanTopografie&gt; handler = new BeanHandler(PlanTopografie.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(gjc)));</span>
+<span class="fc" id="L132">        Object nativeGeom = gjc.convertToNativeGeometryObject(h.getGeometrie());</span>
+<span class="fc" id="L133">        Object[] args = getVarargs(entity,</span>
+<span class="fc" id="L134">                h.getTypePlanTopografie(),</span>
+<span class="fc" id="L135">                h.getNaam(),</span>
+                nativeGeom);
+<span class="fc" id="L137">        PlanTopografie inserted = run.insert(&quot;INSERT INTO &quot; + h.getTopnltype() + &quot;.PlanTopoGrafie (&quot; + getTopNLEntityColumns() + &quot;,typePlanTopografie,naam,geometrie) VALUES (&quot; + getTopNLEntityReplacementChars() + &quot;,?,?,?)&quot;,</span>
+                handler,
+                args);
+
+<span class="fc" id="L141">        return inserted;</span>
+    }
+
+    private GeografischGebied saveGeografischGebied(TopNLEntity entity) throws SQLException, ParseException {
+<span class="fc" id="L145">        GeografischGebied h = (GeografischGebied) entity;</span>
+
+<span class="fc" id="L147">        ResultSetHandler&lt;GeografischGebied&gt; handler = new BeanHandler(GeografischGebied.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(gjc)));</span>
+<span class="fc" id="L148">        Object nativeGeom = gjc.convertToNativeGeometryObject(h.getGeometrie());</span>
+<span class="fc" id="L149">        Object[] args = getVarargs(entity,</span>
+<span class="fc" id="L150">                h.getTypeGeografischGebied(),</span>
+<span class="fc" id="L151">                h.getNaamNL(),</span>
+<span class="fc" id="L152">                h.getNaamFries(),</span>
+                nativeGeom);
+<span class="fc" id="L154">        GeografischGebied inserted = run.insert(&quot;INSERT INTO &quot; + h.getTopnltype() + &quot;.geografischgebied (&quot; + getTopNLEntityColumns() + &quot;,typeGeografischGebied,naamNL,naamFries,geometrie) VALUES (&quot; + getTopNLEntityReplacementChars() + &quot;,?,?,?,?)&quot;,</span>
+                handler,
+                args);
+
+<span class="fc" id="L158">        return inserted;</span>
+    }
+
+    private Inrichtingselement saveInrichtingselement(TopNLEntity entity) throws SQLException, ParseException {
+<span class="fc" id="L162">        Inrichtingselement h = (Inrichtingselement) entity;</span>
+
+<span class="fc" id="L164">        ResultSetHandler&lt;Inrichtingselement&gt; handler = new BeanHandler(Inrichtingselement.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(gjc)));</span>
+<span class="fc" id="L165">        Object nativeGeom = gjc.convertToNativeGeometryObject(h.getGeometrie());</span>
+<span class="fc" id="L166">        Object[] args = getVarargs(entity,</span>
+<span class="fc" id="L167">                h.getTypeInrichtingselement(),</span>
+<span class="fc" id="L168">                h.getSoortnaam(),</span>
+<span class="fc" id="L169">                h.getStatus(),</span>
+<span class="fc" id="L170">                h.getHoogteniveau(),</span>
+                nativeGeom);
+<span class="fc" id="L172">        Inrichtingselement inserted = run.insert(&quot;INSERT INTO &quot; + h.getTopnltype() + &quot;.inrichtingselement (&quot; + getTopNLEntityColumns() + &quot;,typeInrichtingselement,soortnaam,status,hoogteniveau,geometrie) VALUES (&quot; + getTopNLEntityReplacementChars() + &quot;,?,?,?,?,?)&quot;,</span>
+                handler,
+                args);
+
+<span class="fc" id="L176">        return inserted;</span>
+    }
+
+    private Plaats savePlaats(TopNLEntity entity) throws SQLException, ParseException {
+<span class="fc" id="L180">        Plaats h = (Plaats) entity;</span>
+
+<span class="fc" id="L182">        ResultSetHandler&lt;Plaats&gt; handler = new BeanHandler(Plaats.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(gjc)));</span>
+<span class="fc" id="L183">        Object nativeGeom = gjc.convertToNativeGeometryObject(h.getGeometrie());</span>
+<span class="fc" id="L184">        Object[] args = getVarargs(entity,</span>
+<span class="fc" id="L185">                h.getTypeGebied(),</span>
+<span class="fc" id="L186">                h.getAantalInwoners(),</span>
+<span class="fc" id="L187">                h.getNaamOfficieel(),</span>
+<span class="fc" id="L188">                h.getNaamNL(),</span>
+<span class="fc" id="L189">                h.getNaamFries(),</span>
+                nativeGeom);
+<span class="fc" id="L191">        Plaats inserted = run.insert(&quot;INSERT INTO &quot; + h.getTopnltype() + &quot;.plaats (&quot; + getTopNLEntityColumns() + &quot;,typeGebied,aantalInwoners,naamOfficieel,naamNL,naamFries,geometrie) VALUES (&quot; + getTopNLEntityReplacementChars() + &quot;,?,?,?,?,?,?)&quot;,</span>
+                handler,
+                args);
+
+<span class="fc" id="L195">        return inserted;</span>
+    }
+
+    private RegistratiefGebied saveRegistratiefGebied(TopNLEntity entity) throws SQLException, ParseException {
+<span class="fc" id="L199">        RegistratiefGebied h = (RegistratiefGebied) entity;</span>
+
+<span class="fc" id="L201">        ResultSetHandler&lt;RegistratiefGebied&gt; handler = new BeanHandler(RegistratiefGebied.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(gjc)));</span>
+<span class="fc" id="L202">        Object nativeGeom = gjc.convertToNativeGeometryObject(h.getGeometrie());</span>
+<span class="fc" id="L203">        Object[] args = getVarargs(entity,</span>
+<span class="fc" id="L204">                h.getTypeRegistratiefGebied(),</span>
+<span class="fc" id="L205">                h.getNaamOfficieel(),</span>
+<span class="fc" id="L206">                h.getNaamNL(),</span>
+<span class="fc" id="L207">                h.getNaamFries(),</span>
+<span class="fc" id="L208">                h.getNummer(),</span>
+                nativeGeom);
+<span class="fc" id="L210">        RegistratiefGebied inserted = run.insert(&quot;INSERT INTO &quot; + h.getTopnltype() + &quot;.registratiefgebied (&quot; + getTopNLEntityColumns() + &quot;,typeRegistratiefGebied,naamOfficieel,naamNL,naamFries,nummer,geometrie) VALUES (&quot; + getTopNLEntityReplacementChars() + &quot;,?,?,?,?,?,?)&quot;,</span>
+                handler,
+                args);
+
+<span class="fc" id="L214">        return inserted;</span>
+    }
+
+    private Relief saveRelief(TopNLEntity entity) throws SQLException, ParseException {
+<span class="fc" id="L218">        Relief h = (Relief) entity;</span>
+
+<span class="fc" id="L220">        ResultSetHandler&lt;Relief&gt; handler = new BeanHandler(Relief.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(gjc)));</span>
+<span class="fc" id="L221">        Object nativeGeom = gjc.convertToNativeGeometryObject(h.getGeometrie());</span>
+<span class="fc" id="L222">        Object nativeLageZijde = gjc.convertToNativeGeometryObject(h.getTaludLageZijde());</span>
+<span class="fc" id="L223">        Object nativeHogeZijde = gjc.convertToNativeGeometryObject(h.getTaludHogeZijde());</span>
+<span class="fc" id="L224">        Object[] args = getVarargs(entity,</span>
+<span class="fc" id="L225">                h.getTypeRelief(),</span>
+<span class="fc" id="L226">                h.getHoogteklasse(),</span>
+<span class="fc" id="L227">                h.getHoogteniveau(),</span>
+                nativeGeom,
+                nativeLageZijde,
+                nativeHogeZijde);
+<span class="fc" id="L231">        Relief inserted = run.insert(&quot;INSERT INTO &quot; + h.getTopnltype() + &quot;.relief (&quot; + getTopNLEntityColumns() + &quot;,typeRelief,hoogteklasse,hoogteniveau,geometrie,taludLageZijde,taludHogeZijde) VALUES (&quot; + getTopNLEntityReplacementChars() + &quot;,?,?,?,?,?,?)&quot;,</span>
+                handler,
+                args);
+
+<span class="fc" id="L235">        return inserted;</span>
+    }
+
+    private Spoorbaandeel saveSpoorbaandeel(TopNLEntity entity) throws SQLException, ParseException {
+<span class="fc" id="L239">        Spoorbaandeel h = (Spoorbaandeel) entity;</span>
+
+<span class="fc" id="L241">        ResultSetHandler&lt;Spoorbaandeel&gt; handler = new BeanHandler(Spoorbaandeel.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(gjc)));</span>
+<span class="fc" id="L242">        Object nativeGeom = gjc.convertToNativeGeometryObject(h.getGeometrie());</span>
+<span class="fc" id="L243">        Object[] args = getVarargs(entity,</span>
+<span class="fc" id="L244">                h.getTypeInfrastructuur(),</span>
+<span class="fc" id="L245">                h.getTypeSpoorbaan(),</span>
+<span class="fc" id="L246">                h.getFysiekVoorkomen(),</span>
+<span class="fc" id="L247">                h.getSpoorbreedte(),</span>
+<span class="fc" id="L248">                h.getAantalSporen(),</span>
+<span class="fc" id="L249">                h.getVervoerfunctie(),</span>
+<span class="fc" id="L250">                h.getElektrificatie(),</span>
+<span class="fc" id="L251">                h.getStatus(),</span>
+<span class="fc" id="L252">                h.getBrugnaam(),</span>
+<span class="fc" id="L253">                h.getTunnelnaam(),</span>
+<span class="fc" id="L254">                h.getBaanvaknaam(),</span>
+<span class="fc" id="L255">                h.getHoogteniveau(),</span>
+                nativeGeom);
+<span class="fc" id="L257">        Spoorbaandeel inserted = run.insert(&quot;INSERT INTO &quot; + h.getTopnltype() + &quot;.spoorbaandeel (&quot; + getTopNLEntityColumns() + &quot;,typeInfrastructuur,typeSpoorbaan,fysiekVoorkomen,spoorbreedte,aantalSporen,vervoerfunctie,elektrificatie,status,brugnaam,tunnelnaam,baanvaknaam,hoogteniveau,geometrie) VALUES (&quot; + getTopNLEntityReplacementChars() + &quot;,?,?,?,?,?,?,?,?,?,?,?,?,?)&quot;,</span>
+                handler,
+                args);
+
+<span class="fc" id="L261">        return inserted;</span>
+    }
+
+    private Terrein saveTerrein(TopNLEntity entity) throws SQLException, ParseException {
+<span class="fc" id="L265">        Terrein h = (Terrein) entity;</span>
+
+<span class="fc" id="L267">        ResultSetHandler&lt;Terrein&gt; handler = new BeanHandler(Terrein.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(gjc)));</span>
+<span class="fc" id="L268">        Object nativeGeom = gjc.convertToNativeGeometryObject(h.getGeometrie());</span>
+<span class="fc" id="L269">        Object[] args = getVarargs(entity,</span>
+<span class="fc" id="L270">                h.getTypeLandgebruik(),</span>
+<span class="fc" id="L271">                h.getNaam(),</span>
+                nativeGeom);
+<span class="fc" id="L273">        Terrein inserted = run.insert(&quot;INSERT INTO &quot; + h.getTopnltype() + &quot;.terrein (&quot; + getTopNLEntityColumns() + &quot;,typelandgebruik,naam,geometrie) VALUES (&quot; + getTopNLEntityReplacementChars() + &quot;,?,?,?)&quot;,</span>
+                handler,
+                args);
+
+<span class="fc" id="L277">        return inserted;</span>
+    }
+
+    private Waterdeel saveWaterdeel(TopNLEntity entity) throws SQLException, ParseException {
+<span class="fc" id="L281">        Waterdeel h = (Waterdeel) entity;</span>
+
+<span class="fc" id="L283">        ResultSetHandler&lt;Waterdeel&gt; handler = new BeanHandler(Waterdeel.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(gjc)));</span>
+<span class="fc" id="L284">        Object nativeGeom = gjc.convertToNativeGeometryObject(h.getGeometrie());</span>
+        
+<span class="fc" id="L286">        Object[] args = getVarargs(entity,</span>
+<span class="fc" id="L287">                h.getTypeWater(),</span>
+<span class="fc" id="L288">                h.getBreedteklasse(),</span>
+<span class="fc" id="L289">                h.getFysiekVoorkomen(),</span>
+<span class="fc" id="L290">                h.getVoorkomen(),</span>
+<span class="fc" id="L291">                h.getGetijdeinvloed(),</span>
+<span class="fc" id="L292">                h.getVaarwegklasse(),</span>
+<span class="fc" id="L293">                h.getNaamOfficieel(),</span>
+<span class="fc" id="L294">                h.getNaamNL(),</span>
+<span class="fc" id="L295">                h.getNaamFries(),</span>
+<span class="fc" id="L296">                h.getIsBAGnaam(),</span>
+<span class="fc" id="L297">                h.getSluisnaam(),</span>
+<span class="fc" id="L298">                h.getBrugnaam(),</span>
+<span class="fc" id="L299">                h.getHoogteniveau(),</span>
+<span class="fc" id="L300">                h.getFunctie(),</span>
+<span class="fc" id="L301">                h.isHoofdAfwatering(),</span>
+                nativeGeom);
+<span class="fc" id="L303">        Waterdeel inserted = run.insert(&quot;INSERT INTO &quot; + h.getTopnltype() + &quot;.waterdeel (&quot; + getTopNLEntityColumns() + &quot;,typewater,breedteklasse,fysiekvoorkomen,voorkomen,getijdeinvloed,vaarwegklasse,naamofficieel,naamnl,naamfries,isbagnaam,sluisnaam,brugnaam,hoogteniveau,functie,hoofdAfwatering,geometrie) VALUES (&quot; + getTopNLEntityReplacementChars() + &quot;,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)&quot;,</span>
+                handler,
+                args);
+
+<span class="fc" id="L307">        return inserted;</span>
+    }
+
+    private Wegdeel saveWegdeel(TopNLEntity entity) throws SQLException, ParseException {
+<span class="fc" id="L311">        Wegdeel h = (Wegdeel) entity;</span>
+
+<span class="fc" id="L313">        ResultSetHandler&lt;Wegdeel&gt; handler = new BeanHandler(Wegdeel.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(gjc)));</span>
+<span class="fc" id="L314">        Object nativeGeom = gjc.convertToNativeGeometryObject(h.getGeometrie());</span>
+<span class="fc" id="L315">        Object nativeHartGeom = gjc.convertToNativeGeometryObject(h.getHartGeometrie());</span>
+<span class="fc" id="L316">        Object[] args = getVarargs(entity,</span>
+<span class="fc" id="L317">                h.getTypeInfrastructuur(),</span>
+<span class="fc" id="L318">                h.getTypeWeg(),</span>
+<span class="fc" id="L319">                h.getHoofdverkeersgebruik(),</span>
+<span class="fc" id="L320">                h.getFysiekVoorkomen(),</span>
+<span class="fc" id="L321">                h.getVerhardingsbreedteklasse(),</span>
+<span class="fc" id="L322">                h.getGescheidenRijbaan(),</span>
+<span class="fc" id="L323">                h.getVerhardingstype(),</span>
+<span class="fc" id="L324">                h.getAantalRijstroken(),</span>
+<span class="fc" id="L325">                h.getHoogteniveau(),</span>
+<span class="fc" id="L326">                h.getStatus(),</span>
+<span class="fc" id="L327">                h.getNaam(),</span>
+<span class="fc" id="L328">                h.getIsBAGnaam(),</span>
+<span class="fc" id="L329">                h.getaWegnummer(),</span>
+<span class="fc" id="L330">                h.getnWegnummer(),</span>
+<span class="fc" id="L331">                h.geteWegnummer(),</span>
+<span class="fc" id="L332">                h.getsWegnummer(),</span>
+<span class="fc" id="L333">                h.getAfritnummer(),</span>
+<span class="fc" id="L334">                h.getAfritnaam(),</span>
+<span class="fc" id="L335">                h.getKnooppuntnaam(),</span>
+<span class="fc" id="L336">                h.getBrugnaam(),</span>
+<span class="fc" id="L337">                h.getTunnelnaam(),</span>
+                nativeHartGeom,
+                nativeGeom);
+<span class="fc" id="L340">        String query = &quot;INSERT INTO &quot; + h.getTopnltype() + &quot;.wegdeel (&quot; + getTopNLEntityColumns() + &quot;,typeInfrastructuur,typeWeg,hoofdverkeersgebruik,fysiekVoorkomen,verhardingsbreedteklasse,gescheidenRijbaan,verhardingstype,aantalRijstroken,hoogteniveau,status,naam,isBAGnaam,aWegnummer,nWegnummer,eWegnummer,sWegnummer,afritnummer,afritnaam,knooppuntnaam,brugnaam,tunnelnaam,hartGeometrie,geometrie) VALUES (&quot; + getTopNLEntityReplacementChars() + &quot;,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)&quot;;</span>
+<span class="fc" id="L341">        Wegdeel inserted = run.insert(query,</span>
+                handler,
+                args);
+
+<span class="fc" id="L345">        return inserted;</span>
+    }
+
+    private FunctioneelGebied saveFunctioneelGebied(TopNLEntity entity) throws SQLException, ParseException {
+<span class="fc" id="L349">        FunctioneelGebied h = (FunctioneelGebied) entity;</span>
+
+<span class="fc" id="L351">        ResultSetHandler&lt;FunctioneelGebied&gt; handler = new BeanHandler(FunctioneelGebied.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(gjc)));</span>
+<span class="fc" id="L352">        Object nativeGeom = gjc.convertToNativeGeometryObject(h.getGeometrie());</span>
+<span class="fc" id="L353">        Object[] args = getVarargs(entity,</span>
+<span class="fc" id="L354">                h.getTypeFunctioneelGebied(),</span>
+<span class="fc" id="L355">                h.getSoortnaam(),</span>
+<span class="fc" id="L356">                h.getNaamNL(),</span>
+<span class="fc" id="L357">                h.getNaamFries(),</span>
+                nativeGeom);
+<span class="fc" id="L359">        FunctioneelGebied inserted = run.insert(&quot;INSERT INTO &quot; + h.getTopnltype() + &quot;.functioneelgebied (&quot; + getTopNLEntityColumns() + &quot;,typefunctioneelgebied,soortnaam,naamnl,naamfries,geometrie) VALUES (&quot; + getTopNLEntityReplacementChars() + &quot;,?,?,?,?,?)&quot;,</span>
+                handler,
+                args);
+
+<span class="fc" id="L363">        return inserted;</span>
+    }
+
+    private Hoogte saveHoogte(TopNLEntity entity) throws SQLException, ParseException {
+<span class="fc" id="L367">        Hoogte h = (Hoogte) entity;</span>
+
+<span class="fc" id="L369">        ResultSetHandler&lt;Hoogte&gt; handler = new BeanHandler(Hoogte.class, new BasicRowProcessor(new DbUtilsGeometryColumnConverter(gjc)));</span>
+<span class="fc" id="L370">        Object nativeGeom = gjc.convertToNativeGeometryObject(h.getGeometrie());</span>
+<span class="fc" id="L371">        Object[] args = getVarargs(entity,</span>
+<span class="fc" id="L372">                h.getTypeHoogte(),</span>
+<span class="fc" id="L373">                h.getReferentieVlak(),</span>
+<span class="fc" id="L374">                h.getHoogte(),</span>
+                nativeGeom);
+<span class="fc" id="L376">        Hoogte inserted = run.insert(&quot;INSERT INTO &quot; + h.getTopnltype() + &quot;.hoogte (&quot; + getTopNLEntityColumns() + &quot;,typeHoogte,referentieVlak,hoogte, geometrie) VALUES (&quot; + getTopNLEntityReplacementChars() + &quot;,?,?,?,?)&quot;,</span>
+                handler,
+                args);
+
+<span class="fc" id="L380">        return inserted;</span>
+    }
+
+    private String getTopNLEntityColumns() {
+<span class="fc" id="L384">        return &quot;identificatie,topnltype,brontype,bronactualiteit,bronbeschrijving,bronnauwkeurigheid,objectBeginTijd,objectEindTijd,visualisatieCode&quot;;</span>
+    }
+
+    private String getTopNLEntityReplacementChars() {
+<span class="fc" id="L388">        return &quot;?,?,?,?,?,?,?,?,?&quot;;</span>
+    }
+
+    private Object[] getVarargs(TopNLEntity entity, Object... specificArgs) {
+<span class="fc" id="L392">        Object[] genericArgs = {</span>
+<span class="fc" id="L393">            entity.getIdentificatie(),</span>
+<span class="fc" id="L394">            entity.getTopnltype(),</span>
+<span class="fc" id="L395">            entity.getBrontype(),</span>
+<span class="pc bpc" id="L396" title="1 of 2 branches missed.">            entity.getBronactualiteit() != null ? new java.sql.Date(entity.getBronactualiteit().getTime()) : null,</span>
+<span class="fc" id="L397">            entity.getBronbeschrijving(),</span>
+<span class="fc" id="L398">            entity.getBronnauwkeurigheid(),</span>
+<span class="pc bpc" id="L399" title="1 of 2 branches missed.">            entity.getObjectBeginTijd() != null ? new java.sql.Date(entity.getObjectBeginTijd().getTime()) : null,</span>
+<span class="fc bfc" id="L400" title="All 2 branches covered.">            entity.getObjectEindTijd() != null ? new java.sql.Date(entity.getObjectEindTijd().getTime()) : null,</span>
+<span class="fc" id="L401">            entity.getVisualisatieCode()</span>
+        };
+<span class="fc" id="L403">        int numGeneric = genericArgs.length;</span>
+<span class="fc" id="L404">        Object[] completeArgs = new Object[numGeneric + specificArgs.length];</span>
+<span class="fc" id="L405">        System.arraycopy(genericArgs, 0, completeArgs, 0, numGeneric);</span>
+
+<span class="fc bfc" id="L407" title="All 2 branches covered.">        for (int i = 0; i &lt; specificArgs.length; i++) {</span>
+<span class="fc" id="L408">            Object specificArg = specificArgs[i];</span>
+<span class="fc" id="L409">            completeArgs[numGeneric + i] = specificArg;</span>
+        }
+
+<span class="fc" id="L412">        return completeArgs;</span>
+    }
+
+    public GeometryJdbcConverter getGjc() {
+<span class="fc" id="L416">        return gjc;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

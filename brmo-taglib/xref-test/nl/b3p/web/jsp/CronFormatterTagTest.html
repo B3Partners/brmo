@@ -11,9 +11,9 @@
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_comment"> */</em>
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">package</strong> nl.b3p.web.jsp;
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   
-<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">import</strong> org.junit.Before;
-<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> org.junit.Test;
-<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.*;
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">import</strong> org.junit.jupiter.api.BeforeEach;
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> org.junit.jupiter.api.Test;
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.assertEquals;
 <a class="jxr_linenumber" name="L9" href="#L9">9</a>   
 <a class="jxr_linenumber" name="L10" href="#L10">10</a>  <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L11" href="#L11">11</a>  <em class="jxr_javadoccomment"> * Testcase voor {@link CronFormatterTag}.</em>
@@ -24,7 +24,7 @@
 <a class="jxr_linenumber" name="L16" href="#L16">16</a>  
 <a class="jxr_linenumber" name="L17" href="#L17">17</a>      <strong class="jxr_keyword">private</strong> CronFormatterTag tag;
 <a class="jxr_linenumber" name="L18" href="#L18">18</a>  
-<a class="jxr_linenumber" name="L19" href="#L19">19</a>      @Before
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>      @BeforeEach
 <a class="jxr_linenumber" name="L20" href="#L20">20</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setUp() {
 <a class="jxr_linenumber" name="L21" href="#L21">21</a>          tag = <strong class="jxr_keyword">new</strong> CronFormatterTag();
 <a class="jxr_linenumber" name="L22" href="#L22">22</a>  
@@ -34,16 +34,16 @@
 <a class="jxr_linenumber" name="L26" href="#L26">26</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testBuildOutputLocale() {
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>          tag.setLocale(<span class="jxr_string">"nl"</span>);
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>          tag.setCronExpression(<span class="jxr_string">"0 0 12 1/1 * ? *"</span>);
-<a class="jxr_linenumber" name="L29" href="#L29">29</a>          assertEquals(<span class="jxr_string">"Tag should output 'Om 12:00, elke dag, elk jaar'"</span>, <span class="jxr_string">"Om 12:00, elke dag, elk jaar"</span>, tag.buildOutput());
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>          assertEquals(<span class="jxr_string">"Om 12:00, elke dag, elk jaar"</span>, tag.buildOutput(), <span class="jxr_string">"Tag should output 'Om 12:00, elke dag, elk jaar'"</span>);
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>      }
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>      @Test
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testBuildOutputNoLocale() {
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>          tag.setCronExpression(<span class="jxr_string">"0 0 12 1/1 * ? *"</span>);
-<a class="jxr_linenumber" name="L34" href="#L34">34</a>          assertEquals(<span class="jxr_string">"Tag should output 'Om 12:00, elke dag, elk jaar'"</span>, <span class="jxr_string">"Om 12:00, elke dag, elk jaar"</span>, tag.buildOutput());
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>          assertEquals(<span class="jxr_string">"Om 12:00, elke dag, elk jaar"</span>, tag.buildOutput(), <span class="jxr_string">"Tag should output 'Om 12:00, elke dag, elk jaar'"</span>);
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>      }
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>  }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2014&#x2013;2020 <a href="http://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2014&#x2013;2021 <a href="http://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>
 </body>
 </html>

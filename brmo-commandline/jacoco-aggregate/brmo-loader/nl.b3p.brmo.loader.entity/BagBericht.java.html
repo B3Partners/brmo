@@ -80,8 +80,8 @@ public class BagBericht extends Bericht {
 <span class="fc" id="L80">                    setDatumAsString(d);</span>
                 }
 
-<span class="pc bpc" id="L83" title="1 of 2 branches missed.">                if (super.getVolgordeNummer()==null) {</span>
-<span class="fc" id="L84">                    setVolgordeNummer(new Integer(mutVolgnr.evaluate(doc)));</span>
+<span class="pc bpc" id="L83" title="1 of 2 branches missed.">                if (super.getVolgordeNummer() == null) {</span>
+<span class="fc" id="L84">                    setVolgordeNummer(Integer.valueOf(mutVolgnr.evaluate(doc)));</span>
                 }
                 
 <span class="fc" id="L87">                objectType = mutObjectType.evaluate(doc);</span>
@@ -140,4 +140,4 @@ public class BagBericht extends Bericht {
 <span class="fc" id="L140">        return super.getVolgordeNummer();</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

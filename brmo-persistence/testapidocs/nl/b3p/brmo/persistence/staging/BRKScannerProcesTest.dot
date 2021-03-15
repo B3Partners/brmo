@@ -24,7 +24,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BRKScannerProcesTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.persistence.TestUtil
-	c41 [label=<<table title="nl.b3p.brmo.persistence.TestUtil" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../TestUtil.html">
+	c42 [label=<<table title="nl.b3p.brmo.persistence.TestUtil" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../TestUtil.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> TestUtil </font></td></tr>
 		</table></td></tr>
@@ -38,11 +38,13 @@ digraph G {
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> + TestUtil() </td></tr>
+<tr><td align="left" balign="left"> + startTest(testInfo : TestInfo) </td></tr>
+<tr><td align="left" balign="left"> + endTest(testInfo : TestInfo) </td></tr>
 <tr><td align="left" balign="left"> + setUp() </td></tr>
 <tr><td align="left" balign="left"> + close() </td></tr>
 		</table></td></tr>
 		</table>>, URL="../TestUtil.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.persistence.staging.BRKScannerProcesTest extends nl.b3p.brmo.persistence.TestUtil
-	c41:p -> c37:p [dir=back,arrowtail=empty];
+	c42:p -> c37:p [dir=back,arrowtail=empty];
 }
 

@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.PRSPRSHUWRel.SoortVerbintenis
-	c194395 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSPRSHUWRel.SoortVerbintenis" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSPRSHUWRel.SoortVerbintenis.html">
+	c194465 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSPRSHUWRel.SoortVerbintenis" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSPRSHUWRel.SoortVerbintenis.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> SoortVerbintenis </td></tr>
 		</table></td></tr>
@@ -30,7 +30,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./PRSPRSHUWRel.SoortVerbintenis.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.SoortVerbintenis
-	c194511 [label=<<table title="nl.egem.stuf.sector.bg._0204.SoortVerbintenis" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./SoortVerbintenis.html">
+	c194485 [label=<<table title="nl.egem.stuf.sector.bg._0204.SoortVerbintenis" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./SoortVerbintenis.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> SoortVerbintenis </td></tr>
@@ -44,6 +44,6 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./SoortVerbintenis.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.PRSPRSHUWRel.SoortVerbintenis NAVASSOC nl.egem.stuf.sector.bg._0204.SoortVerbintenis
-	c194395:p -> c194511:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c194465:p -> c194485:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

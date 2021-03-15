@@ -37,7 +37,7 @@ import javax.persistence.Table;
     private String naam;
 
     @Lob
-    @org.hibernate.annotations.Type(type = &quot;org.hibernate.type.StringClobType&quot;)
+    @org.hibernate.annotations.Type(type = &quot;org.hibernate.type.TextType&quot;)
     private String beschrijving;
 
 <span class="fc" id="L43">    @ManyToMany(mappedBy = &quot;groepen&quot;)</span>
@@ -67,4 +67,4 @@ import javax.persistence.Table;
 <span class="nc" id="L67">        this.leden = leden;</span>
 <span class="nc" id="L68">    }</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

@@ -9,8 +9,36 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// nl.egem.stuf.sector.bg._0204.PRSAntwoord.PRSIDB
+	c188285 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSAntwoord.PRSIDB" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSAntwoord.PRSIDB.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> PRSIDB </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # sib : SIBTabel </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + PRSIDB() </td></tr>
+<tr><td align="left" balign="left"> + getSIB() : SIBTabel </td></tr>
+<tr><td align="left" balign="left"> + setSIB(value : SIBTabel) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./PRSAntwoord.PRSIDB.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.PRSVraag.PRSIDB
+	c188380 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSVraag.PRSIDB" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSVraag.PRSIDB.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> PRSIDB </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # sib : SIBTabel </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + PRSIDB() </td></tr>
+<tr><td align="left" balign="left"> + getSIB() : SIBTabel </td></tr>
+<tr><td align="left" balign="left"> + setSIB(value : SIBTabel) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./PRSVraag.PRSIDB.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.SIBTabel
-	c188360 [label=<<table title="nl.egem.stuf.sector.bg._0204.SIBTabel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./SIBTabel.html">
+	c188403 [label=<<table title="nl.egem.stuf.sector.bg._0204.SIBTabel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./SIBTabel.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> SIBTabel </td></tr>
 		</table></td></tr>
@@ -38,36 +66,8 @@ digraph G {
 <tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./SIBTabel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.PRSAntwoord.PRSIDB
-	c188461 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSAntwoord.PRSIDB" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSAntwoord.PRSIDB.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> PRSIDB </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # sib : SIBTabel </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + PRSIDB() </td></tr>
-<tr><td align="left" balign="left"> + getSIB() : SIBTabel </td></tr>
-<tr><td align="left" balign="left"> + setSIB(value : SIBTabel) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./PRSAntwoord.PRSIDB.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.PRSVraag.PRSIDB
-	c188500 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSVraag.PRSIDB" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSVraag.PRSIDB.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> PRSIDB </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # sib : SIBTabel </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + PRSIDB() </td></tr>
-<tr><td align="left" balign="left"> + getSIB() : SIBTabel </td></tr>
-<tr><td align="left" balign="left"> + setSIB(value : SIBTabel) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./PRSVraag.PRSIDB.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.PRSKennisgeving.PRSIDB
-	c188526 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSKennisgeving.PRSIDB" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSKennisgeving.PRSIDB.html">
+	c188514 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSKennisgeving.PRSIDB" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSKennisgeving.PRSIDB.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PRSIDB </td></tr>
 		</table></td></tr>
@@ -80,24 +80,8 @@ digraph G {
 <tr><td align="left" balign="left"> + setSIB(value : SIBTabel) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./PRSKennisgeving.PRSIDB.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.stuf0204.NoValue
-	c188724 [label=<<table title="nl.egem.stuf.stuf0204.NoValue" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/NoValue.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
-<tr><td align="center" balign="center"> NoValue </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> NIET_ONDERSTEUND </td></tr>
-<tr><td align="left" balign="left"> NIET_GEAUTORISEERD </td></tr>
-<tr><td align="left" balign="left"> GEEN_WAARDE </td></tr>
-<tr><td align="left" balign="left"> WAARDE_ONBEKEND </td></tr>
-		</table></td></tr>
-		</table>>, URL="../../../stuf0204/NoValue.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.stuf0204.Verwerkingssoort
-	c188727 [label=<<table title="nl.egem.stuf.stuf0204.Verwerkingssoort" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/Verwerkingssoort.html">
+	c188735 [label=<<table title="nl.egem.stuf.stuf0204.Verwerkingssoort" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/Verwerkingssoort.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> Verwerkingssoort </td></tr>
@@ -116,7 +100,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="../../../stuf0204/Verwerkingssoort.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.stuf0204.ExtraElementen
-	c188739 [label=<<table title="nl.egem.stuf.stuf0204.ExtraElementen" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/ExtraElementen.html">
+	c188738 [label=<<table title="nl.egem.stuf.stuf0204.ExtraElementen" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/ExtraElementen.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ExtraElementen </td></tr>
 		</table></td></tr>
@@ -128,17 +112,33 @@ digraph G {
 <tr><td align="left" balign="left"> + getExtraElement() : List&lt;ExtraElement&gt; </td></tr>
 		</table></td></tr>
 		</table>>, URL="../../../stuf0204/ExtraElementen.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.SIBTabel NAVASSOC nl.egem.stuf.stuf0204.ExtraElementen
-	c188360:p -> c188739:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.egem.stuf.sector.bg._0204.SIBTabel NAVASSOC nl.egem.stuf.stuf0204.Verwerkingssoort
-	c188360:p -> c188727:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// nl.egem.stuf.sector.bg._0204.SIBTabel NAVASSOC nl.egem.stuf.stuf0204.NoValue
-	c188360:p -> c188724:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.stuf0204.NoValue
+	c188745 [label=<<table title="nl.egem.stuf.stuf0204.NoValue" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/NoValue.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
+<tr><td align="center" balign="center"> NoValue </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> NIET_ONDERSTEUND </td></tr>
+<tr><td align="left" balign="left"> NIET_GEAUTORISEERD </td></tr>
+<tr><td align="left" balign="left"> GEEN_WAARDE </td></tr>
+<tr><td align="left" balign="left"> WAARDE_ONBEKEND </td></tr>
+		</table></td></tr>
+		</table>>, URL="../../../stuf0204/NoValue.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.PRSAntwoord.PRSIDB NAVASSOC nl.egem.stuf.sector.bg._0204.SIBTabel
-	c188461:p -> c188360:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c188285:p -> c188403:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.egem.stuf.sector.bg._0204.PRSVraag.PRSIDB NAVASSOC nl.egem.stuf.sector.bg._0204.SIBTabel
-	c188500:p -> c188360:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c188380:p -> c188403:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.SIBTabel NAVASSOC nl.egem.stuf.stuf0204.ExtraElementen
+	c188403:p -> c188738:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.SIBTabel NAVASSOC nl.egem.stuf.stuf0204.Verwerkingssoort
+	c188403:p -> c188735:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// nl.egem.stuf.sector.bg._0204.SIBTabel NAVASSOC nl.egem.stuf.stuf0204.NoValue
+	c188403:p -> c188745:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.egem.stuf.sector.bg._0204.PRSKennisgeving.PRSIDB NAVASSOC nl.egem.stuf.sector.bg._0204.SIBTabel
-	c188526:p -> c188360:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c188514:p -> c188403:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

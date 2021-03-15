@@ -164,77 +164,78 @@ import org.stripesstuff.plugin.waitpage.WaitPage;
             new UpdateProcess(&quot;Bijwerken van rechthebbende VVE op zakelijk recht&quot;, BrmoFramework.BR_BRK, &quot;/xsl/update-zak_recht-vve.xsl&quot;),
             new UpdateProcess(&quot;Bijwerken van GBA Niet Ingezetene 'clazz' in personen tabellen&quot;, BrmoFramework.BR_BRK, &quot;/xsl/update-niet_ingezetene-clazz.xsl&quot;),
             new UpdateProcess(&quot;Bijwerken subject adres comfort data&quot;, BrmoFramework.BR_BRK, &quot;/xsl/update-comfort-adres.xsl&quot;),
-            new UpdateProcess(&quot;Bijwerken ingangsdatum_recht zakelijk recht&quot;, BrmoFramework.BR_BRK, &quot;/xsl/update-zak_recht-begindatum.xsl&quot;, true)
+            new UpdateProcess(&quot;Bijwerken ingangsdatum_recht zakelijk recht&quot;, BrmoFramework.BR_BRK, &quot;/xsl/update-zak_recht-begindatum.xsl&quot;, true),
+            new UpdateProcess(&quot;Bijwerken vestiging activiteit&quot;, BrmoFramework.BR_NHR, &quot;/xsl/update-vestg-activiteit.xsl&quot;)
         });
-<span class="nc" id="L169">    }</span>
+<span class="nc" id="L170">    }</span>
 
     @DefaultHandler
     public Resolution form() {
-<span class="nc bnc" id="L173" title="All 2 branches missed.">        return new ForwardResolution(complete ? JSP_PROGRESS : JSP);</span>
+<span class="nc bnc" id="L174" title="All 2 branches missed.">        return new ForwardResolution(complete ? JSP_PROGRESS : JSP);</span>
     }
 
     @WaitPage(path=JSP_PROGRESS, delay=1000, refresh=1000)
     public Resolution update() {
-<span class="nc" id="L178">        UpdateProcess process = null;</span>
+<span class="nc" id="L179">        UpdateProcess process = null;</span>
 
-<span class="nc bnc" id="L180" title="All 2 branches missed.">        for(UpdateProcess p: updateProcesses) {</span>
-<span class="nc bnc" id="L181" title="All 2 branches missed.">            if(p.getName().equals(updateProcessName)) {</span>
-<span class="nc" id="L182">                process = p;</span>
-<span class="nc" id="L183">                break;</span>
+<span class="nc bnc" id="L181" title="All 2 branches missed.">        for(UpdateProcess p: updateProcesses) {</span>
+<span class="nc bnc" id="L182" title="All 2 branches missed.">            if(p.getName().equals(updateProcessName)) {</span>
+<span class="nc" id="L183">                process = p;</span>
+<span class="nc" id="L184">                break;</span>
             }
-<span class="nc" id="L185">        }</span>
-<span class="nc bnc" id="L186" title="All 2 branches missed.">        if(process == null) {</span>
-<span class="nc" id="L187">            getContext().getMessages().add(new SimpleMessage(&quot;Ongeldig proces&quot;));</span>
-<span class="nc" id="L188">            return new ForwardResolution(JSP);</span>
+<span class="nc" id="L186">        }</span>
+<span class="nc bnc" id="L187" title="All 2 branches missed.">        if(process == null) {</span>
+<span class="nc" id="L188">            getContext().getMessages().add(new SimpleMessage(&quot;Ongeldig proces&quot;));</span>
+<span class="nc" id="L189">            return new ForwardResolution(JSP);</span>
         }
 
-<span class="nc" id="L191">        start = new Date();</span>
-<span class="nc" id="L192">        log.info(&quot;Start update process: &quot; + process.getName());</span>
+<span class="nc" id="L192">        start = new Date();</span>
+<span class="nc" id="L193">        log.info(&quot;Start update process: &quot; + process.getName());</span>
 
         // Get berichten
-<span class="nc" id="L195">        BrmoFramework brmo = null;</span>
+<span class="nc" id="L196">        BrmoFramework brmo = null;</span>
         try {
-<span class="nc" id="L197">            DataSource dataSourceStaging = ConfigUtil.getDataSourceStaging();</span>
-<span class="nc" id="L198">            DataSource dataSourceRsgb = ConfigUtil.getDataSourceRsgb();</span>
-<span class="nc" id="L199">            brmo = new BrmoFramework(dataSourceStaging, dataSourceRsgb);</span>
+<span class="nc" id="L198">            DataSource dataSourceStaging = ConfigUtil.getDataSourceStaging();</span>
+<span class="nc" id="L199">            DataSource dataSourceRsgb = ConfigUtil.getDataSourceRsgb();</span>
+<span class="nc" id="L200">            brmo = new BrmoFramework(dataSourceStaging, dataSourceRsgb);</span>
 
-<span class="nc" id="L201">            boolean enableTransformPipeline = &quot;true&quot;.equals(getContext().getServletContext().getInitParameter(&quot;pipelining.enabled&quot;));</span>
-<span class="nc" id="L202">            brmo.setEnablePipeline(enableTransformPipeline);</span>
-<span class="nc bnc" id="L203" title="All 2 branches missed.">            if(enableTransformPipeline) {</span>
-<span class="nc" id="L204">                String capacityString = getContext().getServletContext().getInitParameter(&quot;pipelining.capacity&quot;);</span>
-<span class="nc bnc" id="L205" title="All 2 branches missed.">                if(capacityString != null) {</span>
-<span class="nc" id="L206">                    brmo.setTransformPipelineCapacity(Integer.parseInt(capacityString));</span>
+<span class="nc" id="L202">            boolean enableTransformPipeline = &quot;true&quot;.equals(getContext().getServletContext().getInitParameter(&quot;pipelining.enabled&quot;));</span>
+<span class="nc" id="L203">            brmo.setEnablePipeline(enableTransformPipeline);</span>
+<span class="nc bnc" id="L204" title="All 2 branches missed.">            if(enableTransformPipeline) {</span>
+<span class="nc" id="L205">                String capacityString = getContext().getServletContext().getInitParameter(&quot;pipelining.capacity&quot;);</span>
+<span class="nc bnc" id="L206" title="All 2 branches missed.">                if(capacityString != null) {</span>
+<span class="nc" id="L207">                    brmo.setTransformPipelineCapacity(Integer.parseInt(capacityString));</span>
                 }
             }
-<span class="nc" id="L209">            String batchString = getContext().getServletContext().getInitParameter(&quot;batch.capacity&quot;);</span>
-<span class="nc bnc" id="L210" title="All 2 branches missed.">            if(batchString != null) {</span>
-<span class="nc" id="L211">                brmo.setBatchCapacity(Integer.parseInt(batchString));</span>
+<span class="nc" id="L210">            String batchString = getContext().getServletContext().getInitParameter(&quot;batch.capacity&quot;);</span>
+<span class="nc bnc" id="L211" title="All 2 branches missed.">            if(batchString != null) {</span>
+<span class="nc" id="L212">                brmo.setBatchCapacity(Integer.parseInt(batchString));</span>
             }
-<span class="nc" id="L213">            String errorState = getContext().getServletContext().getInitParameter(&quot;error.state&quot;);</span>
-<span class="nc bnc" id="L214" title="All 2 branches missed.">            if (errorState != null) {</span>
-<span class="nc" id="L215">                brmo.setErrorState(errorState);</span>
+<span class="nc" id="L214">            String errorState = getContext().getServletContext().getInitParameter(&quot;error.state&quot;);</span>
+<span class="nc bnc" id="L215" title="All 2 branches missed.">            if (errorState != null) {</span>
+<span class="nc" id="L216">                brmo.setErrorState(errorState);</span>
             }
 
-<span class="nc" id="L218">            Thread t = brmo.toRsgb(process, this);</span>
-<span class="nc" id="L219">            t.join();</span>
+<span class="nc" id="L219">            Thread t = brmo.toRsgb(process, this);</span>
+<span class="nc" id="L220">            t.join();</span>
 
-<span class="nc bnc" id="L221" title="All 2 branches missed.">            if(this.exceptionStacktrace == null) {</span>
-<span class="nc" id="L222">                getContext().getMessages().add(new SimpleMessage(&quot;Transformatie afgerond, controleer berichtenstatus.&quot;));</span>
+<span class="nc bnc" id="L222" title="All 2 branches missed.">            if(this.exceptionStacktrace == null) {</span>
+<span class="nc" id="L223">                getContext().getMessages().add(new SimpleMessage(&quot;Transformatie afgerond, controleer berichtenstatus.&quot;));</span>
             }
-<span class="nc" id="L224">        } catch(Throwable t) {</span>
-<span class="nc" id="L225">            log.error(&quot;Fout bij updaten&quot;, t);</span>
-<span class="nc" id="L226">            String m = &quot;Fout bij updaten: &quot; + ExceptionUtils.getMessage(t);</span>
-<span class="nc bnc" id="L227" title="All 2 branches missed.">            if(t.getCause() != null) {</span>
-<span class="nc" id="L228">                m += &quot;, oorzaak: &quot; + ExceptionUtils.getRootCauseMessage(t);</span>
+<span class="nc" id="L225">        } catch(Throwable t) {</span>
+<span class="nc" id="L226">            log.error(&quot;Fout bij updaten&quot;, t);</span>
+<span class="nc" id="L227">            String m = &quot;Fout bij updaten: &quot; + ExceptionUtils.getMessage(t);</span>
+<span class="nc bnc" id="L228" title="All 2 branches missed.">            if(t.getCause() != null) {</span>
+<span class="nc" id="L229">                m += &quot;, oorzaak: &quot; + ExceptionUtils.getRootCauseMessage(t);</span>
             }
-<span class="nc" id="L230">            getContext().getMessages().add(new SimpleMessage(m));</span>
+<span class="nc" id="L231">            getContext().getMessages().add(new SimpleMessage(m));</span>
         } finally {
-<span class="nc bnc" id="L232" title="All 2 branches missed.">            if (brmo!=null) {</span>
-<span class="nc" id="L233">                brmo.closeBrmoFramework();</span>
+<span class="nc bnc" id="L233" title="All 2 branches missed.">            if (brmo!=null) {</span>
+<span class="nc" id="L234">                brmo.closeBrmoFramework();</span>
             }
-<span class="nc" id="L235">            complete = true;</span>
+<span class="nc" id="L236">            complete = true;</span>
         }
-<span class="nc" id="L237">        return new ForwardResolution(JSP_PROGRESS);</span>
+<span class="nc" id="L238">        return new ForwardResolution(JSP_PROGRESS);</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

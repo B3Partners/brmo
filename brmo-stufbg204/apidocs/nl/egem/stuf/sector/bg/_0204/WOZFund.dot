@@ -9,36 +9,8 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// nl.egem.stuf.sector.bg._0204.WOZKennisgeving
-	c244492 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZKennisgeving" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WOZKennisgeving.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> WOZKennisgeving </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # wozadrhfd : JAXBElement&lt;ADRRelFund&gt; </td></tr>
-<tr><td align="left" balign="left"> # wozadrnvn : List&lt;ADRRelKerngegevens&gt; </td></tr>
-<tr><td align="left" balign="left"> # wozkdo : List&lt;WOZKennisgeving.WOZKDO&gt; </td></tr>
-<tr><td align="left" balign="left"> # wozobw : List&lt;WOZKennisgeving.WOZOBW&gt; </td></tr>
-<tr><td align="left" balign="left"> # wozsubeig : JAXBElement&lt;WOZKennisgeving.WOZSUBEIG&gt; </td></tr>
-<tr><td align="left" balign="left"> # wozsubgbr : JAXBElement&lt;WOZKennisgeving.WOZSUBGBR&gt; </td></tr>
-<tr><td align="left" balign="left"> # wozvbo : List&lt;WOZKennisgeving.WOZVBO&gt; </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + WOZKennisgeving() </td></tr>
-<tr><td align="left" balign="left"> + getWOZADRHFD() : JAXBElement&lt;ADRRelFund&gt; </td></tr>
-<tr><td align="left" balign="left"> + setWOZADRHFD(value : JAXBElement&lt;ADRRelFund&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getWOZADRNVN() : List&lt;ADRRelKerngegevens&gt; </td></tr>
-<tr><td align="left" balign="left"> + getWOZKDO() : List&lt;WOZKennisgeving.WOZKDO&gt; </td></tr>
-<tr><td align="left" balign="left"> + getWOZOBW() : List&lt;WOZKennisgeving.WOZOBW&gt; </td></tr>
-<tr><td align="left" balign="left"> + getWOZSUBEIG() : JAXBElement&lt;WOZKennisgeving.WOZSUBEIG&gt; </td></tr>
-<tr><td align="left" balign="left"> + setWOZSUBEIG(value : JAXBElement&lt;WOZKennisgeving.WOZSUBEIG&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getWOZSUBGBR() : JAXBElement&lt;WOZKennisgeving.WOZSUBGBR&gt; </td></tr>
-<tr><td align="left" balign="left"> + setWOZSUBGBR(value : JAXBElement&lt;WOZKennisgeving.WOZSUBGBR&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getWOZVBO() : List&lt;WOZKennisgeving.WOZVBO&gt; </td></tr>
-		</table></td></tr>
-		</table>>, URL="./WOZKennisgeving.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.WOZFund
-	c244567 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./WOZFund.html">
+	c244459 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./WOZFund.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> WOZFund </td></tr>
 		</table></td></tr>
@@ -96,7 +68,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./WOZFund.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.WOZAntwoord
-	c244578 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZAntwoord" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WOZAntwoord.html">
+	c244583 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZAntwoord" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WOZAntwoord.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> WOZAntwoord </td></tr>
 		</table></td></tr>
@@ -122,8 +94,36 @@ digraph G {
 <tr><td align="left" balign="left"> + getWOZVBO() : List&lt;WOZAntwoord.WOZVBO&gt; </td></tr>
 		</table></td></tr>
 		</table>>, URL="./WOZAntwoord.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.WOZKennisgeving
+	c244662 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZKennisgeving" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WOZKennisgeving.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> WOZKennisgeving </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # wozadrhfd : JAXBElement&lt;ADRRelFund&gt; </td></tr>
+<tr><td align="left" balign="left"> # wozadrnvn : List&lt;ADRRelKerngegevens&gt; </td></tr>
+<tr><td align="left" balign="left"> # wozkdo : List&lt;WOZKennisgeving.WOZKDO&gt; </td></tr>
+<tr><td align="left" balign="left"> # wozobw : List&lt;WOZKennisgeving.WOZOBW&gt; </td></tr>
+<tr><td align="left" balign="left"> # wozsubeig : JAXBElement&lt;WOZKennisgeving.WOZSUBEIG&gt; </td></tr>
+<tr><td align="left" balign="left"> # wozsubgbr : JAXBElement&lt;WOZKennisgeving.WOZSUBGBR&gt; </td></tr>
+<tr><td align="left" balign="left"> # wozvbo : List&lt;WOZKennisgeving.WOZVBO&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + WOZKennisgeving() </td></tr>
+<tr><td align="left" balign="left"> + getWOZADRHFD() : JAXBElement&lt;ADRRelFund&gt; </td></tr>
+<tr><td align="left" balign="left"> + setWOZADRHFD(value : JAXBElement&lt;ADRRelFund&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getWOZADRNVN() : List&lt;ADRRelKerngegevens&gt; </td></tr>
+<tr><td align="left" balign="left"> + getWOZKDO() : List&lt;WOZKennisgeving.WOZKDO&gt; </td></tr>
+<tr><td align="left" balign="left"> + getWOZOBW() : List&lt;WOZKennisgeving.WOZOBW&gt; </td></tr>
+<tr><td align="left" balign="left"> + getWOZSUBEIG() : JAXBElement&lt;WOZKennisgeving.WOZSUBEIG&gt; </td></tr>
+<tr><td align="left" balign="left"> + setWOZSUBEIG(value : JAXBElement&lt;WOZKennisgeving.WOZSUBEIG&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getWOZSUBGBR() : JAXBElement&lt;WOZKennisgeving.WOZSUBGBR&gt; </td></tr>
+<tr><td align="left" balign="left"> + setWOZSUBGBR(value : JAXBElement&lt;WOZKennisgeving.WOZSUBGBR&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getWOZVBO() : List&lt;WOZKennisgeving.WOZVBO&gt; </td></tr>
+		</table></td></tr>
+		</table>>, URL="./WOZKennisgeving.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.WOZVraag
-	c244641 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZVraag" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WOZVraag.html">
+	c244842 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZVraag" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WOZVraag.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> WOZVraag </td></tr>
 		</table></td></tr>
@@ -154,24 +154,8 @@ digraph G {
 <tr><td align="left" balign="left"> + setWOZVBO(value : JAXBElement&lt;WOZVraag.WOZVBO&gt;) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./WOZVraag.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.stuf0204.NoValue
-	c244890 [label=<<table title="nl.egem.stuf.stuf0204.NoValue" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/NoValue.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
-<tr><td align="center" balign="center"> NoValue </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> NIET_ONDERSTEUND </td></tr>
-<tr><td align="left" balign="left"> NIET_GEAUTORISEERD </td></tr>
-<tr><td align="left" balign="left"> GEEN_WAARDE </td></tr>
-<tr><td align="left" balign="left"> WAARDE_ONBEKEND </td></tr>
-		</table></td></tr>
-		</table>>, URL="../../../stuf0204/NoValue.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.stuf0204.Verwerkingssoort
-	c244893 [label=<<table title="nl.egem.stuf.stuf0204.Verwerkingssoort" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/Verwerkingssoort.html">
+	c244901 [label=<<table title="nl.egem.stuf.stuf0204.Verwerkingssoort" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/Verwerkingssoort.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> Verwerkingssoort </td></tr>
@@ -189,8 +173,21 @@ digraph G {
 <tr><td align="left" balign="left"> S </td></tr>
 		</table></td></tr>
 		</table>>, URL="../../../stuf0204/Verwerkingssoort.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.stuf0204.ExtraElementen
+	c244904 [label=<<table title="nl.egem.stuf.stuf0204.ExtraElementen" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/ExtraElementen.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> ExtraElementen </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # extraElement : List&lt;ExtraElement&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + ExtraElementen() </td></tr>
+<tr><td align="left" balign="left"> + getExtraElement() : List&lt;ExtraElement&gt; </td></tr>
+		</table></td></tr>
+		</table>>, URL="../../../stuf0204/ExtraElementen.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.stuf0204.TijdvakGeldigheid
-	c244894 [label=<<table title="nl.egem.stuf.stuf0204.TijdvakGeldigheid" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/TijdvakGeldigheid.html">
+	c244907 [label=<<table title="nl.egem.stuf.stuf0204.TijdvakGeldigheid" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/TijdvakGeldigheid.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> TijdvakGeldigheid </td></tr>
 		</table></td></tr>
@@ -206,32 +203,35 @@ digraph G {
 <tr><td align="left" balign="left"> + setEinddatumTijdvakGeldigheid(value : DatumMetIndicator) </td></tr>
 		</table></td></tr>
 		</table>>, URL="../../../stuf0204/TijdvakGeldigheid.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.stuf0204.ExtraElementen
-	c244905 [label=<<table title="nl.egem.stuf.stuf0204.ExtraElementen" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/ExtraElementen.html">
+	// nl.egem.stuf.stuf0204.NoValue
+	c244911 [label=<<table title="nl.egem.stuf.stuf0204.NoValue" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/NoValue.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> ExtraElementen </td></tr>
+<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
+<tr><td align="center" balign="center"> NoValue </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # extraElement : List&lt;ExtraElement&gt; </td></tr>
+<tr><td align="left" balign="left">  </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + ExtraElementen() </td></tr>
-<tr><td align="left" balign="left"> + getExtraElement() : List&lt;ExtraElement&gt; </td></tr>
+<tr><td align="left" balign="left"> NIET_ONDERSTEUND </td></tr>
+<tr><td align="left" balign="left"> NIET_GEAUTORISEERD </td></tr>
+<tr><td align="left" balign="left"> GEEN_WAARDE </td></tr>
+<tr><td align="left" balign="left"> WAARDE_ONBEKEND </td></tr>
 		</table></td></tr>
-		</table>>, URL="../../../stuf0204/ExtraElementen.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	//nl.egem.stuf.sector.bg._0204.WOZKennisgeving extends nl.egem.stuf.sector.bg._0204.WOZFund
-	c244567:p -> c244492:p [dir=back,arrowtail=empty];
+		</table>>, URL="../../../stuf0204/NoValue.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.WOZAntwoord extends nl.egem.stuf.sector.bg._0204.WOZFund
-	c244567:p -> c244578:p [dir=back,arrowtail=empty];
+	c244459:p -> c244583:p [dir=back,arrowtail=empty];
+	//nl.egem.stuf.sector.bg._0204.WOZKennisgeving extends nl.egem.stuf.sector.bg._0204.WOZFund
+	c244459:p -> c244662:p [dir=back,arrowtail=empty];
 	//nl.egem.stuf.sector.bg._0204.WOZVraag extends nl.egem.stuf.sector.bg._0204.WOZFund
-	c244567:p -> c244641:p [dir=back,arrowtail=empty];
+	c244459:p -> c244842:p [dir=back,arrowtail=empty];
 	// nl.egem.stuf.sector.bg._0204.WOZFund NAVASSOC nl.egem.stuf.stuf0204.TijdvakGeldigheid
-	c244567:p -> c244894:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c244459:p -> c244907:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.egem.stuf.sector.bg._0204.WOZFund NAVASSOC nl.egem.stuf.stuf0204.ExtraElementen
-	c244567:p -> c244905:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c244459:p -> c244904:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.egem.stuf.sector.bg._0204.WOZFund NAVASSOC nl.egem.stuf.stuf0204.Verwerkingssoort
-	c244567:p -> c244893:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c244459:p -> c244901:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.egem.stuf.sector.bg._0204.WOZFund NAVASSOC nl.egem.stuf.stuf0204.NoValue
-	c244567:p -> c244890:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c244459:p -> c244911:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

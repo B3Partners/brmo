@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.stuf0204.Stuurgegevens.Kennisgeving
-	c107773 [label=<<table title="nl.egem.stuf.stuf0204.Stuurgegevens.Kennisgeving" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Stuurgegevens.Kennisgeving.html">
+	c107769 [label=<<table title="nl.egem.stuf.stuf0204.Stuurgegevens.Kennisgeving" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Stuurgegevens.Kennisgeving.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Kennisgeving </td></tr>
 		</table></td></tr>
@@ -30,7 +30,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./Stuurgegevens.Kennisgeving.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.stuf0204.Mutatiesoort
-	c107777 [label=<<table title="nl.egem.stuf.stuf0204.Mutatiesoort" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Mutatiesoort.html">
+	c107773 [label=<<table title="nl.egem.stuf.stuf0204.Mutatiesoort" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Mutatiesoort.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> Mutatiesoort </td></tr>
@@ -46,6 +46,6 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./Mutatiesoort.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.stuf0204.Stuurgegevens.Kennisgeving NAVASSOC nl.egem.stuf.stuf0204.Mutatiesoort
-	c107773:p -> c107777:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c107769:p -> c107773:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

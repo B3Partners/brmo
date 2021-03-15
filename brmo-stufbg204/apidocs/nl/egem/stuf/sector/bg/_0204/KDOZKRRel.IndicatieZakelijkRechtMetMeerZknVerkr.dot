@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.IndicatieZakelijkRechtMetMeerZknVerkr
-	c95742 [label=<<table title="nl.egem.stuf.sector.bg._0204.IndicatieZakelijkRechtMetMeerZknVerkr" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./IndicatieZakelijkRechtMetMeerZknVerkr.html">
+	c95678 [label=<<table title="nl.egem.stuf.sector.bg._0204.IndicatieZakelijkRechtMetMeerZknVerkr" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./IndicatieZakelijkRechtMetMeerZknVerkr.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> IndicatieZakelijkRechtMetMeerZknVerkr </td></tr>
@@ -24,7 +24,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./IndicatieZakelijkRechtMetMeerZknVerkr.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.KDOZKRRel.IndicatieZakelijkRechtMetMeerZknVerkr
-	c96115 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOZKRRel.IndicatieZakelijkRechtMetMeerZknVerkr" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./KDOZKRRel.IndicatieZakelijkRechtMetMeerZknVerkr.html">
+	c95835 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOZKRRel.IndicatieZakelijkRechtMetMeerZknVerkr" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./KDOZKRRel.IndicatieZakelijkRechtMetMeerZknVerkr.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> IndicatieZakelijkRechtMetMeerZknVerkr </td></tr>
 		</table></td></tr>
@@ -44,7 +44,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./KDOZKRRel.IndicatieZakelijkRechtMetMeerZknVerkr.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.stuf0204.NoValue
-	c96126 [label=<<table title="nl.egem.stuf.stuf0204.NoValue" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/NoValue.html">
+	c96147 [label=<<table title="nl.egem.stuf.stuf0204.NoValue" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/NoValue.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> NoValue </td></tr>
@@ -60,8 +60,8 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="../../../stuf0204/NoValue.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.KDOZKRRel.IndicatieZakelijkRechtMetMeerZknVerkr NAVASSOC nl.egem.stuf.sector.bg._0204.IndicatieZakelijkRechtMetMeerZknVerkr
-	c96115:p -> c95742:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c95835:p -> c95678:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.egem.stuf.sector.bg._0204.KDOZKRRel.IndicatieZakelijkRechtMetMeerZknVerkr NAVASSOC nl.egem.stuf.stuf0204.NoValue
-	c96115:p -> c96126:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c95835:p -> c96147:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

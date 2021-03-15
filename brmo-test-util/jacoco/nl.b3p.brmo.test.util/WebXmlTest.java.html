@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>WebXmlTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO test-util</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.test.util</a> &gt; <span class="el_source">WebXmlTest.java</span></div><h1>WebXmlTest.java</h1><pre class="source lang-java linenums">package nl.b3p.brmo.test.util;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.xmlunit.validation.JAXPValidator;
+import org.xmlunit.validation.ValidationProblem;
+import org.xmlunit.validation.ValidationResult;
+
+import javax.xml.transform.stream.StreamSource;
+import java.io.File;
+import java.net.URISyntaxException;
+
+import static javax.xml.XMLConstants.W3C_XML_SCHEMA_NS_URI;
+
+public final class WebXmlTest {
+
+<span class="fc" id="L17">    private static final Log LOG = LogFactory.getLog(WebXmlTest.class);</span>
+    private static final String WEB_XML_SCHEMA = &quot;/webxml-schema/&quot;;
+
+    private WebXmlTest() {
+    }
+
+    /**
+     * test of {@code web.xml} geldig is als Java EE 6 (Tomcat 7) config.
+     *
+     * @param webxml de te valideren {@code web.xml}
+     * @return {@code true} als geldig, anders {@code false}; logging toont problemen
+     * @throws URISyntaxException when one of the embedded schemafile URLs cannot be converted to a URI
+     */
+    public static boolean testWebXmlIsValidSchemaJavaEE6(File webxml) throws URISyntaxException {
+<span class="fc" id="L31">        JAXPValidator validator = new JAXPValidator(W3C_XML_SCHEMA_NS_URI);</span>
+<span class="fc" id="L32">        validator.setSchemaSources(</span>
+<span class="fc" id="L33">                new StreamSource(WebXmlTest.class.getResourceAsStream(WEB_XML_SCHEMA + &quot;JavaEE6/web-app_3_0.xsd&quot;),</span>
+<span class="fc" id="L34">                        WebXmlTest.class.getResource(WEB_XML_SCHEMA + &quot;JavaEE6/web-app_3_0.xsd&quot;).toURI().toString()),</span>
+                new StreamSource(
+<span class="fc" id="L36">                        WebXmlTest.class.getResourceAsStream(WEB_XML_SCHEMA + &quot;JavaEE6/web-common_3_0.xsd&quot;),</span>
+<span class="fc" id="L37">                        WebXmlTest.class.getResource(</span>
+<span class="fc" id="L38">                                WEB_XML_SCHEMA + &quot;JavaEE6/web-common_3_0.xsd&quot;).toURI().toString()),</span>
+<span class="fc" id="L39">                new StreamSource(WebXmlTest.class.getResourceAsStream(WEB_XML_SCHEMA + &quot;JavaEE6/javaee_6.xsd&quot;),</span>
+<span class="fc" id="L40">                        WebXmlTest.class.getResource(WEB_XML_SCHEMA + &quot;JavaEE6/javaee_6.xsd&quot;).toURI().toString()),</span>
+<span class="fc" id="L41">                new StreamSource(WebXmlTest.class.getResourceAsStream(</span>
+                        WEB_XML_SCHEMA + &quot;JavaEE6/javaee_web_services_client_1_3.xsd&quot;),
+<span class="fc" id="L43">                        WebXmlTest.class.getResource(</span>
+<span class="fc" id="L44">                                WEB_XML_SCHEMA + &quot;JavaEE6/javaee_web_services_client_1_3.xsd&quot;).toURI().toString()),</span>
+<span class="fc" id="L45">                new StreamSource(WebXmlTest.class.getResourceAsStream(WEB_XML_SCHEMA + &quot;JavaEE6/jsp_2_2.xsd&quot;),</span>
+<span class="fc" id="L46">                        WebXmlTest.class.getResource(WEB_XML_SCHEMA + &quot;JavaEE6/jsp_2_2.xsd&quot;).toURI().toString()),</span>
+<span class="fc" id="L47">                new StreamSource(WebXmlTest.class.getResourceAsStream(WEB_XML_SCHEMA + &quot;xml.xsd&quot;))</span>
+        );
+<span class="fc" id="L49">        return validate(validator, webxml);</span>
+    }
+
+    /**
+     * test of {@code web.xml} geldig is als Java EE 7 (Tomcat 8) config.
+     *
+     * @param webxml de te valideren {@code web.xml}
+     * @return {@code true} als geldig, anders {@code false}; logging toont problemen
+     * @throws URISyntaxException when one of the embedded schemafile URLs cannot be converted to a URI
+     */
+    public static boolean testWebXmlIsValidSchemaJavaEE7(File webxml) throws URISyntaxException {
+<span class="fc" id="L60">        JAXPValidator validator = new JAXPValidator(W3C_XML_SCHEMA_NS_URI);</span>
+<span class="fc" id="L61">        validator.setSchemaSources(</span>
+<span class="fc" id="L62">                new StreamSource(WebXmlTest.class.getResourceAsStream(WEB_XML_SCHEMA + &quot;JavaEE7/web-app_3_1.xsd&quot;),</span>
+<span class="fc" id="L63">                        WebXmlTest.class.getResource(WEB_XML_SCHEMA + &quot;JavaEE7/web-app_3_1.xsd&quot;).toURI().toString()),</span>
+                new StreamSource(
+<span class="fc" id="L65">                        WebXmlTest.class.getResourceAsStream(WEB_XML_SCHEMA + &quot;JavaEE7/web-common_3_1.xsd&quot;),</span>
+<span class="fc" id="L66">                        WebXmlTest.class.getResource(</span>
+<span class="fc" id="L67">                                WEB_XML_SCHEMA + &quot;JavaEE7/web-common_3_1.xsd&quot;).toURI().toString()),</span>
+<span class="fc" id="L68">                new StreamSource(WebXmlTest.class.getResourceAsStream(WEB_XML_SCHEMA + &quot;JavaEE7/javaee_7.xsd&quot;),</span>
+<span class="fc" id="L69">                        WebXmlTest.class.getResource(WEB_XML_SCHEMA + &quot;JavaEE7/javaee_7.xsd&quot;).toURI().toString()),</span>
+<span class="fc" id="L70">                new StreamSource(WebXmlTest.class.getResourceAsStream(</span>
+                        WEB_XML_SCHEMA + &quot;JavaEE7/javaee_web_services_client_1_4.xsd&quot;),
+<span class="fc" id="L72">                        WebXmlTest.class.getResource(</span>
+<span class="fc" id="L73">                                WEB_XML_SCHEMA + &quot;JavaEE7/javaee_web_services_client_1_4.xsd&quot;).toURI().toString()),</span>
+<span class="fc" id="L74">                new StreamSource(WebXmlTest.class.getResourceAsStream(WEB_XML_SCHEMA + &quot;JavaEE7/jsp_2_3.xsd&quot;),</span>
+<span class="fc" id="L75">                        WebXmlTest.class.getResource(WEB_XML_SCHEMA + &quot;JavaEE7/jsp_2_3.xsd&quot;).toURI().toString()),</span>
+<span class="fc" id="L76">                new StreamSource(WebXmlTest.class.getResourceAsStream(WEB_XML_SCHEMA + &quot;xml.xsd&quot;))</span>
+        );
+<span class="fc" id="L78">        return validate(validator, webxml);</span>
+    }
+
+    /**
+     * test of {@code web.xml} geldig is als Java EE 8 (Tomcat 9) config.
+     *
+     * @param webxml de te valideren {@code web.xml}
+     * @return {@code true} als geldig, anders {@code false}; logging toont problemen
+     * @throws URISyntaxException when one of the embedded schemafile URLs cannot be converted to a URI
+     */
+    public static boolean testWebXmlIsValidSchemaJavaEE8(File webxml) throws URISyntaxException {
+<span class="fc" id="L89">        JAXPValidator validator = new JAXPValidator(W3C_XML_SCHEMA_NS_URI);</span>
+<span class="fc" id="L90">        validator.setSchemaSources(</span>
+<span class="fc" id="L91">                new StreamSource(WebXmlTest.class.getResourceAsStream(WEB_XML_SCHEMA + &quot;JavaEE8/web-app_4_0.xsd&quot;),</span>
+<span class="fc" id="L92">                        WebXmlTest.class.getResource(WEB_XML_SCHEMA + &quot;JavaEE8/web-app_4_0.xsd&quot;).toURI().toString()),</span>
+<span class="fc" id="L93">                new StreamSource(WebXmlTest.class.getResourceAsStream(WEB_XML_SCHEMA + &quot;JavaEE8/web-common_4_0.xsd&quot;),</span>
+<span class="fc" id="L94">                        WebXmlTest.class.getResource(WEB_XML_SCHEMA + &quot;JavaEE8/web-common_4_0.xsd&quot;).toURI().toString()),</span>
+<span class="fc" id="L95">                new StreamSource(WebXmlTest.class.getResourceAsStream(WEB_XML_SCHEMA + &quot;JavaEE8/javaee_8.xsd&quot;),</span>
+<span class="fc" id="L96">                        WebXmlTest.class.getResource(WEB_XML_SCHEMA + &quot;JavaEE8/javaee_8.xsd&quot;).toURI().toString()),</span>
+<span class="fc" id="L97">                new StreamSource(WebXmlTest.class.getResourceAsStream(</span>
+                        WEB_XML_SCHEMA + &quot;JavaEE8/javaee_web_services_client_1_4.xsd&quot;),
+<span class="fc" id="L99">                        WebXmlTest.class.getResource(</span>
+<span class="fc" id="L100">                                WEB_XML_SCHEMA + &quot;JavaEE8/javaee_web_services_client_1_4.xsd&quot;).toURI().toString()),</span>
+<span class="fc" id="L101">                new StreamSource(WebXmlTest.class.getResourceAsStream(WEB_XML_SCHEMA + &quot;JavaEE8/jsp_2_3.xsd&quot;),</span>
+<span class="fc" id="L102">                        WebXmlTest.class.getResource(WEB_XML_SCHEMA + &quot;JavaEE8/jsp_2_3.xsd&quot;).toURI().toString()),</span>
+<span class="fc" id="L103">                new StreamSource(WebXmlTest.class.getResourceAsStream(WEB_XML_SCHEMA + &quot;xml.xsd&quot;))</span>
+        );
+
+<span class="fc" id="L106">        return validate(validator, webxml);</span>
+    }
+
+    private static boolean validate(JAXPValidator validator, File webxml) {
+<span class="fc" id="L110">        ValidationResult result = validator.validateInstance(new StreamSource(webxml));</span>
+<span class="fc bfc" id="L111" title="All 2 branches covered.">        if (!result.isValid()) {</span>
+<span class="fc bfc" id="L112" title="All 2 branches covered.">            for (ValidationProblem problem : result.getProblems()) {</span>
+<span class="fc" id="L113">                LOG.error(problem.toString());</span>
+<span class="fc" id="L114">            }</span>
+        }
+<span class="fc" id="L116">        return result.isValid();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

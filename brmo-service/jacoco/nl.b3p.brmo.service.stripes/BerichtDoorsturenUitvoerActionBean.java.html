@@ -84,146 +84,143 @@ import org.stripesstuff.stripersist.Stripersist;
     @Override
     public void exception(Throwable t) {
 <span class="nc" id="L86">        StringWriter sw = new StringWriter();</span>
-<span class="nc" id="L87">        PrintWriter pw = new PrintWriter(sw);</span>
-<span class="nc" id="L88">        t.printStackTrace(new PrintWriter(sw));</span>
-<span class="nc" id="L89">        this.exceptionStacktrace = sw.toString();</span>
-<span class="nc" id="L90">    }</span>
+<span class="nc" id="L87">        t.printStackTrace(new PrintWriter(sw));</span>
+<span class="nc" id="L88">        this.exceptionStacktrace = sw.toString();</span>
+<span class="nc" id="L89">    }</span>
 
     @Override
     public void updateStatus(String status) {
-<span class="nc" id="L94">        this.status = status;</span>
-<span class="nc" id="L95">    }</span>
+<span class="nc" id="L93">        this.status = status;</span>
+<span class="nc" id="L94">    }</span>
 
     @Override
     public void addLog(String log) {
-<span class="nc" id="L99">        this.proces.addLogLine(log);</span>
-        //aangezien addLogLine een null-op is Stripersist.getEntityManager().merge(this.proces);
-<span class="nc" id="L101">        this.log += log + &quot;\n&quot;;</span>
-<span class="nc" id="L102">    }</span>
+<span class="nc" id="L98">        this.log += log + &quot;\n&quot;;</span>
+<span class="nc" id="L99">    }</span>
 
     @DefaultHandler
     @WaitPage(path = JSP, delay = 1000, refresh = 1000)
     public Resolution execute() {
 
-<span class="nc bnc" id="L108" title="All 2 branches missed.">        if (proces == null) {</span>
-<span class="nc" id="L109">            getContext().getMessages().add(new SimpleMessage(&quot;Proces ongeldig!&quot;));</span>
-<span class="nc" id="L110">            completed();</span>
-<span class="nc" id="L111">            return new ForwardResolution(JSP);</span>
+<span class="nc bnc" id="L105" title="All 2 branches missed.">        if (proces == null) {</span>
+<span class="nc" id="L106">            getContext().getMessages().add(new SimpleMessage(&quot;Proces ongeldig!&quot;));</span>
+<span class="nc" id="L107">            completed();</span>
+<span class="nc" id="L108">            return new ForwardResolution(JSP);</span>
         }
         // opnieuw laden van config omdat de waitpage de entity detached
-<span class="nc" id="L114">        proces = (BerichtDoorstuurProces) Stripersist.getEntityManager().find(AutomatischProces.class, proces.getId());</span>
-<span class="nc" id="L115">        ProcesExecutable exeProces = AbstractExecutableProces.getProces(proces);</span>
+<span class="nc" id="L111">        proces = (BerichtDoorstuurProces) Stripersist.getEntityManager().find(AutomatischProces.class, proces.getId());</span>
+<span class="nc" id="L112">        ProcesExecutable exeProces = AbstractExecutableProces.getProces(proces);</span>
 
         try {
-<span class="nc" id="L118">            exeProces.execute(this);</span>
-<span class="nc" id="L119">            completed();</span>
+<span class="nc" id="L115">            exeProces.execute(this);</span>
+<span class="nc" id="L116">            completed();</span>
         } finally {
-<span class="nc bnc" id="L121" title="All 2 branches missed.">            if (Stripersist.getEntityManager().getTransaction().isActive()) {</span>
-<span class="nc" id="L122">                Stripersist.getEntityManager().getTransaction().rollback();</span>
+<span class="nc bnc" id="L118" title="All 2 branches missed.">            if (Stripersist.getEntityManager().getTransaction().isActive()) {</span>
+<span class="nc" id="L119">                Stripersist.getEntityManager().getTransaction().rollback();</span>
             }
         }
 
-<span class="nc" id="L126">        return new ForwardResolution(JSP);</span>
+<span class="nc" id="L123">        return new ForwardResolution(JSP);</span>
     }
 
     // &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;getters en setters&quot;&gt;
     @Override
     public ActionBeanContext getContext() {
-<span class="nc" id="L132">        return context;</span>
+<span class="nc" id="L129">        return context;</span>
     }
 
     @Override
     public void setContext(ActionBeanContext context) {
-<span class="nc" id="L137">        this.context = context;</span>
-<span class="nc" id="L138">    }</span>
+<span class="nc" id="L134">        this.context = context;</span>
+<span class="nc" id="L135">    }</span>
 
     public String getLog() {
-<span class="nc" id="L141">        return log;</span>
+<span class="nc" id="L138">        return log;</span>
     }
 
     public void setLog(String log) {
-<span class="nc" id="L145">        this.log = log;</span>
-<span class="nc" id="L146">    }</span>
+<span class="nc" id="L142">        this.log = log;</span>
+<span class="nc" id="L143">    }</span>
 
     public long getTotal() {
-<span class="nc" id="L149">        return total;</span>
+<span class="nc" id="L146">        return total;</span>
     }
 
     public void setTotal(long total) {
-<span class="nc" id="L153">        this.total = total;</span>
-<span class="nc" id="L154">    }</span>
+<span class="nc" id="L150">        this.total = total;</span>
+<span class="nc" id="L151">    }</span>
 
     public long getProcessed() {
-<span class="nc" id="L157">        return processed;</span>
+<span class="nc" id="L154">        return processed;</span>
     }
 
     public void setProcessed(long processed) {
-<span class="nc" id="L161">        this.processed = processed;</span>
-<span class="nc" id="L162">    }</span>
+<span class="nc" id="L158">        this.processed = processed;</span>
+<span class="nc" id="L159">    }</span>
 
     public boolean isComplete() {
-<span class="nc" id="L165">        return complete;</span>
+<span class="nc" id="L162">        return complete;</span>
     }
 
     public void setComplete(boolean complete) {
-<span class="nc" id="L169">        this.complete = complete;</span>
-<span class="nc" id="L170">    }</span>
+<span class="nc" id="L166">        this.complete = complete;</span>
+<span class="nc" id="L167">    }</span>
 
     public Date getStart() {
-<span class="nc" id="L173">        return start;</span>
+<span class="nc" id="L170">        return start;</span>
     }
 
     public void setStart(Date start) {
-<span class="nc" id="L177">        this.start = start;</span>
-<span class="nc" id="L178">    }</span>
+<span class="nc" id="L174">        this.start = start;</span>
+<span class="nc" id="L175">    }</span>
 
     public Date getUpdate() {
-<span class="nc" id="L181">        return update;</span>
+<span class="nc" id="L178">        return update;</span>
     }
 
     public void setUpdate(Date update) {
-<span class="nc" id="L185">        this.update = update;</span>
-<span class="nc" id="L186">    }</span>
+<span class="nc" id="L182">        this.update = update;</span>
+<span class="nc" id="L183">    }</span>
 
     public double getProgress() {
-<span class="nc" id="L189">        return progress;</span>
+<span class="nc" id="L186">        return progress;</span>
     }
 
     public void setProgress(double progress) {
-<span class="nc" id="L193">        this.progress = progress;</span>
-<span class="nc" id="L194">    }</span>
+<span class="nc" id="L190">        this.progress = progress;</span>
+<span class="nc" id="L191">    }</span>
 
     public String getExceptionStacktrace() {
-<span class="nc" id="L197">        return exceptionStacktrace;</span>
+<span class="nc" id="L194">        return exceptionStacktrace;</span>
     }
 
     public void setExceptionStacktrace(String exceptionStacktrace) {
-<span class="nc" id="L201">        this.exceptionStacktrace = exceptionStacktrace;</span>
-<span class="nc" id="L202">    }</span>
+<span class="nc" id="L198">        this.exceptionStacktrace = exceptionStacktrace;</span>
+<span class="nc" id="L199">    }</span>
 
     public BerichtDoorstuurProces getProces() {
-<span class="nc" id="L205">        return proces;</span>
+<span class="nc" id="L202">        return proces;</span>
     }
 
     public void setProces(BerichtDoorstuurProces proces) {
-<span class="nc" id="L209">        this.proces = proces;</span>
-<span class="nc" id="L210">    }</span>
+<span class="nc" id="L206">        this.proces = proces;</span>
+<span class="nc" id="L207">    }</span>
 
     public String getStatus() {
-<span class="nc" id="L213">        return status;</span>
+<span class="nc" id="L210">        return status;</span>
     }
 
     public void setStatus(String status) {
-<span class="nc" id="L217">        this.status = status;</span>
-<span class="nc" id="L218">    }</span>
+<span class="nc" id="L214">        this.status = status;</span>
+<span class="nc" id="L215">    }</span>
 
     public String getLabel() {
-<span class="nc" id="L221">        return label;</span>
+<span class="nc" id="L218">        return label;</span>
     }
 
     public void setLabel(String label) {
-<span class="nc" id="L225">        this.label = label;</span>
-<span class="nc" id="L226">    }</span>
+<span class="nc" id="L222">        this.label = label;</span>
+<span class="nc" id="L223">    }</span>
     // &lt;/editor-fold&gt;
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.BSGKerngegevens
-	c47506 [label=<<table title="nl.egem.stuf.sector.bg._0204.BSGKerngegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BSGKerngegevens.html">
+	c47163 [label=<<table title="nl.egem.stuf.sector.bg._0204.BSGKerngegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BSGKerngegevens.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BSGKerngegevens </td></tr>
 		</table></td></tr>
@@ -45,7 +45,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BSGKerngegevens.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.BSGKerngegevens.NaamBestemmingsplan
-	c47507 [label=<<table title="nl.egem.stuf.sector.bg._0204.BSGKerngegevens.NaamBestemmingsplan" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BSGKerngegevens.NaamBestemmingsplan.html">
+	c47164 [label=<<table title="nl.egem.stuf.sector.bg._0204.BSGKerngegevens.NaamBestemmingsplan" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./BSGKerngegevens.NaamBestemmingsplan.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> NaamBestemmingsplan </td></tr>
 		</table></td></tr>
@@ -68,7 +68,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./BSGKerngegevens.NaamBestemmingsplan.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.stuf0204.NoValue
-	c47550 [label=<<table title="nl.egem.stuf.stuf0204.NoValue" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/NoValue.html">
+	c47571 [label=<<table title="nl.egem.stuf.stuf0204.NoValue" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/NoValue.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> NoValue </td></tr>
@@ -84,10 +84,10 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="../../../stuf0204/NoValue.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.BSGKerngegevens NAVASSOC nl.egem.stuf.sector.bg._0204.BSGKerngegevens.NaamBestemmingsplan
-	c47506:p -> c47507:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c47163:p -> c47164:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.egem.stuf.sector.bg._0204.BSGKerngegevens NAVASSOC nl.egem.stuf.stuf0204.NoValue
-	c47506:p -> c47550:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c47163:p -> c47571:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.egem.stuf.sector.bg._0204.BSGKerngegevens.NaamBestemmingsplan NAVASSOC nl.egem.stuf.stuf0204.NoValue
-	c47507:p -> c47550:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c47164:p -> c47571:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

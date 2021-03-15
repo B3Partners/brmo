@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.VBOVraag.VBOVBOOSU
-	c233312 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOVraag.VBOVBOOSU" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./VBOVraag.VBOVBOOSU.html">
+	c233489 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOVraag.VBOVBOOSU" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./VBOVraag.VBOVBOOSU.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> VBOVBOOSU </td></tr>
 		</table></td></tr>
@@ -24,7 +24,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./VBOVraag.VBOVBOOSU.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.VBOVBOOSURel
-	c233457 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOVBOOSURel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VBOVBOOSURel.html">
+	c233670 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOVBOOSURel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VBOVBOOSURel.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> VBOVBOOSURel </td></tr>
 		</table></td></tr>
@@ -65,7 +65,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./VBOVBOOSURel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.VBOKennisgeving
-	c233708 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOKennisgeving" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VBOKennisgeving.html">
+	c233751 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOKennisgeving" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VBOKennisgeving.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> VBOKennisgeving </td></tr>
 		</table></td></tr>
@@ -88,8 +88,8 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./VBOKennisgeving.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.VBOVraag.VBOVBOOSU extends nl.egem.stuf.sector.bg._0204.VBOVBOOSURel
-	c233457:p -> c233312:p [dir=back,arrowtail=empty];
+	c233670:p -> c233489:p [dir=back,arrowtail=empty];
 	// nl.egem.stuf.sector.bg._0204.VBOVraag.VBOVBOOSU NAVASSOC nl.egem.stuf.sector.bg._0204.VBOKennisgeving
-	c233312:p -> c233708:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c233489:p -> c233751:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

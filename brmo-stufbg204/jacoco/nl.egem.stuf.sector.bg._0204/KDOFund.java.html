@@ -21,193 +21,193 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 /**
  * fundamentele entiteit Kadastraal Object
  * 
- * &lt;p&gt;Java class for KDO-fund complex type.
+ * &amp;lt;p&amp;gt;Java class for KDO-fund complex type.
  * 
- * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+ * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
  * 
- * &lt;pre&gt;
- * &amp;lt;complexType name=&quot;KDO-fund&quot;&amp;gt;
- *   &amp;lt;complexContent&amp;gt;
- *     &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
- *       &amp;lt;sequence&amp;gt;
- *         &amp;lt;element name=&quot;kadastraleGemeentecode&quot; minOccurs=&quot;0&quot;&amp;gt;
- *           &amp;lt;complexType&amp;gt;
- *             &amp;lt;simpleContent&amp;gt;
- *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;KadastraleGemeenteCode&quot;&amp;gt;
- *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
- *                 &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
- *                 &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;KDO1&quot; /&amp;gt;
- *               &amp;lt;/extension&amp;gt;
- *             &amp;lt;/simpleContent&amp;gt;
- *           &amp;lt;/complexType&amp;gt;
- *         &amp;lt;/element&amp;gt;
- *         &amp;lt;element name=&quot;kadastraleSectie&quot; minOccurs=&quot;0&quot;&amp;gt;
- *           &amp;lt;complexType&amp;gt;
- *             &amp;lt;simpleContent&amp;gt;
- *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;KadastraleSectie&quot;&amp;gt;
- *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
- *                 &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
- *                 &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;KDO1&quot; /&amp;gt;
- *               &amp;lt;/extension&amp;gt;
- *             &amp;lt;/simpleContent&amp;gt;
- *           &amp;lt;/complexType&amp;gt;
- *         &amp;lt;/element&amp;gt;
- *         &amp;lt;element name=&quot;kadastraalPerceelnummer&quot; minOccurs=&quot;0&quot;&amp;gt;
- *           &amp;lt;complexType&amp;gt;
- *             &amp;lt;simpleContent&amp;gt;
- *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;KadastraalPerceelnummer&quot;&amp;gt;
- *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
- *                 &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
- *                 &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;KDO1&quot; /&amp;gt;
- *               &amp;lt;/extension&amp;gt;
- *             &amp;lt;/simpleContent&amp;gt;
- *           &amp;lt;/complexType&amp;gt;
- *         &amp;lt;/element&amp;gt;
- *         &amp;lt;element name=&quot;kadastraalObjectIndexLetter&quot; minOccurs=&quot;0&quot;&amp;gt;
- *           &amp;lt;complexType&amp;gt;
- *             &amp;lt;simpleContent&amp;gt;
- *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;KadastraalObjectIndexLetter&quot;&amp;gt;
- *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
- *                 &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
- *                 &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;KDO1&quot; /&amp;gt;
- *               &amp;lt;/extension&amp;gt;
- *             &amp;lt;/simpleContent&amp;gt;
- *           &amp;lt;/complexType&amp;gt;
- *         &amp;lt;/element&amp;gt;
- *         &amp;lt;element name=&quot;kadastraalObjectIndexNummer&quot; minOccurs=&quot;0&quot;&amp;gt;
- *           &amp;lt;complexType&amp;gt;
- *             &amp;lt;simpleContent&amp;gt;
- *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;KadastraalObjectIndexNummer&quot;&amp;gt;
- *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
- *                 &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
- *                 &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;KDO1&quot; /&amp;gt;
- *               &amp;lt;/extension&amp;gt;
- *             &amp;lt;/simpleContent&amp;gt;
- *           &amp;lt;/complexType&amp;gt;
- *         &amp;lt;/element&amp;gt;
- *         &amp;lt;element name=&quot;omschrijvingDeelPerceel&quot; minOccurs=&quot;0&quot;&amp;gt;
- *           &amp;lt;complexType&amp;gt;
- *             &amp;lt;simpleContent&amp;gt;
- *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;OmschrijvingDeelPerceel&quot;&amp;gt;
- *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
- *               &amp;lt;/extension&amp;gt;
- *             &amp;lt;/simpleContent&amp;gt;
- *           &amp;lt;/complexType&amp;gt;
- *         &amp;lt;/element&amp;gt;
- *         &amp;lt;element name=&quot;oppervlakteKadastraalObject&quot; minOccurs=&quot;0&quot;&amp;gt;
- *           &amp;lt;complexType&amp;gt;
- *             &amp;lt;simpleContent&amp;gt;
- *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;OppervlakteKadastraalObject&quot;&amp;gt;
- *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
- *                 &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;KDO3&quot; /&amp;gt;
- *               &amp;lt;/extension&amp;gt;
- *             &amp;lt;/simpleContent&amp;gt;
- *           &amp;lt;/complexType&amp;gt;
- *         &amp;lt;/element&amp;gt;
- *         &amp;lt;element name=&quot;indicatieOppervlakteGeschat&quot; minOccurs=&quot;0&quot;&amp;gt;
- *           &amp;lt;complexType&amp;gt;
- *             &amp;lt;simpleContent&amp;gt;
- *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;IndicatieOppervlakteGeschat&quot;&amp;gt;
- *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
- *                 &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;KDO3&quot; /&amp;gt;
- *               &amp;lt;/extension&amp;gt;
- *             &amp;lt;/simpleContent&amp;gt;
- *           &amp;lt;/complexType&amp;gt;
- *         &amp;lt;/element&amp;gt;
- *         &amp;lt;element name=&quot;aanduidingErfdienstbaarheid&quot; minOccurs=&quot;0&quot;&amp;gt;
- *           &amp;lt;complexType&amp;gt;
- *             &amp;lt;simpleContent&amp;gt;
- *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;AanduidingErfdienstbaarheid&quot;&amp;gt;
- *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
- *               &amp;lt;/extension&amp;gt;
- *             &amp;lt;/simpleContent&amp;gt;
- *           &amp;lt;/complexType&amp;gt;
- *         &amp;lt;/element&amp;gt;
- *         &amp;lt;element name=&quot;aanduidingIndicatieMogelijk&quot; minOccurs=&quot;0&quot;&amp;gt;
- *           &amp;lt;complexType&amp;gt;
- *             &amp;lt;simpleContent&amp;gt;
- *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;AanduidingIndicatieMogelijk&quot;&amp;gt;
- *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
- *               &amp;lt;/extension&amp;gt;
- *             &amp;lt;/simpleContent&amp;gt;
- *           &amp;lt;/complexType&amp;gt;
- *         &amp;lt;/element&amp;gt;
- *         &amp;lt;element name=&quot;indicatieVervallen&quot; minOccurs=&quot;0&quot;&amp;gt;
- *           &amp;lt;complexType&amp;gt;
- *             &amp;lt;simpleContent&amp;gt;
- *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;IndicatieVervallen&quot;&amp;gt;
- *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
- *               &amp;lt;/extension&amp;gt;
- *             &amp;lt;/simpleContent&amp;gt;
- *           &amp;lt;/complexType&amp;gt;
- *         &amp;lt;/element&amp;gt;
- *         &amp;lt;element name=&quot;koopjaar&quot; minOccurs=&quot;0&quot;&amp;gt;
- *           &amp;lt;complexType&amp;gt;
- *             &amp;lt;simpleContent&amp;gt;
- *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;Koopjaar&quot;&amp;gt;
- *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
- *               &amp;lt;/extension&amp;gt;
- *             &amp;lt;/simpleContent&amp;gt;
- *           &amp;lt;/complexType&amp;gt;
- *         &amp;lt;/element&amp;gt;
- *         &amp;lt;element name=&quot;koopsom&quot; minOccurs=&quot;0&quot;&amp;gt;
- *           &amp;lt;complexType&amp;gt;
- *             &amp;lt;simpleContent&amp;gt;
- *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;Koopsom&quot;&amp;gt;
- *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
- *               &amp;lt;/extension&amp;gt;
- *             &amp;lt;/simpleContent&amp;gt;
- *           &amp;lt;/complexType&amp;gt;
- *         &amp;lt;/element&amp;gt;
- *         &amp;lt;element name=&quot;koopsomEuro&quot; minOccurs=&quot;0&quot;&amp;gt;
- *           &amp;lt;complexType&amp;gt;
- *             &amp;lt;simpleContent&amp;gt;
- *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;Koopsom&quot;&amp;gt;
- *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
- *               &amp;lt;/extension&amp;gt;
- *             &amp;lt;/simpleContent&amp;gt;
- *           &amp;lt;/complexType&amp;gt;
- *         &amp;lt;/element&amp;gt;
- *         &amp;lt;element name=&quot;centroidXCoordinaat&quot; minOccurs=&quot;0&quot;&amp;gt;
- *           &amp;lt;complexType&amp;gt;
- *             &amp;lt;simpleContent&amp;gt;
- *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;CentroidXofYCoordinaat&quot;&amp;gt;
- *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
- *                 &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;KDO2&quot; /&amp;gt;
- *               &amp;lt;/extension&amp;gt;
- *             &amp;lt;/simpleContent&amp;gt;
- *           &amp;lt;/complexType&amp;gt;
- *         &amp;lt;/element&amp;gt;
- *         &amp;lt;element name=&quot;centroidYCoordinaat&quot; minOccurs=&quot;0&quot;&amp;gt;
- *           &amp;lt;complexType&amp;gt;
- *             &amp;lt;simpleContent&amp;gt;
- *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;CentroidXofYCoordinaat&quot;&amp;gt;
- *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
- *                 &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;KDO2&quot; /&amp;gt;
- *               &amp;lt;/extension&amp;gt;
- *             &amp;lt;/simpleContent&amp;gt;
- *           &amp;lt;/complexType&amp;gt;
- *         &amp;lt;/element&amp;gt;
- *         &amp;lt;element name=&quot;centroidZCoordinaat&quot; minOccurs=&quot;0&quot;&amp;gt;
- *           &amp;lt;complexType&amp;gt;
- *             &amp;lt;simpleContent&amp;gt;
- *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;CentroidZCoordinaat&quot;&amp;gt;
- *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
- *                 &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;KDO2&quot; /&amp;gt;
- *               &amp;lt;/extension&amp;gt;
- *             &amp;lt;/simpleContent&amp;gt;
- *           &amp;lt;/complexType&amp;gt;
- *         &amp;lt;/element&amp;gt;
- *         &amp;lt;element name=&quot;ingangsdatumKadastraalObject&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}DatumMetIndicator&quot; minOccurs=&quot;0&quot;/&amp;gt;
- *         &amp;lt;element name=&quot;einddatumKadastraalObject&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}DatumMetIndicator&quot; minOccurs=&quot;0&quot;/&amp;gt;
- *         &amp;lt;element name=&quot;tijdvakGeldigheid&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}TijdvakGeldigheid&quot; minOccurs=&quot;0&quot;/&amp;gt;
- *         &amp;lt;element name=&quot;extraElementen&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}ExtraElementen&quot; minOccurs=&quot;0&quot;/&amp;gt;
- *       &amp;lt;/sequence&amp;gt;
- *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}fundamenteel&quot;/&amp;gt;
- *     &amp;lt;/restriction&amp;gt;
- *   &amp;lt;/complexContent&amp;gt;
- * &amp;lt;/complexType&amp;gt;
- * &lt;/pre&gt;
+ * &amp;lt;pre&amp;gt;
+ * &amp;amp;lt;complexType name=&quot;KDO-fund&quot;&amp;amp;gt;
+ *   &amp;amp;lt;complexContent&amp;amp;gt;
+ *     &amp;amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;amp;gt;
+ *       &amp;amp;lt;sequence&amp;amp;gt;
+ *         &amp;amp;lt;element name=&quot;kadastraleGemeentecode&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
+ *           &amp;amp;lt;complexType&amp;amp;gt;
+ *             &amp;amp;lt;simpleContent&amp;amp;gt;
+ *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;KadastraleGemeenteCode&quot;&amp;amp;gt;
+ *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
+ *                 &amp;amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;amp;gt;
+ *                 &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;KDO1&quot; /&amp;amp;gt;
+ *               &amp;amp;lt;/extension&amp;amp;gt;
+ *             &amp;amp;lt;/simpleContent&amp;amp;gt;
+ *           &amp;amp;lt;/complexType&amp;amp;gt;
+ *         &amp;amp;lt;/element&amp;amp;gt;
+ *         &amp;amp;lt;element name=&quot;kadastraleSectie&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
+ *           &amp;amp;lt;complexType&amp;amp;gt;
+ *             &amp;amp;lt;simpleContent&amp;amp;gt;
+ *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;KadastraleSectie&quot;&amp;amp;gt;
+ *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
+ *                 &amp;amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;amp;gt;
+ *                 &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;KDO1&quot; /&amp;amp;gt;
+ *               &amp;amp;lt;/extension&amp;amp;gt;
+ *             &amp;amp;lt;/simpleContent&amp;amp;gt;
+ *           &amp;amp;lt;/complexType&amp;amp;gt;
+ *         &amp;amp;lt;/element&amp;amp;gt;
+ *         &amp;amp;lt;element name=&quot;kadastraalPerceelnummer&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
+ *           &amp;amp;lt;complexType&amp;amp;gt;
+ *             &amp;amp;lt;simpleContent&amp;amp;gt;
+ *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;KadastraalPerceelnummer&quot;&amp;amp;gt;
+ *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
+ *                 &amp;amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;amp;gt;
+ *                 &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;KDO1&quot; /&amp;amp;gt;
+ *               &amp;amp;lt;/extension&amp;amp;gt;
+ *             &amp;amp;lt;/simpleContent&amp;amp;gt;
+ *           &amp;amp;lt;/complexType&amp;amp;gt;
+ *         &amp;amp;lt;/element&amp;amp;gt;
+ *         &amp;amp;lt;element name=&quot;kadastraalObjectIndexLetter&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
+ *           &amp;amp;lt;complexType&amp;amp;gt;
+ *             &amp;amp;lt;simpleContent&amp;amp;gt;
+ *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;KadastraalObjectIndexLetter&quot;&amp;amp;gt;
+ *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
+ *                 &amp;amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;amp;gt;
+ *                 &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;KDO1&quot; /&amp;amp;gt;
+ *               &amp;amp;lt;/extension&amp;amp;gt;
+ *             &amp;amp;lt;/simpleContent&amp;amp;gt;
+ *           &amp;amp;lt;/complexType&amp;amp;gt;
+ *         &amp;amp;lt;/element&amp;amp;gt;
+ *         &amp;amp;lt;element name=&quot;kadastraalObjectIndexNummer&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
+ *           &amp;amp;lt;complexType&amp;amp;gt;
+ *             &amp;amp;lt;simpleContent&amp;amp;gt;
+ *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;KadastraalObjectIndexNummer&quot;&amp;amp;gt;
+ *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
+ *                 &amp;amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;amp;gt;
+ *                 &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;KDO1&quot; /&amp;amp;gt;
+ *               &amp;amp;lt;/extension&amp;amp;gt;
+ *             &amp;amp;lt;/simpleContent&amp;amp;gt;
+ *           &amp;amp;lt;/complexType&amp;amp;gt;
+ *         &amp;amp;lt;/element&amp;amp;gt;
+ *         &amp;amp;lt;element name=&quot;omschrijvingDeelPerceel&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
+ *           &amp;amp;lt;complexType&amp;amp;gt;
+ *             &amp;amp;lt;simpleContent&amp;amp;gt;
+ *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;OmschrijvingDeelPerceel&quot;&amp;amp;gt;
+ *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
+ *               &amp;amp;lt;/extension&amp;amp;gt;
+ *             &amp;amp;lt;/simpleContent&amp;amp;gt;
+ *           &amp;amp;lt;/complexType&amp;amp;gt;
+ *         &amp;amp;lt;/element&amp;amp;gt;
+ *         &amp;amp;lt;element name=&quot;oppervlakteKadastraalObject&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
+ *           &amp;amp;lt;complexType&amp;amp;gt;
+ *             &amp;amp;lt;simpleContent&amp;amp;gt;
+ *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;OppervlakteKadastraalObject&quot;&amp;amp;gt;
+ *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
+ *                 &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;KDO3&quot; /&amp;amp;gt;
+ *               &amp;amp;lt;/extension&amp;amp;gt;
+ *             &amp;amp;lt;/simpleContent&amp;amp;gt;
+ *           &amp;amp;lt;/complexType&amp;amp;gt;
+ *         &amp;amp;lt;/element&amp;amp;gt;
+ *         &amp;amp;lt;element name=&quot;indicatieOppervlakteGeschat&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
+ *           &amp;amp;lt;complexType&amp;amp;gt;
+ *             &amp;amp;lt;simpleContent&amp;amp;gt;
+ *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;IndicatieOppervlakteGeschat&quot;&amp;amp;gt;
+ *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
+ *                 &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;KDO3&quot; /&amp;amp;gt;
+ *               &amp;amp;lt;/extension&amp;amp;gt;
+ *             &amp;amp;lt;/simpleContent&amp;amp;gt;
+ *           &amp;amp;lt;/complexType&amp;amp;gt;
+ *         &amp;amp;lt;/element&amp;amp;gt;
+ *         &amp;amp;lt;element name=&quot;aanduidingErfdienstbaarheid&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
+ *           &amp;amp;lt;complexType&amp;amp;gt;
+ *             &amp;amp;lt;simpleContent&amp;amp;gt;
+ *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;AanduidingErfdienstbaarheid&quot;&amp;amp;gt;
+ *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
+ *               &amp;amp;lt;/extension&amp;amp;gt;
+ *             &amp;amp;lt;/simpleContent&amp;amp;gt;
+ *           &amp;amp;lt;/complexType&amp;amp;gt;
+ *         &amp;amp;lt;/element&amp;amp;gt;
+ *         &amp;amp;lt;element name=&quot;aanduidingIndicatieMogelijk&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
+ *           &amp;amp;lt;complexType&amp;amp;gt;
+ *             &amp;amp;lt;simpleContent&amp;amp;gt;
+ *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;AanduidingIndicatieMogelijk&quot;&amp;amp;gt;
+ *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
+ *               &amp;amp;lt;/extension&amp;amp;gt;
+ *             &amp;amp;lt;/simpleContent&amp;amp;gt;
+ *           &amp;amp;lt;/complexType&amp;amp;gt;
+ *         &amp;amp;lt;/element&amp;amp;gt;
+ *         &amp;amp;lt;element name=&quot;indicatieVervallen&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
+ *           &amp;amp;lt;complexType&amp;amp;gt;
+ *             &amp;amp;lt;simpleContent&amp;amp;gt;
+ *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;IndicatieVervallen&quot;&amp;amp;gt;
+ *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
+ *               &amp;amp;lt;/extension&amp;amp;gt;
+ *             &amp;amp;lt;/simpleContent&amp;amp;gt;
+ *           &amp;amp;lt;/complexType&amp;amp;gt;
+ *         &amp;amp;lt;/element&amp;amp;gt;
+ *         &amp;amp;lt;element name=&quot;koopjaar&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
+ *           &amp;amp;lt;complexType&amp;amp;gt;
+ *             &amp;amp;lt;simpleContent&amp;amp;gt;
+ *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;Koopjaar&quot;&amp;amp;gt;
+ *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
+ *               &amp;amp;lt;/extension&amp;amp;gt;
+ *             &amp;amp;lt;/simpleContent&amp;amp;gt;
+ *           &amp;amp;lt;/complexType&amp;amp;gt;
+ *         &amp;amp;lt;/element&amp;amp;gt;
+ *         &amp;amp;lt;element name=&quot;koopsom&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
+ *           &amp;amp;lt;complexType&amp;amp;gt;
+ *             &amp;amp;lt;simpleContent&amp;amp;gt;
+ *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;Koopsom&quot;&amp;amp;gt;
+ *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
+ *               &amp;amp;lt;/extension&amp;amp;gt;
+ *             &amp;amp;lt;/simpleContent&amp;amp;gt;
+ *           &amp;amp;lt;/complexType&amp;amp;gt;
+ *         &amp;amp;lt;/element&amp;amp;gt;
+ *         &amp;amp;lt;element name=&quot;koopsomEuro&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
+ *           &amp;amp;lt;complexType&amp;amp;gt;
+ *             &amp;amp;lt;simpleContent&amp;amp;gt;
+ *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;Koopsom&quot;&amp;amp;gt;
+ *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
+ *               &amp;amp;lt;/extension&amp;amp;gt;
+ *             &amp;amp;lt;/simpleContent&amp;amp;gt;
+ *           &amp;amp;lt;/complexType&amp;amp;gt;
+ *         &amp;amp;lt;/element&amp;amp;gt;
+ *         &amp;amp;lt;element name=&quot;centroidXCoordinaat&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
+ *           &amp;amp;lt;complexType&amp;amp;gt;
+ *             &amp;amp;lt;simpleContent&amp;amp;gt;
+ *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;CentroidXofYCoordinaat&quot;&amp;amp;gt;
+ *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
+ *                 &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;KDO2&quot; /&amp;amp;gt;
+ *               &amp;amp;lt;/extension&amp;amp;gt;
+ *             &amp;amp;lt;/simpleContent&amp;amp;gt;
+ *           &amp;amp;lt;/complexType&amp;amp;gt;
+ *         &amp;amp;lt;/element&amp;amp;gt;
+ *         &amp;amp;lt;element name=&quot;centroidYCoordinaat&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
+ *           &amp;amp;lt;complexType&amp;amp;gt;
+ *             &amp;amp;lt;simpleContent&amp;amp;gt;
+ *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;CentroidXofYCoordinaat&quot;&amp;amp;gt;
+ *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
+ *                 &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;KDO2&quot; /&amp;amp;gt;
+ *               &amp;amp;lt;/extension&amp;amp;gt;
+ *             &amp;amp;lt;/simpleContent&amp;amp;gt;
+ *           &amp;amp;lt;/complexType&amp;amp;gt;
+ *         &amp;amp;lt;/element&amp;amp;gt;
+ *         &amp;amp;lt;element name=&quot;centroidZCoordinaat&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
+ *           &amp;amp;lt;complexType&amp;amp;gt;
+ *             &amp;amp;lt;simpleContent&amp;amp;gt;
+ *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;CentroidZCoordinaat&quot;&amp;amp;gt;
+ *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
+ *                 &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;KDO2&quot; /&amp;amp;gt;
+ *               &amp;amp;lt;/extension&amp;amp;gt;
+ *             &amp;amp;lt;/simpleContent&amp;amp;gt;
+ *           &amp;amp;lt;/complexType&amp;amp;gt;
+ *         &amp;amp;lt;/element&amp;amp;gt;
+ *         &amp;amp;lt;element name=&quot;ingangsdatumKadastraalObject&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}DatumMetIndicator&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
+ *         &amp;amp;lt;element name=&quot;einddatumKadastraalObject&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}DatumMetIndicator&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
+ *         &amp;amp;lt;element name=&quot;tijdvakGeldigheid&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}TijdvakGeldigheid&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
+ *         &amp;amp;lt;element name=&quot;extraElementen&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}ExtraElementen&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
+ *       &amp;amp;lt;/sequence&amp;amp;gt;
+ *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}fundamenteel&quot;/&amp;amp;gt;
+ *     &amp;amp;lt;/restriction&amp;amp;gt;
+ *   &amp;amp;lt;/complexContent&amp;amp;gt;
+ * &amp;amp;lt;/complexType&amp;amp;gt;
+ * &amp;lt;/pre&amp;gt;
  * 
  * 
  */
@@ -949,19 +949,19 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &lt;p&gt;Java class for anonymous complex type.
+     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
      * 
-     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &lt;pre&gt;
-     * &amp;lt;complexType&amp;gt;
-     *   &amp;lt;simpleContent&amp;gt;
-     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;AanduidingErfdienstbaarheid&quot;&amp;gt;
-     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
-     *     &amp;lt;/extension&amp;gt;
-     *   &amp;lt;/simpleContent&amp;gt;
-     * &amp;lt;/complexType&amp;gt;
-     * &lt;/pre&gt;
+     * &amp;lt;pre&amp;gt;
+     * &amp;amp;lt;complexType&amp;amp;gt;
+     *   &amp;amp;lt;simpleContent&amp;amp;gt;
+     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;AanduidingErfdienstbaarheid&quot;&amp;amp;gt;
+     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
+     *     &amp;amp;lt;/extension&amp;amp;gt;
+     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
+     * &amp;amp;lt;/complexType&amp;amp;gt;
+     * &amp;lt;/pre&amp;gt;
      * 
      * 
      */
@@ -1058,19 +1058,19 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &lt;p&gt;Java class for anonymous complex type.
+     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
      * 
-     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &lt;pre&gt;
-     * &amp;lt;complexType&amp;gt;
-     *   &amp;lt;simpleContent&amp;gt;
-     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;AanduidingIndicatieMogelijk&quot;&amp;gt;
-     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
-     *     &amp;lt;/extension&amp;gt;
-     *   &amp;lt;/simpleContent&amp;gt;
-     * &amp;lt;/complexType&amp;gt;
-     * &lt;/pre&gt;
+     * &amp;lt;pre&amp;gt;
+     * &amp;amp;lt;complexType&amp;amp;gt;
+     *   &amp;amp;lt;simpleContent&amp;amp;gt;
+     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;AanduidingIndicatieMogelijk&quot;&amp;amp;gt;
+     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
+     *     &amp;amp;lt;/extension&amp;amp;gt;
+     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
+     * &amp;amp;lt;/complexType&amp;amp;gt;
+     * &amp;lt;/pre&amp;gt;
      * 
      * 
      */
@@ -1167,20 +1167,20 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &lt;p&gt;Java class for anonymous complex type.
+     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
      * 
-     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &lt;pre&gt;
-     * &amp;lt;complexType&amp;gt;
-     *   &amp;lt;simpleContent&amp;gt;
-     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;CentroidXofYCoordinaat&quot;&amp;gt;
-     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
-     *       &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;KDO2&quot; /&amp;gt;
-     *     &amp;lt;/extension&amp;gt;
-     *   &amp;lt;/simpleContent&amp;gt;
-     * &amp;lt;/complexType&amp;gt;
-     * &lt;/pre&gt;
+     * &amp;lt;pre&amp;gt;
+     * &amp;amp;lt;complexType&amp;amp;gt;
+     *   &amp;amp;lt;simpleContent&amp;amp;gt;
+     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;CentroidXofYCoordinaat&quot;&amp;amp;gt;
+     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
+     *       &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;KDO2&quot; /&amp;amp;gt;
+     *     &amp;amp;lt;/extension&amp;amp;gt;
+     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
+     * &amp;amp;lt;/complexType&amp;amp;gt;
+     * &amp;lt;/pre&amp;gt;
      * 
      * 
      */
@@ -1307,20 +1307,20 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &lt;p&gt;Java class for anonymous complex type.
+     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
      * 
-     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &lt;pre&gt;
-     * &amp;lt;complexType&amp;gt;
-     *   &amp;lt;simpleContent&amp;gt;
-     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;CentroidXofYCoordinaat&quot;&amp;gt;
-     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
-     *       &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;KDO2&quot; /&amp;gt;
-     *     &amp;lt;/extension&amp;gt;
-     *   &amp;lt;/simpleContent&amp;gt;
-     * &amp;lt;/complexType&amp;gt;
-     * &lt;/pre&gt;
+     * &amp;lt;pre&amp;gt;
+     * &amp;amp;lt;complexType&amp;amp;gt;
+     *   &amp;amp;lt;simpleContent&amp;amp;gt;
+     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;CentroidXofYCoordinaat&quot;&amp;amp;gt;
+     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
+     *       &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;KDO2&quot; /&amp;amp;gt;
+     *     &amp;amp;lt;/extension&amp;amp;gt;
+     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
+     * &amp;amp;lt;/complexType&amp;amp;gt;
+     * &amp;lt;/pre&amp;gt;
      * 
      * 
      */
@@ -1447,20 +1447,20 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &lt;p&gt;Java class for anonymous complex type.
+     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
      * 
-     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &lt;pre&gt;
-     * &amp;lt;complexType&amp;gt;
-     *   &amp;lt;simpleContent&amp;gt;
-     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;CentroidZCoordinaat&quot;&amp;gt;
-     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
-     *       &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;KDO2&quot; /&amp;gt;
-     *     &amp;lt;/extension&amp;gt;
-     *   &amp;lt;/simpleContent&amp;gt;
-     * &amp;lt;/complexType&amp;gt;
-     * &lt;/pre&gt;
+     * &amp;lt;pre&amp;gt;
+     * &amp;amp;lt;complexType&amp;amp;gt;
+     *   &amp;amp;lt;simpleContent&amp;amp;gt;
+     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;CentroidZCoordinaat&quot;&amp;amp;gt;
+     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
+     *       &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;KDO2&quot; /&amp;amp;gt;
+     *     &amp;amp;lt;/extension&amp;amp;gt;
+     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
+     * &amp;amp;lt;/complexType&amp;amp;gt;
+     * &amp;lt;/pre&amp;gt;
      * 
      * 
      */
@@ -1587,20 +1587,20 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &lt;p&gt;Java class for anonymous complex type.
+     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
      * 
-     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &lt;pre&gt;
-     * &amp;lt;complexType&amp;gt;
-     *   &amp;lt;simpleContent&amp;gt;
-     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;IndicatieOppervlakteGeschat&quot;&amp;gt;
-     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
-     *       &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;KDO3&quot; /&amp;gt;
-     *     &amp;lt;/extension&amp;gt;
-     *   &amp;lt;/simpleContent&amp;gt;
-     * &amp;lt;/complexType&amp;gt;
-     * &lt;/pre&gt;
+     * &amp;lt;pre&amp;gt;
+     * &amp;amp;lt;complexType&amp;amp;gt;
+     *   &amp;amp;lt;simpleContent&amp;amp;gt;
+     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;IndicatieOppervlakteGeschat&quot;&amp;amp;gt;
+     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
+     *       &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;KDO3&quot; /&amp;amp;gt;
+     *     &amp;amp;lt;/extension&amp;amp;gt;
+     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
+     * &amp;amp;lt;/complexType&amp;amp;gt;
+     * &amp;lt;/pre&amp;gt;
      * 
      * 
      */
@@ -1727,19 +1727,19 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &lt;p&gt;Java class for anonymous complex type.
+     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
      * 
-     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &lt;pre&gt;
-     * &amp;lt;complexType&amp;gt;
-     *   &amp;lt;simpleContent&amp;gt;
-     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;IndicatieVervallen&quot;&amp;gt;
-     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
-     *     &amp;lt;/extension&amp;gt;
-     *   &amp;lt;/simpleContent&amp;gt;
-     * &amp;lt;/complexType&amp;gt;
-     * &lt;/pre&gt;
+     * &amp;lt;pre&amp;gt;
+     * &amp;amp;lt;complexType&amp;amp;gt;
+     *   &amp;amp;lt;simpleContent&amp;amp;gt;
+     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;IndicatieVervallen&quot;&amp;amp;gt;
+     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
+     *     &amp;amp;lt;/extension&amp;amp;gt;
+     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
+     * &amp;amp;lt;/complexType&amp;amp;gt;
+     * &amp;lt;/pre&amp;gt;
      * 
      * 
      */
@@ -1836,21 +1836,21 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &lt;p&gt;Java class for anonymous complex type.
+     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
      * 
-     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &lt;pre&gt;
-     * &amp;lt;complexType&amp;gt;
-     *   &amp;lt;simpleContent&amp;gt;
-     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;KadastraalObjectIndexLetter&quot;&amp;gt;
-     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
-     *       &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
-     *       &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;KDO1&quot; /&amp;gt;
-     *     &amp;lt;/extension&amp;gt;
-     *   &amp;lt;/simpleContent&amp;gt;
-     * &amp;lt;/complexType&amp;gt;
-     * &lt;/pre&gt;
+     * &amp;lt;pre&amp;gt;
+     * &amp;amp;lt;complexType&amp;amp;gt;
+     *   &amp;amp;lt;simpleContent&amp;amp;gt;
+     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;KadastraalObjectIndexLetter&quot;&amp;amp;gt;
+     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
+     *       &amp;amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;amp;gt;
+     *       &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;KDO1&quot; /&amp;amp;gt;
+     *     &amp;amp;lt;/extension&amp;amp;gt;
+     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
+     * &amp;amp;lt;/complexType&amp;amp;gt;
+     * &amp;lt;/pre&amp;gt;
      * 
      * 
      */
@@ -2007,21 +2007,21 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &lt;p&gt;Java class for anonymous complex type.
+     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
      * 
-     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &lt;pre&gt;
-     * &amp;lt;complexType&amp;gt;
-     *   &amp;lt;simpleContent&amp;gt;
-     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;KadastraalObjectIndexNummer&quot;&amp;gt;
-     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
-     *       &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
-     *       &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;KDO1&quot; /&amp;gt;
-     *     &amp;lt;/extension&amp;gt;
-     *   &amp;lt;/simpleContent&amp;gt;
-     * &amp;lt;/complexType&amp;gt;
-     * &lt;/pre&gt;
+     * &amp;lt;pre&amp;gt;
+     * &amp;amp;lt;complexType&amp;amp;gt;
+     *   &amp;amp;lt;simpleContent&amp;amp;gt;
+     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;KadastraalObjectIndexNummer&quot;&amp;amp;gt;
+     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
+     *       &amp;amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;amp;gt;
+     *       &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;KDO1&quot; /&amp;amp;gt;
+     *     &amp;amp;lt;/extension&amp;amp;gt;
+     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
+     * &amp;amp;lt;/complexType&amp;amp;gt;
+     * &amp;lt;/pre&amp;gt;
      * 
      * 
      */
@@ -2178,21 +2178,21 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &lt;p&gt;Java class for anonymous complex type.
+     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
      * 
-     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &lt;pre&gt;
-     * &amp;lt;complexType&amp;gt;
-     *   &amp;lt;simpleContent&amp;gt;
-     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;KadastraalPerceelnummer&quot;&amp;gt;
-     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
-     *       &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
-     *       &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;KDO1&quot; /&amp;gt;
-     *     &amp;lt;/extension&amp;gt;
-     *   &amp;lt;/simpleContent&amp;gt;
-     * &amp;lt;/complexType&amp;gt;
-     * &lt;/pre&gt;
+     * &amp;lt;pre&amp;gt;
+     * &amp;amp;lt;complexType&amp;amp;gt;
+     *   &amp;amp;lt;simpleContent&amp;amp;gt;
+     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;KadastraalPerceelnummer&quot;&amp;amp;gt;
+     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
+     *       &amp;amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;amp;gt;
+     *       &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;KDO1&quot; /&amp;amp;gt;
+     *     &amp;amp;lt;/extension&amp;amp;gt;
+     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
+     * &amp;amp;lt;/complexType&amp;amp;gt;
+     * &amp;lt;/pre&amp;gt;
      * 
      * 
      */
@@ -2349,21 +2349,21 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &lt;p&gt;Java class for anonymous complex type.
+     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
      * 
-     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &lt;pre&gt;
-     * &amp;lt;complexType&amp;gt;
-     *   &amp;lt;simpleContent&amp;gt;
-     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;KadastraleGemeenteCode&quot;&amp;gt;
-     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
-     *       &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
-     *       &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;KDO1&quot; /&amp;gt;
-     *     &amp;lt;/extension&amp;gt;
-     *   &amp;lt;/simpleContent&amp;gt;
-     * &amp;lt;/complexType&amp;gt;
-     * &lt;/pre&gt;
+     * &amp;lt;pre&amp;gt;
+     * &amp;amp;lt;complexType&amp;amp;gt;
+     *   &amp;amp;lt;simpleContent&amp;amp;gt;
+     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;KadastraleGemeenteCode&quot;&amp;amp;gt;
+     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
+     *       &amp;amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;amp;gt;
+     *       &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;KDO1&quot; /&amp;amp;gt;
+     *     &amp;amp;lt;/extension&amp;amp;gt;
+     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
+     * &amp;amp;lt;/complexType&amp;amp;gt;
+     * &amp;lt;/pre&amp;gt;
      * 
      * 
      */
@@ -2520,21 +2520,21 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &lt;p&gt;Java class for anonymous complex type.
+     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
      * 
-     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &lt;pre&gt;
-     * &amp;lt;complexType&amp;gt;
-     *   &amp;lt;simpleContent&amp;gt;
-     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;KadastraleSectie&quot;&amp;gt;
-     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
-     *       &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
-     *       &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;KDO1&quot; /&amp;gt;
-     *     &amp;lt;/extension&amp;gt;
-     *   &amp;lt;/simpleContent&amp;gt;
-     * &amp;lt;/complexType&amp;gt;
-     * &lt;/pre&gt;
+     * &amp;lt;pre&amp;gt;
+     * &amp;amp;lt;complexType&amp;amp;gt;
+     *   &amp;amp;lt;simpleContent&amp;amp;gt;
+     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;KadastraleSectie&quot;&amp;amp;gt;
+     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
+     *       &amp;amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;amp;gt;
+     *       &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;KDO1&quot; /&amp;amp;gt;
+     *     &amp;amp;lt;/extension&amp;amp;gt;
+     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
+     * &amp;amp;lt;/complexType&amp;amp;gt;
+     * &amp;lt;/pre&amp;gt;
      * 
      * 
      */
@@ -2691,19 +2691,19 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &lt;p&gt;Java class for anonymous complex type.
+     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
      * 
-     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &lt;pre&gt;
-     * &amp;lt;complexType&amp;gt;
-     *   &amp;lt;simpleContent&amp;gt;
-     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;Koopjaar&quot;&amp;gt;
-     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
-     *     &amp;lt;/extension&amp;gt;
-     *   &amp;lt;/simpleContent&amp;gt;
-     * &amp;lt;/complexType&amp;gt;
-     * &lt;/pre&gt;
+     * &amp;lt;pre&amp;gt;
+     * &amp;amp;lt;complexType&amp;amp;gt;
+     *   &amp;amp;lt;simpleContent&amp;amp;gt;
+     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;Koopjaar&quot;&amp;amp;gt;
+     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
+     *     &amp;amp;lt;/extension&amp;amp;gt;
+     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
+     * &amp;amp;lt;/complexType&amp;amp;gt;
+     * &amp;lt;/pre&amp;gt;
      * 
      * 
      */
@@ -2800,19 +2800,19 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &lt;p&gt;Java class for anonymous complex type.
+     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
      * 
-     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &lt;pre&gt;
-     * &amp;lt;complexType&amp;gt;
-     *   &amp;lt;simpleContent&amp;gt;
-     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;Koopsom&quot;&amp;gt;
-     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
-     *     &amp;lt;/extension&amp;gt;
-     *   &amp;lt;/simpleContent&amp;gt;
-     * &amp;lt;/complexType&amp;gt;
-     * &lt;/pre&gt;
+     * &amp;lt;pre&amp;gt;
+     * &amp;amp;lt;complexType&amp;amp;gt;
+     *   &amp;amp;lt;simpleContent&amp;amp;gt;
+     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;Koopsom&quot;&amp;amp;gt;
+     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
+     *     &amp;amp;lt;/extension&amp;amp;gt;
+     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
+     * &amp;amp;lt;/complexType&amp;amp;gt;
+     * &amp;lt;/pre&amp;gt;
      * 
      * 
      */
@@ -2909,19 +2909,19 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &lt;p&gt;Java class for anonymous complex type.
+     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
      * 
-     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &lt;pre&gt;
-     * &amp;lt;complexType&amp;gt;
-     *   &amp;lt;simpleContent&amp;gt;
-     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;Koopsom&quot;&amp;gt;
-     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
-     *     &amp;lt;/extension&amp;gt;
-     *   &amp;lt;/simpleContent&amp;gt;
-     * &amp;lt;/complexType&amp;gt;
-     * &lt;/pre&gt;
+     * &amp;lt;pre&amp;gt;
+     * &amp;amp;lt;complexType&amp;amp;gt;
+     *   &amp;amp;lt;simpleContent&amp;amp;gt;
+     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;Koopsom&quot;&amp;amp;gt;
+     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
+     *     &amp;amp;lt;/extension&amp;amp;gt;
+     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
+     * &amp;amp;lt;/complexType&amp;amp;gt;
+     * &amp;lt;/pre&amp;gt;
      * 
      * 
      */
@@ -3018,19 +3018,19 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &lt;p&gt;Java class for anonymous complex type.
+     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
      * 
-     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &lt;pre&gt;
-     * &amp;lt;complexType&amp;gt;
-     *   &amp;lt;simpleContent&amp;gt;
-     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;OmschrijvingDeelPerceel&quot;&amp;gt;
-     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
-     *     &amp;lt;/extension&amp;gt;
-     *   &amp;lt;/simpleContent&amp;gt;
-     * &amp;lt;/complexType&amp;gt;
-     * &lt;/pre&gt;
+     * &amp;lt;pre&amp;gt;
+     * &amp;amp;lt;complexType&amp;amp;gt;
+     *   &amp;amp;lt;simpleContent&amp;amp;gt;
+     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;OmschrijvingDeelPerceel&quot;&amp;amp;gt;
+     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
+     *     &amp;amp;lt;/extension&amp;amp;gt;
+     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
+     * &amp;amp;lt;/complexType&amp;amp;gt;
+     * &amp;lt;/pre&amp;gt;
      * 
      * 
      */
@@ -3127,20 +3127,20 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &lt;p&gt;Java class for anonymous complex type.
+     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
      * 
-     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &lt;pre&gt;
-     * &amp;lt;complexType&amp;gt;
-     *   &amp;lt;simpleContent&amp;gt;
-     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;OppervlakteKadastraalObject&quot;&amp;gt;
-     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
-     *       &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;KDO3&quot; /&amp;gt;
-     *     &amp;lt;/extension&amp;gt;
-     *   &amp;lt;/simpleContent&amp;gt;
-     * &amp;lt;/complexType&amp;gt;
-     * &lt;/pre&gt;
+     * &amp;lt;pre&amp;gt;
+     * &amp;amp;lt;complexType&amp;amp;gt;
+     *   &amp;amp;lt;simpleContent&amp;amp;gt;
+     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;OppervlakteKadastraalObject&quot;&amp;amp;gt;
+     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
+     *       &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;KDO3&quot; /&amp;amp;gt;
+     *     &amp;amp;lt;/extension&amp;amp;gt;
+     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
+     * &amp;amp;lt;/complexType&amp;amp;gt;
+     * &amp;lt;/pre&amp;gt;
      * 
      * 
      */
@@ -3266,4 +3266,4 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
     }
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

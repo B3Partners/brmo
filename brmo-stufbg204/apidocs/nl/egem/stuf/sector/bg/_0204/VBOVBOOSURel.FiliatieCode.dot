@@ -9,22 +9,8 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// nl.egem.stuf.sector.bg._0204.FiliatiecodeAdres
-	c230752 [label=<<table title="nl.egem.stuf.sector.bg._0204.FiliatiecodeAdres" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./FiliatiecodeAdres.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
-<tr><td align="center" balign="center"> FiliatiecodeAdres </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> A </td></tr>
-<tr><td align="left" balign="left"> B </td></tr>
-		</table></td></tr>
-		</table>>, URL="./FiliatiecodeAdres.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.VBOVBOOSURel.FiliatieCode
-	c230928 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOVBOOSURel.FiliatieCode" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./VBOVBOOSURel.FiliatieCode.html">
+	c231141 [label=<<table title="nl.egem.stuf.sector.bg._0204.VBOVBOOSURel.FiliatieCode" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./VBOVBOOSURel.FiliatieCode.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> FiliatieCode </td></tr>
 		</table></td></tr>
@@ -43,8 +29,22 @@ digraph G {
 <tr><td align="left" balign="left"> + setExact(value : Boolean) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./VBOVBOOSURel.FiliatieCode.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.FiliatiecodeAdres
+	c231220 [label=<<table title="nl.egem.stuf.sector.bg._0204.FiliatiecodeAdres" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./FiliatiecodeAdres.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
+<tr><td align="center" balign="center"> FiliatiecodeAdres </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> A </td></tr>
+<tr><td align="left" balign="left"> B </td></tr>
+		</table></td></tr>
+		</table>>, URL="./FiliatiecodeAdres.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.stuf0204.NoValue
-	c231228 [label=<<table title="nl.egem.stuf.stuf0204.NoValue" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/NoValue.html">
+	c231249 [label=<<table title="nl.egem.stuf.stuf0204.NoValue" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/NoValue.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> NoValue </td></tr>
@@ -60,8 +60,8 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="../../../stuf0204/NoValue.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.VBOVBOOSURel.FiliatieCode NAVASSOC nl.egem.stuf.sector.bg._0204.FiliatiecodeAdres
-	c230928:p -> c230752:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c231141:p -> c231220:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.egem.stuf.sector.bg._0204.VBOVBOOSURel.FiliatieCode NAVASSOC nl.egem.stuf.stuf0204.NoValue
-	c230928:p -> c231228:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c231141:p -> c231249:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

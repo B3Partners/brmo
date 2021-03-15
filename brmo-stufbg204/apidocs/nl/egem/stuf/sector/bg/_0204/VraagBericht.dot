@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.VraagBericht
-	c239092 [label=<<table title="nl.egem.stuf.sector.bg._0204.VraagBericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./VraagBericht.html">
+	c239106 [label=<<table title="nl.egem.stuf.sector.bg._0204.VraagBericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./VraagBericht.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> VraagBericht </td></tr>
 		</table></td></tr>
@@ -27,7 +27,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./VraagBericht.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.VraagBericht.Body
-	c239093 [label=<<table title="nl.egem.stuf.sector.bg._0204.VraagBericht.Body" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VraagBericht.Body.html">
+	c239107 [label=<<table title="nl.egem.stuf.sector.bg._0204.VraagBericht.Body" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VraagBericht.Body.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Body </td></tr>
 		</table></td></tr>
@@ -110,7 +110,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./VraagBericht.Body.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.stuf0204.Stuurgegevens
-	c239329 [label=<<table title="nl.egem.stuf.stuf0204.Stuurgegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/Stuurgegevens.html">
+	c239325 [label=<<table title="nl.egem.stuf.stuf0204.Stuurgegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../stuf0204/Stuurgegevens.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Stuurgegevens </td></tr>
 		</table></td></tr>
@@ -163,8 +163,8 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="../../../stuf0204/Stuurgegevens.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.VraagBericht NAVASSOC nl.egem.stuf.stuf0204.Stuurgegevens
-	c239092:p -> c239329:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c239106:p -> c239325:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.egem.stuf.sector.bg._0204.VraagBericht NAVASSOC nl.egem.stuf.sector.bg._0204.VraagBericht.Body
-	c239092:p -> c239093:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c239106:p -> c239107:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

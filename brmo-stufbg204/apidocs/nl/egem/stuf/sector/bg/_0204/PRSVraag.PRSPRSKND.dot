@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.PRSVraag.PRSPRSKND
-	c176359 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSVraag.PRSPRSKND" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PRSVraag.PRSPRSKND.html">
+	c176239 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSVraag.PRSPRSKND" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PRSVraag.PRSPRSKND.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PRSPRSKND </td></tr>
 		</table></td></tr>
@@ -23,38 +23,8 @@ digraph G {
 <tr><td align="left" balign="left"> + setPRS(value : PRSKennisgeving) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./PRSVraag.PRSPRSKND.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.PRSKennisgeving
-	c176381 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSKennisgeving" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSKennisgeving.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> PRSKennisgeving </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # prsadrcor : JAXBElement&lt;ADRRelKerngegevens&gt; </td></tr>
-<tr><td align="left" balign="left"> # prsadrins : JAXBElement&lt;ADRRelKerngegevens&gt; </td></tr>
-<tr><td align="left" balign="left"> # prsadrvbl : JAXBElement&lt;PRSADRVBL&gt; </td></tr>
-<tr><td align="left" balign="left"> # prsidb : List&lt;PRSKennisgeving.PRSIDB&gt; </td></tr>
-<tr><td align="left" balign="left"> # prsnat : List&lt;PRSKennisgeving.PRSNAT&gt; </td></tr>
-<tr><td align="left" balign="left"> # prsprshuw : List&lt;PRSKennisgeving.PRSPRSHUW&gt; </td></tr>
-<tr><td align="left" balign="left"> # prsprsknd : List&lt;PRSKennisgeving.PRSPRSKND&gt; </td></tr>
-<tr><td align="left" balign="left"> # prsprsoud : List&lt;PRSKennisgeving.PRSPRSOUD&gt; </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + PRSKennisgeving() </td></tr>
-<tr><td align="left" balign="left"> + getPRSADRCOR() : JAXBElement&lt;ADRRelKerngegevens&gt; </td></tr>
-<tr><td align="left" balign="left"> + setPRSADRCOR(value : JAXBElement&lt;ADRRelKerngegevens&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getPRSADRINS() : JAXBElement&lt;ADRRelKerngegevens&gt; </td></tr>
-<tr><td align="left" balign="left"> + setPRSADRINS(value : JAXBElement&lt;ADRRelKerngegevens&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getPRSADRVBL() : JAXBElement&lt;PRSADRVBL&gt; </td></tr>
-<tr><td align="left" balign="left"> + setPRSADRVBL(value : JAXBElement&lt;PRSADRVBL&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getPRSIDB() : List&lt;PRSKennisgeving.PRSIDB&gt; </td></tr>
-<tr><td align="left" balign="left"> + getPRSNAT() : List&lt;PRSKennisgeving.PRSNAT&gt; </td></tr>
-<tr><td align="left" balign="left"> + getPRSPRSHUW() : List&lt;PRSKennisgeving.PRSPRSHUW&gt; </td></tr>
-<tr><td align="left" balign="left"> + getPRSPRSKND() : List&lt;PRSKennisgeving.PRSPRSKND&gt; </td></tr>
-<tr><td align="left" balign="left"> + getPRSPRSOUD() : List&lt;PRSKennisgeving.PRSPRSOUD&gt; </td></tr>
-		</table></td></tr>
-		</table>>, URL="./PRSKennisgeving.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.PRSPRSKNDRel
-	c176552 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSPRSKNDRel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSPRSKNDRel.html">
+	c176241 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSPRSKNDRel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSPRSKNDRel.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PRSPRSKNDRel </td></tr>
 		</table></td></tr>
@@ -97,9 +67,39 @@ digraph G {
 <tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./PRSPRSKNDRel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.PRSKennisgeving
+	c176369 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSKennisgeving" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSKennisgeving.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> PRSKennisgeving </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # prsadrcor : JAXBElement&lt;ADRRelKerngegevens&gt; </td></tr>
+<tr><td align="left" balign="left"> # prsadrins : JAXBElement&lt;ADRRelKerngegevens&gt; </td></tr>
+<tr><td align="left" balign="left"> # prsadrvbl : JAXBElement&lt;PRSADRVBL&gt; </td></tr>
+<tr><td align="left" balign="left"> # prsidb : List&lt;PRSKennisgeving.PRSIDB&gt; </td></tr>
+<tr><td align="left" balign="left"> # prsnat : List&lt;PRSKennisgeving.PRSNAT&gt; </td></tr>
+<tr><td align="left" balign="left"> # prsprshuw : List&lt;PRSKennisgeving.PRSPRSHUW&gt; </td></tr>
+<tr><td align="left" balign="left"> # prsprsknd : List&lt;PRSKennisgeving.PRSPRSKND&gt; </td></tr>
+<tr><td align="left" balign="left"> # prsprsoud : List&lt;PRSKennisgeving.PRSPRSOUD&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + PRSKennisgeving() </td></tr>
+<tr><td align="left" balign="left"> + getPRSADRCOR() : JAXBElement&lt;ADRRelKerngegevens&gt; </td></tr>
+<tr><td align="left" balign="left"> + setPRSADRCOR(value : JAXBElement&lt;ADRRelKerngegevens&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getPRSADRINS() : JAXBElement&lt;ADRRelKerngegevens&gt; </td></tr>
+<tr><td align="left" balign="left"> + setPRSADRINS(value : JAXBElement&lt;ADRRelKerngegevens&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getPRSADRVBL() : JAXBElement&lt;PRSADRVBL&gt; </td></tr>
+<tr><td align="left" balign="left"> + setPRSADRVBL(value : JAXBElement&lt;PRSADRVBL&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getPRSIDB() : List&lt;PRSKennisgeving.PRSIDB&gt; </td></tr>
+<tr><td align="left" balign="left"> + getPRSNAT() : List&lt;PRSKennisgeving.PRSNAT&gt; </td></tr>
+<tr><td align="left" balign="left"> + getPRSPRSHUW() : List&lt;PRSKennisgeving.PRSPRSHUW&gt; </td></tr>
+<tr><td align="left" balign="left"> + getPRSPRSKND() : List&lt;PRSKennisgeving.PRSPRSKND&gt; </td></tr>
+<tr><td align="left" balign="left"> + getPRSPRSOUD() : List&lt;PRSKennisgeving.PRSPRSOUD&gt; </td></tr>
+		</table></td></tr>
+		</table>>, URL="./PRSKennisgeving.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.PRSVraag.PRSPRSKND extends nl.egem.stuf.sector.bg._0204.PRSPRSKNDRel
-	c176552:p -> c176359:p [dir=back,arrowtail=empty];
+	c176241:p -> c176239:p [dir=back,arrowtail=empty];
 	// nl.egem.stuf.sector.bg._0204.PRSVraag.PRSPRSKND NAVASSOC nl.egem.stuf.sector.bg._0204.PRSKennisgeving
-	c176359:p -> c176381:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c176239:p -> c176369:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

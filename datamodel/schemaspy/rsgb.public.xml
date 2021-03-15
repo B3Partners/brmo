@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<database name="rsgb" schema="public" type="PostgreSQL - 12.2 (Ubuntu 12.2-1.pgdg19.10+1)">
+<database name="rsgb" schema="public" type="PostgreSQL - 12.6 (Debian 12.6-1.pgdg100+1)">
    <tables>
       <table name="aard_recht_verkort" numRows="24" remarks="RSGB referentielijst AARD RECHT VERKORT" schema="public" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="aand" nullable="false" remarks="Referentielijst property AARD RECHT VERKORT.Aanduiding aard recht verkort - Aanduiding aard recht verkort" size="4" type="varchar">
@@ -312,7 +312,7 @@
             <column ascending="true" name="fk_nn_rh_btr_sc_identif"/>
          </index>
       </table>
-      <table name="brmo_metadata" numRows="2" remarks="BRMO systeem metadata en versie gegevens" schema="public" type="TABLE">
+      <table name="brmo_metadata" numRows="1" remarks="BRMO systeem metadata en versie gegevens" schema="public" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="naam" nullable="false" remarks="" size="255" type="varchar"/>
          <column autoUpdated="false" digits="0" id="1" name="waarde" nullable="true" remarks="" size="255" type="varchar"/>
          <primaryKey column="naam" sequenceNumberInPK="1"/>
@@ -373,7 +373,7 @@
             <column ascending="true" name="sc_identif"/>
          </index>
       </table>
-      <table name="buurt" numRows="13305" remarks="RSGB class BUURT" schema="public" type="TABLE">
+      <table name="buurt" numRows="13808" remarks="RSGB class BUURT" schema="public" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="code" nullable="false" remarks="[PK] N8 - Buurtcode" size="8" type="numeric"/>
          <column autoUpdated="false" digits="0" id="1" name="dat_beg_geldh" nullable="true" remarks="" size="19" type="varchar"/>
          <column autoUpdated="false" digits="0" id="2" name="naam" nullable="true" remarks="AN80 - Buurtnaam" size="80" type="varchar"/>
@@ -609,7 +609,7 @@
             <column ascending="true" name="identifcode"/>
          </index>
       </table>
-      <table name="gemeente" numRows="355" remarks="RSGB class GEMEENTE" schema="public" type="TABLE">
+      <table name="gemeente" numRows="352" remarks="RSGB class GEMEENTE" schema="public" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="dat_beg_geldh" nullable="true" remarks="" size="19" type="varchar"/>
          <column autoUpdated="false" digits="0" id="1" name="code" nullable="false" remarks="[PK] N4 - Gemeentecode" size="4" type="numeric">
             <child column="fk_nn_lh_gem_code" foreignKey="fk_gem_gem_nn_lh" implied="false" onDeleteCascade="true" table="gemeente_gemeente"/>
@@ -2086,7 +2086,7 @@
          </column>
          <column autoUpdated="false" digits="0" id="1" name="clazz" nullable="true" remarks="Aanduiding subclass" size="255" type="varchar"/>
          <column autoUpdated="false" digits="0" id="2" name="adres_binnenland" nullable="true" remarks="AN257 - Adres binnenland" size="257" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="3" name="adres_buitenland" nullable="true" remarks="AN149 - Adres buitenland" size="149" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="adres_buitenland" nullable="true" remarks="AN500 - Adres buitenland" size="500" type="varchar"/>
          <column autoUpdated="false" digits="0" id="4" name="emailadres" nullable="true" remarks="AN254 - Emailadres" size="254" type="varchar"/>
          <column autoUpdated="false" digits="0" id="5" name="fax_nummer" nullable="true" remarks="AN20 - Fax-nummer" size="20" type="varchar"/>
          <column autoUpdated="false" digits="0" id="6" name="kvk_nummer" nullable="true" remarks="N8 - KvK-nummer" size="8" type="numeric"/>
@@ -2350,6 +2350,7 @@
          <column autoUpdated="false" digits="0" id="19" name="fk_sa_sbi_activiteit_sbi_code" nullable="true" remarks="[FK] AN6, FK naar sbi_activiteit.sbi_code: &quot;Groepsattribuut referentielijst SBI activiteit&quot;" size="6" type="varchar">
             <parent column="sbi_code" foreignKey="fk_ves_sa_2" implied="false" onDeleteCascade="true" table="sbi_activiteit"/>
          </column>
+         <column autoUpdated="false" digits="0" id="20" name="hoofdvestiging" nullable="true" remarks="indicatie hoofdvestiging (niet-RSGB)" size="3" type="varchar"/>
          <primaryKey column="sc_identif" sequenceNumberInPK="1"/>
          <index name="vestg_pk" unique="true">
             <column ascending="true" name="sc_identif"/>
@@ -2594,7 +2595,7 @@
             <column ascending="true" name="sc_identif"/>
          </index>
       </table>
-      <table name="wijk" numRows="3086" remarks="RSGB class WIJK" schema="public" type="TABLE">
+      <table name="wijk" numRows="3177" remarks="RSGB class WIJK" schema="public" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="dat_beg_geldh" nullable="true" remarks="" size="19" type="varchar"/>
          <column autoUpdated="false" digits="0" id="1" name="code" nullable="false" remarks="[PK] N6 - Wijkcode" size="6" type="numeric"/>
          <column autoUpdated="false" digits="0" id="2" name="datum_einde_geldh" nullable="true" remarks="OnvolledigeDatum - Datum einde geldigheid wijk" size="19" type="varchar"/>

@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.AanduidingErfdienstbaarheid
-	c34122 [label=<<table title="nl.egem.stuf.sector.bg._0204.AanduidingErfdienstbaarheid" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./AanduidingErfdienstbaarheid.html">
+	c34076 [label=<<table title="nl.egem.stuf.sector.bg._0204.AanduidingErfdienstbaarheid" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./AanduidingErfdienstbaarheid.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> AanduidingErfdienstbaarheid </td></tr>
@@ -24,7 +24,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./AanduidingErfdienstbaarheid.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.KDOFund.AanduidingErfdienstbaarheid
-	c34249 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOFund.AanduidingErfdienstbaarheid" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOFund.AanduidingErfdienstbaarheid.html">
+	c34319 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOFund.AanduidingErfdienstbaarheid" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOFund.AanduidingErfdienstbaarheid.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> AanduidingErfdienstbaarheid </td></tr>
 		</table></td></tr>
@@ -44,6 +44,6 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./KDOFund.AanduidingErfdienstbaarheid.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.KDOFund.AanduidingErfdienstbaarheid NAVASSOC nl.egem.stuf.sector.bg._0204.AanduidingErfdienstbaarheid
-	c34249:p -> c34122:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c34319:p -> c34076:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

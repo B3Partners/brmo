@@ -9,49 +9,22 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// nl.egem.stuf.sector.bg._0204.KDOKDOFILRel
-	c86566 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOKDOFILRel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOKDOFILRel.html">
+	// nl.egem.stuf.sector.bg._0204.KDOKennisgeving.KDOKDOFIL
+	c86641 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOKennisgeving.KDOKDOFIL" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./KDOKennisgeving.KDOKDOFIL.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> KDOKDOFILRel </td></tr>
+<tr><td align="center" balign="center"> KDOKDOFIL </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # filiatiecodeKadastraalObject : JAXBElement&lt;KDOKDOFILRel.FiliatiecodeKadastraalObject&gt; </td></tr>
-<tr><td align="left" balign="left"> # tijdvakRelatie : TijdvakRelatie </td></tr>
-<tr><td align="left" balign="left"> # tijdvakGeldigheid : TijdvakGeldigheid </td></tr>
-<tr><td align="left" balign="left"> # extraElementen : ExtraElementen </td></tr>
-<tr><td align="left" balign="left"> # soortEntiteit : String </td></tr>
-<tr><td align="left" balign="left"> # sleutelVerzendend : String </td></tr>
-<tr><td align="left" balign="left"> # sleutelOntvangend : String </td></tr>
-<tr><td align="left" balign="left"> # sleutelGegevensbeheer : String </td></tr>
-<tr><td align="left" balign="left"> # verwerkingssoort : Verwerkingssoort </td></tr>
-<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
+<tr><td align="left" balign="left"> # kdo : KDOKerngegevens </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + KDOKDOFILRel() </td></tr>
-<tr><td align="left" balign="left"> + getFiliatiecodeKadastraalObject() : JAXBElement&lt;KDOKDOFILRel.FiliatiecodeKadastraalObject&gt; </td></tr>
-<tr><td align="left" balign="left"> + setFiliatiecodeKadastraalObject(value : JAXBElement&lt;KDOKDOFILRel.FiliatiecodeKadastraalObject&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getTijdvakRelatie() : TijdvakRelatie </td></tr>
-<tr><td align="left" balign="left"> + setTijdvakRelatie(value : TijdvakRelatie) </td></tr>
-<tr><td align="left" balign="left"> + getTijdvakGeldigheid() : TijdvakGeldigheid </td></tr>
-<tr><td align="left" balign="left"> + setTijdvakGeldigheid(value : TijdvakGeldigheid) </td></tr>
-<tr><td align="left" balign="left"> + getExtraElementen() : ExtraElementen </td></tr>
-<tr><td align="left" balign="left"> + setExtraElementen(value : ExtraElementen) </td></tr>
-<tr><td align="left" balign="left"> + getSoortEntiteit() : String </td></tr>
-<tr><td align="left" balign="left"> + setSoortEntiteit(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getSleutelVerzendend() : String </td></tr>
-<tr><td align="left" balign="left"> + setSleutelVerzendend(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getSleutelOntvangend() : String </td></tr>
-<tr><td align="left" balign="left"> + setSleutelOntvangend(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getSleutelGegevensbeheer() : String </td></tr>
-<tr><td align="left" balign="left"> + setSleutelGegevensbeheer(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getVerwerkingssoort() : Verwerkingssoort </td></tr>
-<tr><td align="left" balign="left"> + setVerwerkingssoort(value : Verwerkingssoort) </td></tr>
-<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
-<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
+<tr><td align="left" balign="left"> + KDOKDOFIL() </td></tr>
+<tr><td align="left" balign="left"> + getKDO() : KDOKerngegevens </td></tr>
+<tr><td align="left" balign="left"> + setKDO(value : KDOKerngegevens) </td></tr>
 		</table></td></tr>
-		</table>>, URL="./KDOKDOFILRel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, URL="./KDOKennisgeving.KDOKDOFIL.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.KDOKerngegevens
-	c86672 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOKerngegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOKerngegevens.html">
+	c86701 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOKerngegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOKerngegevens.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> KDOKerngegevens </td></tr>
 		</table></td></tr>
@@ -94,23 +67,50 @@ digraph G {
 <tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./KDOKerngegevens.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.KDOKennisgeving.KDOKDOFIL
-	c86736 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOKennisgeving.KDOKDOFIL" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./KDOKennisgeving.KDOKDOFIL.html">
+	// nl.egem.stuf.sector.bg._0204.KDOKDOFILRel
+	c86932 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOKDOFILRel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOKDOFILRel.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> KDOKDOFIL </td></tr>
+<tr><td align="center" balign="center"> KDOKDOFILRel </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # kdo : KDOKerngegevens </td></tr>
+<tr><td align="left" balign="left"> # filiatiecodeKadastraalObject : JAXBElement&lt;KDOKDOFILRel.FiliatiecodeKadastraalObject&gt; </td></tr>
+<tr><td align="left" balign="left"> # tijdvakRelatie : TijdvakRelatie </td></tr>
+<tr><td align="left" balign="left"> # tijdvakGeldigheid : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> # extraElementen : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> # soortEntiteit : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelVerzendend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelOntvangend : String </td></tr>
+<tr><td align="left" balign="left"> # sleutelGegevensbeheer : String </td></tr>
+<tr><td align="left" balign="left"> # verwerkingssoort : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> # noValue : NoValue </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + KDOKDOFIL() </td></tr>
-<tr><td align="left" balign="left"> + getKDO() : KDOKerngegevens </td></tr>
-<tr><td align="left" balign="left"> + setKDO(value : KDOKerngegevens) </td></tr>
+<tr><td align="left" balign="left"> + KDOKDOFILRel() </td></tr>
+<tr><td align="left" balign="left"> + getFiliatiecodeKadastraalObject() : JAXBElement&lt;KDOKDOFILRel.FiliatiecodeKadastraalObject&gt; </td></tr>
+<tr><td align="left" balign="left"> + setFiliatiecodeKadastraalObject(value : JAXBElement&lt;KDOKDOFILRel.FiliatiecodeKadastraalObject&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getTijdvakRelatie() : TijdvakRelatie </td></tr>
+<tr><td align="left" balign="left"> + setTijdvakRelatie(value : TijdvakRelatie) </td></tr>
+<tr><td align="left" balign="left"> + getTijdvakGeldigheid() : TijdvakGeldigheid </td></tr>
+<tr><td align="left" balign="left"> + setTijdvakGeldigheid(value : TijdvakGeldigheid) </td></tr>
+<tr><td align="left" balign="left"> + getExtraElementen() : ExtraElementen </td></tr>
+<tr><td align="left" balign="left"> + setExtraElementen(value : ExtraElementen) </td></tr>
+<tr><td align="left" balign="left"> + getSoortEntiteit() : String </td></tr>
+<tr><td align="left" balign="left"> + setSoortEntiteit(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelVerzendend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelVerzendend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelOntvangend() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelOntvangend(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getSleutelGegevensbeheer() : String </td></tr>
+<tr><td align="left" balign="left"> + setSleutelGegevensbeheer(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getVerwerkingssoort() : Verwerkingssoort </td></tr>
+<tr><td align="left" balign="left"> + setVerwerkingssoort(value : Verwerkingssoort) </td></tr>
+<tr><td align="left" balign="left"> + getNoValue() : NoValue </td></tr>
+<tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
 		</table></td></tr>
-		</table>>, URL="./KDOKennisgeving.KDOKDOFIL.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, URL="./KDOKDOFILRel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.KDOKennisgeving.KDOKDOFIL extends nl.egem.stuf.sector.bg._0204.KDOKDOFILRel
-	c86566:p -> c86736:p [dir=back,arrowtail=empty];
+	c86932:p -> c86641:p [dir=back,arrowtail=empty];
 	// nl.egem.stuf.sector.bg._0204.KDOKennisgeving.KDOKDOFIL NAVASSOC nl.egem.stuf.sector.bg._0204.KDOKerngegevens
-	c86736:p -> c86672:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c86641:p -> c86701:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

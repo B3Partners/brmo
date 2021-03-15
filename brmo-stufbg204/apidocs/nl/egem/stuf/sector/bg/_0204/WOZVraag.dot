@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.WOZFund
-	c252663 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WOZFund.html">
+	c252555 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WOZFund.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> WOZFund </td></tr>
 		</table></td></tr>
@@ -68,7 +68,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./WOZFund.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.WOZVraag
-	c252737 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZVraag" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./WOZVraag.html">
+	c252938 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZVraag" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./WOZVraag.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> WOZVraag </td></tr>
 		</table></td></tr>
@@ -100,6 +100,6 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./WOZVraag.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.WOZVraag extends nl.egem.stuf.sector.bg._0204.WOZFund
-	c252663:p -> c252737:p [dir=back,arrowtail=empty];
+	c252555:p -> c252938:p [dir=back,arrowtail=empty];
 }
 

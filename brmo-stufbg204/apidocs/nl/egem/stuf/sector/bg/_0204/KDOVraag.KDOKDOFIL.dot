@@ -9,8 +9,46 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// nl.egem.stuf.sector.bg._0204.KDOKennisgeving
+	c92711 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOKennisgeving" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOKennisgeving.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> KDOKennisgeving </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # kdoadr : List&lt;ADRRelKerngegevens&gt; </td></tr>
+<tr><td align="left" balign="left"> # kdobsg : List&lt;KDOKennisgeving.KDOBSG&gt; </td></tr>
+<tr><td align="left" balign="left"> # kdokdofil : List&lt;KDOKennisgeving.KDOKDOFIL&gt; </td></tr>
+<tr><td align="left" balign="left"> # kdoprb : List&lt;KDOKennisgeving.KDOPRB&gt; </td></tr>
+<tr><td align="left" balign="left"> # kdosubvzg : JAXBElement&lt;KDOKennisgeving.KDOSUBVZG&gt; </td></tr>
+<tr><td align="left" balign="left"> # kdosubzkr : List&lt;KDOKennisgeving.KDOSUBZKR&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + KDOKennisgeving() </td></tr>
+<tr><td align="left" balign="left"> + getKDOADR() : List&lt;ADRRelKerngegevens&gt; </td></tr>
+<tr><td align="left" balign="left"> + getKDOBSG() : List&lt;KDOKennisgeving.KDOBSG&gt; </td></tr>
+<tr><td align="left" balign="left"> + getKDOKDOFIL() : List&lt;KDOKennisgeving.KDOKDOFIL&gt; </td></tr>
+<tr><td align="left" balign="left"> + getKDOPRB() : List&lt;KDOKennisgeving.KDOPRB&gt; </td></tr>
+<tr><td align="left" balign="left"> + getKDOSUBVZG() : JAXBElement&lt;KDOKennisgeving.KDOSUBVZG&gt; </td></tr>
+<tr><td align="left" balign="left"> + setKDOSUBVZG(value : JAXBElement&lt;KDOKennisgeving.KDOSUBVZG&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getKDOSUBZKR() : List&lt;KDOKennisgeving.KDOSUBZKR&gt; </td></tr>
+		</table></td></tr>
+		</table>>, URL="./KDOKennisgeving.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.KDOVraag.KDOKDOFIL
+	c92856 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOVraag.KDOKDOFIL" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./KDOVraag.KDOKDOFIL.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> KDOKDOFIL </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # kdo : KDOKennisgeving </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + KDOKDOFIL() </td></tr>
+<tr><td align="left" balign="left"> + getKDO() : KDOKennisgeving </td></tr>
+<tr><td align="left" balign="left"> + setKDO(value : KDOKennisgeving) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./KDOVraag.KDOKDOFIL.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.KDOKDOFILRel
-	c92638 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOKDOFILRel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOKDOFILRel.html">
+	c93004 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOKDOFILRel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOKDOFILRel.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> KDOKDOFILRel </td></tr>
 		</table></td></tr>
@@ -50,47 +88,9 @@ digraph G {
 <tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./KDOKDOFILRel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.KDOKennisgeving
-	c92806 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOKennisgeving" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOKennisgeving.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> KDOKennisgeving </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # kdoadr : List&lt;ADRRelKerngegevens&gt; </td></tr>
-<tr><td align="left" balign="left"> # kdobsg : List&lt;KDOKennisgeving.KDOBSG&gt; </td></tr>
-<tr><td align="left" balign="left"> # kdokdofil : List&lt;KDOKennisgeving.KDOKDOFIL&gt; </td></tr>
-<tr><td align="left" balign="left"> # kdoprb : List&lt;KDOKennisgeving.KDOPRB&gt; </td></tr>
-<tr><td align="left" balign="left"> # kdosubvzg : JAXBElement&lt;KDOKennisgeving.KDOSUBVZG&gt; </td></tr>
-<tr><td align="left" balign="left"> # kdosubzkr : List&lt;KDOKennisgeving.KDOSUBZKR&gt; </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + KDOKennisgeving() </td></tr>
-<tr><td align="left" balign="left"> + getKDOADR() : List&lt;ADRRelKerngegevens&gt; </td></tr>
-<tr><td align="left" balign="left"> + getKDOBSG() : List&lt;KDOKennisgeving.KDOBSG&gt; </td></tr>
-<tr><td align="left" balign="left"> + getKDOKDOFIL() : List&lt;KDOKennisgeving.KDOKDOFIL&gt; </td></tr>
-<tr><td align="left" balign="left"> + getKDOPRB() : List&lt;KDOKennisgeving.KDOPRB&gt; </td></tr>
-<tr><td align="left" balign="left"> + getKDOSUBVZG() : JAXBElement&lt;KDOKennisgeving.KDOSUBVZG&gt; </td></tr>
-<tr><td align="left" balign="left"> + setKDOSUBVZG(value : JAXBElement&lt;KDOKennisgeving.KDOSUBVZG&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getKDOSUBZKR() : List&lt;KDOKennisgeving.KDOSUBZKR&gt; </td></tr>
-		</table></td></tr>
-		</table>>, URL="./KDOKennisgeving.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.KDOVraag.KDOKDOFIL
-	c93058 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOVraag.KDOKDOFIL" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./KDOVraag.KDOKDOFIL.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> KDOKDOFIL </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # kdo : KDOKennisgeving </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + KDOKDOFIL() </td></tr>
-<tr><td align="left" balign="left"> + getKDO() : KDOKennisgeving </td></tr>
-<tr><td align="left" balign="left"> + setKDO(value : KDOKennisgeving) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./KDOVraag.KDOKDOFIL.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.KDOVraag.KDOKDOFIL extends nl.egem.stuf.sector.bg._0204.KDOKDOFILRel
-	c92638:p -> c93058:p [dir=back,arrowtail=empty];
+	c93004:p -> c92856:p [dir=back,arrowtail=empty];
 	// nl.egem.stuf.sector.bg._0204.KDOVraag.KDOKDOFIL NAVASSOC nl.egem.stuf.sector.bg._0204.KDOKennisgeving
-	c93058:p -> c92806:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c92856:p -> c92711:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

@@ -9,22 +9,8 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// nl.egem.stuf.sector.bg._0204.IndicatieVervallen
-	c71019 [label=<<table title="nl.egem.stuf.sector.bg._0204.IndicatieVervallen" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./IndicatieVervallen.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
-<tr><td align="center" balign="center"> IndicatieVervallen </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> J </td></tr>
-<tr><td align="left" balign="left"> N </td></tr>
-		</table></td></tr>
-		</table>>, URL="./IndicatieVervallen.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.KDOFund.IndicatieVervallen
-	c71193 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOFund.IndicatieVervallen" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOFund.IndicatieVervallen.html">
+	c71263 [label=<<table title="nl.egem.stuf.sector.bg._0204.KDOFund.IndicatieVervallen" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KDOFund.IndicatieVervallen.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> IndicatieVervallen </td></tr>
 		</table></td></tr>
@@ -43,7 +29,21 @@ digraph G {
 <tr><td align="left" balign="left"> + setExact(value : Boolean) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./KDOFund.IndicatieVervallen.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.IndicatieVervallen
+	c71308 [label=<<table title="nl.egem.stuf.sector.bg._0204.IndicatieVervallen" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./IndicatieVervallen.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
+<tr><td align="center" balign="center"> IndicatieVervallen </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> J </td></tr>
+<tr><td align="left" balign="left"> N </td></tr>
+		</table></td></tr>
+		</table>>, URL="./IndicatieVervallen.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.KDOFund.IndicatieVervallen NAVASSOC nl.egem.stuf.sector.bg._0204.IndicatieVervallen
-	c71193:p -> c71019:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c71263:p -> c71308:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.web.DownloadLogIntegrationTest
-	c65 [label=<<table title="nl.b3p.web.DownloadLogIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DownloadLogIntegrationTest.html">
+	c0 [label=<<table title="nl.b3p.web.DownloadLogIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DownloadLogIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DownloadLogIntegrationTest </td></tr>
 		</table></td></tr>
@@ -24,7 +24,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./DownloadLogIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.web.WebTestUtil
-	c66 [label=<<table title="nl.b3p.web.WebTestUtil" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WebTestUtil.html">
+	c1 [label=<<table title="nl.b3p.web.WebTestUtil" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WebTestUtil.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> WebTestUtil </font></td></tr>
 		</table></td></tr>
@@ -39,7 +39,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./WebTestUtil.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.web.LogsPageIntegrationTest
-	c67 [label=<<table title="nl.b3p.web.LogsPageIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./LogsPageIntegrationTest.html">
+	c2 [label=<<table title="nl.b3p.web.LogsPageIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./LogsPageIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> LogsPageIntegrationTest </td></tr>
 		</table></td></tr>
@@ -53,7 +53,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./LogsPageIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.web.IndexPageIntegrationTest
-	c68 [label=<<table title="nl.b3p.web.IndexPageIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./IndexPageIntegrationTest.html">
+	c3 [label=<<table title="nl.b3p.web.IndexPageIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./IndexPageIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> IndexPageIntegrationTest </td></tr>
 		</table></td></tr>
@@ -69,10 +69,10 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./IndexPageIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.web.DownloadLogIntegrationTest extends nl.b3p.web.WebTestUtil
-	c66:p -> c65:p [dir=back,arrowtail=empty];
+	c1:p -> c0:p [dir=back,arrowtail=empty];
 	//nl.b3p.web.LogsPageIntegrationTest extends nl.b3p.web.WebTestUtil
-	c66:p -> c67:p [dir=back,arrowtail=empty];
+	c1:p -> c2:p [dir=back,arrowtail=empty];
 	//nl.b3p.web.IndexPageIntegrationTest extends nl.b3p.web.WebTestUtil
-	c66:p -> c68:p [dir=back,arrowtail=empty];
+	c1:p -> c3:p [dir=back,arrowtail=empty];
 }
 

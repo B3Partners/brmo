@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.StUFFout
-	c54940 [label=<<table title="nl.egem.stuf.sector.bg._0204.StUFFout" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/StUFFout.html">
+	c54921 [label=<<table title="nl.egem.stuf.sector.bg._0204.StUFFout" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../sector/bg/_0204/StUFFout.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> StUFFout </td></tr>
 		</table></td></tr>
@@ -23,45 +23,8 @@ digraph G {
 <tr><td align="left" balign="left"> + getFaultInfo() : FoutBericht </td></tr>
 		</table></td></tr>
 		</table>>, URL="../sector/bg/_0204/StUFFout.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.stuf0204.FoutBericht
-	c55138 [label=<<table title="nl.egem.stuf.stuf0204.FoutBericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./FoutBericht.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> FoutBericht </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # stuurgegevens : Stuurgegevens </td></tr>
-<tr><td align="left" balign="left"> # body : FoutBericht.Body </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + FoutBericht() </td></tr>
-<tr><td align="left" balign="left"> + getStuurgegevens() : Stuurgegevens </td></tr>
-<tr><td align="left" balign="left"> + setStuurgegevens(value : Stuurgegevens) </td></tr>
-<tr><td align="left" balign="left"> + getBody() : FoutBericht.Body </td></tr>
-<tr><td align="left" balign="left"> + setBody(value : FoutBericht.Body) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./FoutBericht.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.stuf0204.FoutBericht.Body
-	c55139 [label=<<table title="nl.egem.stuf.stuf0204.FoutBericht.Body" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./FoutBericht.Body.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> Body </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # code : String </td></tr>
-<tr><td align="left" balign="left"> # plek : FoutPlek </td></tr>
-<tr><td align="left" balign="left"> # omschrijving : String </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + Body() </td></tr>
-<tr><td align="left" balign="left"> + getCode() : String </td></tr>
-<tr><td align="left" balign="left"> + setCode(value : String) </td></tr>
-<tr><td align="left" balign="left"> + getPlek() : FoutPlek </td></tr>
-<tr><td align="left" balign="left"> + setPlek(value : FoutPlek) </td></tr>
-<tr><td align="left" balign="left"> + getOmschrijving() : String </td></tr>
-<tr><td align="left" balign="left"> + setOmschrijving(value : String) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./FoutBericht.Body.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.stuf0204.Stuurgegevens
-	c55145 [label=<<table title="nl.egem.stuf.stuf0204.Stuurgegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Stuurgegevens.html">
+	c55141 [label=<<table title="nl.egem.stuf.stuf0204.Stuurgegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Stuurgegevens.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Stuurgegevens </td></tr>
 		</table></td></tr>
@@ -113,11 +76,48 @@ digraph G {
 <tr><td align="left" balign="left"> + setFout(value : Stuurgegevens.Fout) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Stuurgegevens.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.stuf0204.FoutBericht
+	c55155 [label=<<table title="nl.egem.stuf.stuf0204.FoutBericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./FoutBericht.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> FoutBericht </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # stuurgegevens : Stuurgegevens </td></tr>
+<tr><td align="left" balign="left"> # body : FoutBericht.Body </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + FoutBericht() </td></tr>
+<tr><td align="left" balign="left"> + getStuurgegevens() : Stuurgegevens </td></tr>
+<tr><td align="left" balign="left"> + setStuurgegevens(value : Stuurgegevens) </td></tr>
+<tr><td align="left" balign="left"> + getBody() : FoutBericht.Body </td></tr>
+<tr><td align="left" balign="left"> + setBody(value : FoutBericht.Body) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./FoutBericht.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.stuf0204.FoutBericht.Body
+	c55156 [label=<<table title="nl.egem.stuf.stuf0204.FoutBericht.Body" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./FoutBericht.Body.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> Body </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # code : String </td></tr>
+<tr><td align="left" balign="left"> # plek : FoutPlek </td></tr>
+<tr><td align="left" balign="left"> # omschrijving : String </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + Body() </td></tr>
+<tr><td align="left" balign="left"> + getCode() : String </td></tr>
+<tr><td align="left" balign="left"> + setCode(value : String) </td></tr>
+<tr><td align="left" balign="left"> + getPlek() : FoutPlek </td></tr>
+<tr><td align="left" balign="left"> + setPlek(value : FoutPlek) </td></tr>
+<tr><td align="left" balign="left"> + getOmschrijving() : String </td></tr>
+<tr><td align="left" balign="left"> + setOmschrijving(value : String) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./FoutBericht.Body.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.StUFFout NAVASSOC nl.egem.stuf.stuf0204.FoutBericht
-	c54940:p -> c55138:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c54921:p -> c55155:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.egem.stuf.stuf0204.FoutBericht NAVASSOC nl.egem.stuf.stuf0204.Stuurgegevens
-	c55138:p -> c55145:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c55155:p -> c55141:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.egem.stuf.stuf0204.FoutBericht NAVASSOC nl.egem.stuf.stuf0204.FoutBericht.Body
-	c55138:p -> c55139:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c55155:p -> c55156:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

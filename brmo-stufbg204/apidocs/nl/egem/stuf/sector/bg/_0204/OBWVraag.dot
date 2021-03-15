@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.OBWFund
-	c137825 [label=<<table title="nl.egem.stuf.sector.bg._0204.OBWFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./OBWFund.html">
+	c137677 [label=<<table title="nl.egem.stuf.sector.bg._0204.OBWFund" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./OBWFund.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> OBWFund </td></tr>
 		</table></td></tr>
@@ -54,7 +54,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./OBWFund.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.OBWVraag
-	c137963 [label=<<table title="nl.egem.stuf.sector.bg._0204.OBWVraag" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./OBWVraag.html">
+	c138109 [label=<<table title="nl.egem.stuf.sector.bg._0204.OBWVraag" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./OBWVraag.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> OBWVraag </td></tr>
 		</table></td></tr>
@@ -74,6 +74,6 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./OBWVraag.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.OBWVraag extends nl.egem.stuf.sector.bg._0204.OBWFund
-	c137825:p -> c137963:p [dir=back,arrowtail=empty];
+	c137677:p -> c138109:p [dir=back,arrowtail=empty];
 }
 

@@ -9,8 +9,25 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// nl.b3p.brmo.service.scanner.ProgressUpdateListener
+	c1471 [label=<<table title="nl.b3p.brmo.service.scanner.ProgressUpdateListener" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../scanner/ProgressUpdateListener.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
+<tr><td align="center" balign="center"> ProgressUpdateListener </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + total(total : long) </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + progress(progress : long) </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + exception(t : Throwable) </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + updateStatus(status : String) </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + addLog(log : String) </font></td></tr>
+		</table></td></tr>
+		</table>>, URL="../scanner/ProgressUpdateListener.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.stripes.DirectoryScannerUitvoerActionBean
-	c1469 [label=<<table title="nl.b3p.brmo.service.stripes.DirectoryScannerUitvoerActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./DirectoryScannerUitvoerActionBean.html">
+	c1499 [label=<<table title="nl.b3p.brmo.service.stripes.DirectoryScannerUitvoerActionBean" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./DirectoryScannerUitvoerActionBean.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DirectoryScannerUitvoerActionBean </td></tr>
 		</table></td></tr>
@@ -53,31 +70,14 @@ digraph G {
 <tr><td align="left" balign="left"> + setExceptionStacktrace(exceptionStacktrace : String) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./DirectoryScannerUitvoerActionBean.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.service.scanner.ProgressUpdateListener
-	c1485 [label=<<table title="nl.b3p.brmo.service.scanner.ProgressUpdateListener" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../scanner/ProgressUpdateListener.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
-<tr><td align="center" balign="center"> ProgressUpdateListener </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + total(total : long) </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + progress(progress : long) </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + exception(t : Throwable) </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + updateStatus(status : String) </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + addLog(log : String) </font></td></tr>
-		</table></td></tr>
-		</table>>, URL="../scanner/ProgressUpdateListener.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.service.stripes.DirectoryScannerUitvoerActionBean implements net.sourceforge.stripes.action.ActionBean
-	c1501:p -> c1469:p [dir=back,arrowtail=empty,style=dashed];
+	c1501:p -> c1499:p [dir=back,arrowtail=empty,style=dashed];
 	//nl.b3p.brmo.service.stripes.DirectoryScannerUitvoerActionBean implements nl.b3p.brmo.service.scanner.ProgressUpdateListener
-	c1485:p -> c1469:p [dir=back,arrowtail=empty,style=dashed];
+	c1471:p -> c1499:p [dir=back,arrowtail=empty,style=dashed];
 	// nl.b3p.brmo.service.stripes.DirectoryScannerUitvoerActionBean NAVASSOC nl.b3p.brmo.persistence.staging.AutomatischProces
-	c1469:p -> c1502:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c1499:p -> c1502:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.service.stripes.DirectoryScannerUitvoerActionBean NAVASSOC net.sourceforge.stripes.action.ActionBeanContext
-	c1469:p -> c1503:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c1499:p -> c1503:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.persistence.staging.AutomatischProces
 	c1502 [label=<<table title="nl.b3p.brmo.persistence.staging.AutomatischProces" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
@@ -89,7 +89,6 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> + AutomatischProces() </td></tr>
 <tr><td align="left" balign="left"> + updateSamenvattingEnLogfile(arg0 : String) </td></tr>
-<tr><td align="left" balign="left"> + addLogLine(arg0 : String) </td></tr>
 <tr><td align="left" balign="left"> + getConfig() : Map&lt;String, ClobElement&gt; </td></tr>
 <tr><td align="left" balign="left"> + setConfig(arg0 : Map&lt;String, ClobElement&gt;) </td></tr>
 <tr><td align="left" balign="left"> + getLastrun() : Date </td></tr>

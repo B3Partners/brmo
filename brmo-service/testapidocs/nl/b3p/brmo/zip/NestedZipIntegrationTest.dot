@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.zip.NestedZipIntegrationTest
-	c238 [label=<<table title="nl.b3p.brmo.zip.NestedZipIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./NestedZipIntegrationTest.html">
+	c233 [label=<<table title="nl.b3p.brmo.zip.NestedZipIntegrationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./NestedZipIntegrationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> NestedZipIntegrationTest </td></tr>
 		</table></td></tr>
@@ -21,11 +21,11 @@ digraph G {
 <tr><td align="left" balign="left"> + NestedZipIntegrationTest() </td></tr>
 <tr><td align="left" balign="left"> + setUp() </td></tr>
 <tr><td align="left" balign="left"> + cleanup() </td></tr>
-<tr><td align="left" balign="left"> + test() </td></tr>
+<tr><td align="left" balign="left"> + testLadenNestedZipFiles() </td></tr>
 		</table></td></tr>
 		</table>>, URL="./NestedZipIntegrationTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.service.testutil.TestUtil
-	c244 [label=<<table title="nl.b3p.brmo.service.testutil.TestUtil" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../service/testutil/TestUtil.html">
+	c241 [label=<<table title="nl.b3p.brmo.service.testutil.TestUtil" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../service/testutil/TestUtil.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> TestUtil </font></td></tr>
 		</table></td></tr>
@@ -37,25 +37,24 @@ digraph G {
 <tr><td align="left" balign="left"> # isPostgis : boolean </td></tr>
 <tr><td align="left" balign="left"> # dsStaging : BasicDataSource </td></tr>
 <tr><td align="left" balign="left"> # dsRsgb : BasicDataSource </td></tr>
-<tr><td align="left" balign="left"> # dsRsgbBgt : BasicDataSource </td></tr>
-<tr><td align="left" balign="left"> + name : TestName </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> + TestUtil() </td></tr>
 <tr><td align="left" balign="left"> + checkDatabaseIsProvided() </td></tr>
 <tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + setUp() </font></td></tr>
 <tr><td align="left" balign="left"> + loadDBprop() </td></tr>
-<tr><td align="left" balign="left"> + startTest() </td></tr>
-<tr><td align="left" balign="left"> + endTest() </td></tr>
+<tr><td align="left" balign="left"> + startTest(testInfo : TestInfo) </td></tr>
+<tr><td align="left" balign="left"> + endTest(testInfo : TestInfo) </td></tr>
+<tr><td align="left" balign="left"> + closeConnections() </td></tr>
 <tr><td align="left" balign="left"> # setupJNDI() </td></tr>
 		</table></td></tr>
 		</table>>, URL="../service/testutil/TestUtil.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.zip.NestedZipIntegrationTest extends nl.b3p.brmo.service.testutil.TestUtil
-	c244:p -> c238:p [dir=back,arrowtail=empty];
+	c241:p -> c233:p [dir=back,arrowtail=empty];
 	// nl.b3p.brmo.zip.NestedZipIntegrationTest NAVASSOC nl.b3p.brmo.loader.BrmoFramework
-	c238:p -> c251:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c233:p -> c242:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.b3p.brmo.loader.BrmoFramework
-	c251 [label=<<table title="nl.b3p.brmo.loader.BrmoFramework" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+	c242 [label=<<table title="nl.b3p.brmo.loader.BrmoFramework" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BrmoFramework </td></tr>
 		</table></td></tr>

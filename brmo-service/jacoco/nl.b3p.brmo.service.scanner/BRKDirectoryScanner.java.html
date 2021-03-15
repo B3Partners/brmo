@@ -252,65 +252,66 @@ public class BRKDirectoryScanner extends AbstractExecutableProces {
 <span class="nc" id="L252">                        em.getTransaction().begin();</span>
 <span class="nc" id="L253">                        lp.setId(null);</span>
 <span class="nc" id="L254">                        log.warn(&quot;Opslaan van bericht uit laadproces &quot; + lp.getBestand_naam() + &quot; is mislukt. Object referentie is: &quot; + b.getObject_ref(), pe);</span>
-<span class="nc" id="L255">                        log.debug(&quot;Duplicaat bericht: &quot; + b.getObject_ref() + &quot;:&quot; + b.getBr_orgineel_xml());</span>
-<span class="nc" id="L256">                        lp.setStatus(LaadProces.STATUS.STAGING_DUPLICAAT);</span>
-<span class="nc" id="L257">                        lp.setOpmerking(lp.getOpmerking() + &quot;: Fout, duplicaat bericht. Inhoud: \n&quot; + b.getBr_xml());</span>
-<span class="nc" id="L258">                        b = null;</span>
-<span class="nc" id="L259">                        em.merge(this.config);</span>
-<span class="nc" id="L260">                        em.persist(lp);</span>
-<span class="nc" id="L261">                        em.flush();</span>
-<span class="nc" id="L262">                        em.getTransaction().commit();</span>
-<span class="nc" id="L263">                        em.clear();</span>
-<span class="nc" id="L264">                    }</span>
-<span class="nc" id="L265">                    log.info(msg);</span>
-<span class="nc" id="L266">                    this.listener.addLog(msg);</span>
-<span class="nc" id="L267">                    sb.append(msg).append(AutomatischProces.LOG_NEWLINE);</span>
+<span class="nc" id="L255">                        log.warn(&quot;Duplicaat bericht: &quot; + b.getObject_ref() + &quot;:&quot; + b.getBr_orgineel_xml());</span>
+<span class="nc" id="L256">                        lp.setOpmerking(lp.getOpmerking() + &quot;: Fout, duplicaat bericht. Berichtinhoud: \n\n&quot; + b.getBr_xml());</span>
+<span class="nc" id="L257">                        b = null;</span>
+<span class="nc" id="L258">                        lp.setStatus(LaadProces.STATUS.STAGING_DUPLICAAT);</span>
+<span class="nc" id="L259">                        lp.setAutomatischProces(em.find(AutomatischProces.class, this.config.getId()));</span>
+<span class="nc" id="L260">                        em.merge(this.config);</span>
+<span class="nc" id="L261">                        em.persist(lp);</span>
+<span class="nc" id="L262">                        em.flush();</span>
+<span class="nc" id="L263">                        em.getTransaction().commit();</span>
+<span class="nc" id="L264">                        em.clear();</span>
+<span class="nc" id="L265">                    }</span>
+<span class="nc" id="L266">                    log.info(msg);</span>
+<span class="nc" id="L267">                    this.listener.addLog(msg);</span>
+<span class="nc" id="L268">                    sb.append(msg).append(AutomatischProces.LOG_NEWLINE);</span>
 
-<span class="nc" id="L269">                } catch (IOException io) {</span>
+<span class="nc" id="L270">                } catch (IOException io) {</span>
                     // mogelijk bij openen en lezen xml bestand
-<span class="nc" id="L271">                    log.error(io.getLocalizedMessage());</span>
-<span class="nc" id="L272">                    sb.append(io.getLocalizedMessage()).append(AutomatischProces.LOG_NEWLINE);</span>
-<span class="nc" id="L273">                    listener.exception(io);</span>
-<span class="nc" id="L274">                }</span>
+<span class="nc" id="L272">                    log.error(io.getLocalizedMessage());</span>
+<span class="nc" id="L273">                    sb.append(io.getLocalizedMessage()).append(AutomatischProces.LOG_NEWLINE);</span>
+<span class="nc" id="L274">                    listener.exception(io);</span>
+<span class="nc" id="L275">                }</span>
             }
-<span class="nc" id="L276">            listener.progress(++progress);</span>
+<span class="nc" id="L277">            listener.progress(++progress);</span>
 
-<span class="nc bnc" id="L278" title="All 2 branches missed.">            if (archiefDirectory != null) {</span>
+<span class="nc bnc" id="L279" title="All 2 branches missed.">            if (archiefDirectory != null) {</span>
                 // verplaats naar archief
                 try {
-<span class="nc" id="L281">                    FileUtils.copyFileToDirectory(f, archiefDirectory);</span>
-<span class="nc" id="L282">                    boolean succes = FileUtils.deleteQuietly(f);</span>
-<span class="nc bnc" id="L283" title="All 2 branches missed.">                    if (succes) {</span>
-<span class="nc" id="L284">                        msg = String.format(&quot;  Bestand %s is naar archief %s verplaatst.&quot;, f, archiefDirectory);</span>
+<span class="nc" id="L282">                    FileUtils.copyFileToDirectory(f, archiefDirectory);</span>
+<span class="nc" id="L283">                    boolean succes = FileUtils.deleteQuietly(f);</span>
+<span class="nc bnc" id="L284" title="All 2 branches missed.">                    if (succes) {</span>
+<span class="nc" id="L285">                        msg = String.format(&quot;  Bestand %s is naar archief %s verplaatst.&quot;, f, archiefDirectory);</span>
                     } else {
-<span class="nc" id="L286">                        msg = String.format(&quot;  Bestand %s is naar archief %s verplaatst, maar origineel kon niet verwijderd worden.&quot;, f, archiefDirectory); </span>
+<span class="nc" id="L287">                        msg = String.format(&quot;  Bestand %s is naar archief %s verplaatst, maar origineel kon niet verwijderd worden.&quot;, f, archiefDirectory); </span>
                     }
-<span class="nc" id="L288">                } catch (IOException e) {</span>
-<span class="nc" id="L289">                    msg = String.format(&quot;  Bestand %s is NIET naar archief %s verplaatst, oorzaak: (%s).&quot;, f, archiefDirectory, e.getLocalizedMessage());</span>
-<span class="nc" id="L290">                    log.error(msg);</span>
-<span class="nc" id="L291">                }</span>
+<span class="nc" id="L289">                } catch (IOException e) {</span>
+<span class="nc" id="L290">                    msg = String.format(&quot;  Bestand %s is NIET naar archief %s verplaatst, oorzaak: (%s).&quot;, f, archiefDirectory, e.getLocalizedMessage());</span>
+<span class="nc" id="L291">                    log.error(msg);</span>
+<span class="nc" id="L292">                }</span>
             }
-<span class="nc" id="L293">            log.info(msg);</span>
-<span class="nc" id="L294">            this.listener.addLog(msg);</span>
-<span class="nc" id="L295">            sb.append(msg).append(AutomatischProces.LOG_NEWLINE);</span>
+<span class="nc" id="L294">            log.info(msg);</span>
+<span class="nc" id="L295">            this.listener.addLog(msg);</span>
+<span class="nc" id="L296">            sb.append(msg).append(AutomatischProces.LOG_NEWLINE);</span>
         }
-<span class="nc" id="L297">        msg = String.format(&quot;Klaar met run op %tc&quot;, Calendar.getInstance());</span>
-<span class="nc" id="L298">        log.info(msg);</span>
-<span class="nc" id="L299">        listener.updateStatus(msg);</span>
-<span class="nc" id="L300">        listener.addLog(msg);</span>
-<span class="nc" id="L301">        sb.append(msg);</span>
+<span class="nc" id="L298">        msg = String.format(&quot;Klaar met run op %tc&quot;, Calendar.getInstance());</span>
+<span class="nc" id="L299">        log.info(msg);</span>
+<span class="nc" id="L300">        listener.updateStatus(msg);</span>
+<span class="nc" id="L301">        listener.addLog(msg);</span>
+<span class="nc" id="L302">        sb.append(msg);</span>
 
-<span class="nc" id="L303">        listener.addLog(&quot;\n\n**** resultaat ****&quot;);</span>
-<span class="nc" id="L304">        listener.addLog(&quot;\nAantal bestanden die al waren geladen: &quot; + filterAlVerwerkt);</span>
-<span class="nc" id="L305">        listener.addLog(&quot;\nAantal bestanden geladen: &quot; + aantalGeladen + &quot;\n&quot;);</span>
+<span class="nc" id="L304">        listener.addLog(&quot;\n\n**** resultaat ****&quot;);</span>
+<span class="nc" id="L305">        listener.addLog(&quot;\nAantal bestanden die al waren geladen: &quot; + filterAlVerwerkt);</span>
+<span class="nc" id="L306">        listener.addLog(&quot;\nAantal bestanden geladen: &quot; + aantalGeladen + &quot;\n&quot;);</span>
 
-<span class="nc" id="L307">        config.setStatus(WAITING);</span>
-<span class="nc" id="L308">        config.setLogfile(sb.toString());</span>
-<span class="nc" id="L309">        config.setLastrun(new Date());</span>
-<span class="nc" id="L310">        config.updateSamenvattingEnLogfile(&quot;Aantal bestanden die al waren verwerkt: &quot;</span>
+<span class="nc" id="L308">        config.setStatus(WAITING);</span>
+<span class="nc" id="L309">        config.setLogfile(sb.toString());</span>
+<span class="nc" id="L310">        config.setLastrun(new Date());</span>
+<span class="nc" id="L311">        config.updateSamenvattingEnLogfile(&quot;Aantal bestanden die al waren verwerkt: &quot;</span>
                 + filterAlVerwerkt + AutomatischProces.LOG_NEWLINE
                 + &quot;Aantal bestanden geladen: &quot; + aantalGeladen + AutomatischProces.LOG_NEWLINE);
-<span class="nc" id="L313">        em.merge(config);</span>
-<span class="nc" id="L314">    }</span>
+<span class="nc" id="L314">        em.merge(config);</span>
+<span class="nc" id="L315">    }</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

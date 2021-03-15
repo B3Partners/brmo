@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>BagXMLReader.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO soap bevragingsservice</a> &gt; <a href="../index.html" class="el_bundle">brmo-loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.loader.xml</a> &gt; <span class="el_source">BagXMLReader.java</span></div><h1>BagXMLReader.java</h1><pre class="source lang-java linenums">/*
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>BagXMLReader.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO SOAP bevragingsservice</a> &gt; <a href="../index.html" class="el_bundle">brmo-loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.loader.xml</a> &gt; <span class="el_source">BagXMLReader.java</span></div><h1>BagXMLReader.java</h1><pre class="source lang-java linenums">/*
  * Copyright (C) 2015 B3Partners B.V.
  */
 package nl.b3p.brmo.loader.xml;
@@ -93,155 +93,154 @@ public class BagXMLReader extends BrmoXMLReader {
 
 <span class="fc" id="L94">        DocumentBuilderFactory dbfactory = DocumentBuilderFactory.newInstance();</span>
 <span class="fc" id="L95">        dbfactory.setNamespaceAware(true);</span>
-<span class="fc" id="L96">        dbfactory.setNamespaceAware(true);</span>
-<span class="fc" id="L97">        builder = dbfactory.newDocumentBuilder();</span>
+<span class="fc" id="L96">        builder = dbfactory.newDocumentBuilder();</span>
 
-<span class="fc" id="L99">        init();</span>
-<span class="fc" id="L100">    }</span>
+<span class="fc" id="L98">        init();</span>
+<span class="fc" id="L99">    }</span>
 
     @Override
     public void init() {
-<span class="fc" id="L104">        soort = BrmoFramework.BR_BAG;</span>
+<span class="fc" id="L103">        soort = BrmoFramework.BR_BAG;</span>
 
-<span class="fc" id="L106">        String technischeDatum = null;</span>
-<span class="fc" id="L107">        String peilDatum = null;</span>
-<span class="fc" id="L108">        String mutatieDatumTot = null;</span>
-<span class="fc" id="L109">        boolean firstStartElement = true;</span>
+<span class="fc" id="L105">        String technischeDatum = null;</span>
+<span class="fc" id="L106">        String peilDatum = null;</span>
+<span class="fc" id="L107">        String mutatieDatumTot = null;</span>
+<span class="fc" id="L108">        boolean firstStartElement = true;</span>
         try {
-<span class="pc bpc" id="L111" title="1 of 2 branches missed.">            while (streamReader.hasNext()) {</span>
-<span class="fc bfc" id="L112" title="All 2 branches covered.">                if (streamReader.isStartElement()) {</span>
-<span class="fc" id="L113">                    String localName = streamReader.getLocalName();</span>
+<span class="pc bpc" id="L110" title="1 of 2 branches missed.">            while (streamReader.hasNext()) {</span>
+<span class="fc bfc" id="L111" title="All 2 branches covered.">                if (streamReader.isStartElement()) {</span>
+<span class="fc" id="L112">                    String localName = streamReader.getLocalName();</span>
 
-<span class="fc bfc" id="L115" title="All 4 branches covered.">                    if (localName.equals(MUTATIE_PRODUCT) || localName.equals(LVC_PRODUCT)) {</span>
-<span class="fc" id="L116">                        break;</span>
+<span class="fc bfc" id="L114" title="All 4 branches covered.">                    if (localName.equals(MUTATIE_PRODUCT) || localName.equals(LVC_PRODUCT)) {</span>
+<span class="fc" id="L115">                        break;</span>
                     }
                     //tbv bag-fragment met enkel object zonder wrapper
-<span class="pc bpc" id="L119" title="1 of 4 branches missed.">                    if (lvcProductToObjectType.containsKey(localName) </span>
+<span class="pc bpc" id="L118" title="1 of 4 branches missed.">                    if (lvcProductToObjectType.containsKey(localName) </span>
                             &amp;&amp; firstStartElement) {
-<span class="nc" id="L121">                        break;</span>
+<span class="nc" id="L120">                        break;</span>
                     }
 
-<span class="pc bpc" id="L124" title="1 of 2 branches missed.">                    if (localName.equals(DATUM_TIJD_LV)) {</span>
-<span class="nc" id="L125">                        setDatumAsString(streamReader.getElementText());</span>
+<span class="pc bpc" id="L123" title="1 of 2 branches missed.">                    if (localName.equals(DATUM_TIJD_LV)) {</span>
+<span class="nc" id="L124">                        setDatumAsString(streamReader.getElementText());</span>
                     }
-<span class="fc bfc" id="L127" title="All 2 branches covered.">                    if(localName.equals(STAND_TECHNISCHEDATUM)) {</span>
-<span class="fc" id="L128">                        technischeDatum = streamReader.getElementText();</span>
+<span class="fc bfc" id="L126" title="All 2 branches covered.">                    if(localName.equals(STAND_TECHNISCHEDATUM)) {</span>
+<span class="fc" id="L127">                        technischeDatum = streamReader.getElementText();</span>
                     }
-<span class="fc bfc" id="L130" title="All 2 branches covered.">                    if(localName.equals(STAND_PEILDATUM)) {</span>
-<span class="fc" id="L131">                        peilDatum = streamReader.getElementText();</span>
+<span class="fc bfc" id="L129" title="All 2 branches covered.">                    if(localName.equals(STAND_PEILDATUM)) {</span>
+<span class="fc" id="L130">                        peilDatum = streamReader.getElementText();</span>
                     }
-<span class="fc bfc" id="L133" title="All 2 branches covered.">                    if(localName.equals(MUTATIE_DATUMTOT)) {</span>
-<span class="fc" id="L134">                        mutatieDatumTot = streamReader.getElementText();</span>
+<span class="fc bfc" id="L132" title="All 2 branches covered.">                    if(localName.equals(MUTATIE_DATUMTOT)) {</span>
+<span class="fc" id="L133">                        mutatieDatumTot = streamReader.getElementText();</span>
                     }
                     
-<span class="fc" id="L137">                    firstStartElement = false;</span>
+<span class="fc" id="L136">                    firstStartElement = false;</span>
                 }
-<span class="fc" id="L139">                streamReader.next();</span>
+<span class="fc" id="L138">                streamReader.next();</span>
             }
-<span class="nc" id="L141">        } catch (XMLStreamException ex) {</span>
-<span class="nc" id="L142">            log.error(&quot;Error while streaming XML&quot;, ex);</span>
-<span class="fc" id="L143">        }</span>
-<span class="fc bfc" id="L144" title="All 2 branches covered.">        if(peilDatum != null) {</span>
-<span class="fc" id="L145">            setDatumAsString(peilDatum, &quot;yyyyMMdd&quot;);</span>
-<span class="pc bpc" id="L146" title="1 of 2 branches missed.">        } else if(technischeDatum != null) {</span>
-<span class="nc" id="L147">            setDatumAsString(technischeDatum, &quot;yyyyMMdd&quot;);</span>
-<span class="fc bfc" id="L148" title="All 2 branches covered.">        } else if(mutatieDatumTot != null) {</span>
-<span class="fc" id="L149">            setDatumAsString(mutatieDatumTot, &quot;yyyy-MM-dd&quot;);</span>
+<span class="nc" id="L140">        } catch (XMLStreamException ex) {</span>
+<span class="nc" id="L141">            log.error(&quot;Error while streaming XML&quot;, ex);</span>
+<span class="fc" id="L142">        }</span>
+<span class="fc bfc" id="L143" title="All 2 branches covered.">        if(peilDatum != null) {</span>
+<span class="fc" id="L144">            setDatumAsString(peilDatum, &quot;yyyyMMdd&quot;);</span>
+<span class="pc bpc" id="L145" title="1 of 2 branches missed.">        } else if(technischeDatum != null) {</span>
+<span class="nc" id="L146">            setDatumAsString(technischeDatum, &quot;yyyyMMdd&quot;);</span>
+<span class="fc bfc" id="L147" title="All 2 branches covered.">        } else if(mutatieDatumTot != null) {</span>
+<span class="fc" id="L148">            setDatumAsString(mutatieDatumTot, &quot;yyyy-MM-dd&quot;);</span>
         } else {
-<span class="fc" id="L151">            setBestandsDatum(new Date());</span>
+<span class="fc" id="L150">            setBestandsDatum(new Date());</span>
         }
-<span class="fc" id="L153">    }</span>
+<span class="fc" id="L152">    }</span>
 
     @Override
     public boolean hasNext() throws SAXException, IOException, TransformerException {
-<span class="fc bfc" id="L157" title="All 2 branches covered.">        if (nextBericht != null) {</span>
-<span class="fc" id="L158">            return true;</span>
+<span class="fc bfc" id="L156" title="All 2 branches covered.">        if (nextBericht != null) {</span>
+<span class="fc" id="L157">            return true;</span>
         }
         try {
-<span class="fc bfc" id="L161" title="All 2 branches covered.">            while (streamReader.hasNext()) {</span>
-<span class="fc bfc" id="L162" title="All 4 branches covered.">                if (streamReader.isStartElement() &amp;&amp; streamReader.getLocalName().equals(MUTATIE_PRODUCT)) {</span>
+<span class="fc bfc" id="L160" title="All 2 branches covered.">            while (streamReader.hasNext()) {</span>
+<span class="fc bfc" id="L161" title="All 4 branches covered.">                if (streamReader.isStartElement() &amp;&amp; streamReader.getLocalName().equals(MUTATIE_PRODUCT)) {</span>
                     // parse en check voor &quot;Nieuw&quot; element en niet &quot;Origineel&quot;/&quot;Wijziging&quot;
-<span class="fc" id="L164">                    StringWriter sw = new StringWriter();</span>
+<span class="fc" id="L163">                    StringWriter sw = new StringWriter();</span>
 
                     // Hiermee wordt de StreamReader het volgende product geforward
-<span class="fc" id="L167">                    transformer.transform(new StAXSource(streamReader), new StAXResult(xmlof.createXMLStreamWriter(sw)));</span>
+<span class="fc" id="L166">                    transformer.transform(new StAXSource(streamReader), new StAXResult(xmlof.createXMLStreamWriter(sw)));</span>
 
-<span class="fc" id="L169">                    Document d = builder.parse(new InputSource(new StringReader(sw.toString())));</span>
-<span class="fc bfc" id="L170" title="All 2 branches covered.">                    if (createMutatieBagBericht(sw.toString(), d)) {</span>
-<span class="fc" id="L171">                        return true;</span>
+<span class="fc" id="L168">                    Document d = builder.parse(new InputSource(new StringReader(sw.toString())));</span>
+<span class="fc bfc" id="L169" title="All 2 branches covered.">                    if (createMutatieBagBericht(sw.toString(), d)) {</span>
+<span class="fc" id="L170">                        return true;</span>
                     }
-<span class="fc bfc" id="L173" title="All 4 branches covered.">                 } else if(streamReader.isStartElement() &amp;&amp; lvcProductToObjectType.containsKey(streamReader.getLocalName())) {</span>
-<span class="fc" id="L174">                    StringWriter sw = new StringWriter();</span>
+<span class="fc bfc" id="L172" title="All 4 branches covered.">                 } else if(streamReader.isStartElement() &amp;&amp; lvcProductToObjectType.containsKey(streamReader.getLocalName())) {</span>
+<span class="fc" id="L173">                    StringWriter sw = new StringWriter();</span>
                     // Hiermee wordt de StreamReader het volgende product geforward
-<span class="fc" id="L176">                    transformer.transform(new StAXSource(streamReader), new StAXResult(xmlof.createXMLStreamWriter(sw)));</span>
-<span class="fc" id="L177">                    Document d = builder.parse(new InputSource(new StringReader(sw.toString())));</span>
-<span class="pc bpc" id="L178" title="1 of 2 branches missed.">                    if (createStandBagBericht(sw.toString(), d)) {</span>
-<span class="fc" id="L179">                        return true;</span>
+<span class="fc" id="L175">                    transformer.transform(new StAXSource(streamReader), new StAXResult(xmlof.createXMLStreamWriter(sw)));</span>
+<span class="fc" id="L176">                    Document d = builder.parse(new InputSource(new StringReader(sw.toString())));</span>
+<span class="pc bpc" id="L177" title="1 of 2 branches missed.">                    if (createStandBagBericht(sw.toString(), d)) {</span>
+<span class="fc" id="L178">                        return true;</span>
                     }
-<span class="nc" id="L181">                } else {</span>
-<span class="fc" id="L182">                    streamReader.next();</span>
+<span class="nc" id="L180">                } else {</span>
+<span class="fc" id="L181">                    streamReader.next();</span>
                 }
             }
-<span class="nc" id="L185">        } catch (XMLStreamException ex) {</span>
-<span class="nc" id="L186">            log.error(&quot;Error while streaming XML&quot;, ex);</span>
-<span class="fc" id="L187">        }</span>
-<span class="fc" id="L188">        return false;</span>
+<span class="nc" id="L184">        } catch (XMLStreamException ex) {</span>
+<span class="nc" id="L185">            log.error(&quot;Error while streaming XML&quot;, ex);</span>
+<span class="fc" id="L186">        }</span>
+<span class="fc" id="L187">        return false;</span>
     }
 
     @Override
     public BagBericht next() throws TransformerException, XMLStreamException {
-<span class="fc" id="L193">        BagBericht b = nextBericht;</span>
-<span class="fc" id="L194">        nextBericht = null;</span>
-<span class="fc" id="L195">        return b;</span>
+<span class="fc" id="L192">        BagBericht b = nextBericht;</span>
+<span class="fc" id="L193">        nextBericht = null;</span>
+<span class="fc" id="L194">        return b;</span>
     }
     
     private boolean createStandBagBericht(String brXml, Document d) {
-<span class="pc bpc" id="L199" title="1 of 2 branches missed.">        if (gebruikStandBericht(d.getDocumentElement())) {</span>
-<span class="fc" id="L200">            nextBericht = new BagBericht(brXml, d);</span>
-<span class="fc" id="L201">            Date datBegGeld = getBerichtBeginGeldigheid(d.getDocumentElement());</span>
-<span class="pc bpc" id="L202" title="2 of 4 branches missed.">            if (datBegGeld != null &amp;&amp; getBestandsDatum().before(datBegGeld)) {</span>
+<span class="pc bpc" id="L198" title="1 of 2 branches missed.">        if (gebruikStandBericht(d.getDocumentElement())) {</span>
+<span class="fc" id="L199">            nextBericht = new BagBericht(brXml, d);</span>
+<span class="fc" id="L200">            Date datBegGeld = getBerichtBeginGeldigheid(d.getDocumentElement());</span>
+<span class="pc bpc" id="L201" title="2 of 4 branches missed.">            if (datBegGeld != null &amp;&amp; getBestandsDatum().before(datBegGeld)) {</span>
                 //uitzondering: begindatum in toekomst
                 //sla op als mutatie met datum in de toekomst
                 //als dit 2x voorkomt voor zelfde object, jammer dan!
-<span class="nc" id="L206">                nextBericht.setDatum(datBegGeld);</span>
-<span class="nc" id="L207">                nextBericht.setVolgordeNummer(0);</span>
+<span class="nc" id="L205">                nextBericht.setDatum(datBegGeld);</span>
+<span class="nc" id="L206">                nextBericht.setVolgordeNummer(0);</span>
             } else {
                 // Bij een standlevering zit er geen datum in een &quot;Verwerking&quot; element,
                 // pak peildatum van stand en zet volgordenr op -1
-<span class="fc" id="L211">                nextBericht.setDatum(getBestandsDatum());</span>
-<span class="fc" id="L212">                nextBericht.setVolgordeNummer(-1);</span>
+<span class="fc" id="L210">                nextBericht.setDatum(getBestandsDatum());</span>
+<span class="fc" id="L211">                nextBericht.setVolgordeNummer(-1);</span>
             }
-<span class="fc" id="L214">            return true;</span>
+<span class="fc" id="L213">            return true;</span>
         }
-<span class="nc" id="L216">        return false;</span>
+<span class="nc" id="L215">        return false;</span>
     }
    
     private boolean createMutatieBagBericht(String brXml, Document d) {
-<span class="fc" id="L220">        NodeList children = d.getDocumentElement().getChildNodes();</span>
-<span class="fc bfc" id="L221" title="All 2 branches covered.">        for (int i = 0; i &lt; children.getLength(); i++) {</span>
-<span class="fc" id="L222">            Node child = children.item(i);</span>
+<span class="fc" id="L219">        NodeList children = d.getDocumentElement().getChildNodes();</span>
+<span class="fc bfc" id="L220" title="All 2 branches covered.">        for (int i = 0; i &lt; children.getLength(); i++) {</span>
+<span class="fc" id="L221">            Node child = children.item(i);</span>
             // Mutatie-product met Nieuw als child element gevonden
             // Origineel/Wijziging kunnen overgeslagen worden omdat er altijd een Nieuw
             // element voor hetzelfde object is. In de BRMO wordt de historie zelf
             // bijgehouden dus zijn de wijzigingen niet interessant
-<span class="fc bfc" id="L227" title="All 2 branches covered.">            if (&quot;Nieuw&quot;.equals(child.getLocalName())) {</span>
-<span class="fc" id="L228">                NodeList grandchildren = child.getChildNodes();</span>
-<span class="pc bpc" id="L229" title="1 of 2 branches missed.">                for (int j = 0; j &lt; grandchildren.getLength(); j++) {</span>
-<span class="fc" id="L230">                    Node grandchild = grandchildren.item(j);</span>
-<span class="fc bfc" id="L231" title="All 2 branches covered.">                    if (grandchild.getNodeType() == Node.ELEMENT_NODE) {</span>
-<span class="fc" id="L232">                        nextBericht = new BagBericht(brXml, d);</span>
-<span class="fc" id="L233">                        Date datBegGeld = getBerichtBeginGeldigheid(grandchild);</span>
-<span class="pc bpc" id="L234" title="1 of 4 branches missed.">                        if (datBegGeld != null &amp;&amp; getBestandsDatum().before(datBegGeld)) {</span>
+<span class="fc bfc" id="L226" title="All 2 branches covered.">            if (&quot;Nieuw&quot;.equals(child.getLocalName())) {</span>
+<span class="fc" id="L227">                NodeList grandchildren = child.getChildNodes();</span>
+<span class="pc bpc" id="L228" title="1 of 2 branches missed.">                for (int j = 0; j &lt; grandchildren.getLength(); j++) {</span>
+<span class="fc" id="L229">                    Node grandchild = grandchildren.item(j);</span>
+<span class="fc bfc" id="L230" title="All 2 branches covered.">                    if (grandchild.getNodeType() == Node.ELEMENT_NODE) {</span>
+<span class="fc" id="L231">                        nextBericht = new BagBericht(brXml, d);</span>
+<span class="fc" id="L232">                        Date datBegGeld = getBerichtBeginGeldigheid(grandchild);</span>
+<span class="pc bpc" id="L233" title="1 of 4 branches missed.">                        if (datBegGeld != null &amp;&amp; getBestandsDatum().before(datBegGeld)) {</span>
                             //uitzondering: begindatum in toekomst
                             //sla op met datum in de toekomst
-<span class="fc" id="L237">                            nextBericht.setDatum(datBegGeld);</span>
+<span class="fc" id="L236">                            nextBericht.setDatum(datBegGeld);</span>
                         }
-<span class="fc" id="L239">                        return true;</span>
+<span class="fc" id="L238">                        return true;</span>
                     }
                 }
             }
         }
-<span class="fc" id="L244">        return false;</span>
+<span class="fc" id="L243">        return false;</span>
     }
     
     /**
@@ -249,38 +248,38 @@ public class BagXMLReader extends BrmoXMLReader {
      * @return true als record niet inactief en einddatum geldigheid na bestandsdatum
      */
     private boolean gebruikStandBericht(Node n) {
-<span class="fc" id="L252">        String soort = n.getLocalName();</span>
-<span class="fc" id="L253">        NodeList children = n.getChildNodes();</span>
-<span class="fc bfc" id="L254" title="All 2 branches covered.">        for (int i = 0; i &lt; children.getLength(); i++) {</span>
-<span class="fc" id="L255">            Node child = children.item(i);</span>
-<span class="fc bfc" id="L256" title="All 2 branches covered.">            if (&quot;tijdvakgeldigheid&quot;.equals(child.getLocalName())) {</span>
-<span class="fc" id="L257">                NodeList grandchildren = child.getChildNodes();</span>
-<span class="fc bfc" id="L258" title="All 2 branches covered.">                for (int j = 0; j &lt; grandchildren.getLength(); j++) {</span>
-<span class="fc" id="L259">                    Node grandchild = grandchildren.item(j);</span>
-<span class="pc bpc" id="L260" title="1 of 2 branches missed.">                    if (&quot;einddatumTijdvakGeldigheid&quot;.equals(grandchild.getLocalName())) {</span>
-<span class="nc" id="L261">                        String dateString = grandchild.getTextContent().substring(0, 8);</span>
-<span class="nc" id="L262">                        SimpleDateFormat sdf = new SimpleDateFormat(&quot;yyyyMMdd&quot;);</span>
-<span class="nc" id="L263">                        Date eindGeldigheidDatum = null;</span>
+<span class="fc" id="L251">        String soort = n.getLocalName();</span>
+<span class="fc" id="L252">        NodeList children = n.getChildNodes();</span>
+<span class="fc bfc" id="L253" title="All 2 branches covered.">        for (int i = 0; i &lt; children.getLength(); i++) {</span>
+<span class="fc" id="L254">            Node child = children.item(i);</span>
+<span class="fc bfc" id="L255" title="All 2 branches covered.">            if (&quot;tijdvakgeldigheid&quot;.equals(child.getLocalName())) {</span>
+<span class="fc" id="L256">                NodeList grandchildren = child.getChildNodes();</span>
+<span class="fc bfc" id="L257" title="All 2 branches covered.">                for (int j = 0; j &lt; grandchildren.getLength(); j++) {</span>
+<span class="fc" id="L258">                    Node grandchild = grandchildren.item(j);</span>
+<span class="pc bpc" id="L259" title="1 of 2 branches missed.">                    if (&quot;einddatumTijdvakGeldigheid&quot;.equals(grandchild.getLocalName())) {</span>
+<span class="nc" id="L260">                        String dateString = grandchild.getTextContent().substring(0, 8);</span>
+<span class="nc" id="L261">                        SimpleDateFormat sdf = new SimpleDateFormat(&quot;yyyyMMdd&quot;);</span>
+<span class="nc" id="L262">                        Date eindGeldigheidDatum = null;</span>
                         try {
-<span class="nc" id="L265">                            eindGeldigheidDatum = sdf.parse(dateString);</span>
-<span class="nc" id="L266">                        } catch (ParseException pe) {</span>
-<span class="nc" id="L267">                            log.error(&quot;Fout bij parsen datum \&quot;&quot; + dateString + &quot;\&quot; met formaat yyyyMMdd&quot;, pe);</span>
-<span class="nc" id="L268">                        }</span>
-<span class="nc bnc" id="L269" title="All 2 branches missed.">                        if (eindGeldigheidDatum != null </span>
-<span class="nc bnc" id="L270" title="All 2 branches missed.">                                &amp;&amp; getBestandsDatum().after(eindGeldigheidDatum)) {</span>
-<span class="nc" id="L271">                            return false;</span>
+<span class="nc" id="L264">                            eindGeldigheidDatum = sdf.parse(dateString);</span>
+<span class="nc" id="L265">                        } catch (ParseException pe) {</span>
+<span class="nc" id="L266">                            log.error(&quot;Fout bij parsen datum \&quot;&quot; + dateString + &quot;\&quot; met formaat yyyyMMdd&quot;, pe);</span>
+<span class="nc" id="L267">                        }</span>
+<span class="nc bnc" id="L268" title="All 2 branches missed.">                        if (eindGeldigheidDatum != null </span>
+<span class="nc bnc" id="L269" title="All 2 branches missed.">                                &amp;&amp; getBestandsDatum().after(eindGeldigheidDatum)) {</span>
+<span class="nc" id="L270">                            return false;</span>
                         }
                     }
                 }
             }
             // aanduidingRecordInactief J verwijderen
-<span class="fc bfc" id="L277" title="All 2 branches covered.">            if (&quot;aanduidingRecordInactief&quot;.equals(child.getLocalName())) {</span>
-<span class="pc bpc" id="L278" title="1 of 2 branches missed.">                if (child.getTextContent().equalsIgnoreCase(&quot;J&quot;)) {</span>
-<span class="nc" id="L279">                    return false;</span>
+<span class="fc bfc" id="L276" title="All 2 branches covered.">            if (&quot;aanduidingRecordInactief&quot;.equals(child.getLocalName())) {</span>
+<span class="pc bpc" id="L277" title="1 of 2 branches missed.">                if (child.getTextContent().equalsIgnoreCase(&quot;J&quot;)) {</span>
+<span class="nc" id="L278">                    return false;</span>
                 }
             }
         }
-<span class="fc" id="L283">        return true;</span>
+<span class="fc" id="L282">        return true;</span>
     }
     
     /**
@@ -288,27 +287,27 @@ public class BagXMLReader extends BrmoXMLReader {
      * @return datum begin geldigheid of null indien niet in toekomst
      */
     private Date getBerichtBeginGeldigheid(Node n) {
-<span class="fc" id="L291">        NodeList children = n.getChildNodes();</span>
-<span class="fc" id="L292">        SimpleDateFormat sdf = new SimpleDateFormat(&quot;yyyyMMdd&quot;);</span>
-<span class="fc" id="L293">        Date beginGeldigheid = null;</span>
-<span class="fc bfc" id="L294" title="All 2 branches covered.">        for (int i = 0; i &lt; children.getLength(); i++) {</span>
-<span class="fc" id="L295">            Node child = children.item(i);</span>
-<span class="fc bfc" id="L296" title="All 2 branches covered.">            if (&quot;tijdvakgeldigheid&quot;.equals(child.getLocalName())) {</span>
-<span class="fc" id="L297">                NodeList grandchildren = child.getChildNodes();</span>
-<span class="fc bfc" id="L298" title="All 2 branches covered.">                for (int j = 0; j &lt; grandchildren.getLength(); j++) {</span>
-<span class="fc" id="L299">                    Node grandchild = grandchildren.item(j);</span>
-<span class="fc bfc" id="L300" title="All 2 branches covered.">                    if (&quot;begindatumTijdvakGeldigheid&quot;.equals(grandchild.getLocalName())) {</span>
-<span class="fc" id="L301">                        String dateString = grandchild.getTextContent().substring(0, 8);</span>
+<span class="fc" id="L290">        NodeList children = n.getChildNodes();</span>
+<span class="fc" id="L291">        SimpleDateFormat sdf = new SimpleDateFormat(&quot;yyyyMMdd&quot;);</span>
+<span class="fc" id="L292">        Date beginGeldigheid = null;</span>
+<span class="fc bfc" id="L293" title="All 2 branches covered.">        for (int i = 0; i &lt; children.getLength(); i++) {</span>
+<span class="fc" id="L294">            Node child = children.item(i);</span>
+<span class="fc bfc" id="L295" title="All 2 branches covered.">            if (&quot;tijdvakgeldigheid&quot;.equals(child.getLocalName())) {</span>
+<span class="fc" id="L296">                NodeList grandchildren = child.getChildNodes();</span>
+<span class="fc bfc" id="L297" title="All 2 branches covered.">                for (int j = 0; j &lt; grandchildren.getLength(); j++) {</span>
+<span class="fc" id="L298">                    Node grandchild = grandchildren.item(j);</span>
+<span class="fc bfc" id="L299" title="All 2 branches covered.">                    if (&quot;begindatumTijdvakGeldigheid&quot;.equals(grandchild.getLocalName())) {</span>
+<span class="fc" id="L300">                        String dateString = grandchild.getTextContent().substring(0, 8);</span>
                         try {
-<span class="fc" id="L303">                            beginGeldigheid = sdf.parse(dateString);</span>
-<span class="nc" id="L304">                        } catch (ParseException pe) {</span>
-<span class="nc" id="L305">                            log.error(&quot;Fout bij parsen datum \&quot;&quot; + dateString + &quot;\&quot; met formaat yyyyMMdd&quot;, pe);</span>
-<span class="fc" id="L306">                        }</span>
+<span class="fc" id="L302">                            beginGeldigheid = sdf.parse(dateString);</span>
+<span class="nc" id="L303">                        } catch (ParseException pe) {</span>
+<span class="nc" id="L304">                            log.error(&quot;Fout bij parsen datum \&quot;&quot; + dateString + &quot;\&quot; met formaat yyyyMMdd&quot;, pe);</span>
+<span class="fc" id="L305">                        }</span>
                     }
                  }
             }
         }
-<span class="fc" id="L311">        return beginGeldigheid;</span>
+<span class="fc" id="L310">        return beginGeldigheid;</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

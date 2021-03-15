@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.b3p.brmo.loader.gml.light.FunctioneelGebied
-	c480 [label=<<table title="nl.b3p.brmo.loader.gml.light.FunctioneelGebied" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./FunctioneelGebied.html">
+	c481 [label=<<table title="nl.b3p.brmo.loader.gml.light.FunctioneelGebied" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./FunctioneelGebied.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> FunctioneelGebied </td></tr>
 		</table></td></tr>
@@ -37,6 +37,6 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./GMLLightFeatureTransformerImpl.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.b3p.brmo.loader.gml.light.FunctioneelGebied extends nl.b3p.brmo.loader.gml.light.GMLLightFeatureTransformerImpl
-	c514:p -> c480:p [dir=back,arrowtail=empty];
+	c514:p -> c481:p [dir=back,arrowtail=empty];
 }
 

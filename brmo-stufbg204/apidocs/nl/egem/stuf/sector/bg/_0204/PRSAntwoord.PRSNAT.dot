@@ -9,8 +9,22 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// nl.egem.stuf.sector.bg._0204.PRSAntwoord.PRSNAT
+	c146288 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSAntwoord.PRSNAT" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PRSAntwoord.PRSNAT.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> PRSNAT </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # nat : NATTabel </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + PRSNAT() </td></tr>
+<tr><td align="left" balign="left"> + getNAT() : NATTabel </td></tr>
+<tr><td align="left" balign="left"> + setNAT(value : NATTabel) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./PRSAntwoord.PRSNAT.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.PRSNATRel
-	c146261 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSNATRel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSNATRel.html">
+	c146338 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSNATRel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PRSNATRel.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PRSNATRel </td></tr>
 		</table></td></tr>
@@ -54,7 +68,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./PRSNATRel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.NATTabel
-	c146455 [label=<<table title="nl.egem.stuf.sector.bg._0204.NATTabel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NATTabel.html">
+	c146551 [label=<<table title="nl.egem.stuf.sector.bg._0204.NATTabel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NATTabel.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> NATTabel </td></tr>
 		</table></td></tr>
@@ -88,23 +102,9 @@ digraph G {
 <tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./NATTabel.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.PRSAntwoord.PRSNAT
-	c146464 [label=<<table title="nl.egem.stuf.sector.bg._0204.PRSAntwoord.PRSNAT" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PRSAntwoord.PRSNAT.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> PRSNAT </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # nat : NATTabel </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + PRSNAT() </td></tr>
-<tr><td align="left" balign="left"> + getNAT() : NATTabel </td></tr>
-<tr><td align="left" balign="left"> + setNAT(value : NATTabel) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./PRSAntwoord.PRSNAT.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.PRSAntwoord.PRSNAT extends nl.egem.stuf.sector.bg._0204.PRSNATRel
-	c146261:p -> c146464:p [dir=back,arrowtail=empty];
+	c146338:p -> c146288:p [dir=back,arrowtail=empty];
 	// nl.egem.stuf.sector.bg._0204.PRSAntwoord.PRSNAT NAVASSOC nl.egem.stuf.sector.bg._0204.NATTabel
-	c146464:p -> c146455:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c146288:p -> c146551:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

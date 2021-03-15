@@ -488,240 +488,240 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
      * @param a de afgifte uit het soap verzoek
      * @param url te downloaden bestand
      * @throws Exception if any
-     * @see
-     * #laadAfgifte(nl.kadaster.schemas.gds2.afgifte_bestandenlijstgbresultaat.afgifte.v20130701.AfgifteGBType,
-     * java.lang.String)
+     * @see #laadAfgifte(AfgifteType, String)
      */
     private void laadBagAfgifte(AfgifteType a, String url) throws Exception {
-<span class="nc" id="L496">        String msg = &quot;Downloaden &quot; + url;</span>
-<span class="nc" id="L497">        l.updateStatus(msg);</span>
-<span class="nc" id="L498">        l.addLog(msg);</span>
+<span class="nc" id="L494">        String msg = &quot;Downloaden &quot; + url;</span>
+<span class="nc" id="L495">        l.updateStatus(msg);</span>
+<span class="nc" id="L496">        l.addLog(msg);</span>
 
-<span class="nc" id="L500">        InputStream input = null;</span>
-<span class="nc" id="L501">        int attempt = 0;</span>
+<span class="nc" id="L498">        InputStream input = null;</span>
+<span class="nc" id="L499">        int attempt = 0;</span>
         while (true) {
             try {
-<span class="nc" id="L504">                URLConnection connection = new URL(url).openConnection();</span>
-<span class="nc bnc" id="L505" title="All 2 branches missed.">                if (connection instanceof HttpsURLConnection) {</span>
-<span class="nc" id="L506">                    ((HttpsURLConnection) connection).setSSLSocketFactory(context.getSocketFactory());</span>
+<span class="nc" id="L502">                URLConnection connection = new URL(url).openConnection();</span>
+<span class="nc bnc" id="L503" title="All 2 branches missed.">                if (connection instanceof HttpsURLConnection) {</span>
+<span class="nc" id="L504">                    ((HttpsURLConnection) connection).setSSLSocketFactory(context.getSocketFactory());</span>
                 }
-<span class="nc" id="L508">                input = (InputStream) connection.getContent();</span>
-<span class="nc bnc" id="L509" title="All 2 branches missed.">                if (log.isDebugEnabled()) {</span>
+<span class="nc" id="L506">                input = (InputStream) connection.getContent();</span>
+<span class="nc bnc" id="L507" title="All 2 branches missed.">                if (log.isDebugEnabled()) {</span>
                     // dump zip bestand naar /tmp/ voordat de xml wordt geparsed
-<span class="nc" id="L511">                    File dump = File.createTempFile(a.getBestand().getBestandsnaam() + &quot;_id-&quot; + a.getAfgifteID(), &quot;.zip&quot;);</span>
-<span class="nc" id="L512">                    log.debug(&quot;Dump BAG mutaties zip naar: &quot; + dump.getAbsolutePath());</span>
-<span class="nc" id="L513">                    FileOutputStream archiveFile = new FileOutputStream(dump);</span>
-<span class="nc" id="L514">                    input = new TeeInputStream(input, archiveFile, true);</span>
+<span class="nc" id="L509">                    File dump = File.createTempFile(a.getBestand().getBestandsnaam() + &quot;_id-&quot; + a.getAfgifteID(), &quot;.zip&quot;);</span>
+<span class="nc" id="L510">                    log.debug(&quot;Dump BAG mutaties zip naar: &quot; + dump.getAbsolutePath());</span>
+<span class="nc" id="L511">                    FileOutputStream archiveFile = new FileOutputStream(dump);</span>
+<span class="nc" id="L512">                    input = new TeeInputStream(input, archiveFile, true);</span>
                 }
-<span class="nc" id="L516">                break;</span>
-<span class="nc" id="L517">            } catch (Exception e) {</span>
-<span class="nc" id="L518">                attempt++;</span>
-<span class="nc bnc" id="L519" title="All 2 branches missed.">                if (attempt == AFGIFTE_DOWNLOAD_ATTEMPTS) {</span>
-<span class="nc" id="L520">                    l.addLog(&quot;Fout bij laatste poging downloaden afgifte: &quot; + e.getClass().getName() + &quot;: &quot; + e.getMessage());</span>
-<span class="nc" id="L521">                    throw e;</span>
+<span class="nc" id="L514">                break;</span>
+<span class="nc" id="L515">            } catch (Exception e) {</span>
+<span class="nc" id="L516">                attempt++;</span>
+<span class="nc bnc" id="L517" title="All 2 branches missed.">                if (attempt == AFGIFTE_DOWNLOAD_ATTEMPTS) {</span>
+<span class="nc" id="L518">                    l.addLog(&quot;Fout bij laatste poging downloaden afgifte: &quot; + e.getClass().getName() + &quot;: &quot; + e.getMessage());</span>
+<span class="nc" id="L519">                    throw e;</span>
                 } else {
-<span class="nc" id="L523">                    l.addLog(&quot;Fout bij poging &quot; + attempt + &quot; om afgifte te downloaden: &quot; + e.getClass().getName() + &quot;: &quot; + e.getMessage());</span>
-<span class="nc" id="L524">                    Thread.sleep(AFGIFTE_DOWNLOAD_RETRY_WAIT);</span>
-<span class="nc" id="L525">                    l.addLog(&quot;Uitvoeren poging &quot; + (attempt + 1) + &quot; om afgifte &quot; + url + &quot; te downloaden...&quot;);</span>
+<span class="nc" id="L521">                    l.addLog(&quot;Fout bij poging &quot; + attempt + &quot; om afgifte te downloaden: &quot; + e.getClass().getName() + &quot;: &quot; + e.getMessage());</span>
+<span class="nc" id="L522">                    Thread.sleep(AFGIFTE_DOWNLOAD_RETRY_WAIT);</span>
+<span class="nc" id="L523">                    l.addLog(&quot;Uitvoeren poging &quot; + (attempt + 1) + &quot; om afgifte &quot; + url + &quot; te downloaden...&quot;);</span>
                 }
-<span class="nc" id="L527">            }</span>
+<span class="nc" id="L525">            }</span>
         }
 
-<span class="nc" id="L530">        BrmoFramework brmo = new BrmoFramework(ConfigUtil.getDataSourceStaging(), null);</span>
+<span class="nc" id="L528">        BrmoFramework brmo = new BrmoFramework(ConfigUtil.getDataSourceStaging(), null);</span>
 
-<span class="nc" id="L532">        ZipInputStream zip = new ZipInputStream(input);</span>
-<span class="nc" id="L533">        ZipEntry entry = zip.getNextEntry();</span>
-<span class="nc bnc" id="L534" title="All 2 branches missed.">        while (entry != null) {</span>
-<span class="nc" id="L535">            log.trace(&quot;gevonden &quot; + entry.getName());</span>
-<span class="nc bnc" id="L536" title="All 2 branches missed.">            if (!entry.getName().toLowerCase().startsWith(&quot;gem-wpl-relatie&quot;)</span>
-<span class="nc bnc" id="L537" title="All 2 branches missed.">                    &amp;&amp; !entry.getName().equalsIgnoreCase(&quot;Leveringsdocument-BAG-Mutaties.xml&quot;)) {</span>
-<span class="nc bnc" id="L538" title="All 2 branches missed.">                if (entry.getName().toLowerCase().endsWith(&quot;.zip&quot;)) {</span>
+<span class="nc" id="L530">        ZipInputStream zip = new ZipInputStream(input);</span>
+<span class="nc" id="L531">        ZipEntry entry = zip.getNextEntry();</span>
+<span class="nc bnc" id="L532" title="All 2 branches missed.">        while (entry != null) {</span>
+<span class="nc" id="L533">            log.trace(&quot;gevonden &quot; + entry.getName());</span>
+<span class="nc bnc" id="L534" title="All 2 branches missed.">            if (!entry.getName().toLowerCase().startsWith(&quot;gem-wpl-relatie&quot;)</span>
+<span class="nc bnc" id="L535" title="All 2 branches missed.">                    &amp;&amp; !entry.getName().equalsIgnoreCase(&quot;Leveringsdocument-BAG-Mutaties.xml&quot;)) {</span>
+<span class="nc bnc" id="L536" title="All 2 branches missed.">                if (entry.getName().toLowerCase().endsWith(&quot;.zip&quot;)) {</span>
                     // alleen mutaties oppakken
-<span class="nc" id="L540">                    ZipInputStream innerzip = new ZipInputStream(zip);</span>
-<span class="nc" id="L541">                    ZipEntry innerentry = innerzip.getNextEntry();</span>
-<span class="nc" id="L542">                    String localLpName = &quot;&quot;;</span>
-<span class="nc bnc" id="L543" title="All 4 branches missed.">                    while (innerentry != null &amp;&amp; innerentry.getName().toLowerCase().endsWith(&quot;.xml&quot;)) {</span>
-<span class="nc" id="L544">                        msg = &quot;Verwerken &quot; + entry.getName() + &quot;/&quot; + innerentry.getName() + &quot; uit &quot; + getLaadprocesBestandsnaam(a);</span>
-<span class="nc" id="L545">                        l.updateStatus(msg);</span>
-<span class="nc" id="L546">                        l.addLog(msg);</span>
-<span class="nc" id="L547">                        log.debug(msg);</span>
+<span class="nc" id="L538">                    ZipInputStream innerzip = new ZipInputStream(zip);</span>
+<span class="nc" id="L539">                    ZipEntry innerentry = innerzip.getNextEntry();</span>
+<span class="nc" id="L540">                    String localLpName = &quot;&quot;;</span>
+<span class="nc bnc" id="L541" title="All 4 branches missed.">                    while (innerentry != null &amp;&amp; innerentry.getName().toLowerCase().endsWith(&quot;.xml&quot;)) {</span>
+<span class="nc" id="L542">                        msg = &quot;Verwerken &quot; + entry.getName() + &quot;/&quot; + innerentry.getName() + &quot; uit &quot; + getLaadprocesBestandsnaam(a);</span>
+<span class="nc" id="L543">                        l.updateStatus(msg);</span>
+<span class="nc" id="L544">                        l.addLog(msg);</span>
+<span class="nc" id="L545">                        log.debug(msg);</span>
                         try {
-<span class="nc" id="L549">                            localLpName = getLaadprocesBestandsnaam(a) + &quot;/&quot; + entry.getName() + &quot;/&quot; + innerentry.getName();</span>
-<span class="nc" id="L550">                            brmo.loadFromStream(</span>
+<span class="nc" id="L547">                            localLpName = getLaadprocesBestandsnaam(a) + &quot;/&quot; + entry.getName() + &quot;/&quot; + innerentry.getName();</span>
+<span class="nc" id="L548">                            brmo.loadFromStream(</span>
                                     BrmoFramework.BR_BAG,
                                     new CloseShieldInputStream(innerzip),
                                     localLpName,
-<span class="nc" id="L554">                                    config.getId()</span>
+<span class="nc" id="L552">                                    config.getId()</span>
                             );
-<span class="nc" id="L556">                        } catch (BrmoDuplicaatLaadprocesException d) {</span>
-<span class="nc" id="L557">                            msg = &quot;Duplicaat laadproces. &quot; + d.getLocalizedMessage();</span>
-<span class="nc" id="L558">                            l.updateStatus(msg);</span>
-<span class="nc" id="L559">                            l.addLog(msg);</span>
-<span class="nc" id="L560">                            log.warn(msg);</span>
-<span class="nc" id="L561">                        } catch (BrmoLeegBestandException e) {</span>
-<span class="nc" id="L562">                            msg = &quot;Leeg bestand voor laadproces. &quot; + e.getLocalizedMessage();</span>
-<span class="nc" id="L563">                            l.updateStatus(msg);</span>
-<span class="nc" id="L564">                            l.addLog(msg);</span>
-<span class="nc" id="L565">                            log.info(msg);</span>
+<span class="nc" id="L554">                        } catch (BrmoDuplicaatLaadprocesException d) {</span>
+<span class="nc" id="L555">                            msg = &quot;Duplicaat laadproces. &quot; + d.getLocalizedMessage();</span>
+<span class="nc" id="L556">                            l.updateStatus(msg);</span>
+<span class="nc" id="L557">                            l.addLog(msg);</span>
+<span class="nc" id="L558">                            log.warn(msg);</span>
+<span class="nc" id="L559">                        } catch (BrmoLeegBestandException e) {</span>
+<span class="nc" id="L560">                            msg = &quot;Leeg bestand voor laadproces. &quot; + e.getLocalizedMessage();</span>
+<span class="nc" id="L561">                            l.updateStatus(msg);</span>
+<span class="nc" id="L562">                            l.addLog(msg);</span>
+<span class="nc" id="L563">                            log.info(msg);</span>
                         } finally {
-<span class="nc" id="L567">                            brmo.updateLaadProcesMeta(</span>
-<span class="nc" id="L568">                                    brmo.getLaadProcesIdByFileName(localLpName),</span>
-<span class="nc" id="L569">                                    a.getKlantAfgiftenummer(),</span>
-<span class="nc" id="L570">                                    a.getContractAfgiftenummer(),</span>
-<span class="nc" id="L571">                                    a.getBestandKenmerken().getArtikelnummer(),</span>
-<span class="nc" id="L572">                                    a.getBestandKenmerken().getContractnummer(),</span>
-<span class="nc" id="L573">                                    a.getAfgifteID(),</span>
-<span class="nc" id="L574">                                    a.getAfgiftereferentie(),</span>
-<span class="nc" id="L575">                                    a.getBestand().getBestandsreferentie(),</span>
-<span class="nc" id="L576">                                    a.getBeschikbaarTot().toGregorianCalendar().getTime()</span>
+<span class="nc" id="L565">                            brmo.updateLaadProcesMeta(</span>
+<span class="nc" id="L566">                                    brmo.getLaadProcesIdByFileName(localLpName),</span>
+<span class="nc" id="L567">                                    a.getKlantAfgiftenummer(),</span>
+<span class="nc" id="L568">                                    a.getContractAfgiftenummer(),</span>
+<span class="nc" id="L569">                                    a.getBestandKenmerken().getArtikelnummer(),</span>
+<span class="nc" id="L570">                                    a.getBestandKenmerken().getContractnummer(),</span>
+<span class="nc" id="L571">                                    a.getAfgifteID(),</span>
+<span class="nc" id="L572">                                    a.getAfgiftereferentie(),</span>
+<span class="nc" id="L573">                                    a.getBestand().getBestandsreferentie(),</span>
+<span class="nc" id="L574">                                    a.getBeschikbaarTot().toGregorianCalendar().getTime()</span>
                             );
                         }
-<span class="nc" id="L579">                        innerentry = innerzip.getNextEntry();</span>
+<span class="nc" id="L577">                        innerentry = innerzip.getNextEntry();</span>
                     }
-<span class="nc" id="L581">                } else {</span>
-<span class="nc" id="L582">                    log.warn(&quot;Overslaan van onbekend bestand in bag mutaties: &quot; + entry.getName());</span>
+<span class="nc" id="L579">                } else {</span>
+<span class="nc" id="L580">                    log.warn(&quot;Overslaan van onbekend bestand in bag mutaties: &quot; + entry.getName());</span>
                 }
             }
-<span class="nc" id="L585">            entry = zip.getNextEntry();</span>
+<span class="nc" id="L583">            entry = zip.getNextEntry();</span>
         }
-<span class="nc" id="L587">        zip.close();</span>
-<span class="nc" id="L588">        brmo.closeBrmoFramework();</span>
-<span class="nc" id="L589">    }</span>
+<span class="nc" id="L585">        zip.close();</span>
+<span class="nc" id="L586">        brmo.closeBrmoFramework();</span>
+<span class="nc" id="L587">    }</span>
 
     private Bericht laadAfgifte(AfgifteType a, String url) throws Exception {
-<span class="nc" id="L592">        EntityManager em = Stripersist.getEntityManager();</span>
-<span class="nc" id="L593">        String msg = &quot;Downloaden &quot; + url;</span>
-<span class="nc" id="L594">        l.updateStatus(msg);</span>
-<span class="nc" id="L595">        l.addLog(msg);</span>
+<span class="nc" id="L590">        EntityManager em = Stripersist.getEntityManager();</span>
+<span class="nc" id="L591">        String msg = &quot;Downloaden &quot; + url;</span>
+<span class="nc" id="L592">        l.updateStatus(msg);</span>
+<span class="nc" id="L593">        l.addLog(msg);</span>
 
-<span class="nc" id="L597">        ByteArrayOutputStream bos = new ByteArrayOutputStream();</span>
+<span class="nc" id="L595">        ByteArrayOutputStream bos = new ByteArrayOutputStream();</span>
 
-<span class="nc" id="L599">        int attempt = 0;</span>
+<span class="nc" id="L597">        int attempt = 0;</span>
         while (true) {
             try {
-<span class="nc" id="L602">                URLConnection connection = new URL(url).openConnection();</span>
-<span class="nc bnc" id="L603" title="All 2 branches missed.">                if (connection instanceof HttpsURLConnection) {</span>
-<span class="nc" id="L604">                    ((HttpsURLConnection) connection).setSSLSocketFactory(context.getSocketFactory());</span>
+<span class="nc" id="L600">                URLConnection connection = new URL(url).openConnection();</span>
+<span class="nc bnc" id="L601" title="All 2 branches missed.">                if (connection instanceof HttpsURLConnection) {</span>
+<span class="nc" id="L602">                    ((HttpsURLConnection) connection).setSSLSocketFactory(context.getSocketFactory());</span>
                 }
-<span class="nc" id="L606">                InputStream input = (InputStream) connection.getContent();</span>
-<span class="nc" id="L607">                IOUtils.copy(input, bos);</span>
-<span class="nc" id="L608">                break;</span>
-<span class="nc" id="L609">            } catch (Exception e) {</span>
-<span class="nc" id="L610">                attempt++;</span>
-<span class="nc bnc" id="L611" title="All 2 branches missed.">                if (attempt == AFGIFTE_DOWNLOAD_ATTEMPTS) {</span>
-<span class="nc" id="L612">                    l.addLog(&quot;Fout bij laatste poging downloaden afgifte: &quot; + e.getClass().getName() + &quot;: &quot; + e.getMessage());</span>
-<span class="nc" id="L613">                    throw e;</span>
+<span class="nc" id="L604">                InputStream input = (InputStream) connection.getContent();</span>
+<span class="nc" id="L605">                IOUtils.copy(input, bos);</span>
+<span class="nc" id="L606">                break;</span>
+<span class="nc" id="L607">            } catch (Exception e) {</span>
+<span class="nc" id="L608">                attempt++;</span>
+<span class="nc bnc" id="L609" title="All 2 branches missed.">                if (attempt == AFGIFTE_DOWNLOAD_ATTEMPTS) {</span>
+<span class="nc" id="L610">                    l.addLog(&quot;Fout bij laatste poging downloaden afgifte: &quot; + e.getClass().getName() + &quot;: &quot; + e.getMessage());</span>
+<span class="nc" id="L611">                    throw e;</span>
                 } else {
-<span class="nc" id="L615">                    l.addLog(&quot;Fout bij poging &quot; + attempt + &quot; om afgifte te downloaden: &quot; + e.getClass().getName() + &quot;: &quot; + e.getMessage());</span>
-<span class="nc" id="L616">                    Thread.sleep(AFGIFTE_DOWNLOAD_RETRY_WAIT);</span>
-<span class="nc" id="L617">                    l.addLog(&quot;Uitvoeren poging &quot; + (attempt + 1) + &quot; om afgifte &quot; + url + &quot; te downloaden...&quot;);</span>
+<span class="nc" id="L613">                    l.addLog(&quot;Fout bij poging &quot; + attempt + &quot; om afgifte te downloaden: &quot; + e.getClass().getName() + &quot;: &quot; + e.getMessage());</span>
+<span class="nc" id="L614">                    Thread.sleep(AFGIFTE_DOWNLOAD_RETRY_WAIT);</span>
+<span class="nc" id="L615">                    l.addLog(&quot;Uitvoeren poging &quot; + (attempt + 1) + &quot; om afgifte &quot; + url + &quot; te downloaden...&quot;);</span>
                 }
-<span class="nc" id="L619">            }</span>
+<span class="nc" id="L617">            }</span>
         }
 
-<span class="nc" id="L622">        LaadProces lp = new LaadProces();</span>
-<span class="nc" id="L623">        lp.setBestand_naam(getLaadprocesBestandsnaam(a));</span>
-<span class="nc" id="L624">        lp.setKlantafgiftenummer(a.getKlantAfgiftenummer());</span>
-<span class="nc" id="L625">        lp.setContractafgiftenummer(a.getContractAfgiftenummer());</span>
-<span class="nc" id="L626">        lp.setArtikelnummer(a.getBestandKenmerken().getArtikelnummer());</span>
-<span class="nc" id="L627">        lp.setContractnummer(a.getBestandKenmerken().getContractnummer());</span>
-<span class="nc" id="L628">        lp.setAfgifteid(a.getAfgifteID());</span>
-<span class="nc" id="L629">        lp.setAfgiftereferentie(a.getAfgiftereferentie());</span>
-<span class="nc" id="L630">        lp.setBestandsreferentie(a.getBestand().getBestandsreferentie());</span>
-<span class="nc" id="L631">        lp.setBeschikbaar_tot(a.getBeschikbaarTot().toGregorianCalendar().getTime());</span>
-<span class="nc" id="L632">        lp.setBestand_naam_hersteld(a.getBestand().getBestandsnaam());</span>
+<span class="nc" id="L620">        LaadProces lp = new LaadProces();</span>
+<span class="nc" id="L621">        lp.setBestand_naam(getLaadprocesBestandsnaam(a));</span>
+<span class="nc" id="L622">        lp.setKlantafgiftenummer(a.getKlantAfgiftenummer());</span>
+<span class="nc" id="L623">        lp.setContractafgiftenummer(a.getContractAfgiftenummer());</span>
+<span class="nc" id="L624">        lp.setArtikelnummer(a.getBestandKenmerken().getArtikelnummer());</span>
+<span class="nc" id="L625">        lp.setContractnummer(a.getBestandKenmerken().getContractnummer());</span>
+<span class="nc" id="L626">        lp.setAfgifteid(a.getAfgifteID());</span>
+<span class="nc" id="L627">        lp.setAfgiftereferentie(a.getAfgiftereferentie());</span>
+<span class="nc" id="L628">        lp.setBestandsreferentie(a.getBestand().getBestandsreferentie());</span>
+<span class="nc" id="L629">        lp.setBeschikbaar_tot(a.getBeschikbaarTot().toGregorianCalendar().getTime());</span>
+<span class="nc" id="L630">        lp.setBestand_naam_hersteld(a.getBestand().getBestandsnaam());</span>
 
-<span class="nc bnc" id="L634" title="All 2 branches missed.">        if (a.getDigikoppelingExternalDatareferences() != null</span>
-<span class="nc bnc" id="L635" title="All 2 branches missed.">                &amp;&amp; a.getDigikoppelingExternalDatareferences().getDataReference() != null) {</span>
-<span class="nc bnc" id="L636" title="All 2 branches missed.">            for (DataReference dr : a.getDigikoppelingExternalDatareferences().getDataReference()) {</span>
-<span class="nc" id="L637">                lp.setBestand_datum(dr.getLifetime().getCreationTime().getValue().toGregorianCalendar().getTime());</span>
-<span class="nc" id="L638">                break;</span>
+<span class="nc bnc" id="L632" title="All 2 branches missed.">        if (a.getDigikoppelingExternalDatareferences() != null</span>
+<span class="nc bnc" id="L633" title="All 2 branches missed.">                &amp;&amp; a.getDigikoppelingExternalDatareferences().getDataReference() != null) {</span>
+<span class="nc bnc" id="L634" title="All 2 branches missed.">            for (DataReference dr : a.getDigikoppelingExternalDatareferences().getDataReference()) {</span>
+<span class="nc" id="L635">                lp.setBestand_datum(dr.getLifetime().getCreationTime().getValue().toGregorianCalendar().getTime());</span>
+<span class="nc" id="L636">                break;</span>
             }
         }
-<span class="nc" id="L641">        lp.setSoort(&quot;brk&quot;);</span>
-<span class="nc" id="L642">        lp.setStatus(LaadProces.STATUS.STAGING_OK);</span>
-<span class="nc" id="L643">        SimpleDateFormat sdf = new SimpleDateFormat(&quot;dd-MM-yyyy HH:mm:ss&quot;);</span>
-<span class="nc" id="L644">        lp.setOpmerking(&quot;GDS2 download van &quot; + url + &quot; op &quot; + sdf.format(new Date()));</span>
-<span class="nc" id="L645">        lp.setAutomatischProces(em.find(AutomatischProces.class, config.getId()));</span>
+<span class="nc" id="L639">        lp.setSoort(&quot;brk&quot;);</span>
+<span class="nc" id="L640">        lp.setStatus(LaadProces.STATUS.STAGING_OK);</span>
+<span class="nc" id="L641">        lp.setStatus_datum(new Date());</span>
+<span class="nc" id="L642">        SimpleDateFormat sdf = new SimpleDateFormat(&quot;dd-MM-yyyy HH:mm:ss&quot;);</span>
+<span class="nc" id="L643">        lp.setOpmerking(&quot;GDS2 download van &quot; + url + &quot; op &quot; + sdf.format(new Date()));</span>
+<span class="nc" id="L644">        lp.setAutomatischProces(em.find(AutomatischProces.class, config.getId()));</span>
 
-<span class="nc" id="L647">        Bericht b = new Bericht();</span>
-<span class="nc" id="L648">        b.setLaadprocesid(lp);</span>
-<span class="nc" id="L649">        b.setDatum(lp.getBestand_datum());</span>
-<span class="nc" id="L650">        b.setSoort(&quot;brk&quot;);</span>
-<span class="nc" id="L651">        b.setStatus_datum(new Date());</span>
+<span class="nc" id="L646">        Bericht b = new Bericht();</span>
+<span class="nc" id="L647">        b.setLaadprocesid(lp);</span>
+<span class="nc" id="L648">        b.setDatum(lp.getBestand_datum());</span>
+<span class="nc" id="L649">        b.setSoort(&quot;brk&quot;);</span>
+<span class="nc" id="L650">        b.setStatus_datum(new Date());</span>
 
-<span class="nc" id="L653">        ZipInputStream zip = new ZipInputStream(new ByteArrayInputStream(bos.toByteArray()));</span>
-<span class="nc" id="L654">        ZipEntry entry = zip.getNextEntry();</span>
-<span class="nc bnc" id="L655" title="All 4 branches missed.">        while (entry != null &amp;&amp; !entry.getName().toLowerCase().endsWith(&quot;.xml&quot;)) {</span>
-<span class="nc" id="L656">            msg = &quot;Overslaan zip entry geen XML: &quot; + entry.getName();</span>
-<span class="nc" id="L657">            l.addLog(msg);</span>
-<span class="nc" id="L658">            entry = zip.getNextEntry();</span>
+<span class="nc" id="L652">        ZipInputStream zip = new ZipInputStream(new ByteArrayInputStream(bos.toByteArray()));</span>
+<span class="nc" id="L653">        ZipEntry entry = zip.getNextEntry();</span>
+<span class="nc bnc" id="L654" title="All 4 branches missed.">        while (entry != null &amp;&amp; !entry.getName().toLowerCase().endsWith(&quot;.xml&quot;)) {</span>
+<span class="nc" id="L655">            msg = &quot;Overslaan zip entry geen XML: &quot; + entry.getName();</span>
+<span class="nc" id="L656">            l.addLog(msg);</span>
+<span class="nc" id="L657">            entry = zip.getNextEntry();</span>
         }
-<span class="nc bnc" id="L660" title="All 2 branches missed.">        if (entry == null) {</span>
-<span class="nc" id="L661">            msg = &quot;Geen geschikt XML bestand gevonden in zip bestand!&quot;;</span>
-<span class="nc" id="L662">            l.addLog(msg);</span>
-<span class="nc" id="L663">            return null;</span>
+<span class="nc bnc" id="L659" title="All 2 branches missed.">        if (entry == null) {</span>
+<span class="nc" id="L660">            msg = &quot;Geen geschikt XML bestand gevonden in zip bestand!&quot;;</span>
+<span class="nc" id="L661">            l.addLog(msg);</span>
+<span class="nc" id="L662">            return null;</span>
         }
-<span class="nc" id="L665">        b.setBr_orgineel_xml(IOUtils.toString(zip, &quot;UTF-8&quot;));</span>
+<span class="nc" id="L664">        b.setBr_orgineel_xml(IOUtils.toString(zip, &quot;UTF-8&quot;));</span>
 
-<span class="nc bnc" id="L667" title="All 2 branches missed.">        if (log.isDebugEnabled()) {</span>
+<span class="nc bnc" id="L666" title="All 2 branches missed.">        if (log.isDebugEnabled()) {</span>
             // dump xml bestand naar /tmp/ voordat de xml wordt geparsed
-<span class="nc" id="L669">            String fName = File.createTempFile(lp.getBestand_naam(), &quot;.xml&quot;).getAbsolutePath();</span>
-<span class="nc" id="L670">            log.debug(&quot;Dump xml bericht naar: &quot; + fName);</span>
-<span class="nc" id="L671">            IOUtils.write(b.getBr_orgineel_xml(), new FileWriter(fName));</span>
+<span class="nc" id="L668">            String fName = File.createTempFile(lp.getBestand_naam(), &quot;.xml&quot;).getAbsolutePath();</span>
+<span class="nc" id="L669">            log.debug(&quot;Dump xml bericht naar: &quot; + fName);</span>
+<span class="nc" id="L670">            IOUtils.write(b.getBr_orgineel_xml(), new FileWriter(fName));</span>
         }
 
         try {
-<span class="nc" id="L675">            BrkSnapshotXMLReader reader = new BrkSnapshotXMLReader(new ByteArrayInputStream(b.getBr_orgineel_xml().getBytes(&quot;UTF-8&quot;)));</span>
-<span class="nc" id="L676">            BrkBericht bericht = reader.next();</span>
+<span class="nc" id="L674">            BrkSnapshotXMLReader reader = new BrkSnapshotXMLReader(new ByteArrayInputStream(b.getBr_orgineel_xml().getBytes(&quot;UTF-8&quot;)));</span>
+<span class="nc" id="L675">            BrkBericht bericht = reader.next();</span>
 
-<span class="nc bnc" id="L678" title="All 2 branches missed.">            if (bericht.getDatum() != null) {</span>
-<span class="nc" id="L679">                b.setDatum(bericht.getDatum());</span>
+<span class="nc bnc" id="L677" title="All 2 branches missed.">            if (bericht.getDatum() != null) {</span>
+<span class="nc" id="L678">                b.setDatum(bericht.getDatum());</span>
             }
-<span class="nc" id="L681">            b.setBr_xml(bericht.getBrXml());</span>
-<span class="nc" id="L682">            b.setVolgordenummer(bericht.getVolgordeNummer());</span>
+<span class="nc" id="L680">            b.setBr_xml(bericht.getBrXml());</span>
+<span class="nc" id="L681">            b.setVolgordenummer(bericht.getVolgordeNummer());</span>
 
             //Als objectRef niet opgehaald kan worden,dan kan het
             //bericht niet verwerkt worden.
-<span class="nc" id="L686">            String objectRef = bericht.getObjectRef();</span>
-<span class="nc bnc" id="L687" title="All 4 branches missed.">            if (objectRef != null &amp;&amp; !objectRef.isEmpty()) {</span>
-<span class="nc" id="L688">                b.setObject_ref(bericht.getObjectRef());</span>
-<span class="nc" id="L689">                b.setStatus(Bericht.STATUS.STAGING_OK);</span>
-<span class="nc" id="L690">                b.setOpmerking(&quot;Klaar voor verwerking.&quot;);</span>
+<span class="nc" id="L685">            String objectRef = bericht.getObjectRef();</span>
+<span class="nc bnc" id="L686" title="All 4 branches missed.">            if (objectRef != null &amp;&amp; !objectRef.isEmpty()) {</span>
+<span class="nc" id="L687">                b.setObject_ref(bericht.getObjectRef());</span>
+<span class="nc" id="L688">                b.setStatus(Bericht.STATUS.STAGING_OK);</span>
+<span class="nc" id="L689">                b.setOpmerking(&quot;Klaar voor verwerking.&quot;);</span>
             } else {
-<span class="nc" id="L692">                b.setStatus(Bericht.STATUS.STAGING_NOK);</span>
-<span class="nc" id="L693">                b.setOpmerking(&quot;Object Ref niet gevonden in bericht-xml, neem contact op met leverancier.&quot;);</span>
+<span class="nc" id="L691">                b.setStatus(Bericht.STATUS.STAGING_NOK);</span>
+<span class="nc" id="L692">                b.setOpmerking(&quot;Object Ref niet gevonden in bericht-xml, neem contact op met leverancier.&quot;);</span>
             }
-<span class="nc" id="L695">        } catch (Exception e) {</span>
-<span class="nc" id="L696">            b.setStatus(Bericht.STATUS.STAGING_NOK);</span>
-<span class="nc" id="L697">            StringWriter sw = new StringWriter();</span>
-<span class="nc" id="L698">            e.printStackTrace(new PrintWriter(sw));</span>
-<span class="nc" id="L699">            b.setOpmerking(&quot;Fout bij parsen BRK bericht: &quot; + sw.toString());</span>
-<span class="nc" id="L700">        }</span>
+<span class="nc" id="L694">        } catch (Exception e) {</span>
+<span class="nc" id="L695">            b.setStatus(Bericht.STATUS.STAGING_NOK);</span>
+<span class="nc" id="L696">            StringWriter sw = new StringWriter();</span>
+<span class="nc" id="L697">            e.printStackTrace(new PrintWriter(sw));</span>
+<span class="nc" id="L698">            b.setOpmerking(&quot;Fout bij parsen BRK bericht: &quot; + sw.toString());</span>
+<span class="nc" id="L699">        }</span>
         try {
-<span class="nc" id="L702">            em.persist(lp);</span>
-<span class="nc" id="L703">            em.persist(b);</span>
-<span class="nc" id="L704">            em.merge(this.config);</span>
-<span class="nc" id="L705">            em.flush();</span>
-<span class="nc" id="L706">            em.getTransaction().commit();</span>
-<span class="nc" id="L707">            em.clear();</span>
-<span class="nc" id="L708">        } catch (PersistenceException pe) {</span>
-<span class="nc bnc" id="L709" title="All 2 branches missed.">            if (!em.getTransaction().isActive()) {</span>
-<span class="nc" id="L710">                em.getTransaction().begin();</span>
+<span class="nc" id="L701">            em.persist(lp);</span>
+<span class="nc" id="L702">            em.persist(b);</span>
+<span class="nc" id="L703">            em.merge(this.config);</span>
+<span class="nc" id="L704">            em.flush();</span>
+<span class="nc" id="L705">            em.getTransaction().commit();</span>
+<span class="nc" id="L706">            em.clear();</span>
+<span class="nc" id="L707">        } catch (PersistenceException pe) {</span>
+<span class="nc bnc" id="L708" title="All 2 branches missed.">            if (!em.getTransaction().isActive()) {</span>
+<span class="nc" id="L709">                em.getTransaction().begin();</span>
             }
-<span class="nc" id="L712">            em.getTransaction().rollback();</span>
-<span class="nc" id="L713">            em.getTransaction().begin();</span>
-<span class="nc" id="L714">            lp.setId(null);</span>
-<span class="nc" id="L715">            log.warn(&quot;Opslaan van bericht uit laadproces &quot; + lp.getBestand_naam() + &quot; is mislukt.&quot;, pe);</span>
-<span class="nc" id="L716">            log.warn(&quot;Duplicaat bericht: &quot; + b.getObject_ref() + &quot;:&quot; + b.getBr_orgineel_xml() + &quot;(&quot; + b.getBr_xml() + &quot;)&quot;);</span>
-<span class="nc" id="L717">            lp.setStatus(LaadProces.STATUS.STAGING_DUPLICAAT);</span>
-<span class="nc" id="L718">            lp.setOpmerking(lp.getOpmerking() + &quot;: Fout, duplicaat bericht. Inhoud: \n&quot; + b.getBr_xml());</span>
-<span class="nc" id="L719">            em.merge(this.config);</span>
-<span class="nc" id="L720">            em.persist(lp);</span>
-<span class="nc" id="L721">            em.flush();</span>
-<span class="nc" id="L722">            em.getTransaction().commit();</span>
-<span class="nc" id="L723">            em.clear();</span>
-<span class="nc" id="L724">            b = null;</span>
+<span class="nc" id="L711">            em.getTransaction().rollback();</span>
+<span class="nc" id="L712">            em.getTransaction().begin();</span>
+<span class="nc" id="L713">            lp.setId(null);</span>
+<span class="nc" id="L714">            log.warn(&quot;Opslaan van bericht uit laadproces &quot; + lp.getBestand_naam() + &quot; is mislukt.&quot;, pe);</span>
+<span class="nc" id="L715">            log.warn(&quot;Duplicaat bericht: &quot; + b.getObject_ref() + &quot;:&quot; + b.getBr_orgineel_xml() + &quot;(&quot; + b.getBr_xml() + &quot;)&quot;);</span>
+<span class="nc" id="L716">            lp.setOpmerking(lp.getOpmerking() + &quot;: Fout, duplicaat bericht. Berichtinhoud: \n\n&quot; + b.getBr_xml());</span>
+<span class="nc" id="L717">            b = null;</span>
+<span class="nc" id="L718">            lp.setStatus(LaadProces.STATUS.STAGING_DUPLICAAT);</span>
+<span class="nc" id="L719">            lp.setAutomatischProces(em.find(AutomatischProces.class, this.config.getId()));</span>
+<span class="nc" id="L720">            em.merge(this.config);</span>
+<span class="nc" id="L721">            em.persist(lp);</span>
+<span class="nc" id="L722">            em.flush();</span>
+<span class="nc" id="L723">            em.getTransaction().commit();</span>
+<span class="nc" id="L724">            em.clear();</span>
 <span class="nc" id="L725">        }</span>
 <span class="nc" id="L726">        return b;</span>
     }
@@ -924,4 +924,4 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
 <span class="nc" id="L924">        return sslContext;</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

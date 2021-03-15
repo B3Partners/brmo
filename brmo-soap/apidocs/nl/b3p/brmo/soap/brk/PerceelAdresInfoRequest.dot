@@ -9,8 +9,28 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// nl.b3p.brmo.soap.brk.PerceelAdresInfoRequest
+	c1384 [label=<<table title="nl.b3p.brmo.soap.brk.PerceelAdresInfoRequest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PerceelAdresInfoRequest.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> PerceelAdresInfoRequest </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + PerceelAdresInfoRequest() </td></tr>
+<tr><td align="left" balign="left"> + getStraatNaam() : String </td></tr>
+<tr><td align="left" balign="left"> + setStraatNaam(straatNaam : String) </td></tr>
+<tr><td align="left" balign="left"> + getHuisnummer() : Integer </td></tr>
+<tr><td align="left" balign="left"> + setHuisnummer(huisnummer : Integer) </td></tr>
+<tr><td align="left" balign="left"> + getPostcode() : String </td></tr>
+<tr><td align="left" balign="left"> + setPostcode(postcode : String) </td></tr>
+<tr><td align="left" balign="left"> + getWoonplaatsNaam() : String </td></tr>
+<tr><td align="left" balign="left"> + setWoonplaatsNaam(woonplaatsNaam : String) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./PerceelAdresInfoRequest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.soap.brk.BrkInfoRequest
-	c1380 [label=<<table title="nl.b3p.brmo.soap.brk.BrkInfoRequest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BrkInfoRequest.html">
+	c1386 [label=<<table title="nl.b3p.brmo.soap.brk.BrkInfoRequest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BrkInfoRequest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> BrkInfoRequest </td></tr>
 		</table></td></tr>
@@ -39,27 +59,7 @@ digraph G {
 <tr><td align="left" balign="left"> + setPerceelAdres(perceelAdres : PerceelAdresInfoRequest) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./BrkInfoRequest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.b3p.brmo.soap.brk.PerceelAdresInfoRequest
-	c1385 [label=<<table title="nl.b3p.brmo.soap.brk.PerceelAdresInfoRequest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PerceelAdresInfoRequest.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> PerceelAdresInfoRequest </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + PerceelAdresInfoRequest() </td></tr>
-<tr><td align="left" balign="left"> + getStraatNaam() : String </td></tr>
-<tr><td align="left" balign="left"> + setStraatNaam(straatNaam : String) </td></tr>
-<tr><td align="left" balign="left"> + getHuisnummer() : Integer </td></tr>
-<tr><td align="left" balign="left"> + setHuisnummer(huisnummer : Integer) </td></tr>
-<tr><td align="left" balign="left"> + getPostcode() : String </td></tr>
-<tr><td align="left" balign="left"> + setPostcode(postcode : String) </td></tr>
-<tr><td align="left" balign="left"> + getWoonplaatsNaam() : String </td></tr>
-<tr><td align="left" balign="left"> + setWoonplaatsNaam(woonplaatsNaam : String) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./PerceelAdresInfoRequest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.b3p.brmo.soap.brk.BrkInfoRequest NAVASSOC nl.b3p.brmo.soap.brk.PerceelAdresInfoRequest
-	c1380:p -> c1385:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c1386:p -> c1384:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

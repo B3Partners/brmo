@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// nl.egem.stuf.sector.bg._0204.AsynchroonAntwoordBericht
-	c38136 [label=<<table title="nl.egem.stuf.sector.bg._0204.AsynchroonAntwoordBericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AsynchroonAntwoordBericht.html">
+	c38009 [label=<<table title="nl.egem.stuf.sector.bg._0204.AsynchroonAntwoordBericht" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AsynchroonAntwoordBericht.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> AsynchroonAntwoordBericht </td></tr>
 		</table></td></tr>
@@ -27,7 +27,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./AsynchroonAntwoordBericht.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.AsynchroonAntwoordBericht.Body
-	c38137 [label=<<table title="nl.egem.stuf.sector.bg._0204.AsynchroonAntwoordBericht.Body" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./AsynchroonAntwoordBericht.Body.html">
+	c38010 [label=<<table title="nl.egem.stuf.sector.bg._0204.AsynchroonAntwoordBericht.Body" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./AsynchroonAntwoordBericht.Body.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Body </td></tr>
 		</table></td></tr>
@@ -146,6 +146,6 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./AsynchroonAntwoordBericht.Body.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.AsynchroonAntwoordBericht NAVASSOC nl.egem.stuf.sector.bg._0204.AsynchroonAntwoordBericht.Body
-	c38136:p -> c38137:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c38009:p -> c38010:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

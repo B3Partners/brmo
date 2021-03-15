@@ -9,8 +9,22 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// nl.egem.stuf.stuf0204.IndicatorOvername
+	c201879 [label=<<table title="nl.egem.stuf.stuf0204.IndicatorOvername" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./IndicatorOvername.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
+<tr><td align="center" balign="center"> IndicatorOvername </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> I </td></tr>
+<tr><td align="left" balign="left"> V </td></tr>
+		</table></td></tr>
+		</table>>, URL="./IndicatorOvername.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.stuf0204.Stuurgegevens
-	c201885 [label=<<table title="nl.egem.stuf.stuf0204.Stuurgegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Stuurgegevens.html">
+	c201881 [label=<<table title="nl.egem.stuf.stuf0204.Stuurgegevens" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Stuurgegevens.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Stuurgegevens </td></tr>
 		</table></td></tr>
@@ -63,7 +77,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./Stuurgegevens.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.stuf0204.Stuurgegevens.Kennisgeving
-	c201889 [label=<<table title="nl.egem.stuf.stuf0204.Stuurgegevens.Kennisgeving" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Stuurgegevens.Kennisgeving.html">
+	c201885 [label=<<table title="nl.egem.stuf.stuf0204.Stuurgegevens.Kennisgeving" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Stuurgegevens.Kennisgeving.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Kennisgeving </td></tr>
 		</table></td></tr>
@@ -83,7 +97,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./Stuurgegevens.Kennisgeving.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.stuf0204.Mutatiesoort
-	c201893 [label=<<table title="nl.egem.stuf.stuf0204.Mutatiesoort" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Mutatiesoort.html">
+	c201889 [label=<<table title="nl.egem.stuf.stuf0204.Mutatiesoort" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Mutatiesoort.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> Mutatiesoort </td></tr>
@@ -98,25 +112,11 @@ digraph G {
 <tr><td align="left" balign="left"> C </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Mutatiesoort.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.stuf0204.IndicatorOvername
-	c201894 [label=<<table title="nl.egem.stuf.stuf0204.IndicatorOvername" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./IndicatorOvername.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
-<tr><td align="center" balign="center"> IndicatorOvername </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> I </td></tr>
-<tr><td align="left" balign="left"> V </td></tr>
-		</table></td></tr>
-		</table>>, URL="./IndicatorOvername.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.stuf0204.Stuurgegevens NAVASSOC nl.egem.stuf.stuf0204.Stuurgegevens.Kennisgeving
-	c201885:p -> c201889:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c201881:p -> c201885:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.egem.stuf.stuf0204.Stuurgegevens.Kennisgeving NAVASSOC nl.egem.stuf.stuf0204.Mutatiesoort
-	c201889:p -> c201893:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c201885:p -> c201889:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// nl.egem.stuf.stuf0204.Stuurgegevens.Kennisgeving NAVASSOC nl.egem.stuf.stuf0204.IndicatorOvername
-	c201889:p -> c201894:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c201885:p -> c201879:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

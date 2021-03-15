@@ -35,9 +35,9 @@ import org.stripesstuff.stripersist.Stripersist;
 <span class="nc" id="L35">            Stripersist.requestInit();</span>
 <span class="nc" id="L36">            p = Stripersist.getEntityManager().find(AutomatischProces.class, id);</span>
 <span class="nc bnc" id="L37" title="All 2 branches missed.">            if (p != null) {</span>
-<span class="nc" id="L38">                p.addLogLine(String.format(&quot;Geplande taak gestart op %tc.&quot;, new Date()));</span>
+<span class="nc" id="L38">                log.info(String.format(&quot;Geplande taak gestart op %tc.&quot;, new Date()));</span>
 <span class="nc" id="L39">                AbstractExecutableProces.getProces(p).execute();</span>
-<span class="nc" id="L40">                p.addLogLine(String.format(&quot;Geplande taak afgerond op %tc.&quot;, new Date()));</span>
+<span class="nc" id="L40">                log.info(String.format(&quot;Geplande taak afgerond op %tc.&quot;, new Date()));</span>
 <span class="nc" id="L41">                p.setLastrun(new Date());</span>
 <span class="nc" id="L42">                Stripersist.getEntityManager().merge(p);</span>
 <span class="nc" id="L43">                Stripersist.getEntityManager().flush();</span>
@@ -63,4 +63,4 @@ import org.stripesstuff.stripersist.Stripersist;
         }
 <span class="nc" id="L64">    }</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

@@ -7,46 +7,45 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * &lt;p&gt;Java class for FiliatiecodeAdres.
+ * &amp;lt;p&amp;gt;Java class for FiliatiecodeAdres.
  * 
- * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
- * &lt;p&gt;
- * &lt;pre&gt;
- * &amp;lt;simpleType name=&quot;FiliatiecodeAdres&quot;&amp;gt;
- *   &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}string&quot;&amp;gt;
- *     &amp;lt;enumeration value=&quot;a&quot;/&amp;gt;
- *     &amp;lt;enumeration value=&quot;b&quot;/&amp;gt;
- *   &amp;lt;/restriction&amp;gt;
- * &amp;lt;/simpleType&amp;gt;
- * &lt;/pre&gt;
+ * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+ * &amp;lt;pre&amp;gt;
+ * &amp;amp;lt;simpleType name=&quot;FiliatiecodeAdres&quot;&amp;amp;gt;
+ *   &amp;amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}string&quot;&amp;amp;gt;
+ *     &amp;amp;lt;enumeration value=&quot;a&quot;/&amp;amp;gt;
+ *     &amp;amp;lt;enumeration value=&quot;b&quot;/&amp;amp;gt;
+ *   &amp;amp;lt;/restriction&amp;amp;gt;
+ * &amp;amp;lt;/simpleType&amp;amp;gt;
+ * &amp;lt;/pre&amp;gt;
  * 
  */
-<span class="nc" id="L24">@XmlType(name = &quot;FiliatiecodeAdres&quot;)</span>
+<span class="nc" id="L23">@XmlType(name = &quot;FiliatiecodeAdres&quot;)</span>
 @XmlEnum
 public enum FiliatiecodeAdres {
 
-<span class="nc" id="L28">    @XmlEnumValue(&quot;a&quot;)</span>
+<span class="nc" id="L27">    @XmlEnumValue(&quot;a&quot;)</span>
     A(&quot;a&quot;),
-<span class="nc" id="L30">    @XmlEnumValue(&quot;b&quot;)</span>
+<span class="nc" id="L29">    @XmlEnumValue(&quot;b&quot;)</span>
     B(&quot;b&quot;);
     private final String value;
 
-<span class="nc" id="L34">    FiliatiecodeAdres(String v) {</span>
-<span class="nc" id="L35">        value = v;</span>
-<span class="nc" id="L36">    }</span>
+<span class="nc" id="L33">    FiliatiecodeAdres(String v) {</span>
+<span class="nc" id="L34">        value = v;</span>
+<span class="nc" id="L35">    }</span>
 
     public String value() {
-<span class="nc" id="L39">        return value;</span>
+<span class="nc" id="L38">        return value;</span>
     }
 
     public static FiliatiecodeAdres fromValue(String v) {
-<span class="nc bnc" id="L43" title="All 2 branches missed.">        for (FiliatiecodeAdres c: FiliatiecodeAdres.values()) {</span>
-<span class="nc bnc" id="L44" title="All 2 branches missed.">            if (c.value.equals(v)) {</span>
-<span class="nc" id="L45">                return c;</span>
+<span class="nc bnc" id="L42" title="All 2 branches missed.">        for (FiliatiecodeAdres c: FiliatiecodeAdres.values()) {</span>
+<span class="nc bnc" id="L43" title="All 2 branches missed.">            if (c.value.equals(v)) {</span>
+<span class="nc" id="L44">                return c;</span>
             }
         }
-<span class="nc" id="L48">        throw new IllegalArgumentException(v);</span>
+<span class="nc" id="L47">        throw new IllegalArgumentException(v);</span>
     }
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

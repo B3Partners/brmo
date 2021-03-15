@@ -9,50 +9,8 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// nl.egem.stuf.sector.bg._0204.WOZKennisgeving
-	c61320 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZKennisgeving" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WOZKennisgeving.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> WOZKennisgeving </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # wozadrhfd : JAXBElement&lt;ADRRelFund&gt; </td></tr>
-<tr><td align="left" balign="left"> # wozadrnvn : List&lt;ADRRelKerngegevens&gt; </td></tr>
-<tr><td align="left" balign="left"> # wozkdo : List&lt;WOZKennisgeving.WOZKDO&gt; </td></tr>
-<tr><td align="left" balign="left"> # wozobw : List&lt;WOZKennisgeving.WOZOBW&gt; </td></tr>
-<tr><td align="left" balign="left"> # wozsubeig : JAXBElement&lt;WOZKennisgeving.WOZSUBEIG&gt; </td></tr>
-<tr><td align="left" balign="left"> # wozsubgbr : JAXBElement&lt;WOZKennisgeving.WOZSUBGBR&gt; </td></tr>
-<tr><td align="left" balign="left"> # wozvbo : List&lt;WOZKennisgeving.WOZVBO&gt; </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + WOZKennisgeving() </td></tr>
-<tr><td align="left" balign="left"> + getWOZADRHFD() : JAXBElement&lt;ADRRelFund&gt; </td></tr>
-<tr><td align="left" balign="left"> + setWOZADRHFD(value : JAXBElement&lt;ADRRelFund&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getWOZADRNVN() : List&lt;ADRRelKerngegevens&gt; </td></tr>
-<tr><td align="left" balign="left"> + getWOZKDO() : List&lt;WOZKennisgeving.WOZKDO&gt; </td></tr>
-<tr><td align="left" balign="left"> + getWOZOBW() : List&lt;WOZKennisgeving.WOZOBW&gt; </td></tr>
-<tr><td align="left" balign="left"> + getWOZSUBEIG() : JAXBElement&lt;WOZKennisgeving.WOZSUBEIG&gt; </td></tr>
-<tr><td align="left" balign="left"> + setWOZSUBEIG(value : JAXBElement&lt;WOZKennisgeving.WOZSUBEIG&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getWOZSUBGBR() : JAXBElement&lt;WOZKennisgeving.WOZSUBGBR&gt; </td></tr>
-<tr><td align="left" balign="left"> + setWOZSUBGBR(value : JAXBElement&lt;WOZKennisgeving.WOZSUBGBR&gt;) </td></tr>
-<tr><td align="left" balign="left"> + getWOZVBO() : List&lt;WOZKennisgeving.WOZVBO&gt; </td></tr>
-		</table></td></tr>
-		</table>>, URL="./WOZKennisgeving.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// nl.egem.stuf.sector.bg._0204.HHDAntwoord.HDDWOZ
-	c61403 [label=<<table title="nl.egem.stuf.sector.bg._0204.HHDAntwoord.HDDWOZ" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./HHDAntwoord.HDDWOZ.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> HDDWOZ </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> # woz : WOZKennisgeving </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + HDDWOZ() </td></tr>
-<tr><td align="left" balign="left"> + getWOZ() : WOZKennisgeving </td></tr>
-<tr><td align="left" balign="left"> + setWOZ(value : WOZKennisgeving) </td></tr>
-		</table></td></tr>
-		</table>>, URL="./HHDAntwoord.HDDWOZ.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// nl.egem.stuf.sector.bg._0204.Relatie
-	c61560 [label=<<table title="nl.egem.stuf.sector.bg._0204.Relatie" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Relatie.html">
+	c61345 [label=<<table title="nl.egem.stuf.sector.bg._0204.Relatie" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Relatie.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Relatie </td></tr>
 		</table></td></tr>
@@ -89,9 +47,51 @@ digraph G {
 <tr><td align="left" balign="left"> + setNoValue(value : NoValue) </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Relatie.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.WOZKennisgeving
+	c61490 [label=<<table title="nl.egem.stuf.sector.bg._0204.WOZKennisgeving" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WOZKennisgeving.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> WOZKennisgeving </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # wozadrhfd : JAXBElement&lt;ADRRelFund&gt; </td></tr>
+<tr><td align="left" balign="left"> # wozadrnvn : List&lt;ADRRelKerngegevens&gt; </td></tr>
+<tr><td align="left" balign="left"> # wozkdo : List&lt;WOZKennisgeving.WOZKDO&gt; </td></tr>
+<tr><td align="left" balign="left"> # wozobw : List&lt;WOZKennisgeving.WOZOBW&gt; </td></tr>
+<tr><td align="left" balign="left"> # wozsubeig : JAXBElement&lt;WOZKennisgeving.WOZSUBEIG&gt; </td></tr>
+<tr><td align="left" balign="left"> # wozsubgbr : JAXBElement&lt;WOZKennisgeving.WOZSUBGBR&gt; </td></tr>
+<tr><td align="left" balign="left"> # wozvbo : List&lt;WOZKennisgeving.WOZVBO&gt; </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + WOZKennisgeving() </td></tr>
+<tr><td align="left" balign="left"> + getWOZADRHFD() : JAXBElement&lt;ADRRelFund&gt; </td></tr>
+<tr><td align="left" balign="left"> + setWOZADRHFD(value : JAXBElement&lt;ADRRelFund&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getWOZADRNVN() : List&lt;ADRRelKerngegevens&gt; </td></tr>
+<tr><td align="left" balign="left"> + getWOZKDO() : List&lt;WOZKennisgeving.WOZKDO&gt; </td></tr>
+<tr><td align="left" balign="left"> + getWOZOBW() : List&lt;WOZKennisgeving.WOZOBW&gt; </td></tr>
+<tr><td align="left" balign="left"> + getWOZSUBEIG() : JAXBElement&lt;WOZKennisgeving.WOZSUBEIG&gt; </td></tr>
+<tr><td align="left" balign="left"> + setWOZSUBEIG(value : JAXBElement&lt;WOZKennisgeving.WOZSUBEIG&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getWOZSUBGBR() : JAXBElement&lt;WOZKennisgeving.WOZSUBGBR&gt; </td></tr>
+<tr><td align="left" balign="left"> + setWOZSUBGBR(value : JAXBElement&lt;WOZKennisgeving.WOZSUBGBR&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getWOZVBO() : List&lt;WOZKennisgeving.WOZVBO&gt; </td></tr>
+		</table></td></tr>
+		</table>>, URL="./WOZKennisgeving.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// nl.egem.stuf.sector.bg._0204.HHDAntwoord.HDDWOZ
+	c61520 [label=<<table title="nl.egem.stuf.sector.bg._0204.HHDAntwoord.HDDWOZ" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./HHDAntwoord.HDDWOZ.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> HDDWOZ </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> # woz : WOZKennisgeving </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + HDDWOZ() </td></tr>
+<tr><td align="left" balign="left"> + getWOZ() : WOZKennisgeving </td></tr>
+<tr><td align="left" balign="left"> + setWOZ(value : WOZKennisgeving) </td></tr>
+		</table></td></tr>
+		</table>>, URL="./HHDAntwoord.HDDWOZ.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//nl.egem.stuf.sector.bg._0204.HHDAntwoord.HDDWOZ extends nl.egem.stuf.sector.bg._0204.Relatie
-	c61560:p -> c61403:p [dir=back,arrowtail=empty];
+	c61345:p -> c61520:p [dir=back,arrowtail=empty];
 	// nl.egem.stuf.sector.bg._0204.HHDAntwoord.HDDWOZ NAVASSOC nl.egem.stuf.sector.bg._0204.WOZKennisgeving
-	c61403:p -> c61320:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c61520:p -> c61490:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 
