@@ -28,7 +28,7 @@ public class DiagnosticsServlet implements Servlet {
 
         try {
             // lookup db connectie en log info
-            DataSource rsgb = ConfigUtil.getDataSourceRsgb();
+            DataSource rsgb = ConfigUtil.getDataSourceStaging();
             DatabaseMetaData metadata = rsgb.getConnection().getMetaData();
             LOG.info(String.format("\nDatabase en driver informatie\n\n  Database product: %s\n  Database version: %s\n  Database major:   %s\n  Database minor:   %s\n\n  DBdriver product: %s\n  DBdriver version: %s\n  DBdriver major:   %s\n  DBdriver minor:   %s",
                     metadata.getDatabaseProductName(),
