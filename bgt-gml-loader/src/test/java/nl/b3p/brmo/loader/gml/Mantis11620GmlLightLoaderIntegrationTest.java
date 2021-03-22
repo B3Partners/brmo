@@ -1,6 +1,7 @@
 package nl.b3p.brmo.loader.gml;
 
 import org.geotools.data.DataStoreFinder;
+import org.geotools.data.DataUtilities;
 import org.geotools.data.FeatureStore;
 import org.geotools.jdbc.JDBCDataStore;
 import org.junit.jupiter.api.AfterEach;
@@ -78,7 +79,7 @@ public class Mantis11620GmlLightLoaderIntegrationTest extends TestingBase {
         // doublecheck met geotools want die hebben we toch al
         JDBCDataStore dataStore = null;
         try {
-            dataStore = (JDBCDataStore) DataStoreFinder.getDataStore(params);
+            dataStore = (JDBCDataStore) DataStoreFinder.getDataStore(DataUtilities.toConnectionParameters(params));
             FeatureStore store = (FeatureStore) dataStore.getFeatureSource(isOracle ? "wegdeel".toUpperCase() : "wegdeel");
             assertEquals(expected, store.getFeatures().size(), "Aantal features is groter dan verwacht. ");
             dataStore.dispose();

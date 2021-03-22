@@ -61,8 +61,8 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <hibernate.version>5.4.29.Final</hibernate.version>
         <!-- ook jdbc-util updaten bij geotools update -->
-        <geotools.version>24.2</geotools.version>
-        <jdbc-util.version>7.5</jdbc-util.version>
+        <geotools.version>25.0</geotools.version>
+        <jdbc-util.version>8.0</jdbc-util.version>
         <jts.version>1.18.1</jts.version>
         <itextpdf.version>7.1.14</itextpdf.version>
         <postgresql.jdbc.version>42.2.19</postgresql.jdbc.version>
