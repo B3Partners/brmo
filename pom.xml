@@ -1008,7 +1008,7 @@
                 <plugin>
                     <groupId>nl.geodienstencentrum.maven</groupId>
                     <artifactId>schemaspy-maven-plugin</artifactId>
-                    <version>5.1.0</version>
+                    <version>5.2.0</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-scm-publish-plugin</artifactId>
