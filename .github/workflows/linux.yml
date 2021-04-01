@@ -115,6 +115,7 @@ jobs:
   javadoc:
     name: JavaDoc Check ${{ matrix.java }}
     runs-on: [ubuntu-18.04]
+    needs: build
     strategy:
       matrix:
         java: [ 8 ]
