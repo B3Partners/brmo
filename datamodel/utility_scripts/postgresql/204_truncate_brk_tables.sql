@@ -15,6 +15,7 @@ truncate kad_onrrnd_zk_kad_onrr_archief cascade;
 truncate kad_onrrnd_zk_kad_onrrnd_zk cascade;
 truncate kad_perceel cascade;
 truncate kad_perceel_archief cascade;
+truncate zak_recht_archief cascade;
 truncate zak_recht cascade;
 truncate zak_recht_aantek cascade;
 truncate zak_recht_archief cascade;
