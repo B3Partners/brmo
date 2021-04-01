@@ -54,6 +54,9 @@ jobs:
         with:
           java-version: ${{ matrix.java }}
 
+      - name: datamodel Priming build
+        run:  mvn clean install -Dmaven.test.skip=true -Dtest.onlyITs= -B -V -fae -pl 'datamodel' -am 
+
       - name: Get last release
         run: |
           .build/ci/getlastRelease.sh
@@ -74,7 +77,7 @@ jobs:
 
       - name: Test
         run: |
-          mvn -e -B -Ppostgresql -pl 'datamodel' -am resources:testResources compiler:testCompile surefire:test -Dtest='*UpgradeTest' -Ddatabase.upgrade=true
+          mvn -e -B -Ppostgresql -pl 'datamodel' resources:testResources compiler:testCompile surefire:test -Dtest='*UpgradeTest' -Ddatabase.upgrade=true
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
