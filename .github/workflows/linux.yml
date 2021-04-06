@@ -53,8 +53,9 @@ jobs:
             downloads-
 
       - name: Set up JDK
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v2
         with:
+          distribution: 'adopt'
           java-version: ${{ matrix.java }}
 
       - name: Install extra software
