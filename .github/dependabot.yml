@@ -16,9 +16,6 @@ updates:
   - bouw- en testinfrastuctuur
   - dependency update
   ignore:
-  - dependency-name: com.microsoft.sqlserver:mssql-jdbc
-    versions:
-    - "> 8.3.1.jre8.pre.preview, < 8.4"
   - dependency-name: commons-cli:commons-cli
     versions:
     - ">= 2.a, < 3"
@@ -40,6 +37,11 @@ updates:
   - dependency-name: org.apache.tomcat.embed:*
     versions:
     - ">= 8"
+  # hsqldb 2.6.0 is voor Java 11
+  # zie ook https://sourceforge.net/p/hsqldb/feature-requests/359/
+  - dependency-name: org.hsqldb:hsqldb
+    versions:
+    - "< 2.6.0"
 - package-ecosystem: "github-actions"
   directory: "/"
   schedule:
