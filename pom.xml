@@ -94,7 +94,7 @@
         -->
         <test.persistence.unit>brmo.persistence.h2</test.persistence.unit>
         <test.h2.version>1.4.200</test.h2.version>
-        <test.hsqldb.version>2.5.1</test.hsqldb.version>
+        <test.hsqldb.version>2.5.2</test.hsqldb.version>
         <test.onlyITs>false</test.onlyITs>
         <test.junit-jupiter.version>5.7.1</test.junit-jupiter.version>
         <maven.surefire.version>3.0.0-M5</maven.surefire.version>
