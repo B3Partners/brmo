@@ -46,8 +46,8 @@
         <tag>HEAD</tag>
     </scm>
     <issueManagement>
-        <system>Github</system>
-        <url>https://github.com/B3Partners/brmo/issues</url>
+        <system>Jira</system>
+        <url>https://b3partners.atlassian.net/jira/software/c/projects/BRMO/issues/</url>
     </issueManagement>
     <ciManagement>
         <system>Github Actions</system>
