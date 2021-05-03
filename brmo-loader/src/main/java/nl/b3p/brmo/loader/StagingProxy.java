@@ -25,14 +25,7 @@ import nl.b3p.brmo.loader.util.BrmoLeegBestandException;
 import nl.b3p.brmo.loader.util.RsgbTransformer;
 import nl.b3p.brmo.loader.util.StagingRowHandler;
 import nl.b3p.brmo.loader.util.TableData;
-import nl.b3p.brmo.loader.xml.BGTLightFileReader;
-import nl.b3p.brmo.loader.xml.BRPXMLReader;
-import nl.b3p.brmo.loader.xml.BagXMLReader;
-import nl.b3p.brmo.loader.xml.BrkSnapshotXMLReader;
-import nl.b3p.brmo.loader.xml.BrmoXMLReader;
-import nl.b3p.brmo.loader.xml.GbavXMLReader;
-import nl.b3p.brmo.loader.xml.NhrXMLReader;
-import nl.b3p.brmo.loader.xml.TopNLFileReader;
+import nl.b3p.brmo.loader.xml.*;
 import nl.b3p.loader.jdbc.GeometryJdbcConverter;
 import nl.b3p.loader.jdbc.GeometryJdbcConverterFactory;
 import nl.b3p.loader.jdbc.LongColumnListHandler;
@@ -749,11 +742,13 @@ public class StagingProxy {
 
         CountingInputStream cis = new CountingInputStream(stream);
 
-        BrmoXMLReader brmoXMLReader = null;
+        BrmoXMLReader brmoXMLReader;
         if (type.equals(BrmoFramework.BR_BRK)) {
             brmoXMLReader = new BrkSnapshotXMLReader(cis);
         } else if (type.equals(BrmoFramework.BR_BAG)) {
             brmoXMLReader = new BagXMLReader(cis);
+        } else if (type.equals(BrmoFramework.BR_BAG20)) {
+            brmoXMLReader = new Bag20XMLReader(cis);
         } else if (type.equals(BrmoFramework.BR_NHR)) {
             brmoXMLReader = new NhrXMLReader(cis);
         } else if (type.equals(BrmoFramework.BR_BGTLIGHT)) {
@@ -837,6 +832,7 @@ public class StagingProxy {
                         writeBericht(b);
                         isBerichtGeschreven = true;
                     } else if (existingBericht.getStatus().equals(Bericht.STATUS.STAGING_OK)) {
+                        log.debug("Overschrijven van bestaand bericht " + b.getObjectRef());
                         //als bericht nog niet getransformeerd is, dan overschrijven.
                         //als een BAG bericht inactief wordt gezet dan zal het
                         //oorspronkelijke bericht nog getransformeerd
@@ -844,6 +840,8 @@ public class StagingProxy {
                         //en zal nooit getransformeerd worden.
                         b.setId(existingBericht.getId());
                         this.updateBericht(b);
+                    } else {
+                        log.debug("Overslaan van bestaand bericht " + b.getObjectRef());
                     }
                     if (listener != null) {
                         listener.progress(cis.getByteCount());

@@ -35,10 +35,10 @@
         <level value="info" />
     </logger>
     <logger name="nl.b3p.brmo.loader">
-        <level value="info" />
+        <level value="debug" />
     </logger>
     <logger name="nl.b3p.brmo.loader.xml">
-        <level value="info" />
+        <level value="debug" />
     </logger>
     <root>
         <level value="info" />

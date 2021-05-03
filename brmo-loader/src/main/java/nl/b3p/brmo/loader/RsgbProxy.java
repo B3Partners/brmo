@@ -399,7 +399,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
     public void updateBerichtException(Bericht ber, Throwable e) throws BrmoException {
         boolean isFKCVbag = false;
-        if (ber.getSoort().equalsIgnoreCase(BrmoFramework.BR_BAG)) {
+        if (ber.getSoort().equalsIgnoreCase(BrmoFramework.BR_BAG)||ber.getSoort().equalsIgnoreCase(BrmoFramework.BR_BAG20)) {
             isFKCVbag = geomToJdbc.isFKConstraintViolationMessage(e.getLocalizedMessage());
             if (isFKCVbag) {
                 ber.setStatus(Bericht.STATUS.RSGB_BAG_NOK);
@@ -684,6 +684,8 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                 t = new RsgbTransformer(XSL_BRK);
             } else if (brType.equals(BrmoFramework.BR_BAG)) {
                 t = new RsgbTransformer(BrmoFramework.XSL_BAG);
+            } else if (brType.equals(BrmoFramework.BR_BAG20)) {
+                t = new RsgbTransformer(BrmoFramework.XSL_BAG20);
             } else if(brType.equals(BrmoFramework.BR_BRP)){
                 t = new RsgbBRPTransformer(BrmoFramework.XSL_BRP, this.stagingProxy);
             }else if (brType.equals(BrmoFramework.BR_NHR)) {
