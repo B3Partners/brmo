@@ -57,12 +57,13 @@
         <java.version>1.8</java.version>
         <project.build.sourceVersion>${java.version}</project.build.sourceVersion>
         <project.build.targetVersion>${java.version}</project.build.targetVersion>
+        <project.build.outputTimestamp>2021-03-05T15:24:00Z</project.build.outputTimestamp>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <hibernate.version>5.4.31.Final</hibernate.version>
         <!-- ook jdbc-util updaten bij geotools update -->
         <geotools.version>25.0</geotools.version>
-        <jdbc-util.version>8.0</jdbc-util.version>
+        <jdbc-util.version>8.1</jdbc-util.version>
         <jts.version>1.18.1</jts.version>
         <itextpdf.version>7.1.15</itextpdf.version>
         <postgresql.jdbc.version>42.2.20</postgresql.jdbc.version>
@@ -228,21 +229,6 @@
                 <groupId>org.geotools</groupId>
                 <artifactId>gt-main</artifactId>
                 <version>${geotools.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.geotools</groupId>
-                <artifactId>gt-referencing</artifactId>
-                <version>${geotools.version}</version>
-                <exclusions>
-                    <!--
-                    workaround voor https://osgeo-org.atlassian.net/browse/GEOT-6540
-                    deze gt-referencing dependency mag weg na upgrade naar geotools to 23.0
-                    -->
-                    <exclusion>
-                        <groupId>javax</groupId>
-                        <artifactId>javaee-api</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.geotools</groupId>
@@ -788,6 +774,7 @@
                     <artifactId>maven-javadoc-plugin</artifactId>
                     <version>${maven-javadoc-plugin.version}</version>
                     <configuration>
+                        <notimestamp>true</notimestamp>
                         <quiet>true</quiet>
                         <stylesheet>java</stylesheet>
                         <doclet>org.umlgraph.doclet.UmlGraphDoc</doclet>
@@ -804,7 +791,7 @@
                             <link>https://www.slf4j.org/apidocs/</link>
                             <link>https://download.oracle.com/javaee/7/api/</link>
                             <link>https://docs.jboss.org/hibernate/stable/core/javadocs/</link>
-                            <link>http://docs.geotools.org/stable/javadocs/</link>
+                            <link>https://docs.geotools.org/stable/javadocs/</link>
                             <link>https://logging.apache.org/log4j/1.2/apidocs/</link>
                             <link>https://junit.org/junit5/docs/current/api/</link>
                             <link>https://b3partners.github.io/kadaster-gds2/apidocs/</link>
@@ -1194,6 +1181,22 @@
                 </configuration>
             </plugin>
             <plugin>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+                <version>${maven.surefire.version}</version>
+                <configuration>
+                    <linkXRef>true</linkXRef>
+                    <goal>report-only</goal>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+                <version>${maven.surefire.version}</version>
+                <configuration>
+                    <linkXRef>true</linkXRef>
+                    <goal>failsafe-report-only</goal>
+                </configuration>
+            </plugin>
+            <plugin>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>${maven-javadoc-plugin.version}</version>
                 <reportSets>
@@ -1209,22 +1212,6 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>taglist-maven-plugin</artifactId>
                 <version>${taglist-maven-plugin.version}</version>
-            </plugin>
-            <plugin>
-                <artifactId>maven-surefire-report-plugin</artifactId>
-                <version>${maven.surefire.version}</version>
-                <configuration>
-                    <linkXRef>true</linkXRef>
-                    <goal>report-only</goal>
-                </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-surefire-report-plugin</artifactId>
-                <version>${maven.surefire.version}</version>
-                <configuration>
-                    <linkXRef>true</linkXRef>
-                    <goal>failsafe-report-only</goal>
-                </configuration>
             </plugin>
         </plugins>
     </reporting>
