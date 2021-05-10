@@ -1,20 +1,20 @@
--- laadt de CBS shape van https://www.cbs.nl/nl-nl/dossier/nederland-regionaal/geografische-data/wijk-en-buurtkaart-2020
--- update gemeenten2020 set gm_code = substring(gm_code,3);
--- update gemeenten2020 set geom = ST_Multi(ST_SimplifyPreserveTopology(geom, 0.01));
--- update gemeenten2020 set geom = ST_SnapToGrid(geom, 0.01);
+-- laadt de CBS shape van https://www.cbs.nl/nl-nl/dossier/nederland-regionaal/geografische-data/wijk-en-buurtkaart-2021 
+-- update gemeenten2021 set gm_code = substring(gm_code,3);
+-- update gemeenten2021 set geom = ST_Multi(ST_SimplifyPreserveTopology(geom, 0.01));
+-- update gemeenten2021 set geom = ST_SnapToGrid(geom, 0.01);
 
 SELECT
 
 -- postgis blok
--- 'UPDATE gemeente SET geom = ST_GeomFromEWKT(''' || ST_AsEWKT(geom) || ''') WHERE code = ' || trim(leading '0' FROM code) || ';
+-- 'UPDATE gemeente SET geom = ST_GeomFromEWKT(''' || ST_AsEWKT(geom) || ''') WHERE gm_code = ' || trim(leading '0' FROM gm_code) || ';
 -- ' || 'INSERT INTO gemeente (code,naam,geom) SELECT '|| trim(leading '0' FROM gm_code) ||','''|| gm_naam ||''',ST_GeomFromEWKT(''' || ST_AsEWKT(geom) || ''') WHERE NOT EXISTS (SELECT 1 FROM gemeente WHERE code='||trim(leading '0' FROM gm_code)||');'
---  as "--postgis gemeente 2020 geometrie update"
+--  as "--postgis gemeente 2021 geometrie update"
 
 -- mssql blok
 -- 'MERGE gemeente AS target USING (VALUES (geometry::STGeomFromText(''' || ST_AsText(geom) || ''',28992))) AS source (geom) ON target.code = ' || trim(leading '0' FROM gm_code) || '
 --   WHEN MATCHED THEN UPDATE SET geom = source.geom
 --   WHEN NOT MATCHED THEN INSERT (code,naam,geom) VALUES (' || trim(leading '0' FROM gm_code) ||','''|| gm_naam ||''', source.geom);'
---as "--mssql gemeente 2020 geometrie update"
+--as "--mssql gemeente 2021 geometrie update"
 
 -- oracle blok
 -- NB. Oracle heeft handwerk nodig! 
@@ -63,9 +63,9 @@ SELECT
   MERGE INTO gemeente USING dual ON (CODE=' || trim(leading '0' FROM gm_code) || ')
     WHEN MATCHED THEN UPDATE SET GEOM=SDO_GEOMETRY(wktA,28992)
     WHEN NOT MATCHED THEN INSERT (CODE,NAAM,GEOM) VALUES (' || trim(leading '0' FROM gm_code) || ','''|| gm_naam ||''', SDO_GEOMETRY(wktA,28992));'
-as "--oracle gemeente 2020 geometrie update"
+as "--oracle gemeente 2021 geometrie update"
 
-FROM gemeenten2020
+FROM gemeenten2021
 WHERE water='NEE'
 --AND gm_code IN ('0003','0584','0448','0289')
 ORDER BY gm_code;
