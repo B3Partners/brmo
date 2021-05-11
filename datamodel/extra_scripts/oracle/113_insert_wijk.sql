@@ -3251,4 +3251,4 @@ INSERT INTO wijk (code, naam) VALUES (197915, 'Buitengebied Zuid-Appingedam');
 INSERT INTO wijk (code, naam) VALUES (197916, 'Buitengebied Noord-Loppersum');
 INSERT INTO wijk (code, naam) VALUES (197917, 'Buitengebied Noord-Stedum');
 INSERT INTO wijk (code, naam) VALUES (197918, 'Buitengebied Noord-Middelstum');
-INSERT INTO wijk (code, naam) VALUES (197919, 'Buitengebied Noord-'t Zandt');
+INSERT INTO wijk (code, naam) VALUES (197919, 'Buitengebied Noord-''t Zandt');
