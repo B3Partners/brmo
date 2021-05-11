@@ -3,8 +3,8 @@
 -- 1. laadt de wijk kaart uit de wijk en buurt kaart van CBS  in een postgis database
 -- met gebruik shp2pgsql of shp2pgsql-gui
 -- vereenvoudig de geometrie met:
---    update cbs_wijken2020 set geom = ST_Multi(ST_SimplifyPreserveTopology(geom, 0.01));
---    update cbs_wijken2020 set geom = ST_SnapToGrid(geom, 0.01);
+--    update cbs_wijken2021 set geom = ST_Multi(ST_SimplifyPreserveTopology(geom, 0.01));
+--    update cbs_wijken2021 set geom = ST_SnapToGrid(geom, 0.01);
 --  (afronden cijfers achter de komma op 1cm
 --
 -- 2. gebruik onderstaande om de update scripts te maken voor 113a_update_wijk_geom.sql
@@ -13,13 +13,13 @@ SELECT
 -- postgis blok
 'UPDATE wijk SET geom = ST_GeomFromEWKT(''' || ST_AsEWKT(geom) || ''') WHERE code = ' || to_number(wk_code, '99999999') || ';
   ' || 'INSERT INTO wijk (code,geom) SELECT '|| to_number(wk_code, '99999999') ||',ST_GeomFromEWKT(''' || ST_AsEWKT(geom) || ''') WHERE NOT EXISTS (SELECT 1 FROM wijk WHERE code='||to_number(wk_code, '99999999')||');'
-   as "--postgis wijk 2018 geometrie update"
+   as "--postgis wijk 2021 geometrie update"
 
 -- mssql blok
 -- 'MERGE wijk AS target USING (VALUES (geometry::STGeomFromText(''' || ST_AsText(geom) || ''',28992))) AS source (geom) ON target.code = ' || to_number(wk_code, '99999999') || '
 --   WHEN MATCHED THEN UPDATE SET geom = source.geom
 --   WHEN NOT MATCHED THEN INSERT (code,geom) VALUES (' || to_number(wk_code, '99999999') ||', source.geom);'
--- as "--mssql wijk 2018 geometrie update"
+-- as "--mssql wijk 2021 geometrie update"
 
 -- oracle blok
 -- NB. Oracle heeft handwerk nodig! 
@@ -94,9 +94,9 @@ SELECT
 --  MERGE INTO wijk USING dual ON (CODE=' || to_number(wk_code, '99999999') || ')
 --    WHEN MATCHED THEN UPDATE SET GEOM=SDO_GEOMETRY(wktA,28992)
 --    WHEN NOT MATCHED THEN INSERT (CODE,GEOM) VALUES (' || to_number(wk_code, '99999999') || ', SDO_GEOMETRY(wktA,28992));'
---as "--oracle wijk 2020 geometrie update"
+--as "--oracle wijk 2021 geometrie update"
 
-FROM cbs_wijken2020
+FROM cbs_wijken2021
 WHERE water = 'NEE'
 --AND wk_code IN ('WK000300','WK000500','WK999999','WK005902', 'WK192499', 'WK067706')
 ORDER BY wk_code;
