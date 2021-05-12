@@ -28,6 +28,7 @@ services:
       - ./brmo-data:/opt/brmo-data
     ports:
       - 8080:8080
+      - 8009:8009
     restart: on-failure
     env_file:
       - ./env/tomcat

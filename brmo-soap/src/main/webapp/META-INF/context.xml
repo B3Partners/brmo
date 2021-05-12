@@ -1,11 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Context antiJARLocking="true" path="/brmo-soap">
-    <!-- de datasources dienen in de servlet container aangemaakt te worden -->
+<!-- voor productie aanpassen in onderstaande Context:
+        antiResourceLocking="false"
+-->
+<Context path="/brmo-soap" antiResourceLocking="false">
     <ResourceLink global="jdbc/brmo/staging" name="jdbc/brmo/staging" type="javax.sql.DataSource"/>
     <ResourceLink global="jdbc/brmo/rsgb" name="jdbc/brmo/rsgb" type="javax.sql.DataSource"/>
-    <Realm allRolesMode="authOnly" className="org.apache.catalina.realm.DataSourceRealm"
-           dataSourceName="jdbc/brmo/staging" digest="SHA-1" roleNameCol="groep_" userCredCol="wachtwoord"
-           userNameCol="gebruikersnaam" userRoleTable="gebruiker_groepen" userTable="gebruiker_">
-        <CredentialHandler algorithm="SHA-1" className="org.apache.catalina.realm.MessageDigestCredentialHandler"/>
+    <Realm className="org.apache.catalina.realm.LockOutRealm">
+        <Realm className="org.apache.catalina.realm.DataSourceRealm"
+               dataSourceName="jdbc/brmo/staging"
+               userTable="gebruiker_"
+               userNameCol="gebruikersnaam"
+               userCredCol="wachtwoord"
+               userRoleTable="gebruiker_groepen"
+               roleNameCol="groep_"
+               allRolesMode="authOnly"
+        >
+            <CredentialHandler className="org.apache.catalina.realm.MessageDigestCredentialHandler"
+                               algorithm="SHA-1"
+            />
+        </Realm>
     </Realm>
 </Context>

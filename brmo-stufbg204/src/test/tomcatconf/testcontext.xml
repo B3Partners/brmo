@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Context path="/brmo-stufbg204">
-    <!-- properties komen uit postgres.properties tijdens package? phase -->
+<!-- dit is een globale context file die vanuit tomcat/conf wordt geladen voor test runs -->
+<Context>
+    <!-- properties komen uit [postgres|sqlserver|oracle].properties tijdens process test resources phase -->
     <Resource name="jdbc/brmo/staging"
               auth="Container"
               type="javax.sql.DataSource"
-              maxActive="80"
-              validationQuery="select 1"
+              maxTotal="30"
+              maxIdle="5"
+              maxWaitMillis="10000"
+              validationQuery="${jdbc.validationQuery}"
               timeBetweenEvictionRunsMillis="30000"
               minEvictableIdleTimeMillis="5000"
               username="${staging.username}"
@@ -16,30 +19,15 @@
     <Resource name="jdbc/brmo/rsgb"
               auth="Container"
               type="javax.sql.DataSource"
-              maxActive="80"
-              validationQuery="select 1"
+              maxTotal="30"
+              maxIdle="5"
+              maxWaitMillis="10000"
+              validationQuery="${jdbc.validationQuery}"
               timeBetweenEvictionRunsMillis="30000"
               minEvictableIdleTimeMillis="5000"
               username="${rsgb.username}"
               password="${rsgb.password}"
               driverClassName="${jdbc.driverClassName}"
               url="${rsgb.url}"
-    />
-    <Resource name="mail/session"
-              auth="Container"
-              type="javax.mail.Session"
-              mail.smtp.host="localhost"
-              mail.smtp.from="no-reply@b3partners.nl"
-    />
-    <Realm allRolesMode="authOnly"
-           className="org.apache.catalina.realm.DataSourceRealm"
-           digest="SHA-1"
-           roleNameCol="groep_"
-           userCredCol="wachtwoord"
-           userNameCol="gebruikersnaam"
-           userRoleTable="gebruiker_groepen"
-           userTable="gebruiker_"
-           dataSourceName="jdbc/brmo/staging"
-           localDataSource="true"
     />
 </Context>
