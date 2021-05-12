@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context path="/brmo-service">
-    <!-- properties komen uit oracle.properties tijdens test phase -->
+
+
     <Resource name="jdbc/brmo/staging"
               auth="Container"
               type="javax.sql.DataSource"
               maxActive="100"
               maxIdle="5"
-              validationQuery="select 1 from dual"
+              maxWait="10000"
+              validationQuery="${jdbc.validationQuery}"
               timeBetweenEvictionRunsMillis="30000"
               minEvictableIdleTimeMillis="5000"
               username="${staging.username}"
@@ -14,11 +16,14 @@
               driverClassName="${jdbc.driverClassName}"
               url="${staging.url}"
     />
+
     <Resource name="jdbc/brmo/rsgb"
               auth="Container"
               type="javax.sql.DataSource"
-              maxActive="40"
-              validationQuery="select 1 from dual"
+              maxActive="30"
+              maxIdle="5"
+              maxWait="10000"
+              validationQuery="${jdbc.validationQuery}"
               timeBetweenEvictionRunsMillis="30000"
               minEvictableIdleTimeMillis="5000"
               username="${rsgb.username}"
@@ -29,8 +34,10 @@
     <Resource name="jdbc/brmo/rsgbbgt"
               auth="Container"
               type="javax.sql.DataSource"
-              maxActive="40"
-              validationQuery="select 1 from dual"
+              maxActive="20"
+              maxIdle="5"
+              maxWait="10000"
+              validationQuery="${jdbc.validationQuery}"
               timeBetweenEvictionRunsMillis="30000"
               minEvictableIdleTimeMillis="5000"
               username="${rsgbbgt.username}"
@@ -41,8 +48,10 @@
     <Resource name="jdbc/brmo/topnl"
               auth="Container"
               type="javax.sql.DataSource"
-              maxActive="40"
-              validationQuery="select 1 from dual"
+              maxActive="20"
+              maxIdle="5"
+              maxWait="10000"
+              validationQuery="${jdbc.validationQuery}"
               timeBetweenEvictionRunsMillis="30000"
               minEvictableIdleTimeMillis="5000"
               username="${topnl.username}"
@@ -56,15 +65,20 @@
               mail.smtp.host="localhost"
               mail.smtp.from="no-reply@b3partners.nl"
     />
-    <Realm allRolesMode="authOnly"
-           className="org.apache.catalina.realm.DataSourceRealm"
-           digest="SHA-1"
-           roleNameCol="groep_"
-           userCredCol="wachtwoord"
-           userNameCol="gebruikersnaam"
-           userRoleTable="gebruiker_groepen"
-           userTable="gebruiker_"
-           dataSourceName="jdbc/brmo/staging"
-           localDataSource="true"
-    />
+<!--    <Realm allRolesMode="authOnly"-->
+<!--           className="org.apache.catalina.realm.DataSourceRealm"-->
+<!--           roleNameCol="groep_"-->
+<!--           userCredCol="wachtwoord"-->
+<!--           userNameCol="gebruikersnaam"-->
+<!--           userRoleTable="gebruiker_groepen"-->
+<!--           userTable="gebruiker_"-->
+<!--           dataSourceName="jdbc/brmo/staging"-->
+<!--           localDataSource="true"-->
+<!--    >-->
+<!--        <CredentialHandler-->
+<!--                algorithm="SHA-1"-->
+<!--                className="org.apache.catalina.realm.MessageDigestCredentialHandler"-->
+<!--        />-->
+<!--    </Realm>-->
+    <Resource auth="Container" factory="org.objectweb.jotm.UserTransactionFactory" jotm.timeout="60" name="UserTransaction" type="javax.transaction.UserTransaction"/>
 </Context>

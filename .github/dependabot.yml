@@ -33,7 +33,7 @@ updates:
     - ">= 1.a, < 2"
   - dependency-name: org.apache.tomcat:*
     versions:
-    - ">= 8"
+    - ">= 10"
   - dependency-name: org.apache.tomcat.embed:*
     versions:
     - ">= 8"
