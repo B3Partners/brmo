@@ -4,7 +4,7 @@
      en in de Realm
         localDataSource="false"
 -->
-<Context path="/brmo-stufbg204" xmlBlockExternal="true" antiResourceLocking="true">
+<Context path="/brmo-stufbg204" antiResourceLocking="false">
     <ResourceLink global="jdbc/brmo/staging" name="jdbc/brmo/staging" type="javax.sql.DataSource"/>
     <ResourceLink global="jdbc/brmo/rsgb" name="jdbc/brmo/rsgb" type="javax.sql.DataSource"/>
     <Realm className="org.apache.catalina.realm.LockOutRealm">
@@ -16,8 +16,11 @@
                userRoleTable="gebruiker_groepen"
                roleNameCol="groep_"
                allRolesMode="authOnly"
-               localDataSource="${tomcat.localDatasource}">
-            <CredentialHandler algorithm="SHA-1" className="org.apache.catalina.realm.MessageDigestCredentialHandler"/>
+               localDataSource="${tomcat.localDatasource}"
+        >
+            <CredentialHandler className="org.apache.catalina.realm.MessageDigestCredentialHandler"
+                               algorithm="SHA-1"
+            />
         </Realm>
     </Realm>
 </Context>

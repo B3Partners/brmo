@@ -4,7 +4,7 @@
      en in de Realm
         localDataSource="false"
 -->
-<Context path="/brmo-service" xmlBlockExternal="true" antiResourceLocking="true">
+<Context path="/brmo-service" antiResourceLocking="false">
     <ResourceLink global="jdbc/brmo/staging" name="jdbc/brmo/staging" type="javax.sql.DataSource"/>
     <ResourceLink global="jdbc/brmo/rsgb" name="jdbc/brmo/rsgb" type="javax.sql.DataSource"/>
     <ResourceLink global="jdbc/brmo/rsgbbgt" name="jdbc/brmo/rsgbbgt" type="javax.sql.DataSource"/>
