@@ -866,7 +866,7 @@
                 <plugin>
                     <groupId>org.codehaus.cargo</groupId>
                     <artifactId>cargo-maven3-plugin</artifactId>
-                    <version>1.9.0</version>
+                    <version>1.9.3</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-project-info-reports-plugin</artifactId>
