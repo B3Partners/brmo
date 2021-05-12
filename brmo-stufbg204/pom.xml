@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <artifactId>brmo-stufbg204</artifactId>
     <version>2.0.4-SNAPSHOT</version>
@@ -122,6 +123,13 @@
                                 <include>wsdl/**</include>
                             </includes>
                         </resource>
+                        <resource>
+                            <directory>src/main/webapp</directory>
+                            <filtering>true</filtering>
+                            <includes>
+                                <include>META-INF/context.xml</include>
+                            </includes>
+                        </resource>
                     </webResources>
                 </configuration>
             </plugin>
@@ -132,7 +140,7 @@
                     <doclint>none</doclint>
                 </configuration>
             </plugin>
-            <plugin>             
+            <plugin>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <executions>
                     <execution>
@@ -197,6 +205,7 @@
             <id>postgresql</id>
             <properties>
                 <test.persistence.unit>brmo.persistence.postgresql</test.persistence.unit>
+                <tomcat.localDatasource>true</tomcat.localDatasource>
             </properties>
             <dependencies>
                 <dependency>
@@ -238,46 +247,43 @@
                         </executions>
                     </plugin>
                     <plugin>
-                        <groupId>org.apache.tomcat.maven</groupId>
-                        <artifactId>tomcat7-maven-plugin</artifactId>
+                        <groupId>org.codehaus.cargo</groupId>
+                        <artifactId>cargo-maven3-plugin</artifactId>
                         <configuration>
-                            <port>9091</port>
-                            <!-- Note: dit bestand wordt neergezet tijdens 'test' phase.
-                            Om Tomcat standalone te draaien gebruik je
-                            'mvn clean test tomcat7:run -Ppostgresql' -->
-                            <contextFile>${project.build.directory}/test-classes/testcontext.xml</contextFile>
+                            <container>
+                                <containerId>tomcat9x</containerId>
+                                <type>embedded</type>
+                            </container>
+                            <configuration>
+                                <properties>
+                                    <cargo.servlet.port>${tomcat.http.port}</cargo.servlet.port>
+                                </properties>
+                                <configfiles>
+                                    <configfile>
+                                        <file>${project.build.directory}/test-classes/testcontext.xml</file>
+                                        <tofile>conf/context.xml</tofile>
+                                        <configfile>true</configfile>
+                                        <overwrite>true</overwrite>
+                                    </configfile>
+                                </configfiles>
+                            </configuration>
                         </configuration>
                         <executions>
                             <execution>
-                                <id>tomcat-run</id>
-                                <goals>
-                                    <goal>run-war-only</goal>
-                                </goals>
+                                <id>start-server</id>
                                 <phase>pre-integration-test</phase>
-                                <configuration>
-                                    <fork>true</fork>
-                                    <skip>${maven.test.skip}</skip>
-                                </configuration>
+                                <goals>
+                                    <goal>start</goal>
+                                </goals>
                             </execution>
                             <execution>
-                                <id>tomcat-shutdown</id>
-                                <goals>
-                                    <goal>shutdown</goal>
-                                </goals>
+                                <id>stop-server</id>
                                 <phase>post-integration-test</phase>
-                                <configuration>
-                                    <skip>${maven.test.skip}</skip>
-                                    <skipErrorOnShutdown>true</skipErrorOnShutdown>
-                                </configuration>
+                                <goals>
+                                    <goal>stop</goal>
+                                </goals>
                             </execution>
                         </executions>
-                        <dependencies>
-                            <dependency>
-                                <groupId>org.postgresql</groupId>
-                                <artifactId>postgresql</artifactId>
-                                <version>${postgresql.jdbc.version}</version>
-                            </dependency>
-                        </dependencies>
                     </plugin>
                     <plugin>
                         <artifactId>maven-failsafe-plugin</artifactId>
@@ -296,6 +302,7 @@
             <id>oracle</id>
             <properties>
                 <test.persistence.unit>brmo.persistence.oracle</test.persistence.unit>
+                <tomcat.localDatasource>true</tomcat.localDatasource>
             </properties>
             <dependencies>
                 <dependency>
@@ -337,41 +344,43 @@
                         </executions>
                     </plugin>
                     <plugin>
-                        <groupId>org.apache.tomcat.maven</groupId>
-                        <artifactId>tomcat7-maven-plugin</artifactId>
+                        <groupId>org.codehaus.cargo</groupId>
+                        <artifactId>cargo-maven3-plugin</artifactId>
                         <configuration>
-                            <port>9091</port>
-                            <!-- Note: dit bestand wordt neergezet tijdens 'test' phase.
-                            Om Tomcat standalone te draaien gebruik je
-                            'mvn clean test tomcat7:run -Poracle' -->
-                            <contextFile>${project.build.directory}/test-classes/testcontext.oracle.xml</contextFile>
+                            <container>
+                                <containerId>tomcat9x</containerId>
+                                <type>embedded</type>
+                            </container>
+                            <configuration>
+                                <properties>
+                                    <cargo.servlet.port>${tomcat.http.port}</cargo.servlet.port>
+                                </properties>
+                                <configfiles>
+                                    <configfile>
+                                        <file>${project.build.directory}/test-classes/testcontext.xml</file>
+                                        <tofile>conf/context.xml</tofile>
+                                        <configfile>true</configfile>
+                                        <overwrite>true</overwrite>
+                                    </configfile>
+                                </configfiles>
+                            </configuration>
                         </configuration>
                         <executions>
                             <execution>
-                                <id>tomcat-run</id>
-                                <goals>
-                                    <goal>run-war-only</goal>
-                                </goals>
+                                <id>start-server</id>
                                 <phase>pre-integration-test</phase>
-                                <configuration>
-                                    <fork>true</fork>
-                                    <skip>${maven.test.skip}</skip>
-                                </configuration>
+                                <goals>
+                                    <goal>start</goal>
+                                </goals>
                             </execution>
                             <execution>
-                                <id>tomcat-shutdown</id>
-                                <goals>
-                                    <goal>shutdown</goal>
-                                </goals>
+                                <id>stop-server</id>
                                 <phase>post-integration-test</phase>
-                                <configuration>
-                                    <skip>${maven.test.skip}</skip>
-                                    <skipErrorOnShutdown>true</skipErrorOnShutdown>
-                                </configuration>
+                                <goals>
+                                    <goal>stop</goal>
+                                </goals>
                             </execution>
                         </executions>
-                        <dependencies>
-                        </dependencies>
                     </plugin>
                     <plugin>
                         <artifactId>maven-failsafe-plugin</artifactId>
@@ -390,6 +399,7 @@
             <id>mssql</id>
             <properties>
                 <test.persistence.unit>brmo.persistence.sqlserver</test.persistence.unit>
+                <tomcat.localDatasource>true</tomcat.localDatasource>
             </properties>
             <dependencies>
                 <dependency>
@@ -432,41 +442,43 @@
                         </executions>
                     </plugin>
                     <plugin>
-                        <groupId>org.apache.tomcat.maven</groupId>
-                        <artifactId>tomcat7-maven-plugin</artifactId>
+                        <groupId>org.codehaus.cargo</groupId>
+                        <artifactId>cargo-maven3-plugin</artifactId>
                         <configuration>
-                            <port>9091</port>
-                            <!-- Note: dit bestand wordt neergezet tijdens 'test' phase.
-                            Om Tomcat standalone te draaien gebruik je
-                            'mvn clean test tomcat7:run -Pmssql' -->
-                            <contextFile>${project.build.directory}/test-classes/testcontext.xml</contextFile>
+                            <container>
+                                <containerId>tomcat9x</containerId>
+                                <type>embedded</type>
+                            </container>
+                            <configuration>
+                                <properties>
+                                    <cargo.servlet.port>${tomcat.http.port}</cargo.servlet.port>
+                                </properties>
+                                <configfiles>
+                                    <configfile>
+                                        <file>${project.build.directory}/test-classes/testcontext.xml</file>
+                                        <tofile>conf/context.xml</tofile>
+                                        <configfile>true</configfile>
+                                        <overwrite>true</overwrite>
+                                    </configfile>
+                                </configfiles>
+                            </configuration>
                         </configuration>
                         <executions>
                             <execution>
-                                <id>tomcat-run</id>
-                                <goals>
-                                    <goal>run-war-only</goal>
-                                </goals>
+                                <id>start-server</id>
                                 <phase>pre-integration-test</phase>
-                                <configuration>
-                                    <fork>true</fork>
-                                    <skip>${maven.test.skip}</skip>
-                                </configuration>
+                                <goals>
+                                    <goal>start</goal>
+                                </goals>
                             </execution>
                             <execution>
-                                <id>tomcat-shutdown</id>
-                                <goals>
-                                    <goal>shutdown</goal>
-                                </goals>
+                                <id>stop-server</id>
                                 <phase>post-integration-test</phase>
-                                <configuration>
-                                    <skip>${maven.test.skip}</skip>
-                                    <skipErrorOnShutdown>true</skipErrorOnShutdown>
-                                </configuration>
+                                <goals>
+                                    <goal>stop</goal>
+                                </goals>
                             </execution>
                         </executions>
-                        <dependencies>
-                        </dependencies>
                     </plugin>
                     <plugin>
                         <artifactId>maven-failsafe-plugin</artifactId>
