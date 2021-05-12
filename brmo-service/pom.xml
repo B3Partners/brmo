@@ -349,6 +349,7 @@
                                     </configfile>
                                 </configfiles>
                             </configuration>
+                            <skip>${maven.test.skip}</skip>
                         </configuration>
                         <executions>
                             <execution>
@@ -457,6 +458,7 @@
                                     </configfile>
                                 </configfiles>
                             </configuration>
+                            <skip>${maven.test.skip}</skip>
                         </configuration>
                         <executions>
                             <execution>
@@ -562,13 +564,13 @@
                                 <configfiles>
                                     <configfile>
                                         <file>${project.build.directory}/test-classes/testcontext.xml</file>
-                                        <!-- <file>${project.basedir}/src/test/tomcatconf/testcontext.xml</file> -->
                                         <tofile>conf/context.xml</tofile>
                                         <configfile>true</configfile>
                                         <overwrite>true</overwrite>
                                     </configfile>
                                 </configfiles>
                             </configuration>
+                            <skip>${maven.test.skip}</skip>
                         </configuration>
                         <executions>
                             <execution>
