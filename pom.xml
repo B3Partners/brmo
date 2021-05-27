@@ -62,8 +62,8 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <hibernate.version>5.4.32.Final</hibernate.version>
         <!-- ook jdbc-util updaten bij geotools update -->
-        <geotools.version>25.0</geotools.version>
-        <jdbc-util.version>8.1</jdbc-util.version>
+        <geotools.version>25.1</geotools.version>
+        <jdbc-util.version>8.2</jdbc-util.version>
         <jts.version>1.18.1</jts.version>
         <itextpdf.version>7.1.15</itextpdf.version>
         <postgresql.jdbc.version>42.2.20</postgresql.jdbc.version>
@@ -114,7 +114,7 @@
     <dependencyManagement>
         <!--
         voor een update controle gebruik je het volgende maven commando:
-        mvn -U org.codehaus.mojo:versions-maven-plugin:display-dependency-updates > dependency-updates.log
+        mvn -U org.codehaus.mojo:versions-maven-plugin:display-dependency-updates -T1 > dependency-updates.log
         -->
         <dependencies>
             <!-- logging libs -->
