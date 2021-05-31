@@ -18,22 +18,21 @@ jobs:
           lfs: true
 
       - name: Cache Maven repository
-        uses: actions/cache@v2.1.6
+        uses: actions/cache@v2
         with:
           path: ~/.m2/repository
-          key: -maven-${{ hashFiles('**/pom.xml') }}
+          key: maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             maven-
 
 # voor TopNL en upgrade test
 #      - name: Cache test data
-#        uses: actions/cache@v2.1.6
+#        uses: actions/cache@v2
 #        with:
 #          path: ~/downloads
 #          key: downloads-${{ hashFiles('**/pom.xml') }}
 #          restore-keys: |
 #            downloads-
-#
 #      - name: Install extra software
 #        run: |
 #          choco install xmlstarlet

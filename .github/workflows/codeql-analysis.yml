@@ -32,13 +32,13 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Cache Maven repository
-      uses: actions/cache@v2.1.6
-      with:
-        path: ~/.m2/repository
-        key: maven-${{ hashFiles('**/pom.xml') }}
-        restore-keys: |
-          maven-
+      - name: Cache Maven repository
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository
+          key: maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            maven-
 
     # Initializes the CodeQL tools for scanning.
     - name: Initialize CodeQL
@@ -71,3 +71,8 @@ jobs:
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v1
+
+    - name: Cleanup build artifacts
+      run: |
+        mvn clean build-helper:remove-project-artifact
+        find ~/.m2/repository -name "*SNAPSHOT*" -type d | xargs rm -rf {}
