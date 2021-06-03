@@ -32,13 +32,13 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-      - name: Cache Maven repository
-        uses: actions/cache@v2
-        with:
-          path: ~/.m2/repository
-          key: maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            maven-
+    - name: Cache Maven repository
+      uses: actions/cache@v2
+      with:
+        path: ~/.m2/repository
+        key: maven-${{ hashFiles('**/pom.xml') }}
+        restore-keys: |
+          maven-
 
     # Initializes the CodeQL tools for scanning.
     - name: Initialize CodeQL
