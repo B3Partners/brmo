@@ -10,7 +10,7 @@ jobs:
     runs-on: windows-2019
     strategy:
       matrix:
-        java: [ 8, 11 ]
+        java: [ 8 ]
 
     steps:
       - uses: actions/checkout@v2
@@ -33,9 +33,9 @@ jobs:
 #          key: downloads-${{ hashFiles('**/pom.xml') }}
 #          restore-keys: |
 #            downloads-
-#      - name: Install extra software
-#        run: |
-#          choco install xmlstarlet
+      - name: Install extra software
+        run: |
+          choco install xmlstarlet
 
       - name: Set up JDK
         uses: actions/setup-java@v2

@@ -1,6 +1,6 @@
 name: Ubuntu PostgreSQL build
 
-on: [push]
+on: [ push ]
 
 env:
   MAVEN_OPTS: -Djava.awt.headless=true -Xms8G -Xmx12G -Dmaven.wagon.httpconnectionManager.ttlSeconds=25 -Dmaven.wagon.http.retryHandler.count=3 -Dtest.persistence.unit=brmo.persistence.postgresql
@@ -11,13 +11,22 @@ env:
 jobs:
   build:
     name: Java ${{ matrix.java }} / PostGIS ${{ matrix.postgis }}
-    runs-on: [ubuntu-20.04]
+    runs-on: [ ubuntu-20.04 ]
     strategy:
       matrix:
         java: [ 11 ]
-        postgis: [ 10-2.5, 11-3.0, 12-3.1, 13-3.1 ]
+        java-dist: 'adopt'
+        # docker image tags from https://hub.docker.com/r/postgis/postgis/tags?page=1&ordering=last_updated
+        # zie ook https://www.postgresql.org/support/versioning/
+        postgis: [
+          # tot 12-2022
+            10-2.5,
+            11-3.1, 12-3.1, 13-3.1
+        ]
         include:
           - java: 8
+            java-dist: 'adopt'
+            # tot 12-2021
             postgis: 9.6-2.5
 
     services:
@@ -55,7 +64,7 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@v2
         with:
-          distribution: 'adopt'
+          distribution: ${{ matrix.java-dist }}
           java-version: ${{ matrix.java }}
 
       - name: Install extra software
@@ -110,16 +119,15 @@ jobs:
 
       - name: Cleanup build artifacts
         run: |
-          mvn clean build-helper:remove-project-artifact
           find ~/.m2/repository -name "*SNAPSHOT*" -type d | xargs rm -rf {}
 
   javadoc:
     name: JavaDoc Check ${{ matrix.java }}
-    runs-on: [ubuntu-20.04]
+    runs-on: ubuntu-20.04
     needs: build
     strategy:
       matrix:
-        java: [ 8 ]
+        java: 8
 
     steps:
       - uses: actions/checkout@v2
@@ -142,8 +150,16 @@ jobs:
         with:
           java-version: ${{ matrix.java }}
 
+      - name: Priming build
+        run: |
+          mvn clean install -Dmaven.test.skip=true -Dtest.onlyITs= -B -V -fae -Ppostgresql -pl '!brmo-dist'
+
       - name: Javadoc
         run: mvn javadoc:javadoc
 
       - name: Test Javadoc
         run: mvn javadoc:test-javadoc
+
+      - name: Cleanup build artifacts
+        run: |
+          find ~/.m2/repository -name "*SNAPSHOT*" -type d | xargs rm -rf {}
