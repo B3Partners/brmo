@@ -76,7 +76,6 @@ public class BasisregistratieServiceActionBean implements ActionBean {
             brmo = new BrmoFramework(ds, null);
 
             // Check of bestand begint met ZIP header
-            
             InputStream in = new BufferedInputStream(req.getInputStream());
             in.mark(4);
             int header = new DataInputStream(in).readInt();
@@ -86,9 +85,7 @@ public class BasisregistratieServiceActionBean implements ActionBean {
 
             if(header == ZIP_HEADER) {
                 // Pak eerste .xml bestand in ZIP uit en verwerk deze
-
                 // Gebruik niet bestandsnaam van ZIP entries, altijd "MUTBX01.xml" oid (iig niet uniek)
-
                 ZipInputStream zip = new ZipInputStream(in);
                 ZipEntry entry = zip.getNextEntry();
                 while(entry != null && !entry.getName().toLowerCase().endsWith(".xml")) {
@@ -120,11 +117,10 @@ public class BasisregistratieServiceActionBean implements ActionBean {
         }
     }
 
-    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+    private final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 
     private String getUniqueFilename(BrmoFramework brmo) throws Exception {
         // Unieke bestandsnaam nodig
-
         String name;
         boolean wait = false;
         do {

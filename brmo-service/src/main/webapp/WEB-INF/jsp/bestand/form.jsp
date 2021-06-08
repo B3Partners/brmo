@@ -18,6 +18,7 @@
                             <stripes:option value="brk">brk</stripes:option>
                             <stripes:option value="nhr">nhr</stripes:option>
                             <stripes:option value="gbav">gbav</stripes:option>
+                            <stripes:option value="woz">woz</stripes:option>
                         </stripes:select>
                     </td>
                 </tr>
@@ -41,6 +42,7 @@
                             <stripes:option value="brk">brk</stripes:option>
                             <stripes:option value="nhr">nhr</stripes:option>
                             <stripes:option value="gbav">gbav</stripes:option>
+                            <stripes:option value="woz">woz</stripes:option>
                             <stripes:option value="bgtlight">bgt light</stripes:option>
                         </stripes:select>
                     </td>
