@@ -69,8 +69,8 @@
         <postgresql.jdbc.version>42.2.20</postgresql.jdbc.version>
         <postgresql.postgis-jdbc.version>2.5.0</postgresql.postgis-jdbc.version>
         <oracle.jdbc.version>21.1.0.0</oracle.jdbc.version>
-        <oracle.jdbc.artifact>ojdbc8</oracle.jdbc.artifact>
-        <sqlserver.jdbc.version>9.2.1.jre8</sqlserver.jdbc.version>
+        <oracle.jdbc.artifact>ojdbc11</oracle.jdbc.artifact>
+        <sqlserver.jdbc.version>9.2.1.jre11</sqlserver.jdbc.version>
         <mssql.instancename />
         <skip-windows />
         <javasimon.version>4.2.0</javasimon.version>
@@ -97,7 +97,7 @@
         -->
         <test.persistence.unit>brmo.persistence.h2</test.persistence.unit>
         <test.h2.version>1.4.200</test.h2.version>
-        <test.hsqldb.version>2.5.2</test.hsqldb.version>
+        <test.hsqldb.version>2.6.0</test.hsqldb.version>
         <test.onlyITs>false</test.onlyITs>
         <test.junit-jupiter.version>5.7.2</test.junit-jupiter.version>
         <maven.surefire.version>3.0.0-M5</maven.surefire.version>
@@ -392,15 +392,15 @@
             <dependency>
                 <groupId>javax.servlet</groupId>
                 <artifactId>javax.servlet-api</artifactId>
-                <!-- versie 3.1 voor tomcat 8, zie http://tomcat.apache.org/whichversion.html -->
-                <version>3.1</version>
+                <!-- versie 3.1 voor tomcat 8.5, zie http://tomcat.apache.org/whichversion.html -->
+                <version>3.1.0</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>javax.servlet.jsp</groupId>
-                <artifactId>jsp-api</artifactId>
-                <!-- versie 2.2 voor tomcat 7, zie http://tomcat.apache.org/whichversion.html -->
-                <version>2.2</version>
+                <artifactId>jakarta.servlet.jsp-api</artifactId>
+                <!-- versie 2.3 voor tomcat 8.5, zie http://tomcat.apache.org/whichversion.html -->
+                <version>2.3.6</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
