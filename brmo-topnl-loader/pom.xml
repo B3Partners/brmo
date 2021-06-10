@@ -24,10 +24,6 @@
             <groupId>org.geotools.xsd</groupId>
             <artifactId>gt-xsd-gml3</artifactId>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.geotools.jdbc</groupId>-->
-<!--            <artifactId>gt-jdbc-oracle</artifactId>-->
-<!--        </dependency>-->
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
@@ -39,6 +35,10 @@
         <dependency>
             <groupId>commons-dbutils</groupId>
             <artifactId>commons-dbutils</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-runtime</artifactId>
         </dependency>
         <dependency>
             <groupId>org.postgresql</groupId>
@@ -117,18 +117,6 @@
                     </plugin>
                 </plugins>
             </build>
-        </profile>
-        <profile>
-        <id>jdk11+</id>
-        <activation>
-            <jdk>[11,)</jdk>
-        </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>org.glassfish.jaxb</groupId>
-                    <artifactId>jaxb-runtime</artifactId>
-                </dependency>
-            </dependencies>
         </profile>
     </profiles>
 </project>
