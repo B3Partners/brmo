@@ -15,19 +15,16 @@ jobs:
     strategy:
       matrix:
         java: [ 11 ]
-        java-dist: 'adopt'
+        java-dist: [ 'adopt' ]
         # docker image tags from https://hub.docker.com/r/postgis/postgis/tags?page=1&ordering=last_updated
         # zie ook https://www.postgresql.org/support/versioning/
         postgis: [
+          # tot 12-2021
+            9.6-2.5,
           # tot 12-2022
             10-2.5,
             11-3.1, 12-3.1, 13-3.1
         ]
-        include:
-          - java: 8
-            java-dist: 'adopt'
-            # tot 12-2021
-            postgis: 9.6-2.5
 
     services:
       postgres:
@@ -122,12 +119,9 @@ jobs:
           find ~/.m2/repository -name "*SNAPSHOT*" -type d | xargs rm -rf {}
 
   javadoc:
-    name: JavaDoc Check ${{ matrix.java }}
+    name: JavaDoc Check
     runs-on: ubuntu-20.04
     needs: build
-    strategy:
-      matrix:
-        java: 8
 
     steps:
       - uses: actions/checkout@v2
@@ -146,9 +140,10 @@ jobs:
         run: sudo apt install -y --no-install-recommends graphviz
 
       - name: Set up JDK
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v2
         with:
-          java-version: ${{ matrix.java }}
+          distribution: 'adopt'
+          java-version: 11
 
       - name: Priming build
         run: |

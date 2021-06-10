@@ -7,10 +7,10 @@ on: [ push ]
 jobs:
   build:
     name: MS SQL developer online test
-    runs-on: windows-2019
+    runs-on: [ windows-2019 ]
     strategy:
       matrix:
-        java: [ 8 ]
+        java: [ 11 ]
 
     steps:
       - uses: actions/checkout@v2

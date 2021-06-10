@@ -1,4 +1,4 @@
-version: 2.0.3.{build}-{branch}
+version: 2.0.4.{build}-{branch}
 pull_requests:
   do_not_increment_build_number: true
 clone_folder: c:\projects\brmo
@@ -15,26 +15,25 @@ environment:
   INSTANCENAME: SQL2017
   DOCKERHOST: "-DdockerHost=tcp://localhost:2375"
   SQLCMDINI: .\appveyor\init.sql
+  JAVA_HOME: C:\Program Files\Java\jdk11
   # Microsoft SQL Server 2016 Service Pack 2 heeft een EOL (einde basisondersteuning) van 13-7-2021
   # wegens in de views gebruikte functies wordt mssql 2016 niet meer ondersteund voor brmo
   # Microsoft SQL Server 2019 is de jongst-beschikbare release op AppVeyor, maar testen we (ook) op Travis-CI (veel sneller)
   matrix:
-    - JAVA_HOME: C:\Program Files\Java\jdk1.8.0
-
+    # bgt loader
     - BGT_ONLY_ITESTS: true
-      JAVA_HOME: C:\Program Files\Java\jdk1.8.0
       OTHER_ITESTS: false
 
-    - JAVA_HOME: C:\Program Files\Java\jdk11
-      SQL: MSSQL$SQL2019
+    # integratie tests + mssql 2019
+    - SQL: MSSQL$SQL2019
       INSTANCENAME: SQL2019
 
+    # brmo loader + mssql 2017
     - LOADER_ONLY_ITESTS : true
-      JAVA_HOME: C:\Program Files\Java\jdk1.8.0
       OTHER_ITESTS : false
 
+    # brmo loader + mssql 2019
     - LOADER_ONLY_ITESTS: true
-      JAVA_HOME: C:\Program Files\Java\jdk11
       OTHER_ITESTS: false
       SQL: MSSQL$SQL2019
       INSTANCENAME: SQL2019
