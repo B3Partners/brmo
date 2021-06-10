@@ -72,40 +72,39 @@ public class Main {
 
     private static Options buildOptions() {
 
-        dbOpts = Arrays.asList(new Option[]{
-            Option.builder("db").desc("database properties file").type(File.class).longOpt("dbprops").argName("bestand").hasArg().required().numberOfArgs(1).build()
-        });
+        dbOpts = Arrays.asList(Option.builder("db").desc("database properties file").type(File.class).longOpt("dbprops")
+                .argName("bestand").hasArg().required().numberOfArgs(1).build());
 
-        modeOpts = Arrays.asList(new Option[]{
-            // info
-            Option.builder("v").desc("Versie informatie van de verschillende schema's").longOpt("versieinfo")
-            .optionalArg(true).numberOfArgs(1).argName("[format]").build(),
-            Option.builder("l").desc("Geef overzicht van laadprocessen in staging database").longOpt("list")
-            .optionalArg(true).numberOfArgs(1).argName("[format]").build(),
-            Option.builder("s").desc("Geef aantallen van bericht status in staging database").longOpt("berichtstatus")
-            .optionalArg(true).numberOfArgs(1).argName("[format]").build(),
-            Option.builder("j").desc("Geef aantal berichten in job tabel van staging database").longOpt("jobstatus")
-            .optionalArg(true).numberOfArgs(1).argName("[format]").build(),
-            // laden
-            Option.builder("a").desc("Laad totaalstand of mutatie uit bestand (.zip of .xml) in database").longOpt("load").hasArg(true)
-            .numberOfArgs(2).argName("bestandsnaam <type-br> <[archief-directory]").build(),
-            Option.builder("ad").desc("Laad stand of mutatie berichten (.zip of .xml) uit directory in database").longOpt("loaddir").hasArg(true).numberOfArgs(2).argName("directory> <type-br> <[archief-directory]").build(),
-            // verwijderen
-            Option.builder("d").desc("Verwijder laadprocessen in database (geef id weer met -list)").longOpt("delete")
-            .hasArg().numberOfArgs(1).type(Integer.class).argName("id").build(),
-            // transformeren
-            Option.builder("t").desc("Transformeer alle 'STAGING_OK' berichten naar rsgb.").longOpt("torsgb")
-            .optionalArg(true).numberOfArgs(1).argName("[error-state]").build(),
-            Option.builder("tb").desc("Transformeer alle 'STAGING_OK' BGT-Light laadprocessen naar rsgbbgt.")
-            .longOpt("torsgbbgt").optionalArg(true).numberOfArgs(1).argName("[loadingUpdate]").build(),
-            // export
-            Option.builder("e").desc("Maak van berichten uit staging gezipte xml-files in de opgegeven directory. Dit zijn alleen BRK mutaties van GDS2 processen.")
-            .longOpt("exportgds").hasArg().numberOfArgs(1).type(File.class).argName("output-directory").build(),
-            // 
-            Option.builder("al").desc("Controleer of de berichten in de opgegeven afgiftelijst in de staging staan.")
-            .longOpt("afgiftelijst").hasArg().numberOfArgs(2).type(File.class).argName("afgiftelijst> <uitvoerbestand").build()
-            
-        });
+        modeOpts = Arrays.asList(
+                // info
+                Option.builder("v").desc("Versie informatie van de verschillende schema's").longOpt("versieinfo")
+                        .optionalArg(true).numberOfArgs(1).argName("[format]").build(),
+                Option.builder("l").desc("Geef overzicht van laadprocessen in staging database").longOpt("list")
+                        .optionalArg(true).numberOfArgs(1).argName("[format]").build(),
+                Option.builder("s").desc("Geef aantallen van bericht status in staging database").longOpt("berichtstatus")
+                        .optionalArg(true).numberOfArgs(1).argName("[format]").build(),
+                Option.builder("j").desc("Geef aantal berichten in job tabel van staging database").longOpt("jobstatus")
+                        .optionalArg(true).numberOfArgs(1).argName("[format]").build(),
+                // laden
+                Option.builder("a").desc("Laad totaalstand of mutatie uit bestand (.zip of .xml) in database")
+                        .longOpt("load").hasArg(true).numberOfArgs(2).argName("bestandsnaam <type-br> <[archief-directory]").build(),
+                Option.builder("ad").desc("Laad stand of mutatie berichten (.zip of .xml) uit directory in database")
+                        .longOpt("loaddir").hasArg(true).numberOfArgs(2).argName("directory> <type-br> <[archief-directory]").build(),
+                // verwijderen
+                Option.builder("d").desc("Verwijder laadprocessen in database (geef id weer met -list)")
+                        .longOpt("delete").hasArg().numberOfArgs(1).type(Integer.class).argName("id").build(),
+                // transformeren
+                Option.builder("t").desc("Transformeer alle 'STAGING_OK' berichten naar rsgb.").longOpt("torsgb")
+                        .optionalArg(true).numberOfArgs(1).argName("[error-state]").build(),
+                Option.builder("tb").desc("Transformeer alle 'STAGING_OK' BGT-Light laadprocessen naar rsgbbgt.")
+                        .longOpt("torsgbbgt").optionalArg(true).numberOfArgs(1).argName("[loadingUpdate]").build(),
+                // export
+                Option.builder("e").desc("Maak van berichten uit staging gezipte xml-files in de opgegeven directory. Dit zijn alleen BRK mutaties van GDS2 processen.")
+                        .longOpt("exportgds").hasArg().numberOfArgs(1).type(File.class).argName("output-directory").build(),
+                //
+                Option.builder("al").desc("Controleer of de berichten in de opgegeven afgiftelijst in de staging staan.")
+                        .longOpt("afgiftelijst").hasArg().numberOfArgs(2).type(File.class).argName("afgiftelijst> <uitvoerbestand").build()
+        );
 
         Options options = new Options();
 

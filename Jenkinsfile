@@ -7,8 +7,6 @@ timestamps {
             ]
         ]);
 
-        final def jdks = ['OpenJDK11','OpenJDK8']
-
         stage('Prepare') {
             sh "id"
             sh "ulimit -a"
@@ -20,7 +18,13 @@ timestamps {
             sh ".build/ci/data-prepare-topnl.sh"
         }
 
-        withEnv(["JAVA_HOME=${ tool 'OpenJDK11' }", "PATH+MAVEN=${tool 'Maven CURRENT'}/bin:${env.JAVA_HOME}/bin"]) {
+        withEnv([
+            "JAVA_HOME=${ tool 'OpenJDK11' }",
+            "PATH+MAVEN=${tool 'Maven CURRENT'}/bin:${ tool 'OpenJDK11' }/bin"
+            ]) {
+
+            echo "JAVA_HOME is ${JAVA_HOME}"
+            echo "PATH is ${PATH}"
 
             lock('brmo-single-build') {
                 stage("Build") {
