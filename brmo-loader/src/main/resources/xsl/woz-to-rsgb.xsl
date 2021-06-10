@@ -47,7 +47,7 @@
     </xsl:template>
 
     <xsl:template name="NNP" match="woz:object[@s:entiteittype='NNP']">
-        <!--        TODO -->
+        <!--        TODO niet-natuurlijk persoon aanmaken -->
         <!--        <xsl:call-template name="comfortPerson">-->
         <!--            <xsl:with-param name="snapshot-date" select="$datum"/>-->
         <!--        </xsl:call-template>-->
@@ -140,7 +140,7 @@
 
 
         <!--
-            TODO waarschijnlijk moeten we de WOZ:heeftSluimerendObject onderbrengen in "woz_deelobj"
+            TODO    waarschijnlijk moeten we de WOZ:heeftSluimerendObject onderbrengen in "woz_deelobj"
               maar het WOZ:object zelf heeft al een aanduiding met BAG verwijzing (WOZ:aanduidingWOZobject) en
               kadaster verwijzing (WOZ:bevatKadastraleObjecten) en dat zijn typisch gegevens die in "woz_deelobj"
               komen en niet in "woz_obj" passen...
@@ -171,10 +171,17 @@
             zie ook: https://www.gemmaonline.nl/images/gemmaonline/f/f9/Gegevenswoordenboek_StUF_woz_03.12.02.pdf
         -->
 
+        <xsl:for-each select="woz:heeftSluimerendObject">
+        <!--
+            TODO    sluimerend object elementen: moeten in de woz_deelobj tabel terecht komen
+        -->
+        </xsl:for-each>
+
         <xsl:for-each select="woz:heeftBelanghebbende">
-            <!--  TODO voorafgaand aan belangen moeten de subjecten en objecten aangemaakt zijn omdat
+        <!--
+            TODO    voorafgaand aan belangen moeten de subjecten en objecten aangemaakt zijn omdat
                     woz_belang in essentie een koppeltabel is
-            -->
+        -->
             <xsl:call-template name="woz_belang"/>
         </xsl:for-each>
     </xsl:template>

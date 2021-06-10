@@ -33,6 +33,7 @@ import nl.b3p.brmo.loader.xml.BrmoXMLReader;
 import nl.b3p.brmo.loader.xml.GbavXMLReader;
 import nl.b3p.brmo.loader.xml.NhrXMLReader;
 import nl.b3p.brmo.loader.xml.TopNLFileReader;
+import nl.b3p.brmo.loader.xml.WozXMLReader;
 import nl.b3p.jdbc.util.converter.GeometryJdbcConverter;
 import nl.b3p.jdbc.util.converter.GeometryJdbcConverterFactory;
 import nl.b3p.jdbc.util.dbutils.LongColumnListHandler;

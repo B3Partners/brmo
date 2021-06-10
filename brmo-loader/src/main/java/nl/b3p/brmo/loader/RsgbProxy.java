@@ -1,5 +1,6 @@
 package nl.b3p.brmo.loader;
 
+import nl.b3p.brmo.loader.util.RsgbWOZTransformer;
 import org.locationtech.jts.io.ParseException;
 
 import java.io.IOException;
