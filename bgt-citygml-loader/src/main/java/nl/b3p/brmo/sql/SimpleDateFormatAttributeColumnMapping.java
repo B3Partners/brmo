@@ -1,5 +1,6 @@
 package nl.b3p.brmo.sql;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -23,7 +24,7 @@ public class SimpleDateFormatAttributeColumnMapping extends AttributeColumnMappi
     }
 
     @Override
-    public Object toQueryParameter(Object value) throws Exception {
+    public Object toQueryParameter(Object value) throws ParseException {
         if(value == null) {
             return null;
         } else {

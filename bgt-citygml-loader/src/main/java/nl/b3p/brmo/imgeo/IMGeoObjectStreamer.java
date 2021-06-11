@@ -22,10 +22,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
@@ -84,8 +87,17 @@ public class IMGeoObjectStreamer implements Iterable<IMGeoObject> {
     public Iterator<IMGeoObject> iterator() {
         return new Iterator<IMGeoObject>() {
             SMEvent event = null;
+
+            /**
+             * A parse action may return multiple objects. Buffer the future objects to be returned in a next() call.
+             */
+            private final Queue<IMGeoObject> buffer = new LinkedList<>();
+
             @Override
             public boolean hasNext() {
+                if (!buffer.isEmpty()) {
+                    return true;
+                }
                 if (event != null) {
                     return true;
                 }
@@ -100,6 +112,9 @@ public class IMGeoObjectStreamer implements Iterable<IMGeoObject> {
             @Override
             public IMGeoObject next() {
                 try {
+                    if (!buffer.isEmpty()) {
+                        return buffer.remove();
+                    }
                     if (event == null) {
                         if(!hasNext()) {
                             throw new IllegalStateException("No more items");
@@ -118,6 +133,10 @@ public class IMGeoObjectStreamer implements Iterable<IMGeoObject> {
 
                     SMInputCursor attributesCursor = cityObjectMemberChild.childElementCursor();
 
+                    // Only a single collection attribute is supported (no matrix of multiple collection attributes)
+                    // An IMGeoObject will be returned for each collection item
+                    Collection<Map<String,Object>> collectionAttribute = null;
+
                     while (attributesCursor.getNext() != null) {
                         String attributeName = attributesCursor.getLocalName();
                         Object parsedAttribute = parseIMGeoAttribute(attributesCursor);
@@ -129,11 +148,28 @@ public class IMGeoObjectStreamer implements Iterable<IMGeoObject> {
                                 attributes.put(attributeName, oneToMany);
                             }
                             oneToMany.add((IMGeoObject) parsedAttribute);
+                        } else if (parsedAttribute instanceof Collection) {
+                            if (collectionAttribute != null) {
+                                throw new IllegalStateException("Only a single collection attribute is supported");
+                            }
+                            collectionAttribute = (Collection<Map<String, Object>>) parsedAttribute;
                         } else {
                             attributes.put(attributeName, parsedAttribute);
                         }
                     }
-                    return new IMGeoObject(name, attributes, location);
+
+                    if (collectionAttribute != null && !collectionAttribute.isEmpty()) {
+                        int index = 0;
+                        for(Map<String,Object> collectionItem: collectionAttribute) {
+                             Map<String,Object> attributesForCollectionItem = new HashMap<>(attributes);
+                             attributesForCollectionItem.putAll(collectionItem);
+                             attributesForCollectionItem.put(IMGeoSchema.INDEX, index++);
+                             buffer.add(new IMGeoObject(name, attributesForCollectionItem, location));
+                        }
+                        return buffer.remove();
+                    } else {
+                        return new IMGeoObject(name, attributes, location);
+                    }
                 } catch(Exception e) {
                     throw new RuntimeException(e);
                 }
@@ -165,19 +201,14 @@ public class IMGeoObjectStreamer implements Iterable<IMGeoObject> {
             for (IMGeoObject object: streamer) {
                 objects++;
 
-                List openbareRuimteNaam = (List)object.getAttributes().get("openbareRuimteNaam");
-                int size = openbareRuimteNaam == null ? 0 : openbareRuimteNaam.size();
-                Integer count = counts.get(size);
-                count = count == null ? 1 : count +1;
-                counts.put(size, count);
-                if(openbareRuimteNaam != null && openbareRuimteNaam.size() > 2) System.out.printf("cityObjectMember #%d: %s\n",
+                if(log) System.out.printf("cityObjectMember #%d: %s\n",
                         objects,
-                        openbareRuimteNaam);
+                        object);
 
                 if (objects % 1000000 == 0) {
                     System.out.printf("Parsed %d objects\n", objects);
                 }
-                if (objects == 400000) {
+                if (objects == 400) {
                     break;
                 }
             }

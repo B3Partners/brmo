@@ -68,6 +68,22 @@
       <groupId>net.postgis</groupId>
       <artifactId>postgis-jdbc</artifactId>
     </dependency>
+    <dependency>
+      <groupId>com.microsoft.sqlserver</groupId>
+      <artifactId>mssql-jdbc</artifactId>
+    </dependency>
+      <dependency>
+          <groupId>com.oracle.database.jdbc</groupId>
+          <artifactId>ojdbc8</artifactId>
+      </dependency>
+    <dependency>
+      <groupId>org.geotools.jdbc</groupId>
+      <artifactId>gt-jdbc-oracle</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>nl.b3p</groupId>
+      <artifactId>jdbc-util</artifactId>
+    </dependency>
   </dependencies>
 
   <build>
