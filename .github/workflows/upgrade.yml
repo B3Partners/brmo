@@ -11,11 +11,11 @@ env:
 jobs:
   build:
     name: PostGIS ${{ matrix.postgis }}
-    runs-on: [ubuntu-20.04]
+    runs-on: [ ubuntu-20.04 ]
     strategy:
       matrix:
         java: [ 11 ]
-        postgis: [ 11-3.0 ]
+        postgis: [ 11-3.1 ]
 
     services:
       postgres:

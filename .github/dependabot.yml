@@ -22,12 +22,6 @@ updates:
   - dependency-name: javax:javaee-web-api
     versions:
     - ">= 8.a, < 9"
-  - dependency-name: javax.servlet:javax.servlet-api
-    versions:
-    - "> 3.0.1, < 4"
-  - dependency-name: javax.servlet:javax.servlet-api
-    versions:
-    - ">= 4.a, < 5"
   - dependency-name: org.stripesstuff:stripesstuff
     versions:
     - ">= 1.a, < 2"
@@ -36,12 +30,8 @@ updates:
     - ">= 10"
   - dependency-name: org.apache.tomcat.embed:*
     versions:
-    - ">= 8"
-  # hsqldb 2.6.0 is voor Java 11
-  # zie ook https://sourceforge.net/p/hsqldb/feature-requests/359/
-  - dependency-name: org.hsqldb:hsqldb
-    versions:
-    - "< 2.6.0"
+    - ">= 10"
+
 - package-ecosystem: "github-actions"
   directory: "/"
   schedule:
@@ -51,6 +41,7 @@ updates:
     timezone: Europe/Amsterdam
   labels:
   - bouw- en testinfrastuctuur
+
 - package-ecosystem: docker
   directory: "/docker/src/main/docker/"
   schedule:

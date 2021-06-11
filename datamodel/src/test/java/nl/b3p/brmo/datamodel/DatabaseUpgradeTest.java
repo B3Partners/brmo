@@ -84,6 +84,10 @@ public class DatabaseUpgradeTest {
         int patch = Integer.parseInt(nextRelease.substring(nextRelease.lastIndexOf(".") + 1));
         LOG.debug("release patch is: " + patch);
         previousRelease = nextRelease.substring(0, nextRelease.lastIndexOf(".")) + "." + (patch - 1);
+        // HACK voor minor bump
+        if (nextRelease.equalsIgnoreCase("2.1.0")){
+            previousRelease = "2.0.3";
+        }
         LOG.debug("vorige release is: " + previousRelease);
 
         assumeTrue(previousRelease.matches("(\\d+\\.)(\\d+\\.)(\\d)"));
