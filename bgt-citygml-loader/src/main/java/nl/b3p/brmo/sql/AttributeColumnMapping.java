@@ -1,6 +1,7 @@
 package nl.b3p.brmo.sql;
 
-import java.text.ParseException;
+import nl.b3p.brmo.sql.dialect.SQLDialect;
+
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class AttributeColumnMapping {
@@ -21,7 +22,7 @@ public class AttributeColumnMapping {
     }
 
     public AttributeColumnMapping(String name) {
-        this(name, "varchar", true, false);
+        this(name, "varchar(255)", true, false);
     }
 
     public String getName() {
@@ -40,16 +41,16 @@ public class AttributeColumnMapping {
         return primaryKey;
     }
 
-    public void appendToCreateTableSql(StringBuilder sql, String columnName, AtomicBoolean first) {
+    public void appendToCreateTableSql(StringBuilder sql, SQLDialect dialect, String columnName, AtomicBoolean first) {
         if (first.get()) {
             first.set(false);
         } else {
             sql.append(",\n");
         }
-        sql.append("  \"");
+        sql.append("  ");
         sql.append(columnName);
-        sql.append("\" ");
-        sql.append(type);
+        sql.append(" ");
+        sql.append(dialect.getType(type));
         if (notNull) {
             sql.append(" not null");
         }

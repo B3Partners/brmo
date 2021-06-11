@@ -1,6 +1,10 @@
 package nl.b3p.brmo.imgeo;
 
 import nl.b3p.brmo.sql.OneToManyColumnMapping;
+import nl.b3p.brmo.sql.dialect.MSSQLDialect;
+import nl.b3p.brmo.sql.dialect.OracleDialect;
+import nl.b3p.brmo.sql.dialect.PostGISDialect;
+import nl.b3p.brmo.sql.dialect.SQLDialect;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,6 +35,10 @@ public class IMGeoSchemaMapper {
             {"TrafficArea", "wegdeel"}
     }).collect(Collectors.toMap(e -> e[0], e -> e[1]));
 
+    private static Set<String> reservedWords = Stream.of(new String[]{
+            "function"
+    }).collect(Collectors.toSet());
+
     static {
         // Put lowercase version in mapping if not already mapped to another name
         getAllObjectTypes().forEach(name -> {
@@ -48,6 +56,8 @@ public class IMGeoSchemaMapper {
             System.err.println("Error: expected zero or one argument");
             System.exit(1);
         }
+//        SQLDialect dialect = new OracleDialect(null);
+        SQLDialect dialect = new MSSQLDialect();
         Set<String> objectTypes = getAllObjectTypes();
         // TODO gebruik library voor command line opties
         if (args.length == 1) {
@@ -69,7 +79,7 @@ public class IMGeoSchemaMapper {
         }
 
         objectTypes.stream().sorted().forEach(name -> {
-            System.out.println(createTable(name));
+            System.out.println(createTable(name, dialect));
         });
     }
 
@@ -89,6 +99,9 @@ public class IMGeoSchemaMapper {
         if (attributeName.startsWith("kruinlijn")) {
             return "geom_kruinlijn";
         }
+        if (reservedWords.contains(attributeName)) {
+            attributeName = attributeName + "_";
+        }
         String tableNameLower = getTableNameForObjectType(objectTypeName).toLowerCase();
         String attributeNameLower = attributeName.toLowerCase();
         int i = attributeNameLower.indexOf(tableNameLower);
@@ -98,19 +111,23 @@ public class IMGeoSchemaMapper {
         return attributeName.replaceAll("\\-", "_");
     }
 
-    public static String createTable(String name) {
+    public static String createTable(String name, SQLDialect dialect) {
         String tableName = getTableNameForObjectType(name);
-        StringBuilder sql = new StringBuilder("drop table if exists \"");
+        StringBuilder sql = new StringBuilder();
+        if (dialect.supportsDropTableIfExists()) {
+            sql.append("drop table if exists \"");
+            sql.append(tableName);
+            sql.append("\";\n");
+        }
+        sql.append("create table ");
         sql.append(tableName);
-        sql.append("\";\ncreate table \"");
-        sql.append(tableName);
-        sql.append("\" (\n");
+        sql.append(" (\n");
         AtomicBoolean first = new AtomicBoolean(true);
         List<String> primaryKeys = new ArrayList<>();
         objectTypeAttributes.get(name).forEach(column -> {
             if (!(column instanceof OneToManyColumnMapping)) {
                 String columnName = getColumnNameForObjectType(name, column.getName());
-                column.appendToCreateTableSql(sql, columnName, first);
+                column.appendToCreateTableSql(sql, dialect, columnName, first);
                 if (column.isPrimaryKey()) {
                     primaryKeys.add(columnName);
                 }

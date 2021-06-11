@@ -1,6 +1,10 @@
 package nl.b3p.brmo.imgeo;
 
+import org.geotools.geometry.jts.WKTWriter2;
+import org.locationtech.jts.geom.Geometry;
+
 import javax.xml.stream.Location;
+import java.util.Collections;
 import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -10,9 +14,11 @@ public class IMGeoObject {
     private final Map<String,Object> attributes;
     private final Location xmlLocation;
 
+    private final WKTWriter2 wktWriter2 = new WKTWriter2();
+
     public IMGeoObject(String name, Map<String,Object> attributes) {
         this.name = name;
-        this.attributes = attributes;
+        this.attributes = Collections.unmodifiableMap(attributes);
         this.xmlLocation = null;
     }
 
@@ -46,7 +52,11 @@ public class IMGeoObject {
             }
             s.append(name);
             s.append("=");
-            s.append(attributes.get(name));
+            Object value = attributes.get(name);
+            if (value instanceof Geometry) {
+                value = wktWriter2.write((Geometry)value);
+            }
+            s.append(value);
         }
         s.append("}");
         return xmlLocation == null

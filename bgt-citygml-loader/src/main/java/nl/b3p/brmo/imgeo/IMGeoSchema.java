@@ -21,6 +21,8 @@ import static nl.b3p.brmo.sql.SimpleDateFormatAttributeColumnMapping.PATTERN_XML
 
 public class IMGeoSchema {
 
+    public static final String INDEX = "idx";
+
     public static Set<String> bgtObjectTypes = new HashSet<>(Arrays.asList(
             "TrafficArea",
             "AuxiliaryTrafficArea",
@@ -45,7 +47,7 @@ public class IMGeoSchema {
     public static Map<String, List<AttributeColumnMapping>> objectTypeAttributes = new HashMap<>();
 
     public static List<AttributeColumnMapping> baseAttributes = Arrays.asList(
-            new AttributeColumnMapping("gmlId", "varchar", true, true),
+            new AttributeColumnMapping("gmlId", "varchar(255)", true, true),
             new AttributeColumnMapping("identificatie"),
             new SimpleDateFormatAttributeColumnMapping("LV-publicatiedatum", "timestamp", PATTERN_XML_TIMESTAMP),
             new SimpleDateFormatAttributeColumnMapping("creationDate", "date", PATTERN_XML_DATE),
@@ -83,13 +85,13 @@ public class IMGeoSchema {
                 new GeometryAttributeColumnMapping("geometrie2dBord", "geometry(POINT, 28992)")
         ));
         objectTypeAttributes.put("Buurt", Arrays.asList(
-                new AttributeColumnMapping("naam", "varchar", false),
+                new AttributeColumnMapping("naam", "varchar(255)", false),
                 new AttributeColumnMapping("buurtcode"),
-                new AttributeColumnMapping("wijk", "varchar", false),
+                new AttributeColumnMapping("wijk", "varchar(255)", false),
                 new GeometryAttributeColumnMapping("geometrie2d")
         ));
         objectTypeAttributes.put("FunctioneelGebied", Arrays.asList(
-                new AttributeColumnMapping("naam", "varchar", false),
+                new AttributeColumnMapping("naam", "varchar(255)", false),
                 new AttributeColumnMapping("bgt-type"),
                 new AttributeColumnMapping("plus-type"),
                 new GeometryAttributeColumnMapping("geometrie2dFunctioneelGebied")
@@ -150,17 +152,18 @@ public class IMGeoSchema {
                 new GeometryAttributeColumnMapping("geometrie2d")
         ));
         objectTypeAttributes.put("OpenbareRuimteLabel", Arrays.asList(
+                new IntegerAttributeColumnMapping("idx", true, true),
                 new AttributeColumnMapping("tekst"),
                 new DoubleAttributeColumnMapping("hoek"),
                 new GeometryAttributeColumnMapping("plaatsingspunt", "geometry(POINT, 28992)"),
                 new AttributeColumnMapping("openbareRuimteType"),
-                new AttributeColumnMapping("identificatieBAGOPR", "varchar", false)
+                new AttributeColumnMapping("identificatieBAGOPR", "varchar(16)", false)
         ));
         objectTypeAttributes.put("BridgeConstructionElement", Arrays.asList(
                 new BooleanAttributeColumnMapping("overbruggingIsBeweegbaar", false),
                 new AttributeColumnMapping("hoortBijTypeOverbrugging"),
                 new AttributeColumnMapping("class"),
-                new AttributeColumnMapping("identificatieBAGOPR", "varchar", false),
+                new AttributeColumnMapping("identificatieBAGOPR", "varchar(16)", false),
                 new GeometryAttributeColumnMapping("geometrie2dOverbruggingsdeel")
         ));
         objectTypeAttributes.put("OverigBouwwerk", Arrays.asList(
@@ -169,13 +172,13 @@ public class IMGeoSchema {
                 new GeometryAttributeColumnMapping("geometrie2dOverigeConstructie")
         ));
         objectTypeAttributes.put("OverigeScheiding", Arrays.asList(
-                new AttributeColumnMapping("plus-type", "varchar", false),
+                new AttributeColumnMapping("plus-type", "varchar(255)", false),
                 new GeometryAttributeColumnMapping("geometrie2dOverigeConstructie")
         ));
         objectTypeAttributes.put("Paal", Arrays.asList(
                 new AttributeColumnMapping("function"),
-                new AttributeColumnMapping("plus-type", "varchar", false),
-                new AttributeColumnMapping("hectometeraanduiding", "varchar", false),
+                new AttributeColumnMapping("plus-type", "varchar(255)", false),
+                new AttributeColumnMapping("hectometeraanduiding", "varchar(255)", false),
                 new GeometryAttributeColumnMapping("geometrie2dPaal", "geometry(POINT, 28992)")
         ));
         objectTypeAttributes.put("BuildingPart", Arrays.asList(
@@ -184,14 +187,14 @@ public class IMGeoSchema {
                 new GeometryAttributeColumnMapping("geometrie2dGrondvlak")
         ));
         objectTypeAttributes.put("nummeraanduidingreeks", Arrays.asList(
-                new AttributeColumnMapping("pandgmlid", "varchar", true, true),
-                new IntegerAttributeColumnMapping("index", true, true),
+                new AttributeColumnMapping("pandgmlid", "varchar(255)", true, true),
+                new IntegerAttributeColumnMapping("idx", true, true),
                 new BooleanAttributeColumnMapping("pandeindregistratie", true),
                 new AttributeColumnMapping("tekst"),
                 new DoubleAttributeColumnMapping("hoek"),
                 new GeometryAttributeColumnMapping("plaatsingspunt", "geometry(POINT, 28992)"),
-                new AttributeColumnMapping("identificatieBAGVBOLaagsteHuisnummer", "varchar", false),
-                new AttributeColumnMapping("identificatieBAGVBOHoogsteHuisnummer", "varchar", false)
+                new AttributeColumnMapping("identificatieBAGVBOLaagsteHuisnummer", "varchar(16)", false),
+                new AttributeColumnMapping("identificatieBAGVBOHoogsteHuisnummer", "varchar(16)", false)
         ));
         objectTypeAttributes.put("Put", Arrays.asList(
                 new AttributeColumnMapping("function"),
@@ -210,12 +213,12 @@ public class IMGeoSchema {
         ));
         objectTypeAttributes.put("Railway", Arrays.asList(
                 new AttributeColumnMapping("function"),
-                new AttributeColumnMapping("plus-functieSpoor"),
+                new AttributeColumnMapping("plus-functieSpoor", "varchar(255)", false),
                 new GeometryAttributeColumnMapping("geometrie2dSpoor")
         ));
         objectTypeAttributes.put("Stadsdeel", Arrays.asList(
-                new AttributeColumnMapping("naam", "varchar", false),
-                new AttributeColumnMapping("function", "varchar", false),
+                new AttributeColumnMapping("naam", "varchar(255)", false),
+                new AttributeColumnMapping("function", "varchar(255)", false),
                 new GeometryAttributeColumnMapping("geometrie2d")
         ));
         objectTypeAttributes.put("Straatmeubilair", Arrays.asList(
@@ -260,7 +263,7 @@ public class IMGeoSchema {
                 new GeometryAttributeColumnMapping("geometrie2dWeginrichtingselement")
         ));
         objectTypeAttributes.put("Wijk", Arrays.asList(
-                new AttributeColumnMapping("naam", "varchar", false),
+                new AttributeColumnMapping("naam", "varchar(255)", false),
                 new AttributeColumnMapping("wijkcode"),
                 new GeometryAttributeColumnMapping("geometrie2d")
         ));

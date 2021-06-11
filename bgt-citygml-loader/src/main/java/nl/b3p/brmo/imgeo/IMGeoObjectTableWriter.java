@@ -1,17 +1,24 @@
 package nl.b3p.brmo.imgeo;
 
-import nl.b3p.brmo.PGGeometryString;
 import nl.b3p.brmo.sql.AttributeColumnMapping;
+import nl.b3p.brmo.sql.GeometryAttributeColumnMapping;
 import nl.b3p.brmo.sql.OneToManyColumnMapping;
+import nl.b3p.brmo.sql.dialect.MSSQLDialect;
+import nl.b3p.brmo.sql.dialect.SQLDialect;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 import org.apache.commons.io.input.CountingInputStream;
+import org.locationtech.jts.geom.Geometry;
 
 import java.io.File;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ParameterMetaData;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Types;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -26,9 +33,14 @@ import static nl.b3p.brmo.imgeo.IMGeoSchemaMapper.getTableNameForObjectType;
 
 public class IMGeoObjectTableWriter {
 
-    private static final int batchSize = 2500;
+    private static final int batchSize = 250;
+    private static final int objectLimit = 10000;
 
     private final Connection c;
+
+    private final SQLDialect dialect;
+
+    private static boolean linearizeCurves = false;
 
     private CountingInputStream counter;
     private long size;
@@ -43,23 +55,28 @@ public class IMGeoObjectTableWriter {
     private Set<String> allUnusedAttributes = new HashSet<>();
     private Map<String,Integer> columnErrors = new HashMap<>();
 
-    public IMGeoObjectTableWriter(Connection c) {
+    public IMGeoObjectTableWriter(Connection c, SQLDialect dialect) {
         this.c = c;
+        this.dialect = dialect;
     }
 
     private static class InsertBatch {
         private final Connection c;
-        private final QueryRunner db = new QueryRunner();
+        private final SQLDialect dialect;
         private final String insertSql;
         private final Object[][] batch = new Object[batchSize][];
+
+        private final Boolean[] geometryParameterIndexes;
         private int index = 0;
 
-        public InsertBatch(Connection c, String insertSql) {
+        public InsertBatch(Connection c, String insertSql, SQLDialect dialect, Boolean[] geometryParameterIndexes) {
             this.c = c;
             this.insertSql = insertSql;
+            this.dialect = dialect;
+            this.geometryParameterIndexes = geometryParameterIndexes;
         }
 
-        public boolean addBatch(Object[] params) throws SQLException {
+        public boolean addBatch(Object[] params) throws Exception {
             this.batch[this.index++] = params;
 
             if (index == batch.length) {
@@ -70,14 +87,54 @@ public class IMGeoObjectTableWriter {
             }
         }
 
-        public void executeBatch() throws SQLException {
+        public void executeBatch() throws Exception {
             if (index > 0) {
                 Object[][] thisBatch = batch;
                 if (index < batch.length) {
                     thisBatch = Arrays.copyOfRange(batch, 0, index);
                 }
 
-                db.batch(c, insertSql, thisBatch);
+                PreparedStatement ps = c.prepareStatement(insertSql);
+                int[] parameterTypes = null;
+                try {
+                    ParameterMetaData pmd = ps.getParameterMetaData();
+                    if (pmd != null) {
+                        parameterTypes = new int[pmd.getParameterCount()];
+                        for (int i = 0; i < pmd.getParameterCount(); i++) {
+                            parameterTypes[i] = pmd.getParameterType(i + 1);
+                        }
+                    }
+                } catch(Exception e) {
+                    // May fail, for example if Oracle table is in NOLOGGING mode. Ignore.
+                }
+                try {
+                    for(Object[] params: thisBatch) {
+                        for (int i = 0; i < params.length; i++) {
+                            int parameterIndex = i + 1;
+                            try {
+                                int pmdType = parameterTypes != null ? parameterTypes[i] : Types.VARCHAR;
+                                if (geometryParameterIndexes[i]) {
+                                    dialect.setGeometryParameter(ps, parameterIndex, pmdType, (Geometry) params[i], linearizeCurves);
+                                } else {
+                                    if (params[i] != null) {
+                                        ps.setObject(parameterIndex, params[i]);
+                                    } else {
+                                        ps.setNull(parameterIndex, Types.VARCHAR);
+                                    }
+                                }
+                            } catch(Exception e) {
+                                throw new Exception(String.format("Exception setting parameter %s to value %s for insert SQL \"%s\"", i, params[i], insertSql), e);
+                            }
+                        }
+                        ps.addBatch();
+                    }
+                    ps.executeBatch();
+                } finally {
+                    ps.close();
+                }
+
+                //db.batch(c, insertSql, thisBatch);
+                //db.insert(c, insertSql, new ScalarHandler<>(), batch[0]);
                 this.index = 0;
             }
         }
@@ -102,23 +159,30 @@ public class IMGeoObjectTableWriter {
 
     }
 
-    private void addObjectBatch(IMGeoObject object) throws SQLException {
+    private boolean addObjectBatch(IMGeoObject object) throws Exception {
         if(!batches.containsKey(object.getName())) {
             if (!tableExists(c, object)) {
                 System.out.printf("Table for object %s does not exist, skipping\n", object.getName());
                 batches.put(object.getName(), null);
-                return;
+                return false;
             }
 
             truncateTable(c, object);
 
             String sql = buildInsertSql(object);
-            batches.put(object.getName(), new InsertBatch(c, sql));
+            List<AttributeColumnMapping> attributeColumnMappings = IMGeoSchema.objectTypeAttributes.get(object.getName());
+            List<Boolean> geometryParameterIndexes = new ArrayList<>();
+            for(AttributeColumnMapping mapping: attributeColumnMappings) {
+                if (!(mapping instanceof OneToManyColumnMapping)) {
+                    geometryParameterIndexes.add(mapping instanceof GeometryAttributeColumnMapping);
+                }
+            }
+            batches.put(object.getName(), new InsertBatch(c, sql, dialect, geometryParameterIndexes.toArray(new Boolean[0])));
         }
         InsertBatch batch = batches.get(object.getName());
         if(batch == null) {
             // Table did not exist
-            return;
+            return false;
         }
 
         // TODO: get table metadata, only insert existing columns
@@ -146,24 +210,24 @@ public class IMGeoObjectTableWriter {
                         String tableName = getTableNameForObjectType(object.getName());
                         String idColumnName = columns.stream().filter(AttributeColumnMapping::isPrimaryKey).findFirst().get().getName();
                         oneToMany.getAttributes().put(getColumnNameForObjectType(oneToMany.getName(),tableName + idColumnName), object.getAttributes().get(idColumnName));
-                        oneToMany.getAttributes().put("index", j);
+                        oneToMany.getAttributes().put(IMGeoSchema.INDEX, j);
                         Object eindRegistratie = object.getAttributes().get("eindRegistratie");
                         oneToMany.getAttributes().put(getColumnNameForObjectType(oneToMany.getName(),tableName + "eindRegistratie"), eindRegistratie != null);
                         addObjectBatch(oneToMany);
                     }
                 }
             } else {
-                try {
+//                try {
                     Object attribute = attributes.get(column.getName());
                     params[columnIndex] = column.toQueryParameter(attribute);
-                } catch (Exception e) {
-                    Integer errors = columnErrors.get(column.getName());
-                    if (errors == null) {
-                        errors = 0;
-                    }
-                    columnErrors.put(column.getName(), errors + 1);
-                    params[columnIndex] = null;
-                }
+//                } catch (Exception e) {
+//                    Integer errors = columnErrors.get(column.getName());
+//                    if (errors == null) {
+//                        errors = 0;
+//                    }
+//                    columnErrors.put(column.getName(), errors + 1);
+//                    params[columnIndex] = null;
+//                }
                 columnIndex++;
             }
         }
@@ -177,6 +241,7 @@ public class IMGeoObjectTableWriter {
         if (executed) {
             updateProgress();
         }
+        return true;
     }
 
     private void write(InputStream bgtXml, long size) throws Exception {
@@ -201,15 +266,29 @@ public class IMGeoObjectTableWriter {
                         objects,
                         object);
 
-                addObjectBatch(object);
+                try {
+                    aborted = !addObjectBatch(object);
+                } catch(Exception e) {
+                    // XXX object toString() fout, attributes leeg...
+                    String message = "Exception writing object to database, IMGeo object: ";
+                    if (batchSize > 1) {
+                        message = "Exception adding parameters to database write batch, may be caused by previous batches. IMGeo object: ";
+                    }
+                    throw new Exception(message + object, e);
+                }
+                if (aborted) {
+                    break;
+                }
 
-//                if (objects == 1000000) {
-//                    break;
-//                }
+                if (objects == objectLimit) {
+                    break;
+                }
             }
 
             for(InsertBatch batch: batches.values()) {
-                batch.executeBatch();
+                if (batch != null) {
+                    batch.executeBatch();
+                }
             }
 
             if (!aborted) {
@@ -228,7 +307,7 @@ public class IMGeoObjectTableWriter {
     }
 
     private static boolean tableExists(Connection c, IMGeoObject object) {
-        String sql = String.format("select 1 from \"%s\"", getTableNameForObjectType(object.getName()));
+        String sql = String.format("select 1 from %s", getTableNameForObjectType(object.getName()));
         try {
             new QueryRunner().query(c, sql, new ScalarHandler<>());
             return true;
@@ -239,14 +318,14 @@ public class IMGeoObjectTableWriter {
     }
 
     private static void truncateTable(Connection c, IMGeoObject object) throws SQLException {
-        new QueryRunner().execute(c, String.format("truncate table \"%s\"", getTableNameForObjectType(object.getName())));
+        new QueryRunner().execute(c, String.format("truncate table %s", getTableNameForObjectType(object.getName())));
     }
 
     private static String buildInsertSql(IMGeoObject object) {
-        StringBuilder sql = new StringBuilder("insert into \"");
+        StringBuilder sql = new StringBuilder("insert into ");
         String tableName = getTableNameForObjectType(object.getName());
         sql.append(tableName);
-        sql.append("\" (");
+        sql.append(" (");
         AtomicBoolean first = new AtomicBoolean(true);
         List<AttributeColumnMapping> columns = IMGeoSchema.objectTypeAttributes.get(object.getName());
         StringBuilder params = new StringBuilder();
@@ -259,9 +338,7 @@ public class IMGeoObjectTableWriter {
                     params.append(", ");
                 }
                 params.append("?");
-                sql.append('"');
                 sql.append(getColumnNameForObjectType(object.getName(), column.getName()));
-                sql.append('"');
             }
         });
         sql.append(") values (");
@@ -272,34 +349,51 @@ public class IMGeoObjectTableWriter {
 
     public static void main(String[] args) throws Exception {
 
-        Class.forName("org.postgresql.Driver");
-        String url = "jdbc:postgresql:bgt";
-        final String user = "bgt";
-        final String password = "bgt";
-        Connection c = DriverManager.getConnection(url, user, password);
-//        PGGeometryString.register(c);
+//        Class.forName("org.postgresql.Driver");
+//        String url = "jdbc:postgresql:bgt";
+//        final String user = "bgt";
+//        final String password = "bgt";
 
-        String version = new QueryRunner().query(c,"select postgis_version()", new ScalarHandler<>());
-        System.out.println("PostGIS version: " + version);
+        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+        SQLDialect dialect = new MSSQLDialect();
+        String url = "jdbc:sqlserver://localhost:1433;databaseName=bgt;disableStatementPooling=false;statementPoolingCacheSize=10";
+        final String user = "sa";
+        final String password = "Password12!";
+
+//        String url = "jdbc:sqlserver://192.168.1.24:1433;databaseName=bgt;disableStatementPooling=false;statementPoolingCacheSize=10";
+//        final String user = "sa";
+//        final String password = "zQGZ27AR8Z7y";
+
+//        Class.forName("oracle.jdbc.OracleDriver");
+//        final String url = "jdbc:oracle:thin:@localhost:1521:XE";
+//        final String user = "c##bgt";
+//        final String password = "bgt";
+
+
+        Connection c = DriverManager.getConnection(url, user, password);
+//        final SQLDialect dialect = new OracleDialect(OracleConnectionUnwrapper.unwrap(c));
+
+//        String version = new QueryRunner().query(c,"select postgis_version()", new ScalarHandler<>());
+//        System.out.println("PostGIS version: " + version);
 
         long startTime = System.currentTimeMillis();
 
         ZipFile file = new ZipFile(new File("/media/ssd/files/bgt/2021/bgt-citygml-nl-nopbp.zip"));
-        IMGeoObjectTableWriter writer = new IMGeoObjectTableWriter(c);
-        file.stream().filter(entry -> "bgt_stadsdeel.gml".equals(entry.getName())).forEach(entry -> {
+        IMGeoObjectTableWriter writer = new IMGeoObjectTableWriter(c, dialect);
+        file.stream()/*.filter(entry -> "bgt_ondersteunendwegdeel.gml".equals(entry.getName()))*/.forEach(entry -> {
             try {
                 System.out.printf("Processing ZIP entry: %s, size %.0f MiB, compressed size %.0f MiB\n", entry.getName(), entry.getSize() / 1024.0 / 1024, entry.getCompressedSize() / 1024.0 / 1024);
                 writer.write(file.getInputStream(entry), entry.getSize());
-            } catch (SQLException e) {
-                System.out.println("");
-                String message = e.getMessage();
-                int index = message.indexOf("Parameters: ");
-                if (index != -1) {
-                    message = message.substring(0, index) + ", parameters omitted...";
-                }
-                System.err.println("SQLException: " + message);
+//            } catch (SQLException e) {
+//                System.out.println("");
+//                String message = e.getMessage();
+////                int index = message.indexOf("Parameters: ");
+////                if (index != -1) {
+////                    message = message.substring(0, index) + ", parameters omitted...";
+////                }
+//                System.err.println("SQLException: " + message);
             } catch(Exception e) {
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
         });
 
