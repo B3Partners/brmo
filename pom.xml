@@ -1168,13 +1168,20 @@
         <profile>
             <id>windows-java11-mvn</id>
             <activation>
+                <!--
+                dit profiel wordt getriggerd op de Github Windows runner:
+                - Windows
+                - Java >=11
+                - Maven 3.8.1
+                -->
                 <os>
                     <family>Windows</family>
                 </os>
                 <jdk>[11,)</jdk>
                 <property>
+                    <!-- de versie van Maven op de github runner; als er een update is geweest kan het zijn dat de tests weer proberen te draaien... -->
                     <name>maven.version</name>
-                    <value>3.6.3</value>
+                    <value>3.8.1</value>
                 </property>
             </activation>
             <properties>
