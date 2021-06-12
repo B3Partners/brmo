@@ -1178,11 +1178,13 @@
                     <family>Windows</family>
                 </os>
                 <jdk>[11,)</jdk>
+                <!-- de versie van Maven op de github runner; als er een update is geweest kan het zijn dat de tests weer proberen te draaien...
+                     appveyor heeft een andere versie...
                 <property>
-                    <!-- de versie van Maven op de github runner; als er een update is geweest kan het zijn dat de tests weer proberen te draaien... -->
                     <name>maven.version</name>
                     <value>3.8.1</value>
                 </property>
+                     -->
             </activation>
             <properties>
                 <!-- zodat we getaggede tests kunnen skippen met failsafe -->
