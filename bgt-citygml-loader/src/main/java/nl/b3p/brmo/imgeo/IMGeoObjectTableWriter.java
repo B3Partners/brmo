@@ -1,13 +1,19 @@
 package nl.b3p.brmo.imgeo;
 
+import com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement;
 import nl.b3p.brmo.sql.AttributeColumnMapping;
 import nl.b3p.brmo.sql.GeometryAttributeColumnMapping;
+import nl.b3p.brmo.sql.InsertBatch;
 import nl.b3p.brmo.sql.OneToManyColumnMapping;
 import nl.b3p.brmo.sql.dialect.MSSQLDialect;
+import nl.b3p.brmo.sql.dialect.OracleDialect;
+import nl.b3p.brmo.sql.dialect.PostGISDialect;
 import nl.b3p.brmo.sql.dialect.SQLDialect;
+import nl.b3p.loader.jdbc.OracleConnectionUnwrapper;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 import org.apache.commons.io.input.CountingInputStream;
+import org.apache.commons.lang3.reflect.FieldUtils;
 import org.locationtech.jts.geom.Geometry;
 
 import java.io.File;
@@ -60,86 +66,6 @@ public class IMGeoObjectTableWriter {
         this.dialect = dialect;
     }
 
-    private static class InsertBatch {
-        private final Connection c;
-        private final SQLDialect dialect;
-        private final String insertSql;
-        private final Object[][] batch = new Object[batchSize][];
-
-        private final Boolean[] geometryParameterIndexes;
-        private int index = 0;
-
-        public InsertBatch(Connection c, String insertSql, SQLDialect dialect, Boolean[] geometryParameterIndexes) {
-            this.c = c;
-            this.insertSql = insertSql;
-            this.dialect = dialect;
-            this.geometryParameterIndexes = geometryParameterIndexes;
-        }
-
-        public boolean addBatch(Object[] params) throws Exception {
-            this.batch[this.index++] = params;
-
-            if (index == batch.length) {
-                this.executeBatch();
-                return true;
-            } else {
-                return false;
-            }
-        }
-
-        public void executeBatch() throws Exception {
-            if (index > 0) {
-                Object[][] thisBatch = batch;
-                if (index < batch.length) {
-                    thisBatch = Arrays.copyOfRange(batch, 0, index);
-                }
-
-                PreparedStatement ps = c.prepareStatement(insertSql);
-                int[] parameterTypes = null;
-                try {
-                    ParameterMetaData pmd = ps.getParameterMetaData();
-                    if (pmd != null) {
-                        parameterTypes = new int[pmd.getParameterCount()];
-                        for (int i = 0; i < pmd.getParameterCount(); i++) {
-                            parameterTypes[i] = pmd.getParameterType(i + 1);
-                        }
-                    }
-                } catch(Exception e) {
-                    // May fail, for example if Oracle table is in NOLOGGING mode. Ignore.
-                }
-                try {
-                    for(Object[] params: thisBatch) {
-                        for (int i = 0; i < params.length; i++) {
-                            int parameterIndex = i + 1;
-                            try {
-                                int pmdType = parameterTypes != null ? parameterTypes[i] : Types.VARCHAR;
-                                if (geometryParameterIndexes[i]) {
-                                    dialect.setGeometryParameter(ps, parameterIndex, pmdType, (Geometry) params[i], linearizeCurves);
-                                } else {
-                                    if (params[i] != null) {
-                                        ps.setObject(parameterIndex, params[i]);
-                                    } else {
-                                        ps.setNull(parameterIndex, Types.VARCHAR);
-                                    }
-                                }
-                            } catch(Exception e) {
-                                throw new Exception(String.format("Exception setting parameter %s to value %s for insert SQL \"%s\"", i, params[i], insertSql), e);
-                            }
-                        }
-                        ps.addBatch();
-                    }
-                    ps.executeBatch();
-                } finally {
-                    ps.close();
-                }
-
-                //db.batch(c, insertSql, thisBatch);
-                //db.insert(c, insertSql, new ScalarHandler<>(), batch[0]);
-                this.index = 0;
-            }
-        }
-    }
-
     private void updateProgress() {
         long interval = System.currentTimeMillis() - intermediateStartTime;
         if (interval > 1000) {
@@ -177,7 +103,7 @@ public class IMGeoObjectTableWriter {
                     geometryParameterIndexes.add(mapping instanceof GeometryAttributeColumnMapping);
                 }
             }
-            batches.put(object.getName(), new InsertBatch(c, sql, dialect, geometryParameterIndexes.toArray(new Boolean[0])));
+            batches.put(object.getName(), new InsertBatch(c, sql, dialect, batchSize, geometryParameterIndexes.toArray(new Boolean[0]), linearizeCurves));
         }
         InsertBatch batch = batches.get(object.getName());
         if(batch == null) {
@@ -350,6 +276,7 @@ public class IMGeoObjectTableWriter {
     public static void main(String[] args) throws Exception {
 
 //        Class.forName("org.postgresql.Driver");
+//        SQLDialect dialect = new PostGISDialect();
 //        String url = "jdbc:postgresql:bgt";
 //        final String user = "bgt";
 //        final String password = "bgt";
