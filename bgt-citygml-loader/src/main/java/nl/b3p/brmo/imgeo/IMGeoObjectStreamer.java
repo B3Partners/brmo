@@ -5,12 +5,8 @@ import org.codehaus.staxmate.in.SMEvent;
 import org.codehaus.staxmate.in.SMHierarchicCursor;
 import org.codehaus.staxmate.in.SMInputCursor;
 import org.geotools.gml.stream.XmlStreamGeometryReader;
-import org.geotools.metadata.iso.citation.Citations;
-import org.geotools.referencing.AbstractIdentifiedObject;
 import org.locationtech.jts.geom.Geometry;
-import org.opengis.metadata.Identifier;
 import org.opengis.referencing.FactoryException;
-import org.opengis.referencing.crs.CoordinateReferenceSystem;
 
 import javax.xml.namespace.QName;
 import javax.xml.stream.Location;
@@ -38,6 +34,8 @@ public class IMGeoObjectStreamer implements Iterable<IMGeoObject> {
     private static final String NS_GML = "http://www.opengis.net/gml";
 
     private static final QName CITYGML_CITY_OBJECT_MEMBER = new QName(NS_CITYGML, "cityObjectMember");
+
+    private static final int SRID = 28992;
 
     private final XmlStreamGeometryReader geometryReader;
 
@@ -243,12 +241,7 @@ public class IMGeoObjectStreamer implements Iterable<IMGeoObject> {
             attribute.childElementCursor().advance();
 
             Geometry geom = geometryReader.readGeometry();
-            CoordinateReferenceSystem crs = (CoordinateReferenceSystem)geom.getUserData();
-            Identifier id = AbstractIdentifiedObject.getIdentifier(crs, Citations.EPSG);
-            if (id != null) {
-                String code = id.getCode();
-                geom.setSRID(Integer.parseInt(code));
-            }
+            geom.setSRID(SRID);
             return geom;
         }
 
@@ -290,6 +283,7 @@ public class IMGeoObjectStreamer implements Iterable<IMGeoObject> {
                                 labelPositieChilds.childElementCursor().advance();
                                 labelPositieChilds.getStreamReader().require(XMLStreamConstants.START_ELEMENT, NS_GML, "Point");
                                 Geometry geom = geometryReader.readGeometry();
+                                geom.setSRID(SRID);
                                 label.put("plaatsingspunt", geom);
                             } else if (labelPositieChilds.hasLocalName("hoek")) {
                                 String hoek = labelPositieChilds.collectDescendantText().trim();
@@ -324,7 +318,9 @@ public class IMGeoObjectStreamer implements Iterable<IMGeoObject> {
                 while (positieCursor.getNext() != null) {
                     if (positieCursor.getLocalName().equals("plaatsingspunt")) {
                         positieCursor.childElementCursor().advance();
-                        positie.put("plaatsingspunt", geometryReader.readGeometry());
+                        Geometry geom = geometryReader.readGeometry();
+                        geom.setSRID(SRID);
+                        positie.put("plaatsingspunt", geom);
                     } else {
                         positie.put(positieCursor.getLocalName(), positieCursor.collectDescendantText().trim());
                     }
