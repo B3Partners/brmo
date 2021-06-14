@@ -1,31 +1,20 @@
 package nl.b3p.brmo.imgeo;
 
-import com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement;
 import nl.b3p.brmo.sql.AttributeColumnMapping;
 import nl.b3p.brmo.sql.GeometryAttributeColumnMapping;
 import nl.b3p.brmo.sql.InsertBatch;
 import nl.b3p.brmo.sql.OneToManyColumnMapping;
 import nl.b3p.brmo.sql.dialect.MSSQLDialect;
-import nl.b3p.brmo.sql.dialect.OracleDialect;
-import nl.b3p.brmo.sql.dialect.PostGISDialect;
 import nl.b3p.brmo.sql.dialect.SQLDialect;
-import nl.b3p.loader.jdbc.OracleConnectionUnwrapper;
 import org.apache.commons.dbutils.QueryRunner;
-import org.apache.commons.dbutils.handlers.ScalarHandler;
 import org.apache.commons.io.input.CountingInputStream;
-import org.apache.commons.lang3.reflect.FieldUtils;
-import org.locationtech.jts.geom.Geometry;
 
 import java.io.File;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ParameterMetaData;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Types;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -85,14 +74,8 @@ public class IMGeoObjectTableWriter {
 
     }
 
-    private boolean addObjectBatch(IMGeoObject object) throws Exception {
+    private void addObjectBatch(IMGeoObject object) throws Exception {
         if(!batches.containsKey(object.getName())) {
-            if (!tableExists(c, object)) {
-                System.out.printf("Table for object %s does not exist, skipping\n", object.getName());
-                batches.put(object.getName(), null);
-                return false;
-            }
-
             truncateTable(c, object);
 
             String sql = buildInsertSql(object);
@@ -106,17 +89,6 @@ public class IMGeoObjectTableWriter {
             batches.put(object.getName(), new InsertBatch(c, sql, dialect, batchSize, geometryParameterIndexes.toArray(new Boolean[0]), linearizeCurves));
         }
         InsertBatch batch = batches.get(object.getName());
-        if(batch == null) {
-            // Table did not exist
-            return false;
-        }
-
-        // TODO: get table metadata, only insert existing columns
-
-        // TODO: log if attribute has no column
-
-        // TODO openbareRuimteNaam is list, multiply other attributes
-        // of al IMGeoObject multiplyen?
 
         List<AttributeColumnMapping> columns = IMGeoSchema.objectTypeAttributes.get(object.getName());
         Map<String, Object> attributes = object.getAttributes();
@@ -167,7 +139,6 @@ public class IMGeoObjectTableWriter {
         if (executed) {
             updateProgress();
         }
-        return true;
     }
 
     private void write(InputStream bgtXml, long size) throws Exception {
@@ -178,7 +149,6 @@ public class IMGeoObjectTableWriter {
             IMGeoObjectStreamer streamer = new IMGeoObjectStreamer(counter);
 
             objects = 0;
-            boolean aborted = false;
             boolean log = false;
             long startTime = System.currentTimeMillis();
             intermediateStartTime = startTime;
@@ -193,7 +163,7 @@ public class IMGeoObjectTableWriter {
                         object);
 
                 try {
-                    aborted = !addObjectBatch(object);
+                    addObjectBatch(object);
                 } catch(Exception e) {
                     // XXX object toString() fout, attributes leeg...
                     String message = "Exception writing object to database, IMGeo object: ";
@@ -202,9 +172,6 @@ public class IMGeoObjectTableWriter {
                     }
                     throw new Exception(message + object, e);
                 }
-                if (aborted) {
-                    break;
-                }
 
                 if (objects == objectLimit) {
                     break;
@@ -212,38 +179,31 @@ public class IMGeoObjectTableWriter {
             }
 
             for(InsertBatch batch: batches.values()) {
-                if (batch != null) {
-                    batch.executeBatch();
-                }
+                batch.executeBatch();
             }
 
-            if (!aborted) {
-                System.out.print("\r                                                                                  \r");
-                if (!columnErrors.isEmpty()) {
-                    System.out.println("  Column errors: " + columnErrors);
-                }
-                if (!allUnusedAttributes.isEmpty()) {
-                    System.out.println("  Unused attributes: " + allUnusedAttributes);
-                }
-
-                double time = (System.currentTimeMillis() - startTime) / 1000.0;
-                System.out.printf("Finished writing: %d objects, %.1f s, %.0f objects/s, %.1f MiB/s\n", objects, time, objects / time, counter.getByteCount() / 1024.0 / 1024 / time);
+            System.out.print("\r                                                                                  \r");
+            if (!columnErrors.isEmpty()) {
+                System.out.println("  Column errors: " + columnErrors);
             }
-        }
-    }
+            if (!allUnusedAttributes.isEmpty()) {
+                System.out.println("  Unused attributes: " + allUnusedAttributes);
+            }
 
-    private static boolean tableExists(Connection c, IMGeoObject object) {
-        String sql = String.format("select 1 from %s", getTableNameForObjectType(object.getName()));
-        try {
-            new QueryRunner().query(c, sql, new ScalarHandler<>());
-            return true;
-        } catch(Exception e) {
-            // Could also be another error than the table not existing, anyway the table is not reachable
-            return false;
+            double time = (System.currentTimeMillis() - startTime) / 1000.0;
+            System.out.printf("Finished writing: %d objects, %.1f s, %.0f objects/s, %.1f MiB/s\n", objects, time, objects / time, counter.getByteCount() / 1024.0 / 1024 / time);
+        } finally {
+            for(InsertBatch batch: batches.values()) {
+                try {
+                    batch.close();
+                } catch (Exception ignored) {
+                }
+            }
         }
     }
 
     private static void truncateTable(Connection c, IMGeoObject object) throws SQLException {
+        // TODO like jdbc-util, truncate may fail but delete from may succeed
         new QueryRunner().execute(c, String.format("truncate table %s", getTableNameForObjectType(object.getName())));
     }
 
