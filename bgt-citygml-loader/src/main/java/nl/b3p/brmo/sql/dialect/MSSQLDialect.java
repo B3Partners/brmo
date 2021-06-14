@@ -63,7 +63,7 @@ public class MSSQLDialect implements SQLDialect {
             }
         }
         try {
-            return Geometry.STGeomFromText(wkt, 28992);
+            return Geometry.STGeomFromText(wkt, geometry.getSRID());
         } catch(SQLException e) {
             throw new SQLException("Error converting geometry to MSSQL geometry for WKT: " + wkt, e);
         }
