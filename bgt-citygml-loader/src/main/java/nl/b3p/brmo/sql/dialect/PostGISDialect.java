@@ -17,7 +17,7 @@ public class PostGISDialect implements SQLDialect{
             final String wkt = linearizeCurves ? geometry.toString() : wktWriter2.write(geometry);
             PGobject object = new PGobject();
             object.setType("geometry");
-            object.setValue("SRID=28992;" + wkt);
+            object.setValue("SRID=" + geometry.getSRID() + ";" + wkt);
             return object;
         }
     }
