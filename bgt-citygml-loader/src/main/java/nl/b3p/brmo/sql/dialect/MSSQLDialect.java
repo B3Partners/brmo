@@ -1,6 +1,7 @@
 package nl.b3p.brmo.sql.dialect;
 
 import com.microsoft.sqlserver.jdbc.Geometry;
+import nl.b3p.brmo.util.StandardLinearizedWKTWriter;
 import org.geotools.geometry.jts.MultiSurface;
 import org.geotools.geometry.jts.WKTWriter2;
 import org.locationtech.jts.geom.GeometryCollection;
@@ -11,6 +12,7 @@ import java.sql.SQLException;
 import java.sql.Types;
 
 public class MSSQLDialect implements SQLDialect {
+    private final StandardLinearizedWKTWriter wktWriter = new StandardLinearizedWKTWriter();
     private final WKTWriter2 wktWriter2 = new WKTWriter2();
 
     @Override
@@ -34,7 +36,7 @@ public class MSSQLDialect implements SQLDialect {
     public Object getGeometryParameter(org.locationtech.jts.geom.Geometry geometry, boolean linearizeCurves) throws SQLException {
         String wkt;
         if (linearizeCurves) {
-            wkt = geometry.toString();
+            wkt = wktWriter.write(geometry);
         } else {
             if (geometry instanceof MultiSurface) {
                 // MSSQL does not support MULTISURFACE but does support CURVEPOLYGON and CIRCULARSTRING. Convert the
