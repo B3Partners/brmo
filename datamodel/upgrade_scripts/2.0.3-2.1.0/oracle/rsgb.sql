@@ -3,6 +3,10 @@
 --
 WHENEVER SQLERROR EXIT SQL.SQLCODE
 
+-- aanpassen woz tabellen
+ALTER TABLE WOZ_DEELOBJ MODIFY NUMMER DECIMAL(12,0);
+ALTER TABLE WOZ_DEELOBJ_ARCHIEF MODIFY NUMMER DECIMAL(12,0);
+
 
 -- onderstaande dienen als laatste stappen van een upgrade uitgevoerd
 INSERT INTO brmo_metadata (naam,waarde) SELECT 'upgrade_2.0.3_naar_2.1.0','vorige versie was ' || waarde FROM brmo_metadata WHERE naam='brmoversie';

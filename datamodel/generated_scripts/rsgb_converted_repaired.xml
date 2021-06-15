@@ -24920,7 +24920,9 @@
                    typeName="N8"
                    visibility=""
                    association=""/>
-         <Property elementType="Objecttype - Property"
+         <!--repair.xsl: Nummer WOZ-deelobject -  kolom vergroot van 6 naar 12-->
+         <Property typeName="N12"
+                   elementType="Objecttype - Property"
                    id="EAID_53F98DF1_FDCA_471d_9729_A082B4D943C9"
                    name="Nummer WOZ-deelobject"
                    lowerValueType="uml:LiteralInteger"
@@ -24928,7 +24930,6 @@
                    upperValueType="uml:LiteralUnlimitedNatural"
                    upperValueValue="1"
                    type="EAJava_N6"
-                   typeName="N6"
                    visibility=""
                    association=""/>
          <Property elementType="Objecttype - Property"

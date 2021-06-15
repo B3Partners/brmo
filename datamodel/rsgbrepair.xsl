@@ -270,4 +270,14 @@
 			<xsl:apply-templates select="@*[name()!='typeName']|node()"/>
 		</xsl:copy>
 	</xsl:template>
+	<xsl:template match="*[@elementType='Objecttype - Property' and @id='EAID_53F98DF1_FDCA_471d_9729_A082B4D943C9']">
+		<xsl:comment>
+			<xsl:text>repair.xsl: Nummer WOZ-deelobject -  kolom vergroot van 6 naar 12</xsl:text>
+		</xsl:comment>
+		<xsl:copy>
+<!--			<xsl:attribute name="type" select="'EAJava_N12'"/>-->
+			<xsl:attribute name="typeName" select="'N12'"/>
+			<xsl:apply-templates select="@*[name()!='typeName']|node()"/>
+		</xsl:copy>
+	</xsl:template>
 </xsl:stylesheet>

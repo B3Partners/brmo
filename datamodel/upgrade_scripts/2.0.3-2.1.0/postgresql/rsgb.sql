@@ -2,6 +2,11 @@
 -- upgrade PostgreSQL RSGB datamodel van 2.0.3 naar 2.1.0
 --
 
+-- aanpassen woz tabellen
+ALTER TABLE woz_deelobj ALTER COLUMN nummer TYPE numeric(12);
+ALTER TABLE woz_deelobj_archief ALTER COLUMN nummer TYPE numeric(12);
+COMMENT ON COLUMN woz_deelobj.nummer IS '[PK] N12 - Nummer WOZ-deelobject';
+COMMENT ON COLUMN woz_deelobj_archief.nummer IS '[PK] N12 - Nummer WOZ-deelobject';
 
 -- onderstaande dienen als laatste stappen van een upgrade uitgevoerd
 INSERT INTO brmo_metadata (naam,waarde) SELECT 'upgrade_2.0.3_naar_2.1.0','vorige versie was ' || waarde FROM brmo_metadata WHERE naam='brmoversie';
