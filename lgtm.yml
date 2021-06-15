@@ -8,7 +8,7 @@ extraction:
       - exclude: "**/ext-all.js"
   java:
     index:
-      java_version: 8
+      java_version: 11
       maven:
         settings_file: .lgtm/settings.xml
-        version: 3.6.2
+        version: "3.8.1"
