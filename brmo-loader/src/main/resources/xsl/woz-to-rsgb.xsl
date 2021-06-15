@@ -13,6 +13,7 @@
     <!-- <xsl:param name="objectRef" select="'WOZ.NPS.8837b49b4c4f459a0ff7a39582bb6ab7b252125e'" /> -->
     <!-- <xsl:param name="datum" select"'2020-07-12 07:23:07.439'" /> -->
     <xsl:param name="objectRef" select="'WOZ.WOZ.800000793120'"/>
+    <xsl:param name="objectNum" select="'800000793120'"/>
     <xsl:param name="datum" select="'2020-07-12 07:21:47.894'"/>
 
     <!--    <xsl:param name="objectRef" select="'WOZ:onbekend'"/>-->
@@ -54,6 +55,9 @@
     </xsl:template>
 
     <xsl:template name="WOZ" match="woz:object[@s:entiteittype='WOZ'] | woz:object[@s:entiteittype='SWO']">
+        <xsl:variable name="objectNum">
+            <xsl:value-of select="woz:wozObjectNummer"/>
+        </xsl:variable>
         <woz_obj column-dat-beg-geldh="dat_beg_geldh" column-datum-einde-geldh="datum_einde_geldh">
             <dat_beg_geldh>
                 <xsl:for-each select="s:tijdvakGeldigheid/s:beginGeldigheid">
@@ -61,7 +65,8 @@
                 </xsl:for-each>
             </dat_beg_geldh>
             <nummer>
-                <xsl:value-of select="woz:wozObjectNummer"/>
+                <xsl:value-of select="$objectNum"/>
+                <!-- <xsl:value-of select="woz:wozObjectNummer"/>-->
             </nummer>
             <datum_einde_geldh>
                 <xsl:for-each select="s:tijdvakGeldigheid/s:eindGeldigheid">
@@ -92,7 +97,7 @@
                 <xsl:value-of select="woz:wozObjectGeometrie"/>
             </geom>
             <!--
-            dit is een letter, bijv. G voor gebouwd, of O, of... maar zit niet in RSGB 2
+            dit is een letter, bijv. G voor gebouwd, of O, of... maar zit niet in woz_obj, wel in woz_deelobj
             <xsl:value-of select="woz:codeGebouwdOngebouwd"/>
             -->
         </woz_obj>
@@ -113,7 +118,7 @@
                 <xsl:value-of select="woz:vastgesteldeWaarde"/>
             </vastgestelde_waarde>
             <fk_1woz_nummer>
-                <xsl:value-of select="woz:wozObjectNummer"/>
+                <xsl:value-of select="$objectNum"/>
             </fk_1woz_nummer>
         </woz_waarde>
 
@@ -125,7 +130,7 @@
                     <xsl:value-of select="'woz_waarde'"/>
                 </tabel>
                 <tabel_identificatie>
-                    <xsl:value-of select="woz:wozObjectNummer"/>
+                    <xsl:value-of select="$objectNum"/>
                 </tabel_identificatie>
                 <identificatie>
                     <xsl:value-of select="woz:isBeschiktVoor/woz:brondocument/bg:identificatie"/>
@@ -139,8 +144,22 @@
         </xsl:if>
 
 
+        <xsl:for-each select="woz:heeftSluimerendObject">
+            <xsl:call-template name="sluimerendObject"/>
+        </xsl:for-each>
+
+        <xsl:for-each select="woz:heeftBelanghebbende">
+            <!--
+                TODO    voorafgaand aan belangen moeten de subjecten en objecten aangemaakt zijn omdat
+                        woz_belang in essentie een koppeltabel is
+            -->
+            <xsl:call-template name="woz_belang"/>
+        </xsl:for-each>
+    </xsl:template>
+
+    <xsl:template name="sluimerendObject">
         <!--
-            TODO    waarschijnlijk moeten we de WOZ:heeftSluimerendObject onderbrengen in "woz_deelobj"
+              WOZ:heeftSluimerendObject onderbrengen in "woz_deelobj"
               maar het WOZ:object zelf heeft al een aanduiding met BAG verwijzing (WOZ:aanduidingWOZobject) en
               kadaster verwijzing (WOZ:bevatKadastraleObjecten) en dat zijn typisch gegevens die in "woz_deelobj"
               komen en niet in "woz_obj" passen...
@@ -170,20 +189,37 @@
             zie: https://www.gemmaonline.nl/index.php/Rsgb_3.0/doc/objecttype/woz-deelobject
             zie ook: https://www.gemmaonline.nl/images/gemmaonline/f/f9/Gegevenswoordenboek_StUF_woz_03.12.02.pdf
         -->
-
-        <xsl:for-each select="woz:heeftSluimerendObject">
-        <!--
-            TODO    sluimerend object elementen: moeten in de woz_deelobj tabel terecht komen
-        -->
-        </xsl:for-each>
-
-        <xsl:for-each select="woz:heeftBelanghebbende">
-        <!--
-            TODO    voorafgaand aan belangen moeten de subjecten en objecten aangemaakt zijn omdat
-                    woz_belang in essentie een koppeltabel is
-        -->
-            <xsl:call-template name="woz_belang"/>
-        </xsl:for-each>
+        <woz_deelobj column-dat-beg-geldh="dat_beg_geldh_deelobj" column-datum-einde-geldh="datum_einde_geldh_deelobj">
+            <dat_beg_geldh_deelobj>
+                <xsl:for-each select="s:tijdvakGeldigheid/s:beginGeldigheid">
+                    <xsl:call-template name="date-numeric"/>
+                </xsl:for-each>
+            </dat_beg_geldh_deelobj>
+            <nummer>
+                <!-- [PK] N12 - Nummer WOZ-deelobject -->
+                <xsl:value-of select="woz:gerelateerde/woz:wozObjectNummer"/>
+            </nummer>
+            <code>
+                <!-- AN4 - Code WOZ-deelobject-->
+                <xsl:value-of select="woz:codeGebouwdOngebouwd"/>
+            </code>
+            <datum_einde_geldh_deelobj>
+                <!-- N8 - Datum einde geldigheid deelobject-->
+                <xsl:for-each select="s:tijdvakGeldigheid/s:eindGeldigheid">
+                    <xsl:call-template name="date-numeric"/>
+                </xsl:for-each>
+            </datum_einde_geldh_deelobj>
+            <status>
+                <!-- N2 - Status WOZ-deelobject -->
+                <xsl:value-of select="woz:statusWozObject"/>
+            </status>
+            <fk_6woz_nummer>
+                <!-- [FK] N12, FK naar woz_obj.nummer: "is onderdeel van" -->
+                <xsl:value-of select="$objectNum"/>
+            </fk_6woz_nummer>
+            <fk_4pnd_identif><!-- TODO [FK] AN16, FK naar pand.identif: "bestaat uit"--></fk_4pnd_identif>
+            <fk_5tgo_identif><!-- TODO [FK] AN16, FK naar benoemd_obj.identif: "bestaat uit" --></fk_5tgo_identif>
+        </woz_deelobj>
     </xsl:template>
 
     <xsl:template name="aanduiding">

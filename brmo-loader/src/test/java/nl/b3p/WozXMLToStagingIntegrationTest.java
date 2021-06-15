@@ -17,10 +17,9 @@
 package nl.b3p;
 
 import nl.b3p.brmo.loader.BrmoFramework;
-import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.loader.util.BrmoLeegBestandException;
 import nl.b3p.brmo.test.util.database.dbunit.CleanUtil;
-import nl.b3p.loader.jdbc.OracleConnectionUnwrapper;
+import nl.b3p.jdbc.util.converter.OracleConnectionUnwrapper;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -36,16 +35,13 @@ import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 import org.dbunit.operation.DatabaseOperation;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.math.BigDecimal;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Stream;
@@ -132,7 +128,7 @@ public class WozXMLToStagingIntegrationTest extends AbstractDatabaseIntegrationT
     @AfterEach
     public void cleanup() throws Exception {
         brmo.closeBrmoFramework();
-//        CleanUtil.cleanSTAGING(staging, false);
+        CleanUtil.cleanSTAGING(staging, false);
         CleanUtil.cleanRSGB_BAG(rsgb, true);
         CleanUtil.cleanRSGB_BRP(rsgb);
         staging.close();
