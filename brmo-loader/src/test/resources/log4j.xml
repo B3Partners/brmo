@@ -25,7 +25,7 @@
    <logger name="nl.b3p">
         <level value="info" />
     </logger>
-    <logger name="nl.b3p.loader.jdbc">
+    <logger name="nl.b3p.jdbc.util.converter">
         <level value="debug" />
     </logger>
     <logger name="nl.b3p.brmo">

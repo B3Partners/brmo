@@ -16,7 +16,7 @@
  */
 package nl.b3p.topnl;
 
-import nl.b3p.loader.jdbc.GeometryJdbcConverterFactory;
+import nl.b3p.jdbc.util.converter.GeometryJdbcConverterFactory;
 import nl.b3p.topnl.converters.DbUtilsGeometryColumnConverter;
 import nl.b3p.topnl.entities.Terrein;
 import nl.b3p.topnl.entities.TopNLEntity;
