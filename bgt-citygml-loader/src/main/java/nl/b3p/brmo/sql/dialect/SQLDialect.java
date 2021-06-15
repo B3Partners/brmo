@@ -30,4 +30,12 @@ public interface SQLDialect {
             ps.setObject(parameterIndex, getGeometryParameter(geometry, linearizeCurves));
         }
     }
+
+    default String getCreateGeometryMetadata(String tableName, String geometryColumn, String type) {
+        return "";
+    }
+
+    default String getCreateGeometryIndex(String tableName, String geometryColumn, String type) {
+        return "";
+    }
 }
