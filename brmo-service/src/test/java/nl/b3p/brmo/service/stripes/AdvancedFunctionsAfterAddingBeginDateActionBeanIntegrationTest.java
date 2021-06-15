@@ -8,7 +8,7 @@ import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.service.testutil.TestUtil;
 import nl.b3p.brmo.test.util.database.dbunit.CleanUtil;
-import nl.b3p.loader.jdbc.OracleConnectionUnwrapper;
+import nl.b3p.jdbc.util.converter.OracleConnectionUnwrapper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.dbunit.database.DatabaseConfig;
