@@ -23,4 +23,9 @@ public class PostGISDialect implements SQLDialect{
             return object;
         }
     }
+
+    public String getCreateGeometryIndex(String tableName, String geometryColumn, String type) {
+        return String.format("create index idx_%s_%s on %s using gist (%s);",
+            tableName, geometryColumn, tableName, geometryColumn);
+    }
 }

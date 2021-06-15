@@ -1,5 +1,6 @@
 package nl.b3p.brmo.imgeo;
 
+import nl.b3p.brmo.sql.GeometryAttributeColumnMapping;
 import nl.b3p.brmo.sql.OneToManyColumnMapping;
 import nl.b3p.brmo.sql.dialect.MSSQLDialect;
 import nl.b3p.brmo.sql.dialect.OracleDialect;
@@ -56,8 +57,9 @@ public class IMGeoSchemaMapper {
             System.err.println("Error: expected zero or one argument");
             System.exit(1);
         }
-//        SQLDialect dialect = new OracleDialect(null);
-        SQLDialect dialect = new MSSQLDialect();
+        SQLDialect dialect = new OracleDialect(null);
+//        SQLDialect dialect = new MSSQLDialect();
+//        SQLDialect dialect = new PostGISDialect();
         Set<String> objectTypes = getAllObjectTypes();
         // TODO gebruik library voor command line opties
         if (args.length == 1) {
@@ -81,6 +83,17 @@ public class IMGeoSchemaMapper {
         objectTypes.stream().sorted().forEach(name -> {
             System.out.println(createTable(name, dialect));
         });
+        StringBuilder geometryMetadata = new StringBuilder();
+        StringBuilder geometryIndexes = new StringBuilder();
+        objectTypes.stream().sorted().forEach(name -> {
+            createGeometryMetadataAndIndexes(name, dialect, geometryMetadata, geometryIndexes);
+        });
+        if (geometryMetadata.length() > 0) {
+            System.out.println("-- Geometry metadata\n");
+            System.out.println(geometryMetadata);
+        }
+        System.out.println("-- Geometry indexen (pas aanmaken na inladen stand)\n");
+        System.out.println(geometryIndexes);
     }
 
     public static String getTableNameForObjectType(String objectTypeName) {
@@ -136,5 +149,24 @@ public class IMGeoSchemaMapper {
         sql.append(",\n  primary key(").append(String.join(", ", primaryKeys));
         sql.append(")\n);\n");
         return sql.toString();
+    }
+
+    public static void createGeometryMetadataAndIndexes(String name, SQLDialect dialect, StringBuilder metadata, StringBuilder indexes) {
+        String tableName = getTableNameForObjectType(name);
+        objectTypeAttributes.get(name).forEach(column -> {
+            if (column instanceof GeometryAttributeColumnMapping) {
+                String columnName = getColumnNameForObjectType(name, column.getName());
+
+                String s = dialect.getCreateGeometryMetadata(tableName, columnName, column.getType());
+                if (s.length() > 0) {
+                    metadata.append(s).append("\n");
+                }
+
+                s = dialect.getCreateGeometryIndex(tableName, columnName, column.getType());
+                if (s.length() > 0) {
+                    indexes.append(s).append("\n");
+                }
+            }
+        });
     }
 }
