@@ -134,7 +134,7 @@ public class IMGeoObjectTableWriter {
             }
         }
 
-        Set<String> unusedAttributes = object.getAttributes().keySet();
+        Set<String> unusedAttributes = new HashSet<>(object.getAttributes().keySet());
         unusedAttributes.removeAll(usedAttributes);
         allUnusedAttributes.addAll(unusedAttributes);
 
@@ -176,7 +176,6 @@ public class IMGeoObjectTableWriter {
                 try {
                     addObjectBatch(object);
                 } catch(Exception e) {
-                    // XXX object toString() fout, attributes leeg...
                     String message = "Exception writing object to database, IMGeo object: ";
                     if (batchSize > 1) {
                         message = "Exception adding parameters to database write batch, may be caused by previous batches. IMGeo object: ";
