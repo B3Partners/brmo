@@ -23,6 +23,8 @@ public class IMGeoSchema {
 
     public static final String INDEX = "idx";
 
+    public static final String EIND_REGISTRATIE = "eindRegistratie";
+
     public static Set<String> bgtObjectTypes = new HashSet<>(Arrays.asList(
             "TrafficArea",
             "AuxiliaryTrafficArea",
@@ -52,7 +54,7 @@ public class IMGeoSchema {
             new SimpleDateFormatAttributeColumnMapping("LV-publicatiedatum", "timestamp", PATTERN_XML_TIMESTAMP),
             new SimpleDateFormatAttributeColumnMapping("creationDate", "date", PATTERN_XML_DATE),
             new SimpleDateFormatAttributeColumnMapping("tijdstipRegistratie", "timestamp", PATTERN_XML_TIMESTAMP),
-            new SimpleDateFormatAttributeColumnMapping("eindRegistratie", "timestamp", false, PATTERN_XML_TIMESTAMP),
+            new SimpleDateFormatAttributeColumnMapping(EIND_REGISTRATIE, "timestamp", false, PATTERN_XML_TIMESTAMP),
             new SimpleDateFormatAttributeColumnMapping("terminationDate", "date", false, PATTERN_XML_DATE),
             new AttributeColumnMapping("bronhouder"),
             new BooleanAttributeColumnMapping("inOnderzoek"),
