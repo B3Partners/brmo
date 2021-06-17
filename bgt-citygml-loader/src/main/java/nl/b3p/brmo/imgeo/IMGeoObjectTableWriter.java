@@ -4,7 +4,7 @@ import nl.b3p.brmo.sql.AttributeColumnMapping;
 import nl.b3p.brmo.sql.GeometryAttributeColumnMapping;
 import nl.b3p.brmo.sql.InsertBatch;
 import nl.b3p.brmo.sql.OneToManyColumnMapping;
-import nl.b3p.brmo.sql.dialect.MSSQLDialect;
+import nl.b3p.brmo.sql.dialect.PostGISDialect;
 import nl.b3p.brmo.sql.dialect.SQLDialect;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.io.input.CountingInputStream;
@@ -23,12 +23,13 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.zip.ZipFile;
 
+import static nl.b3p.brmo.imgeo.IMGeoSchema.EIND_REGISTRATIE;
 import static nl.b3p.brmo.imgeo.IMGeoSchemaMapper.getColumnNameForObjectType;
 import static nl.b3p.brmo.imgeo.IMGeoSchemaMapper.getTableNameForObjectType;
 
 public class IMGeoObjectTableWriter {
 
-    private static final int batchSize = 250;
+    private static final int batchSize = 2500;
     private static final int objectLimit = 10000;
 
     private final Connection c;
@@ -37,12 +38,15 @@ public class IMGeoObjectTableWriter {
 
     private static boolean linearizeCurves = false;
 
+    private static boolean currentObjectsOnly = true;
+
     private CountingInputStream counter;
     private long size;
 
     private Map<String,InsertBatch> batches = new HashMap<>();
 
     private long objects = 0;
+    private long endedObjects = 0;
     private long intermediateStartTime = -1;
     private long intermediateCount = 0;
     private long intermediateObjects = 0;
@@ -149,6 +153,7 @@ public class IMGeoObjectTableWriter {
             IMGeoObjectStreamer streamer = new IMGeoObjectStreamer(counter);
 
             objects = 0;
+            endedObjects = 0;
             boolean log = false;
             long startTime = System.currentTimeMillis();
             intermediateStartTime = startTime;
@@ -156,6 +161,12 @@ public class IMGeoObjectTableWriter {
             intermediateObjects = 0;
 
             for (IMGeoObject object: streamer) {
+
+                if (object.getAttributes().get(EIND_REGISTRATIE) != null && currentObjectsOnly) {
+                    endedObjects++;
+                    continue;
+                }
+
                 objects++;
 
                 if (log) System.out.printf("cityObjectMember #%d: %s\n",
@@ -173,7 +184,7 @@ public class IMGeoObjectTableWriter {
                     throw new Exception(message + object, e);
                 }
 
-                if (objects == objectLimit) {
+                if (objectLimit > 0 && objects == objectLimit) {
                     break;
                 }
             }
@@ -191,7 +202,9 @@ public class IMGeoObjectTableWriter {
             }
 
             double time = (System.currentTimeMillis() - startTime) / 1000.0;
-            System.out.printf("Finished writing: %d objects, %.1f s, %.0f objects/s, %.1f MiB/s\n", objects, time, objects / time, counter.getByteCount() / 1024.0 / 1024 / time);
+            System.out.printf("Finished writing: %d objects%s, %.1f s, %.0f objects/s, %.1f MiB/s\n", objects,
+                    currentObjectsOnly ? ", " + endedObjects + " ended objects skipped" : "",
+                    time, objects / time, counter.getByteCount() / 1024.0 / 1024 / time);
         } finally {
             for(InsertBatch batch: batches.values()) {
                 try {
@@ -235,17 +248,17 @@ public class IMGeoObjectTableWriter {
 
     public static void main(String[] args) throws Exception {
 
-//        Class.forName("org.postgresql.Driver");
-//        SQLDialect dialect = new PostGISDialect();
-//        String url = "jdbc:postgresql:bgt";
-//        final String user = "bgt";
-//        final String password = "bgt";
+        Class.forName("org.postgresql.Driver");
+        SQLDialect dialect = new PostGISDialect();
+        String url = "jdbc:postgresql:bgt";
+        final String user = "bgt";
+        final String password = "bgt";
 
-        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-        SQLDialect dialect = new MSSQLDialect();
-        String url = "jdbc:sqlserver://localhost:1433;databaseName=bgt;disableStatementPooling=false;statementPoolingCacheSize=10";
-        final String user = "sa";
-        final String password = "Password12!";
+//        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+//        SQLDialect dialect = new MSSQLDialect();
+//        String url = "jdbc:sqlserver://localhost:1433;databaseName=bgt;disableStatementPooling=false;statementPoolingCacheSize=10";
+//        final String user = "sa";
+//        final String password = "Password12!";
 
 //        String url = "jdbc:sqlserver://192.168.1.24:1433;databaseName=bgt;disableStatementPooling=false;statementPoolingCacheSize=10";
 //        final String user = "sa";
@@ -255,7 +268,6 @@ public class IMGeoObjectTableWriter {
 //        final String url = "jdbc:oracle:thin:@localhost:1521:XE";
 //        final String user = "c##bgt";
 //        final String password = "bgt";
-
 
         Connection c = DriverManager.getConnection(url, user, password);
 //        final SQLDialect dialect = new OracleDialect(OracleConnectionUnwrapper.unwrap(c));
