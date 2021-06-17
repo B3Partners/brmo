@@ -4,7 +4,12 @@
 
 -- aanpassen woz tabellen
 ALTER TABLE woz_deelobj ALTER COLUMN nummer DECIMAL(12,0);
+ALTER TABLE woz_deelobj ALTER COLUMN dat_beg_geldh_deelobj VARCHAR(19);
+ALTER TABLE woz_deelobj ALTER COLUMN datum_einde_geldh_deelobj VARCHAR(19)
+
 ALTER TABLE woz_deelobj_archief ALTER COLUMN nummer DECIMAL(12,0)
+ALTER TABLE woz_deelobj_archief ALTER COLUMN dat_beg_geldh_deelobj VARCHAR(19);
+ALTER TABLE woz_deelobj_archief ALTER COLUMN datum_einde_geldh_deelobj VARCHAR(19)
 
 GO
 

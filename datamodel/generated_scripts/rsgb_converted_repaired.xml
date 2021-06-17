@@ -24898,29 +24898,31 @@
                    typeName="AN4"
                    visibility=""
                    association=""/>
-         <Property elementType="Objecttype - Property"
+         <!--repair.xsl: datum begin geldigheid WOZ-deelobject - omgezet naar onvolledige datum-->
+         <Property type="EAJava_N8"
+                   typeName="OnvolledigeDatum"
+                   elementType="Objecttype - Property"
                    id="EAID_5CDB5EA8_D0DE_45df_B5DE_B49C6E48859D"
                    name="Datum begin geldigheid deelobject"
                    lowerValueType="uml:LiteralInteger"
                    lowerValueValue="1"
                    upperValueType="uml:LiteralUnlimitedNatural"
                    upperValueValue="1"
-                   type="EAJava_N8"
-                   typeName="N8"
                    visibility=""
                    association=""/>
-         <Property elementType="Objecttype - Property"
+         <!--repair.xsl: datum einde geldigheid WOZ-deelobject - omgezet naar onvolledige datum-->
+         <Property type="EAJava_N8"
+                   typeName="OnvolledigeDatum"
+                   elementType="Objecttype - Property"
                    id="EAID_D3873A5F_CA86_4689_B2F0_A8309A2572E3"
                    name="Datum einde geldigheid deelobject"
                    lowerValueType="uml:LiteralInteger"
                    lowerValueValue="0"
                    upperValueType="uml:LiteralUnlimitedNatural"
                    upperValueValue="1"
-                   type="EAJava_N8"
-                   typeName="N8"
                    visibility=""
                    association=""/>
-         <!--repair.xsl: Nummer WOZ-deelobject -  kolom vergroot van 6 naar 12-->
+         <!--repair.xsl: Nummer WOZ-deelobject - kolom vergroot van 6 naar 12-->
          <Property typeName="N12"
                    elementType="Objecttype - Property"
                    id="EAID_53F98DF1_FDCA_471d_9729_A082B4D943C9"

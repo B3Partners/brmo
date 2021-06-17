@@ -3096,9 +3096,9 @@
           fullname="WOZ-DEELOBJECT"><!-- Primary key(s) -->
       <column name="dat_beg_geldh_deelobj"
               fullname="Datum begin geldigheid deelobject"
-              type="decimal(8,0)"
+              type="varchar(19)"
               key="true"
-              desc="[PK] N8"
+              desc="[PK] OnvolledigeDatum"
               archief="true"/>
       <column name="nummer"
               fullname="Nummer WOZ-deelobject"
@@ -3112,8 +3112,8 @@
               desc="AN4"/>
       <column name="datum_einde_geldh_deelobj"
               fullname="Datum einde geldigheid deelobject"
-              type="decimal(8,0)"
-              desc="N8"/>
+              type="varchar(19)"
+              desc="OnvolledigeDatum"/>
       <column name="status"
               fullname="Status WOZ-deelobject"
               type="decimal(2,0)"
