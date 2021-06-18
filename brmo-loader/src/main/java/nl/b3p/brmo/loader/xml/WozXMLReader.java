@@ -81,6 +81,7 @@ public class WozXMLReader extends BrmoXMLReader {
             XPathExpression tijdstipBericht = xpath.compile("//*[local-name()='tijdstipBericht']");
             Node datum = (Node) tijdstipBericht.evaluate(doc, XPathConstants.NODE);
             setDatumAsString(datum.getTextContent(), "yyyyMMddHHmmssSSS");
+            LOG.warn("Tijdstip bericht ingesteld op " + getBestandsDatum() );
         }
 
         XPathExpression objectNode = xpath.compile("//*[local-name()='object']");

@@ -66,7 +66,6 @@
             </dat_beg_geldh>
             <nummer>
                 <xsl:value-of select="$objectNum"/>
-                <!-- <xsl:value-of select="woz:wozObjectNummer"/>-->
             </nummer>
             <datum_einde_geldh>
                 <xsl:for-each select="s:tijdvakGeldigheid/s:eindGeldigheid">
@@ -79,6 +78,10 @@
             <grondoppervlakte>
                 <xsl:value-of select="woz:grondoppervlakte"/>
             </grondoppervlakte>
+            <!--
+            dit is een letter, bijv. G voor gebouwd, of O, of... maar zit niet in woz_obj, wel in woz_deelobj
+            <xsl:value-of select="woz:codeGebouwdOngebouwd"/>
+            -->
             <soort_obj_code>
                 <!-- 4 cijfer code; lijkt niet voor te komen in XML schema... -->
             </soort_obj_code>
@@ -96,10 +99,6 @@
             <geom>
                 <xsl:value-of select="woz:wozObjectGeometrie"/>
             </geom>
-            <!--
-            dit is een letter, bijv. G voor gebouwd, of O, of... maar zit niet in woz_obj, wel in woz_deelobj
-            <xsl:value-of select="woz:codeGebouwdOngebouwd"/>
-            -->
         </woz_obj>
 
         <woz_waarde column-dat-beg-geldh="waardepeildatum">
@@ -143,9 +142,11 @@
             </brondocument>
         </xsl:if>
 
-
         <xsl:for-each select="woz:heeftSluimerendObject">
-            <xsl:call-template name="sluimerendObject"/>
+            <!-- WOZ:heeftSluimerendObject onderbrengen in "woz_deelobj" -->
+            <xsl:call-template name="sluimerendObject">
+                <xsl:with-param name="objectNum" select="$objectNum"/>
+            </xsl:call-template>
         </xsl:for-each>
 
         <xsl:for-each select="woz:heeftBelanghebbende">
@@ -158,8 +159,8 @@
     </xsl:template>
 
     <xsl:template name="sluimerendObject">
+        <xsl:param name="objectNum"/>
         <!--
-              WOZ:heeftSluimerendObject onderbrengen in "woz_deelobj"
               maar het WOZ:object zelf heeft al een aanduiding met BAG verwijzing (WOZ:aanduidingWOZobject) en
               kadaster verwijzing (WOZ:bevatKadastraleObjecten) en dat zijn typisch gegevens die in "woz_deelobj"
               komen en niet in "woz_obj" passen...
@@ -352,10 +353,11 @@
             <nm_voorvoegsel_geslachtsnaam>
                 <xsl:value-of select="bg:voorvoegselGeslachtsnaam"/>
             </nm_voorvoegsel_geslachtsnaam>
-            <!-- na_ gegevens vullen met nm_ -->
-            <!-- <na_aanhef_aanschrijving></na_aanhef_aanschrijving>-->
+            <na_aanhef_aanschrijving>
+                <xsl:value-of select="bg:aanhefAanschrijving"/>
+            </na_aanhef_aanschrijving>
             <na_geslachtsnaam_aanschrijving>
-                <xsl:value-of select="bg:geslachtsnaam"/>
+                <xsl:value-of select="bg:geslachtsnaamAanschrijving"/>
             </na_geslachtsnaam_aanschrijving>
             <na_voorletters_aanschrijving>
                 <xsl:value-of select="bg:voorletters"/>
@@ -363,8 +365,6 @@
             <na_voornamen_aanschrijving>
                 <xsl:value-of select="bg:voornamen"/>
             </na_voornamen_aanschrijving>
-            <!-- [FK] AN3, FK naar academische_titel.code: "Referentielijst NATUURLIJK PERSOON.Academische titel" -->
-            <!-- <fk_2acd_code></fk_2acd_code>-->
         </nat_prs>
 
         <ingeschr_nat_prs>
@@ -378,59 +378,64 @@
             <bsn>
                 <xsl:value-of select="bg:inp.bsn"/>
             </bsn>
-            <!-- TODO -->
-            <!--    <btnlnds_rsdoc></btnlnds_rsdoc>-->
-            <!--    <burgerlijke_staat></burgerlijke_staat>-->
-            <!--    <dat_beg_geldh_verblijfpl></dat_beg_geldh_verblijfpl>-->
-            <!--    <datum_inschrijving_in_gemeente></datum_inschrijving_in_gemeente>-->
-            <!--    <datum_opschorting_bijhouding></datum_opschorting_bijhouding>-->
-            <!--    <datum_verkr_nation></datum_verkr_nation>-->
-            <!--    <datum_verlies_nation></datum_verlies_nation>-->
-            <!--    <datum_vertrek_uit_nederland></datum_vertrek_uit_nederland>-->
-            <!--    <datum_vestg_in_nederland></datum_vestg_in_nederland>-->
-            <!--    <gemeente_van_inschrijving></gemeente_van_inschrijving>-->
-            <!--    <handelingsbekwaam></handelingsbekwaam>-->
             <indic_geheim>
                 <xsl:value-of select="bg:inp.indicatieGeheim"/>
             </indic_geheim>
-            <!-- TODO -->
-            <!--    <rechtstoestand></rechtstoestand>-->
-            <!--    <reden_opschorting_bijhouding></reden_opschorting_bijhouding>-->
-            <!--    <signalering_rsdoc></signalering_rsdoc>-->
-            <!--    <fk_27lpl_sc_identif></fk_27lpl_sc_identif>-->
-            <!--    <fk_28nra_sc_identif></fk_28nra_sc_identif>-->
-            <!--    <fk_29wpl_identif></fk_29wpl_identif>-->
-            <!--    <fk_30spl_sc_identif></fk_30spl_sc_identif>-->
-            <!--    <fk_31vbo_sc_identif></fk_31vbo_sc_identif>-->
-            <!--    <fk_1rsd_nummer></fk_1rsd_nummer>-->
             <gb_geboortedatum>
                 <xsl:value-of select="bg:geboortedatum"/>
             </gb_geboortedatum>
-            <!-- TODO -->
-            <!--    <fk_gb_lnd_code_iso></fk_gb_lnd_code_iso>-->
-            <!--    <gb_geboorteplaats></gb_geboorteplaats>-->
-            <!--    <nt_aand_bijzonder_nlschap></nt_aand_bijzonder_nlschap>-->
-            <!--    <fk_nt_nat_code></fk_nt_nat_code>-->
-            <!--    <nt_reden_verkr_nlse_nation></nt_reden_verkr_nlse_nation>-->
-            <!--    <nt_reden_verlies_nlse_nation></nt_reden_verlies_nlse_nation>-->
-            <!--    <fk_ol_lnd_code_iso></fk_ol_lnd_code_iso>-->
             <ol_overlijdensdatum>
                 <xsl:value-of select="bg:datumOverlijden"/>
             </ol_overlijdensdatum>
             <ol_overlijdensplaats>
                 <xsl:value-of select="bg:plaatsOverlijden"/>
             </ol_overlijdensplaats>
-            <!-- TODO -->
-            <!--    <va_adresherkomst></va_adresherkomst>-->
-            <!--    <va_loc_beschrijving></va_loc_beschrijving>-->
-            <!--    <fk_va_3_vbo_sc_identif></fk_va_3_vbo_sc_identif>-->
-            <!--    <fk_va_4_spl_sc_identif></fk_va_4_spl_sc_identif>-->
-            <!--    <fk_va_5_nra_sc_identif></fk_va_5_nra_sc_identif>-->
-            <!--    <fk_va_6_wpl_identif></fk_va_6_wpl_identif>-->
-            <!--    <fk_va_7_lpl_sc_identif></fk_va_7_lpl_sc_identif>-->
-            <!--    <fk_3nat_code></fk_3nat_code>-->
-            <!--    <fk_17lnd_code_iso></fk_17lnd_code_iso>-->
-            <!--    <fk_18lnd_code_iso></fk_18lnd_code_iso>-->
+
+            <fk_27lpl_sc_identif>
+                <!-- TODO [FK] AN16, FK naar ligplaats.sc_identif (is FK naar superclass BENOEMD OBJECT): "verblijft op"-->
+            </fk_27lpl_sc_identif>
+            <fk_28nra_sc_identif>
+                <!-- TODO [FK] AN16, FK naar nummeraand.sc_identif (is FK naar superclass ADRESSEERBAAR OBJECT AANDUIDING): "is ingeschreven op"-->
+            </fk_28nra_sc_identif>
+            <fk_29wpl_identif>
+                <!-- TODO [FK] AN4, FK naar wnplts.identif: "verblijft op locatie in" -->
+            </fk_29wpl_identif>
+            <fk_30spl_sc_identif>
+                <!-- TODO [FK] AN16, FK naar standplaats.sc_identif (is FK naar superclass BENOEMD OBJECT): "verblijft op"-->
+            </fk_30spl_sc_identif>
+            <fk_31vbo_sc_identif>
+                <!-- TODO [FK] AN16, FK naar verblijfsobj.sc_identif (is FK naar superclass BENOEMD OBJECT):
+                "Groepsattribuut Verblijfadres INGESCHREVEN NATUURLIJK PERSOON.verblijfsobject" -->
+            </fk_31vbo_sc_identif>
+
+            <va_loc_beschrijving>
+                <!-- TODO Groepsattribuut Verblijfadres INGESCHREVEN NATUURLIJK PERSOON.Locatie beschrijving - Locatie beschrijving-->
+            </va_loc_beschrijving>
+            <fk_va_3_vbo_sc_identif>
+                <!-- TODO [FK] AN16, FK naar verblijfsobj.sc_identif (is FK naar superclass BENOEMD OBJECT):
+                "Groepsattribuut Verblijfadres INGESCHREVEN NATUURLIJK PERSOON.verblijfsobject"-->
+            </fk_va_3_vbo_sc_identif>
+            <fk_va_4_spl_sc_identif>
+                <!-- TODO [FK] AN16, FK naar standplaats.sc_identif (is FK naar superclass BENOEMD OBJECT):
+                    "Groepsattribuut Verblijfadres INGESCHREVEN NATUURLIJK PERSOON.standplaats"
+                -->
+            </fk_va_4_spl_sc_identif>
+            <fk_va_5_nra_sc_identif>
+                <xsl:value-of select="bg:inp.verblijftIn/bg:gerelateerde/bg:num.identificatie"/>
+            </fk_va_5_nra_sc_identif>
+
+            <!-- niet in schema
+            [FK] AN4, FK naar wnplts.identif: "Groepsattribuut Verblijfadres INGESCHREVEN NATUURLIJK PERSOON.woonplaats"
+            <fk_va_6_wpl_identif />-->
+
+
+            <fk_va_7_lpl_sc_identif>
+                <!-- TODO [FK] AN16, FK naar ligplaats.sc_identif (is FK naar superclass BENOEMD OBJECT):
+                 "Groepsattribuut Verblijfadres INGESCHREVEN NATUURLIJK PERSOON.ligplaats"
+                 -->
+            </fk_va_7_lpl_sc_identif>
+
+
         </ingeschr_nat_prs>
     </xsl:template>
 
@@ -464,10 +469,18 @@
         <!--    <rn_bankrekeningnummer></rn_bankrekeningnummer> Groepsattribuut Rekeningnummer SUBJECT.Bankrekeningnummer - Bankrekeningnummer  -->
         <!--    <rn_bic></rn_bic>   Groepsattribuut Rekeningnummer SUBJECT.BIC - BIC  -->
         <!--    <rn_iban></rn_iban> Groepsattribuut Rekeningnummer SUBJECT.IBAN - IBAN  -->
-        <!--    <vb_adres_buitenland_1></vb_adres_buitenland_1> Groepsattribuut Verblijf buitenland SUBJECT.Adres buitenland 1 - Adres buitenland 1  -->
-        <!--    <vb_adres_buitenland_2></vb_adres_buitenland_2> Groepsattribuut Verblijf buitenland SUBJECT.Adres buitenland 2 - Adres buitenland 2  -->
-        <!--    <vb_adres_buitenland_3></vb_adres_buitenland_3> Groepsattribuut Verblijf buitenland SUBJECT.Adres buitenland 3 - Adres buitenland 3  -->
-        <!--    <fk_vb_lnd_code_iso></fk_vb_lnd_code_iso>   [FK] A2, FK naar land.code_iso: "Groepsattribuut referentielijst Land verblijfadres"  -->
+        <vb_adres_buitenland_1>
+            <xsl:value-of select="bg:verblijfsadres/bg:adresBuitenland1"/>
+        </vb_adres_buitenland_1>
+        <vb_adres_buitenland_2>
+            <xsl:value-of select="bg:verblijfsadres/bg:adresBuitenland2"/>
+        </vb_adres_buitenland_2>
+        <vb_adres_buitenland_3>
+            <xsl:value-of select="bg:verblijfsadres/bg:adresBuitenland3"/>
+        </vb_adres_buitenland_3>
+        <fk_vb_lnd_code_iso>
+            <xsl:value-of select="bg:verblijfsadres/bg:landcode"/>
+        </fk_vb_lnd_code_iso>
     </xsl:template>
 
     <!-- jjjj-mm-dd -> jjjjmmdd -->

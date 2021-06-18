@@ -17,7 +17,7 @@
 package nl.b3p;
 
 import nl.b3p.brmo.loader.BrmoFramework;
-import nl.b3p.brmo.loader.util.BrmoLeegBestandException;
+import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.test.util.database.dbunit.CleanUtil;
 import nl.b3p.jdbc.util.converter.OracleConnectionUnwrapper;
 import org.apache.commons.dbcp2.BasicDataSource;
@@ -35,6 +35,7 @@ import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 import org.dbunit.operation.DatabaseOperation;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -52,21 +53,14 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 /**
  * Draaien met:
- * {@code mvn -Dit.test=WozXMLToStagingIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql  -pl brmo-loader > /tmp/postgresql.log}
+ * {@code mvn -Dit.test=WozXMLToStagingIntegrationTest -Dtest.onlyITs=true verify -pl brmo-loader -Ppostgresql > /tmp/postgresql.log}
  * voor bijvoorbeeld PostgreSQL of
- * {@code mvn -Dit.test=WozXMLToStagingIntegrationTest -Dtest.onlyITs=true verify -pl brmo-loader -Pmssql > mssql.log}
+ * {@code mvn -Dit.test=WozXMLToStagingIntegrationTest -Dtest.onlyITs=true verify -pl brmo-loader -Pmssql > /tmp/mssql.log}
  * voor bijvoorbeeld MS SQL.
  *
  * @author Mark Prins
  */
 public class WozXMLToStagingIntegrationTest extends AbstractDatabaseIntegrationTest {
-
-    static Stream<Arguments> argumentsProvider() {
-        return Stream.of(
-                // {"type","filename", aantalBerichten, aantalLaadProcessen, objNummer},
-                arguments("woz", "/woz/800000793120/204253181.xml", 1, 1, "800000793120")
-        );
-    }
 
     private static final Log LOG = LogFactory.getLog(WozXMLToStagingIntegrationTest.class);
     private final Lock sequential = new ReentrantLock();
@@ -74,6 +68,14 @@ public class WozXMLToStagingIntegrationTest extends AbstractDatabaseIntegrationT
     // dbunit
     private IDatabaseConnection staging;
     private IDatabaseConnection rsgb;
+
+    static Stream<Arguments> argumentsProvider() {
+        return Stream.of(
+                // {"filename", aantalBerichten, aantalLaadProcessen, objectRefs, objNummer, grondoppervlakte},
+//                arguments("/woz/800000793120/204253181.xml", 1, 1, {"WOZ.WOZ.800000793120"}, "800000793120", 4000),
+                arguments("/woz/800000793120/204325718.xml", 2, 1, new String[]{"WOZ.NPS.295f133e37f55dd610756bbb0e6eebcf0ebbc555", "WOZ.WOZ.800000200014"}, "800000200014", 500)
+        );
+    }
 
     @BeforeEach
     @Override
@@ -118,60 +120,66 @@ public class WozXMLToStagingIntegrationTest extends AbstractDatabaseIntegrationT
 
         sequential.lock();
 
+        CleanUtil.cleanRSGB_WOZ(rsgb, true);
+
         DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
-        assumeTrue(0L == brmo.getCountBerichten(null, null, "gbav", "STAGING_OK"),
+        assumeTrue(0L == brmo.getCountBerichten(null, null, BrmoFramework.BR_WOZ, "STAGING_OK"),
                 "Er zijn geen STAGING_OK berichten");
-        assumeTrue(0L == brmo.getCountLaadProcessen(null, null, "gbav", "STAGING_OK"),
+        assumeTrue(0L == brmo.getCountLaadProcessen(null, null, BrmoFramework.BR_WOZ, "STAGING_OK"),
                 "Er zijn geen STAGING_OK laadprocessen");
     }
 
     @AfterEach
     public void cleanup() throws Exception {
         brmo.closeBrmoFramework();
-        CleanUtil.cleanSTAGING(staging, false);
-        CleanUtil.cleanRSGB_BAG(rsgb, true);
-        CleanUtil.cleanRSGB_BRP(rsgb);
+//        CleanUtil.cleanSTAGING(staging, false);
+//        CleanUtil.cleanRSGB_WOZ(rsgb, true);
         staging.close();
         sequential.unlock();
     }
 
     @ParameterizedTest(name = "testWozBerichtToStagingToRsgb #{index}: type: {0}, bestand: {1}")
     @MethodSource("argumentsProvider")
-    public void testWozBerichtToStagingToRsgb(String bestandType, String bestandNaam, long aantalBerichten, long aantalProcessen, String objNummer) throws Exception {
+    public void testWozBerichtToStagingToRsgb(String bestandNaam, long aantalBerichten, long aantalProcessen, String[] objectRefs, String objNummer, Number grondoppervlakte) throws Exception {
 
-        try {
-            brmo.loadFromFile(bestandType, WozXMLToStagingIntegrationTest.class.getResource(bestandNaam).getFile(), null);
-        } catch (BrmoLeegBestandException blbe) {
-            LOG.debug("Er is een bestand zonder berichten geladen (kan voorkomen...).");
-        }
+        brmo.loadFromFile(BrmoFramework.BR_WOZ, WozXMLToStagingIntegrationTest.class.getResource(bestandNaam).getFile(), null);
 
-        assertEquals(aantalBerichten, brmo.getCountBerichten(null, null, bestandType, "STAGING_OK"),
+        assertEquals(aantalBerichten, brmo.getCountBerichten(null, null, BrmoFramework.BR_WOZ, "STAGING_OK"),
                 "Verwacht aantal berichten");
-        assertEquals(aantalProcessen, brmo.getCountLaadProcessen(null, null, bestandType, "STAGING_OK"),
+        assertEquals(aantalProcessen, brmo.getCountLaadProcessen(null, null, BrmoFramework.BR_WOZ, "STAGING_OK"),
                 "Verwacht aantal laadprocessen");
 
         ITable bericht = staging.createDataSet().getTable("bericht");
-        assertEquals(objNummer, bericht.getValue(1,"object_ref"), "'objNummer' klopt niet");
+        int rowNum = 0;
+        for (String objectRef : objectRefs) {
+            assertEquals(objectRef, bericht.getValue(rowNum, "object_ref"), "'object_ref' klopt niet");
+            rowNum++;
+        }
 
-//        LOG.debug("Transformeren berichten naar rsgb DB.");
-//        brmo.setOrderBerichten(true);
-//        Thread t = brmo.toRsgb();
-//        t.join();
-//
-//        assertEquals(aantalBerichten, brmo.getCountBerichten(null, null, bestandType, "RSGB_OK"),
-//                "Niet alle berichten zijn OK getransformeerd");
-//
-//        for (Bericht b : brmo.listBerichten()) {
-//            Assertions.assertNotNull(b, "Bericht is 'null'");
-//            Assertions.assertNotNull(b.getDbXml(), "'db-xml' van bericht is 'null'");
-//        }
 
-//        ITable woz_obj = rsgb.createDataSet().getTable("woz_obj");
-//        assertEquals(aantalSubject, woz_obj.getRowCount(), "Het aantal 'woz_obj' klopt niet");
+        LOG.debug("Transformeren berichten naar rsgb DB.");
+        brmo.setOrderBerichten(true);
+        Thread t = brmo.toRsgb();
+        t.join();
 
-        // woz_deelobj
-        // woz_belang
-        // woz_waarde
+        assertEquals(aantalBerichten, brmo.getCountBerichten(null, null, BrmoFramework.BR_WOZ, "RSGB_OK"),
+                "Niet alle berichten zijn OK getransformeerd");
+
+        for (Bericht b : brmo.listBerichten()) {
+            Assertions.assertNotNull(b, "Bericht is 'null'");
+            Assertions.assertNotNull(b.getDbXml(), "'db-xml' van bericht is 'null'");
+        }
+
+        ITable woz_obj = rsgb.createDataSet().getTable("woz_obj");
+        assertEquals(1, woz_obj.getRowCount(), "Het aantal 'woz_obj' klopt niet");
+        assertEquals(objNummer, woz_obj.getValue(0, "nummer").toString(), "WOZ object nummer is niet correct");
+        assertEquals(grondoppervlakte, ((Number)woz_obj.getValue(0, "grondoppervlakte")).intValue(), "Oppervlakte object nummer is niet correct");
+
+        ITable woz_deelobj = rsgb.createDataSet().getTable("woz_deelobj");
+
+        ITable woz_belang = rsgb.createDataSet().getTable("woz_belang");
+
+        ITable woz_waarde = rsgb.createDataSet().getTable("woz_waarde");
         // brondocument
 
     }
