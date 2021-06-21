@@ -106,11 +106,9 @@
                     <xsl:call-template name="date-numeric"/>
                 </xsl:for-each>
             </waardepeildatum>
-            <xsl:if test="woz:wozObjectGeometrie">
-                <geom>
-                    <xsl:value-of select="woz:wozObjectGeometrie"/>
-                </geom>
-            </xsl:if>
+            <geom>
+                <xsl:value-of select="woz:wozObjectGeometrie"/>
+            </geom>
             <waterschap>
                 <xsl:value-of select="woz:ligtIn/woz:gerelateerde/woz:betrokkenWaterschap" />
             </waterschap>

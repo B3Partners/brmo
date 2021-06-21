@@ -57,7 +57,9 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
  * {@code mvn -Dit.test=WozXMLToStagingIntegrationTest -Dtest.onlyITs=true verify -pl brmo-loader -Ppostgresql > /tmp/postgresql.log}
  * voor bijvoorbeeld PostgreSQL of
  * {@code mvn -Dit.test=WozXMLToStagingIntegrationTest -Dtest.onlyITs=true verify -pl brmo-loader -Pmssql > /tmp/mssql.log}
- * voor bijvoorbeeld MS SQL.
+ * voor MS SQL of
+ * {@code mvn -Dit.test=WozXMLToStagingIntegrationTest -Dtest.onlyITs=true verify -pl brmo-loader -Poracle > /tmp/oracle.log}
+ * voor oracle.
  *
  * @author Mark Prins
  */
@@ -72,10 +74,10 @@ public class WozXMLToStagingIntegrationTest extends AbstractDatabaseIntegrationT
 
     static Stream<Arguments> argumentsProvider() {
         return Stream.of(
-                // {"filename", aantalBerichten, aantalLaadProcessen, objectRefs, objNummer, grondoppervlakte, gem_code, ws_code, wozBelang},
-                arguments("/woz/800000793120/204253181.xml", 1, 1, new String[]{"WOZ.WOZ.800000793120"}, "800000793120", 4000, 8000, "8106", null),
-                arguments("/woz/800000793120/204325718.xml", 2, 1, new String[]{"WOZ.NPS.295f133e37f55dd610756bbb0e6eebcf0ebbc555", "WOZ.WOZ.800000200014"}, "800000200014", 500, 8000, "8106", new String[]{"WOZ.NPS.295f133e37f55dd610756bbb0e6eebcf0ebbc555", "800000200014", "E"}),
-                arguments("/woz/800000200021/204405262.xml", 2, 1, new String[]{"WOZ.NNP.428228574", "WOZ.WOZ.800000200021"}, "800000200021", 200, 8000, "8106", new String[]{"WOZ.NNP.428228574", "800000200021", "E"})
+                // {"filename", aantalBerichten, aantalLaadProcessen, objectRefs, objNummer, grondoppervlakte, gem_code, ws_code, wozBelang[rij][cols], deelObjectNums[]},
+                arguments("/woz/800000793120/204253181.xml", 1, 1, new String[]{"WOZ.WOZ.800000793120"}, "800000793120", 4000, 8000, "8106", new String[0][0], new String[0]),
+                arguments("/woz/800000793120/204325718.xml", 2, 1, new String[]{"WOZ.NPS.295f133e37f55dd610756bbb0e6eebcf0ebbc555", "WOZ.WOZ.800000200014"}, "800000200014", 500, 8000, "8106", new String[][]{{"WOZ.NPS.295f133e37f55dd610756bbb0e6eebcf0ebbc555", "800000200014", "E"}}, new String[]{"800000793120"}),
+                arguments("/woz/800000200021/204405262.xml", 2, 1, new String[]{"WOZ.NNP.428228574", "WOZ.WOZ.800000200021"}, "800000200021", 200, 8000, "8106", new String[][]{{"WOZ.NNP.428228574", "800000200021", "E"}}, new String[0])
         );
     }
 
@@ -150,7 +152,8 @@ public class WozXMLToStagingIntegrationTest extends AbstractDatabaseIntegrationT
                                               Number grondoppervlakte,
                                               Number gemCode,
                                               String wsCode,
-                                              String[] wozBelang) throws Exception {
+                                              String[][] wozBelang,
+                                              String[] deelObjectNums) throws Exception {
 
         brmo.loadFromFile(BrmoFramework.BR_WOZ, WozXMLToStagingIntegrationTest.class.getResource(bestandNaam).getFile(), null);
 
@@ -187,13 +190,20 @@ public class WozXMLToStagingIntegrationTest extends AbstractDatabaseIntegrationT
 
 
         ITable woz_deelobj = rsgb.createDataSet().getTable("woz_deelobj");
+        assertEquals(deelObjectNums.length, woz_deelobj.getRowCount(), "Het aantal 'woz_deelobj' klopt niet");
+        for (int i = 0; i < deelObjectNums.length; i++) {
+            assertEquals(deelObjectNums[i], woz_deelobj.getValue(i, "nummer").toString(), "WOZ deelobject nummer is niet correct");
+            assertEquals(objNummer, woz_deelobj.getValue(i, "fk_6woz_nummer").toString(), "WOZ object nummer is niet correct");
+        }
 
-        if(wozBelang !=null) {
-            ITable woz_belang = rsgb.createDataSet().getTable("woz_belang");
+        ITable woz_belang = rsgb.createDataSet().getTable("woz_belang");
+        assertEquals(wozBelang.length, woz_belang.getRowCount(), "Het aantal 'woz_belang' klopt niet");
+        if (wozBelang.length > 0) {
             final Column[] woz_belang_cols = woz_belang.getTableMetaData().getColumns();
-            // String[] cols = new String[]{"fk_sc_lh_sub_identif", "fk_sc_rh_woz_nummer", "aand_eigenaargebruiker"};
-            for (int i = 0; i < woz_belang_cols.length; i++) {
-                assertEquals(wozBelang[i], woz_belang.getValue(0, woz_belang_cols[i].getColumnName()).toString(), "woz belang " + woz_belang_cols[i].getColumnName() + " is niet correct");
+            for (int row=0;row< wozBelang.length;row++) {
+                for (int i = 0; i < woz_belang_cols.length; i++) {
+                    assertEquals(wozBelang[row][i], woz_belang.getValue(0, woz_belang_cols[i].getColumnName()).toString(), "woz belang " + woz_belang_cols[i].getColumnName() + " is niet correct");
+                }
             }
         }
 

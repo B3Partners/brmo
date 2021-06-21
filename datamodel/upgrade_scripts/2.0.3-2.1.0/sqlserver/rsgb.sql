@@ -3,15 +3,18 @@
 --
 
 -- aanpassen woz tabellen
-ALTER TABLE woz_deelobj ALTER COLUMN nummer DECIMAL(12,0);
+ALTER TABLE woz_deelobj DROP CONSTRAINT woz_deelobj_pk;
+ALTER TABLE woz_deelobj ALTER COLUMN nummer DECIMAL(12,0) NOT NULL;
 ALTER TABLE woz_deelobj ALTER COLUMN dat_beg_geldh_deelobj VARCHAR(19);
 ALTER TABLE woz_deelobj ALTER COLUMN datum_einde_geldh_deelobj VARCHAR(19)
+ALTER TABLE woz_deelobj ADD CONSTRAINT woz_deelobj_pk PRIMARY KEY (nummer);
 
-ALTER TABLE woz_deelobj_archief ALTER COLUMN nummer DECIMAL(12,0)
-ALTER TABLE woz_deelobj_archief ALTER COLUMN dat_beg_geldh_deelobj VARCHAR(19);
-ALTER TABLE woz_deelobj_archief ALTER COLUMN datum_einde_geldh_deelobj VARCHAR(19)
+ALTER TABLE woz_deelobj_archief DROP CONSTRAINT ar_woz_deelobj_pk;
+ALTER TABLE woz_deelobj_archief ALTER COLUMN nummer DECIMAL(12,0) NOT NULL;
+ALTER TABLE woz_deelobj_archief ALTER COLUMN dat_beg_geldh_deelobj VARCHAR(19) NOT NULL;
+ALTER TABLE woz_deelobj_archief ALTER COLUMN datum_einde_geldh_deelobj VARCHAR(19) NULL;
+ALTER TABLE woz_deelobj_archief ADD CONSTRAINT ar_woz_deelobj_pk PRIMARY KEY (dat_beg_geldh_deelobj,nummer);
 
--- voeg kolommen toe aan tabel woz_obj
 ALTER TABLE woz_obj ADD waterschap varchar(4) NULL;
 ALTER TABLE woz_obj ADD fk_verantw_gem_code numeric(4) NULL;
 
