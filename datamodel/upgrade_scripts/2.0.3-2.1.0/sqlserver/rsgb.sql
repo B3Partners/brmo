@@ -11,6 +11,13 @@ ALTER TABLE woz_deelobj_archief ALTER COLUMN nummer DECIMAL(12,0)
 ALTER TABLE woz_deelobj_archief ALTER COLUMN dat_beg_geldh_deelobj VARCHAR(19);
 ALTER TABLE woz_deelobj_archief ALTER COLUMN datum_einde_geldh_deelobj VARCHAR(19)
 
+-- voeg kolommen toe aan tabel woz_obj
+ALTER TABLE woz_obj ADD waterschap varchar(4) NULL;
+ALTER TABLE woz_obj ADD fk_verantw_gem_code numeric(4) NULL;
+
+ALTER TABLE woz_obj_archief ADD waterschap varchar(4) NULL;
+ALTER TABLE woz_obj_archief ADD fk_verantw_gem_code numeric(4) NULL;
+
 GO
 
 -- onderstaande dienen als laatste stappen van een upgrade uitgevoerd

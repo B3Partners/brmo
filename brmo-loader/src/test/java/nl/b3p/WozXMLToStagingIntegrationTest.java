@@ -27,6 +27,7 @@ import org.dbunit.database.DatabaseConfig;
 import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.DatabaseDataSourceConnection;
 import org.dbunit.database.IDatabaseConnection;
+import org.dbunit.dataset.Column;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
@@ -71,11 +72,10 @@ public class WozXMLToStagingIntegrationTest extends AbstractDatabaseIntegrationT
 
     static Stream<Arguments> argumentsProvider() {
         return Stream.of(
-                // {"filename", aantalBerichten, aantalLaadProcessen, objectRefs, objNummer, grondoppervlakte},
-//                arguments("/woz/800000793120/204253181.xml", 1, 1, {"WOZ.WOZ.800000793120"}, "800000793120", 4000),
-//                arguments("/woz/800000793120/204325718.xml", 2, 1, new String[]{"WOZ.NPS.295f133e37f55dd610756bbb0e6eebcf0ebbc555", "WOZ.WOZ.800000200014"}, "800000200014", 500),
-                arguments("/woz/800000200021/204405262.xml", 2, 1, new String[]{"WOZ.NNP.428228574", "WOZ.WOZ.800000200021"}, "800000200021", 200)
-
+                // {"filename", aantalBerichten, aantalLaadProcessen, objectRefs, objNummer, grondoppervlakte, gem_code, ws_code, wozBelang},
+                arguments("/woz/800000793120/204253181.xml", 1, 1, new String[]{"WOZ.WOZ.800000793120"}, "800000793120", 4000, 8000, "8106", null),
+                arguments("/woz/800000793120/204325718.xml", 2, 1, new String[]{"WOZ.NPS.295f133e37f55dd610756bbb0e6eebcf0ebbc555", "WOZ.WOZ.800000200014"}, "800000200014", 500, 8000, "8106", new String[]{"WOZ.NPS.295f133e37f55dd610756bbb0e6eebcf0ebbc555", "800000200014", "E"}),
+                arguments("/woz/800000200021/204405262.xml", 2, 1, new String[]{"WOZ.NNP.428228574", "WOZ.WOZ.800000200021"}, "800000200021", 200, 8000, "8106", new String[]{"WOZ.NNP.428228574", "800000200021", "E"})
         );
     }
 
@@ -142,7 +142,15 @@ public class WozXMLToStagingIntegrationTest extends AbstractDatabaseIntegrationT
 
     @ParameterizedTest(name = "testWozBerichtToStagingToRsgb #{index}: type: {0}, bestand: {1}")
     @MethodSource("argumentsProvider")
-    public void testWozBerichtToStagingToRsgb(String bestandNaam, long aantalBerichten, long aantalProcessen, String[] objectRefs, String objNummer, Number grondoppervlakte) throws Exception {
+    public void testWozBerichtToStagingToRsgb(String bestandNaam,
+                                              long aantalBerichten,
+                                              long aantalProcessen,
+                                              String[] objectRefs,
+                                              String objNummer,
+                                              Number grondoppervlakte,
+                                              Number gemCode,
+                                              String wsCode,
+                                              String[] wozBelang) throws Exception {
 
         brmo.loadFromFile(BrmoFramework.BR_WOZ, WozXMLToStagingIntegrationTest.class.getResource(bestandNaam).getFile(), null);
 
@@ -150,14 +158,12 @@ public class WozXMLToStagingIntegrationTest extends AbstractDatabaseIntegrationT
                 "Verwacht aantal berichten");
         assertEquals(aantalProcessen, brmo.getCountLaadProcessen(null, null, BrmoFramework.BR_WOZ, "STAGING_OK"),
                 "Verwacht aantal laadprocessen");
-
         ITable bericht = staging.createDataSet().getTable("bericht");
         int rowNum = 0;
         for (String objectRef : objectRefs) {
             assertEquals(objectRef, bericht.getValue(rowNum, "object_ref"), "'object_ref' klopt niet");
             rowNum++;
         }
-
 
         LOG.debug("Transformeren berichten naar rsgb DB.");
         brmo.setOrderBerichten(true);
@@ -175,14 +181,25 @@ public class WozXMLToStagingIntegrationTest extends AbstractDatabaseIntegrationT
         ITable woz_obj = rsgb.createDataSet().getTable("woz_obj");
         assertEquals(1, woz_obj.getRowCount(), "Het aantal 'woz_obj' klopt niet");
         assertEquals(objNummer, woz_obj.getValue(0, "nummer").toString(), "WOZ object nummer is niet correct");
-        assertEquals(grondoppervlakte, ((Number)woz_obj.getValue(0, "grondoppervlakte")).intValue(), "Oppervlakte object nummer is niet correct");
+        assertEquals(grondoppervlakte, ((Number) woz_obj.getValue(0, "grondoppervlakte")).intValue(), "Oppervlakte object nummer is niet correct");
+        assertEquals(wsCode, woz_obj.getValue(0, "waterschap"), "Waterschap object is niet correct");
+        assertEquals(gemCode, ((Number) woz_obj.getValue(0, "fk_verantw_gem_code")).intValue(), "Gemeentecode object is niet correct");
+
 
         ITable woz_deelobj = rsgb.createDataSet().getTable("woz_deelobj");
 
-        ITable woz_belang = rsgb.createDataSet().getTable("woz_belang");
+        if(wozBelang !=null) {
+            ITable woz_belang = rsgb.createDataSet().getTable("woz_belang");
+            final Column[] woz_belang_cols = woz_belang.getTableMetaData().getColumns();
+            // String[] cols = new String[]{"fk_sc_lh_sub_identif", "fk_sc_rh_woz_nummer", "aand_eigenaargebruiker"};
+            for (int i = 0; i < woz_belang_cols.length; i++) {
+                assertEquals(wozBelang[i], woz_belang.getValue(0, woz_belang_cols[i].getColumnName()).toString(), "woz belang " + woz_belang_cols[i].getColumnName() + " is niet correct");
+            }
+        }
 
         ITable woz_waarde = rsgb.createDataSet().getTable("woz_waarde");
-        // brondocument
+
+        ITable brondocument = rsgb.createDataSet().getTable("brondocument");
 
     }
 }
