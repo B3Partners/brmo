@@ -32,7 +32,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class WozXMLReader extends BrmoXMLReader {
-    public static final String PRS_PREFIX = "WOZ.NPS.";
+    public static final String PREFIX_PRS = "WOZ.NPS.";
+    public static final String PREFIX_NNP = "WOZ.NNP.";
     private static final Log LOG = LogFactory.getLog(WozXMLReader.class);
     private final String pathToXsl = "/xsl/woz-brxml-preprocessor.xsl";
     private final StagingProxy staging;
@@ -131,7 +132,7 @@ public class WozXMLReader extends BrmoXMLReader {
         // TODO volgorde nummer:
         //  bepaal aan de hand van de objectref of volgordenummer opgehoogd moet worden. Een soap bericht kan meerdere
         //  object entiteiten bevatten die een eigen type objectref krijgen. bijv. een entiteittype="WOZ" en een entiteittype="NPS"
-        //  bovendien kan een entiteittype="WOZ" een genests gerelateerde hebben die een apart bericht moet opleveren met objectref
+        //  bovendien kan een entiteittype="WOZ" een genests gerelateerde hebben die een apart bericht moet/zou kunnen opleveren met objectref
         //  van een NPS, maar met een hoger volgordenummer...
         b.setVolgordeNummer(index);
 
@@ -158,11 +159,12 @@ public class WozXMLReader extends BrmoXMLReader {
         }
 
         // WOZ:object StUF:entiteittype="NNP"/WOZ:isEen/WOZ:gerelateerde/BG:inn.nnpId
-        XPathExpression nnpId = xPathfactory.newXPath().compile("./*/*[local-name()='gerelateerde']/*[local-name()='nnpId']");
+        XPathExpression nnpId = xPathfactory.newXPath().compile("./*/*[local-name()='gerelateerde']/*[local-name()='inn.nnpId']");
         obRefs = (NodeList) nnpId.evaluate(wozObjectNode, XPathConstants.NODESET);
         if (obRefs.getLength() > 0) {
             return "WOZ.NNP." + obRefs.item(0).getTextContent();
         }
+
         return null;
     }
 
@@ -199,7 +201,7 @@ public class WozXMLReader extends BrmoXMLReader {
         for (Map.Entry<String, String> entry : map.entrySet()) {
             if (!entry.getKey().isEmpty() && !entry.getValue().isEmpty()) {
                 String hash = entry.getValue();
-                String el = "<" + PRS_PREFIX + entry.getKey() + ">" + hash + "</" + PRS_PREFIX + entry.getKey() + ">";
+                String el = "<" + PREFIX_PRS + entry.getKey() + ">" + hash + "</" + PREFIX_PRS + entry.getKey() + ">";
                 root += el;
             }
         }

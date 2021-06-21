@@ -73,7 +73,9 @@ public class WozXMLToStagingIntegrationTest extends AbstractDatabaseIntegrationT
         return Stream.of(
                 // {"filename", aantalBerichten, aantalLaadProcessen, objectRefs, objNummer, grondoppervlakte},
 //                arguments("/woz/800000793120/204253181.xml", 1, 1, {"WOZ.WOZ.800000793120"}, "800000793120", 4000),
-                arguments("/woz/800000793120/204325718.xml", 2, 1, new String[]{"WOZ.NPS.295f133e37f55dd610756bbb0e6eebcf0ebbc555", "WOZ.WOZ.800000200014"}, "800000200014", 500)
+//                arguments("/woz/800000793120/204325718.xml", 2, 1, new String[]{"WOZ.NPS.295f133e37f55dd610756bbb0e6eebcf0ebbc555", "WOZ.WOZ.800000200014"}, "800000200014", 500),
+                arguments("/woz/800000200021/204405262.xml", 2, 1, new String[]{"WOZ.NNP.428228574", "WOZ.WOZ.800000200021"}, "800000200021", 200)
+
         );
     }
 
@@ -120,7 +122,7 @@ public class WozXMLToStagingIntegrationTest extends AbstractDatabaseIntegrationT
 
         sequential.lock();
 
-        CleanUtil.cleanRSGB_WOZ(rsgb, true);
+//        CleanUtil.cleanRSGB_WOZ(rsgb, true);
 
         DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
         assumeTrue(0L == brmo.getCountBerichten(null, null, BrmoFramework.BR_WOZ, "STAGING_OK"),
@@ -132,8 +134,8 @@ public class WozXMLToStagingIntegrationTest extends AbstractDatabaseIntegrationT
     @AfterEach
     public void cleanup() throws Exception {
         brmo.closeBrmoFramework();
-//        CleanUtil.cleanSTAGING(staging, false);
-//        CleanUtil.cleanRSGB_WOZ(rsgb, true);
+        CleanUtil.cleanSTAGING(staging, false);
+        CleanUtil.cleanRSGB_WOZ(rsgb, true);
         staging.close();
         sequential.unlock();
     }
