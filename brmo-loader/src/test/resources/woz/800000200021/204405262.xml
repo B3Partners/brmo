@@ -1,0 +1,192 @@
+<dgl:VerstrekkingAanAfnemer xmlns:dgl="http://www.digilevering.nl/digilevering.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.digilevering.nl/digilevering.xsd digilevering.xsd"><datumtijdstempelDigilevering>2020-07-16T05:24:12.409Z</datumtijdstempelDigilevering><datumtijdstempelLV>2020-07-16T05:23:22.000Z</datumtijdstempelLV><kenmerkDigilevering>a25c6052-a032-4b52-90e2-adcd3d7896fe@digilevering.nl</kenmerkDigilevering><kenmerkLV>07c2eb68-a5e9-42de-8283-b879a9e95456</kenmerkLV><versieBerichttype>1.0</versieBerichttype><abonnement><naam>WOZ test alles Waterschap De Dommel</naam><versie>1</versie></abonnement><basisregistratie>LVWOZ</basisregistratie><gebeurtenissoort><naam>OWOZ_Di01</naam><versie>312</versie></gebeurtenissoort><gebeurtenisinhoud>
+<WOZ:OWOZ_Di01 xmlns:WOZ="http://www.waarderingskamer.nl/StUF/0312" xmlns:BG="http://www.egem.nl/StUF/sector/bg/0310" xmlns:StUF="http://www.egem.nl/StUF/StUF0301" xsi:schemaLocation="http://www.waarderingskamer.nl/StUF/0312 file:///C:/temp/LV%20WOZ/woz0312_20150703/woz0312/lv_mutatieMetFo01/woz0312_msg_lv_mutatie.xsd">
+	<WOZ:stuurgegevens>
+		<StUF:berichtcode>Di01</StUF:berichtcode>
+		<StUF:zender>
+			<StUF:organisatie>00000001803577058000</StUF:organisatie>
+			<StUF:applicatie>xxx</StUF:applicatie>
+			<StUF:administratie>P</StUF:administratie>
+			<StUF:gebruiker>Waarderingskamer</StUF:gebruiker>
+		</StUF:zender>
+		<StUF:ontvanger>
+			<StUF:organisatie>KADASTER</StUF:organisatie>
+			<StUF:applicatie>LVWOZ</StUF:applicatie>
+			<StUF:administratie>P</StUF:administratie>
+			<StUF:gebruiker/>
+		</StUF:ontvanger>
+		<StUF:referentienummer>07c2eb68-a5e9-42de-8283-b879a9e95456</StUF:referentienummer>
+		<StUF:tijdstipBericht>20200716072133433</StUF:tijdstipBericht>
+		<StUF:functie>WOZ-OWOZ</StUF:functie>
+	</WOZ:stuurgegevens>
+	<WOZ:routering StUF:entiteittype="WOZ" StUF:functie="entiteit">
+		<WOZ:verantwoordelijkeGemeente>
+			<BG:gemeenteCode>8000</BG:gemeenteCode>
+		</WOZ:verantwoordelijkeGemeente>
+		<WOZ:ligtIn StUF:entiteittype="WOZWSP">
+			<WOZ:gerelateerde StUF:entiteittype="WSP">
+				<WOZ:betrokkenWaterschap>8106</WOZ:betrokkenWaterschap>
+			</WOZ:gerelateerde>
+		</WOZ:ligtIn>
+	</WOZ:routering>
+	<WOZ:voegToeNNP StUF:entiteittype="NNP" StUF:functie="update">
+		<WOZ:parameters>
+			<StUF:mutatiesoort>T</StUF:mutatiesoort>
+			<StUF:indicatorOvername>V</StUF:indicatorOvername>
+		</WOZ:parameters>
+		<WOZ:object StUF:entiteittype="NNP" StUF:verwerkingssoort="T">
+			<WOZ:isEen StUF:entiteittype="NNPNNP" StUF:verwerkingssoort="T">
+				<WOZ:gerelateerde StUF:entiteittype="NNP" StUF:verwerkingssoort="T">
+					<BG:inn.nnpId>428228574</BG:inn.nnpId>
+					<BG:statutaireNaam>Scheepwerf Dienstboot aanleg 1</BG:statutaireNaam>
+					<BG:sub.correspondentieAdres>
+						<BG:wpl.woonplaatsNaam>DienstberichtDorp</BG:wpl.woonplaatsNaam>
+						<BG:postcode>8621AC</BG:postcode>
+						<BG:aoa.identificatie>8000200000001124</BG:aoa.identificatie>
+						<BG:gor.openbareRuimteNaam>DienstBevrijdingslaan</BG:gor.openbareRuimteNaam>
+						<BG:aoa.huisnummer>2</BG:aoa.huisnummer>
+						<BG:aoa.huisletter StUF:noValue="geenWaarde" xsi:nil="true"/>
+						<BG:aoa.huisnummertoevoeging>LP02</BG:aoa.huisnummertoevoeging>
+					</BG:sub.correspondentieAdres>
+				</WOZ:gerelateerde>
+			</WOZ:isEen>
+			<WOZ:aanvullingSoFiNummer StUF:noValue="geenWaarde" xsi:nil="true"/>
+			<WOZ:verantwoordelijkeGemeente>8000</WOZ:verantwoordelijkeGemeente>
+		</WOZ:object>
+	</WOZ:voegToeNNP>
+	<WOZ:voegToeWOZ StUF:entiteittype="WOZ" StUF:functie="update">
+		<WOZ:parameters>
+			<StUF:mutatiesoort>T</StUF:mutatiesoort>
+			<StUF:indicatorOvername>V</StUF:indicatorOvername>
+		</WOZ:parameters>
+		<WOZ:object StUF:entiteittype="WOZ" StUF:verwerkingssoort="T">
+			<WOZ:wozObjectNummer>800000200021</WOZ:wozObjectNummer>
+			<WOZ:aanduidingWOZobject>
+				<BG:aoa.identificatie>8000200000001114</BG:aoa.identificatie>
+				<BG:wpl.woonplaatsNaam>DienstberichtDorp</BG:wpl.woonplaatsNaam>
+				<BG:aoa.postcode>8621AC</BG:aoa.postcode>
+				<BG:gor.openbareRuimteNaam>DienstBevrijdingslaan</BG:gor.openbareRuimteNaam>
+				<BG:gor.straatnaam>DienstBevrijdingslaan</BG:gor.straatnaam>
+				<BG:aoa.huisnummer>2</BG:aoa.huisnummer>
+				<BG:aoa.huisletter StUF:noValue="geenWaarde" xsi:nil="true"/>
+				<BG:aoa.huisnummertoevoeging>LP02</BG:aoa.huisnummertoevoeging>
+				<BG:locatieOmschrijving StUF:noValue="geenWaarde" xsi:nil="true"/>
+			</WOZ:aanduidingWOZobject>
+			<WOZ:statusWozObject>0</WOZ:statusWozObject>
+			<WOZ:grondoppervlakte>200</WOZ:grondoppervlakte>
+			<WOZ:gebruikscode>10</WOZ:gebruikscode>
+			<WOZ:codeGebouwdOngebouwd>G</WOZ:codeGebouwdOngebouwd>
+			<WOZ:meegetaxeerdeOppervlakteGebouwd StUF:noValue="geenWaarde" xsi:nil="true"/>
+			<WOZ:ozbVrijstelling StUF:noValue="nietGeautoriseerd" xsi:nil="true"/>
+			<WOZ:verantwoordelijkeGemeente>
+				<BG:gemeenteCode>8000</BG:gemeenteCode>
+			</WOZ:verantwoordelijkeGemeente>
+			<WOZ:wozObjectGeometrie StUF:noValue="waardeOnbekend" xsi:nil="true"/>
+			<WOZ:ingangsdatumObject>20100413</WOZ:ingangsdatumObject>	
+			<WOZ:einddatumObject StUF:noValue="geenWaarde" xsi:nil="true"/>				
+			<StUF:tijdvakGeldigheid>
+				<StUF:beginGeldigheid>20100413</StUF:beginGeldigheid>
+				<StUF:eindGeldigheid StUF:noValue="geenWaarde" xsi:nil="true"/>
+			</StUF:tijdvakGeldigheid>
+			<StUF:tijdstipRegistratie>20100501000000000</StUF:tijdstipRegistratie>
+			<WOZ:ontleentAanduidingAan StUF:entiteittype="WOZAOTAND" StUF:verwerkingssoort="T">
+				<WOZ:gerelateerde>
+					<BG:ligplaats StUF:entiteittype="LIG" StUF:verwerkingssoort="T">
+						<BG:identificatie>8000020000001115</BG:identificatie>
+						<BG:adresAanduidingGrp>
+							<BG:num.identificatie>8000200000001116</BG:num.identificatie>
+							<BG:wpl.woonplaatsNaam>DienstberichtDorp</BG:wpl.woonplaatsNaam>
+							<BG:gor.openbareRuimteNaam>DienstBevrijdingslaan</BG:gor.openbareRuimteNaam>
+							<BG:gor.straatnaam>DienstBevrijdingslaan</BG:gor.straatnaam>
+							<BG:aoa.postcode>8621AC</BG:aoa.postcode>
+							<BG:aoa.huisnummer>2</BG:aoa.huisnummer>
+							<BG:aoa.huisletter StUF:noValue="geenWaarde" xsi:nil="true"/>
+							<BG:aoa.huisnummertoevoeging>LP02</BG:aoa.huisnummertoevoeging>
+						</BG:adresAanduidingGrp>
+					</BG:ligplaats>
+				</WOZ:gerelateerde>
+				<StUF:tijdvakRelatie>
+					<StUF:beginRelatie>20100413</StUF:beginRelatie>
+				</StUF:tijdvakRelatie>
+				<StUF:tijdvakGeldigheid>
+					<StUF:beginGeldigheid>20100413</StUF:beginGeldigheid>
+					<StUF:eindGeldigheid StUF:noValue="geenWaarde" xsi:nil="true"/>
+				</StUF:tijdvakGeldigheid>
+				<StUF:tijdstipRegistratie>20100501000000000</StUF:tijdstipRegistratie>
+			</WOZ:ontleentAanduidingAan>						
+			<WOZ:bevatKadastraleObjecten StUF:entiteittype="WOZKOZ" StUF:verwerkingssoort="T">
+				<WOZ:gerelateerde StUF:entiteittype="KOZ" StUF:verwerkingssoort="T">
+					<BG:kadastraleIdentificatie>8000552570005</BG:kadastraleIdentificatie>
+					<BG:kadastraleAanduiding>
+						<BG:kadastraleGemeentecode>DIEN1</BG:kadastraleGemeentecode>
+						<BG:kadastraleSectie>R</BG:kadastraleSectie>
+						<BG:kadastraalPerceelnummer>2</BG:kadastraalPerceelnummer>
+						<BG:kdp.deelperceelNummer>0002</BG:kdp.deelperceelNummer>
+					</BG:kadastraleAanduiding>
+				</WOZ:gerelateerde>
+				<WOZ:toegekendeOppervlakte>200</WOZ:toegekendeOppervlakte>
+				<WOZ:meegetaxeerdeOppervlakte StUF:noValue="geenWaarde" xsi:nil="true"/>
+				<StUF:tijdvakRelatie>
+					<StUF:beginRelatie>20100413</StUF:beginRelatie>
+					<StUF:eindRelatie StUF:noValue="geenWaarde" xsi:nil="true"/>
+				</StUF:tijdvakRelatie>
+				<StUF:tijdvakGeldigheid>
+					<StUF:beginGeldigheid>20100413</StUF:beginGeldigheid>
+					<StUF:eindGeldigheid StUF:noValue="geenWaarde" xsi:nil="true"/>
+				</StUF:tijdvakGeldigheid>
+				<StUF:tijdstipRegistratie>20100501000000000</StUF:tijdstipRegistratie>
+			</WOZ:bevatKadastraleObjecten>
+			<WOZ:heeftBelanghebbende StUF:entiteittype="WOZSUB" StUF:verwerkingssoort="T">
+				<WOZ:gerelateerde>
+					<WOZ:nietNatuurlijkPersoon StUF:entiteittype="NNP" StUF:verwerkingssoort="I">
+						<WOZ:isEen StUF:entiteittype="NNPNNP" StUF:verwerkingssoort="I">
+							<WOZ:gerelateerde StUF:entiteittype="NNP" StUF:verwerkingssoort="I">
+								<BG:inn.nnpId>428228574</BG:inn.nnpId>
+								<BG:statutaireNaam>Scheepwerf Dienstboot aanleg 1</BG:statutaireNaam>
+								<BG:sub.correspondentieAdres>
+									<BG:wpl.woonplaatsNaam>DienstberichtDorp</BG:wpl.woonplaatsNaam>
+									<BG:postcode>8621AC</BG:postcode>
+									<BG:aoa.identificatie>8000200000001124</BG:aoa.identificatie>
+									<BG:gor.openbareRuimteNaam>DienstBevrijdingslaan</BG:gor.openbareRuimteNaam>
+									<BG:aoa.huisnummer>2</BG:aoa.huisnummer>
+									<BG:aoa.huisletter StUF:noValue="geenWaarde" xsi:nil="true"/>
+									<BG:aoa.huisnummertoevoeging>LP02</BG:aoa.huisnummertoevoeging>
+								</BG:sub.correspondentieAdres>
+							</WOZ:gerelateerde>
+						</WOZ:isEen>
+						<WOZ:aanvullingSoFiNummer StUF:noValue="geenWaarde" xsi:nil="true"/>
+						<WOZ:verantwoordelijkeGemeente>8000</WOZ:verantwoordelijkeGemeente>
+					</WOZ:nietNatuurlijkPersoon>
+				</WOZ:gerelateerde>
+				<WOZ:aanduidingEigenaarGebruiker>E</WOZ:aanduidingEigenaarGebruiker>
+				<WOZ:statusBelang>0</WOZ:statusBelang>
+				<WOZ:avr.aard StUF:noValue="nietGeautoriseerd" xsi:nil="true"/>
+				<StUF:tijdvakRelatie>
+					<StUF:beginRelatie>20100413</StUF:beginRelatie>
+					<StUF:eindRelatie StUF:noValue="geenWaarde" xsi:nil="true"/>
+				</StUF:tijdvakRelatie>
+				<StUF:tijdvakGeldigheid>
+					<StUF:beginGeldigheid>20100413</StUF:beginGeldigheid>
+					<StUF:eindGeldigheid StUF:noValue="geenWaarde" xsi:nil="true"/>
+				</StUF:tijdvakGeldigheid>
+				<StUF:tijdstipRegistratie>20100501000000000</StUF:tijdstipRegistratie>
+			</WOZ:heeftBelanghebbende>
+			<WOZ:ligtIn StUF:entiteittype="WOZWSP" StUF:verwerkingssoort="T">
+				<WOZ:gerelateerde StUF:entiteittype="WSP" StUF:verwerkingssoort="I">
+					<WOZ:betrokkenWaterschap>8106</WOZ:betrokkenWaterschap>
+				</WOZ:gerelateerde>
+				<StUF:tijdvakRelatie>
+					<StUF:beginRelatie>20100413</StUF:beginRelatie>
+					<StUF:eindRelatie StUF:noValue="geenWaarde" xsi:nil="true"/>
+				</StUF:tijdvakRelatie>
+				<StUF:tijdvakGeldigheid>
+					<StUF:beginGeldigheid>20100413</StUF:beginGeldigheid>
+					<StUF:eindGeldigheid StUF:noValue="geenWaarde" xsi:nil="true"/>
+				</StUF:tijdvakGeldigheid>
+				<StUF:tijdstipRegistratie>20100501000000000</StUF:tijdstipRegistratie>
+			</WOZ:ligtIn>
+		</WOZ:object>
+	</WOZ:voegToeWOZ>
+</WOZ:OWOZ_Di01>
+
+    </gebeurtenisinhoud></dgl:VerstrekkingAanAfnemer>
+

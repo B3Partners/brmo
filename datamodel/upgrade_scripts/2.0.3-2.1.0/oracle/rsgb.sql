@@ -26,6 +26,20 @@ ALTER TABLE WOZ_OBJ_ARCHIEF ADD FK_VERANTW_GEM_CODE NUMERIC(4,0);
 COMMENT ON COLUMN WOZ_OBJ_ARCHIEF.WATERSCHAP IS 'ligt in waterschap (niet-RSGB)';
 COMMENT ON COLUMN WOZ_OBJ_ARCHIEF.FK_VERANTW_GEM_CODE IS 'verantwoordelijke gemeente (niet-RSGB)';
 
+-- koppeltabel voor onroerende zaak
+CREATE TABLE WOZ_OMVAT (
+    FK_SC_LH_KAD_IDENTIF NUMBER(15,0) NOT NULL,
+    FK_SC_RH_WOZ_NUMMER NUMBER(12,0) NOT NULL,
+    TOEGEKENDE_OPP NUMBER(11,0) NULL,
+    CONSTRAINT WOZ_OMVAT_PK PRIMARY KEY (FK_SC_LH_KAD_IDENTIF, FK_SC_RH_WOZ_NUMMER)
+);
+ALTER TABLE WOZ_OMVAT ADD CONSTRAINT FK_WOZ_OMVAT_SC_RH FOREIGN KEY (FK_SC_RH_WOZ_NUMMER) REFERENCES WOZ_OBJ (NUMMER) ON DELETE CASCADE;
+
+COMMENT ON COLUMN WOZ_OMVAT.FK_SC_LH_KAD_IDENTIF IS '[FK] N15, FK naar kad_onrrnd_zk.kad_identif';
+COMMENT ON COLUMN WOZ_OMVAT.FK_SC_RH_WOZ_NUMMER IS '[FK] N12, FK naar woz_obj.nummer';
+COMMENT ON COLUMN WOZ_OMVAT.TOEGEKENDE_OPP IS 'N12, toegekende oppervlakte';
+
+
 -- onderstaande dienen als laatste stappen van een upgrade uitgevoerd
 INSERT INTO brmo_metadata (naam,waarde) SELECT 'upgrade_2.0.3_naar_2.1.0','vorige versie was ' || waarde FROM brmo_metadata WHERE naam='brmoversie';
 -- versienummer update

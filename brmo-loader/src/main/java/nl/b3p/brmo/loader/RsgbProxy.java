@@ -1187,6 +1187,8 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                     stm.setNull(i + 1, Types.STRUCT, "MDSYS.SDO_GEOMETRY");
                 } else if (geomToJdbc instanceof MssqlJdbcConverter) {
                     stm.setNull(i + 1, Types.OTHER);
+                } else {
+                    stm.setNull(i + 1, stm.getParameterMetaData().getParameterType(i + 1));
                 }
             } else {
                 stm.setObject(i + 1, param);
@@ -1307,6 +1309,8 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                     stm.setNull(i + 1, Types.STRUCT, "MDSYS.SDO_GEOMETRY");
                 } else if (geomToJdbc instanceof MssqlJdbcConverter) {
                     stm.setNull(i + 1, Types.OTHER);
+                } else {
+                    stm.setNull(i + 1, stm.getParameterMetaData().getParameterType(i + 1));
                 }
             } else {
                 stm.setObject(i + 1, param);

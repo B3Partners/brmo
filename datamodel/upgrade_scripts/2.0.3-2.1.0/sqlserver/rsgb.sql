@@ -23,6 +23,17 @@ ALTER TABLE woz_obj_archief ADD fk_verantw_gem_code numeric(4) NULL;
 
 GO
 
+-- koppeltabel voor onroerende zaak
+CREATE TABLE woz_omvat (
+    fk_sc_lh_kad_identif decimal(15,0) NOT NULL,
+    fk_sc_rh_woz_nummer decimal(12,0) NOT NULL,
+    toegekende_opp numeric(11) NULL,
+    CONSTRAINT woz_omvat_pk PRIMARY KEY (fk_sc_lh_kad_identif, fk_sc_rh_woz_nummer),
+    CONSTRAINT fk_woz_omvat_sc_rh FOREIGN KEY (fk_sc_rh_woz_nummer) REFERENCES woz_obj(nummer) on delete cascade
+);
+
+GO
+
 -- onderstaande dienen als laatste stappen van een upgrade uitgevoerd
 INSERT INTO brmo_metadata (naam,waarde) SELECT 'upgrade_2.0.3_naar_2.1.0','vorige versie was ' + waarde FROM brmo_metadata WHERE naam='brmoversie';
 -- versienummer update

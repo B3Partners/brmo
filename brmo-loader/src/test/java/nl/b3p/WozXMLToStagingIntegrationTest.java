@@ -74,10 +74,10 @@ public class WozXMLToStagingIntegrationTest extends AbstractDatabaseIntegrationT
 
     static Stream<Arguments> argumentsProvider() {
         return Stream.of(
-                // {"filename", aantalBerichten, aantalLaadProcessen, objectRefs, objNummer, grondoppervlakte, gem_code, ws_code, wozBelang[rij][cols], deelObjectNums[]},
-                arguments("/woz/800000793120/204253181.xml", 1, 1, new String[]{"WOZ.WOZ.800000793120"}, "800000793120", 4000, 8000, "8106", new String[0][0], new String[0]),
-                arguments("/woz/800000793120/204325718.xml", 2, 1, new String[]{"WOZ.NPS.295f133e37f55dd610756bbb0e6eebcf0ebbc555", "WOZ.WOZ.800000200014"}, "800000200014", 500, 8000, "8106", new String[][]{{"WOZ.NPS.295f133e37f55dd610756bbb0e6eebcf0ebbc555", "800000200014", "E"}}, new String[]{"800000793120"}),
-                arguments("/woz/800000200021/204405262.xml", 2, 1, new String[]{"WOZ.NNP.428228574", "WOZ.WOZ.800000200021"}, "800000200021", 200, 8000, "8106", new String[][]{{"WOZ.NNP.428228574", "800000200021", "E"}}, new String[0])
+                // {"filename", aantalBerichten, aantalLaadProcessen, objectRefs, objNummer, grondoppervlakte, gem_code, ws_code, wozBelang[rij][cols], deelObjectNums[], wozOmvatKadIdentif[]},
+                arguments("/woz/800000793120/204253181.xml", 1, 1, new String[]{"WOZ.WOZ.800000793120"}, "800000793120", 4000, 8000, "8106", new String[0][0], new String[0], new String[]{"8000552570003"}),
+                arguments("/woz/800000793120/204325718.xml", 2, 1, new String[]{"WOZ.NPS.295f133e37f55dd610756bbb0e6eebcf0ebbc555", "WOZ.WOZ.800000200014"}, "800000200014", 500, 8000, "8106", new String[][]{{"WOZ.NPS.295f133e37f55dd610756bbb0e6eebcf0ebbc555", "800000200014", "E"}}, new String[]{"800000793120"}, new String[0]),
+                arguments("/woz/800000200021/204405262.xml", 2, 1, new String[]{"WOZ.NNP.428228574", "WOZ.WOZ.800000200021"}, "800000200021", 200, 8000, "8106", new String[][]{{"WOZ.NNP.428228574", "800000200021", "E"}}, new String[0], new String[0])
         );
     }
 
@@ -153,7 +153,8 @@ public class WozXMLToStagingIntegrationTest extends AbstractDatabaseIntegrationT
                                               Number gemCode,
                                               String wsCode,
                                               String[][] wozBelang,
-                                              String[] deelObjectNums) throws Exception {
+                                              String[] deelObjectNums,
+                                              String[] wozOmvatKadIdentif) throws Exception {
 
         brmo.loadFromFile(BrmoFramework.BR_WOZ, WozXMLToStagingIntegrationTest.class.getResource(bestandNaam).getFile(), null);
 
@@ -205,6 +206,12 @@ public class WozXMLToStagingIntegrationTest extends AbstractDatabaseIntegrationT
                     assertEquals(wozBelang[row][i], woz_belang.getValue(0, woz_belang_cols[i].getColumnName()).toString(), "woz belang " + woz_belang_cols[i].getColumnName() + " is niet correct");
                 }
             }
+        }
+
+        ITable woz_omvat =rsgb.createDataSet().getTable("woz_omvat");
+        assertEquals(wozOmvatKadIdentif.length, woz_omvat.getRowCount(), "Het aantal 'woz_omvat' klopt niet");
+        for (int i = 0; i < wozOmvatKadIdentif.length; i++) {
+            assertEquals(wozOmvatKadIdentif[i], woz_omvat.getValue(i, "fk_sc_lh_kad_identif").toString(), "kad-identif nummer is niet correct");
         }
 
         ITable woz_waarde = rsgb.createDataSet().getTable("woz_waarde");

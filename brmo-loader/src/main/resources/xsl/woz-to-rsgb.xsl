@@ -188,6 +188,20 @@
                 <xsl:with-param name="key" select="$key"/>
             </xsl:call-template>
         </xsl:for-each>
+
+        <xsl:for-each select="woz:omvat/woz:gerelateerde/bg:kadastraleIdentificatie">
+            <woz_omvat>
+                <fk_sc_lh_kad_identif>
+                    <xsl:value-of select="."/>
+                </fk_sc_lh_kad_identif>
+                <fk_sc_rh_woz_nummer>
+                    <xsl:value-of select="$objectNum"/>
+                </fk_sc_rh_woz_nummer>
+                <toegekende_opp>
+                    <xsl:value-of select="../../woz:toegekendeOppervlakte"/>
+                </toegekende_opp>
+            </woz_omvat>
+        </xsl:for-each>
     </xsl:template>
 
     <xsl:template name="sluimerendObject">
