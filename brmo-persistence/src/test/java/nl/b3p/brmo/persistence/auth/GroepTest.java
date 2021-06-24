@@ -26,7 +26,8 @@ public class GroepTest extends TestUtil {
     public void testGroepMetGebruiker() throws Exception {
         Gebruiker gebA = new Gebruiker();
         gebA.setGebruikersnaam("Gangsta Rapper");
-        gebA.changePassword("topsecret");
+        // topsecret
+        gebA.setWachtwoord("8fa631010049979238a9cd090e389b43$100000$eb75b4879b4e159289091933a86ce7901eca6d0067f04ebabc5cb96af84e3ba1");
 
         Groep g = new Groep();
         g.setBeschrijving(TestUtil.NAAM_BESCHIJVING);

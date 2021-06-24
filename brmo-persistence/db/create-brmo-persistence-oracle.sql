@@ -178,5 +178,5 @@ COMMENT ON TABLE BRMO_METADATA IS 'BRMO metadata en versie gegevens';
 INSERT INTO brmo_metadata (naam, waarde) VALUES ('brmoversie','${project.version}');
 
 INSERT INTO groep_ VALUES ('Admin', 'Groep met toegang tot BRMO service');
-INSERT INTO gebruiker_ VALUES ('brmo', '6310227872580fec7d1262ab7ab3b4b3902a9f61');
+INSERT INTO gebruiker_ VALUES ('brmo', '0109136bbd27819aec7b62c4711ddbea$100000$229427c57aaf1120ed38e4dd546248a669d27777ec2ef88c2b3d0854a17c75c9');
 INSERT INTO gebruiker_groepen VALUES ('brmo', 'Admin');
