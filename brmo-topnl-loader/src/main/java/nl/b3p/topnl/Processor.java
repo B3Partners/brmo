@@ -16,6 +16,7 @@
  */
 package nl.b3p.topnl;
 
+import org.jdom2.JDOMException;
 import org.locationtech.jts.io.ParseException;
 import java.io.IOException;
 import java.net.URL;
@@ -41,7 +42,6 @@ import nl.b3p.topnl.converters.ConverterFactory;
 import nl.b3p.topnl.entities.TopNLEntity;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.jdom2.JDOMException;
 import org.xml.sax.SAXException;
 
 /**
