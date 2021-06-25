@@ -18,8 +18,8 @@
                allRolesMode="authOnly"
                localDataSource="${tomcat.localDatasource}"
         >
-            <CredentialHandler className="org.apache.catalina.realm.MessageDigestCredentialHandler"
-                               algorithm="SHA-1"
+            <CredentialHandler className="org.apache.catalina.realm.SecretKeyCredentialHandler"
+                               algorithm="PBKDF2WithHmacSHA512"
             />
         </Realm>
     </Realm>

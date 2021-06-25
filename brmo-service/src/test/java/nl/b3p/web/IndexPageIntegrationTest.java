@@ -63,7 +63,7 @@ public class IndexPageIntegrationTest extends WebTestUtil {
     public void testDefaultUserPresent() throws SQLException {
         // staat in /brmo-persistence/db/create-brmo-persistence-XXXXX.sql
         String default_gebruikersnaam = "brmo";
-        String default_hash = "6310227872580fec7d1262ab7ab3b4b3902a9f61";
+        String default_hash = "0109136bbd27819aec7b62c4711ddbea$100000$229427c57aaf1120ed38e4dd546248a669d27777ec2ef88c2b3d0854a17c75c9";
 
         try {
             Class.forName(DBPROPS.getProperty("jdbc.driverClassName"));

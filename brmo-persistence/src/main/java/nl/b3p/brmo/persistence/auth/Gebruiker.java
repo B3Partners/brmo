@@ -16,18 +16,15 @@
  */
 package nl.b3p.brmo.persistence.auth;
 
-import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  *
@@ -37,10 +34,6 @@ import javax.persistence.Table;
 @Table(name = "gebruiker_")
 public class Gebruiker implements Serializable {
 
-    public static final int MIN_PASSWORD_LENGTH = 8;
-    private static final String DIGEST_ALGORITM = "SHA-1";
-    private static final String DIGEST_CHARSET = "UTF-8";
-
     @Id
     private String gebruikersnaam;
 
@@ -48,33 +41,18 @@ public class Gebruiker implements Serializable {
 
     @ManyToMany
     @JoinTable(name = "gebruiker_groepen", joinColumns = @JoinColumn(name = "gebruikersnaam"), inverseJoinColumns = @JoinColumn(name = "groep_"))
-    private Set<Groep> groepen = new HashSet<Groep>();
-
-    /**
-     *
-     * @param password wachtwoord
-     * @throws NoSuchAlgorithmException als er geen DIGEST_ALGORITM bestaat
-     * @throws UnsupportedEncodingException als er een onbekende encodingsfout
-     * optreedt
-     */
-    public void changePassword(String password) throws NoSuchAlgorithmException, UnsupportedEncodingException {
-        MessageDigest md = (MessageDigest) MessageDigest.getInstance(DIGEST_ALGORITM);
-        md.update(password.getBytes(DIGEST_CHARSET));
-        byte[] digest = md.digest();
-
-        /* Converteer byte array naar hex-weergave */
-        StringBuilder sb = new StringBuilder(digest.length * 2);
-        for (int i = 0; i < digest.length; i++) {
-            sb.append(Integer.toHexString(digest[i] >> 4 & 0xf)); /* and mask met 0xf nodig door sign-extenden van bytes... */
-            sb.append(Integer.toHexString(digest[i] & 0xf));
-        }
-        setWachtwoord(sb.toString());
-    }
+    private Set<Groep> groepen = new HashSet<>();
 
     public String getWachtwoord() {
         return wachtwoord;
     }
 
+    /**
+     * Stel nieuw wachtwoord in. Het versleutelen van het wachtwoord naar een hash dient al uitgevoerd te zijn en
+     * moet conform de geconfigureerde {@code CredentialHandler} van de security realm gedaan zijn om te kunnen werken.
+     *
+     * @param wachtwoord een versleuteld/gehashed wachtwoord
+     */
     public void setWachtwoord(String wachtwoord) {
         this.wachtwoord = wachtwoord;
     }
