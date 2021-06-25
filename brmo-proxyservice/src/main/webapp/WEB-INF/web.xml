@@ -50,5 +50,30 @@
         <servlet-name>BAG_file</servlet-name>
         <!-- <servlet-name>BAG_proxy</servlet-name> -->
         <url-pattern>/post/bag</url-pattern>
-    </servlet-mapping>       
+    </servlet-mapping>
+
+    <error-page>
+        <error-code>400</error-code>
+        <location>/error.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>403</error-code>
+        <location>/error.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/error.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>415</error-code>
+        <location>/error.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/error.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>503</error-code>
+        <location>/error.jsp</location>
+    </error-page>
 </web-app>
