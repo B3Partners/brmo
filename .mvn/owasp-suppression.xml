@@ -86,4 +86,14 @@
         <cve>CVE-2020-7712</cve>
     </suppress>
 
+    <suppress>
+        <notes><![CDATA[
+            TopNL loader gebruikt de (kwetsbare) org.jdom2.input.SAXBuilder, maar is juist geconfigureerd.
+            Zie https://github.com/B3Partners/brmo/pull/1110
+            file name: jdom2-2.0.6.jar
+   ]]></notes>
+        <packageUrl regex="true">^pkg:maven/org\.jdom/jdom2@.*$</packageUrl>
+        <cve>CVE-2021-33813</cve>
+    </suppress>
+
 </suppressions>

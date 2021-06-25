@@ -35,12 +35,20 @@ public class TopNLTypeFactory {
     private static final String TOP10NLNAMESPACE = "http://register.geostandaarden.nl/gmlapplicatieschema/top10nl/1.2.0";
 
     public static TopNLType getTopNLType(URL is) throws JDOMException, IOException {
-        Document inputXml = new SAXBuilder().build(is);
+        SAXBuilder saxBuilder = new SAXBuilder();
+        saxBuilder.setFeature("http://xml.org/sax/features/external-general-entities", true);
+        saxBuilder.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+        saxBuilder.setExpandEntities(false);
+        Document inputXml = saxBuilder.build(is);
         return getTopNLType(inputXml);       
     }
     
     public static TopNLType getTopNLType(String is) throws JDOMException, IOException {
-        Document inputXml = new SAXBuilder().build(is);
+        SAXBuilder saxBuilder = new SAXBuilder();
+        saxBuilder.setFeature("http://xml.org/sax/features/external-general-entities", true);
+        saxBuilder.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+        saxBuilder.setExpandEntities(false);
+        Document inputXml = saxBuilder.build(is);
         return getTopNLType(inputXml);
     }
 

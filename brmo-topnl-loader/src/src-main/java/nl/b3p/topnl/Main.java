@@ -28,7 +28,6 @@ import javax.xml.transform.TransformerException;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.jdom2.JDOMException;
 import org.xml.sax.SAXException;
 
 /**
@@ -44,7 +43,7 @@ public class Main {
     //     <artifactId>commons-dbcp2</artifactId>
     // </dependency>
 
-    public static void main (String[] args) throws IOException, JAXBException, ParseException, SQLException, JDOMException{
+    public static void main (String[] args) throws Exception{
         try {
             BasicDataSource ds = new BasicDataSource();
             ds.setUrl("jdbc:postgresql://localhost:5432/topnl");
@@ -70,7 +69,7 @@ public class Main {
         }
     }
     
-    private static void loadtopnl(String dir, Processor p, TopNLType type)  throws ParseException, IOException, SAXException, ParserConfigurationException, JAXBException, TransformerException, JDOMException {
+    private static void loadtopnl(String dir, Processor p, TopNLType type)  throws Exception{
         File f = new File (dir);
         FilenameFilter filter = (dir1, name) -> name.toLowerCase().endsWith(".gml");
         /*File f = new File("/mnt/data/Documents/TopNL/TOP100NL_GML_Filechunks_november_2016/TOP100NL_GML_Filechunks/Top100NL_000002.gml");
@@ -82,7 +81,7 @@ public class Main {
         }
     }
 
-    private static void process(String file,  Processor p, TopNLType type) throws ParseException, IOException, SAXException, ParserConfigurationException, JAXBException, TransformerException, JDOMException {
+    private static void process(String file,  Processor p, TopNLType type) throws Exception {
         URL in = Main.class.getResource(file);
         p.importIntoDb(in, type);
        /* List obj = p.parse(in, type);
