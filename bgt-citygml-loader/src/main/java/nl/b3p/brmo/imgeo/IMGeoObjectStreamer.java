@@ -28,6 +28,8 @@ import java.util.Queue;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
+import static nl.b3p.brmo.imgeo.IMGeoSchema.fixUUID;
+
 public class IMGeoObjectStreamer implements Iterable<IMGeoObject> {
     private static final String NS_IMGEO = "http://www.geostandaarden.nl/imgeo/2.1";
     private static final String NS_CITYGML = "http://www.opengis.net/citygml/2.0";
@@ -127,7 +129,7 @@ public class IMGeoObjectStreamer implements Iterable<IMGeoObject> {
 
                     final String name = cityObjectMemberChild.getLocalName();
                     final Location location = cityObjectMemberChild.getCursorLocation();
-                    attributes.put("gmlId", cityObjectMemberChild.getAttrValue(NS_GML, "id"));
+                    attributes.put("gmlId", fixUUID(cityObjectMemberChild.getAttrValue(NS_GML, "id")));
 
                     SMInputCursor attributesCursor = cityObjectMemberChild.childElementCursor();
 

@@ -49,7 +49,7 @@ public class IMGeoSchema {
     public static Map<String, List<AttributeColumnMapping>> objectTypeAttributes = new HashMap<>();
 
     public static List<AttributeColumnMapping> baseAttributes = Arrays.asList(
-            new AttributeColumnMapping("gmlId", "varchar(255)", true, true),
+            new AttributeColumnMapping("gmlId", "char(32)", true, true),
             new AttributeColumnMapping("identificatie"),
             new SimpleDateFormatAttributeColumnMapping("LV-publicatiedatum", "timestamp", PATTERN_XML_TIMESTAMP),
             new SimpleDateFormatAttributeColumnMapping("creationDate", "date", PATTERN_XML_DATE),
@@ -291,5 +291,21 @@ public class IMGeoSchema {
         Set<String> s = new HashSet<>(objectTypeAttributes.keySet());
         s.removeAll(bgtObjectTypes);
         return s;
+    }
+
+    /**
+     * CityGML gml:id's hebben in IMGeo bestanden soms een extra 'b' voor het UUID, blijkelijk zodat in mutatiebestanden
+     * geen dubbele id attributen voorkomen. Deze methode stript de extra 'b' en eventuele streepjes en maakt alles
+     * lowercase.
+     */
+    public static String fixUUID(final String uuidParam) {
+        String uuid = uuidParam.replaceAll("-", "").toLowerCase();
+        if (uuid.length() == 33 && uuid.charAt(0) == 'b') {
+            return uuid.substring(1);
+        }
+        if (uuid.length() != 32) {
+            throw new IllegalArgumentException("Invalid UUID: " + uuidParam);
+        }
+        return uuid;
     }
 }
