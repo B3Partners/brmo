@@ -40,7 +40,7 @@ public class RsgbWOZTransformer extends RsgbTransformer {
     protected static Document merge(String oldFile, String newFile) throws XPathExpressionException, ParserConfigurationException, IOException, SAXException {
         XPathFactory xPathFactory = XPathFactory.newInstance();
         XPath xpath = xPathFactory.newXPath();
-        XPathExpression expression = xpath.compile("/root/object");
+        XPathExpression expression = xpath.compile("/root/data");
 
         DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
         // to prevent XXE
@@ -48,7 +48,7 @@ public class RsgbWOZTransformer extends RsgbTransformer {
         docBuilderFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
         docBuilderFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
         docBuilderFactory.setIgnoringElementContentWhitespace(true);
-        docBuilderFactory.setNamespaceAware(true);
+        docBuilderFactory.setNamespaceAware(false);
 
         DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
         Document base = docBuilder.parse(new InputSource(new StringReader(oldFile)));
@@ -136,15 +136,26 @@ public class RsgbWOZTransformer extends RsgbTransformer {
 
         LOG.debug("actuele bericht is: " + bericht);
         try {
-            Bericht old = staging.getPreviousBericht(bericht, loadLog);
-            LOG.debug("oude bericht is: " + old);
-            if (old != null) {
-                Document d = merge(old.getDbXml(), current);
+            Bericht previousBericht = staging.getPreviousBericht(bericht, loadLog);
+            if (previousBericht != null) {
+                LOG.debug("vorige bericht is: " + previousBericht);
+                String oldDBXml = previousBericht.getDbXml();
+                if (null == oldDBXml) {
+                    // TODO mogelijk op te lossen door previousBericht nogmaals te transformeren via
+                    //      oldDBXml = super.transformToDbXml(previousBericht);
+                    //      voor nu zetten we de pipelining.enabled op false in de web.xml/context.xml
+                    //      .
+                    //      Het probleem is dat het vorige bericht nog in de pipeline kan zitten en niet committed
+                    //      is naar de bericht tabel
+                    LOG.warn("Er is wel een vorige bericht, maar de DB_XML ontbreekt");
+                }
+                Document d = merge(oldDBXml, current);
+
                 String mergedDBXML = print(d);
                 bericht.setDbXml(mergedDBXML);
                 current = mergedDBXML;
             }
-        } catch (SQLException | XPathExpressionException | ParserConfigurationException ex) {
+        } catch (SQLException | XPathExpressionException | ParserConfigurationException | IOException | SAXException ex) {
             LOG.error("Vorige bericht kon niet worden opgehaald: ", ex);
         }
 

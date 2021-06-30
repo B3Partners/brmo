@@ -63,7 +63,7 @@ public class WozXMLReader extends BrmoXMLReader {
         Document doc = builder.parse(in);
 
         brOrigXML = bos.toString(StandardCharsets.UTF_8.name());
-        LOG.debug("Originele WOZ xml is: \n" + brOrigXML);
+        LOG.trace("Originele WOZ xml is: \n" + brOrigXML);
 
         TransformerFactory tf = TransformerFactory.newInstance();
         tf.setURIResolver((href, base) -> {
@@ -126,14 +126,15 @@ public class WozXMLReader extends BrmoXMLReader {
 
         WozBericht b = new WozBericht(brXML);
         if (index == 1) {
-            // alleen op 1e brmo bericht van mogelijk meer uit originele soap bericht
+            // alleen op 1e brmo bericht van mogelijk meer uit originele bericht
             b.setBrOrgineelXml(brOrigXML);
         }
         // TODO volgorde nummer:
-        //  bepaal aan de hand van de objectref of volgordenummer opgehoogd moet worden. Een soap bericht kan meerdere
+        //  bepaal aan de hand van de object_ref of volgordenummer opgehoogd moet worden. Een soap bericht kan meerdere
         //  object entiteiten bevatten die een eigen type objectref krijgen. bijv. een entiteittype="WOZ" en een entiteittype="NPS"
         //  bovendien kan een entiteittype="WOZ" een genests gerelateerde hebben die een apart bericht moet/zou kunnen opleveren met objectref
         //  van een NPS, maar met een hoger volgordenummer...
+        //  vooralsnog halen we niet de geneste entiteiten uit het bericht
         b.setVolgordeNummer(index);
 
         b.setObjectRef(object_ref);

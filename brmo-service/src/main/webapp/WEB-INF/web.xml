@@ -5,9 +5,10 @@
          version="3.0"
          metadata-complete="true">
     <context-param>
-        <description>Gebruik multithreaded XSL transformatie/GML parse pipeline</description>
+        <description>Gebruik multithreaded XSL transformatie/GML parse pipeline. Om op correcte wijze WOZ en BRP
+            berichten te kunnen verwerken dient deze op false te worden ingesteld - omdat deze geen was/wordt leveren, maar een toestand</description>
         <param-name>pipelining.enabled</param-name>
-        <param-value>true</param-value>
+        <param-value>false</param-value>
     </context-param>
     <context-param>
         <description>Capaciteit van de pipeline (aantal getransformeerde berichten)</description>
@@ -30,7 +31,8 @@
         <param-value>ignore</param-value>
     </context-param>
     <context-param>
-        <description>Maximum aantal te verwerken stand berichten per transformatie run, gebruik een waarde kleiner of gelijk aan 0 om uit te schakelen</description>
+        <description>Maximum aantal te verwerken stand berichten per transformatie run, gebruik een waarde kleiner of gelijk
+            aan 0 om uit te schakelen. Op snelle PostgreSQL databases kan deze altijd op -1, bij Oracle vrijwel nooit.</description>
         <param-name>stand.transform.max</param-name>
         <param-value>1000000</param-value>
     </context-param>
@@ -41,9 +43,10 @@
         <param-value>/tmp/brkmutaties</param-value>
     </context-param>
     <context-param>
-        <description>Aantal uitvoerende threads voor ingeplande taken. Default waarde is 1, bij hogere waarden dient de gebruiker er voor te zorgen dat er geen
-            in de tijd overlappende transformatie of GDS2 processen van eenzelfde type, bijvoorbeeld berichten, lopen.
-            Het verhogen is met name zinvol voor BGT light download processen.</description>
+        <description>Aantal uitvoerende threads voor ingeplande taken. Default waarde is 1, bij hogere waarden dient de
+            gebruiker er voor te zorgen dat er geen in de tijd overlappende transformatie of GDS2 processen van
+            eenzelfde type, bijvoorbeeld berichten, lopen. Het verhogen is met name zinvol voor BGT light
+            download processen.</description>
         <param-name>quartz.threadCount</param-name>
         <param-value>1</param-value>
     </context-param>
@@ -185,9 +188,6 @@
         </web-resource-collection>
     </security-constraint>
     <login-config>
-        <!-- BASIC is useful during development with lots of redeploys, use
-             FORM for production
-        -->
         <auth-method>FORM</auth-method>
         <form-login-config>
             <form-login-page>/login.jsp</form-login-page>
@@ -226,6 +226,10 @@
     </error-page>
     <error-page>
         <error-code>503</error-code>
+        <location>/WEB-INF/jsp/error.jsp</location>
+    </error-page>
+    <error-page>
+        <exception-type>java.lang.NullPointerException</exception-type>
         <location>/WEB-INF/jsp/error.jsp</location>
     </error-page>
 </web-app>
