@@ -4,6 +4,7 @@ import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.loader.updates.UpdateProcess;
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.loader.util.DataComfortXMLReader;
+import nl.b3p.brmo.loader.util.RsgbBRPTransformer;
 import nl.b3p.brmo.loader.util.RsgbTransformer;
 import nl.b3p.brmo.loader.util.RsgbWOZTransformer;
 import nl.b3p.brmo.loader.util.TableData;

@@ -1,4 +1,4 @@
-package nl.b3p.brmo.loader;
+package nl.b3p.brmo.loader.util;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -18,8 +18,9 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathFactory;
+
+import nl.b3p.brmo.loader.StagingProxy;
 import nl.b3p.brmo.loader.entity.Bericht;
-import nl.b3p.brmo.loader.util.RsgbTransformer;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.Document;

@@ -1,4 +1,4 @@
- package nl.b3p.brmo.loader;
+ package nl.b3p.brmo.loader.util;
 
  import org.apache.commons.io.IOUtils;
  import org.junit.jupiter.api.Disabled;
