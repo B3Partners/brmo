@@ -117,25 +117,28 @@
             </fk_verantw_gem_code>
         </woz_obj>
 
-        <woz_waarde column-dat-beg-geldh="waardepeildatum">
-            <waardepeildatum>
-                <xsl:for-each select="woz:waardepeildatum">
-                    <xsl:call-template name="date-numeric"/>
-                </xsl:for-each>
-            </waardepeildatum>
-            <status_beschikking>
-                <xsl:value-of select="woz:isBeschiktVoor/woz:statusBeschikking"/>
-            </status_beschikking>
-            <toestandspeildatum>
-                <xsl:value-of select="woz:toestandspeildatum"/>
-            </toestandspeildatum>
-            <vastgestelde_waarde>
-                <xsl:value-of select="woz:vastgesteldeWaarde"/>
-            </vastgestelde_waarde>
-            <fk_1woz_nummer>
-                <xsl:value-of select="$objectNum"/>
-            </fk_1woz_nummer>
-        </woz_waarde>
+        <!-- conditioneel, alleen als er een waardepeildatum is... -->
+        <xsl:if test="woz:waardepeildatum">
+            <woz_waarde column-dat-beg-geldh="waardepeildatum">
+                <waardepeildatum>
+                    <xsl:for-each select="woz:waardepeildatum">
+                        <xsl:call-template name="date-numeric"/>
+                    </xsl:for-each>
+                </waardepeildatum>
+                <status_beschikking>
+                    <xsl:value-of select="woz:isBeschiktVoor/woz:statusBeschikking"/>
+                </status_beschikking>
+                <toestandspeildatum>
+                    <xsl:value-of select="woz:toestandspeildatum"/>
+                </toestandspeildatum>
+                <vastgestelde_waarde>
+                    <xsl:value-of select="woz:vastgesteldeWaarde"/>
+                </vastgestelde_waarde>
+                <fk_1woz_nummer>
+                    <xsl:value-of select="$objectNum"/>
+                </fk_1woz_nummer>
+            </woz_waarde>
+        </xsl:if>
 
         <!-- conditioneel, alleen als er een brondocument identificatie is -->
         <xsl:if test="woz:isBeschiktVoor/woz:brondocument/bg:identificatie">
