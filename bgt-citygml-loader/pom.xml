@@ -11,6 +11,10 @@
   </parent>
   <name>BRMO BGT / IMGeo CityGML loader</name>
 
+  <properties>
+    <project.build.lib-dir>lib</project.build.lib-dir>
+  </properties>
+
   <dependencies>
     <dependency>
       <groupId>org.geotools</groupId>
@@ -84,40 +88,114 @@
       <groupId>nl.b3p</groupId>
       <artifactId>jdbc-util</artifactId>
     </dependency>
+    <dependency>
+      <groupId>info.picocli</groupId>
+      <artifactId>picocli</artifactId>
+      <version>4.6.1</version>
+    </dependency>
   </dependencies>
 
   <build>
-    <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
+
+    <plugins>
+      <plugin>
+        <artifactId>maven-dependency-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>io.fabric8</groupId>
+        <artifactId>docker-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>pl.project13.maven</groupId>
+        <artifactId>git-commit-id-plugin</artifactId>
+      </plugin>
+    </plugins>
+
+    <pluginManagement>
       <plugins>
-        <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
         <plugin>
-          <artifactId>maven-clean-plugin</artifactId>
+          <groupId>pl.project13.maven</groupId>
+          <artifactId>git-commit-id-plugin</artifactId>
+          <executions>
+            <execution>
+              <goals>
+                <goal>revision</goal>
+              </goals>
+            </execution>
+          </executions>
+          <configuration>
+            <offline>true</offline>
+            <failOnNoGitDirectory>false</failOnNoGitDirectory>
+            <includeOnlyProperties>
+              <includeOnlyProperty>^git.commit.id.describe$</includeOnlyProperty>
+            </includeOnlyProperties>
+          </configuration>
         </plugin>
-        <!-- default lifecycle, jar packaging: see https://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_jar_packaging -->
         <plugin>
           <artifactId>maven-resources-plugin</artifactId>
-        </plugin>
-        <plugin>
-          <artifactId>maven-compiler-plugin</artifactId>
-        </plugin>
-        <plugin>
-          <artifactId>maven-surefire-plugin</artifactId>
+          <configuration>
+            <resources>
+              <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                  <include>**/*.properties</include>
+                </includes>
+              </resource>
+            </resources>
+            <encoding>UTF-8</encoding>
+            <propertiesEncoding>UTF-8</propertiesEncoding>
+          </configuration>
         </plugin>
         <plugin>
           <artifactId>maven-jar-plugin</artifactId>
+          <configuration>
+            <archive>
+              <manifest>
+                <mainClass>nl.b3p.brmo.imgeo.BGTLoaderMain</mainClass>
+                <addClasspath>true</addClasspath>
+                <useUniqueVersions>false</useUniqueVersions> <!-- https://issues.apache.org/jira/browse/MJAR-156 -->
+                <classpathPrefix>${project.build.lib-dir}/</classpathPrefix>
+              </manifest>
+            </archive>
+          </configuration>
         </plugin>
         <plugin>
-          <artifactId>maven-install-plugin</artifactId>
+          <artifactId>maven-dependency-plugin</artifactId>
+          <configuration>
+            <includeScope>runtime</includeScope>
+            <outputDirectory>${project.build.directory}/${project.build.lib-dir}</outputDirectory>
+          </configuration>
+          <executions>
+            <execution>
+              <phase>package</phase>
+              <goals>
+                <goal>copy-dependencies</goal>
+              </goals>
+            </execution>
+          </executions>
         </plugin>
         <plugin>
-          <artifactId>maven-deploy-plugin</artifactId>
-        </plugin>
-        <!-- site lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#site_Lifecycle -->
-        <plugin>
-          <artifactId>maven-site-plugin</artifactId>
-        </plugin>
-        <plugin>
-          <artifactId>maven-project-info-reports-plugin</artifactId>
+          <groupId>io.fabric8</groupId>
+          <artifactId>docker-maven-plugin</artifactId>
+          <configuration>
+            <verbose>true</verbose>
+            <skip>false</skip>
+            <images>
+              <image>
+                <name>b3partners/%a:%l</name>
+              </image>
+            </images>
+          </configuration>
+          <executions>
+            <execution>
+              <id>docker-build</id>
+              <phase>package</phase>
+              <goals>
+                <goal>build</goal>
+              </goals>
+            </execution>
+          </executions>
         </plugin>
       </plugins>
     </pluginManagement>
