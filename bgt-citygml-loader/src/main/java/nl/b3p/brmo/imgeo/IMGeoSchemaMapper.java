@@ -50,44 +50,21 @@ public class IMGeoSchemaMapper {
         objectTypeNameToDutchTableName = Collections.unmodifiableMap(objectTypeNameToDutchTableName);
     }
 
-    // map column names -> snake case, voor sld, voor oracle, mssql
-
-    public static void main(String[] args) throws IOException {
-        if (args.length > 2) {
-            System.err.println("Error: expected zero or one argument");
-            System.exit(1);
-        }
-        SQLDialect dialect = new OracleDialect(null);
-//        SQLDialect dialect = new MSSQLDialect();
-//        SQLDialect dialect = new PostGISDialect();
-        Set<String> objectTypes = getAllObjectTypes();
-        // TODO gebruik library voor command line opties
-        if (args.length == 1) {
-            switch(args[0]) {
-                // TODO metadata tabellen
-                case "--bgt":
-                    objectTypes = getOnlyBGTObjectTypes();
-                    break;
-                case "--plus":
-                    objectTypes = getIMGeoPlusObjectTypes();
-                    break;
-                case "--all":
-                    objectTypes = getAllObjectTypes();
-                    break;
-                default:
-                    System.err.println("Error: invalid argument, expected --bgt, --plus or --all");
-                    System.exit(1);
-            }
+    public static void printSchema(SQLDialect dialect, boolean bgt, boolean plus) {
+        Set<String> objectTypes = null;
+        if (bgt && plus) {
+            objectTypes = getAllObjectTypes();
+        } else if (bgt) {
+            objectTypes = getOnlyBGTObjectTypes();
+        } else if (plus) {
+            objectTypes = getIMGeoPlusObjectTypes();
         }
 
-        objectTypes.stream().sorted().forEach(name -> {
-            System.out.println(createTable(name, dialect));
-        });
+        assert objectTypes != null;
+        objectTypes.stream().sorted().forEach(name -> System.out.println(createTable(name, dialect)));
         StringBuilder geometryMetadata = new StringBuilder();
         StringBuilder geometryIndexes = new StringBuilder();
-        objectTypes.stream().sorted().forEach(name -> {
-            createGeometryMetadataAndIndexes(name, dialect, geometryMetadata, geometryIndexes);
-        });
+        objectTypes.stream().sorted().forEach(name -> createGeometryMetadataAndIndexes(name, dialect, geometryMetadata, geometryIndexes));
         if (geometryMetadata.length() > 0) {
             System.out.println("-- Geometry metadata\n");
             System.out.println(geometryMetadata);
