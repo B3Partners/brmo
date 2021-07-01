@@ -5,6 +5,7 @@ import org.geotools.geometry.jts.WKTWriter2;
 import org.locationtech.jts.geom.Geometry;
 import org.postgresql.util.PGobject;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 
 public class PostGISDialect implements SQLDialect{
@@ -12,7 +13,12 @@ public class PostGISDialect implements SQLDialect{
     private final WKTWriter2 wktWriter2 = new WKTWriter2();
 
     @Override
-    public Object getGeometryParameter(Geometry geometry, boolean linearizeCurves) throws SQLException {
+    public void loadDriver() throws ClassNotFoundException {
+        Class.forName("org.postgresql.Driver");
+    }
+
+    @Override
+    public Object getGeometryParameter(Connection c, Geometry geometry, boolean linearizeCurves) throws SQLException {
         if(geometry == null) {
             return null;
         } else {
@@ -27,5 +33,10 @@ public class PostGISDialect implements SQLDialect{
     public String getCreateGeometryIndex(String tableName, String geometryColumn, String type) {
         return String.format("create index idx_%s_%s on %s using gist (%s);",
             tableName, geometryColumn, tableName, geometryColumn);
+    }
+
+    @Override
+    public int getDefaultOptimalBatchSize() {
+        return 2500;
     }
 }
