@@ -60,7 +60,7 @@ public class InsertBatch {
             try {
                 int pmdType = parameterTypes != null ? parameterTypes[i] : Types.VARCHAR;
                 if (geometryParameterIndexes[i]) {
-                    dialect.setGeometryParameter(ps, parameterIndex, pmdType, (Geometry) params[i], linearizeCurves);
+                    dialect.setGeometryParameter(c, ps, parameterIndex, pmdType, (Geometry) params[i], linearizeCurves);
                 } else {
                     if (params[i] != null) {
                         ps.setObject(parameterIndex, params[i]);

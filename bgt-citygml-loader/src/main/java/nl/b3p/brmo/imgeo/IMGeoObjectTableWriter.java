@@ -4,7 +4,6 @@ import nl.b3p.brmo.sql.AttributeColumnMapping;
 import nl.b3p.brmo.sql.GeometryAttributeColumnMapping;
 import nl.b3p.brmo.sql.InsertBatch;
 import nl.b3p.brmo.sql.OneToManyColumnMapping;
-import nl.b3p.brmo.sql.dialect.PostGISDialect;
 import nl.b3p.brmo.sql.dialect.SQLDialect;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.io.input.CountingInputStream;
@@ -12,7 +11,6 @@ import org.apache.commons.io.input.CountingInputStream;
 import java.io.File;
 import java.io.InputStream;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,24 +27,21 @@ import static nl.b3p.brmo.imgeo.IMGeoSchemaMapper.getTableNameForObjectType;
 
 public class IMGeoObjectTableWriter {
 
-    private static final int batchSize = 2500;
-    private static final int objectLimit = 10000;
-
     private final Connection c;
-
     private final SQLDialect dialect;
 
-    private static boolean linearizeCurves = false;
-
-    private static boolean currentObjectsOnly = true;
+    private int batchSize = 100;
+    private Integer objectLimit = null;
+    private boolean linearizeCurves = false;
+    private boolean currentObjectsOnly = true;
 
     private CountingInputStream counter;
     private long size;
 
     private Map<String,InsertBatch> batches = new HashMap<>();
 
-    private long objects = 0;
-    private long endedObjects = 0;
+    private long objectCount = 0;
+    private long endedObjectsCount = 0;
     private long intermediateStartTime = -1;
     private long intermediateCount = 0;
     private long intermediateObjects = 0;
@@ -59,6 +54,46 @@ public class IMGeoObjectTableWriter {
         this.dialect = dialect;
     }
 
+    public int getBatchSize() {
+        return batchSize;
+    }
+
+    public void setBatchSize(int batchSize) {
+        this.batchSize = batchSize;
+    }
+
+    public Integer getObjectLimit() {
+        return objectLimit;
+    }
+
+    public void setObjectLimit(Integer objectLimit) {
+        this.objectLimit = objectLimit;
+    }
+
+    public boolean isLinearizeCurves() {
+        return linearizeCurves;
+    }
+
+    public void setLinearizeCurves(boolean linearizeCurves) {
+        this.linearizeCurves = linearizeCurves;
+    }
+
+    public boolean isCurrentObjectsOnly() {
+        return currentObjectsOnly;
+    }
+
+    public void setCurrentObjectsOnly(boolean currentObjectsOnly) {
+        this.currentObjectsOnly = currentObjectsOnly;
+    }
+
+    public long getObjectCount() {
+        return objectCount;
+    }
+
+    public long getEndedObjectsCount() {
+        return endedObjectsCount;
+    }
+
     private void updateProgress() {
         long interval = System.currentTimeMillis() - intermediateStartTime;
         if (interval > 1000) {
@@ -68,14 +103,13 @@ public class IMGeoObjectTableWriter {
             System.out.printf("\r%3.1f%%, read %.0f MiB, %d objects, %.1f MiB/s, %.0f objects/s         ",
                     percent,
                     byteCount / 1024.0 / 1024,
-                    objects,
+                    objectCount,
                     (byteCount - intermediateCount) / 1024.0 / 1024 / seconds,
-                    (objects - intermediateObjects) / seconds);
-            intermediateObjects = objects;
+                    (objectCount - intermediateObjects) / seconds);
+            intermediateObjects = objectCount;
             intermediateCount = counter.getByteCount();
             intermediateStartTime = System.currentTimeMillis();
         }
-
     }
 
     private void addObjectBatch(IMGeoObject object) throws Exception {
@@ -152,8 +186,8 @@ public class IMGeoObjectTableWriter {
 
             IMGeoObjectStreamer streamer = new IMGeoObjectStreamer(counter);
 
-            objects = 0;
-            endedObjects = 0;
+            objectCount = 0;
+            endedObjectsCount = 0;
             boolean log = false;
             long startTime = System.currentTimeMillis();
             intermediateStartTime = startTime;
@@ -163,14 +197,14 @@ public class IMGeoObjectTableWriter {
             for (IMGeoObject object: streamer) {
 
                 if (object.getAttributes().get(EIND_REGISTRATIE) != null && currentObjectsOnly) {
-                    endedObjects++;
+                    endedObjectsCount++;
                     continue;
                 }
 
-                objects++;
+                objectCount++;
 
                 if (log) System.out.printf("cityObjectMember #%d: %s\n",
-                        objects,
+                        objectCount,
                         object);
 
                 try {
@@ -183,7 +217,7 @@ public class IMGeoObjectTableWriter {
                     throw new Exception(message + object, e);
                 }
 
-                if (objectLimit > 0 && objects == objectLimit) {
+                if (objectLimit != null && objectCount == objectLimit) {
                     break;
                 }
             }
@@ -201,9 +235,9 @@ public class IMGeoObjectTableWriter {
             }
 
             double time = (System.currentTimeMillis() - startTime) / 1000.0;
-            System.out.printf("Finished writing: %d objects%s, %.1f s, %.0f objects/s, %.1f MiB/s\n", objects,
-                    currentObjectsOnly ? ", " + endedObjects + " ended objects skipped" : "",
-                    time, objects / time, counter.getByteCount() / 1024.0 / 1024 / time);
+            System.out.printf("Finished writing: %d objects%s, %.1f s, %.0f objects/s, %.1f MiB/s\n", objectCount,
+                    currentObjectsOnly ? ", " + endedObjectsCount + " ended objects skipped" : "",
+                    time, objectCount / time, counter.getByteCount() / 1024.0 / 1024 / time);
         } finally {
             for(InsertBatch batch: batches.values()) {
                 try {
@@ -215,7 +249,7 @@ public class IMGeoObjectTableWriter {
     }
 
     private static void truncateTable(Connection c, IMGeoObject object) throws SQLException {
-        // TODO like jdbc-util, truncate may fail but delete from may succeed
+        // TODO like jdbc-util, truncate may fail but 'delete from' may succeed
         new QueryRunner().execute(c, String.format("truncate table %s", getTableNameForObjectType(object.getName())));
     }
 
@@ -245,43 +279,13 @@ public class IMGeoObjectTableWriter {
         return sql.toString();
     }
 
-    public static void main(String[] args) throws Exception {
-
-        Class.forName("org.postgresql.Driver");
-        SQLDialect dialect = new PostGISDialect();
-        String url = "jdbc:postgresql:bgt";
-        final String user = "bgt";
-        final String password = "bgt";
-
-//        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-//        SQLDialect dialect = new MSSQLDialect();
-//        String url = "jdbc:sqlserver://localhost:1433;databaseName=bgt;disableStatementPooling=false;statementPoolingCacheSize=10";
-//        final String user = "sa";
-//        final String password = "Password12!";
-
-//        String url = "jdbc:sqlserver://192.168.1.24:1433;databaseName=bgt;disableStatementPooling=false;statementPoolingCacheSize=10";
-//        final String user = "sa";
-//        final String password = "zQGZ27AR8Z7y";
-
-//        Class.forName("oracle.jdbc.OracleDriver");
-//        final String url = "jdbc:oracle:thin:@localhost:1521:XE";
-//        final String user = "c##bgt";
-//        final String password = "bgt";
-
-        Connection c = DriverManager.getConnection(url, user, password);
-//        final SQLDialect dialect = new OracleDialect(OracleConnectionUnwrapper.unwrap(c));
-
-//        String version = new QueryRunner().query(c,"select postgis_version()", new ScalarHandler<>());
-//        System.out.println("PostGIS version: " + version);
-
+    public void processFile(File file) throws Exception {
         long startTime = System.currentTimeMillis();
-
-        ZipFile file = new ZipFile(new File("/media/ssd/files/bgt/2021/bgt-citygml-nl-nopbp.zip"));
-        IMGeoObjectTableWriter writer = new IMGeoObjectTableWriter(c, dialect);
-        file.stream()/*.filter(entry -> "bgt_ondersteunendwegdeel.gml".equals(entry.getName()))*/.forEach(entry -> {
+        ZipFile zipFile = new ZipFile(file);
+        zipFile.stream()/*.filter(entry -> "bgt_wijk.gml".equals(entry.getName()))*/.forEach(entry -> {
             try {
                 System.out.printf("Processing ZIP entry: %s, size %.0f MiB, compressed size %.0f MiB\n", entry.getName(), entry.getSize() / 1024.0 / 1024, entry.getCompressedSize() / 1024.0 / 1024);
-                writer.write(file.getInputStream(entry), entry.getSize());
+                write(zipFile.getInputStream(entry), entry.getSize());
 //            } catch (SQLException e) {
 //                System.out.println("");
 //                String message = e.getMessage();
