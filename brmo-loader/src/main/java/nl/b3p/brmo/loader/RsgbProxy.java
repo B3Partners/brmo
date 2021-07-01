@@ -508,7 +508,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             if (oud != null) {
                 loadLog.append(String.format("Eerder bericht (id: %d) voor zelfde object gevonden van datum %s, volgnummer %d,status %s op %s\n",
                         oud.getId(),
-                        dateFormat.format(oud.getDatum()),
+                        dateTimeFormat.format(oud.getDatum()),
                         oud.getVolgordeNummer(),
                         oud.getStatus().toString(),
                         dateTimeFormat.format(oud.getStatusDatum())));

@@ -18,10 +18,17 @@ import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.*;
+import javax.xml.transform.Result;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import javax.xml.xpath.*;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
@@ -29,7 +36,7 @@ import java.sql.SQLException;
 
 public class RsgbWOZTransformer extends RsgbTransformer {
     private static final Log LOG = LogFactory.getLog(RsgbWOZTransformer.class);
-    private static final String GEEN_WAARDE = "geenWaarde";
+    private static final String STUF_GEEN_WAARDE = "geenWaarde";
     private final StagingProxy staging;
 
     public RsgbWOZTransformer(String pathToXsl, StagingProxy staging) throws TransformerConfigurationException, ParserConfigurationException {
@@ -38,9 +45,7 @@ public class RsgbWOZTransformer extends RsgbTransformer {
     }
 
     protected static Document merge(String oldFile, String newFile) throws XPathExpressionException, ParserConfigurationException, IOException, SAXException {
-        XPathFactory xPathFactory = XPathFactory.newInstance();
-        XPath xpath = xPathFactory.newXPath();
-        XPathExpression expression = xpath.compile("/root/data");
+        final XPathExpression expression = XPathFactory.newInstance().newXPath().compile("/root/data");
 
         DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
         // to prevent XXE
@@ -82,7 +87,13 @@ public class RsgbWOZTransformer extends RsgbTransformer {
             newNode.removeChild(newChild);
             String name = newChild.getNodeName();
             NodeList nl = old.getElementsByTagName(name);
-            if (nl.getLength() == 0) { // Geen oude data gevonden voor huidige node
+
+            // "comfort" data zit 1 nivo dieper
+            if ("comfort".equalsIgnoreCase(name)) {
+                merge(base, newChild, old, true);
+            }
+
+            if (nl.getLength() == 0) {
                 newChild = base.importNode(newChild, true);
                 newChild.setTextContent(newChild.getTextContent());
                 old.appendChild(newChild);
@@ -91,10 +102,10 @@ public class RsgbWOZTransformer extends RsgbTransformer {
                 if (first) {
                     merge(base, newChild, oldItem, false);
                 } else {
-                    String content = newChild.getTextContent();
-                    if (content.equals(GEEN_WAARDE)) {
+                    String nieuweWaarde = newChild.getTextContent();
+                    if (nieuweWaarde.equals(STUF_GEEN_WAARDE)) {
                         oldItem.setTextContent("");
-                    } else if (content.equals("")) {
+                    } else if (nieuweWaarde.equals("")) {
                         //keep old content
                     } else {
                         oldItem.setTextContent(sanitizeValue(newChild.getTextContent()));
@@ -105,9 +116,9 @@ public class RsgbWOZTransformer extends RsgbTransformer {
     }
 
     private static String sanitizeValue(String val) {
-        if (val.contains(GEEN_WAARDE)) {
-            String newValue = val.replaceAll(GEEN_WAARDE + " ", "");
-            newValue = newValue.replaceAll(GEEN_WAARDE, "");
+        if (val.contains(STUF_GEEN_WAARDE)) {
+            String newValue = val.replaceAll(STUF_GEEN_WAARDE + " ", "");
+            newValue = newValue.replaceAll(STUF_GEEN_WAARDE, "");
             return newValue;
         } else {
             return val;

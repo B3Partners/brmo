@@ -1,0 +1,53 @@
+<root>
+    <!--objectRef: WOZ.NPS.8837b49b4c4f459a0ff7a39582bb6ab7b252125e, datum: 2020-07-12 07:23:07.439, volgordeNummer: 1, soort: woz-->
+    <data>
+        <comfort search-table="subject" search-column="identif"
+                 search-value="WOZ.NPS.8837b49b4c4f459a0ff7a39582bb6ab7b252125e"
+                 snapshot-date="2020-07-12T07:23:07.439">
+            <subject>
+                <identif>WOZ.NPS.8837b49b4c4f459a0ff7a39582bb6ab7b252125e</identif>
+                <clazz>INGESCHREVEN NATUURLIJK PERSOON</clazz>
+                <typering>INGESCHREVEN NATUURLIJK PERSOON</typering>
+                <naam>W.A. van DienstOranje</naam>
+                <kvk_nummer/>
+                <fk_15aoa_identif/>
+                <pa_postadres_postcode/>
+                <pa_postadrestype/>
+                <pa_postbus__of_antwoordnummer/>
+                <vb_adres_buitenland_1/>
+                <vb_adres_buitenland_2/>
+                <vb_adres_buitenland_3/>
+                <fk_vb_lnd_code_iso/>
+            </subject>
+            <prs>
+                <sc_identif>WOZ.NPS.8837b49b4c4f459a0ff7a39582bb6ab7b252125e</sc_identif>
+                <clazz>INGESCHREVEN NATUURLIJK PERSOON</clazz>
+            </prs>
+            <nat_prs>
+                <sc_identif>WOZ.NPS.8837b49b4c4f459a0ff7a39582bb6ab7b252125e</sc_identif>
+                <clazz>INGESCHREVEN NATUURLIJK PERSOON</clazz>
+                <aand_naamgebruik>E</aand_naamgebruik>
+                <geslachtsaand>M</geslachtsaand>
+                <nm_adellijke_titel_predikaat/>
+                <nm_geslachtsnaam>DienstOranje</nm_geslachtsnaam>
+                <nm_voornamen/>
+                <nm_voorvoegsel_geslachtsnaam>van</nm_voorvoegsel_geslachtsnaam>
+                <na_aanhef_aanschrijving>de heer</na_aanhef_aanschrijving>
+                <na_geslachtsnaam_aanschrijving>van DienstOranje</na_geslachtsnaam_aanschrijving>
+                <na_voorletters_aanschrijving>W.A.</na_voorletters_aanschrijving>
+                <na_voornamen_aanschrijving/>
+            </nat_prs>
+            <ingeschr_nat_prs>
+                <sc_identif>WOZ.NPS.8837b49b4c4f459a0ff7a39582bb6ab7b252125e</sc_identif>
+                <clazz>INGESCHREVEN NATUURLIJK PERSOON</clazz>
+                <bsn>579107188</bsn>
+                <indic_geheim>0</indic_geheim>
+                <gb_geboortedatum>19820126</gb_geboortedatum>
+                <ol_overlijdensdatum/>
+                <ol_overlijdensplaats/>
+                <va_loc_beschrijving>DienstberichtKerkpad 29, 8510AA DienstberichtDorp</va_loc_beschrijving>
+                <fk_va_5_nra_sc_identif/>
+            </ingeschr_nat_prs>
+        </comfort>
+    </data>
+</root>

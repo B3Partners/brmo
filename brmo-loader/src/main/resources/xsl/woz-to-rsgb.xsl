@@ -110,10 +110,10 @@
                 <xsl:value-of select="woz:wozObjectGeometrie"/>
             </geom>
             <waterschap>
-                <xsl:value-of select="woz:ligtIn/woz:gerelateerde/woz:betrokkenWaterschap" />
+                <xsl:value-of select="woz:ligtIn/woz:gerelateerde/woz:betrokkenWaterschap"/>
             </waterschap>
             <fk_verantw_gem_code>
-                <xsl:value-of select="woz:verantwoordelijkeGemeente/bg:gemeenteCode" />
+                <xsl:value-of select="woz:verantwoordelijkeGemeente/bg:gemeenteCode"/>
             </fk_verantw_gem_code>
         </woz_obj>
 
