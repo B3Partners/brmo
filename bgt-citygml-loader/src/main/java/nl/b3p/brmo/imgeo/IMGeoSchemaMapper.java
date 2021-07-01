@@ -2,12 +2,8 @@ package nl.b3p.brmo.imgeo;
 
 import nl.b3p.brmo.sql.GeometryAttributeColumnMapping;
 import nl.b3p.brmo.sql.OneToManyColumnMapping;
-import nl.b3p.brmo.sql.dialect.MSSQLDialect;
-import nl.b3p.brmo.sql.dialect.OracleDialect;
-import nl.b3p.brmo.sql.dialect.PostGISDialect;
 import nl.b3p.brmo.sql.dialect.SQLDialect;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -105,9 +101,9 @@ public class IMGeoSchemaMapper {
         String tableName = getTableNameForObjectType(name);
         StringBuilder sql = new StringBuilder();
         if (dialect.supportsDropTableIfExists()) {
-            sql.append("drop table if exists \"");
+            sql.append("drop table if exists ");
             sql.append(tableName);
-            sql.append("\";\n");
+            sql.append(";\n");
         }
         sql.append("create table ");
         sql.append(tableName);
