@@ -176,11 +176,11 @@
           <artifactId>docker-maven-plugin</artifactId>
           <configuration>
             <verbose>true</verbose>
-            <!-- disabled globally for now, needs to be disabled for windows profile -->
+            <!-- disabled globally for now, needs to be disabled for windows profile used in Windows MS SQL CI workflow -->
             <skip>true</skip>
             <images>
               <image>
-                <name>b3partners/%a:%l</name>
+                <name>b3partners/brmo-bgt-loader:%l</name>
               </image>
             </images>
           </configuration>

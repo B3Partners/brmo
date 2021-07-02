@@ -1,8 +1,6 @@
-# This Dockerfile is built by Maven in the package phase using a plugin. It can also be built manually:
-# docker build --tag b3partners/bgt-citygml-loader:latest .
-# docker buildx build --load --platform linux/arm64/v8 --tag b3partners/bgt-citygml-loader:latest .
-
 FROM openjdk:11-jre-slim
+
+LABEL org.opencontainers.image.source=https://github.com/b3partners/brmo/bgt-citygml-loader
 
 ARG DEBIAN_FRONTEND="noninteractive"
 
