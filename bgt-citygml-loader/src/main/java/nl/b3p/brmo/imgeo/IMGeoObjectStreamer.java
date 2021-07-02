@@ -14,6 +14,7 @@ import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
@@ -34,6 +35,8 @@ public class IMGeoObjectStreamer implements Iterable<IMGeoObject> {
     private static final String NS_IMGEO = "http://www.geostandaarden.nl/imgeo/2.1";
     private static final String NS_CITYGML = "http://www.opengis.net/citygml/2.0";
     private static final String NS_GML = "http://www.opengis.net/gml";
+    private static final String NS_MUTATIELEVERING = "http://www.kadaster.nl/schemas/mutatielevering-generiek/2.0";
+    private static final String NS_MUTATIELEVERING_BGT = "http://www.kadaster.nl/schemas/mutatielevering-bgt/1.0";
 
     private static final QName CITYGML_CITY_OBJECT_MEMBER = new QName(NS_CITYGML, "cityObjectMember");
 
@@ -41,25 +44,61 @@ public class IMGeoObjectStreamer implements Iterable<IMGeoObject> {
 
     private final XmlStreamGeometryReader geometryReader;
 
-    private final SMInputCursor cityObjectMembers;
+    private final SMInputCursor cursor;
+
+    private boolean isMutaties;
 
     public IMGeoObjectStreamer(File f) throws XMLStreamException {
-        this.cityObjectMembers = getCityObjectMemberCursor(buildSMInputFactory().rootElementCursor(f));
+        this.cursor = initCursor(buildSMInputFactory().rootElementCursor(f));
         this.geometryReader = buildGeometryReader();
     }
 
     public IMGeoObjectStreamer(InputStream in) throws XMLStreamException {
-        this.cityObjectMembers = getCityObjectMemberCursor(buildSMInputFactory().rootElementCursor(in));
+        this.cursor = initCursor(buildSMInputFactory().rootElementCursor(in));
         this.geometryReader = buildGeometryReader();
     }
 
     public IMGeoObjectStreamer(Reader r) throws XMLStreamException {
-        this.cityObjectMembers = getCityObjectMemberCursor(buildSMInputFactory().rootElementCursor(r));
+        this.cursor = initCursor(buildSMInputFactory().rootElementCursor(r));
         this.geometryReader = buildGeometryReader();
     }
 
+    private SMInputCursor initCursor(SMInputCursor cursor) throws XMLStreamException {
+        QName root = cursor.advance().getQName();
+
+        if (root.equals(new QName(NS_CITYGML, "CityModel"))) {
+            isMutaties = false;
+        } else if (root.equals(new QName(NS_MUTATIELEVERING_BGT, "bgtMutaties"))) {
+            isMutaties = true;
+        } else {
+            throw new IllegalArgumentException("XML root element moet CityModel of bgtMutaties zijn");
+        }
+
+        if(isMutaties) {
+            cursor = cursor.childElementCursor(new QName(NS_MUTATIELEVERING, "mutatieBericht")).advance().childElementCursor().advance();
+            do {
+                if (cursor.getLocalName().equals("dataset")) {
+                    assert cursor.getText().equals("bgt");
+                } else if (cursor.getLocalName().equals("inhoud")) {
+                    // TODO parse inhoud
+                } else if(cursor.getLocalName().equals("mutatieGroep")) {
+                    // cursor positioned correctly
+                    break;
+                } else {
+                    throw new IllegalStateException("Verwacht mutatieGroep element, gevonden " + cursor.getQName());
+                }
+                cursor.getNext();
+            } while(true);
+
+        } else {
+            cursor = cursor.childElementCursor(new QName(NS_CITYGML, "cityObjectMember")).advance();
+        }
+
+        return cursor;
+    }
+
     protected XmlStreamGeometryReader buildGeometryReader() {
-        return new XmlStreamGeometryReader(this.cityObjectMembers.getStreamReader());
+        return new XmlStreamGeometryReader(this.cursor.getStreamReader());
     }
 
     private SMInputCursor getCityObjectMemberCursor(SMHierarchicCursor root) throws XMLStreamException {
@@ -86,7 +125,7 @@ public class IMGeoObjectStreamer implements Iterable<IMGeoObject> {
     @Override
     public Iterator<IMGeoObject> iterator() {
         return new Iterator<IMGeoObject>() {
-            SMEvent event = null;
+            SMEvent event = cursor.getCurrEvent();
 
             /**
              * A parse action may return multiple objects. Buffer the future objects to be returned in a next() call.
@@ -102,7 +141,7 @@ public class IMGeoObjectStreamer implements Iterable<IMGeoObject> {
                     return true;
                 }
                 try {
-                    event = cityObjectMembers.getNext();
+                    event = cursor.getNext();
                     return event != null;
                 } catch(XMLStreamException e) {
                     throw new RuntimeException(e);
@@ -125,7 +164,47 @@ public class IMGeoObjectStreamer implements Iterable<IMGeoObject> {
 
                     Map<String, Object> attributes = new HashMap<>();
 
-                    SMInputCursor cityObjectMemberChild = cityObjectMembers.childElementCursor().advance();
+                    SMInputCursor cityObjectMemberChild;
+
+                    String gmlIdPreviousVersion = null;
+                    IMGeoObject.MutatieStatus mutatieStatus = IMGeoObject.MutatieStatus.WORDT;
+
+                    if (isMutaties) {
+                        // Assume single child per <mutatieGroep>, cursor is currently at <mutatieGroep>
+
+                        SMInputCursor mutatie = cursor.childElementCursor().advance();
+                        String mutatieNaam = mutatie.getLocalName();
+                        if (mutatieNaam.equals("wijziging") || mutatieNaam.equals("toevoeging")) {
+                            mutatie = mutatie.childElementCursor().advance();
+                        } else {
+                            throw new IllegalStateException("Ongeldig mutatieGroep child element: " + mutatie.getQName());
+                        }
+
+                        if (mutatieNaam.equals("wijziging")) {
+                            assert mutatie.getLocalName().equals("was");
+                            gmlIdPreviousVersion = fixUUID(mutatie.getAttrValue("id"));
+
+                            if (mutatie.getNext() == null) {
+                                // To support deletes, we would need to parse the <cityObjectMember> child element name
+                                // at least, but deletes do not occur for bgt
+                                throw new IllegalStateException("Mutaties 'was' zonder 'wordt' worden niet ondersteund voor BGT");
+                            }
+                            assert mutatie.getLocalName().equals("wordt");
+                            mutatieStatus = IMGeoObject.MutatieStatus.WAS_WORDT;
+                        } else if(mutatieNaam.equals("toevoeging")) {
+                            assert mutatie.getLocalName().equals("wordt");
+                            // mutatieStatus is already IMGeoObject.MutatieStatus.WORDT
+                        } else {
+                            throw new IllegalStateException("Ongeldig mutatie element: " + mutatie.getLocalName());
+                        }
+
+                        // Move cursor from <wordt> to <cityObjectMember> child
+                        cityObjectMemberChild = mutatie.childElementCursor(new QName(NS_MUTATIELEVERING_BGT, "bgtObject")).advance()
+                                .childElementCursor(new QName(NS_CITYGML, "cityObjectMember")).advance()
+                                .childElementCursor().advance();
+                    } else {
+                        cityObjectMemberChild = cursor.childElementCursor().advance();
+                    }
 
                     final String name = cityObjectMemberChild.getLocalName();
                     final Location location = cityObjectMemberChild.getCursorLocation();
@@ -168,7 +247,7 @@ public class IMGeoObjectStreamer implements Iterable<IMGeoObject> {
                         }
                         return buffer.remove();
                     } else {
-                        return new IMGeoObject(name, attributes, location);
+                        return new IMGeoObject(name, attributes, location, mutatieStatus, gmlIdPreviousVersion);
                     }
                 } catch(Exception e) {
                     throw new RuntimeException(e);
@@ -193,7 +272,7 @@ public class IMGeoObjectStreamer implements Iterable<IMGeoObject> {
         boolean log = true;
         long startTime = System.currentTimeMillis();
 
-        try(InputStream input = file.getInputStream(entry)) {
+        try(InputStream input = /*file.getInputStream(entry)*/new FileInputStream("//media/ssd/files/bgt/2021/bgt_pand.xml")) {
 //        try(InputStream input = new FileInputStream(dir + file)) {
             IMGeoObjectStreamer streamer = new IMGeoObjectStreamer(input);
             Map<Integer,Integer> counts = new HashMap<>();
@@ -201,8 +280,10 @@ public class IMGeoObjectStreamer implements Iterable<IMGeoObject> {
             for (IMGeoObject object: streamer) {
                 objects++;
 
-                if(log) System.out.printf("cityObjectMember #%d: %s\n",
+                if(log) System.out.printf("cityObjectMember #%d: %s%s %s\n",
                         objects,
+                        object.getMutatieStatus(),
+                        object.getMutatieStatus() == IMGeoObject.MutatieStatus.WAS_WORDT ? " (previous gmlId " + object.getMutatiePreviousVersionGmlId() + ")" : "",
                         object);
 
                 if (objects % 1000000 == 0) {
