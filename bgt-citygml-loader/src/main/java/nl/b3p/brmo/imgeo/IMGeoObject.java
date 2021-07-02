@@ -9,10 +9,20 @@ import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import static nl.b3p.brmo.imgeo.IMGeoObject.MutatieStatus.*;
+
 public class IMGeoObject {
     private final String name;
     private final Map<String,Object> attributes;
     private final Location xmlLocation;
+    private final MutatieStatus mutatieStatus;
+    private final String mutatiePreviousVersionGmlId;
+
+    enum MutatieStatus {
+        WORDT,
+        WAS_WORDT,
+        WAS
+    }
 
     private final WKTWriter2 wktWriter2 = new WKTWriter2();
 
@@ -20,12 +30,24 @@ public class IMGeoObject {
         this.name = name;
         this.attributes = Collections.unmodifiableMap(attributes);
         this.xmlLocation = null;
+        this.mutatieStatus = WORDT;
+        this.mutatiePreviousVersionGmlId = null;
     }
 
     public IMGeoObject(String name, Map<String,Object> attributes, Location xmlLocation) {
         this.name = name;
         this.attributes = attributes;
         this.xmlLocation = xmlLocation;
+        this.mutatieStatus = WORDT;
+        this.mutatiePreviousVersionGmlId = null;
+    }
+
+    public IMGeoObject(String name, Map<String,Object> attributes, Location xmlLocation, MutatieStatus mutatieStatus, String mutatiePreviousVersionGmlId) {
+        this.name = name;
+        this.attributes = attributes;
+        this.xmlLocation = xmlLocation;
+        this.mutatieStatus = mutatieStatus;
+        this.mutatiePreviousVersionGmlId = mutatiePreviousVersionGmlId;
     }
 
     public String getName() {
@@ -38,6 +60,14 @@ public class IMGeoObject {
 
     public Location getXmlLocation() {
         return xmlLocation;
+    }
+
+    public MutatieStatus getMutatieStatus() {
+        return mutatieStatus;
+    }
+
+    public String getMutatiePreviousVersionGmlId() {
+        return mutatiePreviousVersionGmlId;
     }
 
     public String toString() {
