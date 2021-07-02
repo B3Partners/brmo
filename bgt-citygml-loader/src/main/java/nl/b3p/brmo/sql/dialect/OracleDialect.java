@@ -1,6 +1,5 @@
 package nl.b3p.brmo.sql.dialect;
 
-import nl.b3p.jdbc.util.converter.OracleConnectionUnwrapper;
 import oracle.jdbc.OracleConnection;
 import org.geotools.data.oracle.sdo.GeometryConverter;
 import org.locationtech.jts.geom.Geometry;
@@ -44,7 +43,7 @@ public class OracleDialect implements SQLDialect {
 
     @Override
     public Object getGeometryParameter(Connection c, org.locationtech.jts.geom.Geometry geometry, boolean linearizeCurves) throws SQLException {
-        OracleConnection connection = OracleConnectionUnwrapper.unwrap(c);
+        OracleConnection connection = c.unwrap(OracleConnection.class);
         return new GeometryConverter(connection).toSDO(geometry);
     }
 

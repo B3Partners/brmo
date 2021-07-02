@@ -85,10 +85,6 @@
       <artifactId>gt-jdbc-oracle</artifactId>
     </dependency>
     <dependency>
-      <groupId>nl.b3p</groupId>
-      <artifactId>jdbc-util</artifactId>
-    </dependency>
-    <dependency>
       <groupId>info.picocli</groupId>
       <artifactId>picocli</artifactId>
       <version>4.6.1</version>
