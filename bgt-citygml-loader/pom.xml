@@ -176,7 +176,8 @@
           <artifactId>docker-maven-plugin</artifactId>
           <configuration>
             <verbose>true</verbose>
-            <skip>false</skip>
+            <!-- disabled globally for now, needs to be disabled for windows profile -->
+            <skip>true</skip>
             <images>
               <image>
                 <name>b3partners/%a:%l</name>
