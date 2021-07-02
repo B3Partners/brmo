@@ -12,7 +12,7 @@ Using a JRE:
 With docker:
 `docker run -it --rm --network=host b3partners/bgt-citygml-loader`
 
-The Docker image prints Dutch messages by default. For English messages add the `-e LC_ALL=en_US` parameter.
+The Docker container prints Dutch messages by default. For English messages add the `-e LC_ALL=en_US` parameter.
 
 ## Command line tool usage
 
