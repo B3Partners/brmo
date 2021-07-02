@@ -2,7 +2,7 @@
 
 ## Build
 
-Run `mvn package`. This will build a runnable JAR and a docker image named `b3partners/bgt-citygml-loader`.
+Run `mvn package`. This will build a runnable JAR. To build a docker image run `docker build . -t b3partners/brmo-bgt-loader` or `docker buildx build --platform linux/arm64/v8,linux/amd64 --tag b3partners/brmo-bgt-loader .`.
 
 ## Run the command line tool
 
