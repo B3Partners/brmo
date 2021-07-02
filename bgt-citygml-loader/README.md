@@ -1,21 +1,23 @@
 # BGT loader
 
-## Compile
+## Build
 
-Execute `mvn package`. This will build a runnable JAR and a docker image named `b3partners/bgt-citygml-loader`.
+Run `mvn package`. This will build a runnable JAR and a docker image named `b3partners/bgt-citygml-loader`.
 
 ## Run the command line tool
 
 Using a JRE:
-`java -jar target/bgt-citygml-loader-(version).jar`
+`java -jar target/bgt-citygml-loader-*.jar`
 
 With docker:
 `docker run -it --rm --network=host b3partners/bgt-citygml-loader`
 
+The Docker image prints Dutch messages by default. For English messages add the `-e LC_ALL=en_US` parameter.
+
 ## Command line tool usage
 
-Running the tool without any arguments the tool will print useful help. Use the `schema` command to output an SQL script 
-and execute it in your database to create the tables, and use the `load` command to load CityGML files into the database.
+The tool will print useful help when run without arguments. Use the `schema` command to output an SQL script 
+and execute it in your database to create the tables and the `load` command to load BGT/IMGeo CityGML files into a database.
 
 When using docker, create a volume to read files from. If you have a CityGML file in the current directory, execute the
 following command to load it:
