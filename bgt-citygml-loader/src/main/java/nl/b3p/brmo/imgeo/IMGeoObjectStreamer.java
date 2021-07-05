@@ -47,6 +47,7 @@ public class IMGeoObjectStreamer implements Iterable<IMGeoObject> {
     private final SMInputCursor cursor;
 
     private boolean isMutaties;
+    private boolean hasMutatieGroep = false;
 
     public IMGeoObjectStreamer(File f) throws XMLStreamException {
         this.cursor = initCursor(buildSMInputFactory().rootElementCursor(f));
@@ -83,12 +84,12 @@ public class IMGeoObjectStreamer implements Iterable<IMGeoObject> {
                     // TODO parse inhoud
                 } else if(cursor.getLocalName().equals("mutatieGroep")) {
                     // cursor positioned correctly
+                    hasMutatieGroep = true;
                     break;
                 } else {
                     throw new IllegalStateException("Verwacht mutatieGroep element, gevonden " + cursor.getQName());
                 }
-                cursor.getNext();
-            } while(true);
+            } while(cursor.getNext() != null);
 
         } else {
             cursor = cursor.childElementCursor(new QName(NS_CITYGML, "cityObjectMember")).advance();
@@ -134,6 +135,9 @@ public class IMGeoObjectStreamer implements Iterable<IMGeoObject> {
 
             @Override
             public boolean hasNext() {
+                if (isMutaties && !hasMutatieGroep) {
+                    return false;
+                }
                 if (!buffer.isEmpty()) {
                     return true;
                 }
@@ -153,6 +157,9 @@ public class IMGeoObjectStreamer implements Iterable<IMGeoObject> {
                 try {
                     if (!buffer.isEmpty()) {
                         return buffer.remove();
+                    }
+                    if (isMutaties && !hasMutatieGroep) {
+                        throw new IllegalStateException("No items");
                     }
                     if (event == null) {
                         if(!hasNext()) {
