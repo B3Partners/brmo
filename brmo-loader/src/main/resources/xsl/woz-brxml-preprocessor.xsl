@@ -7,7 +7,7 @@
                 version="1.0"
                 exclude-result-prefixes="WOZ BG StUF"
 >
-    <xsl:output indent="yes" method="xml" omit-xml-declaration="yes"/>
+    <xsl:output method="xml" indent="yes" omit-xml-declaration="yes" encoding="UTF-8"/>
 
     <xsl:template match="*">
         <xsl:copy>

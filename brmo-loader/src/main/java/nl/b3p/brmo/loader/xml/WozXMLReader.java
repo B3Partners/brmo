@@ -9,6 +9,7 @@ import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.loader.entity.WozBericht;
 import nl.b3p.brmo.loader.util.RsgbTransformer;
 import org.apache.commons.io.input.TeeInputStream;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.Document;
@@ -18,11 +19,19 @@ import org.w3c.dom.NodeList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.*;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Source;
+import javax.xml.transform.Templates;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
-import javax.xml.xpath.*;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.StringWriter;
@@ -34,6 +43,8 @@ import java.util.Map;
 public class WozXMLReader extends BrmoXMLReader {
     public static final String PREFIX_PRS = "WOZ.NPS.";
     public static final String PREFIX_NNP = "WOZ.NNP.";
+    public static final String PREFIX_WOZ = "WOZ.WOZ.";
+    public static final String PREFIX_VES = "WOZ.VES.";
     private static final Log LOG = LogFactory.getLog(WozXMLReader.class);
     private final String pathToXsl = "/xsl/woz-brxml-preprocessor.xsl";
     private final StagingProxy staging;
@@ -82,11 +93,35 @@ public class WozXMLReader extends BrmoXMLReader {
             XPathExpression tijdstipBericht = xpath.compile("//*[local-name()='tijdstipBericht']");
             Node datum = (Node) tijdstipBericht.evaluate(doc, XPathConstants.NODE);
             setDatumAsString(datum.getTextContent(), "yyyyMMddHHmmssSSS");
-            LOG.warn("Tijdstip bericht ingesteld op " + getBestandsDatum() );
+            LOG.warn("Tijdstip bericht ingesteld op " + getBestandsDatum());
         }
 
+        // woz:object nodes
         XPathExpression objectNode = xpath.compile("//*[local-name()='object']");
         objectNodes = (NodeList) objectNode.evaluate(doc, XPathConstants.NODESET);
+
+        // mogelijk zijn er omhang berichten (WGEM_hangSubjectOm_Di01)
+        if (objectNodes.getLength() < 1) {
+            objectNode = xpath.compile("//*[local-name()='nieuweGemeenteNPS']");
+            objectNodes = (NodeList) objectNode.evaluate(doc, XPathConstants.NODESET);
+            if (LOG.isDebugEnabled() && objectNodes.getLength() > 0){
+                LOG.debug("nieuweGemeente NPS omhangbericht");
+            }
+        }
+        if (objectNodes.getLength() < 1) {
+            objectNode = xpath.compile("//*[local-name()='nieuweGemeenteNNP']");
+            objectNodes = (NodeList) objectNode.evaluate(doc, XPathConstants.NODESET);
+            if (LOG.isDebugEnabled() && objectNodes.getLength() > 0){
+                LOG.debug("nieuweGemeente NNP omhangbericht");
+            }
+        }
+        if (objectNodes.getLength() < 1) {
+            objectNode = xpath.compile("//*[local-name()='nieuweGemeenteVES']");
+            objectNodes = (NodeList) objectNode.evaluate(doc, XPathConstants.NODESET);
+            if (LOG.isDebugEnabled() && objectNodes.getLength() > 0){
+                LOG.debug("nieuweGemeente VES omhangbericht");
+            }
+        }
         index = 0;
     }
 
@@ -136,9 +171,12 @@ public class WozXMLReader extends BrmoXMLReader {
         //  van een NPS, maar met een hoger volgordenummer...
         //  vooralsnog halen we niet de geneste entiteiten uit het bericht
         b.setVolgordeNummer(index);
-
         b.setObjectRef(object_ref);
         b.setDatum(getBestandsDatum());
+        // om om het probleem van 2 subjecten uit 1 bericht op zelfde tijdstip dus heen te werken hoger volgordenummer ook iets later maken
+        if (index > 1) {
+            b.setDatum(new Date(getBestandsDatum().getTime() + 10));
+        }
         LOG.trace("bericht: " + b);
         return b;
     }
@@ -149,22 +187,51 @@ public class WozXMLReader extends BrmoXMLReader {
         XPathExpression wozObjectNummer = xPathfactory.newXPath().compile("./*[local-name()='wozObjectNummer']");
         NodeList obRefs = (NodeList) wozObjectNummer.evaluate(wozObjectNode, XPathConstants.NODESET);
         if (obRefs.getLength() > 0) {
-            return "WOZ.WOZ." + obRefs.item(0).getTextContent();
+            return PREFIX_WOZ + obRefs.item(0).getTextContent();
         }
 
         // WOZ:object StUF:entiteittype="NPS"/WOZ:isEen/WOZ:gerelateerde/BG:inp.bsn
         XPathExpression bsn = xPathfactory.newXPath().compile("./*/*[local-name()='gerelateerde']/*[local-name()='inp.bsn']");
         obRefs = (NodeList) bsn.evaluate(wozObjectNode, XPathConstants.NODESET);
         if (obRefs.getLength() > 0) {
-            return "WOZ.NPS." + getHash(obRefs.item(0).getTextContent());
+            return PREFIX_PRS + getHash(obRefs.item(0).getTextContent());
         }
 
         // WOZ:object StUF:entiteittype="NNP"/WOZ:isEen/WOZ:gerelateerde/BG:inn.nnpId
-        XPathExpression nnpId = xPathfactory.newXPath().compile("./*/*[local-name()='gerelateerde']/*[local-name()='inn.nnpId']");
-        obRefs = (NodeList) nnpId.evaluate(wozObjectNode, XPathConstants.NODESET);
-        if (obRefs.getLength() > 0) {
-            return "WOZ.NNP." + obRefs.item(0).getTextContent();
+        XPathExpression nnpIdXpath = xPathfactory.newXPath().compile("./*/*[local-name()='gerelateerde']/*[local-name()='inn.nnpId']");
+        obRefs = (NodeList) nnpIdXpath.evaluate(wozObjectNode, XPathConstants.NODESET);
+        if (obRefs.getLength() > 0 && !StringUtils.isEmpty(obRefs.item(0).getTextContent())) {
+            return PREFIX_NNP + obRefs.item(0).getTextContent();
         }
+        // er komen berichten voor in test set waarin geen nnpId zit, maar wel "aanvullingSoFiNummer" is gevuld...
+        // WOZ:object StUF:entiteittype="NNP"/WOZ:aanvullingSoFiNummer
+        nnpIdXpath = xPathfactory.newXPath().compile("*[@StUF:entiteittype='NNP']/*[local-name()='aanvullingSoFiNummer']");
+        obRefs = (NodeList) nnpIdXpath.evaluate(wozObjectNode, XPathConstants.NODESET);
+        if (obRefs.getLength() > 0 && !StringUtils.isEmpty(obRefs.item(0).getTextContent())) {
+            LOG.warn("WOZ NNP zonder `inn.nnpId`, gebruik `aanvullingSoFiNummer` voor id.");
+            return PREFIX_NNP + obRefs.item(0).getTextContent();
+        }
+
+        // WOZ:object StUF:entiteittype="WRD"/WOZ:isVoor/WOZ:gerelateerde/WOZ:wozObjectNummer
+        XPathExpression wrd = xPathfactory.newXPath().compile("./*/*[local-name()='gerelateerde']/*[local-name()='wozObjectNummer']");
+        obRefs = (NodeList) wrd.evaluate(wozObjectNode, XPathConstants.NODESET);
+        if (obRefs.getLength() > 0) {
+            return PREFIX_WOZ + obRefs.item(0).getTextContent();
+        }
+
+        // TODO
+        //    vestiging:
+        //      is een belanghebbende
+        //
+        //      heeft soms ook WOZ:soFiNummer en/of WOZ:aanvullingSoFiNummer...
+
+        // WOZ:object StUF:entiteittype="VES"/WOZ:isEen/WOZ:gerelateerde/BG:vestigingsNummer
+        XPathExpression ves = xPathfactory.newXPath().compile("./*/*[local-name()='gerelateerde']/*[local-name()='vestigingsNummer']");
+        obRefs = (NodeList) ves.evaluate(wozObjectNode, XPathConstants.NODESET);
+        if (obRefs.getLength() > 0) {
+            return PREFIX_VES + obRefs.item(0).getTextContent();
+        }
+
 
         return null;
     }

@@ -18,6 +18,7 @@ import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Result;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
@@ -133,6 +134,9 @@ public class RsgbWOZTransformer extends RsgbTransformer {
         transformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
 
         Transformer transformer = transformerFactory.newTransformer();
+        transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+        transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
         DOMSource source = new DOMSource(doc);
         StringWriter sw = new StringWriter();
         Result result = new StreamResult(sw);
@@ -173,6 +177,7 @@ public class RsgbWOZTransformer extends RsgbTransformer {
         // retrieve old bericht
         // apply current to old
         // return modified dbxml
+        LOG.debug(loadLog);
         return current;
     }
 

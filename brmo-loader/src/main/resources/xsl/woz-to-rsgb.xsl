@@ -6,11 +6,14 @@
                 xmlns:s="http://www.egem.nl/StUF/StUF0301"
                 version="1.0"
 >
-    <xsl:output method="xml" indent="yes" omit-xml-declaration="yes"/>
+    <xsl:output method="xml" indent="yes" omit-xml-declaration="yes" encoding="UTF-8"/>
 
     <!-- @see nl.b3p.brmo.loader.xml.WozXMLReader#NPS_PREFIX -->
     <xsl:variable name="PREFIX_NPS" select="'WOZ.NPS.'"/>
     <xsl:variable name="PREFIX_NNP" select="'WOZ.NNP.'"/>
+    <xsl:variable name="PREFIX_WOZ" select="'WOZ.WOZ.'"/>
+    <xsl:variable name="PREFIX_VES" select="'WOZ.VES.'"/>
+
     <!-- <xsl:param name="objectRef" select="'WOZ.NPS.8837b49b4c4f459a0ff7a39582bb6ab7b252125e'" /> -->
     <!-- <xsl:param name="datum" select"'2020-07-12 07:23:07.439'" /> -->
     <xsl:param name="objectRef" select="'WOZ.WOZ.800000793120'"/>
@@ -42,12 +45,17 @@
     </xsl:template>
 
 
-    <xsl:template name="NPS" match="woz:object[@s:entiteittype='NPS']">
+    <xsl:template name="NPS" match="woz:object[@s:entiteittype='NPS'] | woz:nieuweGemeenteNPS[@s:entiteittype='NPS']">
         <xsl:variable name="searchcol">
             <xsl:call-template name="getHash">
                 <xsl:with-param name="bsn" select="woz:soFiNummer"/>
             </xsl:call-template>
         </xsl:variable>
+
+        <xsl:comment>
+            <xsl:text>natuurlijk persoon bericht: </xsl:text>
+            <xsl:value-of select="$searchcol"/>
+        </xsl:comment>
 
         <xsl:call-template name="comfortPerson">
             <xsl:with-param name="snapshot-date" select="$datum"/>
@@ -57,6 +65,11 @@
     </xsl:template>
 
     <xsl:template name="NNP" match="woz:object[@s:entiteittype='NNP']">
+        <xsl:comment>
+            <xsl:text>niet-natuurlijk persoon bericht: </xsl:text>
+            <xsl:value-of select="$objectRef"/>
+        </xsl:comment>
+
         <xsl:call-template name="comfortPerson">
             <xsl:with-param name="snapshot-date" select="$datum"/>
             <xsl:with-param name="comfort-search-value" select="$objectRef"/>
@@ -64,10 +77,31 @@
         </xsl:call-template>
     </xsl:template>
 
+    <xsl:template name="VES" match="woz:object[@s:entiteittype='VES']">
+        <xsl:comment>
+            <xsl:text>vestiging bericht nummer: </xsl:text>
+            <xsl:value-of select="$objectRef"/>
+        </xsl:comment>
+
+        <xsl:call-template name="comfortVestiging">
+            <xsl:with-param name="snapshot-date" select="$datum"/>
+            <xsl:with-param name="comfort-search-value" select="$objectRef"/>
+            <xsl:with-param name="class">VESTIGING</xsl:with-param>
+        </xsl:call-template>
+
+    </xsl:template>
+
+
     <xsl:template name="WOZ" match="woz:object[@s:entiteittype='WOZ'] | woz:object[@s:entiteittype='SWO']">
         <xsl:variable name="objectNum">
             <xsl:value-of select="woz:wozObjectNummer"/>
         </xsl:variable>
+
+        <xsl:comment>
+            <xsl:text>woz object bericht: </xsl:text>
+            <xsl:value-of select="$objectNum"/>
+        </xsl:comment>
+
         <woz_obj column-dat-beg-geldh="dat_beg_geldh" column-datum-einde-geldh="datum_einde_geldh">
             <dat_beg_geldh>
                 <xsl:for-each select="s:tijdvakGeldigheid/s:beginGeldigheid">
@@ -117,13 +151,89 @@
             </fk_verantw_gem_code>
         </woz_obj>
 
+        <xsl:call-template name="wozWaarde">
+            <xsl:with-param name="objectNum" select="$objectNum"/>
+        </xsl:call-template>
+
+        <xsl:for-each select="woz:heeftSluimerendObject">
+            <!-- WOZ:heeftSluimerendObject onderbrengen in "woz_deelobj" -->
+            <xsl:call-template name="sluimerendObject">
+                <xsl:with-param name="objectNum" select="$objectNum"/>
+            </xsl:call-template>
+        </xsl:for-each>
+
+        <xsl:for-each select="woz:heeftBelanghebbende">
+            <!--
+                TODO    voorafgaand aan belangen moeten de subjecten en objecten aangemaakt zijn omdat
+                        woz_belang in essentie een koppeltabel is tussen woz_obj en subject(en sub-tabellen)
+                        dus evt eerst comfortPerson aanroepen of belanghebbende als bericht uitsplitsen voor verwerken...
+                        vooralsnog lijkt dit niet nodig omdat alle berichten een voorgaand bericht hebben waarin de subject wordt gemaakt
+            -->
+            <xsl:variable name="key">
+                <xsl:if test="woz:gerelateerde/woz:natuurlijkPersoon/woz:soFiNummer">
+                    <xsl:call-template name="getHash">
+                        <xsl:with-param name="bsn" select="woz:gerelateerde/woz:natuurlijkPersoon/woz:soFiNummer"/>
+                    </xsl:call-template>
+                </xsl:if>
+                <xsl:if test="woz:gerelateerde/woz:nietNatuurlijkPersoon/woz:isEen/woz:gerelateerde/bg:inn.nnpId">
+                    <xsl:value-of select="$PREFIX_NNP"/>
+                    <xsl:value-of
+                            select="woz:gerelateerde/woz:nietNatuurlijkPersoon/woz:isEen/woz:gerelateerde/bg:inn.nnpId"/>
+                </xsl:if>
+                <xsl:if test="woz:gerelateerde/woz:vestiging/woz:isEen/woz:gerelateerde/bg:vestigingsNummer">
+                    <xsl:value-of select="$PREFIX_VES"/>
+                    <xsl:value-of
+                            select="woz:gerelateerde/woz:vestiging/woz:isEen/woz:gerelateerde/bg:vestigingsNummer"/>
+                </xsl:if>
+            </xsl:variable>
+            <xsl:call-template name="woz_belang">
+                <xsl:with-param name="key" select="$key"/>
+            </xsl:call-template>
+        </xsl:for-each>
+
+        <xsl:for-each select="woz:omvat/woz:gerelateerde/bg:kadastraleIdentificatie">
+            <woz_omvat>
+                <fk_sc_lh_kad_identif>
+                    <xsl:value-of select="."/>
+                </fk_sc_lh_kad_identif>
+                <fk_sc_rh_woz_nummer>
+                    <xsl:value-of select="$objectNum"/>
+                </fk_sc_rh_woz_nummer>
+                <toegekende_opp>
+                    <xsl:value-of select="../../woz:toegekendeOppervlakte"/>
+                </toegekende_opp>
+            </woz_omvat>
+        </xsl:for-each>
+    </xsl:template>
+
+    <xsl:template name="WRD" match="woz:object[@s:entiteittype='WRD']">
+        <xsl:variable name="objectNum">
+            <xsl:value-of select="woz:isVoor/woz:gerelateerde/woz:wozObjectNummer"/>
+        </xsl:variable>
+
+        <xsl:comment>
+            <xsl:text>woz waarde bericht voor </xsl:text>
+            <xsl:value-of select="$objectNum"/>
+        </xsl:comment>
+
+        <xsl:call-template name="wozWaarde">
+            <xsl:with-param name="objectNum" select="$objectNum"/>
+        </xsl:call-template>
+
+    </xsl:template>
+
+    <xsl:template name="wozWaarde">
+        <!-- maak woz_waarde en bijbehorend brondocument -->
+        <!-- TODO   nog niet duidelijk waar de
+                    WOZ:isBeschiktVoor/WOZ:gerelateerde/WOZ:natuurlijkPersoon/WOZ:isEen/WOZ:gerelateerde
+                    in moet komen
+        -->
+        <xsl:param name="objectNum"/>
         <!-- conditioneel, alleen als er een waardepeildatum is... -->
         <xsl:if test="woz:waardepeildatum">
             <woz_waarde column-dat-beg-geldh="waardepeildatum">
                 <waardepeildatum>
-                    <xsl:for-each select="woz:waardepeildatum">
-                        <xsl:call-template name="date-numeric"/>
-                    </xsl:for-each>
+                    <xsl:value-of select="woz:waardepeildatum"/>
                 </waardepeildatum>
                 <status_beschikking>
                     <xsl:value-of select="woz:isBeschiktVoor/woz:statusBeschikking"/>
@@ -160,51 +270,6 @@
                 </datum>
             </brondocument>
         </xsl:if>
-
-        <xsl:for-each select="woz:heeftSluimerendObject">
-            <!-- WOZ:heeftSluimerendObject onderbrengen in "woz_deelobj" -->
-            <xsl:call-template name="sluimerendObject">
-                <xsl:with-param name="objectNum" select="$objectNum"/>
-            </xsl:call-template>
-        </xsl:for-each>
-
-        <xsl:for-each select="woz:heeftBelanghebbende">
-            <!--
-                TODO    voorafgaand aan belangen moeten de subjecten en objecten aangemaakt zijn omdat
-                        woz_belang in essentie een koppeltabel is tussen woz_obj en subject(en sub-tabellen)
-                        dus evt eerst comfortPerson aanroepen of belanghebbende als bericht uitsplitsen voor verwerken...
-                        vooralsnog lijkt dit niet nodig omdat alle berichten een voorgaand bericht hebben waarin de subject wordt gemaakt
-            -->
-            <xsl:variable name="key">
-                <xsl:if test="woz:gerelateerde/woz:natuurlijkPersoon/woz:soFiNummer">
-                    <xsl:call-template name="getHash">
-                        <xsl:with-param name="bsn" select="woz:gerelateerde/woz:natuurlijkPersoon/woz:soFiNummer"/>
-                    </xsl:call-template>
-                </xsl:if>
-                <xsl:if test="woz:gerelateerde/woz:nietNatuurlijkPersoon/woz:isEen/woz:gerelateerde/bg:inn.nnpId">
-                    <xsl:value-of select="$PREFIX_NNP"/>
-                    <xsl:value-of
-                            select="woz:gerelateerde/woz:nietNatuurlijkPersoon/woz:isEen/woz:gerelateerde/bg:inn.nnpId"/>
-                </xsl:if>
-            </xsl:variable>
-            <xsl:call-template name="woz_belang">
-                <xsl:with-param name="key" select="$key"/>
-            </xsl:call-template>
-        </xsl:for-each>
-
-        <xsl:for-each select="woz:omvat/woz:gerelateerde/bg:kadastraleIdentificatie">
-            <woz_omvat>
-                <fk_sc_lh_kad_identif>
-                    <xsl:value-of select="."/>
-                </fk_sc_lh_kad_identif>
-                <fk_sc_rh_woz_nummer>
-                    <xsl:value-of select="$objectNum"/>
-                </fk_sc_rh_woz_nummer>
-                <toegekende_opp>
-                    <xsl:value-of select="../../woz:toegekendeOppervlakte"/>
-                </toegekende_opp>
-            </woz_omvat>
-        </xsl:for-each>
     </xsl:template>
 
     <xsl:template name="sluimerendObject">
@@ -300,18 +365,36 @@
 
     <xsl:template name="woz_belang">
         <xsl:param name="key"/>
-        <!-- woz:object/woz:heeftBelanghebbende/ -->
-        <woz_belang>
-            <fk_sc_lh_sub_identif>
-                <xsl:value-of select="$key"/>
-            </fk_sc_lh_sub_identif>
-            <fk_sc_rh_woz_nummer>
-                <xsl:value-of select="../woz:wozObjectNummer"/>
-            </fk_sc_rh_woz_nummer>
-            <aand_eigenaargebruiker>
-                <xsl:value-of select="woz:aanduidingEigenaarGebruiker"/>
-            </aand_eigenaargebruiker>
-        </woz_belang>
+
+        <xsl:choose>
+            <xsl:when test="not($key) and not($key='')">
+                <xsl:comment>geen waarde voor fk_sc_lh_sub_identif - woz_belang kan niet gekoppeld worden</xsl:comment>
+            </xsl:when>
+            <xsl:when test="$key = $PREFIX_NPS">
+                <xsl:comment>geen geldige waarde voor fk_sc_lh_sub_identif - woz_belang kan niet gekoppeld worden</xsl:comment>
+            </xsl:when>
+            <xsl:when test="$key = $PREFIX_NNP">
+                <xsl:comment>geen geldige waarde voor fk_sc_lh_sub_identif - woz_belang kan niet gekoppeld worden</xsl:comment>
+            </xsl:when>
+            <xsl:when test="$key = $PREFIX_VES">
+                <xsl:comment>geen geldige waarde voor fk_sc_lh_sub_identif - woz_belang kan niet gekoppeld worden</xsl:comment>
+            </xsl:when>
+            <xsl:otherwise>
+                <!-- woz:object/woz:heeftBelanghebbende/ -->
+                <woz_belang>
+                    <fk_sc_lh_sub_identif>
+                        <!-- subject -->
+                        <xsl:value-of select="$key"/>
+                    </fk_sc_lh_sub_identif>
+                    <fk_sc_rh_woz_nummer>
+                        <xsl:value-of select="../woz:wozObjectNummer"/>
+                    </fk_sc_rh_woz_nummer>
+                    <aand_eigenaargebruiker>
+                        <xsl:value-of select="woz:aanduidingEigenaarGebruiker"/>
+                    </aand_eigenaargebruiker>
+                </woz_belang>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
 
     <xsl:template name="comfortPerson">
@@ -348,6 +431,70 @@
         </xsl:if>
     </xsl:template>
 
+    <xsl:template name="comfortVestiging">
+        <xsl:param name="snapshot-date"/>
+        <xsl:param name="class"/>
+        <xsl:param name="comfort-search-value"/>
+
+        <xsl:if test="$comfort-search-value != ''">
+            <xsl:variable name="datum">
+                <!-- 2020-07-12 07:23:07.439 naar 2020-07-12T07:23:07.439 -->
+                <xsl:value-of select="substring($snapshot-date,0,11)"/>
+                <xsl:value-of select="'T'"/>
+                <xsl:value-of select="substring($snapshot-date,12)"/>
+            </xsl:variable>
+
+            <comfort search-table="subject" search-column="identif" search-value="{$comfort-search-value}"
+                     snapshot-date="{$datum}">
+
+                <xsl:for-each select="//woz:gerelateerde[@s:entiteittype='VES']">
+                    <xsl:call-template name="persoon">
+                        <xsl:with-param name="key" select="$comfort-search-value"/>
+                        <xsl:with-param name="class" select="$class"/>
+                    </xsl:call-template>
+
+                    <vestg>
+                        <sc_identif>
+                            <xsl:value-of select="$comfort-search-value"/>
+                        </sc_identif>
+                        <fk_15ond_kvk_nummer><!-- RSGB 'betreft uitoefening van activiteiten door' fk naar onderneming --></fk_15ond_kvk_nummer>
+                        <fk_17mac_kvk_nummer><!-- RSGB 'betreft uitoefening van activiteiten door' fk naar maatschappelijke activiteit --></fk_17mac_kvk_nummer>
+                        <fk_20aoa_identif>
+                            <xsl:value-of select="bg:verblijfsadres/bg:aoa.identificatie"/>
+                        </fk_20aoa_identif>
+                        <typering>
+                            <!-- <xsl:choose>
+                                <xsl:when test="local-name(.) = 'nietCommercieleVestiging'">Niet-commerciele vestiging</xsl:when>
+                                <xsl:otherwise>Commerciele vestiging</xsl:otherwise>
+                            </xsl:choose> -->
+                        </typering>
+                        <verkorte_naam>
+                            <xsl:value-of select="substring(bg:handelsnaam,1,45)"/>
+                        </verkorte_naam>
+                        <!--
+                        <datum_aanvang></datum_aanvang>
+                        <datum_beeindiging></datum_beeindiging>
+                        <datum_voortzetting></datum_voortzetting>
+                        <fulltime_werkzame_mannen></fulltime_werkzame_mannen>
+                        <parttime_werkzame_mannen></parttime_werkzame_mannen>
+                        <toevoeging_adres></toevoeging_adres>
+                        <activiteit_omschr></activiteit_omschr>
+                        -->
+                    </vestg>
+
+                    <vestg_naam>
+                        <naam>
+                            <xsl:value-of select="bg:handelsnaam"/>
+                        </naam>
+                        <fk_ves_sc_identif>
+                            <xsl:value-of select="$comfort-search-value"/>
+                        </fk_ves_sc_identif>
+                    </vestg_naam>
+
+                </xsl:for-each>
+            </comfort>
+        </xsl:if>
+    </xsl:template>
 
     <xsl:template name="persoon">
         <xsl:param name="key"/>
@@ -368,7 +515,6 @@
         </subject>
 
         <prs>
-            <!-- DONE /compleet -->
             <sc_identif>
                 <xsl:value-of select="$key"/>
             </sc_identif>
@@ -422,7 +568,6 @@
         <!-- <fk_13wpl_identif/> [FK] AN4, FK naar wnplts.identif: "heeft als correspondentieadres"-->
         <!-- <fk_14aoa_identif/>   [FK] AN16, FK naar addresseerb_obj_aand.identif: "heeft als factuuradres"  -->
         <!-- <fk_pa_4_wpl_identif/> [FK] AN4, FK naar wnplts.identif: "Groepsattribuut Postadres SUBJECT.woonplaats"  -->
-
 
         <kvk_nummer>
             <!-- 9 cijfers; is te groot voor kvk nummer <xsl:value-of select="bg:inn.nnpId"/>-->

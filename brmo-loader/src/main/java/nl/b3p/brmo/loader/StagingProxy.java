@@ -546,13 +546,13 @@ public class StagingProxy {
     
     
     private PreparedStatement getPreviousBerichtStatement;
-    
+
     public Bericht getPreviousBericht(Bericht ber, StringBuilder loadLog) throws SQLException {
         return getPreviousBericht(ber.getObjectRef(), ber.getDatum(), ber.getId(), loadLog);
     }
-    
+
     /**
-     * Gets the previous method (not the first)
+     * Gets the previous bericht (not the first).
      * @param objectRef
      * @param datum
      * @param currentBerichtId
