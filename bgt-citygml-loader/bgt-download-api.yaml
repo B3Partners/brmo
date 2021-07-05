@@ -1,0 +1,341 @@
+# From https://api.pdok.nl/lv/bgt/download/v1_0/openapi.json
+# Converted to YAML, removed non useful stuff and added response schema titles to improve generated code
+components:
+  schemas:
+    DeltaCustomDownloadRequest:
+      properties:
+        deltaId:
+          type: string
+        featuretypes:
+          items:
+            enum:
+              - bak
+              - begroeidterreindeel
+              - bord
+              - buurt
+              - functioneelgebied
+              - gebouwinstallatie
+              - installatie
+              - kast
+              - kunstwerkdeel
+              - mast
+              - onbegroeidterreindeel
+              - ondersteunendwaterdeel
+              - ondersteunendwegdeel
+              - ongeclassificeerdobject
+              - openbareruimte
+              - openbareruimtelabel
+              - overbruggingsdeel
+              - overigbouwwerk
+              - overigescheiding
+              - paal
+              - pand
+              - plaatsbepalingspunt
+              - put
+              - scheiding
+              - sensor
+              - spoor
+              - stadsdeel
+              - straatmeubilair
+              - tunneldeel
+              - vegetatieobject
+              - waterdeel
+              - waterinrichtingselement
+              - waterschap
+              - wegdeel
+              - weginrichtingselement
+              - wijk
+            type: string
+          minItems: 1
+          type: array
+          uniqueItems: true
+        format:
+          enum:
+            - citygml
+          type: string
+        geofilter:
+          type: string
+      required:
+        - format
+        - featuretypes
+      type: object
+    DeltaCustomDownloadStatusResponse:
+      title: DeltaCustomDownloadStatusResponse
+      properties:
+        _links:
+          properties:
+            self:
+              allOf:
+                - "$ref": "#/components/schemas/HalLink"
+              description: Absolute path naar het endpoint waarop de status
+                van de aanvraag opgehaald kan worden
+            download:
+              allOf:
+                  - "$ref": "#/components/schemas/HalLink"
+              description: Absolute path waarop het bestand gedownload kan
+                worden
+          type: object
+        progress:
+          type: integer
+        status:
+          enum:
+            - PENDING
+            - RUNNING
+            - COMPLETED
+          type: string
+      required:
+        - status
+        - progress
+        - _links
+      type: object
+    HalLink:
+      properties:
+        href:
+          type: string
+        rel:
+          type: string
+        type:
+          type: string
+      required:
+        - href
+      type: object
+    delta:
+      properties:
+        id:
+          readOnly: true
+          type: string
+        timeWindow:
+          properties:
+            from:
+              format: date-time
+              readOnly: true
+              type: string
+            to:
+              format: date-time
+              readOnly: true
+              type: string
+          readOnly: true
+          required:
+            - to
+          type: object
+      type: object
+info:
+  title: BGT Download API
+  version: v1
+openapi: 3.0.0
+paths:
+  "/delta":
+    get:
+      operationId: GetDeltas
+      parameters:
+        - description: 'Als deze parameter wordt meegegeven, dan bevat het resultaat
+          alleen delta''s die later in de tijd zijn ontstaan dan de opgegeven delta-id.
+          Als deze parameter niet wordt meegegeven, dan bevat het resultaat alle bekende
+          delta-id''s.
+
+          '
+          in: query
+          name: after-delta-id
+          schema:
+            type: string
+        - description: 'Paginanummer voor paginering. Default: 1
+
+          '
+          in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+        - description: 'Aantal resultaten per pagina. Default: 10
+
+          '
+          in: query
+          name: count
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                _links:
+                  - href: delta?page=1&count=3
+                    rel: prev
+                    type: application/json
+                  - href: delta?page=3&count=3
+                    rel: next
+                    type: application/json
+                deltas:
+                  - id: 7df9d862-1e6c-4859-a561-62f9b96826ec
+                    timeWindow:
+                      from: '2019-01-01T00:00:00Z'
+                      to: '2019-01-02T00:00:00Z'
+                  - id: 76d1597d-dd9b-4ec0-9dad-116795794c4f
+                    timeWindow:
+                      from: '2019-01-02T00:00:00Z'
+                      to: '2019-01-03T00:00:00Z'
+                  - id: e198078f-40ca-4943-9b0e-f66854164a94
+                    timeWindow:
+                      from: '2019-01-03T00:00:00Z'
+                      to: '2019-01-04T00:00:00Z'
+              schema:
+                title: GetDeltasResponse
+                properties:
+                  _links:
+                    description: Relatieve links naar volgende / vorige pagina's (indien
+                      van toepassing)
+                    items:
+                      "$ref": "#/components/schemas/HalLink"
+                    type: array
+                  deltas:
+                    description: Lijst met delta's. De lijst is gesorteerd in oplopende
+                      volgorde (oudste eerst)
+                    items:
+                      "$ref": "#/components/schemas/delta"
+                    type: array
+                required:
+                  - deltas
+                  - _links
+                type: object
+          description: OK
+        '500':
+          description: Interne server fout
+      summary: Met dit endpoint kan een gesorteerde lijst van delta-id's opgehaald
+        worden.
+      tags:
+        - Delta
+  "/delta/custom":
+    post:
+      operationId: DeltaCustomDownload
+      requestBody:
+        content:
+          application/json:
+            example:
+              featuretypes:
+                - bak
+                - gebouwinstallatie
+                - kunstwerkdeel
+                - onbegroeidterreindeel
+              format: citygml
+              geofilter: POLYGON((211417.92 475752.4800000001,212390.64000000004 475896.12,212916.48000000004
+                475818.84,212879.52000000005 475360.2,212950.08000000002 475203.12,212839.2
+                475065.36,212819.04 474981.36,212819.04 474877.2,212772 474857.04,212792.16
+                474769.68,212832.48 474705.84,212889.6 474695.76,213010.56000000003
+                474685.68,213044.16 474611.76,213030.72 474450.48,212637.6 474423.6,212708.16
+                473956.56,211122.24000000002 473849.04,210453.6 473896.08,210315.84000000003
+                473970,211417.92 475752.4800000001))
+            schema:
+              "$ref": "#/components/schemas/DeltaCustomDownloadRequest"
+        description: |
+          JSON object waarin staat gespecificeerd welke informatie de download moet bevatten.
+          Als het verzoek geen deltaId bevat, dan zal de download de meest recente initiële levering bevatten.
+          Als het verzoek wel een deltaId bevat, dan zal de download alleen de wijzigingen bevatten uit de opgegeven delta.
+        required: true
+      responses:
+        '202':
+          content:
+            application/json:
+              example:
+                _links:
+                  status:
+                    href: "/lv/bgt/download/v1_0/full/delta/09bf3690-e0a1-43cc-7550-f689936d374d/status"
+                downloadRequestId: '09bf3690-e0a1-43cc-7550-f689936d374d'
+              schema:
+                title: DeltaCustomDownloadResponse
+                properties:
+                  _links:
+                    properties:
+                      status:
+                        allOf:
+                          - "$ref": "#/components/schemas/HalLink"
+                        description: Absolute path naar het endpoint waarop de status
+                          van de aanvraag opgehaald kan worden
+                    type: object
+                  downloadRequestId:
+                    description: ID van het gemaakte download request
+                    type: string
+                required:
+                  - downloadRequestId
+                  - _links
+                type: object
+          description: 'Verzoek geaccepteerd
+
+            '
+        '500':
+          description: Interne server fout
+      summary: Met dit endpoint kan een delta custom download aangevraagd worden
+      tags:
+        - Delta Custom
+  "/delta/custom/{downloadRequestId}/status":
+    get:
+      operationId: DeltaCustomDownloadStatus
+      parameters:
+        - in: path
+          name: downloadRequestId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                _links:
+                  self:
+                    href: "/lv/bgt/download/v1_0/full/delta/09bf3690-e0a1-43cc-7550-f689936d374d/status"
+                progress: 23
+                status: RUNNING
+              schema:
+                "$ref": "#/components/schemas/DeltaCustomDownloadStatusResponse"
+          description: Delta custom download nog niet gereed
+        '201':
+          content:
+            application/json:
+              example:
+                _links:
+                  download:
+                    href: "/lv/bgt/download/v1_0/extract/72f0d5d6-d34c-439b-a115-b53811aa8a72/extract.zip"
+                progress: 100
+                status: COMPLETED
+              schema:
+                "$ref": "#/components/schemas/DeltaCustomDownloadStatusResponse"
+          description: Het bestand is gereed om te downloaden
+        '404':
+          description: Delta custom download request met het gegeven ID is niet bij
+            ons bekend
+        '500':
+          description: Interne server fout
+      summary: Dit endpoint geeft de status terug van een aangevraagde delta custom
+        download
+      tags:
+        - Delta Custom
+  "/delta/predefined/bgt-citygml-nl-delta.zip":
+    get:
+      operationId: GetDeltaPredefinedGmlNl
+      parameters:
+        - description: 'Als het verzoek geen deltaId bevat, dan zal de download de meeste
+          recente initiële levering bevatten. Als het verzoek wel een deltaId bevat,
+          dan zal de download alleen de wijzigingen bevatten uit de opgegeven delta.
+
+          '
+          in: query
+          name: delta-id
+          schema:
+            type: string
+      responses:
+        '307':
+          description: Redirect
+          headers:
+            Location:
+              description: Absolute path waarop het bestand gedownload kan worden
+        '404':
+          description: Not found
+      summary: 'Met dit endpoint kan een delta download gestart worden waarbij geen
+        filters zijn toegepast op type feature of gebied
+
+        '
+      tags:
+        - Delta Predefined
+servers:
+  - url: https://api.pdok.nl/lv/bgt/download/v1_0
