@@ -19,7 +19,7 @@ import java.sql.SQLException;
 import java.util.function.Supplier;
 
 @Command(name = "bgt-citygml-loader", mixinStandardHelpOptions = true, version = "${ROOT-COMMAND-NAME} ${bundle:app.version}",
-        resourceBundle = "BGTCityGMLLoader")
+        resourceBundle = "BGTCityGMLLoader", subcommands = {DownloadServiceCommand.class})
 public class BGTLoaderMain {
 
     enum SQLDialectEnum {
