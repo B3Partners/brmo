@@ -115,15 +115,7 @@ public class DownloadCommand {
         System.out.println("Response length: " + contentLength + ", Etag: " + etag);
 
         IMGeoDb db = new IMGeoDb(dbOptions);
-        IMGeoObjectTableWriter writer = new IMGeoObjectTableWriter(db.getConnection(), db.getDialect());
-
-        if (loadOptions == null) {
-            loadOptions = new LoadOptions();
-        }
-        writer.setBatchSize(db.getDialect().getDefaultOptimalBatchSize());
-        writer.setObjectLimit(loadOptions.maxObjects);
-        writer.setLinearizeCurves(loadOptions.linearizeCurves);
-        writer.setCurrentObjectsOnly(!loadOptions.includeHistory);
+        IMGeoObjectTableWriter writer = db.createObjectTableWriter(loadOptions);
 
         InputStream input = new URL(fullDownloadUri.toString()).openConnection().getInputStream();
 
