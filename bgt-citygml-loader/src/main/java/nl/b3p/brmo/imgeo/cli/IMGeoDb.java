@@ -1,5 +1,6 @@
 package nl.b3p.brmo.imgeo.cli;
 
+import nl.b3p.brmo.imgeo.IMGeoObjectTableWriter;
 import nl.b3p.brmo.sql.dialect.MSSQLDialect;
 import nl.b3p.brmo.sql.dialect.OracleDialect;
 import nl.b3p.brmo.sql.dialect.PostGISDialect;
@@ -50,6 +51,19 @@ public class IMGeoDb {
         } catch (SQLException e) {
             throw new RuntimeException(String.format("Error connecting to the database with connection string \"%s\"", dbOptions.connectionString), e);
         }
+    }
+
+    public IMGeoObjectTableWriter createObjectTableWriter(LoadOptions loadOptions) throws SQLException, ClassNotFoundException {
+        IMGeoObjectTableWriter writer = new IMGeoObjectTableWriter(this.getConnection(), this.getDialect());
+
+        if (loadOptions == null) {
+            loadOptions = new LoadOptions();
+        }
+        writer.setBatchSize(this.getDialect().getDefaultOptimalBatchSize());
+        writer.setObjectLimit(loadOptions.maxObjects);
+        writer.setLinearizeCurves(loadOptions.linearizeCurves);
+        writer.setCurrentObjectsOnly(!loadOptions.includeHistory);
+        return writer;
     }
 
     public static SQLDialect createDialect(SQLDialectEnum dialectEnum) throws SQLException {

@@ -49,15 +49,7 @@ public class BGTLoaderMain {
             @Parameters(paramLabel = "<file>") File file) throws Exception {
 
         IMGeoDb db = new IMGeoDb(dbOptions);
-        IMGeoObjectTableWriter writer = new IMGeoObjectTableWriter(db.getConnection(), db.getDialect());
-
-        if (loadOptions == null) {
-            loadOptions = new LoadOptions();
-        }
-        writer.setBatchSize(db.getDialect().getDefaultOptimalBatchSize());
-        writer.setObjectLimit(loadOptions.maxObjects);
-        writer.setLinearizeCurves(loadOptions.linearizeCurves);
-        writer.setCurrentObjectsOnly(!loadOptions.includeHistory);
+        IMGeoObjectTableWriter writer = db.createObjectTableWriter(loadOptions);
 
         writer.processFile(file);
 
