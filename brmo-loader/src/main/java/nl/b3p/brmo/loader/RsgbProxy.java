@@ -1181,6 +1181,8 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             // voor "null" geom moet hier iets extra gedaan worden voor sommige databases...
             if (null == param
                     && findColumnMetadata(tableColumnMetadata, row.getColumns().get(i)).getTypeName().equals(geomToJdbc.getGeomTypeName())
+                    // geeft: java.sql.SQLFeatureNotSupportedException: Unsupported feature: checkValidIndex
+                    // && stm.getParameterMetaData().getParameterTypeName(i + 1).equals(geomToJdbc.getGeomTypeName())
             ) {
                 log.trace("gebruik `setNull` voor kolom: " + i + " " + row.getColumns().get(i) + ", waarde "
                         + param + "(" + stm.getParameterMetaData().getParameterTypeName(i + 1) + ")");
@@ -1302,7 +1304,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             Object param = params.get(i);
             // voor "null" geom moet hier iets extra gedaan worden voor sommige databases...
             if (null == param
-                    && findColumnMetadata(tableColumnMetadata, row.getColumns().get(i)).getTypeName().equals(geomToJdbc.getGeomTypeName())
+                    && stm.getParameterMetaData().getParameterTypeName(i + 1).equals(geomToJdbc.getGeomTypeName())
             ) {
                 log.trace("gebruik `setNull` voor kolom: " + i + " " + row.getColumns().get(i) + ", waarde "
                         + param + "(" + stm.getParameterMetaData().getParameterTypeName(i + 1) + ")");
