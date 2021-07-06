@@ -19,14 +19,8 @@ import java.sql.SQLException;
 import java.util.function.Supplier;
 
 @Command(name = "bgt-citygml-loader", mixinStandardHelpOptions = true, version = "${ROOT-COMMAND-NAME} ${bundle:app.version}",
-        resourceBundle = "BGTCityGMLLoader", subcommands = {DownloadServiceCommand.class})
+        resourceBundle = "BGTCityGMLLoader", subcommands = {DownloadCommand.class})
 public class BGTLoaderMain {
-
-    enum SQLDialectEnum {
-        postgis,
-        oracle,
-        mssql
-    }
 
     enum IMGeoTableSet {
         bgt,
@@ -37,9 +31,9 @@ public class BGTLoaderMain {
     @Command(name = "schema")
     public int schema(
             @Option(names={"-h","--help"}, usageHelp = true) boolean showHelp,
-            @Option(names="--dialect", paramLabel="<dialect>", defaultValue = "postgis") SQLDialectEnum dialectEnum,
+            @Option(names="--dialect", paramLabel="<dialect>", defaultValue = "postgis") IMGeoDb.SQLDialectEnum dialectEnum,
             @Option(names="--tables", paramLabel="<tables>", defaultValue="all") IMGeoTableSet tables) throws SQLException {
-        createDialect(dialectEnum);
+        SQLDialect dialect = IMGeoDb.createDialect(dialectEnum);
         IMGeoSchemaMapper.printSchema(dialect,
                 tables == IMGeoTableSet.all || tables == IMGeoTableSet.bgt,
                 tables == IMGeoTableSet.all || tables == IMGeoTableSet.plus
@@ -54,14 +48,13 @@ public class BGTLoaderMain {
             @Mixin LoadOptions loadOptions,
             @Parameters(paramLabel = "<file>") File file) throws Exception {
 
-        createConnectionFactory(dbOptions);
-
-        IMGeoObjectTableWriter writer = new IMGeoObjectTableWriter(connectionFactory.get(), dialect);
+        IMGeoDb db = new IMGeoDb(dbOptions);
+        IMGeoObjectTableWriter writer = new IMGeoObjectTableWriter(db.getConnection(), db.getDialect());
 
         if (loadOptions == null) {
             loadOptions = new LoadOptions();
         }
-        writer.setBatchSize(dialect.getDefaultOptimalBatchSize());
+        writer.setBatchSize(db.getDialect().getDefaultOptimalBatchSize());
         writer.setObjectLimit(loadOptions.maxObjects);
         writer.setLinearizeCurves(loadOptions.linearizeCurves);
         writer.setCurrentObjectsOnly(!loadOptions.includeHistory);
@@ -69,43 +62,6 @@ public class BGTLoaderMain {
         writer.processFile(file);
 
         return 1;
-    }
-
-    Supplier<Connection> connectionFactory = null;
-    SQLDialect dialect;
-
-    private void createDialect(SQLDialectEnum dialectEnum) throws SQLException {
-        switch(dialectEnum) {
-            case postgis: dialect = new PostGISDialect(); return;
-            case oracle: dialect = new OracleDialect(); return;
-            case mssql: dialect = new MSSQLDialect(); return;
-        }
-        throw new IllegalArgumentException(String.format("Invalid dialect: \"%s\"", dialectEnum));
-    }
-
-    private void createConnectionFactory(DatabaseOptions dbOptions) throws SQLException, ClassNotFoundException {
-        SQLDialectEnum sqlDialectEnum;
-        if (dbOptions.connectionString.startsWith("jdbc:postgresql:")) {
-            sqlDialectEnum = SQLDialectEnum.postgis;
-        } else if (dbOptions.connectionString.startsWith("jdbc:oracle:thin:")) {
-            sqlDialectEnum = SQLDialectEnum.oracle;
-        } else if (dbOptions.connectionString.startsWith("jdbc:sqlserver:")) {
-            sqlDialectEnum = SQLDialectEnum.mssql;
-        } else {
-            throw new IllegalArgumentException(String.format("Can't determine database dialect from connection string \"%s\"", dbOptions.connectionString));
-        }
-
-        createDialect(sqlDialectEnum);
-
-        dialect.loadDriver();
-
-        connectionFactory = () -> {
-            try {
-                return DriverManager.getConnection(dbOptions.connectionString, dbOptions.user, dbOptions.password);
-            } catch (SQLException e) {
-                throw new RuntimeException(String.format("Error connecting to the database with connection string \"%s\"", dbOptions.connectionString), e);
-            }
-        };
     }
 
     public static void main(String[] args) {
