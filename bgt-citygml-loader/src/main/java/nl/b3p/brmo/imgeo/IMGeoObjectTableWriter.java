@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.OptionalLong;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.zip.ZipFile;
@@ -179,7 +180,7 @@ public class IMGeoObjectTableWriter {
         }
     }
 
-    private void write(InputStream bgtXml, long size) throws Exception {
+    public void write(InputStream bgtXml, long size) throws Exception {
         this.size = size;
         try(CountingInputStream counter = new CountingInputStream(bgtXml)) {
             this.counter = counter;
