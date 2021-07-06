@@ -42,8 +42,8 @@ public class IMGeoSchema {
             "Kunstwerkdeel",
             "Scheiding",
             "FunctioneelGebied",
-            "OpenbareRuimteLabel"//,
-            // "Plaatsbepalingspunt" // TODO
+            "OpenbareRuimteLabel",
+            "Plaatsbepalingspunt"
     ));
 
     public static Map<String, List<AttributeColumnMapping>> objectTypeAttributes = new HashMap<>();
@@ -64,7 +64,8 @@ public class IMGeoSchema {
     );
 
     public static Set<String> noBaseAttributesObjectTypes = new HashSet<>(Arrays.asList(
-            "nummeraanduidingreeks"
+            "nummeraanduidingreeks",
+            "Plaatsbepalingspunt"
     ));
 
     static {
@@ -197,6 +198,15 @@ public class IMGeoSchema {
                 new GeometryAttributeColumnMapping("plaatsingspunt", "geometry(POINT, 28992)"),
                 new AttributeColumnMapping("identificatieBAGVBOLaagsteHuisnummer", "varchar(16)", false),
                 new AttributeColumnMapping("identificatieBAGVBOHoogsteHuisnummer", "varchar(16)", false)
+        ));
+        objectTypeAttributes.put("Plaatsbepalingspunt", Arrays.asList(
+                new AttributeColumnMapping("gmlId", "char(32)", true, true),
+                new AttributeColumnMapping("identificatie"),
+                new IntegerAttributeColumnMapping("nauwkeurigheid", false),
+                new SimpleDateFormatAttributeColumnMapping("datumInwinning", "date", true, PATTERN_XML_DATE),
+                new AttributeColumnMapping("inwinnendeInstantie", "varchar(255)", false),
+                new AttributeColumnMapping("inwinningsmethode", "varchar(255)", true),
+                new GeometryAttributeColumnMapping("geometrie", "geometry(POINT, 28992)")
         ));
         objectTypeAttributes.put("Put", Arrays.asList(
                 new AttributeColumnMapping("function"),

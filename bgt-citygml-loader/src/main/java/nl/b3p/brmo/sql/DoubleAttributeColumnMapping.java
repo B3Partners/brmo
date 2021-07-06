@@ -1,6 +1,6 @@
 package nl.b3p.brmo.sql;
 
-public class DoubleAttributeColumnMapping  extends AttributeColumnMapping {
+public class DoubleAttributeColumnMapping extends AttributeColumnMapping {
 
     public DoubleAttributeColumnMapping(String name, boolean notNull) {
         super(name, "double precision", notNull, false);
