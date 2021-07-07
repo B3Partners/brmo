@@ -1,30 +1,16 @@
 package nl.b3p.brmo.loader.util;
 
-import org.locationtech.jts.geom.Geometry;
-import org.locationtech.jts.geom.GeometryFactory;
-import org.locationtech.jts.geom.Polygon;
-import org.locationtech.jts.geom.PrecisionModel;
-import java.io.IOException;
-import java.io.StringReader;
-import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.List;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.stream.XMLInputFactory;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
-import javax.xml.transform.Source;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.stax.StAXSource;
-import javax.xml.transform.stream.StreamResult;
-import org.geotools.gml3.GMLConfiguration;
-import org.geotools.xsd.Parser;
+import org.geotools.gml.stream.XmlStreamGeometryReader;
 import org.javasimon.SimonManager;
 import org.javasimon.Split;
-import org.xml.sax.SAXException;
+import org.locationtech.jts.geom.Geometry;
+
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamReader;
+import javax.xml.transform.Source;
+import javax.xml.transform.TransformerFactory;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -40,20 +26,17 @@ public class DataComfortXMLReader {
 
     private final TransformerFactory tf = TransformerFactory.newInstance();
     private final XMLInputFactory xif = XMLInputFactory.newInstance();
-    private final GeometryFactory gf;
-    private final Parser gmlParser;
 
     public DataComfortXMLReader() {
-        GMLConfiguration gml = new org.geotools.gml3.GMLConfiguration();
-        gf = new GeometryFactory(new PrecisionModel(), 28992);
-        gml.getContext().registerComponentInstance(gf);
-        gmlParser = new Parser(gml);
+        xif.setProperty(XMLInputFactory.IS_COALESCING, Boolean.TRUE); // Coalesce characters
+        xif.setProperty(XMLInputFactory.SUPPORT_DTD, Boolean.FALSE); // No XML entity expansions or external entities
     }
 
-    public List<TableData> readDataXML(Source dataXML) throws XMLStreamException, TransformerConfigurationException, TransformerException, IOException, SAXException, ParserConfigurationException {
+    public List<TableData> readDataXML(Source dataXML) throws Exception {
         Split split = SimonManager.getStopwatch("b3p.util.datacomfortxmlreader").start();
 
         XMLStreamReader xer = xif.createXMLStreamReader(dataXML);
+        XmlStreamGeometryReader geometryReader = new XmlStreamGeometryReader(xer);
 
         int level = LEVEL_ROOT;
         List<TableData> list = new ArrayList();
@@ -175,25 +158,16 @@ public class DataComfortXMLReader {
 
                         // Detecteer XML elementen of text
                         xer.next();
-			// Skip whitespace before a possible element
+                        // Skip whitespace before a possible element
                         while(xer.isWhiteSpace()) {
                             xer.next();
                         }
                         if (xer.isStartElement()) {
                             Split split2 = SimonManager.getStopwatch("b3p.util.datacomfortxmlreader.parsegml").start();
 
-                            Transformer transformer = tf.newTransformer();
-                            StringWriter sw = new StringWriter();
-                            transformer.transform(new StAXSource(xer), new StreamResult(sw));
+                            Geometry geom = geometryReader.readGeometry();
 
-                            Geometry geom = (Geometry) gmlParser.parse(new StringReader(sw.toString()));
-                            //TODO Hack, alles naar multi variant of niet, nu POINT en MULTIPOLYGON
-                            //tijdelijk elke POLYGON omzetten naar MULTIPOLYGON
-                            if (geom instanceof Polygon) {
-                                Polygon[] polygons = new Polygon[] {(Polygon)geom};
-                                 geom = gf.createMultiPolygon(polygons);
-                            }
-
+                            // Note: this linearizes curves, we could use a WKTWriter2 instead!
                             row.getValues().add(geom.toString());
 
                             //System.out.println("Sub elements " + tag + ": " + sw.toString());
