@@ -100,16 +100,24 @@ public class RsgbWOZTransformer extends RsgbTransformer {
                 old.appendChild(newChild);
             } else {
                 Element oldItem = (Element) nl.item(0);
-                if (first) {
-                    merge(base, newChild, oldItem, false);
+                if ("geom".equalsIgnoreCase(name)) {
+                    // gebruik newChild helemaal voor geometrie
+                    newChild = base.importNode(newChild, true);
+                    LOG.info("append geom: " + newChild);
+                    old.removeChild(oldItem);
+                    old.appendChild(newChild);
                 } else {
-                    String nieuweWaarde = newChild.getTextContent();
-                    if (nieuweWaarde.equals(STUF_GEEN_WAARDE)) {
-                        oldItem.setTextContent("");
-                    } else if (nieuweWaarde.equals("")) {
-                        //keep old content
+                    if (first) {
+                        merge(base, newChild, oldItem, false);
                     } else {
-                        oldItem.setTextContent(sanitizeValue(newChild.getTextContent()));
+                        String nieuweWaarde = newChild.getTextContent();
+                        if (nieuweWaarde.equals(STUF_GEEN_WAARDE)) {
+                            oldItem.setTextContent("");
+                        } else if (nieuweWaarde.equals("")) {
+                            //keep old content
+                        } else {
+                            oldItem.setTextContent(sanitizeValue(newChild.getTextContent()));
+                        }
                     }
                 }
             }
@@ -136,7 +144,7 @@ public class RsgbWOZTransformer extends RsgbTransformer {
         Transformer transformer = transformerFactory.newTransformer();
         transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
         transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
-        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+        transformer.setOutputProperty(OutputKeys.INDENT, "no");
         DOMSource source = new DOMSource(doc);
         StringWriter sw = new StringWriter();
         Result result = new StreamResult(sw);

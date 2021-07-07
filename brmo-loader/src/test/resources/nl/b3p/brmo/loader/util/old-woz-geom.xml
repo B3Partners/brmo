@@ -1,0 +1,25 @@
+<root xmlns:bg="http://www.egem.nl/StUF/sector/bg/0310" xmlns:gml="http://www.opengis.net/gml" xmlns:s="http://www.egem.nl/StUF/StUF0301" xmlns:woz="http://www.waarderingskamer.nl/StUF/0312">
+    <!--objectRef: WOZ.WOZ.800000003123, datum: 2020-07-12 07:23:50.609, volgordeNummer: 1, soort: woz-->
+    <data>
+        <!--woz object bericht: 800000003123-->
+        <woz_obj column-dat-beg-geldh="dat_beg_geldh" column-datum-einde-geldh="datum_einde_geldh">
+            <dat_beg_geldh>2010-09-01</dat_beg_geldh>
+            <nummer>800000003123</nummer>
+            <datum_einde_geldh/>
+            <gebruikscode>10</gebruikscode>
+            <grondoppervlakte>450</grondoppervlakte>
+            <soort_obj_code/>
+            <status>0</status>
+            <vastgestelde_waarde/>
+            <waardepeildatum/>
+            <geom/>
+            <waterschap>0372</waterschap>
+            <fk_verantw_gem_code>8000</fk_verantw_gem_code>
+        </woz_obj>
+        <woz_belang>
+            <fk_sc_lh_sub_identif>WOZ.NPS.e19242199d42fea43af7201c13ec4ad980f1e2cb</fk_sc_lh_sub_identif>
+            <fk_sc_rh_woz_nummer>800000003123</fk_sc_rh_woz_nummer>
+            <aand_eigenaargebruiker>E</aand_eigenaargebruiker>
+        </woz_belang>
+    </data>
+</root>

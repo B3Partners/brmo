@@ -104,21 +104,21 @@ public class WozXMLReader extends BrmoXMLReader {
         if (objectNodes.getLength() < 1) {
             objectNode = xpath.compile("//*[local-name()='nieuweGemeenteNPS']");
             objectNodes = (NodeList) objectNode.evaluate(doc, XPathConstants.NODESET);
-            if (LOG.isDebugEnabled() && objectNodes.getLength() > 0){
+            if (LOG.isDebugEnabled() && objectNodes.getLength() > 0) {
                 LOG.debug("nieuweGemeente NPS omhangbericht");
             }
         }
         if (objectNodes.getLength() < 1) {
             objectNode = xpath.compile("//*[local-name()='nieuweGemeenteNNP']");
             objectNodes = (NodeList) objectNode.evaluate(doc, XPathConstants.NODESET);
-            if (LOG.isDebugEnabled() && objectNodes.getLength() > 0){
+            if (LOG.isDebugEnabled() && objectNodes.getLength() > 0) {
                 LOG.debug("nieuweGemeente NNP omhangbericht");
             }
         }
         if (objectNodes.getLength() < 1) {
             objectNode = xpath.compile("//*[local-name()='nieuweGemeenteVES']");
             objectNodes = (NodeList) objectNode.evaluate(doc, XPathConstants.NODESET);
-            if (LOG.isDebugEnabled() && objectNodes.getLength() > 0){
+            if (LOG.isDebugEnabled() && objectNodes.getLength() > 0) {
                 LOG.debug("nieuweGemeente VES omhangbericht");
             }
         }
@@ -149,7 +149,8 @@ public class WozXMLReader extends BrmoXMLReader {
         }
 
         t.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
-        t.setOutputProperty(OutputKeys.INDENT, "yes");
+        t.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+        t.setOutputProperty(OutputKeys.INDENT, "no");
         t.setOutputProperty(OutputKeys.METHOD, "xml");
         t.transform(new DOMSource(n), new StreamResult(sw));
 
@@ -160,6 +161,7 @@ public class WozXMLReader extends BrmoXMLReader {
         brXML += el + "</root>";
 
         WozBericht b = new WozBericht(brXML);
+        b.setDatum(getBestandsDatum());
         if (index == 1) {
             // alleen op 1e brmo bericht van mogelijk meer uit originele bericht
             b.setBrOrgineelXml(brOrigXML);
@@ -171,12 +173,17 @@ public class WozXMLReader extends BrmoXMLReader {
         //  van een NPS, maar met een hoger volgordenummer...
         //  vooralsnog halen we niet de geneste entiteiten uit het bericht
         b.setVolgordeNummer(index);
-        b.setObjectRef(object_ref);
-        b.setDatum(getBestandsDatum());
-        // om om het probleem van 2 subjecten uit 1 bericht op zelfde tijdstip dus heen te werken hoger volgordenummer ook iets later maken
         if (index > 1) {
+            // om om het probleem van 2 subjecten uit 1 bericht op zelfde tijdstip dus heen te werken hoger volgordenummer ook iets later maken
             b.setDatum(new Date(getBestandsDatum().getTime() + 10));
         }
+        b.setObjectRef(object_ref);
+        if (StringUtils.isEmpty(b.getObjectRef())) {
+            // geen object_ref kunnen vaststellen; dan ook niet transformeren
+            b.setStatus(Bericht.STATUS.STAGING_NOK);
+            b.setOpmerking("Er kon geen object_ref bepaald worden uit de natuurlijke sleutel van het bericht.");
+        }
+
         LOG.trace("bericht: " + b);
         return b;
     }
@@ -215,23 +222,16 @@ public class WozXMLReader extends BrmoXMLReader {
         // WOZ:object StUF:entiteittype="WRD"/WOZ:isVoor/WOZ:gerelateerde/WOZ:wozObjectNummer
         XPathExpression wrd = xPathfactory.newXPath().compile("./*/*[local-name()='gerelateerde']/*[local-name()='wozObjectNummer']");
         obRefs = (NodeList) wrd.evaluate(wozObjectNode, XPathConstants.NODESET);
-        if (obRefs.getLength() > 0) {
+        if (obRefs.getLength() > 0 && !StringUtils.isEmpty(obRefs.item(0).getTextContent())) {
             return PREFIX_WOZ + obRefs.item(0).getTextContent();
         }
-
-        // TODO
-        //    vestiging:
-        //      is een belanghebbende
-        //
-        //      heeft soms ook WOZ:soFiNummer en/of WOZ:aanvullingSoFiNummer...
 
         // WOZ:object StUF:entiteittype="VES"/WOZ:isEen/WOZ:gerelateerde/BG:vestigingsNummer
         XPathExpression ves = xPathfactory.newXPath().compile("./*/*[local-name()='gerelateerde']/*[local-name()='vestigingsNummer']");
         obRefs = (NodeList) ves.evaluate(wozObjectNode, XPathConstants.NODESET);
-        if (obRefs.getLength() > 0) {
+        if (obRefs.getLength() > 0 && !StringUtils.isEmpty(obRefs.item(0).getTextContent())) {
             return PREFIX_VES + obRefs.item(0).getTextContent();
         }
-
 
         return null;
     }
@@ -245,8 +245,6 @@ public class WozXMLReader extends BrmoXMLReader {
      */
     public Map<String, String> extractBSN(Node n) throws XPathExpressionException {
         Map<String, String> hashes = new HashMap<>();
-
-        //XPathFactory xPathfactory = XPathFactory.newInstance();
         XPath xpath = xPathfactory.newXPath();
         XPathExpression expr = xpath.compile("//*[local-name() = 'inp.bsn']");
         NodeList nodelist = (NodeList) expr.evaluate(n, XPathConstants.NODESET);
@@ -255,7 +253,6 @@ public class WozXMLReader extends BrmoXMLReader {
             String bsnString = bsn.getTextContent();
             String hash = getHash(bsnString);
             hashes.put(bsnString, hash);
-
         }
         return hashes;
     }

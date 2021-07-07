@@ -75,9 +75,11 @@ public class WozXMLToStagingIntegrationTest extends AbstractDatabaseIntegrationT
     static Stream<Arguments> argumentsProvider() {
         return Stream.of(
                 // {"filename", aantalBerichten, aantalLaadProcessen, objectRefs, objNummer, grondoppervlakte, gem_code, ws_code, wozBelang[rij][cols], deelObjectNums[], wozOmvatKadIdentif[]},
-                arguments("/woz/800000793120/204253181.xml", 1, 1, new String[]{"WOZ.WOZ.800000793120"}, "800000793120", 4000, 8000, "8106", new String[0][0], new String[0], new String[]{"8000552570003"}),
-                arguments("/woz/800000793120/204325718.xml", 2, 1, new String[]{"WOZ.NPS.295f133e37f55dd610756bbb0e6eebcf0ebbc555", "WOZ.WOZ.800000200014"}, "800000200014", 500, 8000, "8106", new String[][]{{"WOZ.NPS.295f133e37f55dd610756bbb0e6eebcf0ebbc555", "800000200014", "E"}}, new String[]{"800000793120"}, new String[0]),
-                arguments("/woz/800000200021/204405262.xml", 2, 1, new String[]{"WOZ.NNP.428228574", "WOZ.WOZ.800000200021"}, "800000200021", 200, 8000, "8106", new String[][]{{"WOZ.NNP.428228574", "800000200021", "E"}}, new String[0], new String[0])
+//                arguments("/woz/800000793120/204253181.xml", 1, 1, new String[]{"WOZ.WOZ.800000793120"}, "800000793120", 4000, 8000, "8106", new String[0][0], new String[0], new String[]{"8000552570003"}),
+//                arguments("/woz/800000793120/204325718.xml", 2, 1, new String[]{"WOZ.NPS.295f133e37f55dd610756bbb0e6eebcf0ebbc555", "WOZ.WOZ.800000200014"}, "800000200014", 500, 8000, "8106", new String[][]{{"WOZ.NPS.295f133e37f55dd610756bbb0e6eebcf0ebbc555", "800000200014", "E"}}, new String[]{"800000793120"}, new String[0]),
+//                arguments("/woz/800000200021/204405262.xml", 2, 1, new String[]{"WOZ.NNP.428228574", "WOZ.WOZ.800000200021"}, "800000200021", 200, 8000, "8106", new String[][]{{"WOZ.NNP.428228574", "800000200021", "E"}}, new String[0], new String[0]),
+                arguments("/woz/object_met_geom.xml", 2, 1, new String[]{"WOZ.WOZ.800000003123", "WOZ.WOZ.800000003123"}, "800000003123", 450, 8000, "0372", new String[][]{{"WOZ.NPS.e19242199d42fea43af7201c13ec4ad980f1e2cb", "800000003123", "E"}}, new String[0], new String[]{"8000010170000"})
+
         );
     }
 
@@ -124,7 +126,7 @@ public class WozXMLToStagingIntegrationTest extends AbstractDatabaseIntegrationT
 
         sequential.lock();
 
-//        CleanUtil.cleanRSGB_WOZ(rsgb, true);
+        CleanUtil.cleanRSGB_WOZ(rsgb, true);
 
         DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
         assumeTrue(0L == brmo.getCountBerichten(null, null, BrmoFramework.BR_WOZ, "STAGING_OK"),
@@ -136,8 +138,8 @@ public class WozXMLToStagingIntegrationTest extends AbstractDatabaseIntegrationT
     @AfterEach
     public void cleanup() throws Exception {
         brmo.closeBrmoFramework();
-        CleanUtil.cleanSTAGING(staging, false);
-        CleanUtil.cleanRSGB_WOZ(rsgb, true);
+//        CleanUtil.cleanSTAGING(staging, false);
+//        CleanUtil.cleanRSGB_WOZ(rsgb, true);
         staging.close();
         sequential.unlock();
     }

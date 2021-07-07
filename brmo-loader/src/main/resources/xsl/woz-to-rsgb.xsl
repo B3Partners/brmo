@@ -4,9 +4,10 @@
                 xmlns:woz="http://www.waarderingskamer.nl/StUF/0312"
                 xmlns:bg="http://www.egem.nl/StUF/sector/bg/0310"
                 xmlns:s="http://www.egem.nl/StUF/StUF0301"
+                xmlns:gml="http://www.opengis.net/gml"
                 version="1.0"
 >
-    <xsl:output method="xml" indent="yes" omit-xml-declaration="yes" encoding="UTF-8"/>
+    <xsl:output method="xml" indent="no" omit-xml-declaration="yes" encoding="UTF-8"/>
 
     <!-- @see nl.b3p.brmo.loader.xml.WozXMLReader#NPS_PREFIX -->
     <xsl:variable name="PREFIX_NPS" select="'WOZ.NPS.'"/>
@@ -122,13 +123,8 @@
             <grondoppervlakte>
                 <xsl:value-of select="woz:grondoppervlakte"/>
             </grondoppervlakte>
-            <!--
-            dit is een letter, bijv. G voor gebouwd, of O, of... maar zit niet in woz_obj, wel in woz_deelobj
-            <xsl:value-of select="woz:codeGebouwdOngebouwd"/>
-            -->
-            <soort_obj_code>
-                <!-- 4 cijfer code; lijkt niet voor te komen in XML schema... -->
-            </soort_obj_code>
+            <!-- <xsl:value-of select="woz:codeGebouwdOngebouwd"/>is een letter, bijv. G voor gebouwd, of O, of... maar zit niet in woz_obj, wel in woz_deelobj             -->
+            <soort_obj_code><!-- 4 cijfer code; lijkt niet voor te komen in XML schema... --></soort_obj_code>
             <status>
                 <xsl:value-of select="woz:statusWozObject"/>
             </status>
@@ -141,7 +137,7 @@
                 </xsl:for-each>
             </waardepeildatum>
             <geom>
-                <xsl:value-of select="woz:wozObjectGeometrie"/>
+                <xsl:copy-of select="woz:wozObjectGeometrie/gml:Polygon"/>
             </geom>
             <waterschap>
                 <xsl:value-of select="woz:ligtIn/woz:gerelateerde/woz:betrokkenWaterschap"/>
@@ -752,6 +748,9 @@
     <!-- jjjjmmdd -> jjjj-mm-dd -->
     <xsl:template name="date-numeric">
         <xsl:choose>
+            <xsl:when test="current() = 'geenWaarde'">
+                <xsl:value-of select="''"/>
+            </xsl:when>
             <xsl:when test="string-length(.) &gt; 9">
                 <xsl:value-of select="concat(substring(.,1,4),'-',substring(.,5,2),'-',substring(.,7,2))"/>
             </xsl:when>
