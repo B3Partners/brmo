@@ -175,6 +175,10 @@ public class DataComfortXMLReader {
 
                         // Detecteer XML elementen of text
                         xer.next();
+			// Skip whitespace before a possible element
+                        while(xer.isWhiteSpace()) {
+                            xer.next();
+                        }
                         if (xer.isStartElement()) {
                             Split split2 = SimonManager.getStopwatch("b3p.util.datacomfortxmlreader.parsegml").start();
 
