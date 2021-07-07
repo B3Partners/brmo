@@ -815,13 +815,19 @@ public class StagingProxy {
             String lastErrorMessage = null;
 
             while (brmoXMLReader.hasNext()) {
-                Bericht b = null;
+                Bericht b;
                 try {
                     b = brmoXMLReader.next();
                     b.setLaadProcesId(lp.getId());
                     b.setStatus(Bericht.STATUS.STAGING_OK);
                     b.setStatusDatum(new Date());
                     b.setSoort(type);
+
+                    if (StringUtils.isEmpty(b.getObjectRef())) {
+                        // geen object_ref kunnen vaststellen; dan ook niet transformeren, bijvoorbeeld bij WOZ
+                        b.setStatus(Bericht.STATUS.STAGING_NOK);
+                        b.setOpmerking("Er kon geen object_ref bepaald worden uit de natuurlijke sleutel van het bericht.");
+                    }
 
                     if (b.getDatum() == null) {
                         throw new BrmoException("Datum bericht is null");
