@@ -1,14 +1,15 @@
 package nl.b3p.brmo.loader.util;
 
+import org.geotools.gml3.GMLConfiguration;
+import org.geotools.xsd.Parser;
+import org.javasimon.SimonManager;
+import org.javasimon.Split;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.Polygon;
 import org.locationtech.jts.geom.PrecisionModel;
-import java.io.IOException;
-import java.io.StringReader;
-import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.List;
+import org.xml.sax.SAXException;
+
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
@@ -20,11 +21,11 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stax.StAXSource;
 import javax.xml.transform.stream.StreamResult;
-import org.geotools.gml3.GMLConfiguration;
-import org.geotools.xsd.Parser;
-import org.javasimon.SimonManager;
-import org.javasimon.Split;
-import org.xml.sax.SAXException;
+import java.io.IOException;
+import java.io.StringReader;
+import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -175,6 +176,10 @@ public class DataComfortXMLReader {
 
                         // Detecteer XML elementen of text
                         xer.next();
+                        // Skip whitespace before a possible element
+                        while (xer.isWhiteSpace()) {
+                            xer.next();
+                        }
                         if (xer.isStartElement()) {
                             Split split2 = SimonManager.getStopwatch("b3p.util.datacomfortxmlreader.parsegml").start();
 
