@@ -103,7 +103,6 @@ public class RsgbWOZTransformer extends RsgbTransformer {
                 if ("geom".equalsIgnoreCase(name)) {
                     // gebruik newChild helemaal voor geometrie
                     newChild = base.importNode(newChild, true);
-                    LOG.info("append geom: " + newChild);
                     old.removeChild(oldItem);
                     old.appendChild(newChild);
                 } else {

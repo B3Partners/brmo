@@ -187,7 +187,8 @@
             </xsl:call-template>
         </xsl:for-each>
 
-        <xsl:for-each select="woz:omvat/woz:gerelateerde/bg:kadastraleIdentificatie">
+        <xsl:for-each
+                select="woz:omvat/woz:gerelateerde/bg:kadastraleIdentificatie| woz:bevatKadastraleObjecten/woz:gerelateerde/bg:kadastraleIdentificatie">
             <woz_omvat>
                 <fk_sc_lh_kad_identif>
                     <xsl:value-of select="."/>
@@ -367,13 +368,16 @@
                 <xsl:comment>geen waarde voor fk_sc_lh_sub_identif - woz_belang kan niet gekoppeld worden</xsl:comment>
             </xsl:when>
             <xsl:when test="$key = $PREFIX_NPS">
-                <xsl:comment>geen geldige waarde voor fk_sc_lh_sub_identif - woz_belang kan niet gekoppeld worden</xsl:comment>
+                <xsl:comment>geen geldige waarde voor fk_sc_lh_sub_identif - woz_belang kan niet gekoppeld worden
+                </xsl:comment>
             </xsl:when>
             <xsl:when test="$key = $PREFIX_NNP">
-                <xsl:comment>geen geldige waarde voor fk_sc_lh_sub_identif - woz_belang kan niet gekoppeld worden</xsl:comment>
+                <xsl:comment>geen geldige waarde voor fk_sc_lh_sub_identif - woz_belang kan niet gekoppeld worden
+                </xsl:comment>
             </xsl:when>
             <xsl:when test="$key = $PREFIX_VES">
-                <xsl:comment>geen geldige waarde voor fk_sc_lh_sub_identif - woz_belang kan niet gekoppeld worden</xsl:comment>
+                <xsl:comment>geen geldige waarde voor fk_sc_lh_sub_identif - woz_belang kan niet gekoppeld worden
+                </xsl:comment>
             </xsl:when>
             <xsl:otherwise>
                 <!-- woz:object/woz:heeftBelanghebbende/ -->

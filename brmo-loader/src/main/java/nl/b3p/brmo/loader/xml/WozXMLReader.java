@@ -89,11 +89,11 @@ public class WozXMLReader extends BrmoXMLReader {
 
         if (this.getBestandsDatum() == null) {
             // probeer datum nog uit doc te halen..
-            LOG.warn("Tijdstip bericht was niet gegeven; alsnog proberen op te zoeken in bericht.");
+            LOG.debug("Tijdstip bericht was niet gegeven; alsnog proberen op te zoeken in bericht.");
             XPathExpression tijdstipBericht = xpath.compile("//*[local-name()='tijdstipBericht']");
             Node datum = (Node) tijdstipBericht.evaluate(doc, XPathConstants.NODE);
             setDatumAsString(datum.getTextContent(), "yyyyMMddHHmmssSSS");
-            LOG.warn("Tijdstip bericht ingesteld op " + getBestandsDatum());
+            LOG.debug("Tijdstip bericht ingesteld op " + getBestandsDatum());
         }
 
         // woz:object nodes

@@ -1184,8 +1184,6 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                     // geeft: java.sql.SQLFeatureNotSupportedException: Unsupported feature: checkValidIndex
                     // && stm.getParameterMetaData().getParameterTypeName(i + 1).equals(geomToJdbc.getGeomTypeName())
             ) {
-                log.trace("gebruik `setNull` voor kolom: " + i + " " + row.getColumns().get(i) + ", waarde "
-                        + param + "(" + stm.getParameterMetaData().getParameterTypeName(i + 1) + ")");
                 if (geomToJdbc instanceof OracleJdbcConverter) {
                     stm.setNull(i + 1, Types.STRUCT, "MDSYS.SDO_GEOMETRY");
                 } else if (geomToJdbc instanceof MssqlJdbcConverter) {
@@ -1316,7 +1314,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                     stm.setNull(i + 1, stm.getParameterMetaData().getParameterType(i + 1));
                 }
             } else {
-                stm.setObject(i + 1, param);
+                stm.setObject(i + 1, param, stm.getParameterMetaData().getParameterType(i + 1));
             }
         }
 
