@@ -295,7 +295,8 @@ public final class CleanUtil {
                 new DefaultTable("woz_obj_archief"),
                 new DefaultTable("woz_waarde_archief"),
         }));
-        cleanRSGB_BRP(rsgb, deleteBrondocument);
+        // WOZ bevat ook vestigingen, NHR leegt ook BRP
+        cleanRSGB_NHR(rsgb, deleteBrondocument);
     }
 
     /**
