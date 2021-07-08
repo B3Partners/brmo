@@ -12,6 +12,7 @@ import nl.b3p.brmo.bgt.download.model.GetDeltasResponse;
 import nl.b3p.brmo.imgeo.IMGeoObjectTableWriter;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.input.CloseShieldInputStream;
+import org.apache.commons.io.input.CountingInputStream;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Mixin;
@@ -22,6 +23,7 @@ import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.time.Duration;
 import java.time.Instant;
 import java.util.List;
 import java.util.OptionalLong;
@@ -79,9 +81,9 @@ public class DownloadCommand {
 
                 if (downloadStatusResponse.getStatus() == PENDING) {
                     // TODO print wait time
-                    System.out.printf("\rExtract is pending for %s...               ", timeSince);
+                    System.out.printf("\rExtract is pending for %s...", timeSince);
                 } else if (downloadStatusResponse.getStatus() == RUNNING) {
-                    System.out.printf("\rExtract is running, progress: %d%%, time %s              ", downloadStatusResponse.getProgress(), timeSince);
+                    System.out.printf("\rExtract is running, progress: %d%%, time %s", downloadStatusResponse.getProgress(), timeSince);
                 }
                 if (calls > 100) {
                     waitTime += 1000;
@@ -130,21 +132,47 @@ public class DownloadCommand {
             IMGeoDb db = new IMGeoDb(dbOptions);
             IMGeoObjectTableWriter writer = db.createObjectTableWriter(loadOptions);
 
-            InputStream input = new URL(fullDownloadUri.toString()).openConnection().getInputStream();
+            // Are resume-able downloads with Range requests needed?
+            try (InputStream input = new URL(fullDownloadUri.toString()).openConnection().getInputStream()) {
+                Instant loadStart = Instant.now();
+                CountingInputStream countingInputStream = new CountingInputStream(input);
+                ZipInputStream zis = new ZipInputStream(countingInputStream);
+                ZipEntry entry = zis.getNextEntry();
+                while (entry != null) {
+                    System.out.print("Loading zip entry " + entry.getName());
+                    Instant zipEntryStart = Instant.now();
+                    ZipEntry finalEntry = entry;
+                    writer.setProgressUpdater(() -> System.out.printf("\rTotal extract %.1f%% loaded - file \"%s\" time %s, %,d objects",
+                            100.0 / contentLength.orElse(0) * countingInputStream.getByteCount(),
+                            finalEntry.getName(),
+                            formatTimeSince(zipEntryStart),
+                            writer.getObjectCount()
+                    ));
+                    writer.write(CloseShieldInputStream.wrap(zis));
+                    String endedObjects = writer.isCurrentObjectsOnly() ? String.format(", %,d ended objects skipped", writer.getEndedObjectsCount()) : "";
+                    double loadTimeSeconds = Duration.between(zipEntryStart, Instant.now()).toMillis() / 1000.0;
+                    System.out.printf("\r%s (%s): time %s, %,d objects%s, %,.0f objects/s%s\n",
+                            entry.getName(),
+                            FileUtils.byteCountToDisplaySize(countingInputStream.getByteCount()),
+                            formatTimeSince(zipEntryStart),
+                            writer.getObjectCount(),
+                            endedObjects,
+                            writer.getObjectCount() / loadTimeSeconds,
+                            " ".repeat(50)
+                    );
+                    entry = zis.getNextEntry();
+                }
 
-            ZipInputStream zis = new ZipInputStream(input);
-            ZipEntry entry = zis.getNextEntry();
-            while(entry != null) {
-                System.out.println("Processing ZIP entry " + entry.getName());
-                long size = entry.getSize();
-                writer.write(CloseShieldInputStream.wrap(zis));
-                entry = zis.getNextEntry();
+                System.out.printf("\rLoaded initial extract in %s (total time %s)\n",
+                        formatTimeSince(loadStart),
+                        formatTimeSince(start)
+                );
             }
 
             return null;
         });
 
-        // Insert deltaId, loadoptions and contentselection metadata
+        // TODO Insert deltaId, loadoptions and contentselection metadata
     }
 
     @Command(name="update")
