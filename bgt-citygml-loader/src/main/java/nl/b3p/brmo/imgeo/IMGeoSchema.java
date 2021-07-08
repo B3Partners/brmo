@@ -34,7 +34,7 @@ public class IMGeoSchema {
             "Waterdeel",
             "OndersteunendWaterdeel",
             "BuildingPart",
-            "nummeraanduidingreeks",
+            "nummeraanduidingreeks", // BuildingPart one-to-many
             // "OverigeConstructie", // Wel in gegevenscatalogus, niet in LV
             "OverigBouwwerk",
             "BridgeConstructionElement",
