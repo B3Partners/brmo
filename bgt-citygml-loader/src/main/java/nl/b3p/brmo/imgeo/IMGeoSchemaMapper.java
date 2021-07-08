@@ -9,6 +9,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.SortedMap;
+import java.util.TreeMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -46,15 +48,15 @@ public class IMGeoSchemaMapper {
     }
 
     public static void printSchema(SQLDialect dialect, Predicate<String> typeNameFilter) {
-        List<String> objectTypes = getAllObjectTypes().stream()
+        // Sort object type names by table names
+        SortedMap<String,String> tableNamesObjectTypes = new TreeMap<>(getAllObjectTypes().stream()
                 .filter(typeNameFilter == null ? s -> true : typeNameFilter)
-                .sorted()
-                .collect(Collectors.toList());
+                .collect(Collectors.toMap(IMGeoSchemaMapper::getTableNameForObjectType, typeName -> typeName)));
 
-        objectTypes.forEach(name -> System.out.println(createTable(name, dialect)));
+        tableNamesObjectTypes.forEach((tableName, typeName) -> System.out.println(createTable(typeName, dialect)));
         StringBuilder geometryMetadata = new StringBuilder();
         StringBuilder geometryIndexes = new StringBuilder();
-        objectTypes.forEach(name -> createGeometryMetadataAndIndexes(name, dialect, geometryMetadata, geometryIndexes));
+        tableNamesObjectTypes.forEach((tableName, typeName) -> createGeometryMetadataAndIndexes(typeName, dialect, geometryMetadata, geometryIndexes));
         if (geometryMetadata.length() > 0) {
             System.out.println("-- Geometry metadata\n");
             System.out.println(geometryMetadata);
