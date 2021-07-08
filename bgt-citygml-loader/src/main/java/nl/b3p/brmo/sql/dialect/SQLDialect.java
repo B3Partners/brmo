@@ -31,11 +31,11 @@ public interface SQLDialect {
         }
     }
 
-    default String getCreateGeometryMetadata(String tableName, String geometryColumn, String type) {
+    default String getCreateGeometryMetadataSQL(String tableName, String geometryColumn, String type) {
         return "";
     }
 
-    default String getCreateGeometryIndex(String tableName, String geometryColumn, String type) {
+    default String getCreateGeometryIndexSQL(String tableName, String geometryColumn, String type) {
         return "";
     }
 

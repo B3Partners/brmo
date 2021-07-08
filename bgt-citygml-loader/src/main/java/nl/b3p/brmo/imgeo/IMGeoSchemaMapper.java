@@ -126,12 +126,12 @@ public class IMGeoSchemaMapper {
             if (column instanceof GeometryAttributeColumnMapping) {
                 String columnName = getColumnNameForObjectType(name, column.getName());
 
-                String s = dialect.getCreateGeometryMetadata(tableName, columnName, column.getType());
+                String s = dialect.getCreateGeometryMetadataSQL(tableName, columnName, column.getType());
                 if (s.length() > 0) {
                     metadata.append(s).append("\n");
                 }
 
-                s = dialect.getCreateGeometryIndex(tableName, columnName, column.getType());
+                s = dialect.getCreateGeometryIndexSQL(tableName, columnName, column.getType());
                 if (s.length() > 0) {
                     indexes.append(s).append("\n");
                 }
