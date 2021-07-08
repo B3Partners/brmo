@@ -10,12 +10,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static nl.b3p.brmo.imgeo.IMGeoSchema.getAllObjectTypes;
-import static nl.b3p.brmo.imgeo.IMGeoSchema.getIMGeoPlusObjectTypes;
-import static nl.b3p.brmo.imgeo.IMGeoSchema.getOnlyBGTObjectTypes;
 import static nl.b3p.brmo.imgeo.IMGeoSchema.objectTypeAttributes;
 
 public class IMGeoSchemaMapper {
@@ -46,21 +45,16 @@ public class IMGeoSchemaMapper {
         objectTypeNameToDutchTableName = Collections.unmodifiableMap(objectTypeNameToDutchTableName);
     }
 
-    public static void printSchema(SQLDialect dialect, boolean bgt, boolean plus) {
-        Set<String> objectTypes = null;
-        if (bgt && plus) {
-            objectTypes = getAllObjectTypes();
-        } else if (bgt) {
-            objectTypes = getOnlyBGTObjectTypes();
-        } else if (plus) {
-            objectTypes = getIMGeoPlusObjectTypes();
-        }
+    public static void printSchema(SQLDialect dialect, Predicate<String> typeNameFilter) {
+        List<String> objectTypes = getAllObjectTypes().stream()
+                .filter(typeNameFilter == null ? s -> true : typeNameFilter)
+                .sorted()
+                .collect(Collectors.toList());
 
-        assert objectTypes != null;
-        objectTypes.stream().sorted().forEach(name -> System.out.println(createTable(name, dialect)));
+        objectTypes.forEach(name -> System.out.println(createTable(name, dialect)));
         StringBuilder geometryMetadata = new StringBuilder();
         StringBuilder geometryIndexes = new StringBuilder();
-        objectTypes.stream().sorted().forEach(name -> createGeometryMetadataAndIndexes(name, dialect, geometryMetadata, geometryIndexes));
+        objectTypes.forEach(name -> createGeometryMetadataAndIndexes(name, dialect, geometryMetadata, geometryIndexes));
         if (geometryMetadata.length() > 0) {
             System.out.println("-- Geometry metadata\n");
             System.out.println(geometryMetadata);
