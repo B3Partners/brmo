@@ -3096,15 +3096,15 @@
           fullname="WOZ-DEELOBJECT"><!-- Primary key(s) -->
       <column name="dat_beg_geldh_deelobj"
               fullname="Datum begin geldigheid deelobject"
-              type="decimal(8,0)"
+              type="varchar(19)"
               key="true"
-              desc="[PK] N8"
+              desc="[PK] OnvolledigeDatum"
               archief="true"/>
       <column name="nummer"
               fullname="Nummer WOZ-deelobject"
-              type="decimal(6,0)"
+              type="decimal(12,0)"
               key="true"
-              desc="[PK] N6"/>
+              desc="[PK] N12"/>
       <!-- Simple properties -->
       <column name="code"
               fullname="Code WOZ-deelobject"
@@ -3112,8 +3112,8 @@
               desc="AN4"/>
       <column name="datum_einde_geldh_deelobj"
               fullname="Datum einde geldigheid deelobject"
-              type="decimal(8,0)"
-              desc="N8"/>
+              type="varchar(19)"
+              desc="OnvolledigeDatum"/>
       <column name="status"
               fullname="Status WOZ-deelobject"
               type="decimal(2,0)"
@@ -5260,6 +5260,7 @@
       <script>121_insert_nation.sql</script>
       <script>122_idx_gebr_doel.sql</script>
       <script>123_add_hoofdvestiging.sql</script>
+      <script>124_uitbreiding_woz.sql</script>
       <script>206_bag_views.sql</script>
       <script>207_brk_views.sql</script>
    </extra-scripts>

@@ -33,6 +33,7 @@ import nl.b3p.brmo.loader.xml.BrmoXMLReader;
 import nl.b3p.brmo.loader.xml.GbavXMLReader;
 import nl.b3p.brmo.loader.xml.NhrXMLReader;
 import nl.b3p.brmo.loader.xml.TopNLFileReader;
+import nl.b3p.brmo.loader.xml.WozXMLReader;
 import nl.b3p.jdbc.util.converter.GeometryJdbcConverter;
 import nl.b3p.jdbc.util.converter.GeometryJdbcConverterFactory;
 import nl.b3p.jdbc.util.dbutils.LongColumnListHandler;
@@ -545,13 +546,13 @@ public class StagingProxy {
     
     
     private PreparedStatement getPreviousBerichtStatement;
-    
+
     public Bericht getPreviousBericht(Bericht ber, StringBuilder loadLog) throws SQLException {
         return getPreviousBericht(ber.getObjectRef(), ber.getDatum(), ber.getId(), loadLog);
     }
-    
+
     /**
-     * Gets the previous method (not the first)
+     * Gets the previous bericht (not the first).
      * @param objectRef
      * @param datum
      * @param currentBerichtId
@@ -764,6 +765,8 @@ public class StagingProxy {
             brmoXMLReader = new BRPXMLReader(cis, d, this);
         } else if (type.equals(BrmoFramework.BR_GBAV)) {
             brmoXMLReader = new GbavXMLReader(cis);
+        } else if(type.equals(BrmoFramework.BR_WOZ)){
+            brmoXMLReader = new WozXMLReader(cis, d, this);
         } else {
             throw new UnsupportedOperationException("Ongeldige basisregistratie: " + type);
         }
@@ -812,13 +815,19 @@ public class StagingProxy {
             String lastErrorMessage = null;
 
             while (brmoXMLReader.hasNext()) {
-                Bericht b = null;
+                Bericht b;
                 try {
                     b = brmoXMLReader.next();
                     b.setLaadProcesId(lp.getId());
                     b.setStatus(Bericht.STATUS.STAGING_OK);
                     b.setStatusDatum(new Date());
                     b.setSoort(type);
+
+                    if (StringUtils.isEmpty(b.getObjectRef())) {
+                        // geen object_ref kunnen vaststellen; dan ook niet transformeren, bijvoorbeeld bij WOZ
+                        b.setStatus(Bericht.STATUS.STAGING_NOK);
+                        b.setOpmerking("Er kon geen object_ref bepaald worden uit de natuurlijke sleutel van het bericht.");
+                    }
 
                     if (b.getDatum() == null) {
                         throw new BrmoException("Datum bericht is null");
@@ -853,7 +862,7 @@ public class StagingProxy {
                     lastErrorMessage = String.format("Laden bericht uit %s mislukt vanwege: %s",
                             fileName, e.getLocalizedMessage());
                     log.error(lastErrorMessage);
-                    log.trace(e.fillInStackTrace());
+                    log.trace(lastErrorMessage, e);
                     if (listener != null) {
                         listener.exception(e);
                     }

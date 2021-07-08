@@ -34,7 +34,7 @@ import static org.junit.jupiter.api.Assumptions.*;
 /**
  * testcases voor mantis 6098; incorrecte verwijdering van berichten. Draaien
  * met:
- * {@code mvn -Dit.test=Mantis6098IntegrationTest -Dtest.onlyITs=true verify -Poracle > target/oracle.log}
+ * {@code mvn -Dit.test=Mantis6098IntegrationTest -Dtest.onlyITs=true verify -Poracle -pl :brmo-loader > /tmp/oracle.log}
  * voor bijvoorbeeld Oracle.
  *
  * @author mprins

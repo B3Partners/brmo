@@ -49,7 +49,7 @@ public final class CleanUtil {
             throws DatabaseUnitException, SQLException {
 
         if (deleteBrondocument) {
-            DatabaseOperation.DELETE_ALL.execute(rsgb, new DefaultDataSet(new DefaultTable[]{
+            DatabaseOperation.TRUNCATE_TABLE.execute(rsgb, new DefaultDataSet(new DefaultTable[]{
                 new DefaultTable("brondocument")}
             ));
         }
@@ -144,7 +144,7 @@ public final class CleanUtil {
     public static void cleanRSGB_BRP(final IDatabaseConnection rsgb, final boolean deleteBrondocument)
             throws DatabaseUnitException, SQLException {
         if (deleteBrondocument) {
-            DatabaseOperation.DELETE_ALL.execute(rsgb, new DefaultDataSet(new DefaultTable[]{
+            DatabaseOperation.TRUNCATE_TABLE.execute(rsgb, new DefaultDataSet(new DefaultTable[]{
                 new DefaultTable("brondocument")}
             ));
         }
@@ -168,7 +168,6 @@ public final class CleanUtil {
             new DefaultTable("huw_ger_partn"),
             new DefaultTable("herkomst_metadata")}
         ));
-
     }
 
     /**
@@ -275,6 +274,30 @@ public final class CleanUtil {
         cleanRSGB_BRP(rsgb, deleteBrondocument);
     }
 
+
+    /**
+     * ruimt WOZ en subject tabellen op (dus ook BRP tabellen).
+     *
+     * @param rsgb database welke opgeruimd moet worden
+     * @param deleteBrondocument {@code true} als alle brondocumenten ook verwijderd moeten worden
+     * @throws DatabaseUnitException als er iets mis gaat met DBunit, bijv verkeerde volgorde van verwijderen
+     * @throws SQLException als er iets mis gaat met uitvieren van de deletes
+     */
+    public static void cleanRSGB_WOZ(final IDatabaseConnection rsgb, final boolean deleteBrondocument)
+            throws DatabaseUnitException, SQLException {
+
+        DatabaseOperation.DELETE_ALL.execute(rsgb, new DefaultDataSet(new DefaultTable[]{
+                new DefaultTable("woz_obj"),
+                new DefaultTable("woz_deelobj"),
+                new DefaultTable("woz_waarde"),
+                new DefaultTable("woz_belang"),
+                new DefaultTable("woz_deelobj_archief"),
+                new DefaultTable("woz_obj_archief"),
+                new DefaultTable("woz_waarde_archief"),
+        }));
+        cleanRSGB_BRP(rsgb, deleteBrondocument);
+    }
+
     /**
      * leegt de bericht, laadproces en job tabellen in het staging schema. kan
      * worden gebruikt in een {@code @After} van een test case.
@@ -295,7 +318,7 @@ public final class CleanUtil {
      * test case.
      *
      * @param staging database welke geleegd moet worden
-     * @param includeProcessen {@code true} als de automastche processen ook
+     * @param includeProcessen {@code true} als alle automatische processen ook
      * verwijderd moeten worden
      * @throws org.dbunit.DatabaseUnitException als er een DBunit fout optreedt
      * @throws java.sql.SQLException als er iets misgaat in de database

@@ -1,0 +1,567 @@
+<dgl:VerstrekkingAanAfnemer xmlns:dgl="http://www.digilevering.nl/digilevering.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.digilevering.nl/digilevering.xsd digilevering.xsd"><datumtijdstempelDigilevering>2020-07-12T05:27:18.376Z</datumtijdstempelDigilevering><datumtijdstempelLV>2020-07-12T05:25:14.000Z</datumtijdstempelLV><kenmerkDigilevering>c76343a8-95e3-49fc-b399-4a6d34fab6cf@digilevering.nl</kenmerkDigilevering><kenmerkLV>7e2ac35f-dc61-4b72-921a-605ef45e23fa</kenmerkLV><versieBerichttype>1.0</versieBerichttype><abonnement><naam>WOZ test alles Waterschap De Dommel</naam><versie>1</versie></abonnement><basisregistratie>LVWOZ</basisregistratie><gebeurtenissoort><naam>wozSh01-lvwoz</naam><versie>312</versie></gebeurtenissoort><gebeurtenisinhoud>
+<WOZ:wozSh01-lvwoz xmlns:WOZ="http://www.waarderingskamer.nl/StUF/0312" xmlns:BG="http://www.egem.nl/StUF/sector/bg/0310" xmlns:StUF="http://www.egem.nl/StUF/StUF0301" xmlns:gml="http://www.opengis.net/gml" xsi:schemaLocation="http://www.waarderingskamer.nl/StUF/0312 file:///C:/temp/LV%20WOZ/woz0312_20150703/woz0312/lv_mutatieMetFo01/woz0312_msg_lv_mutatie.xsd">
+    <WOZ:stuurgegevens>
+        <StUF:berichtcode>Sh01</StUF:berichtcode>
+        <StUF:zender>
+            <StUF:organisatie>00000001803577058000</StUF:organisatie>
+            <StUF:applicatie>xxx</StUF:applicatie>
+            <StUF:administratie>P</StUF:administratie>
+        </StUF:zender>
+        <StUF:ontvanger>
+            <StUF:organisatie>KADASTER</StUF:organisatie>
+            <StUF:applicatie>LVWOZ</StUF:applicatie>
+            <StUF:administratie>P</StUF:administratie>
+        </StUF:ontvanger>
+        <StUF:referentienummer>7e2ac35f-dc61-4b72-921a-605ef45e23fa</StUF:referentienummer>
+        <StUF:tijdstipBericht>20200712072350609</StUF:tijdstipBericht>
+        <StUF:entiteittype>WOZ</StUF:entiteittype>
+    </WOZ:stuurgegevens>
+    <WOZ:actueel>
+        <WOZ:stuurgegevens>
+            <StUF:berichtcode>Sa01</StUF:berichtcode>
+            <StUF:zender>
+                <StUF:organisatie>00000001803577058000</StUF:organisatie>
+                <StUF:applicatie>xxx</StUF:applicatie>
+                <StUF:administratie>P</StUF:administratie>
+            </StUF:zender>
+            <StUF:ontvanger>
+                <StUF:organisatie>KADASTER</StUF:organisatie>
+                <StUF:applicatie>LVWOZ</StUF:applicatie>
+                <StUF:administratie>P</StUF:administratie>
+            </StUF:ontvanger>
+            <StUF:referentienummer>Synchronisatie_23_wozSh01-lvwoz</StUF:referentienummer>
+            <StUF:tijdstipBericht>20150421123055877</StUF:tijdstipBericht>
+            <StUF:entiteittype>WOZ</StUF:entiteittype>
+        </WOZ:stuurgegevens>
+        <WOZ:actueel>
+            <WOZ:stuurgegevens>
+                <StUF:berichtcode>Lk01</StUF:berichtcode>
+                <StUF:zender>
+                    <StUF:organisatie>00000001803577058000</StUF:organisatie>
+                    <StUF:applicatie>xxx</StUF:applicatie>
+                    <StUF:administratie>P</StUF:administratie>
+                </StUF:zender>
+                <StUF:ontvanger>
+                    <StUF:organisatie>KADASTER</StUF:organisatie>
+                    <StUF:applicatie>LVWOZ</StUF:applicatie>
+                    <StUF:administratie>P</StUF:administratie>
+                </StUF:ontvanger>
+                <StUF:referentienummer>e63734ab-5e1c-4887-a119-4fa4a8ae3110</StUF:referentienummer>
+                <StUF:tijdstipBericht>20161026011055877</StUF:tijdstipBericht>
+                <StUF:entiteittype>WOZ</StUF:entiteittype>
+            </WOZ:stuurgegevens>
+            <WOZ:parameters>
+                <StUF:mutatiesoort>T</StUF:mutatiesoort>
+                <StUF:indicatorOvername>V</StUF:indicatorOvername>
+            </WOZ:parameters>
+
+            <WOZ:object StUF:entiteittype="WOZ" StUF:sleutelSynchronisatie="590000000001" StUF:verwerkingssoort="T">
+                <WOZ:wozObjectNummer>800000003123</WOZ:wozObjectNummer>
+                <WOZ:aanduidingWOZobject>
+                    <BG:aoa.identificatie>8513200000000179</BG:aoa.identificatie>
+                    <BG:wpl.woonplaatsNaam>MutatieWoonplaats</BG:wpl.woonplaatsNaam>
+                    <BG:aoa.postcode>8511AA</BG:aoa.postcode>
+                    <BG:gor.openbareRuimteNaam>MutatieBosweg</BG:gor.openbareRuimteNaam>
+                    <BG:gor.straatnaam>MutatieBosweg</BG:gor.straatnaam>
+                    <BG:aoa.huisnummer>79</BG:aoa.huisnummer>
+                    <BG:aoa.huisletter StUF:noValue="geenWaarde" xsi:nil="true"/>
+                    <BG:aoa.huisnummertoevoeging StUF:noValue="geenWaarde" xsi:nil="true"/>
+                    <BG:locatieOmschrijving StUF:noValue="geenWaarde" xsi:nil="true"/>
+                </WOZ:aanduidingWOZobject>
+                <WOZ:statusWozObject>0</WOZ:statusWozObject>
+                <WOZ:grondoppervlakte>450</WOZ:grondoppervlakte>
+                <WOZ:gebruikscode>10</WOZ:gebruikscode>
+                <WOZ:codeGebouwdOngebouwd>G</WOZ:codeGebouwdOngebouwd>
+                <WOZ:meegetaxeerdeOppervlakteGebouwd StUF:noValue="geenWaarde" xsi:nil="true"/>
+                <WOZ:ozbVrijstelling StUF:noValue="nietGeautoriseerd" xsi:nil="true"/>
+                <WOZ:verantwoordelijkeGemeente>
+                    <BG:gemeenteCode>8000</BG:gemeenteCode>
+                </WOZ:verantwoordelijkeGemeente>
+                <WOZ:wozObjectGeometrie StUF:noValue="waardeOnbekend" xsi:nil="true"/>
+                <WOZ:ingangsdatumObject>20100413</WOZ:ingangsdatumObject>
+                <WOZ:einddatumObject StUF:noValue="geenWaarde" xsi:nil="true"/>
+                <StUF:tijdvakGeldigheid>
+                    <StUF:beginGeldigheid>20100901</StUF:beginGeldigheid>
+                    <StUF:eindGeldigheid StUF:noValue="geenWaarde" xsi:nil="true"/>
+                </StUF:tijdvakGeldigheid>
+                <StUF:tijdstipRegistratie>20131208105332867</StUF:tijdstipRegistratie>
+                <WOZ:ontleentAanduidingAan StUF:entiteittype="WOZAOTAND" StUF:sleutelSynchronisatie="0513010000000211" StUF:verwerkingssoort="T">
+                    <WOZ:gerelateerde>
+                        <BG:verblijfsobject StUF:entiteittype="VBO" StUF:verwerkingssoort="I">
+                            <BG:identificatie>8513010000000211</BG:identificatie>
+                            <BG:adresAanduidingGrp>
+                                <BG:num.identificatie>8513200000000179</BG:num.identificatie>
+                                <BG:wpl.woonplaatsNaam>MutatieWoonplaats</BG:wpl.woonplaatsNaam>
+                                <BG:gor.openbareRuimteNaam>MutatieBosweg</BG:gor.openbareRuimteNaam>
+                                <BG:gor.straatnaam>MutatieBosweg</BG:gor.straatnaam>
+                                <BG:aoa.postcode>8511AA</BG:aoa.postcode>
+                                <BG:aoa.huisnummer>79</BG:aoa.huisnummer>
+                                <BG:aoa.huisletter StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                <BG:aoa.huisnummertoevoeging StUF:noValue="geenWaarde" xsi:nil="true"/>
+                            </BG:adresAanduidingGrp>
+                        </BG:verblijfsobject>
+                    </WOZ:gerelateerde>
+                    <StUF:tijdvakRelatie>
+                        <StUF:beginRelatie>20100513</StUF:beginRelatie>
+                        <StUF:eindRelatie StUF:noValue="geenWaarde" xsi:nil="true"/>
+                    </StUF:tijdvakRelatie>
+                    <StUF:tijdvakGeldigheid>
+                        <StUF:beginGeldigheid>20100513</StUF:beginGeldigheid>
+                        <StUF:eindGeldigheid StUF:noValue="geenWaarde" xsi:nil="true"/>
+                    </StUF:tijdvakGeldigheid>
+                    <StUF:tijdstipRegistratie>20131208105230063</StUF:tijdstipRegistratie>
+                </WOZ:ontleentAanduidingAan>
+                <WOZ:isVerbondenMet StUF:entiteittype="WOZAOTOND" StUF:sleutelSynchronisatie="0513010000000211" StUF:verwerkingssoort="T">
+                    <WOZ:gerelateerde>
+                        <BG:verblijfsobject StUF:entiteittype="VBO" StUF:verwerkingssoort="I">
+                            <BG:identificatie>8513010000000211</BG:identificatie>
+                            <BG:adresAanduidingGrp>
+                                <BG:num.identificatie>8513200000000179</BG:num.identificatie>
+                                <BG:wpl.woonplaatsNaam>MutatieWoonplaats</BG:wpl.woonplaatsNaam>
+                                <BG:gor.openbareRuimteNaam>MutatieBosweg</BG:gor.openbareRuimteNaam>
+                                <BG:gor.straatnaam>MutatieBosweg</BG:gor.straatnaam>
+                                <BG:aoa.postcode>8511AA</BG:aoa.postcode>
+                                <BG:aoa.huisnummer>79</BG:aoa.huisnummer>
+                                <BG:aoa.huisletter StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                <BG:aoa.huisnummertoevoeging StUF:noValue="geenWaarde" xsi:nil="true"/>
+                            </BG:adresAanduidingGrp>
+                        </BG:verblijfsobject>
+                    </WOZ:gerelateerde>
+                    <StUF:tijdvakRelatie>
+                        <StUF:beginRelatie>20100513</StUF:beginRelatie>
+                        <StUF:eindRelatie StUF:noValue="geenWaarde" xsi:nil="true"/>
+                    </StUF:tijdvakRelatie>
+                    <StUF:tijdvakGeldigheid>
+                        <StUF:beginGeldigheid>20100513</StUF:beginGeldigheid>
+                        <StUF:eindGeldigheid StUF:noValue="geenWaarde" xsi:nil="true"/>
+                    </StUF:tijdvakGeldigheid>
+                    <StUF:tijdstipRegistratie>20131208105230063</StUF:tijdstipRegistratie>
+                </WOZ:isVerbondenMet>
+                <WOZ:bevatKadastraleObjecten StUF:entiteittype="WOZKOZ" StUF:sleutelSynchronisatie="1" StUF:verwerkingssoort="T">
+                    <WOZ:gerelateerde StUF:entiteittype="KOZ" StUF:verwerkingssoort="I">
+                        <BG:kadastraleIdentificatie>8000010170000</BG:kadastraleIdentificatie>
+                        <BG:kadastraleAanduiding>
+                            <BG:kadastraleGemeentecode>MUT01</BG:kadastraleGemeentecode>
+                            <BG:kadastraleSectie>A</BG:kadastraleSectie>
+                            <BG:kadastraalPerceelnummer>101</BG:kadastraalPerceelnummer>
+                            <BG:kdp.deelperceelNummer StUF:noValue="geenWaarde" xsi:nil="true"/>
+                        </BG:kadastraleAanduiding>
+                    </WOZ:gerelateerde>
+                    <WOZ:toegekendeOppervlakte>450</WOZ:toegekendeOppervlakte>
+                    <WOZ:meegetaxeerdeOppervlakte StUF:noValue="geenWaarde" xsi:nil="true"/>
+                    <StUF:tijdvakRelatie>
+                        <StUF:beginRelatie>20100413</StUF:beginRelatie>
+                        <StUF:eindRelatie StUF:noValue="geenWaarde" xsi:nil="true"/>
+                    </StUF:tijdvakRelatie>
+                    <StUF:tijdvakGeldigheid>
+                        <StUF:beginGeldigheid>20100413</StUF:beginGeldigheid>
+                        <StUF:eindGeldigheid StUF:noValue="geenWaarde" xsi:nil="true"/>
+                    </StUF:tijdvakGeldigheid>
+                    <StUF:tijdstipRegistratie>20131208105017173</StUF:tijdstipRegistratie>
+                </WOZ:bevatKadastraleObjecten>
+                <WOZ:heeftAlsAanduiding StUF:entiteittype="WOZNUM" StUF:sleutelSynchronisatie="WOZNUM" StUF:verwerkingssoort="T">
+                    <WOZ:gerelateerde StUF:entiteittype="NUM" StUF:verwerkingssoort="I">
+                        <BG:identificatie>8513200000000179</BG:identificatie>
+                        <BG:wpl.woonplaatsNaam>MutatieWoonplaats</BG:wpl.woonplaatsNaam>
+                        <BG:gor.openbareRuimteNaam>MutatieBosweg</BG:gor.openbareRuimteNaam>
+                        <BG:huisnummer>79</BG:huisnummer>
+                        <BG:huisletter StUF:noValue="geenWaarde" xsi:nil="true"/>
+                        <BG:huisnummertoevoeging StUF:noValue="geenWaarde" xsi:nil="true"/>
+                        <BG:postcode>8511AA</BG:postcode>
+                    </WOZ:gerelateerde>
+                    <WOZ:locatieOmschrijving StUF:noValue="geenWaarde" xsi:nil="true"/>
+                    <StUF:tijdvakRelatie>
+                        <StUF:beginRelatie>20100513</StUF:beginRelatie>
+                        <StUF:eindRelatie StUF:noValue="geenWaarde" xsi:nil="true"/>
+                    </StUF:tijdvakRelatie>
+                    <StUF:tijdvakGeldigheid>
+                        <StUF:beginGeldigheid>20100513</StUF:beginGeldigheid>
+                        <StUF:eindGeldigheid StUF:noValue="geenWaarde" xsi:nil="true"/>
+                    </StUF:tijdvakGeldigheid>
+                    <StUF:tijdstipRegistratie>20131208105230063</StUF:tijdstipRegistratie>
+                </WOZ:heeftAlsAanduiding>
+                <WOZ:heeftBelanghebbende StUF:entiteittype="WOZSUB" StUF:sleutelSynchronisatie="7527744d7bf1446fb0c8af4c7794fa03" StUF:verwerkingssoort="T">
+                    <WOZ:gerelateerde>
+                        <WOZ:natuurlijkPersoon StUF:entiteittype="NPS" StUF:verwerkingssoort="I">
+                            <WOZ:isEen StUF:entiteittype="NPSNPS" StUF:verwerkingssoort="I">
+                                <WOZ:gerelateerde StUF:entiteittype="NPS" StUF:verwerkingssoort="I">
+                                    <BG:inp.bsn>424308599</BG:inp.bsn>
+                                    <BG:geslachtsnaam>MutatieJansen</BG:geslachtsnaam>
+                                    <BG:voorvoegselGeslachtsnaam StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                    <BG:voorletters>J.</BG:voorletters>
+                                    <BG:geslachtsaanduiding>M</BG:geslachtsaanduiding>
+                                    <BG:geboortedatum>19900413</BG:geboortedatum>
+                                    <BG:verblijfsadres>
+                                        <BG:aoa.identificatie>8513200000000111</BG:aoa.identificatie>
+                                        <BG:wpl.woonplaatsNaam>MutatieWoonplaats</BG:wpl.woonplaatsNaam>
+                                        <BG:gor.openbareRuimteNaam>Mutatie Eerste straat</BG:gor.openbareRuimteNaam>
+                                        <BG:aoa.postcode>8500AA</BG:aoa.postcode>
+                                        <BG:aoa.huisnummer>25</BG:aoa.huisnummer>
+                                        <BG:aoa.huisletter StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                        <BG:aoa.huisnummertoevoeging StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                        <BG:inp.locatiebeschrijving StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                    </BG:verblijfsadres>
+                                </WOZ:gerelateerde>
+                            </WOZ:isEen>
+                            <WOZ:soFiNummer>424308599</WOZ:soFiNummer>
+                            <WOZ:aanvullingSoFiNummer StUF:noValue="geenWaarde" xsi:nil="true"/>
+                            <WOZ:verantwoordelijkeGemeente>8000</WOZ:verantwoordelijkeGemeente>
+                        </WOZ:natuurlijkPersoon>
+                    </WOZ:gerelateerde>
+                    <WOZ:aanduidingEigenaarGebruiker>E</WOZ:aanduidingEigenaarGebruiker>
+                    <WOZ:statusBelang>0</WOZ:statusBelang>
+                    <WOZ:avr.aard StUF:noValue="nietGeautoriseerd" xsi:nil="true"/>
+                    <StUF:tijdvakRelatie>
+                        <StUF:beginRelatie>20100413</StUF:beginRelatie>
+                        <StUF:eindRelatie StUF:noValue="geenWaarde" xsi:nil="true"/>
+                    </StUF:tijdvakRelatie>
+                    <StUF:tijdvakGeldigheid>
+                        <StUF:beginGeldigheid>20100413</StUF:beginGeldigheid>
+                        <StUF:eindGeldigheid StUF:noValue="geenWaarde" xsi:nil="true"/>
+                    </StUF:tijdvakGeldigheid>
+                    <StUF:tijdstipRegistratie>20131208105017173</StUF:tijdstipRegistratie>
+                </WOZ:heeftBelanghebbende>
+                <WOZ:ligtIn StUF:entiteittype="WOZWSP" StUF:sleutelSynchronisatie="372" StUF:verwerkingssoort="T">
+                    <WOZ:gerelateerde StUF:entiteittype="WSP" StUF:verwerkingssoort="I">
+                        <WOZ:betrokkenWaterschap>0372</WOZ:betrokkenWaterschap>
+                    </WOZ:gerelateerde>
+                    <StUF:tijdvakRelatie>
+                        <StUF:beginRelatie>20100413</StUF:beginRelatie>
+                        <StUF:eindRelatie StUF:noValue="geenWaarde" xsi:nil="true"/>
+                    </StUF:tijdvakRelatie>
+                    <StUF:tijdvakGeldigheid>
+                        <StUF:beginGeldigheid>20100413</StUF:beginGeldigheid>
+                        <StUF:eindGeldigheid StUF:noValue="geenWaarde" xsi:nil="true"/>
+                    </StUF:tijdvakGeldigheid>
+                    <StUF:tijdstipRegistratie>20131208105017173</StUF:tijdstipRegistratie>
+                </WOZ:ligtIn>
+            </WOZ:object>
+        </WOZ:actueel>
+    </WOZ:actueel>
+    <WOZ:historie>
+        <WOZ:oudste>
+            <WOZ:stuurgegevens>
+                <StUF:berichtcode>Lk01</StUF:berichtcode>
+                <StUF:zender>
+                    <StUF:organisatie>00000001803577058000</StUF:organisatie>
+                    <StUF:applicatie>xxx</StUF:applicatie>
+                    <StUF:administratie>P</StUF:administratie>
+                </StUF:zender>
+                <StUF:ontvanger>
+                    <StUF:organisatie>KADASTER</StUF:organisatie>
+                    <StUF:applicatie>LVWOZ</StUF:applicatie>
+                    <StUF:administratie>P</StUF:administratie>
+                </StUF:ontvanger>
+                <StUF:referentienummer>7741df2b-b7ce-4733-89be-4d55feb6f4d8</StUF:referentienummer>
+                <StUF:tijdstipBericht>20161026011055877</StUF:tijdstipBericht>
+                <StUF:entiteittype>WOZ</StUF:entiteittype>
+            </WOZ:stuurgegevens>
+            <WOZ:parameters>
+                <StUF:mutatiesoort>T</StUF:mutatiesoort>
+                <StUF:indicatorOvername>V</StUF:indicatorOvername>
+            </WOZ:parameters>
+            <WOZ:object StUF:entiteittype="WOZ" StUF:sleutelSynchronisatie="590000000001" StUF:verwerkingssoort="T">
+                <WOZ:wozObjectNummer>800000003123</WOZ:wozObjectNummer>
+                <WOZ:aanduidingWOZobject>
+                    <BG:aoa.identificatie StUF:noValue="geenWaarde" xsi:nil="true"/>
+                    <BG:wpl.woonplaatsNaam>MutatieWoonplaats</BG:wpl.woonplaatsNaam>
+                    <BG:aoa.postcode StUF:noValue="geenWaarde" xsi:nil="true"/>
+                    <BG:gor.openbareRuimteNaam>Straatweg</BG:gor.openbareRuimteNaam>
+                    <BG:gor.straatnaam>Straatweg</BG:gor.straatnaam>
+                    <BG:aoa.huisnummer StUF:noValue="geenWaarde" xsi:nil="true"/>
+                    <BG:aoa.huisletter StUF:noValue="geenWaarde" xsi:nil="true"/>
+                    <BG:aoa.huisnummertoevoeging StUF:noValue="geenWaarde" xsi:nil="true"/>
+                    <BG:locatieOmschrijving>bouwkavel Bospad</BG:locatieOmschrijving>
+                </WOZ:aanduidingWOZobject>
+                <WOZ:statusWozObject>0</WOZ:statusWozObject>
+                <WOZ:grondoppervlakte>450</WOZ:grondoppervlakte>
+                <WOZ:gebruikscode>40</WOZ:gebruikscode>
+                <WOZ:codeGebouwdOngebouwd>O</WOZ:codeGebouwdOngebouwd>
+                <WOZ:meegetaxeerdeOppervlakteGebouwd StUF:noValue="geenWaarde" xsi:nil="true"/>
+                <WOZ:ozbVrijstelling StUF:noValue="nietGeautoriseerd" xsi:nil="true"/>
+                <WOZ:verantwoordelijkeGemeente>
+                    <BG:gemeenteCode>8000</BG:gemeenteCode>
+                </WOZ:verantwoordelijkeGemeente>
+                <WOZ:wozObjectGeometrie>
+                    <gml:Polygon>
+                        <gml:exterior>
+                            <gml:LinearRing>
+                                <gml:posList>101046.545 439989.381 101037.316 440000.0 101033.976 440003.843 101028.315 440010.42 101015.891 440000.0 101000.0 439986.673 100999.962 439986.641 101000.0 439986.6 101006.19 439979.85 101018.809 439965.278 101032.193 439976.905 101046.545 439989.381</gml:posList>
+                            </gml:LinearRing>
+                        </gml:exterior>
+                    </gml:Polygon>
+                </WOZ:wozObjectGeometrie>
+                <WOZ:ingangsdatumObject>20100413</WOZ:ingangsdatumObject>
+                <WOZ:einddatumObject StUF:noValue="geenWaarde" xsi:nil="true"/>
+                <StUF:tijdvakGeldigheid>
+                    <StUF:beginGeldigheid>20100413</StUF:beginGeldigheid>
+                    <StUF:eindGeldigheid StUF:noValue="geenWaarde" xsi:nil="true"/>
+                </StUF:tijdvakGeldigheid>
+                <StUF:tijdstipRegistratie>20131208105017173</StUF:tijdstipRegistratie>
+                <WOZ:bevatKadastraleObjecten StUF:entiteittype="WOZKOZ" StUF:sleutelSynchronisatie="1" StUF:verwerkingssoort="T">
+                    <WOZ:gerelateerde StUF:entiteittype="KOZ" StUF:verwerkingssoort="I">
+                        <BG:kadastraleIdentificatie>8000010170000</BG:kadastraleIdentificatie>
+                        <BG:kadastraleAanduiding>
+                            <BG:kadastraleGemeentecode>MUT01</BG:kadastraleGemeentecode>
+                            <BG:kadastraleSectie>A</BG:kadastraleSectie>
+                            <BG:kadastraalPerceelnummer>101</BG:kadastraalPerceelnummer>
+                            <BG:kdp.deelperceelNummer StUF:noValue="geenWaarde" xsi:nil="true"/>
+                        </BG:kadastraleAanduiding>
+                    </WOZ:gerelateerde>
+                    <WOZ:toegekendeOppervlakte>450</WOZ:toegekendeOppervlakte>
+                    <WOZ:meegetaxeerdeOppervlakte StUF:noValue="geenWaarde" xsi:nil="true"/>
+                    <StUF:tijdvakRelatie>
+                        <StUF:beginRelatie>20100413</StUF:beginRelatie>
+                        <StUF:eindRelatie StUF:noValue="geenWaarde" xsi:nil="true"/>
+                    </StUF:tijdvakRelatie>
+                    <StUF:tijdvakGeldigheid>
+                        <StUF:beginGeldigheid>20100413</StUF:beginGeldigheid>
+                        <StUF:eindGeldigheid StUF:noValue="geenWaarde" xsi:nil="true"/>
+                    </StUF:tijdvakGeldigheid>
+                    <StUF:tijdstipRegistratie>20131208105017173</StUF:tijdstipRegistratie>
+                </WOZ:bevatKadastraleObjecten>
+                <WOZ:heeftAlsAanduiding StUF:entiteittype="WOZNUM" StUF:sleutelSynchronisatie="WOZNUM" StUF:verwerkingssoort="T">
+                    <WOZ:gerelateerde StUF:entiteittype="NUM" StUF:verwerkingssoort="I">
+                        <BG:identificatie>0513200000000179</BG:identificatie>
+                        <BG:wpl.woonplaatsNaam>MutatieWoonplaats</BG:wpl.woonplaatsNaam>
+                        <BG:gor.openbareRuimteNaam>MutatieBosweg</BG:gor.openbareRuimteNaam>
+                        <BG:huisnummer>79</BG:huisnummer>
+                        <BG:huisletter StUF:noValue="geenWaarde" xsi:nil="true"/>
+                        <BG:huisnummertoevoeging StUF:noValue="geenWaarde" xsi:nil="true"/>
+                        <BG:postcode>8511AA</BG:postcode>
+                    </WOZ:gerelateerde>
+                    <WOZ:locatieOmschrijving StUF:noValue="geenWaarde" xsi:nil="true"/>
+                    <StUF:tijdvakRelatie>
+                        <StUF:beginRelatie>20100513</StUF:beginRelatie>
+                        <StUF:eindRelatie StUF:noValue="geenWaarde" xsi:nil="true"/>
+                    </StUF:tijdvakRelatie>
+                    <StUF:tijdvakGeldigheid>
+                        <StUF:beginGeldigheid>20100513</StUF:beginGeldigheid>
+                        <StUF:eindGeldigheid StUF:noValue="geenWaarde" xsi:nil="true"/>
+                    </StUF:tijdvakGeldigheid>
+                    <StUF:tijdstipRegistratie>20131208105230063</StUF:tijdstipRegistratie>
+                </WOZ:heeftAlsAanduiding>
+                <WOZ:heeftBelanghebbende StUF:entiteittype="WOZSUB" StUF:sleutelSynchronisatie="7527744d7bf1446fb0c8af4c7794fa03" StUF:verwerkingssoort="T">
+                    <WOZ:gerelateerde>
+                        <WOZ:natuurlijkPersoon StUF:entiteittype="NPS" StUF:verwerkingssoort="I">
+                            <WOZ:isEen StUF:entiteittype="NPSNPS" StUF:verwerkingssoort="I">
+                                <WOZ:gerelateerde StUF:entiteittype="NPS" StUF:verwerkingssoort="I">
+                                    <BG:inp.bsn>424308599</BG:inp.bsn>
+                                    <BG:geslachtsnaam>MutatieJansen</BG:geslachtsnaam>
+                                    <BG:voorvoegselGeslachtsnaam StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                    <BG:voorletters>J.</BG:voorletters>
+                                    <BG:geslachtsaanduiding>M</BG:geslachtsaanduiding>
+                                    <BG:geboortedatum>19900413</BG:geboortedatum>
+                                    <BG:verblijfsadres>
+                                        <BG:aoa.identificatie>8513200000000111</BG:aoa.identificatie>
+                                        <BG:wpl.woonplaatsNaam>MutatieWoonplaats</BG:wpl.woonplaatsNaam>
+                                        <BG:gor.openbareRuimteNaam>Mutatie Eerste straat</BG:gor.openbareRuimteNaam>
+                                        <BG:aoa.postcode>8500AA</BG:aoa.postcode>
+                                        <BG:aoa.huisnummer>25</BG:aoa.huisnummer>
+                                        <BG:aoa.huisletter StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                        <BG:aoa.huisnummertoevoeging StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                        <BG:inp.locatiebeschrijving StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                    </BG:verblijfsadres>
+                                </WOZ:gerelateerde>
+                            </WOZ:isEen>
+                            <WOZ:soFiNummer>424308599</WOZ:soFiNummer>
+                            <WOZ:aanvullingSoFiNummer StUF:noValue="geenWaarde" xsi:nil="true"/>
+                            <WOZ:verantwoordelijkeGemeente>8000</WOZ:verantwoordelijkeGemeente>
+                        </WOZ:natuurlijkPersoon>
+                    </WOZ:gerelateerde>
+                    <WOZ:aanduidingEigenaarGebruiker>E</WOZ:aanduidingEigenaarGebruiker>
+                    <WOZ:statusBelang>0</WOZ:statusBelang>
+                    <WOZ:avr.aard StUF:noValue="nietGeautoriseerd" xsi:nil="true"/>
+                    <StUF:tijdvakRelatie>
+                        <StUF:beginRelatie>20100413</StUF:beginRelatie>
+                        <StUF:eindRelatie StUF:noValue="geenWaarde" xsi:nil="true"/>
+                    </StUF:tijdvakRelatie>
+                    <StUF:tijdvakGeldigheid>
+                        <StUF:beginGeldigheid>20100413</StUF:beginGeldigheid>
+                        <StUF:eindGeldigheid StUF:noValue="geenWaarde" xsi:nil="true"/>
+                    </StUF:tijdvakGeldigheid>
+                    <StUF:tijdstipRegistratie>20131208105017173</StUF:tijdstipRegistratie>
+                </WOZ:heeftBelanghebbende>
+                <WOZ:ligtIn StUF:entiteittype="WOZWSP" StUF:sleutelSynchronisatie="372" StUF:verwerkingssoort="T">
+                    <WOZ:gerelateerde StUF:entiteittype="WSP" StUF:verwerkingssoort="I">
+                        <WOZ:betrokkenWaterschap>0372</WOZ:betrokkenWaterschap>
+                    </WOZ:gerelateerde>
+                    <StUF:tijdvakRelatie>
+                        <StUF:beginRelatie>20100413</StUF:beginRelatie>
+                        <StUF:eindRelatie StUF:noValue="geenWaarde" xsi:nil="true"/>
+                    </StUF:tijdvakRelatie>
+                    <StUF:tijdvakGeldigheid>
+                        <StUF:beginGeldigheid>20100413</StUF:beginGeldigheid>
+                        <StUF:eindGeldigheid StUF:noValue="geenWaarde" xsi:nil="true"/>
+                    </StUF:tijdvakGeldigheid>
+                    <StUF:tijdstipRegistratie>20131208105017173</StUF:tijdstipRegistratie>
+                </WOZ:ligtIn>
+            </WOZ:object>
+        </WOZ:oudste>
+        <WOZ:wijziging>
+            <WOZ:stuurgegevens>
+                <StUF:berichtcode>Lk01</StUF:berichtcode>
+                <StUF:zender>
+                    <StUF:organisatie>00000001803577058000</StUF:organisatie>
+                    <StUF:applicatie>xxx</StUF:applicatie>
+                    <StUF:administratie>P</StUF:administratie>
+                </StUF:zender>
+                <StUF:ontvanger>
+                    <StUF:organisatie>KADASTER</StUF:organisatie>
+                    <StUF:applicatie>LVWOZ</StUF:applicatie>
+                    <StUF:administratie>P</StUF:administratie>
+                </StUF:ontvanger>
+                <StUF:referentienummer>aec6861a-701e-47cb-a251-cf4c6e31f831</StUF:referentienummer>
+                <StUF:tijdstipBericht>20161026011055878</StUF:tijdstipBericht>
+                <StUF:entiteittype>WOZ</StUF:entiteittype>
+            </WOZ:stuurgegevens>
+            <WOZ:parameters>
+                <StUF:mutatiesoort>W</StUF:mutatiesoort>
+                <StUF:indicatorOvername>V</StUF:indicatorOvername>
+            </WOZ:parameters>
+            <WOZ:object StUF:entiteittype="WOZ" StUF:sleutelSynchronisatie="590000000001" StUF:verwerkingssoort="W">
+                <WOZ:aanduidingWOZobject>
+                    <BG:aoa.identificatie StUF:noValue="geenWaarde" xsi:nil="true"/>
+                    <BG:wpl.woonplaatsNaam>MutatieWoonplaats</BG:wpl.woonplaatsNaam>
+                    <BG:aoa.postcode StUF:noValue="geenWaarde" xsi:nil="true"/>
+                    <BG:gor.openbareRuimteNaam>Straatweg</BG:gor.openbareRuimteNaam>
+                    <BG:gor.straatnaam>Straatweg</BG:gor.straatnaam>
+                    <BG:aoa.huisnummer StUF:noValue="geenWaarde" xsi:nil="true"/>
+                    <BG:aoa.huisletter StUF:noValue="geenWaarde" xsi:nil="true"/>
+                    <BG:aoa.huisnummertoevoeging StUF:noValue="geenWaarde" xsi:nil="true"/>
+                    <BG:locatieOmschrijving>bouwkavel Bospad</BG:locatieOmschrijving>
+                </WOZ:aanduidingWOZobject>
+                <StUF:tijdvakGeldigheid>
+                    <StUF:beginGeldigheid>20100413</StUF:beginGeldigheid>
+                    <StUF:eindGeldigheid>20100513</StUF:eindGeldigheid>
+                </StUF:tijdvakGeldigheid>
+                <WOZ:ontleentAanduidingAan StUF:entiteittype="WOZAOTAND" StUF:noValue="geenWaarde" StUF:sleutelSynchronisatie="0513200000000179" StUF:verwerkingssoort="T" xsi:nil="true"/>
+                <WOZ:isVerbondenMet StUF:entiteittype="WOZAOTOND" StUF:noValue="geenWaarde" StUF:sleutelSynchronisatie="0513010000000211" StUF:verwerkingssoort="T" xsi:nil="true"/>
+            </WOZ:object>
+            <WOZ:object StUF:entiteittype="WOZ" StUF:sleutelSynchronisatie="590000000001" StUF:verwerkingssoort="W">
+                <WOZ:aanduidingWOZobject>
+                    <BG:aoa.identificatie>8513200000000179</BG:aoa.identificatie>
+                    <BG:wpl.woonplaatsNaam>MutatieWoonplaats</BG:wpl.woonplaatsNaam>
+                    <BG:aoa.postcode>8511AA</BG:aoa.postcode>
+                    <BG:gor.openbareRuimteNaam>MutatieBosweg</BG:gor.openbareRuimteNaam>
+                    <BG:gor.straatnaam>MutatieBosweg</BG:gor.straatnaam>
+                    <BG:aoa.huisnummer>79</BG:aoa.huisnummer>
+                    <BG:aoa.huisletter StUF:noValue="geenWaarde" xsi:nil="true"/>
+                    <BG:aoa.huisnummertoevoeging StUF:noValue="geenWaarde" xsi:nil="true"/>
+                    <BG:locatieOmschrijving StUF:noValue="geenWaarde" xsi:nil="true"/>
+                </WOZ:aanduidingWOZobject>
+                <StUF:tijdvakGeldigheid>
+                    <StUF:beginGeldigheid>20100513</StUF:beginGeldigheid>
+                    <StUF:eindGeldigheid StUF:noValue="geenWaarde" xsi:nil="true"/>
+                </StUF:tijdvakGeldigheid>
+                <StUF:tijdstipRegistratie>20131208105230063</StUF:tijdstipRegistratie>
+                <WOZ:ontleentAanduidingAan StUF:entiteittype="WOZAOTAND" StUF:sleutelSynchronisatie="0513200000000179" StUF:verwerkingssoort="T">
+                    <WOZ:gerelateerde>
+                        <BG:verblijfsobject StUF:entiteittype="VBO" StUF:verwerkingssoort="I">
+                            <BG:identificatie>8513010000000211</BG:identificatie>
+                            <BG:adresAanduidingGrp>
+                                <BG:num.identificatie>8513200000000179</BG:num.identificatie>
+                                <BG:wpl.woonplaatsNaam>MutatieWoonplaats</BG:wpl.woonplaatsNaam>
+                                <BG:gor.openbareRuimteNaam>MutatieBosweg</BG:gor.openbareRuimteNaam>
+                                <BG:gor.straatnaam>MutatieBosweg</BG:gor.straatnaam>
+                                <BG:aoa.postcode>8511AA</BG:aoa.postcode>
+                                <BG:aoa.huisnummer>79</BG:aoa.huisnummer>
+                                <BG:aoa.huisletter StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                <BG:aoa.huisnummertoevoeging StUF:noValue="geenWaarde" xsi:nil="true"/>
+                            </BG:adresAanduidingGrp>
+                        </BG:verblijfsobject>
+                    </WOZ:gerelateerde>
+                    <WOZ:inOnderzoek StUF:metagegeven="true" StUF:noValue="geenWaarde" xsi:nil="true"/>
+                    <StUF:tijdvakRelatie>
+                        <StUF:beginRelatie>20100513</StUF:beginRelatie>
+                        <StUF:eindRelatie StUF:noValue="geenWaarde" xsi:nil="true"/>
+                    </StUF:tijdvakRelatie>
+                    <StUF:tijdvakGeldigheid>
+                        <StUF:beginGeldigheid>20100513</StUF:beginGeldigheid>
+                        <StUF:eindGeldigheid StUF:noValue="geenWaarde" xsi:nil="true"/>
+                    </StUF:tijdvakGeldigheid>
+                    <StUF:tijdstipRegistratie>20131208105230063</StUF:tijdstipRegistratie>
+                </WOZ:ontleentAanduidingAan>
+                <WOZ:isVerbondenMet StUF:entiteittype="WOZAOTOND" StUF:sleutelSynchronisatie="0513010000000211" StUF:verwerkingssoort="T">
+                    <WOZ:gerelateerde>
+                        <BG:verblijfsobject StUF:entiteittype="VBO" StUF:verwerkingssoort="I">
+                            <BG:identificatie>8513010000000211</BG:identificatie>
+                            <BG:adresAanduidingGrp>
+                                <BG:num.identificatie>8513200000000179</BG:num.identificatie>
+                                <BG:wpl.woonplaatsNaam>MutatieWoonplaats</BG:wpl.woonplaatsNaam>
+                                <BG:gor.openbareRuimteNaam>MutatieBosweg</BG:gor.openbareRuimteNaam>
+                                <BG:gor.straatnaam>MutatieBosweg</BG:gor.straatnaam>
+                                <BG:aoa.postcode>8511AA</BG:aoa.postcode>
+                                <BG:aoa.huisnummer>79</BG:aoa.huisnummer>
+                                <BG:aoa.huisletter StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                <BG:aoa.huisnummertoevoeging StUF:noValue="geenWaarde" xsi:nil="true"/>
+                            </BG:adresAanduidingGrp>
+                        </BG:verblijfsobject>
+                    </WOZ:gerelateerde>
+                    <WOZ:inOnderzoek StUF:metagegeven="true" StUF:noValue="geenWaarde" xsi:nil="true"/>
+                    <StUF:tijdvakRelatie>
+                        <StUF:beginRelatie>20100513</StUF:beginRelatie>
+                        <StUF:eindRelatie StUF:noValue="geenWaarde" xsi:nil="true"/>
+                    </StUF:tijdvakRelatie>
+                    <StUF:tijdvakGeldigheid>
+                        <StUF:beginGeldigheid>20100513</StUF:beginGeldigheid>
+                        <StUF:eindGeldigheid StUF:noValue="geenWaarde" xsi:nil="true"/>
+                    </StUF:tijdvakGeldigheid>
+                    <StUF:tijdstipRegistratie>20131208105230063</StUF:tijdstipRegistratie>
+                </WOZ:isVerbondenMet>
+            </WOZ:object>
+        </WOZ:wijziging>
+        <WOZ:wijziging>
+            <WOZ:stuurgegevens>
+                <StUF:berichtcode>Lk01</StUF:berichtcode>
+                <StUF:zender>
+                    <StUF:organisatie>00000001803577058000</StUF:organisatie>
+                    <StUF:applicatie>xxx</StUF:applicatie>
+                    <StUF:administratie>P</StUF:administratie>
+                </StUF:zender>
+                <StUF:ontvanger>
+                    <StUF:organisatie>KADASTER</StUF:organisatie>
+                    <StUF:applicatie>LVWOZ</StUF:applicatie>
+                    <StUF:administratie>P</StUF:administratie>
+                </StUF:ontvanger>
+                <StUF:referentienummer>74b68fdc-096f-4e54-8c62-bd541ad2c462</StUF:referentienummer>
+                <StUF:tijdstipBericht>20161026011055878</StUF:tijdstipBericht>
+                <StUF:entiteittype>WOZ</StUF:entiteittype>
+            </WOZ:stuurgegevens>
+            <WOZ:parameters>
+                <StUF:mutatiesoort>W</StUF:mutatiesoort>
+                <StUF:indicatorOvername>V</StUF:indicatorOvername>
+            </WOZ:parameters>
+            <WOZ:object StUF:entiteittype="WOZ" StUF:sleutelSynchronisatie="590000000001" StUF:verwerkingssoort="W">
+                <WOZ:gebruikscode>40</WOZ:gebruikscode>
+                <WOZ:codeGebouwdOngebouwd>O</WOZ:codeGebouwdOngebouwd>
+                <WOZ:wozObjectGeometrie>
+                    <gml:Polygon>
+                        <gml:exterior>
+                            <gml:LinearRing>
+                                <gml:posList>101046.545 439989.381 101037.316 440000.0 101033.976 440003.843 101028.315 440010.42 101015.891 440000.0 101000.0 439986.673 100999.962 439986.641 101000.0 439986.6 101006.19 439979.85 101018.809 439965.278 101032.193 439976.905 101046.545 439989.381</gml:posList>
+                            </gml:LinearRing>
+                        </gml:exterior>
+                    </gml:Polygon>
+                </WOZ:wozObjectGeometrie>
+                <StUF:tijdvakGeldigheid>
+                    <StUF:beginGeldigheid>20100513</StUF:beginGeldigheid>
+                    <StUF:eindGeldigheid>20100901</StUF:eindGeldigheid>
+                </StUF:tijdvakGeldigheid>
+            </WOZ:object>
+            <WOZ:object StUF:entiteittype="WOZ" StUF:sleutelSynchronisatie="590000000001" StUF:verwerkingssoort="W">
+                <WOZ:gebruikscode>10</WOZ:gebruikscode>
+                <WOZ:codeGebouwdOngebouwd>G</WOZ:codeGebouwdOngebouwd>
+                <WOZ:wozObjectGeometrie StUF:noValue="waardeOnbekend" xsi:nil="true"/>
+                <StUF:tijdvakGeldigheid>
+                    <StUF:beginGeldigheid>20100901</StUF:beginGeldigheid>
+                    <StUF:eindGeldigheid StUF:noValue="geenWaarde" xsi:nil="true"/>
+                </StUF:tijdvakGeldigheid>
+                <StUF:tijdstipRegistratie>20131208105332867</StUF:tijdstipRegistratie>
+            </WOZ:object>
+        </WOZ:wijziging>
+    </WOZ:historie>
+</WOZ:wozSh01-lvwoz>
+
+    </gebeurtenisinhoud></dgl:VerstrekkingAanAfnemer>
+

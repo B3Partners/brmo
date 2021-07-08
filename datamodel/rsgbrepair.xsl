@@ -270,4 +270,33 @@
 			<xsl:apply-templates select="@*[name()!='typeName']|node()"/>
 		</xsl:copy>
 	</xsl:template>
+	<xsl:template match="*[@elementType='Objecttype - Property' and @id='EAID_53F98DF1_FDCA_471d_9729_A082B4D943C9']">
+		<xsl:comment>
+			<xsl:text>repair.xsl: Nummer WOZ-deelobject - kolom vergroot van 6 naar 12</xsl:text>
+		</xsl:comment>
+		<xsl:copy>
+			<xsl:attribute name="typeName" select="'N12'"/>
+			<xsl:apply-templates select="@*[name()!='typeName']|node()"/>
+		</xsl:copy>
+	</xsl:template>
+	<xsl:template match="*[@elementType='Objecttype - Property' and @id='EAID_5CDB5EA8_D0DE_45df_B5DE_B49C6E48859D']">
+		<xsl:comment>
+			<xsl:text>repair.xsl: datum begin geldigheid WOZ-deelobject - omgezet naar onvolledige datum</xsl:text>
+		</xsl:comment>
+		<xsl:copy>
+			<xsl:attribute name="type" select="'xmi:idref=EAJava_OnvolledigeDatum'"/>
+			<xsl:attribute name="typeName" select="'OnvolledigeDatum'"/>
+			<xsl:apply-templates select="@*[name()!='typeName']|node()"/>
+		</xsl:copy>
+	</xsl:template>
+	<xsl:template match="*[@elementType='Objecttype - Property' and @id='EAID_D3873A5F_CA86_4689_B2F0_A8309A2572E3']">
+		<xsl:comment>
+			<xsl:text>repair.xsl: datum einde geldigheid WOZ-deelobject - omgezet naar onvolledige datum</xsl:text>
+		</xsl:comment>
+		<xsl:copy>
+			<xsl:attribute name="type" select="'xmi:idref=EAJava_OnvolledigeDatum'"/>
+			<xsl:attribute name="typeName" select="'OnvolledigeDatum'"/>
+			<xsl:apply-templates select="@*[name()!='typeName']|node()"/>
+		</xsl:copy>
+	</xsl:template>
 </xsl:stylesheet>

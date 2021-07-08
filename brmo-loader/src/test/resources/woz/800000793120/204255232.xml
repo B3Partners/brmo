@@ -1,0 +1,94 @@
+<dgl:VerstrekkingAanAfnemer xmlns:dgl="http://www.digilevering.nl/digilevering.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.digilevering.nl/digilevering.xsd digilevering.xsd"><datumtijdstempelDigilevering>2020-07-13T05:22:51.573Z</datumtijdstempelDigilevering><datumtijdstempelLV>2020-07-13T05:22:46.000Z</datumtijdstempelLV><kenmerkDigilevering>2cf040d6-37f8-4421-b1bb-88101af548ad@digilevering.nl</kenmerkDigilevering><kenmerkLV>9182987c-81d9-4d63-b006-7fb5fbb3211e</kenmerkLV><versieBerichttype>1.0</versieBerichttype><abonnement><naam>WOZ test alles Waterschap De Dommel</naam><versie>1</versie></abonnement><basisregistratie>LVWOZ</basisregistratie><gebeurtenissoort><naam>OSWO_Di01</naam><versie>312</versie></gebeurtenissoort><gebeurtenisinhoud>
+<WOZ:OSWO_Di01 xmlns:WOZ="http://www.waarderingskamer.nl/StUF/0312" xmlns:BG="http://www.egem.nl/StUF/sector/bg/0310" xmlns:StUF="http://www.egem.nl/StUF/StUF0301" xsi:schemaLocation="http://www.waarderingskamer.nl/StUF/0312 file:///C:/temp/LV%20WOZ/woz0312_20150703/woz0312/lv_mutatieMetFo01/woz0312_msg_lv_mutatie.xsd">
+	<WOZ:stuurgegevens>
+		<StUF:berichtcode>Di01</StUF:berichtcode>
+		<StUF:zender>
+			<StUF:organisatie>00000001803577058000</StUF:organisatie>
+			<StUF:applicatie>xxx</StUF:applicatie>
+			<StUF:administratie>P</StUF:administratie>
+			<StUF:gebruiker>Waarderingskamer</StUF:gebruiker>
+		</StUF:zender>
+		<StUF:ontvanger>
+			<StUF:organisatie>KADASTER</StUF:organisatie>
+			<StUF:applicatie>LVWOZ</StUF:applicatie>
+			<StUF:administratie>P</StUF:administratie>
+			<StUF:gebruiker/>
+		</StUF:ontvanger>
+		<StUF:referentienummer>9182987c-81d9-4d63-b006-7fb5fbb3211e</StUF:referentienummer>
+		<StUF:tijdstipBericht>20200713072133568</StUF:tijdstipBericht>
+		<StUF:functie>WOZ-OSWO</StUF:functie>
+	</WOZ:stuurgegevens>
+	<WOZ:routering StUF:entiteittype="WOZ" StUF:functie="entiteit">
+		<WOZ:verantwoordelijkeGemeente>
+			<BG:gemeenteCode>8000</BG:gemeenteCode>
+		</WOZ:verantwoordelijkeGemeente>
+		<WOZ:ligtIn StUF:entiteittype="WOZWSP">
+			<WOZ:gerelateerde StUF:entiteittype="WSP">
+				<WOZ:betrokkenWaterschap>8106</WOZ:betrokkenWaterschap>
+			</WOZ:gerelateerde>
+		</WOZ:ligtIn>
+	</WOZ:routering>
+	<WOZ:voegToeSWO StUF:entiteittype="SWO" StUF:functie="update">
+		<WOZ:parameters>
+			<StUF:mutatiesoort>T</StUF:mutatiesoort>
+			<StUF:indicatorOvername>V</StUF:indicatorOvername>
+		</WOZ:parameters>
+		<WOZ:object StUF:entiteittype="SWO" StUF:verwerkingssoort="T">
+			<WOZ:wozObjectNummer>800000793120</WOZ:wozObjectNummer>
+			<WOZ:statusWozObject>0</WOZ:statusWozObject>
+			<WOZ:grondoppervlakte>4000</WOZ:grondoppervlakte>
+			<WOZ:codeGebouwdOngebouwd>G</WOZ:codeGebouwdOngebouwd>
+			<WOZ:meegetaxeerdeOppervlakteGebouwd StUF:noValue="geenWaarde" xsi:nil="true"/>
+			<WOZ:verantwoordelijkeGemeente>
+				<BG:gemeenteCode>8000</BG:gemeenteCode>
+			</WOZ:verantwoordelijkeGemeente>
+			<WOZ:wozObjectGeometrie StUF:noValue="waardeOnbekend" xsi:nil="true"/>
+			<WOZ:ingangsdatumObject>20090413</WOZ:ingangsdatumObject>
+			<WOZ:einddatumObject StUF:noValue="geenWaarde" xsi:nil="true"/>
+			<StUF:tijdvakGeldigheid>
+				<StUF:beginGeldigheid>20090413</StUF:beginGeldigheid>
+				<StUF:eindGeldigheid StUF:noValue="geenWaarde" xsi:nil="true"/>
+			</StUF:tijdvakGeldigheid>
+			<StUF:tijdstipRegistratie>20090413000000001</StUF:tijdstipRegistratie>
+			<WOZ:omvat StUF:entiteittype="SWOKOZ" StUF:verwerkingssoort="T">
+				<WOZ:gerelateerde StUF:entiteittype="KOZ" StUF:verwerkingssoort="T">
+					<BG:kadastraleIdentificatie>8000552570003</BG:kadastraleIdentificatie>
+					<BG:kadastraleAanduiding>
+						<BG:kadastraleGemeentecode>DIEN1</BG:kadastraleGemeentecode>
+						<BG:kadastraleSectie>R</BG:kadastraleSectie>
+						<BG:kadastraalPerceelnummer>1</BG:kadastraalPerceelnummer>
+						<BG:kdp.deelperceelNummer StUF:noValue="geenWaarde" xsi:nil="true"/>
+					</BG:kadastraleAanduiding>
+				</WOZ:gerelateerde>
+				<WOZ:toegekendeOppervlakte>4000</WOZ:toegekendeOppervlakte>
+				<WOZ:meegetaxeerdeOppervlakte StUF:noValue="geenWaarde" xsi:nil="true"/>
+				<StUF:tijdvakRelatie>
+					<StUF:beginRelatie>20090413</StUF:beginRelatie>
+					<StUF:eindRelatie StUF:noValue="geenWaarde" xsi:nil="true"/>
+				</StUF:tijdvakRelatie>
+				<StUF:tijdvakGeldigheid>
+					<StUF:beginGeldigheid>20090413</StUF:beginGeldigheid>
+					<StUF:eindGeldigheid StUF:noValue="geenWaarde" xsi:nil="true"/>
+				</StUF:tijdvakGeldigheid>
+				<StUF:tijdstipRegistratie>20090413000000001</StUF:tijdstipRegistratie>
+			</WOZ:omvat>
+			<WOZ:ligtIn StUF:entiteittype="SWOWSP" StUF:verwerkingssoort="T">
+				<WOZ:gerelateerde StUF:entiteittype="WSP" StUF:verwerkingssoort="I">
+					<WOZ:betrokkenWaterschap>8106</WOZ:betrokkenWaterschap>
+				</WOZ:gerelateerde>
+				<StUF:tijdvakRelatie>
+					<StUF:beginRelatie>20090413</StUF:beginRelatie>
+					<StUF:eindRelatie StUF:noValue="geenWaarde" xsi:nil="true"/>
+				</StUF:tijdvakRelatie>
+				<StUF:tijdvakGeldigheid>
+					<StUF:beginGeldigheid>20090413</StUF:beginGeldigheid>
+					<StUF:eindGeldigheid StUF:noValue="geenWaarde" xsi:nil="true"/>
+				</StUF:tijdvakGeldigheid>
+				<StUF:tijdstipRegistratie>20090413000000001</StUF:tijdstipRegistratie>
+			</WOZ:ligtIn>
+		</WOZ:object>
+	</WOZ:voegToeSWO>
+</WOZ:OSWO_Di01>
+
+    </gebeurtenisinhoud></dgl:VerstrekkingAanAfnemer>
+
