@@ -53,10 +53,16 @@ public class IMGeoSchemaMapper {
                 .filter(typeNameFilter == null ? s -> true : typeNameFilter)
                 .collect(Collectors.toMap(IMGeoSchemaMapper::getTableNameForObjectType, typeName -> typeName)));
 
-        tableNamesObjectTypes.forEach((tableName, typeName) -> System.out.println(createTable(typeName, dialect)));
         StringBuilder geometryMetadata = new StringBuilder();
         StringBuilder geometryIndexes = new StringBuilder();
-        tableNamesObjectTypes.forEach((tableName, typeName) -> createGeometryMetadataAndIndexes(typeName, dialect, geometryMetadata, geometryIndexes));
+        tableNamesObjectTypes.forEach((tableName, typeName) -> {
+            System.out.println(createTable(typeName, dialect));
+            createGeometryMetadataAndIndexes(typeName, dialect, geometryMetadata, geometryIndexes);
+            objectTypeAttributes.get(typeName).stream().filter(a -> a instanceof OneToManyColumnMapping).forEach(oneToMany -> {
+                System.out.println(createTable(oneToMany.getName(), dialect));
+                createGeometryMetadataAndIndexes(oneToMany.getName(), dialect, geometryMetadata, geometryIndexes);
+            });
+        });
         if (geometryMetadata.length() > 0) {
             System.out.println("-- Geometry metadata\n");
             System.out.println(geometryMetadata);
