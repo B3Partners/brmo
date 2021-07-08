@@ -57,7 +57,7 @@ public class OracleDialect implements SQLDialect {
     }
 
     @Override
-    public String getCreateGeometryMetadata(String tableName, String geometryColumn, String type) {
+    public String getCreateGeometryMetadataSQL(String tableName, String geometryColumn, String type) {
         return String.format("insert into user_sdo_geom_metadata values ('%S', '%S', MDSYS.SDO_DIM_ARRAY(" +
                 "MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1), " +
                 "MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1) " +
@@ -66,7 +66,7 @@ public class OracleDialect implements SQLDialect {
     }
 
     @Override
-    public String getCreateGeometryIndex(String tableName, String geometryColumn, String type) {
+    public String getCreateGeometryIndexSQL(String tableName, String geometryColumn, String type) {
         return String.format("create index idx_%s_%s on %s (%s) indextype is mdsys.spatial_index;",
                 tableName, geometryColumn, tableName, geometryColumn);
     }
