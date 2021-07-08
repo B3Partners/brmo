@@ -23,8 +23,8 @@ ENV CATALINA_OPTS="-DAJP_SECRET=$AJP_SECRET -DAJP_ADDRESS=$AJP_ADDRESS -DMAIL_FR
 ARG TZ="Europe/Amsterdam"
 ARG DEBIAN_FRONTEND="noninteractive"
 
-RUN set -eux; \
-    mkdir -p /opt/brmo-data/BAG/ \
+SHELL ["/bin/bash", "-eux", "-o", "pipefail", "-c"]
+RUN mkdir -p /opt/brmo-data/BAG/ \
     && mkdir -p /opt/brmo-data/BRK/ \
     && mkdir -p /opt/brmo-data/BGT/ \
     && mkdir -p /opt/brmo-data/TOPNL/Top10NL/ \
@@ -60,8 +60,9 @@ EXPOSE 8009
 
 HEALTHCHECK CMD curl -f http://localhost:8080/brmo-service/ || exit 1
 
-LABEL maintainer=B3Partners \
-      nl.b3p.vendor=B3Partners \
+LABEL org.opencontainers.image.authors="@mprins" \
+      description="BRMO services in Tomcat" \
+      nl.b3p.vendor="B3Partners" \
       nl.b3p.image="BRMO service" \
       nl.b3p.version=$BRMO_VERSION
 
