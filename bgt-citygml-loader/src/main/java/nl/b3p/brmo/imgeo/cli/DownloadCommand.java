@@ -16,6 +16,7 @@ import org.apache.commons.io.input.CountingInputStream;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Mixin;
+import picocli.CommandLine.Option;
 
 import java.io.InputStream;
 import java.net.URI;
@@ -41,13 +42,20 @@ import static nl.b3p.brmo.imgeo.cli.Utils.formatTimeSince;
 public class DownloadCommand {
     @Command(name="initial")
     public void initial(
-            @CommandLine.Option(names={"-h","--help"}, usageHelp = true) boolean showHelp,
+            @Option(names={"-h","--help"}, usageHelp = true) boolean showHelp,
             @Mixin ExtractSelectionOptions extractSelectionOptions,
             @Mixin DatabaseOptions dbOptions,
-            @Mixin LoadOptions loadOptions) throws Exception {
+            @Mixin LoadOptions loadOptions,
+            @Option(names="--no-geo-filter") boolean noGeoFilter
+    ) throws Exception {
 
         // TODO set alternate URL and timeout from options
         ApiClient client = new ApiClient();
+
+        if (extractSelectionOptions.geoFilterWkt == null && !noGeoFilter) {
+            System.out.println("To load an initial extract without a geo filter, specify the --no-geo-filter option");
+            return;
+        }
 
         printApiException(() -> {
             DeltaCustomApi deltaCustomApi = new DeltaCustomApi(client);
