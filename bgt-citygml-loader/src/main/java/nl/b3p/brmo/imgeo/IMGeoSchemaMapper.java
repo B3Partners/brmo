@@ -23,18 +23,22 @@ import static nl.b3p.brmo.imgeo.IMGeoSchema.objectTypeAttributes;
 
 public class IMGeoSchemaMapper {
 
-    private static final String SCHEMA_VERSION = "1";
+    private static final String SCHEMA_VERSION_VALUE = "1";
 
-    public static class Metadata {
-        public static final String TABLE_NAME = "metadata";
-        public static final String SCHEMA_VERSION = "schema_version";
-        public static final String LOADER_VERSION = "loader_version";
-        public static final String FEATURE_TYPES = "feature_types";
-        public static final String INITIAL_LOAD_TIME = "initial_load_time";
-        public static final String INITIAL_LOAD_DELTA_ID = "initial_load_delta_id";
-        public static final String DELTA_ID = "delta_id";
-        public static final String DELTA_TIME_TO = "delta_time_to";
-        public static final String GEOM_FILTER = "geom_filter";
+    public enum Metadata {
+        TABLE_NAME,
+        SCHEMA_VERSION,
+        LOADER_VERSION,
+        FEATURE_TYPES,
+        INITIAL_LOAD_TIME,
+        INITIAL_LOAD_DELTA_ID,
+        DELTA_ID,
+        DELTA_TIME_TO,
+        GEOM_FILTER;
+
+        public String getDbKey() {
+            return this.name().toLowerCase();
+        }
     }
 
     public static Map<String, String> objectTypeNameToDutchTableName = Stream.of(new String[][]{
@@ -166,7 +170,7 @@ public class IMGeoSchemaMapper {
 
     public static String createMetadataTable(SQLDialect dialect) {
         final StringBuilder sql = new StringBuilder();
-        final String tableName = Metadata.TABLE_NAME;
+        final String tableName = Metadata.TABLE_NAME.getDbKey();
         if (dialect.supportsDropTableIfExists()) {
             sql.append("drop table if exists ");
             sql.append(tableName);
@@ -178,9 +182,9 @@ public class IMGeoSchemaMapper {
         sql.append("  id " + dialect.getType("varchar(255)") + ",\n");
         sql.append("  value " + dialect.getType("text") + ",\n");
         sql.append("  primary key(id)\n);\n");
-        String[][] rows = {
-                {Metadata.SCHEMA_VERSION, SCHEMA_VERSION},
-                {Metadata.LOADER_VERSION, ResourceBundle.getBundle("BGTCityGMLLoader").getString("app.version")},
+        Object[][] rows = {
+                {Metadata.SCHEMA_VERSION, SCHEMA_VERSION_VALUE},
+                {Metadata.LOADER_VERSION, getLoaderVersion()},
                 {Metadata.FEATURE_TYPES, null},
                 {Metadata.INITIAL_LOAD_TIME, null},
                 {Metadata.INITIAL_LOAD_DELTA_ID, null},
@@ -189,8 +193,13 @@ public class IMGeoSchemaMapper {
                 {Metadata.GEOM_FILTER, null}
         };
         Arrays.stream(rows).forEach(row -> {
-            sql.append(String.format("insert into %s (id, value) values ('%s', %s);\n", tableName, row[0], row[1] == null ? "null" : "'" + row[1] + "'"));
+            Metadata m = (Metadata)row[0];
+            sql.append(String.format("insert into %s (id, value) values ('%s', %s);\n", tableName, m.getDbKey(), row[1] == null ? "null" : "'" + row[1] + "'"));
         });
         return sql.toString();
+    }
+
+    public static String getLoaderVersion() {
+        return ResourceBundle.getBundle("BGTCityGMLLoader").getString("app.version");
     }
 }
