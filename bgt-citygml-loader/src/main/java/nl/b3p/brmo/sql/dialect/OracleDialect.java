@@ -8,6 +8,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class OracleDialect implements SQLDialect {
 
@@ -26,8 +28,9 @@ public class OracleDialect implements SQLDialect {
 
     @Override
     public String getType(String type) {
-        if(type.startsWith("varchar")) {
-            return "varchar2" + type.substring("varchar".length());
+        Matcher varchar = Pattern.compile("varchar\\((.+)\\)").matcher(type);
+        if(varchar.matches()) {
+            return "varchar2(" + varchar.group(1) + " char)";
         }
         if(type.equals("integer")) {
             return "number(10)";
@@ -37,6 +40,9 @@ public class OracleDialect implements SQLDialect {
         }
         if(type.startsWith("geometry(")) {
             return "MDSYS.SDO_GEOMETRY";
+        }
+        if(type.equals("text")) {
+            return "clob";
         }
         return type;
     }

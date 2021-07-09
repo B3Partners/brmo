@@ -2,7 +2,6 @@ package nl.b3p.brmo.imgeo.cli;
 
 import nl.b3p.brmo.bgt.download.model.DeltaCustomDownloadRequest;
 import nl.b3p.brmo.imgeo.IMGeoObjectTableWriter;
-import nl.b3p.brmo.imgeo.IMGeoSchema;
 import nl.b3p.brmo.imgeo.IMGeoSchemaMapper;
 import nl.b3p.brmo.sql.dialect.SQLDialect;
 import org.apache.commons.io.FileUtils;

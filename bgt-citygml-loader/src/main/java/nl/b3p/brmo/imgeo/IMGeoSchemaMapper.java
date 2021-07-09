@@ -5,9 +5,11 @@ import nl.b3p.brmo.sql.OneToManyColumnMapping;
 import nl.b3p.brmo.sql.dialect.SQLDialect;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -20,6 +22,20 @@ import static nl.b3p.brmo.imgeo.IMGeoSchema.getAllObjectTypes;
 import static nl.b3p.brmo.imgeo.IMGeoSchema.objectTypeAttributes;
 
 public class IMGeoSchemaMapper {
+
+    private static final String SCHEMA_VERSION = "1";
+
+    public static class Metadata {
+        public static final String TABLE_NAME = "metadata";
+        public static final String SCHEMA_VERSION = "schema_version";
+        public static final String LOADER_VERSION = "loader_version";
+        public static final String FEATURE_TYPES = "feature_types";
+        public static final String INITIAL_LOAD_TIME = "initial_load_time";
+        public static final String INITIAL_LOAD_DELTA_ID = "initial_load_delta_id";
+        public static final String DELTA_ID = "delta_id";
+        public static final String DELTA_TIME_TO = "delta_time_to";
+        public static final String GEOM_FILTER = "geom_filter";
+    }
 
     public static Map<String, String> objectTypeNameToDutchTableName = Stream.of(new String[][]{
             {"PlantCover", "begroeidterreindeel"},
@@ -69,6 +85,9 @@ public class IMGeoSchemaMapper {
         }
         System.out.println("-- Geometry indexen (pas aanmaken na inladen stand)\n");
         System.out.println(geometryIndexes);
+
+        System.out.println("-- Loader metadata\n");
+        System.out.println(createMetadataTable(dialect));
     }
 
     public static String getTableNameForObjectType(String objectTypeName) {
@@ -143,5 +162,35 @@ public class IMGeoSchemaMapper {
                 }
             }
         });
+    }
+
+    public static String createMetadataTable(SQLDialect dialect) {
+        final StringBuilder sql = new StringBuilder();
+        final String tableName = Metadata.TABLE_NAME;
+        if (dialect.supportsDropTableIfExists()) {
+            sql.append("drop table if exists ");
+            sql.append(tableName);
+            sql.append(";\n");
+        }
+        sql.append("create table ");
+        sql.append(tableName);
+        sql.append(" (\n");
+        sql.append("  id " + dialect.getType("varchar(255)") + ",\n");
+        sql.append("  value " + dialect.getType("text") + ",\n");
+        sql.append("  primary key(id)\n);\n");
+        String[][] rows = {
+                {Metadata.SCHEMA_VERSION, SCHEMA_VERSION},
+                {Metadata.LOADER_VERSION, ResourceBundle.getBundle("BGTCityGMLLoader").getString("app.version")},
+                {Metadata.FEATURE_TYPES, null},
+                {Metadata.INITIAL_LOAD_TIME, null},
+                {Metadata.INITIAL_LOAD_DELTA_ID, null},
+                {Metadata.DELTA_ID, null},
+                {Metadata.DELTA_TIME_TO, null},
+                {Metadata.GEOM_FILTER, null}
+        };
+        Arrays.stream(rows).forEach(row -> {
+            sql.append(String.format("insert into %s (id, value) values ('%s', %s);\n", tableName, row[0], row[1] == null ? "null" : "'" + row[1] + "'"));
+        });
+        return sql.toString();
     }
 }

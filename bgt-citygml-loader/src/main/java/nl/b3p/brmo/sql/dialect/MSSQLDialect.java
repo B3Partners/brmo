@@ -35,6 +35,9 @@ public class MSSQLDialect implements SQLDialect {
         if(type.startsWith("geometry(")) {
             return "geometry";
         }
+        if(type.equals("text")) {
+            return "ntext";
+        }
         return type;
     }
 
