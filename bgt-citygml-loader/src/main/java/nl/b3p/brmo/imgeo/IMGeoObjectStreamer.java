@@ -49,6 +49,35 @@ public class IMGeoObjectStreamer implements Iterable<IMGeoObject> {
     private boolean isMutaties;
     private boolean hasMutatieGroep = false;
 
+    private MutatieInhoud mutatieInhoud;
+
+    public static class MutatieInhoud {
+        private String mutatieType;
+        private String gebied;
+        private String leveringsId;
+        private final List<String> objectTypen = new ArrayList<>();
+
+        public String getMutatieType() {
+            return mutatieType;
+        }
+
+        public String getGebied() {
+            return gebied;
+        }
+
+        public String getLeveringsId() {
+            return leveringsId;
+        }
+
+        public List<String> getObjectTypen() {
+            return objectTypen;
+        }
+    }
+
+    public MutatieInhoud getMutatieInhoud() {
+        return mutatieInhoud;
+    }
+
     public IMGeoObjectStreamer(File f) throws XMLStreamException {
         this.cursor = initCursor(buildSMInputFactory().rootElementCursor(f));
         this.geometryReader = buildGeometryReader();
@@ -81,7 +110,7 @@ public class IMGeoObjectStreamer implements Iterable<IMGeoObject> {
                 if (cursor.getLocalName().equals("dataset")) {
                     assert cursor.getText().equals("bgt");
                 } else if (cursor.getLocalName().equals("inhoud")) {
-                    // TODO parse inhoud
+                    this.mutatieInhoud = parseInhoud(cursor);
                 } else if(cursor.getLocalName().equals("mutatieGroep")) {
                     // cursor positioned correctly
                     hasMutatieGroep = true;
@@ -96,6 +125,31 @@ public class IMGeoObjectStreamer implements Iterable<IMGeoObject> {
         }
 
         return cursor;
+    }
+
+    private static MutatieInhoud parseInhoud(SMInputCursor inhoudCursor) throws XMLStreamException {
+        SMInputCursor cursor = inhoudCursor.childElementCursor();
+        MutatieInhoud mutatieInhoud = new MutatieInhoud();
+        while(cursor.getNext() != null) {
+            switch(cursor.getLocalName()) {
+                case "mutatieType":
+                    mutatieInhoud.mutatieType = cursor.collectDescendantText().trim();
+                    break;
+                case "gebied":
+                    mutatieInhoud.gebied = cursor.collectDescendantText().trim();
+                    break;
+                case "leveringsId":
+                    mutatieInhoud.leveringsId = cursor.collectDescendantText().trim();
+                    break;
+                case "objectTypen":
+                    SMInputCursor c = cursor.childElementCursor();
+                    while (c.getNext() != null) {
+                        mutatieInhoud.objectTypen.add(c.collectDescendantText().trim());
+                    }
+                    break;
+            }
+        }
+        return mutatieInhoud;
     }
 
     protected XmlStreamGeometryReader buildGeometryReader() {

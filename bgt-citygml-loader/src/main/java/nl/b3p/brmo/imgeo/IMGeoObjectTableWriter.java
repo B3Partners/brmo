@@ -32,11 +32,10 @@ public class IMGeoObjectTableWriter {
     private boolean currentObjectsOnly = true;
 
     private CountingInputStream counter;
-
     private final Map<String,InsertBatch> batches = new HashMap<>();
-
     private long objectCount = 0;
     private long endedObjectsCount = 0;
+    private IMGeoObjectStreamer.MutatieInhoud mutatieInhoud;
 
     private Runnable progressUpdater;
 
@@ -75,6 +74,10 @@ public class IMGeoObjectTableWriter {
 
     public void setCurrentObjectsOnly(boolean currentObjectsOnly) {
         this.currentObjectsOnly = currentObjectsOnly;
+    }
+
+    public IMGeoObjectStreamer.MutatieInhoud getMutatieInhoud() {
+        return mutatieInhoud;
     }
 
     public Runnable getProgressUpdater() {
@@ -151,17 +154,21 @@ public class IMGeoObjectTableWriter {
     public void write(InputStream bgtXml) throws Exception {
         this.objectCount = 0;
         this.endedObjectsCount = 0;
+        this.mutatieInhoud = null;
+
         try(CountingInputStream counter = new CountingInputStream(bgtXml)) {
             this.counter = counter;
 
             IMGeoObjectStreamer streamer = new IMGeoObjectStreamer(counter);
+            this.mutatieInhoud = streamer.getMutatieInhoud();
+            if (this.progressUpdater != null) {
+                this.progressUpdater.run();
+            }
             for (IMGeoObject object: streamer) {
-
                 if (object.getAttributes().get(EIND_REGISTRATIE) != null && currentObjectsOnly) {
                     this.endedObjectsCount++;
                     continue;
                 }
-
                 this.objectCount++;
 
                 try {

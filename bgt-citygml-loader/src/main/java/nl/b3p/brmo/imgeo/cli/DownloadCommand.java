@@ -39,8 +39,8 @@ import static nl.b3p.brmo.imgeo.cli.Utils.formatTimeSince;
 
 @Command(name = "download")
 public class DownloadCommand {
-    @Command(name="init")
-    public void init(
+    @Command(name="initial")
+    public void initial(
             @CommandLine.Option(names={"-h","--help"}, usageHelp = true) boolean showHelp,
             @Mixin ExtractSelectionOptions extractSelectionOptions,
             @Mixin DatabaseOptions dbOptions,
@@ -132,6 +132,8 @@ public class DownloadCommand {
             IMGeoDb db = new IMGeoDb(dbOptions);
             IMGeoObjectTableWriter writer = db.createObjectTableWriter(loadOptions);
 
+            final String[] deltaId = {null};
+
             // Are resume-able downloads with Range requests needed?
             try (InputStream input = new URL(fullDownloadUri.toString()).openConnection().getInputStream()) {
                 Instant loadStart = Instant.now();
@@ -142,12 +144,18 @@ public class DownloadCommand {
                     System.out.print("Loading zip entry " + entry.getName());
                     Instant zipEntryStart = Instant.now();
                     ZipEntry finalEntry = entry;
-                    writer.setProgressUpdater(() -> System.out.printf("\rTotal extract %.1f%% loaded - file \"%s\" time %s, %,d objects",
-                            100.0 / contentLength.orElse(0) * countingInputStream.getByteCount(),
-                            finalEntry.getName(),
-                            formatTimeSince(zipEntryStart),
-                            writer.getObjectCount()
-                    ));
+                    writer.setProgressUpdater(() -> {
+                        if (deltaId[0] == null && writer.getMutatieInhoud() != null) {
+                            deltaId[0] = writer.getMutatieInhoud().getLeveringsId();
+                            System.out.printf("\rDelta id: %s\n", deltaId[0]);
+                        }
+                        System.out.printf("\rTotal extract %.1f%% loaded - file \"%s\" time %s, %,d objects",
+                                100.0 / contentLength.orElse(0) * countingInputStream.getByteCount(),
+                                finalEntry.getName(),
+                                formatTimeSince(zipEntryStart),
+                                writer.getObjectCount()
+                        );
+                    });
                     writer.write(CloseShieldInputStream.wrap(zis));
                     String endedObjects = writer.isCurrentObjectsOnly() ? String.format(", %,d ended objects skipped", writer.getEndedObjectsCount()) : "";
                     double loadTimeSeconds = Duration.between(zipEntryStart, Instant.now()).toMillis() / 1000.0;
