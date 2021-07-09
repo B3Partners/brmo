@@ -1,16 +1,17 @@
 package nl.b3p.brmo.imgeo.cli;
 
 import nl.b3p.brmo.imgeo.IMGeoObjectTableWriter;
+import nl.b3p.brmo.imgeo.IMGeoSchemaMapper;
 import nl.b3p.brmo.sql.dialect.MSSQLDialect;
 import nl.b3p.brmo.sql.dialect.OracleDialect;
 import nl.b3p.brmo.sql.dialect.PostGISDialect;
 import nl.b3p.brmo.sql.dialect.SQLDialect;
+import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.ScalarHandler;
 
-import javax.xml.crypto.Data;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.function.Supplier;
 
 public class IMGeoDb {
 
@@ -20,8 +21,9 @@ public class IMGeoDb {
         mssql
     }
 
-    private SQLDialect dialect;
-    private DatabaseOptions dbOptions;
+    private final SQLDialect dialect;
+    private final DatabaseOptions dbOptions;
+    private Connection connection;
 
     public IMGeoDb(DatabaseOptions dbOptions) throws SQLException, ClassNotFoundException {
         this.dbOptions = dbOptions;
@@ -45,7 +47,20 @@ public class IMGeoDb {
         return dialect;
     }
 
-    public Connection getConnection() {
+    public Connection getConnection() throws SQLException {
+        if (this.connection == null || this.connection.isClosed()) {
+            this.connection = createConnection();
+        }
+        return this.connection;
+    }
+
+    public void closeConnection() throws SQLException {
+        if (this.connection != null && !this.connection.isClosed()) {
+            this.connection.close();
+        }
+    }
+
+    public Connection createConnection() {
         try {
             return DriverManager.getConnection(dbOptions.connectionString, dbOptions.user, dbOptions.password);
         } catch (SQLException e) {
@@ -54,7 +69,7 @@ public class IMGeoDb {
     }
 
     public IMGeoObjectTableWriter createObjectTableWriter(LoadOptions loadOptions) throws SQLException, ClassNotFoundException {
-        IMGeoObjectTableWriter writer = new IMGeoObjectTableWriter(this.getConnection(), this.getDialect());
+        IMGeoObjectTableWriter writer = new IMGeoObjectTableWriter(getConnection(), this.getDialect());
 
         if (loadOptions == null) {
             loadOptions = new LoadOptions();
@@ -73,5 +88,20 @@ public class IMGeoDb {
             case mssql: return new MSSQLDialect();
         }
         throw new IllegalArgumentException(String.format("Invalid dialect: \"%s\"", dialectEnum));
+    }
+
+    public String getMetadata(IMGeoSchemaMapper.Metadata key) throws SQLException {
+        return new QueryRunner().query(getConnection(), "select value from metadata where id = ?", new ScalarHandler<>(), key.getDbKey());
+    }
+
+    public void setMetadataValue(IMGeoSchemaMapper.Metadata key, String value) {
+        try {
+            int updated = new QueryRunner().update(getConnection(), "update metadata set value = ? where id = ?", value, key.getDbKey());
+            if (updated == 0) {
+                new QueryRunner().update(getConnection(), "insert into metadata(id, value) values(?,?)", key.getDbKey(), value);
+            }
+        } catch (SQLException e) {
+            System.out.printf("Error updating metadata key \"%s\" with value \"%s\": %s\n", key.getDbKey(), value, e.getMessage());
+        }
     }
 }

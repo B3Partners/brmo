@@ -10,6 +10,7 @@ import nl.b3p.brmo.bgt.download.model.DeltaCustomDownloadResponse;
 import nl.b3p.brmo.bgt.download.model.DeltaCustomDownloadStatusResponse;
 import nl.b3p.brmo.bgt.download.model.GetDeltasResponse;
 import nl.b3p.brmo.imgeo.IMGeoObjectTableWriter;
+import nl.b3p.brmo.imgeo.IMGeoSchemaMapper;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.input.CloseShieldInputStream;
 import org.apache.commons.io.input.CountingInputStream;
@@ -29,6 +30,7 @@ import java.time.Instant;
 import java.util.List;
 import java.util.OptionalLong;
 import java.util.concurrent.Callable;
+import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -36,6 +38,7 @@ import static java.net.http.HttpRequest.BodyPublishers.noBody;
 import static nl.b3p.brmo.bgt.download.model.DeltaCustomDownloadStatusResponse.StatusEnum.COMPLETED;
 import static nl.b3p.brmo.bgt.download.model.DeltaCustomDownloadStatusResponse.StatusEnum.PENDING;
 import static nl.b3p.brmo.bgt.download.model.DeltaCustomDownloadStatusResponse.StatusEnum.RUNNING;
+import static nl.b3p.brmo.imgeo.IMGeoSchemaMapper.getLoaderVersion;
 import static nl.b3p.brmo.imgeo.cli.Utils.formatTimeSince;
 
 @Command(name = "download")
@@ -56,6 +59,20 @@ public class DownloadCommand {
             System.out.println("To load an initial extract without a geo filter, specify the --no-geo-filter option");
             return;
         }
+
+        System.out.print("Connecting to the database... ");
+        IMGeoDb db = new IMGeoDb(dbOptions);
+        db.setMetadataValue(IMGeoSchemaMapper.Metadata.LOADER_VERSION, getLoaderVersion());
+        db.setMetadataValue(IMGeoSchemaMapper.Metadata.FEATURE_TYPES,
+                    extractSelectionOptions
+                            .getFeatureTypesList().stream()
+                            .map(DeltaCustomDownloadRequest.FeaturetypesEnum::toString)
+                            .collect(Collectors.joining(",")));
+        db.setMetadataValue(IMGeoSchemaMapper.Metadata.INITIAL_LOAD_TIME, Instant.now().toString());
+        db.setMetadataValue(IMGeoSchemaMapper.Metadata.GEOM_FILTER, extractSelectionOptions.geoFilterWkt);
+        System.out.println("ok");
+        // Close connection while waiting for extract
+        db.closeConnection();
 
         printApiException(() -> {
             DeltaCustomApi deltaCustomApi = new DeltaCustomApi(client);
@@ -137,7 +154,6 @@ public class DownloadCommand {
             // Needed for If-Range header
             //Optional<String> etag = response.headers().firstValue("Etag");
 
-            IMGeoDb db = new IMGeoDb(dbOptions);
             IMGeoObjectTableWriter writer = db.createObjectTableWriter(loadOptions);
 
             final String[] deltaId = {null};
@@ -156,6 +172,9 @@ public class DownloadCommand {
                         if (deltaId[0] == null && writer.getMutatieInhoud() != null) {
                             deltaId[0] = writer.getMutatieInhoud().getLeveringsId();
                             System.out.printf("\rDelta id: %s\n", deltaId[0]);
+
+                            db.setMetadataValue(IMGeoSchemaMapper.Metadata.INITIAL_LOAD_DELTA_ID, deltaId[0]);
+                            db.setMetadataValue(IMGeoSchemaMapper.Metadata.DELTA_ID, deltaId[0]);
                         }
                         System.out.printf("\rTotal extract %.1f%% loaded - file \"%s\" time %s, %,d objects",
                                 100.0 / contentLength.orElse(0) * countingInputStream.getByteCount(),
