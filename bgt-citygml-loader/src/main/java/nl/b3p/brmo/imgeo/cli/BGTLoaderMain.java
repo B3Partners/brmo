@@ -139,6 +139,12 @@ public class BGTLoaderMain {
                 writer.getObjectCount() / loadTimeSeconds,
                 " ".repeat(50)
         );
+        if (writer.getMutatieInhoud() != null) {
+            System.out.printf("Mutatie type %s loaded with deltaId %s\n",
+                    writer.getMutatieInhoud().getMutatieType(),
+                    writer.getMutatieInhoud().getLeveringsId()
+            );
+        }
     }
 
     public static void main(String[] args) {
