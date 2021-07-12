@@ -1,7 +1,14 @@
 package nl.b3p.brmo.imgeo.cli;
 
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.time.Instant;
+
+import static java.net.http.HttpRequest.BodyPublishers.noBody;
 
 public class Utils {
 
@@ -14,5 +21,20 @@ public class Utils {
             return String.format("%s%dm %2ds", days, d.toMinutesPart(), d.toSecondsPart());
         }
         return String.format("%s%dh %2dm %2ds", days, d.toHoursPart(), d.toMinutesPart(), d.toSecondsPart());
+    }
+
+    public static HttpResponse<Void> getHEADResponse(URI URI) throws IOException, InterruptedException {
+        HttpClient httpClient = HttpClient.newBuilder()
+                .followRedirects(HttpClient.Redirect.NORMAL)
+                .build();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI)
+                .method("HEAD", noBody())
+                .build();
+        HttpResponse<Void> response = httpClient.send(request, HttpResponse.BodyHandlers.discarding());
+        if (response.statusCode() != 200) {
+            throw new IllegalStateException(String.format("HEAD for URI \"%s\" returned status code %d", URI, response.statusCode()));
+        }
+        return response;
     }
 }

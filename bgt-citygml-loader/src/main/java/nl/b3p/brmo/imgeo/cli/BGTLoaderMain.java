@@ -75,6 +75,7 @@ public class BGTLoaderMain {
         db.setFeatureTypesEnumMetadata(featureTypeSelectionOptions.getFeatureTypesList());
         if (writer.getMutatieInhoud() != null) {
             db.setMetadataForMutaties(writer.getMutatieInhoud());
+            db.setMetadataValue(IMGeoSchemaMapper.Metadata.DELTA_TIME_TO, null);
             db.setMetadataValue(IMGeoSchemaMapper.Metadata.INITIAL_LOAD_TIME, Instant.now().toString());
             db.setMetadataValue(IMGeoSchemaMapper.Metadata.GEOM_FILTER, writer.getMutatieInhoud().getGebied());
 
