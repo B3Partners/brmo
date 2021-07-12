@@ -25,6 +25,7 @@ public class IMGeoObjectTableWriter {
 
     private final Connection c;
     private final SQLDialect dialect;
+    private static final boolean enablePgCopy = true;
 
     private int batchSize = 100;
     private Integer objectLimit = null;
@@ -205,7 +206,7 @@ public class IMGeoObjectTableWriter {
     }
 
     private static String buildInsertSql(IMGeoObject object) {
-        StringBuilder sql = new StringBuilder("insert into ");
+        StringBuilder sql = new StringBuilder(enablePgCopy ? "copy " : "insert into ");
         String tableName = getTableNameForObjectType(object.getName());
         sql.append(tableName);
         sql.append(" (");
@@ -224,9 +225,14 @@ public class IMGeoObjectTableWriter {
                 sql.append(getColumnNameForObjectType(object.getName(), column.getName()));
             }
         });
-        sql.append(") values (");
-        sql.append(params);
-        sql.append(")");
+
+        if(enablePgCopy) {
+            sql.append(") from stdin with (format text)"); // freeze option only with transaction
+        } else {
+            sql.append(") values (");
+            sql.append(params);
+            sql.append(")");
+        }
         return sql.toString();
     }
 }

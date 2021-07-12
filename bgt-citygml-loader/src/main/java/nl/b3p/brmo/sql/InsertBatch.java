@@ -2,7 +2,11 @@ package nl.b3p.brmo.sql;
 
 import nl.b3p.brmo.sql.dialect.SQLDialect;
 import org.locationtech.jts.geom.Geometry;
+import org.postgresql.PGConnection;
+import org.postgresql.copy.CopyIn;
 
+import java.io.IOException;
+import java.io.StringReader;
 import java.sql.Connection;
 import java.sql.ParameterMetaData;
 import java.sql.PreparedStatement;
@@ -13,6 +17,8 @@ public class InsertBatch {
     private final Connection c;
     private final SQLDialect dialect;
     private final String insertSql;
+    private final boolean pgCopyEnabled;
+    private StringBuilder copy = new StringBuilder();
     private final int batchSize;
 
     private final Boolean[] geometryParameterIndexes;
@@ -25,6 +31,7 @@ public class InsertBatch {
     public InsertBatch(Connection c, String insertSql, SQLDialect dialect, int batchSize, Boolean[] geometryParameterIndexes, boolean linearizeCurves) throws SQLException {
         this.c = c;
         this.insertSql = insertSql;
+        this.pgCopyEnabled = insertSql.startsWith("copy");
         this.dialect = dialect;
         this.batchSize = batchSize;
         this.geometryParameterIndexes = geometryParameterIndexes;
@@ -34,6 +41,9 @@ public class InsertBatch {
     }
 
     private void initializePreparedStatement() throws SQLException {
+        if (pgCopyEnabled) {
+            return;
+        }
         ps = c.prepareStatement(insertSql);
         parameterTypes = null;
         try {
@@ -55,6 +65,10 @@ public class InsertBatch {
      * @return Whether the batch was executed
      */
     public boolean addBatch(Object[] params) throws Exception {
+        if (pgCopyEnabled) {
+            return addCopyBatch(params);
+        }
+
         for (int i = 0; i < params.length; i++) {
             int parameterIndex = i + 1;
             try {
@@ -86,12 +100,47 @@ public class InsertBatch {
 
     public void executeBatch() throws Exception {
         if (count > 0) {
-            ps.executeBatch();
+            if (pgCopyEnabled) {
+                executeCopy();
+            } else {
+                ps.executeBatch();
+            }
             this.count = 0;
         }
     }
 
     public void close() throws SQLException {
         ps.close();
+    }
+
+    private boolean addCopyBatch(Object[] params) throws Exception {
+        boolean first = true;
+        for (Object o: params) {
+            if (first) {
+                first = false;
+            } else {
+                copy.append("\t");
+            }
+            if (o == null) {
+                copy.append("\\N");
+            } else {
+                // FIXME: currently no escaping of \, \t, \r, \n
+                copy.append(o);
+            }
+        }
+        copy.append("\n");
+
+        count++;
+        if (count == batchSize) {
+            this.executeBatch();
+            return true;
+        }
+        return false;
+
+    }
+
+    private void executeCopy() throws SQLException, IOException {
+        (c.unwrap(PGConnection.class)).getCopyAPI().copyIn(insertSql, new StringReader(copy.toString()));
+        copy = new StringBuilder();
     }
 }
