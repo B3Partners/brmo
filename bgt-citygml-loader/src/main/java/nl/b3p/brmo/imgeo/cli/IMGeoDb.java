@@ -1,5 +1,7 @@
 package nl.b3p.brmo.imgeo.cli;
 
+import nl.b3p.brmo.bgt.download.model.DeltaCustomDownloadRequest;
+import nl.b3p.brmo.imgeo.IMGeoObjectStreamer;
 import nl.b3p.brmo.imgeo.IMGeoObjectTableWriter;
 import nl.b3p.brmo.imgeo.IMGeoSchemaMapper;
 import nl.b3p.brmo.sql.dialect.MSSQLDialect;
@@ -12,6 +14,8 @@ import org.apache.commons.dbutils.handlers.ScalarHandler;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class IMGeoDb {
 
@@ -103,5 +107,27 @@ public class IMGeoDb {
         } catch (SQLException e) {
             System.out.printf("Error updating metadata key \"%s\" with value \"%s\": %s\n", key.getDbKey(), value, e.getMessage());
         }
+    }
+
+    public void setMetadataForMutaties(IMGeoObjectStreamer.MutatieInhoud mutatieInhoud) {
+        if (mutatieInhoud == null || mutatieInhoud.getLeveringsId() == null) {
+            return;
+        }
+        if (mutatieInhoud.getLeveringsId() != null) {
+            String deltaId = mutatieInhoud.getLeveringsId();
+
+            if ("initial".equals(mutatieInhoud.getMutatieType())) {
+                setMetadataValue(IMGeoSchemaMapper.Metadata.INITIAL_LOAD_DELTA_ID, deltaId);
+            }
+            setMetadataValue(IMGeoSchemaMapper.Metadata.DELTA_ID, deltaId);
+        }
+    }
+
+    public void setFeatureTypesEnumMetadata(Set<DeltaCustomDownloadRequest.FeaturetypesEnum> featureTypes) {
+        setMetadataValue(IMGeoSchemaMapper.Metadata.FEATURE_TYPES,
+                        featureTypes.stream()
+                        .map(DeltaCustomDownloadRequest.FeaturetypesEnum::toString)
+                        .collect(Collectors.joining(",")));
+
     }
 }
