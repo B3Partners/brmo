@@ -23,6 +23,22 @@ public class FeatureTypeSelectionOptions {
     @Option(names={"--include-plaatsbepalingspunten"})
     boolean includePlaatsbepalingspunten = false;
 
+    public List<String> getFeatureTypes() {
+        return featureTypes;
+    }
+
+    public void setFeatureTypes(List<String> featureTypes) {
+        this.featureTypes = featureTypes;
+    }
+
+    public boolean isIncludePlaatsbepalingspunten() {
+        return includePlaatsbepalingspunten;
+    }
+
+    public void setIncludePlaatsbepalingspunten(boolean includePlaatsbepalingspunten) {
+        this.includePlaatsbepalingspunten = includePlaatsbepalingspunten;
+    }
+
     public Set<DeltaCustomDownloadRequest.FeaturetypesEnum> getFeatureTypesList() {
         Set<DeltaCustomDownloadRequest.FeaturetypesEnum> types = new HashSet<>();
         if (featureTypes.contains("all")) {

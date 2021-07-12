@@ -26,7 +26,6 @@ public class IMGeoSchemaMapper {
     private static final String SCHEMA_VERSION_VALUE = "1";
 
     public enum Metadata {
-        TABLE_NAME,
         SCHEMA_VERSION,
         LOADER_VERSION,
         FEATURE_TYPES,

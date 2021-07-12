@@ -1,16 +1,14 @@
 package nl.b3p.brmo.imgeo.cli;
 
 import nl.b3p.brmo.bgt.download.api.DeltaApi;
-import nl.b3p.brmo.bgt.download.api.DeltaCustomApi;
 import nl.b3p.brmo.bgt.download.client.ApiClient;
 import nl.b3p.brmo.bgt.download.client.ApiException;
 import nl.b3p.brmo.bgt.download.model.Delta;
-import nl.b3p.brmo.bgt.download.model.DeltaCustomDownloadRequest;
-import nl.b3p.brmo.bgt.download.model.DeltaCustomDownloadResponse;
-import nl.b3p.brmo.bgt.download.model.DeltaCustomDownloadStatusResponse;
 import nl.b3p.brmo.bgt.download.model.GetDeltasResponse;
 import nl.b3p.brmo.imgeo.IMGeoObjectTableWriter;
 import nl.b3p.brmo.imgeo.IMGeoSchemaMapper;
+import nl.b3p.brmo.imgeo.api.CustomDownloadProgress;
+import nl.b3p.brmo.imgeo.api.DownloadApiUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.input.CloseShieldInputStream;
 import org.apache.commons.io.input.CountingInputStream;
@@ -22,24 +20,25 @@ import picocli.CommandLine.Option;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URL;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
+import java.net.http.HttpHeaders;
 import java.time.Duration;
 import java.time.Instant;
+import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.List;
 import java.util.OptionalLong;
 import java.util.concurrent.Callable;
-import java.util.stream.Collectors;
+import java.util.function.Consumer;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-import static java.net.http.HttpRequest.BodyPublishers.noBody;
 import static nl.b3p.brmo.bgt.download.model.DeltaCustomDownloadStatusResponse.StatusEnum.COMPLETED;
 import static nl.b3p.brmo.bgt.download.model.DeltaCustomDownloadStatusResponse.StatusEnum.PENDING;
 import static nl.b3p.brmo.bgt.download.model.DeltaCustomDownloadStatusResponse.StatusEnum.RUNNING;
 import static nl.b3p.brmo.imgeo.IMGeoSchemaMapper.getLoaderVersion;
 import static nl.b3p.brmo.imgeo.cli.Utils.formatTimeSince;
+import static nl.b3p.brmo.imgeo.cli.Utils.getHEADResponse;
 
 @Command(name = "download")
 public class DownloadCommand {
@@ -55,7 +54,7 @@ public class DownloadCommand {
         // TODO set alternate URL and timeout from options
         ApiClient client = new ApiClient();
 
-        if (extractSelectionOptions.geoFilterWkt == null && !noGeoFilter) {
+        if (extractSelectionOptions.getGeoFilterWkt() == null && !noGeoFilter) {
             System.out.println("To load an initial extract without a geo filter, specify the --no-geo-filter option");
             return;
         }
@@ -69,131 +68,13 @@ public class DownloadCommand {
         db.closeConnection();
 
         printApiException(() -> {
-            DeltaCustomApi deltaCustomApi = new DeltaCustomApi(client);
-            DeltaCustomDownloadRequest deltaCustomDownloadRequest = new DeltaCustomDownloadRequest();
-            // Set to null to get initial load
-            deltaCustomDownloadRequest.setDeltaId(null);
-            deltaCustomDownloadRequest.featuretypes(extractSelectionOptions.getFeatureTypesList());
-            deltaCustomDownloadRequest.setFormat(DeltaCustomDownloadRequest.FormatEnum.CITYGML);
-            deltaCustomDownloadRequest.setGeofilter(extractSelectionOptions.geoFilterWkt);
-            // Create custom download requests for all feature types together
-            // Optimization: split download request per feature type, and load each when they are completed (possibly parallel)
+            Instant start = Instant.now();
             System.out.print("Creating custom download... ");
 
-            DeltaCustomDownloadResponse downloadResponse = deltaCustomApi.deltaCustomDownload(deltaCustomDownloadRequest);
-            String downloadRequestId = downloadResponse.getDownloadRequestId();
-            System.out.println("id " + downloadRequestId);
+            URI downloadURI = DownloadApiUtils.getCustomDownloadURL(client, null, extractSelectionOptions, cliCustomDownloadProgressConsumer);
 
-            // Wait for custom download request to complete
-            System.out.print("Requesting extract status... ");
-            DeltaCustomDownloadStatusResponse downloadStatusResponse;
-            long waitTime = 1000;
-            int calls = 0;
-            Instant start = Instant.now();
-            do {
-                downloadStatusResponse = deltaCustomApi.deltaCustomDownloadStatus(downloadRequestId);
-                calls++;
-                if (downloadStatusResponse.getStatus() == COMPLETED) {
-                    break;
-                }
-                String timeSince = formatTimeSince(start);
-
-                if (downloadStatusResponse.getStatus() == PENDING) {
-                    // TODO print wait time
-                    System.out.printf("\rExtract is pending for %s...", timeSince);
-                } else if (downloadStatusResponse.getStatus() == RUNNING) {
-                    System.out.printf("\rExtract is running, progress: %d%%, time %s", downloadStatusResponse.getProgress(), timeSince);
-                }
-                if (calls > 100) {
-                    waitTime += 1000;
-                    waitTime = Math.min(30000, waitTime);
-                } else if (calls > 10) {
-                    waitTime += 1000;
-                    waitTime = Math.min(5000, waitTime);
-                }
-                Thread.sleep(waitTime);
-
-                // TODO timeout
-            } while (true);
-            System.out.printf("\rExtract ready to download, time: %s                          \n", formatTimeSince(start));
-
-            if (downloadStatusResponse.getStatus() != COMPLETED) {
-                throw new IllegalStateException(String.format("Download status for request id \"%s\" is not COMPLETED but \"%s\"", downloadRequestId, downloadStatusResponse.getStatus()));
-            }
-
-            // Download the data and load it (streaming or download fully)
-            String downloadUrl = downloadStatusResponse.getLinks().getDownload().getHref();
-
-            URI baseUri = URI.create(client.getBaseUri());
-            URI fullDownloadUri = baseUri.resolve(downloadUrl);
-
-            System.out.println("Downloading extract from URL: " + fullDownloadUri);
-
-            // Get file size and ETag
-            HttpClient httpClient = HttpClient.newBuilder()
-                    .followRedirects(HttpClient.Redirect.NORMAL)
-                    .build();
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(fullDownloadUri)
-                    .method("HEAD", noBody())
-                    .build();
-            HttpResponse<Void> response = httpClient.send(request, HttpResponse.BodyHandlers.discarding());
-            if (response.statusCode() != 200) {
-                throw new IllegalStateException(String.format("HEAD for URI \"%s\" returned status code %d", fullDownloadUri, response.statusCode()));
-            }
-            OptionalLong contentLength = response.headers().firstValueAsLong("Content-Length");
-            if (contentLength.isPresent()) {
-                System.out.println("Extract size: " + FileUtils.byteCountToDisplaySize(contentLength.getAsLong()));
-            }
-            // Needed for If-Range header
-            //Optional<String> etag = response.headers().firstValue("Etag");
-
-            IMGeoObjectTableWriter writer = db.createObjectTableWriter(loadOptions);
-
-            // Are resume-able downloads with Range requests needed?
-            try (InputStream input = new URL(fullDownloadUri.toString()).openConnection().getInputStream()) {
-                Instant loadStart = Instant.now();
-                CountingInputStream countingInputStream = new CountingInputStream(input);
-                ZipInputStream zis = new ZipInputStream(countingInputStream);
-                ZipEntry entry = zis.getNextEntry();
-                while (entry != null) {
-                    System.out.print("Loading zip entry " + entry.getName());
-                    Instant zipEntryStart = Instant.now();
-                    ZipEntry finalEntry = entry;
-                    writer.setProgressUpdater(() -> System.out.printf("\rTotal extract %.1f%% loaded - file \"%s\" time %s, %,d objects",
-                                100.0 / contentLength.orElse(0) * countingInputStream.getByteCount(),
-                                finalEntry.getName(),
-                                formatTimeSince(zipEntryStart),
-                                writer.getObjectCount()
-                    ));
-                    writer.write(CloseShieldInputStream.wrap(zis));
-                    String endedObjects = writer.isCurrentObjectsOnly() ? String.format(", %,d ended objects skipped", writer.getEndedObjectsCount()) : "";
-                    double loadTimeSeconds = Duration.between(zipEntryStart, Instant.now()).toMillis() / 1000.0;
-                    System.out.printf("\r%s (%s): time %s, %,d objects%s, %,.0f objects/s%s\n",
-                            entry.getName(),
-                            FileUtils.byteCountToDisplaySize(countingInputStream.getByteCount()),
-                            formatTimeSince(zipEntryStart),
-                            writer.getObjectCount(),
-                            endedObjects,
-                            writer.getObjectCount() / loadTimeSeconds,
-                            " ".repeat(50)
-                    );
-                    entry = zis.getNextEntry();
-                }
-
-                db.setMetadataValue(IMGeoSchemaMapper.Metadata.INITIAL_LOAD_TIME, Instant.now().toString());
-                db.setMetadataForMutaties(writer.getMutatieInhoud());
-                // Do not set geom filter from MutatieInhoud, a custom download without geo filter will have gebied
-                // "POLYGON ((-100000 200000, 412000 200000, 412000 712000, -100000 712000, -100000 200000))"
-                db.setMetadataValue(IMGeoSchemaMapper.Metadata.GEOM_FILTER, extractSelectionOptions.geoFilterWkt);
-
-                System.out.printf("\rLoaded initial extract with delta ID %s in %s (total time %s)\n",
-                        writer.getMutatieInhoud().getLeveringsId(),
-                        formatTimeSince(loadStart),
-                        formatTimeSince(start)
-                );
-            }
-
+            loadFromURI(db, loadOptions, extractSelectionOptions, downloadURI, start);
+            db.setMetadataValue(IMGeoSchemaMapper.Metadata.DELTA_TIME_TO, null);
             return null;
         });
     }
@@ -201,29 +82,84 @@ public class DownloadCommand {
     @Command(name="update")
     public void update(
             @CommandLine.Option(names={"-h","--help"}, usageHelp = true) boolean showHelp,
-            @Mixin DatabaseOptions dbOptions) throws Exception {
+            @Mixin DatabaseOptions dbOptions,
+            @Mixin LoadOptions loadOptions // TODO save in db as metadata when loading?
+    ) throws Exception {
 
         ApiClient client = new ApiClient();
 
+        System.out.print("Connecting to the database... ");
+        IMGeoDb db = new IMGeoDb(dbOptions);
+        String deltaId = db.getMetadata(IMGeoSchemaMapper.Metadata.DELTA_ID);
+        OffsetDateTime deltaIdTimeTo = null;
+        String s = db.getMetadata(IMGeoSchemaMapper.Metadata.DELTA_TIME_TO);
+        if (s != null && s.length() > 0) {
+            deltaIdTimeTo = OffsetDateTime.parse(s);
+        }
+        if (deltaId == null) {
+            System.out.println("Error: no deltaId in metadata table, cannot update");
+            System.exit(1);
+        }
+        ExtractSelectionOptions extractSelectionOptions = new ExtractSelectionOptions();
+        extractSelectionOptions.setGeoFilterWkt(db.getMetadata(IMGeoSchemaMapper.Metadata.GEOM_FILTER));
+        if (extractSelectionOptions.getGeoFilterWkt() != null && extractSelectionOptions.getGeoFilterWkt().length() == 0) {
+            extractSelectionOptions.setGeoFilterWkt(null);
+        }
+        extractSelectionOptions.setFeatureTypes(Arrays.asList(db.getMetadata(IMGeoSchemaMapper.Metadata.FEATURE_TYPES).split(",")));
+
+        System.out.printf("ok, at delta ID %s%s\n", deltaId, deltaIdTimeTo != null
+                ? ", time to " + DateTimeFormatter.ISO_INSTANT.format(deltaIdTimeTo)
+                : ", unknown time to");
+        // Close connection while waiting for extract
+        db.closeConnection();
+
         printApiException(() -> {
-            System.out.print("Finding latest deltaId... ");
+            Instant start = Instant.now();
+            System.out.println("Finding available deltas... ");
+            // Note that the afterDeltaId parameter is useless, because the response does not distinguish between
+            // "'afterDeltaId' is the latest" and "'afterDeltaId' not found or older than 31 days"
             GetDeltasResponse response = new DeltaApi(client).getDeltas(null, 1, 100);
-            Delta latestDelta = null;
 
             // Verify no links to other page, as we expect at most 31 delta's
             if (response.getLinks() != null && !response.getLinks().isEmpty()) {
                 throw new IllegalStateException("Did not expect links in GetDeltas response");
             }
 
-            List<Delta> deltas = response.getDeltas();
-            if (deltas != null && !deltas.isEmpty()) {
-                latestDelta = deltas.get(deltas.size()-1);
-                System.out.println("found " + latestDelta.getId() + ", time to " + latestDelta.getTimeWindow().getTo());
-            } else {
-                System.out.println("couldn't find latest delta");
+            int i;
+            for (i = 0; i < response.getDeltas().size(); i++) {
+                Delta d = response.getDeltas().get(i);
+                if (deltaId.equals(d.getId())) {
+                    break;
+                }
             }
+            if (i == response.getDeltas().size()) {
+                // TODO automatically do initial load depending on option
+                System.out.println("Error: current delta id not found, new initial load required!");
+                System.exit(1);
+            }
+
+            List<Delta> deltas = response.getDeltas().subList(i+1, response.getDeltas().size());
+            if (deltas.isEmpty()) {
+                System.out.println("No new deltas returned, no updates required");
+                System.exit(0);
+                return null;
+            }
+
+            Delta latestDelta = deltas.get(deltas.size()-1);
+            System.out.printf("Number of deltas to load: %d, latest %s, time to %s\n", deltas.size(), latestDelta.getId(), latestDelta.getTimeWindow().getTo());
+
+            for(Delta delta: deltas) {
+                System.out.printf("Creating delta download for delta id %s... ", delta.getId());
+                URI downloadURI = DownloadApiUtils.getCustomDownloadURL(client, delta, extractSelectionOptions, cliCustomDownloadProgressConsumer);
+                loadFromURI(db, loadOptions, extractSelectionOptions, downloadURI, start);
+            }
+
+            db.setMetadataValue(IMGeoSchemaMapper.Metadata.LOADER_VERSION, getLoaderVersion());
+            Delta lastDelta = deltas.get(deltas.size()-1);
+            db.setMetadataValue(IMGeoSchemaMapper.Metadata.DELTA_TIME_TO, lastDelta.getTimeWindow().getTo().toString());
             return null;
         });
+
     }
 
     private static void printApiException(Callable<Void> callable) throws Exception {
@@ -232,6 +168,84 @@ public class DownloadCommand {
         } catch(ApiException apiException) {
             System.err.printf("API status code: %d, body: %s\n", apiException.getCode(), apiException.getResponseBody());
             throw apiException;
+        }
+    }
+
+    private static final Consumer<CustomDownloadProgress> cliCustomDownloadProgressConsumer = progress -> {
+        if (progress.getStatusApiCalls() == 0 && progress.getDownloadRequestId() != null) {
+            // Verbose...
+            // System.out.println("download request id " + progress.getDownloadRequestId());
+            System.out.print("Requesting extract status... ");
+        } else {
+            if (progress.getStatusResponse().getStatus() == PENDING) {
+                System.out.printf("\rExtract is pending for %s...", progress.getTimeSinceStart());
+            } else if (progress.getStatusResponse().getStatus() == RUNNING) {
+                System.out.printf("\rExtract is running, progress: %d%%, time %s", progress.getStatusResponse().getProgress(), progress.getTimeSinceStart());
+            } else if (progress.getStatusResponse().getStatus() == COMPLETED) {
+                // Verbose...
+                // System.out.printf("\rExtract ready, completed in %s\n", progress.getTimeSinceStart());
+                System.out.printf("\r%s\r", " ".repeat(30));
+            }
+        }
+    };
+
+    private static void loadFromURI(IMGeoDb db, LoadOptions loadOptions, ExtractSelectionOptions extractSelectionOptions, URI downloadURI, Instant start) throws Exception {
+        System.out.printf("Downloading extract from URL: %s", downloadURI);
+
+        HttpHeaders headResponseHeaders = getHEADResponse(downloadURI).headers();
+        OptionalLong contentLength = headResponseHeaders.firstValueAsLong("Content-Length");
+        if (contentLength.isPresent()) {
+            System.out.printf(" (%s)\n", FileUtils.byteCountToDisplaySize(contentLength.getAsLong()));
+        } else {
+            System.out.println();
+        }
+        // Needed for If-Range header
+        //Optional<String> etag = response.headers().firstValue("Etag");
+
+        IMGeoObjectTableWriter writer = db.createObjectTableWriter(loadOptions);
+
+        // Are resume-able downloads with Range requests needed?
+        try (InputStream input = new URL(downloadURI.toString()).openConnection().getInputStream()) {
+            Instant loadStart = Instant.now();
+            CountingInputStream countingInputStream = new CountingInputStream(input);
+            ZipInputStream zis = new ZipInputStream(countingInputStream);
+            ZipEntry entry = zis.getNextEntry();
+            while (entry != null) {
+                System.out.print("Loading zip entry " + entry.getName());
+                Instant zipEntryStart = Instant.now();
+                ZipEntry finalEntry = entry;
+                writer.setProgressUpdater(() -> System.out.printf("\rTotal extract %.1f%% loaded - file \"%s\" time %s, %,d objects",
+                        100.0 / contentLength.orElse(0) * countingInputStream.getByteCount(),
+                        finalEntry.getName(),
+                        formatTimeSince(zipEntryStart),
+                        writer.getObjectCount()
+                ));
+                writer.write(CloseShieldInputStream.wrap(zis));
+                String endedObjects = writer.isCurrentObjectsOnly() ? String.format(", %,d ended objects skipped", writer.getEndedObjectsCount()) : "";
+                double loadTimeSeconds = Duration.between(zipEntryStart, Instant.now()).toMillis() / 1000.0;
+                System.out.printf("\r%s (%s): time %s, %,d objects%s, %,.0f objects/s%s\n",
+                        entry.getName(),
+                        FileUtils.byteCountToDisplaySize(countingInputStream.getByteCount()),
+                        formatTimeSince(zipEntryStart),
+                        writer.getObjectCount(),
+                        endedObjects,
+                        writer.getObjectCount() / loadTimeSeconds,
+                        " ".repeat(50)
+                );
+                entry = zis.getNextEntry();
+            }
+
+            db.setMetadataForMutaties(writer.getMutatieInhoud());
+            // Do not set geom filter from MutatieInhoud, a custom download without geo filter will have gebied
+            // "POLYGON ((-100000 200000, 412000 200000, 412000 712000, -100000 712000, -100000 200000))"
+            db.setMetadataValue(IMGeoSchemaMapper.Metadata.GEOM_FILTER, extractSelectionOptions.getGeoFilterWkt());
+
+            System.out.printf("\rLoaded %s extract with delta ID %s in %s%s\n",
+                    writer.getMutatieInhoud().getMutatieType(),
+                    writer.getMutatieInhoud().getLeveringsId(),
+                    formatTimeSince(loadStart),
+                    start == null ? "" : " (total time " + formatTimeSince(start) + ")"
+            );
         }
     }
 }
