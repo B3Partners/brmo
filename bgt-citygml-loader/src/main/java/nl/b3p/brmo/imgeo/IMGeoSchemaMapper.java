@@ -170,7 +170,7 @@ public class IMGeoSchemaMapper {
 
     public static String createMetadataTable(SQLDialect dialect) {
         final StringBuilder sql = new StringBuilder();
-        final String tableName = Metadata.TABLE_NAME.getDbKey();
+        final String tableName = "metadata";
         if (dialect.supportsDropTableIfExists()) {
             sql.append("drop table if exists ");
             sql.append(tableName);
