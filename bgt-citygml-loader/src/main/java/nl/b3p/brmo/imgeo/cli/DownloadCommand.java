@@ -63,13 +63,7 @@ public class DownloadCommand {
         System.out.print("Connecting to the database... ");
         IMGeoDb db = new IMGeoDb(dbOptions);
         db.setMetadataValue(IMGeoSchemaMapper.Metadata.LOADER_VERSION, getLoaderVersion());
-        db.setMetadataValue(IMGeoSchemaMapper.Metadata.FEATURE_TYPES,
-                    extractSelectionOptions
-                            .getFeatureTypesList().stream()
-                            .map(DeltaCustomDownloadRequest.FeaturetypesEnum::toString)
-                            .collect(Collectors.joining(",")));
-        db.setMetadataValue(IMGeoSchemaMapper.Metadata.INITIAL_LOAD_TIME, Instant.now().toString());
-        db.setMetadataValue(IMGeoSchemaMapper.Metadata.GEOM_FILTER, extractSelectionOptions.geoFilterWkt);
+        db.setFeatureTypesEnumMetadata(extractSelectionOptions.getFeatureTypesList());
         System.out.println("ok");
         // Close connection while waiting for extract
         db.closeConnection();
@@ -156,8 +150,6 @@ public class DownloadCommand {
 
             IMGeoObjectTableWriter writer = db.createObjectTableWriter(loadOptions);
 
-            final String[] deltaId = {null};
-
             // Are resume-able downloads with Range requests needed?
             try (InputStream input = new URL(fullDownloadUri.toString()).openConnection().getInputStream()) {
                 Instant loadStart = Instant.now();
@@ -168,21 +160,12 @@ public class DownloadCommand {
                     System.out.print("Loading zip entry " + entry.getName());
                     Instant zipEntryStart = Instant.now();
                     ZipEntry finalEntry = entry;
-                    writer.setProgressUpdater(() -> {
-                        if (deltaId[0] == null && writer.getMutatieInhoud() != null) {
-                            deltaId[0] = writer.getMutatieInhoud().getLeveringsId();
-                            System.out.printf("\rDelta id: %s\n", deltaId[0]);
-
-                            db.setMetadataValue(IMGeoSchemaMapper.Metadata.INITIAL_LOAD_DELTA_ID, deltaId[0]);
-                            db.setMetadataValue(IMGeoSchemaMapper.Metadata.DELTA_ID, deltaId[0]);
-                        }
-                        System.out.printf("\rTotal extract %.1f%% loaded - file \"%s\" time %s, %,d objects",
+                    writer.setProgressUpdater(() -> System.out.printf("\rTotal extract %.1f%% loaded - file \"%s\" time %s, %,d objects",
                                 100.0 / contentLength.orElse(0) * countingInputStream.getByteCount(),
                                 finalEntry.getName(),
                                 formatTimeSince(zipEntryStart),
                                 writer.getObjectCount()
-                        );
-                    });
+                    ));
                     writer.write(CloseShieldInputStream.wrap(zis));
                     String endedObjects = writer.isCurrentObjectsOnly() ? String.format(", %,d ended objects skipped", writer.getEndedObjectsCount()) : "";
                     double loadTimeSeconds = Duration.between(zipEntryStart, Instant.now()).toMillis() / 1000.0;
@@ -198,7 +181,14 @@ public class DownloadCommand {
                     entry = zis.getNextEntry();
                 }
 
-                System.out.printf("\rLoaded initial extract in %s (total time %s)\n",
+                db.setMetadataValue(IMGeoSchemaMapper.Metadata.INITIAL_LOAD_TIME, Instant.now().toString());
+                db.setMetadataForMutaties(writer.getMutatieInhoud());
+                // Do not set geom filter from MutatieInhoud, a custom download without geo filter will have gebied
+                // "POLYGON ((-100000 200000, 412000 200000, 412000 712000, -100000 712000, -100000 200000))"
+                db.setMetadataValue(IMGeoSchemaMapper.Metadata.GEOM_FILTER, extractSelectionOptions.geoFilterWkt);
+
+                System.out.printf("\rLoaded initial extract with delta ID %s in %s (total time %s)\n",
+                        writer.getMutatieInhoud().getLeveringsId(),
                         formatTimeSince(loadStart),
                         formatTimeSince(start)
                 );
@@ -206,8 +196,6 @@ public class DownloadCommand {
 
             return null;
         });
-
-        // TODO Insert deltaId, loadoptions and contentselection metadata
     }
 
     @Command(name="update")

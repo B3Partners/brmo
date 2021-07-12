@@ -25,6 +25,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.zip.ZipFile;
 
+import static nl.b3p.brmo.imgeo.IMGeoSchemaMapper.getLoaderVersion;
 import static nl.b3p.brmo.imgeo.cli.Utils.formatTimeSince;
 
 @Command(name = "bgt-loader", mixinStandardHelpOptions = true, version = "${ROOT-COMMAND-NAME} ${bundle:app.version}",
@@ -68,6 +69,21 @@ public class BGTLoaderMain {
             System.out.printf("Expected zip, gml or xml file: cannot load file \"%s\"", file.getName());
             return 1;
         }
+
+        db.setMetadataValue(IMGeoSchemaMapper.Metadata.LOADER_VERSION, getLoaderVersion());
+        // Set feature types list from options, not MutatieInhoud...
+        db.setFeatureTypesEnumMetadata(featureTypeSelectionOptions.getFeatureTypesList());
+        if (writer.getMutatieInhoud() != null) {
+            db.setMetadataForMutaties(writer.getMutatieInhoud());
+            db.setMetadataValue(IMGeoSchemaMapper.Metadata.INITIAL_LOAD_TIME, Instant.now().toString());
+            db.setMetadataValue(IMGeoSchemaMapper.Metadata.GEOM_FILTER, writer.getMutatieInhoud().getGebied());
+
+            System.out.printf("Mutatie type %s loaded with deltaId %s\n",
+                    writer.getMutatieInhoud().getMutatieType(),
+                    writer.getMutatieInhoud().getLeveringsId()
+            );
+        }
+
         return 0;
     }
 
@@ -138,12 +154,6 @@ public class BGTLoaderMain {
                 writer.getObjectCount() / loadTimeSeconds,
                 " ".repeat(50)
         );
-        if (writer.getMutatieInhoud() != null) {
-            System.out.printf("Mutatie type %s loaded with deltaId %s\n",
-                    writer.getMutatieInhoud().getMutatieType(),
-                    writer.getMutatieInhoud().getLeveringsId()
-            );
-        }
     }
 
     public static void main(String[] args) {
