@@ -73,7 +73,13 @@ public class IMGeoDb {
     }
 
     public IMGeoObjectTableWriter createObjectTableWriter(LoadOptions loadOptions) throws SQLException, ClassNotFoundException {
-        IMGeoObjectTableWriter writer = new IMGeoObjectTableWriter(getConnection(), this.getDialect());
+        IMGeoObjectTableWriter writer = new IMGeoObjectTableWriter(() -> {
+            try {
+                return getConnection();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }, this.getDialect());
 
         if (loadOptions == null) {
             loadOptions = new LoadOptions();

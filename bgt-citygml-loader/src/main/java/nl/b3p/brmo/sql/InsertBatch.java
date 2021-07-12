@@ -6,19 +6,20 @@ import org.postgresql.PGConnection;
 import org.postgresql.copy.CopyIn;
 
 import java.io.IOException;
-import java.io.StringReader;
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.ParameterMetaData;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.function.Supplier;
 
 public class InsertBatch {
     private final Connection c;
     private final SQLDialect dialect;
     private final String insertSql;
     private final boolean pgCopyEnabled;
-    private StringBuilder copy = new StringBuilder();
+    private CopyIn copyIn = null;
     private final int batchSize;
 
     private final Boolean[] geometryParameterIndexes;
@@ -110,25 +111,36 @@ public class InsertBatch {
     }
 
     public void close() throws SQLException {
-        ps.close();
+        if (pgCopyEnabled) {
+            c.close();
+        } else {
+            ps.close();
+        }
     }
 
     private boolean addCopyBatch(Object[] params) throws Exception {
+        if (copyIn == null) {
+            copyIn = (c.unwrap(PGConnection.class)).getCopyAPI().copyIn(insertSql);
+        }
+
         boolean first = true;
+        StringBuilder s = new StringBuilder(16384);
         for (Object o: params) {
             if (first) {
                 first = false;
             } else {
-                copy.append("\t");
+                s.append("\t");
             }
             if (o == null) {
-                copy.append("\\N");
+                s.append("\\N");
             } else {
                 // FIXME: currently no escaping of \, \t, \r, \n
-                copy.append(o);
+                s.append(o);
             }
         }
-        copy.append("\n");
+        s.append("\n");
+        byte[] bytes = s.toString().getBytes(StandardCharsets.UTF_8);
+        copyIn.writeToCopy(bytes, 0, bytes.length);
 
         count++;
         if (count == batchSize) {
@@ -140,7 +152,7 @@ public class InsertBatch {
     }
 
     private void executeCopy() throws SQLException, IOException {
-        (c.unwrap(PGConnection.class)).getCopyAPI().copyIn(insertSql, new StringReader(copy.toString()));
-        copy = new StringBuilder();
+        copyIn.endCopy();
+        copyIn = null;
     }
 }

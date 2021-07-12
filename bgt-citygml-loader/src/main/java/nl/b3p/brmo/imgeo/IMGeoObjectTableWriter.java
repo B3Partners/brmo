@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.Supplier;
 
 import static nl.b3p.brmo.imgeo.IMGeoSchema.EIND_REGISTRATIE;
 import static nl.b3p.brmo.imgeo.IMGeoSchemaMapper.getColumnNameForObjectType;
@@ -23,7 +24,7 @@ import static nl.b3p.brmo.imgeo.IMGeoSchemaMapper.getTableNameForObjectType;
 
 public class IMGeoObjectTableWriter {
 
-    private final Connection c;
+    private final Supplier<Connection> connectionFactory;
     private final SQLDialect dialect;
     private static final boolean enablePgCopy = true;
 
@@ -40,8 +41,8 @@ public class IMGeoObjectTableWriter {
 
     private Runnable progressUpdater;
 
-    public IMGeoObjectTableWriter(Connection c, SQLDialect dialect) {
-        this.c = c;
+    public IMGeoObjectTableWriter(Supplier<Connection> connectionFactory, SQLDialect dialect) {
+        this.connectionFactory = connectionFactory;
         this.dialect = dialect;
     }
 
@@ -103,7 +104,9 @@ public class IMGeoObjectTableWriter {
 
     private void addObjectBatch(IMGeoObject object) throws Exception {
         if(!batches.containsKey(object.getName())) {
+            Connection c = connectionFactory.get();
             truncateTable(c, object);
+            c.close();
 
             String sql = buildInsertSql(object);
             List<AttributeColumnMapping> attributeColumnMappings = IMGeoSchema.objectTypeAttributes.get(object.getName());
@@ -113,7 +116,7 @@ public class IMGeoObjectTableWriter {
                     geometryParameterIndexes.add(mapping instanceof GeometryAttributeColumnMapping);
                 }
             }
-            batches.put(object.getName(), new InsertBatch(c, sql, dialect, batchSize, geometryParameterIndexes.toArray(new Boolean[0]), linearizeCurves));
+            batches.put(object.getName(), new InsertBatch(connectionFactory.get(), sql, dialect, batchSize, geometryParameterIndexes.toArray(new Boolean[0]), linearizeCurves));
         }
         InsertBatch batch = batches.get(object.getName());
 
@@ -123,7 +126,7 @@ public class IMGeoObjectTableWriter {
         int columnIndex = 0;
         for (AttributeColumnMapping column: columns) {
             if (column instanceof OneToManyColumnMapping) {
-                List<IMGeoObject> objects = (List<IMGeoObject>) attributes.get(column.getName());
+                /*List<IMGeoObject> objects = (List<IMGeoObject>) attributes.get(column.getName());
                 if (objects != null && !objects.isEmpty()) {
                     for(int j = 0; j < objects.size(); j++) {
                         IMGeoObject oneToMany = objects.get(j);
@@ -137,7 +140,7 @@ public class IMGeoObjectTableWriter {
                         oneToMany.getAttributes().put(getColumnNameForObjectType(oneToMany.getName(),tableName + "eindRegistratie"), eindRegistratie != null);
                         addObjectBatch(oneToMany);
                     }
-                }
+                }*/
             } else {
                 Object attribute = attributes.get(column.getName());
                 params[columnIndex] = column.toQueryParameter(attribute);
