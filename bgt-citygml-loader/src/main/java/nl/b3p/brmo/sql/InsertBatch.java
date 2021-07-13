@@ -1,9 +1,12 @@
 package nl.b3p.brmo.sql;
 
 import nl.b3p.brmo.sql.dialect.SQLDialect;
+import nl.b3p.brmo.util.StandardLinearizedWKTWriter;
+import org.geotools.geometry.jts.WKTWriter2;
 import org.locationtech.jts.geom.Geometry;
 import org.postgresql.PGConnection;
 import org.postgresql.copy.CopyIn;
+import org.postgresql.util.PGobject;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -21,6 +24,8 @@ public class InsertBatch {
     private final boolean pgCopyEnabled;
     private CopyIn copyIn = null;
     private final int batchSize;
+    private final StandardLinearizedWKTWriter wktWriter = new StandardLinearizedWKTWriter();
+    private final WKTWriter2 wktWriter2 = new WKTWriter2();
 
     private final Boolean[] geometryParameterIndexes;
     private final boolean linearizeCurves;
@@ -135,7 +140,13 @@ public class InsertBatch {
                 s.append("\\N");
             } else {
                 // FIXME: currently no escaping of \, \t, \r, \n
-                s.append(o);
+                if (o instanceof Geometry) {
+                    Geometry geometry = (Geometry)o;
+                    String wkt = linearizeCurves ? wktWriter.write(geometry) : wktWriter2.write(geometry);
+                    s.append("SRID=").append(geometry.getSRID()).append(";").append(wkt);
+                } else {
+                    s.append(o);
+                }
             }
         }
         s.append("\n");
