@@ -2,8 +2,9 @@ package nl.b3p.brmo.imgeo;
 
 import nl.b3p.brmo.sql.AttributeColumnMapping;
 import nl.b3p.brmo.sql.GeometryAttributeColumnMapping;
-import nl.b3p.brmo.sql.InsertBatch;
+import nl.b3p.brmo.sql.PreparedStatementQueryBatch;
 import nl.b3p.brmo.sql.OneToManyColumnMapping;
+import nl.b3p.brmo.sql.QueryBatch;
 import nl.b3p.brmo.sql.dialect.SQLDialect;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.io.input.CountingInputStream;
@@ -17,6 +18,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import static nl.b3p.brmo.imgeo.IMGeoObject.MutatieStatus.WAS_WORDT;
+import static nl.b3p.brmo.imgeo.IMGeoObject.MutatieStatus.WORDT;
 import static nl.b3p.brmo.imgeo.IMGeoSchema.EIND_REGISTRATIE;
 import static nl.b3p.brmo.imgeo.IMGeoSchemaMapper.getColumnNameForObjectType;
 import static nl.b3p.brmo.imgeo.IMGeoSchemaMapper.getTableNameForObjectType;
@@ -32,8 +35,11 @@ public class IMGeoObjectTableWriter {
     private boolean currentObjectsOnly = true;
 
     private CountingInputStream counter;
-    private final Map<String,InsertBatch> batches = new HashMap<>();
+    private final Map<String, QueryBatch> insertBatches = new HashMap<>();
+    private final Map<String, QueryBatch> deleteBatches = new HashMap<>();
     private long objectCount = 0;
+    private long objectUpdatedCount = 0;
+    private long objectRemovedCount = 0;
     private long endedObjectsCount = 0;
     private IMGeoObjectStreamer.MutatieInhoud mutatieInhoud;
 
@@ -100,9 +106,11 @@ public class IMGeoObjectTableWriter {
         return counter.getByteCount();
     }
 
-    private void addObjectBatch(IMGeoObject object) throws Exception {
-        if(!batches.containsKey(object.getName())) {
-            truncateTable(c, object);
+    private void addObjectBatch(IMGeoObject object, boolean initialLoad) throws Exception {
+        if(!insertBatches.containsKey(object.getName())) {
+            if (initialLoad) {
+                truncateTable(c, object);
+            }
 
             String sql = buildInsertSql(object);
             List<AttributeColumnMapping> attributeColumnMappings = IMGeoSchema.objectTypeAttributes.get(object.getName());
@@ -112,9 +120,9 @@ public class IMGeoObjectTableWriter {
                     geometryParameterIndexes.add(mapping instanceof GeometryAttributeColumnMapping);
                 }
             }
-            batches.put(object.getName(), new InsertBatch(c, sql, dialect, batchSize, geometryParameterIndexes.toArray(new Boolean[0]), linearizeCurves));
+            insertBatches.put(object.getName(), new PreparedStatementQueryBatch(c, sql, dialect, batchSize, geometryParameterIndexes.toArray(new Boolean[0]), linearizeCurves));
         }
-        InsertBatch batch = batches.get(object.getName());
+        QueryBatch batch = insertBatches.get(object.getName());
 
         List<AttributeColumnMapping> columns = IMGeoSchema.objectTypeAttributes.get(object.getName());
         Map<String, Object> attributes = object.getAttributes();
@@ -134,7 +142,7 @@ public class IMGeoObjectTableWriter {
                         oneToMany.getAttributes().put(IMGeoSchema.INDEX, j);
                         Object eindRegistratie = object.getAttributes().get("eindRegistratie");
                         oneToMany.getAttributes().put(getColumnNameForObjectType(oneToMany.getName(),tableName + "eindRegistratie"), eindRegistratie != null);
-                        addObjectBatch(oneToMany);
+                        addObjectBatch(oneToMany, initialLoad);
                     }
                 }
             } else {
@@ -145,6 +153,36 @@ public class IMGeoObjectTableWriter {
         }
 
         boolean executed = batch.addBatch(params);
+
+        if (executed && progressUpdater != null) {
+            progressUpdater.run();
+        }
+    }
+
+    private void deletePreviousVersion(IMGeoObject object) throws Exception {
+        List<AttributeColumnMapping> columns = IMGeoSchema.objectTypeAttributes.get(object.getName());
+        String idColumnName = columns.stream().filter(AttributeColumnMapping::isPrimaryKey).findFirst().get().getName();
+        String tableName = getTableNameForObjectType(object.getName());
+        if(!deleteBatches.containsKey(object.getName())) {
+            String sql = "delete from " + tableName + " where " + getColumnNameForObjectType(object.getName(), idColumnName) + " = ?";
+            deleteBatches.put(object.getName(), new PreparedStatementQueryBatch(c, sql, dialect, batchSize, new Boolean[] {false}, false));
+        }
+        QueryBatch batch = deleteBatches.get(object.getName());
+
+        boolean executed = batch.addBatch(new Object[] {object.getMutatiePreviousVersionGmlId()});
+
+        for (AttributeColumnMapping column: columns) {
+            if (column instanceof OneToManyColumnMapping) {
+                OneToManyColumnMapping oneToManyColumnMapping = (OneToManyColumnMapping) column;
+
+                if(!deleteBatches.containsKey(oneToManyColumnMapping.getName())) {
+                    String sql = "delete from " + getTableNameForObjectType(oneToManyColumnMapping.getName()) + " where "
+                            + getColumnNameForObjectType(oneToManyColumnMapping.getName(), tableName + idColumnName) + " = ?";
+                    deleteBatches.put(oneToManyColumnMapping.getName(), new PreparedStatementQueryBatch(c, sql, dialect, batchSize, new Boolean[]{false}, false));
+                }
+                executed = executed | deleteBatches.get(object.getName()).addBatch(new Object[] {object.getMutatiePreviousVersionGmlId()});
+            }
+        }
 
         if (executed && progressUpdater != null) {
             progressUpdater.run();
@@ -164,15 +202,34 @@ public class IMGeoObjectTableWriter {
             if (this.progressUpdater != null) {
                 this.progressUpdater.run();
             }
+            boolean initialLoad = this.mutatieInhoud == null || "initial".equals(this.getMutatieInhoud().getMutatieType());
             for (IMGeoObject object: streamer) {
-                if (object.getAttributes().get(EIND_REGISTRATIE) != null && currentObjectsOnly) {
-                    this.endedObjectsCount++;
+                boolean skipEndedObject = object.getAttributes().get(EIND_REGISTRATIE) != null && currentObjectsOnly;
+                if (object.getMutatieStatus() == WAS_WORDT) {
+                    // Deletes and new versions do not need to be DELETE'd and INSERT-ed in order
+
+                    // Also delete oneToMany
+                    deletePreviousVersion(object);
+
+                    if (skipEndedObject) {
+                        this.objectRemovedCount++;
+                    } else {
+                        this.objectUpdatedCount++;
+                    }
+                } else if(object.getMutatieStatus() == WORDT) {
+                    if (skipEndedObject) {
+                        this.endedObjectsCount++;
+                    } else {
+                        this.objectCount++;
+                    }
+                }
+
+                if (skipEndedObject) {
                     continue;
                 }
-                this.objectCount++;
 
                 try {
-                    addObjectBatch(object);
+                    addObjectBatch(object, initialLoad);
                 } catch(Exception e) {
                     String message = "Exception writing object to database, IMGeo object: ";
                     if (batchSize > 1) {
@@ -186,11 +243,20 @@ public class IMGeoObjectTableWriter {
                 }
             }
 
-            for(InsertBatch batch: batches.values()) {
+            for(QueryBatch batch: insertBatches.values()) {
+                batch.executeBatch();
+            }
+            for(QueryBatch batch: deleteBatches.values()) {
                 batch.executeBatch();
             }
         } finally {
-            for(InsertBatch batch: batches.values()) {
+            for(QueryBatch batch: insertBatches.values()) {
+                try {
+                    batch.close();
+                } catch (Exception ignored) {
+                }
+            }
+            for(QueryBatch batch: deleteBatches.values()) {
                 try {
                     batch.close();
                 } catch (Exception ignored) {

@@ -9,10 +9,10 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Types;
 
-public class InsertBatch {
+public class PreparedStatementQueryBatch implements QueryBatch {
     private final Connection c;
     private final SQLDialect dialect;
-    private final String insertSql;
+    private final String sql;
     private final int batchSize;
 
     private final Boolean[] geometryParameterIndexes;
@@ -22,9 +22,9 @@ public class InsertBatch {
     private PreparedStatement ps;
     private int[] parameterTypes;
 
-    public InsertBatch(Connection c, String insertSql, SQLDialect dialect, int batchSize, Boolean[] geometryParameterIndexes, boolean linearizeCurves) throws SQLException {
+    public PreparedStatementQueryBatch(Connection c, String sql, SQLDialect dialect, int batchSize, Boolean[] geometryParameterIndexes, boolean linearizeCurves) throws SQLException {
         this.c = c;
-        this.insertSql = insertSql;
+        this.sql = sql;
         this.dialect = dialect;
         this.batchSize = batchSize;
         this.geometryParameterIndexes = geometryParameterIndexes;
@@ -34,7 +34,7 @@ public class InsertBatch {
     }
 
     private void initializePreparedStatement() throws SQLException {
-        ps = c.prepareStatement(insertSql);
+        ps = c.prepareStatement(sql);
         parameterTypes = null;
         try {
             ParameterMetaData pmd = ps.getParameterMetaData();
@@ -54,6 +54,7 @@ public class InsertBatch {
      * @param params The parameters for the row to insert
      * @return Whether the batch was executed
      */
+    @Override
     public boolean addBatch(Object[] params) throws Exception {
         for (int i = 0; i < params.length; i++) {
             int parameterIndex = i + 1;
@@ -69,7 +70,7 @@ public class InsertBatch {
                     }
                 }
             } catch (Exception e) {
-                throw new Exception(String.format("Exception setting parameter %s to value %s for insert SQL \"%s\"", i, params[i], insertSql), e);
+                throw new Exception(String.format("Exception setting parameter %s to value %s for insert SQL \"%s\"", i, params[i], sql), e);
             }
         }
         ps.addBatch();
@@ -84,13 +85,16 @@ public class InsertBatch {
         }
     }
 
+    @Override
     public void executeBatch() throws Exception {
         if (count > 0) {
+            //System.out.printf("Executing %d batches for sql \"%s\"\n", count, sql);
             ps.executeBatch();
             this.count = 0;
         }
     }
 
+    @Override
     public void close() throws SQLException {
         ps.close();
     }
