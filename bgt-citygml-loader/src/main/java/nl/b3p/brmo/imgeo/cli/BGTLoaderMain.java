@@ -31,11 +31,11 @@ import static nl.b3p.brmo.imgeo.cli.Utils.formatTimeSince;
 @Command(name = "bgt-loader", mixinStandardHelpOptions = true, version = "${ROOT-COMMAND-NAME} ${bundle:app.version}",
         resourceBundle = "BGTCityGMLLoader", subcommands = {DownloadCommand.class})
 public class BGTLoaderMain {
-    @Command(name = "schema")
+    @Command(name = "schema", sortOptions = false)
     public int schema(
-            @Option(names={"-h","--help"}, usageHelp = true) boolean showHelp,
             @Option(names="--dialect", paramLabel="<dialect>", defaultValue = "postgis") IMGeoDb.SQLDialectEnum dialectEnum,
-            @Mixin FeatureTypeSelectionOptions featureTypeSelectionOptions) throws SQLException {
+            @Mixin FeatureTypeSelectionOptions featureTypeSelectionOptions,
+            @Option(names={"-h","--help"}, usageHelp = true) boolean showHelp) throws SQLException {
         SQLDialect dialect = IMGeoDb.createDialect(dialectEnum);
         // For schema generation include plaatsbepalingspunt with 'all' and 'bgt'
         if (featureTypeSelectionOptions.featureTypes.contains("all") || featureTypeSelectionOptions.featureTypes.contains("bgt")) {
@@ -50,13 +50,13 @@ public class BGTLoaderMain {
         return 0;
     }
 
-    @Command(name = "load")
+    @Command(name = "load", sortOptions = false)
     public int load(
-            @Option(names={"-h","--help"}, usageHelp = true) boolean showHelp,
             @Mixin DatabaseOptions dbOptions,
             @Mixin LoadOptions loadOptions,
             @Mixin FeatureTypeSelectionOptions featureTypeSelectionOptions,
-            @Parameters(paramLabel = "<file>") File file) throws Exception {
+            @Parameters(paramLabel = "<file>") File file,
+            @Option(names={"-h","--help"}, usageHelp = true) boolean showHelp) throws Exception {
 
         IMGeoDb db = new IMGeoDb(dbOptions);
         IMGeoObjectTableWriter writer = db.createObjectTableWriter(loadOptions);
