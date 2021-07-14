@@ -4,7 +4,7 @@ import picocli.CommandLine.Option;
 
 public class DatabaseOptions {
     @Option(names={"-c","--connection"}, paramLabel = "<string>")
-    String connectionString = "jdbc:postgresql:bgt";
+    String connectionString = "jdbc:postgresql:bgt?sslmode=disable&reWriteBatchedInserts=true";
 
     @Option(names={"-u","--user"})
     String user = "bgt";
