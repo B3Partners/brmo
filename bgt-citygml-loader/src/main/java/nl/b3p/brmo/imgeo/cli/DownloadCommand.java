@@ -222,17 +222,24 @@ public class DownloadCommand {
                         100.0 / contentLength.orElse(0) * countingInputStream.getByteCount(),
                         finalEntry.getName(),
                         formatTimeSince(zipEntryStart),
-                        writer.getObjectCount()
+                        writer.getObjectCount() + writer.getObjectUpdatedCount()
                 ));
                 writer.write(CloseShieldInputStream.wrap(zis));
-                String endedObjects = writer.isCurrentObjectsOnly() ? String.format(", %,d ended objects skipped", writer.getEndedObjectsCount()) : "";
+                String count;
+                if (writer.getMutatieInhoud() != null && "delta".equals(writer.getMutatieInhoud().getMutatieType())) {
+                    count = String.format("removed: %,d%s, added: %,d",
+                            writer.getObjectRemovedCount(),
+                            writer.isCurrentObjectsOnly() ? "" : String.format(", updated: %,d", writer.getObjectUpdatedCount()), // updated is always 0 when not keeping history
+                            writer.getObjectCount());
+                } else {
+                    count = String.format("%,d objects", writer.getObjectCount());
+                }
                 double loadTimeSeconds = Duration.between(zipEntryStart, Instant.now()).toMillis() / 1000.0;
-                System.out.printf("\r%s (%s): time %s, %,d objects%s, %,.0f objects/s%s\n",
+                System.out.printf("\r%s (%s): time %s, %s, %,.0f objects/s%s\n",
                         entry.getName(),
                         FileUtils.byteCountToDisplaySize(countingInputStream.getByteCount()),
                         formatTimeSince(zipEntryStart),
-                        writer.getObjectCount(),
-                        endedObjects,
+                        count,
                         writer.getObjectCount() / loadTimeSeconds,
                         " ".repeat(50)
                 );

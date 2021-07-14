@@ -40,7 +40,7 @@ public class IMGeoObjectTableWriter {
     private long objectCount = 0;
     private long objectUpdatedCount = 0;
     private long objectRemovedCount = 0;
-    private long endedObjectsCount = 0;
+    private long historicObjectsCount = 0;
     private IMGeoObjectStreamer.MutatieInhoud mutatieInhoud;
 
     private Runnable progressUpdater;
@@ -98,8 +98,16 @@ public class IMGeoObjectTableWriter {
         return objectCount;
     }
 
-    public long getEndedObjectsCount() {
-        return endedObjectsCount;
+    public long getObjectUpdatedCount() {
+        return objectUpdatedCount;
+    }
+
+    public long getObjectRemovedCount() {
+        return objectRemovedCount;
+    }
+
+    public long getHistoricObjectsCount() {
+        return historicObjectsCount;
     }
 
     public long getBytesRead() {
@@ -191,7 +199,9 @@ public class IMGeoObjectTableWriter {
 
     public void write(InputStream bgtXml) throws Exception {
         this.objectCount = 0;
-        this.endedObjectsCount = 0;
+        this.objectUpdatedCount = 0;
+        this.objectRemovedCount = 0;
+        this.historicObjectsCount = 0;
         this.mutatieInhoud = null;
 
         try(CountingInputStream counter = new CountingInputStream(bgtXml)) {
@@ -204,27 +214,27 @@ public class IMGeoObjectTableWriter {
             }
             boolean initialLoad = this.mutatieInhoud == null || "initial".equals(this.getMutatieInhoud().getMutatieType());
             for (IMGeoObject object: streamer) {
-                boolean skipEndedObject = object.getAttributes().get(EIND_REGISTRATIE) != null && currentObjectsOnly;
+                boolean skipHistoricObject = object.getAttributes().get(EIND_REGISTRATIE) != null && currentObjectsOnly;
                 if (object.getMutatieStatus() == WAS_WORDT) {
                     // Deletes and new versions do not need to be DELETE'd and INSERT-ed in order
 
                     // Also delete oneToMany
                     deletePreviousVersion(object);
 
-                    if (skipEndedObject) {
+                    if (skipHistoricObject) {
                         this.objectRemovedCount++;
                     } else {
                         this.objectUpdatedCount++;
                     }
                 } else if(object.getMutatieStatus() == WORDT) {
-                    if (skipEndedObject) {
-                        this.endedObjectsCount++;
+                    if (skipHistoricObject) {
+                        this.historicObjectsCount++;
                     } else {
                         this.objectCount++;
                     }
                 }
 
-                if (skipEndedObject) {
+                if (skipHistoricObject) {
                     continue;
                 }
 

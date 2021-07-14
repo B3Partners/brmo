@@ -145,14 +145,14 @@ public class BGTLoaderMain {
         ));
         writer.write(countingInputStream);
 
-        String endedObjects = writer.isCurrentObjectsOnly() ? String.format(", %,d ended objects skipped", writer.getEndedObjectsCount()) : "";
+        String historicObjects = writer.isCurrentObjectsOnly() ? String.format(", %,d historic objects skipped", writer.getHistoricObjectsCount()) : "";
         double loadTimeSeconds = Duration.between(start, Instant.now()).toMillis() / 1000.0;
         System.out.printf("\r%s (%s): time %s, %,d objects%s, %,.0f objects/s%s\n",
                 name,
                 sizeString,
                 formatTimeSince(start),
                 writer.getObjectCount(),
-                endedObjects,
+                historicObjects,
                 writer.getObjectCount() / loadTimeSeconds,
                 " ".repeat(50)
         );
