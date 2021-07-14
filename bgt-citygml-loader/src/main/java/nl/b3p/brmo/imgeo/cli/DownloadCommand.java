@@ -6,7 +6,6 @@ import nl.b3p.brmo.bgt.download.client.ApiException;
 import nl.b3p.brmo.bgt.download.model.Delta;
 import nl.b3p.brmo.bgt.download.model.GetDeltasResponse;
 import nl.b3p.brmo.imgeo.IMGeoObjectTableWriter;
-import nl.b3p.brmo.imgeo.IMGeoSchemaMapper;
 import nl.b3p.brmo.imgeo.api.CustomDownloadProgress;
 import nl.b3p.brmo.imgeo.api.DownloadApiUtils;
 import org.apache.commons.io.FileUtils;
@@ -36,6 +35,7 @@ import java.util.zip.ZipInputStream;
 import static nl.b3p.brmo.bgt.download.model.DeltaCustomDownloadStatusResponse.StatusEnum.COMPLETED;
 import static nl.b3p.brmo.bgt.download.model.DeltaCustomDownloadStatusResponse.StatusEnum.PENDING;
 import static nl.b3p.brmo.bgt.download.model.DeltaCustomDownloadStatusResponse.StatusEnum.RUNNING;
+import static nl.b3p.brmo.imgeo.IMGeoSchemaMapper.Metadata;
 import static nl.b3p.brmo.imgeo.IMGeoSchemaMapper.getLoaderVersion;
 import static nl.b3p.brmo.imgeo.cli.Utils.formatTimeSince;
 import static nl.b3p.brmo.imgeo.cli.Utils.getHEADResponse;
@@ -61,8 +61,10 @@ public class DownloadCommand {
 
         System.out.print("Connecting to the database... ");
         IMGeoDb db = new IMGeoDb(dbOptions);
-        db.setMetadataValue(IMGeoSchemaMapper.Metadata.LOADER_VERSION, getLoaderVersion());
+        db.setMetadataValue(Metadata.LOADER_VERSION, getLoaderVersion());
         db.setFeatureTypesEnumMetadata(extractSelectionOptions.getFeatureTypesList());
+        db.setMetadataValue(Metadata.INCLUDE_HISTORY, loadOptions.includeHistory + "");
+        db.setMetadataValue(Metadata.LINEARIZE_CURVES, loadOptions.linearizeCurves + "");
         System.out.println("ok");
         // Close connection while waiting for extract
         db.closeConnection();
@@ -74,7 +76,7 @@ public class DownloadCommand {
             URI downloadURI = DownloadApiUtils.getCustomDownloadURL(client, null, extractSelectionOptions, cliCustomDownloadProgressConsumer);
 
             loadFromURI(db, loadOptions, extractSelectionOptions, downloadURI, start);
-            db.setMetadataValue(IMGeoSchemaMapper.Metadata.DELTA_TIME_TO, null);
+            db.setMetadataValue(Metadata.DELTA_TIME_TO, null);
             return null;
         });
     }
@@ -82,7 +84,6 @@ public class DownloadCommand {
     @Command(name="update", sortOptions = false)
     public void update(
             @Mixin DatabaseOptions dbOptions,
-            @Mixin LoadOptions loadOptions, // TODO save in db as metadata when loading?
             @CommandLine.Option(names={"-h","--help"}, usageHelp = true) boolean showHelp
     ) throws Exception {
 
@@ -90,9 +91,9 @@ public class DownloadCommand {
 
         System.out.print("Connecting to the database... ");
         IMGeoDb db = new IMGeoDb(dbOptions);
-        String deltaId = db.getMetadata(IMGeoSchemaMapper.Metadata.DELTA_ID);
+        String deltaId = db.getMetadata(Metadata.DELTA_ID);
         OffsetDateTime deltaIdTimeTo = null;
-        String s = db.getMetadata(IMGeoSchemaMapper.Metadata.DELTA_TIME_TO);
+        String s = db.getMetadata(Metadata.DELTA_TIME_TO);
         if (s != null && s.length() > 0) {
             deltaIdTimeTo = OffsetDateTime.parse(s);
         }
@@ -101,11 +102,14 @@ public class DownloadCommand {
             System.exit(1);
         }
         ExtractSelectionOptions extractSelectionOptions = new ExtractSelectionOptions();
-        extractSelectionOptions.setGeoFilterWkt(db.getMetadata(IMGeoSchemaMapper.Metadata.GEOM_FILTER));
+        extractSelectionOptions.setGeoFilterWkt(db.getMetadata(Metadata.GEOM_FILTER));
         if (extractSelectionOptions.getGeoFilterWkt() != null && extractSelectionOptions.getGeoFilterWkt().length() == 0) {
             extractSelectionOptions.setGeoFilterWkt(null);
         }
-        extractSelectionOptions.setFeatureTypes(Arrays.asList(db.getMetadata(IMGeoSchemaMapper.Metadata.FEATURE_TYPES).split(",")));
+        extractSelectionOptions.setFeatureTypes(Arrays.asList(db.getMetadata(Metadata.FEATURE_TYPES).split(",")));
+        LoadOptions loadOptions = new LoadOptions();
+        loadOptions.includeHistory = Boolean.parseBoolean(db.getMetadata(Metadata.INCLUDE_HISTORY));
+        loadOptions.linearizeCurves = Boolean.parseBoolean(db.getMetadata(Metadata.LINEARIZE_CURVES));
 
         System.out.printf("ok, at delta ID %s%s\n", deltaId, deltaIdTimeTo != null
                 ? ", time to " + DateTimeFormatter.ISO_INSTANT.format(deltaIdTimeTo)
@@ -154,9 +158,9 @@ public class DownloadCommand {
                 loadFromURI(db, loadOptions, extractSelectionOptions, downloadURI, start);
             }
 
-            db.setMetadataValue(IMGeoSchemaMapper.Metadata.LOADER_VERSION, getLoaderVersion());
+            db.setMetadataValue(Metadata.LOADER_VERSION, getLoaderVersion());
             Delta lastDelta = deltas.get(deltas.size()-1);
-            db.setMetadataValue(IMGeoSchemaMapper.Metadata.DELTA_TIME_TO, lastDelta.getTimeWindow().getTo().toString());
+            db.setMetadataValue(Metadata.DELTA_TIME_TO, lastDelta.getTimeWindow().getTo().toString());
             return null;
         });
 
@@ -238,7 +242,7 @@ public class DownloadCommand {
             db.setMetadataForMutaties(writer.getMutatieInhoud());
             // Do not set geom filter from MutatieInhoud, a custom download without geo filter will have gebied
             // "POLYGON ((-100000 200000, 412000 200000, 412000 712000, -100000 712000, -100000 200000))"
-            db.setMetadataValue(IMGeoSchemaMapper.Metadata.GEOM_FILTER, extractSelectionOptions.getGeoFilterWkt());
+            db.setMetadataValue(Metadata.GEOM_FILTER, extractSelectionOptions.getGeoFilterWkt());
 
             System.out.printf("\rLoaded %s extract with delta ID %s in %s%s\n",
                     writer.getMutatieInhoud().getMutatieType(),

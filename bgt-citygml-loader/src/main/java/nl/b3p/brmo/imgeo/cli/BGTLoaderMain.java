@@ -26,6 +26,7 @@ import java.util.stream.Collectors;
 import java.util.zip.ZipFile;
 
 import static nl.b3p.brmo.imgeo.IMGeoSchemaMapper.getLoaderVersion;
+import static nl.b3p.brmo.imgeo.IMGeoSchemaMapper.Metadata;
 import static nl.b3p.brmo.imgeo.cli.Utils.formatTimeSince;
 
 @Command(name = "bgt-loader", mixinStandardHelpOptions = true, version = "${ROOT-COMMAND-NAME} ${bundle:app.version}",
@@ -70,14 +71,14 @@ public class BGTLoaderMain {
             return 1;
         }
 
-        db.setMetadataValue(IMGeoSchemaMapper.Metadata.LOADER_VERSION, getLoaderVersion());
-        // Set feature types list from options, not MutatieInhoud...
+        db.setMetadataValue(Metadata.LOADER_VERSION, getLoaderVersion());
+        // Set feature types list from options, not MutatieInhoud (if input has it)...
         db.setFeatureTypesEnumMetadata(featureTypeSelectionOptions.getFeatureTypesList());
+        db.setMetadataValue(Metadata.INCLUDE_HISTORY, loadOptions.includeHistory + "");
+        db.setMetadataValue(Metadata.LINEARIZE_CURVES, loadOptions.linearizeCurves + "");
         if (writer.getMutatieInhoud() != null) {
             db.setMetadataForMutaties(writer.getMutatieInhoud());
-            db.setMetadataValue(IMGeoSchemaMapper.Metadata.DELTA_TIME_TO, null);
-            db.setMetadataValue(IMGeoSchemaMapper.Metadata.INITIAL_LOAD_TIME, Instant.now().toString());
-            db.setMetadataValue(IMGeoSchemaMapper.Metadata.GEOM_FILTER, writer.getMutatieInhoud().getGebied());
+            db.setMetadataValue(Metadata.GEOM_FILTER, writer.getMutatieInhoud().getGebied());
 
             System.out.printf("Mutatie type %s loaded with deltaId %s\n",
                     writer.getMutatieInhoud().getMutatieType(),

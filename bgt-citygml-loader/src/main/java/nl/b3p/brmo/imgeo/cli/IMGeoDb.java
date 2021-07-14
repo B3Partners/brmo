@@ -3,7 +3,6 @@ package nl.b3p.brmo.imgeo.cli;
 import nl.b3p.brmo.bgt.download.model.DeltaCustomDownloadRequest;
 import nl.b3p.brmo.imgeo.IMGeoObjectStreamer;
 import nl.b3p.brmo.imgeo.IMGeoObjectTableWriter;
-import nl.b3p.brmo.imgeo.IMGeoSchemaMapper;
 import nl.b3p.brmo.sql.dialect.MSSQLDialect;
 import nl.b3p.brmo.sql.dialect.OracleDialect;
 import nl.b3p.brmo.sql.dialect.PostGISDialect;
@@ -14,8 +13,11 @@ import org.apache.commons.dbutils.handlers.ScalarHandler;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.time.Instant;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import static nl.b3p.brmo.imgeo.IMGeoSchemaMapper.Metadata;
 
 public class IMGeoDb {
 
@@ -94,11 +96,11 @@ public class IMGeoDb {
         throw new IllegalArgumentException(String.format("Invalid dialect: \"%s\"", dialectEnum));
     }
 
-    public String getMetadata(IMGeoSchemaMapper.Metadata key) throws SQLException {
+    public String getMetadata(Metadata key) throws SQLException {
         return new QueryRunner().query(getConnection(), "select value from metadata where id = ?", new ScalarHandler<>(), key.getDbKey());
     }
 
-    public void setMetadataValue(IMGeoSchemaMapper.Metadata key, String value) {
+    public void setMetadataValue(Metadata key, String value) {
         try {
             int updated = new QueryRunner().update(getConnection(), "update metadata set value = ? where id = ?", value, key.getDbKey());
             if (updated == 0) {
@@ -110,21 +112,24 @@ public class IMGeoDb {
     }
 
     public void setMetadataForMutaties(IMGeoObjectStreamer.MutatieInhoud mutatieInhoud) {
+        setMetadataValue(Metadata.DELTA_TIME_TO, null);
         if (mutatieInhoud == null || mutatieInhoud.getLeveringsId() == null) {
-            return;
-        }
-        if (mutatieInhoud.getLeveringsId() != null) {
+            setMetadataValue(Metadata.INITIAL_LOAD_DELTA_ID, null);
+            setMetadataValue(Metadata.INITIAL_LOAD_TIME, null);
+            setMetadataValue(Metadata.DELTA_ID, null);
+        } else {
             String deltaId = mutatieInhoud.getLeveringsId();
 
             if ("initial".equals(mutatieInhoud.getMutatieType())) {
-                setMetadataValue(IMGeoSchemaMapper.Metadata.INITIAL_LOAD_DELTA_ID, deltaId);
+                setMetadataValue(Metadata.INITIAL_LOAD_DELTA_ID, deltaId);
+                setMetadataValue(Metadata.INITIAL_LOAD_TIME, Instant.now().toString());
             }
-            setMetadataValue(IMGeoSchemaMapper.Metadata.DELTA_ID, deltaId);
+            setMetadataValue(Metadata.DELTA_ID, deltaId);
         }
     }
 
     public void setFeatureTypesEnumMetadata(Set<DeltaCustomDownloadRequest.FeaturetypesEnum> featureTypes) {
-        setMetadataValue(IMGeoSchemaMapper.Metadata.FEATURE_TYPES,
+        setMetadataValue(Metadata.FEATURE_TYPES,
                         featureTypes.stream()
                         .map(DeltaCustomDownloadRequest.FeaturetypesEnum::toString)
                         .collect(Collectors.joining(",")));

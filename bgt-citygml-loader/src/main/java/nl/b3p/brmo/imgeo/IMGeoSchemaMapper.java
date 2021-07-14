@@ -29,6 +29,8 @@ public class IMGeoSchemaMapper {
         SCHEMA_VERSION,
         LOADER_VERSION,
         FEATURE_TYPES,
+        INCLUDE_HISTORY,
+        LINEARIZE_CURVES,
         INITIAL_LOAD_TIME,
         INITIAL_LOAD_DELTA_ID,
         DELTA_ID,
@@ -178,23 +180,18 @@ public class IMGeoSchemaMapper {
         sql.append("create table ");
         sql.append(tableName);
         sql.append(" (\n");
-        sql.append("  id " + dialect.getType("varchar(255)") + ",\n");
-        sql.append("  value " + dialect.getType("text") + ",\n");
+        sql.append("  id ").append(dialect.getType("varchar(255)")).append(",\n");
+        sql.append("  value ").append(dialect.getType("text")).append(",\n");
         sql.append("  primary key(id)\n);\n");
-        Object[][] rows = {
+        Map<Metadata,String> defaultMetadata = Stream.of(new Object[][]{
                 {Metadata.SCHEMA_VERSION, SCHEMA_VERSION_VALUE},
                 {Metadata.LOADER_VERSION, getLoaderVersion()},
-                {Metadata.FEATURE_TYPES, null},
-                {Metadata.INITIAL_LOAD_TIME, null},
-                {Metadata.INITIAL_LOAD_DELTA_ID, null},
-                {Metadata.DELTA_ID, null},
-                {Metadata.DELTA_TIME_TO, null},
-                {Metadata.GEOM_FILTER, null}
-        };
-        Arrays.stream(rows).forEach(row -> {
-            Metadata m = (Metadata)row[0];
-            sql.append(String.format("insert into %s (id, value) values ('%s', %s);\n", tableName, m.getDbKey(), row[1] == null ? "null" : "'" + row[1] + "'"));
+        }).collect(Collectors.toMap(entry -> (Metadata)entry[0], entry -> (String)entry[1]));
+        Stream.of(Metadata.values()).forEach(metadata -> {
+            String value = defaultMetadata.get(metadata);
+            sql.append(String.format("insert into %s (id, value) values ('%s', %s);\n", tableName, metadata.getDbKey(), value == null ? "null" : "'" + value + "'"));
         });
+
         return sql.toString();
     }
 
