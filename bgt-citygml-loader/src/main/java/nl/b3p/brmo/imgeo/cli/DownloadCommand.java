@@ -40,15 +40,15 @@ import static nl.b3p.brmo.imgeo.IMGeoSchemaMapper.getLoaderVersion;
 import static nl.b3p.brmo.imgeo.cli.Utils.formatTimeSince;
 import static nl.b3p.brmo.imgeo.cli.Utils.getHEADResponse;
 
-@Command(name = "download")
+@Command(name = "download", mixinStandardHelpOptions = true)
 public class DownloadCommand {
-    @Command(name="initial")
+    @Command(name="initial", sortOptions = false)
     public void initial(
-            @Option(names={"-h","--help"}, usageHelp = true) boolean showHelp,
-            @Mixin ExtractSelectionOptions extractSelectionOptions,
             @Mixin DatabaseOptions dbOptions,
             @Mixin LoadOptions loadOptions,
-            @Option(names="--no-geo-filter") boolean noGeoFilter
+            @Mixin ExtractSelectionOptions extractSelectionOptions,
+            @Option(names="--no-geo-filter") boolean noGeoFilter,
+            @Option(names={"-h","--help"}, usageHelp = true) boolean showHelp
     ) throws Exception {
 
         // TODO set alternate URL and timeout from options
@@ -79,11 +79,11 @@ public class DownloadCommand {
         });
     }
 
-    @Command(name="update")
+    @Command(name="update", sortOptions = false)
     public void update(
-            @CommandLine.Option(names={"-h","--help"}, usageHelp = true) boolean showHelp,
             @Mixin DatabaseOptions dbOptions,
-            @Mixin LoadOptions loadOptions // TODO save in db as metadata when loading?
+            @Mixin LoadOptions loadOptions, // TODO save in db as metadata when loading?
+            @CommandLine.Option(names={"-h","--help"}, usageHelp = true) boolean showHelp
     ) throws Exception {
 
         ApiClient client = new ApiClient();
