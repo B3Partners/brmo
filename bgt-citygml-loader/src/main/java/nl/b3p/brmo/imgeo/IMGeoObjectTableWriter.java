@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.stream.Stream;
 
 import static nl.b3p.brmo.imgeo.IMGeoObject.MutatieStatus.WAS_WORDT;
 import static nl.b3p.brmo.imgeo.IMGeoObject.MutatieStatus.WORDT;
@@ -253,25 +254,20 @@ public class IMGeoObjectTableWriter {
                 }
             }
 
-            for(QueryBatch batch: insertBatches.values()) {
-                batch.executeBatch();
-            }
-            for(QueryBatch batch: deleteBatches.values()) {
-                batch.executeBatch();
-            }
+            Stream.concat(insertBatches.values().stream(), deleteBatches.values().stream()).forEach(batch -> {
+                try {
+                    batch.executeBatch();
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            });
         } finally {
-            for(QueryBatch batch: insertBatches.values()) {
+            Stream.concat(insertBatches.values().stream(), deleteBatches.values().stream()).forEach(batch -> {
                 try {
                     batch.close();
                 } catch (Exception ignored) {
                 }
-            }
-            for(QueryBatch batch: deleteBatches.values()) {
-                try {
-                    batch.close();
-                } catch (Exception ignored) {
-                }
-            }
+            });
         }
     }
 
