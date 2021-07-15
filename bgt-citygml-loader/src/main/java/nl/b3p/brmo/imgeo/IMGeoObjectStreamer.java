@@ -1,8 +1,9 @@
 package nl.b3p.brmo.imgeo;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.codehaus.staxmate.SMInputFactory;
 import org.codehaus.staxmate.in.SMEvent;
-import org.codehaus.staxmate.in.SMHierarchicCursor;
 import org.codehaus.staxmate.in.SMInputCursor;
 import org.geotools.gml.stream.XmlStreamGeometryReader;
 import org.locationtech.jts.geom.Geometry;
@@ -14,7 +15,6 @@ import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
@@ -26,12 +26,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
 
 import static nl.b3p.brmo.imgeo.IMGeoSchema.fixUUID;
 
 public class IMGeoObjectStreamer implements Iterable<IMGeoObject> {
+    private static final Log log = LogFactory.getLog(IMGeoObjectStreamer.class);
+
     private static final String NS_IMGEO = "http://www.geostandaarden.nl/imgeo/2.1";
     private static final String NS_CITYGML = "http://www.opengis.net/citygml/2.0";
     private static final String NS_GML = "http://www.opengis.net/gml";
@@ -39,6 +39,14 @@ public class IMGeoObjectStreamer implements Iterable<IMGeoObject> {
     private static final String NS_MUTATIELEVERING_BGT = "http://www.kadaster.nl/schemas/mutatielevering-bgt/1.0";
 
     private static final QName CITYGML_CITY_OBJECT_MEMBER = new QName(NS_CITYGML, "cityObjectMember");
+    private static final QName CITYGML_CITY_MODEL = new QName(NS_CITYGML, "CityModel");
+
+    private static final QName MUTATIE_BERICHT = new QName(NS_MUTATIELEVERING, "mutatieBericht");
+
+    private static final QName BGT_MUTATIES = new QName(NS_MUTATIELEVERING_BGT, "bgtMutaties");
+    private static final QName BGT_OBJECT = new QName(NS_MUTATIELEVERING_BGT, "bgtObject");
+
+    private static final QName LOKAAL_ID = new QName(NS_IMGEO, "lokaalID");
 
     private static final int SRID = 28992;
 
@@ -96,16 +104,19 @@ public class IMGeoObjectStreamer implements Iterable<IMGeoObject> {
     private SMInputCursor initCursor(SMInputCursor cursor) throws XMLStreamException {
         QName root = cursor.advance().getQName();
 
-        if (root.equals(new QName(NS_CITYGML, "CityModel"))) {
+        if (root.equals(CITYGML_CITY_MODEL)) {
             isMutaties = false;
-        } else if (root.equals(new QName(NS_MUTATIELEVERING_BGT, "bgtMutaties"))) {
+        } else if (root.equals(BGT_MUTATIES)) {
             isMutaties = true;
         } else {
             throw new IllegalArgumentException("XML root element moet CityModel of bgtMutaties zijn");
         }
 
+        // Note: when using StaxMate childElementCursor() or similar, only an local name string element does not work
+        // when using Aalto. Always use a QName parameter!
+
         if(isMutaties) {
-            cursor = cursor.childElementCursor(new QName(NS_MUTATIELEVERING, "mutatieBericht")).advance().childElementCursor().advance();
+            cursor = cursor.childElementCursor(MUTATIE_BERICHT).advance().childElementCursor().advance();
             do {
                 if (cursor.getLocalName().equals("dataset")) {
                     assert cursor.getText().equals("bgt");
@@ -121,7 +132,7 @@ public class IMGeoObjectStreamer implements Iterable<IMGeoObject> {
             } while(cursor.getNext() != null);
 
         } else {
-            cursor = cursor.childElementCursor(new QName(NS_CITYGML, "cityObjectMember")).advance();
+            cursor = cursor.childElementCursor(CITYGML_CITY_OBJECT_MEMBER).advance();
         }
 
         return cursor;
@@ -156,18 +167,12 @@ public class IMGeoObjectStreamer implements Iterable<IMGeoObject> {
         return new XmlStreamGeometryReader(this.cursor.getStreamReader());
     }
 
-    private SMInputCursor getCityObjectMemberCursor(SMHierarchicCursor root) throws XMLStreamException {
-        return root.advance().childElementCursor(CITYGML_CITY_OBJECT_MEMBER);
-    }
-
     protected SMInputFactory buildSMInputFactory() {
-        // Supporting StAX2 API:
-        //final XMLInputFactory stax = new WstxInputFactory(); // Woodstox
-        //final XMLInputFactory stax = new com.fasterxml.aalto.stax.InputFactoryImpl(); // Aalto
+        // Using alternative StAX parsers explicitly:
+        // final XMLInputFactory stax = new WstxInputFactory(); // Woodstox
+        // final XMLInputFactory stax = new com.fasterxml.aalto.stax.InputFactoryImpl(); // Aalto
         final XMLInputFactory xmlInputFactory = XMLInputFactory.newFactory(); // JRE Default, depends on JAR's present or javax.xml.stream.XMLInputFactory property, can be SJSXP
-
-        //System.out.println("Default JAXP StAX XMLInputFactory: " + XMLInputFactory.newFactory().getClass());
-        //System.out.println("Used StAX XMLInputFactory: " + xmlInputFactory.getClass());
+        log.debug("StAX XMLInputFactory: " + xmlInputFactory.getClass().getName());
 
         xmlInputFactory.setProperty(XMLInputFactory.IS_COALESCING, Boolean.TRUE); // Coalesce characters
         xmlInputFactory.setProperty(XMLInputFactory.SUPPORT_DTD, Boolean.FALSE); // No XML entity expansions or external entities
@@ -175,11 +180,9 @@ public class IMGeoObjectStreamer implements Iterable<IMGeoObject> {
         return new SMInputFactory(xmlInputFactory);
     }
 
-    // TODO: skip features for resume support
-
     @Override
     public Iterator<IMGeoObject> iterator() {
-        return new Iterator<IMGeoObject>() {
+        return new Iterator<>() {
             SMEvent event = cursor.getCurrEvent();
 
             /**
@@ -260,8 +263,8 @@ public class IMGeoObjectStreamer implements Iterable<IMGeoObject> {
                         }
 
                         // Move cursor from <wordt> to <cityObjectMember> child
-                        cityObjectMemberChild = mutatie.childElementCursor(new QName(NS_MUTATIELEVERING_BGT, "bgtObject")).advance()
-                                .childElementCursor(new QName(NS_CITYGML, "cityObjectMember")).advance()
+                        cityObjectMemberChild = mutatie.childElementCursor(BGT_OBJECT).advance()
+                                .childElementCursor(CITYGML_CITY_OBJECT_MEMBER).advance()
                                 .childElementCursor().advance();
                     } else {
                         cityObjectMemberChild = cursor.childElementCursor().advance();
@@ -317,49 +320,6 @@ public class IMGeoObjectStreamer implements Iterable<IMGeoObject> {
         };
     }
 
-
-    public static void main(String[] args) throws Exception {
-        //Logging.ALL.setLoggerFactory("org.geotools.util.logging.Log4JLoggerFactory");
-
-//        String dir = "/home/matthijsln/dev/brmo/work/bgt-citygml-loader/src/test/resources/";
-        //String file = "bgt_weginrichtingselement_single.gml";
-        //String file = "bgt_tunneldeel_single.gml";
-//        String file = "bgt_pand_multiple.gml";
-
-        ZipFile file = new ZipFile(new File("/media/ssd/files/bgt/2021/bgt-citygml-nl-nopbp.zip"));
-        ZipEntry entry = file.getEntry("bgt_openbareruimtelabel.gml");
-
-        int objects = 0;
-        boolean log = true;
-        long startTime = System.currentTimeMillis();
-
-        try(InputStream input = /*file.getInputStream(entry)*/new FileInputStream("//media/ssd/files/bgt/2021/bgt_pand.xml")) {
-//        try(InputStream input = new FileInputStream(dir + file)) {
-            IMGeoObjectStreamer streamer = new IMGeoObjectStreamer(input);
-            Map<Integer,Integer> counts = new HashMap<>();
-
-            for (IMGeoObject object: streamer) {
-                objects++;
-
-                if(log) System.out.printf("cityObjectMember #%d: %s%s %s\n",
-                        objects,
-                        object.getMutatieStatus(),
-                        object.getMutatieStatus() == IMGeoObject.MutatieStatus.WAS_WORDT ? " (previous gmlId " + object.getMutatiePreviousVersionGmlId() + ")" : "",
-                        object);
-
-                if (objects % 1000000 == 0) {
-                    System.out.printf("Parsed %d objects\n", objects);
-                }
-                if (objects == 400) {
-                    break;
-                }
-            }
-            System.out.println("Size counts: " + counts);
-        }
-        double time = (System.currentTimeMillis() - startTime) / 1000.0;
-        System.out.printf("Finished streaming: %d objects, %.1f s, %.2f objects/s\n", objects, time, objects / time);
-    }
-
     private Object parseIMGeoAttribute(SMInputCursor attribute) throws XMLStreamException, FactoryException, IOException {
         if("true".equals(attribute.getAttrValue("http://www.w3.org/2001/XMLSchema-instance", "nil"))) {
             return null;
@@ -375,7 +335,7 @@ public class IMGeoObjectStreamer implements Iterable<IMGeoObject> {
             </imgeo:identificatie>
              */
             // Just get the UUID
-            String id = attribute.descendantElementCursor(new QName(NS_IMGEO, "lokaalID")).advance().collectDescendantText().trim();
+            String id = attribute.descendantElementCursor(LOKAAL_ID).advance().collectDescendantText().trim();
             // UUID is allowed to have '-' characters, normalize it to UUID without
             return id.replaceAll("-", "");
         }
@@ -407,18 +367,23 @@ public class IMGeoObjectStreamer implements Iterable<IMGeoObject> {
         return localName.startsWith("geometrie") || localName.startsWith("kruinlijn");
     }
 
+    private static final QName CAPITALIZED_NUMMERAANDUIDINGREEKS = new QName(NS_IMGEO, "Nummeraanduidingreeks");
+    private static final QName LOWERCASE_NUMMERAANDUIDINGREEKS = new QName(NS_IMGEO, "nummeraanduidingreeks");
+    private static final QName LABEL = new QName(NS_IMGEO, "Label");
+    private static final QName LABELPOSITIE = new QName(NS_IMGEO, "Labelpositie");
+
     private Map<String,Object> parseNummeraanduidingreeks(SMInputCursor cursor) throws XMLStreamException, FactoryException, IOException {
         Map<String,Object> label = new HashMap<>();
 
-        cursor = cursor.childElementCursor(new QName(NS_IMGEO, "Nummeraanduidingreeks")).advance().childElementCursor();
+        cursor = cursor.childElementCursor(CAPITALIZED_NUMMERAANDUIDINGREEKS).advance().childElementCursor();
         while (cursor.getNext() != null) {
-            if (cursor.getQName().equals(new QName(NS_IMGEO, "nummeraanduidingreeks"))) {
-                SMInputCursor labelChilds = cursor.childElementCursor(new QName(NS_IMGEO, "Label")).advance().childElementCursor();
+            if (cursor.getQName().equals(LOWERCASE_NUMMERAANDUIDINGREEKS)) {
+                SMInputCursor labelChilds = cursor.childElementCursor(LABEL).advance().childElementCursor();
                 while(labelChilds.getNext() != null) {
                     if (labelChilds.hasLocalName("tekst")) {
                         label.put("tekst", labelChilds.collectDescendantText().trim());
                     } else if (labelChilds.hasLocalName("positie")) {
-                        SMInputCursor labelPositie = labelChilds.childElementCursor(new QName(NS_IMGEO, "Labelpositie")).advance();
+                        SMInputCursor labelPositie = labelChilds.childElementCursor(LABELPOSITIE).advance();
 
                         SMInputCursor labelPositieChilds = labelPositie.childElementCursor();
                         while(labelPositieChilds.getNext() != null) {
@@ -446,7 +411,7 @@ public class IMGeoObjectStreamer implements Iterable<IMGeoObject> {
 
     private List<Map<String,Object>> parseOpenbareRuimteNaam(SMInputCursor cursor) throws XMLStreamException, FactoryException, IOException {
 
-        cursor = cursor.childElementCursor(new QName(NS_IMGEO, "Label")).advance().childElementCursor();
+        cursor = cursor.childElementCursor(LABEL).advance().childElementCursor();
 
         List<Map<String,Object>> posities = new ArrayList<>();
         String tekst = null;
