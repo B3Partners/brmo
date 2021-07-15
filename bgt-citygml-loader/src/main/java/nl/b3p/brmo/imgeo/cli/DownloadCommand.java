@@ -227,9 +227,10 @@ public class DownloadCommand {
                 writer.write(CloseShieldInputStream.wrap(zis));
                 String count;
                 if (writer.getMutatieInhoud() != null && "delta".equals(writer.getMutatieInhoud().getMutatieType())) {
-                    count = String.format("removed: %,d%s, added: %,d",
-                            writer.getObjectRemovedCount(),
-                            writer.isCurrentObjectsOnly() ? "" : String.format(", updated: %,d", writer.getObjectUpdatedCount()), // updated is always 0 when not keeping history
+                    count = String.format("%s, added: %,d",
+                            writer.isCurrentObjectsOnly()
+                                    ? String.format("removed: %,d", writer.getObjectRemovedCount())  // updated is always 0 when not keeping history
+                                    : String.format("updated: %,d", writer.getObjectUpdatedCount()), // removed is always 0 when keeping history
                             writer.getObjectCount());
                 } else {
                     count = String.format("%,d objects", writer.getObjectCount());
