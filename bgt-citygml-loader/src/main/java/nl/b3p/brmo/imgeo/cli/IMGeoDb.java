@@ -100,18 +100,18 @@ public class IMGeoDb {
         return new QueryRunner().query(getConnection(), "select value from metadata where id = ?", new ScalarHandler<>(), key.getDbKey());
     }
 
-    public void setMetadataValue(Metadata key, String value) {
+    public void setMetadataValue(Metadata key, String value) throws Exception {
         try {
             int updated = new QueryRunner().update(getConnection(), "update metadata set value = ? where id = ?", value, key.getDbKey());
             if (updated == 0) {
                 new QueryRunner().update(getConnection(), "insert into metadata(id, value) values(?,?)", key.getDbKey(), value);
             }
         } catch (SQLException e) {
-            System.out.printf("Error updating metadata key \"%s\" with value \"%s\": %s\n", key.getDbKey(), value, e.getMessage());
+            throw new Exception(String.format("Error updating metadata key \"%s\" with value \"%s\": %s", key.getDbKey(), value, e.getMessage()), e);
         }
     }
 
-    public void setMetadataForMutaties(IMGeoObjectStreamer.MutatieInhoud mutatieInhoud) {
+    public void setMetadataForMutaties(IMGeoObjectStreamer.MutatieInhoud mutatieInhoud) throws Exception {
         setMetadataValue(Metadata.DELTA_TIME_TO, null);
         if (mutatieInhoud == null || mutatieInhoud.getLeveringsId() == null) {
             setMetadataValue(Metadata.INITIAL_LOAD_DELTA_ID, null);
@@ -128,7 +128,7 @@ public class IMGeoDb {
         }
     }
 
-    public void setFeatureTypesEnumMetadata(Set<DeltaCustomDownloadRequest.FeaturetypesEnum> featureTypes) {
+    public void setFeatureTypesEnumMetadata(Set<DeltaCustomDownloadRequest.FeaturetypesEnum> featureTypes) throws Exception {
         setMetadataValue(Metadata.FEATURE_TYPES,
                         featureTypes.stream()
                         .map(DeltaCustomDownloadRequest.FeaturetypesEnum::toString)
