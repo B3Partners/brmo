@@ -15,6 +15,7 @@ import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Mixin;
 import picocli.CommandLine.Option;
+import picocli.CommandLine.ExitCode;
 
 import java.io.InputStream;
 import java.net.URI;
@@ -43,7 +44,7 @@ import static nl.b3p.brmo.imgeo.cli.Utils.getHEADResponse;
 @Command(name = "download", mixinStandardHelpOptions = true)
 public class DownloadCommand {
     @Command(name="initial", sortOptions = false)
-    public void initial(
+    public int initial(
             @Mixin DatabaseOptions dbOptions,
             @Mixin LoadOptions loadOptions,
             @Mixin ExtractSelectionOptions extractSelectionOptions,
@@ -55,8 +56,8 @@ public class DownloadCommand {
         ApiClient client = new ApiClient();
 
         if (extractSelectionOptions.getGeoFilterWkt() == null && !noGeoFilter) {
-            System.out.println("To load an initial extract without a geo filter, specify the --no-geo-filter option");
-            return;
+            System.err.println("To load an initial extract without a geo filter, specify the --no-geo-filter option");
+            return ExitCode.USAGE;
         }
 
         System.out.print("Connecting to the database... ");
@@ -69,7 +70,7 @@ public class DownloadCommand {
         // Close connection while waiting for extract
         db.closeConnection();
 
-        printApiException(() -> {
+        return printApiException(() -> {
             Instant start = Instant.now();
             System.out.print("Creating custom download... ");
 
@@ -77,12 +78,12 @@ public class DownloadCommand {
 
             loadFromURI(db, loadOptions, extractSelectionOptions, downloadURI, start);
             db.setMetadataValue(Metadata.DELTA_TIME_TO, null);
-            return null;
+            return ExitCode.OK;
         });
     }
 
     @Command(name="update", sortOptions = false)
-    public void update(
+    public int update(
             @Mixin DatabaseOptions dbOptions,
             @CommandLine.Option(names={"-h","--help"}, usageHelp = true) boolean showHelp
     ) throws Exception {
@@ -98,8 +99,8 @@ public class DownloadCommand {
             deltaIdTimeTo = OffsetDateTime.parse(s);
         }
         if (deltaId == null) {
-            System.out.println("Error: no deltaId in metadata table, cannot update");
-            System.exit(1);
+            System.err.println("Error: no deltaId in metadata table, cannot update");
+            return ExitCode.SOFTWARE;
         }
         ExtractSelectionOptions extractSelectionOptions = new ExtractSelectionOptions();
         extractSelectionOptions.setGeoFilterWkt(db.getMetadata(Metadata.GEOM_FILTER));
@@ -117,7 +118,7 @@ public class DownloadCommand {
         // Close connection while waiting for extract
         db.closeConnection();
 
-        printApiException(() -> {
+        return printApiException(() -> {
             Instant start = Instant.now();
             System.out.println("Finding available deltas... ");
             // Note that the afterDeltaId parameter is useless, because the response does not distinguish between
@@ -139,14 +140,13 @@ public class DownloadCommand {
             if (i == response.getDeltas().size()) {
                 // TODO automatically do initial load depending on option
                 System.out.println("Error: current delta id not found, new initial load required!");
-                System.exit(1);
+                return ExitCode.SOFTWARE;
             }
 
             List<Delta> deltas = response.getDeltas().subList(i+1, response.getDeltas().size());
             if (deltas.isEmpty()) {
                 System.out.println("No new deltas returned, no updates required");
-                System.exit(0);
-                return null;
+                return ExitCode.OK;
             }
 
             Delta latestDelta = deltas.get(deltas.size()-1);
@@ -161,14 +161,13 @@ public class DownloadCommand {
             db.setMetadataValue(Metadata.LOADER_VERSION, getLoaderVersion());
             Delta lastDelta = deltas.get(deltas.size()-1);
             db.setMetadataValue(Metadata.DELTA_TIME_TO, lastDelta.getTimeWindow().getTo().toString());
-            return null;
+            return ExitCode.OK;
         });
-
     }
 
-    private static void printApiException(Callable<Void> callable) throws Exception {
+    private static int printApiException(Callable<Integer> callable) throws Exception {
         try {
-            callable.call();
+            return callable.call();
         } catch(ApiException apiException) {
             System.err.printf("API status code: %d, body: %s\n", apiException.getCode(), apiException.getResponseBody());
             throw apiException;

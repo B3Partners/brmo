@@ -6,11 +6,14 @@ import nl.b3p.brmo.imgeo.IMGeoSchemaMapper;
 import nl.b3p.brmo.sql.dialect.SQLDialect;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.input.CountingInputStream;
+import org.apache.log4j.PropertyConfigurator;
+import org.geotools.util.logging.Logging;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Mixin;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
+import picocli.CommandLine.ExitCode;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -25,13 +28,21 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.zip.ZipFile;
 
-import static nl.b3p.brmo.imgeo.IMGeoSchemaMapper.getLoaderVersion;
 import static nl.b3p.brmo.imgeo.IMGeoSchemaMapper.Metadata;
+import static nl.b3p.brmo.imgeo.IMGeoSchemaMapper.getLoaderVersion;
 import static nl.b3p.brmo.imgeo.cli.Utils.formatTimeSince;
 
 @Command(name = "bgt-loader", mixinStandardHelpOptions = true, version = "${ROOT-COMMAND-NAME} ${bundle:app.version}",
         resourceBundle = "BGTCityGMLLoader", subcommands = {DownloadCommand.class})
 public class BGTLoaderMain {
+    static {
+        PropertyConfigurator.configure(BGTLoaderMain.class.getResourceAsStream("/bgt-loader-cli-log4.properties"));
+        try {
+            Logging.ALL.setLoggerFactory("org.geotools.util.logging.Log4JLoggerFactory");
+        } catch (ClassNotFoundException ignored) {
+        }
+    }
+
     @Command(name = "schema", sortOptions = false)
     public int schema(
             @Option(names="--dialect", paramLabel="<dialect>", defaultValue = "postgis") IMGeoDb.SQLDialectEnum dialectEnum,
@@ -48,7 +59,7 @@ public class BGTLoaderMain {
         IMGeoSchemaMapper.printSchema(dialect, objectTypeName ->
                 tableNames.contains(IMGeoSchemaMapper.getTableNameForObjectType(objectTypeName))
         );
-        return 0;
+        return ExitCode.OK;
     }
 
     @Command(name = "load", sortOptions = false)
@@ -67,8 +78,8 @@ public class BGTLoaderMain {
         } else if (file.getName().matches(".*\\.[xg]ml")) {
             loadXml(file, writer);
         } else {
-            System.out.printf("Expected zip, gml or xml file: cannot load file \"%s\"", file.getName());
-            return 1;
+            System.err.printf("Expected zip, gml or xml file: cannot load file \"%s\"\n", file.getName());
+            return ExitCode.USAGE;
         }
 
         db.setMetadataValue(Metadata.LOADER_VERSION, getLoaderVersion());
@@ -86,7 +97,7 @@ public class BGTLoaderMain {
             );
         }
 
-        return 0;
+        return ExitCode.OK;
     }
 
     private void loadZip(File file, IMGeoObjectTableWriter writer, FeatureTypeSelectionOptions featureTypeSelectionOptions) throws IOException {
@@ -103,7 +114,7 @@ public class BGTLoaderMain {
             String tableName = m.group(1);
             try {
                 DeltaCustomDownloadRequest.FeaturetypesEnum featureType = DeltaCustomDownloadRequest.FeaturetypesEnum.fromValue(tableName);
-                if(!featureTypes.contains(featureType)) {
+                if (!featureTypes.contains(featureType)) {
                     System.out.printf("Skipping non-selected feature type: %s (%s)\n", tableName, FileUtils.byteCountToDisplaySize(entry.getSize()));
                     return false;
                 } else {
@@ -159,7 +170,8 @@ public class BGTLoaderMain {
     }
 
     public static void main(String[] args) {
-        int exitCode = new CommandLine(new BGTLoaderMain()).execute(args);
-        System.exit(exitCode);
+        CommandLine cmd = new CommandLine(new BGTLoaderMain())
+                .setUsageHelpAutoWidth(true);
+        System.exit(cmd.execute(args));
     }
 }
