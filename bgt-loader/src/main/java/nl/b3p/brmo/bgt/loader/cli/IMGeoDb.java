@@ -84,6 +84,7 @@ public class IMGeoDb {
         writer.setObjectLimit(loadOptions.maxObjects);
         writer.setLinearizeCurves(loadOptions.linearizeCurves);
         writer.setCurrentObjectsOnly(!loadOptions.includeHistory);
+        writer.setCreateSchema(loadOptions.createSchema);
         return writer;
     }
 

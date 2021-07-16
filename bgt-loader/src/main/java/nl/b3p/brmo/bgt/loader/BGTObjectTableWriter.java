@@ -17,15 +17,28 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static nl.b3p.brmo.bgt.loader.BGTObject.MutatieStatus.WAS_WORDT;
 import static nl.b3p.brmo.bgt.loader.BGTObject.MutatieStatus.WORDT;
 import static nl.b3p.brmo.bgt.loader.BGTSchema.EIND_REGISTRATIE;
 import static nl.b3p.brmo.bgt.loader.BGTSchemaMapper.getColumnNameForObjectType;
+import static nl.b3p.brmo.bgt.loader.BGTSchemaMapper.getCreateGeometryIndexStatements;
+import static nl.b3p.brmo.bgt.loader.BGTSchemaMapper.getCreateGeometryMetadataStatements;
+import static nl.b3p.brmo.bgt.loader.BGTSchemaMapper.getCreatePrimaryKeyStatements;
+import static nl.b3p.brmo.bgt.loader.BGTSchemaMapper.getCreateTableStatements;
 import static nl.b3p.brmo.bgt.loader.BGTSchemaMapper.getTableNameForObjectType;
 
 public class BGTObjectTableWriter {
+
+    public enum Stage {
+        PARSE_INHOUD,
+        LOAD_OBJECTS,
+        CREATE_PRIMARY_KEY,
+        CREATE_GEOMETRY_INDEX,
+        FINISHED,
+    };
 
     private final Connection c;
     private final SQLDialect dialect;
@@ -34,10 +47,13 @@ public class BGTObjectTableWriter {
     private Integer objectLimit = null;
     private boolean linearizeCurves = false;
     private boolean currentObjectsOnly = true;
+    private boolean createSchema = false;
 
     private CountingInputStream counter;
-    private final Map<String, QueryBatch> insertBatches = new HashMap<>();
-    private final Map<String, QueryBatch> deleteBatches = new HashMap<>();
+    private Map<String, QueryBatch> insertBatches = new HashMap<>();
+    private Map<String, QueryBatch> deleteBatches = new HashMap<>();
+
+    private Stage stage = Stage.LOAD_OBJECTS;
     private long objectCount = 0;
     private long objectUpdatedCount = 0;
     private long objectRemovedCount = 0;
@@ -83,6 +99,14 @@ public class BGTObjectTableWriter {
         this.currentObjectsOnly = currentObjectsOnly;
     }
 
+    public boolean isCreateSchema() {
+        return createSchema;
+    }
+
+    public void setCreateSchema(boolean createSchema) {
+        this.createSchema = createSchema;
+    }
+
     public BGTObjectStreamer.MutatieInhoud getMutatieInhoud() {
         return mutatieInhoud;
     }
@@ -93,6 +117,10 @@ public class BGTObjectTableWriter {
 
     public void setProgressUpdater(Runnable progressUpdater) {
         this.progressUpdater = progressUpdater;
+    }
+
+    public Stage getStage() {
+        return stage;
     }
 
     public long getObjectCount() {
@@ -118,7 +146,17 @@ public class BGTObjectTableWriter {
     private void addObjectBatch(BGTObject object, boolean initialLoad) throws Exception {
         if(!insertBatches.containsKey(object.getName())) {
             if (initialLoad) {
-                truncateTable(c, object);
+                // XXX maakt pand en nummeraanduidingreeks?
+                if (isCreateSchema()) {
+                    QueryRunner qr = new QueryRunner();
+                    for(String sql: Stream.concat(
+                            getCreateTableStatements(object.getName(), dialect),
+                            getCreateGeometryMetadataStatements(object.getName(), dialect)).collect(Collectors.toList())) {
+                        qr.update(c, sql);
+                    }
+                } else {
+                    truncateTable(c, object);
+                }
             }
 
             String sql = buildInsertSql(object);
@@ -204,15 +242,14 @@ public class BGTObjectTableWriter {
         this.objectRemovedCount = 0;
         this.historicObjectsCount = 0;
         this.mutatieInhoud = null;
+        updateProgress(Stage.PARSE_INHOUD);
 
         try(CountingInputStream counter = new CountingInputStream(bgtXml)) {
             this.counter = counter;
 
             BGTObjectStreamer streamer = new BGTObjectStreamer(counter);
             this.mutatieInhoud = streamer.getMutatieInhoud();
-            if (this.progressUpdater != null) {
-                this.progressUpdater.run();
-            }
+            updateProgress(Stage.LOAD_OBJECTS);
             boolean initialLoad = this.mutatieInhoud == null || "initial".equals(this.getMutatieInhoud().getMutatieType());
             for (BGTObject object: streamer) {
                 boolean skipHistoricObject = object.getAttributes().get(EIND_REGISTRATIE) != null && currentObjectsOnly;
@@ -261,6 +298,23 @@ public class BGTObjectTableWriter {
                     throw new RuntimeException(e);
                 }
             });
+
+            if (isCreateSchema() && initialLoad) {
+                QueryRunner qr = new QueryRunner();
+                updateProgress(Stage.CREATE_PRIMARY_KEY);
+                for(String name: insertBatches.keySet()) {
+                    for (String sql: getCreatePrimaryKeyStatements(name, dialect, false).collect(Collectors.toList())) {
+                        qr.update(c, sql);
+                    }
+                }
+                updateProgress(Stage.CREATE_GEOMETRY_INDEX);
+                for(String name: insertBatches.keySet()) {
+                    for(String sql: getCreateGeometryIndexStatements(name, dialect, false).collect(Collectors.toList())) {
+                        qr.update(c, sql);
+                    }
+                }
+            }
+            updateProgress(Stage.FINISHED);
         } finally {
             Stream.concat(insertBatches.values().stream(), deleteBatches.values().stream()).forEach(batch -> {
                 try {
@@ -268,6 +322,19 @@ public class BGTObjectTableWriter {
                 } catch (Exception ignored) {
                 }
             });
+            insertBatches = new HashMap<>();
+            deleteBatches = new HashMap<>();
+        }
+    }
+
+    private void updateProgress(Stage stage) {
+        this.stage = stage;
+        updateProgress();
+    }
+
+    private void updateProgress() {
+        if (progressUpdater != null) {
+            progressUpdater.run();
         }
     }
 

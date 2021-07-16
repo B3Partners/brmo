@@ -8,6 +8,7 @@ import nl.b3p.brmo.bgt.download.model.GetDeltasResponse;
 import nl.b3p.brmo.bgt.loader.BGTObjectTableWriter;
 import nl.b3p.brmo.bgt.download.api.CustomDownloadProgress;
 import nl.b3p.brmo.bgt.download.api.DownloadApiUtils;
+import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.input.CloseShieldInputStream;
 import org.apache.commons.io.input.CountingInputStream;
@@ -30,6 +31,7 @@ import java.util.List;
 import java.util.OptionalLong;
 import java.util.concurrent.Callable;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -37,6 +39,7 @@ import static nl.b3p.brmo.bgt.download.model.DeltaCustomDownloadStatusResponse.S
 import static nl.b3p.brmo.bgt.download.model.DeltaCustomDownloadStatusResponse.StatusEnum.PENDING;
 import static nl.b3p.brmo.bgt.download.model.DeltaCustomDownloadStatusResponse.StatusEnum.RUNNING;
 import static nl.b3p.brmo.bgt.loader.BGTSchemaMapper.Metadata;
+import static nl.b3p.brmo.bgt.loader.BGTSchemaMapper.getCreateMetadataTableStatements;
 import static nl.b3p.brmo.bgt.loader.Utils.getLoaderVersion;
 import static nl.b3p.brmo.bgt.loader.Utils.formatTimeSince;
 import static nl.b3p.brmo.bgt.loader.Utils.getHEADResponse;
@@ -60,8 +63,17 @@ public class DownloadCommand {
             return ExitCode.USAGE;
         }
 
-        System.out.print("Connecting to the database... ");
         IMGeoDb db = new IMGeoDb(dbOptions);
+
+        if (loadOptions.createSchema) {
+            System.out.print("Creating metadata table...");
+            for(String sql: getCreateMetadataTableStatements(db.getDialect()).collect(Collectors.toList())) {
+                new QueryRunner().update(db.getConnection(), sql);
+            }
+        } else {
+            System.out.print("Connecting to the database... ");
+        }
+
         db.setMetadataValue(Metadata.LOADER_VERSION, getLoaderVersion());
         db.setFeatureTypesEnumMetadata(extractSelectionOptions.getFeatureTypesList());
         db.setMetadataValue(Metadata.INCLUDE_HISTORY, loadOptions.includeHistory + "");

@@ -94,7 +94,7 @@ public class MSSQLDialect implements SQLDialect {
 
     @Override
     public String getCreateGeometryIndexSQL(String tableName, String geometryColumn, String type) {
-        return String.format("create spatial index idx_%s_%s on %s (%s) with (bounding_box = (12000,304000,280000,620000));",
+        return String.format("create spatial index idx_%s_%s on %s (%s) with (bounding_box = (12000,304000,280000,620000))",
                 tableName, geometryColumn, tableName, geometryColumn);
     }
 
