@@ -3,7 +3,7 @@ package nl.b3p.brmo.bgt.loader.cli;
 import picocli.CommandLine.Option;
 
 public class LoadOptions {
-    @Option(names={"--create-schema"}, negatable = true)
+    @Option(names={"--no-create-schema"}, negatable = true)
     boolean createSchema = true;
 
     @Option(names={"--include-history"})
