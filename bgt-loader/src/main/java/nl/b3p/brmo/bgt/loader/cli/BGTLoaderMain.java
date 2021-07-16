@@ -5,16 +5,17 @@ import nl.b3p.brmo.bgt.loader.BGTObjectTableWriter;
 import nl.b3p.brmo.bgt.loader.BGTSchemaMapper;
 import nl.b3p.brmo.bgt.loader.Utils;
 import nl.b3p.brmo.sql.dialect.SQLDialect;
+import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.input.CountingInputStream;
 import org.apache.log4j.PropertyConfigurator;
 import org.geotools.util.logging.Logging;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
+import picocli.CommandLine.ExitCode;
 import picocli.CommandLine.Mixin;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
-import picocli.CommandLine.ExitCode;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -30,8 +31,9 @@ import java.util.stream.Collectors;
 import java.util.zip.ZipFile;
 
 import static nl.b3p.brmo.bgt.loader.BGTSchemaMapper.Metadata;
-import static nl.b3p.brmo.bgt.loader.Utils.getLoaderVersion;
+import static nl.b3p.brmo.bgt.loader.BGTSchemaMapper.getCreateMetadataTableStatements;
 import static nl.b3p.brmo.bgt.loader.Utils.formatTimeSince;
+import static nl.b3p.brmo.bgt.loader.Utils.getLoaderVersion;
 
 @Command(name = "bgt-loader", mixinStandardHelpOptions = true, version = "${ROOT-COMMAND-NAME} ${bundle:app.version}",
         resourceBundle = Utils.BUNDLE_NAME, subcommands = {DownloadCommand.class})
@@ -58,8 +60,7 @@ public class BGTLoaderMain {
                 .map(DeltaCustomDownloadRequest.FeaturetypesEnum::getValue)
                 .collect(Collectors.toSet());
         BGTSchemaMapper.printSchema(dialect, objectTypeName ->
-                tableNames.contains(BGTSchemaMapper.getTableNameForObjectType(objectTypeName)),
-                true
+                tableNames.contains(BGTSchemaMapper.getTableNameForObjectType(objectTypeName))
         );
         return ExitCode.OK;
     }
@@ -74,6 +75,13 @@ public class BGTLoaderMain {
 
         IMGeoDb db = new IMGeoDb(dbOptions);
         BGTObjectTableWriter writer = db.createObjectTableWriter(loadOptions);
+
+        if (loadOptions.createSchema) {
+            System.out.println("Creating metadata table...");
+            for(String sql: getCreateMetadataTableStatements(db.getDialect()).collect(Collectors.toList())) {
+                new QueryRunner().update(db.getConnection(), sql);
+            }
+        }
 
         if (file.getName().endsWith(".zip")) {
             loadZip(file, writer, featureTypeSelectionOptions);
@@ -149,13 +157,26 @@ public class BGTLoaderMain {
         final Instant start = Instant.now();
         final CountingInputStream countingInputStream = new CountingInputStream(input);
 
-        writer.setProgressUpdater(() -> System.out.printf("\r%s (%s): %.1f%% - time %s, %,d objects",
-                name,
-                sizeString,
-                100.0 / size * countingInputStream.getByteCount(),
-                formatTimeSince(start),
-                writer.getObjectCount()
-        ));
+
+        writer.setProgressUpdater(() -> {
+            switch(writer.getStage()) {
+                case LOAD_OBJECTS:
+                    System.out.printf("\r%s (%s): %.1f%% - time %s, %,d objects",
+                            name,
+                            sizeString,
+                            100.0 / size * countingInputStream.getByteCount(),
+                            formatTimeSince(start),
+                            writer.getObjectCount()
+                    );
+                    break;
+                case CREATE_PRIMARY_KEY:
+                    System.out.print("\r" + " ".repeat(50) + "\rCreating primary keys...");
+                    break;
+                case CREATE_GEOMETRY_INDEX:
+                    System.out.print("\r" + " ".repeat(50) + "\rCreating geometry indexes...");
+                    break;
+            }
+        });
         writer.write(countingInputStream);
 
         String historicObjects = writer.isCurrentObjectsOnly() ? String.format(", %,d historic objects skipped", writer.getHistoricObjectsCount()) : "";
