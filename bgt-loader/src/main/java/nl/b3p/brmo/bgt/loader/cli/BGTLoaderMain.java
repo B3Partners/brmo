@@ -3,6 +3,7 @@ package nl.b3p.brmo.bgt.loader.cli;
 import nl.b3p.brmo.bgt.download.model.DeltaCustomDownloadRequest;
 import nl.b3p.brmo.bgt.loader.BGTObjectTableWriter;
 import nl.b3p.brmo.bgt.loader.BGTSchemaMapper;
+import nl.b3p.brmo.bgt.loader.Utils;
 import nl.b3p.brmo.sql.dialect.SQLDialect;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.input.CountingInputStream;
@@ -29,11 +30,11 @@ import java.util.stream.Collectors;
 import java.util.zip.ZipFile;
 
 import static nl.b3p.brmo.bgt.loader.BGTSchemaMapper.Metadata;
-import static nl.b3p.brmo.bgt.loader.BGTSchemaMapper.getLoaderVersion;
-import static nl.b3p.brmo.bgt.loader.cli.Utils.formatTimeSince;
+import static nl.b3p.brmo.bgt.loader.Utils.getLoaderVersion;
+import static nl.b3p.brmo.bgt.loader.Utils.formatTimeSince;
 
 @Command(name = "bgt-loader", mixinStandardHelpOptions = true, version = "${ROOT-COMMAND-NAME} ${bundle:app.version}",
-        resourceBundle = "BGTCityGMLLoader", subcommands = {DownloadCommand.class})
+        resourceBundle = Utils.BUNDLE_NAME, subcommands = {DownloadCommand.class})
 public class BGTLoaderMain {
     static {
         PropertyConfigurator.configure(BGTLoaderMain.class.getResourceAsStream("/bgt-loader-cli-log4.properties"));
@@ -57,7 +58,8 @@ public class BGTLoaderMain {
                 .map(DeltaCustomDownloadRequest.FeaturetypesEnum::getValue)
                 .collect(Collectors.toSet());
         BGTSchemaMapper.printSchema(dialect, objectTypeName ->
-                tableNames.contains(BGTSchemaMapper.getTableNameForObjectType(objectTypeName))
+                tableNames.contains(BGTSchemaMapper.getTableNameForObjectType(objectTypeName)),
+                true
         );
         return ExitCode.OK;
     }

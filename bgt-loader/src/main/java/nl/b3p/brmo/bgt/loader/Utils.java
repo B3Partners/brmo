@@ -1,4 +1,4 @@
-package nl.b3p.brmo.bgt.loader.cli;
+package nl.b3p.brmo.bgt.loader;
 
 import java.io.IOException;
 import java.net.URI;
@@ -7,6 +7,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.ResourceBundle;
 
 import static java.net.http.HttpRequest.BodyPublishers.noBody;
 
@@ -36,5 +37,21 @@ public class Utils {
             throw new IllegalStateException(String.format("HEAD for URI \"%s\" returned status code %d", URI, response.statusCode()));
         }
         return response;
+    }
+
+    public static final String BUNDLE_NAME = "BGTLoader";
+
+    private static final ResourceBundle bundle = ResourceBundle.getBundle(BUNDLE_NAME);
+
+    public static ResourceBundle getBundle() {
+        return bundle;
+    }
+
+    public static String getBundleString(String key) {
+        return bundle.getString(key);
+    }
+
+    public static String getLoaderVersion() {
+        return ResourceBundle.getBundle("BGTLoader").getString("app.version");
     }
 }
