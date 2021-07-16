@@ -1,24 +1,22 @@
 package nl.b3p.brmo.bgt.loader;
 
+import nl.b3p.brmo.sql.AttributeColumnMapping;
 import nl.b3p.brmo.sql.GeometryAttributeColumnMapping;
 import nl.b3p.brmo.sql.OneToManyColumnMapping;
 import nl.b3p.brmo.sql.dialect.SQLDialect;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 import java.util.Map;
-import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static nl.b3p.brmo.bgt.loader.BGTSchema.getAllObjectTypes;
 import static nl.b3p.brmo.bgt.loader.BGTSchema.objectTypeAttributes;
+import static nl.b3p.brmo.bgt.loader.Utils.getBundleString;
 
 public class BGTSchemaMapper {
 
@@ -67,7 +65,7 @@ public class BGTSchemaMapper {
         objectTypeNameToDutchTableName = Collections.unmodifiableMap(objectTypeNameToDutchTableName);
     }
 
-    public static void printSchema(SQLDialect dialect, Predicate<String> typeNameFilter) {
+    public static void printSchema(SQLDialect dialect, Predicate<String> typeNameFilter, boolean withKeysAndIndexes) {
         // Sort object type names by table names
         SortedMap<String,String> tableNamesObjectTypes = new TreeMap<>(getAllObjectTypes().stream()
                 .filter(typeNameFilter == null ? s -> true : typeNameFilter)
@@ -75,23 +73,30 @@ public class BGTSchemaMapper {
 
         StringBuilder geometryMetadata = new StringBuilder();
         StringBuilder geometryIndexes = new StringBuilder();
+        StringBuilder primaryKeys = new StringBuilder();
         tableNamesObjectTypes.forEach((tableName, typeName) -> {
             System.out.println(createTable(typeName, dialect));
+            primaryKeys.append(createPrimaryKey(typeName, dialect));
             createGeometryMetadataAndIndexes(typeName, dialect, geometryMetadata, geometryIndexes);
             objectTypeAttributes.get(typeName).stream().filter(a -> a instanceof OneToManyColumnMapping).forEach(oneToMany -> {
                 System.out.println(createTable(oneToMany.getName(), dialect));
+                primaryKeys.append(createPrimaryKey(oneToMany.getName(), dialect));
                 createGeometryMetadataAndIndexes(oneToMany.getName(), dialect, geometryMetadata, geometryIndexes);
             });
         });
         if (geometryMetadata.length() > 0) {
-            System.out.println("-- Geometry metadata\n");
+            System.out.printf("-- %s\n\n", getBundleString("schema.geometry_metadata"));
             System.out.println(geometryMetadata);
         }
-        System.out.println("-- Geometry indexen (pas aanmaken na inladen stand)\n");
+
+        System.out.printf("-- %s\n\n", getBundleString("schema.loader_metadata"));
+        System.out.println(createMetadataTable(dialect));
+
+        System.out.printf("-- %s %s\n\n", getBundleString("schema.primary_keys"), getBundleString("schema.after_initial_load"));
+        System.out.println(primaryKeys);
+        System.out.printf("-- %s %s\n\n", getBundleString("schema.geometry_indexes"), getBundleString("schema.after_initial_load"));
         System.out.println(geometryIndexes);
 
-        System.out.println("-- Loader metadata\n");
-        System.out.println(createMetadataTable(dialect));
     }
 
     public static String getTableNameForObjectType(String objectTypeName) {
@@ -126,44 +131,44 @@ public class BGTSchemaMapper {
         String tableName = getTableNameForObjectType(name);
         StringBuilder sql = new StringBuilder();
         if (dialect.supportsDropTableIfExists()) {
-            sql.append("drop table if exists ");
-            sql.append(tableName);
-            sql.append(";\n");
+            sql.append("drop table if exists ").append(tableName).append(";\n");
         }
-        sql.append("create table ");
-        sql.append(tableName);
-        sql.append(" (\n");
-        AtomicBoolean first = new AtomicBoolean(true);
-        List<String> primaryKeys = new ArrayList<>();
-        objectTypeAttributes.get(name).forEach(column -> {
-            if (!(column instanceof OneToManyColumnMapping)) {
-                String columnName = getColumnNameForObjectType(name, column.getName());
-                column.appendToCreateTableSql(sql, dialect, columnName, first);
-                if (column.isPrimaryKey()) {
-                    primaryKeys.add(columnName);
-                }
-            }
-        });
-        sql.append(",\n  primary key(").append(String.join(", ", primaryKeys));
-        sql.append(")\n);\n");
+        sql.append("create table ").append(tableName).append(" (\n");
+        String columns = objectTypeAttributes.get(name).stream()
+                .filter(column -> !(column instanceof OneToManyColumnMapping))
+                .map(column -> String.format("  %s %s%s",
+                        getColumnNameForObjectType(name, column.getName()),
+                        dialect.getType(column.getType()),
+                        column.isNotNull() ? " not null" : ""))
+                .collect(Collectors.joining(",\n"));
+        sql.append(columns);
+        sql.append(");\n");
         return sql.toString();
+    }
+
+    public static String createPrimaryKey(String name, SQLDialect dialect) {
+        String tableName = getTableNameForObjectType(name);
+        String columns = objectTypeAttributes.get(name).stream()
+                .filter(AttributeColumnMapping::isPrimaryKey)
+                .map(column -> getColumnNameForObjectType(name, column.getName()))
+                .collect(Collectors.joining(", "));
+        return String.format("alter table %s add constraint %s_pkey primary key(%s);\n",
+                tableName, tableName, columns);
     }
 
     public static void createGeometryMetadataAndIndexes(String name, SQLDialect dialect, StringBuilder metadata, StringBuilder indexes) {
         String tableName = getTableNameForObjectType(name);
-        objectTypeAttributes.get(name).forEach(column -> {
-            if (column instanceof GeometryAttributeColumnMapping) {
-                String columnName = getColumnNameForObjectType(name, column.getName());
+        objectTypeAttributes.get(name).stream().filter(column -> column instanceof GeometryAttributeColumnMapping).forEach(column -> {
+            String columnName = getColumnNameForObjectType(name, column.getName());
 
-                String s = dialect.getCreateGeometryMetadataSQL(tableName, columnName, column.getType());
-                if (s.length() > 0) {
-                    metadata.append(s).append("\n");
-                }
+            String s = dialect.getCreateGeometryMetadataSQL(tableName, columnName, column.getType());
+            if (s.length() > 0) {
+                metadata.append(s).append("\n");
+            }
 
-                s = dialect.getCreateGeometryIndexSQL(tableName, columnName, column.getType());
-                if (s.length() > 0) {
-                    indexes.append(s).append("\n");
-                }
+            s = dialect.getCreateGeometryIndexSQL(tableName, columnName, column.getType());
+            if (s.length() > 0) {
+                indexes.append(s).append("\n");
             }
         });
     }
@@ -172,19 +177,15 @@ public class BGTSchemaMapper {
         final StringBuilder sql = new StringBuilder();
         final String tableName = "metadata";
         if (dialect.supportsDropTableIfExists()) {
-            sql.append("drop table if exists ");
-            sql.append(tableName);
-            sql.append(";\n");
+            sql.append("drop table if exists ").append(tableName).append(";\n");
         }
-        sql.append("create table ");
-        sql.append(tableName);
-        sql.append(" (\n");
+        sql.append("create table ").append(tableName).append(" (\n");
         sql.append("  id ").append(dialect.getType("varchar(255)")).append(",\n");
         sql.append("  value ").append(dialect.getType("text")).append(",\n");
         sql.append("  primary key(id)\n);\n");
         Map<Metadata,String> defaultMetadata = Stream.of(new Object[][]{
                 {Metadata.SCHEMA_VERSION, SCHEMA_VERSION_VALUE},
-                {Metadata.LOADER_VERSION, getLoaderVersion()},
+                {Metadata.LOADER_VERSION, Utils.getLoaderVersion()},
         }).collect(Collectors.toMap(entry -> (Metadata)entry[0], entry -> (String)entry[1]));
         Stream.of(Metadata.values()).forEach(metadata -> {
             String value = defaultMetadata.get(metadata);
@@ -192,9 +193,5 @@ public class BGTSchemaMapper {
         });
 
         return sql.toString();
-    }
-
-    public static String getLoaderVersion() {
-        return ResourceBundle.getBundle("BGTCityGMLLoader").getString("app.version");
     }
 }

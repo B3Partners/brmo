@@ -37,9 +37,9 @@ import static nl.b3p.brmo.bgt.download.model.DeltaCustomDownloadStatusResponse.S
 import static nl.b3p.brmo.bgt.download.model.DeltaCustomDownloadStatusResponse.StatusEnum.PENDING;
 import static nl.b3p.brmo.bgt.download.model.DeltaCustomDownloadStatusResponse.StatusEnum.RUNNING;
 import static nl.b3p.brmo.bgt.loader.BGTSchemaMapper.Metadata;
-import static nl.b3p.brmo.bgt.loader.BGTSchemaMapper.getLoaderVersion;
-import static nl.b3p.brmo.bgt.loader.cli.Utils.formatTimeSince;
-import static nl.b3p.brmo.bgt.loader.cli.Utils.getHEADResponse;
+import static nl.b3p.brmo.bgt.loader.Utils.getLoaderVersion;
+import static nl.b3p.brmo.bgt.loader.Utils.formatTimeSince;
+import static nl.b3p.brmo.bgt.loader.Utils.getHEADResponse;
 
 @Command(name = "download", mixinStandardHelpOptions = true)
 public class DownloadCommand {

@@ -13,7 +13,7 @@ import java.time.Instant;
 import java.util.function.Consumer;
 
 import static nl.b3p.brmo.bgt.download.model.DeltaCustomDownloadStatusResponse.StatusEnum.COMPLETED;
-import static nl.b3p.brmo.bgt.loader.cli.Utils.formatTimeSince;
+import static nl.b3p.brmo.bgt.loader.Utils.formatTimeSince;
 
 public class DownloadApiUtils {
     public static URI getCustomDownloadURL(ApiClient client, Delta delta, ExtractSelectionOptions extractSelectionOptions, Consumer<CustomDownloadProgress> progressConsumer) throws ApiException, IOException, InterruptedException {

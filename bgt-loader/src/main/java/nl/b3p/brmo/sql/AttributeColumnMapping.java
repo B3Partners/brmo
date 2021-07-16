@@ -41,21 +41,6 @@ public class AttributeColumnMapping {
         return primaryKey;
     }
 
-    public void appendToCreateTableSql(StringBuilder sql, SQLDialect dialect, String columnName, AtomicBoolean first) {
-        if (first.get()) {
-            first.set(false);
-        } else {
-            sql.append(",\n");
-        }
-        sql.append("  ");
-        sql.append(columnName);
-        sql.append(" ");
-        sql.append(dialect.getType(type));
-        if (notNull) {
-            sql.append(" not null");
-        }
-    }
-
     public Object toQueryParameter(Object value) throws Exception {
         if (value == null) {
             return null;
