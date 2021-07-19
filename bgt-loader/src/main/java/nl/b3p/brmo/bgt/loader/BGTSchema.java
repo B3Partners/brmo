@@ -1,12 +1,12 @@
 package nl.b3p.brmo.bgt.loader;
 
-import nl.b3p.brmo.sql.AttributeColumnMapping;
-import nl.b3p.brmo.sql.BooleanAttributeColumnMapping;
-import nl.b3p.brmo.sql.DoubleAttributeColumnMapping;
-import nl.b3p.brmo.sql.GeometryAttributeColumnMapping;
-import nl.b3p.brmo.sql.IntegerAttributeColumnMapping;
-import nl.b3p.brmo.sql.OneToManyColumnMapping;
-import nl.b3p.brmo.sql.SimpleDateFormatAttributeColumnMapping;
+import nl.b3p.brmo.sql.mapping.AttributeColumnMapping;
+import nl.b3p.brmo.sql.mapping.BooleanAttributeColumnMapping;
+import nl.b3p.brmo.sql.mapping.DoubleAttributeColumnMapping;
+import nl.b3p.brmo.sql.mapping.GeometryAttributeColumnMapping;
+import nl.b3p.brmo.sql.mapping.IntegerAttributeColumnMapping;
+import nl.b3p.brmo.sql.mapping.OneToManyColumnMapping;
+import nl.b3p.brmo.sql.mapping.SimpleDateFormatAttributeColumnMapping;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,8 +16,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import static nl.b3p.brmo.sql.SimpleDateFormatAttributeColumnMapping.PATTERN_XML_DATE;
-import static nl.b3p.brmo.sql.SimpleDateFormatAttributeColumnMapping.PATTERN_XML_TIMESTAMP;
+import static nl.b3p.brmo.sql.mapping.SimpleDateFormatAttributeColumnMapping.PATTERN_XML_DATE;
+import static nl.b3p.brmo.sql.mapping.SimpleDateFormatAttributeColumnMapping.PATTERN_XML_TIMESTAMP;
 
 public class BGTSchema {
 

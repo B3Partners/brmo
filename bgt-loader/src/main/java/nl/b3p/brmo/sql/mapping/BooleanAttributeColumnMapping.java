@@ -1,4 +1,4 @@
-package nl.b3p.brmo.sql;
+package nl.b3p.brmo.sql.mapping;
 
 public class BooleanAttributeColumnMapping extends AttributeColumnMapping {
     public BooleanAttributeColumnMapping(String name, boolean notNull) {

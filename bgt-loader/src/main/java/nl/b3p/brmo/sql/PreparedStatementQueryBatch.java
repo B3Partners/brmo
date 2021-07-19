@@ -10,26 +10,19 @@ import java.sql.SQLException;
 import java.sql.Types;
 
 public class PreparedStatementQueryBatch implements QueryBatch {
-    private final Connection c;
-    private final SQLDialect dialect;
+    protected final Connection c;
     private final String sql;
     private final int batchSize;
 
-    private final Boolean[] geometryParameterIndexes;
-    private final boolean linearizeCurves;
     private int count = 0;
 
-    private PreparedStatement ps;
+    protected PreparedStatement ps;
     private int[] parameterTypes;
 
-    public PreparedStatementQueryBatch(Connection c, String sql, SQLDialect dialect, int batchSize, Boolean[] geometryParameterIndexes, boolean linearizeCurves) throws SQLException {
+    public PreparedStatementQueryBatch(Connection c, String sql, int batchSize) throws SQLException {
         this.c = c;
         this.sql = sql;
-        this.dialect = dialect;
         this.batchSize = batchSize;
-        this.geometryParameterIndexes = geometryParameterIndexes;
-        this.linearizeCurves = linearizeCurves;
-
         initializePreparedStatement();
     }
 
@@ -60,15 +53,7 @@ public class PreparedStatementQueryBatch implements QueryBatch {
             int parameterIndex = i + 1;
             try {
                 int pmdType = parameterTypes != null ? parameterTypes[i] : Types.VARCHAR;
-                if (geometryParameterIndexes[i]) {
-                    dialect.setGeometryParameter(c, ps, parameterIndex, pmdType, (Geometry) params[i], linearizeCurves);
-                } else {
-                    if (params[i] != null) {
-                        ps.setObject(parameterIndex, params[i]);
-                    } else {
-                        ps.setNull(parameterIndex, pmdType);
-                    }
-                }
+                setPreparedStatementParameter(parameterIndex, pmdType, params[i]);
             } catch (Exception e) {
                 throw new Exception(String.format("Exception setting parameter %s to value %s for insert SQL \"%s\"", i, params[i], sql), e);
             }
@@ -97,5 +82,13 @@ public class PreparedStatementQueryBatch implements QueryBatch {
     @Override
     public void close() throws SQLException {
         ps.close();
+    }
+
+    protected void setPreparedStatementParameter(int oneBasedParameterIndex, int parameterMetadataType, Object parameter) throws SQLException {
+        if (parameter != null) {
+            ps.setObject(oneBasedParameterIndex, parameter);
+        } else {
+            ps.setNull(oneBasedParameterIndex, parameterMetadataType);
+        }
     }
 }

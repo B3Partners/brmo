@@ -1,4 +1,4 @@
-package nl.b3p.brmo.sql;
+package nl.b3p.brmo.sql.mapping;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

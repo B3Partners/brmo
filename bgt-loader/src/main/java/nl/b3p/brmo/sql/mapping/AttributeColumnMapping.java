@@ -1,8 +1,4 @@
-package nl.b3p.brmo.sql;
-
-import nl.b3p.brmo.sql.dialect.SQLDialect;
-
-import java.util.concurrent.atomic.AtomicBoolean;
+package nl.b3p.brmo.sql.mapping;
 
 public class AttributeColumnMapping {
     private final String name;

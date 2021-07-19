@@ -1,8 +1,8 @@
 package nl.b3p.brmo.bgt.loader;
 
-import nl.b3p.brmo.sql.AttributeColumnMapping;
-import nl.b3p.brmo.sql.GeometryAttributeColumnMapping;
-import nl.b3p.brmo.sql.OneToManyColumnMapping;
+import nl.b3p.brmo.sql.mapping.AttributeColumnMapping;
+import nl.b3p.brmo.sql.mapping.GeometryAttributeColumnMapping;
+import nl.b3p.brmo.sql.mapping.OneToManyColumnMapping;
 import nl.b3p.brmo.sql.dialect.SQLDialect;
 
 import java.util.ArrayList;

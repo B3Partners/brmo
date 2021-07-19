@@ -1,9 +1,10 @@
 package nl.b3p.brmo.bgt.loader;
 
-import nl.b3p.brmo.sql.AttributeColumnMapping;
-import nl.b3p.brmo.sql.GeometryAttributeColumnMapping;
+import nl.b3p.brmo.sql.GeometryHandlingPreparedStatementBatch;
+import nl.b3p.brmo.sql.mapping.AttributeColumnMapping;
+import nl.b3p.brmo.sql.mapping.GeometryAttributeColumnMapping;
 import nl.b3p.brmo.sql.PreparedStatementQueryBatch;
-import nl.b3p.brmo.sql.OneToManyColumnMapping;
+import nl.b3p.brmo.sql.mapping.OneToManyColumnMapping;
 import nl.b3p.brmo.sql.QueryBatch;
 import nl.b3p.brmo.sql.dialect.SQLDialect;
 import org.apache.commons.dbutils.QueryRunner;
@@ -146,7 +147,6 @@ public class BGTObjectTableWriter {
     private void addObjectBatch(BGTObject object, boolean initialLoad) throws Exception {
         if(!insertBatches.containsKey(object.getName())) {
             if (initialLoad) {
-                // XXX maakt pand en nummeraanduidingreeks?
                 if (isCreateSchema()) {
                     QueryRunner qr = new QueryRunner();
                     for(String sql: Stream.concat(
@@ -167,7 +167,7 @@ public class BGTObjectTableWriter {
                     geometryParameterIndexes.add(mapping instanceof GeometryAttributeColumnMapping);
                 }
             }
-            insertBatches.put(object.getName(), new PreparedStatementQueryBatch(c, sql, dialect, batchSize, geometryParameterIndexes.toArray(new Boolean[0]), linearizeCurves));
+            insertBatches.put(object.getName(), new GeometryHandlingPreparedStatementBatch(c, sql, batchSize, dialect, geometryParameterIndexes.toArray(new Boolean[0]), linearizeCurves));
         }
         QueryBatch batch = insertBatches.get(object.getName());
 
@@ -212,7 +212,7 @@ public class BGTObjectTableWriter {
         String tableName = getTableNameForObjectType(object.getName());
         if(!deleteBatches.containsKey(object.getName())) {
             String sql = "delete from " + tableName + " where " + getColumnNameForObjectType(object.getName(), idColumnName) + " = ?";
-            deleteBatches.put(object.getName(), new PreparedStatementQueryBatch(c, sql, dialect, batchSize, new Boolean[] {false}, false));
+            deleteBatches.put(object.getName(), new PreparedStatementQueryBatch(c, sql, batchSize));
         }
         QueryBatch batch = deleteBatches.get(object.getName());
 
@@ -225,7 +225,7 @@ public class BGTObjectTableWriter {
                 if(!deleteBatches.containsKey(oneToManyColumnMapping.getName())) {
                     String sql = "delete from " + getTableNameForObjectType(oneToManyColumnMapping.getName()) + " where "
                             + getColumnNameForObjectType(oneToManyColumnMapping.getName(), tableName + idColumnName) + " = ?";
-                    deleteBatches.put(oneToManyColumnMapping.getName(), new PreparedStatementQueryBatch(c, sql, dialect, batchSize, new Boolean[]{false}, false));
+                    deleteBatches.put(oneToManyColumnMapping.getName(), new PreparedStatementQueryBatch(c, sql, batchSize));
                 }
                 executed = executed | deleteBatches.get(object.getName()).addBatch(new Object[] {object.getMutatiePreviousVersionGmlId()});
             }
