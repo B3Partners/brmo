@@ -59,8 +59,8 @@ public class BGTLoaderMain {
         Set<String> tableNames = featureTypeSelectionOptions.getFeatureTypesList().stream()
                 .map(DeltaCustomDownloadRequest.FeaturetypesEnum::getValue)
                 .collect(Collectors.toSet());
-        BGTSchemaMapper.printSchema(dialect, objectTypeName ->
-                tableNames.contains(BGTSchemaMapper.getTableNameForObjectType(objectTypeName))
+        BGTSchemaMapper.printSchema(dialect, objectType ->
+                tableNames.contains(BGTSchemaMapper.getTableNameForObjectType(objectType))
         );
         return ExitCode.OK;
     }
@@ -94,6 +94,8 @@ public class BGTLoaderMain {
 
         db.setMetadataValue(Metadata.LOADER_VERSION, getLoaderVersion());
         // Set feature types list from options, not MutatieInhoud (if input has it)...
+        // FIXME if downloaded initial extract has less object types, update will fail -- should set to only encountered
+        // feature types
         db.setFeatureTypesEnumMetadata(featureTypeSelectionOptions.getFeatureTypesList());
         db.setMetadataValue(Metadata.INCLUDE_HISTORY, loadOptions.includeHistory + "");
         db.setMetadataValue(Metadata.LINEARIZE_CURVES, loadOptions.linearizeCurves + "");
@@ -156,7 +158,6 @@ public class BGTLoaderMain {
         final String sizeString = FileUtils.byteCountToDisplaySize(size);
         final Instant start = Instant.now();
         final CountingInputStream countingInputStream = new CountingInputStream(input);
-
 
         writer.setProgressUpdater(() -> {
             switch(writer.getStage()) {

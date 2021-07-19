@@ -1,12 +1,11 @@
 package nl.b3p.brmo.bgt.loader;
 
 import nl.b3p.brmo.sql.GeometryHandlingPreparedStatementBatch;
-import nl.b3p.brmo.sql.mapping.AttributeColumnMapping;
-import nl.b3p.brmo.sql.mapping.GeometryAttributeColumnMapping;
 import nl.b3p.brmo.sql.PreparedStatementQueryBatch;
-import nl.b3p.brmo.sql.mapping.OneToManyColumnMapping;
 import nl.b3p.brmo.sql.QueryBatch;
 import nl.b3p.brmo.sql.dialect.SQLDialect;
+import nl.b3p.brmo.sql.mapping.AttributeColumnMapping;
+import nl.b3p.brmo.sql.mapping.GeometryAttributeColumnMapping;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.io.input.CountingInputStream;
 
@@ -17,7 +16,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -145,13 +143,13 @@ public class BGTObjectTableWriter {
     }
 
     private void addObjectBatch(BGTObject object, boolean initialLoad) throws Exception {
-        if(!insertBatches.containsKey(object.getName())) {
+        if(!insertBatches.containsKey(object.getObjectType().getName())) {
             if (initialLoad) {
                 if (isCreateSchema()) {
                     QueryRunner qr = new QueryRunner();
                     for(String sql: Stream.concat(
-                            getCreateTableStatements(object.getName(), dialect),
-                            getCreateGeometryMetadataStatements(object.getName(), dialect)).collect(Collectors.toList())) {
+                            getCreateTableStatements(object.getObjectType(), dialect),
+                            getCreateGeometryMetadataStatements(object.getObjectType(), dialect)).collect(Collectors.toList())) {
                         qr.update(c, sql);
                     }
                 } else {
@@ -160,46 +158,39 @@ public class BGTObjectTableWriter {
             }
 
             String sql = buildInsertSql(object);
-            List<AttributeColumnMapping> attributeColumnMappings = BGTSchema.objectTypeAttributes.get(object.getName());
-            List<Boolean> geometryParameterIndexes = new ArrayList<>();
-            for(AttributeColumnMapping mapping: attributeColumnMappings) {
-                if (!(mapping instanceof OneToManyColumnMapping)) {
-                    geometryParameterIndexes.add(mapping instanceof GeometryAttributeColumnMapping);
-                }
-            }
-            insertBatches.put(object.getName(), new GeometryHandlingPreparedStatementBatch(c, sql, batchSize, dialect, geometryParameterIndexes.toArray(new Boolean[0]), linearizeCurves));
+            Boolean[] parameterIsGeometry = object.getObjectType().getDirectAttributes()
+                    .map(attributeColumnMapping -> attributeColumnMapping instanceof GeometryAttributeColumnMapping)
+                    .toArray(Boolean[]::new);
+            insertBatches.put(object.getObjectType().getName(), new GeometryHandlingPreparedStatementBatch(c, sql, batchSize, dialect, parameterIsGeometry, linearizeCurves));
         }
-        QueryBatch batch = insertBatches.get(object.getName());
+        QueryBatch batch = insertBatches.get(object.getObjectType().getName());
 
-        List<AttributeColumnMapping> columns = BGTSchema.objectTypeAttributes.get(object.getName());
         Map<String, Object> attributes = object.getAttributes();
-        Object[] params = new Object[(int) columns.stream().filter(c -> !(c instanceof OneToManyColumnMapping)).count()];
-        int columnIndex = 0;
-        for (AttributeColumnMapping column: columns) {
-            if (column instanceof OneToManyColumnMapping) {
-                List<BGTObject> objects = (List<BGTObject>) attributes.get(column.getName());
-                if (objects != null && !objects.isEmpty()) {
-                    for(int j = 0; j < objects.size(); j++) {
-                        BGTObject oneToMany = objects.get(j);
 
-                        // Add FK and index
-                        String tableName = getTableNameForObjectType(object.getName());
-                        String idColumnName = columns.stream().filter(AttributeColumnMapping::isPrimaryKey).findFirst().get().getName();
-                        oneToMany.getAttributes().put(getColumnNameForObjectType(oneToMany.getName(),tableName + idColumnName), object.getAttributes().get(idColumnName));
-                        oneToMany.getAttributes().put(BGTSchema.INDEX, j);
-                        Object eindRegistratie = object.getAttributes().get("eindRegistratie");
-                        oneToMany.getAttributes().put(getColumnNameForObjectType(oneToMany.getName(),tableName + "eindRegistratie"), eindRegistratie != null);
-                        addObjectBatch(oneToMany, initialLoad);
-                    }
+        List<Object> params = new ArrayList<>();
+        for(AttributeColumnMapping attributeColumnMapping: object.getObjectType().getDirectAttributes().collect(Collectors.toList())) {
+            Object attribute = attributes.get(attributeColumnMapping.getName());
+            params.add(attributeColumnMapping.toQueryParameter(attribute));
+        }
+
+        for(BGTSchema.BGTObjectType oneToManyAttribute: object.getObjectType().getOneToManyAttributeObjectTypes().collect(Collectors.toList())) {
+            List<BGTObject> objects = (List<BGTObject>) attributes.get(oneToManyAttribute.getName());
+            if (objects != null && !objects.isEmpty()) {
+                for(int i = 0; i < objects.size(); i++) {
+                    BGTObject oneToMany = objects.get(i);
+                    // Add FK and index
+                    String tableName = getTableNameForObjectType(object.getObjectType());
+                    String idColumnName = object.getObjectType().getPrimaryKeys().findFirst().get().getName();
+                    oneToMany.getAttributes().put(getColumnNameForObjectType(oneToMany.getObjectType(),tableName + idColumnName), object.getAttributes().get(idColumnName));
+                    oneToMany.getAttributes().put(BGTSchema.INDEX, i);
+                    Object eindRegistratie = object.getAttributes().get("eindRegistratie");
+                    oneToMany.getAttributes().put(getColumnNameForObjectType(oneToMany.getObjectType(),tableName + "eindRegistratie"), eindRegistratie != null);
+                    addObjectBatch(oneToMany, initialLoad);
                 }
-            } else {
-                Object attribute = attributes.get(column.getName());
-                params[columnIndex] = column.toQueryParameter(attribute);
-                columnIndex++;
             }
         }
 
-        boolean executed = batch.addBatch(params);
+        boolean executed = batch.addBatch(params.toArray());
 
         if (executed && progressUpdater != null) {
             progressUpdater.run();
@@ -207,28 +198,25 @@ public class BGTObjectTableWriter {
     }
 
     private void deletePreviousVersion(BGTObject object) throws Exception {
-        List<AttributeColumnMapping> columns = BGTSchema.objectTypeAttributes.get(object.getName());
-        String idColumnName = columns.stream().filter(AttributeColumnMapping::isPrimaryKey).findFirst().get().getName();
-        String tableName = getTableNameForObjectType(object.getName());
-        if(!deleteBatches.containsKey(object.getName())) {
-            String sql = "delete from " + tableName + " where " + getColumnNameForObjectType(object.getName(), idColumnName) + " = ?";
-            deleteBatches.put(object.getName(), new PreparedStatementQueryBatch(c, sql, batchSize));
+        BGTSchema.BGTObjectType objectType = object.getObjectType();
+        String idAttributeName = objectType.getPrimaryKeys().findFirst().get().getName();
+        String tableName = getTableNameForObjectType(objectType);
+        if(!deleteBatches.containsKey(objectType.getName())) {
+            String sql = "delete from " + tableName + " where " + getColumnNameForObjectType(objectType, idAttributeName) + " = ?";
+            deleteBatches.put(objectType.getName(), new PreparedStatementQueryBatch(c, sql, batchSize));
         }
-        QueryBatch batch = deleteBatches.get(object.getName());
+        QueryBatch batch = deleteBatches.get(objectType.getName());
 
         boolean executed = batch.addBatch(new Object[] {object.getMutatiePreviousVersionGmlId()});
 
-        for (AttributeColumnMapping column: columns) {
-            if (column instanceof OneToManyColumnMapping) {
-                OneToManyColumnMapping oneToManyColumnMapping = (OneToManyColumnMapping) column;
-
-                if(!deleteBatches.containsKey(oneToManyColumnMapping.getName())) {
-                    String sql = "delete from " + getTableNameForObjectType(oneToManyColumnMapping.getName()) + " where "
-                            + getColumnNameForObjectType(oneToManyColumnMapping.getName(), tableName + idColumnName) + " = ?";
-                    deleteBatches.put(oneToManyColumnMapping.getName(), new PreparedStatementQueryBatch(c, sql, batchSize));
-                }
-                executed = executed | deleteBatches.get(object.getName()).addBatch(new Object[] {object.getMutatiePreviousVersionGmlId()});
+        for(BGTSchema.BGTObjectType oneToManyObjectType: objectType.getOneToManyAttributeObjectTypes().collect(Collectors.toList())) {
+            if(!deleteBatches.containsKey(oneToManyObjectType.getName())) {
+                String sql = "delete from " + getTableNameForObjectType(oneToManyObjectType) + " where "
+                        + getColumnNameForObjectType(oneToManyObjectType, tableName + idAttributeName) + " = ?";
+                deleteBatches.put(oneToManyObjectType.getName(), new PreparedStatementQueryBatch(c, sql, batchSize));
             }
+            QueryBatch deleteBatch = deleteBatches.get(oneToManyObjectType.getName());
+            executed = executed | deleteBatch.addBatch(new Object[] {object.getMutatiePreviousVersionGmlId()});
         }
 
         if (executed && progressUpdater != null) {
@@ -303,13 +291,13 @@ public class BGTObjectTableWriter {
                 QueryRunner qr = new QueryRunner();
                 updateProgress(Stage.CREATE_PRIMARY_KEY);
                 for(String name: insertBatches.keySet()) {
-                    for (String sql: getCreatePrimaryKeyStatements(name, dialect, false).collect(Collectors.toList())) {
+                    for (String sql: getCreatePrimaryKeyStatements(BGTSchema.getObjectTypeByName(name), dialect, false).collect(Collectors.toList())) {
                         qr.update(c, sql);
                     }
                 }
                 updateProgress(Stage.CREATE_GEOMETRY_INDEX);
                 for(String name: insertBatches.keySet()) {
-                    for(String sql: getCreateGeometryIndexStatements(name, dialect, false).collect(Collectors.toList())) {
+                    for(String sql: getCreateGeometryIndexStatements(BGTSchema.getObjectTypeByName(name), dialect, false).collect(Collectors.toList())) {
                         qr.update(c, sql);
                     }
                 }
@@ -340,32 +328,25 @@ public class BGTObjectTableWriter {
 
     private static void truncateTable(Connection c, BGTObject object) throws SQLException {
         // TODO like jdbc-util, truncate may fail but 'delete from' may succeed
-        new QueryRunner().execute(c, String.format("truncate table %s", getTableNameForObjectType(object.getName())));
+        new QueryRunner().execute(c, String.format("truncate table %s", getTableNameForObjectType(object.getObjectType())));
     }
 
     private static String buildInsertSql(BGTObject object) {
         StringBuilder sql = new StringBuilder("insert into ");
-        String tableName = getTableNameForObjectType(object.getName());
-        sql.append(tableName);
-        sql.append(" (");
-        AtomicBoolean first = new AtomicBoolean(true);
-        List<AttributeColumnMapping> columns = BGTSchema.objectTypeAttributes.get(object.getName());
-        StringBuilder params = new StringBuilder();
-        columns.forEach(column -> {
-            if (!(column instanceof OneToManyColumnMapping)) {
-                if (first.get()) {
-                    first.set(false);
-                } else {
-                    sql.append(", ");
-                    params.append(", ");
-                }
-                params.append("?");
-                sql.append(getColumnNameForObjectType(object.getName(), column.getName()));
-            }
-        });
+        String tableName = getTableNameForObjectType(object.getObjectType());
+        sql.append(tableName).append("(");
+        sql.append(buildColumnList(object));
         sql.append(") values (");
-        sql.append(params);
-        sql.append(")");
+        String paramPlaceholders = object.getObjectType().getDirectAttributes()
+                .map(c -> "?")
+                .collect(Collectors.joining(", "));
+        sql.append(paramPlaceholders).append(")");
         return sql.toString();
+    }
+
+    private static String buildColumnList(BGTObject object) {
+        return object.getObjectType().getDirectAttributes()
+                .map(column -> getColumnNameForObjectType(object.getObjectType(), column.getName()))
+                .collect(Collectors.joining(", "));
     }
 }

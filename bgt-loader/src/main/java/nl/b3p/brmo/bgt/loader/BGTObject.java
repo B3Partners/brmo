@@ -12,7 +12,7 @@ import java.util.TreeSet;
 import static nl.b3p.brmo.bgt.loader.BGTObject.MutatieStatus.*;
 
 public class BGTObject {
-    private final String name;
+    private final BGTSchema.BGTObjectType objectType;
     private final Map<String,Object> attributes;
     private final Location xmlLocation;
     private final MutatieStatus mutatieStatus;
@@ -26,32 +26,32 @@ public class BGTObject {
 
     private final WKTWriter2 wktWriter2 = new WKTWriter2();
 
-    public BGTObject(String name, Map<String,Object> attributes) {
-        this.name = name;
+    public BGTObject(BGTSchema.BGTObjectType objectType, Map<String,Object> attributes) {
+        this.objectType = objectType;
         this.attributes = Collections.unmodifiableMap(attributes);
         this.xmlLocation = null;
         this.mutatieStatus = WORDT;
         this.mutatiePreviousVersionGmlId = null;
     }
 
-    public BGTObject(String name, Map<String,Object> attributes, Location xmlLocation) {
-        this.name = name;
+    public BGTObject(BGTSchema.BGTObjectType objectType, Map<String,Object> attributes, Location xmlLocation) {
+        this.objectType = objectType;
         this.attributes = attributes;
         this.xmlLocation = xmlLocation;
         this.mutatieStatus = WORDT;
         this.mutatiePreviousVersionGmlId = null;
     }
 
-    public BGTObject(String name, Map<String,Object> attributes, Location xmlLocation, MutatieStatus mutatieStatus, String mutatiePreviousVersionGmlId) {
-        this.name = name;
+    public BGTObject(BGTSchema.BGTObjectType objectType, Map<String,Object> attributes, Location xmlLocation, MutatieStatus mutatieStatus, String mutatiePreviousVersionGmlId) {
+        this.objectType = objectType;
         this.attributes = attributes;
         this.xmlLocation = xmlLocation;
         this.mutatieStatus = mutatieStatus;
         this.mutatiePreviousVersionGmlId = mutatiePreviousVersionGmlId;
     }
 
-    public String getName() {
-        return name;
+    public BGTSchema.BGTObjectType getObjectType() {
+        return objectType;
     }
 
     public Map<String, Object> getAttributes() {
@@ -90,7 +90,7 @@ public class BGTObject {
         }
         s.append("}");
         return xmlLocation == null
-                ? String.format("%s: %s", name, s)
-                : String.format("%s at xml line %6d: %s", name, xmlLocation.getLineNumber(), s);
+                ? String.format("%s: %s", objectType.getName(), s)
+                : String.format("%s at xml line %6d: %s", objectType.getName(), xmlLocation.getLineNumber(), s);
     }
 }

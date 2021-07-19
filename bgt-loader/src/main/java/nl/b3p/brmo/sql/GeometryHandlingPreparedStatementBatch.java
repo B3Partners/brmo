@@ -9,19 +9,19 @@ import java.sql.SQLException;
 public class GeometryHandlingPreparedStatementBatch extends PreparedStatementQueryBatch {
 
     private final SQLDialect dialect;
-    private final Boolean[] geometryParameterIndexes;
+    private final Boolean[] parameterIsGeometry;
     private final boolean linearizeCurves;
 
-    public GeometryHandlingPreparedStatementBatch(Connection c, String sql, int batchSize,  SQLDialect dialect, Boolean[] geometryParameterIndexes, boolean linearizeCurves) throws SQLException {
+    public GeometryHandlingPreparedStatementBatch(Connection c, String sql, int batchSize, SQLDialect dialect, Boolean[] parameterIsGeometry, boolean linearizeCurves) throws SQLException {
         super(c, sql,batchSize);
         this.dialect = dialect;
-        this.geometryParameterIndexes = geometryParameterIndexes;
+        this.parameterIsGeometry = parameterIsGeometry;
         this.linearizeCurves = linearizeCurves;
     }
 
     @Override
     protected void setPreparedStatementParameter(int oneBasedParameterIndex, int parameterMetadataType, Object parameter) throws SQLException {
-        if (this.geometryParameterIndexes[oneBasedParameterIndex]) {
+        if (this.parameterIsGeometry[oneBasedParameterIndex-1]) {
             this.dialect.setGeometryParameter(c, ps, oneBasedParameterIndex, parameterMetadataType, (Geometry)parameter, linearizeCurves);
         } else {
             super.setPreparedStatementParameter(oneBasedParameterIndex, parameterMetadataType, parameter);

@@ -271,6 +271,10 @@ public class BGTObjectStreamer implements Iterable<BGTObject> {
                     }
 
                     final String name = cityObjectMemberChild.getLocalName();
+                    final BGTSchema.BGTObjectType bgtObjectType = BGTSchema.getObjectTypeByName(name);
+                    if (bgtObjectType == null) {
+                        throw new IllegalArgumentException("Unknown object type: " + name);
+                    }
                     final Location location = cityObjectMemberChild.getCursorLocation();
                     attributes.put("gmlId", fixUUID(cityObjectMemberChild.getAttrValue(NS_GML, "id")));
 
@@ -307,11 +311,11 @@ public class BGTObjectStreamer implements Iterable<BGTObject> {
                              Map<String,Object> attributesForCollectionItem = new HashMap<>(attributes);
                              attributesForCollectionItem.putAll(collectionItem);
                              attributesForCollectionItem.put(BGTSchema.INDEX, index++);
-                             buffer.add(new BGTObject(name, attributesForCollectionItem, location));
+                             buffer.add(new BGTObject(bgtObjectType, attributesForCollectionItem, location));
                         }
                         return buffer.remove();
                     } else {
-                        return new BGTObject(name, attributes, location, mutatieStatus, gmlIdPreviousVersion);
+                        return new BGTObject(bgtObjectType, attributes, location, mutatieStatus, gmlIdPreviousVersion);
                     }
                 } catch(Exception e) {
                     throw new RuntimeException(e);
@@ -352,7 +356,7 @@ public class BGTObjectStreamer implements Iterable<BGTObject> {
         if (attribute.hasLocalName("nummeraanduidingreeks")) {
             Location location = attribute.getCursorLocation();
             Map<String,Object> nummeraanduidingreeks = parseNummeraanduidingreeks(attribute);
-            return new BGTObject("nummeraanduidingreeks", nummeraanduidingreeks, location);
+            return new BGTObject(BGTSchema.getObjectTypeByName("nummeraanduidingreeks"), nummeraanduidingreeks, location);
         }
 
         if(attribute.hasLocalName("openbareRuimteNaam")) {
