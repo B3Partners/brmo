@@ -14,4 +14,7 @@ public class DatabaseOptions {
 
     @Option(names="--batch-size", paramLabel="number")
     Integer batchSize;
+
+    @Option(names={"--no-pg-copy"}, negatable = true)
+    boolean usePgCopy = true;
 }

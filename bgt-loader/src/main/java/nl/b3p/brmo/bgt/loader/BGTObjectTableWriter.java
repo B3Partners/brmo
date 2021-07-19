@@ -1,8 +1,10 @@
 package nl.b3p.brmo.bgt.loader;
 
 import nl.b3p.brmo.sql.GeometryHandlingPreparedStatementBatch;
+import nl.b3p.brmo.sql.PostGISCopyInsertBatch;
 import nl.b3p.brmo.sql.PreparedStatementQueryBatch;
 import nl.b3p.brmo.sql.QueryBatch;
+import nl.b3p.brmo.sql.dialect.PostGISDialect;
 import nl.b3p.brmo.sql.dialect.SQLDialect;
 import nl.b3p.brmo.sql.mapping.AttributeColumnMapping;
 import nl.b3p.brmo.sql.mapping.GeometryAttributeColumnMapping;
@@ -12,6 +14,8 @@ import org.apache.commons.io.input.CountingInputStream;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -43,6 +47,7 @@ public class BGTObjectTableWriter {
     private final SQLDialect dialect;
 
     private int batchSize = 100;
+    private boolean usePgCopy = true;
     private Integer objectLimit = null;
     private boolean linearizeCurves = false;
     private boolean currentObjectsOnly = true;
@@ -57,6 +62,7 @@ public class BGTObjectTableWriter {
     private long objectUpdatedCount = 0;
     private long objectRemovedCount = 0;
     private long historicObjectsCount = 0;
+    private Instant lastProgress = null;
     private BGTObjectStreamer.MutatieInhoud mutatieInhoud;
 
     private Runnable progressUpdater;
@@ -72,6 +78,14 @@ public class BGTObjectTableWriter {
 
     public void setBatchSize(int batchSize) {
         this.batchSize = batchSize;
+    }
+
+    public boolean isUsePgCopy() {
+        return usePgCopy;
+    }
+
+    public void setUsePgCopy(boolean usePgCopy) {
+        this.usePgCopy = usePgCopy;
     }
 
     public Integer getObjectLimit() {
@@ -142,8 +156,11 @@ public class BGTObjectTableWriter {
         return counter.getByteCount();
     }
 
-    private void addObjectBatch(BGTObject object, boolean initialLoad) throws Exception {
-        if(!insertBatches.containsKey(object.getObjectType().getName())) {
+    private void addObjectToBatch(BGTObject object, boolean initialLoad) throws Exception {
+        if(insertBatches.isEmpty()) {
+            // Create / truncate the table for the object and possible one-to-many tables (can't do one-to-many table
+            // later, as a Postgres COPY will block)
+
             if (initialLoad) {
                 if (isCreateSchema()) {
                     QueryRunner qr = new QueryRunner();
@@ -153,15 +170,27 @@ public class BGTObjectTableWriter {
                         qr.update(c, sql);
                     }
                 } else {
-                    truncateTable(c, object);
+                    truncateTable(c, object.getObjectType());
+                    for (BGTSchema.BGTObjectType oneToManyObjectType: object.getObjectType().getOneToManyAttributeObjectTypes().collect(Collectors.toList())) {
+                        truncateTable(c, oneToManyObjectType);
+                    }
                 }
             }
+        }
 
-            String sql = buildInsertSql(object);
-            Boolean[] parameterIsGeometry = object.getObjectType().getDirectAttributes()
-                    .map(attributeColumnMapping -> attributeColumnMapping instanceof GeometryAttributeColumnMapping)
-                    .toArray(Boolean[]::new);
-            insertBatches.put(object.getObjectType().getName(), new GeometryHandlingPreparedStatementBatch(c, sql, batchSize, dialect, parameterIsGeometry, linearizeCurves));
+        if(!insertBatches.containsKey(object.getObjectType().getName())) {
+            QueryBatch queryBatch;
+            if (this.dialect instanceof PostGISDialect && this.usePgCopy) {
+                String sql = buildPgCopySql(object);
+                queryBatch = new PostGISCopyInsertBatch(c, sql, batchSize, dialect, linearizeCurves);
+            } else {
+                String sql = buildInsertSql(object);
+                Boolean[] parameterIsGeometry = object.getObjectType().getDirectAttributes()
+                        .map(attributeColumnMapping -> attributeColumnMapping instanceof GeometryAttributeColumnMapping)
+                        .toArray(Boolean[]::new);
+                queryBatch = new GeometryHandlingPreparedStatementBatch(c, sql, batchSize, dialect, parameterIsGeometry, linearizeCurves);
+            }
+            insertBatches.put(object.getObjectType().getName(), queryBatch);
         }
         QueryBatch batch = insertBatches.get(object.getObjectType().getName());
 
@@ -173,7 +202,8 @@ public class BGTObjectTableWriter {
             params.add(attributeColumnMapping.toQueryParameter(attribute));
         }
 
-        for(BGTSchema.BGTObjectType oneToManyAttribute: object.getObjectType().getOneToManyAttributeObjectTypes().collect(Collectors.toList())) {
+        // FIXME does not work on the same connection or simultaneously at all
+/*        for(BGTSchema.BGTObjectType oneToManyAttribute: object.getObjectType().getOneToManyAttributeObjectTypes().collect(Collectors.toList())) {
             List<BGTObject> objects = (List<BGTObject>) attributes.get(oneToManyAttribute.getName());
             if (objects != null && !objects.isEmpty()) {
                 for(int i = 0; i < objects.size(); i++) {
@@ -185,15 +215,18 @@ public class BGTObjectTableWriter {
                     oneToMany.getAttributes().put(BGTSchema.INDEX, i);
                     Object eindRegistratie = object.getAttributes().get("eindRegistratie");
                     oneToMany.getAttributes().put(getColumnNameForObjectType(oneToMany.getObjectType(),tableName + "eindRegistratie"), eindRegistratie != null);
-                    addObjectBatch(oneToMany, initialLoad);
+                    addObjectToBatch(oneToMany, initialLoad);
                 }
             }
-        }
+        }*/
 
         boolean executed = batch.addBatch(params.toArray());
 
-        if (executed && progressUpdater != null) {
-            progressUpdater.run();
+        if (progressUpdater != null && this.objectCount % 500 == 0) {
+            if (lastProgress == null || Duration.between(lastProgress, Instant.now()).getNano() > 500e6) {
+                progressUpdater.run();
+                lastProgress = Instant.now();
+            }
         }
     }
 
@@ -229,6 +262,7 @@ public class BGTObjectTableWriter {
         this.objectUpdatedCount = 0;
         this.objectRemovedCount = 0;
         this.historicObjectsCount = 0;
+        this.lastProgress = null;
         this.mutatieInhoud = null;
         updateProgress(Stage.PARSE_INHOUD);
 
@@ -265,7 +299,7 @@ public class BGTObjectTableWriter {
                 }
 
                 try {
-                    addObjectBatch(object, initialLoad);
+                    addObjectToBatch(object, initialLoad);
                 } catch(Exception e) {
                     String message = "Exception writing object to database, IMGeo object: ";
                     if (batchSize > 1) {
@@ -326,9 +360,9 @@ public class BGTObjectTableWriter {
         }
     }
 
-    private static void truncateTable(Connection c, BGTObject object) throws SQLException {
+    private static void truncateTable(Connection c, BGTSchema.BGTObjectType objectType) throws SQLException {
         // TODO like jdbc-util, truncate may fail but 'delete from' may succeed
-        new QueryRunner().execute(c, String.format("truncate table %s", getTableNameForObjectType(object.getObjectType())));
+        new QueryRunner().execute(c, String.format("truncate table %s", getTableNameForObjectType(objectType)));
     }
 
     private static String buildInsertSql(BGTObject object) {
@@ -342,6 +376,10 @@ public class BGTObjectTableWriter {
                 .collect(Collectors.joining(", "));
         sql.append(paramPlaceholders).append(")");
         return sql.toString();
+    }
+
+    private String buildPgCopySql(BGTObject object) {
+        return "copy " + getTableNameForObjectType(object.getObjectType()) + "(" + buildColumnList(object) + ") from stdin";
     }
 
     private static String buildColumnList(BGTObject object) {

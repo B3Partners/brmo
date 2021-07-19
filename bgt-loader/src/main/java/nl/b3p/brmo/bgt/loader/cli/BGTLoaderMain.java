@@ -74,7 +74,7 @@ public class BGTLoaderMain {
             @Option(names={"-h","--help"}, usageHelp = true) boolean showHelp) throws Exception {
 
         IMGeoDb db = new IMGeoDb(dbOptions);
-        BGTObjectTableWriter writer = db.createObjectTableWriter(loadOptions);
+        BGTObjectTableWriter writer = db.createObjectTableWriter(loadOptions, dbOptions);
 
         if (loadOptions.createSchema) {
             System.out.println("Creating metadata table...");

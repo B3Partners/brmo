@@ -74,13 +74,14 @@ public class IMGeoDb {
         }
     }
 
-    public BGTObjectTableWriter createObjectTableWriter(LoadOptions loadOptions) throws SQLException, ClassNotFoundException {
+    public BGTObjectTableWriter createObjectTableWriter(LoadOptions loadOptions, DatabaseOptions dbOptions) throws SQLException, ClassNotFoundException {
         BGTObjectTableWriter writer = new BGTObjectTableWriter(getConnection(), this.getDialect());
 
         if (loadOptions == null) {
             loadOptions = new LoadOptions();
         }
-        writer.setBatchSize(this.getDialect().getDefaultOptimalBatchSize());
+        writer.setBatchSize(dbOptions.batchSize != null ? dbOptions.batchSize : this.getDialect().getDefaultOptimalBatchSize());
+        writer.setUsePgCopy(dbOptions.usePgCopy);
         writer.setObjectLimit(loadOptions.maxObjects);
         writer.setLinearizeCurves(loadOptions.linearizeCurves);
         writer.setCurrentObjectsOnly(!loadOptions.includeHistory);

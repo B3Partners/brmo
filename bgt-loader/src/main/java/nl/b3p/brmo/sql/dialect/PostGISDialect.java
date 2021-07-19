@@ -22,12 +22,17 @@ public class PostGISDialect implements SQLDialect{
         if(geometry == null) {
             return null;
         } else {
-            String wkt = linearizeCurves ? wktWriter.write(geometry) : wktWriter2.write(geometry);
+            String ewkt = getEWkt(geometry, linearizeCurves);
             PGobject object = new PGobject();
             object.setType("geometry");
-            object.setValue("SRID=" + geometry.getSRID() + ";" + wkt);
+            object.setValue(ewkt);
             return object;
         }
+    }
+
+    public String getEWkt(Geometry geometry, boolean linearizeCurves) {
+        String wkt = linearizeCurves ? wktWriter.write(geometry) : wktWriter2.write(geometry);
+        return "SRID=" + geometry.getSRID() + ";" + wkt;
     }
 
     @Override

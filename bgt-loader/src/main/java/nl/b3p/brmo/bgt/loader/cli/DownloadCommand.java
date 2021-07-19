@@ -88,7 +88,7 @@ public class DownloadCommand {
 
             URI downloadURI = DownloadApiUtils.getCustomDownloadURL(client, null, extractSelectionOptions, cliCustomDownloadProgressConsumer);
 
-            loadFromURI(db, loadOptions, extractSelectionOptions, downloadURI, start);
+            loadFromURI(db, loadOptions, dbOptions, extractSelectionOptions, downloadURI, start);
             db.setMetadataValue(Metadata.DELTA_TIME_TO, null);
             return ExitCode.OK;
         });
@@ -167,7 +167,7 @@ public class DownloadCommand {
             for(Delta delta: deltas) {
                 System.out.printf("Creating delta download for delta id %s... ", delta.getId());
                 URI downloadURI = DownloadApiUtils.getCustomDownloadURL(client, delta, extractSelectionOptions, cliCustomDownloadProgressConsumer);
-                loadFromURI(db, loadOptions, extractSelectionOptions, downloadURI, start);
+                loadFromURI(db, loadOptions, dbOptions, extractSelectionOptions, downloadURI, start);
             }
 
             db.setMetadataValue(Metadata.LOADER_VERSION, getLoaderVersion());
@@ -204,7 +204,7 @@ public class DownloadCommand {
         }
     };
 
-    private static void loadFromURI(IMGeoDb db, LoadOptions loadOptions, ExtractSelectionOptions extractSelectionOptions, URI downloadURI, Instant start) throws Exception {
+    private static void loadFromURI(IMGeoDb db, LoadOptions loadOptions, DatabaseOptions dbOptions, ExtractSelectionOptions extractSelectionOptions, URI downloadURI, Instant start) throws Exception {
         System.out.printf("Downloading extract from URL: %s", downloadURI);
 
         HttpHeaders headResponseHeaders = getHEADResponse(downloadURI).headers();
@@ -217,7 +217,7 @@ public class DownloadCommand {
         // Needed for If-Range header
         //Optional<String> etag = response.headers().firstValue("Etag");
 
-        BGTObjectTableWriter writer = db.createObjectTableWriter(loadOptions);
+        BGTObjectTableWriter writer = db.createObjectTableWriter(loadOptions, dbOptions);
 
         // Are resume-able downloads with Range requests needed?
         try (InputStream input = new URL(downloadURI.toString()).openConnection().getInputStream()) {
