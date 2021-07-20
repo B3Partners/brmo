@@ -3,14 +3,10 @@ package nl.b3p.brmo.sql;
 import nl.b3p.brmo.sql.dialect.PostGISDialect;
 import nl.b3p.brmo.sql.dialect.SQLDialect;
 import org.apache.commons.text.StringEscapeUtils;
-import org.apache.commons.text.translate.CharSequenceTranslator;
 import org.locationtech.jts.geom.Geometry;
 import org.postgresql.PGConnection;
 import org.postgresql.copy.CopyIn;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 
@@ -26,7 +22,7 @@ public class PostGISCopyInsertBatch implements QueryBatch {
     protected boolean linearizeCurves;
 
     protected int count = 0;
-    protected ByteArrayOutputStream copyData = new ByteArrayOutputStream();
+    protected StringBuilder copyData = createCopyTextEscapingStringBuilder();
 
     public PostGISCopyInsertBatch(Connection connection, String sql, int batchSize, SQLDialect dialect, boolean linearizeCurves) {
         if (!(dialect instanceof PostGISDialect)) {
@@ -39,31 +35,56 @@ public class PostGISCopyInsertBatch implements QueryBatch {
         this.linearizeCurves = linearizeCurves;
     }
 
+    public static StringBuilder createCopyTextEscapingStringBuilder() {
+        return new StringBuilder();
+/*        return StringEscapeUtils.builder(new CharSequenceTranslator() {
+            @Override
+            public int translate(CharSequence charSequence, int start, Writer writer) throws IOException {
+                for(int i = start; i < charSequence.length(); i++) {
+                    char c = charSequence.charAt(i);
+                    String subst = null;
+                    if (c == '\\') {
+                        subst = "\\\\";
+                    } else if (c == '\t') {
+                        subst = "\\t";
+                    } else if (c == '\n') {
+                        subst = "\\n";
+                    }
+                    if (subst != null) {
+                        if (i > start) {
+                            writer.append(charSequence, start, i);
+                        }
+                        writer.append(subst);
+                        return i - start + 1;
+                    }
+                }
+                writer.append(charSequence, start, charSequence.length());
+                return charSequence.length() - start;
+            }
+        });*/
+    }
+
     @Override
     public boolean addBatch(Object[] params) throws Exception {
-        StringBuilder s = new StringBuilder();
         for(int i = 0; i < params.length; i++) {
             if (i != 0) {
-                s.append("\t");
+                copyData.append("\t");
             }
             Object param = params[i];
-            String value;
             if (param == null) {
-                s.append("\\N");
+                copyData.append("\\N");
             } else if (param instanceof Geometry) {
                 Geometry geometry = (Geometry) param;
-                s.append(dialect.getEWkt(geometry, linearizeCurves));
+                copyData.append(dialect.getEWkt(geometry, linearizeCurves));
             } else if (param instanceof Boolean) {
-                s.append((Boolean)param ? "t" : "f");
+                copyData.append((Boolean)param ? "t" : "f");
             } else {
                 // FIXME any more types need special conversion?
-                quote(param.toString(), s);
+                //copyData.escape(param.toString());
+                quote(param.toString(), copyData);
             }
         }
-        s.append("\n");
-        // XXX PostgreSQL does not support 0 bytes in UTF8 string
-        byte[] bytes = s.toString().getBytes(StandardCharsets.UTF_8);
-        copyData.writeBytes(bytes);
+        copyData.append("\n");
 
         count++;
         if (count == batchSize) {
@@ -125,7 +146,8 @@ public class PostGISCopyInsertBatch implements QueryBatch {
                 "aanheteind\n"
         };
         for(String s: t) {
-            test2(s);
+            test(s);
+            //test2(s);
         }
     }
 
@@ -136,46 +158,25 @@ public class PostGISCopyInsertBatch implements QueryBatch {
         System.out.println(sb);
     }
 
+/*
     private static void test2(String s) {
         System.out.print(StringEscapeUtils.escapeJava(s) + " -> ");
-        StringEscapeUtils.Builder sb = StringEscapeUtils.builder(new CharSequenceTranslator() {
-            @Override
-            public int translate(CharSequence charSequence, int start, Writer writer) throws IOException {
-                for(int i = start; i < charSequence.length(); i++) {
-                    char c = charSequence.charAt(i);
-                    String subst = null;
-                    if (c == '\\') {
-                        subst = "\\\\";
-                    } else if (c == '\t') {
-                        subst = "\\t";
-                    } else if (c == '\n') {
-                        subst = "\\n";
-                    }
-                    if (subst != null) {
-                        if (i > start) {
-                            writer.append(charSequence, start, i);
-                        }
-                        writer.append(subst);
-                        return i - start + 1;
-                    }
-                }
-                writer.append(charSequence, start, charSequence.length());
-                return charSequence.length() - start;
-            }
-        });
+        StringEscapeUtils.Builder sb = createCopyTextEscapingStringBuilder();
         sb.escape(s);
         System.out.println(sb);
     }
+*/
 
     @Override
     public void executeBatch() throws Exception {
         if (count > 0) {
             PGConnection pgConnection = connection.unwrap(PGConnection.class);
             CopyIn copyIn = pgConnection.getCopyAPI().copyIn(sql);
-            copyIn.writeToCopy(copyData.toByteArray(), 0, copyData.size());
+            byte[] bytes = copyData.toString().getBytes(StandardCharsets.UTF_8);
+            copyIn.writeToCopy(bytes, 0, bytes.length);
             copyIn.endCopy();
             count = 0;
-            copyData = new ByteArrayOutputStream();
+            copyData = createCopyTextEscapingStringBuilder();
         }
     }
 
