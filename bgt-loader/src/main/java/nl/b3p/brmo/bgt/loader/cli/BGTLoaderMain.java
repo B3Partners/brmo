@@ -4,6 +4,7 @@ import nl.b3p.brmo.bgt.download.model.DeltaCustomDownloadRequest;
 import nl.b3p.brmo.bgt.loader.BGTObjectTableWriter;
 import nl.b3p.brmo.bgt.loader.BGTSchemaMapper;
 import nl.b3p.brmo.bgt.loader.Utils;
+import nl.b3p.brmo.sql.PostGISCopyInsertBatch;
 import nl.b3p.brmo.sql.dialect.SQLDialect;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.io.FileUtils;
@@ -147,6 +148,7 @@ public class BGTLoaderMain {
         });
 
         System.out.printf("Finished writing all tables in %s\n", formatTimeSince(loadStart));
+        System.out.printf("Total copy duration: %s\n", PostGISCopyInsertBatch.copyDuration.toString());
     }
 
     private void loadXml(File file, BGTObjectTableWriter writer) throws Exception {

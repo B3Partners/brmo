@@ -10,6 +10,8 @@ import org.postgresql.copy.CopyIn;
 import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.time.Duration;
+import java.time.Instant;
 
 /**
  * The PostgreSQL JDBC driver does not support parallel copy operations, even with multiple connections. So this class
@@ -46,12 +48,16 @@ public class PostGISCopyInsertBatch implements QueryBatch {
         this.copyIn = pgConnection.getCopyAPI().copyIn(sql);
     }
 
+    public static Duration copyDuration = Duration.ofSeconds(0);
+
     protected void writeToCopy() throws SQLException {
         if (copyIn == null) {
             createCopyIn();
         }
+        Instant start = Instant.now();
         byte[] bytes = copyData.toString().getBytes(StandardCharsets.UTF_8);
         copyIn.writeToCopy(bytes, 0, bytes.length);
+        copyDuration = copyDuration.plus(Duration.between(start, Instant.now()));
         copyData = PostgresCopyEscapeUtils.builder();
     }
 
@@ -95,7 +101,9 @@ public class PostGISCopyInsertBatch implements QueryBatch {
             if (buffer) {
                 writeToCopy();
             }
+            Instant start = Instant.now();
             copyIn.endCopy();
+            copyDuration = copyDuration.plus(Duration.between(start, Instant.now()));
             lastCopyIn = copyIn;
             // reset so writeToCopy will create a new one
             copyIn = null;
