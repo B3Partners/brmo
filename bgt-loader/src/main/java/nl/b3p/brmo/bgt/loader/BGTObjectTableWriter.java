@@ -17,9 +17,12 @@ import java.sql.SQLException;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -48,6 +51,7 @@ public class BGTObjectTableWriter {
     private final SQLDialect dialect;
 
     private int batchSize = 100;
+    private boolean multithreading = true;
     private boolean usePgCopy = true;
     private Integer objectLimit = null;
     private boolean linearizeCurves = false;
@@ -66,6 +70,8 @@ public class BGTObjectTableWriter {
         // If we are only inserting into a single table, we can use the faster Postgres COPY
         private boolean singleTableInserts = false;
 
+        private final BlockingQueue<BGTObject> bgtObjects;
+
         private Stage stage = Stage.LOAD_OBJECTS;
         private long objectCount = 0;
         private long objectUpdatedCount = 0;
@@ -73,6 +79,13 @@ public class BGTObjectTableWriter {
         private long historicObjectsCount = 0;
         private Instant lastProgressUpdate = null;
         private BGTObjectStreamer.MutatieInhoud mutatieInhoud;
+
+        private Progress(int batchSize) {
+            if (batchSize <= 0) {
+                batchSize = 2500;
+            }
+            bgtObjects = new ArrayBlockingQueue<>(batchSize);
+        }
 
         public Stage getStage() {
             return stage;
@@ -114,6 +127,14 @@ public class BGTObjectTableWriter {
 
     public void setBatchSize(int batchSize) {
         this.batchSize = batchSize;
+    }
+
+    public boolean isMultithreading() {
+        return multithreading;
+    }
+
+    public void setMultithreading(boolean multithreading) {
+        this.multithreading = multithreading;
     }
 
     public boolean isUsePgCopy() {
@@ -211,10 +232,20 @@ public class BGTObjectTableWriter {
     }
 
     private void addObjectToBatch(BGTObject object, boolean initialLoad) throws Exception {
+        addObjectToBatch(object, initialLoad, false);
+    }
+
+    private void addObjectToBatch(BGTObject object, boolean initialLoad, boolean fromWorkerThread) throws Exception {
+        if (multithreading && !fromWorkerThread) {
+            // Do creation of QueryBatch on main thread, so exceptions stop processing immediately
+            getInsertBatch(object, initialLoad);
+            progress.bgtObjects.put(object);
+            return;
+        }
+
         QueryBatch batch = getInsertBatch(object, initialLoad);
 
         Map<String, Object> attributes = object.getAttributes();
-
         List<Object> params = new ArrayList<>();
         for(AttributeColumnMapping attributeColumnMapping: object.getObjectType().getDirectAttributes()) {
             Object attribute = attributes.get(attributeColumnMapping.getName());
@@ -233,7 +264,7 @@ public class BGTObjectTableWriter {
                     oneToMany.getAttributes().put(BGTSchema.INDEX, i);
                     Object eindRegistratie = object.getAttributes().get("eindRegistratie");
                     oneToMany.getAttributes().put(getColumnNameForObjectType(oneToMany.getObjectType(),tableName + "eindRegistratie"), eindRegistratie != null);
-                    addObjectToBatch(oneToMany, initialLoad);
+                    addObjectToBatch(oneToMany, initialLoad, fromWorkerThread);
                 }
             }
         }
@@ -270,8 +301,29 @@ public class BGTObjectTableWriter {
         }
     }
 
+    private final Runnable worker = () -> {
+        try {
+            while (true) {
+                List<BGTObject> objects = new ArrayList<>(progress.bgtObjects.size());
+                objects.add(progress.bgtObjects.take());
+                progress.bgtObjects.drainTo(objects);
+                for(BGTObject object: objects) {
+                    if (object.getObjectType() == null) {
+                        return;
+                    }
+                    addObjectToBatch(object, false, true);
+                }
+            }
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        } catch (Exception e) {
+            // TODO set interrupt flag, save exception, look at it in write()
+            e.printStackTrace();
+        }
+    };
+
     public void write(InputStream bgtXml) throws Exception {
-        this.progress = new Progress();
+        this.progress = new Progress(batchSize);
         updateProgress(Stage.PARSE_INHOUD);
         connection.setAutoCommit(false);
 
@@ -283,6 +335,11 @@ public class BGTObjectTableWriter {
             updateProgress(Stage.LOAD_OBJECTS);
             boolean initialLoad = progress.mutatieInhoud == null || "initial".equals(progress.getMutatieInhoud().getMutatieType());
             boolean first = true;
+            Thread workerThread = null;
+            if (multithreading) {
+                workerThread = new Thread(worker);
+                workerThread.start();
+            }
             for (BGTObject object: streamer) {
                 // Determine if we can use only a single table COPY without buffering
                 if (first) {
@@ -327,6 +384,12 @@ public class BGTObjectTableWriter {
                 if (objectLimit != null && progress.objectCount == objectLimit) {
                     break;
                 }
+            }
+
+            if (workerThread != null) {
+                // Signal end of objects to thread
+                progress.bgtObjects.put(new BGTObject(null, Collections.emptyMap()));
+                workerThread.join();
             }
 
             Stream.concat(progress.insertBatches.values().stream(), progress.deleteBatches.values().stream()).forEach(batch -> {

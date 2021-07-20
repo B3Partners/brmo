@@ -14,4 +14,7 @@ public class LoadOptions {
 
     @Option(names={"--linearize-curves"})
     boolean linearizeCurves = false;
+
+    @Option(names={"--no-multithreading"}, negatable = true)
+    boolean multithreading = true;
 }

@@ -81,6 +81,7 @@ public class IMGeoDb {
             loadOptions = new LoadOptions();
         }
         writer.setBatchSize(dbOptions.batchSize != null ? dbOptions.batchSize : this.getDialect().getDefaultOptimalBatchSize());
+        writer.setMultithreading(loadOptions.multithreading);
         writer.setUsePgCopy(dbOptions.usePgCopy);
         writer.setObjectLimit(loadOptions.maxObjects);
         writer.setLinearizeCurves(loadOptions.linearizeCurves);
