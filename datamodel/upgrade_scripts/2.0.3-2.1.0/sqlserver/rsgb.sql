@@ -34,6 +34,10 @@ CREATE TABLE woz_omvat (
 
 GO
 
+-- voeg kolom nonmailing toe aan tabel maatschapp_activiteit
+ALTER TABLE maatschapp_activiteit ADD nonmailing varchar(3) NULL;
+GO
+
 -- onderstaande dienen als laatste stappen van een upgrade uitgevoerd
 INSERT INTO brmo_metadata (naam,waarde) SELECT 'upgrade_2.0.3_naar_2.1.0','vorige versie was ' + waarde FROM brmo_metadata WHERE naam='brmoversie';
 -- versienummer update

@@ -39,6 +39,9 @@ COMMENT ON COLUMN WOZ_OMVAT.FK_SC_LH_KAD_IDENTIF IS '[FK] N15, FK naar kad_onrrn
 COMMENT ON COLUMN WOZ_OMVAT.FK_SC_RH_WOZ_NUMMER IS '[FK] N12, FK naar woz_obj.nummer';
 COMMENT ON COLUMN WOZ_OMVAT.TOEGEKENDE_OPP IS 'N12, toegekende oppervlakte';
 
+-- voeg kolom nonmailing toe aan tabel maatschapp_activiteit
+ALTER TABLE maatschapp_activiteit ADD nonmailing VARCHAR2(3);
+COMMENT ON COLUMN maatschapp_activiteit.nonmailing IS 'nonMailing attribuut (niet-RSGB)';
 
 -- onderstaande dienen als laatste stappen van een upgrade uitgevoerd
 INSERT INTO brmo_metadata (naam,waarde) SELECT 'upgrade_2.0.3_naar_2.1.0','vorige versie was ' || waarde FROM brmo_metadata WHERE naam='brmoversie';

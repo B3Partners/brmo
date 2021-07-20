@@ -73,12 +73,14 @@ public class BedrijfAlsFuntionarisNhrToStagingToRsgbIntegrationTest extends Abst
                         {"select * from functionaris where fk_sc_lh_pes_sc_identif='nhr.buitenlVenn.naam.782f4c4bef5a6bf48206ed2c6c6b9fbe138af4a7' and functie='Enig aandeelhouder'", 1},
                         {"select * from subject where identif='nhr.buitenlVenn.naam.782f4c4bef5a6bf48206ed2c6c6b9fbe138af4a7'", 1},
                         {"ander_btnlnds_niet_nat_prs", 1},
+                        {"select kvk_nummer from maatschapp_activiteit where nonmailing = 'Nee'", 1},
                 })),
                 // #2 BVNN/Boskalis Dolman V.O.F. / 01083730 / 2 samenwerkingsverbanden als functionaris
                 arguments("/nhr-v3/bedrijf-als-functionaris/2020-06-18-154135-01083730.anon.xml", MapUtils.putAll(new HashMap<String, Integer>(), new Object[][]{
                         {"maatschapp_activiteit", 1},
                         {"vestg", 2},
                         {"functionaris", 3},
+                        {"select kvk_nummer from maatschapp_activiteit where nonmailing = 'Nee'", 1},
                 })),
                 // #3 Maatschap Rozema-Kist / 5 natuurlijke personen in samenwerkingsverband
                 arguments("/nhr-v3/bedrijf-als-functionaris/2020-06-18-154143-01173390.anon.xml", MapUtils.putAll(new HashMap<String, Integer>(), new Object[][]{
@@ -111,6 +113,8 @@ public class BedrijfAlsFuntionarisNhrToStagingToRsgbIntegrationTest extends Abst
                         {"maatschapp_activiteit", 1},
                         {"vestg", 2},
                         {"functionaris", 6},
+                        {"select kvk_nummer from maatschapp_activiteit where nonmailing = 'Nee'", 0},
+                        {"select kvk_nummer from maatschapp_activiteit where nonmailing = 'Ja'", 1},
                 })),
                 // #8 Handelsonderneming Koen Meijer B.V. /
                 arguments("/nhr-v3/bedrijf-als-functionaris/2020-06-18-154203-02334440.anon.xml", MapUtils.putAll(new HashMap<String, Integer>(), new Object[][]{
@@ -187,6 +191,7 @@ public class BedrijfAlsFuntionarisNhrToStagingToRsgbIntegrationTest extends Abst
                         {"ander_btnlnds_niet_nat_prs", 1},
                         // er zitten subjecten in met >1 functionaris rol
                         {"functionaris", 14},
+                        {"select kvk_nummer from maatschapp_activiteit where nonmailing = 'Ja'", 1},
                 })),
                 // #19 Melspring International B.V.
                 arguments("/nhr-v3/bedrijf-als-functionaris/2020-06-18-154245-09131564.anon.xml", MapUtils.putAll(new HashMap<String, Integer>(), new Object[][]{
@@ -201,6 +206,7 @@ public class BedrijfAlsFuntionarisNhrToStagingToRsgbIntegrationTest extends Abst
                         {"niet_nat_prs", 3},
                         {"ingeschr_niet_nat_prs", 2},
                         {"subject", 10},
+                        {"select kvk_nummer from maatschapp_activiteit where nonmailing = 'Nee'", 1},
                 }))
         );
     }
