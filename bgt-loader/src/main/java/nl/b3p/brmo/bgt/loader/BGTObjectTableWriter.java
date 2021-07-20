@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -53,19 +54,54 @@ public class BGTObjectTableWriter {
     private boolean currentObjectsOnly = true;
     private boolean createSchema = false;
 
-    private CountingInputStream counter;
-    private Map<String, QueryBatch> insertBatches = new HashMap<>();
-    private Map<String, QueryBatch> deleteBatches = new HashMap<>();
+    private Consumer<Progress> progressUpdater;
 
-    private Stage stage = Stage.LOAD_OBJECTS;
-    private long objectCount = 0;
-    private long objectUpdatedCount = 0;
-    private long objectRemovedCount = 0;
-    private long historicObjectsCount = 0;
-    private Instant lastProgress = null;
-    private BGTObjectStreamer.MutatieInhoud mutatieInhoud;
+    private Progress progress = null;
 
-    private Runnable progressUpdater;
+    public static class Progress {
+        private CountingInputStream counter;
+        private Map<String, QueryBatch> insertBatches = new HashMap<>();
+        private Map<String, QueryBatch> deleteBatches = new HashMap<>();
+
+        // If we are only inserting into a single table, we can use the faster Postgres COPY
+        private boolean singleTableInserts = false;
+
+        private Stage stage = Stage.LOAD_OBJECTS;
+        private long objectCount = 0;
+        private long objectUpdatedCount = 0;
+        private long objectRemovedCount = 0;
+        private long historicObjectsCount = 0;
+        private Instant lastProgressUpdate = null;
+        private BGTObjectStreamer.MutatieInhoud mutatieInhoud;
+
+        public Stage getStage() {
+            return stage;
+        }
+
+        public long getObjectCount() {
+            return objectCount;
+        }
+
+        public long getObjectUpdatedCount() {
+            return objectUpdatedCount;
+        }
+
+        public long getObjectRemovedCount() {
+            return objectRemovedCount;
+        }
+
+        public long getHistoricObjectsCount() {
+            return historicObjectsCount;
+        }
+
+        public long getBytesRead() {
+            return counter.getByteCount();
+        }
+
+        public BGTObjectStreamer.MutatieInhoud getMutatieInhoud() {
+            return mutatieInhoud;
+        }
+    }
 
     public BGTObjectTableWriter(Connection connection, SQLDialect dialect) {
         this.connection = connection;
@@ -120,47 +156,21 @@ public class BGTObjectTableWriter {
         this.createSchema = createSchema;
     }
 
-    public BGTObjectStreamer.MutatieInhoud getMutatieInhoud() {
-        return mutatieInhoud;
-    }
-
-    public Runnable getProgressUpdater() {
+    public Consumer<Progress> getProgressUpdater() {
         return progressUpdater;
     }
 
-    public void setProgressUpdater(Runnable progressUpdater) {
+    public void setProgressUpdater(Consumer<Progress> progressUpdater) {
         this.progressUpdater = progressUpdater;
     }
 
-    public Stage getStage() {
-        return stage;
-    }
-
-    public long getObjectCount() {
-        return objectCount;
-    }
-
-    public long getObjectUpdatedCount() {
-        return objectUpdatedCount;
-    }
-
-    public long getObjectRemovedCount() {
-        return objectRemovedCount;
-    }
-
-    public long getHistoricObjectsCount() {
-        return historicObjectsCount;
-    }
-
-    public long getBytesRead() {
-        return counter.getByteCount();
+    public Progress getProgress() {
+        return progress;
     }
 
     private void addObjectToBatch(BGTObject object, boolean initialLoad) throws Exception {
+        Map<String,QueryBatch> insertBatches = progress.insertBatches;
         if(insertBatches.isEmpty()) {
-            // Create / truncate the table for the object and possible one-to-many tables (can't do one-to-many table
-            // later, as a Postgres COPY will block)
-
             if (initialLoad) {
                 if (isCreateSchema()) {
                     QueryRunner qr = new QueryRunner();
@@ -182,7 +192,12 @@ public class BGTObjectTableWriter {
             QueryBatch queryBatch;
             if (this.dialect instanceof PostGISDialect && this.usePgCopy) {
                 String sql = buildPgCopySql(object, initialLoad);
-                queryBatch = new PostGISCopyInsertBatch(connection, sql, batchSize, dialect, linearizeCurves);
+                // Using Postgres COPY while buffering the copy stream is not faster than using batched inserts with the
+                // reWriteBatchedInserts=true connection parameter. Buffering is required when a one-to-many attribute
+                // exists, because simultaneous COPY statements (even with separate connections) are not supported by
+                // the JDBC driver
+                boolean bufferCopy = !progress.singleTableInserts;
+                queryBatch = new PostGISCopyInsertBatch(connection, sql, batchSize, dialect, bufferCopy, linearizeCurves);
             } else {
                 String sql = buildInsertSql(object);
                 Boolean[] parameterIsGeometry = object.getObjectType().getDirectAttributes()
@@ -219,25 +234,16 @@ public class BGTObjectTableWriter {
             }
         }
 
-        boolean executed = batch.addBatch(params.toArray());
+        batch.addBatch(params.toArray());
 
-        if (executed && progressUpdater != null) {
-            progressUpdater.run();
-        }
-/*
-        if (progressUpdater != null && this.objectCount % 500 == 0) {
-            if (lastProgress == null || Duration.between(lastProgress, Instant.now()).getNano() > 500e6) {
-                progressUpdater.run();
-                lastProgress = Instant.now();
-            }
-        }
-*/
+        updateProgress();
     }
 
     private void deletePreviousVersion(BGTObject object) throws Exception {
         BGTSchema.BGTObjectType objectType = object.getObjectType();
         String idAttributeName = objectType.getPrimaryKeys().findFirst().get().getName();
         String tableName = getTableNameForObjectType(objectType);
+        Map<String,QueryBatch> deleteBatches = progress.deleteBatches;
         if(!deleteBatches.containsKey(objectType.getName())) {
             String sql = "delete from " + tableName + " where " + getColumnNameForObjectType(objectType, idAttributeName) + " = ?";
             deleteBatches.put(objectType.getName(), new PreparedStatementQueryBatch(connection, sql, batchSize));
@@ -256,29 +262,31 @@ public class BGTObjectTableWriter {
             executed = executed | deleteBatch.addBatch(new Object[] {object.getMutatiePreviousVersionGmlId()});
         }
 
-        if (executed && progressUpdater != null) {
-            progressUpdater.run();
+        if (executed) {
+            updateProgress();
         }
     }
 
     public void write(InputStream bgtXml) throws Exception {
-        this.objectCount = 0;
-        this.objectUpdatedCount = 0;
-        this.objectRemovedCount = 0;
-        this.historicObjectsCount = 0;
-        this.lastProgress = null;
-        this.mutatieInhoud = null;
+        this.progress = new Progress();
         updateProgress(Stage.PARSE_INHOUD);
         connection.setAutoCommit(false);
 
         try(CountingInputStream counter = new CountingInputStream(bgtXml)) {
-            this.counter = counter;
+            progress.counter = counter;
 
             BGTObjectStreamer streamer = new BGTObjectStreamer(counter);
-            this.mutatieInhoud = streamer.getMutatieInhoud();
+            progress.mutatieInhoud = streamer.getMutatieInhoud();
             updateProgress(Stage.LOAD_OBJECTS);
-            boolean initialLoad = this.mutatieInhoud == null || "initial".equals(this.getMutatieInhoud().getMutatieType());
+            boolean initialLoad = progress.mutatieInhoud == null || "initial".equals(progress.getMutatieInhoud().getMutatieType());
+            boolean first = true;
             for (BGTObject object: streamer) {
+                // Determine if we can use only a single table COPY without buffering
+                if (first) {
+                    progress.singleTableInserts = initialLoad && object.getObjectType().getOneToManyAttributeObjectTypes().findFirst().isEmpty();
+                    first = false;
+                }
+
                 boolean skipHistoricObject = object.getAttributes().get(EIND_REGISTRATIE) != null && currentObjectsOnly;
                 if (object.getMutatieStatus() == WAS_WORDT) {
                     // Deletes and new versions do not need to be DELETE'd and INSERT-ed in order
@@ -287,15 +295,15 @@ public class BGTObjectTableWriter {
                     deletePreviousVersion(object);
 
                     if (skipHistoricObject) {
-                        this.objectRemovedCount++;
+                        progress.objectRemovedCount++;
                     } else {
-                        this.objectUpdatedCount++;
+                        progress.objectUpdatedCount++;
                     }
                 } else if(object.getMutatieStatus() == WORDT) {
                     if (skipHistoricObject) {
-                        this.historicObjectsCount++;
+                        progress.historicObjectsCount++;
                     } else {
-                        this.objectCount++;
+                        progress.objectCount++;
                     }
                 }
 
@@ -313,12 +321,12 @@ public class BGTObjectTableWriter {
                     throw new Exception(message + object, e);
                 }
 
-                if (objectLimit != null && this.objectCount == objectLimit) {
+                if (objectLimit != null && progress.objectCount == objectLimit) {
                     break;
                 }
             }
 
-            Stream.concat(insertBatches.values().stream(), deleteBatches.values().stream()).forEach(batch -> {
+            Stream.concat(progress.insertBatches.values().stream(), progress.deleteBatches.values().stream()).forEach(batch -> {
                 try {
                     batch.executeBatch();
                 } catch (Exception e) {
@@ -329,13 +337,13 @@ public class BGTObjectTableWriter {
             if (isCreateSchema() && initialLoad) {
                 QueryRunner qr = new QueryRunner();
                 updateProgress(Stage.CREATE_PRIMARY_KEY);
-                for(String name: insertBatches.keySet()) {
+                for(String name: progress.insertBatches.keySet()) {
                     for (String sql: getCreatePrimaryKeyStatements(BGTSchema.getObjectTypeByName(name), dialect, false).collect(Collectors.toList())) {
                         qr.update(connection, sql);
                     }
                 }
                 updateProgress(Stage.CREATE_GEOMETRY_INDEX);
-                for(String name: insertBatches.keySet()) {
+                for(String name: progress.insertBatches.keySet()) {
                     for(String sql: getCreateGeometryIndexStatements(BGTSchema.getObjectTypeByName(name), dialect, false).collect(Collectors.toList())) {
                         qr.update(connection, sql);
                     }
@@ -344,25 +352,33 @@ public class BGTObjectTableWriter {
             connection.commit();
             updateProgress(Stage.FINISHED);
         } finally {
-            Stream.concat(insertBatches.values().stream(), deleteBatches.values().stream()).forEach(batch -> {
+            Stream.concat(progress.insertBatches.values().stream(), progress.deleteBatches.values().stream()).forEach(batch -> {
                 try {
                     batch.close();
                 } catch (Exception ignored) {
                 }
             });
-            insertBatches = new HashMap<>();
-            deleteBatches = new HashMap<>();
         }
     }
 
     private void updateProgress(Stage stage) {
-        this.stage = stage;
-        updateProgress();
+        this.progress.stage = stage;
+        updateProgress(true);
     }
 
     private void updateProgress() {
-        if (progressUpdater != null) {
-            progressUpdater.run();
+        updateProgress(false);
+    }
+
+    private void updateProgress(boolean always) {
+        if (progressUpdater == null) {
+            return;
+        }
+        boolean timeForProgress = progress.lastProgressUpdate == null ||
+                (progress.objectCount % 500 == 0 && Duration.between(progress.lastProgressUpdate, Instant.now()).getNano() > 250e6);
+        if (always || timeForProgress) {
+            progressUpdater.accept(progress);
+            progress.lastProgressUpdate = Instant.now();
         }
     }
 

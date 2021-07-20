@@ -9,10 +9,12 @@ import org.postgresql.copy.CopyIn;
 
 import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
+import java.sql.SQLException;
 
 /**
  * The PostgreSQL JDBC driver does not support parallel copy operations, even with multiple connections. So this class
- * caches the copy stream in memory so only one copy operation is active at a time.
+ * can cache the copy stream in memory so only one copy operation is active at a time, although this is significantly
+ * slower.
  */
 public class PostGISCopyInsertBatch implements QueryBatch {
     protected Connection connection;
@@ -22,9 +24,12 @@ public class PostGISCopyInsertBatch implements QueryBatch {
     protected boolean linearizeCurves;
 
     protected int count = 0;
-    protected StringBuilder copyData = createCopyTextEscapingStringBuilder();
+    protected StringEscapeUtils.Builder copyData = PostgresCopyEscapeUtils.builder();
+    protected CopyIn copyIn = null;
+    protected CopyIn lastCopyIn = null;
+    protected boolean buffer;
 
-    public PostGISCopyInsertBatch(Connection connection, String sql, int batchSize, SQLDialect dialect, boolean linearizeCurves) {
+    public PostGISCopyInsertBatch(Connection connection, String sql, int batchSize, SQLDialect dialect, boolean buffer, boolean linearizeCurves) {
         if (!(dialect instanceof PostGISDialect)) {
             throw new IllegalArgumentException();
         }
@@ -32,36 +37,22 @@ public class PostGISCopyInsertBatch implements QueryBatch {
         this.sql = sql;
         this.dialect = (PostGISDialect)dialect;
         this.batchSize = batchSize;
+        this.buffer = buffer;
         this.linearizeCurves = linearizeCurves;
     }
 
-    public static StringBuilder createCopyTextEscapingStringBuilder() {
-        return new StringBuilder();
-/*        return StringEscapeUtils.builder(new CharSequenceTranslator() {
-            @Override
-            public int translate(CharSequence charSequence, int start, Writer writer) throws IOException {
-                for(int i = start; i < charSequence.length(); i++) {
-                    char c = charSequence.charAt(i);
-                    String subst = null;
-                    if (c == '\\') {
-                        subst = "\\\\";
-                    } else if (c == '\t') {
-                        subst = "\\t";
-                    } else if (c == '\n') {
-                        subst = "\\n";
-                    }
-                    if (subst != null) {
-                        if (i > start) {
-                            writer.append(charSequence, start, i);
-                        }
-                        writer.append(subst);
-                        return i - start + 1;
-                    }
-                }
-                writer.append(charSequence, start, charSequence.length());
-                return charSequence.length() - start;
-            }
-        });*/
+    protected void createCopyIn() throws SQLException {
+        PGConnection pgConnection = connection.unwrap(PGConnection.class);
+        this.copyIn = pgConnection.getCopyAPI().copyIn(sql);
+    }
+
+    protected void writeToCopy() throws SQLException {
+        if (copyIn == null) {
+            createCopyIn();
+        }
+        byte[] bytes = copyData.toString().getBytes(StandardCharsets.UTF_8);
+        copyIn.writeToCopy(bytes, 0, bytes.length);
+        copyData = PostgresCopyEscapeUtils.builder();
     }
 
     @Override
@@ -79,12 +70,15 @@ public class PostGISCopyInsertBatch implements QueryBatch {
             } else if (param instanceof Boolean) {
                 copyData.append((Boolean)param ? "t" : "f");
             } else {
-                // FIXME any more types need special conversion?
-                //copyData.escape(param.toString());
-                quote(param.toString(), copyData);
+                // TODO any more types need special conversion?
+                copyData.escape(param.toString());
             }
         }
         copyData.append("\n");
+
+        if (!buffer) {
+            writeToCopy();
+        }
 
         count++;
         if (count == batchSize) {
@@ -94,89 +88,18 @@ public class PostGISCopyInsertBatch implements QueryBatch {
         return false;
     }
 
-    private static void quote(String str, StringBuilder sb) {
-        if (str.length() == 0) {
-            return;
-        }
-        char[] s = str.toCharArray();
-        int start = 0;
-        int end = 0;
-        int length = s.length;
-        boolean haveEscaped = false;
-        int sbStart = sb.length();
-        do {
-            char c;
-            boolean escape;
-            do {
-                c = s[end++];
-                escape = c == '\\' || c == '\n' || c == '\t';
-            } while (end < length && !escape);
-            if (escape) {
-                haveEscaped = true;
-                if(end > start) {
-                    sb.append(s, start, end - start - 1);
-                }
-                if (c == '\\') {
-                    sb.append("\\\\");
-                } else if (c == '\t') {
-                    sb.append("\\t");
-                } else {
-                    // escape newline
-                    sb.append("\\n");
-                }
-            } else {
-                sb.append(s, start, end-start);
-            }
-            start = end;
-        } while(end < length);
-        if (haveEscaped) {
-            System.out.println("Escaped: " + StringEscapeUtils.escapeJava(str) + " -> " + sb.substring(sbStart));
-        }
-    }
-
-    public static void main(String... args) {
-        String[] t = {
-                "test",
-                "aap",
-                "ggaa\\aap",
-                "\\eerst",
-                "laatst\\",
-                "meer\\\nder\\eere\\",
-                "\nnieuw\tline\\",
-                "aanheteind\n"
-        };
-        for(String s: t) {
-            test(s);
-            //test2(s);
-        }
-    }
-
-    private static void test(String s) {
-        StringBuilder sb = new StringBuilder();
-        System.out.print(StringEscapeUtils.escapeJava(s) + " -> ");
-        quote(s, sb);
-        System.out.println(sb);
-    }
-
-/*
-    private static void test2(String s) {
-        System.out.print(StringEscapeUtils.escapeJava(s) + " -> ");
-        StringEscapeUtils.Builder sb = createCopyTextEscapingStringBuilder();
-        sb.escape(s);
-        System.out.println(sb);
-    }
-*/
 
     @Override
     public void executeBatch() throws Exception {
         if (count > 0) {
-            PGConnection pgConnection = connection.unwrap(PGConnection.class);
-            CopyIn copyIn = pgConnection.getCopyAPI().copyIn(sql);
-            byte[] bytes = copyData.toString().getBytes(StandardCharsets.UTF_8);
-            copyIn.writeToCopy(bytes, 0, bytes.length);
+            if (buffer) {
+                writeToCopy();
+            }
             copyIn.endCopy();
+            lastCopyIn = copyIn;
+            // reset so writeToCopy will create a new one
+            copyIn = null;
             count = 0;
-            copyData = createCopyTextEscapingStringBuilder();
         }
     }
 

@@ -99,13 +99,14 @@ public class BGTLoaderMain {
         db.setFeatureTypesEnumMetadata(featureTypeSelectionOptions.getFeatureTypesList());
         db.setMetadataValue(Metadata.INCLUDE_HISTORY, loadOptions.includeHistory + "");
         db.setMetadataValue(Metadata.LINEARIZE_CURVES, loadOptions.linearizeCurves + "");
-        if (writer.getMutatieInhoud() != null) {
-            db.setMetadataForMutaties(writer.getMutatieInhoud());
-            db.setMetadataValue(Metadata.GEOM_FILTER, writer.getMutatieInhoud().getGebied());
+        BGTObjectTableWriter.Progress progress = writer.getProgress();
+        if (progress.getMutatieInhoud() != null) {
+            db.setMetadataForMutaties(progress.getMutatieInhoud());
+            db.setMetadataValue(Metadata.GEOM_FILTER, progress.getMutatieInhoud().getGebied());
 
             System.out.printf("Mutatie type %s loaded with deltaId %s\n",
-                    writer.getMutatieInhoud().getMutatieType(),
-                    writer.getMutatieInhoud().getLeveringsId()
+                    progress.getMutatieInhoud().getMutatieType(),
+                    progress.getMutatieInhoud().getLeveringsId()
             );
         }
 
@@ -127,7 +128,7 @@ public class BGTLoaderMain {
             try {
                 DeltaCustomDownloadRequest.FeaturetypesEnum featureType = DeltaCustomDownloadRequest.FeaturetypesEnum.fromValue(tableName);
                 if (!featureTypes.contains(featureType)) {
-                    System.out.printf("Skipping non-selected feature type: %s (%s)\n", tableName, FileUtils.byteCountToDisplaySize(entry.getSize()));
+                    // System.out.printf("Skipping non-selected feature type: %s (%s)\n", tableName, FileUtils.byteCountToDisplaySize(entry.getSize()));
                     return false;
                 } else {
                     return true;
@@ -159,15 +160,15 @@ public class BGTLoaderMain {
         final Instant start = Instant.now();
         final CountingInputStream countingInputStream = new CountingInputStream(input);
 
-        writer.setProgressUpdater(() -> {
-            switch(writer.getStage()) {
+        writer.setProgressUpdater((progress) -> {
+            switch(progress.getStage()) {
                 case LOAD_OBJECTS:
                     System.out.printf("\r%s (%s): %.1f%% - time %s, %,d objects",
                             name,
                             sizeString,
                             100.0 / size * countingInputStream.getByteCount(),
                             formatTimeSince(start),
-                            writer.getObjectCount()
+                            progress.getObjectCount()
                     );
                     break;
                 case CREATE_PRIMARY_KEY:
@@ -180,15 +181,15 @@ public class BGTLoaderMain {
         });
         writer.write(countingInputStream);
 
-        String historicObjects = writer.isCurrentObjectsOnly() ? String.format(", %,d historic objects skipped", writer.getHistoricObjectsCount()) : "";
+        String historicObjects = writer.isCurrentObjectsOnly() ? String.format(", %,d historic objects skipped", writer.getProgress().getHistoricObjectsCount()) : "";
         double loadTimeSeconds = Duration.between(start, Instant.now()).toMillis() / 1000.0;
         System.out.printf("\r%s (%s): time %s, %,d objects%s, %,.0f objects/s%s\n",
                 name,
                 sizeString,
                 formatTimeSince(start),
-                writer.getObjectCount(),
+                writer.getProgress().getObjectCount(),
                 historicObjects,
-                writer.getObjectCount() / loadTimeSeconds,
+                writer.getProgress().getObjectCount() / loadTimeSeconds,
                 " ".repeat(50)
         );
     }

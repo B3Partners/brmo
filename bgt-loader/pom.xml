@@ -115,6 +115,11 @@
       <groupId>io.swagger</groupId>
       <artifactId>swagger-annotations</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 
   <build>
@@ -233,12 +238,12 @@
             </execution>
           </executions>
         </plugin>
-        <plugin>
+        <!-- disabled globally for now, needs to be disabled for windows profile used in Windows MS SQL CI workflow -->
+<!--        <plugin>
           <groupId>io.fabric8</groupId>
           <artifactId>docker-maven-plugin</artifactId>
           <configuration>
             <verbose>true</verbose>
-            <!-- disabled globally for now, needs to be disabled for windows profile used in Windows MS SQL CI workflow -->
             <skip>true</skip>
             <images>
               <image>
@@ -255,7 +260,7 @@
               </goals>
             </execution>
           </executions>
-        </plugin>
+        </plugin>-->
       </plugins>
     </pluginManagement>
   </build>

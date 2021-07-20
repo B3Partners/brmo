@@ -223,49 +223,51 @@ public class DownloadCommand {
         try (InputStream input = new URL(downloadURI.toString()).openConnection().getInputStream()) {
             Instant loadStart = Instant.now();
             CountingInputStream countingInputStream = new CountingInputStream(input);
-            ZipInputStream zis = new ZipInputStream(countingInputStream);
-            ZipEntry entry = zis.getNextEntry();
-            while (entry != null) {
-                System.out.print("Loading zip entry " + entry.getName());
-                Instant zipEntryStart = Instant.now();
-                ZipEntry finalEntry = entry;
-                writer.setProgressUpdater(() -> System.out.printf("\rTotal extract %.1f%% loaded - file \"%s\" time %s, %,d objects",
-                        100.0 / contentLength.orElse(0) * countingInputStream.getByteCount(),
-                        finalEntry.getName(),
-                        formatTimeSince(zipEntryStart),
-                        writer.getObjectCount() + writer.getObjectUpdatedCount()
-                ));
-                writer.write(CloseShieldInputStream.wrap(zis));
-                String count;
-                if (writer.getMutatieInhoud() != null && "delta".equals(writer.getMutatieInhoud().getMutatieType())) {
-                    count = String.format("%s, added: %,d",
-                            writer.isCurrentObjectsOnly()
-                                    ? String.format("removed: %,d", writer.getObjectRemovedCount())  // updated is always 0 when not keeping history
-                                    : String.format("updated: %,d", writer.getObjectUpdatedCount()), // removed is always 0 when keeping history
-                            writer.getObjectCount());
-                } else {
-                    count = String.format("%,d objects", writer.getObjectCount());
+            try(ZipInputStream zis = new ZipInputStream(countingInputStream)) {
+                ZipEntry entry = zis.getNextEntry();
+                while (entry != null) {
+                    System.out.print("Loading zip entry " + entry.getName());
+                    Instant zipEntryStart = Instant.now();
+                    ZipEntry finalEntry = entry;
+                    writer.setProgressUpdater((progress) -> System.out.printf("\rTotal extract %.1f%% loaded - file \"%s\" time %s, %,d objects",
+                            100.0 / contentLength.orElse(0) * countingInputStream.getByteCount(),
+                            finalEntry.getName(),
+                            formatTimeSince(zipEntryStart),
+                            progress.getObjectCount() + progress.getObjectUpdatedCount()
+                    ));
+                    writer.write(CloseShieldInputStream.wrap(zis));
+                    String count;
+                    BGTObjectTableWriter.Progress progress = writer.getProgress();
+                    if (progress.getMutatieInhoud() != null && "delta".equals(progress.getMutatieInhoud().getMutatieType())) {
+                        count = String.format("%s, added: %,d",
+                                writer.isCurrentObjectsOnly()
+                                        ? String.format("removed: %,d", progress.getObjectRemovedCount())  // updated is always 0 when not keeping history
+                                        : String.format("updated: %,d", progress.getObjectUpdatedCount()), // removed is always 0 when keeping history
+                                progress.getObjectCount());
+                    } else {
+                        count = String.format("%,d objects", progress.getObjectCount());
+                    }
+                    double loadTimeSeconds = Duration.between(zipEntryStart, Instant.now()).toMillis() / 1000.0;
+                    System.out.printf("\r%s (%s): time %s, %s, %,.0f objects/s%s\n",
+                            entry.getName(),
+                            FileUtils.byteCountToDisplaySize(countingInputStream.getByteCount()),
+                            formatTimeSince(zipEntryStart),
+                            count,
+                            progress.getObjectCount() / loadTimeSeconds,
+                            " ".repeat(50)
+                    );
+                    entry = zis.getNextEntry();
                 }
-                double loadTimeSeconds = Duration.between(zipEntryStart, Instant.now()).toMillis() / 1000.0;
-                System.out.printf("\r%s (%s): time %s, %s, %,.0f objects/s%s\n",
-                        entry.getName(),
-                        FileUtils.byteCountToDisplaySize(countingInputStream.getByteCount()),
-                        formatTimeSince(zipEntryStart),
-                        count,
-                        writer.getObjectCount() / loadTimeSeconds,
-                        " ".repeat(50)
-                );
-                entry = zis.getNextEntry();
             }
 
-            db.setMetadataForMutaties(writer.getMutatieInhoud());
+            db.setMetadataForMutaties(writer.getProgress().getMutatieInhoud());
             // Do not set geom filter from MutatieInhoud, a custom download without geo filter will have gebied
             // "POLYGON ((-100000 200000, 412000 200000, 412000 712000, -100000 712000, -100000 200000))"
             db.setMetadataValue(Metadata.GEOM_FILTER, extractSelectionOptions.getGeoFilterWkt());
 
             System.out.printf("\rLoaded %s extract with delta ID %s in %s%s\n",
-                    writer.getMutatieInhoud().getMutatieType(),
-                    writer.getMutatieInhoud().getLeveringsId(),
+                    writer.getProgress().getMutatieInhoud().getMutatieType(),
+                    writer.getProgress().getMutatieInhoud().getLeveringsId(),
                     formatTimeSince(loadStart),
                     start == null ? "" : " (total time " + formatTimeSince(start) + ")"
             );
