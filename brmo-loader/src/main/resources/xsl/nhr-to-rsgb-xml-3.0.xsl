@@ -2,7 +2,7 @@
 <xsl:stylesheet version="1.0"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:cat="http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02"
-                xmlns:fn="http://www.w3.org/2005/xpath-functions">
+>
 
     <xsl:import href="nhr-object-ref-3.0.xsl"/>
 
@@ -279,6 +279,10 @@
 
         <maatschapp_activiteit column-dat-beg-geldh="datum_aanvang" column-datum-einde-geldh="datum_einde_geldig">
             <kvk_nummer><xsl:value-of select="cat:kvkNummer"/></kvk_nummer>
+
+            <nonmailing>
+                <xsl:value-of select="cat:nonMailing/cat:omschrijving"/>
+            </nonmailing>
 
             <xsl:call-template name="registratie-datum"/>
 

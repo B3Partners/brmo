@@ -12,3 +12,7 @@ create table vestg_activiteit(
 
 ALTER TABLE vestg_naam
   ADD PRIMARY KEY (naam, fk_ves_sc_identif);
+
+-- voeg kolom nonmailing toe aan tabel maatschapp_activiteit
+ALTER TABLE maatschapp_activiteit ADD nonmailing varchar(3) NULL;
+COMMENT ON COLUMN maatschapp_activiteit.nonmailing IS 'nonMailing attribuut (niet-RSGB)';

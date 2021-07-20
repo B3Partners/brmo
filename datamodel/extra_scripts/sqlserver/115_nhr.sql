@@ -23,3 +23,6 @@ GO
 ALTER TABLE vestg_naam ADD CONSTRAINT pk_vestg_naam PRIMARY KEY (naam, fk_ves_sc_identif);
 GO
 
+-- voeg kolom nonmailing toe aan tabel maatschapp_activiteit
+ALTER TABLE maatschapp_activiteit ADD nonmailing varchar(3) NULL;
+GO
