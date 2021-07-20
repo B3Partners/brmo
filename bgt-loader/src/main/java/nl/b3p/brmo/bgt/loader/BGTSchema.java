@@ -10,11 +10,13 @@ import nl.b3p.brmo.sql.mapping.SimpleDateFormatAttributeColumnMapping;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static nl.b3p.brmo.sql.mapping.SimpleDateFormatAttributeColumnMapping.PATTERN_XML_DATE;
@@ -26,10 +28,35 @@ public class BGTSchema {
         boolean isIMGeoPlusType;
         List<AttributeColumnMapping> attributes;
 
+        private final List<AttributeColumnMapping> primaryKeys;
+        private final List<AttributeColumnMapping> directAttributes;
+        private final List<GeometryAttributeColumnMapping> geometryAttributes;
+        private List<BGTObjectType> oneToManyAttributeObjectTypes;
+
         private BGTObjectType(String name, List<AttributeColumnMapping> attributes) {
+            this(name, true, attributes);
+        }
+
+        private BGTObjectType(String name, boolean includeBaseAttributes, List<AttributeColumnMapping> additionalAttributes) {
             this.name = name;
-            this.attributes = attributes;
+            if (includeBaseAttributes) {
+                this.attributes = Stream.concat(baseAttributes.stream(), additionalAttributes.stream())
+                        .collect(Collectors.toList());
+            } else {
+                this.attributes = additionalAttributes;
+            }
             this.isIMGeoPlusType = !bgtObjectTypes.contains(name);
+
+            this.primaryKeys = attributes.stream()
+                    .filter(AttributeColumnMapping::isPrimaryKey)
+                    .collect(Collectors.toList());
+            this.directAttributes = attributes.stream()
+                    .filter(attributeColumnMapping -> !(attributeColumnMapping instanceof OneToManyColumnMapping))
+                    .collect(Collectors.toList());
+            this.geometryAttributes = attributes.stream()
+                    .filter(attributeColumnMapping -> (attributeColumnMapping instanceof GeometryAttributeColumnMapping))
+                    .map(attributeColumnMapping -> (GeometryAttributeColumnMapping)attributeColumnMapping)
+                    .collect(Collectors.toList());
         }
 
         public String getName() {
@@ -44,29 +71,29 @@ public class BGTSchema {
             return attributes;
         }
 
-        public Stream<AttributeColumnMapping> getPrimaryKeys() {
-            return attributes.stream()
-                    .filter(AttributeColumnMapping::isPrimaryKey);
+        public List<AttributeColumnMapping> getPrimaryKeys() {
+            return primaryKeys;
         }
 
-        public Stream<AttributeColumnMapping> getDirectAttributes() {
-            return attributes.stream()
-                    .filter(attributeColumnMapping -> !(attributeColumnMapping instanceof OneToManyColumnMapping));
+        public List<AttributeColumnMapping> getDirectAttributes() {
+            return directAttributes;
         }
 
-        public Stream<BGTObjectType> getOneToManyAttributeObjectTypes() {
-            return attributes.stream()
-                    .filter(attributeColumnMapping -> (attributeColumnMapping instanceof OneToManyColumnMapping))
-                    .map(attributeColumnMapping -> objectTypes.get(attributeColumnMapping.getName()));
+        public List<BGTObjectType> getOneToManyAttributeObjectTypes() {
+            // Create on-demand because objectTypes map must be completely filled
+            if (oneToManyAttributeObjectTypes == null) {
+                oneToManyAttributeObjectTypes = attributes.stream()
+                        .filter(attributeColumnMapping -> (attributeColumnMapping instanceof OneToManyColumnMapping))
+                        .map(attributeColumnMapping -> objectTypes.get(attributeColumnMapping.getName()))
+                        .collect(Collectors.toList());
+            }
+            return oneToManyAttributeObjectTypes;
         }
 
-        public Stream<GeometryAttributeColumnMapping> getGeometryAttributes() {
-            return attributes.stream()
-                    .filter(attributeColumnMapping -> (attributeColumnMapping instanceof GeometryAttributeColumnMapping))
-                    .map(attributeColumnMapping -> (GeometryAttributeColumnMapping)attributeColumnMapping);
+        public List<GeometryAttributeColumnMapping> getGeometryAttributes() {
+            return geometryAttributes;
         }
     }
-
 
     public static final String INDEX = "idx";
     public static final String EIND_REGISTRATIE = "eindRegistratie";
@@ -108,11 +135,6 @@ public class BGTSchema {
             new AttributeColumnMapping("bgt-status"),
             new AttributeColumnMapping("plus-status")
     );
-
-    private static final Set<String> noBaseAttributesObjectTypes = new HashSet<>(Arrays.asList(
-            "nummeraanduidingreeks",
-            "Plaatsbepalingspunt"
-    ));
 
     private static void addObjectType(BGTObjectType objectType) {
         objectTypes.put(objectType.getName(), objectType);
@@ -236,7 +258,7 @@ public class BGTSchema {
                 new OneToManyColumnMapping("nummeraanduidingreeks"),
                 new GeometryAttributeColumnMapping("geometrie2dGrondvlak")
         )));
-        addObjectType(new BGTObjectType("nummeraanduidingreeks", Arrays.asList(
+        addObjectType(new BGTObjectType("nummeraanduidingreeks", false, Arrays.asList(
                 new AttributeColumnMapping("pandgmlid", "varchar(255)", true, true),
                 new IntegerAttributeColumnMapping("idx", true, true),
                 new BooleanAttributeColumnMapping("pandeindregistratie", true),
@@ -246,7 +268,7 @@ public class BGTSchema {
                 new AttributeColumnMapping("identificatieBAGVBOLaagsteHuisnummer", "varchar(16)", false),
                 new AttributeColumnMapping("identificatieBAGVBOHoogsteHuisnummer", "varchar(16)", false)
         )));
-        addObjectType(new BGTObjectType("Plaatsbepalingspunt", Arrays.asList(
+        addObjectType(new BGTObjectType("Plaatsbepalingspunt", false, Arrays.asList(
                 new AttributeColumnMapping("gmlId", "char(32)", true, true),
                 new AttributeColumnMapping("identificatie"),
                 new IntegerAttributeColumnMapping("nauwkeurigheid", false),
@@ -325,15 +347,6 @@ public class BGTSchema {
                 new AttributeColumnMapping("wijkcode"),
                 new GeometryAttributeColumnMapping("geometrie2d")
         )));
-
-        // Prepend base columns to all tables
-        objectTypes.values().stream()
-                .filter(objectType -> !noBaseAttributesObjectTypes.contains(objectType.getName()))
-                .forEach(objectType -> {
-                    List<AttributeColumnMapping> allAttributes = new ArrayList<>(baseAttributes);
-                    allAttributes.addAll(objectType.getAllAttributes());
-                    objectType.attributes = allAttributes;
-                });
     }
 
     public static Stream<BGTObjectType> getAllObjectTypes() {

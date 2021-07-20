@@ -168,7 +168,7 @@ public class BGTObjectTableWriter {
         return progress;
     }
 
-    private void addObjectToBatch(BGTObject object, boolean initialLoad) throws Exception {
+    private synchronized QueryBatch getInsertBatch(BGTObject object, boolean initialLoad) throws Exception {
         Map<String,QueryBatch> insertBatches = progress.insertBatches;
         if(insertBatches.isEmpty()) {
             if (initialLoad) {
@@ -181,7 +181,7 @@ public class BGTObjectTableWriter {
                     }
                 } else {
                     truncateTable(connection, object.getObjectType());
-                    for (BGTSchema.BGTObjectType oneToManyObjectType: object.getObjectType().getOneToManyAttributeObjectTypes().collect(Collectors.toList())) {
+                    for (BGTSchema.BGTObjectType oneToManyObjectType: object.getObjectType().getOneToManyAttributeObjectTypes()) {
                         truncateTable(connection, oneToManyObjectType);
                     }
                 }
@@ -200,31 +200,35 @@ public class BGTObjectTableWriter {
                 queryBatch = new PostGISCopyInsertBatch(connection, sql, batchSize, dialect, bufferCopy, linearizeCurves);
             } else {
                 String sql = buildInsertSql(object);
-                Boolean[] parameterIsGeometry = object.getObjectType().getDirectAttributes()
+                Boolean[] parameterIsGeometry = object.getObjectType().getDirectAttributes().stream()
                         .map(attributeColumnMapping -> attributeColumnMapping instanceof GeometryAttributeColumnMapping)
                         .toArray(Boolean[]::new);
                 queryBatch = new GeometryHandlingPreparedStatementBatch(connection, sql, batchSize, dialect, parameterIsGeometry, linearizeCurves);
             }
             insertBatches.put(object.getObjectType().getName(), queryBatch);
         }
-        QueryBatch batch = insertBatches.get(object.getObjectType().getName());
+        return insertBatches.get(object.getObjectType().getName());
+    }
+
+    private void addObjectToBatch(BGTObject object, boolean initialLoad) throws Exception {
+        QueryBatch batch = getInsertBatch(object, initialLoad);
 
         Map<String, Object> attributes = object.getAttributes();
 
         List<Object> params = new ArrayList<>();
-        for(AttributeColumnMapping attributeColumnMapping: object.getObjectType().getDirectAttributes().collect(Collectors.toList())) {
+        for(AttributeColumnMapping attributeColumnMapping: object.getObjectType().getDirectAttributes()) {
             Object attribute = attributes.get(attributeColumnMapping.getName());
             params.add(attributeColumnMapping.toQueryParameter(attribute));
         }
 
-        for(BGTSchema.BGTObjectType oneToManyAttribute: object.getObjectType().getOneToManyAttributeObjectTypes().collect(Collectors.toList())) {
+        for(BGTSchema.BGTObjectType oneToManyAttribute: object.getObjectType().getOneToManyAttributeObjectTypes()) {
             List<BGTObject> objects = (List<BGTObject>) attributes.get(oneToManyAttribute.getName());
             if (objects != null && !objects.isEmpty()) {
                 for(int i = 0; i < objects.size(); i++) {
                     BGTObject oneToMany = objects.get(i);
                     // Add FK and index
                     String tableName = getTableNameForObjectType(object.getObjectType());
-                    String idColumnName = object.getObjectType().getPrimaryKeys().findFirst().get().getName();
+                    String idColumnName = object.getObjectType().getPrimaryKeys().get(0).getName();
                     oneToMany.getAttributes().put(getColumnNameForObjectType(oneToMany.getObjectType(),tableName + idColumnName), object.getAttributes().get(idColumnName));
                     oneToMany.getAttributes().put(BGTSchema.INDEX, i);
                     Object eindRegistratie = object.getAttributes().get("eindRegistratie");
@@ -235,13 +239,12 @@ public class BGTObjectTableWriter {
         }
 
         batch.addBatch(params.toArray());
-
         updateProgress();
     }
 
     private void deletePreviousVersion(BGTObject object) throws Exception {
         BGTSchema.BGTObjectType objectType = object.getObjectType();
-        String idAttributeName = objectType.getPrimaryKeys().findFirst().get().getName();
+        String idAttributeName = objectType.getPrimaryKeys().get(0).getName();
         String tableName = getTableNameForObjectType(objectType);
         Map<String,QueryBatch> deleteBatches = progress.deleteBatches;
         if(!deleteBatches.containsKey(objectType.getName())) {
@@ -252,7 +255,7 @@ public class BGTObjectTableWriter {
 
         boolean executed = batch.addBatch(new Object[] {object.getMutatiePreviousVersionGmlId()});
 
-        for(BGTSchema.BGTObjectType oneToManyObjectType: objectType.getOneToManyAttributeObjectTypes().collect(Collectors.toList())) {
+        for(BGTSchema.BGTObjectType oneToManyObjectType: objectType.getOneToManyAttributeObjectTypes()) {
             if(!deleteBatches.containsKey(oneToManyObjectType.getName())) {
                 String sql = "delete from " + getTableNameForObjectType(oneToManyObjectType) + " where "
                         + getColumnNameForObjectType(oneToManyObjectType, tableName + idAttributeName) + " = ?";
@@ -283,7 +286,7 @@ public class BGTObjectTableWriter {
             for (BGTObject object: streamer) {
                 // Determine if we can use only a single table COPY without buffering
                 if (first) {
-                    progress.singleTableInserts = initialLoad && object.getObjectType().getOneToManyAttributeObjectTypes().findFirst().isEmpty();
+                    progress.singleTableInserts = initialLoad && object.getObjectType().getOneToManyAttributeObjectTypes().isEmpty();
                     first = false;
                 }
 
@@ -393,7 +396,7 @@ public class BGTObjectTableWriter {
         sql.append(tableName).append("(");
         sql.append(buildColumnList(object));
         sql.append(") values (");
-        String paramPlaceholders = object.getObjectType().getDirectAttributes()
+        String paramPlaceholders = object.getObjectType().getDirectAttributes().stream()
                 .map(c -> "?")
                 .collect(Collectors.joining(", "));
         sql.append(paramPlaceholders).append(")");
@@ -406,7 +409,7 @@ public class BGTObjectTableWriter {
     }
 
     private static String buildColumnList(BGTObject object) {
-        return object.getObjectType().getDirectAttributes()
+        return object.getObjectType().getDirectAttributes().stream()
                 .map(column -> getColumnNameForObjectType(object.getObjectType(), column.getName()))
                 .collect(Collectors.joining(", "));
     }

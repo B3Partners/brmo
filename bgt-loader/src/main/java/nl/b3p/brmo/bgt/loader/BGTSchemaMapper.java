@@ -130,14 +130,14 @@ public class BGTSchemaMapper {
         if (dialect.supportsDropTableIfExists()) {
             statements.add("drop table if exists " + tableName);
         }
-        String columns = objectType.getDirectAttributes()
+        String columns = objectType.getDirectAttributes().stream()
                 .map(column -> String.format("  %s %s%s",
                         getColumnNameForObjectType(objectType, column.getName()),
                         dialect.getType(column.getType()),
                         column.isNotNull() ? " not null" : ""))
                 .collect(Collectors.joining(",\n"));
         statements.add(String.format("create table %s (\n%s\n)", tableName, columns));
-        statements.addAll(objectType.getOneToManyAttributeObjectTypes()
+        statements.addAll(objectType.getOneToManyAttributeObjectTypes().stream()
                 .flatMap(oneToManyObjectType -> getCreateTableStatements(oneToManyObjectType, dialect))
                 .collect(Collectors.toList()));
         return statements.stream();
@@ -149,7 +149,7 @@ public class BGTSchemaMapper {
 
     public static Stream<String> getCreatePrimaryKeyStatements(BGTSchema.BGTObjectType objectType, SQLDialect dialect, boolean includeOneToMany) {
         String tableName = getTableNameForObjectType(objectType);
-        String columns = objectType.getDirectAttributes()
+        String columns = objectType.getDirectAttributes().stream()
                 .filter(AttributeColumnMapping::isPrimaryKey)
                 .map(column -> getColumnNameForObjectType(objectType, column.getName()))
                 .collect(Collectors.joining(", "));
@@ -158,18 +158,18 @@ public class BGTSchemaMapper {
         return Stream.concat(
                 Stream.of(sql),
                 includeOneToMany
-                        ? objectType.getOneToManyAttributeObjectTypes().flatMap(oneToManyObjectType -> getCreatePrimaryKeyStatements(oneToManyObjectType, dialect))
+                        ? objectType.getOneToManyAttributeObjectTypes().stream().flatMap(oneToManyObjectType -> getCreatePrimaryKeyStatements(oneToManyObjectType, dialect))
                         : Stream.empty()
         );
     }
 
     public static Stream<String> getCreateGeometryMetadataStatements(BGTSchema.BGTObjectType objectType, SQLDialect dialect) {
         return Stream.concat(
-                objectType.getGeometryAttributes().map(column -> dialect.getCreateGeometryMetadataSQL(
+                objectType.getGeometryAttributes().stream().map(column -> dialect.getCreateGeometryMetadataSQL(
                         getTableNameForObjectType(objectType),
                         getColumnNameForObjectType(objectType, column.getName()),
                         column.getType())),
-                objectType.getOneToManyAttributeObjectTypes()
+                objectType.getOneToManyAttributeObjectTypes().stream()
                         .flatMap(oneToManyObjectType -> getCreateGeometryMetadataStatements(oneToManyObjectType, dialect))
         );
     }
@@ -180,12 +180,12 @@ public class BGTSchemaMapper {
 
     public static Stream<String> getCreateGeometryIndexStatements(BGTSchema.BGTObjectType objectType, SQLDialect dialect, boolean includeOneToMany) {
         return Stream.concat(
-                objectType.getGeometryAttributes().map(column ->dialect.getCreateGeometryIndexSQL(
+                objectType.getGeometryAttributes().stream().map(column ->dialect.getCreateGeometryIndexSQL(
                         getTableNameForObjectType(objectType),
                         getColumnNameForObjectType(objectType, column.getName()),
                         column.getType())),
                 includeOneToMany
-                        ? objectType.getOneToManyAttributeObjectTypes().flatMap(oneToManyObjectType -> getCreateGeometryIndexStatements(oneToManyObjectType, dialect))
+                        ? objectType.getOneToManyAttributeObjectTypes().stream().flatMap(oneToManyObjectType -> getCreateGeometryIndexStatements(oneToManyObjectType, dialect))
                         : Stream.empty()
         );
     }
