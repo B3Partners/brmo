@@ -67,7 +67,7 @@ public class DownloadCommand {
 
         if (loadOptions.createSchema) {
             System.out.print("Creating metadata table...");
-            for(String sql: getCreateMetadataTableStatements(db.getDialect()).collect(Collectors.toList())) {
+            for(String sql: getCreateMetadataTableStatements(db.getDialect(), loadOptions.tablePrefix).collect(Collectors.toList())) {
                 new QueryRunner().update(db.getConnection(), sql);
             }
         } else {
@@ -90,6 +90,7 @@ public class DownloadCommand {
 
             loadFromURI(db, loadOptions, dbOptions, extractSelectionOptions, downloadURI, start);
             db.setMetadataValue(Metadata.DELTA_TIME_TO, null);
+            db.getConnection().commit();
             return ExitCode.OK;
         });
     }
@@ -123,6 +124,7 @@ public class DownloadCommand {
         LoadOptions loadOptions = new LoadOptions();
         loadOptions.includeHistory = Boolean.parseBoolean(db.getMetadata(Metadata.INCLUDE_HISTORY));
         loadOptions.linearizeCurves = Boolean.parseBoolean(db.getMetadata(Metadata.LINEARIZE_CURVES));
+        loadOptions.tablePrefix = db.getMetadata(Metadata.TABLE_PREFIX);
 
         System.out.printf("ok, at delta ID %s%s\n", deltaId, deltaIdTimeTo != null
                 ? ", time to " + DateTimeFormatter.ISO_INSTANT.format(deltaIdTimeTo)
@@ -167,12 +169,15 @@ public class DownloadCommand {
             for(Delta delta: deltas) {
                 System.out.printf("Creating delta download for delta id %s... ", delta.getId());
                 URI downloadURI = DownloadApiUtils.getCustomDownloadURL(client, delta, extractSelectionOptions, cliCustomDownloadProgressConsumer);
+                // TODO: BGTObjectTableWriter does setAutocommit(false) and commit() after each stream for a featuretype
+                // is written, maybe use one transaction for all featuretypes?
                 loadFromURI(db, loadOptions, dbOptions, extractSelectionOptions, downloadURI, start);
+                db.setMetadataValue(Metadata.DELTA_TIME_TO, delta.getTimeWindow().getTo().toString());
+                db.getConnection().commit();                
             }
 
             db.setMetadataValue(Metadata.LOADER_VERSION, getLoaderVersion());
-            Delta lastDelta = deltas.get(deltas.size()-1);
-            db.setMetadataValue(Metadata.DELTA_TIME_TO, lastDelta.getTimeWindow().getTo().toString());
+            db.getConnection().commit();
             return ExitCode.OK;
         });
     }

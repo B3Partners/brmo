@@ -17,6 +17,7 @@ import java.time.Instant;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static nl.b3p.brmo.bgt.loader.BGTSchemaMapper.METADATA_TABLE;
 import static nl.b3p.brmo.bgt.loader.BGTSchemaMapper.Metadata;
 
 public class IMGeoDb {
@@ -87,6 +88,7 @@ public class IMGeoDb {
         writer.setLinearizeCurves(loadOptions.linearizeCurves);
         writer.setCurrentObjectsOnly(!loadOptions.includeHistory);
         writer.setCreateSchema(loadOptions.createSchema);
+        writer.setTablePrefix(loadOptions.tablePrefix);
         return writer;
     }
 
@@ -100,14 +102,14 @@ public class IMGeoDb {
     }
 
     public String getMetadata(Metadata key) throws SQLException {
-        return new QueryRunner().query(getConnection(), "select value from metadata where id = ?", new ScalarHandler<>(), key.getDbKey());
+        return new QueryRunner().query(getConnection(), "select value from " + METADATA_TABLE + " where id = ?", new ScalarHandler<>(), key.getDbKey());
     }
 
     public void setMetadataValue(Metadata key, String value) throws Exception {
         try {
-            int updated = new QueryRunner().update(getConnection(), "update metadata set value = ? where id = ?", value, key.getDbKey());
+            int updated = new QueryRunner().update(getConnection(), "update " + METADATA_TABLE + " set value = ? where id = ?", value, key.getDbKey());
             if (updated == 0) {
-                new QueryRunner().update(getConnection(), "insert into metadata(id, value) values(?,?)", key.getDbKey(), value);
+                new QueryRunner().update(getConnection(), "insert into " + METADATA_TABLE + "(id, value) values(?,?)", key.getDbKey(), value);
             }
         } catch (SQLException e) {
             throw new Exception(String.format("Error updating metadata key \"%s\" with value \"%s\": %s", key.getDbKey(), value, e.getMessage()), e);

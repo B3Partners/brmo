@@ -9,6 +9,9 @@ public class LoadOptions {
     @Option(names={"--include-history"})
     boolean includeHistory = false;
 
+    @Option(names="--table-prefix", defaultValue = "")
+    String tablePrefix;
+
     @Option(names="--max-objects", paramLabel= "<number>")
     Integer maxObjects;
 

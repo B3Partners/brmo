@@ -57,6 +57,7 @@ public class BGTObjectTableWriter {
     private boolean linearizeCurves = false;
     private boolean currentObjectsOnly = true;
     private boolean createSchema = false;
+    private String tablePrefix = null;
 
     private Consumer<Progress> progressUpdater;
 
@@ -177,6 +178,14 @@ public class BGTObjectTableWriter {
         this.createSchema = createSchema;
     }
 
+    public String getTablePrefix() {
+        return tablePrefix;
+    }
+
+    public void setTablePrefix(String tablePrefix) {
+        this.tablePrefix = tablePrefix;
+    }
+
     public Consumer<Progress> getProgressUpdater() {
         return progressUpdater;
     }
@@ -196,8 +205,8 @@ public class BGTObjectTableWriter {
                 if (isCreateSchema()) {
                     QueryRunner qr = new QueryRunner();
                     for (String sql: Stream.concat(
-                            getCreateTableStatements(object.getObjectType(), dialect),
-                            getCreateGeometryMetadataStatements(object.getObjectType(), dialect)).collect(Collectors.toList())) {
+                            getCreateTableStatements(object.getObjectType(), dialect, tablePrefix),
+                            getCreateGeometryMetadataStatements(object.getObjectType(), dialect, tablePrefix)).collect(Collectors.toList())) {
                         qr.update(connection, sql);
                     }
                 } else {
@@ -258,7 +267,7 @@ public class BGTObjectTableWriter {
                 for(int i = 0; i < objects.size(); i++) {
                     BGTObject oneToMany = objects.get(i);
                     // Add FK and index
-                    String tableName = getTableNameForObjectType(object.getObjectType());
+                    String tableName = getTableNameForObjectType(object.getObjectType(), "");
                     String idColumnName = object.getObjectType().getPrimaryKeys().get(0).getName();
                     oneToMany.getAttributes().put(getColumnNameForObjectType(oneToMany.getObjectType(),tableName + idColumnName), object.getAttributes().get(idColumnName));
                     oneToMany.getAttributes().put(BGTSchema.INDEX, i);
@@ -276,7 +285,7 @@ public class BGTObjectTableWriter {
     private void deletePreviousVersion(BGTObject object) throws Exception {
         BGTSchema.BGTObjectType objectType = object.getObjectType();
         String idAttributeName = objectType.getPrimaryKeys().get(0).getName();
-        String tableName = getTableNameForObjectType(objectType);
+        String tableName = getTableNameForObjectType(objectType, tablePrefix);
         Map<String,QueryBatch> deleteBatches = progress.deleteBatches;
         if(!deleteBatches.containsKey(objectType.getName())) {
             String sql = "delete from " + tableName + " where " + getColumnNameForObjectType(objectType, idAttributeName) + " = ?";
@@ -288,8 +297,9 @@ public class BGTObjectTableWriter {
 
         for(BGTSchema.BGTObjectType oneToManyObjectType: objectType.getOneToManyAttributeObjectTypes()) {
             if(!deleteBatches.containsKey(oneToManyObjectType.getName())) {
-                String sql = "delete from " + getTableNameForObjectType(oneToManyObjectType) + " where "
-                        + getColumnNameForObjectType(oneToManyObjectType, tableName + idAttributeName) + " = ?";
+                String tableNameNoPrefix =  getTableNameForObjectType(objectType, "");
+                String sql = "delete from " + getTableNameForObjectType(oneToManyObjectType, tablePrefix) + " where "
+                        + getColumnNameForObjectType(oneToManyObjectType, tableNameNoPrefix + idAttributeName) + " = ?";
                 deleteBatches.put(oneToManyObjectType.getName(), new PreparedStatementQueryBatch(connection, sql, batchSize));
             }
             QueryBatch deleteBatch = deleteBatches.get(oneToManyObjectType.getName());
@@ -404,13 +414,13 @@ public class BGTObjectTableWriter {
                 QueryRunner qr = new QueryRunner();
                 updateProgress(Stage.CREATE_PRIMARY_KEY);
                 for(String name: progress.insertBatches.keySet()) {
-                    for (String sql: getCreatePrimaryKeyStatements(BGTSchema.getObjectTypeByName(name), dialect, false).collect(Collectors.toList())) {
+                    for (String sql: getCreatePrimaryKeyStatements(BGTSchema.getObjectTypeByName(name), dialect, tablePrefix,false).collect(Collectors.toList())) {
                         qr.update(connection, sql);
                     }
                 }
                 updateProgress(Stage.CREATE_GEOMETRY_INDEX);
                 for(String name: progress.insertBatches.keySet()) {
-                    for(String sql: getCreateGeometryIndexStatements(BGTSchema.getObjectTypeByName(name), dialect, false).collect(Collectors.toList())) {
+                    for(String sql: getCreateGeometryIndexStatements(BGTSchema.getObjectTypeByName(name), dialect, tablePrefix, false).collect(Collectors.toList())) {
                         qr.update(connection, sql);
                     }
                 }
@@ -448,14 +458,14 @@ public class BGTObjectTableWriter {
         }
     }
 
-    private static void truncateTable(Connection c, BGTSchema.BGTObjectType objectType) throws SQLException {
+    private void truncateTable(Connection c, BGTSchema.BGTObjectType objectType) throws SQLException {
         // TODO like jdbc-util, truncate may fail but 'delete from' may succeed
-        new QueryRunner().execute(c, String.format("truncate table %s", getTableNameForObjectType(objectType)));
+        new QueryRunner().execute(c, String.format("truncate table %s", getTableNameForObjectType(objectType, tablePrefix)));
     }
 
-    private static String buildInsertSql(BGTObject object) {
+    private String buildInsertSql(BGTObject object) {
         StringBuilder sql = new StringBuilder("insert into ");
-        String tableName = getTableNameForObjectType(object.getObjectType());
+        String tableName = getTableNameForObjectType(object.getObjectType(), tablePrefix);
         sql.append(tableName).append("(");
         sql.append(buildColumnList(object));
         sql.append(") values (");
@@ -467,7 +477,7 @@ public class BGTObjectTableWriter {
     }
 
     private String buildPgCopySql(BGTObject object, boolean initialLoad) {
-        String copySql = "copy " + getTableNameForObjectType(object.getObjectType()) + "(" + buildColumnList(object) + ") from stdin";
+        String copySql = "copy " + getTableNameForObjectType(object.getObjectType(), tablePrefix) + "(" + buildColumnList(object) + ") from stdin";
         return copySql + (initialLoad ? " with freeze" : "");
     }
 

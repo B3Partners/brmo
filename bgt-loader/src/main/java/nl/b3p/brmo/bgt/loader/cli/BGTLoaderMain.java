@@ -51,6 +51,7 @@ public class BGTLoaderMain {
     public int schema(
             @Option(names="--dialect", paramLabel="<dialect>", defaultValue = "postgis") IMGeoDb.SQLDialectEnum dialectEnum,
             @Mixin FeatureTypeSelectionOptions featureTypeSelectionOptions,
+            @Option(names="--table-prefix", defaultValue = "") String tablePrefix,
             @Option(names={"-h","--help"}, usageHelp = true) boolean showHelp) throws SQLException {
         SQLDialect dialect = IMGeoDb.createDialect(dialectEnum);
         // For schema generation include plaatsbepalingspunt with 'all' and 'bgt'
@@ -60,8 +61,8 @@ public class BGTLoaderMain {
         Set<String> tableNames = featureTypeSelectionOptions.getFeatureTypesList().stream()
                 .map(DeltaCustomDownloadRequest.FeaturetypesEnum::getValue)
                 .collect(Collectors.toSet());
-        BGTSchemaMapper.printSchema(dialect, objectType ->
-                tableNames.contains(BGTSchemaMapper.getTableNameForObjectType(objectType))
+        BGTSchemaMapper.printSchema(dialect, tablePrefix, objectType ->
+                tableNames.contains(BGTSchemaMapper.getTableNameForObjectType(objectType, ""))
         );
         return ExitCode.OK;
     }
@@ -79,7 +80,7 @@ public class BGTLoaderMain {
 
         if (loadOptions.createSchema) {
             System.out.println("Creating metadata table...");
-            for(String sql: getCreateMetadataTableStatements(db.getDialect()).collect(Collectors.toList())) {
+            for(String sql: getCreateMetadataTableStatements(db.getDialect(), loadOptions.tablePrefix).collect(Collectors.toList())) {
                 new QueryRunner().update(db.getConnection(), sql);
             }
         }
@@ -100,6 +101,7 @@ public class BGTLoaderMain {
         db.setFeatureTypesEnumMetadata(featureTypeSelectionOptions.getFeatureTypesList());
         db.setMetadataValue(Metadata.INCLUDE_HISTORY, loadOptions.includeHistory + "");
         db.setMetadataValue(Metadata.LINEARIZE_CURVES, loadOptions.linearizeCurves + "");
+        db.setMetadataValue(Metadata.TABLE_PREFIX, loadOptions.tablePrefix);
         BGTObjectTableWriter.Progress progress = writer.getProgress();
         if (progress.getMutatieInhoud() != null) {
             db.setMetadataForMutaties(progress.getMutatieInhoud());
@@ -110,6 +112,7 @@ public class BGTLoaderMain {
                     progress.getMutatieInhoud().getLeveringsId()
             );
         }
+        db.getConnection().commit();
 
         return ExitCode.OK;
     }
