@@ -1,14 +1,16 @@
 package nl.b3p.brmo.bgt.loader.cli;
 
 import nl.b3p.brmo.bgt.download.model.DeltaCustomDownloadRequest;
+import nl.b3p.brmo.bgt.loader.BGTObjectStreamer;
 import nl.b3p.brmo.bgt.loader.BGTObjectTableWriter;
 import nl.b3p.brmo.bgt.loader.BGTSchemaMapper;
+import nl.b3p.brmo.bgt.loader.IMGeoDb;
+import nl.b3p.brmo.bgt.loader.ProgressReporter;
 import nl.b3p.brmo.bgt.loader.Utils;
-import nl.b3p.brmo.sql.PostGISCopyInsertBatch;
 import nl.b3p.brmo.sql.dialect.SQLDialect;
-import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.input.CountingInputStream;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.PropertyConfigurator;
 import org.geotools.util.logging.Logging;
 import picocli.CommandLine;
@@ -20,31 +22,37 @@ import picocli.CommandLine.Parameters;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
-import java.time.Duration;
-import java.time.Instant;
+import java.util.List;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 import static nl.b3p.brmo.bgt.loader.BGTSchemaMapper.Metadata;
-import static nl.b3p.brmo.bgt.loader.BGTSchemaMapper.getCreateMetadataTableStatements;
-import static nl.b3p.brmo.bgt.loader.Utils.formatTimeSince;
 import static nl.b3p.brmo.bgt.loader.Utils.getLoaderVersion;
 
 @Command(name = "bgt-loader", mixinStandardHelpOptions = true, version = "${ROOT-COMMAND-NAME} ${bundle:app.version}",
         resourceBundle = Utils.BUNDLE_NAME, subcommands = {DownloadCommand.class})
 public class BGTLoaderMain {
+    private static final Log log;
+
     static {
         PropertyConfigurator.configure(BGTLoaderMain.class.getResourceAsStream("/bgt-loader-cli-log4.properties"));
+        log = LogFactory.getLog(BGTObjectStreamer.class);
         try {
             Logging.ALL.setLoggerFactory("org.geotools.util.logging.Log4JLoggerFactory");
         } catch (ClassNotFoundException ignored) {
         }
+    }
+
+    public static void main(String[] args) {
+        CommandLine cmd = new CommandLine(new BGTLoaderMain())
+                .setUsageHelpAutoWidth(true);
+        System.exit(cmd.execute(args));
     }
 
     @Command(name = "schema", sortOptions = false)
@@ -73,16 +81,20 @@ public class BGTLoaderMain {
             @Mixin LoadOptions loadOptions,
             @Mixin FeatureTypeSelectionOptions featureTypeSelectionOptions,
             @Parameters(paramLabel = "<file>") File file,
+            @Mixin CLIOptions cliOptions,
             @Option(names={"-h","--help"}, usageHelp = true) boolean showHelp) throws Exception {
 
         IMGeoDb db = new IMGeoDb(dbOptions);
         BGTObjectTableWriter writer = db.createObjectTableWriter(loadOptions, dbOptions);
 
+        if (cliOptions.isConsoleProgressEnabled()) {
+            writer.setProgressUpdater(new ConsoleProgressReporter());
+        } else {
+            writer.setProgressUpdater(new ProgressReporter());
+        }
+
         if (loadOptions.createSchema) {
-            System.out.println("Creating metadata table...");
-            for(String sql: getCreateMetadataTableStatements(db.getDialect(), loadOptions.tablePrefix).collect(Collectors.toList())) {
-                new QueryRunner().update(db.getConnection(), sql);
-            }
+            db.createMetadataTable(loadOptions);
         }
 
         if (file.getName().endsWith(".zip")) {
@@ -107,51 +119,61 @@ public class BGTLoaderMain {
             db.setMetadataForMutaties(progress.getMutatieInhoud());
             db.setMetadataValue(Metadata.GEOM_FILTER, progress.getMutatieInhoud().getGebied());
 
-            System.out.printf("Mutatie type %s loaded with deltaId %s\n",
+            log.info(String.format("Mutatie type %s loaded with deltaId %s",
                     progress.getMutatieInhoud().getMutatieType(),
                     progress.getMutatieInhoud().getLeveringsId()
-            );
+            ));
         }
         db.getConnection().commit();
 
         return ExitCode.OK;
     }
 
-    private void loadZip(File file, BGTObjectTableWriter writer, FeatureTypeSelectionOptions featureTypeSelectionOptions) throws IOException {
-        Instant loadStart = Instant.now();
-        ZipFile zipFile = new ZipFile(file);
-        Pattern p = Pattern.compile("bgt_(.+).[xg]ml");
-        Set<DeltaCustomDownloadRequest.FeaturetypesEnum> featureTypes = featureTypeSelectionOptions.getFeatureTypesList();
-        zipFile.stream().filter(entry -> {
-            Matcher m = p.matcher(entry.getName());
-            if (!m.matches()) {
-                System.out.println("Skipping zip entry: " + entry.getName());
-                return false;
-            }
-            String tableName = m.group(1);
-            try {
-                DeltaCustomDownloadRequest.FeaturetypesEnum featureType = DeltaCustomDownloadRequest.FeaturetypesEnum.fromValue(tableName);
-                if (!featureTypes.contains(featureType)) {
-                    // System.out.printf("Skipping non-selected feature type: %s (%s)\n", tableName, FileUtils.byteCountToDisplaySize(entry.getSize()));
-                    return false;
-                } else {
-                    return true;
-                }
-            } catch(IllegalArgumentException e) {
-                System.out.printf("Skipping unknown feature type for zip entry \"%s\"", entry.getName());
-                return false;
-            }
-        }).forEach(entry -> {
-            try(InputStream in = zipFile.getInputStream(entry)) {
-                // getSize() will not return -1 because ZipFile uses random access to read the ZIP central directory
-                loadInputStream(entry.getName(), in, entry.getSize(), writer);
-            } catch(Exception e) {
-                throw new RuntimeException(e);
-            }
-        });
+    private void loadZip(File file, BGTObjectTableWriter writer, FeatureTypeSelectionOptions featureTypeSelectionOptions) throws Exception {
+        try(ZipFile zipFile = new ZipFile(file)) {
+            Pattern p = Pattern.compile("bgt_(.+).[xg]ml");
+            Set<DeltaCustomDownloadRequest.FeaturetypesEnum> featureTypes = featureTypeSelectionOptions.getFeatureTypesList();
 
-        System.out.printf("Finished writing all tables in %s\n", formatTimeSince(loadStart));
-        System.out.printf("Total copy duration: %s\n", PostGISCopyInsertBatch.copyDuration.toString());
+            List<ZipEntry> entries = zipFile.stream().filter(entry -> {
+                Matcher m = p.matcher(entry.getName());
+                if (!m.matches()) {
+                    log.warn("Skipping zip entry: " + entry.getName());
+                    return false;
+                }
+                String tableName = m.group(1);
+                try {
+                    DeltaCustomDownloadRequest.FeaturetypesEnum featureType = DeltaCustomDownloadRequest.FeaturetypesEnum.fromValue(tableName);
+                    if (!featureTypes.contains(featureType)) {
+                        log.debug(String.format("Skipping non-selected feature type: %s (%s)", tableName, FileUtils.byteCountToDisplaySize(entry.getSize())));
+                        return false;
+                    } else {
+                        return true;
+                    }
+                } catch (IllegalArgumentException e) {
+                    log.warn(String.format("Skipping unknown feature type for zip entry \"%s\"", entry.getName()));
+                    return false;
+                }
+            }).collect(Collectors.toList());
+
+            ProgressReporter progressReporter = (ProgressReporter) writer.getProgressUpdater();
+            if (entries.size() > 1) {
+                // Only report total percentage when more than one entry
+                Long totalSize = entries.stream().map(ZipEntry::getSize).reduce(0L, Long::sum);
+                progressReporter.setTotalBytes(totalSize);
+            }
+            Long[] previousEntriesBytesRead = new Long[]{0L};
+            progressReporter.setTotalBytesReadFunction(() -> previousEntriesBytesRead[0] + writer.getProgress().getBytesRead());
+
+            for (ZipEntry entry : entries) {
+                try (InputStream in = zipFile.getInputStream(entry)) {
+                    // getSize() will not return -1 because ZipFile uses random access to read the ZIP central directory
+                    loadInputStream(entry.getName(), in, entry.getSize(), writer);
+                    previousEntriesBytesRead[0] += entry.getSize();
+                }
+            }
+
+            progressReporter.reportTotalSummary();
+        }
     }
 
     private void loadXml(File file, BGTObjectTableWriter writer) throws Exception {
@@ -161,47 +183,8 @@ public class BGTLoaderMain {
     }
 
     private void loadInputStream(String name, InputStream input, long size, BGTObjectTableWriter writer) throws Exception {
-        final String sizeString = FileUtils.byteCountToDisplaySize(size);
-        final Instant start = Instant.now();
-        final CountingInputStream countingInputStream = new CountingInputStream(input);
-
-        writer.setProgressUpdater((progress) -> {
-            switch(progress.getStage()) {
-                case LOAD_OBJECTS:
-                    System.out.printf("\r%s (%s): %.1f%% - time %s, %,d objects",
-                            name,
-                            sizeString,
-                            100.0 / size * countingInputStream.getByteCount(),
-                            formatTimeSince(start),
-                            progress.getObjectCount()
-                    );
-                    break;
-                case CREATE_PRIMARY_KEY:
-                    System.out.print("\r" + " ".repeat(50) + "\rCreating primary keys...");
-                    break;
-                case CREATE_GEOMETRY_INDEX:
-                    System.out.print("\r" + " ".repeat(50) + "\rCreating geometry indexes...");
-                    break;
-            }
-        });
-        writer.write(countingInputStream);
-
-        String historicObjects = writer.isCurrentObjectsOnly() ? String.format(", %,d historic objects skipped", writer.getProgress().getHistoricObjectsCount()) : "";
-        double loadTimeSeconds = Duration.between(start, Instant.now()).toMillis() / 1000.0;
-        System.out.printf("\r%s (%s): time %s, %,d objects%s, %,.0f objects/s%s\n",
-                name,
-                sizeString,
-                formatTimeSince(start),
-                writer.getProgress().getObjectCount(),
-                historicObjects,
-                writer.getProgress().getObjectCount() / loadTimeSeconds,
-                " ".repeat(50)
-        );
-    }
-
-    public static void main(String[] args) {
-        CommandLine cmd = new CommandLine(new BGTLoaderMain())
-                .setUsageHelpAutoWidth(true);
-        System.exit(cmd.execute(args));
+        ProgressReporter progressReporter = (ProgressReporter) writer.getProgressUpdater();
+        progressReporter.startNewFile(name, size);
+        writer.write(input);
     }
 }

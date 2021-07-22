@@ -9,7 +9,7 @@ public class LoadOptions {
     @Option(names={"--include-history"})
     boolean includeHistory = false;
 
-    @Option(names="--table-prefix", defaultValue = "")
+    @Option(names="--table-prefix", defaultValue = "", hidden = true)
     String tablePrefix;
 
     @Option(names="--max-objects", paramLabel= "<number>")
@@ -20,4 +20,28 @@ public class LoadOptions {
 
     @Option(names={"--no-multithreading"}, negatable = true)
     boolean multithreading = true;
+
+    public boolean isCreateSchema() {
+        return createSchema;
+    }
+
+    public boolean isIncludeHistory() {
+        return includeHistory;
+    }
+
+    public String getTablePrefix() {
+        return tablePrefix;
+    }
+
+    public Integer getMaxObjects() {
+        return maxObjects;
+    }
+
+    public boolean isLinearizeCurves() {
+        return linearizeCurves;
+    }
+
+    public boolean isMultithreading() {
+        return multithreading;
+    }
 }

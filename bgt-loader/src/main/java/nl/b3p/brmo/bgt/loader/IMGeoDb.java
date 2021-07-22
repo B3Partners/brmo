@@ -1,14 +1,16 @@
-package nl.b3p.brmo.bgt.loader.cli;
+package nl.b3p.brmo.bgt.loader;
 
 import nl.b3p.brmo.bgt.download.model.DeltaCustomDownloadRequest;
-import nl.b3p.brmo.bgt.loader.BGTObjectStreamer;
-import nl.b3p.brmo.bgt.loader.BGTObjectTableWriter;
+import nl.b3p.brmo.bgt.loader.cli.DatabaseOptions;
+import nl.b3p.brmo.bgt.loader.cli.LoadOptions;
 import nl.b3p.brmo.sql.dialect.MSSQLDialect;
 import nl.b3p.brmo.sql.dialect.OracleDialect;
 import nl.b3p.brmo.sql.dialect.PostGISDialect;
 import nl.b3p.brmo.sql.dialect.SQLDialect;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -19,8 +21,10 @@ import java.util.stream.Collectors;
 
 import static nl.b3p.brmo.bgt.loader.BGTSchemaMapper.METADATA_TABLE;
 import static nl.b3p.brmo.bgt.loader.BGTSchemaMapper.Metadata;
+import static nl.b3p.brmo.bgt.loader.BGTSchemaMapper.getCreateMetadataTableStatements;
 
 public class IMGeoDb {
+    private static final Log log = LogFactory.getLog(IMGeoDb.class);
 
     public enum SQLDialectEnum {
         postgis,
@@ -34,7 +38,7 @@ public class IMGeoDb {
 
     public IMGeoDb(DatabaseOptions dbOptions) throws SQLException, ClassNotFoundException {
         this.dbOptions = dbOptions;
-        String connectionString = dbOptions.connectionString;
+        String connectionString = dbOptions.getConnectionString();
         SQLDialectEnum sqlDialectEnum;
         if (connectionString.startsWith("jdbc:postgresql:")) {
             sqlDialectEnum = SQLDialectEnum.postgis;
@@ -69,9 +73,9 @@ public class IMGeoDb {
 
     public Connection createConnection() {
         try {
-            return DriverManager.getConnection(dbOptions.connectionString, dbOptions.user, dbOptions.password);
+            return DriverManager.getConnection(dbOptions.getConnectionString(), dbOptions.getUser(), dbOptions.getPassword());
         } catch (SQLException e) {
-            throw new RuntimeException(String.format("Error connecting to the database with connection string \"%s\"", dbOptions.connectionString), e);
+            throw new RuntimeException(String.format("Error connecting to the database with connection string \"%s\"", dbOptions.getConnectionString()), e);
         }
     }
 
@@ -81,14 +85,14 @@ public class IMGeoDb {
         if (loadOptions == null) {
             loadOptions = new LoadOptions();
         }
-        writer.setBatchSize(dbOptions.batchSize != null ? dbOptions.batchSize : this.getDialect().getDefaultOptimalBatchSize());
-        writer.setMultithreading(loadOptions.multithreading);
-        writer.setUsePgCopy(dbOptions.usePgCopy);
-        writer.setObjectLimit(loadOptions.maxObjects);
-        writer.setLinearizeCurves(loadOptions.linearizeCurves);
-        writer.setCurrentObjectsOnly(!loadOptions.includeHistory);
-        writer.setCreateSchema(loadOptions.createSchema);
-        writer.setTablePrefix(loadOptions.tablePrefix);
+        writer.setBatchSize(dbOptions.getBatchSize() != null ? dbOptions.getBatchSize() : this.getDialect().getDefaultOptimalBatchSize());
+        writer.setMultithreading(loadOptions.isMultithreading());
+        writer.setUsePgCopy(dbOptions.isUsePgCopy());
+        writer.setObjectLimit(loadOptions.getMaxObjects());
+        writer.setLinearizeCurves(loadOptions.isLinearizeCurves());
+        writer.setCurrentObjectsOnly(!loadOptions.isIncludeHistory());
+        writer.setCreateSchema(loadOptions.isCreateSchema());
+        writer.setTablePrefix(loadOptions.getTablePrefix());
         return writer;
     }
 
@@ -100,6 +104,14 @@ public class IMGeoDb {
         }
         throw new IllegalArgumentException(String.format("Invalid dialect: \"%s\"", dialectEnum));
     }
+
+    public void createMetadataTable(LoadOptions loadOptions) throws SQLException {
+        log.info("Creating metadata table...");
+        for(String sql: getCreateMetadataTableStatements(getDialect(), loadOptions.getTablePrefix()).collect(Collectors.toList())) {
+            new QueryRunner().update(getConnection(), sql);
+        }
+    }
+
 
     public String getMetadata(Metadata key) throws SQLException {
         return new QueryRunner().query(getConnection(), "select value from " + METADATA_TABLE + " where id = ?", new ScalarHandler<>(), key.getDbKey());

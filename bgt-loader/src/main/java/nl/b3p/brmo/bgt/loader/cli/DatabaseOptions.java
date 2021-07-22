@@ -17,4 +17,24 @@ public class DatabaseOptions {
 
     @Option(names={"--no-pg-copy"}, negatable = true)
     boolean usePgCopy = true;
+
+    public String getConnectionString() {
+        return connectionString;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public Integer getBatchSize() {
+        return batchSize;
+    }
+
+    public boolean isUsePgCopy() {
+        return usePgCopy;
+    }
 }

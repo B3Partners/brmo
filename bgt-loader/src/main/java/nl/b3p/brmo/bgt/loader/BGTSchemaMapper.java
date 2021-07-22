@@ -57,6 +57,11 @@ public class BGTSchemaMapper {
             "function"
     }).collect(Collectors.toSet());
 
+    /**
+     * Use for aligning fixed width output.
+     */
+    public static final int MAX_TABLE_LENGTH;
+
     static {
         // Put lowercase version in mapping if not already mapped to another name
         getAllObjectTypes()
@@ -64,6 +69,8 @@ public class BGTSchemaMapper {
                 .filter(name -> !objectTypeNameToDutchTableName.containsKey(name))
                 .forEach(name -> objectTypeNameToDutchTableName.put(name, name.toLowerCase()));
         objectTypeNameToDutchTableName = Collections.unmodifiableMap(objectTypeNameToDutchTableName);
+
+        MAX_TABLE_LENGTH = objectTypeNameToDutchTableName.values().stream().map(String::length).reduce(0, Integer::max);
     }
 
     public static void printSchema(SQLDialect dialect, String tablePrefix, Predicate<BGTSchema.BGTObjectType> objectTypeFilter) {

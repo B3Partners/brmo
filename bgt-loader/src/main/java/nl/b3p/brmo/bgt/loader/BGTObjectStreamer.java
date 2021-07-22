@@ -172,7 +172,7 @@ public class BGTObjectStreamer implements Iterable<BGTObject> {
         // final XMLInputFactory stax = new WstxInputFactory(); // Woodstox
         // final XMLInputFactory stax = new com.fasterxml.aalto.stax.InputFactoryImpl(); // Aalto
         final XMLInputFactory xmlInputFactory = XMLInputFactory.newFactory(); // JRE Default, depends on JAR's present or javax.xml.stream.XMLInputFactory property, can be SJSXP
-        log.debug("StAX XMLInputFactory: " + xmlInputFactory.getClass().getName());
+        log.trace("StAX XMLInputFactory: " + xmlInputFactory.getClass().getName());
 
         xmlInputFactory.setProperty(XMLInputFactory.IS_COALESCING, Boolean.TRUE); // Coalesce characters
         xmlInputFactory.setProperty(XMLInputFactory.SUPPORT_DTD, Boolean.FALSE); // No XML entity expansions or external entities

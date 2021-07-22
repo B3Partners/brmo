@@ -63,7 +63,7 @@ public class BGTObjectTableWriter {
 
     private Progress progress = null;
 
-    public static class Progress {
+    public class Progress {
         private CountingInputStream counter;
         private Map<String, QueryBatch> insertBatches = new HashMap<>();
         private Map<String, QueryBatch> deleteBatches = new HashMap<>();
@@ -73,7 +73,7 @@ public class BGTObjectTableWriter {
 
         private final BlockingQueue<BGTObject> bgtObjects;
 
-        private Stage stage = Stage.LOAD_OBJECTS;
+        private Stage stage = Stage.PARSE_INHOUD;
         private long objectCount = 0;
         private long objectUpdatedCount = 0;
         private long objectRemovedCount = 0;
@@ -86,6 +86,10 @@ public class BGTObjectTableWriter {
                 batchSize = 2500;
             }
             bgtObjects = new ArrayBlockingQueue<>(batchSize);
+        }
+
+        public BGTObjectTableWriter getWriter() {
+            return BGTObjectTableWriter.this;
         }
 
         public Stage getStage() {
@@ -333,7 +337,7 @@ public class BGTObjectTableWriter {
     };
 
     public void write(InputStream bgtXml) throws Exception {
-        this.progress = new Progress(batchSize);
+        this.progress = this.new Progress(batchSize);
         updateProgress(Stage.PARSE_INHOUD);
         connection.setAutoCommit(false);
 
