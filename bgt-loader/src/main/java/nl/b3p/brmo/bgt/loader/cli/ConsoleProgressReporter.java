@@ -16,7 +16,7 @@ public class ConsoleProgressReporter extends ProgressReporter {
     }
 
     protected void status(String msg) {
-        System.out.print("\r" + msg + " ".repeat(30));
+        System.out.print("\r" + msg + " ".repeat(40));
     }
 
     public void reportTotalSummary() {
