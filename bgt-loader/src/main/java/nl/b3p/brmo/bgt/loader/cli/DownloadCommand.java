@@ -40,7 +40,7 @@ import static nl.b3p.brmo.bgt.loader.Utils.getHEADResponse;
 import static nl.b3p.brmo.bgt.loader.Utils.getLoaderVersion;
 import static nl.b3p.brmo.bgt.loader.Utils.getMessageFormattedString;
 
-@Command(name = "download")
+@Command(name = "download", mixinStandardHelpOptions = true)
 public class DownloadCommand {
     private static final Log log = LogFactory.getLog(DownloadCommand.class);
 

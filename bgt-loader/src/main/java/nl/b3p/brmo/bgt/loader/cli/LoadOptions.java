@@ -12,13 +12,13 @@ public class LoadOptions {
     @Option(names="--table-prefix", defaultValue = "", hidden = true)
     String tablePrefix;
 
-    @Option(names="--max-objects", paramLabel= "<number>")
+    @Option(names="--max-objects", paramLabel= "<number>", hidden = true)
     Integer maxObjects;
 
     @Option(names={"--linearize-curves"})
     boolean linearizeCurves = false;
 
-    @Option(names={"--no-multithreading"}, negatable = true)
+    @Option(names={"--no-multithreading"}, negatable = true, hidden = true)
     boolean multithreading = true;
 
     public boolean isCreateSchema() {

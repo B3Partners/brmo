@@ -12,10 +12,10 @@ public class DatabaseOptions {
     @Option(names={"-p","--password"}, interactive = true, arity = "0..1")
     String password = "bgt";
 
-    @Option(names="--batch-size", paramLabel="number")
+    @Option(names="--batch-size", paramLabel="number", hidden = true)
     Integer batchSize;
 
-    @Option(names={"--no-pg-copy"}, negatable = true)
+    @Option(names={"--no-pg-copy"}, negatable = true, hidden = true)
     boolean usePgCopy = true;
 
     public String getConnectionString() {
