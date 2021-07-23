@@ -12,6 +12,8 @@ import org.apache.commons.dbutils.handlers.ScalarHandler;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import java.io.IOException;
+import java.sql.Clob;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -115,8 +117,16 @@ public class BGTDatabase {
     }
 
 
-    public String getMetadata(Metadata key) throws SQLException {
-        return new QueryRunner().query(getConnection(), "select value from " + METADATA_TABLE + " where id = ?", new ScalarHandler<>(), key.getDbKey());
+    public String getMetadata(Metadata key) throws SQLException, IOException {
+        Object value = new QueryRunner().query(getConnection(), "select value from " + METADATA_TABLE + " where id = ?", new ScalarHandler<>(), key.getDbKey());
+        if (value == null) {
+            return null;
+        }
+        if (value instanceof Clob) {
+            Clob clob = (Clob)value;
+            return clob.getSubString(1, (int)clob.length());
+        }
+        return value.toString();
     }
 
     public void setMetadataValue(Metadata key, String value) throws Exception {
