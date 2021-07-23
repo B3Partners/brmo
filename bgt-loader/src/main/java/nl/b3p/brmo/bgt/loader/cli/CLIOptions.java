@@ -2,9 +2,6 @@ package nl.b3p.brmo.bgt.loader.cli;
 
 import picocli.CommandLine.Option;
 
-import static org.fusesource.jansi.internal.CLibrary.STDOUT_FILENO;
-import static org.fusesource.jansi.internal.CLibrary.isatty;
-
 public class CLIOptions {
 
     @Option(names="--progress", hidden = true)
@@ -14,11 +11,8 @@ public class CLIOptions {
         if (progress) {
             return true;
         }
-        try {
-            return isatty(STDOUT_FILENO) == 1;
-        } catch(Throwable e) {
-            // Native libary may fail to load on aarch64
-            return false;
-        }
+        // Imperfect but good enough without using native library like Jansi's isatty()
+        // https://stackoverflow.com/questions/1403772/how-can-i-check-if-a-java-programs-input-output-streams-are-connected-to-a-term
+        return System.console() != null;
     }
 }
