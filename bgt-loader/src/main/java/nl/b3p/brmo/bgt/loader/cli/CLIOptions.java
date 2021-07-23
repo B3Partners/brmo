@@ -11,9 +11,12 @@ public class CLIOptions {
     boolean progress;
 
     public boolean isConsoleProgressEnabled() {
+        if (progress) {
+            return true;
+        }
         try {
-            return progress || isatty(STDOUT_FILENO) == 1;
-        } catch(Exception e) {
+            return isatty(STDOUT_FILENO) == 1;
+        } catch(Throwable e) {
             // Native libary may fail to load on aarch64
             return false;
         }
