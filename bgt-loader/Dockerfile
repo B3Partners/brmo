@@ -1,3 +1,7 @@
+# Copyright (C) 2021 B3Partners B.V.
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 FROM openjdk:11-jre-slim
 
 LABEL org.opencontainers.image.source=https://github.com/b3partners/brmo/bgt-citygml-loader

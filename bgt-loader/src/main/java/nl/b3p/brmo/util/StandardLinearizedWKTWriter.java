@@ -1,9 +1,19 @@
+/*
+ * Copyright (C) 2021 B3Partners B.V.
+ *
+ * SPDX-License-Identifier: GPL-3.0-or-later
+ */
+
 package nl.b3p.brmo.util;
 
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.io.WKTConstants;
 import org.locationtech.jts.io.WKTWriter;
 
+/**
+ * Write a geometry to WKT, linearizing curves. Uses the JTS WKT writer but replaces LINEARRING with the standard
+ * LINESTRING.
+ */
 public class StandardLinearizedWKTWriter {
 
     private final WKTWriter writer = new WKTWriter();
