@@ -39,18 +39,18 @@ public class PostgresCopyEscapeUtilsTest {
     @ParameterizedTest(name="[{index}] {0} == {1}")
     @MethodSource
     public void escape(EscapedForDisplayParam input, String expected) {
-        String output = PostgresCopyEscapeUtils.ESCAPE.translate(input.getParam());
+        String output = PostgresCopyEscapeUtils.builder().escape(input.getParam()).toString();
         assertEquals(expected, output);
     }
 
     private static Stream<Arguments> escape() {
-        return Stream.of(
-                Arguments.of(new EscapedForDisplayParam("test"), "test"),
-                Arguments.of(new EscapedForDisplayParam("te\\st"),"te\\\\st"),
-                Arguments.of(new EscapedForDisplayParam("t\nst"), "t\\nst"),
-                Arguments.of(new EscapedForDisplayParam("\\t\nst"), "\\\\t\\nst"),
-                Arguments.of(new EscapedForDisplayParam("t\nst\n"), "t\\nst\\n"),
-                Arguments.of(new EscapedForDisplayParam("\ttest\\\n"), "\\ttest\\\\\\n")
-        );
+        return Stream.of(new String[][] {
+                {"test", "test"},
+                {"te\\st","te\\\\st",},
+                {"t\nst", "t\\nst",},
+                {"\\t\nst", "\\\\t\\nst"},
+                {"t\nst\n", "t\\nst\\n"},
+                {"\ttest\\\n", "\\ttest\\\\\\n"},
+        }).map(arguments -> Arguments.of(new EscapedForDisplayParam(arguments[0]), arguments[1]));
     }
 }
