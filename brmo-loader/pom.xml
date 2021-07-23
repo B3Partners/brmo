@@ -142,6 +142,11 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections4</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>nl.b3p</groupId>
             <artifactId>brmo-test-util</artifactId>
             <scope>test</scope>
