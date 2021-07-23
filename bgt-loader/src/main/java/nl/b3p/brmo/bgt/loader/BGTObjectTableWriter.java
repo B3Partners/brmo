@@ -253,9 +253,6 @@ public class BGTObjectTableWriter {
 
     private void addObjectToBatch(BGTObject object, boolean initialLoad, boolean fromWorkerThread) throws Throwable {
         if (multithreading && !fromWorkerThread) {
-            // Do creation of QueryBatch on main thread, so exceptions stop processing immediately
-            getInsertBatch(object, initialLoad);
-
             if (getExceptionFromWorkerThread() != null) {
                 throw getExceptionFromWorkerThread();
             }
@@ -264,6 +261,8 @@ public class BGTObjectTableWriter {
             return;
         }
 
+        // This always returns a value without creating the table because it has been called before (so no table
+        // creation in worker thread)
         QueryBatch batch = getInsertBatch(object, initialLoad);
 
         Map<String, Object> attributes = object.getAttributes();
@@ -373,6 +372,11 @@ public class BGTObjectTableWriter {
                 workerThread.start();
             }
             for (BGTObject object: streamer) {
+                // Do creation of QueryBatch on main thread, so exceptions stop processing immediately
+                // This creates/truncates the table. Do it even if all objects are historic (such as can happen with
+                // "ongeclassificeerdobject")
+                getInsertBatch(object, initialLoad);
+
                 // Determine if we can use only a single table COPY without buffering
                 if (first) {
                     progress.singleTableInserts = initialLoad && object.getObjectType().getOneToManyAttributeObjectTypes().isEmpty();
