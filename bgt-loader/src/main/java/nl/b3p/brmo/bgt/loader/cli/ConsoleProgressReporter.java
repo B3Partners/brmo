@@ -7,6 +7,7 @@ import java.time.Instant;
 
 import static nl.b3p.brmo.bgt.loader.BGTObjectTableWriter.Stage.FINISHED;
 import static nl.b3p.brmo.bgt.loader.Utils.formatTimeSince;
+import static nl.b3p.brmo.bgt.loader.Utils.getBundleString;
 
 public class ConsoleProgressReporter extends ProgressReporter {
     Instant totalStart = Instant.now();
@@ -33,18 +34,22 @@ public class ConsoleProgressReporter extends ProgressReporter {
 
             String total = "";
             if (getTotalBytes() != null) {
-                total = String.format(" - total %4.1f%%   %s", 100.0 / getTotalBytes() * getTotalBytesReadFunction().get(), formatTimeSince(totalStart));
+                total = String.format(" - %s %4.1f%%   %s",
+                        getBundleString("progress.total"),
+                        100.0 / getTotalBytes() * getTotalBytesReadFunction().get(),
+                        formatTimeSince(totalStart));
             }
 
             String current = "";
             if (getCurrentFileSize() != null) {
                 current = String.format("%4.1f%% ", 100.0 / getCurrentFileSize() * progress.getBytesRead());
             }
-            System.out.printf("\r%s: %s  %s, %,10d objects%s",
+            System.out.printf("\r%s: %s  %s, %,10d %s%s",
                     getCurrentFileName(),
                     current,
                     formatTimeSince(getCurrentFileStart()),
                     progress.getObjectCount(),
+                    getBundleString("progress.objects"),
                     total
             );
         }

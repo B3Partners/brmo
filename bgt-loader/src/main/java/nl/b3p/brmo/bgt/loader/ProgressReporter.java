@@ -10,6 +10,8 @@ import java.util.function.Supplier;
 
 import static nl.b3p.brmo.bgt.loader.BGTSchemaMapper.MAX_TABLE_LENGTH;
 import static nl.b3p.brmo.bgt.loader.Utils.formatTimeSince;
+import static nl.b3p.brmo.bgt.loader.Utils.getBundleString;
+import static nl.b3p.brmo.bgt.loader.Utils.getMessageFormattedString;
 
 public class ProgressReporter implements Consumer<BGTObjectTableWriter.Progress> {
     private static final Log log = LogFactory.getLog(ProgressReporter.class);
@@ -58,7 +60,7 @@ public class ProgressReporter implements Consumer<BGTObjectTableWriter.Progress>
         this.currentFileName = name;
         this.currentFileSize = size;
         this.currentFileStart = Instant.now();
-        status(name + ": initializing...");
+        status(getMessageFormattedString("progress.initializing", name));
     }
 
     protected void log(String msg) {
@@ -74,50 +76,47 @@ public class ProgressReporter implements Consumer<BGTObjectTableWriter.Progress>
         switch(progress.getStage()) {
             case LOAD_OBJECTS:
                 if (progress.getObjectCount() == 0) {
-                    status(currentFileName + ": loading...");
+                    status(getMessageFormattedString("progress.loading", currentFileName));
                 }
-/*                System.out.printf("\r%s (%s): %.1f%% - time %s, %,d objects",
-                        currentFileName,
-                        FileUtils.byteCountToDisplaySize(currentFileSize),
-                        100.0 / currentFileSize * currentFileBytesReadFunction.get(),
-                        formatTimeSince(currentFileStart),
-                        progress.getObjectCount()
-                );*/
                 break;
             case CREATE_PRIMARY_KEY:
-                status(currentFileName +": creating primary key...");
+                status(getMessageFormattedString("progress.create_primary_key", currentFileName));
                 break;
             case CREATE_GEOMETRY_INDEX:
-                status(currentFileName +": creating geometry indexes...");
+                status(getMessageFormattedString("progress.create_geometry_indexes", currentFileName));
                 break;
             case FINISHED:
                 double loadTimeSeconds = Duration.between(currentFileStart, Instant.now()).toMillis() / 1000.0;
 
                 String counts;
                 if (progress.getMutatieInhoud() != null && "delta".equals(progress.getMutatieInhoud().getMutatieType())) {
-                    counts = String.format("%s, added: %,6d",
+                    counts = String.format("%s, %s: %,6d",
                             progress.getWriter().isCurrentObjectsOnly()
-                                    ? String.format("removed: %,6d", progress.getObjectRemovedCount())  // updated is always 0 when not keeping history
-                                    : String.format("updated: %,6d", progress.getObjectUpdatedCount()), // removed is always 0 when keeping history
+                                    ? String.format("%s: %,6d", getBundleString("progress.removed"), progress.getObjectRemovedCount())  // updated is always 0 when not keeping history
+                                    : String.format("%s: %,6d", getBundleString("progress.updated"), progress.getObjectUpdatedCount()), // removed is always 0 when keeping history
+                            getBundleString("progress.added"),
                             progress.getObjectCount());
                 } else {
-                    String historicObjects = progress.getWriter().isCurrentObjectsOnly() ? String.format(", %,10d historic objects skipped", progress.getHistoricObjectsCount()) : "";
-                    counts = String.format("%,10d objects%s", progress.getObjectCount(), historicObjects);
+                    String historicObjects = "";
+                    if (log.isDebugEnabled() && progress.getWriter().isCurrentObjectsOnly()) {
+                        historicObjects = String.format(", %,10d %s", progress.getHistoricObjectsCount(), getBundleString("progress.historic_skipped"));
+                    }
+                    counts = String.format("%,10d %s%s", progress.getObjectCount(), getBundleString("progress.objects"), historicObjects);
                 }
 
                 // Align bgt_[max_table_length].gml
-                log(String.format("%-" + (MAX_TABLE_LENGTH+8) + "s %10s, %s, %,7.0f objects/s",
+                log(String.format("%-" + (MAX_TABLE_LENGTH+8) + "s %10s, %s, %,7.0f %s/s",
                         currentFileName,
                         formatTimeSince(currentFileStart),
                         counts,
-                        loadTimeSeconds > 0 ? progress.getObjectCount() / loadTimeSeconds : 0.0
+                        loadTimeSeconds > 0 ? progress.getObjectCount() / loadTimeSeconds : 0.0,
+                        getBundleString("progress.objects")
                 ));
                 break;
         }
     }
 
     public void reportTotalSummary() {
-        log("Finished writing all tables in " + formatTimeSince(start));
+        log(getMessageFormattedString("progress.finished", formatTimeSince(start)));
     }
-
 }

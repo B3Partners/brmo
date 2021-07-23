@@ -1,14 +1,12 @@
 package nl.b3p.brmo.bgt.loader.cli;
 
 import nl.b3p.brmo.bgt.download.model.DeltaCustomDownloadRequest;
-import nl.b3p.brmo.bgt.loader.BGTObjectStreamer;
 import nl.b3p.brmo.bgt.loader.BGTObjectTableWriter;
 import nl.b3p.brmo.bgt.loader.BGTSchemaMapper;
 import nl.b3p.brmo.bgt.loader.IMGeoDb;
 import nl.b3p.brmo.bgt.loader.ProgressReporter;
 import nl.b3p.brmo.bgt.loader.Utils;
 import nl.b3p.brmo.sql.dialect.SQLDialect;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.PropertyConfigurator;
@@ -34,15 +32,16 @@ import java.util.zip.ZipFile;
 
 import static nl.b3p.brmo.bgt.loader.BGTSchemaMapper.Metadata;
 import static nl.b3p.brmo.bgt.loader.Utils.getLoaderVersion;
+import static nl.b3p.brmo.bgt.loader.Utils.getMessageFormattedString;
 
 @Command(name = "bgt-loader", mixinStandardHelpOptions = true, version = "${ROOT-COMMAND-NAME} ${bundle:app.version}",
         resourceBundle = Utils.BUNDLE_NAME, subcommands = {DownloadCommand.class})
 public class BGTLoaderMain {
-    private static final Log log;
+    private static Log log;
 
-    static {
+    private static void configureLogging() {
         PropertyConfigurator.configure(BGTLoaderMain.class.getResourceAsStream("/bgt-loader-cli-log4.properties"));
-        log = LogFactory.getLog(BGTObjectStreamer.class);
+        log = LogFactory.getLog(BGTLoaderMain.class);
         try {
             Logging.ALL.setLoggerFactory("org.geotools.util.logging.Log4JLoggerFactory");
         } catch (ClassNotFoundException ignored) {
@@ -50,6 +49,7 @@ public class BGTLoaderMain {
     }
 
     public static void main(String[] args) {
+        configureLogging();
         CommandLine cmd = new CommandLine(new BGTLoaderMain())
                 .setUsageHelpAutoWidth(true);
         System.exit(cmd.execute(args));
@@ -59,7 +59,7 @@ public class BGTLoaderMain {
     public int schema(
             @Option(names="--dialect", paramLabel="<dialect>", defaultValue = "postgis") IMGeoDb.SQLDialectEnum dialectEnum,
             @Mixin FeatureTypeSelectionOptions featureTypeSelectionOptions,
-            @Option(names="--table-prefix", defaultValue = "") String tablePrefix,
+            @Option(names="--table-prefix", defaultValue = "", hidden = true) String tablePrefix,
             @Option(names={"-h","--help"}, usageHelp = true) boolean showHelp) throws SQLException {
         SQLDialect dialect = IMGeoDb.createDialect(dialectEnum);
         // For schema generation include plaatsbepalingspunt with 'all' and 'bgt'
@@ -102,7 +102,7 @@ public class BGTLoaderMain {
         } else if (file.getName().matches(".*\\.[xg]ml")) {
             loadXml(file, writer);
         } else {
-            System.err.printf("Expected zip, gml or xml file: cannot load file \"%s\"\n", file.getName());
+            System.err.println(getMessageFormattedString("load.invalid_extension", file.getName()));
             return ExitCode.USAGE;
         }
 
@@ -119,7 +119,7 @@ public class BGTLoaderMain {
             db.setMetadataForMutaties(progress.getMutatieInhoud());
             db.setMetadataValue(Metadata.GEOM_FILTER, progress.getMutatieInhoud().getGebied());
 
-            log.info(String.format("Mutatie type %s loaded with deltaId %s",
+            log.info(getMessageFormattedString("load.mutatie",
                     progress.getMutatieInhoud().getMutatieType(),
                     progress.getMutatieInhoud().getLeveringsId()
             ));
@@ -137,20 +137,20 @@ public class BGTLoaderMain {
             List<ZipEntry> entries = zipFile.stream().filter(entry -> {
                 Matcher m = p.matcher(entry.getName());
                 if (!m.matches()) {
-                    log.warn("Skipping zip entry: " + entry.getName());
+                    log.warn(getMessageFormattedString("load.skip_entry", entry.getName()));
                     return false;
                 }
                 String tableName = m.group(1);
                 try {
                     DeltaCustomDownloadRequest.FeaturetypesEnum featureType = DeltaCustomDownloadRequest.FeaturetypesEnum.fromValue(tableName);
                     if (!featureTypes.contains(featureType)) {
-                        log.debug(String.format("Skipping non-selected feature type: %s (%s)", tableName, FileUtils.byteCountToDisplaySize(entry.getSize())));
+                        log.debug(getMessageFormattedString("load.skip_unselected", tableName));
                         return false;
                     } else {
                         return true;
                     }
                 } catch (IllegalArgumentException e) {
-                    log.warn(String.format("Skipping unknown feature type for zip entry \"%s\"", entry.getName()));
+                    log.warn(getMessageFormattedString("load.skip_unknown_feature_type", entry.getName()));
                     return false;
                 }
             }).collect(Collectors.toList());

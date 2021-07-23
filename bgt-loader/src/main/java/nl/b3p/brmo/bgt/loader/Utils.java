@@ -5,6 +5,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.text.MessageFormat;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ResourceBundle;
@@ -49,6 +50,11 @@ public class Utils {
 
     public static String getBundleString(String key) {
         return bundle.getString(key);
+    }
+
+    public static String getMessageFormattedString(String key, Object... args) {
+        ResourceBundle bundle = getBundle();
+        return new MessageFormat(bundle.getString(key), bundle.getLocale()).format(args);
     }
 
     public static String getLoaderVersion() {

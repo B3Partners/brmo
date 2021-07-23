@@ -22,6 +22,8 @@ import java.util.stream.Collectors;
 import static nl.b3p.brmo.bgt.loader.BGTSchemaMapper.METADATA_TABLE;
 import static nl.b3p.brmo.bgt.loader.BGTSchemaMapper.Metadata;
 import static nl.b3p.brmo.bgt.loader.BGTSchemaMapper.getCreateMetadataTableStatements;
+import static nl.b3p.brmo.bgt.loader.Utils.getBundleString;
+import static nl.b3p.brmo.bgt.loader.Utils.getMessageFormattedString;
 
 public class IMGeoDb {
     private static final Log log = LogFactory.getLog(IMGeoDb.class);
@@ -47,7 +49,7 @@ public class IMGeoDb {
         } else if (connectionString.startsWith("jdbc:sqlserver:")) {
             sqlDialectEnum = SQLDialectEnum.mssql;
         } else {
-            throw new IllegalArgumentException(String.format("Can't determine database dialect from connection string \"%s\"", connectionString));
+            throw new IllegalArgumentException(getMessageFormattedString("db.unknown_connection_string_dialect", connectionString));
         }
 
         dialect = createDialect(sqlDialectEnum);
@@ -75,7 +77,7 @@ public class IMGeoDb {
         try {
             return DriverManager.getConnection(dbOptions.getConnectionString(), dbOptions.getUser(), dbOptions.getPassword());
         } catch (SQLException e) {
-            throw new RuntimeException(String.format("Error connecting to the database with connection string \"%s\"", dbOptions.getConnectionString()), e);
+            throw new RuntimeException(getMessageFormattedString("db.connection_error", dbOptions.getConnectionString()), e);
         }
     }
 
@@ -102,11 +104,11 @@ public class IMGeoDb {
             case oracle: return new OracleDialect();
             case mssql: return new MSSQLDialect();
         }
-        throw new IllegalArgumentException(String.format("Invalid dialect: \"%s\"", dialectEnum));
+        throw new IllegalArgumentException(getMessageFormattedString("db.dialect_invalid", dialectEnum));
     }
 
     public void createMetadataTable(LoadOptions loadOptions) throws SQLException {
-        log.info("Creating metadata table...");
+        log.info(getBundleString("db.create_metadata"));
         for(String sql: getCreateMetadataTableStatements(getDialect(), loadOptions.getTablePrefix()).collect(Collectors.toList())) {
             new QueryRunner().update(getConnection(), sql);
         }
@@ -124,7 +126,7 @@ public class IMGeoDb {
                 new QueryRunner().update(getConnection(), "insert into " + METADATA_TABLE + "(id, value) values(?,?)", key.getDbKey(), value);
             }
         } catch (SQLException e) {
-            throw new Exception(String.format("Error updating metadata key \"%s\" with value \"%s\": %s", key.getDbKey(), value, e.getMessage()), e);
+            throw new Exception(getMessageFormattedString("db.metadata_error", key.getDbKey(), value, e.getMessage()), e);
         }
     }
 

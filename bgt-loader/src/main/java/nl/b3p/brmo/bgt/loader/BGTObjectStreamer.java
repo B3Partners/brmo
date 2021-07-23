@@ -273,7 +273,7 @@ public class BGTObjectStreamer implements Iterable<BGTObject> {
                     final String name = cityObjectMemberChild.getLocalName();
                     final BGTSchema.BGTObjectType bgtObjectType = BGTSchema.getObjectTypeByName(name);
                     if (bgtObjectType == null) {
-                        throw new IllegalArgumentException("Unknown object type: " + name);
+                        throw new IllegalArgumentException("Onbekend object type: " + name);
                     }
                     final Location location = cityObjectMemberChild.getCursorLocation();
                     attributes.put("gmlId", fixUUID(cityObjectMemberChild.getAttrValue(NS_GML, "id")));
