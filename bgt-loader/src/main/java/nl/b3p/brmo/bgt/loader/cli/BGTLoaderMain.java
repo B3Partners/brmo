@@ -3,7 +3,7 @@ package nl.b3p.brmo.bgt.loader.cli;
 import nl.b3p.brmo.bgt.download.model.DeltaCustomDownloadRequest;
 import nl.b3p.brmo.bgt.loader.BGTObjectTableWriter;
 import nl.b3p.brmo.bgt.loader.BGTSchemaMapper;
-import nl.b3p.brmo.bgt.loader.IMGeoDb;
+import nl.b3p.brmo.bgt.loader.BGTDatabase;
 import nl.b3p.brmo.bgt.loader.ProgressReporter;
 import nl.b3p.brmo.bgt.loader.Utils;
 import nl.b3p.brmo.sql.dialect.SQLDialect;
@@ -57,11 +57,11 @@ public class BGTLoaderMain {
 
     @Command(name = "schema", sortOptions = false)
     public int schema(
-            @Option(names="--dialect", paramLabel="<dialect>", defaultValue = "postgis") IMGeoDb.SQLDialectEnum dialectEnum,
+            @Option(names="--dialect", paramLabel="<dialect>", defaultValue = "postgis") BGTDatabase.SQLDialectEnum dialectEnum,
             @Mixin FeatureTypeSelectionOptions featureTypeSelectionOptions,
             @Option(names="--table-prefix", defaultValue = "", hidden = true) String tablePrefix,
             @Option(names={"-h","--help"}, usageHelp = true) boolean showHelp) throws SQLException {
-        SQLDialect dialect = IMGeoDb.createDialect(dialectEnum);
+        SQLDialect dialect = BGTDatabase.createDialect(dialectEnum);
         // For schema generation include plaatsbepalingspunt with 'all' and 'bgt'
         if (featureTypeSelectionOptions.featureTypes.contains("all") || featureTypeSelectionOptions.featureTypes.contains("bgt")) {
             featureTypeSelectionOptions.getFeatureTypes().add(DeltaCustomDownloadRequest.FeaturetypesEnum.PLAATSBEPALINGSPUNT.getValue());
@@ -84,7 +84,7 @@ public class BGTLoaderMain {
             @Mixin CLIOptions cliOptions,
             @Option(names={"-h","--help"}, usageHelp = true) boolean showHelp) throws Exception {
 
-        IMGeoDb db = new IMGeoDb(dbOptions);
+        BGTDatabase db = new BGTDatabase(dbOptions);
         BGTObjectTableWriter writer = db.createObjectTableWriter(loadOptions, dbOptions);
 
         if (cliOptions.isConsoleProgressEnabled()) {

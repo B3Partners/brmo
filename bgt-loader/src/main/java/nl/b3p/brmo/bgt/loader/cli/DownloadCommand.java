@@ -7,7 +7,7 @@ import nl.b3p.brmo.bgt.download.client.ApiException;
 import nl.b3p.brmo.bgt.download.model.Delta;
 import nl.b3p.brmo.bgt.download.model.GetDeltasResponse;
 import nl.b3p.brmo.bgt.loader.BGTObjectTableWriter;
-import nl.b3p.brmo.bgt.loader.IMGeoDb;
+import nl.b3p.brmo.bgt.loader.BGTDatabase;
 import nl.b3p.brmo.bgt.loader.ProgressReporter;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.input.CloseShieldInputStream;
@@ -62,7 +62,7 @@ public class DownloadCommand {
             return ExitCode.USAGE;
         }
 
-        IMGeoDb db = new IMGeoDb(dbOptions);
+        BGTDatabase db = new BGTDatabase(dbOptions);
 
         if (loadOptions.createSchema) {
             db.createMetadataTable(loadOptions);
@@ -101,7 +101,7 @@ public class DownloadCommand {
         ApiClient client = new ApiClient();
 
         log.info(getBundleString("download.connect_db"));
-        IMGeoDb db = new IMGeoDb(dbOptions);
+        BGTDatabase db = new BGTDatabase(dbOptions);
         String deltaId = db.getMetadata(Metadata.DELTA_ID);
         OffsetDateTime deltaIdTimeTo = null;
         String s = db.getMetadata(Metadata.DELTA_TIME_TO);
@@ -190,7 +190,7 @@ public class DownloadCommand {
         }
     }
 
-    private static void loadFromURI(IMGeoDb db, LoadOptions loadOptions, DatabaseOptions dbOptions, CLIOptions cliOptions, ExtractSelectionOptions extractSelectionOptions, URI downloadURI, Instant start) throws Exception {
+    private static void loadFromURI(BGTDatabase db, LoadOptions loadOptions, DatabaseOptions dbOptions, CLIOptions cliOptions, ExtractSelectionOptions extractSelectionOptions, URI downloadURI, Instant start) throws Exception {
         BGTObjectTableWriter writer = db.createObjectTableWriter(loadOptions, dbOptions);
         ProgressReporter progressReporter;
         if (cliOptions.isConsoleProgressEnabled()) {

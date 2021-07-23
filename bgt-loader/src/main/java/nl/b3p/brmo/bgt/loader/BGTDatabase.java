@@ -25,8 +25,8 @@ import static nl.b3p.brmo.bgt.loader.BGTSchemaMapper.getCreateMetadataTableState
 import static nl.b3p.brmo.bgt.loader.Utils.getBundleString;
 import static nl.b3p.brmo.bgt.loader.Utils.getMessageFormattedString;
 
-public class IMGeoDb {
-    private static final Log log = LogFactory.getLog(IMGeoDb.class);
+public class BGTDatabase {
+    private static final Log log = LogFactory.getLog(BGTDatabase.class);
 
     public enum SQLDialectEnum {
         postgis,
@@ -38,7 +38,7 @@ public class IMGeoDb {
     private final DatabaseOptions dbOptions;
     private Connection connection;
 
-    public IMGeoDb(DatabaseOptions dbOptions) throws SQLException, ClassNotFoundException {
+    public BGTDatabase(DatabaseOptions dbOptions) throws SQLException, ClassNotFoundException {
         this.dbOptions = dbOptions;
         String connectionString = dbOptions.getConnectionString();
         SQLDialectEnum sqlDialectEnum;
