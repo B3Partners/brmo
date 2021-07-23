@@ -35,8 +35,10 @@ import java.util.zip.ZipInputStream;
 
 import static nl.b3p.brmo.bgt.loader.BGTSchemaMapper.Metadata;
 import static nl.b3p.brmo.bgt.loader.Utils.formatTimeSince;
+import static nl.b3p.brmo.bgt.loader.Utils.getBundleString;
 import static nl.b3p.brmo.bgt.loader.Utils.getHEADResponse;
 import static nl.b3p.brmo.bgt.loader.Utils.getLoaderVersion;
+import static nl.b3p.brmo.bgt.loader.Utils.getMessageFormattedString;
 
 @Command(name = "download")
 public class DownloadCommand {
@@ -56,7 +58,7 @@ public class DownloadCommand {
         ApiClient client = new ApiClient();
 
         if (extractSelectionOptions.getGeoFilterWkt() == null && !noGeoFilter) {
-            System.err.println("To load an initial extract without a geo filter, specify the --no-geo-filter option");
+            System.err.println(getBundleString("download.no_geo_filter"));
             return ExitCode.USAGE;
         }
 
@@ -65,7 +67,7 @@ public class DownloadCommand {
         if (loadOptions.createSchema) {
             db.createMetadataTable(loadOptions);
         } else {
-            log.info("Connecting to the database... ");
+            log.info(getBundleString("download.connect_db"));
         }
 
         db.setMetadataValue(Metadata.LOADER_VERSION, getLoaderVersion());
@@ -78,7 +80,7 @@ public class DownloadCommand {
 
         return printApiException(() -> {
             Instant start = Instant.now();
-            log.info("Creating custom download... ");
+            log.info(getBundleString("download.create"));
 
             URI downloadURI = DownloadApiUtils.getCustomDownloadURL(client, null, extractSelectionOptions, new CustomDownloadProgressReporter(cliOptions.isConsoleProgressEnabled()));
 
@@ -98,7 +100,7 @@ public class DownloadCommand {
 
         ApiClient client = new ApiClient();
 
-        log.info("Connecting to the database... ");
+        log.info(getBundleString("download.connect_db"));
         IMGeoDb db = new IMGeoDb(dbOptions);
         String deltaId = db.getMetadata(Metadata.DELTA_ID);
         OffsetDateTime deltaIdTimeTo = null;
@@ -107,7 +109,7 @@ public class DownloadCommand {
             deltaIdTimeTo = OffsetDateTime.parse(s);
         }
         if (deltaId == null) {
-            System.err.println("Error: no deltaId in metadata table, cannot update");
+            System.err.println(getBundleString("download.no_delta_id"));
             return ExitCode.SOFTWARE;
         }
         ExtractSelectionOptions extractSelectionOptions = new ExtractSelectionOptions();
@@ -121,15 +123,16 @@ public class DownloadCommand {
         loadOptions.linearizeCurves = Boolean.parseBoolean(db.getMetadata(Metadata.LINEARIZE_CURVES));
         loadOptions.tablePrefix = db.getMetadata(Metadata.TABLE_PREFIX);
 
-        log.info(String.format("Currently at delta ID %s%s", deltaId, deltaIdTimeTo != null
-                ? ", time to " + DateTimeFormatter.ISO_INSTANT.format(deltaIdTimeTo)
-                : ", unknown time to"));
+        log.info(getMessageFormattedString("download.current_delta_id", deltaId) + ", " +
+                (deltaIdTimeTo != null
+                ? getMessageFormattedString("download.current_delta_time", DateTimeFormatter.ISO_INSTANT.format(deltaIdTimeTo))
+                : getBundleString("download.current_delta_time_unknown")));
         // Close connection while waiting for extract
         db.closeConnection();
 
         return printApiException(() -> {
             Instant start = Instant.now();
-            log.info("Finding available deltas... ");
+            log.info(getBundleString("download.loading_deltas"));
             // Note that the afterDeltaId parameter is useless, because the response does not distinguish between
             // "'afterDeltaId' is the latest" and "'afterDeltaId' not found or older than 31 days"
             GetDeltasResponse response = new DeltaApi(client).getDeltas(null, 1, 100);
@@ -148,24 +151,25 @@ public class DownloadCommand {
             }
             if (i == response.getDeltas().size()) {
                 // TODO automatically do initial load depending on option
-                System.err.println("Error: current delta id not found, new initial load required!");
+                System.err.println(getBundleString("download.current_delta_not_found"));
                 return ExitCode.SOFTWARE;
             }
 
             List<Delta> deltas = response.getDeltas().subList(i+1, response.getDeltas().size());
             if (deltas.isEmpty()) {
-                log.info("No new deltas returned, no updates required");
+                log.info(getBundleString("download.uptodate"));
                 return ExitCode.OK;
             }
 
             Delta latestDelta = deltas.get(deltas.size()-1);
-            log.info(String.format("Number of deltas to load: %d, latest %s, time to %s", deltas.size(), latestDelta.getId(), latestDelta.getTimeWindow().getTo()));
+            log.info(getMessageFormattedString("download.updates_available", deltas.size(), latestDelta.getId(), latestDelta.getTimeWindow().getTo()));
 
+            int deltaCount = 1;
             for(Delta delta: deltas) {
-                log.info(String.format("Creating delta download for delta id %s... ", delta.getId()));
+                log.info(getMessageFormattedString("download.creating_download", deltaCount++, deltas.size(), delta.getId()));
                 URI downloadURI = DownloadApiUtils.getCustomDownloadURL(client, delta, extractSelectionOptions, new CustomDownloadProgressReporter(cliOptions.isConsoleProgressEnabled()));
                 // TODO: BGTObjectTableWriter does setAutocommit(false) and commit() after each stream for a featuretype
-                // is written, maybe use one transaction for all featuretypes?
+                // is written, maybe use one transaction for all feature types?
                 loadFromURI(db, loadOptions, dbOptions, cliOptions, extractSelectionOptions, downloadURI, start);
                 db.setMetadataValue(Metadata.DELTA_TIME_TO, delta.getTimeWindow().getTo().toString());
                 db.getConnection().commit();                
@@ -196,12 +200,12 @@ public class DownloadCommand {
         }
         writer.setProgressUpdater(progressReporter);
 
-        log.info("Downloading extract from URL: " + downloadURI);
+        log.info(getMessageFormattedString("download.downloading_from", downloadURI));
 
         HttpHeaders headResponseHeaders = getHEADResponse(downloadURI).headers();
         OptionalLong contentLength = headResponseHeaders.firstValueAsLong("Content-Length");
         if (contentLength.isPresent()) {
-            log.info("Total size: " + FileUtils.byteCountToDisplaySize(contentLength.getAsLong()));
+            log.info(getMessageFormattedString("download.size", FileUtils.byteCountToDisplaySize(contentLength.getAsLong())));
             progressReporter.setTotalBytes(contentLength.getAsLong());
         }
         // Needed for If-Range header
@@ -226,12 +230,12 @@ public class DownloadCommand {
             // "POLYGON ((-100000 200000, 412000 200000, 412000 712000, -100000 712000, -100000 200000))"
             db.setMetadataValue(Metadata.GEOM_FILTER, extractSelectionOptions.getGeoFilterWkt());
 
-            log.info(String.format("Loaded %s extract with delta ID %s in %s%s",
-                    writer.getProgress().getMutatieInhoud().getMutatieType(),
+            log.info(getMessageFormattedString("download.complete",
+                    getBundleString("download.mutatietype." + writer.getProgress().getMutatieInhoud().getMutatieType()),
                     writer.getProgress().getMutatieInhoud().getLeveringsId(),
-                    formatTimeSince(loadStart),
-                    start == null ? "" : " (total time " + formatTimeSince(start) + ")"
-            ));
+                    formatTimeSince(loadStart)) +
+                    (start == null ? "" : " " + getMessageFormattedString("download.complete_total", formatTimeSince(start)))
+            );
         }
     }
 }

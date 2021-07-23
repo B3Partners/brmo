@@ -10,6 +10,8 @@ import nl.b3p.brmo.sql.mapping.AttributeColumnMapping;
 import nl.b3p.brmo.sql.mapping.GeometryAttributeColumnMapping;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.io.input.CountingInputStream;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import java.io.InputStream;
 import java.sql.Connection;
@@ -38,6 +40,7 @@ import static nl.b3p.brmo.bgt.loader.BGTSchemaMapper.getCreateTableStatements;
 import static nl.b3p.brmo.bgt.loader.BGTSchemaMapper.getTableNameForObjectType;
 
 public class BGTObjectTableWriter {
+    private static final Log log = LogFactory.getLog(BGTObjectTableWriter.class);
 
     public enum Stage {
         PARSE_INHOUD,
@@ -244,14 +247,19 @@ public class BGTObjectTableWriter {
         return insertBatches.get(object.getObjectType().getName());
     }
 
-    private void addObjectToBatch(BGTObject object, boolean initialLoad) throws Exception {
+    private void addObjectToBatch(BGTObject object, boolean initialLoad) throws Throwable {
         addObjectToBatch(object, initialLoad, false);
     }
 
-    private void addObjectToBatch(BGTObject object, boolean initialLoad, boolean fromWorkerThread) throws Exception {
+    private void addObjectToBatch(BGTObject object, boolean initialLoad, boolean fromWorkerThread) throws Throwable {
         if (multithreading && !fromWorkerThread) {
             // Do creation of QueryBatch on main thread, so exceptions stop processing immediately
             getInsertBatch(object, initialLoad);
+
+            if (getExceptionFromWorkerThread() != null) {
+                throw getExceptionFromWorkerThread();
+            }
+
             progress.bgtObjects.put(object);
             return;
         }
@@ -315,6 +323,16 @@ public class BGTObjectTableWriter {
         }
     }
 
+    private Throwable exceptionFromWorkerThread = null;
+
+    public synchronized Throwable getExceptionFromWorkerThread() {
+        return exceptionFromWorkerThread;
+    }
+
+    public synchronized void setExceptionFromWorkerThread(Throwable exceptionFromWorkerThread) {
+        this.exceptionFromWorkerThread = exceptionFromWorkerThread;
+    }
+
     private final Runnable worker = () -> {
         try {
             while (true) {
@@ -330,9 +348,9 @@ public class BGTObjectTableWriter {
             }
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
-        } catch (Exception e) {
-            // TODO set interrupt flag, save exception, look at it in write()
-            e.printStackTrace();
+        } catch (Throwable e) {
+            log.error("Exception in object writing thread", e);
+            setExceptionFromWorkerThread(e);
         }
     };
 
@@ -387,10 +405,10 @@ public class BGTObjectTableWriter {
 
                 try {
                     addObjectToBatch(object, initialLoad);
-                } catch(Exception e) {
-                    String message = "Exception writing object to database, IMGeo object: ";
+                } catch(Throwable e) {
+                    String message = "Exception writing object to database, BGT object: ";
                     if (batchSize > 1) {
-                        message = "Exception adding parameters to database write batch, may be caused by previous batches. IMGeo object: ";
+                        message = "Exception adding parameters to database write batch, may be caused by previous batches. BGT object: ";
                     }
                     throw new Exception(message + object, e);
                 }
