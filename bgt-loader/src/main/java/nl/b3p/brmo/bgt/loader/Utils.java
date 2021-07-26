@@ -46,6 +46,13 @@ public class Utils {
     }
 
     public static String getUserAgent() {
-        return getBundleString("app.user-agent");
+        return String.format("%s, %s (%s)/%s, %s/%s",
+                getBundleString("app.user-agent"),
+                System.getProperty("os.name"),
+                System.getProperty("os.arch"),
+                System.getProperty("os.version"),
+                System.getProperty("java.vm.name"),
+                System.getProperty("java.vm.version")
+        );
     }
 }

@@ -23,6 +23,7 @@ import org.geotools.util.logging.Logging;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.ExitCode;
+import picocli.CommandLine.IVersionProvider;
 import picocli.CommandLine.Mixin;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
@@ -45,9 +46,9 @@ import static nl.b3p.brmo.bgt.loader.BGTSchemaMapper.Metadata;
 import static nl.b3p.brmo.bgt.loader.Utils.getLoaderVersion;
 import static nl.b3p.brmo.bgt.loader.Utils.getMessageFormattedString;
 
-@Command(name = "bgt-loader", mixinStandardHelpOptions = true, version = "${ROOT-COMMAND-NAME} ${bundle:app.version}",
+@Command(name = "bgt-loader", mixinStandardHelpOptions = true, versionProvider = BGTLoaderMain.class,
         resourceBundle = Utils.BUNDLE_NAME, subcommands = {DownloadCommand.class})
-public class BGTLoaderMain {
+public class BGTLoaderMain implements IVersionProvider {
     private static Log log;
 
     private static void configureLogging() {
@@ -229,5 +230,13 @@ public class BGTLoaderMain {
         ProgressReporter progressReporter = (ProgressReporter) writer.getProgressUpdater();
         progressReporter.startNewFile(name, size);
         writer.write(input);
+    }
+
+    @Override
+    public String[] getVersion() {
+        return new String[] {
+                Utils.getLoaderVersion(),
+                Utils.getUserAgent()
+        };
     }
 }
