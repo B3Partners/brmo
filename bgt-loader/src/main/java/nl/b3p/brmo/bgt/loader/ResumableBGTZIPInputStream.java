@@ -15,6 +15,7 @@ import org.apache.commons.logging.LogFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.ProxySelector;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpResponse;
@@ -27,7 +28,9 @@ public class ResumableBGTZIPInputStream extends ResumableInputStream {
 
     public ResumableBGTZIPInputStream(URI uri, BGTObjectTableWriter writer) {
         super(new HttpStartRangeInputStreamProvider(uri,
-                HttpClient.newBuilder().followRedirects(HttpClient.Redirect.NORMAL).build(),
+                HttpClient.newBuilder()
+                        .proxy(ProxySelector.getDefault())
+                        .followRedirects(HttpClient.Redirect.NORMAL).build(),
                 (requestBuilder) -> requestBuilder.headers("User-Agent", getUserAgent())
         ) {
             @Override

@@ -6,17 +6,10 @@
 
 package nl.b3p.brmo.bgt.loader;
 
-import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.text.MessageFormat;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ResourceBundle;
-
-import static java.net.http.HttpRequest.BodyPublishers.noBody;
 
 public class Utils {
 
