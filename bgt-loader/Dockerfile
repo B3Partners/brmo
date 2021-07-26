@@ -14,6 +14,7 @@ RUN set -eux; \
     ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone \
     && apt-get update \
     && apt-get install -y --no-install-recommends locales tzdata \
+    && apt-get install -y dumb-init \
     && apt-get -y --purge autoremove \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
@@ -22,9 +23,16 @@ RUN set -eux; \
 
 ENV LANG=nl_NL.UTF-8 LANGUAGE=nl_NL:nl LC_ALL=nl_NL.UTF-8
 
+RUN useradd --user-group --system user -s /bin/false
+
 COPY target/lib/ /app/lib/
 COPY target/bgt-loader-*.jar /app
-RUN ln -s /app/bgt-loader-*.jar /app/bgt-loader.jar
 
-ENTRYPOINT ["java","-jar","/app/bgt-loader.jar"]
+WORKDIR /app
+RUN chown -R user:user /app
+USER user
+
+RUN ln -s bgt-loader-*.jar bgt-loader.jar
+
+ENTRYPOINT ["dumb-init", "java","-jar","/app/bgt-loader.jar"]
 
