@@ -31,21 +31,6 @@ public class Utils {
         return String.format("%s%dh %2dm %2ds", days, d.toHoursPart(), d.toMinutesPart(), d.toSecondsPart());
     }
 
-    public static HttpResponse<Void> getHEADResponse(URI URI) throws IOException, InterruptedException {
-        HttpClient httpClient = HttpClient.newBuilder()
-                .followRedirects(HttpClient.Redirect.NORMAL)
-                .build();
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI)
-                .method("HEAD", noBody())
-                .build();
-        HttpResponse<Void> response = httpClient.send(request, HttpResponse.BodyHandlers.discarding());
-        if (response.statusCode() != 200) {
-            throw new IllegalStateException(String.format("HEAD for URI \"%s\" returned status code %d", URI, response.statusCode()));
-        }
-        return response;
-    }
-
     public static final String BUNDLE_NAME = "BGTLoader";
 
     private static final ResourceBundle bundle = ResourceBundle.getBundle(BUNDLE_NAME);

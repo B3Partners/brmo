@@ -10,14 +10,12 @@ import nl.b3p.brmo.bgt.download.model.DeltaCustomDownloadRequest;
 import nl.b3p.brmo.bgt.loader.BGTDatabase;
 import nl.b3p.brmo.bgt.loader.BGTObjectTableWriter;
 import nl.b3p.brmo.bgt.loader.BGTSchemaMapper;
-import nl.b3p.brmo.bgt.loader.HttpStartRangeInputStreamProvider;
 import nl.b3p.brmo.bgt.loader.ProgressReporter;
-import nl.b3p.brmo.bgt.loader.ResumableInputStream;
+import nl.b3p.brmo.bgt.loader.ResumableBGTZIPInputStream;
 import nl.b3p.brmo.bgt.loader.Utils;
 import nl.b3p.brmo.sql.dialect.SQLDialect;
 import org.apache.commons.io.input.CloseShieldInputStream;
 import org.apache.commons.io.input.CountingInputStream;
-import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.PropertyConfigurator;
@@ -31,14 +29,10 @@ import picocli.CommandLine.Parameters;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpResponse;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.OptionalLong;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -50,7 +44,6 @@ import java.util.zip.ZipInputStream;
 import static nl.b3p.brmo.bgt.loader.BGTSchemaMapper.Metadata;
 import static nl.b3p.brmo.bgt.loader.Utils.getLoaderVersion;
 import static nl.b3p.brmo.bgt.loader.Utils.getMessageFormattedString;
-import static nl.b3p.brmo.bgt.loader.Utils.getUserAgent;
 
 @Command(name = "bgt-loader", mixinStandardHelpOptions = true, version = "${ROOT-COMMAND-NAME} ${bundle:app.version}",
         resourceBundle = Utils.BUNDLE_NAME, subcommands = {DownloadCommand.class})
@@ -182,35 +175,7 @@ public class BGTLoaderMain {
         log.info(getMessageFormattedString("download.downloading_from", downloadURI));
         ProgressReporter progressReporter = (ProgressReporter) writer.getProgressUpdater();
 
-        HttpStartRangeInputStreamProvider httpStartRangeInputStreamProvider = new HttpStartRangeInputStreamProvider(downloadURI,
-                HttpClient.newBuilder().followRedirects(HttpClient.Redirect.NORMAL).build(),
-                (requestBuilder) -> requestBuilder.headers("User-Agent", getUserAgent())
-        ) {
-            @Override
-            public InputStream get(long position, int totalRetries, Exception causeForRetry) throws IOException {
-                String msg = String.format("Exception reading from server, retrying (total retries: %d) from position %d", totalRetries, position);
-                if (progressReporter instanceof ConsoleProgressReporter) {
-                    System.out.println("\r" + msg);
-                } else {
-                    log.warn(msg + ". Error: " + ExceptionUtils.getRootCause(causeForRetry).getMessage());
-                    log.trace(msg, causeForRetry);
-                }
-                return super.get(position, totalRetries, causeForRetry);
-            }
-
-            @Override
-            public void afterHttpRequest(HttpResponse<InputStream> response) {
-                // The direct download https://api.pdok.nl/lv/bgt/download/v1_0/full/predefined/bgt-citygml-nl-nopbp.zip
-                // does not support the HEAD method to read the content-length because it first sends a redirect. Read
-                // the content-length later
-                OptionalLong contentLength = response.headers().firstValueAsLong("Content-Length");
-                if (contentLength.isPresent()) {
-                    progressReporter.setTotalBytes(contentLength.getAsLong());
-                }
-            }
-        };
-
-        try (ResumableInputStream input = new ResumableInputStream(httpStartRangeInputStreamProvider)) {
+        try (InputStream input = new ResumableBGTZIPInputStream(downloadURI, writer)) {
             CountingInputStream countingInputStream = new CountingInputStream(input);
             progressReporter.setTotalBytesReadFunction(countingInputStream::getByteCount);
 

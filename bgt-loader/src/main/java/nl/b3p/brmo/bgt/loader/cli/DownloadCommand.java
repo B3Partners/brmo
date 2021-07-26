@@ -12,10 +12,10 @@ import nl.b3p.brmo.bgt.download.client.ApiClient;
 import nl.b3p.brmo.bgt.download.client.ApiException;
 import nl.b3p.brmo.bgt.download.model.Delta;
 import nl.b3p.brmo.bgt.download.model.GetDeltasResponse;
-import nl.b3p.brmo.bgt.loader.BGTObjectTableWriter;
 import nl.b3p.brmo.bgt.loader.BGTDatabase;
+import nl.b3p.brmo.bgt.loader.BGTObjectTableWriter;
 import nl.b3p.brmo.bgt.loader.ProgressReporter;
-import org.apache.commons.io.FileUtils;
+import nl.b3p.brmo.bgt.loader.ResumableBGTZIPInputStream;
 import org.apache.commons.io.input.CloseShieldInputStream;
 import org.apache.commons.io.input.CountingInputStream;
 import org.apache.commons.logging.Log;
@@ -27,14 +27,11 @@ import picocli.CommandLine.Option;
 
 import java.io.InputStream;
 import java.net.URI;
-import java.net.URL;
-import java.net.http.HttpHeaders;
 import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
-import java.util.OptionalLong;
 import java.util.concurrent.Callable;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
@@ -42,7 +39,6 @@ import java.util.zip.ZipInputStream;
 import static nl.b3p.brmo.bgt.loader.BGTSchemaMapper.Metadata;
 import static nl.b3p.brmo.bgt.loader.Utils.formatTimeSince;
 import static nl.b3p.brmo.bgt.loader.Utils.getBundleString;
-import static nl.b3p.brmo.bgt.loader.Utils.getHEADResponse;
 import static nl.b3p.brmo.bgt.loader.Utils.getLoaderVersion;
 import static nl.b3p.brmo.bgt.loader.Utils.getMessageFormattedString;
 import static nl.b3p.brmo.bgt.loader.Utils.getUserAgent;
@@ -213,17 +209,7 @@ public class DownloadCommand {
 
         log.info(getMessageFormattedString("download.downloading_from", downloadURI));
 
-        HttpHeaders headResponseHeaders = getHEADResponse(downloadURI).headers();
-        OptionalLong contentLength = headResponseHeaders.firstValueAsLong("Content-Length");
-        if (contentLength.isPresent()) {
-            log.info(getMessageFormattedString("download.size", FileUtils.byteCountToDisplaySize(contentLength.getAsLong())));
-            progressReporter.setTotalBytes(contentLength.getAsLong());
-        }
-        // Needed for If-Range header
-        //Optional<String> etag = response.headers().firstValue("Etag");
-
-        // Are resume-able downloads with Range requests needed?
-        try (InputStream input = new URL(downloadURI.toString()).openConnection().getInputStream()) {
+        try (InputStream input = new ResumableBGTZIPInputStream(downloadURI, writer)) {
             Instant loadStart = Instant.now();
             CountingInputStream countingInputStream = new CountingInputStream(input);
             progressReporter.setTotalBytesReadFunction(countingInputStream::getByteCount);

@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-package nl.b3p.brmo.bgt.loader;
+package nl.b3p.brmo.util;
 
 import java.io.IOException;
 import java.io.InputStream;
