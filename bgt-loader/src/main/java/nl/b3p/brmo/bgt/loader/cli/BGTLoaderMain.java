@@ -7,12 +7,17 @@
 package nl.b3p.brmo.bgt.loader.cli;
 
 import nl.b3p.brmo.bgt.download.model.DeltaCustomDownloadRequest;
+import nl.b3p.brmo.bgt.loader.BGTDatabase;
 import nl.b3p.brmo.bgt.loader.BGTObjectTableWriter;
 import nl.b3p.brmo.bgt.loader.BGTSchemaMapper;
-import nl.b3p.brmo.bgt.loader.BGTDatabase;
+import nl.b3p.brmo.bgt.loader.HttpStartRangeInputStreamProvider;
 import nl.b3p.brmo.bgt.loader.ProgressReporter;
+import nl.b3p.brmo.bgt.loader.ResumableInputStream;
 import nl.b3p.brmo.bgt.loader.Utils;
 import nl.b3p.brmo.sql.dialect.SQLDialect;
+import org.apache.commons.io.input.CloseShieldInputStream;
+import org.apache.commons.io.input.CountingInputStream;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.PropertyConfigurator;
@@ -26,19 +31,26 @@ import picocli.CommandLine.Parameters;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpResponse;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.OptionalLong;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
+import java.util.zip.ZipInputStream;
 
 import static nl.b3p.brmo.bgt.loader.BGTSchemaMapper.Metadata;
 import static nl.b3p.brmo.bgt.loader.Utils.getLoaderVersion;
 import static nl.b3p.brmo.bgt.loader.Utils.getMessageFormattedString;
+import static nl.b3p.brmo.bgt.loader.Utils.getUserAgent;
 
 @Command(name = "bgt-loader", mixinStandardHelpOptions = true, version = "${ROOT-COMMAND-NAME} ${bundle:app.version}",
         resourceBundle = Utils.BUNDLE_NAME, subcommands = {DownloadCommand.class})
@@ -86,7 +98,7 @@ public class BGTLoaderMain {
             @Mixin DatabaseOptions dbOptions,
             @Mixin LoadOptions loadOptions,
             @Mixin FeatureTypeSelectionOptions featureTypeSelectionOptions,
-            @Parameters(paramLabel = "<file>") File file,
+            @Parameters(paramLabel = "<file>") String file,
             @Mixin CLIOptions cliOptions,
             @Option(names={"-h","--help"}, usageHelp = true) boolean showHelp) throws Exception {
 
@@ -103,12 +115,14 @@ public class BGTLoaderMain {
             db.createMetadataTable(loadOptions);
         }
 
-        if (file.getName().endsWith(".zip")) {
-            loadZip(file, writer, featureTypeSelectionOptions);
-        } else if (file.getName().matches(".*\\.[xg]ml")) {
-            loadXml(file, writer);
+        if (file.endsWith(".zip") && (file.startsWith("http://") || file.startsWith("https://"))) {
+            loadZipFromURI(new URI(file), writer, featureTypeSelectionOptions);
+        } else if (file.endsWith(".zip")) {
+            loadZip(new File(file), writer, featureTypeSelectionOptions);
+        } else if (file.matches(".*\\.[xg]ml")) {
+            loadXml(new File(file), writer);
         } else {
-            System.err.println(getMessageFormattedString("load.invalid_extension", file.getName()));
+            System.err.println(getMessageFormattedString("load.invalid_extension", file));
             return ExitCode.USAGE;
         }
 
@@ -135,31 +149,89 @@ public class BGTLoaderMain {
         return ExitCode.OK;
     }
 
+    private static boolean isBGTZipEntrySelected(ZipEntry entry, FeatureTypeSelectionOptions featureTypeSelectionOptions, boolean logSkipAsInfo) {
+        Set<DeltaCustomDownloadRequest.FeaturetypesEnum> featureTypes = featureTypeSelectionOptions.getFeatureTypesList();
+        Pattern p = Pattern.compile("bgt_(.+).[xg]ml");
+
+        Matcher m = p.matcher(entry.getName());
+        if (!m.matches()) {
+            log.warn(getMessageFormattedString("load.skip_entry", entry.getName()));
+            return false;
+        }
+        String tableName = m.group(1);
+        try {
+            DeltaCustomDownloadRequest.FeaturetypesEnum featureType = DeltaCustomDownloadRequest.FeaturetypesEnum.fromValue(tableName);
+            if (!featureTypes.contains(featureType)) {
+                String msg = getMessageFormattedString("load.skip_unselected", tableName);
+                if (logSkipAsInfo) {
+                    log.info(msg);
+                } else {
+                    log.debug(msg);
+                }
+                return false;
+            } else {
+                return true;
+            }
+        } catch (IllegalArgumentException e) {
+            log.warn(getMessageFormattedString("load.skip_unknown_feature_type", entry.getName()));
+            return false;
+        }
+    }
+
+    private void loadZipFromURI(URI downloadURI, BGTObjectTableWriter writer, FeatureTypeSelectionOptions featureTypeSelectionOptions) throws Exception {
+        log.info(getMessageFormattedString("download.downloading_from", downloadURI));
+        ProgressReporter progressReporter = (ProgressReporter) writer.getProgressUpdater();
+
+        HttpStartRangeInputStreamProvider httpStartRangeInputStreamProvider = new HttpStartRangeInputStreamProvider(downloadURI,
+                HttpClient.newBuilder().followRedirects(HttpClient.Redirect.NORMAL).build()
+        ) {
+            @Override
+            public InputStream get(long position, int totalRetries, Exception causeForRetry) throws IOException {
+                String msg = String.format("Exception reading from server, retrying (total retries: %d) from position %d", totalRetries, position);
+                if (progressReporter instanceof ConsoleProgressReporter) {
+                    System.out.println("\r" + msg);
+                } else {
+                    log.warn(msg + ". Error: " + ExceptionUtils.getRootCause(causeForRetry).getMessage());
+                    log.trace(msg, causeForRetry);
+                }
+                return super.get(position, totalRetries, causeForRetry);
+            }
+
+            @Override
+            public void afterHttpRequest(HttpResponse<InputStream> response) {
+                // The direct download https://api.pdok.nl/lv/bgt/download/v1_0/full/predefined/bgt-citygml-nl-nopbp.zip
+                // does not support the HEAD method to read the content-length because it first sends a redirect. Read
+                // the content-length later
+                OptionalLong contentLength = response.headers().firstValueAsLong("Content-Length");
+                if (contentLength.isPresent()) {
+                    progressReporter.setTotalBytes(contentLength.getAsLong());
+                }
+            }
+        };
+
+        try (ResumableInputStream input = new ResumableInputStream(httpStartRangeInputStreamProvider)) {
+            CountingInputStream countingInputStream = new CountingInputStream(input);
+            progressReporter.setTotalBytesReadFunction(countingInputStream::getByteCount);
+
+            try (ZipInputStream zis = new ZipInputStream(countingInputStream)) {
+                ZipEntry entry = zis.getNextEntry();
+                while (entry != null) {
+                    if (isBGTZipEntrySelected(entry, featureTypeSelectionOptions, true)) {
+                        progressReporter.startNewFile(entry.getName(), null);
+                        writer.write(CloseShieldInputStream.wrap(zis));
+                    }
+                    entry = zis.getNextEntry();
+                }
+                progressReporter.reportTotalSummary();
+            }
+        }
+    }
+
     private void loadZip(File file, BGTObjectTableWriter writer, FeatureTypeSelectionOptions featureTypeSelectionOptions) throws Exception {
         try(ZipFile zipFile = new ZipFile(file)) {
-            Pattern p = Pattern.compile("bgt_(.+).[xg]ml");
-            Set<DeltaCustomDownloadRequest.FeaturetypesEnum> featureTypes = featureTypeSelectionOptions.getFeatureTypesList();
-
-            List<ZipEntry> entries = zipFile.stream().filter(entry -> {
-                Matcher m = p.matcher(entry.getName());
-                if (!m.matches()) {
-                    log.warn(getMessageFormattedString("load.skip_entry", entry.getName()));
-                    return false;
-                }
-                String tableName = m.group(1);
-                try {
-                    DeltaCustomDownloadRequest.FeaturetypesEnum featureType = DeltaCustomDownloadRequest.FeaturetypesEnum.fromValue(tableName);
-                    if (!featureTypes.contains(featureType)) {
-                        log.debug(getMessageFormattedString("load.skip_unselected", tableName));
-                        return false;
-                    } else {
-                        return true;
-                    }
-                } catch (IllegalArgumentException e) {
-                    log.warn(getMessageFormattedString("load.skip_unknown_feature_type", entry.getName()));
-                    return false;
-                }
-            }).collect(Collectors.toList());
+            List<ZipEntry> entries = zipFile.stream()
+                    .filter(entry -> isBGTZipEntrySelected(entry, featureTypeSelectionOptions, false))
+                    .collect(Collectors.toList());
 
             ProgressReporter progressReporter = (ProgressReporter) writer.getProgressUpdater();
             if (entries.size() > 1) {
@@ -170,14 +242,13 @@ public class BGTLoaderMain {
             Long[] previousEntriesBytesRead = new Long[]{0L};
             progressReporter.setTotalBytesReadFunction(() -> previousEntriesBytesRead[0] + writer.getProgress().getBytesRead());
 
-            for (ZipEntry entry : entries) {
+            for (ZipEntry entry: entries) {
                 try (InputStream in = zipFile.getInputStream(entry)) {
                     // getSize() will not return -1 because ZipFile uses random access to read the ZIP central directory
                     loadInputStream(entry.getName(), in, entry.getSize(), writer);
                     previousEntriesBytesRead[0] += entry.getSize();
                 }
             }
-
             progressReporter.reportTotalSummary();
         }
     }

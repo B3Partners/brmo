@@ -8,6 +8,7 @@ package nl.b3p.brmo.bgt.loader.cli;
 
 import nl.b3p.brmo.bgt.loader.BGTObjectTableWriter;
 import nl.b3p.brmo.bgt.loader.ProgressReporter;
+import org.apache.commons.io.FileUtils;
 
 import java.time.Instant;
 
@@ -46,9 +47,11 @@ public class ConsoleProgressReporter extends ProgressReporter {
                         formatTimeSince(totalStart));
             }
 
-            String current = "";
+            String current;
             if (getCurrentFileSize() != null) {
                 current = String.format("%4.1f%% ", 100.0 / getCurrentFileSize() * progress.getBytesRead());
+            } else {
+                current = FileUtils.byteCountToDisplaySize(progress.getBytesRead());
             }
             System.out.printf("\r%s: %s  %s, %,10d %s%s",
                     getCurrentFileName(),
