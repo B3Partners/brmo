@@ -510,6 +510,15 @@
                 </exclusions>
             </dependency>
             <dependency>
+                <!-- override voor versies die met poi-ooxml 5.0.0 meekomen
+                en de OWASP dependency scanner triggeren
+                CVE-2021-35515, CVE-2021-36090
+                -->
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-compress</artifactId>
+                <version>1.21</version>
+            </dependency>
+            <dependency>
                 <groupId>com.itextpdf</groupId>
                 <artifactId>kernel</artifactId>
                 <version>${itextpdf.version}</version>
