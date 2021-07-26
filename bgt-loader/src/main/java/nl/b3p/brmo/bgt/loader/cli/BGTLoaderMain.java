@@ -183,7 +183,8 @@ public class BGTLoaderMain {
         ProgressReporter progressReporter = (ProgressReporter) writer.getProgressUpdater();
 
         HttpStartRangeInputStreamProvider httpStartRangeInputStreamProvider = new HttpStartRangeInputStreamProvider(downloadURI,
-                HttpClient.newBuilder().followRedirects(HttpClient.Redirect.NORMAL).build()
+                HttpClient.newBuilder().followRedirects(HttpClient.Redirect.NORMAL).build(),
+                (requestBuilder) -> requestBuilder.headers("User-Agent", getUserAgent())
         ) {
             @Override
             public InputStream get(long position, int totalRetries, Exception causeForRetry) throws IOException {

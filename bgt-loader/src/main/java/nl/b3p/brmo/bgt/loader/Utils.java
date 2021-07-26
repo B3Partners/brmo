@@ -64,6 +64,10 @@ public class Utils {
     }
 
     public static String getLoaderVersion() {
-        return ResourceBundle.getBundle("BGTLoader").getString("app.version");
+        return getBundleString("app.version");
+    }
+
+    public static String getUserAgent() {
+        return getBundleString("app.user-agent");
     }
 }

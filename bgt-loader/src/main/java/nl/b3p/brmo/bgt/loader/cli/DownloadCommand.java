@@ -45,10 +45,18 @@ import static nl.b3p.brmo.bgt.loader.Utils.getBundleString;
 import static nl.b3p.brmo.bgt.loader.Utils.getHEADResponse;
 import static nl.b3p.brmo.bgt.loader.Utils.getLoaderVersion;
 import static nl.b3p.brmo.bgt.loader.Utils.getMessageFormattedString;
+import static nl.b3p.brmo.bgt.loader.Utils.getUserAgent;
 
 @Command(name = "download", mixinStandardHelpOptions = true)
 public class DownloadCommand {
     private static final Log log = LogFactory.getLog(DownloadCommand.class);
+
+    public static ApiClient getApiClient() {
+        // TODO set alternate URL and timeout from options
+        ApiClient client = new ApiClient();
+        client.setRequestInterceptor(builder -> builder.headers("User-Agent", getUserAgent()));
+        return client;
+    }
 
     @Command(name="initial", sortOptions = false)
     public int initial(
@@ -59,9 +67,6 @@ public class DownloadCommand {
             @Mixin CLIOptions cliOptions,
             @Option(names={"-h","--help"}, usageHelp = true) boolean showHelp
     ) throws Exception {
-
-        // TODO set alternate URL and timeout from options
-        ApiClient client = new ApiClient();
 
         if (extractSelectionOptions.getGeoFilterWkt() == null && !noGeoFilter) {
             System.err.println(getBundleString("download.no_geo_filter"));
@@ -88,7 +93,7 @@ public class DownloadCommand {
             Instant start = Instant.now();
             log.info(getBundleString("download.create"));
 
-            URI downloadURI = DownloadApiUtils.getCustomDownloadURL(client, null, extractSelectionOptions, new CustomDownloadProgressReporter(cliOptions.isConsoleProgressEnabled()));
+            URI downloadURI = DownloadApiUtils.getCustomDownloadURL(getApiClient(), null, extractSelectionOptions, new CustomDownloadProgressReporter(cliOptions.isConsoleProgressEnabled()));
 
             loadFromURI(db, loadOptions, dbOptions, cliOptions, extractSelectionOptions, downloadURI, start);
             db.setMetadataValue(Metadata.DELTA_TIME_TO, null);
@@ -104,7 +109,7 @@ public class DownloadCommand {
             @Option(names={"-h","--help"}, usageHelp = true) boolean showHelp
     ) throws Exception {
 
-        ApiClient client = new ApiClient();
+        ApiClient client = getApiClient();
 
         log.info(getBundleString("download.connect_db"));
         BGTDatabase db = new BGTDatabase(dbOptions);
