@@ -101,6 +101,34 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>io.github.git-commit-id</groupId>
+                <artifactId>git-commit-id-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>revision</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <prefix>builddetails</prefix>
+                    <dateFormat>dd.MM.yyyy '@' HH:mm:ss z</dateFormat>
+                    <verbose>false</verbose>
+                    <dotGitDirectory>${project.basedir}/../.git</dotGitDirectory>
+                    <skipPoms>true</skipPoms>
+                    <generateGitPropertiesFile>true</generateGitPropertiesFile>
+                    <generateGitPropertiesFilename>src/main/resources/git.properties</generateGitPropertiesFilename>
+                    <failOnNoGitDirectory>false</failOnNoGitDirectory>
+                    <gitDescribe>
+                        <skip>true</skip>
+                        <always>true</always>
+                        <abbrev>7</abbrev>
+                        <dirty>-dirty</dirty>
+                        <forceLongFormat>false</forceLongFormat>
+                    </gitDescribe>
+                </configuration>
+            </plugin>
+            <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
                     <compilerArguments>
