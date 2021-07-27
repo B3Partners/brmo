@@ -22,7 +22,7 @@ These Linux containers also run on Windows and MacOS.
 The program may run on other platforms where a Java Runtime Environment (JRE) is available. No JAR downloads are provided 
 at the moment, but you can build a JAR from the source code. 
 
-A maximum of 1 GB RAM is required.
+Memory requirement is about 1 GB RAM.
 
 ## Running
 
@@ -213,22 +213,32 @@ docker run -it --rm --network=host ghcr.io/b3partners/brmo-bgt-loader download u
 You can run this daily in a cronjob or scheduled task to make sure the data stays updated. The data is only updated once
 a day.
 
-## Loading the entire BGT faster (without updates)
+## Loading the 'predefined' entire BGT faster (without updates)
 
-The `load` command can read BGT CityGML files (no GML-light or Stuf-geo formats) from disk. If you want to load an 
-initial dataset without a geo filter and don't need to keep it updated, you can download the entire BGT from PDOK using 
-this link: https://api.pdok.nl/lv/bgt/download/v1_0/full/predefined/bgt-citygml-nl-nopbp.zip (warning: very large file!).
-After downloading the file, execute the following command to load it:
+The `load` command can read BGT CityGML files (no GML-light or Stuf-geo formats) from disk or a webserver. If you want to load an 
+initial dataset without a geo filter and don't need to keep it updated, you can download the entire BGT from PDOK as follows:
+```shell
+docker run -it --rm --network=host -v $(pwd):/data ghcr.io/b3partners/brmo-bgt-loader load https://api.pdok.nl/lv/bgt/download/v1_0/full/predefined/bgt-citygml-nl-nopbp.zip
+```
+Warning! This predefined file does not take hours to prepare by PDOK (as when downloading the entire BGT using the `download initial` 
+command), but it is currently about 19+ GB in size (and will only grow). You can specify which feature types to load with the `--feature-types` 
+option, but non-selected feature types must still be downloaded and unzipped to be skipped.
+
+Loading this predefined download skips the time needed to wait for the PDOK service to create a custom download, which 
+can be over 2.5 hours for the entire BGT without plaatsbepalingspunten. Unfortunately, this file does not
+contain a 'delta ID' required to apply updates from the service to it (although you may try to put the [latest delta ID](https://api.pdok.nl/lv/bgt/download/v1_0/delta?count=29&page=2) in
+the `bgt_metadata` table in the row with id `initial_load_delta_id` and try your luck using `download update`...).
+
+### Loading a file from disk
+
+Files can also be loaded from disk without requiring an internet connection. When using a Docker container, mount a volume so the container has access to the file.
+If you have downloaded a BGT file to the current directory, execute the following command to load it:
+
+Files from disk can also be in unzipped .gml or .xml format.
 
 ```shell
 docker run -it --rm --network=host -v $(pwd):/data ghcr.io/b3partners/brmo-bgt-loader load /data/bgt-citygml-nl-nopbp.zip`
 ```
-
-This skips the time needed to wait for the PDOK service to create a custom download. Unfortunately, this file does not 
-contain a 'delta ID' required to apply updates from the service to it (although you may try to put the latest delta ID in 
-the `bgt_metadata` table).
-
-The `load` command does not (yet) support streaming this file directly.
 
 ## Advanced options
 
