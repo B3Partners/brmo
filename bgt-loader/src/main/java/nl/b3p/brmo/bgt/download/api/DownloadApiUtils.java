@@ -13,7 +13,6 @@ import nl.b3p.brmo.bgt.download.model.DeltaCustomDownloadRequest;
 import nl.b3p.brmo.bgt.download.model.DeltaCustomDownloadResponse;
 import nl.b3p.brmo.bgt.loader.cli.ExtractSelectionOptions;
 
-import java.io.IOException;
 import java.net.URI;
 import java.time.Instant;
 import java.util.function.Consumer;
@@ -22,7 +21,7 @@ import static nl.b3p.brmo.bgt.download.model.DeltaCustomDownloadStatusResponse.S
 import static nl.b3p.brmo.bgt.loader.Utils.formatTimeSince;
 
 public class DownloadApiUtils {
-    public static URI getCustomDownloadURL(ApiClient client, Delta delta, ExtractSelectionOptions extractSelectionOptions, Consumer<CustomDownloadProgress> progressConsumer) throws ApiException, IOException, InterruptedException {
+    public static URI getCustomDownloadURL(ApiClient client, Delta delta, ExtractSelectionOptions extractSelectionOptions, Consumer<CustomDownloadProgress> progressConsumer) throws ApiException, InterruptedException {
         DeltaCustomApi deltaCustomApi = new DeltaCustomApi(client);
         DeltaCustomDownloadRequest deltaCustomDownloadRequest = new DeltaCustomDownloadRequest();
         deltaCustomDownloadRequest.setDeltaId(delta == null ? null : delta.getId());
@@ -69,7 +68,6 @@ public class DownloadApiUtils {
 
         String downloadUrl = progress.statusResponse.getLinks().getDownload().getHref();
         URI baseUri = URI.create(client.getBaseUri());
-        URI fullDownloadUri = baseUri.resolve(downloadUrl);
-        return fullDownloadUri;
+        return baseUri.resolve(downloadUrl);
     }
 }

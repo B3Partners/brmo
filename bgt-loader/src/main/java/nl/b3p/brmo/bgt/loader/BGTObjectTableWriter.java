@@ -54,7 +54,7 @@ public class BGTObjectTableWriter {
         CREATE_PRIMARY_KEY,
         CREATE_GEOMETRY_INDEX,
         FINISHED,
-    };
+    }
 
     private final Connection connection;
     private final SQLDialect dialect;

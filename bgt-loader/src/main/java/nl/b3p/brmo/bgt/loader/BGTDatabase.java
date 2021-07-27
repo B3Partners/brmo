@@ -89,7 +89,7 @@ public class BGTDatabase {
         }
     }
 
-    public BGTObjectTableWriter createObjectTableWriter(LoadOptions loadOptions, DatabaseOptions dbOptions) throws SQLException, ClassNotFoundException {
+    public BGTObjectTableWriter createObjectTableWriter(LoadOptions loadOptions, DatabaseOptions dbOptions) throws SQLException {
         BGTObjectTableWriter writer = new BGTObjectTableWriter(getConnection(), this.getDialect());
 
         if (loadOptions == null) {
@@ -106,7 +106,7 @@ public class BGTDatabase {
         return writer;
     }
 
-    public static SQLDialect createDialect(SQLDialectEnum dialectEnum) throws SQLException {
+    public static SQLDialect createDialect(SQLDialectEnum dialectEnum) {
         switch(dialectEnum) {
             case postgis: return new PostGISDialect();
             case oracle: return new OracleDialect();
@@ -123,7 +123,7 @@ public class BGTDatabase {
     }
 
 
-    public String getMetadata(Metadata key) throws SQLException, IOException {
+    public String getMetadata(Metadata key) throws SQLException {
         Object value = new QueryRunner().query(getConnection(), "select value from " + METADATA_TABLE + " where id = ?", new ScalarHandler<>(), key.getDbKey());
         if (value == null) {
             return null;

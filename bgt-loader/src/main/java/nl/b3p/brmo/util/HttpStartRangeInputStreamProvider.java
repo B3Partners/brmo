@@ -52,7 +52,7 @@ public class HttpStartRangeInputStreamProvider implements ResumableInputStream.S
         }
         HttpRequest request = requestBuilder.build();
 
-        HttpResponse<InputStream> response = null;
+        HttpResponse<InputStream> response;
         try {
             response = httpClient.send(request, HttpResponse.BodyHandlers.ofInputStream());
         } catch (InterruptedException e) {

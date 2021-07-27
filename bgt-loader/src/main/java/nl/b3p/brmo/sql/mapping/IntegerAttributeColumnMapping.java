@@ -20,7 +20,7 @@ public class IntegerAttributeColumnMapping extends AttributeColumnMapping {
     }
 
     @Override
-    public Object toQueryParameter(Object value) throws Exception {
+    public Object toQueryParameter(Object value) {
         if(value == null) {
             return null;
         } else {

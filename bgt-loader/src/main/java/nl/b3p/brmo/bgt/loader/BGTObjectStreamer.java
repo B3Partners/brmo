@@ -123,17 +123,21 @@ public class BGTObjectStreamer implements Iterable<BGTObject> {
 
         if(isMutaties) {
             cursor = cursor.childElementCursor(MUTATIE_BERICHT).advance().childElementCursor().advance();
+            label:
             do {
-                if (cursor.getLocalName().equals("dataset")) {
-                    assert cursor.getText().equals("bgt");
-                } else if (cursor.getLocalName().equals("inhoud")) {
-                    this.mutatieInhoud = parseInhoud(cursor);
-                } else if(cursor.getLocalName().equals("mutatieGroep")) {
-                    // cursor positioned correctly
-                    hasMutatieGroep = true;
-                    break;
-                } else {
-                    throw new IllegalStateException("Verwacht mutatieGroep element, gevonden " + cursor.getQName());
+                switch (cursor.getLocalName()) {
+                    case "dataset":
+                        assert cursor.getText().equals("bgt");
+                        break;
+                    case "inhoud":
+                        this.mutatieInhoud = parseInhoud(cursor);
+                        break;
+                    case "mutatieGroep":
+                        // cursor positioned correctly
+                        hasMutatieGroep = true;
+                        break label;
+                    default:
+                        throw new IllegalStateException("Verwacht mutatieGroep element, gevonden " + cursor.getQName());
                 }
             } while(cursor.getNext() != null);
 

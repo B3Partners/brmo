@@ -6,6 +6,8 @@
 
 package nl.b3p.brmo.sql.mapping;
 
+import org.locationtech.jts.geom.Geometry;
+
 public class GeometryAttributeColumnMapping extends AttributeColumnMapping {
 
     public GeometryAttributeColumnMapping(String name, String type) {
@@ -17,7 +19,7 @@ public class GeometryAttributeColumnMapping extends AttributeColumnMapping {
     }
 
     @Override
-    public Object toQueryParameter(Object value)  {
-        return (org.locationtech.jts.geom.Geometry) value;
+    public Geometry toQueryParameter(Object value)  {
+        return (Geometry) value;
     }
 }
