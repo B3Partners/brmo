@@ -127,7 +127,7 @@ public class BGTObjectStreamer implements Iterable<BGTObject> {
             do {
                 switch (cursor.getLocalName()) {
                     case "dataset":
-                        assert cursor.getText().equals("bgt");
+                        assert cursor.collectDescendantText().equals("bgt");
                         break;
                     case "inhoud":
                         this.mutatieInhoud = parseInhoud(cursor);
