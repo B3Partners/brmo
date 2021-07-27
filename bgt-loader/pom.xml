@@ -110,6 +110,11 @@ SPDX-License-Identifier: MIT
     </dependencies>
 
     <build>
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+            </testResource>
+        </testResources>
         <plugins>
             <plugin>
                 <groupId>org.openapitools</groupId>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mlb:bgtMutaties
+        xmlns="http://www.opengis.net/citygml/2.0"
+        xmlns:mlb="http://www.kadaster.nl/schemas/mutatielevering-bgt/1.0"
+        xmlns:ml="http://www.kadaster.nl/schemas/mutatielevering-generiek/2.0"
+        xmlns:imgeo="http://www.geostandaarden.nl/imgeo/2.1"
+        xmlns:gml="http://www.opengis.net/gml"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.kadaster.nl/schemas/mutatielevering-bgt/1.0 https://raw.githubusercontent.com/PDOK/schemas-mutatielevering/master/mutatielevering-bgt-1.0.xsd http://www.geostandaarden.nl/imgeo/2.1 http://register.geostandaarden.nl/gmlapplicatieschema/imgeo/2.1.1/imgeo.xsd">
+    <ml:mutatieBericht>
+    <ml:dataset>bgt</ml:dataset>
+    <ml:inhoud>
+        <ml:mutatieType>delta</ml:mutatieType>
+        <ml:gebied>POLYGON ((127813 461266, 141440 461266, 141440 447884, 127953 447884, 127813 461266))</ml:gebied>
+        <ml:leveringsId>c3791a07-b388-42a6-94eb-494ea4baa3b8</ml:leveringsId>
+        <ml:objectTypen>
+            <ml:objectType>pand</ml:objectType>
+        </ml:objectTypen>
+    </ml:inhoud>
+    </ml:mutatieBericht>
+</mlb:bgtMutaties>
