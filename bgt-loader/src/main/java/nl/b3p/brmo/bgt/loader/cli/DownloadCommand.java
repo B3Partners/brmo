@@ -69,6 +69,8 @@ public class DownloadCommand {
             return ExitCode.USAGE;
         }
 
+        log.info(getUserAgent());
+
         BGTDatabase db = new BGTDatabase(dbOptions);
 
         if (loadOptions.createSchema) {
@@ -104,6 +106,7 @@ public class DownloadCommand {
             @Mixin CLIOptions cliOptions,
             @Option(names={"-h","--help"}, usageHelp = true) boolean showHelp
     ) throws Exception {
+        log.info(getUserAgent());
 
         ApiClient client = getApiClient();
 

@@ -45,6 +45,7 @@ import java.util.zip.ZipInputStream;
 import static nl.b3p.brmo.bgt.loader.BGTSchemaMapper.Metadata;
 import static nl.b3p.brmo.bgt.loader.Utils.getLoaderVersion;
 import static nl.b3p.brmo.bgt.loader.Utils.getMessageFormattedString;
+import static nl.b3p.brmo.bgt.loader.Utils.getUserAgent;
 
 @Command(name = "bgt-loader", mixinStandardHelpOptions = true, versionProvider = BGTLoaderMain.class,
         resourceBundle = Utils.BUNDLE_NAME, subcommands = {DownloadCommand.class})
@@ -95,6 +96,8 @@ public class BGTLoaderMain implements IVersionProvider {
             @Parameters(paramLabel = "<file>") String file,
             @Mixin CLIOptions cliOptions,
             @Option(names={"-h","--help"}, usageHelp = true) boolean showHelp) throws Exception {
+
+        log.info(getUserAgent());
 
         BGTDatabase db = new BGTDatabase(dbOptions);
         BGTObjectTableWriter writer = db.createObjectTableWriter(loadOptions, dbOptions);
