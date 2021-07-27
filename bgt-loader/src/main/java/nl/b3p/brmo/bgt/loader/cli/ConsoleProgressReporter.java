@@ -51,7 +51,7 @@ public class ConsoleProgressReporter extends ProgressReporter {
             if (getCurrentFileSize() != null) {
                 current = String.format("%4.1f%% ", 100.0 / getCurrentFileSize() * progress.getBytesRead());
             } else {
-                current = FileUtils.byteCountToDisplaySize(progress.getBytesRead());
+                current = String.format("%,6d MB", progress.getBytesRead() / 1024 / 1024);
             }
             System.out.printf("\r%s: %s  %s, %,10d %s%s",
                     getCurrentFileName(),
