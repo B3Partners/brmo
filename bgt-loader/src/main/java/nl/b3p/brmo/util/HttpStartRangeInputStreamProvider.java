@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2021 B3Partners B.V.
  *
- * SPDX-License-Identifier: GPL-3.0-or-later
+ * SPDX-License-Identifier: MIT
  */
 
 package nl.b3p.brmo.util;

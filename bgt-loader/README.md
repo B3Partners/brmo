@@ -1,19 +1,18 @@
 <!--
 Copyright (C) 2021 B3Partners B.V.
 
-SPDX-License-Identifier: CC-BY-4.0
+SPDX-License-Identifier: MIT
 -->
 
-# BGT loader
+# BRMO BGT loader
 
 The B3Partners BRMO BGT loader can load the Dutch [BGT](https://docs.geostandaarden.nl/imgeo/catalogus/bgt/) (Basisregistratie Grootschalige Topografie) and the [IMGeo](https://docs.geostandaarden.nl/imgeo/catalogus/imgeo/) (Informatiemodel Geografie) extensions in a spatial database and keep the data updated using the [PDOK BGT mutatieservice](https://api.pdok.nl/lv/bgt/download/v1_0/ui/). See the [Modeldocumentatie mutatieformaat BGT](https://www.pdok.nl/bgt-mutatie) for more information.  
 
 ### Copyright and license
 
-Copyright (c) 2021 B3Partners B.V.
+Copyright (C) 2021 B3Partners B.V.
 
-This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it
-under certain conditions; see the [LICENSE](../LICENSE) file for details. Commercial support is available from [B3Partners](https://www.b3partners.nl).
+For the license and warranty disclaimer see [MIT](LICENSES/MIT.txt). Commercial support is available from [B3Partners](https://www.b3partners.nl).
 
 ### Supported platforms and system requirements
 

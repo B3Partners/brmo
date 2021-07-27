@@ -1,6 +1,6 @@
 # Copyright (C) 2021 B3Partners B.V.
 #
-# SPDX-License-Identifier: GPL-3.0-or-later
+# SPDX-License-Identifier: MIT
 
 FROM openjdk:11-jre-slim
 
