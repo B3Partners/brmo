@@ -21,6 +21,7 @@ public class HttpStartRangeInputStreamProvider implements ResumableInputStream.S
     private final HttpClient httpClient;
     private final Consumer<HttpRequest.Builder> httpRequestModifier;
     private String ifRange;
+    private String acceptRanges;
 
     public HttpStartRangeInputStreamProvider(URI uri) {
         this(uri, HttpClient.newHttpClient());
@@ -44,8 +45,11 @@ public class HttpStartRangeInputStreamProvider implements ResumableInputStream.S
         }
 
         if (position > 0) {
+            if (!"bytes".equals(acceptRanges)) {
+                throw new IOException("Exception reading from HTTP server and resume not supported", causeForRetry);
+            }
             if (ifRange == null) {
-                throw new IOException("Cannot resume HTTP request reliably; no ETag or Last-Modified");
+                throw new IOException("Exception reading from HTTP server, cannot resume HTTP request reliably: no ETag or Last-Modified", causeForRetry);
             }
             requestBuilder.headers("Range", "bytes=" + position + "-");
             requestBuilder.headers("If-Range", ifRange);
@@ -68,6 +72,7 @@ public class HttpStartRangeInputStreamProvider implements ResumableInputStream.S
         Optional<String> lastModified = response.headers().firstValue("Last-Modified");
         Optional<String> eTag = response.headers().firstValue("ETag");
         ifRange = eTag.orElseGet(() -> lastModified.orElse(null));
+        acceptRanges = response.headers().firstValue("Accept-Ranges").orElse(null);
 
         afterHttpRequest(response);
 
