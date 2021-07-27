@@ -31,6 +31,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -259,12 +260,14 @@ public class BGTObjectTableWriter {
 
     private void addObjectToBatch(BGTObject object, boolean initialLoad, boolean fromWorkerThread) throws Throwable {
         if (multithreading && !fromWorkerThread) {
-            if (getExceptionFromWorkerThread() != null) {
-                throw getExceptionFromWorkerThread();
+            while(exceptionFromWorkerThread == null) {
+                // We can't use the blocking put() method because the worker thread may be interrupted because of an
+                // exception and never drain the full queue
+                if(progress.bgtObjects.offer(object, 500, TimeUnit.MILLISECONDS)) {
+                    return;
+                }
             }
-
-            progress.bgtObjects.put(object);
-            return;
+            throw exceptionFromWorkerThread;
         }
 
         // This always returns a value without creating the table because it has been called before (so no table
@@ -345,6 +348,7 @@ public class BGTObjectTableWriter {
                 objects.add(progress.bgtObjects.take());
                 progress.bgtObjects.drainTo(objects);
                 for(BGTObject object: objects) {
+                    // Check for end of objects marker
                     if (object.getObjectType() == null) {
                         return;
                     }
