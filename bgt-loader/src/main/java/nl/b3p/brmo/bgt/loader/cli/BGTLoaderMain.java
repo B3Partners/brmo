@@ -11,7 +11,7 @@ import nl.b3p.brmo.bgt.loader.BGTDatabase;
 import nl.b3p.brmo.bgt.loader.BGTObjectTableWriter;
 import nl.b3p.brmo.bgt.loader.BGTSchemaMapper;
 import nl.b3p.brmo.bgt.loader.ProgressReporter;
-import nl.b3p.brmo.bgt.loader.ResumableBGTZIPInputStream;
+import nl.b3p.brmo.bgt.loader.ResumableBGTDownloadInputStream;
 import nl.b3p.brmo.bgt.loader.Utils;
 import nl.b3p.brmo.sql.dialect.SQLDialect;
 import org.apache.commons.io.input.CloseShieldInputStream;
@@ -176,7 +176,7 @@ public class BGTLoaderMain implements IVersionProvider {
         log.info(getMessageFormattedString("download.downloading_from", downloadURI));
         ProgressReporter progressReporter = (ProgressReporter) writer.getProgressUpdater();
 
-        try (InputStream input = new ResumableBGTZIPInputStream(downloadURI, writer)) {
+        try (InputStream input = new ResumableBGTDownloadInputStream(downloadURI, writer)) {
             CountingInputStream countingInputStream = new CountingInputStream(input);
             progressReporter.setTotalBytesReadFunction(countingInputStream::getByteCount);
 

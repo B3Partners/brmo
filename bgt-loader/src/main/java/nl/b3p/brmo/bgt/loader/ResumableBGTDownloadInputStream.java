@@ -23,10 +23,10 @@ import java.util.OptionalLong;
 
 import static nl.b3p.brmo.bgt.loader.Utils.getUserAgent;
 
-public class ResumableBGTZIPInputStream extends ResumableInputStream {
-    private static final Log log = LogFactory.getLog(ResumableBGTZIPInputStream.class);
+public class ResumableBGTDownloadInputStream extends ResumableInputStream {
+    private static final Log log = LogFactory.getLog(ResumableBGTDownloadInputStream.class);
 
-    public ResumableBGTZIPInputStream(URI uri, BGTObjectTableWriter writer) {
+    public ResumableBGTDownloadInputStream(URI uri, BGTObjectTableWriter writer) {
         super(new HttpStartRangeInputStreamProvider(uri,
                 HttpClient.newBuilder()
                         .proxy(ProxySelector.getDefault())
@@ -56,9 +56,14 @@ public class ResumableBGTZIPInputStream extends ResumableInputStream {
                 // The direct download https://api.pdok.nl/lv/bgt/download/v1_0/full/predefined/bgt-citygml-nl-nopbp.zip
                 // does not support the HEAD method to read the content-length because it first sends a redirect. Read
                 // the Content-Length later:
-                OptionalLong contentLength = response.headers().firstValueAsLong("Content-Length");
-                if (contentLength.isPresent()) {
-                    ((ProgressReporter)writer.getProgressUpdater()).setTotalBytes(contentLength.getAsLong());
+
+                // Only read Content-Length from the first response, not a response from a retried request starting at
+                // a later position
+                if (!response.headers().map().containsKey("Content-Range")) {
+                    OptionalLong contentLength = response.headers().firstValueAsLong("Content-Length");
+                    if (contentLength.isPresent()) {
+                        ((ProgressReporter) writer.getProgressUpdater()).setTotalBytes(contentLength.getAsLong());
+                    }
                 }
             }
         });
