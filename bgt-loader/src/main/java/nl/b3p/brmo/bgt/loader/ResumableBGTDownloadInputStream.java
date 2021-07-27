@@ -21,12 +21,17 @@ import java.net.http.HttpClient;
 import java.net.http.HttpResponse;
 import java.util.OptionalLong;
 
+import static nl.b3p.brmo.bgt.loader.Utils.getMessageFormattedString;
 import static nl.b3p.brmo.bgt.loader.Utils.getUserAgent;
 
 public class ResumableBGTDownloadInputStream extends ResumableInputStream {
     private static final Log log = LogFactory.getLog(ResumableBGTDownloadInputStream.class);
 
     public ResumableBGTDownloadInputStream(URI uri, BGTObjectTableWriter writer) {
+        this(uri, writer, false);
+    }
+
+    public ResumableBGTDownloadInputStream(URI uri, BGTObjectTableWriter writer, boolean logRetries) {
         super(new HttpStartRangeInputStreamProvider(uri,
                 HttpClient.newBuilder()
                         .proxy(ProxySelector.getDefault())
@@ -35,8 +40,8 @@ public class ResumableBGTDownloadInputStream extends ResumableInputStream {
         ) {
             @Override
             public InputStream get(long position, int totalRetries, Exception causeForRetry) throws IOException {
-                if (causeForRetry != null) {
-                    String msg = String.format("Exception reading from server, retrying (total retries: %d) from position %d. Error: %s",
+                if (causeForRetry != null && logRetries) {
+                    String msg = getMessageFormattedString("download.retry",
                             totalRetries,
                             position,
                             ExceptionUtils.getRootCause(causeForRetry).getMessage()
