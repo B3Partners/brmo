@@ -139,7 +139,7 @@ Remember to stop the Docker container using `docker stop oracle-xe`. You may als
 
 ## Loading the BGT
 
-The download service supports loading the entire BGT for the entire continental Netherlands, or selecting only a few 
+The download service supports loading the entire BGT for the continental Netherlands, or selecting only a few 
 feature types (tables) or region(s) using a polygon defined in WKT in the Rijksdriehoekstelsel (RD) coordinate system 
 (EPSG:28992).
 
@@ -237,7 +237,7 @@ If you have downloaded a BGT file to the current directory, execute the followin
 Files from disk can also be in unzipped .gml or .xml format.
 
 ```shell
-docker run -it --rm --network=host -v $(pwd):/data ghcr.io/b3partners/brmo-bgt-loader load /data/bgt-citygml-nl-nopbp.zip`
+docker run -it --rm --network=host -v $(pwd):/data ghcr.io/b3partners/brmo-bgt-loader load /data/bgt-citygml-nl-nopbp.zip
 ```
 
 ## Advanced options
