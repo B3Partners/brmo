@@ -40,6 +40,7 @@ Note that you need to run `docker pull` again to update to the latest version. R
 docker run -it --rm --network=host ghcr.io/b3partners/brmo-bgt-loader --version
 ````
 
+The following command line examples for running brmo-bgt-loader leave out the first `docker run` part. 
 
 ### Building 
 
@@ -128,11 +129,11 @@ You need to specify the `--connection` and `--user` options to the BGT loader to
 Example command to load only a few feature types into Oracle Spatial:
 
 ```shell
-docker run -it --rm --network=host ghcr.io/b3partners/brmo-bgt-loader download initial --connection="jdbc:oracle:thin:@localhost:1521:XE" --user="c##bgt" --feature-types=wijk,buurt --no-geo-filter
+brmo-bgt-loader download initial --connection="jdbc:oracle:thin:@localhost:1521:XE" --user="c##bgt" --feature-types=wijk,buurt --no-geo-filter
 ```
 To update:
 ```shell
-docker run -it --rm --network=host ghcr.io/b3partners/brmo-bgt-loader download update --connection="jdbc:oracle:thin:@localhost:1521:XE" --user="c##bgt" 
+brmo-bgt-loader download update --connection="jdbc:oracle:thin:@localhost:1521:XE" --user="c##bgt" 
 ```
 Remember to stop the Docker container using `docker stop oracle-xe`. You may also want to remove the container using `docker rm oracle-xe`.
 
@@ -147,7 +148,7 @@ feature types (tables) or region(s) using a polygon defined in WKT in the Rijksd
 
 Loading the entire BGT takes a lot of disk space! Make sure you have ample space available and run:
 ```shell
-docker run -it --rm --network=host ghcr.io/b3partners/brmo-bgt-loader download initial --no-geo-filter
+brmo-bgt-loader download initial --no-geo-filter
 ```
 
 ### Specifying feature types and a geo filter
@@ -207,7 +208,7 @@ The options used for the `download initial` command are saved in the database in
 up-to-date. Run the following command to get changes from the PDOK service:
 
 ```shell
-docker run -it --rm --network=host ghcr.io/b3partners/brmo-bgt-loader download update
+brmo-bgt-loader download update
 ````
 
 You can run this daily in a cronjob or scheduled task to make sure the data stays updated. The data is only updated once
@@ -218,7 +219,7 @@ a day.
 The `load` command can read BGT CityGML files (no GML-light or Stuf-geo formats) from disk or a webserver. If you want to load an 
 initial dataset without a geo filter and don't need to keep it updated, you can download the entire BGT from PDOK as follows:
 ```shell
-docker run -it --rm --network=host -v $(pwd):/data ghcr.io/b3partners/brmo-bgt-loader load https://api.pdok.nl/lv/bgt/download/v1_0/full/predefined/bgt-citygml-nl-nopbp.zip
+brmo-bgt-loader load https://api.pdok.nl/lv/bgt/download/v1_0/full/predefined/bgt-citygml-nl-nopbp.zip
 ```
 Warning! This predefined file does not take hours to prepare by PDOK (as when downloading the entire BGT using the `download initial` 
 command), but it is currently about 19+ GB in size (and will only grow). You can specify which feature types to load with the `--feature-types` 
@@ -229,16 +230,29 @@ can be over 2.5 hours for the entire BGT without plaatsbepalingspunten. Unfortun
 contain a 'delta ID' required to apply updates from the service to it (although you may try to put the [latest delta ID](https://api.pdok.nl/lv/bgt/download/v1_0/delta?count=29&page=2) in
 the `bgt_metadata` table in the row with id `initial_load_delta_id` and try your luck using `download update`...).
 
+### Loading the 'delta' predefined entire BGT
+
+There is a 'predefined' download that does not need to be prepared which _does_ contain a delta ID. Unfortunately, this 
+file is not available without the plaatsbepalingspunt feature type. This is the biggest feature type which contains all 
+nodes used for polygonal datasets which must form a coverage, even the deleted ones. For most BGT users this is 
+not very interesting.
+
+Note that the plaatsbepalingspunt feature type will be skipped by default. Add the `--feature-types=all,plaatsbepalingspunt`
+to load it. When skipping this feature type, the GML data must still be downloaded and unzipped to be able to skip it.
+
+```shell
+brmo-bgt-loader load https://api.pdok.nl/lv/bgt/download/v1_0/delta/predefined/bgt-citygml-nl-delta.zip
+```
+
 ### Loading a file from disk
 
 Files can also be loaded from disk without requiring an internet connection. When using a Docker container, mount a volume so the container has access to the file.
 If you have downloaded a BGT file to the current directory, execute the following command to load it:
 
-Files from disk can also be in unzipped .gml or .xml format.
-
 ```shell
 docker run -it --rm --network=host -v $(pwd):/data ghcr.io/b3partners/brmo-bgt-loader load /data/bgt-citygml-nl-nopbp.zip
 ```
+Files from disk can also be in unzipped .gml or .xml format.
 
 ## Advanced options
 
