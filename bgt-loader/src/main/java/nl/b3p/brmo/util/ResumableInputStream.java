@@ -135,7 +135,7 @@ public class ResumableInputStream extends InputStream {
      */
     protected void onReadException(int tries, IOException cause) throws IOException {
         if (tries > maxReadTries) {
-            throw new IOException("Max tries (" + tries + ") exceeded", cause);
+            throw new IOException("Max tries (" + maxReadTries + ") exceeded", cause);
         }
     }
 
