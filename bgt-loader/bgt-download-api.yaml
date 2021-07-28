@@ -314,32 +314,5 @@ paths:
         download
       tags:
         - Delta Custom
-  "/delta/predefined/bgt-citygml-nl-delta.zip":
-    get:
-      operationId: GetDeltaPredefinedGmlNl
-      parameters:
-        - description: 'Als het verzoek geen deltaId bevat, dan zal de download de meeste
-          recente initiële levering bevatten. Als het verzoek wel een deltaId bevat,
-          dan zal de download alleen de wijzigingen bevatten uit de opgegeven delta.
-
-          '
-          in: query
-          name: delta-id
-          schema:
-            type: string
-      responses:
-        '307':
-          description: Redirect
-          headers:
-            Location:
-              description: Absolute path waarop het bestand gedownload kan worden
-        '404':
-          description: Not found
-      summary: 'Met dit endpoint kan een delta download gestart worden waarbij geen
-        filters zijn toegepast op type feature of gebied
-
-        '
-      tags:
-        - Delta Predefined
 servers:
   - url: https://api.pdok.nl/lv/bgt/download/v1_0
