@@ -20,6 +20,7 @@ public class HttpStartRangeInputStreamProvider implements ResumableInputStream.S
     private final URI uri;
     private final HttpClient httpClient;
     private final Consumer<HttpRequest.Builder> httpRequestModifier;
+    private boolean first = true;
     private String ifRange;
     private String acceptRanges;
 
@@ -44,16 +45,19 @@ public class HttpStartRangeInputStreamProvider implements ResumableInputStream.S
             httpRequestModifier.accept(requestBuilder);
         }
 
-        if (position > 0) {
+        if (position > 0 && !first) {
             if (!"bytes".equals(acceptRanges)) {
                 throw new IOException("Exception reading from HTTP server and resume not supported", causeForRetry);
             }
             if (ifRange == null) {
-                throw new IOException("Exception reading from HTTP server, cannot resume HTTP request reliably: no ETag or Last-Modified", causeForRetry);
+                throw new IOException("Exception reading from HTTP server, cannot resume HTTP request reliably: no strong ETag or Last-Modified", causeForRetry);
             }
-            requestBuilder.headers("Range", "bytes=" + position + "-");
             requestBuilder.headers("If-Range", ifRange);
         }
+        if (position > 0) {
+            requestBuilder.headers("Range", "bytes=" + position + "-");
+        }
+        first = false;
         HttpRequest request = requestBuilder.build();
 
         HttpResponse<InputStream> response;
@@ -71,7 +75,15 @@ public class HttpStartRangeInputStreamProvider implements ResumableInputStream.S
         }
         Optional<String> lastModified = response.headers().firstValue("Last-Modified");
         Optional<String> eTag = response.headers().firstValue("ETag");
-        ifRange = eTag.orElseGet(() -> lastModified.orElse(null));
+        if (eTag.isPresent()) {
+            String eTagValue = eTag.get();
+            // Use strong ETag only
+            if (!eTagValue.startsWith("W/") && eTagValue.startsWith("\"") && eTagValue.charAt(eTagValue.length()-1) == '"') {
+                ifRange = eTagValue.substring(1, eTagValue.length()-1);
+            }
+        } else {
+            ifRange = lastModified.orElse(null);
+        }
         acceptRanges = response.headers().firstValue("Accept-Ranges").orElse(null);
 
         afterHttpRequest(response);
