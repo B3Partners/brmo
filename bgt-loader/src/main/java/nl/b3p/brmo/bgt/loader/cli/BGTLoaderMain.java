@@ -52,7 +52,7 @@ import static nl.b3p.brmo.bgt.loader.Utils.getUserAgent;
 public class BGTLoaderMain implements IVersionProvider {
     private static Log log;
 
-    private static void configureLogging() {
+    public static void configureLogging() {
         PropertyConfigurator.configure(BGTLoaderMain.class.getResourceAsStream("/bgt-loader-cli-log4.properties"));
         log = LogFactory.getLog(BGTLoaderMain.class);
         try {

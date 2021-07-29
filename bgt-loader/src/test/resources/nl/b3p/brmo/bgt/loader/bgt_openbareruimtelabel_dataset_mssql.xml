@@ -1,0 +1,423 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+    <table name="openbareruimtelabel">
+        <column>gmlid</column>
+        <column>identificatie</column>
+        <column>lv_publicatiedatum</column>
+        <column>creationdate</column>
+        <column>tijdstipregistratie</column>
+        <column>eindregistratie</column>
+        <column>terminationdate</column>
+        <column>bronhouder</column>
+        <column>inonderzoek</column>
+        <column>relatievehoogteligging</column>
+        <column>bgt_status</column>
+        <column>plus_status</column>
+        <column>idx</column>
+        <column>tekst</column>
+        <column>hoek</column>
+        <column>plaatsingspunt</column>
+        <column>openbareruimtetype</column>
+        <column>identificatiebagopr</column>
+        <row>
+            <value>454bd7a1b014de94bb2085db69205470</value>
+            <value>G1714.dd76596a2d2f4d2eac74703b1a8aaa6c</value>
+            <value><![CDATA[2020-03-09 08:14:27.0]]></value>
+            <value>2019-11-14</value>
+            <value><![CDATA[2020-03-09 08:04:34.0]]></value>
+            <null/>
+            <null/>
+            <value>G1714</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>0</value>
+            <value>Rijksweg</value>
+            <value>-82.9</value>
+            <value>QHEAAAEMyXa+n0qG00DjpZvEEUwWQQ==</value>
+            <value>Weg</value>
+            <value>1714300000715278</value>
+        </row>
+        <row>
+            <value>454bd7a1b014de94bb2085db69205470</value>
+            <value>G1714.dd76596a2d2f4d2eac74703b1a8aaa6c</value>
+            <value><![CDATA[2020-03-09 08:14:27.0]]></value>
+            <value>2019-11-14</value>
+            <value><![CDATA[2020-03-09 08:04:34.0]]></value>
+            <null/>
+            <null/>
+            <value>G1714</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>1</value>
+            <value>Rijksweg</value>
+            <value>-83.1</value>
+            <value>QHEAAAEM5/up8SqA00Av3SSG9EgWQQ==</value>
+            <value>Weg</value>
+            <value>1714300000715278</value>
+        </row>
+        <row>
+            <value>454bd7a1b014de94bb2085db69205470</value>
+            <value>G1714.dd76596a2d2f4d2eac74703b1a8aaa6c</value>
+            <value><![CDATA[2020-03-09 08:14:27.0]]></value>
+            <value>2019-11-14</value>
+            <value><![CDATA[2020-03-09 08:04:34.0]]></value>
+            <null/>
+            <null/>
+            <value>G1714</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>2</value>
+            <value>Rijksweg</value>
+            <value>-82.9</value>
+            <value>QHEAAAEMUrgehRN600Bcj8L12UUWQQ==</value>
+            <value>Weg</value>
+            <value>1714300000715278</value>
+        </row>
+        <row>
+            <value>454bd7a1b014de94bb2085db69205470</value>
+            <value>G1714.dd76596a2d2f4d2eac74703b1a8aaa6c</value>
+            <value><![CDATA[2020-03-09 08:14:27.0]]></value>
+            <value>2019-11-14</value>
+            <value><![CDATA[2020-03-09 08:04:34.0]]></value>
+            <null/>
+            <null/>
+            <value>G1714</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>3</value>
+            <value>Rijksweg</value>
+            <value>-82.8</value>
+            <value>QHEAAAEMppvEIPh200BCYOVQxEMWQQ==</value>
+            <value>Weg</value>
+            <value>1714300000715278</value>
+        </row>
+        <row>
+            <value>454bd7a1b014de94bb2085db69205470</value>
+            <value>G1714.dd76596a2d2f4d2eac74703b1a8aaa6c</value>
+            <value><![CDATA[2020-03-09 08:14:27.0]]></value>
+            <value>2019-11-14</value>
+            <value><![CDATA[2020-03-09 08:04:34.0]]></value>
+            <null/>
+            <null/>
+            <value>G1714</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>4</value>
+            <value>Rijksweg</value>
+            <value>-82.5</value>
+            <value>QHEAAAEMWmQ73yd100Av3SQGyEMWQQ==</value>
+            <value>Weg</value>
+            <value>1714300000715278</value>
+        </row>
+        <row>
+            <value>454bd7a1b014de94bb2085db69205470</value>
+            <value>G1714.dd76596a2d2f4d2eac74703b1a8aaa6c</value>
+            <value><![CDATA[2020-03-09 08:14:27.0]]></value>
+            <value>2019-11-14</value>
+            <value><![CDATA[2020-03-09 08:04:34.0]]></value>
+            <null/>
+            <null/>
+            <value>G1714</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>5</value>
+            <value>Rijksweg</value>
+            <value>-82.5</value>
+            <value>QHEAAAEMdZMYBHZy00CcxCCwMUEWQQ==</value>
+            <value>Weg</value>
+            <value>1714300000715278</value>
+        </row>
+        <row>
+            <value>454bd7a1b014de94bb2085db69205470</value>
+            <value>G1714.dd76596a2d2f4d2eac74703b1a8aaa6c</value>
+            <value><![CDATA[2020-03-09 08:14:27.0]]></value>
+            <value>2019-11-14</value>
+            <value><![CDATA[2020-03-09 08:04:34.0]]></value>
+            <null/>
+            <null/>
+            <value>G1714</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>6</value>
+            <value>Rijksweg</value>
+            <value>-82.8</value>
+            <value>QHEAAAEM2/l+ahxx00B9PzXeNEEWQQ==</value>
+            <value>Weg</value>
+            <value>1714300000715278</value>
+        </row>
+        <row>
+            <value>454bd7a1b014de94bb2085db69205470</value>
+            <value>G1714.dd76596a2d2f4d2eac74703b1a8aaa6c</value>
+            <value><![CDATA[2020-03-09 08:14:27.0]]></value>
+            <value>2019-11-14</value>
+            <value><![CDATA[2020-03-09 08:04:34.0]]></value>
+            <null/>
+            <null/>
+            <value>G1714</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>7</value>
+            <value>Rijksweg</value>
+            <value>-83.0</value>
+            <value>QHEAAAEMN4lBYHVr00Cmm8Qgbz4WQQ==</value>
+            <value>Weg</value>
+            <value>1714300000715278</value>
+        </row>
+        <row>
+            <value>454bd7a1b014de94bb2085db69205470</value>
+            <value>G1714.dd76596a2d2f4d2eac74703b1a8aaa6c</value>
+            <value><![CDATA[2020-03-09 08:14:27.0]]></value>
+            <value>2019-11-14</value>
+            <value><![CDATA[2020-03-09 08:04:34.0]]></value>
+            <null/>
+            <null/>
+            <value>G1714</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>8</value>
+            <value>Rijksweg</value>
+            <value>-82.9</value>
+            <value>QHEAAAEMWmQ735dn00B9PzXedjwWQQ==</value>
+            <value>Weg</value>
+            <value>1714300000715278</value>
+        </row>
+        <row>
+            <value>454bd7a1b014de94bb2085db69205470</value>
+            <value>G1714.dd76596a2d2f4d2eac74703b1a8aaa6c</value>
+            <value><![CDATA[2020-03-09 08:14:27.0]]></value>
+            <value>2019-11-14</value>
+            <value><![CDATA[2020-03-09 08:04:34.0]]></value>
+            <null/>
+            <null/>
+            <value>G1714</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>9</value>
+            <value>Rijksweg</value>
+            <value>-80.3</value>
+            <value>QHEAAAEMi2zn+2Fh00DpJjGIejkWQQ==</value>
+            <value>Weg</value>
+            <value>1714300000715278</value>
+        </row>
+        <row>
+            <value>454bd7a1b014de94bb2085db69205470</value>
+            <value>G1714.dd76596a2d2f4d2eac74703b1a8aaa6c</value>
+            <value><![CDATA[2020-03-09 08:14:27.0]]></value>
+            <value>2019-11-14</value>
+            <value><![CDATA[2020-03-09 08:04:34.0]]></value>
+            <null/>
+            <null/>
+            <value>G1714</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>10</value>
+            <value>Rijksweg</value>
+            <value>-76.1</value>
+            <value>QHEAAAEMRrbz/SxW00AX2c73ZzYWQQ==</value>
+            <value>Weg</value>
+            <value>1714300000715278</value>
+        </row>
+        <row>
+            <value>454bd7a1b014de94bb2085db69205470</value>
+            <value>G1714.dd76596a2d2f4d2eac74703b1a8aaa6c</value>
+            <value><![CDATA[2020-03-09 08:14:27.0]]></value>
+            <value>2019-11-14</value>
+            <value><![CDATA[2020-03-09 08:04:34.0]]></value>
+            <null/>
+            <null/>
+            <value>G1714</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>11</value>
+            <value>Rijksweg</value>
+            <value>-76.2</value>
+            <value>QHEAAAEMI9v5fmJK00DpJjGIXjMWQQ==</value>
+            <value>Weg</value>
+            <value>1714300000715278</value>
+        </row>
+        <row>
+            <value>454bd7a1b014de94bb2085db69205470</value>
+            <value>G1714.dd76596a2d2f4d2eac74703b1a8aaa6c</value>
+            <value><![CDATA[2020-03-09 08:14:27.0]]></value>
+            <value>2019-11-14</value>
+            <value><![CDATA[2020-03-09 08:04:34.0]]></value>
+            <null/>
+            <null/>
+            <value>G1714</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>12</value>
+            <value>Rijksweg</value>
+            <value>-76.9</value>
+            <value>QHEAAAEMoBov3Zw+00Av3SQGWDAWQQ==</value>
+            <value>Weg</value>
+            <value>1714300000715278</value>
+        </row>
+        <row>
+            <value>454bd7a1b014de94bb2085db69205470</value>
+            <value>G1714.dd76596a2d2f4d2eac74703b1a8aaa6c</value>
+            <value><![CDATA[2020-03-09 08:14:27.0]]></value>
+            <value>2019-11-14</value>
+            <value><![CDATA[2020-03-09 08:04:34.0]]></value>
+            <null/>
+            <null/>
+            <value>G1714</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>13</value>
+            <value>Rijksweg</value>
+            <value>-77.9</value>
+            <value>QHEAAAEMmG4Sg+gz00CNl26SSS0WQQ==</value>
+            <value>Weg</value>
+            <value>1714300000715278</value>
+        </row>
+        <row>
+            <value>454bd7a1b014de94bb2085db69205470</value>
+            <value>G1714.dd76596a2d2f4d2eac74703b1a8aaa6c</value>
+            <value><![CDATA[2020-03-09 08:14:27.0]]></value>
+            <value>2019-11-14</value>
+            <value><![CDATA[2020-03-09 08:04:34.0]]></value>
+            <null/>
+            <null/>
+            <value>G1714</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>14</value>
+            <value>Rijksweg</value>
+            <value>-77.8</value>
+            <value>QHEAAAEMbef7qWEp00CiRbbzPioWQQ==</value>
+            <value>Weg</value>
+            <value>1714300000715278</value>
+        </row>
+        <row>
+            <value>454bd7a1b014de94bb2085db69205470</value>
+            <value>G1714.dd76596a2d2f4d2eac74703b1a8aaa6c</value>
+            <value><![CDATA[2020-03-09 08:14:27.0]]></value>
+            <value>2019-11-14</value>
+            <value><![CDATA[2020-03-09 08:04:34.0]]></value>
+            <null/>
+            <null/>
+            <value>G1714</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>15</value>
+            <value>Rijksweg</value>
+            <value>-83.0</value>
+            <value>QHEAAAEMmG4Sg5iC00BMN4nBGEwWQQ==</value>
+            <value>Weg</value>
+            <value>1714300000715278</value>
+        </row>
+        <row>
+            <value>454bd7a1b014de94bb2085db69205470</value>
+            <value>G1714.dd76596a2d2f4d2eac74703b1a8aaa6c</value>
+            <value><![CDATA[2020-03-09 08:14:27.0]]></value>
+            <value>2019-11-14</value>
+            <value><![CDATA[2020-03-09 08:04:34.0]]></value>
+            <null/>
+            <null/>
+            <value>G1714</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>16</value>
+            <value>Rijksweg</value>
+            <value>-82.9</value>
+            <value>QHEAAAEM30+Nl5Z800AEVg6t/EgWQQ==</value>
+            <value>Weg</value>
+            <value>1714300000715278</value>
+        </row>
+        <row>
+            <value>454bd7a1b014de94bb2085db69205470</value>
+            <value>G1714.dd76596a2d2f4d2eac74703b1a8aaa6c</value>
+            <value><![CDATA[2020-03-09 08:14:27.0]]></value>
+            <value>2019-11-14</value>
+            <value><![CDATA[2020-03-09 08:04:34.0]]></value>
+            <null/>
+            <null/>
+            <value>G1714</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>17</value>
+            <value>Rijksweg</value>
+            <value>-83.1</value>
+            <value>QHEAAAEMEoPAynl200BaZDtf4UUWQQ==</value>
+            <value>Weg</value>
+            <value>1714300000715278</value>
+        </row>
+        <row>
+            <value>454bd7a1b014de94bb2085db69205470</value>
+            <value>G1714.dd76596a2d2f4d2eac74703b1a8aaa6c</value>
+            <value><![CDATA[2020-03-09 08:14:27.0]]></value>
+            <value>2019-11-14</value>
+            <value><![CDATA[2020-03-09 08:04:34.0]]></value>
+            <null/>
+            <null/>
+            <value>G1714</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>18</value>
+            <value>Rijksweg</value>
+            <value>-88.4</value>
+            <value>QHEAAAEMy6FFtity00AMAiuHxEMWQQ==</value>
+            <value>Weg</value>
+            <value>1714300000715278</value>
+        </row>
+        <row>
+            <value>454bd7a1b014de94bb2085db69205470</value>
+            <value>G1714.dd76596a2d2f4d2eac74703b1a8aaa6c</value>
+            <value><![CDATA[2020-03-09 08:14:27.0]]></value>
+            <value>2019-11-14</value>
+            <value><![CDATA[2020-03-09 08:04:34.0]]></value>
+            <null/>
+            <null/>
+            <value>G1714</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>19</value>
+            <value>Rijksweg</value>
+            <value>-82.8</value>
+            <value>QHEAAAEMwcqhRYZv00DD9SjcN0EWQQ==</value>
+            <value>Weg</value>
+            <value>1714300000715278</value>
+        </row>
+    </table>
+</dataset>

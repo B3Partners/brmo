@@ -41,7 +41,7 @@ class BGTObjectStreamerTest {
     @ParameterizedTest(name="[{index}] {0}")
     @MethodSource
     void testAllFeatureTypes(String file, String objectName, Object[][] attributes) throws XMLStreamException {
-        BGTObjectStreamer streamer = new BGTObjectStreamer(BGTTestFiles.getTestFile(file));
+        BGTObjectStreamer streamer = new BGTObjectStreamer(BGTTestFiles.getTestInputStream(file));
         Iterator<BGTObject> iterator = streamer.iterator();
         BGTObject object = iterator.next();
         assertNotNull(object);
@@ -108,7 +108,7 @@ class BGTObjectStreamerTest {
 
     @Test
     void testOpenbareRuimteLabel() throws XMLStreamException {
-        BGTObjectStreamer streamer = new BGTObjectStreamer(BGTTestFiles.getTestFile("bgt_openbareruimtelabel.gml"));
+        BGTObjectStreamer streamer = new BGTObjectStreamer(BGTTestFiles.getTestInputStream("bgt_openbareruimtelabel.gml"));
         Iterator<BGTObject> iterator = streamer.iterator();
         GeometryFactory gf = new GeometryFactory();
         Point[] punten = new Point[] {
@@ -137,7 +137,7 @@ class BGTObjectStreamerTest {
 
     @Test
     void testMutatieInhoud() throws XMLStreamException {
-        BGTObjectStreamer streamer = new BGTObjectStreamer(BGTTestFiles.getTestFile("bgt_mutatie_delta_pand.xml"));
+        BGTObjectStreamer streamer = new BGTObjectStreamer(BGTTestFiles.getTestInputStream("bgt_mutatie_delta_pand.xml"));
         BGTObjectStreamer.MutatieInhoud mutatieInhoud = streamer.getMutatieInhoud();
         assertNotNull(mutatieInhoud);
         assertEquals("delta", mutatieInhoud.getMutatieType());
@@ -149,7 +149,7 @@ class BGTObjectStreamerTest {
 
     @Test
     void testMutatiePand() throws XMLStreamException {
-        BGTObjectStreamer streamer = new BGTObjectStreamer(BGTTestFiles.getTestFile("bgt_mutatie_delta_pand.xml"));
+        BGTObjectStreamer streamer = new BGTObjectStreamer(BGTTestFiles.getTestInputStream("bgt_mutatie_delta_pand.xml"));
         Iterator<BGTObject> iterator = streamer.iterator();
         BGTObject object = iterator.next();
         assertNotNull(object);
@@ -189,7 +189,7 @@ class BGTObjectStreamerTest {
 
     @Test
     void testMutatiesEmpty() throws XMLStreamException {
-        BGTObjectStreamer streamer = new BGTObjectStreamer(BGTTestFiles.getTestFile("bgt_mutatie_empty.xml"));
+        BGTObjectStreamer streamer = new BGTObjectStreamer(BGTTestFiles.getTestInputStream("bgt_mutatie_empty.xml"));
         BGTObjectStreamer.MutatieInhoud mutatieInhoud = streamer.getMutatieInhoud();
         assertNotNull(mutatieInhoud);
         assertFalse(streamer.iterator().hasNext());

@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <dataset>
-    <table name="stadsdeel">
+    <table name="waterschap">
         <column>gmlid</column>
         <column>identificatie</column>
         <column>lv_publicatiedatum</column>
@@ -13,27 +13,21 @@
         <column>relatievehoogteligging</column>
         <column>bgt_status</column>
         <column>plus_status</column>
-        <column>naam</column>
-        <column>function_</column>
         <column>geom</column>
         <row>
-            <value>0d8fd67b6e453f9def31e26be9ebcbfe</value>
-            <value>G0213.3242ce08ec434e728f6380d7f2ec88cc</value>
+            <value>d8095fd0b8dee285a0e6a2a4980c132a</value>
+            <value>G0213.9a788699c5734dd4a8c44b3d54cba16c</value>
             <value><![CDATA[2019-03-04 10:11:48.0]]></value>
             <value>2019-03-03</value>
-            <value><![CDATA[2019-03-03 11:05:27.0]]></value>
-            <value><![CDATA[2019-03-20 15:05:03.0]]></value>
+            <value><![CDATA[2019-03-03 11:05:44.0]]></value>
+            <value><![CDATA[2019-03-20 15:06:08.0]]></value>
             <value>2019-03-20</value>
             <value>G0213</value>
             <value>false</value>
             <value>0</value>
             <value>bestaand</value>
             <value>geenWaarde</value>
-            <null/>
-            <null/>
-            <value><![CDATA[QHEAAAEEBQAAAOf7qfEDTQlBXrpJDK7EG0GYbhKDAU0JQWQ730+rxBtBBFYOLRZNCUFSuB4FpMQb
-QYlBYOUfTQlBvp8aL6nEG0Hn+6nxA00JQV66SQyuxBtBAQAAAAIAAAAAAgAAAP////8AAAAABgAA
-AAAAAAAAAw==]]></value>
+            <value>0106000020407100000100000001030000000100000005000000022B87162F4D094196438B6C9CC41B41894160E51F4D09418B6CE77B91C41B4125068195264D09416F1283C08EC41B41A69BC420324D0941F6285C8F97C41B41022B87162F4D094196438B6C9CC41B41</value>
         </row>
     </table>
 </dataset>

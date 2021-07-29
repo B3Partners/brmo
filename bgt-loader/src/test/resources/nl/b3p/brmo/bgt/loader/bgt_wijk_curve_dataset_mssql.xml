@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+    <table name="wijk">
+        <column>gmlid</column>
+        <column>identificatie</column>
+        <column>lv_publicatiedatum</column>
+        <column>creationdate</column>
+        <column>tijdstipregistratie</column>
+        <column>eindregistratie</column>
+        <column>terminationdate</column>
+        <column>bronhouder</column>
+        <column>inonderzoek</column>
+        <column>relatievehoogteligging</column>
+        <column>bgt_status</column>
+        <column>plus_status</column>
+        <column>naam</column>
+        <column>wijkcode</column>
+        <column>geom</column>
+        <row>
+            <value>137b4e48feb841bc98933c23bae42e44</value>
+            <value>G0321.3dc14768e70b40b8a837ee91348769b6</value>
+            <value><![CDATA[2019-12-19 14:36:54.0]]></value>
+            <value>2019-12-06</value>
+            <value><![CDATA[2019-12-06 08:17:27.0]]></value>
+            <null/>
+            <null/>
+            <value>G0321</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value><![CDATA['t Goy]]></value>
+            <value>032130</value>
+            <value><![CDATA[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]]></value>
+        </row>
+    </table>
+</dataset>

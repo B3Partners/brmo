@@ -1,0 +1,423 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+    <table name="OPENBARERUIMTELABEL">
+        <column>GMLID</column>
+        <column>IDENTIFICATIE</column>
+        <column>LV_PUBLICATIEDATUM</column>
+        <column>CREATIONDATE</column>
+        <column>TIJDSTIPREGISTRATIE</column>
+        <column>EINDREGISTRATIE</column>
+        <column>TERMINATIONDATE</column>
+        <column>BRONHOUDER</column>
+        <column>INONDERZOEK</column>
+        <column>RELATIEVEHOOGTELIGGING</column>
+        <column>BGT_STATUS</column>
+        <column>PLUS_STATUS</column>
+        <column>IDX</column>
+        <column>TEKST</column>
+        <column>HOEK</column>
+        <column>PLAATSINGSPUNT</column>
+        <column>OPENBARERUIMTETYPE</column>
+        <column>IDENTIFICATIEBAGOPR</column>
+        <row>
+            <value>454bd7a1b014de94bb2085db69205470</value>
+            <value>G1714.dd76596a2d2f4d2eac74703b1a8aaa6c</value>
+            <value><![CDATA[2020-03-09 08:14:27.0]]></value>
+            <value><![CDATA[2019-11-14 00:00:00.0]]></value>
+            <value><![CDATA[2020-03-09 08:04:34.0]]></value>
+            <null/>
+            <null/>
+            <value>G1714</value>
+            <value>0</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>0</value>
+            <value>Rijksweg</value>
+            <value>-82.9</value>
+            <value>MDSYS.SDO_GEOMETRY(2001,28992,MDSYS.SDO_POINT_TYPE(19993.166,365316.442,null),null,null)</value>
+            <value>Weg</value>
+            <value>1714300000715278</value>
+        </row>
+        <row>
+            <value>454bd7a1b014de94bb2085db69205470</value>
+            <value>G1714.dd76596a2d2f4d2eac74703b1a8aaa6c</value>
+            <value><![CDATA[2020-03-09 08:14:27.0]]></value>
+            <value><![CDATA[2019-11-14 00:00:00.0]]></value>
+            <value><![CDATA[2020-03-09 08:04:34.0]]></value>
+            <null/>
+            <null/>
+            <value>G1714</value>
+            <value>0</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>1</value>
+            <value>Rijksweg</value>
+            <value>-83.1</value>
+            <value>MDSYS.SDO_GEOMETRY(2001,28992,MDSYS.SDO_POINT_TYPE(19968.671,365117.131,null),null,null)</value>
+            <value>Weg</value>
+            <value>1714300000715278</value>
+        </row>
+        <row>
+            <value>454bd7a1b014de94bb2085db69205470</value>
+            <value>G1714.dd76596a2d2f4d2eac74703b1a8aaa6c</value>
+            <value><![CDATA[2020-03-09 08:14:27.0]]></value>
+            <value><![CDATA[2019-11-14 00:00:00.0]]></value>
+            <value><![CDATA[2020-03-09 08:04:34.0]]></value>
+            <null/>
+            <null/>
+            <value>G1714</value>
+            <value>0</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>2</value>
+            <value>Rijksweg</value>
+            <value>-82.9</value>
+            <value>MDSYS.SDO_GEOMETRY(2001,28992,MDSYS.SDO_POINT_TYPE(19944.305,364918.49,null),null,null)</value>
+            <value>Weg</value>
+            <value>1714300000715278</value>
+        </row>
+        <row>
+            <value>454bd7a1b014de94bb2085db69205470</value>
+            <value>G1714.dd76596a2d2f4d2eac74703b1a8aaa6c</value>
+            <value><![CDATA[2020-03-09 08:14:27.0]]></value>
+            <value><![CDATA[2019-11-14 00:00:00.0]]></value>
+            <value><![CDATA[2020-03-09 08:04:34.0]]></value>
+            <null/>
+            <null/>
+            <value>G1714</value>
+            <value>0</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>3</value>
+            <value>Rijksweg</value>
+            <value>-82.8</value>
+            <value>MDSYS.SDO_GEOMETRY(2001,28992,MDSYS.SDO_POINT_TYPE(19931.877,364785.079,null),null,null)</value>
+            <value>Weg</value>
+            <value>1714300000715278</value>
+        </row>
+        <row>
+            <value>454bd7a1b014de94bb2085db69205470</value>
+            <value>G1714.dd76596a2d2f4d2eac74703b1a8aaa6c</value>
+            <value><![CDATA[2020-03-09 08:14:27.0]]></value>
+            <value><![CDATA[2019-11-14 00:00:00.0]]></value>
+            <value><![CDATA[2020-03-09 08:04:34.0]]></value>
+            <null/>
+            <null/>
+            <value>G1714</value>
+            <value>0</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>4</value>
+            <value>Rijksweg</value>
+            <value>-82.5</value>
+            <value>MDSYS.SDO_GEOMETRY(2001,28992,MDSYS.SDO_POINT_TYPE(19924.623,364786.006,null),null,null)</value>
+            <value>Weg</value>
+            <value>1714300000715278</value>
+        </row>
+        <row>
+            <value>454bd7a1b014de94bb2085db69205470</value>
+            <value>G1714.dd76596a2d2f4d2eac74703b1a8aaa6c</value>
+            <value><![CDATA[2020-03-09 08:14:27.0]]></value>
+            <value><![CDATA[2019-11-14 00:00:00.0]]></value>
+            <value><![CDATA[2020-03-09 08:04:34.0]]></value>
+            <null/>
+            <null/>
+            <value>G1714</value>
+            <value>0</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>5</value>
+            <value>Rijksweg</value>
+            <value>-82.5</value>
+            <value>MDSYS.SDO_GEOMETRY(2001,28992,MDSYS.SDO_POINT_TYPE(19913.844,364620.422,null),null,null)</value>
+            <value>Weg</value>
+            <value>1714300000715278</value>
+        </row>
+        <row>
+            <value>454bd7a1b014de94bb2085db69205470</value>
+            <value>G1714.dd76596a2d2f4d2eac74703b1a8aaa6c</value>
+            <value><![CDATA[2020-03-09 08:14:27.0]]></value>
+            <value><![CDATA[2019-11-14 00:00:00.0]]></value>
+            <value><![CDATA[2020-03-09 08:04:34.0]]></value>
+            <null/>
+            <null/>
+            <value>G1714</value>
+            <value>0</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>6</value>
+            <value>Rijksweg</value>
+            <value>-82.8</value>
+            <value>MDSYS.SDO_GEOMETRY(2001,28992,MDSYS.SDO_POINT_TYPE(19908.444,364621.217,null),null,null)</value>
+            <value>Weg</value>
+            <value>1714300000715278</value>
+        </row>
+        <row>
+            <value>454bd7a1b014de94bb2085db69205470</value>
+            <value>G1714.dd76596a2d2f4d2eac74703b1a8aaa6c</value>
+            <value><![CDATA[2020-03-09 08:14:27.0]]></value>
+            <value><![CDATA[2019-11-14 00:00:00.0]]></value>
+            <value><![CDATA[2020-03-09 08:04:34.0]]></value>
+            <null/>
+            <null/>
+            <value>G1714</value>
+            <value>0</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>7</value>
+            <value>Rijksweg</value>
+            <value>-83.0</value>
+            <value>MDSYS.SDO_GEOMETRY(2001,28992,MDSYS.SDO_POINT_TYPE(19885.834,364443.782,null),null,null)</value>
+            <value>Weg</value>
+            <value>1714300000715278</value>
+        </row>
+        <row>
+            <value>454bd7a1b014de94bb2085db69205470</value>
+            <value>G1714.dd76596a2d2f4d2eac74703b1a8aaa6c</value>
+            <value><![CDATA[2020-03-09 08:14:27.0]]></value>
+            <value><![CDATA[2019-11-14 00:00:00.0]]></value>
+            <value><![CDATA[2020-03-09 08:04:34.0]]></value>
+            <null/>
+            <null/>
+            <value>G1714</value>
+            <value>0</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>8</value>
+            <value>Rijksweg</value>
+            <value>-82.9</value>
+            <value>MDSYS.SDO_GEOMETRY(2001,28992,MDSYS.SDO_POINT_TYPE(19870.373,364317.717,null),null,null)</value>
+            <value>Weg</value>
+            <value>1714300000715278</value>
+        </row>
+        <row>
+            <value>454bd7a1b014de94bb2085db69205470</value>
+            <value>G1714.dd76596a2d2f4d2eac74703b1a8aaa6c</value>
+            <value><![CDATA[2020-03-09 08:14:27.0]]></value>
+            <value><![CDATA[2019-11-14 00:00:00.0]]></value>
+            <value><![CDATA[2020-03-09 08:04:34.0]]></value>
+            <null/>
+            <null/>
+            <value>G1714</value>
+            <value>0</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>9</value>
+            <value>Rijksweg</value>
+            <value>-80.3</value>
+            <value>MDSYS.SDO_GEOMETRY(2001,28992,MDSYS.SDO_POINT_TYPE(19845.531,364126.633,null),null,null)</value>
+            <value>Weg</value>
+            <value>1714300000715278</value>
+        </row>
+        <row>
+            <value>454bd7a1b014de94bb2085db69205470</value>
+            <value>G1714.dd76596a2d2f4d2eac74703b1a8aaa6c</value>
+            <value><![CDATA[2020-03-09 08:14:27.0]]></value>
+            <value><![CDATA[2019-11-14 00:00:00.0]]></value>
+            <value><![CDATA[2020-03-09 08:04:34.0]]></value>
+            <null/>
+            <null/>
+            <value>G1714</value>
+            <value>0</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>10</value>
+            <value>Rijksweg</value>
+            <value>-76.1</value>
+            <value>MDSYS.SDO_GEOMETRY(2001,28992,MDSYS.SDO_POINT_TYPE(19800.703,363929.992,null),null,null)</value>
+            <value>Weg</value>
+            <value>1714300000715278</value>
+        </row>
+        <row>
+            <value>454bd7a1b014de94bb2085db69205470</value>
+            <value>G1714.dd76596a2d2f4d2eac74703b1a8aaa6c</value>
+            <value><![CDATA[2020-03-09 08:14:27.0]]></value>
+            <value><![CDATA[2019-11-14 00:00:00.0]]></value>
+            <value><![CDATA[2020-03-09 08:04:34.0]]></value>
+            <null/>
+            <null/>
+            <value>G1714</value>
+            <value>0</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>11</value>
+            <value>Rijksweg</value>
+            <value>-76.2</value>
+            <value>MDSYS.SDO_GEOMETRY(2001,28992,MDSYS.SDO_POINT_TYPE(19753.539,363735.633,null),null,null)</value>
+            <value>Weg</value>
+            <value>1714300000715278</value>
+        </row>
+        <row>
+            <value>454bd7a1b014de94bb2085db69205470</value>
+            <value>G1714.dd76596a2d2f4d2eac74703b1a8aaa6c</value>
+            <value><![CDATA[2020-03-09 08:14:27.0]]></value>
+            <value><![CDATA[2019-11-14 00:00:00.0]]></value>
+            <value><![CDATA[2020-03-09 08:04:34.0]]></value>
+            <null/>
+            <null/>
+            <value>G1714</value>
+            <value>0</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>12</value>
+            <value>Rijksweg</value>
+            <value>-76.9</value>
+            <value>MDSYS.SDO_GEOMETRY(2001,28992,MDSYS.SDO_POINT_TYPE(19706.451,363542.006,null),null,null)</value>
+            <value>Weg</value>
+            <value>1714300000715278</value>
+        </row>
+        <row>
+            <value>454bd7a1b014de94bb2085db69205470</value>
+            <value>G1714.dd76596a2d2f4d2eac74703b1a8aaa6c</value>
+            <value><![CDATA[2020-03-09 08:14:27.0]]></value>
+            <value><![CDATA[2019-11-14 00:00:00.0]]></value>
+            <value><![CDATA[2020-03-09 08:04:34.0]]></value>
+            <null/>
+            <null/>
+            <value>G1714</value>
+            <value>0</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>13</value>
+            <value>Rijksweg</value>
+            <value>-77.9</value>
+            <value>MDSYS.SDO_GEOMETRY(2001,28992,MDSYS.SDO_POINT_TYPE(19663.633,363346.393,null),null,null)</value>
+            <value>Weg</value>
+            <value>1714300000715278</value>
+        </row>
+        <row>
+            <value>454bd7a1b014de94bb2085db69205470</value>
+            <value>G1714.dd76596a2d2f4d2eac74703b1a8aaa6c</value>
+            <value><![CDATA[2020-03-09 08:14:27.0]]></value>
+            <value><![CDATA[2019-11-14 00:00:00.0]]></value>
+            <value><![CDATA[2020-03-09 08:04:34.0]]></value>
+            <null/>
+            <null/>
+            <value>G1714</value>
+            <value>0</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>14</value>
+            <value>Rijksweg</value>
+            <value>-77.8</value>
+            <value>MDSYS.SDO_GEOMETRY(2001,28992,MDSYS.SDO_POINT_TYPE(19621.526,363151.738,null),null,null)</value>
+            <value>Weg</value>
+            <value>1714300000715278</value>
+        </row>
+        <row>
+            <value>454bd7a1b014de94bb2085db69205470</value>
+            <value>G1714.dd76596a2d2f4d2eac74703b1a8aaa6c</value>
+            <value><![CDATA[2020-03-09 08:14:27.0]]></value>
+            <value><![CDATA[2019-11-14 00:00:00.0]]></value>
+            <value><![CDATA[2020-03-09 08:04:34.0]]></value>
+            <null/>
+            <null/>
+            <value>G1714</value>
+            <value>0</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>15</value>
+            <value>Rijksweg</value>
+            <value>-83.0</value>
+            <value>MDSYS.SDO_GEOMETRY(2001,28992,MDSYS.SDO_POINT_TYPE(19978.383,365318.189,null),null,null)</value>
+            <value>Weg</value>
+            <value>1714300000715278</value>
+        </row>
+        <row>
+            <value>454bd7a1b014de94bb2085db69205470</value>
+            <value>G1714.dd76596a2d2f4d2eac74703b1a8aaa6c</value>
+            <value><![CDATA[2020-03-09 08:14:27.0]]></value>
+            <value><![CDATA[2019-11-14 00:00:00.0]]></value>
+            <value><![CDATA[2020-03-09 08:04:34.0]]></value>
+            <null/>
+            <null/>
+            <value>G1714</value>
+            <value>0</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>16</value>
+            <value>Rijksweg</value>
+            <value>-82.9</value>
+            <value>MDSYS.SDO_GEOMETRY(2001,28992,MDSYS.SDO_POINT_TYPE(19954.353,365119.169,null),null,null)</value>
+            <value>Weg</value>
+            <value>1714300000715278</value>
+        </row>
+        <row>
+            <value>454bd7a1b014de94bb2085db69205470</value>
+            <value>G1714.dd76596a2d2f4d2eac74703b1a8aaa6c</value>
+            <value><![CDATA[2020-03-09 08:14:27.0]]></value>
+            <value><![CDATA[2019-11-14 00:00:00.0]]></value>
+            <value><![CDATA[2020-03-09 08:04:34.0]]></value>
+            <null/>
+            <null/>
+            <value>G1714</value>
+            <value>0</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>17</value>
+            <value>Rijksweg</value>
+            <value>-83.1</value>
+            <value>MDSYS.SDO_GEOMETRY(2001,28992,MDSYS.SDO_POINT_TYPE(19929.903,364920.343,null),null,null)</value>
+            <value>Weg</value>
+            <value>1714300000715278</value>
+        </row>
+        <row>
+            <value>454bd7a1b014de94bb2085db69205470</value>
+            <value>G1714.dd76596a2d2f4d2eac74703b1a8aaa6c</value>
+            <value><![CDATA[2020-03-09 08:14:27.0]]></value>
+            <value><![CDATA[2019-11-14 00:00:00.0]]></value>
+            <value><![CDATA[2020-03-09 08:04:34.0]]></value>
+            <null/>
+            <null/>
+            <value>G1714</value>
+            <value>0</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>18</value>
+            <value>Rijksweg</value>
+            <value>-88.4</value>
+            <value>MDSYS.SDO_GEOMETRY(2001,28992,MDSYS.SDO_POINT_TYPE(19912.683,364785.132,null),null,null)</value>
+            <value>Weg</value>
+            <value>1714300000715278</value>
+        </row>
+        <row>
+            <value>454bd7a1b014de94bb2085db69205470</value>
+            <value>G1714.dd76596a2d2f4d2eac74703b1a8aaa6c</value>
+            <value><![CDATA[2020-03-09 08:14:27.0]]></value>
+            <value><![CDATA[2019-11-14 00:00:00.0]]></value>
+            <value><![CDATA[2020-03-09 08:04:34.0]]></value>
+            <null/>
+            <null/>
+            <value>G1714</value>
+            <value>0</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>19</value>
+            <value>Rijksweg</value>
+            <value>-82.8</value>
+            <value>MDSYS.SDO_GEOMETRY(2001,28992,MDSYS.SDO_POINT_TYPE(19902.098,364621.965,null),null,null)</value>
+            <value>Weg</value>
+            <value>1714300000715278</value>
+        </row>
+    </table>
+</dataset>
