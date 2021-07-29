@@ -25,8 +25,17 @@ import picocli.CommandLine.ExitCode;
 import picocli.CommandLine.Mixin;
 import picocli.CommandLine.Option;
 
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 import java.io.InputStream;
+import java.net.InetSocketAddress;
+import java.net.ProxySelector;
 import java.net.URI;
+import java.net.http.HttpClient;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
@@ -47,9 +56,30 @@ import static nl.b3p.brmo.bgt.loader.Utils.getUserAgent;
 public class DownloadCommand {
     private static final Log log = LogFactory.getLog(DownloadCommand.class);
 
-    public static ApiClient getApiClient() {
-        // TODO set alternate URL and timeout from options
+    public static ApiClient getApiClient(URI baseUri) throws NoSuchAlgorithmException, KeyManagementException {
         ApiClient client = new ApiClient();
+        if (baseUri != null) {
+            client.updateBaseUri(baseUri.toString());
+        }
+/*        SSLContext sslContext = SSLContext.getInstance("TLS");
+        sslContext.init(null, new TrustManager[]{
+                new X509TrustManager() {
+                    public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+                        return null;
+                    }
+                    public void checkClientTrusted(
+                            java.security.cert.X509Certificate[] certs, String authType) {
+                    }
+                    public void checkServerTrusted(
+                            java.security.cert.X509Certificate[] certs, String authType) {
+                    }
+                }
+        }, new SecureRandom());
+
+        client.setHttpClientBuilder(HttpClient.newBuilder()
+                .proxy(ProxySelector.of(new InetSocketAddress("localhost", 5555)))
+                .sslContext(sslContext)
+        );*/
         client.setRequestInterceptor(builder -> builder.headers("User-Agent", getUserAgent()));
         return client;
     }
@@ -60,6 +90,7 @@ public class DownloadCommand {
             @Mixin LoadOptions loadOptions,
             @Mixin ExtractSelectionOptions extractSelectionOptions,
             @Option(names="--no-geo-filter") boolean noGeoFilter,
+            @Option(names="--download-service", hidden = true) URI downloadServiceURI,
             @Mixin CLIOptions cliOptions,
             @Option(names={"-h","--help"}, usageHelp = true) boolean showHelp
     ) throws Exception {
@@ -90,7 +121,8 @@ public class DownloadCommand {
                 Instant start = Instant.now();
                 log.info(getBundleString("download.create"));
 
-                URI downloadURI = DownloadApiUtils.getCustomDownloadURL(getApiClient(), null, extractSelectionOptions, new CustomDownloadProgressReporter(cliOptions.isConsoleProgressEnabled()));
+                ApiClient client = getApiClient(downloadServiceURI);
+                URI downloadURI = DownloadApiUtils.getCustomDownloadURL(client, null, extractSelectionOptions, new CustomDownloadProgressReporter(cliOptions.isConsoleProgressEnabled()));
 
                 loadFromURI(db, loadOptions, dbOptions, cliOptions, extractSelectionOptions, downloadURI, start);
                 db.setMetadataValue(Metadata.DELTA_TIME_TO, null);
@@ -104,11 +136,12 @@ public class DownloadCommand {
     public int update(
             @Mixin DatabaseOptions dbOptions,
             @Mixin CLIOptions cliOptions,
+            @Option(names="--download-service", hidden = true) URI downloadServiceURI,
             @Option(names={"-h","--help"}, usageHelp = true) boolean showHelp
     ) throws Exception {
         log.info(getUserAgent());
 
-        ApiClient client = getApiClient();
+        ApiClient client = getApiClient(downloadServiceURI);
 
         log.info(getBundleString("download.connect_db"));
         try(BGTDatabase db = new BGTDatabase(dbOptions)) {

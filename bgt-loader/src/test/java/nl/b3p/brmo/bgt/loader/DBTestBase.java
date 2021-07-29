@@ -60,21 +60,14 @@ public class DBTestBase {
 
     @BeforeEach
     void setUp() throws Exception {
+        // Get database connection options from test profile
         connectionString = getConfig("db.connectionString", dbOptions.getConnectionString());
         user = getConfig("db.user", dbOptions.getUser());
         password = getConfig("db.password", dbOptions.getPassword());
 
-        if (connectionString == null)
-
-        if (connectionString != null) {
-            dbOptions.setConnectionString(connectionString);
-        }
-        if (user != null) {
-            dbOptions.setUser(user);
-        }
-        if (password != null) {
-            dbOptions.setPassword(password);
-        }
+        dbOptions.setConnectionString(connectionString);
+        dbOptions.setUser(user);
+        dbOptions.setPassword(password);
 
         db = new BGTDatabase(dbOptions);
 
@@ -102,18 +95,14 @@ public class DBTestBase {
         dbTestConnection.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
     }
 
-    protected void assertDataSetEquals(String[] tables, String dataSetXmlFile) throws DatabaseUnitException, SQLException, IOException {
-        assertDataSetEquals(tables, new String[]{dataSetXmlFile});
-    }
-
-    protected void assertDataSetEquals(String[] tables, String[] dataSetXmlFiles) throws DatabaseUnitException, SQLException, IOException {
-        IDataSet actualDataSet = dbTestConnection.createDataSet(tables);
+    protected void assertDataSetEquals(String tables, String dataSetXmlFiles) throws DatabaseUnitException, SQLException, IOException {
+        IDataSet actualDataSet = dbTestConnection.createDataSet(tables.split(","));
         if (System.getProperty("db.writeActualDataSet") != null) {
             write(actualDataSet);
         }
         List<IDataSet> dataSets = new ArrayList<>();
-        for(String dataSetXmlFile: dataSetXmlFiles) {
-            dataSets.add(new XmlDataSet(BGTTestFiles.getTestInputStream(dataSetXmlFile + "_dataset" + datasetFileSuffix)));
+        for(String dataSetXmlFile: dataSetXmlFiles.split(",")) {
+            dataSets.add(new XmlDataSet(BGTTestFiles.getTestInputStream("expected/" + dataSetXmlFile + datasetFileSuffix)));
         }
         IDataSet expectedDataSet = new CompositeDataSet(dataSets.toArray(new IDataSet[]{}));
         Assertion.assertEquals(expectedDataSet, actualDataSet);

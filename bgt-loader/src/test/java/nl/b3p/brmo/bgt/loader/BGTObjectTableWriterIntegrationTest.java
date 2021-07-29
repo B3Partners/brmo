@@ -19,7 +19,7 @@ public class BGTObjectTableWriterIntegrationTest extends DBTestBase {
         BGTObjectTableWriter writer = db.createObjectTableWriter(loadOptions, dbOptions);
         writer.write(BGTTestFiles.getTestInputStream("bgt_stadsdeel.gml"));
         db.close();
-        assertDataSetEquals(new String[]{"stadsdeel"}, "bgt_stadsdeel");
+        assertDataSetEquals("stadsdeel", "bgt_stadsdeel");
     }
 
     @Test
@@ -30,7 +30,6 @@ public class BGTObjectTableWriterIntegrationTest extends DBTestBase {
         BGTObjectTableWriter writer = db.createObjectTableWriter(loadOptions, dbOptions);
         writer.write(BGTTestFiles.getTestInputStream("bgt_mutatie_initial_pand.xml"));
         db.close();
-        // TODO kan parametrized
-        assertDataSetEquals(new String[]{"pand","nummeraanduidingreeks"}, "bgt_mutatie_initial_pand");
+        assertDataSetEquals("pand,nummeraanduidingreeks", "bgt_mutatie_initial_pand");
     }
 }

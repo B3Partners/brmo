@@ -15,13 +15,13 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class BGTTestFiles {
     static InputStream getTestInputStream(String name) {
-        InputStream input = BGTObjectStreamerTest.class.getResourceAsStream("/nl/b3p/brmo/bgt/loader/" + name);
+        InputStream input = BGTObjectStreamerTest.class.getResourceAsStream("/" + name);
         assertNotNull(input, name);
         return input;
     }
 
     static File getTestFile(String name) {
-        URL url = BGTObjectStreamerTest.class.getResource(name);
+        URL url = BGTObjectStreamerTest.class.getResource("/" + name);
         assertNotNull(url, name);
         return new File(url.getFile());
     }
