@@ -120,7 +120,7 @@ test_script:
   # run integratie tests voor bgt-loader module
   - if "%BGT_ONLY_ITESTS%"=="true" mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "bgt-loader" -Dmssql.instancename=%INSTANCENAME%
   # run integratie tests voor bgt-gml-loader module (~30min)
-  - if "%BGT_ONLY_ITESTS%"=="true" mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "bgt-gml-loader" -Dmssql.instancename=%INSTANCENAME%
+  #- if "%BGT_ONLY_ITESTS%"=="true" mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "bgt-gml-loader" -Dmssql.instancename=%INSTANCENAME%
   # run integratie tests voor brmo-service module
   - if "%OTHER_ITESTS%"=="true" mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-service" -Dmssql.instancename=%INSTANCENAME%
   # run integratie tests voor brmo-soap module
