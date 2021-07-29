@@ -24,7 +24,6 @@ import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.CompositeDataSet;
 import org.dbunit.dataset.DataSetException;
 import org.dbunit.dataset.IDataSet;
-import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.datatype.IDataTypeFactory;
 import org.dbunit.dataset.xml.XmlDataSet;
 import org.dbunit.ext.mssql.MsSqlDataTypeFactory;
@@ -54,11 +53,18 @@ public class DBTestBase {
     protected String user;
     protected String password;
 
+    String getConfig(String propertyName, String defaultValue) {
+        String value = System.getProperty(propertyName);
+        return value == null ? defaultValue : value;
+    }
+
     @BeforeEach
     void setUp() throws Exception {
-        connectionString = System.getProperty("db.connectionString");
-        user = System.getProperty("db.user");
-        password = System.getProperty("db.password");
+        connectionString = getConfig("db.connectionString", dbOptions.getConnectionString());
+        user = getConfig("db.user", dbOptions.getUser());
+        password = getConfig("db.password", dbOptions.getPassword());
+
+        if (connectionString == null)
 
         if (connectionString != null) {
             dbOptions.setConnectionString(connectionString);
