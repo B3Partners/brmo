@@ -32,6 +32,7 @@ import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -48,6 +49,7 @@ public class BGTObjectTableWriterIntegrationTest {
     private IDatabaseTester dbTest;
     private IDatabaseConnection dbTestConnection;
     private String schema = null;
+    private String datasetFileSuffix;
 
     @BeforeEach
     void setUp() throws Exception {
@@ -69,7 +71,7 @@ public class BGTObjectTableWriterIntegrationTest {
 
         if (db.getDialect() instanceof OracleDialect) {
             // If we don't set the user the DatabaseMetaData.getTables() call without a schema filter will take 5 minutes
-            schema = dbOptions.getUser();
+            schema = dbOptions.getUser().toUpperCase();
         }
         dbTest = new JdbcDatabaseTester(db.getDialect().getDriverClass(), dbOptions.getConnectionString(), dbOptions.getUser(), dbOptions.getPassword(), schema);
         dbTestConnection = dbTest.getConnection();
@@ -77,10 +79,13 @@ public class BGTObjectTableWriterIntegrationTest {
         IDataTypeFactory dtf;
         if (db.getDialect() instanceof PostGISDialect) {
             dtf = new PostgresqlDataTypeFactory();
+            datasetFileSuffix = "_postgresql.xml";
         } else if (db.getDialect() instanceof MSSQLDialect) {
             dtf = new MsSqlDataTypeFactory();
+            datasetFileSuffix = "_mssql.xml";
         } else if (db.getDialect() instanceof OracleDialect) {
             dtf = new Oracle10DataTypeFactory();
+            datasetFileSuffix = "_oracle.xml";
         } else {
             throw new IllegalArgumentException();
         }
@@ -125,14 +130,32 @@ public class BGTObjectTableWriterIntegrationTest {
         db.close();
 
         IDataSet dataSet = dbTestConnection.createDataSet(new String[]{"stadsdeel"});
-        ITable actual = getGeomExcludedTable(dataSet.getTable("stadsdeel"));
-        IDataSet expectedDataSet = new XmlDataSet(BGTTestFiles.getTestFile("bgt_stadsdeel_dataset.xml"));
+        //write(dataSet);
+        ITable actual = dataSet.getTable("stadsdeel");
+        IDataSet expectedDataSet = new XmlDataSet(BGTTestFiles.getTestFile("bgt_stadsdeel_dataset" + datasetFileSuffix));
         ITable expected = expectedDataSet.getTable("stadsdeel");
         Assertion.assertEquals(expected, actual);
     }
 
-    private static ITable getGeomExcludedTable(ITable table) throws DataSetException {
-        return DefaultColumnFilter.excludedColumnsTable(table, new String[] {"geom*"});
+    @Test
+    @Disabled
+    public void loadPand() throws Exception {
+        LoadOptions loadOptions = new LoadOptions();
+        loadOptions.setIncludeHistory(true);
+        BGTObjectTableWriter writer = db.createObjectTableWriter(loadOptions, dbOptions);
+        writer.write(BGTTestFiles.getTestFile("bgt_mutatie_initial_pand.xml"));
+        db.close();
+
+        IDataSet dataSet = dbTestConnection.createDataSet(new String[]{"pand", "nummeraanduidingreeks"});
+        //write(dataSet);
+        ITable actual = dataSet.getTable("pand");
+        IDataSet expectedDataSet = new XmlDataSet(BGTTestFiles.getTestFile("bgt_pand_dataset.xml"));
+        ITable expected = expectedDataSet.getTable("pand");
+        Assertion.assertEquals(expected, actual);
+
+        actual = dataSet.getTable("nummeraanduidingreeks");
+        expected = expectedDataSet.getTable("nummeraanduidingreeks");
+        Assertion.assertEquals(expected, actual);
     }
 
     private void write(IDataSet dataSet) throws DataSetException, IOException {

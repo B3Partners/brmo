@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+  ~ Copyright (C) 2021 B3Partners B.V.
+  ~
+  ~ SPDX-License-Identifier: MIT
+  ~
+  -->
+
+<dataset>
+    <table name="STADSDEEL">
+        <column>GMLID</column>
+        <column>IDENTIFICATIE</column>
+        <column>LV_PUBLICATIEDATUM</column>
+        <column>CREATIONDATE</column>
+        <column>TIJDSTIPREGISTRATIE</column>
+        <column>EINDREGISTRATIE</column>
+        <column>TERMINATIONDATE</column>
+        <column>BRONHOUDER</column>
+        <column>INONDERZOEK</column>
+        <column>RELATIEVEHOOGTELIGGING</column>
+        <column>BGT_STATUS</column>
+        <column>PLUS_STATUS</column>
+        <column>NAAM</column>
+        <column>FUNCTION_</column>
+        <column>GEOM</column>
+        <row>
+            <value>0d8fd67b6e453f9def31e26be9ebcbfe</value>
+            <value>G0213.3242ce08ec434e728f6380d7f2ec88cc</value>
+            <value><![CDATA[2019-03-04 10:11:48.0]]></value>
+            <value><![CDATA[2019-03-03 00:00:00.0]]></value>
+            <value><![CDATA[2019-03-03 11:05:27.0]]></value>
+            <value><![CDATA[2019-03-20 15:05:03.0]]></value>
+            <value><![CDATA[2019-03-20 00:00:00.0]]></value>
+            <value>G0213</value>
+            <value>0</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <null/>
+            <null/>
+            <value>MDSYS.SDO_GEOMETRY(2007,28992,null,MDSYS.SDO_ELEM_INFO_ARRAY(1,1003,1),MDSYS.SDO_ORDINATE_ARRAY(207264.493,454955.512,207264.189,454954.828,207266.772,454953.005,207267.987,454954.296,207264.493,454955.512))</value>
+        </row>
+    </table>
+</dataset>

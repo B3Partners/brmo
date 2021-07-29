@@ -1,4 +1,11 @@
 <?xml version='1.0' encoding='UTF-8'?>
+<!--
+  ~ Copyright (C) 2021 B3Partners B.V.
+  ~
+  ~ SPDX-License-Identifier: MIT
+  ~
+  -->
+
 <dataset>
     <table name="stadsdeel">
         <column>gmlid</column>
@@ -15,6 +22,7 @@
         <column>plus_status</column>
         <column>naam</column>
         <column>function_</column>
+        <column>geom</column>
         <row>
             <value>0d8fd67b6e453f9def31e26be9ebcbfe</value>
             <value>G0213.3242ce08ec434e728f6380d7f2ec88cc</value>
@@ -30,6 +38,9 @@
             <value>geenWaarde</value>
             <null/>
             <null/>
+            <value><![CDATA[QHEAAAEEBQAAAOf7qfEDTQlBXrpJDK7EG0GYbhKDAU0JQWQ730+rxBtBBFYOLRZNCUFSuB4FpMQb
+QYlBYOUfTQlBvp8aL6nEG0Hn+6nxA00JQV66SQyuxBtBAQAAAAIAAAAAAgAAAP////8AAAAABgAA
+AAAAAAAAAw==]]></value>
         </row>
     </table>
 </dataset>
