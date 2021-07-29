@@ -70,8 +70,8 @@ public class DatabaseUpgradeTest {
     static Stream<Arguments> localParameters() {
         return Stream.of(
                 Arguments.of("staging"),
-                Arguments.of("rsgb"),
-                Arguments.of("rsgbbgt")
+                Arguments.of("rsgb")/*,
+                Arguments.of("rsgbbgt")*/
         );
     }
 
