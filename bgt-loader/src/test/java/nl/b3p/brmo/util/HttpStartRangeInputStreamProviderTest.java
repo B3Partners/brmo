@@ -48,7 +48,7 @@ class HttpStartRangeInputStreamProviderTest {
     }
 
     @Test
-    void failedResponse() throws IOException {
+    void failedResponse() {
         mockWebServer.enqueue(new MockResponse()
                 .setBody("test")
                 .setResponseCode(404));
@@ -116,7 +116,7 @@ class HttpStartRangeInputStreamProviderTest {
     }
 
     @Test
-    void weakETag() throws IOException, InterruptedException {
+    void weakETag() throws IOException {
         mockWebServer.enqueue(new MockResponse()
                 .addHeader("Accept-Ranges", "bytes")
                 .addHeader("ETag", "W/\"weak etag\"")
@@ -128,7 +128,7 @@ class HttpStartRangeInputStreamProviderTest {
     }
 
     @Test
-    void noPartialResponse() throws IOException, InterruptedException {
+    void noPartialResponse() throws IOException {
         mockWebServer.enqueue(new MockResponse()
                 .addHeader("Accept-Ranges", "bytes")
                 .addHeader("ETag", "\"something\"")
