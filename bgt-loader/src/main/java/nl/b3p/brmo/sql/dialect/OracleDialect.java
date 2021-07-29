@@ -23,8 +23,8 @@ public class OracleDialect implements SQLDialect {
     }
 
     @Override
-    public void loadDriver() throws ClassNotFoundException {
-        Class.forName("oracle.jdbc.OracleDriver");
+    public String getDriverClass() {
+        return "oracle.jdbc.OracleDriver";
     }
 
     @Override

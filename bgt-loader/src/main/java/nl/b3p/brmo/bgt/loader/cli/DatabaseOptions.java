@@ -28,19 +28,39 @@ public class DatabaseOptions {
         return connectionString;
     }
 
+    public void setConnectionString(String connectionString) {
+        this.connectionString = connectionString;
+    }
+
     public String getUser() {
         return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
     }
 
     public String getPassword() {
         return password;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public Integer getBatchSize() {
         return batchSize;
     }
 
+    public void setBatchSize(Integer batchSize) {
+        this.batchSize = batchSize;
+    }
+
     public boolean isUsePgCopy() {
         return usePgCopy;
+    }
+
+    public void setUsePgCopy(boolean usePgCopy) {
+        this.usePgCopy = usePgCopy;
     }
 }

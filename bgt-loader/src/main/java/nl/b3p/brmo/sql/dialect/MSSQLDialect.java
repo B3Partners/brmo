@@ -23,8 +23,8 @@ public class MSSQLDialect implements SQLDialect {
     private final WKTWriter2 wktWriter2 = new WKTWriter2();
 
     @Override
-    public void loadDriver() throws ClassNotFoundException {
-        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+    public String getDriverClass() {
+        return "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     }
 
     @Override

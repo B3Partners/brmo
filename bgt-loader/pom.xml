@@ -112,6 +112,11 @@ SPDX-License-Identifier: MIT
             <artifactId>mockwebserver</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.dbunit</groupId>
+            <artifactId>dbunit</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -228,4 +233,57 @@ SPDX-License-Identifier: MIT
                     </plugin>-->
         </plugins>
     </build>
+    <profiles>
+        <profile>
+            <id>postgresql</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <configuration>
+                            <systemPropertyVariables>
+                                <db.connectionString>jdbc:postgresql:rsgbbgt?sslmode=disable&amp;reWriteBatchedInserts=true</db.connectionString>
+                                <db.user>rsgbbgt</db.user>
+                                <db.password>rsgbbgt</db.password>
+                            </systemPropertyVariables>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>mssql</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <configuration>
+                            <systemPropertyVariables>
+                                <db.connectionString>jdbc:sqlserver://127.0.0.1:1433;databaseName=bgttest;applicationName=bgt-loader-test;instance=${mssql.instancename}</db.connectionString>
+                                <db.user>sa</db.user>
+                                <db.password>Password12!</db.password>
+                            </systemPropertyVariables>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <!--<profile>
+            <id>oracle</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <configuration>
+                            <systemPropertyVariables>
+                                <db.connectionString>jdbc:oracle:thin:@192.168.1.26:15210:XE</db.connectionString>
+                                <db.user>JENKINS_RSGBBGT</db.user>
+                                <db.password>jenkins_rsgbbgt</db.password>
+                            </systemPropertyVariables>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>-->
+    </profiles>
 </project>

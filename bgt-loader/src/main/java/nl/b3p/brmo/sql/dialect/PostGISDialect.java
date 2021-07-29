@@ -14,13 +14,13 @@ import org.postgresql.util.PGobject;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class PostGISDialect implements SQLDialect{
+public class PostGISDialect implements SQLDialect {
     private final StandardLinearizedWKTWriter wktWriter = new StandardLinearizedWKTWriter();
     private final WKTWriter2 wktWriter2 = new WKTWriter2();
 
     @Override
-    public void loadDriver() throws ClassNotFoundException {
-        Class.forName("org.postgresql.Driver");
+    public String getDriverClass() {
+        return "org.postgresql.Driver";
     }
 
     @Override

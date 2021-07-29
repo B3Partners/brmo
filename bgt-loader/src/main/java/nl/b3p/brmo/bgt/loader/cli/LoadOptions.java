@@ -16,7 +16,7 @@ public class LoadOptions {
     boolean includeHistory = false;
 
     @Option(names="--table-prefix", defaultValue = "", hidden = true)
-    String tablePrefix;
+    String tablePrefix = "";
 
     @Option(names="--max-objects", paramLabel= "<number>", hidden = true)
     Integer maxObjects;
@@ -31,23 +31,47 @@ public class LoadOptions {
         return createSchema;
     }
 
+    public void setCreateSchema(boolean createSchema) {
+        this.createSchema = createSchema;
+    }
+
     public boolean isIncludeHistory() {
         return includeHistory;
+    }
+
+    public void setIncludeHistory(boolean includeHistory) {
+        this.includeHistory = includeHistory;
     }
 
     public String getTablePrefix() {
         return tablePrefix;
     }
 
+    public void setTablePrefix(String tablePrefix) {
+        this.tablePrefix = tablePrefix;
+    }
+
     public Integer getMaxObjects() {
         return maxObjects;
+    }
+
+    public void setMaxObjects(Integer maxObjects) {
+        this.maxObjects = maxObjects;
     }
 
     public boolean isLinearizeCurves() {
         return linearizeCurves;
     }
 
+    public void setLinearizeCurves(boolean linearizeCurves) {
+        this.linearizeCurves = linearizeCurves;
+    }
+
     public boolean isMultithreading() {
         return multithreading;
+    }
+
+    public void setMultithreading(boolean multithreading) {
+        this.multithreading = multithreading;
     }
 }

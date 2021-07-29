@@ -58,6 +58,9 @@ jobs:
           mvn --% -e test -B -Pmssql -pl "!brmo-dist" -Dtest.onlyITs=false
           mvn --% resources:testResources compiler:testCompile surefire:test -Pmssql -pl datamodel -Dtest="!*UpgradeTest,!P8*"
 
+      - name: Verify bgt-loader
+        run: mvn --% -e verify -B -Pmssql -Dtest.onlyITs=true -pl "bgt-loader"
+
       - name: Verify bgt-gml-loader
         run: mvn --% -e verify -B -Pmssql -Dtest.onlyITs=true -pl "bgt-gml-loader"
 

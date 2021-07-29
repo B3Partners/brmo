@@ -13,7 +13,11 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public interface SQLDialect {
-    void loadDriver() throws ClassNotFoundException;
+    String getDriverClass() throws ClassNotFoundException;
+
+    default void loadDriver() throws ClassNotFoundException {
+        Class.forName(getDriverClass());
+    }
 
     default String getType(String type) {
         return type;
