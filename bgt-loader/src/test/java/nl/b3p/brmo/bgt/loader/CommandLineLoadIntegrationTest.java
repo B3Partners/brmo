@@ -15,6 +15,7 @@ import org.apache.commons.io.IOUtils;
 import org.dbunit.DatabaseUnitException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInfo;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -41,18 +42,24 @@ public class CommandLineLoadIntegrationTest extends DBTestBase {
     CommandLine cmd;
 
     @BeforeEach
-    void init() {
+    void init(TestInfo info) {
         main = new BGTLoaderMain();
         main.configureLogging();
         cmd = new CommandLine(main);
+        System.out.println("\nExecute test: " + info.getDisplayName());
+    }
+
+    void run(String... args) {
+        System.out.println("Command line: " + String.join(" ", args));
+        int exitCode = cmd.execute(args);
+        assertEquals(0, exitCode);
     }
 
     @ParameterizedTest(name="[{index}] {0}")
     @MethodSource
     void load(String input, String[] tables, String dataSetFile) throws DatabaseUnitException, SQLException, IOException {
         String file = getTestFile(input).getAbsolutePath();
-        int exitCode = cmd.execute("load", "--connection=" + connectionString, "--user=" + user, "--password=" + password, "--include-history", file);
-        assertEquals(0, exitCode);
+        run("load", "--connection=" + connectionString, "--user=" + user, "--password=" + password, "--include-history", file);
         assertDataSetEquals(tables, dataSetFile);
     }
 
@@ -83,8 +90,7 @@ public class CommandLineLoadIntegrationTest extends DBTestBase {
                 new String[]{"bgt_openbareruimtelabel.gml", "bgt_waterschap.gml", "bgt_stadsdeel.gml"}
         );
         IOUtils.copy(new ByteArrayInputStream(zip), new FileOutputStream(file));
-        int exitCode = cmd.execute("load", "--connection=" + connectionString, "--user=" + user, "--password=" + password, "--include-history", file.getAbsolutePath());
-        assertEquals(0, exitCode);
+        run("load", "--connection=" + connectionString, "--user=" + user, "--password=" + password, "--include-history", file.getAbsolutePath());
         assertDataSetEquals(
                 new String[]{"openbareruimtelabel", "waterschap", "stadsdeel"},
                 new String[]{"bgt_openbareruimtelabel", "bgt_waterschap", "bgt_stadsdeel"}
@@ -102,8 +108,7 @@ public class CommandLineLoadIntegrationTest extends DBTestBase {
                 .setResponseCode(200)
         );
         String url = mockWebServer.url("/file.zip").toString();
-        int exitCode = cmd.execute("load", "--connection=" + connectionString, "--user=" + user, "--password=" + password, "--include-history", url);
-        assertEquals(0, exitCode);
+        run("load", "--connection=" + connectionString, "--user=" + user, "--password=" + password, "--include-history", url);
         assertDataSetEquals(new String[]{"openbareruimtelabel"}, "bgt_openbareruimtelabel");
 
         mockWebServer.close();
