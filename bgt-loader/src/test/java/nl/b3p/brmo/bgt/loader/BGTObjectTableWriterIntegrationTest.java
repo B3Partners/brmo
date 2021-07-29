@@ -19,6 +19,7 @@ import org.dbunit.Assertion;
 import org.dbunit.IDatabaseTester;
 import org.dbunit.JdbcDatabaseTester;
 import org.dbunit.database.DatabaseConfig;
+import org.dbunit.database.DefaultMetadataHandler;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.DataSetException;
 import org.dbunit.dataset.IDataSet;
@@ -35,7 +36,6 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.stream.Collectors;
 
@@ -47,6 +47,7 @@ public class BGTObjectTableWriterIntegrationTest {
     private BGTDatabase db;
     private IDatabaseTester dbTest;
     private IDatabaseConnection dbTestConnection;
+    private String schema = null;
 
     @BeforeEach
     void setUp() throws Exception {
@@ -66,7 +67,11 @@ public class BGTObjectTableWriterIntegrationTest {
 
         db = new BGTDatabase(dbOptions);
 
-        dbTest = new JdbcDatabaseTester(db.getDialect().getDriverClass(), dbOptions.getConnectionString(), dbOptions.getUser(), dbOptions.getPassword());
+        if (db.getDialect() instanceof OracleDialect) {
+            // If we don't set the user the DatabaseMetaData.getTables() call without a schema filter will take 5 minutes
+            schema = dbOptions.getUser();
+        }
+        dbTest = new JdbcDatabaseTester(db.getDialect().getDriverClass(), dbOptions.getConnectionString(), dbOptions.getUser(), dbOptions.getPassword(), schema);
         dbTestConnection = dbTest.getConnection();
 
         IDataTypeFactory dtf;
@@ -93,8 +98,10 @@ public class BGTObjectTableWriterIntegrationTest {
         try (Connection connection = dbTestConnection.getConnection()) {
             for (BGTSchema.BGTObjectType objectType: BGTSchema.getAllObjectTypes().collect(Collectors.toList())) {
                 String tableName = BGTSchemaMapper.getTableNameForObjectType(objectType, "");//.toUpperCase();
-                ResultSet res = connection.getMetaData().getTables(null, null, tableName, new String[]{"TABLE"});
-                if (res.next()) {
+                if (db.getDialect() instanceof OracleDialect) {
+                    tableName = tableName.toUpperCase();
+                }
+                if(new DefaultMetadataHandler().tableExists(connection.getMetaData(), schema, tableName)) {
                     try {
                         LOG.trace("Drop table: " + tableName);
                         new QueryRunner().update(connection,"drop table " + tableName);
@@ -102,7 +109,6 @@ public class BGTObjectTableWriterIntegrationTest {
                         LOG.warn("Exception dropping table " + tableName + ": " + se.getLocalizedMessage());
                     }
                 }
-                res.close();
             }
             if (db.getDialect() instanceof OracleDialect) {
                 new QueryRunner().update(connection, "delete from user_sdo_geom_metadata");
