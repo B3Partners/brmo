@@ -33,7 +33,7 @@ import static nl.b3p.brmo.bgt.loader.BGTSchemaMapper.getCreateMetadataTableState
 import static nl.b3p.brmo.bgt.loader.Utils.getBundleString;
 import static nl.b3p.brmo.bgt.loader.Utils.getMessageFormattedString;
 
-public class BGTDatabase {
+public class BGTDatabase implements AutoCloseable {
     private static final Log log = LogFactory.getLog(BGTDatabase.class);
 
     public enum SQLDialectEnum {
@@ -75,7 +75,8 @@ public class BGTDatabase {
         return this.connection;
     }
 
-    public void closeConnection() throws SQLException {
+    @Override
+    public void close() throws SQLException {
         if (this.connection != null && !this.connection.isClosed()) {
             this.connection.close();
         }

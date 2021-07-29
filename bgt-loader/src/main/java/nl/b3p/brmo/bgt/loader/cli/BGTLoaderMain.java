@@ -99,49 +99,50 @@ public class BGTLoaderMain implements IVersionProvider {
 
         log.info(getUserAgent());
 
-        BGTDatabase db = new BGTDatabase(dbOptions);
-        BGTObjectTableWriter writer = db.createObjectTableWriter(loadOptions, dbOptions);
+        try(BGTDatabase db = new BGTDatabase(dbOptions)) {
+            BGTObjectTableWriter writer = db.createObjectTableWriter(loadOptions, dbOptions);
 
-        if (cliOptions.isConsoleProgressEnabled()) {
-            writer.setProgressUpdater(new ConsoleProgressReporter());
-        } else {
-            writer.setProgressUpdater(new ProgressReporter());
+            if (cliOptions.isConsoleProgressEnabled()) {
+                writer.setProgressUpdater(new ConsoleProgressReporter());
+            } else {
+                writer.setProgressUpdater(new ProgressReporter());
+            }
+
+            if (loadOptions.createSchema) {
+                db.createMetadataTable(loadOptions);
+            }
+
+            if (file.endsWith(".zip") && (file.startsWith("http://") || file.startsWith("https://"))) {
+                loadZipFromURI(new URI(file), writer, featureTypeSelectionOptions);
+            } else if (file.endsWith(".zip")) {
+                loadZip(new File(file), writer, featureTypeSelectionOptions);
+            } else if (file.matches(".*\\.[xg]ml")) {
+                loadXml(new File(file), writer);
+            } else {
+                System.err.println(getMessageFormattedString("load.invalid_extension", file));
+                return ExitCode.USAGE;
+            }
+
+            db.setMetadataValue(Metadata.LOADER_VERSION, getLoaderVersion());
+            // Set feature types list from options, not MutatieInhoud (if input has it)...
+            // FIXME if downloaded initial extract has less object types, update will fail -- should set to only encountered
+            // feature types
+            db.setFeatureTypesEnumMetadata(featureTypeSelectionOptions.getFeatureTypesList());
+            db.setMetadataValue(Metadata.INCLUDE_HISTORY, loadOptions.includeHistory + "");
+            db.setMetadataValue(Metadata.LINEARIZE_CURVES, loadOptions.linearizeCurves + "");
+            db.setMetadataValue(Metadata.TABLE_PREFIX, loadOptions.tablePrefix);
+            BGTObjectTableWriter.Progress progress = writer.getProgress();
+            if (progress.getMutatieInhoud() != null) {
+                db.setMetadataForMutaties(progress.getMutatieInhoud());
+                db.setMetadataValue(Metadata.GEOM_FILTER, progress.getMutatieInhoud().getGebied());
+
+                log.info(getMessageFormattedString("load.mutatie",
+                        progress.getMutatieInhoud().getMutatieType(),
+                        progress.getMutatieInhoud().getLeveringsId()
+                ));
+            }
+            db.getConnection().commit();
         }
-
-        if (loadOptions.createSchema) {
-            db.createMetadataTable(loadOptions);
-        }
-
-        if (file.endsWith(".zip") && (file.startsWith("http://") || file.startsWith("https://"))) {
-            loadZipFromURI(new URI(file), writer, featureTypeSelectionOptions);
-        } else if (file.endsWith(".zip")) {
-            loadZip(new File(file), writer, featureTypeSelectionOptions);
-        } else if (file.matches(".*\\.[xg]ml")) {
-            loadXml(new File(file), writer);
-        } else {
-            System.err.println(getMessageFormattedString("load.invalid_extension", file));
-            return ExitCode.USAGE;
-        }
-
-        db.setMetadataValue(Metadata.LOADER_VERSION, getLoaderVersion());
-        // Set feature types list from options, not MutatieInhoud (if input has it)...
-        // FIXME if downloaded initial extract has less object types, update will fail -- should set to only encountered
-        // feature types
-        db.setFeatureTypesEnumMetadata(featureTypeSelectionOptions.getFeatureTypesList());
-        db.setMetadataValue(Metadata.INCLUDE_HISTORY, loadOptions.includeHistory + "");
-        db.setMetadataValue(Metadata.LINEARIZE_CURVES, loadOptions.linearizeCurves + "");
-        db.setMetadataValue(Metadata.TABLE_PREFIX, loadOptions.tablePrefix);
-        BGTObjectTableWriter.Progress progress = writer.getProgress();
-        if (progress.getMutatieInhoud() != null) {
-            db.setMetadataForMutaties(progress.getMutatieInhoud());
-            db.setMetadataValue(Metadata.GEOM_FILTER, progress.getMutatieInhoud().getGebied());
-
-            log.info(getMessageFormattedString("load.mutatie",
-                    progress.getMutatieInhoud().getMutatieType(),
-                    progress.getMutatieInhoud().getLeveringsId()
-            ));
-        }
-        db.getConnection().commit();
 
         return ExitCode.OK;
     }
