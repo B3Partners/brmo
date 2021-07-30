@@ -23,12 +23,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 //@EnabledIfSystemProperty(named="onlineTest", matches=".*")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class DownloadCommandPDOKOnlineIntegrationTest extends CommandLineTestBase {
-
-    @Override
-    void tearDown() throws SQLException {
-        // Do not drop tables
-    }
-
     @Test
     @Order(1)
     void downloadInitial() throws SQLException {
@@ -50,6 +44,7 @@ public class DownloadCommandPDOKOnlineIntegrationTest extends CommandLineTestBas
 
     @Test
     @Order(2)
+    @SkipDropTables
     void downloadUpdate() {
         try {
             run("download update");

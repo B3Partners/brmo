@@ -31,6 +31,7 @@ import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.TestInfo;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -59,7 +60,7 @@ public class DBTestBase {
     }
 
     @BeforeEach
-    void setUp() throws Exception {
+    void setUp(TestInfo info) throws Exception {
         // Get database connection options from test profile
         connectionString = getConfig("db.connectionString", dbOptions.getConnectionString());
         user = getConfig("db.user", dbOptions.getUser());
@@ -93,6 +94,16 @@ public class DBTestBase {
         }
         dbTestConnection.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, dtf);
         dbTestConnection.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
+
+        if (info.getTestMethod().isPresent()) {
+            if(info.getTestMethod().get().getAnnotation(SkipDropTables.class) == null) {
+                try {
+                    dropTables();
+                } catch(Exception e) {
+                    LOG.error("Exception dropping tables before test", e);
+                }
+            }
+        }
     }
 
     protected void assertDataSetEquals(String tables, String dataSetXmlFiles) throws DatabaseUnitException, SQLException, IOException {
@@ -114,30 +125,28 @@ public class DBTestBase {
 
     @AfterEach
     void tearDown() throws SQLException {
-        dropTables();
         dbTestConnection.close();
     }
 
     private void dropTables() throws SQLException {
-        try (Connection connection = dbTestConnection.getConnection()) {
-            for (String tableName: Stream.concat(
-                    BGTSchema.getAllObjectTypes().map(objectType -> BGTSchemaMapper.getTableNameForObjectType(objectType, "")),
-                    Stream.of(BGTSchemaMapper.METADATA_TABLE)).collect(Collectors.toList())) {
-                if (db.getDialect() instanceof OracleDialect) {
-                    tableName = tableName.toUpperCase();
-                }
-                if(new DefaultMetadataHandler().tableExists(connection.getMetaData(), schema, tableName)) {
-                    try {
-                        LOG.trace("Drop table: " + tableName);
-                        new QueryRunner().update(connection,"drop table " + tableName);
-                    } catch (SQLException se) {
-                        LOG.warn("Exception dropping table " + tableName + ": " + se.getLocalizedMessage());
-                    }
-                }
-            }
+        Connection connection = dbTestConnection.getConnection();
+        for (String tableName: Stream.concat(
+                BGTSchema.getAllObjectTypes().map(objectType -> BGTSchemaMapper.getTableNameForObjectType(objectType, "")),
+                Stream.of(BGTSchemaMapper.METADATA_TABLE)).collect(Collectors.toList())) {
             if (db.getDialect() instanceof OracleDialect) {
-                new QueryRunner().update(connection, "delete from user_sdo_geom_metadata");
+                tableName = tableName.toUpperCase();
             }
+            if(new DefaultMetadataHandler().tableExists(connection.getMetaData(), schema, tableName)) {
+                try {
+                    LOG.trace("Drop table: " + tableName);
+                    new QueryRunner().update(connection,"drop table " + tableName);
+                } catch (SQLException se) {
+                    LOG.warn("Exception dropping table " + tableName + ": " + se.getLocalizedMessage());
+                }
+            }
+        }
+        if (db.getDialect() instanceof OracleDialect) {
+            new QueryRunner().update(connection, "delete from user_sdo_geom_metadata");
         }
     }
 }

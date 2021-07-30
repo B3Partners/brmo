@@ -28,12 +28,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  */
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class DownloadCommandMockIntegrationTest extends CommandLineTestBase {
-
-    @Override
-    void tearDown() throws SQLException {
-        // Do not drop tables
-    }
-
     @Test
     @Order(1)
     void downloadInitial() throws IOException, InterruptedException, SQLException, DatabaseUnitException {
@@ -71,6 +65,7 @@ public class DownloadCommandMockIntegrationTest extends CommandLineTestBase {
 
     @Test
     @Order(2)
+    @SkipDropTables
     void downloadUpdate() throws IOException, InterruptedException {
         MockWebServer mockWebServer = new MockWebServer();
 
