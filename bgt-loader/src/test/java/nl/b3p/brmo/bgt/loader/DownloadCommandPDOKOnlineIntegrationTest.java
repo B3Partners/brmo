@@ -11,6 +11,8 @@ import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.condition.DisabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -23,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  * Integrates with loading BGT into a database and downloads from the PDOK download service.
  */
-//@EnabledIfSystemProperty(named="onlineTest", matches=".*")
+@DisabledOnOs(OS.WINDOWS) // Does not have NL overheid SSL root certificate
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class DownloadCommandPDOKOnlineIntegrationTest extends CommandLineTestBase {
     @Test
