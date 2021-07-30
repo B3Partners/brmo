@@ -11,10 +11,10 @@ import okhttp3.mockwebserver.MockResponse;
 import okio.Buffer;
 import org.dbunit.DatabaseUnitException;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.locationtech.jts.io.ParseException;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -35,7 +35,7 @@ public class LoadCommandIntegrationTest extends CommandLineTestBase {
         assertDataSetEquals(tables, dataSetFile);
     }
 
-    private static Stream<Arguments> load() throws ParseException {
+    private static Stream<Arguments> load() {
         return Stream.of(
                 Arguments.of("bgt_wijk_curve.gml", "wijk", "bgt_wijk_curve"),
                 Arguments.of("bgt_openbareruimtelabel.gml", "openbareruimtelabel", "bgt_openbareruimtelabel")
@@ -43,14 +43,36 @@ public class LoadCommandIntegrationTest extends CommandLineTestBase {
     }
 
     @Test
-    void loadZipFromFile() throws DatabaseUnitException, SQLException, IOException {
+    void loadZipFromFile() throws SQLException {
         String file = getTestFile("extract.zip").getAbsolutePath();
         run("load", "--include-history", "--feature-types=all,plaatsbepalingspunt", file);
         assertExtractZipRowCounts(true);
     }
 
     @Test
-    void loadZipFromHttp() throws DatabaseUnitException, SQLException, IOException {
+    void loadZipFromFileWithoutHistory() throws SQLException {
+        String file = getTestFile("extract.zip").getAbsolutePath();
+        run("load", "--feature-types=all,plaatsbepalingspunt", file);
+        assertExtractZipRowCounts(false);
+    }
+
+    @Test
+    @EnabledIfSystemProperty(named = "db.connectionString", matches = ".*postgresql.*")
+    void postgreSQLNoCopy() throws SQLException {
+        String file = getTestFile("extract.zip").getAbsolutePath();
+        run("load", "--no-pg-copy", "--include-history", "--feature-types=all,plaatsbepalingspunt", file);
+        assertExtractZipRowCounts(true);
+    }
+
+    @Test
+    void loadZipNoMultithreading() throws SQLException {
+        String file = getTestFile("extract.zip").getAbsolutePath();
+        run("load", "--no-multithreading", "--include-history", "--feature-types=all,plaatsbepalingspunt", file);
+        assertExtractZipRowCounts(true);
+    }
+
+    @Test
+    void loadZipFromHttp() throws SQLException, IOException {
         mockWebServer.enqueue(new MockResponse()
                 .setBody(new Buffer().readFrom(getTestInputStream("extract.zip")))
                 .setResponseCode(200)

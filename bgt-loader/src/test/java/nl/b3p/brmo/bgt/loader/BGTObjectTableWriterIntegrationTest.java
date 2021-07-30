@@ -8,8 +8,8 @@
 package nl.b3p.brmo.bgt.loader;
 
 import nl.b3p.brmo.bgt.loader.cli.LoadOptions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 
 public class BGTObjectTableWriterIntegrationTest extends DBTestBase {
     @Test
@@ -23,13 +23,13 @@ public class BGTObjectTableWriterIntegrationTest extends DBTestBase {
     }
 
     @Test
-    @Disabled
-    public void loadPand() throws Exception {
+    @EnabledIfSystemProperty(named = "db.connectionString", matches = ".*postgresql.*")
+    public void loadWijkLinearized() throws Exception {
         LoadOptions loadOptions = new LoadOptions();
-        loadOptions.setIncludeHistory(true);
+        loadOptions.setLinearizeCurves(true);
         BGTObjectTableWriter writer = db.createObjectTableWriter(loadOptions, dbOptions);
-        writer.write(BGTTestFiles.getTestInputStream("bgt_mutatie_initial_pand.xml"));
+        writer.write(BGTTestFiles.getTestInputStream("bgt_wijk_curve.gml"));
         db.close();
-        assertDataSetEquals("pand,nummeraanduidingreeks", "bgt_mutatie_initial_pand");
+        assertDataSetEquals("wijk", "bgt_wijk_linearized");
     }
 }

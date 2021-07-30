@@ -51,21 +51,28 @@ public class DBTestBase {
     protected IDatabaseConnection dbTestConnection;
     private String datasetFileSuffix;
 
-    public static String getConfig(String propertyName, String defaultValue) {
-        String value = System.getProperty(propertyName);
-        return value == null ? defaultValue : value;
+    private static void setDefaultDatabaseProperties() {
+        DatabaseOptions defaultDbOptions = new DatabaseOptions();
+        Stream.of(new String[][] {
+                {"db.connectionString", defaultDbOptions.getConnectionString()},
+                {"db.user", defaultDbOptions.getUser()},
+                {"db.password", defaultDbOptions.getPassword()},
+        }).forEach(property -> {
+            String value = System.getProperty(property[0]);
+            if (value == null) {
+                System.setProperty(property[0], property[1]);
+            }
+        });
     }
 
     protected static DatabaseOptions getTestDatabaseOptions() {
+        // Get database connection options from test profile, but set defaults if no Maven profile specified
+        // With the defaults also set as properties these can be used for enabling/disabling tests for certain databases
+        setDefaultDatabaseProperties();
         DatabaseOptions dbOptions = new DatabaseOptions();
-        // Get database connection options from test profile
-        String connectionString = getConfig("db.connectionString", dbOptions.getConnectionString());
-        String user = getConfig("db.user", dbOptions.getUser());
-        String password = getConfig("db.password", dbOptions.getPassword());
-
-        dbOptions.setConnectionString(connectionString);
-        dbOptions.setUser(user);
-        dbOptions.setPassword(password);
+        dbOptions.setConnectionString(System.getProperty("db.connectionString"));
+        dbOptions.setUser(System.getProperty("db.user"));
+        dbOptions.setPassword(System.getProperty("db.password"));
         return dbOptions;
     }
 

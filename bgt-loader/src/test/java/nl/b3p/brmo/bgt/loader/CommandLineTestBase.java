@@ -39,7 +39,7 @@ public class CommandLineTestBase extends DBTestBase {
         mockWebServer.close();
     }
 
-    void run(String command, String... args) {
+    protected String[] getArgs(String command, String... args) {
         List<String> allArgs = new ArrayList<>();
         allArgs.addAll(Arrays.asList(command.split(" ")));
         allArgs.add("--connection=" + dbOptions.getConnectionString());
@@ -47,7 +47,11 @@ public class CommandLineTestBase extends DBTestBase {
         allArgs.add("--password=" + dbOptions.getPassword());
         allArgs.addAll(Arrays.asList(args));
         System.out.println("Command line: " + String.join(" ", allArgs));
-        int exitCode = cmd.execute(allArgs.toArray(new String[]{}));
+        return allArgs.toArray(new String[]{});
+    }
+
+    void run(String command, String... args) {
+        int exitCode = cmd.execute(getArgs(command, args));
         assertEquals(0, exitCode);
     }
 }

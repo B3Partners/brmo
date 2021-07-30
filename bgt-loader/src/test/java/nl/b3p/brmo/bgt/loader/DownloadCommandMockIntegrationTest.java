@@ -77,4 +77,18 @@ public class DownloadCommandMockIntegrationTest extends CommandLineTestBase {
 
         // TODO apply mutaties
     }
+
+    @Test
+    @Order(3)
+    void catchApiException() {
+        mockWebServer.enqueue(new MockResponse()
+                .setBody("invalid wktString. a polygon ring must have at least 4 points, got 1")
+                .setHeader("Content-Type", "text/plain; charset=utf-8")
+                .setResponseCode(200)
+        );
+        String url = mockWebServer.url("/").toString();
+        int exitCode = cmd.execute(getArgs("download initial", "--geo-filter=POLYGON((123 456))", "--download-service=" + url));
+        // Just test for error exit code, API sends application/text instead of JSON anyway...
+        assertEquals(1, exitCode);
+    }
 }
