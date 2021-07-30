@@ -46,7 +46,7 @@ public class BGTDatabase implements AutoCloseable {
     private final DatabaseOptions dbOptions;
     private Connection connection;
 
-    public BGTDatabase(DatabaseOptions dbOptions) throws SQLException, ClassNotFoundException {
+    public BGTDatabase(DatabaseOptions dbOptions) throws ClassNotFoundException {
         this.dbOptions = dbOptions;
         String connectionString = dbOptions.getConnectionString();
         SQLDialectEnum sqlDialectEnum;

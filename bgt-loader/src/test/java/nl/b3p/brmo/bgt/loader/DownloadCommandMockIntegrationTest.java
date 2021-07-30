@@ -7,7 +7,6 @@
 package nl.b3p.brmo.bgt.loader;
 
 import okhttp3.mockwebserver.MockResponse;
-import okhttp3.mockwebserver.MockWebServer;
 import okio.Buffer;
 import org.dbunit.DatabaseUnitException;
 import org.junit.jupiter.api.MethodOrderer;
@@ -30,9 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class DownloadCommandMockIntegrationTest extends CommandLineTestBase {
     @Test
     @Order(1)
-    void downloadInitial() throws IOException, InterruptedException, SQLException, DatabaseUnitException {
-        MockWebServer mockWebServer = new MockWebServer();
-
+    void downloadInitialCompareThreeRows() throws IOException, InterruptedException, SQLException, DatabaseUnitException {
         mockWebServer.enqueue(new MockResponse()
                 .setBody("{\"_links\":{\"status\":{\"href\":\"/lv/bgt/download/v1_0/delta/custom/d396d842-3963-4377-55e1-0e9a91e1de01/status\"}},\"downloadRequestId\":\"d396d842-3963-4377-55e1-0e9a91e1de01\"}")
                 .setResponseCode(202)
@@ -54,21 +51,21 @@ public class DownloadCommandMockIntegrationTest extends CommandLineTestBase {
                 .setResponseCode(200)
         );
         String url = mockWebServer.url("/").toString();
-        run("download initial", "--download-service=" + url, "--no-geo-filter", "--include-history", "--feature-types=stadsdeel,waterschap");
+        run("download initial", "--download-service=" + url, "--no-geo-filter", "--max-objects=3", "--include-history");
 
         String body = mockWebServer.takeRequest().getBody().readString(Charset.defaultCharset());
         assertTrue(body.contains("\"format\":\"citygml\""));
-        assertDataSetEquals("stadsdeel,waterschap", "extract");
-
-        mockWebServer.close();
+        assertDataSetEquals("kast,ondersteunendwaterdeel,paal,sensor,begroeidterreindeel,overbruggingsdeel,spoor," +
+                "bord,pand,nummeraanduidingreeks,functioneelgebied,onbegroeidterreindeel,gebouwinstallatie,weginrichtingselement," +
+                "kunstwerkdeel,waterinrichtingselement,installatie,vegetatieobject,waterdeel,put,scheiding,ondersteunendwegdeel" +
+                "straatmeubilair,wegdeel,plaatsbepalingspunt,bak,openbareruimtelabel,overigbouwwerk,overigescheiding",
+                "extract");
     }
 
     @Test
     @Order(2)
     @SkipDropTables
     void downloadUpdate() throws IOException, InterruptedException {
-        MockWebServer mockWebServer = new MockWebServer();
-
         mockWebServer.enqueue(new MockResponse()
                 .setBody(new Buffer().readFrom(getTestInputStream("deltas.json")))
                 .setResponseCode(200)

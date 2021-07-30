@@ -29,6 +29,7 @@ import org.dbunit.dataset.xml.XmlDataSet;
 import org.dbunit.ext.mssql.MsSqlDataTypeFactory;
 import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.TestInfo;
@@ -44,39 +45,48 @@ import java.util.stream.Stream;
 public class DBTestBase {
     private static final Log LOG = LogFactory.getLog(DBTestBase.class);
 
-    protected DatabaseOptions dbOptions = new DatabaseOptions();
+    protected DatabaseOptions dbOptions;
     protected BGTDatabase db;
     protected IDatabaseTester dbTest;
     protected IDatabaseConnection dbTestConnection;
-    protected String schema = null;
-    protected String datasetFileSuffix;
-    protected String connectionString;
-    protected String user;
-    protected String password;
+    private String datasetFileSuffix;
 
-    String getConfig(String propertyName, String defaultValue) {
+    public static String getConfig(String propertyName, String defaultValue) {
         String value = System.getProperty(propertyName);
         return value == null ? defaultValue : value;
     }
 
-    @BeforeEach
-    void setUp(TestInfo info) throws Exception {
+    protected static DatabaseOptions getTestDatabaseOptions() {
+        DatabaseOptions dbOptions = new DatabaseOptions();
         // Get database connection options from test profile
-        connectionString = getConfig("db.connectionString", dbOptions.getConnectionString());
-        user = getConfig("db.user", dbOptions.getUser());
-        password = getConfig("db.password", dbOptions.getPassword());
+        String connectionString = getConfig("db.connectionString", dbOptions.getConnectionString());
+        String user = getConfig("db.user", dbOptions.getUser());
+        String password = getConfig("db.password", dbOptions.getPassword());
 
         dbOptions.setConnectionString(connectionString);
         dbOptions.setUser(user);
         dbOptions.setPassword(password);
+        return dbOptions;
+    }
 
-        db = new BGTDatabase(dbOptions);
+    private static IDatabaseTester getDatabaseTester(DatabaseOptions dbOptions, String schema) throws ClassNotFoundException {
+        BGTDatabase db = new BGTDatabase(dbOptions);
+        return new JdbcDatabaseTester(db.getDialect().getDriverClass(), dbOptions.getConnectionString(), dbOptions.getUser(), dbOptions.getPassword(), schema);
+    }
 
+    public static String getSchema(BGTDatabase db, DatabaseOptions dbOptions) {
         if (db.getDialect() instanceof OracleDialect) {
-            // If we don't set the user the DatabaseMetaData.getTables() call without a schema filter will take 5 minutes
-            schema = dbOptions.getUser().toUpperCase();
+            // If we don't set the schema to the user the DatabaseMetaData.getTables() call without a schema filter will take 5 minutes
+            return dbOptions.getUser().toUpperCase();
         }
-        dbTest = new JdbcDatabaseTester(db.getDialect().getDriverClass(), dbOptions.getConnectionString(), dbOptions.getUser(), dbOptions.getPassword(), schema);
+        return null;
+    }
+
+    @BeforeEach
+    void setUp(TestInfo info) throws Exception {
+        dbOptions = getTestDatabaseOptions();
+        db = new BGTDatabase(dbOptions);
+        dbTest = getDatabaseTester(dbOptions, getSchema(db, dbOptions));
         dbTestConnection = dbTest.getConnection();
 
         IDataTypeFactory dtf;
@@ -98,11 +108,19 @@ public class DBTestBase {
         if (info.getTestMethod().isPresent()) {
             if(info.getTestMethod().get().getAnnotation(SkipDropTables.class) == null) {
                 try {
-                    dropTables();
+                    dropTables(dbTestConnection.getConnection(), getSchema(db, dbOptions), db.getDialect() instanceof OracleDialect);
                 } catch(Exception e) {
                     LOG.error("Exception dropping tables before test", e);
                 }
             }
+        }
+    }
+
+    @AfterAll
+    static void dropTablesAfterAllTests() throws SQLException, ClassNotFoundException {
+        DatabaseOptions dbOptions = getTestDatabaseOptions();
+        try (BGTDatabase db = new BGTDatabase(dbOptions)) {
+            dropTables(db.getConnection(), getSchema(db, dbOptions), db.getDialect() instanceof OracleDialect);
         }
     }
 
@@ -119,7 +137,7 @@ public class DBTestBase {
         Assertion.assertEquals(expectedDataSet, actualDataSet);
     }
 
-    private void write(IDataSet dataSet) throws DataSetException, IOException {
+    public static void write(IDataSet dataSet) throws DataSetException, IOException {
         XmlDataSet.write(dataSet, System.out);
     }
 
@@ -128,12 +146,11 @@ public class DBTestBase {
         dbTestConnection.close();
     }
 
-    private void dropTables() throws SQLException {
-        Connection connection = dbTestConnection.getConnection();
+    private static void dropTables(Connection connection, String schema, boolean isOracle) throws SQLException {
         for (String tableName: Stream.concat(
                 BGTSchema.getAllObjectTypes().map(objectType -> BGTSchemaMapper.getTableNameForObjectType(objectType, "")),
                 Stream.of(BGTSchemaMapper.METADATA_TABLE)).collect(Collectors.toList())) {
-            if (db.getDialect() instanceof OracleDialect) {
+            if (isOracle) {
                 tableName = tableName.toUpperCase();
             }
             if(new DefaultMetadataHandler().tableExists(connection.getMetaData(), schema, tableName)) {
@@ -145,8 +162,8 @@ public class DBTestBase {
                 }
             }
         }
-        if (db.getDialect() instanceof OracleDialect) {
-            new QueryRunner().update(connection, "delete from user_sdo_geom_metadata");
+        if (isOracle) {
+            new QueryRunner().update(connection,"delete from user_sdo_geom_metadata");
         }
     }
 }
