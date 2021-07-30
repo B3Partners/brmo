@@ -8,6 +8,8 @@
 package nl.b3p.brmo.bgt.loader;
 
 import nl.b3p.brmo.bgt.loader.cli.DatabaseOptions;
+import nl.b3p.brmo.bgt.schema.BGTSchema;
+import nl.b3p.brmo.bgt.schema.BGTSchemaMapper;
 import nl.b3p.brmo.sql.dialect.MSSQLDialect;
 import nl.b3p.brmo.sql.dialect.OracleDialect;
 import nl.b3p.brmo.sql.dialect.PostGISDialect;
@@ -155,8 +157,8 @@ public class DBTestBase {
 
     private static void dropTables(Connection connection, String schema, boolean isOracle) throws SQLException {
         for (String tableName: Stream.concat(
-                BGTSchema.getAllObjectTypes().map(objectType -> BGTSchemaMapper.getTableNameForObjectType(objectType, "")),
-                Stream.of(BGTSchemaMapper.METADATA_TABLE)).collect(Collectors.toList())) {
+                BGTSchema.getInstance().getAllObjectTypes().map(objectType -> BGTSchemaMapper.getInstance().getTableNameForObjectType(objectType, "")),
+                Stream.of(BGTSchemaMapper.METADATA_TABLE_NAME)).collect(Collectors.toList())) {
             if (isOracle) {
                 tableName = tableName.toUpperCase();
             }

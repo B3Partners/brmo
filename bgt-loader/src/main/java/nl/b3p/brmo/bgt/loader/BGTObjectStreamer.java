@@ -6,6 +6,9 @@
 
 package nl.b3p.brmo.bgt.loader;
 
+import nl.b3p.brmo.bgt.schema.BGTObject;
+import nl.b3p.brmo.bgt.schema.BGTObjectType;
+import nl.b3p.brmo.bgt.schema.BGTSchema;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.codehaus.staxmate.SMInputFactory;
@@ -33,7 +36,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 
-import static nl.b3p.brmo.bgt.loader.BGTSchema.fixUUID;
+import static nl.b3p.brmo.bgt.schema.BGTSchema.fixUUID;
 
 public class BGTObjectStreamer implements Iterable<BGTObject> {
     private static final Log log = LogFactory.getLog(BGTObjectStreamer.class);
@@ -281,7 +284,7 @@ public class BGTObjectStreamer implements Iterable<BGTObject> {
                     }
 
                     final String name = cityObjectMemberChild.getLocalName();
-                    final BGTSchema.BGTObjectType bgtObjectType = BGTSchema.getObjectTypeByName(name);
+                    final BGTObjectType bgtObjectType = BGTSchema.getInstance().getObjectTypeByName(name);
                     if (bgtObjectType == null) {
                         throw new IllegalArgumentException("Onbekend object type: " + name);
                     }
@@ -366,7 +369,7 @@ public class BGTObjectStreamer implements Iterable<BGTObject> {
         if (attribute.hasLocalName("nummeraanduidingreeks")) {
             Location location = attribute.getCursorLocation();
             Map<String,Object> nummeraanduidingreeks = parseNummeraanduidingreeks(attribute);
-            return new BGTObject(BGTSchema.getObjectTypeByName("nummeraanduidingreeks"), nummeraanduidingreeks, location);
+            return new BGTObject(BGTSchema.getInstance().getObjectTypeByName("nummeraanduidingreeks"), nummeraanduidingreeks, location);
         }
 
         if(attribute.hasLocalName("openbareRuimteNaam")) {

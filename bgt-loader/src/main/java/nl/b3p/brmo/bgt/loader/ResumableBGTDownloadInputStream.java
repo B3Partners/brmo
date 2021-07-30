@@ -7,6 +7,7 @@
 package nl.b3p.brmo.bgt.loader;
 
 import nl.b3p.brmo.bgt.loader.cli.ConsoleProgressReporter;
+import nl.b3p.brmo.bgt.schema.BGTObjectTableWriter;
 import nl.b3p.brmo.util.HttpStartRangeInputStreamProvider;
 import nl.b3p.brmo.util.ResumableInputStream;
 import org.apache.commons.lang3.exception.ExceptionUtils;

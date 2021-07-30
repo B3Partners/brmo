@@ -8,8 +8,8 @@ package nl.b3p.brmo.bgt.loader.cli;
 
 import nl.b3p.brmo.bgt.download.model.DeltaCustomDownloadRequest;
 import nl.b3p.brmo.bgt.loader.BGTDatabase;
-import nl.b3p.brmo.bgt.loader.BGTObjectTableWriter;
-import nl.b3p.brmo.bgt.loader.BGTSchemaMapper;
+import nl.b3p.brmo.bgt.schema.BGTObjectTableWriter;
+import nl.b3p.brmo.bgt.schema.BGTSchemaMapper;
 import nl.b3p.brmo.bgt.loader.ProgressReporter;
 import nl.b3p.brmo.bgt.loader.ResumableBGTDownloadInputStream;
 import nl.b3p.brmo.bgt.loader.Utils;
@@ -42,7 +42,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
 
-import static nl.b3p.brmo.bgt.loader.BGTSchemaMapper.Metadata;
+import static nl.b3p.brmo.bgt.schema.BGTSchemaMapper.Metadata;
 import static nl.b3p.brmo.bgt.loader.Utils.getLoaderVersion;
 import static nl.b3p.brmo.bgt.loader.Utils.getMessageFormattedString;
 import static nl.b3p.brmo.bgt.loader.Utils.getUserAgent;
@@ -82,8 +82,9 @@ public class BGTLoaderMain implements IVersionProvider {
         Set<String> tableNames = featureTypeSelectionOptions.getFeatureTypesList().stream()
                 .map(DeltaCustomDownloadRequest.FeaturetypesEnum::getValue)
                 .collect(Collectors.toSet());
-        BGTSchemaMapper.printSchema(dialect, tablePrefix, objectType ->
-                tableNames.contains(BGTSchemaMapper.getTableNameForObjectType(objectType, ""))
+        BGTSchemaMapper bgtSchemaMapper = BGTSchemaMapper.getInstance();
+        bgtSchemaMapper.printSchema(dialect, tablePrefix, objectType ->
+                tableNames.contains(bgtSchemaMapper.getTableNameForObjectType(objectType, ""))
         );
         return ExitCode.OK;
     }
@@ -131,7 +132,7 @@ public class BGTLoaderMain implements IVersionProvider {
             db.setMetadataValue(Metadata.INCLUDE_HISTORY, loadOptions.includeHistory + "");
             db.setMetadataValue(Metadata.LINEARIZE_CURVES, loadOptions.linearizeCurves + "");
             db.setMetadataValue(Metadata.TABLE_PREFIX, loadOptions.tablePrefix);
-            BGTObjectTableWriter.Progress progress = writer.getProgress();
+            BGTObjectTableWriter.BGTProgress progress = writer.getProgress();
             if (progress.getMutatieInhoud() != null) {
                 db.setMetadataForMutaties(progress.getMutatieInhoud());
                 db.setMetadataValue(Metadata.GEOM_FILTER, progress.getMutatieInhoud().getGebied());

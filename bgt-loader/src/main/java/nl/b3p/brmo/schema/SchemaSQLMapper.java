@@ -2,15 +2,16 @@
  * Copyright (C) 2021 B3Partners B.V.
  *
  * SPDX-License-Identifier: MIT
+ *
  */
 
-package nl.b3p.brmo.bgt.loader;
+package nl.b3p.brmo.schema;
 
+import nl.b3p.brmo.schema.mapping.AttributeColumnMapping;
 import nl.b3p.brmo.sql.dialect.SQLDialect;
-import nl.b3p.brmo.sql.mapping.AttributeColumnMapping;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -20,70 +21,53 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static nl.b3p.brmo.bgt.loader.BGTSchema.getAllObjectTypes;
 import static nl.b3p.brmo.bgt.loader.Utils.getBundleString;
 
-public class BGTSchemaMapper {
+public abstract class SchemaSQLMapper {
+    private final Schema schema;
 
-    private static final String SCHEMA_VERSION_VALUE = "1";
-
-    public static final String METADATA_TABLE = "bgt_metadata";
-
-    public enum Metadata {
-        SCHEMA_VERSION,
-        LOADER_VERSION,
-        FEATURE_TYPES,
-        INCLUDE_HISTORY,
-        LINEARIZE_CURVES,
-        TABLE_PREFIX,
-        INITIAL_LOAD_TIME,
-        INITIAL_LOAD_DELTA_ID,
-        DELTA_ID,
-        DELTA_TIME_TO,
-        GEOM_FILTER;
-
-        public String getDbKey() {
-            return this.name().toLowerCase();
-        }
-    }
-
-    public static Map<String, String> objectTypeNameToDutchTableName = Stream.of(new String[][]{
-            {"PlantCover", "begroeidterreindeel"},
-            {"BuildingInstallation", "gebouwinstallatie"},
-            {"AuxiliaryTrafficArea", "ondersteunendwegdeel"},
-            {"BridgeConstructionElement", "overbruggingsdeel"},
-            {"BuildingPart", "pand"},
-            {"Railway", "spoor"},
-            {"TunnelPart", "tunneldeel"},
-            {"SolitaryVegetationObject", "vegetatieobject"},
-            {"TrafficArea", "wegdeel"}
-    }).collect(Collectors.toMap(e -> e[0], e -> e[1]));
+    protected final Map<String,String> objectTypeNameToTableName = new HashMap<>();
 
     private static final Set<String> reservedWords = Stream.of(new String[]{
             "function"
     }).collect(Collectors.toSet());
 
-    /**
-     * Use for aligning fixed width output.
-     */
-    public static final int MAX_TABLE_LENGTH;
-
-    static {
-        // Put lowercase version in mapping if not already mapped to another name
-        getAllObjectTypes()
-                .map(BGTSchema.BGTObjectType::getName)
-                .filter(name -> !objectTypeNameToDutchTableName.containsKey(name))
-                .forEach(name -> objectTypeNameToDutchTableName.put(name, name.toLowerCase()));
-        objectTypeNameToDutchTableName = Collections.unmodifiableMap(objectTypeNameToDutchTableName);
-
-        MAX_TABLE_LENGTH = objectTypeNameToDutchTableName.values().stream().map(String::length).reduce(0, Integer::max);
+    public SchemaSQLMapper(Schema schema) {
+        this.schema = schema;
+        schema.getAllObjectTypes()
+                .map(ObjectType::getName)
+                .forEach(name -> objectTypeNameToTableName.put(name, name.toLowerCase()));
     }
 
-    public static void printSchema(SQLDialect dialect, String tablePrefix, Predicate<BGTSchema.BGTObjectType> objectTypeFilter) {
+    public Schema getSchema() {
+        return schema;
+    }
+
+    public abstract String getMetadataTableName();
+
+    public String getTableNameForObjectType(ObjectType objectType, String tablePrefix) {
+        return tablePrefix + objectTypeNameToTableName.get(objectType.getName());
+    }
+
+    public String getColumnNameForObjectType(ObjectType objectType, String attributeName) {
+        attributeName = attributeName.toLowerCase();
+        if (reservedWords.contains(attributeName)) {
+            attributeName = attributeName + "_";
+        }
+        String tableNameLower = getTableNameForObjectType(objectType, null).toLowerCase();
+        String attributeNameLower = attributeName.toLowerCase();
+        int i = attributeNameLower.indexOf(tableNameLower);
+        if (i != -1) {
+            attributeName = new StringBuilder(attributeName).replace(i, i + tableNameLower.length(), "").toString();
+        }
+        return attributeName.replaceAll("\\-", "_");
+    }
+
+    public void printSchema(SQLDialect dialect, String tablePrefix, Predicate<ObjectType> objectTypeFilter) {
         // Sort object type names by table names
-        SortedMap<String, BGTSchema.BGTObjectType> tableNamesObjectTypes = new TreeMap<>(getAllObjectTypes()
+        SortedMap<String, ObjectType> tableNamesObjectTypes = new TreeMap<>(getSchema().getAllObjectTypes()
                 .filter(objectTypeFilter == null ? objectType -> true : objectTypeFilter)
-                .collect(Collectors.toMap(objectType -> BGTSchemaMapper.getTableNameForObjectType(objectType, ""), objectType -> objectType)));
+                .collect(Collectors.toMap(objectType -> getTableNameForObjectType(objectType, ""), objectType -> objectType)));
 
         String createTable = tableNamesObjectTypes.values().stream()
                 .flatMap(objectType -> getCreateTableStatements(objectType, dialect, tablePrefix))
@@ -100,7 +84,7 @@ public class BGTSchemaMapper {
         }
 
         System.out.printf("-- %s\n\n", getBundleString("schema.loader_metadata"));
-        System.out.println(getCreateMetadataTableStatements(dialect, tablePrefix).collect(Collectors.joining(";\n")) + ";\n");
+        System.out.println(getCreateMetadataTableStatements(dialect, tablePrefix).stream().collect(Collectors.joining(";\n")) + ";\n");
 
         System.out.printf("-- %s %s\n\n", getBundleString("schema.primary_keys"), getBundleString("schema.after_initial_load"));
         String primaryKeys = tableNamesObjectTypes.values().stream()
@@ -113,34 +97,9 @@ public class BGTSchemaMapper {
                 .flatMap(objectType -> getCreateGeometryIndexStatements(objectType, dialect, tablePrefix))
                 .collect(Collectors.joining(";\n"));
         System.out.println(geometryIndexes + ";\n");
-
     }
 
-    public static String getTableNameForObjectType(BGTSchema.BGTObjectType objectType, String tablePrefix) {
-        return tablePrefix + objectTypeNameToDutchTableName.get(objectType.getName());
-    }
-
-    public static String getColumnNameForObjectType(BGTSchema.BGTObjectType objectType, String attributeName) {
-        attributeName = attributeName.toLowerCase();
-        if (attributeName.startsWith("geometrie")) {
-            return "geom";
-        }
-        if (attributeName.startsWith("kruinlijn")) {
-            return "geom_kruinlijn";
-        }
-        if (reservedWords.contains(attributeName)) {
-            attributeName = attributeName + "_";
-        }
-        String tableNameLower = getTableNameForObjectType(objectType, null).toLowerCase();
-        String attributeNameLower = attributeName.toLowerCase();
-        int i = attributeNameLower.indexOf(tableNameLower);
-        if (i != -1) {
-            attributeName = new StringBuilder(attributeName).replace(i, i + tableNameLower.length(), "").toString();
-        }
-        return attributeName.replaceAll("\\-", "_");
-    }
-
-    public static Stream<String> getCreateTableStatements(BGTSchema.BGTObjectType objectType, SQLDialect dialect, String tablePrefix) {
+    public Stream<String> getCreateTableStatements(ObjectType objectType, SQLDialect dialect, String tablePrefix) {
         List<String> statements = new ArrayList<>();
         String tableName = getTableNameForObjectType(objectType, tablePrefix);
         if (dialect.supportsDropTableIfExists()) {
@@ -159,11 +118,11 @@ public class BGTSchemaMapper {
         return statements.stream();
     }
 
-    public static Stream<String> getCreatePrimaryKeyStatements(BGTSchema.BGTObjectType objectType, SQLDialect dialect, String tablePrefix) {
+    public Stream<String> getCreatePrimaryKeyStatements(ObjectType objectType, SQLDialect dialect, String tablePrefix) {
         return getCreatePrimaryKeyStatements(objectType, dialect, tablePrefix, true);
     }
 
-    public static Stream<String> getCreatePrimaryKeyStatements(BGTSchema.BGTObjectType objectType, SQLDialect dialect, String tablePrefix, boolean includeOneToMany) {
+    public Stream<String> getCreatePrimaryKeyStatements(ObjectType objectType, SQLDialect dialect, String tablePrefix, boolean includeOneToMany) {
         String tableName = getTableNameForObjectType(objectType, tablePrefix);
         String columns = objectType.getDirectAttributes().stream()
                 .filter(AttributeColumnMapping::isPrimaryKey)
@@ -179,7 +138,7 @@ public class BGTSchemaMapper {
         );
     }
 
-    public static Stream<String> getCreateGeometryMetadataStatements(BGTSchema.BGTObjectType objectType, SQLDialect dialect, String tablePrefix) {
+    public Stream<String> getCreateGeometryMetadataStatements(ObjectType objectType, SQLDialect dialect, String tablePrefix) {
         return Stream.concat(
                 objectType.getGeometryAttributes().stream().map(column -> dialect.getCreateGeometryMetadataSQL(
                         getTableNameForObjectType(objectType, tablePrefix),
@@ -190,11 +149,11 @@ public class BGTSchemaMapper {
         );
     }
 
-    public static Stream<String> getCreateGeometryIndexStatements(BGTSchema.BGTObjectType objectType, SQLDialect dialect, String tablePrefix) {
+    public Stream<String> getCreateGeometryIndexStatements(ObjectType objectType, SQLDialect dialect, String tablePrefix) {
         return getCreateGeometryIndexStatements(objectType, dialect, tablePrefix, true);
     }
 
-    public static Stream<String> getCreateGeometryIndexStatements(BGTSchema.BGTObjectType objectType, SQLDialect dialect, String tablePrefix, boolean includeOneToMany) {
+    public Stream<String> getCreateGeometryIndexStatements(ObjectType objectType, SQLDialect dialect, String tablePrefix, boolean includeOneToMany) {
         return Stream.concat(
                 objectType.getGeometryAttributes().stream().map(column ->dialect.getCreateGeometryIndexSQL(
                         getTableNameForObjectType(objectType, tablePrefix),
@@ -206,27 +165,25 @@ public class BGTSchemaMapper {
         );
     }
 
-    public static Stream<String> getCreateMetadataTableStatements(SQLDialect dialect, String tablePrefix) {
+    public List<String> getCreateMetadataTableStatements(SQLDialect dialect, String tablePrefix) {
         List<String> statements = new ArrayList<>();
-        final String tableName = METADATA_TABLE;
+        final String tableName = getMetadataTableName();
         if (dialect.supportsDropTableIfExists()) {
             statements.add("drop table if exists " + tableName);
         }
-        String sql = "create table " + tableName + " (\n" +
-                "  id " + dialect.getType("varchar(255)") + ",\n" +
-                "  value " + dialect.getType("text") + ",\n" +
-                "  primary key(id)\n)";
+        String sql = String.format("create table %s(\n  id %s,\n  value %s,\n  primary key(id)\n)",
+                tableName,
+                dialect.getType("varchar(255)"),
+                dialect.getType("text"));
         statements.add(sql);
-        Map<Metadata,String> defaultMetadata = Stream.of(new Object[][]{
-                {Metadata.SCHEMA_VERSION, SCHEMA_VERSION_VALUE},
-                {Metadata.LOADER_VERSION, Utils.getLoaderVersion()},
-                {Metadata.TABLE_PREFIX, tablePrefix},
-        }).collect(Collectors.toMap(entry -> (Metadata)entry[0], entry -> (String)entry[1]));
-        Stream.of(Metadata.values()).forEach(metadata -> {
-            String value = defaultMetadata.get(metadata);
-            statements.add(String.format("insert into %s (id, value) values ('%s', %s)", tableName, metadata.getDbKey(), value == null ? "null" : "'" + value + "'"));
-        });
 
-        return statements.stream();
+        return statements;
+    }
+
+    /**
+     * Use for aligning fixed width output.
+     */
+    public int getMaxTableLength() {
+        return objectTypeNameToTableName.values().stream().map(String::length).reduce(0, Integer::max);
     }
 }

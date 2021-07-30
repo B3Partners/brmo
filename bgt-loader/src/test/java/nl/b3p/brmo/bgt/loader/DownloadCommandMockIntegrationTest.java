@@ -15,10 +15,14 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.nio.charset.Charset;
 import java.sql.SQLException;
 
 import static nl.b3p.brmo.bgt.loader.BGTTestFiles.getTestInputStream;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -84,11 +88,13 @@ public class DownloadCommandMockIntegrationTest extends CommandLineTestBase {
         mockWebServer.enqueue(new MockResponse()
                 .setBody("invalid wktString. a polygon ring must have at least 4 points, got 1")
                 .setHeader("Content-Type", "text/plain; charset=utf-8")
-                .setResponseCode(200)
+                .setResponseCode(400)
         );
         String url = mockWebServer.url("/").toString();
+        StringWriter sw = new StringWriter();
+        cmd.setErr(new PrintWriter(sw));
         int exitCode = cmd.execute(getArgs("download initial", "--geo-filter=POLYGON((123 456))", "--download-service=" + url));
-        // Just test for error exit code, API sends application/text instead of JSON anyway...
         assertEquals(1, exitCode);
+        assertThat(sw.toString(), containsString("deltaCustomDownload call failed with: 400 - invalid wktString"));
     }
 }

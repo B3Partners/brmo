@@ -9,6 +9,8 @@ package nl.b3p.brmo.bgt.loader;
 import nl.b3p.brmo.bgt.download.model.DeltaCustomDownloadRequest;
 import nl.b3p.brmo.bgt.loader.cli.DatabaseOptions;
 import nl.b3p.brmo.bgt.loader.cli.LoadOptions;
+import nl.b3p.brmo.bgt.schema.BGTObjectTableWriter;
+import nl.b3p.brmo.bgt.schema.BGTSchemaMapper;
 import nl.b3p.brmo.sql.dialect.MSSQLDialect;
 import nl.b3p.brmo.sql.dialect.OracleDialect;
 import nl.b3p.brmo.sql.dialect.PostGISDialect;
@@ -18,7 +20,6 @@ import org.apache.commons.dbutils.handlers.ScalarHandler;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import java.io.IOException;
 import java.sql.Clob;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -27,9 +28,8 @@ import java.time.Instant;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static nl.b3p.brmo.bgt.loader.BGTSchemaMapper.METADATA_TABLE;
-import static nl.b3p.brmo.bgt.loader.BGTSchemaMapper.Metadata;
-import static nl.b3p.brmo.bgt.loader.BGTSchemaMapper.getCreateMetadataTableStatements;
+import static nl.b3p.brmo.bgt.schema.BGTSchemaMapper.METADATA_TABLE_NAME;
+import static nl.b3p.brmo.bgt.schema.BGTSchemaMapper.Metadata;
 import static nl.b3p.brmo.bgt.loader.Utils.getBundleString;
 import static nl.b3p.brmo.bgt.loader.Utils.getMessageFormattedString;
 
@@ -91,7 +91,7 @@ public class BGTDatabase implements AutoCloseable {
     }
 
     public BGTObjectTableWriter createObjectTableWriter(LoadOptions loadOptions, DatabaseOptions dbOptions) throws SQLException {
-        BGTObjectTableWriter writer = new BGTObjectTableWriter(getConnection(), this.getDialect());
+        BGTObjectTableWriter writer = new BGTObjectTableWriter(getConnection(), this.getDialect(), BGTSchemaMapper.getInstance());
 
         if (loadOptions == null) {
             loadOptions = new LoadOptions();
@@ -118,14 +118,13 @@ public class BGTDatabase implements AutoCloseable {
 
     public void createMetadataTable(LoadOptions loadOptions) throws SQLException {
         log.info(getBundleString("db.create_metadata"));
-        for(String sql: getCreateMetadataTableStatements(getDialect(), loadOptions.getTablePrefix()).collect(Collectors.toList())) {
+        for(String sql: BGTSchemaMapper.getInstance().getCreateMetadataTableStatements(getDialect(), loadOptions.getTablePrefix())) {
             new QueryRunner().update(getConnection(), sql);
         }
     }
 
-
     public String getMetadata(Metadata key) throws SQLException {
-        Object value = new QueryRunner().query(getConnection(), "select value from " + METADATA_TABLE + " where id = ?", new ScalarHandler<>(), key.getDbKey());
+        Object value = new QueryRunner().query(getConnection(), "select value from " + METADATA_TABLE_NAME + " where id = ?", new ScalarHandler<>(), key.getDbKey());
         if (value == null) {
             return null;
         }
@@ -138,9 +137,9 @@ public class BGTDatabase implements AutoCloseable {
 
     public void setMetadataValue(Metadata key, String value) throws Exception {
         try {
-            int updated = new QueryRunner().update(getConnection(), "update " + METADATA_TABLE + " set value = ? where id = ?", value, key.getDbKey());
+            int updated = new QueryRunner().update(getConnection(), "update " + METADATA_TABLE_NAME + " set value = ? where id = ?", value, key.getDbKey());
             if (updated == 0) {
-                new QueryRunner().update(getConnection(), "insert into " + METADATA_TABLE + "(id, value) values(?,?)", key.getDbKey(), value);
+                new QueryRunner().update(getConnection(), "insert into " + METADATA_TABLE_NAME + "(id, value) values(?,?)", key.getDbKey(), value);
             }
         } catch (SQLException e) {
             throw new Exception(getMessageFormattedString("db.metadata_error", key.getDbKey(), value, e.getMessage()), e);

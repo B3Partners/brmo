@@ -6,6 +6,9 @@
 
 package nl.b3p.brmo.bgt.loader;
 
+import nl.b3p.brmo.bgt.schema.BGTObjectTableWriter;
+import nl.b3p.brmo.bgt.schema.BGTSchemaMapper;
+import nl.b3p.brmo.schema.ObjectTableWriter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -14,12 +17,11 @@ import java.time.Instant;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-import static nl.b3p.brmo.bgt.loader.BGTSchemaMapper.MAX_TABLE_LENGTH;
 import static nl.b3p.brmo.bgt.loader.Utils.formatTimeSince;
 import static nl.b3p.brmo.bgt.loader.Utils.getBundleString;
 import static nl.b3p.brmo.bgt.loader.Utils.getMessageFormattedString;
 
-public class ProgressReporter implements Consumer<BGTObjectTableWriter.Progress> {
+public class ProgressReporter implements Consumer<ObjectTableWriter.Progress> {
     private static final Log log = LogFactory.getLog(ProgressReporter.class);
 
     private final Instant start = Instant.now();
@@ -78,7 +80,8 @@ public class ProgressReporter implements Consumer<BGTObjectTableWriter.Progress>
     }
 
     @Override
-    public void accept(BGTObjectTableWriter.Progress progress) {
+    public void accept(ObjectTableWriter.Progress genericProgress) {
+        BGTObjectTableWriter.BGTProgress progress = (BGTObjectTableWriter.BGTProgress)genericProgress;
         switch(progress.getStage()) {
             case LOAD_OBJECTS:
                 if (progress.getObjectCount() == 0) {
@@ -111,7 +114,7 @@ public class ProgressReporter implements Consumer<BGTObjectTableWriter.Progress>
                 }
 
                 // Align bgt_[max_table_length].gml
-                log(String.format("%-" + (MAX_TABLE_LENGTH+8) + "s %10s, %s, %,7.0f %s/s",
+                log(String.format("%-" + (BGTSchemaMapper.getInstance().getMaxTableLength()+8) + "s %10s, %s, %,7.0f %s/s",
                         currentFileName,
                         formatTimeSince(currentFileStart),
                         counts,

@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-package nl.b3p.brmo.sql.mapping;
+package nl.b3p.brmo.schema.mapping;
 
 public class IntegerAttributeColumnMapping extends AttributeColumnMapping {
     public IntegerAttributeColumnMapping(String name, boolean notNull, boolean primaryKey) {

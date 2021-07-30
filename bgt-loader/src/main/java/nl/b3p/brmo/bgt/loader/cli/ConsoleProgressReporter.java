@@ -6,15 +6,15 @@
 
 package nl.b3p.brmo.bgt.loader.cli;
 
-import nl.b3p.brmo.bgt.loader.BGTObjectTableWriter;
+import nl.b3p.brmo.bgt.schema.BGTObjectTableWriter;
 import nl.b3p.brmo.bgt.loader.ProgressReporter;
-import org.apache.commons.io.FileUtils;
+import nl.b3p.brmo.schema.ObjectTableWriter;
 
 import java.time.Instant;
 
-import static nl.b3p.brmo.bgt.loader.BGTObjectTableWriter.Stage.FINISHED;
 import static nl.b3p.brmo.bgt.loader.Utils.formatTimeSince;
 import static nl.b3p.brmo.bgt.loader.Utils.getBundleString;
+import static nl.b3p.brmo.schema.ObjectTableWriter.Stage.FINISHED;
 
 public class ConsoleProgressReporter extends ProgressReporter {
     Instant totalStart = Instant.now();
@@ -32,8 +32,9 @@ public class ConsoleProgressReporter extends ProgressReporter {
         System.out.println();
     }
 
-    public void accept(BGTObjectTableWriter.Progress progress) {
-        super.accept(progress);
+    public void accept(ObjectTableWriter.Progress genericProgress) {
+        super.accept(genericProgress);
+        BGTObjectTableWriter.BGTProgress progress = (BGTObjectTableWriter.BGTProgress)genericProgress;
 
         if (progress.getStage() == FINISHED) {
             System.out.println();

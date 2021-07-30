@@ -7,7 +7,8 @@
 package nl.b3p.brmo.bgt.loader.cli;
 
 import nl.b3p.brmo.bgt.download.model.DeltaCustomDownloadRequest;
-import nl.b3p.brmo.bgt.loader.BGTSchemaMapper;
+import nl.b3p.brmo.bgt.schema.BGTSchema;
+import nl.b3p.brmo.bgt.schema.BGTSchemaMapper;
 import picocli.CommandLine.Option;
 
 import java.util.Arrays;
@@ -19,8 +20,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static nl.b3p.brmo.bgt.download.model.DeltaCustomDownloadRequest.FeaturetypesEnum.PLAATSBEPALINGSPUNT;
-import static nl.b3p.brmo.bgt.loader.BGTSchema.getIMGeoPlusObjectTypes;
-import static nl.b3p.brmo.bgt.loader.BGTSchema.getOnlyBGTObjectTypes;
 
 public class FeatureTypeSelectionOptions {
     @Option(names={"--feature-types"}, split=",", defaultValue="all", paramLabel = "<name>")
@@ -40,11 +39,13 @@ public class FeatureTypeSelectionOptions {
         if (featureTypes.contains("all")) {
             types.addAll(Arrays.asList(DeltaCustomDownloadRequest.FeaturetypesEnum.values()));
         } else {
+            BGTSchema bgtSchema = BGTSchema.getInstance();
+            BGTSchemaMapper bgtSchemaMapper = BGTSchemaMapper.getInstance();
             if (featureTypes.contains("bgt")) {
-                types.addAll(getOnlyBGTObjectTypes().map(objectType -> {
+                types.addAll(BGTSchema.getInstance().getOnlyBGTObjectTypes().map(objectType -> {
                     try {
                         // Just add the table names as featureType enum value, these are the same
-                        return DeltaCustomDownloadRequest.FeaturetypesEnum.fromValue(BGTSchemaMapper.getTableNameForObjectType(objectType, null));
+                        return DeltaCustomDownloadRequest.FeaturetypesEnum.fromValue(bgtSchemaMapper.getTableNameForObjectType(objectType, null));
                     } catch(IllegalArgumentException e) {
                         // Ignore nummeraanduidingreeks as it is a one-to-many table for pand
                         return null;
@@ -52,8 +53,8 @@ public class FeatureTypeSelectionOptions {
                 }).filter(Objects::nonNull).collect(Collectors.toSet()));
             }
             if (featureTypes.contains("plus")) {
-                types.addAll(getIMGeoPlusObjectTypes().map(objectType ->
-                        DeltaCustomDownloadRequest.FeaturetypesEnum.fromValue(BGTSchemaMapper.getTableNameForObjectType(objectType, null))
+                types.addAll(bgtSchema.getIMGeoPlusObjectTypes().map(objectType ->
+                        DeltaCustomDownloadRequest.FeaturetypesEnum.fromValue(bgtSchemaMapper.getTableNameForObjectType(objectType, null))
                 ).collect(Collectors.toSet()));
             }
         }

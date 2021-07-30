@@ -7,6 +7,7 @@
 
 package nl.b3p.brmo.bgt.loader;
 
+import nl.b3p.brmo.bgt.schema.BGTObject;
 import org.geotools.geometry.jts.WKTReader2;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

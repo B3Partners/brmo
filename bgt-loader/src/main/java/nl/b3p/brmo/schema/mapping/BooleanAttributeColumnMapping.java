@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-package nl.b3p.brmo.sql.mapping;
+package nl.b3p.brmo.schema.mapping;
 
 public class BooleanAttributeColumnMapping extends AttributeColumnMapping {
     public BooleanAttributeColumnMapping(String name, boolean notNull) {

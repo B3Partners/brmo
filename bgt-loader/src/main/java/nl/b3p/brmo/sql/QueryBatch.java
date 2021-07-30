@@ -14,4 +14,11 @@ public interface QueryBatch {
     void executeBatch() throws Exception;
 
     void close() throws SQLException;
+
+    default void closeQuietly() {
+        try {
+            close();
+        } catch(SQLException ignored) {
+        }
+    }
 }

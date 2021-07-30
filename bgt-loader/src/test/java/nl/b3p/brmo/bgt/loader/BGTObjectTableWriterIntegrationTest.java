@@ -8,6 +8,7 @@
 package nl.b3p.brmo.bgt.loader;
 
 import nl.b3p.brmo.bgt.loader.cli.LoadOptions;
+import nl.b3p.brmo.bgt.schema.BGTObjectTableWriter;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 

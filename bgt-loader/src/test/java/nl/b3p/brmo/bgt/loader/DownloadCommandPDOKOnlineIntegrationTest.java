@@ -6,6 +6,7 @@
 
 package nl.b3p.brmo.bgt.loader;
 
+import nl.b3p.brmo.bgt.schema.BGTSchemaMapper;
 import org.dbunit.dataset.DataSetException;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;

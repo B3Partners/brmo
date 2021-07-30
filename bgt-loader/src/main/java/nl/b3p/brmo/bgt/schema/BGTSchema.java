@@ -2,109 +2,36 @@
  * Copyright (C) 2021 B3Partners B.V.
  *
  * SPDX-License-Identifier: MIT
+ *
  */
 
-package nl.b3p.brmo.bgt.loader;
+package nl.b3p.brmo.bgt.schema;
 
-import nl.b3p.brmo.sql.mapping.AttributeColumnMapping;
-import nl.b3p.brmo.sql.mapping.BooleanAttributeColumnMapping;
-import nl.b3p.brmo.sql.mapping.DoubleAttributeColumnMapping;
-import nl.b3p.brmo.sql.mapping.GeometryAttributeColumnMapping;
-import nl.b3p.brmo.sql.mapping.IntegerAttributeColumnMapping;
-import nl.b3p.brmo.sql.mapping.OneToManyColumnMapping;
-import nl.b3p.brmo.sql.mapping.SimpleDateFormatAttributeColumnMapping;
+import nl.b3p.brmo.schema.Schema;
+import nl.b3p.brmo.schema.mapping.AttributeColumnMapping;
+import nl.b3p.brmo.schema.mapping.BooleanAttributeColumnMapping;
+import nl.b3p.brmo.schema.mapping.DoubleAttributeColumnMapping;
+import nl.b3p.brmo.schema.mapping.GeometryAttributeColumnMapping;
+import nl.b3p.brmo.schema.mapping.IntegerAttributeColumnMapping;
+import nl.b3p.brmo.schema.mapping.OneToManyColumnMapping;
+import nl.b3p.brmo.schema.mapping.SimpleDateFormatAttributeColumnMapping;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static nl.b3p.brmo.sql.mapping.SimpleDateFormatAttributeColumnMapping.PATTERN_XML_DATE;
-import static nl.b3p.brmo.sql.mapping.SimpleDateFormatAttributeColumnMapping.PATTERN_XML_TIMESTAMP;
+import static nl.b3p.brmo.schema.mapping.SimpleDateFormatAttributeColumnMapping.PATTERN_XML_DATE;
+import static nl.b3p.brmo.schema.mapping.SimpleDateFormatAttributeColumnMapping.PATTERN_XML_TIMESTAMP;
 
-public class BGTSchema {
-    public static class BGTObjectType {
-        String name;
-        boolean isIMGeoPlusType;
-        List<AttributeColumnMapping> attributes;
+public class BGTSchema extends Schema {
+    private static BGTSchema instance;
 
-        private final List<AttributeColumnMapping> primaryKeys;
-        private final List<AttributeColumnMapping> directAttributes;
-        private final List<GeometryAttributeColumnMapping> geometryAttributes;
-        private List<BGTObjectType> oneToManyAttributeObjectTypes;
-
-        private BGTObjectType(String name, List<AttributeColumnMapping> attributes) {
-            this(name, true, attributes);
-        }
-
-        private BGTObjectType(String name, boolean includeBaseAttributes, List<AttributeColumnMapping> additionalAttributes) {
-            this.name = name;
-            if (includeBaseAttributes) {
-                this.attributes = Stream.concat(baseAttributes.stream(), additionalAttributes.stream())
-                        .collect(Collectors.toList());
-            } else {
-                this.attributes = additionalAttributes;
-            }
-            this.isIMGeoPlusType = !bgtObjectTypes.contains(name);
-
-            this.primaryKeys = attributes.stream()
-                    .filter(AttributeColumnMapping::isPrimaryKey)
-                    .collect(Collectors.toList());
-            this.directAttributes = attributes.stream()
-                    .filter(attributeColumnMapping -> !(attributeColumnMapping instanceof OneToManyColumnMapping))
-                    .collect(Collectors.toList());
-            this.geometryAttributes = attributes.stream()
-                    .filter(attributeColumnMapping -> (attributeColumnMapping instanceof GeometryAttributeColumnMapping))
-                    .map(attributeColumnMapping -> (GeometryAttributeColumnMapping)attributeColumnMapping)
-                    .collect(Collectors.toList());
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public boolean isIMGeoPlusType() {
-            return isIMGeoPlusType;
-        }
-
-        public List<AttributeColumnMapping> getAllAttributes() {
-            return attributes;
-        }
-
-        public List<AttributeColumnMapping> getPrimaryKeys() {
-            return primaryKeys;
-        }
-
-        public List<AttributeColumnMapping> getDirectAttributes() {
-            return directAttributes;
-        }
-
-        public List<BGTObjectType> getOneToManyAttributeObjectTypes() {
-            // Create on-demand because objectTypes map must be completely filled
-            if (oneToManyAttributeObjectTypes == null) {
-                oneToManyAttributeObjectTypes = attributes.stream()
-                        .filter(attributeColumnMapping -> (attributeColumnMapping instanceof OneToManyColumnMapping))
-                        .map(attributeColumnMapping -> objectTypes.get(attributeColumnMapping.getName()))
-                        .collect(Collectors.toList());
-            }
-            return oneToManyAttributeObjectTypes;
-        }
-
-        public List<GeometryAttributeColumnMapping> getGeometryAttributes() {
-            return geometryAttributes;
-        }
-    }
-
-    public static final String INDEX = "idx";
     public static final String EIND_REGISTRATIE = "eindRegistratie";
 
-    private static final Set<String> bgtObjectTypes = new HashSet<>(Arrays.asList(
+    static final Set<String> bgtObjectTypes = new HashSet<>(Arrays.asList(
             "TrafficArea",
             "AuxiliaryTrafficArea",
             "Railway",
@@ -125,9 +52,7 @@ public class BGTSchema {
             "Plaatsbepalingspunt"
     ));
 
-    private static final Map<String, BGTObjectType> objectTypes = new HashMap<>();
-
-    private static final List<AttributeColumnMapping> baseAttributes = Arrays.asList(
+    private static final List<AttributeColumnMapping> bgtBaseAttributes = Arrays.asList(
             new AttributeColumnMapping("gmlId", "char(32)", true, true),
             new AttributeColumnMapping("identificatie"),
             new SimpleDateFormatAttributeColumnMapping("LV-publicatiedatum", "timestamp", PATTERN_XML_TIMESTAMP),
@@ -142,79 +67,81 @@ public class BGTSchema {
             new AttributeColumnMapping("plus-status")
     );
 
-    private static void addObjectType(BGTObjectType objectType) {
-        objectTypes.put(objectType.getName(), objectType);
+    private List<AttributeColumnMapping> withBaseAttributes(AttributeColumnMapping... attributes) {
+        return Stream.concat(bgtBaseAttributes.stream(), Stream.of(attributes)).collect(Collectors.toList());
     }
 
-    static {
-        addObjectType(new BGTObjectType("Bak", Arrays.asList(
+    public BGTSchema() {
+        super();
+
+        addObjectType(new BGTObjectType(this,"Bak", withBaseAttributes(
                 new AttributeColumnMapping("function"),
                 new AttributeColumnMapping("plus-type"),
                 new GeometryAttributeColumnMapping("geometrie2dBak", "geometry(POINT, 28992)")
         )));
 
-        addObjectType(new BGTObjectType("PlantCover", Arrays.asList(
+        addObjectType(new BGTObjectType(this,"PlantCover", withBaseAttributes(
                 new AttributeColumnMapping("plus-fysiekVoorkomen"),
                 new AttributeColumnMapping("class"),
                 new BooleanAttributeColumnMapping("begroeidTerreindeelOpTalud", false),
                 new GeometryAttributeColumnMapping("kruinlijnBegroeidTerreindeel"),
                 new GeometryAttributeColumnMapping("geometrie2dBegroeidTerreindeel")
         )));
-        addObjectType(new BGTObjectType("Bord", Arrays.asList(
+        addObjectType(new BGTObjectType(this,"Bord", withBaseAttributes(
                 new AttributeColumnMapping("function"),
                 new AttributeColumnMapping("plus-type"),
                 new GeometryAttributeColumnMapping("geometrie2dBord", "geometry(POINT, 28992)")
         )));
-        addObjectType(new BGTObjectType("Buurt", Arrays.asList(
+        addObjectType(new BGTObjectType(this,"Buurt", withBaseAttributes(
                 new AttributeColumnMapping("naam", "varchar(255)", false),
                 new AttributeColumnMapping("buurtcode"),
                 new AttributeColumnMapping("wijk", "varchar(255)", false),
                 new GeometryAttributeColumnMapping("geometrie2d")
         )));
-        addObjectType(new BGTObjectType("FunctioneelGebied", Arrays.asList(
+        addObjectType(new BGTObjectType(this,"FunctioneelGebied", withBaseAttributes(
                 new AttributeColumnMapping("naam", "varchar(255)", false),
                 new AttributeColumnMapping("bgt-type"),
                 new AttributeColumnMapping("plus-type"),
                 new GeometryAttributeColumnMapping("geometrie2dFunctioneelGebied")
         )));
-        addObjectType(new BGTObjectType("BuildingInstallation", Arrays.asList(
+        addObjectType(new BGTObjectType(this,"BuildingInstallation", withBaseAttributes(
                 new AttributeColumnMapping("function"),
                 new AttributeColumnMapping("plus-typeGebouwInstallatie"),
                 new GeometryAttributeColumnMapping("geometrie2dGebouwInstallatie")
         )));
-        addObjectType(new BGTObjectType("Installatie", Arrays.asList(
+        addObjectType(new BGTObjectType(this,"Installatie", withBaseAttributes(
                 new AttributeColumnMapping("function"),
                 new AttributeColumnMapping("plus-type"),
                 new GeometryAttributeColumnMapping("geometrie2dInstallatie", "geometry(POINT, 28992)")
         )));
-        addObjectType(new BGTObjectType("Kast", Arrays.asList(
+        addObjectType(new BGTObjectType(this,"Kast", withBaseAttributes(
                 new AttributeColumnMapping("function"),
                 new AttributeColumnMapping("plus-type"),
                 new GeometryAttributeColumnMapping("geometrie2dKast", "geometry(POINT, 28992)")
         )));
-        addObjectType(new BGTObjectType("Kunstwerkdeel", Arrays.asList(
+        addObjectType(new BGTObjectType(this,"Kunstwerkdeel", withBaseAttributes(
                 new AttributeColumnMapping("bgt-type"),
                 new AttributeColumnMapping("plus-type"),
                 new GeometryAttributeColumnMapping("geometrie2dOverigeConstructie")
         )));
-        addObjectType(new BGTObjectType("Mast", Arrays.asList(
+        addObjectType(new BGTObjectType(this,"Mast", withBaseAttributes(
                 new AttributeColumnMapping("function"),
                 new AttributeColumnMapping("plus-type"),
                 new GeometryAttributeColumnMapping("geometrie2dMast", "geometry(POINT, 28992)")
         )));
-        addObjectType(new BGTObjectType("OnbegroeidTerreindeel", Arrays.asList(
+        addObjectType(new BGTObjectType(this,"OnbegroeidTerreindeel", withBaseAttributes(
                 new AttributeColumnMapping("bgt-fysiekVoorkomen"),
                 new AttributeColumnMapping("plus-fysiekVoorkomen"),
                 new BooleanAttributeColumnMapping("onbegroeidTerreindeelOpTalud", false),
                 new GeometryAttributeColumnMapping("kruinlijnOnbegroeidTerreindeel"),
                 new GeometryAttributeColumnMapping("geometrie2dOnbegroeidTerreindeel")
         )));
-        addObjectType(new BGTObjectType("OndersteunendWaterdeel", Arrays.asList(
+        addObjectType(new BGTObjectType(this,"OndersteunendWaterdeel", withBaseAttributes(
                 new AttributeColumnMapping("class"),
                 new AttributeColumnMapping("plus-type"),
                 new GeometryAttributeColumnMapping("geometrie2dOndersteunendWaterdeel")
         )));
-        addObjectType(new BGTObjectType("AuxiliaryTrafficArea", Arrays.asList(
+        addObjectType(new BGTObjectType(this,"AuxiliaryTrafficArea", withBaseAttributes(
                 new AttributeColumnMapping("function"),
                 new AttributeColumnMapping("surfaceMaterial"),
                 new AttributeColumnMapping("plus-functieOndersteunendWegdeel"),
@@ -223,13 +150,13 @@ public class BGTSchema {
                 new GeometryAttributeColumnMapping("kruinlijnOndersteunendWegdeel"),
                 new GeometryAttributeColumnMapping("geometrie2dOndersteunendWegdeel")
         )));
-        addObjectType(new BGTObjectType("OngeclassificeerdObject", Arrays.asList(
+        addObjectType(new BGTObjectType(this,"OngeclassificeerdObject", withBaseAttributes(
                 new GeometryAttributeColumnMapping("geometrie2d")
         )));
-        addObjectType(new BGTObjectType("OpenbareRuimte", Arrays.asList(
+        addObjectType(new BGTObjectType(this,"OpenbareRuimte", withBaseAttributes(
                 new GeometryAttributeColumnMapping("geometrie2d")
         )));
-        addObjectType(new BGTObjectType("OpenbareRuimteLabel", Arrays.asList(
+        addObjectType(new BGTObjectType(this,"OpenbareRuimteLabel", withBaseAttributes(
                 new IntegerAttributeColumnMapping("idx", true, true),
                 new AttributeColumnMapping("tekst"),
                 new DoubleAttributeColumnMapping("hoek"),
@@ -237,34 +164,34 @@ public class BGTSchema {
                 new AttributeColumnMapping("openbareRuimteType"),
                 new AttributeColumnMapping("identificatieBAGOPR", "varchar(16)", false)
         )));
-        addObjectType(new BGTObjectType("BridgeConstructionElement", Arrays.asList(
+        addObjectType(new BGTObjectType(this,"BridgeConstructionElement", withBaseAttributes(
                 new BooleanAttributeColumnMapping("overbruggingIsBeweegbaar", false),
                 new AttributeColumnMapping("hoortBijTypeOverbrugging"),
                 new AttributeColumnMapping("class"),
                 new AttributeColumnMapping("identificatieBAGOPR", "varchar(16)", false),
                 new GeometryAttributeColumnMapping("geometrie2dOverbruggingsdeel")
         )));
-        addObjectType(new BGTObjectType("OverigBouwwerk", Arrays.asList(
+        addObjectType(new BGTObjectType(this,"OverigBouwwerk", withBaseAttributes(
                 new AttributeColumnMapping("bgt-type"),
                 new AttributeColumnMapping("plus-type"),
                 new GeometryAttributeColumnMapping("geometrie2dOverigeConstructie")
         )));
-        addObjectType(new BGTObjectType("OverigeScheiding", Arrays.asList(
+        addObjectType(new BGTObjectType(this,"OverigeScheiding", withBaseAttributes(
                 new AttributeColumnMapping("plus-type", "varchar(255)", false),
                 new GeometryAttributeColumnMapping("geometrie2dOverigeConstructie")
         )));
-        addObjectType(new BGTObjectType("Paal", Arrays.asList(
+        addObjectType(new BGTObjectType(this,"Paal", withBaseAttributes(
                 new AttributeColumnMapping("function"),
                 new AttributeColumnMapping("plus-type", "varchar(255)", false),
                 new AttributeColumnMapping("hectometeraanduiding", "varchar(255)", false),
                 new GeometryAttributeColumnMapping("geometrie2dPaal", "geometry(POINT, 28992)")
         )));
-        addObjectType(new BGTObjectType("BuildingPart", Arrays.asList(
+        addObjectType(new BGTObjectType(this,"BuildingPart", withBaseAttributes(
                 new AttributeColumnMapping("identificatieBAGPND"),
                 new OneToManyColumnMapping("nummeraanduidingreeks"),
                 new GeometryAttributeColumnMapping("geometrie2dGrondvlak")
         )));
-        addObjectType(new BGTObjectType("nummeraanduidingreeks", false, Arrays.asList(
+        addObjectType(new BGTObjectType(this,"nummeraanduidingreeks", Arrays.asList(
                 new AttributeColumnMapping("pandgmlid", "varchar(255)", true, true),
                 new IntegerAttributeColumnMapping("idx", true, true),
                 new BooleanAttributeColumnMapping("pandeindregistratie", true),
@@ -274,7 +201,7 @@ public class BGTSchema {
                 new AttributeColumnMapping("identificatieBAGVBOLaagsteHuisnummer", "varchar(16)", false),
                 new AttributeColumnMapping("identificatieBAGVBOHoogsteHuisnummer", "varchar(16)", false)
         )));
-        addObjectType(new BGTObjectType("Plaatsbepalingspunt", false, Arrays.asList(
+        addObjectType(new BGTObjectType(this,"Plaatsbepalingspunt", Arrays.asList(
                 new AttributeColumnMapping("gmlId", "char(32)", true, true),
                 new AttributeColumnMapping("identificatie"),
                 new IntegerAttributeColumnMapping("nauwkeurigheid", false),
@@ -283,58 +210,58 @@ public class BGTSchema {
                 new AttributeColumnMapping("inwinningsmethode", "varchar(255)", true),
                 new GeometryAttributeColumnMapping("geometrie", "geometry(POINT, 28992)")
         )));
-        addObjectType(new BGTObjectType("Put", Arrays.asList(
+        addObjectType(new BGTObjectType(this,"Put", withBaseAttributes(
                 new AttributeColumnMapping("function"),
                 new AttributeColumnMapping("plus-type"),
                 new GeometryAttributeColumnMapping("geometrie2dPut", "geometry(POINT, 28992)")
         )));
-        addObjectType(new BGTObjectType("Scheiding", Arrays.asList(
+        addObjectType(new BGTObjectType(this,"Scheiding", withBaseAttributes(
                 new AttributeColumnMapping("bgt-type"),
                 new AttributeColumnMapping("plus-type"),
                 new GeometryAttributeColumnMapping("geometrie2dOverigeConstructie")
         )));
-        addObjectType(new BGTObjectType("Sensor", Arrays.asList(
+        addObjectType(new BGTObjectType(this,"Sensor", withBaseAttributes(
                 new AttributeColumnMapping("function"),
                 new AttributeColumnMapping("plus-type"),
                 new GeometryAttributeColumnMapping("geometrie2dSensor")
         )));
-        addObjectType(new BGTObjectType("Railway", Arrays.asList(
+        addObjectType(new BGTObjectType(this,"Railway", withBaseAttributes(
                 new AttributeColumnMapping("function"),
                 new AttributeColumnMapping("plus-functieSpoor", "varchar(255)", false),
                 new GeometryAttributeColumnMapping("geometrie2dSpoor")
         )));
-        addObjectType(new BGTObjectType("Stadsdeel", Arrays.asList(
+        addObjectType(new BGTObjectType(this,"Stadsdeel", withBaseAttributes(
                 new AttributeColumnMapping("naam", "varchar(255)", false),
                 new AttributeColumnMapping("function", "varchar(255)", false),
                 new GeometryAttributeColumnMapping("geometrie2d")
         )));
-        addObjectType(new BGTObjectType("Straatmeubilair", Arrays.asList(
+        addObjectType(new BGTObjectType(this,"Straatmeubilair", withBaseAttributes(
                 new AttributeColumnMapping("function"),
                 new AttributeColumnMapping("plus-type"),
                 new GeometryAttributeColumnMapping("geometrie2dStraatmeubilair", "geometry(POINT, 28992)")
         )));
-        addObjectType(new BGTObjectType("TunnelPart", Arrays.asList(
+        addObjectType(new BGTObjectType(this,"TunnelPart", withBaseAttributes(
                 new GeometryAttributeColumnMapping("geometrie2dTunneldeel")
         )));
-        addObjectType(new BGTObjectType("SolitaryVegetationObject", Arrays.asList(
+        addObjectType(new BGTObjectType(this,"SolitaryVegetationObject", withBaseAttributes(
                 new AttributeColumnMapping("class"),
                 new AttributeColumnMapping("plus-type"),
                 new GeometryAttributeColumnMapping("geometrie2dVegetatieObject")
         )));
-        addObjectType(new BGTObjectType("Waterdeel", Arrays.asList(
+        addObjectType(new BGTObjectType(this,"Waterdeel", withBaseAttributes(
                 new AttributeColumnMapping("class"),
                 new AttributeColumnMapping("plus-type"),
                 new GeometryAttributeColumnMapping("geometrie2dWaterdeel")
         )));
-        addObjectType(new BGTObjectType("Waterinrichtingselement", Arrays.asList(
+        addObjectType(new BGTObjectType(this,"Waterinrichtingselement", withBaseAttributes(
                 new AttributeColumnMapping("function"),
                 new AttributeColumnMapping("plus-type"),
                 new GeometryAttributeColumnMapping("geometrie2dWaterinrichtingselement")
         )));
-        addObjectType(new BGTObjectType("Waterschap", Arrays.asList(
+        addObjectType(new BGTObjectType(this,"Waterschap", withBaseAttributes(
                 new GeometryAttributeColumnMapping("geometrie2d")
         )));
-        addObjectType(new BGTObjectType("TrafficArea", Arrays.asList(
+        addObjectType(new BGTObjectType(this,"TrafficArea", withBaseAttributes(
                 new AttributeColumnMapping("function"),
                 new AttributeColumnMapping("plus-functieWegdeel"),
                 new AttributeColumnMapping("plus-fysiekVoorkomenWegdeel"),
@@ -343,32 +270,44 @@ public class BGTSchema {
                 new GeometryAttributeColumnMapping("kruinlijnWegdeel"),
                 new GeometryAttributeColumnMapping("geometrie2dWegdeel")
         )));
-        addObjectType(new BGTObjectType("Weginrichtingselement", Arrays.asList(
+        addObjectType(new BGTObjectType(this,"Weginrichtingselement", withBaseAttributes(
                 new AttributeColumnMapping("function"),
                 new AttributeColumnMapping("plus-type"),
                 new GeometryAttributeColumnMapping("geometrie2dWeginrichtingselement")
         )));
-        addObjectType(new BGTObjectType("Wijk", Arrays.asList(
+        addObjectType(new BGTObjectType(this,"Wijk", withBaseAttributes(
                 new AttributeColumnMapping("naam", "varchar(255)", false),
                 new AttributeColumnMapping("wijkcode"),
                 new GeometryAttributeColumnMapping("geometrie2d")
         )));
     }
 
-    public static Stream<BGTObjectType> getAllObjectTypes() {
-        return objectTypes.values().stream();
+    protected void addObjectType(BGTObjectType objectType) {
+        super.addObjectType(objectType);
     }
 
-    public static BGTObjectType getObjectTypeByName(String name) {
-        return objectTypes.get(name);
+
+    public static BGTSchema getInstance() {
+        if (instance == null) {
+            instance = new BGTSchema();
+        }
+        return instance;
     }
 
-    public static Stream<BGTObjectType> getOnlyBGTObjectTypes() {
-        return objectTypes.values().stream().filter(objectType -> !objectType.isIMGeoPlusType());
+    public Stream<BGTObjectType> getAllObjectTypes() {
+        return (Stream<BGTObjectType>) super.getAllObjectTypes();
     }
 
-    public static Stream<BGTObjectType> getIMGeoPlusObjectTypes() {
-        return objectTypes.values().stream().filter(BGTObjectType::isIMGeoPlusType);
+    public Stream<BGTObjectType> getOnlyBGTObjectTypes() {
+        return getAllObjectTypes().filter(objectType -> !objectType.isIMGeoPlusType());
+    }
+
+    public Stream<BGTObjectType> getIMGeoPlusObjectTypes() {
+        return getAllObjectTypes().filter(BGTObjectType::isIMGeoPlusType);
+    }
+
+    public BGTObjectType getObjectTypeByName(String name) {
+        return (BGTObjectType) super.getObjectTypeByName(name);
     }
 
     /**
