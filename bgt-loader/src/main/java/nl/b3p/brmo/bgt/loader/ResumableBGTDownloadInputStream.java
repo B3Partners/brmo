@@ -35,6 +35,7 @@ public class ResumableBGTDownloadInputStream extends ResumableInputStream {
     public ResumableBGTDownloadInputStream(URI uri, BGTObjectTableWriter writer, boolean logRetries) {
         super(new HttpStartRangeInputStreamProvider(uri,
                 HttpClient.newBuilder()
+                        .version(HttpClient.Version.HTTP_1_1)
                         .proxy(ProxySelector.getDefault())
                         .followRedirects(HttpClient.Redirect.NORMAL).build(),
                 (requestBuilder) -> requestBuilder.headers("User-Agent", getUserAgent())

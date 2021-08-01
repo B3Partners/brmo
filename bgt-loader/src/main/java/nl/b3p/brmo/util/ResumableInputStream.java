@@ -22,23 +22,28 @@ public class ResumableInputStream extends InputStream {
     public static final int DEFAULT_MAX_TRIES = 5;
 
     private final StreamAtStartPositionProvider streamProvider;
-    private long position = 0;
+    private long position;
     private InputStream delegate = null;
     private int maxReadTries;
     private int totalRetries = 0;
     private int currentDelegatePosition = 0;
 
     public ResumableInputStream(StreamAtStartPositionProvider streamProvider) {
-        this(streamProvider, DEFAULT_MAX_TRIES);
+        this(streamProvider, 0);
     }
 
-    public ResumableInputStream(StreamAtStartPositionProvider streamProvider, int maxReadTries) {
+    public ResumableInputStream(StreamAtStartPositionProvider streamProvider, long startPosition) {
+        this(streamProvider, startPosition, DEFAULT_MAX_TRIES);
+    }
+
+    public ResumableInputStream(StreamAtStartPositionProvider streamProvider, long startPosition, int maxReadTries) {
         this.streamProvider = streamProvider;
+        this.position = startPosition;
         this.maxReadTries = maxReadTries;
     }
 
     /**
-     * @return The number of bytes read so far.
+     * @return The current position.
      */
     public long getPosition() {
         return position;
