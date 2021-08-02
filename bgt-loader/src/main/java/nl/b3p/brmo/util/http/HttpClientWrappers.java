@@ -12,6 +12,17 @@ import nl.b3p.brmo.util.http.wrapper.URLConnectionHttpClientWrapper;
 
 import java.net.http.HttpClient;
 
+/**
+ * Provides default wrapper implementations for Java HTTP clients.
+ * <p>
+ * If the {@code java.specification.version} system property is 11 or higher, returns a {@link Java11HttpClientWrapper}
+ * unless the system property {@code httpclientwrapper} is set to {@code urlconnection}. This client tries to upgrade
+ * the connection HTTP/2 by default, unless the {@code httpclientwrapper.java11.http1_1} system property is set.
+ * <p>
+ * When the Java version is lower than 11, a {@code URLConnectionHttpClientWrapper} is returned.
+ *
+ * @author Matthijs Laan
+ */
 public class HttpClientWrappers {
     public static HttpClientWrapper getDefault() {
         if ("urlconnection".equals(System.getProperty("httpclientwrapper"))) {
@@ -19,14 +30,7 @@ public class HttpClientWrappers {
         }
         Float f = Float.parseFloat(System.getProperty(("java.specification.version")));
         if (f != null && f >= 11.0f) {
-            if (System.getProperty("httpclientwrapper.http1_1") != null) {
-                return new Java11HttpClientWrapper(HttpClient.newBuilder()
-                        .followRedirects(HttpClient.Redirect.NORMAL)
-                        .version(HttpClient.Version.HTTP_1_1)
-                        .build());
-            } else {
-                return new Java11HttpClientWrapper();
-            }
+            return new Java11HttpClientWrapper();
         } else {
             return new URLConnectionHttpClientWrapper();
         }

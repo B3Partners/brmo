@@ -35,7 +35,7 @@ class ResumingInputStreamTest {
                 -> toStream("test"));
         assertEquals("test", fromStream(is));
         assertEquals(4, is.getPosition());
-        assertEquals(4, is.getCurrentDelegatePosition());
+        assertEquals(4, is.getCurrentDelegateBytesRead());
     }
 
     @Test

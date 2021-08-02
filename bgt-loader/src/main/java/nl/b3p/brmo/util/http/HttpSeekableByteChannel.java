@@ -19,25 +19,25 @@ import java.util.regex.Pattern;
 
 /**
  * A {@code SeekableByteChannel} backed by a HTTP(S) URI that uses the Content-Length response header to provide total
- * size and HTTP Range requests to for read-only random access, especially optimized for ZIP archive readers using only
+ * size and HTTP Range requests for read-only random access, especially optimized for ZIP archive readers reading only
  * the central directory at the end of the stream supporting a {@code SeekableByteChannel} input such as
  * <a href="https://commons.apache.org/proper/commons-compress/">Commons Compress.</a>
  * <p>
  * This class assumes most reads to be consecutive like a normal {@code InputStream} and sends a HTTP request starting
- * from the position until the end. When a seek is done using the {@link #position()} method, the HTTP request is
- * aborted and a new request is started from the new position until the end, unless it is more optimal to discard some
- * bytes for a small forward seek. This means that the server may receive an error writing its' response with a
- * "Connection reset" error. This strategy is optimal when an application performs reads in consecutive chunks.
+ * from the current position until the end. When a seek is done using the {@link #position(long)} method, the HTTP
+ * request (if any) is aborted and a new range request is started from the new position until the end, unless it is more
+ * optimal to discard some bytes for a small forward seek. This means that the server may receive an error writing its'
+ * response with a "Connection reset" error. This strategy is optimal when an application does reads mostly in
+ * consecutive chunks.
  * <p>
  * Random-access reading code may assume seeks are fast. Even compared to disks using physical platters, HTTP seeks
  * are slow and should be minimized. Aborting a HTTP request should be handled gracefully by a HTTP server but may lead
  * to unwanted "Connection reset" errors. When reading ZIP entries especially, try to avoid reading the local file
- * header or data descriptor following archive entry data and use the central directory only. With Commons Compress this
- * means setting the {@code ZipFile} constructor parameter {@code ignoreLocalFileHeader} to true.
+ * header and use the central directory only. With Commons Compress this can be achieved by setting the {@code ZipFile}
+ * constructor parameter {@code ignoreLocalFileHeader}.
  * <p>
- * This class can be used with any synchronous HTTP client implementations that support sending headers, reading
- * response headers and reading from the response using an InputStream, such as Apache HttpComponents, OkHttp, Spring
- * RestTemplate, etc by providing a {@link HttpClientWrapper} to the constructor. This classes uses the Java 11
+ * This class can be used with any synchronous HTTP client implementation such as Apache HttpComponents, OkHttp, Spring
+ * RestTemplate, etc. by providing a {@link HttpClientWrapper} to the constructor. This classes uses the Java 11
  * {@link java.net.http.HttpClient} when using Java 11 or higher and {@link java.net.URLConnection} when using Java 8 if
  * no wrapper is passed to the constructor. These are configured to follow redirects by default.
  * <p>
@@ -46,17 +46,17 @@ import java.util.regex.Pattern;
  * immediately tests for Range header support and supports redirects if the original URL does not support HEAD
  * requests.
  * <p>
- * The HTTP client should be configured by the user of this class whether it follows redirects. Because this class may
- * do many requests for certain ranges, a redirect may happen each time. You can optionally update the URI after the
- * first request to the last redirect location using {@link #setURI(URI)}. For Apache HttpComponents this can be
- * retrieved using {@code HttpClientContext.getRedirectLocations()}.
+ * Because this class may do many requests for certain ranges, a redirect may happen each time. You can optionally
+ * update the URI after the first request to the last redirect location using {@link #setURI(URI)}. For Apache
+ * HttpComponents this can be retrieved using {@code HttpClientContext.getRedirectLocations()}.
  * <p>
- * This class automatically uses a {@link ResumingInputStream} to retry reading the HTTP response when reads fail until
+ * This class uses a {@link ResumingInputStream} to automatically retry reading the HTTP response when reads fail, until
  * a maximum number of tries.
  * <p>
- * The web server must send {@code Etag} or {@code Last-Modified} headers to use in {@code If-Range} request headers. If
- * a weak Etag is sent the {@code Last-Modified} header must be present and is used instead of the Etag for the
- * {@code If-Range} header.
+ * The web server must send <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag">ETag</a> or
+ * <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Last-Modified">Last-Modified</a> headers for use
+ * in <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Range">If-Range</a> request headers. If a
+ * weak ETag is sent the Last-Modified header must be present and is used instead of the ETag for the If-Range header.
  * <p>
  * This class is not thread-safe.
  *
@@ -69,7 +69,7 @@ public class HttpSeekableByteChannel implements SeekableByteChannel {
 
     private URI uri;
     private final HttpClientWrapper httpClientWrapper;
-    private final UnaryOperator<ResumingInputStream> resumableInputStreamWrapper;
+    private final UnaryOperator<ResumingInputStream> resumingInputStreamWrapper;
     private final int seekBufferSize;
     private byte[] seekBuffer;
     private byte[] buffer;
@@ -85,18 +85,31 @@ public class HttpSeekableByteChannel implements SeekableByteChannel {
 
     private boolean debug = false;
 
+    /**
+     * Creates a read-only seekable byte channel backed by a URI using the default HTTP client, buffer size and max
+     * forward seek discard size.
+     */
     public HttpSeekableByteChannel(URI uri) {
         this(uri, HttpClientWrappers.getDefault());
     }
 
+    /**
+     * Creates a read-only seekable byte channel backed by a URI using the specified wrapper around a custom HTTP client
+     * implementation using the default buffer size and max forward seek discard size.
+     */
     public HttpSeekableByteChannel(URI uri, HttpClientWrapper httpClientWrapper) {
         this(uri, httpClientWrapper, UnaryOperator.identity(), DEFAULT_SEEK_BUFFER_SIZE, DEFAULT_MAX_DISCARD_SIZE);
     }
 
-    public HttpSeekableByteChannel(URI uri, HttpClientWrapper httpClientWrapper, UnaryOperator<ResumingInputStream> resumableInputStreamWrapper, int seekBufferSize, int maxDiscardSize) {
+    /**
+     * Creates a read-only seekable byte channel backed by a URI using the specified wrapper around a custom HTTP client
+     * implementation, an optional wrapper for the input stream resuming HTTP requests after a read fails, and the
+     * specified buffer size and max forward seek discard size.
+     */
+    public HttpSeekableByteChannel(URI uri, HttpClientWrapper httpClientWrapper, UnaryOperator<ResumingInputStream> resumingInputStreamWrapper, int seekBufferSize, int maxDiscardSize) {
         this.uri = uri;
         this.httpClientWrapper = httpClientWrapper;
-        this.resumableInputStreamWrapper = resumableInputStreamWrapper;
+        this.resumingInputStreamWrapper = resumingInputStreamWrapper;
         this.seekBufferSize = seekBufferSize;
         this.maxDiscardSize = maxDiscardSize;
     }
@@ -116,10 +129,18 @@ public class HttpSeekableByteChannel implements SeekableByteChannel {
         return bytesRead;
     }
 
+    /**
+     * Update the URI to the final redirect target of the original URI, must identify the same entity as the original
+     * URI.
+     * @param uri The final redirection URI.
+     */
     public void setURI(URI uri) {
         this.uri = uri;
     }
 
+    /**
+     * @param debug Set to enable printing some debugging info to System.out.
+     */
     public HttpSeekableByteChannel withDebug(boolean debug) {
         this.debug = debug;
         return this;
@@ -151,7 +172,7 @@ public class HttpSeekableByteChannel implements SeekableByteChannel {
             if (response.getStatusCode() != 206) {
                 throw new IOException("Expected 206 Partial Content, but got status code " + response.getStatusCode() + " getting content length for " + uri);
             }
-            String contentRange = response.getFirstHeader("Content-Range");
+            String contentRange = response.getHeader("Content-Range");
             if (contentRange == null) {
                 throw new IOException("Missing Content-Range response header getting content length for " + uri);
             }
@@ -197,7 +218,7 @@ public class HttpSeekableByteChannel implements SeekableByteChannel {
         if (currentHttpResponseBodyInputStream == null) {
             if (debug) System.out.print(" [GET at position " + position + "] ");
             httpRequestCount++;
-            currentHttpResponseBodyInputStream = resumableInputStreamWrapper.apply(
+            currentHttpResponseBodyInputStream = resumingInputStreamWrapper.apply(
                     new ResumingInputStream(new HttpStartRangeInputStreamProvider(uri, httpClientWrapper), position)
             );
         }
@@ -233,14 +254,22 @@ public class HttpSeekableByteChannel implements SeekableByteChannel {
     public void close() throws IOException {
         if (currentHttpResponseBodyInputStream != null) {
             currentHttpResponseBodyInputStream.close();
+            seekBuffer = null;
+            buffer = null;
         }
     }
 
+    /**
+     * Always throws an {@code UnsupportedOperationException}.
+     */
     @Override
     public int write(ByteBuffer byteBuffer) throws IOException {
         throw new UnsupportedOperationException();
     }
 
+    /**
+     * Always throws an {@code UnsupportedOperationException}.
+     */
     @Override
     public SeekableByteChannel truncate(long l) throws IOException {
         throw new UnsupportedOperationException();

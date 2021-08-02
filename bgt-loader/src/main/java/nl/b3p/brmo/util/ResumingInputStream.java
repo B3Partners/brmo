@@ -12,6 +12,8 @@ import java.io.InputStream;
 /**
  * An InputStream that wraps an InputStream that on a read error can be re-constructed with the current position as
  * start position (using a HTTP Range request for instance) and the read retried.
+ *
+ * @author Matthijs Laan
  */
 public class ResumingInputStream extends InputStream {
 
@@ -27,7 +29,7 @@ public class ResumingInputStream extends InputStream {
     private InputStream delegate = null;
     private int maxReadTries;
     private int totalRetries = 0;
-    private int currentDelegatePosition = 0;
+    private int currentDelegateBytesRead = 0;
 
     public ResumingInputStream(StreamAtStartPositionProvider streamProvider) {
         this(streamProvider, 0);
@@ -53,8 +55,8 @@ public class ResumingInputStream extends InputStream {
     /**
      * @return The number of bytes read since start or the last retry, if any.
      */
-    public int getCurrentDelegatePosition() {
-        return currentDelegatePosition;
+    public int getCurrentDelegateBytesRead() {
+        return currentDelegateBytesRead;
     }
 
     /**
@@ -117,7 +119,7 @@ public class ResumingInputStream extends InputStream {
                     return count;
                 }
                 position += count;
-                currentDelegatePosition += count;
+                currentDelegateBytesRead += count;
                 return count;
             } catch (IOException e) {
                 onReadException(++tries, e);
@@ -128,7 +130,7 @@ public class ResumingInputStream extends InputStream {
                 } catch(IOException ignored) {
                 }
                 delegate = streamProvider.get(position, totalRetries, e);
-                currentDelegatePosition = 0;
+                currentDelegateBytesRead = 0;
             }
         }
     }
@@ -141,12 +143,12 @@ public class ResumingInputStream extends InputStream {
      */
     protected void onReadException(int tries, IOException cause) throws IOException {
         if (tries > maxReadTries) {
-            throw new IOException("Max tries (" + maxReadTries + ") exceeded", cause);
+            throw new IOException("Max read tries (" + maxReadTries + ") exceeded", cause);
         }
     }
 
     /**
-     * Called when going to retry after a read() call threw an Exception.
+     * Called when going to retry after a read() call threw an Exception, override to log or wait before retrying.
      * @param tries Number of tries this read() call
      */
     protected void retryingAfterReadException(int tries, int totalRetries) {

@@ -35,10 +35,7 @@ public class ResumingBGTDownloadInputStream extends ResumingInputStream {
     }
 
     public ResumingBGTDownloadInputStream(URI uri, BGTObjectTableWriter writer, boolean logRetries) {
-        super(new HttpStartRangeInputStreamProvider(uri, new Java11HttpClientWrapper(HttpClient.newBuilder()
-                        .version(HttpClient.Version.HTTP_1_1) // for npm lite-server test...
-                        .proxy(ProxySelector.getDefault())
-                        .followRedirects(HttpClient.Redirect.NORMAL).build()) {
+        super(new HttpStartRangeInputStreamProvider(uri, new Java11HttpClientWrapper() {
             @Override
             public void beforeRequest(HttpRequest.Builder requestBuilder) {
                 requestBuilder.headers("User-Agent", getUserAgent());
@@ -54,8 +51,8 @@ public class ResumingBGTDownloadInputStream extends ResumingInputStream {
 
                 // Only read Content-Length from the first response starting at position 0, not a response from a
                 // retried request starting at a later position (we could parse the Content-Range response though).
-                if (wrapper.getFirstHeader("Content-Range") == null) {
-                    String contentLength = wrapper.getFirstHeader("Content-Range");
+                if (wrapper.getHeader("Content-Range") == null) {
+                    String contentLength = wrapper.getHeader("Content-Range");
                     if (contentLength != null) {
                         ((ProgressReporter) writer.getProgressUpdater()).setTotalBytes(Long.parseLong(contentLength));
                     }

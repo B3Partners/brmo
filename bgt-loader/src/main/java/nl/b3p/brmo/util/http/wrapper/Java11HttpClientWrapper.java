@@ -17,23 +17,26 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
+/**
+ * Wraps the Java 11 {@link java.net.http.HttpClient}. Follows redirects by default but sets the HTTP version to 1.1
+ * instead of HTTP/2 if the {@code httpclientwrapper.java11.http1_1} system property is set.
+ *
+ * @author Matthijs Laan
+ */
 public class Java11HttpClientWrapper implements HttpClientWrapper<HttpRequest.Builder,HttpResponse<InputStream>> {
     private final HttpClient httpClient;
 
     public Java11HttpClientWrapper() {
-        HttpClient.Builder builder = HttpClient.newBuilder().followRedirects(HttpClient.Redirect.NORMAL);
+        this(HttpClient.newBuilder().followRedirects(HttpClient.Redirect.NORMAL));
+    }
 
+    public Java11HttpClientWrapper(HttpClient.Builder builder) {
         // Check system property if we must disable HTTP/2 if a server gives problems (such as
         // https://npmjs.org/package/lite-server)
         if (System.getProperty("httpclientwrapper.java11.http1_1") != null) {
             builder.version(HttpClient.Version.HTTP_1_1);
         }
-
         this.httpClient = builder.build();
-    }
-
-    public Java11HttpClientWrapper(HttpClient httpClient) {
-        this.httpClient = httpClient;
     }
 
     @Override
@@ -68,7 +71,7 @@ public class Java11HttpClientWrapper implements HttpClientWrapper<HttpRequest.Bu
             }
 
             @Override
-            public String getFirstHeader(String header) {
+            public String getHeader(String header) {
                 return response.headers().firstValue(header).orElse(null);
             }
 

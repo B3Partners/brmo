@@ -16,6 +16,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
+/**
+ * Provides a stream reading a HTTP entity starting at a specified position until the end of the entity using
+ * <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Range">HTTP Range requests</a>.
+ * <p>
+ * For any requests after the first, an
+ * <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Range">If-Range</a> header is sent to guarantee
+ * that the stored resource has not been modified since the last fragment has been received.
+ * <p>
+ * If the HTTP server does not answer range requests with the "206 Partial Content" response an error is thrown.
+ *
+ * @author Matthijs Laan
+ */
 public class HttpStartRangeInputStreamProvider implements ResumingInputStream.StreamAtStartPositionProvider {
 
     private final URI uri;
@@ -65,8 +77,8 @@ public class HttpStartRangeInputStreamProvider implements ResumingInputStream.St
         } else if (response.getStatusCode() != 200) {
             throw new RuntimeException("HTTP status code: " + response.getStatusCode());
         }
-        String lastModified = response.getFirstHeader("Last-Modified");
-        String eTag = response.getFirstHeader("ETag");
+        String lastModified = response.getHeader("Last-Modified");
+        String eTag = response.getHeader("ETag");
         if (eTag != null) {
             // Use strong ETag only
             if (!eTag.startsWith("W/") && eTag.startsWith("\"") && eTag.charAt(eTag.length()-1) == '"') {
@@ -75,7 +87,7 @@ public class HttpStartRangeInputStreamProvider implements ResumingInputStream.St
         } else {
             ifRange = lastModified;
         }
-        acceptRanges = response.getFirstHeader("Accept-Ranges");
+        acceptRanges = response.getHeader("Accept-Ranges");
 
         return response.getResponseBody();
     }

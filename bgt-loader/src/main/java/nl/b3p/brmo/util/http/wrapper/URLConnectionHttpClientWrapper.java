@@ -16,6 +16,11 @@ import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URLConnection;
 
+/**
+ * Wraps a standard Java HttpURLConnection or HttpsURLConnection.
+ *
+ * @author Matthijs Laan
+ */
 public class URLConnectionHttpClientWrapper implements HttpClientWrapper<HttpURLConnection,HttpURLConnection> {
     @Override
     public HttpResponseWrapper request(URI uri, String... requestHeaders) throws IOException {
@@ -59,7 +64,7 @@ public class URLConnectionHttpClientWrapper implements HttpClientWrapper<HttpURL
             }
 
             @Override
-            public String getFirstHeader(String header) {
+            public String getHeader(String header) {
                 return httpURLConnection.getHeaderField(header);
             }
 
