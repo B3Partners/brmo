@@ -193,7 +193,7 @@ public class BGTLoaderMain implements IVersionProvider {
         }
     }
 
-    private void loadZipFromURIUsingRandomAccess(URI downloadURI, BGTObjectTableWriter writer, FeatureTypeSelectionOptions featureTypeSelectionOptions, boolean debugHttpSeeks) throws Exception {
+    public void loadZipFromURIUsingRandomAccess(URI downloadURI, BGTObjectTableWriter writer, FeatureTypeSelectionOptions featureTypeSelectionOptions, boolean debugHttpSeeks) throws Exception {
         log.info(getMessageFormattedString("download.downloading_from", downloadURI));
         Instant start = Instant.now();
 
@@ -260,7 +260,7 @@ public class BGTLoaderMain implements IVersionProvider {
         }
     }
 
-    private void loadZipFromURI(URI downloadURI, BGTObjectTableWriter writer, FeatureTypeSelectionOptions featureTypeSelectionOptions) throws Exception {
+    public void loadZipFromURI(URI downloadURI, BGTObjectTableWriter writer, FeatureTypeSelectionOptions featureTypeSelectionOptions) throws Exception {
         log.info(getMessageFormattedString("download.downloading_from", downloadURI));
         ProgressReporter progressReporter = (ProgressReporter) writer.getProgressUpdater();
 
@@ -282,7 +282,7 @@ public class BGTLoaderMain implements IVersionProvider {
         }
     }
 
-    private void loadZip(File file, BGTObjectTableWriter writer, FeatureTypeSelectionOptions featureTypeSelectionOptions) throws Exception {
+    public void loadZip(File file, BGTObjectTableWriter writer, FeatureTypeSelectionOptions featureTypeSelectionOptions) throws Exception {
         try(ZipFile zipFile = new ZipFile(file)) {
             List<ZipEntry> entries = zipFile.stream()
                     .filter(entry -> isBGTZipEntrySelected(entry.getName(), featureTypeSelectionOptions, false))
@@ -308,13 +308,13 @@ public class BGTLoaderMain implements IVersionProvider {
         }
     }
 
-    private void loadXml(File file, BGTObjectTableWriter writer) throws Exception {
+    public void loadXml(File file, BGTObjectTableWriter writer) throws Exception {
         try(FileInputStream in = new FileInputStream(file)) {
             loadInputStream(file.getName(), in, file.length(), writer);
         }
     }
 
-    private void loadInputStream(String name, InputStream input, long size, BGTObjectTableWriter writer) throws Exception {
+    public void loadInputStream(String name, InputStream input, long size, BGTObjectTableWriter writer) throws Exception {
         ProgressReporter progressReporter = (ProgressReporter) writer.getProgressUpdater();
         progressReporter.startNewFile(name, size);
         writer.write(input);

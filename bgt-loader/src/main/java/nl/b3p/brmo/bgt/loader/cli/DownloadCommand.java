@@ -13,9 +13,9 @@ import nl.b3p.brmo.bgt.download.client.ApiException;
 import nl.b3p.brmo.bgt.download.model.Delta;
 import nl.b3p.brmo.bgt.download.model.GetDeltasResponse;
 import nl.b3p.brmo.bgt.loader.BGTDatabase;
-import nl.b3p.brmo.bgt.schema.BGTObjectTableWriter;
 import nl.b3p.brmo.bgt.loader.ProgressReporter;
 import nl.b3p.brmo.bgt.loader.ResumingBGTDownloadInputStream;
+import nl.b3p.brmo.bgt.schema.BGTObjectTableWriter;
 import org.apache.commons.io.input.CloseShieldInputStream;
 import org.apache.commons.io.input.CountingInputStream;
 import org.apache.commons.logging.Log;
@@ -27,8 +27,7 @@ import picocli.CommandLine.Option;
 
 import java.io.InputStream;
 import java.net.URI;
-import java.security.KeyManagementException;
-import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
@@ -38,24 +37,38 @@ import java.util.concurrent.Callable;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-import static nl.b3p.brmo.bgt.schema.BGTSchemaMapper.Metadata;
 import static nl.b3p.brmo.bgt.loader.Utils.formatTimeSince;
 import static nl.b3p.brmo.bgt.loader.Utils.getBundleString;
 import static nl.b3p.brmo.bgt.loader.Utils.getLoaderVersion;
 import static nl.b3p.brmo.bgt.loader.Utils.getMessageFormattedString;
 import static nl.b3p.brmo.bgt.loader.Utils.getUserAgent;
+import static nl.b3p.brmo.bgt.schema.BGTSchemaMapper.Metadata;
 
 @Command(name = "download", mixinStandardHelpOptions = true)
 public class DownloadCommand {
     private static final Log log = LogFactory.getLog(DownloadCommand.class);
 
-    public static ApiClient getApiClient(URI baseUri) throws NoSuchAlgorithmException, KeyManagementException {
+    private static final String PREDEFINED_FULL_DELTA_URI = "https://api.pdok.nl/lv/bgt/download/v1_0/delta/predefined/bgt-citygml-nl-delta.zip";
+
+    public static ApiClient getApiClient(URI baseUri) {
         ApiClient client = new ApiClient();
         if (baseUri != null) {
             client.updateBaseUri(baseUri.toString());
         }
         client.setRequestInterceptor(builder -> builder.headers("User-Agent", getUserAgent()));
         return client;
+    }
+
+    private BGTObjectTableWriter createWriter(BGTDatabase db, DatabaseOptions dbOptions, LoadOptions loadOptions, CLIOptions cliOptions) throws SQLException {
+        BGTObjectTableWriter writer = db.createObjectTableWriter(loadOptions, dbOptions);
+        ProgressReporter progressReporter;
+        if (cliOptions.isConsoleProgressEnabled()) {
+            progressReporter = new ConsoleProgressReporter();
+        } else {
+            progressReporter = new ProgressReporter();
+        }
+        writer.setProgressUpdater(progressReporter);
+        return writer;
     }
 
     @Command(name="initial", sortOptions = false)
@@ -87,22 +100,30 @@ public class DownloadCommand {
             db.setFeatureTypesEnumMetadata(extractSelectionOptions.getFeatureTypesList());
             db.setMetadataValue(Metadata.INCLUDE_HISTORY, loadOptions.includeHistory + "");
             db.setMetadataValue(Metadata.LINEARIZE_CURVES, loadOptions.linearizeCurves + "");
+            db.setMetadataValue(Metadata.TABLE_PREFIX, loadOptions.tablePrefix);
 
             // Close connection while waiting for extract
             db.close();
 
-            return printApiException(() -> {
-                Instant start = Instant.now();
-                log.info(getBundleString("download.create"));
+            BGTObjectTableWriter writer = createWriter(db, dbOptions, loadOptions, cliOptions);
+            Instant start = Instant.now();
 
-                ApiClient client = getApiClient(downloadServiceURI);
-                URI downloadURI = DownloadApiUtils.getCustomDownloadURL(client, null, extractSelectionOptions, new CustomDownloadProgressReporter(cliOptions.isConsoleProgressEnabled()));
+            if (noGeoFilter) {
+                loadFromPredefinedDelta(db, writer, extractSelectionOptions);
+            } else {
+                printApiException(() -> {
+                    log.info(getBundleString("download.create"));
 
-                loadFromURI(db, loadOptions, dbOptions, cliOptions, extractSelectionOptions, downloadURI, start);
-                db.setMetadataValue(Metadata.DELTA_TIME_TO, null);
-                db.getConnection().commit();
-                return ExitCode.OK;
-            });
+                    ApiClient client = getApiClient(downloadServiceURI);
+                    URI downloadURI = DownloadApiUtils.getCustomDownloadURL(client, null, extractSelectionOptions, new CustomDownloadProgressReporter(cliOptions.isConsoleProgressEnabled()));
+
+                    loadFromURI(db, writer, extractSelectionOptions, downloadURI, start);
+                    return ExitCode.OK;
+                });
+            }
+            db.setMetadataValue(Metadata.DELTA_TIME_TO, null);
+            db.getConnection().commit();
+            return ExitCode.OK;
         }
     }
 
@@ -181,13 +202,15 @@ public class DownloadCommand {
                 Delta latestDelta = deltas.get(deltas.size() - 1);
                 log.info(getMessageFormattedString("download.updates_available", deltas.size(), latestDelta.getId(), latestDelta.getTimeWindow().getTo()));
 
+                BGTObjectTableWriter writer = createWriter(db, dbOptions, loadOptions, cliOptions);
+
                 int deltaCount = 1;
                 for (Delta delta : deltas) {
                     log.info(getMessageFormattedString("download.creating_download", deltaCount++, deltas.size(), delta.getId()));
                     URI downloadURI = DownloadApiUtils.getCustomDownloadURL(client, delta, extractSelectionOptions, new CustomDownloadProgressReporter(cliOptions.isConsoleProgressEnabled()));
                     // TODO: BGTObjectTableWriter does setAutocommit(false) and commit() after each stream for a featuretype
                     // is written, maybe use one transaction for all feature types?
-                    loadFromURI(db, loadOptions, dbOptions, cliOptions, extractSelectionOptions, downloadURI, start);
+                    loadFromURI(db, writer, extractSelectionOptions, downloadURI, start);
                     db.setMetadataValue(Metadata.DELTA_TIME_TO, delta.getTimeWindow().getTo().toString());
                     db.getConnection().commit();
                 }
@@ -208,17 +231,21 @@ public class DownloadCommand {
         }
     }
 
-    private static void loadFromURI(BGTDatabase db, LoadOptions loadOptions, DatabaseOptions dbOptions, CLIOptions cliOptions, ExtractSelectionOptions extractSelectionOptions, URI downloadURI, Instant start) throws Exception {
-        BGTObjectTableWriter writer = db.createObjectTableWriter(loadOptions, dbOptions);
-        ProgressReporter progressReporter;
-        if (cliOptions.isConsoleProgressEnabled()) {
-            progressReporter = new ConsoleProgressReporter();
-        } else {
-            progressReporter = new ProgressReporter();
-        }
-        writer.setProgressUpdater(progressReporter);
+    private static void loadFromPredefinedDelta(BGTDatabase db, BGTObjectTableWriter writer, FeatureTypeSelectionOptions featureTypeSelectionOptions) throws Exception {
+        Instant loadStart = Instant.now();
+        new BGTLoaderMain().loadZipFromURIUsingRandomAccess(new URI(PREDEFINED_FULL_DELTA_URI), writer, featureTypeSelectionOptions, false);
+        db.setMetadataForMutaties(writer.getProgress().getMutatieInhoud());
+        db.setMetadataValue(Metadata.GEOM_FILTER, "");
+        log.info(getMessageFormattedString("download.complete",
+                getBundleString("download.mutatietype." + writer.getProgress().getMutatieInhoud().getMutatieType()),
+                writer.getProgress().getMutatieInhoud().getLeveringsId(),
+                formatTimeSince(loadStart))
+        );
+    }
 
+    private static void loadFromURI(BGTDatabase db, BGTObjectTableWriter writer, ExtractSelectionOptions extractSelectionOptions, URI downloadURI, Instant start) throws Exception {
         log.info(getMessageFormattedString("download.downloading_from", downloadURI));
+        ProgressReporter progressReporter = (ProgressReporter) writer.getProgressUpdater();
 
         try (InputStream input = new ResumingBGTDownloadInputStream(downloadURI, writer)) {
             Instant loadStart = Instant.now();
