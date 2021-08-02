@@ -54,25 +54,6 @@ public class DownloadCommand {
         if (baseUri != null) {
             client.updateBaseUri(baseUri.toString());
         }
-/*        SSLContext sslContext = SSLContext.getInstance("TLS");
-        sslContext.init(null, new TrustManager[]{
-                new X509TrustManager() {
-                    public java.security.cert.X509Certificate[] getAcceptedIssuers() {
-                        return null;
-                    }
-                    public void checkClientTrusted(
-                            java.security.cert.X509Certificate[] certs, String authType) {
-                    }
-                    public void checkServerTrusted(
-                            java.security.cert.X509Certificate[] certs, String authType) {
-                    }
-                }
-        }, new SecureRandom());
-
-        client.setHttpClientBuilder(HttpClient.newBuilder()
-                .proxy(ProxySelector.of(new InetSocketAddress("localhost", 5555)))
-                .sslContext(sslContext)
-        );*/
         client.setRequestInterceptor(builder -> builder.headers("User-Agent", getUserAgent()));
         return client;
     }
