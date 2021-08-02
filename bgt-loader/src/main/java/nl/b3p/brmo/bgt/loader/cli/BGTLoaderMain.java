@@ -11,14 +11,12 @@ import nl.b3p.brmo.bgt.loader.BGTDatabase;
 import nl.b3p.brmo.bgt.schema.BGTObjectTableWriter;
 import nl.b3p.brmo.bgt.schema.BGTSchemaMapper;
 import nl.b3p.brmo.bgt.loader.ProgressReporter;
-import nl.b3p.brmo.bgt.loader.ResumableBGTDownloadInputStream;
+import nl.b3p.brmo.bgt.loader.ResumingBGTDownloadInputStream;
 import nl.b3p.brmo.bgt.loader.Utils;
 import nl.b3p.brmo.sql.dialect.SQLDialect;
-import nl.b3p.brmo.util.HttpStartRangeInputStreamProvider;
-import nl.b3p.brmo.util.ResumableInputStream;
+import nl.b3p.brmo.util.LoggingSeekableByteChannel;
+import nl.b3p.brmo.util.http.HttpSeekableByteChannel;
 import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
-import org.apache.commons.compress.archivers.zip.ZipEncodingHelper;
-import org.apache.commons.compress.utils.IOUtils;
 import org.apache.commons.io.input.CloseShieldInputStream;
 import org.apache.commons.io.input.CountingInputStream;
 import org.apache.commons.logging.Log;
@@ -33,26 +31,15 @@ import picocli.CommandLine.Mixin;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 
-import javax.xml.bind.DatatypeConverter;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpResponse;
-import java.nio.ByteBuffer;
-import java.nio.channels.FileChannel;
-import java.nio.channels.SeekableByteChannel;
-import java.nio.file.OpenOption;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.sql.SQLException;
+import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
-import java.util.OptionalLong;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -61,10 +48,12 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
 
+import static nl.b3p.brmo.bgt.loader.Utils.formatTimeSince;
 import static nl.b3p.brmo.bgt.schema.BGTSchemaMapper.Metadata;
 import static nl.b3p.brmo.bgt.loader.Utils.getLoaderVersion;
 import static nl.b3p.brmo.bgt.loader.Utils.getMessageFormattedString;
 import static nl.b3p.brmo.bgt.loader.Utils.getUserAgent;
+import static org.apache.commons.io.FileUtils.byteCountToDisplaySize;
 
 @Command(name = "bgt-loader", mixinStandardHelpOptions = true, versionProvider = BGTLoaderMain.class,
         resourceBundle = Utils.BUNDLE_NAME, subcommands = {DownloadCommand.class})
@@ -133,7 +122,11 @@ public class BGTLoaderMain implements IVersionProvider {
             }
 
             if (file.endsWith(".zip") && (file.startsWith("http://") || file.startsWith("https://"))) {
-                loadZipFromRandomAccessURI(new URI(file), writer, featureTypeSelectionOptions);
+                if (loadOptions.isHttpZipRandomAccess()) {
+                    loadZipFromRandomAccessURI(new URI(file), writer, featureTypeSelectionOptions, loadOptions.isDebugHttpSeeks());
+                } else {
+                    loadZipFromURI(new URI(file), writer, featureTypeSelectionOptions);
+                }
             } else if (file.endsWith(".zip")) {
                 loadZip(new File(file), writer, featureTypeSelectionOptions);
             } else if (file.matches(".*\\.[xg]ml")) {
@@ -200,213 +193,78 @@ public class BGTLoaderMain implements IVersionProvider {
         }
     }
 
-    private void loadZipFromRandomAccessURI(URI downloadURI, BGTObjectTableWriter writer, FeatureTypeSelectionOptions featureTypeSelectionOptions) throws Exception {
-        final boolean[] logIt = {true};
-        SeekableByteChannel channel = new SeekableByteChannel() {
-            private ResumableInputStream resumableInputStream;
-            private long position;
-            private Long nextReadPosition;
-            private Long contentLength;
-
-            @Override
-            public boolean isOpen() {
-                return true;
-            }
-
-            @Override
-            public void close() throws IOException {
-                if (resumableInputStream != null) {
-                    resumableInputStream.close();
-                }
-            }
-
-            @Override
-            public int read(ByteBuffer byteBuffer) throws IOException {
-                if (nextReadPosition != null && nextReadPosition != position) {
-                    if (resumableInputStream != null) {
-                        if(logIt[0]) System.out.print(" [Close HTTP at pos " + position + "] ");
-                        resumableInputStream.close();
-                        resumableInputStream = null;
-                    }
-                    position = nextReadPosition;
-                    nextReadPosition = null;
-                }
-
-                if (resumableInputStream == null) {
-                    if(logIt[0]) System.out.print(" [GET at position " + position + "] ");
-                    resumableInputStream = new ResumableInputStream(new HttpStartRangeInputStreamProvider(downloadURI, HttpClient.newBuilder()
-                            .version(HttpClient.Version.HTTP_1_1).build()) {
-/*                        @Override
-                        public void afterHttpRequest(HttpResponse<InputStream> response) {
-                            if (!response.headers().map().containsKey("Content-Range")) {
-                                OptionalLong contentLengthHeader = response.headers().firstValueAsLong("Content-Length");
-                                if (contentLengthHeader.isPresent()) {
-                                    contentLength = contentLengthHeader.getAsLong();
-                                    System.out.println("Content length: " + contentLength);
-                                }
-                            }
-                        }*/
-                    }, position);
-                }
-                //System.out.print("read bytebuffer: " + byteBuffer.toString() + " from position " + position +" read ");
-                // TODO read into array of byteBuffer if hasArray()
-                byte[] b = new byte[Math.min(byteBuffer.remaining(), 16384)];
-                int read = resumableInputStream.read(b);
-                if (read > 0) {
-                    byteBuffer.put(b, 0, read);
-                    position += read;
-                }
-                //System.out.println(read + " bytes");
-                return read;
-            }
-
-            @Override
-            public int write(ByteBuffer byteBuffer) {
-                throw new UnsupportedOperationException();
-            }
-
-            @Override
-            public long position() {
-                return nextReadPosition != null ? nextReadPosition : position;
-            }
-
-            @Override
-            public SeekableByteChannel position(long l) throws IOException {
-                nextReadPosition = l;
-                return this;
-            }
-
-            @Override
-            public long size() {
-                if (contentLength == null) {
-                    if (position > 0) {
-                        throw new UnsupportedOperationException("Content-length unknown");
-                    }
-                    System.out.println("TODO HEAD request");
-                    contentLength = 50979311967L;// 19853996594L;
-                }
-                return contentLength;
-            }
-
-            @Override
-            public SeekableByteChannel truncate(long l) {
-                throw new UnsupportedOperationException();
-            }
-        };
-        Path p = Paths.get("/home/matthijsln/bgt/bgt-citygml-nl-nopbp.zip");
-        SeekableByteChannel fileChannel = channel;//FileChannel.open(p);
-        channel = new SeekableByteChannel() {
-            Long size = null;
-            int seeks = 0;
-            long bytesRead = 0;
-            boolean repositioned = false;
-
-            @Override
-            public int read(ByteBuffer byteBuffer) throws IOException {
-                if (repositioned) {
-                    if(logIt[0]) System.out.printf("position %15d: read into buffer %s", fileChannel.position(), byteBuffer);
-                    repositioned = false;
-                } else {
-                    if(logIt[0]) System.out.printf("continue %15d: read into buffer %s", fileChannel.position(), byteBuffer);
-                }
-                int read = fileChannel.read(byteBuffer);
-                if(logIt[0]) System.out.printf(", read %s, contents: %s\n", read, DatatypeConverter.printHexBinary((byteBuffer.array())));
-                bytesRead += read;
-                return read;
-            }
-
-            @Override
-            public int write(ByteBuffer byteBuffer) throws IOException {
-                return 0;
-            }
-
-            @Override
-            public long position() throws IOException {
-                return fileChannel.position();
-            }
-
-            @Override
-            public SeekableByteChannel position(long l) throws IOException {
-                if (fileChannel.position() != l) {
-                    fileChannel.position(l);
-                    seeks++;
-                    repositioned = true;
-                }
-                return this;
-            }
-
-            @Override
-            public long size() throws IOException {
-                if (size == null) {
-                    size = fileChannel.size();
-                    System.out.println("Size: " + size);
-                }
-                return size;
-            }
-
-            @Override
-            public SeekableByteChannel truncate(long l) throws IOException {
-                return null;
-            }
-
-            @Override
-            public boolean isOpen() {
-                return fileChannel.isOpen();
-            }
-
-            @Override
-            public void close() throws IOException {
-                fileChannel.close();
-                System.out.printf("Closed, total seeks: %d, bytes read: %d\n", seeks, bytesRead);
-            }
-        };
-        org.apache.commons.compress.archivers.zip.ZipFile zipFile = new org.apache.commons.compress.archivers.zip.ZipFile(
-                channel,
-                downloadURI.toString(),
-                "UTF8",
-                false,
-                true
-        );
-        int count = 0;
-        for (Iterator<ZipArchiveEntry> it = zipFile.getEntries().asIterator(); it.hasNext(); ) {
-            ZipArchiveEntry entry = it.next();
-            count++;
-            System.out.printf("%31s: %15d size, %15d compressed, %15d offset\n", entry, entry.getSize(), entry.getCompressedSize(), entry.getDataOffset());
-        }
-        System.out.println("Entries: " + count);
-        logIt[0] = false;
-
+    private void loadZipFromRandomAccessURI(URI downloadURI, BGTObjectTableWriter writer, FeatureTypeSelectionOptions featureTypeSelectionOptions, boolean debugHttpSeeks) throws Exception {
         log.info(getMessageFormattedString("download.downloading_from", downloadURI));
-        ProgressReporter progressReporter = (ProgressReporter) writer.getProgressUpdater();
-        List<ZipArchiveEntry> selected = new ArrayList<>();
-        zipFile.getEntries().asIterator().forEachRemaining(entry -> {
-            if (isBGTZipEntrySelected(entry.getName(), featureTypeSelectionOptions, true)) {
-                selected.add(entry);
+
+        try(
+                HttpSeekableByteChannel channel = new HttpSeekableByteChannel(downloadURI).withDebug(debugHttpSeeks);
+                LoggingSeekableByteChannel loggingChannel = new LoggingSeekableByteChannel(channel);
+                org.apache.commons.compress.archivers.zip.ZipFile zipFile = new org.apache.commons.compress.archivers.zip.ZipFile(
+                        loggingChannel,
+                        downloadURI.toString(),
+                        "UTF8",
+                        false,
+                        true
+                );
+        ) {
+            if (debugHttpSeeks) {
+                System.out.println();
             }
-        });
+            Instant start = Instant.now();
+            int count = 0;
+            long uncompressed = 0;
+            for (Iterator<ZipArchiveEntry> it = zipFile.getEntries().asIterator(); it.hasNext(); ) {
+                ZipArchiveEntry entry = it.next();
+                count++;
+                uncompressed += entry.getSize();
+            }
+            log.info(String.format("ZIP central directory read in %s, total %d entries, file size: %s, uncompressed size: %s",
+                    formatTimeSince(start),
+                    count,
+                    byteCountToDisplaySize(channel.size()),
+                    byteCountToDisplaySize(uncompressed)));
+            if (debugHttpSeeks) {
+                log.info(String.format("Used %d seeks on the channel and %d HTTP requests, total bytes read %d", loggingChannel.getSeeks(), channel.getHttpRequestCount(), channel.getBytesRead()));
+            }
+            loggingChannel.setLoggingEnabled(false);
 
-        if (selected.size() > 1) {
-            // Only report total percentage when more than one entry
-            Long totalSize = selected.stream().map(ZipArchiveEntry::getSize).reduce(0L, Long::sum);
-            progressReporter.setTotalBytes(totalSize);
-            System.out.printf("Selected entries: %d, total uncompressed bytes: %d", selected.size(), totalSize);
+            ProgressReporter progressReporter = (ProgressReporter) writer.getProgressUpdater();
+            List<ZipArchiveEntry> selected = new ArrayList<>();
+            zipFile.getEntries().asIterator().forEachRemaining(entry -> {
+                if (isBGTZipEntrySelected(entry.getName(), featureTypeSelectionOptions, false)) {
+                    selected.add(entry);
+                }
+            });
+
+            if (selected.size() > 1) {
+                // Only report total percentage when more than one entry
+                Long totalSize = selected.stream().map(ZipArchiveEntry::getSize).reduce(0L, Long::sum);
+                Long totalCompressedSize = selected.stream().map(ZipArchiveEntry::getCompressedSize).reduce(0L, Long::sum);
+                progressReporter.setTotalBytes(totalSize);
+                log.info(String.format("Selected %d entries, compressed size: %s, uncompressed size: %s", selected.size(), byteCountToDisplaySize(totalCompressedSize), byteCountToDisplaySize(totalSize)));
+            }
+            Long[] previousEntriesBytesRead = new Long[]{0L};
+            progressReporter.setTotalBytesReadFunction(() -> previousEntriesBytesRead[0] + writer.getProgress().getBytesRead());
+
+            for (ZipArchiveEntry entry : selected) {
+                progressReporter.startNewFile(entry.getName(), entry.getSize());
+                writer.write(zipFile.getInputStream(entry));
+            }
+            if (debugHttpSeeks) {
+                log.info(String.format("Totals: %d seeks on the channel and %d HTTP range requests, total bytes read %d (%s)",
+                        loggingChannel.getSeeks(),
+                        channel.getHttpRequestCount(),
+                        channel.getBytesRead(),
+                        byteCountToDisplaySize(channel.getBytesRead())));
+            }
         }
-        Long[] previousEntriesBytesRead = new Long[]{0L};
-        progressReporter.setTotalBytesReadFunction(() -> previousEntriesBytesRead[0] + writer.getProgress().getBytesRead());
-
-        for(ZipArchiveEntry entry: selected) {
-            progressReporter.startNewFile(entry.getName(), entry.getSize());
-            writer.write(zipFile.getInputStream(entry));
-        }
-
-        zipFile.close();
     }
 
     private void loadZipFromURI(URI downloadURI, BGTObjectTableWriter writer, FeatureTypeSelectionOptions featureTypeSelectionOptions) throws Exception {
         log.info(getMessageFormattedString("download.downloading_from", downloadURI));
         ProgressReporter progressReporter = (ProgressReporter) writer.getProgressUpdater();
 
-        try (InputStream input = new ResumableBGTDownloadInputStream(downloadURI, writer)) {
+        try (InputStream input = new ResumingBGTDownloadInputStream(downloadURI, writer)) {
             CountingInputStream countingInputStream = new CountingInputStream(input);
             progressReporter.setTotalBytesReadFunction(countingInputStream::getByteCount);
 

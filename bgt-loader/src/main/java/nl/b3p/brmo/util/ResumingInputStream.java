@@ -13,8 +13,9 @@ import java.io.InputStream;
  * An InputStream that wraps an InputStream that on a read error can be re-constructed with the current position as
  * start position (using a HTTP Range request for instance) and the read retried.
  */
-public class ResumableInputStream extends InputStream {
+public class ResumingInputStream extends InputStream {
 
+    @FunctionalInterface
     public interface StreamAtStartPositionProvider {
         InputStream get(long position, int totalRetries, Exception causeForRetry) throws IOException;
     }
@@ -28,15 +29,15 @@ public class ResumableInputStream extends InputStream {
     private int totalRetries = 0;
     private int currentDelegatePosition = 0;
 
-    public ResumableInputStream(StreamAtStartPositionProvider streamProvider) {
+    public ResumingInputStream(StreamAtStartPositionProvider streamProvider) {
         this(streamProvider, 0);
     }
 
-    public ResumableInputStream(StreamAtStartPositionProvider streamProvider, long startPosition) {
+    public ResumingInputStream(StreamAtStartPositionProvider streamProvider, long startPosition) {
         this(streamProvider, startPosition, DEFAULT_MAX_TRIES);
     }
 
-    public ResumableInputStream(StreamAtStartPositionProvider streamProvider, long startPosition, int maxReadTries) {
+    public ResumingInputStream(StreamAtStartPositionProvider streamProvider, long startPosition, int maxReadTries) {
         this.streamProvider = streamProvider;
         this.position = startPosition;
         this.maxReadTries = maxReadTries;

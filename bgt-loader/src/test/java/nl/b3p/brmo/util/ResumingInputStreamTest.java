@@ -20,7 +20,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ResumableInputStreamTest {
+class ResumingInputStreamTest {
     private InputStream toStream(String s) {
         return IOUtils.toInputStream(s, Charset.defaultCharset());
     }
@@ -31,7 +31,7 @@ class ResumableInputStreamTest {
 
     @Test
     void normalStream() throws IOException {
-        ResumableInputStream is = new ResumableInputStream((position, totalRetries, causeForRetry)
+        ResumingInputStream is = new ResumingInputStream((position, totalRetries, causeForRetry)
                 -> toStream("test"));
         assertEquals("test", fromStream(is));
         assertEquals(4, is.getPosition());
@@ -42,7 +42,7 @@ class ResumableInputStreamTest {
     void readSingleBytes() throws IOException {
         // Test the abstract read() method that must be overridden is not usually called in favor of reading
         // byte arrays, test it for coverage
-        ResumableInputStream is = new ResumableInputStream((position, totalRetries, causeForRetry)
+        ResumingInputStream is = new ResumingInputStream((position, totalRetries, causeForRetry)
                 -> toStream("test"));
         assertEquals('t', is.read());
         assertEquals('e', is.read());
@@ -54,7 +54,7 @@ class ResumableInputStreamTest {
     @Test
     void delegateCloseCalled() throws IOException {
         MutableBoolean closed = new MutableBoolean(false);
-        ResumableInputStream is = new ResumableInputStream((position, totalRetries, causeForRetry) -> new ProxyInputStream(toStream("test")) {
+        ResumingInputStream is = new ResumingInputStream((position, totalRetries, causeForRetry) -> new ProxyInputStream(toStream("test")) {
             @Override
             public void close() throws IOException {
                 super.close();
@@ -69,7 +69,7 @@ class ResumableInputStreamTest {
     @Test
     void resumeOnceAtStart() throws IOException {
         AtomicBoolean first = new AtomicBoolean(true);
-        ResumableInputStream is = new ResumableInputStream((position, totalRetries, causeForRetry) -> {
+        ResumingInputStream is = new ResumingInputStream((position, totalRetries, causeForRetry) -> {
             if (first.get()) {
                 first.set(false);
                 return new BrokenInputStream();
@@ -84,7 +84,7 @@ class ResumableInputStreamTest {
     @Test
     void resumeAfterOneByte() throws IOException {
         AtomicBoolean first = new AtomicBoolean(true);
-        ResumableInputStream is = new ResumableInputStream((position, totalRetries, causeForRetry) -> {
+        ResumingInputStream is = new ResumingInputStream((position, totalRetries, causeForRetry) -> {
             if (first.get()) {
                 first.set(false);
                 return new InputStream() {
@@ -109,7 +109,7 @@ class ResumableInputStreamTest {
     }
     @Test
     void testMaxTriesExceeded() throws IOException {
-        ResumableInputStream is = new ResumableInputStream(
+        ResumingInputStream is = new ResumingInputStream(
                 (position, totalRetries, causeForRetry) -> new BrokenInputStream()
         );
         is.setMaxReadTries(3);
@@ -122,7 +122,7 @@ class ResumableInputStreamTest {
     void delegateCloseExceptionIgnored() throws IOException {
         AtomicBoolean first = new AtomicBoolean(true);
         MutableBoolean closed = new MutableBoolean(false);
-        ResumableInputStream is = new ResumableInputStream((position, totalRetries, causeForRetry) -> {
+        ResumingInputStream is = new ResumingInputStream((position, totalRetries, causeForRetry) -> {
             if (first.get()) {
                 first.set(false);
                 return new ProxyInputStream(new BrokenInputStream()) {

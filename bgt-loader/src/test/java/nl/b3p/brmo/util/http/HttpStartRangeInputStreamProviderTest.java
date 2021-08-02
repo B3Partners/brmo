@@ -5,22 +5,24 @@
  *
  */
 
-package nl.b3p.brmo.util;
+package nl.b3p.brmo.util.http;
 
+import nl.b3p.brmo.util.http.wrapper.Java11HttpClientWrapper;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
 import java.nio.charset.Charset;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static nl.b3p.brmo.bgt.loader.Utils.getUserAgent;
 
 class HttpStartRangeInputStreamProviderTest {
 
@@ -44,7 +46,7 @@ class HttpStartRangeInputStreamProviderTest {
                 .setBody("test")
                 .setResponseCode(200));
         String responseBody = IOUtils.toString(provider.get(0, 0, null), Charset.defaultCharset());
-        assertEquals("test", responseBody);
+        Assertions.assertEquals("test", responseBody);
     }
 
     @Test
@@ -52,7 +54,7 @@ class HttpStartRangeInputStreamProviderTest {
         mockWebServer.enqueue(new MockResponse()
                 .setBody("test")
                 .setResponseCode(404));
-        assertThrows(RuntimeException.class, () -> {
+        Assertions.assertThrows(RuntimeException.class, () -> {
             provider.get(0, 0, null).read();
         }, "HTTP status code: 404");
     }
@@ -62,12 +64,15 @@ class HttpStartRangeInputStreamProviderTest {
         mockWebServer.enqueue(new MockResponse()
                 .setBody("test")
                 .setResponseCode(200));
-        provider = new HttpStartRangeInputStreamProvider(mockWebServer.url("/").uri(), HttpClient.newHttpClient(), builder -> {
-            builder.headers("Test-Header", "Some value");
+        provider = new HttpStartRangeInputStreamProvider(mockWebServer.url("/").uri(), new Java11HttpClientWrapper() {
+            @Override
+            public void beforeRequest(HttpRequest.Builder requestBuilder) {
+                requestBuilder.headers("Test-Header", "Some value");
+            }
         });
         provider.get(0, 0, null).read();
         RecordedRequest request = mockWebServer.takeRequest();
-        assertEquals("Some value", request.getHeader("Test-Header"));
+        Assertions.assertEquals("Some value", request.getHeader("Test-Header"));
     }
 
     @Test
@@ -75,7 +80,7 @@ class HttpStartRangeInputStreamProviderTest {
         mockWebServer.enqueue(new MockResponse()
                 .setResponseCode(200));
         provider.get(0, 0, null).read();
-        assertThrows(IOException.class, () -> {
+        Assertions.assertThrows(IOException.class, () -> {
             provider.get(1, 0, null).read();
         }, "Exception reading from HTTP server and resume not supported");
     }
@@ -86,7 +91,7 @@ class HttpStartRangeInputStreamProviderTest {
                 .setResponseCode(206));
         provider.get(123, 0, null).read();
         RecordedRequest request = mockWebServer.takeRequest();
-        assertEquals("bytes=123-", request.getHeader("Range"));
+        Assertions.assertEquals("bytes=123-", request.getHeader("Range"));
     }
 
     @Test
@@ -101,7 +106,7 @@ class HttpStartRangeInputStreamProviderTest {
         provider.get(123, 0, null).read();
         mockWebServer.takeRequest();
         RecordedRequest request = mockWebServer.takeRequest();
-        assertEquals("something", request.getHeader("If-Range"));
+        Assertions.assertEquals("something", request.getHeader("If-Range"));
     }
 
     @Test
@@ -110,7 +115,7 @@ class HttpStartRangeInputStreamProviderTest {
                 .addHeader("Accept-Ranges", "bytes")
                 .setResponseCode(200));
         provider.get(0, 0, null).read();
-        assertThrows(IOException.class, () -> {
+        Assertions.assertThrows(IOException.class, () -> {
             provider.get(1, 0, null).read();
         }, "Exception reading from HTTP server, cannot resume HTTP request reliably: no strong ETag or Last-Modified");
     }
@@ -122,7 +127,7 @@ class HttpStartRangeInputStreamProviderTest {
                 .addHeader("ETag", "W/\"weak etag\"")
                 .setResponseCode(200));
         provider.get(0, 0, null).read();
-        assertThrows(IOException.class, () -> {
+        Assertions.assertThrows(IOException.class, () -> {
             provider.get(123, 0, null).read();
         }, "Exception reading from HTTP server, cannot resume HTTP request reliably: no strong ETag or Last-Modified");
     }
@@ -136,7 +141,7 @@ class HttpStartRangeInputStreamProviderTest {
         mockWebServer.enqueue(new MockResponse()
                 .setResponseCode(200));
         provider.get(0, 0, null).read();
-        assertThrows(RuntimeException.class, () -> {
+        Assertions.assertThrows(RuntimeException.class, () -> {
             provider.get(123, 0, null).read();
         }, "Error retrying HTTP request at position 123: expected 206 response status but got 200");
     }

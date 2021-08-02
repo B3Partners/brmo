@@ -27,6 +27,12 @@ public class LoadOptions {
     @Option(names={"--no-multithreading"}, negatable = true, hidden = true)
     boolean multithreading = true;
 
+    @Option(names="--no-http-zip-random-access", negatable = true, hidden = true)
+    boolean httpZipRandomAccess = true;
+
+    @Option(names="--debug-http-seeks", hidden = true)
+    boolean debugHttpSeeks = false;
+
     public boolean isCreateSchema() {
         return createSchema;
     }
@@ -73,5 +79,21 @@ public class LoadOptions {
 
     public void setMultithreading(boolean multithreading) {
         this.multithreading = multithreading;
+    }
+
+    public boolean isHttpZipRandomAccess() {
+        return httpZipRandomAccess;
+    }
+
+    public void setHttpZipRandomAccess(boolean httpZipRandomAccess) {
+        this.httpZipRandomAccess = httpZipRandomAccess;
+    }
+
+    public boolean isDebugHttpSeeks() {
+        return debugHttpSeeks;
+    }
+
+    public void setDebugHttpSeeks(boolean debugHttpSeeks) {
+        this.debugHttpSeeks = debugHttpSeeks;
     }
 }

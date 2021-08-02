@@ -15,7 +15,7 @@ import nl.b3p.brmo.bgt.download.model.GetDeltasResponse;
 import nl.b3p.brmo.bgt.loader.BGTDatabase;
 import nl.b3p.brmo.bgt.schema.BGTObjectTableWriter;
 import nl.b3p.brmo.bgt.loader.ProgressReporter;
-import nl.b3p.brmo.bgt.loader.ResumableBGTDownloadInputStream;
+import nl.b3p.brmo.bgt.loader.ResumingBGTDownloadInputStream;
 import org.apache.commons.io.input.CloseShieldInputStream;
 import org.apache.commons.io.input.CountingInputStream;
 import org.apache.commons.logging.Log;
@@ -239,7 +239,7 @@ public class DownloadCommand {
 
         log.info(getMessageFormattedString("download.downloading_from", downloadURI));
 
-        try (InputStream input = new ResumableBGTDownloadInputStream(downloadURI, writer)) {
+        try (InputStream input = new ResumingBGTDownloadInputStream(downloadURI, writer)) {
             Instant loadStart = Instant.now();
             CountingInputStream countingInputStream = new CountingInputStream(input);
             progressReporter.setTotalBytesReadFunction(countingInputStream::getByteCount);
