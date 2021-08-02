@@ -10,16 +10,16 @@ package nl.b3p.brmo.bgt.loader;
 import okhttp3.mockwebserver.MockResponse;
 import okio.Buffer;
 import org.dbunit.DatabaseUnitException;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledOnOs;
 import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
+import org.junit.jupiter.api.condition.OS;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Arrays;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -88,7 +88,8 @@ public class LoadCommandIntegrationTest extends CommandLineTestBase {
     }
 
     @Test
-    void loadZipFromHttpRandomAccessOnlineTest() throws SQLException {
+    @DisabledOnOs(OS.WINDOWS) // Does not have NL overheid SSL root certificate
+    void loadZipUsingHttpRandomAccessPDOKOnlineTest() throws SQLException {
         String url = "https://api.pdok.nl/lv/bgt/download/v1_0/delta/predefined/bgt-citygml-nl-delta.zip";
         Object[][] featureTypes = new Object[][] {
                 {"openbareruimte", 9526},
