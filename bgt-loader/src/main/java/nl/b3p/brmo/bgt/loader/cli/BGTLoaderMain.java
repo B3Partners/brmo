@@ -14,7 +14,7 @@ import nl.b3p.brmo.bgt.loader.ProgressReporter;
 import nl.b3p.brmo.bgt.loader.ResumingBGTDownloadInputStream;
 import nl.b3p.brmo.bgt.loader.Utils;
 import nl.b3p.brmo.sql.dialect.SQLDialect;
-import nl.b3p.brmo.util.LoggingSeekableByteChannel;
+import nl.b3p.brmo.util.CountingSeekableByteChannel;
 import nl.b3p.brmo.util.http.HttpSeekableByteChannel;
 import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
 import org.apache.commons.io.input.CloseShieldInputStream;
@@ -123,7 +123,7 @@ public class BGTLoaderMain implements IVersionProvider {
 
             if (file.endsWith(".zip") && (file.startsWith("http://") || file.startsWith("https://"))) {
                 if (loadOptions.isHttpZipRandomAccess()) {
-                    loadZipFromRandomAccessURI(new URI(file), writer, featureTypeSelectionOptions, loadOptions.isDebugHttpSeeks());
+                    loadZipFromURIUsingRandomAccess(new URI(file), writer, featureTypeSelectionOptions, loadOptions.isDebugHttpSeeks());
                 } else {
                     loadZipFromURI(new URI(file), writer, featureTypeSelectionOptions);
                 }
@@ -193,12 +193,13 @@ public class BGTLoaderMain implements IVersionProvider {
         }
     }
 
-    private void loadZipFromRandomAccessURI(URI downloadURI, BGTObjectTableWriter writer, FeatureTypeSelectionOptions featureTypeSelectionOptions, boolean debugHttpSeeks) throws Exception {
+    private void loadZipFromURIUsingRandomAccess(URI downloadURI, BGTObjectTableWriter writer, FeatureTypeSelectionOptions featureTypeSelectionOptions, boolean debugHttpSeeks) throws Exception {
         log.info(getMessageFormattedString("download.downloading_from", downloadURI));
+        Instant start = Instant.now();
 
         try(
                 HttpSeekableByteChannel channel = new HttpSeekableByteChannel(downloadURI).withDebug(debugHttpSeeks);
-                LoggingSeekableByteChannel loggingChannel = new LoggingSeekableByteChannel(channel);
+                CountingSeekableByteChannel loggingChannel = new CountingSeekableByteChannel(channel);
                 org.apache.commons.compress.archivers.zip.ZipFile zipFile = new org.apache.commons.compress.archivers.zip.ZipFile(
                         loggingChannel,
                         downloadURI.toString(),
@@ -210,7 +211,6 @@ public class BGTLoaderMain implements IVersionProvider {
             if (debugHttpSeeks) {
                 System.out.println();
             }
-            Instant start = Instant.now();
             int count = 0;
             long uncompressed = 0;
             for (Iterator<ZipArchiveEntry> it = zipFile.getEntries().asIterator(); it.hasNext(); ) {
@@ -224,7 +224,7 @@ public class BGTLoaderMain implements IVersionProvider {
                     byteCountToDisplaySize(channel.size()),
                     byteCountToDisplaySize(uncompressed)));
             if (debugHttpSeeks) {
-                log.info(String.format("Used %d seeks on the channel and %d HTTP requests, total bytes read %d", loggingChannel.getSeeks(), channel.getHttpRequestCount(), channel.getBytesRead()));
+                log.info(String.format("Used %d seeks on the channel and %d HTTP requests, total bytes read %d", loggingChannel.getNonConsecutiveIops(), channel.getHttpRequestCount(), channel.getBytesRead()));
             }
             loggingChannel.setLoggingEnabled(false);
 
@@ -252,7 +252,7 @@ public class BGTLoaderMain implements IVersionProvider {
             }
             if (debugHttpSeeks) {
                 log.info(String.format("Totals: %d seeks on the channel and %d HTTP range requests, total bytes read %d (%s)",
-                        loggingChannel.getSeeks(),
+                        loggingChannel.getNonConsecutiveIops(),
                         channel.getHttpRequestCount(),
                         channel.getBytesRead(),
                         byteCountToDisplaySize(channel.getBytesRead())));
