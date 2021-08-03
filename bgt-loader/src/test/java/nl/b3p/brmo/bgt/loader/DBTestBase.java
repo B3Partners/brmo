@@ -44,6 +44,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 public class DBTestBase {
     private static final Log LOG = LogFactory.getLog(DBTestBase.class);
 
@@ -144,6 +146,20 @@ public class DBTestBase {
         }
         IDataSet expectedDataSet = new CompositeDataSet(dataSets.toArray(new IDataSet[]{}));
         Assertion.assertEquals(expectedDataSet, actualDataSet);
+    }
+
+    protected void assertMinRowCounts(Object[][] featureTypesMinRowCounts) throws SQLException {
+        for(Object[] featureType: featureTypesMinRowCounts) {
+            String table = (String) featureType[0];
+            int minRowCount = (int) featureType[1];
+            int actualRowCount = dbTestConnection.getRowCount(table);
+            assertTrue(actualRowCount >= minRowCount,
+                    String.format("Expected a minimum row count of %d for table %s, actual %d",
+                            minRowCount,
+                            table,
+                            actualRowCount)
+            );
+        }
     }
 
     public static void write(IDataSet dataSet) throws DataSetException, IOException {

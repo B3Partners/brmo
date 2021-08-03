@@ -7,6 +7,7 @@
 package nl.b3p.brmo.bgt.loader;
 
 import okhttp3.mockwebserver.MockResponse;
+import okhttp3.mockwebserver.RecordedRequest;
 import okio.Buffer;
 import org.dbunit.DatabaseUnitException;
 import org.junit.jupiter.api.MethodOrderer;
@@ -19,11 +20,13 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.nio.charset.Charset;
 import java.sql.SQLException;
+import java.util.concurrent.TimeUnit;
 
 import static nl.b3p.brmo.bgt.loader.BGTTestFiles.getTestInputStream;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
@@ -55,9 +58,11 @@ public class DownloadCommandMockIntegrationTest extends CommandLineTestBase {
                 .setResponseCode(200)
         );
         String url = mockWebServer.url("/").toString();
-        run("download initial", "--download-service=" + url, "--no-geo-filter", "--max-objects=3", "--include-history");
+        run("download initial", "--download-service=" + url, "--geo-filter=anything but do not use predefined delta", "--max-objects=3", "--include-history");
 
-        String body = mockWebServer.takeRequest().getBody().readString(Charset.defaultCharset());
+        RecordedRequest recordedRequest =  mockWebServer.takeRequest(0, TimeUnit.SECONDS);
+        assertNotNull(recordedRequest);
+        String body = recordedRequest.getBody().readString(Charset.defaultCharset());
         assertTrue(body.contains("\"format\":\"citygml\""));
         assertDataSetEquals("kast,ondersteunendwaterdeel,paal,sensor,begroeidterreindeel,overbruggingsdeel,spoor," +
                 "bord,pand,nummeraanduidingreeks,functioneelgebied,onbegroeidterreindeel,gebouwinstallatie,weginrichtingselement," +
@@ -77,7 +82,9 @@ public class DownloadCommandMockIntegrationTest extends CommandLineTestBase {
         String url = mockWebServer.url("/").toString();
         run("download update", "--download-service=" + url);
 
-        assertEquals( "//delta?page=1&count=100", mockWebServer.takeRequest().getPath());
+        RecordedRequest recordedRequest =  mockWebServer.takeRequest(0, TimeUnit.SECONDS);
+        assertNotNull(recordedRequest);
+        assertEquals( "//delta?page=1&count=100", recordedRequest.getPath());
 
         // TODO apply mutaties
     }

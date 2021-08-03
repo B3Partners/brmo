@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class DownloadCommandPDOKOnlineIntegrationTest extends CommandLineTestBase {
     @Test
     @Order(1)
-    void downloadInitial() throws SQLException, DataSetException, IOException {
+    void downloadInitial() throws SQLException {
         run("download initial", "--include-history", "--feature-types=all,plaatsbepalingspunt", "--geo-filter=Polygon ((131021 458768, 131021 459259, 131694 459259, 131694 458768, 131021 458768))");
         String initialDeltaId = db.getMetadata(BGTSchemaMapper.Metadata.INITIAL_LOAD_DELTA_ID);
         assertNotNull(initialDeltaId);
@@ -40,7 +40,7 @@ public class DownloadCommandPDOKOnlineIntegrationTest extends CommandLineTestBas
 
         // Test minimum row counts, which should only grow because historic objects are also loaded
         for(BGTTestFiles.BGTRowCount tableMinRowCount: extractRowCounts) {
-            Integer actualRowCount = dbTestConnection.getRowCount(tableMinRowCount.table);
+            int actualRowCount = dbTestConnection.getRowCount(tableMinRowCount.table);
             assertTrue(actualRowCount >= tableMinRowCount.rowCountWithHistory,
                     String.format("Expected a minimum row count of %d for table %s, actual %d",
                             tableMinRowCount.rowCountWithHistory,
@@ -55,5 +55,24 @@ public class DownloadCommandPDOKOnlineIntegrationTest extends CommandLineTestBas
     @SkipDropTables
     void downloadUpdate() {
         run("download update");
+    }
+
+    @Test
+    @Order(3)
+    void downloadInitialWithoutGeoFilterUsingPredefinedDelta() throws SQLException {
+        run("download initial", "--include-history",  "--feature-types=waterschap,stadsdeel,wijk,buurt,tunneldeel,mast,installatie,sensor", "--no-geo-filter");
+        String initialDeltaId = db.getMetadata(BGTSchemaMapper.Metadata.INITIAL_LOAD_DELTA_ID);
+        assertNotNull(initialDeltaId);
+
+        assertMinRowCounts(new Object[][]{
+                {"waterschap", 2},
+                {"stadsdeel", 6},
+                {"wijk", 205},
+                {"buurt", 789},
+                {"tunneldeel", 5135},
+                {"mast",15343},
+                {"installatie", 18116},
+                {"sensor", 20649},
+        });
     }
 }

@@ -27,7 +27,6 @@ import static nl.b3p.brmo.bgt.loader.BGTTestFiles.extractRowCounts;
 import static nl.b3p.brmo.bgt.loader.BGTTestFiles.getTestFile;
 import static nl.b3p.brmo.bgt.loader.BGTTestFiles.getTestInputStream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class LoadCommandIntegrationTest extends CommandLineTestBase {
 
@@ -93,24 +92,12 @@ public class LoadCommandIntegrationTest extends CommandLineTestBase {
         String url = "https://api.pdok.nl/lv/bgt/download/v1_0/delta/predefined/bgt-citygml-nl-delta.zip";
         Object[][] featureTypes = new Object[][] {
                 {"openbareruimte", 9526},
-                {"waterinrichtingselement",64146}
+                {"waterinrichtingselement", 64146},
         };
         String featureTypesString = Stream.of(featureTypes).map(e -> (String)e[0]).collect(Collectors.joining(","));
         run("load", "--http-zip-random-access", "--debug-http-seeks", "--include-history", "--feature-types=" + featureTypesString, url);
-
-        for(Object[] featureType: featureTypes) {
-            String table = (String) featureType[0];
-            int minRowCount = (int) featureType[1];
-            Integer actualRowCount = dbTestConnection.getRowCount(table);
-            assertTrue(actualRowCount >= minRowCount,
-                    String.format("Expected a minimum row count of %d for table %s, actual %d",
-                            minRowCount,
-                            table,
-                            actualRowCount)
-            );
-        }
+        assertMinRowCounts(featureTypes);
     }
-
 
     private void assertExtractZipRowCounts(boolean withHistory) throws SQLException {
         // Contents are compared in DownloadCommandMockIntegrationTest, here only compare row counts
