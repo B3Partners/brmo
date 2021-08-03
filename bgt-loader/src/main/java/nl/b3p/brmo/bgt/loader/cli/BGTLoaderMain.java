@@ -49,6 +49,7 @@ import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
 
 import static nl.b3p.brmo.bgt.loader.Utils.formatTimeSince;
+import static nl.b3p.brmo.bgt.loader.Utils.getBundleString;
 import static nl.b3p.brmo.bgt.schema.BGTSchemaMapper.Metadata;
 import static nl.b3p.brmo.bgt.loader.Utils.getLoaderVersion;
 import static nl.b3p.brmo.bgt.loader.Utils.getMessageFormattedString;
@@ -137,7 +138,7 @@ public class BGTLoaderMain implements IVersionProvider {
             }
 
             if (writer.getProgress() == null) {
-                System.err.println("Error: No feature types loaded");
+                System.err.println(getBundleString("error.no_feature_types"));
                 return ExitCode.SOFTWARE;
             }
             db.setMetadataValue(Metadata.LOADER_VERSION, getLoaderVersion());
@@ -221,13 +222,16 @@ public class BGTLoaderMain implements IVersionProvider {
                 count++;
                 uncompressed += entry.getSize();
             }
-            log.info(String.format("ZIP central directory read in %s, total %d entries, file size: %s, uncompressed size: %s",
+            log.info(getMessageFormattedString("download.zip.read",
                     formatTimeSince(start),
                     count,
                     byteCountToDisplaySize(channel.size()),
                     byteCountToDisplaySize(uncompressed)));
             if (debugHttpSeeks) {
-                log.info(String.format("Used %d seeks on the channel and %d HTTP requests, total bytes read %d", loggingChannel.getNonConsecutiveIops(), channel.getHttpRequestCount(), channel.getBytesRead()));
+                log.info(getMessageFormattedString("download.zip.debug-http-seeks.entries",
+                        loggingChannel.getNonConsecutiveIops(),
+                        channel.getHttpRequestCount(),
+                        channel.getBytesRead()));
             }
             loggingChannel.setLoggingEnabled(false);
 
@@ -244,7 +248,10 @@ public class BGTLoaderMain implements IVersionProvider {
                 Long totalSize = selected.stream().map(ZipArchiveEntry::getSize).reduce(0L, Long::sum);
                 Long totalCompressedSize = selected.stream().map(ZipArchiveEntry::getCompressedSize).reduce(0L, Long::sum);
                 progressReporter.setTotalBytes(totalSize);
-                log.info(String.format("Selected %d entries, compressed size: %s, uncompressed size: %s", selected.size(), byteCountToDisplaySize(totalCompressedSize), byteCountToDisplaySize(totalSize)));
+                log.info(getMessageFormattedString("download.zip.selected",
+                        selected.size(),
+                        byteCountToDisplaySize(totalCompressedSize),
+                        byteCountToDisplaySize(totalSize)));
             }
             Long[] previousEntriesBytesRead = new Long[]{0L};
             progressReporter.setTotalBytesReadFunction(() -> previousEntriesBytesRead[0] + writer.getProgress().getBytesRead());
@@ -254,7 +261,7 @@ public class BGTLoaderMain implements IVersionProvider {
                 writer.write(zipFile.getInputStream(entry));
             }
             if (debugHttpSeeks) {
-                log.info(String.format("Totals: %d seeks on the channel and %d HTTP range requests, total bytes read %d (%s)",
+                log.info(getMessageFormattedString("download.zip.debug-http-seeks.totals",
                         loggingChannel.getNonConsecutiveIops(),
                         channel.getHttpRequestCount(),
                         channel.getBytesRead(),

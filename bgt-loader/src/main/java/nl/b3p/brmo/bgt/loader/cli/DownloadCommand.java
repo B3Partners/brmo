@@ -109,7 +109,7 @@ public class DownloadCommand {
             Instant start = Instant.now();
 
             if (noGeoFilter) {
-                loadFromPredefinedDelta(db, writer, extractSelectionOptions);
+                loadFromPredefinedDelta(db, writer, extractSelectionOptions, loadOptions);
             } else {
                 printApiException(() -> {
                     log.info(getBundleString("download.create"));
@@ -231,9 +231,13 @@ public class DownloadCommand {
         }
     }
 
-    private static void loadFromPredefinedDelta(BGTDatabase db, BGTObjectTableWriter writer, FeatureTypeSelectionOptions featureTypeSelectionOptions) throws Exception {
+    private static void loadFromPredefinedDelta(BGTDatabase db, BGTObjectTableWriter writer, FeatureTypeSelectionOptions featureTypeSelectionOptions, LoadOptions loadOptions) throws Exception {
         Instant loadStart = Instant.now();
-        new BGTLoaderMain().loadZipFromURIUsingRandomAccess(new URI(PREDEFINED_FULL_DELTA_URI), writer, featureTypeSelectionOptions, false);
+        if (loadOptions.isHttpZipRandomAccess()) {
+            new BGTLoaderMain().loadZipFromURIUsingRandomAccess(new URI(PREDEFINED_FULL_DELTA_URI), writer, featureTypeSelectionOptions, loadOptions.isDebugHttpSeeks());
+        } else {
+            new BGTLoaderMain().loadZipFromURI(new URI(PREDEFINED_FULL_DELTA_URI), writer, featureTypeSelectionOptions);
+        }
         db.setMetadataForMutaties(writer.getProgress().getMutatieInhoud());
         db.setMetadataValue(Metadata.GEOM_FILTER, "");
         log.info(getMessageFormattedString("download.complete",
