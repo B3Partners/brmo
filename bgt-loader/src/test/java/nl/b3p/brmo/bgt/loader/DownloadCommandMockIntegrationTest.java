@@ -58,7 +58,7 @@ public class DownloadCommandMockIntegrationTest extends CommandLineTestBase {
                 .setResponseCode(200)
         );
         String url = mockWebServer.url("/").toString();
-        run("download initial", "--download-service=" + url, "--geo-filter=anything but do not use predefined delta", "--max-objects=3", "--include-history");
+        run("download initial", "--download-service=" + url, "--geo-filter=POLYGON ((131021 458768, 131021 459259, 131694 459259, 131694 458768, 131021 458768))", "--max-objects=3", "--include-history");
 
         RecordedRequest recordedRequest =  mockWebServer.takeRequest(0, TimeUnit.SECONDS);
         assertNotNull(recordedRequest);
