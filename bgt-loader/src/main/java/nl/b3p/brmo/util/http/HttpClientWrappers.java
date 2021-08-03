@@ -28,8 +28,8 @@ public class HttpClientWrappers {
         if ("urlconnection".equals(System.getProperty("httpclientwrapper"))) {
             return new URLConnectionHttpClientWrapper();
         }
-        Float f = Float.parseFloat(System.getProperty(("java.specification.version")));
-        if (f != null && f >= 11.0f) {
+        float f = Float.parseFloat(System.getProperty(("java.specification.version")));
+        if (f >= 11.0f) {
             return new Java11HttpClientWrapper();
         } else {
             return new URLConnectionHttpClientWrapper();

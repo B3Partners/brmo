@@ -219,7 +219,7 @@ public class HttpSeekableByteChannel implements SeekableByteChannel {
             if (debug) System.out.print(" [GET at position " + position + "] ");
             httpRequestCount++;
             currentHttpResponseBodyInputStream = resumingInputStreamWrapper.apply(
-                    new ResumingInputStream(new HttpStartRangeInputStreamProvider(uri, httpClientWrapper), position)
+                    new ResumingInputStream(new HttpStartRangeInputStreamProvider(uri, httpClientWrapper), position) // lgtm [java/input-resource-leak]
             );
         }
 
