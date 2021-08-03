@@ -197,6 +197,9 @@ public class BGTLoaderMain implements IVersionProvider {
         log.info(getMessageFormattedString("download.downloading_from", downloadURI));
         Instant start = Instant.now();
 
+        // NOTE: it can happen that not all entries from a ZIP are read because of https://issues.apache.org/jira/browse/COMPRESS-584
+        // This happened with https://api.pdok.nl/lv/bgt/download/v1_0/cache/2/ebe787b3-e113-4331-ab96-edd1e9bf5aa7/bgt-citygml-nl-nopbp.zip
+
         try(
                 HttpSeekableByteChannel channel = new HttpSeekableByteChannel(downloadURI).withDebug(debugHttpSeeks);
                 CountingSeekableByteChannel loggingChannel = new CountingSeekableByteChannel(channel);
