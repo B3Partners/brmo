@@ -122,11 +122,7 @@ public class BGTLoaderMain implements IVersionProvider {
             }
 
             if (file.endsWith(".zip") && (file.startsWith("http://") || file.startsWith("https://"))) {
-                if (loadOptions.isHttpZipRandomAccess()) {
-                    loadZipFromURIUsingRandomAccess(new URI(file), writer, featureTypeSelectionOptions, loadOptions.isDebugHttpSeeks());
-                } else {
-                    loadZipFromURI(new URI(file), writer, featureTypeSelectionOptions);
-                }
+                loadZipFromURI(new URI(file), writer, featureTypeSelectionOptions, loadOptions, true);
             } else if (file.endsWith(".zip")) {
                 loadZip(new File(file), writer, featureTypeSelectionOptions);
             } else if (file.matches(".*\\.[xg]ml")) {
@@ -194,19 +190,27 @@ public class BGTLoaderMain implements IVersionProvider {
         }
     }
 
-    public void loadZipFromURIUsingRandomAccess(URI downloadURI, BGTObjectTableWriter writer, FeatureTypeSelectionOptions featureTypeSelectionOptions, boolean debugHttpSeeks) throws Exception {
-        log.info(getMessageFormattedString("download.downloading_from", downloadURI));
+    public void loadZipFromURI(URI uri, BGTObjectTableWriter writer, FeatureTypeSelectionOptions featureTypeSelectionOptions, LoadOptions loadOptions, boolean showSelected) throws Exception {
+        log.info(getMessageFormattedString("download.downloading_from", uri));
+        if (loadOptions.isHttpZipRandomAccess()) {
+            loadZipFromURIUsingRandomAccess(uri, writer, featureTypeSelectionOptions, showSelected, loadOptions.isDebugHttpSeeks());
+        } else {
+            loadZipFromURIUsingStreaming(uri, writer, featureTypeSelectionOptions);
+        }
+    }
+
+    public void loadZipFromURIUsingRandomAccess(URI uri, BGTObjectTableWriter writer, FeatureTypeSelectionOptions featureTypeSelectionOptions, boolean showSelected, boolean debugHttpSeeks) throws Exception {
         Instant start = Instant.now();
 
         // NOTE: it can happen that not all entries from a ZIP are read because of https://issues.apache.org/jira/browse/COMPRESS-584
         // This happened with https://api.pdok.nl/lv/bgt/download/v1_0/cache/2/ebe787b3-e113-4331-ab96-edd1e9bf5aa7/bgt-citygml-nl-nopbp.zip
 
         try(
-                HttpSeekableByteChannel channel = new HttpSeekableByteChannel(downloadURI).withDebug(debugHttpSeeks);
+                HttpSeekableByteChannel channel = new HttpSeekableByteChannel(uri).withDebug(debugHttpSeeks);
                 CountingSeekableByteChannel loggingChannel = new CountingSeekableByteChannel(channel);
                 org.apache.commons.compress.archivers.zip.ZipFile zipFile = new org.apache.commons.compress.archivers.zip.ZipFile(
                         loggingChannel,
-                        downloadURI.toString(),
+                        uri.toString(),
                         "UTF8",
                         false,
                         true
@@ -248,10 +252,12 @@ public class BGTLoaderMain implements IVersionProvider {
                 Long totalSize = selected.stream().map(ZipArchiveEntry::getSize).reduce(0L, Long::sum);
                 Long totalCompressedSize = selected.stream().map(ZipArchiveEntry::getCompressedSize).reduce(0L, Long::sum);
                 progressReporter.setTotalBytes(totalSize);
-                log.info(getMessageFormattedString("download.zip.selected",
-                        selected.size(),
-                        byteCountToDisplaySize(totalCompressedSize),
-                        byteCountToDisplaySize(totalSize)));
+                if (showSelected) {
+                    log.info(getMessageFormattedString("download.zip.selected",
+                            selected.size(),
+                            byteCountToDisplaySize(totalCompressedSize),
+                            byteCountToDisplaySize(totalSize)));
+                }
             }
             Long[] previousEntriesBytesRead = new Long[]{0L};
             progressReporter.setTotalBytesReadFunction(() -> previousEntriesBytesRead[0] + writer.getProgress().getBytesRead());
@@ -270,8 +276,7 @@ public class BGTLoaderMain implements IVersionProvider {
         }
     }
 
-    public void loadZipFromURI(URI downloadURI, BGTObjectTableWriter writer, FeatureTypeSelectionOptions featureTypeSelectionOptions) throws Exception {
-        log.info(getMessageFormattedString("download.downloading_from", downloadURI));
+    public void loadZipFromURIUsingStreaming(URI downloadURI, BGTObjectTableWriter writer, FeatureTypeSelectionOptions featureTypeSelectionOptions) throws Exception {
         ProgressReporter progressReporter = (ProgressReporter) writer.getProgressUpdater();
 
         try (InputStream input = new ResumingBGTDownloadInputStream(downloadURI, writer)) {

@@ -6,6 +6,7 @@
 
 package nl.b3p.brmo.bgt.loader.cli;
 
+import nl.b3p.brmo.bgt.download.api.CustomDownloadProgress;
 import nl.b3p.brmo.bgt.download.api.DeltaApi;
 import nl.b3p.brmo.bgt.download.api.DownloadApiUtils;
 import nl.b3p.brmo.bgt.download.client.ApiClient;
@@ -14,10 +15,7 @@ import nl.b3p.brmo.bgt.download.model.Delta;
 import nl.b3p.brmo.bgt.download.model.GetDeltasResponse;
 import nl.b3p.brmo.bgt.loader.BGTDatabase;
 import nl.b3p.brmo.bgt.loader.ProgressReporter;
-import nl.b3p.brmo.bgt.loader.ResumingBGTDownloadInputStream;
 import nl.b3p.brmo.bgt.schema.BGTObjectTableWriter;
-import org.apache.commons.io.input.CloseShieldInputStream;
-import org.apache.commons.io.input.CountingInputStream;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import picocli.CommandLine.Command;
@@ -25,7 +23,6 @@ import picocli.CommandLine.ExitCode;
 import picocli.CommandLine.Mixin;
 import picocli.CommandLine.Option;
 
-import java.io.InputStream;
 import java.net.URI;
 import java.sql.SQLException;
 import java.time.Instant;
@@ -33,9 +30,7 @@ import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.Callable;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
+import java.util.function.Consumer;
 
 import static nl.b3p.brmo.bgt.loader.Utils.formatTimeSince;
 import static nl.b3p.brmo.bgt.loader.Utils.getBundleString;
@@ -102,28 +97,37 @@ public class DownloadCommand {
             db.setMetadataValue(Metadata.LINEARIZE_CURVES, loadOptions.linearizeCurves + "");
             db.setMetadataValue(Metadata.TABLE_PREFIX, loadOptions.tablePrefix);
 
-            // Close connection while waiting for extract
-            db.close();
-
-            BGTObjectTableWriter writer = createWriter(db, dbOptions, loadOptions, cliOptions);
-            Instant start = Instant.now();
-
+            Instant start = null;
+            URI uri;
             if (noGeoFilter) {
-                loadFromPredefinedDelta(db, writer, extractSelectionOptions, loadOptions);
+                uri = new URI(PREDEFINED_FULL_DELTA_URI);
             } else {
-                printApiException(() -> {
-                    log.info(getBundleString("download.create"));
-
-                    ApiClient client = getApiClient(downloadServiceURI);
-                    URI downloadURI = DownloadApiUtils.getCustomDownloadURL(client, null, extractSelectionOptions, new CustomDownloadProgressReporter(cliOptions.isConsoleProgressEnabled()));
-
-                    loadFromURI(db, writer, extractSelectionOptions, downloadURI, start);
-                    return ExitCode.OK;
-                });
+                // Close connection while waiting for extract
+                db.close();
+                start = Instant.now(); // Record total time waiting for extract
+                uri = getCustomDownloadURI(downloadServiceURI, extractSelectionOptions, new CustomDownloadProgressReporter(cliOptions.isConsoleProgressEnabled()));
             }
+            BGTObjectTableWriter writer = createWriter(db, dbOptions, loadOptions, cliOptions);
+            loadZipFromURI(uri, db, writer, extractSelectionOptions, loadOptions, noGeoFilter, start);
+
             db.setMetadataValue(Metadata.DELTA_TIME_TO, null);
+            // Do not set geom filter from MutatieInhoud, a custom download without geo filter will have gebied
+            // "POLYGON ((-100000 200000, 412000 200000, 412000 712000, -100000 712000, -100000 200000))"
+            db.setMetadataValue(Metadata.GEOM_FILTER, extractSelectionOptions.getGeoFilterWkt());
+
             db.getConnection().commit();
             return ExitCode.OK;
+        }
+    }
+
+    private static URI getCustomDownloadURI(URI downloadServiceURI, ExtractSelectionOptions extractSelectionOptions, Consumer<CustomDownloadProgress> progressConsumer) throws ApiException, InterruptedException {
+        try {
+            log.info(getBundleString("download.create"));
+            ApiClient client = getApiClient(downloadServiceURI);
+            return DownloadApiUtils.getCustomDownloadURL(client, null, extractSelectionOptions, progressConsumer);
+        } catch(ApiException apiException) {
+            printApiException(apiException);
+            throw apiException;
         }
     }
 
@@ -132,6 +136,7 @@ public class DownloadCommand {
             @Mixin DatabaseOptions dbOptions,
             @Mixin CLIOptions cliOptions,
             @Option(names="--download-service", hidden = true) URI downloadServiceURI,
+            @Option(names="--no-http-zip-random-access", negatable = true, hidden = true) boolean noHttpZipRandomAccess,
             @Option(names={"-h","--help"}, usageHelp = true) boolean showHelp
     ) throws Exception {
         log.info(getUserAgent());
@@ -157,6 +162,7 @@ public class DownloadCommand {
             }
             extractSelectionOptions.setFeatureTypes(Arrays.asList(db.getMetadata(Metadata.FEATURE_TYPES).split(",")));
             LoadOptions loadOptions = new LoadOptions();
+            loadOptions.setHttpZipRandomAccess(!noHttpZipRandomAccess);
             loadOptions.includeHistory = Boolean.parseBoolean(db.getMetadata(Metadata.INCLUDE_HISTORY));
             loadOptions.linearizeCurves = Boolean.parseBoolean(db.getMetadata(Metadata.LINEARIZE_CURVES));
             loadOptions.tablePrefix = db.getMetadata(Metadata.TABLE_PREFIX);
@@ -165,10 +171,8 @@ public class DownloadCommand {
                     (deltaIdTimeTo != null
                             ? getMessageFormattedString("download.current_delta_time", DateTimeFormatter.ISO_INSTANT.format(deltaIdTimeTo))
                             : getBundleString("download.current_delta_time_unknown")));
-            // Close connection while waiting for extract
-            db.close();
 
-            return printApiException(() -> {
+            try {
                 Instant start = Instant.now();
                 log.info(getBundleString("download.loading_deltas"));
                 // Note that the afterDeltaId parameter is useless, because the response does not distinguish between
@@ -205,12 +209,12 @@ public class DownloadCommand {
                 BGTObjectTableWriter writer = createWriter(db, dbOptions, loadOptions, cliOptions);
 
                 int deltaCount = 1;
-                for (Delta delta : deltas) {
+                for (Delta delta: deltas) {
                     log.info(getMessageFormattedString("download.creating_download", deltaCount++, deltas.size(), delta.getId()));
-                    URI downloadURI = DownloadApiUtils.getCustomDownloadURL(client, delta, extractSelectionOptions, new CustomDownloadProgressReporter(cliOptions.isConsoleProgressEnabled()));
-                    // TODO: BGTObjectTableWriter does setAutocommit(false) and commit() after each stream for a featuretype
+                    URI uri = DownloadApiUtils.getCustomDownloadURL(client, delta, extractSelectionOptions, new CustomDownloadProgressReporter(cliOptions.isConsoleProgressEnabled()));
+                    // TODO: BGTObjectTableWriter does setAutocommit(false) and commit() after each stream for a feature type
                     // is written, maybe use one transaction for all feature types?
-                    loadFromURI(db, writer, extractSelectionOptions, downloadURI, start);
+                    loadZipFromURI(uri, db, writer, extractSelectionOptions, loadOptions, false, start);
                     db.setMetadataValue(Metadata.DELTA_TIME_TO, delta.getTimeWindow().getTo().toString());
                     db.getConnection().commit();
                 }
@@ -218,63 +222,26 @@ public class DownloadCommand {
                 db.setMetadataValue(Metadata.LOADER_VERSION, getLoaderVersion());
                 db.getConnection().commit();
                 return ExitCode.OK;
-            });
+            } catch(ApiException apiException) {
+                printApiException(apiException);
+                throw apiException;
+            }
         }
     }
 
-    private static int printApiException(Callable<Integer> callable) throws Exception {
-        try {
-            return callable.call();
-        } catch(ApiException apiException) {
-            System.err.printf("API status code: %d, body: %s\n", apiException.getCode(), apiException.getResponseBody());
-            throw apiException;
-        }
+    private static void printApiException(ApiException apiException) {
+        log.error(String.format("API status code: %d, body: %s\n", apiException.getCode(), apiException.getResponseBody()));
     }
 
-    private static void loadFromPredefinedDelta(BGTDatabase db, BGTObjectTableWriter writer, FeatureTypeSelectionOptions featureTypeSelectionOptions, LoadOptions loadOptions) throws Exception {
+    private static void loadZipFromURI(URI uri, BGTDatabase db, BGTObjectTableWriter writer, ExtractSelectionOptions extractSelectionOptions, LoadOptions loadOptions, boolean showSelected, Instant start) throws Exception {
         Instant loadStart = Instant.now();
-        if (loadOptions.isHttpZipRandomAccess()) {
-            new BGTLoaderMain().loadZipFromURIUsingRandomAccess(new URI(PREDEFINED_FULL_DELTA_URI), writer, featureTypeSelectionOptions, loadOptions.isDebugHttpSeeks());
-        } else {
-            new BGTLoaderMain().loadZipFromURI(new URI(PREDEFINED_FULL_DELTA_URI), writer, featureTypeSelectionOptions);
-        }
+        new BGTLoaderMain().loadZipFromURI(uri, writer, extractSelectionOptions, loadOptions, showSelected);
         db.setMetadataForMutaties(writer.getProgress().getMutatieInhoud());
-        db.setMetadataValue(Metadata.GEOM_FILTER, "");
         log.info(getMessageFormattedString("download.complete",
                 getBundleString("download.mutatietype." + writer.getProgress().getMutatieInhoud().getMutatieType()),
                 writer.getProgress().getMutatieInhoud().getLeveringsId(),
-                formatTimeSince(loadStart))
+                formatTimeSince(loadStart)) +
+                (start == null ? "" : " " + getMessageFormattedString("download.complete_total", formatTimeSince(start)))
         );
-    }
-
-    private static void loadFromURI(BGTDatabase db, BGTObjectTableWriter writer, ExtractSelectionOptions extractSelectionOptions, URI downloadURI, Instant start) throws Exception {
-        log.info(getMessageFormattedString("download.downloading_from", downloadURI));
-        ProgressReporter progressReporter = (ProgressReporter) writer.getProgressUpdater();
-
-        try (InputStream input = new ResumingBGTDownloadInputStream(downloadURI, writer)) {
-            Instant loadStart = Instant.now();
-            CountingInputStream countingInputStream = new CountingInputStream(input);
-            progressReporter.setTotalBytesReadFunction(countingInputStream::getByteCount);
-            try(ZipInputStream zis = new ZipInputStream(countingInputStream)) {
-                ZipEntry entry = zis.getNextEntry();
-                while (entry != null) {
-                    progressReporter.startNewFile(entry.getName(), null);
-                    writer.write(CloseShieldInputStream.wrap(zis));
-                    entry = zis.getNextEntry();
-                }
-            }
-
-            db.setMetadataForMutaties(writer.getProgress().getMutatieInhoud());
-            // Do not set geom filter from MutatieInhoud, a custom download without geo filter will have gebied
-            // "POLYGON ((-100000 200000, 412000 200000, 412000 712000, -100000 712000, -100000 200000))"
-            db.setMetadataValue(Metadata.GEOM_FILTER, extractSelectionOptions.getGeoFilterWkt());
-
-            log.info(getMessageFormattedString("download.complete",
-                    getBundleString("download.mutatietype." + writer.getProgress().getMutatieInhoud().getMutatieType()),
-                    writer.getProgress().getMutatieInhoud().getLeveringsId(),
-                    formatTimeSince(loadStart)) +
-                    (start == null ? "" : " " + getMessageFormattedString("download.complete_total", formatTimeSince(start)))
-            );
-        }
     }
 }
