@@ -60,7 +60,7 @@
         <project.build.outputTimestamp>2021-07-08T11:39:42Z</project.build.outputTimestamp>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
-        <hibernate.version>5.5.5.Final</hibernate.version>
+        <hibernate.version>5.5.6</hibernate.version>
         <!-- ook jdbc-util updaten bij geotools update -->
         <geotools.version>25.2</geotools.version>
         <jdbc-util.version>9.2</jdbc-util.version>
