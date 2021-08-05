@@ -57,3 +57,19 @@ updates:
   - mprins
   labels:
   - bouw- en testinfrastuctuur
+
+- package-ecosystem: docker
+  directory: "/bgt-loader/"
+  schedule:
+    interval: weekly
+    day: saturday
+    time: "21:00"
+    timezone: Europe/Amsterdam
+  open-pull-requests-limit: 25
+  target-branch: master
+  reviewers:
+    - matthijsln
+  assignees:
+    - matthijsln
+  labels:
+    - bouw- en testinfrastuctuur

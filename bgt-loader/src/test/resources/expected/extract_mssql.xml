@@ -1,0 +1,2529 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+    <table name="kast">
+        <column>gmlid</column>
+        <column>identificatie</column>
+        <column>lv_publicatiedatum</column>
+        <column>creationdate</column>
+        <column>tijdstipregistratie</column>
+        <column>eindregistratie</column>
+        <column>terminationdate</column>
+        <column>bronhouder</column>
+        <column>inonderzoek</column>
+        <column>relatievehoogteligging</column>
+        <column>bgt_status</column>
+        <column>plus_status</column>
+        <column>function_</column>
+        <column>plus_type</column>
+        <column>geom</column>
+        <row>
+            <value>2b2aba1c170c3c83e926ee781eab21a4</value>
+            <value>P0026.2455761cd27120ebe0531221500ac68a</value>
+            <value><![CDATA[2016-03-01 16:36:41.0]]></value>
+            <value>2015-11-12</value>
+            <value><![CDATA[2016-02-25 12:58:43.0]]></value>
+            <null/>
+            <null/>
+            <value>P0026</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>niet-bgt</value>
+            <value>telkast</value>
+            <value>QHEAAAEMnu+nxv3y/0BaZDtftQQcQQ==</value>
+        </row>
+        <row>
+            <value>65497741eeb33af4d88cc00e388b1aa9</value>
+            <value>P0026.2455761cbd8920ebe0531221500ac68a</value>
+            <value><![CDATA[2016-03-01 16:36:41.0]]></value>
+            <value>2015-11-12</value>
+            <value><![CDATA[2016-02-25 12:58:43.0]]></value>
+            <null/>
+            <null/>
+            <value>P0026</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>niet-bgt</value>
+            <value>verkeersregelinstallatiekast</value>
+            <value>QHEAAAEM8KfGS73//0AK16NwOAwcQQ==</value>
+        </row>
+        <row>
+            <value>e0700531e1582c7fb307df9aa33d7551</value>
+            <value>P0026.2455761cbe8a20ebe0531221500ac68a</value>
+            <value><![CDATA[2016-03-01 16:36:41.0]]></value>
+            <value>2015-11-12</value>
+            <value><![CDATA[2016-02-25 12:58:43.0]]></value>
+            <null/>
+            <null/>
+            <value>P0026</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>niet-bgt</value>
+            <value>waardeOnbekend</value>
+            <value>QHEAAAEMexSuR5YFAEEEVg4tZxEcQQ==</value>
+        </row>
+    </table>
+    <table name="ondersteunendwaterdeel">
+        <column>gmlid</column>
+        <column>identificatie</column>
+        <column>lv_publicatiedatum</column>
+        <column>creationdate</column>
+        <column>tijdstipregistratie</column>
+        <column>eindregistratie</column>
+        <column>terminationdate</column>
+        <column>bronhouder</column>
+        <column>inonderzoek</column>
+        <column>relatievehoogteligging</column>
+        <column>bgt_status</column>
+        <column>plus_status</column>
+        <column>class</column>
+        <column>plus_type</column>
+        <column>geom</column>
+        <row>
+            <value>0e8074d1feb1ca86cfa6c695692ad47b</value>
+            <value>W0636.5755fb8acf974d7fbe10792aea0a2c57</value>
+            <value><![CDATA[2016-05-31 12:15:47.0]]></value>
+            <value>2016-04-18</value>
+            <value><![CDATA[2016-04-18 00:00:00.0]]></value>
+            <value><![CDATA[2018-02-27 12:17:56.0]]></value>
+            <null/>
+            <value>W0636</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value><![CDATA[oever, slootkant]]></value>
+            <value>geenWaarde</value>
+            <value><![CDATA[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]]></value>
+        </row>
+        <row>
+            <value>4e97d5d71ac0f0f06b32bb8a9f4b9f11</value>
+            <value>W0636.0d8f57b2b228401a9462c5ef0f7196a5</value>
+            <value><![CDATA[2016-05-31 12:15:47.0]]></value>
+            <value>2016-04-18</value>
+            <value><![CDATA[2016-04-18 00:00:00.0]]></value>
+            <value><![CDATA[2018-04-05 14:56:51.0]]></value>
+            <null/>
+            <value>W0636</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value><![CDATA[oever, slootkant]]></value>
+            <value>geenWaarde</value>
+            <value><![CDATA[QHEAAAEEPQAAAL6fGi871/9Awcqhxb/0G0F9PzVeQNf/QLbz/dTC9BtBnMQgsELX/0D2KFwPxfQb
+QbTIdr5D1/9ATmIQWMf0G0HHSzeJQ9f/QPhT46XJ9BtBXrpJDELX/0C4HoXry/QbQWQ7308/1/9A
+Di2yHc70G0GsHFpkO9f/QDMzMzPQ9BtBCKwcWjbX/0DJdr4f0vQbQarx0k0w1/9Aw/Uo3NP0G0FO
+YhBYKdf/QKAaL13V9BtBDi2ynSHX/0AOLbKd1vQbQQaBlUMZ1/9AAiuHltf0G0GDwMqhFdf/QCGw
+cujX9BtBg8DKocnV/0CamZkZ8/QbQef7qfEm1f9AKVyPQv70G0ESg8DKJdX/QM3MzEz+9BtBrkfh
+eiDV/0BKDAKr/vQbQfhT46Ub1f9AkxgEVv/0G0E730+NF9X/QClcj0IA9RtBUI2XbhTV/0CJQWBl
+AfUbQdv5fmoS1f9Avp8arwL1G0H4U+OlEdX/QF66SQwE9RtBj8L1KBLV/0CWQ4tsBfUbQUSLbOcT
+1f9AHVpkuwb1G0FCYOXQFtX/QESLbOcH9RtBeekmMSzV/0BzaJFtF/UbQS2yne8t1f9Abef7KRn1
+G0FmZmZmLtX/QMUgsPIa9RtBmpmZmS3V/0BiEFi5HPUbQTvfT40r1f9ALbKdbx71G0EfhetRKNX/
+QOkmMQgg9RtBAAAAACTV/0B/arx0IfUbQYXrUbge1f9ASgwCqyL1G0GcxCCwGNX/QMl2vp8j9RtB
+ppvEIBDV/0CF61G4JPUbQSGwcmjn1P9A+FPjJQf1G0Fcj8L15tT/QNejcL0E9RtBEoPAyufU/0CT
+GARWAvUbQc/3U+Pp1P9Ai2zn+//0G0EzMzMz7dT/QIXrUbj99BtBVg4tsvHU/0ACK4eW+/QbQXsU
+rkf31P9A7FG4nvn0G0FxPQrX/dT/QOXQItv39BtB8KfGSwXV/0D8qfFS9vQbQWiR7XwN1f9AO99P
+DfX0G0HByqFFFtX/QPYoXA/09BtB8KfGSxvV/0AbL92k8/QbQQAAAAC81f9A7FG4nuj0G0FGtvP9
+0Nb/QFCNl+7R9BtBJzEIrAbX/0AOLbKdzfQbQXE9CtcJ1/9A5/upcc30G0ExCKwcENf/QMP1KNzM
+9BtB/Knx0hXX/0Boke38y/QbQeOlm8Qa1/9Aw/Uo3Mr0G0HjpZvEHtf/QFK4HoXJ9BtB4XoUriHX
+/0B1kxgEyPQbQawcWmQj1/9AiUFgZcb0G0FxPQrXI9f/QD81XrrE9BtBUrgehR/X/0BaZDvfwfQb
+Qb6fGi871/9Awcqhxb/0G0EBAAAAAgAAAAABAAAA/////wAAAAAD]]></value>
+        </row>
+        <row>
+            <value>ed6d419b6255d08e73a361e0b9e3be98</value>
+            <value>W0636.21a4446d483942fea42ab3df50fadc3e</value>
+            <value><![CDATA[2016-05-31 12:15:47.0]]></value>
+            <value>2016-04-18</value>
+            <value><![CDATA[2016-04-18 00:00:00.0]]></value>
+            <null/>
+            <null/>
+            <value>W0636</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value><![CDATA[oever, slootkant]]></value>
+            <value>geenWaarde</value>
+            <value><![CDATA[QHEAAAEEHwAAAJzEILAix/9AUrgehUD0G0FOYhBY4cb/QARWDq1F9BtB30+Nl9DG/0Aj2/n+RvQb
+QaabxCCKxv9AO99PjUz0G0HTTWIQesb/QB+F69FN9BtB1XjpJjPG/0D+1HhpU/QbQYXrUbgixv9A
+7nw/tVT0G0ExCKwc3MX/QJ7vp0Za9BtBhxbZzsvF/0D2KFyPW/QbQf7UeOmExf9A1XjpJmH0G0HN
+zMzMdMX/QJZDi2xi9BtBbxKDwC7F/0DFILDyZ/QbQVCNl24exf9A+n5qPGn0G0FxPQrXlcT/QLpJ
+DAJ09BtBUrgehZXE/0AdWmS7c/QbQYts5/uZxP9ArBxaZHP0G0EdWmQ7jcT/QG8Sg0Bp9BtBke18
+PxHF/0C4HoXrXvQbQZZDi2whxf9A1Xjppl30G0GiRbbzZ8X/QIPAyiFY9BtBuB6F63fF/0AUrkfh
+VvQbQS/dJAa/xf9AQmDlUFH0G0HsUbgez8X/QBkEVg5Q9BtBcT0K1xXG/0BSuB6FSvQbQXnpJjEm
+xv9A16NwPUn0G0FkO99Pbcb/QARWDq1D9BtB8KfGS33G/0CWQ4tsQvQbQdNNYhDExv9Az/dT4zz0
+G0GBlUOL1Mb/QLx0k5g79BtBF9nO9xXH/0Boke18NvQbQZzEILAix/9AUrgehUD0G0EBAAAAAgAA
+AAABAAAA/////wAAAAAD]]></value>
+        </row>
+    </table>
+    <table name="paal">
+        <column>gmlid</column>
+        <column>identificatie</column>
+        <column>lv_publicatiedatum</column>
+        <column>creationdate</column>
+        <column>tijdstipregistratie</column>
+        <column>eindregistratie</column>
+        <column>terminationdate</column>
+        <column>bronhouder</column>
+        <column>inonderzoek</column>
+        <column>relatievehoogteligging</column>
+        <column>bgt_status</column>
+        <column>plus_status</column>
+        <column>function_</column>
+        <column>plus_type</column>
+        <column>hectometeraanduiding</column>
+        <column>geom</column>
+        <row>
+            <value>4f00c026068b5c3be1c468ce0a866bbe</value>
+            <value>G0344.068ef14d1102445c9fcdae27970a9245</value>
+            <value><![CDATA[2016-05-31 10:24:40.0]]></value>
+            <value>2016-04-18</value>
+            <value><![CDATA[2016-04-18 00:00:00.0]]></value>
+            <null/>
+            <null/>
+            <value>G0344</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>niet-bgt</value>
+            <value>afsluitpaal</value>
+            <null/>
+            <value>QHEAAAEMCKwcWpsWAEHP91Nj2QwcQQ==</value>
+        </row>
+        <row>
+            <value>c2f3ad7e84eee5b77e0240a80ae8a26c</value>
+            <value>G0344.07206de3a5624b199676b433cb812f80</value>
+            <value><![CDATA[2016-05-31 10:24:40.0]]></value>
+            <value>2016-04-18</value>
+            <value><![CDATA[2016-04-18 00:00:00.0]]></value>
+            <null/>
+            <null/>
+            <value>G0344</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>niet-bgt</value>
+            <value>afsluitpaal</value>
+            <null/>
+            <value>QHEAAAEMsHJokcAbAEHXo3A9ogocQQ==</value>
+        </row>
+        <row>
+            <value>d3942ff89640980989bef2860d63a514</value>
+            <value>G0344.02e6f9f4f9e04d2fbb40c4ae4d1f6d2b</value>
+            <value><![CDATA[2016-05-31 10:24:40.0]]></value>
+            <value>2016-04-18</value>
+            <value><![CDATA[2016-04-18 00:00:00.0]]></value>
+            <null/>
+            <null/>
+            <value>G0344</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>niet-bgt</value>
+            <value>afsluitpaal</value>
+            <null/>
+            <value>QHEAAAEM3SQGgWQTAEGuR+F6OQscQQ==</value>
+        </row>
+    </table>
+    <table name="sensor">
+        <column>gmlid</column>
+        <column>identificatie</column>
+        <column>lv_publicatiedatum</column>
+        <column>creationdate</column>
+        <column>tijdstipregistratie</column>
+        <column>eindregistratie</column>
+        <column>terminationdate</column>
+        <column>bronhouder</column>
+        <column>inonderzoek</column>
+        <column>relatievehoogteligging</column>
+        <column>bgt_status</column>
+        <column>plus_status</column>
+        <column>function_</column>
+        <column>plus_type</column>
+        <column>geom</column>
+        <row>
+            <value>14f0a82504152188857ec3d0b9c20571</value>
+            <value>P0026.8abeacd54c5b7500047ccfe19e82008f</value>
+            <value><![CDATA[2021-01-15 11:33:08.0]]></value>
+            <value>2020-12-22</value>
+            <value><![CDATA[2021-01-15 08:00:12.0]]></value>
+            <null/>
+            <null/>
+            <value>P0026</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>niet-bgt</value>
+            <value>camera</value>
+            <value>QHEAAAEMDAIrh0jv/0AdWmS7pAMcQQ==</value>
+        </row>
+        <row>
+            <value>85a0641d1d8b65659c25588d60117ef8</value>
+            <value>P0026.8abeacd54c5b7500047ccfe19e8201d6</value>
+            <value><![CDATA[2021-01-15 11:33:08.0]]></value>
+            <value>2020-12-22</value>
+            <value><![CDATA[2021-01-15 08:00:12.0]]></value>
+            <null/>
+            <null/>
+            <value>P0026</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>niet-bgt</value>
+            <value>camera</value>
+            <value>QHEAAAEMZmZmZqjw/0Av3SQGbQMcQQ==</value>
+        </row>
+        <row>
+            <value>ba8b7b0b401e1dae474e0ad0e23e9fd4</value>
+            <value>P0026.8abeacd54c5b7500047ccfe19e820146</value>
+            <value><![CDATA[2021-01-15 11:33:08.0]]></value>
+            <value>2020-12-22</value>
+            <value><![CDATA[2021-01-15 08:00:12.0]]></value>
+            <null/>
+            <null/>
+            <value>P0026</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>niet-bgt</value>
+            <value>camera</value>
+            <value>QHEAAAEMsHJokTvw/0C+nxqvfgMcQQ==</value>
+        </row>
+    </table>
+    <table name="begroeidterreindeel">
+        <column>gmlid</column>
+        <column>identificatie</column>
+        <column>lv_publicatiedatum</column>
+        <column>creationdate</column>
+        <column>tijdstipregistratie</column>
+        <column>eindregistratie</column>
+        <column>terminationdate</column>
+        <column>bronhouder</column>
+        <column>inonderzoek</column>
+        <column>relatievehoogteligging</column>
+        <column>bgt_status</column>
+        <column>plus_status</column>
+        <column>plus_fysiekvoorkomen</column>
+        <column>class</column>
+        <column>begroeidterreindeeloptalud</column>
+        <column>geom_kruinlijn</column>
+        <column>geom</column>
+        <row>
+            <value>16069ef8ab34653232f5f8823f566ba4</value>
+            <value>G1904.424df31c78754a53a415de96859f9889</value>
+            <value><![CDATA[2020-12-02 10:44:55.0]]></value>
+            <value>2020-11-27</value>
+            <value><![CDATA[2020-12-02 10:35:25.0]]></value>
+            <null/>
+            <null/>
+            <value>G1904</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value><![CDATA[gras- en kruidachtigen]]></value>
+            <value>groenvoorziening</value>
+            <value>false</value>
+            <null/>
+            <value><![CDATA[QHEAAAEEFQAAABBYObQW+P9AokW283USHEH2KFyPJvj/QG3n+ylwEhxBnu+nxnP4/0D0/dT4UxIc
+QV66SQzI+P9AGy/dpDcSHEHLoUW2A/n/QClcj8ImEhxBRrbz/Wr5/0CTGATWAhIcQZHtfD8t+/9A
++n5qvE0RHEG4HoXrRfv/QEw3iUFFERxBokW281v7/0AzMzMzNREcQVg5tMhw+/9AcT0K1zQRHEEA
+AAAAgPv/QEjhepQ0ERxBj8L1KHr7/0CTGATWOhEcQe58PzVy+/9AxSCw8kARHEF/arx0bfv/QFCN
+l+5DERxB/tR46Z76/0BOYhBYkxEcQdNNYhDY+f9Az/dT4+oRHEFCYOXQRvn/QJ7vp0YhEhxBkxgE
+VtL4/0BWDi0yQxIcQfLSTWJg+P9AkxgEVmsSHEGq8dJNNPj/QLpJDIJ2EhxBEFg5tBb4/0CiRbbz
+dRIcQQEAAAACAAAAAAEAAAD/////AAAAAAM=]]></value>
+        </row>
+        <row>
+            <value>246012ba7dabba12affcd1d1f9905488</value>
+            <value>L0002.5854010e82af4892986b8ec57bde6413</value>
+            <value><![CDATA[2019-11-20 17:09:52.0]]></value>
+            <value>2016-12-06</value>
+            <value><![CDATA[2019-11-18 09:43:06.0]]></value>
+            <null/>
+            <null/>
+            <value>L0002</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>waardeOnbekend</value>
+            <value><![CDATA[grasland overig]]></value>
+            <value>true</value>
+            <value><![CDATA[QHEAAAEEDgAAALTIdr6oHwBBw/Uo3Gr1G0GNl24Soh8AQW8Sg0B59RtB2/l+apQfAEHByqFFhPUb
+QTVeukmHHwBBRItsZ4v1G0Ev3SQGWR8AQSlcj0Kw9RtBMQisHE0fAEFYObRIwPUbQa5H4Xo7HwBB
+SgwCq9H1G0FqvHSTER8AQZzEILDo9RtB8tJNYsYeAEHNzMzMA/YbQWQ730+DHgBBUI2X7h72G0GL
+bOf7KB4AQSGwcug89htBzczMzMwdAEGe76fGWPYbQexRuB5ZHQBBsp3vp3X2G0Fcj8L19hwAQUw3
+iUGM9htBAQAAAAEAAAAAAQAAAP////8AAAAAAg==]]></value>
+            <value><![CDATA[QHEAAAEEGwAAAGIQWDngHABBnu+nRnz2G0FOYhBYER0AQQrXo3Bu9htBHVpkO1sdAEHVeOkmXPYb
+QRfZzvfIHQBBSOF6FDn2G0EpXI/CHh4AQfyp8dIb9htBHVpkO2weAEHJdr6f+/UbQXnpJjGYHgBB
+qvHSzez1G0EUrkfhyx4AQR1aZLvV9RtBAiuHFtweAEFvEoNAyvUbQf7UeOnkHgBB+n5qvMH1G0EO
+LbKd6R4AQcdLN4m39RtBEFg5tOkeAEEAAACAt/UbQbTIdr6oHwBBw/Uo3Gr1G0GNl24Soh8AQW8S
+g0B59RtB2/l+apQfAEHByqFFhPUbQTVeukmHHwBBRItsZ4v1G0Ev3SQGWR8AQSlcj0Kw9RtBMQis
+HE0fAEFYObRIwPUbQa5H4Xo7HwBBSgwCq9H1G0FqvHSTER8AQZzEILDo9RtB8tJNYsYeAEHNzMzM
+A/YbQWQ730+DHgBBUI2X7h72G0GLbOf7KB4AQSGwcug89htBzczMzMwdAEGe76fGWPYbQexRuB5Z
+HQBBsp3vp3X2G0Fcj8L19hwAQUw3iUGM9htBYhBYOeAcAEGe76dGfPYbQQEAAAACAAAAAAEAAAD/
+////AAAAAAM=]]></value>
+        </row>
+        <row>
+            <value>79afb2d1fbc99f5322b7831c4851df49</value>
+            <value>G1904.e1aece8de32146a2bc3da89ae49434c3</value>
+            <value><![CDATA[2020-12-02 10:44:55.0]]></value>
+            <value>2020-12-01</value>
+            <value><![CDATA[2020-12-02 10:35:25.0]]></value>
+            <null/>
+            <null/>
+            <value>G1904</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value><![CDATA[gras- en kruidachtigen]]></value>
+            <value>groenvoorziening</value>
+            <value>false</value>
+            <null/>
+            <value><![CDATA[QHEAAAEELwAAAFK4HoUz9P9A9ihcj2YUHEEAAAAAIPT/QJqZmZlpFBxBj8L1KAz0/0DD9ShcaRQc
+QSlcj8L98/9AXI/C9WYUHEGmm8Qg+PP/QDVeusljFBxB16NwPfrz/0CamZmZXxQcQSlcj8IV9P9A
+rkfhelAUHEEAAAAAOPT/QI/C9ShCFBxBpHA9Cp/0/0AUrkfhGhQcQQAAAACg9f9AmpmZmbsTHEGF
+61G4Pvb/QAAAAACAExxBUrgehYv2/0AUrkfhYhMcQXE9CtcL9/9A4XoUrjMTHEEUrkfhovf/QOF6
+FK77EhxBexSuRyX4/0BxPQpXzBIcQTeJQWBZ+P9AlkOL7LgSHEEfhetR6Pr/QDMzMzPFERxBAAAA
+AID7/0CuR+H6jBEcQQrXo3AJ/P9AXI/C9VgRHEE9CtejZPz/QMP1KFw3ERxBH4XrUYT8/0DsUbge
+KxEcQY/C9SiY/P9AXI/C9SQRHEF7FK5Hnfz/QI/C9SgkERxB9ihcj6b8/0CPwvUoJBEcQXE9Ctev
+/P9AMzMzMyURHEHD9Shcs/z/QK5H4XomERxB4XoUrrP8/0AzMzMzKREcQbgeheut/P9AKVyPwjER
+HEEfhetRpPz/QFK4HoU5ERxBexSuR5X8/0AAAAAAQhEcQdejcD1m/P9AexSuR1cRHEH2KFyPHvz/
+QEjhehRyERxB4XoUrpP7/0A9CtejphEcQQAAAACA+/9AzczMTK4RHEGkcD0KP/r/QI/C9SgkEhxB
+pHA9Cp/5/0DNzMzMYBIcQVyPwvUQ+f9AMzMzM5USHEHXo3A9lvj/QD0K1yPDEhxBbxKDwGL4/0A/
+NV661hIcQUjhehQG+P9AKVyPwvkSHEEpXI/CJff/QD0K16NMExxBCtejcKH2/0AAAAAAgBMcQR+F
+61H49f9AZmZmZr4THEEAAAAAQPX/QJMYBFYDFBxBPQrXo7D0/0CuR+F6OBQcQc3MzMxU9P9AUrge
+hVsUHEFSuB6FM/T/QPYoXI9mFBxBAQAAAAIAAAAAAQAAAP////8AAAAAAw==]]></value>
+        </row>
+    </table>
+    <table name="overbruggingsdeel">
+        <column>gmlid</column>
+        <column>identificatie</column>
+        <column>lv_publicatiedatum</column>
+        <column>creationdate</column>
+        <column>tijdstipregistratie</column>
+        <column>eindregistratie</column>
+        <column>terminationdate</column>
+        <column>bronhouder</column>
+        <column>inonderzoek</column>
+        <column>relatievehoogteligging</column>
+        <column>bgt_status</column>
+        <column>plus_status</column>
+        <column>overbruggingisbeweegbaar</column>
+        <column>hoortbijtypeoverbrugging</column>
+        <column>class</column>
+        <column>identificatiebagopr</column>
+        <column>geom</column>
+        <row>
+            <value>3246b17a815aae0d3d80ad6dc61f60bd</value>
+            <value>P0026.2455761c4d0820ebe0531221500ac68a</value>
+            <value><![CDATA[2016-03-01 16:36:41.0]]></value>
+            <value>2015-11-12</value>
+            <value><![CDATA[2016-02-25 12:58:43.0]]></value>
+            <value><![CDATA[2017-10-09 13:17:19.0]]></value>
+            <null/>
+            <value>P0026</value>
+            <value>false</value>
+            <value>1</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <null/>
+            <value>waardeOnbekend</value>
+            <value>dek</value>
+            <null/>
+            <value><![CDATA[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
+AAAAAAAAAAAAAAAAAAA=]]></value>
+        </row>
+        <row>
+            <value>8d9c86e709075e65c6f18b73207e8c0c</value>
+            <value>P0026.2455761aa9c620ebe0531221500ac68a</value>
+            <value><![CDATA[2016-03-01 16:36:41.0]]></value>
+            <value>2015-11-12</value>
+            <value><![CDATA[2016-02-25 12:58:43.0]]></value>
+            <value><![CDATA[2018-11-30 14:21:59.0]]></value>
+            <null/>
+            <value>P0026</value>
+            <value>false</value>
+            <value>1</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <null/>
+            <value>waardeOnbekend</value>
+            <value>dek</value>
+            <null/>
+            <value><![CDATA[QHEAAAEEMwAAADm0yHZe+f9AAAAAgGYHHEHufD81XPn/QHsUrkdlBxxB4XoUrkn5/0Ce76dGWwcc
+QWq8dJNM+f9ACtej8FoHHEGJQWDlYPn/QP7UeOllBxxBaJHtfJv5/0CuR+F6hQccQQisHFqe+f9A
+L90kBocHHEFmZmZmpPn/QHsUrkeKBxxBWDm0yLb5/0C+nxovlAccQawcWmTP+f9A5/upcaEHHEHh
+ehSu0/n/QG8Sg8CjBxxBLbKd7+H5/0AK16NwqwccQd9PjZfk+f9AxSCw8qwHHEG4HoXrE/r/QB1a
+ZLvHBxxBObTIdjb6/0BYObRI2wccQfCnxktH+v9AqvHSzeQHHEFWDi2yZfr/QCPb+f71BxxBnMQg
+sHL6/0CTGARW/QccQSGwcmh1+v9A5dAi2/4HHEE3iUFghfr/QOOlm8QHCBxBarx0k6r6/0C6SQyC
+HAgcQf7UeOms+v9AhxbZzh0IHEGLbOf7sfr/QD0K16MgCBxB6SYxCNz6/0AIrBzaNwgcQQaBlUPn
++v9AL90kBj4IHEGyne+n/Pr/QKAaL91JCBxBokW28//6/0CcxCCwSwgcQaRwPQr9+v9AUrgeBUwI
+HEG0yHa++fr/QFYOLTJKCBxBObTIduT6/0DFILByPggcQR+F61Hi+v9AKVyPQj0IHEEhsHJo2fr/
+QE5iEFg4CBxBjZduEq/6/0AX2c73IAgcQdv5fmqq+v9AN4lBYB4IHEFI4XoUqPr/QGq8dBMdCBxB
+iUFg5YL6/0CTGARWCAgcQXNoke1y+v9Ac2iRbf8HHEEpXI/Cb/r/QG3n+6n9BxxBMzMzM2P6/0Cw
+cmiR9gccQX0/NV5E+v9AppvEIOUHHEGLbOf7M/r/QOXQItvbBxxBCtejcBH6/0Cq8dJNyAccQTEI
+rBzi+f9AUrgeha0HHEEv3SQG3/n/QOOlm8SrBxxBMzMzM9H5/0D8qfFSpAccQf7UeOnM+f9AmG4S
+A6IHHEGq8dJNtPn/QG8Sg8CUBxxBuB6F66H5/0ArhxbZigccQVpkO9+b+f9A30+Nl4cHHEEv3SQG
+mfn/QDvfTw2GBxxBObTIdl75/0AAAACAZgccQQEAAAACAAAAAAEAAAD/////AAAAAAM=]]></value>
+        </row>
+        <row>
+            <value>d9efe44f67f056c1c1ddbfcae5a58079</value>
+            <value>P0026.2455761b290820ebe0531221500ac68a</value>
+            <value><![CDATA[2016-03-01 16:36:41.0]]></value>
+            <value>2015-11-12</value>
+            <value><![CDATA[2016-02-25 12:58:43.0]]></value>
+            <value><![CDATA[2018-11-30 14:21:59.0]]></value>
+            <null/>
+            <value>P0026</value>
+            <value>false</value>
+            <value>1</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <null/>
+            <value>waardeOnbekend</value>
+            <value>dek</value>
+            <null/>
+            <value><![CDATA[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
+/wAAAAAD]]></value>
+        </row>
+    </table>
+    <table name="spoor">
+        <column>gmlid</column>
+        <column>identificatie</column>
+        <column>lv_publicatiedatum</column>
+        <column>creationdate</column>
+        <column>tijdstipregistratie</column>
+        <column>eindregistratie</column>
+        <column>terminationdate</column>
+        <column>bronhouder</column>
+        <column>inonderzoek</column>
+        <column>relatievehoogteligging</column>
+        <column>bgt_status</column>
+        <column>plus_status</column>
+        <column>function_</column>
+        <column>plus_functiespoor</column>
+        <column>geom</column>
+        <row>
+            <value>088078406ca522bba868ee3ef669d95d</value>
+            <value>L0004.15d15db34ead477f8466679b6c8d7a78</value>
+            <value><![CDATA[2016-09-07 13:34:04.0]]></value>
+            <value>2012-02-02</value>
+            <value><![CDATA[2012-02-02 13:14:30.0]]></value>
+            <null/>
+            <null/>
+            <value>L0004</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>trein</value>
+            <value/>
+            <value>QHEAAAEUVg4tsiEYAEEzMzMz2xEcQd9PjZfRGABBvp8aL5IRHEE=</value>
+        </row>
+        <row>
+            <value>2999ec5cc9536de4fee8692dbe1dfdff</value>
+            <value>L0004.150bb9da359e42f3b0eedfa831586a4f</value>
+            <value><![CDATA[2016-09-07 13:34:04.0]]></value>
+            <value>2007-08-21</value>
+            <value><![CDATA[2007-08-21 16:06:52.0]]></value>
+            <null/>
+            <null/>
+            <value>L0004</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>trein</value>
+            <value/>
+            <value>QHEAAAEUObTIdq8WAEGmm8QgbRIcQRSuR+FVFwBBJzEIrB4SHEE=</value>
+        </row>
+        <row>
+            <value>30e2c0be1fe083a3321abd8b7f21a32b</value>
+            <value>L0004.116f4d20763e4623bec2459f233b7578</value>
+            <value><![CDATA[2016-09-07 13:34:04.0]]></value>
+            <value>2014-06-30</value>
+            <value><![CDATA[2016-08-04 09:32:11.0]]></value>
+            <null/>
+            <null/>
+            <value>L0004</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>trein</value>
+            <value/>
+            <value>QHEAAAEUUI2XbrcUAEHNzMxMQxMcQWQ73091HwBBxSCwcjIOHEE=</value>
+        </row>
+    </table>
+    <table name="bord">
+        <column>gmlid</column>
+        <column>identificatie</column>
+        <column>lv_publicatiedatum</column>
+        <column>creationdate</column>
+        <column>tijdstipregistratie</column>
+        <column>eindregistratie</column>
+        <column>terminationdate</column>
+        <column>bronhouder</column>
+        <column>inonderzoek</column>
+        <column>relatievehoogteligging</column>
+        <column>bgt_status</column>
+        <column>plus_status</column>
+        <column>function_</column>
+        <column>plus_type</column>
+        <column>geom</column>
+        <row>
+            <value>57e3191ecffce247429fa8cd32bdc569</value>
+            <value>P0026.2455761cb50d20ebe0531221500ac68a</value>
+            <value><![CDATA[2016-03-01 16:36:41.0]]></value>
+            <value>2015-11-12</value>
+            <value><![CDATA[2016-02-25 12:58:43.0]]></value>
+            <null/>
+            <null/>
+            <value>P0026</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>niet-bgt</value>
+            <value>informatiebord</value>
+            <value>QHEAAAEMQmDl0EIFAEF9PzXeohEcQQ==</value>
+        </row>
+        <row>
+            <value>8387d6d110eab1000c66e9a01a11e1d4</value>
+            <value>P0026.2455761cb4ff20ebe0531221500ac68a</value>
+            <value><![CDATA[2016-03-01 16:36:41.0]]></value>
+            <value>2015-11-12</value>
+            <value><![CDATA[2016-02-25 12:58:43.0]]></value>
+            <null/>
+            <null/>
+            <value>P0026</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>niet-bgt</value>
+            <value>informatiebord</value>
+            <value>QHEAAAEMWmQ738AHAEHP91NjchEcQQ==</value>
+        </row>
+        <row>
+            <value>8b844c523a67002c30320613473e150b</value>
+            <value>P0026.2455761cb4e720ebe0531221500ac68a</value>
+            <value><![CDATA[2016-03-01 16:36:41.0]]></value>
+            <value>2015-11-12</value>
+            <value><![CDATA[2016-02-25 12:58:43.0]]></value>
+            <null/>
+            <null/>
+            <value>P0026</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>niet-bgt</value>
+            <value>informatiebord</value>
+            <value>QHEAAAEMSOF6FH79/0BU46UbKgscQQ==</value>
+        </row>
+    </table>
+    <table name="pand">
+        <column>gmlid</column>
+        <column>identificatie</column>
+        <column>lv_publicatiedatum</column>
+        <column>creationdate</column>
+        <column>tijdstipregistratie</column>
+        <column>eindregistratie</column>
+        <column>terminationdate</column>
+        <column>bronhouder</column>
+        <column>inonderzoek</column>
+        <column>relatievehoogteligging</column>
+        <column>bgt_status</column>
+        <column>plus_status</column>
+        <column>identificatiebagpnd</column>
+        <column>geom</column>
+        <row>
+            <value>06ae8f871913c1ea4438a9a41bc21803</value>
+            <value>G1904.01cc4ae5d20943c6b2159965ecf6c2a8</value>
+            <value><![CDATA[2017-04-21 16:35:25.0]]></value>
+            <value>2017-04-10</value>
+            <value><![CDATA[2017-04-10 17:10:38.0]]></value>
+            <null/>
+            <null/>
+            <value>G1904</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>0333100000019179</value>
+            <value><![CDATA[QHEAAAEECQAAAH9qvHQd3v9AukkMAuwIHEFzaJHt4t3/QIXrUbj2CBxBppvEIKbd/0DP91Pj4Qgc
+QSuHFtmI3f9AKVyPwuYIHEF1kxgETN3/QKabxCDSCBxBd76fGond/0DFILDyxggcQe58PzXG3f9A
+2/l+atsIHEHByqFF3t3/QJMYBNbWCBxBf2q8dB3e/0C6SQwC7AgcQQEAAAACAAAAAAIAAAD/////
+AAAAAAYAAAAAAAAAAAM=]]></value>
+        </row>
+        <row>
+            <value>646cfdb5ec59e3971eaad7a0738eba1c</value>
+            <value>G1904.0006d6b659094ac8a4cf1106124efd3b</value>
+            <value><![CDATA[2017-04-21 16:35:25.0]]></value>
+            <value>2017-04-10</value>
+            <value><![CDATA[2017-04-10 17:10:38.0]]></value>
+            <null/>
+            <null/>
+            <value>G1904</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>0333100000002871</value>
+            <value><![CDATA[QHEAAAEEBQAAABfZzvcB4f9A001ikO8IHEHTTWIQ6OD/QEa28330CBxB/Knx0sPg/0AlBoEV6Agc
+QdejcD3e4P9Aw/UoXOMIHEEX2c73AeH/QNNNYpDvCBxBAQAAAAIAAAAAAgAAAP////8AAAAABgAA
+AAAAAAAAAw==]]></value>
+        </row>
+        <row>
+            <value>6c47f090e79c7c0deb03016a90792199</value>
+            <value>G1904.0114033acd0c4829924791afe87cb836</value>
+            <value><![CDATA[2017-04-21 16:35:25.0]]></value>
+            <value>2017-04-10</value>
+            <value><![CDATA[2017-04-10 17:10:38.0]]></value>
+            <value><![CDATA[2017-07-31 11:57:18.0]]></value>
+            <null/>
+            <value>G1904</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>1904100000038228</value>
+            <value><![CDATA[QHEAAAEECwAAAEjhehTq3f9AxSCwcmMIHEEK16Nw493/QAIrhxZhCBxBy6FFtjXe/0B9PzVeUggc
+QWiR7Xw33v9AI9v5/lIIHEGLbOf7Od7/QPLSTeJTCBxB5dAi22Xe/0AfhetRTAgcQd9PjZeA3v9A
+xSCwclUIHEFt5/upU97/QI/C9ahdCBxByXa+n2re/0CTGATWZQgcQWDl0CIZ3v9Aj8L1KHQIHEFI
+4XoU6t3/QMUgsHJjCBxBAQAAAAIAAAAAAgAAAP////8AAAAABgAAAAAAAAAAAw==]]></value>
+        </row>
+    </table>
+    <table name="nummeraanduidingreeks">
+        <column>pandgmlid</column>
+        <column>idx</column>
+        <column>pandeindregistratie</column>
+        <column>tekst</column>
+        <column>hoek</column>
+        <column>plaatsingspunt</column>
+        <column>identificatiebagvbolaagstehuisnummer</column>
+        <column>identificatiebagvbohoogstehuisnummer</column>
+        <row>
+            <value>06ae8f871913c1ea4438a9a41bc21803</value>
+            <value>0</value>
+            <value>false</value>
+            <value>611</value>
+            <value>36.2</value>
+            <value>QHEAAAEM9ihcj+jd/0Dwp8ZL6QgcQQ==</value>
+            <value>0333010000000933</value>
+            <null/>
+        </row>
+    </table>
+    <table name="functioneelgebied">
+        <column>gmlid</column>
+        <column>identificatie</column>
+        <column>lv_publicatiedatum</column>
+        <column>creationdate</column>
+        <column>tijdstipregistratie</column>
+        <column>eindregistratie</column>
+        <column>terminationdate</column>
+        <column>bronhouder</column>
+        <column>inonderzoek</column>
+        <column>relatievehoogteligging</column>
+        <column>bgt_status</column>
+        <column>plus_status</column>
+        <column>naam</column>
+        <column>bgt_type</column>
+        <column>plus_type</column>
+        <column>geom</column>
+        <row>
+            <value>48d4d560ab71f8c3a9bb2956903e530d</value>
+            <value>G0344.bb2e52b62ca04b72a866912acfa4cbc7</value>
+            <value><![CDATA[2020-05-01 05:32:13.0]]></value>
+            <value>2020-04-30</value>
+            <value><![CDATA[2020-04-30 10:18:47.0]]></value>
+            <null/>
+            <null/>
+            <value>G0344</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value><![CDATA[Park groenhoven]]></value>
+            <value>niet-bgt</value>
+            <value><![CDATA[recreatie: park]]></value>
+            <value><![CDATA[QHEAAAEESQAAAHsUrkeRIgBBzczMTKT+G0Gq8dJNayEAQarx0k26/htBUrgehT8hAEGNl24Svf4b
+QZqZmZk3IQBBc2iR7ab+G0GJQWDlTCEAQeXQIluk/htB7FG4HlohAEFQjZfulP4bQW3n+6kQIQBB
+O99PjZv9G0Hwp8ZL6B4AQcdLN4kO/BtB0SLb+f0dAEHufD+1O/wbQWIQWDlFHgBBIbByaCb8G0FM
+N4lBfx4AQTm0yPYL/BtBAAAAAK8eAEGe76dG6/sbQaAaL92FHgBBsp3vJ9/7G0Hn+6nxjR4AQbbz
+/dTQ+xtBfT81XkoeAEExCKycw/sbQexRuB5WHgBBI9v5fqX7G0ECK4cWHB4AQawcWmSk+xtBWmQ7
+3xkeAEG8dJOYmvsbQYts5/tpHgBBpHA9Cof7G0FI4XoUCh4AQUSLbGdC+xtBYOXQIvMdAEFiEFg5
+L/sbQef7qfGtHQBBd76fGgX7G0GsHFpknR0AQbTIdr70+htBAAAAAJcdAEHJdr6f4PobQeOlm8Sd
+HQBBaJHtfLD6G0GLbOf7kB0AQfCnxkuw+htBqMZLN4odAEGR7Xw/yvobQfyp8dIuHQBBUrgehdL6
+G0EK16NwzhsAQWiR7XzX+RtBcT0K11EaAEFkO9/Pr/kbQarx0k1EGgBB2/l+aqn5G0ESg8DKPxoA
+QawcWmSg+RtBokW280waAEFt5/upZvkbQaJFtvPNGgBBjZduEnP5G0GuR+F6BBsAQX9qvHRg+RtB
+BoGVQxEbAEHhehSuQPkbQYGVQ4vtGgBBj8L1qCT5G0FKDAIrbBoAQS2ynW8Y+RtBrBxaZGIaAEHb
++X7qEPkbQSUGgZV7GgBBHVpkO9D4G0E/NV66VhoAQTm0yPa0+BtBJzEIrBUaAEHy0k1irvgbQbpJ
+DAIKGgBBcT0KV7X4G0E1XrpJ6RkAQSPb+X6/+BtBtvP91MoZAEFoke18vPgbQc/3U+PfGQBBnu+n
+xrT4G0EX2c73ohkAQcuhRTaI+BtBXI/C9Z8ZAEE3iUHggPgbQajGSzeiGQBBPzVeOnj4G0HdJAaB
+sBkAQbpJDIJt+BtBw/UoXN8bAEHP91PjwPcbQQRWDi3/HQBBF9nO9xj3G0F7FK5HASAAQY2XbhJ6
+9htBw/UoXB8gAEGLbOd7cPYbQc/3U+MmIABB/Knx0mT2G0G+nxovkCAAQdv5fupD9htBoBov3dgg
+AEHByqHFK/YbQVTjpZt2JQBBJzEIrJv5G0GHFtnOZCYAQVg5tEiP+htBUI2XbrsmAEHb+X5qYvsb
+QQIrhxbRJgBBObTI9jr8G0FMN4lBxiYAQb6fGq8I/RtBrBxaZPwmAEHfT40Xq/0bQScxCKyCJwBB
+PzVeOjn+G0Hn+6nxKScAQWQ7309J/htBWmQ739UmAEEIrBxaVP4bQVK4HoXCJgBBNV66SVX+G0HT
+TWIQhyYAQSuHFllb/htBaJHtfCkmAEFcj8L1Yf4bQTvfT42RJQBBlkOLbGz+G0E1XrpJ3CMAQfYo
+XI+M/htB3SQGgVkjAEG0yHY+lf4bQXsUrkeRIgBBzczMTKT+G0EBAAAAAgAAAAABAAAA/////wAA
+AAAD]]></value>
+        </row>
+        <row>
+            <value>6522f9c4ecb23b7f248486bae6c84c5d</value>
+            <value>G0344.8f72e7e0832d4e20b1f165709c601460</value>
+            <value><![CDATA[2020-05-01 05:32:13.0]]></value>
+            <value>2020-04-30</value>
+            <value><![CDATA[2020-04-30 10:18:47.0]]></value>
+            <null/>
+            <null/>
+            <value>G0344</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value><![CDATA[Speelplaats Leo Fallplantsoen]]></value>
+            <value>niet-bgt</value>
+            <value><![CDATA[recreatie: speeltuin]]></value>
+            <value><![CDATA[QHEAAAEEBQAAAP7UeOmq+f9AfT813kf3G0E9Ctej3vn/QLx0k5iD9xtBg8DKoR/5/0BvEoPAmPcb
+QWDl0CK/+P9AgZVDi4/3G0H+1Hjpqvn/QH0/Nd5H9xtBAQAAAAIAAAAAAQAAAP////8AAAAAAw==]]></value>
+        </row>
+        <row>
+            <value>a331b73465f83eef2d4a4f3ff38569d1</value>
+            <value>G0344.afd84bd292d94927b94cae93207f6b45</value>
+            <value><![CDATA[2020-05-01 05:32:13.0]]></value>
+            <value>2020-04-30</value>
+            <value><![CDATA[2020-04-30 10:18:47.0]]></value>
+            <null/>
+            <null/>
+            <value>G0344</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value><![CDATA[Speelplaats Jacques Offenbachplantsoen]]></value>
+            <value>niet-bgt</value>
+            <value><![CDATA[recreatie: speeltuin]]></value>
+            <value><![CDATA[QHEAAAEEBQAAAJqZmZlJAABByXa+nxv1G0HHSzeJYgAAQY2XbpI79RtBppvEIBwAAEHufD+1W/Ub
+QaJFtvPh//9Aarx0E0T1G0GamZmZSQAAQcl2vp8b9RtBAQAAAAIAAAAAAQAAAP////8AAAAAAw==]]></value>
+        </row>
+    </table>
+    <table name="onbegroeidterreindeel">
+        <column>gmlid</column>
+        <column>identificatie</column>
+        <column>lv_publicatiedatum</column>
+        <column>creationdate</column>
+        <column>tijdstipregistratie</column>
+        <column>eindregistratie</column>
+        <column>terminationdate</column>
+        <column>bronhouder</column>
+        <column>inonderzoek</column>
+        <column>relatievehoogteligging</column>
+        <column>bgt_status</column>
+        <column>plus_status</column>
+        <column>bgt_fysiekvoorkomen</column>
+        <column>plus_fysiekvoorkomen</column>
+        <column>onbegroeidterreindeeloptalud</column>
+        <column>geom_kruinlijn</column>
+        <column>geom</column>
+        <row>
+            <value>10e7eba6219e99caf53b3bbb4b3474de</value>
+            <value>G0344.0021670857be413dae1e58930408d915</value>
+            <value><![CDATA[2016-05-31 12:15:47.0]]></value>
+            <value>2016-04-18</value>
+            <value><![CDATA[2016-04-18 00:00:00.0]]></value>
+            <null/>
+            <null/>
+            <value>G0344</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>erf</value>
+            <value>waardeOnbekend</value>
+            <value>false</value>
+            <null/>
+            <value><![CDATA[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
+AAM=]]></value>
+        </row>
+        <row>
+            <value>5d9104c40dbfe2af7ed9edcc19fa4ba9</value>
+            <value>G0344.08d9d1d740dd4c918f1a9aacd769665e</value>
+            <value><![CDATA[2016-05-31 12:15:47.0]]></value>
+            <value>2016-04-18</value>
+            <value><![CDATA[2016-04-18 00:00:00.0]]></value>
+            <value><![CDATA[2018-04-23 08:40:03.0]]></value>
+            <value>2018-04-23</value>
+            <value>G0344</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>transitie</value>
+            <value>waardeOnbekend</value>
+            <value>false</value>
+            <null/>
+            <value><![CDATA[QHEAAAEEBwAAAPT91Hgv3v9AhetROPj2G0EAAAAAQNz/QDeJQWAe9xtBXI/C9aDb/0DJdr6fKvcb
+QdejcD2c2/9A8KfGyyb3G0EAAAAAQNz/QOF6FC4a9xtB+n5qvCre/0AUrkdh9PYbQfT91Hgv3v9A
+hetROPj2G0EBAAAAAgAAAAABAAAA/////wAAAAAD]]></value>
+        </row>
+        <row>
+            <value>8fdec5e8558dbac37ce717382ea24373</value>
+            <value>G0344.00e4dca496fb47adaa6c5ce7b8f68d84</value>
+            <value><![CDATA[2016-05-31 12:15:47.0]]></value>
+            <value>2016-04-18</value>
+            <value><![CDATA[2016-04-18 00:00:00.0]]></value>
+            <null/>
+            <null/>
+            <value>G0344</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>erf</value>
+            <value>waardeOnbekend</value>
+            <value>false</value>
+            <null/>
+            <value><![CDATA[QHEAAAEECgAAALgehetfwv9AH4Xr0Vn2G0GYbhKDasL/QBfZzvdY9htBuB6F63HC/0CwcmiRXvYb
+QQrXo3B3wv9AtMh2vmL2G0EnMQisfML/QDMzM7Nm9htBvHSTGITC/0BCYOVQbPYbQX9qvHR5wv9A
+1XjpJm32G0EAAAAAcsL/QN0kBoFn9htBTmIQWGfC/0Dn+6lxX/YbQbgehetfwv9AH4Xr0Vn2G0EB
+AAAAAgAAAAABAAAA/////wAAAAAD]]></value>
+        </row>
+    </table>
+    <table name="gebouwinstallatie">
+        <column>gmlid</column>
+        <column>identificatie</column>
+        <column>lv_publicatiedatum</column>
+        <column>creationdate</column>
+        <column>tijdstipregistratie</column>
+        <column>eindregistratie</column>
+        <column>terminationdate</column>
+        <column>bronhouder</column>
+        <column>inonderzoek</column>
+        <column>relatievehoogteligging</column>
+        <column>bgt_status</column>
+        <column>plus_status</column>
+        <column>function_</column>
+        <column>plus_typegebouwinstallatie</column>
+        <column>geom</column>
+        <row>
+            <value>051f329698a4c1103a40ae13bc4d5a1b</value>
+            <value>G0344.103270bb3c4c44168049e1cc6ad76f54</value>
+            <value><![CDATA[2016-05-31 12:15:47.0]]></value>
+            <value>2016-04-18</value>
+            <value><![CDATA[2016-04-18 00:00:00.0]]></value>
+            <null/>
+            <null/>
+            <value>G0344</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>niet-bgt</value>
+            <value>toegangstrap</value>
+            <value><![CDATA[QHEAAAEEBQAAAAwCK4eA7P9Ag8DKIQ71G0Hb+X5qWuz/QOkmMYgS9RtBWmQ731Ps/0AIrBzaDvUb
+QVYOLbJ57P9AUI2Xbgr1G0EMAiuHgOz/QIPAyiEO9RtBAQAAAAIAAAAAAQAAAP////8AAAAAAw==]]></value>
+        </row>
+        <row>
+            <value>26dd46bdaa5e86afe037b15847093d64</value>
+            <value>G0344.011d923724504d6fa26839983f253e24</value>
+            <value><![CDATA[2016-05-31 10:58:11.0]]></value>
+            <value>2016-04-18</value>
+            <value><![CDATA[2016-04-18 00:00:00.0]]></value>
+            <null/>
+            <null/>
+            <value>G0344</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>niet-bgt</value>
+            <value>toegangstrap</value>
+            <value><![CDATA[QHEAAAEEGwAAACcxCKw3BwBBdZMYhCUBHEGoxks3NQcAQawcWuQlARxBTmIQWDMHAEH0/dT4JQEc
+QRKDwMowBwBBqvHSzSUBHEFmZmZmLgcAQdnO91MlARxBZDvfTywHAEFqvHSTJAEcQW3n+6kqBwBB
+AiuHliMBHEGBlUOLKQcAQZZDi2wiARxBpHA9CikHAEFt5/spIQEcQY/C9SgpBwBBN4lB4B8BHEG4
+HoXrKQcAQfhT46UeARxBke18PysHAEGBlUOLHQEcQQIrhxYtBwBBGy/dpBwBHEFkO99PLwcAQUa2
+8/0bARxBWDm0yDEHAEFg5dCiGwEcQcP1KFw0BwBB30+NlxsBHEFaZDvfNgcAQX0/Nd4bARxBBFYO
+LTkHAEHn+6lxHAEcQaabxCA7BwBBNV66SR0BHEGamZmZPAcAQXE9ClceARxBmG4Sgz0HAEGBlUOL
+HwEcQYcW2c49BwBB/Knx0iABHEHhehSuPQcAQWq8dJMhARxB0SLb+TwHAEFkO9/PIgEcQeF6FK47
+BwBBlkOL7CMBHEFaZDvfOQcAQU5iENgkARxBJzEIrDcHAEF1kxiEJQEcQQEAAAACAAAAAAEAAAD/
+////AAAAAAM=]]></value>
+        </row>
+        <row>
+            <value>5004e27ab2161beab78200e7bf079d9d</value>
+            <value>G0344.01232178476c4b91a2f2de0c7191afc4</value>
+            <value><![CDATA[2016-05-31 10:58:11.0]]></value>
+            <value>2016-04-18</value>
+            <value><![CDATA[2016-04-18 00:00:00.0]]></value>
+            <null/>
+            <null/>
+            <value>G0344</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>niet-bgt</value>
+            <value>toegangstrap</value>
+            <value><![CDATA[QHEAAAEEBwAAAJzEILB49/9APQrXI9wDHEGq8dJNiPf/QAAAAADgAxxBZmZmZpD3/0AAAAAA4gMc
+QR1aZDt59/9A8tJNYucDHEHJdr6fYvf/QMP1KNzhAxxBEoPAymn3/0AAAAAA4AMcQZzEILB49/9A
+PQrXI9wDHEEBAAAAAgAAAAABAAAA/////wAAAAAD]]></value>
+        </row>
+    </table>
+    <table name="weginrichtingselement">
+        <column>gmlid</column>
+        <column>identificatie</column>
+        <column>lv_publicatiedatum</column>
+        <column>creationdate</column>
+        <column>tijdstipregistratie</column>
+        <column>eindregistratie</column>
+        <column>terminationdate</column>
+        <column>bronhouder</column>
+        <column>inonderzoek</column>
+        <column>relatievehoogteligging</column>
+        <column>bgt_status</column>
+        <column>plus_status</column>
+        <column>function_</column>
+        <column>plus_type</column>
+        <column>geom</column>
+        <row>
+            <value>43ea26bfb0525080a9510c356836e67d</value>
+            <value>G0344.0032123f62584512af9db90f248e2e5d</value>
+            <value><![CDATA[2021-02-15 11:52:32.0]]></value>
+            <value>2021-02-09</value>
+            <value><![CDATA[2021-02-15 11:20:46.0]]></value>
+            <null/>
+            <null/>
+            <value>G0344</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>niet-bgt</value>
+            <value>molgoot</value>
+            <value><![CDATA[QHEAAAEEBAAAABBYObTxFQBBsHJoEYb0G0E730+N6BUAQXsUrkeJ9BtBokW28+UVAEGcxCAwivQb
+QVTjpZuCFQBBL90kBq30G0EBAAAAAQAAAAABAAAA/////wAAAAAC]]></value>
+        </row>
+        <row>
+            <value>697061e3d8d18ed058fe59f65745e44b</value>
+            <value>G0344.16d7108674a04d24b0ca6ee773b8505c</value>
+            <value><![CDATA[2021-02-15 11:52:32.0]]></value>
+            <value>2021-02-09</value>
+            <value><![CDATA[2021-02-15 11:20:46.0]]></value>
+            <null/>
+            <null/>
+            <value>G0344</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>niet-bgt</value>
+            <value>molgoot</value>
+            <value><![CDATA[QHEAAAEEAwAAALByaJEhDgBBrBxa5Fz3G0FOYhBYfA8AQVYOLbLn9htBTmIQWAQQAEHwp8bLufYb
+QQEAAAABAAAAAAEAAAD/////AAAAAAI=]]></value>
+        </row>
+        <row>
+            <value>9094640284f1504a41617e062eb94579</value>
+            <value>G0344.0f534b4764f844c28fe41bf09d155c55</value>
+            <value><![CDATA[2021-02-15 11:52:32.0]]></value>
+            <value>2021-02-10</value>
+            <value><![CDATA[2021-02-15 11:20:46.0]]></value>
+            <null/>
+            <null/>
+            <value>G0344</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>niet-bgt</value>
+            <value>molgoot</value>
+            <value><![CDATA[QHEAAAEEDQAAAJ7vp8YzFwBBeekmMU/0G0E9CtejPxcAQaRwPQpL9BtBFK5H4UEXAEGcxCAwSvQb
+QTm0yHZKFwBBz/dT40b0G0GDwMqhUhcAQZMYBFZD9BtB2/l+amAXAEG+nxovPfQbQQAAAABxFwBB
+iUFgZTX0G0EbL90kgRcAQTeJQWAt9BtBvp8aL4YXAEHufD+1KvQbQcl2vp+QFwBBgZVDiyX0G0Hd
+JAaBmxcAQVTjpZsg9BtBPzVeuqYXAEGiRbbzG/QbQZzEILD5FwBBRrbzff3zG0EBAAAAAQAAAAAB
+AAAA/////wAAAAAC]]></value>
+        </row>
+    </table>
+    <table name="kunstwerkdeel">
+        <column>gmlid</column>
+        <column>identificatie</column>
+        <column>lv_publicatiedatum</column>
+        <column>creationdate</column>
+        <column>tijdstipregistratie</column>
+        <column>eindregistratie</column>
+        <column>terminationdate</column>
+        <column>bronhouder</column>
+        <column>inonderzoek</column>
+        <column>relatievehoogteligging</column>
+        <column>bgt_status</column>
+        <column>plus_status</column>
+        <column>bgt_type</column>
+        <column>plus_type</column>
+        <column>geom</column>
+        <row>
+            <value>4a632520471c97cbca7da1870cc1c659</value>
+            <value>P0026.2455761cb59d20ebe0531221500ac68a</value>
+            <value><![CDATA[2016-03-01 16:36:41.0]]></value>
+            <value>2015-11-12</value>
+            <value><![CDATA[2016-02-25 12:58:43.0]]></value>
+            <value><![CDATA[2016-08-29 12:14:04.0]]></value>
+            <null/>
+            <value>P0026</value>
+            <value>false</value>
+            <value>-1</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>niet-bgt</value>
+            <value>duiker</value>
+            <value>QHEAAAEU/tR46RT9/0AOLbKdDgscQTvfT40f/f9Aw/UoXA0LHEE=</value>
+        </row>
+        <row>
+            <value>ed7108c6614fdc0ba362925c78af4142</value>
+            <value>P0026.2455761cb5a920ebe0531221500ac68a</value>
+            <value><![CDATA[2016-03-01 16:36:41.0]]></value>
+            <value>2015-11-12</value>
+            <value><![CDATA[2016-02-25 12:58:43.0]]></value>
+            <value><![CDATA[2016-08-29 12:14:04.0]]></value>
+            <null/>
+            <value>P0026</value>
+            <value>false</value>
+            <value>-1</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>niet-bgt</value>
+            <value>duiker</value>
+            <value>QHEAAAEUf2q8dPP3/0A5tMh2Og0cQYGVQ4sC+P9AwcqhRT0NHEE=</value>
+        </row>
+        <row>
+            <value>f38886aa194e8c237ab223b9f1294a86</value>
+            <value>P0026.2455761cb62b20ebe0531221500ac68a</value>
+            <value><![CDATA[2016-03-01 16:36:41.0]]></value>
+            <value>2015-11-12</value>
+            <value><![CDATA[2016-02-25 12:58:43.0]]></value>
+            <value><![CDATA[2016-08-29 12:14:04.0]]></value>
+            <null/>
+            <value>P0026</value>
+            <value>false</value>
+            <value>-1</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>niet-bgt</value>
+            <value>duiker</value>
+            <value>QHEAAAEUGQRWDgECAEHwp8ZLGA4cQTEIrBxOAgBBKVyPQugNHEE=</value>
+        </row>
+    </table>
+    <table name="waterinrichtingselement">
+        <column>gmlid</column>
+        <column>identificatie</column>
+        <column>lv_publicatiedatum</column>
+        <column>creationdate</column>
+        <column>tijdstipregistratie</column>
+        <column>eindregistratie</column>
+        <column>terminationdate</column>
+        <column>bronhouder</column>
+        <column>inonderzoek</column>
+        <column>relatievehoogteligging</column>
+        <column>bgt_status</column>
+        <column>plus_status</column>
+        <column>function_</column>
+        <column>plus_type</column>
+        <column>geom</column>
+        <row>
+            <value>0bdc66b0ac06eef110756ccf99e61a1a</value>
+            <value>G0344.0c112a4c85fd494aa3cb303d4df06439</value>
+            <value><![CDATA[2020-05-08 13:35:33.0]]></value>
+            <value>2020-05-08</value>
+            <value><![CDATA[2020-05-08 08:53:30.0]]></value>
+            <null/>
+            <null/>
+            <value>G0344</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>niet-bgt</value>
+            <value>meerpaal</value>
+            <value>QHEAAAEM30+NlzD9/0Cyne8nKfobQQ==</value>
+        </row>
+        <row>
+            <value>66b187e7cda2a8ff5a265258aa0ef8e6</value>
+            <value>G0344.0816109b84a1449b9271588421798d0b</value>
+            <value><![CDATA[2020-05-08 13:35:33.0]]></value>
+            <value>2020-05-08</value>
+            <value><![CDATA[2020-05-08 08:53:31.0]]></value>
+            <null/>
+            <null/>
+            <value>G0344</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>niet-bgt</value>
+            <value>meerpaal</value>
+            <value>QHEAAAEMi2zn+5sDAEEGgZXDnvcbQQ==</value>
+        </row>
+        <row>
+            <value>d39a78b23e0e7e0e7e2934a4fbe231a9</value>
+            <value>G0344.1583e40f1aa64462bee4058a84f7aedb</value>
+            <value><![CDATA[2020-05-08 13:35:33.0]]></value>
+            <value>2020-05-08</value>
+            <value><![CDATA[2020-05-08 08:53:30.0]]></value>
+            <null/>
+            <null/>
+            <value>G0344</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>niet-bgt</value>
+            <value>meerpaal</value>
+            <value>QHEAAAEMz/dT4+X7/0AfhevRW/obQQ==</value>
+        </row>
+    </table>
+    <table name="installatie">
+        <column>gmlid</column>
+        <column>identificatie</column>
+        <column>lv_publicatiedatum</column>
+        <column>creationdate</column>
+        <column>tijdstipregistratie</column>
+        <column>eindregistratie</column>
+        <column>terminationdate</column>
+        <column>bronhouder</column>
+        <column>inonderzoek</column>
+        <column>relatievehoogteligging</column>
+        <column>bgt_status</column>
+        <column>plus_status</column>
+        <column>function_</column>
+        <column>plus_type</column>
+        <column>geom</column>
+        <row>
+            <value>6bb594319fc33566c7190b020231309b</value>
+            <value>P0026.4a375fd9acc31c3be0531221500a14d0</value>
+            <value><![CDATA[2017-03-12 08:16:04.0]]></value>
+            <value>2017-03-08</value>
+            <value><![CDATA[2017-03-08 12:29:31.0]]></value>
+            <null/>
+            <null/>
+            <value>P0026</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>niet-bgt</value>
+            <value>pomp</value>
+            <value>QHEAAAEMhetRuKgFAEFvEoPAcBEcQQ==</value>
+        </row>
+        <row>
+            <value>ade8f432296fb3c8c32f6960829ada5f</value>
+            <value>P0026.4a375fd9ad401c3be0531221500a14d0</value>
+            <value><![CDATA[2017-03-12 08:16:04.0]]></value>
+            <value>2017-03-08</value>
+            <value><![CDATA[2017-03-08 12:29:31.0]]></value>
+            <null/>
+            <null/>
+            <value>P0026</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>niet-bgt</value>
+            <value>zonnepaneel</value>
+            <value>QHEAAAEMnu+nxv3y/0BaZDtftQQcQQ==</value>
+        </row>
+        <row>
+            <value>e155e52e4b0b4fa3cd02ad97009d6c4d</value>
+            <value>P0026.4f150973a77f3235e0531221500aae8d</value>
+            <value><![CDATA[2017-05-12 00:33:29.0]]></value>
+            <value>2017-05-10</value>
+            <value><![CDATA[2017-05-11 15:38:10.0]]></value>
+            <value><![CDATA[2020-08-24 13:16:54.0]]></value>
+            <null/>
+            <value>P0026</value>
+            <value>true</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>niet-bgt</value>
+            <value>zonnepaneel</value>
+            <value>QHEAAAEMWDm0yAL5/0CLbOd7NwccQQ==</value>
+        </row>
+    </table>
+    <table name="vegetatieobject">
+        <column>gmlid</column>
+        <column>identificatie</column>
+        <column>lv_publicatiedatum</column>
+        <column>creationdate</column>
+        <column>tijdstipregistratie</column>
+        <column>eindregistratie</column>
+        <column>terminationdate</column>
+        <column>bronhouder</column>
+        <column>inonderzoek</column>
+        <column>relatievehoogteligging</column>
+        <column>bgt_status</column>
+        <column>plus_status</column>
+        <column>class</column>
+        <column>plus_type</column>
+        <column>geom</column>
+        <row>
+            <value>12869d0cf30ff35c501013313a9c2615</value>
+            <value>G0344.4fe17ed57928407dae03cd759d680b35</value>
+            <value><![CDATA[2016-05-31 10:58:11.0]]></value>
+            <value>2016-04-18</value>
+            <value><![CDATA[2016-04-18 00:00:00.0]]></value>
+            <null/>
+            <null/>
+            <value>G0344</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>niet-bgt</value>
+            <value>boom</value>
+            <value>QHEAAAEMJQaBla/1/0A730+N4/YbQQ==</value>
+        </row>
+        <row>
+            <value>5c1fccf8e9e6f17d0ea36932d0ef1bf7</value>
+            <value>G0344.33b82fed0d6044f88014694b730d7a88</value>
+            <value><![CDATA[2016-05-31 10:58:11.0]]></value>
+            <value>2016-04-18</value>
+            <value><![CDATA[2016-04-18 00:00:00.0]]></value>
+            <null/>
+            <null/>
+            <value>G0344</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>niet-bgt</value>
+            <value>boom</value>
+            <value>QHEAAAEMVOOlm8z6/0AlBoEVPvcbQQ==</value>
+        </row>
+        <row>
+            <value>9e209d6c2ba563fd4f5521c1855ce17d</value>
+            <value>G0344.0eaa64136ddd49258bd5d005f01bab0a</value>
+            <value><![CDATA[2016-05-31 10:58:11.0]]></value>
+            <value>2016-04-18</value>
+            <value><![CDATA[2016-04-18 00:00:00.0]]></value>
+            <null/>
+            <null/>
+            <value>G0344</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>niet-bgt</value>
+            <value>boom</value>
+            <value>QHEAAAEMXI/C9Rb2/0CPwvWoK/cbQQ==</value>
+        </row>
+    </table>
+    <table name="waterdeel">
+        <column>gmlid</column>
+        <column>identificatie</column>
+        <column>lv_publicatiedatum</column>
+        <column>creationdate</column>
+        <column>tijdstipregistratie</column>
+        <column>eindregistratie</column>
+        <column>terminationdate</column>
+        <column>bronhouder</column>
+        <column>inonderzoek</column>
+        <column>relatievehoogteligging</column>
+        <column>bgt_status</column>
+        <column>plus_status</column>
+        <column>class</column>
+        <column>plus_type</column>
+        <column>geom</column>
+        <row>
+            <value>4e0cc33e021748e54a3160f07d2d1f0b</value>
+            <value>W0636.4402424228e24b2f8b2265df8079a6ef</value>
+            <value><![CDATA[2016-05-31 12:15:47.0]]></value>
+            <value>2016-04-18</value>
+            <value><![CDATA[2016-04-18 00:00:00.0]]></value>
+            <value><![CDATA[2017-05-16 10:36:40.0]]></value>
+            <null/>
+            <value>W0636</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>transitie</value>
+            <value>waardeOnbekend</value>
+            <value><![CDATA[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
+]]></value>
+        </row>
+        <row>
+            <value>8a5b75dc521a07343375365d181d726f</value>
+            <value>W0636.b29b35ef88424c51b4561be4442b6875</value>
+            <value><![CDATA[2016-05-31 11:08:27.0]]></value>
+            <value>2016-04-18</value>
+            <value><![CDATA[2016-04-18 00:00:00.0]]></value>
+            <value><![CDATA[2017-06-29 10:23:04.0]]></value>
+            <null/>
+            <value>W0636</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>transitie</value>
+            <value>waardeOnbekend</value>
+            <value><![CDATA[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
+QQEAAAACAAAAAAEAAAD/////AAAAAAM=]]></value>
+        </row>
+        <row>
+            <value>d6acbf24107c033ca42d8a282eece7af</value>
+            <value>W0636.d1b5edb0f3cf413f846f0502e837839e</value>
+            <value><![CDATA[2016-05-31 12:15:47.0]]></value>
+            <value>2016-04-18</value>
+            <value><![CDATA[2016-04-18 00:00:00.0]]></value>
+            <value><![CDATA[2017-06-29 10:21:40.0]]></value>
+            <null/>
+            <value>W0636</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>transitie</value>
+            <value>waardeOnbekend</value>
+            <value><![CDATA[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
+AAD/////AAAAAAM=]]></value>
+        </row>
+    </table>
+    <table name="put">
+        <column>gmlid</column>
+        <column>identificatie</column>
+        <column>lv_publicatiedatum</column>
+        <column>creationdate</column>
+        <column>tijdstipregistratie</column>
+        <column>eindregistratie</column>
+        <column>terminationdate</column>
+        <column>bronhouder</column>
+        <column>inonderzoek</column>
+        <column>relatievehoogteligging</column>
+        <column>bgt_status</column>
+        <column>plus_status</column>
+        <column>function_</column>
+        <column>plus_type</column>
+        <column>geom</column>
+        <row>
+            <value>13efbc9027d7f3d6043d6aaf230758c3</value>
+            <value>G0344.3390924664eb48ffaf34d2f1414ce012</value>
+            <value><![CDATA[2016-05-31 10:58:11.0]]></value>
+            <value>2016-04-18</value>
+            <value><![CDATA[2016-04-18 00:00:00.0]]></value>
+            <null/>
+            <null/>
+            <value>G0344</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>niet-bgt</value>
+            <value>kolk</value>
+            <value>QHEAAAEM9ihcjykIAEGe76dG+fQbQQ==</value>
+        </row>
+        <row>
+            <value>8ff72b1736c3818917334b7784fb7db4</value>
+            <value>G0344.350e5b0a7c904e3e80022ac6f3c46fa0</value>
+            <value><![CDATA[2016-05-31 10:58:11.0]]></value>
+            <value>2016-04-18</value>
+            <value><![CDATA[2016-04-18 00:00:00.0]]></value>
+            <null/>
+            <null/>
+            <value>G0344</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>niet-bgt</value>
+            <value>kolk</value>
+            <value>QHEAAAEM3SQGgTEJAEGe76dGmPQbQQ==</value>
+        </row>
+        <row>
+            <value>d3a54a56bedc48b2acbb06bf42d51225</value>
+            <value>G0344.6285098535054bc09d2890c1feb140ab</value>
+            <value><![CDATA[2016-05-31 10:58:11.0]]></value>
+            <value>2016-04-18</value>
+            <value><![CDATA[2016-04-18 00:00:00.0]]></value>
+            <null/>
+            <null/>
+            <value>G0344</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>niet-bgt</value>
+            <value>kolk</value>
+            <value>QHEAAAEMx0s3iaUHAEH+1HjpKfUbQQ==</value>
+        </row>
+    </table>
+    <table name="scheiding">
+        <column>gmlid</column>
+        <column>identificatie</column>
+        <column>lv_publicatiedatum</column>
+        <column>creationdate</column>
+        <column>tijdstipregistratie</column>
+        <column>eindregistratie</column>
+        <column>terminationdate</column>
+        <column>bronhouder</column>
+        <column>inonderzoek</column>
+        <column>relatievehoogteligging</column>
+        <column>bgt_status</column>
+        <column>plus_status</column>
+        <column>bgt_type</column>
+        <column>plus_type</column>
+        <column>geom</column>
+        <row>
+            <value>260e91312d926b2fbcdce7e5f28191d7</value>
+            <value>G0344.012cf76c30d5490890dbbace7e6e6fed</value>
+            <value><![CDATA[2016-05-31 12:15:47.0]]></value>
+            <value>2016-04-18</value>
+            <value><![CDATA[2016-04-18 00:00:00.0]]></value>
+            <null/>
+            <null/>
+            <value>G0344</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>hek</value>
+            <value>waardeOnbekend</value>
+            <value>QHEAAAEU/Knx0rvY/0A/NV466P4bQVCNl25y2P9AAAAAgP/+G0E=</value>
+        </row>
+        <row>
+            <value>56e423ef67a57696f06d4fe6a85953f1</value>
+            <value>G0344.016485f2c5004c5f9bcf59db32631d76</value>
+            <value><![CDATA[2016-05-31 12:15:47.0]]></value>
+            <value>2016-04-18</value>
+            <value><![CDATA[2016-04-18 00:00:00.0]]></value>
+            <null/>
+            <null/>
+            <value>G0344</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>hek</value>
+            <value>waardeOnbekend</value>
+            <value>QHEAAAEUXrpJDCzO/0CamZkZtAIcQf7UeOkQzv9Aeekmsa4CHEE=</value>
+        </row>
+        <row>
+            <value>915577a58fe7cc4e75455d058474b401</value>
+            <value>G0344.016a168e0bb64527ade583970c116d5e</value>
+            <value><![CDATA[2016-05-31 12:15:47.0]]></value>
+            <value>2016-04-18</value>
+            <value><![CDATA[2016-04-18 00:00:00.0]]></value>
+            <null/>
+            <null/>
+            <value>G0344</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>muur</value>
+            <value>waardeOnbekend</value>
+            <value><![CDATA[QHEAAAEEBQAAAOxRuB592f9Aw/UoXOj9G0ErhxbZgNn/QLByaBHp/RtB9P3UeG3Z/0BCYOVQ7/0b
+QZ7vp8Zp2f9AmpmZme79G0HsUbgefdn/QMP1KFzo/RtBAQAAAAIAAAAAAQAAAP////8AAAAAAw==]]></value>
+        </row>
+    </table>
+    <table name="wegdeel">
+        <column>gmlid</column>
+        <column>identificatie</column>
+        <column>lv_publicatiedatum</column>
+        <column>creationdate</column>
+        <column>tijdstipregistratie</column>
+        <column>eindregistratie</column>
+        <column>terminationdate</column>
+        <column>bronhouder</column>
+        <column>inonderzoek</column>
+        <column>relatievehoogteligging</column>
+        <column>bgt_status</column>
+        <column>plus_status</column>
+        <column>function_</column>
+        <column>plus_functiewegdeel</column>
+        <column>plus_fysiekvoorkomenwegdeel</column>
+        <column>surfacematerial</column>
+        <column>wegdeeloptalud</column>
+        <column>geom_kruinlijn</column>
+        <column>geom</column>
+        <row>
+            <value>2495494b51efeedbf20094b5feb3ffdc</value>
+            <value>G0344.09b592c878cf47f090a8b8698ba929bb</value>
+            <value><![CDATA[2016-05-31 10:58:11.0]]></value>
+            <value>2016-04-18</value>
+            <value><![CDATA[2016-04-18 00:00:00.0]]></value>
+            <null/>
+            <null/>
+            <value>G0344</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>parkeervlak</value>
+            <value>waardeOnbekend</value>
+            <value>betonstraatstenen</value>
+            <value><![CDATA[open verharding]]></value>
+            <value>false</value>
+            <null/>
+            <value><![CDATA[QHEAAAEEBQAAAArXo3DNEwBB7FG4HocAHEF9PzVe6xIAQX9qvPT2ABxBj8L1KN8SAEEX2c538AAc
+Qc3MzMzMEwBBXI/C9XoAHEEK16NwzRMAQexRuB6HABxBAQAAAAIAAAAAAQAAAP////8AAAAAAw==]]></value>
+        </row>
+        <row>
+            <value>46b0e9d0f5025f354119590b656be6f6</value>
+            <value>G0344.0032f0b447f544a696f08ef8c4eaa757</value>
+            <value><![CDATA[2016-05-31 10:58:11.0]]></value>
+            <value>2016-04-18</value>
+            <value><![CDATA[2016-04-18 00:00:00.0]]></value>
+            <null/>
+            <null/>
+            <value>G0344</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>voetpad</value>
+            <value>waardeOnbekend</value>
+            <value>tegels</value>
+            <value><![CDATA[open verharding]]></value>
+            <value>false</value>
+            <null/>
+            <value><![CDATA[QHEAAAEEBwAAAJqZmZmdGQBBPQrXozT/G0HhehSuoRkAQdejcD0//xtBAAAAAJQYAEF7FK5HUv8b
+QVK4HoWBGABBuB6F60j/G0F7FK5HZxkAQfYoXI84/xtBKVyPwpkZAEEUrkfhNP8bQZqZmZmdGQBB
+PQrXozT/G0EBAAAAAgAAAAABAAAA/////wAAAAAD]]></value>
+        </row>
+        <row>
+            <value>9a77ecccb16d36b8b8e8b80a2756b6d4</value>
+            <value>G0344.0ce3b950bbf748d98e1c252e8b28ef42</value>
+            <value><![CDATA[2016-05-31 10:58:11.0]]></value>
+            <value>2016-04-18</value>
+            <value><![CDATA[2016-04-18 00:00:00.0]]></value>
+            <null/>
+            <null/>
+            <value>G0344</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>voetpad</value>
+            <value>waardeOnbekend</value>
+            <value>tegels</value>
+            <value><![CDATA[open verharding]]></value>
+            <value>false</value>
+            <null/>
+            <value><![CDATA[QHEAAAEECwAAADm0yHaZFABBK4cWWRcAHEEK16NwbRQAQa5H4XotABxB4XoUrl8UAEGF61G4MwAc
+QTMzMzNTFABBzczMzDgAHEG4HoXrPRQAQeF6FK4wABxBhetRuFwUAEHNzMzMIAAcQQRWDi1hFABB
+sHJokR4AHEHNzMzMahQAQQAAAAAjABxBPQrXo44UAEEAAAAAEQAcQa5H4XqSFABB7FG4HhAAHEE5
+tMh2mRQAQSuHFlkXABxBAQAAAAIAAAAAAQAAAP////8AAAAAAw==]]></value>
+        </row>
+    </table>
+    <table name="plaatsbepalingspunt">
+        <column>gmlid</column>
+        <column>identificatie</column>
+        <column>nauwkeurigheid</column>
+        <column>datuminwinning</column>
+        <column>inwinnendeinstantie</column>
+        <column>inwinningsmethode</column>
+        <column>geom</column>
+        <row>
+            <value>0b33e16545904f2bf627c5469eea48e1</value>
+            <value>G0344.044fdbed5b7c434983d8ae91fc9e0337</value>
+            <value>10</value>
+            <value>2016-04-20</value>
+            <value>G0344</value>
+            <value>terrestrisch</value>
+            <value>QHEAAAEMPzVeusgWAEGe76dGd/QbQQ==</value>
+        </row>
+        <row>
+            <value>557778afb443ee9400f0524595debc3d</value>
+            <value>G0344.084485ac4e4d4a39818dd15df731a482</value>
+            <value>10</value>
+            <value>2016-04-20</value>
+            <value>G0344</value>
+            <value>terrestrisch</value>
+            <value>QHEAAAEMokW28yMWAEHl0CJblvQbQQ==</value>
+        </row>
+        <row>
+            <value>557b5a309472f471cbd3834c48ccbcb8</value>
+            <value>G0344.0f16f66f52e245bb800db504ed524ee2</value>
+            <value>10</value>
+            <value>2016-04-20</value>
+            <value>G0344</value>
+            <value>terrestrisch</value>
+            <value>QHEAAAEMdZMYBAQXAEFaZDtfhfQbQQ==</value>
+        </row>
+    </table>
+    <table name="bak">
+        <column>gmlid</column>
+        <column>identificatie</column>
+        <column>lv_publicatiedatum</column>
+        <column>creationdate</column>
+        <column>tijdstipregistratie</column>
+        <column>eindregistratie</column>
+        <column>terminationdate</column>
+        <column>bronhouder</column>
+        <column>inonderzoek</column>
+        <column>relatievehoogteligging</column>
+        <column>bgt_status</column>
+        <column>plus_status</column>
+        <column>function_</column>
+        <column>plus_type</column>
+        <column>geom</column>
+        <row>
+            <value>48e53eed1eeff6d6f2a1bbc310290a50</value>
+            <value>P0026.4a36f337998e771ce0531221500a459f</value>
+            <value><![CDATA[2018-05-30 15:42:28.0]]></value>
+            <value>2017-03-08</value>
+            <value><![CDATA[2017-03-08 12:02:57.0]]></value>
+            <value><![CDATA[2018-05-30 15:17:52.0]]></value>
+            <value>2018-05-30</value>
+            <value>P0026</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>niet-bgt</value>
+            <value>afvalbak</value>
+            <value>QHEAAAEMvp8aL3f3/0AbL90kTgkcQQ==</value>
+        </row>
+        <row>
+            <value>c9c489e98f4a84a86a6b58078aba12f7</value>
+            <value>P0026.4a36f337982c771ce0531221500a459f</value>
+            <value><![CDATA[2018-05-30 15:42:28.0]]></value>
+            <value>2017-03-08</value>
+            <value><![CDATA[2017-03-08 12:02:57.0]]></value>
+            <value><![CDATA[2018-05-30 15:17:52.0]]></value>
+            <value>2018-05-30</value>
+            <value>P0026</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>niet-bgt</value>
+            <value>afvalbak</value>
+            <value>QHEAAAEMnu+nxv/0/0D6fmo83QkcQQ==</value>
+        </row>
+        <row>
+            <value>d1be2abb6f8c554aa1402ff3b3f68a1e</value>
+            <value>P0026.4a36f337986a771ce0531221500a459f</value>
+            <value><![CDATA[2018-05-30 15:42:28.0]]></value>
+            <value>2017-03-08</value>
+            <value><![CDATA[2017-03-08 12:02:57.0]]></value>
+            <value><![CDATA[2018-05-30 15:17:52.0]]></value>
+            <value>2018-05-30</value>
+            <value>P0026</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>niet-bgt</value>
+            <value>afvalbak</value>
+            <value>QHEAAAEMke18P0X2/0Db+X7qkwkcQQ==</value>
+        </row>
+    </table>
+    <table name="openbareruimtelabel">
+        <column>gmlid</column>
+        <column>identificatie</column>
+        <column>lv_publicatiedatum</column>
+        <column>creationdate</column>
+        <column>tijdstipregistratie</column>
+        <column>eindregistratie</column>
+        <column>terminationdate</column>
+        <column>bronhouder</column>
+        <column>inonderzoek</column>
+        <column>relatievehoogteligging</column>
+        <column>bgt_status</column>
+        <column>plus_status</column>
+        <column>idx</column>
+        <column>tekst</column>
+        <column>hoek</column>
+        <column>plaatsingspunt</column>
+        <column>openbareruimtetype</column>
+        <column>identificatiebagopr</column>
+        <row>
+            <value>d31932dad06a62b4e0fddbe300d2205d</value>
+            <value>G0344.1c49928ebc174e0d93ba872f9ca7af3e</value>
+            <value><![CDATA[2016-10-04 18:05:06.0]]></value>
+            <value>2016-09-26</value>
+            <value><![CDATA[2016-09-26 00:00:00.0]]></value>
+            <value><![CDATA[2020-05-12 11:43:55.0]]></value>
+            <null/>
+            <value>G0344</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>0</value>
+            <value>Atoomweg</value>
+            <value>58.0</value>
+            <value>QHEAAAEMKVyPwsE4AEF56SaxTfIbQQ==</value>
+            <value>Weg</value>
+            <value>0344300000000346</value>
+        </row>
+        <row>
+            <value>d31932dad06a62b4e0fddbe300d2205d</value>
+            <value>G0344.1c49928ebc174e0d93ba872f9ca7af3e</value>
+            <value><![CDATA[2016-10-04 18:05:06.0]]></value>
+            <value>2016-09-26</value>
+            <value><![CDATA[2016-09-26 00:00:00.0]]></value>
+            <value><![CDATA[2020-05-12 11:43:55.0]]></value>
+            <null/>
+            <value>G0344</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>1</value>
+            <value>Atoomweg</value>
+            <value>58.0</value>
+            <value>QHEAAAEMUrgehUs0AEGDwMqhovUbQQ==</value>
+            <value>Weg</value>
+            <value>0344300000000346</value>
+        </row>
+        <row>
+            <value>d31932dad06a62b4e0fddbe300d2205d</value>
+            <value>G0344.1c49928ebc174e0d93ba872f9ca7af3e</value>
+            <value><![CDATA[2016-10-04 18:05:06.0]]></value>
+            <value>2016-09-26</value>
+            <value><![CDATA[2016-09-26 00:00:00.0]]></value>
+            <value><![CDATA[2020-05-12 11:43:55.0]]></value>
+            <null/>
+            <value>G0344</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>2</value>
+            <value>Atoomweg</value>
+            <value>56.0</value>
+            <value>QHEAAAEMUrgehQQvAEF7FK7HqvkbQQ==</value>
+            <value>Weg</value>
+            <value>0344300000000346</value>
+        </row>
+    </table>
+    <table name="overigbouwwerk">
+        <column>gmlid</column>
+        <column>identificatie</column>
+        <column>lv_publicatiedatum</column>
+        <column>creationdate</column>
+        <column>tijdstipregistratie</column>
+        <column>eindregistratie</column>
+        <column>terminationdate</column>
+        <column>bronhouder</column>
+        <column>inonderzoek</column>
+        <column>relatievehoogteligging</column>
+        <column>bgt_status</column>
+        <column>plus_status</column>
+        <column>bgt_type</column>
+        <column>plus_type</column>
+        <column>geom</column>
+        <row>
+            <value>1de3b484d2d73ffb6e612f05aebe5794</value>
+            <value>G0344.32ba6ff263b04289bdb1b33c543832da</value>
+            <value><![CDATA[2017-12-13 11:45:08.0]]></value>
+            <value>2016-04-18</value>
+            <value><![CDATA[2017-12-08 08:56:25.0]]></value>
+            <null/>
+            <null/>
+            <value>G0344</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>niet-bgt</value>
+            <value>waardeOnbekend</value>
+            <value><![CDATA[QHEAAAEEBQAAADeJQWC8FgBB5dAiW/kKHEGNl24S3BYAQSGwcujpChxBke18P+8WAEHXo3C98woc
+QYGVQ4vPFgBBeekmMQMLHEE3iUFgvBYAQeXQIlv5ChxBAQAAAAIAAAAAAQAAAP////8AAAAAAw==]]></value>
+        </row>
+        <row>
+            <value>5a26fa92db16e314a30d62ea5f705517</value>
+            <value>G0344.0f6e99f56da74a408179ff00e6ee65e3</value>
+            <value><![CDATA[2017-12-13 11:45:08.0]]></value>
+            <value>2016-04-18</value>
+            <value><![CDATA[2017-12-08 08:56:25.0]]></value>
+            <null/>
+            <null/>
+            <value>G0344</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>niet-bgt</value>
+            <value>waardeOnbekend</value>
+            <value><![CDATA[QHEAAAEEBwAAAGDl0CINGABBy6FFtoQLHEGyne+nGBgAQaJFtnN/CxxBYhBYOSQYAEHpJjGIgAsc
+QYcW2c4mGABB5dAiW38LHEEdWmQ7MhgAQTEIrJyFCxxBiUFg5R4YAEEK16NwjgscQWDl0CINGABB
+y6FFtoQLHEEBAAAAAgAAAAABAAAA/////wAAAAAD]]></value>
+        </row>
+        <row>
+            <value>e62c212dbe70560807630574d1f675be</value>
+            <value>G0344.180d0cc6944e45cebe72442fcedc526f</value>
+            <value><![CDATA[2017-12-13 11:45:08.0]]></value>
+            <value>2016-04-18</value>
+            <value><![CDATA[2017-12-08 08:56:25.0]]></value>
+            <null/>
+            <null/>
+            <value>G0344</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>niet-bgt</value>
+            <value>waardeOnbekend</value>
+            <value><![CDATA[QHEAAAEEBQAAAOkmMQhmGABBTDeJwYgKHEGNl24ScxgAQexRuJ6CChxB8tJNYoUYAEErhxZZjAoc
+QU5iEFh4GABBi2zne5IKHEHpJjEIZhgAQUw3icGIChxBAQAAAAIAAAAAAQAAAP////8AAAAAAw==]]></value>
+        </row>
+    </table>
+    <table name="overigescheiding">
+        <column>gmlid</column>
+        <column>identificatie</column>
+        <column>lv_publicatiedatum</column>
+        <column>creationdate</column>
+        <column>tijdstipregistratie</column>
+        <column>eindregistratie</column>
+        <column>terminationdate</column>
+        <column>bronhouder</column>
+        <column>inonderzoek</column>
+        <column>relatievehoogteligging</column>
+        <column>bgt_status</column>
+        <column>plus_status</column>
+        <column>plus_type</column>
+        <column>geom</column>
+        <row>
+            <value>f0c20e03c320ec3ee2a66e4d2f388e1a</value>
+            <value>L0004.48d1f743ed554dc88857242a00ea1955</value>
+            <value><![CDATA[2016-09-07 13:34:04.0]]></value>
+            <value>2016-03-09</value>
+            <value><![CDATA[2016-03-09 09:10:01.0]]></value>
+            <null/>
+            <null/>
+            <value>L0004</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>hek</value>
+            <value>QHEAAAEUAiuHFsYVAEEAAAAAQxIcQfLSTWKiFQBB/tR4aVMSHEE=</value>
+        </row>
+    </table>
+</dataset>

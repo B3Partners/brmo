@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+    <table name="waterschap">
+        <column>gmlid</column>
+        <column>identificatie</column>
+        <column>lv_publicatiedatum</column>
+        <column>creationdate</column>
+        <column>tijdstipregistratie</column>
+        <column>eindregistratie</column>
+        <column>terminationdate</column>
+        <column>bronhouder</column>
+        <column>inonderzoek</column>
+        <column>relatievehoogteligging</column>
+        <column>bgt_status</column>
+        <column>plus_status</column>
+        <column>geom</column>
+        <row>
+            <value>d8095fd0b8dee285a0e6a2a4980c132a</value>
+            <value>G0213.9a788699c5734dd4a8c44b3d54cba16c</value>
+            <value><![CDATA[2019-03-04 10:11:48.0]]></value>
+            <value>2019-03-03</value>
+            <value><![CDATA[2019-03-03 11:05:44.0]]></value>
+            <value><![CDATA[2019-03-20 15:06:08.0]]></value>
+            <value>2019-03-20</value>
+            <value>G0213</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>0106000020407100000100000001030000000100000005000000022B87162F4D094196438B6C9CC41B41894160E51F4D09418B6CE77B91C41B4125068195264D09416F1283C08EC41B41A69BC420324D0941F6285C8F97C41B41022B87162F4D094196438B6C9CC41B41</value>
+        </row>
+    </table>
+</dataset>

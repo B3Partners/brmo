@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+    <table name="WATERSCHAP">
+        <column>GMLID</column>
+        <column>IDENTIFICATIE</column>
+        <column>LV_PUBLICATIEDATUM</column>
+        <column>CREATIONDATE</column>
+        <column>TIJDSTIPREGISTRATIE</column>
+        <column>EINDREGISTRATIE</column>
+        <column>TERMINATIONDATE</column>
+        <column>BRONHOUDER</column>
+        <column>INONDERZOEK</column>
+        <column>RELATIEVEHOOGTELIGGING</column>
+        <column>BGT_STATUS</column>
+        <column>PLUS_STATUS</column>
+        <column>GEOM</column>
+        <row>
+            <value>d8095fd0b8dee285a0e6a2a4980c132a</value>
+            <value>G0213.9a788699c5734dd4a8c44b3d54cba16c</value>
+            <value><![CDATA[2019-03-04 10:11:48.0]]></value>
+            <value><![CDATA[2019-03-03 00:00:00.0]]></value>
+            <value><![CDATA[2019-03-03 11:05:44.0]]></value>
+            <value><![CDATA[2019-03-20 15:06:08.0]]></value>
+            <value><![CDATA[2019-03-20 00:00:00.0]]></value>
+            <value>G0213</value>
+            <value>0</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>MDSYS.SDO_GEOMETRY(2007,28992,null,MDSYS.SDO_ELEM_INFO_ARRAY(1,1003,1),MDSYS.SDO_ORDINATE_ARRAY(207269.886,454951.106,207267.987,454948.371,207268.823,454947.688,207270.266,454949.89,207269.886,454951.106))</value>
+        </row>
+    </table>
+</dataset>

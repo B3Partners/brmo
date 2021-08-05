@@ -1,0 +1,423 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+    <table name="openbareruimtelabel">
+        <column>gmlid</column>
+        <column>identificatie</column>
+        <column>lv_publicatiedatum</column>
+        <column>creationdate</column>
+        <column>tijdstipregistratie</column>
+        <column>eindregistratie</column>
+        <column>terminationdate</column>
+        <column>bronhouder</column>
+        <column>inonderzoek</column>
+        <column>relatievehoogteligging</column>
+        <column>bgt_status</column>
+        <column>plus_status</column>
+        <column>idx</column>
+        <column>tekst</column>
+        <column>hoek</column>
+        <column>plaatsingspunt</column>
+        <column>openbareruimtetype</column>
+        <column>identificatiebagopr</column>
+        <row>
+            <value>454bd7a1b014de94bb2085db69205470</value>
+            <value>G1714.dd76596a2d2f4d2eac74703b1a8aaa6c</value>
+            <value><![CDATA[2020-03-09 08:14:27.0]]></value>
+            <value>2019-11-14</value>
+            <value><![CDATA[2020-03-09 08:04:34.0]]></value>
+            <null/>
+            <null/>
+            <value>G1714</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>0</value>
+            <value>Rijksweg</value>
+            <value>-82.9</value>
+            <value>010100002040710000C976BE9F4A86D340E3A59BC4114C1641</value>
+            <value>Weg</value>
+            <value>1714300000715278</value>
+        </row>
+        <row>
+            <value>454bd7a1b014de94bb2085db69205470</value>
+            <value>G1714.dd76596a2d2f4d2eac74703b1a8aaa6c</value>
+            <value><![CDATA[2020-03-09 08:14:27.0]]></value>
+            <value>2019-11-14</value>
+            <value><![CDATA[2020-03-09 08:04:34.0]]></value>
+            <null/>
+            <null/>
+            <value>G1714</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>1</value>
+            <value>Rijksweg</value>
+            <value>-83.1</value>
+            <value>010100002040710000E7FBA9F12A80D3402FDD2486F4481641</value>
+            <value>Weg</value>
+            <value>1714300000715278</value>
+        </row>
+        <row>
+            <value>454bd7a1b014de94bb2085db69205470</value>
+            <value>G1714.dd76596a2d2f4d2eac74703b1a8aaa6c</value>
+            <value><![CDATA[2020-03-09 08:14:27.0]]></value>
+            <value>2019-11-14</value>
+            <value><![CDATA[2020-03-09 08:04:34.0]]></value>
+            <null/>
+            <null/>
+            <value>G1714</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>2</value>
+            <value>Rijksweg</value>
+            <value>-82.9</value>
+            <value>01010000204071000052B81E85137AD3405C8FC2F5D9451641</value>
+            <value>Weg</value>
+            <value>1714300000715278</value>
+        </row>
+        <row>
+            <value>454bd7a1b014de94bb2085db69205470</value>
+            <value>G1714.dd76596a2d2f4d2eac74703b1a8aaa6c</value>
+            <value><![CDATA[2020-03-09 08:14:27.0]]></value>
+            <value>2019-11-14</value>
+            <value><![CDATA[2020-03-09 08:04:34.0]]></value>
+            <null/>
+            <null/>
+            <value>G1714</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>3</value>
+            <value>Rijksweg</value>
+            <value>-82.8</value>
+            <value>010100002040710000A69BC420F876D3404260E550C4431641</value>
+            <value>Weg</value>
+            <value>1714300000715278</value>
+        </row>
+        <row>
+            <value>454bd7a1b014de94bb2085db69205470</value>
+            <value>G1714.dd76596a2d2f4d2eac74703b1a8aaa6c</value>
+            <value><![CDATA[2020-03-09 08:14:27.0]]></value>
+            <value>2019-11-14</value>
+            <value><![CDATA[2020-03-09 08:04:34.0]]></value>
+            <null/>
+            <null/>
+            <value>G1714</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>4</value>
+            <value>Rijksweg</value>
+            <value>-82.5</value>
+            <value>0101000020407100005A643BDF2775D3402FDD2406C8431641</value>
+            <value>Weg</value>
+            <value>1714300000715278</value>
+        </row>
+        <row>
+            <value>454bd7a1b014de94bb2085db69205470</value>
+            <value>G1714.dd76596a2d2f4d2eac74703b1a8aaa6c</value>
+            <value><![CDATA[2020-03-09 08:14:27.0]]></value>
+            <value>2019-11-14</value>
+            <value><![CDATA[2020-03-09 08:04:34.0]]></value>
+            <null/>
+            <null/>
+            <value>G1714</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>5</value>
+            <value>Rijksweg</value>
+            <value>-82.5</value>
+            <value>010100002040710000759318047672D3409CC420B031411641</value>
+            <value>Weg</value>
+            <value>1714300000715278</value>
+        </row>
+        <row>
+            <value>454bd7a1b014de94bb2085db69205470</value>
+            <value>G1714.dd76596a2d2f4d2eac74703b1a8aaa6c</value>
+            <value><![CDATA[2020-03-09 08:14:27.0]]></value>
+            <value>2019-11-14</value>
+            <value><![CDATA[2020-03-09 08:04:34.0]]></value>
+            <null/>
+            <null/>
+            <value>G1714</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>6</value>
+            <value>Rijksweg</value>
+            <value>-82.8</value>
+            <value>010100002040710000DBF97E6A1C71D3407D3F35DE34411641</value>
+            <value>Weg</value>
+            <value>1714300000715278</value>
+        </row>
+        <row>
+            <value>454bd7a1b014de94bb2085db69205470</value>
+            <value>G1714.dd76596a2d2f4d2eac74703b1a8aaa6c</value>
+            <value><![CDATA[2020-03-09 08:14:27.0]]></value>
+            <value>2019-11-14</value>
+            <value><![CDATA[2020-03-09 08:04:34.0]]></value>
+            <null/>
+            <null/>
+            <value>G1714</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>7</value>
+            <value>Rijksweg</value>
+            <value>-83.0</value>
+            <value>01010000204071000037894160756BD340A69BC4206F3E1641</value>
+            <value>Weg</value>
+            <value>1714300000715278</value>
+        </row>
+        <row>
+            <value>454bd7a1b014de94bb2085db69205470</value>
+            <value>G1714.dd76596a2d2f4d2eac74703b1a8aaa6c</value>
+            <value><![CDATA[2020-03-09 08:14:27.0]]></value>
+            <value>2019-11-14</value>
+            <value><![CDATA[2020-03-09 08:04:34.0]]></value>
+            <null/>
+            <null/>
+            <value>G1714</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>8</value>
+            <value>Rijksweg</value>
+            <value>-82.9</value>
+            <value>0101000020407100005A643BDF9767D3407D3F35DE763C1641</value>
+            <value>Weg</value>
+            <value>1714300000715278</value>
+        </row>
+        <row>
+            <value>454bd7a1b014de94bb2085db69205470</value>
+            <value>G1714.dd76596a2d2f4d2eac74703b1a8aaa6c</value>
+            <value><![CDATA[2020-03-09 08:14:27.0]]></value>
+            <value>2019-11-14</value>
+            <value><![CDATA[2020-03-09 08:04:34.0]]></value>
+            <null/>
+            <null/>
+            <value>G1714</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>9</value>
+            <value>Rijksweg</value>
+            <value>-80.3</value>
+            <value>0101000020407100008B6CE7FB6161D340E92631887A391641</value>
+            <value>Weg</value>
+            <value>1714300000715278</value>
+        </row>
+        <row>
+            <value>454bd7a1b014de94bb2085db69205470</value>
+            <value>G1714.dd76596a2d2f4d2eac74703b1a8aaa6c</value>
+            <value><![CDATA[2020-03-09 08:14:27.0]]></value>
+            <value>2019-11-14</value>
+            <value><![CDATA[2020-03-09 08:04:34.0]]></value>
+            <null/>
+            <null/>
+            <value>G1714</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>10</value>
+            <value>Rijksweg</value>
+            <value>-76.1</value>
+            <value>01010000204071000046B6F3FD2C56D34017D9CEF767361641</value>
+            <value>Weg</value>
+            <value>1714300000715278</value>
+        </row>
+        <row>
+            <value>454bd7a1b014de94bb2085db69205470</value>
+            <value>G1714.dd76596a2d2f4d2eac74703b1a8aaa6c</value>
+            <value><![CDATA[2020-03-09 08:14:27.0]]></value>
+            <value>2019-11-14</value>
+            <value><![CDATA[2020-03-09 08:04:34.0]]></value>
+            <null/>
+            <null/>
+            <value>G1714</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>11</value>
+            <value>Rijksweg</value>
+            <value>-76.2</value>
+            <value>01010000204071000023DBF97E624AD340E92631885E331641</value>
+            <value>Weg</value>
+            <value>1714300000715278</value>
+        </row>
+        <row>
+            <value>454bd7a1b014de94bb2085db69205470</value>
+            <value>G1714.dd76596a2d2f4d2eac74703b1a8aaa6c</value>
+            <value><![CDATA[2020-03-09 08:14:27.0]]></value>
+            <value>2019-11-14</value>
+            <value><![CDATA[2020-03-09 08:04:34.0]]></value>
+            <null/>
+            <null/>
+            <value>G1714</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>12</value>
+            <value>Rijksweg</value>
+            <value>-76.9</value>
+            <value>010100002040710000A01A2FDD9C3ED3402FDD240658301641</value>
+            <value>Weg</value>
+            <value>1714300000715278</value>
+        </row>
+        <row>
+            <value>454bd7a1b014de94bb2085db69205470</value>
+            <value>G1714.dd76596a2d2f4d2eac74703b1a8aaa6c</value>
+            <value><![CDATA[2020-03-09 08:14:27.0]]></value>
+            <value>2019-11-14</value>
+            <value><![CDATA[2020-03-09 08:04:34.0]]></value>
+            <null/>
+            <null/>
+            <value>G1714</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>13</value>
+            <value>Rijksweg</value>
+            <value>-77.9</value>
+            <value>010100002040710000986E1283E833D3408D976E92492D1641</value>
+            <value>Weg</value>
+            <value>1714300000715278</value>
+        </row>
+        <row>
+            <value>454bd7a1b014de94bb2085db69205470</value>
+            <value>G1714.dd76596a2d2f4d2eac74703b1a8aaa6c</value>
+            <value><![CDATA[2020-03-09 08:14:27.0]]></value>
+            <value>2019-11-14</value>
+            <value><![CDATA[2020-03-09 08:04:34.0]]></value>
+            <null/>
+            <null/>
+            <value>G1714</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>14</value>
+            <value>Rijksweg</value>
+            <value>-77.8</value>
+            <value>0101000020407100006DE7FBA96129D340A245B6F33E2A1641</value>
+            <value>Weg</value>
+            <value>1714300000715278</value>
+        </row>
+        <row>
+            <value>454bd7a1b014de94bb2085db69205470</value>
+            <value>G1714.dd76596a2d2f4d2eac74703b1a8aaa6c</value>
+            <value><![CDATA[2020-03-09 08:14:27.0]]></value>
+            <value>2019-11-14</value>
+            <value><![CDATA[2020-03-09 08:04:34.0]]></value>
+            <null/>
+            <null/>
+            <value>G1714</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>15</value>
+            <value>Rijksweg</value>
+            <value>-83.0</value>
+            <value>010100002040710000986E12839882D3404C3789C1184C1641</value>
+            <value>Weg</value>
+            <value>1714300000715278</value>
+        </row>
+        <row>
+            <value>454bd7a1b014de94bb2085db69205470</value>
+            <value>G1714.dd76596a2d2f4d2eac74703b1a8aaa6c</value>
+            <value><![CDATA[2020-03-09 08:14:27.0]]></value>
+            <value>2019-11-14</value>
+            <value><![CDATA[2020-03-09 08:04:34.0]]></value>
+            <null/>
+            <null/>
+            <value>G1714</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>16</value>
+            <value>Rijksweg</value>
+            <value>-82.9</value>
+            <value>010100002040710000DF4F8D97967CD34004560EADFC481641</value>
+            <value>Weg</value>
+            <value>1714300000715278</value>
+        </row>
+        <row>
+            <value>454bd7a1b014de94bb2085db69205470</value>
+            <value>G1714.dd76596a2d2f4d2eac74703b1a8aaa6c</value>
+            <value><![CDATA[2020-03-09 08:14:27.0]]></value>
+            <value>2019-11-14</value>
+            <value><![CDATA[2020-03-09 08:04:34.0]]></value>
+            <null/>
+            <null/>
+            <value>G1714</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>17</value>
+            <value>Rijksweg</value>
+            <value>-83.1</value>
+            <value>0101000020407100001283C0CA7976D3405A643B5FE1451641</value>
+            <value>Weg</value>
+            <value>1714300000715278</value>
+        </row>
+        <row>
+            <value>454bd7a1b014de94bb2085db69205470</value>
+            <value>G1714.dd76596a2d2f4d2eac74703b1a8aaa6c</value>
+            <value><![CDATA[2020-03-09 08:14:27.0]]></value>
+            <value>2019-11-14</value>
+            <value><![CDATA[2020-03-09 08:04:34.0]]></value>
+            <null/>
+            <null/>
+            <value>G1714</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>18</value>
+            <value>Rijksweg</value>
+            <value>-88.4</value>
+            <value>010100002040710000CBA145B62B72D3400C022B87C4431641</value>
+            <value>Weg</value>
+            <value>1714300000715278</value>
+        </row>
+        <row>
+            <value>454bd7a1b014de94bb2085db69205470</value>
+            <value>G1714.dd76596a2d2f4d2eac74703b1a8aaa6c</value>
+            <value><![CDATA[2020-03-09 08:14:27.0]]></value>
+            <value>2019-11-14</value>
+            <value><![CDATA[2020-03-09 08:04:34.0]]></value>
+            <null/>
+            <null/>
+            <value>G1714</value>
+            <value>false</value>
+            <value>0</value>
+            <value>bestaand</value>
+            <value>geenWaarde</value>
+            <value>19</value>
+            <value>Rijksweg</value>
+            <value>-82.8</value>
+            <value>010100002040710000C1CAA145866FD340C3F528DC37411641</value>
+            <value>Weg</value>
+            <value>1714300000715278</value>
+        </row>
+    </table>
+</dataset>

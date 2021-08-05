@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mlb:bgtMutaties
+    xmlns="http://www.opengis.net/citygml/2.0"
+    xmlns:mlb="http://www.kadaster.nl/schemas/mutatielevering-bgt/1.0"
+    xmlns:ml="http://www.kadaster.nl/schemas/mutatielevering-generiek/2.0"
+    xmlns:imgeo="http://www.geostandaarden.nl/imgeo/2.1"
+    xmlns:gml="http://www.opengis.net/gml"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.kadaster.nl/schemas/mutatielevering-bgt/1.0 https://raw.githubusercontent.com/PDOK/schemas-mutatielevering/master/mutatielevering-bgt-1.0.xsd http://www.geostandaarden.nl/imgeo/2.1 http://register.geostandaarden.nl/gmlapplicatieschema/imgeo/2.1.1/imgeo.xsd">
+    <ml:mutatieBericht>
+        <ml:dataset>bgt</ml:dataset>
+        <ml:inhoud>
+            <ml:mutatieType>delta</ml:mutatieType>
+            <ml:gebied>POLYGON ((127813 461266, 141440 461266, 141440 447884, 127953 447884, 127813 461266))</ml:gebied>
+            <ml:leveringsId>c3791a07-b388-42a6-94eb-494ea4baa3b8</ml:leveringsId>
+            <ml:objectTypen>
+                <ml:objectType>pand</ml:objectType>
+            </ml:objectTypen>
+        </ml:inhoud>
+        <ml:mutatieGroep>
+            <ml:wijziging>
+                <ml:was id="ad402cde-39e2-fb79-590f-ad390e6b78a5">
+<mlb:bgtObject>
+    <cityObjectMember>
+        <BuildingPart xmlns="http://www.opengis.net/citygml/building/2.0" gml:id="bad402cde-39e2-fb79-590f-ad390e6b78a5">
+                        <creationDate xmlns="http://www.opengis.net/citygml/2.0">2016-02-16</creationDate>
+            <imgeo:LV-publicatiedatum>2016-09-12T15:55:18</imgeo:LV-publicatiedatum>
+            <imgeo:relatieveHoogteligging>0</imgeo:relatieveHoogteligging>
+            <imgeo:inOnderzoek>false</imgeo:inOnderzoek>
+            <imgeo:tijdstipRegistratie>2016-03-22T12:04:42.000</imgeo:tijdstipRegistratie>
+            <imgeo:identificatie>
+                <imgeo:NEN3610ID>
+                    <imgeo:namespace>NL.IMGeo</imgeo:namespace>
+                    <imgeo:lokaalID>G0335.4c7766d48a82474abafc59d41707a232</imgeo:lokaalID>
+                </imgeo:NEN3610ID>
+            </imgeo:identificatie>
+            <imgeo:bronhouder>G0335</imgeo:bronhouder>
+            <imgeo:bgt-status codeSpace="http://www.geostandaarden.nl/imgeo/def/2.1#Status">bestaand</imgeo:bgt-status>
+            <imgeo:plus-status codeSpace="http://www.geostandaarden.nl/imgeo/def/2.1#VoidReasonValue">geenWaarde</imgeo:plus-status>
+            <imgeo:identificatieBAGPND>0335100000319110</imgeo:identificatieBAGPND>
+            <imgeo:geometrie2dGrondvlak><gml:MultiSurface xmlns:gml="http://www.opengis.net/gml"><gml:surfaceMember><gml:Polygon><gml:exterior><gml:LinearRing><gml:posList srsDimension="2">127439.592 452184.313 127427.892 452186.396 127426.384 452177.925 127438.084 452175.843 127439.592 452184.313</gml:posList></gml:LinearRing></gml:exterior></gml:Polygon></gml:surfaceMember></gml:MultiSurface></imgeo:geometrie2dGrondvlak>
+            <imgeo:nummeraanduidingreeks>
+                <imgeo:Nummeraanduidingreeks>
+                    <imgeo:nummeraanduidingreeks>
+                        <imgeo:Label>
+                            <imgeo:tekst>27</imgeo:tekst>
+                            <imgeo:positie>
+                                <imgeo:Labelpositie>
+                                    <imgeo:plaatsingspunt><gml:Point xmlns:gml="http://www.opengis.net/gml">
+              <gml:pos>127434.037 452182.942</gml:pos>
+            </gml:Point></imgeo:plaatsingspunt>
+                                    <imgeo:hoek>11.1</imgeo:hoek>
+                                </imgeo:Labelpositie>
+                            </imgeo:positie>
+                        </imgeo:Label>
+                    </imgeo:nummeraanduidingreeks>
+                    <imgeo:identificatieBAGVBOLaagsteHuisnummer>0335010000327253</imgeo:identificatieBAGVBOLaagsteHuisnummer>
+                </imgeo:Nummeraanduidingreeks>
+            </imgeo:nummeraanduidingreeks>
+        </BuildingPart>
+    </cityObjectMember>
+</mlb:bgtObject>
+                </ml:was>
+                <ml:wordt id="a318eb71-08fd-639c-fe5e-bfc36b723aec">
+<mlb:bgtObject>
+    <cityObjectMember>
+        <BuildingPart xmlns="http://www.opengis.net/citygml/building/2.0" gml:id="ba318eb71-08fd-639c-fe5e-bfc36b723aec">
+                        <creationDate xmlns="http://www.opengis.net/citygml/2.0">2016-02-16</creationDate>
+            <imgeo:LV-publicatiedatum>2016-09-12T15:55:18</imgeo:LV-publicatiedatum>
+            <imgeo:relatieveHoogteligging>0</imgeo:relatieveHoogteligging>
+            <imgeo:inOnderzoek>false</imgeo:inOnderzoek>
+            <imgeo:eindRegistratie>2021-06-23T13:39:39</imgeo:eindRegistratie>
+            <imgeo:tijdstipRegistratie>2016-03-22T12:04:42.000</imgeo:tijdstipRegistratie>
+            <imgeo:identificatie>
+                <imgeo:NEN3610ID>
+                    <imgeo:namespace>NL.IMGeo</imgeo:namespace>
+                    <imgeo:lokaalID>G0335.4c7766d48a82474abafc59d41707a232</imgeo:lokaalID>
+                </imgeo:NEN3610ID>
+            </imgeo:identificatie>
+            <imgeo:bronhouder>G0335</imgeo:bronhouder>
+            <imgeo:bgt-status codeSpace="http://www.geostandaarden.nl/imgeo/def/2.1#Status">bestaand</imgeo:bgt-status>
+            <imgeo:plus-status codeSpace="http://www.geostandaarden.nl/imgeo/def/2.1#VoidReasonValue">geenWaarde</imgeo:plus-status>
+            <imgeo:identificatieBAGPND>0335100000319110</imgeo:identificatieBAGPND>
+            <imgeo:geometrie2dGrondvlak><gml:MultiSurface xmlns:gml="http://www.opengis.net/gml"><gml:surfaceMember><gml:Polygon><gml:exterior><gml:LinearRing><gml:posList srsDimension="2">127439.592 452184.313 127427.892 452186.396 127426.384 452177.925 127438.084 452175.843 127439.592 452184.313</gml:posList></gml:LinearRing></gml:exterior></gml:Polygon></gml:surfaceMember></gml:MultiSurface></imgeo:geometrie2dGrondvlak>
+            <imgeo:nummeraanduidingreeks>
+                <imgeo:Nummeraanduidingreeks>
+                    <imgeo:nummeraanduidingreeks>
+                        <imgeo:Label>
+                            <imgeo:tekst>27</imgeo:tekst>
+                            <imgeo:positie>
+                                <imgeo:Labelpositie>
+                                    <imgeo:plaatsingspunt><gml:Point xmlns:gml="http://www.opengis.net/gml">
+              <gml:pos>127434.037 452182.942</gml:pos>
+            </gml:Point></imgeo:plaatsingspunt>
+                                    <imgeo:hoek>11.1</imgeo:hoek>
+                                </imgeo:Labelpositie>
+                            </imgeo:positie>
+                        </imgeo:Label>
+                    </imgeo:nummeraanduidingreeks>
+                    <imgeo:identificatieBAGVBOLaagsteHuisnummer>0335010000327253</imgeo:identificatieBAGVBOLaagsteHuisnummer>
+                </imgeo:Nummeraanduidingreeks>
+            </imgeo:nummeraanduidingreeks>
+        </BuildingPart>
+    </cityObjectMember>
+</mlb:bgtObject>
+                </ml:wordt>
+            </ml:wijziging>
+        </ml:mutatieGroep>
+        <ml:mutatieGroep>
+            <ml:toevoeging>
+                <ml:wordt id="6c729d86-ce92-8280-e016-8412f3923c90">
+<mlb:bgtObject>
+    <cityObjectMember>
+        <BuildingPart xmlns="http://www.opengis.net/citygml/building/2.0" gml:id="b6c729d86-ce92-8280-e016-8412f3923c90">
+                        <creationDate xmlns="http://www.opengis.net/citygml/2.0">2016-02-16</creationDate>
+            <imgeo:LV-publicatiedatum>2021-06-23T14:28:07</imgeo:LV-publicatiedatum>
+            <imgeo:relatieveHoogteligging>0</imgeo:relatieveHoogteligging>
+            <imgeo:inOnderzoek>false</imgeo:inOnderzoek>
+            <imgeo:tijdstipRegistratie>2021-06-23T13:39:39.000</imgeo:tijdstipRegistratie>
+            <imgeo:identificatie>
+                <imgeo:NEN3610ID>
+                    <imgeo:namespace>NL.IMGeo</imgeo:namespace>
+                    <imgeo:lokaalID>G0335.4c7766d48a82474abafc59d41707a232</imgeo:lokaalID>
+                </imgeo:NEN3610ID>
+            </imgeo:identificatie>
+            <imgeo:bronhouder>G0335</imgeo:bronhouder>
+            <imgeo:bgt-status codeSpace="http://www.geostandaarden.nl/imgeo/def/2.1#Status">bestaand</imgeo:bgt-status>
+            <imgeo:plus-status codeSpace="http://www.geostandaarden.nl/imgeo/def/2.1#VoidReasonValue">geenWaarde</imgeo:plus-status>
+            <imgeo:identificatieBAGPND>0335100000319110</imgeo:identificatieBAGPND>
+            <imgeo:geometrie2dGrondvlak><gml:MultiSurface xmlns:gml="http://www.opengis.net/gml"><gml:surfaceMember><gml:Polygon><gml:exterior><gml:LinearRing><gml:posList srsDimension="2">127435.839 452184.981 127427.892 452186.396 127426.384 452177.925 127438.084 452175.843 127439.592 452184.313 127438.625 452184.485 127435.839 452184.981</gml:posList></gml:LinearRing></gml:exterior></gml:Polygon></gml:surfaceMember></gml:MultiSurface></imgeo:geometrie2dGrondvlak>
+            <imgeo:nummeraanduidingreeks>
+                <imgeo:Nummeraanduidingreeks>
+                    <imgeo:nummeraanduidingreeks>
+                        <imgeo:Label>
+                            <imgeo:tekst>27</imgeo:tekst>
+                            <imgeo:positie>
+                                <imgeo:Labelpositie>
+                                    <imgeo:plaatsingspunt><gml:Point xmlns:gml="http://www.opengis.net/gml">
+              <gml:pos>127434.037 452182.942</gml:pos>
+            </gml:Point></imgeo:plaatsingspunt>
+                                    <imgeo:hoek>11.1</imgeo:hoek>
+                                </imgeo:Labelpositie>
+                            </imgeo:positie>
+                        </imgeo:Label>
+                    </imgeo:nummeraanduidingreeks>
+                    <imgeo:identificatieBAGVBOLaagsteHuisnummer>0335010000327253</imgeo:identificatieBAGVBOLaagsteHuisnummer>
+                </imgeo:Nummeraanduidingreeks>
+            </imgeo:nummeraanduidingreeks>
+        </BuildingPart>
+    </cityObjectMember>
+</mlb:bgtObject>
+                </ml:wordt>
+            </ml:toevoeging>
+        </ml:mutatieGroep>
+    </ml:mutatieBericht>
+</mlb:bgtMutaties>

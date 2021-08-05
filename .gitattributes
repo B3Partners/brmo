@@ -7,3 +7,4 @@ brmo-loader/src/test/resources/topnl/Top100NL_000001.gml filter=lfs diff=lfs mer
 brmo-loader/src/test/resources/topnl/TOP10NL_07W.gml filter=lfs diff=lfs merge=lfs -text
 brmo-loader/src/test/resources/topnl/TOP250NL.gml filter=lfs diff=lfs merge=lfs -text
 brmo-loader/src/test/resources/topnl/Top50NL_07W.gml filter=lfs diff=lfs merge=lfs -text
+bgt-loader/src/test/resources/extract.zip filter=lfs diff=lfs merge=lfs -text
