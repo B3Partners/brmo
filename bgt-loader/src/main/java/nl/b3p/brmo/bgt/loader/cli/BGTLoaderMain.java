@@ -112,11 +112,10 @@ public class BGTLoaderMain implements IVersionProvider {
         try(BGTDatabase db = new BGTDatabase(dbOptions)) {
             BGTObjectTableWriter writer = db.createObjectTableWriter(loadOptions, dbOptions);
 
-            if (cliOptions.isConsoleProgressEnabled()) {
-                writer.setProgressUpdater(new ConsoleProgressReporter());
-            } else {
-                writer.setProgressUpdater(new ProgressReporter());
-            }
+            ProgressReporter progressReporter = cliOptions.isConsoleProgressEnabled()
+                    ? new ConsoleProgressReporter()
+                    : new ProgressReporter();
+            writer.setProgressUpdater(progressReporter);
 
             if (loadOptions.createSchema) {
                 db.createMetadataTable(loadOptions);
@@ -159,6 +158,7 @@ public class BGTLoaderMain implements IVersionProvider {
                         progress.getMutatieInhoud().getLeveringsId()
                 ));
             }
+            progressReporter.reportTotalSummary();
             db.getConnection().commit();
         }
 
@@ -256,7 +256,7 @@ public class BGTLoaderMain implements IVersionProvider {
             Long[] previousEntriesBytesRead = new Long[]{0L};
             progressReporter.setTotalBytesReadFunction(() -> previousEntriesBytesRead[0] + writer.getProgress().getBytesRead());
 
-            for (ZipArchiveEntry entry : selected) {
+            for (ZipArchiveEntry entry: selected) {
                 progressReporter.startNewFile(entry.getName(), entry.getSize());
                 writer.write(zipFile.getInputStream(entry));
             }
@@ -287,7 +287,6 @@ public class BGTLoaderMain implements IVersionProvider {
                     }
                     entry = zis.getNextEntry();
                 }
-                progressReporter.reportTotalSummary();
             }
         }
     }
