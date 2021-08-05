@@ -7,7 +7,7 @@ SPDX-License-Identifier: MIT
 # BRMO BGT lader
 
 Met de B3Partners BRMO BGT lader kan de [BGT](https://docs.geostandaarden.nl/imgeo/catalogus/bgt/) (Basisregistratie
-Grootschalige Topografie) en de [IMGeo](https://docs.geostandaarden.nl/imgeo/catalogus/imgeo/) (Informatiemodel
+Grootschalige Topografie) inclusief de [IMGeo](https://docs.geostandaarden.nl/imgeo/catalogus/imgeo/) (Informatiemodel
 Geografie) uitbreidingen snel in een spatial database worden geladen en ge√ºpdate worden door gebruik te maken van de
 [PDOK BGT mutatieservice](https://api.pdok.nl/lv/bgt/download/v1_0/ui/). Zie de
 [Modeldocumentatie mutatieformaat BGT](https://www.pdok.nl/bgt-mutatie) voor meer informatie.
@@ -21,7 +21,7 @@ Voor de licentievoorwaarden en disclaimer zie [MIT](LICENSES/MIT.txt). Commerci√
 
 ### Ondersteunde platformen en systeemeisen
 
-Deze applicatie is beschikbaar als [Docker images](https://github.com/B3Partners/brmo/pkgs/container/brmo-bgt-loader).
+Deze applicatie is beschikbaar als [Docker image](https://github.com/B3Partners/brmo/pkgs/container/brmo-bgt-loader).
 Deze Linux containers draaien ook op Windows, MacOS en Raspberry Pi (64 bit). Het is niet nodig om het programma te
 draaien op hetzelfde systeem als de database, als er via het netwerk verbinding mee kan worden gelegd.
 
@@ -31,19 +31,19 @@ download, maar het is mogelijk deze zelf te compileren vanaf de broncode of te v
 Er is ongeveer 1 GB RAM nodig. De BGT bestanden worden "streaming" verwerkt: er is niet meer geheugen nodig voor een
 groter gebied.
 
-De BGT kan erg veel schijfruimte vereisen als deze is ingeladen in een database, afhankelijk van de geselecteerde
-feature types en het gebied.
+Het kan zijn dat je veel schijfruimte nodig hebt voor de database waarin de BGT ingeladen wordt, afhankelijk van de 
+geselecteerde objecttypes en het gebied.
 
-## Draaien van de applicatie
+## Draaien van het programma
 
 Met [Docker](https://www.docker.com):
 ```shell
 docker pull ghcr.io/b3partners/brmo-bgt-loader
-docker run -it --rm --network=host ghcr.io/b3partners/brmo-bgt-loader
+docker run -it --rm --network=host ghcr.io/b3partners/brmo-bgt-loader --help
 ````
 
-De tool is voornamelijk in het Nederlands, behalve als er mogelijk een foutmelding optreedt. Volledig Engelse teksten
-zijn ook beschikbaar door de container te starten met de `-e LC_ALL=en_US` parameter.
+Het programma is voornamelijk in het Nederlands, behalve als er mogelijk een foutmelding optreedt. Volledig Engelse 
+teksten zijn ook beschikbaar door de container te starten met de `-e LC_ALL=en_US` parameter.
 
 Let op dat het uitvoeren van bovenstaand `docker pull` commando nodig is om het image te updaten naar de laatste
 versie.
@@ -61,9 +61,11 @@ java -jar target/bgt-loader-*.jar
 
 ## Command line
 
-Het programma print nuttige help wanneer deze zonder parameters wordt aangeroepen. Er zijn drie hoofdcommando's:
+Het programma print nuttige help wanneer deze met de `--help` optie wordt aangeroepen. Er zijn drie hoofdcommando's:
 `schema`, `load` and `download`. In de meeste gevallen is alleen het `download` commando nodig: het downloadt
-automatisch de BGT gegevens en maakt de benodigde tabellen aan in de database.
+automatisch de BGT gegevens en maakt de benodigde tabellen aan in de database. Per commando geeft het programma de
+opties die je kan gebruiken, probeer bijvoorbeeld `download initial --help` of `download load --help`.
+
 
 ## Database voorbereiding
 
@@ -74,36 +76,38 @@ Een database is vereist voordat de BGT kan worden geladen. De volgende databases
 
 Andere versies werken mogelijk ook.
 
-Gebruik bij voorkeur PostGIS, deze is verreweg het snelst.
+Gebruik bij voorkeur PostGIS, deze is verreweg het snelst!
 
 ### PostGIS
 
-Installeer PostgreSQL en PostGIS. Dit kan ook heel snel met een Docker image!
+Installeer PostgreSQL en PostGIS. Dit kan snel en makkelijk met Docker:
 
-Maak een PostgreSQL gebruiker, typ 'bgt' als wachtwoord:
 ```shell
-createuser bgt --password bgt -P
+docker run --name postgis --detach --publish 5432:5432 -e POSTGRES_PASSWORD=postgres postgis/postgis -c fsync=off
 ```
-Maak een database:
+Heb je een Raspberry Pi? Gebruik de image naam `awill88/postgis:13-3.0` in plaats van `postgis/postgis`. Zonder Docker
+ben je natuurlijk ook snel op weg met `apt install postgis`.
+
+Wacht een momentje totdat PostgreSQL is opgestart totdat `docker logs postgis` aangeeft "database system is ready to 
+accept connections". En daarna:
+
 ```shell
-createdb --owner=bgt bgt
-psql bgt -c 'create extension postgis'
+docker exec -it -u postgres postgis bash -c "createuser bgt; createdb --owner=bgt bgt; psql bgt -c 'create extension postgis;'"
+docker exec -it -u postgres postgis psql -c "alter role bgt password 'bgt'"
 ```
-Let op: als je een andere tablespace wil gebruiken, maak deze nu, zet deze als default voor de `bgt` database en grant
-privileges aan de `bgt` gebruiker op dit moment.
+Met deze commando's krijg je een database op je lokale computer en de database naam, gebruiker en wachtwoord allemaal 
+ingesteld op `bgt`, kan het programma met de standaard opties gebruikt worden om met de database te verbinden. Het is 
+mogelijk om andere gegevens op te geven, zie de uitvoer van `brmo-bgt-loader download initial --help` voor details.
 
-Met de database op je lokale computer en de database naam, gebruiker en wachtwoord allemaal ingesteld op `bgt`, kan het
-programma met de standaard opties gebruikt worden om met de database te verbinden. Het is mogelijk om andere gegevens op
-te geven, zie de uitvoer van `brmo-bgt-loader download initial --help` voor details.
-
-Staat de database op een andere server, bijvoorbeeld met IP adres `10.0.0.1`? Gebruik dan de volgende connection string:
-`jdbc:postgresql://10.0.0.1:5432/bgt?sslmode=disable&reWriteBatchedInserts=true`. Alles na het vraagteken kan weggelaten 
-worden maar is bevorderlijk voor de snelheid.
+Staat de database op een andere server, bijvoorbeeld met IP adres `10.0.0.1`? Gebruik dan de volgende optie:
+`--connection="jdbc:postgresql://10.0.0.1:5432/bgt?sslmode=disable&reWriteBatchedInserts=true"`. Alles na het vraagteken
+kan weggelaten worden maar is bevorderlijk voor de snelheid.
 
 ### Microsoft SQL Server
 
 Het is mogelijk om SQL Server zelf te installeren, of deze te starten in een Linux container met Docker (let op dat je
-de gebruiksvoorwaarden van Microsoft accepteert):
+de gebruiksvoorwaarden van Microsoft accepteert). Na de eerste `docker run` ook even wachten totdat SQL Server is 
+opgestart:
 
 ```shell
 docker run --detach -e 'ACCEPT_EULA=Y' -e 'MSSQL_SA_PASSWORD=Password12!' --publish 1433:1433 --name mssql mcr.microsoft.com/mssql/server:2019-latest
@@ -127,7 +131,7 @@ Mogelijk wil je de container ook weer verwijderen met `docker rm mssql`.
 Het is mogelijk om Oracle Spatial zelf te installeren, of deze te starten in een Linux container met Docker (let op dat
 je de gebruiksvoorwaarden van Oracle accepteert):
 
-Onderstaand commando gebruikt ter illustratie een onofficieel image.
+Onderstaand commando gebruikt ter illustratie een onofficieel image (deze is wel 18 GB groot).
 
 ```shell
 docker run --detach --publish 1521:1521 --name oracle-xe -d pvargacl/oracle-xe-18.4.0:latest
@@ -156,7 +160,8 @@ Mogelijk wil je de container ook weer verwijderen met `docker rm oracle-xe`.
 
 ## Laden van de BGT
 
-Het is mogelijk om de hele BGT of alleen een aantal objecttypen (tabellen) of gebied in te laden.
+Het is mogelijk om de hele BGT of alleen een aantal objecttypes (tabellen) of alleen objecten in bepaald gebied in te
+laden.
 
 ### Laden van de hele BGT
 
@@ -164,10 +169,10 @@ Om de hele BGT in te laden is voldoende schijfruimte nodig! Let op dat je voldoe
 ```shell
 brmo-bgt-loader download initial --no-geo-filter
 ```
-Dit commando downloadt de zogenaamde "predefined" download. Het is dus niet nodig om te wachten totdat de PDOK
-mutatieservice een extract heeft gemaakt.
+Dit commando downloadt een bestand met de hele BGT dat door PDOK al is voorbereid. Het is dus niet nodig om te wachten
+totdat de PDOK mutatieservice een extract heeft gemaakt.
 
-Plaatsbepalingspunten worden standaard overgeslagen. Zie onder bij "Filteren op objecttypen" hoe deze ook kunnen worden 
+Plaatsbepalingspunten worden standaard overgeslagen. Zie onder bij "Filteren op objecttypes" hoe deze ook kunnen worden 
 geladen.
 
 ### Filteren op geografisch gebied
@@ -188,13 +193,13 @@ erg veel objecten bevat, kan dit erg lang duren. Als je minder geduld en meer sc
 de hele BGT in te laden vanaf een 'predefined' download zoals hierboven beschreven (afhankelijk van de gebruikte 
 database en je internetverbinding).
 
-### Filteren op objecttypen
+### Filteren op objecttypes
 
-Gebruik de `--feature-types=<waarde>` optie om alleen bepaalde objecttypen te selecteren om in te laden. De speciale waarde `all`
+Gebruik de `--feature-types=<waarde>` optie om alleen bepaalde objecttypes te selecteren om in te laden. De speciale waarde `all`
 selecteert alle feature types behalve plaatsbepalingspunten (dit is de standaardwaarde als geen optie wordt opgegeven).
-Door `bgt` op te geven worden alleen de BGT objecttypen (welke bronhouders verplicht moeten bijhouden) en met `plus`
-alleen de optioneel bijgehouden IMGeo objecttypen geselecteerd. Meerdere individuele objecttypenkunnen worden opgegeven
-gescheiden door komma's, zoals bijvoorbeeld `--feature-types=pand,openbareruimtelabel`. De beschikbare objecttypen zijn:
+Door `bgt` op te geven worden alleen de BGT objecttypes (welke bronhouders verplicht moeten bijhouden) en met `plus`
+alleen de optioneel bijgehouden IMGeo objecttypes geselecteerd. Meerdere individuele objecttypes kunnen worden opgegeven
+gescheiden door komma's, zoals bijvoorbeeld `--feature-types=pand,openbareruimtelabel`. De beschikbare objecttypes zijn:
 
 | Objecttype              |
 |-------------------------|
@@ -235,7 +240,7 @@ gescheiden door komma's, zoals bijvoorbeeld `--feature-types=pand,openbareruimte
 | weginrichtingselement   |
 | wijk                    |
 
-Om alle objecttypen _en_ plaatsbepalingspunten te selecteren, gebruik `--feature-types=all,plaatsbepalingspunt`.
+Om alle objecttypes _en_ plaatsbepalingspunten te selecteren, gebruik `--feature-types=all,plaatsbepalingspunt`.
 
 ### Historische objecten
 
@@ -254,7 +259,7 @@ dus standaard _gelinearized_.
 
 ### Het database schema
 
-De BGT objecttypen zijn direct gemapt naar database tabellen, waarbij de namen van attributen zijn aangepast en in het
+De BGT objecttypes zijn direct gemapt naar database tabellen, waarbij de namen van attributen zijn aangepast en in het
 geval van `identificatie` zijn samengevoegd. De primaire sleutel is het "GML ID" en niet de NEN3610 identificatie,
 omdat het GML ID nodig is om mutaties toe te passen.
 
@@ -269,7 +274,7 @@ tabel ziet eruit als volgt:
 |                Kolom                 |          Type          | Nullable | Opmerking
 |--------------------------------------|------------------------|----------|----------
 | pandgmlid                            | character varying(255) | not null | Primaire sleutel
-| idx                                  | integer                | not null | Volgnummer
+| idx                                  | integer                | not null | Primaire sleutel en volgnummer
 | pandeindregistratie                  | boolean                | not null | Niet-NULL als historisch
 | tekst                                | character varying(255) | not null |
 | hoek                                 | double precision       | not null |
@@ -320,6 +325,14 @@ ervaringen met het gebruik!
 
 Na het inladen kan je kolommen kan je natuurlijk altijd verwijderen of wijzigen, behalve als je mutaties wil laden.
 
+#### Algemene geometrie kolommen in QGIS
+
+De geometrie van sommige objecttypes kan lijnen, vlakken en punten door elkaar bevatten, bijvoorbeeld "vegetatieobject".
+Als je in QGIS een verbinding maakt met de BGT database om een laag toe te voegen, zal QGIS de hele tabel scannen om te
+bepalen of de tabel punten, lijnen of vlakken bevat (een laag in QGIS kan niet gemixed zijn). Het scannen kan even duren
+als de tabel veel objecten bevat. Het scannen je overslaan met de verbindingsoptie "Don't resolve type of unrestricted
+columns (GEOMETRY)" maar dan moet je zelf kiezen voor welk specifiek geometrie-type je een laag wil toevoegen.
+
 ## Downloaden van mutaties
 
 De selectieopties gebruikt bij het `download initial` commando worden opgeslagen in de database in de `bgt_metadata`
@@ -340,7 +353,7 @@ download zodat niet gewacht hoeft te worden totdat PDOK een extract heeft sameng
 Nederland kan dit kan uren duren).
 
 Het voorbereide extract met mutatiegevens is alleen beschikbaar inclusief plaatsbepalingspunten, maar de B3Partners BRMO
-lader kan deze en andere niet geselecteerde objecttypen (met de `--feature-types` optie) overslaan zonder dat deze
+lader kan deze en andere niet geselecteerde objecttypes (met de `--feature-types` optie) overslaan zonder dat deze
 gedownload hoeven te worden!
 
 De URL die gebruikt wordt voor de voorbereide hele BGT is
@@ -363,7 +376,7 @@ niet kan worden gebruikt omdat er geen "delta ID" in het bestand zit:
 brmo-bgt-loader load https://api.pdok.nl/lv/bgt/download/v1_0/full/predefined/bgt-citygml-nl-nopbp.zip
 ```
 
-De optie `--feature-types` kan ook met dit commando worden gebruikt om alleen bepaalde objecttypen in te laden zonder ze
+De optie `--feature-types` kan ook met dit commando worden gebruikt om alleen bepaalde objecttypes in te laden zonder ze
 te downloaden.
 
 ## Downloads laden gemaakt via de PDOK download viewer website
