@@ -45,7 +45,7 @@ public class FeatureTypeSelectionOptions {
                 types.addAll(BGTSchema.getInstance().getOnlyBGTObjectTypes().map(objectType -> {
                     try {
                         // Just add the table names as featureType enum value, these are the same
-                        return DeltaCustomDownloadRequest.FeaturetypesEnum.fromValue(bgtSchemaMapper.getTableNameForObjectType(objectType, null));
+                        return DeltaCustomDownloadRequest.FeaturetypesEnum.fromValue(bgtSchemaMapper.getTableNameForObjectType(objectType, ""));
                     } catch(IllegalArgumentException e) {
                         // Ignore nummeraanduidingreeks as it is a one-to-many table for pand
                         return null;
@@ -54,7 +54,7 @@ public class FeatureTypeSelectionOptions {
             }
             if (featureTypes.contains("plus")) {
                 types.addAll(bgtSchema.getIMGeoPlusObjectTypes().map(objectType ->
-                        DeltaCustomDownloadRequest.FeaturetypesEnum.fromValue(bgtSchemaMapper.getTableNameForObjectType(objectType, null))
+                        DeltaCustomDownloadRequest.FeaturetypesEnum.fromValue(bgtSchemaMapper.getTableNameForObjectType(objectType, ""))
                 ).collect(Collectors.toSet()));
             }
         }
