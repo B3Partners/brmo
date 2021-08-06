@@ -17,7 +17,6 @@ import nl.b3p.brmo.loader.checks.AfgifteChecker;
 import nl.b3p.brmo.loader.entity.Bericht;
 import nl.b3p.brmo.loader.entity.LaadProces;
 import nl.b3p.brmo.loader.updates.UpdateProcess;
-import nl.b3p.brmo.loader.util.BGTLightRsgbTransformer;
 import nl.b3p.brmo.loader.util.BrmoDuplicaatLaadprocesException;
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.loader.util.BrmoLeegBestandException;
@@ -45,7 +44,6 @@ public class BrmoFramework {
     public static final String BR_BAG = "bag";
     public static final String BR_BRK = "brk";
     public static final String BR_NHR = "nhr";
-    public static final String BR_BGTLIGHT = "bgtlight";
     public static final String BR_TOPNL = "topnl";
     public static final String BR_BRP = "brp";
     public static final String BR_GBAV = "gbav";
@@ -86,6 +84,7 @@ public class BrmoFramework {
         this.dataSourceRsgb = dataSourceRsgb;
     }
 
+    @Deprecated(since = "2.1.0")
     public BrmoFramework(DataSource dataSourceStaging, DataSource dataSourceRsgb, DataSource dataSourceRsgbBgt) throws BrmoException {
         if (dataSourceStaging != null) {
             try {
@@ -139,6 +138,7 @@ public class BrmoFramework {
         }
     }
 
+    @Deprecated(since = "2.1.0")
     public String getRsgbBgtVersion() {
         try {
             return getVersion(dataSourceRsgbBgt);
@@ -242,10 +242,7 @@ public class BrmoFramework {
         }
 
         Runnable worker;
-        if (soort.equalsIgnoreCase(BR_BGTLIGHT)) {
-            // filter soort, als bgt dan als proces verwerken, niet als berichtenset
-            worker = new BGTLightRsgbTransformer(dataSourceRsgbBgt, stagingProxy, ids, listener);
-        } else if(TopNLType.isTopNLType(soort)){
+        if (TopNLType.isTopNLType(soort)) {
             try{
                 worker = new TopNLRsgbTransformer(dataSourceTopNL, stagingProxy, ids, listener);
             } catch (JAXBException | SQLException ex) {
@@ -353,7 +350,7 @@ public class BrmoFramework {
      */
     public void loadFromFile(String type, String fileName, final ProgressUpdateListener listener, Long automatischProces) throws BrmoException {
         try {
-            if (fileName.toLowerCase().endsWith(".zip") && !type.equalsIgnoreCase(BR_BGTLIGHT)) {
+            if (fileName.toLowerCase().endsWith(".zip")) {
                 log.info("Openen ZIP bestand " + fileName);
                 ZipInputStream zip = null;
                 try {

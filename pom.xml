@@ -10,7 +10,6 @@
         <module>datamodel</module>
         <module>brmo-init-util</module>
         <module>brmo-persistence</module>
-        <module>bgt-gml-loader</module>
         <module>bgt-loader</module>
         <module>brmo-topnl-loader</module>
         <module>brmo-loader</module>
@@ -170,11 +169,6 @@
             <dependency>
                 <groupId>nl.b3p</groupId>
                 <artifactId>brmo-topnl-loader</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>nl.b3p</groupId>
-                <artifactId>bgt-gml-loader</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

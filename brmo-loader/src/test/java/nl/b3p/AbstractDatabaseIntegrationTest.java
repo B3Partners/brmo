@@ -13,7 +13,7 @@ import org.junit.jupiter.api.TestInfo;
 import java.io.IOException;
 import java.util.Properties;
 
-import static org.junit.Assume.assumeNotNull;
+import static org.junit.jupiter.api.Assumptions.assumeFalse;
 
 /**
  * Utility om database properties te laden en methods te loggen.
@@ -34,7 +34,7 @@ public abstract class AbstractDatabaseIntegrationTest {
         // System.setProperty("database.properties.file", "postgis.properties");
         // System.setProperty("database.properties.file", "sqlserver.properties");
         // System.setProperty("database.properties.file", "oracle.properties");
-        assumeNotNull("Verwacht database omgeving te zijn aangegeven.", System.getProperty("database.properties.file"));
+        assumeFalse(null != System.getProperty("database.properties.file"), "Verwacht database omgeving te zijn aangegeven.");
     }
 
     /**

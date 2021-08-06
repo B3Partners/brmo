@@ -25,7 +25,6 @@ import nl.b3p.brmo.loader.util.BrmoLeegBestandException;
 import nl.b3p.brmo.loader.util.RsgbTransformer;
 import nl.b3p.brmo.loader.util.StagingRowHandler;
 import nl.b3p.brmo.loader.util.TableData;
-import nl.b3p.brmo.loader.xml.BGTLightFileReader;
 import nl.b3p.brmo.loader.xml.BRPXMLReader;
 import nl.b3p.brmo.loader.xml.BagXMLReader;
 import nl.b3p.brmo.loader.xml.BrkSnapshotXMLReader;
@@ -757,8 +756,6 @@ public class StagingProxy {
             brmoXMLReader = new BagXMLReader(cis);
         } else if (type.equals(BrmoFramework.BR_NHR)) {
             brmoXMLReader = new NhrXMLReader(cis);
-        } else if (type.equals(BrmoFramework.BR_BGTLIGHT)) {
-            brmoXMLReader = new BGTLightFileReader(fileName);
         } else if (TopNLType.isTopNLType(type)) {
             brmoXMLReader = new TopNLFileReader(fileName, type);
         } else if(type.equals(BrmoFramework.BR_BRP)){
@@ -789,14 +786,7 @@ public class StagingProxy {
         }
         lp = writeLaadProces(lp);
 
-        if (type.equalsIgnoreCase(BrmoFramework.BR_BGTLIGHT)) {
-            // van een BGT Light bestand maken we alleen een LP, geen bericht,
-            // de datum halen we van een GML uit het zip bestand
-            if (listener != null) {
-                listener.total(((BGTLightFileReader) brmoXMLReader).getFileSize());
-                listener.progress(((BGTLightFileReader) brmoXMLReader).getFileSize());
-            }
-        } else if (TopNLType.isTopNLType(type)) {
+        if (TopNLType.isTopNLType(type)) {
             // van een TopNL GML bestand maken we alleen een LP, geen bericht,
             // de datum halen we van het zip bestand
             if (listener != null) {

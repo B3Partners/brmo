@@ -14,8 +14,10 @@ import java.text.SimpleDateFormat;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-import static org.junit.Assume.assumeNotNull;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assumptions.assumeFalse;
 
 /**
  * Testcases voor {@link nl.b3p.brmo.loader.xml.BrkSnapshotXMLReader}.
@@ -151,7 +153,7 @@ public class BrkSnapshotXMLReaderTest {
     @Test
     public void standTestZipFile() throws Exception {
         InputStream zipIn = BrkSnapshotXMLReader.class.getResourceAsStream(standZipName);
-        assumeNotNull("Neem aan dat de 18.5MB zipfile er staat.", zipIn);
+        assumeFalse( null!=zipIn, "Neem aan dat de 18.5MB zipfile er staat.");
 
         ZipInputStream zis = new ZipInputStream(zipIn);
         int total = 0;

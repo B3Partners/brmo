@@ -94,9 +94,6 @@ jobs:
       - name: Verify bgt-loader
         run: mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'bgt-loader'
 
-      #- name: Verify bgt-gml-loader
-      #  run: mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'bgt-gml-loader'
-
       - name: Verify brmo-loader
         run: mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-loader'
 
