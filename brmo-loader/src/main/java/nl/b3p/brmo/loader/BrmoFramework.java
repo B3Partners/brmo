@@ -112,6 +112,7 @@ public class BrmoFramework {
         this.dataSourceTopNL = dataSourceTopNL;
     }
 
+    @Deprecated(since = "2.1.0")
     public void setDataSourceRsgbBgt(DataSource dataSourceRsgbBgt) {
         this.dataSourceRsgbBgt = dataSourceRsgbBgt;
     }
