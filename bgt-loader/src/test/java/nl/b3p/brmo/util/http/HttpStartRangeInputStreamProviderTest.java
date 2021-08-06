@@ -7,10 +7,10 @@
 
 package nl.b3p.brmo.util.http;
 
+import mockwebserver3.MockResponse;
+import mockwebserver3.MockWebServer;
+import mockwebserver3.RecordedRequest;
 import nl.b3p.brmo.util.http.wrapper.Java11HttpClientWrapper;
-import okhttp3.mockwebserver.MockResponse;
-import okhttp3.mockwebserver.MockWebServer;
-import okhttp3.mockwebserver.RecordedRequest;
 import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -18,11 +18,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.nio.charset.Charset;
-
-import static nl.b3p.brmo.bgt.loader.Utils.getUserAgent;
 
 class HttpStartRangeInputStreamProviderTest {
 
