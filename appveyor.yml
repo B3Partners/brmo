@@ -98,8 +98,6 @@ after_build:
   - cmd: echo "aanmaken en opzetten RSGBBGT DB"
   - sqlcmd -S (local)\%INSTANCENAME% -U sa -P Password12! -d "master" -Q "CREATE DATABASE bgttest"
   - sqlcmd -S (local)\%INSTANCENAME% -U sa -P Password12! -d "master" -Q "ALTER DATABASE bgttest SET RECOVERY SIMPLE"
-  - dir .\bgt-gml-loader\target\generated-resources\ddl\sqlserver\
-  - sqlcmd -r0 -b -S (local)\%INSTANCENAME% -I -U sa -P Password12! -d "bgttest" -i .\bgt-gml-loader\target\generated-resources\ddl\sqlserver\create_rsgb_bgt.sql
 #
   - cmd: echo "aanmaken en opzetten TOPNL DB"
   - sqlcmd -S (local)\%INSTANCENAME% -U sa -P Password12! -d "master" -Q "CREATE DATABASE topnl"

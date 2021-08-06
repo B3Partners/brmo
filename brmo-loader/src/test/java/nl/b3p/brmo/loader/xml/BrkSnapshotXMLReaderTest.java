@@ -153,7 +153,7 @@ public class BrkSnapshotXMLReaderTest {
     @Test
     public void standTestZipFile() throws Exception {
         InputStream zipIn = BrkSnapshotXMLReader.class.getResourceAsStream(standZipName);
-        assumeFalse( null!=zipIn, "Neem aan dat de 18.5MB zipfile er staat.");
+        assumeFalse(null == zipIn, "Neem aan dat de 18.5MB zipfile er staat.");
 
         ZipInputStream zis = new ZipInputStream(zipIn);
         int total = 0;
