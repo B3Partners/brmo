@@ -16,6 +16,7 @@ import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -70,8 +71,8 @@ public class DatabaseUpgradeTest {
     static Stream<Arguments> localParameters() {
         return Stream.of(
                 Arguments.of("staging"),
-                Arguments.of("rsgb")/*,
-                Arguments.of("rsgbbgt")*/
+                Arguments.of("rsgb"),
+                Arguments.of("rsgbbgt")
         );
     }
 
@@ -158,9 +159,10 @@ public class DatabaseUpgradeTest {
     /**
      * test of de bekende set met materialized in de database(s) bestaan na upgrade.
      *
-     * @throws SQLException als opzoeken in de dabase mislukt
+     * @throws SQLException als opzoeken in de database mislukt
      */
-    public void testBasisMViews(String dbName) throws Exception {
+    @Test
+    public void testBasisMViews() throws Exception {
         setUpDB("rsgb");
         List<String> viewsFound = ViewUtils.listAllMaterializedViews(ds);
         assertNotNull(viewsFound, "Geen materialized views gevonden");
