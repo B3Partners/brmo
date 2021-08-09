@@ -8,7 +8,7 @@ DELETE FROM automatisch_proces_config WHERE proces_id IN (SELECT id FROM automat
 DELETE FROM automatisch_proces WHERE dtype IN ('BGTLightScannerProces','BGTLightOphaalProces');
 
 -- opruimen van niet meer verwerkbare BGT light laadprocessen
-DELETE FROM laadproces SOORT='bgtlight';
+DELETE FROM laadproces WHERE soort='bgtlight';
 
 -- onderstaande dienen als laatste stappen van een upgrade uitgevoerd
 INSERT INTO brmo_metadata (naam,waarde) SELECT 'upgrade_2.0.3_naar_2.1.0','vorige versie was ' || waarde FROM brmo_metadata WHERE naam='brmoversie';
