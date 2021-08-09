@@ -81,6 +81,7 @@ public class BrmoFramework {
                 throw new BrmoException(ex);
             }
         }
+        this.dataSourceStaging = dataSourceStaging;
         this.dataSourceRsgb = dataSourceRsgb;
     }
 
