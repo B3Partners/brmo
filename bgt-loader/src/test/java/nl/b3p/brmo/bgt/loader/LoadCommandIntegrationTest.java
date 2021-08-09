@@ -7,7 +7,7 @@
 
 package nl.b3p.brmo.bgt.loader;
 
-import okhttp3.mockwebserver.MockResponse;
+import mockwebserver3.MockResponse;
 import okio.Buffer;
 import org.dbunit.DatabaseUnitException;
 import org.junit.jupiter.api.Test;

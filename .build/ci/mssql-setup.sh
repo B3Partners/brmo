@@ -12,8 +12,7 @@ docker exec -i mssql_brmo /opt/mssql-tools/bin/sqlcmd -r0 -x -b -S localhost -U 
 # set up rsgbbgt tabellen
 docker exec -i mssql_brmo /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P Password12! -d "master" -Q "CREATE DATABASE bgttest"
 docker exec -i mssql_brmo /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P Password12! -d "master" -Q "ALTER DATABASE bgttest SET RECOVERY SIMPLE"
-docker cp ./bgt-gml-loader/target/generated-resources/ddl/sqlserver/create_rsgb_bgt.sql mssql_brmo:/home/
-docker exec -i mssql_brmo /opt/mssql-tools/bin/sqlcmd -r0 -b -S localhost -I -U sa -P Password12! -d "bgttest" -i /home/create_rsgb_bgt.sql
+
 # set up topnl tabellen
 docker exec -i mssql_brmo /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P Password12! -d "master" -Q "CREATE DATABASE topnl"
 docker exec -i mssql_brmo /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P Password12! -d "master" -Q "ALTER DATABASE topnl SET RECOVERY SIMPLE"

@@ -29,8 +29,9 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 
 import static net.javacrumbs.jsonunit.JsonAssert.assertJsonEquals;
-import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+
 
 /**
  * testcases om te kijken of we de P8 rest api niet stuk maken als er iets aan de views wordt geleuteld.

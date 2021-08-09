@@ -92,7 +92,7 @@ public class MainIntegrationTest {
             "-t"
     })
     public void commandLine(String args) throws Exception {
-        LOG.info("runtime versioe: " + Runtime.version());
+        LOG.info("runtime version: " + Runtime.version());
         Process p = Runtime.getRuntime().exec(BASE_COMMAND + args, new String[]{}, WORKDIR);
         LOG.info(IOUtils.toString(p.getInputStream(), Charset.defaultCharset()));
         String err = IOUtils.toString(p.getErrorStream(), Charset.defaultCharset());

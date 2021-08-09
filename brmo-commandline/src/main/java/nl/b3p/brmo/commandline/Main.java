@@ -96,8 +96,6 @@ public class Main {
                 // transformeren
                 Option.builder("t").desc("Transformeer alle 'STAGING_OK' berichten naar rsgb.").longOpt("torsgb")
                         .optionalArg(true).numberOfArgs(1).argName("[error-state]").build(),
-                Option.builder("tb").desc("Transformeer alle 'STAGING_OK' BGT-Light laadprocessen naar rsgbbgt.")
-                        .longOpt("torsgbbgt").optionalArg(true).numberOfArgs(1).argName("[loadingUpdate]").build(),
                 // export
                 Option.builder("e").desc("Maak van berichten uit staging gezipte xml-files in de opgegeven directory. Dit zijn alleen BRK mutaties van GDS2 processen.")
                         .longOpt("exportgds").hasArg().numberOfArgs(1).type(File.class).argName("output-directory").build(),
@@ -172,7 +170,6 @@ public class Main {
         int exitcode = 0;
         BasicDataSource dsStaging = null;
         BasicDataSource dsRsgb = null;
-        BasicDataSource dsRsgbbgt = null;
 
         try {
             dbProps.load(new FileInputStream(cl.getOptionValue("dbprops")));
@@ -207,16 +204,6 @@ public class Main {
                 dsRsgb.setConnectionProperties(dbProps.getProperty("rsgb.options", ""));
             }
 
-            // alleen rsgbbgt verbinding maken als nodig
-            if (cl.hasOption("versieinfo") || cl.hasOption("torsgbbgt")) {
-                LOG.info("Verbinding maken met RSGB BGT database... ");
-                dsRsgbbgt = new BasicDataSource();
-                dsRsgbbgt.setUrl(dbProps.getProperty("rsgbbgt.url"));
-                dsRsgbbgt.setUsername(dbProps.getProperty("rsgbbgt.user"));
-                dsRsgbbgt.setPassword(dbProps.getProperty("rsgbbgt.password"));
-                dsRsgbbgt.setConnectionProperties(dbProps.getProperty("rsgbbgt.options", ""));
-            }
-
             // staging-only commando's
             if (cl.hasOption("list")) {
                 exitcode = list(dsStaging, cl.getOptionValue("l", "text"));
@@ -246,13 +233,9 @@ public class Main {
             else if (cl.hasOption("torsgb")) {
                 exitcode = toRsgb(dsStaging, dsRsgb, cl.getOptionValue("berichtstatus", "ignore"));
             } // ----------------
-            // rsgbbgt commando's
-            else if (cl.hasOption("torsgbbgt")) {
-                exitcode = toRsgbBgt(dsStaging, dsRsgbbgt, cl.getOptionValue("torsgbbgt", "false"));
-            } // ----------------
             // alle schema's / databases
             else if (cl.hasOption("versieinfo")) {
-                exitcode = versieInfo(dsStaging, dsRsgb, dsRsgbbgt, cl.getOptionValue("versieinfo", "text"));
+                exitcode = versieInfo(dsStaging, dsRsgb, cl.getOptionValue("versieinfo", "text"));
             }
         } catch (BrmoException | InterruptedException ex) {
             LOG.error("Fout tijdens uitvoeren met argumenten: " + Arrays.toString(args), ex);
@@ -274,9 +257,6 @@ public class Main {
             if (dsRsgb != null) {
                 dsRsgb.close();
             }
-            if (dsRsgbbgt != null) {
-                dsRsgbbgt.close();
-            }
         } catch (SQLException ex) {
             LOG.debug("Mogelijke fout tijdens afsluiten database verbindingen.", ex);
         }
@@ -296,49 +276,16 @@ public class Main {
         return 0;
     }
 
-    private static int toRsgbBgt(BasicDataSource dsStaging, BasicDataSource dsRsgbbgt, String loadingUpdate) throws BrmoException, InterruptedException {
-        LOG.info("Start staging naar rsgbbgt transformatie.");
-        try {
-            GeoTools.init();
-            Logging.ALL.setLoggerFactory("org.geotools.util.logging.Log4JLoggerFactory");
-
-            // Geotools maakt een eigen database verbinding via jndi
-            System.setProperty(Context.INITIAL_CONTEXT_FACTORY, "org.apache.naming.java.javaURLContextFactory");
-            System.setProperty(Context.URL_PKG_PREFIXES, "org.apache.naming");
-            InitialContext ic = new InitialContext();
-            ic.createSubcontext("java:");
-            ic.createSubcontext("java:comp");
-            ic.createSubcontext("java:comp/env");
-            ic.createSubcontext("java:comp/env/jdbc");
-            ic.createSubcontext("java:comp/env/jdbc/brmo");
-            ic.bind("java:comp/env/jdbc/brmo/rsgbbgt", dsRsgbbgt);
-        } catch (ClassNotFoundException | IllegalArgumentException | NamingException ex) {
-            LOG.debug("Er is iets misgegaan bij de GeoTools of JNDI initialisatie", ex);
-        }
-
-        BrmoFramework brmo = new BrmoFramework(dsStaging, null, dsRsgbbgt);
-        // bepaal welke bgtlight LP's er zijn om te transformeren
-        final long[] lpIds = ArrayUtils.toPrimitive(brmo.getLaadProcessenIds("bestand_datum", "ASC", BrmoFramework.BR_BGTLIGHT, Bericht.STATUS.STAGING_OK.name()));
-        brmo.setOrderBerichten(loadingUpdate.equalsIgnoreCase("true"));
-        Thread t = brmo.toRsgb(RsgbProxy.BerichtSelectMode.BY_LAADPROCES, lpIds, null);
-        t.join();
-        LOG.info("Klaar met staging naar rsgbbgt transformatie.");
-        brmo.closeBrmoFramework();
-        return 0;
-    }
-
-    private static int versieInfo(DataSource dataSourceStaging, DataSource dataSourceRsgb, DataSource dataSourceRsgbBGT, String format) throws BrmoException {
-        BrmoFramework brmo = new BrmoFramework(dataSourceStaging, dataSourceRsgb, dataSourceRsgbBGT);
+    private static int versieInfo(DataSource dataSourceStaging, DataSource dataSourceRsgb, String format) throws BrmoException {
+        BrmoFramework brmo = new BrmoFramework(dataSourceStaging, dataSourceRsgb);
         if (format.equalsIgnoreCase("json")) {
             StringBuilder sb = new StringBuilder("{");
             sb.append("\"staging_versie\":\"").append(brmo.getStagingVersion()).append("\",")
-                    .append("\"rsgb_versie\":\"").append(brmo.getRsgbVersion()).append("\",")
-                    .append("\"rsgbbgt_versie\":\"").append(brmo.getRsgbBgtVersion()).append("\"}");
+                    .append("\"rsgb_versie\":\"").append(brmo.getRsgbVersion()).append("\",");
             System.out.println(sb);
         } else {
             System.out.println("staging versie: " + brmo.getStagingVersion());
             System.out.println("rsgb    versie: " + brmo.getRsgbVersion());
-            System.out.println("rsgbbgt versie: " + brmo.getRsgbBgtVersion());
         }
         brmo.closeBrmoFramework();
         return 0;
