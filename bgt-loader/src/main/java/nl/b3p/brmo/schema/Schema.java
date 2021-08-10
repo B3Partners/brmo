@@ -21,7 +21,7 @@ public class Schema {
     protected Schema() {
     }
 
-    protected void addObjectType(BGTObjectType objectType) {
+    protected void addObjectType(ObjectType objectType) {
         objectTypes.put(objectType.getName(), objectType);
     }
 

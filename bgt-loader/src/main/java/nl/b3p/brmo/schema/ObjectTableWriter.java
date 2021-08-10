@@ -55,7 +55,7 @@ public class ObjectTableWriter {
     private Integer objectLimit = null;
     private boolean linearizeCurves = false;
     private boolean createSchema = false;
-    private String tablePrefix = null;
+    private String tablePrefix = "";
 
     private Consumer<ObjectTableWriter.Progress> progressUpdater;
 
@@ -107,6 +107,10 @@ public class ObjectTableWriter {
 
         public void setObjectCount(long objectCount) {
             this.objectCount = objectCount;
+        }
+
+        public void incrementObjectCount() {
+            this.objectCount++;
         }
     }
 
@@ -442,6 +446,6 @@ public class ObjectTableWriter {
     }
 
     protected void closeBatches() {
-        progress.insertBatches.values().stream().forEach(QueryBatch::closeQuietly);
+        progress.insertBatches.values().forEach(QueryBatch::closeQuietly);
     }
 }
