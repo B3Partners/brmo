@@ -221,29 +221,36 @@ SPDX-License-Identifier: MIT
                     </execution>
                 </executions>
             </plugin>
-            <!-- disabled globally for now, needs to be disabled for windows profile used in Windows MS SQL CI workflow -->
-            <!--        <plugin>
-                      <groupId>io.fabric8</groupId>
-                      <artifactId>docker-maven-plugin</artifactId>
-                      <configuration>
-                        <verbose>true</verbose>
-                        <skip>true</skip>
-                        <images>
-                          <image>
-                            <name>b3partners/brmo-bgt-loader:%l</name>
-                          </image>
-                        </images>
-                      </configuration>
-                      <executions>
-                        <execution>
-                          <id>docker-build</id>
-                          <phase>package</phase>
-                          <goals>
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <configuration>
+                    <verbose>true</verbose>
+                    <images>
+                        <image>
+                            <name>ghcr.io/b3partners/brmo-bgt-loader:%l</name>
+                        </image>
+                    </images>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>docker-build</id>
+                        <phase>package</phase>
+                        <goals>
                             <goal>build</goal>
-                          </goals>
-                        </execution>
-                      </executions>
-                    </plugin>-->
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>docker-push</id>
+                        <!-- NB voor deploy/push is het nodig dat je bent ingelogd op de ghcr.io repository met docker.
+                        zie: https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry -->
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>push</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
     <profiles>
@@ -298,5 +305,25 @@ SPDX-License-Identifier: MIT
                 </plugins>
             </build>
         </profile>-->
+        <profile>
+            <id>windows</id>
+            <activation>
+                <os>
+                    <family>Windows</family>
+                </os>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>io.fabric8</groupId>
+                        <artifactId>docker-maven-plugin</artifactId>
+                        <configuration>
+                            <verbose>false</verbose>
+                            <skip>true</skip>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
     </profiles>
 </project>
