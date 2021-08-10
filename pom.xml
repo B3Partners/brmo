@@ -1282,5 +1282,15 @@
                 <skip-windows>,skip-windows-java11</skip-windows>
             </properties>
         </profile>
+        <profile>
+            <id>windows</id>
+            <activation>
+                <os>
+                    <family>Windows</family>
+                </os>
+            </activation>
+            <properties/>
+            <build/>
+        </profile>
     </profiles>
 </project>
