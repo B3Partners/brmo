@@ -70,7 +70,7 @@ Bekijk de `.github/workflow/`, `appveyor.yml` en `Jenkinsfile` hoe de integratie
 ### database configuratie
 
 Voor de verschillende database omgevingen zijn er in bijvoorbeeld de `brmo-service` module,
-de `brmo-loader` module en de `bgt-gml-loader` module property files gemaakt met een
+de `brmo-loader` module property files gemaakt met een
 configuratie die gebruikt wordt in de verschillende CI omgevingen. Deze bestanden zijn 
 in de test resources te vinden. Lokaal kun je een override definieren voor een bepaalde
 omgeving door een bestand naast het bestaande te zetten met de naam `local.<DB smaakje>.properties`.
@@ -89,7 +89,6 @@ abstracte klasse in verschillende modules.
 
 | module         | klasse                                  |
 | -------------- | --------------------------------------- |
-|bgt-gml-loader  |`nl.b3p.brmo.loader.gml.TestingBase`     |
 |brmo-loader     |`nl.b3p.AbstractDatabaseIntegrationTest` |
 |brmo-service    |`nl.b3p.web.TestUtil`                    |
 |brmo-soap       |`nl.b3p.brmo.soap.db.TestUtil`           |

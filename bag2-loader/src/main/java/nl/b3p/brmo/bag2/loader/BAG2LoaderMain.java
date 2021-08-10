@@ -25,27 +25,23 @@ public class BAG2LoaderMain {
     public static void main(String... args) throws Exception {
         Instant start = Instant.now();
         int count = 0;
-        int totalObjects = 0;
         for(String filename: args) {
             try (ZipFile zip = new ZipFile(filename);
                  Connection connection = DriverManager.getConnection("jdbc:postgresql:bag?sslmode=disable&reWriteBatchedInserts=true", "bag", "bag")
             ) {
+                BAG2ObjectTableWriter writer = new BAG2ObjectTableWriter(connection, new PostGISDialect(), BAG2SchemaMapper.getInstance());
+                writer.setCreateSchema(true);
+                writer.start();
+
                 for (ZipEntry entry: zip.stream().collect(Collectors.toList())) {
-                    System.out.print(entry.getName() + ": ");
-                    int objects = loadEntry(connection, zip.getInputStream(entry));
-                    totalObjects += objects;
-                    System.out.println(objects);
+                    System.out.print("\r" + entry.getName());
+                    writer.write(zip.getInputStream(entry));
                     count++;
                 }
-            }
-            System.out.printf("%s: loaded %,d files, %,d total objects in %s\n", filename, count, totalObjects, formatTimeSince(start));
-        }
-    }
 
-    private static int loadEntry(Connection connection, InputStream input) throws Exception {
-        BAG2ObjectTableWriter writer = new BAG2ObjectTableWriter(connection, new PostGISDialect(), BAG2SchemaMapper.getInstance());
-        writer.setCreateSchema(true);
-        writer.write(input);
-        return (int)writer.getProgress().getObjectCount();
+                writer.complete();
+                System.out.printf("\r%s: loaded %,d files, %,d total objects in %s\n", filename, count, writer.getProgress().getObjectCount(), formatTimeSince(start));
+            }
+        }
     }
 }

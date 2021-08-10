@@ -117,13 +117,6 @@
             </includes>
         </fileSet>
         <fileSet>
-            <directory>../${project.basedir}/bgt-gml-loader/target/generated-resources/ddl/</directory>
-            <outputDirectory>db/rsgbbgt</outputDirectory>
-            <includes>
-                <include>**/*.sql</include>
-            </includes>
-        </fileSet>
-        <fileSet>
             <directory>../${project.basedir}/brmo-topnl-loader/src/main/resources/nl/b3p/topnl/database/</directory>
             <outputDirectory>db/topnl</outputDirectory>
             <includes>

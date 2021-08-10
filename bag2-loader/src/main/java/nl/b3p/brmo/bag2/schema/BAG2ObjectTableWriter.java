@@ -17,6 +17,7 @@ import org.apache.commons.logging.LogFactory;
 
 import java.io.InputStream;
 import java.sql.Connection;
+import java.sql.SQLException;
 
 public class BAG2ObjectTableWriter extends ObjectTableWriter {
     private static final Log log = LogFactory.getLog(BAG2ObjectTableWriter.class);
@@ -33,34 +34,35 @@ public class BAG2ObjectTableWriter extends ObjectTableWriter {
         super(connection, dialect, schemaSQLMapper);
     }
 
-    public void write(InputStream bagXml) throws Exception {
+    public void start() throws SQLException {
         BAG2ObjectTableWriter.BAG2Progress progress = this.new BAG2Progress();
+        progress.setInitialLoad(true);
         super.start(progress);
         updateProgress(Stage.PARSE_INPUT);
+    }
 
-        try(CountingInputStream counter = new CountingInputStream(bagXml)) {
-            progress.counter = counter;
-            BAG2GMLObjectStream bag2Objects = new BAG2GMLObjectStream(counter);
-            updateProgress(Stage.LOAD_OBJECTS);
+    public void write(InputStream bagXml) throws Exception {
+        CountingInputStream counter = new CountingInputStream(bagXml);
+        BAG2GMLObjectStream bag2Objects = new BAG2GMLObjectStream(counter);
+        updateProgress(Stage.LOAD_OBJECTS);
 
-            progress.setInitialLoad(true);
 
-            for (BAG2Object object: bag2Objects) {
-                prepareDatabaseForObject(object);
+        for (BAG2Object object: bag2Objects) {
+            prepareDatabaseForObject(object);
 
-                progress.incrementObjectCount();
+            getProgress().incrementObjectCount();
 
-                addObjectToBatch(object);
+            addObjectToBatch(object);
 
-                if (getObjectLimit() != null && progress.getObjectCount() == getObjectLimit()) {
-                    break;
-                }
+            if (getObjectLimit() != null && getProgress().getObjectCount() == getObjectLimit()) {
+                break;
             }
-
-            super.endOfObjects();
-            super.complete();
-        } finally {
-            super.closeBatches();
         }
+    }
+
+    public void complete() throws Exception {
+        super.endOfObjects();
+        super.complete();
+        super.closeBatches();
     }
 }

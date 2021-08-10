@@ -26,7 +26,7 @@ import org.apache.commons.logging.LogFactory;
 import org.stripesstuff.stripersist.Stripersist;
 
 /**
- * Transformeert laadprocessn, zoals bijvoorbeeld BGTLight GML.
+ * Transformeert laadprocessn, zoals bijvoorbeeld TopNL.
  *
  * @author mprins
  */
@@ -102,16 +102,12 @@ public class LaadprocesTransformatieUitvoeren extends AbstractExecutableProces {
         BrmoFramework brmo = null;
         try {
             DataSource dataSourceStaging = ConfigUtil.getDataSourceStaging();
-            DataSource dataSourceRsgbBgt = null;
             DataSource dataSourceTopNL = null;
             if (LaadprocesTransformatieProces.LaadprocesSoorten.BR_TOPNL.getSoort().equalsIgnoreCase(this.config.getSoort())) {
                 dataSourceTopNL = ConfigUtil.getDataSourceTopNL();
             }
-            if (LaadprocesTransformatieProces.LaadprocesSoorten.BR_BGTLIGHT.getSoort().equalsIgnoreCase(this.config.getSoort())) {
-                dataSourceRsgbBgt = ConfigUtil.getDataSourceRsgbBgt();
-            }
-            brmo = new BrmoFramework(dataSourceStaging, null, dataSourceRsgbBgt, dataSourceTopNL);
-            long[] lpIds = null;
+            brmo = new BrmoFramework(dataSourceStaging, null, null, dataSourceTopNL);
+            long[] lpIds;
             
             if(LaadprocesTransformatieProces.LaadprocesSoorten.BR_TOPNL.getSoort().equalsIgnoreCase(this.config.getSoort())){
                 List<Long> ids = new ArrayList<>();

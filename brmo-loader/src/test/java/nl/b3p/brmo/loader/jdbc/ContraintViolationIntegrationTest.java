@@ -28,8 +28,9 @@ import java.util.List;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import static org.junit.Assume.assumeNotNull;
+
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assumptions.assumeFalse;
 
 /**
  * Draaien met:
@@ -90,7 +91,7 @@ public class ContraintViolationIntegrationTest extends AbstractDatabaseIntegrati
             Assertions.fail("Geen ondersteunde database aangegegeven.");
         }
 
-        assumeNotNull("Het bestand met testdata zou moeten bestaan.", ContraintViolationIntegrationTest.class.getResource(bestandNaam));
+        assumeFalse( null!=ContraintViolationIntegrationTest.class.getResource(bestandNaam), "Het bestand met testdata zou moeten bestaan.");
 
         sequential.lock();
         CleanUtil.cleanSTAGING(staging, false);

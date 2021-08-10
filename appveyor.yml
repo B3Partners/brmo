@@ -98,8 +98,6 @@ after_build:
   - cmd: echo "aanmaken en opzetten RSGBBGT DB"
   - sqlcmd -S (local)\%INSTANCENAME% -U sa -P Password12! -d "master" -Q "CREATE DATABASE bgttest"
   - sqlcmd -S (local)\%INSTANCENAME% -U sa -P Password12! -d "master" -Q "ALTER DATABASE bgttest SET RECOVERY SIMPLE"
-  - dir .\bgt-gml-loader\target\generated-resources\ddl\sqlserver\
-  - sqlcmd -r0 -b -S (local)\%INSTANCENAME% -I -U sa -P Password12! -d "bgttest" -i .\bgt-gml-loader\target\generated-resources\ddl\sqlserver\create_rsgb_bgt.sql
 #
   - cmd: echo "aanmaken en opzetten TOPNL DB"
   - sqlcmd -S (local)\%INSTANCENAME% -U sa -P Password12! -d "master" -Q "CREATE DATABASE topnl"
@@ -120,8 +118,6 @@ test_script:
   - if "%LOADER_ONLY_ITESTS%"=="true" mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-loader" -Dmssql.instancename=%INSTANCENAME%
   # run integratie tests voor bgt-loader module
   - if "%BGT_ONLY_ITESTS%"=="true" mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "bgt-loader" -Dmssql.instancename=%INSTANCENAME%
-  # run integratie tests voor bgt-gml-loader module (~30min)
-  #- if "%BGT_ONLY_ITESTS%"=="true" mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "bgt-gml-loader" -Dmssql.instancename=%INSTANCENAME%
   # run integratie tests voor brmo-service module
   - if "%OTHER_ITESTS%"=="true" mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-service" -Dmssql.instancename=%INSTANCENAME%
   # run integratie tests voor brmo-soap module

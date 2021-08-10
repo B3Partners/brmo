@@ -75,7 +75,7 @@ public class TopNLRsgbTransformer implements Runnable {
     public void init() throws SQLException {
        /* geomjdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(dataSourceTopNL.getConnection());
 
-        params.put("jndiReferenceName", "java:comp/env/jdbc/brmo/rsgbbgt");
+        params.put("jndiReferenceName", "java:comp/env/jdbc/brmo/topnl");
         params.put("dbtype", geomjdbc.getGeotoolsDBTypeName());
         params.put("schema", geomjdbc.getSchema());
 

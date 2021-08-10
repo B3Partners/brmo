@@ -424,7 +424,7 @@ public class ObjectTableWriter {
         }
     }
 
-    protected void complete() throws SQLException {
+    protected void complete() throws Exception {
         if (isCreateSchema() && progress.initialLoad) {
             QueryRunner qr = new QueryRunner();
             updateProgress(Stage.CREATE_PRIMARY_KEY);
