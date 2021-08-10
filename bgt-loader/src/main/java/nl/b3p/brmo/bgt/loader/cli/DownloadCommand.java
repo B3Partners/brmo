@@ -33,6 +33,7 @@ import java.util.List;
 import java.util.function.Consumer;
 
 import static nl.b3p.brmo.bgt.loader.Utils.formatTimeSince;
+import static nl.b3p.brmo.bgt.loader.Utils.getBrmoVersion;
 import static nl.b3p.brmo.bgt.loader.Utils.getBundleString;
 import static nl.b3p.brmo.bgt.loader.Utils.getLoaderVersion;
 import static nl.b3p.brmo.bgt.loader.Utils.getMessageFormattedString;
@@ -92,6 +93,7 @@ public class DownloadCommand {
             }
 
             db.setMetadataValue(Metadata.LOADER_VERSION, getLoaderVersion());
+            db.setMetadataValue(Metadata.BRMOVERSIE, getBrmoVersion());
             db.setFeatureTypesEnumMetadata(extractSelectionOptions.getFeatureTypesList());
             db.setMetadataValue(Metadata.INCLUDE_HISTORY, loadOptions.includeHistory + "");
             db.setMetadataValue(Metadata.LINEARIZE_CURVES, loadOptions.linearizeCurves + "");

@@ -171,7 +171,7 @@ public abstract class SchemaSQLMapper {
         if (dialect.supportsDropTableIfExists()) {
             statements.add("drop table if exists " + tableName);
         }
-        String sql = String.format("create table %s(\n  id %s,\n  value %s,\n  primary key(id)\n)",
+        String sql = String.format("create table %s(\n  naam %s,\n  waarde %s,\n  primary key(naam)\n)",
                 tableName,
                 dialect.getType("varchar(255)"),
                 dialect.getType("text"));
