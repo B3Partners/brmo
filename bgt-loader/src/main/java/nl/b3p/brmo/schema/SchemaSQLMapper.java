@@ -60,7 +60,7 @@ public abstract class SchemaSQLMapper {
         if (i != -1) {
             attributeName = new StringBuilder(attributeName).replace(i, i + tableNameLower.length(), "").toString();
         }
-        return attributeName.replaceAll("\\-", "_");
+        return attributeName.replaceAll("-", "_");
     }
 
     public void printSchema(SQLDialect dialect, String tablePrefix, Predicate<ObjectType> objectTypeFilter) {
@@ -84,7 +84,7 @@ public abstract class SchemaSQLMapper {
         }
 
         System.out.printf("-- %s\n\n", getBundleString("schema.loader_metadata"));
-        System.out.println(getCreateMetadataTableStatements(dialect, tablePrefix).stream().collect(Collectors.joining(";\n")) + ";\n");
+        System.out.println(String.join(";\n", getCreateMetadataTableStatements(dialect, tablePrefix)) + ";\n");
 
         System.out.printf("-- %s %s\n\n", getBundleString("schema.primary_keys"), getBundleString("schema.after_initial_load"));
         String primaryKeys = tableNamesObjectTypes.values().stream()
@@ -128,10 +128,16 @@ public abstract class SchemaSQLMapper {
                 .filter(AttributeColumnMapping::isPrimaryKey)
                 .map(column -> getColumnNameForObjectType(objectType, column.getName()))
                 .collect(Collectors.joining(", "));
-        String sql = String.format("alter table %s add constraint %s_pkey primary key(%s)",
-                tableName, tableName, columns);
+        Stream<String> tablePrimaryKey;
+        if (columns.length() > 0) {
+            String sql = String.format("alter table %s add constraint %s_pkey primary key(%s)",
+                    tableName, tableName, columns);
+            tablePrimaryKey = Stream.of(sql);
+        } else {
+            tablePrimaryKey = Stream.empty();
+        }
         return Stream.concat(
-                Stream.of(sql),
+                tablePrimaryKey,
                 includeOneToMany
                         ? objectType.getOneToManyAttributeObjectTypes().stream().flatMap(oneToManyObjectType -> getCreatePrimaryKeyStatements(oneToManyObjectType, dialect, tablePrefix))
                         : Stream.empty()
