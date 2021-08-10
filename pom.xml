@@ -1269,19 +1269,13 @@
                 dit profiel wordt getriggerd op de Github Windows runner:
                 - Windows
                 - Java >=11
-                - Maven 3.8.1
+
+                Het dient voor het instellen van een extra JUnit tag om bepaalde tests op windows over te slaan.
                 -->
                 <os>
                     <family>Windows</family>
                 </os>
                 <jdk>[11,)</jdk>
-                <!-- de versie van Maven op de github runner; als er een update is geweest kan het zijn dat de tests weer proberen te draaien...
-                     appveyor heeft een andere versie...
-                <property>
-                    <name>maven.version</name>
-                    <value>3.8.1</value>
-                </property>
-                     -->
             </activation>
             <properties>
                 <!-- zodat we getaggede tests kunnen skippen met failsafe -->

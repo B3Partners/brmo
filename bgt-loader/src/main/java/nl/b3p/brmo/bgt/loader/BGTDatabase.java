@@ -124,7 +124,7 @@ public class BGTDatabase implements AutoCloseable {
     }
 
     public String getMetadata(Metadata key) throws SQLException {
-        Object value = new QueryRunner().query(getConnection(), "select value from " + METADATA_TABLE_NAME + " where id = ?", new ScalarHandler<>(), key.getDbKey());
+        Object value = new QueryRunner().query(getConnection(), "select waarde from " + METADATA_TABLE_NAME + " where naam = ?", new ScalarHandler<>(), key.getDbKey());
         if (value == null) {
             return null;
         }
@@ -137,9 +137,9 @@ public class BGTDatabase implements AutoCloseable {
 
     public void setMetadataValue(Metadata key, String value) throws Exception {
         try {
-            int updated = new QueryRunner().update(getConnection(), "update " + METADATA_TABLE_NAME + " set value = ? where id = ?", value, key.getDbKey());
+            int updated = new QueryRunner().update(getConnection(), "update " + METADATA_TABLE_NAME + " set waarde = ? where naam = ?", value, key.getDbKey());
             if (updated == 0) {
-                new QueryRunner().update(getConnection(), "insert into " + METADATA_TABLE_NAME + "(id, value) values(?,?)", key.getDbKey(), value);
+                new QueryRunner().update(getConnection(), "insert into " + METADATA_TABLE_NAME + "(naam, waarde) values(?,?)", key.getDbKey(), value);
             }
         } catch (SQLException e) {
             throw new Exception(getMessageFormattedString("db.metadata_error", key.getDbKey(), value, e.getMessage()), e);

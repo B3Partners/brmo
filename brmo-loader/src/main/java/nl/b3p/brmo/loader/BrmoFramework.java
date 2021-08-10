@@ -140,7 +140,6 @@ public class BrmoFramework {
         }
     }
 
-    @Deprecated(since = "2.1.0")
     public String getRsgbBgtVersion() {
         try {
             return getVersion(dataSourceRsgbBgt);
