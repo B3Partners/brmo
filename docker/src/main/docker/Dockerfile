@@ -26,7 +26,6 @@ ARG DEBIAN_FRONTEND="noninteractive"
 SHELL ["/bin/bash", "-eux", "-o", "pipefail", "-c"]
 RUN mkdir -p /opt/brmo-data/BAG/ \
     && mkdir -p /opt/brmo-data/BRK/ \
-    && mkdir -p /opt/brmo-data/BGT/ \
     && mkdir -p /opt/brmo-data/TOPNL/Top10NL/ \
     && mkdir -p /opt/brmo-data/TOPNL/Top50NL/ \
     && mkdir -p /opt/brmo-data/TOPNL/Top100NL/ \
@@ -49,7 +48,6 @@ COPY bin_unzipped/drivers/pgsql/*.jar /usr/local/tomcat/lib/
 
 # sla de SQL scripts op in de image om evt. database aan te kunnen maken
 COPY ["bin_unzipped/db/rsgb/datamodel_postgresql.sql", \
-      "bin_unzipped/db/rsgbbgt/postgresql/create_rsgb_bgt.sql", \
       "bin_unzipped/db/topnl/postgres.sql", \
       "bin_unzipped/db/staging/create-brmo-persistence-postgresql.sql", \
       "/opt/brmo-data/sqlscripts/"]
