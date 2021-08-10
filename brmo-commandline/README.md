@@ -26,8 +26,6 @@ Acties:
                                                              (geef id weer met -list)
   -t,--torsgb <[error-state]>                                Transformeer alle 'STAGING_OK'
                                                              berichten naar rsgb.
-  -tb,--torsgbbgt <[loadingUpdate]>                          Transformeer alle 'STAGING_OK'
-                                                             BGT-Light laadprocessen naar rsgbbgt.
   -e,--exportgds <output-directory>                          Maak van berichten uit staging gezipte
                                                              xml-files in de opgegeven directory.
                                                              Dit zijn alleen BRK mutaties van GDS2
@@ -53,8 +51,6 @@ __De `--afgiftelijst` is beschikbaar vanaf versie 2.0.0__
 De transformatie naar rsgb wordt normaal met de "ignore" `error-state` optie gestart om te voorkomen dat het proces afbreekt als er een transformatie fout optreed bij de verwerking van een bericht, om dit te voorkomen kan er een andere waarde worden opgegeven, bijvoorbeeld "false".
 Na afloop van een transformatie kan de status van de berichten worden gecontroleerd met de `--berichtstatus` optie.
 
-Omdat BGT Light bestanden niet in een bericht formaat zijn worden er geen berichten geparsed; er wordt alleen een laadproces aangemaakt met een verwijzing naar het zip bestand. Het is van belang dat het pad consistent is voor de verschillende gebruikers en applicaties (brmo-service, commandline), in de praktijk betekent dat dat de bgtlight zipfiles op de applicatie server staan.
-
 ## Voorbeelden
 
 Onderstaand een aantal voorbeelden.
@@ -66,7 +62,6 @@ Onderstaand een aantal voorbeelden.
      ```
      staging versie: 2.0.3
      rsgb    versie: 2.0.3
-     rsgbbgt versie: 2.0.3
      ```
      
   - `java -jar ./bin/brmo-commandline.jar -db conf/commandline-example.properties --load /home/mark/dev/projects/brmo/brmo-loader/src/test/resources/GH-275/OPR-1884300000000464.xml bag`
@@ -103,9 +98,7 @@ Onderstaand een aantal voorbeelden.
 
      ```
   - `java -jar bin/brmo-commandline.jar -db conf/brmo-commandline.properties -ad /tmp/brk brk`
-  - `java -jar ./bin/brmo-commandline.jar -db conf/commandline-example.properties -ad /tmp/gmllight/dated bgtlight`
-  - `java -jar ./bin/brmo-commandline.jar -db conf/commandline-example.properties --torsgbbgt`
-  
+
 
 ## Logging configuratie
 

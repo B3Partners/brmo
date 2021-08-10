@@ -26,8 +26,6 @@ import net.sourceforge.stripes.validation.ValidationMethod;
 import nl.b3p.brmo.persistence.staging.AfgifteNummerScannerProces;
 import nl.b3p.brmo.persistence.staging.AutomatischProces;
 import nl.b3p.brmo.persistence.staging.BAGScannerProces;
-import nl.b3p.brmo.persistence.staging.BGTLightOphaalProces;
-import nl.b3p.brmo.persistence.staging.BGTLightScannerProces;
 import nl.b3p.brmo.persistence.staging.BRKScannerProces;
 import nl.b3p.brmo.persistence.staging.BerichtDoorstuurProces;
 import nl.b3p.brmo.persistence.staging.BerichtTransformatieProces;
@@ -179,10 +177,6 @@ public class OphaalConfigActionBean implements ActionBean {
                 return new BerichtDoorstuurProces();
             case WebMirrorBAGScannerProces:
                 return new WebMirrorBAGScannerProces();
-            case BGTLightScannerProces:
-                return new BGTLightScannerProces();
-            case BGTLightOphaalProces:
-                return new BGTLightOphaalProces();
             case LaadprocesTransformatieProces:
                 return new LaadprocesTransformatieProces();
             case MaterializedViewRefresh:

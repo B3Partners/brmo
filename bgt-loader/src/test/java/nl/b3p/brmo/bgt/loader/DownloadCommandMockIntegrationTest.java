@@ -6,8 +6,8 @@
 
 package nl.b3p.brmo.bgt.loader;
 
-import okhttp3.mockwebserver.MockResponse;
-import okhttp3.mockwebserver.RecordedRequest;
+import mockwebserver3.MockResponse;
+import mockwebserver3.RecordedRequest;
 import okio.Buffer;
 import org.dbunit.DatabaseUnitException;
 import org.junit.jupiter.api.MethodOrderer;
@@ -23,8 +23,8 @@ import java.sql.SQLException;
 import java.util.concurrent.TimeUnit;
 
 import static nl.b3p.brmo.bgt.loader.BGTTestFiles.getTestInputStream;
-import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;

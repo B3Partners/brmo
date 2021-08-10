@@ -6,8 +6,8 @@
 
 package nl.b3p.brmo.bgt.loader;
 
+import mockwebserver3.MockWebServer;
 import nl.b3p.brmo.bgt.loader.cli.BGTLoaderMain;
-import okhttp3.mockwebserver.MockWebServer;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.TestInfo;

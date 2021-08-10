@@ -335,7 +335,7 @@ columns (GEOMETRY)" maar dan moet je zelf kiezen voor welk specifiek geometrie-t
 
 ## Downloaden van mutaties
 
-De selectieopties gebruikt bij het `download initial` commando worden opgeslagen in de database in de `bgt_metadata`
+De selectieopties gebruikt bij het `download initial` commando worden opgeslagen in de database in de `brmo_metadata`
 tabel en worden gebruikt om de juiste mutaties te downloaden van de PDOK mutatieservice. Draai het volgende commando (met
 eventuele database-verbindingsopties) om mutaties te laden:
 

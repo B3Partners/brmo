@@ -45,6 +45,10 @@ public class Utils {
         return getBundleString("app.version");
     }
 
+    public static String getBrmoVersion() {
+        return getBundleString("brmo.version");
+    }
+
     public static String getUserAgent() {
         return String.format("%s, %s (%s)/%s, %s/%s",
                 getBundleString("app.user-agent"),

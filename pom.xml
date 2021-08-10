@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>nl.b3p</groupId>
     <artifactId>brmo</artifactId>
@@ -10,7 +11,6 @@
         <module>datamodel</module>
         <module>brmo-init-util</module>
         <module>brmo-persistence</module>
-        <module>bgt-gml-loader</module>
         <module>bgt-loader</module>
         <module>bag2-loader</module>
         <module>brmo-topnl-loader</module>
@@ -73,8 +73,8 @@
         <oracle.jdbc.version>21.1.0.0</oracle.jdbc.version>
         <oracle.jdbc.artifact>ojdbc11</oracle.jdbc.artifact>
         <sqlserver.jdbc.version>9.4.0.jre11</sqlserver.jdbc.version>
-        <mssql.instancename />
-        <skip-windows />
+        <mssql.instancename/>
+        <skip-windows/>
         <javasimon.version>4.2.0</javasimon.version>
         <jakarta.mail.version>1.6.6</jakarta.mail.version>
         <apache.poi.version>5.0.0</apache.poi.version>
@@ -85,7 +85,7 @@
         <jackson.version>2.12.4</jackson.version>
         <javax-annotation.version>1.3.2</javax-annotation.version>
         <activation.api.version>1.2.2</activation.api.version>
-        <tomcat.version>9.0.50</tomcat.version>
+        <tomcat.version>9.0.52</tomcat.version>
         <tomcat.http.port>9091</tomcat.http.port>
         <tomcat.localDatasource>false</tomcat.localDatasource>
         <javaee-endorsed-api.version>7.0</javaee-endorsed-api.version>
@@ -113,7 +113,7 @@
         <taglist-maven-plugin.version>2.4</taglist-maven-plugin.version>
         <!-- deze property wordt gebruikt om tijdens tests te bepalen of we met een geupgraded
         release database werken of een ontwikkel versie -->
-        <database.upgrade />
+        <database.upgrade/>
     </properties>
     <dependencyManagement>
         <!--
@@ -171,11 +171,6 @@
             <dependency>
                 <groupId>nl.b3p</groupId>
                 <artifactId>brmo-topnl-loader</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>nl.b3p</groupId>
-                <artifactId>bgt-gml-loader</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -617,14 +612,6 @@
                 <scope>test</scope>
             </dependency>
             <dependency>
-                <!-- override voor versies die met sommige dependencies meekomen
-                en de OWASP dependency scanner triggeren -->
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>4.13.2</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
                 <groupId>org.dbunit</groupId>
                 <artifactId>dbunit</artifactId>
                 <version>2.7.2</version>
@@ -638,11 +625,29 @@
                 <groupId>org.httpunit</groupId>
                 <artifactId>httpunit</artifactId>
                 <version>1.7.3</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>junit</groupId>
+                        <artifactId>junit</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.hamcrest</groupId>
+                        <artifactId>hamcrest-core</artifactId>
+                    </exclusion>
+                </exclusions>
+                <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>net.javacrumbs.json-unit</groupId>
                 <artifactId>json-unit</artifactId>
                 <version>2.27.0</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.hamcrest</groupId>
+                        <artifactId>hamcrest-core</artifactId>
+                    </exclusion>
+                </exclusions>
+                <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.xmlunit</groupId>
@@ -662,12 +667,12 @@
                 <version>${tomcat.version}</version>
                 <scope>test</scope>
             </dependency>
-<!--            <dependency>-->
-<!--                <groupId>org.apache.tomcat</groupId>-->
-<!--                <artifactId>tomcat-dbcp</artifactId>-->
-<!--                <version>${tomcat.version}</version>-->
-<!--                <scope>test</scope>-->
-<!--            </dependency>-->
+            <!--            <dependency>-->
+            <!--                <groupId>org.apache.tomcat</groupId>-->
+            <!--                <artifactId>tomcat-dbcp</artifactId>-->
+            <!--                <version>${tomcat.version}</version>-->
+            <!--                <scope>test</scope>-->
+            <!--            </dependency>-->
             <dependency>
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-core</artifactId>
@@ -676,8 +681,8 @@
             </dependency>
             <dependency>
                 <groupId>com.squareup.okhttp3</groupId>
-                <artifactId>mockwebserver</artifactId>
-                <version>4.9.1</version>
+                <artifactId>mockwebserver3-junit5</artifactId>
+                <version>5.0.0-alpha.2</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>
@@ -840,7 +845,7 @@
                         <includes>
                             <include>**/*IntegrationTest.java</include>
                         </includes>
-<!--                        <systemPropertyVariables />-->
+                        <!--                        <systemPropertyVariables />-->
                         <trimStackTrace>false</trimStackTrace>
                         <useFile>false</useFile>
                         <skipTests>!${test.onlyITs}</skipTests>
@@ -959,7 +964,7 @@
                 <plugin>
                     <groupId>org.codehaus.cargo</groupId>
                     <artifactId>cargo-maven3-plugin</artifactId>
-                    <version>1.9.5</version>
+                    <version>1.9.6</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-project-info-reports-plugin</artifactId>
@@ -1050,6 +1055,12 @@
                                 <requireJavaVersion>
                                     <version>${java.version}</version>
                                 </requireJavaVersion>
+                                <bannedDependencies>
+                                    <excludes>
+                                        <exclude>junit:junit</exclude>
+                                        <exclude>org.hamcrest:hamcrest-core</exclude>
+                                    </excludes>
+                                </bannedDependencies>
                             </rules>
                         </configuration>
                     </execution>
@@ -1259,24 +1270,28 @@
                 dit profiel wordt getriggerd op de Github Windows runner:
                 - Windows
                 - Java >=11
-                - Maven 3.8.1
+
+                Het dient voor het instellen van een extra JUnit tag om bepaalde tests op windows over te slaan.
                 -->
                 <os>
                     <family>Windows</family>
                 </os>
                 <jdk>[11,)</jdk>
-                <!-- de versie van Maven op de github runner; als er een update is geweest kan het zijn dat de tests weer proberen te draaien...
-                     appveyor heeft een andere versie...
-                <property>
-                    <name>maven.version</name>
-                    <value>3.8.1</value>
-                </property>
-                     -->
             </activation>
             <properties>
                 <!-- zodat we getaggede tests kunnen skippen met failsafe -->
                 <skip-windows>,skip-windows-java11</skip-windows>
             </properties>
+        </profile>
+        <profile>
+            <id>windows</id>
+            <activation>
+                <os>
+                    <family>Windows</family>
+                </os>
+            </activation>
+            <properties/>
+            <build/>
         </profile>
     </profiles>
 </project>

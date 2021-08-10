@@ -43,7 +43,7 @@ timestamps {
                         stage("Prepare Oracle Databases") {
                             echo "cleanup schema's"
                             sh "sqlplus -l -S jenkins_rsgb/jenkins_rsgb@192.168.1.26:15210/XE < ./.jenkins/clear-schema.sql"
-                            //sh "sqlplus -l -S jenkins_rsgbbgt/jenkins_rsgbbgt@192.168.1.26:15210/XE < ./.jenkins/clear-schema.sql"
+                            sh "sqlplus -l -S jenkins_rsgbbgt/jenkins_rsgbbgt@192.168.1.26:15210/XE < ./.jenkins/clear-schema.sql"
                             sh "sqlplus -l -S jenkins_staging/jenkins_staging@192.168.1.26:15210/XE < ./.jenkins/clear-schema.sql"
                             sh "sqlplus -l -S top10nl/top10nl@192.168.1.26:15210/XE < ./.jenkins/clear-schema.sql"
                             sh "sqlplus -l -S top50nl/top50nl@192.168.1.26:15210/XE < ./.jenkins/clear-schema.sql"
@@ -60,11 +60,6 @@ timestamps {
                             echo "init rsgb schema"
                             sh ".jenkins/db-prepare-rsgb.sh"
                         }
-
-//                        stage("Prepare Oracle rsgbbgt") {
-//                            echo "init rsgbbgt schema"
-//                            sh ".jenkins/db-prepare-rsgbbgt.sh"
-//                        }
 
                         stage("Prepare Oracle topnl") {
                             echo "init topnl schema"
@@ -83,11 +78,6 @@ timestamps {
                             echo "run integratie tests voor bgt-loader module"
                             sh "mvn -e verify -B -Poracle -T1 -Dtest.onlyITs=true -pl 'bgt-loader'"
                         }
-
-//                        stage("bgt-gml-loader Integration Test") {
-//                            echo "run integratie tests voor bgt-gml-loader module"
-//                            sh "mvn -e verify -B -Poracle -T1 -Dtest.onlyITs=true -pl 'bgt-gml-loader'"
-//                        }
 
                         stage("brmo-loader Integration Test") {
                             echo "run integratie tests voor brmo-loader module"
@@ -122,9 +112,9 @@ timestamps {
                         }
 
                         stage("Cleanup Database") {
-//                            sh "sqlplus -l -S jenkins_rsgbbgt/jenkins_rsgbbgt@192.168.1.26:15210/XE < ./bgt-gml-loader/target/generated-resources/ddl/oracle/drop_rsgb_bgt.sql"
                             sh "sqlplus -l -S jenkins_staging/jenkins_staging@192.168.1.26:15210/XE < ./brmo-persistence/db/drop-brmo-persistence-oracle.sql"
                             sh "sqlplus -l -S jenkins_rsgb/jenkins_rsgb@192.168.1.26:15210/XE < ./.jenkins/clear-schema.sql"
+                            sh "sqlplus -l -S jenkins_rsgbbgt/jenkins_rsgbbgt@192.168.1.26:15210/XE < ./.jenkins/clear-schema.sql"
                             sh "sqlplus -l -S top10nl/top10nl@192.168.1.26:15210/XE < ./.jenkins/clear-schema.sql"
                             sh "sqlplus -l -S top50nl/top50nl@192.168.1.26:15210/XE < ./.jenkins/clear-schema.sql"
                             sh "sqlplus -l -S top100nl/top100nl@192.168.1.26:15210/XE < ./.jenkins/clear-schema.sql"
@@ -138,12 +128,12 @@ timestamps {
                             sh "\".jenkins/execute-upgrades-oracle.sh\" staging"
                             sh "\".jenkins/execute-upgrades-oracle.sh\" rsgb"
                             sh "\".jenkins/execute-upgrade-extras-oracle.sh\" rsgb"
-//                            sh "\".jenkins/execute-upgrades-oracle.sh\" rsgbbgt"
+                            sh "\".jenkins/execute-upgrades-oracle.sh\" rsgbbgt"
                             sh "mvn -e -B -Poracle -pl 'datamodel' resources:testResources compiler:testCompile surefire:test -Dtest='*UpgradeTest'"
                         }
 
                         stage("Cleanup Database 2") {
-//                            sh "sqlplus -l -S jenkins_rsgbbgt/jenkins_rsgbbgt@192.168.1.26:15210/XE < ./bgt-gml-loader/target/generated-resources/ddl/oracle/drop_rsgb_bgt.sql"
+                            sh "sqlplus -l -S jenkins_rsgbbgt/jenkins_rsgbbgt@192.168.1.26:15210/XE < ./.jenkins/clear-schema.sql"
                             sh "sqlplus -l -S jenkins_staging/jenkins_staging@192.168.1.26:15210/XE < ./brmo-persistence/db/drop-brmo-persistence-oracle.sql"
                             sh "sqlplus -l -S jenkins_rsgb/jenkins_rsgb@192.168.1.26:15210/XE < ./.jenkins/clear-schema.sql"
                         }
