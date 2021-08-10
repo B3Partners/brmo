@@ -7,9 +7,11 @@
 
 package nl.b3p.brmo.bag2.loader;
 
-import nl.b3p.brmo.sql.PostGISCopyInsertBatch;
-import nl.b3p.brmo.sql.QueryBatch;
-import nl.b3p.brmo.sql.dialect.PostGISDialect;
+import nl.b3p.brmo.bag2.schema.BAG2Object;
+import nl.b3p.brmo.bag2.schema.BAG2ObjectType;
+import nl.b3p.brmo.bag2.schema.BAG2Schema;
+import nl.b3p.brmo.bgt.schema.BGTObjectType;
+import nl.b3p.brmo.bgt.schema.BGTSchema;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.codehaus.staxmate.SMInputFactory;
@@ -24,20 +26,16 @@ import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.time.Instant;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
-import static nl.b3p.brmo.bgt.loader.Utils.formatTimeSince;
-
-public class BAG2GMLObjectStream {
+public class BAG2GMLObjectStream implements Iterable<BAG2Object> {
     private static final Log log = LogFactory.getLog(BAG2GMLObjectStream.class);
 
     private static final String NS_BAG_EXTRACT = "http://www.kadaster.nl/schemas/lvbag/extract-deelbestand-lvc/v20200601";
     private static final String NS_STANDLEVERING = "http://www.kadaster.nl/schemas/standlevering-generiek/1.0";
+    private static final String NS_GML_32 = "http://www.opengis.net/gml/3.2";
 
     private static final int SRID = 28992;
 
@@ -79,11 +77,85 @@ public class BAG2GMLObjectStream {
         return cursor;
     }
 
+    @Override
+    public Iterator<BAG2Object> iterator() {
+        return new Iterator<>() {
+            SMEvent event = cursor.getCurrEvent();
+
+            @Override
+            public boolean hasNext() {
+                if (event != null) {
+                    return true;
+                }
+                try {
+                    event = cursor.getNext();
+                    return event != null;
+                } catch(XMLStreamException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
+            @Override
+            public BAG2Object next() {
+                if (event == null) {
+                    if(!hasNext()) {
+                        throw new IllegalStateException("No more items");
+                    }
+                }
+                // Make sure cursor.getNext() is called in a future next() call
+                event = null;
+
+                try {
+                    SMInputCursor bagObjectCursor = cursor.childElementCursor(new QName(NS_BAG_EXTRACT, "bagObject")).advance().childElementCursor().advance();
+
+                    String name = bagObjectCursor.getLocalName();
+
+                    final BAG2ObjectType objectType = BAG2Schema.getInstance().getObjectTypeByName(name);
+                    if (objectType == null) {
+                        throw new IllegalArgumentException("Onbekend object type: " + name);
+                    }
+
+                    Map<String, Object> attributes = new HashMap<>();
+                    SMInputCursor attributeCursor = bagObjectCursor.childElementCursor();
+                    while (attributeCursor.getNext() != null) {
+                        String attributeName = attributeCursor.getLocalName();
+                        Object attributeValue = parseAttribute(attributeCursor);
+                        attributes.put(attributeName, attributeValue);
+                    }
+                    return new BAG2Object(objectType, attributes);
+                } catch(Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        };
+    }
+
+    private Object parseAttribute(SMInputCursor attribute) throws XMLStreamException, FactoryException, IOException {
+        String attributeName = attribute.getLocalName();
+
+        if (attributeName.equals("geometrie")) {
+            // Position cursor at child element
+            SMInputCursor geomCursor = attribute.childElementCursor().advance();
+            // Sometimes there is an element like "punt" which has the actual geometry as child element
+            if (!geomCursor.getNsUri().equals(NS_GML_32)) {
+                geomCursor.childElementCursor().advance();
+            }
+            Geometry geom = geometryReader.readGeometry();
+            geom.setSRID(SRID);
+            return geom;
+        }
+
+        // String attribute value as default
+        return attribute.collectDescendantText().trim();
+    }
+/*
     public int load() throws Exception {
         Instant start = Instant.now();
         Connection connection = DriverManager.getConnection("jdbc:postgresql:bag?sslmode=disable&reWriteBatchedInserts=true", "bag", "bag");
 
-        QueryBatch queryBatch = new PostGISCopyInsertBatch(connection, "copy pand (identificatie,documentnummer,\"oorspronkelijkBouwjaar\",geconstateerd,documentdatum,status,geometrie) from stdin", 2500, new PostGISDialect(), false, false);
+        String sqlPand = "copy pand (identificatie,documentnummer,\"oorspronkelijkBouwjaar\",geconstateerd,documentdatum,status,geometrie) from stdin";
+        String sqlVerblijfsobject = "copy verblijfsobject (identificatie,heeftAlsHoofdadres,geometrie,gebruiksdoel,oppervlakte,status,geconstateerd,documentdatum,documentnummer,maaktdeeluitvan) from stdin";
+        QueryBatch queryBatch = new PostGISCopyInsertBatch(connection, sqlVerblijfsobject, 2500, new PostGISDialect(), false, false);
 
         int count = 0;
 
@@ -97,7 +169,10 @@ public class BAG2GMLObjectStream {
                 String attributeName = attributeCursor.getLocalName();
                 Object attributeValue;
                 if (attributeName.equals("geometrie")) {
-                    attributeCursor.childElementCursor().advance();
+                    SMInputCursor geomCursor = attributeCursor.childElementCursor().advance();
+                    if (!geomCursor.getNsUri().equals(NS_GML_32)) {
+                        geomCursor.childElementCursor().advance();
+                    }
                     attributeValue = geometryReader.readGeometry();
                     ((Geometry)attributeValue).setSRID(28992);
                 } else {
@@ -107,15 +182,31 @@ public class BAG2GMLObjectStream {
             }
             BAG2Object object = new BAG2Object(name, attributes);
 
-            Object[] params = new Object[] {
-                    attributes.get("identificatie"),
-                    attributes.get("documentnummer"),
-                    attributes.get("oorspronkelijkBouwjaar"),
-                    attributes.get("geconstateerd"),
-                    attributes.get("documentdatum"),
-                    attributes.get("status"),
-                    attributes.get("geometrie"),
-            };
+            Object[] params = null;
+            if (object.name.equals("Pand")) {
+                params = new Object[]{
+                        attributes.get("identificatie"),
+                        attributes.get("documentnummer"),
+                        attributes.get("oorspronkelijkBouwjaar"),
+                        attributes.get("geconstateerd"),
+                        attributes.get("documentdatum"),
+                        attributes.get("status"),
+                        attributes.get("geometrie"),
+                };
+            } else if (object.name.equals("Verblijfsobject")) {
+                params = new Object[] {
+                        attributes.get("identificatie"),
+                        attributes.get("heeftAlsHoofdadres"),
+                        attributes.get("geometrie"),
+                        attributes.get("gebruiksdoel"),
+                        attributes.get("oppervlakte"),
+                        attributes.get("status"),
+                        attributes.get("geconstateerd"),
+                        attributes.get("documentdatum"),
+                        attributes.get("documentnummer"),
+                        attributes.get("maaktDeelUitVan"),
+                };
+            }
             queryBatch.addBatch(params);
             count++;
         }
@@ -123,5 +214,5 @@ public class BAG2GMLObjectStream {
         queryBatch.close();
         System.out.printf("Loaded %s in %s\n", count, formatTimeSince(start));
         return count;
-    }
+    }*/
 }

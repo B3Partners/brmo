@@ -149,7 +149,7 @@ public class BGTObjectTableWriter extends ObjectTableWriter {
                     if (skipHistoricObject) {
                         progress.historicObjectsCount++;
                     } else {
-                        progress.setObjectCount(progress.getObjectCount() + 1);
+                        progress.incrementObjectCount();
                     }
                 }
 

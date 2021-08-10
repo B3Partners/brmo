@@ -54,7 +54,6 @@ public class BGTSchemaMapper extends SchemaSQLMapper {
             {"TrafficArea", "wegdeel"}
     }).collect(Collectors.toMap(e -> e[0], e -> e[1]));
 
-
     public BGTSchemaMapper() {
         super(BGTSchema.getInstance());
         bgtObjectTypeTableNames.forEach((typeName, table) -> objectTypeNameToTableName.put(typeName, table));

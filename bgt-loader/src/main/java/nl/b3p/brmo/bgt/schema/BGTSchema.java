@@ -286,7 +286,6 @@ public class BGTSchema extends Schema {
         super.addObjectType(objectType);
     }
 
-
     public static BGTSchema getInstance() {
         if (instance == null) {
             instance = new BGTSchema();
