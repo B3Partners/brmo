@@ -92,6 +92,32 @@
         </dependency>
         <dependency>
             <groupId>nl.b3p</groupId>
+            <artifactId>bgt-loader</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.oracle.database.jdbc</groupId>
+                    <artifactId>${oracle.jdbc.artifact}</artifactId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>org.postgresql</artifactId>
+                    <groupId>postgresql</groupId>
+                </exclusion>
+                <exclusion>
+                    <groupId>net.postgis</groupId>
+                    <artifactId>postgis-jdbc</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.microsoft.sqlserver</groupId>
+                    <artifactId>mssql-jdbc</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.fasterxml</groupId>
+                    <artifactId>aalto-xml</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>nl.b3p</groupId>
             <artifactId>brmo-taglib</artifactId>
         </dependency>
         <dependency>
