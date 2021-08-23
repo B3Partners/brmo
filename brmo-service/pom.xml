@@ -15,11 +15,6 @@
     </properties>
     <dependencies>
         <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
         </dependency>
@@ -42,11 +37,6 @@
         <dependency>
             <groupId>org.stripesstuff</groupId>
             <artifactId>stripersist</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.glassfish.web</groupId>
@@ -125,12 +115,6 @@
             <artifactId>javasimon-console-embed</artifactId>
         </dependency>
         <dependency>
-            <!-- de volledige mail implementatie dient door de servlet container te worden geleverd. -->
-            <groupId>jakarta.mail</groupId>
-            <artifactId>jakarta.mail-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
             <groupId>org.quartz-scheduler</groupId>
             <artifactId>quartz</artifactId>
         </dependency>
@@ -151,6 +135,39 @@
             <artifactId>gt-main</artifactId>
         </dependency>
         <dependency>
+            <!-- de volledige mail implementatie dient door de servlet container te worden geleverd. -->
+            <groupId>jakarta.mail</groupId>
+            <artifactId>jakarta.mail-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <!-- voor database integratie tests -->
+            <groupId>com.oracle.database.jdbc</groupId>
+            <artifactId>${oracle.jdbc.artifact}</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <!-- voor database integratie tests -->
+            <groupId>net.postgis</groupId>
+            <artifactId>postgis-jdbc</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.microsoft.sqlserver</groupId>
+            <artifactId>mssql-jdbc</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
             <scope>test</scope>
@@ -163,18 +180,6 @@
         <dependency>
             <groupId>nl.b3p</groupId>
             <artifactId>brmo-test-util</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <!-- voor database integratie tests -->
-            <groupId>com.oracle.database.jdbc</groupId>
-            <artifactId>${oracle.jdbc.artifact}</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <!-- voor database integratie tests -->
-            <groupId>net.postgis</groupId>
-            <artifactId>postgis-jdbc</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -199,13 +204,13 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest</artifactId>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
