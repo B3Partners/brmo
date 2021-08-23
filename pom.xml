@@ -566,13 +566,12 @@
                 </exclusions>
             </dependency>
             <dependency>
-                <!-- override voor versies die met poi-ooxml 5.0.0 meekomen
-                en de OWASP dependency scanner triggeren
-                CVE-2021-35515, CVE-2021-36090
+                <!-- patch versie vanwege https://issues.apache.org/jira/browse/COMPRESS-584
+                     gebouwd van: master@rda22ecf0fd91cdd5abd105692ff81ba40a5c27cf; 2021-08-23 15:01:42+0000
                 -->
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-compress</artifactId>
-                <version>1.22-20210805.231701-1</version>
+                <version>1.22-RC0</version>
             </dependency>
             <dependency>
                 <groupId>com.itextpdf</groupId>
