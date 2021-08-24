@@ -16,6 +16,7 @@ import nl.b3p.brmo.sql.dialect.MSSQLDialect;
 import nl.b3p.brmo.sql.dialect.OracleDialect;
 import nl.b3p.brmo.sql.dialect.PostGISDialect;
 import nl.b3p.brmo.sql.dialect.SQLDialect;
+import nl.b3p.jdbc.util.converter.PGConnectionUnwrapper;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -88,12 +89,11 @@ public class BGTLoader extends AbstractExecutableProces {
             int exitCode = -1;
             BGTDatabase bgtDatabase;
             try (Connection rsgbbgtConnection = ConfigUtil.getDataSourceRsgbBgt().getConnection()) {
+                SQLDialect dialect = this.getDialect();
+
                 DatabaseOptions databaseOptions = new DatabaseOptions();
                 databaseOptions.setConnectionString(rsgbbgtConnection.getMetaData().getURL());
                 databaseOptions.setUser(rsgbbgtConnection.getMetaData().getUserName());
-
-                // TODO voor pgCopy is unwrappen van connectie nodig
-                databaseOptions.setUsePgCopy(false);
 
                 bgtDatabase = new BGTDatabase(databaseOptions) {
                     /**
@@ -104,9 +104,13 @@ public class BGTLoader extends AbstractExecutableProces {
                         LOG.debug("Had de BGT database kunnen sluiten... maar niet gedaan.");
                     }
                 };
-                bgtDatabase.setDialect(this.getDialect());
-                bgtDatabase.setConnection(rsgbbgtConnection);
+                bgtDatabase.setDialect(dialect);
 
+                if (dialect instanceof PostGISDialect) {
+                    // voor gebruik van pgCopy is unwrappen van connectie nodig
+                    bgtDatabase.setConnection((Connection) PGConnectionUnwrapper.unwrap(rsgbbgtConnection));
+                    databaseOptions.setUsePgCopy(true);
+                }
                 LoadOptions loadOptions = new LoadOptions();
                 loadOptions.setIncludeHistory(("true".equals(ClobElement.nullSafeGet(config.getConfig().get("include-history")))));
                 loadOptions.setCreateSchema(("true".equals(ClobElement.nullSafeGet(config.getConfig().get("create-schema")))));
@@ -173,16 +177,17 @@ public class BGTLoader extends AbstractExecutableProces {
     }
 
     private SQLDialect getDialect() throws BrmoException, SQLException {
-        String databaseProductName = ConfigUtil.getDataSourceRsgbBgt().getConnection().getMetaData().getDatabaseProductName();
-        if (databaseProductName.contains("PostgreSQL")) {
-            return new PostGISDialect();
-        } else if (databaseProductName.contains("Oracle")) {
-            return new OracleDialect();
-        } else if (databaseProductName.contains("Microsoft SQL Server")) {
-            return new MSSQLDialect();
-        } else {
-            throw new BrmoException("geen ondersteunde database voor BGT");
+        try (Connection c = ConfigUtil.getDataSourceRsgbBgt().getConnection()) {
+            final String databaseProductName = c.getMetaData().getDatabaseProductName();
+            if (databaseProductName.contains("PostgreSQL")) {
+                return new PostGISDialect();
+            } else if (databaseProductName.contains("Oracle")) {
+                return new OracleDialect();
+            } else if (databaseProductName.contains("Microsoft SQL Server")) {
+                return new MSSQLDialect();
+            } else {
+                throw new BrmoException("geen ondersteunde database voor BGT");
+            }
         }
-
     }
 }

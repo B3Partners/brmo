@@ -34,7 +34,6 @@ public class BGTLoaderUitvoerenActionBean implements ActionBean, ProgressUpdateL
     private Date start;
     private Date update;
     private boolean complete;
-    private double progress;
 
     @Before
     public void before() {
@@ -161,14 +160,5 @@ public class BGTLoaderUitvoerenActionBean implements ActionBean, ProgressUpdateL
     public void setUpdate(Date update) {
         this.update = update;
     }
-
-    public double getProgress() {
-        return progress;
-    }
-
-    public void setProgress(double progress) {
-        this.progress = progress;
-    }
-
     // </editor-fold>
 }

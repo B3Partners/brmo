@@ -6,7 +6,7 @@
                 Klaar - BGT laden
             </c:when>
             <c:otherwise>
-                [<fmt:formatNumber maxFractionDigits="1" value="${actionBean.progress}"/>%] Bezig met BGT laden...
+                Bezig met BGT laden...
             </c:otherwise>
         </c:choose>
     </stripes:layout-component>
@@ -42,11 +42,6 @@
         <p>BGT laden proces: ${p['label']} (id: ${actionBean.proces.id})<br/>
             <stripes:messages/>
             <stripes:errors/>
-        </p>
-        <p>
-            <c:if test="${!actionBean.complete}">
-                Voortgang: <fmt:formatNumber maxFractionDigits="1" value="${actionBean.progress}"/>%
-            </c:if>
         </p>
 
         <c:if test="${!empty actionBean.exceptionStacktrace}">
