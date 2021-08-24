@@ -8,11 +8,11 @@ package nl.b3p.brmo.bgt.loader.cli;
 
 import nl.b3p.brmo.bgt.download.model.DeltaCustomDownloadRequest;
 import nl.b3p.brmo.bgt.loader.BGTDatabase;
-import nl.b3p.brmo.bgt.schema.BGTObjectTableWriter;
-import nl.b3p.brmo.bgt.schema.BGTSchemaMapper;
 import nl.b3p.brmo.bgt.loader.ProgressReporter;
 import nl.b3p.brmo.bgt.loader.ResumingBGTDownloadInputStream;
 import nl.b3p.brmo.bgt.loader.Utils;
+import nl.b3p.brmo.bgt.schema.BGTObjectTableWriter;
+import nl.b3p.brmo.bgt.schema.BGTSchemaMapper;
 import nl.b3p.brmo.sql.dialect.SQLDialect;
 import nl.b3p.brmo.util.CountingSeekableByteChannel;
 import nl.b3p.brmo.util.http.HttpSeekableByteChannel;
@@ -50,10 +50,10 @@ import java.util.zip.ZipInputStream;
 
 import static nl.b3p.brmo.bgt.loader.Utils.formatTimeSince;
 import static nl.b3p.brmo.bgt.loader.Utils.getBundleString;
-import static nl.b3p.brmo.bgt.schema.BGTSchemaMapper.Metadata;
 import static nl.b3p.brmo.bgt.loader.Utils.getLoaderVersion;
 import static nl.b3p.brmo.bgt.loader.Utils.getMessageFormattedString;
 import static nl.b3p.brmo.bgt.loader.Utils.getUserAgent;
+import static nl.b3p.brmo.bgt.schema.BGTSchemaMapper.Metadata;
 import static org.apache.commons.io.FileUtils.byteCountToDisplaySize;
 
 @Command(name = "bgt-loader", mixinStandardHelpOptions = true, versionProvider = BGTLoaderMain.class,
@@ -61,17 +61,27 @@ import static org.apache.commons.io.FileUtils.byteCountToDisplaySize;
 public class BGTLoaderMain implements IVersionProvider {
     private static Log log;
 
-    public static void configureLogging() {
-        PropertyConfigurator.configure(BGTLoaderMain.class.getResourceAsStream("/bgt-loader-cli-log4.properties"));
-        log = LogFactory.getLog(BGTLoaderMain.class);
-        try {
-            Logging.ALL.setLoggerFactory("org.geotools.util.logging.Log4JLoggerFactory");
-        } catch (ClassNotFoundException ignored) {
+    /**
+     * init logging.
+     *
+     * @param standAlone set to {@code false} when using in a preconfigured environment, eg. calling methods from a servlet,
+     *                   use {@code true} for commandline usage.
+     */
+    public static void configureLogging(boolean standAlone) {
+        if (standAlone) {
+            PropertyConfigurator.configure(BGTLoaderMain.class.getResourceAsStream("/bgt-loader-cli-log4.properties"));
+            log = LogFactory.getLog(BGTLoaderMain.class);
+            try {
+                Logging.ALL.setLoggerFactory("org.geotools.util.logging.Log4JLoggerFactory");
+            } catch (ClassNotFoundException ignored) {
+            }
+        } else {
+            log = LogFactory.getLog(BGTLoaderMain.class);
         }
     }
 
     public static void main(String[] args) {
-        configureLogging();
+        configureLogging(true);
         CommandLine cmd = new CommandLine(new BGTLoaderMain())
                 .setUsageHelpAutoWidth(true);
         System.exit(cmd.execute(args));

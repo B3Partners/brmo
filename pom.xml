@@ -64,7 +64,7 @@
         <hibernate.version>5.5.6</hibernate.version>
         <!-- ook jdbc-util updaten bij geotools update -->
         <geotools.version>25.2</geotools.version>
-        <jdbc-util.version>9.2</jdbc-util.version>
+        <jdbc-util.version>9.3-SNAPSHOT</jdbc-util.version>
         <jts.version>1.18.1</jts.version>
         <itextpdf.version>7.1.16</itextpdf.version>
         <postgresql.jdbc.version>42.2.23</postgresql.jdbc.version>
@@ -160,6 +160,11 @@
             <dependency>
                 <groupId>nl.b3p</groupId>
                 <artifactId>brmo-persistence</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>nl.b3p</groupId>
+                <artifactId>bgt-loader</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -665,12 +670,6 @@
                 <version>${tomcat.version}</version>
                 <scope>test</scope>
             </dependency>
-            <!--            <dependency>-->
-            <!--                <groupId>org.apache.tomcat</groupId>-->
-            <!--                <artifactId>tomcat-dbcp</artifactId>-->
-            <!--                <version>${tomcat.version}</version>-->
-            <!--                <scope>test</scope>-->
-            <!--            </dependency>-->
             <dependency>
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-core</artifactId>

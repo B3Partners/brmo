@@ -69,6 +69,8 @@ public abstract class AbstractExecutableProces implements ProcesExecutable {
                 return new TopNLDirectoryScanner((TopNLScannerProces) config);
             case AfgifteNummerScannerProces:
                 return new AfgifteNummerScanner((AfgifteNummerScannerProces) config);
+            case BGTLoaderProces:
+                return new BGTLoader((BGTLoaderProces) config);
             default:
                 throw new IllegalArgumentException(imple.name() + " is is geen ondersteund proces...");
         }
