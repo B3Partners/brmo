@@ -10,7 +10,6 @@ timestamps {
         stage('Prepare') {
             sh "id"
             sh "ulimit -a"
-            sh "free -h"
             checkout scm
         }
 
