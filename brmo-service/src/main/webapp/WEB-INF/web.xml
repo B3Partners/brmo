@@ -5,8 +5,9 @@
          version="3.0"
          metadata-complete="true">
     <context-param>
-        <description>Gebruik multithreaded XSL transformatie/GML parse pipeline. Om op correcte wijze WOZ en BRP
-            berichten te kunnen verwerken dient deze op false te worden ingesteld - omdat deze geen was/wordt leveren, maar een toestand</description>
+        <description>Gebruik (true) multithreaded XSL transformatie/GML parse pipeline of niet (false). Om op correcte wijze WOZ en BRP
+            berichten te kunnen verwerken dient deze op false te worden ingesteld - omdat deze geen was/wordt leveren, maar een (onvolledige) toestandmutatie.
+            Voor BAG/BRK/nHR berichten kan deze op true worden ingesteld. Eventueel kan dan ook de onderstaande pipelining.capacity worden aangepast.</description>
         <param-name>pipelining.enabled</param-name>
         <param-value>false</param-value>
     </context-param>
