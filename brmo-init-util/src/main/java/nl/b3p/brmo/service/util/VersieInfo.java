@@ -52,15 +52,17 @@ public class VersieInfo implements Servlet {
         }
 
         try {
-            brmo = new BrmoFramework(ConfigUtil.getDataSourceStaging(), ConfigUtil.getDataSourceRsgb(), ConfigUtil.getDataSourceRsgbBgt());
+            brmo = new BrmoFramework(ConfigUtil.getDataSourceStaging(), ConfigUtil.getDataSourceRsgb(), ConfigUtil.getDataSourceRsgbBgt(), ConfigUtil.getDataSourceTopNL());
             LOG.info("BRMO versie informatie:");
+            LOG.info("  brmo applicatie versie is: " + appVersie);
             LOG.info("  staging schema versie is:  " + brmo.getStagingVersion());
             LOG.info("  rsgb schema versie is:     " + brmo.getRsgbVersion());
             LOG.info("  rsgbbgt schema versie is:  " + brmo.getRsgbBgtVersion());
-            LOG.info("  brmo applicatie versie is: " + appVersie);
+            // LOG.info("  topnl schema versie is:  " + brmo.getRsgbTopNLVersion());
+            // TODO TopNL versie info
             // TODO check voor passende versies
         } catch (BrmoException ex) {
-            LOG.warn("Ophalen BRMO versie informatie is mislukt.", ex);
+            LOG.warn("Ophalen BRMO schema versie informatie is mislukt.", ex);
         } finally {
             if (brmo != null) {
                 brmo.closeBrmoFramework();

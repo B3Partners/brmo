@@ -134,7 +134,7 @@ public class BagXMLReaderTest {
         try {
             ZipEntry entry = zis.getNextEntry();
             while (entry != null) {
-                BagXMLReader bagreader = new BagXMLReader(new CloseShieldInputStream(zis));
+                BagXMLReader bagreader = new BagXMLReader(CloseShieldInputStream.wrap(zis));
 
                 while (bagreader.hasNext()) {
                     BagBericht bag = bagreader.next();
