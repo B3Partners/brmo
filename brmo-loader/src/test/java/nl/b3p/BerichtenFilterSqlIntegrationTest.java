@@ -62,7 +62,7 @@ public class BerichtenFilterSqlIntegrationTest extends AbstractDatabaseIntegrati
         dsStaging.setPassword(params.getProperty("staging.passwd"));
         dsStaging.setAccessToUnderlyingConnectionAllowed(true);
 
-        brmo = new BrmoFramework(dsStaging, null, null);
+        brmo = new BrmoFramework(dsStaging, null);
         staging = new DatabaseDataSourceConnection(dsStaging);
 
         if (this.isMsSQL) {

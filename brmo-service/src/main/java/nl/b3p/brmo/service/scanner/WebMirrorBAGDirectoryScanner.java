@@ -247,7 +247,7 @@ public class WebMirrorBAGDirectoryScanner extends AbstractExecutableProces {
                 final String bestandNaam = naam + "/" + entry.getName();
 
                 try {
-                    brmo.loadFromStream(BrmoFramework.BR_BAG, new CloseShieldInputStream(zis), bestandNaam,
+                    brmo.loadFromStream(BrmoFramework.BR_BAG, CloseShieldInputStream.wrap(zis), bestandNaam,
                             new nl.b3p.brmo.loader.ProgressUpdateListener() {
                                 @Override
                                 public void total(long total) {

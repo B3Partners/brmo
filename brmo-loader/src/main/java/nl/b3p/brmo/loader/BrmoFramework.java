@@ -113,7 +113,6 @@ public class BrmoFramework {
         this.dataSourceTopNL = dataSourceTopNL;
     }
 
-    @Deprecated(since = "2.1.0")
     public void setDataSourceRsgbBgt(DataSource dataSourceRsgbBgt) {
         this.dataSourceRsgbBgt = dataSourceRsgbBgt;
     }
@@ -375,7 +374,7 @@ public class BrmoFramework {
                             log.warn("Overslaan zip entry geen XML: " + entry.getName());
                         } else {
                             log.info("Lezen XML bestand uit zip: " + entry.getName());
-                            stagingProxy.loadBr(new CloseShieldInputStream(zip), type, fileName + "/" + entry.getName(), null, null, automatischProces);
+                            stagingProxy.loadBr(CloseShieldInputStream.wrap(zip), type, fileName + "/" + entry.getName(), null, null, automatischProces);
                         }
                         entry = zip.getNextEntry();
                     }
