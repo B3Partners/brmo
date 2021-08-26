@@ -305,8 +305,8 @@
             <dependency>
                 <groupId>org.geotools</groupId>
                 <artifactId>gt-gml-geometry-streaming</artifactId>
-                <!-- SNAPSHOT omdat deze pas in september 2021 released wordt -->
-                <version>26-SNAPSHOT</version>
+                <!-- 26-pre1 omdat de eerste officiele RC pas in september 2021 komt -->
+                <version>26-pre1</version>
             </dependency>
             <dependency>
                 <groupId>org.hibernate</groupId>
