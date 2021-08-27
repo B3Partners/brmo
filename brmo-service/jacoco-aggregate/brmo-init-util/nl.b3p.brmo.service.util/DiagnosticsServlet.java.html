@@ -28,7 +28,7 @@ import org.apache.commons.logging.LogFactory;
 
         try {
             // lookup db connectie en log info
-<span class="nc" id="L31">            DataSource rsgb = ConfigUtil.getDataSourceRsgb();</span>
+<span class="nc" id="L31">            DataSource rsgb = ConfigUtil.getDataSourceStaging();</span>
 <span class="nc" id="L32">            DatabaseMetaData metadata = rsgb.getConnection().getMetaData();</span>
 <span class="nc" id="L33">            LOG.info(String.format(&quot;\nDatabase en driver informatie\n\n  Database product: %s\n  Database version: %s\n  Database major:   %s\n  Database minor:   %s\n\n  DBdriver product: %s\n  DBdriver version: %s\n  DBdriver major:   %s\n  DBdriver minor:   %s&quot;,</span>
 <span class="nc" id="L34">                    metadata.getDatabaseProductName(),</span>
@@ -82,4 +82,4 @@ import org.apache.commons.logging.LogFactory;
 <span class="nc" id="L82">    }</span>
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

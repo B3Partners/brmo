@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>HttpClientWrapper.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO BGT / IMGeo CityGML loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.util.http</a> &gt; <span class="el_source">HttpClientWrapper.java</span></div><h1>HttpClientWrapper.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2021 B3Partners B.V.
+ *
+ * SPDX-License-Identifier: MIT
+ *
+ */
+
+package nl.b3p.brmo.util.http;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+
+/**
+ * A wrapper around a HTTP client with only the functionality needed by this package.
+ * @param &lt;REQUEST&gt; An implementation defined HTTP request type.
+ * @param &lt;RESPONSE&gt; An implementation defined HTTP response type.
+ *
+ * @author Matthijs Laan
+ */
+public interface HttpClientWrapper&lt;REQUEST,RESPONSE&gt; {
+    /**
+     * Perform a synchronous HTTP GET request.
+     * @param uri The URI.
+     * @param requestHeaders The request headers to send. The supplied String instances must alternate as header names
+     *                       and header values. Only single request header values are expected.
+     * @return A wrapper with the response.
+     * @throws IOException If an I/O error occurs.
+     * @throws InterruptedException
+     */
+    HttpResponseWrapper request(URI uri, String... requestHeaders) throws IOException, InterruptedException;
+
+    /**
+     * Override to modify the request before it is sent, such as adding a {@code User-Agent} header.
+     * @param request The implementation defined HTTP request type.
+     */
+    default void beforeRequest(REQUEST request) {
+<span class="nc" id="L40">    }</span>
+
+    /**
+     * Wrap the HTTP response so the status code, response headers en the response body can be read.
+     * @param response The implementation defined HTTP response type.
+     * @return
+     */
+    HttpResponseWrapper wrapResponse(RESPONSE response);
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

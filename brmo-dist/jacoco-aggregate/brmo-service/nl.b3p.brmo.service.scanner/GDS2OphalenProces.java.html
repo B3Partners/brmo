@@ -547,7 +547,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
 <span class="nc" id="L547">                            localLpName = getLaadprocesBestandsnaam(a) + &quot;/&quot; + entry.getName() + &quot;/&quot; + innerentry.getName();</span>
 <span class="nc" id="L548">                            brmo.loadFromStream(</span>
                                     BrmoFramework.BR_BAG,
-                                    new CloseShieldInputStream(innerzip),
+<span class="nc" id="L550">                                    CloseShieldInputStream.wrap(innerzip),</span>
                                     localLpName,
 <span class="nc" id="L552">                                    config.getId()</span>
                             );
@@ -924,4 +924,4 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
 <span class="nc" id="L924">        return sslContext;</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

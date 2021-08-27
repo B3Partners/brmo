@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Java11HttpClientWrapper.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO BGT / IMGeo CityGML loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.util.http.wrapper</a> &gt; <span class="el_source">Java11HttpClientWrapper.java</span></div><h1>Java11HttpClientWrapper.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2021 B3Partners B.V.
+ *
+ * SPDX-License-Identifier: MIT
+ *
+ */
+
+package nl.b3p.brmo.util.http.wrapper;
+
+import nl.b3p.brmo.util.http.HttpClientWrapper;
+import nl.b3p.brmo.util.http.HttpResponseWrapper;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+
+/**
+ * Wraps the Java 11 {@link java.net.http.HttpClient}. Follows redirects by default but sets the HTTP version to 1.1
+ * instead of HTTP/2 if the {@code httpclientwrapper.java11.http1_1} system property is set.
+ *
+ * @author Matthijs Laan
+ */
+public class Java11HttpClientWrapper implements HttpClientWrapper&lt;HttpRequest.Builder,HttpResponse&lt;InputStream&gt;&gt; {
+    private final HttpClient httpClient;
+
+    public Java11HttpClientWrapper() {
+<span class="fc" id="L30">        this(HttpClient.newBuilder().followRedirects(HttpClient.Redirect.NORMAL));</span>
+<span class="fc" id="L31">    }</span>
+
+<span class="fc" id="L33">    public Java11HttpClientWrapper(HttpClient.Builder builder) {</span>
+        // Check system property if we must disable HTTP/2 if a server gives problems (such as
+        // https://npmjs.org/package/lite-server)
+<span class="pc bpc" id="L36" title="1 of 2 branches missed.">        if (System.getProperty(&quot;httpclientwrapper.java11.http1_1&quot;) != null) {</span>
+<span class="nc" id="L37">            builder.version(HttpClient.Version.HTTP_1_1);</span>
+        }
+<span class="fc" id="L39">        this.httpClient = builder.build();</span>
+<span class="fc" id="L40">    }</span>
+
+    @Override
+    public HttpResponseWrapper request(URI uri, String... requestHeaders) throws IOException, InterruptedException {
+<span class="fc" id="L44">        HttpRequest.Builder requestBuilder = HttpRequest.newBuilder().uri(uri);</span>
+<span class="fc bfc" id="L45" title="All 2 branches covered.">        if (requestHeaders.length &gt; 0) {</span>
+<span class="fc" id="L46">            requestBuilder.headers(requestHeaders);</span>
+        }
+<span class="fc" id="L48">        beforeRequest(requestBuilder);</span>
+<span class="fc" id="L49">        HttpRequest request = requestBuilder.build();</span>
+<span class="fc" id="L50">        HttpResponse&lt;InputStream&gt; response = httpClient.send(request, HttpResponse.BodyHandlers.ofInputStream());</span>
+<span class="fc" id="L51">        return wrapResponse(response);</span>
+    }
+
+    /**
+     * Called before doing a request, override to modify or log it.
+     * @param requestBuilder The request that will be done, can be modified
+     */
+    public void beforeRequest(HttpRequest.Builder requestBuilder) {
+<span class="fc" id="L59">    }</span>
+
+    /**
+     * Wraps a HttpResponse, override to modify or log it.
+     * @param response The received response to be wrapped
+     * @return The wrapped response
+     */
+    public HttpResponseWrapper wrapResponse(HttpResponse&lt;InputStream&gt; response) {
+<span class="fc" id="L67">        return new HttpResponseWrapper() {</span>
+            @Override
+            public int getStatusCode() {
+<span class="fc" id="L70">                return response.statusCode();</span>
+            }
+
+            @Override
+            public String getHeader(String header) {
+<span class="fc" id="L75">                return response.headers().firstValue(header).orElse(null);</span>
+            }
+
+            @Override
+            public InputStream getResponseBody() {
+<span class="fc" id="L80">                return response.body();</span>
+            }
+        };
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

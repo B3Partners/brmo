@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>CustomDownloadProgressReporter.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO service</a> &gt; <a href="../index.html" class="el_bundle">bgt-loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.bgt.loader.cli</a> &gt; <span class="el_source">CustomDownloadProgressReporter.java</span></div><h1>CustomDownloadProgressReporter.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2021 B3Partners B.V.
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+package nl.b3p.brmo.bgt.loader.cli;
+
+import nl.b3p.brmo.bgt.download.api.CustomDownloadProgress;
+import nl.b3p.brmo.bgt.download.model.DeltaCustomDownloadStatusResponse;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.time.Duration;
+import java.time.Instant;
+import java.util.function.Consumer;
+
+import static nl.b3p.brmo.bgt.download.model.DeltaCustomDownloadStatusResponse.StatusEnum.COMPLETED;
+import static nl.b3p.brmo.bgt.download.model.DeltaCustomDownloadStatusResponse.StatusEnum.PENDING;
+import static nl.b3p.brmo.bgt.download.model.DeltaCustomDownloadStatusResponse.StatusEnum.RUNNING;
+import static nl.b3p.brmo.bgt.loader.Utils.getBundleString;
+import static nl.b3p.brmo.bgt.loader.Utils.getMessageFormattedString;
+
+class CustomDownloadProgressReporter implements Consumer&lt;CustomDownloadProgress&gt; {
+<span class="nc" id="L25">    private static final Log log = LogFactory.getLog(CustomDownloadProgressReporter.class);</span>
+
+    private final boolean printProgress;
+
+    private DeltaCustomDownloadStatusResponse.StatusEnum lastStatus;
+
+<span class="nc" id="L31">    private Instant lastProgress = null;</span>
+
+<span class="nc" id="L33">    public CustomDownloadProgressReporter(boolean printProgress) {</span>
+<span class="nc" id="L34">        this.printProgress = printProgress;</span>
+<span class="nc" id="L35">    }</span>
+
+    @Override
+    public void accept(CustomDownloadProgress progress) {
+<span class="nc bnc" id="L39" title="All 4 branches missed.">        if (progress.getStatusApiCalls() == 0 &amp;&amp; progress.getDownloadRequestId() != null) {</span>
+<span class="nc" id="L40">            log.debug(getMessageFormattedString(&quot;download.request_id&quot;, progress.getDownloadRequestId()));</span>
+<span class="nc" id="L41">            log.info(getBundleString(&quot;download.requesting_status&quot;));</span>
+        } else {
+<span class="nc" id="L43">            DeltaCustomDownloadStatusResponse.StatusEnum status = progress.getStatusResponse().getStatus();</span>
+<span class="nc bnc" id="L44" title="All 2 branches missed.">            if (!printProgress) {</span>
+<span class="nc bnc" id="L45" title="All 2 branches missed.">                if (lastStatus != status) {</span>
+<span class="nc" id="L46">                    log.info(getMessageFormattedString(&quot;download.extract_status&quot;, status));</span>
+                }
+<span class="nc bnc" id="L48" title="All 2 branches missed.">                if (status == RUNNING) {</span>
+                    // Log progress in logfile every 5 minutes
+<span class="nc bnc" id="L50" title="All 2 branches missed.">                    if (lastProgress == null) {</span>
+<span class="nc" id="L51">                        lastProgress = Instant.now();</span>
+<span class="nc bnc" id="L52" title="All 2 branches missed.">                    } else if (Duration.between(lastProgress, Instant.now()).getSeconds() &gt; 300) {</span>
+<span class="nc" id="L53">                        log.info(getMessageFormattedString(&quot;download.extract_status&quot;, String.format(&quot;%s (%2d%%)&quot;, status, progress.getStatusResponse().getProgress())));</span>
+<span class="nc" id="L54">                        lastProgress = Instant.now();</span>
+                    }
+                }
+            } else {
+<span class="nc bnc" id="L58" title="All 2 branches missed.">                if (status == PENDING) {</span>
+<span class="nc" id="L59">                    System.out.print(&quot;\r&quot; + getMessageFormattedString(&quot;download.extract_pending&quot;, progress.getTimeSinceStart()));</span>
+<span class="nc bnc" id="L60" title="All 2 branches missed.">                } else if (status == RUNNING) {</span>
+<span class="nc" id="L61">                    System.out.print(&quot;\r&quot; + getMessageFormattedString(&quot;download.extract_running&quot;, String.format(&quot;%3d&quot;, progress.getStatusResponse().getProgress()), progress.getTimeSinceStart()));</span>
+<span class="nc bnc" id="L62" title="All 2 branches missed.">                } else if (status == COMPLETED) {</span>
+<span class="nc" id="L63">                    log.debug(getMessageFormattedString(&quot;download.extract_ready&quot;, progress.getTimeSinceStart()));</span>
+<span class="nc" id="L64">                    System.out.printf(&quot;\r%s\r&quot;, &quot; &quot;.repeat(30));</span>
+                }
+            }
+<span class="nc" id="L67">            lastStatus = status;</span>
+        }
+<span class="nc" id="L69">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

@@ -36,8 +36,8 @@ import nl.b3p.brmo.loader.util.StagingRowHandler;
 import nl.b3p.brmo.loader.xml.BagXMLReader;
 import nl.b3p.brmo.loader.xml.BrkSnapshotXMLReader;
 import nl.b3p.brmo.service.util.ConfigUtil;
-import nl.b3p.loader.jdbc.GeometryJdbcConverter;
-import nl.b3p.loader.jdbc.GeometryJdbcConverterFactory;
+import nl.b3p.jdbc.util.converter.GeometryJdbcConverter;
+import nl.b3p.jdbc.util.converter.GeometryJdbcConverterFactory;
 import org.apache.commons.dbutils.DbUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
@@ -210,8 +210,8 @@ import org.stripesstuff.plugin.waitpage.WaitPage;
 
         // XXX move to configuration file
         // bij een nieuw proces ook de wiki bijwerken: https://github.com/B3Partners/brmo/wiki/Geavanceerde-functies
-<span class="nc bnc" id="L213" title="All 2 branches missed.">        advancedFunctionProcesses = Arrays.asList(</span>
-            new AdvancedFunctionProcess(&quot;Exporteren BRK mutaties&quot;, BrmoFramework.BR_BRK, brkExportDir == null ? &quot;/tmp/brkmutaties&quot; : brkExportDir),
+<span class="nc" id="L213">        advancedFunctionProcesses = Arrays.asList(</span>
+<span class="nc bnc" id="L214" title="All 2 branches missed.">            new AdvancedFunctionProcess(&quot;Exporteren BRK mutaties&quot;, BrmoFramework.BR_BRK, brkExportDir == null ? &quot;/tmp/brkmutaties&quot; : brkExportDir),</span>
 <span class="nc" id="L215">            new AdvancedFunctionProcess(&quot;Repareren BRK mutaties met status STAGING_NOK&quot;, BrmoFramework.BR_BRK, Bericht.STATUS.STAGING_NOK.toString()),</span>
 <span class="nc" id="L216">            new AdvancedFunctionProcess(&quot;Repareren BAG mutaties met status STAGING_NOK&quot;, BrmoFramework.BR_BAG, Bericht.STATUS.STAGING_NOK.toString()),</span>
 <span class="nc" id="L217">            new AdvancedFunctionProcess(&quot;Opschonen en archiveren van BRK berichten met status RSGB_OK, ouder dan 3 maanden&quot;, BrmoFramework.BR_BRK, Bericht.STATUS.RSGB_OK.toString()),</span>
@@ -965,4 +965,4 @@ import org.stripesstuff.plugin.waitpage.WaitPage;
 <span class="nc" id="L965">        DbUtils.closeQuietly(conn);</span>
 <span class="nc" id="L966">    }</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

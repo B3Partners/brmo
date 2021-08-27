@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>HttpSeekableByteChannel.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO BGT / IMGeo CityGML loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.util.http</a> &gt; <span class="el_source">HttpSeekableByteChannel.java</span></div><h1>HttpSeekableByteChannel.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2021 B3Partners B.V.
+ *
+ * SPDX-License-Identifier: MIT
+ *
+ */
+
+package nl.b3p.brmo.util.http;
+
+import nl.b3p.brmo.util.ResumingInputStream;
+
+import java.io.IOException;
+import java.net.URI;
+import java.nio.ByteBuffer;
+import java.nio.channels.SeekableByteChannel;
+import java.util.function.UnaryOperator;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+/**
+ * A {@code SeekableByteChannel} backed by a HTTP(S) URI that uses the Content-Length response header to provide total
+ * size and HTTP Range requests for read-only random access, especially optimized for ZIP archive readers reading only
+ * the central directory at the end of the stream supporting a {@code SeekableByteChannel} input such as
+ * &lt;a href=&quot;https://commons.apache.org/proper/commons-compress/&quot;&gt;Commons Compress.&lt;/a&gt;
+ * &lt;p&gt;
+ * This class assumes most reads to be consecutive like a normal {@code InputStream} and sends a HTTP request starting
+ * from the current position until the end. When a seek is done using the {@link #position(long)} method, the HTTP
+ * request (if any) is aborted and a new range request is started from the new position until the end, unless it is more
+ * optimal to discard some bytes for a small forward seek. This means that the server may receive an error writing its'
+ * response with a &quot;Connection reset&quot; error. This strategy is optimal when an application does reads mostly in
+ * consecutive chunks.
+ * &lt;p&gt;
+ * Random-access reading code may assume seeks are fast. Even compared to disks using physical platters, HTTP seeks
+ * are slow and should be minimized. Aborting a HTTP request should be handled gracefully by a HTTP server but may lead
+ * to unwanted &quot;Connection reset&quot; errors. When reading ZIP entries especially, try to avoid reading the local file
+ * header and use the central directory only. With Commons Compress this can be achieved by setting the {@code ZipFile}
+ * constructor parameter {@code ignoreLocalFileHeader}.
+ * &lt;p&gt;
+ * This class can be used with any synchronous HTTP client implementation such as Apache HttpComponents, OkHttp, Spring
+ * RestTemplate, etc. by providing a {@link HttpClientWrapper} to the constructor. This classes uses the Java 11
+ * {@link java.net.http.HttpClient} when using Java 11 or higher and {@link java.net.URLConnection} when using Java 8 if
+ * no wrapper is passed to the constructor. These are configured to follow redirects by default.
+ * &lt;p&gt;
+ * If the {@link #size()} method is called before a Content-Length HTTP response header has been received, the content
+ * length is read using GET request with a 0 byte range instead of a HEAD request. This is conceptually similar, but it
+ * immediately tests for Range header support and supports redirects if the original URL does not support HEAD
+ * requests.
+ * &lt;p&gt;
+ * Because this class may do many requests for certain ranges, a redirect may happen each time. You can optionally
+ * update the URI after the first request to the last redirect location using {@link #setURI(URI)}. For Apache
+ * HttpComponents this can be retrieved using {@code HttpClientContext.getRedirectLocations()}.
+ * &lt;p&gt;
+ * This class uses a {@link ResumingInputStream} to automatically retry reading the HTTP response when reads fail, until
+ * a maximum number of tries.
+ * &lt;p&gt;
+ * The web server must send &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag&quot;&gt;ETag&lt;/a&gt; or
+ * &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Last-Modified&quot;&gt;Last-Modified&lt;/a&gt; headers for use
+ * in &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Range&quot;&gt;If-Range&lt;/a&gt; request headers. If a
+ * weak ETag is sent the Last-Modified header must be present and is used instead of the ETag for the If-Range header.
+ * &lt;p&gt;
+ * This class is not thread-safe.
+ *
+ * @author Matthijs Laan
+ */
+public class HttpSeekableByteChannel implements SeekableByteChannel {
+    private static final int DEFAULT_SEEK_BUFFER_SIZE = 16 * 1024;
+    private static final int DEFAULT_MAX_DISCARD_SIZE = 16 * 1024;
+    private static final int READ_BUFFER_SIZE = 8 * 1024;
+
+    private URI uri;
+    private final HttpClientWrapper httpClientWrapper;
+    private final UnaryOperator&lt;ResumingInputStream&gt; resumingInputStreamWrapper;
+    private final int seekBufferSize;
+    private byte[] seekBuffer;
+    private byte[] buffer;
+    private final int maxDiscardSize;
+
+<span class="nc" id="L78">    private long position = 0;</span>
+<span class="nc" id="L79">    private int httpRequestCount = 0;</span>
+<span class="nc" id="L80">    private long bytesRead = 0;</span>
+    private Long newPosition;
+    private Long contentLength;
+
+    private ResumingInputStream currentHttpResponseBodyInputStream;
+
+<span class="nc" id="L86">    private boolean debug = false;</span>
+
+    /**
+     * Creates a read-only seekable byte channel backed by a URI using the default HTTP client, buffer size and max
+     * forward seek discard size.
+     */
+    public HttpSeekableByteChannel(URI uri) {
+<span class="nc" id="L93">        this(uri, HttpClientWrappers.getDefault());</span>
+<span class="nc" id="L94">    }</span>
+
+    /**
+     * Creates a read-only seekable byte channel backed by a URI using the specified wrapper around a custom HTTP client
+     * implementation using the default buffer size and max forward seek discard size.
+     */
+    public HttpSeekableByteChannel(URI uri, HttpClientWrapper httpClientWrapper) {
+<span class="nc" id="L101">        this(uri, httpClientWrapper, UnaryOperator.identity(), DEFAULT_SEEK_BUFFER_SIZE, DEFAULT_MAX_DISCARD_SIZE);</span>
+<span class="nc" id="L102">    }</span>
+
+    /**
+     * Creates a read-only seekable byte channel backed by a URI using the specified wrapper around a custom HTTP client
+     * implementation, an optional wrapper for the input stream resuming HTTP requests after a read fails, and the
+     * specified buffer size and max forward seek discard size.
+     */
+<span class="nc" id="L109">    public HttpSeekableByteChannel(URI uri, HttpClientWrapper httpClientWrapper, UnaryOperator&lt;ResumingInputStream&gt; resumingInputStreamWrapper, int seekBufferSize, int maxDiscardSize) {</span>
+<span class="nc" id="L110">        this.uri = uri;</span>
+<span class="nc" id="L111">        this.httpClientWrapper = httpClientWrapper;</span>
+<span class="nc" id="L112">        this.resumingInputStreamWrapper = resumingInputStreamWrapper;</span>
+<span class="nc" id="L113">        this.seekBufferSize = seekBufferSize;</span>
+<span class="nc" id="L114">        this.maxDiscardSize = maxDiscardSize;</span>
+<span class="nc" id="L115">    }</span>
+
+    /**
+     * @return The number of HTTP range requests done.
+     */
+    public int getHttpRequestCount() {
+<span class="nc" id="L121">        return httpRequestCount;</span>
+    }
+
+    /**
+     * @return The total number of bytes read. This may be larger than the size when seeking backwards and reading
+     * content multiple times.
+     */
+    public long getBytesRead() {
+<span class="nc" id="L129">        return bytesRead;</span>
+    }
+
+    /**
+     * Update the URI to the final redirect target of the original URI, must identify the same entity as the original
+     * URI.
+     * @param uri The final redirection URI.
+     */
+    public void setURI(URI uri) {
+<span class="nc" id="L138">        this.uri = uri;</span>
+<span class="nc" id="L139">    }</span>
+
+    /**
+     * @param debug Set to enable printing some debugging info to System.out.
+     */
+    public HttpSeekableByteChannel withDebug(boolean debug) {
+<span class="nc" id="L145">        this.debug = debug;</span>
+<span class="nc" id="L146">        return this;</span>
+    }
+
+    @Override
+    public long position() throws IOException {
+<span class="nc bnc" id="L151" title="All 2 branches missed.">        return newPosition != null ? newPosition : position;</span>
+    }
+
+    @Override
+    public SeekableByteChannel position(long newPosition) throws IOException {
+<span class="nc" id="L156">        this.newPosition = newPosition;</span>
+<span class="nc" id="L157">        return this;</span>
+    }
+
+    @Override
+    public long size() throws IOException {
+<span class="nc bnc" id="L162" title="All 2 branches missed.">        if (contentLength == null) {</span>
+            // Do a GET request using zero range instead of a HEAD request, to test for Range header support and to
+            // avoid HEAD requests to a location that redirects but does not support the HEAD method.
+
+<span class="nc" id="L166">            HttpResponseWrapper response = null;</span>
+            try {
+<span class="nc" id="L168">                response = httpClientWrapper.request(uri, &quot;Range&quot;, &quot;bytes=0-0&quot;);</span>
+<span class="nc" id="L169">            } catch (InterruptedException e) {</span>
+<span class="nc" id="L170">                throw new IOException(e);</span>
+<span class="nc" id="L171">            }</span>
+<span class="nc bnc" id="L172" title="All 2 branches missed.">            if (response.getStatusCode() != 206) {</span>
+<span class="nc" id="L173">                throw new IOException(&quot;Expected 206 Partial Content, but got status code &quot; + response.getStatusCode() + &quot; getting content length for &quot; + uri);</span>
+            }
+<span class="nc" id="L175">            String contentRange = response.getHeader(&quot;Content-Range&quot;);</span>
+<span class="nc bnc" id="L176" title="All 2 branches missed.">            if (contentRange == null) {</span>
+<span class="nc" id="L177">                throw new IOException(&quot;Missing Content-Range response header getting content length for &quot; + uri);</span>
+            }
+<span class="nc" id="L179">            Matcher m = Pattern.compile(&quot;bytes\\s+\\d+-\\d+/(\\d+)&quot;).matcher(contentRange);</span>
+<span class="nc bnc" id="L180" title="All 2 branches missed.">            if (!m.matches()) {</span>
+<span class="nc" id="L181">                throw new IOException(&quot;Invalid Content-Range response header value \&quot;&quot; + contentRange + &quot;\&quot; getting content length for &quot; + uri);</span>
+            }
+<span class="nc" id="L183">            contentLength = Long.parseLong(m.group(1));</span>
+<span class="nc bnc" id="L184" title="All 2 branches missed.">            if (contentLength &lt; 0) {</span>
+<span class="nc" id="L185">                throw new IOException(&quot;Invalid Content-Range response header value \&quot;&quot; + contentRange + &quot;\&quot; getting content length for &quot; + uri);</span>
+            }
+        }
+<span class="nc" id="L188">        return contentLength;</span>
+    }
+
+    @Override
+    public int read(ByteBuffer byteBuffer) throws IOException {
+<span class="nc bnc" id="L193" title="All 4 branches missed.">        if (newPosition != null &amp;&amp; newPosition != position) {</span>
+<span class="nc bnc" id="L194" title="All 2 branches missed.">            if (currentHttpResponseBodyInputStream != null) {</span>
+                // Determine if we should close the stream or read and discard
+<span class="nc bnc" id="L196" title="All 4 branches missed.">                if (newPosition &gt; position &amp;&amp; newPosition - position &lt;= maxDiscardSize) {</span>
+<span class="nc bnc" id="L197" title="All 2 branches missed.">                    if (debug) System.out.printf(&quot; [Discard %d bytes to seek forward from position %d to %d ] &quot;, newPosition - position, position, newPosition);</span>
+<span class="nc bnc" id="L198" title="All 2 branches missed.">                    if (seekBuffer == null) {</span>
+<span class="nc" id="L199">                        seekBuffer = new byte[seekBufferSize];</span>
+                    }
+<span class="nc" id="L201">                    int remaining = (int) (newPosition - position);</span>
+                    do {
+<span class="nc" id="L203">                        remaining -= currentHttpResponseBodyInputStream.read(seekBuffer, 0, Math.min(remaining, seekBuffer.length));</span>
+<span class="nc bnc" id="L204" title="All 2 branches missed.">                    } while(remaining &gt; 0);</span>
+                    // Input stream is at correct position
+<span class="nc" id="L206">                } else {</span>
+                    try {
+<span class="nc" id="L208">                        currentHttpResponseBodyInputStream.close();</span>
+<span class="nc" id="L209">                    } catch(IOException ignored) {</span>
+<span class="nc" id="L210">                    }</span>
+<span class="nc" id="L211">                    currentHttpResponseBodyInputStream = null;</span>
+                }
+            }
+<span class="nc" id="L214">            position = newPosition;</span>
+<span class="nc" id="L215">            newPosition = null;</span>
+        }
+
+<span class="nc bnc" id="L218" title="All 2 branches missed.">        if (currentHttpResponseBodyInputStream == null) {</span>
+<span class="nc bnc" id="L219" title="All 2 branches missed.">            if (debug) System.out.print(&quot; [GET at position &quot; + position + &quot;] &quot;);</span>
+<span class="nc" id="L220">            httpRequestCount++;</span>
+<span class="nc" id="L221">            currentHttpResponseBodyInputStream = resumingInputStreamWrapper.apply(</span>
+                    new ResumingInputStream(new HttpStartRangeInputStreamProvider(uri, httpClientWrapper), position) // lgtm [java/input-resource-leak]
+            );
+        }
+
+        int read;
+<span class="nc bnc" id="L227" title="All 2 branches missed.">        if (byteBuffer.hasArray()) {</span>
+<span class="nc" id="L228">            read = currentHttpResponseBodyInputStream.read(byteBuffer.array(), byteBuffer.arrayOffset() + byteBuffer.position(), byteBuffer.remaining());</span>
+<span class="nc bnc" id="L229" title="All 2 branches missed.">            if (read &gt; 0) {</span>
+<span class="nc" id="L230">                byteBuffer.position(byteBuffer.position() + read);</span>
+            }
+        } else {
+<span class="nc bnc" id="L233" title="All 2 branches missed.">            if (buffer == null) {</span>
+<span class="nc" id="L234">                buffer = new byte[READ_BUFFER_SIZE];</span>
+            }
+<span class="nc" id="L236">            read = currentHttpResponseBodyInputStream.read(buffer, 0, Math.min(byteBuffer.remaining(), buffer.length));</span>
+<span class="nc bnc" id="L237" title="All 2 branches missed.">            if (read &gt; 0) {</span>
+<span class="nc" id="L238">                byteBuffer.put(buffer, 0, read);</span>
+            }
+        }
+<span class="nc bnc" id="L241" title="All 2 branches missed.">        if (read &gt; 0) {</span>
+<span class="nc" id="L242">            position += read;</span>
+<span class="nc" id="L243">            bytesRead += read;</span>
+        }
+<span class="nc" id="L245">        return read;</span>
+    }
+
+    @Override
+    public boolean isOpen() {
+<span class="nc" id="L250">        return true;</span>
+    }
+
+    @Override
+    public void close() throws IOException {
+<span class="nc bnc" id="L255" title="All 2 branches missed.">        if (currentHttpResponseBodyInputStream != null) {</span>
+<span class="nc" id="L256">            currentHttpResponseBodyInputStream.close();</span>
+<span class="nc" id="L257">            seekBuffer = null;</span>
+<span class="nc" id="L258">            buffer = null;</span>
+        }
+<span class="nc" id="L260">    }</span>
+
+    /**
+     * Always throws an {@code UnsupportedOperationException}.
+     */
+    @Override
+    public int write(ByteBuffer byteBuffer) throws IOException {
+<span class="nc" id="L267">        throw new UnsupportedOperationException();</span>
+    }
+
+    /**
+     * Always throws an {@code UnsupportedOperationException}.
+     */
+    @Override
+    public SeekableByteChannel truncate(long l) throws IOException {
+<span class="nc" id="L275">        throw new UnsupportedOperationException();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

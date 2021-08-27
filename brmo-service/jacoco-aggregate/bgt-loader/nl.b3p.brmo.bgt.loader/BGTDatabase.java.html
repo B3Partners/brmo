@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>BGTDatabase.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO service</a> &gt; <a href="../index.html" class="el_bundle">bgt-loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.bgt.loader</a> &gt; <span class="el_source">BGTDatabase.java</span></div><h1>BGTDatabase.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2021 B3Partners B.V.
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+package nl.b3p.brmo.bgt.loader;
+
+import nl.b3p.brmo.bgt.download.model.DeltaCustomDownloadRequest;
+import nl.b3p.brmo.bgt.loader.cli.DatabaseOptions;
+import nl.b3p.brmo.bgt.loader.cli.LoadOptions;
+import nl.b3p.brmo.bgt.schema.BGTObjectTableWriter;
+import nl.b3p.brmo.bgt.schema.BGTSchemaMapper;
+import nl.b3p.brmo.sql.dialect.MSSQLDialect;
+import nl.b3p.brmo.sql.dialect.OracleDialect;
+import nl.b3p.brmo.sql.dialect.PostGISDialect;
+import nl.b3p.brmo.sql.dialect.SQLDialect;
+import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.ScalarHandler;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.sql.Clob;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.time.Instant;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import static nl.b3p.brmo.bgt.schema.BGTSchemaMapper.METADATA_TABLE_NAME;
+import static nl.b3p.brmo.bgt.schema.BGTSchemaMapper.Metadata;
+import static nl.b3p.brmo.bgt.loader.Utils.getBundleString;
+import static nl.b3p.brmo.bgt.loader.Utils.getMessageFormattedString;
+
+public class BGTDatabase implements AutoCloseable {
+<span class="nc" id="L37">    private static final Log log = LogFactory.getLog(BGTDatabase.class);</span>
+
+<span class="nc" id="L39">    public enum SQLDialectEnum {</span>
+<span class="nc" id="L40">        postgis,</span>
+<span class="nc" id="L41">        oracle,</span>
+<span class="nc" id="L42">        mssql</span>
+    }
+
+    private SQLDialect dialect;
+    private final DatabaseOptions dbOptions;
+    private Connection connection;
+
+<span class="nc" id="L49">    public BGTDatabase(DatabaseOptions dbOptions) throws ClassNotFoundException {</span>
+<span class="nc" id="L50">        this.dbOptions = dbOptions;</span>
+<span class="nc" id="L51">        String connectionString = dbOptions.getConnectionString();</span>
+        SQLDialectEnum sqlDialectEnum;
+<span class="nc bnc" id="L53" title="All 2 branches missed.">        if (connectionString.startsWith(&quot;jdbc:postgresql:&quot;)) {</span>
+<span class="nc" id="L54">            sqlDialectEnum = SQLDialectEnum.postgis;</span>
+<span class="nc bnc" id="L55" title="All 2 branches missed.">        } else if (connectionString.startsWith(&quot;jdbc:oracle:thin:&quot;)) {</span>
+<span class="nc" id="L56">            sqlDialectEnum = SQLDialectEnum.oracle;</span>
+<span class="nc bnc" id="L57" title="All 2 branches missed.">        } else if (connectionString.startsWith(&quot;jdbc:sqlserver:&quot;)) {</span>
+<span class="nc" id="L58">            sqlDialectEnum = SQLDialectEnum.mssql;</span>
+        } else {
+<span class="nc" id="L60">            throw new IllegalArgumentException(getMessageFormattedString(&quot;db.unknown_connection_string_dialect&quot;, connectionString));</span>
+        }
+
+<span class="nc" id="L63">        dialect = createDialect(sqlDialectEnum);</span>
+<span class="nc" id="L64">        dialect.loadDriver();</span>
+<span class="nc" id="L65">    }</span>
+
+    public SQLDialect getDialect() {
+<span class="nc" id="L68">        return dialect;</span>
+    }
+
+    public Connection getConnection() throws SQLException {
+<span class="nc bnc" id="L72" title="All 4 branches missed.">        if (this.connection == null || this.connection.isClosed()) {</span>
+<span class="nc" id="L73">            this.connection = createConnection();</span>
+        }
+<span class="nc" id="L75">        return this.connection;</span>
+    }
+
+    public void setConnection(Connection connection){
+<span class="nc" id="L79">        this.connection = connection;</span>
+<span class="nc" id="L80">    }</span>
+
+    public void setDialect(SQLDialect dialect){
+<span class="nc" id="L83">        this.dialect = dialect;</span>
+<span class="nc" id="L84">    }</span>
+
+    @Override
+    public void close() throws SQLException {
+<span class="nc bnc" id="L88" title="All 4 branches missed.">        if (this.connection != null &amp;&amp; !this.connection.isClosed()) {</span>
+<span class="nc" id="L89">            this.connection.close();</span>
+        }
+<span class="nc" id="L91">    }</span>
+
+    private Connection createConnection() {
+        try {
+<span class="nc" id="L95">            return DriverManager.getConnection(dbOptions.getConnectionString(), dbOptions.getUser(), dbOptions.getPassword());</span>
+<span class="nc" id="L96">        } catch (SQLException e) {</span>
+<span class="nc" id="L97">            throw new RuntimeException(getMessageFormattedString(&quot;db.connection_error&quot;, dbOptions.getConnectionString()), e);</span>
+        }
+    }
+
+    public BGTObjectTableWriter createObjectTableWriter(LoadOptions loadOptions, DatabaseOptions dbOptions) throws SQLException {
+<span class="nc" id="L102">        BGTObjectTableWriter writer = new BGTObjectTableWriter(getConnection(), this.getDialect(), BGTSchemaMapper.getInstance());</span>
+
+<span class="nc bnc" id="L104" title="All 2 branches missed.">        if (loadOptions == null) {</span>
+<span class="nc" id="L105">            loadOptions = new LoadOptions();</span>
+        }
+<span class="nc bnc" id="L107" title="All 2 branches missed.">        writer.setBatchSize(dbOptions.getBatchSize() != null ? dbOptions.getBatchSize() : this.getDialect().getDefaultOptimalBatchSize());</span>
+<span class="nc" id="L108">        writer.setMultithreading(loadOptions.isMultithreading());</span>
+<span class="nc" id="L109">        writer.setUsePgCopy(dbOptions.isUsePgCopy());</span>
+<span class="nc" id="L110">        writer.setObjectLimit(loadOptions.getMaxObjects());</span>
+<span class="nc" id="L111">        writer.setLinearizeCurves(loadOptions.isLinearizeCurves());</span>
+<span class="nc bnc" id="L112" title="All 2 branches missed.">        writer.setCurrentObjectsOnly(!loadOptions.isIncludeHistory());</span>
+<span class="nc" id="L113">        writer.setCreateSchema(loadOptions.isCreateSchema());</span>
+<span class="nc" id="L114">        writer.setTablePrefix(loadOptions.getTablePrefix());</span>
+<span class="nc" id="L115">        return writer;</span>
+    }
+
+    public static SQLDialect createDialect(SQLDialectEnum dialectEnum) {
+<span class="nc bnc" id="L119" title="All 4 branches missed.">        switch(dialectEnum) {</span>
+<span class="nc" id="L120">            case postgis: return new PostGISDialect();</span>
+<span class="nc" id="L121">            case oracle: return new OracleDialect();</span>
+<span class="nc" id="L122">            case mssql: return new MSSQLDialect();</span>
+        }
+<span class="nc" id="L124">        throw new IllegalArgumentException(getMessageFormattedString(&quot;db.dialect_invalid&quot;, dialectEnum));</span>
+    }
+
+    public void createMetadataTable(LoadOptions loadOptions) throws SQLException {
+<span class="nc" id="L128">        log.info(getBundleString(&quot;db.create_metadata&quot;));</span>
+<span class="nc bnc" id="L129" title="All 2 branches missed.">        for(String sql: BGTSchemaMapper.getInstance().getCreateMetadataTableStatements(getDialect(), loadOptions.getTablePrefix())) {</span>
+<span class="nc" id="L130">            new QueryRunner().update(getConnection(), sql);</span>
+<span class="nc" id="L131">        }</span>
+<span class="nc" id="L132">    }</span>
+
+    public String getMetadata(Metadata key) throws SQLException {
+<span class="nc" id="L135">        Object value = new QueryRunner().query(getConnection(), &quot;select waarde from &quot; + METADATA_TABLE_NAME + &quot; where naam = ?&quot;, new ScalarHandler&lt;&gt;(), key.getDbKey());</span>
+<span class="nc bnc" id="L136" title="All 2 branches missed.">        if (value == null) {</span>
+<span class="nc" id="L137">            return null;</span>
+        }
+<span class="nc bnc" id="L139" title="All 2 branches missed.">        if (value instanceof Clob) {</span>
+<span class="nc" id="L140">            Clob clob = (Clob)value;</span>
+<span class="nc" id="L141">            return clob.getSubString(1, (int)clob.length());</span>
+        }
+<span class="nc" id="L143">        return value.toString();</span>
+    }
+
+    public void setMetadataValue(Metadata key, String value) throws Exception {
+        try {
+<span class="nc" id="L148">            int updated = new QueryRunner().update(getConnection(), &quot;update &quot; + METADATA_TABLE_NAME + &quot; set waarde = ? where naam = ?&quot;, value, key.getDbKey());</span>
+<span class="nc bnc" id="L149" title="All 2 branches missed.">            if (updated == 0) {</span>
+<span class="nc" id="L150">                new QueryRunner().update(getConnection(), &quot;insert into &quot; + METADATA_TABLE_NAME + &quot;(naam, waarde) values(?,?)&quot;, key.getDbKey(), value);</span>
+            }
+<span class="nc" id="L152">        } catch (SQLException e) {</span>
+<span class="nc" id="L153">            throw new Exception(getMessageFormattedString(&quot;db.metadata_error&quot;, key.getDbKey(), value, e.getMessage()), e);</span>
+<span class="nc" id="L154">        }</span>
+<span class="nc" id="L155">    }</span>
+
+    public void setMetadataForMutaties(BGTObjectStreamer.MutatieInhoud mutatieInhoud) throws Exception {
+<span class="nc" id="L158">        setMetadataValue(Metadata.DELTA_TIME_TO, null);</span>
+<span class="nc bnc" id="L159" title="All 4 branches missed.">        if (mutatieInhoud == null || mutatieInhoud.getLeveringsId() == null) {</span>
+<span class="nc" id="L160">            setMetadataValue(Metadata.INITIAL_LOAD_DELTA_ID, null);</span>
+<span class="nc" id="L161">            setMetadataValue(Metadata.INITIAL_LOAD_TIME, null);</span>
+<span class="nc" id="L162">            setMetadataValue(Metadata.DELTA_ID, null);</span>
+        } else {
+<span class="nc" id="L164">            String deltaId = mutatieInhoud.getLeveringsId();</span>
+
+<span class="nc bnc" id="L166" title="All 2 branches missed.">            if (&quot;initial&quot;.equals(mutatieInhoud.getMutatieType())) {</span>
+<span class="nc" id="L167">                setMetadataValue(Metadata.INITIAL_LOAD_DELTA_ID, deltaId);</span>
+<span class="nc" id="L168">                setMetadataValue(Metadata.INITIAL_LOAD_TIME, Instant.now().toString());</span>
+            }
+<span class="nc" id="L170">            setMetadataValue(Metadata.DELTA_ID, deltaId);</span>
+        }
+<span class="nc" id="L172">    }</span>
+
+    public void setFeatureTypesEnumMetadata(Set&lt;DeltaCustomDownloadRequest.FeaturetypesEnum&gt; featureTypes) throws Exception {
+<span class="nc" id="L175">        setMetadataValue(Metadata.FEATURE_TYPES,</span>
+<span class="nc" id="L176">                        featureTypes.stream()</span>
+<span class="nc" id="L177">                        .map(DeltaCustomDownloadRequest.FeaturetypesEnum::toString)</span>
+<span class="nc" id="L178">                        .collect(Collectors.joining(&quot;,&quot;)));</span>
+
+<span class="nc" id="L180">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

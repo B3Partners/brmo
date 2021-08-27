@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"nl.b3p.brmo.soap.util","l":"LogMessageHandler"}]

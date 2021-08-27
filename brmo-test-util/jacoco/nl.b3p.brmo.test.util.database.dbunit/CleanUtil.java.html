@@ -49,7 +49,7 @@ public final class CleanUtil {
             throws DatabaseUnitException, SQLException {
 
 <span class="nc bnc" id="L51" title="All 2 branches missed.">        if (deleteBrondocument) {</span>
-<span class="nc" id="L52">            DatabaseOperation.DELETE_ALL.execute(rsgb, new DefaultDataSet(new DefaultTable[]{</span>
+<span class="nc" id="L52">            DatabaseOperation.TRUNCATE_TABLE.execute(rsgb, new DefaultDataSet(new DefaultTable[]{</span>
                 new DefaultTable(&quot;brondocument&quot;)}
             ));
         }
@@ -144,7 +144,7 @@ public final class CleanUtil {
     public static void cleanRSGB_BRP(final IDatabaseConnection rsgb, final boolean deleteBrondocument)
             throws DatabaseUnitException, SQLException {
 <span class="nc bnc" id="L146" title="All 2 branches missed.">        if (deleteBrondocument) {</span>
-<span class="nc" id="L147">            DatabaseOperation.DELETE_ALL.execute(rsgb, new DefaultDataSet(new DefaultTable[]{</span>
+<span class="nc" id="L147">            DatabaseOperation.TRUNCATE_TABLE.execute(rsgb, new DefaultDataSet(new DefaultTable[]{</span>
                 new DefaultTable(&quot;brondocument&quot;)}
             ));
         }
@@ -168,8 +168,7 @@ public final class CleanUtil {
             new DefaultTable(&quot;huw_ger_partn&quot;),
             new DefaultTable(&quot;herkomst_metadata&quot;)}
         ));
-
-<span class="nc" id="L172">    }</span>
+<span class="nc" id="L171">    }</span>
 
     /**
      * leegt de BAG tabellen in het RSGB schema. kan worden gebruikt in een
@@ -185,13 +184,13 @@ public final class CleanUtil {
     public static void cleanRSGB_BAG(final IDatabaseConnection rsgb, final boolean deleteBrondocument)
             throws DatabaseUnitException, SQLException {
 
-<span class="nc bnc" id="L188" title="All 2 branches missed.">        if (deleteBrondocument) {</span>
-<span class="nc" id="L189">            DatabaseOperation.DELETE_ALL.execute(rsgb, new DefaultDataSet(new DefaultTable[]{</span>
+<span class="nc bnc" id="L187" title="All 2 branches missed.">        if (deleteBrondocument) {</span>
+<span class="nc" id="L188">            DatabaseOperation.DELETE_ALL.execute(rsgb, new DefaultDataSet(new DefaultTable[]{</span>
                 new DefaultTable(&quot;brondocument&quot;)}
             ));
         }
         // cleanup doet deletes in omgekeerde volgorde dan in onderstaande array met tabellen
-<span class="nc" id="L194">        DatabaseOperation.DELETE_ALL.execute(rsgb, new DefaultDataSet(new DefaultTable[]{</span>
+<span class="nc" id="L193">        DatabaseOperation.DELETE_ALL.execute(rsgb, new DefaultDataSet(new DefaultTable[]{</span>
             // TODO volgorde van de tabellen aanpassen aan constraints
             new DefaultTable(&quot;addresseerb_obj_aand&quot;),
             new DefaultTable(&quot;addresseerb_obj_aand_archief&quot;),
@@ -238,7 +237,7 @@ public final class CleanUtil {
             new DefaultTable(&quot;wnplts&quot;),
             new DefaultTable(&quot;wnplts_archief&quot;)}
         ));
-<span class="nc" id="L241">    }</span>
+<span class="nc" id="L240">    }</span>
 
     /**
      * ruimt personen en kvk tabellen op.
@@ -248,8 +247,8 @@ public final class CleanUtil {
      * @throws SQLException als er iets misgaat in de database
      */
     public static void cleanRSGB_NHR(final IDatabaseConnection rsgb) throws DatabaseUnitException, SQLException {
-<span class="nc" id="L251">        cleanRSGB_NHR(rsgb, true);</span>
-<span class="nc" id="L252">    }</span>
+<span class="nc" id="L250">        cleanRSGB_NHR(rsgb, true);</span>
+<span class="nc" id="L251">    }</span>
 
     /**
      * ruimt personen en kvk tabellen op (en ook BRP tabellen).
@@ -262,7 +261,7 @@ public final class CleanUtil {
     public static void cleanRSGB_NHR(final IDatabaseConnection rsgb, final boolean deleteBrondocument)
             throws DatabaseUnitException, SQLException {
 
-<span class="nc" id="L265">        DatabaseOperation.DELETE_ALL.execute(rsgb, new DefaultDataSet(new DefaultTable[]{</span>
+<span class="nc" id="L264">        DatabaseOperation.DELETE_ALL.execute(rsgb, new DefaultDataSet(new DefaultTable[]{</span>
             new DefaultTable(&quot;sbi_activiteit&quot;),
             new DefaultTable(&quot;functionaris&quot;),
             new DefaultTable(&quot;ondrnmng&quot;),
@@ -272,8 +271,33 @@ public final class CleanUtil {
             new DefaultTable(&quot;vestg_naam&quot;),
             new DefaultTable(&quot;ander_btnlnds_niet_nat_prs&quot;),
         }));
-<span class="nc" id="L275">        cleanRSGB_BRP(rsgb, deleteBrondocument);</span>
-<span class="nc" id="L276">    }</span>
+<span class="nc" id="L274">        cleanRSGB_BRP(rsgb, deleteBrondocument);</span>
+<span class="nc" id="L275">    }</span>
+
+
+    /**
+     * ruimt WOZ en subject tabellen op (dus ook BRP tabellen).
+     *
+     * @param rsgb database welke opgeruimd moet worden
+     * @param deleteBrondocument {@code true} als alle brondocumenten ook verwijderd moeten worden
+     * @throws DatabaseUnitException als er iets mis gaat met DBunit, bijv verkeerde volgorde van verwijderen
+     * @throws SQLException als er iets mis gaat met uitvieren van de deletes
+     */
+    public static void cleanRSGB_WOZ(final IDatabaseConnection rsgb, final boolean deleteBrondocument)
+            throws DatabaseUnitException, SQLException {
+
+<span class="nc" id="L289">        DatabaseOperation.DELETE_ALL.execute(rsgb, new DefaultDataSet(new DefaultTable[]{</span>
+                new DefaultTable(&quot;woz_obj&quot;),
+                new DefaultTable(&quot;woz_deelobj&quot;),
+                new DefaultTable(&quot;woz_waarde&quot;),
+                new DefaultTable(&quot;woz_belang&quot;),
+                new DefaultTable(&quot;woz_deelobj_archief&quot;),
+                new DefaultTable(&quot;woz_obj_archief&quot;),
+                new DefaultTable(&quot;woz_waarde_archief&quot;),
+        }));
+        // WOZ bevat ook vestigingen, NHR leegt ook BRP
+<span class="nc" id="L299">        cleanRSGB_NHR(rsgb, deleteBrondocument);</span>
+<span class="nc" id="L300">    }</span>
 
     /**
      * leegt de bericht, laadproces en job tabellen in het staging schema. kan
@@ -286,8 +310,8 @@ public final class CleanUtil {
      */
     @Deprecated
     public static void cleanSTAGING(final IDatabaseConnection staging) throws DatabaseUnitException, SQLException {
-<span class="nc" id="L289">        cleanSTAGING(staging, false);</span>
-<span class="nc" id="L290">    }</span>
+<span class="nc" id="L313">        cleanSTAGING(staging, false);</span>
+<span class="nc" id="L314">    }</span>
 
     /**
      * leegt de bericht, laadproces en job tabellen en de automatsiche processen
@@ -295,24 +319,24 @@ public final class CleanUtil {
      * test case.
      *
      * @param staging database welke geleegd moet worden
-     * @param includeProcessen {@code true} als de automastche processen ook
+     * @param includeProcessen {@code true} als alle automatische processen ook
      * verwijderd moeten worden
      * @throws org.dbunit.DatabaseUnitException als er een DBunit fout optreedt
      * @throws java.sql.SQLException als er iets misgaat in de database
      */
     public static void cleanSTAGING(final IDatabaseConnection staging, final boolean includeProcessen) throws DatabaseUnitException, SQLException {
-<span class="nc bnc" id="L304" title="All 2 branches missed.">        if (includeProcessen) {</span>
-<span class="nc" id="L305">            DatabaseOperation.DELETE_ALL.execute(staging, new DefaultDataSet(new DefaultTable[]{</span>
+<span class="nc bnc" id="L328" title="All 2 branches missed.">        if (includeProcessen) {</span>
+<span class="nc" id="L329">            DatabaseOperation.DELETE_ALL.execute(staging, new DefaultDataSet(new DefaultTable[]{</span>
                 new DefaultTable(&quot;automatisch_proces&quot;),
                 new DefaultTable(&quot;automatisch_proces_config&quot;)
             }));
         }
-<span class="nc" id="L310">        DatabaseOperation.DELETE_ALL.execute(staging, new DefaultDataSet(new DefaultTable[]{</span>
+<span class="nc" id="L334">        DatabaseOperation.DELETE_ALL.execute(staging, new DefaultDataSet(new DefaultTable[]{</span>
             new DefaultTable(&quot;laadproces&quot;),
             new DefaultTable(&quot;bericht&quot;),
             new DefaultTable(&quot;job&quot;)
         }));
-<span class="nc" id="L315">    }</span>
+<span class="nc" id="L339">    }</span>
 
     /**
      * private by design.
@@ -320,4 +344,4 @@ public final class CleanUtil {
     private CleanUtil() {
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

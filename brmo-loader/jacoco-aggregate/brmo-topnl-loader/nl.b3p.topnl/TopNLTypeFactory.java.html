@@ -35,33 +35,41 @@ import org.jdom2.input.SAXBuilder;
     private static final String TOP10NLNAMESPACE = &quot;http://register.geostandaarden.nl/gmlapplicatieschema/top10nl/1.2.0&quot;;
 
     public static TopNLType getTopNLType(URL is) throws JDOMException, IOException {
-<span class="fc" id="L38">        Document inputXml = new SAXBuilder().build(is);</span>
-<span class="fc" id="L39">        return getTopNLType(inputXml);       </span>
+<span class="fc" id="L38">        SAXBuilder saxBuilder = new SAXBuilder();</span>
+<span class="fc" id="L39">        saxBuilder.setFeature(&quot;http://xml.org/sax/features/external-general-entities&quot;, true);</span>
+<span class="fc" id="L40">        saxBuilder.setFeature(&quot;http://xml.org/sax/features/external-parameter-entities&quot;, false);</span>
+<span class="fc" id="L41">        saxBuilder.setExpandEntities(false);</span>
+<span class="fc" id="L42">        Document inputXml = saxBuilder.build(is);</span>
+<span class="fc" id="L43">        return getTopNLType(inputXml);       </span>
     }
     
     public static TopNLType getTopNLType(String is) throws JDOMException, IOException {
-<span class="nc" id="L43">        Document inputXml = new SAXBuilder().build(is);</span>
-<span class="nc" id="L44">        return getTopNLType(inputXml);</span>
+<span class="nc" id="L47">        SAXBuilder saxBuilder = new SAXBuilder();</span>
+<span class="nc" id="L48">        saxBuilder.setFeature(&quot;http://xml.org/sax/features/external-general-entities&quot;, true);</span>
+<span class="nc" id="L49">        saxBuilder.setFeature(&quot;http://xml.org/sax/features/external-parameter-entities&quot;, false);</span>
+<span class="nc" id="L50">        saxBuilder.setExpandEntities(false);</span>
+<span class="nc" id="L51">        Document inputXml = saxBuilder.build(is);</span>
+<span class="nc" id="L52">        return getTopNLType(inputXml);</span>
     }
 
     private static TopNLType getTopNLType(Document inputXml){
-<span class="pc bpc" id="L48" title="1 of 2 branches missed.">         if (!inputXml.hasRootElement()) {</span>
-<span class="nc" id="L49">            throw new IllegalArgumentException(&quot;Document contains no root element&quot;);</span>
+<span class="pc bpc" id="L56" title="1 of 2 branches missed.">         if (!inputXml.hasRootElement()) {</span>
+<span class="nc" id="L57">            throw new IllegalArgumentException(&quot;Document contains no root element&quot;);</span>
         }
-<span class="fc" id="L51">        Element rootElem = inputXml.getRootElement();</span>
-<span class="fc" id="L52">        String currentNamespace = rootElem.getNamespace().getURI();</span>
-<span class="pc bpc" id="L53" title="1 of 5 branches missed.">        switch (currentNamespace) {</span>
+<span class="fc" id="L59">        Element rootElem = inputXml.getRootElement();</span>
+<span class="fc" id="L60">        String currentNamespace = rootElem.getNamespace().getURI();</span>
+<span class="pc bpc" id="L61" title="1 of 5 branches missed.">        switch (currentNamespace) {</span>
             case TOP250NLNAMESPACE:
-<span class="fc" id="L55">                return TopNLType.TOP250NL;</span>
+<span class="fc" id="L63">                return TopNLType.TOP250NL;</span>
             case TOP100NLNAMESPACE:
-<span class="fc" id="L57">                return TopNLType.TOP100NL;</span>
+<span class="fc" id="L65">                return TopNLType.TOP100NL;</span>
             case TOP50NLNAMESPACE:
-<span class="fc" id="L59">                return TopNLType.TOP50NL;</span>
+<span class="fc" id="L67">                return TopNLType.TOP50NL;</span>
             case TOP10NLNAMESPACE:
-<span class="fc" id="L61">                return TopNLType.TOP10NL;</span>
+<span class="fc" id="L69">                return TopNLType.TOP10NL;</span>
             default:
-<span class="nc" id="L63">                throw new IllegalArgumentException(&quot;Type not recognized: &quot; + currentNamespace);</span>
+<span class="nc" id="L71">                throw new IllegalArgumentException(&quot;Type not recognized: &quot; + currentNamespace);</span>
         }
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

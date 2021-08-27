@@ -85,105 +85,103 @@ import org.stripesstuff.plugin.waitpage.WaitPage;
             }
 
 <span class="nc" id="L87">            DataSource ds = ConfigUtil.getDataSourceStaging();</span>
-<span class="nc" id="L88">            BrmoFramework brmo = null;</span>
-<span class="nc" id="L89">            brmo = new BrmoFramework(ds, null);</span>
+<span class="nc" id="L88">            BrmoFramework brmo = new BrmoFramework(ds, null);</span>
+<span class="nc" id="L89">            brmo.loadFromFile(basisregistratie, filename, this, null);</span>
 
-<span class="nc" id="L91">            brmo.loadFromFile(basisregistratie, filename, this, null);</span>
-
-<span class="nc" id="L93">            getContext().getMessages().add(new SimpleMessage(&quot;Klaar met inladen&quot;));</span>
-<span class="nc" id="L94">        } catch(Throwable t) {</span>
-<span class="nc" id="L95">            log.error(&quot;Fout bij inladen bestand van server&quot;, t);</span>
-<span class="nc" id="L96">            String m = &quot;Fout bij inladen bestand: &quot; + ExceptionUtils.getMessage(t);</span>
-<span class="nc bnc" id="L97" title="All 2 branches missed.">            if(t.getCause() != null) {</span>
-<span class="nc" id="L98">                m += &quot;, oorzaak: &quot; + ExceptionUtils.getRootCauseMessage(t);</span>
+<span class="nc" id="L91">            getContext().getMessages().add(new SimpleMessage(&quot;Klaar met inladen&quot;));</span>
+<span class="nc" id="L92">        } catch(Throwable t) {</span>
+<span class="nc" id="L93">            log.error(&quot;Fout bij inladen bestand van server&quot;, t);</span>
+<span class="nc" id="L94">            String m = &quot;Fout bij inladen bestand: &quot; + ExceptionUtils.getMessage(t);</span>
+<span class="nc bnc" id="L95" title="All 2 branches missed.">            if(t.getCause() != null) {</span>
+<span class="nc" id="L96">                m += &quot;, oorzaak: &quot; + ExceptionUtils.getRootCauseMessage(t);</span>
             }
-<span class="nc" id="L100">            getContext().getMessages().add(new SimpleMessage(m));</span>
+<span class="nc" id="L98">            getContext().getMessages().add(new SimpleMessage(m));</span>
         } finally {
-<span class="nc" id="L102">            complete = true;</span>
+<span class="nc" id="L100">            complete = true;</span>
         }
-<span class="nc" id="L104">        return new ForwardResolution(&quot;/WEB-INF/jsp/bestand/bigfile.jsp&quot;);</span>
+<span class="nc" id="L102">        return new ForwardResolution(&quot;/WEB-INF/jsp/bestand/bigfile.jsp&quot;);</span>
     }
 
     // &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;getters en setters&quot;&gt;
     public ActionBeanContext getContext() {
-<span class="nc" id="L109">        return context;</span>
+<span class="nc" id="L107">        return context;</span>
     }
 
     public void setContext(ActionBeanContext context) {
-<span class="nc" id="L113">        this.context = context;</span>
-<span class="nc" id="L114">    }</span>
+<span class="nc" id="L111">        this.context = context;</span>
+<span class="nc" id="L112">    }</span>
 
     public String getBasisregistratie() {
-<span class="nc" id="L117">        return basisregistratie;</span>
+<span class="nc" id="L115">        return basisregistratie;</span>
     }
 
     public void setBasisregistratie(String basisregistratie) {
-<span class="nc" id="L121">        this.basisregistratie = basisregistratie;</span>
-<span class="nc" id="L122">    }</span>
+<span class="nc" id="L119">        this.basisregistratie = basisregistratie;</span>
+<span class="nc" id="L120">    }</span>
 
     public String getFilename() {
-<span class="nc" id="L125">        return filename;</span>
+<span class="nc" id="L123">        return filename;</span>
     }
 
     public void setFilename(String filename) {
-<span class="nc" id="L129">        this.filename = filename;</span>
-<span class="nc" id="L130">    }</span>
+<span class="nc" id="L127">        this.filename = filename;</span>
+<span class="nc" id="L128">    }</span>
 
     public double getProgress() {
-<span class="nc" id="L133">        return progress;</span>
+<span class="nc" id="L131">        return progress;</span>
     }
 
     public void setProgress(double progress) {
-<span class="nc" id="L137">        this.progress = progress;</span>
-<span class="nc" id="L138">    }</span>
+<span class="nc" id="L135">        this.progress = progress;</span>
+<span class="nc" id="L136">    }</span>
 
     public boolean isComplete() {
-<span class="nc" id="L141">        return complete;</span>
+<span class="nc" id="L139">        return complete;</span>
     }
 
     public void setComplete(boolean complete) {
-<span class="nc" id="L145">        this.complete = complete;</span>
-<span class="nc" id="L146">    }</span>
+<span class="nc" id="L143">        this.complete = complete;</span>
+<span class="nc" id="L144">    }</span>
 
     public Date getStart() {
-<span class="nc" id="L149">        return start;</span>
+<span class="nc" id="L147">        return start;</span>
     }
 
     public void setStart(Date start) {
-<span class="nc" id="L153">        this.start = start;</span>
-<span class="nc" id="L154">    }</span>
+<span class="nc" id="L151">        this.start = start;</span>
+<span class="nc" id="L152">    }</span>
 
     public Date getUpdate() {
-<span class="nc" id="L157">        return update;</span>
+<span class="nc" id="L155">        return update;</span>
     }
 
     public void setUpdate(Date update) {
-<span class="nc" id="L161">        this.update = update;</span>
-<span class="nc" id="L162">    }</span>
+<span class="nc" id="L159">        this.update = update;</span>
+<span class="nc" id="L160">    }</span>
 
     public long getTotalBytes() {
-<span class="nc" id="L165">        return totalBytes;</span>
+<span class="nc" id="L163">        return totalBytes;</span>
     }
 
     public void setTotalBytes(long totalBytes) {
-<span class="nc" id="L169">        this.totalBytes = totalBytes;</span>
-<span class="nc" id="L170">    }</span>
+<span class="nc" id="L167">        this.totalBytes = totalBytes;</span>
+<span class="nc" id="L168">    }</span>
 
     public long getProcessedBytes() {
-<span class="nc" id="L173">        return processedBytes;</span>
+<span class="nc" id="L171">        return processedBytes;</span>
     }
 
     public void setProcessedBytes(long processedBytes) {
-<span class="nc" id="L177">        this.processedBytes = processedBytes;</span>
-<span class="nc" id="L178">    }</span>
+<span class="nc" id="L175">        this.processedBytes = processedBytes;</span>
+<span class="nc" id="L176">    }</span>
 
     public String getProgressDisplay() {
-<span class="nc" id="L181">        return progressDisplay;</span>
+<span class="nc" id="L179">        return progressDisplay;</span>
     }
 
     public void setProgressDisplay(String progressDisplay) {
-<span class="nc" id="L185">        this.progressDisplay = progressDisplay;</span>
-<span class="nc" id="L186">    }</span>
+<span class="nc" id="L183">        this.progressDisplay = progressDisplay;</span>
+<span class="nc" id="L184">    }</span>
     // &lt;/editor-fold&gt;
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>ObjectType.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO service</a> &gt; <a href="../index.html" class="el_bundle">bgt-loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.schema</a> &gt; <span class="el_source">ObjectType.java</span></div><h1>ObjectType.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2021 B3Partners B.V.
+ *
+ * SPDX-License-Identifier: MIT
+ *
+ */
+
+package nl.b3p.brmo.schema;
+
+import nl.b3p.brmo.schema.mapping.AttributeColumnMapping;
+import nl.b3p.brmo.schema.mapping.GeometryAttributeColumnMapping;
+import nl.b3p.brmo.schema.mapping.OneToManyColumnMapping;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class ObjectType {
+    private final String name;
+    private final Schema schema;
+
+    private List&lt;AttributeColumnMapping&gt; attributes;
+
+    private final List&lt;AttributeColumnMapping&gt; primaryKeys;
+    private final List&lt;AttributeColumnMapping&gt; directAttributes;
+    private final List&lt;GeometryAttributeColumnMapping&gt; geometryAttributes;
+    private List&lt;ObjectType&gt; oneToManyAttributeObjectTypes;
+
+<span class="fc" id="L28">    protected ObjectType(Schema schema, String name, List&lt;AttributeColumnMapping&gt; attributes) {</span>
+<span class="fc" id="L29">        this.schema = schema;</span>
+<span class="fc" id="L30">        this.name = name;</span>
+<span class="fc" id="L31">        this.attributes = attributes;</span>
+
+<span class="fc" id="L33">        this.primaryKeys = attributes.stream()</span>
+<span class="fc" id="L34">                .filter(AttributeColumnMapping::isPrimaryKey)</span>
+<span class="fc" id="L35">                .collect(Collectors.toList());</span>
+<span class="fc" id="L36">        this.directAttributes = attributes.stream()</span>
+<span class="fc bfc" id="L37" title="All 2 branches covered.">                .filter(attributeColumnMapping -&gt; !(attributeColumnMapping instanceof OneToManyColumnMapping))</span>
+<span class="fc" id="L38">                .collect(Collectors.toList());</span>
+<span class="fc" id="L39">        this.geometryAttributes = attributes.stream()</span>
+<span class="fc" id="L40">                .filter(attributeColumnMapping -&gt; (attributeColumnMapping instanceof GeometryAttributeColumnMapping))</span>
+<span class="fc" id="L41">                .map(attributeColumnMapping -&gt; (GeometryAttributeColumnMapping) attributeColumnMapping)</span>
+<span class="fc" id="L42">                .collect(Collectors.toList());</span>
+<span class="fc" id="L43">    }</span>
+
+    public String getName() {
+<span class="fc" id="L46">        return name;</span>
+    }
+
+    public List&lt;AttributeColumnMapping&gt; getAllAttributes() {
+<span class="nc" id="L50">        return attributes;</span>
+    }
+
+    public List&lt;AttributeColumnMapping&gt; getPrimaryKeys() {
+<span class="nc" id="L54">        return primaryKeys;</span>
+    }
+
+    public List&lt;AttributeColumnMapping&gt; getDirectAttributes() {
+<span class="nc" id="L58">        return directAttributes;</span>
+    }
+
+    public List&lt;ObjectType&gt; getOneToManyAttributeObjectTypes() {
+        // Create on-demand because objectTypes map must be completely filled
+<span class="nc bnc" id="L63" title="All 2 branches missed.">        if (oneToManyAttributeObjectTypes == null) {</span>
+<span class="nc" id="L64">            oneToManyAttributeObjectTypes = attributes.stream()</span>
+<span class="nc" id="L65">                    .filter(attributeColumnMapping -&gt; (attributeColumnMapping instanceof OneToManyColumnMapping))</span>
+<span class="nc" id="L66">                    .map(attributeColumnMapping -&gt; schema.getObjectTypes().get(attributeColumnMapping.getName()))</span>
+<span class="nc" id="L67">                    .collect(Collectors.toList());</span>
+        }
+<span class="nc" id="L69">        return oneToManyAttributeObjectTypes;</span>
+    }
+
+    public List&lt;GeometryAttributeColumnMapping&gt; getGeometryAttributes() {
+<span class="nc" id="L73">        return geometryAttributes;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

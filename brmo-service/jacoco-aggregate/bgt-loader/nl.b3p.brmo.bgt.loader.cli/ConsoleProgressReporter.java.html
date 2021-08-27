@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>ConsoleProgressReporter.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO service</a> &gt; <a href="../index.html" class="el_bundle">bgt-loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.bgt.loader.cli</a> &gt; <span class="el_source">ConsoleProgressReporter.java</span></div><h1>ConsoleProgressReporter.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2021 B3Partners B.V.
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+package nl.b3p.brmo.bgt.loader.cli;
+
+import nl.b3p.brmo.bgt.schema.BGTObjectTableWriter;
+import nl.b3p.brmo.bgt.loader.ProgressReporter;
+import nl.b3p.brmo.schema.ObjectTableWriter;
+
+import java.time.Instant;
+
+import static nl.b3p.brmo.bgt.loader.Utils.formatTimeSince;
+import static nl.b3p.brmo.bgt.loader.Utils.getBundleString;
+import static nl.b3p.brmo.schema.ObjectTableWriter.Stage.FINISHED;
+
+<span class="nc" id="L19">public class ConsoleProgressReporter extends ProgressReporter {</span>
+<span class="nc" id="L20">    Instant totalStart = Instant.now();</span>
+
+    protected void log(String msg) {
+<span class="nc" id="L23">        System.out.print(&quot;\r&quot; + msg);</span>
+<span class="nc" id="L24">    }</span>
+
+    protected void status(String msg) {
+<span class="nc" id="L27">        System.out.print(&quot;\r&quot; + msg + &quot; &quot;.repeat(40));</span>
+<span class="nc" id="L28">    }</span>
+
+    public void reportTotalSummary() {
+<span class="nc" id="L31">        super.reportTotalSummary();</span>
+<span class="nc" id="L32">        System.out.println();</span>
+<span class="nc" id="L33">    }</span>
+
+    public void accept(ObjectTableWriter.Progress genericProgress) {
+<span class="nc" id="L36">        super.accept(genericProgress);</span>
+<span class="nc" id="L37">        BGTObjectTableWriter.BGTProgress progress = (BGTObjectTableWriter.BGTProgress)genericProgress;</span>
+
+<span class="nc bnc" id="L39" title="All 2 branches missed.">        if (progress.getStage() == FINISHED) {</span>
+<span class="nc" id="L40">            System.out.println();</span>
+<span class="nc bnc" id="L41" title="All 2 branches missed.">        } else if (progress.getStage() == BGTObjectTableWriter.Stage.LOAD_OBJECTS) {</span>
+
+<span class="nc" id="L43">            String total = &quot;&quot;;</span>
+<span class="nc bnc" id="L44" title="All 2 branches missed.">            if (getTotalBytes() != null) {</span>
+<span class="nc" id="L45">                total = String.format(&quot; - %s %4.1f%%   %s&quot;,</span>
+<span class="nc" id="L46">                        getBundleString(&quot;progress.total&quot;),</span>
+<span class="nc" id="L47">                        100.0 / getTotalBytes() * getTotalBytesReadFunction().get(),</span>
+<span class="nc" id="L48">                        formatTimeSince(totalStart));</span>
+            }
+
+            String current;
+<span class="nc bnc" id="L52" title="All 2 branches missed.">            if (getCurrentFileSize() != null) {</span>
+<span class="nc" id="L53">                current = String.format(&quot;%4.1f%% &quot;, 100.0 / getCurrentFileSize() * progress.getBytesRead());</span>
+            } else {
+<span class="nc" id="L55">                current = String.format(&quot;%,6d MB&quot;, progress.getBytesRead() / 1024 / 1024);</span>
+            }
+<span class="nc" id="L57">            System.out.printf(&quot;\r%s: %s  %s, %,10d %s%s&quot;,</span>
+<span class="nc" id="L58">                    getCurrentFileName(),</span>
+                    current,
+<span class="nc" id="L60">                    formatTimeSince(getCurrentFileStart()),</span>
+<span class="nc" id="L61">                    progress.getObjectCount(),</span>
+<span class="nc" id="L62">                    getBundleString(&quot;progress.objects&quot;),</span>
+                    total
+            );
+        }
+<span class="nc" id="L66">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

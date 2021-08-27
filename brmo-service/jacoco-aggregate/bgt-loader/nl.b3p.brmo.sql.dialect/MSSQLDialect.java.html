@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>MSSQLDialect.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO service</a> &gt; <a href="../index.html" class="el_bundle">bgt-loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.sql.dialect</a> &gt; <span class="el_source">MSSQLDialect.java</span></div><h1>MSSQLDialect.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2021 B3Partners B.V.
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+package nl.b3p.brmo.sql.dialect;
+
+import com.microsoft.sqlserver.jdbc.Geometry;
+import nl.b3p.brmo.util.StandardLinearizedWKTWriter;
+import org.geotools.geometry.jts.MultiSurface;
+import org.geotools.geometry.jts.WKTWriter2;
+import org.locationtech.jts.geom.GeometryCollection;
+import org.locationtech.jts.geom.GeometryFactory;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Types;
+
+<span class="nc" id="L21">public class MSSQLDialect implements SQLDialect {</span>
+<span class="nc" id="L22">    private final StandardLinearizedWKTWriter wktWriter = new StandardLinearizedWKTWriter();</span>
+<span class="nc" id="L23">    private final WKTWriter2 wktWriter2 = new WKTWriter2();</span>
+
+    @Override
+    public String getDriverClass() {
+<span class="nc" id="L27">        return &quot;com.microsoft.sqlserver.jdbc.SQLServerDriver&quot;;</span>
+    }
+
+    @Override
+    public String getType(String type) {
+<span class="nc bnc" id="L32" title="All 2 branches missed.">        if(type.startsWith(&quot;varchar&quot;)) {</span>
+<span class="nc" id="L33">            return &quot;n&quot; + type;</span>
+        }
+<span class="nc bnc" id="L35" title="All 2 branches missed.">        if(type.equals(&quot;timestamp&quot;)) {</span>
+<span class="nc" id="L36">            return &quot;datetime2&quot;;</span>
+        }
+<span class="nc bnc" id="L38" title="All 2 branches missed.">        if(type.equals(&quot;boolean&quot;)) {</span>
+<span class="nc" id="L39">            return &quot;bit&quot;;</span>
+        }
+<span class="nc bnc" id="L41" title="All 2 branches missed.">        if(type.startsWith(&quot;geometry(&quot;)) {</span>
+<span class="nc" id="L42">            return &quot;geometry&quot;;</span>
+        }
+<span class="nc bnc" id="L44" title="All 2 branches missed.">        if(type.equals(&quot;text&quot;)) {</span>
+<span class="nc" id="L45">            return &quot;ntext&quot;;</span>
+        }
+<span class="nc" id="L47">        return type;</span>
+    }
+
+    @Override
+    public Object getGeometryParameter(Connection c, org.locationtech.jts.geom.Geometry geometry, boolean linearizeCurves) throws SQLException {
+        String wkt;
+<span class="nc bnc" id="L53" title="All 2 branches missed.">        if (linearizeCurves) {</span>
+<span class="nc" id="L54">            wkt = wktWriter.write(geometry);</span>
+        } else {
+<span class="nc bnc" id="L56" title="All 2 branches missed.">            if (geometry instanceof MultiSurface) {</span>
+                // MSSQL does not support MULTISURFACE but does support CURVEPOLYGON and CIRCULARSTRING. Convert the
+                // geometry to a CURVEPOLYGON if there is only a single geometry component and otherwise a
+                // GEOMETRYCOLLECTION, which is only subtly different from a MULTISURFACE.
+
+                // If we had a WKB writer supporting curves we could use Geometry.STGeomFromWKB()
+
+<span class="nc" id="L63">                MultiSurface multiSurface = (MultiSurface) geometry;</span>
+<span class="nc bnc" id="L64" title="All 2 branches missed.">                if (multiSurface.getNumGeometries() == 1) {</span>
+<span class="nc" id="L65">                    wkt = wktWriter2.write(multiSurface.getGeometryN(0));</span>
+                } else {
+<span class="nc" id="L67">                    GeometryFactory geometryFactory = new GeometryFactory();</span>
+<span class="nc" id="L68">                    org.locationtech.jts.geom.Geometry[] geometries = new org.locationtech.jts.geom.Geometry[multiSurface.getNumGeometries()];</span>
+<span class="nc bnc" id="L69" title="All 2 branches missed.">                    for(int i = 0; i &lt; multiSurface.getNumGeometries(); i++) {</span>
+<span class="nc" id="L70">                        geometries[i] = multiSurface.getGeometryN(i);</span>
+                    }
+<span class="nc" id="L72">                    GeometryCollection collection = geometryFactory.createGeometryCollection(geometries);</span>
+<span class="nc" id="L73">                    wkt = wktWriter2.write(collection);</span>
+//                        // Convert after conversion to WKT to avoid using a GeometryFactory
+//                        wkt = wktWriter2.write(multiSurface);
+//                        wkt = &quot;GEOMETRYCOLLECTION&quot; + wkt.substring(&quot;MULTISURFACE&quot;.length());
+                }
+<span class="nc" id="L78">            } else {</span>
+<span class="nc" id="L79">                wkt = wktWriter2.write(geometry);</span>
+            }
+        }
+        try {
+<span class="nc" id="L83">            return Geometry.STGeomFromText(wkt, geometry.getSRID());</span>
+<span class="nc" id="L84">        } catch(SQLException e) {</span>
+<span class="nc" id="L85">            throw new SQLException(&quot;Error converting geometry to MSSQL geometry for WKT: &quot; + wkt, e);</span>
+        }
+    }
+
+
+    @Override
+    public void setGeometryParameter(Connection c, PreparedStatement ps, int parameterIndex, int pmdType, org.locationtech.jts.geom.Geometry geometry, boolean linearizeCurves) throws SQLException {
+<span class="nc bnc" id="L92" title="All 2 branches missed.">        if (geometry == null) {</span>
+            // Note that using the pmdType (-157 for GEOMETRY) does not work (using mssql-jdbc 9.2.1.jre8), throwing
+            // com.microsoft.sqlserver.jdbc.SQLServerException: The conversion from OBJECT to GEOMETRY is unsupported.
+<span class="nc" id="L95">            ps.setNull(parameterIndex, Types.OTHER);</span>
+        } else {
+<span class="nc" id="L97">            ps.setObject(parameterIndex, getGeometryParameter(c, geometry, linearizeCurves));</span>
+        }
+<span class="nc" id="L99">    }</span>
+
+    @Override
+    public String getCreateGeometryIndexSQL(String tableName, String geometryColumn, String type) {
+<span class="nc" id="L103">        return String.format(&quot;create spatial index idx_%s_%s on %s (%s) with (bounding_box = (12000,304000,280000,620000))&quot;,</span>
+                tableName, geometryColumn, tableName, geometryColumn);
+    }
+
+    @Override
+    public int getDefaultOptimalBatchSize() {
+<span class="nc" id="L109">        return 250;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

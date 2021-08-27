@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ResumingBGTDownloadInputStream.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO BGT / IMGeo CityGML loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.bgt.loader</a> &gt; <span class="el_source">ResumingBGTDownloadInputStream.java</span></div><h1>ResumingBGTDownloadInputStream.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2021 B3Partners B.V.
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+package nl.b3p.brmo.bgt.loader;
+
+import nl.b3p.brmo.bgt.loader.cli.ConsoleProgressReporter;
+import nl.b3p.brmo.bgt.schema.BGTObjectTableWriter;
+import nl.b3p.brmo.util.http.HttpResponseWrapper;
+import nl.b3p.brmo.util.http.HttpStartRangeInputStreamProvider;
+import nl.b3p.brmo.util.ResumingInputStream;
+import nl.b3p.brmo.util.http.wrapper.Java11HttpClientWrapper;
+import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.ProxySelector;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+
+import static nl.b3p.brmo.bgt.loader.Utils.getMessageFormattedString;
+import static nl.b3p.brmo.bgt.loader.Utils.getUserAgent;
+
+public class ResumingBGTDownloadInputStream extends ResumingInputStream {
+<span class="nc" id="L31">    private static final Log log = LogFactory.getLog(ResumingBGTDownloadInputStream.class);</span>
+
+    public ResumingBGTDownloadInputStream(URI uri, BGTObjectTableWriter writer) {
+<span class="nc" id="L34">        this(uri, writer, false);</span>
+<span class="nc" id="L35">    }</span>
+
+    public ResumingBGTDownloadInputStream(URI uri, BGTObjectTableWriter writer, boolean logRetries) {
+<span class="nc" id="L38">        super(new HttpStartRangeInputStreamProvider(uri, new Java11HttpClientWrapper() {</span>
+            @Override
+            public void beforeRequest(HttpRequest.Builder requestBuilder) {
+<span class="nc" id="L41">                requestBuilder.headers(&quot;User-Agent&quot;, getUserAgent());</span>
+<span class="nc" id="L42">            }</span>
+
+            @Override
+            public HttpResponseWrapper wrapResponse(HttpResponse&lt;InputStream&gt; response) {
+<span class="nc" id="L46">                HttpResponseWrapper wrapper = super.wrapResponse(response);</span>
+
+                // The direct download https://api.pdok.nl/lv/bgt/download/v1_0/full/predefined/bgt-citygml-nl-nopbp.zip
+                // does not support the HEAD method to read the Content-Length -- it first sends a redirect. Read the
+                // Content-Length later:
+
+                // Only read Content-Length from the first response starting at position 0, not a response from a
+                // retried request starting at a later position (we could parse the Content-Range response though).
+<span class="nc bnc" id="L54" title="All 2 branches missed.">                if (wrapper.getHeader(&quot;Content-Range&quot;) == null) {</span>
+<span class="nc" id="L55">                    String contentLength = wrapper.getHeader(&quot;Content-Range&quot;);</span>
+<span class="nc bnc" id="L56" title="All 2 branches missed.">                    if (contentLength != null) {</span>
+<span class="nc" id="L57">                        ((ProgressReporter) writer.getProgressUpdater()).setTotalBytes(Long.parseLong(contentLength));</span>
+                    }
+                }
+<span class="nc" id="L60">                return wrapper;</span>
+            }
+<span class="nc" id="L62">        }) {</span>
+            @Override
+            public InputStream get(long position, int totalRetries, Exception causeForRetry) throws IOException {
+<span class="nc bnc" id="L65" title="All 4 branches missed.">                if (causeForRetry != null &amp;&amp; logRetries) {</span>
+<span class="nc" id="L66">                    String msg = getMessageFormattedString(&quot;download.retry&quot;,</span>
+<span class="nc" id="L67">                            totalRetries,</span>
+<span class="nc" id="L68">                            position,</span>
+<span class="nc" id="L69">                            ExceptionUtils.getRootCause(causeForRetry).getMessage()</span>
+                    );
+<span class="nc bnc" id="L71" title="All 2 branches missed.">                    if (writer.getProgressUpdater() instanceof ConsoleProgressReporter) {</span>
+<span class="nc" id="L72">                        System.out.println(&quot;\r&quot; + msg);</span>
+                    } else {
+<span class="nc" id="L74">                        log.warn(msg);</span>
+<span class="nc" id="L75">                        log.trace(causeForRetry);</span>
+                    }
+                }
+<span class="nc" id="L78">                return super.get(position, totalRetries, causeForRetry);</span>
+            }
+        });
+<span class="nc" id="L81">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>StandardLinearizedWKTWriter.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO service</a> &gt; <a href="../index.html" class="el_bundle">bgt-loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.util</a> &gt; <span class="el_source">StandardLinearizedWKTWriter.java</span></div><h1>StandardLinearizedWKTWriter.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2021 B3Partners B.V.
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+package nl.b3p.brmo.util;
+
+import org.locationtech.jts.geom.Geometry;
+import org.locationtech.jts.io.WKTConstants;
+import org.locationtech.jts.io.WKTWriter;
+
+/**
+ * Write a geometry to WKT, linearizing curves. Uses the JTS WKT writer but replaces LINEARRING with the standard
+ * LINESTRING.
+ */
+<span class="fc" id="L17">public class StandardLinearizedWKTWriter {</span>
+
+<span class="fc" id="L19">    private final WKTWriter writer = new WKTWriter();</span>
+
+    public String write(Geometry geometry) {
+<span class="fc" id="L22">        String wkt = writer.write(geometry);</span>
+
+        // LINEARRING is non-standard WKT, but the JTS WKTWriter will write it anyway!
+<span class="fc bfc" id="L25" title="All 2 branches covered.">        if (wkt.startsWith(WKTConstants.LINEARRING)) {</span>
+<span class="fc" id="L26">            wkt = WKTConstants.LINESTRING + wkt.substring(WKTConstants.LINEARRING.length());</span>
+        }
+<span class="fc" id="L28">        return wkt;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

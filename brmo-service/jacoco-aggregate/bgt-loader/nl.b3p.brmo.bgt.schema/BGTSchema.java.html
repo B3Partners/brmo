@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>BGTSchema.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO service</a> &gt; <a href="../index.html" class="el_bundle">bgt-loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.bgt.schema</a> &gt; <span class="el_source">BGTSchema.java</span></div><h1>BGTSchema.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2021 B3Partners B.V.
+ *
+ * SPDX-License-Identifier: MIT
+ *
+ */
+
+package nl.b3p.brmo.bgt.schema;
+
+import nl.b3p.brmo.schema.Schema;
+import nl.b3p.brmo.schema.mapping.AttributeColumnMapping;
+import nl.b3p.brmo.schema.mapping.BooleanAttributeColumnMapping;
+import nl.b3p.brmo.schema.mapping.DoubleAttributeColumnMapping;
+import nl.b3p.brmo.schema.mapping.GeometryAttributeColumnMapping;
+import nl.b3p.brmo.schema.mapping.IntegerAttributeColumnMapping;
+import nl.b3p.brmo.schema.mapping.OneToManyColumnMapping;
+import nl.b3p.brmo.schema.mapping.SimpleDateFormatAttributeColumnMapping;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import static nl.b3p.brmo.schema.mapping.SimpleDateFormatAttributeColumnMapping.PATTERN_XML_DATE;
+import static nl.b3p.brmo.schema.mapping.SimpleDateFormatAttributeColumnMapping.PATTERN_XML_TIMESTAMP;
+
+public class BGTSchema extends Schema {
+    private static BGTSchema instance;
+
+    public static final String EIND_REGISTRATIE = &quot;eindRegistratie&quot;;
+
+<span class="fc" id="L34">    static final Set&lt;String&gt; bgtObjectTypes = new HashSet&lt;&gt;(Arrays.asList(</span>
+            &quot;TrafficArea&quot;,
+            &quot;AuxiliaryTrafficArea&quot;,
+            &quot;Railway&quot;,
+            &quot;OnbegroeidTerreindeel&quot;,
+            &quot;PlantCover&quot;,
+            &quot;Waterdeel&quot;,
+            &quot;OndersteunendWaterdeel&quot;,
+            &quot;BuildingPart&quot;,
+            &quot;nummeraanduidingreeks&quot;, // BuildingPart one-to-many
+            // &quot;OverigeConstructie&quot;, // Wel in gegevenscatalogus, niet in LV
+            &quot;OverigBouwwerk&quot;,
+            &quot;BridgeConstructionElement&quot;,
+            &quot;TunnelPart&quot;,
+            &quot;Kunstwerkdeel&quot;,
+            &quot;Scheiding&quot;,
+            &quot;FunctioneelGebied&quot;,
+            &quot;OpenbareRuimteLabel&quot;,
+            &quot;Plaatsbepalingspunt&quot;
+    ));
+
+<span class="fc" id="L55">    private static final List&lt;AttributeColumnMapping&gt; bgtBaseAttributes = Arrays.asList(</span>
+            new AttributeColumnMapping(&quot;gmlId&quot;, &quot;char(32)&quot;, true, true),
+            new AttributeColumnMapping(&quot;identificatie&quot;),
+            new SimpleDateFormatAttributeColumnMapping(&quot;LV-publicatiedatum&quot;, &quot;timestamp&quot;, PATTERN_XML_TIMESTAMP),
+            new SimpleDateFormatAttributeColumnMapping(&quot;creationDate&quot;, &quot;date&quot;, PATTERN_XML_DATE),
+            new SimpleDateFormatAttributeColumnMapping(&quot;tijdstipRegistratie&quot;, &quot;timestamp&quot;, PATTERN_XML_TIMESTAMP),
+            new SimpleDateFormatAttributeColumnMapping(EIND_REGISTRATIE, &quot;timestamp&quot;, false, PATTERN_XML_TIMESTAMP),
+            new SimpleDateFormatAttributeColumnMapping(&quot;terminationDate&quot;, &quot;date&quot;, false, PATTERN_XML_DATE),
+            new AttributeColumnMapping(&quot;bronhouder&quot;),
+            new BooleanAttributeColumnMapping(&quot;inOnderzoek&quot;),
+            new IntegerAttributeColumnMapping(&quot;relatieveHoogteligging&quot;),
+            new AttributeColumnMapping(&quot;bgt-status&quot;),
+            new AttributeColumnMapping(&quot;plus-status&quot;)
+    );
+
+    private List&lt;AttributeColumnMapping&gt; withBaseAttributes(AttributeColumnMapping... attributes) {
+<span class="fc" id="L71">        return Stream.concat(bgtBaseAttributes.stream(), Stream.of(attributes)).collect(Collectors.toList());</span>
+    }
+
+    public BGTSchema() {
+<span class="fc" id="L75">        super();</span>
+
+<span class="fc" id="L77">        addObjectType(new BGTObjectType(this,&quot;Bak&quot;, withBaseAttributes(</span>
+                new AttributeColumnMapping(&quot;function&quot;),
+                new AttributeColumnMapping(&quot;plus-type&quot;),
+                new GeometryAttributeColumnMapping(&quot;geometrie2dBak&quot;, &quot;geometry(POINT, 28992)&quot;)
+        )));
+
+<span class="fc" id="L83">        addObjectType(new BGTObjectType(this,&quot;PlantCover&quot;, withBaseAttributes(</span>
+                new AttributeColumnMapping(&quot;plus-fysiekVoorkomen&quot;),
+                new AttributeColumnMapping(&quot;class&quot;),
+                new BooleanAttributeColumnMapping(&quot;begroeidTerreindeelOpTalud&quot;, false),
+                new GeometryAttributeColumnMapping(&quot;kruinlijnBegroeidTerreindeel&quot;),
+                new GeometryAttributeColumnMapping(&quot;geometrie2dBegroeidTerreindeel&quot;)
+        )));
+<span class="fc" id="L90">        addObjectType(new BGTObjectType(this,&quot;Bord&quot;, withBaseAttributes(</span>
+                new AttributeColumnMapping(&quot;function&quot;),
+                new AttributeColumnMapping(&quot;plus-type&quot;),
+                new GeometryAttributeColumnMapping(&quot;geometrie2dBord&quot;, &quot;geometry(POINT, 28992)&quot;)
+        )));
+<span class="fc" id="L95">        addObjectType(new BGTObjectType(this,&quot;Buurt&quot;, withBaseAttributes(</span>
+                new AttributeColumnMapping(&quot;naam&quot;, &quot;varchar(255)&quot;, false),
+                new AttributeColumnMapping(&quot;buurtcode&quot;),
+                new AttributeColumnMapping(&quot;wijk&quot;, &quot;varchar(255)&quot;, false),
+                new GeometryAttributeColumnMapping(&quot;geometrie2d&quot;)
+        )));
+<span class="fc" id="L101">        addObjectType(new BGTObjectType(this,&quot;FunctioneelGebied&quot;, withBaseAttributes(</span>
+                new AttributeColumnMapping(&quot;naam&quot;, &quot;varchar(255)&quot;, false),
+                new AttributeColumnMapping(&quot;bgt-type&quot;),
+                new AttributeColumnMapping(&quot;plus-type&quot;),
+                new GeometryAttributeColumnMapping(&quot;geometrie2dFunctioneelGebied&quot;)
+        )));
+<span class="fc" id="L107">        addObjectType(new BGTObjectType(this,&quot;BuildingInstallation&quot;, withBaseAttributes(</span>
+                new AttributeColumnMapping(&quot;function&quot;),
+                new AttributeColumnMapping(&quot;plus-typeGebouwInstallatie&quot;),
+                new GeometryAttributeColumnMapping(&quot;geometrie2dGebouwInstallatie&quot;)
+        )));
+<span class="fc" id="L112">        addObjectType(new BGTObjectType(this,&quot;Installatie&quot;, withBaseAttributes(</span>
+                new AttributeColumnMapping(&quot;function&quot;),
+                new AttributeColumnMapping(&quot;plus-type&quot;),
+                new GeometryAttributeColumnMapping(&quot;geometrie2dInstallatie&quot;, &quot;geometry(POINT, 28992)&quot;)
+        )));
+<span class="fc" id="L117">        addObjectType(new BGTObjectType(this,&quot;Kast&quot;, withBaseAttributes(</span>
+                new AttributeColumnMapping(&quot;function&quot;),
+                new AttributeColumnMapping(&quot;plus-type&quot;),
+                new GeometryAttributeColumnMapping(&quot;geometrie2dKast&quot;, &quot;geometry(POINT, 28992)&quot;)
+        )));
+<span class="fc" id="L122">        addObjectType(new BGTObjectType(this,&quot;Kunstwerkdeel&quot;, withBaseAttributes(</span>
+                new AttributeColumnMapping(&quot;bgt-type&quot;),
+                new AttributeColumnMapping(&quot;plus-type&quot;),
+                new GeometryAttributeColumnMapping(&quot;geometrie2dOverigeConstructie&quot;)
+        )));
+<span class="fc" id="L127">        addObjectType(new BGTObjectType(this,&quot;Mast&quot;, withBaseAttributes(</span>
+                new AttributeColumnMapping(&quot;function&quot;),
+                new AttributeColumnMapping(&quot;plus-type&quot;),
+                new GeometryAttributeColumnMapping(&quot;geometrie2dMast&quot;, &quot;geometry(POINT, 28992)&quot;)
+        )));
+<span class="fc" id="L132">        addObjectType(new BGTObjectType(this,&quot;OnbegroeidTerreindeel&quot;, withBaseAttributes(</span>
+                new AttributeColumnMapping(&quot;bgt-fysiekVoorkomen&quot;),
+                new AttributeColumnMapping(&quot;plus-fysiekVoorkomen&quot;),
+                new BooleanAttributeColumnMapping(&quot;onbegroeidTerreindeelOpTalud&quot;, false),
+                new GeometryAttributeColumnMapping(&quot;kruinlijnOnbegroeidTerreindeel&quot;),
+                new GeometryAttributeColumnMapping(&quot;geometrie2dOnbegroeidTerreindeel&quot;)
+        )));
+<span class="fc" id="L139">        addObjectType(new BGTObjectType(this,&quot;OndersteunendWaterdeel&quot;, withBaseAttributes(</span>
+                new AttributeColumnMapping(&quot;class&quot;),
+                new AttributeColumnMapping(&quot;plus-type&quot;),
+                new GeometryAttributeColumnMapping(&quot;geometrie2dOndersteunendWaterdeel&quot;)
+        )));
+<span class="fc" id="L144">        addObjectType(new BGTObjectType(this,&quot;AuxiliaryTrafficArea&quot;, withBaseAttributes(</span>
+                new AttributeColumnMapping(&quot;function&quot;),
+                new AttributeColumnMapping(&quot;surfaceMaterial&quot;),
+                new AttributeColumnMapping(&quot;plus-functieOndersteunendWegdeel&quot;),
+                new AttributeColumnMapping(&quot;plus-fysiekVoorkomenOndersteunendWegdeel&quot;),
+                new BooleanAttributeColumnMapping(&quot;ondersteunendWegdeelOpTalud&quot;, false),
+                new GeometryAttributeColumnMapping(&quot;kruinlijnOndersteunendWegdeel&quot;),
+                new GeometryAttributeColumnMapping(&quot;geometrie2dOndersteunendWegdeel&quot;)
+        )));
+<span class="fc" id="L153">        addObjectType(new BGTObjectType(this,&quot;OngeclassificeerdObject&quot;, withBaseAttributes(</span>
+                new GeometryAttributeColumnMapping(&quot;geometrie2d&quot;)
+        )));
+<span class="fc" id="L156">        addObjectType(new BGTObjectType(this,&quot;OpenbareRuimte&quot;, withBaseAttributes(</span>
+                new GeometryAttributeColumnMapping(&quot;geometrie2d&quot;)
+        )));
+<span class="fc" id="L159">        addObjectType(new BGTObjectType(this,&quot;OpenbareRuimteLabel&quot;, withBaseAttributes(</span>
+                new IntegerAttributeColumnMapping(&quot;idx&quot;, true, true),
+                new AttributeColumnMapping(&quot;tekst&quot;),
+                new DoubleAttributeColumnMapping(&quot;hoek&quot;),
+                new GeometryAttributeColumnMapping(&quot;plaatsingspunt&quot;, &quot;geometry(POINT, 28992)&quot;),
+                new AttributeColumnMapping(&quot;openbareRuimteType&quot;),
+                new AttributeColumnMapping(&quot;identificatieBAGOPR&quot;, &quot;varchar(16)&quot;, false)
+        )));
+<span class="fc" id="L167">        addObjectType(new BGTObjectType(this,&quot;BridgeConstructionElement&quot;, withBaseAttributes(</span>
+                new BooleanAttributeColumnMapping(&quot;overbruggingIsBeweegbaar&quot;, false),
+                new AttributeColumnMapping(&quot;hoortBijTypeOverbrugging&quot;),
+                new AttributeColumnMapping(&quot;class&quot;),
+                new AttributeColumnMapping(&quot;identificatieBAGOPR&quot;, &quot;varchar(16)&quot;, false),
+                new GeometryAttributeColumnMapping(&quot;geometrie2dOverbruggingsdeel&quot;)
+        )));
+<span class="fc" id="L174">        addObjectType(new BGTObjectType(this,&quot;OverigBouwwerk&quot;, withBaseAttributes(</span>
+                new AttributeColumnMapping(&quot;bgt-type&quot;),
+                new AttributeColumnMapping(&quot;plus-type&quot;),
+                new GeometryAttributeColumnMapping(&quot;geometrie2dOverigeConstructie&quot;)
+        )));
+<span class="fc" id="L179">        addObjectType(new BGTObjectType(this,&quot;OverigeScheiding&quot;, withBaseAttributes(</span>
+                new AttributeColumnMapping(&quot;plus-type&quot;, &quot;varchar(255)&quot;, false),
+                new GeometryAttributeColumnMapping(&quot;geometrie2dOverigeConstructie&quot;)
+        )));
+<span class="fc" id="L183">        addObjectType(new BGTObjectType(this,&quot;Paal&quot;, withBaseAttributes(</span>
+                new AttributeColumnMapping(&quot;function&quot;),
+                new AttributeColumnMapping(&quot;plus-type&quot;, &quot;varchar(255)&quot;, false),
+                new AttributeColumnMapping(&quot;hectometeraanduiding&quot;, &quot;varchar(255)&quot;, false),
+                new GeometryAttributeColumnMapping(&quot;geometrie2dPaal&quot;, &quot;geometry(POINT, 28992)&quot;)
+        )));
+<span class="fc" id="L189">        addObjectType(new BGTObjectType(this,&quot;BuildingPart&quot;, withBaseAttributes(</span>
+                new AttributeColumnMapping(&quot;identificatieBAGPND&quot;),
+                new OneToManyColumnMapping(&quot;nummeraanduidingreeks&quot;),
+                new GeometryAttributeColumnMapping(&quot;geometrie2dGrondvlak&quot;)
+        )));
+<span class="fc" id="L194">        addObjectType(new BGTObjectType(this,&quot;nummeraanduidingreeks&quot;, Arrays.asList(</span>
+                new AttributeColumnMapping(&quot;pandgmlid&quot;, &quot;varchar(255)&quot;, true, true),
+                new IntegerAttributeColumnMapping(&quot;idx&quot;, true, true),
+                new BooleanAttributeColumnMapping(&quot;pandeindregistratie&quot;, true),
+                new AttributeColumnMapping(&quot;tekst&quot;),
+                new DoubleAttributeColumnMapping(&quot;hoek&quot;),
+                new GeometryAttributeColumnMapping(&quot;plaatsingspunt&quot;, &quot;geometry(POINT, 28992)&quot;),
+                new AttributeColumnMapping(&quot;identificatieBAGVBOLaagsteHuisnummer&quot;, &quot;varchar(16)&quot;, false),
+                new AttributeColumnMapping(&quot;identificatieBAGVBOHoogsteHuisnummer&quot;, &quot;varchar(16)&quot;, false)
+        )));
+<span class="fc" id="L204">        addObjectType(new BGTObjectType(this,&quot;Plaatsbepalingspunt&quot;, Arrays.asList(</span>
+                new AttributeColumnMapping(&quot;gmlId&quot;, &quot;char(32)&quot;, true, true),
+                new AttributeColumnMapping(&quot;identificatie&quot;),
+                new IntegerAttributeColumnMapping(&quot;nauwkeurigheid&quot;, false),
+                new SimpleDateFormatAttributeColumnMapping(&quot;datumInwinning&quot;, &quot;date&quot;, true, PATTERN_XML_DATE),
+                new AttributeColumnMapping(&quot;inwinnendeInstantie&quot;, &quot;varchar(255)&quot;, false),
+                new AttributeColumnMapping(&quot;inwinningsmethode&quot;, &quot;varchar(255)&quot;, true),
+                new GeometryAttributeColumnMapping(&quot;geometrie&quot;, &quot;geometry(POINT, 28992)&quot;)
+        )));
+<span class="fc" id="L213">        addObjectType(new BGTObjectType(this,&quot;Put&quot;, withBaseAttributes(</span>
+                new AttributeColumnMapping(&quot;function&quot;),
+                new AttributeColumnMapping(&quot;plus-type&quot;),
+                new GeometryAttributeColumnMapping(&quot;geometrie2dPut&quot;, &quot;geometry(POINT, 28992)&quot;)
+        )));
+<span class="fc" id="L218">        addObjectType(new BGTObjectType(this,&quot;Scheiding&quot;, withBaseAttributes(</span>
+                new AttributeColumnMapping(&quot;bgt-type&quot;),
+                new AttributeColumnMapping(&quot;plus-type&quot;),
+                new GeometryAttributeColumnMapping(&quot;geometrie2dOverigeConstructie&quot;)
+        )));
+<span class="fc" id="L223">        addObjectType(new BGTObjectType(this,&quot;Sensor&quot;, withBaseAttributes(</span>
+                new AttributeColumnMapping(&quot;function&quot;),
+                new AttributeColumnMapping(&quot;plus-type&quot;),
+                new GeometryAttributeColumnMapping(&quot;geometrie2dSensor&quot;)
+        )));
+<span class="fc" id="L228">        addObjectType(new BGTObjectType(this,&quot;Railway&quot;, withBaseAttributes(</span>
+                new AttributeColumnMapping(&quot;function&quot;),
+                new AttributeColumnMapping(&quot;plus-functieSpoor&quot;, &quot;varchar(255)&quot;, false),
+                new GeometryAttributeColumnMapping(&quot;geometrie2dSpoor&quot;)
+        )));
+<span class="fc" id="L233">        addObjectType(new BGTObjectType(this,&quot;Stadsdeel&quot;, withBaseAttributes(</span>
+                new AttributeColumnMapping(&quot;naam&quot;, &quot;varchar(255)&quot;, false),
+                new AttributeColumnMapping(&quot;function&quot;, &quot;varchar(255)&quot;, false),
+                new GeometryAttributeColumnMapping(&quot;geometrie2d&quot;)
+        )));
+<span class="fc" id="L238">        addObjectType(new BGTObjectType(this,&quot;Straatmeubilair&quot;, withBaseAttributes(</span>
+                new AttributeColumnMapping(&quot;function&quot;),
+                new AttributeColumnMapping(&quot;plus-type&quot;),
+                new GeometryAttributeColumnMapping(&quot;geometrie2dStraatmeubilair&quot;, &quot;geometry(POINT, 28992)&quot;)
+        )));
+<span class="fc" id="L243">        addObjectType(new BGTObjectType(this,&quot;TunnelPart&quot;, withBaseAttributes(</span>
+                new GeometryAttributeColumnMapping(&quot;geometrie2dTunneldeel&quot;)
+        )));
+<span class="fc" id="L246">        addObjectType(new BGTObjectType(this,&quot;SolitaryVegetationObject&quot;, withBaseAttributes(</span>
+                new AttributeColumnMapping(&quot;class&quot;),
+                new AttributeColumnMapping(&quot;plus-type&quot;),
+                new GeometryAttributeColumnMapping(&quot;geometrie2dVegetatieObject&quot;)
+        )));
+<span class="fc" id="L251">        addObjectType(new BGTObjectType(this,&quot;Waterdeel&quot;, withBaseAttributes(</span>
+                new AttributeColumnMapping(&quot;class&quot;),
+                new AttributeColumnMapping(&quot;plus-type&quot;),
+                new GeometryAttributeColumnMapping(&quot;geometrie2dWaterdeel&quot;)
+        )));
+<span class="fc" id="L256">        addObjectType(new BGTObjectType(this,&quot;Waterinrichtingselement&quot;, withBaseAttributes(</span>
+                new AttributeColumnMapping(&quot;function&quot;),
+                new AttributeColumnMapping(&quot;plus-type&quot;),
+                new GeometryAttributeColumnMapping(&quot;geometrie2dWaterinrichtingselement&quot;)
+        )));
+<span class="fc" id="L261">        addObjectType(new BGTObjectType(this,&quot;Waterschap&quot;, withBaseAttributes(</span>
+                new GeometryAttributeColumnMapping(&quot;geometrie2d&quot;)
+        )));
+<span class="fc" id="L264">        addObjectType(new BGTObjectType(this,&quot;TrafficArea&quot;, withBaseAttributes(</span>
+                new AttributeColumnMapping(&quot;function&quot;),
+                new AttributeColumnMapping(&quot;plus-functieWegdeel&quot;),
+                new AttributeColumnMapping(&quot;plus-fysiekVoorkomenWegdeel&quot;),
+                new AttributeColumnMapping(&quot;surfaceMaterial&quot;),
+                new BooleanAttributeColumnMapping(&quot;wegdeelOpTalud&quot;, false),
+                new GeometryAttributeColumnMapping(&quot;kruinlijnWegdeel&quot;),
+                new GeometryAttributeColumnMapping(&quot;geometrie2dWegdeel&quot;)
+        )));
+<span class="fc" id="L273">        addObjectType(new BGTObjectType(this,&quot;Weginrichtingselement&quot;, withBaseAttributes(</span>
+                new AttributeColumnMapping(&quot;function&quot;),
+                new AttributeColumnMapping(&quot;plus-type&quot;),
+                new GeometryAttributeColumnMapping(&quot;geometrie2dWeginrichtingselement&quot;)
+        )));
+<span class="fc" id="L278">        addObjectType(new BGTObjectType(this,&quot;Wijk&quot;, withBaseAttributes(</span>
+                new AttributeColumnMapping(&quot;naam&quot;, &quot;varchar(255)&quot;, false),
+                new AttributeColumnMapping(&quot;wijkcode&quot;),
+                new GeometryAttributeColumnMapping(&quot;geometrie2d&quot;)
+        )));
+<span class="fc" id="L283">    }</span>
+
+    protected void addObjectType(BGTObjectType objectType) {
+<span class="fc" id="L286">        super.addObjectType(objectType);</span>
+<span class="fc" id="L287">    }</span>
+
+
+    public static BGTSchema getInstance() {
+<span class="fc bfc" id="L291" title="All 2 branches covered.">        if (instance == null) {</span>
+<span class="fc" id="L292">            instance = new BGTSchema();</span>
+        }
+<span class="fc" id="L294">        return instance;</span>
+    }
+
+    public Stream&lt;BGTObjectType&gt; getAllObjectTypes() {
+<span class="nc" id="L298">        return (Stream&lt;BGTObjectType&gt;) super.getAllObjectTypes();</span>
+    }
+
+    public Stream&lt;BGTObjectType&gt; getOnlyBGTObjectTypes() {
+<span class="nc bnc" id="L302" title="All 2 branches missed.">        return getAllObjectTypes().filter(objectType -&gt; !objectType.isIMGeoPlusType());</span>
+    }
+
+    public Stream&lt;BGTObjectType&gt; getIMGeoPlusObjectTypes() {
+<span class="nc" id="L306">        return getAllObjectTypes().filter(BGTObjectType::isIMGeoPlusType);</span>
+    }
+
+    public BGTObjectType getObjectTypeByName(String name) {
+<span class="fc" id="L310">        return (BGTObjectType) super.getObjectTypeByName(name);</span>
+    }
+
+    /**
+     * CityGML gml:id's hebben in IMGeo bestanden soms een extra 'b' voor het UUID, blijkelijk zodat in mutatiebestanden
+     * geen dubbele id attributen voorkomen. Deze methode stript de extra 'b' en eventuele streepjes en maakt alles
+     * lowercase.
+     */
+    public static String fixUUID(final String uuidParam) {
+<span class="fc" id="L319">        String uuid = uuidParam.replaceAll(&quot;-&quot;, &quot;&quot;).toLowerCase();</span>
+<span class="pc bpc" id="L320" title="1 of 4 branches missed.">        if (uuid.length() == 33 &amp;&amp; uuid.charAt(0) == 'b') {</span>
+<span class="fc" id="L321">            return uuid.substring(1);</span>
+        }
+<span class="pc bpc" id="L323" title="1 of 2 branches missed.">        if (uuid.length() != 32) {</span>
+<span class="nc" id="L324">            throw new IllegalArgumentException(&quot;Invalid UUID: &quot; + uuidParam);</span>
+        }
+<span class="fc" id="L326">        return uuid;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>DatabaseOptions.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO service</a> &gt; <a href="../index.html" class="el_bundle">bgt-loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.bgt.loader.cli</a> &gt; <span class="el_source">DatabaseOptions.java</span></div><h1>DatabaseOptions.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2021 B3Partners B.V.
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+package nl.b3p.brmo.bgt.loader.cli;
+
+import picocli.CommandLine.Option;
+
+<span class="nc" id="L11">public class DatabaseOptions {</span>
+<span class="nc" id="L12">    @Option(names={&quot;-c&quot;,&quot;--connection&quot;}, paramLabel = &quot;&lt;string&gt;&quot;)</span>
+    String connectionString = &quot;jdbc:postgresql:bgt?sslmode=disable&amp;reWriteBatchedInserts=true&quot;;
+
+<span class="nc" id="L15">    @Option(names={&quot;-u&quot;,&quot;--user&quot;})</span>
+    String user = &quot;bgt&quot;;
+
+<span class="nc" id="L18">    @Option(names={&quot;-p&quot;,&quot;--password&quot;}, interactive = true, arity = &quot;0..1&quot;)</span>
+    String password = &quot;bgt&quot;;
+
+    @Option(names=&quot;--batch-size&quot;, paramLabel=&quot;number&quot;, hidden = true)
+    Integer batchSize;
+
+<span class="nc" id="L24">    @Option(names={&quot;--no-pg-copy&quot;}, negatable = true, hidden = true)</span>
+    boolean usePgCopy = true;
+
+    public String getConnectionString() {
+<span class="nc" id="L28">        return connectionString;</span>
+    }
+
+    public void setConnectionString(String connectionString) {
+<span class="nc" id="L32">        this.connectionString = connectionString;</span>
+<span class="nc" id="L33">    }</span>
+
+    public String getUser() {
+<span class="nc" id="L36">        return user;</span>
+    }
+
+    public void setUser(String user) {
+<span class="nc" id="L40">        this.user = user;</span>
+<span class="nc" id="L41">    }</span>
+
+    public String getPassword() {
+<span class="nc" id="L44">        return password;</span>
+    }
+
+    public void setPassword(String password) {
+<span class="nc" id="L48">        this.password = password;</span>
+<span class="nc" id="L49">    }</span>
+
+    public Integer getBatchSize() {
+<span class="nc" id="L52">        return batchSize;</span>
+    }
+
+    public void setBatchSize(Integer batchSize) {
+<span class="nc" id="L56">        this.batchSize = batchSize;</span>
+<span class="nc" id="L57">    }</span>
+
+    public boolean isUsePgCopy() {
+<span class="nc" id="L60">        return usePgCopy;</span>
+    }
+
+    public void setUsePgCopy(boolean usePgCopy) {
+<span class="nc" id="L64">        this.usePgCopy = usePgCopy;</span>
+<span class="nc" id="L65">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

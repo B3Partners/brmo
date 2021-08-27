@@ -1,5 +1,5 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
-BRMO test-util,nl.b3p.brmo.test.util.database.dbunit,CleanUtil,755,0,8,0,27,0,13,0,9,0
-BRMO test-util,nl.b3p.brmo.test.util.database,ViewUtils,131,0,6,0,21,0,7,0,4,0
-BRMO test-util,nl.b3p.brmo.test.util.database,SequenceUtil,61,0,0,0,8,0,2,0,2,0
+BRMO test-util,nl.b3p.brmo.test.util.database.dbunit,CleanUtil,816,0,8,0,30,0,14,0,10,0
+BRMO test-util,nl.b3p.brmo.test.util.database,ViewUtils,101,0,6,0,21,0,7,0,4,0
+BRMO test-util,nl.b3p.brmo.test.util.database,SequenceUtil,41,0,0,0,8,0,2,0,2,0
 BRMO test-util,nl.b3p.brmo.test.util,WebXmlTest,0,309,0,4,0,54,0,7,0,5

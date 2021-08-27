@@ -247,7 +247,7 @@ public class WebMirrorBAGDirectoryScanner extends AbstractExecutableProces {
 <span class="nc" id="L247">                final String bestandNaam = naam + &quot;/&quot; + entry.getName();</span>
 
                 try {
-<span class="nc" id="L250">                    brmo.loadFromStream(BrmoFramework.BR_BAG, new CloseShieldInputStream(zis), bestandNaam,</span>
+<span class="nc" id="L250">                    brmo.loadFromStream(BrmoFramework.BR_BAG, CloseShieldInputStream.wrap(zis), bestandNaam,</span>
 <span class="nc" id="L251">                            new nl.b3p.brmo.loader.ProgressUpdateListener() {</span>
                                 @Override
                                 public void total(long total) {
@@ -314,4 +314,4 @@ public class WebMirrorBAGDirectoryScanner extends AbstractExecutableProces {
 <span class="nc" id="L314">        return isArchiving;</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

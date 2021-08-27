@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>Schema.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO service</a> &gt; <a href="../index.html" class="el_bundle">bgt-loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.schema</a> &gt; <span class="el_source">Schema.java</span></div><h1>Schema.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2021 B3Partners B.V.
+ *
+ * SPDX-License-Identifier: MIT
+ *
+ */
+
+package nl.b3p.brmo.schema;
+
+import nl.b3p.brmo.bgt.schema.BGTObjectType;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Stream;
+
+public class Schema {
+    public static final String INDEX = &quot;idx&quot;;
+
+<span class="fc" id="L19">    private final Map&lt;String, ObjectType&gt; objectTypes = new HashMap&lt;&gt;();</span>
+
+<span class="fc" id="L21">    protected Schema() {</span>
+<span class="fc" id="L22">    }</span>
+
+    protected void addObjectType(BGTObjectType objectType) {
+<span class="fc" id="L25">        objectTypes.put(objectType.getName(), objectType);</span>
+<span class="fc" id="L26">    }</span>
+
+    protected Map&lt;String, ObjectType&gt; getObjectTypes() {
+<span class="nc" id="L29">        return objectTypes;</span>
+    }
+
+    public Stream&lt;? extends ObjectType&gt; getAllObjectTypes() {
+<span class="nc" id="L33">        return objectTypes.values().stream();</span>
+    }
+
+    public ObjectType getObjectTypeByName(String name) {
+<span class="fc" id="L37">        return objectTypes.get(name);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

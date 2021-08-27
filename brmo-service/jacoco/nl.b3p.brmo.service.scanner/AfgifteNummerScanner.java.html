@@ -32,8 +32,8 @@ import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.WAITING;
 
 import nl.b3p.brmo.service.util.ConfigUtil;
-import nl.b3p.loader.jdbc.GeometryJdbcConverter;
-import nl.b3p.loader.jdbc.GeometryJdbcConverterFactory;
+import nl.b3p.jdbc.util.converter.GeometryJdbcConverter;
+import nl.b3p.jdbc.util.converter.GeometryJdbcConverterFactory;
 import org.apache.commons.dbutils.DbUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
@@ -308,7 +308,7 @@ public class AfgifteNummerScanner extends AbstractExecutableProces {
 <span class="nc" id="L308">                    break;</span>
                 case &quot;klantafgiftenummer&quot;:
                 default:
-<span class="nc bnc" id="L311" title="All 6 branches missed.">                    sql = &quot;SELECT&quot;</span>
+                    sql = &quot;SELECT&quot;
                             + &quot;    laadproces.klantafgiftenummer + 1 AS eerst_ontbrekend,&quot;
                             + &quot;    MIN(fr.klantafgiftenummer) - 1    AS laatst_ontbrekend,&quot;
                             + &quot;    MIN(laadproces.id)                AS laatste_aanwezige_id,&quot;
@@ -317,14 +317,14 @@ public class AfgifteNummerScanner extends AbstractExecutableProces {
                             + &quot;    laadproces&quot;
                             + &quot; LEFT JOIN laadproces r ON&quot;
                             + &quot;    laadproces.klantafgiftenummer = r.klantafgiftenummer - 1&quot;
-                            + (contractnummer == null ? &quot;&quot; : &quot;    AND r.contractnummer = ? &quot;)
+<span class="nc bnc" id="L320" title="All 2 branches missed.">                            + (contractnummer == null ? &quot;&quot; : &quot;    AND r.contractnummer = ? &quot;)</span>
                             + &quot; LEFT JOIN laadproces fr ON&quot;
                             + &quot;    laadproces.klantafgiftenummer &lt; fr.klantafgiftenummer&quot;
-                            + (contractnummer == null ? &quot;&quot; : &quot;    AND fr.contractnummer = ? &quot;)
+<span class="nc bnc" id="L323" title="All 2 branches missed.">                            + (contractnummer == null ? &quot;&quot; : &quot;    AND fr.contractnummer = ? &quot;)</span>
                             + &quot; WHERE&quot;
                             + &quot;    r.klantafgiftenummer IS NULL&quot;
                             + &quot;    AND fr.klantafgiftenummer IS NOT NULL&quot;
-                            + (contractnummer == null ? &quot;&quot; : &quot;    AND laadproces.contractnummer = ? &quot;)
+<span class="nc bnc" id="L327" title="All 2 branches missed.">                            + (contractnummer == null ? &quot;&quot; : &quot;    AND laadproces.contractnummer = ? &quot;)</span>
                             + &quot; GROUP BY&quot;
                             + &quot;    laadproces.klantafgiftenummer,&quot;
                             + &quot;    r.klantafgiftenummer&quot;;
@@ -351,4 +351,4 @@ public class AfgifteNummerScanner extends AbstractExecutableProces {
 <span class="nc" id="L351">        return this.ontbrekendeNummersGevonden;</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

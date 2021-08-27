@@ -83,7 +83,7 @@
 </tr>
 </thead>
 <tbody valign='top'>
-<tr class='odd'>
+<tr class='even'>
  <td class='primaryKey' title='Primary Key'>kvk_nummer</td>
  <td class='detail'>numeric</td>
  <td class='detail' align='right'>8</td>
@@ -92,19 +92,19 @@
  <td class='detail'></td>
  <td class='detail'>
   <table border='0' width='100%' cellspacing='0' cellpadding='0'>
-   <tr class='relative odd' valign='top'>
+   <tr class='relative even' valign='top'>
     <td class='relatedTable detail' title="ondrnmng.fk_4mac_kvk_nummer refs maatschapp_activiteit.kvk_nummer via fk_ond_as_4"><a href='ondrnmng.html'>ondrnmng</a><span class='relatedKey'>.fk_4mac_kvk_nummer</span>
     </td>
     <td class='constraint detail'>fk_ond_as_4<span title='Cascade on delete:
  Deletion of parent deletes child'>&nbsp;C</span></td>
    </tr>
-   <tr class='relative odd' valign='top'>
+   <tr class='relative even' valign='top'>
     <td class='relatedTable detail' title="vestg.fk_17mac_kvk_nummer refs maatschapp_activiteit.kvk_nummer via fk_ves_as_17"><a href='vestg.html'>vestg</a><span class='relatedKey'>.fk_17mac_kvk_nummer</span>
     </td>
     <td class='constraint detail'>fk_ves_as_17<span title='Cascade on delete:
  Deletion of parent deletes child'>&nbsp;C</span></td>
    </tr>
-   <tr class='relative odd' valign='top'>
+   <tr class='relative even' valign='top'>
     <td class='relatedTable detail' title="vestg.fk_19mac_kvk_nummer refs maatschapp_activiteit.kvk_nummer via fk_ves_as_19"><a href='vestg.html'>vestg</a><span class='relatedKey'>.fk_19mac_kvk_nummer</span>
     </td>
     <td class='constraint detail'>fk_ves_as_19<span title='Cascade on delete:
@@ -115,7 +115,7 @@
  <td class='detail'> </td>
  <td class='comment detail'>[PK] N8 - KvK-nummer</td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='detail'>datum_aanvang</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>19</td>
@@ -126,7 +126,7 @@
  <td class='detail'> </td>
  <td class='comment detail'>OnvolledigeDatum - Datum aanvang</td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='detail'>datum_einde_geldig</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>19</td>
@@ -137,7 +137,7 @@
  <td class='detail'> </td>
  <td class='comment detail'>OnvolledigeDatum - Datum einde geldig (beeindiging)</td>
 </tr>
-<tr class='even'>
+<tr class='odd'>
  <td class='detail'>fk_3ond_kvk_nummer</td>
  <td class='detail'>numeric</td>
  <td class='detail' align='right'>8</td>
@@ -147,7 +147,7 @@
  <td class='detail'></td>
  <td class='detail'>
   <table border='0' width='100%' cellspacing='0' cellpadding='0'>
-   <tr class='relative even' valign='top'>
+   <tr class='relative odd' valign='top'>
     <td class='relatedTable detail' title="maatschapp_activiteit.fk_3ond_kvk_nummer refs ondrnmng.kvk_nummer via fk_mac_as_3"><a href='ondrnmng.html'>ondrnmng</a><span class='relatedKey'>.kvk_nummer</span>
     </td>
     <td class='constraint detail'>fk_mac_as_3<span title='Cascade on delete:
@@ -157,7 +157,7 @@
  </td>
  <td class='comment detail'>[FK] N8, FK naar ondrnmng.kvk_nummer: "manifesteert zich als"</td>
 </tr>
-<tr class='odd'>
+<tr class='even'>
  <td class='detail'>fk_4pes_sc_identif</td>
  <td class='detail'>varchar</td>
  <td class='detail' align='right'>255</td>
@@ -167,7 +167,7 @@
  <td class='detail'></td>
  <td class='detail'>
   <table border='0' width='100%' cellspacing='0' cellpadding='0'>
-   <tr class='relative odd' valign='top'>
+   <tr class='relative even' valign='top'>
     <td class='relatedTable detail' title="maatschapp_activiteit.fk_4pes_sc_identif refs prs.sc_identif via fk_mac_as_4"><a href='prs.html'>prs</a><span class='relatedKey'>.sc_identif</span>
     </td>
     <td class='constraint detail'>fk_mac_as_4<span title='Cascade on delete:
@@ -177,8 +177,19 @@
  </td>
  <td class='comment detail'>[FK] AN32, FK naar prs.sc_identif (is FK naar superclass SUBJECT): "heeft als eigenaar"</td>
 </tr>
+<tr class='odd'>
+ <td class='detail'>nonmailing</td>
+ <td class='detail'>varchar</td>
+ <td class='detail' align='right'>3</td>
+ <td class='detail' align='center' title='nullable'>&nbsp;&radic;&nbsp;</td>
+ <td class='detail' align='center'></td>
+ <td class='detail' align='right'>null</td>
+ <td class='detail'></td>
+ <td class='detail'> </td>
+ <td class='comment detail'>nonMailing attribuut (niet-RSGB)</td>
+</tr>
 </table>
-<p title='5 columns'>Table contained 0 rows at ma mrt 15 12:21 CET 2021<p/>
+<p title='6 columns'>Table contained 0 rows at vr aug. 27 13:21 CEST 2021<p/>
 </td></tr></table>
 <div class='indent'>
 <b>Indexes:</b>
@@ -204,7 +215,7 @@
 <br><form action='get'><b>Close relationships</b><span class='degrees' id='degrees' title='Detail diminishes with increased separation from maatschapp_activiteit'>
 &nbsp;within <label for='oneDegree'><input type='radio' name='degrees' id='oneDegree' checked>one</label>  <label for='twoDegrees'><input type='radio' name='degrees' id='twoDegrees'>two degrees</label> of separation</span><b>:</b></form>
 <map id="oneDegreeRelationshipsDiagram" name="oneDegreeRelationshipsDiagram">
-<area shape="rect" id="node1" href="maatschapp_activiteit.html" title="maatschapp_activiteit" alt="" coords="248,363,544,547">
+<area shape="rect" id="node1" href="maatschapp_activiteit.html" title="maatschapp_activiteit" alt="" coords="248,363,544,571">
 <area shape="rect" id="node2" href="ondrnmng.html" title="ondrnmng" alt="" coords="14,293,204,472">
 <area shape="rect" id="node3" href="prs.html" title="prs" alt="" coords="35,489,183,596">
 <area shape="rect" id="node4" href="vestg.html" title="vestg" alt="" coords="588,5,834,568">
@@ -216,13 +227,13 @@
 <area shape="rect" id="node9" href="subject.html" title="subject" alt="" coords="5,232,137,314">
 <area shape="rect" id="node3" href="kad_onrrnd_zk.html" title="kad_onrrnd_zk" alt="" coords="490,232,638,314">
 <area shape="rect" id="node4" href="kad_onrrnd_zk_aantek.html" title="kad_onrrnd_zk_aantek" alt="" coords="783,105,974,188">
-<area shape="rect" id="node5" href="maatschapp_activiteit.html" title="maatschapp_activiteit" alt="" coords="416,660,712,844">
-<area shape="rect" id="node6" href="ondrnmng.html" title="ondrnmng" alt="" coords="181,592,372,770">
+<area shape="rect" id="node5" href="maatschapp_activiteit.html" title="maatschapp_activiteit" alt="" coords="416,653,712,861">
+<area shape="rect" id="node6" href="ondrnmng.html" title="ondrnmng" alt="" coords="181,585,372,764">
 <area shape="rect" id="node7" href="nat_prs.html" title="nat_prs" alt="" coords="490,368,638,450">
 <area shape="rect" id="node8" href="niet_nat_prs.html" title="niet_nat_prs" alt="" coords="490,468,638,550">
 <area shape="rect" id="node10" href="vestg.html" title="vestg" alt="" coords="756,322,1001,885">
-<area shape="rect" id="node11" href="sbi_activiteit.html" title="sbi_activiteit" alt="" coords="498,864,630,946">
-<area shape="rect" id="node12" href="vestg_activiteit.html" title="vestg_activiteit" alt="" coords="1061,697,1204,780">
+<area shape="rect" id="node11" href="sbi_activiteit.html" title="sbi_activiteit" alt="" coords="498,878,630,961">
+<area shape="rect" id="node12" href="vestg_activiteit.html" title="vestg_activiteit" alt="" coords="1061,700,1204,782">
 <area shape="rect" id="node13" href="vestg_benoemd_obj.html" title="vestg_benoemd_obj" alt="" coords="1045,273,1220,356">
 <area shape="rect" id="node14" href="vestg_naam.html" title="vestg_naam" alt="" coords="1067,373,1199,456">
 <area shape="rect" id="node15" href="zak_recht.html" title="zak_recht" alt="" coords="805,222,953,305">

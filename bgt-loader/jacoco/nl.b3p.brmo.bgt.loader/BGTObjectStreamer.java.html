@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BGTObjectStreamer.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO BGT / IMGeo CityGML loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.bgt.loader</a> &gt; <span class="el_source">BGTObjectStreamer.java</span></div><h1>BGTObjectStreamer.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2021 B3Partners B.V.
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+package nl.b3p.brmo.bgt.loader;
+
+import nl.b3p.brmo.bgt.schema.BGTObject;
+import nl.b3p.brmo.bgt.schema.BGTObjectType;
+import nl.b3p.brmo.bgt.schema.BGTSchema;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.codehaus.staxmate.SMInputFactory;
+import org.codehaus.staxmate.in.SMEvent;
+import org.codehaus.staxmate.in.SMInputCursor;
+import org.geotools.gml.stream.XmlStreamGeometryReader;
+import org.locationtech.jts.geom.Geometry;
+import org.opengis.referencing.FactoryException;
+
+import javax.xml.namespace.QName;
+import javax.xml.stream.Location;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamConstants;
+import javax.xml.stream.XMLStreamException;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.Reader;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Queue;
+
+import static nl.b3p.brmo.bgt.schema.BGTSchema.fixUUID;
+
+<span class="pc bpc" id="L41" title="1 of 2 branches missed.">public class BGTObjectStreamer implements Iterable&lt;BGTObject&gt; {</span>
+<span class="fc" id="L42">    private static final Log log = LogFactory.getLog(BGTObjectStreamer.class);</span>
+
+    private static final String NS_IMGEO = &quot;http://www.geostandaarden.nl/imgeo/2.1&quot;;
+    private static final String NS_CITYGML = &quot;http://www.opengis.net/citygml/2.0&quot;;
+    private static final String NS_GML = &quot;http://www.opengis.net/gml&quot;;
+    private static final String NS_MUTATIELEVERING = &quot;http://www.kadaster.nl/schemas/mutatielevering-generiek/2.0&quot;;
+    private static final String NS_MUTATIELEVERING_BGT = &quot;http://www.kadaster.nl/schemas/mutatielevering-bgt/1.0&quot;;
+
+<span class="fc" id="L50">    private static final QName CITYGML_CITY_OBJECT_MEMBER = new QName(NS_CITYGML, &quot;cityObjectMember&quot;);</span>
+<span class="fc" id="L51">    private static final QName CITYGML_CITY_MODEL = new QName(NS_CITYGML, &quot;CityModel&quot;);</span>
+
+<span class="fc" id="L53">    private static final QName MUTATIE_BERICHT = new QName(NS_MUTATIELEVERING, &quot;mutatieBericht&quot;);</span>
+
+<span class="fc" id="L55">    private static final QName BGT_MUTATIES = new QName(NS_MUTATIELEVERING_BGT, &quot;bgtMutaties&quot;);</span>
+<span class="fc" id="L56">    private static final QName BGT_OBJECT = new QName(NS_MUTATIELEVERING_BGT, &quot;bgtObject&quot;);</span>
+
+<span class="fc" id="L58">    private static final QName LOKAAL_ID = new QName(NS_IMGEO, &quot;lokaalID&quot;);</span>
+
+    private static final int SRID = 28992;
+
+    private final XmlStreamGeometryReader geometryReader;
+
+    private final SMInputCursor cursor;
+
+    private boolean isMutaties;
+<span class="pc" id="L67">    private boolean hasMutatieGroep = false;</span>
+
+    private MutatieInhoud mutatieInhoud;
+
+<span class="fc" id="L71">    public static class MutatieInhoud {</span>
+        private String mutatieType;
+        private String gebied;
+        private String leveringsId;
+<span class="fc" id="L75">        private final List&lt;String&gt; objectTypen = new ArrayList&lt;&gt;();</span>
+
+        public String getMutatieType() {
+<span class="fc" id="L78">            return mutatieType;</span>
+        }
+
+        public String getGebied() {
+<span class="fc" id="L82">            return gebied;</span>
+        }
+
+        public String getLeveringsId() {
+<span class="fc" id="L86">            return leveringsId;</span>
+        }
+
+        public List&lt;String&gt; getObjectTypen() {
+<span class="fc" id="L90">            return objectTypen;</span>
+        }
+    }
+
+    public MutatieInhoud getMutatieInhoud() {
+<span class="fc" id="L95">        return mutatieInhoud;</span>
+    }
+
+<span class="nc" id="L98">    public BGTObjectStreamer(File f) throws XMLStreamException {</span>
+<span class="nc" id="L99">        this.cursor = initCursor(buildSMInputFactory().rootElementCursor(f));</span>
+<span class="nc" id="L100">        this.geometryReader = buildGeometryReader();</span>
+<span class="nc" id="L101">    }</span>
+
+<span class="fc" id="L103">    public BGTObjectStreamer(InputStream in) throws XMLStreamException {</span>
+<span class="fc" id="L104">        this.cursor = initCursor(buildSMInputFactory().rootElementCursor(in));</span>
+<span class="fc" id="L105">        this.geometryReader = buildGeometryReader();</span>
+<span class="fc" id="L106">    }</span>
+
+<span class="nc" id="L108">    public BGTObjectStreamer(Reader r) throws XMLStreamException {</span>
+<span class="nc" id="L109">        this.cursor = initCursor(buildSMInputFactory().rootElementCursor(r));</span>
+<span class="nc" id="L110">        this.geometryReader = buildGeometryReader();</span>
+<span class="nc" id="L111">    }</span>
+
+    private SMInputCursor initCursor(SMInputCursor cursor) throws XMLStreamException {
+<span class="fc" id="L114">        QName root = cursor.advance().getQName();</span>
+
+<span class="fc bfc" id="L116" title="All 2 branches covered.">        if (root.equals(CITYGML_CITY_MODEL)) {</span>
+<span class="fc" id="L117">            isMutaties = false;</span>
+<span class="pc bpc" id="L118" title="1 of 2 branches missed.">        } else if (root.equals(BGT_MUTATIES)) {</span>
+<span class="fc" id="L119">            isMutaties = true;</span>
+        } else {
+<span class="nc" id="L121">            throw new IllegalArgumentException(&quot;XML root element moet CityModel of bgtMutaties zijn&quot;);</span>
+        }
+
+        // Note: when using StaxMate childElementCursor() or similar, only an local name string element does not work
+        // when using Aalto. Always use a QName parameter!
+
+<span class="fc bfc" id="L127" title="All 2 branches covered.">        if(isMutaties) {</span>
+<span class="fc" id="L128">            cursor = cursor.childElementCursor(MUTATIE_BERICHT).advance().childElementCursor().advance();</span>
+            label:
+            do {
+<span class="pc bpc" id="L131" title="1 of 4 branches missed.">                switch (cursor.getLocalName()) {</span>
+                    case &quot;dataset&quot;:
+<span class="pc bpc" id="L133" title="2 of 4 branches missed.">                        assert cursor.collectDescendantText().equals(&quot;bgt&quot;);</span>
+                        break;
+                    case &quot;inhoud&quot;:
+<span class="fc" id="L136">                        this.mutatieInhoud = parseInhoud(cursor);</span>
+<span class="fc" id="L137">                        break;</span>
+                    case &quot;mutatieGroep&quot;:
+                        // cursor positioned correctly
+<span class="fc" id="L140">                        hasMutatieGroep = true;</span>
+<span class="fc" id="L141">                        break label;</span>
+                    default:
+<span class="nc" id="L143">                        throw new IllegalStateException(&quot;Verwacht mutatieGroep element, gevonden &quot; + cursor.getQName());</span>
+                }
+<span class="fc bfc" id="L145" title="All 2 branches covered.">            } while(cursor.getNext() != null);</span>
+
+        } else {
+<span class="fc" id="L148">            cursor = cursor.childElementCursor(CITYGML_CITY_OBJECT_MEMBER).advance();</span>
+        }
+
+<span class="fc" id="L151">        return cursor;</span>
+    }
+
+    private static MutatieInhoud parseInhoud(SMInputCursor inhoudCursor) throws XMLStreamException {
+<span class="fc" id="L155">        SMInputCursor cursor = inhoudCursor.childElementCursor();</span>
+<span class="fc" id="L156">        MutatieInhoud mutatieInhoud = new MutatieInhoud();</span>
+<span class="fc bfc" id="L157" title="All 2 branches covered.">        while(cursor.getNext() != null) {</span>
+<span class="pc bpc" id="L158" title="1 of 5 branches missed.">            switch(cursor.getLocalName()) {</span>
+                case &quot;mutatieType&quot;:
+<span class="fc" id="L160">                    mutatieInhoud.mutatieType = cursor.collectDescendantText().trim();</span>
+<span class="fc" id="L161">                    break;</span>
+                case &quot;gebied&quot;:
+<span class="fc" id="L163">                    mutatieInhoud.gebied = cursor.collectDescendantText().trim();</span>
+<span class="fc" id="L164">                    break;</span>
+                case &quot;leveringsId&quot;:
+<span class="fc" id="L166">                    mutatieInhoud.leveringsId = cursor.collectDescendantText().trim();</span>
+<span class="fc" id="L167">                    break;</span>
+                case &quot;objectTypen&quot;:
+<span class="fc" id="L169">                    SMInputCursor c = cursor.childElementCursor();</span>
+<span class="fc bfc" id="L170" title="All 2 branches covered.">                    while (c.getNext() != null) {</span>
+<span class="fc" id="L171">                        mutatieInhoud.objectTypen.add(c.collectDescendantText().trim());</span>
+                    }
+<span class="fc" id="L173">                    break;</span>
+            }
+        }
+<span class="fc" id="L176">        return mutatieInhoud;</span>
+    }
+
+    protected XmlStreamGeometryReader buildGeometryReader() {
+<span class="fc" id="L180">        return new XmlStreamGeometryReader(this.cursor.getStreamReader());</span>
+    }
+
+    protected SMInputFactory buildSMInputFactory() {
+        // Using alternative StAX parsers explicitly:
+        // final XMLInputFactory stax = new WstxInputFactory(); // Woodstox
+        // final XMLInputFactory stax = new com.fasterxml.aalto.stax.InputFactoryImpl(); // Aalto
+<span class="fc" id="L187">        final XMLInputFactory xmlInputFactory = XMLInputFactory.newFactory(); // JRE Default, depends on JAR's present or javax.xml.stream.XMLInputFactory property, can be SJSXP</span>
+<span class="fc" id="L188">        log.trace(&quot;StAX XMLInputFactory: &quot; + xmlInputFactory.getClass().getName());</span>
+
+<span class="fc" id="L190">        xmlInputFactory.setProperty(XMLInputFactory.IS_COALESCING, Boolean.TRUE); // Coalesce characters</span>
+<span class="fc" id="L191">        xmlInputFactory.setProperty(XMLInputFactory.SUPPORT_DTD, Boolean.FALSE); // No XML entity expansions or external entities</span>
+
+<span class="fc" id="L193">        return new SMInputFactory(xmlInputFactory);</span>
+    }
+
+    @Override
+    public Iterator&lt;BGTObject&gt; iterator() {
+<span class="pc bpc" id="L198" title="1 of 2 branches missed.">        return new Iterator&lt;&gt;() {</span>
+<span class="fc" id="L199">            SMEvent event = cursor.getCurrEvent();</span>
+
+            /**
+             * A parse action may return multiple objects. Buffer the future objects to be returned in a next() call.
+             */
+<span class="fc" id="L204">            private final Queue&lt;BGTObject&gt; buffer = new LinkedList&lt;&gt;();</span>
+
+            @Override
+            public boolean hasNext() {
+<span class="fc bfc" id="L208" title="All 4 branches covered.">                if (isMutaties &amp;&amp; !hasMutatieGroep) {</span>
+<span class="fc" id="L209">                    return false;</span>
+                }
+<span class="fc bfc" id="L211" title="All 2 branches covered.">                if (!buffer.isEmpty()) {</span>
+<span class="fc" id="L212">                    return true;</span>
+                }
+<span class="pc bpc" id="L214" title="1 of 2 branches missed.">                if (event != null) {</span>
+<span class="nc" id="L215">                    return true;</span>
+                }
+                try {
+<span class="fc" id="L218">                    event = cursor.getNext();</span>
+<span class="fc bfc" id="L219" title="All 2 branches covered.">                    return event != null;</span>
+<span class="nc" id="L220">                } catch(XMLStreamException e) {</span>
+<span class="nc" id="L221">                    throw new RuntimeException(e);</span>
+                }
+            }
+
+            @Override
+            public BGTObject next() {
+                try {
+<span class="fc bfc" id="L228" title="All 2 branches covered.">                    if (!buffer.isEmpty()) {</span>
+<span class="fc" id="L229">                        return buffer.remove();</span>
+                    }
+<span class="pc bpc" id="L231" title="1 of 4 branches missed.">                    if (isMutaties &amp;&amp; !hasMutatieGroep) {</span>
+<span class="nc" id="L232">                        throw new IllegalStateException(&quot;No items&quot;);</span>
+                    }
+<span class="fc bfc" id="L234" title="All 2 branches covered.">                    if (event == null) {</span>
+<span class="pc bpc" id="L235" title="1 of 2 branches missed.">                        if(!hasNext()) {</span>
+<span class="nc" id="L236">                            throw new IllegalStateException(&quot;No more items&quot;);</span>
+                        }
+                    }
+                    // Make sure cityObjectMembers.getNext() is called with next Iterator.getNext() call
+<span class="fc" id="L240">                    event = null;</span>
+
+<span class="fc" id="L242">                    Map&lt;String, Object&gt; attributes = new HashMap&lt;&gt;();</span>
+
+                    SMInputCursor cityObjectMemberChild;
+
+<span class="fc" id="L246">                    String gmlIdPreviousVersion = null;</span>
+<span class="fc" id="L247">                    BGTObject.MutatieStatus mutatieStatus = BGTObject.MutatieStatus.WORDT;</span>
+
+<span class="fc bfc" id="L249" title="All 2 branches covered.">                    if (isMutaties) {</span>
+                        // Assume single child per &lt;mutatieGroep&gt;, cursor is currently at &lt;mutatieGroep&gt;
+
+<span class="fc" id="L252">                        SMInputCursor mutatie = cursor.childElementCursor().advance();</span>
+<span class="fc" id="L253">                        String mutatieNaam = mutatie.getLocalName();</span>
+<span class="pc bpc" id="L254" title="1 of 4 branches missed.">                        if (mutatieNaam.equals(&quot;wijziging&quot;) || mutatieNaam.equals(&quot;toevoeging&quot;)) {</span>
+<span class="fc" id="L255">                            mutatie = mutatie.childElementCursor().advance();</span>
+                        } else {
+<span class="nc" id="L257">                            throw new IllegalStateException(&quot;Ongeldig mutatieGroep child element: &quot; + mutatie.getQName());</span>
+                        }
+
+<span class="fc bfc" id="L260" title="All 2 branches covered.">                        if (mutatieNaam.equals(&quot;wijziging&quot;)) {</span>
+<span class="pc bpc" id="L261" title="2 of 4 branches missed.">                            assert mutatie.getLocalName().equals(&quot;was&quot;);</span>
+<span class="fc" id="L262">                            gmlIdPreviousVersion = fixUUID(mutatie.getAttrValue(&quot;id&quot;));</span>
+
+<span class="pc bpc" id="L264" title="1 of 2 branches missed.">                            if (mutatie.getNext() == null) {</span>
+                                // To support deletes, we would need to parse the &lt;cityObjectMember&gt; child element name
+                                // at least, but deletes do not occur for bgt
+<span class="nc" id="L267">                                throw new IllegalStateException(&quot;Mutaties 'was' zonder 'wordt' worden niet ondersteund voor BGT&quot;);</span>
+                            }
+<span class="pc bpc" id="L269" title="2 of 4 branches missed.">                            assert mutatie.getLocalName().equals(&quot;wordt&quot;);</span>
+<span class="fc" id="L270">                            mutatieStatus = BGTObject.MutatieStatus.WAS_WORDT;</span>
+<span class="pc bpc" id="L271" title="1 of 2 branches missed.">                        } else if(mutatieNaam.equals(&quot;toevoeging&quot;)) {</span>
+<span class="pc bpc" id="L272" title="2 of 4 branches missed.">                            assert mutatie.getLocalName().equals(&quot;wordt&quot;);</span>
+                            // mutatieStatus is already IMGeoObject.MutatieStatus.WORDT
+                        } else {
+<span class="nc" id="L275">                            throw new IllegalStateException(&quot;Ongeldig mutatie element: &quot; + mutatie.getLocalName());</span>
+                        }
+
+                        // Move cursor from &lt;wordt&gt; to &lt;cityObjectMember&gt; child
+<span class="fc" id="L279">                        cityObjectMemberChild = mutatie.childElementCursor(BGT_OBJECT).advance()</span>
+<span class="fc" id="L280">                                .childElementCursor(CITYGML_CITY_OBJECT_MEMBER).advance()</span>
+<span class="fc" id="L281">                                .childElementCursor().advance();</span>
+<span class="fc" id="L282">                    } else {</span>
+<span class="fc" id="L283">                        cityObjectMemberChild = cursor.childElementCursor().advance();</span>
+                    }
+
+<span class="fc" id="L286">                    final String name = cityObjectMemberChild.getLocalName();</span>
+<span class="fc" id="L287">                    final BGTObjectType bgtObjectType = BGTSchema.getInstance().getObjectTypeByName(name);</span>
+<span class="pc bpc" id="L288" title="1 of 2 branches missed.">                    if (bgtObjectType == null) {</span>
+<span class="nc" id="L289">                        throw new IllegalArgumentException(&quot;Onbekend object type: &quot; + name);</span>
+                    }
+<span class="fc" id="L291">                    final Location location = cityObjectMemberChild.getCursorLocation();</span>
+<span class="fc" id="L292">                    attributes.put(&quot;gmlId&quot;, fixUUID(cityObjectMemberChild.getAttrValue(NS_GML, &quot;id&quot;)));</span>
+
+<span class="fc" id="L294">                    SMInputCursor attributesCursor = cityObjectMemberChild.childElementCursor();</span>
+
+                    // Only a single collection attribute is supported (no matrix of multiple collection attributes)
+                    // An IMGeoObject will be returned for each collection item
+<span class="fc" id="L298">                    Collection&lt;Map&lt;String,Object&gt;&gt; collectionAttribute = null;</span>
+
+<span class="fc bfc" id="L300" title="All 2 branches covered.">                    while (attributesCursor.getNext() != null) {</span>
+<span class="fc" id="L301">                        String attributeName = attributesCursor.getLocalName();</span>
+<span class="fc" id="L302">                        Object parsedAttribute = parseIMGeoAttribute(attributesCursor);</span>
+
+<span class="fc bfc" id="L304" title="All 2 branches covered.">                        if (parsedAttribute instanceof BGTObject) {</span>
+<span class="fc" id="L305">                            List&lt;BGTObject&gt; oneToMany = (List&lt;BGTObject&gt;)attributes.get(attributeName);</span>
+<span class="pc bpc" id="L306" title="1 of 2 branches missed.">                            if (oneToMany == null) {</span>
+<span class="fc" id="L307">                                oneToMany = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L308">                                attributes.put(attributeName, oneToMany);</span>
+                            }
+<span class="fc" id="L310">                            oneToMany.add((BGTObject) parsedAttribute);</span>
+<span class="fc bfc" id="L311" title="All 2 branches covered.">                        } else if (parsedAttribute instanceof Collection) {</span>
+<span class="pc bpc" id="L312" title="1 of 2 branches missed.">                            if (collectionAttribute != null) {</span>
+<span class="nc" id="L313">                                throw new IllegalStateException(&quot;Only a single collection attribute is supported&quot;);</span>
+                            }
+<span class="fc" id="L315">                            collectionAttribute = (Collection&lt;Map&lt;String, Object&gt;&gt;) parsedAttribute;</span>
+                        } else {
+<span class="fc" id="L317">                            attributes.put(attributeName, parsedAttribute);</span>
+                        }
+<span class="fc" id="L319">                    }</span>
+
+<span class="pc bpc" id="L321" title="1 of 4 branches missed.">                    if (collectionAttribute != null &amp;&amp; !collectionAttribute.isEmpty()) {</span>
+<span class="fc" id="L322">                        int index = 0;</span>
+<span class="fc bfc" id="L323" title="All 2 branches covered.">                        for(Map&lt;String,Object&gt; collectionItem: collectionAttribute) {</span>
+<span class="fc" id="L324">                             Map&lt;String,Object&gt; attributesForCollectionItem = new HashMap&lt;&gt;(attributes);</span>
+<span class="fc" id="L325">                             attributesForCollectionItem.putAll(collectionItem);</span>
+<span class="fc" id="L326">                             attributesForCollectionItem.put(BGTSchema.INDEX, index++);</span>
+<span class="fc" id="L327">                             buffer.add(new BGTObject(bgtObjectType, attributesForCollectionItem, location));</span>
+<span class="fc" id="L328">                        }</span>
+<span class="fc" id="L329">                        return buffer.remove();</span>
+                    } else {
+<span class="fc" id="L331">                        return new BGTObject(bgtObjectType, attributes, location, mutatieStatus, gmlIdPreviousVersion);</span>
+                    }
+<span class="nc" id="L333">                } catch(Exception e) {</span>
+<span class="nc" id="L334">                    throw new RuntimeException(e);</span>
+                }
+            }
+        };
+    }
+
+    private Object parseIMGeoAttribute(SMInputCursor attribute) throws XMLStreamException, FactoryException, IOException {
+<span class="pc bpc" id="L341" title="1 of 2 branches missed.">        if(&quot;true&quot;.equals(attribute.getAttrValue(&quot;http://www.w3.org/2001/XMLSchema-instance&quot;, &quot;nil&quot;))) {</span>
+<span class="nc" id="L342">            return null;</span>
+        }
+
+<span class="fc bfc" id="L345" title="All 2 branches covered.">        if (attribute.hasLocalName(&quot;identificatie&quot;)) {</span>
+            /*
+            &lt;imgeo:identificatie&gt;
+                &lt;imgeo:NEN3610ID&gt;
+                    &lt;imgeo:namespace&gt;NL.IMGeo&lt;/imgeo:namespace&gt;
+                    &lt;imgeo:lokaalID&gt;G1234.abcdef01234567890abcdef012345678&lt;/imgeo:lokaalID&gt;
+                &lt;/imgeo:NEN3610ID&gt;
+            &lt;/imgeo:identificatie&gt;
+             */
+            // Just get the UUID
+<span class="fc" id="L355">            String id = attribute.descendantElementCursor(LOKAAL_ID).advance().collectDescendantText().trim();</span>
+            // UUID is allowed to have '-' characters, normalize it to UUID without
+<span class="fc" id="L357">            return id.replaceAll(&quot;-&quot;, &quot;&quot;);</span>
+        }
+
+<span class="fc bfc" id="L360" title="All 2 branches covered.">        if (isGeometryElement(attribute.getLocalName())) {</span>
+            // Position underlying XmlStreamReader at GML element
+<span class="fc" id="L362">            attribute.childElementCursor().advance();</span>
+
+<span class="fc" id="L364">            Geometry geom = geometryReader.readGeometry();</span>
+<span class="fc" id="L365">            geom.setSRID(SRID);</span>
+<span class="fc" id="L366">            return geom;</span>
+        }
+
+<span class="fc bfc" id="L369" title="All 2 branches covered.">        if (attribute.hasLocalName(&quot;nummeraanduidingreeks&quot;)) {</span>
+<span class="fc" id="L370">            Location location = attribute.getCursorLocation();</span>
+<span class="fc" id="L371">            Map&lt;String,Object&gt; nummeraanduidingreeks = parseNummeraanduidingreeks(attribute);</span>
+<span class="fc" id="L372">            return new BGTObject(BGTSchema.getInstance().getObjectTypeByName(&quot;nummeraanduidingreeks&quot;), nummeraanduidingreeks, location);</span>
+        }
+
+<span class="fc bfc" id="L375" title="All 2 branches covered.">        if(attribute.hasLocalName(&quot;openbareRuimteNaam&quot;)) {</span>
+<span class="fc" id="L376">            return parseOpenbareRuimteNaam(attribute);</span>
+        }
+
+        // String attribute value as default
+<span class="fc" id="L380">        return attribute.collectDescendantText().trim();</span>
+    }
+
+    private static boolean isGeometryElement(String localName) {
+<span class="pc bpc" id="L384" title="1 of 4 branches missed.">        return localName.startsWith(&quot;geometrie&quot;) || localName.startsWith(&quot;kruinlijn&quot;);</span>
+    }
+
+<span class="fc" id="L387">    private static final QName CAPITALIZED_NUMMERAANDUIDINGREEKS = new QName(NS_IMGEO, &quot;Nummeraanduidingreeks&quot;);</span>
+<span class="fc" id="L388">    private static final QName LOWERCASE_NUMMERAANDUIDINGREEKS = new QName(NS_IMGEO, &quot;nummeraanduidingreeks&quot;);</span>
+<span class="fc" id="L389">    private static final QName LABEL = new QName(NS_IMGEO, &quot;Label&quot;);</span>
+<span class="fc" id="L390">    private static final QName LABELPOSITIE = new QName(NS_IMGEO, &quot;Labelpositie&quot;);</span>
+
+    private Map&lt;String,Object&gt; parseNummeraanduidingreeks(SMInputCursor cursor) throws XMLStreamException, FactoryException, IOException {
+<span class="fc" id="L393">        Map&lt;String,Object&gt; label = new HashMap&lt;&gt;();</span>
+
+<span class="fc" id="L395">        cursor = cursor.childElementCursor(CAPITALIZED_NUMMERAANDUIDINGREEKS).advance().childElementCursor();</span>
+<span class="fc bfc" id="L396" title="All 2 branches covered.">        while (cursor.getNext() != null) {</span>
+<span class="fc bfc" id="L397" title="All 2 branches covered.">            if (cursor.getQName().equals(LOWERCASE_NUMMERAANDUIDINGREEKS)) {</span>
+<span class="fc" id="L398">                SMInputCursor labelChilds = cursor.childElementCursor(LABEL).advance().childElementCursor();</span>
+<span class="fc bfc" id="L399" title="All 2 branches covered.">                while(labelChilds.getNext() != null) {</span>
+<span class="fc bfc" id="L400" title="All 2 branches covered.">                    if (labelChilds.hasLocalName(&quot;tekst&quot;)) {</span>
+<span class="fc" id="L401">                        label.put(&quot;tekst&quot;, labelChilds.collectDescendantText().trim());</span>
+<span class="pc bpc" id="L402" title="1 of 2 branches missed.">                    } else if (labelChilds.hasLocalName(&quot;positie&quot;)) {</span>
+<span class="fc" id="L403">                        SMInputCursor labelPositie = labelChilds.childElementCursor(LABELPOSITIE).advance();</span>
+
+<span class="fc" id="L405">                        SMInputCursor labelPositieChilds = labelPositie.childElementCursor();</span>
+<span class="fc bfc" id="L406" title="All 2 branches covered.">                        while(labelPositieChilds.getNext() != null) {</span>
+<span class="fc bfc" id="L407" title="All 2 branches covered.">                            if (labelPositieChilds.hasLocalName(&quot;plaatsingspunt&quot;)) {</span>
+                                // Positioneer op &lt;gml:Point/&gt;
+<span class="fc" id="L409">                                labelPositieChilds.childElementCursor().advance();</span>
+<span class="fc" id="L410">                                labelPositieChilds.getStreamReader().require(XMLStreamConstants.START_ELEMENT, NS_GML, &quot;Point&quot;);</span>
+<span class="fc" id="L411">                                Geometry geom = geometryReader.readGeometry();</span>
+<span class="fc" id="L412">                                geom.setSRID(SRID);</span>
+<span class="fc" id="L413">                                label.put(&quot;plaatsingspunt&quot;, geom);</span>
+<span class="pc bpc" id="L414" title="1 of 2 branches missed.">                            } else if (labelPositieChilds.hasLocalName(&quot;hoek&quot;)) {</span>
+<span class="fc" id="L415">                                String hoek = labelPositieChilds.collectDescendantText().trim();</span>
+<span class="fc" id="L416">                                label.put(&quot;hoek&quot;, Double.parseDouble(hoek));</span>
+<span class="fc" id="L417">                            }</span>
+                        }
+<span class="fc" id="L419">                    }</span>
+                }
+<span class="fc" id="L421">            } else  {</span>
+<span class="fc" id="L422">                label.put(cursor.getLocalName(), cursor.collectDescendantText().trim());</span>
+            }
+        }
+
+<span class="fc" id="L426">        return label;</span>
+    }
+
+    private List&lt;Map&lt;String,Object&gt;&gt; parseOpenbareRuimteNaam(SMInputCursor cursor) throws XMLStreamException, FactoryException, IOException {
+
+<span class="fc" id="L431">        cursor = cursor.childElementCursor(LABEL).advance().childElementCursor();</span>
+
+<span class="fc" id="L433">        List&lt;Map&lt;String,Object&gt;&gt; posities = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L434">        String tekst = null;</span>
+
+<span class="fc bfc" id="L436" title="All 2 branches covered.">        while (cursor.getNext() != null) {</span>
+<span class="fc bfc" id="L437" title="All 2 branches covered.">            if (cursor.getLocalName().equals(&quot;tekst&quot;)) {</span>
+<span class="fc" id="L438">                tekst = cursor.collectDescendantText().trim();</span>
+<span class="pc bpc" id="L439" title="1 of 2 branches missed.">            } else if(cursor.getLocalName().equals(&quot;positie&quot;)) {</span>
+<span class="fc" id="L440">                Map&lt;String,Object&gt; positie = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L441">                positie.put(&quot;tekst&quot;, tekst);</span>
+<span class="fc" id="L442">                posities.add(positie);</span>
+<span class="fc" id="L443">                SMInputCursor positieCursor = cursor.childElementCursor().advance().childElementCursor();</span>
+<span class="fc bfc" id="L444" title="All 2 branches covered.">                while (positieCursor.getNext() != null) {</span>
+<span class="fc bfc" id="L445" title="All 2 branches covered.">                    if (positieCursor.getLocalName().equals(&quot;plaatsingspunt&quot;)) {</span>
+<span class="fc" id="L446">                        positieCursor.childElementCursor().advance();</span>
+<span class="fc" id="L447">                        Geometry geom = geometryReader.readGeometry();</span>
+<span class="fc" id="L448">                        geom.setSRID(SRID);</span>
+<span class="fc" id="L449">                        positie.put(&quot;plaatsingspunt&quot;, geom);</span>
+<span class="fc" id="L450">                    } else {</span>
+<span class="fc" id="L451">                        positie.put(positieCursor.getLocalName(), positieCursor.collectDescendantText().trim());</span>
+                    }
+                }
+<span class="fc" id="L454">            }</span>
+        }
+
+<span class="fc" id="L457">        return posities;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

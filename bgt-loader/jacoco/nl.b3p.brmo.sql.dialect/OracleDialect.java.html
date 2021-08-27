@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OracleDialect.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO BGT / IMGeo CityGML loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.sql.dialect</a> &gt; <span class="el_source">OracleDialect.java</span></div><h1>OracleDialect.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2021 B3Partners B.V.
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+package nl.b3p.brmo.sql.dialect;
+
+import oracle.jdbc.OracleConnection;
+import org.geotools.data.oracle.sdo.GeometryConverter;
+import org.locationtech.jts.geom.Geometry;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Types;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class OracleDialect implements SQLDialect {
+
+<span class="nc" id="L22">    public OracleDialect() {</span>
+<span class="nc" id="L23">    }</span>
+
+    @Override
+    public String getDriverClass() {
+<span class="nc" id="L27">        return &quot;oracle.jdbc.OracleDriver&quot;;</span>
+    }
+
+    @Override
+    public boolean supportsDropTableIfExists() {
+<span class="nc" id="L32">        return false;</span>
+    }
+
+    @Override
+    public String getType(String type) {
+<span class="nc" id="L37">        Matcher varchar = Pattern.compile(&quot;varchar\\((.+)\\)&quot;).matcher(type);</span>
+<span class="nc bnc" id="L38" title="All 2 branches missed.">        if(varchar.matches()) {</span>
+<span class="nc" id="L39">            return &quot;varchar2(&quot; + varchar.group(1) + &quot; char)&quot;;</span>
+        }
+<span class="nc bnc" id="L41" title="All 2 branches missed.">        if(type.equals(&quot;integer&quot;)) {</span>
+<span class="nc" id="L42">            return &quot;number(10)&quot;;</span>
+        }
+<span class="nc bnc" id="L44" title="All 2 branches missed.">        if(type.equals(&quot;boolean&quot;)) {</span>
+<span class="nc" id="L45">            return &quot;varchar2(5)&quot;;</span>
+        }
+<span class="nc bnc" id="L47" title="All 2 branches missed.">        if(type.startsWith(&quot;geometry(&quot;)) {</span>
+<span class="nc" id="L48">            return &quot;MDSYS.SDO_GEOMETRY&quot;;</span>
+        }
+<span class="nc bnc" id="L50" title="All 2 branches missed.">        if(type.equals(&quot;text&quot;)) {</span>
+<span class="nc" id="L51">            return &quot;clob&quot;;</span>
+        }
+<span class="nc" id="L53">        return type;</span>
+    }
+
+    @Override
+    public Object getGeometryParameter(Connection c, org.locationtech.jts.geom.Geometry geometry, boolean linearizeCurves) throws SQLException {
+<span class="nc" id="L58">        OracleConnection connection = c.unwrap(OracleConnection.class);</span>
+<span class="nc" id="L59">        return new GeometryConverter(connection).toSDO(geometry);</span>
+    }
+
+    @Override
+    public void setGeometryParameter(Connection c, PreparedStatement ps, int parameterIndex, int pmdType, Geometry geometry, boolean linearizeCurves) throws SQLException {
+<span class="nc bnc" id="L64" title="All 4 branches missed.">        if (geometry == null || geometry.isEmpty()) {</span>
+<span class="nc" id="L65">            ps.setNull(parameterIndex, Types.STRUCT, &quot;MDSYS.SDO_GEOMETRY&quot;);</span>
+        } else {
+<span class="nc" id="L67">            ps.setObject(parameterIndex, getGeometryParameter(c, geometry, linearizeCurves));</span>
+        }
+<span class="nc" id="L69">    }</span>
+
+    @Override
+    public String getCreateGeometryMetadataSQL(String tableName, String geometryColumn, String type) {
+<span class="nc" id="L73">        return String.format(&quot;insert into user_sdo_geom_metadata values ('%S', '%S', MDSYS.SDO_DIM_ARRAY(&quot; +</span>
+                &quot;MDSYS.SDO_DIM_ELEMENT('X', 12000, 280000, .1), &quot; +
+                &quot;MDSYS.SDO_DIM_ELEMENT('Y', 304000, 620000, .1) &quot; +
+                &quot;), 28992)&quot;,
+                tableName, geometryColumn);
+    }
+
+    @Override
+    public String getCreateGeometryIndexSQL(String tableName, String geometryColumn, String type) {
+<span class="nc" id="L82">        return String.format(&quot;create index idx_%s_%s on %s (%s) indextype is mdsys.spatial_index&quot;,</span>
+                tableName, geometryColumn, tableName, geometryColumn);
+    }
+
+    @Override
+    public int getDefaultOptimalBatchSize() {
+<span class="nc" id="L88">        return 500;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

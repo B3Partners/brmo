@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Utils.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO BGT / IMGeo CityGML loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.bgt.loader</a> &gt; <span class="el_source">Utils.java</span></div><h1>Utils.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2021 B3Partners B.V.
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+package nl.b3p.brmo.bgt.loader;
+
+import java.text.MessageFormat;
+import java.time.Duration;
+import java.time.Instant;
+import java.util.ResourceBundle;
+
+<span class="nc" id="L14">public class Utils {</span>
+
+    public static String formatTimeSince(Instant start) {
+<span class="nc" id="L17">        Duration d = Duration.between(start, Instant.now());</span>
+<span class="nc bnc" id="L18" title="All 2 branches missed.">        String days = d.toDaysPart() &gt; 0 ? d.toDaysPart() + &quot;d &quot; : &quot;&quot;;</span>
+<span class="nc bnc" id="L19" title="All 4 branches missed.">        if (d.toHoursPart() == 0 &amp;&amp; d.toMinutesPart() == 0) {</span>
+<span class="nc" id="L20">            return days + d.toSecondsPart() + &quot;s&quot;;</span>
+<span class="nc bnc" id="L21" title="All 2 branches missed.">        } else if(d.toHoursPart() == 0) {</span>
+<span class="nc" id="L22">            return String.format(&quot;%s%dm %2ds&quot;, days, d.toMinutesPart(), d.toSecondsPart());</span>
+        }
+<span class="nc" id="L24">        return String.format(&quot;%s%dh %2dm %2ds&quot;, days, d.toHoursPart(), d.toMinutesPart(), d.toSecondsPart());</span>
+    }
+
+    public static final String BUNDLE_NAME = &quot;BGTLoader&quot;;
+
+<span class="nc" id="L29">    private static final ResourceBundle bundle = ResourceBundle.getBundle(BUNDLE_NAME);</span>
+
+    public static ResourceBundle getBundle() {
+<span class="nc" id="L32">        return bundle;</span>
+    }
+
+    public static String getBundleString(String key) {
+<span class="nc" id="L36">        return bundle.getString(key);</span>
+    }
+
+    public static String getMessageFormattedString(String key, Object... args) {
+<span class="nc" id="L40">        ResourceBundle bundle = getBundle();</span>
+<span class="nc" id="L41">        return new MessageFormat(bundle.getString(key), bundle.getLocale()).format(args);</span>
+    }
+
+    public static String getLoaderVersion() {
+<span class="nc" id="L45">        return getBundleString(&quot;app.version&quot;);</span>
+    }
+
+    public static String getBrmoVersion() {
+<span class="nc" id="L49">        return getBundleString(&quot;brmo.version&quot;);</span>
+    }
+
+    public static String getUserAgent() {
+<span class="nc" id="L53">        return String.format(&quot;%s, %s (%s)/%s, %s/%s&quot;,</span>
+<span class="nc" id="L54">                getBundleString(&quot;app.user-agent&quot;),</span>
+<span class="nc" id="L55">                System.getProperty(&quot;os.name&quot;),</span>
+<span class="nc" id="L56">                System.getProperty(&quot;os.arch&quot;),</span>
+<span class="nc" id="L57">                System.getProperty(&quot;os.version&quot;),</span>
+<span class="nc" id="L58">                System.getProperty(&quot;java.vm.name&quot;),</span>
+<span class="nc" id="L59">                System.getProperty(&quot;java.vm.version&quot;)</span>
+        );
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

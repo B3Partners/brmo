@@ -28,30 +28,28 @@ import javax.persistence.Entity;
      * soorten laadproces waar we iets mee kunnen.
      */
 <span class="nc" id="L30">    public enum LaadprocesSoorten {</span>
-        // zie ook: nl.b3p.brmo.loader.BrmoFramework#BR_BGTLIGHT
-<span class="nc" id="L32">        BR_BGTLIGHT(&quot;bgtlight&quot;),</span>
-<span class="nc" id="L33">        BR_TOPNL(&quot;topnl&quot;);</span>
+<span class="nc" id="L31">        BR_TOPNL(&quot;topnl&quot;);</span>
 
-<span class="nc" id="L35">        private static final ArrayList&lt;String&gt; soorten = new ArrayList();</span>
+<span class="nc" id="L33">        private static final ArrayList&lt;String&gt; soorten = new ArrayList();</span>
 
         static {
-<span class="nc bnc" id="L38" title="All 2 branches missed.">            for (LaadprocesSoorten s : values()) {</span>
-<span class="nc" id="L39">                soorten.add(s.getSoort());</span>
+<span class="nc bnc" id="L36" title="All 2 branches missed.">            for (LaadprocesSoorten s : values()) {</span>
+<span class="nc" id="L37">                soorten.add(s.getSoort());</span>
             }
-<span class="nc" id="L41">        }</span>
+<span class="nc" id="L39">        }</span>
         private final String soort;
 
-<span class="nc" id="L44">        LaadprocesSoorten(String soort) {</span>
-<span class="nc" id="L45">            this.soort = soort;</span>
-<span class="nc" id="L46">        }</span>
+<span class="nc" id="L42">        LaadprocesSoorten(String soort) {</span>
+<span class="nc" id="L43">            this.soort = soort;</span>
+<span class="nc" id="L44">        }</span>
 
         public String getSoort() {
-<span class="nc" id="L49">            return soort;</span>
+<span class="nc" id="L47">            return soort;</span>
         }
 
         public static List&lt;String&gt; soorten() {
-<span class="nc" id="L53">            return Collections.unmodifiableList(soorten);</span>
+<span class="nc" id="L51">            return Collections.unmodifiableList(soorten);</span>
         }
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

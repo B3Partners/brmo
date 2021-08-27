@@ -57,7 +57,7 @@
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> init(InputStream input, <a name="StagingProxy" href="../../../../../nl/b3p/brmo/loader/StagingProxy.html#StagingProxy">StagingProxy</a> staging) <strong class="jxr_keyword">throws</strong> IOException{
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>          <strong class="jxr_keyword">this</strong>.staging = staging;
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>          <em class="jxr_comment">// parse csv/excel</em>
-<a class="jxr_linenumber" name="L52" href="#L52">52</a>          <a name="AfgiftelijstParser" href="../../../../../nl/b3p/brmo/loa<a name="AfgiftelijstParser" href="../../../../../nl/b3p/brmo/loader/checks/AfgiftelijstParser.html#AfgiftelijstParser">AfgiftelijstParser</a>lijstParser.html#AfgiftelijstParser">AfgiftelijstParser</a> ap = <strong class="jxr_keyword">new</strong> <a name="AfgiftelijstParser" href="../../../../../nl/b3p/brmo/loader/checks/AfgiftelijstParser.html#AfgiftelijstParser">AfgiftelijstParser</a>();
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>          <a name="AfgiftelijstParser" href="../../../../../nl/b3p/brmo/loader/checks/AfgiftelijstParser.html#AfgiftelijstParser">AfgiftelijstParser</a> ap = <strong class="jxr_keyword">new</strong> <a name="AfgiftelijstParser" href="../../../../../nl/b3p/brmo/loader/checks/AfgiftelijstParser.html#AfgiftelijstParser">AfgiftelijstParser</a>();
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>          afgiftes = ap.parse(input);
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>      }
 <a class="jxr_linenumber" name="L55" href="#L55">55</a>      
@@ -111,7 +111,7 @@
 <a class="jxr_linenumber" name="L103" href="#L103">103</a>     }
 <a class="jxr_linenumber" name="L104" href="#L104">104</a> 
 <a class="jxr_linenumber" name="L105" href="#L105">105</a>     <strong class="jxr_keyword">public</strong> File getResults(String input, File f) <strong class="jxr_keyword">throws</strong> FileNotFoundException {
-<a class="jxr_linenumber" name="L106" href="#L106">106</a>         <a name="AfgiftelijstReport" href="../../../../../nl/b3p/brmo/loader/ch<a name="AfgiftelijstReport" href="../../../../../nl/b3p/brmo/loader/checks/AfgiftelijstReport.html#AfgiftelijstReport">AfgiftelijstReport</a>eport.html#AfgiftelijstReport">AfgiftelijstReport</a> reporter = <strong class="jxr_keyword">new</strong> <a name="AfgiftelijstReport" href="../../../../../nl/b3p/brmo/loader/checks/AfgiftelijstReport.html#AfgiftelijstReport">AfgiftelijstReport</a>();
+<a class="jxr_linenumber" name="L106" href="#L106">106</a>         <a name="AfgiftelijstReport" href="../../../../../nl/b3p/brmo/loader/checks/AfgiftelijstReport.html#AfgiftelijstReport">AfgiftelijstReport</a> reporter = <strong class="jxr_keyword">new</strong> <a name="AfgiftelijstReport" href="../../../../../nl/b3p/brmo/loader/checks/AfgiftelijstReport.html#AfgiftelijstReport">AfgiftelijstReport</a>();
 <a class="jxr_linenumber" name="L107" href="#L107">107</a>         
 <a class="jxr_linenumber" name="L108" href="#L108">108</a>         reporter.createReport(afgiftes, input, f);
 <a class="jxr_linenumber" name="L109" href="#L109">109</a>         <strong class="jxr_keyword">return</strong> f;
@@ -120,6 +120,6 @@
 <a class="jxr_linenumber" name="L112" href="#L112">112</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2014&#x2013;2021 <a href="http://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2014&#x2013;2021 <a href="https://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>
 </body>
 </html>

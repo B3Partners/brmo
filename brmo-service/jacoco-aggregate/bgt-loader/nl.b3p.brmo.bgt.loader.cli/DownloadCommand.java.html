@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>DownloadCommand.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO service</a> &gt; <a href="../index.html" class="el_bundle">bgt-loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.bgt.loader.cli</a> &gt; <span class="el_source">DownloadCommand.java</span></div><h1>DownloadCommand.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2021 B3Partners B.V.
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+package nl.b3p.brmo.bgt.loader.cli;
+
+import nl.b3p.brmo.bgt.download.api.CustomDownloadProgress;
+import nl.b3p.brmo.bgt.download.api.DeltaApi;
+import nl.b3p.brmo.bgt.download.api.DownloadApiUtils;
+import nl.b3p.brmo.bgt.download.client.ApiClient;
+import nl.b3p.brmo.bgt.download.client.ApiException;
+import nl.b3p.brmo.bgt.download.model.Delta;
+import nl.b3p.brmo.bgt.download.model.GetDeltasResponse;
+import nl.b3p.brmo.bgt.loader.BGTDatabase;
+import nl.b3p.brmo.bgt.loader.ProgressReporter;
+import nl.b3p.brmo.bgt.schema.BGTObjectTableWriter;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import picocli.CommandLine.Command;
+import picocli.CommandLine.ExitCode;
+import picocli.CommandLine.Mixin;
+import picocli.CommandLine.Option;
+
+import java.net.URI;
+import java.sql.SQLException;
+import java.time.Instant;
+import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Consumer;
+
+import static nl.b3p.brmo.bgt.loader.Utils.formatTimeSince;
+import static nl.b3p.brmo.bgt.loader.Utils.getBrmoVersion;
+import static nl.b3p.brmo.bgt.loader.Utils.getBundleString;
+import static nl.b3p.brmo.bgt.loader.Utils.getLoaderVersion;
+import static nl.b3p.brmo.bgt.loader.Utils.getMessageFormattedString;
+import static nl.b3p.brmo.bgt.loader.Utils.getUserAgent;
+import static nl.b3p.brmo.bgt.schema.BGTSchemaMapper.Metadata;
+
+@Command(name = &quot;download&quot;, mixinStandardHelpOptions = true)
+<span class="nc" id="L44">public class DownloadCommand {</span>
+<span class="nc" id="L45">    private static final Log log = LogFactory.getLog(DownloadCommand.class);</span>
+
+    private static final String PREDEFINED_FULL_DELTA_URI = &quot;https://api.pdok.nl/lv/bgt/download/v1_0/delta/predefined/bgt-citygml-nl-delta.zip&quot;;
+
+    /** zodat we een JNDI database kunne gebruiken. */
+<span class="nc" id="L50">    private BGTDatabase bgtDatabase = null;</span>
+
+    public static ApiClient getApiClient(URI baseUri) {
+<span class="nc" id="L53">        ApiClient client = new ApiClient();</span>
+<span class="nc bnc" id="L54" title="All 2 branches missed.">        if (baseUri != null) {</span>
+<span class="nc" id="L55">            client.updateBaseUri(baseUri.toString());</span>
+        }
+<span class="nc" id="L57">        client.setRequestInterceptor(builder -&gt; builder.headers(&quot;User-Agent&quot;, getUserAgent()));</span>
+<span class="nc" id="L58">        return client;</span>
+    }
+
+    private BGTObjectTableWriter createWriter(BGTDatabase db, DatabaseOptions dbOptions, LoadOptions loadOptions, CLIOptions cliOptions) throws SQLException {
+<span class="nc" id="L62">        BGTObjectTableWriter writer = db.createObjectTableWriter(loadOptions, dbOptions);</span>
+        ProgressReporter progressReporter;
+<span class="nc bnc" id="L64" title="All 2 branches missed.">        if (cliOptions.isConsoleProgressEnabled()) {</span>
+<span class="nc" id="L65">            progressReporter = new ConsoleProgressReporter();</span>
+        } else {
+<span class="nc" id="L67">            progressReporter = new ProgressReporter();</span>
+        }
+<span class="nc" id="L69">        writer.setProgressUpdater(progressReporter);</span>
+<span class="nc" id="L70">        return writer;</span>
+    }
+
+    @Command(name=&quot;initial&quot;, sortOptions = false)
+    public int initial(
+            @Mixin DatabaseOptions dbOptions,
+            @Mixin LoadOptions loadOptions,
+            @Mixin ExtractSelectionOptions extractSelectionOptions,
+            @Option(names=&quot;--no-geo-filter&quot;) boolean noGeoFilter,
+            @Option(names=&quot;--download-service&quot;, hidden = true) URI downloadServiceURI,
+            @Mixin CLIOptions cliOptions,
+            @Option(names={&quot;-h&quot;,&quot;--help&quot;}, usageHelp = true) boolean showHelp
+    ) throws Exception {
+
+<span class="nc bnc" id="L84" title="All 4 branches missed.">        if (extractSelectionOptions.getGeoFilterWkt() == null &amp;&amp; !noGeoFilter) {</span>
+<span class="nc" id="L85">            System.err.println(getBundleString(&quot;download.no_geo_filter&quot;));</span>
+<span class="nc" id="L86">            return ExitCode.USAGE;</span>
+        }
+
+<span class="nc" id="L89">        log.info(getUserAgent());</span>
+
+<span class="nc" id="L91">        try(BGTDatabase db = this.getBGTdatabase(dbOptions)) {</span>
+<span class="nc bnc" id="L92" title="All 2 branches missed.">            if (loadOptions.createSchema) {</span>
+<span class="nc" id="L93">                db.createMetadataTable(loadOptions);</span>
+            } else {
+<span class="nc" id="L95">                log.info(getBundleString(&quot;download.connect_db&quot;));</span>
+            }
+
+<span class="nc" id="L98">            db.setMetadataValue(Metadata.LOADER_VERSION, getLoaderVersion());</span>
+<span class="nc" id="L99">            db.setMetadataValue(Metadata.BRMOVERSIE, getBrmoVersion());</span>
+<span class="nc" id="L100">            db.setFeatureTypesEnumMetadata(extractSelectionOptions.getFeatureTypesList());</span>
+<span class="nc" id="L101">            db.setMetadataValue(Metadata.INCLUDE_HISTORY, loadOptions.includeHistory + &quot;&quot;);</span>
+<span class="nc" id="L102">            db.setMetadataValue(Metadata.LINEARIZE_CURVES, loadOptions.linearizeCurves + &quot;&quot;);</span>
+<span class="nc" id="L103">            db.setMetadataValue(Metadata.TABLE_PREFIX, loadOptions.tablePrefix);</span>
+
+<span class="nc" id="L105">            Instant start = null;</span>
+            URI uri;
+<span class="nc bnc" id="L107" title="All 2 branches missed.">            if (noGeoFilter) {</span>
+<span class="nc" id="L108">                uri = new URI(PREDEFINED_FULL_DELTA_URI);</span>
+            } else {
+                // Close connection while waiting for extract
+<span class="nc" id="L111">                db.close();</span>
+<span class="nc" id="L112">                start = Instant.now(); // Record total time waiting for extract</span>
+<span class="nc" id="L113">                uri = getCustomDownloadURI(downloadServiceURI, extractSelectionOptions, new CustomDownloadProgressReporter(cliOptions.isConsoleProgressEnabled()));</span>
+            }
+<span class="nc" id="L115">            BGTObjectTableWriter writer = createWriter(db, dbOptions, loadOptions, cliOptions);</span>
+<span class="nc" id="L116">            loadZipFromURI(uri, db, writer, extractSelectionOptions, loadOptions, noGeoFilter, start);</span>
+
+<span class="nc" id="L118">            db.setMetadataValue(Metadata.DELTA_TIME_TO, null);</span>
+            // Do not set geom filter from MutatieInhoud, a custom download without geo filter will have gebied
+            // &quot;POLYGON ((-100000 200000, 412000 200000, 412000 712000, -100000 712000, -100000 200000))&quot;
+<span class="nc" id="L121">            db.setMetadataValue(Metadata.GEOM_FILTER, extractSelectionOptions.getGeoFilterWkt());</span>
+
+<span class="nc" id="L123">            db.getConnection().commit();</span>
+<span class="nc" id="L124">            return ExitCode.OK;</span>
+        }
+    }
+
+    /**
+     * set a preconfigured database instead of using one created in the command using the dbOtions. Useful when using a JDNI database.
+     *
+     * @param bgtDatabase the BGT database to use for any issued commands
+     */
+    public void setBGTDatabase(BGTDatabase bgtDatabase) {
+<span class="nc" id="L134">        this.bgtDatabase = bgtDatabase;</span>
+<span class="nc" id="L135">    }</span>
+
+    private BGTDatabase getBGTdatabase(DatabaseOptions dbOptions) throws ClassNotFoundException {
+<span class="nc bnc" id="L138" title="All 2 branches missed.">        if (null == this.bgtDatabase) {</span>
+<span class="nc" id="L139">            return new BGTDatabase(dbOptions);</span>
+<span class="nc" id="L140">        } else return this.bgtDatabase;</span>
+    }
+
+    private static URI getCustomDownloadURI(URI downloadServiceURI, ExtractSelectionOptions extractSelectionOptions, Consumer&lt;CustomDownloadProgress&gt; progressConsumer) throws ApiException, InterruptedException {
+        try {
+<span class="nc" id="L145">            log.info(getBundleString(&quot;download.create&quot;));</span>
+<span class="nc" id="L146">            ApiClient client = getApiClient(downloadServiceURI);</span>
+<span class="nc" id="L147">            return DownloadApiUtils.getCustomDownloadURL(client, null, extractSelectionOptions, progressConsumer);</span>
+<span class="nc" id="L148">        } catch(ApiException apiException) {</span>
+<span class="nc" id="L149">            printApiException(apiException);</span>
+<span class="nc" id="L150">            throw apiException;</span>
+        }
+    }
+
+    @Command(name=&quot;update&quot;, sortOptions = false)
+    public int update(
+            @Mixin DatabaseOptions dbOptions,
+            @Mixin CLIOptions cliOptions,
+            @Option(names=&quot;--download-service&quot;, hidden = true) URI downloadServiceURI,
+            @Option(names=&quot;--no-http-zip-random-access&quot;, negatable = true, hidden = true) boolean noHttpZipRandomAccess,
+            @Option(names={&quot;-h&quot;,&quot;--help&quot;}, usageHelp = true) boolean showHelp
+    ) throws Exception {
+<span class="nc" id="L162">        log.info(getUserAgent());</span>
+
+<span class="nc" id="L164">        ApiClient client = getApiClient(downloadServiceURI);</span>
+
+<span class="nc" id="L166">        log.info(getBundleString(&quot;download.connect_db&quot;));</span>
+<span class="nc" id="L167">        try(BGTDatabase db = getBGTdatabase(dbOptions)) {</span>
+<span class="nc" id="L168">            String deltaId = db.getMetadata(Metadata.DELTA_ID);</span>
+<span class="nc" id="L169">            OffsetDateTime deltaIdTimeTo = null;</span>
+<span class="nc" id="L170">            String s = db.getMetadata(Metadata.DELTA_TIME_TO);</span>
+<span class="nc bnc" id="L171" title="All 4 branches missed.">            if (s != null &amp;&amp; s.length() &gt; 0) {</span>
+<span class="nc" id="L172">                deltaIdTimeTo = OffsetDateTime.parse(s);</span>
+            }
+<span class="nc bnc" id="L174" title="All 2 branches missed.">            if (deltaId == null) {</span>
+<span class="nc" id="L175">                System.err.println(getBundleString(&quot;download.no_delta_id&quot;));</span>
+<span class="nc" id="L176">                return ExitCode.SOFTWARE;</span>
+            }
+<span class="nc" id="L178">            ExtractSelectionOptions extractSelectionOptions = new ExtractSelectionOptions();</span>
+<span class="nc" id="L179">            extractSelectionOptions.setGeoFilterWkt(db.getMetadata(Metadata.GEOM_FILTER));</span>
+<span class="nc bnc" id="L180" title="All 4 branches missed.">            if (extractSelectionOptions.getGeoFilterWkt() != null &amp;&amp; extractSelectionOptions.getGeoFilterWkt().length() == 0) {</span>
+<span class="nc" id="L181">                extractSelectionOptions.setGeoFilterWkt(null);</span>
+            }
+<span class="nc" id="L183">            extractSelectionOptions.setFeatureTypes(Arrays.asList(db.getMetadata(Metadata.FEATURE_TYPES).split(&quot;,&quot;)));</span>
+<span class="nc" id="L184">            LoadOptions loadOptions = new LoadOptions();</span>
+<span class="nc bnc" id="L185" title="All 2 branches missed.">            loadOptions.setHttpZipRandomAccess(!noHttpZipRandomAccess);</span>
+<span class="nc" id="L186">            loadOptions.includeHistory = Boolean.parseBoolean(db.getMetadata(Metadata.INCLUDE_HISTORY));</span>
+<span class="nc" id="L187">            loadOptions.linearizeCurves = Boolean.parseBoolean(db.getMetadata(Metadata.LINEARIZE_CURVES));</span>
+<span class="nc" id="L188">            loadOptions.tablePrefix = db.getMetadata(Metadata.TABLE_PREFIX);</span>
+
+<span class="nc" id="L190">            log.info(getMessageFormattedString(&quot;download.current_delta_id&quot;, deltaId) + &quot;, &quot; +</span>
+<span class="nc bnc" id="L191" title="All 2 branches missed.">                    (deltaIdTimeTo != null</span>
+<span class="nc" id="L192">                            ? getMessageFormattedString(&quot;download.current_delta_time&quot;, DateTimeFormatter.ISO_INSTANT.format(deltaIdTimeTo))</span>
+<span class="nc" id="L193">                            : getBundleString(&quot;download.current_delta_time_unknown&quot;)));</span>
+
+            try {
+<span class="nc" id="L196">                Instant start = Instant.now();</span>
+<span class="nc" id="L197">                log.info(getBundleString(&quot;download.loading_deltas&quot;));</span>
+                // Note that the afterDeltaId parameter is useless, because the response does not distinguish between
+                // &quot;'afterDeltaId' is the latest&quot; and &quot;'afterDeltaId' not found or older than 31 days&quot;
+<span class="nc" id="L200">                GetDeltasResponse response = new DeltaApi(client).getDeltas(null, 1, 100);</span>
+
+                // Verify no links to other page, as we expect at most 31 delta's
+<span class="nc bnc" id="L203" title="All 4 branches missed.">                if (response.getLinks() != null &amp;&amp; !response.getLinks().isEmpty()) {</span>
+<span class="nc" id="L204">                    throw new IllegalStateException(&quot;Did not expect links in GetDeltas response&quot;);</span>
+                }
+
+                int i;
+<span class="nc bnc" id="L208" title="All 2 branches missed.">                for (i = 0; i &lt; response.getDeltas().size(); i++) {</span>
+<span class="nc" id="L209">                    Delta d = response.getDeltas().get(i);</span>
+<span class="nc bnc" id="L210" title="All 2 branches missed.">                    if (deltaId.equals(d.getId())) {</span>
+<span class="nc" id="L211">                        break;</span>
+                    }
+                }
+<span class="nc bnc" id="L214" title="All 2 branches missed.">                if (i == response.getDeltas().size()) {</span>
+                    // TODO automatically do initial load depending on option
+<span class="nc" id="L216">                    System.err.println(getBundleString(&quot;download.current_delta_not_found&quot;));</span>
+<span class="nc" id="L217">                    return ExitCode.SOFTWARE;</span>
+                }
+
+<span class="nc" id="L220">                List&lt;Delta&gt; deltas = response.getDeltas().subList(i + 1, response.getDeltas().size());</span>
+<span class="nc bnc" id="L221" title="All 2 branches missed.">                if (deltas.isEmpty()) {</span>
+<span class="nc" id="L222">                    log.info(getBundleString(&quot;download.uptodate&quot;));</span>
+<span class="nc" id="L223">                    return ExitCode.OK;</span>
+                }
+
+<span class="nc" id="L226">                Delta latestDelta = deltas.get(deltas.size() - 1);</span>
+<span class="nc" id="L227">                log.info(getMessageFormattedString(&quot;download.updates_available&quot;, deltas.size(), latestDelta.getId(), latestDelta.getTimeWindow().getTo()));</span>
+
+<span class="nc" id="L229">                BGTObjectTableWriter writer = createWriter(db, dbOptions, loadOptions, cliOptions);</span>
+
+<span class="nc" id="L231">                int deltaCount = 1;</span>
+<span class="nc bnc" id="L232" title="All 2 branches missed.">                for (Delta delta: deltas) {</span>
+<span class="nc" id="L233">                    log.info(getMessageFormattedString(&quot;download.creating_download&quot;, deltaCount++, deltas.size(), delta.getId()));</span>
+<span class="nc" id="L234">                    URI uri = DownloadApiUtils.getCustomDownloadURL(client, delta, extractSelectionOptions, new CustomDownloadProgressReporter(cliOptions.isConsoleProgressEnabled()));</span>
+                    // TODO: BGTObjectTableWriter does setAutocommit(false) and commit() after each stream for a feature type
+                    // is written, maybe use one transaction for all feature types?
+<span class="nc" id="L237">                    loadZipFromURI(uri, db, writer, extractSelectionOptions, loadOptions, false, start);</span>
+<span class="nc" id="L238">                    db.setMetadataValue(Metadata.DELTA_TIME_TO, delta.getTimeWindow().getTo().toString());</span>
+<span class="nc" id="L239">                    db.getConnection().commit();</span>
+<span class="nc" id="L240">                }</span>
+
+<span class="nc" id="L242">                db.setMetadataValue(Metadata.LOADER_VERSION, getLoaderVersion());</span>
+<span class="nc" id="L243">                db.getConnection().commit();</span>
+<span class="nc" id="L244">                return ExitCode.OK;</span>
+<span class="nc" id="L245">            } catch(ApiException apiException) {</span>
+<span class="nc" id="L246">                printApiException(apiException);</span>
+<span class="nc" id="L247">                throw apiException;</span>
+            }
+<span class="nc bnc" id="L249" title="All 6 branches missed.">        }</span>
+    }
+
+    private static void printApiException(ApiException apiException) {
+<span class="nc" id="L253">        log.error(String.format(&quot;API status code: %d, body: %s\n&quot;, apiException.getCode(), apiException.getResponseBody()));</span>
+<span class="nc" id="L254">    }</span>
+
+    private static void loadZipFromURI(URI uri, BGTDatabase db, BGTObjectTableWriter writer, ExtractSelectionOptions extractSelectionOptions, LoadOptions loadOptions, boolean showSelected, Instant start) throws Exception {
+<span class="nc" id="L257">        Instant loadStart = Instant.now();</span>
+<span class="nc" id="L258">        new BGTLoaderMain().loadZipFromURI(uri, writer, extractSelectionOptions, loadOptions, showSelected);</span>
+<span class="nc" id="L259">        db.setMetadataForMutaties(writer.getProgress().getMutatieInhoud());</span>
+<span class="nc" id="L260">        log.info(getMessageFormattedString(&quot;download.complete&quot;,</span>
+<span class="nc" id="L261">                getBundleString(&quot;download.mutatietype.&quot; + writer.getProgress().getMutatieInhoud().getMutatieType()),</span>
+<span class="nc" id="L262">                writer.getProgress().getMutatieInhoud().getLeveringsId(),</span>
+<span class="nc" id="L263">                formatTimeSince(loadStart)) +</span>
+<span class="nc bnc" id="L264" title="All 2 branches missed.">                (start == null ? &quot;&quot; : &quot; &quot; + getMessageFormattedString(&quot;download.complete_total&quot;, formatTimeSince(start)))</span>
+        );
+<span class="nc" id="L266">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

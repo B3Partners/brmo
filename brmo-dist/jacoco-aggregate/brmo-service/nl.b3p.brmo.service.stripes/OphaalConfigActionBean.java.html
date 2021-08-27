@@ -26,8 +26,7 @@ import net.sourceforge.stripes.validation.ValidationMethod;
 import nl.b3p.brmo.persistence.staging.AfgifteNummerScannerProces;
 import nl.b3p.brmo.persistence.staging.AutomatischProces;
 import nl.b3p.brmo.persistence.staging.BAGScannerProces;
-import nl.b3p.brmo.persistence.staging.BGTLightOphaalProces;
-import nl.b3p.brmo.persistence.staging.BGTLightScannerProces;
+import nl.b3p.brmo.persistence.staging.BGTLoaderProces;
 import nl.b3p.brmo.persistence.staging.BRKScannerProces;
 import nl.b3p.brmo.persistence.staging.BerichtDoorstuurProces;
 import nl.b3p.brmo.persistence.staging.BerichtTransformatieProces;
@@ -59,15 +58,15 @@ import org.stripesstuff.stripersist.Stripersist;
  * @author mprins
  */
 @StrictBinding
-<span class="nc" id="L62">public class OphaalConfigActionBean implements ActionBean {</span>
+<span class="nc" id="L61">public class OphaalConfigActionBean implements ActionBean {</span>
 
-<span class="nc" id="L64">    private static final Log log = LogFactory.getLog(OphaalConfigActionBean.class);</span>
+<span class="nc" id="L63">    private static final Log log = LogFactory.getLog(OphaalConfigActionBean.class);</span>
 
     private static final String JSP = &quot;/WEB-INF/jsp/beheer/processenophalen.jsp&quot;;
 
     private ActionBeanContext context;
 
-<span class="nc" id="L70">    private List&lt;AutomatischProces&gt; processen = new ArrayList();</span>
+<span class="nc" id="L69">    private List&lt;AutomatischProces&gt; processen = new ArrayList();</span>
 
     @Validate(converter = EntityTypeConverter.class)
     @ValidateNestedProperties({
@@ -78,82 +77,87 @@ import org.stripesstuff.stripersist.Stripersist;
     @Validate
     private ProcesExecutable.ProcessingImple type;
 
-<span class="nc" id="L81">    @Validate</span>
-    private Map&lt;String, ClobElement&gt; config = new HashMap&lt;String, ClobElement&gt;();
+<span class="nc" id="L80">    @Validate</span>
+    private Map&lt;String, ClobElement&gt; config = new HashMap&lt;&gt;();
 
     @Before(stages = LifecycleStage.BindingAndValidation)
     public void load() {
-<span class="nc" id="L86">        processen = Stripersist.getEntityManager().createQuery(&quot;from AutomatischProces p order by type(p),p.id&quot;).getResultList();</span>
-<span class="nc" id="L87">    }</span>
+<span class="nc" id="L85">        processen = Stripersist.getEntityManager().createQuery(&quot;from AutomatischProces p order by type(p),p.id&quot;).getResultList();</span>
+<span class="nc" id="L86">    }</span>
 
     @DefaultHandler
     public Resolution view() {
-<span class="nc bnc" id="L91" title="All 2 branches missed.">        if (proces != null) {</span>
-<span class="nc" id="L92">            config = proces.getConfig();</span>
+<span class="nc bnc" id="L90" title="All 2 branches missed.">        if (proces != null) {</span>
+<span class="nc" id="L91">            config = proces.getConfig();</span>
         }
 
-<span class="nc" id="L95">        return new ForwardResolution(JSP);</span>
+<span class="nc" id="L94">        return new ForwardResolution(JSP);</span>
     }
 
     @DontValidate
     public Resolution cancel() {
-<span class="nc" id="L100">        return new RedirectResolution(OphaalConfigActionBean.class);</span>
+<span class="nc" id="L99">        return new RedirectResolution(OphaalConfigActionBean.class);</span>
     }
 
     @DontValidate
     public Resolution delete() {
-<span class="nc bnc" id="L105" title="All 2 branches missed.">        if (proces != null) {</span>
+<span class="nc bnc" id="L104" title="All 2 branches missed.">        if (proces != null) {</span>
 
-<span class="nc" id="L107">            Stripersist.getEntityManager().createQuery(&quot;update LaadProces set automatischProces = null where automatischProces = :this&quot;)</span>
-<span class="nc" id="L108">                    .setParameter(&quot;this&quot;, proces)</span>
-<span class="nc" id="L109">                    .executeUpdate();</span>
+<span class="nc" id="L106">            Stripersist.getEntityManager().createQuery(&quot;update LaadProces set automatischProces = null where automatischProces = :this&quot;)</span>
+<span class="nc" id="L107">                    .setParameter(&quot;this&quot;, proces)</span>
+<span class="nc" id="L108">                    .executeUpdate();</span>
 
-<span class="nc" id="L111">            Stripersist.getEntityManager().remove(proces);</span>
-<span class="nc" id="L112">            load();</span>
-<span class="nc" id="L113">            Stripersist.getEntityManager().getTransaction().commit();</span>
-<span class="nc" id="L114">            deleteScheduledJob(proces);</span>
-<span class="nc" id="L115">            proces = null;</span>
-<span class="nc" id="L116">            getContext().getMessages().add(new SimpleMessage(&quot;Proces is verwijderd&quot;));</span>
+<span class="nc" id="L110">            Stripersist.getEntityManager().remove(proces);</span>
+<span class="nc" id="L111">            load();</span>
+<span class="nc" id="L112">            Stripersist.getEntityManager().getTransaction().commit();</span>
+<span class="nc" id="L113">            deleteScheduledJob(proces);</span>
+<span class="nc" id="L114">            proces = null;</span>
+<span class="nc" id="L115">            getContext().getMessages().add(new SimpleMessage(&quot;Proces is verwijderd&quot;));</span>
         }
-<span class="nc" id="L118">        return new ForwardResolution(JSP);</span>
+<span class="nc" id="L117">        return new ForwardResolution(JSP);</span>
     }
 
     @DontValidate
     public Resolution add() {
-<span class="nc" id="L123">        return new ForwardResolution(JSP).addParameter(&quot;type&quot;, type);</span>
+<span class="nc bnc" id="L122" title="All 2 branches missed.">        if (type == ProcesExecutable.ProcessingImple.BGTLoaderProces){</span>
+            // default values voor BGT loader
+<span class="nc" id="L124">            config.put(&quot;create-schema&quot;,new ClobElement(&quot;true&quot;));</span>
+<span class="nc" id="L125">            config.put(&quot;feature-types&quot;,new ClobElement(&quot;all&quot;));</span>
+        }
+<span class="nc" id="L127">        return new ForwardResolution(JSP).addParameter(&quot;type&quot;, type);</span>
     }
 
     public Resolution save() {
-<span class="nc bnc" id="L127" title="All 2 branches missed.">        if (proces == null) {</span>
-<span class="nc" id="L128">            proces = getProces(type);</span>
+<span class="nc bnc" id="L131" title="All 2 branches missed.">        if (proces == null) {</span>
+<span class="nc" id="L132">            proces = getProces(type);</span>
         }
 
-<span class="nc" id="L131">        proces.getConfig().clear();</span>
-<span class="nc" id="L132">        proces.getConfig().putAll(config);</span>
+<span class="nc" id="L135">        proces.getConfig().clear();</span>
+<span class="nc" id="L136">        proces.getConfig().putAll(config);</span>
 
-<span class="nc bnc" id="L134" title="All 2 branches missed.">        if(proces instanceof BerichtDoorstuurProces) {</span>
-<span class="nc" id="L135">            String id = ClobElement.nullSafeGet(config.get(&quot;gds2_ophaalproces_id&quot;));</span>
-<span class="nc" id="L136">            GDS2OphaalProces p = Stripersist.getEntityManager().find(GDS2OphaalProces.class, Long.parseLong(id));</span>
-<span class="nc bnc" id="L137" title="All 2 branches missed.">            if(p != null) {</span>
-<span class="nc" id="L138">                String label = ClobElement.nullSafeGet(p.getConfig().get(&quot;label&quot;));</span>
-<span class="nc" id="L139">                proces.getConfig().put(&quot;label&quot;, new ClobElement(&quot;Doorsturen &quot; + label + &quot; afgiftes&quot;));</span>
+<span class="nc bnc" id="L138" title="All 2 branches missed.">        if(proces instanceof BerichtDoorstuurProces) {</span>
+<span class="nc" id="L139">            String id = ClobElement.nullSafeGet(config.get(&quot;gds2_ophaalproces_id&quot;));</span>
+<span class="nc" id="L140">            GDS2OphaalProces p = Stripersist.getEntityManager().find(GDS2OphaalProces.class, Long.parseLong(id));</span>
+<span class="nc bnc" id="L141" title="All 2 branches missed.">            if(p != null) {</span>
+<span class="nc" id="L142">                String label = ClobElement.nullSafeGet(p.getConfig().get(&quot;label&quot;));</span>
+<span class="nc" id="L143">                proces.getConfig().put(&quot;label&quot;, new ClobElement(&quot;Doorsturen &quot; + label + &quot; afgiftes&quot;));</span>
             }
         }
 
-<span class="nc" id="L143">        Stripersist.getEntityManager().persist(proces);</span>
-<span class="nc" id="L144">        load();</span>
-<span class="nc" id="L145">        Stripersist.getEntityManager().getTransaction().commit();</span>
-<span class="nc" id="L146">        getContext().getMessages().add(new SimpleMessage(&quot;Proces is opgeslagen&quot;));</span>
+<span class="nc" id="L147">        Stripersist.getEntityManager().persist(proces);</span>
+<span class="nc" id="L148">        load();</span>
+<span class="nc" id="L149">        Stripersist.getEntityManager().getTransaction().commit();</span>
+<span class="nc" id="L150">        getContext().getMessages().add(new SimpleMessage(&quot;Proces is opgeslagen&quot;));</span>
 
         try {
-<span class="nc" id="L149">            this.updateJobSchedule(proces);</span>
-<span class="nc" id="L150">        } catch (SchedulerException ex) {</span>
-<span class="nc" id="L151">            getContext().getMessages().add(</span>
+<span class="nc" id="L153">            this.updateJobSchedule(proces);</span>
+<span class="nc" id="L154">        } catch (SchedulerException ex) {</span>
+<span class="nc" id="L155">            getContext().getMessages().add(</span>
                     new SimpleError(&quot;Er is een fout opgetreden tijdens inplannen van de taak. {2}&quot;,
-<span class="nc" id="L153">                            ex.getMessage()));</span>
-<span class="nc" id="L154">        }</span>
+<span class="nc" id="L157">                            ex.getMessage()));</span>
+<span class="nc" id="L158">        }</span>
 
-<span class="nc" id="L156">        return new ForwardResolution(JSP).addParameter(&quot;proces&quot;, proces.getId());</span>
+<span class="nc" id="L160">        return new ForwardResolution(JSP).addParameter(&quot;proces&quot;, proces.getId());</span>
     }
 
     /**
@@ -164,25 +168,21 @@ import org.stripesstuff.stripersist.Stripersist;
      *
      */
     private AutomatischProces getProces(ProcesExecutable.ProcessingImple type) {
-<span class="nc bnc" id="L167" title="All 16 branches missed.">        switch (type) {</span>
+<span class="nc bnc" id="L171" title="All 15 branches missed.">        switch (type) {</span>
             case BAGScannerProces:
-<span class="nc" id="L169">                return new BAGScannerProces();</span>
+<span class="nc" id="L173">                return new BAGScannerProces();</span>
             case BRKScannerProces:
-<span class="nc" id="L171">                return new BRKScannerProces();</span>
+<span class="nc" id="L175">                return new BRKScannerProces();</span>
             case MailRapportageProces:
-<span class="nc" id="L173">                return new MailRapportageProces();</span>
+<span class="nc" id="L177">                return new MailRapportageProces();</span>
             case GDS2OphaalProces:
-<span class="nc" id="L175">                return new GDS2OphaalProces();</span>
+<span class="nc" id="L179">                return new GDS2OphaalProces();</span>
             case BerichtTransformatieProces:
-<span class="nc" id="L177">                return new BerichtTransformatieProces();</span>
+<span class="nc" id="L181">                return new BerichtTransformatieProces();</span>
             case BerichtDoorstuurProces:
-<span class="nc" id="L179">                return new BerichtDoorstuurProces();</span>
+<span class="nc" id="L183">                return new BerichtDoorstuurProces();</span>
             case WebMirrorBAGScannerProces:
-<span class="nc" id="L181">                return new WebMirrorBAGScannerProces();</span>
-            case BGTLightScannerProces:
-<span class="nc" id="L183">                return new BGTLightScannerProces();</span>
-            case BGTLightOphaalProces:
-<span class="nc" id="L185">                return new BGTLightOphaalProces();</span>
+<span class="nc" id="L185">                return new WebMirrorBAGScannerProces();</span>
             case LaadprocesTransformatieProces:
 <span class="nc" id="L187">                return new LaadprocesTransformatieProces();</span>
             case MaterializedViewRefresh:
@@ -195,13 +195,15 @@ import org.stripesstuff.stripersist.Stripersist;
 <span class="nc" id="L195">                return new TopNLScannerProces();</span>
             case AfgifteNummerScannerProces:
 <span class="nc" id="L197">                return new AfgifteNummerScannerProces();</span>
+            case BGTLoaderProces:
+<span class="nc" id="L199">                return new BGTLoaderProces();</span>
             default:
-<span class="nc" id="L199">                throw new IllegalArgumentException(type.name() + &quot; is geen ondersteund proces type...&quot;);</span>
+<span class="nc" id="L201">                throw new IllegalArgumentException(type.name() + &quot; is geen ondersteund proces type...&quot;);</span>
         }
     }
 
     private ProcesExecutable.ProcessingImple getType(AutomatischProces p) {
-<span class="nc" id="L204">        return ProcesExecutable.ProcessingImple.valueOf(p.getClass().getSimpleName());</span>
+<span class="nc" id="L206">        return ProcesExecutable.ProcessingImple.valueOf(p.getClass().getSimpleName());</span>
     }
 
     /**
@@ -213,19 +215,19 @@ import org.stripesstuff.stripersist.Stripersist;
      * @throws SchedulerException
      */
     private void updateJobSchedule(AutomatischProces p) throws SchedulerException {
-<span class="nc" id="L216">        log.debug(&quot;Update scheduled job:&quot; + p.getId());</span>
+<span class="nc" id="L218">        log.debug(&quot;Update scheduled job:&quot; + p.getId());</span>
 
-<span class="nc" id="L218">        StdSchedulerFactory factory = (StdSchedulerFactory) getContext().getServletContext()</span>
-<span class="nc" id="L219">                .getAttribute(QUARTZ_FACTORY_KEY);</span>
-<span class="nc" id="L220">        Scheduler scheduler = factory.getScheduler(SCHEDULER_NAME);</span>
-<span class="nc" id="L221">        JobKey key = new JobKey(GeplandeTakenInit.JOBKEY_PREFIX + p.getId());</span>
-<span class="nc" id="L222">        log.debug(&quot;Jobkey voor id &quot; + p.getId() + &quot; gevonden? &quot; + scheduler.checkExists(key));</span>
+<span class="nc" id="L220">        StdSchedulerFactory factory = (StdSchedulerFactory) getContext().getServletContext()</span>
+<span class="nc" id="L221">                .getAttribute(QUARTZ_FACTORY_KEY);</span>
+<span class="nc" id="L222">        Scheduler scheduler = factory.getScheduler(SCHEDULER_NAME);</span>
+<span class="nc" id="L223">        JobKey key = new JobKey(GeplandeTakenInit.JOBKEY_PREFIX + p.getId());</span>
+<span class="nc" id="L224">        log.debug(&quot;Jobkey voor id &quot; + p.getId() + &quot; gevonden? &quot; + scheduler.checkExists(key));</span>
 
-<span class="nc" id="L224">        scheduler.deleteJob(key);</span>
-<span class="nc bnc" id="L225" title="All 2 branches missed.">        if (p.getCronExpressie() != null) {</span>
-<span class="nc" id="L226">            GeplandeTakenInit.addJobDetails(scheduler, p);</span>
+<span class="nc" id="L226">        scheduler.deleteJob(key);</span>
+<span class="nc bnc" id="L227" title="All 2 branches missed.">        if (p.getCronExpressie() != null) {</span>
+<span class="nc" id="L228">            GeplandeTakenInit.addJobDetails(scheduler, p);</span>
         }
-<span class="nc" id="L228">    }</span>
+<span class="nc" id="L230">    }</span>
 
     /**
      * verwijder een proces job uit de scheduler door update met een {@code null} cron
@@ -235,78 +237,78 @@ import org.stripesstuff.stripersist.Stripersist;
      */
     private void deleteScheduledJob(AutomatischProces p) {
         try {
-<span class="nc" id="L238">            p.setCronExpressie(null);</span>
-<span class="nc" id="L239">            updateJobSchedule(p);</span>
-<span class="nc" id="L240">        } catch (SchedulerException se) {</span>
-<span class="nc" id="L241">            log.warn(&quot;Ingeplande taak uit de planner halen is mislukt&quot;, se);</span>
-<span class="nc" id="L242">        }</span>
-<span class="nc" id="L243">    }</span>
+<span class="nc" id="L240">            p.setCronExpressie(null);</span>
+<span class="nc" id="L241">            updateJobSchedule(p);</span>
+<span class="nc" id="L242">        } catch (SchedulerException se) {</span>
+<span class="nc" id="L243">            log.warn(&quot;Ingeplande taak uit de planner halen is mislukt&quot;, se);</span>
+<span class="nc" id="L244">        }</span>
+<span class="nc" id="L245">    }</span>
 
     /**
      * validatie van de cron expressie van een proces voorafgaand aan save.
      */
     @ValidationMethod(on = &quot;save&quot;)
     public void validateCronExpressie() {
-<span class="nc bnc" id="L250" title="All 2 branches missed.">        if (proces != null) {</span>
-<span class="nc" id="L251">            String expr = proces.getCronExpressie();</span>
+<span class="nc bnc" id="L252" title="All 2 branches missed.">        if (proces != null) {</span>
+<span class="nc" id="L253">            String expr = proces.getCronExpressie();</span>
             try {
-<span class="nc bnc" id="L253" title="All 2 branches missed.">                if (expr != null) {</span>
-<span class="nc" id="L254">                    CronExpression cron = new CronExpression(expr);</span>
+<span class="nc bnc" id="L255" title="All 2 branches missed.">                if (expr != null) {</span>
+<span class="nc" id="L256">                    CronExpression cron = new CronExpression(expr);</span>
                 }
-<span class="nc" id="L256">            } catch (ParseException ex) {</span>
-<span class="nc" id="L257">                Stripersist.getEntityManager().refresh(proces);</span>
-<span class="nc" id="L258">                load();</span>
-<span class="nc" id="L259">                getContext().getValidationErrors().add(&quot;cronExpressie&quot;,</span>
+<span class="nc" id="L258">            } catch (ParseException ex) {</span>
+<span class="nc" id="L259">                Stripersist.getEntityManager().refresh(proces);</span>
+<span class="nc" id="L260">                load();</span>
+<span class="nc" id="L261">                getContext().getValidationErrors().add(&quot;cronExpressie&quot;,</span>
                         new SimpleError(&quot;{0} {2} is ongeldig, (melding: {4}, mogelijk nabij positie {3})&quot;,
-<span class="nc" id="L261">                                expr, ex.getErrorOffset(), ex.getLocalizedMessage()));</span>
-<span class="nc" id="L262">            }</span>
+<span class="nc" id="L263">                                expr, ex.getErrorOffset(), ex.getLocalizedMessage()));</span>
+<span class="nc" id="L264">            }</span>
         }
-<span class="nc" id="L264">    }</span>
+<span class="nc" id="L266">    }</span>
 
     // &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;getters en setters&quot;&gt;
     @Override
     public ActionBeanContext getContext() {
-<span class="nc" id="L269">        return context;</span>
+<span class="nc" id="L271">        return context;</span>
     }
 
     @Override
     public void setContext(ActionBeanContext context) {
-<span class="nc" id="L274">        this.context = context;</span>
-<span class="nc" id="L275">    }</span>
+<span class="nc" id="L276">        this.context = context;</span>
+<span class="nc" id="L277">    }</span>
 
     public List&lt;AutomatischProces&gt; getProcessen() {
-<span class="nc" id="L278">        return processen;</span>
+<span class="nc" id="L280">        return processen;</span>
     }
 
     public void setProcessen(List&lt;AutomatischProces&gt; processen) {
-<span class="nc" id="L282">        this.processen = processen;</span>
-<span class="nc" id="L283">    }</span>
+<span class="nc" id="L284">        this.processen = processen;</span>
+<span class="nc" id="L285">    }</span>
 
     public AutomatischProces getProces() {
-<span class="nc" id="L286">        return proces;</span>
+<span class="nc" id="L288">        return proces;</span>
     }
 
     public void setProces(AutomatischProces proces) {
-<span class="nc" id="L290">        this.proces = proces;</span>
-<span class="nc" id="L291">        this.type = getType(proces);</span>
-<span class="nc" id="L292">    }</span>
+<span class="nc" id="L292">        this.proces = proces;</span>
+<span class="nc" id="L293">        this.type = getType(proces);</span>
+<span class="nc" id="L294">    }</span>
 
     public Map&lt;String, ClobElement&gt; getConfig() {
-<span class="nc" id="L295">        return config;</span>
+<span class="nc" id="L297">        return config;</span>
     }
 
     public void setConfig(Map&lt;String, ClobElement&gt; config) {
-<span class="nc" id="L299">        this.config = config;</span>
-<span class="nc" id="L300">    }</span>
+<span class="nc" id="L301">        this.config = config;</span>
+<span class="nc" id="L302">    }</span>
 
     public ProcesExecutable.ProcessingImple getType() {
-<span class="nc" id="L303">        return type;</span>
+<span class="nc" id="L305">        return type;</span>
     }
 
     public void setType(ProcesExecutable.ProcessingImple type) {
-<span class="nc" id="L307">        this.type = type;</span>
-<span class="nc" id="L308">        this.proces = getProces(type);</span>
-<span class="nc" id="L309">    }</span>
+<span class="nc" id="L309">        this.type = type;</span>
+<span class="nc" id="L310">        this.proces = getProces(type);</span>
+<span class="nc" id="L311">    }</span>
     // &lt;/editor-fold&gt;
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

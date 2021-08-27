@@ -31,12 +31,12 @@ import org.apache.commons.logging.LogFactory;
     public abstract boolean hasNext() throws Exception;
     public abstract Bericht next() throws Exception;
 
-    public void setDatumAsString(String brkDatumString, String simpleDateFormat) {
+    public void setDatumAsString(String datumString, String simpleDateFormat) {
 <span class="fc" id="L35">        SimpleDateFormat sdf = new SimpleDateFormat(simpleDateFormat);</span>
         try {
-<span class="fc" id="L37">            bestandsDatum = sdf.parse(brkDatumString);</span>
+<span class="fc" id="L37">            bestandsDatum = sdf.parse(datumString);</span>
 <span class="nc" id="L38">        } catch (ParseException pe) {</span>
-<span class="nc" id="L39">            log.error(&quot;Fout bij parsen BRK datum \&quot;&quot; + brkDatumString + &quot;\&quot; met formaat &quot; + simpleDateFormat, pe);</span>
+<span class="nc" id="L39">            log.error(&quot;Fout bij parsen bericht datum \&quot;&quot; + datumString + &quot;\&quot; met formaat &quot; + simpleDateFormat, pe);</span>
 <span class="fc" id="L40">        }</span>
 <span class="fc" id="L41">    }</span>
     public String getHash(String bsn) {
@@ -112,4 +112,4 @@ import org.apache.commons.logging.LogFactory;
 <span class="nc" id="L112">        this.contactEmail = contactEmail;</span>
 <span class="nc" id="L113">    }</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

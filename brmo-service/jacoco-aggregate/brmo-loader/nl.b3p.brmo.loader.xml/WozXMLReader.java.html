@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>WozXMLReader.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO service</a> &gt; <a href="../index.html" class="el_bundle">brmo-loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.loader.xml</a> &gt; <span class="el_source">WozXMLReader.java</span></div><h1>WozXMLReader.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2021 B3Partners B.V.
+ */
+package nl.b3p.brmo.loader.xml;
+
+import nl.b3p.brmo.loader.BrmoFramework;
+import nl.b3p.brmo.loader.StagingProxy;
+import nl.b3p.brmo.loader.entity.Bericht;
+import nl.b3p.brmo.loader.entity.WozBericht;
+import nl.b3p.brmo.loader.util.RsgbTransformer;
+import org.apache.commons.io.input.TeeInputStream;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Source;
+import javax.xml.transform.Templates;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.io.StringWriter;
+import java.nio.charset.StandardCharsets;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+public class WozXMLReader extends BrmoXMLReader {
+    public static final String PREFIX_PRS = &quot;WOZ.NPS.&quot;;
+    public static final String PREFIX_NNP = &quot;WOZ.NNP.&quot;;
+    public static final String PREFIX_WOZ = &quot;WOZ.WOZ.&quot;;
+    public static final String PREFIX_VES = &quot;WOZ.VES.&quot;;
+<span class="nc" id="L48">    private static final Log LOG = LogFactory.getLog(WozXMLReader.class);</span>
+<span class="nc" id="L49">    private final String pathToXsl = &quot;/xsl/woz-brxml-preprocessor.xsl&quot;;</span>
+    private final StagingProxy staging;
+<span class="nc" id="L51">    private final XPathFactory xPathfactory = XPathFactory.newInstance();</span>
+    private InputStream in;
+    private Templates template;
+<span class="nc" id="L54">    private NodeList objectNodes = null;</span>
+    private int index;
+<span class="nc" id="L56">    private String brOrigXML = null;</span>
+
+<span class="nc" id="L58">    public WozXMLReader(InputStream in, Date d, StagingProxy staging) throws Exception {</span>
+<span class="nc" id="L59">        this.in = in;</span>
+<span class="nc" id="L60">        this.staging = staging;</span>
+<span class="nc" id="L61">        setBestandsDatum(d);</span>
+<span class="nc" id="L62">        init();</span>
+<span class="nc" id="L63">    }</span>
+
+    @Override
+    public void init() throws Exception {
+<span class="nc" id="L67">        soort = BrmoFramework.BR_WOZ;</span>
+<span class="nc" id="L68">        ByteArrayOutputStream bos = new ByteArrayOutputStream();</span>
+<span class="nc" id="L69">        in = new TeeInputStream(in, bos, true);</span>
+
+<span class="nc" id="L71">        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();</span>
+<span class="nc" id="L72">        factory.setNamespaceAware(true);</span>
+<span class="nc" id="L73">        DocumentBuilder builder = factory.newDocumentBuilder();</span>
+<span class="nc" id="L74">        Document doc = builder.parse(in);</span>
+
+<span class="nc" id="L76">        brOrigXML = bos.toString(StandardCharsets.UTF_8.name());</span>
+<span class="nc" id="L77">        LOG.trace(&quot;Originele WOZ xml is: \n&quot; + brOrigXML);</span>
+
+<span class="nc" id="L79">        TransformerFactory tf = TransformerFactory.newInstance();</span>
+<span class="nc" id="L80">        tf.setURIResolver((href, base) -&gt; {</span>
+<span class="nc" id="L81">            LOG.debug(&quot;looking for: &quot; + href + &quot; base: &quot; + base);</span>
+<span class="nc" id="L82">            return new StreamSource(RsgbTransformer.class.getResourceAsStream(&quot;/xsl/&quot; + href));</span>
+        });
+
+<span class="nc" id="L85">        Source xsl = new StreamSource(this.getClass().getResourceAsStream(pathToXsl));</span>
+<span class="nc" id="L86">        this.template = tf.newTemplates(xsl);</span>
+
+<span class="nc" id="L88">        XPath xpath = xPathfactory.newXPath();</span>
+
+<span class="nc bnc" id="L90" title="All 2 branches missed.">        if (this.getBestandsDatum() == null) {</span>
+            // probeer datum nog uit doc te halen..
+<span class="nc" id="L92">            LOG.debug(&quot;Tijdstip bericht was niet gegeven; alsnog proberen op te zoeken in bericht.&quot;);</span>
+<span class="nc" id="L93">            XPathExpression tijdstipBericht = xpath.compile(&quot;//*[local-name()='tijdstipBericht']&quot;);</span>
+<span class="nc" id="L94">            Node datum = (Node) tijdstipBericht.evaluate(doc, XPathConstants.NODE);</span>
+<span class="nc" id="L95">            setDatumAsString(datum.getTextContent(), &quot;yyyyMMddHHmmssSSS&quot;);</span>
+<span class="nc" id="L96">            LOG.debug(&quot;Tijdstip bericht ingesteld op &quot; + getBestandsDatum());</span>
+        }
+
+        // woz:object nodes
+<span class="nc" id="L100">        XPathExpression objectNode = xpath.compile(&quot;//*[local-name()='object']&quot;);</span>
+<span class="nc" id="L101">        objectNodes = (NodeList) objectNode.evaluate(doc, XPathConstants.NODESET);</span>
+
+        // mogelijk zijn er omhang berichten (WGEM_hangSubjectOm_Di01)
+<span class="nc bnc" id="L104" title="All 2 branches missed.">        if (objectNodes.getLength() &lt; 1) {</span>
+<span class="nc" id="L105">            objectNode = xpath.compile(&quot;//*[local-name()='nieuweGemeenteNPS']&quot;);</span>
+<span class="nc" id="L106">            objectNodes = (NodeList) objectNode.evaluate(doc, XPathConstants.NODESET);</span>
+<span class="nc bnc" id="L107" title="All 4 branches missed.">            if (LOG.isDebugEnabled() &amp;&amp; objectNodes.getLength() &gt; 0) {</span>
+<span class="nc" id="L108">                LOG.debug(&quot;nieuweGemeente NPS omhangbericht&quot;);</span>
+            }
+        }
+<span class="nc bnc" id="L111" title="All 2 branches missed.">        if (objectNodes.getLength() &lt; 1) {</span>
+<span class="nc" id="L112">            objectNode = xpath.compile(&quot;//*[local-name()='nieuweGemeenteNNP']&quot;);</span>
+<span class="nc" id="L113">            objectNodes = (NodeList) objectNode.evaluate(doc, XPathConstants.NODESET);</span>
+<span class="nc bnc" id="L114" title="All 4 branches missed.">            if (LOG.isDebugEnabled() &amp;&amp; objectNodes.getLength() &gt; 0) {</span>
+<span class="nc" id="L115">                LOG.debug(&quot;nieuweGemeente NNP omhangbericht&quot;);</span>
+            }
+        }
+<span class="nc bnc" id="L118" title="All 2 branches missed.">        if (objectNodes.getLength() &lt; 1) {</span>
+<span class="nc" id="L119">            objectNode = xpath.compile(&quot;//*[local-name()='nieuweGemeenteVES']&quot;);</span>
+<span class="nc" id="L120">            objectNodes = (NodeList) objectNode.evaluate(doc, XPathConstants.NODESET);</span>
+<span class="nc bnc" id="L121" title="All 4 branches missed.">            if (LOG.isDebugEnabled() &amp;&amp; objectNodes.getLength() &gt; 0) {</span>
+<span class="nc" id="L122">                LOG.debug(&quot;nieuweGemeente VES omhangbericht&quot;);</span>
+            }
+        }
+<span class="nc" id="L125">        index = 0;</span>
+<span class="nc" id="L126">    }</span>
+
+    @Override
+    public boolean hasNext() throws Exception {
+<span class="nc bnc" id="L130" title="All 2 branches missed.">        return index &lt; objectNodes.getLength();</span>
+    }
+
+    @Override
+    public WozBericht next() throws Exception {
+<span class="nc" id="L135">        Node n = objectNodes.item(index);</span>
+<span class="nc" id="L136">        index++;</span>
+<span class="nc" id="L137">        String object_ref = getObjectRef(n);</span>
+<span class="nc" id="L138">        StringWriter sw = new StringWriter();</span>
+
+        // kijk hier of dit bericht een voorganger heeft: zo niet, dan moet niet de preprocessor template gebruikt worden, maar de gewone.
+<span class="nc" id="L141">        Bericht old = staging.getPreviousBericht(object_ref, getBestandsDatum(), -1L, new StringBuilder());</span>
+        Transformer t;
+<span class="nc bnc" id="L143" title="All 2 branches missed.">        if (old != null) {</span>
+<span class="nc" id="L144">            LOG.debug(&quot;gebruik preprocessor xsl&quot;);</span>
+<span class="nc" id="L145">            t = this.template.newTransformer();</span>
+        } else {
+<span class="nc" id="L147">            LOG.debug(&quot;gebruik extractie xsl&quot;);</span>
+<span class="nc" id="L148">            t = TransformerFactory.newInstance().newTransformer();</span>
+        }
+
+<span class="nc" id="L151">        t.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, &quot;yes&quot;);</span>
+<span class="nc" id="L152">        t.setOutputProperty(OutputKeys.ENCODING, &quot;UTF-8&quot;);</span>
+<span class="nc" id="L153">        t.setOutputProperty(OutputKeys.INDENT, &quot;no&quot;);</span>
+<span class="nc" id="L154">        t.setOutputProperty(OutputKeys.METHOD, &quot;xml&quot;);</span>
+<span class="nc" id="L155">        t.transform(new DOMSource(n), new StreamResult(sw));</span>
+
+<span class="nc" id="L157">        Map&lt;String, String&gt; bsns = extractBSN(n);</span>
+<span class="nc" id="L158">        String el = getXML(bsns);</span>
+<span class="nc" id="L159">        String origXML = sw.toString();</span>
+<span class="nc" id="L160">        String brXML = &quot;&lt;root&gt;&quot; + origXML;</span>
+<span class="nc" id="L161">        brXML += el + &quot;&lt;/root&gt;&quot;;</span>
+
+<span class="nc" id="L163">        WozBericht b = new WozBericht(brXML);</span>
+<span class="nc" id="L164">        b.setDatum(getBestandsDatum());</span>
+<span class="nc bnc" id="L165" title="All 2 branches missed.">        if (index == 1) {</span>
+            // alleen op 1e brmo bericht van mogelijk meer uit originele bericht
+<span class="nc" id="L167">            b.setBrOrgineelXml(brOrigXML);</span>
+        }
+        // TODO volgorde nummer:
+        //  bepaal aan de hand van de object_ref of volgordenummer opgehoogd moet worden. Een soap bericht kan meerdere
+        //  object entiteiten bevatten die een eigen type objectref krijgen. bijv. een entiteittype=&quot;WOZ&quot; en een entiteittype=&quot;NPS&quot;
+        //  bovendien kan een entiteittype=&quot;WOZ&quot; een genests gerelateerde hebben die een apart bericht moet/zou kunnen opleveren met objectref
+        //  van een NPS, maar met een hoger volgordenummer...
+        //  vooralsnog halen we niet de geneste entiteiten uit het bericht
+<span class="nc" id="L175">        b.setVolgordeNummer(index);</span>
+<span class="nc bnc" id="L176" title="All 2 branches missed.">        if (index &gt; 1) {</span>
+            // om om het probleem van 2 subjecten uit 1 bericht op zelfde tijdstip dus heen te werken hoger volgordenummer ook iets later maken
+<span class="nc" id="L178">            b.setDatum(new Date(getBestandsDatum().getTime() + 10));</span>
+        }
+<span class="nc" id="L180">        b.setObjectRef(object_ref);</span>
+<span class="nc bnc" id="L181" title="All 2 branches missed.">        if (StringUtils.isEmpty(b.getObjectRef())) {</span>
+            // geen object_ref kunnen vaststellen; dan ook niet transformeren
+<span class="nc" id="L183">            b.setStatus(Bericht.STATUS.STAGING_NOK);</span>
+<span class="nc" id="L184">            b.setOpmerking(&quot;Er kon geen object_ref bepaald worden uit de natuurlijke sleutel van het bericht.&quot;);</span>
+        }
+
+<span class="nc" id="L187">        LOG.trace(&quot;bericht: &quot; + b);</span>
+<span class="nc" id="L188">        return b;</span>
+    }
+
+
+    private String getObjectRef(Node wozObjectNode) throws XPathExpressionException {
+        // WOZ:object StUF:entiteittype=&quot;WOZ&quot;/WOZ:wozObjectNummer
+<span class="nc" id="L194">        XPathExpression wozObjectNummer = xPathfactory.newXPath().compile(&quot;./*[local-name()='wozObjectNummer']&quot;);</span>
+<span class="nc" id="L195">        NodeList obRefs = (NodeList) wozObjectNummer.evaluate(wozObjectNode, XPathConstants.NODESET);</span>
+<span class="nc bnc" id="L196" title="All 2 branches missed.">        if (obRefs.getLength() &gt; 0) {</span>
+<span class="nc" id="L197">            return PREFIX_WOZ + obRefs.item(0).getTextContent();</span>
+        }
+
+        // WOZ:object StUF:entiteittype=&quot;NPS&quot;/WOZ:isEen/WOZ:gerelateerde/BG:inp.bsn
+<span class="nc" id="L201">        XPathExpression bsn = xPathfactory.newXPath().compile(&quot;./*/*[local-name()='gerelateerde']/*[local-name()='inp.bsn']&quot;);</span>
+<span class="nc" id="L202">        obRefs = (NodeList) bsn.evaluate(wozObjectNode, XPathConstants.NODESET);</span>
+<span class="nc bnc" id="L203" title="All 2 branches missed.">        if (obRefs.getLength() &gt; 0) {</span>
+<span class="nc" id="L204">            return PREFIX_PRS + getHash(obRefs.item(0).getTextContent());</span>
+        }
+
+        // WOZ:object StUF:entiteittype=&quot;NNP&quot;/WOZ:isEen/WOZ:gerelateerde/BG:inn.nnpId
+<span class="nc" id="L208">        XPathExpression nnpIdXpath = xPathfactory.newXPath().compile(&quot;./*/*[local-name()='gerelateerde']/*[local-name()='inn.nnpId']&quot;);</span>
+<span class="nc" id="L209">        obRefs = (NodeList) nnpIdXpath.evaluate(wozObjectNode, XPathConstants.NODESET);</span>
+<span class="nc bnc" id="L210" title="All 4 branches missed.">        if (obRefs.getLength() &gt; 0 &amp;&amp; !StringUtils.isEmpty(obRefs.item(0).getTextContent())) {</span>
+<span class="nc" id="L211">            return PREFIX_NNP + obRefs.item(0).getTextContent();</span>
+        }
+        // er komen berichten voor in test set waarin geen nnpId zit, maar wel &quot;aanvullingSoFiNummer&quot; is gevuld...
+        // WOZ:object StUF:entiteittype=&quot;NNP&quot;/WOZ:aanvullingSoFiNummer
+<span class="nc" id="L215">        nnpIdXpath = xPathfactory.newXPath().compile(&quot;*[@StUF:entiteittype='NNP']/*[local-name()='aanvullingSoFiNummer']&quot;);</span>
+<span class="nc" id="L216">        obRefs = (NodeList) nnpIdXpath.evaluate(wozObjectNode, XPathConstants.NODESET);</span>
+<span class="nc bnc" id="L217" title="All 4 branches missed.">        if (obRefs.getLength() &gt; 0 &amp;&amp; !StringUtils.isEmpty(obRefs.item(0).getTextContent())) {</span>
+<span class="nc" id="L218">            LOG.warn(&quot;WOZ NNP zonder `inn.nnpId`, gebruik `aanvullingSoFiNummer` voor id.&quot;);</span>
+<span class="nc" id="L219">            return PREFIX_NNP + obRefs.item(0).getTextContent();</span>
+        }
+
+        // WOZ:object StUF:entiteittype=&quot;WRD&quot;/WOZ:isVoor/WOZ:gerelateerde/WOZ:wozObjectNummer
+<span class="nc" id="L223">        XPathExpression wrd = xPathfactory.newXPath().compile(&quot;./*/*[local-name()='gerelateerde']/*[local-name()='wozObjectNummer']&quot;);</span>
+<span class="nc" id="L224">        obRefs = (NodeList) wrd.evaluate(wozObjectNode, XPathConstants.NODESET);</span>
+<span class="nc bnc" id="L225" title="All 4 branches missed.">        if (obRefs.getLength() &gt; 0 &amp;&amp; !StringUtils.isEmpty(obRefs.item(0).getTextContent())) {</span>
+<span class="nc" id="L226">            return PREFIX_WOZ + obRefs.item(0).getTextContent();</span>
+        }
+
+        // WOZ:object StUF:entiteittype=&quot;VES&quot;/WOZ:isEen/WOZ:gerelateerde/BG:vestigingsNummer
+<span class="nc" id="L230">        XPathExpression ves = xPathfactory.newXPath().compile(&quot;./*/*[local-name()='gerelateerde']/*[local-name()='vestigingsNummer']&quot;);</span>
+<span class="nc" id="L231">        obRefs = (NodeList) ves.evaluate(wozObjectNode, XPathConstants.NODESET);</span>
+<span class="nc bnc" id="L232" title="All 4 branches missed.">        if (obRefs.getLength() &gt; 0 &amp;&amp; !StringUtils.isEmpty(obRefs.item(0).getTextContent())) {</span>
+<span class="nc" id="L233">            return PREFIX_VES + obRefs.item(0).getTextContent();</span>
+        }
+
+<span class="nc" id="L236">        return null;</span>
+    }
+
+    /**
+     * maakt een map met bsn,bsnhash.
+     *
+     * @param n document node met bsn-nummer
+     * @return hashmap met bsn,bsnhash
+     * @throws XPathExpressionException if any
+     */
+    public Map&lt;String, String&gt; extractBSN(Node n) throws XPathExpressionException {
+<span class="nc" id="L247">        Map&lt;String, String&gt; hashes = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L248">        XPath xpath = xPathfactory.newXPath();</span>
+<span class="nc" id="L249">        XPathExpression expr = xpath.compile(&quot;//*[local-name() = 'inp.bsn']&quot;);</span>
+<span class="nc" id="L250">        NodeList nodelist = (NodeList) expr.evaluate(n, XPathConstants.NODESET);</span>
+<span class="nc bnc" id="L251" title="All 2 branches missed.">        for (int i = 0; i &lt; nodelist.getLength(); i++) {</span>
+<span class="nc" id="L252">            Node bsn = nodelist.item(i);</span>
+<span class="nc" id="L253">            String bsnString = bsn.getTextContent();</span>
+<span class="nc" id="L254">            String hash = getHash(bsnString);</span>
+<span class="nc" id="L255">            hashes.put(bsnString, hash);</span>
+        }
+<span class="nc" id="L257">        return hashes;</span>
+    }
+
+    public String getXML(Map&lt;String, String&gt; map) throws ParserConfigurationException {
+<span class="nc bnc" id="L261" title="All 2 branches missed.">        if (map.isEmpty()) {</span>
+            // als in bericht geen personen zitten
+<span class="nc" id="L263">            return &quot;&quot;;</span>
+        }
+<span class="nc" id="L265">        String root = &quot;&lt;bsnhashes&gt;&quot;;</span>
+<span class="nc bnc" id="L266" title="All 2 branches missed.">        for (Map.Entry&lt;String, String&gt; entry : map.entrySet()) {</span>
+<span class="nc bnc" id="L267" title="All 4 branches missed.">            if (!entry.getKey().isEmpty() &amp;&amp; !entry.getValue().isEmpty()) {</span>
+<span class="nc" id="L268">                String hash = entry.getValue();</span>
+<span class="nc" id="L269">                String el = &quot;&lt;&quot; + PREFIX_PRS + entry.getKey() + &quot;&gt;&quot; + hash + &quot;&lt;/&quot; + PREFIX_PRS + entry.getKey() + &quot;&gt;&quot;;</span>
+<span class="nc" id="L270">                root += el;</span>
+            }
+<span class="nc" id="L272">        }</span>
+<span class="nc" id="L273">        root += &quot;&lt;/bsnhashes&gt;&quot;;</span>
+<span class="nc" id="L274">        return root;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

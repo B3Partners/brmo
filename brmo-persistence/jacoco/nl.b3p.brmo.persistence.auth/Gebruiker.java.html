@@ -16,18 +16,15 @@
  */
 package nl.b3p.brmo.persistence.auth;
 
-import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  *
@@ -35,64 +32,45 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = &quot;gebruiker_&quot;)
-<span class="fc" id="L38">public class Gebruiker implements Serializable {</span>
-
-    public static final int MIN_PASSWORD_LENGTH = 8;
-    private static final String DIGEST_ALGORITM = &quot;SHA-1&quot;;
-    private static final String DIGEST_CHARSET = &quot;UTF-8&quot;;
+<span class="fc" id="L35">public class Gebruiker implements Serializable {</span>
 
     @Id
     private String gebruikersnaam;
 
     private String wachtwoord;
 
-<span class="fc" id="L49">    @ManyToMany</span>
+<span class="fc" id="L42">    @ManyToMany</span>
     @JoinTable(name = &quot;gebruiker_groepen&quot;, joinColumns = @JoinColumn(name = &quot;gebruikersnaam&quot;), inverseJoinColumns = @JoinColumn(name = &quot;groep_&quot;))
-    private Set&lt;Groep&gt; groepen = new HashSet&lt;Groep&gt;();
-
-    /**
-     *
-     * @param password wachtwoord
-     * @throws NoSuchAlgorithmException als er geen DIGEST_ALGORITM bestaat
-     * @throws UnsupportedEncodingException als er een onbekende encodingsfout
-     * optreedt
-     */
-    public void changePassword(String password) throws NoSuchAlgorithmException, UnsupportedEncodingException {
-<span class="fc" id="L61">        MessageDigest md = (MessageDigest) MessageDigest.getInstance(DIGEST_ALGORITM);</span>
-<span class="fc" id="L62">        md.update(password.getBytes(DIGEST_CHARSET));</span>
-<span class="fc" id="L63">        byte[] digest = md.digest();</span>
-
-        /* Converteer byte array naar hex-weergave */
-<span class="fc" id="L66">        StringBuilder sb = new StringBuilder(digest.length * 2);</span>
-<span class="fc bfc" id="L67" title="All 2 branches covered.">        for (int i = 0; i &lt; digest.length; i++) {</span>
-<span class="fc" id="L68">            sb.append(Integer.toHexString(digest[i] &gt;&gt; 4 &amp; 0xf)); /* and mask met 0xf nodig door sign-extenden van bytes... */</span>
-<span class="fc" id="L69">            sb.append(Integer.toHexString(digest[i] &amp; 0xf));</span>
-        }
-<span class="fc" id="L71">        setWachtwoord(sb.toString());</span>
-<span class="fc" id="L72">    }</span>
+    private Set&lt;Groep&gt; groepen = new HashSet&lt;&gt;();
 
     public String getWachtwoord() {
-<span class="nc" id="L75">        return wachtwoord;</span>
+<span class="nc" id="L47">        return wachtwoord;</span>
     }
 
+    /**
+     * Stel nieuw wachtwoord in. Het versleutelen van het wachtwoord naar een hash dient al uitgevoerd te zijn en
+     * moet conform de geconfigureerde {@code CredentialHandler} van de security realm gedaan zijn om te kunnen werken.
+     *
+     * @param wachtwoord een versleuteld/gehashed wachtwoord
+     */
     public void setWachtwoord(String wachtwoord) {
-<span class="fc" id="L79">        this.wachtwoord = wachtwoord;</span>
-<span class="fc" id="L80">    }</span>
+<span class="fc" id="L57">        this.wachtwoord = wachtwoord;</span>
+<span class="fc" id="L58">    }</span>
 
     public Set&lt;Groep&gt; getGroepen() {
-<span class="nc" id="L83">        return groepen;</span>
+<span class="nc" id="L61">        return groepen;</span>
     }
 
     public void setGroepen(Set&lt;Groep&gt; groepen) {
-<span class="nc" id="L87">        this.groepen = groepen;</span>
-<span class="nc" id="L88">    }</span>
+<span class="nc" id="L65">        this.groepen = groepen;</span>
+<span class="nc" id="L66">    }</span>
 
     public String getGebruikersnaam() {
-<span class="nc" id="L91">        return gebruikersnaam;</span>
+<span class="nc" id="L69">        return gebruikersnaam;</span>
     }
 
     public void setGebruikersnaam(String gebruikersnaam) {
-<span class="fc" id="L95">        this.gebruikersnaam = gebruikersnaam;</span>
-<span class="fc" id="L96">    }</span>
+<span class="fc" id="L73">        this.gebruikersnaam = gebruikersnaam;</span>
+<span class="fc" id="L74">    }</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

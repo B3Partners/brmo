@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BGTObjectTableWriter.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO BGT / IMGeo CityGML loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.bgt.schema</a> &gt; <span class="el_source">BGTObjectTableWriter.java</span></div><h1>BGTObjectTableWriter.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2021 B3Partners B.V.
+ *
+ * SPDX-License-Identifier: MIT
+ *
+ */
+
+package nl.b3p.brmo.bgt.schema;
+
+import nl.b3p.brmo.bgt.loader.BGTObjectStreamer;
+import nl.b3p.brmo.schema.ObjectTableWriter;
+import nl.b3p.brmo.schema.ObjectType;
+import nl.b3p.brmo.schema.SchemaSQLMapper;
+import nl.b3p.brmo.sql.PreparedStatementQueryBatch;
+import nl.b3p.brmo.sql.QueryBatch;
+import nl.b3p.brmo.sql.dialect.SQLDialect;
+import org.apache.commons.io.input.CountingInputStream;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.io.InputStream;
+import java.sql.Connection;
+import java.util.HashMap;
+import java.util.Map;
+
+import static nl.b3p.brmo.bgt.schema.BGTObject.MutatieStatus.WAS_WORDT;
+import static nl.b3p.brmo.bgt.schema.BGTObject.MutatieStatus.WORDT;
+import static nl.b3p.brmo.bgt.schema.BGTSchema.EIND_REGISTRATIE;
+
+public class BGTObjectTableWriter extends ObjectTableWriter {
+<span class="nc" id="L31">    private static final Log log = LogFactory.getLog(BGTObjectTableWriter.class);</span>
+
+<span class="nc" id="L33">    private boolean currentObjectsOnly = true;</span>
+
+    public boolean isCurrentObjectsOnly() {
+<span class="nc" id="L36">        return currentObjectsOnly;</span>
+    }
+
+    public void setCurrentObjectsOnly(boolean currentObjectsOnly) {
+<span class="nc" id="L40">        this.currentObjectsOnly = currentObjectsOnly;</span>
+<span class="nc" id="L41">    }</span>
+
+<span class="nc" id="L43">    public class BGTProgress extends ObjectTableWriter.Progress {</span>
+        private CountingInputStream counter;
+
+<span class="nc" id="L46">        private Map&lt;ObjectType, QueryBatch&gt; deleteBatches = new HashMap&lt;&gt;();</span>
+
+<span class="nc" id="L48">        private long objectUpdatedCount = 0;</span>
+<span class="nc" id="L49">        private long objectRemovedCount = 0;</span>
+<span class="nc" id="L50">        private long historicObjectsCount = 0;</span>
+
+        private BGTObjectStreamer.MutatieInhoud mutatieInhoud;
+
+        public long getBytesRead() {
+<span class="nc" id="L55">            return counter.getByteCount();</span>
+        }
+
+        public long getObjectUpdatedCount() {
+<span class="nc" id="L59">            return objectUpdatedCount;</span>
+        }
+
+        public long getObjectRemovedCount() {
+<span class="nc" id="L63">            return objectRemovedCount;</span>
+        }
+
+        public long getHistoricObjectsCount() {
+<span class="nc" id="L67">            return historicObjectsCount;</span>
+        }
+
+        public BGTObjectStreamer.MutatieInhoud getMutatieInhoud() {
+<span class="nc" id="L71">            return mutatieInhoud;</span>
+        }
+
+        public BGTObjectTableWriter getWriter() {
+<span class="nc" id="L75">            return BGTObjectTableWriter.this;</span>
+        }
+    }
+
+    public BGTObjectTableWriter(Connection connection, SQLDialect dialect, SchemaSQLMapper schemaSQLMapper) {
+<span class="nc" id="L80">        super(connection, dialect, schemaSQLMapper);</span>
+<span class="nc" id="L81">    }</span>
+
+    public BGTProgress getProgress() {
+<span class="nc" id="L84">        return (BGTProgress) super.getProgress();</span>
+    }
+
+    private void deletePreviousVersion(BGTObject object) throws Exception {
+<span class="nc" id="L88">        BGTObjectType objectType = object.getObjectType();</span>
+<span class="nc" id="L89">        String idAttributeName = objectType.getPrimaryKeys().get(0).getName();</span>
+<span class="nc" id="L90">        String tableName = getSchemaSQLMapper().getTableNameForObjectType(objectType, getTablePrefix());</span>
+<span class="nc" id="L91">        Map&lt;ObjectType,QueryBatch&gt; deleteBatches = getProgress().deleteBatches;</span>
+<span class="nc bnc" id="L92" title="All 2 branches missed.">        if(!deleteBatches.containsKey(objectType)) {</span>
+<span class="nc" id="L93">            String sql = &quot;delete from &quot; + tableName + &quot; where &quot; + getSchemaSQLMapper().getColumnNameForObjectType(objectType, idAttributeName) + &quot; = ?&quot;;</span>
+<span class="nc" id="L94">            deleteBatches.put(objectType, new PreparedStatementQueryBatch(getConnection(), sql, getBatchSize()));</span>
+        }
+<span class="nc" id="L96">        QueryBatch batch = deleteBatches.get(objectType);</span>
+
+<span class="nc" id="L98">        boolean executed = batch.addBatch(new Object[] {object.getMutatiePreviousVersionGmlId()});</span>
+
+<span class="nc bnc" id="L100" title="All 2 branches missed.">        for(ObjectType oneToManyObjectType: objectType.getOneToManyAttributeObjectTypes()) {</span>
+<span class="nc bnc" id="L101" title="All 2 branches missed.">            if(!deleteBatches.containsKey(oneToManyObjectType)) {</span>
+<span class="nc" id="L102">                String tableNameNoPrefix = getSchemaSQLMapper().getTableNameForObjectType(objectType, &quot;&quot;);</span>
+<span class="nc" id="L103">                String sql = &quot;delete from &quot; + getSchemaSQLMapper().getTableNameForObjectType(oneToManyObjectType, getTablePrefix()) + &quot; where &quot;</span>
+<span class="nc" id="L104">                        + getSchemaSQLMapper().getColumnNameForObjectType(oneToManyObjectType, tableNameNoPrefix + idAttributeName) + &quot; = ?&quot;;</span>
+<span class="nc" id="L105">                deleteBatches.put(oneToManyObjectType, new PreparedStatementQueryBatch(getConnection(), sql, getBatchSize()));</span>
+            }
+<span class="nc" id="L107">            QueryBatch deleteBatch = deleteBatches.get(oneToManyObjectType);</span>
+<span class="nc" id="L108">            executed = executed | deleteBatch.addBatch(new Object[] {object.getMutatiePreviousVersionGmlId()});</span>
+<span class="nc" id="L109">        }</span>
+
+<span class="nc bnc" id="L111" title="All 2 branches missed.">        if (executed) {</span>
+<span class="nc" id="L112">            updateProgress();</span>
+        }
+<span class="nc" id="L114">    }</span>
+
+    public void write(InputStream bgtXml) throws Exception {
+<span class="nc" id="L117">        BGTProgress progress = this.new BGTProgress();</span>
+<span class="nc" id="L118">        super.start(progress);</span>
+<span class="nc" id="L119">        updateProgress(Stage.PARSE_INPUT);</span>
+
+<span class="nc" id="L121">        try(CountingInputStream counter = new CountingInputStream(bgtXml)) {</span>
+<span class="nc" id="L122">            progress.counter = counter;</span>
+
+<span class="nc" id="L124">            BGTObjectStreamer streamer = new BGTObjectStreamer(counter);</span>
+<span class="nc" id="L125">            progress.mutatieInhoud = streamer.getMutatieInhoud();</span>
+<span class="nc" id="L126">            updateProgress(Stage.LOAD_OBJECTS);</span>
+
+<span class="nc bnc" id="L128" title="All 4 branches missed.">            progress.setInitialLoad(progress.mutatieInhoud == null || &quot;initial&quot;.equals(progress.getMutatieInhoud().getMutatieType()));</span>
+
+<span class="nc bnc" id="L130" title="All 2 branches missed.">            for (BGTObject object: streamer) {</span>
+                // We must prepare even if all objects are historic (such as can happen with &quot;ongeclassificeerdobject&quot;),
+                // otherwise there won't be a table for updates
+<span class="nc" id="L133">                prepareDatabaseForObject(object);</span>
+
+<span class="nc bnc" id="L135" title="All 4 branches missed.">                boolean skipHistoricObject = object.getAttributes().get(EIND_REGISTRATIE) != null &amp;&amp; currentObjectsOnly;</span>
+<span class="nc bnc" id="L136" title="All 2 branches missed.">                if (object.getMutatieStatus() == WAS_WORDT) {</span>
+                    // Deletes and inserts do not need to be DELETE'd and INSERT-ed in order, because different versions
+                    // still have a unique primary key value (gml ID)
+
+                    // Also delete oneToMany
+<span class="nc" id="L141">                    deletePreviousVersion(object);</span>
+
+<span class="nc bnc" id="L143" title="All 2 branches missed.">                    if (skipHistoricObject) {</span>
+<span class="nc" id="L144">                        progress.objectRemovedCount++;</span>
+                    } else {
+<span class="nc" id="L146">                        progress.objectUpdatedCount++;</span>
+                    }
+<span class="nc bnc" id="L148" title="All 2 branches missed.">                } else if(object.getMutatieStatus() == WORDT) {</span>
+<span class="nc bnc" id="L149" title="All 2 branches missed.">                    if (skipHistoricObject) {</span>
+<span class="nc" id="L150">                        progress.historicObjectsCount++;</span>
+                    } else {
+<span class="nc" id="L152">                        progress.setObjectCount(progress.getObjectCount() + 1);</span>
+                    }
+                }
+
+<span class="nc bnc" id="L156" title="All 2 branches missed.">                if (skipHistoricObject) {</span>
+<span class="nc" id="L157">                    continue;</span>
+                }
+
+<span class="nc" id="L160">                addObjectToBatch(object);</span>
+
+<span class="nc bnc" id="L162" title="All 4 branches missed.">                if (getObjectLimit() != null &amp;&amp; progress.getObjectCount() == getObjectLimit()) {</span>
+<span class="nc" id="L163">                    break;</span>
+                }
+<span class="nc" id="L165">            }</span>
+
+<span class="nc" id="L167">            super.endOfObjects();</span>
+<span class="nc bnc" id="L168" title="All 2 branches missed.">            for(QueryBatch batch: progress.deleteBatches.values()) {</span>
+<span class="nc" id="L169">                batch.executeBatch();</span>
+<span class="nc" id="L170">            }</span>
+
+<span class="nc" id="L172">            super.complete();</span>
+        } finally {
+<span class="nc" id="L174">            super.closeBatches();</span>
+<span class="nc" id="L175">            progress.deleteBatches.values().stream().forEach(QueryBatch::closeQuietly);</span>
+        }
+<span class="nc" id="L177">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BGTSchemaMapper.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO BGT / IMGeo CityGML loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.bgt.schema</a> &gt; <span class="el_source">BGTSchemaMapper.java</span></div><h1>BGTSchemaMapper.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2021 B3Partners B.V.
+ *
+ * SPDX-License-Identifier: MIT
+ *
+ */
+
+package nl.b3p.brmo.bgt.schema;
+
+import nl.b3p.brmo.bgt.loader.Utils;
+import nl.b3p.brmo.schema.ObjectType;
+import nl.b3p.brmo.schema.SchemaSQLMapper;
+import nl.b3p.brmo.sql.dialect.SQLDialect;
+
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+public class BGTSchemaMapper extends SchemaSQLMapper {
+    public static BGTSchemaMapper instance;
+
+    private static final String SCHEMA_VERSION_VALUE = &quot;1&quot;;
+
+    public static final String METADATA_TABLE_NAME = &quot;brmo_metadata&quot;;
+
+<span class="nc" id="L27">    public enum Metadata {</span>
+<span class="nc" id="L28">        SCHEMA_VERSION,</span>
+<span class="nc" id="L29">        LOADER_VERSION,</span>
+<span class="nc" id="L30">        BRMOVERSIE,</span>
+<span class="nc" id="L31">        FEATURE_TYPES,</span>
+<span class="nc" id="L32">        INCLUDE_HISTORY,</span>
+<span class="nc" id="L33">        LINEARIZE_CURVES,</span>
+<span class="nc" id="L34">        TABLE_PREFIX,</span>
+<span class="nc" id="L35">        INITIAL_LOAD_TIME,</span>
+<span class="nc" id="L36">        INITIAL_LOAD_DELTA_ID,</span>
+<span class="nc" id="L37">        DELTA_ID,</span>
+<span class="nc" id="L38">        DELTA_TIME_TO,</span>
+<span class="nc" id="L39">        GEOM_FILTER;</span>
+
+        public String getDbKey() {
+<span class="nc" id="L42">            return this.name().toLowerCase();</span>
+        }
+    }
+
+<span class="nc" id="L46">    public static Map&lt;String, String&gt; bgtObjectTypeTableNames = Stream.of(new String[][]{</span>
+            {&quot;PlantCover&quot;, &quot;begroeidterreindeel&quot;},
+            {&quot;BuildingInstallation&quot;, &quot;gebouwinstallatie&quot;},
+            {&quot;AuxiliaryTrafficArea&quot;, &quot;ondersteunendwegdeel&quot;},
+            {&quot;BridgeConstructionElement&quot;, &quot;overbruggingsdeel&quot;},
+            {&quot;BuildingPart&quot;, &quot;pand&quot;},
+            {&quot;Railway&quot;, &quot;spoor&quot;},
+            {&quot;TunnelPart&quot;, &quot;tunneldeel&quot;},
+            {&quot;SolitaryVegetationObject&quot;, &quot;vegetatieobject&quot;},
+            {&quot;TrafficArea&quot;, &quot;wegdeel&quot;}
+<span class="nc" id="L56">    }).collect(Collectors.toMap(e -&gt; e[0], e -&gt; e[1]));</span>
+
+
+    public BGTSchemaMapper() {
+<span class="nc" id="L60">        super(BGTSchema.getInstance());</span>
+<span class="nc" id="L61">        bgtObjectTypeTableNames.forEach((typeName, table) -&gt; objectTypeNameToTableName.put(typeName, table));</span>
+<span class="nc" id="L62">    }</span>
+
+    public static BGTSchemaMapper getInstance() {
+<span class="nc bnc" id="L65" title="All 2 branches missed.">        if (instance == null) {</span>
+<span class="nc" id="L66">            instance = new BGTSchemaMapper();</span>
+        }
+<span class="nc" id="L68">        return instance;</span>
+    }
+
+    @Override
+    public String getMetadataTableName() {
+<span class="nc" id="L73">        return METADATA_TABLE_NAME;</span>
+    }
+
+    public String getColumnNameForObjectType(ObjectType objectType, String attributeName) {
+<span class="nc bnc" id="L77" title="All 2 branches missed.">        if (attributeName.startsWith(&quot;geometrie&quot;)) {</span>
+<span class="nc" id="L78">            return &quot;geom&quot;;</span>
+        }
+<span class="nc bnc" id="L80" title="All 2 branches missed.">        if (attributeName.startsWith(&quot;kruinlijn&quot;)) {</span>
+<span class="nc" id="L81">            return &quot;geom_kruinlijn&quot;;</span>
+        }
+
+<span class="nc" id="L84">        return super.getColumnNameForObjectType(objectType, attributeName);</span>
+    }
+
+    public List&lt;String&gt; getCreateMetadataTableStatements(SQLDialect dialect, String tablePrefix) {
+<span class="nc" id="L88">       List&lt;String&gt; statements = super.getCreateMetadataTableStatements(dialect, tablePrefix);</span>
+
+<span class="nc" id="L90">        Map&lt;BGTSchemaMapper.Metadata, String&gt; defaultMetadata = Stream.of(new Object[][]{</span>
+                {BGTSchemaMapper.Metadata.SCHEMA_VERSION, SCHEMA_VERSION_VALUE},
+<span class="nc" id="L92">                {BGTSchemaMapper.Metadata.LOADER_VERSION, Utils.getLoaderVersion()},</span>
+<span class="nc" id="L93">                {BGTSchemaMapper.Metadata.BRMOVERSIE, Utils.getBrmoVersion()},</span>
+                {BGTSchemaMapper.Metadata.TABLE_PREFIX, tablePrefix},
+<span class="nc" id="L95">        }).collect(Collectors.toMap(entry -&gt; (BGTSchemaMapper.Metadata) entry[0], entry -&gt; (String) entry[1]));</span>
+
+<span class="nc" id="L97">        Stream.of(BGTSchemaMapper.Metadata.values()).forEach(metadata -&gt; {</span>
+<span class="nc" id="L98">            String value = defaultMetadata.get(metadata);</span>
+<span class="nc" id="L99">            statements.add(String.format(&quot;insert into %s (naam, waarde) values ('%s', %s)&quot;,</span>
+<span class="nc" id="L100">                    getMetadataTableName(),</span>
+<span class="nc" id="L101">                    metadata.getDbKey(),</span>
+<span class="nc bnc" id="L102" title="All 2 branches missed.">                    value == null ? &quot;null&quot; : &quot;'&quot; + value + &quot;'&quot;));</span>
+<span class="nc" id="L103">        });</span>
+
+<span class="nc" id="L105">        return statements;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

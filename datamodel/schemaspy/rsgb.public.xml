@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<database name="rsgb" schema="public" type="PostgreSQL - 12.6 (Debian 12.6-1.pgdg100+1)">
+<database name="rsgb" schema="public" type="PostgreSQL - 12.8 (Debian 12.8-1.pgdg100+1)">
    <tables>
       <table name="aard_recht_verkort" numRows="24" remarks="RSGB referentielijst AARD RECHT VERKORT" schema="public" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="aand" nullable="false" remarks="Referentielijst property AARD RECHT VERKORT.Aanduiding aard recht verkort - Aanduiding aard recht verkort" size="4" type="varchar">
@@ -373,7 +373,7 @@
             <column ascending="true" name="sc_identif"/>
          </index>
       </table>
-      <table name="buurt" numRows="13808" remarks="RSGB class BUURT" schema="public" type="TABLE">
+      <table name="buurt" numRows="14080" remarks="RSGB class BUURT" schema="public" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="code" nullable="false" remarks="[PK] N8 - Buurtcode" size="8" type="numeric"/>
          <column autoUpdated="false" digits="0" id="1" name="dat_beg_geldh" nullable="true" remarks="" size="19" type="varchar"/>
          <column autoUpdated="false" digits="0" id="2" name="naam" nullable="true" remarks="AN80 - Buurtnaam" size="80" type="varchar"/>
@@ -1295,6 +1295,7 @@
          <column autoUpdated="false" digits="0" id="4" name="fk_4pes_sc_identif" nullable="true" remarks="[FK] AN32, FK naar prs.sc_identif (is FK naar superclass SUBJECT): &quot;heeft als eigenaar&quot;" size="255" type="varchar">
             <parent column="sc_identif" foreignKey="fk_mac_as_4" implied="false" onDeleteCascade="true" table="prs"/>
          </column>
+         <column autoUpdated="false" digits="0" id="5" name="nonmailing" nullable="true" remarks="nonMailing attribuut (niet-RSGB)" size="3" type="varchar"/>
          <primaryKey column="kvk_nummer" sequenceNumberInPK="1"/>
          <index name="maatschapp_activiteit_pk" unique="true">
             <column ascending="true" name="kvk_nummer"/>
@@ -2595,7 +2596,7 @@
             <column ascending="true" name="sc_identif"/>
          </index>
       </table>
-      <table name="wijk" numRows="3177" remarks="RSGB class WIJK" schema="public" type="TABLE">
+      <table name="wijk" numRows="3248" remarks="RSGB class WIJK" schema="public" type="TABLE">
          <column autoUpdated="false" digits="0" id="0" name="dat_beg_geldh" nullable="true" remarks="" size="19" type="varchar"/>
          <column autoUpdated="false" digits="0" id="1" name="code" nullable="false" remarks="[PK] N6 - Wijkcode" size="6" type="numeric"/>
          <column autoUpdated="false" digits="0" id="2" name="datum_einde_geldh" nullable="true" remarks="OnvolledigeDatum - Datum einde geldigheid wijk" size="19" type="varchar"/>
@@ -2689,10 +2690,10 @@
          </index>
       </table>
       <table name="woz_deelobj" numRows="0" remarks="RSGB class WOZ-DEELOBJECT" schema="public" type="TABLE">
-         <column autoUpdated="false" digits="0" id="0" name="dat_beg_geldh_deelobj" nullable="true" remarks="" size="8" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="1" name="nummer" nullable="false" remarks="[PK] N6 - Nummer WOZ-deelobject" size="6" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="0" name="dat_beg_geldh_deelobj" nullable="true" remarks="" size="19" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="1" name="nummer" nullable="false" remarks="[PK] N12 - Nummer WOZ-deelobject" size="12" type="numeric"/>
          <column autoUpdated="false" digits="0" id="2" name="code" nullable="true" remarks="AN4 - Code WOZ-deelobject" size="4" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="3" name="datum_einde_geldh_deelobj" nullable="true" remarks="N8 - Datum einde geldigheid deelobject" size="8" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="3" name="datum_einde_geldh_deelobj" nullable="true" remarks="OnvolledigeDatum - Datum einde geldigheid deelobject" size="19" type="varchar"/>
          <column autoUpdated="false" digits="0" id="4" name="status" nullable="true" remarks="N2 - Status WOZ-deelobject" size="2" type="numeric"/>
          <column autoUpdated="false" digits="0" id="5" name="fk_4pnd_identif" nullable="true" remarks="[FK] AN16, FK naar pand.identif: &quot;bestaat uit&quot;" size="16" type="varchar"/>
          <column autoUpdated="false" digits="0" id="6" name="fk_5tgo_identif" nullable="true" remarks="[FK] AN16, FK naar benoemd_obj.identif: &quot;bestaat uit&quot;" size="16" type="varchar"/>
@@ -2705,10 +2706,10 @@
          </index>
       </table>
       <table name="woz_deelobj_archief" numRows="0" remarks="RSGB class WOZ-DEELOBJECT" schema="public" type="TABLE">
-         <column autoUpdated="false" digits="0" id="0" name="dat_beg_geldh_deelobj" nullable="false" remarks="[PK] N8 - Datum begin geldigheid deelobject" size="8" type="numeric"/>
-         <column autoUpdated="false" digits="0" id="1" name="nummer" nullable="false" remarks="[PK] N6 - Nummer WOZ-deelobject" size="6" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="0" name="dat_beg_geldh_deelobj" nullable="false" remarks="[PK] OnvolledigeDatum - Datum begin geldigheid deelobject" size="19" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="1" name="nummer" nullable="false" remarks="[PK] N12 - Nummer WOZ-deelobject" size="12" type="numeric"/>
          <column autoUpdated="false" digits="0" id="2" name="code" nullable="true" remarks="AN4 - Code WOZ-deelobject" size="4" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="3" name="datum_einde_geldh_deelobj" nullable="true" remarks="N8 - Datum einde geldigheid deelobject" size="8" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="3" name="datum_einde_geldh_deelobj" nullable="true" remarks="OnvolledigeDatum - Datum einde geldigheid deelobject" size="19" type="varchar"/>
          <column autoUpdated="false" digits="0" id="4" name="status" nullable="true" remarks="N2 - Status WOZ-deelobject" size="2" type="numeric"/>
          <column autoUpdated="false" digits="0" id="5" name="fk_4pnd_identif" nullable="true" remarks="[FK] AN16, FK naar pand.identif: &quot;bestaat uit&quot;" size="16" type="varchar"/>
          <column autoUpdated="false" digits="0" id="6" name="fk_5tgo_identif" nullable="true" remarks="[FK] AN16, FK naar benoemd_obj.identif: &quot;bestaat uit&quot;" size="16" type="varchar"/>
@@ -2727,6 +2728,7 @@
             <child column="fk_sc_rh_woz_nummer" foreignKey="fk_locaand_openb_rmte_sc_rh" implied="false" onDeleteCascade="true" table="locaand_openb_rmte"/>
             <child column="fk_sc_rh_woz_nummer" foreignKey="fk_woz_belang_sc_rh" implied="false" onDeleteCascade="true" table="woz_belang"/>
             <child column="fk_6woz_nummer" foreignKey="fk_wdo_as_6" implied="false" onDeleteCascade="true" table="woz_deelobj"/>
+            <child column="fk_sc_rh_woz_nummer" foreignKey="fk_woz_omvat_sc_rh" implied="false" onDeleteCascade="true" table="woz_omvat"/>
             <child column="fk_1woz_nummer" foreignKey="fk_wrd_1n_1" implied="false" onDeleteCascade="true" table="woz_waarde"/>
          </column>
          <column autoUpdated="false" digits="0" id="2" name="datum_einde_geldh" nullable="true" remarks="OnvolledigeDatum - Datum einde geldigheid WOZ-object" size="19" type="varchar"/>
@@ -2737,6 +2739,8 @@
          <column autoUpdated="false" digits="0" id="7" name="vastgestelde_waarde" nullable="true" remarks="N11 - Vastgestelde waarde" size="11" type="numeric"/>
          <column autoUpdated="false" digits="0" id="8" name="waardepeildatum" nullable="true" remarks="Datum - Waardepeildatum" size="13" type="date"/>
          <column autoUpdated="false" digits="0" id="9" name="geom" nullable="true" remarks="GM_Surface - Geometrie WOZ-object" size="2147483647" type="geometry"/>
+         <column autoUpdated="false" digits="0" id="10" name="waterschap" nullable="true" remarks="ligt in waterschap (niet-RSGB)" size="4" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="11" name="fk_verantw_gem_code" nullable="true" remarks="verantwoordelijke gemeente (niet-RSGB)" size="4" type="numeric"/>
          <primaryKey column="nummer" sequenceNumberInPK="1"/>
          <index name="woz_obj_pk" unique="true">
             <column ascending="true" name="nummer"/>
@@ -2756,6 +2760,8 @@
          <column autoUpdated="false" digits="0" id="7" name="vastgestelde_waarde" nullable="true" remarks="N11 - Vastgestelde waarde" size="11" type="numeric"/>
          <column autoUpdated="false" digits="0" id="8" name="waardepeildatum" nullable="true" remarks="Datum - Waardepeildatum" size="13" type="date"/>
          <column autoUpdated="false" digits="0" id="9" name="geom" nullable="true" remarks="GM_Surface - Geometrie WOZ-object" size="2147483647" type="geometry"/>
+         <column autoUpdated="false" digits="0" id="10" name="waterschap" nullable="true" remarks="ligt in waterschap (niet-RSGB)" size="4" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="11" name="fk_verantw_gem_code" nullable="true" remarks="verantwoordelijke gemeente (niet-RSGB)" size="4" type="numeric"/>
          <primaryKey column="dat_beg_geldh" sequenceNumberInPK="1"/>
          <primaryKey column="nummer" sequenceNumberInPK="2"/>
          <index name="ar_woz_obj_pk" unique="true">
@@ -2764,6 +2770,19 @@
          </index>
          <index name="woz_obj_archief_geom_idx" unique="false">
             <column ascending="true" name="geom"/>
+         </index>
+      </table>
+      <table name="woz_omvat" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="fk_sc_lh_kad_identif" nullable="false" remarks="[FK] N15, FK naar kad_onrrnd_zk.kad_identif" size="15" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="1" name="fk_sc_rh_woz_nummer" nullable="false" remarks="[FK] N12, FK naar woz_obj.nummer" size="12" type="numeric">
+            <parent column="nummer" foreignKey="fk_woz_omvat_sc_rh" implied="false" onDeleteCascade="true" table="woz_obj"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="toegekende_opp" nullable="true" remarks="N12, toegekende oppervlakte" size="11" type="numeric"/>
+         <primaryKey column="fk_sc_lh_kad_identif" sequenceNumberInPK="1"/>
+         <primaryKey column="fk_sc_rh_woz_nummer" sequenceNumberInPK="2"/>
+         <index name="woz_omvat_pk" unique="true">
+            <column ascending="true" name="fk_sc_lh_kad_identif"/>
+            <column ascending="true" name="fk_sc_rh_woz_nummer"/>
          </index>
       </table>
       <table name="woz_waarde" numRows="0" remarks="RSGB class WOZ-WAARDE" schema="public" type="TABLE">

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>ResumingInputStream.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO service</a> &gt; <a href="../index.html" class="el_bundle">bgt-loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.util</a> &gt; <span class="el_source">ResumingInputStream.java</span></div><h1>ResumingInputStream.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2021 B3Partners B.V.
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+package nl.b3p.brmo.util;
+
+import java.io.IOException;
+import java.io.InputStream;
+
+/**
+ * An InputStream that wraps an InputStream that on a read error can be re-constructed with the current position as
+ * start position (using a HTTP Range request for instance) and the read retried.
+ *
+ * @author Matthijs Laan
+ */
+public class ResumingInputStream extends InputStream {
+
+    @FunctionalInterface
+    public interface StreamAtStartPositionProvider {
+        InputStream get(long position, int totalRetries, Exception causeForRetry) throws IOException;
+    }
+
+    public static final int DEFAULT_MAX_TRIES = 5;
+
+    private final StreamAtStartPositionProvider streamProvider;
+    private long position;
+<span class="fc" id="L29">    private InputStream delegate = null;</span>
+    private int maxReadTries;
+<span class="fc" id="L31">    private int totalRetries = 0;</span>
+<span class="fc" id="L32">    private int currentDelegateBytesRead = 0;</span>
+
+    public ResumingInputStream(StreamAtStartPositionProvider streamProvider) {
+<span class="fc" id="L35">        this(streamProvider, 0);</span>
+<span class="fc" id="L36">    }</span>
+
+    public ResumingInputStream(StreamAtStartPositionProvider streamProvider, long startPosition) {
+<span class="fc" id="L39">        this(streamProvider, startPosition, DEFAULT_MAX_TRIES);</span>
+<span class="fc" id="L40">    }</span>
+
+<span class="fc" id="L42">    public ResumingInputStream(StreamAtStartPositionProvider streamProvider, long startPosition, int maxReadTries) {</span>
+<span class="fc" id="L43">        this.streamProvider = streamProvider;</span>
+<span class="fc" id="L44">        this.position = startPosition;</span>
+<span class="fc" id="L45">        this.maxReadTries = maxReadTries;</span>
+<span class="fc" id="L46">    }</span>
+
+    /**
+     * @return The current position.
+     */
+    public long getPosition() {
+<span class="fc" id="L52">        return position;</span>
+    }
+
+    /**
+     * @return The number of bytes read since start or the last retry, if any.
+     */
+    public int getCurrentDelegateBytesRead() {
+<span class="fc" id="L59">        return currentDelegateBytesRead;</span>
+    }
+
+    /**
+     * @return The total number of retries spanning all read() calls.
+     */
+    public int getTotalRetries() {
+<span class="fc" id="L66">        return totalRetries;</span>
+    }
+
+    public int getMaxReadTries() {
+<span class="fc" id="L70">        return maxReadTries;</span>
+    }
+
+    public void setMaxReadTries(int maxReadTries) {
+<span class="fc" id="L74">        this.maxReadTries = maxReadTries;</span>
+<span class="fc" id="L75">    }</span>
+
+    private void ensureDelegateOpen() throws IOException {
+<span class="fc bfc" id="L78" title="All 2 branches covered.">        if (delegate == null) {</span>
+<span class="fc" id="L79">            delegate = streamProvider.get(position, totalRetries,null);</span>
+        }
+<span class="fc" id="L81">    }</span>
+
+    @Override
+    public int read() throws IOException {
+<span class="fc" id="L85">        byte[] b = new byte[1];</span>
+<span class="fc" id="L86">        int read = this.read(b, 0, 1);</span>
+<span class="fc bfc" id="L87" title="All 2 branches covered.">        if (read == 1) {</span>
+<span class="fc" id="L88">            return b[0];</span>
+        } else {
+            // -1 for EOF
+<span class="fc" id="L91">            return read;</span>
+        }
+    }
+
+    @Override
+    public int available() throws IOException {
+<span class="fc" id="L97">        ensureDelegateOpen();</span>
+<span class="fc" id="L98">        return delegate.available();</span>
+    }
+
+    @Override
+    public void close() throws IOException {
+<span class="pc bpc" id="L103" title="1 of 2 branches missed.">        if (delegate != null) {</span>
+<span class="fc" id="L104">            delegate.close();</span>
+        }
+<span class="fc" id="L106">    }</span>
+
+    @Override
+    public int read(byte[] b, int off, int len) throws IOException {
+        // Opening the delegate is outside the (re)try block. Only read() calls are retried: this allows the input
+        // stream to fail fast without retries on a fatal error (such as a HTTP 404 response code).
+<span class="fc" id="L112">        ensureDelegateOpen();</span>
+
+<span class="fc" id="L114">        int tries = 0;</span>
+        while(true) {
+            try {
+<span class="fc" id="L117">                int count = delegate.read(b, off, len);</span>
+<span class="fc bfc" id="L118" title="All 2 branches covered.">                if (count == -1) {</span>
+<span class="fc" id="L119">                    return count;</span>
+                }
+<span class="fc" id="L121">                position += count;</span>
+<span class="fc" id="L122">                currentDelegateBytesRead += count;</span>
+<span class="fc" id="L123">                return count;</span>
+<span class="fc" id="L124">            } catch (IOException e) {</span>
+<span class="fc" id="L125">                onReadException(++tries, e);</span>
+<span class="fc" id="L126">                totalRetries++;</span>
+<span class="fc" id="L127">                retryingAfterReadException(tries, totalRetries);</span>
+                try {
+<span class="fc" id="L129">                    delegate.close();</span>
+<span class="fc" id="L130">                } catch(IOException ignored) {</span>
+<span class="fc" id="L131">                }</span>
+<span class="fc" id="L132">                delegate = streamProvider.get(position, totalRetries, e);</span>
+<span class="fc" id="L133">                currentDelegateBytesRead = 0;</span>
+<span class="fc" id="L134">            }</span>
+        }
+    }
+
+    /**
+     * Called when a read() on the delegate threw an exception.
+     * @param tries Number of tries
+     * @param cause The read exception
+     * @throws IOException When the number of tries exceeds the maximum
+     */
+    protected void onReadException(int tries, IOException cause) throws IOException {
+<span class="fc bfc" id="L145" title="All 2 branches covered.">        if (tries &gt; maxReadTries) {</span>
+<span class="fc" id="L146">            throw new IOException(&quot;Max read tries (&quot; + maxReadTries + &quot;) exceeded&quot;, cause);</span>
+        }
+<span class="fc" id="L148">    }</span>
+
+    /**
+     * Called when going to retry after a read() call threw an Exception, override to log or wait before retrying.
+     * @param tries Number of tries this read() call
+     */
+    protected void retryingAfterReadException(int tries, int totalRetries) {
+<span class="fc" id="L155">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

@@ -26,7 +26,7 @@ import org.apache.commons.logging.LogFactory;
 import org.stripesstuff.stripersist.Stripersist;
 
 /**
- * Transformeert laadprocessn, zoals bijvoorbeeld BGTLight GML.
+ * Transformeert laadprocessn, zoals bijvoorbeeld TopNL.
  *
  * @author mprins
  */
@@ -102,97 +102,93 @@ public class LaadprocesTransformatieUitvoeren extends AbstractExecutableProces {
 <span class="nc" id="L102">        BrmoFramework brmo = null;</span>
         try {
 <span class="nc" id="L104">            DataSource dataSourceStaging = ConfigUtil.getDataSourceStaging();</span>
-<span class="nc" id="L105">            DataSource dataSourceRsgbBgt = null;</span>
-<span class="nc" id="L106">            DataSource dataSourceTopNL = null;</span>
-<span class="nc bnc" id="L107" title="All 2 branches missed.">            if (LaadprocesTransformatieProces.LaadprocesSoorten.BR_TOPNL.getSoort().equalsIgnoreCase(this.config.getSoort())) {</span>
-<span class="nc" id="L108">                dataSourceTopNL = ConfigUtil.getDataSourceTopNL();</span>
+<span class="nc" id="L105">            DataSource dataSourceTopNL = null;</span>
+<span class="nc bnc" id="L106" title="All 2 branches missed.">            if (LaadprocesTransformatieProces.LaadprocesSoorten.BR_TOPNL.getSoort().equalsIgnoreCase(this.config.getSoort())) {</span>
+<span class="nc" id="L107">                dataSourceTopNL = ConfigUtil.getDataSourceTopNL();</span>
             }
-<span class="nc bnc" id="L110" title="All 2 branches missed.">            if (LaadprocesTransformatieProces.LaadprocesSoorten.BR_BGTLIGHT.getSoort().equalsIgnoreCase(this.config.getSoort())) {</span>
-<span class="nc" id="L111">                dataSourceRsgbBgt = ConfigUtil.getDataSourceRsgbBgt();</span>
-            }
-<span class="nc" id="L113">            brmo = new BrmoFramework(dataSourceStaging, null, dataSourceRsgbBgt, dataSourceTopNL);</span>
-<span class="nc" id="L114">            long[] lpIds = null;</span>
+<span class="nc" id="L109">            brmo = new BrmoFramework(dataSourceStaging, null, null, dataSourceTopNL);</span>
+            long[] lpIds;
             
-<span class="nc bnc" id="L116" title="All 2 branches missed.">            if(LaadprocesTransformatieProces.LaadprocesSoorten.BR_TOPNL.getSoort().equalsIgnoreCase(this.config.getSoort())){</span>
-<span class="nc" id="L117">                List&lt;Long&gt; ids = new ArrayList&lt;&gt;();</span>
-<span class="nc bnc" id="L118" title="All 2 branches missed.">                for (String type : TopNLDirectoryScanner.subdirectoryNames) {</span>
-<span class="nc" id="L119">                    ids.addAll(Arrays.asList(brmo.getLaadProcessenIds(&quot;bestand_datum&quot;, &quot;ASC&quot;, type, &quot;STAGING_OK&quot;)));</span>
+<span class="nc bnc" id="L112" title="All 2 branches missed.">            if(LaadprocesTransformatieProces.LaadprocesSoorten.BR_TOPNL.getSoort().equalsIgnoreCase(this.config.getSoort())){</span>
+<span class="nc" id="L113">                List&lt;Long&gt; ids = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L114" title="All 2 branches missed.">                for (String type : TopNLDirectoryScanner.subdirectoryNames) {</span>
+<span class="nc" id="L115">                    ids.addAll(Arrays.asList(brmo.getLaadProcessenIds(&quot;bestand_datum&quot;, &quot;ASC&quot;, type, &quot;STAGING_OK&quot;)));</span>
                 }
-<span class="nc" id="L121">                lpIds = ArrayUtils.toPrimitive(ids.toArray(new Long[ids.size()]));</span>
-<span class="nc" id="L122">            }else{</span>
-<span class="nc" id="L123">                lpIds = ArrayUtils.toPrimitive(brmo.getLaadProcessenIds(&quot;bestand_datum&quot;, &quot;ASC&quot;, config.getSoort(), &quot;STAGING_OK&quot;));</span>
+<span class="nc" id="L117">                lpIds = ArrayUtils.toPrimitive(ids.toArray(new Long[ids.size()]));</span>
+<span class="nc" id="L118">            }else{</span>
+<span class="nc" id="L119">                lpIds = ArrayUtils.toPrimitive(brmo.getLaadProcessenIds(&quot;bestand_datum&quot;, &quot;ASC&quot;, config.getSoort(), &quot;STAGING_OK&quot;));</span>
             }
-<span class="nc bnc" id="L125" title="All 2 branches missed.">            brmo.setOrderBerichten(!config.alsStandTransformeren());</span>
-<span class="nc bnc" id="L126" title="All 4 branches missed.">            if (lpIds == null || lpIds.length == 0) {</span>
-<span class="nc" id="L127">                msg = &quot;Er zijn geen laadprocessen van soort &quot; + config.getSoort() + &quot; en status: 'STAGING_OK' om te transformeren.&quot;;</span>
-<span class="nc" id="L128">                LOG.info(msg);</span>
-<span class="nc" id="L129">                sb.append(msg).append(AutomatischProces.LOG_NEWLINE);</span>
-<span class="nc" id="L130">                listener.addLog(msg);</span>
+<span class="nc bnc" id="L121" title="All 2 branches missed.">            brmo.setOrderBerichten(!config.alsStandTransformeren());</span>
+<span class="nc bnc" id="L122" title="All 4 branches missed.">            if (lpIds == null || lpIds.length == 0) {</span>
+<span class="nc" id="L123">                msg = &quot;Er zijn geen laadprocessen van soort &quot; + config.getSoort() + &quot; en status: 'STAGING_OK' om te transformeren.&quot;;</span>
+<span class="nc" id="L124">                LOG.info(msg);</span>
+<span class="nc" id="L125">                sb.append(msg).append(AutomatischProces.LOG_NEWLINE);</span>
+<span class="nc" id="L126">                listener.addLog(msg);</span>
             } else {
-<span class="nc" id="L132">                listener.updateStatus(&quot;Transformeren...&quot;);</span>
-<span class="nc" id="L133">                Thread t = brmo.toRsgb(RsgbProxy.BerichtSelectMode.BY_LAADPROCES, lpIds,</span>
-<span class="nc" id="L134">                        new nl.b3p.brmo.loader.ProgressUpdateListener() {</span>
+<span class="nc" id="L128">                listener.updateStatus(&quot;Transformeren...&quot;);</span>
+<span class="nc" id="L129">                Thread t = brmo.toRsgb(RsgbProxy.BerichtSelectMode.BY_LAADPROCES, lpIds,</span>
+<span class="nc" id="L130">                        new nl.b3p.brmo.loader.ProgressUpdateListener() {</span>
                     @Override
                     public void total(long total) {
-<span class="nc" id="L137">                        sb.append(&quot;Totaal te transformeren: &quot;)</span>
-<span class="nc" id="L138">                                .append(total).append(AutomatischProces.LOG_NEWLINE);</span>
-<span class="nc" id="L139">                        listener.total(total);</span>
-<span class="nc" id="L140">                    }</span>
+<span class="nc" id="L133">                        sb.append(&quot;Totaal te transformeren: &quot;)</span>
+<span class="nc" id="L134">                                .append(total).append(AutomatischProces.LOG_NEWLINE);</span>
+<span class="nc" id="L135">                        listener.total(total);</span>
+<span class="nc" id="L136">                    }</span>
 
                     @Override
                     public void progress(long progress) {
-<span class="nc" id="L144">                        listener.progress(progress);</span>
-<span class="nc" id="L145">                    }</span>
+<span class="nc" id="L140">                        listener.progress(progress);</span>
+<span class="nc" id="L141">                    }</span>
 
                     @Override
                     public void exception(Throwable t) {
-<span class="nc" id="L149">                        sb.append(&quot;Fout tijdens laadproces transformeren: &quot;)</span>
-<span class="nc" id="L150">                                .append(t.getLocalizedMessage()).append(AutomatischProces.LOG_NEWLINE);</span>
-<span class="nc" id="L151">                        listener.exception(t);</span>
-<span class="nc" id="L152">                    }</span>
+<span class="nc" id="L145">                        sb.append(&quot;Fout tijdens laadproces transformeren: &quot;)</span>
+<span class="nc" id="L146">                                .append(t.getLocalizedMessage()).append(AutomatischProces.LOG_NEWLINE);</span>
+<span class="nc" id="L147">                        listener.exception(t);</span>
+<span class="nc" id="L148">                    }</span>
                 }
                 );
-<span class="nc" id="L155">                t.join();</span>
+<span class="nc" id="L151">                t.join();</span>
             }
 
-<span class="nc bnc" id="L158" title="All 2 branches missed.">            if (transformErrorOccured) {</span>
-<span class="nc" id="L159">                this.config.setStatus(ERROR);</span>
-<span class="nc" id="L160">                msg = &quot;Handmatige transformatie vanuit de laadprocessen pagina is noodzakelijk.&quot;;</span>
-<span class="nc" id="L161">                sb.append(msg).append(AutomatischProces.LOG_NEWLINE);</span>
-<span class="nc" id="L162">                LOG.warn(msg);</span>
-<span class="nc" id="L163">                msg = String.format(&quot;Laadproces transformatie proces met ID %d is niet succesvol afgerond op %tc.&quot;, config.getId(), Calendar.getInstance());</span>
-<span class="nc" id="L164">                LOG.error(msg);</span>
-<span class="nc" id="L165">                listener.updateStatus(&quot;Er is een fout opgetreden.&quot;);</span>
+<span class="nc bnc" id="L154" title="All 2 branches missed.">            if (transformErrorOccured) {</span>
+<span class="nc" id="L155">                this.config.setStatus(ERROR);</span>
+<span class="nc" id="L156">                msg = &quot;Handmatige transformatie vanuit de laadprocessen pagina is noodzakelijk.&quot;;</span>
+<span class="nc" id="L157">                sb.append(msg).append(AutomatischProces.LOG_NEWLINE);</span>
+<span class="nc" id="L158">                LOG.warn(msg);</span>
+<span class="nc" id="L159">                msg = String.format(&quot;Laadproces transformatie proces met ID %d is niet succesvol afgerond op %tc.&quot;, config.getId(), Calendar.getInstance());</span>
+<span class="nc" id="L160">                LOG.error(msg);</span>
+<span class="nc" id="L161">                listener.updateStatus(&quot;Er is een fout opgetreden.&quot;);</span>
             } else {
-<span class="nc" id="L167">                this.config.setStatus(WAITING);</span>
-<span class="nc" id="L168">                msg = String.format(&quot;Laadproces transformatie proces met ID %d is succesvol afgerond op %tc.&quot;, config.getId(), Calendar.getInstance());</span>
-<span class="nc" id="L169">                LOG.info(msg);</span>
-<span class="nc" id="L170">                listener.updateStatus(&quot;Transformatie afgerond.&quot;);</span>
+<span class="nc" id="L163">                this.config.setStatus(WAITING);</span>
+<span class="nc" id="L164">                msg = String.format(&quot;Laadproces transformatie proces met ID %d is succesvol afgerond op %tc.&quot;, config.getId(), Calendar.getInstance());</span>
+<span class="nc" id="L165">                LOG.info(msg);</span>
+<span class="nc" id="L166">                listener.updateStatus(&quot;Transformatie afgerond.&quot;);</span>
             }
 
-<span class="nc" id="L173">            sb.append(msg).append(AutomatischProces.LOG_NEWLINE);</span>
-<span class="nc" id="L174">            this.listener.addLog(msg);</span>
-<span class="nc" id="L175">            this.config.setSamenvatting(msg);</span>
-<span class="nc" id="L176">            this.config.setLogfile(sb.toString());</span>
-<span class="nc" id="L177">        } catch (BrmoException | InterruptedException e) {</span>
-<span class="nc" id="L178">            LOG.error(&quot;Fout bij transformeren laadprocessen naar RSGB&quot;, e);</span>
-<span class="nc" id="L179">            String m = &quot;Fout bij transformeren laadprocessen naar RSGB: &quot; + ExceptionUtils.getMessage(e);</span>
-<span class="nc bnc" id="L180" title="All 2 branches missed.">            if (e.getCause() != null) {</span>
-<span class="nc" id="L181">                m += &quot;, oorzaak: &quot; + ExceptionUtils.getRootCauseMessage(e);</span>
+<span class="nc" id="L169">            sb.append(msg).append(AutomatischProces.LOG_NEWLINE);</span>
+<span class="nc" id="L170">            this.listener.addLog(msg);</span>
+<span class="nc" id="L171">            this.config.setSamenvatting(msg);</span>
+<span class="nc" id="L172">            this.config.setLogfile(sb.toString());</span>
+<span class="nc" id="L173">        } catch (BrmoException | InterruptedException e) {</span>
+<span class="nc" id="L174">            LOG.error(&quot;Fout bij transformeren laadprocessen naar RSGB&quot;, e);</span>
+<span class="nc" id="L175">            String m = &quot;Fout bij transformeren laadprocessen naar RSGB: &quot; + ExceptionUtils.getMessage(e);</span>
+<span class="nc bnc" id="L176" title="All 2 branches missed.">            if (e.getCause() != null) {</span>
+<span class="nc" id="L177">                m += &quot;, oorzaak: &quot; + ExceptionUtils.getRootCauseMessage(e);</span>
             }
-<span class="nc" id="L183">            this.config.setLogfile(sb.toString());</span>
-<span class="nc" id="L184">            this.config.updateSamenvattingEnLogfile(m);</span>
-<span class="nc" id="L185">            this.config.setStatus(ERROR);</span>
+<span class="nc" id="L179">            this.config.setLogfile(sb.toString());</span>
+<span class="nc" id="L180">            this.config.updateSamenvattingEnLogfile(m);</span>
+<span class="nc" id="L181">            this.config.setStatus(ERROR);</span>
         } finally {
-<span class="nc bnc" id="L187" title="All 2 branches missed.">            if (brmo != null) {</span>
-<span class="nc" id="L188">                brmo.closeBrmoFramework();</span>
+<span class="nc bnc" id="L183" title="All 2 branches missed.">            if (brmo != null) {</span>
+<span class="nc" id="L184">                brmo.closeBrmoFramework();</span>
             }
-<span class="nc" id="L190">            Stripersist.getEntityManager().merge(this.config);</span>
-<span class="nc" id="L191">            Stripersist.getEntityManager().flush();</span>
-<span class="nc" id="L192">            Stripersist.getEntityManager().getTransaction().commit();</span>
-<span class="nc" id="L193">            Stripersist.getEntityManager().clear();</span>
+<span class="nc" id="L186">            Stripersist.getEntityManager().merge(this.config);</span>
+<span class="nc" id="L187">            Stripersist.getEntityManager().flush();</span>
+<span class="nc" id="L188">            Stripersist.getEntityManager().getTransaction().commit();</span>
+<span class="nc" id="L189">            Stripersist.getEntityManager().clear();</span>
         }
-<span class="nc" id="L195">    }</span>
+<span class="nc" id="L191">    }</span>
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

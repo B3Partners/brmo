@@ -76,68 +76,64 @@ import org.apache.commons.logging.LogFactory;
 <span class="nc" id="L76">            brmo = new BrmoFramework(ds, null);</span>
 
             // Check of bestand begint met ZIP header
-            
-<span class="nc" id="L80">            InputStream in = new BufferedInputStream(req.getInputStream());</span>
-<span class="nc" id="L81">            in.mark(4);</span>
-<span class="nc" id="L82">            int header = new DataInputStream(in).readInt();</span>
-<span class="nc" id="L83">            in.reset();</span>
+<span class="nc" id="L79">            InputStream in = new BufferedInputStream(req.getInputStream());</span>
+<span class="nc" id="L80">            in.mark(4);</span>
+<span class="nc" id="L81">            int header = new DataInputStream(in).readInt();</span>
+<span class="nc" id="L82">            in.reset();</span>
 
-<span class="nc" id="L85">            String unzippedFile = null;</span>
+<span class="nc" id="L84">            String unzippedFile = null;</span>
 
-<span class="nc bnc" id="L87" title="All 2 branches missed.">            if(header == ZIP_HEADER) {</span>
+<span class="nc bnc" id="L86" title="All 2 branches missed.">            if(header == ZIP_HEADER) {</span>
                 // Pak eerste .xml bestand in ZIP uit en verwerk deze
-
                 // Gebruik niet bestandsnaam van ZIP entries, altijd &quot;MUTBX01.xml&quot; oid (iig niet uniek)
-
-<span class="nc" id="L92">                ZipInputStream zip = new ZipInputStream(in);</span>
-<span class="nc" id="L93">                ZipEntry entry = zip.getNextEntry();</span>
-<span class="nc bnc" id="L94" title="All 4 branches missed.">                while(entry != null &amp;&amp; !entry.getName().toLowerCase().endsWith(&quot;.xml&quot;)) {</span>
-<span class="nc" id="L95">                    log.warn(&quot;Overslaan zip entry geen XML: &quot; + entry.getName());</span>
-<span class="nc" id="L96">                    entry = zip.getNextEntry();</span>
+<span class="nc" id="L89">                ZipInputStream zip = new ZipInputStream(in);</span>
+<span class="nc" id="L90">                ZipEntry entry = zip.getNextEntry();</span>
+<span class="nc bnc" id="L91" title="All 4 branches missed.">                while(entry != null &amp;&amp; !entry.getName().toLowerCase().endsWith(&quot;.xml&quot;)) {</span>
+<span class="nc" id="L92">                    log.warn(&quot;Overslaan zip entry geen XML: &quot; + entry.getName());</span>
+<span class="nc" id="L93">                    entry = zip.getNextEntry();</span>
                 }
-<span class="nc bnc" id="L98" title="All 2 branches missed.">                if(entry == null) {</span>
-<span class="nc" id="L99">                    throw new BrmoException(&quot;Geen geschikt XML bestand gevonden in zip bestand &quot;);</span>
+<span class="nc bnc" id="L95" title="All 2 branches missed.">                if(entry == null) {</span>
+<span class="nc" id="L96">                    throw new BrmoException(&quot;Geen geschikt XML bestand gevonden in zip bestand &quot;);</span>
                 }
-<span class="nc" id="L101">                log.debug(&quot;Lezen XML bestand uit zip: &quot; + entry.getName());</span>
-<span class="nc" id="L102">                unzippedFile = entry.getName();</span>
-<span class="nc" id="L103">                brmo.loadFromStream(basisregistratie, zip, getUniqueFilename(brmo), (Long) null);</span>
+<span class="nc" id="L98">                log.debug(&quot;Lezen XML bestand uit zip: &quot; + entry.getName());</span>
+<span class="nc" id="L99">                unzippedFile = entry.getName();</span>
+<span class="nc" id="L100">                brmo.loadFromStream(basisregistratie, zip, getUniqueFilename(brmo), (Long) null);</span>
 
-<span class="nc" id="L105">            } else {</span>
+<span class="nc" id="L102">            } else {</span>
                 // Geen ZIP, direct BR XML laden
-<span class="nc" id="L107">                brmo.loadFromStream(basisregistratie, in, getUniqueFilename(brmo), (Long) null);</span>
+<span class="nc" id="L104">                brmo.loadFromStream(basisregistratie, in, getUniqueFilename(brmo), (Long) null);</span>
             }
 
-<span class="nc" id="L110">            log.info(String.format(&quot;Stored %s data received via service endpoint&quot;, basisregistratie));</span>
-<span class="nc bnc" id="L111" title="All 2 branches missed.">            return new DirectResponseResolution(200, &quot;Data successfully received&quot; + (header == ZIP_HEADER ? &quot;, unzipped \&quot;&quot; + unzippedFile + &quot;\&quot;&quot;: &quot;&quot;) + &quot; and stored\n&quot;);</span>
-<span class="nc" id="L112">            } catch(Exception e) {</span>
-<span class="nc" id="L113">            log.error(&quot;Fout bij ontvangen basisregistratiegegevens via directe POST&quot;, e);</span>
+<span class="nc" id="L107">            log.info(String.format(&quot;Stored %s data received via service endpoint&quot;, basisregistratie));</span>
+<span class="nc bnc" id="L108" title="All 2 branches missed.">            return new DirectResponseResolution(200, &quot;Data successfully received&quot; + (header == ZIP_HEADER ? &quot;, unzipped \&quot;&quot; + unzippedFile + &quot;\&quot;&quot;: &quot;&quot;) + &quot; and stored\n&quot;);</span>
+<span class="nc" id="L109">            } catch(Exception e) {</span>
+<span class="nc" id="L110">            log.error(&quot;Fout bij ontvangen basisregistratiegegevens via directe POST&quot;, e);</span>
 
-<span class="nc" id="L115">            return new DirectResponseResolution(500, String.format(&quot;Error receiving data: %s\n&quot;, ExceptionUtils.getRootCauseMessage(e)));</span>
+<span class="nc" id="L112">            return new DirectResponseResolution(500, String.format(&quot;Error receiving data: %s\n&quot;, ExceptionUtils.getRootCauseMessage(e)));</span>
         } finally {
-<span class="nc bnc" id="L117" title="All 2 branches missed.">            if(brmo != null) {</span>
-<span class="nc" id="L118">                brmo.closeBrmoFramework();</span>
+<span class="nc bnc" id="L114" title="All 2 branches missed.">            if(brmo != null) {</span>
+<span class="nc" id="L115">                brmo.closeBrmoFramework();</span>
             }
         }
     }
 
-<span class="nc" id="L123">    private SimpleDateFormat sdf = new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss.SSS&quot;);</span>
+<span class="nc" id="L120">    private final SimpleDateFormat sdf = new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss.SSS&quot;);</span>
 
     private String getUniqueFilename(BrmoFramework brmo) throws Exception {
         // Unieke bestandsnaam nodig
-
         String name;
-<span class="nc" id="L129">        boolean wait = false;</span>
+<span class="nc" id="L125">        boolean wait = false;</span>
         do {
-<span class="nc" id="L131">            name = &quot;Upload op &quot; + sdf.format(new Date());</span>
-<span class="nc bnc" id="L132" title="All 2 branches missed.">            if(!wait) {</span>
-<span class="nc" id="L133">                wait = true;</span>
+<span class="nc" id="L127">            name = &quot;Upload op &quot; + sdf.format(new Date());</span>
+<span class="nc bnc" id="L128" title="All 2 branches missed.">            if(!wait) {</span>
+<span class="nc" id="L129">                wait = true;</span>
             } else {
-<span class="nc" id="L135">                Thread.sleep(10);</span>
+<span class="nc" id="L131">                Thread.sleep(10);</span>
             }
             // Check of in dezelfde milliseconde gePOST laadproces al bestaat...
-<span class="nc bnc" id="L138" title="All 2 branches missed.">        } while(brmo.getLaadProcesIdByFileName(name) != null);</span>
+<span class="nc bnc" id="L134" title="All 2 branches missed.">        } while(brmo.getLaadProcesIdByFileName(name) != null);</span>
 
-<span class="nc" id="L140">        return name;</span>
+<span class="nc" id="L136">        return name;</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

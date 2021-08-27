@@ -136,7 +136,7 @@
 <a class="jxr_linenumber" name="L128" href="#L128">128</a>     <strong class="jxr_keyword">public</strong> <a name="Hoogte" href="../../../../nl/b3p/topnl/entities/Hoogte.html#Hoogte">Hoogte</a> convertHoogte(Object jaxbObject) <strong class="jxr_keyword">throws</strong> IOException, SAXException, ParserConfigurationException, TransformerException {
 <a class="jxr_linenumber" name="L129" href="#L129">129</a>         HoogteType h = (HoogteType) jaxbObject;
 <a class="jxr_linenumber" name="L130" href="#L130">130</a> 
-<a class="jxr_linenumber" name="L131" href="#L131">131</a>         <a name="Hoogte" href="../../../../nl/b3p/topnl/entities/<a name="Hoogte" href="../../../../nl/b3p/topnl/entities/Hoogte.html#Hoogte">Hoogte</a>.html#Hoogte">Hoogte</a> hoogte = <strong class="jxr_keyword">new</strong> <a name="Hoogte" href="../../../../nl/b3p/topnl/entities/Hoogte.html#Hoogte">Hoogte</a>();
+<a class="jxr_linenumber" name="L131" href="#L131">131</a>         <a name="Hoogte" href="../../../../nl/b3p/topnl/entities/Hoogte.html#Hoogte">Hoogte</a> hoogte = <strong class="jxr_keyword">new</strong> <a name="Hoogte" href="../../../../nl/b3p/topnl/entities/Hoogte.html#Hoogte">Hoogte</a>();
 <a class="jxr_linenumber" name="L132" href="#L132">132</a>         convertTop50NlObjectType(h, hoogte);
 <a class="jxr_linenumber" name="L133" href="#L133">133</a> 
 <a class="jxr_linenumber" name="L134" href="#L134">134</a>         hoogte.setTypeHoogte(h.getTypeHoogte().value());
@@ -169,7 +169,7 @@
 <a class="jxr_linenumber" name="L161" href="#L161">161</a>     <strong class="jxr_keyword">public</strong> <a name="FunctioneelGebied" href="../../../../nl/b3p/topnl/entities/FunctioneelGebied.html#FunctioneelGebied">FunctioneelGebied</a> convertFunctioneelGebied(Object jaxbObject) <strong class="jxr_keyword">throws</strong> IOException, SAXException, ParserConfigurationException, TransformerException {
 <a class="jxr_linenumber" name="L162" href="#L162">162</a>         FunctioneelGebiedType f = (FunctioneelGebiedType) jaxbObject;
 <a class="jxr_linenumber" name="L163" href="#L163">163</a> 
-<a class="jxr_linenumber" name="L164" href="#L164">164</a>         <a name="FunctioneelGebied" href="../../../../nl/b3p/topnl/entit<a name="FunctioneelGebied" href="../../../../nl/b3p/topnl/entities/FunctioneelGebied.html#FunctioneelGebied">FunctioneelGebied</a>bied.html#FunctioneelGebied">FunctioneelGebied</a> fg = <strong class="jxr_keyword">new</strong> <a name="FunctioneelGebied" href="../../../../nl/b3p/topnl/entities/FunctioneelGebied.html#FunctioneelGebied">FunctioneelGebied</a>();
+<a class="jxr_linenumber" name="L164" href="#L164">164</a>         <a name="FunctioneelGebied" href="../../../../nl/b3p/topnl/entities/FunctioneelGebied.html#FunctioneelGebied">FunctioneelGebied</a> fg = <strong class="jxr_keyword">new</strong> <a name="FunctioneelGebied" href="../../../../nl/b3p/topnl/entities/FunctioneelGebied.html#FunctioneelGebied">FunctioneelGebied</a>();
 <a class="jxr_linenumber" name="L165" href="#L165">165</a>         convertTop50NlObjectType(f, fg);
 <a class="jxr_linenumber" name="L166" href="#L166">166</a> 
 <a class="jxr_linenumber" name="L167" href="#L167">167</a>         fg.setTypeFunctioneelGebied(f.getTypeFunctioneelGebied().value());
@@ -183,7 +183,7 @@
 <a class="jxr_linenumber" name="L175" href="#L175">175</a>     <strong class="jxr_keyword">public</strong> <a name="Gebouw" href="../../../../nl/b3p/topnl/entities/Gebouw.html#Gebouw">Gebouw</a> convertGebouw(Object jaxbObject) <strong class="jxr_keyword">throws</strong> IOException, SAXException, ParserConfigurationException, TransformerException {
 <a class="jxr_linenumber" name="L176" href="#L176">176</a>         GebouwType g = (GebouwType) jaxbObject;
 <a class="jxr_linenumber" name="L177" href="#L177">177</a> 
-<a class="jxr_linenumber" name="L178" href="#L178">178</a>         <a name="Gebouw" href="../../../../nl/b3p/topnl/entit<a name="Gebouw" href="../../../../nl/b3p/topnl/entities/Gebouw.html#Gebouw">Gebouw</a>bouw.html#Gebouw">Gebouw</a> gb = <strong class="jxr_keyword">new</strong> <a name="Gebouw" href="../../../../nl/b3p/topnl/entities/Gebouw.html#Gebouw">Gebouw</a>();
+<a class="jxr_linenumber" name="L178" href="#L178">178</a>         <a name="Gebouw" href="../../../../nl/b3p/topnl/entities/Gebouw.html#Gebouw">Gebouw</a> gb = <strong class="jxr_keyword">new</strong> <a name="Gebouw" href="../../../../nl/b3p/topnl/entities/Gebouw.html#Gebouw">Gebouw</a>();
 <a class="jxr_linenumber" name="L179" href="#L179">179</a>         convertTop50NlObjectType(g, gb);
 <a class="jxr_linenumber" name="L180" href="#L180">180</a>         String types = <span class="jxr_string">""</span>;
 <a class="jxr_linenumber" name="L181" href="#L181">181</a>         <strong class="jxr_keyword">for</strong> (<a name="TypeGebouwT50Type" href="../../../../nl/b3p/topnl/top50nl/TypeGebouwT50Type.html#TypeGebouwT50Type">TypeGebouwT50Type</a> typeGebouwT50Type : g.getTypeGebouw()) {
@@ -207,7 +207,7 @@
 <a class="jxr_linenumber" name="L199" href="#L199">199</a>     <strong class="jxr_keyword">public</strong> <a name="GeografischGebied" href="../../../../nl/b3p/topnl/entities/GeografischGebied.html#GeografischGebied">GeografischGebied</a> convertGeografischGebied(Object jaxbObject) <strong class="jxr_keyword">throws</strong> IOException, SAXException, ParserConfigurationException, TransformerException {
 <a class="jxr_linenumber" name="L200" href="#L200">200</a>         GeografischGebiedType g = (GeografischGebiedType) jaxbObject;
 <a class="jxr_linenumber" name="L201" href="#L201">201</a> 
-<a class="jxr_linenumber" name="L202" href="#L202">202</a>         <a name="GeografischGebied" href="../../../../nl/b3p/topnl/entit<a name="GeografischGebied" href="../../../../nl/b3p/topnl/entities/GeografischGebied.html#GeografischGebied">GeografischGebied</a>bied.html#GeografischGebied">GeografischGebied</a> gb = <strong class="jxr_keyword">new</strong> <a name="GeografischGebied" href="../../../../nl/b3p/topnl/entities/GeografischGebied.html#GeografischGebied">GeografischGebied</a>();
+<a class="jxr_linenumber" name="L202" href="#L202">202</a>         <a name="GeografischGebied" href="../../../../nl/b3p/topnl/entities/GeografischGebied.html#GeografischGebied">GeografischGebied</a> gb = <strong class="jxr_keyword">new</strong> <a name="GeografischGebied" href="../../../../nl/b3p/topnl/entities/GeografischGebied.html#GeografischGebied">GeografischGebied</a>();
 <a class="jxr_linenumber" name="L203" href="#L203">203</a>         convertTop50NlObjectType(g, gb);
 <a class="jxr_linenumber" name="L204" href="#L204">204</a> 
 <a class="jxr_linenumber" name="L205" href="#L205">205</a>         gb.setGeometrie(gc.convertGeometry(g.getGeometrie()));
@@ -222,7 +222,7 @@
 <a class="jxr_linenumber" name="L214" href="#L214">214</a>     <strong class="jxr_keyword">public</strong> <a name="Inrichtingselement" href="../../../../nl/b3p/topnl/entities/Inrichtingselement.html#Inrichtingselement">Inrichtingselement</a> convertInrichtingselement(Object jaxbObject) <strong class="jxr_keyword">throws</strong> IOException, SAXException, ParserConfigurationException, TransformerException {
 <a class="jxr_linenumber" name="L215" href="#L215">215</a>         InrichtingselementType i = (InrichtingselementType) jaxbObject;
 <a class="jxr_linenumber" name="L216" href="#L216">216</a> 
-<a class="jxr_linenumber" name="L217" href="#L217">217</a>         <a name="Inrichtingselement" href="../../../../nl/b3p/topnl/entit<a name="Inrichtingselement" href="../../../../nl/b3p/topnl/entities/Inrichtingselement.html#Inrichtingselement">Inrichtingselement</a>ment.html#Inrichtingselement">Inrichtingselement</a> ie = <strong class="jxr_keyword">new</strong> <a name="Inrichtingselement" href="../../../../nl/b3p/topnl/entities/Inrichtingselement.html#Inrichtingselement">Inrichtingselement</a>();
+<a class="jxr_linenumber" name="L217" href="#L217">217</a>         <a name="Inrichtingselement" href="../../../../nl/b3p/topnl/entities/Inrichtingselement.html#Inrichtingselement">Inrichtingselement</a> ie = <strong class="jxr_keyword">new</strong> <a name="Inrichtingselement" href="../../../../nl/b3p/topnl/entities/Inrichtingselement.html#Inrichtingselement">Inrichtingselement</a>();
 <a class="jxr_linenumber" name="L218" href="#L218">218</a>         convertTop50NlObjectType(i, ie);
 <a class="jxr_linenumber" name="L219" href="#L219">219</a> 
 <a class="jxr_linenumber" name="L220" href="#L220">220</a>         ie.setGeometrie(gc.convertGeometry(i.getGeometrie()));
@@ -243,7 +243,7 @@
 <a class="jxr_linenumber" name="L235" href="#L235">235</a>     <strong class="jxr_keyword">public</strong> <a name="RegistratiefGebied" href="../../../../nl/b3p/topnl/entities/RegistratiefGebied.html#RegistratiefGebied">RegistratiefGebied</a> convertRegistratiefGebied(Object jaxbObject) <strong class="jxr_keyword">throws</strong> IOException, SAXException, ParserConfigurationException, TransformerException {
 <a class="jxr_linenumber" name="L236" href="#L236">236</a>         RegistratiefGebiedType r = (RegistratiefGebiedType) jaxbObject;
 <a class="jxr_linenumber" name="L237" href="#L237">237</a> 
-<a class="jxr_linenumber" name="L238" href="#L238">238</a>         <a name="RegistratiefGebied" href="../../../../nl/b3p/topnl/entit<a name="RegistratiefGebied" href="../../../../nl/b3p/topnl/entities/RegistratiefGebied.html#RegistratiefGebied">RegistratiefGebied</a>bied.html#RegistratiefGebied">RegistratiefGebied</a> rg = <strong class="jxr_keyword">new</strong> <a name="RegistratiefGebied" href="../../../../nl/b3p/topnl/entities/RegistratiefGebied.html#RegistratiefGebied">RegistratiefGebied</a>();
+<a class="jxr_linenumber" name="L238" href="#L238">238</a>         <a name="RegistratiefGebied" href="../../../../nl/b3p/topnl/entities/RegistratiefGebied.html#RegistratiefGebied">RegistratiefGebied</a> rg = <strong class="jxr_keyword">new</strong> <a name="RegistratiefGebied" href="../../../../nl/b3p/topnl/entities/RegistratiefGebied.html#RegistratiefGebied">RegistratiefGebied</a>();
 <a class="jxr_linenumber" name="L239" href="#L239">239</a>         convertTop50NlObjectType(r, rg);
 <a class="jxr_linenumber" name="L240" href="#L240">240</a> 
 <a class="jxr_linenumber" name="L241" href="#L241">241</a>         rg.setGeometrie(gc.convertGeometry(r.getGeometrie()));
@@ -259,7 +259,7 @@
 <a class="jxr_linenumber" name="L251" href="#L251">251</a>     <strong class="jxr_keyword">public</strong> <a name="Relief" href="../../../../nl/b3p/topnl/entities/Relief.html#Relief">Relief</a> convertRelief(Object jaxbObject) <strong class="jxr_keyword">throws</strong> IOException, SAXException, ParserConfigurationException, TransformerException {
 <a class="jxr_linenumber" name="L252" href="#L252">252</a>         ReliefType r = (ReliefType) jaxbObject;
 <a class="jxr_linenumber" name="L253" href="#L253">253</a> 
-<a class="jxr_linenumber" name="L254" href="#L254">254</a>         <a name="Relief" href="../../../../nl/b3p/topnl/entit<a name="Relief" href="../../../../nl/b3p/topnl/entities/Relief.html#Relief">Relief</a>lief.html#Relief">Relief</a> rg = <strong class="jxr_keyword">new</strong> <a name="Relief" href="../../../../nl/b3p/topnl/entities/Relief.html#Relief">Relief</a>();
+<a class="jxr_linenumber" name="L254" href="#L254">254</a>         <a name="Relief" href="../../../../nl/b3p/topnl/entities/Relief.html#Relief">Relief</a> rg = <strong class="jxr_keyword">new</strong> <a name="Relief" href="../../../../nl/b3p/topnl/entities/Relief.html#Relief">Relief</a>();
 <a class="jxr_linenumber" name="L255" href="#L255">255</a>         convertTop50NlObjectType(r, rg);
 <a class="jxr_linenumber" name="L256" href="#L256">256</a> 
 <a class="jxr_linenumber" name="L257" href="#L257">257</a>         rg.setGeometrie((LineString) gc.convertGeometry(r.getGeometrie()));
@@ -277,7 +277,7 @@
 <a class="jxr_linenumber" name="L269" href="#L269">269</a> 
 <a class="jxr_linenumber" name="L270" href="#L270">270</a>         SpoorbaandeelType r = (SpoorbaandeelType) jaxbObject;
 <a class="jxr_linenumber" name="L271" href="#L271">271</a> 
-<a class="jxr_linenumber" name="L272" href="#L272">272</a>         <a name="Spoorbaandeel" href="../../../../nl/b3p/topnl/entit<a name="Spoorbaandeel" href="../../../../nl/b3p/topnl/entities/Spoorbaandeel.html#Spoorbaandeel">Spoorbaandeel</a>deel.html#Spoorbaandeel">Spoorbaandeel</a> rg = <strong class="jxr_keyword">new</strong> <a name="Spoorbaandeel" href="../../../../nl/b3p/topnl/entities/Spoorbaandeel.html#Spoorbaandeel">Spoorbaandeel</a>();
+<a class="jxr_linenumber" name="L272" href="#L272">272</a>         <a name="Spoorbaandeel" href="../../../../nl/b3p/topnl/entities/Spoorbaandeel.html#Spoorbaandeel">Spoorbaandeel</a> rg = <strong class="jxr_keyword">new</strong> <a name="Spoorbaandeel" href="../../../../nl/b3p/topnl/entities/Spoorbaandeel.html#Spoorbaandeel">Spoorbaandeel</a>();
 <a class="jxr_linenumber" name="L273" href="#L273">273</a>         convertTop50NlObjectType(r, rg);
 <a class="jxr_linenumber" name="L274" href="#L274">274</a> 
 <a class="jxr_linenumber" name="L275" href="#L275">275</a>         rg.setGeometrie((LineString) gc.convertGeometry(r.getGeometrie()));
@@ -303,7 +303,7 @@
 <a class="jxr_linenumber" name="L295" href="#L295">295</a>     <strong class="jxr_keyword">public</strong> <a name="Terrein" href="../../../../nl/b3p/topnl/entities/Terrein.html#Terrein">Terrein</a> convertTerrein(Object jaxbObject) <strong class="jxr_keyword">throws</strong> IOException, SAXException, ParserConfigurationException, TransformerException {
 <a class="jxr_linenumber" name="L296" href="#L296">296</a>         TerreinType r = (TerreinType) jaxbObject;
 <a class="jxr_linenumber" name="L297" href="#L297">297</a> 
-<a class="jxr_linenumber" name="L298" href="#L298">298</a>         <a name="Terrein" href="../../../../nl/b3p/topnl/entit<a name="Terrein" href="../../../../nl/b3p/topnl/entities/Terrein.html#Terrein">Terrein</a>rein.html#Terrein">Terrein</a> rg = <strong class="jxr_keyword">new</strong> <a name="Terrein" href="../../../../nl/b3p/topnl/entities/Terrein.html#Terrein">Terrein</a>();
+<a class="jxr_linenumber" name="L298" href="#L298">298</a>         <a name="Terrein" href="../../../../nl/b3p/topnl/entities/Terrein.html#Terrein">Terrein</a> rg = <strong class="jxr_keyword">new</strong> <a name="Terrein" href="../../../../nl/b3p/topnl/entities/Terrein.html#Terrein">Terrein</a>();
 <a class="jxr_linenumber" name="L299" href="#L299">299</a>         convertTop50NlObjectType(r, rg);
 <a class="jxr_linenumber" name="L300" href="#L300">300</a> 
 <a class="jxr_linenumber" name="L301" href="#L301">301</a>         rg.setGeometrie((Polygon) gc.convertGeometry(r.getGeometrie()));
@@ -317,7 +317,7 @@
 <a class="jxr_linenumber" name="L309" href="#L309">309</a>     <strong class="jxr_keyword">public</strong> <a name="Waterdeel" href="../../../../nl/b3p/topnl/entities/Waterdeel.html#Waterdeel">Waterdeel</a> convertWaterdeel(Object jaxbObject) <strong class="jxr_keyword">throws</strong> IOException, SAXException, ParserConfigurationException, TransformerException {
 <a class="jxr_linenumber" name="L310" href="#L310">310</a>         WaterdeelType r = (WaterdeelType) jaxbObject;
 <a class="jxr_linenumber" name="L311" href="#L311">311</a> 
-<a class="jxr_linenumber" name="L312" href="#L312">312</a>         <a name="Waterdeel" href="../../../../nl/b3p/topnl/entit<a name="Waterdeel" href="../../../../nl/b3p/topnl/entities/Waterdeel.html#Waterdeel">Waterdeel</a>deel.html#Waterdeel">Waterdeel</a> rg = <strong class="jxr_keyword">new</strong> <a name="Waterdeel" href="../../../../nl/b3p/topnl/entities/Waterdeel.html#Waterdeel">Waterdeel</a>();
+<a class="jxr_linenumber" name="L312" href="#L312">312</a>         <a name="Waterdeel" href="../../../../nl/b3p/topnl/entities/Waterdeel.html#Waterdeel">Waterdeel</a> rg = <strong class="jxr_keyword">new</strong> <a name="Waterdeel" href="../../../../nl/b3p/topnl/entities/Waterdeel.html#Waterdeel">Waterdeel</a>();
 <a class="jxr_linenumber" name="L313" href="#L313">313</a>         convertTop50NlObjectType(r, rg);
 <a class="jxr_linenumber" name="L314" href="#L314">314</a> 
 <a class="jxr_linenumber" name="L315" href="#L315">315</a>         rg.setGeometrie(gc.convertGeometry(r.getGeometrie()));
@@ -341,7 +341,7 @@
 <a class="jxr_linenumber" name="L333" href="#L333">333</a>     <strong class="jxr_keyword">public</strong> <a name="Wegdeel" href="../../../../nl/b3p/topnl/entities/Wegdeel.html#Wegdeel">Wegdeel</a> convertWegdeel(Object jaxbObject) <strong class="jxr_keyword">throws</strong> IOException, SAXException, ParserConfigurationException, TransformerException {
 <a class="jxr_linenumber" name="L334" href="#L334">334</a>         WegdeelType r = (WegdeelType) jaxbObject;
 <a class="jxr_linenumber" name="L335" href="#L335">335</a> 
-<a class="jxr_linenumber" name="L336" href="#L336">336</a>         <a name="Wegdeel" href="../../../../nl/b3p/topnl/entit<a name="Wegdeel" href="../../../../nl/b3p/topnl/entities/Wegdeel.html#Wegdeel">Wegdeel</a>deel.html#Wegdeel">Wegdeel</a> rg = <strong class="jxr_keyword">new</strong> <a name="Wegdeel" href="../../../../nl/b3p/topnl/entities/Wegdeel.html#Wegdeel">Wegdeel</a>();
+<a class="jxr_linenumber" name="L336" href="#L336">336</a>         <a name="Wegdeel" href="../../../../nl/b3p/topnl/entities/Wegdeel.html#Wegdeel">Wegdeel</a> rg = <strong class="jxr_keyword">new</strong> <a name="Wegdeel" href="../../../../nl/b3p/topnl/entities/Wegdeel.html#Wegdeel">Wegdeel</a>();
 <a class="jxr_linenumber" name="L337" href="#L337">337</a>         convertTop50NlObjectType(r, rg);
 <a class="jxr_linenumber" name="L338" href="#L338">338</a> 
 <a class="jxr_linenumber" name="L339" href="#L339">339</a>         String fysieks = <span class="jxr_string">""</span>;
@@ -381,6 +381,6 @@
 <a class="jxr_linenumber" name="L373" href="#L373">373</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2014&#x2013;2021 <a href="http://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2014&#x2013;2021 <a href="https://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>
 </body>
 </html>

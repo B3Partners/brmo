@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SchemaSQLMapper.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO BGT / IMGeo CityGML loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.schema</a> &gt; <span class="el_source">SchemaSQLMapper.java</span></div><h1>SchemaSQLMapper.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2021 B3Partners B.V.
+ *
+ * SPDX-License-Identifier: MIT
+ *
+ */
+
+package nl.b3p.brmo.schema;
+
+import nl.b3p.brmo.schema.mapping.AttributeColumnMapping;
+import nl.b3p.brmo.sql.dialect.SQLDialect;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.SortedMap;
+import java.util.TreeMap;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import static nl.b3p.brmo.bgt.loader.Utils.getBundleString;
+
+public abstract class SchemaSQLMapper {
+    private final Schema schema;
+
+<span class="nc" id="L29">    protected final Map&lt;String,String&gt; objectTypeNameToTableName = new HashMap&lt;&gt;();</span>
+
+<span class="nc" id="L31">    private static final Set&lt;String&gt; reservedWords = Stream.of(new String[]{</span>
+            &quot;function&quot;
+<span class="nc" id="L33">    }).collect(Collectors.toSet());</span>
+
+<span class="nc" id="L35">    public SchemaSQLMapper(Schema schema) {</span>
+<span class="nc" id="L36">        this.schema = schema;</span>
+<span class="nc" id="L37">        schema.getAllObjectTypes()</span>
+<span class="nc" id="L38">                .map(ObjectType::getName)</span>
+<span class="nc" id="L39">                .forEach(name -&gt; objectTypeNameToTableName.put(name, name.toLowerCase()));</span>
+<span class="nc" id="L40">    }</span>
+
+    public Schema getSchema() {
+<span class="nc" id="L43">        return schema;</span>
+    }
+
+    public abstract String getMetadataTableName();
+
+    public String getTableNameForObjectType(ObjectType objectType, String tablePrefix) {
+<span class="nc" id="L49">        return tablePrefix + objectTypeNameToTableName.get(objectType.getName());</span>
+    }
+
+    public String getColumnNameForObjectType(ObjectType objectType, String attributeName) {
+<span class="nc" id="L53">        attributeName = attributeName.toLowerCase();</span>
+<span class="nc bnc" id="L54" title="All 2 branches missed.">        if (reservedWords.contains(attributeName)) {</span>
+<span class="nc" id="L55">            attributeName = attributeName + &quot;_&quot;;</span>
+        }
+<span class="nc" id="L57">        String tableNameLower = getTableNameForObjectType(objectType, null).toLowerCase();</span>
+<span class="nc" id="L58">        String attributeNameLower = attributeName.toLowerCase();</span>
+<span class="nc" id="L59">        int i = attributeNameLower.indexOf(tableNameLower);</span>
+<span class="nc bnc" id="L60" title="All 2 branches missed.">        if (i != -1) {</span>
+<span class="nc" id="L61">            attributeName = new StringBuilder(attributeName).replace(i, i + tableNameLower.length(), &quot;&quot;).toString();</span>
+        }
+<span class="nc" id="L63">        return attributeName.replaceAll(&quot;\\-&quot;, &quot;_&quot;);</span>
+    }
+
+    public void printSchema(SQLDialect dialect, String tablePrefix, Predicate&lt;ObjectType&gt; objectTypeFilter) {
+        // Sort object type names by table names
+<span class="nc" id="L68">        SortedMap&lt;String, ObjectType&gt; tableNamesObjectTypes = new TreeMap&lt;&gt;(getSchema().getAllObjectTypes()</span>
+<span class="nc bnc" id="L69" title="All 2 branches missed.">                .filter(objectTypeFilter == null ? objectType -&gt; true : objectTypeFilter)</span>
+<span class="nc" id="L70">                .collect(Collectors.toMap(objectType -&gt; getTableNameForObjectType(objectType, &quot;&quot;), objectType -&gt; objectType)));</span>
+
+<span class="nc" id="L72">        String createTable = tableNamesObjectTypes.values().stream()</span>
+<span class="nc" id="L73">                .flatMap(objectType -&gt; getCreateTableStatements(objectType, dialect, tablePrefix))</span>
+<span class="nc" id="L74">                .collect(Collectors.joining(&quot;; \n\n&quot;));</span>
+<span class="nc" id="L75">        System.out.println(createTable + &quot;;\n\n&quot;);</span>
+
+<span class="nc" id="L77">        String geometryMetadata = tableNamesObjectTypes.values().stream()</span>
+<span class="nc" id="L78">                .flatMap(objectType -&gt; getCreateGeometryMetadataStatements(objectType, dialect, tablePrefix))</span>
+<span class="nc bnc" id="L79" title="All 2 branches missed.">                .filter(sql -&gt; sql.length() &gt; 0)</span>
+<span class="nc" id="L80">                .collect(Collectors.joining(&quot;;\n&quot;));</span>
+<span class="nc bnc" id="L81" title="All 2 branches missed.">        if (geometryMetadata.length() &gt; 0) {</span>
+<span class="nc" id="L82">            System.out.printf(&quot;-- %s\n\n&quot;, getBundleString(&quot;schema.geometry_metadata&quot;));</span>
+<span class="nc" id="L83">            System.out.println(geometryMetadata + &quot;;\n&quot;);</span>
+        }
+
+<span class="nc" id="L86">        System.out.printf(&quot;-- %s\n\n&quot;, getBundleString(&quot;schema.loader_metadata&quot;));</span>
+<span class="nc" id="L87">        System.out.println(getCreateMetadataTableStatements(dialect, tablePrefix).stream().collect(Collectors.joining(&quot;;\n&quot;)) + &quot;;\n&quot;);</span>
+
+<span class="nc" id="L89">        System.out.printf(&quot;-- %s %s\n\n&quot;, getBundleString(&quot;schema.primary_keys&quot;), getBundleString(&quot;schema.after_initial_load&quot;));</span>
+<span class="nc" id="L90">        String primaryKeys = tableNamesObjectTypes.values().stream()</span>
+<span class="nc" id="L91">                .flatMap(objectType -&gt; getCreatePrimaryKeyStatements(objectType, dialect, tablePrefix))</span>
+<span class="nc" id="L92">                .collect(Collectors.joining(&quot;; \n&quot;));</span>
+<span class="nc" id="L93">        System.out.println(primaryKeys + &quot;;\n&quot;);</span>
+
+<span class="nc" id="L95">        System.out.printf(&quot;-- %s %s\n\n&quot;, getBundleString(&quot;schema.geometry_indexes&quot;), getBundleString(&quot;schema.after_initial_load&quot;));</span>
+<span class="nc" id="L96">        String geometryIndexes = tableNamesObjectTypes.values().stream()</span>
+<span class="nc" id="L97">                .flatMap(objectType -&gt; getCreateGeometryIndexStatements(objectType, dialect, tablePrefix))</span>
+<span class="nc" id="L98">                .collect(Collectors.joining(&quot;;\n&quot;));</span>
+<span class="nc" id="L99">        System.out.println(geometryIndexes + &quot;;\n&quot;);</span>
+<span class="nc" id="L100">    }</span>
+
+    public Stream&lt;String&gt; getCreateTableStatements(ObjectType objectType, SQLDialect dialect, String tablePrefix) {
+<span class="nc" id="L103">        List&lt;String&gt; statements = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L104">        String tableName = getTableNameForObjectType(objectType, tablePrefix);</span>
+<span class="nc bnc" id="L105" title="All 2 branches missed.">        if (dialect.supportsDropTableIfExists()) {</span>
+<span class="nc" id="L106">            statements.add(&quot;drop table if exists &quot; + tableName);</span>
+        }
+<span class="nc" id="L108">        String columns = objectType.getDirectAttributes().stream()</span>
+<span class="nc" id="L109">                .map(column -&gt; String.format(&quot;  %s %s%s&quot;,</span>
+<span class="nc" id="L110">                        getColumnNameForObjectType(objectType, column.getName()),</span>
+<span class="nc" id="L111">                        dialect.getType(column.getType()),</span>
+<span class="nc bnc" id="L112" title="All 2 branches missed.">                        column.isNotNull() ? &quot; not null&quot; : &quot;&quot;))</span>
+<span class="nc" id="L113">                .collect(Collectors.joining(&quot;,\n&quot;));</span>
+<span class="nc" id="L114">        statements.add(String.format(&quot;create table %s (\n%s\n)&quot;, tableName, columns));</span>
+<span class="nc" id="L115">        statements.addAll(objectType.getOneToManyAttributeObjectTypes().stream()</span>
+<span class="nc" id="L116">                .flatMap(oneToManyObjectType -&gt; getCreateTableStatements(oneToManyObjectType, dialect, tablePrefix))</span>
+<span class="nc" id="L117">                .collect(Collectors.toList()));</span>
+<span class="nc" id="L118">        return statements.stream();</span>
+    }
+
+    public Stream&lt;String&gt; getCreatePrimaryKeyStatements(ObjectType objectType, SQLDialect dialect, String tablePrefix) {
+<span class="nc" id="L122">        return getCreatePrimaryKeyStatements(objectType, dialect, tablePrefix, true);</span>
+    }
+
+    public Stream&lt;String&gt; getCreatePrimaryKeyStatements(ObjectType objectType, SQLDialect dialect, String tablePrefix, boolean includeOneToMany) {
+<span class="nc" id="L126">        String tableName = getTableNameForObjectType(objectType, tablePrefix);</span>
+<span class="nc" id="L127">        String columns = objectType.getDirectAttributes().stream()</span>
+<span class="nc" id="L128">                .filter(AttributeColumnMapping::isPrimaryKey)</span>
+<span class="nc" id="L129">                .map(column -&gt; getColumnNameForObjectType(objectType, column.getName()))</span>
+<span class="nc" id="L130">                .collect(Collectors.joining(&quot;, &quot;));</span>
+<span class="nc" id="L131">        String sql = String.format(&quot;alter table %s add constraint %s_pkey primary key(%s)&quot;,</span>
+                tableName, tableName, columns);
+<span class="nc" id="L133">        return Stream.concat(</span>
+<span class="nc" id="L134">                Stream.of(sql),</span>
+<span class="nc bnc" id="L135" title="All 2 branches missed.">                includeOneToMany</span>
+<span class="nc" id="L136">                        ? objectType.getOneToManyAttributeObjectTypes().stream().flatMap(oneToManyObjectType -&gt; getCreatePrimaryKeyStatements(oneToManyObjectType, dialect, tablePrefix))</span>
+<span class="nc" id="L137">                        : Stream.empty()</span>
+        );
+    }
+
+    public Stream&lt;String&gt; getCreateGeometryMetadataStatements(ObjectType objectType, SQLDialect dialect, String tablePrefix) {
+<span class="nc" id="L142">        return Stream.concat(</span>
+<span class="nc" id="L143">                objectType.getGeometryAttributes().stream().map(column -&gt; dialect.getCreateGeometryMetadataSQL(</span>
+<span class="nc" id="L144">                        getTableNameForObjectType(objectType, tablePrefix),</span>
+<span class="nc" id="L145">                        getColumnNameForObjectType(objectType, column.getName()),</span>
+<span class="nc" id="L146">                        column.getType())),</span>
+<span class="nc" id="L147">                objectType.getOneToManyAttributeObjectTypes().stream()</span>
+<span class="nc" id="L148">                        .flatMap(oneToManyObjectType -&gt; getCreateGeometryMetadataStatements(oneToManyObjectType, dialect, tablePrefix))</span>
+        );
+    }
+
+    public Stream&lt;String&gt; getCreateGeometryIndexStatements(ObjectType objectType, SQLDialect dialect, String tablePrefix) {
+<span class="nc" id="L153">        return getCreateGeometryIndexStatements(objectType, dialect, tablePrefix, true);</span>
+    }
+
+    public Stream&lt;String&gt; getCreateGeometryIndexStatements(ObjectType objectType, SQLDialect dialect, String tablePrefix, boolean includeOneToMany) {
+<span class="nc" id="L157">        return Stream.concat(</span>
+<span class="nc" id="L158">                objectType.getGeometryAttributes().stream().map(column -&gt;dialect.getCreateGeometryIndexSQL(</span>
+<span class="nc" id="L159">                        getTableNameForObjectType(objectType, tablePrefix),</span>
+<span class="nc" id="L160">                        getColumnNameForObjectType(objectType, column.getName()),</span>
+<span class="nc" id="L161">                        column.getType())),</span>
+<span class="nc bnc" id="L162" title="All 2 branches missed.">                includeOneToMany</span>
+<span class="nc" id="L163">                        ? objectType.getOneToManyAttributeObjectTypes().stream().flatMap(oneToManyObjectType -&gt; getCreateGeometryIndexStatements(oneToManyObjectType, dialect, tablePrefix))</span>
+<span class="nc" id="L164">                        : Stream.empty()</span>
+        );
+    }
+
+    public List&lt;String&gt; getCreateMetadataTableStatements(SQLDialect dialect, String tablePrefix) {
+<span class="nc" id="L169">        List&lt;String&gt; statements = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L170">        final String tableName = getMetadataTableName();</span>
+<span class="nc bnc" id="L171" title="All 2 branches missed.">        if (dialect.supportsDropTableIfExists()) {</span>
+<span class="nc" id="L172">            statements.add(&quot;drop table if exists &quot; + tableName);</span>
+        }
+<span class="nc" id="L174">        String sql = String.format(&quot;create table %s(\n  naam %s,\n  waarde %s,\n  primary key(naam)\n)&quot;,</span>
+                tableName,
+<span class="nc" id="L176">                dialect.getType(&quot;varchar(255)&quot;),</span>
+<span class="nc" id="L177">                dialect.getType(&quot;text&quot;));</span>
+<span class="nc" id="L178">        statements.add(sql);</span>
+
+<span class="nc" id="L180">        return statements;</span>
+    }
+
+    /**
+     * Use for aligning fixed width output.
+     */
+    public int getMaxTableLength() {
+<span class="nc" id="L187">        return objectTypeNameToTableName.values().stream().map(String::length).reduce(0, Integer::max);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
