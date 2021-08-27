@@ -30,11 +30,11 @@ public abstract class AbstractDatabaseIntegrationTest {
      */
     @BeforeAll
     public static void checkDatabaseIsProvided() {
-        // als je vanuit de IDE wilt draaien kun je hier de props instellen
+        // als je vanuit de IDE wilt draaien kun je hier de database property instellen
         // System.setProperty("database.properties.file", "postgis.properties");
         // System.setProperty("database.properties.file", "sqlserver.properties");
         // System.setProperty("database.properties.file", "oracle.properties");
-        assumeFalse(null != System.getProperty("database.properties.file"), "Verwacht database omgeving te zijn aangegeven.");
+        assumeFalse(null == System.getProperty("database.properties.file"), "Geen database omgeving aangegeven. Stel `database.properties.file` in.");
     }
 
     /**
