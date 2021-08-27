@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>nl.b3p</groupId>
     <artifactId>brmo</artifactId>
-    <version>2.1.0-SNAPSHOT</version>
+    <version>2.1.0</version>
     <packaging>pom</packaging>
     <modules>
         <module>brmo-test-util</module>
@@ -44,7 +43,7 @@
         <developerConnection>scm:git:git@github.com:B3Partners/brmo.git</developerConnection>
         <connection>scm:git:git@github.com:B3Partners/brmo.git</connection>
         <url>https://github.com/B3Partners/brmo/</url>
-        <tag>HEAD</tag>
+        <tag>v2.1.0</tag>
     </scm>
     <issueManagement>
         <system>Jira</system>
@@ -58,7 +57,7 @@
         <java.version>11</java.version>
         <project.build.sourceVersion>${java.version}</project.build.sourceVersion>
         <project.build.targetVersion>${java.version}</project.build.targetVersion>
-        <project.build.outputTimestamp>2021-07-08T11:39:42Z</project.build.outputTimestamp>
+        <project.build.outputTimestamp>2021-08-27T10:14:12Z</project.build.outputTimestamp>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <hibernate.version>5.5.7.Final</hibernate.version>
@@ -72,8 +71,8 @@
         <oracle.jdbc.version>21.1.0.0</oracle.jdbc.version>
         <oracle.jdbc.artifact>ojdbc11</oracle.jdbc.artifact>
         <sqlserver.jdbc.version>9.4.0.jre11</sqlserver.jdbc.version>
-        <mssql.instancename/>
-        <skip-windows/>
+        <mssql.instancename />
+        <skip-windows />
         <javasimon.version>4.2.0</javasimon.version>
         <jakarta.mail.version>1.6.6</jakarta.mail.version>
         <apache.poi.version>5.0.0</apache.poi.version>
@@ -112,7 +111,7 @@
         <taglist-maven-plugin.version>2.4</taglist-maven-plugin.version>
         <!-- deze property wordt gebruikt om tijdens tests te bepalen of we met een geupgraded
         release database werken of een ontwikkel versie -->
-        <database.upgrade/>
+        <database.upgrade />
     </properties>
     <dependencyManagement>
         <!--
@@ -1287,8 +1286,8 @@
                     <family>Windows</family>
                 </os>
             </activation>
-            <properties/>
-            <build/>
+            <properties />
+            <build />
         </profile>
     </profiles>
 </project>
