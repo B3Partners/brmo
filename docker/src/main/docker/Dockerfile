@@ -1,4 +1,4 @@
-FROM tomcat:9-jdk11
+FROM tomcat:10-jdk11
 
 ARG BRMO_VERSION=2.1.0
 ARG MAIL_FROM=brmo-no-reply@b3partners.nl
