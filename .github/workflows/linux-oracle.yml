@@ -46,6 +46,7 @@ jobs:
 
       - name: Priming build
         run: |
+          ./.build/ci/oracle-setup-db-properties.sh
           mvn clean install -Dmaven.test.skip=true -Dtest.onlyITs= -B -V -fae -Poracle -pl '!brmo-dist'
           projectversion=$(grep "<version>.*<.version>" -m1 pom.xml | sed -e "s/^.*<version/<version/" | cut -f2 -d">"| cut -f1 -d"<")
           echo $projectversion
@@ -66,7 +67,8 @@ jobs:
         run: mvn -e verify -B -Poracle -Dtest.onlyITs=true -pl 'bgt-loader'
 
       - name: Verify brmo-loader
-        run: mvn -e verify -B -Poracle -Dtest.onlyITs=true -pl 'brmo-loader' -T1
+        run: |
+          mvn -e verify -B -Poracle -Dtest.onlyITs=true -pl 'brmo-loader' -T1
 
       - name: Verify brmo-service
         run: mvn -e verify -B -Poracle -Dtest.onlyITs=true -pl 'brmo-service'
