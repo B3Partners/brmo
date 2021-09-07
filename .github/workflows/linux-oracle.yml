@@ -1,0 +1,93 @@
+name: Ubuntu Oracle build
+
+on: [push]
+
+env:
+  MAVEN_OPTS: -Djava.awt.headless=true -Xms8G -Xmx12G -Dmaven.wagon.httpconnectionManager.ttlSeconds=25 -Dmaven.wagon.http.retryHandler.count=3 -Dbrmo.persistence.oracle
+
+jobs:
+  build:
+    name: Oracle XE online test
+    runs-on: [ ubuntu-20.04 ]
+    strategy:
+      matrix:
+        java: [ 11]
+        java-dist: [ 'adopt' ]
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          lfs: true
+
+      - name: Cache Maven repository
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository
+          key: maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            maven-
+
+      - name: Cache test data
+        uses: actions/cache@v2
+        with:
+          path: ~/downloads
+          key: downloads-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            downloads-
+
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: ${{ matrix.java-dist }}
+          java-version: ${{ matrix.java }}
+
+      - name: Install extra software
+        run: sudo apt install -y --no-install-recommends xmlstarlet
+
+      - name: Priming build
+        run: |
+          ./.build/ci/oracle-setup-db-properties.sh
+          mvn clean install -Dmaven.test.skip=true -Dtest.onlyITs= -B -V -fae -Poracle -pl '!brmo-dist'
+          projectversion=$(grep "<version>.*<.version>" -m1 pom.xml | sed -e "s/^.*<version/<version/" | cut -f2 -d">"| cut -f1 -d"<")
+          echo $projectversion
+          export PROJECTVERSION=$projectversion
+          sed -i s/\${project.version}/$projectversion/g ./brmo-persistence/db/create-brmo-persistence-oracle.sql
+
+      - name: Setup Oracle XE
+        run: |
+          ./.build/ci/oracle-start-docker.sh
+          ./.build/ci/oracle-setup.sh
+
+      - name: Test
+        run: |
+          mvn -e test -B -Poracle -pl '!brmo-dist' -Dtest.onlyITs=false
+          mvn resources:testResources compiler:testCompile surefire:test -Poracle -pl datamodel -Dtest='!*UpgradeTest,!P8*'
+
+      - name: Verify bgt-loader
+        run: mvn -e verify -B -Poracle -Dtest.onlyITs=true -pl 'bgt-loader'
+
+      - name: Verify brmo-loader
+        run: |
+          mvn -e verify -B -Poracle -Dtest.onlyITs=true -pl 'brmo-loader' -T1
+
+      - name: Verify brmo-service
+        run: mvn -e verify -B -Poracle -Dtest.onlyITs=true -pl 'brmo-service'
+
+      - name: Verify brmo-soap
+        run: mvn -e verify -B -Poracle -Dtest.onlyITs=true -pl 'brmo-soap'
+
+      - name: Verify brmo-stufbg204
+        run: mvn -e verify -B -Poracle -Dtest.onlyITs=true -pl 'brmo-stufbg204'
+
+      - name: Verify brmo-commandline
+        run: mvn -e verify -B -Poracle -Dtest.onlyITs=true -pl 'brmo-commandline'
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v2
+        with:
+          fail_ci_if_error: true
+
+      - name: Cleanup build artifacts
+        run: |
+          mvn clean build-helper:remove-project-artifact
+          find ~/.m2/repository -name "*SNAPSHOT*" -type d | xargs rm -rf {}

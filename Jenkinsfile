@@ -75,7 +75,7 @@ timestamps {
 
                         stage("bgt-loader Integration Test") {
                             echo "run integratie tests voor bgt-loader module"
-                            sh "mvn -e verify -B -Poracle -T1 -Dtest.onlyITs=true -pl 'bgt-loader'"
+                            sh "mvn -e verify -B -Poracle -T1 -Dtest.onlyITs=true -pl 'bgt-loader' -Ddb.connectionString=jdbc:oracle:thin:@192.168.1.26:15210/XE"
                         }
 
                         stage("brmo-loader Integration Test") {

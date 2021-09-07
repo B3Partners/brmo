@@ -287,7 +287,7 @@ SPDX-License-Identifier: MIT
                 </plugins>
             </build>
         </profile>
-        <!--<profile>
+        <profile>
             <id>oracle</id>
             <build>
                 <plugins>
@@ -295,15 +295,15 @@ SPDX-License-Identifier: MIT
                         <artifactId>maven-failsafe-plugin</artifactId>
                         <configuration>
                             <systemPropertyVariables>
-                                <db.connectionString>jdbc:oracle:thin:@192.168.1.26:15210:XE</db.connectionString>
-                                <db.user>JENKINS_RSGBBGT</db.user>
+                                <db.connectionString>jdbc:oracle:thin:@localhost:1521:XE</db.connectionString>
+                                <db.user>jenkins_rsgbbgt</db.user>
                                 <db.password>jenkins_rsgbbgt</db.password>
                             </systemPropertyVariables>
                         </configuration>
                     </plugin>
                 </plugins>
             </build>
-        </profile>-->
+        </profile>
         <profile>
             <id>windows</id>
             <activation>

@@ -1,0 +1,73 @@
+name: Oracle Database Upgrade
+
+on: [push]
+
+env:
+  MAVEN_OPTS: -Djava.awt.headless=true -Xms8G -Xmx12G -Dmaven.wagon.httpconnectionManager.ttlSeconds=25 -Dmaven.wagon.http.retryHandler.count=3 -Dtest.persistence.unit=brmo.persistence.oracle
+
+jobs:
+  build:
+    name: Oracle XE
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          lfs: true
+
+      - name: Cache Maven repository
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository
+          key: maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            maven-
+
+      - name: Cache test data en laatste release
+        uses: actions/cache@v2
+        with:
+          path: ~/downloads
+          key: downloads-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            downloads-
+
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: 11
+
+      - name: datamodel Priming build
+        run:  |
+          ./.build/ci/oracle-setup-db-properties.sh
+          mvn clean install -Dmaven.test.skip=true -Dtest.onlyITs= -B -V -fae -pl 'datamodel' -am
+
+      - name: Get last release
+        run: |
+          .build/ci/getlastRelease.sh
+
+      - name: Setup Oracle XE
+        run: |
+          ./.build/ci/oracle-start-docker.sh
+          ./.build/ci/oracle-setup-previous.sh
+
+      - name: Upgrade databases
+        run: |
+          .build/ci/oracle-execute-upgrades.sh staging
+          .build/ci/oracle-execute-upgrades.sh rsgb
+          .build/ci/oracle-execute-upgrade-extras.sh rsgb
+          .build/ci/oracle-execute-upgrades.sh rsgbbgt
+
+      - name: Test
+        run: |
+          mvn -e -B -Poracle -pl 'datamodel' resources:testResources compiler:testCompile surefire:test -Dtest='*UpgradeTest' -Ddatabase.upgrade=true
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v2
+        with:
+          fail_ci_if_error: true
+
+      - name: Cleanup build artifacts
+        run: |
+          mvn clean build-helper:remove-project-artifact
+          find ~/.m2/repository -name "*SNAPSHOT*" -type d | xargs rm -rf {}
