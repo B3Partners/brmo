@@ -1,4 +1,4 @@
-name: Database Upgrade
+name: PostgreSQL Database Upgrade
 
 on: [push]
 
@@ -11,10 +11,9 @@ env:
 jobs:
   build:
     name: PostGIS ${{ matrix.postgis }}
-    runs-on: [ ubuntu-20.04 ]
+    runs-on: ubuntu-20.04
     strategy:
       matrix:
-        java: [ 11 ]
         postgis: [ 11-3.1 ]
 
     services:
@@ -53,7 +52,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           distribution: 'adopt'
-          java-version: ${{ matrix.java }}
+          java-version: 11
 
       - name: datamodel Priming build
         run:  mvn clean install -Dmaven.test.skip=true -Dtest.onlyITs= -B -V -fae -pl 'datamodel' -am 

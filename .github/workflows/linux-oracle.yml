@@ -53,7 +53,7 @@ jobs:
           export PROJECTVERSION=$projectversion
           sed -i s/\${project.version}/$projectversion/g ./brmo-persistence/db/create-brmo-persistence-oracle.sql
 
-      - name: Setup Oracle ${{ matrix.oracle }}
+      - name: Setup Oracle XE
         run: |
           ./.build/ci/oracle-start-docker.sh
           ./.build/ci/oracle-setup.sh
