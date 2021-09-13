@@ -83,6 +83,11 @@ SPDX-License-Identifier: MIT
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>org.dbunit</groupId>
             <artifactId>dbunit</artifactId>
             <scope>test</scope>
@@ -129,21 +134,21 @@ SPDX-License-Identifier: MIT
                     </includeOnlyProperties>
                 </configuration>
             </plugin>
-<!--            <plugin>
+            <plugin>
                 <artifactId>maven-jar-plugin</artifactId>
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>nl.b3p.brmo.bag.loader.cli.BGTLoaderMain</mainClass>
+                            <mainClass>nl.b3p.brmo.bag2.loader.BAG2LoaderMain</mainClass>
                             <addClasspath>true</addClasspath>
-                            &lt;!&ndash; https://issues.apache.org/jira/browse/MJAR-156 &ndash;&gt;
+                            <!-- https://issues.apache.org/jira/browse/MJAR-156 -->
                             <useUniqueVersions>false</useUniqueVersions>
                             <classpathPrefix>${project.build.lib-dir}/</classpathPrefix>
                         </manifest>
                     </archive>
                 </configuration>
-            </plugin>-->
-<!--            <plugin>
+            </plugin>
+            <plugin>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <configuration>
                     <includeScope>runtime</includeScope>
@@ -157,7 +162,7 @@ SPDX-License-Identifier: MIT
                         </goals>
                     </execution>
                 </executions>
-            </plugin>   -->
+            </plugin>
         </plugins>
     </build>
 </project>

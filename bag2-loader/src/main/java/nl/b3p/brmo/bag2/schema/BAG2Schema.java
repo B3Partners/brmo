@@ -45,7 +45,7 @@ public class BAG2Schema extends Schema {
             new AttributeColumnMapping("documentnummer"),
             new SimpleDateFormatAttributeColumnMapping("documentdatum", "date", PATTERN_XML_DATE),
             new BooleanAttributeColumnMapping("geconstateerd"),
-            new BooleanAttributeColumnMapping("status")
+            new AttributeColumnMapping("status")
     );
 
     private List<AttributeColumnMapping> withBaseAttributes(AttributeColumnMapping... attributes) {
@@ -55,9 +55,22 @@ public class BAG2Schema extends Schema {
     public BAG2Schema() {
         super();
 
-        addObjectType(new BAG2ObjectType(this, "Pand", withBaseAttributes(
-                new IntegerAttributeColumnMapping("oorspronkelijkBouwjaar"),
-                new GeometryAttributeColumnMapping("geometrie", "geometry(POLYGON, 28992)")
+        addObjectType(new BAG2ObjectType(this, "Woonplaats", withBaseAttributes(
+                new AttributeColumnMapping("naam"),
+                new GeometryAttributeColumnMapping("geometrie", "geometry(GEOMETRY, 28992)")
+        )));
+
+        addObjectType(new BAG2ObjectType(this, "OpenbareRuimte", withBaseAttributes(
+                new AttributeColumnMapping("naam"),
+                new AttributeColumnMapping("type")
+        )));
+
+        addObjectType(new BAG2ObjectType(this, "Nummeraanduiding", withBaseAttributes(
+                new IntegerAttributeColumnMapping("huisnummer"),
+                new AttributeColumnMapping("huisletter", "varchar(255)", false),
+                new AttributeColumnMapping("huisnummertoevoeging", "varchar(255)", false),
+                new AttributeColumnMapping("postcode", "varchar(255)", false),
+                new AttributeColumnMapping("typeAdresseerbaarObject", "varchar(255)", false)
         )));
 
         addObjectType(new BAG2ObjectType(this, "Verblijfsobject", withBaseAttributes(
@@ -67,6 +80,21 @@ public class BAG2Schema extends Schema {
                 new AttributeColumnMapping("maaktDeelUitVan", "varchar", false),
                 new GeometryAttributeColumnMapping("geometrie", "geometry(GEOMETRY, 28992)")
         )));
+
+        addObjectType(new BAG2ObjectType(this, "Ligplaats", withBaseAttributes(
+                new GeometryAttributeColumnMapping("geometrie", "geometry(POLYGON, 28992)")
+        )));
+
+        addObjectType(new BAG2ObjectType(this, "Standplaats", withBaseAttributes(
+                new GeometryAttributeColumnMapping("geometrie", "geometry(POLYGON, 28992)")
+        )));
+
+        addObjectType(new BAG2ObjectType(this, "Pand", withBaseAttributes(
+                new IntegerAttributeColumnMapping("oorspronkelijkBouwjaar"),
+                new GeometryAttributeColumnMapping("geometrie", "geometry(POLYGON, 28992)")
+        )));
+
+
     }
 
     protected void addObjectType(BAG2ObjectType objectType) {
