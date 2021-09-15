@@ -32,7 +32,6 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 import static nl.b3p.brmo.bgt.loader.Utils.formatTimeSince;
-import static org.apache.commons.io.FileUtils.byteCountToDisplaySize;
 
 public class BAG2LoaderMain {
     private static Log log;
@@ -127,18 +126,24 @@ public class BAG2LoaderMain {
     private static void loadBAG2LEveringZipFile(String filename) throws Exception {
         Instant start = Instant.now();
         int count = 0;
+        int maxFiles = -1;
 
         try (ZipFile zip = new ZipFile(filename);
              Connection connection = DriverManager.getConnection("jdbc:postgresql:bag?sslmode=disable&reWriteBatchedInserts=true", "bag", "bag")
         ) {
             BAG2ObjectTableWriter writer = new BAG2ObjectTableWriter(connection, new PostGISDialect(), BAG2SchemaMapper.getInstance());
+            writer.setUsePgCopy(false);
             writer.setCreateSchema(true);
             writer.start();
 
             for (ZipEntry entry: zip.stream().collect(Collectors.toList())) {
                 System.out.print("\r" + entry.getName());
                 writer.write(zip.getInputStream(entry));
+
                 count++;
+                if (count == maxFiles) {
+                    break;
+                }
             }
 
             writer.complete();

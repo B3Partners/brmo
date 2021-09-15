@@ -52,6 +52,11 @@ public class BAG2ObjectTableWriter extends ObjectTableWriter {
 
             getProgress().incrementObjectCount();
 
+/*            if (object.getAttributes().get(BAG2Schema.EIND_REGISTRATIE) != null) {
+                // Historic object
+                continue;
+            }*/
+
             addObjectToBatch(object);
 
             if (getObjectLimit() != null && getProgress().getObjectCount() == getObjectLimit()) {
