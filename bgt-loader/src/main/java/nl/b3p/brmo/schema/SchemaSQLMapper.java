@@ -7,6 +7,7 @@
 
 package nl.b3p.brmo.schema;
 
+import nl.b3p.brmo.schema.mapping.ArrayAttributeMapping;
 import nl.b3p.brmo.schema.mapping.AttributeColumnMapping;
 import nl.b3p.brmo.sql.dialect.SQLDialect;
 
@@ -47,6 +48,10 @@ public abstract class SchemaSQLMapper {
 
     public String getTableNameForObjectType(ObjectType objectType, String tablePrefix) {
         return tablePrefix + objectTypeNameToTableName.get(objectType.getName());
+    }
+
+    public String getTableNameForArrayAttribute(ObjectType objectType, ArrayAttributeMapping arrayAttribute, String tablePrefix) {
+        return getTableNameForObjectType(objectType, tablePrefix) + "_" + arrayAttribute.getTableSuffix();
     }
 
     public String getColumnNameForObjectType(ObjectType objectType, String attributeName) {
@@ -101,6 +106,13 @@ public abstract class SchemaSQLMapper {
 
     public Stream<String> getCreateTableStatements(ObjectType objectType, SQLDialect dialect, String tablePrefix) {
         List<String> statements = new ArrayList<>();
+
+        // Drop and create referencing tables first
+        statements.addAll(objectType.getAllAttributes().stream()
+                .filter(attribute -> attribute instanceof ArrayAttributeMapping)
+                .flatMap(arrayAttribute -> getArrayAttributeCreateTableStatements(objectType, (ArrayAttributeMapping) arrayAttribute, dialect, tablePrefix))
+                .collect(Collectors.toList()));
+
         String tableName = getTableNameForObjectType(objectType, tablePrefix);
         if (dialect.supportsDropTableIfExists()) {
             statements.add("drop table if exists " + tableName);
@@ -115,6 +127,26 @@ public abstract class SchemaSQLMapper {
         statements.addAll(objectType.getOneToManyAttributeObjectTypes().stream()
                 .flatMap(oneToManyObjectType -> getCreateTableStatements(oneToManyObjectType, dialect, tablePrefix))
                 .collect(Collectors.toList()));
+        return statements.stream();
+    }
+
+    public Stream<String> getArrayAttributeCreateTableStatements(ObjectType objectType, ArrayAttributeMapping arrayAttribute, SQLDialect dialect, String tablePrefix) {
+        List<String> statements = new ArrayList<>();
+        String tableName = getTableNameForArrayAttribute(objectType, arrayAttribute, tablePrefix);
+        if (dialect.supportsDropTableIfExists()) {
+            statements.add("drop table if exists " + tableName);
+        }
+        String columns = Stream.concat(
+                    objectType.getDirectAttributes().stream().filter(AttributeColumnMapping::isPrimaryKey),
+                    Stream.of(arrayAttribute))
+                .map(column -> String.format("  %s %s%s",
+                        getColumnNameForObjectType(objectType, column.getName()),
+                        dialect.getType(column.getType()),
+                        column.isNotNull() ? " not null" : ""))
+                .collect(Collectors.joining(",\n"));
+        statements.add(String.format("create table %s (\n%s\n)", tableName, columns));
+        // Afterwards: foreign keys (object type PK columns)
+        // Unordered list, no primary key
         return statements.stream();
     }
 

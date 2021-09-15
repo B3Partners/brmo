@@ -43,6 +43,10 @@ public class AttributeColumnMapping {
         return primaryKey;
     }
 
+    public boolean isDirectAttribute() {
+        return true;
+    }
+
     public Object toQueryParameter(Object value) throws Exception {
         if (value == null) {
             return null;

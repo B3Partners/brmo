@@ -11,4 +11,9 @@ public class OneToManyColumnMapping extends AttributeColumnMapping {
     public OneToManyColumnMapping(String name) {
         super(name, null, false, false);
     }
+
+    @Override
+    public boolean isDirectAttribute() {
+        return false;
+    }
 }

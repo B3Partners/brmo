@@ -7,6 +7,7 @@
 
 package nl.b3p.brmo.schema;
 
+import nl.b3p.brmo.schema.mapping.ArrayAttributeMapping;
 import nl.b3p.brmo.schema.mapping.AttributeColumnMapping;
 import nl.b3p.brmo.schema.mapping.GeometryAttributeColumnMapping;
 import nl.b3p.brmo.sql.GeometryHandlingPreparedStatementBatch;
@@ -15,8 +16,10 @@ import nl.b3p.brmo.sql.QueryBatch;
 import nl.b3p.brmo.sql.dialect.PostGISDialect;
 import nl.b3p.brmo.sql.dialect.SQLDialect;
 import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -27,6 +30,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
@@ -63,6 +67,7 @@ public class ObjectTableWriter {
 
     public class Progress {
         private Map<ObjectType, QueryBatch> insertBatches = new HashMap<>();
+        private Map<Pair<ObjectType, ArrayAttributeMapping>, QueryBatch> arrayAttributeInsertBatches = new HashMap<>();
 
         private boolean initialLoad = true;
 
@@ -252,10 +257,36 @@ public class ObjectTableWriter {
         return insertBatches.get(object.getObjectType());
     }
 
+    protected synchronized QueryBatch getArrayAttributeInsertBatch(SchemaObjectInstance object, ArrayAttributeMapping attribute) throws Exception {
+        Map<Pair<ObjectType,ArrayAttributeMapping>,QueryBatch> insertBatches = progress.arrayAttributeInsertBatches;
+
+        Pair<ObjectType,ArrayAttributeMapping> batchKey = ImmutablePair.of(object.getObjectType(), attribute);
+        if(!insertBatches.containsKey(batchKey)) {
+            QueryBatch queryBatch;
+/*            if (this.dialect instanceof PostGISDialect && this.usePgCopy) {
+                String sql = buildPgCopySql(object, progress.initialLoad);
+                // Using Postgres COPY while buffering the copy stream is not faster than using batched inserts with the
+                // reWriteBatchedInserts=true connection parameter. Buffering is required when a one-to-many attribute
+                // exists, because simultaneous COPY statements (even with separate connections) are not supported by
+                // the JDBC driver
+                boolean bufferCopy = !progress.singleTableInserts;
+                queryBatch = new PostGISCopyInsertBatch(connection, sql, batchSize, dialect, bufferCopy, linearizeCurves);
+            } else {*/
+                String sql = buildInsertSql(object.getObjectType(), attribute);
+                Boolean[] parameterIsGeometry = object.getObjectType().getDirectAttributes().stream()
+                        .map(attributeColumnMapping -> attributeColumnMapping instanceof GeometryAttributeColumnMapping)
+                        .toArray(Boolean[]::new);
+                queryBatch = new GeometryHandlingPreparedStatementBatch(connection, sql, batchSize, dialect, parameterIsGeometry, linearizeCurves);
+//            }
+            insertBatches.put(batchKey, queryBatch);
+        }
+        return insertBatches.get(batchKey);
+    }
+
     protected void addObjectToBatch(SchemaObjectInstance object) throws Exception {
         // Determine if we can use only a single table COPY without buffering
         if (progress.firstObject) {
-            progress.setSingleTableInserts(progress.initialLoad && object.getObjectType().getOneToManyAttributeObjectTypes().isEmpty());
+            progress.setSingleTableInserts(progress.initialLoad && object.getObjectType().hasOnlyDirectAttributes());
             progress.firstObject = false;
         }
 
@@ -312,8 +343,34 @@ public class ObjectTableWriter {
             }
         }
 
+        for(ArrayAttributeMapping arrayAttribute: object.getObjectType().getArrayAttributes()) {
+            insertArrayAttribute(object, arrayAttribute);
+        }
+
         batch.addBatch(params.toArray());
         updateProgress();
+    }
+
+    private void insertArrayAttribute(SchemaObjectInstance object, ArrayAttributeMapping attribute) throws Exception {
+        Set values = (Set) object.getAttributes().get(attribute.getName());
+        if (values != null && !values.isEmpty()) {
+            QueryBatch insertBatch = getArrayAttributeInsertBatch(object, attribute);
+            Object[] keys = object.getObjectType().getPrimaryKeys().stream()
+                    .map(key -> {
+                        try {
+                            return key.toQueryParameter(object.getAttributes().get(key.getName()));
+                        } catch(Exception e) {
+                            throw new RuntimeException(e);
+                        }
+                    })
+                    .toArray();
+            for (Object value: values) {
+                Object[] params = new Object[keys.length+1];
+                System.arraycopy(keys, 0, params, 0, keys.length);
+                params[params.length-1] = value;
+                insertBatch.addBatch(params);
+            }
+        }
     }
 
     private Throwable exceptionFromWorkerThread = null;
@@ -387,6 +444,18 @@ public class ObjectTableWriter {
         return sql.toString();
     }
 
+    private String buildInsertSql(ObjectType objectType, ArrayAttributeMapping attribute) {
+        String referencingKeys = objectType.getPrimaryKeys().stream()
+                .map(pk -> schemaSQLMapper.getColumnNameForObjectType(objectType, pk.getName()))
+                .collect(Collectors.joining(", "));
+        return String.format("insert into %s (%s, %s) values (%s)",
+                schemaSQLMapper.getTableNameForArrayAttribute(objectType, attribute, tablePrefix),
+                referencingKeys,
+                schemaSQLMapper.getColumnNameForObjectType(objectType, attribute.getName()),
+                String.join(", ", Collections.nCopies(objectType.getPrimaryKeys().size() + 1, "?"))
+        );
+    }
+
     private String buildPgCopySql(SchemaObjectInstance object, boolean initialLoad) {
         String tableName = schemaSQLMapper.getTableNameForObjectType(object.getObjectType(), tablePrefix);
         String copySql = "copy " + tableName + "(" + buildColumnList(object.getObjectType()) + ") from stdin";
@@ -422,6 +491,10 @@ public class ObjectTableWriter {
         for(QueryBatch batch: progress.insertBatches.values()) {
             batch.executeBatch();
         }
+
+        for(QueryBatch batch: progress.arrayAttributeInsertBatches.values()) {
+            batch.executeBatch();
+        }
     }
 
     protected void complete() throws Exception {
@@ -447,5 +520,6 @@ public class ObjectTableWriter {
 
     protected void closeBatches() {
         progress.insertBatches.values().forEach(QueryBatch::closeQuietly);
+        progress.arrayAttributeInsertBatches.values().forEach(QueryBatch::closeQuietly);
     }
 }

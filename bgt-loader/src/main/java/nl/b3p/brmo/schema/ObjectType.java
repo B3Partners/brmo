@@ -7,6 +7,7 @@
 
 package nl.b3p.brmo.schema;
 
+import nl.b3p.brmo.schema.mapping.ArrayAttributeMapping;
 import nl.b3p.brmo.schema.mapping.AttributeColumnMapping;
 import nl.b3p.brmo.schema.mapping.GeometryAttributeColumnMapping;
 import nl.b3p.brmo.schema.mapping.OneToManyColumnMapping;
@@ -24,6 +25,7 @@ public class ObjectType {
     private final List<AttributeColumnMapping> directAttributes;
     private final List<GeometryAttributeColumnMapping> geometryAttributes;
     private List<ObjectType> oneToManyAttributeObjectTypes;
+    private List<ArrayAttributeMapping> arrayAttributes;
 
     protected ObjectType(Schema schema, String name, List<AttributeColumnMapping> attributes) {
         this.schema = schema;
@@ -34,7 +36,7 @@ public class ObjectType {
                 .filter(AttributeColumnMapping::isPrimaryKey)
                 .collect(Collectors.toList());
         this.directAttributes = attributes.stream()
-                .filter(attributeColumnMapping -> !(attributeColumnMapping instanceof OneToManyColumnMapping))
+                .filter(AttributeColumnMapping::isDirectAttribute)
                 .collect(Collectors.toList());
         this.geometryAttributes = attributes.stream()
                 .filter(attributeColumnMapping -> (attributeColumnMapping instanceof GeometryAttributeColumnMapping))
@@ -58,6 +60,10 @@ public class ObjectType {
         return directAttributes;
     }
 
+    public boolean hasOnlyDirectAttributes() {
+        return directAttributes.size() == attributes.size();
+    }
+
     public List<ObjectType> getOneToManyAttributeObjectTypes() {
         // Create on-demand because objectTypes map must be completely filled
         if (oneToManyAttributeObjectTypes == null) {
@@ -67,6 +73,16 @@ public class ObjectType {
                     .collect(Collectors.toList());
         }
         return oneToManyAttributeObjectTypes;
+    }
+
+    public List<ArrayAttributeMapping> getArrayAttributes() {
+        if (arrayAttributes == null) {
+            arrayAttributes = attributes.stream()
+                    .filter(attribute -> attribute instanceof ArrayAttributeMapping)
+                    .map(attribute -> (ArrayAttributeMapping) attribute)
+                    .collect(Collectors.toList());
+        }
+        return arrayAttributes;
     }
 
     public List<GeometryAttributeColumnMapping> getGeometryAttributes() {
