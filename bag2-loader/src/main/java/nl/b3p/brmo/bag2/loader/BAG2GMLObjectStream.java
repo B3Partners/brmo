@@ -10,8 +10,6 @@ package nl.b3p.brmo.bag2.loader;
 import nl.b3p.brmo.bag2.schema.BAG2Object;
 import nl.b3p.brmo.bag2.schema.BAG2ObjectType;
 import nl.b3p.brmo.bag2.schema.BAG2Schema;
-import nl.b3p.brmo.bgt.schema.BGTObjectType;
-import nl.b3p.brmo.bgt.schema.BGTSchema;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.codehaus.staxmate.SMInputFactory;
@@ -27,8 +25,10 @@ import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
 public class BAG2GMLObjectStream implements Iterable<BAG2Object> {
     private static final Log log = LogFactory.getLog(BAG2GMLObjectStream.class);
@@ -36,6 +36,8 @@ public class BAG2GMLObjectStream implements Iterable<BAG2Object> {
     private static final String NS_BAG_EXTRACT = "http://www.kadaster.nl/schemas/lvbag/extract-deelbestand-lvc/v20200601";
     private static final String NS_STANDLEVERING = "http://www.kadaster.nl/schemas/standlevering-generiek/1.0";
     private static final String NS_GML_32 = "http://www.opengis.net/gml/3.2";
+    private static final String NS_HISTORIE = "www.kadaster.nl/schemas/lvbag/imbag/historie/v20200601";
+    private static final String NS_OBJECTEN_REF = "www.kadaster.nl/schemas/lvbag/imbag/objecten-ref/v20200601";
 
     private static final int SRID = 28992;
 
@@ -118,9 +120,7 @@ public class BAG2GMLObjectStream implements Iterable<BAG2Object> {
                     Map<String, Object> attributes = new HashMap<>();
                     SMInputCursor attributeCursor = bagObjectCursor.childElementCursor();
                     while (attributeCursor.getNext() != null) {
-                        String attributeName = attributeCursor.getLocalName();
-                        Object attributeValue = parseAttribute(attributeCursor);
-                        attributes.put(attributeName, attributeValue);
+                        parseAttribute(attributeCursor, attributes);
                     }
                     return new BAG2Object(objectType, attributes);
                 } catch(Exception e) {
@@ -130,7 +130,7 @@ public class BAG2GMLObjectStream implements Iterable<BAG2Object> {
         };
     }
 
-    private Object parseAttribute(SMInputCursor attribute) throws XMLStreamException, FactoryException, IOException {
+    private void parseAttribute(SMInputCursor attribute, Map<String, Object> objectAttributes) throws XMLStreamException, FactoryException, IOException {
         String attributeName = attribute.getLocalName();
 
         if (attributeName.equals("geometrie")) {
@@ -142,10 +142,66 @@ public class BAG2GMLObjectStream implements Iterable<BAG2Object> {
             }
             Geometry geom = geometryReader.readGeometry();
             geom.setSRID(SRID);
-            return geom;
-        }
+            objectAttributes.put(attributeName, geom);
+        } else if (attributeName.equals("voorkomen")) {
+            // Flatten al Voorkomen child attributes, according to the schema the element names do not conflict
+            parseVoorkomen(attribute, objectAttributes);
+        } else if (attributeName.equals("BeschikbaarLV")) {
+            // Flatten al Voorkomen/BeschikbaarLV child attributes to the top level, according to the schema the element
+            // names do not conflict
+            parseBeschikbaarLV(attribute, objectAttributes);
+        } else if(attributeName.equals("heeftAlsNevenadres")) {
+            parseNevenadres(attribute, objectAttributes);
+        } else if(attributeName.equals("maaktDeelUitVan")) {
+            parseMaaktDeelUitVan(attribute, objectAttributes);
+        } else if(attributeName.equals("gebruiksdoel")) {
+            parseGebruiksdoel(attribute, objectAttributes);
+        } else {
+            // String attribute value as default
 
-        // String attribute value as default
-        return attribute.collectDescendantText().trim();
+            // This also works for ligtIn en ligtAan
+            objectAttributes.put(attributeName, attribute.collectDescendantText().trim());
+        }
+    }
+
+    private void parseVoorkomen(SMInputCursor attributeCursor, Map<String, Object> objectAttributes) throws XMLStreamException, FactoryException, IOException {
+        attributeCursor = attributeCursor.childElementCursor(new QName(NS_HISTORIE, "Voorkomen")).advance().childElementCursor();
+        while (attributeCursor.getNext() != null) {
+            parseAttribute(attributeCursor, objectAttributes);
+        }
+    }
+
+    private void parseBeschikbaarLV(SMInputCursor attributeCursor, Map<String, Object> objectAttributes) throws XMLStreamException, FactoryException, IOException {
+        attributeCursor = attributeCursor.childElementCursor();
+        while (attributeCursor.getNext() != null) {
+            parseAttribute(attributeCursor, objectAttributes);
+        }
+    }
+
+    private void parseNevenadres(SMInputCursor attributeCursor, Map<String, Object> objectAttributes) throws XMLStreamException {
+        Set<String> values = new HashSet<>();
+        attributeCursor = attributeCursor.childElementCursor(new QName(NS_OBJECTEN_REF, "NummeraanduidingRef"));
+        while (attributeCursor.getNext() != null) {
+            values.add(attributeCursor.collectDescendantText().trim());
+        }
+        objectAttributes.put("heeftAlsNevenadres", values);
+    }
+
+    private void parseMaaktDeelUitVan(SMInputCursor attributeCursor, Map<String, Object> objectAttributes) throws XMLStreamException {
+        Set<String> values = new HashSet<>();
+        attributeCursor = attributeCursor.childElementCursor(new QName(NS_OBJECTEN_REF, "PandRef"));
+        while (attributeCursor.getNext() != null) {
+            values.add(attributeCursor.collectDescendantText().trim());
+        }
+        objectAttributes.put("maaktDeelUitVan", values);
+    }
+
+    private void parseGebruiksdoel(SMInputCursor attributeCursor, Map<String, Object> objectAttributes) throws XMLStreamException {
+        Set<String> values = (Set<String>) objectAttributes.get("gebruiksdoel");
+        if (values == null) {
+            values = new HashSet<>();
+            objectAttributes.put("gebruiksdoel", values);
+        }
+        values.add(attributeCursor.collectDescendantText().trim());
     }
 }
