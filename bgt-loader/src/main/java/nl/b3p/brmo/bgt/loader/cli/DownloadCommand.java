@@ -46,6 +46,9 @@ public class DownloadCommand {
 
     private static final String PREDEFINED_FULL_DELTA_URI = "https://api.pdok.nl/lv/bgt/download/v1_0/delta/predefined/bgt-citygml-nl-delta.zip";
 
+    /** zodat we een JNDI database kunne gebruiken. */
+    private BGTDatabase bgtDatabase = null;
+
     public static ApiClient getApiClient(URI baseUri) {
         ApiClient client = new ApiClient();
         if (baseUri != null) {
@@ -85,7 +88,7 @@ public class DownloadCommand {
 
         log.info(getUserAgent());
 
-        try(BGTDatabase db = new BGTDatabase(dbOptions)) {
+        try(BGTDatabase db = this.getBGTdatabase(dbOptions)) {
             if (loadOptions.createSchema) {
                 db.createMetadataTable(loadOptions);
             } else {
@@ -122,6 +125,21 @@ public class DownloadCommand {
         }
     }
 
+    /**
+     * set a preconfigured database instead of using one created in the command using the dbOtions. Useful when using a JDNI database.
+     *
+     * @param bgtDatabase the BGT database to use for any issued commands
+     */
+    public void setBGTDatabase(BGTDatabase bgtDatabase) {
+        this.bgtDatabase = bgtDatabase;
+    }
+
+    private BGTDatabase getBGTdatabase(DatabaseOptions dbOptions) throws ClassNotFoundException {
+        if (null == this.bgtDatabase) {
+            return new BGTDatabase(dbOptions);
+        } else return this.bgtDatabase;
+    }
+
     private static URI getCustomDownloadURI(URI downloadServiceURI, ExtractSelectionOptions extractSelectionOptions, Consumer<CustomDownloadProgress> progressConsumer) throws ApiException, InterruptedException {
         try {
             log.info(getBundleString("download.create"));
@@ -146,7 +164,7 @@ public class DownloadCommand {
         ApiClient client = getApiClient(downloadServiceURI);
 
         log.info(getBundleString("download.connect_db"));
-        try(BGTDatabase db = new BGTDatabase(dbOptions)) {
+        try(BGTDatabase db = getBGTdatabase(dbOptions)) {
             String deltaId = db.getMetadata(Metadata.DELTA_ID);
             OffsetDateTime deltaIdTimeTo = null;
             String s = db.getMetadata(Metadata.DELTA_TIME_TO);

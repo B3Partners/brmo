@@ -57,7 +57,7 @@ public class NestedZipIntegrationTest extends TestUtil {
                     ZipEntry innerentry = innerzip.getNextEntry();
                     while (innerentry != null && innerentry.getName().toLowerCase().endsWith(".xml")) {
                         LOG.info("verwerken " + innerentry.getName());
-                        brmo.loadFromStream("bag", new CloseShieldInputStream(innerzip), "DNLDLXAM02-15967-5014117-31032017-01042017.zip/" + innerentry.getName(), (Long)null);
+                        brmo.loadFromStream("bag", CloseShieldInputStream.wrap(innerzip), "DNLDLXAM02-15967-5014117-31032017-01042017.zip/" + innerentry.getName(), (Long)null);
                         innerentry = innerzip.getNextEntry();
                     }
                     LOG.debug("einde verwerken " + entry.getName());

@@ -28,7 +28,7 @@ public class CommandLineTestBase extends DBTestBase {
     @BeforeEach
     void init(TestInfo info) {
         main = new BGTLoaderMain();
-        main.configureLogging();
+        main.configureLogging(true);
         cmd = new CommandLine(main);
         mockWebServer = new MockWebServer();
         System.out.println("\nExecute test: " + info.getDisplayName());

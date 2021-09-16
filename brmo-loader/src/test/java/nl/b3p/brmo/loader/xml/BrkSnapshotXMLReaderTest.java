@@ -130,7 +130,7 @@ public class BrkSnapshotXMLReaderTest {
         try {
             ZipEntry entry = zis.getNextEntry();
             while (entry != null) {
-                BrkSnapshotXMLReader brkreader = new BrkSnapshotXMLReader(new CloseShieldInputStream(zis));
+                BrkSnapshotXMLReader brkreader = new BrkSnapshotXMLReader(CloseShieldInputStream.wrap(zis));
 
                 assertEquals(mutXmlsInZip[0], entry.getName(), "De bestandsnaam moet kloppen.");
                 while (brkreader.hasNext()) {
@@ -160,7 +160,7 @@ public class BrkSnapshotXMLReaderTest {
         try {
             ZipEntry entry = zis.getNextEntry();
             while (entry != null) {
-                BrkSnapshotXMLReader brkreader = new BrkSnapshotXMLReader(new CloseShieldInputStream(zis));
+                BrkSnapshotXMLReader brkreader = new BrkSnapshotXMLReader(CloseShieldInputStream.wrap(zis));
 
                 assertEquals(standXmlsInZip[0], entry.getName(), "De bestandsnaam moet kloppen.");
                 while (brkreader.hasNext()) {

@@ -3,13 +3,6 @@
  */
 package nl.b3p.brmo.stufbg204;
 
-import java.io.IOException;
-import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-
 import nl.b3p.brmo.loader.BrmoFramework;
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.test.util.database.dbunit.CleanUtil;
@@ -26,19 +19,24 @@ import org.dbunit.database.DatabaseConfig;
 import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.DatabaseDataSourceConnection;
 import org.dbunit.database.IDatabaseConnection;
-import org.dbunit.dataset.DataSetException;
 import org.dbunit.dataset.ITable;
 import org.dbunit.ext.mssql.MsSqlDataTypeFactory;
 import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
-import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+
+import java.sql.SQLException;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * Deze testcase verwerkt een soap bericht uit een bestand als kennisgeving. Het
@@ -60,7 +58,7 @@ public class VerwerkHuwelijksMutatieIntegrationTest extends WebTestStub {
     @BeforeEach
     @Override
     public void setUp() throws SQLException, BrmoException, DatabaseUnitException {
-        brmo = new BrmoFramework(dsStaging, dsRsgb, null);
+        brmo = new BrmoFramework(dsStaging, dsRsgb);
         staging = new DatabaseDataSourceConnection(dsStaging);
         rsgb = new DatabaseDataSourceConnection(dsRsgb);
 
@@ -98,7 +96,7 @@ public class VerwerkHuwelijksMutatieIntegrationTest extends WebTestStub {
 
     @Test
     @Disabled("Deze test mislukt omdat in het bericht de gegevens van de partner ontbreken, het bericht kan daardoor niet verwerkt worden")
-    public void testBericht() throws IOException, DataSetException, SQLException, BrmoException, InterruptedException, ParseException {
+    public void testBericht() throws Exception {
         InputStreamEntity reqEntity = new InputStreamEntity(
                 VerwerkHuwelijksMutatieIntegrationTest.class.getResourceAsStream("/OpnemenHuwelijkScenario/StUF_request.xml"),
                 -1,
@@ -117,12 +115,12 @@ public class VerwerkHuwelijksMutatieIntegrationTest extends WebTestStub {
         assertThat("Response status is OK.", response.getStatusLine().getStatusCode(), equalTo(HttpStatus.SC_OK));
 
         // check staging database inhoud
-        assertTrue(1l <= brmo.getCountLaadProcessen(null, null, BrmoFramework.BR_BRP, "STAGING_OK"), "Er zijn anders dan 1 STAGING_OK laadprocessen");
+        assertTrue(1L <= brmo.getCountLaadProcessen(null, null, BrmoFramework.BR_BRP, "STAGING_OK"), "Er zijn anders dan 1 STAGING_OK laadprocessen");
 
         ITable laadproces = staging.createDataSet().getTable("laadproces");
         assertEquals( /* StUFbg204Util.sdf.parse("201812211418450000") */ "2018-12-21 14:18:45.0", laadproces.getValue(0, "bestand_datum").toString(), "datum klopt niet");
 
-        assertTrue(1l <= brmo.getCountBerichten(null, null, BrmoFramework.BR_BRP, "STAGING_OK"), "Er zijn anders dan 1 STAGING_OK berichten");
+        assertTrue(1L <= brmo.getCountBerichten(null, null, BrmoFramework.BR_BRP, "STAGING_OK"), "Er zijn anders dan 1 STAGING_OK berichten");
         ITable bericht = staging.createDataSet().getTable("bericht");
         assertEquals("NL.BRP.Persoon.df2e41b72f8a3421ef575617fc247a77018a573f", bericht.getValue(0, "object_ref"), "object ref klopt niet");
         assertEquals("2018-12-21 14:18:45.0", bericht.getValue(0, "datum").toString(), "datum klopt niet");
@@ -148,7 +146,7 @@ public class VerwerkHuwelijksMutatieIntegrationTest extends WebTestStub {
 
     @Test
     @Disabled("Deze test mislukt omdat in het bericht de gegevens van de partner ontbreken, het bericht kan daardoor niet verwerkt worden")
-    public void testToevoegingMetHuwelijkAlsComfort() throws IOException, DataSetException, SQLException, InterruptedException, ParseException, BrmoException {
+    public void testToevoegingMetHuwelijkAlsComfort() throws Exception {
         InputStreamEntity reqEntity = new InputStreamEntity(
                 VerwerkToevoegingMutatieIntegrationTest.class.getResourceAsStream("/testdata-tnt/SoapBerichten/toevoeging_huwelijk_als_comfort.xml"),
                 -1,
@@ -167,13 +165,12 @@ public class VerwerkHuwelijksMutatieIntegrationTest extends WebTestStub {
         assertThat("Response status is OK.", response.getStatusLine().getStatusCode(), equalTo(HttpStatus.SC_OK));
 
         // check staging database inhoud
-        assertEquals(1l, brmo.getCountLaadProcessen(null, null, BrmoFramework.BR_BRP, "STAGING_OK"), "Er zijn anders dan 1 STAGING_OK laadprocessen");
+        assertEquals(1L, brmo.getCountLaadProcessen(null, null, BrmoFramework.BR_BRP, "STAGING_OK"), "Er zijn anders dan 1 STAGING_OK laadprocessen");
 
         ITable laadproces = staging.createDataSet().getTable("laadproces");
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss.SS");
         assertEquals("2019-01-14 16:04:37.0", laadproces.getValue(0, "bestand_datum").toString(), "datum klopt niet");
 
-        assertTrue(1l <= brmo.getCountBerichten(null, null, BrmoFramework.BR_BRP, "STAGING_OK"), "Er zijn anders dan 1 STAGING_OK berichten");
+        assertTrue(1L <= brmo.getCountBerichten(null, null, BrmoFramework.BR_BRP, "STAGING_OK"), "Er zijn anders dan 1 STAGING_OK berichten");
         ITable bericht = staging.createDataSet().getTable("bericht");
         assertEquals("NL.BRP.Persoon.fcd17242d8211342df48efd67341ca9765de8347", bericht.getValue(0, "object_ref"), "object ref klopt niet");
         assertEquals("2019-01-14 16:04:37.0", bericht.getValue(0, "datum").toString(), "datum klopt niet");
@@ -200,7 +197,7 @@ public class VerwerkHuwelijksMutatieIntegrationTest extends WebTestStub {
 
     @Test
     @Disabled("TODO de 2e persoon wordt niet uitgeparsed")
-    public void testBericht2() throws IOException, DataSetException, SQLException, BrmoException, InterruptedException, ParseException {
+    public void testBericht2() throws Exception {
         InputStreamEntity reqEntity = new InputStreamEntity(
                 VerwerkHuwelijksMutatieIntegrationTest.class.getResourceAsStream("/OpnemenHuwelijkScenario/StUF_request2.xml"),
                 -1,
@@ -219,12 +216,12 @@ public class VerwerkHuwelijksMutatieIntegrationTest extends WebTestStub {
         assertThat("Response status is OK.", response.getStatusLine().getStatusCode(), equalTo(HttpStatus.SC_OK));
 
         // check staging database inhoud
-        assertTrue(1l <= brmo.getCountLaadProcessen(null, null, BrmoFramework.BR_BRP, "STAGING_OK"), "Er zijn anders dan 1 STAGING_OK laadprocessen");
+        assertTrue(1L <= brmo.getCountLaadProcessen(null, null, BrmoFramework.BR_BRP, "STAGING_OK"), "Er zijn anders dan 1 STAGING_OK laadprocessen");
 
         ITable laadproces = staging.createDataSet().getTable("laadproces");
         assertEquals( /* StUFbg204Util.sdf.parse("201812211418450000") */ "2018-12-21 14:18:45.0", laadproces.getValue(0, "bestand_datum").toString(), "datum klopt niet");
 
-        assertTrue(1l <= brmo.getCountBerichten(null, null, BrmoFramework.BR_BRP, "STAGING_OK"), "Er zijn anders dan 1 STAGING_OK berichten");
+        assertTrue(1L <= brmo.getCountBerichten(null, null, BrmoFramework.BR_BRP, "STAGING_OK"), "Er zijn anders dan 1 STAGING_OK berichten");
         ITable bericht = staging.createDataSet().getTable("bericht");
         assertEquals("NL.BRP.Persoon.df2e41b72f8a3421ef575617fc247a77018a573f", bericht.getValue(0, "object_ref"), "object ref klopt niet");
         assertEquals("2018-12-21 14:18:45.0", bericht.getValue(0, "datum").toString(), "datum klopt niet");

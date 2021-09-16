@@ -547,7 +547,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
                             localLpName = getLaadprocesBestandsnaam(a) + "/" + entry.getName() + "/" + innerentry.getName();
                             brmo.loadFromStream(
                                     BrmoFramework.BR_BAG,
-                                    new CloseShieldInputStream(innerzip),
+                                    CloseShieldInputStream.wrap(innerzip),
                                     localLpName,
                                     config.getId()
                             );

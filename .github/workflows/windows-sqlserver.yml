@@ -3,7 +3,7 @@ name: Windows MS SQL build
 env:
   MAVEN_OPTS: -Djava.awt.headless=true -Dmaven.wagon.httpconnectionManager.ttlSeconds=25 -Dmaven.wagon.http.retryHandler.count=3 -Dbrmo.persistence.microsoftsqlserver
 
-on: [ push ]
+on: [ pull_request ]
 jobs:
   build:
     name: MS SQL developer online test

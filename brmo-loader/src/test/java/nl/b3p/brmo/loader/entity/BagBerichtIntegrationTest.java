@@ -91,7 +91,7 @@ public class BagBerichtIntegrationTest extends AbstractDatabaseIntegrationTest {
         dsRsgb.setAccessToUnderlyingConnectionAllowed(true);
         rsgb = new DatabaseDataSourceConnection(dsRsgb);
 
-        brmo = new BrmoFramework(dsStaging, dsRsgb, null);
+        brmo = new BrmoFramework(dsStaging, dsRsgb);
         brmo.setOrderBerichten(true);
 
         if (this.isMsSQL) {

@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
-         version="3.0"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee https://www.oracle.com/webfolder/technetwork/jsc/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1"
          metadata-complete="true">
     <context-param>
-        <description>Gebruik multithreaded XSL transformatie/GML parse pipeline. Om op correcte wijze WOZ en BRP
-            berichten te kunnen verwerken dient deze op false te worden ingesteld - omdat deze geen was/wordt leveren, maar een toestand</description>
+        <description>Gebruik (true) multithreaded XSL transformatie/GML parse pipeline of niet (false). Om op correcte wijze WOZ en BRP
+            berichten te kunnen verwerken dient deze op false te worden ingesteld - omdat deze geen was/wordt leveren, maar een (onvolledige) toestandmutatie.
+            Voor BAG/BRK/nHR berichten kan deze op true worden ingesteld. Eventueel kan dan ook de onderstaande pipelining.capacity worden aangepast.</description>
         <param-name>pipelining.enabled</param-name>
         <param-value>false</param-value>
     </context-param>

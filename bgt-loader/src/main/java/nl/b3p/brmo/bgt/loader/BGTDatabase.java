@@ -42,7 +42,7 @@ public class BGTDatabase implements AutoCloseable {
         mssql
     }
 
-    private final SQLDialect dialect;
+    private SQLDialect dialect;
     private final DatabaseOptions dbOptions;
     private Connection connection;
 
@@ -75,6 +75,14 @@ public class BGTDatabase implements AutoCloseable {
         return this.connection;
     }
 
+    public void setConnection(Connection connection){
+        this.connection = connection;
+    }
+
+    public void setDialect(SQLDialect dialect){
+        this.dialect = dialect;
+    }
+
     @Override
     public void close() throws SQLException {
         if (this.connection != null && !this.connection.isClosed()) {
@@ -82,7 +90,7 @@ public class BGTDatabase implements AutoCloseable {
         }
     }
 
-    public Connection createConnection() {
+    private Connection createConnection() {
         try {
             return DriverManager.getConnection(dbOptions.getConnectionString(), dbOptions.getUser(), dbOptions.getPassword());
         } catch (SQLException e) {

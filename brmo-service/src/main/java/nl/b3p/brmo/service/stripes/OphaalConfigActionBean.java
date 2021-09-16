@@ -26,6 +26,7 @@ import net.sourceforge.stripes.validation.ValidationMethod;
 import nl.b3p.brmo.persistence.staging.AfgifteNummerScannerProces;
 import nl.b3p.brmo.persistence.staging.AutomatischProces;
 import nl.b3p.brmo.persistence.staging.BAGScannerProces;
+import nl.b3p.brmo.persistence.staging.BGTLoaderProces;
 import nl.b3p.brmo.persistence.staging.BRKScannerProces;
 import nl.b3p.brmo.persistence.staging.BerichtDoorstuurProces;
 import nl.b3p.brmo.persistence.staging.BerichtTransformatieProces;
@@ -77,7 +78,7 @@ public class OphaalConfigActionBean implements ActionBean {
     private ProcesExecutable.ProcessingImple type;
 
     @Validate
-    private Map<String, ClobElement> config = new HashMap<String, ClobElement>();
+    private Map<String, ClobElement> config = new HashMap<>();
 
     @Before(stages = LifecycleStage.BindingAndValidation)
     public void load() {
@@ -118,6 +119,11 @@ public class OphaalConfigActionBean implements ActionBean {
 
     @DontValidate
     public Resolution add() {
+        if (type == ProcesExecutable.ProcessingImple.BGTLoaderProces){
+            // default values voor BGT loader
+            config.put("create-schema",new ClobElement("true"));
+            config.put("feature-types",new ClobElement("all"));
+        }
         return new ForwardResolution(JSP).addParameter("type", type);
     }
 
@@ -189,6 +195,8 @@ public class OphaalConfigActionBean implements ActionBean {
                 return new TopNLScannerProces();
             case AfgifteNummerScannerProces:
                 return new AfgifteNummerScannerProces();
+            case BGTLoaderProces:
+                return new BGTLoaderProces();
             default:
                 throw new IllegalArgumentException(type.name() + " is geen ondersteund proces type...");
         }
