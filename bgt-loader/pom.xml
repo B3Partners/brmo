@@ -227,7 +227,7 @@ SPDX-License-Identifier: MIT
                     <verbose>true</verbose>
                     <images>
                         <image>
-                            <name>ghcr.io/b3partners/brmo-bgt-loader:%l</name>
+                            <name>ghcr.io/b3partners/brmo-bgt-loader:snapshot</name>
                         </image>
                     </images>
                 </configuration>
@@ -253,6 +253,53 @@ SPDX-License-Identifier: MIT
         </plugins>
     </build>
     <profiles>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>io.fabric8</groupId>
+                        <artifactId>docker-maven-plugin</artifactId>
+                        <configuration>
+                            <verbose>true</verbose>
+                            <images>
+                                <image>
+                                    <name>ghcr.io/b3partners/brmo-bgt-loader:%l</name>
+                                </image>
+                            </images>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>docker-tag</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>tag</goal>
+                                </goals>
+                                <configuration>
+                                    <tagName>latest</tagName>
+                                    <repo>ghcr.io/b3partners</repo>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>docker-push-latest</id>
+                                <phase>deploy</phase>
+                                <goals>
+                                    <goal>push</goal>
+                                </goals>
+                                <configuration>
+                                    <verbose>true</verbose>
+                                    <images>
+                                        <image>
+                                            <name>ghcr.io/b3partners/brmo-bgt-loader:latest</name>
+                                        </image>
+                                    </images>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
         <profile>
             <id>postgresql</id>
             <build>
