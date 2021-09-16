@@ -1128,6 +1128,7 @@
                 <artifactId>maven-release-plugin</artifactId>
                 <configuration>
                     <pushChanges>true</pushChanges>
+                    <releaseProfiles>release</releaseProfiles>
                 </configuration>
             </plugin>
         </plugins>
