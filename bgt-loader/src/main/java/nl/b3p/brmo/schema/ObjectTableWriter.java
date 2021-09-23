@@ -383,6 +383,14 @@ public class ObjectTableWriter {
         this.exceptionFromWorkerThread = exceptionFromWorkerThread;
     }
 
+    public void abortWorkerThread() throws Exception {
+        if (workerThread != null) {
+            // Remove all objects already queued
+            progress.objectsToWrite.clear();
+            endOfObjects();
+        }
+    }
+
     private final Runnable worker = () -> {
         try {
             while (true) {

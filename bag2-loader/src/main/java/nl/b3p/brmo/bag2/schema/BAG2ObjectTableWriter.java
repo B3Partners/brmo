@@ -46,22 +46,29 @@ public class BAG2ObjectTableWriter extends ObjectTableWriter {
         BAG2GMLObjectStream bag2Objects = new BAG2GMLObjectStream(counter);
         updateProgress(Stage.LOAD_OBJECTS);
 
+        try {
+            for (BAG2Object object : bag2Objects) {
+                prepareDatabaseForObject(object);
 
-        for (BAG2Object object: bag2Objects) {
-            prepareDatabaseForObject(object);
+                getProgress().incrementObjectCount();
 
-            getProgress().incrementObjectCount();
+    /*            if (object.getAttributes().get(BAG2Schema.EIND_REGISTRATIE) != null) {
+                    // Historic object
+                    continue;
+                }*/
 
-/*            if (object.getAttributes().get(BAG2Schema.EIND_REGISTRATIE) != null) {
-                // Historic object
-                continue;
-            }*/
+                addObjectToBatch(object);
 
-            addObjectToBatch(object);
-
-            if (getObjectLimit() != null && getProgress().getObjectCount() == getObjectLimit()) {
-                break;
+                if (getObjectLimit() != null && getProgress().getObjectCount() == getObjectLimit()) {
+                    break;
+                }
             }
+        } catch(Exception e) {
+            if (isMultithreading()) {
+                // Make sure worker thread exits
+                abortWorkerThread();
+            }
+            throw e;
         }
     }
 
