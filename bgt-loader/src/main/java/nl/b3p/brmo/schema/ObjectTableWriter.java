@@ -11,6 +11,7 @@ import nl.b3p.brmo.schema.mapping.ArrayAttributeMapping;
 import nl.b3p.brmo.schema.mapping.AttributeColumnMapping;
 import nl.b3p.brmo.schema.mapping.GeometryAttributeColumnMapping;
 import nl.b3p.brmo.sql.GeometryHandlingPreparedStatementBatch;
+import nl.b3p.brmo.sql.LoggingQueryRunner;
 import nl.b3p.brmo.sql.PostGISCopyInsertBatch;
 import nl.b3p.brmo.sql.QueryBatch;
 import nl.b3p.brmo.sql.dialect.PostGISDialect;
@@ -220,7 +221,7 @@ public class ObjectTableWriter {
         if(insertBatches.isEmpty()) {
             if (progress.initialLoad) {
                 if (isCreateSchema()) {
-                    QueryRunner qr = new QueryRunner();
+                    QueryRunner qr = new LoggingQueryRunner();
                     for (String sql: Stream.concat(
                             schemaSQLMapper.getCreateTableStatements(object.getObjectType(), dialect, tablePrefix),
                             schemaSQLMapper.getCreateGeometryMetadataStatements(object.getObjectType(), dialect, tablePrefix)).collect(Collectors.toList())) {
@@ -436,7 +437,7 @@ public class ObjectTableWriter {
 
     private void truncateTable(Connection c, ObjectType objectType) throws SQLException {
         // TODO like jdbc-util, truncate may fail but 'delete from' may succeed
-        new QueryRunner().execute(c, String.format("truncate table %s", schemaSQLMapper.getTableNameForObjectType(objectType, tablePrefix)));
+        new LoggingQueryRunner().execute(c, String.format("truncate table %s", schemaSQLMapper.getTableNameForObjectType(objectType, tablePrefix)));
     }
 
     private String buildInsertSql(SchemaObjectInstance object) {
@@ -507,7 +508,7 @@ public class ObjectTableWriter {
 
     protected void complete() throws Exception {
         if (isCreateSchema() && progress.initialLoad) {
-            QueryRunner qr = new QueryRunner();
+            QueryRunner qr = new LoggingQueryRunner();
             updateProgress(Stage.CREATE_PRIMARY_KEY);
             for(ObjectType objectType: progress.insertBatches.keySet()) {
                 for (String sql: schemaSQLMapper.getCreatePrimaryKeyStatements(objectType, dialect, tablePrefix,false).collect(Collectors.toList())) {

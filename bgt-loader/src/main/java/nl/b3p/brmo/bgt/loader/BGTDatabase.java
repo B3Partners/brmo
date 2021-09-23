@@ -11,11 +11,11 @@ import nl.b3p.brmo.bgt.loader.cli.DatabaseOptions;
 import nl.b3p.brmo.bgt.loader.cli.LoadOptions;
 import nl.b3p.brmo.bgt.schema.BGTObjectTableWriter;
 import nl.b3p.brmo.bgt.schema.BGTSchemaMapper;
+import nl.b3p.brmo.sql.LoggingQueryRunner;
 import nl.b3p.brmo.sql.dialect.MSSQLDialect;
 import nl.b3p.brmo.sql.dialect.OracleDialect;
 import nl.b3p.brmo.sql.dialect.PostGISDialect;
 import nl.b3p.brmo.sql.dialect.SQLDialect;
-import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -127,12 +127,12 @@ public class BGTDatabase implements AutoCloseable {
     public void createMetadataTable(LoadOptions loadOptions) throws SQLException {
         log.info(getBundleString("db.create_metadata"));
         for(String sql: BGTSchemaMapper.getInstance().getCreateMetadataTableStatements(getDialect(), loadOptions.getTablePrefix())) {
-            new QueryRunner().update(getConnection(), sql);
+            new LoggingQueryRunner().update(getConnection(), sql);
         }
     }
 
     public String getMetadata(Metadata key) throws SQLException {
-        Object value = new QueryRunner().query(getConnection(), "select waarde from " + METADATA_TABLE_NAME + " where naam = ?", new ScalarHandler<>(), key.getDbKey());
+        Object value = new LoggingQueryRunner().query(getConnection(), "select waarde from " + METADATA_TABLE_NAME + " where naam = ?", new ScalarHandler<>(), key.getDbKey());
         if (value == null) {
             return null;
         }
@@ -145,9 +145,9 @@ public class BGTDatabase implements AutoCloseable {
 
     public void setMetadataValue(Metadata key, String value) throws Exception {
         try {
-            int updated = new QueryRunner().update(getConnection(), "update " + METADATA_TABLE_NAME + " set waarde = ? where naam = ?", value, key.getDbKey());
+            int updated = new LoggingQueryRunner().update(getConnection(), "update " + METADATA_TABLE_NAME + " set waarde = ? where naam = ?", value, key.getDbKey());
             if (updated == 0) {
-                new QueryRunner().update(getConnection(), "insert into " + METADATA_TABLE_NAME + "(naam, waarde) values(?,?)", key.getDbKey(), value);
+                new LoggingQueryRunner().update(getConnection(), "insert into " + METADATA_TABLE_NAME + "(naam, waarde) values(?,?)", key.getDbKey(), value);
             }
         } catch (SQLException e) {
             throw new Exception(getMessageFormattedString("db.metadata_error", key.getDbKey(), value, e.getMessage()), e);
