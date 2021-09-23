@@ -34,6 +34,10 @@ public class Schema {
     }
 
     public ObjectType getObjectTypeByName(String name) {
+        if (!objectTypes.containsKey(name)) {
+            throw new IllegalArgumentException("Object type \"" + name + "\" not found");
+        }
         return objectTypes.get(name);
+
     }
 }
