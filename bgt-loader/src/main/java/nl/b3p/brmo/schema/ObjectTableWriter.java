@@ -511,12 +511,14 @@ public class ObjectTableWriter {
             QueryRunner qr = new LoggingQueryRunner();
             updateProgress(Stage.CREATE_PRIMARY_KEY);
             for(ObjectType objectType: progress.insertBatches.keySet()) {
-                for (String sql: schemaSQLMapper.getCreatePrimaryKeyStatements(objectType, dialect, tablePrefix,false).collect(Collectors.toList())) {
+                // XXX why includeOneToMany is false here?
+                for (String sql: schemaSQLMapper.getCreatePrimaryKeyStatements(objectType, dialect, tablePrefix, false).collect(Collectors.toList())) {
                     qr.update(connection, sql);
                 }
             }
             updateProgress(Stage.CREATE_GEOMETRY_INDEX);
             for(ObjectType objectType: progress.insertBatches.keySet()) {
+                // XXX why includeOneToMany is false here?
                 for(String sql: schemaSQLMapper.getCreateGeometryIndexStatements(objectType, dialect, tablePrefix, false).collect(Collectors.toList())) {
                     qr.update(connection, sql);
                 }
