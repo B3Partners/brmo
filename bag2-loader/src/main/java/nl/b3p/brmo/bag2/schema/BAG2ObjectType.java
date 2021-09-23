@@ -17,4 +17,10 @@ public class BAG2ObjectType extends ObjectType {
     public BAG2ObjectType(Schema schema, String name, List<AttributeColumnMapping> attributes) {
         super(schema, name, attributes);
     }
+
+    @Override
+    public BAG2ObjectType addExtraDataDefinitionSQL(List<String> extraDataDefinitionSQL) {
+        super.addExtraDataDefinitionSQL(extraDataDefinitionSQL);
+        return this;
+    }
 }

@@ -9,6 +9,7 @@ package nl.b3p.brmo.schema;
 
 import nl.b3p.brmo.schema.mapping.ArrayAttributeMapping;
 import nl.b3p.brmo.schema.mapping.AttributeColumnMapping;
+import nl.b3p.brmo.schema.mapping.ForeignKeyAttributeMapping;
 import nl.b3p.brmo.sql.dialect.SQLDialect;
 
 import java.util.ArrayList;
@@ -115,13 +116,21 @@ public abstract class SchemaSQLMapper {
 
         String tableName = getTableNameForObjectType(objectType, tablePrefix);
         if (dialect.supportsDropTableIfExists()) {
-            statements.add("drop table if exists " + tableName);
+            statements.add(String.format("drop table if exists %s cascade", tableName));
         }
         String columns = objectType.getDirectAttributes().stream()
-                .map(column -> String.format("  %s %s%s",
-                        getColumnNameForObjectType(objectType, column.getName()),
-                        dialect.getType(column.getType()),
-                        column.isNotNull() ? " not null" : ""))
+                .map(column -> {
+                    String referencing = "";
+                    if (column instanceof ForeignKeyAttributeMapping) {
+                        ForeignKeyAttributeMapping fkMapping = (ForeignKeyAttributeMapping) column;
+                        referencing = " references " + getTableNameForObjectType(getSchema().getObjectTypeByName(fkMapping.getReferencing()), tablePrefix);
+                    }
+                    return String.format("  %s %s%s%s",
+                            getColumnNameForObjectType(objectType, column.getName()),
+                            dialect.getType(column.getType()),
+                            column.isNotNull() ? " not null" : "",
+                            referencing);
+                })
                 .collect(Collectors.joining(",\n"));
         statements.add(String.format("create table %s (\n%s\n)", tableName, columns));
         statements.addAll(objectType.getOneToManyAttributeObjectTypes().stream()
@@ -134,18 +143,19 @@ public abstract class SchemaSQLMapper {
         List<String> statements = new ArrayList<>();
         String tableName = getTableNameForArrayAttribute(objectType, arrayAttribute, tablePrefix);
         if (dialect.supportsDropTableIfExists()) {
-            statements.add("drop table if exists " + tableName);
+            statements.add("drop table if exists " + tableName + " cascade");
         }
         String columns = Stream.concat(
-                    objectType.getDirectAttributes().stream().filter(AttributeColumnMapping::isPrimaryKey),
+                    objectType.getPrimaryKeys().stream(),
                     Stream.of(arrayAttribute))
+                // Note that we can't immediately add "references table" here, because the primary key is added to the
+                // table later
                 .map(column -> String.format("  %s %s%s",
                         getColumnNameForObjectType(objectType, column.getName()),
                         dialect.getType(column.getType()),
                         column.isNotNull() ? " not null" : ""))
                 .collect(Collectors.joining(",\n"));
         statements.add(String.format("create table %s (\n%s\n)", tableName, columns));
-        // Afterwards: foreign keys (object type PK columns)
         // Unordered list, no primary key
         return statements.stream();
     }
@@ -168,11 +178,20 @@ public abstract class SchemaSQLMapper {
         } else {
             tablePrimaryKey = Stream.empty();
         }
-        return Stream.concat(
+        return Stream.concat(Stream.concat(Stream.concat(
                 tablePrimaryKey,
                 includeOneToMany
                         ? objectType.getOneToManyAttributeObjectTypes().stream().flatMap(oneToManyObjectType -> getCreatePrimaryKeyStatements(oneToManyObjectType, dialect, tablePrefix))
-                        : Stream.empty()
+                        : Stream.empty()),
+                objectType.getArrayAttributes().stream().flatMap(arrayAttribute -> {
+                    // Create foreign key for array attribute table back to original table
+                    String arrayAttributeTableName = getTableNameForArrayAttribute(objectType, arrayAttribute, tablePrefix);
+                    String keyColumns = objectType.getPrimaryKeys().stream()
+                            .map(pk -> getColumnNameForObjectType(objectType, pk.getName()))
+                            .collect(Collectors.joining(", "));
+                    return Stream.of(String.format("alter table %s add constraint %s_ownedby_fkey foreign key (%s) references %s", arrayAttributeTableName, arrayAttributeTableName, keyColumns, tableName));
+                })),
+                objectType.getExtraDataDefinitionSQL().stream()
         );
     }
 

@@ -11,6 +11,7 @@ import nl.b3p.brmo.schema.Schema;
 import nl.b3p.brmo.schema.mapping.ArrayAttributeMapping;
 import nl.b3p.brmo.schema.mapping.AttributeColumnMapping;
 import nl.b3p.brmo.schema.mapping.BooleanAttributeColumnMapping;
+import nl.b3p.brmo.schema.mapping.ForeignKeyAttributeMapping;
 import nl.b3p.brmo.schema.mapping.GeometryAttributeColumnMapping;
 import nl.b3p.brmo.schema.mapping.IntegerAttributeColumnMapping;
 import nl.b3p.brmo.schema.mapping.SimpleDateFormatAttributeColumnMapping;
@@ -83,7 +84,7 @@ public class BAG2Schema extends Schema {
                 new AttributeColumnMapping("naam"),
                 new AttributeColumnMapping("verkorteNaam", "varchar(255)", false),
                 new AttributeColumnMapping("type"),
-                new AttributeColumnMapping("ligtIn", "char(4)", false)
+                new ForeignKeyAttributeMapping("ligtIn", "Woonplaats", "char(4)", false)
         )));
 
         addObjectType(new BAG2ObjectType(this, "Nummeraanduiding", withBaseAttributes(
@@ -92,29 +93,48 @@ public class BAG2Schema extends Schema {
                 new AttributeColumnMapping("huisnummertoevoeging", "varchar(255)", false),
                 new AttributeColumnMapping("postcode", "char(6)", false),
                 new AttributeColumnMapping("typeAdresseerbaarObject", "varchar(255)", false),
-                new AttributeColumnMapping("ligtIn", "char(4)", false),
-                new AttributeColumnMapping("ligtAan", "char(16)", false)
+                new ForeignKeyAttributeMapping("ligtIn", "Woonplaats", "char(4)", false),
+                new ForeignKeyAttributeMapping("ligtAan", "OpenbareRuimte", "char(16)", false)
         )));
 
         addObjectType(new BAG2ObjectType(this, "Verblijfsobject", withBaseAttributes(
                 new ArrayAttributeMapping("gebruiksdoel", "gebruiksdoel", "varchar(255)"),
                 new IntegerAttributeColumnMapping("oppervlakte"),
-                new AttributeColumnMapping("heeftAlsHoofdadres", "varchar", false),
+                new ForeignKeyAttributeMapping("heeftAlsHoofdadres", "Nummeraanduiding", "char(16)", false),
                 new ArrayAttributeMapping("heeftAlsNevenadres", "nevenadres", "char(16)"),
                 new ArrayAttributeMapping("maaktDeelUitVan", "pand", "char(16)"),
                 new GeometryAttributeColumnMapping("geometrie", "geometry(GEOMETRY, 28992)")
+        )).addExtraDataDefinitionSQL(List.of(
+                "alter table verblijfsobject_nevenadres add constraint verblijfsobject_nevenadres_heeftalsnevenadres_fkey foreign key (heeftalsnevenadres) references nummeraanduiding",
+                "create index on verblijfsobject_nevenadres (identificatie)",
+                "create index on verblijfsobject_archief_nevenadres (identificatie)",
+
+                "alter table verblijfsobject_pand add constraint verblijfsobject_pand_maaktdeeluitvan_fkey foreign key (maaktdeeluitvan) references pand",
+                "create index on verblijfsobject_pand (identificatie)",
+                "create index on verblijfsobject_archief_pand (identificatie)", // voorkomenidentificatie not in index, could be, probably not used that often
+
+                "create index on verblijfsobject_gebruiksdoel (identificatie)",
+                "create index on verblijfsobject_archief_gebruiksdoel (identificatie)"
         )));
 
         addObjectType(new BAG2ObjectType(this, "Ligplaats", withBaseAttributes(
                 new GeometryAttributeColumnMapping("geometrie", "geometry(POLYGON, 28992)"),
-                new AttributeColumnMapping("heeftAlsHoofdadres"),
+                new ForeignKeyAttributeMapping("heeftAlsHoofdadres", "Nummeraanduiding", "char(16)", false),
                 new ArrayAttributeMapping("heeftAlsNevenadres", "nevenadres", "char(16)")
+        )).addExtraDataDefinitionSQL(List.of(
+                "alter table ligplaats_nevenadres add constraint ligplaats_nevenadres_heeftalsnevenadres foreign key (heeftalsnevenadres) references nummeraanduiding",
+                "create index on ligplaats_nevenadres (identificatie)",
+                "create index on ligplaats_archief_nevenadres (identificatie)"
         )));
 
         addObjectType(new BAG2ObjectType(this, "Standplaats", withBaseAttributes(
                 new GeometryAttributeColumnMapping("geometrie", "geometry(POLYGON, 28992)"),
-                new AttributeColumnMapping("heeftAlsHoofdadres"),
+                new ForeignKeyAttributeMapping("heeftAlsHoofdadres", "Nummeraanduiding", "char(16)", false),
                 new ArrayAttributeMapping("heeftAlsNevenadres", "nevenadres", "char(16)")
+        )).addExtraDataDefinitionSQL(List.of(
+                "alter table standplaats_nevenadres add constraint standplaats_nevenadres_heeftalsnevenadres foreign key (heeftalsnevenadres) references nummeraanduiding",
+                "create index on standplaats_nevenadres (identificatie)",
+                "create index on standplaats_archief_nevenadres (identificatie)"
         )));
 
         addObjectType(new BAG2ObjectType(this, "Pand", withBaseAttributes(
@@ -130,15 +150,22 @@ public class BAG2Schema extends Schema {
         BAG2ObjectType currentType = new BAG2ObjectType(this, objectType.getName(),
                 objectType.getAllAttributes().stream()
                         .filter(attribute -> !archiveOnlyAttributes.contains(attribute.getName()))
-                        .collect(Collectors.toList()));
+                        .collect(Collectors.toList()))
+                .addExtraDataDefinitionSQL(objectType.getExtraDataDefinitionSQL());
         super.addObjectType(currentType);
 
         // Add object type for ended objects with archive attributes, and composite primary key
+        // Do not add extra data definition SQL twice
         BAG2ObjectType archiveType = new BAG2ObjectType(this, objectType.getName() + ARCHIVE_SUFFIX,
                 objectType.getAllAttributes().stream()
                         .map(attribute -> {
                             if (attribute.getName().equals(VOORKOMEN_IDENTIFICATIE)) {
                                 return new IntegerAttributeColumnMapping(VOORKOMEN_IDENTIFICATIE, true, true);
+                            } else if (attribute instanceof ForeignKeyAttributeMapping) {
+                                // Replace foreign key with simple attribute mapping, cause an archived object should
+                                // not reference an the table for actual objects (because the reference may also be to
+                                // an archived object)
+                                return new AttributeColumnMapping(attribute.getName(), attribute.getType(), attribute.isNotNull());
                             } else {
                                 return attribute;
                             }
