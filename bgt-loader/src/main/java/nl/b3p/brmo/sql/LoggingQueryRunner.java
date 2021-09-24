@@ -49,9 +49,9 @@ public class LoggingQueryRunner extends QueryRunner {
 
     private void log(String type, String sql, Object params) {
         if (LOG.isTraceEnabled()) {
-            LOG.trace("batch: " + sql + (params != null ? ", params: " + params : ""));
+            LOG.trace(type + ": " + sql + (params != null ? ", params: " + params : ""));
         } else if (LOG.isDebugEnabled()) {
-            LOG.debug("batch: " + sql);
+            LOG.debug(type + ": " + sql);
         }
     }
 
