@@ -42,30 +42,27 @@ public class BAG2Schema extends Schema {
             // TODO gemeente woonplaats relatie
     ));
 
-    public static final String ARCHIVE_SUFFIX = "_archief";
-    private static final String VOORKOMEN_IDENTIFICATIE = "voorkomenidentificatie";
-    public static final String EIND_REGISTRATIE = "eindRegistratie";
+    public static final String TIJDSTIP_NIETBAGLV = "tijdstipNietBagLV";
 
     private static final List<AttributeColumnMapping> bag2BaseAttributes = Arrays.asList(
             new AttributeColumnMapping("identificatie",  "char(16)", true, true),
-            new IntegerAttributeColumnMapping(VOORKOMEN_IDENTIFICATIE, true, false),
+            new IntegerAttributeColumnMapping("voorkomenidentificatie", true, true),
             new SimpleDateFormatAttributeColumnMapping("beginGeldigheid", "date", PATTERN_XML_DATE),
             new SimpleDateFormatAttributeColumnMapping("eindGeldigheid", "date", false, PATTERN_XML_DATE),
             new SimpleDateFormatAttributeColumnMapping("tijdstipRegistratie", "timestamp", PATTERN_XML_TIMESTAMP),
-            new SimpleDateFormatAttributeColumnMapping(EIND_REGISTRATIE, "timestamp", false, PATTERN_XML_TIMESTAMP),
+            new SimpleDateFormatAttributeColumnMapping("eindRegistratie", "timestamp", false, PATTERN_XML_TIMESTAMP),
             new SimpleDateFormatAttributeColumnMapping("tijdstipInactief", "timestamp", false, PATTERN_XML_TIMESTAMP),
             new SimpleDateFormatAttributeColumnMapping("tijdstipRegistratieLV", "timestamp", PATTERN_XML_TIMESTAMP),
             new SimpleDateFormatAttributeColumnMapping("tijdstipEindRegistratieLV", "timestamp", false, PATTERN_XML_TIMESTAMP),
             new SimpleDateFormatAttributeColumnMapping("tijdstipInactiefLV", "timestamp", false, PATTERN_XML_TIMESTAMP),
-            new SimpleDateFormatAttributeColumnMapping("tijdstipNietBagLV", "timestamp", false, PATTERN_XML_TIMESTAMP),
+            // "Niet BAG" is not supported because it would have to be part of the primary key, which would complicate
+            // things, and it is not very useful anyway. "Niet BAG" would be set for versions which were overwritten 
+            // during "synchronisation" when a bronhouder detects previous versions were not correctly registered.
+            // new SimpleDateFormatAttributeColumnMapping(TIJDSTIP_NIETBAGLV, "timestamp", true, PATTERN_XML_TIMESTAMP),
             new SimpleDateFormatAttributeColumnMapping("documentdatum", "date", PATTERN_XML_DATE),
             new AttributeColumnMapping("documentnummer"),
             new BooleanAttributeColumnMapping("geconstateerd"),
             new AttributeColumnMapping("status")
-    );
-
-    private static final List<String> archiveOnlyAttributes = Arrays.asList(
-            "eindGeldigheid", EIND_REGISTRATIE, "tijdstipInactief", "tijdstipEindRegistratieLV", "tijdstipInactiefLV", "tijdstipNietBagLV"
     );
 
     private List<AttributeColumnMapping> withBaseAttributes(AttributeColumnMapping... attributes) {
@@ -84,7 +81,7 @@ public class BAG2Schema extends Schema {
                 new AttributeColumnMapping("naam"),
                 new AttributeColumnMapping("verkorteNaam", "varchar(255)", false),
                 new AttributeColumnMapping("type"),
-                new ForeignKeyAttributeMapping("ligtIn", "Woonplaats", "char(4)", false)
+                new AttributeColumnMapping("ligtIn", "char(4)", false)
         )));
 
         addObjectType(new BAG2ObjectType(this, "Nummeraanduiding", withBaseAttributes(
@@ -93,85 +90,43 @@ public class BAG2Schema extends Schema {
                 new AttributeColumnMapping("huisnummertoevoeging", "varchar(255)", false),
                 new AttributeColumnMapping("postcode", "char(6)", false),
                 new AttributeColumnMapping("typeAdresseerbaarObject", "varchar(255)", false),
-                new ForeignKeyAttributeMapping("ligtIn", "Woonplaats", "char(4)", false),
-                new ForeignKeyAttributeMapping("ligtAan", "OpenbareRuimte", "char(16)", false)
+                new AttributeColumnMapping("ligtIn", "char(4)", false),
+                new AttributeColumnMapping("ligtAan", "char(16)", false)
         )));
 
         addObjectType(new BAG2ObjectType(this, "Verblijfsobject", withBaseAttributes(
                 new ArrayAttributeMapping("gebruiksdoel", "gebruiksdoel", "varchar(255)"),
                 new IntegerAttributeColumnMapping("oppervlakte"),
-                new ForeignKeyAttributeMapping("heeftAlsHoofdadres", "Nummeraanduiding", "char(16)", false),
+                new AttributeColumnMapping("heeftAlsHoofdadres", "char(16)", false),
                 new ArrayAttributeMapping("heeftAlsNevenadres", "nevenadres", "char(16)"),
                 new ArrayAttributeMapping("maaktDeelUitVan", "pand", "char(16)"),
                 new GeometryAttributeColumnMapping("geometrie", "geometry(GEOMETRY, 28992)")
         )).addExtraDataDefinitionSQL(List.of(
-                "alter table verblijfsobject_nevenadres add constraint verblijfsobject_nevenadres_heeftalsnevenadres_fkey foreign key (heeftalsnevenadres) references nummeraanduiding",
-                "create index on verblijfsobject_nevenadres (identificatie)",
-                "create index on verblijfsobject_archief_nevenadres (identificatie)",
-
-                "alter table verblijfsobject_pand add constraint verblijfsobject_pand_maaktdeeluitvan_fkey foreign key (maaktdeeluitvan) references pand",
-                "create index on verblijfsobject_pand (identificatie)",
-                "create index on verblijfsobject_archief_pand (identificatie)", // voorkomenidentificatie not in index, could be, probably not used that often
-
-                "create index on verblijfsobject_gebruiksdoel (identificatie)",
-                "create index on verblijfsobject_archief_gebruiksdoel (identificatie)"
+                "create index on verblijfsobject_nevenadres (identificatie, voorkomenidentificatie)",
+                "create index on verblijfsobject_pand (identificatie, voorkomenidentificatie)",
+                "create index on verblijfsobject_gebruiksdoel (identificatie, voorkomenidentificatie)"
         )));
 
         addObjectType(new BAG2ObjectType(this, "Ligplaats", withBaseAttributes(
                 new GeometryAttributeColumnMapping("geometrie", "geometry(POLYGON, 28992)"),
-                new ForeignKeyAttributeMapping("heeftAlsHoofdadres", "Nummeraanduiding", "char(16)", false),
+                new AttributeColumnMapping("heeftAlsHoofdadres", "char(16)", false),
                 new ArrayAttributeMapping("heeftAlsNevenadres", "nevenadres", "char(16)")
         )).addExtraDataDefinitionSQL(List.of(
-                "alter table ligplaats_nevenadres add constraint ligplaats_nevenadres_heeftalsnevenadres foreign key (heeftalsnevenadres) references nummeraanduiding",
-                "create index on ligplaats_nevenadres (identificatie)",
-                "create index on ligplaats_archief_nevenadres (identificatie)"
+                "create index on ligplaats_nevenadres (identificatie, voorkomenidentificatie)"
         )));
 
         addObjectType(new BAG2ObjectType(this, "Standplaats", withBaseAttributes(
                 new GeometryAttributeColumnMapping("geometrie", "geometry(POLYGON, 28992)"),
-                new ForeignKeyAttributeMapping("heeftAlsHoofdadres", "Nummeraanduiding", "char(16)", false),
+                new AttributeColumnMapping("heeftAlsHoofdadres", "char(16)", false),
                 new ArrayAttributeMapping("heeftAlsNevenadres", "nevenadres", "char(16)")
         )).addExtraDataDefinitionSQL(List.of(
-                "alter table standplaats_nevenadres add constraint standplaats_nevenadres_heeftalsnevenadres foreign key (heeftalsnevenadres) references nummeraanduiding",
-                "create index on standplaats_nevenadres (identificatie)",
-                "create index on standplaats_archief_nevenadres (identificatie)"
+                "create index on standplaats_nevenadres (identificatie, voorkomenidentificatie)"
         )));
 
         addObjectType(new BAG2ObjectType(this, "Pand", withBaseAttributes(
                 new IntegerAttributeColumnMapping("oorspronkelijkBouwjaar"),
                 new GeometryAttributeColumnMapping("geometrie", "geometry(POLYGON, 28992)")
         )));
-
-    }
-
-    protected void addObjectType(BAG2ObjectType objectType) {
-
-        // Add object type for currently valid objects without archive attributes
-        BAG2ObjectType currentType = new BAG2ObjectType(this, objectType.getName(),
-                objectType.getAllAttributes().stream()
-                        .filter(attribute -> !archiveOnlyAttributes.contains(attribute.getName()))
-                        .collect(Collectors.toList()))
-                .addExtraDataDefinitionSQL(objectType.getExtraDataDefinitionSQL());
-        super.addObjectType(currentType);
-
-        // Add object type for ended objects with archive attributes, and composite primary key
-        // Do not add extra data definition SQL twice
-        BAG2ObjectType archiveType = new BAG2ObjectType(this, objectType.getName() + ARCHIVE_SUFFIX,
-                objectType.getAllAttributes().stream()
-                        .map(attribute -> {
-                            if (attribute.getName().equals(VOORKOMEN_IDENTIFICATIE)) {
-                                return new IntegerAttributeColumnMapping(VOORKOMEN_IDENTIFICATIE, true, true);
-                            } else if (attribute instanceof ForeignKeyAttributeMapping) {
-                                // Replace foreign key with simple attribute mapping, cause an archived object should
-                                // not reference an the table for actual objects (because the reference may also be to
-                                // an archived object)
-                                return new AttributeColumnMapping(attribute.getName(), attribute.getType(), attribute.isNotNull());
-                            } else {
-                                return attribute;
-                            }
-                        })
-                        .collect(Collectors.toList()));
-        super.addObjectType(archiveType);
     }
 
     public static BAG2Schema getInstance() {

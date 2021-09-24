@@ -22,8 +22,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static nl.b3p.brmo.bag2.schema.BAG2Schema.ARCHIVE_SUFFIX;
-import static nl.b3p.brmo.bag2.schema.BAG2Schema.EIND_REGISTRATIE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -40,7 +38,7 @@ class BAG2GMLObjectStreamTest {
             Object[][] attributes = (Object[][])expectedObj;
             BAG2Object object = iterator.next();
             assertNotNull(object);
-            assertEquals(objectName + (object.getAttributes().get(EIND_REGISTRATIE) != null ? ARCHIVE_SUFFIX : ""), object.getObjectType().getName());
+            assertEquals(objectName, object.getObjectType().getName());
             Map<String,Object> objectAttributes = object.getAttributes();
             //System.out.println(objectAttributes);
             Set<String> allKeys = new HashSet<>(objectAttributes.keySet());

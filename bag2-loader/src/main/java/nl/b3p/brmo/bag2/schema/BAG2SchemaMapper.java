@@ -7,13 +7,7 @@
 
 package nl.b3p.brmo.bag2.schema;
 
-import nl.b3p.brmo.schema.ObjectType;
 import nl.b3p.brmo.schema.SchemaSQLMapper;
-import nl.b3p.brmo.sql.dialect.SQLDialect;
-
-import java.util.stream.Stream;
-
-import static nl.b3p.brmo.bag2.schema.BAG2Schema.ARCHIVE_SUFFIX;
 
 public class BAG2SchemaMapper extends SchemaSQLMapper {
     private static BAG2SchemaMapper instance;
@@ -32,17 +26,5 @@ public class BAG2SchemaMapper extends SchemaSQLMapper {
     @Override
     public String getMetadataTableName() {
         return null;
-    }
-
-    @Override
-    public Stream<String> getCreateTableStatements(ObjectType objectType, SQLDialect dialect, String tablePrefix) {
-
-        // Make both current and archive tables
-
-        String originalTypeName = objectType.getName().endsWith(ARCHIVE_SUFFIX) ? objectType.getName().split(ARCHIVE_SUFFIX)[0] : objectType.getName();
-        return Stream.concat(
-                super.getCreateTableStatements(BAG2Schema.getInstance().getObjectTypeByName(originalTypeName), dialect, tablePrefix),
-                super.getCreateTableStatements(BAG2Schema.getInstance().getObjectTypeByName(originalTypeName + ARCHIVE_SUFFIX), dialect, tablePrefix)
-        );
     }
 }

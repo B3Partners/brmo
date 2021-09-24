@@ -19,6 +19,8 @@ import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import static nl.b3p.brmo.bag2.schema.BAG2Schema.TIJDSTIP_NIETBAGLV;
+
 public class BAG2ObjectTableWriter extends ObjectTableWriter {
     private static final Log log = LogFactory.getLog(BAG2ObjectTableWriter.class);
 
@@ -47,15 +49,15 @@ public class BAG2ObjectTableWriter extends ObjectTableWriter {
         updateProgress(Stage.LOAD_OBJECTS);
 
         try {
-            for (BAG2Object object : bag2Objects) {
+            for (BAG2Object object: bag2Objects) {
+                if (object.getAttributes().containsKey(TIJDSTIP_NIETBAGLV)) {
+                    // See BAG2Schema for explanation
+                    throw new IllegalArgumentException("\"Niet BAG\" objects not supported");
+                }
+
                 prepareDatabaseForObject(object);
 
                 getProgress().incrementObjectCount();
-
-    /*            if (object.getAttributes().get(BAG2Schema.EIND_REGISTRATIE) != null) {
-                    // Historic object
-                    continue;
-                }*/
 
                 addObjectToBatch(object);
 
