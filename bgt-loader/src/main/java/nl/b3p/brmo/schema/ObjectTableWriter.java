@@ -60,6 +60,7 @@ public class ObjectTableWriter {
     private Integer objectLimit = null;
     private boolean linearizeCurves = false;
     private boolean createSchema = false;
+    private boolean createKeysAndIndexes = true;
     private String tablePrefix = "";
 
     private Consumer<ObjectTableWriter.Progress> progressUpdater;
@@ -175,6 +176,14 @@ public class ObjectTableWriter {
 
     public void setCreateSchema(boolean createSchema) {
         this.createSchema = createSchema;
+    }
+
+    public boolean isCreateKeysAndIndexes() {
+        return createKeysAndIndexes;
+    }
+
+    public void setCreateKeysAndIndexes(boolean createKeysAndIndexes) {
+        this.createKeysAndIndexes = createKeysAndIndexes;
     }
 
     public String getTablePrefix() {
@@ -402,8 +411,10 @@ public class ObjectTableWriter {
     };
 
     protected void updateProgress(Stage stage) {
-        this.progress.stage = stage;
-        updateProgress(true);
+        if (this.progress != null) {
+            this.progress.stage = stage;
+            updateProgress(true);
+        }
     }
 
     protected void updateProgress() {
@@ -483,7 +494,9 @@ public class ObjectTableWriter {
             progress.objectsToWrite.put(new SchemaObjectInstance(null, Collections.emptyMap()));
             workerThread.join();
         }
+    }
 
+    protected void complete() throws Exception {
         for(QueryBatch batch: progress.insertBatches.values()) {
             batch.executeBatch();
         }
@@ -491,29 +504,36 @@ public class ObjectTableWriter {
         for(QueryBatch batch: progress.arrayAttributeInsertBatches.values()) {
             batch.executeBatch();
         }
-    }
 
-    protected void complete() throws Exception {
-        if (isCreateSchema() && progress.initialLoad) {
-            QueryRunner qr = new LoggingQueryRunner();
-            updateProgress(Stage.CREATE_PRIMARY_KEY);
+        if (isCreateSchema() && isCreateKeysAndIndexes() && progress.initialLoad) {
             for(ObjectType objectType: progress.insertBatches.keySet()) {
-                // XXX why includeOneToMany is false here?
-                for (String sql: schemaSQLMapper.getCreatePrimaryKeyStatements(objectType, dialect, tablePrefix, false).collect(Collectors.toList())) {
-                    qr.update(connection, sql);
-                }
+                createKeys(objectType);
             }
-            updateProgress(Stage.CREATE_GEOMETRY_INDEX);
             for(ObjectType objectType: progress.insertBatches.keySet()) {
-                // XXX why includeOneToMany is false here?
-                for(String sql: schemaSQLMapper.getCreateGeometryIndexStatements(objectType, dialect, tablePrefix, false).collect(Collectors.toList())) {
-                    qr.update(connection, sql);
-                }
+                createIndexes(objectType);
             }
         }
 
         connection.commit();
         updateProgress(Stage.FINISHED);
+    }
+
+    public void createKeys(ObjectType objectType) throws Exception {
+        QueryRunner qr = new LoggingQueryRunner();
+        updateProgress(Stage.CREATE_PRIMARY_KEY);
+        // XXX why includeOneToMany is false here?
+        for (String sql: schemaSQLMapper.getCreatePrimaryKeyStatements(objectType, dialect, tablePrefix, false).collect(Collectors.toList())) {
+            qr.update(connection, sql);
+        }
+    }
+
+    public void createIndexes(ObjectType objectType) throws Exception {
+        QueryRunner qr = new LoggingQueryRunner();
+        updateProgress(Stage.CREATE_GEOMETRY_INDEX);
+        // XXX why includeOneToMany is false here?
+        for(String sql: schemaSQLMapper.getCreateGeometryIndexStatements(objectType, dialect, tablePrefix, false).collect(Collectors.toList())) {
+            qr.update(connection, sql);
+        }
     }
 
     protected void closeBatches() {

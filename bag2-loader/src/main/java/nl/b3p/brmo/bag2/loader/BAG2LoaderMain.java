@@ -8,33 +8,44 @@
 package nl.b3p.brmo.bag2.loader;
 
 import nl.b3p.brmo.bag2.schema.BAG2ObjectTableWriter;
+import nl.b3p.brmo.bag2.schema.BAG2ObjectType;
+import nl.b3p.brmo.bag2.schema.BAG2Schema;
 import nl.b3p.brmo.bag2.schema.BAG2SchemaMapper;
 import nl.b3p.brmo.sql.dialect.PostGISDialect;
-import nl.b3p.brmo.util.CountingSeekableByteChannel;
-import nl.b3p.brmo.util.http.HttpSeekableByteChannel;
+import nl.b3p.brmo.util.ResumingInputStream;
+import nl.b3p.brmo.util.http.HttpStartRangeInputStreamProvider;
 import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
 import org.apache.commons.compress.archivers.zip.ZipArchiveInputStream;
-import org.apache.commons.io.input.CountingInputStream;
+import org.apache.commons.io.input.CloseShieldInputStream;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.PropertyConfigurator;
 import org.geotools.util.logging.Logging;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static nl.b3p.brmo.bgt.loader.Utils.formatTimeSince;
 
 public class BAG2LoaderMain {
     private static Log log;
+
+    private Set<BAG2ObjectType> objectTypesWithSchemaCreated = new HashSet<>();
+
+    private Connection connection;
+
+    public BAG2LoaderMain() {
+    }
 
     public static void configureLogging() {
         PropertyConfigurator.configure(BAG2LoaderMain.class.getResourceAsStream("/bag2-loader-cli-log4j.properties"));
@@ -48,106 +59,138 @@ public class BAG2LoaderMain {
     public static void main(String... args) throws Exception {
         configureLogging();
 
+        BAG2LoaderMain loader = new BAG2LoaderMain();
+
         for(String filename: args) {
             if (filename.startsWith("http://") || filename.startsWith("https://")) {
-                loadBAG2LeveringHttpZip(filename);
+                loader.loadBAG2ExtractFromStream(filename, new ResumingInputStream(new HttpStartRangeInputStreamProvider(new URI(filename))));
             } else if(filename.endsWith(".zip")) {
-                loadBAG2LEveringZipFile(filename);
+                loader.loadBAG2ExtractFromStream(filename, new FileInputStream(filename));
             } else {
                 throw new IllegalArgumentException("Invalid argument: " + filename);
             }
         }
     }
 
-    private static void loadBAG2LeveringHttpZip(String uri) throws Exception {
-        Instant allStart = Instant.now();
-        int allCount = 0;
-        boolean debugHttpSeeks = false;
-        try(
-                HttpSeekableByteChannel channel = new HttpSeekableByteChannel(new URI(uri)).withDebug(debugHttpSeeks);
-                CountingSeekableByteChannel loggingChannel = new CountingSeekableByteChannel(channel);
-                org.apache.commons.compress.archivers.zip.ZipFile zipFile = new org.apache.commons.compress.archivers.zip.ZipFile(
-                        loggingChannel,
-                        uri,
-                        "UTF8",
-                        false,
-                        true
-                );
-                Connection connection = DriverManager.getConnection("jdbc:postgresql:bag?sslmode=disable&reWriteBatchedInserts=true", "bag", "bag");
-        ) {
-            if (debugHttpSeeks) {
-                System.out.println();
-            }
-            List<ZipArchiveEntry> selectedEntries = new ArrayList();
-            for (Iterator<ZipArchiveEntry> it = zipFile.getEntries().asIterator(); it.hasNext(); ) {
-                ZipArchiveEntry entry = it.next();
-                if (entry.getName().matches("9999(STA|VBO|OPR|NUM|LIG|PND|WPL).*\\.zip")) { // VBO ??
-                    selectedEntries.add(entry);
-                }
-            }
-            Long totalBytes = selectedEntries.stream().map(ZipEntry::getSize).reduce(0L, Long::sum);
-            long totalRead = 0;
-
-            for(ZipArchiveEntry selectedEntry: selectedEntries) {
-                BAG2ObjectTableWriter writer = new BAG2ObjectTableWriter(connection, new PostGISDialect(), BAG2SchemaMapper.getInstance());
-                writer.setCreateSchema(true);
-                writer.start();
-
-                System.out.print(selectedEntry.getName() + "... ");
-                try (
-                        CountingInputStream counter = new CountingInputStream(zipFile.getInputStream(selectedEntry));
-                        ZipArchiveInputStream zip = new org.apache.commons.compress.archivers.zip.ZipArchiveInputStream(counter)) {
-
-                    ZipEntry entry = zip.getNextZipEntry();
-                    Instant start = Instant.now();
-                    int count = 0;
-                    while(entry != null) {
-                        System.out.printf("\r%s: %s (%.1f %%, total %.1f %%)", selectedEntry.getName(), entry.getName(),
-                                (100.0 / selectedEntry.getSize()) * counter.getByteCount(),
-                                (100.0 / totalBytes) * (totalRead  + counter.getByteCount()));
-                        writer.write(zip);
-                        count++;
-                        entry = zip.getNextZipEntry();
-                    }
-                    System.out.print("... creating indexes and primary keys...");
-                    writer.complete();
-                    allCount += writer.getProgress().getObjectCount();
-                    totalRead += selectedEntry.getSize();
-                    System.out.printf("\r%s: loaded %,d files, %,d total objects in %s%s\n", selectedEntry.getName(), count, writer.getProgress().getObjectCount(), formatTimeSince(start), " ".repeat(50));
-                } catch(Exception e) {
-                    e.printStackTrace();
-                    System.out.println("Exception, trying to continue with next ZIP...");
-                }
-            }
-        }
-        System.out.printf("All zips: loaded %d total objects in %s\n", allCount, allCount, formatTimeSince(allStart));
+    protected Connection getConnection() throws SQLException {
+        return DriverManager.getConnection("jdbc:postgresql:bag?sslmode=disable&reWriteBatchedInserts=true", "bag", "bag");
     }
 
-    private static void loadBAG2LEveringZipFile(String filename) throws Exception {
+    private void loadBAG2ExtractFromStream(String name, InputStream input) throws Exception {
         Instant start = Instant.now();
-        int count = 0;
-        int maxFiles = -1;
 
-        try (ZipFile zip = new ZipFile(filename);
-             Connection connection = DriverManager.getConnection("jdbc:postgresql:bag?sslmode=disable&reWriteBatchedInserts=true", "bag", "bag")
+        try (ZipArchiveInputStream zip = new ZipArchiveInputStream(input);
+             Connection connection = getConnection()
         ) {
-            BAG2ObjectTableWriter writer = new BAG2ObjectTableWriter(connection, new PostGISDialect(), BAG2SchemaMapper.getInstance());
-            writer.setUsePgCopy(false);
-            writer.setCreateSchema(true);
-            writer.start();
+            this.connection = connection;
 
-            for (ZipEntry entry: zip.stream().collect(Collectors.toList())) {
-                System.out.print("\r" + entry.getName());
-                writer.write(zip.getInputStream(entry));
+            ZipArchiveEntry entry = zip.getNextZipEntry();
+            while(entry != null) {
+                if (entry.getName().matches("9999(STA|VBO|OPR|NUM|LIG|PND|WPL).*\\.xml")) {
+                    // Load extracted zipfile
+                    loadXmlEntriesFromZipFile(name, zip, entry, true);
+                    break;
+                }
 
+                // Process single and double-nested ZIP files
+
+                if (entry.getName().matches("9999(STA|VBO|OPR|NUM|LIG|PND|WPL).*\\.zip")) {
+                    ZipArchiveInputStream nestedZip = new ZipArchiveInputStream(zip);
+                    loadXmlEntriesFromZipFile(entry.getName(), nestedZip, nestedZip.getNextZipEntry(), true);
+                }
+
+                if (entry.getName().startsWith("9999Inactief")) {
+                    ZipArchiveInputStream nestedZip = new ZipArchiveInputStream(zip);
+                    ZipArchiveEntry nestedEntry = nestedZip.getNextZipEntry();
+                    while(nestedEntry != null) {
+                        if (nestedEntry.getName().startsWith("9999IA")) {
+                            ZipArchiveInputStream moreNestedZip = new ZipArchiveInputStream(nestedZip);
+                            loadXmlEntriesFromZipFile(nestedEntry.getName(), moreNestedZip, moreNestedZip.getNextZipEntry(), false);
+                        }
+                        nestedEntry = nestedZip.getNextZipEntry();
+                    }
+                }
+
+                try {
+                    entry = zip.getNextZipEntry();
+                } catch(IOException e) {
+                    // Reading the ZIP from HTTP may give this error, but it is a normal end...
+                    if ("Truncated ZIP file".equals(e.getMessage())) {
+                        break;
+                    }
+                }
+            }
+            completeAll();
+        }
+        System.out.println("Total time: " + formatTimeSince(start));
+    }
+
+    private static BAG2ObjectType getObjectTypeFromFilename(String filename) {
+        Matcher m = Pattern.compile("9999(IA)?(STA|VBO|OPR|NUM|LIG|PND|WPL).*\\.(xml|zip)").matcher(filename);
+        if (!m.matches()) {
+            throw new IllegalArgumentException("Invalid BAG2 filename: " + filename);
+        }
+        String objectTypeName = null;
+        switch(m.group(2)) {
+            case "STA": objectTypeName = "Standplaats"; break;
+            case "OPR": objectTypeName = "OpenbareRuimte"; break;
+            case "VBO": objectTypeName = "Verblijfsobject"; break;
+            case "NUM": objectTypeName = "Nummeraanduiding"; break;
+            case "LIG": objectTypeName = "Ligplaats"; break;
+            case "PND": objectTypeName = "Pand"; break;
+            case "WPL": objectTypeName = "Woonplaats"; break;
+        }
+        return BAG2Schema.getInstance().getObjectTypeByName(objectTypeName);
+    }
+
+    private void completeAll() throws Exception {
+        BAG2ObjectTableWriter writer = new BAG2ObjectTableWriter(connection, new PostGISDialect(), BAG2SchemaMapper.getInstance());
+        for(BAG2ObjectType objectType: objectTypesWithSchemaCreated) {
+            Instant start = Instant.now();
+            System.out.print("\r" + objectType.getName() + ": creating keys and indexes...");
+            writer.createKeys(objectType); // BAG2 writer is always a single ObjectType unlike BGT
+            writer.createIndexes(objectType);
+            writer.getConnection().commit();
+            System.out.println(" " + formatTimeSince(start));
+        }
+    }
+
+    private void loadXmlEntriesFromZipFile(String name, ZipArchiveInputStream zip, ZipArchiveEntry entry, boolean createSchema) throws Exception {
+        BAG2ObjectTableWriter writer;
+        BAG2ObjectType objectType = getObjectTypeFromFilename(name);
+        boolean schemaCreated = objectTypesWithSchemaCreated.contains(objectType);
+        writer = new BAG2ObjectTableWriter(connection, new PostGISDialect(), BAG2SchemaMapper.getInstance());
+        writer.setBatchSize(10000);
+        writer.setUsePgCopy(true);
+        writer.setCreateSchema(!schemaCreated);
+        writer.setCreateKeysAndIndexes(false);
+        writer.start(); // sets InitialLoad to true
+        writer.getProgress().setInitialLoad(!schemaCreated); // For a COPY in transaction, table must be created or truncated in it
+
+        try {
+            int count = 0;
+            int maxFiles = 100;
+            Instant start = Instant.now();
+
+            while(entry != null) {
+                System.out.print("\r" + name + ": " + entry.getName());
+                writer.write(CloseShieldInputStream.wrap(zip));
                 count++;
+                entry = zip.getNextZipEntry();
                 if (count == maxFiles) {
                     break;
                 }
             }
-
             writer.complete();
-            System.out.printf("\r%s: loaded %,d files, %,d total objects in %s\n", filename, count, writer.getProgress().getObjectCount(), formatTimeSince(start));
+
+            if (writer.getProgress().getObjectCount() > 0) {
+                objectTypesWithSchemaCreated.add(objectType);
+            }
+
+            System.out.printf("\r%s: loaded %,d files, %,d total objects in %s\n", name, count, writer.getProgress().getObjectCount(), formatTimeSince(start));
+        } catch(Exception e) {
+            writer.abortWorkerThread();
+            throw e;
         }
     }
 }

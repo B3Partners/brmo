@@ -58,6 +58,8 @@ public class BAG2Schema extends Schema {
             // "Niet BAG" is not supported because it would have to be part of the primary key, which would complicate
             // things, and it is not very useful anyway. "Niet BAG" would be set for versions which were overwritten 
             // during "synchronisation" when a bronhouder detects previous versions were not correctly registered.
+            // An update setting tijdstipNietBagLV would lead to deletion of the record and insertion of the newly
+            // synchronized versions.
             // new SimpleDateFormatAttributeColumnMapping(TIJDSTIP_NIETBAGLV, "timestamp", true, PATTERN_XML_TIMESTAMP),
             new SimpleDateFormatAttributeColumnMapping("documentdatum", "date", PATTERN_XML_DATE),
             new AttributeColumnMapping("documentnummer"),
