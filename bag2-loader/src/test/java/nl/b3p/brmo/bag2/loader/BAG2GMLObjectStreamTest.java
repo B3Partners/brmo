@@ -8,9 +8,12 @@
 package nl.b3p.brmo.bag2.loader;
 
 import nl.b3p.brmo.bag2.schema.BAG2Object;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.locationtech.jts.geom.Coordinate;
+import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.io.ParseException;
 import org.locationtech.jts.io.WKTReader;
 
@@ -53,6 +56,23 @@ class BAG2GMLObjectStreamTest {
             assertEquals(0, allKeys.size(), "Object #" + objectNum + ": Unexpected attributes: " + allKeys);
             objectNum++;
         }
+    }
+
+    @Test
+    public void testPandIs2D() throws Exception {
+        // BAG Pand have a Z coordinate, but this is always 0 and not meaningful. Test that the class removes the Z
+        // coordinate. When writing to Oracle Spatial we need to drop the Z or create the index with XYZ. Currently a
+        // XY index is hardcoded in OracleDialect.
+
+        BAG2GMLObjectStream stream = new BAG2GMLObjectStream(BAG2TestFiles.getTestInputStream("stand-pnd.xml"));
+        Iterator<BAG2Object> iterator = stream.iterator();
+        BAG2Object object = iterator.next();
+        assertNotNull(object);
+        Geometry geometry = (Geometry)object.getAttributes().get("geometrie");
+        assertNotNull(geometry);
+        Coordinate coordinate = geometry.getCoordinate();
+        assertNotNull(coordinate);
+        assertTrue(Double.isNaN(coordinate.getZ()));
     }
 
     private static Stream<Arguments> testAllFeatureTypes() throws ParseException {

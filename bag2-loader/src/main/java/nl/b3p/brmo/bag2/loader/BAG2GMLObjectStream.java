@@ -10,6 +10,7 @@ package nl.b3p.brmo.bag2.loader;
 import nl.b3p.brmo.bag2.schema.BAG2Object;
 import nl.b3p.brmo.bag2.schema.BAG2ObjectType;
 import nl.b3p.brmo.bag2.schema.BAG2Schema;
+import nl.b3p.brmo.util.Force2DCoordinateSequenceFactory;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.codehaus.staxmate.SMInputFactory;
@@ -17,6 +18,8 @@ import org.codehaus.staxmate.in.SMEvent;
 import org.codehaus.staxmate.in.SMInputCursor;
 import org.geotools.gml.stream.XmlStreamGeometryReader;
 import org.locationtech.jts.geom.Geometry;
+import org.locationtech.jts.geom.GeometryFactory;
+import org.locationtech.jts.geom.PrecisionModel;
 import org.opengis.referencing.FactoryException;
 
 import javax.xml.namespace.QName;
@@ -64,7 +67,8 @@ public class BAG2GMLObjectStream implements Iterable<BAG2Object> {
     }
 
     protected XmlStreamGeometryReader buildGeometryReader() {
-        return new XmlStreamGeometryReader(this.cursor.getStreamReader());
+        GeometryFactory geometryFactory = new GeometryFactory(new PrecisionModel(), 28992, new Force2DCoordinateSequenceFactory());
+        return new XmlStreamGeometryReader(this.cursor.getStreamReader(), geometryFactory);
     }
 
     private SMInputCursor initCursor(SMInputCursor cursor) throws XMLStreamException {

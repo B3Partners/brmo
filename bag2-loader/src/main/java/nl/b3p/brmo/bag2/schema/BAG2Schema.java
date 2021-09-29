@@ -104,9 +104,9 @@ public class BAG2Schema extends Schema {
                 new ArrayAttributeMapping("maaktDeelUitVan", "pand", "char(16)"),
                 new GeometryAttributeColumnMapping("geometrie", "geometry(GEOMETRY, 28992)")
         )).addExtraDataDefinitionSQL(List.of(
-                "create index on verblijfsobject_nevenadres (identificatie, voorkomenidentificatie)",
-                "create index on verblijfsobject_pand (identificatie, voorkomenidentificatie)",
-                "create index on verblijfsobject_gebruiksdoel (identificatie, voorkomenidentificatie)"
+                "create index verblijfsobject_nevenadres_idx on verblijfsobject_nevenadres (identificatie, voorkomenidentificatie)",
+                "create index verblijfsobject_pand_idx on verblijfsobject_pand (identificatie, voorkomenidentificatie)",
+                "create index verblijfsobject_gebruiksdoel_idx on verblijfsobject_gebruiksdoel (identificatie, voorkomenidentificatie)"
         )));
 
         addObjectType(new BAG2ObjectType(this, "Ligplaats", withBaseAttributes(
@@ -114,7 +114,7 @@ public class BAG2Schema extends Schema {
                 new AttributeColumnMapping("heeftAlsHoofdadres", "char(16)", false),
                 new ArrayAttributeMapping("heeftAlsNevenadres", "nevenadres", "char(16)")
         )).addExtraDataDefinitionSQL(List.of(
-                "create index on ligplaats_nevenadres (identificatie, voorkomenidentificatie)"
+                "create index ligplaats_nevenadres_idx on ligplaats_nevenadres (identificatie, voorkomenidentificatie)"
         )));
 
         addObjectType(new BAG2ObjectType(this, "Standplaats", withBaseAttributes(
@@ -122,7 +122,7 @@ public class BAG2Schema extends Schema {
                 new AttributeColumnMapping("heeftAlsHoofdadres", "char(16)", false),
                 new ArrayAttributeMapping("heeftAlsNevenadres", "nevenadres", "char(16)")
         )).addExtraDataDefinitionSQL(List.of(
-                "create index on standplaats_nevenadres (identificatie, voorkomenidentificatie)"
+                "create index standplaats_nevenadres_idx on standplaats_nevenadres (identificatie, voorkomenidentificatie)"
         )));
 
         addObjectType(new BAG2ObjectType(this, "Pand", withBaseAttributes(

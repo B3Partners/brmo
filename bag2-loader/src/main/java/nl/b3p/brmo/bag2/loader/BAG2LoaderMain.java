@@ -11,7 +11,9 @@ import nl.b3p.brmo.bag2.schema.BAG2ObjectTableWriter;
 import nl.b3p.brmo.bag2.schema.BAG2ObjectType;
 import nl.b3p.brmo.bag2.schema.BAG2Schema;
 import nl.b3p.brmo.bag2.schema.BAG2SchemaMapper;
+import nl.b3p.brmo.sql.dialect.OracleDialect;
 import nl.b3p.brmo.sql.dialect.PostGISDialect;
+import nl.b3p.brmo.sql.dialect.SQLDialect;
 import nl.b3p.brmo.util.ResumingInputStream;
 import nl.b3p.brmo.util.http.HttpStartRangeInputStreamProvider;
 import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
@@ -44,6 +46,8 @@ public class BAG2LoaderMain {
 
     private Connection connection;
 
+    private SQLDialect dialect = new OracleDialect();
+
     public BAG2LoaderMain() {
     }
 
@@ -73,7 +77,8 @@ public class BAG2LoaderMain {
     }
 
     protected Connection getConnection() throws SQLException {
-        return DriverManager.getConnection("jdbc:postgresql:bag?sslmode=disable&reWriteBatchedInserts=true", "bag", "bag");
+        //return DriverManager.getConnection("jdbc:postgresql:bag?sslmode=disable&reWriteBatchedInserts=true", "bag", "bag");
+        return DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "c##bag", "bag");
     }
 
     private void loadBAG2ExtractFromStream(String name, InputStream input) throws Exception {
@@ -126,7 +131,7 @@ public class BAG2LoaderMain {
     }
 
     private static BAG2ObjectType getObjectTypeFromFilename(String filename) {
-        Matcher m = Pattern.compile("9999(IA)?(STA|VBO|OPR|NUM|LIG|PND|WPL).*\\.(xml|zip)").matcher(filename);
+        Matcher m = Pattern.compile(".*9999(IA)?(STA|VBO|OPR|NUM|LIG|PND|WPL).*\\.(xml|zip)").matcher(filename);
         if (!m.matches()) {
             throw new IllegalArgumentException("Invalid BAG2 filename: " + filename);
         }
@@ -144,7 +149,7 @@ public class BAG2LoaderMain {
     }
 
     private void completeAll() throws Exception {
-        BAG2ObjectTableWriter writer = new BAG2ObjectTableWriter(connection, new PostGISDialect(), BAG2SchemaMapper.getInstance());
+        BAG2ObjectTableWriter writer = new BAG2ObjectTableWriter(connection, dialect, BAG2SchemaMapper.getInstance());
         for(BAG2ObjectType objectType: objectTypesWithSchemaCreated) {
             Instant start = Instant.now();
             System.out.print("\r" + objectType.getName() + ": creating keys and indexes...");
@@ -159,7 +164,7 @@ public class BAG2LoaderMain {
         BAG2ObjectTableWriter writer;
         BAG2ObjectType objectType = getObjectTypeFromFilename(name);
         boolean schemaCreated = objectTypesWithSchemaCreated.contains(objectType);
-        writer = new BAG2ObjectTableWriter(connection, new PostGISDialect(), BAG2SchemaMapper.getInstance());
+        writer = new BAG2ObjectTableWriter(connection, dialect, BAG2SchemaMapper.getInstance());
         writer.setBatchSize(10000);
         writer.setUsePgCopy(true);
         writer.setCreateSchema(!schemaCreated);
@@ -169,7 +174,7 @@ public class BAG2LoaderMain {
 
         try {
             int count = 0;
-            int maxFiles = 100;
+            int maxFiles = -1;
             Instant start = Instant.now();
 
             while(entry != null) {
