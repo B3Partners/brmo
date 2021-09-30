@@ -7,8 +7,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: REUSE Compliance Check
+    # Only check a few subdirectories for now
+    - name: REUSE Compliance Check (BGT loader)
+      uses: fsfe/reuse-action@v1.1
+      with:
+        args: --root bgt-loader lint
+    - name: REUSE Compliance Check (BAG2 loader)
       uses: fsfe/reuse-action@v1.1
       with:
         # Only check this subdirectory for now
-        args: --root bgt-loader lint
+        args: --root bag2-loader lint
