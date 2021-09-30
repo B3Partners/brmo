@@ -13,7 +13,7 @@ public class OneToManyColumnMapping extends AttributeColumnMapping {
     }
 
     @Override
-    public boolean isDirectAttribute() {
+    public boolean isDirectInsertAttribute() {
         return false;
     }
 }

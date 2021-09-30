@@ -16,7 +16,7 @@ public class ArrayAttributeMapping extends AttributeColumnMapping {
     }
 
     @Override
-    public boolean isDirectAttribute() {
+    public boolean isDirectInsertAttribute() {
         return false;
     }
 

@@ -7,11 +7,11 @@
 
 package nl.b3p.brmo.bag2.schema;
 
+import nl.b3p.brmo.schema.ObjectType;
 import nl.b3p.brmo.schema.Schema;
 import nl.b3p.brmo.schema.mapping.ArrayAttributeMapping;
 import nl.b3p.brmo.schema.mapping.AttributeColumnMapping;
 import nl.b3p.brmo.schema.mapping.BooleanAttributeColumnMapping;
-import nl.b3p.brmo.schema.mapping.ForeignKeyAttributeMapping;
 import nl.b3p.brmo.schema.mapping.GeometryAttributeColumnMapping;
 import nl.b3p.brmo.schema.mapping.IntegerAttributeColumnMapping;
 import nl.b3p.brmo.schema.mapping.SimpleDateFormatAttributeColumnMapping;
@@ -45,6 +45,7 @@ public class BAG2Schema extends Schema {
     public static final String TIJDSTIP_NIETBAGLV = "tijdstipNietBagLV";
 
     private static final List<AttributeColumnMapping> bag2BaseAttributes = Arrays.asList(
+            new AttributeColumnMapping("objectid",  "serial", true, false, true),
             new AttributeColumnMapping("identificatie",  "char(16)", true, true),
             new IntegerAttributeColumnMapping("voorkomenidentificatie", true, true),
             new SimpleDateFormatAttributeColumnMapping("beginGeldigheid", "date", PATTERN_XML_DATE),
@@ -129,6 +130,18 @@ public class BAG2Schema extends Schema {
                 new IntegerAttributeColumnMapping("oorspronkelijkBouwjaar"),
                 new GeometryAttributeColumnMapping("geometrie", "geometry(POLYGON, 28992)")
         )));
+    }
+
+    @Override
+    protected void addObjectType(ObjectType objectType) {
+        // Always add a unique index for the OBJECTID column, which is not the primary key but only for ArcGIS
+
+        // XXX table prefixes not supported here and also not in extra DDL above
+
+        String tableName = objectType.getName().toLowerCase();
+        String sql = String.format("create index %s_objectid_idx on %s (objectid)", tableName, tableName);
+        objectType.addExtraDataDefinitionSQL(List.of(sql));
+        super.addObjectType(objectType);
     }
 
     public static BAG2Schema getInstance() {

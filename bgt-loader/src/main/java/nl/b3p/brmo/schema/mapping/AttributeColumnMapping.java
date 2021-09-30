@@ -11,16 +11,22 @@ public class AttributeColumnMapping {
     private final String type;
     private final boolean notNull;
     private final boolean primaryKey;
+    private final boolean useDefault;
 
-    public AttributeColumnMapping(String name, String type, boolean notNull, boolean primaryKey) {
+    public AttributeColumnMapping(String name, String type, boolean notNull, boolean primaryKey, boolean useDefault) {
         this.name = name;
         this.type = type;
         this.notNull = notNull;
         this.primaryKey = primaryKey;
+        this.useDefault = useDefault;
+    }
+
+    public AttributeColumnMapping(String name, String type, boolean notNull, boolean primaryKey) {
+        this(name, type, notNull, primaryKey, false);
     }
 
     public AttributeColumnMapping(String name, String type, boolean notNull) {
-        this(name, type, notNull, false);
+        this(name, type, notNull, false, false);
     }
 
     public AttributeColumnMapping(String name) {
@@ -43,8 +49,12 @@ public class AttributeColumnMapping {
         return primaryKey;
     }
 
-    public boolean isDirectAttribute() {
-        return true;
+    public boolean isUseDefault() {
+        return useDefault;
+    }
+
+    public boolean isDirectInsertAttribute() {
+        return !isUseDefault();
     }
 
     public Object toQueryParameter(Object value) throws Exception {

@@ -250,7 +250,7 @@ public class ObjectTableWriter {
                 queryBatch = new PostGISCopyInsertBatch(connection, sql, batchSize, dialect, bufferCopy, linearizeCurves);
             } else {
                 String sql = buildInsertSql(object);
-                Boolean[] parameterIsGeometry = object.getObjectType().getDirectAttributes().stream()
+                Boolean[] parameterIsGeometry = object.getObjectType().getDirectInsertAttributes().stream()
                         .map(attributeColumnMapping -> attributeColumnMapping instanceof GeometryAttributeColumnMapping)
                         .toArray(Boolean[]::new);
                 queryBatch = new GeometryHandlingPreparedStatementBatch(connection, sql, batchSize, dialect, parameterIsGeometry, linearizeCurves);
@@ -276,7 +276,7 @@ public class ObjectTableWriter {
                 queryBatch = new PostGISCopyInsertBatch(connection, sql, batchSize, dialect, bufferCopy, linearizeCurves);
             } else {*/
                 String sql = buildInsertSql(object.getObjectType(), attribute);
-                Boolean[] parameterIsGeometry = object.getObjectType().getDirectAttributes().stream()
+                Boolean[] parameterIsGeometry = object.getObjectType().getDirectInsertAttributes().stream()
                         .map(attributeColumnMapping -> attributeColumnMapping instanceof GeometryAttributeColumnMapping)
                         .toArray(Boolean[]::new);
                 queryBatch = new GeometryHandlingPreparedStatementBatch(connection, sql, batchSize, dialect, parameterIsGeometry, linearizeCurves);
@@ -317,7 +317,7 @@ public class ObjectTableWriter {
 
         Map<String, Object> attributes = object.getAttributes();
         List<Object> params = new ArrayList<>();
-        for(AttributeColumnMapping attributeColumnMapping: object.getObjectType().getDirectAttributes()) {
+        for(AttributeColumnMapping attributeColumnMapping: object.getObjectType().getDirectInsertAttributes()) {
             Object attribute = attributes.get(attributeColumnMapping.getName());
             params.add(attributeColumnMapping.toQueryParameter(attribute));
         }
@@ -444,7 +444,7 @@ public class ObjectTableWriter {
         sql.append(tableName).append("(");
         sql.append(buildColumnList(object.getObjectType()));
         sql.append(") values (");
-        String paramPlaceholders = object.getObjectType().getDirectAttributes().stream()
+        String paramPlaceholders = object.getObjectType().getDirectInsertAttributes().stream()
                 .map(c -> "?")
                 .collect(Collectors.joining(", "));
         sql.append(paramPlaceholders).append(")");
@@ -470,7 +470,7 @@ public class ObjectTableWriter {
     }
 
     private String buildColumnList(ObjectType objectType) {
-        return objectType.getDirectAttributes().stream()
+        return objectType.getDirectInsertAttributes().stream()
                 .map(column -> schemaSQLMapper.getColumnNameForObjectType(objectType, column.getName()))
                 .collect(Collectors.joining(", "));
     }

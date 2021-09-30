@@ -23,7 +23,7 @@ public class ObjectType {
     private List<AttributeColumnMapping> attributes;
 
     private final List<AttributeColumnMapping> primaryKeys;
-    private final List<AttributeColumnMapping> directAttributes;
+    private final List<AttributeColumnMapping> directInsertAttributes;
     private final List<GeometryAttributeColumnMapping> geometryAttributes;
     private List<ObjectType> oneToManyAttributeObjectTypes;
     private List<ArrayAttributeMapping> arrayAttributes;
@@ -37,8 +37,8 @@ public class ObjectType {
         this.primaryKeys = attributes.stream()
                 .filter(AttributeColumnMapping::isPrimaryKey)
                 .collect(Collectors.toList());
-        this.directAttributes = attributes.stream()
-                .filter(AttributeColumnMapping::isDirectAttribute)
+        this.directInsertAttributes = attributes.stream()
+                .filter(AttributeColumnMapping::isDirectInsertAttribute)
                 .collect(Collectors.toList());
         this.geometryAttributes = attributes.stream()
                 .filter(attributeColumnMapping -> (attributeColumnMapping instanceof GeometryAttributeColumnMapping))
@@ -63,12 +63,12 @@ public class ObjectType {
         return primaryKeys;
     }
 
-    public List<AttributeColumnMapping> getDirectAttributes() {
-        return directAttributes;
+    public List<AttributeColumnMapping> getDirectInsertAttributes() {
+        return directInsertAttributes;
     }
 
     public boolean hasOnlyDirectAttributes() {
-        return directAttributes.size() == attributes.size();
+        return directInsertAttributes.size() == attributes.size();
     }
 
     public List<ObjectType> getOneToManyAttributeObjectTypes() {
