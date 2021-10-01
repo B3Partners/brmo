@@ -5,15 +5,13 @@
  *
  */
 
-package nl.b3p.brmo.bag2.loader;
+package nl.b3p.brmo.bag2.loader.cli;
 
+import nl.b3p.brmo.bag2.loader.BAG2Database;
+import nl.b3p.brmo.bag2.loader.BAG2LoaderUtils;
 import nl.b3p.brmo.bag2.schema.BAG2ObjectTableWriter;
 import nl.b3p.brmo.bag2.schema.BAG2ObjectType;
 import nl.b3p.brmo.bag2.schema.BAG2Schema;
-import nl.b3p.brmo.bag2.schema.BAG2SchemaMapper;
-import nl.b3p.brmo.sql.dialect.OracleDialect;
-import nl.b3p.brmo.sql.dialect.PostGISDialect;
-import nl.b3p.brmo.sql.dialect.SQLDialect;
 import nl.b3p.brmo.util.ResumingInputStream;
 import nl.b3p.brmo.util.http.HttpStartRangeInputStreamProvider;
 import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
@@ -23,14 +21,18 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.PropertyConfigurator;
 import org.geotools.util.logging.Logging;
+import picocli.CommandLine;
+import picocli.CommandLine.Command;
+import picocli.CommandLine.ExitCode;
+import picocli.CommandLine.IVersionProvider;
+import picocli.CommandLine.Mixin;
+import picocli.CommandLine.Option;
+import picocli.CommandLine.Parameters;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
@@ -38,62 +40,73 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static nl.b3p.brmo.bgt.loader.Utils.formatTimeSince;
+import static nl.b3p.brmo.bgt.loader.Utils.getMessageFormattedString;
+import static nl.b3p.brmo.bgt.loader.Utils.getUserAgent;
 
-public class BAG2LoaderMain {
+@Command(name = "bag2-loader", mixinStandardHelpOptions = true, versionProvider = BAG2LoaderMain.class,
+    resourceBundle = BAG2LoaderUtils.BUNDLE_NAME)
+public class BAG2LoaderMain implements IVersionProvider {
     private static Log log;
 
     private Set<BAG2ObjectType> objectTypesWithSchemaCreated = new HashSet<>();
 
-    private Connection connection;
-
-    private SQLDialect dialect = new OracleDialect();
-
-    public BAG2LoaderMain() {
-    }
-
-    public static void configureLogging() {
-        PropertyConfigurator.configure(BAG2LoaderMain.class.getResourceAsStream("/bag2-loader-cli-log4j.properties"));
-        log = LogFactory.getLog(BAG2LoaderMain.class);
-        try {
-            Logging.ALL.setLoggerFactory("org.geotools.util.logging.Log4JLoggerFactory");
-        } catch (ClassNotFoundException ignored) {
+    /**
+     * init logging.
+     *
+     * @param standAlone set to {@code false} when using in a preconfigured environment, eg. calling methods from a servlet,
+     *                   use {@code true} for commandline usage.
+     */
+    public static void configureLogging(boolean standAlone) {
+        if (standAlone) {
+            PropertyConfigurator.configure(BAG2LoaderMain.class.getResourceAsStream("/bag2-loader-cli-log4j.properties"));
+            log = LogFactory.getLog(BAG2LoaderMain.class);
+            try {
+                Logging.ALL.setLoggerFactory("org.geotools.util.logging.Log4JLoggerFactory");
+            } catch (ClassNotFoundException ignored) {
+            }
+        } else {
+            log = LogFactory.getLog(BAG2LoaderMain.class);
         }
     }
 
     public static void main(String... args) throws Exception {
-        configureLogging();
+        configureLogging(true);
 
-        BAG2LoaderMain loader = new BAG2LoaderMain();
+        CommandLine cmd = new CommandLine(new BAG2LoaderMain())
+                .setUsageHelpAutoWidth(true);
+        System.exit(cmd.execute(args));
+    }
 
-        for(String filename: args) {
+    @Command(name = "load", sortOptions = false)
+    public int load(
+            @Mixin BAG2DatabaseOptions dbOptions,
+            @Mixin BAG2LoadOptions loadOptions,
+            @Parameters(paramLabel = "<file>") String filename,
+            @Option(names={"-h","--help"}, usageHelp = true) boolean showHelp) throws Exception {
+
+        log.info(getUserAgent());
+
+        try(BAG2Database db = new BAG2Database(dbOptions)) {
             if (filename.startsWith("http://") || filename.startsWith("https://")) {
-                loader.loadBAG2ExtractFromStream(filename, new ResumingInputStream(new HttpStartRangeInputStreamProvider(new URI(filename))));
+                loadBAG2ExtractFromStream(db, loadOptions, dbOptions, filename, new ResumingInputStream(new HttpStartRangeInputStreamProvider(new URI(filename))));
             } else if(filename.endsWith(".zip")) {
-                loader.loadBAG2ExtractFromStream(filename, new FileInputStream(filename));
+                loadBAG2ExtractFromStream(db, loadOptions, dbOptions, filename, new FileInputStream(filename));
             } else {
-                throw new IllegalArgumentException("Invalid argument: " + filename);
+                throw new IllegalArgumentException(getMessageFormattedString("load.invalid_file", filename));
             }
         }
+        return ExitCode.OK;
     }
 
-    protected Connection getConnection() throws SQLException {
-        //return DriverManager.getConnection("jdbc:postgresql:bag?sslmode=disable&reWriteBatchedInserts=true", "bag", "bag");
-        return DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "c##bag", "bag");
-    }
-
-    private void loadBAG2ExtractFromStream(String name, InputStream input) throws Exception {
+    private void loadBAG2ExtractFromStream(BAG2Database db, BAG2LoadOptions loadOptions, BAG2DatabaseOptions dbOptions, String name, InputStream input) throws Exception {
         Instant start = Instant.now();
 
-        try (ZipArchiveInputStream zip = new ZipArchiveInputStream(input);
-             Connection connection = getConnection()
-        ) {
-            this.connection = connection;
-
+        try (ZipArchiveInputStream zip = new ZipArchiveInputStream(input)) {
             ZipArchiveEntry entry = zip.getNextZipEntry();
             while(entry != null) {
                 if (entry.getName().matches("9999(STA|VBO|OPR|NUM|LIG|PND|WPL).*\\.xml")) {
                     // Load extracted zipfile
-                    loadXmlEntriesFromZipFile(name, zip, entry, true);
+                    loadXmlEntriesFromZipFile(db, loadOptions, dbOptions, name, zip, entry, true);
                     break;
                 }
 
@@ -101,7 +114,7 @@ public class BAG2LoaderMain {
 
                 if (entry.getName().matches("9999(STA|VBO|OPR|NUM|LIG|PND|WPL).*\\.zip")) {
                     ZipArchiveInputStream nestedZip = new ZipArchiveInputStream(zip);
-                    loadXmlEntriesFromZipFile(entry.getName(), nestedZip, nestedZip.getNextZipEntry(), true);
+                    loadXmlEntriesFromZipFile(db, loadOptions, dbOptions, entry.getName(), nestedZip, nestedZip.getNextZipEntry(), true);
                 }
 
                 if (entry.getName().startsWith("9999Inactief")) {
@@ -110,7 +123,7 @@ public class BAG2LoaderMain {
                     while(nestedEntry != null) {
                         if (nestedEntry.getName().startsWith("9999IA")) {
                             ZipArchiveInputStream moreNestedZip = new ZipArchiveInputStream(nestedZip);
-                            loadXmlEntriesFromZipFile(nestedEntry.getName(), moreNestedZip, moreNestedZip.getNextZipEntry(), false);
+                            loadXmlEntriesFromZipFile(db,  loadOptions, dbOptions,nestedEntry.getName(), moreNestedZip, moreNestedZip.getNextZipEntry(), false);
                         }
                         nestedEntry = nestedZip.getNextZipEntry();
                     }
@@ -125,7 +138,7 @@ public class BAG2LoaderMain {
                     }
                 }
             }
-            completeAll();
+            completeAll(db, loadOptions, dbOptions);
         }
         System.out.println("Total time: " + formatTimeSince(start));
     }
@@ -148,11 +161,11 @@ public class BAG2LoaderMain {
         return BAG2Schema.getInstance().getObjectTypeByName(objectTypeName);
     }
 
-    private void completeAll() throws Exception {
-        BAG2ObjectTableWriter writer = new BAG2ObjectTableWriter(connection, dialect, BAG2SchemaMapper.getInstance());
+    private void completeAll(BAG2Database db, BAG2LoadOptions loadOptions, BAG2DatabaseOptions databaseOptions) throws Exception {
+        BAG2ObjectTableWriter writer = db.createObjectTableWriter(loadOptions, databaseOptions);
         for(BAG2ObjectType objectType: objectTypesWithSchemaCreated) {
             Instant start = Instant.now();
-            System.out.print("\r" + objectType.getName() + ": creating keys and indexes...");
+            System.out.print("\r" + objectType.getName() + ": creating keys, indexes and views...");
             writer.createKeys(objectType); // BAG2 writer is always a single ObjectType unlike BGT
             writer.createIndexes(objectType);
             writer.getConnection().commit();
@@ -160,31 +173,27 @@ public class BAG2LoaderMain {
         }
     }
 
-    private void loadXmlEntriesFromZipFile(String name, ZipArchiveInputStream zip, ZipArchiveEntry entry, boolean createSchema) throws Exception {
-        BAG2ObjectTableWriter writer;
+    private void loadXmlEntriesFromZipFile(BAG2Database db, BAG2LoadOptions loadOptions, BAG2DatabaseOptions databaseOptions, String name, ZipArchiveInputStream zip, ZipArchiveEntry entry, boolean createSchema) throws Exception {
         BAG2ObjectType objectType = getObjectTypeFromFilename(name);
         boolean schemaCreated = objectTypesWithSchemaCreated.contains(objectType);
-        writer = new BAG2ObjectTableWriter(connection, dialect, BAG2SchemaMapper.getInstance());
-        writer.setBatchSize(10000);
-        writer.setUsePgCopy(true);
+        BAG2ObjectTableWriter writer = db.createObjectTableWriter(loadOptions, databaseOptions);
         writer.setCreateSchema(!schemaCreated);
         writer.setCreateKeysAndIndexes(false);
         writer.start(); // sets InitialLoad to true
         writer.getProgress().setInitialLoad(!schemaCreated); // For a COPY in transaction, table must be created or truncated in it
 
         try {
-            int count = 0;
-            int maxFiles = -1;
+            int files = 0;
             Instant start = Instant.now();
 
             while(entry != null) {
                 System.out.print("\r" + name + ": " + entry.getName());
                 writer.write(CloseShieldInputStream.wrap(zip));
-                count++;
-                entry = zip.getNextZipEntry();
-                if (count == maxFiles) {
+                files++;
+                if (loadOptions.getMaxObjects() != null && writer.getProgress().getObjectCount() == loadOptions.getMaxObjects()) {
                     break;
                 }
+                entry = zip.getNextZipEntry();
             }
             writer.complete();
 
@@ -192,10 +201,18 @@ public class BAG2LoaderMain {
                 objectTypesWithSchemaCreated.add(objectType);
             }
 
-            System.out.printf("\r%s: loaded %,d files, %,d total objects in %s\n", name, count, writer.getProgress().getObjectCount(), formatTimeSince(start));
+            System.out.printf("\r%s: loaded %,d files, %,d total objects in %s\n", name, files, writer.getProgress().getObjectCount(), formatTimeSince(start));
         } catch(Exception e) {
             writer.abortWorkerThread();
             throw e;
         }
+    }
+
+    @Override
+    public String[] getVersion() throws Exception {
+        return new String[] {
+                BAG2LoaderUtils.getLoaderVersion(),
+                BAG2LoaderUtils.getUserAgent()
+        };
     }
 }

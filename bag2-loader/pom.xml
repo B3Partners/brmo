@@ -137,7 +137,7 @@ SPDX-License-Identifier: MIT
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>nl.b3p.brmo.bag2.loader.BAG2LoaderMain</mainClass>
+                            <mainClass>nl.b3p.brmo.bag2.loader.cli.BAG2LoaderMain</mainClass>
                             <addClasspath>true</addClasspath>
                             <!-- https://issues.apache.org/jira/browse/MJAR-156 -->
                             <useUniqueVersions>false</useUniqueVersions>
