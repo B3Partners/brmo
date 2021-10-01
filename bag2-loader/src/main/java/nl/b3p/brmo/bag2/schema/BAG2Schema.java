@@ -44,6 +44,8 @@ public class BAG2Schema extends Schema {
 
     public static final String TIJDSTIP_NIETBAGLV = "tijdstipNietBagLV";
 
+    private static final String WHERE_CLAUSE_ACTUEEL = "(begingeldigheid <= current_date and (eindgeldigheid is null or eindgeldigheid > current_date) and tijdstipinactief is null)";
+
     private static final List<AttributeColumnMapping> bag2BaseAttributes = Arrays.asList(
             new AttributeColumnMapping("objectid",  "serial", true, false, true),
             new AttributeColumnMapping("identificatie",  "char(16)", true, true),
@@ -78,6 +80,8 @@ public class BAG2Schema extends Schema {
         addObjectType(new BAG2ObjectType(this, "Woonplaats", withBaseAttributes(
                 new AttributeColumnMapping("naam"),
                 new GeometryAttributeColumnMapping("geometrie", "geometry(GEOMETRY, 28992)")
+        )).addExtraDataDefinitionSQL(List.of(
+                "create or replace view v_woonplaats_actueel as select * from woonplaats where " + WHERE_CLAUSE_ACTUEEL
         )));
 
         addObjectType(new BAG2ObjectType(this, "OpenbareRuimte", withBaseAttributes(
@@ -85,6 +89,8 @@ public class BAG2Schema extends Schema {
                 new AttributeColumnMapping("verkorteNaam", "varchar(255)", false),
                 new AttributeColumnMapping("type"),
                 new AttributeColumnMapping("ligtIn", "char(4)", false)
+        )).addExtraDataDefinitionSQL(List.of(
+                "create or replace view v_openbareruimte_actueel as select * from openbareruimte where " + WHERE_CLAUSE_ACTUEEL
         )));
 
         addObjectType(new BAG2ObjectType(this, "Nummeraanduiding", withBaseAttributes(
@@ -95,6 +101,8 @@ public class BAG2Schema extends Schema {
                 new AttributeColumnMapping("typeAdresseerbaarObject", "varchar(255)", false),
                 new AttributeColumnMapping("ligtIn", "char(4)", false),
                 new AttributeColumnMapping("ligtAan", "char(16)", false)
+        )).addExtraDataDefinitionSQL(List.of(
+                "create or replace view v_nummeraanduiding_actueel as select * from nummeraanduiding where " + WHERE_CLAUSE_ACTUEEL
         )));
 
         addObjectType(new BAG2ObjectType(this, "Verblijfsobject", withBaseAttributes(
@@ -105,6 +113,7 @@ public class BAG2Schema extends Schema {
                 new ArrayAttributeMapping("maaktDeelUitVan", "pand", "char(16)"),
                 new GeometryAttributeColumnMapping("geometrie", "geometry(GEOMETRY, 28992)")
         )).addExtraDataDefinitionSQL(List.of(
+                "create or replace view v_verblijfsobject_actueel as select * from verblijfsobject where " + WHERE_CLAUSE_ACTUEEL,
                 "create index verblijfsobject_nevenadres_idx on verblijfsobject_nevenadres (identificatie, voorkomenidentificatie)",
                 "create index verblijfsobject_pand_idx on verblijfsobject_pand (identificatie, voorkomenidentificatie)",
                 "create index verblijfsobject_gebruiksdoel_idx on verblijfsobject_gebruiksdoel (identificatie, voorkomenidentificatie)"
@@ -115,6 +124,7 @@ public class BAG2Schema extends Schema {
                 new AttributeColumnMapping("heeftAlsHoofdadres", "char(16)", false),
                 new ArrayAttributeMapping("heeftAlsNevenadres", "nevenadres", "char(16)")
         )).addExtraDataDefinitionSQL(List.of(
+                "create or replace view v_ligplaats_actueel as select * from ligplaats where " + WHERE_CLAUSE_ACTUEEL,
                 "create index ligplaats_nevenadres_idx on ligplaats_nevenadres (identificatie, voorkomenidentificatie)"
         )));
 
@@ -123,12 +133,15 @@ public class BAG2Schema extends Schema {
                 new AttributeColumnMapping("heeftAlsHoofdadres", "char(16)", false),
                 new ArrayAttributeMapping("heeftAlsNevenadres", "nevenadres", "char(16)")
         )).addExtraDataDefinitionSQL(List.of(
+                "create or replace view v_standplaats_actueel as select * from standplaats where " + WHERE_CLAUSE_ACTUEEL,
                 "create index standplaats_nevenadres_idx on standplaats_nevenadres (identificatie, voorkomenidentificatie)"
         )));
 
         addObjectType(new BAG2ObjectType(this, "Pand", withBaseAttributes(
                 new IntegerAttributeColumnMapping("oorspronkelijkBouwjaar"),
                 new GeometryAttributeColumnMapping("geometrie", "geometry(POLYGON, 28992)")
+        )).addExtraDataDefinitionSQL(List.of(
+                "create or replace view v_pand_actueel as select * from pand where " + WHERE_CLAUSE_ACTUEEL
         )));
     }
 
