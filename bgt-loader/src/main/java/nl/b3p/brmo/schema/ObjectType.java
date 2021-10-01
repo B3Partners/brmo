@@ -23,7 +23,7 @@ public class ObjectType {
     private List<AttributeColumnMapping> attributes;
 
     private final List<AttributeColumnMapping> primaryKeys;
-    private final List<AttributeColumnMapping> directInsertAttributes;
+    private final List<AttributeColumnMapping> directNonDefaultInsertAttributes;
     private final List<GeometryAttributeColumnMapping> geometryAttributes;
     private List<ObjectType> oneToManyAttributeObjectTypes;
     private List<ArrayAttributeMapping> arrayAttributes;
@@ -37,8 +37,8 @@ public class ObjectType {
         this.primaryKeys = attributes.stream()
                 .filter(AttributeColumnMapping::isPrimaryKey)
                 .collect(Collectors.toList());
-        this.directInsertAttributes = attributes.stream()
-                .filter(AttributeColumnMapping::isDirectInsertAttribute)
+        this.directNonDefaultInsertAttributes = attributes.stream()
+                .filter(AttributeColumnMapping::isDirectNonDefaultAttribute)
                 .collect(Collectors.toList());
         this.geometryAttributes = attributes.stream()
                 .filter(attributeColumnMapping -> (attributeColumnMapping instanceof GeometryAttributeColumnMapping))
@@ -63,12 +63,18 @@ public class ObjectType {
         return primaryKeys;
     }
 
-    public List<AttributeColumnMapping> getDirectInsertAttributes() {
-        return directInsertAttributes;
+    public List<AttributeColumnMapping> getDirectAttributes() {
+        return attributes.stream()
+                .filter(AttributeColumnMapping::isDirectAttribute)
+                .collect(Collectors.toList());
+    }
+
+    public List<AttributeColumnMapping> getDirectNonDefaultInsertAttributes() {
+        return directNonDefaultInsertAttributes;
     }
 
     public boolean hasOnlyDirectAttributes() {
-        return directInsertAttributes.size() == attributes.size();
+        return directNonDefaultInsertAttributes.size() == attributes.size();
     }
 
     public List<ObjectType> getOneToManyAttributeObjectTypes() {

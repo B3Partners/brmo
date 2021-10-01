@@ -118,7 +118,7 @@ public abstract class SchemaSQLMapper {
         if (dialect.supportsDropTableIfExists()) {
             statements.add(String.format("drop table if exists %s cascade", tableName));
         }
-        String columns = objectType.getDirectInsertAttributes().stream()
+        String columns = objectType.getDirectAttributes().stream()
                 .map(column -> {
                     String referencing = "";
                     if (column instanceof ForeignKeyAttributeMapping) {
@@ -166,7 +166,7 @@ public abstract class SchemaSQLMapper {
 
     public Stream<String> getCreatePrimaryKeyStatements(ObjectType objectType, SQLDialect dialect, String tablePrefix, boolean includeOneToMany) {
         String tableName = getTableNameForObjectType(objectType, tablePrefix);
-        String columns = objectType.getDirectInsertAttributes().stream()
+        String columns = objectType.getDirectAttributes().stream()
                 .filter(AttributeColumnMapping::isPrimaryKey)
                 .map(column -> getColumnNameForObjectType(objectType, column.getName()))
                 .collect(Collectors.joining(", "));

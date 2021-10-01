@@ -53,8 +53,12 @@ public class AttributeColumnMapping {
         return useDefault;
     }
 
-    public boolean isDirectInsertAttribute() {
-        return !isUseDefault();
+    public boolean isDirectAttribute() {
+        return true;
+    }
+
+    public boolean isDirectNonDefaultAttribute() {
+        return isDirectAttribute() && !isUseDefault();
     }
 
     public Object toQueryParameter(Object value) throws Exception {
