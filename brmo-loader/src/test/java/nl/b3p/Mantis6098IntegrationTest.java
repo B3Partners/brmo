@@ -50,19 +50,21 @@ public class Mantis6098IntegrationTest extends AbstractDatabaseIntegrationTest {
     private BrmoFramework brmo;
     private IDatabaseConnection rsgb;
     private IDatabaseConnection staging;
+    private BasicDataSource dsStaging;
+    private BasicDataSource dsRsgb;
 
     private final Lock sequential = new ReentrantLock();
 
     @Override
     @BeforeEach
     public void setUp() throws Exception {
-        BasicDataSource dsStaging = new BasicDataSource();
+        dsStaging = new BasicDataSource();
         dsStaging.setUrl(params.getProperty("staging.jdbc.url"));
         dsStaging.setUsername(params.getProperty("staging.user"));
         dsStaging.setPassword(params.getProperty("staging.passwd"));
         dsStaging.setAccessToUnderlyingConnectionAllowed(true);
 
-        BasicDataSource dsRsgb = new BasicDataSource();
+        dsRsgb = new BasicDataSource();
         dsRsgb.setUrl(params.getProperty("rsgb.jdbc.url"));
         dsRsgb.setUsername(params.getProperty("rsgb.user"));
         dsRsgb.setPassword(params.getProperty("rsgb.passwd"));
@@ -114,9 +116,11 @@ public class Mantis6098IntegrationTest extends AbstractDatabaseIntegrationTest {
 
         CleanUtil.cleanRSGB_BRK(rsgb, true);
         rsgb.close();
+        dsRsgb.close();
 
         CleanUtil.cleanSTAGING(staging, false);
         staging.close();
+        dsStaging.close();
 
         sequential.unlock();
     }

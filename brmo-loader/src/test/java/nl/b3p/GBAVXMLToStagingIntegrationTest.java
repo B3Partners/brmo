@@ -82,17 +82,19 @@ public class GBAVXMLToStagingIntegrationTest extends AbstractDatabaseIntegration
     // dbunit
     private IDatabaseConnection staging;
     private IDatabaseConnection rsgb;
+    private BasicDataSource dsStaging;
+    private BasicDataSource dsRsgb;
 
     @BeforeEach
     @Override
     public void setUp() throws Exception {
-        BasicDataSource dsStaging = new BasicDataSource();
+        dsStaging = new BasicDataSource();
         dsStaging.setUrl(params.getProperty("staging.jdbc.url"));
         dsStaging.setUsername(params.getProperty("staging.user"));
         dsStaging.setPassword(params.getProperty("staging.passwd"));
         dsStaging.setAccessToUnderlyingConnectionAllowed(true);
 
-        BasicDataSource dsRsgb = new BasicDataSource();
+        dsRsgb = new BasicDataSource();
         dsRsgb.setUrl(params.getProperty("rsgb.jdbc.url"));
         dsRsgb.setUsername(params.getProperty("rsgb.user"));
         dsRsgb.setPassword(params.getProperty("rsgb.passwd"));
@@ -139,7 +141,10 @@ public class GBAVXMLToStagingIntegrationTest extends AbstractDatabaseIntegration
         CleanUtil.cleanSTAGING(staging, false);
         CleanUtil.cleanRSGB_BAG(rsgb, true);
         CleanUtil.cleanRSGB_BRP(rsgb);
+        rsgb.close();
+        dsRsgb.close();
         staging.close();
+        dsStaging.close();
         sequential.unlock();
     }
 
