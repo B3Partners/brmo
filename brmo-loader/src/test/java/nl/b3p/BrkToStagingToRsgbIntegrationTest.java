@@ -37,12 +37,14 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assumptions.assumeFalse;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 /**
  *
  * Draaien met:
+ * {@code mvn -Dit.test=BrkToStagingToRsgbIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql -pl brmo-loader > /tmp/postgresql.log} of
  * {@code mvn -Dit.test=BrkToStagingToRsgbIntegrationTest -Dtest.onlyITs=true verify -Pmssql -pl brmo-loader > /tmp/mssql.log}
  * voor bijvoorbeeld MSSQL of
  * {@code mvn -Dit.test=BrkToStagingToRsgbIntegrationTest -Dtest.onlyITs=true verify -Poracle -pl brmo-loader > /tmp/oracle.log}
@@ -66,26 +68,31 @@ public class BrkToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
                  * 2012 (Totaalstanden)/20091130/ en staat op de git-ignore lijst omdat 't 18.5MB groot is, `grep -o KadastraalObjectSnapshot BURBX01.xml | wc -w`/2 geeft aantal berichten
                  */
                 // arguments("brk", "/nl/b3p/brmo/loader/xml/BURBX01-ASN00-20091130-6000015280-9100000039.zip", (63104 / 2), 1, "2009-10-31"),
-                arguments("brk", "/nl/b3p/brmo/loader/xml/BURBX01-ASN00-AA513.xml", 1, 1, "2009-10-31")
+                arguments("brk", "/nl/b3p/brmo/loader/xml/BURBX01-ASN00-AA513.xml", 1, 1, "2009-10-31"),
+                // dit bestand bevat een datafout in het element //GbaPersoon:aanduidingNaamgebruik/Typen:code waarin de waarde staat (en niet de code)
+                arguments("brk", "/SUPPORT-12817_DATAFOUT_aanduiding_naamgebruik/BRK_XML.anon.xml", 1, 1, "2021-09-02")
             );
     }
+
 
     private BrmoFramework brmo;
     // dbunit
     private IDatabaseConnection staging;
     private IDatabaseConnection rsgb;
     private final Lock sequential = new ReentrantLock(true);
+    private BasicDataSource dsStaging;
+    private BasicDataSource dsRsgb;
 
     @BeforeEach
     @Override
     public void setUp() throws Exception {
-        BasicDataSource dsStaging = new BasicDataSource();
+        dsStaging = new BasicDataSource();
         dsStaging.setUrl(params.getProperty("staging.jdbc.url"));
         dsStaging.setUsername(params.getProperty("staging.user"));
         dsStaging.setPassword(params.getProperty("staging.passwd"));
         dsStaging.setAccessToUnderlyingConnectionAllowed(true);
 
-        BasicDataSource dsRsgb = new BasicDataSource();
+        dsRsgb = new BasicDataSource();
         dsRsgb.setUrl(params.getProperty("rsgb.jdbc.url"));
         dsRsgb.setUsername(params.getProperty("rsgb.user"));
         dsRsgb.setPassword(params.getProperty("rsgb.passwd"));
@@ -133,9 +140,11 @@ public class BrkToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
 
         CleanUtil.cleanSTAGING(staging, false);
         staging.close();
+        dsStaging.close();
 
         CleanUtil.cleanRSGB_BRK(rsgb, true);
         rsgb.close();
+        dsRsgb.close();
 
         sequential.unlock();
     }
@@ -169,8 +178,23 @@ public class BrkToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
         }
 
         ITable kad_onrrnd_zk = rsgb.createDataSet().getTable("kad_onrrnd_zk");
-        assertEquals(aantalBerichten, kad_onrrnd_zk.getRowCount(), "Het aantal on");
+        assertEquals(aantalBerichten, kad_onrrnd_zk.getRowCount(), "Het aantal kad_onrrnd_zk klopt niet");
         assertEquals(datumEersteMutatie, kad_onrrnd_zk.getValue(0, "dat_beg_geldh"),
                 "Datum eerste record komt niet overeen");
+
+        if(bestandNaam.contains("BRK_XML.anon.xml")){
+            // check of aand_naamgebruik leeg is voor alle personen
+            ITable nat_prs =rsgb.createDataSet().getTable("nat_prs");
+            assertEquals(2, nat_prs.getRowCount(), "aantal natuurlijke personen klopt niet");
+
+            nat_prs = rsgb.createQueryTable("nat_prs","select * from nat_prs where geslachtsaand = 'M'");
+            assertEquals(1, nat_prs.getRowCount(), "aantal 'M' klopt niet");
+            assertNull(nat_prs.getValue(0,"aand_naamgebruik"));
+
+            // ondanks dat bericht zegt "Eigen naam" wat een ongeldige waarde is voor //GbaPersoon:aanduidingNaamgebruik/Typen:code
+            nat_prs = rsgb.createQueryTable("nat_prs","select * from nat_prs where geslachtsaand = 'V'");
+            assertEquals(1, nat_prs.getRowCount(), "aantal 'V' klopt niet");
+            assertNull(nat_prs.getValue(0,"aand_naamgebruik"));
+        }
     }
 }
