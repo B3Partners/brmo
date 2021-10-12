@@ -82,8 +82,6 @@ public class BrkToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
     private BasicDataSource dsStaging;
     private BasicDataSource dsRsgb;
     private final Lock sequential = new ReentrantLock(true);
-    private BasicDataSource dsStaging;
-    private BasicDataSource dsRsgb;
 
     @BeforeEach
     @Override
