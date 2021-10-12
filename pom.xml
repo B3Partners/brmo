@@ -62,8 +62,8 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <hibernate.version>5.6.0.Final</hibernate.version>
         <!-- ook jdbc-util updaten bij geotools update -->
-        <geotools.version>25.2</geotools.version>
-        <jdbc-util.version>9.3</jdbc-util.version>
+        <geotools.version>26.0</geotools.version>
+        <jdbc-util.version>10.0</jdbc-util.version>
         <jts.version>1.18.2</jts.version>
         <itextpdf.version>7.1.16</itextpdf.version>
         <postgresql.jdbc.version>42.2.24</postgresql.jdbc.version>
@@ -304,8 +304,7 @@
             <dependency>
                 <groupId>org.geotools</groupId>
                 <artifactId>gt-gml-geometry-streaming</artifactId>
-                <!-- 26-pre1 omdat de eerste officiele RC pas in september 2021 komt -->
-                <version>26-pre1</version>
+                <version>${geotools.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.hibernate</groupId>
