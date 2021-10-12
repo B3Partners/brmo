@@ -79,6 +79,8 @@ public class BrkToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
     // dbunit
     private IDatabaseConnection staging;
     private IDatabaseConnection rsgb;
+    private BasicDataSource dsStaging;
+    private BasicDataSource dsRsgb;
     private final Lock sequential = new ReentrantLock(true);
     private BasicDataSource dsStaging;
     private BasicDataSource dsRsgb;

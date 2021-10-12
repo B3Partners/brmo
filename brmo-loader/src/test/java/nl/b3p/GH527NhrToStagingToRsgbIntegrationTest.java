@@ -49,20 +49,22 @@ public class GH527NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseInte
     // dbunit
     private IDatabaseConnection staging;
     private IDatabaseConnection rsgb;
+    private BasicDataSource dsStaging;
+    private BasicDataSource dsRsgb;
 
     private final Lock sequential = new ReentrantLock(true);
 
     @BeforeEach
     @Override
     public void setUp() throws Exception {
-        BasicDataSource dsStaging = new BasicDataSource();
+        dsStaging = new BasicDataSource();
         dsStaging.setUrl(params.getProperty("staging.jdbc.url"));
         dsStaging.setUsername(params.getProperty("staging.user"));
         dsStaging.setPassword(params.getProperty("staging.passwd"));
         dsStaging.setAccessToUnderlyingConnectionAllowed(true);
         dsStaging.setConnectionProperties(params.getProperty("staging.options", ""));
 
-        BasicDataSource dsRsgb = new BasicDataSource();
+        dsRsgb = new BasicDataSource();
         dsRsgb.setUrl(params.getProperty("rsgb.jdbc.url"));
         dsRsgb.setUsername(params.getProperty("rsgb.user"));
         dsRsgb.setPassword(params.getProperty("rsgb.passwd"));
@@ -112,9 +114,11 @@ public class GH527NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseInte
 
         CleanUtil.cleanSTAGING(staging, false);
         staging.close();
+        dsStaging.close();
 
         CleanUtil.cleanRSGB_NHR(rsgb);
         rsgb.close();
+        dsRsgb.close();
 
         sequential.unlock();
     }

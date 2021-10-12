@@ -37,9 +37,9 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * Testcases voor mantis-6380 / GH#332; incorrect verwerken van commanditair
  * vennootschap rechten in mutatie. Draaien met:
- * {@code mvn -Dit.test=Mantis6380IntegrationTest -Dtest.onlyITs=true verify -Poracle > target/oracle.log}
+ * {@code mvn -Dit.test=Mantis6380IntegrationTest -Dtest.onlyITs=true verify -Poracle -pl :brmo-loader > target/oracle.log}
  * voor bijvoorbeeld Oracle of
- * {@code mvn -Dit.test=Mantis6380IntegrationTest -Dtest.onlyITs=true verify -Ppostgresql -pl brmo-loader > /tmp/postgresql.log}.
+ * {@code mvn -Dit.test=Mantis6380IntegrationTest -Dtest.onlyITs=true verify -Ppostgresql -pl :brmo-loader > /tmp/postgresql.log}.
  *
  * @author mprins
  */
@@ -52,17 +52,19 @@ public class Mantis6380IntegrationTest extends AbstractDatabaseIntegrationTest {
     private IDatabaseConnection rsgb;
     private IDatabaseConnection staging;
     private final Lock sequential = new ReentrantLock();
+    private BasicDataSource dsRsgb;
+    private BasicDataSource dsStaging;
 
     @Override
     @BeforeEach
     public void setUp() throws Exception {
-        BasicDataSource dsStaging = new BasicDataSource();
+        dsStaging = new BasicDataSource();
         dsStaging.setUrl(params.getProperty("staging.jdbc.url"));
         dsStaging.setUsername(params.getProperty("staging.user"));
         dsStaging.setPassword(params.getProperty("staging.passwd"));
         dsStaging.setAccessToUnderlyingConnectionAllowed(true);
 
-        BasicDataSource dsRsgb = new BasicDataSource();
+        dsRsgb = new BasicDataSource();
         dsRsgb.setUrl(params.getProperty("rsgb.jdbc.url"));
         dsRsgb.setUsername(params.getProperty("rsgb.user"));
         dsRsgb.setPassword(params.getProperty("rsgb.passwd"));
@@ -110,9 +112,11 @@ public class Mantis6380IntegrationTest extends AbstractDatabaseIntegrationTest {
 
         CleanUtil.cleanRSGB_BRK(rsgb, true);
         rsgb.close();
+        dsRsgb.close();
 
         CleanUtil.cleanSTAGING(staging, false);
         staging.close();
+        dsStaging.close();
 
         sequential.unlock();
     }
