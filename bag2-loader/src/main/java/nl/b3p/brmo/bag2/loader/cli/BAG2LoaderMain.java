@@ -69,7 +69,7 @@ public class BAG2LoaderMain implements IVersionProvider {
         }
     }
 
-    public static void main(String... args) throws Exception {
+    public static void main(String... args) {
         configureLogging(true);
 
         CommandLine cmd = new CommandLine(new BAG2LoaderMain())
@@ -104,7 +104,7 @@ public class BAG2LoaderMain implements IVersionProvider {
         try (ZipArchiveInputStream zip = new ZipArchiveInputStream(input)) {
             ZipArchiveEntry entry = zip.getNextZipEntry();
             while(entry != null) {
-                if (entry.getName().matches("9999(STA|VBO|OPR|NUM|LIG|PND|WPL).*\\.xml")) {
+                if (entry.getName().matches("[0-9]{4}(STA|VBO|OPR|NUM|LIG|PND|WPL).*\\.xml")) {
                     // Load extracted zipfile
                     loadXmlEntriesFromZipFile(db, loadOptions, dbOptions, name, zip, entry, true);
                     break;
@@ -112,16 +112,16 @@ public class BAG2LoaderMain implements IVersionProvider {
 
                 // Process single and double-nested ZIP files
 
-                if (entry.getName().matches("9999(STA|VBO|OPR|NUM|LIG|PND|WPL).*\\.zip")) {
+                if (entry.getName().matches("[0-9]{4}(STA|VBO|OPR|NUM|LIG|PND|WPL).*\\.zip")) {
                     ZipArchiveInputStream nestedZip = new ZipArchiveInputStream(zip);
                     loadXmlEntriesFromZipFile(db, loadOptions, dbOptions, entry.getName(), nestedZip, nestedZip.getNextZipEntry(), true);
                 }
 
-                if (entry.getName().startsWith("9999Inactief")) {
+                if (entry.getName().matches("[0-9]{4}Inactief.*\\.zip")) {
                     ZipArchiveInputStream nestedZip = new ZipArchiveInputStream(zip);
                     ZipArchiveEntry nestedEntry = nestedZip.getNextZipEntry();
                     while(nestedEntry != null) {
-                        if (nestedEntry.getName().startsWith("9999IA")) {
+                        if (nestedEntry.getName().matches("[0-9]{4}IA.*\\.zip")) {
                             ZipArchiveInputStream moreNestedZip = new ZipArchiveInputStream(nestedZip);
                             loadXmlEntriesFromZipFile(db,  loadOptions, dbOptions,nestedEntry.getName(), moreNestedZip, moreNestedZip.getNextZipEntry(), false);
                         }
@@ -144,7 +144,7 @@ public class BAG2LoaderMain implements IVersionProvider {
     }
 
     private static BAG2ObjectType getObjectTypeFromFilename(String filename) {
-        Matcher m = Pattern.compile(".*9999(IA)?(STA|VBO|OPR|NUM|LIG|PND|WPL).*\\.(xml|zip)").matcher(filename);
+        Matcher m = Pattern.compile(".*[0-9]{4}(IA)?(STA|VBO|OPR|NUM|LIG|PND|WPL).*\\.(xml|zip)").matcher(filename);
         if (!m.matches()) {
             throw new IllegalArgumentException("Invalid BAG2 filename: " + filename);
         }
@@ -209,7 +209,7 @@ public class BAG2LoaderMain implements IVersionProvider {
     }
 
     @Override
-    public String[] getVersion() throws Exception {
+    public String[] getVersion() {
         return new String[] {
                 BAG2LoaderUtils.getLoaderVersion(),
                 BAG2LoaderUtils.getUserAgent()
