@@ -24,14 +24,22 @@ import org.opengis.referencing.FactoryException;
 
 import javax.xml.namespace.QName;
 import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+
+import static nl.b3p.brmo.bag2.schema.BAG2Object.MutatieStatus.TOEVOEGING;
+import static nl.b3p.brmo.bag2.schema.BAG2Object.MutatieStatus.WIJZIGING_WAS;
+import static nl.b3p.brmo.bag2.schema.BAG2Object.MutatieStatus.WIJZIGING_WORDT;
 
 public class BAG2GMLObjectStream implements Iterable<BAG2Object> {
     private static final Log log = LogFactory.getLog(BAG2GMLObjectStream.class);
@@ -41,12 +49,33 @@ public class BAG2GMLObjectStream implements Iterable<BAG2Object> {
     private static final String NS_GML_32 = "http://www.opengis.net/gml/3.2";
     private static final String NS_HISTORIE = "www.kadaster.nl/schemas/lvbag/imbag/historie/v20200601";
     private static final String NS_OBJECTEN_REF = "www.kadaster.nl/schemas/lvbag/imbag/objecten-ref/v20200601";
+    private static final String NS_BAG_EXTRACT_MUTATIES = "http://www.kadaster.nl/schemas/lvbag/extract-deelbestand-mutaties-lvc/v20200601";
+    private static final String NS_MUTATIELEVERING = "http://www.kadaster.nl/schemas/mutatielevering-generiek/1.0";
 
+    private static final QName BAG_STAND = new QName(NS_BAG_EXTRACT, "bagStand");
+    private static final QName BAG_MUTATIES = new QName(NS_BAG_EXTRACT_MUTATIES, "bagMutaties");
     private static final int SRID = 28992;
 
     private final XmlStreamGeometryReader geometryReader;
 
     private final SMInputCursor cursor;
+
+    private boolean isMutaties;
+    private boolean hasMutatieGroep;
+
+    private MutatieInfo mutatieInfo;
+
+    public static class MutatieInfo {
+        public final Date standTechnischeDatum;
+        public final Date mutatieDatumVanaf;
+        public final Date mutatieDatumTot;
+
+        protected MutatieInfo(Date standTechnischeDatum, Date mutatieDatumVanaf, Date mutatieDatumTot) {
+            this.standTechnischeDatum = standTechnischeDatum;
+            this.mutatieDatumVanaf = mutatieDatumVanaf;
+            this.mutatieDatumTot = mutatieDatumTot;
+        }
+    }
 
     public BAG2GMLObjectStream(InputStream in) throws XMLStreamException {
         this.cursor = initCursor(buildSMInputFactory().rootElementCursor(in));
@@ -74,13 +103,62 @@ public class BAG2GMLObjectStream implements Iterable<BAG2Object> {
     private SMInputCursor initCursor(SMInputCursor cursor) throws XMLStreamException {
         QName root = cursor.advance().getQName();
 
-        if (!root.equals(new QName(NS_BAG_EXTRACT, "bagStand"))) {
-            throw new IllegalArgumentException("XML root element moet bagStand zijn");
+        if(root.equals(BAG_STAND)) {
+            isMutaties = false;
+        } else if (root.equals(BAG_MUTATIES)) {
+            isMutaties = true;
+        } else {
+            throw new IllegalArgumentException("XML root element moet bagStand of bagMutaties zijn");
         }
 
-        cursor = cursor.childElementCursor(new QName(NS_STANDLEVERING, "standBestand")).advance()
-                .childElementCursor(new QName(NS_STANDLEVERING, "stand"));
+
+        if(isMutaties) {
+            cursor = cursor.childElementCursor().advance();
+            cursor.getStreamReader().require(XMLStreamConstants.START_ELEMENT, NS_BAG_EXTRACT_MUTATIES, "bagInfo");
+
+            if (!cursor.getLocalName().equals("bagInfo")) {
+                throw new IllegalArgumentException("Verwacht bagInfo element");
+            }
+
+            SMInputCursor bagInfoCursor = cursor.descendantElementCursor().advance();
+            Date standTechnischeDatum = null, mutatieDatumVanaf = null, mutatieDatumTot = null;
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            do {
+                try {
+                    switch (bagInfoCursor.getLocalName()) {
+                        case "StandTechnischeDatum":
+                            standTechnischeDatum = df.parse(bagInfoCursor.collectDescendantText());
+                            break;
+                        case "MutatiedatumVanaf":
+                            mutatieDatumVanaf = df.parse(bagInfoCursor.collectDescendantText());
+                            break;
+                        case "MutatiedatumTot":
+                            mutatieDatumTot = df.parse(bagInfoCursor.collectDescendantText());
+                            break;
+                    }
+                } catch(ParseException ignored) {
+                }
+            } while(bagInfoCursor.getNext() != null);
+            mutatieInfo = new MutatieInfo(standTechnischeDatum, mutatieDatumVanaf, mutatieDatumTot);
+
+            cursor.getNext();
+
+            String name = cursor.getLocalName();
+            cursor.getStreamReader().require(XMLStreamConstants.START_ELEMENT, NS_MUTATIELEVERING, "mutatieBericht");
+
+            cursor = cursor.childElementCursor(new QName(NS_MUTATIELEVERING, "mutatieGroep"));
+
+            hasMutatieGroep = cursor.getNext() != null;
+        } else {
+            cursor = cursor.childElementCursor(new QName(NS_STANDLEVERING, "standBestand")).advance()
+                    .childElementCursor(new QName(NS_STANDLEVERING, "stand"));
+        }
+
         return cursor;
+    }
+
+    public MutatieInfo getMutatieInfo() {
+        return mutatieInfo;
     }
 
     @Override
@@ -90,6 +168,10 @@ public class BAG2GMLObjectStream implements Iterable<BAG2Object> {
 
             @Override
             public boolean hasNext() {
+                if (isMutaties && !hasMutatieGroep) {
+                    return false;
+                }
+
                 if (event != null) {
                     return true;
                 }
@@ -112,21 +194,53 @@ public class BAG2GMLObjectStream implements Iterable<BAG2Object> {
                 event = null;
 
                 try {
-                    SMInputCursor bagObjectCursor = cursor.childElementCursor(new QName(NS_BAG_EXTRACT, "bagObject")).advance().childElementCursor().advance();
+                    if (isMutaties) {
+                        if (!hasMutatieGroep) {
+                            throw new IllegalStateException("No items");
+                        }
 
-                    String name = bagObjectCursor.getLocalName();
+                        SMInputCursor mutatie = cursor.childElementCursor().advance();
+                        String mutatieNaam = mutatie.getLocalName();
+                        BAG2Object was = null, wordt = null, toevoeging;
 
-                    final BAG2ObjectType objectType = BAG2Schema.getInstance().getObjectTypeByName(name);
-                    if (objectType == null) {
-                        throw new IllegalArgumentException("Onbekend object type: " + name);
+                        if (mutatieNaam.equals("wijziging")) {
+                            // A "wijziging" is a change to the latest version (voorkomen) followed by an addition
+                            // ("toevoeging") of a new version
+
+                            SMInputCursor wijziging = mutatie.childElementCursor().advance();
+
+                            do {
+                                String name = wijziging.getLocalName();
+                                SMInputCursor bagObjectCursor = wijziging
+                                        .childElementCursor(new QName(NS_BAG_EXTRACT_MUTATIES, "bagObject")).advance()
+                                        .childElementCursor().advance();
+                                if (name.equals("was")) {
+                                    was = parseBAG2Object(bagObjectCursor, WIJZIGING_WAS);
+                                } else if (name.equals("wordt")) {
+                                    wordt = parseBAG2Object(bagObjectCursor, WIJZIGING_WORDT);
+                                }
+                            } while(wijziging.getNext() != null);
+                            mutatie.getNext(); // move to "toevoeging"
+                        }
+
+                        SMInputCursor bagObjectCursor = mutatie
+                                .childElementCursor(new QName(NS_MUTATIELEVERING, "wordt")).advance()
+                                .childElementCursor(new QName(NS_BAG_EXTRACT_MUTATIES, "bagObject")).advance()
+                                .childElementCursor().advance();
+
+                        toevoeging = parseBAG2Object(bagObjectCursor, TOEVOEGING);
+
+                        toevoeging.setWijzigingWas(was);
+                        toevoeging.setWijzigingWordt(wordt);
+
+                        return toevoeging;
+                    } else {
+                        SMInputCursor bagObjectCursor = cursor
+                                .childElementCursor(new QName(NS_BAG_EXTRACT, "bagObject")).advance()
+                                .childElementCursor().advance();
+
+                        return parseBAG2Object(bagObjectCursor, TOEVOEGING);
                     }
-
-                    Map<String, Object> attributes = new HashMap<>();
-                    SMInputCursor attributeCursor = bagObjectCursor.childElementCursor();
-                    while (attributeCursor.getNext() != null) {
-                        parseAttribute(attributeCursor, attributes);
-                    }
-                    return new BAG2Object(objectType, attributes);
                 } catch(Exception e) {
                     throw new RuntimeException(e);
                 }
@@ -134,37 +248,61 @@ public class BAG2GMLObjectStream implements Iterable<BAG2Object> {
         };
     }
 
+    private BAG2Object parseBAG2Object(SMInputCursor bagObjectCursor, BAG2Object.MutatieStatus mutatieStatus) throws XMLStreamException, FactoryException, IOException {
+        String name = bagObjectCursor.getLocalName();
+
+        final BAG2ObjectType objectType = BAG2Schema.getInstance().getObjectTypeByName(name);
+        if (objectType == null) {
+            throw new IllegalArgumentException("Onbekend object type: " + name);
+        }
+
+        Map<String, Object> attributes = new HashMap<>();
+        SMInputCursor attributeCursor = bagObjectCursor.childElementCursor();
+        while (attributeCursor.getNext() != null) {
+            parseAttribute(attributeCursor, attributes);
+        }
+        return new BAG2Object(objectType, attributes, mutatieStatus);
+    }
+
     private void parseAttribute(SMInputCursor attribute, Map<String, Object> objectAttributes) throws XMLStreamException, FactoryException, IOException {
         String attributeName = attribute.getLocalName();
 
-        if (attributeName.equals("geometrie")) {
-            // Position cursor at child element
-            SMInputCursor geomCursor = attribute.childElementCursor().advance();
-            // Sometimes there is an element like "punt" which has the actual geometry as child element
-            if (!geomCursor.getNsUri().equals(NS_GML_32)) {
-                geomCursor.childElementCursor().advance();
-            }
-            Geometry geom = geometryReader.readGeometry();
-            geom.setSRID(SRID);
-            objectAttributes.put(attributeName, geom);
-        } else if (attributeName.equals("voorkomen")) {
-            // Flatten al Voorkomen child attributes, according to the schema the element names do not conflict
-            parseVoorkomen(attribute, objectAttributes);
-        } else if (attributeName.equals("BeschikbaarLV")) {
-            // Flatten al Voorkomen/BeschikbaarLV child attributes to the top level, according to the schema the element
-            // names do not conflict
-            parseBeschikbaarLV(attribute, objectAttributes);
-        } else if(attributeName.equals("heeftAlsNevenadres")) {
-            parseNevenadres(attribute, objectAttributes);
-        } else if(attributeName.equals("maaktDeelUitVan")) {
-            parseMaaktDeelUitVan(attribute, objectAttributes);
-        } else if(attributeName.equals("gebruiksdoel")) {
-            parseGebruiksdoel(attribute, objectAttributes);
-        } else {
-            // String attribute value as default
+        switch (attributeName) {
+            case "geometrie":
+                // Position cursor at child element
+                SMInputCursor geomCursor = attribute.childElementCursor().advance();
+                // Sometimes there is an element like "punt" which has the actual geometry as child element
+                if (!geomCursor.getNsUri().equals(NS_GML_32)) {
+                    geomCursor.childElementCursor().advance();
+                }
+                Geometry geom = geometryReader.readGeometry();
+                geom.setSRID(SRID);
+                objectAttributes.put(attributeName, geom);
+                break;
+            case "voorkomen":
+                // Flatten al Voorkomen child attributes, according to the schema the element names do not conflict
+                parseVoorkomen(attribute, objectAttributes);
+                break;
+            case "BeschikbaarLV":
+                // Flatten al Voorkomen/BeschikbaarLV child attributes to the top level, according to the schema the element
+                // names do not conflict
+                parseBeschikbaarLV(attribute, objectAttributes);
+                break;
+            case "heeftAlsNevenadres":
+                parseNevenadres(attribute, objectAttributes);
+                break;
+            case "maaktDeelUitVan":
+                parseMaaktDeelUitVan(attribute, objectAttributes);
+                break;
+            case "gebruiksdoel":
+                parseGebruiksdoel(attribute, objectAttributes);
+                break;
+            default:
+                // String attribute value as default
 
-            // This also works for ligtIn en ligtAan
-            objectAttributes.put(attributeName, attribute.collectDescendantText().trim());
+                // This also works for ligtIn en ligtAan
+                objectAttributes.put(attributeName, attribute.collectDescendantText().trim());
+                break;
         }
     }
 

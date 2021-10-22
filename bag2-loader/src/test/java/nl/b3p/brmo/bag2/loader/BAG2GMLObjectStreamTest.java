@@ -18,18 +18,62 @@ import org.locationtech.jts.io.ParseException;
 import org.locationtech.jts.io.WKTReader;
 
 import javax.xml.stream.XMLStreamException;
+import java.text.SimpleDateFormat;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import java.util.zip.ZipInputStream;
 
+import static nl.b3p.brmo.bag2.schema.BAG2Object.MutatieStatus.TOEVOEGING;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class BAG2GMLObjectStreamTest {
+
+    @Test
+    void testMutaties() throws Exception {
+        ZipInputStream zip = new ZipInputStream(BAG2TestFiles.getTestInputStream("1978MUT15082021-15092021-000002.zip"));
+        zip.getNextEntry();
+        BAG2GMLObjectStream stream = new BAG2GMLObjectStream(zip);
+
+        assertNotNull(stream.getMutatieInfo());
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        assertEquals(df.parse("2021-09-15"), stream.getMutatieInfo().standTechnischeDatum);
+        assertEquals(df.parse("2021-08-15"), stream.getMutatieInfo().mutatieDatumVanaf);
+        assertEquals(df.parse("2021-09-15"), stream.getMutatieInfo().mutatieDatumTot);
+
+        Iterator<BAG2Object> iterator = stream.iterator();
+        BAG2Object obj = iterator.next();
+
+        assertNotNull(obj);
+
+        String identificatie = (String)obj.getAttributes().get("identificatie");
+        assertEquals("1978100007698683", identificatie);
+        assertNotNull(obj.getWijzigingWas());
+        assertNull(obj.getWijzigingWas().getAttributes().get("eindGeldigheid"));
+        assertNotNull(obj.getWijzigingWordt());
+        assertEquals("2021-08-16", obj.getWijzigingWordt().getAttributes().get("eindGeldigheid"));
+
+        obj = iterator.next();
+        assertNotNull(obj);
+        obj = iterator.next();
+        assertNotNull(obj);
+        assertEquals(TOEVOEGING, obj.getMutatieStatus());
+        assertNull(obj.getWijzigingWas());
+        assertNull(obj.getWijzigingWordt());
+
+        int count = 3;
+        while (iterator.hasNext()) {
+            iterator.next();
+            count++;
+        }
+        assertEquals(847, count);
+    }
 
     @ParameterizedTest(name="[{index}] {0}")
     @MethodSource
