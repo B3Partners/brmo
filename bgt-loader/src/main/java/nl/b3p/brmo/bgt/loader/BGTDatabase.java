@@ -46,22 +46,28 @@ public class BGTDatabase implements AutoCloseable {
     private final DatabaseOptions dbOptions;
     private Connection connection;
 
+    /**
+     * Create a BGTDatabase that will load the driver and create a database connection.
+     * @param dbOptions Database connection options.
+     * @throws ClassNotFoundException If the JDBC driver could not be loaded.
+     */
     public BGTDatabase(DatabaseOptions dbOptions) throws ClassNotFoundException {
         this.dbOptions = dbOptions;
-        String connectionString = dbOptions.getConnectionString();
-        SQLDialectEnum sqlDialectEnum;
-        if (connectionString.startsWith("jdbc:postgresql:")) {
-            sqlDialectEnum = SQLDialectEnum.postgis;
-        } else if (connectionString.startsWith("jdbc:oracle:thin:")) {
-            sqlDialectEnum = SQLDialectEnum.oracle;
-        } else if (connectionString.startsWith("jdbc:sqlserver:")) {
-            sqlDialectEnum = SQLDialectEnum.mssql;
-        } else {
-            throw new IllegalArgumentException(getMessageFormattedString("db.unknown_connection_string_dialect", connectionString));
-        }
-
-        dialect = createDialect(sqlDialectEnum);
+        dialect = createDialect(dbOptions.getConnectionString());
         dialect.loadDriver();
+    }
+
+    /**
+     * Create a BGTDatabase with a supplied Connection without loading the driver and making connections here. The
+     * connection string must be set in DatabaseOptions so the database dialect can be determined.
+     * @param dbOptions Database options - not used for making connections
+     * @param connection Connection to use, must not be closed. Connection will be closed by CLI classes after processing,
+     *                  override the close() method to avoid that.
+     */
+    public BGTDatabase(DatabaseOptions dbOptions, Connection connection) {
+        this.dbOptions = dbOptions;
+        this.dialect = createDialect(dbOptions.getConnectionString());
+        this.connection = connection;
     }
 
     public SQLDialect getDialect() {
@@ -91,6 +97,9 @@ public class BGTDatabase implements AutoCloseable {
     }
 
     private Connection createConnection() {
+        if (dbOptions == null) {
+            throw new RuntimeException("Can't create connection without database options, was the supplied Connection closed?");
+        }
         try {
             return DriverManager.getConnection(dbOptions.getConnectionString(), dbOptions.getUser(), dbOptions.getPassword());
         } catch (SQLException e) {
@@ -113,6 +122,20 @@ public class BGTDatabase implements AutoCloseable {
         writer.setCreateSchema(loadOptions.isCreateSchema());
         writer.setTablePrefix(loadOptions.getTablePrefix());
         return writer;
+    }
+
+    public static SQLDialect createDialect(String connectionString) {
+        SQLDialectEnum sqlDialectEnum;
+        if (connectionString.startsWith("jdbc:postgresql:")) {
+            sqlDialectEnum = SQLDialectEnum.postgis;
+        } else if (connectionString.startsWith("jdbc:oracle:thin:")) {
+            sqlDialectEnum = SQLDialectEnum.oracle;
+        } else if (connectionString.startsWith("jdbc:sqlserver:")) {
+            sqlDialectEnum = SQLDialectEnum.mssql;
+        } else {
+            throw new IllegalArgumentException(getMessageFormattedString("db.unknown_connection_string_dialect", connectionString));
+        }
+        return createDialect(sqlDialectEnum);
     }
 
     public static SQLDialect createDialect(SQLDialectEnum dialectEnum) {
