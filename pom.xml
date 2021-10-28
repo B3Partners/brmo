@@ -61,13 +61,13 @@
         <project.build.outputTimestamp>2021-08-27T10:16:01Z</project.build.outputTimestamp>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
-        <hibernate.version>5.5.7.Final</hibernate.version>
+        <hibernate.version>5.6.1.Final</hibernate.version>
         <!-- ook jdbc-util updaten bij geotools update -->
-        <geotools.version>25.2</geotools.version>
-        <jdbc-util.version>9.3</jdbc-util.version>
+        <geotools.version>26.0</geotools.version>
+        <jdbc-util.version>10.0</jdbc-util.version>
         <jts.version>1.18.2</jts.version>
-        <itextpdf.version>7.1.16</itextpdf.version>
-        <postgresql.jdbc.version>42.2.23</postgresql.jdbc.version>
+        <itextpdf.version>7.2.0</itextpdf.version>
+        <postgresql.jdbc.version>42.3.0</postgresql.jdbc.version>
         <postgresql.postgis-jdbc.version>2.5.1</postgresql.postgis-jdbc.version>
         <oracle.jdbc.version>21.3.0.0</oracle.jdbc.version>
         <oracle.jdbc.artifact>ojdbc11</oracle.jdbc.artifact>
@@ -81,10 +81,10 @@
         <slf4j.version>1.7.32</slf4j.version>
         <jaxb.api.version>2.3.3</jaxb.api.version>
         <jaxb.impl.version>2.3.3</jaxb.impl.version>
-        <jackson.version>2.12.5</jackson.version>
+        <jackson.version>2.13.0</jackson.version>
         <javax-annotation.version>1.3.2</javax-annotation.version>
         <activation.api.version>1.2.2</activation.api.version>
-        <tomcat.version>9.0.53</tomcat.version>
+        <tomcat.version>9.0.54</tomcat.version>
         <tomcat.http.port>9091</tomcat.http.port>
         <tomcat.localDatasource>false</tomcat.localDatasource>
         <javaee-endorsed-api.version>7.0</javaee-endorsed-api.version>
@@ -100,9 +100,9 @@
         -->
         <test.persistence.unit>brmo.persistence.h2</test.persistence.unit>
         <test.h2.version>1.4.200</test.h2.version>
-        <test.hsqldb.version>2.6.0</test.hsqldb.version>
+        <test.hsqldb.version>2.6.1</test.hsqldb.version>
         <test.onlyITs>false</test.onlyITs>
-        <test.junit-jupiter.version>5.8.0</test.junit-jupiter.version>
+        <test.junit-jupiter.version>5.8.1</test.junit-jupiter.version>
         <maven.surefire.version>3.0.0-M5</maven.surefire.version>
         <jacoco-maven-plugin.version>0.8.7</jacoco-maven-plugin.version>
         <versions-maven-plugin.version>2.8.1</versions-maven-plugin.version>
@@ -201,7 +201,7 @@
             <dependency>
                 <groupId>commons-cli</groupId>
                 <artifactId>commons-cli</artifactId>
-                <version>1.4</version>
+                <version>1.5.0</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.commons</groupId>
@@ -305,8 +305,7 @@
             <dependency>
                 <groupId>org.geotools</groupId>
                 <artifactId>gt-gml-geometry-streaming</artifactId>
-                <!-- 26-pre1 omdat de eerste officiele RC pas in september 2021 komt -->
-                <version>26-pre1</version>
+                <version>${geotools.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.hibernate</groupId>
@@ -470,7 +469,7 @@
             <dependency>
                 <groupId>org.jsoup</groupId>
                 <artifactId>jsoup</artifactId>
-                <version>1.14.2</version>
+                <version>1.14.3</version>
             </dependency>
             <dependency>
                 <groupId>com.sun.xml.ws</groupId>
@@ -527,7 +526,7 @@
             <dependency>
                 <artifactId>swagger-annotations</artifactId>
                 <groupId>io.swagger</groupId>
-                <version>1.6.2</version>
+                <version>1.6.3</version>
             </dependency>
             <dependency>
                 <groupId>info.picocli</groupId>
@@ -655,7 +654,7 @@
             <dependency>
                 <groupId>org.xmlunit</groupId>
                 <artifactId>xmlunit-core</artifactId>
-                <version>2.8.2</version>
+                <version>2.8.3</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.httpcomponents</groupId>
@@ -673,7 +672,7 @@
             <dependency>
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-core</artifactId>
-                <version>3.12.4</version>
+                <version>4.0.0</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
@@ -753,7 +752,7 @@
                         <dependency>
                             <groupId>net.sf.saxon</groupId>
                             <artifactId>Saxon-HE</artifactId>
-                            <version>10.5</version>
+                            <version>10.6</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -961,7 +960,7 @@
                 <plugin>
                     <groupId>org.codehaus.cargo</groupId>
                     <artifactId>cargo-maven3-plugin</artifactId>
-                    <version>1.9.7</version>
+                    <version>1.9.8</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-project-info-reports-plugin</artifactId>
@@ -993,7 +992,7 @@
                 <plugin>
                     <groupId>org.owasp</groupId>
                     <artifactId>dependency-check-maven</artifactId>
-                    <version>6.3.1</version>
+                    <version>6.4.1</version>
                     <configuration>
                         <enableExperimental>true</enableExperimental>
                         <retirejs>
@@ -1025,7 +1024,7 @@
                 <plugin>
                     <groupId>org.openapitools</groupId>
                     <artifactId>openapi-generator-maven-plugin</artifactId>
-                    <version>5.2.1</version>
+                    <version>5.3.0</version>
                 </plugin>
             </plugins>
         </pluginManagement>

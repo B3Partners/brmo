@@ -661,6 +661,7 @@
             <!--
             <adres_buitenland>149 char</adres_buitenland>
             <vb_adres_buitenland_1>35 char</vb_adres_buitenland_1>
+            <vb_adres_buitenland_1>35 char</vb_adres_buitenland_1>
             <vb_adres_buitenland_2>35 char</vb_adres_buitenland_2>
             <vb_adres_buitenland_3>35 char</vb_adres_buitenland_3>
             -->
@@ -741,7 +742,13 @@
             <xsl:value-of select="$persoon/gba:geslacht/gba:geslachtsaanduiding/typ:code"/>
         </geslachtsaand>
         <aand_naamgebruik>
-            <xsl:value-of select="$persoon/gba:aanduidingNaamgebruik/typ:code"/>
+            <!--
+            https://b3partners.atlassian.net/browse/SUPPORT-12817 ondervang "waarde" in "code" veld
+            door overslaan als niet geldig
+            -->
+            <xsl:if test="string-length($persoon/gba:aanduidingNaamgebruik/typ:code) = 1">
+                <xsl:value-of select="$persoon/gba:aanduidingNaamgebruik/typ:code"/>
+            </xsl:if>
         </aand_naamgebruik>
     </xsl:template>
 
