@@ -116,13 +116,10 @@ public class BGTLoader extends AbstractExecutableProces {
                 loadOptions.setCreateSchema(("true".equals(ClobElement.nullSafeGet(config.getConfig().get("create-schema")))));
                 loadOptions.setLinearizeCurves("true".equals(ClobElement.nullSafeGet(config.getConfig().get("linearize-curves"))));
 
-                String fTypes = ClobElement.nullSafeGet(config.getConfig().get("feature-types"));
-                FeatureTypeSelectionOptions featureTypeSelectionOptions = new FeatureTypeSelectionOptions();
-                featureTypeSelectionOptions.setFeatureTypes(Arrays.asList(fTypes.split(",")));
-
                 ExtractSelectionOptions extractSelectionOptions = new ExtractSelectionOptions();
                 extractSelectionOptions.setGeoFilterWkt(ClobElement.nullSafeGet(config.getConfig().get("geo-filter")));
                 boolean noGeoFilter = StringUtils.isEmpty(ClobElement.nullSafeGet(config.getConfig().get("geo-filter")));
+                String fTypes = ClobElement.nullSafeGet(config.getConfig().get("feature-types"));
                 extractSelectionOptions.setFeatureTypes(Arrays.asList(fTypes.split(",")));
                 DownloadCommand downloadCommand = new DownloadCommand();
                 downloadCommand.setBGTDatabase(bgtDatabase);
