@@ -45,6 +45,7 @@ public class BGTDatabase implements AutoCloseable {
     private SQLDialect dialect;
     private final DatabaseOptions dbOptions;
     private Connection connection;
+    private final boolean allowConnectionCreation;
 
     /**
      * Create a BGTDatabase that will load the driver and create a database connection.
@@ -55,6 +56,7 @@ public class BGTDatabase implements AutoCloseable {
         this.dbOptions = dbOptions;
         dialect = createDialect(dbOptions.getConnectionString());
         dialect.loadDriver();
+        this.allowConnectionCreation = true;
     }
 
     /**
@@ -68,6 +70,7 @@ public class BGTDatabase implements AutoCloseable {
         this.dbOptions = dbOptions;
         this.dialect = createDialect(dbOptions.getConnectionString());
         this.connection = connection;
+        this.allowConnectionCreation = false;
     }
 
     public SQLDialect getDialect() {
@@ -97,8 +100,8 @@ public class BGTDatabase implements AutoCloseable {
     }
 
     private Connection createConnection() {
-        if (dbOptions == null) {
-            throw new RuntimeException("Can't create connection without database options, was the supplied Connection closed?");
+        if (!allowConnectionCreation) {
+            throw new RuntimeException("New connection required but supplied connection is null or closed");
         }
         try {
             return DriverManager.getConnection(dbOptions.getConnectionString(), dbOptions.getUser(), dbOptions.getPassword());
