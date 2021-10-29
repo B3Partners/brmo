@@ -112,7 +112,8 @@ public class BAG2LoaderMain implements IVersionProvider {
 
                 // Process single and double-nested ZIP files
 
-                if (entry.getName().matches("[0-9]{4}(STA|VBO|OPR|NUM|LIG|PND|WPL).*\\.zip")) {
+                if (entry.getName().matches("[0-9]{4}(STA|VBO|OPR|NUM|LIG|PND|WPL).*\\.zip")
+                || entry.getName().matches("[0-9]{4}MUT[0-9]{8}-[0-9]{8}.zip")) {
                     ZipArchiveInputStream nestedZip = new ZipArchiveInputStream(zip);
                     loadXmlEntriesFromZipFile(db, loadOptions, dbOptions, entry.getName(), nestedZip, nestedZip.getNextZipEntry(), true);
                 }
@@ -144,12 +145,13 @@ public class BAG2LoaderMain implements IVersionProvider {
     }
 
     private static BAG2ObjectType getObjectTypeFromFilename(String filename) {
-        Matcher m = Pattern.compile(".*[0-9]{4}(IA)?(STA|VBO|OPR|NUM|LIG|PND|WPL).*\\.(xml|zip)").matcher(filename);
+        Matcher m = Pattern.compile(".*[0-9]{4}(IA)?(MUT|STA|VBO|OPR|NUM|LIG|PND|WPL).*\\.(xml|zip)").matcher(filename);
         if (!m.matches()) {
             throw new IllegalArgumentException("Invalid BAG2 filename: " + filename);
         }
         String objectTypeName = null;
         switch(m.group(2)) {
+            case "MUT": break;
             case "STA": objectTypeName = "Standplaats"; break;
             case "OPR": objectTypeName = "OpenbareRuimte"; break;
             case "VBO": objectTypeName = "Verblijfsobject"; break;
@@ -158,7 +160,11 @@ public class BAG2LoaderMain implements IVersionProvider {
             case "PND": objectTypeName = "Pand"; break;
             case "WPL": objectTypeName = "Woonplaats"; break;
         }
-        return BAG2Schema.getInstance().getObjectTypeByName(objectTypeName);
+        if (objectTypeName == null) {
+            return null;
+        } else {
+            return BAG2Schema.getInstance().getObjectTypeByName(objectTypeName);
+        }
     }
 
     private void completeAll(BAG2Database db, BAG2LoadOptions loadOptions, BAG2DatabaseOptions databaseOptions) throws Exception {
@@ -175,7 +181,8 @@ public class BAG2LoaderMain implements IVersionProvider {
 
     private void loadXmlEntriesFromZipFile(BAG2Database db, BAG2LoadOptions loadOptions, BAG2DatabaseOptions databaseOptions, String name, ZipArchiveInputStream zip, ZipArchiveEntry entry, boolean createSchema) throws Exception {
         BAG2ObjectType objectType = getObjectTypeFromFilename(name);
-        boolean schemaCreated = objectTypesWithSchemaCreated.contains(objectType);
+        // objectType is null for mutaties
+        boolean schemaCreated = objectType == null || objectTypesWithSchemaCreated.contains(objectType);
         BAG2ObjectTableWriter writer = db.createObjectTableWriter(loadOptions, databaseOptions);
         writer.setCreateSchema(!schemaCreated);
         writer.setCreateKeysAndIndexes(false);
@@ -197,7 +204,7 @@ public class BAG2LoaderMain implements IVersionProvider {
             }
             writer.complete();
 
-            if (writer.getProgress().getObjectCount() > 0) {
+            if (writer.getProgress().getObjectCount() > 0 && objectType != null) {
                 objectTypesWithSchemaCreated.add(objectType);
             }
 

@@ -34,6 +34,10 @@ public class BAG2Object extends SchemaObjectInstance {
         this.wijzigingWordt = wijzigingWordt;
     }
 
+    public BAG2ObjectType getObjectType() {
+        return (BAG2ObjectType) super.getObjectType();
+    }
+
     public MutatieStatus getMutatieStatus() {
         return mutatieStatus;
     }

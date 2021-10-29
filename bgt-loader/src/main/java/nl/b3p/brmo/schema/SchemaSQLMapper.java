@@ -106,13 +106,12 @@ public abstract class SchemaSQLMapper {
     }
 
     public Stream<String> getCreateTableStatements(ObjectType objectType, SQLDialect dialect, String tablePrefix) {
-        List<String> statements = new ArrayList<>();
 
         // Drop and create referencing tables first
-        statements.addAll(objectType.getAllAttributes().stream()
+        List<String> statements = objectType.getAllAttributes().stream()
                 .filter(attribute -> attribute instanceof ArrayAttributeMapping)
                 .flatMap(arrayAttribute -> getArrayAttributeCreateTableStatements(objectType, (ArrayAttributeMapping) arrayAttribute, dialect, tablePrefix))
-                .collect(Collectors.toList()));
+                .collect(Collectors.toList());
 
         String tableName = getTableNameForObjectType(objectType, tablePrefix);
         if (dialect.supportsDropTableIfExists()) {
@@ -189,7 +188,7 @@ public abstract class SchemaSQLMapper {
                     String keyColumns = objectType.getPrimaryKeys().stream()
                             .map(pk -> getColumnNameForObjectType(objectType, pk.getName()))
                             .collect(Collectors.joining(", "));
-                    return Stream.of(String.format("alter table %s add constraint %s_ownedby_fkey foreign key (%s) references %s", arrayAttributeTableName, arrayAttributeTableName, keyColumns, tableName));
+                    return Stream.of(String.format("alter table %s add constraint %s_ownedby_fkey foreign key (%s) references %s on delete cascade", arrayAttributeTableName, arrayAttributeTableName, keyColumns, tableName));
                 })),
                 objectType.getExtraDataDefinitionSQL().stream()
         );

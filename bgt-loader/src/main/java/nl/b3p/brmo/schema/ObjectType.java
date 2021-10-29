@@ -63,6 +63,10 @@ public class ObjectType {
         return primaryKeys;
     }
 
+    public AttributeColumnMapping getAttributeByName(String name) {
+        return attributes.stream().filter(a -> a.getName().equals(name)).findFirst().orElse(null);
+    }
+
     public List<AttributeColumnMapping> getDirectAttributes() {
         return attributes.stream()
                 .filter(AttributeColumnMapping::isDirectAttribute)
