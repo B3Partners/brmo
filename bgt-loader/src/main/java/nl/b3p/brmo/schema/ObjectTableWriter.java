@@ -322,6 +322,12 @@ public class ObjectTableWriter {
             params.add(attributeColumnMapping.toQueryParameter(attribute));
         }
 
+        // The main object batch must be executed before oneToMany and arrayAttribute batches which reference the main
+        // object when foreign key constraints are in place. During "stand" loading this is deferrered to after all
+        // batches are fully executed so we don't need to care about order. For BAG2 mutaties batch size is set to 1 to
+        // correctly order all batches for foreign key integrity
+        batch.addBatch(params.toArray());
+
         for(ObjectType oneToManyAttribute: object.getObjectType().getOneToManyAttributeObjectTypes()) {
             List<SchemaObjectInstance> objects = (List<SchemaObjectInstance>) attributes.get(oneToManyAttribute.getName());
             if (objects != null && !objects.isEmpty()) {
@@ -344,7 +350,6 @@ public class ObjectTableWriter {
             insertArrayAttribute(object, arrayAttribute);
         }
 
-        batch.addBatch(params.toArray());
         updateProgress();
     }
 

@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mlm:bagMutaties xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ml="http://www.kadaster.nl/schemas/mutatielevering-generiek/1.0" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:selecties-extract="http://www.kadaster.nl/schemas/lvbag/extract-selecties/v20200601" xmlns:mlm="http://www.kadaster.nl/schemas/lvbag/extract-deelbestand-mutaties-lvc/v20200601" xmlns:nen5825="www.kadaster.nl/schemas/lvbag/imbag/nen5825/v20200601" xmlns:KenmerkInOnderzoek="www.kadaster.nl/schemas/lvbag/imbag/kenmerkinonderzoek/v20200601" xmlns:DatatypenNEN3610="www.kadaster.nl/schemas/lvbag/imbag/datatypennen3610/v20200601" xmlns:Historie="www.kadaster.nl/schemas/lvbag/imbag/historie/v20200601" xmlns:Objecten="www.kadaster.nl/schemas/lvbag/imbag/objecten/v20200601" xmlns:Objecten-ref="www.kadaster.nl/schemas/lvbag/imbag/objecten-ref/v20200601" xsi:schemaLocation="http://www.kadaster.nl/schemas/lvbag/extract-deelbestand-mutaties-lvc/v20200601 https://developer.kadaster.nl/schemas/lvbag/extract-deelbestand-mutaties-lvc/v20200601/BagvsExtractDeelbestandMutatieLvc-2.1.0.xsd">
+  <mlm:bagInfo>
+    <selecties-extract:Gebied-Registratief>
+      <selecties-extract:Gebied-NLD/>
+    </selecties-extract:Gebied-Registratief>
+    <selecties-extract:MUT-Extract>
+      <selecties-extract:StandTechnischeDatum>2021-07-08</selecties-extract:StandTechnischeDatum>
+      <selecties-extract:Mutatieperiode>
+        <selecties-extract:MutatiedatumVanaf>2021-06-08</selecties-extract:MutatiedatumVanaf>
+        <selecties-extract:MutatiedatumTot>2021-07-08</selecties-extract:MutatiedatumTot>
+      </selecties-extract:Mutatieperiode>
+    </selecties-extract:MUT-Extract>
+  </mlm:bagInfo>
+  <ml:mutatieBericht>
+    <ml:dataset>LVBAG</ml:dataset>
+    <ml:inhoud>
+      <ml:gebied>NEDERLAND</ml:gebied>
+      <ml:leveringsId>0000000001</ml:leveringsId>
+      <ml:objectTypen/>
+    </ml:inhoud>
+    <ml:mutatieGroep>
+      <ml:wijziging>
+        <ml:was>
+          <mlm:bagObject>
+            <Objecten:Pand>
+              <Objecten:identificatie domein="NL.IMBAG.Pand">0756100000021962</Objecten:identificatie>
+              <Objecten:geometrie>
+                <gml:Polygon srsName="urn:ogc:def:crs:EPSG::28992" srsDimension="3">
+                  <gml:exterior>
+                    <gml:LinearRing>
+                      <gml:posList count="5">197868.954 398769.103 0.0 197872.172 398751.172 0.0 197879.069 398752.437 0.0 197875.621 398770.138 0.0 197868.954 398769.103 0.0</gml:posList>
+                    </gml:LinearRing>
+                  </gml:exterior>
+                </gml:Polygon>
+              </Objecten:geometrie>
+              <Objecten:oorspronkelijkBouwjaar>2012</Objecten:oorspronkelijkBouwjaar>
+              <Objecten:status>Bouwvergunning verleend</Objecten:status>
+              <Objecten:geconstateerd>N</Objecten:geconstateerd>
+              <Objecten:documentdatum>2012-04-03</Objecten:documentdatum>
+              <Objecten:documentnummer>R-VER/2012/1266</Objecten:documentnummer>
+              <Objecten:voorkomen>
+                <Historie:Voorkomen>
+                  <Historie:voorkomenidentificatie>1</Historie:voorkomenidentificatie>
+                  <Historie:beginGeldigheid>2021-04-03</Historie:beginGeldigheid>
+                  <Historie:eindGeldigheid>2022-05-16</Historie:eindGeldigheid>
+                  <Historie:tijdstipRegistratie>2012-04-12T11:09:59.000</Historie:tijdstipRegistratie>
+                  <Historie:eindRegistratie>2013-05-16T13:07:28.000</Historie:eindRegistratie>
+                  <Historie:BeschikbaarLV>
+                    <Historie:tijdstipRegistratieLV>2012-04-12T11:34:39.961</Historie:tijdstipRegistratieLV>
+                    <Historie:tijdstipEindRegistratieLV>2013-05-16T13:35:12.233</Historie:tijdstipEindRegistratieLV>
+                  </Historie:BeschikbaarLV>
+                </Historie:Voorkomen>
+              </Objecten:voorkomen>
+            </Objecten:Pand>
+          </mlm:bagObject>
+        </ml:was>
+        <ml:wordt>
+          <mlm:bagObject>
+            <Objecten:Pand>
+              <Objecten:identificatie domein="NL.IMBAG.Pand">0756100000021962</Objecten:identificatie>
+              <Objecten:geometrie>
+                <gml:Polygon srsName="urn:ogc:def:crs:EPSG::28992" srsDimension="3">
+                  <gml:exterior>
+                    <gml:LinearRing>
+                      <gml:posList count="5">197868.954 398769.103 0.0 197872.172 398751.172 0.0 197879.069 398752.437 0.0 197875.621 398770.138 0.0 197868.954 398769.103 0.0</gml:posList>
+                    </gml:LinearRing>
+                  </gml:exterior>
+                </gml:Polygon>
+              </Objecten:geometrie>
+              <Objecten:oorspronkelijkBouwjaar>2012</Objecten:oorspronkelijkBouwjaar>
+              <Objecten:status>Bouwvergunning verleend</Objecten:status>
+              <Objecten:geconstateerd>N</Objecten:geconstateerd>
+              <Objecten:documentdatum>2012-04-03</Objecten:documentdatum>
+              <Objecten:documentnummer>R-VER/2012/1266</Objecten:documentnummer>
+              <Objecten:voorkomen>
+                <Historie:Voorkomen>
+                  <Historie:voorkomenidentificatie>1</Historie:voorkomenidentificatie>
+                  <Historie:beginGeldigheid>2021-04-03</Historie:beginGeldigheid>
+                  <Historie:eindGeldigheid>2022-05-16</Historie:eindGeldigheid>
+                  <Historie:tijdstipRegistratie>2012-04-12T11:09:59.000</Historie:tijdstipRegistratie>
+                  <Historie:eindRegistratie>2013-05-16T13:07:28.000</Historie:eindRegistratie>
+                  <Historie:tijdstipInactief>2021-06-15T15:14:03.004</Historie:tijdstipInactief>
+                  <Historie:BeschikbaarLV>
+                    <Historie:tijdstipRegistratieLV>2012-04-12T11:34:39.961</Historie:tijdstipRegistratieLV>
+                    <Historie:tijdstipEindRegistratieLV>2013-05-16T13:35:12.233</Historie:tijdstipEindRegistratieLV>
+                    <Historie:tijdstipInactiefLV>2021-06-15T15:19:28.403</Historie:tijdstipInactiefLV>
+                  </Historie:BeschikbaarLV>
+                </Historie:Voorkomen>
+              </Objecten:voorkomen>
+            </Objecten:Pand>
+          </mlm:bagObject>
+        </ml:wordt>
+      </ml:wijziging>
+      <ml:wijziging>
+        <ml:was>
+          <mlm:bagObject>
+            <Objecten:Pand>
+              <Objecten:identificatie domein="NL.IMBAG.Pand">0756100000021962</Objecten:identificatie>
+              <Objecten:geometrie>
+                <gml:Polygon srsName="urn:ogc:def:crs:EPSG::28992" srsDimension="3">
+                  <gml:exterior>
+                    <gml:LinearRing>
+                      <gml:posList count="5">197868.954 398769.103 0.0 197872.172 398751.172 0.0 197879.069 398752.437 0.0 197875.621 398770.138 0.0 197868.954 398769.103 0.0</gml:posList>
+                    </gml:LinearRing>
+                  </gml:exterior>
+                </gml:Polygon>
+              </Objecten:geometrie>
+              <Objecten:oorspronkelijkBouwjaar>2013</Objecten:oorspronkelijkBouwjaar>
+              <Objecten:status>Pand gesloopt</Objecten:status>
+              <Objecten:geconstateerd>N</Objecten:geconstateerd>
+              <Objecten:documentdatum>2013-05-16</Objecten:documentdatum>
+              <Objecten:documentnummer>R-BR/2013/904</Objecten:documentnummer>
+              <Objecten:voorkomen>
+                <Historie:Voorkomen>
+                  <Historie:voorkomenidentificatie>2</Historie:voorkomenidentificatie>
+                  <Historie:beginGeldigheid>2022-05-16</Historie:beginGeldigheid>
+                  <Historie:tijdstipRegistratie>2013-05-16T13:07:28.000</Historie:tijdstipRegistratie>
+                  <Historie:BeschikbaarLV>
+                    <Historie:tijdstipRegistratieLV>2013-05-16T13:35:12.233</Historie:tijdstipRegistratieLV>
+                  </Historie:BeschikbaarLV>
+                </Historie:Voorkomen>
+              </Objecten:voorkomen>
+            </Objecten:Pand>
+          </mlm:bagObject>
+        </ml:was>
+        <ml:wordt>
+          <mlm:bagObject>
+            <Objecten:Pand>
+              <Objecten:identificatie domein="NL.IMBAG.Pand">0756100000021962</Objecten:identificatie>
+              <Objecten:geometrie>
+                <gml:Polygon srsName="urn:ogc:def:crs:EPSG::28992" srsDimension="3">
+                  <gml:exterior>
+                    <gml:LinearRing>
+                      <gml:posList count="5">197868.954 398769.103 0.0 197872.172 398751.172 0.0 197879.069 398752.437 0.0 197875.621 398770.138 0.0 197868.954 398769.103 0.0</gml:posList>
+                    </gml:LinearRing>
+                  </gml:exterior>
+                </gml:Polygon>
+              </Objecten:geometrie>
+              <Objecten:oorspronkelijkBouwjaar>2013</Objecten:oorspronkelijkBouwjaar>
+              <Objecten:status>Pand gesloopt</Objecten:status>
+              <Objecten:geconstateerd>N</Objecten:geconstateerd>
+              <Objecten:documentdatum>2013-05-16</Objecten:documentdatum>
+              <Objecten:documentnummer>R-BR/2013/904</Objecten:documentnummer>
+              <Objecten:voorkomen>
+                <Historie:Voorkomen>
+                  <Historie:voorkomenidentificatie>2</Historie:voorkomenidentificatie>
+                  <Historie:beginGeldigheid>2022-05-16</Historie:beginGeldigheid>
+                  <Historie:tijdstipRegistratie>2013-05-16T13:07:28.000</Historie:tijdstipRegistratie>
+                  <Historie:tijdstipInactief>2021-06-15T15:14:03.004</Historie:tijdstipInactief>
+                  <Historie:BeschikbaarLV>
+                    <Historie:tijdstipRegistratieLV>2013-05-16T13:35:12.233</Historie:tijdstipRegistratieLV>
+                    <Historie:tijdstipInactiefLV>2021-06-15T15:19:28.403</Historie:tijdstipInactiefLV>
+                  </Historie:BeschikbaarLV>
+                </Historie:Voorkomen>
+              </Objecten:voorkomen>
+            </Objecten:Pand>
+          </mlm:bagObject>
+        </ml:wordt>
+      </ml:wijziging>
+      <ml:toevoeging>
+        <ml:wordt>
+          <mlm:bagObject>
+            <Objecten:Pand>
+              <Objecten:identificatie domein="NL.IMBAG.Pand">0756100000021962</Objecten:identificatie>
+              <Objecten:geometrie>
+                <gml:Polygon srsName="urn:ogc:def:crs:EPSG::28992" srsDimension="3">
+                  <gml:exterior>
+                    <gml:LinearRing>
+                      <gml:posList count="5">197868.954 398769.103 0.0 197872.172 398751.172 0.0 197879.069 398752.437 0.0 197875.621 398770.138 0.0 197868.954 398769.103 0.0</gml:posList>
+                    </gml:LinearRing>
+                  </gml:exterior>
+                </gml:Polygon>
+              </Objecten:geometrie>
+              <Objecten:oorspronkelijkBouwjaar>2012</Objecten:oorspronkelijkBouwjaar>
+              <Objecten:status>Bouwvergunning verleend</Objecten:status>
+              <Objecten:geconstateerd>N</Objecten:geconstateerd>
+              <Objecten:documentdatum>2012-04-03</Objecten:documentdatum>
+              <Objecten:documentnummer>R-VER/2012/1266</Objecten:documentnummer>
+              <Objecten:voorkomen>
+                <Historie:Voorkomen>
+                  <Historie:voorkomenidentificatie>3</Historie:voorkomenidentificatie>
+                  <Historie:beginGeldigheid>2021-04-03</Historie:beginGeldigheid>
+                  <Historie:tijdstipRegistratie>2021-06-15T15:14:03.004</Historie:tijdstipRegistratie>
+                  <Historie:BeschikbaarLV>
+                    <Historie:tijdstipRegistratieLV>2021-06-15T15:19:28.403</Historie:tijdstipRegistratieLV>
+                  </Historie:BeschikbaarLV>
+                </Historie:Voorkomen>
+              </Objecten:voorkomen>
+            </Objecten:Pand>
+          </mlm:bagObject>
+        </ml:wordt>
+      </ml:toevoeging>
+    </ml:mutatieGroep>
+    <ml:mutatieGroep>
+      <ml:wijziging>
+        <ml:was>
+          <mlm:bagObject>
+            <Objecten:Pand>
+              <Objecten:identificatie domein="NL.IMBAG.Pand">0252100000009178</Objecten:identificatie>
+              <Objecten:geometrie>
+                <gml:Polygon srsName="urn:ogc:def:crs:EPSG::28992" srsDimension="3">
+                  <gml:exterior>
+                    <gml:LinearRing>
+                      <gml:posList count="24">186713.742 422489.533 0.0 186714.71 422490.034 0.0 186715.057 422489.753 0.0 186715.5 422489.537 0.0 186715.959 422489.413 0.0 186716.304 422489.395 0.0 186716.648 422489.413 0.0 186717.049 422489.512 0.0 186717.381 422489.656 0.0 186717.765 422489.897 0.0 186718.134 422490.27 0.0 186718.405 422490.688 0.0 186718.565 422491.124 0.0 186718.631 422491.507 0.0 186718.637 422491.855 0.0 186718.611 422492.056 0.0 186721.553 422493.58 0.0 186718.672 422499.149 0.0 186719.214 422499.456 0.0 186717.469 422502.811 0.0 186705.312 422496.472 0.0 186707.162 422492.946 0.0 186710.982 422494.907 0.0 186713.742 422489.533 0.0</gml:posList>
+                    </gml:LinearRing>
+                  </gml:exterior>
+                </gml:Polygon>
+              </Objecten:geometrie>
+              <Objecten:oorspronkelijkBouwjaar>1993</Objecten:oorspronkelijkBouwjaar>
+              <Objecten:status>Pand in gebruik</Objecten:status>
+              <Objecten:geconstateerd>N</Objecten:geconstateerd>
+              <Objecten:documentdatum>2015-09-08</Objecten:documentdatum>
+              <Objecten:documentnummer>20150908MD02</Objecten:documentnummer>
+              <Objecten:voorkomen>
+                <Historie:Voorkomen>
+                  <Historie:voorkomenidentificatie>2</Historie:voorkomenidentificatie>
+                  <Historie:beginGeldigheid>2015-09-08</Historie:beginGeldigheid>
+                  <Historie:tijdstipRegistratie>2015-09-08T11:55:09.000</Historie:tijdstipRegistratie>
+                  <Historie:BeschikbaarLV>
+                    <Historie:tijdstipRegistratieLV>2015-09-08T12:00:35.345</Historie:tijdstipRegistratieLV>
+                  </Historie:BeschikbaarLV>
+                </Historie:Voorkomen>
+              </Objecten:voorkomen>
+            </Objecten:Pand>
+          </mlm:bagObject>
+        </ml:was>
+        <ml:wordt>
+          <mlm:bagObject>
+            <Objecten:Pand>
+              <Objecten:identificatie domein="NL.IMBAG.Pand">0252100000009178</Objecten:identificatie>
+              <Objecten:geometrie>
+                <gml:Polygon srsName="urn:ogc:def:crs:EPSG::28992" srsDimension="3">
+                  <gml:exterior>
+                    <gml:LinearRing>
+                      <gml:posList count="24">186713.742 422489.533 0.0 186714.71 422490.034 0.0 186715.057 422489.753 0.0 186715.5 422489.537 0.0 186715.959 422489.413 0.0 186716.304 422489.395 0.0 186716.648 422489.413 0.0 186717.049 422489.512 0.0 186717.381 422489.656 0.0 186717.765 422489.897 0.0 186718.134 422490.27 0.0 186718.405 422490.688 0.0 186718.565 422491.124 0.0 186718.631 422491.507 0.0 186718.637 422491.855 0.0 186718.611 422492.056 0.0 186721.553 422493.58 0.0 186718.672 422499.149 0.0 186719.214 422499.456 0.0 186717.469 422502.811 0.0 186705.312 422496.472 0.0 186707.162 422492.946 0.0 186710.982 422494.907 0.0 186713.742 422489.533 0.0</gml:posList>
+                    </gml:LinearRing>
+                  </gml:exterior>
+                </gml:Polygon>
+              </Objecten:geometrie>
+              <Objecten:oorspronkelijkBouwjaar>1993</Objecten:oorspronkelijkBouwjaar>
+              <Objecten:status>Pand in gebruik</Objecten:status>
+              <Objecten:geconstateerd>N</Objecten:geconstateerd>
+              <Objecten:documentdatum>2015-09-08</Objecten:documentdatum>
+              <Objecten:documentnummer>20150908MD02</Objecten:documentnummer>
+              <Objecten:voorkomen>
+                <Historie:Voorkomen>
+                  <Historie:voorkomenidentificatie>2</Historie:voorkomenidentificatie>
+                  <Historie:beginGeldigheid>2015-09-08</Historie:beginGeldigheid>
+                  <Historie:eindGeldigheid>2021-06-15</Historie:eindGeldigheid>
+                  <Historie:tijdstipRegistratie>2015-09-08T11:55:09.000</Historie:tijdstipRegistratie>
+                  <Historie:eindRegistratie>2021-06-15T15:19:31.506</Historie:eindRegistratie>
+                  <Historie:BeschikbaarLV>
+                    <Historie:tijdstipRegistratieLV>2015-09-08T12:00:35.345</Historie:tijdstipRegistratieLV>
+                    <Historie:tijdstipEindRegistratieLV>2021-06-15T15:19:40.339</Historie:tijdstipEindRegistratieLV>
+                  </Historie:BeschikbaarLV>
+                </Historie:Voorkomen>
+              </Objecten:voorkomen>
+            </Objecten:Pand>
+          </mlm:bagObject>
+        </ml:wordt>
+      </ml:wijziging>
+      <ml:toevoeging>
+        <ml:wordt>
+          <mlm:bagObject>
+            <Objecten:Pand>
+              <Objecten:identificatie domein="NL.IMBAG.Pand">0252100000009178</Objecten:identificatie>
+              <Objecten:geometrie>
+                <gml:Polygon srsName="urn:ogc:def:crs:EPSG::28992" srsDimension="3">
+                  <gml:exterior>
+                    <gml:LinearRing>
+                      <gml:posList count="24">186713.742 422489.533 0.0 186714.71 422490.034 0.0 186715.057 422489.753 0.0 186715.5 422489.537 0.0 186715.959 422489.413 0.0 186716.304 422489.395 0.0 186716.648 422489.413 0.0 186717.049 422489.512 0.0 186717.381 422489.656 0.0 186717.765 422489.897 0.0 186718.134 422490.27 0.0 186718.405 422490.688 0.0 186718.565 422491.124 0.0 186718.631 422491.507 0.0 186718.637 422491.855 0.0 186718.611 422492.056 0.0 186721.553 422493.58 0.0 186718.672 422499.149 0.0 186719.214 422499.456 0.0 186717.469 422502.811 0.0 186705.312 422496.472 0.0 186707.162 422492.946 0.0 186710.982 422494.907 0.0 186713.742 422489.533 0.0</gml:posList>
+                    </gml:LinearRing>
+                  </gml:exterior>
+                </gml:Polygon>
+              </Objecten:geometrie>
+              <Objecten:oorspronkelijkBouwjaar>1993</Objecten:oorspronkelijkBouwjaar>
+              <Objecten:status>Verbouwing pand</Objecten:status>
+              <Objecten:geconstateerd>N</Objecten:geconstateerd>
+              <Objecten:documentdatum>2021-06-15</Objecten:documentdatum>
+              <Objecten:documentnummer>D210946500</Objecten:documentnummer>
+              <Objecten:voorkomen>
+                <Historie:Voorkomen>
+                  <Historie:voorkomenidentificatie>3</Historie:voorkomenidentificatie>
+                  <Historie:beginGeldigheid>2021-06-15</Historie:beginGeldigheid>
+                  <Historie:tijdstipRegistratie>2021-06-15T15:19:31.506</Historie:tijdstipRegistratie>
+                  <Historie:BeschikbaarLV>
+                    <Historie:tijdstipRegistratieLV>2021-06-15T15:19:40.339</Historie:tijdstipRegistratieLV>
+                  </Historie:BeschikbaarLV>
+                </Historie:Voorkomen>
+              </Objecten:voorkomen>
+            </Objecten:Pand>
+          </mlm:bagObject>
+        </ml:wordt>
+      </ml:toevoeging>
+    </ml:mutatieGroep>
+  </ml:mutatieBericht>
+</mlm:bagMutaties>

@@ -188,7 +188,13 @@ public class BAG2LoaderMain implements IVersionProvider {
         writer.setCreateKeysAndIndexes(false);
         writer.start(); // sets InitialLoad to true
         writer.getProgress().setInitialLoad(!schemaCreated); // For a COPY in transaction, table must be created or truncated in it
-
+        if (objectType == null) {
+            // When processing mutaties, set batch size to 1 so all mutaties are processed sequentially and can not
+            // conflict with deleting and inserting of old/new versions
+            writer.setBatchSize(1);
+            // Disable multithreading so deletion of previous versions and new inserts are processed sequentially
+            writer.setMultithreading(false);
+        }
         try {
             int files = 0;
             Instant start = Instant.now();

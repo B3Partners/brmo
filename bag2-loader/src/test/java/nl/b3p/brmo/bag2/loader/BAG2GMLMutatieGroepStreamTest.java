@@ -8,6 +8,7 @@
 package nl.b3p.brmo.bag2.loader;
 
 import nl.b3p.brmo.bag2.schema.BAG2Object;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -18,6 +19,8 @@ import org.locationtech.jts.io.ParseException;
 import org.locationtech.jts.io.WKTReader;
 
 import javax.xml.stream.XMLStreamException;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -27,19 +30,49 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.zip.ZipInputStream;
 
-import static nl.b3p.brmo.bag2.schema.BAG2Object.MutatieStatus.TOEVOEGING;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class BAG2GMLObjectStreamTest {
+class BAG2GMLMutatieGroepStreamTest {
+
+    @Test
+    @Disabled
+    void testMaandmutaties() throws Exception {
+        try(FileInputStream in = new FileInputStream("extracten.bag.kadaster.nl/lvbag/extracten/Nederland maandmutaties/9999MUT08062021-08072021-000004_fo.xml")) {
+            BAG2GMLMutatieGroepStream stream = new BAG2GMLMutatieGroepStream(in);
+
+            assertNotNull(stream.getMutatieInfo());
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            assertEquals(df.parse("2021-07-08"), stream.getMutatieInfo().standTechnischeDatum);
+            assertEquals(df.parse("2021-06-08"), stream.getMutatieInfo().mutatieDatumVanaf);
+            assertEquals(df.parse("2021-07-08"), stream.getMutatieInfo().mutatieDatumTot);
+
+            Iterator<BAG2MutatieGroep> iterator = stream.iterator();
+            BAG2MutatieGroep mutatieGroep = iterator.next();
+
+            assertNotNull(mutatieGroep);
+            int count = 1;
+            while (iterator.hasNext()) {
+                mutatieGroep = iterator.next();
+
+                if (mutatieGroep.getMutaties().size() > 2) {
+                    System.out.printf("mutatieGroep size %d at %s\n", mutatieGroep.getMutaties().size(), mutatieGroep.getMutaties().get(0).getLocation());
+                }
+                count++;
+            }
+            assertEquals(10000, count);
+        }
+    }
 
     @Test
     void testMutaties() throws Exception {
         ZipInputStream zip = new ZipInputStream(BAG2TestFiles.getTestInputStream("1978MUT15082021-15092021-000002.zip"));
         zip.getNextEntry();
-        BAG2GMLObjectStream stream = new BAG2GMLObjectStream(zip);
+        BAG2GMLMutatieGroepStream stream = new BAG2GMLMutatieGroepStream(zip);
 
         assertNotNull(stream.getMutatieInfo());
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
@@ -47,25 +80,30 @@ class BAG2GMLObjectStreamTest {
         assertEquals(df.parse("2021-08-15"), stream.getMutatieInfo().mutatieDatumVanaf);
         assertEquals(df.parse("2021-09-15"), stream.getMutatieInfo().mutatieDatumTot);
 
-        Iterator<BAG2Object> iterator = stream.iterator();
-        BAG2Object obj = iterator.next();
+        Iterator<BAG2MutatieGroep> iterator = stream.iterator();
+        BAG2MutatieGroep mutatieGroep = iterator.next();
 
-        assertNotNull(obj);
+        assertNotNull(mutatieGroep);
 
+        assertEquals(2, mutatieGroep.getMutaties().size());
+
+        BAG2Mutatie mutatie = mutatieGroep.getMutaties().get(0);
+        assertInstanceOf(BAG2WijzigingMutatie.class, mutatie);
+        assertNull(((BAG2WijzigingMutatie)mutatie).getWas().getAttributes().get("eindGeldigheid"));
+        assertEquals("2021-08-16", ((BAG2WijzigingMutatie)mutatie).getWordt().getAttributes().get("eindGeldigheid"));
+
+        mutatie = mutatieGroep.getMutaties().get(1);
+        assertInstanceOf(BAG2ToevoegingMutatie.class, mutatie);
+
+        BAG2Object obj = ((BAG2ToevoegingMutatie)mutatie).getToevoeging();
         String identificatie = (String)obj.getAttributes().get("identificatie");
         assertEquals("1978100007698683", identificatie);
-        assertNotNull(obj.getWijzigingWas());
-        assertNull(obj.getWijzigingWas().getAttributes().get("eindGeldigheid"));
-        assertNotNull(obj.getWijzigingWordt());
-        assertEquals("2021-08-16", obj.getWijzigingWordt().getAttributes().get("eindGeldigheid"));
 
-        obj = iterator.next();
-        assertNotNull(obj);
-        obj = iterator.next();
-        assertNotNull(obj);
-        assertEquals(TOEVOEGING, obj.getMutatieStatus());
-        assertNull(obj.getWijzigingWas());
-        assertNull(obj.getWijzigingWordt());
+        mutatieGroep = iterator.next();
+        assertNotNull(mutatieGroep);
+        mutatieGroep = iterator.next();
+        assertNotNull(mutatieGroep);
+        assertTrue(mutatieGroep.isSingleToevoeging());
 
         int count = 3;
         while (iterator.hasNext()) {
@@ -75,16 +113,41 @@ class BAG2GMLObjectStreamTest {
         assertEquals(847, count);
     }
 
+    @Test
+    void testMutatieMultipleWijzigingen() throws Exception {
+        // A mutatieGroep is not always wijziging+toevoeging or only toevoeging. There may be multiple wijziging
+        // elements, test these are parsed correctly
+
+        try(InputStream in = BAG2TestFiles.getTestInputStream("mut-multiple-wijziging.xml")) {
+            BAG2GMLMutatieGroepStream stream = new BAG2GMLMutatieGroepStream(in);
+
+            assertNotNull(stream.getMutatieInfo());
+
+            Iterator<BAG2MutatieGroep> iterator = stream.iterator();
+            BAG2MutatieGroep mutatieGroep = iterator.next();
+
+            assertEquals(3, mutatieGroep.getMutaties().size());
+            assertInstanceOf(BAG2WijzigingMutatie.class, mutatieGroep.getMutaties().get(0));
+            assertInstanceOf(BAG2WijzigingMutatie.class, mutatieGroep.getMutaties().get(1));
+            assertInstanceOf(BAG2ToevoegingMutatie.class, mutatieGroep.getMutaties().get(2));
+
+            mutatieGroep = iterator.next();
+            assertNotNull(mutatieGroep);
+            assertFalse(iterator.hasNext());
+        }
+    }
+
     @ParameterizedTest(name="[{index}] {0}")
     @MethodSource
     void testAllFeatureTypes(String file, String objectName, Object[][] expectedObjects) throws XMLStreamException {
-        BAG2GMLObjectStream stream = new BAG2GMLObjectStream(BAG2TestFiles.getTestInputStream(file));
-        Iterator<BAG2Object> iterator = stream.iterator();
+        BAG2GMLMutatieGroepStream stream = new BAG2GMLMutatieGroepStream(BAG2TestFiles.getTestInputStream(file));
+        Iterator<BAG2MutatieGroep> iterator = stream.iterator();
         int objectNum = 1;
         for(Object expectedObj: expectedObjects) {
             Object[][] attributes = (Object[][])expectedObj;
-            BAG2Object object = iterator.next();
-            assertNotNull(object);
+            BAG2MutatieGroep mutatieGroep = iterator.next();
+            assertNotNull(mutatieGroep);
+            BAG2Object object = mutatieGroep.getSingleToevoeging();
             assertEquals(objectName, object.getObjectType().getName());
             Map<String,Object> objectAttributes = object.getAttributes();
             //System.out.println(objectAttributes);
@@ -108,9 +171,9 @@ class BAG2GMLObjectStreamTest {
         // coordinate. When writing to Oracle Spatial we need to drop the Z or create the index with XYZ. Currently a
         // XY index is hardcoded in OracleDialect.
 
-        BAG2GMLObjectStream stream = new BAG2GMLObjectStream(BAG2TestFiles.getTestInputStream("stand-pnd.xml"));
-        Iterator<BAG2Object> iterator = stream.iterator();
-        BAG2Object object = iterator.next();
+        BAG2GMLMutatieGroepStream stream = new BAG2GMLMutatieGroepStream(BAG2TestFiles.getTestInputStream("stand-pnd.xml"));
+        Iterator<BAG2MutatieGroep> iterator = stream.iterator();
+        BAG2Object object = iterator.next().getSingleToevoeging();
         assertNotNull(object);
         Geometry geometry = (Geometry)object.getAttributes().get("geometrie");
         assertNotNull(geometry);

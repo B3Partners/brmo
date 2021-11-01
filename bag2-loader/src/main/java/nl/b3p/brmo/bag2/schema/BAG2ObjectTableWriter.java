@@ -7,7 +7,11 @@
 
 package nl.b3p.brmo.bag2.schema;
 
-import nl.b3p.brmo.bag2.loader.BAG2GMLObjectStream;
+import nl.b3p.brmo.bag2.loader.BAG2GMLMutatieGroepStream;
+import nl.b3p.brmo.bag2.loader.BAG2Mutatie;
+import nl.b3p.brmo.bag2.loader.BAG2MutatieGroep;
+import nl.b3p.brmo.bag2.loader.BAG2ToevoegingMutatie;
+import nl.b3p.brmo.bag2.loader.BAG2WijzigingMutatie;
 import nl.b3p.brmo.schema.ObjectTableWriter;
 import nl.b3p.brmo.schema.ObjectType;
 import nl.b3p.brmo.schema.SchemaObjectInstance;
@@ -106,30 +110,29 @@ public class BAG2ObjectTableWriter extends ObjectTableWriter {
 
     public void write(InputStream bagXml) throws Exception {
         CountingInputStream counter = new CountingInputStream(bagXml);
-        BAG2GMLObjectStream bag2Objects = new BAG2GMLObjectStream(counter);
+        BAG2GMLMutatieGroepStream bag2Objects = new BAG2GMLMutatieGroepStream(counter);
         updateProgress(Stage.LOAD_OBJECTS);
 
         try {
-            for (BAG2Object object: bag2Objects) {
+            for (BAG2MutatieGroep mutatieGroep: bag2Objects) {
+                for (BAG2Mutatie mutatie: mutatieGroep.getMutaties()) {
+                    if (mutatie instanceof BAG2WijzigingMutatie) {
+                        // Don't do an update but a simpler delete and insert of the updated version
+                        // Executed on main thread, but worker thread will not be executing new versions of the record we're
+                        // deleting
+                        BAG2WijzigingMutatie wijzigingMutatie = (BAG2WijzigingMutatie) mutatie;
+                        deletePreviousVersion(wijzigingMutatie.getWas());
+                        addObjectToBatch(wijzigingMutatie.getWordt());
+                    } else if(mutatie instanceof BAG2ToevoegingMutatie) {
+                        BAG2ToevoegingMutatie toevoegingMutatie = (BAG2ToevoegingMutatie) mutatie;
+                        prepareDatabaseForObject(toevoegingMutatie.getToevoeging());
+                        getProgress().incrementObjectCount();
+                        addObjectToBatch(toevoegingMutatie.getToevoeging());
+                    }
 
-                prepareDatabaseForObject(object);
-
-                getProgress().incrementObjectCount();
-
-                if (object.getWijzigingWordt() != null) {
-                    // Don't do an update but a simpler delete and insert of the updated version
-                    // Executed on main thread, but worker thread will not be executing new versions of the record we're
-                    // deleting
-                    deletePreviousVersion(object.getWijzigingWas());
-                    addObjectToBatch(object.getWijzigingWordt());
-                }
-
-                if (object.getMutatieStatus() == BAG2Object.MutatieStatus.TOEVOEGING) {
-                    addObjectToBatch(object);
-                }
-
-                if (getObjectLimit() != null && getProgress().getObjectCount() == getObjectLimit()) {
-                    break;
+                    if (getObjectLimit() != null && getProgress().getObjectCount() == getObjectLimit()) {
+                        break;
+                    }
                 }
             }
         } catch(Exception e) {

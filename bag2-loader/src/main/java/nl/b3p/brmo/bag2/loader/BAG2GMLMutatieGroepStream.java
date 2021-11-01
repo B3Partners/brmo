@@ -23,6 +23,7 @@ import org.locationtech.jts.geom.PrecisionModel;
 import org.opengis.referencing.FactoryException;
 
 import javax.xml.namespace.QName;
+import javax.xml.stream.Location;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
@@ -30,19 +31,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import static nl.b3p.brmo.bag2.schema.BAG2Object.MutatieStatus.TOEVOEGING;
-import static nl.b3p.brmo.bag2.schema.BAG2Object.MutatieStatus.WIJZIGING_WAS;
-import static nl.b3p.brmo.bag2.schema.BAG2Object.MutatieStatus.WIJZIGING_WORDT;
-
-public class BAG2GMLObjectStream implements Iterable<BAG2Object> {
-    private static final Log log = LogFactory.getLog(BAG2GMLObjectStream.class);
+public class BAG2GMLMutatieGroepStream implements Iterable<BAG2MutatieGroep> {
+    private static final Log log = LogFactory.getLog(BAG2GMLMutatieGroepStream.class);
 
     private static final String NS_BAG_EXTRACT = "http://www.kadaster.nl/schemas/lvbag/extract-deelbestand-lvc/v20200601";
     private static final String NS_STANDLEVERING = "http://www.kadaster.nl/schemas/standlevering-generiek/1.0";
@@ -77,7 +76,7 @@ public class BAG2GMLObjectStream implements Iterable<BAG2Object> {
         }
     }
 
-    public BAG2GMLObjectStream(InputStream in) throws XMLStreamException {
+    public BAG2GMLMutatieGroepStream(InputStream in) throws XMLStreamException {
         this.cursor = initCursor(buildSMInputFactory().rootElementCursor(in));
         this.geometryReader = buildGeometryReader();
     }
@@ -110,7 +109,6 @@ public class BAG2GMLObjectStream implements Iterable<BAG2Object> {
         } else {
             throw new IllegalArgumentException("XML root element moet bagStand of bagMutaties zijn");
         }
-
 
         if(isMutaties) {
             cursor = cursor.childElementCursor().advance();
@@ -162,7 +160,7 @@ public class BAG2GMLObjectStream implements Iterable<BAG2Object> {
     }
 
     @Override
-    public Iterator<BAG2Object> iterator() {
+    public Iterator<BAG2MutatieGroep> iterator() {
         return new Iterator<>() {
             SMEvent event = cursor.getCurrEvent();
 
@@ -184,7 +182,7 @@ public class BAG2GMLObjectStream implements Iterable<BAG2Object> {
             }
 
             @Override
-            public BAG2Object next() {
+            public BAG2MutatieGroep next() {
                 if (event == null) {
                     if(!hasNext()) {
                         throw new IllegalStateException("No more items");
@@ -199,47 +197,41 @@ public class BAG2GMLObjectStream implements Iterable<BAG2Object> {
                             throw new IllegalStateException("No items");
                         }
 
-                        SMInputCursor mutatie = cursor.childElementCursor().advance();
-                        String mutatieNaam = mutatie.getLocalName();
-                        BAG2Object was = null, wordt = null, toevoeging;
+                        cursor.getStreamReader().require(XMLStreamConstants.START_ELEMENT, NS_MUTATIELEVERING, "mutatieGroep");
+                        SMInputCursor mutatieCursor = cursor.childElementCursor().advance();
+                        List<BAG2Mutatie> mutaties = new ArrayList<>();
+                        do {
+                            String mutatieNaam = mutatieCursor.getLocalName();
 
-                        if (mutatieNaam.equals("wijziging")) {
-                            // A "wijziging" is a change to the latest version (voorkomen) followed by an addition
-                            // ("toevoeging") of a new version
+                            Location location = mutatieCursor.getCursorLocation();
+                            if (mutatieNaam.equals("wijziging")) {
+                                SMInputCursor wijziging = mutatieCursor.childElementCursor().advance();
+                                wijziging.getStreamReader().require(XMLStreamConstants.START_ELEMENT, NS_MUTATIELEVERING, "was");
+                                BAG2Object was = parseBAG2ObjectFromBagObjectParentElement(wijziging, NS_BAG_EXTRACT_MUTATIES);
+                                wijziging.getNext();
+                                wijziging.getStreamReader().require(XMLStreamConstants.START_ELEMENT, NS_MUTATIELEVERING, "wordt");
+                                BAG2Object wordt = parseBAG2ObjectFromBagObjectParentElement(wijziging, NS_BAG_EXTRACT_MUTATIES);
 
-                            SMInputCursor wijziging = mutatie.childElementCursor().advance();
+                                mutaties.add(new BAG2WijzigingMutatie(location, was, wordt));
+                            } else if (mutatieNaam.equals("toevoeging")) {
+                                SMInputCursor wijziging = mutatieCursor.childElementCursor().advance();
+                                wijziging.getStreamReader().require(XMLStreamConstants.START_ELEMENT, NS_MUTATIELEVERING, "wordt");
+                                BAG2Object toevoeging = parseBAG2ObjectFromBagObjectParentElement(wijziging, NS_BAG_EXTRACT_MUTATIES);
+                                mutaties.add(new BAG2ToevoegingMutatie(location, toevoeging));
 
-                            do {
-                                String name = wijziging.getLocalName();
-                                SMInputCursor bagObjectCursor = wijziging
-                                        .childElementCursor(new QName(NS_BAG_EXTRACT_MUTATIES, "bagObject")).advance()
-                                        .childElementCursor().advance();
-                                if (name.equals("was")) {
-                                    was = parseBAG2Object(bagObjectCursor, WIJZIGING_WAS);
-                                } else if (name.equals("wordt")) {
-                                    wordt = parseBAG2Object(bagObjectCursor, WIJZIGING_WORDT);
-                                }
-                            } while(wijziging.getNext() != null);
-                            mutatie.getNext(); // move to "toevoeging"
-                        }
+                            } else if (mutatieNaam.equals("verwijdering")) {
+                                throw new IllegalArgumentException("Verwijdering-mutaties mogen niet voorkomen in de BAG2");
+                            } else {
+                                throw new IllegalArgumentException("Onbekende mutatie: " + mutatieNaam);
+                            }
+                        } while(mutatieCursor.getNext() == SMEvent.START_ELEMENT);
 
-                        SMInputCursor bagObjectCursor = mutatie
-                                .childElementCursor(new QName(NS_MUTATIELEVERING, "wordt")).advance()
-                                .childElementCursor(new QName(NS_BAG_EXTRACT_MUTATIES, "bagObject")).advance()
-                                .childElementCursor().advance();
-
-                        toevoeging = parseBAG2Object(bagObjectCursor, TOEVOEGING);
-
-                        toevoeging.setWijzigingWas(was);
-                        toevoeging.setWijzigingWordt(wordt);
-
-                        return toevoeging;
+                        return new BAG2MutatieGroep(mutaties);
                     } else {
-                        SMInputCursor bagObjectCursor = cursor
-                                .childElementCursor(new QName(NS_BAG_EXTRACT, "bagObject")).advance()
-                                .childElementCursor().advance();
-
-                        return parseBAG2Object(bagObjectCursor, TOEVOEGING);
+                        cursor.getStreamReader().require(XMLStreamConstants.START_ELEMENT, NS_STANDLEVERING, "stand");
+                        Location location = cursor.getCursorLocation();
+                        BAG2Object object = parseBAG2ObjectFromBagObjectParentElement(cursor, NS_BAG_EXTRACT);
+                        return new BAG2MutatieGroep(List.of(new BAG2ToevoegingMutatie(location, object)));
                     }
                 } catch(Exception e) {
                     throw new RuntimeException(e);
@@ -248,7 +240,14 @@ public class BAG2GMLObjectStream implements Iterable<BAG2Object> {
         };
     }
 
-    private BAG2Object parseBAG2Object(SMInputCursor bagObjectCursor, BAG2Object.MutatieStatus mutatieStatus) throws XMLStreamException, FactoryException, IOException {
+    private BAG2Object parseBAG2ObjectFromBagObjectParentElement(SMInputCursor bagObjectParentCursor, String bagObjectNamespace) throws XMLStreamException, FactoryException, IOException {
+        SMInputCursor bagObjectCursor = bagObjectParentCursor
+                .childElementCursor(new QName(bagObjectNamespace, "bagObject")).advance()
+                .childElementCursor().advance();
+        return parseBAG2Object(bagObjectCursor);
+    }
+
+    private BAG2Object parseBAG2Object(SMInputCursor bagObjectCursor) throws XMLStreamException, FactoryException, IOException {
         String name = bagObjectCursor.getLocalName();
 
         final BAG2ObjectType objectType = BAG2Schema.getInstance().getObjectTypeByName(name);
@@ -261,7 +260,7 @@ public class BAG2GMLObjectStream implements Iterable<BAG2Object> {
         while (attributeCursor.getNext() != null) {
             parseAttribute(attributeCursor, attributes);
         }
-        return new BAG2Object(objectType, attributes, mutatieStatus);
+        return new BAG2Object(objectType, attributes);
     }
 
     private void parseAttribute(SMInputCursor attribute, Map<String, Object> objectAttributes) throws XMLStreamException, FactoryException, IOException {
