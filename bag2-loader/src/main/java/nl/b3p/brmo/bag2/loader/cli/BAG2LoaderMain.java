@@ -110,10 +110,15 @@ public class BAG2LoaderMain implements IVersionProvider {
                     break;
                 }
 
+                if (entry.getName().matches("[0-9]{4}GEM[0-9]{8}\\.zip")) {
+                    loadBAG2ExtractFromStream(db, loadOptions, dbOptions, name, zip);
+                    return;
+                }
+
                 // Process single and double-nested ZIP files
 
                 if (entry.getName().matches("[0-9]{4}(STA|VBO|OPR|NUM|LIG|PND|WPL).*\\.zip")
-                || entry.getName().matches("[0-9]{4}MUT[0-9]{8}-[0-9]{8}.zip")) {
+                || entry.getName().matches("[0-9]{4}MUT[0-9]{8}-[0-9]{8}\\.zip")) {
                     ZipArchiveInputStream nestedZip = new ZipArchiveInputStream(zip);
                     loadXmlEntriesFromZipFile(db, loadOptions, dbOptions, entry.getName(), nestedZip, nestedZip.getNextZipEntry(), true);
                 }
