@@ -100,9 +100,13 @@ public class BAG2LoaderMain implements IVersionProvider {
 
             for(String filename: filenames) {
                 if (filename.startsWith("http://") || filename.startsWith("https://")) {
-                    loadBAG2ExtractFromStream(db, loadOptions, dbOptions, filename, new ResumingInputStream(new HttpStartRangeInputStreamProvider(new URI(filename))));
+                    try (InputStream in = new ResumingInputStream(new HttpStartRangeInputStreamProvider(new URI(filename)))) {
+                        loadBAG2ExtractFromStream(db, loadOptions, dbOptions, filename, in);
+                    }
                 } else if (filename.endsWith(".zip")) {
-                    loadBAG2ExtractFromStream(db, loadOptions, dbOptions, filename, new FileInputStream(filename));
+                    try (InputStream in = new FileInputStream(filename)) {
+                        loadBAG2ExtractFromStream(db, loadOptions, dbOptions, filename, in);
+                    }
                 } else {
                     throw new IllegalArgumentException(getMessageFormattedString("load.invalid_file", filename));
                 }
