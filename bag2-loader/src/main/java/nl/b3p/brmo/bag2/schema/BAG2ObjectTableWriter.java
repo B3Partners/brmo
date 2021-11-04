@@ -21,14 +21,19 @@ import nl.b3p.brmo.sql.PreparedStatementQueryBatch;
 import nl.b3p.brmo.sql.QueryBatch;
 import nl.b3p.brmo.sql.dialect.SQLDialect;
 import org.apache.commons.io.input.CountingInputStream;
+import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import java.io.InputStream;
+import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static nl.b3p.brmo.bag2.schema.BAG2Schema.TIJDSTIP_NIETBAGLV;
@@ -36,7 +41,14 @@ import static nl.b3p.brmo.bag2.schema.BAG2Schema.TIJDSTIP_NIETBAGLV;
 public class BAG2ObjectTableWriter extends ObjectTableWriter {
     private static final Log log = LogFactory.getLog(BAG2ObjectTableWriter.class);
 
-    public class BAG2Progress extends ObjectTableWriter.Progress {
+    private boolean ignoreDuplicates;
+
+    /**
+     * Set of seen keys per object type to enable skipping of duplicates
+     */
+    private Map<BAG2ObjectType, Set<Pair<Object,Object>>> keysPerObjectType = null;
+
+    public class BAG2Progress extends Progress {
         private Map<ObjectType, QueryBatch> deleteBatches = new HashMap<>();
 
         private long updatedCount = 0;
@@ -54,13 +66,28 @@ public class BAG2ObjectTableWriter extends ObjectTableWriter {
         super(connection, dialect, schemaSQLMapper);
     }
 
+    public void setIgnoreDuplicates(boolean ignoreDuplicates) {
+        this.ignoreDuplicates = ignoreDuplicates;
+    }
 
-    public BAG2ObjectTableWriter.BAG2Progress getProgress() {
-        return (BAG2ObjectTableWriter.BAG2Progress) super.getProgress();
+    public boolean getIgnoreDuplicates() {
+        return ignoreDuplicates;
+    }
+
+    public BAG2Progress getProgress() {
+        return (BAG2Progress) super.getProgress();
+    }
+
+    public Map<BAG2ObjectType, Set<Pair<Object,Object>>> getKeysPerObjectType() {
+        return keysPerObjectType;
+    }
+
+    public void setKeysPerObjectType(Map<BAG2ObjectType, Set<Pair<Object,Object>>> keysPerObjectType) {
+        this.keysPerObjectType = keysPerObjectType;
     }
 
     public void start() throws SQLException {
-        BAG2ObjectTableWriter.BAG2Progress progress = this.new BAG2Progress();
+        BAG2Progress progress = this.new BAG2Progress();
         progress.setInitialLoad(true);
         super.start(progress);
         updateProgress(Stage.PARSE_INPUT);
@@ -120,11 +147,21 @@ public class BAG2ObjectTableWriter extends ObjectTableWriter {
                         // Don't do an update but a simpler delete and insert of the updated version
                         // Executed on main thread, but worker thread will not be executing new versions of the record we're
                         // deleting
+
+                        // No check for duplicates for wijzigingen: no harm in doing the same wijziging twice and we
+                        // can't tell by only the keys if it is exactly the same wijziging but in the maandmutaties for
+                        // a different gemeente or the same version changed twice
+
                         BAG2WijzigingMutatie wijzigingMutatie = (BAG2WijzigingMutatie) mutatie;
                         deletePreviousVersion(wijzigingMutatie.getWas());
                         addObjectToBatch(wijzigingMutatie.getWordt());
                     } else if(mutatie instanceof BAG2ToevoegingMutatie) {
                         BAG2ToevoegingMutatie toevoegingMutatie = (BAG2ToevoegingMutatie) mutatie;
+
+                        if (ignoreDuplicates && isDuplicate(toevoegingMutatie.getToevoeging())) {
+                            continue;
+                        }
+
                         prepareDatabaseForObject(toevoegingMutatie.getToevoeging());
                         getProgress().incrementObjectCount();
                         addObjectToBatch(toevoegingMutatie.getToevoeging());
@@ -142,6 +179,26 @@ public class BAG2ObjectTableWriter extends ObjectTableWriter {
             }
             throw e;
         }
+    }
+
+    private boolean isDuplicate(BAG2Object object) {
+        if (keysPerObjectType == null) {
+            throw new IllegalStateException("keysPerObject type must be set to enable ignoring of duplicates");
+        }
+        // Primary keys for all BAG2 objects are always same
+        Pair<Object,Object> keys = Pair.of(
+                object.getAttributes().get("identificatie"),
+                object.getAttributes().get("voorkomenidentificatie")
+        );
+        Set<Pair<Object, Object>> seenKeys = keysPerObjectType.computeIfAbsent(object.getObjectType(), k -> new HashSet<>());
+        if (seenKeys.contains(keys)) {
+            if (log.isDebugEnabled()) {
+                log.debug(String.format("\rIgnoring duplicate %s %s", object.getObjectType().getName(), keys));
+            }
+            return true;
+        }
+        seenKeys.add(keys);
+        return false;
     }
 
     public void complete() throws Exception {

@@ -100,6 +100,7 @@ public class BAG2Database implements AutoCloseable {
         writer.setMultithreading(loadOptions.isMultithreading());
         writer.setUsePgCopy(dbOptions.isUsePgCopy());
         writer.setObjectLimit(loadOptions.getMaxObjects());
+        writer.setIgnoreDuplicates(loadOptions.isIgnoreDuplicates());
 
         return writer;
     }

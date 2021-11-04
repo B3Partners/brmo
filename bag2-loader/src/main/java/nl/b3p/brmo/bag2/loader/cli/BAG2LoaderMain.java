@@ -17,6 +17,7 @@ import nl.b3p.brmo.util.http.HttpStartRangeInputStreamProvider;
 import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
 import org.apache.commons.compress.archivers.zip.ZipArchiveInputStream;
 import org.apache.commons.io.input.CloseShieldInputStream;
+import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.PropertyConfigurator;
@@ -34,7 +35,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.Instant;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -49,6 +52,8 @@ public class BAG2LoaderMain implements IVersionProvider {
     private static Log log;
 
     private Set<BAG2ObjectType> objectTypesWithSchemaCreated = new HashSet<>();
+
+    private Map<BAG2ObjectType, Set<Pair<Object,Object>>> keysPerObjectType = new HashMap<>();
 
     /**
      * init logging.
@@ -81,32 +86,40 @@ public class BAG2LoaderMain implements IVersionProvider {
     public int load(
             @Mixin BAG2DatabaseOptions dbOptions,
             @Mixin BAG2LoadOptions loadOptions,
-            @Parameters(paramLabel = "<file>") String filename,
+            @Parameters(paramLabel = "<file>") String[] filenames,
             @Option(names={"-h","--help"}, usageHelp = true) boolean showHelp) throws Exception {
 
         log.info(getUserAgent());
 
+        Instant start = Instant.now();
         try(BAG2Database db = new BAG2Database(dbOptions)) {
-            if (filename.startsWith("http://") || filename.startsWith("https://")) {
-                loadBAG2ExtractFromStream(db, loadOptions, dbOptions, filename, new ResumingInputStream(new HttpStartRangeInputStreamProvider(new URI(filename))));
-            } else if(filename.endsWith(".zip")) {
-                loadBAG2ExtractFromStream(db, loadOptions, dbOptions, filename, new FileInputStream(filename));
-            } else {
-                throw new IllegalArgumentException(getMessageFormattedString("load.invalid_file", filename));
+
+            // When loading multiple standen (for gemeentes), set ignore duplicates so the seen object keys are kept in
+            // memory so duplicates can be ignored. Don't keep keys in memory for entire NL stand.
+            loadOptions.setIgnoreDuplicates(filenames.length > 1);
+
+            for(String filename: filenames) {
+                if (filename.startsWith("http://") || filename.startsWith("https://")) {
+                    loadBAG2ExtractFromStream(db, loadOptions, dbOptions, filename, new ResumingInputStream(new HttpStartRangeInputStreamProvider(new URI(filename))));
+                } else if (filename.endsWith(".zip")) {
+                    loadBAG2ExtractFromStream(db, loadOptions, dbOptions, filename, new FileInputStream(filename));
+                } else {
+                    throw new IllegalArgumentException(getMessageFormattedString("load.invalid_file", filename));
+                }
             }
+            completeAll(db, loadOptions, dbOptions);
         }
+        System.out.println("Total time: " + formatTimeSince(start));
         return ExitCode.OK;
     }
 
     private void loadBAG2ExtractFromStream(BAG2Database db, BAG2LoadOptions loadOptions, BAG2DatabaseOptions dbOptions, String name, InputStream input) throws Exception {
-        Instant start = Instant.now();
-
         try (ZipArchiveInputStream zip = new ZipArchiveInputStream(input)) {
             ZipArchiveEntry entry = zip.getNextZipEntry();
             while(entry != null) {
                 if (entry.getName().matches("[0-9]{4}(STA|VBO|OPR|NUM|LIG|PND|WPL).*\\.xml")) {
                     // Load extracted zipfile
-                    loadXmlEntriesFromZipFile(db, loadOptions, dbOptions, name, zip, entry, true);
+                    loadXmlEntriesFromZipFile(db, loadOptions, dbOptions, name, zip, entry);
                     break;
                 }
 
@@ -120,7 +133,7 @@ public class BAG2LoaderMain implements IVersionProvider {
                 if (entry.getName().matches("[0-9]{4}(STA|VBO|OPR|NUM|LIG|PND|WPL).*\\.zip")
                 || entry.getName().matches("[0-9]{4}MUT[0-9]{8}-[0-9]{8}\\.zip")) {
                     ZipArchiveInputStream nestedZip = new ZipArchiveInputStream(zip);
-                    loadXmlEntriesFromZipFile(db, loadOptions, dbOptions, entry.getName(), nestedZip, nestedZip.getNextZipEntry(), true);
+                    loadXmlEntriesFromZipFile(db, loadOptions, dbOptions, entry.getName(), nestedZip, nestedZip.getNextZipEntry());
                 }
 
                 if (entry.getName().matches("[0-9]{4}Inactief.*\\.zip")) {
@@ -129,7 +142,7 @@ public class BAG2LoaderMain implements IVersionProvider {
                     while(nestedEntry != null) {
                         if (nestedEntry.getName().matches("[0-9]{4}IA.*\\.zip")) {
                             ZipArchiveInputStream moreNestedZip = new ZipArchiveInputStream(nestedZip);
-                            loadXmlEntriesFromZipFile(db,  loadOptions, dbOptions,nestedEntry.getName(), moreNestedZip, moreNestedZip.getNextZipEntry(), false);
+                            loadXmlEntriesFromZipFile(db,  loadOptions, dbOptions,nestedEntry.getName(), moreNestedZip, moreNestedZip.getNextZipEntry());
                         }
                         nestedEntry = nestedZip.getNextZipEntry();
                     }
@@ -144,9 +157,8 @@ public class BAG2LoaderMain implements IVersionProvider {
                     }
                 }
             }
-            completeAll(db, loadOptions, dbOptions);
+
         }
-        System.out.println("Total time: " + formatTimeSince(start));
     }
 
     private static BAG2ObjectType getObjectTypeFromFilename(String filename) {
@@ -184,13 +196,14 @@ public class BAG2LoaderMain implements IVersionProvider {
         }
     }
 
-    private void loadXmlEntriesFromZipFile(BAG2Database db, BAG2LoadOptions loadOptions, BAG2DatabaseOptions databaseOptions, String name, ZipArchiveInputStream zip, ZipArchiveEntry entry, boolean createSchema) throws Exception {
+    private void loadXmlEntriesFromZipFile(BAG2Database db, BAG2LoadOptions loadOptions, BAG2DatabaseOptions databaseOptions, String name, ZipArchiveInputStream zip, ZipArchiveEntry entry) throws Exception {
         BAG2ObjectType objectType = getObjectTypeFromFilename(name);
-        // objectType is null for mutaties
+        // objectType is null for mutaties, which contain mixed object types instead of a single object type with stand
         boolean schemaCreated = objectType == null || objectTypesWithSchemaCreated.contains(objectType);
         BAG2ObjectTableWriter writer = db.createObjectTableWriter(loadOptions, databaseOptions);
         writer.setCreateSchema(!schemaCreated);
         writer.setCreateKeysAndIndexes(false);
+        writer.setKeysPerObjectType(keysPerObjectType);
         writer.start(); // sets InitialLoad to true
         writer.getProgress().setInitialLoad(!schemaCreated); // For a COPY in transaction, table must be created or truncated in it
         if (objectType == null) {
