@@ -89,13 +89,19 @@ public class BGTLoader extends AbstractExecutableProces {
             int exitCode = -1;
             BGTDatabase bgtDatabase;
             try (Connection rsgbbgtConnection = ConfigUtil.getDataSourceRsgbBgt().getConnection()) {
-                SQLDialect dialect = this.getDialect();
 
                 DatabaseOptions databaseOptions = new DatabaseOptions();
+                // Zet connection string zodat database dialect bepaald kan worden, maar niet om connectie mee te maken
                 databaseOptions.setConnectionString(rsgbbgtConnection.getMetaData().getURL());
-                databaseOptions.setUser(rsgbbgtConnection.getMetaData().getUserName());
-
-                bgtDatabase = new BGTDatabase(databaseOptions) {
+                Connection connection = rsgbbgtConnection;
+                if (databaseOptions.getConnectionString().startsWith("jdbc:postgresql:")) {
+                    // Voor gebruik van pgCopy is unwrappen van de connectie nodig.
+                    // Ook al doet PostGISCopyInsertBatch zelf ook een unwrap, de PGConnectionUnwrapper kan ook Tomcat JNDI
+                    // connection pool unwrapping aan welke niet met een normale Connection.unwrap() werkt.
+                    connection = (Connection) PGConnectionUnwrapper.unwrap(rsgbbgtConnection);
+                    databaseOptions.setUsePgCopy(true);
+                }
+                bgtDatabase = new BGTDatabase(databaseOptions, connection) {
                     /**
                      * connectie niet sluiten; dat doen we later als we helemaal klaar zijn
                      */
@@ -104,25 +110,16 @@ public class BGTLoader extends AbstractExecutableProces {
                         LOG.debug("Had de BGT database kunnen sluiten... maar niet gedaan.");
                     }
                 };
-                bgtDatabase.setDialect(dialect);
 
-                if (dialect instanceof PostGISDialect) {
-                    // voor gebruik van pgCopy is unwrappen van connectie nodig
-                    bgtDatabase.setConnection((Connection) PGConnectionUnwrapper.unwrap(rsgbbgtConnection));
-                    databaseOptions.setUsePgCopy(true);
-                }
                 LoadOptions loadOptions = new LoadOptions();
                 loadOptions.setIncludeHistory(("true".equals(ClobElement.nullSafeGet(config.getConfig().get("include-history")))));
                 loadOptions.setCreateSchema(("true".equals(ClobElement.nullSafeGet(config.getConfig().get("create-schema")))));
                 loadOptions.setLinearizeCurves("true".equals(ClobElement.nullSafeGet(config.getConfig().get("linearize-curves"))));
 
-                String fTypes = ClobElement.nullSafeGet(config.getConfig().get("feature-types"));
-                FeatureTypeSelectionOptions featureTypeSelectionOptions = new FeatureTypeSelectionOptions();
-                featureTypeSelectionOptions.setFeatureTypes(Arrays.asList(fTypes.split(",")));
-
                 ExtractSelectionOptions extractSelectionOptions = new ExtractSelectionOptions();
                 extractSelectionOptions.setGeoFilterWkt(ClobElement.nullSafeGet(config.getConfig().get("geo-filter")));
                 boolean noGeoFilter = StringUtils.isEmpty(ClobElement.nullSafeGet(config.getConfig().get("geo-filter")));
+                String fTypes = ClobElement.nullSafeGet(config.getConfig().get("feature-types"));
                 extractSelectionOptions.setFeatureTypes(Arrays.asList(fTypes.split(",")));
                 DownloadCommand downloadCommand = new DownloadCommand();
                 downloadCommand.setBGTDatabase(bgtDatabase);
@@ -173,21 +170,6 @@ public class BGTLoader extends AbstractExecutableProces {
             }
         } else if (config.getStatus().equals(ERROR)) {
             listener.addLog("Vorige run is met ERROR status afgerond, kan proces niet starten");
-        }
-    }
-
-    private SQLDialect getDialect() throws BrmoException, SQLException {
-        try (Connection c = ConfigUtil.getDataSourceRsgbBgt().getConnection()) {
-            final String databaseProductName = c.getMetaData().getDatabaseProductName();
-            if (databaseProductName.contains("PostgreSQL")) {
-                return new PostGISDialect();
-            } else if (databaseProductName.contains("Oracle")) {
-                return new OracleDialect();
-            } else if (databaseProductName.contains("Microsoft SQL Server")) {
-                return new MSSQLDialect();
-            } else {
-                throw new BrmoException("geen ondersteunde database voor BGT");
-            }
         }
     }
 }
