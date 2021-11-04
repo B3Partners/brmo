@@ -123,23 +123,23 @@ public class BRKDirectoryScanner extends AbstractExecutableProces {
             archiefDirectory = new File(aDir);
             archiefDirectory.mkdirs();
             if (!archiefDirectory.isDirectory() || !archiefDirectory.canWrite()) {
-                archiefDirectory = null;
                 config.setStatus(ERROR);
                 msg = String.format("De archief directory '%s' is geen beschrijfbare directory, er worden geen bestanden gearchiveerd.",
                         archiefDirectory);
                 sb.append(msg);
                 config.setSamenvatting("Er is een fout opgetreden, details staan in de logs");
                 log.error(msg);
+                archiefDirectory = null;
                 this.listener.exception(new BrmoException(msg));
             }
             if (!scanDirectory.canWrite()) {
-                archiefDirectory = null;
                 config.setStatus(ERROR);
                 msg = String.format("De scan directory '%s' is geen beschrijfbare directory, er worden geen bestanden gearchiveerd.",
                         scanDirectory);
                 sb.append(msg);
                 config.setSamenvatting("Er is een fout opgetreden, details staan in de logs");
                 log.error(msg);
+                archiefDirectory = null;
                 this.listener.exception(new BrmoException(msg));
             }
         }
