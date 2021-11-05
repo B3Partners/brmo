@@ -92,7 +92,7 @@ jobs:
           mvn resources:testResources compiler:testCompile surefire:test -Ppostgresql -pl datamodel -Dtest='!*UpgradeTest,!P8*'
 
       - name: Verify bgt-loader
-        run: mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'bgt-loader'
+        run: mvn -e verify -B -Ppostgresql -T1 -Dtest.onlyITs=true -pl 'bgt-loader'
 
       - name: Verify brmo-loader
         run: mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-loader'

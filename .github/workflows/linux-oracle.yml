@@ -64,7 +64,7 @@ jobs:
           mvn resources:testResources compiler:testCompile surefire:test -Poracle -pl datamodel -Dtest='!*UpgradeTest,!P8*'
 
       - name: Verify bgt-loader
-        run: mvn -e verify -B -Poracle -Dtest.onlyITs=true -pl 'bgt-loader'
+        run: mvn -e verify -B -Poracle -T1 -Dtest.onlyITs=true -pl 'bgt-loader'
 
       - name: Verify brmo-loader
         run: |
