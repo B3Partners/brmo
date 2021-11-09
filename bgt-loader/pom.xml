@@ -342,7 +342,9 @@ SPDX-License-Identifier: MIT
                         <artifactId>maven-failsafe-plugin</artifactId>
                         <configuration>
                             <systemPropertyVariables>
-                                <db.connectionString>jdbc:oracle:thin:@localhost:1521:XE</db.connectionString>
+                                <!-- disable Out-of-Band for 19.x and higher when running Dockerized Oracle
+                                    see https://github.com/gvenzl/oci-oracle-xe/issues/43 -->
+                                <db.connectionString>jdbc:oracle:thin:@localhost:1521:XE?oracle.net.disableOob=true</db.connectionString>
                                 <db.user>jenkins_rsgbbgt</db.user>
                                 <db.password>jenkins_rsgbbgt</db.password>
                             </systemPropertyVariables>
