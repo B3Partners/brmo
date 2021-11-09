@@ -72,7 +72,8 @@ install:
 
 # initial build/code generation, no testing
 build_script:
-  - mvn clean install -Dmaven.test.skip=true -Dtest.onlyITs= -B -V -fae -q -Pmssql -pl "!brmo-dist" %DOCKERHOST%
+  # the `-Dhttps.protocols=TLSv1.1,TLSv1.2` option is to work around https://bugs.openjdk.java.net/browse/JDK-8213202 (needed for java 11.0.2 which has bugs with TLS 1.3)
+  - mvn -Dhttps.protocols=TLSv1.1,TLSv1.2 clean install -Dmaven.test.skip=true -Dtest.onlyITs= -B -V -fae -q -Pmssql -pl "!brmo-dist" %DOCKERHOST%
 
 # services worden na install gestart en we hebben gegenereerde sql nodig
 after_build:
@@ -111,24 +112,24 @@ after_build:
 
 test_script:
   # unit tests
-  - if "%OTHER_ITESTS%"=="true" mvn -e -fae -B -Pmssql test -Dtest.persistence.unit=brmo.persistence.microsoftsqlserver -pl "!brmo-dist" %DOCKERHOST%
-  - if "%OTHER_ITESTS%"=="true" mvn -e -fae -B -Pmssql -pl "datamodel" resources:testResources compiler:testCompile surefire:test -Dtest="!*UpgradeTest,!P8*"
+  - if "%OTHER_ITESTS%"=="true" mvn -Dhttps.protocols=TLSv1.1,TLSv1.2 -e -fae -B -Pmssql test -Dtest.persistence.unit=brmo.persistence.microsoftsqlserver -pl "!brmo-dist" %DOCKERHOST%
+  - if "%OTHER_ITESTS%"=="true" mvn -Dhttps.protocols=TLSv1.1,TLSv1.2 -e -fae -B -Pmssql -pl "datamodel" resources:testResources compiler:testCompile surefire:test -Dtest="!*UpgradeTest,!P8*"
   # integratie tests
   # run integratie tests voor brmo-loader module
-  - if "%LOADER_ONLY_ITESTS%"=="true" mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-loader" -Dmssql.instancename=%INSTANCENAME%
+  - if "%LOADER_ONLY_ITESTS%"=="true" mvn -Dhttps.protocols=TLSv1.1,TLSv1.2 -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-loader" -Dmssql.instancename=%INSTANCENAME%
   # run integratie tests voor bgt-loader module
-  - if "%BGT_ONLY_ITESTS%"=="true" mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "bgt-loader" -Dmssql.instancename=%INSTANCENAME%
+  - if "%BGT_ONLY_ITESTS%"=="true" mvn -Dhttps.protocols=TLSv1.1,TLSv1.2 -e verify -B -Pmssql -Dtest.onlyITs=true -pl "bgt-loader" -Dmssql.instancename=%INSTANCENAME%
   # run integratie tests voor brmo-service module
-  - if "%OTHER_ITESTS%"=="true" mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-service" -Dmssql.instancename=%INSTANCENAME%
+  - if "%OTHER_ITESTS%"=="true" mvn -Dhttps.protocols=TLSv1.1,TLSv1.2 -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-service" -Dmssql.instancename=%INSTANCENAME%
   # run integratie tests voor brmo-soap module
-  - if "%OTHER_ITESTS%"=="true" mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-soap" -Dmssql.instancename=%INSTANCENAME%
+  - if "%OTHER_ITESTS%"=="true" mvn -Dhttps.protocols=TLSv1.1,TLSv1.2  -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-soap" -Dmssql.instancename=%INSTANCENAME%
   # run integratie tests voor brmo-stufbg204 module
-  - if "%OTHER_ITESTS%"=="true" mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-stufbg204" -Dmssql.instancename=%INSTANCENAME%
+  - if "%OTHER_ITESTS%"=="true" mvn -Dhttps.protocols=TLSv1.1,TLSv1.2 -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-stufbg204" -Dmssql.instancename=%INSTANCENAME%
   # run integratie tests voor brmo-commandline module
-  - if "%OTHER_ITESTS%"=="true" mvn -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-commandline" -Dmssql.instancename=%INSTANCENAME%
+  - if "%OTHER_ITESTS%"=="true" mvn -Dhttps.protocols=TLSv1.1,TLSv1.2 -e verify -B -Pmssql -Dtest.onlyITs=true -pl "brmo-commandline" -Dmssql.instancename=%INSTANCENAME%
 
 after_test:
-  - mvn clean build-helper:remove-project-artifact
+  - mvn -Dhttps.protocols=TLSv1.1,TLSv1.2 clean build-helper:remove-project-artifact
 
 on_success:
   # report code coverage

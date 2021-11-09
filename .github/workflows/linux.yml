@@ -19,11 +19,12 @@ jobs:
         # docker image tags from https://hub.docker.com/r/postgis/postgis/tags?page=1&ordering=last_updated
         # zie ook https://www.postgresql.org/support/versioning/
         postgis: [
-          # tot 12-2021
-            9.6-2.5,
           # tot 12-2022
             10-2.5,
-            11-3.1, 12-3.1, 13-3.1
+            11-3.1,
+            12-3.1,
+            13-3.1,
+            14-3.1
         ]
 
     services:
