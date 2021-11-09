@@ -108,4 +108,10 @@ public class MSSQLDialect implements SQLDialect {
     public int getDefaultOptimalBatchSize() {
         return 250;
     }
+
+    @Override
+    public boolean supportsDropTableIfExists() {
+        // MSSQL does support "drop table if exists", but not with "cascade" added
+        return false;
+    }
 }
