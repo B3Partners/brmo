@@ -70,7 +70,7 @@
         <postgresql.postgis-jdbc.version>2.5.1</postgresql.postgis-jdbc.version>
         <oracle.jdbc.version>21.3.0.0</oracle.jdbc.version>
         <oracle.jdbc.artifact>ojdbc11</oracle.jdbc.artifact>
-        <sqlserver.jdbc.version>9.4.0.jre11</sqlserver.jdbc.version>
+        <sqlserver.jdbc.version>9.5.0.jre11-preview</sqlserver.jdbc.version>
         <mssql.instancename />
         <skip-windows />
         <javasimon.version>4.2.0</javasimon.version>
