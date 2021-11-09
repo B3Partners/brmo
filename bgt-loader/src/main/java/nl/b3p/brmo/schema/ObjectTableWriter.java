@@ -73,6 +73,11 @@ public class ObjectTableWriter {
 
         private boolean initialLoad = true;
 
+        private boolean firstObject = true;
+
+        // If we are only inserting into a single table, we can use the faster Postgres COPY
+        private boolean singleTableInserts = false;
+
         private final BlockingQueue<SchemaObjectInstance> objectsToWrite;
 
         private Stage stage = Stage.PARSE_INPUT;
@@ -85,6 +90,10 @@ public class ObjectTableWriter {
                 batchSize = 2500;
             }
             objectsToWrite = new ArrayBlockingQueue<>(batchSize);
+        }
+
+        public void setSingleTableInserts(boolean singleTableInserts) {
+            this.singleTableInserts = singleTableInserts;
         }
 
         public void setInitialLoad(boolean initialLoad) {
@@ -244,9 +253,7 @@ public class ObjectTableWriter {
                 // reWriteBatchedInserts=true connection parameter. Buffering is required when a one-to-many attribute
                 // exists, because simultaneous COPY statements (even with separate connections) are not supported by
                 // the JDBC driver
-
-                boolean singleTableInserts = progress.initialLoad && object.getObjectType().hasOnlyDirectAttributes();
-                boolean bufferCopy = !singleTableInserts;
+                boolean bufferCopy = !progress.singleTableInserts;
                 queryBatch = new PostGISCopyInsertBatch(connection, sql, batchSize, dialect, bufferCopy, linearizeCurves);
             } else {
                 String sql = buildInsertSql(object);
@@ -287,6 +294,12 @@ public class ObjectTableWriter {
     }
 
     protected void addObjectToBatch(SchemaObjectInstance object) throws Exception {
+        // Determine if we can use only a single table COPY without buffering
+        if (progress.firstObject) {
+            progress.setSingleTableInserts(progress.initialLoad && object.getObjectType().hasOnlyDirectAttributes());
+            progress.firstObject = false;
+        }
+
         try {
             addObjectToBatch(object, false);
         } catch(Throwable e) {
