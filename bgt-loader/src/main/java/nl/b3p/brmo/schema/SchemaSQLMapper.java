@@ -90,7 +90,7 @@ public abstract class SchemaSQLMapper {
         }
 
         System.out.printf("-- %s\n\n", getBundleString("schema.loader_metadata"));
-        System.out.println(String.join(";\n", getCreateMetadataTableStatements(dialect, tablePrefix)) + ";\n");
+        System.out.println(String.join(";\n", getCreateMetadataTableStatements(dialect, tablePrefix, true)) + ";\n");
 
         System.out.printf("-- %s %s\n\n", getBundleString("schema.primary_keys"), getBundleString("schema.after_initial_load"));
         String primaryKeys = tableNamesObjectTypes.values().stream()
@@ -106,15 +106,19 @@ public abstract class SchemaSQLMapper {
     }
 
     public Stream<String> getCreateTableStatements(ObjectType objectType, SQLDialect dialect, String tablePrefix) {
+        return getCreateTableStatements(objectType, dialect, tablePrefix, true);
+    }
+
+    public Stream<String> getCreateTableStatements(ObjectType objectType, SQLDialect dialect, String tablePrefix, boolean dropIfExists) {
 
         // Drop and create referencing tables first
         List<String> statements = objectType.getAllAttributes().stream()
                 .filter(attribute -> attribute instanceof ArrayAttributeMapping)
-                .flatMap(arrayAttribute -> getArrayAttributeCreateTableStatements(objectType, (ArrayAttributeMapping) arrayAttribute, dialect, tablePrefix))
+                .flatMap(arrayAttribute -> getArrayAttributeCreateTableStatements(objectType, (ArrayAttributeMapping) arrayAttribute, dialect, tablePrefix, dropIfExists))
                 .collect(Collectors.toList());
 
         String tableName = getTableNameForObjectType(objectType, tablePrefix);
-        if (dialect.supportsDropTableIfExists()) {
+        if (dropIfExists && dialect.supportsDropTableIfExists()) {
             statements.add(String.format("drop table if exists %s cascade", tableName));
         }
         String columns = objectType.getDirectAttributes().stream()
@@ -133,15 +137,19 @@ public abstract class SchemaSQLMapper {
                 .collect(Collectors.joining(",\n"));
         statements.add(String.format("create table %s (\n%s\n)", tableName, columns));
         statements.addAll(objectType.getOneToManyAttributeObjectTypes().stream()
-                .flatMap(oneToManyObjectType -> getCreateTableStatements(oneToManyObjectType, dialect, tablePrefix))
+                .flatMap(oneToManyObjectType -> getCreateTableStatements(oneToManyObjectType, dialect, tablePrefix, dropIfExists))
                 .collect(Collectors.toList()));
         return statements.stream();
     }
 
     public Stream<String> getArrayAttributeCreateTableStatements(ObjectType objectType, ArrayAttributeMapping arrayAttribute, SQLDialect dialect, String tablePrefix) {
+        return getArrayAttributeCreateTableStatements(objectType, arrayAttribute, dialect, tablePrefix, true);
+    }
+
+    public Stream<String> getArrayAttributeCreateTableStatements(ObjectType objectType, ArrayAttributeMapping arrayAttribute, SQLDialect dialect, String tablePrefix, boolean dropIfExists) {
         List<String> statements = new ArrayList<>();
         String tableName = getTableNameForArrayAttribute(objectType, arrayAttribute, tablePrefix);
-        if (dialect.supportsDropTableIfExists()) {
+        if (dropIfExists && dialect.supportsDropTableIfExists()) {
             statements.add("drop table if exists " + tableName + " cascade");
         }
         String columns = Stream.concat(
@@ -221,10 +229,10 @@ public abstract class SchemaSQLMapper {
         );
     }
 
-    public List<String> getCreateMetadataTableStatements(SQLDialect dialect, String tablePrefix) {
+    public List<String> getCreateMetadataTableStatements(SQLDialect dialect, String tablePrefix, boolean dropIfExists) {
         List<String> statements = new ArrayList<>();
         final String tableName = getMetadataTableName();
-        if (dialect.supportsDropTableIfExists()) {
+        if (dropIfExists && dialect.supportsDropTableIfExists()) {
             statements.add("drop table if exists " + tableName);
         }
         String sql = String.format("create table %s(\n  naam %s,\n  waarde %s,\n  primary key(naam)\n)",

@@ -57,7 +57,7 @@ public class BGTSchemaMapper extends SchemaSQLMapper {
 
     public BGTSchemaMapper() {
         super(BGTSchema.getInstance());
-        bgtObjectTypeTableNames.forEach((typeName, table) -> objectTypeNameToTableName.put(typeName, table));
+        objectTypeNameToTableName.putAll(bgtObjectTypeTableNames);
     }
 
     public static BGTSchemaMapper getInstance() {
@@ -83,8 +83,8 @@ public class BGTSchemaMapper extends SchemaSQLMapper {
         return super.getColumnNameForObjectType(objectType, attributeName);
     }
 
-    public List<String> getCreateMetadataTableStatements(SQLDialect dialect, String tablePrefix) {
-       List<String> statements = super.getCreateMetadataTableStatements(dialect, tablePrefix);
+    public List<String> getCreateMetadataTableStatements(SQLDialect dialect, String tablePrefix, boolean dropIfExists) {
+       List<String> statements = super.getCreateMetadataTableStatements(dialect, tablePrefix, dropIfExists);
 
         Map<BGTSchemaMapper.Metadata, String> defaultMetadata = Stream.of(new Object[][]{
                 {BGTSchemaMapper.Metadata.SCHEMA_VERSION, SCHEMA_VERSION_VALUE},

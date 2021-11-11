@@ -123,6 +123,7 @@ public class BGTDatabase implements AutoCloseable {
         writer.setLinearizeCurves(loadOptions.isLinearizeCurves());
         writer.setCurrentObjectsOnly(!loadOptions.isIncludeHistory());
         writer.setCreateSchema(loadOptions.isCreateSchema());
+        writer.setDropIfExists(loadOptions.isDropIfExists());
         writer.setTablePrefix(loadOptions.getTablePrefix());
         return writer;
     }
@@ -152,7 +153,7 @@ public class BGTDatabase implements AutoCloseable {
 
     public void createMetadataTable(LoadOptions loadOptions) throws SQLException {
         log.info(getBundleString("db.create_metadata"));
-        for(String sql: BGTSchemaMapper.getInstance().getCreateMetadataTableStatements(getDialect(), loadOptions.getTablePrefix())) {
+        for(String sql: BGTSchemaMapper.getInstance().getCreateMetadataTableStatements(getDialect(), loadOptions.getTablePrefix(), loadOptions.isDropIfExists())) {
             new LoggingQueryRunner().update(getConnection(), sql);
         }
     }

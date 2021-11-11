@@ -12,6 +12,9 @@ public class LoadOptions {
     @Option(names={"--no-create-schema"}, negatable = true)
     boolean createSchema = true;
 
+    @Option(names={"--drop-if-exists"}, negatable = true)
+    boolean dropIfExists;
+
     @Option(names={"--include-history"})
     boolean includeHistory = false;
 
@@ -39,6 +42,14 @@ public class LoadOptions {
 
     public void setCreateSchema(boolean createSchema) {
         this.createSchema = createSchema;
+    }
+
+    public boolean isDropIfExists() {
+        return dropIfExists;
+    }
+
+    public void setDropIfExists(boolean dropIfExists) {
+        this.dropIfExists = dropIfExists;
     }
 
     public boolean isIncludeHistory() {

@@ -13,6 +13,9 @@ public class BAG2LoadOptions {
     @CommandLine.Option(names="--no-create-schema", negatable = true)
     boolean noCreateSchema;
 
+    @CommandLine.Option(names={"--drop-if-exists"}, negatable = true)
+    boolean dropIfExists;
+
     @CommandLine.Option(names="--max-objects", paramLabel= "<number>", hidden = true)
     Integer maxObjects;
 
@@ -27,6 +30,14 @@ public class BAG2LoadOptions {
 
     public void setNoCreateSchema(boolean noCreateSchema) {
         this.noCreateSchema = noCreateSchema;
+    }
+
+    public boolean isDropIfExists() {
+        return dropIfExists;
+    }
+
+    public void setDropIfExists(boolean dropIfExists) {
+        this.dropIfExists = dropIfExists;
     }
 
     public Integer getMaxObjects() {

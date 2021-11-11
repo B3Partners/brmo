@@ -60,6 +60,7 @@ public class ObjectTableWriter {
     private Integer objectLimit = null;
     private boolean linearizeCurves = false;
     private boolean createSchema = false;
+    private boolean dropIfExists = true;
     private boolean createKeysAndIndexes = true;
     private String tablePrefix = "";
 
@@ -187,6 +188,14 @@ public class ObjectTableWriter {
         this.createSchema = createSchema;
     }
 
+    public boolean isDropIfExists() {
+        return dropIfExists;
+    }
+
+    public void setDropIfExists(boolean dropIfExists) {
+        this.dropIfExists = dropIfExists;
+    }
+
     public boolean isCreateKeysAndIndexes() {
         return createKeysAndIndexes;
     }
@@ -232,7 +241,7 @@ public class ObjectTableWriter {
                 if (isCreateSchema()) {
                     QueryRunner qr = new LoggingQueryRunner();
                     for (String sql: Stream.concat(
-                            schemaSQLMapper.getCreateTableStatements(object.getObjectType(), dialect, tablePrefix),
+                            schemaSQLMapper.getCreateTableStatements(object.getObjectType(), dialect, tablePrefix, dropIfExists),
                             schemaSQLMapper.getCreateGeometryMetadataStatements(object.getObjectType(), dialect, tablePrefix)).collect(Collectors.toList())) {
                         qr.update(connection, sql);
                     }
