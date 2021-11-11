@@ -70,7 +70,7 @@ Een database is vereist voordat de BAG kan worden geladen. De volgende databases
 - Oracle Spatial 18g
 
 Let op dat de BAG van heel Nederland niet past binnen de database limiet van 12 GB van de Express Edition van Oracle, 
-maar een enkele gemeente zal wel lukken.
+maar een enkele gemeente(s) zal wel lukken.
 
 Andere versies werken mogelijk ook.
 
@@ -94,8 +94,9 @@ accept connections". En daarna:
 docker exec -it -u postgres postgis bash -c "createuser bag; createdb --owner=bag bag; psql bag -c 'create extension postgis;'"
 docker exec -it -u postgres postgis psql -c "alter role bag password 'bag2'"
 ```
-_NB: voor integratie met de rest van de BRMO (om bijvoorbeeld de BKR te koppelen aan de BAG) kan de BAG ook ingeladen 
-worden in het `rsgb` schema, let echter op dat er nog oude BAG 1 tabellen inzitten._
+De BAG zal ingeladen wordt in het `bag` schema (dit wordt automatisch aangemaakt als het nog niet bestaat). Voor integratie
+met de rest van de BRMO (om bijvoorbeeld de BRK te koppelen aan de BAG) kan de BAG ook in de RSGB database van de BRMO worden
+ingeladen.
 
 Met deze commando's krijg je een database op je lokale computer en de database naam, gebruiker en wachtwoord allemaal
 ingesteld op `bag`. Het programma kan dan met de standaard opties gebruikt worden om met de database te verbinden. Het is
@@ -138,6 +139,10 @@ echo "grant connect, resource, create view to c##bag;";
 echo "alter user c##bag default role connect, resource;"; 
 } | docker exec -i oracle-xe sqlplus -l system/oracle@//localhost:1521/XE
 ```
+
+Let op dat de tool niet zelf een schema aanmaakt omdat in Oracle hiervoor een gebruiker nodig is. Gebruik dus
+de gebruikersnaam van de databaseconnectie om ook het schema op te geven. Door de BAG in te laden in dezelfde
+database als de RSGB maar in een apart schema kan de BAG gecombineerd worden met andere basisregistraties.
 
 Het is nodig om de `--connection` en `--user` opties aan de BAG lader mee te geven om met Oracle Spatial te verbinden.
 

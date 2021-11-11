@@ -12,10 +12,12 @@ import nl.b3p.brmo.bag2.loader.BAG2LoaderUtils;
 import nl.b3p.brmo.bag2.schema.BAG2ObjectTableWriter;
 import nl.b3p.brmo.bag2.schema.BAG2ObjectType;
 import nl.b3p.brmo.bag2.schema.BAG2Schema;
+import nl.b3p.brmo.sql.dialect.PostGISDialect;
 import nl.b3p.brmo.util.ResumingInputStream;
 import nl.b3p.brmo.util.http.HttpStartRangeInputStreamProvider;
 import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
 import org.apache.commons.compress.archivers.zip.ZipArchiveInputStream;
+import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.io.input.CloseShieldInputStream;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.logging.Log;
@@ -93,6 +95,11 @@ public class BAG2LoaderMain implements IVersionProvider {
 
         Instant start = Instant.now();
         try(BAG2Database db = new BAG2Database(dbOptions)) {
+
+            if (db.getDialect() instanceof PostGISDialect) {
+                new QueryRunner().update(db.getConnection(), "create schema if not exists bag");
+                new QueryRunner().update(db.getConnection(), "set search_path=bag,public");
+            }
 
             // When loading multiple standen (for gemeentes), set ignore duplicates so the seen object keys are kept in
             // memory so duplicates can be ignored. Don't keep keys in memory for entire NL stand.
