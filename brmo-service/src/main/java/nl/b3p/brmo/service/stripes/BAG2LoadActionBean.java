@@ -15,12 +15,11 @@ import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.Resolution;
 import nl.b3p.brmo.bag2.loader.BAG2Database;
 import nl.b3p.brmo.bag2.loader.cli.BAG2DatabaseOptions;
+import nl.b3p.brmo.loader.util.BrmoException;
+import nl.b3p.brmo.service.util.ConfigUtil;
 import nl.b3p.brmo.sql.dialect.OracleDialect;
 import nl.b3p.brmo.sql.dialect.PostGISDialect;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.sql.DataSource;
 import java.sql.Connection;
 
@@ -33,7 +32,7 @@ public class BAG2LoadActionBean implements ActionBean {
 
     private DataSource rsgbbag;
 
-    private NamingException namingException;
+    private Throwable namingException;
 
     private boolean connectionOk = false;
 
@@ -66,11 +65,11 @@ public class BAG2LoadActionBean implements ActionBean {
         this.rsgbbag = rsgbbag;
     }
 
-    public NamingException getNamingException() {
+    public Throwable getNamingException() {
         return namingException;
     }
 
-    public void setNamingException(NamingException namingException) {
+    public void setNamingException(Throwable namingException) {
         this.namingException = namingException;
     }
 
@@ -142,11 +141,13 @@ public class BAG2LoadActionBean implements ActionBean {
     @Before(on = "form")
     public void checkDatabase() {
         try {
-            Context initContext = new InitialContext();
-            Context context = (Context) initContext.lookup("java:comp/env");
-            rsgbbag = (DataSource) context.lookup("jdbc/brmo/rsgbbag");
-        } catch(NamingException e) {
-            namingException = e;
+            rsgbbag = ConfigUtil.getDataSourceRsgbBag(false);
+        } catch(Exception e) {
+            if (e instanceof BrmoException) {
+                namingException = e.getCause();
+            } else {
+                namingException = e;
+            }
         }
 
         if (rsgbbag != null) {
