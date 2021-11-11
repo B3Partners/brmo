@@ -61,14 +61,15 @@ public class BGTDatabase implements AutoCloseable {
 
     /**
      * Create a BGTDatabase with a supplied Connection without loading the driver and making connections here. The
-     * connection string must be set in DatabaseOptions so the database dialect can be determined.
+     * connection string in DatabaseOptions is not used, it is retrieved from the supplied Connection to determine the
+     * dialect.
      * @param dbOptions Database options - not used for making connections
      * @param connection Connection to use, must not be closed. Connection will be closed by CLI classes after processing,
      *                  override the close() method to avoid that.
      */
-    public BGTDatabase(DatabaseOptions dbOptions, Connection connection) {
+    public BGTDatabase(DatabaseOptions dbOptions, Connection connection) throws SQLException {
         this.dbOptions = dbOptions;
-        this.dialect = createDialect(dbOptions.getConnectionString());
+        this.dialect = createDialect(connection.getMetaData().getURL());
         this.connection = connection;
         this.allowConnectionCreation = false;
     }

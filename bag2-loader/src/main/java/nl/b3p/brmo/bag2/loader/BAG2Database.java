@@ -11,9 +11,6 @@ import nl.b3p.brmo.bag2.loader.cli.BAG2DatabaseOptions;
 import nl.b3p.brmo.bag2.loader.cli.BAG2LoadOptions;
 import nl.b3p.brmo.bag2.schema.BAG2ObjectTableWriter;
 import nl.b3p.brmo.bag2.schema.BAG2SchemaMapper;
-import nl.b3p.brmo.bgt.loader.cli.LoadOptions;
-import nl.b3p.brmo.bgt.schema.BGTObjectTableWriter;
-import nl.b3p.brmo.bgt.schema.BGTSchemaMapper;
 import nl.b3p.brmo.sql.dialect.MSSQLDialect;
 import nl.b3p.brmo.sql.dialect.OracleDialect;
 import nl.b3p.brmo.sql.dialect.PostGISDialect;
@@ -25,7 +22,7 @@ import java.sql.SQLException;
 
 import static nl.b3p.brmo.bgt.loader.Utils.getMessageFormattedString;
 
-/* TODO: reduce redundancy with BGTDatabase */
+/* TODO: reduce redundancy with BGTDatabase, remove dependency on dialect CLI enum */
 public class BAG2Database implements AutoCloseable {
 
     public enum SQLDialectEnum {
@@ -37,27 +34,28 @@ public class BAG2Database implements AutoCloseable {
     private SQLDialect dialect;
     private final BAG2DatabaseOptions dbOptions;
     private Connection connection;
+    private final boolean allowConnectionCreation;
 
     public BAG2Database(BAG2DatabaseOptions dbOptions) throws ClassNotFoundException {
         this.dbOptions = dbOptions;
-        String connectionString = dbOptions.getConnectionString();
-        BAG2Database.SQLDialectEnum sqlDialectEnum;
-        if (connectionString.startsWith("jdbc:postgresql:")) {
-            sqlDialectEnum = BAG2Database.SQLDialectEnum.postgis;
-        } else if (connectionString.startsWith("jdbc:oracle:thin:")) {
-            sqlDialectEnum = BAG2Database.SQLDialectEnum.oracle;
-        } else if (connectionString.startsWith("jdbc:sqlserver:")) {
-            sqlDialectEnum = BAG2Database.SQLDialectEnum.mssql;
-        } else {
-            throw new IllegalArgumentException(getMessageFormattedString("db.unknown_connection_string_dialect", connectionString));
-        }
-
-        dialect = createDialect(sqlDialectEnum);
+        dialect = createDialect(dbOptions.getConnectionString());
         dialect.loadDriver();
+        this.allowConnectionCreation = true;
+    }
+
+    public BAG2Database(BAG2DatabaseOptions dbOptions, Connection connection) throws SQLException {
+        this.dbOptions = dbOptions;
+        this.connection = connection;
+        dialect = createDialect(connection.getMetaData().getURL());
+        this.allowConnectionCreation = false;
     }
 
     public SQLDialect getDialect() {
         return dialect;
+    }
+
+    public void setDialect(SQLDialect dialect){
+        this.dialect = dialect;
     }
 
     public Connection getConnection() throws SQLException {
@@ -67,13 +65,10 @@ public class BAG2Database implements AutoCloseable {
         return this.connection;
     }
 
-    public void setConnection(Connection connection){
+    public void setConnection(Connection connection) {
         this.connection = connection;
     }
 
-    public void setDialect(SQLDialect dialect){
-        this.dialect = dialect;
-    }
 
     @Override
     public void close() throws SQLException {
@@ -83,6 +78,9 @@ public class BAG2Database implements AutoCloseable {
     }
 
     private Connection createConnection() {
+        if (!allowConnectionCreation) {
+            throw new RuntimeException("New connection required but supplied connection is null or closed");
+        }
         try {
             return DriverManager.getConnection(dbOptions.getConnectionString(), dbOptions.getUser(), dbOptions.getPassword());
         } catch (SQLException e) {
@@ -104,6 +102,20 @@ public class BAG2Database implements AutoCloseable {
         writer.setDropIfExists(loadOptions.isDropIfExists());
 
         return writer;
+    }
+
+    public static SQLDialect createDialect(String connectionString) {
+        BAG2Database.SQLDialectEnum sqlDialectEnum;
+        if (connectionString.startsWith("jdbc:postgresql:")) {
+            sqlDialectEnum = BAG2Database.SQLDialectEnum.postgis;
+        } else if (connectionString.startsWith("jdbc:oracle:thin:")) {
+            sqlDialectEnum = BAG2Database.SQLDialectEnum.oracle;
+        } else if (connectionString.startsWith("jdbc:sqlserver:")) {
+            sqlDialectEnum = BAG2Database.SQLDialectEnum.mssql;
+        } else {
+            throw new IllegalArgumentException(getMessageFormattedString("db.unknown_connection_string_dialect", connectionString));
+        }
+        return createDialect(sqlDialectEnum);
     }
 
     public static SQLDialect createDialect(BAG2Database.SQLDialectEnum dialectEnum) {
