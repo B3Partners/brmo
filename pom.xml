@@ -169,6 +169,11 @@
             </dependency>
             <dependency>
                 <groupId>nl.b3p</groupId>
+                <artifactId>bag2-loader</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>nl.b3p</groupId>
                 <artifactId>brmo-loader</artifactId>
                 <version>${project.version}</version>
             </dependency>

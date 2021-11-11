@@ -15,20 +15,31 @@ import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.Resolution;
 import nl.b3p.brmo.bag2.loader.BAG2Database;
 import nl.b3p.brmo.bag2.loader.cli.BAG2DatabaseOptions;
+import nl.b3p.brmo.bag2.loader.cli.BAG2LoadOptions;
+import nl.b3p.brmo.bag2.loader.cli.BAG2LoaderMain;
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.service.util.ConfigUtil;
 import nl.b3p.brmo.sql.dialect.OracleDialect;
 import nl.b3p.brmo.sql.dialect.PostGISDialect;
+import nl.b3p.jdbc.util.converter.PGConnectionUnwrapper;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
+import java.util.Arrays;
 
 public class BAG2LoadActionBean implements ActionBean {
+    private static final Log LOG = LogFactory.getLog(BAG2LoadActionBean.class);
+
     private ActionBeanContext context;
 
     private static final String JSP = "/WEB-INF/jsp/bestand/bag2.jsp";
+    private static final String JSP_PROGRESS = "/WEB-INF/jsp/bestand/bag2progress.jsp";
 
-    private String files = "https://service.pdok.nl/kadaster/adressen/atom/v1_0/downloads/lvbag-extract-nl.zip";
+    //private String files = "https://service.pdok.nl/kadaster/adressen/atom/v1_0/downloads/lvbag-extract-nl.zip";
+    private String files = "https://extracten.bag.kadaster.nl/lvbag/extracten/Gemeente%20LVC/0344/BAGGEM0344L-15102021.zip\n" +
+            "https://extracten.bag.kadaster.nl/lvbag/extracten/Gemeente%20LVC/0310/BAGGEM0310L-15102021.zip\n";
 
     private DataSource rsgbbag;
 
@@ -178,5 +189,35 @@ public class BAG2LoadActionBean implements ActionBean {
     @DefaultHandler
     public Resolution form() {
         return new ForwardResolution(JSP);
+    }
+
+    public Resolution load() throws Exception {
+        try(Connection rsgbBagConnection = ConfigUtil.getDataSourceRsgbBag(true).getConnection()) {
+            BAG2DatabaseOptions databaseOptions = new BAG2DatabaseOptions();
+            // Niet nodig (rsgbbagConnection wordt gebruikt), maar voor de duidelijkheid
+            databaseOptions.setConnectionString(rsgbBagConnection.getMetaData().getURL());
+            Connection connection = rsgbBagConnection;
+            if (databaseOptions.getConnectionString().startsWith("jdbc:postgresql:")) {
+                // Voor gebruik van pgCopy is unwrappen van de connectie nodig.
+                // Ook al doet PostGISCopyInsertBatch zelf ook een unwrap, de PGConnectionUnwrapper kan ook Tomcat JNDI
+                // connection pool unwrapping aan welke niet met een normale Connection.unwrap() werkt.
+                connection = (Connection) PGConnectionUnwrapper.unwrap(rsgbBagConnection);
+                databaseOptions.setUsePgCopy(true);
+            }
+            bag2Database = new BAG2Database(databaseOptions, connection) {
+                /**
+                 * connectie niet sluiten; dat doen we later als we helemaal klaar zijn
+                 */
+                @Override
+                public void close() {
+                    LOG.debug("Had de BAG database connectie kunnen sluiten... maar niet gedaan.");
+                }
+            };
+            BAG2LoaderMain.configureLogging(false);
+            BAG2LoaderMain main = new BAG2LoaderMain();
+            BAG2LoadOptions loadOptions = new BAG2LoadOptions();
+            main.loadFiles(bag2Database, databaseOptions, loadOptions, Arrays.stream(files.split("\n")).map(String::trim).toArray(String[]::new));
+        }
+        return new ForwardResolution(JSP_PROGRESS);
     }
 }

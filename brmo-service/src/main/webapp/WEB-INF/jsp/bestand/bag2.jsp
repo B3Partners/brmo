@@ -94,9 +94,11 @@
                                 <c:choose>
                                     <c:when test="${!fn:contains(fn:toLowerCase(actionBean.databaseUserName), 'bag')}">
                                         <span style="color: red; font-weight: bold">FOUT: </span> gebruikersnaam <code><b><c:out value="${actionBean.databaseUserName}"/></b></code> bevat niet "<code>bag</code>", wordt wel een andere gebruiker (schema) gebruikt dan voor de <code>rsgb</code> connectie?
+                                        <c:set var="oracleConnectionOk" value="false"/>
                                     </c:when>
                                     <c:otherwise>
                                         <span style="color: green; font-weight: bold">GOED: </span> gebruikersnaam bevat "<code>bag</code>", er wordt een andere gebruiker (schema) gebruikt dan voor de <code>rsgb</code> connectie.
+                                        <c:set var="oracleConnectionOk" value="true"/>
                                     </c:otherwise>
                                 </c:choose>
                             </li>
@@ -106,10 +108,11 @@
             </p>
             <h2>Lijst met URLs of bestanden vanaf het bestandssysteem van de server</h2></td></tr>
             <stripes:textarea name="files" cols="120" rows="6"/>
-            <stripes:submit name="load" value="Inladen" />
+            <c:set var="loadDisabled" value="${!actionBean.connectionOk or (actionBean.databaseDialect == 'oracle' and !oracleConnectionOk)}"/>
+            <stripes:submit name="load" value="Inladen" disabled="${loadDisabled}" />
             <h2>Dag- of maandmutaties uploaden via de browser (max 10 MB)</h2>
             <p><stripes:file name="bestand"/></p>
-            <stripes:submit name="upload" value="Verzenden" />
+            <stripes:submit name="upload" value="Verzenden" disabled="${loadDisabled}"/>
         </stripes:form>
     </stripes:layout-component>
 </stripes:layout-render>

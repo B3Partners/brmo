@@ -46,7 +46,6 @@ import java.util.regex.Pattern;
 
 import static nl.b3p.brmo.bgt.loader.Utils.formatTimeSince;
 import static nl.b3p.brmo.bgt.loader.Utils.getMessageFormattedString;
-import static nl.b3p.brmo.bgt.loader.Utils.getUserAgent;
 
 @Command(name = "bag2-loader", mixinStandardHelpOptions = true, versionProvider = BAG2LoaderMain.class,
     resourceBundle = BAG2LoaderUtils.BUNDLE_NAME)
@@ -91,11 +90,19 @@ public class BAG2LoaderMain implements IVersionProvider {
             @Parameters(paramLabel = "<file>") String[] filenames,
             @Option(names={"-h","--help"}, usageHelp = true) boolean showHelp) throws Exception {
 
-        log.info(getUserAgent());
+        log.info(BAG2LoaderUtils.getUserAgent());
 
-        Instant start = Instant.now();
+
         try(BAG2Database db = new BAG2Database(dbOptions)) {
+            loadFiles(db, dbOptions, loadOptions, filenames);
+            return ExitCode.OK;
+        }
+    }
 
+    public void loadFiles(BAG2Database db, BAG2DatabaseOptions dbOptions, BAG2LoadOptions loadOptions, String[] filenames) throws Exception {
+        Instant start = Instant.now();
+
+        try {
             if (db.getDialect() instanceof PostGISDialect) {
                 new QueryRunner().update(db.getConnection(), "create schema if not exists bag");
                 new QueryRunner().update(db.getConnection(), "set search_path=bag,public");
@@ -105,7 +112,7 @@ public class BAG2LoaderMain implements IVersionProvider {
             // memory so duplicates can be ignored. Don't keep keys in memory for entire NL stand.
             loadOptions.setIgnoreDuplicates(filenames.length > 1);
 
-            for(String filename: filenames) {
+            for (String filename : filenames) {
                 if (filename.startsWith("http://") || filename.startsWith("https://")) {
                     try (InputStream in = new ResumingInputStream(new HttpStartRangeInputStreamProvider(new URI(filename)))) {
                         loadBAG2ExtractFromStream(db, loadOptions, dbOptions, filename, in);
@@ -119,9 +126,9 @@ public class BAG2LoaderMain implements IVersionProvider {
                 }
             }
             completeAll(db, loadOptions, dbOptions);
+        } finally {
+            log.info("Total time: " + formatTimeSince(start));
         }
-        System.out.println("Total time: " + formatTimeSince(start));
-        return ExitCode.OK;
     }
 
     private void loadBAG2ExtractFromStream(BAG2Database db, BAG2LoadOptions loadOptions, BAG2DatabaseOptions dbOptions, String name, InputStream input) throws Exception {
@@ -238,12 +245,13 @@ public class BAG2LoaderMain implements IVersionProvider {
                 entry = zip.getNextZipEntry();
             }
             writer.complete();
+            System.out.print("\r");
 
             if (writer.getProgress().getObjectCount() > 0 && objectType != null) {
                 objectTypesWithSchemaCreated.add(objectType);
             }
 
-            System.out.printf("\r%s: loaded %,d files, %,d total objects in %s\n", name, files, writer.getProgress().getObjectCount(), formatTimeSince(start));
+            log.info(String.format("%s: loaded %,d files, %,d total objects in %s", name, files, writer.getProgress().getObjectCount(), formatTimeSince(start)));
         } catch(Exception e) {
             writer.abortWorkerThread();
             throw e;

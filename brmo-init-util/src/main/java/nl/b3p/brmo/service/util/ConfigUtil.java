@@ -89,7 +89,7 @@ public class ConfigUtil implements Servlet {
             if (datasourceRsgbBag == null) {
                 InitialContext ic = new InitialContext();
                 Context context = (Context) ic.lookup(JNDI_NAME);
-                datasourceRsgbBgt = (DataSource) context.lookup(JDBC_NAME_RSGB_BAG);
+                datasourceRsgbBag = (DataSource) context.lookup(JDBC_NAME_RSGB_BAG);
             }
         } catch (Exception ex) {
             if (logErrors) {
@@ -98,7 +98,7 @@ public class ConfigUtil implements Servlet {
             throw new BrmoException("Fout verbinden naar 'rsgbbag' schema: ", ex);
         }
 
-        return datasourceRsgbBgt;
+        return datasourceRsgbBag;
     }
 
     public static DataSource getDataSourceRsgbBgt() throws BrmoException {
