@@ -13,6 +13,7 @@ import nl.b3p.brmo.bag2.loader.BAG2LoaderUtils;
 import nl.b3p.brmo.bag2.schema.BAG2ObjectTableWriter;
 import nl.b3p.brmo.bag2.schema.BAG2ObjectType;
 import nl.b3p.brmo.bag2.schema.BAG2Schema;
+import nl.b3p.brmo.bag2.schema.BAG2SchemaMapper;
 import nl.b3p.brmo.sql.dialect.PostGISDialect;
 import nl.b3p.brmo.util.ResumingInputStream;
 import nl.b3p.brmo.util.http.HttpStartRangeInputStreamProvider;
@@ -37,14 +38,24 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
+import static nl.b3p.brmo.bag2.schema.BAG2SchemaMapper.METADATA_TABLE_NAME;
+import static nl.b3p.brmo.bag2.schema.BAG2SchemaMapper.Metadata.CURRENT_TECHNISCHE_DATUM;
+import static nl.b3p.brmo.bag2.schema.BAG2SchemaMapper.Metadata.FILTER_MUTATIES_WOONPLAATS;
+import static nl.b3p.brmo.bag2.schema.BAG2SchemaMapper.Metadata.GEMEENTE_CODES;
+import static nl.b3p.brmo.bag2.schema.BAG2SchemaMapper.Metadata.STAND_LOAD_TECHNISCHE_DATUM;
+import static nl.b3p.brmo.bag2.schema.BAG2SchemaMapper.Metadata.STAND_LOAD_TIME;
 import static nl.b3p.brmo.bgt.loader.Utils.formatTimeSince;
 import static nl.b3p.brmo.bgt.loader.Utils.getMessageFormattedString;
 
@@ -116,6 +127,10 @@ public class BAG2LoaderMain implements IVersionProvider {
             BAG2GMLMutatieGroepStream.BagInfo bagInfo = null;
             String lastFilename = null;
 
+            // Keep track of which gemeentes are loaded so the correct mutations can be processed
+            Set<String> gemeenteIdentificaties = new HashSet<>();
+            boolean stand;
+
             for (String filename: filenames) {
                 BAG2GMLMutatieGroepStream.BagInfo latestBagInfo;
                 if (filename.startsWith("http://") || filename.startsWith("https://")) {
@@ -139,9 +154,17 @@ public class BAG2LoaderMain implements IVersionProvider {
                     }
                 }
                 bagInfo = latestBagInfo;
+                stand = bagInfo.getMutatieDatumVanaf() == null;
+                if (stand) {
+                    gemeenteIdentificaties.add(bagInfo.getGemeenteIdentificatie());
+                }
                 lastFilename = filename;
             }
             completeAll(db, loadOptions, dbOptions);
+
+            updateMetadata(db, loadOptions, bagInfo.getMutatieDatumVanaf() == null, gemeenteIdentificaties, bagInfo.getStandTechnischeDatum());
+
+            db.getConnection().commit();
         } finally {
             log.info("Total time: " + formatTimeSince(start));
         }
@@ -225,9 +248,28 @@ public class BAG2LoaderMain implements IVersionProvider {
             System.out.print("\r" + objectType.getName() + ": creating keys, indexes and views...");
             writer.createKeys(objectType); // BAG2 writer is always a single ObjectType unlike BGT
             writer.createIndexes(objectType);
-            writer.getConnection().commit();
             System.out.println(" " + formatTimeSince(start));
         }
+    }
+
+    private void updateMetadata(BAG2Database db, BAG2LoadOptions loadOptions, boolean stand, Set<String> gemeenteIdentificaties, Date standTechnischeDatum) throws Exception {
+
+        // Check if metadata table already exists. For PostgreSQL we can use the metadata table in the public schema
+        if (!db.getDialect().tableExists(db.getConnection(), METADATA_TABLE_NAME)) {
+            // Create a new metadata table, for Oracle as BAG is in separate schema, for PostgreSQL if loading BAG
+            // into a non-brmo RSGB database
+            db.createMetadataTable(loadOptions);
+        }
+
+        db.setMetadataValue(BAG2SchemaMapper.Metadata.LOADER_VERSION, BAG2LoaderUtils.getLoaderVersion());
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        if (stand) {
+            db.setMetadataValue(STAND_LOAD_TIME, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+            db.setMetadataValue(STAND_LOAD_TECHNISCHE_DATUM, df.format(standTechnischeDatum));
+            db.setMetadataValue(GEMEENTE_CODES, String.join(",", gemeenteIdentificaties));
+            db.setMetadataValue(FILTER_MUTATIES_WOONPLAATS, "false");
+        }
+        db.setMetadataValue(CURRENT_TECHNISCHE_DATUM, df.format(standTechnischeDatum));
     }
 
     private BAG2GMLMutatieGroepStream.BagInfo loadXmlEntriesFromZipFile(BAG2Database db, BAG2LoadOptions loadOptions, BAG2DatabaseOptions databaseOptions, String name, ZipArchiveInputStream zip, ZipArchiveEntry entry) throws Exception {

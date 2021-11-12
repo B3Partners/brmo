@@ -70,11 +70,17 @@ public class BAG2GMLMutatieGroepStream implements Iterable<BAG2MutatieGroep> {
         private final Date standTechnischeDatum;
         private final Date mutatieDatumVanaf;
         private final Date mutatieDatumTot;
+        private final String gemeenteIdentificatie;
 
         protected BagInfo(Date standTechnischeDatum, Date mutatieDatumVanaf, Date mutatieDatumTot) {
+            this(standTechnischeDatum, mutatieDatumVanaf, mutatieDatumTot, null);
+        }
+
+        protected BagInfo(Date standTechnischeDatum, Date mutatieDatumVanaf, Date mutatieDatumTot, String gemeenteIdentificatie) {
             this.standTechnischeDatum = standTechnischeDatum;
             this.mutatieDatumVanaf = mutatieDatumVanaf;
             this.mutatieDatumTot = mutatieDatumTot;
+            this.gemeenteIdentificatie = gemeenteIdentificatie;
         }
 
         public Date getStandTechnischeDatum() {
@@ -87,6 +93,10 @@ public class BAG2GMLMutatieGroepStream implements Iterable<BAG2MutatieGroep> {
 
         public Date getMutatieDatumTot() {
             return mutatieDatumTot;
+        }
+
+        public String getGemeenteIdentificatie() {
+            return gemeenteIdentificatie;
         }
 
         @Override
@@ -182,12 +192,30 @@ public class BAG2GMLMutatieGroepStream implements Iterable<BAG2MutatieGroep> {
             cursor = cursor.childElementCursor().advance();
             cursor.getStreamReader().require(XMLStreamConstants.START_ELEMENT, NS_BAG_EXTRACT, "bagInfo");
 
-            SMInputCursor bagInfoCursor = cursor.descendantElementCursor(new QName(NS_BAG_SELECTIES, "StandTechnischeDatum")).advance();
-            try {
-                standTechnischeDatum = df.parse(bagInfoCursor.collectDescendantText());
-            } catch(ParseException ignored) {
-            }
-            bagInfo = new BagInfo(standTechnischeDatum, null, null);
+            SMInputCursor bagInfoCursor = cursor.descendantElementCursor().advance();
+            String gemeenteIdentificatie = null;
+            do {
+                switch(bagInfoCursor.getLocalName()) {
+                    case "StandTechnischeDatum":
+                        try {
+                            standTechnischeDatum = df.parse(bagInfoCursor.collectDescendantText());
+                        } catch(ParseException ignored) {
+                        }
+                        break;
+                    case "GemeenteIdentificatie":
+                        if (gemeenteIdentificatie != null) {
+                            throw new IllegalArgumentException("Alleen een enkele GemeenteIdentificatie in een GemeenteCollectie wordt ondersteund");
+                        }
+                        gemeenteIdentificatie = bagInfoCursor.collectDescendantText();
+                        break;
+                    case "Gebied-NLD":
+                        // "9999" is code for entire NL area
+                        gemeenteIdentificatie = "9999";
+                        break;
+                }
+            } while(bagInfoCursor.getNext() != null);
+
+            bagInfo = new BagInfo(standTechnischeDatum, null, null, gemeenteIdentificatie);
 
             cursor.getNext();
             cursor.getStreamReader().require(XMLStreamConstants.START_ELEMENT, NS_STANDLEVERING, "standBestand");

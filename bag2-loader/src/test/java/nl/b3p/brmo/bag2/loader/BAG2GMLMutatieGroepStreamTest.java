@@ -142,6 +142,7 @@ class BAG2GMLMutatieGroepStreamTest {
     void testAllFeatureTypes(String file, String objectName, Object[][] expectedObjects) throws XMLStreamException {
         BAG2GMLMutatieGroepStream stream = new BAG2GMLMutatieGroepStream(BAG2TestFiles.getTestInputStream(file));
         assertNotNull(stream.getBagInfo().getStandTechnischeDatum());
+        assertEquals("9999", stream.getBagInfo().getGemeenteIdentificatie());
         Iterator<BAG2MutatieGroep> iterator = stream.iterator();
         int objectNum = 1;
         for(Object expectedObj: expectedObjects) {
