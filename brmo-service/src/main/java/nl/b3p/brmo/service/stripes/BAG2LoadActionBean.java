@@ -29,6 +29,7 @@ import org.stripesstuff.plugin.waitpage.WaitPage;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.util.Arrays;
+import java.util.Date;
 
 public class BAG2LoadActionBean implements ActionBean {
     private static final Log LOG = LogFactory.getLog(BAG2LoadActionBean.class);
@@ -52,7 +53,9 @@ public class BAG2LoadActionBean implements ActionBean {
     private Exception connectionException;
 
     private boolean loading;
+    private Date loadStart;
     private boolean loadResult;
+    private Exception loadException;
     private String loadingLog;
 
     //<editor-fold desc="getters en setters">
@@ -161,6 +164,29 @@ public class BAG2LoadActionBean implements ActionBean {
     public void setLoadingLog(String loadingLog) {
         this.loadingLog = loadingLog;
     }
+
+    public Date getLoadStart() {
+        return loadStart;
+    }
+
+    public void setLoadStart(Date loadStart) {
+        this.loadStart = loadStart;
+    }
+
+    public Date getUpdateTime() {
+        return new Date();
+    }
+
+    public void setUpdateTime(Date updateTime) {
+    }
+
+    public Exception getLoadException() {
+        return loadException;
+    }
+
+    public void setLoadException(Exception loadException) {
+        this.loadException = loadException;
+    }
     //</editor-fold>
 
     @Before(on = "form")
@@ -205,9 +231,10 @@ public class BAG2LoadActionBean implements ActionBean {
         return new ForwardResolution(JSP);
     }
 
-    @WaitPage(path= JSP_LOAD, delay=1000, refresh=1000)
+    @WaitPage(path= JSP_LOAD, delay=1000, refresh=5000)
     public Resolution load() throws Exception {
         loading = true;
+        loadStart = new Date();
         try(Connection rsgbBagConnection = ConfigUtil.getDataSourceRsgbBag(true).getConnection()) {
             BAG2DatabaseOptions databaseOptions = new BAG2DatabaseOptions();
             // Niet nodig (rsgbbagConnection wordt gebruikt), maar voor de duidelijkheid
@@ -236,6 +263,7 @@ public class BAG2LoadActionBean implements ActionBean {
             this.loadResult = true;
         } catch(Exception e) {
             this.loadResult = false;
+            this.loadException = e;
             LOG.error("Error loading BAG 2.0", e);
         } finally {
             this.loading = false;
