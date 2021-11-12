@@ -45,11 +45,11 @@ class BAG2GMLMutatieGroepStreamTest {
         try(FileInputStream in = new FileInputStream("extracten.bag.kadaster.nl/lvbag/extracten/Nederland maandmutaties/9999MUT08062021-08072021-000004_fo.xml")) {
             BAG2GMLMutatieGroepStream stream = new BAG2GMLMutatieGroepStream(in);
 
-            assertNotNull(stream.getMutatieInfo());
+            assertNotNull(stream.getBagInfo());
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-            assertEquals(df.parse("2021-07-08"), stream.getMutatieInfo().standTechnischeDatum);
-            assertEquals(df.parse("2021-06-08"), stream.getMutatieInfo().mutatieDatumVanaf);
-            assertEquals(df.parse("2021-07-08"), stream.getMutatieInfo().mutatieDatumTot);
+            assertEquals(df.parse("2021-07-08"), stream.getBagInfo().getStandTechnischeDatum());
+            assertEquals(df.parse("2021-06-08"), stream.getBagInfo().getMutatieDatumVanaf());
+            assertEquals(df.parse("2021-07-08"), stream.getBagInfo().getMutatieDatumTot());
 
             Iterator<BAG2MutatieGroep> iterator = stream.iterator();
             BAG2MutatieGroep mutatieGroep = iterator.next();
@@ -74,11 +74,11 @@ class BAG2GMLMutatieGroepStreamTest {
         zip.getNextEntry();
         BAG2GMLMutatieGroepStream stream = new BAG2GMLMutatieGroepStream(zip);
 
-        assertNotNull(stream.getMutatieInfo());
+        assertNotNull(stream.getBagInfo());
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        assertEquals(df.parse("2021-09-15"), stream.getMutatieInfo().standTechnischeDatum);
-        assertEquals(df.parse("2021-08-15"), stream.getMutatieInfo().mutatieDatumVanaf);
-        assertEquals(df.parse("2021-09-15"), stream.getMutatieInfo().mutatieDatumTot);
+        assertEquals(df.parse("2021-09-15"), stream.getBagInfo().getStandTechnischeDatum());
+        assertEquals(df.parse("2021-08-15"), stream.getBagInfo().getMutatieDatumVanaf());
+        assertEquals(df.parse("2021-09-15"), stream.getBagInfo().getMutatieDatumTot());
 
         Iterator<BAG2MutatieGroep> iterator = stream.iterator();
         BAG2MutatieGroep mutatieGroep = iterator.next();
@@ -121,7 +121,7 @@ class BAG2GMLMutatieGroepStreamTest {
         try(InputStream in = BAG2TestFiles.getTestInputStream("mut-multiple-wijziging.xml")) {
             BAG2GMLMutatieGroepStream stream = new BAG2GMLMutatieGroepStream(in);
 
-            assertNotNull(stream.getMutatieInfo());
+            assertNotNull(stream.getBagInfo());
 
             Iterator<BAG2MutatieGroep> iterator = stream.iterator();
             BAG2MutatieGroep mutatieGroep = iterator.next();
@@ -141,6 +141,7 @@ class BAG2GMLMutatieGroepStreamTest {
     @MethodSource
     void testAllFeatureTypes(String file, String objectName, Object[][] expectedObjects) throws XMLStreamException {
         BAG2GMLMutatieGroepStream stream = new BAG2GMLMutatieGroepStream(BAG2TestFiles.getTestInputStream(file));
+        assertNotNull(stream.getBagInfo().getStandTechnischeDatum());
         Iterator<BAG2MutatieGroep> iterator = stream.iterator();
         int objectNum = 1;
         for(Object expectedObj: expectedObjects) {

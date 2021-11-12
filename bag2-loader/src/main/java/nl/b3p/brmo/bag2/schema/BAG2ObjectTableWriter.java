@@ -26,10 +26,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import java.io.InputStream;
-import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -53,12 +51,18 @@ public class BAG2ObjectTableWriter extends ObjectTableWriter {
 
         private long updatedCount = 0;
 
+        private BAG2GMLMutatieGroepStream.BagInfo bagInfo;
+
         public long getUpdatedCount() {
             return updatedCount;
         }
 
         public BAG2ObjectTableWriter getWriter() {
             return BAG2ObjectTableWriter.this;
+        }
+
+        public BAG2GMLMutatieGroepStream.BagInfo getMutatieInfo() {
+            return bagInfo;
         }
     }
 
@@ -138,6 +142,7 @@ public class BAG2ObjectTableWriter extends ObjectTableWriter {
     public void write(InputStream bagXml) throws Exception {
         CountingInputStream counter = new CountingInputStream(bagXml);
         BAG2GMLMutatieGroepStream bag2Objects = new BAG2GMLMutatieGroepStream(counter);
+        getProgress().bagInfo = bag2Objects.getBagInfo();
         updateProgress(Stage.LOAD_OBJECTS);
 
         try {

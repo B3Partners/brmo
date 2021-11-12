@@ -38,12 +38,14 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 public class BAG2GMLMutatieGroepStream implements Iterable<BAG2MutatieGroep> {
     private static final Log log = LogFactory.getLog(BAG2GMLMutatieGroepStream.class);
 
     private static final String NS_BAG_EXTRACT = "http://www.kadaster.nl/schemas/lvbag/extract-deelbestand-lvc/v20200601";
+    private static final String NS_BAG_SELECTIES = "http://www.kadaster.nl/schemas/lvbag/extract-selecties/v20200601";
     private static final String NS_STANDLEVERING = "http://www.kadaster.nl/schemas/standlevering-generiek/1.0";
     private static final String NS_GML_32 = "http://www.opengis.net/gml/3.2";
     private static final String NS_HISTORIE = "www.kadaster.nl/schemas/lvbag/imbag/historie/v20200601";
@@ -62,17 +64,51 @@ public class BAG2GMLMutatieGroepStream implements Iterable<BAG2MutatieGroep> {
     private boolean isMutaties;
     private boolean hasMutatieGroep;
 
-    private MutatieInfo mutatieInfo;
+    private BagInfo bagInfo;
 
-    public static class MutatieInfo {
-        public final Date standTechnischeDatum;
-        public final Date mutatieDatumVanaf;
-        public final Date mutatieDatumTot;
+    public static class BagInfo {
+        private final Date standTechnischeDatum;
+        private final Date mutatieDatumVanaf;
+        private final Date mutatieDatumTot;
 
-        protected MutatieInfo(Date standTechnischeDatum, Date mutatieDatumVanaf, Date mutatieDatumTot) {
+        protected BagInfo(Date standTechnischeDatum, Date mutatieDatumVanaf, Date mutatieDatumTot) {
             this.standTechnischeDatum = standTechnischeDatum;
             this.mutatieDatumVanaf = mutatieDatumVanaf;
             this.mutatieDatumTot = mutatieDatumTot;
+        }
+
+        public Date getStandTechnischeDatum() {
+            return standTechnischeDatum;
+        }
+
+        public Date getMutatieDatumVanaf() {
+            return mutatieDatumVanaf;
+        }
+
+        public Date getMutatieDatumTot() {
+            return mutatieDatumTot;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            BagInfo that = (BagInfo) o;
+            return Objects.equals(standTechnischeDatum, that.standTechnischeDatum) && Objects.equals(mutatieDatumVanaf, that.mutatieDatumVanaf) && Objects.equals(mutatieDatumTot, that.mutatieDatumTot);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(standTechnischeDatum, mutatieDatumVanaf, mutatieDatumTot);
+        }
+
+        @Override
+        public String toString() {
+            return "BagInfo{" +
+                    "standTechnischeDatum=" + standTechnischeDatum +
+                    ", mutatieDatumVanaf=" + mutatieDatumVanaf +
+                    ", mutatieDatumTot=" + mutatieDatumTot +
+                    '}';
         }
     }
 
@@ -110,17 +146,14 @@ public class BAG2GMLMutatieGroepStream implements Iterable<BAG2MutatieGroep> {
             throw new IllegalArgumentException("XML root element moet bagStand of bagMutaties zijn");
         }
 
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        Date standTechnischeDatum = null;
         if(isMutaties) {
             cursor = cursor.childElementCursor().advance();
             cursor.getStreamReader().require(XMLStreamConstants.START_ELEMENT, NS_BAG_EXTRACT_MUTATIES, "bagInfo");
 
-            if (!cursor.getLocalName().equals("bagInfo")) {
-                throw new IllegalArgumentException("Verwacht bagInfo element");
-            }
-
             SMInputCursor bagInfoCursor = cursor.descendantElementCursor().advance();
-            Date standTechnischeDatum = null, mutatieDatumVanaf = null, mutatieDatumTot = null;
-            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            Date mutatieDatumVanaf = null, mutatieDatumTot = null;
             do {
                 try {
                     switch (bagInfoCursor.getLocalName()) {
@@ -137,26 +170,36 @@ public class BAG2GMLMutatieGroepStream implements Iterable<BAG2MutatieGroep> {
                 } catch(ParseException ignored) {
                 }
             } while(bagInfoCursor.getNext() != null);
-            mutatieInfo = new MutatieInfo(standTechnischeDatum, mutatieDatumVanaf, mutatieDatumTot);
+            bagInfo = new BagInfo(standTechnischeDatum, mutatieDatumVanaf, mutatieDatumTot);
 
             cursor.getNext();
-
-            String name = cursor.getLocalName();
             cursor.getStreamReader().require(XMLStreamConstants.START_ELEMENT, NS_MUTATIELEVERING, "mutatieBericht");
 
             cursor = cursor.childElementCursor(new QName(NS_MUTATIELEVERING, "mutatieGroep"));
 
             hasMutatieGroep = cursor.getNext() != null;
         } else {
-            cursor = cursor.childElementCursor(new QName(NS_STANDLEVERING, "standBestand")).advance()
-                    .childElementCursor(new QName(NS_STANDLEVERING, "stand"));
+            cursor = cursor.childElementCursor().advance();
+            cursor.getStreamReader().require(XMLStreamConstants.START_ELEMENT, NS_BAG_EXTRACT, "bagInfo");
+
+            SMInputCursor bagInfoCursor = cursor.descendantElementCursor(new QName(NS_BAG_SELECTIES, "StandTechnischeDatum")).advance();
+            try {
+                standTechnischeDatum = df.parse(bagInfoCursor.collectDescendantText());
+            } catch(ParseException ignored) {
+            }
+            bagInfo = new BagInfo(standTechnischeDatum, null, null);
+
+            cursor.getNext();
+            cursor.getStreamReader().require(XMLStreamConstants.START_ELEMENT, NS_STANDLEVERING, "standBestand");
+
+            cursor = cursor.childElementCursor(new QName(NS_STANDLEVERING, "stand"));
         }
 
         return cursor;
     }
 
-    public MutatieInfo getMutatieInfo() {
-        return mutatieInfo;
+    public BagInfo getBagInfo() {
+        return bagInfo;
     }
 
     @Override
