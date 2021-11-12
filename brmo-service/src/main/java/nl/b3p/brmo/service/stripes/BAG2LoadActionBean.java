@@ -24,6 +24,7 @@ import nl.b3p.brmo.sql.dialect.PostGISDialect;
 import nl.b3p.jdbc.util.converter.PGConnectionUnwrapper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.stripesstuff.plugin.waitpage.WaitPage;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -35,27 +36,24 @@ public class BAG2LoadActionBean implements ActionBean {
     private ActionBeanContext context;
 
     private static final String JSP = "/WEB-INF/jsp/bestand/bag2.jsp";
-    private static final String JSP_PROGRESS = "/WEB-INF/jsp/bestand/bag2progress.jsp";
+    private static final String JSP_LOAD = "/WEB-INF/jsp/bestand/bag2load.jsp";
 
     //private String files = "https://service.pdok.nl/kadaster/adressen/atom/v1_0/downloads/lvbag-extract-nl.zip";
     private String files = "https://extracten.bag.kadaster.nl/lvbag/extracten/Gemeente%20LVC/0344/BAGGEM0344L-15102021.zip\n" +
             "https://extracten.bag.kadaster.nl/lvbag/extracten/Gemeente%20LVC/0310/BAGGEM0310L-15102021.zip\n";
 
     private DataSource rsgbbag;
-
     private Throwable namingException;
-
     private boolean connectionOk = false;
-
     private String connectionString;
     private String databaseName;
     private String databaseUserName;
-
     private String databaseDialect;
-
     private Exception connectionException;
 
-    private BAG2Database bag2Database;
+    private boolean loading;
+    private boolean loadResult;
+    private String loadingLog;
 
     //<editor-fold desc="getters en setters">
     @Override
@@ -132,20 +130,36 @@ public class BAG2LoadActionBean implements ActionBean {
         this.connectionException = connectionException;
     }
 
-    public BAG2Database getBag2Database() {
-        return bag2Database;
-    }
-
-    public void setBag2Database(BAG2Database bag2Database) {
-        this.bag2Database = bag2Database;
-    }
-
     public String getFiles() {
         return files;
     }
 
     public void setFiles(String files) {
         this.files = files;
+    }
+
+    public boolean isLoading() {
+        return loading;
+    }
+
+    public void setLoading(boolean loading) {
+        this.loading = loading;
+    }
+
+    public boolean isLoadResult() {
+        return loadResult;
+    }
+
+    public void setLoadResult(boolean loadResult) {
+        this.loadResult = loadResult;
+    }
+
+    public String getLoadingLog() {
+        return loadingLog;
+    }
+
+    public void setLoadingLog(String loadingLog) {
+        this.loadingLog = loadingLog;
     }
     //</editor-fold>
 
@@ -170,7 +184,7 @@ public class BAG2LoadActionBean implements ActionBean {
                     databaseName = c.getMetaData().getDatabaseProductName() + " " + databaseName;
                 }
                 databaseUserName = c.getMetaData().getUserName();
-                bag2Database = new BAG2Database(new BAG2DatabaseOptions(), c);
+                BAG2Database bag2Database = new BAG2Database(new BAG2DatabaseOptions(), c);
 
                 if (bag2Database.getDialect() instanceof PostGISDialect) {
                     databaseDialect = "postgis";
@@ -191,7 +205,9 @@ public class BAG2LoadActionBean implements ActionBean {
         return new ForwardResolution(JSP);
     }
 
+    @WaitPage(path= JSP_LOAD, delay=1000, refresh=1000)
     public Resolution load() throws Exception {
+        loading = true;
         try(Connection rsgbBagConnection = ConfigUtil.getDataSourceRsgbBag(true).getConnection()) {
             BAG2DatabaseOptions databaseOptions = new BAG2DatabaseOptions();
             // Niet nodig (rsgbbagConnection wordt gebruikt), maar voor de duidelijkheid
@@ -204,7 +220,7 @@ public class BAG2LoadActionBean implements ActionBean {
                 connection = (Connection) PGConnectionUnwrapper.unwrap(rsgbBagConnection);
                 databaseOptions.setUsePgCopy(true);
             }
-            bag2Database = new BAG2Database(databaseOptions, connection) {
+            BAG2Database bag2Database = new BAG2Database(databaseOptions, connection) {
                 /**
                  * connectie niet sluiten; dat doen we later als we helemaal klaar zijn
                  */
@@ -217,7 +233,13 @@ public class BAG2LoadActionBean implements ActionBean {
             BAG2LoaderMain main = new BAG2LoaderMain();
             BAG2LoadOptions loadOptions = new BAG2LoadOptions();
             main.loadFiles(bag2Database, databaseOptions, loadOptions, Arrays.stream(files.split("\n")).map(String::trim).toArray(String[]::new));
+            this.loadResult = true;
+        } catch(Exception e) {
+            this.loadResult = false;
+            LOG.error("Error loading BAG 2.0", e);
+        } finally {
+            this.loading = false;
         }
-        return new ForwardResolution(JSP_PROGRESS);
+        return new ForwardResolution(JSP_LOAD);
     }
 }
