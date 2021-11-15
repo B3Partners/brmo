@@ -20,12 +20,14 @@ public class ConfigUtil implements Servlet {
     private static final String JNDI_NAME = "java:comp/env";
     private static final String JDBC_NAME_STAGING = "jdbc/brmo/staging";
     private static final String JDBC_NAME_RSGB = "jdbc/brmo/rsgb";
+    private static final String JDBC_NAME_RSGB_BAG = "jdbc/brmo/rsgbbag";
     private static final String JDBC_NAME_RSGB_BGT = "jdbc/brmo/rsgbbgt";
     private static final String JDBC_NAME_RSGB_TOPNL = "jdbc/brmo/rsgbtopnl";
 
     private static DataSource datasourceStaging = null;
     private static DataSource datasourceRsgb = null;
-    private static DataSource datasourceRsgbbgt = null;
+    private static DataSource datasourceRsgbBag = null;
+    private static DataSource datasourceRsgbBgt = null;
     private static DataSource datasourceTopNL = null;
     
     public static Integer MAX_UPLOAD_SIZE;
@@ -78,19 +80,40 @@ public class ConfigUtil implements Servlet {
         return datasourceRsgb;
     }
 
+    public static DataSource getDataSourceRsgbBag() throws BrmoException {
+        return getDataSourceRsgbBag(true);
+    }
+
+    public static DataSource getDataSourceRsgbBag(boolean logErrors) throws BrmoException {
+        try {
+            if (datasourceRsgbBag == null) {
+                InitialContext ic = new InitialContext();
+                Context context = (Context) ic.lookup(JNDI_NAME);
+                datasourceRsgbBag = (DataSource) context.lookup(JDBC_NAME_RSGB_BAG);
+            }
+        } catch (Exception ex) {
+            if (logErrors) {
+                log.error("Fout verbinden naar 'rsgbbag' schema.", ex);
+            }
+            throw new BrmoException("Fout verbinden naar 'rsgbbag' schema: ", ex);
+        }
+
+        return datasourceRsgbBag;
+    }
+
     public static DataSource getDataSourceRsgbBgt() throws BrmoException {
         try {
-            if (datasourceRsgbbgt == null) {
+            if (datasourceRsgbBgt == null) {
                 InitialContext ic = new InitialContext();
                 Context xmlContext = (Context) ic.lookup(JNDI_NAME);
-                datasourceRsgbbgt = (DataSource) xmlContext.lookup(JDBC_NAME_RSGB_BGT);
+                datasourceRsgbBgt = (DataSource) xmlContext.lookup(JDBC_NAME_RSGB_BGT);
             }
         } catch (Exception ex) {
             log.error("Fout verbinden naar 'rsgbbgt' schema.", ex);
             throw new BrmoException("Fout verbinden naar 'rsgbbgt' schema.", ex);
         }
 
-        return datasourceRsgbbgt;
+        return datasourceRsgbBgt;
     }
 
     /**

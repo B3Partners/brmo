@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sl-bag-extract:bagStand xmlns:DatatypenNEN3610="www.kadaster.nl/schemas/lvbag/imbag/datatypennen3610/v20200601"
+                         xmlns:Objecten="www.kadaster.nl/schemas/lvbag/imbag/objecten/v20200601"
+                         xmlns:gml="http://www.opengis.net/gml/3.2"
+                         xmlns:Historie="www.kadaster.nl/schemas/lvbag/imbag/historie/v20200601"
+                         xmlns:Objecten-ref="www.kadaster.nl/schemas/lvbag/imbag/objecten-ref/v20200601"
+                         xmlns:nen5825="www.kadaster.nl/schemas/lvbag/imbag/nen5825/v20200601"
+                         xmlns:KenmerkInOnderzoek="www.kadaster.nl/schemas/lvbag/imbag/kenmerkinonderzoek/v20200601"
+                         xmlns:selecties-extract="http://www.kadaster.nl/schemas/lvbag/extract-selecties/v20200601"
+                         xmlns:sl-bag-extract="http://www.kadaster.nl/schemas/lvbag/extract-deelbestand-lvc/v20200601"
+                         xmlns:sl="http://www.kadaster.nl/schemas/standlevering-generiek/1.0"
+                         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                         xsi:schemaLocation="http://www.kadaster.nl/schemas/lvbag/extract-deelbestand-lvc/v20200601 https://developer.kadaster.nl/schemas/lvbag/extract-deelbestand-lvc/v20200601/BagvsExtractDeelbestandExtractLvc-2.1.0.xsd">
+    <sl-bag-extract:bagInfo>
+        <selecties-extract:Gebied-Registratief>
+            <selecties-extract:Gebied-NLD/>
+        </selecties-extract:Gebied-Registratief>
+        <selecties-extract:LVC-Extract>
+            <selecties-extract:StandTechnischeDatum>2021-09-08</selecties-extract:StandTechnischeDatum>
+        </selecties-extract:LVC-Extract>
+    </sl-bag-extract:bagInfo>
+    <sl:standBestand>
+        <sl:dataset>LVBAG</sl:dataset>
+        <sl:inhoud>
+            <sl:gebied>Nederland</sl:gebied>
+            <sl:leveringsId>0000000001</sl:leveringsId>
+            <sl:objectTypen>
+                <sl:objectType>VBO</sl:objectType>
+            </sl:objectTypen>
+        </sl:inhoud>
+        <sl:stand>
+            <sl-bag-extract:bagObject>
+                <Objecten:Verblijfsobject>
+                    <Objecten:heeftAlsHoofdadres>
+                        <Objecten-ref:NummeraanduidingRef domein="NL.IMBAG.Nummeraanduiding">0000200000057534
+                        </Objecten-ref:NummeraanduidingRef>
+                    </Objecten:heeftAlsHoofdadres>
+                    <Objecten:voorkomen>
+                        <Historie:Voorkomen>
+                            <Historie:voorkomenidentificatie>1</Historie:voorkomenidentificatie>
+                            <Historie:beginGeldigheid>2018-03-26</Historie:beginGeldigheid>
+                            <Historie:eindGeldigheid>2018-04-04</Historie:eindGeldigheid>
+                            <Historie:tijdstipRegistratie>2018-03-26T11:37:36.000</Historie:tijdstipRegistratie>
+                            <Historie:eindRegistratie>2018-04-04T11:59:28.000</Historie:eindRegistratie>
+                            <Historie:BeschikbaarLV>
+                                <Historie:tijdstipRegistratieLV>2018-03-26T12:00:43.223</Historie:tijdstipRegistratieLV>
+                                <Historie:tijdstipEindRegistratieLV>2018-04-04T12:01:06.236
+                                </Historie:tijdstipEindRegistratieLV>
+                            </Historie:BeschikbaarLV>
+                        </Historie:Voorkomen>
+                    </Objecten:voorkomen>
+                    <Objecten:identificatie domein="NL.IMBAG.Verblijfsobject">0000010000057469</Objecten:identificatie>
+                    <Objecten:geometrie>
+                        <Objecten:punt>
+                            <gml:Point srsName="urn:ogc:def:crs:EPSG::28992" srsDimension="3">
+                                <gml:pos>188391.884 334586.439 0.0</gml:pos>
+                            </gml:Point>
+                        </Objecten:punt>
+                    </Objecten:geometrie>
+                    <Objecten:gebruiksdoel>woonfunctie</Objecten:gebruiksdoel>
+                    <Objecten:oppervlakte>72</Objecten:oppervlakte>
+                    <Objecten:status>Verblijfsobject in gebruik</Objecten:status>
+                    <Objecten:geconstateerd>N</Objecten:geconstateerd>
+                    <Objecten:documentdatum>2018-03-26</Objecten:documentdatum>
+                    <Objecten:documentnummer>BV05.00043-HLG</Objecten:documentnummer>
+                    <Objecten:maaktDeelUitVan>
+                        <Objecten-ref:PandRef domein="NL.IMBAG.Pand">1883100000010452</Objecten-ref:PandRef>
+                    </Objecten:maaktDeelUitVan>
+                </Objecten:Verblijfsobject>
+            </sl-bag-extract:bagObject>
+        </sl:stand>
+        <sl:stand>
+            <sl-bag-extract:bagObject>
+                <Objecten:Verblijfsobject>
+                    <Objecten:heeftAlsHoofdadres>
+                        <Objecten-ref:NummeraanduidingRef domein="NL.IMBAG.Nummeraanduiding">0003200000134083
+                        </Objecten-ref:NummeraanduidingRef>
+                    </Objecten:heeftAlsHoofdadres>
+                    <Objecten:voorkomen>
+                        <Historie:Voorkomen>
+                            <Historie:voorkomenidentificatie>2</Historie:voorkomenidentificatie>
+                            <Historie:beginGeldigheid>2011-07-15</Historie:beginGeldigheid>
+                            <Historie:eindGeldigheid>2011-07-15</Historie:eindGeldigheid>
+                            <Historie:tijdstipRegistratie>2011-07-15T12:08:05.000</Historie:tijdstipRegistratie>
+                            <Historie:eindRegistratie>2011-07-15T13:15:01.000</Historie:eindRegistratie>
+                            <Historie:BeschikbaarLV>
+                                <Historie:tijdstipRegistratieLV>2011-07-15T12:32:28.116</Historie:tijdstipRegistratieLV>
+                                <Historie:tijdstipEindRegistratieLV>2011-07-15T13:32:58.426
+                                </Historie:tijdstipEindRegistratieLV>
+                            </Historie:BeschikbaarLV>
+                        </Historie:Voorkomen>
+                    </Objecten:voorkomen>
+                    <Objecten:identificatie domein="NL.IMBAG.Verblijfsobject">0003010000126023</Objecten:identificatie>
+                    <Objecten:geometrie>
+                        <Objecten:punt>
+                            <gml:Point srsName="urn:ogc:def:crs:EPSG::28992" srsDimension="3">
+                                <gml:pos>253064.76 593662.242 0.0</gml:pos>
+                            </gml:Point>
+                        </Objecten:punt>
+                    </Objecten:geometrie>
+                    <Objecten:gebruiksdoel>woonfunctie</Objecten:gebruiksdoel>
+                    <Objecten:gebruiksdoel>winkelfunctie</Objecten:gebruiksdoel>
+                    <Objecten:oppervlakte>141</Objecten:oppervlakte>
+                    <Objecten:status>Verblijfsobject in gebruik</Objecten:status>
+                    <Objecten:geconstateerd>J</Objecten:geconstateerd>
+                    <Objecten:documentdatum>2011-07-15</Objecten:documentdatum>
+                    <Objecten:documentnummer>2011/APVC001</Objecten:documentnummer>
+                    <Objecten:maaktDeelUitVan>
+                        <Objecten-ref:PandRef domein="NL.IMBAG.Pand">0003100000118445</Objecten-ref:PandRef>
+                    </Objecten:maaktDeelUitVan>
+                </Objecten:Verblijfsobject>
+            </sl-bag-extract:bagObject>
+        </sl:stand>
+        <sl:stand>
+            <sl-bag-extract:bagObject>
+                <Objecten:Verblijfsobject>
+                    <Objecten:heeftAlsHoofdadres>
+                        <Objecten-ref:NummeraanduidingRef domein="NL.IMBAG.Nummeraanduiding">0010200000109774
+                        </Objecten-ref:NummeraanduidingRef>
+                    </Objecten:heeftAlsHoofdadres>
+                    <Objecten:voorkomen>
+                        <Historie:Voorkomen>
+                            <Historie:voorkomenidentificatie>4</Historie:voorkomenidentificatie>
+                            <Historie:beginGeldigheid>2021-04-09</Historie:beginGeldigheid>
+                            <Historie:tijdstipRegistratie>2021-04-09T11:49:26.672</Historie:tijdstipRegistratie>
+                            <Historie:BeschikbaarLV>
+                                <Historie:tijdstipRegistratieLV>2021-04-15T10:59:51.205</Historie:tijdstipRegistratieLV>
+                            </Historie:BeschikbaarLV>
+                        </Historie:Voorkomen>
+                    </Objecten:voorkomen>
+                    <Objecten:heeftAlsNevenadres>
+                        <Objecten-ref:NummeraanduidingRef domein="NL.IMBAG.Nummeraanduiding">1979200000000293
+                        </Objecten-ref:NummeraanduidingRef>
+                    </Objecten:heeftAlsNevenadres>
+                    <Objecten:identificatie domein="NL.IMBAG.Verblijfsobject">0010010000059610</Objecten:identificatie>
+                    <Objecten:geometrie>
+                        <Objecten:punt>
+                            <gml:Point srsName="urn:ogc:def:crs:EPSG::28992" srsDimension="3">
+                                <gml:pos>257064.0 593220.0 0.0</gml:pos>
+                            </gml:Point>
+                        </Objecten:punt>
+                    </Objecten:geometrie>
+                    <Objecten:gebruiksdoel>industriefunctie</Objecten:gebruiksdoel>
+                    <Objecten:oppervlakte>3651</Objecten:oppervlakte>
+                    <Objecten:status>Verblijfsobject in gebruik</Objecten:status>
+                    <Objecten:geconstateerd>N</Objecten:geconstateerd>
+                    <Objecten:documentdatum>2021-04-09</Objecten:documentdatum>
+                    <Objecten:documentnummer>E2021-BNU-086</Objecten:documentnummer>
+                    <Objecten:maaktDeelUitVan>
+                        <Objecten-ref:PandRef domein="NL.IMBAG.Pand">0010100000006543</Objecten-ref:PandRef>
+                    </Objecten:maaktDeelUitVan>
+                </Objecten:Verblijfsobject>
+            </sl-bag-extract:bagObject>
+        </sl:stand>
+    </sl:standBestand>
+</sl-bag-extract:bagStand>

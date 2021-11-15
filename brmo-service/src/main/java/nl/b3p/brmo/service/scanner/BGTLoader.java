@@ -91,7 +91,7 @@ public class BGTLoader extends AbstractExecutableProces {
             try (Connection rsgbbgtConnection = ConfigUtil.getDataSourceRsgbBgt().getConnection()) {
 
                 DatabaseOptions databaseOptions = new DatabaseOptions();
-                // Zet connection string zodat database dialect bepaald kan worden, maar niet om connectie mee te maken
+                // Niet nodig (rsgbbgtConnection wordt gebruikt), maar voor de duidelijkheid
                 databaseOptions.setConnectionString(rsgbbgtConnection.getMetaData().getURL());
                 Connection connection = rsgbbgtConnection;
                 if (databaseOptions.getConnectionString().startsWith("jdbc:postgresql:")) {

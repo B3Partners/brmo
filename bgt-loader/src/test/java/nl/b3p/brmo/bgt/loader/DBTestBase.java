@@ -10,10 +10,10 @@ package nl.b3p.brmo.bgt.loader;
 import nl.b3p.brmo.bgt.loader.cli.DatabaseOptions;
 import nl.b3p.brmo.bgt.schema.BGTSchema;
 import nl.b3p.brmo.bgt.schema.BGTSchemaMapper;
+import nl.b3p.brmo.sql.LoggingQueryRunner;
 import nl.b3p.brmo.sql.dialect.MSSQLDialect;
 import nl.b3p.brmo.sql.dialect.OracleDialect;
 import nl.b3p.brmo.sql.dialect.PostGISDialect;
-import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.dbunit.Assertion;
@@ -181,14 +181,14 @@ public class DBTestBase {
             if(new DefaultMetadataHandler().tableExists(connection.getMetaData(), schema, tableName)) {
                 try {
                     LOG.trace("Drop table: " + tableName);
-                    new QueryRunner().update(connection,"drop table " + tableName);
+                    new LoggingQueryRunner().update(connection,"drop table " + tableName);
                 } catch (SQLException se) {
                     LOG.warn("Exception dropping table " + tableName + ": " + se.getLocalizedMessage());
                 }
             }
         }
         if (isOracle) {
-            new QueryRunner().update(connection,"delete from user_sdo_geom_metadata");
+            new LoggingQueryRunner().update(connection,"delete from user_sdo_geom_metadata");
         }
     }
 }

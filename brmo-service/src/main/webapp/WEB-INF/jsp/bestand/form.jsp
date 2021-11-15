@@ -52,6 +52,8 @@
                 </tr>
             </table>
             <p><stripes:submit name="load" value="Inladen" /></p>
+        <h1>BAG 2.0 extract of mutaties inladen</h1>
+            Om de BAG 2.0 stand of mutaties in te laden klik <stripes:link beanclass="nl.b3p.brmo.service.stripes.BAG2LoadActionBean">hier</stripes:link>.
         </stripes:form>
     </stripes:layout-component>
 </stripes:layout-render>

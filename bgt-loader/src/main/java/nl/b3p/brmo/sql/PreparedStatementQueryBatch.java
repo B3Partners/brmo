@@ -6,8 +6,8 @@
 
 package nl.b3p.brmo.sql;
 
-import nl.b3p.brmo.sql.dialect.SQLDialect;
-import org.locationtech.jts.geom.Geometry;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import java.sql.Connection;
 import java.sql.ParameterMetaData;
@@ -16,6 +16,8 @@ import java.sql.SQLException;
 import java.sql.Types;
 
 public class PreparedStatementQueryBatch implements QueryBatch {
+    private static final Log LOG = LogFactory.getLog(PreparedStatementQueryBatch.class);
+
     protected final Connection c;
     private final String sql;
     private final int batchSize;
@@ -79,7 +81,7 @@ public class PreparedStatementQueryBatch implements QueryBatch {
     @Override
     public void executeBatch() throws Exception {
         if (count > 0) {
-            //System.out.printf("Executing %d batches for sql \"%s\"\n", count, sql);
+            LOG.debug(String.format("execute batch, size %d, sql: %s", count, sql));
             ps.executeBatch();
             this.count = 0;
         }

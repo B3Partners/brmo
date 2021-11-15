@@ -21,7 +21,7 @@ public class Schema {
     protected Schema() {
     }
 
-    protected void addObjectType(BGTObjectType objectType) {
+    protected void addObjectType(ObjectType objectType) {
         objectTypes.put(objectType.getName(), objectType);
     }
 
@@ -34,6 +34,10 @@ public class Schema {
     }
 
     public ObjectType getObjectTypeByName(String name) {
+        if (!objectTypes.containsKey(name)) {
+            throw new IllegalArgumentException("Object type \"" + name + "\" not found");
+        }
         return objectTypes.get(name);
+
     }
 }

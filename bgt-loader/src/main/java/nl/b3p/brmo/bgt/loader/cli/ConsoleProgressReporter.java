@@ -19,19 +19,23 @@ import static nl.b3p.brmo.schema.ObjectTableWriter.Stage.FINISHED;
 public class ConsoleProgressReporter extends ProgressReporter {
     Instant totalStart = Instant.now();
 
+    @Override
     protected void log(String msg) {
         System.out.print("\r" + msg);
     }
 
+    @Override
     protected void status(String msg) {
         System.out.print("\r" + msg + " ".repeat(40));
     }
 
+    @Override
     public void reportTotalSummary() {
         super.reportTotalSummary();
         System.out.println();
     }
 
+    @Override
     public void accept(ObjectTableWriter.Progress genericProgress) {
         super.accept(genericProgress);
         BGTObjectTableWriter.BGTProgress progress = (BGTObjectTableWriter.BGTProgress)genericProgress;

@@ -7,16 +7,20 @@
 
 package nl.b3p.brmo.schema;
 
+import nl.b3p.brmo.schema.mapping.ArrayAttributeMapping;
 import nl.b3p.brmo.schema.mapping.AttributeColumnMapping;
 import nl.b3p.brmo.schema.mapping.GeometryAttributeColumnMapping;
 import nl.b3p.brmo.sql.GeometryHandlingPreparedStatementBatch;
+import nl.b3p.brmo.sql.LoggingQueryRunner;
 import nl.b3p.brmo.sql.PostGISCopyInsertBatch;
 import nl.b3p.brmo.sql.QueryBatch;
 import nl.b3p.brmo.sql.dialect.PostGISDialect;
 import nl.b3p.brmo.sql.dialect.SQLDialect;
 import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -27,6 +31,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
@@ -55,7 +60,9 @@ public class ObjectTableWriter {
     private Integer objectLimit = null;
     private boolean linearizeCurves = false;
     private boolean createSchema = false;
-    private String tablePrefix = null;
+    private boolean dropIfExists = true;
+    private boolean createKeysAndIndexes = true;
+    private String tablePrefix = "";
 
     private Consumer<ObjectTableWriter.Progress> progressUpdater;
 
@@ -63,6 +70,7 @@ public class ObjectTableWriter {
 
     public class Progress {
         private Map<ObjectType, QueryBatch> insertBatches = new HashMap<>();
+        private Map<Pair<ObjectType, ArrayAttributeMapping>, QueryBatch> arrayAttributeInsertBatches = new HashMap<>();
 
         private boolean initialLoad = true;
 
@@ -107,6 +115,10 @@ public class ObjectTableWriter {
 
         public void setObjectCount(long objectCount) {
             this.objectCount = objectCount;
+        }
+
+        public void incrementObjectCount() {
+            this.objectCount++;
         }
     }
 
@@ -176,6 +188,22 @@ public class ObjectTableWriter {
         this.createSchema = createSchema;
     }
 
+    public boolean isDropIfExists() {
+        return dropIfExists;
+    }
+
+    public void setDropIfExists(boolean dropIfExists) {
+        this.dropIfExists = dropIfExists;
+    }
+
+    public boolean isCreateKeysAndIndexes() {
+        return createKeysAndIndexes;
+    }
+
+    public void setCreateKeysAndIndexes(boolean createKeysAndIndexes) {
+        this.createKeysAndIndexes = createKeysAndIndexes;
+    }
+
     public String getTablePrefix() {
         return tablePrefix;
     }
@@ -211,9 +239,9 @@ public class ObjectTableWriter {
         if(insertBatches.isEmpty()) {
             if (progress.initialLoad) {
                 if (isCreateSchema()) {
-                    QueryRunner qr = new QueryRunner();
+                    QueryRunner qr = new LoggingQueryRunner();
                     for (String sql: Stream.concat(
-                            schemaSQLMapper.getCreateTableStatements(object.getObjectType(), dialect, tablePrefix),
+                            schemaSQLMapper.getCreateTableStatements(object.getObjectType(), dialect, tablePrefix, dropIfExists),
                             schemaSQLMapper.getCreateGeometryMetadataStatements(object.getObjectType(), dialect, tablePrefix)).collect(Collectors.toList())) {
                         qr.update(connection, sql);
                     }
@@ -238,7 +266,7 @@ public class ObjectTableWriter {
                 queryBatch = new PostGISCopyInsertBatch(connection, sql, batchSize, dialect, bufferCopy, linearizeCurves);
             } else {
                 String sql = buildInsertSql(object);
-                Boolean[] parameterIsGeometry = object.getObjectType().getDirectAttributes().stream()
+                Boolean[] parameterIsGeometry = object.getObjectType().getDirectNonDefaultInsertAttributes().stream()
                         .map(attributeColumnMapping -> attributeColumnMapping instanceof GeometryAttributeColumnMapping)
                         .toArray(Boolean[]::new);
                 queryBatch = new GeometryHandlingPreparedStatementBatch(connection, sql, batchSize, dialect, parameterIsGeometry, linearizeCurves);
@@ -248,10 +276,36 @@ public class ObjectTableWriter {
         return insertBatches.get(object.getObjectType());
     }
 
+    protected synchronized QueryBatch getArrayAttributeInsertBatch(SchemaObjectInstance object, ArrayAttributeMapping attribute) throws Exception {
+        Map<Pair<ObjectType,ArrayAttributeMapping>,QueryBatch> insertBatches = progress.arrayAttributeInsertBatches;
+
+        Pair<ObjectType,ArrayAttributeMapping> batchKey = ImmutablePair.of(object.getObjectType(), attribute);
+        if(!insertBatches.containsKey(batchKey)) {
+            QueryBatch queryBatch;
+/*            if (this.dialect instanceof PostGISDialect && this.usePgCopy) {
+                String sql = buildPgCopySql(object, progress.initialLoad);
+                // Using Postgres COPY while buffering the copy stream is not faster than using batched inserts with the
+                // reWriteBatchedInserts=true connection parameter. Buffering is required when a one-to-many attribute
+                // exists, because simultaneous COPY statements (even with separate connections) are not supported by
+                // the JDBC driver
+                boolean bufferCopy = !progress.singleTableInserts;
+                queryBatch = new PostGISCopyInsertBatch(connection, sql, batchSize, dialect, bufferCopy, linearizeCurves);
+            } else {*/
+                String sql = buildInsertSql(object.getObjectType(), attribute);
+                Boolean[] parameterIsGeometry = object.getObjectType().getDirectNonDefaultInsertAttributes().stream()
+                        .map(attributeColumnMapping -> attributeColumnMapping instanceof GeometryAttributeColumnMapping)
+                        .toArray(Boolean[]::new);
+                queryBatch = new GeometryHandlingPreparedStatementBatch(connection, sql, batchSize, dialect, parameterIsGeometry, linearizeCurves);
+//            }
+            insertBatches.put(batchKey, queryBatch);
+        }
+        return insertBatches.get(batchKey);
+    }
+
     protected void addObjectToBatch(SchemaObjectInstance object) throws Exception {
         // Determine if we can use only a single table COPY without buffering
         if (progress.firstObject) {
-            progress.setSingleTableInserts(progress.initialLoad && object.getObjectType().getOneToManyAttributeObjectTypes().isEmpty());
+            progress.setSingleTableInserts(progress.initialLoad && object.getObjectType().hasOnlyDirectAttributes());
             progress.firstObject = false;
         }
 
@@ -285,10 +339,16 @@ public class ObjectTableWriter {
 
         Map<String, Object> attributes = object.getAttributes();
         List<Object> params = new ArrayList<>();
-        for(AttributeColumnMapping attributeColumnMapping: object.getObjectType().getDirectAttributes()) {
+        for(AttributeColumnMapping attributeColumnMapping: object.getObjectType().getDirectNonDefaultInsertAttributes()) {
             Object attribute = attributes.get(attributeColumnMapping.getName());
             params.add(attributeColumnMapping.toQueryParameter(attribute));
         }
+
+        // The main object batch must be executed before oneToMany and arrayAttribute batches which reference the main
+        // object when foreign key constraints are in place. During "stand" loading this is deferrered to after all
+        // batches are fully executed so we don't need to care about order. For BAG2 mutaties batch size is set to 1 to
+        // correctly order all batches for foreign key integrity
+        batch.addBatch(params.toArray());
 
         for(ObjectType oneToManyAttribute: object.getObjectType().getOneToManyAttributeObjectTypes()) {
             List<SchemaObjectInstance> objects = (List<SchemaObjectInstance>) attributes.get(oneToManyAttribute.getName());
@@ -308,8 +368,33 @@ public class ObjectTableWriter {
             }
         }
 
-        batch.addBatch(params.toArray());
+        for(ArrayAttributeMapping arrayAttribute: object.getObjectType().getArrayAttributes()) {
+            insertArrayAttribute(object, arrayAttribute);
+        }
+
         updateProgress();
+    }
+
+    private void insertArrayAttribute(SchemaObjectInstance object, ArrayAttributeMapping attribute) throws Exception {
+        Set values = (Set) object.getAttributes().get(attribute.getName());
+        if (values != null && !values.isEmpty()) {
+            QueryBatch insertBatch = getArrayAttributeInsertBatch(object, attribute);
+            Object[] keys = object.getObjectType().getPrimaryKeys().stream()
+                    .map(key -> {
+                        try {
+                            return key.toQueryParameter(object.getAttributes().get(key.getName()));
+                        } catch(Exception e) {
+                            throw new RuntimeException(e);
+                        }
+                    })
+                    .toArray();
+            for (Object value: values) {
+                Object[] params = new Object[keys.length+1];
+                System.arraycopy(keys, 0, params, 0, keys.length);
+                params[params.length-1] = value;
+                insertBatch.addBatch(params);
+            }
+        }
     }
 
     private Throwable exceptionFromWorkerThread = null;
@@ -320,6 +405,14 @@ public class ObjectTableWriter {
 
     private synchronized void setExceptionFromWorkerThread(Throwable exceptionFromWorkerThread) {
         this.exceptionFromWorkerThread = exceptionFromWorkerThread;
+    }
+
+    public void abortWorkerThread() throws Exception {
+        if (workerThread != null) {
+            // Remove all objects already queued
+            progress.objectsToWrite.clear();
+            endOfObjects();
+        }
     }
 
     private final Runnable worker = () -> {
@@ -345,8 +438,10 @@ public class ObjectTableWriter {
     };
 
     protected void updateProgress(Stage stage) {
-        this.progress.stage = stage;
-        updateProgress(true);
+        if (this.progress != null) {
+            this.progress.stage = stage;
+            updateProgress(true);
+        }
     }
 
     protected void updateProgress() {
@@ -367,7 +462,7 @@ public class ObjectTableWriter {
 
     private void truncateTable(Connection c, ObjectType objectType) throws SQLException {
         // TODO like jdbc-util, truncate may fail but 'delete from' may succeed
-        new QueryRunner().execute(c, String.format("truncate table %s", schemaSQLMapper.getTableNameForObjectType(objectType, tablePrefix)));
+        new LoggingQueryRunner().execute(c, String.format("truncate table %s", schemaSQLMapper.getTableNameForObjectType(objectType, tablePrefix)));
     }
 
     private String buildInsertSql(SchemaObjectInstance object) {
@@ -376,11 +471,23 @@ public class ObjectTableWriter {
         sql.append(tableName).append("(");
         sql.append(buildColumnList(object.getObjectType()));
         sql.append(") values (");
-        String paramPlaceholders = object.getObjectType().getDirectAttributes().stream()
+        String paramPlaceholders = object.getObjectType().getDirectNonDefaultInsertAttributes().stream()
                 .map(c -> "?")
                 .collect(Collectors.joining(", "));
         sql.append(paramPlaceholders).append(")");
         return sql.toString();
+    }
+
+    private String buildInsertSql(ObjectType objectType, ArrayAttributeMapping attribute) {
+        String referencingKeys = objectType.getPrimaryKeys().stream()
+                .map(pk -> schemaSQLMapper.getColumnNameForObjectType(objectType, pk.getName()))
+                .collect(Collectors.joining(", "));
+        return String.format("insert into %s (%s, %s) values (%s)",
+                schemaSQLMapper.getTableNameForArrayAttribute(objectType, attribute, tablePrefix),
+                referencingKeys,
+                schemaSQLMapper.getColumnNameForObjectType(objectType, attribute.getName()),
+                String.join(", ", Collections.nCopies(objectType.getPrimaryKeys().size() + 1, "?"))
+        );
     }
 
     private String buildPgCopySql(SchemaObjectInstance object, boolean initialLoad) {
@@ -390,7 +497,7 @@ public class ObjectTableWriter {
     }
 
     private String buildColumnList(ObjectType objectType) {
-        return objectType.getDirectAttributes().stream()
+        return objectType.getDirectNonDefaultInsertAttributes().stream()
                 .map(column -> schemaSQLMapper.getColumnNameForObjectType(objectType, column.getName()))
                 .collect(Collectors.joining(", "));
     }
@@ -414,26 +521,23 @@ public class ObjectTableWriter {
             progress.objectsToWrite.put(new SchemaObjectInstance(null, Collections.emptyMap()));
             workerThread.join();
         }
+    }
 
+    protected void complete() throws Exception {
         for(QueryBatch batch: progress.insertBatches.values()) {
             batch.executeBatch();
         }
-    }
 
-    protected void complete() throws SQLException {
-        if (isCreateSchema() && progress.initialLoad) {
-            QueryRunner qr = new QueryRunner();
-            updateProgress(Stage.CREATE_PRIMARY_KEY);
+        for(QueryBatch batch: progress.arrayAttributeInsertBatches.values()) {
+            batch.executeBatch();
+        }
+
+        if (isCreateSchema() && isCreateKeysAndIndexes() && progress.initialLoad) {
             for(ObjectType objectType: progress.insertBatches.keySet()) {
-                for (String sql: schemaSQLMapper.getCreatePrimaryKeyStatements(objectType, dialect, tablePrefix,false).collect(Collectors.toList())) {
-                    qr.update(connection, sql);
-                }
+                createKeys(objectType);
             }
-            updateProgress(Stage.CREATE_GEOMETRY_INDEX);
             for(ObjectType objectType: progress.insertBatches.keySet()) {
-                for(String sql: schemaSQLMapper.getCreateGeometryIndexStatements(objectType, dialect, tablePrefix, false).collect(Collectors.toList())) {
-                    qr.update(connection, sql);
-                }
+                createIndexes(objectType);
             }
         }
 
@@ -441,7 +545,26 @@ public class ObjectTableWriter {
         updateProgress(Stage.FINISHED);
     }
 
+    public void createKeys(ObjectType objectType) throws Exception {
+        QueryRunner qr = new LoggingQueryRunner();
+        updateProgress(Stage.CREATE_PRIMARY_KEY);
+        // XXX why includeOneToMany is false here?
+        for (String sql: schemaSQLMapper.getCreatePrimaryKeyStatements(objectType, dialect, tablePrefix, false).collect(Collectors.toList())) {
+            qr.update(connection, sql);
+        }
+    }
+
+    public void createIndexes(ObjectType objectType) throws Exception {
+        QueryRunner qr = new LoggingQueryRunner();
+        updateProgress(Stage.CREATE_GEOMETRY_INDEX);
+        // XXX why includeOneToMany is false here?
+        for(String sql: schemaSQLMapper.getCreateGeometryIndexStatements(objectType, dialect, tablePrefix, false).collect(Collectors.toList())) {
+            qr.update(connection, sql);
+        }
+    }
+
     protected void closeBatches() {
-        progress.insertBatches.values().stream().forEach(QueryBatch::closeQuietly);
+        progress.insertBatches.values().forEach(QueryBatch::closeQuietly);
+        progress.arrayAttributeInsertBatches.values().forEach(QueryBatch::closeQuietly);
     }
 }

@@ -10,6 +10,7 @@ import org.locationtech.jts.geom.Geometry;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public interface SQLDialect {
@@ -50,4 +51,18 @@ public interface SQLDialect {
     }
 
     int getDefaultOptimalBatchSize();
+
+    /**
+     * Does not take into account schema, case or search path!
+     */
+    default boolean tableExists(Connection c, String name) throws SQLException {
+        try (ResultSet tables = c.getMetaData().getTables(null, null, null, new String[] {"TABLE"})) {
+            while (tables.next()) {
+                if (tables.getString("TABLE_NAME").equalsIgnoreCase(name)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }

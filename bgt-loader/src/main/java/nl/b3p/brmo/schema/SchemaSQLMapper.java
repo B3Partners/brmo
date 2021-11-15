@@ -7,7 +7,9 @@
 
 package nl.b3p.brmo.schema;
 
+import nl.b3p.brmo.schema.mapping.ArrayAttributeMapping;
 import nl.b3p.brmo.schema.mapping.AttributeColumnMapping;
+import nl.b3p.brmo.schema.mapping.ForeignKeyAttributeMapping;
 import nl.b3p.brmo.sql.dialect.SQLDialect;
 
 import java.util.ArrayList;
@@ -49,6 +51,10 @@ public abstract class SchemaSQLMapper {
         return tablePrefix + objectTypeNameToTableName.get(objectType.getName());
     }
 
+    public String getTableNameForArrayAttribute(ObjectType objectType, ArrayAttributeMapping arrayAttribute, String tablePrefix) {
+        return getTableNameForObjectType(objectType, tablePrefix) + "_" + arrayAttribute.getTableSuffix();
+    }
+
     public String getColumnNameForObjectType(ObjectType objectType, String attributeName) {
         attributeName = attributeName.toLowerCase();
         if (reservedWords.contains(attributeName)) {
@@ -60,7 +66,7 @@ public abstract class SchemaSQLMapper {
         if (i != -1) {
             attributeName = new StringBuilder(attributeName).replace(i, i + tableNameLower.length(), "").toString();
         }
-        return attributeName.replaceAll("\\-", "_");
+        return attributeName.replaceAll("-", "_");
     }
 
     public void printSchema(SQLDialect dialect, String tablePrefix, Predicate<ObjectType> objectTypeFilter) {
@@ -84,7 +90,7 @@ public abstract class SchemaSQLMapper {
         }
 
         System.out.printf("-- %s\n\n", getBundleString("schema.loader_metadata"));
-        System.out.println(getCreateMetadataTableStatements(dialect, tablePrefix).stream().collect(Collectors.joining(";\n")) + ";\n");
+        System.out.println(String.join(";\n", getCreateMetadataTableStatements(dialect, tablePrefix, true)) + ";\n");
 
         System.out.printf("-- %s %s\n\n", getBundleString("schema.primary_keys"), getBundleString("schema.after_initial_load"));
         String primaryKeys = tableNamesObjectTypes.values().stream()
@@ -100,21 +106,64 @@ public abstract class SchemaSQLMapper {
     }
 
     public Stream<String> getCreateTableStatements(ObjectType objectType, SQLDialect dialect, String tablePrefix) {
-        List<String> statements = new ArrayList<>();
+        return getCreateTableStatements(objectType, dialect, tablePrefix, true);
+    }
+
+    public Stream<String> getCreateTableStatements(ObjectType objectType, SQLDialect dialect, String tablePrefix, boolean dropIfExists) {
+
+        // Drop and create referencing tables first
+        List<String> statements = objectType.getAllAttributes().stream()
+                .filter(attribute -> attribute instanceof ArrayAttributeMapping)
+                .flatMap(arrayAttribute -> getArrayAttributeCreateTableStatements(objectType, (ArrayAttributeMapping) arrayAttribute, dialect, tablePrefix, dropIfExists))
+                .collect(Collectors.toList());
+
         String tableName = getTableNameForObjectType(objectType, tablePrefix);
-        if (dialect.supportsDropTableIfExists()) {
-            statements.add("drop table if exists " + tableName);
+        if (dropIfExists && dialect.supportsDropTableIfExists()) {
+            statements.add(String.format("drop table if exists %s cascade", tableName));
         }
         String columns = objectType.getDirectAttributes().stream()
+                .map(column -> {
+                    String referencing = "";
+                    if (column instanceof ForeignKeyAttributeMapping) {
+                        ForeignKeyAttributeMapping fkMapping = (ForeignKeyAttributeMapping) column;
+                        referencing = " references " + getTableNameForObjectType(getSchema().getObjectTypeByName(fkMapping.getReferencing()), tablePrefix);
+                    }
+                    return String.format("  %s %s%s%s",
+                            getColumnNameForObjectType(objectType, column.getName()),
+                            dialect.getType(column.getType()),
+                            column.isNotNull() ? " not null" : "",
+                            referencing);
+                })
+                .collect(Collectors.joining(",\n"));
+        statements.add(String.format("create table %s (\n%s\n)", tableName, columns));
+        statements.addAll(objectType.getOneToManyAttributeObjectTypes().stream()
+                .flatMap(oneToManyObjectType -> getCreateTableStatements(oneToManyObjectType, dialect, tablePrefix, dropIfExists))
+                .collect(Collectors.toList()));
+        return statements.stream();
+    }
+
+    public Stream<String> getArrayAttributeCreateTableStatements(ObjectType objectType, ArrayAttributeMapping arrayAttribute, SQLDialect dialect, String tablePrefix) {
+        return getArrayAttributeCreateTableStatements(objectType, arrayAttribute, dialect, tablePrefix, true);
+    }
+
+    public Stream<String> getArrayAttributeCreateTableStatements(ObjectType objectType, ArrayAttributeMapping arrayAttribute, SQLDialect dialect, String tablePrefix, boolean dropIfExists) {
+        List<String> statements = new ArrayList<>();
+        String tableName = getTableNameForArrayAttribute(objectType, arrayAttribute, tablePrefix);
+        if (dropIfExists && dialect.supportsDropTableIfExists()) {
+            statements.add("drop table if exists " + tableName + " cascade");
+        }
+        String columns = Stream.concat(
+                    objectType.getPrimaryKeys().stream(),
+                    Stream.of(arrayAttribute))
+                // Note that we can't immediately add "references table" here, because the primary key is added to the
+                // table later
                 .map(column -> String.format("  %s %s%s",
                         getColumnNameForObjectType(objectType, column.getName()),
                         dialect.getType(column.getType()),
                         column.isNotNull() ? " not null" : ""))
                 .collect(Collectors.joining(",\n"));
         statements.add(String.format("create table %s (\n%s\n)", tableName, columns));
-        statements.addAll(objectType.getOneToManyAttributeObjectTypes().stream()
-                .flatMap(oneToManyObjectType -> getCreateTableStatements(oneToManyObjectType, dialect, tablePrefix))
-                .collect(Collectors.toList()));
+        // Unordered list, no primary key
         return statements.stream();
     }
 
@@ -128,13 +177,28 @@ public abstract class SchemaSQLMapper {
                 .filter(AttributeColumnMapping::isPrimaryKey)
                 .map(column -> getColumnNameForObjectType(objectType, column.getName()))
                 .collect(Collectors.joining(", "));
-        String sql = String.format("alter table %s add constraint %s_pkey primary key(%s)",
-                tableName, tableName, columns);
-        return Stream.concat(
-                Stream.of(sql),
+        Stream<String> tablePrimaryKey;
+        if (columns.length() > 0) {
+            String sql = String.format("alter table %s add constraint %s_pkey primary key(%s)",
+                    tableName, tableName, columns);
+            tablePrimaryKey = Stream.of(sql);
+        } else {
+            tablePrimaryKey = Stream.empty();
+        }
+        return Stream.concat(Stream.concat(Stream.concat(
+                tablePrimaryKey,
                 includeOneToMany
                         ? objectType.getOneToManyAttributeObjectTypes().stream().flatMap(oneToManyObjectType -> getCreatePrimaryKeyStatements(oneToManyObjectType, dialect, tablePrefix))
-                        : Stream.empty()
+                        : Stream.empty()),
+                objectType.getArrayAttributes().stream().flatMap(arrayAttribute -> {
+                    // Create foreign key for array attribute table back to original table
+                    String arrayAttributeTableName = getTableNameForArrayAttribute(objectType, arrayAttribute, tablePrefix);
+                    String keyColumns = objectType.getPrimaryKeys().stream()
+                            .map(pk -> getColumnNameForObjectType(objectType, pk.getName()))
+                            .collect(Collectors.joining(", "));
+                    return Stream.of(String.format("alter table %s add constraint %s_ownedby_fkey foreign key (%s) references %s on delete cascade", arrayAttributeTableName, arrayAttributeTableName, keyColumns, tableName));
+                })),
+                objectType.getExtraDataDefinitionSQL().stream()
         );
     }
 
@@ -165,10 +229,10 @@ public abstract class SchemaSQLMapper {
         );
     }
 
-    public List<String> getCreateMetadataTableStatements(SQLDialect dialect, String tablePrefix) {
+    public List<String> getCreateMetadataTableStatements(SQLDialect dialect, String tablePrefix, boolean dropIfExists) {
         List<String> statements = new ArrayList<>();
         final String tableName = getMetadataTableName();
-        if (dialect.supportsDropTableIfExists()) {
+        if (dropIfExists && dialect.supportsDropTableIfExists()) {
             statements.add("drop table if exists " + tableName);
         }
         String sql = String.format("create table %s(\n  naam %s,\n  waarde %s,\n  primary key(naam)\n)",

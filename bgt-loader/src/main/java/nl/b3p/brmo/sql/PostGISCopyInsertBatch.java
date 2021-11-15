@@ -8,6 +8,8 @@ package nl.b3p.brmo.sql;
 
 import nl.b3p.brmo.sql.dialect.PostGISDialect;
 import nl.b3p.brmo.sql.dialect.SQLDialect;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.commons.text.StringEscapeUtils;
 import org.locationtech.jts.geom.Geometry;
 import org.postgresql.PGConnection;
@@ -23,6 +25,8 @@ import java.sql.SQLException;
  * slower.
  */
 public class PostGISCopyInsertBatch implements QueryBatch {
+    private static final Log LOG = LogFactory.getLog(PostGISCopyInsertBatch.class);
+
     protected Connection connection;
     protected String sql;
     protected PostGISDialect dialect;
@@ -99,7 +103,14 @@ public class PostGISCopyInsertBatch implements QueryBatch {
     public void executeBatch() throws Exception {
         if (count > 0) {
             if (buffer) {
+                if (LOG.isDebugEnabled()) {
+                    // To get the number of bytes this call is duplicated from writeToCopy()...
+                    int bytes = copyData.toString().getBytes(StandardCharsets.UTF_8).length;
+                    LOG.debug(String.format("execute buffered copy batch, %d bytes, %d rows, sql: %s", bytes, count, sql));
+                }
                 writeToCopy();
+            } else {
+                LOG.debug(String.format("execute copy batch, %d rows, sql: %s", count, sql));
             }
             copyIn.endCopy();
             lastCopyIn = copyIn;
