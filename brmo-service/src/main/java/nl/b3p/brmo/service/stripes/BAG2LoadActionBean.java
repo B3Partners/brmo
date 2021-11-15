@@ -40,9 +40,7 @@ public class BAG2LoadActionBean implements ActionBean {
     private static final String JSP = "/WEB-INF/jsp/bestand/bag2.jsp";
     private static final String JSP_LOAD = "/WEB-INF/jsp/bestand/bag2load.jsp";
 
-    //private String files = "https://service.pdok.nl/kadaster/adressen/atom/v1_0/downloads/lvbag-extract-nl.zip";
-    private String files = "https://extracten.bag.kadaster.nl/lvbag/extracten/Gemeente%20LVC/0344/BAGGEM0344L-15102021.zip\n" +
-            "https://extracten.bag.kadaster.nl/lvbag/extracten/Gemeente%20LVC/0310/BAGGEM0310L-15102021.zip\n";
+    private String files = "https://service.pdok.nl/kadaster/adressen/atom/v1_0/downloads/lvbag-extract-nl.zip";
 
     private DataSource rsgbbag;
     private Throwable namingException;
