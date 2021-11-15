@@ -53,6 +53,8 @@ public class BAG2ObjectTableWriter extends ObjectTableWriter {
 
         private BAG2GMLMutatieGroepStream.BagInfo bagInfo;
 
+        private BAG2ObjectType currentObjectType = null;
+
         public long getUpdatedCount() {
             return updatedCount;
         }
@@ -64,10 +66,15 @@ public class BAG2ObjectTableWriter extends ObjectTableWriter {
         public BAG2GMLMutatieGroepStream.BagInfo getMutatieInfo() {
             return bagInfo;
         }
+
+        public BAG2ObjectType getCurrentObjectType() {
+            return currentObjectType;
+        }
     }
 
     public BAG2ObjectTableWriter(Connection connection, SQLDialect dialect, SchemaSQLMapper schemaSQLMapper) {
         super(connection, dialect, schemaSQLMapper);
+        this.setProgress(this.new BAG2Progress());
     }
 
     public void setIgnoreDuplicates(boolean ignoreDuplicates) {
@@ -213,5 +220,17 @@ public class BAG2ObjectTableWriter extends ObjectTableWriter {
         }
         super.complete();
         super.closeBatches();
+    }
+
+    @Override
+    public void createKeys(ObjectType objectType) throws Exception {
+        this.getProgress().currentObjectType = (BAG2ObjectType) objectType;
+        super.createKeys(objectType);
+    }
+
+    @Override
+    public void createIndexes(ObjectType objectType) throws Exception {
+        this.getProgress().currentObjectType = (BAG2ObjectType) objectType;
+        super.createIndexes(objectType);
     }
 }

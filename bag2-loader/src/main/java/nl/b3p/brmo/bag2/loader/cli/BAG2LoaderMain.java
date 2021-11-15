@@ -10,6 +10,7 @@ package nl.b3p.brmo.bag2.loader.cli;
 import nl.b3p.brmo.bag2.loader.BAG2Database;
 import nl.b3p.brmo.bag2.loader.BAG2GMLMutatieGroepStream;
 import nl.b3p.brmo.bag2.loader.BAG2LoaderUtils;
+import nl.b3p.brmo.bag2.loader.BAG2ProgressReporter;
 import nl.b3p.brmo.bag2.schema.BAG2ObjectTableWriter;
 import nl.b3p.brmo.bag2.schema.BAG2ObjectType;
 import nl.b3p.brmo.bag2.schema.BAG2Schema;
@@ -99,21 +100,24 @@ public class BAG2LoaderMain implements IVersionProvider {
     public int load(
             @Mixin BAG2DatabaseOptions dbOptions,
             @Mixin BAG2LoadOptions loadOptions,
+            @Mixin BAG2ProgressOptions progressOptions,
             @Parameters(paramLabel = "<file>") String[] filenames,
             @Option(names={"-h","--help"}, usageHelp = true) boolean showHelp) throws Exception {
 
         log.info(BAG2LoaderUtils.getUserAgent());
 
-
         try(BAG2Database db = new BAG2Database(dbOptions)) {
-            loadFiles(db, dbOptions, loadOptions, filenames);
+
+            BAG2ProgressReporter progressReporter = progressOptions.isConsoleProgressEnabled()
+                    ? new BAG2ConsoleProgressReporter()
+                    : new BAG2ProgressReporter();
+
+            loadFiles(db, dbOptions, loadOptions, progressReporter, filenames);
             return ExitCode.OK;
         }
     }
 
-    public void loadFiles(BAG2Database db, BAG2DatabaseOptions dbOptions, BAG2LoadOptions loadOptions, String[] filenames) throws Exception {
-        Instant start = Instant.now();
-
+    public void loadFiles(BAG2Database db, BAG2DatabaseOptions dbOptions, BAG2LoadOptions loadOptions, BAG2ProgressReporter progressReporter, String[] filenames) throws Exception {
         try {
             if (db.getDialect() instanceof PostGISDialect) {
                 new QueryRunner().update(db.getConnection(), "create schema if not exists bag");
@@ -135,11 +139,11 @@ public class BAG2LoaderMain implements IVersionProvider {
                 BAG2GMLMutatieGroepStream.BagInfo latestBagInfo;
                 if (filename.startsWith("http://") || filename.startsWith("https://")) {
                     try (InputStream in = new ResumingInputStream(new HttpStartRangeInputStreamProvider(new URI(filename)))) {
-                        latestBagInfo = loadBAG2ExtractFromStream(db, loadOptions, dbOptions, filename, in);
+                        latestBagInfo = loadBAG2ExtractFromStream(db, loadOptions, dbOptions, progressReporter, filename, in);
                     }
                 } else if (filename.endsWith(".zip")) {
                     try (InputStream in = new FileInputStream(filename)) {
-                        latestBagInfo = loadBAG2ExtractFromStream(db, loadOptions, dbOptions, filename, in);
+                        latestBagInfo = loadBAG2ExtractFromStream(db, loadOptions, dbOptions, progressReporter, filename, in);
                     }
                 } else {
                     throw new IllegalArgumentException(getMessageFormattedString("load.invalid_file", filename));
@@ -160,29 +164,29 @@ public class BAG2LoaderMain implements IVersionProvider {
                 }
                 lastFilename = filename;
             }
-            completeAll(db, loadOptions, dbOptions);
+            completeAll(db, loadOptions, dbOptions, progressReporter);
 
             updateMetadata(db, loadOptions, bagInfo.getMutatieDatumVanaf() == null, gemeenteIdentificaties, bagInfo.getStandTechnischeDatum());
 
             db.getConnection().commit();
         } finally {
-            log.info("Total time: " + formatTimeSince(start));
+            progressReporter.reportTotalSummary();
         }
     }
 
-    private BAG2GMLMutatieGroepStream.BagInfo loadBAG2ExtractFromStream(BAG2Database db, BAG2LoadOptions loadOptions, BAG2DatabaseOptions dbOptions, String name, InputStream input) throws Exception {
+    private BAG2GMLMutatieGroepStream.BagInfo loadBAG2ExtractFromStream(BAG2Database db, BAG2LoadOptions loadOptions, BAG2DatabaseOptions dbOptions, BAG2ProgressReporter progressReporter, String name, InputStream input) throws Exception {
         BAG2GMLMutatieGroepStream.BagInfo bagInfo = null;
         try (ZipArchiveInputStream zip = new ZipArchiveInputStream(input)) {
             ZipArchiveEntry entry = zip.getNextZipEntry();
             while(entry != null) {
                 if (entry.getName().matches("[0-9]{4}(STA|VBO|OPR|NUM|LIG|PND|WPL).*\\.xml")) {
                     // Load extracted zipfile
-                    bagInfo = loadXmlEntriesFromZipFile(db, loadOptions, dbOptions, name, zip, entry);
+                    bagInfo = loadXmlEntriesFromZipFile(db, loadOptions, dbOptions, progressReporter, name, zip, entry);
                     break;
                 }
 
                 if (entry.getName().matches("[0-9]{4}GEM[0-9]{8}\\.zip")) {
-                    return loadBAG2ExtractFromStream(db, loadOptions, dbOptions, name, zip);
+                    return loadBAG2ExtractFromStream(db, loadOptions, dbOptions, progressReporter, name, zip);
                 }
 
                 // Process single and double-nested ZIP files
@@ -190,7 +194,7 @@ public class BAG2LoaderMain implements IVersionProvider {
                 if (entry.getName().matches("[0-9]{4}(STA|VBO|OPR|NUM|LIG|PND|WPL).*\\.zip")
                 || entry.getName().matches("[0-9]{4}MUT[0-9]{8}-[0-9]{8}\\.zip")) {
                     ZipArchiveInputStream nestedZip = new ZipArchiveInputStream(zip);
-                    bagInfo = loadXmlEntriesFromZipFile(db, loadOptions, dbOptions, entry.getName(), nestedZip, nestedZip.getNextZipEntry());
+                    bagInfo = loadXmlEntriesFromZipFile(db, loadOptions, dbOptions, progressReporter, entry.getName(), nestedZip, nestedZip.getNextZipEntry());
                 }
 
                 if (entry.getName().matches("[0-9]{4}Inactief.*\\.zip")) {
@@ -199,7 +203,7 @@ public class BAG2LoaderMain implements IVersionProvider {
                     while(nestedEntry != null) {
                         if (nestedEntry.getName().matches("[0-9]{4}IA.*\\.zip")) {
                             ZipArchiveInputStream moreNestedZip = new ZipArchiveInputStream(nestedZip);
-                            bagInfo = loadXmlEntriesFromZipFile(db,  loadOptions, dbOptions,nestedEntry.getName(), moreNestedZip, moreNestedZip.getNextZipEntry());
+                            bagInfo = loadXmlEntriesFromZipFile(db,  loadOptions, dbOptions, progressReporter, nestedEntry.getName(), moreNestedZip, moreNestedZip.getNextZipEntry());
                         }
                         nestedEntry = nestedZip.getNextZipEntry();
                     }
@@ -241,14 +245,12 @@ public class BAG2LoaderMain implements IVersionProvider {
         }
     }
 
-    private void completeAll(BAG2Database db, BAG2LoadOptions loadOptions, BAG2DatabaseOptions databaseOptions) throws Exception {
+    private void completeAll(BAG2Database db, BAG2LoadOptions loadOptions, BAG2DatabaseOptions databaseOptions, BAG2ProgressReporter progressReporter) throws Exception {
         BAG2ObjectTableWriter writer = db.createObjectTableWriter(loadOptions, databaseOptions);
+        writer.setProgressUpdater(progressReporter);
         for(BAG2ObjectType objectType: objectTypesWithSchemaCreated) {
-            Instant start = Instant.now();
-            System.out.print("\r" + objectType.getName() + ": creating keys, indexes and views...");
             writer.createKeys(objectType); // BAG2 writer is always a single ObjectType unlike BGT
             writer.createIndexes(objectType);
-            System.out.println(" " + formatTimeSince(start));
         }
     }
 
@@ -272,11 +274,12 @@ public class BAG2LoaderMain implements IVersionProvider {
         db.setMetadataValue(CURRENT_TECHNISCHE_DATUM, df.format(standTechnischeDatum));
     }
 
-    private BAG2GMLMutatieGroepStream.BagInfo loadXmlEntriesFromZipFile(BAG2Database db, BAG2LoadOptions loadOptions, BAG2DatabaseOptions databaseOptions, String name, ZipArchiveInputStream zip, ZipArchiveEntry entry) throws Exception {
+    private BAG2GMLMutatieGroepStream.BagInfo loadXmlEntriesFromZipFile(BAG2Database db, BAG2LoadOptions loadOptions, BAG2DatabaseOptions databaseOptions, BAG2ProgressReporter progressReporter, String name, ZipArchiveInputStream zip, ZipArchiveEntry entry) throws Exception {
         BAG2ObjectType objectType = getObjectTypeFromFilename(name);
         // objectType is null for mutaties, which contain mixed object types instead of a single object type with stand
         boolean schemaCreated = objectType == null || objectTypesWithSchemaCreated.contains(objectType);
         BAG2ObjectTableWriter writer = db.createObjectTableWriter(loadOptions, databaseOptions);
+        writer.setProgressUpdater(progressReporter);
         writer.setCreateSchema(!schemaCreated);
         writer.setCreateKeysAndIndexes(false);
         writer.setKeysPerObjectType(keysPerObjectType);
@@ -289,27 +292,22 @@ public class BAG2LoaderMain implements IVersionProvider {
             // Disable multithreading so deletion of previous versions and new inserts are processed sequentially
             writer.setMultithreading(false);
         }
+        progressReporter.startNewFile(name);
         try {
-            int files = 0;
-            Instant start = Instant.now();
-
             while(entry != null) {
-                System.out.print("\r" + name + ": " + entry.getName());
+                progressReporter.startNextSplitFile(entry.getName());
                 writer.write(CloseShieldInputStream.wrap(zip));
-                files++;
                 if (loadOptions.getMaxObjects() != null && writer.getProgress().getObjectCount() == loadOptions.getMaxObjects()) {
                     break;
                 }
                 entry = zip.getNextZipEntry();
             }
             writer.complete();
-            System.out.print("\r");
 
             if (writer.getProgress().getObjectCount() > 0 && objectType != null) {
                 objectTypesWithSchemaCreated.add(objectType);
             }
 
-            log.info(String.format("%s: loaded %,d files, %,d total objects in %s", name, files, writer.getProgress().getObjectCount(), formatTimeSince(start)));
             return writer.getProgress().getMutatieInfo();
         } catch(Exception e) {
             writer.abortWorkerThread();

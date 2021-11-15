@@ -14,6 +14,7 @@ import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.Resolution;
 import nl.b3p.brmo.bag2.loader.BAG2Database;
+import nl.b3p.brmo.bag2.loader.BAG2ProgressReporter;
 import nl.b3p.brmo.bag2.loader.cli.BAG2DatabaseOptions;
 import nl.b3p.brmo.bag2.loader.cli.BAG2LoadOptions;
 import nl.b3p.brmo.bag2.loader.cli.BAG2LoaderMain;
@@ -259,7 +260,7 @@ public class BAG2LoadActionBean implements ActionBean {
             BAG2LoaderMain.configureLogging(false);
             BAG2LoaderMain main = new BAG2LoaderMain();
             BAG2LoadOptions loadOptions = new BAG2LoadOptions();
-            main.loadFiles(bag2Database, databaseOptions, loadOptions, Arrays.stream(files.split("\n")).map(String::trim).toArray(String[]::new));
+            main.loadFiles(bag2Database, databaseOptions, loadOptions, new BAG2ProgressReporter(), Arrays.stream(files.split("\n")).map(String::trim).toArray(String[]::new));
             this.loadResult = true;
         } catch(Exception e) {
             this.loadResult = false;
