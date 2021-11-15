@@ -12,6 +12,7 @@ import javax.persistence.DiscriminatorType;
 import javax.persistence.ElementCollection;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -59,7 +60,7 @@ public abstract class AutomatischProces implements Serializable {
     /**
      * @note Tabel "automatisch_proces_config" in de database.
      */
-    @ElementCollection
+    @ElementCollection(fetch= FetchType.EAGER)
     @JoinTable(joinColumns = @JoinColumn(name = "proces_id"))
     @MapKeyJoinColumn
     // Element wrapper required because of https://hibernate.atlassian.net/browse/JPA-11
