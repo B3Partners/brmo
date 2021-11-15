@@ -6,9 +6,10 @@ MINOR="${NEXTRELEASE##*.}"
 PREVMINOR=$(($MINOR-1))
 PREVRELEASE=$MAJOR.$PREVMINOR
 
-if [ $CURSNAPSHOT = "2.1.0-SNAPSHOT" ]
+if [ $CURSNAPSHOT = "2.2.0-SNAPSHOT" ]
 then
-    PREVRELEASE="2.0.3"
+    PREVRELEASE="2.1.0"
+    NEXTRELEASE="2.2.0-rc1"
 fi
 
 echo "Huidige snapshot:" $CURSNAPSHOT", vorige release: "$PREVRELEASE", komende release: "$NEXTRELEASE
