@@ -164,9 +164,11 @@ public class BAG2LoaderMain implements IVersionProvider {
                 }
                 lastFilename = filename;
             }
-            completeAll(db, loadOptions, dbOptions, progressReporter);
+            if (bagInfo != null) {
+                completeAll(db, loadOptions, dbOptions, progressReporter);
 
-            updateMetadata(db, loadOptions, bagInfo.getMutatieDatumVanaf() == null, gemeenteIdentificaties, bagInfo.getStandTechnischeDatum());
+                updateMetadata(db, loadOptions, bagInfo.getMutatieDatumVanaf() == null, gemeenteIdentificaties, bagInfo.getStandTechnischeDatum());
+            }
 
             db.getConnection().commit();
         } finally {
