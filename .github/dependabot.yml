@@ -73,3 +73,20 @@ updates:
     - matthijsln
   labels:
     - bouw- en testinfrastuctuur
+
+
+- package-ecosystem: docker
+  directory: "/bag2-loader/"
+  schedule:
+    interval: weekly
+    day: saturday
+    time: "21:10"
+    timezone: Europe/Amsterdam
+  open-pull-requests-limit: 25
+  target-branch: master
+  reviewers:
+    - matthijsln
+  assignees:
+    - matthijsln
+  labels:
+    - bouw- en testinfrastuctuur
