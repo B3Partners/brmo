@@ -95,6 +95,10 @@ SPDX-License-Identifier: MIT
             <groupId>nl.b3p</groupId>
             <artifactId>bgt-loader</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
