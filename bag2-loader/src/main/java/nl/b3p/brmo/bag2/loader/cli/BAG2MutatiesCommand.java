@@ -141,7 +141,7 @@ public class BAG2MutatiesCommand {
         HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
         if (response.statusCode() != 302) {
-            throw new IllegalArgumentException(String.format("Error logging in to Mijn Kadaster with user \"%s\"", username));
+            throw new IllegalArgumentException(String.format("Fout bij inloggen op Mijn Kadaster met gebruikersnaam \"%s\"", username));
         }
 
         Map<String,List<String>> cookies = cookieManager.get(URI.create(KADASTER_LOGIN_URL), new HashMap<>());
@@ -150,7 +150,7 @@ public class BAG2MutatiesCommand {
                 .stream().filter(c -> c.startsWith("KadasterTicketId=")).findFirst();
 
         if (kadasterTicketIdCookie.isEmpty()) {
-            throw new IllegalArgumentException("Did not receive KadasterTicketId cookie in response");
+            throw new IllegalArgumentException("Geen KadasterTicketId cookie ontvangen na inloggen");
         }
     }
 
