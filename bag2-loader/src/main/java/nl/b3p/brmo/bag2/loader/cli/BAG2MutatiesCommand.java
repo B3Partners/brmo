@@ -7,6 +7,9 @@
 
 package nl.b3p.brmo.bag2.loader.cli;
 
+import nl.b3p.brmo.bag2.loader.BAG2Database;
+import nl.b3p.brmo.bag2.loader.BAG2LoaderUtils;
+import nl.b3p.brmo.bag2.loader.BAG2ProgressReporter;
 import nl.b3p.brmo.util.ResumingInputStream;
 import nl.b3p.brmo.util.http.HttpStartRangeInputStreamProvider;
 import nl.b3p.brmo.util.http.wrapper.Java11HttpClientWrapper;
@@ -15,6 +18,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import picocli.CommandLine.ParentCommand;
+import picocli.CommandLine.Mixin;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.ExitCode;
 import picocli.CommandLine.Option;
@@ -50,6 +55,9 @@ import static org.apache.commons.io.FileUtils.byteCountToDisplaySize;
 public class BAG2MutatiesCommand {
     private static final Log log = LogFactory.getLog(BAG2MutatiesCommand.class);
 
+    @ParentCommand
+    private BAG2LoaderMain parent;
+
     private static final String KADASTER_LOGIN_URL = "https://mijn.kadaster.nl/security/login.do";
 
     // Artikelnummer 2529 is dagmutaties (https://www.kadaster.nl/-/handleiding-soap-service-bag-2.0-extract)
@@ -62,9 +70,11 @@ public class BAG2MutatiesCommand {
             @Option(names="--kadaster-password") String kadasterPassword,
             @Option(names="--url", defaultValue = LVBAG_BESTANDEN_API_URL) String url,
             @Option(names="--query-params", defaultValue = "artikelnummers=2529") String queryParams,
-            @Option(names="--path", defaultValue = "") String downloadPath
+            @Option(names="--path", defaultValue = "") String downloadPath,
+            @Option(names={"-h","--help"}, usageHelp = true) boolean showHelp
             ) throws Exception {
 
+        log.info(BAG2LoaderUtils.getUserAgent());
         Instant start = Instant.now();
 
         CookieManager kadasterCookieManager = new CookieManager(null, CookiePolicy.ACCEPT_ALL);
@@ -118,6 +128,47 @@ public class BAG2MutatiesCommand {
         }
 
         return ExitCode.OK;
+    }
+
+    @Command(name="apply", sortOptions = false)
+    public int download(
+            @Mixin BAG2DatabaseOptions dbOptions,
+            @Mixin BAG2ProgressOptions progressOptions,
+            @Option(names="--kadaster-user") String kadasterUser,
+            @Option(names="--kadaster-password") String kadasterPassword,
+            @Option(names="--url", defaultValue = LVBAG_BESTANDEN_API_URL) String url,
+            @Option(names="--query-params", defaultValue = "artikelnummers=2529") String queryParams,
+            @Option(names={"-h","--help"}, usageHelp = true) boolean showHelp
+    ) throws Exception {
+
+        log.info(BAG2LoaderUtils.getUserAgent());
+
+        CookieManager kadasterCookieManager = null;
+        if (kadasterUser != null && kadasterPassword != null) {
+            kadasterCookieManager = new CookieManager(null, CookiePolicy.ACCEPT_ALL);
+            mijnKadasterLogin(kadasterUser, kadasterPassword, kadasterCookieManager);
+        }
+
+        JSONArray afgiftes = getBagAfgiftes(url, queryParams, kadasterCookieManager);
+
+        log.info("Aantal afgiftes: " + afgiftes.length());
+
+        List<String> names = new ArrayList<>();
+        List<String> urls = new ArrayList<>();
+        for(int i = 0; i < afgiftes.length(); i++) {
+            JSONObject afgifte = afgiftes.getJSONObject(i);
+            names.add(afgifte.getString("naam"));
+            urls.add(afgifte.getString("url"));
+        }
+
+        try(BAG2Database db = new BAG2Database(dbOptions)) {
+            BAG2ProgressReporter progressReporter = progressOptions.isConsoleProgressEnabled()
+                    ? new BAG2ConsoleProgressReporter()
+                    : new BAG2ProgressReporter();
+
+            parent.applyMutaties(db, dbOptions, new BAG2LoadOptions(), progressReporter, names.toArray(String[]::new), urls.toArray(String[]::new), kadasterCookieManager);
+            return ExitCode.OK;
+        }
     }
 
     private static void mijnKadasterLogin(String username, String password, CookieManager cookieManager) throws IOException, InterruptedException {
