@@ -33,7 +33,6 @@ import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -47,7 +46,6 @@ import java.util.stream.Stream;
 
 import static nl.b3p.brmo.bgt.loader.Utils.formatTimeSince;
 import static org.apache.commons.io.FileUtils.byteCountToDisplaySize;
-import static org.apache.commons.io.FileUtils.streamFiles;
 
 @Command(name = "mutaties", mixinStandardHelpOptions = true)
 public class BAG2MutatiesCommand {
@@ -66,45 +64,15 @@ public class BAG2MutatiesCommand {
             @Option(names="--url", defaultValue = LVBAG_BESTANDEN_API_URL) String url,
             @Option(names="--query-params", defaultValue = "artikelnummers=2529") String queryParams,
             @Option(names="--path", defaultValue = "") String downloadPath
-            ) throws IOException, InterruptedException {
+            ) throws Exception {
 
         Instant start = Instant.now();
 
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create(KADASTER_LOGIN_URL))
-                .header("Content-Type", "application/x-www-form-urlencoded")
-                .POST(HttpRequest.BodyPublishers.ofString(String.format(
-                        "user=%s&password=%s",
-                        URLEncoder.encode(kadasterUser, StandardCharsets.UTF_8),
-                        URLEncoder.encode(kadasterPassword, StandardCharsets.UTF_8))))
-                .build();
+        CookieManager kadasterCookieManager = new CookieManager(null, CookiePolicy.ACCEPT_ALL);
+        mijnKadasterLogin(kadasterUser, kadasterPassword, kadasterCookieManager);
 
-        HttpClient httpClient = HttpClient.newBuilder()
-                .cookieHandler(new CookieManager(null, CookiePolicy.ACCEPT_ALL))
-                .build();
+        JSONArray afgiftes = getBagAfgiftes(url, queryParams, kadasterCookieManager);
 
-        HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-
-        if (response.statusCode() != 302) {
-            log.error(String.format("Error logging in to Mijn Kadaster with user \"%s\"\n", kadasterUser));
-            return ExitCode.SOFTWARE;
-        }
-
-        Map<String,List<String>> cookies = httpClient.cookieHandler().get().get(URI.create(LVBAG_BESTANDEN_API_URL), new HashMap<>());
-
-        Optional<String> kadasterTicketIdCookie = cookies.getOrDefault("Cookie", (List<String>)Collections.EMPTY_LIST)
-                .stream().filter(c -> c.startsWith("KadasterTicketId=")).findFirst();
-
-        if (kadasterTicketIdCookie.isEmpty()) {
-            log.error("Did not receive KadasterTicketId cookie in response");
-            return ExitCode.SOFTWARE;
-        }
-
-        url = url + queryParams;
-        log.info("Opvragen afgiftes vanaf URL " + url);
-        request = HttpRequest.newBuilder().uri(URI.create(url)).build();
-        response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-
-        JSONArray afgiftes = new JSONArray(response.body());
         log.info("Aantal afgiftes: " + afgiftes.length());
 
         List<JSONObject> toDownload = new ArrayList<>();
@@ -126,6 +94,10 @@ public class BAG2MutatiesCommand {
                 Path.of("").toAbsolutePath(),
                 toDownload.size(),
                 byteCountToDisplaySize(totalBytes)));
+
+        HttpClient httpClient = HttpClient.newBuilder()
+                .cookieHandler(kadasterCookieManager)
+                .build();
 
         int count = 0;
         long bytesRead = 0;
@@ -151,6 +123,53 @@ public class BAG2MutatiesCommand {
         }
 
         return ExitCode.OK;
+    }
+
+    private static void mijnKadasterLogin(String username, String password, CookieManager cookieManager) throws IOException, InterruptedException {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create(KADASTER_LOGIN_URL))
+                .header("Content-Type", "application/x-www-form-urlencoded")
+                .POST(HttpRequest.BodyPublishers.ofString(String.format(
+                        "user=%s&password=%s",
+                        URLEncoder.encode(username, StandardCharsets.UTF_8),
+                        URLEncoder.encode(password, StandardCharsets.UTF_8))))
+                .build();
+
+        HttpClient httpClient = HttpClient.newBuilder()
+                .cookieHandler(cookieManager)
+                .build();
+
+        HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+
+        if (response.statusCode() != 302) {
+            throw new IllegalArgumentException(String.format("Error logging in to Mijn Kadaster with user \"%s\"", username));
+        }
+
+        Map<String,List<String>> cookies = httpClient.cookieHandler().get().get(URI.create(KADASTER_LOGIN_URL), new HashMap<>());
+
+        Optional<String> kadasterTicketIdCookie = cookies.getOrDefault("Cookie", (List<String>)Collections.EMPTY_LIST)
+                .stream().filter(c -> c.startsWith("KadasterTicketId=")).findFirst();
+
+        if (kadasterTicketIdCookie.isEmpty()) {
+            throw new IllegalArgumentException("Did not receive KadasterTicketId cookie in response");
+        }
+    }
+
+    private static JSONArray getBagAfgiftes(String url, String queryParams, CookieManager kadasterCookieManager) throws Exception {
+        url = url + queryParams;
+        log.info("Opvragen afgiftes vanaf URL " + url);
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url)).build();
+        HttpClient httpClient = HttpClient.newBuilder()
+                .cookieHandler(kadasterCookieManager)
+                .build();
+        HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+
+        JSONArray afgiftes = null;
+        try {
+            afgiftes = new JSONArray(response.body());
+        } catch(Exception e) {
+            throw new Exception("Fout bij parsen BAG bestanden JSON, body: " + response.body(), e);
+        }
+        return afgiftes;
     }
 
     private static void deleteZipFilesNotInAfgiftes(String downloadPath, JSONArray afgiftes) throws IOException {
