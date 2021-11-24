@@ -258,7 +258,7 @@ public class BAG2LoadActionBean implements ActionBean {
             BAG2LoaderMain.configureLogging(false);
             BAG2LoaderMain main = new BAG2LoaderMain();
             BAG2LoadOptions loadOptions = new BAG2LoadOptions();
-            main.loadFiles(bag2Database, databaseOptions, loadOptions, new BAG2ProgressReporter(), Arrays.stream(files.split("\n")).map(String::trim).toArray(String[]::new));
+            main.loadFiles(bag2Database, databaseOptions, loadOptions, new BAG2ProgressReporter(), Arrays.stream(files.split("\n")).map(String::trim).toArray(String[]::new), null);
             this.loadResult = true;
         } catch(Exception e) {
             this.loadResult = false;
