@@ -35,7 +35,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -95,10 +94,6 @@ public class BAG2MutatiesCommand {
                 toDownload.size(),
                 byteCountToDisplaySize(totalBytes)));
 
-        HttpClient httpClient = HttpClient.newBuilder()
-                .cookieHandler(kadasterCookieManager)
-                .build();
-
         int count = 0;
         long bytesRead = 0;
         for(JSONObject afgifte: toDownload) {
@@ -114,7 +109,7 @@ public class BAG2MutatiesCommand {
                     (100.0 / totalBytes) * bytesRead,
                     name));
             try(OutputStream out = new FileOutputStream(Path.of(downloadPath, name).toFile())) {
-                IOUtils.copy(input, out);
+                IOUtils.copyLarge(input, out);
             }
             bytesRead += afgifte.getLong("grootte");
         }
