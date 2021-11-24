@@ -106,7 +106,7 @@ public class BAG2MutatiesCommand {
             String name = afgifte.getString("naam");
 
             ResumingInputStream input = new ResumingInputStream(new HttpStartRangeInputStreamProvider(URI.create(url),
-                    new Java11HttpClientWrapper(HttpClient.newBuilder().cookieHandler(httpClient.cookieHandler().get()))));
+                    new Java11HttpClientWrapper(HttpClient.newBuilder().cookieHandler(kadasterCookieManager))));
 
             log.info(String.format("Afgifte %2d/%d (%.1f%%): downloaden %s...",
                     ++count,
@@ -144,9 +144,9 @@ public class BAG2MutatiesCommand {
             throw new IllegalArgumentException(String.format("Error logging in to Mijn Kadaster with user \"%s\"", username));
         }
 
-        Map<String,List<String>> cookies = httpClient.cookieHandler().get().get(URI.create(KADASTER_LOGIN_URL), new HashMap<>());
+        Map<String,List<String>> cookies = cookieManager.get(URI.create(KADASTER_LOGIN_URL), new HashMap<>());
 
-        Optional<String> kadasterTicketIdCookie = cookies.getOrDefault("Cookie", (List<String>)Collections.EMPTY_LIST)
+        Optional<String> kadasterTicketIdCookie = cookies.getOrDefault("Cookie", List.of())
                 .stream().filter(c -> c.startsWith("KadasterTicketId=")).findFirst();
 
         if (kadasterTicketIdCookie.isEmpty()) {
@@ -163,7 +163,7 @@ public class BAG2MutatiesCommand {
                 .build();
         HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
-        JSONArray afgiftes = null;
+        JSONArray afgiftes;
         try {
             afgiftes = new JSONArray(response.body());
         } catch(Exception e) {
