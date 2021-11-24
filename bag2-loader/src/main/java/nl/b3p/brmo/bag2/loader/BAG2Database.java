@@ -16,6 +16,7 @@ import nl.b3p.brmo.sql.dialect.MSSQLDialect;
 import nl.b3p.brmo.sql.dialect.OracleDialect;
 import nl.b3p.brmo.sql.dialect.PostGISDialect;
 import nl.b3p.brmo.sql.dialect.SQLDialect;
+import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -24,6 +25,11 @@ import java.sql.Clob;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static nl.b3p.brmo.bag2.loader.BAG2LoaderUtils.getBundleString;
 import static nl.b3p.brmo.bag2.loader.BAG2LoaderUtils.getMessageFormattedString;
@@ -90,7 +96,13 @@ public class BAG2Database implements AutoCloseable {
             throw new RuntimeException("New connection required but supplied connection is null or closed");
         }
         try {
-            return DriverManager.getConnection(dbOptions.getConnectionString(), dbOptions.getUser(), dbOptions.getPassword());
+            Connection c =  DriverManager.getConnection(dbOptions.getConnectionString(), dbOptions.getUser(), dbOptions.getPassword());
+
+            if (dialect instanceof PostGISDialect) {
+                new QueryRunner().update(c, "create schema if not exists bag");
+                new QueryRunner().update(c, "set search_path=bag,public");
+            }
+            return c;
         } catch (SQLException e) {
             throw new RuntimeException(getMessageFormattedString("db.connection_error", dbOptions.getConnectionString()), e);
         }
@@ -163,5 +175,21 @@ public class BAG2Database implements AutoCloseable {
         } catch (SQLException e) {
             throw new Exception(getMessageFormattedString("db.metadata_error", key.getDbKey(), value, e.getMessage()), e);
         }
+    }
+
+    public LocalDate getCurrentTechnischeDatum() throws SQLException {
+        String s = getMetadata(BAG2SchemaMapper.Metadata.CURRENT_TECHNISCHE_DATUM);
+        if (s == null) {
+            throw new IllegalStateException("Geen huidige BAG2 stand ingeladen");
+        }
+        return LocalDate.parse(s, DateTimeFormatter.ISO_LOCAL_DATE);
+    }
+
+    public Set<String> getGemeenteCodes() throws SQLException {
+        String s = getMetadata(BAG2SchemaMapper.Metadata.GEMEENTE_CODES);
+        if (s == null) {
+            throw new IllegalStateException("Geen huidige BAG2 stand voor gemeentes ingeladen");
+        }
+        return Arrays.stream(s.split(",")).collect(Collectors.toSet());
     }
 }

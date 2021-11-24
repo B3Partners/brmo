@@ -15,12 +15,12 @@ import nl.b3p.brmo.bag2.schema.BAG2ObjectTableWriter;
 import nl.b3p.brmo.bag2.schema.BAG2ObjectType;
 import nl.b3p.brmo.bag2.schema.BAG2Schema;
 import nl.b3p.brmo.bag2.schema.BAG2SchemaMapper;
-import nl.b3p.brmo.sql.dialect.PostGISDialect;
 import nl.b3p.brmo.util.ResumingInputStream;
+import nl.b3p.brmo.util.http.HttpClientWrapper;
 import nl.b3p.brmo.util.http.HttpStartRangeInputStreamProvider;
+import nl.b3p.brmo.util.http.wrapper.Java11HttpClientWrapper;
 import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
 import org.apache.commons.compress.archivers.zip.ZipArchiveInputStream;
-import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.io.input.CloseShieldInputStream;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.logging.Log;
@@ -38,10 +38,13 @@ import picocli.CommandLine.Parameters;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.CookieManager;
 import java.net.URI;
-import java.sql.ResultSet;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -49,7 +52,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 import static nl.b3p.brmo.bag2.schema.BAG2SchemaMapper.METADATA_TABLE_NAME;
 import static nl.b3p.brmo.bag2.schema.BAG2SchemaMapper.Metadata.CURRENT_TECHNISCHE_DATUM;
@@ -57,7 +59,6 @@ import static nl.b3p.brmo.bag2.schema.BAG2SchemaMapper.Metadata.FILTER_MUTATIES_
 import static nl.b3p.brmo.bag2.schema.BAG2SchemaMapper.Metadata.GEMEENTE_CODES;
 import static nl.b3p.brmo.bag2.schema.BAG2SchemaMapper.Metadata.STAND_LOAD_TECHNISCHE_DATUM;
 import static nl.b3p.brmo.bag2.schema.BAG2SchemaMapper.Metadata.STAND_LOAD_TIME;
-import static nl.b3p.brmo.bgt.loader.Utils.formatTimeSince;
 import static nl.b3p.brmo.bgt.loader.Utils.getMessageFormattedString;
 
 @Command(name = "bag2-loader", mixinStandardHelpOptions = true, versionProvider = BAG2LoaderMain.class,
@@ -96,6 +97,14 @@ public class BAG2LoaderMain implements IVersionProvider {
         System.exit(cmd.execute(args));
     }
 
+    @Override
+    public String[] getVersion() {
+        return new String[] {
+                BAG2LoaderUtils.getLoaderVersion(),
+                BAG2LoaderUtils.getUserAgent()
+        };
+    }
+
     @Command(name = "load", sortOptions = false)
     public int load(
             @Mixin BAG2DatabaseOptions dbOptions,
@@ -107,23 +116,48 @@ public class BAG2LoaderMain implements IVersionProvider {
         log.info(BAG2LoaderUtils.getUserAgent());
 
         try(BAG2Database db = new BAG2Database(dbOptions)) {
-
             BAG2ProgressReporter progressReporter = progressOptions.isConsoleProgressEnabled()
                     ? new BAG2ConsoleProgressReporter()
                     : new BAG2ProgressReporter();
 
-            loadFiles(db, dbOptions, loadOptions, progressReporter, filenames);
+            loadFiles(db, dbOptions, loadOptions, progressReporter, filenames, null);
             return ExitCode.OK;
         }
     }
 
-    public void loadFiles(BAG2Database db, BAG2DatabaseOptions dbOptions, BAG2LoadOptions loadOptions, BAG2ProgressReporter progressReporter, String[] filenames) throws Exception {
-        try {
-            if (db.getDialect() instanceof PostGISDialect) {
-                new QueryRunner().update(db.getConnection(), "create schema if not exists bag");
-                new QueryRunner().update(db.getConnection(), "set search_path=bag,public");
+    public void loadFiles(BAG2Database db, BAG2DatabaseOptions dbOptions, BAG2LoadOptions loadOptions, BAG2ProgressReporter progressReporter, String[] filenames, CookieManager cookieManager) throws Exception {
+        BAG2LoaderUtils.BAG2FileName bag2FileName = BAG2LoaderUtils.analyzeBAG2FileName(filenames[0]);
+
+        if (bag2FileName.isStand()) {
+
+            if (!bag2FileName.isGemeente()) {
+                if (filenames.length > 1) {
+                    throw new IllegalArgumentException("Inladen stand heel Nederland: teveel bestanden opgegeven");
+                }
+            } else {
+                // Verify all filenames are gemeentestanden
+                Set<String> gemeenteCodes = new HashSet<>();
+                for (int i = 1; i < filenames.length; i++) {
+                    BAG2LoaderUtils.BAG2FileName nextBag2FileName = BAG2LoaderUtils.analyzeBAG2FileName(filenames[i]);
+                    if (!nextBag2FileName.isStand() || !nextBag2FileName.isGemeente() || gemeenteCodes.contains(nextBag2FileName.getGemeenteCode())) {
+                        throw new IllegalArgumentException("Inladen stand gemeentes, ongeldig bestand opgegeven: " + filenames[i]);
+                    }
+                    gemeenteCodes.add(nextBag2FileName.getGemeenteCode());
+                }
             }
 
+            loadStandFiles(db, dbOptions, loadOptions, progressReporter, filenames, cookieManager);
+        } else {
+            // Process mutaties while ignoring files not applicable
+            applyMutaties(db, dbOptions, loadOptions, progressReporter, filenames, null);
+        }
+    }
+
+    /**
+     * Only called after list of files have been checked to only have been entire NL stand or unique gemeente standen.
+     */
+    private void loadStandFiles(BAG2Database db, BAG2DatabaseOptions dbOptions, BAG2LoadOptions loadOptions, BAG2ProgressReporter progressReporter, String[] filenames, CookieManager cookieManager) throws Exception {
+        try {
             // When loading multiple standen (for gemeentes), set ignore duplicates so the seen object keys are kept in
             // memory so duplicates can be ignored. Don't keep keys in memory for entire NL stand.
             loadOptions.setIgnoreDuplicates(filenames.length > 1);
@@ -133,22 +167,11 @@ public class BAG2LoaderMain implements IVersionProvider {
 
             // Keep track of which gemeentes are loaded so the correct mutations can be processed
             Set<String> gemeenteIdentificaties = new HashSet<>();
-            boolean stand;
 
             for (String filename: filenames) {
-                BAG2GMLMutatieGroepStream.BagInfo latestBagInfo;
-                if (filename.startsWith("http://") || filename.startsWith("https://")) {
-                    try (InputStream in = new ResumingInputStream(new HttpStartRangeInputStreamProvider(new URI(filename)))) {
-                        latestBagInfo = loadBAG2ExtractFromStream(db, loadOptions, dbOptions, progressReporter, filename, in);
-                    }
-                } else if (filename.endsWith(".zip")) {
-                    try (InputStream in = new FileInputStream(filename)) {
-                        latestBagInfo = loadBAG2ExtractFromStream(db, loadOptions, dbOptions, progressReporter, filename, in);
-                    }
-                } else {
-                    throw new IllegalArgumentException(getMessageFormattedString("load.invalid_file", filename));
-                }
+                BAG2GMLMutatieGroepStream.BagInfo latestBagInfo = loadBAG2ExtractFromURLorFile(db, loadOptions, dbOptions, progressReporter, filename, cookieManager);
                 if (bagInfo != null) {
+                    // For gemeentes the BagInfo must be the same so the standen are of the same date
                     if (!latestBagInfo.equals(bagInfo)) {
                         throw new IllegalArgumentException(String.format("Incompatible BagInfo for file \"%s\" (%s) compared to last file \"%s\" (%s)",
                                 filename,
@@ -158,22 +181,147 @@ public class BAG2LoaderMain implements IVersionProvider {
                     }
                 }
                 bagInfo = latestBagInfo;
-                stand = bagInfo.getMutatieDatumVanaf() == null;
-                if (stand) {
-                    gemeenteIdentificaties.add(bagInfo.getGemeenteIdentificatie());
-                }
+
+                // For NL stand this will be "9999"
+                gemeenteIdentificaties.add(bagInfo.getGemeenteIdentificatie());
                 lastFilename = filename;
             }
             if (bagInfo != null) {
-                completeAll(db, loadOptions, dbOptions, progressReporter);
+                // TODO: when loading gemeente without rare objects such as ligplaatsen/standplaatsen, table will not be created
+                // and a future change with such an object will fail. Should create entire schema up-front instead of when first
+                // encountering object type
+                createKeysAndIndexes(db, loadOptions, dbOptions, progressReporter);
 
-                updateMetadata(db, loadOptions, bagInfo.getMutatieDatumVanaf() == null, gemeenteIdentificaties, bagInfo.getStandTechnischeDatum());
+                updateMetadata(db, loadOptions, true, gemeenteIdentificaties, bagInfo.getStandTechnischeDatum());
             }
 
             db.getConnection().commit();
         } finally {
             progressReporter.reportTotalSummary();
         }
+    }
+
+    private void applyMutaties(BAG2Database db, BAG2DatabaseOptions dbOptions, BAG2LoadOptions loadOptions, BAG2ProgressReporter progressReporter, String[] filenames, CookieManager cookieManager) throws Exception {
+        if (filenames.length == 0) {
+            return;
+        }
+        BAG2LoaderUtils.BAG2FileName bag2FileName = BAG2LoaderUtils.analyzeBAG2FileName(filenames[0]);
+        if (bag2FileName.isGemeente()) {
+            applyGemeenteMutaties(db, dbOptions, loadOptions, progressReporter, filenames, null);
+        } else {
+            applyNLMutaties(db, dbOptions, loadOptions, progressReporter, filenames, null);
+        }
+    }
+
+    private void applyGemeenteMutaties(BAG2Database db, BAG2DatabaseOptions dbOptions, BAG2LoadOptions loadOptions, BAG2ProgressReporter progressReporter, String[] filenames, CookieManager cookieManager) throws Exception {
+        LocalDate currentTechnischeDatum = db.getCurrentTechnischeDatum();
+        Set<String> gemeenteCodes = db.getGemeenteCodes();
+
+        Set<String> applicableMutaties;
+        do {
+            applicableMutaties = new HashSet<>();
+
+            Set<String> missingGemeentes = new HashSet<>(gemeenteCodes);
+            for(String filename: filenames) {
+                BAG2LoaderUtils.BAG2FileName bag2FileName = BAG2LoaderUtils.analyzeBAG2FileName(filename);
+
+                if (bag2FileName.isGemeente()
+                        && !bag2FileName.isStand()
+                        && bag2FileName.getMutatiesFrom().equals(currentTechnischeDatum)
+                        && gemeenteCodes.contains(bag2FileName.getGemeenteCode())) {
+                    applicableMutaties.add(filename);
+                    missingGemeentes.remove(bag2FileName.getGemeenteCode());
+                }
+            }
+
+            if (applicableMutaties.isEmpty()) {
+                log.info(String.format("Geen nieuw toe te passen gemeentemutatiebestanden gevonden voor huidige stand technische datum %s, klaar", currentTechnischeDatum));
+                break;
+            }
+
+            // Check whether applicable mutaties are available for all gemeentecodes because they need to be processed
+            // at the same time to ignore duplicates
+            if (!missingGemeentes.isEmpty()) {
+                throw new IllegalArgumentException(String.format("Kan geen gemeente mutaties toepassen voor gemeentes %s vanaf stand technische datum %s, in opgegeven mutatiebestanden ontbreken gemeentecodes %s",
+                        gemeenteCodes,
+                        currentTechnischeDatum,
+                        missingGemeentes));
+            }
+
+            log.info(String.format("Toepassen gemeentemutaties voor %d gemeentes vanaf stand technische datum %s...", gemeenteCodes.size(), currentTechnischeDatum));
+
+            BAG2GMLMutatieGroepStream.BagInfo bagInfo = null;
+
+            loadOptions.setIgnoreDuplicates(gemeenteCodes.size() > 1);
+            for (String filename: applicableMutaties) {
+                bagInfo = loadBAG2ExtractFromURLorFile(db, loadOptions, dbOptions, progressReporter, filename, cookieManager);
+            }
+            currentTechnischeDatum = new java.sql.Date(bagInfo.getStandTechnischeDatum().getTime()).toLocalDate();
+            updateMetadata(db, loadOptions, false, null, bagInfo.getStandTechnischeDatum());
+            db.getConnection().commit();
+            // Duplicates need only be checked for mutaties for a single from date, clear cache to reduce memory usage
+            clearDuplicatesCache();
+            log.info("Mutaties verwerkt, huidige stand technische datum: " + currentTechnischeDatum);
+
+        } while(true);
+    }
+
+    private void applyNLMutaties(BAG2Database db, BAG2DatabaseOptions dbOptions, BAG2LoadOptions loadOptions, BAG2ProgressReporter progressReporter, String[] filenames, CookieManager cookieManager) throws Exception {
+        LocalDate currentTechnischeDatum = db.getCurrentTechnischeDatum();
+        do {
+            String applicableMutatie = null;
+
+            for(String filename: filenames) {
+                BAG2LoaderUtils.BAG2FileName bag2FileName = BAG2LoaderUtils.analyzeBAG2FileName(filename);
+
+                if (!bag2FileName.isGemeente()
+                        && !bag2FileName.isStand()
+                        && bag2FileName.getMutatiesFrom().equals(currentTechnischeDatum)) {
+                    applicableMutatie = filename;
+                }
+            }
+
+            if (applicableMutatie == null) {
+                log.info(String.format("Geen nieuw toe te passen mutatiebestanden gevonden voor huidige stand technische datum %s, klaar", currentTechnischeDatum));
+                break;
+            }
+
+            log.info(String.format("Toepassen mutaties vanaf stand technische datum %s...", currentTechnischeDatum));
+
+            BAG2GMLMutatieGroepStream.BagInfo bagInfo = loadBAG2ExtractFromURLorFile(db, loadOptions, dbOptions, progressReporter, applicableMutatie, cookieManager);
+            currentTechnischeDatum = new java.sql.Date(bagInfo.getStandTechnischeDatum().getTime()).toLocalDate();
+            updateMetadata(db, loadOptions, false, null, bagInfo.getStandTechnischeDatum());
+            db.getConnection().commit();
+            log.info("Mutaties verwerkt, huidige stand technische datum: " + currentTechnischeDatum);
+        } while(true);
+    }
+
+    private void createKeysAndIndexes(BAG2Database db, BAG2LoadOptions loadOptions, BAG2DatabaseOptions databaseOptions, BAG2ProgressReporter progressReporter) throws Exception {
+        BAG2ObjectTableWriter writer = db.createObjectTableWriter(loadOptions, databaseOptions);
+        writer.setProgressUpdater(progressReporter);
+        for(BAG2ObjectType objectType: objectTypesWithSchemaCreated) {
+            writer.createKeys(objectType); // BAG2 writer is always a single ObjectType unlike BGT
+            writer.createIndexes(objectType);
+        }
+    }
+
+    private BAG2GMLMutatieGroepStream.BagInfo loadBAG2ExtractFromURLorFile(BAG2Database db, BAG2LoadOptions loadOptions, BAG2DatabaseOptions dbOptions, BAG2ProgressReporter progressReporter, String filename, CookieManager cookieManager) throws Exception {
+        HttpClientWrapper<HttpRequest.Builder, HttpResponse<InputStream>> httpClientWrapper = cookieManager == null
+                ? new Java11HttpClientWrapper()
+                : new Java11HttpClientWrapper(HttpClient.newBuilder().cookieHandler(cookieManager));
+
+        if (filename.startsWith("http://") || filename.startsWith("https://")) {
+            try (InputStream in = new ResumingInputStream(new HttpStartRangeInputStreamProvider(URI.create(filename), httpClientWrapper))) {
+                return loadBAG2ExtractFromStream(db, loadOptions, dbOptions, progressReporter, filename, in);
+            }
+        }
+        if (filename.endsWith(".zip")) {
+            try (InputStream in = new FileInputStream(filename)) {
+                return loadBAG2ExtractFromStream(db, loadOptions, dbOptions, progressReporter, filename, in);
+            }
+        }
+
+        throw new IllegalArgumentException(getMessageFormattedString("load.invalid_file", filename));
     }
 
     private BAG2GMLMutatieGroepStream.BagInfo loadBAG2ExtractFromStream(BAG2Database db, BAG2LoadOptions loadOptions, BAG2DatabaseOptions dbOptions, BAG2ProgressReporter progressReporter, String name, InputStream input) throws Exception {
@@ -247,17 +395,7 @@ public class BAG2LoaderMain implements IVersionProvider {
         }
     }
 
-    private void completeAll(BAG2Database db, BAG2LoadOptions loadOptions, BAG2DatabaseOptions databaseOptions, BAG2ProgressReporter progressReporter) throws Exception {
-        BAG2ObjectTableWriter writer = db.createObjectTableWriter(loadOptions, databaseOptions);
-        writer.setProgressUpdater(progressReporter);
-        for(BAG2ObjectType objectType: objectTypesWithSchemaCreated) {
-            writer.createKeys(objectType); // BAG2 writer is always a single ObjectType unlike BGT
-            writer.createIndexes(objectType);
-        }
-    }
-
     private void updateMetadata(BAG2Database db, BAG2LoadOptions loadOptions, boolean stand, Set<String> gemeenteIdentificaties, Date standTechnischeDatum) throws Exception {
-
         // Check if metadata table already exists. For PostgreSQL we can use the metadata table in the public schema
         if (!db.getDialect().tableExists(db.getConnection(), METADATA_TABLE_NAME)) {
             // Create a new metadata table, for Oracle as BAG is in separate schema, for PostgreSQL if loading BAG
@@ -274,6 +412,10 @@ public class BAG2LoaderMain implements IVersionProvider {
             db.setMetadataValue(FILTER_MUTATIES_WOONPLAATS, "false");
         }
         db.setMetadataValue(CURRENT_TECHNISCHE_DATUM, df.format(standTechnischeDatum));
+    }
+
+    private void clearDuplicatesCache() {
+        keysPerObjectType = new HashMap<>();
     }
 
     private BAG2GMLMutatieGroepStream.BagInfo loadXmlEntriesFromZipFile(BAG2Database db, BAG2LoadOptions loadOptions, BAG2DatabaseOptions databaseOptions, BAG2ProgressReporter progressReporter, String name, ZipArchiveInputStream zip, ZipArchiveEntry entry) throws Exception {
@@ -315,13 +457,5 @@ public class BAG2LoaderMain implements IVersionProvider {
             writer.abortWorkerThread();
             throw e;
         }
-    }
-
-    @Override
-    public String[] getVersion() {
-        return new String[] {
-                BAG2LoaderUtils.getLoaderVersion(),
-                BAG2LoaderUtils.getUserAgent()
-        };
     }
 }
