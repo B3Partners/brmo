@@ -43,6 +43,8 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
@@ -126,6 +128,21 @@ public class BAG2LoaderMain implements IVersionProvider {
     }
 
     public void loadFiles(BAG2Database db, BAG2DatabaseOptions dbOptions, BAG2LoadOptions loadOptions, BAG2ProgressReporter progressReporter, String[] filenames, CookieManager cookieManager) throws Exception {
+
+        if (filenames.length == 1 && Files.isDirectory(Path.of(filenames[0]))) {
+            log.info("Directory opgegeven, kijken naar toepasbare mutaties...");
+            filenames = Files.list(Path.of(filenames[0]))
+                    .filter(p -> !Files.isDirectory(p) && p.getFileName().toString().endsWith(".zip"))
+                    .map(p -> p.toAbsolutePath().toString())
+                    .toArray(String[]::new);
+            if (filenames.length == 0) {
+                log.info("Geen ZIP bestanden gevonden, niets te doen");
+            } else {
+                applyMutaties(db, dbOptions, loadOptions, progressReporter, filenames, null);
+            }
+            return;
+        }
+
         BAG2LoaderUtils.BAG2FileName bag2FileName = BAG2LoaderUtils.analyzeBAG2FileName(filenames[0]);
 
         if (bag2FileName.isStand()) {
