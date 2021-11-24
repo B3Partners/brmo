@@ -31,17 +31,23 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Stream;
 
 import static nl.b3p.brmo.bgt.loader.Utils.formatTimeSince;
 import static org.apache.commons.io.FileUtils.byteCountToDisplaySize;
+import static org.apache.commons.io.FileUtils.streamFiles;
 
 @Command(name = "mutaties", mixinStandardHelpOptions = true)
 public class BAG2MutatiesCommand {
@@ -98,18 +104,21 @@ public class BAG2MutatiesCommand {
         request = HttpRequest.newBuilder().uri(URI.create(url)).build();
         response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
-        JSONArray ja = new JSONArray(response.body());
-
-        log.info("Aantal afgiftes: " + ja.length());
+        JSONArray afgiftes = new JSONArray(response.body());
+        log.info("Aantal afgiftes: " + afgiftes.length());
 
         List<JSONObject> toDownload = new ArrayList<>();
-        for(int i = 0; i < ja.length(); i++) {
-            JSONObject afgifte = ja.getJSONObject(i);
+        for(int i = 0; i < afgiftes.length(); i++) {
+            JSONObject afgifte = afgiftes.getJSONObject(i);
 
             File f = Path.of(downloadPath, afgifte.getString("naam")).toFile();
             if (!f.exists() || f.length() != afgifte.getLong("grootte")) {
                 toDownload.add(afgifte);
             }
+        }
+
+        if (!noDelete) {
+            deleteZipFilesNotInAfgiftes(downloadPath, afgiftes);
         }
 
         long totalBytes = toDownload.stream().map(afgifte -> afgifte.getLong("grootte")).reduce(Long::sum).orElse(0L);
@@ -142,5 +151,23 @@ public class BAG2MutatiesCommand {
         }
 
         return ExitCode.OK;
+    }
+
+    private static void deleteZipFilesNotInAfgiftes(String downloadPath, JSONArray afgiftes) throws IOException {
+        final Set<String> names = new HashSet<>();
+        for(int i = 0; i < afgiftes.length(); i++) {
+            names.add(afgiftes.getJSONObject(i).getString("naam"));
+        }
+        try(Stream<Path> stream = Files.list(Path.of(downloadPath))) {
+            stream.filter(p -> !Files.isDirectory(p) && p.getFileName().toString().endsWith(".zip") && !names.contains(p.getFileName().toString()))
+                    .forEach(p -> {
+                        log.info("Verwijderen ZIP bestand niet in afgiftelijst: " + p.getFileName());
+                        try {
+                            Files.delete(p);
+                        } catch(Exception e) {
+                            log.error(String.format("Fout bij verwijderen ZIP bestand %s: %s", p.getFileName(), e));
+                        }
+                    });
+        }
     }
 }
