@@ -114,6 +114,7 @@ public class BAG2MutatiesCommand {
             try(ResumingInputStream input = new ResumingInputStream(new HttpStartRangeInputStreamProvider(URI.create(url),
                     new Java11HttpClientWrapper(HttpClient.newBuilder().cookieHandler(kadasterCookieManager))));
                 OutputStream out = new FileOutputStream(Path.of(downloadPath, name).toFile())) {
+
                 log.info(String.format("Bestand %2d/%d (%.1f%%): downloaden %s...",
                         ++count,
                         toDownload.size(),
