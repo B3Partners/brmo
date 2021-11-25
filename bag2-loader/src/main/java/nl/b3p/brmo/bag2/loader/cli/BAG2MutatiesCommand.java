@@ -111,15 +111,14 @@ public class BAG2MutatiesCommand {
             url = bestand.getString("url");
             String name = bestand.getString("naam");
 
-            ResumingInputStream input = new ResumingInputStream(new HttpStartRangeInputStreamProvider(URI.create(url),
+            try(ResumingInputStream input = new ResumingInputStream(new HttpStartRangeInputStreamProvider(URI.create(url),
                     new Java11HttpClientWrapper(HttpClient.newBuilder().cookieHandler(kadasterCookieManager))));
-
-            log.info(String.format("Bestand %2d/%d (%.1f%%): downloaden %s...",
-                    ++count,
-                    toDownload.size(),
-                    (100.0 / totalBytes) * bytesRead,
-                    name));
-            try(OutputStream out = new FileOutputStream(Path.of(downloadPath, name).toFile())) {
+                OutputStream out = new FileOutputStream(Path.of(downloadPath, name).toFile())) {
+                log.info(String.format("Bestand %2d/%d (%.1f%%): downloaden %s...",
+                        ++count,
+                        toDownload.size(),
+                        (100.0 / totalBytes) * bytesRead,
+                        name));
                 IOUtils.copyLarge(input, out);
             }
             bytesRead += bestand.getLong("grootte");
