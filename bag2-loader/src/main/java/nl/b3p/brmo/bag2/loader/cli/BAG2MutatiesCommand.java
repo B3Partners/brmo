@@ -79,10 +79,7 @@ public class BAG2MutatiesCommand {
         Instant start = Instant.now();
 
         CookieManager kadasterCookieManager = new CookieManager(null, CookiePolicy.ACCEPT_ALL);
-        URI uri = URI.create(url);
-        if (uri.getHost().endsWith("kadaster.nl")) {
-            mijnKadasterLogin(kadasterUser, kadasterPassword, kadasterCookieManager);
-        }
+        mijnKadasterLogin(URI.create(url), kadasterUser, kadasterPassword, kadasterCookieManager);
 
         JSONArray bestanden = getBagBestanden(url, queryParams, kadasterCookieManager);
 
@@ -148,7 +145,7 @@ public class BAG2MutatiesCommand {
     }
 
     @Command(name="apply", sortOptions = false)
-    public int download(
+    public int apply(
             @Mixin BAG2DatabaseOptions dbOptions,
             @Mixin BAG2ProgressOptions progressOptions,
             @Option(names="--kadaster-user") String kadasterUser,
@@ -159,12 +156,10 @@ public class BAG2MutatiesCommand {
     ) throws Exception {
 
         log.info(BAG2LoaderUtils.getUserAgent());
+        Instant start = Instant.now();
 
-        CookieManager kadasterCookieManager = null;
-        if (kadasterUser != null && kadasterPassword != null) {
-            kadasterCookieManager = new CookieManager(null, CookiePolicy.ACCEPT_ALL);
-            mijnKadasterLogin(kadasterUser, kadasterPassword, kadasterCookieManager);
-        }
+        CookieManager kadasterCookieManager = new CookieManager(null, CookiePolicy.ACCEPT_ALL);
+        mijnKadasterLogin(URI.create(url), kadasterUser, kadasterPassword, kadasterCookieManager);
 
         JSONArray bestanden = getBagBestanden(url, queryParams, kadasterCookieManager);
 
@@ -184,11 +179,15 @@ public class BAG2MutatiesCommand {
                     : new BAG2ProgressReporter();
 
             parent.applyMutaties(db, dbOptions, new BAG2LoadOptions(), progressReporter, names.toArray(String[]::new), urls.toArray(String[]::new), kadasterCookieManager);
+            log.info("Alle mutatiebestanden verwerkt in " + formatTimeSince(start));
             return ExitCode.OK;
         }
     }
 
-    private static void mijnKadasterLogin(String username, String password, CookieManager cookieManager) throws IOException, InterruptedException {
+    private static void mijnKadasterLogin(URI forUri, String username, String password, CookieManager cookieManager) throws IOException, InterruptedException {
+        if (!forUri.getHost().endsWith("kadaster.nl")) {
+            return;
+        }
         if (username == null || password == null) {
             throw new IllegalArgumentException("Gebruikersnaam en wachtwoord zijn verplicht");
         }
