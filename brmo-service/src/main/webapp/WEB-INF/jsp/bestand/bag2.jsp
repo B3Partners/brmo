@@ -110,9 +110,6 @@
             <stripes:textarea name="files" cols="120" rows="6"/>
             <c:set var="loadDisabled" value="${!actionBean.connectionOk or (actionBean.databaseDialect == 'oracle' and !oracleConnectionOk)}"/>
             <stripes:submit name="load" value="Inladen" disabled="${loadDisabled}" />
-            <h2>Dag- of maandmutaties uploaden via de browser (max 10 MB)</h2>
-            <p><stripes:file name="bestand"/></p>
-            <stripes:submit name="upload" value="Verzenden" disabled="${loadDisabled}"/>
         </stripes:form>
     </stripes:layout-component>
 </stripes:layout-render>
