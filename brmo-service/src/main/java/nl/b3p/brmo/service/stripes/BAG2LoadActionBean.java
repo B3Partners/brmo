@@ -18,6 +18,7 @@ import nl.b3p.brmo.bag2.loader.BAG2ProgressReporter;
 import nl.b3p.brmo.bag2.loader.cli.BAG2DatabaseOptions;
 import nl.b3p.brmo.bag2.loader.cli.BAG2LoadOptions;
 import nl.b3p.brmo.bag2.loader.cli.BAG2LoaderMain;
+import nl.b3p.brmo.bag2.schema.BAG2SchemaMapper;
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.service.util.ConfigUtil;
 import nl.b3p.brmo.sql.dialect.OracleDialect;
@@ -29,6 +30,7 @@ import org.stripesstuff.plugin.waitpage.WaitPage;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 
@@ -50,6 +52,10 @@ public class BAG2LoadActionBean implements ActionBean {
     private String databaseUserName;
     private String databaseDialect;
     private Exception connectionException;
+
+    private Date standLoadTechnischeDatum;
+    private Date currentTechnischeDatum;
+    private Date standLoadTime;
 
     private boolean loading;
     private Date loadStart;
@@ -130,6 +136,30 @@ public class BAG2LoadActionBean implements ActionBean {
 
     public void setConnectionException(Exception connectionException) {
         this.connectionException = connectionException;
+    }
+
+    public Date getStandLoadTechnischeDatum() {
+        return standLoadTechnischeDatum;
+    }
+
+    public void setStandLoadTechnischeDatum(Date standLoadTechnischeDatum) {
+        this.standLoadTechnischeDatum = standLoadTechnischeDatum;
+    }
+
+    public Date getCurrentTechnischeDatum() {
+        return currentTechnischeDatum;
+    }
+
+    public void setCurrentTechnischeDatum(Date currentTechnischeDatum) {
+        this.currentTechnischeDatum = currentTechnischeDatum;
+    }
+
+    public Date getStandLoadTime() {
+        return standLoadTime;
+    }
+
+    public void setStandLoadTime(Date standLoadTime) {
+        this.standLoadTime = standLoadTime;
     }
 
     public String getFiles() {
@@ -218,6 +248,15 @@ public class BAG2LoadActionBean implements ActionBean {
                 } else {
                     throw new IllegalArgumentException("Unknown database dialect");
                 }
+
+                String s = bag2Database.getMetadata(BAG2SchemaMapper.Metadata.STAND_LOAD_TECHNISCHE_DATUM);
+                if (s != null) {
+                    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                    currentTechnischeDatum = df.parse(s);
+                    standLoadTechnischeDatum = df.parse(bag2Database.getMetadata(BAG2SchemaMapper.Metadata.STAND_LOAD_TECHNISCHE_DATUM));
+                    standLoadTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(bag2Database.getMetadata(BAG2SchemaMapper.Metadata.STAND_LOAD_TIME));
+                }
+
             } catch (Exception e) {
                 connectionOk = false;
                 connectionException = e;
