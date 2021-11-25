@@ -25,6 +25,7 @@ import net.sourceforge.stripes.validation.ValidateNestedProperties;
 import net.sourceforge.stripes.validation.ValidationMethod;
 import nl.b3p.brmo.persistence.staging.AfgifteNummerScannerProces;
 import nl.b3p.brmo.persistence.staging.AutomatischProces;
+import nl.b3p.brmo.persistence.staging.BAG2MutatieProces;
 import nl.b3p.brmo.persistence.staging.BAGScannerProces;
 import nl.b3p.brmo.persistence.staging.BGTLoaderProces;
 import nl.b3p.brmo.persistence.staging.BRKScannerProces;
@@ -42,6 +43,7 @@ import nl.b3p.brmo.persistence.staging.WebMirrorBAGScannerProces;
 import nl.b3p.brmo.service.jobs.GeplandeTakenInit;
 import static nl.b3p.brmo.service.jobs.GeplandeTakenInit.QUARTZ_FACTORY_KEY;
 import static nl.b3p.brmo.service.jobs.GeplandeTakenInit.SCHEDULER_NAME;
+
 import nl.b3p.brmo.service.scanner.ProcesExecutable;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -63,6 +65,8 @@ public class OphaalConfigActionBean implements ActionBean {
     private static final Log log = LogFactory.getLog(OphaalConfigActionBean.class);
 
     private static final String JSP = "/WEB-INF/jsp/beheer/processenophalen.jsp";
+
+    private static final String DEFAULT_BAG2_MUTATIE_MIRROR = "https://bag.b3p.nl/dagmutaties/bestanden.json";
 
     private ActionBeanContext context;
 
@@ -123,6 +127,10 @@ public class OphaalConfigActionBean implements ActionBean {
             // default values voor BGT loader
             config.put("create-schema",new ClobElement("true"));
             config.put("feature-types",new ClobElement("all"));
+        } else if (type == ProcesExecutable.ProcessingImple.BAG2MutatieProces) {
+            config.put("url", new ClobElement(DEFAULT_BAG2_MUTATIE_MIRROR));
+            proces = getProces(type);
+            proces.setCronExpressie("0 30 2 * * ? *");
         }
         return new ForwardResolution(JSP).addParameter("type", type);
     }
@@ -169,6 +177,8 @@ public class OphaalConfigActionBean implements ActionBean {
      */
     private AutomatischProces getProces(ProcesExecutable.ProcessingImple type) {
         switch (type) {
+            case BAG2MutatieProces:
+                return new BAG2MutatieProces();
             case BAGScannerProces:
                 return new BAGScannerProces();
             case BRKScannerProces:
