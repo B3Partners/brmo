@@ -64,7 +64,7 @@ import static nl.b3p.brmo.bag2.schema.BAG2SchemaMapper.Metadata.STAND_LOAD_TIME;
 import static nl.b3p.brmo.bgt.loader.Utils.getMessageFormattedString;
 
 @Command(name = "bag2-loader", mixinStandardHelpOptions = true, versionProvider = BAG2LoaderMain.class,
-    resourceBundle = BAG2LoaderUtils.BUNDLE_NAME)
+    resourceBundle = BAG2LoaderUtils.BUNDLE_NAME, subcommands = {BAG2MutatiesCommand.class})
 public class BAG2LoaderMain implements IVersionProvider {
     private static Log log;
 
@@ -138,7 +138,7 @@ public class BAG2LoaderMain implements IVersionProvider {
             if (filenames.length == 0) {
                 log.info("Geen ZIP bestanden gevonden, niets te doen");
             } else {
-                applyMutaties(db, dbOptions, loadOptions, progressReporter, filenames, null);
+                applyMutaties(db, dbOptions, loadOptions, progressReporter, filenames, null,null);
             }
             return;
         }
@@ -166,7 +166,7 @@ public class BAG2LoaderMain implements IVersionProvider {
             loadStandFiles(db, dbOptions, loadOptions, progressReporter, filenames, cookieManager);
         } else {
             // Process mutaties while ignoring files not applicable
-            applyMutaties(db, dbOptions, loadOptions, progressReporter, filenames, null);
+            applyMutaties(db, dbOptions, loadOptions, progressReporter, filenames, null,null);
         }
     }
 
@@ -186,7 +186,7 @@ public class BAG2LoaderMain implements IVersionProvider {
             Set<String> gemeenteIdentificaties = new HashSet<>();
 
             for (String filename: filenames) {
-                BAG2GMLMutatieGroepStream.BagInfo latestBagInfo = loadBAG2ExtractFromURLorFile(db, loadOptions, dbOptions, progressReporter, filename, cookieManager);
+                BAG2GMLMutatieGroepStream.BagInfo latestBagInfo = loadBAG2ExtractFromURLorFile(db, loadOptions, dbOptions, progressReporter, filename);
                 if (bagInfo != null) {
                     // For gemeentes the BagInfo must be the same so the standen are of the same date
                     if (!latestBagInfo.equals(bagInfo)) {
@@ -218,40 +218,40 @@ public class BAG2LoaderMain implements IVersionProvider {
         }
     }
 
-    private void applyMutaties(BAG2Database db, BAG2DatabaseOptions dbOptions, BAG2LoadOptions loadOptions, BAG2ProgressReporter progressReporter, String[] filenames, CookieManager cookieManager) throws Exception {
+    public void applyMutaties(BAG2Database db, BAG2DatabaseOptions dbOptions, BAG2LoadOptions loadOptions, BAG2ProgressReporter progressReporter, String[] filenames, String[] urls, CookieManager cookieManager) throws Exception {
         if (filenames.length == 0) {
             return;
         }
         BAG2LoaderUtils.BAG2FileName bag2FileName = BAG2LoaderUtils.analyzeBAG2FileName(filenames[0]);
         if (bag2FileName.isGemeente()) {
-            applyGemeenteMutaties(db, dbOptions, loadOptions, progressReporter, filenames, null);
+            applyGemeenteMutaties(db, dbOptions, loadOptions, progressReporter, filenames, urls, cookieManager);
         } else {
-            applyNLMutaties(db, dbOptions, loadOptions, progressReporter, filenames, null);
+            applyNLMutaties(db, dbOptions, loadOptions, progressReporter, filenames, urls, cookieManager);
         }
     }
 
-    private void applyGemeenteMutaties(BAG2Database db, BAG2DatabaseOptions dbOptions, BAG2LoadOptions loadOptions, BAG2ProgressReporter progressReporter, String[] filenames, CookieManager cookieManager) throws Exception {
+    private void applyGemeenteMutaties(BAG2Database db, BAG2DatabaseOptions dbOptions, BAG2LoadOptions loadOptions, BAG2ProgressReporter progressReporter, String[] filenames, String[] urls, CookieManager cookieManager) throws Exception {
         LocalDate currentTechnischeDatum = db.getCurrentTechnischeDatum();
         Set<String> gemeenteCodes = db.getGemeenteCodes();
 
-        Set<String> applicableMutaties;
+        Set<Integer> applicableMutatieIndexes;
         do {
-            applicableMutaties = new HashSet<>();
+            applicableMutatieIndexes = new HashSet<>();
 
             Set<String> missingGemeentes = new HashSet<>(gemeenteCodes);
-            for(String filename: filenames) {
-                BAG2LoaderUtils.BAG2FileName bag2FileName = BAG2LoaderUtils.analyzeBAG2FileName(filename);
+            for(int i = 0; i < filenames.length; i++) {
+                BAG2LoaderUtils.BAG2FileName bag2FileName = BAG2LoaderUtils.analyzeBAG2FileName(filenames[i]);
 
                 if (bag2FileName.isGemeente()
                         && !bag2FileName.isStand()
                         && bag2FileName.getMutatiesFrom().equals(currentTechnischeDatum)
                         && gemeenteCodes.contains(bag2FileName.getGemeenteCode())) {
-                    applicableMutaties.add(filename);
+                    applicableMutatieIndexes.add(i);
                     missingGemeentes.remove(bag2FileName.getGemeenteCode());
                 }
             }
 
-            if (applicableMutaties.isEmpty()) {
+            if (applicableMutatieIndexes.isEmpty()) {
                 log.info(String.format("Geen nieuw toe te passen gemeentemutatiebestanden gevonden voor huidige stand technische datum %s, klaar", currentTechnischeDatum));
                 break;
             }
@@ -270,8 +270,10 @@ public class BAG2LoaderMain implements IVersionProvider {
             BAG2GMLMutatieGroepStream.BagInfo bagInfo = null;
 
             loadOptions.setIgnoreDuplicates(gemeenteCodes.size() > 1);
-            for (String filename: applicableMutaties) {
-                bagInfo = loadBAG2ExtractFromURLorFile(db, loadOptions, dbOptions, progressReporter, filename, cookieManager);
+            for (int index: applicableMutatieIndexes) {
+                String filename = filenames[index];
+                String url = urls == null ? filenames[index] : urls[index];
+                bagInfo = loadBAG2ExtractFromURLorFile(db, loadOptions, dbOptions, progressReporter, filename, url, cookieManager);
             }
             currentTechnischeDatum = new java.sql.Date(bagInfo.getStandTechnischeDatum().getTime()).toLocalDate();
             updateMetadata(db, loadOptions, false, null, bagInfo.getStandTechnischeDatum());
@@ -283,18 +285,21 @@ public class BAG2LoaderMain implements IVersionProvider {
         } while(true);
     }
 
-    private void applyNLMutaties(BAG2Database db, BAG2DatabaseOptions dbOptions, BAG2LoadOptions loadOptions, BAG2ProgressReporter progressReporter, String[] filenames, CookieManager cookieManager) throws Exception {
+    private void applyNLMutaties(BAG2Database db, BAG2DatabaseOptions dbOptions, BAG2LoadOptions loadOptions, BAG2ProgressReporter progressReporter, String[] filenames, String[] urls, CookieManager cookieManager) throws Exception {
         LocalDate currentTechnischeDatum = db.getCurrentTechnischeDatum();
         do {
             String applicableMutatie = null;
+            String applicatieMutatieURL = null;
 
-            for(String filename: filenames) {
+            for(int i = 0; i < filenames.length; i++) {
+                String filename = filenames[i];
                 BAG2LoaderUtils.BAG2FileName bag2FileName = BAG2LoaderUtils.analyzeBAG2FileName(filename);
 
                 if (!bag2FileName.isGemeente()
                         && !bag2FileName.isStand()
                         && bag2FileName.getMutatiesFrom().equals(currentTechnischeDatum)) {
                     applicableMutatie = filename;
+                    applicatieMutatieURL = urls == null ? filename : urls[i];
                 }
             }
 
@@ -305,7 +310,7 @@ public class BAG2LoaderMain implements IVersionProvider {
 
             log.info(String.format("Toepassen mutaties vanaf stand technische datum %s...", currentTechnischeDatum));
 
-            BAG2GMLMutatieGroepStream.BagInfo bagInfo = loadBAG2ExtractFromURLorFile(db, loadOptions, dbOptions, progressReporter, applicableMutatie, cookieManager);
+            BAG2GMLMutatieGroepStream.BagInfo bagInfo = loadBAG2ExtractFromURLorFile(db, loadOptions, dbOptions, progressReporter, applicableMutatie, applicatieMutatieURL, cookieManager);
             currentTechnischeDatum = new java.sql.Date(bagInfo.getStandTechnischeDatum().getTime()).toLocalDate();
             updateMetadata(db, loadOptions, false, null, bagInfo.getStandTechnischeDatum());
             db.getConnection().commit();
@@ -322,23 +327,27 @@ public class BAG2LoaderMain implements IVersionProvider {
         }
     }
 
-    private BAG2GMLMutatieGroepStream.BagInfo loadBAG2ExtractFromURLorFile(BAG2Database db, BAG2LoadOptions loadOptions, BAG2DatabaseOptions dbOptions, BAG2ProgressReporter progressReporter, String filename, CookieManager cookieManager) throws Exception {
+    private BAG2GMLMutatieGroepStream.BagInfo loadBAG2ExtractFromURLorFile(BAG2Database db, BAG2LoadOptions loadOptions, BAG2DatabaseOptions dbOptions, BAG2ProgressReporter progressReporter, String filename) throws Exception {
+        return loadBAG2ExtractFromURLorFile(db, loadOptions, dbOptions, progressReporter, filename, filename, null);
+    }
+
+    private BAG2GMLMutatieGroepStream.BagInfo loadBAG2ExtractFromURLorFile(BAG2Database db, BAG2LoadOptions loadOptions, BAG2DatabaseOptions dbOptions, BAG2ProgressReporter progressReporter, String filename, String url, CookieManager cookieManager) throws Exception {
         HttpClientWrapper<HttpRequest.Builder, HttpResponse<InputStream>> httpClientWrapper = cookieManager == null
                 ? new Java11HttpClientWrapper()
                 : new Java11HttpClientWrapper(HttpClient.newBuilder().cookieHandler(cookieManager));
 
-        if (filename.startsWith("http://") || filename.startsWith("https://")) {
-            try (InputStream in = new ResumingInputStream(new HttpStartRangeInputStreamProvider(URI.create(filename), httpClientWrapper))) {
+        if (url.startsWith("http://") || url.startsWith("https://")) {
+            try (InputStream in = new ResumingInputStream(new HttpStartRangeInputStreamProvider(URI.create(url), httpClientWrapper))) {
                 return loadBAG2ExtractFromStream(db, loadOptions, dbOptions, progressReporter, filename, in);
             }
         }
-        if (filename.endsWith(".zip")) {
-            try (InputStream in = new FileInputStream(filename)) {
+        if (url.endsWith(".zip")) {
+            try (InputStream in = new FileInputStream(url)) {
                 return loadBAG2ExtractFromStream(db, loadOptions, dbOptions, progressReporter, filename, in);
             }
         }
 
-        throw new IllegalArgumentException(getMessageFormattedString("load.invalid_file", filename));
+        throw new IllegalArgumentException(getMessageFormattedString("load.invalid_file", url));
     }
 
     private BAG2GMLMutatieGroepStream.BagInfo loadBAG2ExtractFromStream(BAG2Database db, BAG2LoadOptions loadOptions, BAG2DatabaseOptions dbOptions, BAG2ProgressReporter progressReporter, String name, InputStream input) throws Exception {
