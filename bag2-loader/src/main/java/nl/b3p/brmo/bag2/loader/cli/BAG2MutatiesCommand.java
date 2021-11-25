@@ -18,11 +18,11 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import picocli.CommandLine.ParentCommand;
-import picocli.CommandLine.Mixin;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.ExitCode;
+import picocli.CommandLine.Mixin;
 import picocli.CommandLine.Option;
+import picocli.CommandLine.ParentCommand;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -71,6 +71,7 @@ public class BAG2MutatiesCommand {
             @Option(names="--url", defaultValue = LVBAG_BESTANDEN_API_URL) String url,
             @Option(names="--query-params", defaultValue = "artikelnummers=2529") String queryParams,
             @Option(names="--path", defaultValue = "") String downloadPath,
+            @Option(names="--mirror-base-url") String mirrorBaseUrl,
             @Option(names={"-h","--help"}, usageHelp = true) boolean showHelp
             ) throws Exception {
 
@@ -78,42 +79,45 @@ public class BAG2MutatiesCommand {
         Instant start = Instant.now();
 
         CookieManager kadasterCookieManager = new CookieManager(null, CookiePolicy.ACCEPT_ALL);
-        mijnKadasterLogin(kadasterUser, kadasterPassword, kadasterCookieManager);
+        URI uri = URI.create(url);
+        if (uri.getHost().endsWith("kadaster.nl")) {
+            mijnKadasterLogin(kadasterUser, kadasterPassword, kadasterCookieManager);
+        }
 
-        JSONArray afgiftes = getBagAfgiftes(url, queryParams, kadasterCookieManager);
+        JSONArray bestanden = getBagBestanden(url, queryParams, kadasterCookieManager);
 
-        log.info("Aantal afgiftes: " + afgiftes.length());
+        log.info("Aantal beschikbare bestanden: " + bestanden.length());
 
         List<JSONObject> toDownload = new ArrayList<>();
-        for(int i = 0; i < afgiftes.length(); i++) {
-            JSONObject afgifte = afgiftes.getJSONObject(i);
+        for(int i = 0; i < bestanden.length(); i++) {
+            JSONObject bestand = bestanden.getJSONObject(i);
 
-            File f = Path.of(downloadPath, afgifte.getString("naam")).toFile();
-            if (!f.exists() || f.length() != afgifte.getLong("grootte")) {
-                toDownload.add(afgifte);
+            File f = Path.of(downloadPath, bestand.getString("naam")).toFile();
+            if (!f.exists() || f.length() != bestand.getLong("grootte")) {
+                toDownload.add(bestand);
             }
         }
 
         if (!noDelete) {
-            deleteZipFilesNotInAfgiftes(downloadPath, afgiftes);
+            deleteZipFilesNotInBestanden(downloadPath, bestanden);
         }
 
-        long totalBytes = toDownload.stream().map(afgifte -> afgifte.getLong("grootte")).reduce(Long::sum).orElse(0L);
-        log.info(String.format("Aantal te downloaden naar directory \"%s\": %d afgiftes (%s)",
-                Path.of("").toAbsolutePath(),
+        long totalBytes = toDownload.stream().map(bestand -> bestand.getLong("grootte")).reduce(Long::sum).orElse(0L);
+        log.info(String.format("Aantal te downloaden naar directory \"%s\": %d bestanden (%s)",
+                Path.of(downloadPath).toAbsolutePath(),
                 toDownload.size(),
                 byteCountToDisplaySize(totalBytes)));
 
         int count = 0;
         long bytesRead = 0;
-        for(JSONObject afgifte: toDownload) {
-            url = afgifte.getString("url");
-            String name = afgifte.getString("naam");
+        for(JSONObject bestand: toDownload) {
+            url = bestand.getString("url");
+            String name = bestand.getString("naam");
 
             ResumingInputStream input = new ResumingInputStream(new HttpStartRangeInputStreamProvider(URI.create(url),
                     new Java11HttpClientWrapper(HttpClient.newBuilder().cookieHandler(kadasterCookieManager))));
 
-            log.info(String.format("Afgifte %2d/%d (%.1f%%): downloaden %s...",
+            log.info(String.format("Bestand %2d/%d (%.1f%%): downloaden %s...",
                     ++count,
                     toDownload.size(),
                     (100.0 / totalBytes) * bytesRead,
@@ -121,10 +125,23 @@ public class BAG2MutatiesCommand {
             try(OutputStream out = new FileOutputStream(Path.of(downloadPath, name).toFile())) {
                 IOUtils.copyLarge(input, out);
             }
-            bytesRead += afgifte.getLong("grootte");
+            bytesRead += bestand.getLong("grootte");
         }
         if (!toDownload.isEmpty()) {
-            log.info("Alle afgiftes gedownload in " + formatTimeSince(start));
+            String msg = "";
+            if (mirrorBaseUrl != null) {
+                for (int i = 0; i < bestanden.length(); i++) {
+                    JSONObject bestand = bestanden.getJSONObject(i);
+                    String name = bestand.getString("naam");
+                    bestand.put("url", URI.create(mirrorBaseUrl).resolve(name));
+                }
+                File bestandenJSONMirror = Path.of(downloadPath, "bestanden.json").toFile();
+                try(OutputStream out = new FileOutputStream(bestandenJSONMirror)) {
+                    IOUtils.write(bestanden.toString(2), out, StandardCharsets.UTF_8);
+                    msg = String.format(", JSON voor mirror \"%s\" geschreven naar \"%s\"", mirrorBaseUrl, bestandenJSONMirror);
+                }
+            }
+            log.info("Alle bestanden gedownload in " + formatTimeSince(start) + msg);
         }
 
         return ExitCode.OK;
@@ -149,16 +166,16 @@ public class BAG2MutatiesCommand {
             mijnKadasterLogin(kadasterUser, kadasterPassword, kadasterCookieManager);
         }
 
-        JSONArray afgiftes = getBagAfgiftes(url, queryParams, kadasterCookieManager);
+        JSONArray bestanden = getBagBestanden(url, queryParams, kadasterCookieManager);
 
-        log.info("Aantal afgiftes: " + afgiftes.length());
+        log.info("Aantal beschikbare bestanden: " + bestanden.length());
 
         List<String> names = new ArrayList<>();
         List<String> urls = new ArrayList<>();
-        for(int i = 0; i < afgiftes.length(); i++) {
-            JSONObject afgifte = afgiftes.getJSONObject(i);
-            names.add(afgifte.getString("naam"));
-            urls.add(afgifte.getString("url"));
+        for(int i = 0; i < bestanden.length(); i++) {
+            JSONObject bestand = bestanden.getJSONObject(i);
+            names.add(bestand.getString("naam"));
+            urls.add(bestand.getString("url"));
         }
 
         try(BAG2Database db = new BAG2Database(dbOptions)) {
@@ -172,6 +189,10 @@ public class BAG2MutatiesCommand {
     }
 
     private static void mijnKadasterLogin(String username, String password, CookieManager cookieManager) throws IOException, InterruptedException {
+        if (username == null || password == null) {
+            throw new IllegalArgumentException("Gebruikersnaam en wachtwoord zijn verplicht");
+        }
+
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create(KADASTER_LOGIN_URL))
                 .header("Content-Type", "application/x-www-form-urlencoded")
                 .POST(HttpRequest.BodyPublishers.ofString(String.format(
@@ -200,33 +221,33 @@ public class BAG2MutatiesCommand {
         }
     }
 
-    private static JSONArray getBagAfgiftes(String url, String queryParams, CookieManager kadasterCookieManager) throws Exception {
+    private static JSONArray getBagBestanden(String url, String queryParams, CookieManager kadasterCookieManager) throws Exception {
         url = url + queryParams;
-        log.info("Opvragen afgiftes vanaf URL " + url);
+        log.info("Opvragen bestanden JSON vanaf URL " + url);
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url)).build();
         HttpClient httpClient = HttpClient.newBuilder()
                 .cookieHandler(kadasterCookieManager)
                 .build();
         HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
-        JSONArray afgiftes;
+        JSONArray bestanden;
         try {
-            afgiftes = new JSONArray(response.body());
+            bestanden = new JSONArray(response.body());
         } catch(Exception e) {
             throw new Exception("Fout bij parsen BAG bestanden JSON, body: " + response.body(), e);
         }
-        return afgiftes;
+        return bestanden;
     }
 
-    private static void deleteZipFilesNotInAfgiftes(String downloadPath, JSONArray afgiftes) throws IOException {
+    private static void deleteZipFilesNotInBestanden(String downloadPath, JSONArray bestanden) throws IOException {
         final Set<String> names = new HashSet<>();
-        for(int i = 0; i < afgiftes.length(); i++) {
-            names.add(afgiftes.getJSONObject(i).getString("naam"));
+        for(int i = 0; i < bestanden.length(); i++) {
+            names.add(bestanden.getJSONObject(i).getString("naam"));
         }
         try(Stream<Path> stream = Files.list(Path.of(downloadPath))) {
             stream.filter(p -> !Files.isDirectory(p) && p.getFileName().toString().endsWith(".zip") && !names.contains(p.getFileName().toString()))
                     .forEach(p -> {
-                        log.info("Verwijderen ZIP bestand niet in afgiftelijst: " + p.getFileName());
+                        log.info("Verwijderen ZIP bestand niet in bestandenlijst: " + p.getFileName());
                         try {
                             Files.delete(p);
                         } catch(Exception e) {
