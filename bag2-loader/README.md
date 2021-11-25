@@ -149,38 +149,108 @@ Het is nodig om de `--connection` en `--user` opties aan de BAG lader mee te gev
 Voorbeeldcommando om de hele BAG te laden in Oracle Spatial:
 
 ```shell
-brmo-bag2-loader load --connection="jdbc:oracle:thin:@localhost:1521:XE" --user="c##bag" https://extracten.bag.kadaster.nl/lvbag/extracten/Nederland%20LVC/BAGNLDL-08092021.zip
+brmo-bag2-loader load --connection="jdbc:oracle:thin:@localhost:1521:XE" --user="c##bag" https://service.pdok.nl/kadaster/adressen/atom/v1_0/downloads/lvbag-extract-nl.zip
 ```
 Voor Docker Desktop op Windows of Mac: gebruik `host.docker.internal` in plaats van `localhost`.
 
 Vergeet niet om de Docker container te stoppen als je deze niet meer nodig hebt met het `docker stop oracle-xe` commando.
 Mogelijk wil je de container ook weer verwijderen met `docker rm oracle-xe`.
 
-## Verkrijgen van de BAG extract
+## Laden van een BAG extract
 
-Tot 1 oktober was het mogelijk om BAG extracten te downloaden van https://extracten.bag.kadaster.nl/lvbag/extracten/
+### Heel Nederland
 
-Hierna is een abonnement verplicht, zie de website van het Kadaster.
-
-Het is ook mogelijk om een al gedownload bestand te laden. Gebruik voor Docker daarvoor een _mount_:
+Het is niet nodig om het extract eerst te downloaden, voer het volgende commando uit:
 
 ```bash
-docker run -it --rm --network=host -v ${PWD}:/data ghcr.io/b3partners/brmo-bag2-loader load /data/BAGNLDL-08092021.zip
+brmo-bag2-loader load https://service.pdok.nl/kadaster/adressen/atom/v1_0/downloads/lvbag-extract-nl.zip
 ```
 
-### Het database schema
+### Gemeente(s)
 
-TODO, zie interne Confluence.
+Om &eacute;&eacute;n of meerdere gemeentestanden in te laden moeten deze eerst worden gedownload via de BAG Bestanden 
+website, bereikbaar via Mijn Kadaster. Hier is een abonnement voor vereist. 
 
-#### OBJECTID voor ArcGIS
+Let erop dat je een volume mount bij het uitvoeren van Docker zodat de gedownloade bestanden beschikbaar zijn voor de 
+container, met bijvoorbeeld `-v "${PWD}:/data"`:
+
+```bash
+docker run -it --rm --network=host -v "${PWD}:/data" ghcr.io/b3partners/brmo-bag2-loader load /data/BAGGEM0086L-15092021.zip /data/BAGGEM0344L-15092021.zip
+```
+
+Let op! Bij het inladen van meerdere gemeentes moeten deze _tegelijkertijd_ opgegeven worden op de command line, om zo 
+objecten die op de gemeentegrens liggen en dus in meerdere extracten voorkomen slechts &eacute;&eacute;n keer in te 
+laden.
+
+## Database schema
+
+De tabellen die worden aangemaakt bevat historische en toekomstig geldige voorkomens. Gebruik de views zoals 
+`v_pand_actueel` om actueel geldige voorkomens te gebruiken. Let op! Een actueel voorkomen kan nog steeds een 
+status hebben wat betekent dat het object niet meer bestaat, maar bijvoorbeeld is gesloopt of
+dat een naamgeving is ingetrokken. Je wilt dus misschien zelf nog filteren op de status kolom.
+
+### OBJECTID voor ArcGIS
 
 De BAG tabellen en views hebben een `objectid` kolom zodat deze direct gebruikt kunnen worden in ArcGIS.
 
+## Mutaties
+
+Mutaties kunnen worden toegepast op de ingeladen stand als deze beschikbaar zijn voor de huidige technische datum van de 
+ingeladen stand. Deze wordt opgeslagen in de `brmo_metadata` tabel in de rij waar `naam` de waarde
+`bag2_current_technische_datum` heeft.
+
+### Gedownloade mutatiebestanden verwerken
+
+Het is mogelijk met het `load` commando om bestanden op te geven met mutaties die moeten worden toegepast op de BAG 
+database. Alleen mutaties die van toepassing zijn worden verwerkt, andere worden genegeerd. De volgorde van de bestanden maakt niet uit.
+
+Het is ook mogelijk om een directory op te geven waaruit alle beschikbare ZIP bestanden worden bekeken (aan de hand van
+de bestandsnaam) of deze van toepassing zijn. Omdat bestanden die niet van toepassing zijn worden genegeerd, is dit een
+handige optie -- zo hoeft niet de exacte naam van de bestanden worden opgegeven.
+
+Wanneer meerdere gemeentestanden zijn ingeladen moet net als bij het inladen van de standen de maandelijkse 
+gemeentemutatiebestanden voor alle ingeladen gemeentes tegelijk worden toegepast. Indien niet alle mutatiebestanden voor
+de gemeentes opgegeven zijn of in de directory aanwezig zijn worden deze niet verwerkt.
+
+### Downloaden en verwerken van mutatiebestanden
+
+Met het `mutaties apply` commando kunnen mutatiebestanden worden gedownload en meteen worden verwerkt om de database bij
+te werken. Om mutatiebestanden te verkrijgen is normaliter een abonnement nodig bij Kadaster, echter kan ook een 
+publieke mirror worden gebruikt - bijvoorbeeld de volgende mirror met de dagelijkse landelijke mutaties (beschikbaar 
+gesteld door [B3Partners](https://www.b3partners.nl)):
+
+```bash
+docker run -it --rm --network=host ghcr.io/b3partners/brmo-bag2-loader mutaties apply [database-verbindingsopties] --url https://bag.b3p.nl/dagmutaties/bestanden.json
+```
+
+Het is mogelijk zelf een mirror op te zetten als je een Mijn Kadaster account hebt met een abonnement op mutaties, zie 
+daarvoor deze [Docker Compose stack](https://github.com/B3Partners/brmo/tree/master/bag2-loader/bestanden-mirror-docker-compose.yml).
+
+#### Met een Mijn Kadaster account
+
+Om mutaties direct te downloaden van het Kadaster en toe te passen op de database moet de gebruikersnaam en het 
+wachtwoord voor Mijn Kadaster met een BAG mutatieabonnement worden opgegeven:
+
+```bash
+brmo-bag2-loader mutaties apply [database-verbindingsopties] --kadaster-user=[gebruikersnaam] --kadaster-password=[wachtwoord]
+```
+
+Standaard worden de landelijke dagelijkse mutaties gedownload. Deze kunnen ook worden toegepast op een database waarin
+alleen gemeentelijke standen zijn ingeladen. Je krijgt dan wel verspreid over Nederland mutaties die buiten de 
+geselecteerde gemeentes liggen. Zie ook [BRMO-113](https://b3partners.atlassian.net/browse/BRMO-113).
+
+Om gemeentelijke of landelijke maandmutaties te downloaden en toe te passen, moet een extra optie worden meegegeven zoals
+`"--query-param=artikelnummers=2531&gemeenteCodes=1680,0106"` om maandelijkse mutaties van de gemeentes Aa en Hunze en Assen te
+downloaden. Zie https://www.kadaster.nl/-/handleiding-soap-service-bag-2.0-extract voor de beschikbare artikelnummers. 
+De ingeladen gemeentecodes staan in de `brmo_metadata` tabel.
+
 ## Downloaden van mutaties
 
-TODO.
+Het is mogelijk om mutaties te downloaden en lokaal op te slaan met het `mutaties download` commando. Dit wijst zich 
+verder vanzelf. Hiermee is het mogelijk om op de ene computer mutaties te downloaden en die via een gedeelde share te 
+delen met een andere computer die ze inlaadt (met het `load <directory>` commando) zonder dat internettoegang nodig is.
 
-## Geavanceerde opties
+# Geavanceerde opties
 
 Geavanceerde opties zijn normaal gezien niet nodig om te gebruiken, maar je kan altijd in de broncode kijken welke
 beschikbaar zijn.
