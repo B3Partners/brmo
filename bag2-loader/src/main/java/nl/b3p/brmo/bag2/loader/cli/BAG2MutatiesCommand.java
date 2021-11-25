@@ -61,7 +61,7 @@ public class BAG2MutatiesCommand {
     private static final String KADASTER_LOGIN_URL = "https://mijn.kadaster.nl/security/login.do";
 
     // Artikelnummer 2529 is dagmutaties (https://www.kadaster.nl/-/handleiding-soap-service-bag-2.0-extract)
-    private static final String LVBAG_BESTANDEN_API_URL = "https://bag.kadaster.nl/lvbag/bag-bestanden/api/bestanden?";
+    private static final String LVBAG_BESTANDEN_API_URL = "https://bag.kadaster.nl/lvbag/bag-bestanden/api/bestanden";
 
     @Command(name="download", sortOptions = false)
     public int download(
@@ -221,7 +221,7 @@ public class BAG2MutatiesCommand {
     }
 
     private static JSONArray getBagBestanden(String url, String queryParams, CookieManager kadasterCookieManager) throws Exception {
-        url = url + queryParams;
+        url = url + "?" + queryParams;
         log.info("Opvragen bestanden JSON vanaf URL " + url);
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url)).build();
         HttpClient httpClient = HttpClient.newBuilder()

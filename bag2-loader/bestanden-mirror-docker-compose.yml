@@ -1,0 +1,85 @@
+version: "3.8"
+
+# Docker compose stack om een mirror op te zetten voor BAG bestanden. Ondanks dat er een betaald abonnement nodig is
+# voor BAG bestanden (behalve voor het laatste NL extract dat in het kader van INSPIRE beschikbaar is), is het
+# toegestaan om deze publieke basisregistratie verder te verspreiden. Deze stack kan worden gebruikt om de bestanden te
+# downloaden (met abonnement) en daar een mirror van op te zetten.
+
+# Om automatisch de beschikbare bestandenlijst downloaden is er officieel alleen een generieke SOAP service: GDS2. Voor
+# die SOAP service wordt alleen authenticatie met een PKIoverheid certificaat ondersteund en de SOAP service zelf is erg
+# irritant ontworpen mbt paging en dergelijke. Voor het downloaden van het BAG bestand zelf wordt dan wel weer
+# authenticatie met gebruikersnaam en wachtwoord ondersteund, via een KadasterTicketId cookie.
+
+# Er blijkt ook een onofficiële REST API te zijn die de webapplicatie "BAG Bestanden" (te openen via de "Mijn Kadaster"
+# site) gebruikt. Deze biedt een simpele JSON lijst met beschikbare BAG bestanden en is wel met alleen gebruikersnaam en
+# wachtwoord toegankelijk. Er is geen paging nodig en oude bestanden verdwijnen vanzelf uit de lijst. De bag2-loader
+# gebruikt deze API om bestanden te downloaden zodat geen PKIOverheid certificaat nodig is. Oude bestanden niet meer in
+# de lijst worden verwijderd (tenzij je de --no-delete optie toevoegt).
+
+# Gebruik als volgt: vul in het ".env" bestand je Mijn Kadaster gebruikersnaam en wachtwoord in en start met:
+
+# docker-compose -f bestanden-mirror-docker-compose.yml up -d
+# Bij het opstarten en elke nacht om 2:10 worden de bestanden gedownload.
+# Bekijk welke bestanden beschikbaar zijn via http://localhost/dagmutaties/bestanden.json
+
+# Standaard worden landelijke dagmutaties gedownload. Het downloaden van standen, gemeentelijke maandmutaties of
+# landelijke maandmutaties is ook mogelijk. Voeg de command line optie "--query-param" toe, bijvoorbeeld met de waarde
+# "artikelnummers=2531&gemeenteCodes=1680,0106" om maandelijkse mutaties van de gemeentes Aa en Hunze en Assen te
+# downloaden. Zie https://www.kadaster.nl/-/handleiding-soap-service-bag-2.0-extract voor de artikelnummers.
+
+# De bag2-loader kan dan met het 'mutaties apply --url http://localhost/dagmutaties/bestanden.json' worden aangeroepen
+# om vanaf deze mirror mutatiebestanden toe te passen op een BAG database.
+
+# Wil je een mirror opzetten met TLS-ondersteuning dan kan je bijvoorbeeld een Traefik container aan je stack toevoegen.
+
+
+services:
+  # Zet de rechten goed op het volume omdat de bag2-loader container draait niet als root
+  volume-initializer:
+    image: alpine
+    restart: "no"
+    entrypoint: /bin/sh -c "chmod 777 /data"
+    volumes:
+      - bestanden:/data
+
+  # Download mutaties bij de eerste keer starten van deze stack
+  startup-download:
+    image: ghcr.io/b3partners/brmo-bag2-loader:${BAG_LOADER_VERSION:-latest}
+    restart: "no"
+    depends_on:
+      - volume-initializer
+    command: |
+      mutaties download "--kadaster-user=${BAG_USER:?verplicht}" "--kadaster-password=${BAG_PASSWORD:?verplicht}" --path /data --mirror-base-url "${BASE_URL:?verplicht}"
+    volumes:
+      - bestanden:/data:rw
+
+  webserver:
+    image: nginx:1.21.4-alpine
+    environment:
+      - TZ=Europe/Amsterdam
+    ports:
+      - "80:80"
+    volumes:
+      - bestanden:/usr/share/nginx/html/${BASE_URL_PATH:-dagmutaties}:ro
+
+  scheduler:
+    image: mcuadros/ofelia:v0.3.6
+    container_name: bag2-scheduler
+    environment:
+      - TZ=Europe/Amsterdam
+    command: daemon --docker
+    labels:
+      # Elke dag om 2:10, net nadat nieuwe mutaties beschikbaar zijn
+      ofelia.job-run.download.schedule: "0 10 2 * * *"
+      ofelia.job-run.download.image: "ghcr.io/b3partners/brmo-bag2-loader:${BAG_LOADER_VERSION:-latest}"
+      ofelia.job-run.download.command: |
+        mutaties download "--kadaster-user=${BAG_USER}" "--kadaster-password=${BAG_PASSWORD}" --path /data --mirror-base-url "${BASE_URL}"
+      ofelia.job-run.download.volume: "bag2-bestanden:/data:rw"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
+volumes:
+  bestanden:
+    # Volumenaam wordt gebruikt in de Ofelia job-run en mag niet afhankelijk zijn van de Docker Compose projectnaam.
+    # Naam wijzigen als je deze stack meerdere keren op een docker host draait.
+    name: bag2-bestanden
