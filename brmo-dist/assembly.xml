@@ -124,6 +124,13 @@
             </includes>
         </fileSet>
         <fileSet>
+            <directory>../${project.basedir}/datamodel/extra_scripts/</directory>
+            <outputDirectory>db/upgrade_scripts/2.1.0-2.2.0</outputDirectory>
+            <includes>
+                <include>**/208_*.sql</include>
+            </includes>
+        </fileSet>
+        <fileSet>
             <directory>../${project.basedir}/</directory>
             <outputDirectory/>
             <includes>
