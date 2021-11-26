@@ -43,6 +43,8 @@ public abstract class AbstractExecutableProces implements ProcesExecutable {
     public static ProcesExecutable getProces(AutomatischProces config) {
         ProcessingImple imple = ProcessingImple.valueOf(config.getClass().getSimpleName());
         switch (imple) {
+            case BAG2MutatieProces:
+                return new BAG2MutatieProcesRunner((BAG2MutatieProces) config);
             case BAGScannerProces:
                 return new BAGDirectoryScanner((BAGScannerProces) config);
             case BRKScannerProces:

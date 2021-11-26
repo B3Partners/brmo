@@ -10,7 +10,8 @@ import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.action.SimpleMessage;
 import net.sourceforge.stripes.validation.Validate;
 import nl.b3p.brmo.persistence.staging.AutomatischProces;
-import nl.b3p.brmo.persistence.staging.BGTLoaderProces;
+import nl.b3p.brmo.persistence.staging.BAG2MutatieProces;
+import nl.b3p.brmo.persistence.staging.ClobElement;
 import nl.b3p.brmo.service.scanner.AbstractExecutableProces;
 import nl.b3p.brmo.service.scanner.ProcesExecutable;
 import nl.b3p.brmo.service.scanner.ProgressUpdateListener;
@@ -30,7 +31,8 @@ public class BAG2MutatieProcesUitvoerenActionBean implements ActionBean, Progres
     private StringBuilder log = new StringBuilder();
     private ActionBeanContext context;
     @Validate(converter = EntityTypeConverter.class)
-    private BGTLoaderProces proces;
+    private BAG2MutatieProces proces;
+    private String mode;
     private Date start;
     private Date update;
     private boolean complete;
@@ -55,12 +57,10 @@ public class BAG2MutatieProcesUitvoerenActionBean implements ActionBean, Progres
             return new ForwardResolution(JSP);
         }
 
-        throw new IllegalStateException("Not yet implemented");
-
-/*
         // opnieuw laden van config omdat de waitpage de entity detached
         this.update = new Date();
         proces = (BAG2MutatieProces) Stripersist.getEntityManager().find(AutomatischProces.class, proces.getId());
+        mode = ClobElement.nullSafeGet(proces.getConfig().get("mode"));
         final ProcesExecutable _proces = AbstractExecutableProces.getProces(proces);
         try {
             _proces.execute(this);
@@ -70,7 +70,6 @@ public class BAG2MutatieProcesUitvoerenActionBean implements ActionBean, Progres
             Stripersist.getEntityManager().getTransaction().commit();
         }
         return new ForwardResolution(JSP);
-*/
     }
 
     @Override
@@ -109,12 +108,20 @@ public class BAG2MutatieProcesUitvoerenActionBean implements ActionBean, Progres
         this.context = context;
     }
 
-    public BGTLoaderProces getProces() {
+    public BAG2MutatieProces getProces() {
         return proces;
     }
 
-    public void setProces(BGTLoaderProces proces) {
+    public void setProces(BAG2MutatieProces proces) {
         this.proces = proces;
+    }
+
+    public String getMode() {
+        return mode;
+    }
+
+    public void setMode(String mode) {
+        this.mode = mode;
     }
 
     public String getExceptionStacktrace() {
