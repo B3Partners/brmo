@@ -88,7 +88,6 @@ public class DatabaseUpgradeTest {
         // HACK voor bump
         if (nextRelease.equalsIgnoreCase("2.2.0")){
             previousRelease = "2.1.0";
-            nextRelease = "2.2.0-rc1";
         }
         LOG.debug("vorige release is: " + previousRelease);
 
