@@ -68,6 +68,9 @@ import static nl.b3p.brmo.bgt.loader.Utils.getMessageFormattedString;
 public class BAG2LoaderMain implements IVersionProvider {
     private static Log log;
 
+    /* zodat we een JNDI database kunnen gebruiken */
+    private BAG2Database bag2Database = null;
+
     private Set<BAG2ObjectType> objectTypesWithSchemaCreated = new HashSet<>();
 
     private Map<BAG2ObjectType, Set<Pair<Object,Object>>> keysPerObjectType = new HashMap<>();
@@ -117,7 +120,7 @@ public class BAG2LoaderMain implements IVersionProvider {
 
         log.info(BAG2LoaderUtils.getUserAgent());
 
-        try(BAG2Database db = new BAG2Database(dbOptions)) {
+        try(BAG2Database db = getBAG2Database(dbOptions)) {
             BAG2ProgressReporter progressReporter = progressOptions.isConsoleProgressEnabled()
                     ? new BAG2ConsoleProgressReporter()
                     : new BAG2ProgressReporter();
@@ -125,6 +128,21 @@ public class BAG2LoaderMain implements IVersionProvider {
             loadFiles(db, dbOptions, loadOptions, progressReporter, filenames, null);
             return ExitCode.OK;
         }
+    }
+
+    private BAG2Database getBAG2Database(BAG2DatabaseOptions dbOptions) throws ClassNotFoundException {
+        if (bag2Database == null) {
+            bag2Database = new BAG2Database(dbOptions);
+        }
+        return bag2Database;
+    }
+
+    public BAG2Database getBag2Database() {
+        return bag2Database;
+    }
+
+    public void setBag2Database(BAG2Database bag2Database) {
+        this.bag2Database = bag2Database;
     }
 
     public void loadFiles(BAG2Database db, BAG2DatabaseOptions dbOptions, BAG2LoadOptions loadOptions, BAG2ProgressReporter progressReporter, String[] filenames, CookieManager cookieManager) throws Exception {

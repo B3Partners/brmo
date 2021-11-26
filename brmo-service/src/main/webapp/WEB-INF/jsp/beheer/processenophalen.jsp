@@ -83,6 +83,13 @@
             <c:if test="${edit || _new}">
 
                 <c:choose>
+                    <c:when test="${actionBean.type eq 'BAG2MutatieProces'}">
+                        <jsp:include page="editbag2mutatieproces.jsp" />
+                        <stripes:url var="url" beanclass="nl.b3p.brmo.service.stripes.BAG2MutatieProcesUitvoerenActionBean">
+                            <stripes:param name="proces">${actionBean.proces.id}</stripes:param>
+                        </stripes:url>
+                    </c:when>
+
                     <c:when test="${actionBean.type eq 'MailRapportageProces'}">
                         <jsp:include page="editmailproces.jsp" />
                         <stripes:url var="url" beanclass="nl.b3p.brmo.service.stripes.MailProcesUitvoerActionBean">

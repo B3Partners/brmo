@@ -58,10 +58,14 @@ public class BAG2MutatiesCommand {
     @ParentCommand
     private BAG2LoaderMain parent;
 
+    public void setParent(BAG2LoaderMain parent) {
+        this.parent = parent;
+    }
+
     private static final String KADASTER_LOGIN_URL = "https://mijn.kadaster.nl/security/login.do";
 
     // Artikelnummer 2529 is dagmutaties (https://www.kadaster.nl/-/handleiding-soap-service-bag-2.0-extract)
-    private static final String LVBAG_BESTANDEN_API_URL = "https://bag.kadaster.nl/lvbag/bag-bestanden/api/bestanden";
+    public static final String LVBAG_BESTANDEN_API_URL = "https://bag.kadaster.nl/lvbag/bag-bestanden/api/bestanden";
 
     @Command(name="download", sortOptions = false)
     public int download(
@@ -173,7 +177,7 @@ public class BAG2MutatiesCommand {
             urls.add(bestand.getString("url"));
         }
 
-        try(BAG2Database db = new BAG2Database(dbOptions)) {
+        try(BAG2Database db = parent.getBag2Database()) {
             BAG2ProgressReporter progressReporter = progressOptions.isConsoleProgressEnabled()
                     ? new BAG2ConsoleProgressReporter()
                     : new BAG2ProgressReporter();

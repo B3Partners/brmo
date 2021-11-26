@@ -76,6 +76,10 @@ public class BAG2Database implements AutoCloseable {
         if (this.connection == null || this.connection.isClosed()) {
             this.connection = createConnection();
         }
+        if (dialect instanceof PostGISDialect) {
+            new QueryRunner().update(this.connection, "create schema if not exists bag");
+            new QueryRunner().update(this.connection, "set search_path=bag,public");
+        }
         return this.connection;
     }
 
@@ -96,13 +100,7 @@ public class BAG2Database implements AutoCloseable {
             throw new RuntimeException("New connection required but supplied connection is null or closed");
         }
         try {
-            Connection c =  DriverManager.getConnection(dbOptions.getConnectionString(), dbOptions.getUser(), dbOptions.getPassword());
-
-            if (dialect instanceof PostGISDialect) {
-                new QueryRunner().update(c, "create schema if not exists bag");
-                new QueryRunner().update(c, "set search_path=bag,public");
-            }
-            return c;
+            return DriverManager.getConnection(dbOptions.getConnectionString(), dbOptions.getUser(), dbOptions.getPassword());
         } catch (SQLException e) {
             throw new RuntimeException(getMessageFormattedString("db.connection_error", dbOptions.getConnectionString()), e);
         }
