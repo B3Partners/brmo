@@ -252,8 +252,8 @@ public class BAG2LoadActionBean implements ActionBean {
                 String s = bag2Database.getMetadata(BAG2SchemaMapper.Metadata.STAND_LOAD_TECHNISCHE_DATUM);
                 if (s != null) {
                     SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-                    currentTechnischeDatum = df.parse(s);
-                    standLoadTechnischeDatum = df.parse(bag2Database.getMetadata(BAG2SchemaMapper.Metadata.STAND_LOAD_TECHNISCHE_DATUM));
+                    currentTechnischeDatum = df.parse(bag2Database.getMetadata(BAG2SchemaMapper.Metadata.CURRENT_TECHNISCHE_DATUM));
+                    standLoadTechnischeDatum = df.parse(s);
                     standLoadTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(bag2Database.getMetadata(BAG2SchemaMapper.Metadata.STAND_LOAD_TIME));
                 }
 
