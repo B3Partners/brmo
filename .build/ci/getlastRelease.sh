@@ -9,7 +9,6 @@ PREVRELEASE=$MAJOR.$PREVMINOR
 if [ $CURSNAPSHOT = "2.2.0-SNAPSHOT" ]
 then
     PREVRELEASE="2.1.0"
-    NEXTRELEASE="2.2.0-rc1"
 fi
 echo "Huidige snapshot:" $CURSNAPSHOT", vorige, te downloaden, release: "$PREVRELEASE", komende release: "$NEXTRELEASE
 
