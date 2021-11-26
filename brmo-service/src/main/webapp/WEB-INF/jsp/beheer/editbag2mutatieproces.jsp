@@ -5,7 +5,36 @@
   ~
   --%>
 <%@include file="/WEB-INF/taglibs.jsp" %>
-<table>
+<script>
+    function updateFormVisibility() {
+        const selectedMode = document.querySelector('select[name="config[\'mode\']"]').value;
+        document.querySelectorAll('[data-mode]').forEach(e => {
+            const visible = e.dataset.mode.split(',').includes(selectedMode);
+            e.classList.toggle('visible', visible);
+            e.querySelectorAll('input').forEach(input => {
+                // Don't clear default URL value when saving a mode which disables that input, so it isn't empty
+                // switching back to default mode later
+                if (input.name != 'config[\'url\']') {
+                    // Disable hidden fields so for example the password does not remain in the saved config when the
+                    // mode is changed to one which doesn't need the password
+                    input.disabled = !visible;
+                }
+            });
+        });
+    }
+
+    window.addEventListener('load', e => updateFormVisibility());
+</script>
+<style>
+    tr[data-mode].visible {
+        display: table-row !important;
+    }
+
+    tr[data-mode] {
+        display: none;
+    }
+</style>
+<table style="width: 100%">
     <tr>
         <td><stripes:label name="">Label</stripes:label></td>
         <td><stripes:text name="config['label']"/></td>
@@ -13,7 +42,7 @@
     <tr>
         <td><stripes:label name="">Modus</stripes:label></td>
         <td>
-            <stripes:select name="config['mode']" onchange="selectMode()">
+            <stripes:select name="config['mode']" onchange="updateFormVisibility()">
                 <stripes:option value="applyFromMirror">Landelijke dagmutaties verwerken van publieke mirror (aanbevolen)</stripes:option>
                 <stripes:option value="apply">Mutaties verwerken van BAG Bestanden service van het Kadaster (abonnement vereist)</stripes:option>
                 <stripes:option value="download">Mutaties downloaden van BAG Bestanden service naar directory (abonnement vereist)</stripes:option>
@@ -42,15 +71,15 @@
             "Mijn Kadaster".</i>
         </td>
     </tr>
-    <tr data-mode="apply">
+    <tr data-mode="apply,download">
         <td style="white-space: nowrap"><stripes:label name="">BAG Bestanden gebruikersnaam</stripes:label></td>
         <td><stripes:text name="config['kadaster-username']"/></td>
     </tr>
-    <tr data-mode="apply">
+    <tr data-mode="apply,download">
         <td><stripes:label name="">BAG Bestanden wachtwoord</stripes:label></td>
-        <td><stripes:text name="config['kadaster-password']"/></td>
+        <td><stripes:password name="config['kadaster-password']" value="${actionBean.config['kadaster-password']}"/></td>
     </tr>
-    <tr data-mode="apply">
+    <tr data-mode="apply,download">
         <td style="vertical-align: top"><stripes:label name="">Query parameter voor bestandenlijst</stripes:label></td>
         <td><stripes:text name="config['query']" style="width: 43em;"/><br>
             <i>Laat leeg om de landelijke dagmutaties op te halen. Om maandelijkse gemeentemutaties op te halen
