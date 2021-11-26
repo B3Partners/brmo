@@ -180,7 +180,7 @@ comment on view vb_verblijfsobject_adres is 'verblijfsobject met adres, pandverw
 
 -- vervangt vb_benoemd_obj_adres alle objecten met een (neven)adres
 create or replace view vb_adresseerbaar_object_geometrie as
-select vla.objectid,
+select (row_number() over ())::integer as objectid,
        vla.ishoofdadres,
        vla.status,
        vla.identificatie,
@@ -193,14 +193,14 @@ select vla.objectid,
        vla.huisletter,
        vla.huisnummertoevoeging,
        vla.postcode,
-       'ligplaats' as soort,
-       null        as maaktdeeluitvan,
-       null        as gebruiksdoelen,
+       'ligplaats'                     as soort,
+       null                            as maaktdeeluitvan,
+       null                            as gebruiksdoelen,
        vla.geometrie_centroide,
        vla.geometrie
 from vb_ligplaats_adres vla
 union all
-select vsa.objectid,
+select (row_number() over ())::integer as objectid,
        vsa.ishoofdadres,
        vsa.status,
        vsa.identificatie,
@@ -213,14 +213,14 @@ select vsa.objectid,
        vsa.huisletter,
        vsa.huisnummertoevoeging,
        vsa.postcode,
-       'standplaats' as soort,
-       null          as maaktdeeluitvan,
-       null          as gebruiksdoelen,
+       'standplaats'                   as soort,
+       null                            as maaktdeeluitvan,
+       null                            as gebruiksdoelen,
        vsa.geometrie_centroide,
        vsa.geometrie
 from vb_standplaats_adres vsa
 union all
-select vva.objectid,
+select (row_number() over ())::integer as objectid,
        vva.ishoofdadres,
        vva.status,
        vva.identificatie,
@@ -233,7 +233,7 @@ select vva.objectid,
        vva.huisletter,
        vva.huisnummertoevoeging,
        vva.postcode,
-       'verblijfsobject' as soort,
+       'verblijfsobject'               as soort,
        vva.maaktdeeluitvan,
        vva.gebruiksdoelen,
        vva.geometrie_centroide,
@@ -241,4 +241,4 @@ select vva.objectid,
 from vb_verblijfsobject_adres vva;
 
 comment on
-view vb_adresseerbaar_object_geometrie is 'alle adresseerbare objecten (ligplaatst, standplaats, verblijfsobject) met adres, gebruiksdoel, pand en (afgeleide) geometrie.';
+    view vb_adresseerbaar_object_geometrie is 'alle adresseerbare objecten (ligplaatst, standplaats, verblijfsobject) met adres, gebruiksdoel, pand en (afgeleide) geometrie.';
