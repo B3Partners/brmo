@@ -86,9 +86,9 @@ public class DatabaseUpgradeTest {
         LOG.debug("release patch is: " + patch);
         previousRelease = nextRelease.substring(0, nextRelease.lastIndexOf(".")) + "." + (patch - 1);
         // HACK voor bump
-        if (nextRelease.equalsIgnoreCase("2.2.0")){
-            previousRelease = "2.1.0";
-        }
+//        if (nextRelease.equalsIgnoreCase("2.2.0")){
+//            previousRelease = "2.1.0";
+//        }
         LOG.debug("vorige release is: " + previousRelease);
 
         assumeTrue(previousRelease.matches("(\\d+\\.)(\\d+\\.)(\\d)"));

@@ -6,10 +6,10 @@ MINOR="${NEXTRELEASE##*.}"
 PREVMINOR=$(($MINOR-1))
 PREVRELEASE=$MAJOR.$PREVMINOR
 
-if [ $CURSNAPSHOT = "2.2.0-SNAPSHOT" ]
-then
-    PREVRELEASE="2.1.0"
-fi
+#if [ $CURSNAPSHOT = "2.2.0-SNAPSHOT" ]
+#then
+#    PREVRELEASE="2.1.0"
+#fi
 echo "Huidige snapshot:" $CURSNAPSHOT", vorige, te downloaden, release: "$PREVRELEASE", komende release: "$NEXTRELEASE
 
 REMOTE_FILE="https://repo.b3p.nl/nexus/repository/public/nl/b3p/brmo-dist/${PREVRELEASE}/brmo-dist-${PREVRELEASE}-bin.zip"
@@ -30,7 +30,7 @@ if [ -f "$LOCAL_FILE" ]; then
 else
     LOCAL_SIZE=0
 fi
-REMOTE_SIZE=$(curl -sI $REMOTE_FILE | awk '/Content-Length/ {sub("\r",""); print $2}')
+REMOTE_SIZE=$(curl -sI $REMOTE_FILE | awk -v IGNORECASE="1" '/content-length/ {sub("\r",""); print $2}')
 
 echo "remote size: "$REMOTE_SIZE", local size: "$LOCAL_SIZE
 
