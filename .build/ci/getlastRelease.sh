@@ -30,7 +30,7 @@ if [ -f "$LOCAL_FILE" ]; then
 else
     LOCAL_SIZE=0
 fi
-REMOTE_SIZE=$(curl -sI $REMOTE_FILE | awk '/Content-Length/ {sub("\r",""); print $2}')
+REMOTE_SIZE=$(curl -sI $REMOTE_FILE | awk -v IGNORECASE="1" '/content-length/ {sub("\r",""); print $2}')
 
 echo "remote size: "$REMOTE_SIZE", local size: "$LOCAL_SIZE
 
