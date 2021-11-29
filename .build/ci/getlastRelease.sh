@@ -6,10 +6,10 @@ MINOR="${NEXTRELEASE##*.}"
 PREVMINOR=$(($MINOR-1))
 PREVRELEASE=$MAJOR.$PREVMINOR
 
-if [ $CURSNAPSHOT = "2.2.0-SNAPSHOT" ]
-then
-    PREVRELEASE="2.1.0"
-fi
+#if [ $CURSNAPSHOT = "2.2.0-SNAPSHOT" ]
+#then
+#    PREVRELEASE="2.1.0"
+#fi
 echo "Huidige snapshot:" $CURSNAPSHOT", vorige, te downloaden, release: "$PREVRELEASE", komende release: "$NEXTRELEASE
 
 REMOTE_FILE="https://repo.b3p.nl/nexus/repository/public/nl/b3p/brmo-dist/${PREVRELEASE}/brmo-dist-${PREVRELEASE}-bin.zip"
