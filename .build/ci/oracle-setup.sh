@@ -28,4 +28,4 @@ docker exec -i oracle_brmo sqlplus -l top100nl/top100nl@//localhost:1521/XE < ./
 docker exec -i oracle_brmo sqlplus -l top250nl/top250nl@//localhost:1521/XE < ./.build/ci/oracle-db-grant-topnl.sql
 
 printf "\nSetup BAG grants...\n"
-docker exec -i oracle_brmo sqlplus -l jenkins_bag/jenkins_bag@//localhost:1521/XE < ./.build/ci/oracle-db-grant-bag-top-rsgb.sql
+docker exec -i oracle_brmo sqlplus -l jenkins_bag/jenkins_bag@//localhost:1521/XE < ./.build/ci/oracle-db-grant-bag-to-rsgb.sql
