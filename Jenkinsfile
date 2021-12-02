@@ -158,9 +158,9 @@ timestamps {
                 }
             }
 
-            if (env.BRANCH_NAME == 'master' && env.NODE_NAME == 'master') {
+            if (env.BRANCH_NAME == 'master' && env.NODE_NAME == 'built-in') {
                 stage("Docker image build & push") {
-                    echo "Maak een docker image van master branch als we op de Jenkins master node draaien"
+                    echo "Maak een docker image van master branch als we op de Jenkins built-in node draaien"
                     sh "mvn install -Dmaven.test.skip=true -B -V -e -fae -q"
                     sh "mvn deploy -B -pl :docker -P docker"
                 }
