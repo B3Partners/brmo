@@ -290,6 +290,7 @@ public final class CleanUtil {
                 new DefaultTable("woz_obj"),
                 new DefaultTable("woz_deelobj"),
                 new DefaultTable("woz_waarde"),
+                new DefaultTable("woz_omvat"),
                 new DefaultTable("woz_belang"),
                 new DefaultTable("woz_deelobj_archief"),
                 new DefaultTable("woz_obj_archief"),
