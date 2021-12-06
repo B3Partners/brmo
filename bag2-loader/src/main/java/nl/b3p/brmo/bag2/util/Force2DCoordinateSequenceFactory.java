@@ -5,7 +5,7 @@
  *
  */
 
-package nl.b3p.brmo.util;
+package nl.b3p.brmo.bag2.util;
 
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.CoordinateSequence;

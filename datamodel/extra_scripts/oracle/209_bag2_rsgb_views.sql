@@ -1,7 +1,7 @@
 -- Via de BRMO GUI kunnen deze materialized views vervolgens automatisch ververst worden.
 
--- LET OP: de aanname is dat het BAG schema de naam "BAG" heeft, indien dat niet het geval is moet dat hieronder
--- aangepast worden op die plaatsen waar verwezen wordt naar het BAG schema, zoek naar "bag." om dat te vervangen
+-- LET OP: de aanname is dat het BAG schema de naam "JENKINS_BAG" heeft, indien dat niet het geval is moet dat hieronder
+-- aangepast worden op die plaatsen waar verwezen wordt naar het BAG schema, zoek naar "jenkins_bag." om dat te vervangen
 -- in de definities van mb_adres_bag en mb_adresseerbaar_object_geometrie_bag
 
 -- Aangezien het in een Oracle database niet mogelijk is om op schema nivo permissies uit te delen dient dat per view
@@ -15,12 +15,12 @@
 --      vb_ligplaats_adres
 --      vb_standplaats_adres
 --      vb_verblijfsobject_adres
-BEGIN
-    FOR t IN (SELECT * FROM USER_VIEWS)
-    LOOP
-        EXECUTE IMMEDIATE 'GRANT SELECT ON ' || t.view_name || ' TO JENKINS_RSGB';
-    END LOOP;
-END;
+-- BEGIN
+--     FOR t IN (SELECT * FROM USER_VIEWS)
+--     LOOP
+--         EXECUTE IMMEDIATE 'GRANT SELECT ON ' || t.view_name || ' TO JENKINS_RSGB';
+--     END LOOP;
+-- END;
 
 -- Vervangt mb_adres. Gemeentevelden zijn nog niet beschikbaar.
 -- Gemeente-woonplaats relatie nog niet beschikbaar (BRMO-104)
@@ -39,9 +39,9 @@ select na.objectid,
        opr.identificatie          as identificatieopenbareruimte,
        wp.identificatie           as identificatiewoonplaats,
        cast(null as NUMBER(4, 0)) as gemeentecode
-from bag.v_nummeraanduiding_actueel na
-         left join bag.v_openbareruimte_actueel opr on (opr.identificatie = na.ligtaan)
-         left join bag.v_woonplaats_actueel wp on (wp.identificatie = opr.ligtin);
+from jenkins_bag.v_nummeraanduiding_actueel na
+         left join jenkins_bag.v_openbareruimte_actueel opr on (opr.identificatie = na.ligtaan)
+         left join jenkins_bag.v_woonplaats_actueel wp on (wp.identificatie = opr.ligtin);
 
 create unique index mb_adres_bag_identificatie on mb_adres_bag (identificatienummeraanduiding asc);
 create unique index mb_adres_bag_objectid on mb_adres_bag (objectid asc);
@@ -87,7 +87,7 @@ from (select vla.ishoofdadres,
              cast(null as NUMBER(10, 0))  as oppervlakte,
              vla.geometrie_centroide,
              vla.geometrie
-      from bag.vb_ligplaats_adres vla
+      from jenkins_bag.vb_ligplaats_adres vla
       union all
       select vsa.ishoofdadres,
              vsa.status,
@@ -107,7 +107,7 @@ from (select vla.ishoofdadres,
              cast(null as NUMBER(10, 0))  as oppervlakte,
              vsa.geometrie_centroide,
              vsa.geometrie
-      from bag.vb_standplaats_adres vsa
+      from jenkins_bag.vb_standplaats_adres vsa
       union all
       select vva.ishoofdadres,
              vva.status,
@@ -127,7 +127,7 @@ from (select vla.ishoofdadres,
              vva.oppervlakte,
              vva.geometrie_centroide,
              vva.geometrie
-      from bag.vb_verblijfsobject_adres vva) qry;
+      from jenkins_bag.vb_verblijfsobject_adres vva) qry;
 
 comment on materialized view mb_adresseerbaar_object_geometrie_bag is 'alle adresseerbare objecten (ligplaatst, standplaats, verblijfsobject) met adres, gebruiksdoel, pand en (afgeleide) geometrie.';
 delete
@@ -259,9 +259,9 @@ from (select p.sc_kad_identif                                                   
 comment on materialized view mb_kad_onrrnd_zk_adres_bag is 'alle kadastrale onroerende zaken (perceel en appartementsrecht) met opgezochte verkoop datum, objectid voor geoserver/arcgis en BAG adres';
 delete
 from user_sdo_geom_metadata
-where table_name = 'MB_ADRESSEERBAAR_OBJECT_GEOMETRIE_BAG';
+where table_name = 'MB_KAD_ONRRND_ZK_ADRES_BAG';
 insert into user_sdo_geom_metadata
-values ('MB_ADRESSEERBAAR_OBJECT_GEOMETRIE_BAG', 'BEGRENZING_PERCEEL',
+values ('MB_KAD_ONRRND_ZK_ADRES_BAG', 'BEGRENZING_PERCEEL',
         mdsys.sdo_dim_array(mdsys.sdo_dim_element('X', 12000, 280000, .1),
                             mdsys.sdo_dim_element('Y', 304000, 620000, .1)), 28992);
 

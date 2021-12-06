@@ -1,3 +1,9 @@
+/*
+ * Copyright (C) 2021 B3Partners B.V.
+ *
+ * SPDX-License-Identifier: MIT
+ *
+ */
 package nl.b3p.brmo.datamodel;
 
 import nl.b3p.brmo.test.util.database.ViewUtils;
@@ -24,7 +30,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.junit.jupiter.api.Assumptions.assumeFalse;
 
 /**
@@ -33,8 +42,6 @@ import static org.junit.jupiter.api.Assumptions.assumeFalse;
 public class MaterializedViewsTest {
     private static final Log LOG = LogFactory.getLog(MaterializedViewsTest.class);
     private static String currentVersion;
-    private IDatabaseConnection db;
-    private BasicDataSource ds;
     /**
      * properties uit {@code <DB smaak>.properties} en
      * {@code local.<DB smaak>.properties}.
@@ -42,21 +49,20 @@ public class MaterializedViewsTest {
      * @see #loadProps()
      */
     protected final Properties params = new Properties();
-
     /**
      * {@code true} als we met een Oracle database bezig zijn.
      */
     protected boolean isOracle;
-
     /**
      * {@code true} als we met een MS SQL Server database bezig zijn.
      */
     protected boolean isMsSQL;
-
     /**
      * {@code true} als we met een Postgis database bezig zijn.
      */
     protected boolean isPostgis;
+    private IDatabaseConnection db;
+    private BasicDataSource ds;
 
     /**
      * init versienummer.
@@ -73,7 +79,7 @@ public class MaterializedViewsTest {
      */
     @BeforeAll
     public static void checkDatabaseIsProvided() {
-        assumeFalse(System.getProperty("database.properties.file")==null, "Verwacht database omgeving te zijn aangegeven.");
+        assumeFalse(System.getProperty("database.properties.file") == null, "Verwacht database omgeving te zijn aangegeven.");
     }
 
     @BeforeEach
@@ -133,7 +139,7 @@ public class MaterializedViewsTest {
     }
 
     /**
-     * test of de bekende set met materialized in de database bestaan.
+     * test of de bekende set met materialized views in de rsgb database bestaan.
      *
      * @throws SQLException als opzoeken in de dabase mislukt
      */
@@ -162,7 +168,13 @@ public class MaterializedViewsTest {
                     "mb_avg_zr_rechth",
                     "mb_koz_rechth",
                     "mb_avg_koz_rechth",
-                    "mb_kad_onrrnd_zk_archief"
+                    "mb_kad_onrrnd_zk_archief",
+                    // bag 2
+                    "mb_adres_bag",
+                    "mb_adresseerbaar_object_geometrie_bag",
+                    "mb_avg_koz_rechth_bag",
+                    "mb_kad_onrrnd_zk_adres_bag",
+                    "mb_koz_rechth_bag"
             );
 
             // alles lower-case (ORACLE!) en gesorteerd vergelijken

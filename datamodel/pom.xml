@@ -450,8 +450,13 @@
                                 <database.properties.file>postgis.properties</database.properties.file>
                                 <project.version>${project.version}</project.version>
                                 <database.upgrade>${database.upgrade}</database.upgrade>
+                                <bag.dburl>jdbc:postgresql:rsgb?currentSchema=bag</bag.dburl>
+                                <bag.dbuser>rsgb</bag.dbuser>
+                                <bag.dbpassword>rsgb</bag.dbpassword>
                             </systemPropertyVariables>
                             <excludedGroups>skip-pgsql</excludedGroups>
+                            <!--suppress UnresolvedMavenProperty -->
+                            <argLine>${surefireArgLine}</argLine>
                         </configuration>
                     </plugin>
                 </plugins>
@@ -469,8 +474,13 @@
                                 <database.properties.file>oracle.properties</database.properties.file>
                                 <project.version>${project.version}</project.version>
                                 <database.upgrade>${database.upgrade}</database.upgrade>
+                                <bag.dburl>jdbc:oracle:thin:@127.0.0.1:1521:XE?oracle.net.disableOob=true</bag.dburl>
+                                <bag.dbuser>JENKINS_BAG</bag.dbuser>
+                                <bag.dbpassword>jenkins_bag</bag.dbpassword>
                             </systemPropertyVariables>
                             <excludedGroups>skip-oracle</excludedGroups>
+                            <!--suppress UnresolvedMavenProperty -->
+                            <argLine>${surefireArgLine}</argLine>
                         </configuration>
                     </plugin>
                 </plugins>
@@ -490,6 +500,8 @@
                                 <database.upgrade>${database.upgrade}</database.upgrade>
                             </systemPropertyVariables>
                             <excludedGroups>skip-mssql</excludedGroups>
+                            <!--suppress UnresolvedMavenProperty -->
+                            <argLine>${surefireArgLine}</argLine>
                         </configuration>
                     </plugin>
                 </plugins>

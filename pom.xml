@@ -844,6 +844,7 @@
                             <exclude>**/*IntegrationTest.java</exclude>
                         </excludes>
                         <skipTests>${test.onlyITs}</skipTests>
+                        <!--suppress UnresolvedMavenProperty -->
                         <argLine>${surefireArgLine}</argLine>
                     </configuration>
                 </plugin>
@@ -861,6 +862,7 @@
                         <useFile>false</useFile>
                         <skipTests>!${test.onlyITs}</skipTests>
                         <skipITs>!${test.onlyITs}</skipITs>
+                        <!--suppress UnresolvedMavenProperty -->
                         <argLine>${failsafeArgLine}</argLine>
                     </configuration>
                     <executions>

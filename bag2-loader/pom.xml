@@ -66,6 +66,18 @@ SPDX-License-Identifier: MIT
             <artifactId>commons-dbutils</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-compress</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>nl.b3p</groupId>
+            <artifactId>bgt-loader</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+        </dependency>
+        <dependency>
             <groupId>net.postgis</groupId>
             <artifactId>postgis-jdbc</artifactId>
         </dependency>
@@ -76,7 +88,7 @@ SPDX-License-Identifier: MIT
         <dependency>
             <groupId>info.picocli</groupId>
             <artifactId>picocli</artifactId>
-        </dependency>        
+        </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
@@ -88,16 +100,14 @@ SPDX-License-Identifier: MIT
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-compress</artifactId>
+            <groupId>org.dbunit</groupId>
+            <artifactId>dbunit</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>nl.b3p</groupId>
-            <artifactId>bgt-loader</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.json</groupId>
-            <artifactId>json</artifactId>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
@@ -268,6 +278,53 @@ SPDX-License-Identifier: MIT
                         <configuration>
                             <verbose>false</verbose>
                             <skip>true</skip>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>postgresql</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <configuration>
+                            <includes>
+                                <include>**/*IntegrationTest.java</include>
+                            </includes>
+                            <!--suppress UnresolvedMavenProperty -->
+                            <argLine>${failsafeArgLine}</argLine>
+                            <trimStackTrace>false</trimStackTrace>
+                            <systemPropertyVariables>
+                                <dbuser>rsgb</dbuser>
+                                <dbpasword>rsgb</dbpasword>
+                                <!-- volledig zoekpad opnemen voor DBunit; dus incl. bag schema -->
+                                <dburl>jdbc:postgresql:rsgb?currentSchema=bag,public&amp;sslmode=disable&amp;reWriteBatchedInserts=true</dburl>
+                            </systemPropertyVariables>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>oracle</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <configuration>
+                            <includes>
+                                <include>**/*IntegrationTest.java</include>
+                            </includes>
+                            <!--suppress UnresolvedMavenProperty -->
+                            <argLine>${failsafeArgLine}</argLine>
+                            <trimStackTrace>false</trimStackTrace>
+                            <systemPropertyVariables>
+                                <dbuser>JENKINS_BAG</dbuser>
+                                <dbpassword>jenkins_bag</dbpassword>
+                                <dburl>jdbc:oracle:thin:@127.0.0.1:1521:XE?oracle.net.disableOob=true</dburl>
+                            </systemPropertyVariables>
                         </configuration>
                     </plugin>
                 </plugins>
