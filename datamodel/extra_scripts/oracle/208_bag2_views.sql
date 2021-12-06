@@ -28,45 +28,56 @@ comment on table vb_adres is 'volledig actueel adres zonder locatie';
 
 -- Vervangt vb_ligplaats_adres. Gemeentevelden zijn nog niet beschikbaar.
 create or replace view vb_ligplaats_adres as
-select lp.objectid,
-       'true'                                 as ishoofdadres,
-       lp.status,
-       lp.identificatie,
-       a.identificatienummeraanduiding,
-       a.status                               as nummeraanduidingstatus,
-       a.gemeente,
-       a.woonplaats,
-       a.straatnaam,
-       a.huisnummer,
-       a.huisletter,
-       a.huisnummertoevoeging,
-       a.postcode,
-       sdo_geom.sdo_centroid(lp.geometrie, 2) as geometrie_centroide,
-       lp.geometrie
-from v_ligplaats_actueel lp
-         join vb_adres a on lp.heeftalshoofdadres = a.identificatienummeraanduiding
-union all
-select lpa.objectid,
-       'false'                                 as ishoofdadres,
-       lpa.status,
-       lpa.identificatie,
-       a.identificatienummeraanduiding,
-       a.status                                as nummeraanduidingstatus,
-       a.gemeente,
-       a.woonplaats,
-       a.straatnaam,
-       a.huisnummer,
-       a.huisletter,
-       a.huisnummertoevoeging,
-       a.postcode,
-       sdo_geom.sdo_centroid(lpa.geometrie, 2) as geometrie_centroide,
-       lpa.geometrie
-from v_ligplaats_actueel lpa
-         join ligplaats_nevenadres lpna on
-    (lpna.identificatie = lpa.identificatie
-        and lpna.voorkomenidentificatie = lpa.voorkomenidentificatie)
-         join vb_adres a on
-    lpa.heeftalshoofdadres = a.identificatienummeraanduiding;
+select cast(ROWNUM as INTEGER) as objectid,
+       qry.ishoofdadres,
+       qry.status,
+       qry.identificatie,
+       qry.identificatienummeraanduiding,
+       qry.nummeraanduidingstatus,
+       qry.gemeente,
+       qry.woonplaats,
+       qry.straatnaam,
+       qry.huisnummer,
+       qry.huisletter,
+       qry.huisnummertoevoeging,
+       qry.postcode,
+       qry.geometrie_centroide,
+       qry.geometrie
+from (select 'true'                                 as ishoofdadres,
+             lp.status,
+             lp.identificatie,
+             a.identificatienummeraanduiding,
+             a.status                               as nummeraanduidingstatus,
+             a.gemeente,
+             a.woonplaats,
+             a.straatnaam,
+             a.huisnummer,
+             a.huisletter,
+             a.huisnummertoevoeging,
+             a.postcode,
+             sdo_geom.sdo_centroid(lp.geometrie, 2) as geometrie_centroide,
+             lp.geometrie
+      from v_ligplaats_actueel lp
+               join vb_adres a on lp.heeftalshoofdadres = a.identificatienummeraanduiding
+      union all
+      select 'false'                                 as ishoofdadres,
+             lpa.status,
+             lpa.identificatie,
+             a.identificatienummeraanduiding,
+             a.status                                as nummeraanduidingstatus,
+             a.gemeente,
+             a.woonplaats,
+             a.straatnaam,
+             a.huisnummer,
+             a.huisletter,
+             a.huisnummertoevoeging,
+             a.postcode,
+             sdo_geom.sdo_centroid(lpa.geometrie, 2) as geometrie_centroide,
+             lpa.geometrie
+      from v_ligplaats_actueel lpa
+               join ligplaats_nevenadres lpna on (lpna.identificatie = lpa.identificatie and
+                                                  lpna.voorkomenidentificatie = lpa.voorkomenidentificatie)
+               join vb_adres a on lpa.heeftalshoofdadres = a.identificatienummeraanduiding) qry;
 
 comment on table vb_ligplaats_adres is 'ligplaats met adres en puntlocatie';
 delete from user_sdo_geom_metadata where table_name = 'VB_LIGPLAATS_ADRES';
@@ -78,47 +89,59 @@ insert into user_sdo_geom_metadata
 values ('VB_LIGPLAATS_ADRES', 'GEOMETRIE', mdsys.sdo_dim_array(mdsys.sdo_dim_element('X', 12000, 280000, .1),
                                                                mdsys.sdo_dim_element('Y', 304000, 620000, .1)), 28992);
 
+
 -- Vervangt vb_standplaats_adres. Gemeentevelden zijn nog niet beschikbaar.
 create or replace view vb_standplaats_adres as
-select sp.objectid,
-       'true'                                 as ishoofdadres,
-       sp.status,
-       sp.identificatie,
-       a.identificatienummeraanduiding,
-       a.status                               as nummeraanduidingstatus,
-       a.gemeente,
-       a.woonplaats,
-       a.straatnaam,
-       a.huisnummer,
-       a.huisletter,
-       a.huisnummertoevoeging,
-       a.postcode,
-       sdo_geom.sdo_centroid(sp.geometrie, 2) as geometrie_centroide,
-       sp.geometrie
-from v_standplaats_actueel sp
-         join vb_adres a on sp.heeftalshoofdadres = a.identificatienummeraanduiding
-union all
-select spa.objectid,
-       'false'                                 as ishoofdadres,
-       spa.status,
-       spa.identificatie,
-       a.identificatienummeraanduiding,
-       a.status                                as nummeraanduidingstatus,
-       a.gemeente,
-       a.woonplaats,
-       a.straatnaam,
-       a.huisnummer,
-       a.huisletter,
-       a.huisnummertoevoeging,
-       a.postcode,
-       sdo_geom.sdo_centroid(spa.geometrie, 2) as geometrie_centroide,
-       spa.geometrie
-from v_standplaats_actueel spa
-         join standplaats_nevenadres spna on
-    (spna.identificatie = spa.identificatie
-        and spna.voorkomenidentificatie = spa.voorkomenidentificatie)
-         join vb_adres a on
-    spa.heeftalshoofdadres = a.identificatienummeraanduiding;
+select cast(ROWNUM as INTEGER) as objectid,
+       qry.ishoofdadres,
+       qry.status,
+       qry.identificatie,
+       qry.identificatienummeraanduiding,
+       qry.nummeraanduidingstatus,
+       qry.gemeente,
+       qry.woonplaats,
+       qry.straatnaam,
+       qry.huisnummer,
+       qry.huisletter,
+       qry.huisnummertoevoeging,
+       qry.postcode,
+       qry.geometrie_centroide,
+       qry.geometrie
+from (select 'true'                                 as ishoofdadres,
+             sp.status,
+             sp.identificatie,
+             a.identificatienummeraanduiding,
+             a.status                               as nummeraanduidingstatus,
+             a.gemeente,
+             a.woonplaats,
+             a.straatnaam,
+             a.huisnummer,
+             a.huisletter,
+             a.huisnummertoevoeging,
+             a.postcode,
+             sdo_geom.sdo_centroid(sp.geometrie, 2) as geometrie_centroide,
+             sp.geometrie
+      from v_standplaats_actueel sp
+               join vb_adres a on sp.heeftalshoofdadres = a.identificatienummeraanduiding
+      union all
+      select 'false'                                 as ishoofdadres,
+             spa.status,
+             spa.identificatie,
+             a.identificatienummeraanduiding,
+             a.status                                as nummeraanduidingstatus,
+             a.gemeente,
+             a.woonplaats,
+             a.straatnaam,
+             a.huisnummer,
+             a.huisletter,
+             a.huisnummertoevoeging,
+             a.postcode,
+             sdo_geom.sdo_centroid(spa.geometrie, 2) as geometrie_centroide,
+             spa.geometrie
+      from v_standplaats_actueel spa
+               join standplaats_nevenadres spna on (spna.identificatie = spa.identificatie and
+                                                    spna.voorkomenidentificatie = spa.voorkomenidentificatie)
+               join vb_adres a on spa.heeftalshoofdadres = a.identificatienummeraanduiding) qry;
 
 comment on table vb_standplaats_adres is 'standplaats met adres en puntlocatie';
 delete from user_sdo_geom_metadata where table_name = 'VB_STANDPLAATS_ADRES';
@@ -134,61 +157,76 @@ values ('VB_STANDPLAATS_ADRES', 'GEOMETRIE', mdsys.sdo_dim_array(mdsys.sdo_dim_e
 
 -- Vervangt vb_vbo_adres. Gemeentevelden zijn nog niet beschikbaar.
 create or replace view vb_verblijfsobject_adres as
-select vo.objectid,
-       'true'                                                                      as ishoofdadres,
-       vo.status,
-       vo.identificatie,
-       a.identificatienummeraanduiding,
-       a.status                                                                    as nummeraanduidingstatus,
-       a.gemeente,
-       a.woonplaats,
-       a.straatnaam,
-       a.huisnummer,
-       a.huisletter,
-       a.huisnummertoevoeging,
-       a.postcode,
-       vbod.maaktdeeluitvan,
-       (select LISTAGG(vg.gebruiksdoel, ', ')
-        from verblijfsobject_gebruiksdoel vg
-        where (vg.identificatie = vo.identificatie and vg.voorkomenidentificatie =
-                                                       vo.voorkomenidentificatie)) as gebruiksdoelen,
-       vo.oppervlakte,
-       sdo_geom.sdo_centroid(vo.geometrie, 2)                                      as geometrie_centroide,
-       vo.geometrie
-from v_verblijfsobject_actueel vo
-         join vb_adres a on vo.heeftalshoofdadres = a.identificatienummeraanduiding
-         join verblijfsobject_maaktdeeluitvan vbod
-              on vo.identificatie = vbod.identificatie and vo.voorkomenidentificatie = vbod.voorkomenidentificatie
-union all
-select voa.objectid,
-       'false'                                                                       as ishoofdadres,
-       voa.status,
-       voa.identificatie,
-       a.identificatienummeraanduiding,
-       a.status                                                                      as nummeraanduidingstatus,
-       a.gemeente,
-       a.woonplaats,
-       a.straatnaam,
-       a.huisnummer,
-       a.huisletter,
-       a.huisnummertoevoeging,
-       a.postcode,
-       vbod.maaktdeeluitvan,
-       (select LISTAGG(vg.gebruiksdoel, ', ')
-        from verblijfsobject_gebruiksdoel vg
-        where (vg.identificatie = voa.identificatie and vg.voorkomenidentificatie =
-                                                        voa.voorkomenidentificatie)) as gebruiksdoelen,
-       voa.oppervlakte,
-       sdo_geom.sdo_centroid(voa.geometrie, 2)                                       as geometrie_centroide,
-       voa.geometrie
-from v_verblijfsobject_actueel voa
-         join verblijfsobject_nevenadres vona on
-    (vona.identificatie = voa.identificatie
-        and vona.voorkomenidentificatie = voa.voorkomenidentificatie)
-         join vb_adres a on
-    voa.heeftalshoofdadres = a.identificatienummeraanduiding
-         join verblijfsobject_maaktdeeluitvan vbod
-              on voa.identificatie = vbod.identificatie and voa.voorkomenidentificatie = vbod.voorkomenidentificatie;
+select cast(ROWNUM as INTEGER) as objectid,
+       qry.ishoofdadres,
+       qry.status,
+       qry.identificatie,
+       qry.identificatienummeraanduiding,
+       qry.nummeraanduidingstatus,
+       qry.gemeente,
+       qry.woonplaats,
+       qry.straatnaam,
+       qry.huisnummer,
+       qry.huisletter,
+       qry.huisnummertoevoeging,
+       qry.postcode,
+       qry.maaktdeeluitvan,
+       qry.gebruiksdoelen,
+       qry.oppervlakte,
+       qry.geometrie_centroide,
+       qry.geometrie
+from (select 'true'                                                                                                  as ishoofdadres,
+             vo.status,
+             vo.identificatie,
+             a.identificatienummeraanduiding,
+             a.status                                                                                                as nummeraanduidingstatus,
+             a.gemeente,
+             a.woonplaats,
+             a.straatnaam,
+             a.huisnummer,
+             a.huisletter,
+             a.huisnummertoevoeging,
+             a.postcode,
+             vbod.maaktdeeluitvan,
+             (select listagg(vg.gebruiksdoel, ', ')
+              from verblijfsobject_gebruiksdoel vg
+              where (vg.identificatie = vo.identificatie and vg.voorkomenidentificatie =
+                                                             vo.voorkomenidentificatie))                             as gebruiksdoelen,
+             vo.oppervlakte,
+             sdo_geom.sdo_centroid(vo.geometrie, 2)                                                                  as geometrie_centroide,
+             vo.geometrie
+      from v_verblijfsobject_actueel vo
+               join vb_adres a on vo.heeftalshoofdadres = a.identificatienummeraanduiding
+               join verblijfsobject_maaktdeeluitvan vbod
+                    on vo.identificatie = vbod.identificatie and vo.voorkomenidentificatie = vbod.voorkomenidentificatie
+      union all
+      select 'false'                                                          as ishoofdadres,
+             voa.status,
+             voa.identificatie,
+             a.identificatienummeraanduiding,
+             a.status                                                         as nummeraanduidingstatus,
+             a.gemeente,
+             a.woonplaats,
+             a.straatnaam,
+             a.huisnummer,
+             a.huisletter,
+             a.huisnummertoevoeging,
+             a.postcode,
+             vbod.maaktdeeluitvan,
+             (select listagg(vg.gebruiksdoel, ', ')
+              from verblijfsobject_gebruiksdoel vg
+              where (vg.identificatie = voa.identificatie and
+                     vg.voorkomenidentificatie = voa.voorkomenidentificatie)) as gebruiksdoelen,
+             voa.oppervlakte,
+             sdo_geom.sdo_centroid(voa.geometrie, 2)                          as geometrie_centroide,
+             voa.geometrie
+      from v_verblijfsobject_actueel voa
+               join verblijfsobject_nevenadres vona on (vona.identificatie = voa.identificatie and
+                                                        vona.voorkomenidentificatie = voa.voorkomenidentificatie)
+               join vb_adres a on voa.heeftalshoofdadres = a.identificatienummeraanduiding
+               join verblijfsobject_maaktdeeluitvan vbod on voa.identificatie = vbod.identificatie and
+                                                            voa.voorkomenidentificatie =
+                                                            vbod.voorkomenidentificatie) qry;
 
 comment on table vb_verblijfsobject_adres is 'verblijfsobject met adres, pandverwijzing, gebruiksdoel en puntlocatie';
 delete from user_sdo_geom_metadata where table_name = 'VB_VERBLIJFSOBJECT_ADRES';
@@ -204,68 +242,84 @@ values ('VB_VERBLIJFSOBJECT_ADRES', 'GEOMETRIE', mdsys.sdo_dim_array(mdsys.sdo_d
 
 -- vervangt vb_benoemd_obj_adres alle objecten met een (neven)adres
 create or replace view vb_adresseerbaar_object_geometrie as
-select CAST(ROWNUM AS INTEGER) as objectid,
-       vla.ishoofdadres,
-       vla.status,
-       vla.identificatie,
-       vla.identificatienummeraanduiding,
-       vla.nummeraanduidingstatus,
-       vla.gemeente,
-       vla.woonplaats,
-       vla.straatnaam,
-       vla.huisnummer,
-       vla.huisletter,
-       vla.huisnummertoevoeging,
-       vla.postcode,
-       'ligplaats'             as soort,
-       null                    as maaktdeeluitvan,
-       null                    as gebruiksdoelen,
-       null                    as oppervlakte,
-       vla.geometrie_centroide,
-       vla.geometrie
-from vb_ligplaats_adres vla
-union all
-select CAST(ROWNUM AS INTEGER) as objectid,
-       vsa.ishoofdadres,
-       vsa.status,
-       vsa.identificatie,
-       vsa.identificatienummeraanduiding,
-       vsa.nummeraanduidingstatus,
-       vsa.gemeente,
-       vsa.woonplaats,
-       vsa.straatnaam,
-       vsa.huisnummer,
-       vsa.huisletter,
-       vsa.huisnummertoevoeging,
-       vsa.postcode,
-       'standplaats'           as soort,
-       null                    as maaktdeeluitvan,
-       null                    as gebruiksdoelen,
-       null                    as oppervlakte,
-       vsa.geometrie_centroide,
-       vsa.geometrie
-from vb_standplaats_adres vsa
-union all
-select CAST(ROWNUM AS INTEGER) as objectid,
-       vva.ishoofdadres,
-       vva.status,
-       vva.identificatie,
-       vva.identificatienummeraanduiding,
-       vva.nummeraanduidingstatus,
-       vva.gemeente,
-       vva.woonplaats,
-       vva.straatnaam,
-       vva.huisnummer,
-       vva.huisletter,
-       vva.huisnummertoevoeging,
-       vva.postcode,
-       'verblijfsobject'       as soort,
-       vva.maaktdeeluitvan,
-       vva.gebruiksdoelen,
-       vva.oppervlakte,
-       vva.geometrie_centroide,
-       vva.geometrie
-from vb_verblijfsobject_adres vva;
+select cast(ROWNUM as INTEGER) as objectid,
+       qry.ishoofdadres,
+       qry.status,
+       qry.identificatie,
+       qry.identificatienummeraanduiding,
+       qry.nummeraanduidingstatus,
+       qry.gemeente,
+       qry.woonplaats,
+       qry.straatnaam,
+       qry.huisnummer,
+       qry.huisletter,
+       qry.huisnummertoevoeging,
+       qry.postcode,
+       qry.soort,
+       qry.maaktdeeluitvan,
+       qry.gebruiksdoelen,
+       qry.oppervlakte,
+       qry.geometrie_centroide,
+       qry.geometrie
+from (select vla.ishoofdadres,
+             vla.status,
+             vla.identificatie,
+             vla.identificatienummeraanduiding,
+             vla.nummeraanduidingstatus,
+             vla.gemeente,
+             vla.woonplaats,
+             vla.straatnaam,
+             vla.huisnummer,
+             vla.huisletter,
+             vla.huisnummertoevoeging,
+             vla.postcode,
+             'ligplaats' as soort,
+             null        as maaktdeeluitvan,
+             null        as gebruiksdoelen,
+             null        as oppervlakte,
+             vla.geometrie_centroide,
+             vla.geometrie
+      from vb_ligplaats_adres vla
+      union all
+      select vsa.ishoofdadres,
+             vsa.status,
+             vsa.identificatie,
+             vsa.identificatienummeraanduiding,
+             vsa.nummeraanduidingstatus,
+             vsa.gemeente,
+             vsa.woonplaats,
+             vsa.straatnaam,
+             vsa.huisnummer,
+             vsa.huisletter,
+             vsa.huisnummertoevoeging,
+             vsa.postcode,
+             'standplaats' as soort,
+             null          as maaktdeeluitvan,
+             null          as gebruiksdoelen,
+             null          as oppervlakte,
+             vsa.geometrie_centroide,
+             vsa.geometrie
+      from vb_standplaats_adres vsa
+      union all
+      select vva.ishoofdadres,
+             vva.status,
+             vva.identificatie,
+             vva.identificatienummeraanduiding,
+             vva.nummeraanduidingstatus,
+             vva.gemeente,
+             vva.woonplaats,
+             vva.straatnaam,
+             vva.huisnummer,
+             vva.huisletter,
+             vva.huisnummertoevoeging,
+             vva.postcode,
+             'verblijfsobject' as soort,
+             vva.maaktdeeluitvan,
+             vva.gebruiksdoelen,
+             vva.oppervlakte,
+             vva.geometrie_centroide,
+             vva.geometrie
+      from vb_verblijfsobject_adres vva) qry;
 
 comment on table vb_adresseerbaar_object_geometrie is 'alle adresseerbare objecten (ligplaatst, standplaats, verblijfsobject) met adres, gebruiksdoel, pand en (afgeleide) geometrie.';
 delete from user_sdo_geom_metadata where table_name = 'VB_ADRESSEERBAAR_OBJECT_GEOMETRIE';

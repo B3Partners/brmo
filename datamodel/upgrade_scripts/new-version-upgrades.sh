@@ -21,7 +21,7 @@ mkdir -p "$PREVRELEASE-$NEXTRELEASE"/{oracle,postgresql,sqlserver}
 for DB in Oracle PostgreSQL SQLserver; do
   DIR=$PREVRELEASE-$NEXTRELEASE/${DB,,}
   echo Migratie bestanden aanmaken voor $DB in $DIR
-  for b in rsgb rsgbbgt staging; do
+  for b in bag rsgb rsgbbgt staging; do
     if [ -f "$DIR/$b.sql" ]; then
       echo Bestand $DIR/$b.sql bestaal al.
     else
@@ -49,6 +49,12 @@ for DB in Oracle PostgreSQL SQLserver; do
         echo $'\n'"CREATE TABLE IF NOT EXISTS brmo_metadata(naam CHARACTER VARYING(255) NOT NULL,waarde CHARACTER VARYING(255),CONSTRAINT brmo_metadata_pk PRIMARY KEY (naam));" >>$DIR/$b.sql
         echo $"INSERT INTO brmo_metadata(naam) VALUES('brmoversie') ON CONFLICT DO NOTHING;" >>$DIR/$b.sql
       fi
+      if [ "${DB}" == "PostgreSQL" ] && [ "${b}" == "bag" ]; then
+        echo $'\n'"set search_path = bag,public;" >>$DIR/$b.sql
+      fi
+      if [ "${DB}" == "PostgreSQL" ] && [ "${b}" == "rsgb" ]; then
+        echo $'\n'"set search_path = public,bag;" >>$DIR/$b.sql
+      fi
 
       echo $'\n\n'-- onderstaande dienen als laatste stappen van een upgrade uitgevoerd >>$DIR/$b.sql
       if [ "${DB}" == "SQLserver" ]; then
@@ -62,5 +68,5 @@ for DB in Oracle PostgreSQL SQLserver; do
   done
 done
 
-#git add "$PREVRELEASE-$NEXTRELEASE"/
-#git commit -m "Migratie bestanden aanmaken voor upgrade $PREVRELEASE-$NEXTRELEASE"
+git add "$PREVRELEASE-$NEXTRELEASE"/
+git commit -m "Migratie bestanden aanmaken voor upgrade $PREVRELEASE-$NEXTRELEASE"
