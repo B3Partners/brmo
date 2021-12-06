@@ -138,6 +138,7 @@ select vo.objectid,
                 from verblijfsobject_gebruiksdoel vg
                 where (vg.identificatie = vo.identificatie and vg.voorkomenidentificatie = vo.voorkomenidentificatie))
            , ', ')               as gebruiksdoelen,
+       vo.oppervlakte,
        st_centroid(vo.geometrie) as geometrie_centroide,
        vo.geometrie
 from v_verblijfsobject_actueel vo
@@ -164,6 +165,7 @@ select voa.objectid,
                 from verblijfsobject_gebruiksdoel vg
                 where (vg.identificatie = voa.identificatie and vg.voorkomenidentificatie = voa.voorkomenidentificatie))
            , ', ')                as gebruiksdoelen,
+       voa.oppervlakte,
        st_centroid(voa.geometrie) as geometrie_centroide,
        voa.geometrie
 from v_verblijfsobject_actueel voa
@@ -196,6 +198,7 @@ select (row_number() over ())::integer as objectid,
        'ligplaats'                     as soort,
        null                            as maaktdeeluitvan,
        null                            as gebruiksdoelen,
+       null                            as oppervlakte,
        vla.geometrie_centroide,
        vla.geometrie
 from vb_ligplaats_adres vla
@@ -216,6 +219,7 @@ select (row_number() over ())::integer as objectid,
        'standplaats'                   as soort,
        null                            as maaktdeeluitvan,
        null                            as gebruiksdoelen,
+       null                            as oppervlakte,
        vsa.geometrie_centroide,
        vsa.geometrie
 from vb_standplaats_adres vsa
@@ -236,6 +240,7 @@ select (row_number() over ())::integer as objectid,
        'verblijfsobject'               as soort,
        vva.maaktdeeluitvan,
        vva.gebruiksdoelen,
+       vva.oppervlakte,
        vva.geometrie_centroide,
        vva.geometrie
 from vb_verblijfsobject_adres vva;
