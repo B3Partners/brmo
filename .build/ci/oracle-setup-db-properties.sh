@@ -1,3 +1,6 @@
+#!/usr/bin/env bash
+set -e
+
 cp -f .build/ci/oracle/github.oracle.brmo-loader.properties ./brmo-loader/src/test/resources/local.oracle.properties
 cp -f .build/ci/oracle/github.oracle.brmo-service.properties ./brmo-service/src/test/resources/local.oracle.properties
 cp -f .build/ci/oracle/github.connections.brmo-persistence.properties ./brmo-persistence/src/test/resources/local.connections.properties

@@ -1,4 +1,5 @@
-#!/bin/bash -e
+#!/usr/bin/env bash
+set -e
 docker version
 
 # this docker image has the following users/credentials (user/password = system/oracle)

@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -e
 export SQLPATH=./.build/ci
 printf "\nSetup database...\n"
 

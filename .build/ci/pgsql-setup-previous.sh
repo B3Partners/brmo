@@ -1,4 +1,5 @@
-#!/bin/bash -e
+#!/usr/bin/env bash
+set -e
 # set up staging db
 psql -U postgres -h localhost -d staging -f ./old/db/staging/create-brmo-persistence-postgresql.sql
 # set up rsgb tabellen

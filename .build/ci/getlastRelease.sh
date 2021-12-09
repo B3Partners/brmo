@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -e
 CURSNAPSHOT=$(grep "<version>.*<.version>" -m1 pom.xml | sed -e "s/^.*<version/<version/" | cut -f2 -d">"| cut -f1 -d"<")
 NEXTRELEASE="${CURSNAPSHOT%-SNAPSHOT}"
 MAJOR="${CURSNAPSHOT%.*}"
