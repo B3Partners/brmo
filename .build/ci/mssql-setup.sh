@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -e
 # set up staging db
 docker exec -i mssql_brmo /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P Password12! -d "master" -Q "CREATE DATABASE staging"
 docker exec -i mssql_brmo /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P Password12! -d "master" -Q "ALTER DATABASE staging SET RECOVERY SIMPLE"

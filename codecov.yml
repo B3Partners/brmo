@@ -1,2 +1,28 @@
+# https://docs.codecov.com/docs/codecovyml-reference
 codecov:
+  require_ci_to_pass: true
   token: 3cc0e41a-7cc5-4e2d-9196-59028e5d8d9c
+  #  strict_yaml_branch: "master"
+  notify:
+    after_n_builds: 8
+    wait_for_ci: "yes"
+
+coverage:
+  precision: 1
+  range: "70...100"
+  round: up
+  status:
+    changes: false
+    default_rules:
+      flag_coverage_not_uploaded_behavior: include
+    patch: true
+    project: true
+  github_checks:
+    annotations: true
+
+comment:
+  behavior: default
+  require_changes: true
+  layout: reach,diff,flags,files
+  after_n_builds: 8
+  show_carryforward_flags: false

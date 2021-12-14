@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -e
 
 # ophalen topnl test data
 wget --no-verbose --tries=5 --timeout=60 --waitretry=300 --user-agent="" "http://geodata.nationaalgeoregister.nl/top10nlv2/extract/kaartbladen/TOP10NL_07W.zip?formaat=gml" --output-document=./TOP10NL_07W.zip
@@ -8,7 +9,7 @@ wget --no-verbose --tries=5 --timeout=60 --waitretry=300 --user-agent="" "http:/
 # uitpakken in de /tmp dir
 ls *.zip | while read filename; do unzip -j -o -d "/tmp" "$filename" *.gml; done;
 # lowercase alle gml files uit de zips
-for f in /tmp/*.gml ; do mv -- "$f" "$(tr [:upper:] [:lower:] <<< "$f")" ; done
+for f in /tmp/*.gml ; do mv -vn -- "$f" "$(tr '[:upper:]' '[:lower:]' <<< "$f")" ; done
 # van ieder alleen de eerste 5 features
 xmlstarlet transform .build/ci/data-prepare-top250nl.xsl /tmp/top250nl.gml > brmo-loader/src/test/resources/topnl/TOP250NL.gml
 xmlstarlet transform .build/ci/data-prepare-top100nl.xsl /tmp/top100nl_000001.gml > brmo-loader/src/test/resources/topnl/Top100NL_000001.gml

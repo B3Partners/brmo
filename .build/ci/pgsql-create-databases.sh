@@ -1,4 +1,5 @@
-#!/bin/bash -e
+#!/usr/bin/env bash
+set -e
 psql -U postgres -h localhost -a -c "CREATE ROLE staging LOGIN PASSWORD 'staging' SUPERUSER CREATEDB;"
 psql -U postgres -h localhost -a -c "CREATE ROLE rsgb LOGIN PASSWORD 'rsgb' SUPERUSER CREATEDB;"
 psql -U postgres -h localhost -a -c "CREATE ROLE rsgbbgt LOGIN PASSWORD 'rsgbbgt' SUPERUSER CREATEDB;"

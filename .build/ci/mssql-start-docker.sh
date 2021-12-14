@@ -1,4 +1,5 @@
-#!/bin/bash -e
+#!/usr/bin/env bash
+set -e
 docker version
 docker pull mcr.microsoft.com/mssql/server:$1
 

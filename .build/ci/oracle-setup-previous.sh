@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -e
 export SQLPATH=./.build/ci
 # we hebben meer dan de default 300 processen nodig
 docker exec -i oracle_brmo sqlplus -l sys/oracle@//localhost:1521/XE as sysdba < ./.build/ci/oracle-system-setup.sql
