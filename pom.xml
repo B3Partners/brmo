@@ -98,8 +98,7 @@
              voor mssql
         -Dtest.persistence.unit=brmo.persistence.microsoftsqlserver
         -->
-        <test.persistence.unit>brmo.persistence.h2</test.persistence.unit>
-        <test.h2.version>1.4.200</test.h2.version>
+        <test.persistence.unit>brmo.persistence.hsqldb</test.persistence.unit>
         <test.hsqldb.version>2.6.1</test.hsqldb.version>
         <test.onlyITs>false</test.onlyITs>
         <test.junit-jupiter.version>5.8.2</test.junit-jupiter.version>
@@ -609,12 +608,6 @@
                 <version>${itextpdf.version}</version>
             </dependency>
             <!-- test dependencies -->
-            <dependency>
-                <groupId>com.h2database</groupId>
-                <artifactId>h2</artifactId>
-                <version>${test.h2.version}</version>
-                <scope>test</scope>
-            </dependency>
             <dependency>
                 <groupId>org.junit</groupId>
                 <artifactId>junit-bom</artifactId>
