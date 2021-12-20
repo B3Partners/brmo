@@ -11,7 +11,10 @@ LEVELS: debug, info, warn, error, fatal en off, all -->
         </layout>
     </appender>
     <logger name="org.hibernate">
-        <level value="error" />
+        <level value="info" />
+    </logger>
+    <logger name="org.hibernate.tool">
+        <level value="warn" />
     </logger>
     <logger name="org.hibernate.SQL">
         <level value="info" />

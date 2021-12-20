@@ -100,9 +100,9 @@
         </properties>
     </persistence-unit>
 
-    <persistence-unit name="brmo.persistence.h2" transaction-type="RESOURCE_LOCAL">
-        <!-- de H2 in-memory of file database wordt gebruikt voor (default) unit tests. -->
-        <mapping-file>META-INF/orm-h2.xml</mapping-file>
+    <persistence-unit name="brmo.persistence.hsqldb" transaction-type="RESOURCE_LOCAL">
+        <!-- de hsqldb in-memory of file database wordt gebruikt voor (default) unit tests. -->
+        <mapping-file>META-INF/orm-hsqldb.xml</mapping-file>
         <class>nl.b3p.brmo.persistence.staging.Bericht</class>
         <class>nl.b3p.brmo.persistence.staging.LaadProces</class>
         <class>nl.b3p.brmo.persistence.staging.BRKScannerProces</class>
@@ -115,15 +115,15 @@
             <property name="hibernate.archive.autodetection" value="class"/>
             <property name="hibernate.format_sql" value="true"/>
             <property name="hibernate.hbm2ddl.auto" value="create"/>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect"/>
             <property name="hibernate.physical_naming_strategy" value="nl.b3p.brmo.persistence.SnakeCasePhysicalNamingStrategy" />
             <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
             <property name="javax.persistence.validation.mode" value="none"/>
-            <!-- eventueel testen met Oracle Compatibility Mode ';MODE=Oracle' of
-            PostgreSQL Compatibility Mode ';MODE=PostgreSQL'
-            zie:http://www.h2database.com/html/features.html#compatibility -->
-            <!-- property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:test;DB_CLOSE_DELAY=-1"/ -->
-            <property name="javax.persistence.jdbc.url" value="jdbc:h2:file:./target/unittest-h2/db"/>
+            <property name="javax.persistence.jdbc.driver" value="org.hsqldb.jdbcDriver"/>
+            <!-- voor in-memory tests
+            <property name="javax.persistence.jdbc.url" value="jdbc:hsqldb:mem:unittest-hsqldb/db;shutdown=true"/>
+            -->
+            <property name="javax.persistence.jdbc.url" value="jdbc:hsqldb:file:./target/unittest-hsqldb/db;shutdown=true"/>
         </properties>
     </persistence-unit>
 </persistence>
