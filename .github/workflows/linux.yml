@@ -90,7 +90,14 @@ jobs:
       - name: Test
         run: |
           mvn -e test -B -Ppostgresql -pl '!brmo-dist' -Dtest.onlyITs=false
+
+      - name: Verify bag2-loader
+        # bag schema gedropped vanwege dbunit beperking "ambiguous table LIGPLAATS" en we hebben geen zin alle brmo-loader test code te herschrijven
+        run: |
+          mvn -e verify -B -Ppostgresql -T1 -Dtest.onlyITs=true -pl 'bag2-loader'
+          .build/ci/pgsql-setup-bag2_views.sh
           mvn resources:testResources compiler:testCompile surefire:test -Ppostgresql -pl datamodel -Dtest='!*UpgradeTest,!P8*'
+          .build/ci/pgsql-drop-bag2_schema.sh
 
       - name: Verify bgt-loader
         run: mvn -e verify -B -Ppostgresql -T1 -Dtest.onlyITs=true -pl 'bgt-loader'

@@ -70,7 +70,7 @@ timestamps {
                         }
 
                         stage("datamodel tests"){
-                            sh "mvn -e -B -Poracle -pl 'datamodel' resources:testResources compiler:testCompile surefire:test -Dtest='!*UpgradeTest,!P8*'"
+                            sh "mvn -e -B -Poracle -pl 'datamodel' resources:testResources compiler:testCompile surefire:test -Dtest='!*UpgradeTest,!P8*',!*ViewsTest"
                         }
 
                         stage("bgt-loader Integration Test") {

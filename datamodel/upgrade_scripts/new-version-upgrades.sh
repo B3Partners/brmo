@@ -21,7 +21,7 @@ mkdir -p "$PREVRELEASE-$NEXTRELEASE"/{oracle,postgresql,sqlserver}
 for DB in Oracle PostgreSQL SQLserver; do
   DIR=$PREVRELEASE-$NEXTRELEASE/${DB,,}
   echo Migratie bestanden aanmaken voor $DB in $DIR
-  for b in rsgb rsgbbgt staging; do
+  for b in bag rsgb rsgbbgt staging; do
     if [ -f "$DIR/$b.sql" ]; then
       echo Bestand $DIR/$b.sql bestaal al.
     else
@@ -29,7 +29,7 @@ for DB in Oracle PostgreSQL SQLserver; do
 
       if [ "$DB" == "Oracle" ]; then
         echo $'\n'WHENEVER SQLERROR EXIT SQL.SQLCODE >>$DIR/$b.sql
-        if [ "${b}" == "rsgbbgt" ]; then
+        if [ "${b}" == "rsgbbgt" ] || [ "${b}" == "bag" ]; then
           echo $'\n\n'"DECLARE" >>$DIR/$b.sql
           echo $"BEGIN" >>$DIR/$b.sql
           echo $"  EXECUTE IMMEDIATE 'CREATE TABLE brmo_metadata(naam VARCHAR2(255 CHAR) NOT NULL,waarde VARCHAR2(255 CHAR),PRIMARY KEY (naam));';" >>$DIR/$b.sql
@@ -46,8 +46,14 @@ for DB in Oracle PostgreSQL SQLserver; do
         echo $"INSERT INTO brmo_metadata(naam) SELECT naam FROM brmo_metadata WHERE NOT('brmoversie' IN (SELECT naam FROM brmo_metadata));" >>$DIR/$b.sql
       fi
       if [ "${DB}" == "PostgreSQL" ] && [ "${b}" == "rsgbbgt" ]; then
+        if [ "${b}" == "bag" ]; then
+            echo $'\n'"set search_path = bag,public;" >>$DIR/$b.sql
+        fi
         echo $'\n'"CREATE TABLE IF NOT EXISTS brmo_metadata(naam CHARACTER VARYING(255) NOT NULL,waarde CHARACTER VARYING(255),CONSTRAINT brmo_metadata_pk PRIMARY KEY (naam));" >>$DIR/$b.sql
         echo $"INSERT INTO brmo_metadata(naam) VALUES('brmoversie') ON CONFLICT DO NOTHING;" >>$DIR/$b.sql
+      fi
+      if [ "${DB}" == "PostgreSQL" ] && [ "${b}" == "rsgb" ]; then
+        echo $'\n'"set search_path = public,bag;" >>$DIR/$b.sql
       fi
 
       echo $'\n\n'-- onderstaande dienen als laatste stappen van een upgrade uitgevoerd >>$DIR/$b.sql
@@ -62,5 +68,5 @@ for DB in Oracle PostgreSQL SQLserver; do
   done
 done
 
-#git add "$PREVRELEASE-$NEXTRELEASE"/
-#git commit -m "Migratie bestanden aanmaken voor upgrade $PREVRELEASE-$NEXTRELEASE"
+git add "$PREVRELEASE-$NEXTRELEASE"/
+git commit -m "Migratie bestanden aanmaken voor upgrade $PREVRELEASE-$NEXTRELEASE"

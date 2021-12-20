@@ -10,7 +10,7 @@ package nl.b3p.brmo.bag2.loader;
 import nl.b3p.brmo.bag2.schema.BAG2Object;
 import nl.b3p.brmo.bag2.schema.BAG2ObjectType;
 import nl.b3p.brmo.bag2.schema.BAG2Schema;
-import nl.b3p.brmo.util.Force2DCoordinateSequenceFactory;
+import nl.b3p.brmo.bag2.util.Force2DCoordinateSequenceFactory;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.codehaus.staxmate.SMInputFactory;

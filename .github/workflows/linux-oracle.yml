@@ -62,6 +62,11 @@ jobs:
       - name: Test
         run: |
           mvn -e test -B -Poracle -pl '!brmo-dist' -Dtest.onlyITs=false
+
+      - name: Verify bag2-loader
+        run: |
+          mvn -e verify -B -Poracle -T1 -Dtest.onlyITs=true -pl 'bag2-loader'
+          .build/ci/oracle-setup-bag2_views.sh
           mvn resources:testResources compiler:testCompile surefire:test -Poracle -pl datamodel -Dtest='!*UpgradeTest,!P8*'
 
       - name: Verify bgt-loader
