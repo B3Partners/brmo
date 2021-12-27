@@ -51,6 +51,15 @@
         <cve>CVE-2021-4104</cve>
     </suppress>
     <suppress>
+       <notes><![CDATA[
+       file name: log4j-api-2.14.1.jar
+       De log4j-api jar bevat deze kwetsbaarheden niet - die zitten in log4j-core jar
+       ]]></notes>
+       <packageUrl regex="true">^pkg:maven/org\.apache\.logging\.log4j/log4j\-api@.*$</packageUrl>
+       <cve>CVE-2021-45046</cve>
+       <cve>CVE-2021-45105</cve>
+    </suppress>
+    <suppress>
         <notes>
             <![CDATA[
                      Negeer meldingen mbt postgis-jdbc jar, hebben allemaal betrekking op de database engine
