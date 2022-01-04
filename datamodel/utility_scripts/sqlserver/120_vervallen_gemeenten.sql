@@ -391,3 +391,24 @@ IF NOT EXISTS (SELECT * FROM gemeente WHERE code = 1979) INSERT INTO gemeente (d
 
 UPDATE brmo_metadata SET waarde = '2021.0' WHERE naam = 'update_gem_tabel';
 COMMIT;
+
+BEGIN TRANSACTION;
+-- Samenvoegen van gemeente Beemster (370) met Purmerend (439)
+-- Samenvoeging van de gemeenten Heerhugowaard (398) en Langedijk (416) tot een nieuwe gemeente Dijk en Waard (1980)
+-- Samenvoeging van de gemeenten Landerd (1685) en Uden (856) tot een nieuwe gemeente Maashorst (1991)
+-- Samenvoeging van de gemeenten Boxmeer (756), Cuijk (1684), Grave (786), Mill en Sint Hubert (815)
+--      en Sint Anthonis (1702) tot een nieuwe gemeente Land van Cuijk (1982)
+UPDATE gemeente SET datum_einde_geldh = '2022-01-01' WHERE code IN (370, 398, 416, 1685, 856, 756, 1684, 786, 1702);
+UPDATE gemeente SET dat_beg_geldh = '2009-01-01'     WHERE code IN (370, 398, 416, 1685, 856, 756, 1684, 786, 1702) AND dat_beg_geldh IS NULL;
+
+INSERT INTO gemeente_archief SELECT * FROM gemeente WHERE code IN (370, 398, 416, 1685, 856, 756, 1684, 786, 1702);
+UPDATE wnplts SET fk_7gem_code=null WHERE fk_7gem_code         IN (370, 398, 416, 1685, 856, 756, 1684, 786, 1702);
+DELETE FROM gemeente WHERE code                                IN (370, 398, 416, 1685, 856, 756, 1684, 786, 1702);
+
+-- nieuw
+IF NOT EXISTS (SELECT * FROM gemeente WHERE code = 1980) INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2022-01-01', 1980, 'Dijk en Waard');
+IF NOT EXISTS (SELECT * FROM gemeente WHERE code = 1991) INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2022-01-01', 1991, 'Maashorst');
+IF NOT EXISTS (SELECT * FROM gemeente WHERE code = 1982) INSERT INTO gemeente (dat_beg_geldh, code, naam) VALUES ('2022-01-01', 1982, 'Land van Cuijk');
+
+UPDATE brmo_metadata SET waarde = '2022.0' WHERE naam = 'update_gem_tabel';
+COMMIT;
