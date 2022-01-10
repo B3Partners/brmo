@@ -1,4 +1,4 @@
-FROM tomcat:9-jdk11
+FROM tomcat:9.0.56-jre11-temurin
 
 ARG BRMO_VERSION=2.2.1
 ARG MAIL_FROM=brmo-no-reply@b3partners.nl
@@ -24,26 +24,23 @@ ARG TZ="Europe/Amsterdam"
 ARG DEBIAN_FRONTEND="noninteractive"
 
 SHELL ["/bin/bash", "-eux", "-o", "pipefail", "-c"]
-RUN mkdir -p /opt/brmo-data/BAG/ \
+RUN set -eux;ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone \
+    && mkdir -p /opt/brmo-data/BAG/ \
     && mkdir -p /opt/brmo-data/BRK/ \
     && mkdir -p /opt/brmo-data/TOPNL/Top10NL/ \
     && mkdir -p /opt/brmo-data/TOPNL/Top50NL/ \
     && mkdir -p /opt/brmo-data/TOPNL/Top100NL/ \
     && mkdir -p /opt/brmo-data/TOPNL/Top250NL/ \
     && mkdir -p /opt/brmo-data/sqlscripts/ \
-    && wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc -O- | apt-key add - \
-    && sh -c "echo \"deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main\" > /etc/apt/sources.list.d/pgdg.list" \
     && apt-get update \
-    && apt-get install -y --no-install-recommends ca-certificates postgresql-client-12 less tzdata \
+    && apt-get install -y --no-install-recommends postgresql-client less \
     && apt-get -y --purge autoremove \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-RUN set -eux;ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-
 # kopieer webapp en jdni libs in tomcat directories
 # maven zorgt ervoor dat deze worden neergezet
-COPY bin_unzipped/wars/brmo-s*.war /usr/local/tomcat/webapps/
+COPY bin_unzipped/wars/brmo-service.war /usr/local/tomcat/webapps/
 COPY bin_unzipped/drivers/pgsql/*.jar /usr/local/tomcat/lib/
 
 # sla de SQL scripts op in de image om evt. database aan te kunnen maken

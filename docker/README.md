@@ -2,8 +2,6 @@
 
 Een project om een dockerfile te maken met daarin een Tomcat instantie waarin :
 - brmo-service (http://localhost:8080/brmo-service/)
-- brmo-soap (http://localhost:8080/brmo-soap/)
-- brmo-stufbg204 (http://localhost:8080/brmo-stufbg204/)
 
 
 ## build
@@ -11,8 +9,8 @@ Een project om een dockerfile te maken met daarin een Tomcat instantie waarin :
 Als de `brmo-dist` artifact is uitgepakt in `docker/src/main/docker/bin_unzipped`
 dan kun je met onderstaande de image bouwen en pushen: 
 ```
-docker build --file ./docker/src/main/docker/Dockerfile ./docker/src/main/docker/ --tag docker.b3p.nl/b3partners/brmo:latest
-docker push docker.b3p.nl/b3partners/brmo:latest
+docker build --file ./docker/src/main/docker/Dockerfile ./docker/src/main/docker/ --tag ghcr.io/b3partners/brmo:snapshot
+docker push ghcr.io/b3partners/brmo:snapshot
 ```
 (NB. voor `push` is authenticatie nodig middels `docker login`)
 
@@ -20,7 +18,7 @@ Anders met Maven:
 
 ```
 mvn install -Dmaven.test.skip=true -B -V -e -fae -q
-mvn clean deploy -pl :docker -P docker
+mvn clean deploy
 ```
 
 ## run
@@ -34,7 +32,7 @@ docker run --net bridge \
        -it --name brmo -h brmo \
        --mount type=volume,dst=/opt/brmo-data,volume-driver=local,volume-opt=type=none,volume-opt=o=bind,volume-opt=device=/tmp/brmo-data \
        -v /tmp/logs:/usr/local/tomcat/logs \
-       b3partners/brmo:latest
+       b3partners/brmo:snapshot
 ```
 
 Uitgangspunt hierbij is dat de benodigde databases te benaderen zijn met account `brmo` 

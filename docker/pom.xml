@@ -12,6 +12,16 @@
     <description>Maak een docker image van de brmo-service</description>
     <properties>
     </properties>
+    <dependencies>
+        <dependency>
+            <groupId>nl.b3p</groupId>
+            <artifactId>brmo-dist</artifactId>
+            <version>${project.version}</version>
+            <classifier>bin</classifier>
+            <type>zip</type>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
     <build>
         <defaultGoal>process-resources</defaultGoal>
         <plugins>
@@ -22,12 +32,60 @@
                 </configuration>
             </plugin>
             <plugin>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>unpack-dist</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>unpack-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <includeGroupIds>nl.b3p</includeGroupIds>
+                            <includeArtifactIds>brmo-dist</includeArtifactIds>
+                            <classifier>bin</classifier>
+                            <type>zip</type>
+                            <outputDirectory>${project.basedir}/src/main/docker/bin_unzipped/</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>io.fabric8</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
                 <extensions>true</extensions>
                 <configuration>
-                    <skip>true</skip>
+                    <verbose>true</verbose>
+                    <images>
+                        <image>
+                            <name>ghcr.io/b3partners/brmo-service:snapshot</name>
+                            <build>
+                                <dockerFile>Dockerfile</dockerFile>
+                                <args>
+                                    <BRMO_VERSION>${project.version}</BRMO_VERSION>
+                                </args>
+                            </build>
+                        </image>
+                    </images>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>docker-build</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>docker-push</id>
+                        <!-- NB voor deploy/push is het nodig dat je bent ingelogd op de ghcr.io repository met docker.
+                        zie: https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry -->
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>push</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <artifactId>maven-clean-plugin</artifactId>
@@ -43,57 +101,84 @@
     </build>
     <profiles>
         <profile>
-            <id>docker</id>
-            <dependencies>
-                <dependency>
-                    <groupId>nl.b3p</groupId>
-                    <artifactId>brmo-dist</artifactId>
-                    <version>${project.version}</version>
-                    <classifier>bin</classifier>
-                    <type>zip</type>
-                    <scope>compile</scope>
-                </dependency>
-            </dependencies>
+            <id>release</id>
             <build>
                 <plugins>
                     <plugin>
-                        <artifactId>maven-dependency-plugin</artifactId>
+                        <groupId>io.fabric8</groupId>
+                        <artifactId>docker-maven-plugin</artifactId>
+                        <configuration>
+                            <verbose>true</verbose>
+                            <images>
+                                <image>
+                                    <name>ghcr.io/b3partners/brmo-service:%l</name>
+                                </image>
+                            </images>
+                        </configuration>
                         <executions>
                             <execution>
-                                <id>unpack-dist</id>
-                                <phase>prepare-package</phase>
+                                <id>docker-tag</id>
+                                <phase>verify</phase>
                                 <goals>
-                                    <goal>unpack-dependencies</goal>
+                                    <goal>tag</goal>
                                 </goals>
                                 <configuration>
-                                    <includeGroupIds>nl.b3p</includeGroupIds>
-                                    <includeArtifactIds>brmo-dist</includeArtifactIds>
-                                    <classifier>bin</classifier>
-                                    <type>zip</type>
-                                    <outputDirectory>${project.basedir}/src/main/docker/bin_unzipped/</outputDirectory>
+                                    <tagName>latest</tagName>
+                                    <repo>ghcr.io/b3partners</repo>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>docker-push-latest</id>
+                                <phase>deploy</phase>
+                                <goals>
+                                    <goal>push</goal>
+                                </goals>
+                                <configuration>
+                                    <verbose>true</verbose>
+                                    <images>
+                                        <image>
+                                            <name>ghcr.io/b3partners/brmo-service:latest</name>
+                                        </image>
+                                    </images>
                                 </configuration>
                             </execution>
                         </executions>
                     </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>windows</id>
+            <activation>
+                <os>
+                    <family>Windows</family>
+                </os>
+            </activation>
+            <build>
+                <plugins>
                     <plugin>
+                        <!-- skip op Windows -->
                         <groupId>io.fabric8</groupId>
                         <artifactId>docker-maven-plugin</artifactId>
-                        <extensions>true</extensions>
                         <configuration>
-                            <verbose>true</verbose>
-                            <skip>false</skip>
-                            <imagePullPolicy>IfNotPresent</imagePullPolicy>
-                            <images>
-                                <image>
-                                    <name>docker.b3p.nl/b3partners/brmo:%l</name>
-                                    <build>
-                                        <dockerFile>Dockerfile</dockerFile>
-                                        <args>
-                                            <BRMO_VERSION>${project.version}</BRMO_VERSION>
-                                        </args>
-                                    </build>
-                                </image>
-                            </images>
+                            <verbose>false</verbose>
+                            <skip>true</skip>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>lgtm</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <!-- skip op LGTM service -->
+                        <groupId>io.fabric8</groupId>
+                        <artifactId>docker-maven-plugin</artifactId>
+                        <configuration>
+                            <verbose>false</verbose>
+                            <skip>true</skip>
                         </configuration>
                     </plugin>
                 </plugins>
