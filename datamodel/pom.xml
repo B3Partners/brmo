@@ -12,6 +12,7 @@
     <description>Bevat de code voor het genereren en testen van het RSGB datamodel.</description>
     <properties>
         <filename.base.201_update_wnplts_gemcode>201_update_wnplts_gemcode</filename.base.201_update_wnplts_gemcode>
+        <!-- LET OP als deze file bestaat zal het specifieke profiel geactiveerd worden en wordt het rsgb model niet gebouwd -->
         <filename.GEM-WPL-zipfile>GEM-WPL-RELATIE-04012022.zip</filename.GEM-WPL-zipfile>
     </properties>
     <dependencies>
@@ -159,6 +160,7 @@
                 <artifactId>xml-maven-plugin</artifactId>
                 <executions>
                     <execution>
+                        <id>transform-rsgb-from-gml</id>
                         <goals>
                             <goal>transform</goal>
                         </goals>
@@ -382,6 +384,7 @@
                         <artifactId>xml-maven-plugin</artifactId>
                         <executions>
                             <execution>
+                                <id>transform-gemeente-woonplaats-relatie</id>
                                 <goals>
                                     <!-- generate-resources gebonden -->
                                     <goal>transform</goal>

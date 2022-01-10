@@ -48,7 +48,7 @@ jobs:
       - name: Priming build
         run: |
           ./.build/ci/oracle-setup-db-properties.sh
-          mvn clean install -Dmaven.test.skip=true -Dtest.onlyITs= -B -V -fae -Poracle -pl '!brmo-dist'
+          mvn clean install -Dmaven.test.skip=true -Ddocker.skip=true -Dtest.onlyITs= -B -V -fae -Poracle -pl '!brmo-dist'
           projectversion=$(grep "<version>.*<.version>" -m1 pom.xml | sed -e "s/^.*<version/<version/" | cut -f2 -d">"| cut -f1 -d"<")
           echo $projectversion
           export PROJECTVERSION=$projectversion

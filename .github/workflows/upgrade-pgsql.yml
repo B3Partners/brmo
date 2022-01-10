@@ -55,7 +55,7 @@ jobs:
           java-version: 11
 
       - name: datamodel Priming build
-        run:  mvn clean install -Dmaven.test.skip=true -Dtest.onlyITs= -B -V -fae -pl 'datamodel' -am 
+        run:  mvn clean install -Dmaven.test.skip=true -Ddocker.skip=true -Dtest.onlyITs= -B -V -fae -pl 'datamodel' -am
 
       - name: Get last release
         run: |
