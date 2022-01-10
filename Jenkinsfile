@@ -158,14 +158,6 @@ timestamps {
                 }
             }
 
-            if (env.BRANCH_NAME == 'master' && env.NODE_NAME == 'built-in') {
-                stage("Docker image build & push") {
-                    echo "Maak een docker image van master branch als we op de Jenkins built-in node draaien"
-                    sh "mvn install -Dmaven.test.skip=true -B -V -e -fae -q"
-                    sh "mvn deploy -B -pl :docker -P docker"
-                }
-            }
-
             stage('Publish Test Results') {
                 junit allowEmptyResults: true, testResults: '**/target/surefire-reports/TEST-*.xml, **/target/failsafe-reports/TEST-*.xml'
             }
