@@ -174,6 +174,12 @@ SPDX-License-Identifier: MIT
                     <images>
                         <image>
                             <name>ghcr.io/b3partners/brmo-bag2-loader:snapshot</name>
+                            <build>
+                                <dockerFile>${project.basedir}/Dockerfile</dockerFile>
+                                <args>
+                                    <BRMO_VERSION>${project.version}</BRMO_VERSION>
+                                </args>
+                            </build>
                         </image>
                     </images>
                 </configuration>
@@ -211,6 +217,12 @@ SPDX-License-Identifier: MIT
                             <images>
                                 <image>
                                     <name>ghcr.io/b3partners/brmo-bag2-loader:%l</name>
+                                    <build>
+                                        <dockerFile>Dockerfile</dockerFile>
+                                        <args>
+                                            <BRMO_VERSION>${project.version}</BRMO_VERSION>
+                                        </args>
+                                    </build>
                                 </image>
                             </images>
                         </configuration>

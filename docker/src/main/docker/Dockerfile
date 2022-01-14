@@ -23,6 +23,14 @@ ENV CATALINA_OPTS="-DAJP_SECRET=$AJP_SECRET -DAJP_ADDRESS=$AJP_ADDRESS -DMAIL_FR
 ARG TZ="Europe/Amsterdam"
 ARG DEBIAN_FRONTEND="noninteractive"
 
+LABEL org.opencontainers.image.authors="support@b3partners.nl" \
+      org.opencontainers.image.description="BRMO services in Tomcat" \
+      org.opencontainers.image.vendor="B3Partners BV" \
+      org.opencontainers.image.title="BRMO service" \
+      org.opencontainers.image.documentation="https://github.com/B3Partners/brmo/wiki" \
+      org.opencontainers.image.licenses="GNU General Public License v3.0" \
+      org.opencontainers.image.version=$BRMO_VERSION
+
 SHELL ["/bin/bash", "-eux", "-o", "pipefail", "-c"]
 RUN set -eux;ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone \
     && mkdir -p /opt/brmo-data/BAG/ \
@@ -54,11 +62,5 @@ COPY tomcat_conf /usr/local/tomcat/conf/
 EXPOSE 8009
 
 HEALTHCHECK CMD curl -f http://localhost:8080/brmo-service/ || exit 1
-
-LABEL org.opencontainers.image.authors="@mprins" \
-      description="BRMO services in Tomcat" \
-      nl.b3p.vendor="B3Partners" \
-      nl.b3p.image="BRMO service" \
-      nl.b3p.version=$BRMO_VERSION
 
 VOLUME ["/usr/local/tomcat/logs", "/opt/brmo-data"]

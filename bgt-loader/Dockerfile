@@ -6,9 +6,17 @@ FROM openjdk:11-jre-slim
 
 LABEL org.opencontainers.image.source=https://github.com/b3partners/brmo/bgt-citygml-loader
 
+ARG BRMO_VERSION=2.2.1
 ARG DEBIAN_FRONTEND="noninteractive"
-
 ARG TZ="Europe/Amsterdam"
+
+LABEL org.opencontainers.image.authors="support@b3partners.nl" \
+      org.opencontainers.image.description="BRMO BGT Loader" \
+      org.opencontainers.image.vendor="B3Partners BV" \
+      org.opencontainers.image.licenses="MIT" \
+      org.opencontainers.image.title="BRMO BGT Loader" \
+      org.opencontainers.image.documentation="https://github.com/B3Partners/brmo/blob/master/bgt-loader/README.md" \
+      org.opencontainers.image.version=$BRMO_VERSION
 
 RUN set -eux; \
     ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone \
