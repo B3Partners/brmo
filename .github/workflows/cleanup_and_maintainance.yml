@@ -73,3 +73,17 @@ jobs:
           older-than: 28
           keep-last: 0
           untagged: true
+
+
+  workflows:
+    runs-on: ubuntu-latest
+    name: "Cleanup old workflow runs"
+    steps:
+      - name: Delete workflow runs
+        uses: Mattraks/delete-workflow-runs@v2
+        with:
+          token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          # same as "Artifact and log retention" in https://github.com/B3Partners/brmo/settings/actions
+          retain_days: 60
+          keep_minimum_runs: 2

@@ -1,6 +1,12 @@
 name: Ubuntu PostgreSQL build
 
-on: [ push ]
+on:
+  - push
+
+concurrency: # cancel on PR pushes
+  # More info: https://stackoverflow.com/a/68422069/253468
+  group: ${{ github.workflow }}-${{ ( github.ref == 'refs/heads/master' || github.ref == 'refs/heads/release' ) && format('ci-master-{0}', github.sha) || format('ci-master-{0}', github.ref) }}
+  cancel-in-progress: true
 
 env:
   MAVEN_OPTS: -Djava.awt.headless=true -Xms8G -Xmx12G -Dmaven.wagon.httpconnectionManager.ttlSeconds=25 -Dmaven.wagon.http.retryHandler.count=3 -Dtest.persistence.unit=brmo.persistence.postgresql
@@ -18,15 +24,13 @@ jobs:
         java-dist: [ 'temurin' ]
         # docker image tags from https://hub.docker.com/r/postgis/postgis/tags?page=1&ordering=last_updated
         # zie ook https://www.postgresql.org/support/versioning/
-        postgis: [
-          # tot 12-2022
+        postgis: [ # tot 12-2022
             10-2.5,
           # tot 11-2023  
             11-3.1,
             12-3.2,
             13-3.2,
-            14-3.2
-        ]
+            14-3.2 ]
 
     services:
       postgres:

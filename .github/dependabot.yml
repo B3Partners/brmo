@@ -1,96 +1,104 @@
 version: 2
 updates:
-- package-ecosystem: maven
-  directory: "/"
-  schedule:
-    interval: daily
-    time: "06:00"
-    timezone: Europe/Amsterdam
-  open-pull-requests-limit: 25
-  target-branch: master
-  reviewers:
-  - mprins
-  assignees:
-  - mprins
-  labels:
-  - bouw- en testinfrastuctuur
-  - dependency update
-  ignore:
-  - dependency-name: commons-cli:commons-cli
-    versions:
-    - ">= 2.a, < 3"
-  - dependency-name: javax:javaee-web-api
-    versions:
-    - ">= 8.a, < 9"
-  - dependency-name: org.stripesstuff:stripesstuff
-    versions:
-    - ">= 1.a, < 2"
-  - dependency-name: org.apache.tomcat:*
-    versions:
-    - ">= 10"
-  - dependency-name: org.apache.tomcat.embed:*
-    versions:
-    - ">= 10"
-  - dependency-name: com.microsoft.sqlserver:mssql-jdbc
-    versions:
-    - "9.5.x"
-    - "10.1.x"
-
-- package-ecosystem: "github-actions"
-  directory: "/"
-  schedule:
-    interval: "weekly"
-    day: saturday
-    time: "21:00"
-    timezone: Europe/Amsterdam
-  labels:
-  - bouw- en testinfrastuctuur
-
-- package-ecosystem: docker
-  directory: "/docker/src/main/docker/"
-  schedule:
-    interval: weekly
-    day: saturday
-    time: "21:00"
-    timezone: Europe/Amsterdam
-  open-pull-requests-limit: 25
-  target-branch: master
-  reviewers:
-  - mprins
-  assignees:
-  - mprins
-  labels:
-  - bouw- en testinfrastuctuur
-
-- package-ecosystem: docker
-  directory: "/bgt-loader/"
-  schedule:
-    interval: weekly
-    day: saturday
-    time: "21:00"
-    timezone: Europe/Amsterdam
-  open-pull-requests-limit: 25
-  target-branch: master
-  reviewers:
-    - matthijsln
-  assignees:
-    - matthijsln
-  labels:
-    - bouw- en testinfrastuctuur
+  - package-ecosystem: maven
+    directory: "/"
+    schedule:
+      interval: daily
+      time: "06:00"
+      timezone: Europe/Amsterdam
+    open-pull-requests-limit: 25
+    target-branch: master
+    reviewers:
+      - mprins
+    assignees:
+      - mprins
+    labels:
+      - bouw- en testinfrastuctuur
+      - dependency update
+    ignore:
+      - dependency-name: commons-cli:commons-cli
+        versions:
+          - ">= 2.a, < 3"
+      - dependency-name: javax:javaee-web-api
+        versions:
+          - ">= 8.a, < 9"
+      - dependency-name: org.stripesstuff:stripesstuff
+        versions:
+          - ">= 1.a, < 2"
+      - dependency-name: org.apache.tomcat:*
+        versions:
+          - ">= 10"
+      - dependency-name: org.apache.tomcat.embed:*
+        versions:
+          - ">= 10"
+      - dependency-name: com.microsoft.sqlserver:mssql-jdbc
+        versions:
+          - "9.5.x"
+          - "10.1.x"
 
 
-- package-ecosystem: docker
-  directory: "/bag2-loader/"
-  schedule:
-    interval: weekly
-    day: saturday
-    time: "21:10"
-    timezone: Europe/Amsterdam
-  open-pull-requests-limit: 25
-  target-branch: master
-  reviewers:
-    - matthijsln
-  assignees:
-    - matthijsln
-  labels:
-    - bouw- en testinfrastuctuur
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: saturday
+      time: "21:00"
+      timezone: Europe/Amsterdam
+    labels:
+      - bouw- en testinfrastuctuur
+
+
+  - package-ecosystem: docker
+    directory: "/docker/src/main/docker/"
+    schedule:
+      interval: weekly
+      day: saturday
+      time: "21:00"
+      timezone: Europe/Amsterdam
+    open-pull-requests-limit: 25
+    target-branch: master
+    reviewers:
+      - mprins
+    assignees:
+      - mprins
+    labels:
+      - bouw- en testinfrastuctuur
+    ignore: # stay on Tomcat 9 for now
+      - dependency-name: "tomcat"
+      versions:
+        - "10.x"
+
+
+  - package-ecosystem: docker
+    directory: "/bgt-loader/"
+    schedule:
+      interval: weekly
+      day: saturday
+      time: "21:00"
+      timezone: Europe/Amsterdam
+    open-pull-requests-limit: 25
+    target-branch: master
+    reviewers:
+      - matthijsln
+    assignees:
+      - matthijsln
+    labels:
+      - bouw- en testinfrastuctuur
+
+
+  - package-ecosystem: docker
+    directory: "/bag2-loader/"
+    schedule:
+      interval: weekly
+      day: saturday
+      time: "21:10"
+      timezone: Europe/Amsterdam
+    open-pull-requests-limit: 25
+    target-branch: master
+    reviewers:
+      - matthijsln
+    assignees:
+      - matthijsln
+    labels:
+      - bouw- en testinfrastuctuur
+

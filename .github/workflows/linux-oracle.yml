@@ -1,6 +1,12 @@
 name: Ubuntu Oracle build
 
-on: [push]
+on:
+  - push
+
+concurrency: # cancel on PR pushes
+  # More info: https://stackoverflow.com/a/68422069/253468
+  group: ${{ github.workflow }}-${{ ( github.ref == 'refs/heads/master' || github.ref == 'refs/heads/release' ) && format('ci-master-{0}', github.sha) || format('ci-master-{0}', github.ref) }}
+  cancel-in-progress: true
 
 env:
   MAVEN_OPTS: -Djava.awt.headless=true -Xms8G -Xmx12G -Dmaven.wagon.httpconnectionManager.ttlSeconds=25 -Dmaven.wagon.http.retryHandler.count=3 -Dbrmo.persistence.oracle
@@ -11,9 +17,9 @@ jobs:
     runs-on: [ ubuntu-20.04 ]
     strategy:
       matrix:
-        java: [ 11]
+        java: [ 11 ]
         java-dist: [ 'temurin' ]
-        oracle: ['18.4.0-full', '21.3.0-full']
+        oracle: [ '18.4.0-full', '21.3.0-full' ]
 
     steps:
       - uses: actions/checkout@v2

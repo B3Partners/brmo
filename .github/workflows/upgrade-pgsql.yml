@@ -1,6 +1,12 @@
 name: PostgreSQL Database Upgrade
 
-on: [push]
+on:
+  - push
+
+concurrency: # cancel on PR pushes
+  # More info: https://stackoverflow.com/a/68422069/253468
+  group: ${{ github.workflow }}-${{ ( github.ref == 'refs/heads/master' || github.ref == 'refs/heads/release' ) && format('ci-master-{0}', github.sha) || format('ci-master-{0}', github.ref) }}
+  cancel-in-progress: true
 
 env:
   MAVEN_OPTS: -Djava.awt.headless=true -Xms8G -Xmx12G -Dmaven.wagon.httpconnectionManager.ttlSeconds=25 -Dmaven.wagon.http.retryHandler.count=3 -Dtest.persistence.unit=brmo.persistence.postgresql
@@ -55,7 +61,7 @@ jobs:
           java-version: 11
 
       - name: datamodel Priming build
-        run:  mvn clean install -Dmaven.test.skip=true -Ddocker.skip=true -Dtest.onlyITs= -B -V -fae -pl 'datamodel' -am
+        run: mvn clean install -Dmaven.test.skip=true -Ddocker.skip=true -Dtest.onlyITs= -B -V -fae -pl 'datamodel' -am
 
       - name: Get last release
         run: |

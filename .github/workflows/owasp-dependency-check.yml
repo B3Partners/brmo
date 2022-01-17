@@ -1,9 +1,9 @@
 name: OWASP dependency check
 
-on: 
+on:
   pull_request:
   schedule:
-  - cron: "17 23 * * 0"
+    - cron: "17 23 * * 0"
 
 jobs:
   build:
