@@ -3,7 +3,14 @@ name: Windows MS SQL build
 env:
   MAVEN_OPTS: -Djava.awt.headless=true -Dmaven.wagon.httpconnectionManager.ttlSeconds=25 -Dmaven.wagon.http.retryHandler.count=3 -Dbrmo.persistence.microsoftsqlserver
 
-on: [ pull_request ]
+on:
+  - pull_request
+
+concurrency: # cancel on PR pushes
+  # More info: https://stackoverflow.com/a/68422069/253468
+  group: ${{ github.workflow }}-${{ ( github.ref == 'refs/heads/master' || github.ref == 'refs/heads/release' ) && format('ci-master-{0}', github.sha) || format('ci-master-{0}', github.ref) }}
+  cancel-in-progress: true
+
 jobs:
   build:
     name: MS SQL developer online test
@@ -25,14 +32,14 @@ jobs:
           restore-keys: |
             maven-
 
-# voor TopNL en upgrade test
-#      - name: Cache test data
-#        uses: actions/cache@v2
-#        with:
-#          path: ~/downloads
-#          key: downloads-${{ hashFiles('**/pom.xml') }}
-#          restore-keys: |
-#            downloads-
+      # voor TopNL en upgrade test
+      #      - name: Cache test data
+      #        uses: actions/cache@v2
+      #        with:
+      #          path: ~/downloads
+      #          key: downloads-${{ hashFiles('**/pom.xml') }}
+      #          restore-keys: |
+      #            downloads-
       - name: Install extra software
         run: |
           choco install xmlstarlet

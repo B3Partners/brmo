@@ -1,19 +1,19 @@
 name: REUSE Compliance Check
 
-on: [push]
+on:
+  - push
 
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    # Only check a few subdirectories for now
-    - name: REUSE Compliance Check (BGT loader)
-      uses: fsfe/reuse-action@v1.1
-      with:
-        args: --root bgt-loader lint
-    - name: REUSE Compliance Check (BAG2 loader)
-      uses: fsfe/reuse-action@v1.1
-      with:
-        # Only check this subdirectory for now
-        args: --root bag2-loader lint
+      - uses: actions/checkout@v2
+      # Only check a few subdirectories for now
+      - name: REUSE Compliance Check (BGT loader)
+        uses: fsfe/reuse-action@v1.1
+        with:
+          args: --root bgt-loader lint
+      - name: REUSE Compliance Check (BAG2 loader)
+        uses: fsfe/reuse-action@v1.1
+        with: # Only check this subdirectory for now
+          args: --root bag2-loader lint
