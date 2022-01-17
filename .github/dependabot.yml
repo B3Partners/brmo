@@ -49,7 +49,7 @@ updates:
 
 
   - package-ecosystem: docker
-    directory: "/docker/src/main/docker/"
+    directory: "/docker/src/main/docker"
     schedule:
       interval: weekly
       day: saturday
@@ -65,9 +65,8 @@ updates:
       - bouw- en testinfrastuctuur
     ignore: # stay on Tomcat 9 for now
       - dependency-name: "tomcat"
-      versions:
-        - "10.x"
-
+        versions:
+          - "10.x"
 
   - package-ecosystem: docker
     directory: "/bgt-loader/"
