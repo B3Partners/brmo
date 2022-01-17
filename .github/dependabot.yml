@@ -67,6 +67,7 @@ updates:
       - dependency-name: "tomcat"
         versions:
           - "10.0.x"
+          - ">= 10"
 
   - package-ecosystem: docker
     directory: "/bgt-loader/"
