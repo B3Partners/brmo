@@ -66,7 +66,7 @@ updates:
     ignore: # stay on Tomcat 9 for now
       - dependency-name: "tomcat"
         versions:
-          - "10.x"
+          - "10.0.x"
 
   - package-ecosystem: docker
     directory: "/bgt-loader/"
