@@ -1,4 +1,4 @@
-FROM tomcat:9.0.56-jre11-temurin
+FROM tomcat:9.0.58-jre11-temurin
 
 ARG BRMO_VERSION=2.2.1
 ARG MAIL_FROM=brmo-no-reply@b3partners.nl
