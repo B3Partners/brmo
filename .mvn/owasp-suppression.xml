@@ -5,21 +5,8 @@
     <suppress>
         <notes>
             <![CDATA[
-                     Negeer meldingen mbt tomcat-catalina-*.jar
-                     omdat we geen tomcat mee leveren en deze alleen voor bepaalde deployments geldt.
-                     file name: tomcat-catalina-*.jar
-            ]]>
-        </notes>
-        <packageUrl regex="true">^pkg:maven/org\.apache\.tomcat/tomcat\-catalina@.*$</packageUrl>
-        <cve>CVE-2016-5425</cve>
-        <cve>CVE-2017-6056</cve>
-        <cve>CVE-2020-8022</cve>
-    </suppress>
-    <suppress>
-        <notes>
-            <![CDATA[
-                     Negeer melding mbt gt-jdbc jar, false positive "data-tools" wat iets heel anders is.
-                     file name: gt-jdbc-*.jar
+                 Negeer melding mbt gt-jdbc jar, false positive "data-tools" wat iets heel anders is.
+                 file name: gt-jdbc-*.jar
             ]]>
         </notes>
         <packageUrl regex="true">^pkg:maven/org\.geotools/gt\-jdbc@.*$</packageUrl>
@@ -28,48 +15,34 @@
     <suppress>
         <notes>
             <![CDATA[
-                     Negeer melding mbt gt-jdbc-sqlserver jar, false positive "data-tools" wat iets heel anders is.
-                     file name: gt-jdbc-sqlserver-*.jar
+                 Negeer melding mbt gt-jdbc-sqlserver jar, false positive "data-tools" wat iets heel anders is.
+                 file name: gt-jdbc-sqlserver-*.jar
             ]]>
         </notes>
         <packageUrl regex="true">^pkg:maven/org\.geotools\.jdbc/gt\-jdbc\-sqlserver@.*$</packageUrl>
         <cpe>cpe:/a:data_tools_project:data_tools</cpe>
     </suppress>
     <suppress>
-        <notes>
-            <![CDATA[
-                     Negeer melding mbt log4j-1.2.17.jar, false positive, 
-                     CVE-2017-5645 heeft betrekking op versie 2 en hoger - false positive
-                     CVE-2019-17571 heeft betrekking op de log4j Socket Server icm TCP/UDP - die gebruiken we niet
-                     CVE-2020-9488 heeft betrekking op de log4j SMTP appender - die gebruiken we niet
-                     CVE-2021-4104 heeft betrekking op de log4j JMSAppender - die gebruiken we niet
-                     CVE-2022-23302 heeft betrekking op JMSSink - die gebruiken we niet
-                     CVE-2022-23305 heeft betrekking op JDBCAppender - die gebruiken we niet
-                     CVE-2022-23307 heeft betrekking op Chainsaw - die gebruiken we niet
-            ]]>
+        <notes><![CDATA[
+                   file name: reload4j-1.2.18.4.jar
+                   Reload4j heeft de belangrijkste problemen van log4j 1.x opgelost.
+                   iig verholpen:
+                        - CVE-2019-17571 heeft betrekking op de log4j Socket Server icm TCP/UDP - die gebruiken we niet
+                        - CVE-2020-9488 heeft betrekking op de log4j SMTP appender - die gebruiken we niet
+                        - CVE-2020-9493 heeft betrekking op Chainsaw - die gebruiken we niet
+                        - CVE-2021-4104 heeft betrekking op de log4j JMSAppender - die gebruiken we niet
+                        - CVE-2022-23302 heeft betrekking op JMSSink - die gebruiken we niet
+                        - CVE-2022-23305 heeft betrekking op JDBCAppender - die gebruiken we niet
+                        - CVE-2022-23307 heeft betrekking op Chainsaw - die gebruiken we niet
+           ]]>
         </notes>
-        <gav regex="true">^log4j:log4j:1\.2\.17$</gav>
-        <cve>CVE-2017-5645</cve>
-        <cve>CVE-2019-17571</cve>
-        <cve>CVE-2020-9488</cve>
-        <cve>CVE-2021-4104</cve>
-        <cve>CVE-2022-23302</cve>
-        <cve>CVE-2022-23305</cve>
-        <cve>CVE-2022-23307</cve>
-    </suppress>
-    <suppress>
-       <notes><![CDATA[
-       file name: log4j-api-2.14.1.jar
-       De log4j-api jar bevat deze kwetsbaarheden niet - die zitten in log4j-core jar
-       ]]></notes>
-       <packageUrl regex="true">^pkg:maven/org\.apache\.logging\.log4j/log4j\-api@.*$</packageUrl>
-       <cve>CVE-2021-45046</cve>
-       <cve>CVE-2021-45105</cve>
+        <packageUrl regex="true">^pkg:maven/ch\.qos\.reload4j/reload4j@.*$</packageUrl>
+        <cpe>cpe:/a:apache:log4j</cpe>
     </suppress>
     <suppress>
         <notes>
             <![CDATA[
-                     Negeer meldingen mbt postgis-jdbc jar, hebben allemaal betrekking op de database engine
+                 Negeer meldingen mbt postgis-jdbc jar, hebben allemaal betrekking op de database engine
             ]]>
         </notes>
         <gav regex="true">^net\.postgis:postgis-jdbc:.*$</gav>
@@ -77,13 +50,13 @@
     </suppress>
     <suppress>
         <notes><![CDATA[
-            file name: javasimon-console-embed-4.2.0.jar: jquery.js
+                    file name: javasimon-console-embed-4.2.0.jar: jquery.js
 
-            Negeer meldingen mbt jquery in de simon console;
-            moet upstream worden gefixt, maar is onwaarschijnlijk dat dat gaat gebeuren
-            zie: https://github.com/virgo47/javasimon/issues/27
+                    Negeer meldingen mbt jquery in de simon console;
+                    moet upstream worden gefixt, maar is onwaarschijnlijk dat dat gaat gebeuren
+                    zie: https://github.com/virgo47/javasimon/issues/27
 
-            de impact lijkt gering
+                    de impact lijkt gering
    ]]></notes>
         <packageUrl regex="true">^pkg:javascript/jquery@.*$</packageUrl>
         <cve>CVE-2012-6708</cve>
@@ -92,26 +65,4 @@
         <cve>CVE-2020-11022</cve>
         <cve>CVE-2020-11023</cve>
     </suppress>
-
-    <suppress>
-        <notes><![CDATA[
-            file name: json-simple-1.1.1.jar False positive, json-simple wordt voor iets anders aangezien
-        ]]>
-        </notes>
-        <packageUrl regex="true">^pkg:maven/com\.googlecode\.json\-simple/json\-simple@.*$</packageUrl>
-        <!-- <cpe>cpe:/a:json_project:json</cpe> -->
-        <cve>CVE-2020-10663</cve>
-        <cve>CVE-2020-7712</cve>
-    </suppress>
-
-    <suppress>
-        <notes><![CDATA[
-            TopNL loader gebruikt de (kwetsbare) org.jdom2.input.SAXBuilder, maar is juist geconfigureerd.
-            Zie https://github.com/B3Partners/brmo/pull/1110
-            file name: jdom2-2.0.6.jar
-   ]]></notes>
-        <packageUrl regex="true">^pkg:maven/org\.jdom/jdom2@.*$</packageUrl>
-        <cve>CVE-2021-33813</cve>
-    </suppress>
-
 </suppressions>
