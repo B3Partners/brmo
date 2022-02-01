@@ -43,13 +43,13 @@ public class DBUnitExportRSGB {
 //    private static final String _passwd = "rsgb";
     // ms sql / jtds
     // private static final String _driverClass = "net.sourceforge.jtds.jdbc.Driver";
-    // private static final String _jdbcConnection = "jdbc:jtds:sqlserver://192.168.1.15:1433/itest_brmo_rsgb;instance=SQLEXPRESS";
+    // private static final String _jdbcConnection = "jdbc:jtds:sqlserver://192.168.1.15:1433/itest_brmo_rsgb;encrypt=false;instance=SQLEXPRESS";
     // private static final String _user = "brmotest";
     // private static final String _passwd = "brmotest";
 
     // ms sql
      private static final String _driverClass = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-     private static final String _jdbcConnection = "jdbc:sqlserver://localhost:1401;databaseName=rsgb;instance=sql1";
+     private static final String _jdbcConnection = "jdbc:sqlserver://localhost:1401;databaseName=rsgb;encrypt=false;instance=sql1";
      private static final String _user = "sa";
      private static final String _passwd = "YourStrong!Passw0rd";
 

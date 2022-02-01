@@ -126,7 +126,7 @@ te geven om met SQL server te verbinden.
 Voorbeeldcommando om alleen een paar feature types te laden in SQL Server:
 
 ```shell
-brmo-bgt-loader download initial --connection="jdbc:sqlserver://localhost:1433;databaseName=bgt" --password="bgt@1234" --feature-types=wijk,buurt --no-geo-filter
+brmo-bgt-loader download initial --connection="jdbc:sqlserver://localhost:1433;databaseName=bgt;encrypt=false" --password="bgt@1234" --feature-types=wijk,buurt --no-geo-filter
 ```
 Voor Docker Desktop op Windows of Mac: gebruik `host.docker.internal` in plaats van `localhost`.
 
