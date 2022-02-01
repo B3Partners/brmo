@@ -337,7 +337,7 @@ SPDX-License-Identifier: MIT
                         <artifactId>maven-failsafe-plugin</artifactId>
                         <configuration>
                             <systemPropertyVariables>
-                                <db.connectionString>jdbc:sqlserver://127.0.0.1:1433;databaseName=bgttest;applicationName=bgt-loader-test;instance=${mssql.instancename}</db.connectionString>
+                                <db.connectionString>jdbc:sqlserver://127.0.0.1:1433;databaseName=bgttest;applicationName=bgt-loader-test;encrypt=false;instance=${mssql.instancename}</db.connectionString>
                                 <db.user>sa</db.user>
                                 <db.password>Password12!</db.password>
                             </systemPropertyVariables>
