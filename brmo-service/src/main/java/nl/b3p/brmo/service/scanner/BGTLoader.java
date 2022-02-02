@@ -81,7 +81,11 @@ public class BGTLoader extends AbstractExecutableProces {
         this.listener = listener;
         BGTLoaderMain.configureLogging(false);
 
-        if (config.getStatus().equals(WAITING)) {
+        if (config.getStatus().equals(WAITING) || config.getStatus().equals(ERROR)) {
+            if (config.getStatus().equals(ERROR)) {
+                listener.addLog("Vorige run is met ERROR status afgerond, opnieuw proberen");
+            }
+
             int exitCode = -1;
             BGTDatabase bgtDatabase;
             try (Connection rsgbbgtConnection = ConfigUtil.getDataSourceRsgbBgt().getConnection()) {
@@ -172,8 +176,6 @@ public class BGTLoader extends AbstractExecutableProces {
                 Stripersist.getEntityManager().merge(config);
                 Stripersist.getEntityManager().flush();
             }
-        } else if (config.getStatus().equals(ERROR)) {
-            listener.addLog("Vorige run is met ERROR status afgerond, kan proces niet starten");
         }
     }
 }
