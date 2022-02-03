@@ -85,7 +85,11 @@ public class BAG2MutatieProcesRunner extends AbstractExecutableProces {
         this.listener = listener;
         BAG2LoaderMain.configureLogging(false);
 
-        if (config.getStatus().equals(WAITING)) {
+        if (config.getStatus().equals(WAITING) || config.getStatus().equals(ERROR)) {
+            if (config.getStatus().equals(ERROR)) {
+                listener.addLog("Vorige run is met ERROR status afgerond, opnieuw proberen");
+            }
+
             int exitCode = -1;
             BAG2Database bag2Database;
             try (Connection rsgbbagConnection = ConfigUtil.getDataSourceRsgbBag().getConnection()) {
@@ -188,8 +192,6 @@ public class BAG2MutatieProcesRunner extends AbstractExecutableProces {
                 Stripersist.getEntityManager().merge(config);
                 Stripersist.getEntityManager().flush();
             }
-        } else if (config.getStatus().equals(ERROR)) {
-            listener.addLog("Vorige run is met ERROR status afgerond, kan proces niet starten");
         }
     }
 }
