@@ -82,7 +82,7 @@ public class DownloadCommand {
     ) throws Exception {
 
         if (extractSelectionOptions.getGeoFilterWkt() == null && !noGeoFilter) {
-            System.err.println(getBundleString("download.no_geo_filter"));
+            log.error(getBundleString("download.no_geo_filter"));
             return ExitCode.USAGE;
         }
 
@@ -172,7 +172,7 @@ public class DownloadCommand {
                 deltaIdTimeTo = OffsetDateTime.parse(s);
             }
             if (deltaId == null) {
-                System.err.println(getBundleString("download.no_delta_id"));
+                log.error(getBundleString("download.no_delta_id"));
                 return ExitCode.SOFTWARE;
             }
             ExtractSelectionOptions extractSelectionOptions = new ExtractSelectionOptions();
@@ -213,7 +213,7 @@ public class DownloadCommand {
                 }
                 if (i == response.getDeltas().size()) {
                     // TODO automatically do initial load depending on option
-                    System.err.println(getBundleString("download.current_delta_not_found"));
+                    log.error(getBundleString("download.current_delta_not_found"));
                     return ExitCode.SOFTWARE;
                 }
 

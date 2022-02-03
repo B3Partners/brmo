@@ -138,12 +138,12 @@ public class BGTLoaderMain implements IVersionProvider {
             } else if (file.matches(".*\\.[xg]ml")) {
                 loadXml(new File(file), writer);
             } else {
-                System.err.println(getMessageFormattedString("load.invalid_extension", file));
+                log.error(getMessageFormattedString("load.invalid_extension", file));
                 return ExitCode.USAGE;
             }
 
             if (writer.getProgress() == null) {
-                System.err.println(getBundleString("error.no_feature_types"));
+                log.error(getBundleString("error.no_feature_types"));
                 return ExitCode.SOFTWARE;
             }
             db.setMetadataValue(Metadata.LOADER_VERSION, getLoaderVersion());
@@ -224,7 +224,7 @@ public class BGTLoaderMain implements IVersionProvider {
                         "UTF8",
                         false,
                         true
-                );
+                )
         ) {
             if (debugHttpSeeks) {
                 System.out.println();
@@ -259,7 +259,7 @@ public class BGTLoaderMain implements IVersionProvider {
 
             if (selected.size() > 1) {
                 // Only report total percentage when more than one entry
-                Long totalSize = selected.stream().map(ZipArchiveEntry::getSize).reduce(0L, Long::sum);
+                long totalSize = selected.stream().map(ZipArchiveEntry::getSize).reduce(0L, Long::sum);
                 Long totalCompressedSize = selected.stream().map(ZipArchiveEntry::getCompressedSize).reduce(0L, Long::sum);
                 progressReporter.setTotalBytes(totalSize);
                 if (showSelected) {
