@@ -1,6 +1,6 @@
 FROM tomcat:9.0.58-jre11-temurin
 
-ARG BRMO_VERSION=2.2.1
+ARG BRMO_VERSION="2.2.1-SNAPSHOT"
 ARG MAIL_FROM=brmo-no-reply@b3partners.nl
 ARG MAIL_HOST=mail.b3partners.nl
 ARG AJP_ADDRESS=::1

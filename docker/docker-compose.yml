@@ -1,0 +1,47 @@
+version: "3.8"
+
+volumes:
+  brmo-db:
+  brmo-logs:
+  brmo-data:
+
+services:
+  db:
+    build:
+      context: ./src/main/docker
+      dockerfile: pg_conf/Dockerfile
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      BRMO_PASSWORD: ${BRMO_DB_PASSWORD:-brmo}
+      BRMO_USER: brmo
+    ports:
+      - 5432:5432
+    restart: on-failure
+    volumes:
+      - brmo-db:/var/lib/postgresql/data
+    healthcheck:
+      test: su postgres -c pg_isready --dbname=rsgb -q
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+
+  brmo:
+    build:
+      context: ./src/main/docker
+      dockerfile: Dockerfile
+    volumes:
+      - brmo-logs:/usr/local/tomcat/logs
+      - brmo-data:/opt/brmo-data
+    ports:
+      - 8080:8080
+      # voor AJP - 8009:8009
+    restart: on-failure
+    env_file:
+      - ./src/main/docker/env/tomcat
+    depends_on:
+      - db
+    healthcheck:
+      test: "curl --fail -s http://localhost:8080/brmo-service/ || exit 1"
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
