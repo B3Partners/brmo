@@ -6,16 +6,12 @@ import nl.b3p.brmo.bgt.loader.cli.CLIOptions;
 import nl.b3p.brmo.bgt.loader.cli.DatabaseOptions;
 import nl.b3p.brmo.bgt.loader.cli.DownloadCommand;
 import nl.b3p.brmo.bgt.loader.cli.ExtractSelectionOptions;
-import nl.b3p.brmo.bgt.loader.cli.FeatureTypeSelectionOptions;
 import nl.b3p.brmo.bgt.loader.cli.LoadOptions;
+import nl.b3p.brmo.bgt.schema.BGTSchemaMapper;
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.persistence.staging.BGTLoaderProces;
 import nl.b3p.brmo.persistence.staging.ClobElement;
 import nl.b3p.brmo.service.util.ConfigUtil;
-import nl.b3p.brmo.sql.dialect.MSSQLDialect;
-import nl.b3p.brmo.sql.dialect.OracleDialect;
-import nl.b3p.brmo.sql.dialect.PostGISDialect;
-import nl.b3p.brmo.sql.dialect.SQLDialect;
 import nl.b3p.jdbc.util.converter.PGConnectionUnwrapper;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
@@ -129,7 +125,15 @@ public class BGTLoader extends AbstractExecutableProces {
                 Stripersist.getEntityManager().merge(config);
                 Stripersist.getEntityManager().flush();
 
-                if (null == config.getLastrun()) {
+                String initialLoadDeltaId;
+                try {
+                    initialLoadDeltaId = bgtDatabase.getMetadata(BGTSchemaMapper.Metadata.INITIAL_LOAD_DELTA_ID);
+                } catch(SQLException e) {
+                    // Metadata table may not exist
+                    initialLoadDeltaId = null;
+                }
+
+                if (initialLoadDeltaId == null) {
                     listener.updateStatus("Ophalen BGT stand...");
                     listener.addLog("Ophalen BGT stand");
                     exitCode = downloadCommand.initial(databaseOptions, loadOptions, extractSelectionOptions, noGeoFilter, null, new CLIOptions(), false);
