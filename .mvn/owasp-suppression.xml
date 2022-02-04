@@ -65,4 +65,20 @@
         <cve>CVE-2020-11022</cve>
         <cve>CVE-2020-11023</cve>
     </suppress>
+
+    <suppress>
+       <notes><![CDATA[
+                    file name: javasimon-console-embed-4.2.0.jar: jquery-ui.js
+
+                    Negeer meldingen mbt jquery-ui in de simon console;
+                    moet upstream worden gefixt, maar is onwaarschijnlijk dat dat gaat gebeuren
+                    zie: https://github.com/virgo47/javasimon/issues/27
+
+                    de impact lijkt gering
+       ]]></notes>
+       <packageUrl regex="true">^pkg:javascript/jquery\-ui@.*$</packageUrl>
+       <cve>CVE-2021-41182</cve>
+       <cve>CVE-2021-41183</cve>
+       <cve>CVE-2021-41184</cve>
+    </suppress>
 </suppressions>
