@@ -2,7 +2,10 @@
 -- upgrade PostgreSQL RSGBBGT datamodel van 2.2.0 naar 2.2.1 
 --
 
-CREATE TABLE IF NOT EXISTS brmo_metadata(naam CHARACTER VARYING(255) NOT NULL,waarde CHARACTER VARYING(255),CONSTRAINT brmo_metadata_pk PRIMARY KEY (naam));
+CREATE TABLE IF NOT EXISTS brmo_metadata(naam CHARACTER VARYING(255) NOT NULL,waarde TEXT,CONSTRAINT brmo_metadata_pk PRIMARY KEY (naam));
+-- Update existing brmo_metadata table to use clob type for waarde
+ALTER TABLE brmo_metadata ALTER COLUMN waarde TYPE TEXT;
+
 INSERT INTO brmo_metadata(naam) VALUES('brmoversie') ON CONFLICT DO NOTHING;
 
 
