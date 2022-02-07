@@ -23,6 +23,7 @@
         <module>brmo-commandline</module>
         <module>brmo-dist</module>
         <module>docker</module>
+        <module>nhr-loader</module>
     </modules>
     <name>BRMO</name>
     <description>B3Partners BRMO applicatie</description>
@@ -167,6 +168,11 @@
             <dependency>
                 <groupId>nl.b3p</groupId>
                 <artifactId>bag2-loader</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>nl.b3p</groupId>
+                <artifactId>nhr-loader</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
