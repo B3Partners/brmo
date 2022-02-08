@@ -218,7 +218,7 @@ SPDX-License-Identifier: MIT
                                 <image>
                                     <name>ghcr.io/b3partners/brmo-bag2-loader:%l</name>
                                     <build>
-                                        <dockerFile>Dockerfile</dockerFile>
+                                        <dockerFile>${project.basedir}/Dockerfile</dockerFile>
                                         <args>
                                             <BRMO_VERSION>${project.version}</BRMO_VERSION>
                                         </args>
