@@ -30,11 +30,15 @@ for DB in Oracle PostgreSQL SQLserver; do
       if [ "$DB" == "Oracle" ]; then
         echo $'\n'WHENEVER SQLERROR EXIT SQL.SQLCODE >>$DIR/$b.sql
         if [ "${b}" == "rsgbbgt" ] || [ "${b}" == "bag" ]; then
-          echo $'\n\n'"DECLARE" >>$DIR/$b.sql
-          echo $"BEGIN" >>$DIR/$b.sql
-          echo $"  EXECUTE IMMEDIATE 'CREATE TABLE brmo_metadata(naam VARCHAR2(255 CHAR) NOT NULL,waarde VARCHAR2(255 CHAR),PRIMARY KEY (naam));';" >>$DIR/$b.sql
-          echo $"  EXCEPTION WHEN OTHERS THEN" >>$DIR/$b.sql
-          echo $"    IF SQLCODE = -955 THEN NULL; ELSE RAISE; END IF;" >>$DIR/$b.sql
+          echo $"\n\nBEGIN" >>$DIR/$b.sql
+          echo $"    EXECUTE IMMEDIATE 'CREATE TABLE brmo_metadata(naam VARCHAR2(255 CHAR) NOT NULL,waarde CLOB,PRIMARY KEY (naam))';" >>$DIR/$b.sql
+          echo $"EXCEPTION" >>$DIR/$b.sql
+          echo $"WHEN OTHERS THEN" >>$DIR/$b.sql
+          echo $"IF" >>$DIR/$b.sql
+          echo $"    SQLCODE = -955 THEN" >>$DIR/$b.sql
+          echo $"    NULL;" >>$DIR/$b.sql
+          echo $"ELSE RAISE;" >>$DIR/$b.sql
+          echo $"END IF;" >>$DIR/$b.sql
           echo $"END;" >>$DIR/$b.sql
           echo $"MERGE INTO brmo_metadata USING DUAL ON (naam = 'brmoversie') WHEN NOT MATCHED THEN INSERT (naam) VALUES('brmoversie');" >>$DIR/$b.sql
         fi

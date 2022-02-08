@@ -63,6 +63,7 @@ jobs:
           .build/ci/oracle-execute-upgrades.sh rsgb
           .build/ci/oracle-execute-upgrade-extras.sh rsgb
           .build/ci/oracle-execute-upgrades.sh rsgbbgt
+          .build/ci/oracle-execute-upgrades.sh bag
 
       - name: Test
         run: |

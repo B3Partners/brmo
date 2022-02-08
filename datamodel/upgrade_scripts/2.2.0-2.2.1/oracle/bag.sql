@@ -1,22 +1,66 @@
 --
 -- upgrade Oracle RSGB datamodel van 2.2.0 naar 2.2.1
 --
-
+SET ECHO ON
 WHENEVER SQLERROR EXIT SQL.SQLCODE
 
 -- BRMO-130 / GH #1231 De BAG 2 views moeten vervangen worden
-drop view vb_adresseerbaar_object_geometrie;
-drop view vb_verblijfsobject_adres;
-drop view vb_standplaats_adres;
-drop view vb_ligplaats_adres;
-drop view vb_adres;
-
-DECLARE
 BEGIN
-  EXECUTE IMMEDIATE 'CREATE TABLE brmo_metadata(naam VARCHAR2(255 CHAR) NOT NULL,waarde VARCHAR2(255 CHAR),PRIMARY KEY (naam));';
-  EXCEPTION WHEN OTHERS THEN
-    IF SQLCODE = -955 THEN NULL; ELSE RAISE; END IF;
+EXECUTE IMMEDIATE 'DROP VIEW vb_adresseerbaar_object_geometrie';
+EXCEPTION
+  WHEN OTHERS THEN
+    IF SQLCODE != -942 THEN
+      RAISE;
+END IF;
 END;
+/
+BEGIN
+EXECUTE IMMEDIATE 'DROP VIEW vb_verblijfsobject_adres';
+EXCEPTION
+  WHEN OTHERS THEN
+    IF SQLCODE != -942 THEN
+      RAISE;
+END IF;
+END;
+/
+BEGIN
+EXECUTE IMMEDIATE 'DROP VIEW vb_standplaats_adres';
+EXCEPTION
+  WHEN OTHERS THEN
+    IF SQLCODE != -942 THEN
+      RAISE;
+END IF;
+END;
+/
+BEGIN
+EXECUTE IMMEDIATE 'DROP VIEW vb_ligplaats_adres';
+EXCEPTION
+  WHEN OTHERS THEN
+    IF SQLCODE != -942 THEN
+      RAISE;
+END IF;
+END;
+/
+BEGIN
+EXECUTE IMMEDIATE 'DROP VIEW vb_adres';
+EXCEPTION
+  WHEN OTHERS THEN
+    IF SQLCODE != -942 THEN
+      RAISE;
+END IF;
+END;
+/
+BEGIN
+    EXECUTE IMMEDIATE 'CREATE TABLE brmo_metadata(naam VARCHAR2(255 CHAR) NOT NULL, waarde VARCHAR2(255 CHAR), PRIMARY KEY (naam))';
+EXCEPTION
+WHEN OTHERS THEN
+IF
+    SQLCODE = -955 THEN
+    NULL;
+ELSE RAISE;
+END IF;
+END;
+/
 MERGE INTO brmo_metadata USING DUAL ON (naam = 'brmoversie') WHEN NOT MATCHED THEN INSERT (naam) VALUES('brmoversie');
 
 -- onderstaande dienen als laatste stappen van een upgrade uitgevoerd

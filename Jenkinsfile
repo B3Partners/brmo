@@ -129,6 +129,7 @@ timestamps {
                             sh "\".jenkins/execute-upgrades-oracle.sh\" rsgb"
                             sh "\".jenkins/execute-upgrade-extras-oracle.sh\" rsgb"
                             sh "\".jenkins/execute-upgrades-oracle.sh\" rsgbbgt"
+                            sh "\".jenkins/execute-upgrades-oracle.sh\" bag"
                             sh "mvn -e -B -Poracle -pl 'datamodel' resources:testResources compiler:testCompile surefire:test -Dtest='*UpgradeTest'"
                         }
 

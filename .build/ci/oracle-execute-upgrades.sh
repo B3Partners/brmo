@@ -13,8 +13,12 @@ PREVRELEASE=$MAJOR.$PREVMINOR
 #fi
 
 echo "Huidige snapshot:" $CURSNAPSHOT", vorige release: "$PREVRELEASE", komende release: "$NEXTRELEASE
-echo "Verwerk upgrade script voor: " $1
+echo "Verwerk upgrade script voor:" $1
 
 #!/usr/bin/env bash
 export SQLPATH=./.build/ci
-docker exec -i oracle_brmo sqlplus -l -S jenkins_$1/jenkins_$1@//localhost:1521/XE < ./datamodel/upgrade_scripts/$PREVRELEASE-$NEXTRELEASE/oracle/$1.sql
+# -S voor silent
+docker exec -i oracle_brmo sqlplus -L jenkins_$1/jenkins_$1@//localhost:1521/XE < ./datamodel/upgrade_scripts/$PREVRELEASE-$NEXTRELEASE/oracle/$1.sql
+docker exec -i oracle_brmo sqlplus -L jenkins_$1/jenkins_$1@//localhost:1521/XE  <<< "select * from brmo_metadata"
+
+echo "Verwerking upgrade script voor: "$1" afgerond"

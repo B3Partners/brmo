@@ -80,6 +80,7 @@ jobs:
           .build/ci/pgsql-execute-upgrades.sh rsgb
           .build/ci/pgsql-execute-upgrade-extras.sh rsgb
           .build/ci/pgsql-execute-upgrades.sh rsgbbgt
+          .build/ci/pgsql-execute-upgrades.sh bag
 
       - name: Test
         run: |

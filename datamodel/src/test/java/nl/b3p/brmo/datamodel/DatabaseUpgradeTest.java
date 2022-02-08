@@ -16,7 +16,9 @@ import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInfo;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -30,7 +32,10 @@ import java.util.Properties;
 import java.util.stream.Stream;
 
 import static java.lang.System.getProperty;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.junit.jupiter.api.Assumptions.assumeFalse;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
@@ -71,8 +76,9 @@ public class DatabaseUpgradeTest {
     static Stream<Arguments> localParameters() {
         return Stream.of(
                 Arguments.of("staging"),
-                Arguments.of("rsgb")
-                //,Arguments.of("rsgbbgt")
+                Arguments.of("rsgb"),
+                Arguments.of("rsgbbgt"),
+                Arguments.of("bag")
         );
     }
 
@@ -124,10 +130,15 @@ public class DatabaseUpgradeTest {
         }
     }
 
-    @ParameterizedTest(name = "{index}: testen database versie voor: {0}")
+    @ParameterizedTest(name = "{index}: testen database versie met: {argumentsWithNames}")
     @MethodSource("localParameters")
     public void testCurrentVersion(String dbName) throws Exception {
         setUpDB(dbName);
+        if(this.isMsSQL && dbName.equals("bag")) {
+            // geen BAG 2 voor mssql, overslaan
+            assumeTrue(this.isMsSQL && dbName.equals("bag"), "always true");
+            return;
+        }
         ITable metadata = db.createTable("brmo_metadata");
 
         String waarde, naam;
@@ -137,8 +148,8 @@ public class DatabaseUpgradeTest {
         assertTrue((rowCount >= 2), "Verwacht tenminste twee records.");
 
         for (int i = 0; i < rowCount; i++) {
-            waarde = metadata.getValue(i, "waarde").toString();
-            naam = metadata.getValue(i, "naam").toString();
+            waarde = (String) metadata.getValue(i, "waarde");
+            naam = (String) metadata.getValue(i, "naam");
 
             LOG.debug(String.format("database %s, metadata tabel record: %d: naam: %s, waarde: %s", dbName, i, naam, waarde));
 
@@ -152,8 +163,12 @@ public class DatabaseUpgradeTest {
                 foundUpdate = true;
             }
         }
-        assertTrue(foundVersion, "Update versienummer niet correct voor " + dbName);
-        assertTrue(foundUpdate, "Update text niet gevonden voor " + dbName);
+        assertTrue(foundVersion, () -> "Update versienummer niet correct voor " + dbName);
+
+        if (!(dbName.equals("rsgbbgt") || dbName.equals("bag"))) {
+            // van rsgbbgt en bag is geen vorige versie
+            assertTrue(foundUpdate, () -> "Update text niet gevonden voor " + dbName);
+        }
     }
 
     /**
@@ -197,6 +212,11 @@ public class DatabaseUpgradeTest {
             Collections.sort(views);
             assertEquals(views, viewsFound, "lijsten met materialized views zijn ongelijk");
         }
+    }
+
+    @BeforeEach
+    void setUp(TestInfo testInfo) {
+        LOG.info(String.format("Start: %s", testInfo.getDisplayName()));
     }
 
     @AfterEach
