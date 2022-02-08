@@ -67,6 +67,23 @@ updates:
         versions:
           - ">= 10"
 
+
+  - package-ecosystem: docker
+    directory: "/docker/src/main/docker/pg_conf"
+    schedule:
+      interval: weekly
+      day: saturday
+      time: "21:00"
+      timezone: Europe/Amsterdam
+    open-pull-requests-limit: 25
+    target-branch: master
+    reviewers:
+      - mprins
+    assignees:
+      - mprins
+    labels:
+      - bouw- en testinfrastuctuur
+
   - package-ecosystem: docker
     directory: "/bgt-loader/"
     schedule:
