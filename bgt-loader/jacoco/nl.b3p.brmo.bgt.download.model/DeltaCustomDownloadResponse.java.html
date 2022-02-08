@@ -36,17 +36,19 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   DeltaCustomDownloadResponse.JSON_PROPERTY_DOWNLOAD_REQUEST_ID
 })
 @javax.annotation.processing.Generated(value = &quot;org.openapitools.codegen.languages.JavaClientCodegen&quot;)
-<span class="nc" id="L39">public class DeltaCustomDownloadResponse {</span>
+public class DeltaCustomDownloadResponse {
   public static final String JSON_PROPERTY_LINKS = &quot;_links&quot;;
   private DeltaCustomDownloadResponseLinks links;
 
   public static final String JSON_PROPERTY_DOWNLOAD_REQUEST_ID = &quot;downloadRequestId&quot;;
   private String downloadRequestId;
 
+<span class="nc" id="L46">  public DeltaCustomDownloadResponse() { </span>
+<span class="nc" id="L47">  }</span>
 
   public DeltaCustomDownloadResponse links(DeltaCustomDownloadResponseLinks links) {
-<span class="nc" id="L48">    this.links = links;</span>
-<span class="nc" id="L49">    return this;</span>
+<span class="nc" id="L50">    this.links = links;</span>
+<span class="nc" id="L51">    return this;</span>
   }
 
    /**
@@ -59,20 +61,20 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public DeltaCustomDownloadResponseLinks getLinks() {
-<span class="nc" id="L62">    return links;</span>
+<span class="nc" id="L64">    return links;</span>
   }
 
 
   @JsonProperty(JSON_PROPERTY_LINKS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setLinks(DeltaCustomDownloadResponseLinks links) {
-<span class="nc" id="L69">    this.links = links;</span>
-<span class="nc" id="L70">  }</span>
+<span class="nc" id="L71">    this.links = links;</span>
+<span class="nc" id="L72">  }</span>
 
 
   public DeltaCustomDownloadResponse downloadRequestId(String downloadRequestId) {
-<span class="nc" id="L74">    this.downloadRequestId = downloadRequestId;</span>
-<span class="nc" id="L75">    return this;</span>
+<span class="nc" id="L76">    this.downloadRequestId = downloadRequestId;</span>
+<span class="nc" id="L77">    return this;</span>
   }
 
    /**
@@ -85,15 +87,15 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getDownloadRequestId() {
-<span class="nc" id="L88">    return downloadRequestId;</span>
+<span class="nc" id="L90">    return downloadRequestId;</span>
   }
 
 
   @JsonProperty(JSON_PROPERTY_DOWNLOAD_REQUEST_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setDownloadRequestId(String downloadRequestId) {
-<span class="nc" id="L95">    this.downloadRequestId = downloadRequestId;</span>
-<span class="nc" id="L96">  }</span>
+<span class="nc" id="L97">    this.downloadRequestId = downloadRequestId;</span>
+<span class="nc" id="L98">  }</span>
 
 
   /**
@@ -101,30 +103,30 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
    */
   @Override
   public boolean equals(Object o) {
-<span class="nc bnc" id="L104" title="All 2 branches missed.">    if (this == o) {</span>
-<span class="nc" id="L105">      return true;</span>
+<span class="nc bnc" id="L106" title="All 2 branches missed.">    if (this == o) {</span>
+<span class="nc" id="L107">      return true;</span>
     }
-<span class="nc bnc" id="L107" title="All 4 branches missed.">    if (o == null || getClass() != o.getClass()) {</span>
-<span class="nc" id="L108">      return false;</span>
+<span class="nc bnc" id="L109" title="All 4 branches missed.">    if (o == null || getClass() != o.getClass()) {</span>
+<span class="nc" id="L110">      return false;</span>
     }
-<span class="nc" id="L110">    DeltaCustomDownloadResponse deltaCustomDownloadResponse = (DeltaCustomDownloadResponse) o;</span>
-<span class="nc bnc" id="L111" title="All 2 branches missed.">    return Objects.equals(this.links, deltaCustomDownloadResponse.links) &amp;&amp;</span>
-<span class="nc bnc" id="L112" title="All 2 branches missed.">        Objects.equals(this.downloadRequestId, deltaCustomDownloadResponse.downloadRequestId);</span>
+<span class="nc" id="L112">    DeltaCustomDownloadResponse deltaCustomDownloadResponse = (DeltaCustomDownloadResponse) o;</span>
+<span class="nc bnc" id="L113" title="All 2 branches missed.">    return Objects.equals(this.links, deltaCustomDownloadResponse.links) &amp;&amp;</span>
+<span class="nc bnc" id="L114" title="All 2 branches missed.">        Objects.equals(this.downloadRequestId, deltaCustomDownloadResponse.downloadRequestId);</span>
   }
 
   @Override
   public int hashCode() {
-<span class="nc" id="L117">    return Objects.hash(links, downloadRequestId);</span>
+<span class="nc" id="L119">    return Objects.hash(links, downloadRequestId);</span>
   }
 
   @Override
   public String toString() {
-<span class="nc" id="L122">    StringBuilder sb = new StringBuilder();</span>
-<span class="nc" id="L123">    sb.append(&quot;class DeltaCustomDownloadResponse {\n&quot;);</span>
-<span class="nc" id="L124">    sb.append(&quot;    links: &quot;).append(toIndentedString(links)).append(&quot;\n&quot;);</span>
-<span class="nc" id="L125">    sb.append(&quot;    downloadRequestId: &quot;).append(toIndentedString(downloadRequestId)).append(&quot;\n&quot;);</span>
-<span class="nc" id="L126">    sb.append(&quot;}&quot;);</span>
-<span class="nc" id="L127">    return sb.toString();</span>
+<span class="nc" id="L124">    StringBuilder sb = new StringBuilder();</span>
+<span class="nc" id="L125">    sb.append(&quot;class DeltaCustomDownloadResponse {\n&quot;);</span>
+<span class="nc" id="L126">    sb.append(&quot;    links: &quot;).append(toIndentedString(links)).append(&quot;\n&quot;);</span>
+<span class="nc" id="L127">    sb.append(&quot;    downloadRequestId: &quot;).append(toIndentedString(downloadRequestId)).append(&quot;\n&quot;);</span>
+<span class="nc" id="L128">    sb.append(&quot;}&quot;);</span>
+<span class="nc" id="L129">    return sb.toString();</span>
   }
 
   /**
@@ -132,10 +134,10 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
    * (except the first line).
    */
   private String toIndentedString(Object o) {
-<span class="nc bnc" id="L135" title="All 2 branches missed.">    if (o == null) {</span>
-<span class="nc" id="L136">      return &quot;null&quot;;</span>
+<span class="nc bnc" id="L137" title="All 2 branches missed.">    if (o == null) {</span>
+<span class="nc" id="L138">      return &quot;null&quot;;</span>
     }
-<span class="nc" id="L138">    return o.toString().replace(&quot;\n&quot;, &quot;\n    &quot;);</span>
+<span class="nc" id="L140">    return o.toString().replace(&quot;\n&quot;, &quot;\n    &quot;);</span>
   }
 
 }

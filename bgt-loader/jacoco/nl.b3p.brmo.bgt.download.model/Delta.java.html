@@ -36,13 +36,23 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   Delta.JSON_PROPERTY_TIME_WINDOW
 })
 @javax.annotation.processing.Generated(value = &quot;org.openapitools.codegen.languages.JavaClientCodegen&quot;)
-<span class="nc" id="L39">public class Delta {</span>
+public class Delta {
   public static final String JSON_PROPERTY_ID = &quot;id&quot;;
   private String id;
 
   public static final String JSON_PROPERTY_TIME_WINDOW = &quot;timeWindow&quot;;
   private DeltaTimeWindow timeWindow;
 
+<span class="nc" id="L46">  public Delta() { </span>
+<span class="nc" id="L47">  }</span>
+
+  @JsonCreator
+  public Delta(
+    @JsonProperty(JSON_PROPERTY_ID) String id
+  ) {
+<span class="nc" id="L53">  this();</span>
+<span class="nc" id="L54">    this.id = id;</span>
+<span class="nc" id="L55">  }</span>
 
    /**
    * Get id
@@ -54,15 +64,15 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getId() {
-<span class="nc" id="L57">    return id;</span>
+<span class="nc" id="L67">    return id;</span>
   }
 
 
 
 
   public Delta timeWindow(DeltaTimeWindow timeWindow) {
-<span class="nc" id="L64">    this.timeWindow = timeWindow;</span>
-<span class="nc" id="L65">    return this;</span>
+<span class="nc" id="L74">    this.timeWindow = timeWindow;</span>
+<span class="nc" id="L75">    return this;</span>
   }
 
    /**
@@ -75,15 +85,15 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public DeltaTimeWindow getTimeWindow() {
-<span class="nc" id="L78">    return timeWindow;</span>
+<span class="nc" id="L88">    return timeWindow;</span>
   }
 
 
   @JsonProperty(JSON_PROPERTY_TIME_WINDOW)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTimeWindow(DeltaTimeWindow timeWindow) {
-<span class="nc" id="L85">    this.timeWindow = timeWindow;</span>
-<span class="nc" id="L86">  }</span>
+<span class="nc" id="L95">    this.timeWindow = timeWindow;</span>
+<span class="nc" id="L96">  }</span>
 
 
   /**
@@ -91,30 +101,30 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
    */
   @Override
   public boolean equals(Object o) {
-<span class="nc bnc" id="L94" title="All 2 branches missed.">    if (this == o) {</span>
-<span class="nc" id="L95">      return true;</span>
+<span class="nc bnc" id="L104" title="All 2 branches missed.">    if (this == o) {</span>
+<span class="nc" id="L105">      return true;</span>
     }
-<span class="nc bnc" id="L97" title="All 4 branches missed.">    if (o == null || getClass() != o.getClass()) {</span>
-<span class="nc" id="L98">      return false;</span>
+<span class="nc bnc" id="L107" title="All 4 branches missed.">    if (o == null || getClass() != o.getClass()) {</span>
+<span class="nc" id="L108">      return false;</span>
     }
-<span class="nc" id="L100">    Delta delta = (Delta) o;</span>
-<span class="nc bnc" id="L101" title="All 2 branches missed.">    return Objects.equals(this.id, delta.id) &amp;&amp;</span>
-<span class="nc bnc" id="L102" title="All 2 branches missed.">        Objects.equals(this.timeWindow, delta.timeWindow);</span>
+<span class="nc" id="L110">    Delta delta = (Delta) o;</span>
+<span class="nc bnc" id="L111" title="All 2 branches missed.">    return Objects.equals(this.id, delta.id) &amp;&amp;</span>
+<span class="nc bnc" id="L112" title="All 2 branches missed.">        Objects.equals(this.timeWindow, delta.timeWindow);</span>
   }
 
   @Override
   public int hashCode() {
-<span class="nc" id="L107">    return Objects.hash(id, timeWindow);</span>
+<span class="nc" id="L117">    return Objects.hash(id, timeWindow);</span>
   }
 
   @Override
   public String toString() {
-<span class="nc" id="L112">    StringBuilder sb = new StringBuilder();</span>
-<span class="nc" id="L113">    sb.append(&quot;class Delta {\n&quot;);</span>
-<span class="nc" id="L114">    sb.append(&quot;    id: &quot;).append(toIndentedString(id)).append(&quot;\n&quot;);</span>
-<span class="nc" id="L115">    sb.append(&quot;    timeWindow: &quot;).append(toIndentedString(timeWindow)).append(&quot;\n&quot;);</span>
-<span class="nc" id="L116">    sb.append(&quot;}&quot;);</span>
-<span class="nc" id="L117">    return sb.toString();</span>
+<span class="nc" id="L122">    StringBuilder sb = new StringBuilder();</span>
+<span class="nc" id="L123">    sb.append(&quot;class Delta {\n&quot;);</span>
+<span class="nc" id="L124">    sb.append(&quot;    id: &quot;).append(toIndentedString(id)).append(&quot;\n&quot;);</span>
+<span class="nc" id="L125">    sb.append(&quot;    timeWindow: &quot;).append(toIndentedString(timeWindow)).append(&quot;\n&quot;);</span>
+<span class="nc" id="L126">    sb.append(&quot;}&quot;);</span>
+<span class="nc" id="L127">    return sb.toString();</span>
   }
 
   /**
@@ -122,10 +132,10 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
    * (except the first line).
    */
   private String toIndentedString(Object o) {
-<span class="nc bnc" id="L125" title="All 2 branches missed.">    if (o == null) {</span>
-<span class="nc" id="L126">      return &quot;null&quot;;</span>
+<span class="nc bnc" id="L135" title="All 2 branches missed.">    if (o == null) {</span>
+<span class="nc" id="L136">      return &quot;null&quot;;</span>
     }
-<span class="nc" id="L128">    return o.toString().replace(&quot;\n&quot;, &quot;\n    &quot;);</span>
+<span class="nc" id="L138">    return o.toString().replace(&quot;\n&quot;, &quot;\n    &quot;);</span>
   }
 
 }

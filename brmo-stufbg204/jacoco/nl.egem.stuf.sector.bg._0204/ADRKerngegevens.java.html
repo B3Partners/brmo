@@ -16,192 +16,192 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 /**
  * entiteit adres (ADR) kerngegevens
  * 
- * &amp;lt;p&amp;gt;Java class for ADR-kerngegevens complex type.
+ * &lt;p&gt;Java class for ADR-kerngegevens complex type.
  * 
- * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+ * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
  * 
- * &amp;lt;pre&amp;gt;
- * &amp;amp;lt;complexType name=&quot;ADR-kerngegevens&quot;&amp;amp;gt;
- *   &amp;amp;lt;complexContent&amp;amp;gt;
- *     &amp;amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;amp;gt;
- *       &amp;amp;lt;sequence&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;adresBuitenland1&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
- *           &amp;amp;lt;complexType&amp;amp;gt;
- *             &amp;amp;lt;simpleContent&amp;amp;gt;
- *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;BuitenlandsadresOms&quot;&amp;amp;gt;
- *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
- *                 &amp;amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;amp;gt;
- *                 &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;ADR4&quot; /&amp;amp;gt;
- *               &amp;amp;lt;/extension&amp;amp;gt;
- *             &amp;amp;lt;/simpleContent&amp;amp;gt;
- *           &amp;amp;lt;/complexType&amp;amp;gt;
- *         &amp;amp;lt;/element&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;adresBuitenland2&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
- *           &amp;amp;lt;complexType&amp;amp;gt;
- *             &amp;amp;lt;simpleContent&amp;amp;gt;
- *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;BuitenlandsadresOms&quot;&amp;amp;gt;
- *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
- *                 &amp;amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;amp;gt;
- *                 &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;ADR4&quot; /&amp;amp;gt;
- *               &amp;amp;lt;/extension&amp;amp;gt;
- *             &amp;amp;lt;/simpleContent&amp;amp;gt;
- *           &amp;amp;lt;/complexType&amp;amp;gt;
- *         &amp;amp;lt;/element&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;adresBuitenland3&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
- *           &amp;amp;lt;complexType&amp;amp;gt;
- *             &amp;amp;lt;simpleContent&amp;amp;gt;
- *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;BuitenlandsadresOms&quot;&amp;amp;gt;
- *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
- *                 &amp;amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;amp;gt;
- *                 &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;ADR4&quot; /&amp;amp;gt;
- *               &amp;amp;lt;/extension&amp;amp;gt;
- *             &amp;amp;lt;/simpleContent&amp;amp;gt;
- *           &amp;amp;lt;/complexType&amp;amp;gt;
- *         &amp;amp;lt;/element&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;landcode&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
- *           &amp;amp;lt;complexType&amp;amp;gt;
- *             &amp;amp;lt;simpleContent&amp;amp;gt;
- *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;Landcode&quot;&amp;amp;gt;
- *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
- *                 &amp;amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;amp;gt;
- *                 &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;ADR4&quot; /&amp;amp;gt;
- *               &amp;amp;lt;/extension&amp;amp;gt;
- *             &amp;amp;lt;/simpleContent&amp;amp;gt;
- *           &amp;amp;lt;/complexType&amp;amp;gt;
- *         &amp;amp;lt;/element&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;postcode&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
- *           &amp;amp;lt;complexType&amp;amp;gt;
- *             &amp;amp;lt;simpleContent&amp;amp;gt;
- *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;Postcode&quot;&amp;amp;gt;
- *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
- *                 &amp;amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;amp;gt;
- *                 &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;ADR1&quot; /&amp;amp;gt;
- *               &amp;amp;lt;/extension&amp;amp;gt;
- *             &amp;amp;lt;/simpleContent&amp;amp;gt;
- *           &amp;amp;lt;/complexType&amp;amp;gt;
- *         &amp;amp;lt;/element&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;woonplaatsnaam&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
- *           &amp;amp;lt;complexType&amp;amp;gt;
- *             &amp;amp;lt;simpleContent&amp;amp;gt;
- *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;Woonplaatsnaam&quot;&amp;amp;gt;
- *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
- *                 &amp;amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;amp;gt;
- *               &amp;amp;lt;/extension&amp;amp;gt;
- *             &amp;amp;lt;/simpleContent&amp;amp;gt;
- *           &amp;amp;lt;/complexType&amp;amp;gt;
- *         &amp;amp;lt;/element&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;postbusnummer&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
- *           &amp;amp;lt;complexType&amp;amp;gt;
- *             &amp;amp;lt;simpleContent&amp;amp;gt;
- *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;Postbusnummer&quot;&amp;amp;gt;
- *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
- *                 &amp;amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;amp;gt;
- *               &amp;amp;lt;/extension&amp;amp;gt;
- *             &amp;amp;lt;/simpleContent&amp;amp;gt;
- *           &amp;amp;lt;/complexType&amp;amp;gt;
- *         &amp;amp;lt;/element&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;antwoordnummer&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
- *           &amp;amp;lt;complexType&amp;amp;gt;
- *             &amp;amp;lt;simpleContent&amp;amp;gt;
- *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;Antwoordnummer&quot;&amp;amp;gt;
- *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
- *                 &amp;amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;amp;gt;
- *               &amp;amp;lt;/extension&amp;amp;gt;
- *             &amp;amp;lt;/simpleContent&amp;amp;gt;
- *           &amp;amp;lt;/complexType&amp;amp;gt;
- *         &amp;amp;lt;/element&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;straatnaam&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
- *           &amp;amp;lt;complexType&amp;amp;gt;
- *             &amp;amp;lt;simpleContent&amp;amp;gt;
- *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;Straatnaam&quot;&amp;amp;gt;
- *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
- *                 &amp;amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;amp;gt;
- *                 &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;ADR1&quot; /&amp;amp;gt;
- *               &amp;amp;lt;/extension&amp;amp;gt;
- *             &amp;amp;lt;/simpleContent&amp;amp;gt;
- *           &amp;amp;lt;/complexType&amp;amp;gt;
- *         &amp;amp;lt;/element&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;huisnummer&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
- *           &amp;amp;lt;complexType&amp;amp;gt;
- *             &amp;amp;lt;simpleContent&amp;amp;gt;
- *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;Huisnummer&quot;&amp;amp;gt;
- *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
- *                 &amp;amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;amp;gt;
- *                 &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;ADR1&quot; /&amp;amp;gt;
- *               &amp;amp;lt;/extension&amp;amp;gt;
- *             &amp;amp;lt;/simpleContent&amp;amp;gt;
- *           &amp;amp;lt;/complexType&amp;amp;gt;
- *         &amp;amp;lt;/element&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;huisletter&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
- *           &amp;amp;lt;complexType&amp;amp;gt;
- *             &amp;amp;lt;simpleContent&amp;amp;gt;
- *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;Huisletter&quot;&amp;amp;gt;
- *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
- *                 &amp;amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;amp;gt;
- *                 &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;ADR1&quot; /&amp;amp;gt;
- *               &amp;amp;lt;/extension&amp;amp;gt;
- *             &amp;amp;lt;/simpleContent&amp;amp;gt;
- *           &amp;amp;lt;/complexType&amp;amp;gt;
- *         &amp;amp;lt;/element&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;huisnummertoevoeging&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
- *           &amp;amp;lt;complexType&amp;amp;gt;
- *             &amp;amp;lt;simpleContent&amp;amp;gt;
- *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;Huisnummertoevoeging&quot;&amp;amp;gt;
- *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
- *                 &amp;amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;amp;gt;
- *                 &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;ADR1&quot; /&amp;amp;gt;
- *               &amp;amp;lt;/extension&amp;amp;gt;
- *             &amp;amp;lt;/simpleContent&amp;amp;gt;
- *           &amp;amp;lt;/complexType&amp;amp;gt;
- *         &amp;amp;lt;/element&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;aanduidingBijHuisnummer&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
- *           &amp;amp;lt;complexType&amp;amp;gt;
- *             &amp;amp;lt;simpleContent&amp;amp;gt;
- *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;AanduidingBijHuisnummer&quot;&amp;amp;gt;
- *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
- *                 &amp;amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;amp;gt;
- *                 &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;ADR1&quot; /&amp;amp;gt;
- *               &amp;amp;lt;/extension&amp;amp;gt;
- *             &amp;amp;lt;/simpleContent&amp;amp;gt;
- *           &amp;amp;lt;/complexType&amp;amp;gt;
- *         &amp;amp;lt;/element&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;locatieomschrijving&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
- *           &amp;amp;lt;complexType&amp;amp;gt;
- *             &amp;amp;lt;simpleContent&amp;amp;gt;
- *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;Locatieomschrijving&quot;&amp;amp;gt;
- *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
- *                 &amp;amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;amp;gt;
- *                 &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;ADR1&quot; /&amp;amp;gt;
- *               &amp;amp;lt;/extension&amp;amp;gt;
- *             &amp;amp;lt;/simpleContent&amp;amp;gt;
- *           &amp;amp;lt;/complexType&amp;amp;gt;
- *         &amp;amp;lt;/element&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;locatieadresnummer&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
- *           &amp;amp;lt;complexType&amp;amp;gt;
- *             &amp;amp;lt;simpleContent&amp;amp;gt;
- *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;Locatieadresnummer&quot;&amp;amp;gt;
- *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
- *                 &amp;amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;amp;gt;
- *               &amp;amp;lt;/extension&amp;amp;gt;
- *             &amp;amp;lt;/simpleContent&amp;amp;gt;
- *           &amp;amp;lt;/complexType&amp;amp;gt;
- *         &amp;amp;lt;/element&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;gemeentecode&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
- *           &amp;amp;lt;complexType&amp;amp;gt;
- *             &amp;amp;lt;simpleContent&amp;amp;gt;
- *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;Gemeentecode&quot;&amp;amp;gt;
- *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
- *                 &amp;amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;amp;gt;
- *               &amp;amp;lt;/extension&amp;amp;gt;
- *             &amp;amp;lt;/simpleContent&amp;amp;gt;
- *           &amp;amp;lt;/complexType&amp;amp;gt;
- *         &amp;amp;lt;/element&amp;amp;gt;
- *       &amp;amp;lt;/sequence&amp;amp;gt;
- *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}fundamenteel&quot;/&amp;amp;gt;
- *     &amp;amp;lt;/restriction&amp;amp;gt;
- *   &amp;amp;lt;/complexContent&amp;amp;gt;
- * &amp;amp;lt;/complexType&amp;amp;gt;
- * &amp;lt;/pre&amp;gt;
+ * &lt;pre&gt;
+ * &amp;lt;complexType name=&quot;ADR-kerngegevens&quot;&amp;gt;
+ *   &amp;lt;complexContent&amp;gt;
+ *     &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
+ *       &amp;lt;sequence&amp;gt;
+ *         &amp;lt;element name=&quot;adresBuitenland1&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;simpleContent&amp;gt;
+ *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;BuitenlandsadresOms&quot;&amp;gt;
+ *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+ *                 &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
+ *                 &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;ADR4&quot; /&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/simpleContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;adresBuitenland2&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;simpleContent&amp;gt;
+ *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;BuitenlandsadresOms&quot;&amp;gt;
+ *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+ *                 &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
+ *                 &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;ADR4&quot; /&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/simpleContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;adresBuitenland3&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;simpleContent&amp;gt;
+ *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;BuitenlandsadresOms&quot;&amp;gt;
+ *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+ *                 &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
+ *                 &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;ADR4&quot; /&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/simpleContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;landcode&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;simpleContent&amp;gt;
+ *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;Landcode&quot;&amp;gt;
+ *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+ *                 &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
+ *                 &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;ADR4&quot; /&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/simpleContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;postcode&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;simpleContent&amp;gt;
+ *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;Postcode&quot;&amp;gt;
+ *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+ *                 &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
+ *                 &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;ADR1&quot; /&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/simpleContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;woonplaatsnaam&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;simpleContent&amp;gt;
+ *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;Woonplaatsnaam&quot;&amp;gt;
+ *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+ *                 &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/simpleContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;postbusnummer&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;simpleContent&amp;gt;
+ *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;Postbusnummer&quot;&amp;gt;
+ *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+ *                 &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/simpleContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;antwoordnummer&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;simpleContent&amp;gt;
+ *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;Antwoordnummer&quot;&amp;gt;
+ *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+ *                 &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/simpleContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;straatnaam&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;simpleContent&amp;gt;
+ *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;Straatnaam&quot;&amp;gt;
+ *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+ *                 &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
+ *                 &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;ADR1&quot; /&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/simpleContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;huisnummer&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;simpleContent&amp;gt;
+ *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;Huisnummer&quot;&amp;gt;
+ *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+ *                 &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
+ *                 &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;ADR1&quot; /&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/simpleContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;huisletter&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;simpleContent&amp;gt;
+ *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;Huisletter&quot;&amp;gt;
+ *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+ *                 &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
+ *                 &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;ADR1&quot; /&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/simpleContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;huisnummertoevoeging&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;simpleContent&amp;gt;
+ *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;Huisnummertoevoeging&quot;&amp;gt;
+ *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+ *                 &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
+ *                 &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;ADR1&quot; /&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/simpleContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;aanduidingBijHuisnummer&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;simpleContent&amp;gt;
+ *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;AanduidingBijHuisnummer&quot;&amp;gt;
+ *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+ *                 &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
+ *                 &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;ADR1&quot; /&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/simpleContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;locatieomschrijving&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;simpleContent&amp;gt;
+ *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;Locatieomschrijving&quot;&amp;gt;
+ *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+ *                 &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
+ *                 &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;ADR1&quot; /&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/simpleContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;locatieadresnummer&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;simpleContent&amp;gt;
+ *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;Locatieadresnummer&quot;&amp;gt;
+ *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+ *                 &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/simpleContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;gemeentecode&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;simpleContent&amp;gt;
+ *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;Gemeentecode&quot;&amp;gt;
+ *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+ *                 &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/simpleContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *       &amp;lt;/sequence&amp;gt;
+ *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}fundamenteel&quot;/&amp;gt;
+ *     &amp;lt;/restriction&amp;gt;
+ *   &amp;lt;/complexContent&amp;gt;
+ * &amp;lt;/complexType&amp;gt;
+ * &lt;/pre&gt;
  * 
  * 
  */
@@ -805,21 +805,21 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
+     * &lt;p&gt;Java class for anonymous complex type.
      * 
-     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &amp;lt;pre&amp;gt;
-     * &amp;amp;lt;complexType&amp;amp;gt;
-     *   &amp;amp;lt;simpleContent&amp;amp;gt;
-     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;AanduidingBijHuisnummer&quot;&amp;amp;gt;
-     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
-     *       &amp;amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;amp;gt;
-     *       &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;ADR1&quot; /&amp;amp;gt;
-     *     &amp;amp;lt;/extension&amp;amp;gt;
-     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
-     * &amp;amp;lt;/complexType&amp;amp;gt;
-     * &amp;lt;/pre&amp;gt;
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;simpleContent&amp;gt;
+     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;AanduidingBijHuisnummer&quot;&amp;gt;
+     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+     *       &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
+     *       &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;ADR1&quot; /&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/simpleContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
      */
@@ -976,21 +976,21 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
+     * &lt;p&gt;Java class for anonymous complex type.
      * 
-     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &amp;lt;pre&amp;gt;
-     * &amp;amp;lt;complexType&amp;amp;gt;
-     *   &amp;amp;lt;simpleContent&amp;amp;gt;
-     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;BuitenlandsadresOms&quot;&amp;amp;gt;
-     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
-     *       &amp;amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;amp;gt;
-     *       &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;ADR4&quot; /&amp;amp;gt;
-     *     &amp;amp;lt;/extension&amp;amp;gt;
-     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
-     * &amp;amp;lt;/complexType&amp;amp;gt;
-     * &amp;lt;/pre&amp;gt;
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;simpleContent&amp;gt;
+     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;BuitenlandsadresOms&quot;&amp;gt;
+     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+     *       &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
+     *       &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;ADR4&quot; /&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/simpleContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
      */
@@ -1147,21 +1147,21 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
+     * &lt;p&gt;Java class for anonymous complex type.
      * 
-     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &amp;lt;pre&amp;gt;
-     * &amp;amp;lt;complexType&amp;amp;gt;
-     *   &amp;amp;lt;simpleContent&amp;amp;gt;
-     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;BuitenlandsadresOms&quot;&amp;amp;gt;
-     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
-     *       &amp;amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;amp;gt;
-     *       &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;ADR4&quot; /&amp;amp;gt;
-     *     &amp;amp;lt;/extension&amp;amp;gt;
-     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
-     * &amp;amp;lt;/complexType&amp;amp;gt;
-     * &amp;lt;/pre&amp;gt;
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;simpleContent&amp;gt;
+     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;BuitenlandsadresOms&quot;&amp;gt;
+     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+     *       &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
+     *       &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;ADR4&quot; /&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/simpleContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
      */
@@ -1318,21 +1318,21 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
+     * &lt;p&gt;Java class for anonymous complex type.
      * 
-     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &amp;lt;pre&amp;gt;
-     * &amp;amp;lt;complexType&amp;amp;gt;
-     *   &amp;amp;lt;simpleContent&amp;amp;gt;
-     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;BuitenlandsadresOms&quot;&amp;amp;gt;
-     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
-     *       &amp;amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;amp;gt;
-     *       &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;ADR4&quot; /&amp;amp;gt;
-     *     &amp;amp;lt;/extension&amp;amp;gt;
-     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
-     * &amp;amp;lt;/complexType&amp;amp;gt;
-     * &amp;lt;/pre&amp;gt;
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;simpleContent&amp;gt;
+     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;BuitenlandsadresOms&quot;&amp;gt;
+     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+     *       &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
+     *       &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;ADR4&quot; /&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/simpleContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
      */
@@ -1489,20 +1489,20 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
+     * &lt;p&gt;Java class for anonymous complex type.
      * 
-     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &amp;lt;pre&amp;gt;
-     * &amp;amp;lt;complexType&amp;amp;gt;
-     *   &amp;amp;lt;simpleContent&amp;amp;gt;
-     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;Antwoordnummer&quot;&amp;amp;gt;
-     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
-     *       &amp;amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;amp;gt;
-     *     &amp;amp;lt;/extension&amp;amp;gt;
-     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
-     * &amp;amp;lt;/complexType&amp;amp;gt;
-     * &amp;lt;/pre&amp;gt;
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;simpleContent&amp;gt;
+     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;Antwoordnummer&quot;&amp;gt;
+     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+     *       &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/simpleContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
      */
@@ -1629,20 +1629,20 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
+     * &lt;p&gt;Java class for anonymous complex type.
      * 
-     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &amp;lt;pre&amp;gt;
-     * &amp;amp;lt;complexType&amp;amp;gt;
-     *   &amp;amp;lt;simpleContent&amp;amp;gt;
-     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;Gemeentecode&quot;&amp;amp;gt;
-     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
-     *       &amp;amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;amp;gt;
-     *     &amp;amp;lt;/extension&amp;amp;gt;
-     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
-     * &amp;amp;lt;/complexType&amp;amp;gt;
-     * &amp;lt;/pre&amp;gt;
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;simpleContent&amp;gt;
+     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;Gemeentecode&quot;&amp;gt;
+     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+     *       &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/simpleContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
      */
@@ -1769,21 +1769,21 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
+     * &lt;p&gt;Java class for anonymous complex type.
      * 
-     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &amp;lt;pre&amp;gt;
-     * &amp;amp;lt;complexType&amp;amp;gt;
-     *   &amp;amp;lt;simpleContent&amp;amp;gt;
-     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;Huisletter&quot;&amp;amp;gt;
-     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
-     *       &amp;amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;amp;gt;
-     *       &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;ADR1&quot; /&amp;amp;gt;
-     *     &amp;amp;lt;/extension&amp;amp;gt;
-     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
-     * &amp;amp;lt;/complexType&amp;amp;gt;
-     * &amp;lt;/pre&amp;gt;
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;simpleContent&amp;gt;
+     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;Huisletter&quot;&amp;gt;
+     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+     *       &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
+     *       &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;ADR1&quot; /&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/simpleContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
      */
@@ -1940,21 +1940,21 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
+     * &lt;p&gt;Java class for anonymous complex type.
      * 
-     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &amp;lt;pre&amp;gt;
-     * &amp;amp;lt;complexType&amp;amp;gt;
-     *   &amp;amp;lt;simpleContent&amp;amp;gt;
-     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;Huisnummer&quot;&amp;amp;gt;
-     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
-     *       &amp;amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;amp;gt;
-     *       &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;ADR1&quot; /&amp;amp;gt;
-     *     &amp;amp;lt;/extension&amp;amp;gt;
-     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
-     * &amp;amp;lt;/complexType&amp;amp;gt;
-     * &amp;lt;/pre&amp;gt;
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;simpleContent&amp;gt;
+     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;Huisnummer&quot;&amp;gt;
+     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+     *       &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
+     *       &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;ADR1&quot; /&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/simpleContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
      */
@@ -2111,21 +2111,21 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
+     * &lt;p&gt;Java class for anonymous complex type.
      * 
-     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &amp;lt;pre&amp;gt;
-     * &amp;amp;lt;complexType&amp;amp;gt;
-     *   &amp;amp;lt;simpleContent&amp;amp;gt;
-     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;Huisnummertoevoeging&quot;&amp;amp;gt;
-     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
-     *       &amp;amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;amp;gt;
-     *       &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;ADR1&quot; /&amp;amp;gt;
-     *     &amp;amp;lt;/extension&amp;amp;gt;
-     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
-     * &amp;amp;lt;/complexType&amp;amp;gt;
-     * &amp;lt;/pre&amp;gt;
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;simpleContent&amp;gt;
+     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;Huisnummertoevoeging&quot;&amp;gt;
+     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+     *       &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
+     *       &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;ADR1&quot; /&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/simpleContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
      */
@@ -2282,21 +2282,21 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
+     * &lt;p&gt;Java class for anonymous complex type.
      * 
-     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &amp;lt;pre&amp;gt;
-     * &amp;amp;lt;complexType&amp;amp;gt;
-     *   &amp;amp;lt;simpleContent&amp;amp;gt;
-     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;Landcode&quot;&amp;amp;gt;
-     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
-     *       &amp;amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;amp;gt;
-     *       &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;ADR4&quot; /&amp;amp;gt;
-     *     &amp;amp;lt;/extension&amp;amp;gt;
-     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
-     * &amp;amp;lt;/complexType&amp;amp;gt;
-     * &amp;lt;/pre&amp;gt;
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;simpleContent&amp;gt;
+     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;Landcode&quot;&amp;gt;
+     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+     *       &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
+     *       &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;ADR4&quot; /&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/simpleContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
      */
@@ -2453,20 +2453,20 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
+     * &lt;p&gt;Java class for anonymous complex type.
      * 
-     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &amp;lt;pre&amp;gt;
-     * &amp;amp;lt;complexType&amp;amp;gt;
-     *   &amp;amp;lt;simpleContent&amp;amp;gt;
-     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;Locatieadresnummer&quot;&amp;amp;gt;
-     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
-     *       &amp;amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;amp;gt;
-     *     &amp;amp;lt;/extension&amp;amp;gt;
-     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
-     * &amp;amp;lt;/complexType&amp;amp;gt;
-     * &amp;lt;/pre&amp;gt;
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;simpleContent&amp;gt;
+     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;Locatieadresnummer&quot;&amp;gt;
+     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+     *       &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/simpleContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
      */
@@ -2593,21 +2593,21 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
+     * &lt;p&gt;Java class for anonymous complex type.
      * 
-     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &amp;lt;pre&amp;gt;
-     * &amp;amp;lt;complexType&amp;amp;gt;
-     *   &amp;amp;lt;simpleContent&amp;amp;gt;
-     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;Locatieomschrijving&quot;&amp;amp;gt;
-     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
-     *       &amp;amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;amp;gt;
-     *       &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;ADR1&quot; /&amp;amp;gt;
-     *     &amp;amp;lt;/extension&amp;amp;gt;
-     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
-     * &amp;amp;lt;/complexType&amp;amp;gt;
-     * &amp;lt;/pre&amp;gt;
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;simpleContent&amp;gt;
+     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;Locatieomschrijving&quot;&amp;gt;
+     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+     *       &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
+     *       &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;ADR1&quot; /&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/simpleContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
      */
@@ -2764,20 +2764,20 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
+     * &lt;p&gt;Java class for anonymous complex type.
      * 
-     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &amp;lt;pre&amp;gt;
-     * &amp;amp;lt;complexType&amp;amp;gt;
-     *   &amp;amp;lt;simpleContent&amp;amp;gt;
-     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;Postbusnummer&quot;&amp;amp;gt;
-     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
-     *       &amp;amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;amp;gt;
-     *     &amp;amp;lt;/extension&amp;amp;gt;
-     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
-     * &amp;amp;lt;/complexType&amp;amp;gt;
-     * &amp;lt;/pre&amp;gt;
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;simpleContent&amp;gt;
+     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;Postbusnummer&quot;&amp;gt;
+     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+     *       &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/simpleContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
      */
@@ -2904,21 +2904,21 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
+     * &lt;p&gt;Java class for anonymous complex type.
      * 
-     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &amp;lt;pre&amp;gt;
-     * &amp;amp;lt;complexType&amp;amp;gt;
-     *   &amp;amp;lt;simpleContent&amp;amp;gt;
-     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;Postcode&quot;&amp;amp;gt;
-     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
-     *       &amp;amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;amp;gt;
-     *       &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;ADR1&quot; /&amp;amp;gt;
-     *     &amp;amp;lt;/extension&amp;amp;gt;
-     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
-     * &amp;amp;lt;/complexType&amp;amp;gt;
-     * &amp;lt;/pre&amp;gt;
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;simpleContent&amp;gt;
+     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;Postcode&quot;&amp;gt;
+     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+     *       &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
+     *       &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;ADR1&quot; /&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/simpleContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
      */
@@ -3075,21 +3075,21 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
+     * &lt;p&gt;Java class for anonymous complex type.
      * 
-     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &amp;lt;pre&amp;gt;
-     * &amp;amp;lt;complexType&amp;amp;gt;
-     *   &amp;amp;lt;simpleContent&amp;amp;gt;
-     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;Straatnaam&quot;&amp;amp;gt;
-     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
-     *       &amp;amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;amp;gt;
-     *       &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;ADR1&quot; /&amp;amp;gt;
-     *     &amp;amp;lt;/extension&amp;amp;gt;
-     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
-     * &amp;amp;lt;/complexType&amp;amp;gt;
-     * &amp;lt;/pre&amp;gt;
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;simpleContent&amp;gt;
+     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;Straatnaam&quot;&amp;gt;
+     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+     *       &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
+     *       &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;ADR1&quot; /&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/simpleContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
      */
@@ -3246,20 +3246,20 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
+     * &lt;p&gt;Java class for anonymous complex type.
      * 
-     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &amp;lt;pre&amp;gt;
-     * &amp;amp;lt;complexType&amp;amp;gt;
-     *   &amp;amp;lt;simpleContent&amp;amp;gt;
-     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;Woonplaatsnaam&quot;&amp;amp;gt;
-     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
-     *       &amp;amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;amp;gt;
-     *     &amp;amp;lt;/extension&amp;amp;gt;
-     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
-     * &amp;amp;lt;/complexType&amp;amp;gt;
-     * &amp;lt;/pre&amp;gt;
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;simpleContent&amp;gt;
+     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;Woonplaatsnaam&quot;&amp;gt;
+     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+     *       &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/simpleContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
      */

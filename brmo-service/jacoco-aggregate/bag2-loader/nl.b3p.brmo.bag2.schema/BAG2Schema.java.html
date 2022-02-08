@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>BAG2Schema.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO service</a> &gt; <a href="../index.html" class="el_bundle">bag2-loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.bag2.schema</a> &gt; <span class="el_source">BAG2Schema.java</span></div><h1>BAG2Schema.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2021 B3Partners B.V.
+ *
+ * SPDX-License-Identifier: MIT
+ *
+ */
+
+package nl.b3p.brmo.bag2.schema;
+
+import nl.b3p.brmo.schema.ObjectType;
+import nl.b3p.brmo.schema.Schema;
+import nl.b3p.brmo.schema.mapping.ArrayAttributeMapping;
+import nl.b3p.brmo.schema.mapping.AttributeColumnMapping;
+import nl.b3p.brmo.schema.mapping.BooleanAttributeColumnMapping;
+import nl.b3p.brmo.schema.mapping.GeometryAttributeColumnMapping;
+import nl.b3p.brmo.schema.mapping.IntegerAttributeColumnMapping;
+import nl.b3p.brmo.schema.mapping.SimpleDateFormatAttributeColumnMapping;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import static nl.b3p.brmo.schema.mapping.SimpleDateFormatAttributeColumnMapping.PATTERN_XML_DATE;
+import static nl.b3p.brmo.schema.mapping.SimpleDateFormatAttributeColumnMapping.PATTERN_XML_TIMESTAMP;
+
+public class BAG2Schema extends Schema {
+    private static BAG2Schema instance;
+
+<span class="fc" id="L32">    static final Set&lt;String&gt; bag2ObjectTypes = new HashSet&lt;&gt;(Arrays.asList(</span>
+            &quot;Pand&quot;,
+            &quot;Verblijfsobject&quot;,
+            &quot;Nummeraanduiding&quot;,
+            &quot;OpenbareRuimte&quot;,
+            &quot;Ligplaats&quot;,
+            &quot;Standplaats&quot;,
+            &quot;Woonplaats&quot;
+            // TODO in onderzoek
+            // TODO inactief
+            // TODO gemeente woonplaats relatie
+    ));
+
+    public static final String TIJDSTIP_NIETBAGLV = &quot;tijdstipNietBagLV&quot;;
+
+    private static final String WHERE_CLAUSE_ACTUEEL = &quot;(begingeldigheid &lt;= current_date and (eindgeldigheid is null or eindgeldigheid &gt; current_date) and tijdstipinactief is null)&quot;;
+
+<span class="fc" id="L49">    private static final List&lt;AttributeColumnMapping&gt; bag2BaseAttributes = Arrays.asList(</span>
+            new AttributeColumnMapping(&quot;objectid&quot;,  &quot;serial&quot;, true, false, true),
+            new AttributeColumnMapping(&quot;identificatie&quot;,  &quot;char(16)&quot;, true, true),
+            new IntegerAttributeColumnMapping(&quot;voorkomenidentificatie&quot;, true, true),
+            new SimpleDateFormatAttributeColumnMapping(&quot;beginGeldigheid&quot;, &quot;date&quot;, PATTERN_XML_DATE),
+            new SimpleDateFormatAttributeColumnMapping(&quot;eindGeldigheid&quot;, &quot;date&quot;, false, PATTERN_XML_DATE),
+            new SimpleDateFormatAttributeColumnMapping(&quot;tijdstipRegistratie&quot;, &quot;timestamp&quot;, PATTERN_XML_TIMESTAMP),
+            new SimpleDateFormatAttributeColumnMapping(&quot;eindRegistratie&quot;, &quot;timestamp&quot;, false, PATTERN_XML_TIMESTAMP),
+            new SimpleDateFormatAttributeColumnMapping(&quot;tijdstipInactief&quot;, &quot;timestamp&quot;, false, PATTERN_XML_TIMESTAMP),
+            new SimpleDateFormatAttributeColumnMapping(&quot;tijdstipRegistratieLV&quot;, &quot;timestamp&quot;, PATTERN_XML_TIMESTAMP),
+            new SimpleDateFormatAttributeColumnMapping(&quot;tijdstipEindRegistratieLV&quot;, &quot;timestamp&quot;, false, PATTERN_XML_TIMESTAMP),
+            new SimpleDateFormatAttributeColumnMapping(&quot;tijdstipInactiefLV&quot;, &quot;timestamp&quot;, false, PATTERN_XML_TIMESTAMP),
+            // &quot;Niet BAG&quot; is not supported because it would have to be part of the primary key, which would complicate
+            // things, and it is not very useful anyway. &quot;Niet BAG&quot; would be set for versions which were overwritten 
+            // during &quot;synchronisation&quot; when a bronhouder detects previous versions were not correctly registered.
+            // An update setting tijdstipNietBagLV would lead to deletion of the record and insertion of the newly
+            // synchronized versions.
+            // new SimpleDateFormatAttributeColumnMapping(TIJDSTIP_NIETBAGLV, &quot;timestamp&quot;, true, PATTERN_XML_TIMESTAMP),
+            new SimpleDateFormatAttributeColumnMapping(&quot;documentdatum&quot;, &quot;date&quot;, PATTERN_XML_DATE),
+            new AttributeColumnMapping(&quot;documentnummer&quot;),
+            new BooleanAttributeColumnMapping(&quot;geconstateerd&quot;),
+            new AttributeColumnMapping(&quot;status&quot;)
+    );
+
+    private List&lt;AttributeColumnMapping&gt; withBaseAttributes(AttributeColumnMapping... attributes) {
+<span class="fc" id="L74">        return Stream.concat(bag2BaseAttributes.stream(), Stream.of(attributes)).collect(Collectors.toList());</span>
+    }
+
+    public BAG2Schema() {
+<span class="fc" id="L78">        super();</span>
+
+<span class="fc" id="L80">        addObjectType(new BAG2ObjectType(this, &quot;Woonplaats&quot;, withBaseAttributes(</span>
+                new AttributeColumnMapping(&quot;naam&quot;),
+                new GeometryAttributeColumnMapping(&quot;geometrie&quot;, &quot;geometry(GEOMETRY, 28992)&quot;)
+<span class="fc" id="L83">        )).addExtraDataDefinitionSQL(List.of(</span>
+                &quot;create or replace view v_woonplaats_actueel as select * from woonplaats where &quot; + WHERE_CLAUSE_ACTUEEL
+        )));
+
+<span class="fc" id="L87">        addObjectType(new BAG2ObjectType(this, &quot;OpenbareRuimte&quot;, withBaseAttributes(</span>
+                new AttributeColumnMapping(&quot;naam&quot;),
+                new AttributeColumnMapping(&quot;verkorteNaam&quot;, &quot;varchar(255)&quot;, false),
+                new AttributeColumnMapping(&quot;type&quot;),
+                new AttributeColumnMapping(&quot;ligtIn&quot;, &quot;char(4)&quot;, false)
+<span class="fc" id="L92">        )).addExtraDataDefinitionSQL(List.of(</span>
+                &quot;create or replace view v_openbareruimte_actueel as select * from openbareruimte where &quot; + WHERE_CLAUSE_ACTUEEL
+        )));
+
+<span class="fc" id="L96">        addObjectType(new BAG2ObjectType(this, &quot;Nummeraanduiding&quot;, withBaseAttributes(</span>
+                new IntegerAttributeColumnMapping(&quot;huisnummer&quot;),
+                new AttributeColumnMapping(&quot;huisletter&quot;, &quot;varchar(255)&quot;, false),
+                new AttributeColumnMapping(&quot;huisnummertoevoeging&quot;, &quot;varchar(255)&quot;, false),
+                new AttributeColumnMapping(&quot;postcode&quot;, &quot;char(6)&quot;, false),
+                new AttributeColumnMapping(&quot;typeAdresseerbaarObject&quot;, &quot;varchar(255)&quot;, false),
+                new AttributeColumnMapping(&quot;ligtIn&quot;, &quot;char(4)&quot;, false),
+                new AttributeColumnMapping(&quot;ligtAan&quot;, &quot;char(16)&quot;, false)
+<span class="fc" id="L104">        )).addExtraDataDefinitionSQL(List.of(</span>
+                &quot;create or replace view v_nummeraanduiding_actueel as select * from nummeraanduiding where &quot; + WHERE_CLAUSE_ACTUEEL
+        )));
+
+<span class="fc" id="L108">        addObjectType(new BAG2ObjectType(this, &quot;Verblijfsobject&quot;, withBaseAttributes(</span>
+                new ArrayAttributeMapping(&quot;gebruiksdoel&quot;, &quot;gebruiksdoel&quot;, &quot;varchar(255)&quot;),
+                new IntegerAttributeColumnMapping(&quot;oppervlakte&quot;),
+                new AttributeColumnMapping(&quot;heeftAlsHoofdadres&quot;, &quot;char(16)&quot;, false),
+                new ArrayAttributeMapping(&quot;heeftAlsNevenadres&quot;, &quot;nevenadres&quot;, &quot;char(16)&quot;),
+                new ArrayAttributeMapping(&quot;maaktDeelUitVan&quot;, &quot;maaktdeeluitvan&quot;, &quot;char(16)&quot;),
+                new GeometryAttributeColumnMapping(&quot;geometrie&quot;, &quot;geometry(GEOMETRY, 28992)&quot;)
+<span class="fc" id="L115">        )).addExtraDataDefinitionSQL(List.of(</span>
+                &quot;create or replace view v_verblijfsobject_actueel as select * from verblijfsobject where &quot; + WHERE_CLAUSE_ACTUEEL,
+                &quot;create index verblijfsobject_nevenadres_idx on verblijfsobject_nevenadres (identificatie, voorkomenidentificatie)&quot;,
+                &quot;create index verblijfsobject_maaktdeeluitvan_idx on verblijfsobject_maaktdeeluitvan (identificatie, voorkomenidentificatie)&quot;,
+                &quot;create index verblijfsobject_gebruiksdoel_idx on verblijfsobject_gebruiksdoel (identificatie, voorkomenidentificatie)&quot;
+        )));
+
+<span class="fc" id="L122">        addObjectType(new BAG2ObjectType(this, &quot;Ligplaats&quot;, withBaseAttributes(</span>
+                new GeometryAttributeColumnMapping(&quot;geometrie&quot;, &quot;geometry(POLYGON, 28992)&quot;),
+                new AttributeColumnMapping(&quot;heeftAlsHoofdadres&quot;, &quot;char(16)&quot;, false),
+                new ArrayAttributeMapping(&quot;heeftAlsNevenadres&quot;, &quot;nevenadres&quot;, &quot;char(16)&quot;)
+<span class="fc" id="L126">        )).addExtraDataDefinitionSQL(List.of(</span>
+                &quot;create or replace view v_ligplaats_actueel as select * from ligplaats where &quot; + WHERE_CLAUSE_ACTUEEL,
+                &quot;create index ligplaats_nevenadres_idx on ligplaats_nevenadres (identificatie, voorkomenidentificatie)&quot;
+        )));
+
+<span class="fc" id="L131">        addObjectType(new BAG2ObjectType(this, &quot;Standplaats&quot;, withBaseAttributes(</span>
+                new GeometryAttributeColumnMapping(&quot;geometrie&quot;, &quot;geometry(POLYGON, 28992)&quot;),
+                new AttributeColumnMapping(&quot;heeftAlsHoofdadres&quot;, &quot;char(16)&quot;, false),
+                new ArrayAttributeMapping(&quot;heeftAlsNevenadres&quot;, &quot;nevenadres&quot;, &quot;char(16)&quot;)
+<span class="fc" id="L135">        )).addExtraDataDefinitionSQL(List.of(</span>
+                &quot;create or replace view v_standplaats_actueel as select * from standplaats where &quot; + WHERE_CLAUSE_ACTUEEL,
+                &quot;create index standplaats_nevenadres_idx on standplaats_nevenadres (identificatie, voorkomenidentificatie)&quot;
+        )));
+
+<span class="fc" id="L140">        addObjectType(new BAG2ObjectType(this, &quot;Pand&quot;, withBaseAttributes(</span>
+                new IntegerAttributeColumnMapping(&quot;oorspronkelijkBouwjaar&quot;),
+                new GeometryAttributeColumnMapping(&quot;geometrie&quot;, &quot;geometry(POLYGON, 28992)&quot;)
+<span class="fc" id="L143">        )).addExtraDataDefinitionSQL(List.of(</span>
+                &quot;create or replace view v_pand_actueel as select * from pand where &quot; + WHERE_CLAUSE_ACTUEEL
+        )));
+<span class="fc" id="L146">    }</span>
+
+    @Override
+    protected void addObjectType(ObjectType objectType) {
+        // Always add a unique index for the OBJECTID column, which is not the primary key but only for ArcGIS
+
+        // XXX table prefixes not supported here and also not in extra DDL above
+
+<span class="fc" id="L154">        String tableName = objectType.getName().toLowerCase();</span>
+<span class="fc" id="L155">        String sql = String.format(&quot;create index %s_objectid_idx on %s (objectid)&quot;, tableName, tableName);</span>
+<span class="fc" id="L156">        objectType.addExtraDataDefinitionSQL(List.of(sql));</span>
+<span class="fc" id="L157">        super.addObjectType(objectType);</span>
+<span class="fc" id="L158">    }</span>
+
+    public static BAG2Schema getInstance() {
+<span class="fc bfc" id="L161" title="All 2 branches covered.">        if (instance == null) {</span>
+<span class="fc" id="L162">            instance = new BAG2Schema();</span>
+        }
+<span class="fc" id="L164">        return instance;</span>
+    }
+
+    public Stream&lt;BAG2ObjectType&gt; getAllObjectTypes() {
+<span class="nc" id="L168">        return (Stream&lt;BAG2ObjectType&gt;) super.getAllObjectTypes();</span>
+    }
+
+    public BAG2ObjectType getObjectTypeByName(String name) {
+<span class="fc" id="L172">        return (BAG2ObjectType) super.getObjectTypeByName(name);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

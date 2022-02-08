@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>BAG2ToevoegingMutatie.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO service</a> &gt; <a href="../index.html" class="el_bundle">bag2-loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.bag2.loader</a> &gt; <span class="el_source">BAG2ToevoegingMutatie.java</span></div><h1>BAG2ToevoegingMutatie.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2021 B3Partners B.V.
+ *
+ * SPDX-License-Identifier: MIT
+ *
+ */
+
+package nl.b3p.brmo.bag2.loader;
+
+import nl.b3p.brmo.bag2.schema.BAG2Object;
+
+import javax.xml.stream.Location;
+
+public class BAG2ToevoegingMutatie extends BAG2Mutatie {
+    private BAG2Object toevoeging;
+
+    BAG2ToevoegingMutatie(Location location, BAG2Object toevoeging) {
+<span class="fc" id="L18">        super(location);</span>
+<span class="fc" id="L19">        this.toevoeging = toevoeging;</span>
+<span class="fc" id="L20">    }</span>
+
+    public BAG2Object getToevoeging() {
+<span class="fc" id="L23">        return toevoeging;</span>
+    }
+
+    @Override
+    public String toString() {
+<span class="nc" id="L28">        return &quot;BAG2ToevoegingMutatie{&quot; +</span>
+<span class="nc" id="L29">                &quot;location=&quot; + getLocation() +</span>
+                &quot;, toevoeging=&quot; + toevoeging +
+                '}';
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

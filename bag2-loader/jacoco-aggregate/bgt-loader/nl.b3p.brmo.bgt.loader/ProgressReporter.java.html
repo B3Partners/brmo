@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>ProgressReporter.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO BAG 2.0 loader</a> &gt; <a href="../index.html" class="el_bundle">bgt-loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.bgt.loader</a> &gt; <span class="el_source">ProgressReporter.java</span></div><h1>ProgressReporter.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2021 B3Partners B.V.
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+package nl.b3p.brmo.bgt.loader;
+
+import nl.b3p.brmo.bgt.schema.BGTObjectTableWriter;
+import nl.b3p.brmo.bgt.schema.BGTSchemaMapper;
+import nl.b3p.brmo.schema.ObjectTableWriter;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.time.Duration;
+import java.time.Instant;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
+
+import static nl.b3p.brmo.bgt.loader.Utils.formatTimeSince;
+import static nl.b3p.brmo.bgt.loader.Utils.getBundleString;
+import static nl.b3p.brmo.bgt.loader.Utils.getMessageFormattedString;
+
+<span class="nc" id="L24">public class ProgressReporter implements Consumer&lt;ObjectTableWriter.Progress&gt; {</span>
+<span class="nc" id="L25">    private static final Log log = LogFactory.getLog(ProgressReporter.class);</span>
+
+<span class="nc" id="L27">    private final Instant start = Instant.now();</span>
+    private Long totalBytes;
+    private Supplier&lt;Long&gt; totalBytesReadFunction;
+
+    private String currentFileName;
+<span class="nc" id="L32">    private Instant currentFileStart = Instant.now();</span>
+    private Long currentFileSize;
+
+    public Instant getStart() {
+<span class="nc" id="L36">        return start;</span>
+    }
+
+    public Long getTotalBytes() {
+<span class="nc" id="L40">        return totalBytes;</span>
+    }
+
+    public Supplier&lt;Long&gt; getTotalBytesReadFunction() {
+<span class="nc" id="L44">        return totalBytesReadFunction;</span>
+    }
+
+    public String getCurrentFileName() {
+<span class="nc" id="L48">        return currentFileName;</span>
+    }
+
+    public Instant getCurrentFileStart() {
+<span class="nc" id="L52">        return currentFileStart;</span>
+    }
+
+    public Long getCurrentFileSize() {
+<span class="nc" id="L56">        return currentFileSize;</span>
+    }
+
+    public void setTotalBytes(long totalBytes) {
+<span class="nc" id="L60">        this.totalBytes = totalBytes;</span>
+<span class="nc" id="L61">    }</span>
+
+    public void setTotalBytesReadFunction(Supplier&lt;Long&gt; totalBytesReadFunction) {
+<span class="nc" id="L64">        this.totalBytesReadFunction = totalBytesReadFunction;</span>
+<span class="nc" id="L65">    }</span>
+
+    public void startNewFile(String name, Long size) {
+<span class="nc" id="L68">        this.currentFileName = name;</span>
+<span class="nc" id="L69">        this.currentFileSize = size;</span>
+<span class="nc" id="L70">        this.currentFileStart = Instant.now();</span>
+<span class="nc" id="L71">        status(getMessageFormattedString(&quot;progress.initializing&quot;, name));</span>
+<span class="nc" id="L72">    }</span>
+
+    protected void log(String msg) {
+<span class="nc" id="L75">        log.info(msg);</span>
+<span class="nc" id="L76">    }</span>
+
+    protected void status(String msg) {
+<span class="nc" id="L79">        log.debug(msg);</span>
+<span class="nc" id="L80">    }</span>
+
+    @Override
+    public void accept(ObjectTableWriter.Progress genericProgress) {
+<span class="nc" id="L84">        BGTObjectTableWriter.BGTProgress progress = (BGTObjectTableWriter.BGTProgress)genericProgress;</span>
+<span class="nc bnc" id="L85" title="All 5 branches missed.">        switch(progress.getStage()) {</span>
+            case LOAD_OBJECTS:
+<span class="nc bnc" id="L87" title="All 2 branches missed.">                if (progress.getObjectCount() == 0) {</span>
+<span class="nc" id="L88">                    status(getMessageFormattedString(&quot;progress.loading&quot;, currentFileName));</span>
+                }
+                break;
+            case CREATE_PRIMARY_KEY:
+<span class="nc" id="L92">                status(getMessageFormattedString(&quot;progress.create_primary_key&quot;, currentFileName));</span>
+<span class="nc" id="L93">                break;</span>
+            case CREATE_GEOMETRY_INDEX:
+<span class="nc" id="L95">                status(getMessageFormattedString(&quot;progress.create_geometry_indexes&quot;, currentFileName));</span>
+<span class="nc" id="L96">                break;</span>
+            case FINISHED:
+<span class="nc" id="L98">                double loadTimeSeconds = Duration.between(currentFileStart, Instant.now()).toMillis() / 1000.0;</span>
+
+                String counts;
+<span class="nc bnc" id="L101" title="All 4 branches missed.">                if (progress.getMutatieInhoud() != null &amp;&amp; &quot;delta&quot;.equals(progress.getMutatieInhoud().getMutatieType())) {</span>
+<span class="nc" id="L102">                    counts = String.format(&quot;%s, %s: %,6d&quot;,</span>
+<span class="nc bnc" id="L103" title="All 2 branches missed.">                            progress.getWriter().isCurrentObjectsOnly()</span>
+<span class="nc" id="L104">                                    ? String.format(&quot;%s: %,6d&quot;, getBundleString(&quot;progress.removed&quot;), progress.getObjectRemovedCount())  // updated is always 0 when not keeping history</span>
+<span class="nc" id="L105">                                    : String.format(&quot;%s: %,6d&quot;, getBundleString(&quot;progress.updated&quot;), progress.getObjectUpdatedCount()), // removed is always 0 when keeping history</span>
+<span class="nc" id="L106">                            getBundleString(&quot;progress.added&quot;),</span>
+<span class="nc" id="L107">                            progress.getObjectCount());</span>
+                } else {
+<span class="nc" id="L109">                    String historicObjects = &quot;&quot;;</span>
+<span class="nc bnc" id="L110" title="All 4 branches missed.">                    if (log.isDebugEnabled() &amp;&amp; progress.getWriter().isCurrentObjectsOnly()) {</span>
+<span class="nc" id="L111">                        historicObjects = String.format(&quot;, %,10d %s&quot;, progress.getHistoricObjectsCount(), getBundleString(&quot;progress.historic_skipped&quot;));</span>
+                    }
+<span class="nc" id="L113">                    counts = String.format(&quot;%,10d %s%s&quot;, progress.getObjectCount(), getBundleString(&quot;progress.objects&quot;), historicObjects);</span>
+                }
+
+                // Align bgt_[max_table_length].gml
+<span class="nc" id="L117">                log(String.format(&quot;%-&quot; + (BGTSchemaMapper.getInstance().getMaxTableLength()+8) + &quot;s %10s, %s, %,7.0f %s/s&quot;,</span>
+                        currentFileName,
+<span class="nc" id="L119">                        formatTimeSince(currentFileStart),</span>
+                        counts,
+<span class="nc bnc" id="L121" title="All 2 branches missed.">                        loadTimeSeconds &gt; 0 ? progress.getObjectCount() / loadTimeSeconds : 0.0,</span>
+<span class="nc" id="L122">                        getBundleString(&quot;progress.objects&quot;)</span>
+                ));
+                break;
+        }
+<span class="nc" id="L126">    }</span>
+
+    public void reportTotalSummary() {
+<span class="nc" id="L129">        log(getMessageFormattedString(&quot;progress.finished&quot;, formatTimeSince(start)));</span>
+<span class="nc" id="L130">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

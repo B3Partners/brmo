@@ -57,120 +57,124 @@
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>      <em class="jxr_comment">// dbunit</em>
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>      <strong class="jxr_keyword">private</strong> IDatabaseConnection staging;
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>      <strong class="jxr_keyword">private</strong> IDatabaseConnection rsgb;
-<a class="jxr_linenumber" name="L52" href="#L52">52</a>  
-<a class="jxr_linenumber" name="L53" href="#L53">53</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> Lock sequential = <strong class="jxr_keyword">new</strong> ReentrantLock(<strong class="jxr_keyword">true</strong>);
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>      <strong class="jxr_keyword">private</strong> BasicDataSource dsStaging;
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>      <strong class="jxr_keyword">private</strong> BasicDataSource dsRsgb;
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>  
-<a class="jxr_linenumber" name="L55" href="#L55">55</a>      @BeforeEach
-<a class="jxr_linenumber" name="L56" href="#L56">56</a>      @Override
-<a class="jxr_linenumber" name="L57" href="#L57">57</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setUp() <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L58" href="#L58">58</a>          BasicDataSource dsStaging = <strong class="jxr_keyword">new</strong> BasicDataSource();
-<a class="jxr_linenumber" name="L59" href="#L59">59</a>          dsStaging.setUrl(params.getProperty(<span class="jxr_string">"staging.jdbc.url"</span>));
-<a class="jxr_linenumber" name="L60" href="#L60">60</a>          dsStaging.setUsername(params.getProperty(<span class="jxr_string">"staging.user"</span>));
-<a class="jxr_linenumber" name="L61" href="#L61">61</a>          dsStaging.setPassword(params.getProperty(<span class="jxr_string">"staging.passwd"</span>));
-<a class="jxr_linenumber" name="L62" href="#L62">62</a>          dsStaging.setAccessToUnderlyingConnectionAllowed(<strong class="jxr_keyword">true</strong>);
-<a class="jxr_linenumber" name="L63" href="#L63">63</a>          dsStaging.setConnectionProperties(params.getProperty(<span class="jxr_string">"staging.options"</span>, <span class="jxr_string">""</span>));
-<a class="jxr_linenumber" name="L64" href="#L64">64</a>  
-<a class="jxr_linenumber" name="L65" href="#L65">65</a>          BasicDataSource dsRsgb = <strong class="jxr_keyword">new</strong> BasicDataSource();
-<a class="jxr_linenumber" name="L66" href="#L66">66</a>          dsRsgb.setUrl(params.getProperty(<span class="jxr_string">"rsgb.jdbc.url"</span>));
-<a class="jxr_linenumber" name="L67" href="#L67">67</a>          dsRsgb.setUsername(params.getProperty(<span class="jxr_string">"rsgb.user"</span>));
-<a class="jxr_linenumber" name="L68" href="#L68">68</a>          dsRsgb.setPassword(params.getProperty(<span class="jxr_string">"rsgb.passwd"</span>));
-<a class="jxr_linenumber" name="L69" href="#L69">69</a>          dsRsgb.setAccessToUnderlyingConnectionAllowed(<strong class="jxr_keyword">true</strong>);
-<a class="jxr_linenumber" name="L70" href="#L70">70</a>          dsRsgb.setConnectionProperties(params.getProperty(<span class="jxr_string">"rsgb.options"</span>, <span class="jxr_string">""</span>));
-<a class="jxr_linenumber" name="L71" href="#L71">71</a>  
-<a class="jxr_linenumber" name="L72" href="#L72">72</a>          staging = <strong class="jxr_keyword">new</strong> DatabaseDataSourceConnection(dsStaging);
-<a class="jxr_linenumber" name="L73" href="#L73">73</a>          rsgb = <strong class="jxr_keyword">new</strong> DatabaseDataSourceConnection(dsRsgb);
-<a class="jxr_linenumber" name="L74" href="#L74">74</a>  
-<a class="jxr_linenumber" name="L75" href="#L75">75</a>          <strong class="jxr_keyword">if</strong> (<strong class="jxr_keyword">this</strong>.isMsSQL) {
-<a class="jxr_linenumber" name="L76" href="#L76">76</a>              staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, <strong class="jxr_keyword">new</strong> MsSqlDataTypeFactory());
-<a class="jxr_linenumber" name="L77" href="#L77">77</a>              rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, <strong class="jxr_keyword">new</strong> MsSqlDataTypeFactory());
-<a class="jxr_linenumber" name="L78" href="#L78">78</a>          } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (<strong class="jxr_keyword">this</strong>.isOracle) {
-<a class="jxr_linenumber" name="L79" href="#L79">79</a>              staging = <strong class="jxr_keyword">new</strong> DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsStaging.getConnection()), params.getProperty(<span class="jxr_string">"staging.user"</span>).toUpperCase());
-<a class="jxr_linenumber" name="L80" href="#L80">80</a>              staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, <strong class="jxr_keyword">new</strong> Oracle10DataTypeFactory());
-<a class="jxr_linenumber" name="L81" href="#L81">81</a>              staging.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, <strong class="jxr_keyword">true</strong>);
-<a class="jxr_linenumber" name="L82" href="#L82">82</a>  
-<a class="jxr_linenumber" name="L83" href="#L83">83</a>              rsgb = <strong class="jxr_keyword">new</strong> DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsRsgb.getConnection()), params.getProperty(<span class="jxr_string">"rsgb.user"</span>).toUpperCase());
-<a class="jxr_linenumber" name="L84" href="#L84">84</a>              rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, <strong class="jxr_keyword">new</strong> Oracle10DataTypeFactory());
-<a class="jxr_linenumber" name="L85" href="#L85">85</a>              rsgb.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, <strong class="jxr_keyword">true</strong>);
-<a class="jxr_linenumber" name="L86" href="#L86">86</a>          } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (<strong class="jxr_keyword">this</strong>.isPostgis) {
-<a class="jxr_linenumber" name="L87" href="#L87">87</a>              <em class="jxr_comment">// we hebben alleen nog postgres over</em>
-<a class="jxr_linenumber" name="L88" href="#L88">88</a>              staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, <strong class="jxr_keyword">new</strong> PostgresqlDataTypeFactory());
-<a class="jxr_linenumber" name="L89" href="#L89">89</a>              rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, <strong class="jxr_keyword">new</strong> PostgresqlDataTypeFactory());
-<a class="jxr_linenumber" name="L90" href="#L90">90</a>          }
-<a class="jxr_linenumber" name="L91" href="#L91">91</a>  
-<a class="jxr_linenumber" name="L92" href="#L92">92</a>          brmo = <strong class="jxr_keyword">new</strong> BrmoFramework(dsStaging, dsRsgb);
-<a class="jxr_linenumber" name="L93" href="#L93">93</a>          brmo.setOrderBerichten(<strong class="jxr_keyword">true</strong>);
-<a class="jxr_linenumber" name="L94" href="#L94">94</a>  
-<a class="jxr_linenumber" name="L95" href="#L95">95</a>          FlatXmlDataSetBuilder fxdb = <strong class="jxr_keyword">new</strong> FlatXmlDataSetBuilder();
-<a class="jxr_linenumber" name="L96" href="#L96">96</a>          fxdb.setCaseSensitiveTableNames(false);
-<a class="jxr_linenumber" name="L97" href="#L97">97</a>          IDataSet stagingDataSet = fxdb.build(<strong class="jxr_keyword">new</strong> FileInputStream(<strong class="jxr_keyword">new</strong> File(NhrToStagingToRsgbIntegrationTest.<strong class="jxr_keyword">class</strong>.getResource(<span class="jxr_string">"/staging-empty-flat.xml"</span>).toURI())));
-<a class="jxr_linenumber" name="L98" href="#L98">98</a>  
-<a class="jxr_linenumber" name="L99" href="#L99">99</a>          sequential.lock();
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> Lock sequential = <strong class="jxr_keyword">new</strong> ReentrantLock(<strong class="jxr_keyword">true</strong>);
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>  
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>      @BeforeEach
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>      @Override
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setUp() <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>          dsStaging = <strong class="jxr_keyword">new</strong> BasicDataSource();
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>          dsStaging.setUrl(params.getProperty(<span class="jxr_string">"staging.jdbc.url"</span>));
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>          dsStaging.setUsername(params.getProperty(<span class="jxr_string">"staging.user"</span>));
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>          dsStaging.setPassword(params.getProperty(<span class="jxr_string">"staging.passwd"</span>));
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>          dsStaging.setAccessToUnderlyingConnectionAllowed(<strong class="jxr_keyword">true</strong>);
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>          dsStaging.setConnectionProperties(params.getProperty(<span class="jxr_string">"staging.options"</span>, <span class="jxr_string">""</span>));
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>  
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>          dsRsgb = <strong class="jxr_keyword">new</strong> BasicDataSource();
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>          dsRsgb.setUrl(params.getProperty(<span class="jxr_string">"rsgb.jdbc.url"</span>));
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>          dsRsgb.setUsername(params.getProperty(<span class="jxr_string">"rsgb.user"</span>));
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>          dsRsgb.setPassword(params.getProperty(<span class="jxr_string">"rsgb.passwd"</span>));
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>          dsRsgb.setAccessToUnderlyingConnectionAllowed(<strong class="jxr_keyword">true</strong>);
+<a class="jxr_linenumber" name="L72" href="#L72">72</a>          dsRsgb.setConnectionProperties(params.getProperty(<span class="jxr_string">"rsgb.options"</span>, <span class="jxr_string">""</span>));
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>  
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>          staging = <strong class="jxr_keyword">new</strong> DatabaseDataSourceConnection(dsStaging);
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>          rsgb = <strong class="jxr_keyword">new</strong> DatabaseDataSourceConnection(dsRsgb);
+<a class="jxr_linenumber" name="L76" href="#L76">76</a>  
+<a class="jxr_linenumber" name="L77" href="#L77">77</a>          <strong class="jxr_keyword">if</strong> (<strong class="jxr_keyword">this</strong>.isMsSQL) {
+<a class="jxr_linenumber" name="L78" href="#L78">78</a>              staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, <strong class="jxr_keyword">new</strong> MsSqlDataTypeFactory());
+<a class="jxr_linenumber" name="L79" href="#L79">79</a>              rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, <strong class="jxr_keyword">new</strong> MsSqlDataTypeFactory());
+<a class="jxr_linenumber" name="L80" href="#L80">80</a>          } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (<strong class="jxr_keyword">this</strong>.isOracle) {
+<a class="jxr_linenumber" name="L81" href="#L81">81</a>              staging = <strong class="jxr_keyword">new</strong> DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsStaging.getConnection()), params.getProperty(<span class="jxr_string">"staging.user"</span>).toUpperCase());
+<a class="jxr_linenumber" name="L82" href="#L82">82</a>              staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, <strong class="jxr_keyword">new</strong> Oracle10DataTypeFactory());
+<a class="jxr_linenumber" name="L83" href="#L83">83</a>              staging.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, <strong class="jxr_keyword">true</strong>);
+<a class="jxr_linenumber" name="L84" href="#L84">84</a>  
+<a class="jxr_linenumber" name="L85" href="#L85">85</a>              rsgb = <strong class="jxr_keyword">new</strong> DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsRsgb.getConnection()), params.getProperty(<span class="jxr_string">"rsgb.user"</span>).toUpperCase());
+<a class="jxr_linenumber" name="L86" href="#L86">86</a>              rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, <strong class="jxr_keyword">new</strong> Oracle10DataTypeFactory());
+<a class="jxr_linenumber" name="L87" href="#L87">87</a>              rsgb.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, <strong class="jxr_keyword">true</strong>);
+<a class="jxr_linenumber" name="L88" href="#L88">88</a>          } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (<strong class="jxr_keyword">this</strong>.isPostgis) {
+<a class="jxr_linenumber" name="L89" href="#L89">89</a>              <em class="jxr_comment">// we hebben alleen nog postgres over</em>
+<a class="jxr_linenumber" name="L90" href="#L90">90</a>              staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, <strong class="jxr_keyword">new</strong> PostgresqlDataTypeFactory());
+<a class="jxr_linenumber" name="L91" href="#L91">91</a>              rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, <strong class="jxr_keyword">new</strong> PostgresqlDataTypeFactory());
+<a class="jxr_linenumber" name="L92" href="#L92">92</a>          }
+<a class="jxr_linenumber" name="L93" href="#L93">93</a>  
+<a class="jxr_linenumber" name="L94" href="#L94">94</a>          brmo = <strong class="jxr_keyword">new</strong> BrmoFramework(dsStaging, dsRsgb);
+<a class="jxr_linenumber" name="L95" href="#L95">95</a>          brmo.setOrderBerichten(<strong class="jxr_keyword">true</strong>);
+<a class="jxr_linenumber" name="L96" href="#L96">96</a>  
+<a class="jxr_linenumber" name="L97" href="#L97">97</a>          FlatXmlDataSetBuilder fxdb = <strong class="jxr_keyword">new</strong> FlatXmlDataSetBuilder();
+<a class="jxr_linenumber" name="L98" href="#L98">98</a>          fxdb.setCaseSensitiveTableNames(false);
+<a class="jxr_linenumber" name="L99" href="#L99">99</a>          IDataSet stagingDataSet = fxdb.build(<strong class="jxr_keyword">new</strong> FileInputStream(<strong class="jxr_keyword">new</strong> File(NhrToStagingToRsgbIntegrationTest.<strong class="jxr_keyword">class</strong>.getResource(<span class="jxr_string">"/staging-empty-flat.xml"</span>).toURI())));
 <a class="jxr_linenumber" name="L100" href="#L100">100</a> 
-<a class="jxr_linenumber" name="L101" href="#L101">101</a>         DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
+<a class="jxr_linenumber" name="L101" href="#L101">101</a>         sequential.lock();
 <a class="jxr_linenumber" name="L102" href="#L102">102</a> 
-<a class="jxr_linenumber" name="L103" href="#L103">103</a>         assumeTrue(0l == brmo.getCountBerichten(<strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">null</strong>, <span class="jxr_string">"nhr"</span>, <span class="jxr_string">"STAGING_OK"</span>),
-<a class="jxr_linenumber" name="L104" href="#L104">104</a>                 <span class="jxr_string">"Er zijn geen STAGING_OK berichten"</span>);
-<a class="jxr_linenumber" name="L105" href="#L105">105</a>         assumeTrue(0l == brmo.getCountLaadProcessen(<strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">null</strong>, <span class="jxr_string">"nhr"</span>, <span class="jxr_string">"STAGING_OK"</span>),
-<a class="jxr_linenumber" name="L106" href="#L106">106</a>                 <span class="jxr_string">"Er zijn geen STAGING_OK laadprocessen"</span>);
-<a class="jxr_linenumber" name="L107" href="#L107">107</a>     }
-<a class="jxr_linenumber" name="L108" href="#L108">108</a> 
-<a class="jxr_linenumber" name="L109" href="#L109">109</a>     @AfterEach
-<a class="jxr_linenumber" name="L110" href="#L110">110</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> cleanup() <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L111" href="#L111">111</a>         brmo.closeBrmoFramework();
-<a class="jxr_linenumber" name="L112" href="#L112">112</a> 
-<a class="jxr_linenumber" name="L113" href="#L113">113</a>         CleanUtil.cleanSTAGING(staging, false);
-<a class="jxr_linenumber" name="L114" href="#L114">114</a>         staging.close();
-<a class="jxr_linenumber" name="L115" href="#L115">115</a> 
-<a class="jxr_linenumber" name="L116" href="#L116">116</a>         CleanUtil.cleanRSGB_NHR(rsgb);
-<a class="jxr_linenumber" name="L117" href="#L117">117</a>         rsgb.close();
+<a class="jxr_linenumber" name="L103" href="#L103">103</a>         DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
+<a class="jxr_linenumber" name="L104" href="#L104">104</a> 
+<a class="jxr_linenumber" name="L105" href="#L105">105</a>         assumeTrue(0l == brmo.getCountBerichten(<strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">null</strong>, <span class="jxr_string">"nhr"</span>, <span class="jxr_string">"STAGING_OK"</span>),
+<a class="jxr_linenumber" name="L106" href="#L106">106</a>                 <span class="jxr_string">"Er zijn geen STAGING_OK berichten"</span>);
+<a class="jxr_linenumber" name="L107" href="#L107">107</a>         assumeTrue(0l == brmo.getCountLaadProcessen(<strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">null</strong>, <span class="jxr_string">"nhr"</span>, <span class="jxr_string">"STAGING_OK"</span>),
+<a class="jxr_linenumber" name="L108" href="#L108">108</a>                 <span class="jxr_string">"Er zijn geen STAGING_OK laadprocessen"</span>);
+<a class="jxr_linenumber" name="L109" href="#L109">109</a>     }
+<a class="jxr_linenumber" name="L110" href="#L110">110</a> 
+<a class="jxr_linenumber" name="L111" href="#L111">111</a>     @AfterEach
+<a class="jxr_linenumber" name="L112" href="#L112">112</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> cleanup() <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L113" href="#L113">113</a>         brmo.closeBrmoFramework();
+<a class="jxr_linenumber" name="L114" href="#L114">114</a> 
+<a class="jxr_linenumber" name="L115" href="#L115">115</a>         CleanUtil.cleanSTAGING(staging, false);
+<a class="jxr_linenumber" name="L116" href="#L116">116</a>         staging.close();
+<a class="jxr_linenumber" name="L117" href="#L117">117</a>         dsStaging.close();
 <a class="jxr_linenumber" name="L118" href="#L118">118</a> 
-<a class="jxr_linenumber" name="L119" href="#L119">119</a>         sequential.unlock();
-<a class="jxr_linenumber" name="L120" href="#L120">120</a>     }
-<a class="jxr_linenumber" name="L121" href="#L121">121</a> 
-<a class="jxr_linenumber" name="L122" href="#L122">122</a>     @Test
-<a class="jxr_linenumber" name="L123" href="#L123">123</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testNhrXMLToStagingToRsgb() <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L124" href="#L124">124</a>         <strong class="jxr_keyword">final</strong> String bestandNaam = <span class="jxr_string">"/nhr-v3/33257455,23052007.anon.xml"</span>;
-<a class="jxr_linenumber" name="L125" href="#L125">125</a>         assumeFalse(<strong class="jxr_keyword">null</strong> == GH527NhrToStagingToRsgbIntegrationTest.<strong class="jxr_keyword">class</strong>.getResource(bestandNaam), <span class="jxr_string">"Het test bestand moet er zijn."</span>);
-<a class="jxr_linenumber" name="L126" href="#L126">126</a> 
-<a class="jxr_linenumber" name="L127" href="#L127">127</a>         brmo.loadFromFile(<span class="jxr_string">"nhr"</span>, GH527NhrToStagingToRsgbIntegrationTest.<strong class="jxr_keyword">class</strong>.getResource(bestandNaam).getFile(), <strong class="jxr_keyword">null</strong>);
-<a class="jxr_linenumber" name="L128" href="#L128">128</a>         LOG.info(<span class="jxr_string">"klaar met laden van berichten in staging DB."</span>);
-<a class="jxr_linenumber" name="L129" href="#L129">129</a> 
-<a class="jxr_linenumber" name="L130" href="#L130">130</a>         <em class="jxr_comment">// alleen het eerste bericht heeft br_orgineel_xml, de rest niet</em>
-<a class="jxr_linenumber" name="L131" href="#L131">131</a>         ITable bericht = staging.createQueryTable(<span class="jxr_string">"bericht"</span>, <span class="jxr_string">"select * from bericht where volgordenummer=0"</span>);
-<a class="jxr_linenumber" name="L132" href="#L132">132</a>         assertEquals(1, bericht.getRowCount(), <span class="jxr_string">"Er zijn meer of minder dan 1 rij"</span>);
-<a class="jxr_linenumber" name="L133" href="#L133">133</a>         LOG.debug(<span class="jxr_string">"\n\n"</span> + bericht.getValue(0, <span class="jxr_string">"br_orgineel_xml"</span>) + <span class="jxr_string">"\n\n"</span>);
-<a class="jxr_linenumber" name="L134" href="#L134">134</a>         assertNotNull(bericht.getValue(0, <span class="jxr_string">"br_orgineel_xml"</span>), <span class="jxr_string">"BR origineel xml is null"</span>);
-<a class="jxr_linenumber" name="L135" href="#L135">135</a>         Object berichtId = bericht.getValue(0, <span class="jxr_string">"id"</span>);
-<a class="jxr_linenumber" name="L136" href="#L136">136</a> 
-<a class="jxr_linenumber" name="L137" href="#L137">137</a>         LOG.info(<span class="jxr_string">"Transformeren berichten naar rsgb DB."</span>);
-<a class="jxr_linenumber" name="L138" href="#L138">138</a>         Thread t = brmo.toRsgb();
-<a class="jxr_linenumber" name="L139" href="#L139">139</a>         t.join();
+<a class="jxr_linenumber" name="L119" href="#L119">119</a>         CleanUtil.cleanRSGB_NHR(rsgb);
+<a class="jxr_linenumber" name="L120" href="#L120">120</a>         rsgb.close();
+<a class="jxr_linenumber" name="L121" href="#L121">121</a>         dsRsgb.close();
+<a class="jxr_linenumber" name="L122" href="#L122">122</a> 
+<a class="jxr_linenumber" name="L123" href="#L123">123</a>         sequential.unlock();
+<a class="jxr_linenumber" name="L124" href="#L124">124</a>     }
+<a class="jxr_linenumber" name="L125" href="#L125">125</a> 
+<a class="jxr_linenumber" name="L126" href="#L126">126</a>     @Test
+<a class="jxr_linenumber" name="L127" href="#L127">127</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testNhrXMLToStagingToRsgb() <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L128" href="#L128">128</a>         <strong class="jxr_keyword">final</strong> String bestandNaam = <span class="jxr_string">"/nhr-v3/33257455,23052007.anon.xml"</span>;
+<a class="jxr_linenumber" name="L129" href="#L129">129</a>         assumeFalse(<strong class="jxr_keyword">null</strong> == GH527NhrToStagingToRsgbIntegrationTest.<strong class="jxr_keyword">class</strong>.getResource(bestandNaam), <span class="jxr_string">"Het test bestand moet er zijn."</span>);
+<a class="jxr_linenumber" name="L130" href="#L130">130</a> 
+<a class="jxr_linenumber" name="L131" href="#L131">131</a>         brmo.loadFromFile(<span class="jxr_string">"nhr"</span>, GH527NhrToStagingToRsgbIntegrationTest.<strong class="jxr_keyword">class</strong>.getResource(bestandNaam).getFile(), <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L132" href="#L132">132</a>         LOG.info(<span class="jxr_string">"klaar met laden van berichten in staging DB."</span>);
+<a class="jxr_linenumber" name="L133" href="#L133">133</a> 
+<a class="jxr_linenumber" name="L134" href="#L134">134</a>         <em class="jxr_comment">// alleen het eerste bericht heeft br_orgineel_xml, de rest niet</em>
+<a class="jxr_linenumber" name="L135" href="#L135">135</a>         ITable bericht = staging.createQueryTable(<span class="jxr_string">"bericht"</span>, <span class="jxr_string">"select * from bericht where volgordenummer=0"</span>);
+<a class="jxr_linenumber" name="L136" href="#L136">136</a>         assertEquals(1, bericht.getRowCount(), <span class="jxr_string">"Er zijn meer of minder dan 1 rij"</span>);
+<a class="jxr_linenumber" name="L137" href="#L137">137</a>         LOG.debug(<span class="jxr_string">"\n\n"</span> + bericht.getValue(0, <span class="jxr_string">"br_orgineel_xml"</span>) + <span class="jxr_string">"\n\n"</span>);
+<a class="jxr_linenumber" name="L138" href="#L138">138</a>         assertNotNull(bericht.getValue(0, <span class="jxr_string">"br_orgineel_xml"</span>), <span class="jxr_string">"BR origineel xml is null"</span>);
+<a class="jxr_linenumber" name="L139" href="#L139">139</a>         Object berichtId = bericht.getValue(0, <span class="jxr_string">"id"</span>);
 <a class="jxr_linenumber" name="L140" href="#L140">140</a> 
-<a class="jxr_linenumber" name="L141" href="#L141">141</a>         <em class="jxr_comment">// na de verwerking moet soap payload er ook nog zijn</em>
-<a class="jxr_linenumber" name="L142" href="#L142">142</a>         bericht = staging.createQueryTable(<span class="jxr_string">"bericht"</span>, <span class="jxr_string">"select * from bericht where br_orgineel_xml is not null"</span>);
-<a class="jxr_linenumber" name="L143" href="#L143">143</a>         assertEquals(1, bericht.getRowCount(), <span class="jxr_string">"Er zijn meer of minder dan 1 rij"</span>);
-<a class="jxr_linenumber" name="L144" href="#L144">144</a>         assertNotNull(bericht.getValue(0, <span class="jxr_string">"br_orgineel_xml"</span>), <span class="jxr_string">"BR origineel xml is null na transformatie"</span>);
-<a class="jxr_linenumber" name="L145" href="#L145">145</a>         assertEquals(berichtId, bericht.getValue(0, <span class="jxr_string">"id"</span>),
-<a class="jxr_linenumber" name="L146" href="#L146">146</a>                 <span class="jxr_string">"bericht met br_orgineel_xml moet hetzelfde id hebben na transformatie"</span>);
-<a class="jxr_linenumber" name="L147" href="#L147">147</a> 
-<a class="jxr_linenumber" name="L148" href="#L148">148</a>         checkWaarde(<span class="jxr_string">"subject"</span>, <span class="jxr_string">"clazz"</span>);
-<a class="jxr_linenumber" name="L149" href="#L149">149</a>         checkWaarde(<span class="jxr_string">"subject"</span>, <span class="jxr_string">"typering"</span>);
-<a class="jxr_linenumber" name="L150" href="#L150">150</a>         checkWaarde(<span class="jxr_string">"prs"</span>, <span class="jxr_string">"clazz"</span>);
-<a class="jxr_linenumber" name="L151" href="#L151">151</a>         checkWaarde(<span class="jxr_string">"niet_nat_prs"</span>, <span class="jxr_string">"clazz"</span>);
-<a class="jxr_linenumber" name="L152" href="#L152">152</a>         checkWaarde(<span class="jxr_string">"ingeschr_niet_nat_prs"</span>, <span class="jxr_string">"typering"</span>);
-<a class="jxr_linenumber" name="L153" href="#L153">153</a>     }
-<a class="jxr_linenumber" name="L154" href="#L154">154</a> 
-<a class="jxr_linenumber" name="L155" href="#L155">155</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> checkWaarde(String tabelNaam, String kolom) <strong class="jxr_keyword">throws</strong> DataSetException, SQLException {
-<a class="jxr_linenumber" name="L156" href="#L156">156</a>         ITable tabel = rsgb.createDataSet().getTable(tabelNaam);
-<a class="jxr_linenumber" name="L157" href="#L157">157</a>         LOG.info(<span class="jxr_string">"check "</span> + tabelNaam + <span class="jxr_string">":"</span> + kolom);
-<a class="jxr_linenumber" name="L158" href="#L158">158</a>         <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; tabel.getRowCount(); i++) {
-<a class="jxr_linenumber" name="L159" href="#L159">159</a>             assertFalse(tabel.getValue(i, kolom).toString().contains(<span class="jxr_string">"'"</span>),
-<a class="jxr_linenumber" name="L160" href="#L160">160</a>                     <span class="jxr_string">"kolom "</span> + kolom + <span class="jxr_string">" van tabel "</span> + tabelNaam + <span class="jxr_string">" bevat quote"</span>);
-<a class="jxr_linenumber" name="L161" href="#L161">161</a>         }
-<a class="jxr_linenumber" name="L162" href="#L162">162</a>     }
-<a class="jxr_linenumber" name="L163" href="#L163">163</a> }
+<a class="jxr_linenumber" name="L141" href="#L141">141</a>         LOG.info(<span class="jxr_string">"Transformeren berichten naar rsgb DB."</span>);
+<a class="jxr_linenumber" name="L142" href="#L142">142</a>         Thread t = brmo.toRsgb();
+<a class="jxr_linenumber" name="L143" href="#L143">143</a>         t.join();
+<a class="jxr_linenumber" name="L144" href="#L144">144</a> 
+<a class="jxr_linenumber" name="L145" href="#L145">145</a>         <em class="jxr_comment">// na de verwerking moet soap payload er ook nog zijn</em>
+<a class="jxr_linenumber" name="L146" href="#L146">146</a>         bericht = staging.createQueryTable(<span class="jxr_string">"bericht"</span>, <span class="jxr_string">"select * from bericht where br_orgineel_xml is not null"</span>);
+<a class="jxr_linenumber" name="L147" href="#L147">147</a>         assertEquals(1, bericht.getRowCount(), <span class="jxr_string">"Er zijn meer of minder dan 1 rij"</span>);
+<a class="jxr_linenumber" name="L148" href="#L148">148</a>         assertNotNull(bericht.getValue(0, <span class="jxr_string">"br_orgineel_xml"</span>), <span class="jxr_string">"BR origineel xml is null na transformatie"</span>);
+<a class="jxr_linenumber" name="L149" href="#L149">149</a>         assertEquals(berichtId, bericht.getValue(0, <span class="jxr_string">"id"</span>),
+<a class="jxr_linenumber" name="L150" href="#L150">150</a>                 <span class="jxr_string">"bericht met br_orgineel_xml moet hetzelfde id hebben na transformatie"</span>);
+<a class="jxr_linenumber" name="L151" href="#L151">151</a> 
+<a class="jxr_linenumber" name="L152" href="#L152">152</a>         checkWaarde(<span class="jxr_string">"subject"</span>, <span class="jxr_string">"clazz"</span>);
+<a class="jxr_linenumber" name="L153" href="#L153">153</a>         checkWaarde(<span class="jxr_string">"subject"</span>, <span class="jxr_string">"typering"</span>);
+<a class="jxr_linenumber" name="L154" href="#L154">154</a>         checkWaarde(<span class="jxr_string">"prs"</span>, <span class="jxr_string">"clazz"</span>);
+<a class="jxr_linenumber" name="L155" href="#L155">155</a>         checkWaarde(<span class="jxr_string">"niet_nat_prs"</span>, <span class="jxr_string">"clazz"</span>);
+<a class="jxr_linenumber" name="L156" href="#L156">156</a>         checkWaarde(<span class="jxr_string">"ingeschr_niet_nat_prs"</span>, <span class="jxr_string">"typering"</span>);
+<a class="jxr_linenumber" name="L157" href="#L157">157</a>     }
+<a class="jxr_linenumber" name="L158" href="#L158">158</a> 
+<a class="jxr_linenumber" name="L159" href="#L159">159</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> checkWaarde(String tabelNaam, String kolom) <strong class="jxr_keyword">throws</strong> DataSetException, SQLException {
+<a class="jxr_linenumber" name="L160" href="#L160">160</a>         ITable tabel = rsgb.createDataSet().getTable(tabelNaam);
+<a class="jxr_linenumber" name="L161" href="#L161">161</a>         LOG.info(<span class="jxr_string">"check "</span> + tabelNaam + <span class="jxr_string">":"</span> + kolom);
+<a class="jxr_linenumber" name="L162" href="#L162">162</a>         <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; tabel.getRowCount(); i++) {
+<a class="jxr_linenumber" name="L163" href="#L163">163</a>             assertFalse(tabel.getValue(i, kolom).toString().contains(<span class="jxr_string">"'"</span>),
+<a class="jxr_linenumber" name="L164" href="#L164">164</a>                     <span class="jxr_string">"kolom "</span> + kolom + <span class="jxr_string">" van tabel "</span> + tabelNaam + <span class="jxr_string">" bevat quote"</span>);
+<a class="jxr_linenumber" name="L165" href="#L165">165</a>         }
+<a class="jxr_linenumber" name="L166" href="#L166">166</a>     }
+<a class="jxr_linenumber" name="L167" href="#L167">167</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2014&#x2013;2021 <a href="https://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2014&#x2013;2022 <a href="https://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>
 </body>
 </html>

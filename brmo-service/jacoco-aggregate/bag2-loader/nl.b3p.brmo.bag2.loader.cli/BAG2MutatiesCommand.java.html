@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>BAG2MutatiesCommand.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO service</a> &gt; <a href="../index.html" class="el_bundle">bag2-loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.bag2.loader.cli</a> &gt; <span class="el_source">BAG2MutatiesCommand.java</span></div><h1>BAG2MutatiesCommand.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2021 B3Partners B.V.
+ *
+ * SPDX-License-Identifier: MIT
+ *
+ */
+
+package nl.b3p.brmo.bag2.loader.cli;
+
+import nl.b3p.brmo.bag2.loader.BAG2Database;
+import nl.b3p.brmo.bag2.loader.BAG2LoaderUtils;
+import nl.b3p.brmo.bag2.loader.BAG2ProgressReporter;
+import nl.b3p.brmo.util.ResumingInputStream;
+import nl.b3p.brmo.util.http.HttpStartRangeInputStreamProvider;
+import nl.b3p.brmo.util.http.wrapper.Java11HttpClientWrapper;
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import picocli.CommandLine.Command;
+import picocli.CommandLine.ExitCode;
+import picocli.CommandLine.Mixin;
+import picocli.CommandLine.Option;
+import picocli.CommandLine.ParentCommand;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.CookieManager;
+import java.net.CookiePolicy;
+import java.net.URI;
+import java.net.URLEncoder;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Stream;
+
+import static nl.b3p.brmo.bgt.loader.Utils.formatTimeSince;
+import static org.apache.commons.io.FileUtils.byteCountToDisplaySize;
+
+@Command(name = &quot;mutaties&quot;, mixinStandardHelpOptions = true)
+<span class="nc" id="L55">public class BAG2MutatiesCommand {</span>
+<span class="nc" id="L56">    private static final Log log = LogFactory.getLog(BAG2MutatiesCommand.class);</span>
+
+    @ParentCommand
+    private BAG2LoaderMain parent;
+
+    public void setParent(BAG2LoaderMain parent) {
+<span class="nc" id="L62">        this.parent = parent;</span>
+<span class="nc" id="L63">    }</span>
+
+    private static final String KADASTER_LOGIN_URL = &quot;https://mijn.kadaster.nl/security/login.do&quot;;
+
+    // Artikelnummer 2529 is dagmutaties (https://www.kadaster.nl/-/handleiding-soap-service-bag-2.0-extract)
+    public static final String LVBAG_BESTANDEN_API_URL = &quot;https://bag.kadaster.nl/lvbag/bag-bestanden/api/bestanden&quot;;
+
+    @Command(name=&quot;download&quot;, sortOptions = false)
+    public int download(
+            @Option(names=&quot;--no-delete&quot;, negatable = true) boolean noDelete,
+            @Option(names=&quot;--kadaster-user&quot;) String kadasterUser,
+            @Option(names=&quot;--kadaster-password&quot;) String kadasterPassword,
+            @Option(names=&quot;--url&quot;, defaultValue = LVBAG_BESTANDEN_API_URL) String url,
+            @Option(names=&quot;--query-params&quot;, defaultValue = &quot;artikelnummers=2529&quot;) String queryParams,
+            @Option(names=&quot;--path&quot;, defaultValue = &quot;&quot;) String downloadPath,
+            @Option(names=&quot;--mirror-base-url&quot;) String mirrorBaseUrl,
+            @Option(names={&quot;-h&quot;,&quot;--help&quot;}, usageHelp = true) boolean showHelp
+            ) throws Exception {
+
+<span class="nc" id="L82">        log.info(BAG2LoaderUtils.getUserAgent());</span>
+<span class="nc" id="L83">        Instant start = Instant.now();</span>
+
+<span class="nc" id="L85">        CookieManager kadasterCookieManager = new CookieManager(null, CookiePolicy.ACCEPT_ALL);</span>
+<span class="nc" id="L86">        mijnKadasterLogin(URI.create(url), kadasterUser, kadasterPassword, kadasterCookieManager);</span>
+
+<span class="nc" id="L88">        JSONArray bestanden = getBagBestanden(url, queryParams, kadasterCookieManager);</span>
+
+<span class="nc" id="L90">        log.info(&quot;Aantal beschikbare bestanden: &quot; + bestanden.length());</span>
+
+<span class="nc" id="L92">        List&lt;JSONObject&gt; toDownload = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L93" title="All 2 branches missed.">        for(int i = 0; i &lt; bestanden.length(); i++) {</span>
+<span class="nc" id="L94">            JSONObject bestand = bestanden.getJSONObject(i);</span>
+
+<span class="nc" id="L96">            File f = Path.of(downloadPath, bestand.getString(&quot;naam&quot;)).toFile();</span>
+<span class="nc bnc" id="L97" title="All 4 branches missed.">            if (!f.exists() || f.length() != bestand.getLong(&quot;grootte&quot;)) {</span>
+<span class="nc" id="L98">                toDownload.add(bestand);</span>
+            }
+        }
+
+<span class="nc bnc" id="L102" title="All 2 branches missed.">        if (!noDelete) {</span>
+<span class="nc" id="L103">            deleteZipFilesNotInBestanden(downloadPath, bestanden);</span>
+        }
+
+<span class="nc" id="L106">        long totalBytes = toDownload.stream().map(bestand -&gt; bestand.getLong(&quot;grootte&quot;)).reduce(Long::sum).orElse(0L);</span>
+<span class="nc" id="L107">        log.info(String.format(&quot;Aantal te downloaden naar directory \&quot;%s\&quot;: %d bestanden (%s)&quot;,</span>
+<span class="nc" id="L108">                Path.of(downloadPath).toAbsolutePath(),</span>
+<span class="nc" id="L109">                toDownload.size(),</span>
+<span class="nc" id="L110">                byteCountToDisplaySize(totalBytes)));</span>
+
+<span class="nc" id="L112">        int count = 0;</span>
+<span class="nc" id="L113">        long bytesRead = 0;</span>
+<span class="nc bnc" id="L114" title="All 2 branches missed.">        for(JSONObject bestand: toDownload) {</span>
+<span class="nc" id="L115">            url = bestand.getString(&quot;url&quot;);</span>
+<span class="nc" id="L116">            String name = bestand.getString(&quot;naam&quot;);</span>
+
+<span class="nc" id="L118">            try(ResumingInputStream input = new ResumingInputStream(new HttpStartRangeInputStreamProvider(URI.create(url),</span>
+<span class="nc" id="L119">                    new Java11HttpClientWrapper(HttpClient.newBuilder().cookieHandler(kadasterCookieManager))));</span>
+<span class="nc" id="L120">                OutputStream out = new FileOutputStream(Path.of(downloadPath, name).toFile())) {</span>
+
+<span class="nc" id="L122">                log.info(String.format(&quot;Bestand %2d/%d (%.1f%%): downloaden %s...&quot;,</span>
+<span class="nc" id="L123">                        ++count,</span>
+<span class="nc" id="L124">                        toDownload.size(),</span>
+<span class="nc" id="L125">                        (100.0 / totalBytes) * bytesRead,</span>
+                        name));
+<span class="nc" id="L127">                IOUtils.copyLarge(input, out);</span>
+            }
+<span class="nc" id="L129">            bytesRead += bestand.getLong(&quot;grootte&quot;);</span>
+<span class="nc" id="L130">        }</span>
+<span class="nc bnc" id="L131" title="All 2 branches missed.">        if (!toDownload.isEmpty()) {</span>
+<span class="nc" id="L132">            String msg = &quot;&quot;;</span>
+<span class="nc bnc" id="L133" title="All 2 branches missed.">            if (mirrorBaseUrl != null) {</span>
+<span class="nc bnc" id="L134" title="All 2 branches missed.">                for (int i = 0; i &lt; bestanden.length(); i++) {</span>
+<span class="nc" id="L135">                    JSONObject bestand = bestanden.getJSONObject(i);</span>
+<span class="nc" id="L136">                    String name = bestand.getString(&quot;naam&quot;);</span>
+<span class="nc" id="L137">                    bestand.put(&quot;url&quot;, URI.create(mirrorBaseUrl).resolve(name));</span>
+                }
+<span class="nc" id="L139">                File bestandenJSONMirror = Path.of(downloadPath, &quot;bestanden.json&quot;).toFile();</span>
+<span class="nc" id="L140">                try(OutputStream out = new FileOutputStream(bestandenJSONMirror)) {</span>
+<span class="nc" id="L141">                    IOUtils.write(bestanden.toString(2), out, StandardCharsets.UTF_8);</span>
+<span class="nc" id="L142">                    msg = String.format(&quot;, JSON voor mirror \&quot;%s\&quot; geschreven naar \&quot;%s\&quot;&quot;, mirrorBaseUrl, bestandenJSONMirror);</span>
+                }
+            }
+<span class="nc" id="L145">            log.info(&quot;Alle bestanden gedownload in &quot; + formatTimeSince(start) + msg);</span>
+        }
+
+<span class="nc" id="L148">        return ExitCode.OK;</span>
+    }
+
+    @Command(name=&quot;apply&quot;, sortOptions = false)
+    public int apply(
+            @Mixin BAG2DatabaseOptions dbOptions,
+            @Mixin BAG2ProgressOptions progressOptions,
+            @Option(names=&quot;--kadaster-user&quot;) String kadasterUser,
+            @Option(names=&quot;--kadaster-password&quot;) String kadasterPassword,
+            @Option(names=&quot;--url&quot;, defaultValue = LVBAG_BESTANDEN_API_URL) String url,
+            @Option(names=&quot;--query-params&quot;, defaultValue = &quot;artikelnummers=2529&quot;) String queryParams,
+            @Option(names={&quot;-h&quot;,&quot;--help&quot;}, usageHelp = true) boolean showHelp
+    ) throws Exception {
+
+<span class="nc" id="L162">        log.info(BAG2LoaderUtils.getUserAgent());</span>
+<span class="nc" id="L163">        Instant start = Instant.now();</span>
+
+<span class="nc" id="L165">        CookieManager kadasterCookieManager = new CookieManager(null, CookiePolicy.ACCEPT_ALL);</span>
+<span class="nc" id="L166">        mijnKadasterLogin(URI.create(url), kadasterUser, kadasterPassword, kadasterCookieManager);</span>
+
+<span class="nc" id="L168">        JSONArray bestanden = getBagBestanden(url, queryParams, kadasterCookieManager);</span>
+
+<span class="nc" id="L170">        log.info(&quot;Aantal beschikbare bestanden: &quot; + bestanden.length());</span>
+
+<span class="nc" id="L172">        List&lt;String&gt; names = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L173">        List&lt;String&gt; urls = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L174" title="All 2 branches missed.">        for(int i = 0; i &lt; bestanden.length(); i++) {</span>
+<span class="nc" id="L175">            JSONObject bestand = bestanden.getJSONObject(i);</span>
+<span class="nc" id="L176">            names.add(bestand.getString(&quot;naam&quot;));</span>
+<span class="nc" id="L177">            urls.add(bestand.getString(&quot;url&quot;));</span>
+        }
+
+<span class="nc" id="L180">        try(BAG2Database db = parent.getBag2Database()) {</span>
+<span class="nc bnc" id="L181" title="All 2 branches missed.">            BAG2ProgressReporter progressReporter = progressOptions.isConsoleProgressEnabled()</span>
+<span class="nc" id="L182">                    ? new BAG2ConsoleProgressReporter()</span>
+<span class="nc" id="L183">                    : new BAG2ProgressReporter();</span>
+
+<span class="nc" id="L185">            parent.applyMutaties(db, dbOptions, new BAG2LoadOptions(), progressReporter, names.toArray(String[]::new), urls.toArray(String[]::new), kadasterCookieManager);</span>
+<span class="nc" id="L186">            log.info(&quot;Alle mutatiebestanden verwerkt in &quot; + formatTimeSince(start));</span>
+<span class="nc" id="L187">            return ExitCode.OK;</span>
+        }
+    }
+
+    private static void mijnKadasterLogin(URI forUri, String username, String password, CookieManager cookieManager) throws IOException, InterruptedException {
+<span class="nc bnc" id="L192" title="All 2 branches missed.">        if (!forUri.getHost().endsWith(&quot;kadaster.nl&quot;)) {</span>
+<span class="nc" id="L193">            return;</span>
+        }
+<span class="nc bnc" id="L195" title="All 4 branches missed.">        if (username == null || password == null) {</span>
+<span class="nc" id="L196">            throw new IllegalArgumentException(&quot;Gebruikersnaam en wachtwoord zijn verplicht&quot;);</span>
+        }
+
+<span class="nc" id="L199">        HttpRequest request = HttpRequest.newBuilder().uri(URI.create(KADASTER_LOGIN_URL))</span>
+<span class="nc" id="L200">                .header(&quot;Content-Type&quot;, &quot;application/x-www-form-urlencoded&quot;)</span>
+<span class="nc" id="L201">                .POST(HttpRequest.BodyPublishers.ofString(String.format(</span>
+                        &quot;user=%s&amp;password=%s&quot;,
+<span class="nc" id="L203">                        URLEncoder.encode(username, StandardCharsets.UTF_8),</span>
+<span class="nc" id="L204">                        URLEncoder.encode(password, StandardCharsets.UTF_8))))</span>
+<span class="nc" id="L205">                .build();</span>
+
+<span class="nc" id="L207">        HttpClient httpClient = HttpClient.newBuilder()</span>
+<span class="nc" id="L208">                .cookieHandler(cookieManager)</span>
+<span class="nc" id="L209">                .build();</span>
+
+<span class="nc" id="L211">        HttpResponse&lt;String&gt; response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());</span>
+
+<span class="nc bnc" id="L213" title="All 2 branches missed.">        if (response.statusCode() != 302) {</span>
+<span class="nc" id="L214">            throw new IllegalArgumentException(String.format(&quot;Fout bij inloggen op Mijn Kadaster met gebruikersnaam \&quot;%s\&quot;&quot;, username));</span>
+        }
+
+<span class="nc" id="L217">        Map&lt;String,List&lt;String&gt;&gt; cookies = cookieManager.get(URI.create(KADASTER_LOGIN_URL), new HashMap&lt;&gt;());</span>
+
+<span class="nc" id="L219">        Optional&lt;String&gt; kadasterTicketIdCookie = cookies.getOrDefault(&quot;Cookie&quot;, List.of())</span>
+<span class="nc" id="L220">                .stream().filter(c -&gt; c.startsWith(&quot;KadasterTicketId=&quot;)).findFirst();</span>
+
+<span class="nc bnc" id="L222" title="All 2 branches missed.">        if (kadasterTicketIdCookie.isEmpty()) {</span>
+<span class="nc" id="L223">            throw new IllegalArgumentException(&quot;Geen KadasterTicketId cookie ontvangen na inloggen&quot;);</span>
+        }
+<span class="nc" id="L225">    }</span>
+
+    private static JSONArray getBagBestanden(String url, String queryParams, CookieManager kadasterCookieManager) throws Exception {
+<span class="nc" id="L228">        url = url + &quot;?&quot; + queryParams;</span>
+<span class="nc" id="L229">        log.info(&quot;Opvragen bestanden JSON vanaf URL &quot; + url);</span>
+<span class="nc" id="L230">        HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url)).build();</span>
+<span class="nc" id="L231">        HttpClient httpClient = HttpClient.newBuilder()</span>
+<span class="nc" id="L232">                .cookieHandler(kadasterCookieManager)</span>
+<span class="nc" id="L233">                .build();</span>
+<span class="nc" id="L234">        HttpResponse&lt;String&gt; response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());</span>
+
+        JSONArray bestanden;
+        try {
+<span class="nc" id="L238">            bestanden = new JSONArray(response.body());</span>
+<span class="nc" id="L239">        } catch(Exception e) {</span>
+<span class="nc" id="L240">            throw new Exception(&quot;Fout bij parsen BAG bestanden JSON, body: &quot; + response.body(), e);</span>
+<span class="nc" id="L241">        }</span>
+<span class="nc" id="L242">        return bestanden;</span>
+    }
+
+    private static void deleteZipFilesNotInBestanden(String downloadPath, JSONArray bestanden) throws IOException {
+<span class="nc" id="L246">        final Set&lt;String&gt; names = new HashSet&lt;&gt;();</span>
+<span class="nc bnc" id="L247" title="All 2 branches missed.">        for(int i = 0; i &lt; bestanden.length(); i++) {</span>
+<span class="nc" id="L248">            names.add(bestanden.getJSONObject(i).getString(&quot;naam&quot;));</span>
+        }
+<span class="nc" id="L250">        try(Stream&lt;Path&gt; stream = Files.list(Path.of(downloadPath))) {</span>
+<span class="nc bnc" id="L251" title="All 6 branches missed.">            stream.filter(p -&gt; !Files.isDirectory(p) &amp;&amp; p.getFileName().toString().endsWith(&quot;.zip&quot;) &amp;&amp; !names.contains(p.getFileName().toString()))</span>
+<span class="nc" id="L252">                    .forEach(p -&gt; {</span>
+<span class="nc" id="L253">                        log.info(&quot;Verwijderen ZIP bestand niet in bestandenlijst: &quot; + p.getFileName());</span>
+                        try {
+<span class="nc" id="L255">                            Files.delete(p);</span>
+<span class="nc" id="L256">                        } catch(Exception e) {</span>
+<span class="nc" id="L257">                            log.error(String.format(&quot;Fout bij verwijderen ZIP bestand %s: %s&quot;, p.getFileName(), e));</span>
+<span class="nc" id="L258">                        }</span>
+<span class="nc" id="L259">                    });</span>
+        }
+<span class="nc" id="L261">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

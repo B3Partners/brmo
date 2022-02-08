@@ -10,45 +10,60 @@ import org.locationtech.jts.geom.Geometry;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public interface SQLDialect {
     String getDriverClass() throws ClassNotFoundException;
 
     default void loadDriver() throws ClassNotFoundException {
-<span class="nc" id="L19">        Class.forName(getDriverClass());</span>
-<span class="nc" id="L20">    }</span>
+<span class="nc" id="L20">        Class.forName(getDriverClass());</span>
+<span class="nc" id="L21">    }</span>
 
     default String getType(String type) {
-<span class="nc" id="L23">        return type;</span>
+<span class="nc" id="L24">        return type;</span>
     }
 
     default boolean supportsDropTableIfExists() {
-<span class="nc" id="L27">        return true;</span>
+<span class="nc" id="L28">        return true;</span>
     }
 
     default Object getGeometryParameter(Connection c, Geometry geometry) throws SQLException {
-<span class="nc" id="L31">        return getGeometryParameter(c, geometry, false);</span>
+<span class="nc" id="L32">        return getGeometryParameter(c, geometry, false);</span>
     }
 
     Object getGeometryParameter(Connection c, Geometry geometry, boolean linearizeCurves) throws SQLException;
 
     default void setGeometryParameter(Connection c, PreparedStatement ps, int parameterIndex, int pmdType, Geometry geometry, boolean linearizeCurves) throws SQLException {
-<span class="nc bnc" id="L37" title="All 2 branches missed.">        if (geometry == null) {</span>
-<span class="nc" id="L38">            ps.setNull(parameterIndex, pmdType);</span>
+<span class="nc bnc" id="L38" title="All 2 branches missed.">        if (geometry == null) {</span>
+<span class="nc" id="L39">            ps.setNull(parameterIndex, pmdType);</span>
         } else {
-<span class="nc" id="L40">            ps.setObject(parameterIndex, getGeometryParameter(c, geometry, linearizeCurves));</span>
+<span class="nc" id="L41">            ps.setObject(parameterIndex, getGeometryParameter(c, geometry, linearizeCurves));</span>
         }
-<span class="nc" id="L42">    }</span>
+<span class="nc" id="L43">    }</span>
 
     default String getCreateGeometryMetadataSQL(String tableName, String geometryColumn, String type) {
-<span class="nc" id="L45">        return &quot;&quot;;</span>
+<span class="nc" id="L46">        return &quot;&quot;;</span>
     }
 
     default String getCreateGeometryIndexSQL(String tableName, String geometryColumn, String type) {
-<span class="nc" id="L49">        return &quot;&quot;;</span>
+<span class="nc" id="L50">        return &quot;&quot;;</span>
     }
 
     int getDefaultOptimalBatchSize();
+
+    /**
+     * Does not take into account schema, case or search path!
+     */
+    default boolean tableExists(Connection c, String name) throws SQLException {
+<span class="nc" id="L59">        try (ResultSet tables = c.getMetaData().getTables(null, null, null, new String[] {&quot;TABLE&quot;})) {</span>
+<span class="nc bnc" id="L60" title="All 2 branches missed.">            while (tables.next()) {</span>
+<span class="nc bnc" id="L61" title="All 2 branches missed.">                if (tables.getString(&quot;TABLE_NAME&quot;).equalsIgnoreCase(name)) {</span>
+<span class="nc" id="L62">                    return true;</span>
+                }
+            }
+<span class="nc bnc" id="L65" title="All 2 branches missed.">        }</span>
+<span class="nc" id="L66">        return false;</span>
+    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

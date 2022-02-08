@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.util.StringJoiner;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @javax.annotation.processing.Generated(value = &quot;org.openapitools.codegen.languages.JavaClientCodegen&quot;)
 public class DeltaApi {
@@ -44,31 +45,33 @@ public class DeltaApi {
   private final Consumer&lt;HttpRequest.Builder&gt; memberVarInterceptor;
   private final Duration memberVarReadTimeout;
   private final Consumer&lt;HttpResponse&lt;InputStream&gt;&gt; memberVarResponseInterceptor;
+  private final Consumer&lt;HttpResponse&lt;String&gt;&gt; memberVarAsyncResponseInterceptor;
 
   public DeltaApi() {
-<span class="nc" id="L49">    this(new ApiClient());</span>
-<span class="nc" id="L50">  }</span>
+<span class="nc" id="L51">    this(new ApiClient());</span>
+<span class="nc" id="L52">  }</span>
 
-<span class="nc" id="L52">  public DeltaApi(ApiClient apiClient) {</span>
-<span class="nc" id="L53">    memberVarHttpClient = apiClient.getHttpClient();</span>
-<span class="nc" id="L54">    memberVarObjectMapper = apiClient.getObjectMapper();</span>
-<span class="nc" id="L55">    memberVarBaseUri = apiClient.getBaseUri();</span>
-<span class="nc" id="L56">    memberVarInterceptor = apiClient.getRequestInterceptor();</span>
-<span class="nc" id="L57">    memberVarReadTimeout = apiClient.getReadTimeout();</span>
-<span class="nc" id="L58">    memberVarResponseInterceptor = apiClient.getResponseInterceptor();</span>
-<span class="nc" id="L59">  }</span>
+<span class="nc" id="L54">  public DeltaApi(ApiClient apiClient) {</span>
+<span class="nc" id="L55">    memberVarHttpClient = apiClient.getHttpClient();</span>
+<span class="nc" id="L56">    memberVarObjectMapper = apiClient.getObjectMapper();</span>
+<span class="nc" id="L57">    memberVarBaseUri = apiClient.getBaseUri();</span>
+<span class="nc" id="L58">    memberVarInterceptor = apiClient.getRequestInterceptor();</span>
+<span class="nc" id="L59">    memberVarReadTimeout = apiClient.getReadTimeout();</span>
+<span class="nc" id="L60">    memberVarResponseInterceptor = apiClient.getResponseInterceptor();</span>
+<span class="nc" id="L61">    memberVarAsyncResponseInterceptor = apiClient.getAsyncResponseInterceptor();</span>
+<span class="nc" id="L62">  }</span>
 
   protected ApiException getApiException(String operationId, HttpResponse&lt;InputStream&gt; response) throws IOException {
-<span class="nc bnc" id="L62" title="All 2 branches missed.">    String body = response.body() == null ? null : new String(response.body().readAllBytes());</span>
-<span class="nc" id="L63">    String message = formatExceptionMessage(operationId, response.statusCode(), body);</span>
-<span class="nc" id="L64">    return new ApiException(response.statusCode(), message, response.headers(), body);</span>
+<span class="nc bnc" id="L65" title="All 2 branches missed.">    String body = response.body() == null ? null : new String(response.body().readAllBytes());</span>
+<span class="nc" id="L66">    String message = formatExceptionMessage(operationId, response.statusCode(), body);</span>
+<span class="nc" id="L67">    return new ApiException(response.statusCode(), message, response.headers(), body);</span>
   }
 
   private String formatExceptionMessage(String operationId, int statusCode, String body) {
-<span class="nc bnc" id="L68" title="All 4 branches missed.">    if (body == null || body.isEmpty()) {</span>
-<span class="nc" id="L69">      body = &quot;[no body]&quot;;</span>
+<span class="nc bnc" id="L71" title="All 4 branches missed.">    if (body == null || body.isEmpty()) {</span>
+<span class="nc" id="L72">      body = &quot;[no body]&quot;;</span>
     }
-<span class="nc" id="L71">    return operationId + &quot; call failed with: &quot; + statusCode + &quot; - &quot; + body;</span>
+<span class="nc" id="L74">    return operationId + &quot; call failed with: &quot; + statusCode + &quot; - &quot; + body;</span>
   }
 
   /**
@@ -81,8 +84,8 @@ public class DeltaApi {
    * @throws ApiException if fails to make API call
    */
   public GetDeltasResponse getDeltas(String afterDeltaId, Integer page, Integer count) throws ApiException {
-<span class="nc" id="L84">    ApiResponse&lt;GetDeltasResponse&gt; localVarResponse = getDeltasWithHttpInfo(afterDeltaId, page, count);</span>
-<span class="nc" id="L85">    return localVarResponse.getData();</span>
+<span class="nc" id="L87">    ApiResponse&lt;GetDeltasResponse&gt; localVarResponse = getDeltasWithHttpInfo(afterDeltaId, page, count);</span>
+<span class="nc" id="L88">    return localVarResponse.getData();</span>
   }
 
   /**
@@ -95,60 +98,64 @@ public class DeltaApi {
    * @throws ApiException if fails to make API call
    */
   public ApiResponse&lt;GetDeltasResponse&gt; getDeltasWithHttpInfo(String afterDeltaId, Integer page, Integer count) throws ApiException {
-<span class="nc" id="L98">    HttpRequest.Builder localVarRequestBuilder = getDeltasRequestBuilder(afterDeltaId, page, count);</span>
+<span class="nc" id="L101">    HttpRequest.Builder localVarRequestBuilder = getDeltasRequestBuilder(afterDeltaId, page, count);</span>
     try {
-<span class="nc" id="L100">      HttpResponse&lt;InputStream&gt; localVarResponse = memberVarHttpClient.send(</span>
-<span class="nc" id="L101">          localVarRequestBuilder.build(),</span>
-<span class="nc" id="L102">          HttpResponse.BodyHandlers.ofInputStream());</span>
-<span class="nc bnc" id="L103" title="All 2 branches missed.">      if (memberVarResponseInterceptor != null) {</span>
-<span class="nc" id="L104">        memberVarResponseInterceptor.accept(localVarResponse);</span>
+<span class="nc" id="L103">      HttpResponse&lt;InputStream&gt; localVarResponse = memberVarHttpClient.send(</span>
+<span class="nc" id="L104">          localVarRequestBuilder.build(),</span>
+<span class="nc" id="L105">          HttpResponse.BodyHandlers.ofInputStream());</span>
+<span class="nc bnc" id="L106" title="All 2 branches missed.">      if (memberVarResponseInterceptor != null) {</span>
+<span class="nc" id="L107">        memberVarResponseInterceptor.accept(localVarResponse);</span>
       }
-<span class="nc bnc" id="L106" title="All 2 branches missed.">      if (localVarResponse.statusCode()/ 100 != 2) {</span>
-<span class="nc" id="L107">        throw getApiException(&quot;getDeltas&quot;, localVarResponse);</span>
-      }
-<span class="nc" id="L109">      return new ApiResponse&lt;GetDeltasResponse&gt;(</span>
-<span class="nc" id="L110">          localVarResponse.statusCode(),</span>
-<span class="nc" id="L111">          localVarResponse.headers().map(),</span>
-<span class="nc" id="L112">          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference&lt;GetDeltasResponse&gt;() {})</span>
+      try {
+<span class="nc bnc" id="L110" title="All 2 branches missed.">        if (localVarResponse.statusCode()/ 100 != 2) {</span>
+<span class="nc" id="L111">          throw getApiException(&quot;getDeltas&quot;, localVarResponse);</span>
+        }
+<span class="nc" id="L113">        return new ApiResponse&lt;GetDeltasResponse&gt;(</span>
+<span class="nc" id="L114">          localVarResponse.statusCode(),</span>
+<span class="nc" id="L115">          localVarResponse.headers().map(),</span>
+<span class="nc" id="L116">          memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference&lt;GetDeltasResponse&gt;() {}) // closes the InputStream</span>
+          
         );
-<span class="nc" id="L114">    } catch (IOException e) {</span>
-<span class="nc" id="L115">      throw new ApiException(e);</span>
+      } finally {
+      }
+<span class="nc" id="L121">    } catch (IOException e) {</span>
+<span class="nc" id="L122">      throw new ApiException(e);</span>
     }
-<span class="nc" id="L117">    catch (InterruptedException e) {</span>
-<span class="nc" id="L118">      Thread.currentThread().interrupt();</span>
-<span class="nc" id="L119">      throw new ApiException(e);</span>
+<span class="nc" id="L124">    catch (InterruptedException e) {</span>
+<span class="nc" id="L125">      Thread.currentThread().interrupt();</span>
+<span class="nc" id="L126">      throw new ApiException(e);</span>
     }
   }
 
   private HttpRequest.Builder getDeltasRequestBuilder(String afterDeltaId, Integer page, Integer count) throws ApiException {
 
-<span class="nc" id="L125">    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();</span>
+<span class="nc" id="L132">    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();</span>
 
-<span class="nc" id="L127">    String localVarPath = &quot;/delta&quot;;</span>
+<span class="nc" id="L134">    String localVarPath = &quot;/delta&quot;;</span>
 
-<span class="nc" id="L129">    List&lt;Pair&gt; localVarQueryParams = new ArrayList&lt;&gt;();</span>
-<span class="nc" id="L130">    localVarQueryParams.addAll(ApiClient.parameterToPairs(&quot;after-delta-id&quot;, afterDeltaId));</span>
-<span class="nc" id="L131">    localVarQueryParams.addAll(ApiClient.parameterToPairs(&quot;page&quot;, page));</span>
-<span class="nc" id="L132">    localVarQueryParams.addAll(ApiClient.parameterToPairs(&quot;count&quot;, count));</span>
+<span class="nc" id="L136">    List&lt;Pair&gt; localVarQueryParams = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L137">    localVarQueryParams.addAll(ApiClient.parameterToPairs(&quot;after-delta-id&quot;, afterDeltaId));</span>
+<span class="nc" id="L138">    localVarQueryParams.addAll(ApiClient.parameterToPairs(&quot;page&quot;, page));</span>
+<span class="nc" id="L139">    localVarQueryParams.addAll(ApiClient.parameterToPairs(&quot;count&quot;, count));</span>
 
-<span class="nc bnc" id="L134" title="All 2 branches missed.">    if (!localVarQueryParams.isEmpty()) {</span>
-<span class="nc" id="L135">      StringJoiner queryJoiner = new StringJoiner(&quot;&amp;&quot;);</span>
-<span class="nc" id="L136">      localVarQueryParams.forEach(p -&gt; queryJoiner.add(p.getName() + '=' + p.getValue()));</span>
-<span class="nc" id="L137">      localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));</span>
-<span class="nc" id="L138">    } else {</span>
-<span class="nc" id="L139">      localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));</span>
+<span class="nc bnc" id="L141" title="All 2 branches missed.">    if (!localVarQueryParams.isEmpty()) {</span>
+<span class="nc" id="L142">      StringJoiner queryJoiner = new StringJoiner(&quot;&amp;&quot;);</span>
+<span class="nc" id="L143">      localVarQueryParams.forEach(p -&gt; queryJoiner.add(p.getName() + '=' + p.getValue()));</span>
+<span class="nc" id="L144">      localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));</span>
+<span class="nc" id="L145">    } else {</span>
+<span class="nc" id="L146">      localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));</span>
     }
 
-<span class="nc" id="L142">    localVarRequestBuilder.header(&quot;Accept&quot;, &quot;application/json&quot;);</span>
+<span class="nc" id="L149">    localVarRequestBuilder.header(&quot;Accept&quot;, &quot;application/json&quot;);</span>
 
-<span class="nc" id="L144">    localVarRequestBuilder.method(&quot;GET&quot;, HttpRequest.BodyPublishers.noBody());</span>
-<span class="nc bnc" id="L145" title="All 2 branches missed.">    if (memberVarReadTimeout != null) {</span>
-<span class="nc" id="L146">      localVarRequestBuilder.timeout(memberVarReadTimeout);</span>
+<span class="nc" id="L151">    localVarRequestBuilder.method(&quot;GET&quot;, HttpRequest.BodyPublishers.noBody());</span>
+<span class="nc bnc" id="L152" title="All 2 branches missed.">    if (memberVarReadTimeout != null) {</span>
+<span class="nc" id="L153">      localVarRequestBuilder.timeout(memberVarReadTimeout);</span>
     }
-<span class="nc bnc" id="L148" title="All 2 branches missed.">    if (memberVarInterceptor != null) {</span>
-<span class="nc" id="L149">      memberVarInterceptor.accept(localVarRequestBuilder);</span>
+<span class="nc bnc" id="L155" title="All 2 branches missed.">    if (memberVarInterceptor != null) {</span>
+<span class="nc" id="L156">      memberVarInterceptor.accept(localVarRequestBuilder);</span>
     }
-<span class="nc" id="L151">    return localVarRequestBuilder;</span>
+<span class="nc" id="L158">    return localVarRequestBuilder;</span>
   }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

@@ -12,6 +12,7 @@ import javax.persistence.DiscriminatorType;
 import javax.persistence.ElementCollection;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -33,7 +34,7 @@ import org.hibernate.annotations.Type;
  */
 @MappedSuperclass
 @DiscriminatorColumn(name = &quot;dtype&quot;, discriminatorType = DiscriminatorType.STRING, length = 255)
-<span class="fc" id="L36">public abstract class AutomatischProces implements Serializable {</span>
+<span class="fc" id="L37">public abstract class AutomatischProces implements Serializable {</span>
 
     /**
      * newline string ({@value LOG_NEWLINE}) voor de logberichten en
@@ -41,15 +42,15 @@ import org.hibernate.annotations.Type;
      */
     public static final String LOG_NEWLINE = &quot;\n&quot;;
 
-<span class="fc" id="L44">    public enum ProcessingStatus {</span>
+<span class="fc" id="L45">    public enum ProcessingStatus {</span>
 
-<span class="fc" id="L46">        PROCESSING(&quot;PROCESSING&quot;), WAITING(&quot;WAITING&quot;), ONBEKEND(&quot;ONBEKEND&quot;), ERROR(&quot;ERROR&quot;);</span>
+<span class="fc" id="L47">        PROCESSING(&quot;PROCESSING&quot;), WAITING(&quot;WAITING&quot;), ONBEKEND(&quot;ONBEKEND&quot;), ERROR(&quot;ERROR&quot;);</span>
 
         private final String status;
 
-<span class="fc" id="L50">        ProcessingStatus(String status) {</span>
-<span class="fc" id="L51">            this.status = status;</span>
-<span class="fc" id="L52">        }</span>
+<span class="fc" id="L51">        ProcessingStatus(String status) {</span>
+<span class="fc" id="L52">            this.status = status;</span>
+<span class="fc" id="L53">        }</span>
     }
 
     @Id
@@ -59,7 +60,7 @@ import org.hibernate.annotations.Type;
     /**
      * @note Tabel &quot;automatisch_proces_config&quot; in de database.
      */
-<span class="fc" id="L62">    @ElementCollection</span>
+<span class="fc" id="L63">    @ElementCollection(fetch= FetchType.EAGER)</span>
     @JoinTable(joinColumns = @JoinColumn(name = &quot;proces_id&quot;))
     @MapKeyJoinColumn
     // Element wrapper required because of https://hibernate.atlassian.net/browse/JPA-11
@@ -74,7 +75,7 @@ import org.hibernate.annotations.Type;
     /**
      * status van de laatste run.
      */
-<span class="fc" id="L77">    @Enumerated(EnumType.STRING)</span>
+<span class="fc" id="L78">    @Enumerated(EnumType.STRING)</span>
     private ProcessingStatus status = ProcessingStatus.WAITING;
 
     /**
@@ -108,76 +109,76 @@ import org.hibernate.annotations.Type;
      * (http://www.postgresql.org/docs/9.3/static/datatype-character.html)
      */
     public void updateSamenvattingEnLogfile(String samenvatting) {
-<span class="pc bpc" id="L111" title="1 of 2 branches missed.">        if (samenvatting == null) {</span>
-<span class="nc" id="L112">            samenvatting = &quot;&quot;;</span>
+<span class="pc bpc" id="L112" title="1 of 2 branches missed.">        if (samenvatting == null) {</span>
+<span class="nc" id="L113">            samenvatting = &quot;&quot;;</span>
         }
-<span class="fc" id="L114">        this.setSamenvatting(samenvatting);</span>
-<span class="fc bfc" id="L115" title="All 2 branches covered.">        if (this.logfile == null) {</span>
-<span class="fc" id="L116">            this.setLogfile(samenvatting);</span>
+<span class="fc" id="L115">        this.setSamenvatting(samenvatting);</span>
+<span class="fc bfc" id="L116" title="All 2 branches covered.">        if (this.logfile == null) {</span>
+<span class="fc" id="L117">            this.setLogfile(samenvatting);</span>
         } else {
-<span class="fc" id="L118">            this.setLogfile(this.logfile + LOG_NEWLINE</span>
+<span class="fc" id="L119">            this.setLogfile(this.logfile + LOG_NEWLINE</span>
                     // +&quot;----------------&quot;+ LOG_NEWLINE
                     + samenvatting);
         }
 
-<span class="fc" id="L123">    }</span>
+<span class="fc" id="L124">    }</span>
 
     // &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;getters and setters&quot;&gt;
     public Map&lt;String, ClobElement&gt; getConfig() {
-<span class="fc" id="L127">        return config;</span>
+<span class="fc" id="L128">        return config;</span>
     }
 
     public void setConfig(Map&lt;String, ClobElement&gt; config) {
-<span class="nc" id="L131">        this.config = config;</span>
-<span class="nc" id="L132">    }</span>
+<span class="nc" id="L132">        this.config = config;</span>
+<span class="nc" id="L133">    }</span>
 
     public Date getLastrun() {
-<span class="nc" id="L135">        return lastrun;</span>
+<span class="nc" id="L136">        return lastrun;</span>
     }
 
     public void setLastrun(Date lastrun) {
-<span class="nc" id="L139">        this.lastrun = lastrun;</span>
-<span class="nc" id="L140">    }</span>
+<span class="nc" id="L140">        this.lastrun = lastrun;</span>
+<span class="nc" id="L141">    }</span>
 
     public ProcessingStatus getStatus() {
-<span class="nc" id="L143">        return status;</span>
+<span class="nc" id="L144">        return status;</span>
     }
 
     public void setStatus(ProcessingStatus status) {
-<span class="fc" id="L147">        this.status = status;</span>
-<span class="fc" id="L148">    }</span>
+<span class="fc" id="L148">        this.status = status;</span>
+<span class="fc" id="L149">    }</span>
 
     public String getSamenvatting() {
-<span class="fc" id="L151">        return samenvatting;</span>
+<span class="fc" id="L152">        return samenvatting;</span>
     }
 
     public void setSamenvatting(String samenvatting) {
-<span class="fc" id="L155">        this.samenvatting = samenvatting;</span>
-<span class="fc" id="L156">    }</span>
+<span class="fc" id="L156">        this.samenvatting = samenvatting;</span>
+<span class="fc" id="L157">    }</span>
 
     public String getLogfile() {
-<span class="fc" id="L159">        return logfile;</span>
+<span class="fc" id="L160">        return logfile;</span>
     }
 
     public void setLogfile(String logfile) {
-<span class="fc" id="L163">        this.logfile = logfile;</span>
-<span class="fc" id="L164">    }</span>
+<span class="fc" id="L164">        this.logfile = logfile;</span>
+<span class="fc" id="L165">    }</span>
 
     public Long getId() {
-<span class="fc" id="L167">        return id;</span>
+<span class="fc" id="L168">        return id;</span>
     }
 
     public void setId(Long id) {
-<span class="nc" id="L171">        this.id = id;</span>
-<span class="nc" id="L172">    }</span>
+<span class="nc" id="L172">        this.id = id;</span>
+<span class="nc" id="L173">    }</span>
 
     public String getCronExpressie() {
-<span class="nc" id="L175">        return cronExpressie;</span>
+<span class="nc" id="L176">        return cronExpressie;</span>
     }
 
     public void setCronExpressie(String cronExpressie) {
-<span class="nc" id="L179">        this.cronExpressie = cronExpressie;</span>
-<span class="nc" id="L180">    }</span>
+<span class="nc" id="L180">        this.cronExpressie = cronExpressie;</span>
+<span class="nc" id="L181">    }</span>
 
     //&lt;/editor-fold&gt;
 }

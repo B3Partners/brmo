@@ -36,13 +36,25 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   DeltaTimeWindow.JSON_PROPERTY_TO
 })
 @javax.annotation.processing.Generated(value = &quot;org.openapitools.codegen.languages.JavaClientCodegen&quot;)
-<span class="nc" id="L39">public class DeltaTimeWindow {</span>
+public class DeltaTimeWindow {
   public static final String JSON_PROPERTY_FROM = &quot;from&quot;;
   private OffsetDateTime from;
 
   public static final String JSON_PROPERTY_TO = &quot;to&quot;;
   private OffsetDateTime to;
 
+<span class="nc" id="L46">  public DeltaTimeWindow() { </span>
+<span class="nc" id="L47">  }</span>
+
+  @JsonCreator
+  public DeltaTimeWindow(
+    @JsonProperty(JSON_PROPERTY_FROM) OffsetDateTime from, 
+    @JsonProperty(JSON_PROPERTY_TO) OffsetDateTime to
+  ) {
+<span class="nc" id="L54">  this();</span>
+<span class="nc" id="L55">    this.from = from;</span>
+<span class="nc" id="L56">    this.to = to;</span>
+<span class="nc" id="L57">  }</span>
 
    /**
    * Get from
@@ -54,7 +66,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public OffsetDateTime getFrom() {
-<span class="nc" id="L57">    return from;</span>
+<span class="nc" id="L69">    return from;</span>
   }
 
 
@@ -70,7 +82,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public OffsetDateTime getTo() {
-<span class="nc" id="L73">    return to;</span>
+<span class="nc" id="L85">    return to;</span>
   }
 
 
@@ -81,30 +93,30 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
    */
   @Override
   public boolean equals(Object o) {
-<span class="nc bnc" id="L84" title="All 2 branches missed.">    if (this == o) {</span>
-<span class="nc" id="L85">      return true;</span>
+<span class="nc bnc" id="L96" title="All 2 branches missed.">    if (this == o) {</span>
+<span class="nc" id="L97">      return true;</span>
     }
-<span class="nc bnc" id="L87" title="All 4 branches missed.">    if (o == null || getClass() != o.getClass()) {</span>
-<span class="nc" id="L88">      return false;</span>
+<span class="nc bnc" id="L99" title="All 4 branches missed.">    if (o == null || getClass() != o.getClass()) {</span>
+<span class="nc" id="L100">      return false;</span>
     }
-<span class="nc" id="L90">    DeltaTimeWindow deltaTimeWindow = (DeltaTimeWindow) o;</span>
-<span class="nc bnc" id="L91" title="All 2 branches missed.">    return Objects.equals(this.from, deltaTimeWindow.from) &amp;&amp;</span>
-<span class="nc bnc" id="L92" title="All 2 branches missed.">        Objects.equals(this.to, deltaTimeWindow.to);</span>
+<span class="nc" id="L102">    DeltaTimeWindow deltaTimeWindow = (DeltaTimeWindow) o;</span>
+<span class="nc bnc" id="L103" title="All 2 branches missed.">    return Objects.equals(this.from, deltaTimeWindow.from) &amp;&amp;</span>
+<span class="nc bnc" id="L104" title="All 2 branches missed.">        Objects.equals(this.to, deltaTimeWindow.to);</span>
   }
 
   @Override
   public int hashCode() {
-<span class="nc" id="L97">    return Objects.hash(from, to);</span>
+<span class="nc" id="L109">    return Objects.hash(from, to);</span>
   }
 
   @Override
   public String toString() {
-<span class="nc" id="L102">    StringBuilder sb = new StringBuilder();</span>
-<span class="nc" id="L103">    sb.append(&quot;class DeltaTimeWindow {\n&quot;);</span>
-<span class="nc" id="L104">    sb.append(&quot;    from: &quot;).append(toIndentedString(from)).append(&quot;\n&quot;);</span>
-<span class="nc" id="L105">    sb.append(&quot;    to: &quot;).append(toIndentedString(to)).append(&quot;\n&quot;);</span>
-<span class="nc" id="L106">    sb.append(&quot;}&quot;);</span>
-<span class="nc" id="L107">    return sb.toString();</span>
+<span class="nc" id="L114">    StringBuilder sb = new StringBuilder();</span>
+<span class="nc" id="L115">    sb.append(&quot;class DeltaTimeWindow {\n&quot;);</span>
+<span class="nc" id="L116">    sb.append(&quot;    from: &quot;).append(toIndentedString(from)).append(&quot;\n&quot;);</span>
+<span class="nc" id="L117">    sb.append(&quot;    to: &quot;).append(toIndentedString(to)).append(&quot;\n&quot;);</span>
+<span class="nc" id="L118">    sb.append(&quot;}&quot;);</span>
+<span class="nc" id="L119">    return sb.toString();</span>
   }
 
   /**
@@ -112,10 +124,10 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
    * (except the first line).
    */
   private String toIndentedString(Object o) {
-<span class="nc bnc" id="L115" title="All 2 branches missed.">    if (o == null) {</span>
-<span class="nc" id="L116">      return &quot;null&quot;;</span>
+<span class="nc bnc" id="L127" title="All 2 branches missed.">    if (o == null) {</span>
+<span class="nc" id="L128">      return &quot;null&quot;;</span>
     }
-<span class="nc" id="L118">    return o.toString().replace(&quot;\n&quot;, &quot;\n    &quot;);</span>
+<span class="nc" id="L130">    return o.toString().replace(&quot;\n&quot;, &quot;\n    &quot;);</span>
   }
 
 }

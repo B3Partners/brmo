@@ -290,14 +290,15 @@ public final class CleanUtil {
                 new DefaultTable(&quot;woz_obj&quot;),
                 new DefaultTable(&quot;woz_deelobj&quot;),
                 new DefaultTable(&quot;woz_waarde&quot;),
+                new DefaultTable(&quot;woz_omvat&quot;),
                 new DefaultTable(&quot;woz_belang&quot;),
                 new DefaultTable(&quot;woz_deelobj_archief&quot;),
                 new DefaultTable(&quot;woz_obj_archief&quot;),
                 new DefaultTable(&quot;woz_waarde_archief&quot;),
         }));
         // WOZ bevat ook vestigingen, NHR leegt ook BRP
-<span class="nc" id="L299">        cleanRSGB_NHR(rsgb, deleteBrondocument);</span>
-<span class="nc" id="L300">    }</span>
+<span class="nc" id="L300">        cleanRSGB_NHR(rsgb, deleteBrondocument);</span>
+<span class="nc" id="L301">    }</span>
 
     /**
      * leegt de bericht, laadproces en job tabellen in het staging schema. kan
@@ -310,8 +311,8 @@ public final class CleanUtil {
      */
     @Deprecated
     public static void cleanSTAGING(final IDatabaseConnection staging) throws DatabaseUnitException, SQLException {
-<span class="nc" id="L313">        cleanSTAGING(staging, false);</span>
-<span class="nc" id="L314">    }</span>
+<span class="nc" id="L314">        cleanSTAGING(staging, false);</span>
+<span class="nc" id="L315">    }</span>
 
     /**
      * leegt de bericht, laadproces en job tabellen en de automatsiche processen
@@ -325,18 +326,18 @@ public final class CleanUtil {
      * @throws java.sql.SQLException als er iets misgaat in de database
      */
     public static void cleanSTAGING(final IDatabaseConnection staging, final boolean includeProcessen) throws DatabaseUnitException, SQLException {
-<span class="nc bnc" id="L328" title="All 2 branches missed.">        if (includeProcessen) {</span>
-<span class="nc" id="L329">            DatabaseOperation.DELETE_ALL.execute(staging, new DefaultDataSet(new DefaultTable[]{</span>
+<span class="nc bnc" id="L329" title="All 2 branches missed.">        if (includeProcessen) {</span>
+<span class="nc" id="L330">            DatabaseOperation.DELETE_ALL.execute(staging, new DefaultDataSet(new DefaultTable[]{</span>
                 new DefaultTable(&quot;automatisch_proces&quot;),
                 new DefaultTable(&quot;automatisch_proces_config&quot;)
             }));
         }
-<span class="nc" id="L334">        DatabaseOperation.DELETE_ALL.execute(staging, new DefaultDataSet(new DefaultTable[]{</span>
+<span class="nc" id="L335">        DatabaseOperation.DELETE_ALL.execute(staging, new DefaultDataSet(new DefaultTable[]{</span>
             new DefaultTable(&quot;laadproces&quot;),
             new DefaultTable(&quot;bericht&quot;),
             new DefaultTable(&quot;job&quot;)
         }));
-<span class="nc" id="L339">    }</span>
+<span class="nc" id="L340">    }</span>
 
     /**
      * private by design.

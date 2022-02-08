@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BAG2MutatieProcesRunner.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO service</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.service.scanner</a> &gt; <span class="el_source">BAG2MutatieProcesRunner.java</span></div><h1>BAG2MutatieProcesRunner.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2021 B3Partners B.V.
+ *
+ * SPDX-License-Identifier: MIT
+ *
+ */
+
+package nl.b3p.brmo.service.scanner;
+
+import nl.b3p.brmo.bag2.loader.BAG2Database;
+import nl.b3p.brmo.bag2.loader.cli.BAG2DatabaseOptions;
+import nl.b3p.brmo.bag2.loader.cli.BAG2LoadOptions;
+import nl.b3p.brmo.bag2.loader.cli.BAG2LoaderMain;
+import nl.b3p.brmo.bag2.loader.cli.BAG2MutatiesCommand;
+import nl.b3p.brmo.bag2.loader.cli.BAG2ProgressOptions;
+import nl.b3p.brmo.loader.util.BrmoException;
+import nl.b3p.brmo.persistence.staging.BAG2MutatieProces;
+import nl.b3p.brmo.persistence.staging.ClobElement;
+import nl.b3p.brmo.service.util.ConfigUtil;
+import nl.b3p.jdbc.util.converter.PGConnectionUnwrapper;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.stripesstuff.stripersist.Stripersist;
+
+import javax.persistence.Transient;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.Date;
+
+import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.ERROR;
+import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.PROCESSING;
+import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.WAITING;
+
+public class BAG2MutatieProcesRunner extends AbstractExecutableProces {
+<span class="nc" id="L35">    private static final Log LOG = LogFactory.getLog(BAG2MutatieProcesRunner.class);</span>
+    private final BAG2MutatieProces config;
+
+    @Transient
+    private ProgressUpdateListener listener;
+
+<span class="nc" id="L41">    public BAG2MutatieProcesRunner(BAG2MutatieProces config) {</span>
+<span class="nc" id="L42">        this.config = config;</span>
+<span class="nc" id="L43">    }</span>
+
+    /**
+     * Voert deze taak eenmalig uit.
+     *
+     * @throws BrmoException als er een fout optreed in het uitvoeren van het
+     *                       proces.
+     */
+    @Override
+    public void execute() throws BrmoException {
+<span class="nc" id="L53">        this.execute(new ProgressUpdateListener() {</span>
+            @Override
+            public void total(long total) {
+<span class="nc" id="L56">            }</span>
+
+            @Override
+            public void progress(long progress) {
+<span class="nc" id="L60">            }</span>
+
+            @Override
+            public void exception(Throwable t) {
+<span class="nc" id="L64">                LOG.error(t);</span>
+<span class="nc" id="L65">            }</span>
+
+            @Override
+            public void updateStatus(String status) {
+<span class="nc" id="L69">            }</span>
+
+            @Override
+            public void addLog(String log) {
+<span class="nc" id="L73">                LOG.info(log);</span>
+<span class="nc" id="L74">            }</span>
+        });
+<span class="nc" id="L76">    }</span>
+
+    /**
+     * Voert de taak uit en rapporteert de voortgang.
+     *
+     * @param listener voortgangs listener
+     */
+    @Override
+    public void execute(ProgressUpdateListener listener) {
+<span class="nc" id="L85">        this.listener = listener;</span>
+<span class="nc" id="L86">        BAG2LoaderMain.configureLogging(false);</span>
+
+<span class="nc bnc" id="L88" title="All 4 branches missed.">        if (config.getStatus().equals(WAITING) || config.getStatus().equals(ERROR)) {</span>
+<span class="nc bnc" id="L89" title="All 2 branches missed.">            if (config.getStatus().equals(ERROR)) {</span>
+<span class="nc" id="L90">                listener.addLog(&quot;Vorige run is met ERROR status afgerond, opnieuw proberen&quot;);</span>
+            }
+
+<span class="nc" id="L93">            int exitCode = -1;</span>
+            BAG2Database bag2Database;
+<span class="nc" id="L95">            try (Connection rsgbbagConnection = ConfigUtil.getDataSourceRsgbBag().getConnection()) {</span>
+
+<span class="nc" id="L97">                BAG2DatabaseOptions databaseOptions = new BAG2DatabaseOptions();</span>
+                // Niet nodig (rsgbbagConnection wordt gebruikt), maar voor de duidelijkheid
+<span class="nc" id="L99">                databaseOptions.setConnectionString(rsgbbagConnection.getMetaData().getURL());</span>
+<span class="nc" id="L100">                Connection connection = rsgbbagConnection;</span>
+<span class="nc bnc" id="L101" title="All 2 branches missed.">                if (databaseOptions.getConnectionString().startsWith(&quot;jdbc:postgresql:&quot;)) {</span>
+                    // Voor gebruik van pgCopy is unwrappen van de connectie nodig.
+                    // Ook al doet PostGISCopyInsertBatch zelf ook een unwrap, de PGConnectionUnwrapper kan ook Tomcat JNDI
+                    // connection pool unwrapping aan welke niet met een normale Connection.unwrap() werkt.
+<span class="nc" id="L105">                    connection = (Connection) PGConnectionUnwrapper.unwrap(rsgbbagConnection);</span>
+<span class="nc" id="L106">                    databaseOptions.setUsePgCopy(true);</span>
+                }
+<span class="nc" id="L108">                bag2Database = new BAG2Database(databaseOptions, connection) {</span>
+                    /**
+                     * connectie niet sluiten; dat doen we later als we helemaal klaar zijn
+                     */
+                    @Override
+                    public void close() {
+<span class="nc" id="L114">                        LOG.debug(&quot;Had de BAG2 databaseconnectie kunnen sluiten... maar niet gedaan.&quot;);</span>
+<span class="nc" id="L115">                    }</span>
+                };
+
+<span class="nc" id="L118">                BAG2LoaderMain main = new BAG2LoaderMain();</span>
+<span class="nc" id="L119">                main.setBag2Database(bag2Database);</span>
+<span class="nc" id="L120">                BAG2MutatiesCommand mutatiesCommand = new BAG2MutatiesCommand();</span>
+<span class="nc" id="L121">                mutatiesCommand.setParent(main);</span>
+
+                // Use defaults
+<span class="nc" id="L124">                BAG2LoadOptions loadOptions = new BAG2LoadOptions();</span>
+<span class="nc" id="L125">                BAG2DatabaseOptions dbOptions = new BAG2DatabaseOptions();</span>
+
+<span class="nc" id="L127">                listener.updateStatus(PROCESSING.toString());</span>
+<span class="nc" id="L128">                config.setStatus(PROCESSING);</span>
+<span class="nc" id="L129">                Stripersist.getEntityManager().merge(config);</span>
+<span class="nc" id="L130">                Stripersist.getEntityManager().flush();</span>
+
+<span class="nc" id="L132">                String mode = ClobElement.nullSafeGet(config.getConfig().get(&quot;mode&quot;));</span>
+<span class="nc" id="L133">                String directory = ClobElement.nullSafeGet(config.getConfig().get(&quot;directory&quot;));</span>
+<span class="nc" id="L134">                String url = ClobElement.nullSafeGet(config.getConfig().get(&quot;url&quot;));</span>
+<span class="nc" id="L135">                String kadasterUser = ClobElement.nullSafeGet(config.getConfig().get(&quot;kadaster-username&quot;));</span>
+<span class="nc" id="L136">                String kadasterPassword = ClobElement.nullSafeGet(config.getConfig().get(&quot;kadaster-password&quot;));</span>
+<span class="nc" id="L137">                String queryParams = ClobElement.nullSafeGet(config.getConfig().get(&quot;query&quot;));</span>
+
+<span class="nc bnc" id="L139" title="All 2 branches missed.">                if (!mode.equals(&quot;applyFromMirror&quot;)) {</span>
+                    // Let op, zet URL naar die van BAG Bestanden, niet de default publieke mirror voor applyFromMirror modus
+                    // (alhoewel downloaden/verwerken van de mirror en op andere computer 'load' modus ook zou kunnen, maar dan
+                    // moet de default value voor de 'url' config niet ingevuld worden als nu)
+<span class="nc" id="L143">                    url = BAG2MutatiesCommand.LVBAG_BESTANDEN_API_URL;</span>
+                }
+<span class="nc bnc" id="L145" title="All 4 branches missed.">                if (queryParams == null || queryParams.trim().length() == 0) {</span>
+                    // Defaultwaarde voor dagmutaties, anders krijg je ook standen er bij...
+<span class="nc" id="L147">                    queryParams = &quot;artikelnummers=2529&quot;;</span>
+                }
+
+<span class="nc bnc" id="L150" title="All 2 branches missed.">                if (mode.equals(&quot;applyFromMirror&quot;)) {</span>
+<span class="nc" id="L151">                    listener.updateStatus(&quot;Verwerken van BAG2 mutatiebestanden...&quot;);</span>
+<span class="nc" id="L152">                    listener.addLog(String.format(&quot;Verwerken van BAG2 mutatiebestanden van publieke mirror \&quot;%s\&quot;&quot;, url));</span>
+<span class="nc" id="L153">                    exitCode = mutatiesCommand.apply(dbOptions, new BAG2ProgressOptions(), null, null, url, queryParams, false);</span>
+<span class="nc" id="L154">                    listener.addLog(&quot;Einde verwerken BAG2 bestanden&quot;);</span>
+<span class="nc bnc" id="L155" title="All 2 branches missed.">                } else if (mode.equals(&quot;apply&quot;)) {</span>
+<span class="nc" id="L156">                    listener.updateStatus(&quot;Verwerken van BAG2 mutatiebestanden...&quot;);</span>
+<span class="nc" id="L157">                    listener.addLog(String.format(&quot;Verwerken van BAG2 mutatiebestanden van BAG Bestanden, gebruikersnaam %s&quot;, kadasterUser));</span>
+<span class="nc" id="L158">                    exitCode = mutatiesCommand.apply(dbOptions, new BAG2ProgressOptions(), kadasterUser, kadasterPassword, url, queryParams, false);</span>
+<span class="nc" id="L159">                    listener.addLog(&quot;Einde verwerken BAG2 bestanden&quot;);</span>
+<span class="nc bnc" id="L160" title="All 2 branches missed.">                } else if (mode.equals(&quot;download&quot;)) {</span>
+<span class="nc" id="L161">                    listener.updateStatus(&quot;Downloaden van BAG2 mutatiebestanden...&quot;);</span>
+<span class="nc" id="L162">                    listener.addLog(String.format(&quot;Downloaden van BAG2 mutatiebestanden naar directory %s, gebruikersnaam %s&quot;, directory, kadasterUser));</span>
+<span class="nc" id="L163">                    exitCode = mutatiesCommand.download(false, kadasterUser, kadasterPassword, url, queryParams, directory, &quot;&quot;, false);</span>
+<span class="nc" id="L164">                    listener.addLog(&quot;Einde downloaden BAG2 bestanden&quot;);</span>
+<span class="nc bnc" id="L165" title="All 2 branches missed.">                } else if (mode.equals(&quot;load&quot;)) {</span>
+<span class="nc" id="L166">                    listener.updateStatus(&quot;Laden van BAG2 bestanden...&quot;);</span>
+<span class="nc" id="L167">                    listener.addLog(&quot;Laden van BAG2 bestanden uit directory &quot; + directory);</span>
+<span class="nc" id="L168">                    exitCode = main.load(dbOptions, loadOptions, new BAG2ProgressOptions(), new String[]{directory}, false);</span>
+<span class="nc" id="L169">                    listener.addLog(&quot;Einde laden BAG2 bestanden&quot;);</span>
+                }
+<span class="nc" id="L171">            } catch (ClassNotFoundException e) {</span>
+<span class="nc" id="L172">                LOG.error(e.getLocalizedMessage());</span>
+<span class="nc" id="L173">                listener.exception(e);</span>
+<span class="nc" id="L174">            } catch (BrmoException | SQLException e) {</span>
+<span class="nc" id="L175">                LOG.error(&quot;Fout tijdens benaderen BAG2 database&quot;, e);</span>
+<span class="nc" id="L176">                listener.exception(e);</span>
+<span class="nc" id="L177">            } catch (Exception e) {</span>
+<span class="nc" id="L178">                LOG.error(&quot;Fout tijdens BAG2 proces&quot;, e);</span>
+<span class="nc" id="L179">                listener.exception(e);</span>
+            } finally {
+<span class="nc bnc" id="L181" title="All 2 branches missed.">                if (exitCode == 0) {</span>
+<span class="nc" id="L182">                    config.setStatus(WAITING);</span>
+<span class="nc" id="L183">                    config.setLastrun(new Date());</span>
+<span class="nc" id="L184">                    listener.updateStatus(WAITING.toString());</span>
+                } else {
+<span class="nc" id="L186">                    config.setStatus(ERROR);</span>
+<span class="nc" id="L187">                    config.setLastrun(new Date());</span>
+<span class="nc" id="L188">                    listener.updateStatus(ERROR.toString());</span>
+                }
+<span class="nc" id="L190">                listener.addLog(&quot;BAG2 proces afgerond&quot;);</span>
+<span class="nc" id="L191">                config.setLastrun(new Date());</span>
+<span class="nc" id="L192">                Stripersist.getEntityManager().merge(config);</span>
+<span class="nc" id="L193">                Stripersist.getEntityManager().flush();</span>
+            }
+        }
+<span class="nc" id="L196">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

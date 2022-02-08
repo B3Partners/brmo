@@ -8,6 +8,8 @@ package nl.b3p.brmo.sql;
 
 import nl.b3p.brmo.sql.dialect.PostGISDialect;
 import nl.b3p.brmo.sql.dialect.SQLDialect;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.commons.text.StringEscapeUtils;
 import org.locationtech.jts.geom.Geometry;
 import org.postgresql.PGConnection;
@@ -23,94 +25,103 @@ import java.sql.SQLException;
  * slower.
  */
 public class PostGISCopyInsertBatch implements QueryBatch {
+<span class="nc" id="L28">    private static final Log LOG = LogFactory.getLog(PostGISCopyInsertBatch.class);</span>
+
     protected Connection connection;
     protected String sql;
     protected PostGISDialect dialect;
     protected int batchSize;
     protected boolean linearizeCurves;
 
-<span class="nc" id="L32">    protected int count = 0;</span>
-<span class="nc" id="L33">    protected StringEscapeUtils.Builder copyData = PostgresCopyEscapeUtils.builder();</span>
-<span class="nc" id="L34">    protected CopyIn copyIn = null;</span>
-<span class="nc" id="L35">    protected CopyIn lastCopyIn = null;</span>
+<span class="nc" id="L36">    protected int count = 0;</span>
+<span class="nc" id="L37">    protected StringEscapeUtils.Builder copyData = PostgresCopyEscapeUtils.builder();</span>
+<span class="nc" id="L38">    protected CopyIn copyIn = null;</span>
+<span class="nc" id="L39">    protected CopyIn lastCopyIn = null;</span>
     protected boolean buffer;
 
-<span class="nc" id="L38">    public PostGISCopyInsertBatch(Connection connection, String sql, int batchSize, SQLDialect dialect, boolean buffer, boolean linearizeCurves) {</span>
-<span class="nc bnc" id="L39" title="All 2 branches missed.">        if (!(dialect instanceof PostGISDialect)) {</span>
-<span class="nc" id="L40">            throw new IllegalArgumentException();</span>
+<span class="nc" id="L42">    public PostGISCopyInsertBatch(Connection connection, String sql, int batchSize, SQLDialect dialect, boolean buffer, boolean linearizeCurves) {</span>
+<span class="nc bnc" id="L43" title="All 2 branches missed.">        if (!(dialect instanceof PostGISDialect)) {</span>
+<span class="nc" id="L44">            throw new IllegalArgumentException();</span>
         }
-<span class="nc" id="L42">        this.connection = connection;</span>
-<span class="nc" id="L43">        this.sql = sql;</span>
-<span class="nc" id="L44">        this.dialect = (PostGISDialect)dialect;</span>
-<span class="nc" id="L45">        this.batchSize = batchSize;</span>
-<span class="nc" id="L46">        this.buffer = buffer;</span>
-<span class="nc" id="L47">        this.linearizeCurves = linearizeCurves;</span>
-<span class="nc" id="L48">    }</span>
+<span class="nc" id="L46">        this.connection = connection;</span>
+<span class="nc" id="L47">        this.sql = sql;</span>
+<span class="nc" id="L48">        this.dialect = (PostGISDialect)dialect;</span>
+<span class="nc" id="L49">        this.batchSize = batchSize;</span>
+<span class="nc" id="L50">        this.buffer = buffer;</span>
+<span class="nc" id="L51">        this.linearizeCurves = linearizeCurves;</span>
+<span class="nc" id="L52">    }</span>
 
     protected void createCopyIn() throws SQLException {
-<span class="nc" id="L51">        PGConnection pgConnection = connection.unwrap(PGConnection.class);</span>
-<span class="nc" id="L52">        this.copyIn = pgConnection.getCopyAPI().copyIn(sql);</span>
-<span class="nc" id="L53">    }</span>
+<span class="nc" id="L55">        PGConnection pgConnection = connection.unwrap(PGConnection.class);</span>
+<span class="nc" id="L56">        this.copyIn = pgConnection.getCopyAPI().copyIn(sql);</span>
+<span class="nc" id="L57">    }</span>
 
     protected void writeToCopy() throws SQLException {
-<span class="nc bnc" id="L56" title="All 2 branches missed.">        if (copyIn == null) {</span>
-<span class="nc" id="L57">            createCopyIn();</span>
+<span class="nc bnc" id="L60" title="All 2 branches missed.">        if (copyIn == null) {</span>
+<span class="nc" id="L61">            createCopyIn();</span>
         }
-<span class="nc" id="L59">        byte[] bytes = copyData.toString().getBytes(StandardCharsets.UTF_8);</span>
-<span class="nc" id="L60">        copyIn.writeToCopy(bytes, 0, bytes.length);</span>
-<span class="nc" id="L61">        copyData = PostgresCopyEscapeUtils.builder();</span>
-<span class="nc" id="L62">    }</span>
+<span class="nc" id="L63">        byte[] bytes = copyData.toString().getBytes(StandardCharsets.UTF_8);</span>
+<span class="nc" id="L64">        copyIn.writeToCopy(bytes, 0, bytes.length);</span>
+<span class="nc" id="L65">        copyData = PostgresCopyEscapeUtils.builder();</span>
+<span class="nc" id="L66">    }</span>
 
     @Override
     public boolean addBatch(Object[] params) throws Exception {
-<span class="nc bnc" id="L66" title="All 2 branches missed.">        for(int i = 0; i &lt; params.length; i++) {</span>
-<span class="nc bnc" id="L67" title="All 2 branches missed.">            if (i != 0) {</span>
-<span class="nc" id="L68">                copyData.append(&quot;\t&quot;);</span>
+<span class="nc bnc" id="L70" title="All 2 branches missed.">        for(int i = 0; i &lt; params.length; i++) {</span>
+<span class="nc bnc" id="L71" title="All 2 branches missed.">            if (i != 0) {</span>
+<span class="nc" id="L72">                copyData.append(&quot;\t&quot;);</span>
             }
-<span class="nc" id="L70">            Object param = params[i];</span>
-<span class="nc bnc" id="L71" title="All 2 branches missed.">            if (param == null) {</span>
-<span class="nc" id="L72">                copyData.append(&quot;\\N&quot;);</span>
-<span class="nc bnc" id="L73" title="All 2 branches missed.">            } else if (param instanceof Geometry) {</span>
-<span class="nc" id="L74">                Geometry geometry = (Geometry) param;</span>
-<span class="nc" id="L75">                copyData.append(dialect.getEWkt(geometry, linearizeCurves));</span>
-<span class="nc bnc" id="L76" title="All 2 branches missed.">            } else if (param instanceof Boolean) {</span>
-<span class="nc bnc" id="L77" title="All 2 branches missed.">                copyData.append((Boolean)param ? &quot;t&quot; : &quot;f&quot;);</span>
+<span class="nc" id="L74">            Object param = params[i];</span>
+<span class="nc bnc" id="L75" title="All 2 branches missed.">            if (param == null) {</span>
+<span class="nc" id="L76">                copyData.append(&quot;\\N&quot;);</span>
+<span class="nc bnc" id="L77" title="All 2 branches missed.">            } else if (param instanceof Geometry) {</span>
+<span class="nc" id="L78">                Geometry geometry = (Geometry) param;</span>
+<span class="nc" id="L79">                copyData.append(dialect.getEWkt(geometry, linearizeCurves));</span>
+<span class="nc bnc" id="L80" title="All 2 branches missed.">            } else if (param instanceof Boolean) {</span>
+<span class="nc bnc" id="L81" title="All 2 branches missed.">                copyData.append((Boolean)param ? &quot;t&quot; : &quot;f&quot;);</span>
             } else {
                 // TODO any more types need special conversion?
-<span class="nc" id="L80">                copyData.escape(param.toString());</span>
+<span class="nc" id="L84">                copyData.escape(param.toString());</span>
             }
         }
-<span class="nc" id="L83">        copyData.append(&quot;\n&quot;);</span>
+<span class="nc" id="L87">        copyData.append(&quot;\n&quot;);</span>
 
-<span class="nc bnc" id="L85" title="All 2 branches missed.">        if (!buffer) {</span>
-<span class="nc" id="L86">            writeToCopy();</span>
+<span class="nc bnc" id="L89" title="All 2 branches missed.">        if (!buffer) {</span>
+<span class="nc" id="L90">            writeToCopy();</span>
         }
 
-<span class="nc" id="L89">        count++;</span>
-<span class="nc bnc" id="L90" title="All 2 branches missed.">        if (count == batchSize) {</span>
-<span class="nc" id="L91">            this.executeBatch();</span>
-<span class="nc" id="L92">            return true;</span>
+<span class="nc" id="L93">        count++;</span>
+<span class="nc bnc" id="L94" title="All 2 branches missed.">        if (count == batchSize) {</span>
+<span class="nc" id="L95">            this.executeBatch();</span>
+<span class="nc" id="L96">            return true;</span>
         }
-<span class="nc" id="L94">        return false;</span>
+<span class="nc" id="L98">        return false;</span>
     }
 
 
     @Override
     public void executeBatch() throws Exception {
-<span class="nc bnc" id="L100" title="All 2 branches missed.">        if (count &gt; 0) {</span>
-<span class="nc bnc" id="L101" title="All 2 branches missed.">            if (buffer) {</span>
-<span class="nc" id="L102">                writeToCopy();</span>
+<span class="nc bnc" id="L104" title="All 2 branches missed.">        if (count &gt; 0) {</span>
+<span class="nc bnc" id="L105" title="All 2 branches missed.">            if (buffer) {</span>
+<span class="nc bnc" id="L106" title="All 2 branches missed.">                if (LOG.isDebugEnabled()) {</span>
+                    // To get the number of bytes this call is duplicated from writeToCopy()...
+<span class="nc" id="L108">                    int bytes = copyData.toString().getBytes(StandardCharsets.UTF_8).length;</span>
+<span class="nc" id="L109">                    LOG.debug(String.format(&quot;execute buffered copy batch, %d bytes, %d rows, sql: %s&quot;, bytes, count, sql));</span>
+                }
+<span class="nc" id="L111">                writeToCopy();</span>
+            } else {
+<span class="nc" id="L113">                LOG.debug(String.format(&quot;execute copy batch, %d rows, sql: %s&quot;, count, sql));</span>
             }
-<span class="nc" id="L104">            copyIn.endCopy();</span>
-<span class="nc" id="L105">            lastCopyIn = copyIn;</span>
+<span class="nc" id="L115">            copyIn.endCopy();</span>
+<span class="nc" id="L116">            lastCopyIn = copyIn;</span>
             // reset so writeToCopy will create a new one
-<span class="nc" id="L107">            copyIn = null;</span>
-<span class="nc" id="L108">            count = 0;</span>
+<span class="nc" id="L118">            copyIn = null;</span>
+<span class="nc" id="L119">            count = 0;</span>
         }
-<span class="nc" id="L110">    }</span>
+<span class="nc" id="L121">    }</span>
 
     @Override
     public void close() {
-<span class="nc" id="L114">    }</span>
+<span class="nc" id="L125">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

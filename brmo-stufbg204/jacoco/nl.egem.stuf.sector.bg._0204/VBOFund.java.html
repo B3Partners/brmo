@@ -24,343 +24,343 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 /**
  * fundamentele entiteit Verblijfsobject
  * 
- * &amp;lt;p&amp;gt;Java class for VBO-fund complex type.
+ * &lt;p&gt;Java class for VBO-fund complex type.
  * 
- * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+ * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
  * 
- * &amp;lt;pre&amp;gt;
- * &amp;amp;lt;complexType name=&quot;VBO-fund&quot;&amp;amp;gt;
- *   &amp;amp;lt;complexContent&amp;amp;gt;
- *     &amp;amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;amp;gt;
- *       &amp;amp;lt;sequence&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;bouwjaar&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
- *           &amp;amp;lt;complexType&amp;amp;gt;
- *             &amp;amp;lt;simpleContent&amp;amp;gt;
- *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;Bouwjaar&quot;&amp;amp;gt;
- *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
- *                 &amp;amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;amp;gt;
- *               &amp;amp;lt;/extension&amp;amp;gt;
- *             &amp;amp;lt;/simpleContent&amp;amp;gt;
- *           &amp;amp;lt;/complexType&amp;amp;gt;
- *         &amp;amp;lt;/element&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;verblijfsObjectNummer&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
- *           &amp;amp;lt;complexType&amp;amp;gt;
- *             &amp;amp;lt;simpleContent&amp;amp;gt;
- *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;VerblijfsObjectNummer&quot;&amp;amp;gt;
- *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
- *                 &amp;amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;amp;gt;
- *               &amp;amp;lt;/extension&amp;amp;gt;
- *             &amp;amp;lt;/simpleContent&amp;amp;gt;
- *           &amp;amp;lt;/complexType&amp;amp;gt;
- *         &amp;amp;lt;/element&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;verblijfsObjectType&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
- *           &amp;amp;lt;complexType&amp;amp;gt;
- *             &amp;amp;lt;simpleContent&amp;amp;gt;
- *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;VerblijfsObjectType&quot;&amp;amp;gt;
- *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
- *                 &amp;amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;amp;gt;
- *               &amp;amp;lt;/extension&amp;amp;gt;
- *             &amp;amp;lt;/simpleContent&amp;amp;gt;
- *           &amp;amp;lt;/complexType&amp;amp;gt;
- *         &amp;amp;lt;/element&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;datumAanvangBouw&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}DatumMetIndicator&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;datumBouwGereed&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}DatumMetIndicator&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;bouwjaarKlasse&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
- *           &amp;amp;lt;complexType&amp;amp;gt;
- *             &amp;amp;lt;simpleContent&amp;amp;gt;
- *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;BouwjaarKlasse&quot;&amp;amp;gt;
- *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
- *               &amp;amp;lt;/extension&amp;amp;gt;
- *             &amp;amp;lt;/simpleContent&amp;amp;gt;
- *           &amp;amp;lt;/complexType&amp;amp;gt;
- *         &amp;amp;lt;/element&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;renovatiejaar&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
- *           &amp;amp;lt;complexType&amp;amp;gt;
- *             &amp;amp;lt;simpleContent&amp;amp;gt;
- *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;Renovatiejaar&quot;&amp;amp;gt;
- *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
- *               &amp;amp;lt;/extension&amp;amp;gt;
- *             &amp;amp;lt;/simpleContent&amp;amp;gt;
- *           &amp;amp;lt;/complexType&amp;amp;gt;
- *         &amp;amp;lt;/element&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;datumSloop&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}DatumMetIndicator&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;soortWoonObject&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
- *           &amp;amp;lt;complexType&amp;amp;gt;
- *             &amp;amp;lt;simpleContent&amp;amp;gt;
- *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;CodeSoortWoonobject&quot;&amp;amp;gt;
- *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
- *               &amp;amp;lt;/extension&amp;amp;gt;
- *             &amp;amp;lt;/simpleContent&amp;amp;gt;
- *           &amp;amp;lt;/complexType&amp;amp;gt;
- *         &amp;amp;lt;/element&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;bouwkundigeBestemmingActueel&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
- *           &amp;amp;lt;complexType&amp;amp;gt;
- *             &amp;amp;lt;simpleContent&amp;amp;gt;
- *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;BouwkundigeBestemming&quot;&amp;amp;gt;
- *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
- *               &amp;amp;lt;/extension&amp;amp;gt;
- *             &amp;amp;lt;/simpleContent&amp;amp;gt;
- *           &amp;amp;lt;/complexType&amp;amp;gt;
- *         &amp;amp;lt;/element&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;bouwkundigeBestemmingOorspronkelijk&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
- *           &amp;amp;lt;complexType&amp;amp;gt;
- *             &amp;amp;lt;simpleContent&amp;amp;gt;
- *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;BouwkundigeBestemming&quot;&amp;amp;gt;
- *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
- *               &amp;amp;lt;/extension&amp;amp;gt;
- *             &amp;amp;lt;/simpleContent&amp;amp;gt;
- *           &amp;amp;lt;/complexType&amp;amp;gt;
- *         &amp;amp;lt;/element&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;bouwTechnischeKwaliteitsaanduiding&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
- *           &amp;amp;lt;complexType&amp;amp;gt;
- *             &amp;amp;lt;simpleContent&amp;amp;gt;
- *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;CodeBouwTechnischeKwaliteitsAanduiding&quot;&amp;amp;gt;
- *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
- *               &amp;amp;lt;/extension&amp;amp;gt;
- *             &amp;amp;lt;/simpleContent&amp;amp;gt;
- *           &amp;amp;lt;/complexType&amp;amp;gt;
- *         &amp;amp;lt;/element&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;onderhoudsToestand&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
- *           &amp;amp;lt;complexType&amp;amp;gt;
- *             &amp;amp;lt;simpleContent&amp;amp;gt;
- *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;CodeOnderhoudsToestand&quot;&amp;amp;gt;
- *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
- *               &amp;amp;lt;/extension&amp;amp;gt;
- *             &amp;amp;lt;/simpleContent&amp;amp;gt;
- *           &amp;amp;lt;/complexType&amp;amp;gt;
- *         &amp;amp;lt;/element&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;centroidXCoordinaat&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
- *           &amp;amp;lt;complexType&amp;amp;gt;
- *             &amp;amp;lt;simpleContent&amp;amp;gt;
- *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;CentroidXofYCoordinaat&quot;&amp;amp;gt;
- *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
- *                 &amp;amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;VBO2&quot; /&amp;amp;gt;
- *               &amp;amp;lt;/extension&amp;amp;gt;
- *             &amp;amp;lt;/simpleContent&amp;amp;gt;
- *           &amp;amp;lt;/complexType&amp;amp;gt;
- *         &amp;amp;lt;/element&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;centroidYCoordinaat&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
- *           &amp;amp;lt;complexType&amp;amp;gt;
- *             &amp;amp;lt;simpleContent&amp;amp;gt;
- *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;CentroidXofYCoordinaat&quot;&amp;amp;gt;
- *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
- *                 &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;VBO2&quot; /&amp;amp;gt;
- *               &amp;amp;lt;/extension&amp;amp;gt;
- *             &amp;amp;lt;/simpleContent&amp;amp;gt;
- *           &amp;amp;lt;/complexType&amp;amp;gt;
- *         &amp;amp;lt;/element&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;centroidZCoordinaat&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
- *           &amp;amp;lt;complexType&amp;amp;gt;
- *             &amp;amp;lt;simpleContent&amp;amp;gt;
- *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;CentroidZCoordinaat&quot;&amp;amp;gt;
- *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
- *                 &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;VBO2&quot; /&amp;amp;gt;
- *               &amp;amp;lt;/extension&amp;amp;gt;
- *             &amp;amp;lt;/simpleContent&amp;amp;gt;
- *           &amp;amp;lt;/complexType&amp;amp;gt;
- *         &amp;amp;lt;/element&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;hoogsteBouwlaag&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
- *           &amp;amp;lt;complexType&amp;amp;gt;
- *             &amp;amp;lt;simpleContent&amp;amp;gt;
- *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;Bouwlaag&quot;&amp;amp;gt;
- *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
- *                 &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;VBO1&quot; /&amp;amp;gt;
- *               &amp;amp;lt;/extension&amp;amp;gt;
- *             &amp;amp;lt;/simpleContent&amp;amp;gt;
- *           &amp;amp;lt;/complexType&amp;amp;gt;
- *         &amp;amp;lt;/element&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;laagsteBouwlaag&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
- *           &amp;amp;lt;complexType&amp;amp;gt;
- *             &amp;amp;lt;simpleContent&amp;amp;gt;
- *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;Bouwlaag&quot;&amp;amp;gt;
- *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
- *                 &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;VBO1&quot; /&amp;amp;gt;
- *               &amp;amp;lt;/extension&amp;amp;gt;
- *             &amp;amp;lt;/simpleContent&amp;amp;gt;
- *           &amp;amp;lt;/complexType&amp;amp;gt;
- *         &amp;amp;lt;/element&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;aantalWoonlagen&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
- *           &amp;amp;lt;complexType&amp;amp;gt;
- *             &amp;amp;lt;simpleContent&amp;amp;gt;
- *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;AantalWoonlagen&quot;&amp;amp;gt;
- *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
- *               &amp;amp;lt;/extension&amp;amp;gt;
- *             &amp;amp;lt;/simpleContent&amp;amp;gt;
- *           &amp;amp;lt;/complexType&amp;amp;gt;
- *         &amp;amp;lt;/element&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;gemiddeldeBreedte&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
- *           &amp;amp;lt;complexType&amp;amp;gt;
- *             &amp;amp;lt;simpleContent&amp;amp;gt;
- *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;GemiddeldeBreedteVerblijfsObject&quot;&amp;amp;gt;
- *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
- *                 &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;VBO3&quot; /&amp;amp;gt;
- *               &amp;amp;lt;/extension&amp;amp;gt;
- *             &amp;amp;lt;/simpleContent&amp;amp;gt;
- *           &amp;amp;lt;/complexType&amp;amp;gt;
- *         &amp;amp;lt;/element&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;gemiddeldeHoogte&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
- *           &amp;amp;lt;complexType&amp;amp;gt;
- *             &amp;amp;lt;simpleContent&amp;amp;gt;
- *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;GemiddeldeHoogteVerblijfsObject&quot;&amp;amp;gt;
- *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
- *                 &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;VBO3&quot; /&amp;amp;gt;
- *               &amp;amp;lt;/extension&amp;amp;gt;
- *             &amp;amp;lt;/simpleContent&amp;amp;gt;
- *           &amp;amp;lt;/complexType&amp;amp;gt;
- *         &amp;amp;lt;/element&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;gemiddeldeLengte&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
- *           &amp;amp;lt;complexType&amp;amp;gt;
- *             &amp;amp;lt;simpleContent&amp;amp;gt;
- *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;GemiddeldeLengteVerblijfsObject&quot;&amp;amp;gt;
- *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
- *                 &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;VBO3&quot; /&amp;amp;gt;
- *               &amp;amp;lt;/extension&amp;amp;gt;
- *             &amp;amp;lt;/simpleContent&amp;amp;gt;
- *           &amp;amp;lt;/complexType&amp;amp;gt;
- *         &amp;amp;lt;/element&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;frontBreedte&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
- *           &amp;amp;lt;complexType&amp;amp;gt;
- *             &amp;amp;lt;simpleContent&amp;amp;gt;
- *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;FrontBreedte&quot;&amp;amp;gt;
- *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
- *               &amp;amp;lt;/extension&amp;amp;gt;
- *             &amp;amp;lt;/simpleContent&amp;amp;gt;
- *           &amp;amp;lt;/complexType&amp;amp;gt;
- *         &amp;amp;lt;/element&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;brutoInhoud&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
- *           &amp;amp;lt;complexType&amp;amp;gt;
- *             &amp;amp;lt;simpleContent&amp;amp;gt;
- *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;BrutoInhoud&quot;&amp;amp;gt;
- *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
- *               &amp;amp;lt;/extension&amp;amp;gt;
- *             &amp;amp;lt;/simpleContent&amp;amp;gt;
- *           &amp;amp;lt;/complexType&amp;amp;gt;
- *         &amp;amp;lt;/element&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;brutoVloerOppervlak&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
- *           &amp;amp;lt;complexType&amp;amp;gt;
- *             &amp;amp;lt;simpleContent&amp;amp;gt;
- *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;BrutoVloerOppervlak&quot;&amp;amp;gt;
- *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
- *               &amp;amp;lt;/extension&amp;amp;gt;
- *             &amp;amp;lt;/simpleContent&amp;amp;gt;
- *           &amp;amp;lt;/complexType&amp;amp;gt;
- *         &amp;amp;lt;/element&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;binnenwerkseKernOppervlakte&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
- *           &amp;amp;lt;complexType&amp;amp;gt;
- *             &amp;amp;lt;simpleContent&amp;amp;gt;
- *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;BinnenWerkseKernOppervlakte&quot;&amp;amp;gt;
- *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
- *               &amp;amp;lt;/extension&amp;amp;gt;
- *             &amp;amp;lt;/simpleContent&amp;amp;gt;
- *           &amp;amp;lt;/complexType&amp;amp;gt;
- *         &amp;amp;lt;/element&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;woonOppervlakte&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
- *           &amp;amp;lt;complexType&amp;amp;gt;
- *             &amp;amp;lt;simpleContent&amp;amp;gt;
- *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;WoonOppervlakte&quot;&amp;amp;gt;
- *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
- *               &amp;amp;lt;/extension&amp;amp;gt;
- *             &amp;amp;lt;/simpleContent&amp;amp;gt;
- *           &amp;amp;lt;/complexType&amp;amp;gt;
- *         &amp;amp;lt;/element&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;bebouwdeTerreinOppervlakte&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
- *           &amp;amp;lt;complexType&amp;amp;gt;
- *             &amp;amp;lt;simpleContent&amp;amp;gt;
- *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;BebouwdeTerreinOppervlakte&quot;&amp;amp;gt;
- *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
- *               &amp;amp;lt;/extension&amp;amp;gt;
- *             &amp;amp;lt;/simpleContent&amp;amp;gt;
- *           &amp;amp;lt;/complexType&amp;amp;gt;
- *         &amp;amp;lt;/element&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;onbebouwdeTerreinOppervlakte&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
- *           &amp;amp;lt;complexType&amp;amp;gt;
- *             &amp;amp;lt;simpleContent&amp;amp;gt;
- *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;OnbebouwdeTerreinOppervlakte&quot;&amp;amp;gt;
- *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
- *               &amp;amp;lt;/extension&amp;amp;gt;
- *             &amp;amp;lt;/simpleContent&amp;amp;gt;
- *           &amp;amp;lt;/complexType&amp;amp;gt;
- *         &amp;amp;lt;/element&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;aanUitBouw&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
- *           &amp;amp;lt;complexType&amp;amp;gt;
- *             &amp;amp;lt;simpleContent&amp;amp;gt;
- *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;AanUitBouw&quot;&amp;amp;gt;
- *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
- *               &amp;amp;lt;/extension&amp;amp;gt;
- *             &amp;amp;lt;/simpleContent&amp;amp;gt;
- *           &amp;amp;lt;/complexType&amp;amp;gt;
- *         &amp;amp;lt;/element&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;aantalParkeerplaatsen&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
- *           &amp;amp;lt;complexType&amp;amp;gt;
- *             &amp;amp;lt;simpleContent&amp;amp;gt;
- *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;AantalParkeerplaatsen&quot;&amp;amp;gt;
- *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
- *               &amp;amp;lt;/extension&amp;amp;gt;
- *             &amp;amp;lt;/simpleContent&amp;amp;gt;
- *           &amp;amp;lt;/complexType&amp;amp;gt;
- *         &amp;amp;lt;/element&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;aantalRuimten&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
- *           &amp;amp;lt;complexType&amp;amp;gt;
- *             &amp;amp;lt;simpleContent&amp;amp;gt;
- *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;AantalRuimten&quot;&amp;amp;gt;
- *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
- *               &amp;amp;lt;/extension&amp;amp;gt;
- *             &amp;amp;lt;/simpleContent&amp;amp;gt;
- *           &amp;amp;lt;/complexType&amp;amp;gt;
- *         &amp;amp;lt;/element&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;aantalWoonvertrekken&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
- *           &amp;amp;lt;complexType&amp;amp;gt;
- *             &amp;amp;lt;simpleContent&amp;amp;gt;
- *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;AantalWoonvertrekken&quot;&amp;amp;gt;
- *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
- *               &amp;amp;lt;/extension&amp;amp;gt;
- *             &amp;amp;lt;/simpleContent&amp;amp;gt;
- *           &amp;amp;lt;/complexType&amp;amp;gt;
- *         &amp;amp;lt;/element&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;bereikbaarheidHoofdWoonvertrek&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
- *           &amp;amp;lt;complexType&amp;amp;gt;
- *             &amp;amp;lt;simpleContent&amp;amp;gt;
- *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;BereikbaarheidHoofdWoonvertrek&quot;&amp;amp;gt;
- *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
- *               &amp;amp;lt;/extension&amp;amp;gt;
- *             &amp;amp;lt;/simpleContent&amp;amp;gt;
- *           &amp;amp;lt;/complexType&amp;amp;gt;
- *         &amp;amp;lt;/element&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;lifttype&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
- *           &amp;amp;lt;complexType&amp;amp;gt;
- *             &amp;amp;lt;simpleContent&amp;amp;gt;
- *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;Lifttype&quot;&amp;amp;gt;
- *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
- *               &amp;amp;lt;/extension&amp;amp;gt;
- *             &amp;amp;lt;/simpleContent&amp;amp;gt;
- *           &amp;amp;lt;/complexType&amp;amp;gt;
- *         &amp;amp;lt;/element&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;codeRedenToevoegingBeeindiging&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
- *           &amp;amp;lt;complexType&amp;amp;gt;
- *             &amp;amp;lt;simpleContent&amp;amp;gt;
- *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;CodeRedenToevoegingBeeindiging&quot;&amp;amp;gt;
- *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
- *               &amp;amp;lt;/extension&amp;amp;gt;
- *             &amp;amp;lt;/simpleContent&amp;amp;gt;
- *           &amp;amp;lt;/complexType&amp;amp;gt;
- *         &amp;amp;lt;/element&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;monumentAanduiding&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
- *           &amp;amp;lt;complexType&amp;amp;gt;
- *             &amp;amp;lt;simpleContent&amp;amp;gt;
- *               &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;CodeMonumentAanduiding&quot;&amp;amp;gt;
- *                 &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
- *               &amp;amp;lt;/extension&amp;amp;gt;
- *             &amp;amp;lt;/simpleContent&amp;amp;gt;
- *           &amp;amp;lt;/complexType&amp;amp;gt;
- *         &amp;amp;lt;/element&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;tijdvakGeldigheid&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}TijdvakGeldigheid&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;extraElementen&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}ExtraElementen&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
- *       &amp;amp;lt;/sequence&amp;amp;gt;
- *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}fundamenteel&quot;/&amp;amp;gt;
- *     &amp;amp;lt;/restriction&amp;amp;gt;
- *   &amp;amp;lt;/complexContent&amp;amp;gt;
- * &amp;amp;lt;/complexType&amp;amp;gt;
- * &amp;lt;/pre&amp;gt;
+ * &lt;pre&gt;
+ * &amp;lt;complexType name=&quot;VBO-fund&quot;&amp;gt;
+ *   &amp;lt;complexContent&amp;gt;
+ *     &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
+ *       &amp;lt;sequence&amp;gt;
+ *         &amp;lt;element name=&quot;bouwjaar&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;simpleContent&amp;gt;
+ *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;Bouwjaar&quot;&amp;gt;
+ *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+ *                 &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/simpleContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;verblijfsObjectNummer&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;simpleContent&amp;gt;
+ *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;VerblijfsObjectNummer&quot;&amp;gt;
+ *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+ *                 &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/simpleContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;verblijfsObjectType&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;simpleContent&amp;gt;
+ *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;VerblijfsObjectType&quot;&amp;gt;
+ *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+ *                 &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/simpleContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;datumAanvangBouw&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}DatumMetIndicator&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;datumBouwGereed&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}DatumMetIndicator&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;bouwjaarKlasse&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;simpleContent&amp;gt;
+ *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;BouwjaarKlasse&quot;&amp;gt;
+ *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/simpleContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;renovatiejaar&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;simpleContent&amp;gt;
+ *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;Renovatiejaar&quot;&amp;gt;
+ *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/simpleContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;datumSloop&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}DatumMetIndicator&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;soortWoonObject&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;simpleContent&amp;gt;
+ *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;CodeSoortWoonobject&quot;&amp;gt;
+ *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/simpleContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;bouwkundigeBestemmingActueel&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;simpleContent&amp;gt;
+ *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;BouwkundigeBestemming&quot;&amp;gt;
+ *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/simpleContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;bouwkundigeBestemmingOorspronkelijk&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;simpleContent&amp;gt;
+ *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;BouwkundigeBestemming&quot;&amp;gt;
+ *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/simpleContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;bouwTechnischeKwaliteitsaanduiding&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;simpleContent&amp;gt;
+ *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;CodeBouwTechnischeKwaliteitsAanduiding&quot;&amp;gt;
+ *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/simpleContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;onderhoudsToestand&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;simpleContent&amp;gt;
+ *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;CodeOnderhoudsToestand&quot;&amp;gt;
+ *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/simpleContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;centroidXCoordinaat&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;simpleContent&amp;gt;
+ *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;CentroidXofYCoordinaat&quot;&amp;gt;
+ *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+ *                 &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;VBO2&quot; /&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/simpleContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;centroidYCoordinaat&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;simpleContent&amp;gt;
+ *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;CentroidXofYCoordinaat&quot;&amp;gt;
+ *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+ *                 &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;VBO2&quot; /&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/simpleContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;centroidZCoordinaat&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;simpleContent&amp;gt;
+ *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;CentroidZCoordinaat&quot;&amp;gt;
+ *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+ *                 &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;VBO2&quot; /&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/simpleContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;hoogsteBouwlaag&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;simpleContent&amp;gt;
+ *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;Bouwlaag&quot;&amp;gt;
+ *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+ *                 &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;VBO1&quot; /&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/simpleContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;laagsteBouwlaag&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;simpleContent&amp;gt;
+ *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;Bouwlaag&quot;&amp;gt;
+ *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+ *                 &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;VBO1&quot; /&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/simpleContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;aantalWoonlagen&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;simpleContent&amp;gt;
+ *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;AantalWoonlagen&quot;&amp;gt;
+ *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/simpleContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;gemiddeldeBreedte&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;simpleContent&amp;gt;
+ *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;GemiddeldeBreedteVerblijfsObject&quot;&amp;gt;
+ *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+ *                 &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;VBO3&quot; /&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/simpleContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;gemiddeldeHoogte&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;simpleContent&amp;gt;
+ *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;GemiddeldeHoogteVerblijfsObject&quot;&amp;gt;
+ *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+ *                 &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;VBO3&quot; /&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/simpleContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;gemiddeldeLengte&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;simpleContent&amp;gt;
+ *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;GemiddeldeLengteVerblijfsObject&quot;&amp;gt;
+ *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+ *                 &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;VBO3&quot; /&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/simpleContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;frontBreedte&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;simpleContent&amp;gt;
+ *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;FrontBreedte&quot;&amp;gt;
+ *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/simpleContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;brutoInhoud&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;simpleContent&amp;gt;
+ *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;BrutoInhoud&quot;&amp;gt;
+ *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/simpleContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;brutoVloerOppervlak&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;simpleContent&amp;gt;
+ *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;BrutoVloerOppervlak&quot;&amp;gt;
+ *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/simpleContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;binnenwerkseKernOppervlakte&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;simpleContent&amp;gt;
+ *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;BinnenWerkseKernOppervlakte&quot;&amp;gt;
+ *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/simpleContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;woonOppervlakte&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;simpleContent&amp;gt;
+ *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;WoonOppervlakte&quot;&amp;gt;
+ *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/simpleContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;bebouwdeTerreinOppervlakte&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;simpleContent&amp;gt;
+ *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;BebouwdeTerreinOppervlakte&quot;&amp;gt;
+ *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/simpleContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;onbebouwdeTerreinOppervlakte&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;simpleContent&amp;gt;
+ *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;OnbebouwdeTerreinOppervlakte&quot;&amp;gt;
+ *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/simpleContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;aanUitBouw&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;simpleContent&amp;gt;
+ *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;AanUitBouw&quot;&amp;gt;
+ *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/simpleContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;aantalParkeerplaatsen&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;simpleContent&amp;gt;
+ *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;AantalParkeerplaatsen&quot;&amp;gt;
+ *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/simpleContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;aantalRuimten&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;simpleContent&amp;gt;
+ *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;AantalRuimten&quot;&amp;gt;
+ *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/simpleContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;aantalWoonvertrekken&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;simpleContent&amp;gt;
+ *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;AantalWoonvertrekken&quot;&amp;gt;
+ *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/simpleContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;bereikbaarheidHoofdWoonvertrek&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;simpleContent&amp;gt;
+ *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;BereikbaarheidHoofdWoonvertrek&quot;&amp;gt;
+ *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/simpleContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;lifttype&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;simpleContent&amp;gt;
+ *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;Lifttype&quot;&amp;gt;
+ *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/simpleContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;codeRedenToevoegingBeeindiging&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;simpleContent&amp;gt;
+ *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;CodeRedenToevoegingBeeindiging&quot;&amp;gt;
+ *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/simpleContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;monumentAanduiding&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;simpleContent&amp;gt;
+ *               &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;CodeMonumentAanduiding&quot;&amp;gt;
+ *                 &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/simpleContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;tijdvakGeldigheid&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}TijdvakGeldigheid&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;extraElementen&quot; type=&quot;{http://www.egem.nl/StUF/StUF0204}ExtraElementen&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *       &amp;lt;/sequence&amp;gt;
+ *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}fundamenteel&quot;/&amp;gt;
+ *     &amp;lt;/restriction&amp;gt;
+ *   &amp;lt;/complexContent&amp;gt;
+ * &amp;lt;/complexType&amp;gt;
+ * &lt;/pre&gt;
  * 
  * 
  */
@@ -721,20 +721,20 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
     /**
      * Gets the value of the bouwkundigeBestemmingActueel property.
      * 
-     * &amp;lt;p&amp;gt;
+     * &lt;p&gt;
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a &amp;lt;CODE&amp;gt;set&amp;lt;/CODE&amp;gt; method for the bouwkundigeBestemmingActueel property.
+     * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the bouwkundigeBestemmingActueel property.
      * 
-     * &amp;lt;p&amp;gt;
+     * &lt;p&gt;
      * For example, to add a new item, do as follows:
-     * &amp;lt;pre&amp;gt;
+     * &lt;pre&gt;
      *    getBouwkundigeBestemmingActueel().add(newItem);
-     * &amp;lt;/pre&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
-     * &amp;lt;p&amp;gt;
+     * &lt;p&gt;
      * Objects of the following type(s) are allowed in the list
      * {@link VBOFund.BouwkundigeBestemmingActueel }
      * 
@@ -750,20 +750,20 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
     /**
      * Gets the value of the bouwkundigeBestemmingOorspronkelijk property.
      * 
-     * &amp;lt;p&amp;gt;
+     * &lt;p&gt;
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a &amp;lt;CODE&amp;gt;set&amp;lt;/CODE&amp;gt; method for the bouwkundigeBestemmingOorspronkelijk property.
+     * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the bouwkundigeBestemmingOorspronkelijk property.
      * 
-     * &amp;lt;p&amp;gt;
+     * &lt;p&gt;
      * For example, to add a new item, do as follows:
-     * &amp;lt;pre&amp;gt;
+     * &lt;pre&gt;
      *    getBouwkundigeBestemmingOorspronkelijk().add(newItem);
-     * &amp;lt;/pre&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
-     * &amp;lt;p&amp;gt;
+     * &lt;p&gt;
      * Objects of the following type(s) are allowed in the list
      * {@link VBOFund.BouwkundigeBestemmingOorspronkelijk }
      * 
@@ -1331,20 +1331,20 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
     /**
      * Gets the value of the lifttype property.
      * 
-     * &amp;lt;p&amp;gt;
+     * &lt;p&gt;
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a &amp;lt;CODE&amp;gt;set&amp;lt;/CODE&amp;gt; method for the lifttype property.
+     * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the lifttype property.
      * 
-     * &amp;lt;p&amp;gt;
+     * &lt;p&gt;
      * For example, to add a new item, do as follows:
-     * &amp;lt;pre&amp;gt;
+     * &lt;pre&gt;
      *    getLifttype().add(newItem);
-     * &amp;lt;/pre&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
-     * &amp;lt;p&amp;gt;
+     * &lt;p&gt;
      * Objects of the following type(s) are allowed in the list
      * {@link VBOFund.Lifttype }
      * 
@@ -1603,19 +1603,19 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
+     * &lt;p&gt;Java class for anonymous complex type.
      * 
-     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &amp;lt;pre&amp;gt;
-     * &amp;amp;lt;complexType&amp;amp;gt;
-     *   &amp;amp;lt;simpleContent&amp;amp;gt;
-     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;AantalParkeerplaatsen&quot;&amp;amp;gt;
-     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
-     *     &amp;amp;lt;/extension&amp;amp;gt;
-     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
-     * &amp;amp;lt;/complexType&amp;amp;gt;
-     * &amp;lt;/pre&amp;gt;
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;simpleContent&amp;gt;
+     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;AantalParkeerplaatsen&quot;&amp;gt;
+     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/simpleContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
      */
@@ -1712,19 +1712,19 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
+     * &lt;p&gt;Java class for anonymous complex type.
      * 
-     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &amp;lt;pre&amp;gt;
-     * &amp;amp;lt;complexType&amp;amp;gt;
-     *   &amp;amp;lt;simpleContent&amp;amp;gt;
-     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;AantalRuimten&quot;&amp;amp;gt;
-     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
-     *     &amp;amp;lt;/extension&amp;amp;gt;
-     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
-     * &amp;amp;lt;/complexType&amp;amp;gt;
-     * &amp;lt;/pre&amp;gt;
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;simpleContent&amp;gt;
+     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;AantalRuimten&quot;&amp;gt;
+     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/simpleContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
      */
@@ -1821,19 +1821,19 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
+     * &lt;p&gt;Java class for anonymous complex type.
      * 
-     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &amp;lt;pre&amp;gt;
-     * &amp;amp;lt;complexType&amp;amp;gt;
-     *   &amp;amp;lt;simpleContent&amp;amp;gt;
-     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;AantalWoonlagen&quot;&amp;amp;gt;
-     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
-     *     &amp;amp;lt;/extension&amp;amp;gt;
-     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
-     * &amp;amp;lt;/complexType&amp;amp;gt;
-     * &amp;lt;/pre&amp;gt;
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;simpleContent&amp;gt;
+     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;AantalWoonlagen&quot;&amp;gt;
+     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/simpleContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
      */
@@ -1930,19 +1930,19 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
+     * &lt;p&gt;Java class for anonymous complex type.
      * 
-     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &amp;lt;pre&amp;gt;
-     * &amp;amp;lt;complexType&amp;amp;gt;
-     *   &amp;amp;lt;simpleContent&amp;amp;gt;
-     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;AantalWoonvertrekken&quot;&amp;amp;gt;
-     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
-     *     &amp;amp;lt;/extension&amp;amp;gt;
-     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
-     * &amp;amp;lt;/complexType&amp;amp;gt;
-     * &amp;lt;/pre&amp;gt;
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;simpleContent&amp;gt;
+     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;AantalWoonvertrekken&quot;&amp;gt;
+     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/simpleContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
      */
@@ -2039,19 +2039,19 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
+     * &lt;p&gt;Java class for anonymous complex type.
      * 
-     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &amp;lt;pre&amp;gt;
-     * &amp;amp;lt;complexType&amp;amp;gt;
-     *   &amp;amp;lt;simpleContent&amp;amp;gt;
-     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;AanUitBouw&quot;&amp;amp;gt;
-     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
-     *     &amp;amp;lt;/extension&amp;amp;gt;
-     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
-     * &amp;amp;lt;/complexType&amp;amp;gt;
-     * &amp;lt;/pre&amp;gt;
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;simpleContent&amp;gt;
+     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;AanUitBouw&quot;&amp;gt;
+     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/simpleContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
      */
@@ -2148,19 +2148,19 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
+     * &lt;p&gt;Java class for anonymous complex type.
      * 
-     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &amp;lt;pre&amp;gt;
-     * &amp;amp;lt;complexType&amp;amp;gt;
-     *   &amp;amp;lt;simpleContent&amp;amp;gt;
-     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;BebouwdeTerreinOppervlakte&quot;&amp;amp;gt;
-     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
-     *     &amp;amp;lt;/extension&amp;amp;gt;
-     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
-     * &amp;amp;lt;/complexType&amp;amp;gt;
-     * &amp;lt;/pre&amp;gt;
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;simpleContent&amp;gt;
+     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;BebouwdeTerreinOppervlakte&quot;&amp;gt;
+     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/simpleContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
      */
@@ -2257,19 +2257,19 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
+     * &lt;p&gt;Java class for anonymous complex type.
      * 
-     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &amp;lt;pre&amp;gt;
-     * &amp;amp;lt;complexType&amp;amp;gt;
-     *   &amp;amp;lt;simpleContent&amp;amp;gt;
-     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;BereikbaarheidHoofdWoonvertrek&quot;&amp;amp;gt;
-     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
-     *     &amp;amp;lt;/extension&amp;amp;gt;
-     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
-     * &amp;amp;lt;/complexType&amp;amp;gt;
-     * &amp;lt;/pre&amp;gt;
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;simpleContent&amp;gt;
+     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;BereikbaarheidHoofdWoonvertrek&quot;&amp;gt;
+     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/simpleContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
      */
@@ -2366,19 +2366,19 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
+     * &lt;p&gt;Java class for anonymous complex type.
      * 
-     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &amp;lt;pre&amp;gt;
-     * &amp;amp;lt;complexType&amp;amp;gt;
-     *   &amp;amp;lt;simpleContent&amp;amp;gt;
-     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;BinnenWerkseKernOppervlakte&quot;&amp;amp;gt;
-     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
-     *     &amp;amp;lt;/extension&amp;amp;gt;
-     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
-     * &amp;amp;lt;/complexType&amp;amp;gt;
-     * &amp;lt;/pre&amp;gt;
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;simpleContent&amp;gt;
+     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;BinnenWerkseKernOppervlakte&quot;&amp;gt;
+     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/simpleContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
      */
@@ -2475,20 +2475,20 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
+     * &lt;p&gt;Java class for anonymous complex type.
      * 
-     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &amp;lt;pre&amp;gt;
-     * &amp;amp;lt;complexType&amp;amp;gt;
-     *   &amp;amp;lt;simpleContent&amp;amp;gt;
-     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;Bouwjaar&quot;&amp;amp;gt;
-     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
-     *       &amp;amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;amp;gt;
-     *     &amp;amp;lt;/extension&amp;amp;gt;
-     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
-     * &amp;amp;lt;/complexType&amp;amp;gt;
-     * &amp;lt;/pre&amp;gt;
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;simpleContent&amp;gt;
+     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;Bouwjaar&quot;&amp;gt;
+     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+     *       &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/simpleContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
      */
@@ -2615,19 +2615,19 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
+     * &lt;p&gt;Java class for anonymous complex type.
      * 
-     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &amp;lt;pre&amp;gt;
-     * &amp;amp;lt;complexType&amp;amp;gt;
-     *   &amp;amp;lt;simpleContent&amp;amp;gt;
-     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;BouwjaarKlasse&quot;&amp;amp;gt;
-     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
-     *     &amp;amp;lt;/extension&amp;amp;gt;
-     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
-     * &amp;amp;lt;/complexType&amp;amp;gt;
-     * &amp;lt;/pre&amp;gt;
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;simpleContent&amp;gt;
+     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;BouwjaarKlasse&quot;&amp;gt;
+     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/simpleContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
      */
@@ -2724,19 +2724,19 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
+     * &lt;p&gt;Java class for anonymous complex type.
      * 
-     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &amp;lt;pre&amp;gt;
-     * &amp;amp;lt;complexType&amp;amp;gt;
-     *   &amp;amp;lt;simpleContent&amp;amp;gt;
-     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;BouwkundigeBestemming&quot;&amp;amp;gt;
-     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
-     *     &amp;amp;lt;/extension&amp;amp;gt;
-     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
-     * &amp;amp;lt;/complexType&amp;amp;gt;
-     * &amp;lt;/pre&amp;gt;
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;simpleContent&amp;gt;
+     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;BouwkundigeBestemming&quot;&amp;gt;
+     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/simpleContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
      */
@@ -2833,19 +2833,19 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
+     * &lt;p&gt;Java class for anonymous complex type.
      * 
-     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &amp;lt;pre&amp;gt;
-     * &amp;amp;lt;complexType&amp;amp;gt;
-     *   &amp;amp;lt;simpleContent&amp;amp;gt;
-     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;BouwkundigeBestemming&quot;&amp;amp;gt;
-     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
-     *     &amp;amp;lt;/extension&amp;amp;gt;
-     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
-     * &amp;amp;lt;/complexType&amp;amp;gt;
-     * &amp;lt;/pre&amp;gt;
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;simpleContent&amp;gt;
+     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;BouwkundigeBestemming&quot;&amp;gt;
+     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/simpleContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
      */
@@ -2942,19 +2942,19 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
+     * &lt;p&gt;Java class for anonymous complex type.
      * 
-     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &amp;lt;pre&amp;gt;
-     * &amp;amp;lt;complexType&amp;amp;gt;
-     *   &amp;amp;lt;simpleContent&amp;amp;gt;
-     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;CodeBouwTechnischeKwaliteitsAanduiding&quot;&amp;amp;gt;
-     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
-     *     &amp;amp;lt;/extension&amp;amp;gt;
-     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
-     * &amp;amp;lt;/complexType&amp;amp;gt;
-     * &amp;lt;/pre&amp;gt;
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;simpleContent&amp;gt;
+     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;CodeBouwTechnischeKwaliteitsAanduiding&quot;&amp;gt;
+     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/simpleContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
      */
@@ -3051,19 +3051,19 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
+     * &lt;p&gt;Java class for anonymous complex type.
      * 
-     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &amp;lt;pre&amp;gt;
-     * &amp;amp;lt;complexType&amp;amp;gt;
-     *   &amp;amp;lt;simpleContent&amp;amp;gt;
-     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;BrutoInhoud&quot;&amp;amp;gt;
-     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
-     *     &amp;amp;lt;/extension&amp;amp;gt;
-     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
-     * &amp;amp;lt;/complexType&amp;amp;gt;
-     * &amp;lt;/pre&amp;gt;
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;simpleContent&amp;gt;
+     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;BrutoInhoud&quot;&amp;gt;
+     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/simpleContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
      */
@@ -3160,19 +3160,19 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
+     * &lt;p&gt;Java class for anonymous complex type.
      * 
-     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &amp;lt;pre&amp;gt;
-     * &amp;amp;lt;complexType&amp;amp;gt;
-     *   &amp;amp;lt;simpleContent&amp;amp;gt;
-     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;BrutoVloerOppervlak&quot;&amp;amp;gt;
-     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
-     *     &amp;amp;lt;/extension&amp;amp;gt;
-     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
-     * &amp;amp;lt;/complexType&amp;amp;gt;
-     * &amp;lt;/pre&amp;gt;
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;simpleContent&amp;gt;
+     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;BrutoVloerOppervlak&quot;&amp;gt;
+     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/simpleContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
      */
@@ -3269,20 +3269,20 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
+     * &lt;p&gt;Java class for anonymous complex type.
      * 
-     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &amp;lt;pre&amp;gt;
-     * &amp;amp;lt;complexType&amp;amp;gt;
-     *   &amp;amp;lt;simpleContent&amp;amp;gt;
-     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;CentroidXofYCoordinaat&quot;&amp;amp;gt;
-     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
-     *       &amp;amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;VBO2&quot; /&amp;amp;gt;
-     *     &amp;amp;lt;/extension&amp;amp;gt;
-     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
-     * &amp;amp;lt;/complexType&amp;amp;gt;
-     * &amp;lt;/pre&amp;gt;
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;simpleContent&amp;gt;
+     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;CentroidXofYCoordinaat&quot;&amp;gt;
+     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+     *       &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;VBO2&quot; /&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/simpleContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
      */
@@ -3409,20 +3409,20 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
+     * &lt;p&gt;Java class for anonymous complex type.
      * 
-     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &amp;lt;pre&amp;gt;
-     * &amp;amp;lt;complexType&amp;amp;gt;
-     *   &amp;amp;lt;simpleContent&amp;amp;gt;
-     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;CentroidXofYCoordinaat&quot;&amp;amp;gt;
-     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
-     *       &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;VBO2&quot; /&amp;amp;gt;
-     *     &amp;amp;lt;/extension&amp;amp;gt;
-     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
-     * &amp;amp;lt;/complexType&amp;amp;gt;
-     * &amp;lt;/pre&amp;gt;
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;simpleContent&amp;gt;
+     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;CentroidXofYCoordinaat&quot;&amp;gt;
+     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+     *       &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;VBO2&quot; /&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/simpleContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
      */
@@ -3549,20 +3549,20 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
+     * &lt;p&gt;Java class for anonymous complex type.
      * 
-     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &amp;lt;pre&amp;gt;
-     * &amp;amp;lt;complexType&amp;amp;gt;
-     *   &amp;amp;lt;simpleContent&amp;amp;gt;
-     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;CentroidZCoordinaat&quot;&amp;amp;gt;
-     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
-     *       &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;VBO2&quot; /&amp;amp;gt;
-     *     &amp;amp;lt;/extension&amp;amp;gt;
-     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
-     * &amp;amp;lt;/complexType&amp;amp;gt;
-     * &amp;lt;/pre&amp;gt;
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;simpleContent&amp;gt;
+     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;CentroidZCoordinaat&quot;&amp;gt;
+     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+     *       &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;VBO2&quot; /&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/simpleContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
      */
@@ -3689,19 +3689,19 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
+     * &lt;p&gt;Java class for anonymous complex type.
      * 
-     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &amp;lt;pre&amp;gt;
-     * &amp;amp;lt;complexType&amp;amp;gt;
-     *   &amp;amp;lt;simpleContent&amp;amp;gt;
-     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;CodeRedenToevoegingBeeindiging&quot;&amp;amp;gt;
-     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
-     *     &amp;amp;lt;/extension&amp;amp;gt;
-     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
-     * &amp;amp;lt;/complexType&amp;amp;gt;
-     * &amp;lt;/pre&amp;gt;
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;simpleContent&amp;gt;
+     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;CodeRedenToevoegingBeeindiging&quot;&amp;gt;
+     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/simpleContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
      */
@@ -3798,19 +3798,19 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
+     * &lt;p&gt;Java class for anonymous complex type.
      * 
-     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &amp;lt;pre&amp;gt;
-     * &amp;amp;lt;complexType&amp;amp;gt;
-     *   &amp;amp;lt;simpleContent&amp;amp;gt;
-     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;FrontBreedte&quot;&amp;amp;gt;
-     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
-     *     &amp;amp;lt;/extension&amp;amp;gt;
-     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
-     * &amp;amp;lt;/complexType&amp;amp;gt;
-     * &amp;lt;/pre&amp;gt;
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;simpleContent&amp;gt;
+     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;FrontBreedte&quot;&amp;gt;
+     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/simpleContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
      */
@@ -3907,20 +3907,20 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
+     * &lt;p&gt;Java class for anonymous complex type.
      * 
-     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &amp;lt;pre&amp;gt;
-     * &amp;amp;lt;complexType&amp;amp;gt;
-     *   &amp;amp;lt;simpleContent&amp;amp;gt;
-     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;GemiddeldeBreedteVerblijfsObject&quot;&amp;amp;gt;
-     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
-     *       &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;VBO3&quot; /&amp;amp;gt;
-     *     &amp;amp;lt;/extension&amp;amp;gt;
-     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
-     * &amp;amp;lt;/complexType&amp;amp;gt;
-     * &amp;lt;/pre&amp;gt;
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;simpleContent&amp;gt;
+     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;GemiddeldeBreedteVerblijfsObject&quot;&amp;gt;
+     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+     *       &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;VBO3&quot; /&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/simpleContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
      */
@@ -4047,20 +4047,20 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
+     * &lt;p&gt;Java class for anonymous complex type.
      * 
-     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &amp;lt;pre&amp;gt;
-     * &amp;amp;lt;complexType&amp;amp;gt;
-     *   &amp;amp;lt;simpleContent&amp;amp;gt;
-     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;GemiddeldeHoogteVerblijfsObject&quot;&amp;amp;gt;
-     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
-     *       &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;VBO3&quot; /&amp;amp;gt;
-     *     &amp;amp;lt;/extension&amp;amp;gt;
-     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
-     * &amp;amp;lt;/complexType&amp;amp;gt;
-     * &amp;lt;/pre&amp;gt;
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;simpleContent&amp;gt;
+     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;GemiddeldeHoogteVerblijfsObject&quot;&amp;gt;
+     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+     *       &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;VBO3&quot; /&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/simpleContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
      */
@@ -4187,20 +4187,20 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
+     * &lt;p&gt;Java class for anonymous complex type.
      * 
-     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &amp;lt;pre&amp;gt;
-     * &amp;amp;lt;complexType&amp;amp;gt;
-     *   &amp;amp;lt;simpleContent&amp;amp;gt;
-     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;GemiddeldeLengteVerblijfsObject&quot;&amp;amp;gt;
-     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
-     *       &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;VBO3&quot; /&amp;amp;gt;
-     *     &amp;amp;lt;/extension&amp;amp;gt;
-     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
-     * &amp;amp;lt;/complexType&amp;amp;gt;
-     * &amp;lt;/pre&amp;gt;
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;simpleContent&amp;gt;
+     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;GemiddeldeLengteVerblijfsObject&quot;&amp;gt;
+     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+     *       &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;VBO3&quot; /&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/simpleContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
      */
@@ -4327,20 +4327,20 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
+     * &lt;p&gt;Java class for anonymous complex type.
      * 
-     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &amp;lt;pre&amp;gt;
-     * &amp;amp;lt;complexType&amp;amp;gt;
-     *   &amp;amp;lt;simpleContent&amp;amp;gt;
-     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;Bouwlaag&quot;&amp;amp;gt;
-     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
-     *       &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;VBO1&quot; /&amp;amp;gt;
-     *     &amp;amp;lt;/extension&amp;amp;gt;
-     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
-     * &amp;amp;lt;/complexType&amp;amp;gt;
-     * &amp;lt;/pre&amp;gt;
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;simpleContent&amp;gt;
+     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;Bouwlaag&quot;&amp;gt;
+     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+     *       &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;VBO1&quot; /&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/simpleContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
      */
@@ -4467,20 +4467,20 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
+     * &lt;p&gt;Java class for anonymous complex type.
      * 
-     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &amp;lt;pre&amp;gt;
-     * &amp;amp;lt;complexType&amp;amp;gt;
-     *   &amp;amp;lt;simpleContent&amp;amp;gt;
-     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;Bouwlaag&quot;&amp;amp;gt;
-     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
-     *       &amp;amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;VBO1&quot; /&amp;amp;gt;
-     *     &amp;amp;lt;/extension&amp;amp;gt;
-     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
-     * &amp;amp;lt;/complexType&amp;amp;gt;
-     * &amp;lt;/pre&amp;gt;
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;simpleContent&amp;gt;
+     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;Bouwlaag&quot;&amp;gt;
+     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+     *       &amp;lt;attribute name=&quot;gegevengroep&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; fixed=&quot;VBO1&quot; /&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/simpleContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
      */
@@ -4607,19 +4607,19 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
+     * &lt;p&gt;Java class for anonymous complex type.
      * 
-     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &amp;lt;pre&amp;gt;
-     * &amp;amp;lt;complexType&amp;amp;gt;
-     *   &amp;amp;lt;simpleContent&amp;amp;gt;
-     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;Lifttype&quot;&amp;amp;gt;
-     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
-     *     &amp;amp;lt;/extension&amp;amp;gt;
-     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
-     * &amp;amp;lt;/complexType&amp;amp;gt;
-     * &amp;lt;/pre&amp;gt;
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;simpleContent&amp;gt;
+     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;Lifttype&quot;&amp;gt;
+     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/simpleContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
      */
@@ -4716,19 +4716,19 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
+     * &lt;p&gt;Java class for anonymous complex type.
      * 
-     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &amp;lt;pre&amp;gt;
-     * &amp;amp;lt;complexType&amp;amp;gt;
-     *   &amp;amp;lt;simpleContent&amp;amp;gt;
-     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;CodeMonumentAanduiding&quot;&amp;amp;gt;
-     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
-     *     &amp;amp;lt;/extension&amp;amp;gt;
-     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
-     * &amp;amp;lt;/complexType&amp;amp;gt;
-     * &amp;lt;/pre&amp;gt;
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;simpleContent&amp;gt;
+     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;CodeMonumentAanduiding&quot;&amp;gt;
+     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/simpleContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
      */
@@ -4825,19 +4825,19 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
+     * &lt;p&gt;Java class for anonymous complex type.
      * 
-     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &amp;lt;pre&amp;gt;
-     * &amp;amp;lt;complexType&amp;amp;gt;
-     *   &amp;amp;lt;simpleContent&amp;amp;gt;
-     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;OnbebouwdeTerreinOppervlakte&quot;&amp;amp;gt;
-     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
-     *     &amp;amp;lt;/extension&amp;amp;gt;
-     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
-     * &amp;amp;lt;/complexType&amp;amp;gt;
-     * &amp;lt;/pre&amp;gt;
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;simpleContent&amp;gt;
+     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;OnbebouwdeTerreinOppervlakte&quot;&amp;gt;
+     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/simpleContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
      */
@@ -4934,19 +4934,19 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
+     * &lt;p&gt;Java class for anonymous complex type.
      * 
-     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &amp;lt;pre&amp;gt;
-     * &amp;amp;lt;complexType&amp;amp;gt;
-     *   &amp;amp;lt;simpleContent&amp;amp;gt;
-     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;CodeOnderhoudsToestand&quot;&amp;amp;gt;
-     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
-     *     &amp;amp;lt;/extension&amp;amp;gt;
-     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
-     * &amp;amp;lt;/complexType&amp;amp;gt;
-     * &amp;lt;/pre&amp;gt;
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;simpleContent&amp;gt;
+     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;CodeOnderhoudsToestand&quot;&amp;gt;
+     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/simpleContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
      */
@@ -5043,19 +5043,19 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
+     * &lt;p&gt;Java class for anonymous complex type.
      * 
-     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &amp;lt;pre&amp;gt;
-     * &amp;amp;lt;complexType&amp;amp;gt;
-     *   &amp;amp;lt;simpleContent&amp;amp;gt;
-     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;Renovatiejaar&quot;&amp;amp;gt;
-     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
-     *     &amp;amp;lt;/extension&amp;amp;gt;
-     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
-     * &amp;amp;lt;/complexType&amp;amp;gt;
-     * &amp;lt;/pre&amp;gt;
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;simpleContent&amp;gt;
+     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;Renovatiejaar&quot;&amp;gt;
+     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/simpleContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
      */
@@ -5152,19 +5152,19 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
+     * &lt;p&gt;Java class for anonymous complex type.
      * 
-     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &amp;lt;pre&amp;gt;
-     * &amp;amp;lt;complexType&amp;amp;gt;
-     *   &amp;amp;lt;simpleContent&amp;amp;gt;
-     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;CodeSoortWoonobject&quot;&amp;amp;gt;
-     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
-     *     &amp;amp;lt;/extension&amp;amp;gt;
-     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
-     * &amp;amp;lt;/complexType&amp;amp;gt;
-     * &amp;lt;/pre&amp;gt;
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;simpleContent&amp;gt;
+     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;CodeSoortWoonobject&quot;&amp;gt;
+     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/simpleContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
      */
@@ -5261,20 +5261,20 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
+     * &lt;p&gt;Java class for anonymous complex type.
      * 
-     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &amp;lt;pre&amp;gt;
-     * &amp;amp;lt;complexType&amp;amp;gt;
-     *   &amp;amp;lt;simpleContent&amp;amp;gt;
-     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;VerblijfsObjectNummer&quot;&amp;amp;gt;
-     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
-     *       &amp;amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;amp;gt;
-     *     &amp;amp;lt;/extension&amp;amp;gt;
-     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
-     * &amp;amp;lt;/complexType&amp;amp;gt;
-     * &amp;lt;/pre&amp;gt;
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;simpleContent&amp;gt;
+     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;VerblijfsObjectNummer&quot;&amp;gt;
+     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+     *       &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/simpleContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
      */
@@ -5401,20 +5401,20 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
+     * &lt;p&gt;Java class for anonymous complex type.
      * 
-     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &amp;lt;pre&amp;gt;
-     * &amp;amp;lt;complexType&amp;amp;gt;
-     *   &amp;amp;lt;simpleContent&amp;amp;gt;
-     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;VerblijfsObjectType&quot;&amp;amp;gt;
-     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
-     *       &amp;amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;amp;gt;
-     *     &amp;amp;lt;/extension&amp;amp;gt;
-     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
-     * &amp;amp;lt;/complexType&amp;amp;gt;
-     * &amp;lt;/pre&amp;gt;
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;simpleContent&amp;gt;
+     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;VerblijfsObjectType&quot;&amp;gt;
+     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+     *       &amp;lt;attribute name=&quot;kerngegeven&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; fixed=&quot;true&quot; /&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/simpleContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
      */
@@ -5541,19 +5541,19 @@ import nl.egem.stuf.stuf0204.Verwerkingssoort;
 
 
     /**
-     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
+     * &lt;p&gt;Java class for anonymous complex type.
      * 
-     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &amp;lt;pre&amp;gt;
-     * &amp;amp;lt;complexType&amp;amp;gt;
-     *   &amp;amp;lt;simpleContent&amp;amp;gt;
-     *     &amp;amp;lt;extension base=&quot;&amp;amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;amp;gt;WoonOppervlakte&quot;&amp;amp;gt;
-     *       &amp;amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;amp;gt;
-     *     &amp;amp;lt;/extension&amp;amp;gt;
-     *   &amp;amp;lt;/simpleContent&amp;amp;gt;
-     * &amp;amp;lt;/complexType&amp;amp;gt;
-     * &amp;lt;/pre&amp;gt;
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;simpleContent&amp;gt;
+     *     &amp;lt;extension base=&quot;&amp;lt;http://www.egem.nl/StUF/sector/bg/0204&amp;gt;WoonOppervlakte&quot;&amp;gt;
+     *       &amp;lt;attGroup ref=&quot;{http://www.egem.nl/StUF/StUF0204}element&quot;/&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/simpleContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
      */

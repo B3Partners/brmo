@@ -14,80 +14,80 @@ import javax.xml.bind.annotation.XmlType;
 /**
  * WOZ-object binnen antwoordbericht
  * 
- * &amp;lt;p&amp;gt;Java class for WOZ-antwoord complex type.
+ * &lt;p&gt;Java class for WOZ-antwoord complex type.
  * 
- * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+ * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
  * 
- * &amp;lt;pre&amp;gt;
- * &amp;amp;lt;complexType name=&quot;WOZ-antwoord&quot;&amp;amp;gt;
- *   &amp;amp;lt;complexContent&amp;amp;gt;
- *     &amp;amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}WOZ-fund&quot;&amp;amp;gt;
- *       &amp;amp;lt;sequence&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;WOZ&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}WOZ-fund&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;WOZADRHFD&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}ADR-relFund&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;WOZADRNVN&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}ADR-relFund&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;WOZKDO&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
- *           &amp;amp;lt;complexType&amp;amp;gt;
- *             &amp;amp;lt;complexContent&amp;amp;gt;
- *               &amp;amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}Relatie&quot;&amp;amp;gt;
- *                 &amp;amp;lt;sequence&amp;amp;gt;
- *                   &amp;amp;lt;element name=&quot;KDO&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}KDO-kennisgeving&quot;/&amp;amp;gt;
- *                 &amp;amp;lt;/sequence&amp;amp;gt;
- *               &amp;amp;lt;/extension&amp;amp;gt;
- *             &amp;amp;lt;/complexContent&amp;amp;gt;
- *           &amp;amp;lt;/complexType&amp;amp;gt;
- *         &amp;amp;lt;/element&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;WOZOBW&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
- *           &amp;amp;lt;complexType&amp;amp;gt;
- *             &amp;amp;lt;complexContent&amp;amp;gt;
- *               &amp;amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}Relatie&quot;&amp;amp;gt;
- *                 &amp;amp;lt;sequence&amp;amp;gt;
- *                   &amp;amp;lt;element name=&quot;OBW&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}OBW-kennisgeving&quot;/&amp;amp;gt;
- *                 &amp;amp;lt;/sequence&amp;amp;gt;
- *               &amp;amp;lt;/extension&amp;amp;gt;
- *             &amp;amp;lt;/complexContent&amp;amp;gt;
- *           &amp;amp;lt;/complexType&amp;amp;gt;
- *         &amp;amp;lt;/element&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;WOZSUBEIG&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
- *           &amp;amp;lt;complexType&amp;amp;gt;
- *             &amp;amp;lt;complexContent&amp;amp;gt;
- *               &amp;amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}Relatie&quot;&amp;amp;gt;
- *                 &amp;amp;lt;choice&amp;amp;gt;
- *                   &amp;amp;lt;element name=&quot;NNP&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}NNP-kerngegevens&quot;/&amp;amp;gt;
- *                   &amp;amp;lt;element name=&quot;PRS&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}PRS-kerngegevens&quot;/&amp;amp;gt;
- *                 &amp;amp;lt;/choice&amp;amp;gt;
- *               &amp;amp;lt;/extension&amp;amp;gt;
- *             &amp;amp;lt;/complexContent&amp;amp;gt;
- *           &amp;amp;lt;/complexType&amp;amp;gt;
- *         &amp;amp;lt;/element&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;WOZSUBGBR&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
- *           &amp;amp;lt;complexType&amp;amp;gt;
- *             &amp;amp;lt;complexContent&amp;amp;gt;
- *               &amp;amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}Relatie&quot;&amp;amp;gt;
- *                 &amp;amp;lt;choice&amp;amp;gt;
- *                   &amp;amp;lt;element name=&quot;NNP&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}NNP-kerngegevens&quot;/&amp;amp;gt;
- *                   &amp;amp;lt;element name=&quot;PRS&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}PRS-kerngegevens&quot;/&amp;amp;gt;
- *                 &amp;amp;lt;/choice&amp;amp;gt;
- *               &amp;amp;lt;/extension&amp;amp;gt;
- *             &amp;amp;lt;/complexContent&amp;amp;gt;
- *           &amp;amp;lt;/complexType&amp;amp;gt;
- *         &amp;amp;lt;/element&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;WOZVBO&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;&amp;amp;gt;
- *           &amp;amp;lt;complexType&amp;amp;gt;
- *             &amp;amp;lt;complexContent&amp;amp;gt;
- *               &amp;amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}Relatie&quot;&amp;amp;gt;
- *                 &amp;amp;lt;sequence&amp;amp;gt;
- *                   &amp;amp;lt;element name=&quot;VBO&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}VBO-kennisgeving&quot;/&amp;amp;gt;
- *                 &amp;amp;lt;/sequence&amp;amp;gt;
- *               &amp;amp;lt;/extension&amp;amp;gt;
- *             &amp;amp;lt;/complexContent&amp;amp;gt;
- *           &amp;amp;lt;/complexType&amp;amp;gt;
- *         &amp;amp;lt;/element&amp;amp;gt;
- *       &amp;amp;lt;/sequence&amp;amp;gt;
- *     &amp;amp;lt;/extension&amp;amp;gt;
- *   &amp;amp;lt;/complexContent&amp;amp;gt;
- * &amp;amp;lt;/complexType&amp;amp;gt;
- * &amp;lt;/pre&amp;gt;
+ * &lt;pre&gt;
+ * &amp;lt;complexType name=&quot;WOZ-antwoord&quot;&amp;gt;
+ *   &amp;lt;complexContent&amp;gt;
+ *     &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}WOZ-fund&quot;&amp;gt;
+ *       &amp;lt;sequence&amp;gt;
+ *         &amp;lt;element name=&quot;WOZ&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}WOZ-fund&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;WOZADRHFD&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}ADR-relFund&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;WOZADRNVN&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}ADR-relFund&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;WOZKDO&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;complexContent&amp;gt;
+ *               &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}Relatie&quot;&amp;gt;
+ *                 &amp;lt;sequence&amp;gt;
+ *                   &amp;lt;element name=&quot;KDO&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}KDO-kennisgeving&quot;/&amp;gt;
+ *                 &amp;lt;/sequence&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/complexContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;WOZOBW&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;complexContent&amp;gt;
+ *               &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}Relatie&quot;&amp;gt;
+ *                 &amp;lt;sequence&amp;gt;
+ *                   &amp;lt;element name=&quot;OBW&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}OBW-kennisgeving&quot;/&amp;gt;
+ *                 &amp;lt;/sequence&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/complexContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;WOZSUBEIG&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;complexContent&amp;gt;
+ *               &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}Relatie&quot;&amp;gt;
+ *                 &amp;lt;choice&amp;gt;
+ *                   &amp;lt;element name=&quot;NNP&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}NNP-kerngegevens&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;PRS&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}PRS-kerngegevens&quot;/&amp;gt;
+ *                 &amp;lt;/choice&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/complexContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;WOZSUBGBR&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;complexContent&amp;gt;
+ *               &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}Relatie&quot;&amp;gt;
+ *                 &amp;lt;choice&amp;gt;
+ *                   &amp;lt;element name=&quot;NNP&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}NNP-kerngegevens&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;PRS&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}PRS-kerngegevens&quot;/&amp;gt;
+ *                 &amp;lt;/choice&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/complexContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;WOZVBO&quot; maxOccurs=&quot;unbounded&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;complexContent&amp;gt;
+ *               &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}Relatie&quot;&amp;gt;
+ *                 &amp;lt;sequence&amp;gt;
+ *                   &amp;lt;element name=&quot;VBO&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}VBO-kennisgeving&quot;/&amp;gt;
+ *                 &amp;lt;/sequence&amp;gt;
+ *               &amp;lt;/extension&amp;gt;
+ *             &amp;lt;/complexContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *       &amp;lt;/sequence&amp;gt;
+ *     &amp;lt;/extension&amp;gt;
+ *   &amp;lt;/complexContent&amp;gt;
+ * &amp;lt;/complexType&amp;gt;
+ * &lt;/pre&gt;
  * 
  * 
  */
@@ -126,20 +126,20 @@ import javax.xml.bind.annotation.XmlType;
     /**
      * Gets the value of the woz property.
      * 
-     * &amp;lt;p&amp;gt;
+     * &lt;p&gt;
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a &amp;lt;CODE&amp;gt;set&amp;lt;/CODE&amp;gt; method for the woz property.
+     * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the woz property.
      * 
-     * &amp;lt;p&amp;gt;
+     * &lt;p&gt;
      * For example, to add a new item, do as follows:
-     * &amp;lt;pre&amp;gt;
+     * &lt;pre&gt;
      *    getWOZ().add(newItem);
-     * &amp;lt;/pre&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
-     * &amp;lt;p&amp;gt;
+     * &lt;p&gt;
      * Objects of the following type(s) are allowed in the list
      * {@link WOZFund }
      * 
@@ -155,20 +155,20 @@ import javax.xml.bind.annotation.XmlType;
     /**
      * Gets the value of the wozadrhfd property.
      * 
-     * &amp;lt;p&amp;gt;
+     * &lt;p&gt;
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a &amp;lt;CODE&amp;gt;set&amp;lt;/CODE&amp;gt; method for the wozadrhfd property.
+     * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the wozadrhfd property.
      * 
-     * &amp;lt;p&amp;gt;
+     * &lt;p&gt;
      * For example, to add a new item, do as follows:
-     * &amp;lt;pre&amp;gt;
+     * &lt;pre&gt;
      *    getWOZADRHFD().add(newItem);
-     * &amp;lt;/pre&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
-     * &amp;lt;p&amp;gt;
+     * &lt;p&gt;
      * Objects of the following type(s) are allowed in the list
      * {@link ADRRelFund }
      * 
@@ -184,20 +184,20 @@ import javax.xml.bind.annotation.XmlType;
     /**
      * Gets the value of the wozadrnvn property.
      * 
-     * &amp;lt;p&amp;gt;
+     * &lt;p&gt;
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a &amp;lt;CODE&amp;gt;set&amp;lt;/CODE&amp;gt; method for the wozadrnvn property.
+     * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the wozadrnvn property.
      * 
-     * &amp;lt;p&amp;gt;
+     * &lt;p&gt;
      * For example, to add a new item, do as follows:
-     * &amp;lt;pre&amp;gt;
+     * &lt;pre&gt;
      *    getWOZADRNVN().add(newItem);
-     * &amp;lt;/pre&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
-     * &amp;lt;p&amp;gt;
+     * &lt;p&gt;
      * Objects of the following type(s) are allowed in the list
      * {@link ADRRelFund }
      * 
@@ -213,20 +213,20 @@ import javax.xml.bind.annotation.XmlType;
     /**
      * Gets the value of the wozkdo property.
      * 
-     * &amp;lt;p&amp;gt;
+     * &lt;p&gt;
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a &amp;lt;CODE&amp;gt;set&amp;lt;/CODE&amp;gt; method for the wozkdo property.
+     * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the wozkdo property.
      * 
-     * &amp;lt;p&amp;gt;
+     * &lt;p&gt;
      * For example, to add a new item, do as follows:
-     * &amp;lt;pre&amp;gt;
+     * &lt;pre&gt;
      *    getWOZKDO().add(newItem);
-     * &amp;lt;/pre&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
-     * &amp;lt;p&amp;gt;
+     * &lt;p&gt;
      * Objects of the following type(s) are allowed in the list
      * {@link WOZAntwoord.WOZKDO }
      * 
@@ -242,20 +242,20 @@ import javax.xml.bind.annotation.XmlType;
     /**
      * Gets the value of the wozobw property.
      * 
-     * &amp;lt;p&amp;gt;
+     * &lt;p&gt;
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a &amp;lt;CODE&amp;gt;set&amp;lt;/CODE&amp;gt; method for the wozobw property.
+     * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the wozobw property.
      * 
-     * &amp;lt;p&amp;gt;
+     * &lt;p&gt;
      * For example, to add a new item, do as follows:
-     * &amp;lt;pre&amp;gt;
+     * &lt;pre&gt;
      *    getWOZOBW().add(newItem);
-     * &amp;lt;/pre&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
-     * &amp;lt;p&amp;gt;
+     * &lt;p&gt;
      * Objects of the following type(s) are allowed in the list
      * {@link WOZAntwoord.WOZOBW }
      * 
@@ -271,20 +271,20 @@ import javax.xml.bind.annotation.XmlType;
     /**
      * Gets the value of the wozsubeig property.
      * 
-     * &amp;lt;p&amp;gt;
+     * &lt;p&gt;
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a &amp;lt;CODE&amp;gt;set&amp;lt;/CODE&amp;gt; method for the wozsubeig property.
+     * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the wozsubeig property.
      * 
-     * &amp;lt;p&amp;gt;
+     * &lt;p&gt;
      * For example, to add a new item, do as follows:
-     * &amp;lt;pre&amp;gt;
+     * &lt;pre&gt;
      *    getWOZSUBEIG().add(newItem);
-     * &amp;lt;/pre&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
-     * &amp;lt;p&amp;gt;
+     * &lt;p&gt;
      * Objects of the following type(s) are allowed in the list
      * {@link WOZAntwoord.WOZSUBEIG }
      * 
@@ -300,20 +300,20 @@ import javax.xml.bind.annotation.XmlType;
     /**
      * Gets the value of the wozsubgbr property.
      * 
-     * &amp;lt;p&amp;gt;
+     * &lt;p&gt;
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a &amp;lt;CODE&amp;gt;set&amp;lt;/CODE&amp;gt; method for the wozsubgbr property.
+     * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the wozsubgbr property.
      * 
-     * &amp;lt;p&amp;gt;
+     * &lt;p&gt;
      * For example, to add a new item, do as follows:
-     * &amp;lt;pre&amp;gt;
+     * &lt;pre&gt;
      *    getWOZSUBGBR().add(newItem);
-     * &amp;lt;/pre&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
-     * &amp;lt;p&amp;gt;
+     * &lt;p&gt;
      * Objects of the following type(s) are allowed in the list
      * {@link WOZAntwoord.WOZSUBGBR }
      * 
@@ -329,20 +329,20 @@ import javax.xml.bind.annotation.XmlType;
     /**
      * Gets the value of the wozvbo property.
      * 
-     * &amp;lt;p&amp;gt;
+     * &lt;p&gt;
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a &amp;lt;CODE&amp;gt;set&amp;lt;/CODE&amp;gt; method for the wozvbo property.
+     * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the wozvbo property.
      * 
-     * &amp;lt;p&amp;gt;
+     * &lt;p&gt;
      * For example, to add a new item, do as follows:
-     * &amp;lt;pre&amp;gt;
+     * &lt;pre&gt;
      *    getWOZVBO().add(newItem);
-     * &amp;lt;/pre&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
-     * &amp;lt;p&amp;gt;
+     * &lt;p&gt;
      * Objects of the following type(s) are allowed in the list
      * {@link WOZAntwoord.WOZVBO }
      * 
@@ -357,21 +357,21 @@ import javax.xml.bind.annotation.XmlType;
 
 
     /**
-     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
+     * &lt;p&gt;Java class for anonymous complex type.
      * 
-     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &amp;lt;pre&amp;gt;
-     * &amp;amp;lt;complexType&amp;amp;gt;
-     *   &amp;amp;lt;complexContent&amp;amp;gt;
-     *     &amp;amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}Relatie&quot;&amp;amp;gt;
-     *       &amp;amp;lt;sequence&amp;amp;gt;
-     *         &amp;amp;lt;element name=&quot;KDO&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}KDO-kennisgeving&quot;/&amp;amp;gt;
-     *       &amp;amp;lt;/sequence&amp;amp;gt;
-     *     &amp;amp;lt;/extension&amp;amp;gt;
-     *   &amp;amp;lt;/complexContent&amp;amp;gt;
-     * &amp;amp;lt;/complexType&amp;amp;gt;
-     * &amp;lt;/pre&amp;gt;
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;complexContent&amp;gt;
+     *     &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}Relatie&quot;&amp;gt;
+     *       &amp;lt;sequence&amp;gt;
+     *         &amp;lt;element name=&quot;KDO&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}KDO-kennisgeving&quot;/&amp;gt;
+     *       &amp;lt;/sequence&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/complexContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
      */
@@ -414,21 +414,21 @@ import javax.xml.bind.annotation.XmlType;
 
 
     /**
-     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
+     * &lt;p&gt;Java class for anonymous complex type.
      * 
-     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &amp;lt;pre&amp;gt;
-     * &amp;amp;lt;complexType&amp;amp;gt;
-     *   &amp;amp;lt;complexContent&amp;amp;gt;
-     *     &amp;amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}Relatie&quot;&amp;amp;gt;
-     *       &amp;amp;lt;sequence&amp;amp;gt;
-     *         &amp;amp;lt;element name=&quot;OBW&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}OBW-kennisgeving&quot;/&amp;amp;gt;
-     *       &amp;amp;lt;/sequence&amp;amp;gt;
-     *     &amp;amp;lt;/extension&amp;amp;gt;
-     *   &amp;amp;lt;/complexContent&amp;amp;gt;
-     * &amp;amp;lt;/complexType&amp;amp;gt;
-     * &amp;lt;/pre&amp;gt;
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;complexContent&amp;gt;
+     *     &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}Relatie&quot;&amp;gt;
+     *       &amp;lt;sequence&amp;gt;
+     *         &amp;lt;element name=&quot;OBW&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}OBW-kennisgeving&quot;/&amp;gt;
+     *       &amp;lt;/sequence&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/complexContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
      */
@@ -471,22 +471,22 @@ import javax.xml.bind.annotation.XmlType;
 
 
     /**
-     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
+     * &lt;p&gt;Java class for anonymous complex type.
      * 
-     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &amp;lt;pre&amp;gt;
-     * &amp;amp;lt;complexType&amp;amp;gt;
-     *   &amp;amp;lt;complexContent&amp;amp;gt;
-     *     &amp;amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}Relatie&quot;&amp;amp;gt;
-     *       &amp;amp;lt;choice&amp;amp;gt;
-     *         &amp;amp;lt;element name=&quot;NNP&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}NNP-kerngegevens&quot;/&amp;amp;gt;
-     *         &amp;amp;lt;element name=&quot;PRS&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}PRS-kerngegevens&quot;/&amp;amp;gt;
-     *       &amp;amp;lt;/choice&amp;amp;gt;
-     *     &amp;amp;lt;/extension&amp;amp;gt;
-     *   &amp;amp;lt;/complexContent&amp;amp;gt;
-     * &amp;amp;lt;/complexType&amp;amp;gt;
-     * &amp;lt;/pre&amp;gt;
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;complexContent&amp;gt;
+     *     &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}Relatie&quot;&amp;gt;
+     *       &amp;lt;choice&amp;gt;
+     *         &amp;lt;element name=&quot;NNP&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}NNP-kerngegevens&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;PRS&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}PRS-kerngegevens&quot;/&amp;gt;
+     *       &amp;lt;/choice&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/complexContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
      */
@@ -556,22 +556,22 @@ import javax.xml.bind.annotation.XmlType;
 
 
     /**
-     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
+     * &lt;p&gt;Java class for anonymous complex type.
      * 
-     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &amp;lt;pre&amp;gt;
-     * &amp;amp;lt;complexType&amp;amp;gt;
-     *   &amp;amp;lt;complexContent&amp;amp;gt;
-     *     &amp;amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}Relatie&quot;&amp;amp;gt;
-     *       &amp;amp;lt;choice&amp;amp;gt;
-     *         &amp;amp;lt;element name=&quot;NNP&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}NNP-kerngegevens&quot;/&amp;amp;gt;
-     *         &amp;amp;lt;element name=&quot;PRS&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}PRS-kerngegevens&quot;/&amp;amp;gt;
-     *       &amp;amp;lt;/choice&amp;amp;gt;
-     *     &amp;amp;lt;/extension&amp;amp;gt;
-     *   &amp;amp;lt;/complexContent&amp;amp;gt;
-     * &amp;amp;lt;/complexType&amp;amp;gt;
-     * &amp;lt;/pre&amp;gt;
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;complexContent&amp;gt;
+     *     &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}Relatie&quot;&amp;gt;
+     *       &amp;lt;choice&amp;gt;
+     *         &amp;lt;element name=&quot;NNP&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}NNP-kerngegevens&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;PRS&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}PRS-kerngegevens&quot;/&amp;gt;
+     *       &amp;lt;/choice&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/complexContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
      */
@@ -641,21 +641,21 @@ import javax.xml.bind.annotation.XmlType;
 
 
     /**
-     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
+     * &lt;p&gt;Java class for anonymous complex type.
      * 
-     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &amp;lt;pre&amp;gt;
-     * &amp;amp;lt;complexType&amp;amp;gt;
-     *   &amp;amp;lt;complexContent&amp;amp;gt;
-     *     &amp;amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}Relatie&quot;&amp;amp;gt;
-     *       &amp;amp;lt;sequence&amp;amp;gt;
-     *         &amp;amp;lt;element name=&quot;VBO&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}VBO-kennisgeving&quot;/&amp;amp;gt;
-     *       &amp;amp;lt;/sequence&amp;amp;gt;
-     *     &amp;amp;lt;/extension&amp;amp;gt;
-     *   &amp;amp;lt;/complexContent&amp;amp;gt;
-     * &amp;amp;lt;/complexType&amp;amp;gt;
-     * &amp;lt;/pre&amp;gt;
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;complexContent&amp;gt;
+     *     &amp;lt;extension base=&quot;{http://www.egem.nl/StUF/sector/bg/0204}Relatie&quot;&amp;gt;
+     *       &amp;lt;sequence&amp;gt;
+     *         &amp;lt;element name=&quot;VBO&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}VBO-kennisgeving&quot;/&amp;gt;
+     *       &amp;lt;/sequence&amp;gt;
+     *     &amp;lt;/extension&amp;gt;
+     *   &amp;lt;/complexContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
      */

@@ -138,12 +138,12 @@ import static org.apache.commons.io.FileUtils.byteCountToDisplaySize;
 <span class="nc bnc" id="L138" title="All 2 branches missed.">            } else if (file.matches(&quot;.*\\.[xg]ml&quot;)) {</span>
 <span class="nc" id="L139">                loadXml(new File(file), writer);</span>
             } else {
-<span class="nc" id="L141">                System.err.println(getMessageFormattedString(&quot;load.invalid_extension&quot;, file));</span>
+<span class="nc" id="L141">                log.error(getMessageFormattedString(&quot;load.invalid_extension&quot;, file));</span>
 <span class="nc" id="L142">                return ExitCode.USAGE;</span>
             }
 
 <span class="nc bnc" id="L145" title="All 2 branches missed.">            if (writer.getProgress() == null) {</span>
-<span class="nc" id="L146">                System.err.println(getBundleString(&quot;error.no_feature_types&quot;));</span>
+<span class="nc" id="L146">                log.error(getBundleString(&quot;error.no_feature_types&quot;));</span>
 <span class="nc" id="L147">                return ExitCode.SOFTWARE;</span>
             }
 <span class="nc" id="L149">            db.setMetadataValue(Metadata.LOADER_VERSION, getLoaderVersion());</span>
@@ -224,7 +224,7 @@ import static org.apache.commons.io.FileUtils.byteCountToDisplaySize;
                         &quot;UTF8&quot;,
                         false,
                         true
-                );
+                )
         ) {
 <span class="nc bnc" id="L229" title="All 2 branches missed.">            if (debugHttpSeeks) {</span>
 <span class="nc" id="L230">                System.out.println();</span>
@@ -259,7 +259,7 @@ import static org.apache.commons.io.FileUtils.byteCountToDisplaySize;
 
 <span class="nc bnc" id="L260" title="All 2 branches missed.">            if (selected.size() &gt; 1) {</span>
                 // Only report total percentage when more than one entry
-<span class="nc" id="L262">                Long totalSize = selected.stream().map(ZipArchiveEntry::getSize).reduce(0L, Long::sum);</span>
+<span class="nc" id="L262">                long totalSize = selected.stream().map(ZipArchiveEntry::getSize).reduce(0L, Long::sum);</span>
 <span class="nc" id="L263">                Long totalCompressedSize = selected.stream().map(ZipArchiveEntry::getCompressedSize).reduce(0L, Long::sum);</span>
 <span class="nc" id="L264">                progressReporter.setTotalBytes(totalSize);</span>
 <span class="nc bnc" id="L265" title="All 2 branches missed.">                if (showSelected) {</span>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>LoadOptions.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO BAG 2.0 loader</a> &gt; <a href="../index.html" class="el_bundle">bgt-loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.bgt.loader.cli</a> &gt; <span class="el_source">LoadOptions.java</span></div><h1>LoadOptions.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2021 B3Partners B.V.
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+package nl.b3p.brmo.bgt.loader.cli;
+
+import picocli.CommandLine.Option;
+
+<span class="nc" id="L11">public class LoadOptions {</span>
+<span class="nc" id="L12">    @Option(names={&quot;--no-create-schema&quot;}, negatable = true)</span>
+    boolean createSchema = true;
+
+    @Option(names={&quot;--drop-if-exists&quot;}, negatable = true)
+    boolean dropIfExists;
+
+<span class="nc" id="L18">    @Option(names={&quot;--include-history&quot;})</span>
+    boolean includeHistory = false;
+
+<span class="nc" id="L21">    @Option(names=&quot;--table-prefix&quot;, defaultValue = &quot;&quot;, hidden = true)</span>
+    String tablePrefix = &quot;&quot;;
+
+    @Option(names=&quot;--max-objects&quot;, paramLabel= &quot;&lt;number&gt;&quot;, hidden = true)
+    Integer maxObjects;
+
+<span class="nc" id="L27">    @Option(names={&quot;--linearize-curves&quot;})</span>
+    boolean linearizeCurves = false;
+
+<span class="nc" id="L30">    @Option(names={&quot;--no-multithreading&quot;}, negatable = true, hidden = true)</span>
+    boolean multithreading = true;
+
+<span class="nc" id="L33">    @Option(names=&quot;--no-http-zip-random-access&quot;, negatable = true, hidden = true)</span>
+    boolean httpZipRandomAccess = true;
+
+<span class="nc" id="L36">    @Option(names=&quot;--debug-http-seeks&quot;, hidden = true)</span>
+    boolean debugHttpSeeks = false;
+
+    public boolean isCreateSchema() {
+<span class="nc" id="L40">        return createSchema;</span>
+    }
+
+    public void setCreateSchema(boolean createSchema) {
+<span class="nc" id="L44">        this.createSchema = createSchema;</span>
+<span class="nc" id="L45">    }</span>
+
+    public boolean isDropIfExists() {
+<span class="nc" id="L48">        return dropIfExists;</span>
+    }
+
+    public void setDropIfExists(boolean dropIfExists) {
+<span class="nc" id="L52">        this.dropIfExists = dropIfExists;</span>
+<span class="nc" id="L53">    }</span>
+
+    public boolean isIncludeHistory() {
+<span class="nc" id="L56">        return includeHistory;</span>
+    }
+
+    public void setIncludeHistory(boolean includeHistory) {
+<span class="nc" id="L60">        this.includeHistory = includeHistory;</span>
+<span class="nc" id="L61">    }</span>
+
+    public String getTablePrefix() {
+<span class="nc" id="L64">        return tablePrefix;</span>
+    }
+
+    public void setTablePrefix(String tablePrefix) {
+<span class="nc" id="L68">        this.tablePrefix = tablePrefix;</span>
+<span class="nc" id="L69">    }</span>
+
+    public Integer getMaxObjects() {
+<span class="nc" id="L72">        return maxObjects;</span>
+    }
+
+    public void setMaxObjects(Integer maxObjects) {
+<span class="nc" id="L76">        this.maxObjects = maxObjects;</span>
+<span class="nc" id="L77">    }</span>
+
+    public boolean isLinearizeCurves() {
+<span class="nc" id="L80">        return linearizeCurves;</span>
+    }
+
+    public void setLinearizeCurves(boolean linearizeCurves) {
+<span class="nc" id="L84">        this.linearizeCurves = linearizeCurves;</span>
+<span class="nc" id="L85">    }</span>
+
+    public boolean isMultithreading() {
+<span class="nc" id="L88">        return multithreading;</span>
+    }
+
+    public void setMultithreading(boolean multithreading) {
+<span class="nc" id="L92">        this.multithreading = multithreading;</span>
+<span class="nc" id="L93">    }</span>
+
+    public boolean isHttpZipRandomAccess() {
+<span class="nc" id="L96">        return httpZipRandomAccess;</span>
+    }
+
+    public void setHttpZipRandomAccess(boolean httpZipRandomAccess) {
+<span class="nc" id="L100">        this.httpZipRandomAccess = httpZipRandomAccess;</span>
+<span class="nc" id="L101">    }</span>
+
+    public boolean isDebugHttpSeeks() {
+<span class="nc" id="L104">        return debugHttpSeeks;</span>
+    }
+
+    public void setDebugHttpSeeks(boolean debugHttpSeeks) {
+<span class="nc" id="L108">        this.debugHttpSeeks = debugHttpSeeks;</span>
+<span class="nc" id="L109">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

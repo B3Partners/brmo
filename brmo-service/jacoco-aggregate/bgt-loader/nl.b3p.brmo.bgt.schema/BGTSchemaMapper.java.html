@@ -55,54 +55,53 @@ public class BGTSchemaMapper extends SchemaSQLMapper {
             {&quot;TrafficArea&quot;, &quot;wegdeel&quot;}
 <span class="nc" id="L56">    }).collect(Collectors.toMap(e -&gt; e[0], e -&gt; e[1]));</span>
 
-
     public BGTSchemaMapper() {
-<span class="nc" id="L60">        super(BGTSchema.getInstance());</span>
-<span class="nc" id="L61">        bgtObjectTypeTableNames.forEach((typeName, table) -&gt; objectTypeNameToTableName.put(typeName, table));</span>
-<span class="nc" id="L62">    }</span>
+<span class="nc" id="L59">        super(BGTSchema.getInstance());</span>
+<span class="nc" id="L60">        objectTypeNameToTableName.putAll(bgtObjectTypeTableNames);</span>
+<span class="nc" id="L61">    }</span>
 
     public static BGTSchemaMapper getInstance() {
-<span class="nc bnc" id="L65" title="All 2 branches missed.">        if (instance == null) {</span>
-<span class="nc" id="L66">            instance = new BGTSchemaMapper();</span>
+<span class="nc bnc" id="L64" title="All 2 branches missed.">        if (instance == null) {</span>
+<span class="nc" id="L65">            instance = new BGTSchemaMapper();</span>
         }
-<span class="nc" id="L68">        return instance;</span>
+<span class="nc" id="L67">        return instance;</span>
     }
 
     @Override
     public String getMetadataTableName() {
-<span class="nc" id="L73">        return METADATA_TABLE_NAME;</span>
+<span class="nc" id="L72">        return METADATA_TABLE_NAME;</span>
     }
 
     public String getColumnNameForObjectType(ObjectType objectType, String attributeName) {
-<span class="nc bnc" id="L77" title="All 2 branches missed.">        if (attributeName.startsWith(&quot;geometrie&quot;)) {</span>
-<span class="nc" id="L78">            return &quot;geom&quot;;</span>
+<span class="nc bnc" id="L76" title="All 2 branches missed.">        if (attributeName.startsWith(&quot;geometrie&quot;)) {</span>
+<span class="nc" id="L77">            return &quot;geom&quot;;</span>
         }
-<span class="nc bnc" id="L80" title="All 2 branches missed.">        if (attributeName.startsWith(&quot;kruinlijn&quot;)) {</span>
-<span class="nc" id="L81">            return &quot;geom_kruinlijn&quot;;</span>
+<span class="nc bnc" id="L79" title="All 2 branches missed.">        if (attributeName.startsWith(&quot;kruinlijn&quot;)) {</span>
+<span class="nc" id="L80">            return &quot;geom_kruinlijn&quot;;</span>
         }
 
-<span class="nc" id="L84">        return super.getColumnNameForObjectType(objectType, attributeName);</span>
+<span class="nc" id="L83">        return super.getColumnNameForObjectType(objectType, attributeName);</span>
     }
 
-    public List&lt;String&gt; getCreateMetadataTableStatements(SQLDialect dialect, String tablePrefix) {
-<span class="nc" id="L88">       List&lt;String&gt; statements = super.getCreateMetadataTableStatements(dialect, tablePrefix);</span>
+    public List&lt;String&gt; getCreateMetadataTableStatements(SQLDialect dialect, String tablePrefix, boolean dropIfExists) {
+<span class="nc" id="L87">       List&lt;String&gt; statements = super.getCreateMetadataTableStatements(dialect, tablePrefix, dropIfExists);</span>
 
-<span class="nc" id="L90">        Map&lt;BGTSchemaMapper.Metadata, String&gt; defaultMetadata = Stream.of(new Object[][]{</span>
+<span class="nc" id="L89">        Map&lt;BGTSchemaMapper.Metadata, String&gt; defaultMetadata = Stream.of(new Object[][]{</span>
                 {BGTSchemaMapper.Metadata.SCHEMA_VERSION, SCHEMA_VERSION_VALUE},
-<span class="nc" id="L92">                {BGTSchemaMapper.Metadata.LOADER_VERSION, Utils.getLoaderVersion()},</span>
-<span class="nc" id="L93">                {BGTSchemaMapper.Metadata.BRMOVERSIE, Utils.getBrmoVersion()},</span>
+<span class="nc" id="L91">                {BGTSchemaMapper.Metadata.LOADER_VERSION, Utils.getLoaderVersion()},</span>
+<span class="nc" id="L92">                {BGTSchemaMapper.Metadata.BRMOVERSIE, Utils.getBrmoVersion()},</span>
                 {BGTSchemaMapper.Metadata.TABLE_PREFIX, tablePrefix},
-<span class="nc" id="L95">        }).collect(Collectors.toMap(entry -&gt; (BGTSchemaMapper.Metadata) entry[0], entry -&gt; (String) entry[1]));</span>
+<span class="nc" id="L94">        }).collect(Collectors.toMap(entry -&gt; (BGTSchemaMapper.Metadata) entry[0], entry -&gt; (String) entry[1]));</span>
 
-<span class="nc" id="L97">        Stream.of(BGTSchemaMapper.Metadata.values()).forEach(metadata -&gt; {</span>
-<span class="nc" id="L98">            String value = defaultMetadata.get(metadata);</span>
-<span class="nc" id="L99">            statements.add(String.format(&quot;insert into %s (naam, waarde) values ('%s', %s)&quot;,</span>
-<span class="nc" id="L100">                    getMetadataTableName(),</span>
-<span class="nc" id="L101">                    metadata.getDbKey(),</span>
-<span class="nc bnc" id="L102" title="All 2 branches missed.">                    value == null ? &quot;null&quot; : &quot;'&quot; + value + &quot;'&quot;));</span>
-<span class="nc" id="L103">        });</span>
+<span class="nc" id="L96">        Stream.of(BGTSchemaMapper.Metadata.values()).forEach(metadata -&gt; {</span>
+<span class="nc" id="L97">            String value = defaultMetadata.get(metadata);</span>
+<span class="nc" id="L98">            statements.add(String.format(&quot;insert into %s (naam, waarde) values ('%s', %s)&quot;,</span>
+<span class="nc" id="L99">                    getMetadataTableName(),</span>
+<span class="nc" id="L100">                    metadata.getDbKey(),</span>
+<span class="nc bnc" id="L101" title="All 2 branches missed.">                    value == null ? &quot;null&quot; : &quot;'&quot; + value + &quot;'&quot;));</span>
+<span class="nc" id="L102">        });</span>
 
-<span class="nc" id="L105">        return statements;</span>
+<span class="nc" id="L104">        return statements;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

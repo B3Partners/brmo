@@ -108,5 +108,11 @@ import java.sql.Types;
     public int getDefaultOptimalBatchSize() {
 <span class="nc" id="L109">        return 250;</span>
     }
+
+    @Override
+    public boolean supportsDropTableIfExists() {
+        // MSSQL does support &quot;drop table if exists&quot;, but not with &quot;cascade&quot; added
+<span class="nc" id="L115">        return false;</span>
+    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

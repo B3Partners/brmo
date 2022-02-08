@@ -131,23 +131,23 @@
 <a class="jxr_linenumber" name="L123" href="#L123">123</a>             archiefDirectory = <strong class="jxr_keyword">new</strong> File(aDir);
 <a class="jxr_linenumber" name="L124" href="#L124">124</a>             archiefDirectory.mkdirs();
 <a class="jxr_linenumber" name="L125" href="#L125">125</a>             <strong class="jxr_keyword">if</strong> (!archiefDirectory.isDirectory() || !archiefDirectory.canWrite()) {
-<a class="jxr_linenumber" name="L126" href="#L126">126</a>                 archiefDirectory = <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L127" href="#L127">127</a>                 config.setStatus(ERROR);
-<a class="jxr_linenumber" name="L128" href="#L128">128</a>                 msg = String.format(<span class="jxr_string">"De archief directory '%s' is geen beschrijfbare directory, er worden geen bestanden gearchiveerd."</span>,
-<a class="jxr_linenumber" name="L129" href="#L129">129</a>                         archiefDirectory);
-<a class="jxr_linenumber" name="L130" href="#L130">130</a>                 sb.append(msg);
-<a class="jxr_linenumber" name="L131" href="#L131">131</a>                 config.setSamenvatting(<span class="jxr_string">"Er is een fout opgetreden, details staan in de logs"</span>);
-<a class="jxr_linenumber" name="L132" href="#L132">132</a>                 log.error(msg);
+<a class="jxr_linenumber" name="L126" href="#L126">126</a>                 config.setStatus(ERROR);
+<a class="jxr_linenumber" name="L127" href="#L127">127</a>                 msg = String.format(<span class="jxr_string">"De archief directory '%s' is geen beschrijfbare directory, er worden geen bestanden gearchiveerd."</span>,
+<a class="jxr_linenumber" name="L128" href="#L128">128</a>                         archiefDirectory);
+<a class="jxr_linenumber" name="L129" href="#L129">129</a>                 sb.append(msg);
+<a class="jxr_linenumber" name="L130" href="#L130">130</a>                 config.setSamenvatting(<span class="jxr_string">"Er is een fout opgetreden, details staan in de logs"</span>);
+<a class="jxr_linenumber" name="L131" href="#L131">131</a>                 log.error(msg);
+<a class="jxr_linenumber" name="L132" href="#L132">132</a>                 archiefDirectory = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L133" href="#L133">133</a>                 <strong class="jxr_keyword">this</strong>.listener.exception(<strong class="jxr_keyword">new</strong> <a name="BrmoException" href="../../../../../nl/b3p/brmo/loader/util/BrmoException.html#BrmoException">BrmoException</a>(msg));
 <a class="jxr_linenumber" name="L134" href="#L134">134</a>             }
 <a class="jxr_linenumber" name="L135" href="#L135">135</a>             <strong class="jxr_keyword">if</strong> (!scanDirectory.canWrite()) {
-<a class="jxr_linenumber" name="L136" href="#L136">136</a>                 archiefDirectory = <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L137" href="#L137">137</a>                 config.setStatus(ERROR);
-<a class="jxr_linenumber" name="L138" href="#L138">138</a>                 msg = String.format(<span class="jxr_string">"De scan directory '%s' is geen beschrijfbare directory, er worden geen bestanden gearchiveerd."</span>,
-<a class="jxr_linenumber" name="L139" href="#L139">139</a>                         scanDirectory);
-<a class="jxr_linenumber" name="L140" href="#L140">140</a>                 sb.append(msg);
-<a class="jxr_linenumber" name="L141" href="#L141">141</a>                 config.setSamenvatting(<span class="jxr_string">"Er is een fout opgetreden, details staan in de logs"</span>);
-<a class="jxr_linenumber" name="L142" href="#L142">142</a>                 log.error(msg);
+<a class="jxr_linenumber" name="L136" href="#L136">136</a>                 config.setStatus(ERROR);
+<a class="jxr_linenumber" name="L137" href="#L137">137</a>                 msg = String.format(<span class="jxr_string">"De scan directory '%s' is geen beschrijfbare directory, er worden geen bestanden gearchiveerd."</span>,
+<a class="jxr_linenumber" name="L138" href="#L138">138</a>                         scanDirectory);
+<a class="jxr_linenumber" name="L139" href="#L139">139</a>                 sb.append(msg);
+<a class="jxr_linenumber" name="L140" href="#L140">140</a>                 config.setSamenvatting(<span class="jxr_string">"Er is een fout opgetreden, details staan in de logs"</span>);
+<a class="jxr_linenumber" name="L141" href="#L141">141</a>                 log.error(msg);
+<a class="jxr_linenumber" name="L142" href="#L142">142</a>                 archiefDirectory = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L143" href="#L143">143</a>                 <strong class="jxr_keyword">this</strong>.listener.exception(<strong class="jxr_keyword">new</strong> <a name="BrmoException" href="../../../../../nl/b3p/brmo/loader/util/BrmoException.html#BrmoException">BrmoException</a>(msg));
 <a class="jxr_linenumber" name="L144" href="#L144">144</a>             }
 <a class="jxr_linenumber" name="L145" href="#L145">145</a>         }
@@ -324,6 +324,6 @@
 <a class="jxr_linenumber" name="L316" href="#L316">316</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2014&#x2013;2021 <a href="https://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2014&#x2013;2022 <a href="https://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>
 </body>
 </html>

@@ -82,7 +82,7 @@ import static nl.b3p.brmo.bgt.schema.BGTSchemaMapper.Metadata;
     ) throws Exception {
 
 <span class="nc bnc" id="L84" title="All 4 branches missed.">        if (extractSelectionOptions.getGeoFilterWkt() == null &amp;&amp; !noGeoFilter) {</span>
-<span class="nc" id="L85">            System.err.println(getBundleString(&quot;download.no_geo_filter&quot;));</span>
+<span class="nc" id="L85">            log.error(getBundleString(&quot;download.no_geo_filter&quot;));</span>
 <span class="nc" id="L86">            return ExitCode.USAGE;</span>
         }
 
@@ -172,7 +172,7 @@ import static nl.b3p.brmo.bgt.schema.BGTSchemaMapper.Metadata;
 <span class="nc" id="L172">                deltaIdTimeTo = OffsetDateTime.parse(s);</span>
             }
 <span class="nc bnc" id="L174" title="All 2 branches missed.">            if (deltaId == null) {</span>
-<span class="nc" id="L175">                System.err.println(getBundleString(&quot;download.no_delta_id&quot;));</span>
+<span class="nc" id="L175">                log.error(getBundleString(&quot;download.no_delta_id&quot;));</span>
 <span class="nc" id="L176">                return ExitCode.SOFTWARE;</span>
             }
 <span class="nc" id="L178">            ExtractSelectionOptions extractSelectionOptions = new ExtractSelectionOptions();</span>
@@ -213,7 +213,7 @@ import static nl.b3p.brmo.bgt.schema.BGTSchemaMapper.Metadata;
                 }
 <span class="nc bnc" id="L214" title="All 2 branches missed.">                if (i == response.getDeltas().size()) {</span>
                     // TODO automatically do initial load depending on option
-<span class="nc" id="L216">                    System.err.println(getBundleString(&quot;download.current_delta_not_found&quot;));</span>
+<span class="nc" id="L216">                    log.error(getBundleString(&quot;download.current_delta_not_found&quot;));</span>
 <span class="nc" id="L217">                    return ExitCode.SOFTWARE;</span>
                 }
 

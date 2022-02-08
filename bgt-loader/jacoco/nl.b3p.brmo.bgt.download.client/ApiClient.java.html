@@ -60,16 +60,17 @@ public class ApiClient {
   private String basePath;
   private Consumer&lt;HttpRequest.Builder&gt; interceptor;
   private Consumer&lt;HttpResponse&lt;InputStream&gt;&gt; responseInterceptor;
+  private Consumer&lt;HttpResponse&lt;String&gt;&gt; asyncResponseInterceptor;
   private Duration readTimeout;
 
   private static String valueToString(Object value) {
-<span class="nc bnc" id="L66" title="All 2 branches missed.">    if (value == null) {</span>
-<span class="nc" id="L67">      return &quot;&quot;;</span>
+<span class="nc bnc" id="L67" title="All 2 branches missed.">    if (value == null) {</span>
+<span class="nc" id="L68">      return &quot;&quot;;</span>
     }
-<span class="nc bnc" id="L69" title="All 2 branches missed.">    if (value instanceof OffsetDateTime) {</span>
-<span class="nc" id="L70">      return ((OffsetDateTime) value).format(DateTimeFormatter.ISO_OFFSET_DATE_TIME);</span>
+<span class="nc bnc" id="L70" title="All 2 branches missed.">    if (value instanceof OffsetDateTime) {</span>
+<span class="nc" id="L71">      return ((OffsetDateTime) value).format(DateTimeFormatter.ISO_OFFSET_DATE_TIME);</span>
     }
-<span class="nc" id="L72">    return value.toString();</span>
+<span class="nc" id="L73">    return value.toString();</span>
   }
 
   /**
@@ -79,7 +80,7 @@ public class ApiClient {
    * @return URL-encoded representation of the input string.
    */
   public static String urlEncode(String s) {
-<span class="nc" id="L82">    return URLEncoder.encode(s, UTF_8);</span>
+<span class="nc" id="L83">    return URLEncoder.encode(s, UTF_8).replaceAll(&quot;\\+&quot;, &quot;%20&quot;);</span>
   }
 
   /**
@@ -96,10 +97,10 @@ public class ApiClient {
    * empty list is returned.
    */
   public static List&lt;Pair&gt; parameterToPairs(String name, Object value) {
-<span class="nc bnc" id="L99" title="All 6 branches missed.">    if (name == null || name.isEmpty() || value == null) {</span>
-<span class="nc" id="L100">      return Collections.emptyList();</span>
+<span class="nc bnc" id="L100" title="All 6 branches missed.">    if (name == null || name.isEmpty() || value == null) {</span>
+<span class="nc" id="L101">      return Collections.emptyList();</span>
     }
-<span class="nc" id="L102">    return Collections.singletonList(new Pair(urlEncode(name), urlEncode(valueToString(value))));</span>
+<span class="nc" id="L103">    return Collections.singletonList(new Pair(urlEncode(name), urlEncode(valueToString(value))));</span>
   }
 
   /**
@@ -116,98 +117,100 @@ public class ApiClient {
    */
   public static List&lt;Pair&gt; parameterToPairs(
       String collectionFormat, String name, Collection&lt;?&gt; values) {
-<span class="nc bnc" id="L119" title="All 8 branches missed.">    if (name == null || name.isEmpty() || values == null || values.isEmpty()) {</span>
-<span class="nc" id="L120">      return Collections.emptyList();</span>
+<span class="nc bnc" id="L120" title="All 8 branches missed.">    if (name == null || name.isEmpty() || values == null || values.isEmpty()) {</span>
+<span class="nc" id="L121">      return Collections.emptyList();</span>
     }
 
     // get the collection format (default: csv)
-<span class="nc bnc" id="L124" title="All 4 branches missed.">    String format = collectionFormat == null || collectionFormat.isEmpty() ? &quot;csv&quot; : collectionFormat;</span>
+<span class="nc bnc" id="L125" title="All 4 branches missed.">    String format = collectionFormat == null || collectionFormat.isEmpty() ? &quot;csv&quot; : collectionFormat;</span>
 
     // create the params based on the collection format
-<span class="nc bnc" id="L127" title="All 2 branches missed.">    if (&quot;multi&quot;.equals(format)) {</span>
-<span class="nc" id="L128">      return values.stream()</span>
-<span class="nc" id="L129">          .map(value -&gt; new Pair(urlEncode(name), urlEncode(valueToString(value))))</span>
-<span class="nc" id="L130">          .collect(Collectors.toList());</span>
+<span class="nc bnc" id="L128" title="All 2 branches missed.">    if (&quot;multi&quot;.equals(format)) {</span>
+<span class="nc" id="L129">      return values.stream()</span>
+<span class="nc" id="L130">          .map(value -&gt; new Pair(urlEncode(name), urlEncode(valueToString(value))))</span>
+<span class="nc" id="L131">          .collect(Collectors.toList());</span>
     }
 
     String delimiter;
-<span class="nc bnc" id="L134" title="All 5 branches missed.">    switch(format) {</span>
+<span class="nc bnc" id="L135" title="All 5 branches missed.">    switch(format) {</span>
       case &quot;csv&quot;:
-<span class="nc" id="L136">        delimiter = urlEncode(&quot;,&quot;);</span>
-<span class="nc" id="L137">        break;</span>
+<span class="nc" id="L137">        delimiter = urlEncode(&quot;,&quot;);</span>
+<span class="nc" id="L138">        break;</span>
       case &quot;ssv&quot;:
-<span class="nc" id="L139">        delimiter = urlEncode(&quot; &quot;);</span>
-<span class="nc" id="L140">        break;</span>
+<span class="nc" id="L140">        delimiter = urlEncode(&quot; &quot;);</span>
+<span class="nc" id="L141">        break;</span>
       case &quot;tsv&quot;:
-<span class="nc" id="L142">        delimiter = urlEncode(&quot;\t&quot;);</span>
-<span class="nc" id="L143">        break;</span>
+<span class="nc" id="L143">        delimiter = urlEncode(&quot;\t&quot;);</span>
+<span class="nc" id="L144">        break;</span>
       case &quot;pipes&quot;:
-<span class="nc" id="L145">        delimiter = urlEncode(&quot;|&quot;);</span>
-<span class="nc" id="L146">        break;</span>
+<span class="nc" id="L146">        delimiter = urlEncode(&quot;|&quot;);</span>
+<span class="nc" id="L147">        break;</span>
       default:
-<span class="nc" id="L148">        throw new IllegalArgumentException(&quot;Illegal collection format: &quot; + collectionFormat);</span>
+<span class="nc" id="L149">        throw new IllegalArgumentException(&quot;Illegal collection format: &quot; + collectionFormat);</span>
     }
 
-<span class="nc" id="L151">    StringJoiner joiner = new StringJoiner(delimiter);</span>
-<span class="nc bnc" id="L152" title="All 2 branches missed.">    for (Object value : values) {</span>
-<span class="nc" id="L153">      joiner.add(urlEncode(valueToString(value)));</span>
-<span class="nc" id="L154">    }</span>
+<span class="nc" id="L152">    StringJoiner joiner = new StringJoiner(delimiter);</span>
+<span class="nc bnc" id="L153" title="All 2 branches missed.">    for (Object value : values) {</span>
+<span class="nc" id="L154">      joiner.add(urlEncode(valueToString(value)));</span>
+<span class="nc" id="L155">    }</span>
 
-<span class="nc" id="L156">    return Collections.singletonList(new Pair(urlEncode(name), joiner.toString()));</span>
+<span class="nc" id="L157">    return Collections.singletonList(new Pair(urlEncode(name), joiner.toString()));</span>
   }
 
   /**
    * Ctor.
    */
-<span class="nc" id="L162">  public ApiClient() {</span>
-<span class="nc" id="L163">    this.builder = createDefaultHttpClientBuilder();</span>
-<span class="nc" id="L164">    this.mapper = createDefaultObjectMapper();</span>
-<span class="nc" id="L165">    updateBaseUri(getDefaultBaseUri());</span>
-<span class="nc" id="L166">    interceptor = null;</span>
-<span class="nc" id="L167">    readTimeout = null;</span>
-<span class="nc" id="L168">    responseInterceptor = null;</span>
-<span class="nc" id="L169">  }</span>
+<span class="nc" id="L163">  public ApiClient() {</span>
+<span class="nc" id="L164">    this.builder = createDefaultHttpClientBuilder();</span>
+<span class="nc" id="L165">    this.mapper = createDefaultObjectMapper();</span>
+<span class="nc" id="L166">    updateBaseUri(getDefaultBaseUri());</span>
+<span class="nc" id="L167">    interceptor = null;</span>
+<span class="nc" id="L168">    readTimeout = null;</span>
+<span class="nc" id="L169">    responseInterceptor = null;</span>
+<span class="nc" id="L170">    asyncResponseInterceptor = null;</span>
+<span class="nc" id="L171">  }</span>
 
   /**
    * Ctor.
    */
-<span class="nc" id="L174">  public ApiClient(HttpClient.Builder builder, ObjectMapper mapper, String baseUri) {</span>
-<span class="nc" id="L175">    this.builder = builder;</span>
-<span class="nc" id="L176">    this.mapper = mapper;</span>
-<span class="nc bnc" id="L177" title="All 2 branches missed.">    updateBaseUri(baseUri != null ? baseUri : getDefaultBaseUri());</span>
-<span class="nc" id="L178">    interceptor = null;</span>
-<span class="nc" id="L179">    readTimeout = null;</span>
-<span class="nc" id="L180">    responseInterceptor = null;</span>
-<span class="nc" id="L181">  }</span>
+<span class="nc" id="L176">  public ApiClient(HttpClient.Builder builder, ObjectMapper mapper, String baseUri) {</span>
+<span class="nc" id="L177">    this.builder = builder;</span>
+<span class="nc" id="L178">    this.mapper = mapper;</span>
+<span class="nc bnc" id="L179" title="All 2 branches missed.">    updateBaseUri(baseUri != null ? baseUri : getDefaultBaseUri());</span>
+<span class="nc" id="L180">    interceptor = null;</span>
+<span class="nc" id="L181">    readTimeout = null;</span>
+<span class="nc" id="L182">    responseInterceptor = null;</span>
+<span class="nc" id="L183">    asyncResponseInterceptor = null;</span>
+<span class="nc" id="L184">  }</span>
 
   protected ObjectMapper createDefaultObjectMapper() {
-<span class="nc" id="L184">    ObjectMapper mapper = new ObjectMapper();</span>
-<span class="nc" id="L185">    mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);</span>
-<span class="nc" id="L186">    mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);</span>
-<span class="nc" id="L187">    mapper.configure(DeserializationFeature.FAIL_ON_INVALID_SUBTYPE, false);</span>
-<span class="nc" id="L188">    mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);</span>
-<span class="nc" id="L189">    mapper.enable(SerializationFeature.WRITE_ENUMS_USING_TO_STRING);</span>
-<span class="nc" id="L190">    mapper.enable(DeserializationFeature.READ_ENUMS_USING_TO_STRING);</span>
-<span class="nc" id="L191">    mapper.disable(DeserializationFeature.ADJUST_DATES_TO_CONTEXT_TIME_ZONE);</span>
-<span class="nc" id="L192">    mapper.registerModule(new JavaTimeModule());</span>
-<span class="nc" id="L193">    return mapper;</span>
+<span class="nc" id="L187">    ObjectMapper mapper = new ObjectMapper();</span>
+<span class="nc" id="L188">    mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);</span>
+<span class="nc" id="L189">    mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);</span>
+<span class="nc" id="L190">    mapper.configure(DeserializationFeature.FAIL_ON_INVALID_SUBTYPE, false);</span>
+<span class="nc" id="L191">    mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);</span>
+<span class="nc" id="L192">    mapper.enable(SerializationFeature.WRITE_ENUMS_USING_TO_STRING);</span>
+<span class="nc" id="L193">    mapper.enable(DeserializationFeature.READ_ENUMS_USING_TO_STRING);</span>
+<span class="nc" id="L194">    mapper.disable(DeserializationFeature.ADJUST_DATES_TO_CONTEXT_TIME_ZONE);</span>
+<span class="nc" id="L195">    mapper.registerModule(new JavaTimeModule());</span>
+<span class="nc" id="L196">    return mapper;</span>
   }
 
   protected String getDefaultBaseUri() {
-<span class="nc" id="L197">    return &quot;https://api.pdok.nl/lv/bgt/download/v1_0&quot;;</span>
+<span class="nc" id="L200">    return &quot;https://api.pdok.nl/lv/bgt/download/v1_0&quot;;</span>
   }
 
   protected HttpClient.Builder createDefaultHttpClientBuilder() {
-<span class="nc" id="L201">    return HttpClient.newBuilder();</span>
+<span class="nc" id="L204">    return HttpClient.newBuilder();</span>
   }
 
   public void updateBaseUri(String baseUri) {
-<span class="nc" id="L205">    URI uri = URI.create(baseUri);</span>
-<span class="nc" id="L206">    scheme = uri.getScheme();</span>
-<span class="nc" id="L207">    host = uri.getHost();</span>
-<span class="nc" id="L208">    port = uri.getPort();</span>
-<span class="nc" id="L209">    basePath = uri.getRawPath();</span>
-<span class="nc" id="L210">  }</span>
+<span class="nc" id="L208">    URI uri = URI.create(baseUri);</span>
+<span class="nc" id="L209">    scheme = uri.getScheme();</span>
+<span class="nc" id="L210">    host = uri.getHost();</span>
+<span class="nc" id="L211">    port = uri.getPort();</span>
+<span class="nc" id="L212">    basePath = uri.getRawPath();</span>
+<span class="nc" id="L213">  }</span>
 
   /**
    * Set a custom {@link HttpClient.Builder} object to use when creating the
@@ -217,8 +220,8 @@ public class ApiClient {
    * @return This object.
    */
   public ApiClient setHttpClientBuilder(HttpClient.Builder builder) {
-<span class="nc" id="L220">    this.builder = builder;</span>
-<span class="nc" id="L221">    return this;</span>
+<span class="nc" id="L223">    this.builder = builder;</span>
+<span class="nc" id="L224">    return this;</span>
   }
 
   /**
@@ -229,7 +232,7 @@ public class ApiClient {
    * @return The HTTP client.
    */
   public HttpClient getHttpClient() {
-<span class="nc" id="L232">    return builder.build();</span>
+<span class="nc" id="L235">    return builder.build();</span>
   }
 
   /**
@@ -240,8 +243,8 @@ public class ApiClient {
    * @return This object.
    */
   public ApiClient setObjectMapper(ObjectMapper mapper) {
-<span class="nc" id="L243">    this.mapper = mapper;</span>
-<span class="nc" id="L244">    return this;</span>
+<span class="nc" id="L246">    this.mapper = mapper;</span>
+<span class="nc" id="L247">    return this;</span>
   }
 
   /**
@@ -250,7 +253,7 @@ public class ApiClient {
    * @return A copy of the current object mapper.
    */
   public ObjectMapper getObjectMapper() {
-<span class="nc" id="L253">    return mapper.copy();</span>
+<span class="nc" id="L256">    return mapper.copy();</span>
   }
 
   /**
@@ -260,8 +263,8 @@ public class ApiClient {
    * @return This object.
    */
   public ApiClient setHost(String host) {
-<span class="nc" id="L263">    this.host = host;</span>
-<span class="nc" id="L264">    return this;</span>
+<span class="nc" id="L266">    this.host = host;</span>
+<span class="nc" id="L267">    return this;</span>
   }
 
   /**
@@ -272,8 +275,8 @@ public class ApiClient {
    * @return This object.
    */
   public ApiClient setPort(int port) {
-<span class="nc" id="L275">    this.port = port;</span>
-<span class="nc" id="L276">    return this;</span>
+<span class="nc" id="L278">    this.port = port;</span>
+<span class="nc" id="L279">    return this;</span>
   }
 
   /**
@@ -284,8 +287,8 @@ public class ApiClient {
    * @return This object.
    */
   public ApiClient setBasePath(String basePath) {
-<span class="nc" id="L287">    this.basePath = basePath;</span>
-<span class="nc" id="L288">    return this;</span>
+<span class="nc" id="L290">    this.basePath = basePath;</span>
+<span class="nc" id="L291">    return this;</span>
   }
 
   /**
@@ -295,7 +298,7 @@ public class ApiClient {
    * resolved against.
    */
   public String getBaseUri() {
-<span class="nc bnc" id="L298" title="All 2 branches missed.">    return scheme + &quot;://&quot; + host + (port == -1 ? &quot;&quot; : &quot;:&quot; + port) + basePath;</span>
+<span class="nc bnc" id="L301" title="All 2 branches missed.">    return scheme + &quot;://&quot; + host + (port == -1 ? &quot;&quot; : &quot;:&quot; + port) + basePath;</span>
   }
 
   /**
@@ -305,8 +308,8 @@ public class ApiClient {
    * @return This object.
    */
   public ApiClient setScheme(String scheme){
-<span class="nc" id="L308">    this.scheme = scheme;</span>
-<span class="nc" id="L309">    return this;</span>
+<span class="nc" id="L311">    this.scheme = scheme;</span>
+<span class="nc" id="L312">    return this;</span>
   }
 
   /**
@@ -325,8 +328,8 @@ public class ApiClient {
    * @return This object.
    */
   public ApiClient setRequestInterceptor(Consumer&lt;HttpRequest.Builder&gt; interceptor) {
-<span class="nc" id="L328">    this.interceptor = interceptor;</span>
-<span class="nc" id="L329">    return this;</span>
+<span class="nc" id="L331">    this.interceptor = interceptor;</span>
+<span class="nc" id="L332">    return this;</span>
   }
 
   /**
@@ -335,7 +338,7 @@ public class ApiClient {
    * @return The custom interceptor that was set, or null if there isn't any.
    */
   public Consumer&lt;HttpRequest.Builder&gt; getRequestInterceptor() {
-<span class="nc" id="L338">    return interceptor;</span>
+<span class="nc" id="L341">    return interceptor;</span>
   }
 
   /**
@@ -348,8 +351,8 @@ public class ApiClient {
    * @return This object.
    */
   public ApiClient setResponseInterceptor(Consumer&lt;HttpResponse&lt;InputStream&gt;&gt; interceptor) {
-<span class="nc" id="L351">    this.responseInterceptor = interceptor;</span>
-<span class="nc" id="L352">    return this;</span>
+<span class="nc" id="L354">    this.responseInterceptor = interceptor;</span>
+<span class="nc" id="L355">    return this;</span>
   }
 
  /**
@@ -358,7 +361,30 @@ public class ApiClient {
    * @return The custom interceptor that was set, or null if there isn't any.
    */
   public Consumer&lt;HttpResponse&lt;InputStream&gt;&gt; getResponseInterceptor() {
-<span class="nc" id="L361">    return responseInterceptor;</span>
+<span class="nc" id="L364">    return responseInterceptor;</span>
+  }
+
+  /**
+   * Set a custom async response interceptor. Use this interceptor when asyncNative is set to 'true'.
+   *
+   * &lt;p&gt;This is useful for logging, monitoring or extraction of header variables&lt;/p&gt;
+   *
+   * @param interceptor A function invoked before creating each request. A value
+   *                    of null resets the interceptor to a no-op.
+   * @return This object.
+   */
+  public ApiClient setAsyncResponseInterceptor(Consumer&lt;HttpResponse&lt;String&gt;&gt; interceptor) {
+<span class="nc" id="L377">    this.asyncResponseInterceptor = interceptor;</span>
+<span class="nc" id="L378">    return this;</span>
+  }
+
+ /**
+   * Get the custom async response interceptor. Use this interceptor when asyncNative is set to 'true'.
+   *
+   * @return The custom interceptor that was set, or null if there isn't any.
+   */
+  public Consumer&lt;HttpResponse&lt;String&gt;&gt; getAsyncResponseInterceptor() {
+<span class="nc" id="L387">    return asyncResponseInterceptor;</span>
   }
 
   /**
@@ -373,10 +399,10 @@ public class ApiClient {
    * @return This object.
    */
   public ApiClient setReadTimeout(Duration readTimeout) {
-<span class="nc" id="L376">    this.readTimeout = readTimeout;</span>
-<span class="nc" id="L377">    return this;</span>
+<span class="nc" id="L402">    this.readTimeout = readTimeout;</span>
+<span class="nc" id="L403">    return this;</span>
   }
-  
+
   /**
    * Get the read timeout that was set.
    *
@@ -384,7 +410,7 @@ public class ApiClient {
    * an infinite wait time.
    */
   public Duration getReadTimeout() {
-<span class="nc" id="L387">    return readTimeout;</span>
+<span class="nc" id="L413">    return readTimeout;</span>
   }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

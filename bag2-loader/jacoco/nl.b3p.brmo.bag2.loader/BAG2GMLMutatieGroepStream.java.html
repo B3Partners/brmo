@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BAG2GMLMutatieGroepStream.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO BAG 2.0 loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.bag2.loader</a> &gt; <span class="el_source">BAG2GMLMutatieGroepStream.java</span></div><h1>BAG2GMLMutatieGroepStream.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2021 B3Partners B.V.
+ *
+ * SPDX-License-Identifier: MIT
+ *
+ */
+
+package nl.b3p.brmo.bag2.loader;
+
+import nl.b3p.brmo.bag2.schema.BAG2Object;
+import nl.b3p.brmo.bag2.schema.BAG2ObjectType;
+import nl.b3p.brmo.bag2.schema.BAG2Schema;
+import nl.b3p.brmo.bag2.util.Force2DCoordinateSequenceFactory;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.codehaus.staxmate.SMInputFactory;
+import org.codehaus.staxmate.in.SMEvent;
+import org.codehaus.staxmate.in.SMInputCursor;
+import org.geotools.gml.stream.XmlStreamGeometryReader;
+import org.locationtech.jts.geom.Geometry;
+import org.locationtech.jts.geom.GeometryFactory;
+import org.locationtech.jts.geom.PrecisionModel;
+import org.opengis.referencing.FactoryException;
+
+import javax.xml.namespace.QName;
+import javax.xml.stream.Location;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamConstants;
+import javax.xml.stream.XMLStreamException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+
+public class BAG2GMLMutatieGroepStream implements Iterable&lt;BAG2MutatieGroep&gt; {
+<span class="fc" id="L45">    private static final Log log = LogFactory.getLog(BAG2GMLMutatieGroepStream.class);</span>
+
+    private static final String NS_BAG_EXTRACT = &quot;http://www.kadaster.nl/schemas/lvbag/extract-deelbestand-lvc/v20200601&quot;;
+    private static final String NS_BAG_SELECTIES = &quot;http://www.kadaster.nl/schemas/lvbag/extract-selecties/v20200601&quot;;
+    private static final String NS_STANDLEVERING = &quot;http://www.kadaster.nl/schemas/standlevering-generiek/1.0&quot;;
+    private static final String NS_GML_32 = &quot;http://www.opengis.net/gml/3.2&quot;;
+    private static final String NS_HISTORIE = &quot;www.kadaster.nl/schemas/lvbag/imbag/historie/v20200601&quot;;
+    private static final String NS_OBJECTEN_REF = &quot;www.kadaster.nl/schemas/lvbag/imbag/objecten-ref/v20200601&quot;;
+    private static final String NS_BAG_EXTRACT_MUTATIES = &quot;http://www.kadaster.nl/schemas/lvbag/extract-deelbestand-mutaties-lvc/v20200601&quot;;
+    private static final String NS_MUTATIELEVERING = &quot;http://www.kadaster.nl/schemas/mutatielevering-generiek/1.0&quot;;
+
+<span class="fc" id="L56">    private static final QName BAG_STAND = new QName(NS_BAG_EXTRACT, &quot;bagStand&quot;);</span>
+<span class="fc" id="L57">    private static final QName BAG_MUTATIES = new QName(NS_BAG_EXTRACT_MUTATIES, &quot;bagMutaties&quot;);</span>
+    private static final int SRID = 28992;
+
+    private final XmlStreamGeometryReader geometryReader;
+
+    private final SMInputCursor cursor;
+
+    private boolean isMutaties;
+    private boolean hasMutatieGroep;
+
+    private BagInfo bagInfo;
+
+    public static class BagInfo {
+        private final Date standTechnischeDatum;
+        private final Date mutatieDatumVanaf;
+        private final Date mutatieDatumTot;
+        private final String gemeenteIdentificatie;
+
+        protected BagInfo(Date standTechnischeDatum, Date mutatieDatumVanaf, Date mutatieDatumTot) {
+<span class="fc" id="L76">            this(standTechnischeDatum, mutatieDatumVanaf, mutatieDatumTot, null);</span>
+<span class="fc" id="L77">        }</span>
+
+<span class="fc" id="L79">        protected BagInfo(Date standTechnischeDatum, Date mutatieDatumVanaf, Date mutatieDatumTot, String gemeenteIdentificatie) {</span>
+<span class="fc" id="L80">            this.standTechnischeDatum = standTechnischeDatum;</span>
+<span class="fc" id="L81">            this.mutatieDatumVanaf = mutatieDatumVanaf;</span>
+<span class="fc" id="L82">            this.mutatieDatumTot = mutatieDatumTot;</span>
+<span class="fc" id="L83">            this.gemeenteIdentificatie = gemeenteIdentificatie;</span>
+<span class="fc" id="L84">        }</span>
+
+        public Date getStandTechnischeDatum() {
+<span class="fc" id="L87">            return standTechnischeDatum;</span>
+        }
+
+        public Date getMutatieDatumVanaf() {
+<span class="fc" id="L91">            return mutatieDatumVanaf;</span>
+        }
+
+        public Date getMutatieDatumTot() {
+<span class="fc" id="L95">            return mutatieDatumTot;</span>
+        }
+
+        public String getGemeenteIdentificatie() {
+<span class="fc" id="L99">            return gemeenteIdentificatie;</span>
+        }
+
+        @Override
+        public boolean equals(Object o) {
+<span class="nc bnc" id="L104" title="All 2 branches missed.">            if (this == o) return true;</span>
+<span class="nc bnc" id="L105" title="All 4 branches missed.">            if (o == null || getClass() != o.getClass()) return false;</span>
+<span class="nc" id="L106">            BagInfo that = (BagInfo) o;</span>
+<span class="nc bnc" id="L107" title="All 6 branches missed.">            return Objects.equals(standTechnischeDatum, that.standTechnischeDatum) &amp;&amp; Objects.equals(mutatieDatumVanaf, that.mutatieDatumVanaf) &amp;&amp; Objects.equals(mutatieDatumTot, that.mutatieDatumTot);</span>
+        }
+
+        @Override
+        public int hashCode() {
+<span class="nc" id="L112">            return Objects.hash(standTechnischeDatum, mutatieDatumVanaf, mutatieDatumTot);</span>
+        }
+
+        @Override
+        public String toString() {
+<span class="nc" id="L117">            return &quot;BagInfo{&quot; +</span>
+                    &quot;standTechnischeDatum=&quot; + standTechnischeDatum +
+                    &quot;, mutatieDatumVanaf=&quot; + mutatieDatumVanaf +
+                    &quot;, mutatieDatumTot=&quot; + mutatieDatumTot +
+                    '}';
+        }
+    }
+
+<span class="fc" id="L125">    public BAG2GMLMutatieGroepStream(InputStream in) throws XMLStreamException {</span>
+<span class="fc" id="L126">        this.cursor = initCursor(buildSMInputFactory().rootElementCursor(in));</span>
+<span class="fc" id="L127">        this.geometryReader = buildGeometryReader();</span>
+<span class="fc" id="L128">    }</span>
+
+    protected SMInputFactory buildSMInputFactory() {
+        // Using alternative StAX parsers explicitly:
+        // final XMLInputFactory stax = new WstxInputFactory(); // Woodstox
+        // final XMLInputFactory stax = new com.fasterxml.aalto.stax.InputFactoryImpl(); // Aalto
+<span class="fc" id="L134">        final XMLInputFactory xmlInputFactory = XMLInputFactory.newFactory(); // JRE Default, depends on JAR's present or javax.xml.stream.XMLInputFactory property, can be SJSXP</span>
+<span class="fc" id="L135">        log.trace(&quot;StAX XMLInputFactory: &quot; + xmlInputFactory.getClass().getName());</span>
+
+<span class="fc" id="L137">        xmlInputFactory.setProperty(XMLInputFactory.IS_COALESCING, Boolean.TRUE); // Coalesce characters</span>
+<span class="fc" id="L138">        xmlInputFactory.setProperty(XMLInputFactory.SUPPORT_DTD, Boolean.FALSE); // No XML entity expansions or external entities</span>
+
+<span class="fc" id="L140">        return new SMInputFactory(xmlInputFactory);</span>
+    }
+
+    protected XmlStreamGeometryReader buildGeometryReader() {
+<span class="fc" id="L144">        GeometryFactory geometryFactory = new GeometryFactory(new PrecisionModel(), 28992, new Force2DCoordinateSequenceFactory());</span>
+<span class="fc" id="L145">        return new XmlStreamGeometryReader(this.cursor.getStreamReader(), geometryFactory);</span>
+    }
+
+    private SMInputCursor initCursor(SMInputCursor cursor) throws XMLStreamException {
+<span class="fc" id="L149">        QName root = cursor.advance().getQName();</span>
+
+<span class="fc bfc" id="L151" title="All 2 branches covered.">        if(root.equals(BAG_STAND)) {</span>
+<span class="fc" id="L152">            isMutaties = false;</span>
+<span class="pc bpc" id="L153" title="1 of 2 branches missed.">        } else if (root.equals(BAG_MUTATIES)) {</span>
+<span class="fc" id="L154">            isMutaties = true;</span>
+        } else {
+<span class="nc" id="L156">            throw new IllegalArgumentException(&quot;XML root element moet bagStand of bagMutaties zijn&quot;);</span>
+        }
+
+<span class="fc" id="L159">        SimpleDateFormat df = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</span>
+<span class="fc" id="L160">        Date standTechnischeDatum = null;</span>
+<span class="fc bfc" id="L161" title="All 2 branches covered.">        if(isMutaties) {</span>
+<span class="fc" id="L162">            cursor = cursor.childElementCursor().advance();</span>
+<span class="fc" id="L163">            cursor.getStreamReader().require(XMLStreamConstants.START_ELEMENT, NS_BAG_EXTRACT_MUTATIES, &quot;bagInfo&quot;);</span>
+
+<span class="fc" id="L165">            SMInputCursor bagInfoCursor = cursor.descendantElementCursor().advance();</span>
+<span class="fc" id="L166">            Date mutatieDatumVanaf = null, mutatieDatumTot = null;</span>
+            do {
+                try {
+<span class="fc bfc" id="L169" title="All 4 branches covered.">                    switch (bagInfoCursor.getLocalName()) {</span>
+                        case &quot;StandTechnischeDatum&quot;:
+<span class="fc" id="L171">                            standTechnischeDatum = df.parse(bagInfoCursor.collectDescendantText());</span>
+<span class="fc" id="L172">                            break;</span>
+                        case &quot;MutatiedatumVanaf&quot;:
+<span class="fc" id="L174">                            mutatieDatumVanaf = df.parse(bagInfoCursor.collectDescendantText());</span>
+<span class="fc" id="L175">                            break;</span>
+                        case &quot;MutatiedatumTot&quot;:
+<span class="fc" id="L177">                            mutatieDatumTot = df.parse(bagInfoCursor.collectDescendantText());</span>
+                            break;
+                    }
+<span class="nc" id="L180">                } catch(ParseException ignored) {</span>
+<span class="fc" id="L181">                }</span>
+<span class="fc bfc" id="L182" title="All 2 branches covered.">            } while(bagInfoCursor.getNext() != null);</span>
+<span class="fc" id="L183">            bagInfo = new BagInfo(standTechnischeDatum, mutatieDatumVanaf, mutatieDatumTot);</span>
+
+<span class="fc" id="L185">            cursor.getNext();</span>
+<span class="fc" id="L186">            cursor.getStreamReader().require(XMLStreamConstants.START_ELEMENT, NS_MUTATIELEVERING, &quot;mutatieBericht&quot;);</span>
+
+<span class="fc" id="L188">            cursor = cursor.childElementCursor(new QName(NS_MUTATIELEVERING, &quot;mutatieGroep&quot;));</span>
+
+<span class="pc bpc" id="L190" title="1 of 2 branches missed.">            hasMutatieGroep = cursor.getNext() != null;</span>
+<span class="fc" id="L191">        } else {</span>
+<span class="fc" id="L192">            cursor = cursor.childElementCursor().advance();</span>
+<span class="fc" id="L193">            cursor.getStreamReader().require(XMLStreamConstants.START_ELEMENT, NS_BAG_EXTRACT, &quot;bagInfo&quot;);</span>
+
+<span class="fc" id="L195">            SMInputCursor bagInfoCursor = cursor.descendantElementCursor().advance();</span>
+<span class="fc" id="L196">            String gemeenteIdentificatie = null;</span>
+            do {
+<span class="pc bpc" id="L198" title="1 of 4 branches missed.">                switch(bagInfoCursor.getLocalName()) {</span>
+                    case &quot;StandTechnischeDatum&quot;:
+                        try {
+<span class="fc" id="L201">                            standTechnischeDatum = df.parse(bagInfoCursor.collectDescendantText());</span>
+<span class="nc" id="L202">                        } catch(ParseException ignored) {</span>
+<span class="fc" id="L203">                        }</span>
+<span class="nc" id="L204">                        break;</span>
+                    case &quot;GemeenteIdentificatie&quot;:
+<span class="nc bnc" id="L206" title="All 2 branches missed.">                        if (gemeenteIdentificatie != null) {</span>
+<span class="nc" id="L207">                            throw new IllegalArgumentException(&quot;Alleen een enkele GemeenteIdentificatie in een GemeenteCollectie wordt ondersteund&quot;);</span>
+                        }
+<span class="nc" id="L209">                        gemeenteIdentificatie = bagInfoCursor.collectDescendantText();</span>
+<span class="nc" id="L210">                        break;</span>
+                    case &quot;Gebied-NLD&quot;:
+                        // &quot;9999&quot; is code for entire NL area
+<span class="fc" id="L213">                        gemeenteIdentificatie = &quot;9999&quot;;</span>
+                        break;
+                }
+<span class="fc bfc" id="L216" title="All 2 branches covered.">            } while(bagInfoCursor.getNext() != null);</span>
+
+<span class="fc" id="L218">            bagInfo = new BagInfo(standTechnischeDatum, null, null, gemeenteIdentificatie);</span>
+
+<span class="fc" id="L220">            cursor.getNext();</span>
+<span class="fc" id="L221">            cursor.getStreamReader().require(XMLStreamConstants.START_ELEMENT, NS_STANDLEVERING, &quot;standBestand&quot;);</span>
+
+<span class="fc" id="L223">            cursor = cursor.childElementCursor(new QName(NS_STANDLEVERING, &quot;stand&quot;));</span>
+        }
+
+<span class="fc" id="L226">        return cursor;</span>
+    }
+
+    public BagInfo getBagInfo() {
+<span class="fc" id="L230">        return bagInfo;</span>
+    }
+
+    @Override
+    public Iterator&lt;BAG2MutatieGroep&gt; iterator() {
+<span class="fc" id="L235">        return new Iterator&lt;&gt;() {</span>
+<span class="fc" id="L236">            SMEvent event = cursor.getCurrEvent();</span>
+
+            @Override
+            public boolean hasNext() {
+<span class="pc bpc" id="L240" title="1 of 4 branches missed.">                if (isMutaties &amp;&amp; !hasMutatieGroep) {</span>
+<span class="nc" id="L241">                    return false;</span>
+                }
+
+<span class="pc bpc" id="L244" title="1 of 2 branches missed.">                if (event != null) {</span>
+<span class="nc" id="L245">                    return true;</span>
+                }
+                try {
+<span class="fc" id="L248">                    event = cursor.getNext();</span>
+<span class="fc bfc" id="L249" title="All 2 branches covered.">                    return event != null;</span>
+<span class="nc" id="L250">                } catch(XMLStreamException e) {</span>
+<span class="nc" id="L251">                    throw new RuntimeException(e);</span>
+                }
+            }
+
+            @Override
+            public BAG2MutatieGroep next() {
+<span class="fc bfc" id="L257" title="All 2 branches covered.">                if (event == null) {</span>
+<span class="pc bpc" id="L258" title="1 of 2 branches missed.">                    if(!hasNext()) {</span>
+<span class="nc" id="L259">                        throw new IllegalStateException(&quot;No more items&quot;);</span>
+                    }
+                }
+                // Make sure cursor.getNext() is called in a future next() call
+<span class="fc" id="L263">                event = null;</span>
+
+                try {
+<span class="fc bfc" id="L266" title="All 2 branches covered.">                    if (isMutaties) {</span>
+<span class="pc bpc" id="L267" title="1 of 2 branches missed.">                        if (!hasMutatieGroep) {</span>
+<span class="nc" id="L268">                            throw new IllegalStateException(&quot;No items&quot;);</span>
+                        }
+
+<span class="fc" id="L271">                        cursor.getStreamReader().require(XMLStreamConstants.START_ELEMENT, NS_MUTATIELEVERING, &quot;mutatieGroep&quot;);</span>
+<span class="fc" id="L272">                        SMInputCursor mutatieCursor = cursor.childElementCursor().advance();</span>
+<span class="fc" id="L273">                        List&lt;BAG2Mutatie&gt; mutaties = new ArrayList&lt;&gt;();</span>
+                        do {
+<span class="fc" id="L275">                            String mutatieNaam = mutatieCursor.getLocalName();</span>
+
+<span class="fc" id="L277">                            Location location = mutatieCursor.getCursorLocation();</span>
+<span class="fc bfc" id="L278" title="All 2 branches covered.">                            if (mutatieNaam.equals(&quot;wijziging&quot;)) {</span>
+<span class="fc" id="L279">                                SMInputCursor wijziging = mutatieCursor.childElementCursor().advance();</span>
+<span class="fc" id="L280">                                wijziging.getStreamReader().require(XMLStreamConstants.START_ELEMENT, NS_MUTATIELEVERING, &quot;was&quot;);</span>
+<span class="fc" id="L281">                                BAG2Object was = parseBAG2ObjectFromBagObjectParentElement(wijziging, NS_BAG_EXTRACT_MUTATIES);</span>
+<span class="fc" id="L282">                                wijziging.getNext();</span>
+<span class="fc" id="L283">                                wijziging.getStreamReader().require(XMLStreamConstants.START_ELEMENT, NS_MUTATIELEVERING, &quot;wordt&quot;);</span>
+<span class="fc" id="L284">                                BAG2Object wordt = parseBAG2ObjectFromBagObjectParentElement(wijziging, NS_BAG_EXTRACT_MUTATIES);</span>
+
+<span class="fc" id="L286">                                mutaties.add(new BAG2WijzigingMutatie(location, was, wordt));</span>
+<span class="pc bpc" id="L287" title="1 of 2 branches missed.">                            } else if (mutatieNaam.equals(&quot;toevoeging&quot;)) {</span>
+<span class="fc" id="L288">                                SMInputCursor wijziging = mutatieCursor.childElementCursor().advance();</span>
+<span class="fc" id="L289">                                wijziging.getStreamReader().require(XMLStreamConstants.START_ELEMENT, NS_MUTATIELEVERING, &quot;wordt&quot;);</span>
+<span class="fc" id="L290">                                BAG2Object toevoeging = parseBAG2ObjectFromBagObjectParentElement(wijziging, NS_BAG_EXTRACT_MUTATIES);</span>
+<span class="fc" id="L291">                                mutaties.add(new BAG2ToevoegingMutatie(location, toevoeging));</span>
+
+<span class="pc bnc" id="L293" title="All 2 branches missed.">                            } else if (mutatieNaam.equals(&quot;verwijdering&quot;)) {</span>
+<span class="nc" id="L294">                                throw new IllegalArgumentException(&quot;Verwijdering-mutaties mogen niet voorkomen in de BAG2&quot;);</span>
+                            } else {
+<span class="nc" id="L296">                                throw new IllegalArgumentException(&quot;Onbekende mutatie: &quot; + mutatieNaam);</span>
+                            }
+<span class="fc bfc" id="L298" title="All 2 branches covered.">                        } while(mutatieCursor.getNext() == SMEvent.START_ELEMENT);</span>
+
+<span class="fc" id="L300">                        return new BAG2MutatieGroep(mutaties);</span>
+                    } else {
+<span class="fc" id="L302">                        cursor.getStreamReader().require(XMLStreamConstants.START_ELEMENT, NS_STANDLEVERING, &quot;stand&quot;);</span>
+<span class="fc" id="L303">                        Location location = cursor.getCursorLocation();</span>
+<span class="fc" id="L304">                        BAG2Object object = parseBAG2ObjectFromBagObjectParentElement(cursor, NS_BAG_EXTRACT);</span>
+<span class="fc" id="L305">                        return new BAG2MutatieGroep(List.of(new BAG2ToevoegingMutatie(location, object)));</span>
+                    }
+<span class="nc" id="L307">                } catch(Exception e) {</span>
+<span class="nc" id="L308">                    throw new RuntimeException(e);</span>
+                }
+            }
+        };
+    }
+
+    private BAG2Object parseBAG2ObjectFromBagObjectParentElement(SMInputCursor bagObjectParentCursor, String bagObjectNamespace) throws XMLStreamException, FactoryException, IOException {
+<span class="fc" id="L315">        SMInputCursor bagObjectCursor = bagObjectParentCursor</span>
+<span class="fc" id="L316">                .childElementCursor(new QName(bagObjectNamespace, &quot;bagObject&quot;)).advance()</span>
+<span class="fc" id="L317">                .childElementCursor().advance();</span>
+<span class="fc" id="L318">        return parseBAG2Object(bagObjectCursor);</span>
+    }
+
+    private BAG2Object parseBAG2Object(SMInputCursor bagObjectCursor) throws XMLStreamException, FactoryException, IOException {
+<span class="fc" id="L322">        String name = bagObjectCursor.getLocalName();</span>
+
+<span class="fc" id="L324">        final BAG2ObjectType objectType = BAG2Schema.getInstance().getObjectTypeByName(name);</span>
+<span class="pc bpc" id="L325" title="1 of 2 branches missed.">        if (objectType == null) {</span>
+<span class="nc" id="L326">            throw new IllegalArgumentException(&quot;Onbekend object type: &quot; + name);</span>
+        }
+
+<span class="fc" id="L329">        Map&lt;String, Object&gt; attributes = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L330">        SMInputCursor attributeCursor = bagObjectCursor.childElementCursor();</span>
+<span class="fc bfc" id="L331" title="All 2 branches covered.">        while (attributeCursor.getNext() != null) {</span>
+<span class="fc" id="L332">            parseAttribute(attributeCursor, attributes);</span>
+        }
+<span class="fc" id="L334">        return new BAG2Object(objectType, attributes);</span>
+    }
+
+    private void parseAttribute(SMInputCursor attribute, Map&lt;String, Object&gt; objectAttributes) throws XMLStreamException, FactoryException, IOException {
+<span class="fc" id="L338">        String attributeName = attribute.getLocalName();</span>
+
+<span class="fc bfc" id="L340" title="All 7 branches covered.">        switch (attributeName) {</span>
+            case &quot;geometrie&quot;:
+                // Position cursor at child element
+<span class="fc" id="L343">                SMInputCursor geomCursor = attribute.childElementCursor().advance();</span>
+                // Sometimes there is an element like &quot;punt&quot; which has the actual geometry as child element
+<span class="fc bfc" id="L345" title="All 2 branches covered.">                if (!geomCursor.getNsUri().equals(NS_GML_32)) {</span>
+<span class="fc" id="L346">                    geomCursor.childElementCursor().advance();</span>
+                }
+<span class="fc" id="L348">                Geometry geom = geometryReader.readGeometry();</span>
+<span class="fc" id="L349">                geom.setSRID(SRID);</span>
+<span class="fc" id="L350">                objectAttributes.put(attributeName, geom);</span>
+<span class="fc" id="L351">                break;</span>
+            case &quot;voorkomen&quot;:
+                // Flatten al Voorkomen child attributes, according to the schema the element names do not conflict
+<span class="fc" id="L354">                parseVoorkomen(attribute, objectAttributes);</span>
+<span class="fc" id="L355">                break;</span>
+            case &quot;BeschikbaarLV&quot;:
+                // Flatten al Voorkomen/BeschikbaarLV child attributes to the top level, according to the schema the element
+                // names do not conflict
+<span class="fc" id="L359">                parseBeschikbaarLV(attribute, objectAttributes);</span>
+<span class="fc" id="L360">                break;</span>
+            case &quot;heeftAlsNevenadres&quot;:
+<span class="fc" id="L362">                parseNevenadres(attribute, objectAttributes);</span>
+<span class="fc" id="L363">                break;</span>
+            case &quot;maaktDeelUitVan&quot;:
+<span class="fc" id="L365">                parseMaaktDeelUitVan(attribute, objectAttributes);</span>
+<span class="fc" id="L366">                break;</span>
+            case &quot;gebruiksdoel&quot;:
+<span class="fc" id="L368">                parseGebruiksdoel(attribute, objectAttributes);</span>
+<span class="fc" id="L369">                break;</span>
+            default:
+                // String attribute value as default
+
+                // This also works for ligtIn en ligtAan
+<span class="fc" id="L374">                objectAttributes.put(attributeName, attribute.collectDescendantText().trim());</span>
+                break;
+        }
+<span class="fc" id="L377">    }</span>
+
+    private void parseVoorkomen(SMInputCursor attributeCursor, Map&lt;String, Object&gt; objectAttributes) throws XMLStreamException, FactoryException, IOException {
+<span class="fc" id="L380">        attributeCursor = attributeCursor.childElementCursor(new QName(NS_HISTORIE, &quot;Voorkomen&quot;)).advance().childElementCursor();</span>
+<span class="fc bfc" id="L381" title="All 2 branches covered.">        while (attributeCursor.getNext() != null) {</span>
+<span class="fc" id="L382">            parseAttribute(attributeCursor, objectAttributes);</span>
+        }
+<span class="fc" id="L384">    }</span>
+
+    private void parseBeschikbaarLV(SMInputCursor attributeCursor, Map&lt;String, Object&gt; objectAttributes) throws XMLStreamException, FactoryException, IOException {
+<span class="fc" id="L387">        attributeCursor = attributeCursor.childElementCursor();</span>
+<span class="fc bfc" id="L388" title="All 2 branches covered.">        while (attributeCursor.getNext() != null) {</span>
+<span class="fc" id="L389">            parseAttribute(attributeCursor, objectAttributes);</span>
+        }
+<span class="fc" id="L391">    }</span>
+
+    private void parseNevenadres(SMInputCursor attributeCursor, Map&lt;String, Object&gt; objectAttributes) throws XMLStreamException {
+<span class="fc" id="L394">        Set&lt;String&gt; values = new HashSet&lt;&gt;();</span>
+<span class="fc" id="L395">        attributeCursor = attributeCursor.childElementCursor(new QName(NS_OBJECTEN_REF, &quot;NummeraanduidingRef&quot;));</span>
+<span class="fc bfc" id="L396" title="All 2 branches covered.">        while (attributeCursor.getNext() != null) {</span>
+<span class="fc" id="L397">            values.add(attributeCursor.collectDescendantText().trim());</span>
+        }
+<span class="fc" id="L399">        objectAttributes.put(&quot;heeftAlsNevenadres&quot;, values);</span>
+<span class="fc" id="L400">    }</span>
+
+    private void parseMaaktDeelUitVan(SMInputCursor attributeCursor, Map&lt;String, Object&gt; objectAttributes) throws XMLStreamException {
+<span class="fc" id="L403">        Set&lt;String&gt; values = new HashSet&lt;&gt;();</span>
+<span class="fc" id="L404">        attributeCursor = attributeCursor.childElementCursor(new QName(NS_OBJECTEN_REF, &quot;PandRef&quot;));</span>
+<span class="fc bfc" id="L405" title="All 2 branches covered.">        while (attributeCursor.getNext() != null) {</span>
+<span class="fc" id="L406">            values.add(attributeCursor.collectDescendantText().trim());</span>
+        }
+<span class="fc" id="L408">        objectAttributes.put(&quot;maaktDeelUitVan&quot;, values);</span>
+<span class="fc" id="L409">    }</span>
+
+    private void parseGebruiksdoel(SMInputCursor attributeCursor, Map&lt;String, Object&gt; objectAttributes) throws XMLStreamException {
+<span class="fc" id="L412">        Set&lt;String&gt; values = (Set&lt;String&gt;) objectAttributes.get(&quot;gebruiksdoel&quot;);</span>
+<span class="fc bfc" id="L413" title="All 2 branches covered.">        if (values == null) {</span>
+<span class="fc" id="L414">            values = new HashSet&lt;&gt;();</span>
+<span class="fc" id="L415">            objectAttributes.put(&quot;gebruiksdoel&quot;, values);</span>
+        }
+<span class="fc" id="L417">        values.add(attributeCursor.collectDescendantText().trim());</span>
+<span class="fc" id="L418">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

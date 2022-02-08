@@ -37,7 +37,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   DeltaCustomDownloadStatusResponse.JSON_PROPERTY_STATUS
 })
 @javax.annotation.processing.Generated(value = &quot;org.openapitools.codegen.languages.JavaClientCodegen&quot;)
-<span class="nc" id="L40">public class DeltaCustomDownloadStatusResponse {</span>
+public class DeltaCustomDownloadStatusResponse {
   public static final String JSON_PROPERTY_LINKS = &quot;_links&quot;;
   private DeltaCustomDownloadStatusResponseLinks links;
 
@@ -84,10 +84,12 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   public static final String JSON_PROPERTY_STATUS = &quot;status&quot;;
   private StatusEnum status;
 
+<span class="nc" id="L87">  public DeltaCustomDownloadStatusResponse() { </span>
+<span class="nc" id="L88">  }</span>
 
   public DeltaCustomDownloadStatusResponse links(DeltaCustomDownloadStatusResponseLinks links) {
-<span class="nc" id="L89">    this.links = links;</span>
-<span class="nc" id="L90">    return this;</span>
+<span class="nc" id="L91">    this.links = links;</span>
+<span class="nc" id="L92">    return this;</span>
   }
 
    /**
@@ -100,20 +102,20 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public DeltaCustomDownloadStatusResponseLinks getLinks() {
-<span class="nc" id="L103">    return links;</span>
+<span class="nc" id="L105">    return links;</span>
   }
 
 
   @JsonProperty(JSON_PROPERTY_LINKS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setLinks(DeltaCustomDownloadStatusResponseLinks links) {
-<span class="nc" id="L110">    this.links = links;</span>
-<span class="nc" id="L111">  }</span>
+<span class="nc" id="L112">    this.links = links;</span>
+<span class="nc" id="L113">  }</span>
 
 
   public DeltaCustomDownloadStatusResponse progress(Integer progress) {
-<span class="nc" id="L115">    this.progress = progress;</span>
-<span class="nc" id="L116">    return this;</span>
+<span class="nc" id="L117">    this.progress = progress;</span>
+<span class="nc" id="L118">    return this;</span>
   }
 
    /**
@@ -126,20 +128,20 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Integer getProgress() {
-<span class="nc" id="L129">    return progress;</span>
+<span class="nc" id="L131">    return progress;</span>
   }
 
 
   @JsonProperty(JSON_PROPERTY_PROGRESS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setProgress(Integer progress) {
-<span class="nc" id="L136">    this.progress = progress;</span>
-<span class="nc" id="L137">  }</span>
+<span class="nc" id="L138">    this.progress = progress;</span>
+<span class="nc" id="L139">  }</span>
 
 
   public DeltaCustomDownloadStatusResponse status(StatusEnum status) {
-<span class="nc" id="L141">    this.status = status;</span>
-<span class="nc" id="L142">    return this;</span>
+<span class="nc" id="L143">    this.status = status;</span>
+<span class="nc" id="L144">    return this;</span>
   }
 
    /**
@@ -152,15 +154,15 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public StatusEnum getStatus() {
-<span class="nc" id="L155">    return status;</span>
+<span class="nc" id="L157">    return status;</span>
   }
 
 
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setStatus(StatusEnum status) {
-<span class="nc" id="L162">    this.status = status;</span>
-<span class="nc" id="L163">  }</span>
+<span class="nc" id="L164">    this.status = status;</span>
+<span class="nc" id="L165">  }</span>
 
 
   /**
@@ -168,32 +170,32 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
    */
   @Override
   public boolean equals(Object o) {
-<span class="nc bnc" id="L171" title="All 2 branches missed.">    if (this == o) {</span>
-<span class="nc" id="L172">      return true;</span>
+<span class="nc bnc" id="L173" title="All 2 branches missed.">    if (this == o) {</span>
+<span class="nc" id="L174">      return true;</span>
     }
-<span class="nc bnc" id="L174" title="All 4 branches missed.">    if (o == null || getClass() != o.getClass()) {</span>
-<span class="nc" id="L175">      return false;</span>
+<span class="nc bnc" id="L176" title="All 4 branches missed.">    if (o == null || getClass() != o.getClass()) {</span>
+<span class="nc" id="L177">      return false;</span>
     }
-<span class="nc" id="L177">    DeltaCustomDownloadStatusResponse deltaCustomDownloadStatusResponse = (DeltaCustomDownloadStatusResponse) o;</span>
-<span class="nc bnc" id="L178" title="All 2 branches missed.">    return Objects.equals(this.links, deltaCustomDownloadStatusResponse.links) &amp;&amp;</span>
-<span class="nc bnc" id="L179" title="All 2 branches missed.">        Objects.equals(this.progress, deltaCustomDownloadStatusResponse.progress) &amp;&amp;</span>
-<span class="nc bnc" id="L180" title="All 2 branches missed.">        Objects.equals(this.status, deltaCustomDownloadStatusResponse.status);</span>
+<span class="nc" id="L179">    DeltaCustomDownloadStatusResponse deltaCustomDownloadStatusResponse = (DeltaCustomDownloadStatusResponse) o;</span>
+<span class="nc bnc" id="L180" title="All 2 branches missed.">    return Objects.equals(this.links, deltaCustomDownloadStatusResponse.links) &amp;&amp;</span>
+<span class="nc bnc" id="L181" title="All 2 branches missed.">        Objects.equals(this.progress, deltaCustomDownloadStatusResponse.progress) &amp;&amp;</span>
+<span class="nc bnc" id="L182" title="All 2 branches missed.">        Objects.equals(this.status, deltaCustomDownloadStatusResponse.status);</span>
   }
 
   @Override
   public int hashCode() {
-<span class="nc" id="L185">    return Objects.hash(links, progress, status);</span>
+<span class="nc" id="L187">    return Objects.hash(links, progress, status);</span>
   }
 
   @Override
   public String toString() {
-<span class="nc" id="L190">    StringBuilder sb = new StringBuilder();</span>
-<span class="nc" id="L191">    sb.append(&quot;class DeltaCustomDownloadStatusResponse {\n&quot;);</span>
-<span class="nc" id="L192">    sb.append(&quot;    links: &quot;).append(toIndentedString(links)).append(&quot;\n&quot;);</span>
-<span class="nc" id="L193">    sb.append(&quot;    progress: &quot;).append(toIndentedString(progress)).append(&quot;\n&quot;);</span>
-<span class="nc" id="L194">    sb.append(&quot;    status: &quot;).append(toIndentedString(status)).append(&quot;\n&quot;);</span>
-<span class="nc" id="L195">    sb.append(&quot;}&quot;);</span>
-<span class="nc" id="L196">    return sb.toString();</span>
+<span class="nc" id="L192">    StringBuilder sb = new StringBuilder();</span>
+<span class="nc" id="L193">    sb.append(&quot;class DeltaCustomDownloadStatusResponse {\n&quot;);</span>
+<span class="nc" id="L194">    sb.append(&quot;    links: &quot;).append(toIndentedString(links)).append(&quot;\n&quot;);</span>
+<span class="nc" id="L195">    sb.append(&quot;    progress: &quot;).append(toIndentedString(progress)).append(&quot;\n&quot;);</span>
+<span class="nc" id="L196">    sb.append(&quot;    status: &quot;).append(toIndentedString(status)).append(&quot;\n&quot;);</span>
+<span class="nc" id="L197">    sb.append(&quot;}&quot;);</span>
+<span class="nc" id="L198">    return sb.toString();</span>
   }
 
   /**
@@ -201,10 +203,10 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
    * (except the first line).
    */
   private String toIndentedString(Object o) {
-<span class="nc bnc" id="L204" title="All 2 branches missed.">    if (o == null) {</span>
-<span class="nc" id="L205">      return &quot;null&quot;;</span>
+<span class="nc bnc" id="L206" title="All 2 branches missed.">    if (o == null) {</span>
+<span class="nc" id="L207">      return &quot;null&quot;;</span>
     }
-<span class="nc" id="L207">    return o.toString().replace(&quot;\n&quot;, &quot;\n    &quot;);</span>
+<span class="nc" id="L209">    return o.toString().replace(&quot;\n&quot;, &quot;\n    &quot;);</span>
   }
 
 }

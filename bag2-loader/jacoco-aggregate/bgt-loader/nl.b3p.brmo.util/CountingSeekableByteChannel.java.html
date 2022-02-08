@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>CountingSeekableByteChannel.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO BAG 2.0 loader</a> &gt; <a href="../index.html" class="el_bundle">bgt-loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.util</a> &gt; <span class="el_source">CountingSeekableByteChannel.java</span></div><h1>CountingSeekableByteChannel.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2021 B3Partners B.V.
+ *
+ * SPDX-License-Identifier: MIT
+ *
+ */
+
+package nl.b3p.brmo.util;
+
+import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.channels.SeekableByteChannel;
+
+/**
+ * Analogous to a CountingInputStream, this wraps a channel and records the number of bytes read and written in addition
+ * to the number of non-consecutive reads or writes.
+ * &lt;p&gt;
+ * Optionally the bytes read can be printed to System.out (requires commons-codec).
+ *
+ * @author Matthijs Laan
+ */
+public class CountingSeekableByteChannel implements SeekableByteChannel {
+    private final SeekableByteChannel channel;
+<span class="nc" id="L24">    private int nonConsecutiveIops = 0;</span>
+<span class="nc" id="L25">    private boolean seeked = false;</span>
+<span class="nc" id="L26">    private long bytesRead = 0;</span>
+<span class="nc" id="L27">    private long bytesWritten = 0;</span>
+<span class="nc" id="L28">    private boolean loggingEnabled = false;</span>
+
+<span class="nc" id="L30">    public CountingSeekableByteChannel(SeekableByteChannel channel) {</span>
+<span class="nc" id="L31">        this.channel = channel;</span>
+<span class="nc" id="L32">    }</span>
+
+    public int getNonConsecutiveIops() {
+<span class="nc" id="L35">        return nonConsecutiveIops;</span>
+    }
+
+    public long getBytesRead() {
+<span class="nc" id="L39">        return bytesRead;</span>
+    }
+
+    public long getBytesWritten() {
+<span class="nc" id="L43">        return bytesWritten;</span>
+    }
+
+    public boolean isLoggingEnabled() {
+<span class="nc" id="L47">        return loggingEnabled;</span>
+    }
+
+    public void setLoggingEnabled(boolean loggingEnabled) {
+<span class="nc" id="L51">        this.loggingEnabled = loggingEnabled;</span>
+<span class="nc" id="L52">    }</span>
+
+    public CountingSeekableByteChannel withLogging(boolean loggingEnabled) {
+<span class="nc" id="L55">        this.loggingEnabled = loggingEnabled;</span>
+<span class="nc" id="L56">        return this;</span>
+    }
+
+    @Override
+    public int read(ByteBuffer byteBuffer) throws IOException {
+<span class="nc bnc" id="L61" title="All 2 branches missed.">        if (seeked) {</span>
+<span class="nc" id="L62">            seeked = false;</span>
+<span class="nc" id="L63">            nonConsecutiveIops++;</span>
+<span class="nc bnc" id="L64" title="All 2 branches missed.">            if (loggingEnabled) {</span>
+<span class="nc" id="L65">                System.out.printf(&quot;new position %15d: read into buffer %s&quot;, channel.position(), byteBuffer);</span>
+            }
+<span class="nc bnc" id="L67" title="All 2 branches missed.">        } else if (loggingEnabled) {</span>
+<span class="nc" id="L68">            System.out.printf(&quot;consecutive  %15d: read into buffer %s&quot;, channel.position(), byteBuffer);</span>
+        }
+<span class="nc" id="L70">        int startOffset = byteBuffer.arrayOffset();</span>
+<span class="nc" id="L71">        int read = channel.read(byteBuffer);</span>
+<span class="nc bnc" id="L72" title="All 2 branches missed.">        if (loggingEnabled) {</span>
+<span class="nc" id="L73">            System.out.printf(&quot; read %s, contents: %s\n&quot;, read, new String(org.apache.commons.codec.binary.Hex.encodeHex(byteBuffer.array(), startOffset, read, true)));</span>
+        }
+<span class="nc" id="L75">        bytesRead += read;</span>
+<span class="nc" id="L76">        return read;</span>
+    }
+
+    @Override
+    public int write(ByteBuffer byteBuffer) throws IOException {
+<span class="nc" id="L81">        int written = channel.write(byteBuffer);</span>
+<span class="nc bnc" id="L82" title="All 2 branches missed.">        if (written &gt; 0) {</span>
+<span class="nc" id="L83">            bytesWritten += written;</span>
+<span class="nc bnc" id="L84" title="All 2 branches missed.">            if (seeked) {</span>
+<span class="nc" id="L85">                seeked = false;</span>
+<span class="nc" id="L86">                nonConsecutiveIops++;</span>
+            }
+        }
+<span class="nc" id="L89">        return written;</span>
+    }
+
+    @Override
+    public long position() throws IOException {
+<span class="nc" id="L94">        return channel.position();</span>
+    }
+
+    @Override
+    public SeekableByteChannel position(long newPosition) throws IOException {
+<span class="nc bnc" id="L99" title="All 2 branches missed.">        if (channel.position() != newPosition) {</span>
+<span class="nc" id="L100">            channel.position(newPosition);</span>
+<span class="nc" id="L101">            seeked = true;</span>
+        }
+<span class="nc" id="L103">        return this;</span>
+    }
+
+    @Override
+    public long size() throws IOException {
+<span class="nc" id="L108">        return channel.size();</span>
+    }
+
+    @Override
+    public SeekableByteChannel truncate(long newSize) throws IOException {
+<span class="nc" id="L113">        return channel.truncate(newSize);</span>
+    }
+
+    @Override
+    public boolean isOpen() {
+<span class="nc" id="L118">        return channel.isOpen();</span>
+    }
+
+    @Override
+    public void close() throws IOException {
+<span class="nc bnc" id="L123" title="All 2 branches missed.">        if (channel.isOpen()) {</span>
+<span class="nc" id="L124">            channel.close();</span>
+<span class="nc bnc" id="L125" title="All 2 branches missed.">            if (loggingEnabled) {</span>
+<span class="nc" id="L126">                System.out.printf(&quot;Total non-consecutive iops: %d, bytes read: %d, written: %d\n&quot;,</span>
+<span class="nc" id="L127">                        nonConsecutiveIops, bytesRead, bytesWritten);</span>
+            }
+        }
+<span class="nc" id="L130">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

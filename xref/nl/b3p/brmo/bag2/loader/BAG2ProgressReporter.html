@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="nl" lang="nl">
+<head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<title>BAG2ProgressReporter xref</title>
+<link type="text/css" rel="stylesheet" href="../../../../../stylesheet.css" />
+</head>
+<body>
+<div id="overview"><a href="../../../../../../apidocs/nl/b3p/brmo/bag2/loader/BAG2ProgressReporter.html">View Javadoc</a></div><pre>
+<a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_comment">/*</em>
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright (C) 2021 B3Partners B.V.</em>
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_comment"> *</em>
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> * SPDX-License-Identifier: MIT</em>
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_comment"> *</em>
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <em class="jxr_comment"> */</em>
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">package</strong> nl.b3p.brmo.bag2.loader;
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> nl.b3p.brmo.bag2.schema.BAG2ObjectTableWriter;
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> nl.b3p.brmo.schema.ObjectTableWriter;
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> org.apache.commons.logging.Log;
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> org.apache.commons.logging.LogFactory;
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">import</strong> java.time.Instant;
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> java.util.function.Consumer;
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>  
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> nl.b3p.brmo.bag2.loader.BAG2LoaderUtils.getMessageFormattedString;
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> nl.b3p.brmo.bgt.loader.Utils.formatTimeSince;
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>  
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="BAG2ProgressReporter" href="../../../../../nl/b3p/brmo/bag2/loader/BAG2ProgressReporter.html#BAG2ProgressReporter">BAG2ProgressReporter</a> <strong class="jxr_keyword">implements</strong> Consumer&lt;ObjectTableWriter.Progress&gt; {
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Log log = LogFactory.getLog(BAG2ProgressReporter.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>  
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> Instant start = Instant.now();
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>  
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>      <strong class="jxr_keyword">protected</strong> String currentFileName;
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>      <strong class="jxr_keyword">protected</strong> Instant currentFileStart;
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>  
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>      <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">int</strong> splitFileCount;
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>  
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>      <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> log(String msg) {
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>          log.info(msg);
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>      }
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>  
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>      <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> status(String msg) {
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>          log.debug(msg);
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>      }
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>  
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> startNewFile(String name) {
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>          <strong class="jxr_keyword">this</strong>.currentFileName = name;
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>          <strong class="jxr_keyword">this</strong>.currentFileStart = Instant.now();
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>          <strong class="jxr_keyword">this</strong>.splitFileCount = 0;
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>      }
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>  
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> startNextSplitFile(String entry) {
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>          <strong class="jxr_keyword">this</strong>.splitFileCount++;
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>      }
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>  
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>      @Override
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> accept(ObjectTableWriter.Progress progress) {
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>          BAG2ObjectTableWriter.BAG2Progress bag2Progress = (BAG2ObjectTableWriter.BAG2Progress) progress;
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>  
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>          <strong class="jxr_keyword">switch</strong>(progress.getStage()) {
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>              <strong class="jxr_keyword">case</strong> LOAD_OBJECTS:
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>                  <strong class="jxr_keyword">if</strong> (progress.getObjectCount() == 0) {
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>                      log(getMessageFormattedString(<span class="jxr_string">"progress.loading"</span>, currentFileName));
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>                  }
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>                  <strong class="jxr_keyword">break</strong>;
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>              <strong class="jxr_keyword">case</strong> CREATE_PRIMARY_KEY:
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>                  log(getMessageFormattedString(<span class="jxr_string">"progress.create_primary_key"</span>, bag2Progress.getCurrentObjectType().getName()));
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>                  <strong class="jxr_keyword">break</strong>;
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>              <strong class="jxr_keyword">case</strong> CREATE_GEOMETRY_INDEX:
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>                  log(getMessageFormattedString(<span class="jxr_string">"progress.create_geometry_indexes"</span>, bag2Progress.getCurrentObjectType().getName()));
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>                  <strong class="jxr_keyword">break</strong>;
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>              <strong class="jxr_keyword">case</strong> FINISHED:
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>                  log(getMessageFormattedString(<span class="jxr_string">"progress.finished_file"</span>, currentFileName, splitFileCount, bag2Progress.getObjectCount(), formatTimeSince(currentFileStart)));
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>                  <em class="jxr_comment">//log(String.format("%s: loaded %,d files, %,d total objects in %s", currentFileName, splitFileCount, bag2Progress.getObjectCount(), formatTimeSince(currentFileStart)));</em>
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>                  <strong class="jxr_keyword">break</strong>;
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>          }
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>      }
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>  
+<a class="jxr_linenumber" name="L72" href="#L72">72</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> reportTotalSummary() {
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>          log(getMessageFormattedString(<span class="jxr_string">"progress.finished"</span>, formatTimeSince(start)));
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>      }
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>  }
+</pre>
+<hr/>
+<div id="footer">Copyright &#169; 2014&#x2013;2022 <a href="https://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>
+</body>
+</html>

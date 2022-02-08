@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>HttpClientWrappers.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO BAG 2.0 loader</a> &gt; <a href="../index.html" class="el_bundle">bgt-loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.util.http</a> &gt; <span class="el_source">HttpClientWrappers.java</span></div><h1>HttpClientWrappers.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2021 B3Partners B.V.
+ *
+ * SPDX-License-Identifier: MIT
+ *
+ */
+
+package nl.b3p.brmo.util.http;
+
+import nl.b3p.brmo.util.http.wrapper.Java11HttpClientWrapper;
+import nl.b3p.brmo.util.http.wrapper.URLConnectionHttpClientWrapper;
+
+import java.net.http.HttpClient;
+
+/**
+ * Provides default wrapper implementations for Java HTTP clients.
+ * &lt;p&gt;
+ * If the {@code java.specification.version} system property is 11 or higher, returns a {@link Java11HttpClientWrapper}
+ * unless the system property {@code httpclientwrapper} is set to {@code urlconnection}. This client tries to upgrade
+ * the connection HTTP/2 by default, unless the {@code httpclientwrapper.java11.http1_1} system property is set.
+ * &lt;p&gt;
+ * When the Java version is lower than 11, a {@code URLConnectionHttpClientWrapper} is returned.
+ *
+ * @author Matthijs Laan
+ */
+<span class="nc" id="L26">public class HttpClientWrappers {</span>
+    public static HttpClientWrapper getDefault() {
+<span class="pc bpc" id="L28" title="1 of 2 branches missed.">        if (&quot;urlconnection&quot;.equals(System.getProperty(&quot;httpclientwrapper&quot;))) {</span>
+<span class="nc" id="L29">            return new URLConnectionHttpClientWrapper();</span>
+        }
+<span class="fc" id="L31">        float f = Float.parseFloat(System.getProperty((&quot;java.specification.version&quot;)));</span>
+<span class="pc bpc" id="L32" title="1 of 2 branches missed.">        if (f &gt;= 11.0f) {</span>
+<span class="fc" id="L33">            return new Java11HttpClientWrapper();</span>
+        } else {
+<span class="nc" id="L35">            return new URLConnectionHttpClientWrapper();</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

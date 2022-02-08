@@ -33,28 +33,27 @@ public class SchemaObjectInstance {
 <span class="fc" id="L33">        return attributes;</span>
     }
 
-
     public String toString() {
-<span class="nc" id="L38">        StringBuilder s = new StringBuilder(objectType.getName());</span>
-<span class="nc" id="L39">        s.append(&quot;{&quot;);</span>
-<span class="nc" id="L40">        SortedSet&lt;String&gt; attributeNames = new TreeSet&lt;&gt;(attributes.keySet());</span>
-<span class="nc" id="L41">        boolean first = true;</span>
-<span class="nc bnc" id="L42" title="All 2 branches missed.">        for(String name: attributeNames) {</span>
-<span class="nc bnc" id="L43" title="All 2 branches missed.">            if (first) {</span>
-<span class="nc" id="L44">                first = false;</span>
+<span class="nc" id="L37">        StringBuilder s = new StringBuilder(objectType.getName());</span>
+<span class="nc" id="L38">        s.append(&quot;{&quot;);</span>
+<span class="nc" id="L39">        SortedSet&lt;String&gt; attributeNames = new TreeSet&lt;&gt;(attributes.keySet());</span>
+<span class="nc" id="L40">        boolean first = true;</span>
+<span class="nc bnc" id="L41" title="All 2 branches missed.">        for(String name: attributeNames) {</span>
+<span class="nc bnc" id="L42" title="All 2 branches missed.">            if (first) {</span>
+<span class="nc" id="L43">                first = false;</span>
             } else {
-<span class="nc" id="L46">                s.append(&quot;, &quot;);</span>
+<span class="nc" id="L45">                s.append(&quot;, &quot;);</span>
             }
-<span class="nc" id="L48">            s.append(name);</span>
-<span class="nc" id="L49">            s.append(&quot;=&quot;);</span>
-<span class="nc" id="L50">            Object value = attributes.get(name);</span>
-<span class="nc bnc" id="L51" title="All 2 branches missed.">            if (value instanceof Geometry) {</span>
-<span class="nc" id="L52">                value = wktWriter2.write((Geometry)value);</span>
+<span class="nc" id="L47">            s.append(name);</span>
+<span class="nc" id="L48">            s.append(&quot;=&quot;);</span>
+<span class="nc" id="L49">            Object value = attributes.get(name);</span>
+<span class="nc bnc" id="L50" title="All 2 branches missed.">            if (value instanceof Geometry) {</span>
+<span class="nc" id="L51">                value = wktWriter2.write((Geometry)value);</span>
             }
-<span class="nc" id="L54">            s.append(value);</span>
-<span class="nc" id="L55">        }</span>
-<span class="nc" id="L56">        s.append(&quot;}&quot;);</span>
-<span class="nc" id="L57">        return s.toString();</span>
+<span class="nc" id="L53">            s.append(value);</span>
+<span class="nc" id="L54">        }</span>
+<span class="nc" id="L55">        s.append(&quot;}&quot;);</span>
+<span class="nc" id="L56">        return s.toString();</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

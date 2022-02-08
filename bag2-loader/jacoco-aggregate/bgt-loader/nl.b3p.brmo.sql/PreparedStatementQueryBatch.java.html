@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>PreparedStatementQueryBatch.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO BAG 2.0 loader</a> &gt; <a href="../index.html" class="el_bundle">bgt-loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.sql</a> &gt; <span class="el_source">PreparedStatementQueryBatch.java</span></div><h1>PreparedStatementQueryBatch.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2021 B3Partners B.V.
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+package nl.b3p.brmo.sql;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.sql.Connection;
+import java.sql.ParameterMetaData;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Types;
+
+public class PreparedStatementQueryBatch implements QueryBatch {
+<span class="nc" id="L19">    private static final Log LOG = LogFactory.getLog(PreparedStatementQueryBatch.class);</span>
+
+    protected final Connection c;
+    private final String sql;
+    private final int batchSize;
+
+<span class="nc" id="L25">    private int count = 0;</span>
+
+    protected PreparedStatement ps;
+    private int[] parameterTypes;
+
+<span class="nc" id="L30">    public PreparedStatementQueryBatch(Connection c, String sql, int batchSize) throws SQLException {</span>
+<span class="nc" id="L31">        this.c = c;</span>
+<span class="nc" id="L32">        this.sql = sql;</span>
+<span class="nc" id="L33">        this.batchSize = batchSize;</span>
+<span class="nc" id="L34">        initializePreparedStatement();</span>
+<span class="nc" id="L35">    }</span>
+
+    private void initializePreparedStatement() throws SQLException {
+<span class="nc" id="L38">        ps = c.prepareStatement(sql);</span>
+<span class="nc" id="L39">        parameterTypes = null;</span>
+        try {
+<span class="nc" id="L41">            ParameterMetaData pmd = ps.getParameterMetaData();</span>
+<span class="nc bnc" id="L42" title="All 2 branches missed.">            if (pmd != null) {</span>
+<span class="nc" id="L43">                parameterTypes = new int[pmd.getParameterCount()];</span>
+<span class="nc bnc" id="L44" title="All 2 branches missed.">                for (int i = 0; i &lt; pmd.getParameterCount(); i++) {</span>
+<span class="nc" id="L45">                    parameterTypes[i] = pmd.getParameterType(i + 1);</span>
+                }
+            }
+<span class="nc" id="L48">        } catch(Exception e) {</span>
+            // May fail, for example if Oracle table is in NOLOGGING mode. Ignore.
+<span class="nc" id="L50">        }</span>
+<span class="nc" id="L51">    }</span>
+
+    /**
+     * Add a batch and execute if batch size reached.
+     * @param params The parameters for the row to insert
+     * @return Whether the batch was executed
+     */
+    @Override
+    public boolean addBatch(Object[] params) throws Exception {
+<span class="nc bnc" id="L60" title="All 2 branches missed.">        for (int i = 0; i &lt; params.length; i++) {</span>
+<span class="nc" id="L61">            int parameterIndex = i + 1;</span>
+            try {
+<span class="nc bnc" id="L63" title="All 2 branches missed.">                int pmdType = parameterTypes != null ? parameterTypes[i] : Types.VARCHAR;</span>
+<span class="nc" id="L64">                setPreparedStatementParameter(parameterIndex, pmdType, params[i]);</span>
+<span class="nc" id="L65">            } catch (Exception e) {</span>
+<span class="nc" id="L66">                throw new Exception(String.format(&quot;Exception setting parameter %s to value %s for insert SQL \&quot;%s\&quot;&quot;, i, params[i], sql), e);</span>
+<span class="nc" id="L67">            }</span>
+        }
+<span class="nc" id="L69">        ps.addBatch();</span>
+
+<span class="nc" id="L71">        count++;</span>
+
+<span class="nc bnc" id="L73" title="All 2 branches missed.">        if (count == batchSize) {</span>
+<span class="nc" id="L74">            this.executeBatch();</span>
+<span class="nc" id="L75">            return true;</span>
+        } else {
+<span class="nc" id="L77">            return false;</span>
+        }
+    }
+
+    @Override
+    public void executeBatch() throws Exception {
+<span class="nc bnc" id="L83" title="All 2 branches missed.">        if (count &gt; 0) {</span>
+<span class="nc" id="L84">            LOG.debug(String.format(&quot;execute batch, size %d, sql: %s&quot;, count, sql));</span>
+<span class="nc" id="L85">            ps.executeBatch();</span>
+<span class="nc" id="L86">            this.count = 0;</span>
+        }
+<span class="nc" id="L88">    }</span>
+
+    @Override
+    public void close() throws SQLException {
+<span class="nc" id="L92">        ps.close();</span>
+<span class="nc" id="L93">    }</span>
+
+    protected void setPreparedStatementParameter(int oneBasedParameterIndex, int parameterMetadataType, Object parameter) throws SQLException {
+<span class="nc bnc" id="L96" title="All 2 branches missed.">        if (parameter != null) {</span>
+<span class="nc" id="L97">            ps.setObject(oneBasedParameterIndex, parameter);</span>
+        } else {
+<span class="nc" id="L99">            ps.setNull(oneBasedParameterIndex, parameterMetadataType);</span>
+        }
+<span class="nc" id="L101">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

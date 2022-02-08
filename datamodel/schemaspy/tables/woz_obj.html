@@ -128,12 +128,6 @@
  Deletion of parent deletes child'>&nbsp;C</span></td>
    </tr>
    <tr class='relative even' valign='top'>
-    <td class='relatedTable detail' title="woz_omvat.fk_sc_rh_woz_nummer refs woz_obj.nummer via fk_woz_omvat_sc_rh"><a href='woz_omvat.html'>woz_omvat</a><span class='relatedKey'>.fk_sc_rh_woz_nummer</span>
-    </td>
-    <td class='constraint detail'>fk_woz_omvat_sc_rh<span title='Cascade on delete:
- Deletion of parent deletes child'>&nbsp;C</span></td>
-   </tr>
-   <tr class='relative even' valign='top'>
     <td class='relatedTable detail' title="woz_waarde.fk_1woz_nummer refs woz_obj.nummer via fk_wrd_1n_1"><a href='woz_waarde.html'>woz_waarde</a><span class='relatedKey'>.fk_1woz_nummer</span>
     </td>
     <td class='constraint detail'>fk_wrd_1n_1<span title='Cascade on delete:
@@ -232,30 +226,8 @@
  <td class='detail'> </td>
  <td class='comment detail'>GM_Surface - Geometrie WOZ-object</td>
 </tr>
-<tr class='odd'>
- <td class='detail'>waterschap</td>
- <td class='detail'>varchar</td>
- <td class='detail' align='right'>4</td>
- <td class='detail' align='center' title='nullable'>&nbsp;&radic;&nbsp;</td>
- <td class='detail' align='center'></td>
- <td class='detail' align='right'>null</td>
- <td class='detail'></td>
- <td class='detail'> </td>
- <td class='comment detail'>ligt in waterschap (niet-RSGB)</td>
-</tr>
-<tr class='even'>
- <td class='detail'>fk_verantw_gem_code</td>
- <td class='detail'>numeric</td>
- <td class='detail' align='right'>4</td>
- <td class='detail' align='center' title='nullable'>&nbsp;&radic;&nbsp;</td>
- <td class='detail' align='center'></td>
- <td class='detail' align='right'>null</td>
- <td class='detail'></td>
- <td class='detail'> </td>
- <td class='comment detail'>verantwoordelijke gemeente (niet-RSGB)</td>
-</tr>
 </table>
-<p title='12 columns'>Table contained 0 rows at vr aug. 27 13:21 CEST 2021<p/>
+<p title='10 columns'>Table contained 0 rows at di feb. 08 17:02 CET 2022<p/>
 </td></tr></table>
 <div class='indent'>
 <b>Indexes:</b>
@@ -287,25 +259,23 @@
 <br><form action='get'><b>Close relationships</b><span class='degrees' id='degrees' title='Detail diminishes with increased separation from woz_obj'>
 &nbsp;within <label for='oneDegree'><input type='radio' name='degrees' id='oneDegree' checked>one</label>  <label for='twoDegrees'><input type='radio' name='degrees' id='twoDegrees'>two degrees</label> of separation</span><b>:</b></form>
 <map id="oneDegreeRelationshipsDiagram" name="oneDegreeRelationshipsDiagram">
-<area shape="rect" id="node1" href="locaand_adres.html" title="locaand_adres" alt="" coords="446,5,638,136">
-<area shape="rect" id="node2" href="woz_obj.html" title="woz_obj" alt="" coords="5,445,383,797">
-<area shape="rect" id="node3" href="locaand_openb_rmte.html" title="locaand_openb_rmte" alt="" coords="439,153,645,284">
-<area shape="rect" id="node4" href="woz_belang.html" title="woz_belang" alt="" coords="439,301,645,432">
-<area shape="rect" id="node5" href="woz_deelobj.html" title="woz_deelobj" alt="" coords="427,449,657,700">
-<area shape="rect" id="node6" href="woz_omvat.html" title="woz_omvat" alt="" coords="446,717,638,848">
-<area shape="rect" id="node7" href="woz_waarde.html" title="woz_waarde" alt="" coords="449,865,635,1044">
+<area shape="rect" id="node1" href="locaand_adres.html" title="locaand_adres" alt="" coords="442,5,634,136">
+<area shape="rect" id="node2" href="woz_obj.html" title="woz_obj" alt="" coords="5,299,379,603">
+<area shape="rect" id="node3" href="locaand_openb_rmte.html" title="locaand_openb_rmte" alt="" coords="435,153,641,284">
+<area shape="rect" id="node4" href="woz_belang.html" title="woz_belang" alt="" coords="435,301,641,432">
+<area shape="rect" id="node5" href="woz_deelobj.html" title="woz_deelobj" alt="" coords="423,449,653,700">
+<area shape="rect" id="node6" href="woz_waarde.html" title="woz_waarde" alt="" coords="445,717,631,896">
 </map>
   <a name='diagram'><img id='oneDegreeImg' src='../diagrams/woz_obj.1degree.png' usemap='#oneDegreeRelationshipsDiagram' class='diagram' border='0' alt='' align='left'></a>
 <map id="twoDegreesRelationshipsDiagram" name="twoDegreesRelationshipsDiagram">
-<area shape="rect" id="node1" href="locaand_adres.html" title="locaand_adres" alt="" coords="446,497,638,628">
-<area shape="rect" id="node2" href="woz_obj.html" title="woz_obj" alt="" coords="5,432,383,784">
-<area shape="rect" id="node3" href="locaand_openb_rmte.html" title="locaand_openb_rmte" alt="" coords="439,5,645,136">
-<area shape="rect" id="node4" href="openb_rmte.html" title="openb_rmte" alt="" coords="128,5,260,88">
-<area shape="rect" id="node5" href="woz_belang.html" title="woz_belang" alt="" coords="439,913,645,1044">
-<area shape="rect" id="node6" href="subject.html" title="subject" alt="" coords="128,913,260,996">
-<area shape="rect" id="node7" href="woz_deelobj.html" title="woz_deelobj" alt="" coords="427,645,657,896">
-<area shape="rect" id="node8" href="woz_omvat.html" title="woz_omvat" alt="" coords="446,153,638,284">
-<area shape="rect" id="node9" href="woz_waarde.html" title="woz_waarde" alt="" coords="449,301,635,480">
+<area shape="rect" id="node1" href="locaand_adres.html" title="locaand_adres" alt="" coords="442,153,634,284">
+<area shape="rect" id="node2" href="woz_obj.html" title="woz_obj" alt="" coords="5,443,379,747">
+<area shape="rect" id="node3" href="locaand_openb_rmte.html" title="locaand_openb_rmte" alt="" coords="435,5,641,136">
+<area shape="rect" id="node4" href="openb_rmte.html" title="openb_rmte" alt="" coords="126,5,258,88">
+<area shape="rect" id="node5" href="woz_belang.html" title="woz_belang" alt="" coords="435,765,641,896">
+<area shape="rect" id="node6" href="subject.html" title="subject" alt="" coords="126,765,258,848">
+<area shape="rect" id="node7" href="woz_deelobj.html" title="woz_deelobj" alt="" coords="423,301,653,552">
+<area shape="rect" id="node8" href="woz_waarde.html" title="woz_waarde" alt="" coords="445,569,631,748">
 </map>
 
   <a name='diagram'><img id='twoDegreesImg' src='../diagrams/woz_obj.2degrees.png' usemap='#twoDegreesRelationshipsDiagram' class='diagram' border='0' alt='' align='left'></a>

@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>BAG2ObjectTableWriter.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO service</a> &gt; <a href="../index.html" class="el_bundle">bag2-loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.bag2.schema</a> &gt; <span class="el_source">BAG2ObjectTableWriter.java</span></div><h1>BAG2ObjectTableWriter.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2021 B3Partners B.V.
+ *
+ * SPDX-License-Identifier: MIT
+ *
+ */
+
+package nl.b3p.brmo.bag2.schema;
+
+import nl.b3p.brmo.bag2.loader.BAG2GMLMutatieGroepStream;
+import nl.b3p.brmo.bag2.loader.BAG2Mutatie;
+import nl.b3p.brmo.bag2.loader.BAG2MutatieGroep;
+import nl.b3p.brmo.bag2.loader.BAG2ToevoegingMutatie;
+import nl.b3p.brmo.bag2.loader.BAG2WijzigingMutatie;
+import nl.b3p.brmo.schema.ObjectTableWriter;
+import nl.b3p.brmo.schema.ObjectType;
+import nl.b3p.brmo.schema.SchemaObjectInstance;
+import nl.b3p.brmo.schema.SchemaSQLMapper;
+import nl.b3p.brmo.schema.mapping.AttributeColumnMapping;
+import nl.b3p.brmo.sql.PreparedStatementQueryBatch;
+import nl.b3p.brmo.sql.QueryBatch;
+import nl.b3p.brmo.sql.dialect.SQLDialect;
+import org.apache.commons.io.input.CountingInputStream;
+import org.apache.commons.lang3.tuple.Pair;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import static nl.b3p.brmo.bag2.schema.BAG2Schema.TIJDSTIP_NIETBAGLV;
+
+public class BAG2ObjectTableWriter extends ObjectTableWriter {
+<span class="nc" id="L40">    private static final Log log = LogFactory.getLog(BAG2ObjectTableWriter.class);</span>
+
+    private boolean ignoreDuplicates;
+
+    /**
+     * Set of seen keys per object type to enable skipping of duplicates
+     */
+<span class="nc" id="L47">    private Map&lt;BAG2ObjectType, Set&lt;Pair&lt;Object,Object&gt;&gt;&gt; keysPerObjectType = null;</span>
+
+<span class="nc" id="L49">    public class BAG2Progress extends Progress {</span>
+<span class="nc" id="L50">        private Map&lt;ObjectType, QueryBatch&gt; deleteBatches = new HashMap&lt;&gt;();</span>
+
+<span class="nc" id="L52">        private long updatedCount = 0;</span>
+
+        private BAG2GMLMutatieGroepStream.BagInfo bagInfo;
+
+<span class="nc" id="L56">        private BAG2ObjectType currentObjectType = null;</span>
+
+        public long getUpdatedCount() {
+<span class="nc" id="L59">            return updatedCount;</span>
+        }
+
+        public BAG2ObjectTableWriter getWriter() {
+<span class="nc" id="L63">            return BAG2ObjectTableWriter.this;</span>
+        }
+
+        public BAG2GMLMutatieGroepStream.BagInfo getMutatieInfo() {
+<span class="nc" id="L67">            return bagInfo;</span>
+        }
+
+        public BAG2ObjectType getCurrentObjectType() {
+<span class="nc" id="L71">            return currentObjectType;</span>
+        }
+    }
+
+    public BAG2ObjectTableWriter(Connection connection, SQLDialect dialect, SchemaSQLMapper schemaSQLMapper) {
+<span class="nc" id="L76">        super(connection, dialect, schemaSQLMapper);</span>
+<span class="nc" id="L77">        this.setProgress(this.new BAG2Progress());</span>
+<span class="nc" id="L78">    }</span>
+
+    public void setIgnoreDuplicates(boolean ignoreDuplicates) {
+<span class="nc" id="L81">        this.ignoreDuplicates = ignoreDuplicates;</span>
+<span class="nc" id="L82">    }</span>
+
+    public boolean getIgnoreDuplicates() {
+<span class="nc" id="L85">        return ignoreDuplicates;</span>
+    }
+
+    public BAG2Progress getProgress() {
+<span class="nc" id="L89">        return (BAG2Progress) super.getProgress();</span>
+    }
+
+    public Map&lt;BAG2ObjectType, Set&lt;Pair&lt;Object,Object&gt;&gt;&gt; getKeysPerObjectType() {
+<span class="nc" id="L93">        return keysPerObjectType;</span>
+    }
+
+    public void setKeysPerObjectType(Map&lt;BAG2ObjectType, Set&lt;Pair&lt;Object,Object&gt;&gt;&gt; keysPerObjectType) {
+<span class="nc" id="L97">        this.keysPerObjectType = keysPerObjectType;</span>
+<span class="nc" id="L98">    }</span>
+
+    public void start() throws SQLException {
+<span class="nc" id="L101">        BAG2Progress progress = this.new BAG2Progress();</span>
+<span class="nc" id="L102">        progress.setInitialLoad(true);</span>
+<span class="nc" id="L103">        super.start(progress);</span>
+<span class="nc" id="L104">        updateProgress(Stage.PARSE_INPUT);</span>
+<span class="nc" id="L105">    }</span>
+
+    private void deletePreviousVersion(BAG2Object object) throws Exception {
+<span class="nc" id="L108">        BAG2ObjectType objectType = object.getObjectType();</span>
+<span class="nc" id="L109">        Map&lt;ObjectType,QueryBatch&gt; deleteBatches = getProgress().deleteBatches;</span>
+<span class="nc bnc" id="L110" title="All 2 branches missed.">        if (!deleteBatches.containsKey(objectType)) {</span>
+<span class="nc" id="L111">            String args = objectType.getPrimaryKeys().stream()</span>
+<span class="nc" id="L112">                    .map(k -&gt; getSchemaSQLMapper().getColumnNameForObjectType(objectType, k.getName()) + &quot; = ?&quot;)</span>
+<span class="nc" id="L113">                    .collect(Collectors.joining(&quot; and &quot;));</span>
+            // Array attributes are deleted because of 'on delete cascade' on the foreign key
+<span class="nc" id="L115">            String sql = String.format(&quot;delete from %s where %s&quot;, getSchemaSQLMapper().getTableNameForObjectType(objectType, getTablePrefix()), args);</span>
+            // Set batch size to 1 so deletes are executed immediately, for performance deletes could be batched but
+            // they would need to be executed before inserts of updated versions (with the same key), that is more
+            // complicated
+<span class="nc" id="L119">            deleteBatches.put(objectType, new PreparedStatementQueryBatch(getConnection(), sql, 1));</span>
+        }
+<span class="nc" id="L121">        QueryBatch batch = deleteBatches.get(objectType);</span>
+
+<span class="nc" id="L123">        Object[] params = objectType.getPrimaryKeys().stream().map(pk -&gt; {</span>
+            try {
+<span class="nc" id="L125">                AttributeColumnMapping mapping = objectType.getAttributeByName(pk.getName());</span>
+<span class="nc" id="L126">                Object attribute = object.getAttributes().get(pk.getName());</span>
+<span class="nc" id="L127">                return mapping.toQueryParameter(attribute);</span>
+<span class="nc" id="L128">            } catch (Exception e) {</span>
+<span class="nc" id="L129">                throw new RuntimeException(e);</span>
+            }
+<span class="nc" id="L131">        }).toArray();</span>
+
+<span class="nc" id="L133">        boolean executed = batch.addBatch(params);</span>
+<span class="nc" id="L134">        getProgress().updatedCount++;</span>
+
+<span class="nc bnc" id="L136" title="All 2 branches missed.">        if (executed) {</span>
+<span class="nc" id="L137">            updateProgress();</span>
+        }
+<span class="nc" id="L139">    }</span>
+
+    @Override
+    protected void addObjectToBatch(SchemaObjectInstance object) throws Exception {
+        // Never write NIET BAG objects to database
+<span class="nc bnc" id="L144" title="All 2 branches missed.">        if (!object.getAttributes().containsKey(TIJDSTIP_NIETBAGLV)) {</span>
+<span class="nc" id="L145">            super.addObjectToBatch(object);</span>
+        }
+<span class="nc" id="L147">    }</span>
+
+    public void write(InputStream bagXml) throws Exception {
+<span class="nc" id="L150">        CountingInputStream counter = new CountingInputStream(bagXml);</span>
+<span class="nc" id="L151">        BAG2GMLMutatieGroepStream bag2Objects = new BAG2GMLMutatieGroepStream(counter);</span>
+<span class="nc" id="L152">        getProgress().bagInfo = bag2Objects.getBagInfo();</span>
+<span class="nc" id="L153">        updateProgress(Stage.LOAD_OBJECTS);</span>
+
+        try {
+<span class="nc bnc" id="L156" title="All 2 branches missed.">            for (BAG2MutatieGroep mutatieGroep: bag2Objects) {</span>
+<span class="nc bnc" id="L157" title="All 2 branches missed.">                for (BAG2Mutatie mutatie: mutatieGroep.getMutaties()) {</span>
+<span class="nc bnc" id="L158" title="All 2 branches missed.">                    if (mutatie instanceof BAG2WijzigingMutatie) {</span>
+                        // Don't do an update but a simpler delete and insert of the updated version
+                        // Executed on main thread, but worker thread will not be executing new versions of the record we're
+                        // deleting
+
+                        // No check for duplicates for wijzigingen: no harm in doing the same wijziging twice and we
+                        // can't tell by only the keys if it is exactly the same wijziging but in the maandmutaties for
+                        // a different gemeente or the same version changed twice
+
+<span class="nc" id="L167">                        BAG2WijzigingMutatie wijzigingMutatie = (BAG2WijzigingMutatie) mutatie;</span>
+<span class="nc" id="L168">                        deletePreviousVersion(wijzigingMutatie.getWas());</span>
+<span class="nc" id="L169">                        addObjectToBatch(wijzigingMutatie.getWordt());</span>
+<span class="nc bnc" id="L170" title="All 2 branches missed.">                    } else if(mutatie instanceof BAG2ToevoegingMutatie) {</span>
+<span class="nc" id="L171">                        BAG2ToevoegingMutatie toevoegingMutatie = (BAG2ToevoegingMutatie) mutatie;</span>
+
+<span class="nc bnc" id="L173" title="All 4 branches missed.">                        if (ignoreDuplicates &amp;&amp; isDuplicate(toevoegingMutatie.getToevoeging())) {</span>
+<span class="nc" id="L174">                            continue;</span>
+                        }
+
+<span class="nc" id="L177">                        prepareDatabaseForObject(toevoegingMutatie.getToevoeging());</span>
+<span class="nc" id="L178">                        getProgress().incrementObjectCount();</span>
+<span class="nc" id="L179">                        addObjectToBatch(toevoegingMutatie.getToevoeging());</span>
+                    }
+
+<span class="nc bnc" id="L182" title="All 4 branches missed.">                    if (getObjectLimit() != null &amp;&amp; getProgress().getObjectCount() == getObjectLimit()) {</span>
+<span class="nc" id="L183">                        break;</span>
+                    }
+<span class="nc" id="L185">                }</span>
+<span class="nc" id="L186">            }</span>
+<span class="nc" id="L187">        } catch(Exception e) {</span>
+<span class="nc bnc" id="L188" title="All 2 branches missed.">            if (isMultithreading()) {</span>
+                // Make sure worker thread exits
+<span class="nc" id="L190">                abortWorkerThread();</span>
+            }
+<span class="nc" id="L192">            throw e;</span>
+<span class="nc" id="L193">        }</span>
+<span class="nc" id="L194">    }</span>
+
+    private boolean isDuplicate(BAG2Object object) {
+<span class="nc bnc" id="L197" title="All 2 branches missed.">        if (keysPerObjectType == null) {</span>
+<span class="nc" id="L198">            throw new IllegalStateException(&quot;keysPerObject type must be set to enable ignoring of duplicates&quot;);</span>
+        }
+        // Primary keys for all BAG2 objects are always same
+<span class="nc" id="L201">        Pair&lt;Object,Object&gt; keys = Pair.of(</span>
+<span class="nc" id="L202">                object.getAttributes().get(&quot;identificatie&quot;),</span>
+<span class="nc" id="L203">                object.getAttributes().get(&quot;voorkomenidentificatie&quot;)</span>
+        );
+<span class="nc" id="L205">        Set&lt;Pair&lt;Object, Object&gt;&gt; seenKeys = keysPerObjectType.computeIfAbsent(object.getObjectType(), k -&gt; new HashSet&lt;&gt;());</span>
+<span class="nc bnc" id="L206" title="All 2 branches missed.">        if (seenKeys.contains(keys)) {</span>
+<span class="nc bnc" id="L207" title="All 2 branches missed.">            if (log.isDebugEnabled()) {</span>
+<span class="nc" id="L208">                log.debug(String.format(&quot;\rIgnoring duplicate %s %s&quot;, object.getObjectType().getName(), keys));</span>
+            }
+<span class="nc" id="L210">            return true;</span>
+        }
+<span class="nc" id="L212">        seenKeys.add(keys);</span>
+<span class="nc" id="L213">        return false;</span>
+    }
+
+    public void complete() throws Exception {
+<span class="nc" id="L217">        super.endOfObjects();</span>
+<span class="nc bnc" id="L218" title="All 2 branches missed.">        for(QueryBatch batch: getProgress().deleteBatches.values()) {</span>
+<span class="nc" id="L219">            batch.executeBatch();</span>
+<span class="nc" id="L220">        }</span>
+<span class="nc" id="L221">        super.complete();</span>
+<span class="nc" id="L222">        super.closeBatches();</span>
+<span class="nc" id="L223">    }</span>
+
+    @Override
+    public void createKeys(ObjectType objectType) throws Exception {
+<span class="nc" id="L227">        this.getProgress().currentObjectType = (BAG2ObjectType) objectType;</span>
+<span class="nc" id="L228">        super.createKeys(objectType);</span>
+<span class="nc" id="L229">    }</span>
+
+    @Override
+    public void createIndexes(ObjectType objectType) throws Exception {
+<span class="nc" id="L233">        this.getProgress().currentObjectType = (BAG2ObjectType) objectType;</span>
+<span class="nc" id="L234">        super.createIndexes(objectType);</span>
+<span class="nc" id="L235">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

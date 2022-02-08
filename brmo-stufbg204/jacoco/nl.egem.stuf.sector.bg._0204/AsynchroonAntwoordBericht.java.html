@@ -12,67 +12,67 @@ import nl.egem.stuf.stuf0204.Stuurgegevens;
 
 
 /**
- * &amp;lt;p&amp;gt;Java class for anonymous complex type.
+ * &lt;p&gt;Java class for anonymous complex type.
  * 
- * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+ * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
  * 
- * &amp;lt;pre&amp;gt;
- * &amp;amp;lt;complexType&amp;amp;gt;
- *   &amp;amp;lt;complexContent&amp;amp;gt;
- *     &amp;amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;amp;gt;
- *       &amp;amp;lt;sequence&amp;amp;gt;
- *         &amp;amp;lt;element ref=&quot;{http://www.egem.nl/StUF/StUF0204}stuurgegevens&quot;/&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;body&quot;&amp;amp;gt;
- *           &amp;amp;lt;complexType&amp;amp;gt;
- *             &amp;amp;lt;complexContent&amp;amp;gt;
- *               &amp;amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;amp;gt;
- *                 &amp;amp;lt;choice&amp;amp;gt;
- *                   &amp;amp;lt;element name=&quot;ACD&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}ACD-tabel&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
- *                   &amp;amp;lt;element name=&quot;ADL&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}ADL-tabel&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
- *                   &amp;amp;lt;element name=&quot;ADR&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}ADR-antwoord&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
- *                   &amp;amp;lt;element name=&quot;BGB&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BGB-tabel&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
- *                   &amp;amp;lt;element name=&quot;BHV&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BHV-tabel&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
- *                   &amp;amp;lt;element name=&quot;BRT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BRT-tabel&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
- *                   &amp;amp;lt;element name=&quot;BSG&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BSG-fund&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
- *                   &amp;amp;lt;element name=&quot;BTK&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BTK-tabel&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
- *                   &amp;amp;lt;element name=&quot;R04&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}R04-tabel&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
- *                   &amp;amp;lt;element name=&quot;GEM&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}GEM-tabel&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
- *                   &amp;amp;lt;element name=&quot;HHD&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}HHD-antwoord&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
- *                   &amp;amp;lt;element name=&quot;KDO&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}KDO-antwoord&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
- *                   &amp;amp;lt;element name=&quot;KGM&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}KGM-tabel&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
- *                   &amp;amp;lt;element name=&quot;LFT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}LFT-tabel&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
- *                   &amp;amp;lt;element name=&quot;LND&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}LND-tabel&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
- *                   &amp;amp;lt;element name=&quot;MNA&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}MNA-tabel&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
- *                   &amp;amp;lt;element name=&quot;NAT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}NAT-tabel&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
- *                   &amp;amp;lt;element name=&quot;NNP&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}NNP-antwoord&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
- *                   &amp;amp;lt;element name=&quot;OBW&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}OBW-antwoord&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
- *                   &amp;amp;lt;element name=&quot;OHT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}OHT-tabel&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
- *                   &amp;amp;lt;element name=&quot;PRB&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}PRB-fund&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
- *                   &amp;amp;lt;element name=&quot;PRS&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}PRS-antwoord&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
- *                   &amp;amp;lt;element name=&quot;RTB&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}RTB-tabel&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
- *                   &amp;amp;lt;element name=&quot;SBI&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}SBI-tabel&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
- *                   &amp;amp;lt;element name=&quot;SIB&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}SIB-tabel&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
- *                   &amp;amp;lt;element name=&quot;SPB&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}SPB-tabel&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
- *                   &amp;amp;lt;element name=&quot;SRV&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}SRV-tabel&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
- *                   &amp;amp;lt;element name=&quot;R02&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}R02-tabel&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
- *                   &amp;amp;lt;element name=&quot;SZR&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}SZR-tabel&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
- *                   &amp;amp;lt;element name=&quot;VBT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}VBT-tabel&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
- *                   &amp;amp;lt;element name=&quot;VBO&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}VBO-antwoord&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
- *                   &amp;amp;lt;element name=&quot;VOT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}VOT-tabel&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
- *                   &amp;amp;lt;element name=&quot;WOS&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}WOS-tabel&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
- *                   &amp;amp;lt;element name=&quot;WOZ&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}WOZ-antwoord&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
- *                   &amp;amp;lt;element name=&quot;R03&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}R03-tabel&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
- *                   &amp;amp;lt;element name=&quot;WYK&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}WYK-tabel&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
- *                 &amp;amp;lt;/choice&amp;amp;gt;
- *               &amp;amp;lt;/restriction&amp;amp;gt;
- *             &amp;amp;lt;/complexContent&amp;amp;gt;
- *           &amp;amp;lt;/complexType&amp;amp;gt;
- *         &amp;amp;lt;/element&amp;amp;gt;
- *       &amp;amp;lt;/sequence&amp;amp;gt;
- *     &amp;amp;lt;/restriction&amp;amp;gt;
- *   &amp;amp;lt;/complexContent&amp;amp;gt;
- * &amp;amp;lt;/complexType&amp;amp;gt;
- * &amp;lt;/pre&amp;gt;
+ * &lt;pre&gt;
+ * &amp;lt;complexType&amp;gt;
+ *   &amp;lt;complexContent&amp;gt;
+ *     &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
+ *       &amp;lt;sequence&amp;gt;
+ *         &amp;lt;element ref=&quot;{http://www.egem.nl/StUF/StUF0204}stuurgegevens&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;body&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;complexContent&amp;gt;
+ *               &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
+ *                 &amp;lt;choice&amp;gt;
+ *                   &amp;lt;element name=&quot;ACD&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}ACD-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;ADL&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}ADL-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;ADR&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}ADR-antwoord&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;BGB&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BGB-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;BHV&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BHV-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;BRT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BRT-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;BSG&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BSG-fund&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;BTK&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BTK-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;R04&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}R04-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;GEM&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}GEM-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;HHD&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}HHD-antwoord&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;KDO&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}KDO-antwoord&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;KGM&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}KGM-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;LFT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}LFT-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;LND&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}LND-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;MNA&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}MNA-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;NAT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}NAT-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;NNP&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}NNP-antwoord&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;OBW&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}OBW-antwoord&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;OHT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}OHT-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;PRB&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}PRB-fund&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;PRS&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}PRS-antwoord&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;RTB&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}RTB-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;SBI&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}SBI-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;SIB&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}SIB-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;SPB&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}SPB-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;SRV&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}SRV-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;R02&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}R02-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;SZR&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}SZR-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;VBT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}VBT-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;VBO&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}VBO-antwoord&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;VOT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}VOT-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;WOS&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}WOS-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;WOZ&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}WOZ-antwoord&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;R03&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}R03-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;WYK&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}WYK-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                 &amp;lt;/choice&amp;gt;
+ *               &amp;lt;/restriction&amp;gt;
+ *             &amp;lt;/complexContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *       &amp;lt;/sequence&amp;gt;
+ *     &amp;lt;/restriction&amp;gt;
+ *   &amp;lt;/complexContent&amp;gt;
+ * &amp;lt;/complexType&amp;gt;
+ * &lt;/pre&gt;
  * 
  * 
  */
@@ -139,56 +139,56 @@ import nl.egem.stuf.stuf0204.Stuurgegevens;
 
 
     /**
-     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
+     * &lt;p&gt;Java class for anonymous complex type.
      * 
-     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &amp;lt;pre&amp;gt;
-     * &amp;amp;lt;complexType&amp;amp;gt;
-     *   &amp;amp;lt;complexContent&amp;amp;gt;
-     *     &amp;amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;amp;gt;
-     *       &amp;amp;lt;choice&amp;amp;gt;
-     *         &amp;amp;lt;element name=&quot;ACD&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}ACD-tabel&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
-     *         &amp;amp;lt;element name=&quot;ADL&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}ADL-tabel&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
-     *         &amp;amp;lt;element name=&quot;ADR&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}ADR-antwoord&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
-     *         &amp;amp;lt;element name=&quot;BGB&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BGB-tabel&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
-     *         &amp;amp;lt;element name=&quot;BHV&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BHV-tabel&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
-     *         &amp;amp;lt;element name=&quot;BRT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BRT-tabel&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
-     *         &amp;amp;lt;element name=&quot;BSG&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BSG-fund&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
-     *         &amp;amp;lt;element name=&quot;BTK&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BTK-tabel&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
-     *         &amp;amp;lt;element name=&quot;R04&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}R04-tabel&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
-     *         &amp;amp;lt;element name=&quot;GEM&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}GEM-tabel&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
-     *         &amp;amp;lt;element name=&quot;HHD&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}HHD-antwoord&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
-     *         &amp;amp;lt;element name=&quot;KDO&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}KDO-antwoord&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
-     *         &amp;amp;lt;element name=&quot;KGM&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}KGM-tabel&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
-     *         &amp;amp;lt;element name=&quot;LFT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}LFT-tabel&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
-     *         &amp;amp;lt;element name=&quot;LND&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}LND-tabel&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
-     *         &amp;amp;lt;element name=&quot;MNA&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}MNA-tabel&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
-     *         &amp;amp;lt;element name=&quot;NAT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}NAT-tabel&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
-     *         &amp;amp;lt;element name=&quot;NNP&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}NNP-antwoord&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
-     *         &amp;amp;lt;element name=&quot;OBW&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}OBW-antwoord&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
-     *         &amp;amp;lt;element name=&quot;OHT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}OHT-tabel&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
-     *         &amp;amp;lt;element name=&quot;PRB&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}PRB-fund&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
-     *         &amp;amp;lt;element name=&quot;PRS&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}PRS-antwoord&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
-     *         &amp;amp;lt;element name=&quot;RTB&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}RTB-tabel&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
-     *         &amp;amp;lt;element name=&quot;SBI&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}SBI-tabel&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
-     *         &amp;amp;lt;element name=&quot;SIB&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}SIB-tabel&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
-     *         &amp;amp;lt;element name=&quot;SPB&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}SPB-tabel&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
-     *         &amp;amp;lt;element name=&quot;SRV&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}SRV-tabel&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
-     *         &amp;amp;lt;element name=&quot;R02&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}R02-tabel&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
-     *         &amp;amp;lt;element name=&quot;SZR&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}SZR-tabel&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
-     *         &amp;amp;lt;element name=&quot;VBT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}VBT-tabel&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
-     *         &amp;amp;lt;element name=&quot;VBO&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}VBO-antwoord&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
-     *         &amp;amp;lt;element name=&quot;VOT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}VOT-tabel&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
-     *         &amp;amp;lt;element name=&quot;WOS&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}WOS-tabel&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
-     *         &amp;amp;lt;element name=&quot;WOZ&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}WOZ-antwoord&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
-     *         &amp;amp;lt;element name=&quot;R03&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}R03-tabel&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
-     *         &amp;amp;lt;element name=&quot;WYK&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}WYK-tabel&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
-     *       &amp;amp;lt;/choice&amp;amp;gt;
-     *     &amp;amp;lt;/restriction&amp;amp;gt;
-     *   &amp;amp;lt;/complexContent&amp;amp;gt;
-     * &amp;amp;lt;/complexType&amp;amp;gt;
-     * &amp;lt;/pre&amp;gt;
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;complexContent&amp;gt;
+     *     &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
+     *       &amp;lt;choice&amp;gt;
+     *         &amp;lt;element name=&quot;ACD&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}ACD-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;ADL&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}ADL-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;ADR&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}ADR-antwoord&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;BGB&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BGB-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;BHV&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BHV-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;BRT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BRT-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;BSG&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BSG-fund&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;BTK&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}BTK-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;R04&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}R04-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;GEM&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}GEM-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;HHD&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}HHD-antwoord&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;KDO&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}KDO-antwoord&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;KGM&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}KGM-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;LFT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}LFT-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;LND&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}LND-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;MNA&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}MNA-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;NAT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}NAT-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;NNP&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}NNP-antwoord&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;OBW&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}OBW-antwoord&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;OHT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}OHT-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;PRB&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}PRB-fund&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;PRS&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}PRS-antwoord&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;RTB&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}RTB-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;SBI&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}SBI-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;SIB&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}SIB-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;SPB&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}SPB-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;SRV&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}SRV-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;R02&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}R02-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;SZR&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}SZR-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;VBT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}VBT-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;VBO&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}VBO-antwoord&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;VOT&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}VOT-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;WOS&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}WOS-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;WOZ&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}WOZ-antwoord&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;R03&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}R03-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;WYK&quot; type=&quot;{http://www.egem.nl/StUF/sector/bg/0204}WYK-tabel&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *       &amp;lt;/choice&amp;gt;
+     *     &amp;lt;/restriction&amp;gt;
+     *   &amp;lt;/complexContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
      */

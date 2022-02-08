@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>BAG2LoaderUtils.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO service</a> &gt; <a href="../index.html" class="el_bundle">bag2-loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.bag2.loader</a> &gt; <span class="el_source">BAG2LoaderUtils.java</span></div><h1>BAG2LoaderUtils.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2021 B3Partners B.V.
+ *
+ * SPDX-License-Identifier: MIT
+ *
+ */
+
+package nl.b3p.brmo.bag2.loader;
+
+import java.io.File;
+import java.net.URI;
+import java.nio.file.Path;
+import java.text.MessageFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.Objects;
+import java.util.ResourceBundle;
+
+<span class="nc" id="L20">public class BAG2LoaderUtils {</span>
+
+    public static final String BUNDLE_NAME = &quot;BAG2Loader&quot;;
+
+<span class="fc" id="L24">    static final ResourceBundle bundle = ResourceBundle.getBundle(BUNDLE_NAME);</span>
+
+    public static String getUserAgent() {
+<span class="nc" id="L27">        return String.format(&quot;%s, %s (%s)/%s, %s/%s&quot;,</span>
+<span class="nc" id="L28">                getBundleString(&quot;app.user-agent&quot;),</span>
+<span class="nc" id="L29">                System.getProperty(&quot;os.name&quot;),</span>
+<span class="nc" id="L30">                System.getProperty(&quot;os.arch&quot;),</span>
+<span class="nc" id="L31">                System.getProperty(&quot;os.version&quot;),</span>
+<span class="nc" id="L32">                System.getProperty(&quot;java.vm.name&quot;),</span>
+<span class="nc" id="L33">                System.getProperty(&quot;java.vm.version&quot;)</span>
+        );
+    }
+
+    public static ResourceBundle getBundle() {
+<span class="nc" id="L38">        return bundle;</span>
+    }
+
+    public static String getBundleString(String key) {
+<span class="nc" id="L42">        return bundle.getString(key);</span>
+    }
+
+    public static String getMessageFormattedString(String key, Object... args) {
+<span class="nc" id="L46">        ResourceBundle bundle = getBundle();</span>
+<span class="nc" id="L47">        return new MessageFormat(bundle.getString(key), bundle.getLocale()).format(args);</span>
+    }
+
+    public static String getLoaderVersion() {
+<span class="nc" id="L51">        return getBundleString(&quot;app.version&quot;);</span>
+    }
+
+    public static String getBrmoVersion() {
+<span class="nc" id="L55">        return getBundleString(&quot;brmo.version&quot;);</span>
+    }
+
+    public static class BAG2FileName {
+        private String name;
+        private boolean isStand;
+        private boolean isGemeente;
+        private boolean isMaandmutaties;
+        private String gemeenteCode;
+        private LocalDate mutatiesFrom;
+        private LocalDate mutatiesTo;
+
+
+        public BAG2FileName(String name, boolean isStand, boolean isGemeente, boolean isMaandmutaties) {
+<span class="fc" id="L69">            this(name, isStand, isGemeente, isMaandmutaties, null, null, null);</span>
+<span class="fc" id="L70">        }</span>
+
+        public BAG2FileName(String name, boolean isStand, boolean isGemeente, boolean isMaandmutaties, String gemeenteCode) {
+<span class="fc" id="L73">            this(name, isStand, isGemeente, isMaandmutaties, gemeenteCode, null, null);</span>
+<span class="fc" id="L74">        }</span>
+
+<span class="fc" id="L76">        public BAG2FileName(String name, boolean isStand, boolean isGemeente, boolean isMaandmutaties, String gemeenteCode, LocalDate mutatiesFrom, LocalDate mutatiesTo) {</span>
+<span class="fc" id="L77">            this.name = name;</span>
+<span class="fc" id="L78">            this.isStand = isStand;</span>
+<span class="fc" id="L79">            this.isGemeente = isGemeente;</span>
+<span class="fc" id="L80">            this.isMaandmutaties = isMaandmutaties;</span>
+<span class="fc" id="L81">            this.gemeenteCode = gemeenteCode;</span>
+<span class="fc" id="L82">            this.mutatiesFrom = mutatiesFrom;</span>
+<span class="fc" id="L83">            this.mutatiesTo = mutatiesTo;</span>
+<span class="fc" id="L84">        }</span>
+
+        public String getName() {
+<span class="nc" id="L87">            return name;</span>
+        }
+
+        public boolean isStand() {
+<span class="nc" id="L91">            return isStand;</span>
+        }
+
+        public boolean isGemeente() {
+<span class="nc" id="L95">            return isGemeente;</span>
+        }
+
+        public boolean isMaandmutaties() {
+<span class="nc" id="L99">            return isMaandmutaties;</span>
+        }
+
+        public String getGemeenteCode() {
+<span class="nc" id="L103">            return gemeenteCode;</span>
+        }
+
+        public LocalDate getMutatiesFrom() {
+<span class="nc" id="L107">            return mutatiesFrom;</span>
+        }
+
+        public LocalDate getMutatiesTo() {
+<span class="nc" id="L111">            return mutatiesTo;</span>
+        }
+
+        @Override
+        public boolean equals(Object o) {
+<span class="pc bpc" id="L116" title="1 of 2 branches missed.">            if (this == o) return true;</span>
+<span class="pc bpc" id="L117" title="2 of 4 branches missed.">            if (o == null || getClass() != o.getClass()) return false;</span>
+<span class="fc" id="L118">            BAG2FileName that = (BAG2FileName) o;</span>
+<span class="pc bpc" id="L119" title="7 of 14 branches missed.">            return isStand == that.isStand &amp;&amp; isGemeente == that.isGemeente &amp;&amp; isMaandmutaties == that.isMaandmutaties &amp;&amp; name.equals(that.name) &amp;&amp; Objects.equals(gemeenteCode, that.gemeenteCode) &amp;&amp; Objects.equals(mutatiesFrom, that.mutatiesFrom) &amp;&amp; Objects.equals(mutatiesTo, that.mutatiesTo);</span>
+        }
+
+        @Override
+        public int hashCode() {
+<span class="nc" id="L124">            return Objects.hash(name, isStand, isGemeente, isMaandmutaties, gemeenteCode, mutatiesFrom, mutatiesTo);</span>
+        }
+
+        @Override
+        public String toString() {
+<span class="nc" id="L129">            return &quot;BAG2FileName{&quot; +</span>
+                    &quot;name='&quot; + name + '\'' +
+                    &quot;, isStand=&quot; + isStand +
+                    &quot;, isGemeente=&quot; + isGemeente +
+                    &quot;, isMaandmutaties=&quot; + isMaandmutaties +
+                    &quot;, gemeenteCode='&quot; + gemeenteCode + '\'' +
+                    &quot;, mutatiesFrom=&quot; + mutatiesFrom +
+                    &quot;, mutatiesTo=&quot; + mutatiesTo +
+                    '}';
+        }
+    }
+
+    /**
+     *
+     * @param name BAG2 filename to analyze, can be URL or full path.
+     * @throws IllegalArgumentException If the filename is not a BAG2 filename (outer zip only)
+     */
+    public static BAG2FileName analyzeBAG2FileName(String name) throws IllegalArgumentException {
+<span class="fc bfc" id="L147" title="All 4 branches covered.">        if (name.startsWith(&quot;http://&quot;) || name.startsWith(&quot;https://&quot;)) {</span>
+<span class="fc" id="L148">            URI uri = URI.create(name);</span>
+<span class="fc" id="L149">            String[] parts = uri.getPath().split(&quot;/&quot;);</span>
+<span class="fc" id="L150">            name = parts[parts.length-1];</span>
+        }
+<span class="fc bfc" id="L152" title="All 2 branches covered.">        if (name.contains(File.separator)) {</span>
+<span class="fc" id="L153">            Path p = Path.of(name);</span>
+<span class="fc" id="L154">            name = p.getFileName().toString();</span>
+        }
+
+<span class="fc bfc" id="L157" title="All 4 branches covered.">        if (name.equals(&quot;lvbag-extract-nl.zip&quot;) || name.matches(&quot;BAGNLDL-\\d{8}\\.zip&quot;)) {</span>
+<span class="fc" id="L158">            return new BAG2FileName(name, true, false, false);</span>
+        }
+
+<span class="fc bfc" id="L161" title="All 2 branches covered.">        if (name.matches(&quot;BAGGEM\\d{4}L-\\d{8}\\.zip&quot;)) {</span>
+<span class="fc" id="L162">            return new BAG2FileName(name, true, true, false, name.substring(6, 10));</span>
+        }
+
+<span class="fc" id="L165">        DateTimeFormatter dtf = DateTimeFormatter.ofPattern(&quot;ddMMyyyy&quot;);</span>
+
+<span class="fc bfc" id="L167" title="All 2 branches covered.">        if (name.matches(&quot;BAGGEM\\d{4}M-\\d{8}-\\d{8}\\.zip&quot;)) {</span>
+            // Gemeente can only have monthly updates
+<span class="fc" id="L169">            LocalDate mutatiesFrom = LocalDate.parse(name.substring(12, 20), dtf);</span>
+<span class="fc" id="L170">            LocalDate mutatiesTo = LocalDate.parse(name.substring(21, 29), dtf);</span>
+<span class="fc" id="L171">            return new BAG2FileName(name, false, true, true, name.substring(6, 10), mutatiesFrom, mutatiesTo);</span>
+        }
+
+<span class="fc bfc" id="L174" title="All 2 branches covered.">        if (name.matches(&quot;BAGNLDM-\\d{8}-\\d{8}\\.zip&quot;)) {</span>
+            // Parse dates to determine whether updates are daily or monthly
+<span class="fc" id="L176">            LocalDate mutatiesFrom = LocalDate.parse(name.substring(8, 16), dtf);</span>
+<span class="fc" id="L177">            LocalDate mutatiesTo = LocalDate.parse(name.substring(17, 25), dtf);</span>
+<span class="fc" id="L178">            long days = ChronoUnit.DAYS.between(mutatiesFrom, mutatiesTo);</span>
+<span class="fc bfc" id="L179" title="All 2 branches covered.">            return new BAG2FileName(name, false, false, days &gt; 1, null, mutatiesFrom, mutatiesTo);</span>
+        }
+
+<span class="fc" id="L182">        throw new IllegalArgumentException(&quot;Ongeldige BAG2 bestandsnaam: &quot; + name);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

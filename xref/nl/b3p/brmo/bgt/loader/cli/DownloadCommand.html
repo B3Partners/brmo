@@ -90,7 +90,7 @@
 <a class="jxr_linenumber" name="L82" href="#L82">82</a>      ) <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L83" href="#L83">83</a>  
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>          <strong class="jxr_keyword">if</strong> (extractSelectionOptions.getGeoFilterWkt() == <strong class="jxr_keyword">null</strong> &amp;&amp; !noGeoFilter) {
-<a class="jxr_linenumber" name="L85" href="#L85">85</a>              System.err.println(getBundleString(<span class="jxr_string">"download.no_geo_filter"</span>));
+<a class="jxr_linenumber" name="L85" href="#L85">85</a>              log.error(getBundleString(<span class="jxr_string">"download.no_geo_filter"</span>));
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>              <strong class="jxr_keyword">return</strong> ExitCode.USAGE;
 <a class="jxr_linenumber" name="L87" href="#L87">87</a>          }
 <a class="jxr_linenumber" name="L88" href="#L88">88</a>  
@@ -180,7 +180,7 @@
 <a class="jxr_linenumber" name="L172" href="#L172">172</a>                 deltaIdTimeTo = OffsetDateTime.parse(s);
 <a class="jxr_linenumber" name="L173" href="#L173">173</a>             }
 <a class="jxr_linenumber" name="L174" href="#L174">174</a>             <strong class="jxr_keyword">if</strong> (deltaId == <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L175" href="#L175">175</a>                 System.err.println(getBundleString(<span class="jxr_string">"download.no_delta_id"</span>));
+<a class="jxr_linenumber" name="L175" href="#L175">175</a>                 log.error(getBundleString(<span class="jxr_string">"download.no_delta_id"</span>));
 <a class="jxr_linenumber" name="L176" href="#L176">176</a>                 <strong class="jxr_keyword">return</strong> ExitCode.SOFTWARE;
 <a class="jxr_linenumber" name="L177" href="#L177">177</a>             }
 <a class="jxr_linenumber" name="L178" href="#L178">178</a>             <a name="ExtractSelectionOptions" href="../../../../../../nl/b3p/brmo/bgt/loader/cli/ExtractSelectionOptions.html#ExtractSelectionOptions">ExtractSelectionOptions</a> extractSelectionOptions = <strong class="jxr_keyword">new</strong> <a name="ExtractSelectionOptions" href="../../../../../../nl/b3p/brmo/bgt/loader/cli/ExtractSelectionOptions.html#ExtractSelectionOptions">ExtractSelectionOptions</a>();
@@ -221,7 +221,7 @@
 <a class="jxr_linenumber" name="L213" href="#L213">213</a>                 }
 <a class="jxr_linenumber" name="L214" href="#L214">214</a>                 <strong class="jxr_keyword">if</strong> (i == response.getDeltas().size()) {
 <a class="jxr_linenumber" name="L215" href="#L215">215</a>                     <em class="jxr_comment">// TODO automatically do initial load depending on option</em>
-<a class="jxr_linenumber" name="L216" href="#L216">216</a>                     System.err.println(getBundleString(<span class="jxr_string">"download.current_delta_not_found"</span>));
+<a class="jxr_linenumber" name="L216" href="#L216">216</a>                     log.error(getBundleString(<span class="jxr_string">"download.current_delta_not_found"</span>));
 <a class="jxr_linenumber" name="L217" href="#L217">217</a>                     <strong class="jxr_keyword">return</strong> ExitCode.SOFTWARE;
 <a class="jxr_linenumber" name="L218" href="#L218">218</a>                 }
 <a class="jxr_linenumber" name="L219" href="#L219">219</a> 
@@ -275,6 +275,6 @@
 <a class="jxr_linenumber" name="L267" href="#L267">267</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2014&#x2013;2021 <a href="https://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2014&#x2013;2022 <a href="https://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>
 </body>
 </html>

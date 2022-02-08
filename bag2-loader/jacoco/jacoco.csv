@@ -1,0 +1,27 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+BRMO BAG 2.0 loader,nl.b3p.brmo.bag2.loader,BAG2LoaderUtils.BAG2FileName,84,99,10,10,9,17,19,4,9,4
+BRMO BAG 2.0 loader,nl.b3p.brmo.bag2.loader,BAG2Mutatie,3,6,0,0,1,3,1,1,1,1
+BRMO BAG 2.0 loader,nl.b3p.brmo.bag2.loader,BAG2MutatieGroep,6,33,3,3,1,7,3,4,0,4
+BRMO BAG 2.0 loader,nl.b3p.brmo.bag2.loader,BAG2ToevoegingMutatie,6,10,0,0,2,4,1,2,1,2
+BRMO BAG 2.0 loader,nl.b3p.brmo.bag2.loader,BAG2Database,412,0,38,0,82,0,37,0,17,0
+BRMO BAG 2.0 loader,nl.b3p.brmo.bag2.loader,BAG2LoaderUtils,63,153,0,18,14,23,7,11,7,2
+BRMO BAG 2.0 loader,nl.b3p.brmo.bag2.loader,BAG2GMLMutatieGroepStream,26,479,6,39,9,115,5,37,0,15
+BRMO BAG 2.0 loader,nl.b3p.brmo.bag2.loader,BAG2ProgressReporter,130,0,7,0,25,0,13,0,8,0
+BRMO BAG 2.0 loader,nl.b3p.brmo.bag2.loader,BAG2GMLMutatieGroepStream.new Iterator() {...},41,191,7,17,10,36,6,9,0,3
+BRMO BAG 2.0 loader,nl.b3p.brmo.bag2.loader,BAG2GMLMutatieGroepStream.BagInfo,66,34,12,0,6,12,9,6,3,6
+BRMO BAG 2.0 loader,nl.b3p.brmo.bag2.loader,BAG2WijzigingMutatie,8,16,0,0,2,6,1,3,1,3
+BRMO BAG 2.0 loader,nl.b3p.brmo.bag2.loader,BAG2Database.SQLDialectEnum,34,0,0,0,4,0,1,0,1,0
+BRMO BAG 2.0 loader,nl.b3p.brmo.bag2.schema,BAG2SchemaMapper.Metadata,79,0,0,0,9,0,2,0,2,0
+BRMO BAG 2.0 loader,nl.b3p.brmo.bag2.schema,BAG2ObjectTableWriter,379,0,32,0,93,0,34,0,18,0
+BRMO BAG 2.0 loader,nl.b3p.brmo.bag2.schema,BAG2Object,0,9,0,0,0,3,0,2,0,2
+BRMO BAG 2.0 loader,nl.b3p.brmo.bag2.schema,BAG2ObjectTableWriter.BAG2Progress,30,0,0,0,8,0,5,0,5,0
+BRMO BAG 2.0 loader,nl.b3p.brmo.bag2.schema,BAG2ObjectType,0,12,0,0,0,4,0,2,0,2
+BRMO BAG 2.0 loader,nl.b3p.brmo.bag2.schema,BAG2SchemaMapper,106,0,4,0,18,0,9,0,7,0
+BRMO BAG 2.0 loader,nl.b3p.brmo.bag2.schema,BAG2Schema,3,557,0,2,1,28,1,7,1,6
+BRMO BAG 2.0 loader,nl.b3p.brmo.bag2.util,Force2DCoordinateSequenceFactory,11,32,1,3,2,5,3,3,2,2
+BRMO BAG 2.0 loader,nl.b3p.brmo.bag2.loader.cli,BAG2LoaderMain,1141,0,141,0,237,0,98,0,24,0
+BRMO BAG 2.0 loader,nl.b3p.brmo.bag2.loader.cli,BAG2LoadOptions,44,0,0,0,18,0,11,0,11,0
+BRMO BAG 2.0 loader,nl.b3p.brmo.bag2.loader.cli,BAG2ProgressOptions,28,0,4,0,10,0,8,0,6,0
+BRMO BAG 2.0 loader,nl.b3p.brmo.bag2.loader.cli,BAG2MutatiesCommand,623,0,38,0,117,0,33,0,14,0
+BRMO BAG 2.0 loader,nl.b3p.brmo.bag2.loader.cli,BAG2ConsoleProgressReporter,44,0,5,0,13,0,6,0,3,0
+BRMO BAG 2.0 loader,nl.b3p.brmo.bag2.loader.cli,BAG2DatabaseOptions,50,0,0,0,20,0,11,0,11,0

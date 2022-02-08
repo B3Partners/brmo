@@ -1,7 +1,7 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
 BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.loader,ResumingBGTDownloadInputStream.new HttpStartRangeInputStreamProvider() {...},59,0,6,0,11,0,5,0,2,0
 BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.loader,ResumingBGTDownloadInputStream.new Java11HttpClientWrapper() {...},43,0,4,0,9,0,5,0,3,0
-BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.loader,BGTDatabase,395,0,38,0,80,0,35,0,15,0
+BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.loader,BGTDatabase,431,0,40,0,90,0,38,0,17,0
 BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.loader,BGTObjectStreamer.new Iterator() {...},68,306,17,47,12,68,17,19,0,4
 BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.loader,ResumingBGTDownloadInputStream,23,0,0,0,5,0,3,0,3,0
 BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.loader,ProgressReporter,295,0,19,0,50,0,26,0,15,0
@@ -10,44 +10,45 @@ BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.loader,BGTObjectStreamer,56,522,
 BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.loader,Utils,144,0,8,0,22,0,13,0,9,0
 BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.loader,BGTDatabase.SQLDialectEnum,34,0,0,0,4,0,1,0,1,0
 BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.sql,PostgresCopyEscapeUtils.new CharSequenceTranslator() {...},0,67,0,12,0,17,0,8,0,2
-BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.sql,PostGISCopyInsertBatch,193,0,24,0,52,0,18,0,6,0
+BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.sql,PostGISCopyInsertBatch,247,0,26,0,57,0,20,0,7,0
 BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.sql,QueryBatch,5,0,0,0,4,0,1,0,1,0
-BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.sql,PreparedStatementQueryBatch,163,0,14,0,40,0,13,0,6,0
+BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.sql,PreparedStatementQueryBatch,184,0,14,0,42,0,14,0,7,0
 BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.sql,PostgresCopyEscapeUtils,3,8,0,0,1,2,1,2,1,2
+BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.sql,LoggingQueryRunner,342,0,6,0,72,0,38,0,35,0
 BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.sql,GeometryHandlingPreparedStatementBatch,43,0,2,0,9,0,3,0,2,0
 BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.download.api,DeltaCustomApi.new TypeReference() {...},6,0,0,0,1,0,1,0,1,0
 BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.download.api,DeltaCustomApi.new TypeReference() {...},6,0,0,0,1,0,1,0,1,0
-BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.download.api,DeltaCustomApi,334,0,26,0,84,0,23,0,10,0
+BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.download.api,DeltaCustomApi,338,0,26,0,85,0,23,0,10,0
 BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.download.api,DeltaApi.new TypeReference() {...},6,0,0,0,1,0,1,0,1,0
 BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.download.api,DownloadApiUtils,151,0,12,0,34,0,9,0,3,0
 BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.download.api,CustomDownloadProgress,21,0,0,0,7,0,6,0,6,0
-BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.download.api,DeltaApi,243,0,16,0,54,0,16,0,8,0
+BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.download.api,DeltaApi,247,0,16,0,55,0,16,0,8,0
 BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.schema,BGTObject,33,32,2,0,5,10,4,5,3,5
 BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.schema,BGTSchema,26,1618,4,6,4,53,7,9,4,7
 BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.schema,BGTSchemaMapper.Metadata,128,0,0,0,14,0,2,0,2,0
 BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.schema,BGTObject.MutatieStatus,0,34,0,0,0,4,0,1,0,1
 BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.schema,BGTObjectType,3,15,0,2,1,3,1,2,1,1
 BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.schema,BGTObjectTableWriter.BGTProgress,40,0,0,0,11,0,7,0,7,0
-BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.schema,BGTSchemaMapper,294,0,8,0,27,0,16,0,12,0
-BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.schema,BGTObjectTableWriter,314,0,34,0,64,0,24,0,7,0
-BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.sql.dialect,OracleDialect,114,0,14,0,25,0,16,0,9,0
-BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.sql.dialect,SQLDialect,35,0,2,0,11,0,8,0,7,0
-BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.sql.dialect,MSSQLDialect,163,0,20,0,38,0,17,0,7,0
+BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.schema,BGTSchemaMapper,288,0,8,0,27,0,15,0,11,0
+BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.schema,BGTObjectTableWriter,310,0,34,0,64,0,24,0,7,0
+BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.sql.dialect,OracleDialect,141,0,18,0,28,0,19,0,10,0
+BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.sql.dialect,SQLDialect,67,0,8,0,17,0,12,0,8,0
+BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.sql.dialect,MSSQLDialect,165,0,20,0,39,0,18,0,8,0
 BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.sql.dialect,PostGISDialect,76,0,4,0,15,0,8,0,6,0
-BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.download.model,DeltaCustomDownloadStatusResponseLinks,121,0,12,0,28,0,17,0,11,0
-BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.download.model,DeltaTimeWindow,103,0,12,0,20,0,13,0,7,0
-BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.download.model,DeltaCustomDownloadRequest,201,0,16,0,45,0,26,0,18,0
+BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.download.model,DeltaCustomDownloadStatusResponseLinks,121,0,12,0,29,0,17,0,11,0
+BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.download.model,DeltaTimeWindow,112,0,12,0,25,0,14,0,8,0
+BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.download.model,DeltaCustomDownloadRequest,201,0,16,0,46,0,26,0,18,0
 BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.download.model,DeltaCustomDownloadRequest.FormatEnum,59,0,4,0,11,0,7,0,5,0
-BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.download.model,DeltaCustomDownloadStatusResponse,155,0,14,0,35,0,21,0,14,0
-BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.download.model,DeltaCustomDownloadResponse,121,0,12,0,28,0,17,0,11,0
-BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.download.model,GetDeltasResponse,145,0,12,0,34,0,19,0,13,0
-BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.download.model,DeltaCustomDownloadResponseLinks,83,0,8,0,21,0,12,0,8,0
+BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.download.model,DeltaCustomDownloadStatusResponse,155,0,14,0,36,0,21,0,14,0
+BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.download.model,DeltaCustomDownloadResponse,121,0,12,0,29,0,17,0,11,0
+BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.download.model,GetDeltasResponse,145,0,12,0,35,0,19,0,13,0
+BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.download.model,DeltaCustomDownloadResponseLinks,83,0,8,0,22,0,12,0,8,0
 BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.download.model,DeltaCustomDownloadRequest.FeaturetypesEnum,444,0,4,0,46,0,7,0,5,0
-BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.download.model,Delta,112,0,12,0,24,0,15,0,9,0
+BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.download.model,Delta,118,0,12,0,28,0,16,0,10,0
 BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.download.model,DeltaCustomDownloadStatusResponse.StatusEnum,81,0,4,0,13,0,7,0,5,0
-BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.download.model,HalLink,155,0,14,0,35,0,21,0,14,0
-BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.download.client,ApiClient,336,0,35,0,89,0,45,0,26,0
-BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.download.client,Pair,51,0,8,0,21,0,10,0,6,0
+BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.download.model,HalLink,155,0,14,0,36,0,21,0,14,0
+BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.download.client,ApiClient,353,0,35,0,94,0,47,0,28,0
+BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.download.client,Pair,45,0,6,0,19,0,9,0,6,0
 BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.download.client,ApiException,124,0,0,0,29,0,12,0,12,0
 BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.download.client,ApiResponse,27,0,0,0,10,0,5,0,5,0
 BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.util.http.wrapper,URLConnectionHttpClientWrapper,65,0,6,0,15,0,7,0,4,0
@@ -57,8 +58,8 @@ BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.util.http.wrapper,Java11HttpClientWr
 BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.loader.cli,DownloadCommand,622,0,50,0,122,0,37,0,12,0
 BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.loader.cli,DatabaseOptions,50,0,0,0,20,0,11,0,11,0
 BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.loader.cli,ExtractSelectionOptions,10,0,0,0,4,0,3,0,3,0
-BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.loader.cli,BGTLoaderMain,820,0,56,0,175,0,46,0,18,0
-BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.loader.cli,LoadOptions,80,0,0,0,32,0,17,0,17,0
+BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.loader.cli,BGTLoaderMain,819,0,56,0,175,0,46,0,18,0
+BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.loader.cli,LoadOptions,87,0,0,0,35,0,19,0,19,0
 BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.loader.cli,CustomDownloadProgressReporter,176,0,20,0,27,0,13,0,3,0
 BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.loader.cli,ConsoleProgressReporter,154,0,8,0,29,0,9,0,5,0
 BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.bgt.loader.cli,FeatureTypeSelectionOptions,138,0,10,0,28,0,12,0,7,0
@@ -67,20 +68,22 @@ BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.util.http,HttpSeekableByteChannel,41
 BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.util.http,HttpStartRangeInputStreamProvider,6,190,2,22,2,32,2,15,0,5
 BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.util.http,HttpClientWrapper,1,0,0,0,1,0,1,0,1,0
 BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.util.http,HttpClientWrappers,11,17,2,2,3,4,3,1,1,1
-BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.schema,ObjectTableWriter.Progress,63,0,2,0,22,0,8,0,7,0
-BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.schema,ObjectTableWriter,910,0,82,0,198,0,86,0,45,0
-BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.schema,ObjectType,42,57,2,2,10,16,8,6,7,5
+BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.schema,ObjectTableWriter.Progress,75,0,2,0,25,0,9,0,8,0
+BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.schema,ObjectTableWriter,1191,0,100,0,256,0,109,0,59,0
+BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.schema,ObjectType,112,55,6,0,24,17,19,4,16,4
 BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.schema,SchemaObjectInstance,73,20,6,0,17,7,4,3,1,3
-BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.schema,Schema,8,22,0,0,2,6,2,3,2,3
-BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.schema,SchemaSQLMapper,605,0,20,0,100,0,41,0,31,0
+BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.schema,Schema,14,27,1,1,3,7,3,3,2,3
+BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.schema,SchemaSQLMapper,836,0,34,0,135,0,57,0,40,0
 BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.schema,ObjectTableWriter.Stage,54,0,0,0,6,0,1,0,1,0
 BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.util,CountingSeekableByteChannel,234,0,18,0,50,0,24,0,15,0
 BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.util,ResumingInputStream,0,174,1,9,0,53,1,19,0,15
 BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.util,StandardLinearizedWKTWriter,0,25,0,2,0,6,0,3,0,2
-BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.schema.mapping,AttributeColumnMapping,16,32,2,0,6,11,5,4,4,4
+BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.schema.mapping,AttributeColumnMapping,16,59,3,3,6,17,6,9,4,8
 BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.schema.mapping,IntegerAttributeColumnMapping,9,19,2,0,3,6,2,3,1,3
+BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.schema.mapping,ForeignKeyAttributeMapping,13,0,0,0,4,0,2,0,2,0
 BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.schema.mapping,DoubleAttributeColumnMapping,9,12,2,0,3,4,2,2,1,2
 BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.schema.mapping,GeometryAttributeColumnMapping,3,12,0,0,1,4,1,2,1,2
-BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.schema.mapping,OneToManyColumnMapping,0,7,0,0,0,2,0,1,0,1
+BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.schema.mapping,OneToManyColumnMapping,0,9,0,0,0,3,0,2,0,2
 BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.schema.mapping,BooleanAttributeColumnMapping,9,12,2,0,3,4,2,2,1,2
+BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.schema.mapping,ArrayAttributeMapping,15,0,0,0,5,0,3,0,3,0
 BRMO BGT / IMGeo CityGML loader,nl.b3p.brmo.schema.mapping,SimpleDateFormatAttributeColumnMapping,27,29,4,0,6,7,3,3,1,3

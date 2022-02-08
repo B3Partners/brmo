@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>BAG2ConsoleProgressReporter.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO service</a> &gt; <a href="../index.html" class="el_bundle">bag2-loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.bag2.loader.cli</a> &gt; <span class="el_source">BAG2ConsoleProgressReporter.java</span></div><h1>BAG2ConsoleProgressReporter.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2021 B3Partners B.V.
+ *
+ * SPDX-License-Identifier: MIT
+ *
+ */
+
+package nl.b3p.brmo.bag2.loader.cli;
+
+import nl.b3p.brmo.bag2.loader.BAG2ProgressReporter;
+import nl.b3p.brmo.bag2.schema.BAG2ObjectTableWriter;
+import nl.b3p.brmo.schema.ObjectTableWriter;
+
+<span class="nc" id="L14">public class BAG2ConsoleProgressReporter extends BAG2ProgressReporter {</span>
+
+    @Override
+    public void startNextSplitFile(String entry) {
+<span class="nc" id="L18">        super.startNextSplitFile(entry);</span>
+<span class="nc" id="L19">        System.out.print(&quot;\r&quot; + currentFileName + &quot;: &quot; + entry);</span>
+<span class="nc" id="L20">    }</span>
+
+    @Override
+    public void accept(ObjectTableWriter.Progress progress) {
+<span class="nc" id="L24">        BAG2ObjectTableWriter.BAG2Progress bag2Progress = (BAG2ObjectTableWriter.BAG2Progress) progress;</span>
+
+<span class="nc bnc" id="L26" title="All 3 branches missed.">        switch(progress.getStage()) {</span>
+            case LOAD_OBJECTS:
+<span class="nc bnc" id="L28" title="All 2 branches missed.">                if (progress.getObjectCount() == 0) {</span>
+<span class="nc" id="L29">                    System.out.print(&quot;\r&quot; + currentFileName);</span>
+                }
+                break;
+            case FINISHED:
+<span class="nc" id="L33">                System.out.print(&quot;\r&quot;);</span>
+<span class="nc" id="L34">                super.accept(progress);</span>
+<span class="nc" id="L35">                break;</span>
+            default:
+<span class="nc" id="L37">                super.accept(progress);</span>
+        }
+<span class="nc" id="L39">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

@@ -123,23 +123,23 @@ public class BRKDirectoryScanner extends AbstractExecutableProces {
 <span class="nc" id="L123">            archiefDirectory = new File(aDir);</span>
 <span class="nc" id="L124">            archiefDirectory.mkdirs();</span>
 <span class="nc bnc" id="L125" title="All 4 branches missed.">            if (!archiefDirectory.isDirectory() || !archiefDirectory.canWrite()) {</span>
-<span class="nc" id="L126">                archiefDirectory = null;</span>
-<span class="nc" id="L127">                config.setStatus(ERROR);</span>
-<span class="nc" id="L128">                msg = String.format(&quot;De archief directory '%s' is geen beschrijfbare directory, er worden geen bestanden gearchiveerd.&quot;,</span>
+<span class="nc" id="L126">                config.setStatus(ERROR);</span>
+<span class="nc" id="L127">                msg = String.format(&quot;De archief directory '%s' is geen beschrijfbare directory, er worden geen bestanden gearchiveerd.&quot;,</span>
                         archiefDirectory);
-<span class="nc" id="L130">                sb.append(msg);</span>
-<span class="nc" id="L131">                config.setSamenvatting(&quot;Er is een fout opgetreden, details staan in de logs&quot;);</span>
-<span class="nc" id="L132">                log.error(msg);</span>
+<span class="nc" id="L129">                sb.append(msg);</span>
+<span class="nc" id="L130">                config.setSamenvatting(&quot;Er is een fout opgetreden, details staan in de logs&quot;);</span>
+<span class="nc" id="L131">                log.error(msg);</span>
+<span class="nc" id="L132">                archiefDirectory = null;</span>
 <span class="nc" id="L133">                this.listener.exception(new BrmoException(msg));</span>
             }
 <span class="nc bnc" id="L135" title="All 2 branches missed.">            if (!scanDirectory.canWrite()) {</span>
-<span class="nc" id="L136">                archiefDirectory = null;</span>
-<span class="nc" id="L137">                config.setStatus(ERROR);</span>
-<span class="nc" id="L138">                msg = String.format(&quot;De scan directory '%s' is geen beschrijfbare directory, er worden geen bestanden gearchiveerd.&quot;,</span>
+<span class="nc" id="L136">                config.setStatus(ERROR);</span>
+<span class="nc" id="L137">                msg = String.format(&quot;De scan directory '%s' is geen beschrijfbare directory, er worden geen bestanden gearchiveerd.&quot;,</span>
                         scanDirectory);
-<span class="nc" id="L140">                sb.append(msg);</span>
-<span class="nc" id="L141">                config.setSamenvatting(&quot;Er is een fout opgetreden, details staan in de logs&quot;);</span>
-<span class="nc" id="L142">                log.error(msg);</span>
+<span class="nc" id="L139">                sb.append(msg);</span>
+<span class="nc" id="L140">                config.setSamenvatting(&quot;Er is een fout opgetreden, details staan in de logs&quot;);</span>
+<span class="nc" id="L141">                log.error(msg);</span>
+<span class="nc" id="L142">                archiefDirectory = null;</span>
 <span class="nc" id="L143">                this.listener.exception(new BrmoException(msg));</span>
             }
         }

@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"nl.b3p.brmo.bag2.loader","l":"BAG2GMLMutatieGroepStreamTest"},{"p":"nl.b3p.brmo.bag2.loader","l":"BAG2LoaderUtilsTest"},{"p":"nl.b3p.brmo.bag2.loader","l":"BAG2TestFiles"},{"p":"nl.b3p.brmo.bag2.loader","l":"BAGLoaderDatabaseIntegrationTest"}]

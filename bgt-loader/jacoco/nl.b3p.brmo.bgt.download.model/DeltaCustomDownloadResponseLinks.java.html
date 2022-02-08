@@ -35,14 +35,16 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   DeltaCustomDownloadResponseLinks.JSON_PROPERTY_STATUS
 })
 @javax.annotation.processing.Generated(value = &quot;org.openapitools.codegen.languages.JavaClientCodegen&quot;)
-<span class="nc" id="L38">public class DeltaCustomDownloadResponseLinks {</span>
+public class DeltaCustomDownloadResponseLinks {
   public static final String JSON_PROPERTY_STATUS = &quot;status&quot;;
   private HalLink status;
 
+<span class="nc" id="L42">  public DeltaCustomDownloadResponseLinks() { </span>
+<span class="nc" id="L43">  }</span>
 
   public DeltaCustomDownloadResponseLinks status(HalLink status) {
-<span class="nc" id="L44">    this.status = status;</span>
-<span class="nc" id="L45">    return this;</span>
+<span class="nc" id="L46">    this.status = status;</span>
+<span class="nc" id="L47">    return this;</span>
   }
 
    /**
@@ -55,15 +57,15 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public HalLink getStatus() {
-<span class="nc" id="L58">    return status;</span>
+<span class="nc" id="L60">    return status;</span>
   }
 
 
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setStatus(HalLink status) {
-<span class="nc" id="L65">    this.status = status;</span>
-<span class="nc" id="L66">  }</span>
+<span class="nc" id="L67">    this.status = status;</span>
+<span class="nc" id="L68">  }</span>
 
 
   /**
@@ -71,28 +73,28 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
    */
   @Override
   public boolean equals(Object o) {
-<span class="nc bnc" id="L74" title="All 2 branches missed.">    if (this == o) {</span>
-<span class="nc" id="L75">      return true;</span>
+<span class="nc bnc" id="L76" title="All 2 branches missed.">    if (this == o) {</span>
+<span class="nc" id="L77">      return true;</span>
     }
-<span class="nc bnc" id="L77" title="All 4 branches missed.">    if (o == null || getClass() != o.getClass()) {</span>
-<span class="nc" id="L78">      return false;</span>
+<span class="nc bnc" id="L79" title="All 4 branches missed.">    if (o == null || getClass() != o.getClass()) {</span>
+<span class="nc" id="L80">      return false;</span>
     }
-<span class="nc" id="L80">    DeltaCustomDownloadResponseLinks deltaCustomDownloadResponseLinks = (DeltaCustomDownloadResponseLinks) o;</span>
-<span class="nc" id="L81">    return Objects.equals(this.status, deltaCustomDownloadResponseLinks.status);</span>
+<span class="nc" id="L82">    DeltaCustomDownloadResponseLinks deltaCustomDownloadResponseLinks = (DeltaCustomDownloadResponseLinks) o;</span>
+<span class="nc" id="L83">    return Objects.equals(this.status, deltaCustomDownloadResponseLinks.status);</span>
   }
 
   @Override
   public int hashCode() {
-<span class="nc" id="L86">    return Objects.hash(status);</span>
+<span class="nc" id="L88">    return Objects.hash(status);</span>
   }
 
   @Override
   public String toString() {
-<span class="nc" id="L91">    StringBuilder sb = new StringBuilder();</span>
-<span class="nc" id="L92">    sb.append(&quot;class DeltaCustomDownloadResponseLinks {\n&quot;);</span>
-<span class="nc" id="L93">    sb.append(&quot;    status: &quot;).append(toIndentedString(status)).append(&quot;\n&quot;);</span>
-<span class="nc" id="L94">    sb.append(&quot;}&quot;);</span>
-<span class="nc" id="L95">    return sb.toString();</span>
+<span class="nc" id="L93">    StringBuilder sb = new StringBuilder();</span>
+<span class="nc" id="L94">    sb.append(&quot;class DeltaCustomDownloadResponseLinks {\n&quot;);</span>
+<span class="nc" id="L95">    sb.append(&quot;    status: &quot;).append(toIndentedString(status)).append(&quot;\n&quot;);</span>
+<span class="nc" id="L96">    sb.append(&quot;}&quot;);</span>
+<span class="nc" id="L97">    return sb.toString();</span>
   }
 
   /**
@@ -100,10 +102,10 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
    * (except the first line).
    */
   private String toIndentedString(Object o) {
-<span class="nc bnc" id="L103" title="All 2 branches missed.">    if (o == null) {</span>
-<span class="nc" id="L104">      return &quot;null&quot;;</span>
+<span class="nc bnc" id="L105" title="All 2 branches missed.">    if (o == null) {</span>
+<span class="nc" id="L106">      return &quot;null&quot;;</span>
     }
-<span class="nc" id="L106">    return o.toString().replace(&quot;\n&quot;, &quot;\n    &quot;);</span>
+<span class="nc" id="L108">    return o.toString().replace(&quot;\n&quot;, &quot;\n    &quot;);</span>
   }
 
 }

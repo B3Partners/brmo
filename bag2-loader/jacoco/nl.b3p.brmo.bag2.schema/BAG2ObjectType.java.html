@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BAG2ObjectType.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BRMO BAG 2.0 loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.bag2.schema</a> &gt; <span class="el_source">BAG2ObjectType.java</span></div><h1>BAG2ObjectType.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2021 B3Partners B.V.
+ *
+ * SPDX-License-Identifier: MIT
+ *
+ */
+
+package nl.b3p.brmo.bag2.schema;
+
+import nl.b3p.brmo.schema.ObjectType;
+import nl.b3p.brmo.schema.Schema;
+import nl.b3p.brmo.schema.mapping.AttributeColumnMapping;
+
+import java.util.List;
+
+public class BAG2ObjectType extends ObjectType {
+    public BAG2ObjectType(Schema schema, String name, List&lt;AttributeColumnMapping&gt; attributes) {
+<span class="fc" id="L18">        super(schema, name, attributes);</span>
+<span class="fc" id="L19">    }</span>
+
+    @Override
+    public BAG2ObjectType addExtraDataDefinitionSQL(List&lt;String&gt; extraDataDefinitionSQL) {
+<span class="fc" id="L23">        super.addExtraDataDefinitionSQL(extraDataDefinitionSQL);</span>
+<span class="fc" id="L24">        return this;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

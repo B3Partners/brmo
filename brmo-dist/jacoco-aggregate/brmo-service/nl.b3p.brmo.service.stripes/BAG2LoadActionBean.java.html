@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>BAG2LoadActionBean.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO distributie</a> &gt; <a href="../index.html" class="el_bundle">brmo-service</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.service.stripes</a> &gt; <span class="el_source">BAG2LoadActionBean.java</span></div><h1>BAG2LoadActionBean.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2021 B3Partners B.V.
+ *
+ * SPDX-License-Identifier: MIT
+ *
+ */
+
+package nl.b3p.brmo.service.stripes;
+
+import net.sourceforge.stripes.action.ActionBean;
+import net.sourceforge.stripes.action.ActionBeanContext;
+import net.sourceforge.stripes.action.Before;
+import net.sourceforge.stripes.action.DefaultHandler;
+import net.sourceforge.stripes.action.ForwardResolution;
+import net.sourceforge.stripes.action.Resolution;
+import nl.b3p.brmo.bag2.loader.BAG2Database;
+import nl.b3p.brmo.bag2.loader.BAG2ProgressReporter;
+import nl.b3p.brmo.bag2.loader.cli.BAG2DatabaseOptions;
+import nl.b3p.brmo.bag2.loader.cli.BAG2LoadOptions;
+import nl.b3p.brmo.bag2.loader.cli.BAG2LoaderMain;
+import nl.b3p.brmo.bag2.schema.BAG2SchemaMapper;
+import nl.b3p.brmo.loader.util.BrmoException;
+import nl.b3p.brmo.service.util.ConfigUtil;
+import nl.b3p.brmo.sql.dialect.OracleDialect;
+import nl.b3p.brmo.sql.dialect.PostGISDialect;
+import nl.b3p.jdbc.util.converter.PGConnectionUnwrapper;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.stripesstuff.plugin.waitpage.WaitPage;
+
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Date;
+
+<span class="nc" id="L37">public class BAG2LoadActionBean implements ActionBean {</span>
+<span class="nc" id="L38">    private static final Log LOG = LogFactory.getLog(BAG2LoadActionBean.class);</span>
+
+    private ActionBeanContext context;
+
+    private static final String JSP = &quot;/WEB-INF/jsp/bestand/bag2.jsp&quot;;
+    private static final String JSP_LOAD = &quot;/WEB-INF/jsp/bestand/bag2load.jsp&quot;;
+
+<span class="nc" id="L45">    private String files = &quot;https://service.pdok.nl/kadaster/adressen/atom/v1_0/downloads/lvbag-extract-nl.zip&quot;;</span>
+
+    private DataSource rsgbbag;
+    private Throwable namingException;
+<span class="nc" id="L49">    private boolean connectionOk = false;</span>
+    private String connectionString;
+    private String databaseName;
+    private String databaseUserName;
+    private String databaseDialect;
+    private Exception connectionException;
+
+    private Date standLoadTechnischeDatum;
+    private Date currentTechnischeDatum;
+    private Date standLoadTime;
+
+    private boolean loading;
+    private Date loadStart;
+    private boolean loadResult;
+    private Exception loadException;
+    private String loadingLog;
+
+    //&lt;editor-fold desc=&quot;getters en setters&quot;&gt;
+    @Override
+    public ActionBeanContext getContext() {
+<span class="nc" id="L69">        return context;</span>
+    }
+
+    @Override
+    public void setContext(ActionBeanContext context) {
+<span class="nc" id="L74">        this.context = context;</span>
+<span class="nc" id="L75">    }</span>
+
+    public DataSource getRsgbbag() {
+<span class="nc" id="L78">        return rsgbbag;</span>
+    }
+
+    public void setRsgbbag(DataSource rsgbbag) {
+<span class="nc" id="L82">        this.rsgbbag = rsgbbag;</span>
+<span class="nc" id="L83">    }</span>
+
+    public Throwable getNamingException() {
+<span class="nc" id="L86">        return namingException;</span>
+    }
+
+    public void setNamingException(Throwable namingException) {
+<span class="nc" id="L90">        this.namingException = namingException;</span>
+<span class="nc" id="L91">    }</span>
+
+    public boolean isConnectionOk() {
+<span class="nc" id="L94">        return connectionOk;</span>
+    }
+
+    public void setConnectionOk(boolean connectionOk) {
+<span class="nc" id="L98">        this.connectionOk = connectionOk;</span>
+<span class="nc" id="L99">    }</span>
+
+    public String getConnectionString() {
+<span class="nc" id="L102">        return connectionString;</span>
+    }
+
+    public void setConnectionString(String connectionString) {
+<span class="nc" id="L106">        this.connectionString = connectionString;</span>
+<span class="nc" id="L107">    }</span>
+
+    public String getDatabaseName() {
+<span class="nc" id="L110">        return databaseName;</span>
+    }
+
+    public void setDatabaseName(String databaseName) {
+<span class="nc" id="L114">        this.databaseName = databaseName;</span>
+<span class="nc" id="L115">    }</span>
+
+    public String getDatabaseUserName() {
+<span class="nc" id="L118">        return databaseUserName;</span>
+    }
+
+    public void setDatabaseUserName(String databaseUserName) {
+<span class="nc" id="L122">        this.databaseUserName = databaseUserName;</span>
+<span class="nc" id="L123">    }</span>
+
+    public String getDatabaseDialect() {
+<span class="nc" id="L126">        return databaseDialect;</span>
+    }
+
+    public void setDatabaseDialect(String databaseDialect) {
+<span class="nc" id="L130">        this.databaseDialect = databaseDialect;</span>
+<span class="nc" id="L131">    }</span>
+
+    public Exception getConnectionException() {
+<span class="nc" id="L134">        return connectionException;</span>
+    }
+
+    public void setConnectionException(Exception connectionException) {
+<span class="nc" id="L138">        this.connectionException = connectionException;</span>
+<span class="nc" id="L139">    }</span>
+
+    public Date getStandLoadTechnischeDatum() {
+<span class="nc" id="L142">        return standLoadTechnischeDatum;</span>
+    }
+
+    public void setStandLoadTechnischeDatum(Date standLoadTechnischeDatum) {
+<span class="nc" id="L146">        this.standLoadTechnischeDatum = standLoadTechnischeDatum;</span>
+<span class="nc" id="L147">    }</span>
+
+    public Date getCurrentTechnischeDatum() {
+<span class="nc" id="L150">        return currentTechnischeDatum;</span>
+    }
+
+    public void setCurrentTechnischeDatum(Date currentTechnischeDatum) {
+<span class="nc" id="L154">        this.currentTechnischeDatum = currentTechnischeDatum;</span>
+<span class="nc" id="L155">    }</span>
+
+    public Date getStandLoadTime() {
+<span class="nc" id="L158">        return standLoadTime;</span>
+    }
+
+    public void setStandLoadTime(Date standLoadTime) {
+<span class="nc" id="L162">        this.standLoadTime = standLoadTime;</span>
+<span class="nc" id="L163">    }</span>
+
+    public String getFiles() {
+<span class="nc" id="L166">        return files;</span>
+    }
+
+    public void setFiles(String files) {
+<span class="nc" id="L170">        this.files = files;</span>
+<span class="nc" id="L171">    }</span>
+
+    public boolean isLoading() {
+<span class="nc" id="L174">        return loading;</span>
+    }
+
+    public void setLoading(boolean loading) {
+<span class="nc" id="L178">        this.loading = loading;</span>
+<span class="nc" id="L179">    }</span>
+
+    public boolean isLoadResult() {
+<span class="nc" id="L182">        return loadResult;</span>
+    }
+
+    public void setLoadResult(boolean loadResult) {
+<span class="nc" id="L186">        this.loadResult = loadResult;</span>
+<span class="nc" id="L187">    }</span>
+
+    public String getLoadingLog() {
+<span class="nc" id="L190">        return loadingLog;</span>
+    }
+
+    public void setLoadingLog(String loadingLog) {
+<span class="nc" id="L194">        this.loadingLog = loadingLog;</span>
+<span class="nc" id="L195">    }</span>
+
+    public Date getLoadStart() {
+<span class="nc" id="L198">        return loadStart;</span>
+    }
+
+    public void setLoadStart(Date loadStart) {
+<span class="nc" id="L202">        this.loadStart = loadStart;</span>
+<span class="nc" id="L203">    }</span>
+
+    public Date getUpdateTime() {
+<span class="nc" id="L206">        return new Date();</span>
+    }
+
+    public void setUpdateTime(Date updateTime) {
+<span class="nc" id="L210">    }</span>
+
+    public Exception getLoadException() {
+<span class="nc" id="L213">        return loadException;</span>
+    }
+
+    public void setLoadException(Exception loadException) {
+<span class="nc" id="L217">        this.loadException = loadException;</span>
+<span class="nc" id="L218">    }</span>
+    //&lt;/editor-fold&gt;
+
+    @Before(on = &quot;form&quot;)
+    public void checkDatabase() {
+        try {
+<span class="nc" id="L224">            rsgbbag = ConfigUtil.getDataSourceRsgbBag(false);</span>
+<span class="nc" id="L225">        } catch(Exception e) {</span>
+<span class="nc bnc" id="L226" title="All 2 branches missed.">            if (e instanceof BrmoException) {</span>
+<span class="nc" id="L227">                namingException = e.getCause();</span>
+            } else {
+<span class="nc" id="L229">                namingException = e;</span>
+            }
+<span class="nc" id="L231">        }</span>
+
+<span class="nc bnc" id="L233" title="All 2 branches missed.">        if (rsgbbag != null) {</span>
+<span class="nc" id="L234">            try (Connection c = rsgbbag.getConnection()) {</span>
+<span class="nc" id="L235">                connectionOk = true;</span>
+<span class="nc" id="L236">                connectionString = c.getMetaData().getURL();</span>
+<span class="nc" id="L237">                databaseName = c.getMetaData().getDatabaseProductVersion();</span>
+<span class="nc bnc" id="L238" title="All 2 branches missed.">                if (!databaseName.contains(c.getMetaData().getDatabaseProductName())) {</span>
+<span class="nc" id="L239">                    databaseName = c.getMetaData().getDatabaseProductName() + &quot; &quot; + databaseName;</span>
+                }
+<span class="nc" id="L241">                databaseUserName = c.getMetaData().getUserName();</span>
+<span class="nc" id="L242">                BAG2Database bag2Database = new BAG2Database(new BAG2DatabaseOptions(), c);</span>
+
+<span class="nc bnc" id="L244" title="All 2 branches missed.">                if (bag2Database.getDialect() instanceof PostGISDialect) {</span>
+<span class="nc" id="L245">                    databaseDialect = &quot;postgis&quot;;</span>
+<span class="nc bnc" id="L246" title="All 2 branches missed.">                } else if (bag2Database.getDialect() instanceof OracleDialect) {</span>
+<span class="nc" id="L247">                    databaseDialect = &quot;oracle&quot;;</span>
+                } else {
+<span class="nc" id="L249">                    throw new IllegalArgumentException(&quot;Unknown database dialect&quot;);</span>
+                }
+
+<span class="nc" id="L252">                String s = bag2Database.getMetadata(BAG2SchemaMapper.Metadata.STAND_LOAD_TECHNISCHE_DATUM);</span>
+<span class="nc bnc" id="L253" title="All 2 branches missed.">                if (s != null) {</span>
+<span class="nc" id="L254">                    SimpleDateFormat df = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</span>
+<span class="nc" id="L255">                    currentTechnischeDatum = df.parse(bag2Database.getMetadata(BAG2SchemaMapper.Metadata.CURRENT_TECHNISCHE_DATUM));</span>
+<span class="nc" id="L256">                    standLoadTechnischeDatum = df.parse(s);</span>
+<span class="nc" id="L257">                    standLoadTime = new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;).parse(bag2Database.getMetadata(BAG2SchemaMapper.Metadata.STAND_LOAD_TIME));</span>
+                }
+
+<span class="nc" id="L260">            } catch (Exception e) {</span>
+<span class="nc" id="L261">                connectionOk = false;</span>
+<span class="nc" id="L262">                connectionException = e;</span>
+<span class="nc" id="L263">            }</span>
+        }
+<span class="nc" id="L265">    }</span>
+
+    @DefaultHandler
+    public Resolution form() {
+<span class="nc" id="L269">        return new ForwardResolution(JSP);</span>
+    }
+
+    @WaitPage(path= JSP_LOAD, delay=1000, refresh=5000)
+    public Resolution load() throws Exception {
+<span class="nc" id="L274">        loading = true;</span>
+<span class="nc" id="L275">        loadStart = new Date();</span>
+<span class="nc" id="L276">        try(Connection rsgbBagConnection = ConfigUtil.getDataSourceRsgbBag(true).getConnection()) {</span>
+<span class="nc" id="L277">            BAG2DatabaseOptions databaseOptions = new BAG2DatabaseOptions();</span>
+            // Niet nodig (rsgbbagConnection wordt gebruikt), maar voor de duidelijkheid
+<span class="nc" id="L279">            databaseOptions.setConnectionString(rsgbBagConnection.getMetaData().getURL());</span>
+<span class="nc" id="L280">            Connection connection = rsgbBagConnection;</span>
+<span class="nc bnc" id="L281" title="All 2 branches missed.">            if (databaseOptions.getConnectionString().startsWith(&quot;jdbc:postgresql:&quot;)) {</span>
+                // Voor gebruik van pgCopy is unwrappen van de connectie nodig.
+                // Ook al doet PostGISCopyInsertBatch zelf ook een unwrap, de PGConnectionUnwrapper kan ook Tomcat JNDI
+                // connection pool unwrapping aan welke niet met een normale Connection.unwrap() werkt.
+<span class="nc" id="L285">                connection = (Connection) PGConnectionUnwrapper.unwrap(rsgbBagConnection);</span>
+<span class="nc" id="L286">                databaseOptions.setUsePgCopy(true);</span>
+            }
+<span class="nc" id="L288">            BAG2Database bag2Database = new BAG2Database(databaseOptions, connection) {</span>
+                /**
+                 * connectie niet sluiten; dat doen we later als we helemaal klaar zijn
+                 */
+                @Override
+                public void close() {
+<span class="nc" id="L294">                    LOG.debug(&quot;Had de BAG database connectie kunnen sluiten... maar niet gedaan.&quot;);</span>
+<span class="nc" id="L295">                }</span>
+            };
+<span class="nc" id="L297">            BAG2LoaderMain.configureLogging(false);</span>
+<span class="nc" id="L298">            BAG2LoaderMain main = new BAG2LoaderMain();</span>
+<span class="nc" id="L299">            BAG2LoadOptions loadOptions = new BAG2LoadOptions();</span>
+<span class="nc" id="L300">            main.loadFiles(bag2Database, databaseOptions, loadOptions, new BAG2ProgressReporter(), Arrays.stream(files.split(&quot;\n&quot;)).map(String::trim).toArray(String[]::new), null);</span>
+<span class="nc" id="L301">            this.loadResult = true;</span>
+<span class="nc" id="L302">        } catch(Exception e) {</span>
+<span class="nc" id="L303">            this.loadResult = false;</span>
+<span class="nc" id="L304">            this.loadException = e;</span>
+<span class="nc" id="L305">            LOG.error(&quot;Error loading BAG 2.0&quot;, e);</span>
+        } finally {
+<span class="nc" id="L307">            this.loading = false;</span>
+        }
+<span class="nc" id="L309">        return new ForwardResolution(JSP_LOAD);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

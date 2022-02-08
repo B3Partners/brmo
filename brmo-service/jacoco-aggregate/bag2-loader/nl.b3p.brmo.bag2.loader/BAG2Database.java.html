@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>BAG2Database.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO service</a> &gt; <a href="../index.html" class="el_bundle">bag2-loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.bag2.loader</a> &gt; <span class="el_source">BAG2Database.java</span></div><h1>BAG2Database.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2021 B3Partners B.V.
+ *
+ * SPDX-License-Identifier: MIT
+ *
+ */
+
+package nl.b3p.brmo.bag2.loader;
+
+import nl.b3p.brmo.bag2.loader.cli.BAG2DatabaseOptions;
+import nl.b3p.brmo.bag2.loader.cli.BAG2LoadOptions;
+import nl.b3p.brmo.bag2.schema.BAG2ObjectTableWriter;
+import nl.b3p.brmo.bag2.schema.BAG2SchemaMapper;
+import nl.b3p.brmo.sql.LoggingQueryRunner;
+import nl.b3p.brmo.sql.dialect.MSSQLDialect;
+import nl.b3p.brmo.sql.dialect.OracleDialect;
+import nl.b3p.brmo.sql.dialect.PostGISDialect;
+import nl.b3p.brmo.sql.dialect.SQLDialect;
+import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.ScalarHandler;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.sql.Clob;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import static nl.b3p.brmo.bag2.loader.BAG2LoaderUtils.getBundleString;
+import static nl.b3p.brmo.bag2.loader.BAG2LoaderUtils.getMessageFormattedString;
+import static nl.b3p.brmo.bag2.schema.BAG2SchemaMapper.METADATA_TABLE_NAME;
+
+/* TODO: reduce redundancy with BGTDatabase, remove dependency on dialect CLI enum */
+public class BAG2Database implements AutoCloseable {
+<span class="nc" id="L40">    private static final Log LOG = LogFactory.getLog(BAG2Database.class);</span>
+
+<span class="nc" id="L42">    public enum SQLDialectEnum {</span>
+<span class="nc" id="L43">        postgis,</span>
+<span class="nc" id="L44">        oracle,</span>
+<span class="nc" id="L45">        mssql</span>
+    }
+
+    private SQLDialect dialect;
+    private final BAG2DatabaseOptions dbOptions;
+    private Connection connection;
+    private final boolean allowConnectionCreation;
+
+<span class="nc" id="L53">    public BAG2Database(BAG2DatabaseOptions dbOptions) throws ClassNotFoundException {</span>
+<span class="nc" id="L54">        this.dbOptions = dbOptions;</span>
+<span class="nc" id="L55">        dialect = createDialect(dbOptions.getConnectionString());</span>
+<span class="nc" id="L56">        dialect.loadDriver();</span>
+<span class="nc" id="L57">        this.allowConnectionCreation = true;</span>
+<span class="nc" id="L58">    }</span>
+
+<span class="nc" id="L60">    public BAG2Database(BAG2DatabaseOptions dbOptions, Connection connection) throws SQLException {</span>
+<span class="nc" id="L61">        this.dbOptions = dbOptions;</span>
+<span class="nc" id="L62">        this.connection = connection;</span>
+<span class="nc" id="L63">        dialect = createDialect(connection.getMetaData().getURL());</span>
+<span class="nc" id="L64">        this.allowConnectionCreation = false;</span>
+<span class="nc" id="L65">    }</span>
+
+    public SQLDialect getDialect() {
+<span class="nc" id="L68">        return dialect;</span>
+    }
+
+    public void setDialect(SQLDialect dialect){
+<span class="nc" id="L72">        this.dialect = dialect;</span>
+<span class="nc" id="L73">    }</span>
+
+    public Connection getConnection() throws SQLException {
+<span class="nc bnc" id="L76" title="All 4 branches missed.">        if (this.connection == null || this.connection.isClosed()) {</span>
+<span class="nc" id="L77">            this.connection = createConnection();</span>
+        }
+<span class="nc bnc" id="L79" title="All 2 branches missed.">        if (dialect instanceof PostGISDialect) {</span>
+<span class="nc" id="L80">            new QueryRunner().update(this.connection, &quot;create schema if not exists bag&quot;);</span>
+<span class="nc" id="L81">            new QueryRunner().update(this.connection, &quot;set search_path=bag,public&quot;);</span>
+        }
+<span class="nc" id="L83">        return this.connection;</span>
+    }
+
+    public void setConnection(Connection connection) {
+<span class="nc" id="L87">        this.connection = connection;</span>
+<span class="nc" id="L88">    }</span>
+
+
+    @Override
+    public void close() throws SQLException {
+<span class="nc bnc" id="L93" title="All 4 branches missed.">        if (this.connection != null &amp;&amp; !this.connection.isClosed()) {</span>
+<span class="nc" id="L94">            this.connection.close();</span>
+        }
+<span class="nc" id="L96">    }</span>
+
+    private Connection createConnection() {
+<span class="nc bnc" id="L99" title="All 2 branches missed.">        if (!allowConnectionCreation) {</span>
+<span class="nc" id="L100">            throw new RuntimeException(&quot;New connection required but supplied connection is null or closed&quot;);</span>
+        }
+        try {
+<span class="nc" id="L103">            return DriverManager.getConnection(dbOptions.getConnectionString(), dbOptions.getUser(), dbOptions.getPassword());</span>
+<span class="nc" id="L104">        } catch (SQLException e) {</span>
+<span class="nc" id="L105">            throw new RuntimeException(getMessageFormattedString(&quot;db.connection_error&quot;, dbOptions.getConnectionString()), e);</span>
+        }
+    }
+
+    public BAG2ObjectTableWriter createObjectTableWriter(BAG2LoadOptions loadOptions, BAG2DatabaseOptions dbOptions) throws SQLException {
+<span class="nc" id="L110">        BAG2ObjectTableWriter writer = new BAG2ObjectTableWriter(getConnection(), this.getDialect(), BAG2SchemaMapper.getInstance());</span>
+
+<span class="nc bnc" id="L112" title="All 2 branches missed.">        if (loadOptions == null) {</span>
+<span class="nc" id="L113">            loadOptions = new BAG2LoadOptions();</span>
+        }
+<span class="nc bnc" id="L115" title="All 2 branches missed.">        writer.setBatchSize(dbOptions.getBatchSize() != null ? dbOptions.getBatchSize() : this.getDialect().getDefaultOptimalBatchSize());</span>
+<span class="nc" id="L116">        writer.setMultithreading(loadOptions.isMultithreading());</span>
+<span class="nc" id="L117">        writer.setUsePgCopy(dbOptions.isUsePgCopy());</span>
+<span class="nc" id="L118">        writer.setObjectLimit(loadOptions.getMaxObjects());</span>
+<span class="nc" id="L119">        writer.setIgnoreDuplicates(loadOptions.isIgnoreDuplicates());</span>
+<span class="nc" id="L120">        writer.setDropIfExists(loadOptions.isDropIfExists());</span>
+
+<span class="nc" id="L122">        return writer;</span>
+    }
+
+    public static SQLDialect createDialect(String connectionString) {
+        BAG2Database.SQLDialectEnum sqlDialectEnum;
+<span class="nc bnc" id="L127" title="All 2 branches missed.">        if (connectionString.startsWith(&quot;jdbc:postgresql:&quot;)) {</span>
+<span class="nc" id="L128">            sqlDialectEnum = BAG2Database.SQLDialectEnum.postgis;</span>
+<span class="nc bnc" id="L129" title="All 2 branches missed.">        } else if (connectionString.startsWith(&quot;jdbc:oracle:thin:&quot;)) {</span>
+<span class="nc" id="L130">            sqlDialectEnum = BAG2Database.SQLDialectEnum.oracle;</span>
+<span class="nc bnc" id="L131" title="All 2 branches missed.">        } else if (connectionString.startsWith(&quot;jdbc:sqlserver:&quot;)) {</span>
+<span class="nc" id="L132">            sqlDialectEnum = BAG2Database.SQLDialectEnum.mssql;</span>
+        } else {
+<span class="nc" id="L134">            throw new IllegalArgumentException(getMessageFormattedString(&quot;db.unknown_connection_string_dialect&quot;, connectionString));</span>
+        }
+<span class="nc" id="L136">        return createDialect(sqlDialectEnum);</span>
+    }
+
+    public static SQLDialect createDialect(BAG2Database.SQLDialectEnum dialectEnum) {
+<span class="nc bnc" id="L140" title="All 4 branches missed.">        switch(dialectEnum) {</span>
+<span class="nc" id="L141">            case postgis: return new PostGISDialect();</span>
+<span class="nc" id="L142">            case oracle: return new OracleDialect();</span>
+<span class="nc" id="L143">            case mssql: return new MSSQLDialect();</span>
+        }
+<span class="nc" id="L145">        throw new IllegalArgumentException(getMessageFormattedString(&quot;db.dialect_invalid&quot;, dialectEnum));</span>
+    }
+
+    public void createMetadataTable(BAG2LoadOptions loadOptions) throws SQLException {
+<span class="nc" id="L149">        LOG.info(getBundleString(&quot;db.create_metadata&quot;));</span>
+<span class="nc bnc" id="L150" title="All 2 branches missed.">        for(String sql: BAG2SchemaMapper.getInstance().getCreateMetadataTableStatements(getDialect(), &quot;&quot;, loadOptions.isDropIfExists())) {</span>
+<span class="nc" id="L151">            new LoggingQueryRunner().update(getConnection(), sql);</span>
+<span class="nc" id="L152">        }</span>
+<span class="nc" id="L153">    }</span>
+
+    public String getMetadata(BAG2SchemaMapper.Metadata key) throws SQLException {
+<span class="nc" id="L156">        Object value = new LoggingQueryRunner().query(getConnection(), &quot;select waarde from &quot; + METADATA_TABLE_NAME + &quot; where naam = ?&quot;, new ScalarHandler&lt;&gt;(), key.getDbKey());</span>
+<span class="nc bnc" id="L157" title="All 2 branches missed.">        if (value == null) {</span>
+<span class="nc" id="L158">            return null;</span>
+        }
+<span class="nc bnc" id="L160" title="All 2 branches missed.">        if (value instanceof Clob) {</span>
+<span class="nc" id="L161">            Clob clob = (Clob)value;</span>
+<span class="nc" id="L162">            return clob.getSubString(1, (int)clob.length());</span>
+        }
+<span class="nc" id="L164">        return value.toString();</span>
+    }
+
+    public void setMetadataValue(BAG2SchemaMapper.Metadata key, String value) throws Exception {
+        try {
+<span class="nc" id="L169">            int updated = new LoggingQueryRunner().update(getConnection(), &quot;update &quot; + METADATA_TABLE_NAME + &quot; set waarde = ? where naam = ?&quot;, value, key.getDbKey());</span>
+<span class="nc bnc" id="L170" title="All 2 branches missed.">            if (updated == 0) {</span>
+<span class="nc" id="L171">                new LoggingQueryRunner().update(getConnection(), &quot;insert into &quot; + METADATA_TABLE_NAME + &quot;(naam, waarde) values(?,?)&quot;, key.getDbKey(), value);</span>
+            }
+<span class="nc" id="L173">        } catch (SQLException e) {</span>
+<span class="nc" id="L174">            throw new Exception(getMessageFormattedString(&quot;db.metadata_error&quot;, key.getDbKey(), value, e.getMessage()), e);</span>
+<span class="nc" id="L175">        }</span>
+<span class="nc" id="L176">    }</span>
+
+    public LocalDate getCurrentTechnischeDatum() throws SQLException {
+<span class="nc" id="L179">        String s = getMetadata(BAG2SchemaMapper.Metadata.CURRENT_TECHNISCHE_DATUM);</span>
+<span class="nc bnc" id="L180" title="All 2 branches missed.">        if (s == null) {</span>
+<span class="nc" id="L181">            throw new IllegalStateException(&quot;Geen huidige BAG2 stand ingeladen&quot;);</span>
+        }
+<span class="nc" id="L183">        return LocalDate.parse(s, DateTimeFormatter.ISO_LOCAL_DATE);</span>
+    }
+
+    public Set&lt;String&gt; getGemeenteCodes() throws SQLException {
+<span class="nc" id="L187">        String s = getMetadata(BAG2SchemaMapper.Metadata.GEMEENTE_CODES);</span>
+<span class="nc bnc" id="L188" title="All 2 branches missed.">        if (s == null) {</span>
+<span class="nc" id="L189">            throw new IllegalStateException(&quot;Geen huidige BAG2 stand voor gemeentes ingeladen&quot;);</span>
+        }
+<span class="nc" id="L191">        return Arrays.stream(s.split(&quot;,&quot;)).collect(Collectors.toSet());</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

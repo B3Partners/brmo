@@ -286,28 +286,27 @@ public class BGTSchema extends Schema {
 <span class="fc" id="L286">        super.addObjectType(objectType);</span>
 <span class="fc" id="L287">    }</span>
 
-
     public static BGTSchema getInstance() {
-<span class="fc bfc" id="L291" title="All 2 branches covered.">        if (instance == null) {</span>
-<span class="fc" id="L292">            instance = new BGTSchema();</span>
+<span class="fc bfc" id="L290" title="All 2 branches covered.">        if (instance == null) {</span>
+<span class="fc" id="L291">            instance = new BGTSchema();</span>
         }
-<span class="fc" id="L294">        return instance;</span>
+<span class="fc" id="L293">        return instance;</span>
     }
 
     public Stream&lt;BGTObjectType&gt; getAllObjectTypes() {
-<span class="nc" id="L298">        return (Stream&lt;BGTObjectType&gt;) super.getAllObjectTypes();</span>
+<span class="nc" id="L297">        return (Stream&lt;BGTObjectType&gt;) super.getAllObjectTypes();</span>
     }
 
     public Stream&lt;BGTObjectType&gt; getOnlyBGTObjectTypes() {
-<span class="nc bnc" id="L302" title="All 2 branches missed.">        return getAllObjectTypes().filter(objectType -&gt; !objectType.isIMGeoPlusType());</span>
+<span class="nc bnc" id="L301" title="All 2 branches missed.">        return getAllObjectTypes().filter(objectType -&gt; !objectType.isIMGeoPlusType());</span>
     }
 
     public Stream&lt;BGTObjectType&gt; getIMGeoPlusObjectTypes() {
-<span class="nc" id="L306">        return getAllObjectTypes().filter(BGTObjectType::isIMGeoPlusType);</span>
+<span class="nc" id="L305">        return getAllObjectTypes().filter(BGTObjectType::isIMGeoPlusType);</span>
     }
 
     public BGTObjectType getObjectTypeByName(String name) {
-<span class="fc" id="L310">        return (BGTObjectType) super.getObjectTypeByName(name);</span>
+<span class="fc" id="L309">        return (BGTObjectType) super.getObjectTypeByName(name);</span>
     }
 
     /**
@@ -316,14 +315,14 @@ public class BGTSchema extends Schema {
      * lowercase.
      */
     public static String fixUUID(final String uuidParam) {
-<span class="fc" id="L319">        String uuid = uuidParam.replaceAll(&quot;-&quot;, &quot;&quot;).toLowerCase();</span>
-<span class="pc bpc" id="L320" title="1 of 4 branches missed.">        if (uuid.length() == 33 &amp;&amp; uuid.charAt(0) == 'b') {</span>
-<span class="fc" id="L321">            return uuid.substring(1);</span>
+<span class="fc" id="L318">        String uuid = uuidParam.replaceAll(&quot;-&quot;, &quot;&quot;).toLowerCase();</span>
+<span class="pc bpc" id="L319" title="1 of 4 branches missed.">        if (uuid.length() == 33 &amp;&amp; uuid.charAt(0) == 'b') {</span>
+<span class="fc" id="L320">            return uuid.substring(1);</span>
         }
-<span class="pc bpc" id="L323" title="1 of 2 branches missed.">        if (uuid.length() != 32) {</span>
-<span class="nc" id="L324">            throw new IllegalArgumentException(&quot;Invalid UUID: &quot; + uuidParam);</span>
+<span class="pc bpc" id="L322" title="1 of 2 branches missed.">        if (uuid.length() != 32) {</span>
+<span class="nc" id="L323">            throw new IllegalArgumentException(&quot;Invalid UUID: &quot; + uuidParam);</span>
         }
-<span class="fc" id="L326">        return uuid;</span>
+<span class="fc" id="L325">        return uuid;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

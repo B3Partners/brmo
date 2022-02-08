@@ -21,7 +21,7 @@ public class Schema {
 <span class="fc" id="L21">    protected Schema() {</span>
 <span class="fc" id="L22">    }</span>
 
-    protected void addObjectType(BGTObjectType objectType) {
+    protected void addObjectType(ObjectType objectType) {
 <span class="fc" id="L25">        objectTypes.put(objectType.getName(), objectType);</span>
 <span class="fc" id="L26">    }</span>
 
@@ -34,7 +34,11 @@ public class Schema {
     }
 
     public ObjectType getObjectTypeByName(String name) {
-<span class="fc" id="L37">        return objectTypes.get(name);</span>
+<span class="pc bpc" id="L37" title="1 of 2 branches missed.">        if (!objectTypes.containsKey(name)) {</span>
+<span class="nc" id="L38">            throw new IllegalArgumentException(&quot;Object type \&quot;&quot; + name + &quot;\&quot; not found&quot;);</span>
+        }
+<span class="fc" id="L40">        return objectTypes.get(name);</span>
+
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
