@@ -126,7 +126,7 @@ public class DatabaseUpgradeTest {
         } else if (this.isPostgis) {
             db.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
         } else {
-            fail("Geen ondersteunde database aangegegeven.");
+            fail("Geen ondersteunde database aangegeven.");
         }
     }
 

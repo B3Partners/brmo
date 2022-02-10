@@ -3,18 +3,18 @@
 --
 
 WHENEVER SQLERROR EXIT SQL.SQLCODE
-\n\nBEGIN
-\n\n    EXECUTE IMMEDIATE 'CREATE TABLE brmo_metadata(naam VARCHAR2(255 CHAR) NOT NULL, waarde CLOB, PRIMARY KEY (naam))';
-\n\nEXCEPTION
-\n\nWHEN OTHERS THEN
-\n\nIF
-\n\n    SQLCODE = -955 THEN
-\n\n    NULL;
-\n\nELSE RAISE;
-\n\nEND IF;
-\n\nEND;
-\n\n/
-\n\nMERGE INTO brmo_metadata USING DUAL ON (naam = 'brmoversie') WHEN NOT MATCHED THEN INSERT (naam) VALUES('brmoversie');
+BEGIN
+    EXECUTE IMMEDIATE 'CREATE TABLE brmo_metadata(naam VARCHAR2(255 CHAR) NOT NULL, waarde CLOB, PRIMARY KEY (naam))';
+EXCEPTION
+WHEN OTHERS THEN
+IF
+    SQLCODE = -955 THEN
+    NULL;
+ELSE RAISE;
+END IF;
+END;
+/
+MERGE INTO brmo_metadata USING DUAL ON (naam = 'brmoversie') WHEN NOT MATCHED THEN INSERT (naam) VALUES('brmoversie');
 
 
 -- onderstaande dienen als laatste stappen van een upgrade uitgevoerd

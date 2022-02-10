@@ -2,6 +2,10 @@
 -- upgrade PostgreSQL BAG datamodel van 2.2.1 naar 2.2.2 
 --
 
+CREATE SCHEMA IF NOT EXISTS bag;
+
+SET search_path = bag,public;
+
 
 -- onderstaande dienen als laatste stappen van een upgrade uitgevoerd
 INSERT INTO brmo_metadata (naam,waarde) SELECT 'upgrade_2.2.1_naar_2.2.2','vorige versie was ' || waarde FROM brmo_metadata WHERE naam='brmoversie';
