@@ -3,7 +3,7 @@
 --
 
 IF OBJECT_ID('brmo_metadata', 'U') IS NULL
-CREATE TABLE brmo_metadata(naam VARCHAR(255) NOT NULL,waarde VARCHAR(255),PRIMARY KEY (naam));
+CREATE TABLE brmo_metadata(naam VARCHAR(255) NOT NULL, waarde NTEXT, PRIMARY KEY (naam));
 GO
 INSERT INTO brmo_metadata(naam) SELECT naam FROM brmo_metadata WHERE NOT('brmoversie' IN (SELECT naam FROM brmo_metadata));
 
