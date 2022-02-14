@@ -107,7 +107,7 @@
         <versions-maven-plugin.version>2.9.0</versions-maven-plugin.version>
         <maven-project-info-reports-plugin.version>3.2.1</maven-project-info-reports-plugin.version>
         <maven-jxr-plugin.version>3.1.1</maven-jxr-plugin.version>
-        <maven-javadoc-plugin.version>3.3.1</maven-javadoc-plugin.version>
+        <maven-javadoc-plugin.version>3.3.2</maven-javadoc-plugin.version>
         <taglist-maven-plugin.version>3.0.0</taglist-maven-plugin.version>
         <!-- deze property wordt gebruikt om tijdens tests te bepalen of we met een geupgraded
         release database werken of een ontwikkel versie -->
