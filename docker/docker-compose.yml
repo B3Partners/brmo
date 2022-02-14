@@ -20,7 +20,7 @@ services:
     volumes:
       - brmo-db:/var/lib/postgresql/data
     healthcheck:
-      test: su postgres -c pg_isready --dbname=rsgb -q
+      test: su postgres -c "pg_isready --dbname=rsgb -q"
       interval: 1m30s
       timeout: 10s
       retries: 3
