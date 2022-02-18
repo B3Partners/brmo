@@ -411,3 +411,16 @@ INSERT INTO gemeente (dat_beg_geldh, code, naam) SELECT '2022-01-01', 1982, 'Lan
 
 UPDATE brmo_metadata SET waarde = '2022.0' WHERE naam = 'update_gem_tabel';
 COMMIT;
+
+
+BEGIN TRANSACTION;
+-- Samenvoegen van gemeente Weesp (457) met Amsterdam (363)
+UPDATE gemeente SET datum_einde_geldh = '2022-03-24' WHERE code IN (457);
+UPDATE gemeente SET dat_beg_geldh = '2009-01-01'     WHERE code IN (457) AND dat_beg_geldh IS NULL;
+
+INSERT INTO gemeente_archief SELECT * FROM gemeente WHERE code IN (457);
+UPDATE wnplts SET fk_7gem_code=null WHERE fk_7gem_code         IN (457);
+DELETE FROM gemeente WHERE code                                IN (457);
+
+UPDATE brmo_metadata SET waarde = '2022.1' WHERE naam = 'update_gem_tabel';
+COMMIT;
