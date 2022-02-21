@@ -345,11 +345,6 @@
                     <artifactId>jakarta.mail</artifactId>
                     <version>${jakarta.mail.version}</version>
                 </dependency>
-                <dependency>
-                    <groupId>org.apache.tomcat</groupId>
-                    <artifactId>tomcat-jaspic-api</artifactId>
-                    <version>${tomcat.version}</version>
-                </dependency>
             </dependencies>
             <build>
                 <filters>
@@ -397,10 +392,6 @@
                                     <dependency>
                                         <groupId>com.sun.mail</groupId>
                                         <artifactId>jakarta.mail</artifactId>
-                                    </dependency>
-                                    <dependency>
-                                        <groupId>org.apache.tomcat</groupId>
-                                        <artifactId>tomcat-jaspic-api</artifactId>
                                     </dependency>
                                 </dependencies>
                             </container>
@@ -463,11 +454,6 @@
                     <artifactId>jakarta.mail</artifactId>
                     <version>${jakarta.mail.version}</version>
                 </dependency>
-                <dependency>
-                    <groupId>org.apache.tomcat</groupId>
-                    <artifactId>tomcat-jaspic-api</artifactId>
-                    <version>${tomcat.version}</version>
-                </dependency>
             </dependencies>
             <build>
                 <filters>
@@ -515,10 +501,6 @@
                                     <dependency>
                                         <groupId>com.sun.mail</groupId>
                                         <artifactId>jakarta.mail</artifactId>
-                                    </dependency>
-                                    <dependency>
-                                        <groupId>org.apache.tomcat</groupId>
-                                        <artifactId>tomcat-jaspic-api</artifactId>
                                     </dependency>
                                 </dependencies>
                             </container>
@@ -583,11 +565,6 @@
                     <artifactId>jakarta.mail</artifactId>
                     <version>${jakarta.mail.version}</version>
                 </dependency>
-                <dependency>
-                    <groupId>org.apache.tomcat</groupId>
-                    <artifactId>tomcat-jaspic-api</artifactId>
-                    <version>${tomcat.version}</version>
-                </dependency>
             </dependencies>
             <build>
                 <filters>
@@ -636,10 +613,6 @@
                                     <dependency>
                                         <groupId>com.sun.mail</groupId>
                                         <artifactId>jakarta.mail</artifactId>
-                                    </dependency>
-                                    <dependency>
-                                        <groupId>org.apache.tomcat</groupId>
-                                        <artifactId>tomcat-jaspic-api</artifactId>
                                     </dependency>
                                 </dependencies>
                             </container>
