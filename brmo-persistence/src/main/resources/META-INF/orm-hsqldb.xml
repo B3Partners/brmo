@@ -35,4 +35,11 @@ Copyright (C) 2021 B3Partners B.V.
             </id>
         </attributes>
     </entity>
+    <entity class="nl.b3p.brmo.persistence.staging.NHRLaadProces">
+        <attributes>
+            <id name="id">
+                <generated-value strategy="IDENTITY"/>
+            </id>
+        </attributes>
+    </entity>
 </entity-mappings>

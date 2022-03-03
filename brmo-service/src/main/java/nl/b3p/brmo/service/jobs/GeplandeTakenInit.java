@@ -27,6 +27,8 @@ import org.quartz.JobBuilder;
 import org.quartz.JobDetail;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
+import org.quartz.SimpleScheduleBuilder;
+import org.quartz.SimpleTrigger;
 import org.quartz.TriggerBuilder;
 import org.quartz.impl.StdSchedulerFactory;
 import org.stripesstuff.stripersist.Stripersist;
@@ -43,6 +45,7 @@ public class GeplandeTakenInit implements Servlet {
 
     private static final Log log = LogFactory.getLog(GeplandeTakenInit.class);
     private static Scheduler scheduler;
+    private static Scheduler nhrScheduler;
 
     public static final String JOBKEY_PREFIX = "proces_";
 
@@ -51,6 +54,10 @@ public class GeplandeTakenInit implements Servlet {
     public static final String SCHEDULER_NAME = "BRMOgeplandeTaken";
 
     public static final String QUARTZ_FACTORY_KEY = "BRMO_qtz_factory";
+
+    public static final String NHR_SCHEDULER_NAME = "BRMOnhrTaken";
+
+    public static final String NHR_QUARTZ_FACTORY_KEY = "BRMO_nhr_qtz_factory";
 
     private ServletConfig config;
 
@@ -92,6 +99,10 @@ public class GeplandeTakenInit implements Servlet {
         if (scheduler != null) {
             scheduler.shutdown(true);
         }
+
+        if (nhrScheduler != null) {
+            nhrScheduler.shutdown(false);
+        }
     }
 
     private void setupQuartz() throws SchedulerException {
@@ -126,7 +137,39 @@ public class GeplandeTakenInit implements Servlet {
         for (AutomatischProces p : procList) {
             addJobDetails(scheduler, p);
         }
+
+        createNHRJob();
+
         this.getServletConfig().getServletContext().setAttribute(QUARTZ_FACTORY_KEY, factory);
+    }
+
+    private void createNHRJob() throws SchedulerException {
+        Properties props = new Properties();
+        props.put("org.quartz.scheduler.instanceName", NHR_SCHEDULER_NAME);
+        props.put("org.quartz.threadPool.threadCount", "1");
+        props.put("org.quartz.scheduler.interruptJobsOnShutdownWithWait", "true");
+        props.put("org.quartz.jobStore.class", "org.quartz.simpl.RAMJobStore");
+        props.put("org.quartz.scheduler.skipUpdateCheck", "true");
+
+        StdSchedulerFactory factory = new StdSchedulerFactory(props);
+        nhrScheduler = factory.getScheduler();
+        nhrScheduler.start();
+
+        JobDetail job = JobBuilder.newJob(NHRJob.class)
+          .withIdentity("NHR")
+          .build();
+
+        SimpleTrigger trigger = TriggerBuilder.newTrigger()
+          .startNow()
+          .forJob(job)
+          .withIdentity("NHR")
+          .withSchedule(SimpleScheduleBuilder.repeatMinutelyForever(10))
+          .build();
+
+        nhrScheduler.scheduleJob(job, trigger);
+        log.info("NHR taak opgestart");
+
+        this.getServletConfig().getServletContext().setAttribute(NHR_QUARTZ_FACTORY_KEY, factory);
     }
 
     /**

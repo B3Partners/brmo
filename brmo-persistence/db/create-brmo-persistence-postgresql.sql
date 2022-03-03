@@ -112,6 +112,16 @@
         PRIMARY KEY (jid)
     );
 
+    CREATE TABLE nhr_laadproces (
+        datum TIMESTAMP(6) WITHOUT TIME ZONE,
+        laatst_geprobeerd TIMESTAMP(6) WITHOUT TIME ZONE,
+        volgend_proberen TIMESTAMP(6) WITHOUT TIME ZONE,
+        probeer_aantal INTEGER,
+        kvk_nummer text not null,
+        exception text,
+        PRIMARY KEY (kvk_nummer)
+    );
+
 create index idx_bericht_job_id on bericht(job_id);
 create index idx_bericht_object_ref on bericht(object_ref);
 create index idx_bericht_laadprocesid on bericht(laadprocesid);
@@ -122,6 +132,7 @@ create index idx_laadproces_soort on laadproces(soort);
 create index idx_laadproces_contractnummer on laadproces(contractnummer);
 create index idx_laadproces_contractafgiftenummer on laadproces(contractafgiftenummer);
 create index idx_laadproces_klantafgiftenummer on laadproces(klantafgiftenummer);
+create index idx_nhr_laadproces_volgend_proberen on nhr_laadproces(volgend_proberen);
 
 CREATE TABLE brmo_metadata (
         naam CHARACTER VARYING(255) NOT NULL,

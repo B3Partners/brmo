@@ -15,6 +15,8 @@
 
     drop table laadproces cascade constraints;
 
+    drop table nhr_laadproces cascade constraints;
+
     drop sequence automatischproces_id_seq;
 
     drop sequence bericht_id_seq;

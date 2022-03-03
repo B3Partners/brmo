@@ -30,4 +30,6 @@
 
     drop table laadproces cascade;
 
+    drop table nhr_laadproces cascade;
+
     drop table brmo_metadata cascade;

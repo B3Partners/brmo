@@ -11,6 +11,7 @@
         <class>nl.b3p.brmo.persistence.staging.LaadProces</class>
         <class>nl.b3p.brmo.persistence.staging.BRKScannerProces</class>
         <class>nl.b3p.brmo.persistence.staging.AutomatischProces</class>
+        <class>nl.b3p.brmo.persistence.staging.NHRLaadProces</class>
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL95Dialect"/>
             <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
@@ -50,6 +51,7 @@
         <class>nl.b3p.brmo.persistence.staging.LaadProces</class>
         <class>nl.b3p.brmo.persistence.staging.BRKScannerProces</class>
         <class>nl.b3p.brmo.persistence.staging.AutomatischProces</class>
+        <class>nl.b3p.brmo.persistence.staging.NHRLaadProces</class>
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.Oracle12cDialect"/>
 
