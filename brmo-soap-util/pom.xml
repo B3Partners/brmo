@@ -12,8 +12,8 @@
     <description>Gedeelde code voor verschillende soap modules</description>
     <dependencies>
         <dependency>
-            <groupId>com.sun.xml.ws</groupId>
-            <artifactId>jaxws-rt</artifactId>
+            <groupId>javax.xml.ws</groupId>
+            <artifactId>jaxws-api</artifactId>
         </dependency>
     </dependencies>
     <build />
