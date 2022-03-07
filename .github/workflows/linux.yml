@@ -32,7 +32,7 @@ jobs:
             - 11-3.1-alpine
             - 12-3.2-alpine
             - 13-3.2-alpine
-            - 14.1-3.2-alpine
+            - 14-3.2-alpine
 
     services:
       postgres:
