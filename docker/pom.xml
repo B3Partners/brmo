@@ -20,6 +20,7 @@
             <classifier>bin</classifier>
             <type>zip</type>
             <scope>compile</scope>
+            <optional>true</optional>
         </dependency>
     </dependencies>
     <build>
