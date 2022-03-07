@@ -3,7 +3,6 @@
  */
 package nl.b3p.brmo.service.scanner;
 
-import com.sun.xml.ws.developer.JAXWSProperties;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -79,6 +78,11 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.stripesstuff.stripersist.Stripersist;
+import org.apache.cxf.configuration.jsse.TLSClientParameters;
+import org.apache.cxf.endpoint.Client;
+import org.apache.cxf.endpoint.Endpoint;
+import org.apache.cxf.frontend.ClientProxy;
+import org.apache.cxf.transport.http.HTTPConduit;
 
 /**
  *
@@ -883,7 +887,13 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
 
         l.updateStatus("Opzetten SSL context...");
         context = createSslContext(kmf);
-        ctxt.put(JAXWSProperties.SSL_SOCKET_FACTORY, context.getSocketFactory());
+
+        Client client = ClientProxy.getClient(gds2);
+        HTTPConduit http = (HTTPConduit) client.getConduit();
+        TLSClientParameters tlsClientParameters = new TLSClientParameters();
+        tlsClientParameters.setKeyManagers(kmf.getKeyManagers());
+        tlsClientParameters.setSslContext(context);
+        http.setTlsClientParameters(tlsClientParameters);
 
         return gds2;
     }

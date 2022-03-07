@@ -76,6 +76,7 @@
         <skip-windows />
         <javasimon.version>4.2.0</javasimon.version>
         <jakarta.mail.version>1.6.7</jakarta.mail.version>
+        <apache.cxf.version>3.5.0</apache.cxf.version>
         <apache.poi.version>5.2.2</apache.poi.version>
         <quartz.version>2.3.2</quartz.version>
         <slf4j.version>1.7.36</slf4j.version>
@@ -577,6 +578,36 @@
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-dbcp2</artifactId>
                 <version>2.9.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.wss4j</groupId>
+                <artifactId>wss4j-ws-security-common</artifactId>
+                <version>2.4.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-core</artifactId>
+                <version>${apache.cxf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-frontend-jaxws</artifactId>
+                <version>${apache.cxf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-frontend-simple</artifactId>
+                <version>${apache.cxf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-transports-http</artifactId>
+                <version>${apache.cxf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-ws-security</artifactId>
+                <version>${apache.cxf.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.jdom</groupId>
