@@ -7,7 +7,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       # Only check a few subdirectories for now
       - name: REUSE Compliance Check (BGT loader)
         uses: fsfe/reuse-action@v1.1
