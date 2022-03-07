@@ -28,7 +28,7 @@ timestamps {
             lock('brmo-single-build') {
                 stage("Build") {
                     echo "Building branch: ${env.BRANCH_NAME}"
-                    sh "mvn clean install -Dmaven.test.skip=true -B -V -e -fae -q -Poracle -pl '!brmo-dist'"
+                    sh "mvn clean install -Dmaven.test.skip=true -B -V -e -fae -q -Poracle"
                 }
 
                 stage("Test") {

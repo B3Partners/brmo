@@ -46,7 +46,7 @@ jobs:
         options: --health-cmd pg_isready --health-interval 15s --health-timeout 5s --health-retries 5
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           lfs: true
 
@@ -77,7 +77,7 @@ jobs:
 
       - name: Priming build
         run: |
-          mvn clean install -Dmaven.test.skip=true -Ddocker.skip=true -Dtest.onlyITs= -B -V -fae -Ppostgresql -pl '!brmo-dist'
+          mvn clean install -Dmaven.test.skip=true -Ddocker.skip=true -Dtest.onlyITs= -B -V -fae -Ppostgresql
           projectversion=$(grep "<version>.*<.version>" -m1 pom.xml | sed -e "s/^.*<version/<version/" | cut -f2 -d">"| cut -f1 -d"<")
           echo $projectversion
           export PROJECTVERSION=$projectversion
@@ -139,7 +139,7 @@ jobs:
     needs: build
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           lfs: false
 

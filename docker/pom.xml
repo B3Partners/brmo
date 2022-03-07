@@ -45,6 +45,7 @@
                             <includeArtifactIds>brmo-dist</includeArtifactIds>
                             <classifier>bin</classifier>
                             <type>zip</type>
+                            <skip>${docker.skip}</skip>
                             <outputDirectory>${project.basedir}/src/main/docker/bin_unzipped/</outputDirectory>
                         </configuration>
                     </execution>
