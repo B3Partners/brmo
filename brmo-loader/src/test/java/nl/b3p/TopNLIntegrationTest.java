@@ -79,7 +79,18 @@ public class TopNLIntegrationTest extends AbstractDatabaseIntegrationTest {
     static Stream<Arguments> argumentsProvider() {
         return Stream.of(
                 // {"bestandType","filename", aantalBerichten, aantalProcessen, "lpGebied"},
-                arguments(TopNLType.TOP250NL, "/topnl/TOP250NL.gml", 0, 1, "Nederland"),
+                arguments(TopNLType.TOP250NL, "/topnl/top250nl_functioneelgebied.gml", 0, 1, "top250nl blad functioneelgebied"),
+                arguments(TopNLType.TOP250NL, "/topnl/top250nl_gebouw.gml", 0, 1, "top250nl blad gebouw"),
+                arguments(TopNLType.TOP250NL, "/topnl/top250nl_geografischgebied.gml", 0, 1, "top250nl blad geografischgebied"),
+                arguments(TopNLType.TOP250NL, "/topnl/top250nl_hoogte.gml", 0, 1, "top250nl blad hoogte"),
+                arguments(TopNLType.TOP250NL, "/topnl/top250nl_inrichtingselement.gml", 0, 1, "top250nl blad inrichtingselement"),
+                arguments(TopNLType.TOP250NL, "/topnl/top250nl_plaats.gml", 0, 1, "top250nl blad plaats"),
+                arguments(TopNLType.TOP250NL, "/topnl/top250nl_registratiefgebied.gml", 0, 1, "top250nl blad registratiefgebied"),
+                arguments(TopNLType.TOP250NL, "/topnl/top250nl_relief.gml", 0, 1, "top250nl blad relief"),
+                arguments(TopNLType.TOP250NL, "/topnl/top250nl_spoorbaandeel.gml", 0, 1, "top250nl blad spoorbaandeel"),
+                arguments(TopNLType.TOP250NL, "/topnl/top250nl_terrein.gml", 0, 1, "top250nl blad terrein"),
+                arguments(TopNLType.TOP250NL, "/topnl/top250nl_waterdeel.gml", 0, 1, "top250nl blad waterdeel"),
+                arguments(TopNLType.TOP250NL, "/topnl/top250nl_wegdeel.gml", 0, 1, "top250nl blad wegdeel"),
                 arguments(TopNLType.TOP100NL, "/topnl/Top100NL_000001.gml", 0, 1, "Top100NL blad 000001"),
                 arguments(TopNLType.TOP50NL, "/topnl/Top50NL_07W.gml", 0, 1, "Top50NL blad 07W"),
                 arguments(TopNLType.TOP10NL, "/topnl/TOP10NL_07W.gml", 0, 1, "TOP10NL blad 07W")
