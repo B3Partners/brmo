@@ -210,7 +210,6 @@
             </build>
         </profile>
         <profile>
-            <!-- actief voor oa. AppVeyor builds -->
             <id>mssql</id>
             <build>
                 <plugins>

@@ -1268,12 +1268,10 @@
             </properties>
         </profile>
         <profile>
-            <!-- actief voor AppVeyor builds -->
             <id>mssql</id>
             <properties>
                 <oracle.jdbc.groupId>com.oracle.database.jdbc</oracle.jdbc.groupId>
                 <oracle.jdbc.artifactId>ojdbc8</oracle.jdbc.artifactId>
-                <mssql.instancename>SQL2016</mssql.instancename>
             </properties>
         </profile>
         <profile>
