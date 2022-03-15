@@ -9,7 +9,6 @@ Ga naar [releases](https://github.com/B3Partners/brmo/releases) voor de laatste 
 [![Ubuntu PostgreSQL build](https://github.com/B3Partners/brmo/actions/workflows/linux.yml/badge.svg)](https://github.com/B3Partners/brmo/actions/workflows/linux.yml)
 [![Ubuntu MS SQL build](https://github.com/B3Partners/brmo/actions/workflows/linux-mssql.yml/badge.svg)](https://github.com/B3Partners/brmo/actions/workflows/linux-mssql.yml)
 [![Windows MS SQL build](https://github.com/B3Partners/brmo/actions/workflows/windows-sqlserver.yml/badge.svg)](https://github.com/B3Partners/brmo/actions/workflows/windows-sqlserver.yml)
-[![AppVeyor Build status](https://ci.appveyor.com/api/projects/status/kjwij2vo9bvnd458/branch/master?svg=true)](https://ci.appveyor.com/project/mprins/brmo/branch/master)
 [![codecov](https://codecov.io/gh/B3Partners/brmo/branch/master/graph/badge.svg)](https://codecov.io/gh/B3Partners/brmo)
 [![GitHub issues](https://img.shields.io/github/issues/B3Partners/brmo.svg)](https://github.com/B3Partners/brmo/issues)
 [![GitHub forks](https://img.shields.io/github/forks/B3Partners/brmo.svg)](https://github.com/B3Partners/brmo/network)

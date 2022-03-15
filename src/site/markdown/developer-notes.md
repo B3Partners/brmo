@@ -65,7 +65,7 @@ tevens kan daarmee de juiste configuratie worden geladen.
 
 Het is mogelijk om bepaalde tests uit te sluiten voor een bepaalde omgeving, dat kan mbv. de marker interfaces in de [`brmo-test-util` module](/brmo/brmo-test-util/index.html).
 
-Bekijk de `.github/workflow/`, `appveyor.yml` en `Jenkinsfile` hoe de integratie tests worden gestart.
+Bekijk de `.github/workflow/` en `Jenkinsfile` hoe de integratie tests worden gestart.
 
 ### database configuratie
 
@@ -78,11 +78,11 @@ omgeving door een bestand naast het bestaande te zetten met de naam `local.<DB s
 De te gebruiken database smaak wordt middels de `database.properties.file` property in de pom.xml van de
 module of via commandline ingesteld.
 
-| property file       | gebruikt op     | override                  |
-| ------------------- | --------------- | ------------------------- |
-|postgres.properties  |Github           |local.postgres.properties  |
-|sqlserver.properties |AppVeyor, Github |local.sqlserver.properties |
-|oracle.properties    |Jenkins          |local.oracle.properties    |
+| property file       | gebruikt op | override                  |
+| ------------------- |-------------| ------------------------- |
+|postgres.properties  | Github      |local.postgres.properties  |
+|sqlserver.properties | Github      |local.sqlserver.properties |
+|oracle.properties    | Jenkins     |local.oracle.properties    |
 
 Voor gebruik van de propertyfile in een integratie test kun je overerven van een
 abstracte klasse in verschillende modules.
