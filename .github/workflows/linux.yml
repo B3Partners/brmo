@@ -34,8 +34,11 @@ jobs:
             # tot 11-2023  
             - 11-3.1-alpine
             - 12-3.2-alpine
-            - 13-3.2-alpine
-            - 14-3.2-alpine
+            # downgraded for select count() bug in recent 13/14
+            # https://www.postgresql.org/message-id/CAHUie24ddN%2BpDNw7fkhNrjrwAX%3DfXXfGZZEHhRuofV_N_ftaSg%40mail.gmail.com
+            # er is een fix/patch van 11 feb 2022 (na release van 14.2/13.6/12.10/11.15
+            - 13-3.1-alpine
+            - 14-3.1-alpine
 
     services:
       postgres:
