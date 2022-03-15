@@ -108,6 +108,19 @@ public class Processor {
         } 
     }
 
+    /**
+     * Parse een TopNL file naar een lijst van  FeatureMemberType (de package van het FeatureMemberType is specifiek
+     * voor de geladen schaal, bijv. {@code nl.b3p.topnl.top10nl.FeatureMemberType}.
+     *
+     * @param in input gml file
+     * @return een lijst met FeatureMemberType's van de respectievelijke schaal package
+     * @throws JAXBException if any
+     * @throws IOException   if any
+     * @see nl.b3p.topnl.top10nl.FeatureMemberType
+     * @see nl.b3p.topnl.top50nl.FeatureMemberType
+     * @see nl.b3p.topnl.top100nl.FeatureMemberType
+     * @see nl.b3p.topnl.top250nl.FeatureMemberType
+     */
     public List parse (URL in) throws  JAXBException,  IOException{
         List list = new ArrayList();
         try {

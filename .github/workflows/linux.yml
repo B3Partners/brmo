@@ -24,6 +24,9 @@ jobs:
         java: [ 11 ]
         java-dist: [ 'temurin' ]
         # docker image tags from https://hub.docker.com/r/postgis/postgis/tags?page=1&ordering=last_updated
+        # export POSTGRES_PASSWORD=postgres
+        # export PGPASSWORD=postgres
+        # docker run --rm -e POSTGRES_PASSWORD=postgres -h brmo-dev-tmp --name brmo-dev-tmp -p 5432:5432 -d postgis/postgis:14-3.2 -c max_connections=200
         # zie ook https://www.postgresql.org/support/versioning/
         postgis: 
             # tot 12-2022

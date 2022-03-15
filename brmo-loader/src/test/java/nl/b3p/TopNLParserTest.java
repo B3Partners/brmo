@@ -38,7 +38,18 @@ public class TopNLParserTest {
                 arguments(TopNLType.TOP10NL, "/topnl/TOP10NL_07W.gml"),
                 arguments(TopNLType.TOP50NL, "/topnl/Top50NL_07W.gml"),
                 arguments(TopNLType.TOP100NL, "/topnl/Top100NL_000001.gml"),
-                arguments(TopNLType.TOP250NL, "/topnl/TOP250NL.gml")
+                arguments(TopNLType.TOP250NL, "/topnl/top250nl_functioneelgebied.gml"),
+                arguments(TopNLType.TOP250NL, "/topnl/top250nl_gebouw.gml"),
+                arguments(TopNLType.TOP250NL, "/topnl/top250nl_geografischgebied.gml"),
+                arguments(TopNLType.TOP250NL, "/topnl/top250nl_hoogte.gml"),
+                arguments(TopNLType.TOP250NL, "/topnl/top250nl_inrichtingselement.gml"),
+                arguments(TopNLType.TOP250NL, "/topnl/top250nl_plaats.gml"),
+                arguments(TopNLType.TOP250NL, "/topnl/top250nl_registratiefgebied.gml"),
+                arguments(TopNLType.TOP250NL, "/topnl/top250nl_relief.gml"),
+                arguments(TopNLType.TOP250NL, "/topnl/top250nl_spoorbaandeel.gml"),
+                arguments(TopNLType.TOP250NL, "/topnl/top250nl_terrein.gml"),
+                arguments(TopNLType.TOP250NL, "/topnl/top250nl_waterdeel.gml"),
+                arguments(TopNLType.TOP250NL, "/topnl/top250nl_wegdeel.gml")
         );
     }
 
