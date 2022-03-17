@@ -2,6 +2,7 @@ name: Ubuntu MS SQL build
 
 on:
   - push
+  - pull_request
 
 concurrency: # cancel on PR pushes
   # More info: https://stackoverflow.com/a/68422069/253468
