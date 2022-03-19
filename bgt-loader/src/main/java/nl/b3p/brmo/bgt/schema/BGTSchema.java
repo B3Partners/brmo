@@ -84,8 +84,8 @@ public class BGTSchema extends Schema {
                 new AttributeColumnMapping("plus-fysiekVoorkomen"),
                 new AttributeColumnMapping("class"),
                 new BooleanAttributeColumnMapping("begroeidTerreindeelOpTalud", false),
-                new GeometryAttributeColumnMapping("kruinlijnBegroeidTerreindeel"),
-                new GeometryAttributeColumnMapping("geometrie2dBegroeidTerreindeel")
+                new GeometryAttributeColumnMapping("geometrie2dBegroeidTerreindeel"),
+                new GeometryAttributeColumnMapping("kruinlijnBegroeidTerreindeel")
         )));
         addObjectType(new BGTObjectType(this,"Bord", withBaseAttributes(
                 new AttributeColumnMapping("function"),
@@ -133,8 +133,8 @@ public class BGTSchema extends Schema {
                 new AttributeColumnMapping("bgt-fysiekVoorkomen"),
                 new AttributeColumnMapping("plus-fysiekVoorkomen"),
                 new BooleanAttributeColumnMapping("onbegroeidTerreindeelOpTalud", false),
-                new GeometryAttributeColumnMapping("kruinlijnOnbegroeidTerreindeel"),
-                new GeometryAttributeColumnMapping("geometrie2dOnbegroeidTerreindeel")
+                new GeometryAttributeColumnMapping("geometrie2dOnbegroeidTerreindeel"),
+                new GeometryAttributeColumnMapping("kruinlijnOnbegroeidTerreindeel")
         )));
         addObjectType(new BGTObjectType(this,"OndersteunendWaterdeel", withBaseAttributes(
                 new AttributeColumnMapping("class"),
@@ -147,8 +147,8 @@ public class BGTSchema extends Schema {
                 new AttributeColumnMapping("plus-functieOndersteunendWegdeel"),
                 new AttributeColumnMapping("plus-fysiekVoorkomenOndersteunendWegdeel"),
                 new BooleanAttributeColumnMapping("ondersteunendWegdeelOpTalud", false),
-                new GeometryAttributeColumnMapping("kruinlijnOndersteunendWegdeel"),
-                new GeometryAttributeColumnMapping("geometrie2dOndersteunendWegdeel")
+                new GeometryAttributeColumnMapping("geometrie2dOndersteunendWegdeel"),
+                new GeometryAttributeColumnMapping("kruinlijnOndersteunendWegdeel")
         )));
         addObjectType(new BGTObjectType(this,"OngeclassificeerdObject", withBaseAttributes(
                 new GeometryAttributeColumnMapping("geometrie2d")
@@ -267,8 +267,8 @@ public class BGTSchema extends Schema {
                 new AttributeColumnMapping("plus-fysiekVoorkomenWegdeel"),
                 new AttributeColumnMapping("surfaceMaterial"),
                 new BooleanAttributeColumnMapping("wegdeelOpTalud", false),
-                new GeometryAttributeColumnMapping("kruinlijnWegdeel"),
-                new GeometryAttributeColumnMapping("geometrie2dWegdeel")
+                new GeometryAttributeColumnMapping("geometrie2dWegdeel"),
+                new GeometryAttributeColumnMapping("kruinlijnWegdeel")
         )));
         addObjectType(new BGTObjectType(this,"Weginrichtingselement", withBaseAttributes(
                 new AttributeColumnMapping("function"),
