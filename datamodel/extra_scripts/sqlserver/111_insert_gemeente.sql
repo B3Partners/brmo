@@ -310,7 +310,6 @@ INSERT INTO gemeente (code, naam) VALUES (289, 'Wageningen');
 INSERT INTO gemeente (code, naam) VALUES (629, 'Wassenaar');
 INSERT INTO gemeente (code, naam) VALUES (852, 'Waterland');
 INSERT INTO gemeente (code, naam) VALUES (988, 'Weert');
-INSERT INTO gemeente (code, naam) VALUES (457, 'Weesp');
 INSERT INTO gemeente (code, naam) VALUES (1960, 'West Betuwe');
 INSERT INTO gemeente (code, naam) VALUES (668, 'West Maas en Waal');
 INSERT INTO gemeente (code, naam) VALUES (1969, 'Westerkwartier');

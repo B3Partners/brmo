@@ -1,6 +1,6 @@
 -- Update gemeente/woonplaats relatie koppelscript
--- Gegenereerd op: 2022-01-04T09:01:18.344991+01:00
--- StandTechnischeDatum van bronbestand: 2022-01-04
+-- Gegenereerd op: 2022-03-21T10:46:54.109766+01:00
+-- StandTechnischeDatum van bronbestand: 2022-03-21
 UPDATE wnplts SET fk_7gem_code = 893 WHERE identif = '1125';
 UPDATE wnplts SET fk_7gem_code = 1771 WHERE identif = '1126';
 UPDATE wnplts SET fk_7gem_code = 1771 WHERE identif = '1127';
@@ -48,7 +48,6 @@ UPDATE wnplts SET fk_7gem_code = 687 WHERE identif = '1008';
 UPDATE wnplts SET fk_7gem_code = 687 WHERE identif = '1009';
 UPDATE wnplts SET fk_7gem_code = 777 WHERE identif = '1010';
 UPDATE wnplts SET fk_7gem_code = 406 WHERE identif = '1011';
-UPDATE wnplts SET fk_7gem_code = 457 WHERE identif = '1012';
 UPDATE wnplts SET fk_7gem_code = 342 WHERE identif = '1013';
 UPDATE wnplts SET fk_7gem_code = 342 WHERE identif = '1014';
 UPDATE wnplts SET fk_7gem_code = 622 WHERE identif = '1015';
@@ -2513,7 +2512,6 @@ UPDATE wnplts SET fk_7gem_code = 1978 WHERE identif = '3627';
 UPDATE wnplts SET fk_7gem_code = 1978 WHERE identif = '3628';
 UPDATE wnplts SET fk_7gem_code = 175 WHERE identif = '3629';
 UPDATE wnplts SET fk_7gem_code = 175 WHERE identif = '3630';
-UPDATE wnplts SET fk_7gem_code = 457 WHERE identif = '3631';
 UPDATE wnplts SET fk_7gem_code = 1942 WHERE identif = '3632';
 UPDATE wnplts SET fk_7gem_code = 1699 WHERE identif = '3633';
 UPDATE wnplts SET fk_7gem_code = 1699 WHERE identif = '3634';
@@ -2570,6 +2568,8 @@ UPDATE wnplts SET fk_7gem_code = 93 WHERE identif = '2621';
 UPDATE wnplts SET fk_7gem_code = 1966 WHERE identif = '3484';
 UPDATE wnplts SET fk_7gem_code = 74 WHERE identif = '3558';
 UPDATE wnplts SET fk_7gem_code = 166 WHERE identif = '3559';
+UPDATE wnplts SET fk_7gem_code = 363 WHERE identif = '3631';
+UPDATE wnplts SET fk_7gem_code = 363 WHERE identif = '1012';
 UPDATE wnplts SET fk_7gem_code = 1991 WHERE identif = '1849';
 UPDATE wnplts SET fk_7gem_code = 1991 WHERE identif = '1848';
 UPDATE wnplts SET fk_7gem_code = 1991 WHERE identif = '1852';
