@@ -209,24 +209,5 @@
                 </plugins>
             </build>
         </profile>
-        <profile>
-            <id>mssql</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-failsafe-plugin</artifactId>
-                        <configuration>
-                            <systemPropertyVariables>
-                                <database.properties.file>sqlserver.properties</database.properties.file>
-                                <project.version>${project.version}</project.version>
-                            </systemPropertyVariables>
-                            <!-- tests die falen op windows+java11+maven maar niet op
-                            linux+java8 of java11 of windows+java8+maven -->
-                            <excludedGroups>skip-mssql ${skip-windows}</excludedGroups>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
     </profiles>
 </project>
