@@ -14,7 +14,10 @@ import java.util.ResourceBundle;
 public class Utils {
 
     public static String formatTimeSince(Instant start) {
-        Duration d = Duration.between(start, Instant.now());
+        return formatDuration(Duration.between(start, Instant.now()));
+    }
+
+    public static String formatDuration(Duration d) {
         String days = d.toDaysPart() > 0 ? d.toDaysPart() + "d " : "";
         if (d.toHoursPart() == 0 && d.toMinutesPart() == 0) {
             return days + d.toSecondsPart() + "s";
