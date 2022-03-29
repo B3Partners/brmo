@@ -775,7 +775,7 @@
                         <dependency>
                             <groupId>net.sf.saxon</groupId>
                             <artifactId>Saxon-HE</artifactId>
-                            <version>10.6</version>
+                            <version>11.3</version>
                         </dependency>
                     </dependencies>
                 </plugin>
