@@ -8,7 +8,7 @@
         <script type="text/javascript" src="${contextPath}/scripts/nhr.js"></script> 
     </stripes:layout-component>
     <stripes:layout-component name="contents">
-        <h1>Overzicht Berichten</h1>
+        <h1>Overzicht inschrijvingen</h1>
         <p><b>Shift-click:</b> Selecteer meerdere records,
         <b>Ctrl-click:</b> De-selecteer record.</p>
         <div id="comment-div"></div>

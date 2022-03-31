@@ -155,12 +155,17 @@ public class NHRActionBean implements ActionBean {
                     break;
                 }
 
-                NHRLaadProces proces = new NHRLaadProces();
+                NHRLaadProces proces;
+                proces = entityManager.find(NHRLaadProces.class, line);
+                if (proces == null) {
+                    proces = new NHRLaadProces();
+                }
+
                 proces.setDatum(new Date());
                 proces.setVolgendProberen(new Date());
                 proces.setProbeerAantal(0);
                 proces.setKvkNummer(line);
-                entityManager.persist(proces);
+                entityManager.merge(proces);
             }
         }
 
