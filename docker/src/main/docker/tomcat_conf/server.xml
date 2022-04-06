@@ -18,6 +18,11 @@
                   url="jdbc:postgresql://${PG_HOST}:${PG_PORT}/${DB_NAME_RSGB}" username="${DB_USER_RSGB}"
                   validationQuery="select 1"/>
         <Resource auth="Container" driverClassName="org.postgresql.Driver" maxTotal="40"
+                  minEvictableIdleTimeMillis="5000" name="jdbc/brmo/rsgbbag" password="${DB_PASS_RSGB}"
+                  timeBetweenEvictionRunsMillis="30000" type="javax.sql.DataSource"
+                  url="jdbc:postgresql://${PG_HOST}:${PG_PORT}/${DB_NAME_RSGB}" username="${DB_USER_RSGB}"
+                  validationQuery="select 1"/>
+        <Resource auth="Container" driverClassName="org.postgresql.Driver" maxTotal="40"
                   minEvictableIdleTimeMillis="5000" name="jdbc/brmo/rsgbbgt" password="${DB_PASS_RSGBBGT}"
                   timeBetweenEvictionRunsMillis="30000" type="javax.sql.DataSource"
                   url="jdbc:postgresql://${PG_HOST}:${PG_PORT}/${DB_NAME_RSGBBGT}" username="${DB_USER_RSGBBGT}"
