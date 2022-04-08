@@ -15,6 +15,7 @@ import nl.b3p.brmo.bag2.schema.BAG2ObjectTableWriter;
 import nl.b3p.brmo.bag2.schema.BAG2ObjectType;
 import nl.b3p.brmo.bag2.schema.BAG2Schema;
 import nl.b3p.brmo.bag2.schema.BAG2SchemaMapper;
+import nl.b3p.brmo.bag2.xml.leveringsdocument.Gemeente;
 import nl.b3p.brmo.util.ResumingInputStream;
 import nl.b3p.brmo.util.http.HttpClientWrapper;
 import nl.b3p.brmo.util.http.HttpStartRangeInputStreamProvider;
@@ -54,6 +55,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import static nl.b3p.brmo.bag2.schema.BAG2SchemaMapper.METADATA_TABLE_NAME;
 import static nl.b3p.brmo.bag2.schema.BAG2SchemaMapper.Metadata.CURRENT_TECHNISCHE_DATUM;
@@ -161,11 +163,10 @@ public class BAG2LoaderMain implements IVersionProvider {
             return;
         }
 
-        BAG2LoaderUtils.BAG2FileName bag2FileName = BAG2LoaderUtils.analyzeBAG2FileName(filenames[0]);
+        BAG2LoaderUtils.BAGExtractLeveringWrapper bagExtractLevering = BAG2LoaderUtils.findAndParseLeveringsdocumentInZip(filenames[0]);
 
-        if (bag2FileName.isStand()) {
-
-            if (!bag2FileName.isGemeente()) {
+        if (bagExtractLevering.isStand()) {
+            if (bagExtractLevering.isGebiedNLD()) {
                 if (filenames.length > 1) {
                     throw new IllegalArgumentException("Inladen stand heel Nederland: teveel bestanden opgegeven");
                 }
@@ -173,11 +174,20 @@ public class BAG2LoaderMain implements IVersionProvider {
                 // Verify all filenames are gemeentestanden
                 Set<String> gemeenteCodes = new HashSet<>();
                 for (int i = 1; i < filenames.length; i++) {
-                    BAG2LoaderUtils.BAG2FileName nextBag2FileName = BAG2LoaderUtils.analyzeBAG2FileName(filenames[i]);
-                    if (!nextBag2FileName.isStand() || !nextBag2FileName.isGemeente() || gemeenteCodes.contains(nextBag2FileName.getGemeenteCode())) {
-                        throw new IllegalArgumentException("Inladen stand gemeentes, ongeldig bestand opgegeven: " + filenames[i]);
+                    BAG2LoaderUtils.BAGExtractLeveringWrapper nextBagExtractLevering = BAG2LoaderUtils.findAndParseLeveringsdocumentInZip(filenames[i]);
+
+                    if (!nextBagExtractLevering.isStand() || !nextBagExtractLevering.isGemeente()) {
+                        throw new IllegalArgumentException("Inladen stand gemeentes, ongeldig bestand opgegeven (geen gemeentestand): " + filenames[i]);
                     }
-                    gemeenteCodes.add(nextBag2FileName.getGemeenteCode());
+                    Set<String> nextBagExtractLeveringGemeenteCodes = nextBagExtractLevering.getGebiedRegistratief()
+                            .getGebiedGEM().getGemeenteCollectie().getGemeente().stream()
+                            .map(Gemeente::getGemeenteIdentificatie)
+                            .collect(Collectors.toSet());
+
+                    if (gemeenteCodes.stream().anyMatch(nextBagExtractLeveringGemeenteCodes::contains)) {
+                        throw new IllegalArgumentException("Inladen stand gemeentes, dubbele gemeentecode in bestand: " + filenames[i]);
+                    }
+                    gemeenteCodes.addAll(nextBagExtractLeveringGemeenteCodes);
                 }
             }
 
@@ -240,8 +250,8 @@ public class BAG2LoaderMain implements IVersionProvider {
         if (filenames.length == 0) {
             return;
         }
-        BAG2LoaderUtils.BAG2FileName bag2FileName = BAG2LoaderUtils.analyzeBAG2FileName(filenames[0]);
-        if (bag2FileName.isGemeente()) {
+        BAG2LoaderUtils.BAGExtractLeveringWrapper bagExtractLevering = BAG2LoaderUtils.findAndParseLeveringsdocumentInZip(filenames[0]);
+        if (bagExtractLevering.isGemeente()) {
             applyGemeenteMutaties(db, dbOptions, loadOptions, progressReporter, filenames, urls, cookieManager);
         } else {
             applyNLMutaties(db, dbOptions, loadOptions, progressReporter, filenames, urls, cookieManager);
@@ -258,14 +268,14 @@ public class BAG2LoaderMain implements IVersionProvider {
 
             Set<String> missingGemeentes = new HashSet<>(gemeenteCodes);
             for(int i = 0; i < filenames.length; i++) {
-                BAG2LoaderUtils.BAG2FileName bag2FileName = BAG2LoaderUtils.analyzeBAG2FileName(filenames[i]);
+                BAG2LoaderUtils.BAGExtractLeveringWrapper bagExtractLevering = BAG2LoaderUtils.findAndParseLeveringsdocumentInZip(filenames[i]);
 
-                if (bag2FileName.isGemeente()
-                        && !bag2FileName.isStand()
-                        && bag2FileName.getMutatiesFrom().equals(currentTechnischeDatum)
-                        && gemeenteCodes.contains(bag2FileName.getGemeenteCode())) {
+                if (bagExtractLevering.isGemeente()
+                        && bagExtractLevering.isMutaties()
+                        && bagExtractLevering.getMutatiesFrom().equals(currentTechnischeDatum)
+                        && gemeenteCodes.contains(bagExtractLevering.getGemeenteCodes())) {
                     applicableMutatieIndexes.add(i);
-                    missingGemeentes.remove(bag2FileName.getGemeenteCode());
+                    missingGemeentes.remove(bagExtractLevering.getGemeenteCodes());
                 }
             }
 
@@ -311,11 +321,11 @@ public class BAG2LoaderMain implements IVersionProvider {
 
             for(int i = 0; i < filenames.length; i++) {
                 String filename = filenames[i];
-                BAG2LoaderUtils.BAG2FileName bag2FileName = BAG2LoaderUtils.analyzeBAG2FileName(filename);
+                BAG2LoaderUtils.BAGExtractLeveringWrapper bagExtractLeveringWrapper = BAG2LoaderUtils.findAndParseLeveringsdocumentInZip(filename);
 
-                if (!bag2FileName.isGemeente()
-                        && !bag2FileName.isStand()
-                        && bag2FileName.getMutatiesFrom().equals(currentTechnischeDatum)) {
+                if (bagExtractLeveringWrapper.isGebiedNLD()
+                        && bagExtractLeveringWrapper.isMutaties()
+                        && bagExtractLeveringWrapper.getMutatiesFrom().equals(currentTechnischeDatum)) {
                     applicableMutatie = filename;
                     applicatieMutatieURL = urls == null ? filename : urls[i];
                 }
