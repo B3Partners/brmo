@@ -74,7 +74,7 @@ jobs:
             downloads-
 
       - name: Set up JDK
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v3
         with:
           distribution: ${{ matrix.java-dist }}
           java-version: ${{ matrix.java }}
@@ -162,7 +162,7 @@ jobs:
         run: sudo apt install -y --no-install-recommends graphviz
 
       - name: Set up JDK
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v3
         with:
           distribution: 'adopt'
           java-version: 11
