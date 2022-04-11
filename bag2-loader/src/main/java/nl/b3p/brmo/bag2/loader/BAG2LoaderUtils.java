@@ -8,11 +8,15 @@
 package nl.b3p.brmo.bag2.loader;
 
 import nl.b3p.brmo.bag2.xml.leveringsdocument.BAGExtractLevering;
+import nl.b3p.brmo.bag2.xml.leveringsdocument.GebiedNLD;
 import nl.b3p.brmo.bag2.xml.leveringsdocument.GebiedRegistratief;
 import nl.b3p.brmo.bag2.xml.leveringsdocument.Gemeente;
 import nl.b3p.brmo.bag2.xml.leveringsdocument.LVCExtract;
 import nl.b3p.brmo.bag2.xml.leveringsdocument.MUTExtract;
 import nl.b3p.brmo.bag2.xml.leveringsdocument.SelectieGegevens;
+import nl.b3p.brmo.util.CountingSeekableByteChannel;
+import nl.b3p.brmo.util.http.HttpSeekableByteChannel;
+import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -28,6 +32,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Enumeration;
+import java.util.Iterator;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -37,6 +42,8 @@ import java.util.zip.ZipFile;
 public class BAG2LoaderUtils {
 
     public static final String BUNDLE_NAME = "BAG2Loader";
+
+    public static final String LEVERINGSDOCUMENT_FILENAME = "Leveringsdocument-BAG-Extract.xml";
 
     static final ResourceBundle bundle = ResourceBundle.getBundle(BUNDLE_NAME);
 
@@ -73,8 +80,42 @@ public class BAG2LoaderUtils {
     }
 
     public static BAGExtractLeveringWrapper findAndParseLeveringsdocumentInZip(String zipFileName) throws IOException {
-        return findAndParseLeveringsdocumentInZip(new File(zipFileName));
 
+        if (zipFileName.startsWith("http://") || zipFileName.startsWith("https://")) {
+            // Use HTTP random access to parse only leveringsdocument without downloading/streaming the entire ZIP file
+            return findAndParseLeveringsdocumentInHttpZip(URI.create(zipFileName));
+        } else {
+            return findAndParseLeveringsdocumentInZip(new File(zipFileName));
+        }
+    }
+
+    public static BAGExtractLeveringWrapper findAndParseLeveringsdocumentInHttpZip(URI uri) throws IOException {
+        String message = getMessageFormattedString("load.leveringsdocument.readzip", uri);
+        try(
+                HttpSeekableByteChannel channel = new HttpSeekableByteChannel(uri);
+                org.apache.commons.compress.archivers.zip.ZipFile zipFile = new org.apache.commons.compress.archivers.zip.ZipFile(
+                        channel,
+                        uri.toString(),
+                        "UTF8",
+                        false,
+                        true
+                )
+        ) {
+            message = getMessageFormattedString("load.leveringsdocument.zipentries", uri);
+            Iterator<ZipArchiveEntry> iterator = zipFile.getEntries(LEVERINGSDOCUMENT_FILENAME).iterator();
+            if (!iterator.hasNext()) {
+                throw new IOException(getMessageFormattedString("load.leveringsdocument.notfound", uri));
+            }
+            message = getMessageFormattedString("load.leveringsdocument.unmarshal", uri);
+            JAXBContext jaxbContext = JAXBContext.newInstance(BAGExtractLevering.class);
+            Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+            try (InputStream in = zipFile.getInputStream(iterator.next())) {
+                BAGExtractLevering levering = (BAGExtractLevering) unmarshaller.unmarshal(in);
+                return new BAGExtractLeveringWrapper(levering);
+            }
+        } catch(Exception e) {
+            throw new IOException(message, e);
+        }
     }
 
     public static BAGExtractLeveringWrapper findAndParseLeveringsdocumentInZip(File zipFile) throws IOException {
@@ -85,7 +126,7 @@ public class BAG2LoaderUtils {
             Enumeration<? extends ZipEntry> entries = zf.entries();
             while(entries.hasMoreElements()) {
                 ZipEntry entry = entries.nextElement();
-                if("Leveringsdocument-BAG-Extract.xml".equals(entry.getName())) {
+                if(LEVERINGSDOCUMENT_FILENAME.equals(entry.getName())) {
                     message = getMessageFormattedString("load.leveringsdocument.unmarshal", zipFileName);
                     JAXBContext jaxbContext = JAXBContext.newInstance(BAGExtractLevering.class);
                     Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
@@ -103,6 +144,7 @@ public class BAG2LoaderUtils {
 
     public static class BAGExtractLeveringWrapper extends SelectieGegevens {
         BAGExtractLevering levering;
+
         private BAGExtractLeveringWrapper(BAGExtractLevering levering) {
             this.levering = levering;
         }
