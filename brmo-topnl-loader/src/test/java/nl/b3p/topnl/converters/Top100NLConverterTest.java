@@ -16,10 +16,23 @@
  */
 package nl.b3p.topnl.converters;
 
+import jakarta.xml.bind.JAXBException;
 import nl.b3p.topnl.Processor;
 import nl.b3p.topnl.TestUtil;
 import nl.b3p.topnl.TopNLType;
-import nl.b3p.topnl.entities.*;
+import nl.b3p.topnl.entities.FunctioneelGebied;
+import nl.b3p.topnl.entities.Gebouw;
+import nl.b3p.topnl.entities.GeografischGebied;
+import nl.b3p.topnl.entities.Hoogte;
+import nl.b3p.topnl.entities.Inrichtingselement;
+import nl.b3p.topnl.entities.Plaats;
+import nl.b3p.topnl.entities.RegistratiefGebied;
+import nl.b3p.topnl.entities.Relief;
+import nl.b3p.topnl.entities.Spoorbaandeel;
+import nl.b3p.topnl.entities.Terrein;
+import nl.b3p.topnl.entities.TopNLEntity;
+import nl.b3p.topnl.entities.Waterdeel;
+import nl.b3p.topnl.entities.Wegdeel;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.locationtech.jts.geom.LineString;
@@ -27,19 +40,20 @@ import org.locationtech.jts.geom.Point;
 import org.locationtech.jts.geom.Polygon;
 import org.xml.sax.SAXException;
 
-import javax.xml.bind.JAXBException;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  *
@@ -52,7 +66,7 @@ public class Top100NLConverterTest extends TestUtil{
 
     protected SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.ROOT);
 
-    public Top100NLConverterTest() throws JAXBException, SQLException {
+    public Top100NLConverterTest() throws Exception {
         this.processor = new Processor(null);
         this.instance = new Top100NLConverter();
     }

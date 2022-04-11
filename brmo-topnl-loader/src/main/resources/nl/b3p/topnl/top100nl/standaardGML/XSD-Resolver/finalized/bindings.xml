@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bindings xmlns="http://java.sun.com/xml/ns/jaxb" xmlns:xsd="http://www.w3.org/2001/XMLSchema" version="2.0" xmlns:gml="http://www.opengis.net/gml">
+<bindings xmlns="https://jakarta.ee/xml/ns/jaxb" xmlns:xsd="http://www.w3.org/2001/XMLSchema" version="3.0" xmlns:gml="http://www.opengis.net/gml">
 	<globalBindings typesafeEnumMaxMembers="1000">
-		<javaType name="java.util.Calendar" xmlType="xsd:date" parseMethod="javax.xml.bind.DatatypeConverter.parseDate" printMethod="javax.xml.bind.DatatypeConverter.printDate"/>
-		<javaType name="java.util.Calendar" xmlType="xsd:dateTime" parseMethod="javax.xml.bind.DatatypeConverter.parseDateTime" printMethod="javax.xml.bind.DatatypeConverter.printDateTime"/>
+		<javaType name="java.util.Calendar" xmlType="xsd:date" parseMethod="jakarta.xml.bind.DatatypeConverter.parseDate" printMethod="jakarta.xml.bind.DatatypeConverter.printDate"/>
+		<javaType name="java.util.Calendar" xmlType="xsd:dateTime" parseMethod="jakarta.xml.bind.DatatypeConverter.parseDateTime" printMethod="jakarta.xml.bind.DatatypeConverter.printDateTime"/>
 	</globalBindings>
 	<bindings schemaLocation="top100nl_resolved.xsd">
 		<!--schemaBindings>

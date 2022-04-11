@@ -23,7 +23,7 @@ import org.locationtech.jts.geom.Polygon;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.bind.JAXBElement;
+import jakarta.xml.bind.JAXBElement;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import nl.b3p.topnl.TopNLType;
@@ -74,7 +74,7 @@ public class Top10NLConverter extends Converter {
     protected final static Log log = LogFactory.getLog(Top10NLConverter.class);
     @Override
     public List<TopNLEntity> convert(List jaxbObject) throws IOException, SAXException, ParserConfigurationException, TransformerException {
-        List<TopNLEntity> entities = null;
+        List<TopNLEntity> entities;
         if (jaxbObject instanceof ArrayList) {
             entities = convertFeatureCollection(jaxbObject);
         } else {
@@ -90,7 +90,7 @@ public class Top10NLConverter extends Converter {
 
         for (Object fm : jaxbFeatureCollection) {
             FeatureMemberType featureMember = (FeatureMemberType)fm;
-            JAXBElement jaxbObject = featureMember.getTop10NlObject();
+            JAXBElement<? extends Top10NlObjectType> jaxbObject = featureMember.getTop10NlObject();
             Object obj = jaxbObject.getValue();
             TopNLEntity entity = convertObject(obj);
             entities.add(entity);
@@ -105,7 +105,7 @@ public class Top10NLConverter extends Converter {
 
          if(featureMember instanceof FeatureMemberType){
             FeatureMemberType fm = (FeatureMemberType)featureMember;
-            JAXBElement jaxbObject = fm.getTop10NlObject();
+            JAXBElement<? extends Top10NlObjectType> jaxbObject = fm.getTop10NlObject();
             return convertObject(jaxbObject.getValue());
         }else if (featureMember instanceof HoogteType) {
             entity = convertHoogte(featureMember);
@@ -162,8 +162,7 @@ public class Top10NLConverter extends Converter {
     }
 
     public String convertIdentificatie(Identificatie identificatie) {
-        String idString = identificatie.getNEN3610ID().getNamespace().trim() + "." + identificatie.getNEN3610ID().getLokaalID();
-        return idString;
+        return identificatie.getNEN3610ID().getNamespace().trim() + "." + identificatie.getNEN3610ID().getLokaalID();
     }
 
     private void convertTop10NlObjectType(Top10NlObjectType type, TopNLEntity entity) {
@@ -291,15 +290,17 @@ public class Top10NLConverter extends Converter {
         
         if(r.getTaludGeometrie() != null){
             BRTHogeEnLageZijdeType hl = r.getTaludGeometrie().getBRTHogeEnLageZijde();
-            Element[] els = hl.getHogeZijde();
-            for (Element el : els) {
-                LineString g = (LineString) gc.convertGeometry(el);
-                if(el.getLocalName().equals("lageZijde")){
-                    rg.setTaludLageZijde(g);
-                }else if(el.getLocalName().equals("hogeZijde")){
-                    rg.setTaludHogeZijde(g);
-                }
-            }
+//            Element[] els = hl.getHogeZijde();
+//            for (Element el : els) {
+//                LineString g = (LineString) gc.convertGeometry(el);
+//                if(el.getLocalName().equals("lageZijde")){
+//                    rg.setTaludLageZijde(g);
+//                }else if(el.getLocalName().equals("hogeZijde")){
+//                    rg.setTaludHogeZijde(g);
+//                }
+//            }
+            if (null != hl.getLageZijde()) rg.setTaludLageZijde((LineString) gc.convertGeometry(hl.getLageZijde()));
+            if (null != hl.getHogeZijde()) rg.setTaludHogeZijde((LineString) gc.convertGeometry(hl.getHogeZijde()));
         }
 
         rg.setHoogteklasse(r.getHoogteklasse().getValue());
@@ -392,8 +393,8 @@ public class Top10NLConverter extends Converter {
         rg.setTypeWater(r.getTypeWater() != null ? r.getTypeWater().getValue() : null);
         rg.setBreedteklasse( r.getBreedteklasse() != null ? r.getBreedteklasse().getValue() : null);
         rg.setHoogteniveau(r.getHoogteniveau().longValue());
-        rg.setGetijdeinvloed(r.getGetijdeinvloed() != null ? r.getGetijdeinvloed().equals(BRTJaNeeWaardeType.JA):false);
-        rg.setHoofdAfwatering(r.getHoofdafwatering()!= null ? r.getHoofdafwatering().equals(BRTJaNeeWaardeType.JA):false);
+        rg.setGetijdeinvloed(r.getGetijdeinvloed() != null && r.getGetijdeinvloed().equals(BRTJaNeeWaardeType.JA));
+        rg.setHoofdAfwatering(r.getHoofdafwatering() != null && r.getHoofdafwatering().equals(BRTJaNeeWaardeType.JA));
         rg.setFunctie(r.getFunctie() != null ? r.getFunctie().getValue() : null);
         return rg;
     }
@@ -437,16 +438,19 @@ public class Top10NLConverter extends Converter {
         
         rg.setNaam(String.join(",",r.getNaam()));
         
-        Element [] els = r.getHartGeometrie();
-        for (Element el : els) {
-            String localname = el.getLocalName();
-            Geometry g = gc.convertGeometry(el);
-            if(localname.equals("hoofdGeometrie")){
-                rg.setGeometrie(g);
-            }else if(localname.equals("hartGeometrie")){
-                rg.setHartGeometrie(g);
-            }
-        }
+//        Element [] els = r.getHartGeometrie();
+//        for (Element el : els) {
+//            String localname = el.getLocalName();
+//            Geometry g = gc.convertGeometry(el);
+//            if(localname.equals("hoofdGeometrie")){
+//                rg.setGeometrie(g);
+//            }else if(localname.equals("hartGeometrie")){
+//                rg.setHartGeometrie(g);
+//            }
+//        }
+        if (null != r.getHoofdGeometrie()) rg.setGeometrie(gc.convertGeometry(r.getHoofdGeometrie()));
+        if (null != r.getHartGeometrie()) rg.setHartGeometrie(gc.convertGeometry(r.getHartGeometrie()));
+
         rg.setTypeInfrastructuur(r.getTypeInfrastructuur() != null ? r.getTypeInfrastructuur().getValue() : null);
         rg.setVerhardingstype(r.getVerhardingstype().getValue());
         rg.setVerhardingsbreedteklasse(r.getVerhardingsbreedteklasse() != null ? r.getVerhardingsbreedteklasse().getValue() : null);
