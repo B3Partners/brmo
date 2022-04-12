@@ -89,4 +89,11 @@
         <packageUrl regex="true">^pkg:maven/(?!org\.apache\.james/).*$</packageUrl>
         <cpe>cpe:/a:apache:james</cpe>
     </suppress>
+    <suppress>
+        <notes><![CDATA[
+   any GeoTools 26.4 artifact is not CDE
+   ]]></notes>
+        <packageUrl regex="true">^pkg:maven/org\.geotools[.a-z]*/[a-z]+[.]?[-a-z0-9]*[.]?[-a-z]*\@26\.4$</packageUrl>
+        <cpe>cpe:/a:cde:cde</cpe>
+    </suppress>
 </suppressions>
