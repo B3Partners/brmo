@@ -8,18 +8,11 @@
 package nl.b3p.brmo.bag2.loader;
 
 import nl.b3p.brmo.bag2.xml.leveringsdocument.BAGExtractLevering;
-import nl.b3p.brmo.bag2.xml.leveringsdocument.GebiedNLD;
-import nl.b3p.brmo.bag2.xml.leveringsdocument.GebiedRegistratief;
 import nl.b3p.brmo.bag2.xml.leveringsdocument.Gemeente;
-import nl.b3p.brmo.bag2.xml.leveringsdocument.LVCExtract;
-import nl.b3p.brmo.bag2.xml.leveringsdocument.MUTExtract;
-import nl.b3p.brmo.bag2.xml.leveringsdocument.SelectieGegevens;
-import nl.b3p.brmo.util.CountingSeekableByteChannel;
 import nl.b3p.brmo.util.http.HttpSeekableByteChannel;
 import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
 
 import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.io.File;
@@ -30,11 +23,11 @@ import java.nio.file.Path;
 import java.text.MessageFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.Iterator;
-import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
@@ -79,17 +72,24 @@ public class BAG2LoaderUtils {
         return getBundleString("brmo.version");
     }
 
-    public static BAGExtractLeveringWrapper findAndParseLeveringsdocumentInZip(String zipFileName) throws IOException {
-
+    public static BAGExtractSelectie getBAGExtractSelectieFromZip(String zipFileName) throws IOException {
         if (zipFileName.startsWith("http://") || zipFileName.startsWith("https://")) {
-            // Use HTTP random access to parse only leveringsdocument without downloading/streaming the entire ZIP file
-            return findAndParseLeveringsdocumentInHttpZip(URI.create(zipFileName));
+            // Try to parse filename in URL to avoid having to download the ZIP and extract the leveringsdocument --
+            // because this may happen many times to check whether a mutatie ZIP is applicable
+            try {
+                return BAGExtractSelectieFromFilename.parse(zipFileName);
+            } catch(IllegalArgumentException iae) {
+                // Could not parse BAG2 extract selection from filename, use HTTP random access to parse only
+                // leveringsdocument without downloading/streaming the entire ZIP file
+                return getBAGExtractSelectieFromHttpZip(URI.create(zipFileName));
+
+            }
         } else {
-            return findAndParseLeveringsdocumentInZip(new File(zipFileName));
+            return getBAGExtractSelectieFromZipFile(new File(zipFileName));
         }
     }
 
-    public static BAGExtractLeveringWrapper findAndParseLeveringsdocumentInHttpZip(URI uri) throws IOException {
+    private static BAGExtractSelectie getBAGExtractSelectieFromHttpZip(URI uri) throws IOException {
         String message = getMessageFormattedString("load.leveringsdocument.readzip", uri);
         try(
                 HttpSeekableByteChannel channel = new HttpSeekableByteChannel(uri);
@@ -111,14 +111,14 @@ public class BAG2LoaderUtils {
             Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
             try (InputStream in = zipFile.getInputStream(iterator.next())) {
                 BAGExtractLevering levering = (BAGExtractLevering) unmarshaller.unmarshal(in);
-                return new BAGExtractLeveringWrapper(levering);
+                return new BAGExtractSelectieFromLeveringsdocument(levering);
             }
         } catch(Exception e) {
             throw new IOException(message, e);
         }
     }
 
-    public static BAGExtractLeveringWrapper findAndParseLeveringsdocumentInZip(File zipFile) throws IOException {
+    public static BAGExtractSelectie getBAGExtractSelectieFromZipFile(File zipFile) throws IOException {
         String zipFileName = zipFile.getName();
         String message = getMessageFormattedString("load.leveringsdocument.readzip", zipFileName);
         try (ZipFile zf = new ZipFile(zipFile)) {
@@ -132,7 +132,7 @@ public class BAG2LoaderUtils {
                     Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
                     try (InputStream in = zf.getInputStream(entry)) {
                         BAGExtractLevering levering = (BAGExtractLevering) unmarshaller.unmarshal(in);
-                        return new BAGExtractLeveringWrapper(levering);
+                        return new BAGExtractSelectieFromLeveringsdocument(levering);
                     }
                 }
             }
@@ -142,56 +142,147 @@ public class BAG2LoaderUtils {
         throw new IOException(getMessageFormattedString("load.leveringsdocument.notfound", zipFileName));
     }
 
-    public static class BAGExtractLeveringWrapper extends SelectieGegevens {
+    public interface BAGExtractSelectie {
+        boolean isStand();
+        boolean isGebiedNLD();
+        LocalDate getMutatiesFrom();
+        LocalDate getMutatiesTot();
+        Set<String> getGemeenteCodes();
+    }
+
+    public static class BAGExtractSelectieFromFilename implements BAGExtractSelectie {
+        private String name;
+        private boolean isStand;
+        private boolean isGebiedNLD;
+        private String gemeenteCode;
+        private LocalDate mutatiesFrom;
+        private LocalDate mutatiesTot;
+
+        /**
+         * @param name BAG2 filename to parse, can be URL or full path.
+         * @throws IllegalArgumentException If the filename is not a BAG2 filename (outer zip only)
+         */
+        public static BAGExtractSelectie parse(String name) throws IllegalArgumentException {
+
+            if (name.startsWith("http://") || name.startsWith("https://")) {
+                URI uri = URI.create(name);
+                String[] parts = uri.getPath().split("/");
+                name = parts[parts.length-1];
+            }
+            if (name.contains(File.separator)) {
+                Path p = Path.of(name);
+                name = p.getFileName().toString();
+            }
+
+            BAGExtractSelectieFromFilename selectie = new BAGExtractSelectieFromFilename();
+            selectie.name = name;
+
+            if (name.equals("lvbag-extract-nl.zip") || name.matches("BAGNLDL-\\d{8}\\.zip")) {
+                selectie.isStand = true;
+                selectie.isGebiedNLD = true;
+                return selectie;
+            }
+
+            if (name.matches("BAGGEM\\d{4}L-\\d{8}\\.zip")) {
+                selectie.isStand = true;
+                selectie.isGebiedNLD = false;
+                selectie.gemeenteCode = name.substring(6, 10);
+                return selectie;
+            }
+
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("ddMMyyyy");
+
+            if (name.matches("BAGGEM\\d{4}M-\\d{8}-\\d{8}\\.zip")) {
+                selectie.isStand = false;
+                selectie.isGebiedNLD = false;
+                selectie.gemeenteCode = name.substring(6, 10);
+                // Gemeente can only have monthly updates
+                selectie.mutatiesFrom = LocalDate.parse(name.substring(12, 20), dtf);
+                selectie.mutatiesTot = LocalDate.parse(name.substring(21, 29), dtf);
+                return selectie;
+            }
+
+            if (name.matches("BAGNLDM-\\d{8}-\\d{8}\\.zip")) {
+                selectie.isStand = false;
+                selectie.isGebiedNLD = true;
+                selectie.mutatiesFrom = LocalDate.parse(name.substring(8, 16), dtf);
+                selectie.mutatiesTot = LocalDate.parse(name.substring(17, 25), dtf);
+                return selectie;
+            }
+
+            throw new IllegalArgumentException("Ongeldige BAG2 bestandsnaam: " + name);
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        @Override
+        public boolean isStand() {
+            return isStand;
+        }
+
+        @Override
+        public boolean isGebiedNLD() {
+            return isGebiedNLD;
+        }
+
+        @Override
+        public Set<String> getGemeenteCodes() {
+            return Collections.singleton(gemeenteCode);
+        }
+
+        @Override
+        public LocalDate getMutatiesFrom() {
+            return mutatiesFrom;
+        }
+
+        @Override
+        public LocalDate getMutatiesTot() {
+            return mutatiesTot;
+        }
+    }
+
+    public static class BAGExtractSelectieFromLeveringsdocument implements BAGExtractSelectie {
         BAGExtractLevering levering;
 
-        private BAGExtractLeveringWrapper(BAGExtractLevering levering) {
+        private BAGExtractSelectieFromLeveringsdocument(BAGExtractLevering levering) {
             this.levering = levering;
         }
 
         @Override
-        public LVCExtract getLVCExtract() {
-            return levering.getSelectieGegevens().getLVCExtract();
-        }
-
-        @Override
-        public MUTExtract getMUTExtract() {
-            return levering.getSelectieGegevens().getMUTExtract();
-        }
-
-        @Override
-        public GebiedRegistratief getGebiedRegistratief() {
-            return levering.getSelectieGegevens().getGebiedRegistratief();
-        }
-
         public boolean isStand() {
-            return getLVCExtract() != null;
+            return levering.getSelectieGegevens().getLVCExtract() != null;
         }
 
-        public boolean isMutaties() {
-            return getMUTExtract() != null;
-        }
-
+        @Override
         public boolean isGebiedNLD() {
-            return getGebiedRegistratief().getGebiedNLD() != null;
+            return levering.getSelectieGegevens().getGebiedRegistratief().getGebiedNLD() != null;
         }
 
-        public boolean isGemeente() {
-            return getGebiedRegistratief().getGebiedGEM() != null && !getGebiedRegistratief().getGebiedGEM().getGemeenteCollectie().getGemeente().isEmpty();
-        }
-
+        @Override
         public LocalDate getMutatiesFrom() {
-            XMLGregorianCalendar xmlGregorianCalendar = getMUTExtract().getMutatieperiode().getMutatiedatumVanaf();
+            XMLGregorianCalendar xmlGregorianCalendar = levering.getSelectieGegevens().getMUTExtract().getMutatieperiode().getMutatiedatumVanaf();
             return LocalDate.of(
                     xmlGregorianCalendar.getYear(),
                     xmlGregorianCalendar.getMonth(),
                     xmlGregorianCalendar.getDay());
         }
 
-        public String getGemeenteCodes() {
-            return getGebiedRegistratief().getGebiedGEM().getGemeenteCollectie().getGemeente().stream()
+        @Override
+        public LocalDate getMutatiesTot() {
+            XMLGregorianCalendar xmlGregorianCalendar = levering.getSelectieGegevens().getMUTExtract().getMutatieperiode().getMutatiedatumTot();
+            return LocalDate.of(
+                    xmlGregorianCalendar.getYear(),
+                    xmlGregorianCalendar.getMonth(),
+                    xmlGregorianCalendar.getDay());
+        }
+
+        @Override
+        public Set<String> getGemeenteCodes() {
+            return levering.getSelectieGegevens().getGebiedRegistratief().getGebiedGEM().getGemeenteCollectie().getGemeente().stream()
                     .map(Gemeente::getGemeenteIdentificatie)
-                    .collect(Collectors.joining(","));
+                    .collect(Collectors.toSet());
         }
     }
 }

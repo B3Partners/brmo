@@ -169,20 +169,18 @@ public class BAG2MutatiesCommand {
 
         log.info("Aantal beschikbare bestanden: " + bestanden.length());
 
-        List<String> names = new ArrayList<>();
         List<String> urls = new ArrayList<>();
         for(int i = 0; i < bestanden.length(); i++) {
             JSONObject bestand = bestanden.getJSONObject(i);
-            names.add(bestand.getString("naam"));
             urls.add(bestand.getString("url"));
         }
 
-        try(BAG2Database db = parent.getBag2Database()) {
+        try(BAG2Database db = parent.getBAG2Database(dbOptions)) {
             BAG2ProgressReporter progressReporter = progressOptions.isConsoleProgressEnabled()
                     ? new BAG2ConsoleProgressReporter()
                     : new BAG2ProgressReporter();
 
-            parent.applyMutaties(db, dbOptions, new BAG2LoadOptions(), progressReporter, names.toArray(String[]::new), urls.toArray(String[]::new), kadasterCookieManager);
+            parent.applyMutaties(db, dbOptions, new BAG2LoadOptions(), progressReporter, urls.toArray(String[]::new), kadasterCookieManager);
             log.info("Alle mutatiebestanden verwerkt in " + formatTimeSince(start));
             return ExitCode.OK;
         }
