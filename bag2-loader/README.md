@@ -104,7 +104,7 @@ mogelijk om andere gegevens op te geven, zie de uitvoer van `brmo-bag2-loader lo
 
 Voorbeeldcommando om de hele BAG te laden in PostGIS:
 ```shell
-brmo-bag2-loader load https://extracten.bag.kadaster.nl/lvbag/extracten/Nederland%20LVC/BAGNLDL-08092021.zip
+brmo-bag2-loader load https://service.pdok.nl/kadaster/adressen/atom/v1_0/downloads/lvbag-extract-nl.zip
 ```
 Voor Docker Desktop op Windows of Mac: gebruik `host.docker.internal` in plaats van `localhost`.
 

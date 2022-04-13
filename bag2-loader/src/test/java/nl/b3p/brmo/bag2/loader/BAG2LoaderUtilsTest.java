@@ -8,43 +8,78 @@
 package nl.b3p.brmo.bag2.loader;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
-import org.locationtech.jts.io.ParseException;
 
 import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
-import java.util.stream.Stream;
+import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class BAG2LoaderUtilsTest {
+    @Test
+    void BAGExtractSelectieFromFilename_Error() {
+        assertThrows(IllegalArgumentException.class, () -> BAG2LoaderUtils.BAGExtractSelectieFromFilename.parse("bla.zip"));
+    }
 
-    @ParameterizedTest(name="[{index}] {0}")
-    @MethodSource
-    void analyzeBAG2FileName(String name, BAG2LoaderUtils.BAG2FileName expected) {
-        assertEquals(expected, BAG2LoaderUtils.analyzeBAG2FileName(name));
+    private void BAGExtractSelectieFromFilenameIsNLStand(String filename) {
+        BAG2LoaderUtils.BAGExtractSelectie selectie = BAG2LoaderUtils.BAGExtractSelectieFromFilename.parse("lvbag-extract-nl.zip");
+        assertTrue(selectie.isGebiedNLD());
+        assertTrue(selectie.isStand());
+    }
+    @Test
+    void BAGExtractSelectieFromFilename_GebiedNLD() {
+        BAGExtractSelectieFromFilenameIsNLStand("lvbag-extract-nl.zip");
     }
 
     @Test
-    void analyzeBAG2FileNameError() {
-        assertThrows(IllegalArgumentException.class, () -> BAG2LoaderUtils.analyzeBAG2FileName("bla.zip"));
+    void BAGExtractSelectieFromFilename_GebiedNLDFromHttpsURL() {
+        BAGExtractSelectieFromFilenameIsNLStand("https://some.host/path/lvbag-extract-nl.zip");
     }
 
-    private static Stream<Arguments> analyzeBAG2FileName() {
-        BAG2LoaderUtils.BAG2FileName nlStand = new BAG2LoaderUtils.BAG2FileName("lvbag-extract-nl.zip", true, false, false);
-        return Stream.of(
-                Arguments.of("lvbag-extract-nl.zip", nlStand),
-                Arguments.of("https://some.host/path/lvbag-extract-nl.zip", nlStand),
-                Arguments.of("http://other.host/path/subpath/lvbag-extract-nl.zip", nlStand),
-                Arguments.of("https://extracten.bag.kadaster.nl/lvbag/extracten/Nederland%20LVC/BAGNLDL-08112021.zip", new BAG2LoaderUtils.BAG2FileName("BAGNLDL-08112021.zip", true, false, false)),
-                Arguments.of("some" + File.separator + "local" + File.separator + "path" + File.separator + "lvbag-extract-nl.zip", nlStand),
-                Arguments.of("BAGGEM0344L-08112021.zip", new BAG2LoaderUtils.BAG2FileName("BAGGEM0344L-08112021.zip", true, true, false, "0344")),
-                Arguments.of("BAGGEM0344M-08112021-08122021.zip", new BAG2LoaderUtils.BAG2FileName("BAGGEM0344M-08112021-08122021.zip", false, true, true, "0344", LocalDate.of(2021, 11, 8), LocalDate.of(2021, 12, 8))),
-                Arguments.of("BAGNLDM-08112021-08122021.zip", new BAG2LoaderUtils.BAG2FileName("BAGNLDM-08112021-08122021.zip", false, false, true, null, LocalDate.of(2021, 11, 8), LocalDate.of(2021, 12, 8))),
-                Arguments.of("BAGNLDM-08112021-09112021.zip", new BAG2LoaderUtils.BAG2FileName("BAGNLDM-08112021-09112021.zip", false, false, false, null, LocalDate.of(2021, 11, 8), LocalDate.of(2021, 11, 9))),
-                Arguments.of("BAGNLDM-31102021-01112021.zip", new BAG2LoaderUtils.BAG2FileName("BAGNLDM-31102021-01112021.zip", false, false, false, null, LocalDate.of(2021, 10, 31), LocalDate.of(2021, 11, 1)))
-        );
+    @Test
+    void BAGExtractSelectieFromFilename_GebiedNLDFromHttsURL() {
+        BAGExtractSelectieFromFilenameIsNLStand("http://some.host/path/lvbag-extract-nl.zip");
+    }
+
+    @Test
+    void BAGExtractSelectieFromFilename_GebiedNLDFromFilePath() {
+        BAGExtractSelectieFromFilenameIsNLStand("some" + File.separator + "local" + File.separator + "path" + File.separator + "lvbag-extract-nl.zip");
+    }
+
+    @Test
+    void BAGExtractSelectieFromFilename_GemeenteStand() {
+        BAG2LoaderUtils.BAGExtractSelectie selectie = BAG2LoaderUtils.BAGExtractSelectieFromFilename.parse("BAGGEM0344L-08112021.zip");
+        assertTrue(selectie.isStand());
+        assertFalse(selectie.isGebiedNLD());
+        assertEquals(Collections.singleton("0344"), selectie.getGemeenteCodes());
+    }
+
+    @Test
+    void BAGExtractSelectieFromFilename_GemeenteMutaties() {
+        BAG2LoaderUtils.BAGExtractSelectie selectie = BAG2LoaderUtils.BAGExtractSelectieFromFilename.parse("BAGGEM0344M-08112021-08122021.zip");
+        assertFalse(selectie.isStand());
+        assertFalse(selectie.isGebiedNLD());
+        assertEquals(Collections.singleton("0344"), selectie.getGemeenteCodes());
+        assertEquals(LocalDate.of(2021, 11, 8), selectie.getMutatiesFrom());
+        assertEquals(LocalDate.of(2021, 12, 8), selectie.getMutatiesTot());
+    }
+
+    @Test
+    void BAGExtractSelectieFromFilename_NLDDagMutaties() {
+        BAG2LoaderUtils.BAGExtractSelectie selectie = BAG2LoaderUtils.BAGExtractSelectieFromFilename.parse("BAGNLDM-08112021-08122021.zip");
+        assertFalse(selectie.isStand());
+        assertTrue(selectie.isGebiedNLD());
+        assertEquals(LocalDate.of(2021, 11, 8), selectie.getMutatiesFrom());
+        assertEquals(LocalDate.of(2021, 12, 8), selectie.getMutatiesTot());
+    }
+
+    @Test
+    void BAGExtractSelectieFromLeveringsdocument() throws IOException {
+        BAG2LoaderUtils.BAGExtractSelectie selectie = BAG2LoaderUtils.getBAGExtractSelectieFromZipFile(BAG2TestFiles.getTestFile("BAGGEM1904L-15102021.zip"));
+        assertNotNull(selectie);
+        assertTrue(selectie.isStand());
+        assertFalse(selectie.isGebiedNLD());
+        assertEquals(Collections.singleton("1904"), selectie.getGemeenteCodes());
     }
 }

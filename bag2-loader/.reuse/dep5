@@ -3,3 +3,7 @@ Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Files: src/test/resources/* src/site/*
 Copyright: none
 License: CC0-1.0
+
+Files: src/main/xsd/*
+Copyright: Kadaster, https://developer.kadaster.nl/schemas/lvbag-extract-v20200601.zip
+License: CC0-1.0
