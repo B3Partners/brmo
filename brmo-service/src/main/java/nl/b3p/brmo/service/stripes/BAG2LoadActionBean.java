@@ -30,6 +30,7 @@ import org.stripesstuff.plugin.waitpage.WaitPage;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
@@ -249,12 +250,16 @@ public class BAG2LoadActionBean implements ActionBean {
                     throw new IllegalArgumentException("Unknown database dialect");
                 }
 
-                String s = bag2Database.getMetadata(BAG2SchemaMapper.Metadata.STAND_LOAD_TECHNISCHE_DATUM);
-                if (s != null) {
-                    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-                    currentTechnischeDatum = df.parse(bag2Database.getMetadata(BAG2SchemaMapper.Metadata.CURRENT_TECHNISCHE_DATUM));
-                    standLoadTechnischeDatum = df.parse(s);
-                    standLoadTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(bag2Database.getMetadata(BAG2SchemaMapper.Metadata.STAND_LOAD_TIME));
+                try {
+                    String s = bag2Database.getMetadata(BAG2SchemaMapper.Metadata.STAND_LOAD_TECHNISCHE_DATUM);
+                    if (s != null) {
+                        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                        currentTechnischeDatum = df.parse(bag2Database.getMetadata(BAG2SchemaMapper.Metadata.CURRENT_TECHNISCHE_DATUM));
+                        standLoadTechnischeDatum = df.parse(s);
+                        standLoadTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(bag2Database.getMetadata(BAG2SchemaMapper.Metadata.STAND_LOAD_TIME));
+                    }
+                } catch(SQLException e) {
+                    // Metadata table does not exist
                 }
 
             } catch (Exception e) {
