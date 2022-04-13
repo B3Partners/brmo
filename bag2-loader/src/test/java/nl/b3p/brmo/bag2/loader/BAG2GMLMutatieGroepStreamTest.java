@@ -22,6 +22,7 @@ import javax.xml.stream.XMLStreamException;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
@@ -142,7 +143,7 @@ class BAG2GMLMutatieGroepStreamTest {
     void testAllFeatureTypes(String file, String objectName, Object[][] expectedObjects) throws XMLStreamException {
         BAG2GMLMutatieGroepStream stream = new BAG2GMLMutatieGroepStream(BAG2TestFiles.getTestInputStream(file));
         assertNotNull(stream.getBagInfo().getStandTechnischeDatum());
-        assertEquals("9999", stream.getBagInfo().getGemeenteIdentificatie());
+        assertEquals(Collections.singleton("9999"), stream.getBagInfo().getGemeenteIdentificaties());
         Iterator<BAG2MutatieGroep> iterator = stream.iterator();
         int objectNum = 1;
         for(Object expectedObj: expectedObjects) {

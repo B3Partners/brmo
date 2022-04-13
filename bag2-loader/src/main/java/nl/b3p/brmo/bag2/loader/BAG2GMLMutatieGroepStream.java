@@ -32,6 +32,7 @@ import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -70,17 +71,21 @@ public class BAG2GMLMutatieGroepStream implements Iterable<BAG2MutatieGroep> {
         private final Date standTechnischeDatum;
         private final Date mutatieDatumVanaf;
         private final Date mutatieDatumTot;
-        private final String gemeenteIdentificatie;
+        private Set<String> gemeenteIdentificaties;
 
         protected BagInfo(Date standTechnischeDatum, Date mutatieDatumVanaf, Date mutatieDatumTot) {
-            this(standTechnischeDatum, mutatieDatumVanaf, mutatieDatumTot, null);
+            this(standTechnischeDatum, mutatieDatumVanaf, mutatieDatumTot, (String)null);
         }
 
         protected BagInfo(Date standTechnischeDatum, Date mutatieDatumVanaf, Date mutatieDatumTot, String gemeenteIdentificatie) {
+            this(standTechnischeDatum, mutatieDatumVanaf, mutatieDatumTot, Collections.singleton(gemeenteIdentificatie));
+        }
+
+        protected BagInfo(Date standTechnischeDatum, Date mutatieDatumVanaf, Date mutatieDatumTot, Set<String> gemeenteIdentificaties) {
             this.standTechnischeDatum = standTechnischeDatum;
             this.mutatieDatumVanaf = mutatieDatumVanaf;
             this.mutatieDatumTot = mutatieDatumTot;
-            this.gemeenteIdentificatie = gemeenteIdentificatie;
+            this.gemeenteIdentificaties = gemeenteIdentificaties;
         }
 
         public Date getStandTechnischeDatum() {
@@ -95,12 +100,15 @@ public class BAG2GMLMutatieGroepStream implements Iterable<BAG2MutatieGroep> {
             return mutatieDatumTot;
         }
 
-        public String getGemeenteIdentificatie() {
-            return gemeenteIdentificatie;
+        public Set<String> getGemeenteIdentificaties() {
+            return gemeenteIdentificaties;
         }
 
-        @Override
-        public boolean equals(Object o) {
+        public void setGemeenteIdentificaties(Set<String> gemeenteIdentificaties) {
+            this.gemeenteIdentificaties = gemeenteIdentificaties;
+        }
+
+        public boolean equalsExceptGemeenteIdentificaties(Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             BagInfo that = (BagInfo) o;

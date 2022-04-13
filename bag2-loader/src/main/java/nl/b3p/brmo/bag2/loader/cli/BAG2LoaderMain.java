@@ -197,17 +197,26 @@ public class BAG2LoaderMain implements IVersionProvider {
             // memory so duplicates can be ignored. Don't keep keys in memory for entire NL stand.
             loadOptions.setIgnoreDuplicates(filenames.length > 1);
 
+            // Multiple gemeentes can also be provided in a single ZIP file, check the Leveringsdocument whether that is
+            // the case
+            if (filenames.length == 1) {
+                BAG2LoaderUtils.BAGExtractSelectie levering = BAG2LoaderUtils.getBAGExtractSelectieFromZip(filenames[0]);
+                if (!levering.isGebiedNLD()) {
+                    loadOptions.setIgnoreDuplicates(levering.getGemeenteCodes().size() > 1);
+                }
+            }
+
             BAG2GMLMutatieGroepStream.BagInfo bagInfo = null;
             String lastFilename = null;
 
-            // Keep track of which gemeentes are loaded so the correct mutations can be processed
+            // Keep track of which gemeentes are loaded so the correct mutations can be processed later
             Set<String> gemeenteIdentificaties = new HashSet<>();
 
             for (String filename: filenames) {
                 BAG2GMLMutatieGroepStream.BagInfo latestBagInfo = loadBAG2ExtractFromURLorFile(db, loadOptions, dbOptions, progressReporter, filename);
                 if (bagInfo != null) {
                     // For gemeentes the BagInfo must be the same so the standen are of the same date
-                    if (!latestBagInfo.equals(bagInfo)) {
+                    if (!latestBagInfo.equalsExceptGemeenteIdentificaties(bagInfo)) {
                         throw new IllegalArgumentException(String.format("Incompatible BagInfo for file \"%s\" (%s) compared to last file \"%s\" (%s)",
                                 filename,
                                 latestBagInfo,
@@ -218,7 +227,7 @@ public class BAG2LoaderMain implements IVersionProvider {
                 bagInfo = latestBagInfo;
 
                 // For NL stand this will be "9999"
-                gemeenteIdentificaties.add(bagInfo.getGemeenteIdentificatie());
+                gemeenteIdentificaties.addAll(bagInfo.getGemeenteIdentificaties());
                 lastFilename = filename;
             }
             if (bagInfo != null) {
@@ -369,6 +378,7 @@ public class BAG2LoaderMain implements IVersionProvider {
 
     private BAG2GMLMutatieGroepStream.BagInfo loadBAG2ExtractFromStream(BAG2Database db, BAG2LoadOptions loadOptions, BAG2DatabaseOptions dbOptions, BAG2ProgressReporter progressReporter, String name, InputStream input) throws Exception {
         BAG2GMLMutatieGroepStream.BagInfo bagInfo = null;
+        Set<String> gemeenteIdentificaties = new HashSet<>();
         try (ZipArchiveInputStream zip = new ZipArchiveInputStream(input)) {
             ZipArchiveEntry entry = zip.getNextZipEntry();
             while(entry != null) {
@@ -379,7 +389,8 @@ public class BAG2LoaderMain implements IVersionProvider {
                 }
 
                 if (entry.getName().matches("[0-9]{4}GEM[0-9]{8}\\.zip")) {
-                    return loadBAG2ExtractFromStream(db, loadOptions, dbOptions, progressReporter, name, zip);
+                    // XXX after loading single gemeente zip next entry is null while there should be more entries??
+                    bagInfo = loadBAG2ExtractFromStream(db, loadOptions, dbOptions, progressReporter, name, CloseShieldInputStream.wrap(zip));
                 }
 
                 // Process single and double-nested ZIP files
@@ -402,6 +413,10 @@ public class BAG2LoaderMain implements IVersionProvider {
                     }
                 }
 
+                if (bagInfo != null) {
+                    gemeenteIdentificaties.addAll(bagInfo.getGemeenteIdentificaties());
+                }
+
                 try {
                     entry = zip.getNextZipEntry();
                 } catch(IOException e) {
@@ -411,6 +426,10 @@ public class BAG2LoaderMain implements IVersionProvider {
                     }
                 }
             }
+        }
+        if (bagInfo != null) {
+            // Update BagInfo with all seen gemeenteIdentificaties in case we processed a ZIP with multiple gemeentestanden
+            bagInfo.setGemeenteIdentificaties(gemeenteIdentificaties);
         }
         return bagInfo;
     }
