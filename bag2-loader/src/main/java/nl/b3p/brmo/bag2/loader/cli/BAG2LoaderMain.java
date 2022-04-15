@@ -389,7 +389,6 @@ public class BAG2LoaderMain implements IVersionProvider {
                 }
 
                 if (entry.getName().matches("[0-9]{4}GEM[0-9]{8}\\.zip")) {
-                    // XXX after loading single gemeente zip next entry is null while there should be more entries??
                     bagInfo = loadBAG2ExtractFromStream(db, loadOptions, dbOptions, progressReporter, name, CloseShieldInputStream.wrap(zip));
                 }
 
