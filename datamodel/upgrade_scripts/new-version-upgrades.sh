@@ -73,4 +73,4 @@ done
 
 
 git add "$PREVRELEASE-$NEXTRELEASE"/
-# git commit -m "Migratie bestanden aanmaken voor upgrade $PREVRELEASE-$NEXTRELEASE"
+git commit -m "Migratie bestanden aanmaken voor upgrade $PREVRELEASE-$NEXTRELEASE"

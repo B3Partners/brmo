@@ -37,7 +37,7 @@ import static org.hamcrest.Matchers.equalTo;
  * testcases om te kijken of we de P8 rest api niet stuk maken als er iets aan de views wordt geleuteld.
  * In deze integratie test alleen de niet-data specifieke endpoints testen.
  * <p>
- * deze test los draaien met: {@code mvn -Dit.test=P8RestAPIIntegrationTest verify -Pp8}
+ * deze test los draaien met: {@code mvn -Dit.test=P8RestAPIIntegrationTest verify -Pp8 -pl :datamodel}
  *
  * @author mark
  */
