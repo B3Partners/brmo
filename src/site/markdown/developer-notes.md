@@ -11,7 +11,7 @@ Tevens wordt er om een naam voor een tag gevraagd. In principe kan alle informat
 commandline worden meegegeven, bijvoorbeeld:
 
 ```
-mvn release:prepare -l rel-prepare.log -DautoVersionSubmodules=true -DdevelopmentVersion=1.6.1-SNAPSHOT -DreleaseVersion=1.6.0 -Dtag=v1.6.0 -T1
+mvn release:prepare -l rel-prepare.log -DautoVersionSubmodules=true -DdevelopmentVersion=2.3.1-SNAPSHOT -DreleaseVersion=2.3.0 -Dtag=v2.3.0 -T1
 mvn release:perform -l rel-perform.log
 ```
 
