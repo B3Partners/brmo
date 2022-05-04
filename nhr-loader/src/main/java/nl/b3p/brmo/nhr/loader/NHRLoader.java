@@ -9,15 +9,18 @@ package nl.b3p.brmo.nhr.loader;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.util.List;
 import java.util.UUID;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.Marshaller;
 import javax.xml.ws.BindingProvider;
 import nl.b3p.brmo.loader.BrmoFramework;
+import nl.b3p.brmo.loader.util.BrmoException;
 import nl.kvk.schemas.schemas.hrip.dataservice._2015._02.Dataservice;
 import nl.kvk.schemas.schemas.hrip.dataservice._2015._02.InschrijvingRequestType;
 import nl.kvk.schemas.schemas.hrip.dataservice._2015._02.InschrijvingResponseType;
+import nl.kvk.schemas.schemas.hrip.dataservice._2015._02.MeldingType;
 import nl.kvk.schemas.schemas.hrip.dataservice._2015._02.ObjectFactory;
 import org.apache.cxf.ws.addressing.AddressingProperties;
 import org.apache.cxf.ws.addressing.AttributedURIType;
@@ -58,6 +61,15 @@ public class NHRLoader {
 
         // Send the actual request.
         InschrijvingResponseType response = dataservice.ophalenInschrijving(request);
+
+        List<MeldingType> errors = response.getMeldingen().getFout();
+        if (!errors.isEmpty()) {
+            String errorResponse = "";
+            for (MeldingType melding : errors) {
+                errorResponse += String.format("%s: %s\n", melding.getCode(), melding.getOmschrijving());
+            }
+            throw new BrmoException(errorResponse.stripTrailing());
+        }
 
         // Serialize the XML into the format expected by BRMO.
         JAXBElement<InschrijvingResponseType> wrappedResponse = factory.createOphalenInschrijvingResponse(response);
