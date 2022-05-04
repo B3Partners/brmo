@@ -14,6 +14,8 @@ import javax.persistence.criteria.Root;
 import javax.persistence.EntityManager;
 import javax.sql.DataSource;
 import nl.b3p.brmo.loader.BrmoFramework;
+import nl.b3p.brmo.loader.util.BrmoDuplicaatLaadprocesException;
+import nl.b3p.brmo.loader.util.BrmoLeegBestandException;
 import nl.b3p.brmo.nhr.loader.cli.NHRLoadUtils;
 import nl.b3p.brmo.nhr.loader.NHRCertificateOptions;
 import nl.b3p.brmo.nhr.loader.NHRLoader;
@@ -121,20 +123,17 @@ public class NHRJob implements Job {
 
             for (NHRLaadProces process : procList) {
                 long fetchStart = Calendar.getInstance().getTimeInMillis();
+                boolean failed = false;
                 try {
                     fetchOne(ds, process.getKvkNummer());
-
-                    if (secondsBetweenFetches == null) {
-                        entityManager.remove(process);
-                    } else {
-                        Calendar time = Calendar.getInstance();
-                        time.add(Calendar.SECOND, secondsBetweenFetches);
-                        process.setProbeerAantal(0);
-                        process.setVolgendProberen(time.getTime());
-                        process.setException("");
-                        entityManager.merge(process);
-                    }
+                } catch (BrmoDuplicaatLaadprocesException | BrmoLeegBestandException e) {
+                    log.info(String.format("KVK nummer %s ophalen mislukt", process.getKvkNummer()), e);
+                } catch (IllegalStateException e) {
+                    // We're likely in a weird spot (web app instance just shut down?), let's just fail out of this loop.
+                    // This will attempt a database flush + retry persistence.
+                    break;
                 } catch (Exception e) {
+                    failed = true;
                     totalFetchErrorCount += 1;
 
                     log.error(String.format("KVK nummer %s ophalen mislukt (%d keer geprobeerd)", process.getKvkNummer(), process.getProbeerAantal()), e);
@@ -154,6 +153,19 @@ public class NHRJob implements Job {
                     time.add(Calendar.SECOND, secondsUntilNextTry);
                     process.setVolgendProberen(time.getTime());
                     entityManager.merge(process);
+                }
+
+                if (!failed) {
+                    if (secondsBetweenFetches == null) {
+                        entityManager.remove(process);
+                    } else {
+                        Calendar time = Calendar.getInstance();
+                        time.add(Calendar.SECOND, secondsBetweenFetches);
+                        process.setProbeerAantal(0);
+                        process.setVolgendProberen(time.getTime());
+                        process.setException("");
+                        entityManager.merge(process);
+                    }
                 }
 
                 totalFetchCount += 1;
