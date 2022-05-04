@@ -54,7 +54,7 @@ public class NHRActionBean implements ActionBean {
     private String statusNotification;
     private String statusEndpoint;
     private boolean statusEndpointPreprod;
-    private long statusRefetchDays;
+    private float statusRefetchDays;
 
     public boolean getStatusActive() {
         return statusActive;
@@ -74,7 +74,7 @@ public class NHRActionBean implements ActionBean {
     public boolean getStatusEndpointPreprod() {
         return statusEndpointPreprod;
     }
-    public long getStatusRefetchDays() {
+    public float getStatusRefetchDays() {
         return statusRefetchDays;
     }
     public long getFetchCount() {
@@ -142,7 +142,7 @@ public class NHRActionBean implements ActionBean {
             }
 
             try {
-                statusRefetchDays = ((Integer)InitialContext.doLookup("java:comp/env/brmo/nhr/secondsBetweenFetches")) / (60 * 60 * 24);
+                statusRefetchDays = ((float)(Integer)InitialContext.doLookup("java:comp/env/brmo/nhr/secondsBetweenFetches")) / (60.0f * 60.0f * 24.0f);
             } catch (Exception e) {
                 statusNotification += String.format("secondsBetweenFetches incorrect: %s\n", e.getMessage());
             }
