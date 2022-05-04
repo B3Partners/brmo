@@ -24,6 +24,13 @@ import nl.b3p.brmo.persistence.staging.NHRLaadProces;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.stripesstuff.stripersist.Stripersist;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import java.security.KeyStore;
+import java.security.cert.Certificate;
+import java.security.cert.X509Certificate;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 public class NHRActionBean implements ActionBean {
     private ActionBeanContext context;
@@ -40,8 +47,90 @@ public class NHRActionBean implements ActionBean {
     @Validate(required = true, on="upload")
     private FileBean file;
 
+    private boolean statusActive;
+    private Date statusCertificateExpiry;
+    private long statusDaysUntilExpiry;
+    private String statusNotification;
+    private String statusEndpoint;
+    private boolean statusEndpointPreprod;
+    private long statusRefetchDays;
+
+    public boolean getStatusActive() {
+        return statusActive;
+    }
+    public Date getStatusCertificateExpiry() {
+        return statusCertificateExpiry;
+    }
+    public long getStatusDaysUntilExpiry() {
+        return statusDaysUntilExpiry;
+    }
+    public String getStatusNotification() {
+        return statusNotification;
+    }
+    public String getStatusEndpoint() {
+        return statusEndpoint;
+    }
+    public boolean getStatusEndpointPreprod() {
+        return statusEndpointPreprod;
+    }
+    public long getStatusRefetchDays() {
+        return statusRefetchDays;
+    }
+
+    private void getCertificateStatus() {
+            statusNotification = "";
+            try {
+                statusActive = InitialContext.doLookup("java:comp/env/brmo/nhr/active");
+            } catch (NamingException e) {
+            } catch (Exception e) {
+                statusNotification += String.format("nhr/active incorrect: %s\n", e.getMessage());
+            }
+
+            KeyStore keyStore;
+            try {
+                keyStore = KeyStore.getInstance("PKCS12");
+                try (FileInputStream keyStoreFile = new FileInputStream((String) InitialContext.doLookup("java:comp/env/brmo/nhr/keystorePath"))) {
+                    keyStore.load(keyStoreFile, ((String)InitialContext.doLookup("java:comp/env/brmo/nhr/keystorePassword")).toCharArray());
+                }
+
+                Certificate cert = keyStore.getCertificate("key");
+                if (cert == null) {
+                    statusNotification += "geen certificaat met alias \"key\" gevonden\n";
+                } else {
+                    Date now = new Date();
+                    statusCertificateExpiry = ((X509Certificate) cert).getNotAfter();
+                    statusDaysUntilExpiry = (statusCertificateExpiry.getTime() - now.getTime()) / (60 * 60 * 24);
+                    if (statusCertificateExpiry.before(now)) {
+                        statusNotification += "certificaat is verlopen!\n";
+                    }
+                }
+            } catch (FileNotFoundException e) {
+                statusNotification += "keystore niet gevonden\n";
+            } catch (NamingException e) {
+                if (statusActive) {
+                    statusNotification += String.format("geen keystore ingesteld: %s\n", e.getMessage());
+                }
+            } catch (Exception e) {
+                statusNotification += String.format("keystore incorrect: %s\n", e.getMessage());
+            }
+
+            try {
+                statusEndpoint = InitialContext.doLookup("java:comp/env/brmo/nhr/endpoint");
+                statusEndpointPreprod = InitialContext.doLookup("java:comp/env/brmo/nhr/endpointIsPreprod");
+            } catch (Exception e) {
+                statusNotification += String.format("endpoint incorrect: %s\n", e.getMessage());
+            }
+
+            try {
+                statusRefetchDays = ((Integer)InitialContext.doLookup("java:comp/env/brmo/nhr/secondsBetweenFetches")) / (60 * 60 * 24);
+            } catch (Exception e) {
+                statusNotification += String.format("secondsBetweenFetches incorrect: %s\n", e.getMessage());
+            }
+    }
+
     @DefaultHandler
     public Resolution list() {
+        getCertificateStatus();
         return new ForwardResolution("/WEB-INF/jsp/nhr/list.jsp");
     }
 

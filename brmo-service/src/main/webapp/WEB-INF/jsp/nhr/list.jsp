@@ -35,5 +35,17 @@
             </table>
             <p><stripes:submit name="upload" value="Inladen" /></p>
         </stripes:form>
+
+        <h1>Status</h1>
+        <ul>
+            <li>NHR ophalen actief: ${actionBean.statusActive}</li>
+            <li>Certificaat verloopt: ${actionBean.statusCertificateExpiry} <c:choose>
+                <c:when test="${actionBean.statusDaysUntilExpiry < 0}">(verlopen!)</c:when>
+                <c:when test="${actionBean.statusDaysUntilExpiry < 30}">(${actionBean.statusDaysUntilExpiry} dagen)</c:when>
+            </c:choose></li>
+            <li>Endpoint: <code>${actionBean.statusEndpoint}</code> (<c:if test="${actionBean.statusEndpointPreprod}">pre</c:if>productie omgeving)</li>
+            <li>Automatisch opnieuw ophalen: <c:choose><c:when test="${actionBean.statusRefetchDays == 0}">uit</c:when><c:otherwise>elke ${actionBean.statusRefetchDays} dag(en)</c:otherwise></c:choose></li>
+            <c:if test="${actionBean.statusNotification != null && !actionBean.statusNotification.isEmpty()}"><li>Overige berichten: <pre>${actionBean.statusNotification}</pre></li></c:if>
+        </ul>
     </stripes:layout-component>
 </stripes:layout-render>
