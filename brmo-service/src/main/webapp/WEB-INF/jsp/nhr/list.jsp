@@ -43,6 +43,8 @@
                 <c:when test="${actionBean.statusDaysUntilExpiry < 0}">(verlopen!)</c:when>
                 <c:when test="${actionBean.statusDaysUntilExpiry < 30}">(${actionBean.statusDaysUntilExpiry} dagen)</c:when>
             </c:choose></li>
+            <li>${actionBean.fetchCount} requests verstuurd (${actionBean.fetchErrorCount} mislukt), ${actionBean.secondsPerFetch} seconden per request</li>
+            <c:if test="${actionBean.pendingCount > 0}"><li>${actionBean.pendingCount} requests te versturen, ${actionBean.estimatedTime}</li></c:if>
             <li>Endpoint: <code>${actionBean.statusEndpoint}</code> (<c:if test="${actionBean.statusEndpointPreprod}">pre</c:if>productie omgeving)</li>
             <li>Automatisch opnieuw ophalen: <c:choose><c:when test="${actionBean.statusRefetchDays == 0}">uit</c:when><c:otherwise>elke ${actionBean.statusRefetchDays} dag(en)</c:otherwise></c:choose></li>
             <c:if test="${actionBean.statusNotification != null && !actionBean.statusNotification.isEmpty()}"><li>Overige berichten: <pre>${actionBean.statusNotification}</pre></li></c:if>

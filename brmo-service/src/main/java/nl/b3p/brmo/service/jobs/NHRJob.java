@@ -30,8 +30,23 @@ import org.stripesstuff.stripersist.Stripersist;
 
 @DisallowConcurrentExecution
 public class NHRJob implements Job {
-
     private static final Log log = LogFactory.getLog(NHRJob.class);
+
+    private static float averageFetchTime;
+    private static long totalFetchCount;
+    private static long totalFetchErrorCount;
+
+    public static float getAverageFetchTime() {
+        return averageFetchTime;
+    }
+
+    public static long getFetchCount() {
+        return totalFetchCount;
+    }
+
+    public static long getFetchErrorCount() {
+        return totalFetchErrorCount;
+    }
 
     private void fetchOne(Dataservice dataservice, String kvkNummer) throws Exception {
         BrmoFramework brmo = null;
@@ -105,6 +120,7 @@ public class NHRJob implements Job {
             log.info(String.format("processing %d items", procList.size()));
 
             for (NHRLaadProces process : procList) {
+                long fetchStart = Calendar.getInstance().getTimeInMillis();
                 try {
                     fetchOne(ds, process.getKvkNummer());
 
@@ -119,7 +135,9 @@ public class NHRJob implements Job {
                         entityManager.merge(process);
                     }
                 } catch (Exception e) {
-                    log.error(String.format("fetching KVK nummer %s failed (%d times so far)", process.getKvkNummer(), process.getProbeerAantal()), e);
+                    totalFetchErrorCount += 1;
+
+                    log.error(String.format("KVK nummer %s ophalen mislukt (%d keer geprobeerd)", process.getKvkNummer(), process.getProbeerAantal()), e);
                     process.setException(e.toString());
                     process.setProbeerAantal(process.getProbeerAantal() + 1);
                     Calendar time = Calendar.getInstance();
@@ -137,6 +155,9 @@ public class NHRJob implements Job {
                     process.setVolgendProberen(time.getTime());
                     entityManager.merge(process);
                 }
+
+                totalFetchCount += 1;
+                averageFetchTime = (averageFetchTime * 9.0f + (Calendar.getInstance().getTimeInMillis() - fetchStart)) / 10.0f;
             }
 
             entityManager.flush();

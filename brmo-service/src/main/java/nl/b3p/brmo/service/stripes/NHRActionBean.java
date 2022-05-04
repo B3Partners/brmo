@@ -21,6 +21,7 @@ import net.sourceforge.stripes.action.StreamingResolution;
 import net.sourceforge.stripes.validation.Validate;
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.persistence.staging.NHRLaadProces;
+import nl.b3p.brmo.service.jobs.NHRJob;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.stripesstuff.stripersist.Stripersist;
@@ -75,6 +76,25 @@ public class NHRActionBean implements ActionBean {
     }
     public long getStatusRefetchDays() {
         return statusRefetchDays;
+    }
+    public long getFetchCount() {
+        return NHRJob.getFetchCount();
+    }
+    public long getFetchErrorCount() {
+        return NHRJob.getFetchErrorCount();
+    }
+    public float getSecondsPerFetch() {
+        return NHRJob.getAverageFetchTime() / 1000.0f;
+    }
+
+    public String getEstimatedTime() {
+        float totalSeconds = getSecondsPerFetch() * getPendingCount();
+
+        int hours = (int) (totalSeconds / 3600);
+        int minutes = (int) (totalSeconds / 60) % 60;
+        int seconds = (int) totalSeconds % 60;
+
+        return String.format("%dh %02dm %02ds", hours, minutes, seconds);
     }
 
     private void getCertificateStatus() {
@@ -140,6 +160,17 @@ public class NHRActionBean implements ActionBean {
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<NHRLaadProces> from = cq.from(NHRLaadProces.class);
         cq.select(cb.count(from));
+        return entityManager.createQuery(cq).getSingleResult();
+    }
+
+
+    public long getPendingCount() {
+        EntityManager entityManager = Stripersist.getEntityManager();
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Long> cq = cb.createQuery(Long.class);
+        Root<NHRLaadProces> from = cq.from(NHRLaadProces.class);
+        cq.select(cb.count(from));
+        cq.where(cb.lessThan(from.get("volgendProberen"), cb.currentTimestamp()));
         return entityManager.createQuery(cq).getSingleResult();
     }
 
