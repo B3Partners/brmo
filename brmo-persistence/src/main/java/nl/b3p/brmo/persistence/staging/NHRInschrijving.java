@@ -10,7 +10,7 @@ import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name = "nhr_laadproces")
-public class NHRLaadProces implements Serializable {
+public class NHRInschrijving implements Serializable {
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date datum;

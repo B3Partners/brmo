@@ -19,7 +19,7 @@ import nl.b3p.brmo.loader.util.BrmoLeegBestandException;
 import nl.b3p.brmo.nhr.loader.cli.NHRLoadUtils;
 import nl.b3p.brmo.nhr.loader.NHRCertificateOptions;
 import nl.b3p.brmo.nhr.loader.NHRLoader;
-import nl.b3p.brmo.persistence.staging.NHRLaadProces;
+import nl.b3p.brmo.persistence.staging.NHRInschrijving;
 import nl.b3p.brmo.service.util.ConfigUtil;
 import nl.kvk.schemas.schemas.hrip.dataservice._2015._02.Dataservice;
 import org.apache.commons.logging.Log;
@@ -113,15 +113,13 @@ public class NHRJob implements Job {
             Stripersist.requestInit();
             EntityManager entityManager = Stripersist.getEntityManager();
             CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-            CriteriaQuery<NHRLaadProces> cq = cb.createQuery(NHRLaadProces.class);
-            Root<NHRLaadProces> from = cq.from(NHRLaadProces.class);
+            CriteriaQuery<NHRInschrijving> cq = cb.createQuery(NHRInschrijving.class);
+            Root<NHRInschrijving> from = cq.from(NHRInschrijving.class);
             cq.where(cb.lessThan(from.get("volgendProberen"), cb.currentTimestamp()));
-            List<NHRLaadProces> procList = entityManager.createQuery(cq).setMaxResults(100).getResultList();
+            List<NHRInschrijving> procList = entityManager.createQuery(cq).setMaxResults(100).getResultList();
             if (procList.isEmpty()) break;
 
-            log.info(String.format("processing %d items", procList.size()));
-
-            for (NHRLaadProces process : procList) {
+            for (NHRInschrijving process : procList) {
                 long fetchStart = Calendar.getInstance().getTimeInMillis();
                 boolean failed = false;
                 try {
