@@ -154,7 +154,7 @@ public class NHRJob implements Job {
                 }
 
                 if (!failed) {
-                    if (secondsBetweenFetches == null) {
+                    if (secondsBetweenFetches == null || secondsBetweenFetches == 0) {
                         entityManager.remove(process);
                     } else {
                         Calendar time = Calendar.getInstance();
