@@ -1,7 +1,7 @@
 <%@include file="/WEB-INF/taglibs.jsp" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <stripes:layout-render name="/WEB-INF/jsp/layout/default.jsp">
-    <stripes:layout-component name="title">BRMO NHR laadproces</stripes:layout-component>
+    <stripes:layout-component name="title">BRMO NHR inschrijvingen</stripes:layout-component>
     <stripes:layout-component name="html_head">
         <script type="text/javascript" src="${contextPath}/scripts/plugins/PagingSelectionPersistence.js"></script>
         <script type="text/javascript" src="${contextPath}/scripts/common/GridSelection.js"></script>
@@ -23,7 +23,7 @@
         </script>
 
         <h1>Bestand uploaden via browser</h1>
-        Maximale grootte 10 MB, als CSV (&eacute;&eacute;n KVK nummer per regel)
+        Maximale grootte 10 MB, als tekstbestand (&eacute;&eacute;n KVK nummer per regel)
         <stripes:messages/>
         <stripes:errors/>
         <stripes:form beanclass="nl.b3p.brmo.service.stripes.NHRActionBean" focus="">
