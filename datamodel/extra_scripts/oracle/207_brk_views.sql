@@ -225,9 +225,11 @@ CREATE OR REPLACE VIEW vb_util_app_re_splitsing AS
         JOIN brondocument b2 ON b2.identificatie = b1.identificatie
     WHERE
         ( b2.omschrijving = 'betrokkenBij Ondersplitsing'
-          OR b2.omschrijving = 'betrokkenBij HoofdSplitsing' )
+          OR b2.omschrijving = 'betrokkenBij HoofdSplitsing'
+          OR  b2.omschrijving = 'betrokkenBij SplitsingAfkoopErfpacht')
         AND ( b1.omschrijving = 'ontstaanUit Ondersplitsing'
-              OR b1.omschrijving = 'ontstaanUit HoofdSplitsing' )
+              OR b1.omschrijving = 'ontstaanUit HoofdSplitsing'
+              OR  b1.omschrijving = 'ontstaanUit SplitsingAfkoopErfpacht')
     GROUP BY
         b1.ref_id;
 
