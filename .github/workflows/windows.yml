@@ -18,7 +18,9 @@ jobs:
     strategy:
       matrix:
         java: [ 11 ]
-        windows: [ windows-2019, windows-2022 ]
+#        , 'zulu'
+        java-dist: [ 'temurin' ]
+        windows: [ 'windows-2019', 'windows-2022' ]
 
     steps:
       - uses: actions/checkout@v3
@@ -36,7 +38,7 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@v3
         with:
-          distribution: 'zulu'
+          distribution: ${{ matrix.java-dist }}
           java-version: ${{ matrix.java }}
 
       - name: Priming build
