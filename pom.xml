@@ -1108,10 +1108,16 @@
                     <artifactId>openapi-generator-maven-plugin</artifactId>
                     <version>5.4.0</version>
                 </plugin>
+                <!--                <plugin>-->
+                <!--            deze plugin is stuk op Windows met Java 11.0.15, zie oa. https://stackoverflow.com/questions/71956115 -->
+                <!--                    <groupId>org.codehaus.mojo</groupId>-->
+                <!--                    <artifactId>jaxb2-maven-plugin</artifactId>-->
+                <!--                    <version>2.5.0</version>-->
+                <!--                </plugin>-->
                 <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>jaxb2-maven-plugin</artifactId>
-                    <version>2.5.0</version>
+                    <groupId>org.jvnet.jaxb2.maven2</groupId>
+                    <artifactId>maven-jaxb2-plugin</artifactId>
+                    <version>0.15.1</version>
                 </plugin>
             </plugins>
         </pluginManagement>
