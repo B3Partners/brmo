@@ -21,6 +21,7 @@ Copyright (C) 2022 B3Partners B.V.
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -31,51 +32,54 @@ Copyright (C) 2022 B3Partners B.V.
             <artifactId>brmo-loader</artifactId>
         </dependency>
         <dependency>
-            <groupId>net.postgis</groupId>
-            <artifactId>postgis-jdbc</artifactId>
-        </dependency>
-        <dependency>
             <groupId>com.oracle.database.jdbc</groupId>
             <artifactId>${oracle.jdbc.artifact}</artifactId>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>info.picocli</groupId>
             <artifactId>picocli</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <scope>test</scope>
+            <groupId>org.apache.wss4j</groupId>
+            <artifactId>wss4j-ws-security-common</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-params</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.dbunit</groupId>
-            <artifactId>dbunit</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-reload4j</artifactId>
-            <scope>test</scope>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-core</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-rt-frontend-jaxws</artifactId>
-            <version>3.5.0</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-frontend-simple</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-rt-transports-http</artifactId>
-            <version>3.5.0</version>
         </dependency>
         <dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-rt-ws-security</artifactId>
-            <version>3.5.0</version>
+        </dependency>
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.jws</groupId>
+            <artifactId>jakarta.jws-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.xml.ws</groupId>
+            <artifactId>jakarta.xml.ws-api</artifactId>
         </dependency>
     </dependencies>
 
