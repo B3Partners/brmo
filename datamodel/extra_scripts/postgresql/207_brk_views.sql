@@ -328,10 +328,12 @@ ON
 WHERE
     (
         b2.omschrijving = 'betrokkenBij Ondersplitsing'
-    OR  b2.omschrijving = 'betrokkenBij HoofdSplitsing')
+    OR  b2.omschrijving = 'betrokkenBij HoofdSplitsing'
+    OR  b2.omschrijving = 'betrokkenBij SplitsingAfkoopErfpacht')
 AND (
         b1.omschrijving = 'ontstaanUit Ondersplitsing'
-    OR  b1.omschrijving = 'ontstaanUit HoofdSplitsing')
+    OR  b1.omschrijving = 'ontstaanUit HoofdSplitsing'
+    OR  b1.omschrijving = 'ontstaanUit SplitsingAfkoopErfpacht')
 GROUP BY
     b1.ref_id;
     
