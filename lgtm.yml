@@ -24,6 +24,6 @@ extraction:
       - "echo '-T1 -Dmaven.test.skip=true -Dtest.onlyITs= -B -V -fae -Plgtm,standard-with-extra-repos' > .mvn/maven.config"
     index:
       maven:
-        settings_file: .lgtm/settings.xml
+        settings_file: ".lgtm/settings.xml"
         version: "3.8.1"
       java_version: 11

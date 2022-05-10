@@ -1,4 +1,4 @@
-version: "3.8"
+version: '3.9'
 
 volumes:
   brmo-db:
@@ -14,8 +14,6 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
       BRMO_PASSWORD: ${BRMO_DB_PASSWORD:-brmo}
       BRMO_USER: brmo
-    ports:
-      - 5432:5432
     restart: on-failure
     volumes:
       - brmo-db:/var/lib/postgresql/data
@@ -32,9 +30,6 @@ services:
     volumes:
       - brmo-logs:/usr/local/tomcat/logs
       - brmo-data:/opt/brmo-data
-    ports:
-      - 8080:8080
-      # voor AJP - 8009:8009
     restart: on-failure
     env_file:
       - ./src/main/docker/env/tomcat
