@@ -120,6 +120,18 @@
 
     create sequence JOB_JID_SEQ;
 
+    create table nhr_laadproces (
+        datum timestamp,
+        laatst_geprobeerd timestamp,
+        volgend_proberen timestamp,
+        probeer_aantal number(19, 0),
+        kvk_nummer varchar2(255 char) not null,
+        exception clob,
+        primary key (kvk_nummer)
+    );
+
+
+
 -- create triggers om (conditioneel) een id uit de sequence te halen
 -- fix voor issue #86
 CREATE OR REPLACE TRIGGER LAADPROCES_INSERT_TRIGGER
@@ -165,6 +177,7 @@ create index idx_laadproces_soort on laadproces(soort);
 create index idx_laadproces_contractnummer on laadproces(contractnummer);
 create index idx_laadproces_contractafgiftenummer on laadproces(contractafgiftenummer);
 create index idx_laadproces_klantafgiftenummer on laadproces(klantafgiftenummer);
+create index idx_nhr_laadproces_volgend_proberen on nhr_laadproces(volgend_proberen);
 
 
 CREATE TABLE BRMO_METADATA (

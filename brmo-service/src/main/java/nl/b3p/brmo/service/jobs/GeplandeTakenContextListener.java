@@ -7,7 +7,10 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import static nl.b3p.brmo.service.jobs.GeplandeTakenInit.QUARTZ_FACTORY_KEY;
 import static nl.b3p.brmo.service.jobs.GeplandeTakenInit.SCHEDULER_NAME;
+import static nl.b3p.brmo.service.jobs.GeplandeTakenInit.NHR_QUARTZ_FACTORY_KEY;
+import static nl.b3p.brmo.service.jobs.GeplandeTakenInit.NHR_SCHEDULER_NAME;
 import org.quartz.impl.StdSchedulerFactory;
+import org.quartz.Scheduler;
 
 /**
  *
@@ -34,10 +37,23 @@ public class GeplandeTakenContextListener implements ServletContextListener {
                     getAttribute(QUARTZ_FACTORY_KEY);
             sce.getServletContext().removeAttribute(QUARTZ_FACTORY_KEY);
             if (f != null) {
-                f.getScheduler(SCHEDULER_NAME).shutdown();
+                Scheduler s = f.getScheduler(SCHEDULER_NAME);
+                if (s != null && !s.isShutdown()) {
+                    s.shutdown(true);
+                }
+            }
+
+            f = (StdSchedulerFactory) sce.getServletContext().
+                    getAttribute(NHR_QUARTZ_FACTORY_KEY);
+            sce.getServletContext().removeAttribute(NHR_QUARTZ_FACTORY_KEY);
+            if (f != null) {
+                Scheduler s = f.getScheduler(NHR_SCHEDULER_NAME);
+                if (s != null && !s.isShutdown()) {
+                    s.shutdown(false);
+                }
             }
         } catch (Exception ex) {
-            // sce.getServletContext().log(ex);
+            sce.getServletContext().log("Stoppen van schedulers mislukt", ex);
         }
     }
 }

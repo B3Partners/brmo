@@ -27,4 +27,13 @@
             />
         </Realm>
     </Realm>
+
+    <ResourceLink global="brmo/nhr/active" name="brmo/nhr/active" type="java.lang.Boolean" />
+    <ResourceLink global="brmo/nhr/keystorePath" name="brmo/nhr/keystorePath" type="java.lang.String" />
+    <ResourceLink global="brmo/nhr/keystorePassword" name="brmo/nhr/keystorePassword" type="java.lang.String" />
+    <ResourceLink global="brmo/nhr/truststorePath" name="brmo/nhr/truststorePath" type="java.lang.String" />
+    <ResourceLink global="brmo/nhr/truststorePassword" name="brmo/nhr/truststorePassword" type="java.lang.String" />
+    <ResourceLink global="brmo/nhr/endpoint" name="brmo/nhr/endpoint" type="java.lang.String" />
+    <ResourceLink global="brmo/nhr/endpointIsPreprod" name="brmo/nhr/endpointIsPreprod" type="java.lang.Boolean" />
+    <ResourceLink global="brmo/nhr/secondsBetweenFetches" name="brmo/nhr/secondsBetweenFetches" type="java.lang.Integer" />
 </Context>

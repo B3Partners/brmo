@@ -131,6 +131,9 @@ jobs:
       - name: Verify brmo-commandline
         run: mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'brmo-commandline'
 
+      - name: Verify nhr-loader
+        run: mvn -e verify -B -Ppostgresql -Dtest.onlyITs=true -pl 'nhr-loader'
+
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
         with:
