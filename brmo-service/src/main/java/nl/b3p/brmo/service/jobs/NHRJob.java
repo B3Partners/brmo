@@ -6,6 +6,7 @@ package nl.b3p.brmo.service.jobs;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -18,6 +19,7 @@ import nl.b3p.brmo.loader.util.BrmoDuplicaatLaadprocesException;
 import nl.b3p.brmo.loader.util.BrmoLeegBestandException;
 import nl.b3p.brmo.nhr.loader.cli.NHRLoadUtils;
 import nl.b3p.brmo.nhr.loader.NHRCertificateOptions;
+import nl.b3p.brmo.nhr.loader.NHRException;
 import nl.b3p.brmo.nhr.loader.NHRLoader;
 import nl.b3p.brmo.persistence.staging.NHRInschrijving;
 import nl.b3p.brmo.service.util.ConfigUtil;
@@ -122,20 +124,38 @@ public class NHRJob implements Job {
             for (NHRInschrijving process : procList) {
                 long fetchStart = Calendar.getInstance().getTimeInMillis();
                 boolean failed = false;
+                Exception exception = null;
                 try {
                     fetchOne(ds, process.getKvkNummer());
+                    process.setException("");
                 } catch (BrmoDuplicaatLaadprocesException | BrmoLeegBestandException e) {
+                    // Non-recoverable error, so consider it "successful"
                     log.info(String.format("KVK nummer %s ophalen mislukt", process.getKvkNummer()), e);
+                    exception = e;
                 } catch (IllegalStateException e) {
                     // We're likely in a weird spot (web app instance just shut down?), let's just fail out of this loop.
                     // This will attempt a database flush + retry persistence.
                     break;
+                } catch (NHRException e) {
+                    Map<String, String> errors = e.getErrors();
+                    if (errors.containsKey("IPD0004") || errors.containsKey("IPD0005")) {
+                        failed = false; // KVK nummer cannot be found. We cannot expect this to work after a retry.
+                    } else {
+                        failed = true;
+                    }
+                    exception = e;
                 } catch (Exception e) {
                     failed = true;
-                    totalFetchErrorCount += 1;
+                    exception = e;
+                }
 
-                    log.error(String.format("KVK nummer %s ophalen mislukt (%d keer geprobeerd)", process.getKvkNummer(), process.getProbeerAantal()), e);
-                    process.setException(e.toString());
+                if (exception != null) {
+                    process.setException(exception.toString());
+                }
+
+                if (failed) {
+                    log.error(String.format("KVK nummer %s ophalen mislukt (%d keer geprobeerd)", process.getKvkNummer(), process.getProbeerAantal()), exception);
+                    totalFetchErrorCount += 1;
                     process.setProbeerAantal(process.getProbeerAantal() + 1);
                     Calendar time = Calendar.getInstance();
                     process.setLaatstGeprobeerd(new Date());
@@ -151,9 +171,7 @@ public class NHRJob implements Job {
                     time.add(Calendar.SECOND, secondsUntilNextTry);
                     process.setVolgendProberen(time.getTime());
                     entityManager.merge(process);
-                }
-
-                if (!failed) {
+                } else {
                     if (secondsBetweenFetches == null || secondsBetweenFetches == 0) {
                         entityManager.remove(process);
                     } else {
@@ -161,7 +179,6 @@ public class NHRJob implements Job {
                         time.add(Calendar.SECOND, secondsBetweenFetches);
                         process.setProbeerAantal(0);
                         process.setVolgendProberen(time.getTime());
-                        process.setException("");
                         entityManager.merge(process);
                     }
                 }
