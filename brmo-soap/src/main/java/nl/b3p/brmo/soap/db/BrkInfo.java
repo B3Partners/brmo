@@ -39,7 +39,6 @@ public class BrkInfo {
 
     public static final String DB_POSTGRES = "postgres";
     public static final String DB_ORACLE = "oracle";
-    public static final String DB_MSSQL = "mssql";
 
     public static final String APPREVOLGNUMMER = "appReVolgnummer";
     public static final String WOONPLAATS = "gemeenteNaam";
@@ -181,18 +180,6 @@ public class BrkInfo {
                 tempSql.append(" ) WHERE ROWNUM <= ");
                 tempSql.append(maxrows);
                 sql = tempSql;
-                break;
-            case DB_MSSQL:
-                sql.append("SELECT DISTINCT ");
-                sql.append("TOP ");
-                sql.append("( ");
-                sql.append(maxrows);
-                sql.append(") ");
-                sql.append("     kad_onrrnd_zk.kad_identif AS identificatie ");
-                sql.append("FROM ");
-                sql.append(createFromSQL());
-                sql.append("WHERE ");
-                sql.append(createWhereSQL(searchContext, dbType));
                 break;
             default:
                 throw new UnsupportedOperationException("Unknown database! '" + dbType + "'");
@@ -392,21 +379,6 @@ public class BrkInfo {
                             + "'), 28992), 0.005 ) = 'TRUE' ";
                 }
                 break;
-            case DB_MSSQL:
-                if (bl != null) {
-                    condition = "kad_perceel.begrenzing_perceel.STIntersects( "
-                            + "geometry::STGeomFromText('"
-                            + zg
-                            + "',28992).STBuffer("
-                            + bl
-                            + ") ) = 1";
-                } else {
-                    condition = "kad_perceel.begrenzing_perceel.STIntersects( "
-                            + "geometry::STGeomFromText('"
-                            + zg
-                            + "',28992) ) = 1";
-                }
-                break;
             default:
                 throw new UnsupportedOperationException("Unknown database! '" + dbType + "'");
         }
@@ -459,8 +431,6 @@ public class BrkInfo {
             return DB_POSTGRES;
         } else if (databaseProductName.contains("Oracle")) {
             return DB_ORACLE;
-        } else if (databaseProductName.contains("Microsoft")) {
-            return DB_MSSQL;
         } else {
             throw new UnsupportedOperationException("Unknown database: " + connRsgb.getMetaData().getDatabaseProductName());
         }

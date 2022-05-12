@@ -45,7 +45,6 @@ public class EigendomInfo {
 
     private static final String DB_POSTGRES = "postgres";
     private static final String DB_ORACLE = "oracle";
-    private static final String DB_MSSQL = "mssql";
 
     private static final String ID = "id";
     private static final String FROMDATE = "fromDate";
@@ -488,9 +487,6 @@ public class EigendomInfo {
             StringBuilder resultNames = new StringBuilder();
             resultNames.append(" gpa.perceel_identif as perceel_identif ");
             StringBuilder fromSQL = new StringBuilder(" mb_util_app_re_kad_perceel gpa ");
-            if (dbType.equalsIgnoreCase(DB_MSSQL)) {
-                fromSQL = new StringBuilder(" vb_util_app_re_kad_perceel gpa ");
-            }
             StringBuilder whereSQL = new StringBuilder(" gpa.app_re_identif = ? ");
 
             StringBuilder sql = createSelectSQL(resultNames, fromSQL, whereSQL, null, dbType);
@@ -731,18 +727,6 @@ public class EigendomInfo {
                 tempSql.append(maxrows);
                 sql = tempSql;
                 return sql;
-            case DB_MSSQL:
-                sql.append(" SELECT ");
-                sql.append(" TOP ");
-                sql.append(" ( ");
-                sql.append(maxrows);
-                sql.append(" ) ");
-                sql.append(resultNames);
-                sql.append(" FROM ");
-                sql.append(fromSQL);
-                sql.append(" WHERE ");
-                sql.append(whereSQL);
-                return sql;
             default:
                 throw new UnsupportedOperationException("Unknown database!");
         }
@@ -836,8 +820,6 @@ public class EigendomInfo {
             return DB_POSTGRES;
         } else if (databaseProductName.contains("Oracle")) {
             return DB_ORACLE;
-        } else if (databaseProductName.contains("Microsoft")) {
-            return DB_MSSQL;
         } else {
             throw new UnsupportedOperationException("Unknown database: " + conn.getMetaData().getDatabaseProductName());
         }

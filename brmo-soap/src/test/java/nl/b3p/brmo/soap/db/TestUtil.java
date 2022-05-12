@@ -44,10 +44,6 @@ public abstract class TestUtil {
      */
     protected boolean isOracle;
     /**
-     * {@code true} als we met een MS SQL Server database bezig zijn.
-     */
-    protected boolean isMsSQL;
-    /**
      * {@code true} als we met een Postgis database bezig zijn.
      */
     protected boolean isPostgis;
@@ -92,7 +88,6 @@ public abstract class TestUtil {
         }
 
         isOracle = "oracle".equalsIgnoreCase(DBPROPS.getProperty("dbtype"));
-        isMsSQL = "sqlserver".equalsIgnoreCase(DBPROPS.getProperty("dbtype"));
         isPostgis = "postgis".equalsIgnoreCase(DBPROPS.getProperty("dbtype"));
 
         try {

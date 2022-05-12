@@ -12,8 +12,6 @@ import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.dataset.xml.XmlDataSet;
-import org.dbunit.ext.mssql.InsertIdentityOperation;
-import org.dbunit.ext.mssql.MsSqlDataTypeFactory;
 import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 import org.dbunit.operation.DatabaseOperation;
@@ -67,12 +65,7 @@ public class EigendomInfoIntegrationTest extends TestUtil {
         fxdb.setCaseSensitiveTableNames(false);
         IDataSet stagingDataSet = fxdb.build(new FileInputStream(new File(BrkInfoIntegrationTest.class.getResource(sBestandsNaam).toURI())));
 
-        if (this.isMsSQL) {
-            rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MsSqlDataTypeFactory());
-            staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MsSqlDataTypeFactory());
-
-            rsgbDataSet = new XmlDataSet(new FileInputStream(new File(BrkInfoIntegrationTest.class.getResource("/mssql-" + rBestandsNaam.substring(1)).toURI())));
-        } else if (this.isOracle) {
+        if (this.isOracle) {
             rsgb = new DatabaseConnection(dsRsgb.getConnection().unwrap(oracle.jdbc.OracleConnection.class), DBPROPS.getProperty("rsgb.username").toUpperCase());
             rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
             rsgb.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
@@ -89,11 +82,7 @@ public class EigendomInfoIntegrationTest extends TestUtil {
 
         sequential.lock();
 
-        if (this.isMsSQL) {
-            InsertIdentityOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
-        } else {
-            DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
-        }
+        DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
         DatabaseOperation.CLEAN_INSERT.execute(rsgb, rsgbDataSet);
         refreshMViews(new String[]{"mb_util_app_re_kad_perceel"}, this.dsRsgb);
     }
