@@ -9,6 +9,7 @@ package nl.b3p.brmo.nhr.loader;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
@@ -25,7 +26,6 @@ import nl.kvk.schemas.schemas.hrip.dataservice._2015._02.ObjectFactory;
 import org.apache.cxf.ws.addressing.AddressingProperties;
 import org.apache.cxf.ws.addressing.AttributedURIType;
 import org.apache.cxf.ws.addressing.JAXWSAConstants;
-import org.joda.time.DateTime;
 
 public class NHRLoader {
     // JAXB context used to serialize NHR responses for the BRMO.
@@ -79,6 +79,6 @@ public class NHRLoader {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         marshaller.marshal(wrappedResponse, outputStream);
 
-        brmoFramework.loadFromStream(BrmoFramework.BR_NHR, new ByteArrayInputStream(outputStream.toByteArray()), String.format("NHR %s %s", DateTime.now().toString(), description), (Long) null);
+        brmoFramework.loadFromStream(BrmoFramework.BR_NHR, new ByteArrayInputStream(outputStream.toByteArray()), String.format("NHR %s %s", LocalDateTime.now(), description), (Long) null);
     }
 }

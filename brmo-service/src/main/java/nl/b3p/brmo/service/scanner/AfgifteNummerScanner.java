@@ -80,7 +80,7 @@ public class AfgifteNummerScanner extends AbstractExecutableProces {
             }
         } catch (BrmoException | SQLException | ClassCastException | UnsupportedOperationException | IllegalArgumentException ex) {
             LOG.error("Ophalen contractnummers is mislukt.", ex);
-            return Collections.EMPTY_LIST;
+            return Collections.emptyList();
         }
     }
 

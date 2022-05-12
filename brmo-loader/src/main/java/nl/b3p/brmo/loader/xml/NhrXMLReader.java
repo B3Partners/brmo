@@ -78,7 +78,7 @@ public class NhrXMLReader extends BrmoXMLReader {
 
         iterator = b.berichten.iterator();
 
-        brOrigXML = bos.toString(StandardCharsets.UTF_8.name());
+        brOrigXML = bos.toString(StandardCharsets.UTF_8);
         LOG.debug("Originele nHR xml is: \n" + brOrigXML);
 
         init();
@@ -89,12 +89,7 @@ public class NhrXMLReader extends BrmoXMLReader {
             LOG.info("Initializing NHR split XSL templates...");
             Source xsl = new StreamSource(this.getClass().getResourceAsStream("/xsl/nhr-split-3.0.xsl"));
             TransformerFactory tf = TransformerFactory.newInstance();
-            tf.setURIResolver(new URIResolver() {
-                @Override
-                public Source resolve(String href, String base) throws TransformerException {
-                    return new StreamSource(NhrXMLReader.class.getResourceAsStream("/xsl/" + href));
-                }
-            });
+            tf.setURIResolver((href, base) -> new StreamSource(NhrXMLReader.class.getResourceAsStream("/xsl/" + href)));
             NhrXMLReader.splitTemplates = tf.newTemplates(xsl);
 
             t = TransformerFactory.newInstance().newTransformer();

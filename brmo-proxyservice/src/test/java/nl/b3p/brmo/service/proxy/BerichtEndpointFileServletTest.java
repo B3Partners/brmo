@@ -10,6 +10,7 @@ import com.meterware.httpunit.WebResponse;
 import com.meterware.servletunit.ServletRunner;
 import com.meterware.servletunit.ServletUnitClient;
 import org.apache.commons.io.FileUtils;
+import org.gaul.modernizer_maven_annotations.SuppressModernizer;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
@@ -19,6 +20,7 @@ import java.io.File;
 import java.math.BigInteger;
 import java.nio.file.Files;
 import java.security.SecureRandom;
+import java.util.HashMap;
 import java.util.Hashtable;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -34,6 +36,7 @@ public class BerichtEndpointFileServletTest {
     private ServletRunner sr;
 
     @BeforeEach
+    @SuppressModernizer
     public void setUp() throws Exception {
         HttpUnitOptions.setDefaultCharacterSet("UTF-8");
         HttpUnitOptions.setLoggingHttpHeaders(true);
@@ -41,6 +44,7 @@ public class BerichtEndpointFileServletTest {
 
         saveDir = System.getProperty("java.io.tmpdir", "/tmp") + saveDir + new BigInteger(130, new SecureRandom()).toString(32);
         sr = new ServletRunner();
+        // modernizer zeurt over gebruik Hashtable ipv HasMap
         Hashtable<String, String> servletParams = new Hashtable<>();
         servletParams.put("save_dir", saveDir);
         sr.registerServlet("/post/brk", BerichtEndpointFileServlet.class.getName(), servletParams);

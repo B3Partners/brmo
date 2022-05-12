@@ -73,7 +73,7 @@ public class WozXMLReader extends BrmoXMLReader {
         DocumentBuilder builder = factory.newDocumentBuilder();
         Document doc = builder.parse(in);
 
-        brOrigXML = bos.toString(StandardCharsets.UTF_8.name());
+        brOrigXML = bos.toString(StandardCharsets.UTF_8);
         LOG.trace("Originele WOZ xml is: \n" + brOrigXML);
 
         TransformerFactory tf = TransformerFactory.newInstance();

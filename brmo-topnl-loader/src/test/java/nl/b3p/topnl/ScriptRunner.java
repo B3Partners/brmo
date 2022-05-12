@@ -33,9 +33,9 @@ public class ScriptRunner {
     private static final Log log = LogFactory.getLog(ScriptRunner.class);
     
     private static final String DEFAULT_DELIMITER = ";";
-    private Connection connection;
-    private boolean stopOnError;
-    private boolean autoCommit;
+    private final Connection connection;
+    private final boolean stopOnError;
+    private final boolean autoCommit;
     private String delimiter = DEFAULT_DELIMITER;
     private boolean fullLineDelimiter = false;
 
@@ -76,9 +76,7 @@ public class ScriptRunner {
             } finally {
                 connection.setAutoCommit(originalAutoCommit);
             }
-        } catch (IOException e) {
-            throw e;
-        } catch (SQLException e) {
+        } catch (IOException | SQLException e) {
             throw e;
         } catch (Exception e) {
             throw new RuntimeException("Error running script.  Cause: " + e, e);
@@ -96,13 +94,13 @@ public class ScriptRunner {
      */
     private void runScript(Connection conn, Reader reader) throws IOException,
             SQLException {
-        StringBuffer command = null;
+        StringBuilder command = null;
         try {
             LineNumberReader lineReader = new LineNumberReader(reader);
             String line = null;
             while ((line = lineReader.readLine()) != null) {
                 if (command == null) {
-                    command = new StringBuffer();
+                    command = new StringBuilder();
                 }
                 String trimmedLine = line.trim();
                 if (trimmedLine.startsWith("--")) {
@@ -171,11 +169,7 @@ public class ScriptRunner {
             if (!autoCommit) {
                 conn.commit();
             }
-        } catch (SQLException e) {
-            e.fillInStackTrace();
-            log.error("Error executing: " + command,e);
-            throw e;
-        } catch (IOException e) {
+        } catch (SQLException | IOException e) {
             e.fillInStackTrace();
             log.error("Error executing: " + command,e);
             throw e;

@@ -138,7 +138,7 @@ public class MaterializedViewRefreshUitvoeren extends AbstractExecutableProces {
             return Collections.unmodifiableList(mviews);
         } catch (BrmoException | SQLException | ClassCastException | UnsupportedOperationException | IllegalArgumentException ex) {
             LOG.error("Ophalen materialized views is mislukt.", ex);
-            return Collections.EMPTY_LIST;
+            return Collections.emptyList();
         }
     }
 

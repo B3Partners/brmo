@@ -9,6 +9,7 @@
  import org.w3c.dom.NodeList;
 
  import java.io.StringWriter;
+ import java.nio.charset.StandardCharsets;
 
  import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -22,11 +23,11 @@ public class RsgbBRPTransformerTest {
     @Disabled("test bestanden van meine ontbreken")
     public void mergeTest() throws Exception{
         StringWriter writerOld = new StringWriter();
-        IOUtils.copy(RsgbBRPTransformerTest.class.getResourceAsStream("old.xml"), writerOld, "UTF-8");
+        IOUtils.copy(RsgbBRPTransformerTest.class.getResourceAsStream("old.xml"), writerOld, StandardCharsets.UTF_8);
         String old = writerOld.toString();
         
         StringWriter writerNew = new StringWriter();
-        IOUtils.copy(RsgbBRPTransformerTest.class.getResourceAsStream("new.xml"), writerNew, "UTF-8");
+        IOUtils.copy(RsgbBRPTransformerTest.class.getResourceAsStream("new.xml"), writerNew, StandardCharsets.UTF_8);
         String newFile = writerNew.toString();
         
         Document doc = RsgbBRPTransformer.merge( old, newFile);

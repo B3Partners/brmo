@@ -14,10 +14,10 @@ public class TableRow {
     private String table;
     private boolean ignoreDuplicates;
 
-    private List<String> columns = new ArrayList();
-    private List<String> values = new ArrayList();
+    private List<String> columns = new ArrayList<>();
+    private List<String> values = new ArrayList<>();
 
-    private final Set<String> alleenArchiefColumns = new HashSet();
+    private final Set<String> alleenArchiefColumns = new HashSet<>();
 
     /* Used for archief tables */
     private String columnDatumBeginGeldigheid;
@@ -83,7 +83,7 @@ public class TableRow {
         StringBuilder s = new StringBuilder();
         s.append(table).append("[");
 
-        List<String> keys = new ArrayList();
+        List<String> keys = new ArrayList<>();
         int i = -1;
         for (String column: columns) {
             i++;
@@ -93,7 +93,7 @@ public class TableRow {
 
             keys.add(column + "=" + values.get(i));
         }
-        s.append(StringUtils.join(keys, ", "));
+        s.append(String.join( ", ", keys));
         s.append("]");
         return s.toString();
     }
