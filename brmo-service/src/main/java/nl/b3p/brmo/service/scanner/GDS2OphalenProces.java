@@ -16,6 +16,7 @@ import java.math.BigInteger;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.charset.StandardCharsets;
 import java.security.KeyManagementException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
@@ -665,17 +666,17 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             l.addLog(msg);
             return null;
         }
-        b.setBr_orgineel_xml(IOUtils.toString(zip, "UTF-8"));
+        b.setBr_orgineel_xml(IOUtils.toString(zip, StandardCharsets.UTF_8));
 
         if (log.isDebugEnabled()) {
             // dump xml bestand naar /tmp/ voordat de xml wordt geparsed
             String fName = File.createTempFile(lp.getBestand_naam(), ".xml").getAbsolutePath();
             log.debug("Dump xml bericht naar: " + fName);
-            IOUtils.write(b.getBr_orgineel_xml(), new FileWriter(fName));
+            IOUtils.write(b.getBr_orgineel_xml(), new FileWriter(fName, StandardCharsets.UTF_8));
         }
 
         try {
-            BrkSnapshotXMLReader reader = new BrkSnapshotXMLReader(new ByteArrayInputStream(b.getBr_orgineel_xml().getBytes("UTF-8")));
+            BrkSnapshotXMLReader reader = new BrkSnapshotXMLReader(new ByteArrayInputStream(b.getBr_orgineel_xml().getBytes(StandardCharsets.UTF_8)));
             BrkBericht bericht = reader.next();
 
             if (bericht.getDatum() != null) {
@@ -752,7 +753,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Content-Length", "" + b.getBr_orgineel_xml().length());
             conn.setRequestProperty("Content-Type", "application/octet-stream");
-            IOUtils.copy(IOUtils.toInputStream(b.getBr_orgineel_xml(), "UTF-8"), conn.getOutputStream());
+            IOUtils.copy(IOUtils.toInputStream(b.getBr_orgineel_xml(), StandardCharsets.UTF_8), conn.getOutputStream());
             conn.disconnect();
             if ((conn.getResponseCode() == HttpURLConnection.HTTP_OK)
                     || (conn.getResponseCode() == HttpURLConnection.HTTP_CREATED)

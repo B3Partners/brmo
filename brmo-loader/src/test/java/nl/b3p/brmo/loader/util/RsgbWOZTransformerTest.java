@@ -10,6 +10,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import java.io.StringWriter;
+import java.nio.charset.StandardCharsets;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -19,11 +20,11 @@ public class RsgbWOZTransformerTest {
     @Test
     public void mergeTest1() throws Exception {
         StringWriter writerOld = new StringWriter();
-        IOUtils.copy(RsgbWOZTransformerTest.class.getResourceAsStream("old-woz-1.xml"), writerOld, "UTF-8");
+        IOUtils.copy(RsgbWOZTransformerTest.class.getResourceAsStream("old-woz-1.xml"), writerOld, StandardCharsets.UTF_8);
         String old = writerOld.toString();
 
         StringWriter writerNew = new StringWriter();
-        IOUtils.copy(RsgbWOZTransformerTest.class.getResourceAsStream("new-woz-1.xml"), writerNew, "UTF-8");
+        IOUtils.copy(RsgbWOZTransformerTest.class.getResourceAsStream("new-woz-1.xml"), writerNew, StandardCharsets.UTF_8);
         String newFile = writerNew.toString();
 
         Document doc = RsgbWOZTransformer.merge(old, newFile);
@@ -52,11 +53,11 @@ public class RsgbWOZTransformerTest {
     @Test
     public void mergeTestGEom() throws Exception {
         StringWriter writerOld = new StringWriter();
-        IOUtils.copy(RsgbWOZTransformerTest.class.getResourceAsStream("old-woz-geom.xml"), writerOld, "UTF-8");
+        IOUtils.copy(RsgbWOZTransformerTest.class.getResourceAsStream("old-woz-geom.xml"), writerOld, StandardCharsets.UTF_8);
         String old = writerOld.toString();
 
         StringWriter writerNew = new StringWriter();
-        IOUtils.copy(RsgbWOZTransformerTest.class.getResourceAsStream("new-woz-geom.xml"), writerNew, "UTF-8");
+        IOUtils.copy(RsgbWOZTransformerTest.class.getResourceAsStream("new-woz-geom.xml"), writerNew, StandardCharsets.UTF_8);
         String newFile = writerNew.toString();
 
         Document doc = RsgbWOZTransformer.merge(old, newFile);

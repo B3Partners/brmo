@@ -5,6 +5,8 @@ package nl.b3p.brmo.soap.util;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Set;
@@ -28,7 +30,7 @@ public class LogMessageHandler implements SOAPHandler<SOAPMessageContext> {
 
     @Override
     public Set<QName> getHeaders() {
-        return Collections.EMPTY_SET;
+        return Collections.emptySet();
     }
 
     @Override
@@ -52,7 +54,7 @@ public class LogMessageHandler implements SOAPHandler<SOAPMessageContext> {
 
                 ByteArrayOutputStream bos = new ByteArrayOutputStream();
                 context.getMessage().writeTo(bos);
-                LOG.trace(prefix + " " + bos.toString("UTF-8"));
+                LOG.trace(prefix + " " + bos.toString(StandardCharsets.UTF_8));
             } catch (SOAPException | IOException ex) {
                 LOG.trace(ex);
             }

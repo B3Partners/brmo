@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -198,13 +199,13 @@ public class BRKDirectoryScanner extends AbstractExecutableProces {
                     b.setDatum(lp.getBestand_datum());
                     b.setSoort(BrmoFramework.BR_BRK);
                     b.setStatus_datum(new Date());
-                    String fileContent = FileUtils.readFileToString(f, "UTF-8");
+                    String fileContent = FileUtils.readFileToString(f, StandardCharsets.UTF_8);
                     fileContent = fileContent.replaceAll("\u0000.*", "");
                     b.setBr_orgineel_xml(fileContent);
 
                     try {
                         BrkSnapshotXMLReader reader = new BrkSnapshotXMLReader(
-                                new ByteArrayInputStream(b.getBr_orgineel_xml().getBytes("UTF-8")));
+                                new ByteArrayInputStream(b.getBr_orgineel_xml().getBytes(StandardCharsets.UTF_8)));
                         BrkBericht bericht = reader.next();
 
                         if (bericht.getDatum() != null) {
@@ -225,7 +226,7 @@ public class BRKDirectoryScanner extends AbstractExecutableProces {
                             b.setStatus(Bericht.STATUS.STAGING_NOK);
                             b.setOpmerking("Object Ref niet gevonden in bericht-xml, neem contact op met leverancier.");
                         }
-                    } catch (UnsupportedEncodingException | XMLStreamException | TransformerException e) {
+                    } catch (XMLStreamException | TransformerException e) {
                         b.setStatus(Bericht.STATUS.STAGING_NOK);
                         StringWriter sw = new StringWriter();
                         e.printStackTrace(new PrintWriter(sw));

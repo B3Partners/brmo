@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.math.BigDecimal;
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -340,7 +341,7 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
                                 message.append(MUTCLOSE);
                             }
 
-                            BrkSnapshotXMLReader reader = new BrkSnapshotXMLReader(new ByteArrayInputStream(message.toString().getBytes("UTF-8")));
+                            BrkSnapshotXMLReader reader = new BrkSnapshotXMLReader(new ByteArrayInputStream(message.toString().getBytes(StandardCharsets.UTF_8)));
                             Bericht brk = reader.next();
                             if (brk != null && brk.getDatum() != null && brk.getObjectRef() != null && brk.getVolgordeNummer() != null) {
                                 bericht.setDatum(brk.getDatum());
@@ -422,7 +423,7 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
                                 }
                             }
 
-                            BagXMLReader reader = new BagXMLReader(new ByteArrayInputStream(message.toString().getBytes("UTF-8")));
+                            BagXMLReader reader = new BagXMLReader(new ByteArrayInputStream(message.toString().getBytes(StandardCharsets.UTF_8)));
                             reader.hasNext();
                             Bericht bag = reader.next();
                             if (bag != null && bag.getDatum() != null && bag.getObjectRef() != null && bag.getVolgordeNummer() != null) {
@@ -502,7 +503,7 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
 
                             boolean infoOK = true;
                             if (bericht.getBrOrgineelXml() != null) {
-                                BrkSnapshotXMLReader reader = new BrkSnapshotXMLReader(new ByteArrayInputStream(bericht.getBrOrgineelXml().getBytes("UTF-8")));
+                                BrkSnapshotXMLReader reader = new BrkSnapshotXMLReader(new ByteArrayInputStream(bericht.getBrOrgineelXml().getBytes(StandardCharsets.UTF_8)));
                                 Bericht brk = reader.next();
                                 if (brk.getDatum() != null && brk.getObjectRef() != null && brk.getVolgordeNummer() != null) {
                                     bericht.setDatum(brk.getDatum());
@@ -540,9 +541,9 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
                                 out.putNextEntry(e);
                                 byte[] data = null;
                                 if (infoOK) {
-                                    data = bericht.getBrOrgineelXml().getBytes("utf-8");
+                                    data = bericht.getBrOrgineelXml().getBytes(StandardCharsets.UTF_8);
                                 } else {
-                                    data = "ERROR".getBytes("utf-8");
+                                    data = "ERROR".getBytes(StandardCharsets.UTF_8);
                                 }
                                 out.write(data, 0, data.length);
                             } catch (ZipException ze) {

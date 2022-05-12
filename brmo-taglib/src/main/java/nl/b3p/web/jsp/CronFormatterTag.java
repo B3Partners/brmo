@@ -16,13 +16,16 @@
  */
 package nl.b3p.web.jsp;
 
-import java.util.Locale;
-import net.redhogs.cronparser.CronExpressionDescriptor;
-import java.text.ParseException;
-import javax.servlet.jsp.tagext.SimpleTagSupport;
+import com.cronutils.descriptor.CronDescriptor;
+import com.cronutils.model.definition.CronDefinitionBuilder;
+import com.cronutils.parser.CronParser;
+
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.tagext.SimpleTagSupport;
 import java.io.IOException;
-import net.redhogs.cronparser.Options;
+import java.util.Locale;
+
+import static com.cronutils.model.CronType.QUARTZ;
 
 /**
  * Formatter voor cron expressies. The default locale for this tag is
@@ -58,17 +61,15 @@ public class CronFormatterTag extends SimpleTagSupport {
 
     public String buildOutput() {
         String formatted = "";
-        final Options options = new Options();
-        options.setVerbose(true);
-        options.setTwentyFourHourTime(true);
         if (cronExpression != null && !cronExpression.isEmpty()) {
             try {
+                CronParser cronParser = new CronParser(CronDefinitionBuilder.instanceDefinitionFor(QUARTZ));
                 if (locale != null) {
-                    formatted = CronExpressionDescriptor.getDescription(cronExpression, options, locale);
+                    formatted = CronDescriptor.instance(locale).describe(cronParser.parse(cronExpression));
                 } else {
-                    formatted = CronExpressionDescriptor.getDescription(cronExpression, options);
+                    formatted = CronDescriptor.instance(Locale.getDefault()).describe(cronParser.parse(cronExpression));
                 }
-            } catch (ParseException e) {
+            } catch (Exception e) {
                 formatted = e.getLocalizedMessage();
             }
         }

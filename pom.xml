@@ -109,6 +109,7 @@
         <maven-jxr-plugin.version>3.2.0</maven-jxr-plugin.version>
         <maven-javadoc-plugin.version>3.4.0</maven-javadoc-plugin.version>
         <taglist-maven-plugin.version>3.0.0</taglist-maven-plugin.version>
+        <modernizer-maven-plugin.version>2.4.0</modernizer-maven-plugin.version>
         <!-- deze property wordt gebruikt om tijdens tests te bepalen of we met een geupgraded
         release database werken of een ontwikkel versie -->
         <database.upgrade />
@@ -119,6 +120,11 @@
         mvn -U org.codehaus.mojo:versions-maven-plugin:display-dependency-updates -T1 > dependency-updates.log
         -->
         <dependencies>
+            <dependency>
+                <groupId>org.gaul</groupId>
+                <artifactId>modernizer-maven-annotations</artifactId>
+                <version>${modernizer-maven-plugin.version}</version>
+            </dependency>
             <!-- logging libs -->
             <dependency>
                 <groupId>commons-logging</groupId>
@@ -486,9 +492,9 @@
                 <version>${quartz.version}</version>
             </dependency>
             <dependency>
-                <groupId>net.redhogs.cronparser</groupId>
-                <artifactId>cron-parser-core</artifactId>
-                <version>3.5</version>
+                <groupId>com.cronutils</groupId>
+                <artifactId>cron-utils</artifactId>
+                <version>9.1.6</version>
             </dependency>
             <!-- parsing ed. -->
             <dependency>
@@ -526,11 +532,6 @@
                 <groupId>javax.xml.ws</groupId>
                 <artifactId>jaxws-api</artifactId>
                 <version>2.3.1</version>
-            </dependency>
-            <dependency>
-                <groupId>joda-time</groupId>
-                <artifactId>joda-time</artifactId>
-                <version>2.10.10</version>
             </dependency>
             <dependency>
                 <groupId>org.json</groupId>
@@ -1148,6 +1149,14 @@
                                     <excludes>
                                         <exclude>junit:junit</exclude>
                                         <exclude>org.hamcrest:hamcrest-core</exclude>
+                                        <!-- helaas is er een transitieve dependency naar joda-time in wss4j-ws-security-common,
+                                             dus kunnen we die niet uitsluiten.
+
+                                             [INFO] |  +- org.apache.wss4j:wss4j-ws-security-common:jar:2.4.1:compile
+                                             [INFO] |  |  +- joda-time:joda-time:jar:2.10.10:compile
+
+                                         <exclude>joda-time:joda-time</exclude>
+                                         -->
                                     </excludes>
                                 </bannedDependencies>
                             </rules>
@@ -1205,6 +1214,24 @@
                     <relativizeDecorationLinks>false</relativizeDecorationLinks>
                     <stagingDirectory>/tmp/staging</stagingDirectory>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.gaul</groupId>
+                <artifactId>modernizer-maven-plugin</artifactId>
+                <version>${modernizer-maven-plugin.version}</version>
+                <configuration>
+                    <javaVersion>${java.version}</javaVersion>
+                    <failOnViolations>true</failOnViolations>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>modernizer</id>
+                        <goals>
+                            <goal>modernizer</goal>
+                        </goals>
+                        <phase>verify</phase>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <artifactId>maven-scm-publish-plugin</artifactId>
