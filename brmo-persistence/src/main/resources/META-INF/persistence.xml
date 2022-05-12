@@ -24,25 +24,6 @@
         </properties>
         
     </persistence-unit>
-    
-    <persistence-unit name="brmo.persistence.microsoftsqlserver" transaction-type="RESOURCE_LOCAL">
-        <non-jta-data-source>java:comp/env/jdbc/brmo/staging</non-jta-data-source>
-        <mapping-file>META-INF/orm-sqlserver.xml</mapping-file>
-        <class>nl.b3p.brmo.persistence.staging.Bericht</class>
-        <class>nl.b3p.brmo.persistence.staging.LaadProces</class>
-        <class>nl.b3p.brmo.persistence.staging.BRKScannerProces</class>
-        <class>nl.b3p.brmo.persistence.staging.AutomatischProces</class>
-        <properties>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect"/>
-            <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
-            <property name="javax.persistence.validation.mode" value="none"/>
-            <!-- workaround for Hibernate bug expecting the generated id to be the first column
-                 http://postgresql.1045698.n5.nabble.com/Problems-with-Hibernate-Discriminators-and-9-0-801-jdbc4-td4259788.html
-            -->
-            <property name="hibernate.jdbc.use_get_generated_keys" value="false"/>
-            <property name="hibernate.physical_naming_strategy" value="nl.b3p.brmo.persistence.SnakeCasePhysicalNamingStrategy" />
-        </properties>
-    </persistence-unit>
 
     <persistence-unit name="brmo.persistence.oracle" transaction-type="RESOURCE_LOCAL">
         <non-jta-data-source>java:comp/env/jdbc/brmo/staging</non-jta-data-source>

@@ -72,11 +72,6 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.microsoft.sqlserver</groupId>
-            <artifactId>mssql-jdbc</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <scope>test</scope>
@@ -264,26 +259,6 @@
                                 </fileMapper>
                             </fileMappers>
                         </transformationSet>
-                        <transformationSet>
-                            <!--java -jar lib/saxon9he.jar -s:generated_scripts/datamodel.xml -xsl:datamodel_sqlserver.xsl -o:generated_scripts/datamodel_sqlserver.sql-->
-                            <dir>generated_scripts</dir>
-                            <includes>
-                                <include>datamodel.xml</include>
-                            </includes>
-                            <stylesheet>datamodel_sqlserver.xsl</stylesheet>
-                            <parameters>
-                                <parameter>
-                                    <name>versie</name>
-                                    <value>${project.version}</value>
-                                </parameter>
-                            </parameters>
-                            <outputDir>generated_scripts</outputDir>
-                            <fileMappers>
-                                <fileMapper implementation="org.codehaus.plexus.components.io.filemappers.MergeFileMapper">
-                                    <targetName>datamodel_sqlserver.sql</targetName>
-                                </fileMapper>
-                            </fileMappers>
-                        </transformationSet>
                     </transformationSets>
                 </configuration>
             </plugin>
@@ -366,9 +341,6 @@
                                             <fileset dir="${project.build.directory}/generated_data_scripts/GEM-WPL" includes="${filename.base.201_update_wnplts_gemcode}*.sql" />
                                         </copy>
                                         <copy todir="${project.basedir}/utility_scripts/postgresql" verbose="true">
-                                            <fileset dir="${project.build.directory}/generated_data_scripts/GEM-WPL" includes="${filename.base.201_update_wnplts_gemcode}*.sql" />
-                                        </copy>
-                                        <copy todir="${project.basedir}/utility_scripts/sqlserver" verbose="true">
                                             <fileset dir="${project.build.directory}/generated_data_scripts/GEM-WPL" includes="${filename.base.201_update_wnplts_gemcode}*.sql" />
                                         </copy>
                                     </target>

@@ -31,11 +31,6 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.microsoft.sqlserver</groupId>
-            <artifactId>mssql-jdbc</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
             <!-- nodig voor hibernate -->
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-reload4j</artifactId>
