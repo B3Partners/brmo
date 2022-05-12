@@ -36,4 +36,5 @@
     <ResourceLink global="brmo/nhr/endpoint" name="brmo/nhr/endpoint" type="java.lang.String" />
     <ResourceLink global="brmo/nhr/endpointIsPreprod" name="brmo/nhr/endpointIsPreprod" type="java.lang.Boolean" />
     <ResourceLink global="brmo/nhr/secondsBetweenFetches" name="brmo/nhr/secondsBetweenFetches" type="java.lang.Integer" />
+    <ResourceLink global="brmo/nhr/email" name="brmo/nhr/email" type="javax.mail.Session"/>
 </Context>
