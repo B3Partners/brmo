@@ -1,1 +1,0 @@
--- vervallen in versie 2 van de views, zie 206_bag_views.sql
