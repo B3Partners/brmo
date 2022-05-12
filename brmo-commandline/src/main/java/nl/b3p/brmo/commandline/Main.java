@@ -180,9 +180,6 @@ public class Main {
                 case "postgis":
                     Class.forName("org.postgresql.Driver");
                     break;
-                case "sqlserver":
-                    Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-                    break;
                 default:
                     throw new IllegalArgumentException("Het database type " + dbProps.getProperty("dbtype") + " wordt niet ondersteund of is niet opgegeven.");
             }
