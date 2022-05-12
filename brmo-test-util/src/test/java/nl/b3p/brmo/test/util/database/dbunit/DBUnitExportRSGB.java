@@ -18,7 +18,6 @@ import org.dbunit.dataset.FilteredDataSet;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSet;
 import org.dbunit.dataset.xml.XmlDataSet;
-import org.dbunit.ext.mssql.MsSqlDataTypeFactory;
 import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 
@@ -37,22 +36,10 @@ public class DBUnitExportRSGB {
     private static final String _dbFile2 = "rsgb.xml";
 
     // postgis
-//    private static final String _driverClass = "org.postgresql.Driver";
-//    private static final String _jdbcConnection = "jdbc:postgresql://localhost:5434/itest_rsgb";
-//    private static final String _user = "rsgb";
-//    private static final String _passwd = "rsgb";
-    // ms sql / jtds
-    // private static final String _driverClass = "net.sourceforge.jtds.jdbc.Driver";
-    // private static final String _jdbcConnection = "jdbc:jtds:sqlserver://192.168.1.15:1433/itest_brmo_rsgb;encrypt=false;instance=SQLEXPRESS";
-    // private static final String _user = "brmotest";
-    // private static final String _passwd = "brmotest";
-
-    // ms sql
-     private static final String _driverClass = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-     private static final String _jdbcConnection = "jdbc:sqlserver://localhost:1401;databaseName=rsgb;encrypt=false;instance=sql1";
-     private static final String _user = "sa";
-     private static final String _passwd = "YourStrong!Passw0rd";
-
+    private static final String _driverClass = "org.postgresql.Driver";
+    private static final String _jdbcConnection = "jdbc:postgresql://localhost:5434/itest_rsgb";
+    private static final String _user = "rsgb";
+    private static final String _passwd = "rsgb";
 
     // oracle
     // private static final String _driverClass = "oracle.jdbc.OracleDriver";
@@ -83,8 +70,7 @@ public class DBUnitExportRSGB {
         Connection jdbcConnection = DriverManager.getConnection(_jdbcConnection, _user, _passwd);
         IDatabaseConnection connection = new DatabaseConnection(jdbcConnection);
 
-        // connection.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
-         connection.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MsSqlDataTypeFactory());
+         connection.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
 //        connection.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
 
         // voor alle tabellen:
