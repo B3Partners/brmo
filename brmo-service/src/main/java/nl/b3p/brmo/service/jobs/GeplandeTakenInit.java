@@ -167,6 +167,20 @@ public class GeplandeTakenInit implements Servlet {
           .build();
 
         nhrScheduler.scheduleJob(job, trigger);
+
+        JobDetail emailJob = JobBuilder.newJob(NHREmailJob.class)
+          .withIdentity("NHR-email")
+          .build();
+
+        CronTrigger emailTrigger = TriggerBuilder.newTrigger()
+          .startNow()
+          .forJob(emailJob)
+          .withIdentity("NHR-email")
+          .withSchedule(CronScheduleBuilder.dailyAtHourAndMinute(0, 0))
+          .build();
+
+        nhrScheduler.scheduleJob(emailJob, emailTrigger);
+
         log.info("NHR taak opgestart");
 
         this.getServletConfig().getServletContext().setAttribute(NHR_QUARTZ_FACTORY_KEY, factory);
