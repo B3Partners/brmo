@@ -30,6 +30,7 @@ import org.dbunit.database.DatabaseConfig;
 import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
+import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
@@ -152,6 +153,13 @@ public class AfgifteNummerScannerIntegrationTest extends TestUtil {
                 "Er zijn anders dan verwacht aantal laadprocessen"
         );
 
+        try {
+            ITable lp = staging.createQueryTable("laadproces", "select max(id) as maxid from laadproces");
+            Number maxLP = (Number) lp.getValue(0, "maxid");
+            SequenceUtil.updateSequence("laadproces_id_seq", maxLP.longValue() + 9999999, dsStaging);
+        } catch (SQLException s) {
+            LOG.error("Bijwerken laadproces sequence is mislukt", s);
+        }
     }
 
     @AfterEach
