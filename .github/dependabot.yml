@@ -31,10 +31,6 @@ updates:
       - dependency-name: org.apache.tomcat.embed:*
         versions:
           - ">= 10"
-      - dependency-name: com.microsoft.sqlserver:mssql-jdbc
-        versions:
-          - "10.3.x"
-          - "11.1.x"
 
 
   - package-ecosystem: "github-actions"

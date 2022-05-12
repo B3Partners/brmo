@@ -45,18 +45,6 @@
         <dependencySet>
             <useTransitiveDependencies>false</useTransitiveDependencies>
             <useProjectArtifact>${project.groupId}:brmo-dist</useProjectArtifact>
-            <outputDirectory>drivers/mssql/</outputDirectory>
-            <unpack>false</unpack>
-            <includes>
-                <include>com.sun.mail:jakarta.mail</include>
-                <include>com.sun.activation:jakarta.activation</include>
-                <include>com.microsoft.sqlserver:mssql-jdbc</include>
-            </includes>
-            <outputFileNameMapping>${artifact.artifactId}-${artifact.version}.${artifact.extension}</outputFileNameMapping>
-        </dependencySet>
-        <dependencySet>
-            <useTransitiveDependencies>false</useTransitiveDependencies>
-            <useProjectArtifact>${project.groupId}:brmo-dist</useProjectArtifact>
             <outputDirectory>drivers/oracle/</outputDirectory>
             <unpack>false</unpack>
             <includes>
@@ -95,7 +83,6 @@
             <includes>
                 <include>**/*oracle.sql</include>
                 <include>**/*postgresql.sql</include>
-                <include>**/*sqlserver.sql</include>
             </includes>
         </fileSet>
         <fileSet>

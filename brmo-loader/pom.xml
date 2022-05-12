@@ -84,11 +84,6 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.microsoft.sqlserver</groupId>
-            <artifactId>mssql-jdbc</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
             <groupId>com.oracle.database.jdbc</groupId>
             <artifactId>${oracle.jdbc.artifact}</artifactId>
             <!-- Bij JNDI db verbinding moeten Oracle jars in tomcat lib staan -->
@@ -109,10 +104,6 @@
         <dependency>
             <groupId>org.javasimon</groupId>
             <artifactId>javasimon-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.geotools.jdbc</groupId>
-            <artifactId>gt-jdbc-sqlserver</artifactId>
         </dependency>
         <dependency>
             <groupId>org.dbunit</groupId>
