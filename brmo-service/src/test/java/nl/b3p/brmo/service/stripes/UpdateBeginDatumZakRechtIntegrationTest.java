@@ -13,8 +13,6 @@ import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
-import org.dbunit.ext.mssql.InsertIdentityOperation;
-import org.dbunit.ext.mssql.MsSqlDataTypeFactory;
 import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 import org.dbunit.operation.DatabaseOperation;
@@ -46,8 +44,6 @@ import static org.mockito.Mockito.*;
  * {@code mvn -Dit.test=UpdateBeginDatumZakRechtIntegrationTest -Dtest.onlyITs=true verify -Poracle > target/oracle.log}
  * voor bijvoorbeeld Oracle of
  * {@code mvn -Dit.test=UpdateBeginDatumZakRechtIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql > target/postgresql.log}
- * of
- * {@code mvn -Dit.test=UpdateBeginDatumZakRechtIntegrationTest -Dtest.onlyITs=true verify -Pmssql > target/mssql.log}.
  *
  * @author meine
  */
@@ -83,10 +79,7 @@ public class UpdateBeginDatumZakRechtIntegrationTest extends TestUtil{
         rsgb = new DatabaseConnection(dsRsgb.getConnection());
         staging = new DatabaseConnection(dsStaging.getConnection());
 
-        if (isMsSQL) {
-            rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MsSqlDataTypeFactory());
-            staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MsSqlDataTypeFactory());
-        } else if (isOracle) {
+        if (isOracle) {
             rsgb = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsRsgb.getConnection()), DBPROPS.getProperty("rsgb.username").toUpperCase());
             rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
             rsgb.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
@@ -110,14 +103,8 @@ public class UpdateBeginDatumZakRechtIntegrationTest extends TestUtil{
 
         sequential.lock();
 
-        if (isMsSQL) {
-            // SET IDENTITY_INSERT op ON
-            InsertIdentityOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
-            InsertIdentityOperation.CLEAN_INSERT.execute(rsgb, rsgbDataSet);
-        } else {
-            DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
-            DatabaseOperation.CLEAN_INSERT.execute(rsgb, rsgbDataSet);
-        }
+        DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
+        DatabaseOperation.CLEAN_INSERT.execute(rsgb, rsgbDataSet);
 
         brmo = new BrmoFramework(dsStaging, dsRsgb);
         brmo.setOrderBerichten(true);

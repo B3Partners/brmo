@@ -15,8 +15,6 @@ import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
-import org.dbunit.ext.mssql.InsertIdentityOperation;
-import org.dbunit.ext.mssql.MsSqlDataTypeFactory;
 import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 import org.dbunit.operation.DatabaseOperation;
@@ -75,9 +73,7 @@ public class AdvancedFunctionsActionBeanCleanupIntegrationTest extends TestUtil 
         bean = new AdvancedFunctionsActionBean();
         staging = new DatabaseConnection(dsStaging.getConnection());
 
-        if (isMsSQL) {
-            staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MsSqlDataTypeFactory());
-        } else if (isOracle) {
+        if (isOracle) {
             dsStaging.getConnection().setAutoCommit(true);
             staging = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsStaging.getConnection()),
                     DBPROPS.getProperty("staging.username").toUpperCase());
@@ -107,12 +103,7 @@ public class AdvancedFunctionsActionBeanCleanupIntegrationTest extends TestUtil 
                 )
         );
 
-        if (isMsSQL) {
-            // SET IDENTITY_INSERT op ON
-            InsertIdentityOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
-        } else {
-            DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
-        }
+        DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
 
         Assumptions.assumeTrue(
                 aantalBerichtenRsgbOk == brmo.getCountBerichten(null, null, BrmoFramework.BR_BAG, "RSGB_OK"),
