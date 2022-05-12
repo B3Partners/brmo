@@ -135,6 +135,21 @@ public class NHRActionBean implements ActionBean {
             }
 
             try {
+                KeyStore trustStore = KeyStore.getInstance("PKCS12");
+                try (FileInputStream trustStoreFile = new FileInputStream((String) InitialContext.doLookup("java:comp/env/brmo/nhr/truststorePath"))) {
+                    trustStore.load(trustStoreFile, ((String)InitialContext.doLookup("java:comp/env/brmo/nhr/truststorePassword")).toCharArray());
+                }
+            } catch (FileNotFoundException e) {
+                statusNotification += "truststore niet gevonden\n";
+            } catch (NamingException e) {
+                if (statusActive) {
+                    statusNotification += String.format("geen truststore ingesteld: %s\n", e.getMessage());
+                }
+            } catch (Exception e) {
+                statusNotification += String.format("truststore incorrect: %s\n", e.getMessage());
+            }
+
+            try {
                 statusEndpoint = InitialContext.doLookup("java:comp/env/brmo/nhr/endpoint");
                 statusEndpointPreprod = InitialContext.doLookup("java:comp/env/brmo/nhr/endpointIsPreprod");
             } catch (Exception e) {
