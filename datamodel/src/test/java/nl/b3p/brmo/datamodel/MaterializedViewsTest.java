@@ -13,9 +13,7 @@ import org.apache.commons.logging.LogFactory;
 import org.dbunit.database.DatabaseConfig;
 import org.dbunit.database.DatabaseDataSourceConnection;
 import org.dbunit.database.IDatabaseConnection;
-import org.dbunit.dataset.DataSetException;
 import org.dbunit.dataset.ITable;
-import org.dbunit.ext.mssql.MsSqlDataTypeFactory;
 import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 import org.junit.jupiter.api.AfterEach;
@@ -54,10 +52,6 @@ public class MaterializedViewsTest {
      */
     protected boolean isOracle;
     /**
-     * {@code true} als we met een MS SQL Server database bezig zijn.
-     */
-    protected boolean isMsSQL;
-    /**
      * {@code true} als we met een Postgis database bezig zijn.
      */
     protected boolean isPostgis;
@@ -92,9 +86,7 @@ public class MaterializedViewsTest {
         ds.setAccessToUnderlyingConnectionAllowed(true);
         db = new DatabaseDataSourceConnection(ds);
 
-        if (this.isMsSQL) {
-            db.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MsSqlDataTypeFactory());
-        } else if (this.isOracle) {
+        if (this.isOracle) {
             // db = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(db.getConnection()), params.getProperty(this.dbName + ".user").toUpperCase());
             db.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
             db.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
@@ -115,11 +107,10 @@ public class MaterializedViewsTest {
     /**
      * test of het versienummer in de database juist is.
      *
-     * @throws SQLException     als opzoeken in de dabase mislukt
-     * @throws DataSetException if any
+     * @throws Exception als opzoeken in de dabase mislukt
      */
     @Test
-    public void testCurrentVersion() throws SQLException, DataSetException {
+    public void testCurrentVersion() throws Exception {
         ITable metadata = db.createTable("brmo_metadata");
         int rowCount = metadata.getRowCount();
         assertTrue((rowCount >= 1), "Verwacht tenminste 1 records.");
@@ -148,43 +139,40 @@ public class MaterializedViewsTest {
         List<String> viewsFound = ViewUtils.listAllMaterializedViews(ds);
         assertNotNull(viewsFound, "Geen materialized views gevonden");
 
-        if (isMsSQL) {
-            // geen m-views in mssql
-            assertTrue(viewsFound.isEmpty(), "Gek! sqlserver heeft materialized views");
-        } else {
-            List<String> views = Arrays.asList(
-                    // bag
-                    "mb_adres",
-                    "mb_pand",
-                    "mb_benoemd_obj_adres",
-                    "mb_ben_obj_nevenadres",
-                    // brk
-                    "mb_subject",
-                    "mb_avg_subject",
-                    "mb_util_app_re_kad_perceel",
-                    "mb_kad_onrrnd_zk_adres",
-                    "mb_percelenkaart",
-                    "mb_zr_rechth",
-                    "mb_avg_zr_rechth",
-                    "mb_koz_rechth",
-                    "mb_avg_koz_rechth",
-                    "mb_kad_onrrnd_zk_archief",
-                    // bag 2
-                    "mb_adres_bag",
-                    "mb_adresseerbaar_object_geometrie_bag",
-                    "mb_avg_koz_rechth_bag",
-                    "mb_kad_onrrnd_zk_adres_bag",
-                    "mb_koz_rechth_bag"
-            );
 
-            // alles lower-case (ORACLE!) en gesorteerd vergelijken
-            viewsFound.replaceAll(String::toLowerCase);
-            views.replaceAll(String::toLowerCase);
-            Collections.sort(viewsFound);
-            Collections.sort(views);
-            assertEquals(views, viewsFound, "lijsten met materialized views zijn ongelijk");
-        }
+        List<String> views = Arrays.asList(
+                // bag
+                "mb_adres",
+                "mb_pand",
+                "mb_benoemd_obj_adres",
+                "mb_ben_obj_nevenadres",
+                // brk
+                "mb_subject",
+                "mb_avg_subject",
+                "mb_util_app_re_kad_perceel",
+                "mb_kad_onrrnd_zk_adres",
+                "mb_percelenkaart",
+                "mb_zr_rechth",
+                "mb_avg_zr_rechth",
+                "mb_koz_rechth",
+                "mb_avg_koz_rechth",
+                "mb_kad_onrrnd_zk_archief",
+                // bag 2
+                "mb_adres_bag",
+                "mb_adresseerbaar_object_geometrie_bag",
+                "mb_avg_koz_rechth_bag",
+                "mb_kad_onrrnd_zk_adres_bag",
+                "mb_koz_rechth_bag"
+        );
+
+        // alles lower-case (ORACLE!) en gesorteerd vergelijken
+        viewsFound.replaceAll(String::toLowerCase);
+        views.replaceAll(String::toLowerCase);
+        Collections.sort(viewsFound);
+        Collections.sort(views);
+        assertEquals(views, viewsFound, "lijsten met materialized views zijn ongelijk");
     }
+
 
     /**
      * Laadt de database propery file en eventuele overrides.
@@ -204,7 +192,6 @@ public class MaterializedViewsTest {
             // negeren; het override bestand is normaal niet aanwezig
         }
         isOracle = "oracle".equalsIgnoreCase(params.getProperty("dbtype"));
-        isMsSQL = "sqlserver".equalsIgnoreCase(params.getProperty("dbtype"));
         isPostgis = "postgis".equalsIgnoreCase(params.getProperty("dbtype"));
 
         try {

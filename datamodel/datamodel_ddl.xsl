@@ -142,10 +142,7 @@ set define off;
 				<xsl:text> foreign key (</xsl:text>
 				<xsl:value-of select="@columns"/>) references <xsl:value-of select="@ref-table"/> (<xsl:value-of select="@ref-columns"/>
 				<xsl:text>) on delete</xsl:text>
-				<xsl:choose>
-					<xsl:when test="$dbtype='sqlserver'"><xsl:text> no action</xsl:text></xsl:when>
-					<xsl:otherwise><xsl:text> cascade</xsl:text></xsl:otherwise>
-				</xsl:choose>
+				<xsl:text> cascade</xsl:text>
 				<xsl:text>;
 </xsl:text>
 			</xsl:for-each>
