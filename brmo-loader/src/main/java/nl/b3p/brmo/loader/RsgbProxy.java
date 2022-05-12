@@ -12,7 +12,6 @@ import nl.b3p.brmo.loader.util.TableRow;
 import nl.b3p.jdbc.util.converter.ColumnMetadata;
 import nl.b3p.jdbc.util.converter.GeometryJdbcConverter;
 import nl.b3p.jdbc.util.converter.GeometryJdbcConverterFactory;
-import nl.b3p.jdbc.util.converter.MssqlJdbcConverter;
 import nl.b3p.jdbc.util.converter.OracleJdbcConverter;
 import org.apache.commons.dbutils.DbUtils;
 import org.apache.commons.logging.Log;
@@ -1184,8 +1183,6 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
             ) {
                 if (geomToJdbc instanceof OracleJdbcConverter) {
                     stm.setNull(i + 1, Types.STRUCT, "MDSYS.SDO_GEOMETRY");
-                } else if (geomToJdbc instanceof MssqlJdbcConverter) {
-                    stm.setNull(i + 1, Types.OTHER);
                 } else {
                     stm.setNull(i + 1, stm.getParameterMetaData().getParameterType(i + 1));
                 }
@@ -1306,8 +1303,6 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
                         + param + "(" + stm.getParameterMetaData().getParameterTypeName(i + 1) + ")");
                 if (geomToJdbc instanceof OracleJdbcConverter) {
                     stm.setNull(i + 1, Types.STRUCT, "MDSYS.SDO_GEOMETRY");
-                } else if (geomToJdbc instanceof MssqlJdbcConverter) {
-                    stm.setNull(i + 1, Types.OTHER);
                 } else {
                     stm.setNull(i + 1, stm.getParameterMetaData().getParameterType(i + 1));
                 }

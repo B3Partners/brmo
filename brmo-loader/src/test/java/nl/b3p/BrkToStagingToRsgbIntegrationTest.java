@@ -15,7 +15,6 @@ import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
-import org.dbunit.ext.mssql.MsSqlDataTypeFactory;
 import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 import org.dbunit.operation.DatabaseOperation;
@@ -45,8 +44,6 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
  *
  * Draaien met:
  * {@code mvn -Dit.test=BrkToStagingToRsgbIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql -pl brmo-loader > /tmp/postgresql.log} of
- * {@code mvn -Dit.test=BrkToStagingToRsgbIntegrationTest -Dtest.onlyITs=true verify -Pmssql -pl brmo-loader > /tmp/mssql.log}
- * voor bijvoorbeeld MSSQL of
  * {@code mvn -Dit.test=BrkToStagingToRsgbIntegrationTest -Dtest.onlyITs=true verify -Poracle -pl brmo-loader > /tmp/oracle.log}
  * voor Oracle.
  *
@@ -101,10 +98,7 @@ public class BrkToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
         staging = new DatabaseDataSourceConnection(dsStaging);
         rsgb = new DatabaseDataSourceConnection(dsRsgb);
 
-        if (this.isMsSQL) {
-            staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MsSqlDataTypeFactory());
-            rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MsSqlDataTypeFactory());
-        } else if (this.isOracle) {
+        if (this.isOracle) {
             staging = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsStaging.getConnection()), params.getProperty("staging.user").toUpperCase());
             staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
             staging.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);

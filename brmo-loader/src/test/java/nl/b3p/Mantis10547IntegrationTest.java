@@ -16,8 +16,6 @@ import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.xml.XmlDataSet;
-import org.dbunit.ext.mssql.InsertIdentityOperation;
-import org.dbunit.ext.mssql.MsSqlDataTypeFactory;
 import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 import org.dbunit.operation.DatabaseOperation;
@@ -87,10 +85,7 @@ public class Mantis10547IntegrationTest extends AbstractDatabaseIntegrationTest 
         rsgb = new DatabaseDataSourceConnection(dsRsgb);
         staging = new DatabaseDataSourceConnection(dsStaging);
 
-        if (this.isMsSQL) {
-            rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MsSqlDataTypeFactory());
-            staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MsSqlDataTypeFactory());
-        } else if (this.isOracle) {
+        if (this.isOracle) {
             rsgb = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsRsgb.getConnection()), params.getProperty("rsgb.user").toUpperCase());
             rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
             rsgb.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
@@ -140,12 +135,7 @@ public class Mantis10547IntegrationTest extends AbstractDatabaseIntegrationTest 
         assumeTrue(Mantis10547IntegrationTest.class.getResource(bestandsNaam) != null,
                 "Het bestand met testdata zou moeten bestaan.");
         IDataSet stagingDataSet = new XmlDataSet(new FileInputStream(new File(Mantis10547IntegrationTest.class.getResource(bestandsNaam).toURI())));
-        if (this.isMsSQL) {
-            // SET IDENTITY_INSERT op ON
-            InsertIdentityOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
-        } else {
-            DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
-        }
+        DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
 
         assumeTrue(aantalBerichten > 0, "Er zijn meer dan 0 berichten in het bestand om te laden");
         assumeTrue(aantalProcessen > 0, "Er zijn meer dan 0 laadprocessen in het bestand om te laden");

@@ -34,7 +34,11 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assumptions.assumeFalse;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
@@ -58,7 +62,6 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
  *
  * @author mprins
  */
-@Tag("skip-mssql")
 @Tag("skip-pgsql")
 public class Oracle8000byteBugIntegrationTest extends AbstractDatabaseIntegrationTest {
 

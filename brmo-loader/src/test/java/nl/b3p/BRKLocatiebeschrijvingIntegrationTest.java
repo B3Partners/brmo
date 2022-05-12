@@ -17,14 +17,11 @@ import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.xml.XmlDataSet;
-import org.dbunit.ext.mssql.InsertIdentityOperation;
-import org.dbunit.ext.mssql.MsSqlDataTypeFactory;
 import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 import org.dbunit.operation.DatabaseOperation;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -92,10 +89,7 @@ public class BRKLocatiebeschrijvingIntegrationTest extends AbstractDatabaseInteg
         staging = new DatabaseDataSourceConnection(dsStaging);
         rsgb = new DatabaseDataSourceConnection(dsRsgb);
 
-        if (this.isMsSQL) {
-            staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MsSqlDataTypeFactory());
-            rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MsSqlDataTypeFactory());
-        } else if (this.isOracle) {
+        if (this.isOracle) {
             staging = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsStaging.getConnection()), params.getProperty("staging.user").toUpperCase());
             staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
             staging.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
@@ -130,11 +124,7 @@ public class BRKLocatiebeschrijvingIntegrationTest extends AbstractDatabaseInteg
     public void testLocatieBeschrijving(String bestandNaam, long aantalBerichten, String lo_loc__omschr) throws Exception {
         IDataSet stagingDataSet = new XmlDataSet(new FileInputStream(new File(BRKLocatiebeschrijvingIntegrationTest.class.getResource(bestandNaam).toURI())));
 
-        if(this.isMsSQL){
-            InsertIdentityOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
-        } else {
-            DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
-        }
+        DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
 
         assumeTrue(aantalBerichten == brmo.getCountBerichten(null, null, "brk", "STAGING_OK"),
                 "Het aantal STAGING_OK berichten is anders dan verwacht");

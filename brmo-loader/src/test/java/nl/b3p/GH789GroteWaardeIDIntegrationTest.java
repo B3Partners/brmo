@@ -13,8 +13,6 @@ import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.xml.XmlDataSet;
-import org.dbunit.ext.mssql.InsertIdentityOperation;
-import org.dbunit.ext.mssql.MsSqlDataTypeFactory;
 import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 import org.dbunit.operation.DatabaseOperation;
@@ -37,9 +35,7 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
  * Draaien met:
  * {@code mvn -Dit.test=GH789GroteWaardeIDIntegrationTest -Dtest.onlyITs=true verify -Poracle -pl brmo-loader > target/oracle.log}
  * voor bijvoorbeeld Oracle of
- * {@code mvn -Dit.test=GH789GroteWaardeIDIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql -pl brmo-loader > target/postgresql.log}
- * of
- * {@code mvn -Dit.test=GH789GroteWaardeIDIntegrationTest -Dtest.onlyITs=true verify -Pmssql -pl brmo-loader > target/mssql.log}.
+ * {@code mvn -Dit.test=GH789GroteWaardeIDIntegrationTest -Dtest.onlyITs=true verify -Ppostgresql -pl brmo-loader > target/postgresql.log}.
  *
  * @author mprins
  */
@@ -73,10 +69,7 @@ public class GH789GroteWaardeIDIntegrationTest  extends AbstractDatabaseIntegrat
         rsgb = new DatabaseDataSourceConnection(dsRsgb);
         staging = new DatabaseDataSourceConnection(dsStaging);
 
-        if (this.isMsSQL) {
-            rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MsSqlDataTypeFactory());
-            staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MsSqlDataTypeFactory());
-        } else if (this.isOracle) {
+        if (this.isOracle) {
             rsgb = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsRsgb.getConnection()), params.getProperty("rsgb.user").toUpperCase());
             rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
             rsgb.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
@@ -93,11 +86,7 @@ public class GH789GroteWaardeIDIntegrationTest  extends AbstractDatabaseIntegrat
 
         sequential.lock();
 
-        if (this.isMsSQL) {
-            InsertIdentityOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
-        } else {
-            DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
-        }
+        DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
         brmo = new BrmoFramework(dsStaging, dsRsgb);
 
         assumeTrue(1l == brmo.getCountBerichten(null, null, "brk", "STAGING_OK"),
