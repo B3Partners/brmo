@@ -32,7 +32,6 @@ public abstract class AbstractDatabaseIntegrationTest {
     public static void checkDatabaseIsProvided() {
         // als je vanuit de IDE wilt draaien kun je hier de database property instellen
         // System.setProperty("database.properties.file", "postgis.properties");
-        // System.setProperty("database.properties.file", "sqlserver.properties");
         // System.setProperty("database.properties.file", "oracle.properties");
         assumeFalse(null == System.getProperty("database.properties.file"), "Geen database omgeving aangegeven. Stel `database.properties.file` in.");
     }
@@ -49,11 +48,6 @@ public abstract class AbstractDatabaseIntegrationTest {
      * {@code true} als we met een Oracle database bezig zijn.
      */
     protected boolean isOracle;
-
-    /**
-     * {@code true} als we met een MS SQL Server database bezig zijn.
-     */
-    protected boolean isMsSQL;
 
     /**
      * {@code true} als we met een Postgis database bezig zijn.
@@ -86,7 +80,6 @@ public abstract class AbstractDatabaseIntegrationTest {
             // negeren; het override bestand is normaal niet aanwezig
         }
         isOracle = "oracle".equalsIgnoreCase(params.getProperty("dbtype"));
-        isMsSQL = "sqlserver".equalsIgnoreCase(params.getProperty("dbtype"));
         isPostgis = "postgis".equalsIgnoreCase(params.getProperty("dbtype"));
 
         try {

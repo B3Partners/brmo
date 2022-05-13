@@ -12,7 +12,6 @@ import nl.b3p.brmo.bag2.loader.cli.BAG2LoadOptions;
 import nl.b3p.brmo.bag2.schema.BAG2ObjectTableWriter;
 import nl.b3p.brmo.bag2.schema.BAG2SchemaMapper;
 import nl.b3p.brmo.sql.LoggingQueryRunner;
-import nl.b3p.brmo.sql.dialect.MSSQLDialect;
 import nl.b3p.brmo.sql.dialect.OracleDialect;
 import nl.b3p.brmo.sql.dialect.PostGISDialect;
 import nl.b3p.brmo.sql.dialect.SQLDialect;
@@ -41,8 +40,7 @@ public class BAG2Database implements AutoCloseable {
 
     public enum SQLDialectEnum {
         postgis,
-        oracle,
-        mssql
+        oracle
     }
 
     private SQLDialect dialect;
@@ -128,8 +126,6 @@ public class BAG2Database implements AutoCloseable {
             sqlDialectEnum = BAG2Database.SQLDialectEnum.postgis;
         } else if (connectionString.startsWith("jdbc:oracle:thin:")) {
             sqlDialectEnum = BAG2Database.SQLDialectEnum.oracle;
-        } else if (connectionString.startsWith("jdbc:sqlserver:")) {
-            sqlDialectEnum = BAG2Database.SQLDialectEnum.mssql;
         } else {
             throw new IllegalArgumentException(getMessageFormattedString("db.unknown_connection_string_dialect", connectionString));
         }
@@ -140,7 +136,6 @@ public class BAG2Database implements AutoCloseable {
         switch(dialectEnum) {
             case postgis: return new PostGISDialect();
             case oracle: return new OracleDialect();
-            case mssql: return new MSSQLDialect();
         }
         throw new IllegalArgumentException(getMessageFormattedString("db.dialect_invalid", dialectEnum));
     }

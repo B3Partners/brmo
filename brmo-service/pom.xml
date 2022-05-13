@@ -74,10 +74,6 @@
                     <groupId>net.postgis</groupId>
                     <artifactId>postgis-jdbc</artifactId>
                 </exclusion>
-                <exclusion>
-                    <groupId>com.microsoft.sqlserver</groupId>
-                    <artifactId>mssql-jdbc</artifactId>
-                </exclusion>
             </exclusions>
         </dependency>
         <dependency>
@@ -95,10 +91,6 @@
                 <exclusion>
                     <groupId>net.postgis</groupId>
                     <artifactId>postgis-jdbc</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>com.microsoft.sqlserver</groupId>
-                    <artifactId>mssql-jdbc</artifactId>
                 </exclusion>
                 <exclusion>
                     <groupId>com.fasterxml</groupId>
@@ -121,10 +113,6 @@
                 <exclusion>
                     <groupId>net.postgis</groupId>
                     <artifactId>postgis-jdbc</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>com.microsoft.sqlserver</groupId>
-                    <artifactId>mssql-jdbc</artifactId>
                 </exclusion>
                 <exclusion>
                     <groupId>com.fasterxml</groupId>
@@ -233,11 +221,6 @@
             <!-- voor database integratie tests -->
             <groupId>net.postgis</groupId>
             <artifactId>postgis-jdbc</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.microsoft.sqlserver</groupId>
-            <artifactId>mssql-jdbc</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>

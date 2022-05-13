@@ -72,7 +72,6 @@
         <postgresql.postgis-jdbc.version>2021.1.0</postgresql.postgis-jdbc.version>
         <oracle.jdbc.version>21.5.0.0</oracle.jdbc.version>
         <oracle.jdbc.artifact>ojdbc11</oracle.jdbc.artifact>
-        <sqlserver.jdbc.version>10.2.0.jre11</sqlserver.jdbc.version>
         <skip-windows />
         <javasimon.version>4.2.0</javasimon.version>
         <jakarta.mail.version>1.6.7</jakarta.mail.version>
@@ -298,21 +297,6 @@
             </dependency>
             <dependency>
                 <groupId>org.geotools.jdbc</groupId>
-                <artifactId>gt-jdbc-sqlserver</artifactId>
-                <version>${geotools.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>net.sourceforge.jtds</groupId>
-                        <artifactId>jtds</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>com.microsoft.sqlserver</groupId>
-                        <artifactId>mssql-jdbc</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>org.geotools.jdbc</groupId>
                 <artifactId>gt-jdbc-postgis</artifactId>
                 <version>${geotools.version}</version>
                 <exclusions>
@@ -361,11 +345,6 @@
                 <groupId>com.oracle.database.jdbc</groupId>
                 <artifactId>${oracle.jdbc.artifact}</artifactId>
                 <version>${oracle.jdbc.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.microsoft.sqlserver</groupId>
-                <artifactId>mssql-jdbc</artifactId>
-                <version>${sqlserver.jdbc.version}</version>
             </dependency>
             <dependency>
                 <groupId>nl.b3p</groupId>

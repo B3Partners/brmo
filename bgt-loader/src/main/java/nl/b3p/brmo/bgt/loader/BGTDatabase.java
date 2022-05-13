@@ -12,7 +12,6 @@ import nl.b3p.brmo.bgt.loader.cli.LoadOptions;
 import nl.b3p.brmo.bgt.schema.BGTObjectTableWriter;
 import nl.b3p.brmo.bgt.schema.BGTSchemaMapper;
 import nl.b3p.brmo.sql.LoggingQueryRunner;
-import nl.b3p.brmo.sql.dialect.MSSQLDialect;
 import nl.b3p.brmo.sql.dialect.OracleDialect;
 import nl.b3p.brmo.sql.dialect.PostGISDialect;
 import nl.b3p.brmo.sql.dialect.SQLDialect;
@@ -38,8 +37,7 @@ public class BGTDatabase implements AutoCloseable {
 
     public enum SQLDialectEnum {
         postgis,
-        oracle,
-        mssql
+        oracle
     }
 
     private SQLDialect dialect;
@@ -135,8 +133,6 @@ public class BGTDatabase implements AutoCloseable {
             sqlDialectEnum = SQLDialectEnum.postgis;
         } else if (connectionString.startsWith("jdbc:oracle:thin:")) {
             sqlDialectEnum = SQLDialectEnum.oracle;
-        } else if (connectionString.startsWith("jdbc:sqlserver:")) {
-            sqlDialectEnum = SQLDialectEnum.mssql;
         } else {
             throw new IllegalArgumentException(getMessageFormattedString("db.unknown_connection_string_dialect", connectionString));
         }
@@ -147,7 +143,6 @@ public class BGTDatabase implements AutoCloseable {
         switch(dialectEnum) {
             case postgis: return new PostGISDialect();
             case oracle: return new OracleDialect();
-            case mssql: return new MSSQLDialect();
         }
         throw new IllegalArgumentException(getMessageFormattedString("db.dialect_invalid", dialectEnum));
     }

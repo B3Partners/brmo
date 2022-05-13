@@ -17,8 +17,6 @@ import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
-import org.dbunit.ext.mssql.InsertIdentityOperation;
-import org.dbunit.ext.mssql.MsSqlDataTypeFactory;
 import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 import org.dbunit.operation.DatabaseOperation;
@@ -46,15 +44,11 @@ import static org.mockito.Mockito.*;
  * voor bijvoorbeeld Oracle of
  * {@code mvn -Dit.test=AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest -Dtest.onlyITs=true verify
  * -Ppostgresql -pl brmo-service > /tmp/postgresql.log}
- * voor PostgreSQL of
- * {@code mvn -Dit.test=AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest -Dtest.onlyITs=true verify
- * -Pmssql -pl brmo-service > target/mssql.log}
- * voor MS SQL.
+ * voor PostgreSQL.
  *
  * @author mprins
  * @see AdvancedFunctionsActionBeanIntegrationTest
  */
-@Tag("skip-mssql")
 public class AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest extends TestUtil {
 
     private static final Log LOG = LogFactory.getLog(
@@ -93,10 +87,7 @@ public class AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest exte
         rsgb = new DatabaseConnection(dsRsgb.getConnection());
         staging = new DatabaseConnection(dsStaging.getConnection());
 
-        if (isMsSQL) {
-            rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MsSqlDataTypeFactory());
-            staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MsSqlDataTypeFactory());
-        } else if (isOracle) {
+        if (isOracle) {
             rsgb = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsRsgb.getConnection()),
                     DBPROPS.getProperty("rsgb.username").toUpperCase());
             rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
@@ -135,14 +126,9 @@ public class AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest exte
                 AdvancedFunctionsAfterAddingBeginDateActionBeanIntegrationTest.class.getResource(
                         rBestandsNaam).toURI())));
 
-        if (isMsSQL) {
-            // SET IDENTITY_INSERT op ON
-            InsertIdentityOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
-            InsertIdentityOperation.CLEAN_INSERT.execute(rsgb, rsgbDataSet);
-        } else {
-            DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
-            DatabaseOperation.CLEAN_INSERT.execute(rsgb, rsgbDataSet);
-        }
+        DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
+        DatabaseOperation.CLEAN_INSERT.execute(rsgb, rsgbDataSet);
+
         Assumptions.assumeTrue(aantalBerichten == brmo.getCountBerichten(null, null, "brk", "RSGB_OK"),
                 "Er zijn x RSGB_OK berichten");
         Assumptions.assumeTrue(aantalProcessen == brmo.getCountLaadProcessen(null, null, "brk", "STAGING_OK"),

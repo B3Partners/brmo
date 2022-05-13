@@ -36,7 +36,6 @@ import nl.b3p.brmo.loader.xml.WozXMLReader;
 import nl.b3p.jdbc.util.converter.GeometryJdbcConverter;
 import nl.b3p.jdbc.util.converter.GeometryJdbcConverterFactory;
 import nl.b3p.jdbc.util.dbutils.LongColumnListHandler;
-import nl.b3p.jdbc.util.converter.MssqlJdbcConverter;
 import nl.b3p.jdbc.util.converter.OracleJdbcConverter;
 import nl.b3p.jdbc.util.converter.PostgisJdbcConverter;
 import nl.b3p.topnl.TopNLType;
@@ -243,11 +242,6 @@ public class StagingProxy {
                     // https://issues.apache.org/jira/browse/DBUTILS-125
                     + " where b.id = j.id and status != 'STAGING_OK')");
 
-        } else if (geomToJdbc instanceof MssqlJdbcConverter) {
-            count = new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(),
-                    "delete j from dbo." + BrmoFramework.JOB_TABLE + " j where j.id in (select b.id from dbo."
-                    + BrmoFramework.BERICHT_TABLE + " b "
-                    + " where b.id = j.id and status != ?)", Bericht.STATUS.STAGING_OK.toString());
         } else {
             count = new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(),
                     "delete from " + BrmoFramework.JOB_TABLE + " j where j.id in (select b.id from "

@@ -11,7 +11,6 @@ import nl.b3p.brmo.bgt.loader.cli.DatabaseOptions;
 import nl.b3p.brmo.bgt.schema.BGTSchema;
 import nl.b3p.brmo.bgt.schema.BGTSchemaMapper;
 import nl.b3p.brmo.sql.LoggingQueryRunner;
-import nl.b3p.brmo.sql.dialect.MSSQLDialect;
 import nl.b3p.brmo.sql.dialect.OracleDialect;
 import nl.b3p.brmo.sql.dialect.PostGISDialect;
 import org.apache.commons.logging.Log;
@@ -28,7 +27,6 @@ import org.dbunit.dataset.DataSetException;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.datatype.IDataTypeFactory;
 import org.dbunit.dataset.xml.XmlDataSet;
-import org.dbunit.ext.mssql.MsSqlDataTypeFactory;
 import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 import org.junit.jupiter.api.AfterAll;
@@ -104,9 +102,6 @@ public class DBTestBase {
         if (db.getDialect() instanceof PostGISDialect) {
             dtf = new PostgresqlDataTypeFactory();
             datasetFileSuffix = "_postgresql.xml";
-        } else if (db.getDialect() instanceof MSSQLDialect) {
-            dtf = new MsSqlDataTypeFactory();
-            datasetFileSuffix = "_mssql.xml";
         } else if (db.getDialect() instanceof OracleDialect) {
             dtf = new Oracle10DataTypeFactory();
             datasetFileSuffix = "_oracle.xml";

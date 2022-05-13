@@ -15,12 +15,6 @@ SELECT
   ' || 'INSERT INTO wijk (code,geom) SELECT '|| to_number(wk_code, '99999999') ||',ST_GeomFromEWKT(''' || ST_AsEWKT(geom) || ''') WHERE NOT EXISTS (SELECT 1 FROM wijk WHERE code='||to_number(wk_code, '99999999')||');'
    as "--postgis wijk 2021 geometrie update"
 
--- mssql blok
--- 'MERGE wijk AS target USING (VALUES (geometry::STGeomFromText(''' || ST_AsText(geom) || ''',28992))) AS source (geom) ON target.code = ' || to_number(wk_code, '99999999') || '
---   WHEN MATCHED THEN UPDATE SET geom = source.geom
---   WHEN NOT MATCHED THEN INSERT (code,geom) VALUES (' || to_number(wk_code, '99999999') ||', source.geom);'
--- as "--mssql wijk 2021 geometrie update"
-
 -- oracle blok
 -- NB. Oracle heeft handwerk nodig! 
 -- todo/handwerk 

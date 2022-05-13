@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- dit is een globale context file die vanuit tomcat/conf wordt geladen voor test runs -->
 <Context>
-    <!-- properties komen uit [postgres|sqlserver|oracle].properties tijdens process test resources phase -->
+    <!-- properties komen uit [postgres|oracle].properties tijdens process test resources phase -->
     <Resource name="jdbc/brmo/staging"
               auth="Container"
               type="javax.sql.DataSource"

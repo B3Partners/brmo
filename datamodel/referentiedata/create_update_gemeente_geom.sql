@@ -10,12 +10,6 @@ SELECT
 -- ' || 'INSERT INTO gemeente (code,naam,geom) SELECT '|| trim(leading '0' FROM gm_code) ||','''|| gm_naam ||''',ST_GeomFromEWKT(''' || ST_AsEWKT(geom) || ''') WHERE NOT EXISTS (SELECT 1 FROM gemeente WHERE code='||trim(leading '0' FROM gm_code)||');'
 --  as "--postgis gemeente 2021 geometrie update"
 
--- mssql blok
--- 'MERGE gemeente AS target USING (VALUES (geometry::STGeomFromText(''' || ST_AsText(geom) || ''',28992))) AS source (geom) ON target.code = ' || trim(leading '0' FROM gm_code) || '
---   WHEN MATCHED THEN UPDATE SET geom = source.geom
---   WHEN NOT MATCHED THEN INSERT (code,naam,geom) VALUES (' || trim(leading '0' FROM gm_code) ||','''|| gm_naam ||''', source.geom);'
---as "--mssql gemeente 2021 geometrie update"
-
 -- oracle blok
 -- NB. Oracle heeft handwerk nodig! 
 -- todo/handwerk `DECLARE wktA CLOB; wktB CLOB; wktC CLOB; wktD CLOB; wktE CLOB; wktF CLOB; wktG CLOB; wktH CLOB; wktK CLOB; wktL CLOB; wktM CLOB; wktN CLOB; wktO CLOB; wktP CLOB; wktQ CLOB; wktR CLOB; wktS CLOB; BEGIN` aan het begin van het script plakken

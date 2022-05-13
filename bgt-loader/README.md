@@ -70,9 +70,8 @@ opties die je kan gebruiken, probeer bijvoorbeeld `download initial --help` of `
 ## Database voorbereiding
 
 Een database is vereist voordat de BGT kan worden geladen. De volgende databases worden ondersteund:
-- [PostgreSQL](https://www.postgresql.org/) met [PostGIS](https://www.postgis.org/), versie 9.6 met PostGIS 2.5 t/m versie 13 met PostGIS 3.1
-- Microsoft SQL Server 2019
-- Oracle Spatial 18g
+- [PostgreSQL](https://www.postgresql.org/) met [PostGIS](https://www.postgis.org/), versie 10 met PostGIS 2.5 t/m versie 14 met PostGIS 3.2
+- Oracle Spatial 18g en 21c
 
 Andere versies werken mogelijk ook.
 
@@ -108,30 +107,6 @@ Let op! Gebruik je Docker Desktop op Windows of Mac dan werkt `localhost` niet i
 optie voor Docker. Gebruik dan de volgende optie:
 `--connection="jdbc:postgresql://host.docker.internal:5432/bgt?sslmode=disable&reWriteBatchedInserts=true"`
 
-### Microsoft SQL Server
-
-Het is mogelijk om SQL Server zelf te installeren, of deze te starten in een Linux container met Docker (let op dat je
-de gebruiksvoorwaarden van Microsoft accepteert). Na de eerste `docker run` ook even wachten totdat SQL Server is 
-opgestart:
-
-```shell
-docker run --detach -e 'ACCEPT_EULA=Y' -e 'MSSQL_SA_PASSWORD=Password12!' --publish 1433:1433 --name mssql mcr.microsoft.com/mssql/server:2019-latest
-docker exec -i mssql /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "Password12!" -Q "create database bgt; create login bgt with password = 'bgt@1234', default_database=bgt; alter authorization on database::bgt to bgt"
-```
-
-Let op dat SQL Server niet het wachtwoord `bgt` accepteert als sterk genoeg wachtwoord. Gebruik de `--password="bgt@1234"`
-optie bij het uitvoeren van de BGT lader om het wachtwoord op te geven. Het is ook nodig om de `--connection` optie op
-te geven om met SQL server te verbinden.
-
-Voorbeeldcommando om alleen een paar feature types te laden in SQL Server:
-
-```shell
-brmo-bgt-loader download initial --connection="jdbc:sqlserver://localhost:1433;databaseName=bgt;encrypt=false" --password="bgt@1234" --feature-types=wijk,buurt --no-geo-filter
-```
-Voor Docker Desktop op Windows of Mac: gebruik `host.docker.internal` in plaats van `localhost`.
-
-Vergeet niet om de Docker container te stoppen als je deze niet meer nodig hebt met het `docker stop mssql` commando.
-Mogelijk wil je de container ook weer verwijderen met `docker rm mssql`.
 
 ### Oracle Spatial
 

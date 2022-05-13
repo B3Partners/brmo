@@ -89,10 +89,6 @@
             </exclusions>
         </dependency>
         <dependency>
-            <groupId>com.microsoft.sqlserver</groupId>
-            <artifactId>mssql-jdbc</artifactId>
-        </dependency>
-        <dependency>
             <groupId>com.oracle.database.jdbc</groupId>
             <artifactId>${oracle.jdbc.artifact}</artifactId>
         </dependency>

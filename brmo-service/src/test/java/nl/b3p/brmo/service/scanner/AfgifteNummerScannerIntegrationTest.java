@@ -32,8 +32,6 @@ import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
-import org.dbunit.ext.mssql.InsertIdentityOperation;
-import org.dbunit.ext.mssql.MsSqlDataTypeFactory;
 import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 import org.dbunit.operation.DatabaseOperation;
@@ -97,9 +95,7 @@ public class AfgifteNummerScannerIntegrationTest extends TestUtil {
     public void setUp() throws Exception {
         staging = new DatabaseConnection(dsStaging.getConnection());
 
-        if (isMsSQL) {
-            staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MsSqlDataTypeFactory());
-        } else if (isOracle) {
+        if (isOracle) {
             dsStaging.getConnection().setAutoCommit(true);
             staging = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsStaging.getConnection()),
                     DBPROPS.getProperty("staging.username").toUpperCase());
@@ -151,26 +147,18 @@ public class AfgifteNummerScannerIntegrationTest extends TestUtil {
         IDataSet stagingDataSet = fxdb.build(new FileInputStream(
                 new File(AfgifteNummerScannerIntegrationTest.class.getResource(sBestandsNaam).toURI())));
 
-        if (isMsSQL) {
-            // SET IDENTITY_INSERT op ON
-            InsertIdentityOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
-        } else {
-            DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
-        }
+        DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
         assumeTrue(
                 lAantalLaadProcessen == brmo.getCountLaadProcessen(null, null, null, null),
                 "Er zijn anders dan verwacht aantal laadprocessen"
         );
 
-        if (!isMsSQL) {
-            // mssql gebruikt identity kolom
-            try {
-                ITable lp = staging.createQueryTable("laadproces", "select max(id) as maxid from laadproces");
-                Number maxLP = (Number) lp.getValue(0, "maxid");
-                SequenceUtil.updateSequence("laadproces_id_seq", maxLP.longValue() + 9999999, dsStaging);
-            } catch (SQLException s) {
-                LOG.error("Bijwerken laadproces sequence is mislukt", s);
-            }
+        try {
+            ITable lp = staging.createQueryTable("laadproces", "select max(id) as maxid from laadproces");
+            Number maxLP = (Number) lp.getValue(0, "maxid");
+            SequenceUtil.updateSequence("laadproces_id_seq", maxLP.longValue() + 9999999, dsStaging);
+        } catch (SQLException s) {
+            LOG.error("Bijwerken laadproces sequence is mislukt", s);
         }
     }
 

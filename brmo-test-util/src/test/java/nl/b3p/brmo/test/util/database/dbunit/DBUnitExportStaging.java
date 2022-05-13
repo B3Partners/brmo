@@ -35,11 +35,6 @@ public class DBUnitExportStaging {
     private static final String _jdbcConnection = "jdbc:postgresql://localhost:5432/staging";
     private static final String _user = "rsgb";
     private static final String _passwd = "rsgb";
-    // ms sql
-    // private static final String _driverClass = "net.sourceforge.jtds.jdbc.Driver";
-    // private static final String _jdbcConnection = "jdbc:jtds:sqlserver://192.168.1.15:1433/itest_brmo_staging;instance=SQLEXPRESS";
-    // private static final String _user = "brmotest";
-    // private static final String _passwd = "brmotest";
 
     // oracle
     // private static final String _driverClass = "oracle.jdbc.OracleDriver";
@@ -55,8 +50,6 @@ public class DBUnitExportStaging {
         IDatabaseConnection connection = new DatabaseConnection(jdbcConnection);
         // postgis
         connection.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
-        // mssql
-        // connection.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MsSqlDataTypeFactory());
         // oracle
 //        IDatabaseConnection connection = new DatabaseConnection(jdbcConnection, _user.toUpperCase());
 //        connection.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());

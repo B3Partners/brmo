@@ -53,7 +53,7 @@ mvn clean release:prepare
 
 ## Integratie en unit tests
 
-Er zijn drie Maven profielen (postgresql, oracle, mssql) voor de ondersteunde databases gedefinieerd,
+Er zijn drie Maven profielen (postgresql, oracle) voor de ondersteunde databases gedefinieerd,
 de profiele zorgen ervoor dat de juist JDBC driver beschikbaar komt in de test suites,
 tevens kan daarmee de juiste configuratie worden geladen.
 
@@ -81,7 +81,6 @@ module of via commandline ingesteld.
 | property file       | gebruikt op | override                  |
 | ------------------- |-------------| ------------------------- |
 |postgres.properties  | Github      |local.postgres.properties  |
-|sqlserver.properties | Github      |local.sqlserver.properties |
 |oracle.properties    | Jenkins     |local.oracle.properties    |
 
 Voor gebruik van de propertyfile in een integratie test kun je overerven van een

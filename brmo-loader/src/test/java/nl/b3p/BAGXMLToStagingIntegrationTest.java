@@ -13,7 +13,6 @@ import org.dbunit.database.DatabaseDataSourceConnection;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
-import org.dbunit.ext.mssql.MsSqlDataTypeFactory;
 import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 import org.dbunit.operation.DatabaseOperation;
@@ -36,9 +35,6 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 /**
  * Draaien met:
- * {@code mvn -Dit.test=BAGXMLToStagingIntegrationTest -Dtest.onlyITs=true verify -pl brmo-loader -Pmssql >
- * target/mssql.log}
- * voor bijvoorbeeld MSSQL, of
  * {@code mvn -Dit.test=BAGXMLToStagingIntegrationTest -Dtest.onlyITs=true verify -pl brmo-loader -Ppostgresql >
  * /tmp/postgresql.log}
  *
@@ -75,9 +71,7 @@ public class BAGXMLToStagingIntegrationTest extends AbstractDatabaseIntegrationT
         brmo = new BrmoFramework(dsStaging, null);
         staging = new DatabaseDataSourceConnection(dsStaging);
 
-        if (this.isMsSQL) {
-            staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MsSqlDataTypeFactory());
-        } else if (this.isOracle) {
+        if (this.isOracle) {
             staging = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsStaging.getConnection()),
                     params.getProperty("staging.user").toUpperCase());
             staging.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());

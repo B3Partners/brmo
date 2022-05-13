@@ -12,7 +12,6 @@ import static java.lang.System.getProperty;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assumptions.assumeFalse;
 
-@Tag("skip-mssql")
 @Tag("skip-pgsql")
 @Tag("skip-hsqldb")
 public class OracleDriverTest {

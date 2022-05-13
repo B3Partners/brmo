@@ -81,8 +81,7 @@ public class TopNLRsgbTransformer implements Runnable {
 
         gmlLoader.setDbConnProps(params);
         gmlLoader.setBijwerkDatum(new Date());
-        gmlLoader.setIsOracle(geomjdbc.getGeotoolsDBTypeName().toLowerCase().contains("oracle"));
-        gmlLoader.setIsMSSQL(geomjdbc.getGeotoolsDBTypeName().toLowerCase().contains("sqlserver"));*/
+        gmlLoader.setIsOracle(geomjdbc.getGeotoolsDBTypeName().toLowerCase().contains("oracle"));*/
     }
 
 

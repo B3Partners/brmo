@@ -11,7 +11,6 @@ import org.dbunit.database.DatabaseConfig;
 import org.dbunit.database.DatabaseDataSourceConnection;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.ITable;
-import org.dbunit.ext.mssql.MsSqlDataTypeFactory;
 import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 import org.junit.jupiter.api.AfterEach;
@@ -65,10 +64,6 @@ public class DatabaseUpgradeTest {
      */
     private boolean isOracle;
     /**
-     * {@code true} als we met een MS SQL Server database bezig zijn.
-     */
-    private boolean isMsSQL;
-    /**
      * {@code true} als we met een Postgis database bezig zijn.
      */
     private boolean isPostgis;
@@ -92,7 +87,7 @@ public class DatabaseUpgradeTest {
         LOG.debug("release patch is: " + patch);
         previousRelease = nextRelease.substring(0, nextRelease.lastIndexOf(".")) + "." + (patch - 1);
         // HACK voor bump
-        if (nextRelease.equalsIgnoreCase("2.3.0")){
+        if (nextRelease.equalsIgnoreCase("2.3.0")) {
             previousRelease = "2.2.2";
         }
         LOG.debug("vorige release is: " + previousRelease);
@@ -118,9 +113,7 @@ public class DatabaseUpgradeTest {
         ds.setAccessToUnderlyingConnectionAllowed(true);
         db = new DatabaseDataSourceConnection(ds);
 
-        if (this.isMsSQL) {
-            db.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MsSqlDataTypeFactory());
-        } else if (this.isOracle) {
+        if (this.isOracle) {
             db.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
             db.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
         } else if (this.isPostgis) {
@@ -134,11 +127,6 @@ public class DatabaseUpgradeTest {
     @MethodSource("localParameters")
     public void testCurrentVersion(String dbName) throws Exception {
         setUpDB(dbName);
-        if(this.isMsSQL && dbName.equals("bag")) {
-            // geen BAG 2 voor mssql, overslaan
-            assumeTrue(this.isMsSQL && dbName.equals("bag"), "always true");
-            return;
-        }
         ITable metadata = db.createTable("brmo_metadata");
 
         String waarde, naam;
@@ -182,36 +170,31 @@ public class DatabaseUpgradeTest {
         List<String> viewsFound = ViewUtils.listAllMaterializedViews(ds);
         assertNotNull(viewsFound, "Geen materialized views gevonden");
 
-        if (isMsSQL) {
-            // geen m-views in mssql
-            assertTrue(viewsFound.isEmpty(), "Gek! sqlserver heeft materialized views");
-        } else {
-            List<String> views = Arrays.asList(
-                    // bag
-                    "mb_adres",
-                    "mb_pand",
-                    "mb_benoemd_obj_adres",
-                    "mb_ben_obj_nevenadres",
-                    // brk
-                    "mb_subject",
-                    "mb_avg_subject",
-                    "mb_util_app_re_kad_perceel",
-                    "mb_kad_onrrnd_zk_adres",
-                    "mb_percelenkaart",
-                    "mb_zr_rechth",
-                    "mb_avg_zr_rechth",
-                    "mb_koz_rechth",
-                    "mb_avg_koz_rechth",
-                    "mb_kad_onrrnd_zk_archief"
-            );
+        List<String> views = Arrays.asList(
+                // bag
+                "mb_adres",
+                "mb_pand",
+                "mb_benoemd_obj_adres",
+                "mb_ben_obj_nevenadres",
+                // brk
+                "mb_subject",
+                "mb_avg_subject",
+                "mb_util_app_re_kad_perceel",
+                "mb_kad_onrrnd_zk_adres",
+                "mb_percelenkaart",
+                "mb_zr_rechth",
+                "mb_avg_zr_rechth",
+                "mb_koz_rechth",
+                "mb_avg_koz_rechth",
+                "mb_kad_onrrnd_zk_archief"
+        );
 
-            // alles lower-case (ORACLE!) en gesorteerd vergelijken
-            viewsFound.replaceAll(String::toLowerCase);
-            views.replaceAll(String::toLowerCase);
-            Collections.sort(viewsFound);
-            Collections.sort(views);
-            assertEquals(views, viewsFound, "lijsten met materialized views zijn ongelijk");
-        }
+        // alles lower-case (ORACLE!) en gesorteerd vergelijken
+        viewsFound.replaceAll(String::toLowerCase);
+        views.replaceAll(String::toLowerCase);
+        Collections.sort(viewsFound);
+        Collections.sort(views);
+        assertEquals(views, viewsFound, "lijsten met materialized views zijn ongelijk");
     }
 
     @BeforeEach
@@ -244,7 +227,6 @@ public class DatabaseUpgradeTest {
             // negeren; het override bestand is normaal niet aanwezig
         }
         isOracle = "oracle".equalsIgnoreCase(params.getProperty("dbtype"));
-        isMsSQL = "sqlserver".equalsIgnoreCase(params.getProperty("dbtype"));
         isPostgis = "postgis".equalsIgnoreCase(params.getProperty("dbtype"));
 
         try {
