@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02"
+           targetNamespace="http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02"
+           elementFormDefault="qualified" attributeFormDefault="unqualified"
+           version="schema.v3_0">
+
+    <xs:complexType name="EnumeratieType">
+        <xs:sequence>
+            <xs:element name="code" type="xs:string"/>
+            <xs:element name="omschrijving" type="xs:string"/>
+            <xs:element name="referentieType" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!--**** Letter ****-->
+    <xs:simpleType name="Letter">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[a-zA-Z]"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!--**** Alfanumeriek ****-->
+    <xs:simpleType name="Alfanumeriek15">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[a-zA-Z0-9_\+\-]{0,15}"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="Alfanumeriek5">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[a-zA-Z0-9_\+\-]{0,5}"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!--**** Tekst ****-->
+    <xs:simpleType name="Tekst16">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="0"/>
+            <xs:maxLength value="16"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+	<xs:simpleType name="Tekst50">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="0"/>
+            <xs:maxLength value="50"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!--**** Numeriek ****-->
+    <xs:simpleType name="Numeriek23DecimaalFractie4">
+        <xs:restriction base="xs:decimal">
+            <xs:totalDigits value="23"/>
+            <xs:fractionDigits value="4"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!--**** Jaar / Datum / Tijdstip ****-->
+    <xs:simpleType name="JaarType">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[0-9]{4}"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="DatumIncompleetType">
+        <xs:annotation>
+            <xs:documentation>Een datum heeft een vast formaat: 8 posities, met als invulling jjjjmmdd (jaar-maand-dag),
+                waarbij alleen cijfers zijn toegestaan.
+                Wanneer een gedeelte van de datum onbekend is, wordt dat gerepresenteerd door nullen. De mogelijke
+                waarden van datum zijn:
+                jjjjmmdd volledige datum
+                jjjjmm00 dag onbekend
+                jjjj0000 maand onbekend
+                00000000 datum onbekend, standaardwaarde
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[0-9]{8}"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="TijdstipType">
+        <xs:annotation>
+            <xs:documentation>Een tijdstip bestaat uit een complete datum (volgens de gregoriaanse kalender) en tijd.
+                Het formaat van het tijdstip is jjjjmmddhhmmssmmm, waarbij achtereenvolgens: jjjj - jaartal
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[0-9]{17}"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="NoValue">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="nietOndersteund"/>
+            <xs:enumeration value="nietGeautoriseerd"/>
+            <xs:enumeration value="geenWaarde"/>
+            <xs:enumeration value="waardeOnbekend"/>
+            <xs:enumeration value="vastgesteldOnbekend"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!--**** Nummer ****-->
+    <xs:simpleType name="BSNummerType">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[0-9]{9}"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="RSINummerType">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[0-9]{9}"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="KvKNummerType">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[0-9]{8}"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="VestigingsnummerType">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[0-9]{12}"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!--**** Id ****-->
+    <xs:simpleType name="DepotIdType">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="0"/>
+            <xs:maxLength value="36"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!--**** Postcode ****-->
+    <xs:complexType name="PostcodeType">
+        <xs:sequence>
+            <xs:element name="cijfercombinatie">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value="[0-9]{4}"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="lettercombinatie" minOccurs="0">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value="[a-zA-Z]{2}"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!--**** Geld ****-->
+    <xs:complexType name="GeldType">
+        <xs:sequence>
+            <xs:element name="waarde">
+                <xs:simpleType>
+                    <xs:restriction base="xs:decimal">
+                        <xs:totalDigits value="18"/>
+                        <xs:fractionDigits value="8"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="valuta" type="EnumeratieType"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- **** BagId ****-->
+    <xs:complexType name="BagIdType">
+        <xs:sequence>
+            <xs:element name="identificatieNummeraanduiding" type="Tekst16"/>
+            <xs:element name="identificatieAdresseerbaarObject" type="Tekst16"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!--**** Registratie ****-->
+    <xs:complexType name="RegistratieType">
+        <xs:annotation>
+            <xs:documentation>Generiek registratie type met voor elke type geledende registratie gegevens
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="datumAanvang" type="DatumIncompleetType" minOccurs="0"/>
+            <xs:element name="datumEinde" type="DatumIncompleetType" minOccurs="0"/>
+        </xs:sequence>
+        <xs:attribute name="soortMutatie" type="xs:string" use="optional"/>
+        <xs:attribute name="registratieTijdstip" type="TijdstipType" use="optional"/>
+        <xs:attribute name="registratieTijdstipNoValue" type="NoValue" use="optional"/>
+    </xs:complexType>
+
+    <!--**** Basis type voor alle (niet-relatie) types met registratie2_3 gegevens ****-->
+    <xs:complexType name="BasisType" abstract="true">
+        <xs:complexContent>
+            <xs:extension base="MetExtraElementenMogenlijkheidType">
+        <xs:sequence>
+            <xs:element name="registratie" type="RegistratieType" minOccurs="0"/>
+        </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="MetExtraElementenMogenlijkheidType" abstract="true">
+        <xs:sequence>
+            <xs:element name="extraElementen" type="ExtraElementenType" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="ExtraElementenType">
+        <xs:sequence>
+            <xs:element name="extraElement" nillable="true" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="xs:string">
+                            <xs:attribute name="naam" type="xs:string" use="required"/>
+                            <xs:attribute name="hoortBijGroep" type="xs:string"/>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
