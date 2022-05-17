@@ -55,14 +55,14 @@ public class NHRLoadUtils {
         return fw;
     }
 
-    private static Properties getCryptoProperties(NHRCertificateOptions certificateOptions) {
+    private static Properties getCryptoProperties(NHRCertificateOptions certificateOptions, String alias) {
         Properties props = new Properties();
 
         props.setProperty("org.apache.ws.security.crypto.provider", "org.apache.ws.security.components.crypto.Merlin");
         props.setProperty("org.apache.ws.security.crypto.merlin.keystore.file", certificateOptions.getKeystore());
         props.setProperty("org.apache.ws.security.crypto.merlin.keystore.password", certificateOptions.getKeystorePassword());
         props.setProperty("org.apache.ws.security.crypto.merlin.keystore.type", "PKCS12");
-        props.setProperty("org.apache.ws.security.crypto.merlin.keystore.alias", certificateOptions.getKeystoreAlias());
+        props.setProperty("org.apache.ws.security.crypto.merlin.keystore.alias", alias);
 
         return props;
     }
@@ -92,6 +92,10 @@ public class NHRLoadUtils {
         try (FileInputStream keyStoreFile = new FileInputStream(certificateOptions.getKeystore())) {
             keyStore.load(keyStoreFile, certificateOptions.getKeystorePassword().toCharArray());
         }
+        String alias = certificateOptions.getKeystoreAlias();
+        if (alias == null || alias.isBlank()) {
+            alias = keyStore.aliases().nextElement();
+        }
         keyManagerFactory.init(keyStore, certificateOptions.getKeystorePassword().toCharArray());
 
         SSLContext context = SSLContext.getInstance("TLSv1.2");
@@ -110,7 +114,7 @@ public class NHRLoadUtils {
         props.put(WSHandlerConstants.USE_SINGLE_CERTIFICATE, "false");
 
         props.put(WSHandlerConstants.SIG_PROP_REF_ID, "signatureProperties");
-        props.put("signatureProperties", getCryptoProperties(certificateOptions));
+        props.put("signatureProperties", getCryptoProperties(certificateOptions, alias));
 
         props.put(WSHandlerConstants.SIGNATURE_PARTS,
                   "{}{http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd}Timestamp;"
@@ -120,7 +124,7 @@ public class NHRLoadUtils {
                   + "{}{http://www.w3.org/2005/08/addressing}MessageID;"
                   + "{}{http://www.w3.org/2005/08/addressing}Action");
 
-        props.put(WSHandlerConstants.USER, certificateOptions.getKeystoreAlias());
+        props.put(WSHandlerConstants.USER, alias);
         props.put(WSHandlerConstants.PW_CALLBACK_REF, new CallbackHandler() {
             public void handle(Callback[] callbacks) throws IOException, UnsupportedCallbackException {
                 for (Callback callback : callbacks) {

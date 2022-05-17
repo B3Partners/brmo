@@ -113,10 +113,11 @@ public class NHRActionBean implements ActionBean {
                     keyStore.load(keyStoreFile, ((String)InitialContext.doLookup("java:comp/env/brmo/nhr/keystorePassword")).toCharArray());
                 }
 
-                Certificate cert = keyStore.getCertificate("key");
-                if (cert == null) {
-                    statusNotification += "geen certificaat met alias \"key\" gevonden\n";
+                String alias = keyStore.aliases().nextElement();
+                if (alias == null) {
+                    statusNotification += "geen bruikbaar certificaat gevonden";
                 } else {
+                    Certificate cert = keyStore.getCertificate(alias);
                     Date now = new Date();
                     statusCertificateExpiry = ((X509Certificate) cert).getNotAfter();
                     statusDaysUntilExpiry = (statusCertificateExpiry.getTime() - now.getTime()) / (60 * 60 * 24);

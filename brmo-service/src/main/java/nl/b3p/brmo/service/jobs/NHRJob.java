@@ -79,7 +79,7 @@ public class NHRJob implements Job {
             NHRCertificateOptions certOptions = new NHRCertificateOptions();
             certOptions.setKeystore((String) ctx.lookup("java:comp/env/brmo/nhr/keystorePath"));
             certOptions.setKeystorePassword((String) ctx.lookup("java:comp/env/brmo/nhr/keystorePassword"));
-            certOptions.setKeystoreAlias("key");
+            certOptions.setKeystoreAlias(null);
             certOptions.setTruststore((String) ctx.lookup("java:comp/env/brmo/nhr/truststorePath"));
             certOptions.setTruststorePassword((String) ctx.lookup("java:comp/env/brmo/nhr/truststorePassword"));
 
