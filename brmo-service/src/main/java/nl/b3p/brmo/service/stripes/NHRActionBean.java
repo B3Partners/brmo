@@ -22,6 +22,7 @@ import net.sourceforge.stripes.validation.Validate;
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.persistence.staging.NHRInschrijving;
 import nl.b3p.brmo.service.jobs.NHRJob;
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.stripesstuff.stripersist.Stripersist;
@@ -289,6 +290,13 @@ public class NHRActionBean implements ActionBean {
                 String line = reader.readLine();
                 if (line == null) {
                     break;
+                }
+
+                // Parse the first column from a CSV, and accept KVK numbers with zeroes trimmed
+                // (e.g. spreadsheet software parsing the number as a decimal)
+                line = line.split(",")[0];
+                if (line.length() < 8) {
+                    line = StringUtils.leftPad(line, 8, "0");
                 }
 
                 NHRInschrijving proces;
