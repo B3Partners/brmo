@@ -11,7 +11,7 @@
     <wsdl:types>
         <xs:schema targetNamespace="http://schemas.kvk.nl/schemas/hrip/dataservice/2015/02" elementFormDefault="qualified">
 
-            <xs:import namespace="http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02" schemaLocation="http://schemas.kvk.nl/schemas/kvk/dataservice/catalogus/2015/02/Catalogus.xsd"/>
+            <xs:import namespace="http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02" schemaLocation="catalogus/Catalogus.xsd"/>
 
             <xs:complexType name="ProductRequestType">
                 <xs:sequence>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02"
+           targetNamespace="http://schemas.kvk.nl/schemas/hrip/catalogus/2015/02"
+           elementFormDefault="qualified" attributeFormDefault="unqualified"
+           version="schema.v3_0">
+
+    <!-- Catalogus -->
+    <xs:include schemaLocation="CatalogusTypes.xsd"/>
+    <xs:include schemaLocation="CatalogusGegevensGroepen.xsd"/>
+    <xs:include schemaLocation="CatalogusMainTypes.xsd"/>
+
+    <!--*********************************** De Root Elements **********************************-->
+
+    <!--**** Persoon ****-->
+    <xs:element name="naamPersoon" type="NaamPersoonType"/>
+    <xs:element name="natuurlijkPersoon" type="NatuurlijkPersoonType"/>
+    <xs:element name="buitenlandseVennootschap" type="BuitenlandseVennootschapType"/>
+    <xs:element name="eenmanszaakMetMeerdereEigenaren" type="EenmanszaakMetMeerdereEigenarenType"/>
+    <xs:element name="rechtspersoon" type="RechtspersoonType"/>
+    <xs:element name="rechtspersoonInOprichting" type="RechtspersoonInOprichtingType"/>
+    <xs:element name="samenwerkingsverband" type="SamenwerkingsverbandType"/>
+
+    <!--**** MaatschappelijkeActiviteit ****-->
+    <xs:element name="maatschappelijkeActiviteit" type="MaatschappelijkeActiviteitType"/>
+
+    <!--**** Onderneming ****-->
+    <xs:element name="onderneming" type="OndernemingType"/>
+
+    <!--**** Vestiging ****-->
+    <xs:element name="commercieleVestiging" type="CommercieleVestigingType"/>
+    <xs:element name="nietCommercieleVestiging" type="NietCommercieleVestigingType"/>
+
+    <!--**** Adres ****-->
+    <xs:element name="binnenlandsAdres" type="BinnenlandsAdresType"/>
+
+    <!--**** Deponeringen ****-->
+    <xs:element name="deponeringen" type="DeponeringenType"/>
+</xs:schema>

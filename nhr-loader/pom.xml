@@ -154,8 +154,8 @@ Copyright (C) 2022 B3Partners B.V.
                             <sourceRoot>${project.build.directory}/generated-sources/cxf</sourceRoot>
                             <wsdlOptions>
                                 <wsdlOption>
-                                    <wsdl>${basedir}/src/wsdl/KVK-KvKDataservice.wsdl</wsdl>
-                                    <wsdlLocation>http://schemas.kvk.nl/contracts/kvk/dataservice/catalogus/2015/02/KVK-KvKDataservice.wsdl</wsdlLocation>
+                                    <wsdl>${basedir}/src/main/resources/wsdl/KVK-KvKDataservice.wsdl</wsdl>
+                                    <wsdlLocation>classpath:wsdl/KVK-KvKDataservice.wsdl</wsdlLocation>
                                 </wsdlOption>
                             </wsdlOptions>
                         </configuration>
