@@ -160,12 +160,14 @@ public class NHRJob implements Job {
                     Calendar time = Calendar.getInstance();
                     process.setLaatstGeprobeerd(new Date());
                     // Wait for 30 seconds, then 1 minute, 2 minutes, 4 minutes, ...
-                    int secondsUntilNextTry = 30 * (int) Math.pow(2, process.getProbeerAantal() - 1);
+                    int secondsUntilNextTry = 30 * (int) Math.pow(2, Math.min(process.getProbeerAantal() - 1, 10));
 
                     // Make sure that fetches retry at least every two hours.
                     // (This will happen after 9 retries, or two hours in.)
                     if (secondsUntilNextTry > 7200) {
                         secondsUntilNextTry = 7200;
+                    } else if (secondsUntilNextTry < 30) {
+                        secondsUntilNextTry = 30;
                     }
 
                     time.add(Calendar.SECOND, secondsUntilNextTry);
