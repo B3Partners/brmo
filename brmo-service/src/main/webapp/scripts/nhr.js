@@ -40,7 +40,7 @@ Ext.define('B3P.brmo.NHRNummers', {
                         text: "log",
                         dataIndex: 'kvkNummer',
                         renderer: function(value) {
-                           return Ext.String.format('<a href="#" onclick="return openLog({0});" title="Open log"><img src="images/page_text.gif"/></a>', value);
+                           return Ext.String.format('<a href="#" onclick="return openLog(\'{0}\');" title="Open log"><img src="images/page_text.gif"/></a>', value);
                         }
                    }
                 ],
