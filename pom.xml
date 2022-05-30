@@ -1086,7 +1086,7 @@
                 <plugin>
                     <groupId>org.openapitools</groupId>
                     <artifactId>openapi-generator-maven-plugin</artifactId>
-                    <version>5.4.0</version>
+                    <version>6.0.0</version>
                 </plugin>
                 <!--                <plugin>-->
                 <!--            deze plugin is stuk op Windows met Java 11.0.15, zie oa. https://stackoverflow.com/questions/71956115 -->
