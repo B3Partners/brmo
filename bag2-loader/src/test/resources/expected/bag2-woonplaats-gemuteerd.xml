@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+  ~ Copyright (C) 2022 B3Partners B.V.
+  ~
+  ~ SPDX-License-Identifier: MIT
+  ~
+  -->
+
+<dataset>
+    <table name="woonplaats">
+        <column>objectid</column>
+        <column>identificatie</column>
+        <column>voorkomenidentificatie</column>
+        <column>begingeldigheid</column>
+        <column>eindgeldigheid</column>
+        <column>tijdstipregistratie</column>
+        <column>eindregistratie</column>
+        <column>tijdstipinactief</column>
+        <column>tijdstipregistratielv</column>
+        <column>tijdstipeindregistratielv</column>
+        <column>tijdstipinactieflv</column>
+        <column>documentdatum</column>
+        <column>documentnummer</column>
+        <column>geconstateerd</column>
+        <column>status</column>
+        <column>naam</column>
+        <row>
+            <value>1</value>
+            <value><![CDATA[3502            ]]></value>
+            <value>1</value>
+            <value>2010-09-21</value>
+            <value>2011-09-01</value>
+            <value><![CDATA[2010-12-31 11:25:43.0]]></value>
+            <value><![CDATA[2011-09-08 12:20:45.0]]></value>
+            <null/>
+            <value><![CDATA[2010-12-31 11:33:38.0]]></value>
+            <value><![CDATA[2011-09-08 12:31:38.0]]></value>
+            <null/>
+            <value>2010-09-21</value>
+            <value>AVGpvdb02</value>
+            <value>false</value>
+            <value><![CDATA[Woonplaats aangewezen]]></value>
+            <value>NIEUWKUIJK</value>
+        </row>
+        <row>
+            <value>2</value>
+            <value><![CDATA[3502            ]]></value>
+            <value>2</value>
+            <value>2011-09-01</value>
+            <value>2011-10-05</value>
+            <value><![CDATA[2011-09-08 12:20:45.0]]></value>
+            <value><![CDATA[2011-10-05 12:47:19.0]]></value>
+            <null/>
+            <value><![CDATA[2011-09-08 12:31:38.0]]></value>
+            <value><![CDATA[2011-10-05 13:01:44.0]]></value>
+            <null/>
+            <value>2011-09-01</value>
+            <value>AVGEL01092011-04</value>
+            <value>false</value>
+            <value><![CDATA[Woonplaats aangewezen]]></value>
+            <value>Nieuwkuijk</value>
+        </row>
+        <row>
+            <value>4</value>
+            <value><![CDATA[3502            ]]></value>
+            <value>3</value>
+            <value>2011-10-05</value>
+            <value>2022-05-23</value>
+            <value><![CDATA[2011-10-05 12:47:19.0]]></value>
+            <value><![CDATA[2022-05-23 09:53:06.0]]></value>
+            <null/>
+            <value><![CDATA[2011-10-05 13:01:44.0]]></value>
+            <value><![CDATA[2022-05-23 09:53:21.0]]></value>
+            <null/>
+            <value>2011-10-05</value>
+            <value>AVGSK05102011-01</value>
+            <value>false</value>
+            <value><![CDATA[Woonplaats aangewezen]]></value>
+            <value>Nieuwkuijk</value>
+        </row>
+        <row>
+            <value>5</value>
+            <value><![CDATA[3502            ]]></value>
+            <value>4</value>
+            <value>2022-05-23</value>
+            <null/>
+            <value><![CDATA[2022-05-23 09:53:06.0]]></value>
+            <null/>
+            <null/>
+            <value><![CDATA[2022-05-23 09:53:21.0]]></value>
+            <null/>
+            <null/>
+            <value>2022-05-23</value>
+            <value>2068944</value>
+            <value>false</value>
+            <value><![CDATA[Woonplaats aangewezen]]></value>
+            <value>Nieuwkuijk</value>
+        </row>
+    </table>
+</dataset>

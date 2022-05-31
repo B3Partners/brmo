@@ -9,21 +9,37 @@ package nl.b3p.brmo.bag2.loader;
 import nl.b3p.brmo.bag2.loader.cli.BAG2DatabaseOptions;
 import nl.b3p.brmo.bag2.loader.cli.BAG2LoadOptions;
 import nl.b3p.brmo.bag2.loader.cli.BAG2LoaderMain;
+
+import nl.b3p.brmo.sql.LoggingQueryRunner;
+import nl.b3p.brmo.sql.dialect.OracleDialect;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.dbunit.IDatabaseTester;
+import org.dbunit.JdbcDatabaseTester;
 import org.dbunit.database.DatabaseConfig;
 import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.IDatabaseConnection;
+import org.dbunit.dataset.IDataSet;
+import org.dbunit.dataset.xml.XmlDataSet;
 import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInfo;
+import org.junit.jupiter.api.TestMethodOrder;
 
 import java.net.URL;
+import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.junit.jupiter.api.Assumptions.assumeFalse;
@@ -35,7 +51,10 @@ import static org.junit.jupiter.api.Assumptions.assumeFalse;
  *
  * @author mprins
  */
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class BAGLoaderDatabaseIntegrationTest {
+    private static final Log LOG = LogFactory.getLog(BAGLoaderDatabaseIntegrationTest.class);
+
     private static final String[] BAGTABLES = new String[]{"ligplaats", "ligplaats_nevenadres", "nummeraanduiding", "openbareruimte", "pand", "standplaats", "standplaats_nevenadres", "verblijfsobject", "verblijfsobject_gebruiksdoel", "verblijfsobject_maaktdeeluitvan", "verblijfsobject_nevenadres", "woonplaats"};
     private static final String[] BAGACTUEELVIEWS = new String[]{"v_ligplaats_actueel", "v_nummeraanduiding_actueel", "v_openbareruimte_actueel", "v_pand_actueel", "v_standplaats_actueel", "v_verblijfsobject_actueel", "v_woonplaats_actueel"};
     private static String dbUrl = System.getProperty("dburl");
@@ -49,13 +68,21 @@ public class BAGLoaderDatabaseIntegrationTest {
     private String testFileName;
     private String tableQualifierPrefix = "";
 
+    public static String getSchema(BAG2Database db, BAG2DatabaseOptions dbOptions) {
+        if (db.getDialect() instanceof OracleDialect) {
+            // If we don't set the schema to the user the DatabaseMetaData.getTables() call without a schema filter will take 5 minutes
+            return dbOptions.getUser().toUpperCase();
+        }
+        return null;
+    }
+
     @BeforeAll
     static void beforeAll() {
         BAG2LoaderMain.configureLogging(false);
     }
 
     @BeforeEach
-    void setUp() throws Exception {
+    void setUp(TestInfo info) throws Exception {
         assumeFalse(StringUtils.isEmpty(dbUrl), "skipping integration test: missing database url");
         URL u = BAGLoaderDatabaseIntegrationTest.class.getResource("/BAGGEM1904L-15102021.zip");
         assumeFalse(null == u, "skipping integration test: missing testdata");
@@ -82,15 +109,33 @@ public class BAGLoaderDatabaseIntegrationTest {
         databaseOptions.setUser(dbUser);
         databaseOptions.setPassword(dbPass);
         bag2Database = new BAG2Database(databaseOptions);
+
+        if (info.getTestMethod().isPresent()) {
+            if(info.getTestMethod().get().getAnnotation(SkipDropTables.class) == null) {
+                try {
+                    dropTables(bag.getConnection(), getSchema(bag2Database, databaseOptions), bag2Database.getDialect() instanceof OracleDialect);
+                } catch(Exception e) {
+                    LOG.error("Exception dropping tables before test", e);
+                }
+            }
+        }
+    }
+
+    private static void dropTables(Connection connection, String schema, boolean isOracle) throws SQLException {
+        if (!isOracle) {
+            LOG.trace("Drop BAG schema");
+            new LoggingQueryRunner().update(connection,"drop schema if exists bag cascade");
+        }
     }
 
     @AfterEach
     void cleanup() throws SQLException {
-        // geladen data wordt niet opgeruimd
         if (null != bag) bag.close();
     }
 
     @Test
+    @Disabled
+    @Order(1)
     void testStand() throws SQLException {
         BAG2LoaderMain loader = new BAG2LoaderMain();
 
@@ -109,5 +154,48 @@ public class BAGLoaderDatabaseIntegrationTest {
         for (String t : BAGACTUEELVIEWS) {
             assertTrue(bag.getRowCount(t) > 0, "Onverwacht lege view: " + t);
         }
+    }
+
+    @Test
+    @Order(2)
+    void testWoonplaatsStand() throws Exception {
+        BAG2LoaderMain loader = new BAG2LoaderMain();
+
+        try {
+            URL u = BAGLoaderDatabaseIntegrationTest.class.getResource("/BAGGEM3502L-15102021.zip");
+            loader.loadFiles(bag2Database, databaseOptions, bag2LoadOptions, new BAG2ProgressReporter(), new String[]{ u.getFile() }, null);
+        } catch (Exception e) {
+            fail("Laden BAG data is mislukt. " + e.getLocalizedMessage(), e);
+        }
+
+        IDatabaseTester databaseTester = new JdbcDatabaseTester(bag2Database.getDialect().getDriverClass(), databaseOptions.getConnectionString(), databaseOptions.getUser(), databaseOptions.getPassword(), "bag");
+        IDatabaseConnection dbTestConnection = databaseTester.getConnection();
+        IDataSet actualDataSet = dbTestConnection.createDataSet(new String[] {"woonplaats"});
+        XmlDataSet.write(actualDataSet, System.out);
+
+        IDataSet expectedDataSet = new XmlDataSet(BAGLoaderDatabaseIntegrationTest.class.getResource("/expected/bag2-woonplaats-stand.xml").openStream());
+        assertEquals(expectedDataSet, actualDataSet);
+    }
+
+    @Test
+    @Order(3)
+    @SkipDropTables
+    void testWoonplaatsMutatie() throws Exception {
+        BAG2LoaderMain loader = new BAG2LoaderMain();
+
+        try {
+            URL u = BAGLoaderDatabaseIntegrationTest.class.getResource("/BAGNLDM-23052022-24052022.zip");
+            loader.loadFiles(bag2Database, databaseOptions, bag2LoadOptions, new BAG2ProgressReporter(), new String[]{ u.getFile() }, null);
+        } catch (Exception e) {
+            fail("Laden BAG data is mislukt. " + e.getLocalizedMessage(), e);
+        }
+
+        IDatabaseTester databaseTester = new JdbcDatabaseTester(bag2Database.getDialect().getDriverClass(), databaseOptions.getConnectionString(), databaseOptions.getUser(), databaseOptions.getPassword(), null);
+        IDatabaseConnection dbTestConnection = databaseTester.getConnection();
+        IDataSet actualDataSet = dbTestConnection.createDataSet(new String[] {"woonplaats"});
+        XmlDataSet.write(actualDataSet, System.out);
+
+        IDataSet expectedDataSet = new XmlDataSet(BAGLoaderDatabaseIntegrationTest.class.getResource("/expected/bag2-woonplaats-gemuteerd.xml").openStream());
+        assertEquals(expectedDataSet, actualDataSet);
     }
 }
