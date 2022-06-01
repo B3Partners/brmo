@@ -10,15 +10,18 @@ import nl.b3p.brmo.bag2.loader.cli.BAG2DatabaseOptions;
 import nl.b3p.brmo.bag2.loader.cli.BAG2LoadOptions;
 import nl.b3p.brmo.bag2.loader.cli.BAG2LoaderMain;
 
+import nl.b3p.brmo.bag2.schema.BAG2Schema;
+import nl.b3p.brmo.bag2.schema.BAG2SchemaMapper;
 import nl.b3p.brmo.sql.LoggingQueryRunner;
-import nl.b3p.brmo.sql.dialect.OracleDialect;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.dbunit.Assertion;
 import org.dbunit.IDatabaseTester;
 import org.dbunit.JdbcDatabaseTester;
 import org.dbunit.database.DatabaseConfig;
 import org.dbunit.database.DatabaseConnection;
+import org.dbunit.database.DefaultMetadataHandler;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.XmlDataSet;
@@ -27,7 +30,6 @@ import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -38,8 +40,9 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.junit.jupiter.api.Assumptions.assumeFalse;
@@ -67,14 +70,8 @@ public class BAGLoaderDatabaseIntegrationTest {
     private IDatabaseConnection bag;
     private String testFileName;
     private String tableQualifierPrefix = "";
-
-    public static String getSchema(BAG2Database db, BAG2DatabaseOptions dbOptions) {
-        if (db.getDialect() instanceof OracleDialect) {
-            // If we don't set the schema to the user the DatabaseMetaData.getTables() call without a schema filter will take 5 minutes
-            return dbOptions.getUser().toUpperCase();
-        }
-        return null;
-    }
+    private String schema = null;
+    private String expectedXmlDataSetSuffix = "";
 
     @BeforeAll
     static void beforeAll() {
@@ -93,10 +90,15 @@ public class BAGLoaderDatabaseIntegrationTest {
             bag.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
             bag.getConfig().setProperty(DatabaseConfig.FEATURE_QUALIFIED_TABLE_NAMES, true);
             tableQualifierPrefix = "bag.";
+            schema = "bag";
         }
         if (dbUrl.contains("oracle")) {
             bag.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
             bag.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
+
+            expectedXmlDataSetSuffix = "-oracle";
+            // If we don't set the schema to the user the DatabaseMetaData.getTables() call without a schema filter will take 5 minutes
+            schema = dbUser.toUpperCase();
         }
 
         bag2LoadOptions = new BAG2LoadOptions();
@@ -113,7 +115,7 @@ public class BAGLoaderDatabaseIntegrationTest {
         if (info.getTestMethod().isPresent()) {
             if(info.getTestMethod().get().getAnnotation(SkipDropTables.class) == null) {
                 try {
-                    dropTables(bag.getConnection(), getSchema(bag2Database, databaseOptions), bag2Database.getDialect() instanceof OracleDialect);
+                    dropTables(bag.getConnection(), schema, dbUrl.contains("oracle"));
                 } catch(Exception e) {
                     LOG.error("Exception dropping tables before test", e);
                 }
@@ -124,7 +126,22 @@ public class BAGLoaderDatabaseIntegrationTest {
     private static void dropTables(Connection connection, String schema, boolean isOracle) throws SQLException {
         if (!isOracle) {
             LOG.trace("Drop BAG schema");
-            new LoggingQueryRunner().update(connection,"drop schema if exists bag cascade");
+            new LoggingQueryRunner().update(connection,"drop schema if exists " + schema + " cascade");
+        } else {
+            for (String tableName: Stream.concat(
+                BAG2Schema.getInstance().getAllObjectTypes().map(objectType -> BAG2SchemaMapper.getInstance().getTableNameForObjectType(objectType, "")),
+                    Stream.of(BAG2SchemaMapper.METADATA_TABLE_NAME)).collect(Collectors.toList())) {
+                tableName = tableName.toUpperCase();
+                if(new DefaultMetadataHandler().tableExists(connection.getMetaData(), schema, tableName)) {
+                    try {
+                        LOG.trace("Drop table: " + tableName);
+                        new LoggingQueryRunner().update(connection,"drop table " + tableName);
+                    } catch (SQLException se) {
+                        LOG.warn("Exception dropping table " + tableName + ": " + se.getLocalizedMessage());
+                    }
+                }
+            }
+            new LoggingQueryRunner().update(connection,"delete from user_sdo_geom_metadata");
         }
     }
 
@@ -133,17 +150,51 @@ public class BAGLoaderDatabaseIntegrationTest {
         if (null != bag) bag.close();
     }
 
-    @Test
-    @Disabled
-    @Order(1)
-    void testStand() throws SQLException {
-        BAG2LoaderMain loader = new BAG2LoaderMain();
-
+    private void loadBAGResourceFile(String file) throws Exception {
         try {
-            loader.loadFiles(bag2Database, databaseOptions, bag2LoadOptions, new BAG2ProgressReporter(), new String[]{testFileName}, null);
+            BAG2LoaderMain loader = new BAG2LoaderMain();
+            loader.loadFiles(bag2Database, databaseOptions, bag2LoadOptions, new BAG2ProgressReporter(), new String[]{ file }, null);
         } catch (Exception e) {
-            fail("Laden BAG data is mislukt. " + e.getLocalizedMessage(), e);
+            fail("Laden BAG data uit resource " + file + " is mislukt: " + e.getLocalizedMessage(), e);
         }
+    }
+
+    private void compareDataSet(String[] tables, String expectedXmlDataSetFileName) throws Exception {
+        IDatabaseTester databaseTester = new JdbcDatabaseTester(bag2Database.getDialect().getDriverClass(), databaseOptions.getConnectionString(), databaseOptions.getUser(), databaseOptions.getPassword(), schema);
+        IDatabaseConnection dbTestConnection = databaseTester.getConnection();
+        IDataSet actualDataSet = dbTestConnection.createDataSet(tables);
+        if (System.getProperty("db.writeActualDataSet") != null) {
+            XmlDataSet.write(actualDataSet, System.out);
+        }
+        IDataSet expectedDataSet = new XmlDataSet(BAGLoaderDatabaseIntegrationTest.class.getResource(String.format("/expected/%s%s.xml", expectedXmlDataSetFileName, expectedXmlDataSetSuffix)).openStream());
+        Assertion.assertEquals(expectedDataSet, actualDataSet);
+    }
+
+    private static String getResourceFile(String resource) {
+        return BAGLoaderDatabaseIntegrationTest.class.getResource(resource).getFile();
+    }
+
+    @Test
+    @Order(1)
+    void testCompareDataSetWoonplaatsStand() throws Exception {
+        loadBAGResourceFile(getResourceFile("/BAGGEM3502L-15102021.zip"));
+        compareDataSet(new String[] { "woonplaats"}, "bag2-woonplaats-stand");
+    }
+
+    @Test
+    @Order(2)
+    @SkipDropTables
+    void testCompareDataSetWoonplaatsMutatie() throws Exception {
+        loadBAGResourceFile(getResourceFile("/BAGNLDM-23052022-24052022.zip"));
+        compareDataSet(new String[] { "woonplaats"}, "bag2-woonplaats-gemuteerd");
+    }
+
+    // Leave this as last integration test case, so the BAG tables loaded by it can be used to test the create view scripts
+    @Test
+    @Order(Integer.MAX_VALUE)
+    void testStandAllTablesAndViewsHaveRows() throws Exception {
+        loadBAGResourceFile(testFileName);
+
         // check tables
         for (String t : BAGTABLES) {
             // omdat sommige BAG tabellen ook in RSGB schema zitten bag qualifier gebruiken
@@ -154,48 +205,5 @@ public class BAGLoaderDatabaseIntegrationTest {
         for (String t : BAGACTUEELVIEWS) {
             assertTrue(bag.getRowCount(t) > 0, "Onverwacht lege view: " + t);
         }
-    }
-
-    @Test
-    @Order(2)
-    void testWoonplaatsStand() throws Exception {
-        BAG2LoaderMain loader = new BAG2LoaderMain();
-
-        try {
-            URL u = BAGLoaderDatabaseIntegrationTest.class.getResource("/BAGGEM3502L-15102021.zip");
-            loader.loadFiles(bag2Database, databaseOptions, bag2LoadOptions, new BAG2ProgressReporter(), new String[]{ u.getFile() }, null);
-        } catch (Exception e) {
-            fail("Laden BAG data is mislukt. " + e.getLocalizedMessage(), e);
-        }
-
-        IDatabaseTester databaseTester = new JdbcDatabaseTester(bag2Database.getDialect().getDriverClass(), databaseOptions.getConnectionString(), databaseOptions.getUser(), databaseOptions.getPassword(), "bag");
-        IDatabaseConnection dbTestConnection = databaseTester.getConnection();
-        IDataSet actualDataSet = dbTestConnection.createDataSet(new String[] {"woonplaats"});
-        XmlDataSet.write(actualDataSet, System.out);
-
-        IDataSet expectedDataSet = new XmlDataSet(BAGLoaderDatabaseIntegrationTest.class.getResource("/expected/bag2-woonplaats-stand.xml").openStream());
-        assertEquals(expectedDataSet, actualDataSet);
-    }
-
-    @Test
-    @Order(3)
-    @SkipDropTables
-    void testWoonplaatsMutatie() throws Exception {
-        BAG2LoaderMain loader = new BAG2LoaderMain();
-
-        try {
-            URL u = BAGLoaderDatabaseIntegrationTest.class.getResource("/BAGNLDM-23052022-24052022.zip");
-            loader.loadFiles(bag2Database, databaseOptions, bag2LoadOptions, new BAG2ProgressReporter(), new String[]{ u.getFile() }, null);
-        } catch (Exception e) {
-            fail("Laden BAG data is mislukt. " + e.getLocalizedMessage(), e);
-        }
-
-        IDatabaseTester databaseTester = new JdbcDatabaseTester(bag2Database.getDialect().getDriverClass(), databaseOptions.getConnectionString(), databaseOptions.getUser(), databaseOptions.getPassword(), null);
-        IDatabaseConnection dbTestConnection = databaseTester.getConnection();
-        IDataSet actualDataSet = dbTestConnection.createDataSet(new String[] {"woonplaats"});
-        XmlDataSet.write(actualDataSet, System.out);
-
-        IDataSet expectedDataSet = new XmlDataSet(BAGLoaderDatabaseIntegrationTest.class.getResource("/expected/bag2-woonplaats-gemuteerd.xml").openStream());
-        assertEquals(expectedDataSet, actualDataSet);
     }
 }
