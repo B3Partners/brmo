@@ -30,6 +30,7 @@ import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Consumer;
 
 import static nl.b3p.brmo.bgt.loader.Utils.formatTimeSince;
@@ -185,7 +186,7 @@ public class DownloadCommand {
             loadOptions.setHttpZipRandomAccess(!noHttpZipRandomAccess);
             loadOptions.includeHistory = Boolean.parseBoolean(db.getMetadata(Metadata.INCLUDE_HISTORY));
             loadOptions.linearizeCurves = Boolean.parseBoolean(db.getMetadata(Metadata.LINEARIZE_CURVES));
-            loadOptions.tablePrefix = db.getMetadata(Metadata.TABLE_PREFIX);
+            loadOptions.tablePrefix = Objects.requireNonNullElse(db.getMetadata(Metadata.TABLE_PREFIX), "");
 
             log.info(getMessageFormattedString("download.current_delta_id", deltaId) + ", " +
                     (deltaIdTimeTo != null
