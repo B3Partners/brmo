@@ -9,9 +9,6 @@ package nl.b3p.brmo.bag2.loader;
 import nl.b3p.brmo.bag2.loader.cli.BAG2DatabaseOptions;
 import nl.b3p.brmo.bag2.loader.cli.BAG2LoadOptions;
 import nl.b3p.brmo.bag2.loader.cli.BAG2LoaderMain;
-
-import nl.b3p.brmo.bag2.schema.BAG2Schema;
-import nl.b3p.brmo.bag2.schema.BAG2SchemaMapper;
 import nl.b3p.brmo.sql.LoggingQueryRunner;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
@@ -23,6 +20,7 @@ import org.dbunit.database.DatabaseConfig;
 import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.DefaultMetadataHandler;
 import org.dbunit.database.IDatabaseConnection;
+import org.dbunit.database.IMetadataHandler;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.XmlDataSet;
 import org.dbunit.ext.oracle.Oracle10DataTypeFactory;
@@ -39,9 +37,8 @@ import org.junit.jupiter.api.TestMethodOrder;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -128,14 +125,13 @@ public class BAGLoaderDatabaseIntegrationTest {
             LOG.trace("Drop BAG schema");
             new LoggingQueryRunner().update(connection,"drop schema if exists " + schema + " cascade");
         } else {
-            for (String tableName: Stream.concat(
-                BAG2Schema.getInstance().getAllObjectTypes().map(objectType -> BAG2SchemaMapper.getInstance().getTableNameForObjectType(objectType, "")),
-                    Stream.of(BAG2SchemaMapper.METADATA_TABLE_NAME)).collect(Collectors.toList())) {
-                tableName = tableName.toUpperCase();
-                if(new DefaultMetadataHandler().tableExists(connection.getMetaData(), schema, tableName)) {
+            IMetadataHandler metadataHandler = new DefaultMetadataHandler();
+            try (ResultSet tablesRs = metadataHandler.getTables(connection.getMetaData(), schema, new String[] { "TABLE" })) {
+                while(tablesRs.next()) {
+                    String tableName = tablesRs.getString("TABLE_NAME");
                     try {
                         LOG.trace("Drop table: " + tableName);
-                        new LoggingQueryRunner().update(connection,"drop table " + tableName);
+                        new LoggingQueryRunner().update(connection, "drop table " + tableName + " cascade constraints");
                     } catch (SQLException se) {
                         LOG.warn("Exception dropping table " + tableName + ": " + se.getLocalizedMessage());
                     }
@@ -150,7 +146,7 @@ public class BAGLoaderDatabaseIntegrationTest {
         if (null != bag) bag.close();
     }
 
-    private void loadBAGResourceFile(String file) throws Exception {
+    private void loadBAGResourceFile(String file) {
         try {
             BAG2LoaderMain loader = new BAG2LoaderMain();
             loader.loadFiles(bag2Database, databaseOptions, bag2LoadOptions, new BAG2ProgressReporter(), new String[]{ file }, null);
@@ -167,7 +163,9 @@ public class BAGLoaderDatabaseIntegrationTest {
             XmlDataSet.write(actualDataSet, System.out);
         }
         IDataSet expectedDataSet = new XmlDataSet(BAGLoaderDatabaseIntegrationTest.class.getResource(String.format("/expected/%s%s.xml", expectedXmlDataSetFileName, expectedXmlDataSetSuffix)).openStream());
-        Assertion.assertEquals(expectedDataSet, actualDataSet);
+        for (String table: tables) {
+            Assertion.assertEqualsIgnoreCols(expectedDataSet, actualDataSet, table, new String[] { "objectid" });
+        }
     }
 
     private static String getResourceFile(String resource) {
