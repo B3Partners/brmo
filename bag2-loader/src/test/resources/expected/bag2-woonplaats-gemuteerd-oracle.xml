@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+    <table name="WOONPLAATS">
+        <column>OBJECTID</column>
+        <column>IDENTIFICATIE</column>
+        <column>VOORKOMENIDENTIFICATIE</column>
+        <column>BEGINGELDIGHEID</column>
+        <column>EINDGELDIGHEID</column>
+        <column>TIJDSTIPREGISTRATIE</column>
+        <column>EINDREGISTRATIE</column>
+        <column>TIJDSTIPINACTIEF</column>
+        <column>TIJDSTIPREGISTRATIELV</column>
+        <column>TIJDSTIPEINDREGISTRATIELV</column>
+        <column>TIJDSTIPINACTIEFLV</column>
+        <column>DOCUMENTDATUM</column>
+        <column>DOCUMENTNUMMER</column>
+        <column>GECONSTATEERD</column>
+        <column>STATUS</column>
+        <column>NAAM</column>
+        <row>
+            <value>1</value>
+            <value>3502</value>
+            <value>1</value>
+            <value><![CDATA[2010-09-21 00:00:00.0]]></value>
+            <value><![CDATA[2011-09-01 00:00:00.0]]></value>
+            <value><![CDATA[2010-12-31 11:25:43.0]]></value>
+            <value><![CDATA[2011-09-08 12:20:45.0]]></value>
+            <null/>
+            <value><![CDATA[2010-12-31 11:33:38.0]]></value>
+            <value><![CDATA[2011-09-08 12:31:38.0]]></value>
+            <null/>
+            <value><![CDATA[2010-09-21 00:00:00.0]]></value>
+            <value>AVGpvdb02</value>
+            <value>0</value>
+            <value><![CDATA[Woonplaats aangewezen]]></value>
+            <value>NIEUWKUIJK</value>
+        </row>
+        <row>
+            <value>2</value>
+            <value>3502</value>
+            <value>2</value>
+            <value><![CDATA[2011-09-01 00:00:00.0]]></value>
+            <value><![CDATA[2011-10-05 00:00:00.0]]></value>
+            <value><![CDATA[2011-09-08 12:20:45.0]]></value>
+            <value><![CDATA[2011-10-05 12:47:19.0]]></value>
+            <null/>
+            <value><![CDATA[2011-09-08 12:31:38.0]]></value>
+            <value><![CDATA[2011-10-05 13:01:44.0]]></value>
+            <null/>
+            <value><![CDATA[2011-09-01 00:00:00.0]]></value>
+            <value>AVGEL01092011-04</value>
+            <value>0</value>
+            <value><![CDATA[Woonplaats aangewezen]]></value>
+            <value>Nieuwkuijk</value>
+        </row>
+        <row>
+            <value>4</value>
+            <value>3502</value>
+            <value>3</value>
+            <value><![CDATA[2011-10-05 00:00:00.0]]></value>
+            <value><![CDATA[2022-05-23 00:00:00.0]]></value>
+            <value><![CDATA[2011-10-05 12:47:19.0]]></value>
+            <value><![CDATA[2022-05-23 09:53:06.0]]></value>
+            <null/>
+            <value><![CDATA[2011-10-05 13:01:44.0]]></value>
+            <value><![CDATA[2022-05-23 09:53:21.0]]></value>
+            <null/>
+            <value><![CDATA[2011-10-05 00:00:00.0]]></value>
+            <value>AVGSK05102011-01</value>
+            <value>0</value>
+            <value><![CDATA[Woonplaats aangewezen]]></value>
+            <value>Nieuwkuijk</value>
+        </row>
+        <row>
+            <value>5</value>
+            <value>3502</value>
+            <value>4</value>
+            <value><![CDATA[2022-05-23 00:00:00.0]]></value>
+            <null/>
+            <value><![CDATA[2022-05-23 09:53:06.0]]></value>
+            <null/>
+            <null/>
+            <value><![CDATA[2022-05-23 09:53:21.0]]></value>
+            <null/>
+            <null/>
+            <value><![CDATA[2022-05-23 00:00:00.0]]></value>
+            <value>2068944</value>
+            <value>0</value>
+            <value><![CDATA[Woonplaats aangewezen]]></value>
+            <value>Nieuwkuijk</value>
+        </row>
+    </table>
+</dataset>

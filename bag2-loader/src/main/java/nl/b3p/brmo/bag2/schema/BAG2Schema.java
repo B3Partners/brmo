@@ -77,10 +77,20 @@ public class BAG2Schema extends Schema {
     public BAG2Schema() {
         super();
 
-        addObjectType(new BAG2ObjectType(this, "Woonplaats", withBaseAttributes(
+        // For Woonplaats, use CHAR(4) instead of CHAR(16). For Oracle we can't use CHAR(16) because then we would need
+        // to query with space-padded values to correctly delete previous versions on mutaties (issue 13151).
+        List<AttributeColumnMapping> woonplaatsAttributes = bag2BaseAttributes.stream().map(attribute -> {
+            if ("identificatie".equals(attribute.getName())) {
+                return new AttributeColumnMapping("identificatie",  "char(4)", true, true);
+            }
+            return attribute;
+        }).collect(Collectors.toList());
+        woonplaatsAttributes.addAll(List.of(
                 new AttributeColumnMapping("naam"),
                 new GeometryAttributeColumnMapping("geometrie", "geometry(GEOMETRY, 28992)")
-        )).addExtraDataDefinitionSQL(List.of(
+        ));
+        addObjectType(new BAG2ObjectType(this, "Woonplaats", woonplaatsAttributes
+        ).addExtraDataDefinitionSQL(List.of(
                 "create or replace view v_woonplaats_actueel as select * from woonplaats where " + WHERE_CLAUSE_ACTUEEL
         )));
 
