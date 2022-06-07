@@ -108,7 +108,7 @@ public class P8ServicesIntegrationTest extends P8TestFramework {
                         "\"koopjaar\":\"\",\"valuta\":\"\",\"soortgrootte\":\"1\"},{\"kadastrale_code\":\"VDG00B1709\"," +
                         "\"gemeente_code\":\"VDG00\",\"sectie\":\"B\",\"perceelnummer\":1709,\"oppervlakte\":65," +
                         "\"straat\":\"Oosterstraat\",\"huisnummer\":\"29\",\"postcode\":\"3134NM\",\"woonplaats\":" +
-                        "Vlaardingen\",\"percnr17\":\"VDG00B1709\",\"omschrijving\":\"OOSTERSTR 29, 3134NM VLAARDINGEN\"," +
+                        "\"Vlaardingen\",\"percnr17\":\"VDG00B1709\",\"omschrijving\":\"OOSTERSTR 29, 3134NM VLAARDINGEN\"," +
                         "\"bedrag\":\"192500\",\"koopjaar\":\"2003\",\"valuta\":\"Euro\",\"soortgrootte\":\"1\"}]," +
                         "\"offset\":\"0\",\"limit\":\"3\",\"total_item_count\":1000}",
                 body,
@@ -205,7 +205,7 @@ public class P8ServicesIntegrationTest extends P8TestFramework {
         assertJsonEquals(
                 "{\"kadastrale_percelen\":[{\"kadastrale_code\":\"VDG00B1712\",\"gemeente_code\":\"VDG00\"," +
                         "\"sectie\":\"B\",\"perceelnummer\":1712,\"oppervlakte\":68,\"percnr17\":\"VDG00B1712\",\"aandeel\":\"1\\/2\"," +
-                        "\"rechtsoort\":\"Erfpacht (recht van)\",\"datum_ingang\":\"2012-12-31T13:49:09+00:00\"}],\"offset\":\"0\"," +
+                        "\"rechtsoort\":\"Erfpacht (recht van)\",\"datum_ingang\":\"2012-12-31T11:35:54+00:00\"}],\"offset\":\"0\"," +
                         "\"limit\":\"3\",\"total_item_count\":1}",
                 body
                 // when(IGNORING_ARRAY_ORDER)
@@ -230,7 +230,7 @@ public class P8ServicesIntegrationTest extends P8TestFramework {
         assertJsonEquals(
                 "{\"subjectid\":\"NL.KAD.Persoon.157450463\",\"type\":\"KadastraalNatuurlijkSubject\"," +
                         "\"adres\":\"Oosterstraat 17, 3134NM VLAARDINGEN\",\"natuurlijk_subject\":{\"voornaam\":\"d941\"," +
-                        "\"achternaam\":\"abda6a2\",\"geslacht\":\"M\",\"geboorte_datum\":\"1964-01-09T13:49:22+00:00\"," +
+                        "\"achternaam\":\"abda6a2\",\"geslacht\":\"M\",\"geboorte_datum\":\"1964-01-09T11:32:55+00:00\"," +
                         "\"geboorte_plaats\":\"4379c2\"}}",
                 body,
                 // TODO bug in P8; verzint een tijdstip aan datums

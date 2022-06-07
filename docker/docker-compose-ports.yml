@@ -1,0 +1,14 @@
+version: '3.9'
+
+# ports overrides for db/brmo
+# use eg.
+#  POSTGRESQL_PORT_MAPPING=5432:5432
+#  TOMCAT_PORT_MAPPING=8080:8080
+services:
+  db:
+    ports:
+      - "${POSTGRESQL_PORT_MAPPING:?required}"
+
+  brmo:
+    ports:
+      - "${TOMCAT_PORT_MAPPING:?required}"
