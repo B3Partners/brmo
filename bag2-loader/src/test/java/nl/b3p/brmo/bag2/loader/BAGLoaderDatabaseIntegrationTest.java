@@ -121,9 +121,10 @@ public class BAGLoaderDatabaseIntegrationTest {
     }
 
     private static void dropTables(Connection connection, String schema, boolean isOracle) throws SQLException {
+        LoggingQueryRunner qr = new LoggingQueryRunner();
         if (!isOracle) {
             LOG.trace("Drop BAG schema");
-            new LoggingQueryRunner().update(connection,"drop schema if exists " + schema + " cascade");
+            qr.update(connection,"drop schema if exists " + schema + " cascade");
         } else {
             IMetadataHandler metadataHandler = new DefaultMetadataHandler();
             try (ResultSet tablesRs = metadataHandler.getTables(connection.getMetaData(), schema, new String[] { "TABLE" })) {
@@ -131,13 +132,17 @@ public class BAGLoaderDatabaseIntegrationTest {
                     String tableName = tablesRs.getString("TABLE_NAME");
                     try {
                         LOG.trace("Drop table: " + tableName);
-                        new LoggingQueryRunner().update(connection, "drop table " + tableName + " cascade constraints");
+                        qr.update(connection, "drop table " + tableName + " cascade constraints");
                     } catch (SQLException se) {
                         LOG.warn("Exception dropping table " + tableName + ": " + se.getLocalizedMessage());
                     }
                 }
             }
-            new LoggingQueryRunner().update(connection,"delete from user_sdo_geom_metadata");
+            try {
+                qr.update(connection, "drop sequence objectid_seq");
+            } catch(Exception e) {
+            }
+            qr.update(connection,"delete from user_sdo_geom_metadata");
         }
     }
 

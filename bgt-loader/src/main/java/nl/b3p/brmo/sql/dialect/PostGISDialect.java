@@ -13,6 +13,8 @@ import org.postgresql.util.PGobject;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class PostGISDialect implements SQLDialect {
     private final StandardLinearizedWKTWriter wktWriter = new StandardLinearizedWKTWriter();
@@ -21,6 +23,15 @@ public class PostGISDialect implements SQLDialect {
     @Override
     public String getDriverClass() {
         return "org.postgresql.Driver";
+    }
+
+    @Override
+    public String getType(String type) {
+        Matcher sequence = Pattern.compile("sequence\\((.+)\\)").matcher(type);
+        if(sequence.matches()) {
+            return "integer default nextval('" + sequence.group(1) + "')";
+        }
+        return type;
     }
 
     @Override
