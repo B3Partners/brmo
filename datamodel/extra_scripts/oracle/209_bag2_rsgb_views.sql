@@ -50,7 +50,7 @@ comment on materialized view mb_adres_bag is 'volledig actueel adres zonder loca
 
 -- maakt een materialized view van vb_adresseerbaar_object_geometrie tbv performance bij zeer grote datasets.
 create materialized view mb_adresseerbaar_object_geometrie_bag build deferred refresh on demand as
-select cast(ROWNUM as INTEGER) as objectid,
+select qry.objectid,
        qry.ishoofdadres,
        qry.status,
        qry.identificatie,
@@ -67,10 +67,11 @@ select cast(ROWNUM as INTEGER) as objectid,
        qry.maaktdeeluitvan,
        qry.gebruiksdoelen,
        qry.oppervlakte,
-       qry.geometrie_centroide,
-       qry.geometrie
+       qry.geometrie,
+       qry.geometrie_centroide
 from (select vla.ishoofdadres,
              vla.status,
+             vla.objectid,
              vla.identificatie,
              vla.identificatienummeraanduiding,
              vla.nummeraanduidingstatus,
@@ -91,6 +92,7 @@ from (select vla.ishoofdadres,
       union all
       select vsa.ishoofdadres,
              vsa.status,
+             vsa.objectid,
              vsa.identificatie,
              vsa.identificatienummeraanduiding,
              vsa.nummeraanduidingstatus,
@@ -111,6 +113,7 @@ from (select vla.ishoofdadres,
       union all
       select vva.ishoofdadres,
              vva.status,
+             vva.objectid,
              vva.identificatie,
              vva.identificatienummeraanduiding,
              vva.nummeraanduidingstatus,
