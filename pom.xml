@@ -207,6 +207,13 @@
             </dependency>
             <dependency>
                 <groupId>nl.b3p</groupId>
+                <artifactId>brmo-dist</artifactId>
+                <version>${project.version}</version>
+                <classifier>bin</classifier>
+                <type>zip</type>
+            </dependency>
+            <dependency>
+                <groupId>nl.b3p</groupId>
                 <artifactId>jdbc-util</artifactId>
                 <version>${jdbc-util.version}</version>
             </dependency>

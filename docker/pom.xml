@@ -16,7 +16,6 @@
         <dependency>
             <groupId>nl.b3p</groupId>
             <artifactId>brmo-dist</artifactId>
-            <version>${project.version}</version>
             <classifier>bin</classifier>
             <type>zip</type>
             <scope>compile</scope>
@@ -36,7 +35,7 @@
                 <executions>
                     <execution>
                         <id>unpack-dist</id>
-                        <phase>prepare-package</phase>
+                        <phase>pre-integration-test</phase>
                         <goals>
                             <goal>unpack-dependencies</goal>
                         </goals>
@@ -72,7 +71,7 @@
                 <executions>
                     <execution>
                         <id>docker-build</id>
-                        <phase>package</phase>
+                        <phase>pre-integration-test</phase>
                         <goals>
                             <goal>build</goal>
                         </goals>
