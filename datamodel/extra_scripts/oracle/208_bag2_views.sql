@@ -28,7 +28,7 @@ comment on table vb_adres is 'volledig actueel adres zonder locatie';
 
 -- Vervangt vb_ligplaats_adres. Gemeentevelden zijn nog niet beschikbaar.
 create or replace view vb_ligplaats_adres as
-select cast(ROWNUM as INTEGER) as objectid,
+select qry.objectid,
        qry.ishoofdadres,
        qry.status,
        qry.identificatie,
@@ -41,10 +41,11 @@ select cast(ROWNUM as INTEGER) as objectid,
        qry.huisletter,
        qry.huisnummertoevoeging,
        qry.postcode,
-       qry.geometrie_centroide,
-       qry.geometrie
+       qry.geometrie,
+       qry.geometrie_centroide
 from (select 'true'                                 as ishoofdadres,
              lp.status,
+             lp.objectid,
              lp.identificatie,
              a.identificatienummeraanduiding,
              a.status                               as nummeraanduidingstatus,
@@ -62,6 +63,7 @@ from (select 'true'                                 as ishoofdadres,
       union all
       select 'false'                                 as ishoofdadres,
              lpa.status,
+             lpa.objectid,
              lpa.identificatie,
              a.identificatienummeraanduiding,
              a.status                                as nummeraanduidingstatus,
@@ -92,7 +94,7 @@ values ('VB_LIGPLAATS_ADRES', 'GEOMETRIE', mdsys.sdo_dim_array(mdsys.sdo_dim_ele
 
 -- Vervangt vb_standplaats_adres. Gemeentevelden zijn nog niet beschikbaar.
 create or replace view vb_standplaats_adres as
-select cast(ROWNUM as INTEGER) as objectid,
+select qry.objectid,
        qry.ishoofdadres,
        qry.status,
        qry.identificatie,
@@ -105,10 +107,11 @@ select cast(ROWNUM as INTEGER) as objectid,
        qry.huisletter,
        qry.huisnummertoevoeging,
        qry.postcode,
-       qry.geometrie_centroide,
-       qry.geometrie
+       qry.geometrie,
+       qry.geometrie_centroide
 from (select 'true'                                 as ishoofdadres,
              sp.status,
+             sp.objectid,
              sp.identificatie,
              a.identificatienummeraanduiding,
              a.status                               as nummeraanduidingstatus,
@@ -126,6 +129,7 @@ from (select 'true'                                 as ishoofdadres,
       union all
       select 'false'                                 as ishoofdadres,
              spa.status,
+             spa.objectid,
              spa.identificatie,
              a.identificatienummeraanduiding,
              a.status                                as nummeraanduidingstatus,
@@ -157,7 +161,7 @@ values ('VB_STANDPLAATS_ADRES', 'GEOMETRIE', mdsys.sdo_dim_array(mdsys.sdo_dim_e
 
 -- Vervangt vb_vbo_adres. Gemeentevelden zijn nog niet beschikbaar.
 create or replace view vb_verblijfsobject_adres as
-select cast(ROWNUM as INTEGER) as objectid,
+select qry.objectid,
        qry.ishoofdadres,
        qry.status,
        qry.identificatie,
@@ -173,10 +177,11 @@ select cast(ROWNUM as INTEGER) as objectid,
        qry.maaktdeeluitvan,
        qry.gebruiksdoelen,
        qry.oppervlakte,
-       qry.geometrie_centroide,
-       qry.geometrie
+       qry.geometrie,
+       qry.geometrie_centroide
 from (select 'true'                                                                                                  as ishoofdadres,
              vo.status,
+             vo.objectid,
              vo.identificatie,
              a.identificatienummeraanduiding,
              a.status                                                                                                as nummeraanduidingstatus,
@@ -202,6 +207,7 @@ from (select 'true'                                                             
       union all
       select 'false'                                                          as ishoofdadres,
              voa.status,
+             voa.objectid,
              voa.identificatie,
              a.identificatienummeraanduiding,
              a.status                                                         as nummeraanduidingstatus,
@@ -242,7 +248,7 @@ values ('VB_VERBLIJFSOBJECT_ADRES', 'GEOMETRIE', mdsys.sdo_dim_array(mdsys.sdo_d
 
 -- vervangt vb_benoemd_obj_adres alle objecten met een (neven)adres
 create or replace view vb_adresseerbaar_object_geometrie as
-select cast(ROWNUM as INTEGER) as objectid,
+select qry.objectid,
        qry.ishoofdadres,
        qry.status,
        qry.identificatie,
@@ -259,10 +265,11 @@ select cast(ROWNUM as INTEGER) as objectid,
        qry.maaktdeeluitvan,
        qry.gebruiksdoelen,
        qry.oppervlakte,
-       qry.geometrie_centroide,
-       qry.geometrie
+       qry.geometrie,
+       qry.geometrie_centroide
 from (select vla.ishoofdadres,
              vla.status,
+             vla.objectid,
              vla.identificatie,
              vla.identificatienummeraanduiding,
              vla.nummeraanduidingstatus,
@@ -283,6 +290,7 @@ from (select vla.ishoofdadres,
       union all
       select vsa.ishoofdadres,
              vsa.status,
+             vsa.objectid,
              vsa.identificatie,
              vsa.identificatienummeraanduiding,
              vsa.nummeraanduidingstatus,
@@ -303,6 +311,7 @@ from (select vla.ishoofdadres,
       union all
       select vva.ishoofdadres,
              vva.status,
+             vva.objectid,
              vva.identificatie,
              vva.identificatienummeraanduiding,
              vva.nummeraanduidingstatus,

@@ -15,6 +15,7 @@ import nl.b3p.brmo.bag2.schema.BAG2ObjectTableWriter;
 import nl.b3p.brmo.bag2.schema.BAG2ObjectType;
 import nl.b3p.brmo.bag2.schema.BAG2Schema;
 import nl.b3p.brmo.bag2.schema.BAG2SchemaMapper;
+import nl.b3p.brmo.sql.LoggingQueryRunner;
 import nl.b3p.brmo.util.ResumingInputStream;
 import nl.b3p.brmo.util.http.HttpClientWrapper;
 import nl.b3p.brmo.util.http.HttpStartRangeInputStreamProvider;
@@ -180,6 +181,8 @@ public class BAG2LoaderMain implements IVersionProvider {
                     gemeenteCodes.addAll(nextBagExtractLeveringGemeenteCodes);
                 }
             }
+
+            new LoggingQueryRunner().update(db.getConnection(), "create sequence objectid_seq");
 
             loadStandFiles(db, dbOptions, loadOptions, progressReporter, filenames, cookieManager);
         } else {

@@ -47,7 +47,7 @@ public class BAG2Schema extends Schema {
     private static final String WHERE_CLAUSE_ACTUEEL = "(begingeldigheid <= current_date and (eindgeldigheid is null or eindgeldigheid > current_date) and tijdstipinactief is null)";
 
     private static final List<AttributeColumnMapping> bag2BaseAttributes = Arrays.asList(
-            new AttributeColumnMapping("objectid",  "serial", true, false, true),
+            new AttributeColumnMapping("objectid",  "sequence(objectid_seq)", true, false, true),
             new AttributeColumnMapping("identificatie",  "char(16)", true, true),
             new IntegerAttributeColumnMapping("voorkomenidentificatie", true, true),
             new SimpleDateFormatAttributeColumnMapping("beginGeldigheid", "date", PATTERN_XML_DATE),
@@ -77,8 +77,8 @@ public class BAG2Schema extends Schema {
     public BAG2Schema() {
         super();
 
-        // For Woonplaats, use CHAR(4) instead of CHAR(16). For Oracle we can't use CHAR(16) because then we would need
-        // to query with space-padded values to correctly delete previous versions on mutaties (issue 13151).
+        // For Woonplaats, use CHAR(4) instead of CHAR(16). For Oracle, we can't use CHAR(16) because then we would need
+        // to query with space-padded values to correctly delete previous versions on mutaties (issue BRMO-185).
         List<AttributeColumnMapping> woonplaatsAttributes = bag2BaseAttributes.stream().map(attribute -> {
             if ("identificatie".equals(attribute.getName())) {
                 return new AttributeColumnMapping("identificatie",  "char(4)", true, true);
