@@ -38,8 +38,8 @@ jobs:
             # downgraded for select count() bug in recent 13/14
             # https://www.postgresql.org/message-id/CAHUie24ddN%2BpDNw7fkhNrjrwAX%3DfXXfGZZEHhRuofV_N_ftaSg%40mail.gmail.com
             # er is een fix/patch van 11 feb 2022 (na release van 14.2/13.6/12.10/11.15
-            - 13-3.1-alpine
-            - 14-3.1-alpine
+            - 13-3.2-alpine
+            - 14-3.2-alpine
 
     services:
       postgres:
@@ -139,9 +139,6 @@ jobs:
         with:
           fail_ci_if_error: true
 
-      - name: Cleanup build artifacts
-        run: |
-          find ~/.m2/repository -name "*SNAPSHOT*" -type d | xargs rm -rf {}
 
   javadoc:
     name: JavaDoc Check
@@ -170,19 +167,11 @@ jobs:
           distribution: 'temurin'
           java-version: 11
 
-      - name: Priming build
-        run: |
-          mvn clean install -Dmaven.test.skip=true -Ddocker.skip=true -Dtest.onlyITs= -B -V -fae -Ppostgresql -pl '!brmo-dist'
-
       - name: Javadoc
         run: mvn javadoc:javadoc
 
       - name: Test Javadoc
         run: mvn javadoc:test-javadoc
-
-      - name: Cleanup build artifacts
-        run: |
-          find ~/.m2/repository -name "*SNAPSHOT*" -type d | xargs rm -rf {}
 
 
   dependency-review:
@@ -197,3 +186,20 @@ jobs:
 
       - name: 'Dependency Review'
         uses: actions/dependency-review-action@v1
+
+  cleanup:
+    name: Maven cache cleanup
+    if: ${{ always() }}
+    needs: [ build, javadoc ]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            maven-
+
+      - name: Cleanup snapshot cache
+        run: |
+          find ~/.m2/repository -name "*SNAPSHOT*" -type d | xargs rm -rf {}
