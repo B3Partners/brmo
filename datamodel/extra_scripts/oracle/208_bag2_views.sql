@@ -45,7 +45,7 @@ select qry.objectid,
        qry.geometrie_centroide
 from (select 'true'                                 as ishoofdadres,
              lp.status,
-             lp.objectid,
+             a.objectid,
              lp.identificatie,
              a.identificatienummeraanduiding,
              a.status                               as nummeraanduidingstatus,
@@ -63,7 +63,7 @@ from (select 'true'                                 as ishoofdadres,
       union all
       select 'false'                                 as ishoofdadres,
              lpa.status,
-             lpa.objectid,
+             a.objectid,
              lpa.identificatie,
              a.identificatienummeraanduiding,
              a.status                                as nummeraanduidingstatus,
@@ -79,7 +79,7 @@ from (select 'true'                                 as ishoofdadres,
       from v_ligplaats_actueel lpa
                join ligplaats_nevenadres lpna on (lpna.identificatie = lpa.identificatie and
                                                   lpna.voorkomenidentificatie = lpa.voorkomenidentificatie)
-               join vb_adres a on lpa.heeftalshoofdadres = a.identificatienummeraanduiding) qry;
+               join vb_adres a on lpna.heeftalsnevenadres = a.identificatienummeraanduiding) qry;
 
 comment on table vb_ligplaats_adres is 'ligplaats met adres en puntlocatie';
 delete from user_sdo_geom_metadata where table_name = 'VB_LIGPLAATS_ADRES';
@@ -111,7 +111,7 @@ select qry.objectid,
        qry.geometrie_centroide
 from (select 'true'                                 as ishoofdadres,
              sp.status,
-             sp.objectid,
+             a.objectid,
              sp.identificatie,
              a.identificatienummeraanduiding,
              a.status                               as nummeraanduidingstatus,
@@ -129,7 +129,7 @@ from (select 'true'                                 as ishoofdadres,
       union all
       select 'false'                                 as ishoofdadres,
              spa.status,
-             spa.objectid,
+             a.objectid,
              spa.identificatie,
              a.identificatienummeraanduiding,
              a.status                                as nummeraanduidingstatus,
@@ -145,7 +145,7 @@ from (select 'true'                                 as ishoofdadres,
       from v_standplaats_actueel spa
                join standplaats_nevenadres spna on (spna.identificatie = spa.identificatie and
                                                     spna.voorkomenidentificatie = spa.voorkomenidentificatie)
-               join vb_adres a on spa.heeftalshoofdadres = a.identificatienummeraanduiding) qry;
+               join vb_adres a on spna.heeftalsnevenadres = a.identificatienummeraanduiding) qry;
 
 comment on table vb_standplaats_adres is 'standplaats met adres en puntlocatie';
 delete from user_sdo_geom_metadata where table_name = 'VB_STANDPLAATS_ADRES';
@@ -181,7 +181,7 @@ select qry.objectid,
        qry.geometrie_centroide
 from (select 'true'                                                                                                  as ishoofdadres,
              vo.status,
-             vo.objectid,
+             a.objectid,
              vo.identificatie,
              a.identificatienummeraanduiding,
              a.status                                                                                                as nummeraanduidingstatus,
@@ -192,7 +192,10 @@ from (select 'true'                                                             
              a.huisletter,
              a.huisnummertoevoeging,
              a.postcode,
-             vbod.maaktdeeluitvan,
+             (select listagg(vbod.gebruiksdoel, ', ')
+              from verblijfsobject_gebruiksdoel vbod
+              where (vbod.identificatie = vo.identificatie and vbod.voorkomenidentificatie =
+                                                             vo.voorkomenidentificatie))                             as maaktdeeluitvan,
              (select listagg(vg.gebruiksdoel, ', ')
               from verblijfsobject_gebruiksdoel vg
               where (vg.identificatie = vo.identificatie and vg.voorkomenidentificatie =
@@ -202,12 +205,10 @@ from (select 'true'                                                             
              vo.geometrie
       from v_verblijfsobject_actueel vo
                join vb_adres a on vo.heeftalshoofdadres = a.identificatienummeraanduiding
-               join verblijfsobject_maaktdeeluitvan vbod
-                    on vo.identificatie = vbod.identificatie and vo.voorkomenidentificatie = vbod.voorkomenidentificatie
       union all
       select 'false'                                                          as ishoofdadres,
              voa.status,
-             voa.objectid,
+             a.objectid,
              voa.identificatie,
              a.identificatienummeraanduiding,
              a.status                                                         as nummeraanduidingstatus,
@@ -218,7 +219,10 @@ from (select 'true'                                                             
              a.huisletter,
              a.huisnummertoevoeging,
              a.postcode,
-             vbod.maaktdeeluitvan,
+             (select listagg(vbod.gebruiksdoel, ', ')
+              from verblijfsobject_gebruiksdoel vbod
+              where (vbod.identificatie = voa.identificatie and vbod.voorkomenidentificatie =
+                                                               voa.voorkomenidentificatie))                             as maaktdeeluitvan,
              (select listagg(vg.gebruiksdoel, ', ')
               from verblijfsobject_gebruiksdoel vg
               where (vg.identificatie = voa.identificatie and
@@ -229,10 +233,7 @@ from (select 'true'                                                             
       from v_verblijfsobject_actueel voa
                join verblijfsobject_nevenadres vona on (vona.identificatie = voa.identificatie and
                                                         vona.voorkomenidentificatie = voa.voorkomenidentificatie)
-               join vb_adres a on voa.heeftalshoofdadres = a.identificatienummeraanduiding
-               join verblijfsobject_maaktdeeluitvan vbod on voa.identificatie = vbod.identificatie and
-                                                            voa.voorkomenidentificatie =
-                                                            vbod.voorkomenidentificatie) qry;
+               join vb_adres a on vona.heeftalsnevenadres = a.identificatienummeraanduiding) qry;
 
 comment on table vb_verblijfsobject_adres is 'verblijfsobject met adres, pandverwijzing, gebruiksdoel en puntlocatie';
 delete from user_sdo_geom_metadata where table_name = 'VB_VERBLIJFSOBJECT_ADRES';

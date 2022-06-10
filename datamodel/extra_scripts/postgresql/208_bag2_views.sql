@@ -47,7 +47,7 @@ select qry.objectid,
 from (
          select true                      as ishoofdadres,
                 lp.status,
-                lp.objectid,
+                a.objectid,
                 lp.identificatie,
                 a.identificatienummeraanduiding,
                 a.status                  as nummeraanduidingstatus,
@@ -65,7 +65,7 @@ from (
          union all
          select false                      as ishoofdadres,
                 lpa.status,
-                lpa.objectid,
+                a.objectid,
                 lpa.identificatie,
                 a.identificatienummeraanduiding,
                 a.status                   as nummeraanduidingstatus,
@@ -83,7 +83,7 @@ from (
              (lpna.identificatie = lpa.identificatie
                  and lpna.voorkomenidentificatie = lpa.voorkomenidentificatie)
                   join vb_adres a on
-             lpa.heeftalshoofdadres = a.identificatienummeraanduiding) qry;
+                 lpna.heeftalsnevenadres = a.identificatienummeraanduiding) qry;
 
 comment on view vb_ligplaats_adres is 'ligplaats met adres en puntlocatie';
 
@@ -107,7 +107,7 @@ select qry.objectid,
        qry.geometrie_centroide
 from (select true                      as ishoofdadres,
              sp.status,
-             sp.objectid,
+             a.objectid,
              sp.identificatie,
              a.identificatienummeraanduiding,
              a.status                  as nummeraanduidingstatus,
@@ -125,7 +125,7 @@ from (select true                      as ishoofdadres,
       union all
       select false                      as ishoofdadres,
              spa.status,
-             spa.objectid,
+             a.objectid,
              spa.identificatie,
              a.identificatienummeraanduiding,
              a.status                   as nummeraanduidingstatus,
@@ -143,7 +143,7 @@ from (select true                      as ishoofdadres,
           (spna.identificatie = spa.identificatie
               and spna.voorkomenidentificatie = spa.voorkomenidentificatie)
                join vb_adres a on
-          spa.heeftalshoofdadres = a.identificatienummeraanduiding) qry;
+          spna.heeftalsnevenadres = a.identificatienummeraanduiding) qry;
 
 comment on view vb_standplaats_adres is 'standplaats met adres en puntlocatie';
 
@@ -170,7 +170,7 @@ select qry.objectid,
        qry.geometrie_centroide
 from (select true                      as ishoofdadres,
              vo.status,
-             vo.objectid,
+             a.objectid,
              vo.identificatie,
              a.identificatienummeraanduiding,
              a.status                  as nummeraanduidingstatus,
@@ -181,7 +181,12 @@ from (select true                      as ishoofdadres,
              a.huisletter,
              a.huisnummertoevoeging,
              a.postcode,
-             vbod.maaktdeeluitvan,
+             array_to_string(
+                     (select array_agg(vbod.maaktdeeluitvan)
+                      from verblijfsobject_maaktdeeluitvan vbod
+                      where (vbod.identificatie = vo.identificatie and
+                             vbod.voorkomenidentificatie = vo.voorkomenidentificatie))
+                 , ', ')                as maaktdeeluitvan,
              array_to_string(
                      (select array_agg(vg.gebruiksdoel)
                       from verblijfsobject_gebruiksdoel vg
@@ -193,12 +198,10 @@ from (select true                      as ishoofdadres,
              vo.geometrie
       from v_verblijfsobject_actueel vo
                join vb_adres a on vo.heeftalshoofdadres = a.identificatienummeraanduiding
-               join verblijfsobject_maaktdeeluitvan vbod
-                    on vo.identificatie = vbod.identificatie and vo.voorkomenidentificatie = vbod.voorkomenidentificatie
       union all
       select false                      as ishoofdadres,
              voa.status,
-             voa.objectid,
+             a.objectid,
              voa.identificatie,
              a.identificatienummeraanduiding,
              a.status                   as nummeraanduidingstatus,
@@ -209,7 +212,12 @@ from (select true                      as ishoofdadres,
              a.huisletter,
              a.huisnummertoevoeging,
              a.postcode,
-             vbod.maaktdeeluitvan,
+             array_to_string(
+                     (select array_agg(vbod.maaktdeeluitvan)
+                      from verblijfsobject_maaktdeeluitvan vbod
+                      where (vbod.identificatie = voa.identificatie and
+                             vbod.voorkomenidentificatie = voa.voorkomenidentificatie))
+                 , ', ')                as maaktdeeluitvan,
              array_to_string(
                      (select array_agg(vg.gebruiksdoel)
                       from verblijfsobject_gebruiksdoel vg
@@ -224,10 +232,7 @@ from (select true                      as ishoofdadres,
           (vona.identificatie = voa.identificatie
               and vona.voorkomenidentificatie = voa.voorkomenidentificatie)
                join vb_adres a on
-          voa.heeftalshoofdadres = a.identificatienummeraanduiding
-               join verblijfsobject_maaktdeeluitvan vbod
-                    on voa.identificatie = vbod.identificatie and
-                       voa.voorkomenidentificatie = vbod.voorkomenidentificatie) qry;
+          vona.heeftalsnevenadres = a.identificatienummeraanduiding) qry;
 
 comment on view vb_verblijfsobject_adres is 'verblijfsobject met adres, pandverwijzing, gebruiksdoel en puntlocatie';
 
