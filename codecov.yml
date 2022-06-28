@@ -1,28 +1,37 @@
 # https://docs.codecov.com/docs/codecovyml-reference
+# validate: curl -X POST --data-binary @codecov.yml https://codecov.io/validate
 codecov:
+  token: '3cc0e41a-7cc5-4e2d-9196-59028e5d8d9c'
+  bot: 'codecov-io'
+  strict_yaml_branch: 'master'
+  branch: 'master'
   require_ci_to_pass: true
-  token: 3cc0e41a-7cc5-4e2d-9196-59028e5d8d9c
-  #  strict_yaml_branch: "master"
   notify:
-    after_n_builds: 8
-    wait_for_ci: "yes"
+    after_n_builds: 5
+    wait_for_ci: true
 
 coverage:
-  precision: 1
+  precision: 0
+  round: 'up'
   range: "70...100"
-  round: up
   status:
     changes: false
-    default_rules:
-      flag_coverage_not_uploaded_behavior: include
-    patch: true
-    project: true
-  github_checks:
-    annotations: true
+    patch:
+      default:
+        target: auto
+        threshold: 1%
+    project:
+      default:
+        target: auto
+        threshold: 1%
 
+# https://docs.codecov.com/docs/github-checks
+github_checks:
+  annotations: true
+
+# https://docs.codecov.com/docs/pull-request-comments
 comment:
+  layout: "reach, diff, flags, files"
   behavior: default
   require_changes: true
-  layout: reach,diff,flags,files
-  after_n_builds: 8
-  show_carryforward_flags: false
+  after_n_builds: 5
