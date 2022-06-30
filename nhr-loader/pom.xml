@@ -12,11 +12,9 @@ Copyright (C) 2022 B3Partners B.V.
         <version>2.3.1-SNAPSHOT</version>
     </parent>
     <name>BRMO NHR loader</name>
-
     <properties>
         <project.build.lib-dir>lib</project.build.lib-dir>
     </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.postgresql</groupId>
@@ -84,7 +82,6 @@ Copyright (C) 2022 B3Partners B.V.
             <artifactId>jakarta.xml.ws-api</artifactId>
         </dependency>
     </dependencies>
-
     <build>
         <resources>
             <resource>
@@ -140,11 +137,9 @@ Copyright (C) 2022 B3Partners B.V.
                     </execution>
                 </executions>
             </plugin>
-
             <plugin>
                 <groupId>org.apache.cxf</groupId>
                 <artifactId>cxf-codegen-plugin</artifactId>
-                <version>3.5.2</version>
                 <executions>
                     <execution>
                         <goals>
