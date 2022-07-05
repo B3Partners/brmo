@@ -136,6 +136,12 @@
                 <version>${slf4j.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-to-slf4j</artifactId>
+                <!-- moet gelijk zijn aan de versie van log4j-api in apache poi -->
+                <version>2.17.2</version>
+            </dependency>
+            <dependency>
                 <!-- oa. nodig voor hibernate, dbunit, cronparser -->
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-reload4j</artifactId>
@@ -790,6 +796,18 @@
             <groupId>ch.qos.reload4j</groupId>
             <artifactId>reload4j</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-reload4j</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-to-slf4j</artifactId>
+        </dependency>
     </dependencies>
     <build>
         <defaultGoal>package</defaultGoal>
@@ -955,7 +973,7 @@
                             <link>https://download.oracle.com/javaee/7/api/</link>
                             <link>https://docs.jboss.org/hibernate/stable/core/javadocs/</link>
                             <link>https://docs.geotools.org/stable/javadocs/</link>
-                            <link>https://logging.apache.org/log4j/1.2/apidocs/</link>
+                            <link>https://reload4j.qos.ch/apidocs/</link>
                             <link>https://junit.org/junit5/docs/current/api/</link>
                             <link>https://b3partners.github.io/kadaster-gds2/apidocs/</link>
                             <link>https://b3partners.github.io/jdbc-util/apidocs/</link>
