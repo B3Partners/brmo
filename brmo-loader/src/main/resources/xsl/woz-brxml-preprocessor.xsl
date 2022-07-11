@@ -23,4 +23,8 @@
         <xsl:copy-of select="."/>
     </xsl:template>
 
+    <xsl:template match="WOZ:historie">
+        <!-- verwijder historie; voorlopig kunne we daar niks mee -->
+    </xsl:template>
+
 </xsl:stylesheet>
