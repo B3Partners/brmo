@@ -62,7 +62,7 @@
         <project.build.outputTimestamp>2022-06-07T13:29:30Z</project.build.outputTimestamp>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
-        <hibernate.version>5.6.9.Final</hibernate.version>
+        <hibernate.version>5.6.10.Final</hibernate.version>
         <!-- ook jdbc-util updaten bij geotools update -->
         <geotools.version>27.0</geotools.version>
         <jdbc-util.version>12.0</jdbc-util.version>
@@ -837,7 +837,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-assembly-plugin</artifactId>
-                    <version>3.4.0</version>
+                    <version>3.4.1</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-patch-plugin</artifactId>
