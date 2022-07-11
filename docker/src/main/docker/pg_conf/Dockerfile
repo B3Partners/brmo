@@ -1,7 +1,7 @@
 FROM postgis/postgis:14-3.2-alpine
 
 ARG TZ="Europe/Amsterdam"
-ARG BRMO_VERSION="2.3.0-SNAPSHOT"
+ARG BRMO_VERSION="2.3.1-SNAPSHOT"
 
 # get schema export from tailormap persistence
 RUN set -eux; \
