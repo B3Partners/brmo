@@ -36,10 +36,10 @@
     </suppress>
     <suppress>
         <notes><![CDATA[
-                   file name: kernel-7.2.2.jar
+                   file name: kernel-7.2.3.jar
                    see: https://github.com/jeremylong/DependencyCheck/issues/4613
    ]]></notes>
-        <gav regex="true">^com\.itextpdf:kernel:7\.2\.2.*$</gav>
+        <gav regex="true">^com\.itextpdf:kernel:7\.2\.3.*$</gav>
         <vulnerabilityName>CVE-2022-24198</vulnerabilityName>
     </suppress>
     <suppress>
@@ -50,4 +50,11 @@
         <packageUrl regex="true">^pkg:maven/org\.apache\.logging\.log4j/log4j\-api@.*$</packageUrl>
         <cve>CVE-2022-33915</cve>
     </suppress>
+    <suppress>
+       <notes><![CDATA[
+                   Any file, see https://github.com/jeremylong/DependencyCheck/issues/4671
+   ]]></notes>
+       <cve>CVE-2022-31569</cve>
+    </suppress>
+
 </suppressions>
