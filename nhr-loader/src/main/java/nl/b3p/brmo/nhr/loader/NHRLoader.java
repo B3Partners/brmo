@@ -18,6 +18,7 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.bind.Marshaller;
 import javax.xml.ws.BindingProvider;
 import nl.b3p.brmo.loader.BrmoFramework;
+import nl.b3p.brmo.nhr.model.Processor;
 import nl.kvk.schemas.schemas.hrip.dataservice._2015._02.Dataservice;
 import nl.kvk.schemas.schemas.hrip.dataservice._2015._02.InschrijvingRequestType;
 import nl.kvk.schemas.schemas.hrip.dataservice._2015._02.InschrijvingResponseType;
@@ -72,6 +73,10 @@ public class NHRLoader {
             throw new NHRException(errorMap);
         }
 
+        Processor processor = new Processor();
+        processor.process(response);
+        processor.dumpState();
+
         // Serialize the XML into the format expected by BRMO.
         JAXBElement<InschrijvingResponseType> wrappedResponse = factory.createOphalenInschrijvingResponse(response);
         Marshaller marshaller = jaxbContext.createMarshaller();
@@ -79,6 +84,6 @@ public class NHRLoader {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         marshaller.marshal(wrappedResponse, outputStream);
 
-        brmoFramework.loadFromStream(BrmoFramework.BR_NHR, new ByteArrayInputStream(outputStream.toByteArray()), String.format("NHR %s %s", LocalDateTime.now(), description), (Long) null);
+        // brmoFramework.loadFromStream(BrmoFramework.BR_NHR, new ByteArrayInputStream(outputStream.toByteArray()), String.format("NHR %s %s", LocalDateTime.now(), description), (Long) null);
     }
 }

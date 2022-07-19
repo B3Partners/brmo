@@ -79,22 +79,22 @@ public class NHRLoaderMain implements IVersionProvider {
         log.info(NHRLoaderUtils.getUserAgent());
 
         Dataservice dataservice = NHRLoadUtils.getDataservice(loadOptions.getLocation(), loadOptions.getPreprod(), certificateOptions);
-        BrmoFramework brmoFramework = NHRLoadUtils.getFramework(databaseOptions);
+        BrmoFramework brmoFramework = null; // NHRLoadUtils.getFramework(databaseOptions);
 
         for (String nummer : nummers) {
-            try {
+//            try {
                 NHRLoader.sendSingleRequest(dataservice, brmoFramework, nummer, null);
-            } catch(Exception e) {
-                log.error(e);
-
-                if (quitEarly) {
-                    brmoFramework.closeBrmoFramework();
-                    return ExitCode.SOFTWARE;
-                }
-            }
+//            } catch(Exception e) {
+//                log.error(e);
+//
+//                if (quitEarly) {
+//                    //brmoFramework.closeBrmoFramework();
+//                    return ExitCode.SOFTWARE;
+//                }
+//            }
         }
 
-        brmoFramework.closeBrmoFramework();
+        //brmoFramework.closeBrmoFramework();
         return ExitCode.OK;
     }
 
@@ -107,7 +107,7 @@ public class NHRLoaderMain implements IVersionProvider {
         log.info(NHRLoaderUtils.getUserAgent());
 
         Dataservice dataservice = NHRLoadUtils.getDataservice(loadOptions.getLocation(), loadOptions.getPreprod(), certificateOptions);
-        BrmoFramework brmoFramework = NHRLoadUtils.getFramework(databaseOptions);
+        BrmoFramework brmoFramework = null; // NHRLoadUtils.getFramework(databaseOptions);
 
         boolean hasFailure = false;
 
@@ -127,12 +127,12 @@ public class NHRLoaderMain implements IVersionProvider {
                     }
                 }
             } catch (Exception e) {
-                brmoFramework.closeBrmoFramework();
+                //brmoFramework.closeBrmoFramework();
                 throw e;
             }
         }
 
-        brmoFramework.closeBrmoFramework();
+        //brmoFramework.closeBrmoFramework();
 
         if (hasFailure) {
             return ExitCode.SOFTWARE;
