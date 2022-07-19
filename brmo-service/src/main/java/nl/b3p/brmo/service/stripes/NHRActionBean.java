@@ -294,7 +294,7 @@ public class NHRActionBean implements ActionBean {
 
                 // Parse the first column from a CSV, and accept KVK numbers with zeroes trimmed
                 // (e.g. spreadsheet software parsing the number as a decimal)
-                line = line.split(",")[0];
+                line = line.split(",")[0].replaceAll("\"", "");
                 if (line.length() < 8) {
                     line = StringUtils.leftPad(line, 8, "0");
                 }

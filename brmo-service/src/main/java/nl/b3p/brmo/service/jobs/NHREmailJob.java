@@ -65,7 +65,7 @@ public class NHREmailJob implements Job {
                 }
 
                 // Parse the KVK numer out of the CSV
-                line = line.split(",")[0];
+                line = line.split(",")[0].replaceAll("\"", "");
 
                 NHRInschrijving proces;
                 proces = entityManager.find(NHRInschrijving.class, line);
