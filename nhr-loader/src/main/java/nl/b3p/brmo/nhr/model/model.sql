@@ -28,6 +28,8 @@ CREATE TABLE nhr_persoon (
   naampersoon_nummer text
   naampersoon_toegangscode text
 
+  naampersoon_adres text references nhr_locatie(id)
+
   -- TODO: NaamPersoon.adres
 
   -- De identifier voor een NaamPersoon wordt gebaseerd op de eerste van de volgende kolommen, wanneer deze beschikbaar zijn:
@@ -63,6 +65,8 @@ CREATE TABLE nhr_persoon (
   voornamen text
   voorvoegsel text
 
+  woonadres text references nhr_locatie(id)
+
   -- Voor elk NietNatuurlijkPersoon wordt het RSIN gebruikt als sleutelwaarde.
   -- De volgende informatie is beschikbaar op elke NietNatuurlijkPersoon.
 
@@ -76,6 +80,8 @@ CREATE TABLE nhr_persoon (
 
   -- Beschikbaar op Rechtspersoon, BuitenlandseVennootschap
   geplaatstkapitaal text -- references kapitaal
+  bezoekadres text references nhr_locatie(id)
+  postadres text references nhr_locatie(id)
 
   -- Rechtspersoon:
   aanvangStatutaireZetel text
@@ -113,6 +119,47 @@ CREATE TABLE nhr_persoon (
   -- BuitenlandseVennootschap
   landvanoprichting text -- enumeratie Land
   landvanvestiging text -- enumeratie Land
+);
+
+
+-- TODO: De sleutelwaarde van een Locatie is niet af te leiden van het adres;
+--  de materiële/formele registratie zijn namelijk in de context van het object
+--  (persoon/vestiging) die naar het object verwijzen.
+-- Deze tabel opsplitsen in nhr_locatie en nhr_adres, of mogelijk nhr_locatie in inline kolommen gebruiken?
+CREATE TABLE nhr_locatie (
+  id text primary key
+
+  -- MateriëleRegistratie
+  datumaanvang text
+  datumeinde text
+  -- FormeleRegistratie
+  registratietijdstip text
+
+  afgeschermd char(1)
+  toevoegingadres text
+  volledigadres text -- afgeleid
+
+  adres_type text -- BinnenlandsAdres / BuitenlandsAdres
+
+  -- BinnenlandsAdres
+  aanduidingbijhuisnummer text -- enum: bij/tegenover
+  huisletter char(1)
+  huisnummer text
+  huisnummertoevoeging text
+  plaats text
+  postbusnummer text
+  postcode text
+  straatnaam text
+
+  -- BuitenlandsAdres
+  land text -- enum Land
+  postcodewoonplaats text
+  regio text
+  straathuisnummer text
+
+  -- BAG identificatie
+  bag_identificatieaddresserbaarobject text
+  bag_identificatienummeraanduiding text
 );
 
 CREATE TABLE nhr_kapitaal (
