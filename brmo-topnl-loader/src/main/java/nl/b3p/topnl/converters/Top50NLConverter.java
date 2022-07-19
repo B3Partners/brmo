@@ -16,6 +16,7 @@
  */
 package nl.b3p.topnl.converters;
 
+import jakarta.xml.bind.JAXBElement;
 import nl.b3p.topnl.top50nl.*;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.LineString;
@@ -23,7 +24,6 @@ import org.locationtech.jts.geom.Polygon;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.bind.JAXBElement;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import nl.b3p.topnl.TopNLType;

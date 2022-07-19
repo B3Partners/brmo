@@ -15,5 +15,7 @@ Parser voor het inlezen van top10nl, top50nl, top100nl en top250 in een rsgb dat
 
 5. Genereer jaxb classes: run: `brmo/brmo-topnl-loader/src/main/resources/nl/b3p/topnl/<versie>/standaardGML/XSD-Resolver/finalized/convertToJava.sh`
 
+**Let op**: gebruik xjc versie 3 (evt apart te downloaden via https://github.com/eclipse-ee4j/jaxb-ri/releases) en zorg 
+dat de `jakarta` namespace urls en packages worden gebruikt.
 
 run ./convertToJava.sh

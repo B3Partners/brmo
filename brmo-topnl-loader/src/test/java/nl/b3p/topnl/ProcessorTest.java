@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 import org.locationtech.jts.io.ParseException;
 import org.xml.sax.SAXException;
 
-import javax.xml.bind.JAXBException;
+import jakarta.xml.bind.JAXBException;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import java.io.IOException;
