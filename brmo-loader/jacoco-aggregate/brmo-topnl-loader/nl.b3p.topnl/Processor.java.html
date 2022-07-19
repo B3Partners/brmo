@@ -108,35 +108,48 @@ public class Processor {
 <span class="fc" id="L108">        } </span>
 <span class="fc" id="L109">    }</span>
 
+    /**
+     * Parse een TopNL file naar een lijst van  FeatureMemberType (de package van het FeatureMemberType is specifiek
+     * voor de geladen schaal, bijv. {@code nl.b3p.topnl.top10nl.FeatureMemberType}.
+     *
+     * @param in input gml file
+     * @return een lijst met FeatureMemberType's van de respectievelijke schaal package
+     * @throws JAXBException if any
+     * @throws IOException   if any
+     * @see nl.b3p.topnl.top10nl.FeatureMemberType
+     * @see nl.b3p.topnl.top50nl.FeatureMemberType
+     * @see nl.b3p.topnl.top100nl.FeatureMemberType
+     * @see nl.b3p.topnl.top250nl.FeatureMemberType
+     */
     public List parse (URL in) throws  JAXBException,  IOException{
-<span class="fc" id="L112">        List list = new ArrayList();</span>
+<span class="fc" id="L125">        List list = new ArrayList();</span>
         try {
-<span class="fc" id="L114">            TopNLType type = TopNLTypeFactory.getTopNLType(in);</span>
-<span class="fc" id="L115">            Unmarshaller jaxbUnmarshaller = converterFactory.getContext(type).createUnmarshaller();</span>
+<span class="fc" id="L127">            TopNLType type = TopNLTypeFactory.getTopNLType(in);</span>
+<span class="fc" id="L128">            Unmarshaller jaxbUnmarshaller = converterFactory.getContext(type).createUnmarshaller();</span>
             
-<span class="fc" id="L117">            XMLInputFactory xif = XMLInputFactory.newFactory();</span>
+<span class="fc" id="L130">            XMLInputFactory xif = XMLInputFactory.newFactory();</span>
             
-<span class="fc" id="L119">            XMLStreamReader xsr = xif.createXMLStreamReader(in.openStream());</span>
+<span class="fc" id="L132">            XMLStreamReader xsr = xif.createXMLStreamReader(in.openStream());</span>
             
-<span class="fc bfc" id="L121" title="All 2 branches covered.">            while (xsr.hasNext()) {</span>
-<span class="fc" id="L122">                int eventType = xsr.next();</span>
+<span class="fc bfc" id="L134" title="All 2 branches covered.">            while (xsr.hasNext()) {</span>
+<span class="fc" id="L135">                int eventType = xsr.next();</span>
                 
-<span class="fc bfc" id="L124" title="All 2 branches covered.">                if (eventType == XMLStreamReader.START_ELEMENT) {</span>
-<span class="fc" id="L125">                    String localname = xsr.getLocalName();</span>
-<span class="fc bfc" id="L126" title="All 2 branches covered.">                    if (xsr.getLocalName().equals(&quot;FeatureMember&quot;)) {</span>
-<span class="fc" id="L127">                        JAXBElement jb = (JAXBElement)jaxbUnmarshaller.unmarshal(xsr);</span>
-<span class="fc" id="L128">                        list.add(jb.getValue());</span>
+<span class="fc bfc" id="L137" title="All 2 branches covered.">                if (eventType == XMLStreamReader.START_ELEMENT) {</span>
+<span class="fc" id="L138">                    String localname = xsr.getLocalName();</span>
+<span class="fc bfc" id="L139" title="All 2 branches covered.">                    if (xsr.getLocalName().equals(&quot;FeatureMember&quot;)) {</span>
+<span class="fc" id="L140">                        JAXBElement jb = (JAXBElement)jaxbUnmarshaller.unmarshal(xsr);</span>
+<span class="fc" id="L141">                        list.add(jb.getValue());</span>
                     }
                 }
-<span class="fc" id="L131">            }</span>
+<span class="fc" id="L144">            }</span>
             
-<span class="fc" id="L133">            xsr.close();</span>
-<span class="nc" id="L134">        } catch (XMLStreamException ex) {</span>
-<span class="nc" id="L135">            log.error(&quot;cannot correctly stream xml file:&quot;, ex);</span>
-<span class="nc" id="L136">        } catch (JDOMException ex) {</span>
-<span class="nc" id="L137">            log.error(&quot;Cannot retrieve topnltype: &quot;,ex);</span>
-<span class="pc" id="L138">        }</span>
-<span class="fc" id="L139">        return list;</span>
+<span class="fc" id="L146">            xsr.close();</span>
+<span class="nc" id="L147">        } catch (XMLStreamException ex) {</span>
+<span class="nc" id="L148">            log.error(&quot;cannot correctly stream xml file:&quot;, ex);</span>
+<span class="nc" id="L149">        } catch (JDOMException ex) {</span>
+<span class="nc" id="L150">            log.error(&quot;Cannot retrieve topnltype: &quot;,ex);</span>
+<span class="pc" id="L151">        }</span>
+<span class="fc" id="L152">        return list;</span>
     }
 
     /**
@@ -147,20 +160,20 @@ public class Processor {
     public List&lt;TopNLEntity&gt; convert(List listOfJaxbObjects, TopNLType type) throws IOException, SAXException,
             ParserConfigurationException, TransformerException, ClassCastException {
 
-<span class="fc" id="L150">        Converter converter = converterFactory.getConverter(type);</span>
-<span class="fc" id="L151">        List&lt;TopNLEntity&gt; entity = converter.convert(listOfJaxbObjects);</span>
-<span class="fc" id="L152">        return entity;</span>
+<span class="fc" id="L163">        Converter converter = converterFactory.getConverter(type);</span>
+<span class="fc" id="L164">        List&lt;TopNLEntity&gt; entity = converter.convert(listOfJaxbObjects);</span>
+<span class="fc" id="L165">        return entity;</span>
     }
     
     public void save(TopNLEntity entity, TopNLType type) throws ParseException, SQLException {
-<span class="fc" id="L156">        database.save(entity);</span>
-<span class="fc" id="L157">    }</span>
+<span class="fc" id="L169">        database.save(entity);</span>
+<span class="fc" id="L170">    }</span>
     
     public void save(List&lt;TopNLEntity&gt; entities, TopNLType type) throws ParseException, SQLException {
-<span class="fc bfc" id="L160" title="All 2 branches covered.">        for (TopNLEntity entity : entities) {</span>
-<span class="fc" id="L161">            save(entity, type);</span>
-<span class="fc" id="L162">        }</span>
-<span class="fc" id="L163">    }</span>
+<span class="fc bfc" id="L173" title="All 2 branches covered.">        for (TopNLEntity entity : entities) {</span>
+<span class="fc" id="L174">            save(entity, type);</span>
+<span class="fc" id="L175">        }</span>
+<span class="fc" id="L176">    }</span>
 
     /**
      * geeft de verwerkingsstatus. Voorafgaand aan de verwerking moet de status
@@ -170,38 +183,38 @@ public class Processor {
      * @return status van de verwerking
      */
     public STATUS getStatus() {
-<span class="nc" id="L173">        return this.status;</span>
+<span class="nc" id="L186">        return this.status;</span>
     }
 
     /**
      * verwerkingsstatus
      */
-<span class="fc" id="L179">    public enum STATUS {</span>
-<span class="fc" id="L180">        OK, NOK</span>
+<span class="fc" id="L192">    public enum STATUS {</span>
+<span class="fc" id="L193">        OK, NOK</span>
     }
 
     public void resetStatus() {
-<span class="fc" id="L184">        this.status = STATUS.OK;</span>
-<span class="fc" id="L185">    }</span>
+<span class="fc" id="L197">        this.status = STATUS.OK;</span>
+<span class="fc" id="L198">    }</span>
 
     private class LocationListener extends Listener {
         private XMLStreamReader xsr;
         private Map&lt;Object, Location&gt; locations;
 
-<span class="fc" id="L191">        public LocationListener(XMLStreamReader xsr) {</span>
-<span class="fc" id="L192">            this.xsr = xsr;</span>
-<span class="fc" id="L193">            this.locations = new HashMap&lt;Object, Location&gt;();</span>
-<span class="fc" id="L194">        }</span>
+<span class="fc" id="L204">        public LocationListener(XMLStreamReader xsr) {</span>
+<span class="fc" id="L205">            this.xsr = xsr;</span>
+<span class="fc" id="L206">            this.locations = new HashMap&lt;Object, Location&gt;();</span>
+<span class="fc" id="L207">        }</span>
 
         @Override
         public void beforeUnmarshal(Object target, Object parent) {
-<span class="fc" id="L198">            locations.put(target, xsr.getLocation());</span>
-<span class="fc" id="L199">        }</span>
+<span class="fc" id="L211">            locations.put(target, xsr.getLocation());</span>
+<span class="fc" id="L212">        }</span>
 
         public Location getLocation(Object o) {
-<span class="nc" id="L202">            return locations.get(o);</span>
+<span class="nc" id="L215">            return locations.get(o);</span>
         }
 
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

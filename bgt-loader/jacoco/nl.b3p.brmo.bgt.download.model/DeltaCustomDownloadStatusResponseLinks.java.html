@@ -24,7 +24,8 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import nl.b3p.brmo.bgt.download.model.HalLink;
+import nl.b3p.brmo.bgt.download.model.DeltaCustomDownloadResponseLinksStatus;
+import nl.b3p.brmo.bgt.download.model.DeltaCustomDownloadStatusResponseLinksDownload;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 
@@ -38,64 +39,64 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @javax.annotation.processing.Generated(value = &quot;org.openapitools.codegen.languages.JavaClientCodegen&quot;)
 public class DeltaCustomDownloadStatusResponseLinks {
   public static final String JSON_PROPERTY_SELF = &quot;self&quot;;
-  private HalLink self;
+  private DeltaCustomDownloadResponseLinksStatus self;
 
   public static final String JSON_PROPERTY_DOWNLOAD = &quot;download&quot;;
-  private HalLink download;
+  private DeltaCustomDownloadStatusResponseLinksDownload download;
 
-<span class="nc" id="L46">  public DeltaCustomDownloadStatusResponseLinks() { </span>
-<span class="nc" id="L47">  }</span>
+<span class="nc" id="L47">  public DeltaCustomDownloadStatusResponseLinks() { </span>
+<span class="nc" id="L48">  }</span>
 
-  public DeltaCustomDownloadStatusResponseLinks self(HalLink self) {
-<span class="nc" id="L50">    this.self = self;</span>
-<span class="nc" id="L51">    return this;</span>
+  public DeltaCustomDownloadStatusResponseLinks self(DeltaCustomDownloadResponseLinksStatus self) {
+<span class="nc" id="L51">    this.self = self;</span>
+<span class="nc" id="L52">    return this;</span>
   }
 
    /**
-   * Absolute path naar het endpoint waarop de status van de aanvraag opgehaald kan worden
+   * Get self
    * @return self
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = &quot;Absolute path naar het endpoint waarop de status van de aanvraag opgehaald kan worden&quot;)
+  @ApiModelProperty(value = &quot;&quot;)
   @JsonProperty(JSON_PROPERTY_SELF)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public HalLink getSelf() {
-<span class="nc" id="L64">    return self;</span>
+  public DeltaCustomDownloadResponseLinksStatus getSelf() {
+<span class="nc" id="L65">    return self;</span>
   }
 
 
   @JsonProperty(JSON_PROPERTY_SELF)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSelf(HalLink self) {
-<span class="nc" id="L71">    this.self = self;</span>
-<span class="nc" id="L72">  }</span>
+  public void setSelf(DeltaCustomDownloadResponseLinksStatus self) {
+<span class="nc" id="L72">    this.self = self;</span>
+<span class="nc" id="L73">  }</span>
 
 
-  public DeltaCustomDownloadStatusResponseLinks download(HalLink download) {
-<span class="nc" id="L76">    this.download = download;</span>
-<span class="nc" id="L77">    return this;</span>
+  public DeltaCustomDownloadStatusResponseLinks download(DeltaCustomDownloadStatusResponseLinksDownload download) {
+<span class="nc" id="L77">    this.download = download;</span>
+<span class="nc" id="L78">    return this;</span>
   }
 
    /**
-   * Absolute path waarop het bestand gedownload kan worden
+   * Get download
    * @return download
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = &quot;Absolute path waarop het bestand gedownload kan worden&quot;)
+  @ApiModelProperty(value = &quot;&quot;)
   @JsonProperty(JSON_PROPERTY_DOWNLOAD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public HalLink getDownload() {
-<span class="nc" id="L90">    return download;</span>
+  public DeltaCustomDownloadStatusResponseLinksDownload getDownload() {
+<span class="nc" id="L91">    return download;</span>
   }
 
 
   @JsonProperty(JSON_PROPERTY_DOWNLOAD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDownload(HalLink download) {
-<span class="nc" id="L97">    this.download = download;</span>
-<span class="nc" id="L98">  }</span>
+  public void setDownload(DeltaCustomDownloadStatusResponseLinksDownload download) {
+<span class="nc" id="L98">    this.download = download;</span>
+<span class="nc" id="L99">  }</span>
 
 
   /**
@@ -103,30 +104,30 @@ public class DeltaCustomDownloadStatusResponseLinks {
    */
   @Override
   public boolean equals(Object o) {
-<span class="nc bnc" id="L106" title="All 2 branches missed.">    if (this == o) {</span>
-<span class="nc" id="L107">      return true;</span>
+<span class="nc bnc" id="L107" title="All 2 branches missed.">    if (this == o) {</span>
+<span class="nc" id="L108">      return true;</span>
     }
-<span class="nc bnc" id="L109" title="All 4 branches missed.">    if (o == null || getClass() != o.getClass()) {</span>
-<span class="nc" id="L110">      return false;</span>
+<span class="nc bnc" id="L110" title="All 4 branches missed.">    if (o == null || getClass() != o.getClass()) {</span>
+<span class="nc" id="L111">      return false;</span>
     }
-<span class="nc" id="L112">    DeltaCustomDownloadStatusResponseLinks deltaCustomDownloadStatusResponseLinks = (DeltaCustomDownloadStatusResponseLinks) o;</span>
-<span class="nc bnc" id="L113" title="All 2 branches missed.">    return Objects.equals(this.self, deltaCustomDownloadStatusResponseLinks.self) &amp;&amp;</span>
-<span class="nc bnc" id="L114" title="All 2 branches missed.">        Objects.equals(this.download, deltaCustomDownloadStatusResponseLinks.download);</span>
+<span class="nc" id="L113">    DeltaCustomDownloadStatusResponseLinks deltaCustomDownloadStatusResponseLinks = (DeltaCustomDownloadStatusResponseLinks) o;</span>
+<span class="nc bnc" id="L114" title="All 2 branches missed.">    return Objects.equals(this.self, deltaCustomDownloadStatusResponseLinks.self) &amp;&amp;</span>
+<span class="nc bnc" id="L115" title="All 2 branches missed.">        Objects.equals(this.download, deltaCustomDownloadStatusResponseLinks.download);</span>
   }
 
   @Override
   public int hashCode() {
-<span class="nc" id="L119">    return Objects.hash(self, download);</span>
+<span class="nc" id="L120">    return Objects.hash(self, download);</span>
   }
 
   @Override
   public String toString() {
-<span class="nc" id="L124">    StringBuilder sb = new StringBuilder();</span>
-<span class="nc" id="L125">    sb.append(&quot;class DeltaCustomDownloadStatusResponseLinks {\n&quot;);</span>
-<span class="nc" id="L126">    sb.append(&quot;    self: &quot;).append(toIndentedString(self)).append(&quot;\n&quot;);</span>
-<span class="nc" id="L127">    sb.append(&quot;    download: &quot;).append(toIndentedString(download)).append(&quot;\n&quot;);</span>
-<span class="nc" id="L128">    sb.append(&quot;}&quot;);</span>
-<span class="nc" id="L129">    return sb.toString();</span>
+<span class="nc" id="L125">    StringBuilder sb = new StringBuilder();</span>
+<span class="nc" id="L126">    sb.append(&quot;class DeltaCustomDownloadStatusResponseLinks {\n&quot;);</span>
+<span class="nc" id="L127">    sb.append(&quot;    self: &quot;).append(toIndentedString(self)).append(&quot;\n&quot;);</span>
+<span class="nc" id="L128">    sb.append(&quot;    download: &quot;).append(toIndentedString(download)).append(&quot;\n&quot;);</span>
+<span class="nc" id="L129">    sb.append(&quot;}&quot;);</span>
+<span class="nc" id="L130">    return sb.toString();</span>
   }
 
   /**
@@ -134,12 +135,12 @@ public class DeltaCustomDownloadStatusResponseLinks {
    * (except the first line).
    */
   private String toIndentedString(Object o) {
-<span class="nc bnc" id="L137" title="All 2 branches missed.">    if (o == null) {</span>
-<span class="nc" id="L138">      return &quot;null&quot;;</span>
+<span class="nc bnc" id="L138" title="All 2 branches missed.">    if (o == null) {</span>
+<span class="nc" id="L139">      return &quot;null&quot;;</span>
     }
-<span class="nc" id="L140">    return o.toString().replace(&quot;\n&quot;, &quot;\n    &quot;);</span>
+<span class="nc" id="L141">    return o.toString().replace(&quot;\n&quot;, &quot;\n    &quot;);</span>
   }
 
 }
 
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

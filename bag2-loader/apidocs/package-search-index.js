@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"nl.b3p.brmo.bag2.loader"},{"l":"nl.b3p.brmo.bag2.loader.cli"},{"l":"nl.b3p.brmo.bag2.schema"},{"l":"nl.b3p.brmo.bag2.util"}]
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"nl.b3p.brmo.bag2.loader"},{"l":"nl.b3p.brmo.bag2.loader.cli"},{"l":"nl.b3p.brmo.bag2.schema"},{"l":"nl.b3p.brmo.bag2.util"},{"l":"nl.b3p.brmo.bag2.xml.leveringsdocument"}]

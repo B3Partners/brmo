@@ -1,6 +1,6 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
 BRMO service,nl.b3p.brmo.service.stripes,AdvancedFunctionsActionBean.new ResultSetHandler() {...},97,0,2,0,17,0,3,0,2,0
-BRMO service,nl.b3p.brmo.service.stripes,BAG2LoadActionBean,373,0,14,0,113,0,51,0,44,0
+BRMO service,nl.b3p.brmo.service.stripes,BAG2LoadActionBean,375,0,14,0,115,0,51,0,44,0
 BRMO service,nl.b3p.brmo.service.stripes,AdvancedFunctionsActionBean.new ResultSetHandler() {...},127,0,2,0,24,0,3,0,2,0
 BRMO service,nl.b3p.brmo.service.stripes,AdvancedFunctionsActionBean.new ResultSetHandler() {...},106,0,2,0,17,0,3,0,2,0
 BRMO service,nl.b3p.brmo.service.stripes,AdvancedFunctionsActionBean.new ResultSetHandler() {...},64,0,2,0,10,0,3,0,2,0
@@ -25,7 +25,10 @@ BRMO service,nl.b3p.brmo.service.stripes,BerichtenActionBean.new StreamingResolu
 BRMO service,nl.b3p.brmo.service.stripes,BerichtenActionBean.new StreamingResolution() {...},16,0,0,0,3,0,2,0,2,0
 BRMO service,nl.b3p.brmo.service.stripes,BGTLoaderUitvoerenActionBean,172,0,2,0,54,0,27,0,26,0
 BRMO service,nl.b3p.brmo.service.stripes,BasisregistratieFileUploadActionBean.new ProgressUpdateListener() {...},21,0,0,0,5,0,4,0,4,0
+BRMO service,nl.b3p.brmo.service.stripes,NHRActionBean.new StreamingResolution() {...},16,0,0,0,3,0,2,0,2,0
+BRMO service,nl.b3p.brmo.service.stripes,NHRActionBean.new StreamingResolution() {...},17,0,0,0,3,0,2,0,2,0
 BRMO service,nl.b3p.brmo.service.stripes,SamenvattingActionBean,84,0,4,0,22,0,12,0,10,0
+BRMO service,nl.b3p.brmo.service.stripes,NHRActionBean.new StreamingResolution() {...},12,0,0,0,3,0,2,0,2,0
 BRMO service,nl.b3p.brmo.service.stripes,AfgifteNummerScanUitvoerenActionBean,260,0,6,0,72,0,30,0,27,0
 BRMO service,nl.b3p.brmo.service.stripes,TransformActionBean,363,0,25,0,102,0,50,0,36,0
 BRMO service,nl.b3p.brmo.service.stripes,BasisregistratieBigFileLoadActionBean,215,0,8,0,58,0,31,0,27,0
@@ -33,6 +36,7 @@ BRMO service,nl.b3p.brmo.service.stripes,BAG2LoadActionBean.new BAG2Database() {
 BRMO service,nl.b3p.brmo.service.stripes,BasisregistratieServiceActionBean,230,0,20,0,49,0,18,0,8,0
 BRMO service,nl.b3p.brmo.service.stripes,LaadProcesActionBean,479,0,30,0,118,0,43,0,28,0
 BRMO service,nl.b3p.brmo.service.stripes,AdvancedFunctionsActionBean,1622,0,100,0,338,0,86,0,36,0
+BRMO service,nl.b3p.brmo.service.stripes,NHRActionBean,794,0,36,0,170,0,53,0,35,0
 BRMO service,nl.b3p.brmo.service.stripes,GDS2OphalenUitvoerActionBean,262,0,10,0,77,0,39,0,34,0
 BRMO service,nl.b3p.brmo.service.stripes,UpdatesActionBean,400,0,24,0,87,0,40,0,28,0
 BRMO service,nl.b3p.brmo.service.stripes,DirectoryScannerUitvoerActionBean,259,0,8,0,80,0,37,0,33,0
@@ -56,7 +60,7 @@ BRMO service,nl.b3p.brmo.service.scanner,BerichtDoorsturenProces.new ProgressUpd
 BRMO service,nl.b3p.brmo.service.scanner,WebMirrorBAGDirectoryScanner.new ProgressUpdateListener() {...},31,0,0,0,7,0,4,0,4,0
 BRMO service,nl.b3p.brmo.service.scanner,WebMirrorBAGDirectoryScanner.new ProgressUpdateListener() {...},14,0,0,0,7,0,6,0,6,0
 BRMO service,nl.b3p.brmo.service.scanner,BGTLoader,302,0,12,0,71,0,10,0,4,0
-BRMO service,nl.b3p.brmo.service.scanner,GDS2OphalenProces,2208,0,162,0,511,0,96,0,13,0
+BRMO service,nl.b3p.brmo.service.scanner,GDS2OphalenProces,2224,0,162,0,516,0,96,0,13,0
 BRMO service,nl.b3p.brmo.service.scanner,ProcesExecutable.ProcessingImple,154,0,0,0,4,0,1,0,1,0
 BRMO service,nl.b3p.brmo.service.scanner,BAG2MutatieProcesRunner,380,0,24,0,81,0,16,0,4,0
 BRMO service,nl.b3p.brmo.service.scanner,BRKDirectoryScanner,801,0,34,0,172,0,23,0,6,0
@@ -80,7 +84,9 @@ BRMO service,nl.b3p.brmo.service.scanner,AbstractExecutableProces,209,0,20,0,45,
 BRMO service,nl.b3p.brmo.service.scanner,AfgifteNummerScanner,596,0,36,0,135,0,26,0,8,0
 BRMO service,nl.b3p.brmo.service.scanner,BerichtstatusRapport.new ProgressUpdateListener() {...},14,0,0,0,7,0,6,0,6,0
 BRMO service,nl.b3p.web.stripes,DirectResponseResolution,45,0,0,0,16,0,5,0,5,0
-BRMO service,nl.b3p.brmo.service.jobs,GeplandeTakenInit,235,0,8,0,64,0,14,0,10,0
+BRMO service,nl.b3p.brmo.service.jobs,NHREmailJob,285,0,30,0,83,0,20,0,5,0
+BRMO service,nl.b3p.brmo.service.jobs,GeplandeTakenInit,338,0,10,0,99,0,16,0,11,0
 BRMO service,nl.b3p.brmo.service.jobs,AutomatischProcesJob,131,0,6,0,30,0,6,0,3,0
-BRMO service,nl.b3p.brmo.service.jobs,GeplandeTakenContextListener,23,0,2,0,10,0,4,0,3,0
+BRMO service,nl.b3p.brmo.service.jobs,GeplandeTakenContextListener,60,0,12,0,20,0,9,0,3,0
+BRMO service,nl.b3p.brmo.service.jobs,NHRJob,371,0,28,0,99,0,22,0,8,0
 BRMO service,nl.b3p.brmo.service.util,TrustManagerDelegate,39,0,0,0,15,0,4,0,4,0

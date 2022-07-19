@@ -16,46 +16,81 @@
 <a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">package</strong> nl.b3p.brmo.bag2.loader;
 <a class="jxr_linenumber" name="L9" href="#L9">9</a>   
 <a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> org.junit.jupiter.api.Test;
-<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> org.junit.jupiter.params.ParameterizedTest;
-<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> org.junit.jupiter.params.provider.Arguments;
-<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> org.junit.jupiter.params.provider.MethodSource;
-<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> org.locationtech.jts.io.ParseException;
-<a class="jxr_linenumber" name="L15" href="#L15">15</a>  
-<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> java.io.File;
-<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <strong class="jxr_keyword">import</strong> java.time.LocalDate;
-<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <strong class="jxr_keyword">import</strong> java.util.stream.Stream;
-<a class="jxr_linenumber" name="L19" href="#L19">19</a>  
-<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.*;
-<a class="jxr_linenumber" name="L21" href="#L21">21</a>  
-<a class="jxr_linenumber" name="L22" href="#L22">22</a>  <strong class="jxr_keyword">class</strong> <a name="BAG2LoaderUtilsTest" href="../../../../../nl/b3p/brmo/bag2/loader/BAG2LoaderUtilsTest.html#BAG2LoaderUtilsTest">BAG2LoaderUtilsTest</a> {
-<a class="jxr_linenumber" name="L23" href="#L23">23</a>  
-<a class="jxr_linenumber" name="L24" href="#L24">24</a>      @ParameterizedTest(name=<span class="jxr_string">"[{index}] {0}"</span>)
-<a class="jxr_linenumber" name="L25" href="#L25">25</a>      @MethodSource
-<a class="jxr_linenumber" name="L26" href="#L26">26</a>      <strong class="jxr_keyword">void</strong> analyzeBAG2FileName(String name, BAG2LoaderUtils.BAG2FileName expected) {
-<a class="jxr_linenumber" name="L27" href="#L27">27</a>          assertEquals(expected, BAG2LoaderUtils.analyzeBAG2FileName(name));
-<a class="jxr_linenumber" name="L28" href="#L28">28</a>      }
-<a class="jxr_linenumber" name="L29" href="#L29">29</a>  
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> java.io.File;
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> java.io.IOException;
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> java.time.LocalDate;
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">import</strong> java.util.Collections;
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.*;
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>  
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <strong class="jxr_keyword">class</strong> <a name="BAG2LoaderUtilsTest" href="../../../../../nl/b3p/brmo/bag2/loader/BAG2LoaderUtilsTest.html#BAG2LoaderUtilsTest">BAG2LoaderUtilsTest</a> {
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>      @Test
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>      <strong class="jxr_keyword">void</strong> BAGExtractSelectieFromFilename_Error() {
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>          assertThrows(IllegalArgumentException.<strong class="jxr_keyword">class</strong>, () -&gt; BAG2LoaderUtils.BAGExtractSelectieFromFilename.parse(<span class="jxr_string">"bla.zip"</span>));
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>      }
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>  
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> BAGExtractSelectieFromFilenameIsNLStand(String filename) {
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>          BAG2LoaderUtils.BAGExtractSelectie selectie = BAG2LoaderUtils.BAGExtractSelectieFromFilename.parse(<span class="jxr_string">"lvbag-extract-nl.zip"</span>);
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>          assertTrue(selectie.isGebiedNLD());
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>          assertTrue(selectie.isStand());
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>      }
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>      @Test
-<a class="jxr_linenumber" name="L31" href="#L31">31</a>      <strong class="jxr_keyword">void</strong> analyzeBAG2FileNameError() {
-<a class="jxr_linenumber" name="L32" href="#L32">32</a>          assertThrows(IllegalArgumentException.<strong class="jxr_keyword">class</strong>, () -&gt; BAG2LoaderUtils.analyzeBAG2FileName(<span class="jxr_string">"bla.zip"</span>));
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>      <strong class="jxr_keyword">void</strong> BAGExtractSelectieFromFilename_GebiedNLD() {
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>          BAGExtractSelectieFromFilenameIsNLStand(<span class="jxr_string">"lvbag-extract-nl.zip"</span>);
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>      }
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>  
-<a class="jxr_linenumber" name="L35" href="#L35">35</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> Stream&lt;Arguments&gt; analyzeBAG2FileName() {
-<a class="jxr_linenumber" name="L36" href="#L36">36</a>          BAG2LoaderUtils.BAG2FileName nlStand = <strong class="jxr_keyword">new</strong> BAG2LoaderUtils.BAG2FileName(<span class="jxr_string">"lvbag-extract-nl.zip"</span>, <strong class="jxr_keyword">true</strong>, false, false);
-<a class="jxr_linenumber" name="L37" href="#L37">37</a>          <strong class="jxr_keyword">return</strong> Stream.of(
-<a class="jxr_linenumber" name="L38" href="#L38">38</a>                  Arguments.of(<span class="jxr_string">"lvbag-extract-nl.zip"</span>, nlStand),
-<a class="jxr_linenumber" name="L39" href="#L39">39</a>                  Arguments.of(<span class="jxr_string">"https://some.host/path/lvbag-extract-nl.zip"</span>, nlStand),
-<a class="jxr_linenumber" name="L40" href="#L40">40</a>                  Arguments.of(<span class="jxr_string">"http://other.host/path/subpath/lvbag-extract-nl.zip"</span>, nlStand),
-<a class="jxr_linenumber" name="L41" href="#L41">41</a>                  Arguments.of(<span class="jxr_string">"https://extracten.bag.kadaster.nl/lvbag/extracten/Nederland%20LVC/BAGNLDL-08112021.zip"</span>, <strong class="jxr_keyword">new</strong> BAG2LoaderUtils.BAG2FileName(<span class="jxr_string">"BAGNLDL-08112021.zip"</span>, <strong class="jxr_keyword">true</strong>, false, false)),
-<a class="jxr_linenumber" name="L42" href="#L42">42</a>                  Arguments.of(<span class="jxr_string">"some"</span> + File.separator + <span class="jxr_string">"local"</span> + File.separator + <span class="jxr_string">"path"</span> + File.separator + <span class="jxr_string">"lvbag-extract-nl.zip"</span>, nlStand),
-<a class="jxr_linenumber" name="L43" href="#L43">43</a>                  Arguments.of(<span class="jxr_string">"BAGGEM0344L-08112021.zip"</span>, <strong class="jxr_keyword">new</strong> BAG2LoaderUtils.BAG2FileName(<span class="jxr_string">"BAGGEM0344L-08112021.zip"</span>, <strong class="jxr_keyword">true</strong>, <strong class="jxr_keyword">true</strong>, false, <span class="jxr_string">"0344"</span>)),
-<a class="jxr_linenumber" name="L44" href="#L44">44</a>                  Arguments.of(<span class="jxr_string">"BAGGEM0344M-08112021-08122021.zip"</span>, <strong class="jxr_keyword">new</strong> BAG2LoaderUtils.BAG2FileName(<span class="jxr_string">"BAGGEM0344M-08112021-08122021.zip"</span>, false, <strong class="jxr_keyword">true</strong>, <strong class="jxr_keyword">true</strong>, <span class="jxr_string">"0344"</span>, LocalDate.of(2021, 11, 8), LocalDate.of(2021, 12, 8))),
-<a class="jxr_linenumber" name="L45" href="#L45">45</a>                  Arguments.of(<span class="jxr_string">"BAGNLDM-08112021-08122021.zip"</span>, <strong class="jxr_keyword">new</strong> BAG2LoaderUtils.BAG2FileName(<span class="jxr_string">"BAGNLDM-08112021-08122021.zip"</span>, false, false, <strong class="jxr_keyword">true</strong>, <strong class="jxr_keyword">null</strong>, LocalDate.of(2021, 11, 8), LocalDate.of(2021, 12, 8))),
-<a class="jxr_linenumber" name="L46" href="#L46">46</a>                  Arguments.of(<span class="jxr_string">"BAGNLDM-08112021-09112021.zip"</span>, <strong class="jxr_keyword">new</strong> BAG2LoaderUtils.BAG2FileName(<span class="jxr_string">"BAGNLDM-08112021-09112021.zip"</span>, false, false, false, <strong class="jxr_keyword">null</strong>, LocalDate.of(2021, 11, 8), LocalDate.of(2021, 11, 9))),
-<a class="jxr_linenumber" name="L47" href="#L47">47</a>                  Arguments.of(<span class="jxr_string">"BAGNLDM-31102021-01112021.zip"</span>, <strong class="jxr_keyword">new</strong> BAG2LoaderUtils.BAG2FileName(<span class="jxr_string">"BAGNLDM-31102021-01112021.zip"</span>, false, false, false, <strong class="jxr_keyword">null</strong>, LocalDate.of(2021, 10, 31), LocalDate.of(2021, 11, 1)))
-<a class="jxr_linenumber" name="L48" href="#L48">48</a>          );
-<a class="jxr_linenumber" name="L49" href="#L49">49</a>      }
-<a class="jxr_linenumber" name="L50" href="#L50">50</a>  }
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>      @Test
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>      <strong class="jxr_keyword">void</strong> BAGExtractSelectieFromFilename_GebiedNLDFromHttpsURL() {
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>          BAGExtractSelectieFromFilenameIsNLStand(<span class="jxr_string">"https://some.host/path/lvbag-extract-nl.zip"</span>);
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>      }
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>  
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>      @Test
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>      <strong class="jxr_keyword">void</strong> BAGExtractSelectieFromFilename_GebiedNLDFromHttsURL() {
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>          BAGExtractSelectieFromFilenameIsNLStand(<span class="jxr_string">"http://some.host/path/lvbag-extract-nl.zip"</span>);
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>      }
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>  
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>      @Test
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>      <strong class="jxr_keyword">void</strong> BAGExtractSelectieFromFilename_GebiedNLDFromFilePath() {
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>          BAGExtractSelectieFromFilenameIsNLStand(<span class="jxr_string">"some"</span> + File.separator + <span class="jxr_string">"local"</span> + File.separator + <span class="jxr_string">"path"</span> + File.separator + <span class="jxr_string">"lvbag-extract-nl.zip"</span>);
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>      }
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>  
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>      @Test
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>      <strong class="jxr_keyword">void</strong> BAGExtractSelectieFromFilename_GemeenteStand() {
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>          BAG2LoaderUtils.BAGExtractSelectie selectie = BAG2LoaderUtils.BAGExtractSelectieFromFilename.parse(<span class="jxr_string">"BAGGEM0344L-08112021.zip"</span>);
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>          assertTrue(selectie.isStand());
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>          assertFalse(selectie.isGebiedNLD());
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>          assertEquals(Collections.singleton(<span class="jxr_string">"0344"</span>), selectie.getGemeenteCodes());
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>      }
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>  
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>      @Test
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>      <strong class="jxr_keyword">void</strong> BAGExtractSelectieFromFilename_GemeenteMutaties() {
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>          BAG2LoaderUtils.BAGExtractSelectie selectie = BAG2LoaderUtils.BAGExtractSelectieFromFilename.parse(<span class="jxr_string">"BAGGEM0344M-08112021-08122021.zip"</span>);
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>          assertFalse(selectie.isStand());
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>          assertFalse(selectie.isGebiedNLD());
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>          assertEquals(Collections.singleton(<span class="jxr_string">"0344"</span>), selectie.getGemeenteCodes());
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>          assertEquals(LocalDate.of(2021, 11, 8), selectie.getMutatiesFrom());
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>          assertEquals(LocalDate.of(2021, 12, 8), selectie.getMutatiesTot());
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>      }
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>  
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>      @Test
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>      <strong class="jxr_keyword">void</strong> BAGExtractSelectieFromFilename_NLDDagMutaties() {
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>          BAG2LoaderUtils.BAGExtractSelectie selectie = BAG2LoaderUtils.BAGExtractSelectieFromFilename.parse(<span class="jxr_string">"BAGNLDM-08112021-08122021.zip"</span>);
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>          assertFalse(selectie.isStand());
+<a class="jxr_linenumber" name="L72" href="#L72">72</a>          assertTrue(selectie.isGebiedNLD());
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>          assertEquals(LocalDate.of(2021, 11, 8), selectie.getMutatiesFrom());
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>          assertEquals(LocalDate.of(2021, 12, 8), selectie.getMutatiesTot());
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>      }
+<a class="jxr_linenumber" name="L76" href="#L76">76</a>  
+<a class="jxr_linenumber" name="L77" href="#L77">77</a>      @Test
+<a class="jxr_linenumber" name="L78" href="#L78">78</a>      <strong class="jxr_keyword">void</strong> BAGExtractSelectieFromLeveringsdocument() <strong class="jxr_keyword">throws</strong> IOException {
+<a class="jxr_linenumber" name="L79" href="#L79">79</a>          BAG2LoaderUtils.BAGExtractSelectie selectie = BAG2LoaderUtils.getBAGExtractSelectieFromZipFile(BAG2TestFiles.getTestFile(<span class="jxr_string">"BAGGEM1904L-15102021.zip"</span>));
+<a class="jxr_linenumber" name="L80" href="#L80">80</a>          assertNotNull(selectie);
+<a class="jxr_linenumber" name="L81" href="#L81">81</a>          assertTrue(selectie.isStand());
+<a class="jxr_linenumber" name="L82" href="#L82">82</a>          assertFalse(selectie.isGebiedNLD());
+<a class="jxr_linenumber" name="L83" href="#L83">83</a>          assertEquals(Collections.singleton(<span class="jxr_string">"1904"</span>), selectie.getGemeenteCodes());
+<a class="jxr_linenumber" name="L84" href="#L84">84</a>      }
+<a class="jxr_linenumber" name="L85" href="#L85">85</a>  }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2014&#x2013;2022 <a href="https://www.b3partners.nl/">B3Partners B.V.</a>. All rights reserved.</div>

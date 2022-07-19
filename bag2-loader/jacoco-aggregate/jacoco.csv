@@ -1,14 +1,14 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
 BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.loader,ResumingBGTDownloadInputStream.new HttpStartRangeInputStreamProvider() {...},59,0,6,0,11,0,5,0,2,0
 BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.loader,ResumingBGTDownloadInputStream.new Java11HttpClientWrapper() {...},43,0,4,0,9,0,5,0,3,0
-BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.loader,BGTDatabase,431,0,40,0,90,0,38,0,17,0
-BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.loader,BGTObjectStreamer.new Iterator() {...},68,306,17,47,12,68,17,19,0,4
+BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.loader,BGTDatabase,420,0,37,0,87,0,36,0,17,0
+BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.loader,BGTObjectStreamer.new Iterator() {...},66,298,13,43,12,68,13,19,0,4
 BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.loader,ResumingBGTDownloadInputStream,23,0,0,0,5,0,3,0,3,0
 BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.loader,ProgressReporter,295,0,19,0,50,0,26,0,15,0
 BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.loader,BGTObjectStreamer.MutatieInhoud,0,20,0,0,0,6,0,5,0,5
-BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.loader,BGTObjectStreamer,56,522,11,56,11,120,13,37,2,12
-BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.loader,Utils,144,0,8,0,22,0,13,0,9,0
-BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.loader,BGTDatabase.SQLDialectEnum,34,0,0,0,4,0,1,0,1,0
+BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.loader,BGTObjectStreamer,54,516,9,54,11,119,11,37,2,12
+BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.loader,Utils,68,77,0,8,15,7,8,6,8,2
+BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.loader,BGTDatabase.SQLDialectEnum,24,0,0,0,3,0,1,0,1,0
 BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.sql,PostgresCopyEscapeUtils.new CharSequenceTranslator() {...},0,67,0,12,0,17,0,8,0,2
 BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.sql,PostGISCopyInsertBatch,247,0,26,0,57,0,20,0,7,0
 BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.sql,QueryBatch,5,0,0,0,4,0,1,0,1,0
@@ -33,7 +33,6 @@ BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.schema,BGTSchemaMapper,288,0,8,0,
 BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.schema,BGTObjectTableWriter,310,0,34,0,64,0,24,0,7,0
 BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.sql.dialect,OracleDialect,141,0,18,0,28,0,19,0,10,0
 BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.sql.dialect,SQLDialect,67,0,8,0,17,0,12,0,8,0
-BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.sql.dialect,MSSQLDialect,165,0,20,0,39,0,18,0,8,0
 BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.sql.dialect,PostGISDialect,76,0,4,0,15,0,8,0,6,0
 BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.download.model,DeltaCustomDownloadStatusResponseLinks,121,0,12,0,29,0,17,0,11,0
 BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.download.model,DeltaTimeWindow,112,0,12,0,25,0,14,0,8,0
@@ -41,13 +40,15 @@ BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.download.model,DeltaCustomDownloa
 BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.download.model,DeltaCustomDownloadRequest.FormatEnum,59,0,4,0,11,0,7,0,5,0
 BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.download.model,DeltaCustomDownloadStatusResponse,155,0,14,0,36,0,21,0,14,0
 BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.download.model,DeltaCustomDownloadResponse,121,0,12,0,29,0,17,0,11,0
+BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.download.model,DeltaCustomDownloadStatusResponseLinksDownload,155,0,14,0,36,0,21,0,14,0
 BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.download.model,GetDeltasResponse,145,0,12,0,35,0,19,0,13,0
 BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.download.model,DeltaCustomDownloadResponseLinks,83,0,8,0,22,0,12,0,8,0
 BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.download.model,DeltaCustomDownloadRequest.FeaturetypesEnum,444,0,4,0,46,0,7,0,5,0
 BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.download.model,Delta,118,0,12,0,28,0,16,0,10,0
 BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.download.model,DeltaCustomDownloadStatusResponse.StatusEnum,81,0,4,0,13,0,7,0,5,0
 BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.download.model,HalLink,155,0,14,0,36,0,21,0,14,0
-BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.download.client,ApiClient,353,0,35,0,94,0,47,0,28,0
+BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.download.model,DeltaCustomDownloadResponseLinksStatus,155,0,14,0,36,0,21,0,14,0
+BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.download.client,ApiClient,372,0,35,0,100,0,49,0,30,0
 BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.download.client,Pair,45,0,6,0,19,0,9,0,6,0
 BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.download.client,ApiException,124,0,0,0,29,0,12,0,12,0
 BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.download.client,ApiResponse,27,0,0,0,10,0,5,0,5,0
@@ -55,7 +56,7 @@ BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.util.http.wrapper,URLConnectionHttpCl
 BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.util.http.wrapper,Java11HttpClientWrapper,4,50,1,3,1,15,1,6,0,5
 BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.util.http.wrapper,URLConnectionHttpClientWrapper.new HttpResponseWrapper() {...},22,0,0,0,4,0,4,0,4,0
 BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.util.http.wrapper,Java11HttpClientWrapper.new HttpResponseWrapper() {...},0,27,0,0,0,4,0,4,0,4
-BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.loader.cli,DownloadCommand,622,0,50,0,122,0,37,0,12,0
+BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.loader.cli,DownloadCommand,625,0,50,0,122,0,37,0,12,0
 BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.loader.cli,DatabaseOptions,50,0,0,0,20,0,11,0,11,0
 BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.loader.cli,ExtractSelectionOptions,10,0,0,0,4,0,3,0,3,0
 BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.bgt.loader.cli,BGTLoaderMain,819,0,56,0,175,0,46,0,18,0
@@ -78,7 +79,7 @@ BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.schema,ObjectTableWriter.Stage,54,0,0
 BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.util,CountingSeekableByteChannel,234,0,18,0,50,0,24,0,15,0
 BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.util,ResumingInputStream,0,174,1,9,0,53,1,19,0,15
 BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.util,StandardLinearizedWKTWriter,0,25,0,2,0,6,0,3,0,2
-BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.schema.mapping,AttributeColumnMapping,16,59,2,4,6,17,5,10,4,8
+BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.schema.mapping,AttributeColumnMapping,13,62,2,4,5,18,4,11,3,9
 BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.schema.mapping,IntegerAttributeColumnMapping,9,19,2,0,3,6,2,3,1,3
 BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.schema.mapping,ForeignKeyAttributeMapping,13,0,0,0,4,0,2,0,2,0
 BRMO BAG 2.0 loader/bgt-loader,nl.b3p.brmo.schema.mapping,DoubleAttributeColumnMapping,9,12,2,0,3,4,2,2,1,2

@@ -38,7 +38,7 @@ import java.util.Queue;
 
 import static nl.b3p.brmo.bgt.schema.BGTSchema.fixUUID;
 
-<span class="pc bpc" id="L41" title="1 of 2 branches missed.">public class BGTObjectStreamer implements Iterable&lt;BGTObject&gt; {</span>
+public class BGTObjectStreamer implements Iterable&lt;BGTObject&gt; {
 <span class="fc" id="L42">    private static final Log log = LogFactory.getLog(BGTObjectStreamer.class);</span>
 
     private static final String NS_IMGEO = &quot;http://www.geostandaarden.nl/imgeo/2.1&quot;;
@@ -130,7 +130,7 @@ import static nl.b3p.brmo.bgt.schema.BGTSchema.fixUUID;
             do {
 <span class="pc bpc" id="L131" title="1 of 4 branches missed.">                switch (cursor.getLocalName()) {</span>
                     case &quot;dataset&quot;:
-<span class="pc bpc" id="L133" title="2 of 4 branches missed.">                        assert cursor.collectDescendantText().equals(&quot;bgt&quot;);</span>
+<span class="pc bpc" id="L133" title="1 of 2 branches missed.">                        assert cursor.collectDescendantText().equals(&quot;bgt&quot;);</span>
                         break;
                     case &quot;inhoud&quot;:
 <span class="fc" id="L136">                        this.mutatieInhoud = parseInhoud(cursor);</span>
@@ -195,7 +195,7 @@ import static nl.b3p.brmo.bgt.schema.BGTSchema.fixUUID;
 
     @Override
     public Iterator&lt;BGTObject&gt; iterator() {
-<span class="pc bpc" id="L198" title="1 of 2 branches missed.">        return new Iterator&lt;&gt;() {</span>
+<span class="fc" id="L198">        return new Iterator&lt;&gt;() {</span>
 <span class="fc" id="L199">            SMEvent event = cursor.getCurrEvent();</span>
 
             /**
@@ -258,7 +258,7 @@ import static nl.b3p.brmo.bgt.schema.BGTSchema.fixUUID;
                         }
 
 <span class="fc bfc" id="L260" title="All 2 branches covered.">                        if (mutatieNaam.equals(&quot;wijziging&quot;)) {</span>
-<span class="pc bpc" id="L261" title="2 of 4 branches missed.">                            assert mutatie.getLocalName().equals(&quot;was&quot;);</span>
+<span class="pc bpc" id="L261" title="1 of 2 branches missed.">                            assert mutatie.getLocalName().equals(&quot;was&quot;);</span>
 <span class="fc" id="L262">                            gmlIdPreviousVersion = fixUUID(mutatie.getAttrValue(&quot;id&quot;));</span>
 
 <span class="pc bpc" id="L264" title="1 of 2 branches missed.">                            if (mutatie.getNext() == null) {</span>
@@ -266,10 +266,10 @@ import static nl.b3p.brmo.bgt.schema.BGTSchema.fixUUID;
                                 // at least, but deletes do not occur for bgt
 <span class="nc" id="L267">                                throw new IllegalStateException(&quot;Mutaties 'was' zonder 'wordt' worden niet ondersteund voor BGT&quot;);</span>
                             }
-<span class="pc bpc" id="L269" title="2 of 4 branches missed.">                            assert mutatie.getLocalName().equals(&quot;wordt&quot;);</span>
+<span class="pc bpc" id="L269" title="1 of 2 branches missed.">                            assert mutatie.getLocalName().equals(&quot;wordt&quot;);</span>
 <span class="fc" id="L270">                            mutatieStatus = BGTObject.MutatieStatus.WAS_WORDT;</span>
 <span class="pc bpc" id="L271" title="1 of 2 branches missed.">                        } else if(mutatieNaam.equals(&quot;toevoeging&quot;)) {</span>
-<span class="pc bpc" id="L272" title="2 of 4 branches missed.">                            assert mutatie.getLocalName().equals(&quot;wordt&quot;);</span>
+<span class="pc bpc" id="L272" title="1 of 2 branches missed.">                            assert mutatie.getLocalName().equals(&quot;wordt&quot;);</span>
                             // mutatieStatus is already IMGeoObject.MutatieStatus.WORDT
                         } else {
 <span class="nc" id="L275">                            throw new IllegalStateException(&quot;Ongeldig mutatie element: &quot; + mutatie.getLocalName());</span>
@@ -457,4 +457,4 @@ import static nl.b3p.brmo.bgt.schema.BGTSchema.fixUUID;
 <span class="fc" id="L457">        return posities;</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

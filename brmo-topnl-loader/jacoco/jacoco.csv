@@ -52,7 +52,7 @@ BRMO TopNL loader,net.sf.saxon.s9api,DOMDestination,21,0,0,0,7,0,3,0,3,0
 BRMO TopNL loader,net.sf.saxon.s9api,ValidationMode,82,0,5,0,16,0,8,0,4,0
 BRMO TopNL loader,net.sf.saxon.expr.flwor,WhereClausePush,23,0,2,0,9,0,4,0,3,0
 BRMO TopNL loader,net.sf.saxon.expr.flwor,SingularityPull,16,0,2,0,6,0,3,0,2,0
-BRMO TopNL loader,net.sf.saxon.expr.flwor,FLWORExpression,1624,0,206,0,332,0,135,0,32,0
+BRMO TopNL loader,net.sf.saxon.expr.flwor,FLWORExpression,1616,0,202,0,332,0,133,0,32,0
 BRMO TopNL loader,net.sf.saxon.expr.flwor,WhereClausePull,27,0,4,0,10,0,5,0,3,0
 BRMO TopNL loader,net.sf.saxon.expr.flwor,TupleExpression,195,0,14,0,38,0,20,0,13,0
 BRMO TopNL loader,net.sf.saxon.expr.flwor,TraceClausePull,59,0,2,0,17,0,4,0,3,0
@@ -87,7 +87,7 @@ BRMO TopNL loader,net.sf.saxon.expr.flwor,TraceClause,62,0,0,0,17,0,10,0,10,0
 BRMO TopNL loader,net.sf.saxon.expr.flwor,TuplePush,4,0,0,0,2,0,2,0,2,0
 BRMO TopNL loader,net.sf.saxon.expr.flwor,TuplePull,4,0,0,0,2,0,2,0,2,0
 BRMO TopNL loader,net.sf.saxon.expr.flwor,Tuple,9,0,0,0,3,0,2,0,2,0
-BRMO TopNL loader,net.sf.saxon.expr.flwor,ForClause,749,0,88,0,157,0,67,0,23,0
+BRMO TopNL loader,net.sf.saxon.expr.flwor,ForClause,741,0,84,0,157,0,65,0,23,0
 BRMO TopNL loader,net.sf.saxon.pattern,IntersectPattern,79,0,10,0,13,0,10,0,5,0
 BRMO TopNL loader,net.sf.saxon.pattern,Pattern,242,0,10,0,67,0,37,0,30,0
 BRMO TopNL loader,net.sf.saxon.pattern,ExceptPattern,79,0,10,0,13,0,10,0,5,0
@@ -97,7 +97,7 @@ BRMO TopNL loader,net.sf.saxon.pattern,CombinedNodeTest,716,0,170,0,105,0,112,0,
 BRMO TopNL loader,net.sf.saxon.pattern,NodeKindTest,211,0,51,0,65,0,57,0,16,0
 BRMO TopNL loader,net.sf.saxon.pattern,NamespaceTest,135,0,22,0,19,0,24,0,13,0
 BRMO TopNL loader,net.sf.saxon.pattern,PatternWithPredicate,72,0,2,0,17,0,7,0,6,0
-BRMO TopNL loader,net.sf.saxon.pattern,ContentTypeTest,310,0,68,0,57,0,55,0,21,0
+BRMO TopNL loader,net.sf.saxon.pattern,ContentTypeTest,302,0,64,0,57,0,53,0,21,0
 BRMO TopNL loader,net.sf.saxon.pattern,NameTest,344,0,45,0,58,0,44,0,20,0
 BRMO TopNL loader,net.sf.saxon.pattern,ItemTypePattern,78,0,10,0,18,0,15,0,10,0
 BRMO TopNL loader,net.sf.saxon.pattern,AnchorPattern,38,0,6,0,10,0,10,0,7,0
@@ -128,7 +128,7 @@ BRMO TopNL loader,net.sf.saxon.lib,StandardErrorHandler,194,0,10,0,44,0,14,0,9,0
 BRMO TopNL loader,net.sf.saxon.lib,StandardCollationURIResolver,104,0,10,0,29,0,9,0,4,0
 BRMO TopNL loader,net.sf.saxon.lib,SaxonOutputKeys,639,0,156,0,144,0,90,0,12,0
 BRMO TopNL loader,net.sf.saxon.lib,ExtensionFunctionDefinition,16,0,0,0,6,0,6,0,6,0
-BRMO TopNL loader,net.sf.saxon.lib,StandardURIResolver,318,0,44,0,84,0,33,0,11,0
+BRMO TopNL loader,net.sf.saxon.lib,StandardURIResolver,310,0,40,0,84,0,31,0,11,0
 BRMO TopNL loader,net.sf.saxon.lib,Validation,42,0,14,0,16,0,11,0,2,0
 BRMO TopNL loader,net.sf.saxon.lib,StandardErrorListener,1093,0,193,0,246,0,114,0,17,0
 BRMO TopNL loader,net.sf.saxon.lib,LocalizerFactory,6,0,0,0,3,0,3,0,3,0
@@ -215,7 +215,7 @@ BRMO TopNL loader,net.sf.saxon.trans,Mode.RuleSorter,91,0,6,0,16,0,8,0,5,0
 BRMO TopNL loader,net.sf.saxon.trans,KeyDefinition,105,0,8,0,41,0,22,0,18,0
 BRMO TopNL loader,net.sf.saxon.trans,DecimalSymbols,367,0,36,0,39,0,25,0,7,0
 BRMO TopNL loader,net.sf.saxon.trans,NoDynamicContextException,11,0,0,0,2,0,1,0,1,0
-BRMO TopNL loader,net.sf.saxon.trans,Mode,1611,0,239,0,379,0,159,0,30,0
+BRMO TopNL loader,net.sf.saxon.trans,Mode,1603,0,235,0,378,0,157,0,30,0
 BRMO TopNL loader,net.sf.saxon.trans,KeyManager,1037,0,138,0,237,0,85,0,16,0
 BRMO TopNL loader,net.sf.saxon.trans,CompilerInfo,182,0,8,0,57,0,31,0,27,0
 BRMO TopNL loader,net.sf.saxon.trans,DynamicLoader,177,0,14,0,40,0,14,0,7,0
@@ -244,7 +244,7 @@ BRMO TopNL loader,net.sf.saxon.tree.wrapper,AbstractVirtualNode,202,0,10,0,48,0,
 BRMO TopNL loader,net.sf.saxon.expr,StackFrame,82,0,4,0,21,0,10,0,8,0
 BRMO TopNL loader,net.sf.saxon.expr,LetExpression,919,0,106,0,209,0,83,0,30,0
 BRMO TopNL loader,net.sf.saxon.expr,CardinalityChecker,502,0,54,0,111,0,48,0,21,0
-BRMO TopNL loader,net.sf.saxon.expr,PJConverter.IntegerValueToInt,32,0,6,0,5,0,6,0,3,0
+BRMO TopNL loader,net.sf.saxon.expr,PJConverter.IntegerValueToInt,24,0,2,0,5,0,4,0,3,0
 BRMO TopNL loader,net.sf.saxon.expr,SingleItemFilter,51,0,6,0,12,0,7,0,4,0
 BRMO TopNL loader,net.sf.saxon.expr,Calculator.IntegerTimesInteger,11,0,0,0,3,0,3,0,3,0
 BRMO TopNL loader,net.sf.saxon.expr,JPConverter.FromFloat,17,0,0,0,4,0,4,0,4,0
@@ -253,7 +253,7 @@ BRMO TopNL loader,net.sf.saxon.expr,Calculator.FloatTimesFloat,16,0,0,0,3,0,3,0,
 BRMO TopNL loader,net.sf.saxon.expr,Calculator.AnyMinusAny,51,0,2,0,7,0,4,0,3,0
 BRMO TopNL loader,net.sf.saxon.expr,Calculator.DoubleDivDouble,16,0,0,0,3,0,3,0,3,0
 BRMO TopNL loader,net.sf.saxon.expr,ItemMappingIterator,135,0,8,0,37,0,16,0,12,0
-BRMO TopNL loader,net.sf.saxon.expr,PJConverter.IntegerValueToLong,31,0,6,0,5,0,6,0,3,0
+BRMO TopNL loader,net.sf.saxon.expr,PJConverter.IntegerValueToLong,23,0,2,0,5,0,4,0,3,0
 BRMO TopNL loader,net.sf.saxon.expr,UserFunctionCall,858,0,108,0,199,0,93,0,39,0
 BRMO TopNL loader,net.sf.saxon.expr,CurrentItemExpression,5,0,0,0,2,0,2,0,2,0
 BRMO TopNL loader,net.sf.saxon.expr,Calculator.DurationTimesNumeric,9,0,0,0,2,0,2,0,2,0
@@ -270,7 +270,7 @@ BRMO TopNL loader,net.sf.saxon.expr,Assignation,547,0,62,0,134,0,66,0,35,0
 BRMO TopNL loader,net.sf.saxon.expr,JPConverter.FromCharArray,18,0,0,0,4,0,4,0,4,0
 BRMO TopNL loader,net.sf.saxon.expr,Calculator.DurationPlusDuration,8,0,0,0,2,0,2,0,2,0
 BRMO TopNL loader,net.sf.saxon.expr,JPConverter.FromDate,14,0,0,0,4,0,4,0,4,0
-BRMO TopNL loader,net.sf.saxon.expr,PJConverter.BooleanValueToBoolean,31,0,6,0,5,0,6,0,3,0
+BRMO TopNL loader,net.sf.saxon.expr,PJConverter.BooleanValueToBoolean,23,0,2,0,5,0,4,0,3,0
 BRMO TopNL loader,net.sf.saxon.expr,JPConverter.FromString,16,0,0,0,4,0,4,0,4,0
 BRMO TopNL loader,net.sf.saxon.expr,ForExpression,1525,0,189,0,315,0,126,0,31,0
 BRMO TopNL loader,net.sf.saxon.expr,PJConverter.ToSequenceExtent,12,0,0,0,3,0,3,0,3,0
@@ -308,16 +308,16 @@ BRMO TopNL loader,net.sf.saxon.expr,RangeExpression,230,0,22,0,50,0,20,0,9,0
 BRMO TopNL loader,net.sf.saxon.expr,JPConverter.FromQName,23,0,0,0,5,0,4,0,4,0
 BRMO TopNL loader,net.sf.saxon.expr,AxisAtomizingIterator,105,0,10,0,36,0,12,0,7,0
 BRMO TopNL loader,net.sf.saxon.expr,PJConverter.ToArray,58,0,6,0,16,0,5,0,2,0
-BRMO TopNL loader,net.sf.saxon.expr,PJConverter.IntegerValueToChar,33,0,6,0,5,0,6,0,3,0
+BRMO TopNL loader,net.sf.saxon.expr,PJConverter.IntegerValueToChar,25,0,2,0,5,0,4,0,3,0
 BRMO TopNL loader,net.sf.saxon.expr,CollationMap,92,0,12,0,27,0,13,0,7,0
 BRMO TopNL loader,net.sf.saxon.expr,UnionEnumeration,186,0,16,0,46,0,17,0,9,0
-BRMO TopNL loader,net.sf.saxon.expr,PJConverter.CalendarValueToCalendar,30,0,6,0,5,0,6,0,3,0
+BRMO TopNL loader,net.sf.saxon.expr,PJConverter.CalendarValueToCalendar,22,0,2,0,5,0,4,0,3,0
 BRMO TopNL loader,net.sf.saxon.expr,JPConverter,281,0,20,0,60,0,14,0,4,0
 BRMO TopNL loader,net.sf.saxon.expr,Calculator.IntegerModInteger,11,0,0,0,3,0,3,0,3,0
 BRMO TopNL loader,net.sf.saxon.expr,EmptyTextNodeRemover,51,0,6,0,11,0,11,0,8,0
 BRMO TopNL loader,net.sf.saxon.expr,ValueComparison,1681,0,314,0,295,0,191,0,24,0
 BRMO TopNL loader,net.sf.saxon.expr,JPConverter.FromURI,16,0,0,0,4,0,4,0,4,0
-BRMO TopNL loader,net.sf.saxon.expr,Expression,892,0,130,0,261,0,135,0,70,0
+BRMO TopNL loader,net.sf.saxon.expr,Expression,884,0,126,0,261,0,133,0,70,0
 BRMO TopNL loader,net.sf.saxon.expr,ParentNodeExpression,67,0,4,0,20,0,12,0,10,0
 BRMO TopNL loader,net.sf.saxon.expr,GeneralComparison,1476,0,194,0,312,0,131,0,27,0
 BRMO TopNL loader,net.sf.saxon.expr,JPConverter.FromDoubleArray,42,0,2,0,8,0,6,0,5,0
@@ -343,7 +343,7 @@ BRMO TopNL loader,net.sf.saxon.expr,VennExpression,913,0,164,0,155,0,106,0,17,0
 BRMO TopNL loader,net.sf.saxon.expr,FunctionCall,556,0,74,0,122,0,60,0,23,0
 BRMO TopNL loader,net.sf.saxon.expr,JPConverter.FromValueRepresentation,34,0,2,0,8,0,6,0,5,0
 BRMO TopNL loader,net.sf.saxon.expr,Calculator.DoubleMinusDouble,16,0,0,0,3,0,3,0,3,0
-BRMO TopNL loader,net.sf.saxon.expr,PJConverter.IntegerValueToByte,33,0,6,0,5,0,6,0,3,0
+BRMO TopNL loader,net.sf.saxon.expr,PJConverter.IntegerValueToByte,25,0,2,0,5,0,4,0,3,0
 BRMO TopNL loader,net.sf.saxon.expr,StringTokenIterator,104,0,6,0,25,0,11,0,8,0
 BRMO TopNL loader,net.sf.saxon.expr,Calculator.DurationMinusDuration,8,0,0,0,2,0,2,0,2,0
 BRMO TopNL loader,net.sf.saxon.expr,Calculator.AnyModAny,51,0,2,0,7,0,4,0,3,0
@@ -361,7 +361,7 @@ BRMO TopNL loader,net.sf.saxon.expr,XPathContextMinor,376,0,26,0,94,0,48,0,35,0
 BRMO TopNL loader,net.sf.saxon.expr,Calculator.DurationDivDuration,8,0,0,0,2,0,2,0,2,0
 BRMO TopNL loader,net.sf.saxon.expr,IntersectionEnumeration,141,0,12,0,36,0,14,0,8,0
 BRMO TopNL loader,net.sf.saxon.expr,AtomicSequenceConverter,467,0,54,0,99,0,47,0,20,0
-BRMO TopNL loader,net.sf.saxon.expr,PJConverter.CalendarValueToDate,31,0,6,0,5,0,6,0,3,0
+BRMO TopNL loader,net.sf.saxon.expr,PJConverter.CalendarValueToDate,23,0,2,0,5,0,4,0,3,0
 BRMO TopNL loader,net.sf.saxon.expr,Calculator.IntegerDivInteger,11,0,0,0,3,0,3,0,3,0
 BRMO TopNL loader,net.sf.saxon.expr,PJConverter.General,36,0,2,0,8,0,4,0,3,0
 BRMO TopNL loader,net.sf.saxon.expr,JPConverter.FromSource,30,0,2,0,8,0,5,0,4,0
@@ -381,12 +381,12 @@ BRMO TopNL loader,net.sf.saxon.expr,IntegerRangeTest,193,0,18,0,50,0,23,0,14,0
 BRMO TopNL loader,net.sf.saxon.expr,AndExpression,143,0,22,0,22,0,16,0,5,0
 BRMO TopNL loader,net.sf.saxon.expr,XPathContextMajor,598,0,44,0,161,0,57,0,35,0
 BRMO TopNL loader,net.sf.saxon.expr,IsLastExpression,59,0,4,0,17,0,13,0,11,0
-BRMO TopNL loader,net.sf.saxon.expr,PJConverter.NumericValueToDouble,31,0,6,0,5,0,6,0,3,0
+BRMO TopNL loader,net.sf.saxon.expr,PJConverter.NumericValueToDouble,23,0,2,0,5,0,4,0,3,0
 BRMO TopNL loader,net.sf.saxon.expr,TailCallLoop,141,0,12,0,42,0,17,0,11,0
 BRMO TopNL loader,net.sf.saxon.expr,CastingExpression,119,0,8,0,33,0,17,0,13,0
 BRMO TopNL loader,net.sf.saxon.expr,CastableExpression,420,0,84,0,89,0,56,0,14,0
 BRMO TopNL loader,net.sf.saxon.expr,Calculator.AnyPlusAny,51,0,2,0,7,0,4,0,3,0
-BRMO TopNL loader,net.sf.saxon.expr,PJConverter.QualifiedNameValueToQName,30,0,6,0,5,0,6,0,3,0
+BRMO TopNL loader,net.sf.saxon.expr,PJConverter.QualifiedNameValueToQName,22,0,2,0,5,0,4,0,3,0
 BRMO TopNL loader,net.sf.saxon.expr,Calculator.DecimalModDecimal,47,0,6,0,11,0,6,0,3,0
 BRMO TopNL loader,net.sf.saxon.expr,Calculator.DurationDivNumeric,13,0,0,0,3,0,2,0,2,0
 BRMO TopNL loader,net.sf.saxon.expr,PJConverter.IntegerValueToBigInteger,12,0,0,0,3,0,3,0,3,0
@@ -405,7 +405,7 @@ BRMO TopNL loader,net.sf.saxon.expr,InstanceOfExpression,291,0,48,0,64,0,38,0,14
 BRMO TopNL loader,net.sf.saxon.expr,JPConverter.FromCollection,77,0,4,0,17,0,7,0,5,0
 BRMO TopNL loader,net.sf.saxon.expr,JPConverter.FromByte,18,0,0,0,4,0,4,0,4,0
 BRMO TopNL loader,net.sf.saxon.expr,SimpleExpression,280,0,30,0,55,0,35,0,20,0
-BRMO TopNL loader,net.sf.saxon.expr,PJConverter.NumericValueToFloat,31,0,6,0,5,0,6,0,3,0
+BRMO TopNL loader,net.sf.saxon.expr,PJConverter.NumericValueToFloat,23,0,2,0,5,0,4,0,3,0
 BRMO TopNL loader,net.sf.saxon.expr,EveryItemMappingIterator,54,0,2,0,17,0,8,0,7,0
 BRMO TopNL loader,net.sf.saxon.expr,Calculator.DoublePlusDouble,16,0,0,0,3,0,3,0,3,0
 BRMO TopNL loader,net.sf.saxon.expr,Calculator.FloatPlusFloat,16,0,0,0,3,0,3,0,3,0
@@ -426,16 +426,16 @@ BRMO TopNL loader,net.sf.saxon.expr,PJConverter.Identity,86,0,14,0,18,0,10,0,3,0
 BRMO TopNL loader,net.sf.saxon.expr,PJConverter.ToCollection,111,0,8,0,27,0,7,0,3,0
 BRMO TopNL loader,net.sf.saxon.expr,Calculator.DateTimeMinusDateTime,9,0,0,0,2,0,2,0,2,0
 BRMO TopNL loader,net.sf.saxon.expr,AtomicSequenceConverter.ToStringMappingFunction,7,0,0,0,2,0,2,0,2,0
-BRMO TopNL loader,net.sf.saxon.expr,Atomizer,590,0,106,0,146,0,72,0,19,0
+BRMO TopNL loader,net.sf.saxon.expr,Atomizer,582,0,102,0,146,0,70,0,19,0
 BRMO TopNL loader,net.sf.saxon.expr,VariableReference,619,0,82,0,152,0,72,0,31,0
 BRMO TopNL loader,net.sf.saxon.expr,Calculator.IntegerIdivInteger,11,0,0,0,3,0,3,0,3,0
-BRMO TopNL loader,net.sf.saxon.expr,PJConverter.NumericValueToBigDecimal,30,0,6,0,5,0,6,0,3,0
+BRMO TopNL loader,net.sf.saxon.expr,PJConverter.NumericValueToBigDecimal,22,0,2,0,5,0,4,0,3,0
 BRMO TopNL loader,net.sf.saxon.expr,IdentityComparison,251,0,46,0,50,0,35,0,11,0
 BRMO TopNL loader,net.sf.saxon.expr,DifferenceEnumeration,141,0,10,0,39,0,14,0,9,0
 BRMO TopNL loader,net.sf.saxon.expr,Calculator.DecimalIdivDecimal,43,0,6,0,10,0,6,0,3,0
 BRMO TopNL loader,net.sf.saxon.expr,JPConverter.FromBigInteger,14,0,0,0,4,0,4,0,4,0
 BRMO TopNL loader,net.sf.saxon.expr,SlashExpression,1093,0,160,0,240,0,117,0,37,0
-BRMO TopNL loader,net.sf.saxon.expr,PJConverter.IntegerValueToShort,33,0,6,0,5,0,6,0,3,0
+BRMO TopNL loader,net.sf.saxon.expr,PJConverter.IntegerValueToShort,25,0,2,0,5,0,4,0,3,0
 BRMO TopNL loader,net.sf.saxon.expr,JPConverter.FromInt,18,0,0,0,4,0,4,0,4,0
 BRMO TopNL loader,net.sf.saxon.expr,JPConverter.FromShort,18,0,0,0,4,0,4,0,4,0
 BRMO TopNL loader,net.sf.saxon.expr,SubsequenceIterator,200,0,22,0,50,0,21,0,10,0
@@ -454,21 +454,21 @@ BRMO TopNL loader,javax.xml.xquery,XQConnectionEvent,20,0,0,0,7,0,3,0,3,0
 BRMO TopNL loader,javax.xml.xquery,XQConstants,8,0,0,0,1,0,1,0,1,0
 BRMO TopNL loader,javax.xml.xquery,XQStackTraceElement,48,0,0,0,17,0,7,0,7,0
 BRMO TopNL loader,javax.xml.xquery,XQStackTraceVariable,15,0,0,0,6,0,3,0,3,0
-BRMO TopNL loader,net.sf.saxon.expr.instruct,NextMatch,225,0,24,0,60,0,18,0,6,0
+BRMO TopNL loader,net.sf.saxon.expr.instruct,NextMatch,217,0,20,0,60,0,16,0,6,0
 BRMO TopNL loader,net.sf.saxon.expr.instruct,Choose,1809,0,192,0,316,0,131,0,35,0
-BRMO TopNL loader,net.sf.saxon.expr.instruct,Instruction,364,0,52,0,95,0,49,0,23,0
-BRMO TopNL loader,net.sf.saxon.expr.instruct,GlobalVariable,567,0,70,0,131,0,59,0,24,0
-BRMO TopNL loader,net.sf.saxon.expr.instruct,CallTemplate,626,0,60,0,149,0,56,0,26,0
+BRMO TopNL loader,net.sf.saxon.expr.instruct,Instruction,355,0,46,0,95,0,46,0,23,0
+BRMO TopNL loader,net.sf.saxon.expr.instruct,GlobalVariable,557,0,62,0,131,0,55,0,24,0
+BRMO TopNL loader,net.sf.saxon.expr.instruct,CallTemplate,618,0,56,0,149,0,54,0,26,0
 BRMO TopNL loader,net.sf.saxon.expr.instruct,CopyOf.new ItemMappingFunction() {...},43,0,4,0,9,0,4,0,2,0
 BRMO TopNL loader,net.sf.saxon.expr.instruct,CopyOf.new ItemMappingFunction() {...},43,0,4,0,9,0,4,0,2,0
 BRMO TopNL loader,net.sf.saxon.expr.instruct,ProcessRegexMatchInstruction,62,0,2,0,17,0,7,0,6,0
 BRMO TopNL loader,net.sf.saxon.expr.instruct,GlobalParameterSet,57,0,2,0,14,0,8,0,7,0
 BRMO TopNL loader,net.sf.saxon.expr.instruct,Template,155,0,18,0,50,0,28,0,19,0
-BRMO TopNL loader,net.sf.saxon.expr.instruct,ForEachGroup,1322,0,164,0,312,0,120,0,35,0
+BRMO TopNL loader,net.sf.saxon.expr.instruct,ForEachGroup,1312,0,156,0,312,0,116,0,35,0
 BRMO TopNL loader,net.sf.saxon.expr.instruct,LocalParam,246,0,28,0,61,0,28,0,13,0
 BRMO TopNL loader,net.sf.saxon.expr.instruct,BlockIterator,89,0,8,0,24,0,11,0,7,0
 BRMO TopNL loader,net.sf.saxon.expr.instruct,Copy,964,0,128,0,258,0,95,0,25,0
-BRMO TopNL loader,net.sf.saxon.expr.instruct,AttributeCreator,305,0,30,0,77,0,28,0,13,0
+BRMO TopNL loader,net.sf.saxon.expr.instruct,AttributeCreator,297,0,26,0,77,0,26,0,13,0
 BRMO TopNL loader,net.sf.saxon.expr.instruct,LocalVariable,8,0,0,0,2,0,2,0,2,0
 BRMO TopNL loader,net.sf.saxon.expr.instruct,ComputedAttribute,1026,0,128,0,230,0,85,0,21,0
 BRMO TopNL loader,net.sf.saxon.expr.instruct,Procedure,72,0,0,0,30,0,22,0,22,0
@@ -478,43 +478,43 @@ BRMO TopNL loader,net.sf.saxon.expr.instruct,Executable,628,0,82,0,172,0,91,0,50
 BRMO TopNL loader,net.sf.saxon.expr.instruct,ApplyTemplates,541,0,46,0,142,0,52,0,29,0
 BRMO TopNL loader,net.sf.saxon.expr.instruct,CallTemplate.CallTemplatePackage,44,0,0,0,13,0,2,0,2,0
 BRMO TopNL loader,net.sf.saxon.expr.instruct,GeneralVariable,475,0,68,0,130,0,81,0,47,0
-BRMO TopNL loader,net.sf.saxon.expr.instruct,DocumentInstr,550,0,72,0,135,0,55,0,19,0
-BRMO TopNL loader,net.sf.saxon.expr.instruct,NamespaceConstructor,398,0,38,0,92,0,37,0,18,0
-BRMO TopNL loader,net.sf.saxon.expr.instruct,ForEach,629,0,66,0,155,0,65,0,32,0
+BRMO TopNL loader,net.sf.saxon.expr.instruct,DocumentInstr,542,0,68,0,135,0,53,0,19,0
+BRMO TopNL loader,net.sf.saxon.expr.instruct,NamespaceConstructor,389,0,32,0,92,0,34,0,18,0
+BRMO TopNL loader,net.sf.saxon.expr.instruct,ForEach,619,0,58,0,155,0,61,0,32,0
 BRMO TopNL loader,net.sf.saxon.expr.instruct,AnalyzeString,956,0,96,0,215,0,78,0,30,0
 BRMO TopNL loader,net.sf.saxon.expr.instruct,AttributeSet,118,0,16,0,32,0,17,0,9,0
 BRMO TopNL loader,net.sf.saxon.expr.instruct,ApplyTemplates.ApplyTemplatesPackage,44,0,0,0,11,0,2,0,2,0
 BRMO TopNL loader,net.sf.saxon.expr.instruct,ProcessingInstruction,386,0,26,0,91,0,33,0,20,0
 BRMO TopNL loader,net.sf.saxon.expr.instruct,SimpleNodeConstructor,278,0,30,0,64,0,32,0,17,0
-BRMO TopNL loader,net.sf.saxon.expr.instruct,FixedAttribute,448,0,66,0,99,0,47,0,14,0
+BRMO TopNL loader,net.sf.saxon.expr.instruct,FixedAttribute,440,0,62,0,99,0,45,0,14,0
 BRMO TopNL loader,net.sf.saxon.expr.instruct,ParentNodeConstructor,281,0,38,0,72,0,44,0,25,0
-BRMO TopNL loader,net.sf.saxon.expr.instruct,CopyOf,1303,0,182,0,326,0,128,0,33,0
+BRMO TopNL loader,net.sf.saxon.expr.instruct,CopyOf,1294,0,176,0,326,0,125,0,33,0
 BRMO TopNL loader,net.sf.saxon.expr.instruct,NextMatch.NextMatchPackage,54,0,0,0,15,0,2,0,2,0
 BRMO TopNL loader,net.sf.saxon.expr.instruct,SlotManager,65,0,0,0,15,0,7,0,7,0
 BRMO TopNL loader,net.sf.saxon.expr.instruct,ParameterSet,224,0,18,0,45,0,19,0,10,0
-BRMO TopNL loader,net.sf.saxon.expr.instruct,ValueOf,407,0,82,0,93,0,59,0,18,0
-BRMO TopNL loader,net.sf.saxon.expr.instruct,ApplyImports,366,0,28,0,101,0,34,0,20,0
+BRMO TopNL loader,net.sf.saxon.expr.instruct,ValueOf,399,0,78,0,93,0,57,0,18,0
+BRMO TopNL loader,net.sf.saxon.expr.instruct,ApplyImports,358,0,24,0,101,0,32,0,20,0
 BRMO TopNL loader,net.sf.saxon.expr.instruct,InstructionDetails,89,0,2,0,31,0,19,0,18,0
-BRMO TopNL loader,net.sf.saxon.expr.instruct,ComputedElement,962,0,122,0,211,0,81,0,20,0
-BRMO TopNL loader,net.sf.saxon.expr.instruct,ElementCreator,708,0,116,0,168,0,76,0,18,0
+BRMO TopNL loader,net.sf.saxon.expr.instruct,ComputedElement,954,0,118,0,211,0,79,0,20,0
+BRMO TopNL loader,net.sf.saxon.expr.instruct,ElementCreator,698,0,108,0,168,0,72,0,18,0
 BRMO TopNL loader,net.sf.saxon.expr.instruct,Choose.new Iterator() {...},91,0,10,0,14,0,9,0,4,0
 BRMO TopNL loader,net.sf.saxon.expr.instruct,WithParam,313,0,40,0,64,0,36,0,16,0
 BRMO TopNL loader,net.sf.saxon.expr.instruct,ProcessRegexMatchInstruction.new RegexIterator.OnGroup() {...},40,0,0,0,8,0,3,0,3,0
-BRMO TopNL loader,net.sf.saxon.expr.instruct,Bindery,414,0,52,0,96,0,44,0,18,0
+BRMO TopNL loader,net.sf.saxon.expr.instruct,Bindery,406,0,48,0,96,0,42,0,18,0
 BRMO TopNL loader,net.sf.saxon.expr.instruct,LocalParamSetter,256,0,20,0,62,0,26,0,15,0
 BRMO TopNL loader,net.sf.saxon.expr.instruct,UseAttributeSets,164,0,14,0,36,0,19,0,12,0
-BRMO TopNL loader,net.sf.saxon.expr.instruct,Message,309,0,22,0,77,0,26,0,15,0
-BRMO TopNL loader,net.sf.saxon.expr.instruct,GlobalParam,122,0,16,0,26,0,12,0,4,0
+BRMO TopNL loader,net.sf.saxon.expr.instruct,Message,301,0,18,0,77,0,24,0,15,0
+BRMO TopNL loader,net.sf.saxon.expr.instruct,GlobalParam,114,0,12,0,26,0,10,0,4,0
 BRMO TopNL loader,net.sf.saxon.expr.instruct,DummyNamespaceResolver,26,0,4,0,8,0,6,0,4,0
 BRMO TopNL loader,net.sf.saxon.expr.instruct,FixedElement,1054,0,128,0,229,0,81,0,17,0
 BRMO TopNL loader,net.sf.saxon.expr.instruct,UserFunction,345,0,40,0,99,0,50,0,30,0
 BRMO TopNL loader,net.sf.saxon.expr.instruct,NumberInstruction,1290,0,200,0,302,0,114,0,14,0
 BRMO TopNL loader,net.sf.saxon.expr.instruct,SavedNamespaceContext,122,0,16,0,30,0,13,0,5,0
-BRMO TopNL loader,net.sf.saxon.expr.instruct,ResultDocument,1815,0,208,0,455,0,133,0,29,0
+BRMO TopNL loader,net.sf.saxon.expr.instruct,ResultDocument,1801,0,192,0,455,0,125,0,29,0
 BRMO TopNL loader,net.sf.saxon.expr.instruct,Comment,177,0,18,0,39,0,20,0,11,0
 BRMO TopNL loader,net.sf.saxon.expr.instruct,Block,1355,0,206,0,283,0,133,0,30,0
 BRMO TopNL loader,net.sf.saxon.expr.instruct,Message.AttributeMasker,119,0,10,0,29,0,11,0,6,0
-BRMO TopNL loader,net.sf.saxon.expr.instruct,TraceExpression,398,0,52,0,103,0,64,0,38,0
+BRMO TopNL loader,net.sf.saxon.expr.instruct,TraceExpression,385,0,38,0,103,0,57,0,38,0
 BRMO TopNL loader,net.sf.saxon.expr.instruct,LocalParamBlock,282,0,22,0,51,0,27,0,16,0
 BRMO TopNL loader,net.sf.saxon.expr.instruct,Doctype,739,0,66,0,169,0,46,0,13,0
 BRMO TopNL loader,net.sf.saxon.expr.instruct,UserFunctionParameter,56,0,0,0,23,0,16,0,16,0
@@ -571,7 +571,7 @@ BRMO TopNL loader,net.sf.saxon.type,StringConverter.StringToDayTimeDuration,6,0,
 BRMO TopNL loader,net.sf.saxon.type,StringConverter.StringToUntypedAtomic,18,0,0,0,5,0,5,0,5,0
 BRMO TopNL loader,net.sf.saxon.type,BuiltInListType,264,0,15,0,77,0,51,0,42,0
 BRMO TopNL loader,net.sf.saxon.type,Converter.NumericToDecimal,18,0,0,0,5,0,2,0,2,0
-BRMO TopNL loader,net.sf.saxon.type,StringConverter,270,0,40,0,67,0,30,0,6,0
+BRMO TopNL loader,net.sf.saxon.type,StringConverter,262,0,36,0,66,0,28,0,6,0
 BRMO TopNL loader,net.sf.saxon.type,TypeHierarchy,668,0,204,0,187,0,113,0,9,0
 BRMO TopNL loader,net.sf.saxon.type,StringConverter.StringToGYearMonth,9,0,0,0,3,0,2,0,2,0
 BRMO TopNL loader,net.sf.saxon.type,Converter.BooleanToDouble,16,0,2,0,3,0,4,0,3,0
@@ -592,7 +592,7 @@ BRMO TopNL loader,net.sf.saxon.type,Converter.BooleanToInteger,13,0,2,0,3,0,4,0,
 BRMO TopNL loader,net.sf.saxon.type,Converter.NumericToInteger,38,0,6,0,10,0,5,0,2,0
 BRMO TopNL loader,net.sf.saxon.type,BuiltInType,42,0,6,0,13,0,6,0,3,0
 BRMO TopNL loader,net.sf.saxon.type,StringConverter.StringToDouble,34,0,0,0,7,0,2,0,2,0
-BRMO TopNL loader,net.sf.saxon.type,StringConverter.StringToIntegerSubtype,93,0,14,0,18,0,10,0,3,0
+BRMO TopNL loader,net.sf.saxon.type,StringConverter.StringToIntegerSubtype,85,0,10,0,18,0,8,0,3,0
 BRMO TopNL loader,net.sf.saxon.type,Type,390,0,122,0,95,0,76,0,12,0
 BRMO TopNL loader,net.sf.saxon.type,Converter.PromoterToDouble,48,0,8,0,13,0,6,0,2,0
 BRMO TopNL loader,net.sf.saxon.type,AnyType,119,0,2,0,51,0,48,0,47,0
@@ -619,7 +619,7 @@ BRMO TopNL loader,net.sf.saxon.tree.linked,SystemIdMap,123,0,12,0,23,0,9,0,3,0
 BRMO TopNL loader,net.sf.saxon.tree.linked,LinkedBuilderMonitor,170,0,14,0,46,0,17,0,10,0
 BRMO TopNL loader,net.sf.saxon.tree.linked,LineNumberMap,211,0,12,0,45,0,11,0,5,0
 BRMO TopNL loader,net.sf.saxon.tree.linked,TreeEnumeration,103,0,14,0,28,0,20,0,13,0
-BRMO TopNL loader,net.sf.saxon.tree.linked,DocumentImpl,607,0,102,0,164,0,98,0,47,0
+BRMO TopNL loader,net.sf.saxon.tree.linked,DocumentImpl,598,0,96,0,164,0,95,0,47,0
 BRMO TopNL loader,net.sf.saxon.tree.linked,ProcInstImpl,70,0,0,0,21,0,12,0,12,0
 BRMO TopNL loader,net.sf.saxon.tree.linked,FollowingEnumeration,69,0,12,0,14,0,9,0,3,0
 BRMO TopNL loader,net.sf.saxon.tree.linked,ElementImpl,1019,0,172,0,254,0,127,0,41,0
@@ -630,7 +630,7 @@ BRMO TopNL loader,net.sf.saxon.tree.linked,FollowingSiblingEnumeration,22,0,0,0,
 BRMO TopNL loader,net.sf.saxon.tree.linked,PrecedingSiblingEnumeration,22,0,0,0,6,0,3,0,3,0
 BRMO TopNL loader,net.sf.saxon.tree.linked,CommentImpl,36,0,0,0,11,0,7,0,7,0
 BRMO TopNL loader,net.sf.saxon.tree.linked,AncestorEnumeration,33,0,4,0,8,0,5,0,3,0
-BRMO TopNL loader,net.sf.saxon.tree.linked,NodeImpl,829,0,141,0,204,0,140,0,63,0
+BRMO TopNL loader,net.sf.saxon.tree.linked,NodeImpl,820,0,135,0,204,0,137,0,63,0
 BRMO TopNL loader,net.sf.saxon.tree.linked,LinkedTreeBuilder,648,0,52,0,143,0,49,0,23,0
 BRMO TopNL loader,net.sf.saxon.tree.linked,DescendantEnumeration,37,0,4,0,9,0,5,0,3,0
 BRMO TopNL loader,net.sf.saxon.tree.linked,ChildEnumeration,33,0,2,0,8,0,4,0,3,0
@@ -742,11 +742,11 @@ BRMO TopNL loader,nl.b3p.topnl.top100nl,LocationPropertyType,107,0,6,0,42,0,28,0
 BRMO TopNL loader,nl.b3p.topnl.top100nl,AbstractFeatureMemberType,13,3,2,0,5,1,3,1,2,1
 BRMO TopNL loader,net.sf.saxon.style,XSLWhen,52,0,8,0,15,0,12,0,8,0
 BRMO TopNL loader,net.sf.saxon.style,XSLNextMatch,100,0,12,0,24,0,13,0,7,0
-BRMO TopNL loader,net.sf.saxon.style,XSLFunction,804,0,84,0,206,0,67,0,25,0
+BRMO TopNL loader,net.sf.saxon.style,XSLFunction,796,0,80,0,206,0,65,0,25,0
 BRMO TopNL loader,net.sf.saxon.style,XSLVariableDeclaration,208,0,34,0,59,0,31,0,14,0
 BRMO TopNL loader,net.sf.saxon.style,XSLComment,70,0,6,0,18,0,8,0,5,0
 BRMO TopNL loader,net.sf.saxon.style,XSLValueOf,223,0,34,0,49,0,23,0,6,0
-BRMO TopNL loader,net.sf.saxon.style,XSLCallTemplate,452,0,80,0,109,0,51,0,11,0
+BRMO TopNL loader,net.sf.saxon.style,XSLCallTemplate,444,0,76,0,109,0,49,0,11,0
 BRMO TopNL loader,net.sf.saxon.style,XSLInclude,5,0,0,0,2,0,2,0,2,0
 BRMO TopNL loader,net.sf.saxon.style,UseWhenFilter.URIPreventer,5,0,0,0,1,0,1,0,1,0
 BRMO TopNL loader,net.sf.saxon.style,XSLDocument,149,0,24,0,38,0,18,0,6,0
@@ -754,13 +754,13 @@ BRMO TopNL loader,net.sf.saxon.style,XSLAttribute,610,0,90,0,139,0,51,0,6,0
 BRMO TopNL loader,net.sf.saxon.style,PrincipalStylesheetModule,1713,0,216,0,396,0,152,0,44,0
 BRMO TopNL loader,net.sf.saxon.style,XSLNamespace,112,0,16,0,31,0,13,0,5,0
 BRMO TopNL loader,net.sf.saxon.style,UseWhenStaticContext,215,0,12,0,55,0,24,0,18,0
-BRMO TopNL loader,net.sf.saxon.style,XSLForEach,225,0,32,0,51,0,26,0,10,0
+BRMO TopNL loader,net.sf.saxon.style,XSLForEach,217,0,28,0,51,0,24,0,10,0
 BRMO TopNL loader,net.sf.saxon.style,AttributeValueTemplate,295,0,42,0,59,0,24,0,3,0
 BRMO TopNL loader,net.sf.saxon.style,XSLMessage,144,0,16,0,34,0,14,0,6,0
 BRMO TopNL loader,net.sf.saxon.style,XSLSort,24,0,0,0,7,0,4,0,4,0
 BRMO TopNL loader,net.sf.saxon.style,XSLProcessingInstruction,45,0,0,0,11,0,5,0,5,0
 BRMO TopNL loader,net.sf.saxon.style,XSLCharacterMap,425,0,46,0,97,0,32,0,9,0
-BRMO TopNL loader,net.sf.saxon.style,StyleElement,2860,0,430,0,778,0,317,0,102,0
+BRMO TopNL loader,net.sf.saxon.style,StyleElement,2852,0,426,0,777,0,315,0,102,0
 BRMO TopNL loader,net.sf.saxon.style,XSLText,107,0,14,0,31,0,13,0,6,0
 BRMO TopNL loader,net.sf.saxon.style,DataElement,3,0,0,0,1,0,1,0,1,0
 BRMO TopNL loader,net.sf.saxon.style,XSLElement,463,0,66,0,103,0,40,0,7,0
@@ -776,7 +776,7 @@ BRMO TopNL loader,net.sf.saxon.style,XSLDecimalFormat,360,0,52,0,88,0,34,0,8,0
 BRMO TopNL loader,net.sf.saxon.style,XSLParam,341,0,44,0,84,0,30,0,8,0
 BRMO TopNL loader,net.sf.saxon.style,XSLWithParam,62,0,8,0,20,0,9,0,5,0
 BRMO TopNL loader,net.sf.saxon.style,XSLNamespaceAlias,151,0,18,0,42,0,17,0,8,0
-BRMO TopNL loader,net.sf.saxon.style,XSLGeneralVariable,789,0,124,0,194,0,84,0,22,0
+BRMO TopNL loader,net.sf.saxon.style,XSLGeneralVariable,781,0,120,0,194,0,82,0,22,0
 BRMO TopNL loader,net.sf.saxon.style,XSLTemplate,944,0,124,0,231,0,80,0,18,0
 BRMO TopNL loader,net.sf.saxon.style,XSLImport,5,0,0,0,2,0,2,0,2,0
 BRMO TopNL loader,net.sf.saxon.style,XSLLeafNodeConstructor,208,0,26,0,49,0,20,0,7,0
@@ -796,7 +796,7 @@ BRMO TopNL loader,net.sf.saxon.style,XSLSortOrMergeKey,580,0,60,0,126,0,38,0,8,0
 BRMO TopNL loader,net.sf.saxon.style,XSLOutput,1070,0,152,0,217,0,85,0,9,0
 BRMO TopNL loader,net.sf.saxon.style,XSLOtherwise,51,0,8,0,13,0,11,0,7,0
 BRMO TopNL loader,net.sf.saxon.style,XSLVariable,202,0,36,0,56,0,24,0,6,0
-BRMO TopNL loader,net.sf.saxon.style,XSLKey,540,0,58,0,130,0,40,0,11,0
+BRMO TopNL loader,net.sf.saxon.style,XSLKey,532,0,54,0,130,0,38,0,11,0
 BRMO TopNL loader,net.sf.saxon.style,XSLApplyImports,85,0,10,0,20,0,10,0,5,0
 BRMO TopNL loader,net.sf.saxon.style,LiteralResultElement,896,0,114,0,203,0,68,0,11,0
 BRMO TopNL loader,net.sf.saxon.style,XSLSequence,99,0,12,0,30,0,14,0,8,0
@@ -806,7 +806,7 @@ BRMO TopNL loader,net.sf.saxon.style,XSLMatchingSubstring,47,0,4,0,11,0,8,0,6,0
 BRMO TopNL loader,net.sf.saxon.style,XSLCopyOf,247,0,38,0,59,0,24,0,5,0
 BRMO TopNL loader,net.sf.saxon.style,XSLAttributeSet,357,0,36,0,95,0,31,0,13,0
 BRMO TopNL loader,net.sf.saxon.style,XSLIf,144,0,18,0,36,0,18,0,9,0
-BRMO TopNL loader,net.sf.saxon.style,XSLApplyTemplates,326,0,46,0,73,0,30,0,7,0
+BRMO TopNL loader,net.sf.saxon.style,XSLApplyTemplates,318,0,42,0,73,0,28,0,7,0
 BRMO TopNL loader,net.sf.saxon.serialize.charcode,UTF8CharacterSet,335,0,36,0,53,0,24,0,6,0
 BRMO TopNL loader,net.sf.saxon.serialize.charcode,UTF16CharacterSet,98,0,14,0,17,0,19,0,12,0
 BRMO TopNL loader,net.sf.saxon.serialize.charcode,XMLCharacterData,3093,0,46,0,645,0,32,0,9,0
@@ -821,7 +821,7 @@ BRMO TopNL loader,net.sf.saxon.functions,FunctionArity,40,0,0,0,6,0,4,0,4,0
 BRMO TopNL loader,net.sf.saxon.functions,Sum,267,0,40,0,69,0,26,0,6,0
 BRMO TopNL loader,net.sf.saxon.functions,FormatDate,1683,0,255,0,383,0,147,0,10,0
 BRMO TopNL loader,net.sf.saxon.functions,ElementAvailable,116,0,2,0,28,0,6,0,5,0
-BRMO TopNL loader,net.sf.saxon.functions,DocumentUriFn,93,0,18,0,24,0,15,0,6,0
+BRMO TopNL loader,net.sf.saxon.functions,DocumentUriFn,85,0,14,0,24,0,13,0,6,0
 BRMO TopNL loader,net.sf.saxon.functions,FunctionLibraryList,187,0,22,0,38,0,19,0,8,0
 BRMO TopNL loader,net.sf.saxon.functions,Data,33,0,2,0,7,0,3,0,2,0
 BRMO TopNL loader,net.sf.saxon.functions,DefaultCollation,12,0,0,0,3,0,2,0,2,0
@@ -839,7 +839,7 @@ BRMO TopNL loader,net.sf.saxon.functions,Error,311,0,36,0,54,0,29,0,8,0
 BRMO TopNL loader,net.sf.saxon.functions,Minimax,607,0,82,0,164,0,57,0,16,0
 BRMO TopNL loader,net.sf.saxon.functions,Lang,222,0,32,0,63,0,23,0,7,0
 BRMO TopNL loader,net.sf.saxon.functions,StringToCodepoints,42,0,4,0,9,0,6,0,4,0
-BRMO TopNL loader,net.sf.saxon.functions,Idref,313,0,34,0,66,0,29,0,12,0
+BRMO TopNL loader,net.sf.saxon.functions,Idref,302,0,24,0,66,0,24,0,12,0
 BRMO TopNL loader,net.sf.saxon.functions,Collection.new ItemMappingFunction() {...},45,0,6,0,8,0,5,0,2,0
 BRMO TopNL loader,net.sf.saxon.functions,Reverse,91,0,8,0,19,0,11,0,7,0
 BRMO TopNL loader,net.sf.saxon.functions,LocalNameFn,28,0,2,0,7,0,4,0,3,0
@@ -857,7 +857,7 @@ BRMO TopNL loader,net.sf.saxon.functions,UnparsedTextAvailable,79,0,6,0,15,0,7,0
 BRMO TopNL loader,net.sf.saxon.functions,Trace.TracingIterator,84,0,4,0,19,0,9,0,7,0
 BRMO TopNL loader,net.sf.saxon.functions,Put,136,0,18,0,28,0,15,0,6,0
 BRMO TopNL loader,net.sf.saxon.functions,ResolveQName,77,0,2,0,17,0,5,0,4,0
-BRMO TopNL loader,net.sf.saxon.functions,ConstructorFunctionLibrary,412,0,64,0,80,0,37,0,5,0
+BRMO TopNL loader,net.sf.saxon.functions,ConstructorFunctionLibrary,403,0,58,0,80,0,34,0,5,0
 BRMO TopNL loader,net.sf.saxon.functions,NamespaceUriFn,28,0,2,0,7,0,4,0,3,0
 BRMO TopNL loader,net.sf.saxon.functions,KeyFn.SubtreeFilter,15,0,2,0,6,0,3,0,2,0
 BRMO TopNL loader,net.sf.saxon.functions,GenerateId,45,0,2,0,12,0,5,0,4,0
@@ -869,7 +869,7 @@ BRMO TopNL loader,net.sf.saxon.functions,FormatNumber.SubPicture,869,0,157,0,208
 BRMO TopNL loader,net.sf.saxon.functions,Doc,258,0,32,0,65,0,31,0,15,0
 BRMO TopNL loader,net.sf.saxon.functions,NormalizeSpace,137,0,22,0,37,0,17,0,6,0
 BRMO TopNL loader,net.sf.saxon.functions,CompileTimeFunction,40,0,0,0,5,0,5,0,5,0
-BRMO TopNL loader,net.sf.saxon.functions,FunctionName,68,0,14,0,13,0,11,0,4,0
+BRMO TopNL loader,net.sf.saxon.functions,FunctionName,59,0,8,0,13,0,8,0,4,0
 BRMO TopNL loader,net.sf.saxon.functions,Insert,60,0,0,0,11,0,3,0,3,0
 BRMO TopNL loader,net.sf.saxon.functions,IntegratedFunctionLibrary,129,0,10,0,32,0,11,0,6,0
 BRMO TopNL loader,net.sf.saxon.functions,Tokenize,281,0,34,0,78,0,25,0,8,0
@@ -895,7 +895,7 @@ BRMO TopNL loader,net.sf.saxon.functions,DistinctValues.DistinctIterator,76,0,4,
 BRMO TopNL loader,net.sf.saxon.functions,ResolveURI,528,0,70,0,111,0,46,0,11,0
 BRMO TopNL loader,net.sf.saxon.functions,Exists,140,0,16,0,28,0,15,0,7,0
 BRMO TopNL loader,net.sf.saxon.functions,InScopePrefixes.new SequenceIterator() {...},92,0,6,0,22,0,10,0,7,0
-BRMO TopNL loader,net.sf.saxon.functions,StringJoin,334,0,48,0,80,0,35,0,11,0
+BRMO TopNL loader,net.sf.saxon.functions,StringJoin,325,0,42,0,80,0,32,0,11,0
 BRMO TopNL loader,net.sf.saxon.functions,UnparsedEntity,256,0,26,0,57,0,20,0,7,0
 BRMO TopNL loader,net.sf.saxon.functions,Matches,309,0,42,0,78,0,29,0,8,0
 BRMO TopNL loader,net.sf.saxon.functions,CurrentGroupingKey,23,0,4,0,7,0,6,0,4,0
@@ -920,7 +920,7 @@ BRMO TopNL loader,net.sf.saxon.functions,StringFn,160,0,24,0,32,0,18,0,6,0
 BRMO TopNL loader,net.sf.saxon.functions,KeyFn.new MappingFunction() {...},29,0,0,0,2,0,2,0,2,0
 BRMO TopNL loader,net.sf.saxon.functions,Insert.InsertIterator,142,0,18,0,37,0,16,0,7,0
 BRMO TopNL loader,net.sf.saxon.functions,Remove.RemoveIterator,103,0,12,0,25,0,14,0,8,0
-BRMO TopNL loader,net.sf.saxon.functions,BooleanFn,249,0,36,0,56,0,28,0,10,0
+BRMO TopNL loader,net.sf.saxon.functions,BooleanFn,240,0,30,0,56,0,25,0,10,0
 BRMO TopNL loader,net.sf.saxon.functions,Component,208,0,9,0,24,0,15,0,8,0
 BRMO TopNL loader,net.sf.saxon.functions,IntegratedFunctionCall.new ItemMappingFunction() {...},70,0,2,0,8,0,3,0,2,0
 BRMO TopNL loader,net.sf.saxon.functions,CodepointEqual,64,0,8,0,16,0,7,0,3,0
@@ -1111,7 +1111,7 @@ BRMO TopNL loader,net.sf.saxon.query,GlobalVariableDefinition,366,0,38,0,103,0,4
 BRMO TopNL loader,net.sf.saxon.query,UndeclaredVariable,27,0,2,0,9,0,4,0,3,0
 BRMO TopNL loader,net.sf.saxon.query,QueryModule.new SchemaComponentVisitor() {...},37,0,4,0,8,0,4,0,2,0
 BRMO TopNL loader,net.sf.saxon.query,QueryReader,592,0,110,0,118,0,62,0,7,0
-BRMO TopNL loader,net.sf.saxon.query,QueryParser,9241,0,1152,0,2219,0,693,0,102,0
+BRMO TopNL loader,net.sf.saxon.query,QueryParser,9230,0,1142,0,2218,0,688,0,102,0
 BRMO TopNL loader,net.sf.saxon.query,QueryResult,341,0,27,0,85,0,24,0,10,0
 BRMO TopNL loader,net.sf.saxon.query,UnboundFunctionLibrary,172,0,10,0,41,0,10,0,5,0
 BRMO TopNL loader,nl.b3p.topnl.top50nl,MetaDataPropertyType,89,0,4,0,36,0,24,0,22,0
@@ -1289,7 +1289,7 @@ BRMO TopNL loader,net.sf.saxon.expr.parser,ExpressionTool,1896,0,365,0,476,0,233
 BRMO TopNL loader,net.sf.saxon.expr.parser,PathMap.PathMapNode,241,0,54,0,55,0,39,0,12,0
 BRMO TopNL loader,net.sf.saxon.expr.parser,Tokenizer,2207,0,442,0,483,0,269,0,20,0
 BRMO TopNL loader,net.sf.saxon.expr.parser,PathMap.PathMapRoot,10,0,0,0,4,0,2,0,2,0
-BRMO TopNL loader,net.sf.saxon.expr.parser,ExpressionParser,5176,0,659,0,1174,0,458,0,94,0
+BRMO TopNL loader,net.sf.saxon.expr.parser,ExpressionParser,5167,0,653,0,1174,0,455,0,94,0
 BRMO TopNL loader,net.sf.saxon.expr.parser,ExpressionVisitor.ContextItemType,9,0,0,0,4,0,1,0,1,0
 BRMO TopNL loader,net.sf.saxon.expr.parser,ExpressionLocation,151,0,6,0,43,0,19,0,16,0
 BRMO TopNL loader,net.sf.saxon.expr.parser,PathMap.PathMapArc,21,0,0,0,8,0,4,0,4,0
@@ -1328,7 +1328,7 @@ BRMO TopNL loader,net.sf.saxon.tree.util,FastStringBuffer,825,0,78,0,162,0,71,0,
 BRMO TopNL loader,net.sf.saxon.tree.util,Navigator.AxisFilter,49,0,4,0,13,0,5,0,3,0
 BRMO TopNL loader,net.sf.saxon.tree.util,Orphan,422,0,68,0,118,0,95,0,59,0
 BRMO TopNL loader,net.sf.saxon.tree.util,ProcInstParser,322,0,62,0,81,0,33,0,2,0
-BRMO TopNL loader,net.sf.saxon.tree.util,Navigator,1337,0,256,0,314,0,151,0,17,0
+BRMO TopNL loader,net.sf.saxon.tree.util,Navigator,1327,0,248,0,313,0,147,0,17,0
 BRMO TopNL loader,net.sf.saxon.tree.util,Navigator.PrecedingEnumeration,129,0,18,0,41,0,12,0,3,0
 BRMO TopNL loader,net.sf.saxon.tree.util,AttributeCollectionImpl,999,0,166,0,222,0,126,0,40,0
 BRMO TopNL loader,net.sf.saxon.sxpath,XPathEvaluator,187,0,0,0,44,0,11,0,11,0
@@ -1408,10 +1408,10 @@ BRMO TopNL loader,net.sf.saxon.expr.sort,GenericSorter,598,0,104,0,105,0,58,0,6,
 BRMO TopNL loader,net.sf.saxon.tree.tiny,TinyTextImpl,76,0,0,0,16,0,8,0,8,0
 BRMO TopNL loader,net.sf.saxon.tree.tiny,TinyAttributeImpl,248,0,8,0,42,0,30,0,26,0
 BRMO TopNL loader,net.sf.saxon.tree.tiny,TinyDocumentImpl,426,0,58,0,113,0,59,0,30,0
-BRMO TopNL loader,net.sf.saxon.tree.tiny,TinyBuilder,1124,0,126,0,206,0,86,0,23,0
+BRMO TopNL loader,net.sf.saxon.tree.tiny,TinyBuilder,1106,0,102,0,206,0,74,0,23,0
 BRMO TopNL loader,net.sf.saxon.tree.tiny,CharSlice,255,0,22,0,47,0,25,0,14,0
-BRMO TopNL loader,net.sf.saxon.tree.tiny,TinyTree,2636,0,325,0,544,0,234,0,67,0
-BRMO TopNL loader,net.sf.saxon.tree.tiny,FollowingEnumeration,135,0,20,0,35,0,14,0,4,0
+BRMO TopNL loader,net.sf.saxon.tree.tiny,TinyTree,2623,0,311,0,543,0,227,0,67,0
+BRMO TopNL loader,net.sf.saxon.tree.tiny,FollowingEnumeration,127,0,16,0,35,0,12,0,4,0
 BRMO TopNL loader,net.sf.saxon.tree.tiny,AttributeEnumeration,184,0,18,0,39,0,16,0,7,0
 BRMO TopNL loader,net.sf.saxon.tree.tiny,PrecedingEnumeration,134,0,16,0,33,0,11,0,3,0
 BRMO TopNL loader,net.sf.saxon.tree.tiny,TinyBuilderCondensed,190,0,18,0,38,0,13,0,4,0
@@ -1421,7 +1421,7 @@ BRMO TopNL loader,net.sf.saxon.tree.tiny,LargeStringBuffer,512,0,46,0,106,0,35,0
 BRMO TopNL loader,net.sf.saxon.tree.tiny,TinyCommentImpl,69,0,2,0,15,0,7,0,6,0
 BRMO TopNL loader,net.sf.saxon.tree.tiny,TinyElementImpl,817,0,139,0,187,0,89,0,17,0
 BRMO TopNL loader,net.sf.saxon.tree.tiny,TinyTreeEventIterator,368,0,41,0,65,0,28,0,6,0
-BRMO TopNL loader,net.sf.saxon.tree.tiny,AncestorEnumeration,106,0,22,0,24,0,15,0,4,0
+BRMO TopNL loader,net.sf.saxon.tree.tiny,AncestorEnumeration,98,0,18,0,24,0,13,0,4,0
 BRMO TopNL loader,net.sf.saxon.tree.tiny,TinyParentNodeImpl,140,0,26,0,25,0,18,0,5,0
 BRMO TopNL loader,net.sf.saxon.tree.tiny,SiblingEnumeration,448,0,69,0,104,0,46,0,9,0
 BRMO TopNL loader,net.sf.saxon.tree.tiny,CompressedWhitespace,732,0,84,0,126,0,57,0,15,0
@@ -1466,7 +1466,7 @@ BRMO TopNL loader,net.sf.saxon.event,SequenceReceiver,46,0,0,0,18,0,10,0,10,0
 BRMO TopNL loader,net.sf.saxon.event,TeeOutputter,202,0,8,0,55,0,23,0,19,0
 BRMO TopNL loader,net.sf.saxon.event,SequenceCopier,17,0,2,0,8,0,2,0,1,0
 BRMO TopNL loader,net.sf.saxon.event,ReceiverOptions,3,0,0,0,1,0,1,0,1,0
-BRMO TopNL loader,net.sf.saxon.event,StreamWriterToReceiver,978,0,130,0,239,0,109,0,44,0
+BRMO TopNL loader,net.sf.saxon.event,StreamWriterToReceiver,970,0,126,0,239,0,107,0,44,0
 BRMO TopNL loader,net.sf.saxon.event,Sender,1160,0,156,0,292,0,86,0,8,0
 BRMO TopNL loader,net.sf.saxon.event,SequenceWriter,565,0,68,0,146,0,50,0,16,0
 BRMO TopNL loader,net.sf.saxon.event,TypeCheckingFilter,547,0,56,0,114,0,44,0,16,0
@@ -1477,7 +1477,7 @@ BRMO TopNL loader,net.sf.saxon.value,ObjectValue,142,0,14,0,33,0,23,0,16,0
 BRMO TopNL loader,net.sf.saxon.value,QNameValue.QNameComparable,38,0,6,0,5,0,8,0,5,0
 BRMO TopNL loader,net.sf.saxon.value,SingletonClosure,75,0,8,0,23,0,11,0,7,0
 BRMO TopNL loader,net.sf.saxon.value,SingletonItem,261,0,52,0,62,0,40,0,11,0
-BRMO TopNL loader,net.sf.saxon.value,SequenceExtent,568,0,71,0,131,0,56,0,20,0
+BRMO TopNL loader,net.sf.saxon.value,SequenceExtent,560,0,67,0,131,0,54,0,20,0
 BRMO TopNL loader,net.sf.saxon.value,GDateValue,854,0,144,0,159,0,91,0,17,0
 BRMO TopNL loader,net.sf.saxon.value,BigIntegerValue,584,0,58,0,123,0,64,0,35,0
 BRMO TopNL loader,net.sf.saxon.value,QualifiedNameValue,137,0,12,0,24,0,21,0,15,0
@@ -1489,14 +1489,14 @@ BRMO TopNL loader,net.sf.saxon.value,CalendarValue,271,0,40,0,69,0,34,0,14,0
 BRMO TopNL loader,net.sf.saxon.value,DateTimeValue,2095,0,281,0,460,0,184,0,39,0
 BRMO TopNL loader,net.sf.saxon.value,NumericValue,84,0,16,0,23,0,15,0,7,0
 BRMO TopNL loader,net.sf.saxon.value,TextFragmentValue,319,0,32,0,90,0,66,0,47,0
-BRMO TopNL loader,net.sf.saxon.value,MemoClosure,426,0,65,0,105,0,45,0,10,0
-BRMO TopNL loader,net.sf.saxon.value,MemoClosure.ProgressiveIterator,237,0,42,0,51,0,31,0,10,0
+BRMO TopNL loader,net.sf.saxon.value,MemoClosure,417,0,59,0,105,0,42,0,10,0
+BRMO TopNL loader,net.sf.saxon.value,MemoClosure.ProgressiveIterator,226,0,32,0,51,0,26,0,10,0
 BRMO TopNL loader,net.sf.saxon.value,GYearValue,181,0,14,0,39,0,16,0,9,0
 BRMO TopNL loader,net.sf.saxon.value,NotationValue,169,0,22,0,37,0,20,0,9,0
 BRMO TopNL loader,net.sf.saxon.value,BooleanValue,230,0,44,0,45,0,38,0,16,0
 BRMO TopNL loader,net.sf.saxon.value,HexBinaryValue,256,0,20,0,50,0,23,0,13,0
 BRMO TopNL loader,net.sf.saxon.value,Base64BinaryValue.Base64BinaryComparable,37,0,6,0,7,0,8,0,5,0
-BRMO TopNL loader,net.sf.saxon.value,AnyURIValue,237,0,50,0,58,0,33,0,8,0
+BRMO TopNL loader,net.sf.saxon.value,AnyURIValue,228,0,44,0,57,0,30,0,8,0
 BRMO TopNL loader,net.sf.saxon.value,BooleanValue.BooleanComparable,43,0,10,0,7,0,10,0,5,0
 BRMO TopNL loader,net.sf.saxon.value,Int64Value,1078,0,132,0,169,0,102,0,36,0
 BRMO TopNL loader,net.sf.saxon.value,NotationValue.NotationComparable,38,0,6,0,5,0,8,0,5,0
@@ -1579,7 +1579,7 @@ BRMO TopNL loader,net.sf.saxon,Transform.TransformThread,46,0,0,0,14,0,3,0,3,0
 BRMO TopNL loader,net.sf.saxon,TemplatesHandlerImpl.new Locator() {...},16,0,0,0,5,0,5,0,5,0
 BRMO TopNL loader,net.sf.saxon,Query.new UpdateAgent() {...},55,0,6,0,12,0,5,0,2,0
 BRMO TopNL loader,net.sf.saxon,Version,99,0,6,0,17,0,15,0,12,0
-BRMO TopNL loader,net.sf.saxon,Configuration,4740,0,689,0,1174,0,556,0,209,0
+BRMO TopNL loader,net.sf.saxon,Configuration,4732,0,685,0,1173,0,554,0,209,0
 BRMO TopNL loader,net.sf.saxon,Configuration.LicenseFeature,3,0,0,0,1,0,1,0,1,0
 BRMO TopNL loader,net.sf.saxon,Controller,2508,0,330,0,653,0,278,0,113,0
 BRMO TopNL loader,net.sf.saxon,Transform,2178,0,230,0,469,0,134,0,19,0

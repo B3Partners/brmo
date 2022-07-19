@@ -36,7 +36,6 @@ import nl.b3p.brmo.loader.xml.WozXMLReader;
 import nl.b3p.jdbc.util.converter.GeometryJdbcConverter;
 import nl.b3p.jdbc.util.converter.GeometryJdbcConverterFactory;
 import nl.b3p.jdbc.util.dbutils.LongColumnListHandler;
-import nl.b3p.jdbc.util.converter.MssqlJdbcConverter;
 import nl.b3p.jdbc.util.converter.OracleJdbcConverter;
 import nl.b3p.jdbc.util.converter.PostgisJdbcConverter;
 import nl.b3p.topnl.TopNLType;
@@ -61,122 +60,122 @@ import org.xml.sax.SAXException;
  */
 public class StagingProxy {
 
-<span class="nc" id="L64">    private static final Log log = LogFactory.getLog(StagingProxy.class);</span>
+<span class="nc" id="L63">    private static final Log log = LogFactory.getLog(StagingProxy.class);</span>
 
-<span class="nc" id="L66">    private Connection connStaging = null;</span>
-<span class="nc" id="L67">    private DataSource dataSourceStaging =  null;</span>
-<span class="nc" id="L68">    private GeometryJdbcConverter geomToJdbc = null;</span>
-<span class="nc" id="L69">    private Integer batchCapacity = 150;</span>
-<span class="nc" id="L70">    private Integer limitStandBerichtenToTransform = -1;</span>
+<span class="nc" id="L65">    private Connection connStaging = null;</span>
+<span class="nc" id="L66">    private DataSource dataSourceStaging =  null;</span>
+<span class="nc" id="L67">    private GeometryJdbcConverter geomToJdbc = null;</span>
+<span class="nc" id="L68">    private Integer batchCapacity = 150;</span>
+<span class="nc" id="L69">    private Integer limitStandBerichtenToTransform = -1;</span>
 
-<span class="nc" id="L72">    public StagingProxy(DataSource dataSourceStaging) throws SQLException, BrmoException {</span>
-<span class="nc" id="L73">        this.dataSourceStaging = dataSourceStaging;</span>
-<span class="nc" id="L74">        this.connStaging = getConnection();</span>
-<span class="nc" id="L75">        geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(connStaging);</span>
-<span class="nc" id="L76">    }</span>
+<span class="nc" id="L71">    public StagingProxy(DataSource dataSourceStaging) throws SQLException, BrmoException {</span>
+<span class="nc" id="L72">        this.dataSourceStaging = dataSourceStaging;</span>
+<span class="nc" id="L73">        this.connStaging = getConnection();</span>
+<span class="nc" id="L74">        geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(connStaging);</span>
+<span class="nc" id="L75">    }</span>
 
     public void closeStagingProxy() {
-<span class="nc bnc" id="L79" title="All 2 branches missed.">        if(getOldBerichtStatement != null) {</span>
-<span class="nc" id="L80">            DbUtils.closeQuietly(getOldBerichtStatement);</span>
+<span class="nc bnc" id="L78" title="All 2 branches missed.">        if(getOldBerichtStatement != null) {</span>
+<span class="nc" id="L79">            DbUtils.closeQuietly(getOldBerichtStatement);</span>
         }
-<span class="nc" id="L82">        DbUtils.closeQuietly(connStaging);</span>
-<span class="nc" id="L83">    }</span>
+<span class="nc" id="L81">        DbUtils.closeQuietly(connStaging);</span>
+<span class="nc" id="L82">    }</span>
 
     private Connection getConnection() throws SQLException {
-<span class="nc bnc" id="L86" title="All 4 branches missed.">        if (connStaging==null || connStaging.isClosed()) {</span>
-<span class="nc" id="L87">            connStaging = dataSourceStaging.getConnection();</span>
+<span class="nc bnc" id="L85" title="All 4 branches missed.">        if (connStaging==null || connStaging.isClosed()) {</span>
+<span class="nc" id="L86">            connStaging = dataSourceStaging.getConnection();</span>
         }
-<span class="nc" id="L89">        return connStaging;</span>
+<span class="nc" id="L88">        return connStaging;</span>
     }
 
     public LaadProces getLaadProcesById(Long id) throws SQLException {
         List&lt;LaadProces&gt; processen;
 
-<span class="nc" id="L95">        ResultSetHandler&lt;List&lt;LaadProces&gt;&gt; h</span>
+<span class="nc" id="L94">        ResultSetHandler&lt;List&lt;LaadProces&gt;&gt; h</span>
                 = new BeanListHandler(LaadProces.class, new StagingRowHandler());
 
-<span class="nc" id="L98">        processen = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(),</span>
+<span class="nc" id="L97">        processen = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(),</span>
                 &quot;SELECT * FROM &quot; + BrmoFramework.LAADPROCES_TABEL + &quot; WHERE id = ?&quot;, h, id);
 
-<span class="nc bnc" id="L101" title="All 4 branches missed.">        if (processen != null &amp;&amp; processen.size() == 1) {</span>
-<span class="nc" id="L102">            return processen.get(0);</span>
+<span class="nc bnc" id="L100" title="All 4 branches missed.">        if (processen != null &amp;&amp; processen.size() == 1) {</span>
+<span class="nc" id="L101">            return processen.get(0);</span>
         }
 
-<span class="nc" id="L105">        return null;</span>
+<span class="nc" id="L104">        return null;</span>
     }
 
     public Bericht getBerichtById(Long id) throws SQLException {
         List&lt;Bericht&gt; berichten;
-<span class="nc" id="L110">        ResultSetHandler&lt;List&lt;Bericht&gt;&gt; h</span>
+<span class="nc" id="L109">        ResultSetHandler&lt;List&lt;Bericht&gt;&gt; h</span>
                 = new BeanListHandler(Bericht.class, new StagingRowHandler());
 
-<span class="nc" id="L113">        berichten = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(),</span>
+<span class="nc" id="L112">        berichten = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(),</span>
                 &quot;SELECT * FROM &quot; + BrmoFramework.BERICHT_TABLE + &quot; WHERE id = ?&quot;, h, id);
 
-<span class="nc bnc" id="L116" title="All 4 branches missed.">        if (berichten != null &amp;&amp; berichten.size() == 1) {</span>
-<span class="nc" id="L117">            return berichten.get(0);</span>
+<span class="nc bnc" id="L115" title="All 4 branches missed.">        if (berichten != null &amp;&amp; berichten.size() == 1) {</span>
+<span class="nc" id="L116">            return berichten.get(0);</span>
         }
 
-<span class="nc" id="L120">        return null;</span>
+<span class="nc" id="L119">        return null;</span>
     }
 
     public List&lt;Bericht&gt; getBerichtByLaadProces(LaadProces lp) throws SQLException {
         List&lt;Bericht&gt; berichten;
-<span class="nc" id="L125">        ResultSetHandler&lt;List&lt;Bericht&gt;&gt; h</span>
+<span class="nc" id="L124">        ResultSetHandler&lt;List&lt;Bericht&gt;&gt; h</span>
                 = new BeanListHandler(Bericht.class, new StagingRowHandler());
 
-<span class="nc" id="L128">        berichten = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(),</span>
-<span class="nc" id="L129">                &quot;SELECT * FROM &quot; + BrmoFramework.BERICHT_TABLE + &quot; WHERE laadprocesid = ?&quot;, h, lp.getId());</span>
-<span class="nc" id="L130">        return berichten;</span>
+<span class="nc" id="L127">        berichten = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(),</span>
+<span class="nc" id="L128">                &quot;SELECT * FROM &quot; + BrmoFramework.BERICHT_TABLE + &quot; WHERE laadprocesid = ?&quot;, h, lp.getId());</span>
+<span class="nc" id="L129">        return berichten;</span>
     }
 
 
     public LaadProces getLaadProcesByFileName(String name) throws SQLException {
         List&lt;LaadProces&gt; processen;
-<span class="nc" id="L136">        ResultSetHandler&lt;List&lt;LaadProces&gt;&gt; h</span>
+<span class="nc" id="L135">        ResultSetHandler&lt;List&lt;LaadProces&gt;&gt; h</span>
                 = new BeanListHandler(LaadProces.class, new StagingRowHandler());
 
-<span class="nc" id="L139">        processen = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(),</span>
+<span class="nc" id="L138">        processen = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(),</span>
                 &quot;SELECT * FROM &quot; + BrmoFramework.LAADPROCES_TABEL + &quot; WHERE bestand_naam = ?&quot;, h, name);
 
-<span class="nc bnc" id="L142" title="All 4 branches missed.">        if (processen != null &amp;&amp; processen.size() == 1) {</span>
-<span class="nc" id="L143">            return processen.get(0);</span>
+<span class="nc bnc" id="L141" title="All 4 branches missed.">        if (processen != null &amp;&amp; processen.size() == 1) {</span>
+<span class="nc" id="L142">            return processen.get(0);</span>
         }
 
-<span class="nc" id="L146">        return null;</span>
+<span class="nc" id="L145">        return null;</span>
     }
 
     public LaadProces getLaadProcesByRestoredFilename(String name) throws SQLException {
         List&lt;LaadProces&gt; processen;
-<span class="nc" id="L151">        ResultSetHandler&lt;List&lt;LaadProces&gt;&gt; h</span>
+<span class="nc" id="L150">        ResultSetHandler&lt;List&lt;LaadProces&gt;&gt; h</span>
                 = new BeanListHandler(LaadProces.class, new StagingRowHandler());
 
-<span class="nc" id="L154">        processen = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(),</span>
+<span class="nc" id="L153">        processen = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(),</span>
                 &quot;SELECT * FROM &quot; + BrmoFramework.LAADPROCES_TABEL + &quot; WHERE bestand_naam_hersteld = ?&quot;, h,  name);
 
-<span class="nc bnc" id="L157" title="All 4 branches missed.">        if (processen != null &amp;&amp; processen.size() == 1) {</span>
-<span class="nc" id="L158">            return processen.get(0);</span>
+<span class="nc bnc" id="L156" title="All 4 branches missed.">        if (processen != null &amp;&amp; processen.size() == 1) {</span>
+<span class="nc" id="L157">            return processen.get(0);</span>
         }
 
-<span class="nc" id="L161">        return null;</span>
+<span class="nc" id="L160">        return null;</span>
     }
 
     private LaadProces getLaadProcesByNaturalKey(String name, long date) throws SQLException {
         List&lt;LaadProces&gt; processen;
-<span class="nc" id="L166">        ResultSetHandler&lt;List&lt;LaadProces&gt;&gt; h</span>
+<span class="nc" id="L165">        ResultSetHandler&lt;List&lt;LaadProces&gt;&gt; h</span>
                 = new BeanListHandler(LaadProces.class, new StagingRowHandler());
 
-<span class="nc" id="L169">        processen = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(),</span>
+<span class="nc" id="L168">        processen = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(),</span>
                 &quot;SELECT * FROM &quot; + BrmoFramework.LAADPROCES_TABEL + &quot; WHERE bestand_naam = ?&quot;
                         + &quot; AND bestand_datum = ?&quot;, h,
                         name,
                         new Timestamp(date));
 
-<span class="nc bnc" id="L175" title="All 4 branches missed.">        if (processen != null &amp;&amp; processen.size() &gt; 0) {</span>
-<span class="nc" id="L176">            return processen.get(0);</span>
+<span class="nc bnc" id="L174" title="All 4 branches missed.">        if (processen != null &amp;&amp; processen.size() &gt; 0) {</span>
+<span class="nc" id="L175">            return processen.get(0);</span>
         }
 
-<span class="nc" id="L179">        return null;</span>
+<span class="nc" id="L178">        return null;</span>
     }
 
     /**
@@ -188,366 +187,361 @@ public class StagingProxy {
      * @throws SQLException if any
      */
     public Bericht getExistingBericht(Bericht b) throws SQLException {
-<span class="nc" id="L191">        Bericht b2 = getBerichtByNaturalKey(b.getObjectRef(),</span>
-<span class="nc" id="L192">                b.getDatum().getTime(),</span>
-<span class="nc" id="L193">                b.getVolgordeNummer());</span>
-<span class="nc" id="L194">        return b2;</span>
+<span class="nc" id="L190">        Bericht b2 = getBerichtByNaturalKey(b.getObjectRef(),</span>
+<span class="nc" id="L191">                b.getDatum().getTime(),</span>
+<span class="nc" id="L192">                b.getVolgordeNummer());</span>
+<span class="nc" id="L193">        return b2;</span>
     }
 
     private Bericht getBerichtByNaturalKey(String object_ref, long date, Integer volgnr) throws SQLException {
         List&lt;Bericht&gt; processen;
-<span class="nc" id="L199">        ResultSetHandler&lt;List&lt;Bericht&gt;&gt; h</span>
+<span class="nc" id="L198">        ResultSetHandler&lt;List&lt;Bericht&gt;&gt; h</span>
                 = new BeanListHandler(Bericht.class, new StagingRowHandler());
 
-<span class="nc" id="L202">        processen = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(),</span>
+<span class="nc" id="L201">        processen = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(),</span>
                 &quot;SELECT * FROM &quot; + BrmoFramework.BERICHT_TABLE + &quot; WHERE object_ref = ?&quot;
                         + &quot; AND datum = ? and volgordenummer = ?&quot;, h,
                         object_ref,
                         new Timestamp(date),
                         volgnr);
 
-<span class="nc bnc" id="L209" title="All 4 branches missed.">        if (processen != null &amp;&amp; processen.size() &gt; 0) {</span>
-<span class="nc" id="L210">            return processen.get(0);</span>
+<span class="nc bnc" id="L208" title="All 4 branches missed.">        if (processen != null &amp;&amp; processen.size() &gt; 0) {</span>
+<span class="nc" id="L209">            return processen.get(0);</span>
         }
 
-<span class="nc" id="L213">        return null;</span>
+<span class="nc" id="L212">        return null;</span>
     }
 
     public long getCountJob() throws SQLException {
-<span class="nc" id="L217">        Object o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(),</span>
+<span class="nc" id="L216">        Object o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(),</span>
                 &quot;select count(*) from &quot; + BrmoFramework.JOB_TABLE,
                 new ScalarHandler());
-<span class="nc bnc" id="L220" title="All 2 branches missed.">        if (o instanceof BigDecimal) {</span>
-<span class="nc" id="L221">            return ((BigDecimal) o).longValue();</span>
-<span class="nc bnc" id="L222" title="All 2 branches missed.">        } else if (o instanceof Integer) {</span>
-<span class="nc" id="L223">            return ((Integer) o).longValue();</span>
+<span class="nc bnc" id="L219" title="All 2 branches missed.">        if (o instanceof BigDecimal) {</span>
+<span class="nc" id="L220">            return ((BigDecimal) o).longValue();</span>
+<span class="nc bnc" id="L221" title="All 2 branches missed.">        } else if (o instanceof Integer) {</span>
+<span class="nc" id="L222">            return ((Integer) o).longValue();</span>
         }
-<span class="nc" id="L225">        return (Long) o;</span>
+<span class="nc" id="L224">        return (Long) o;</span>
     }
 
     public boolean removeJob() throws SQLException {
-<span class="nc" id="L229">        int count = new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(), &quot;truncate table &quot; + BrmoFramework.JOB_TABLE );</span>
-<span class="nc bnc" id="L230" title="All 2 branches missed.">        if (count&gt;0) {</span>
-<span class="nc" id="L231">            return true;</span>
+<span class="nc" id="L228">        int count = new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(), &quot;truncate table &quot; + BrmoFramework.JOB_TABLE );</span>
+<span class="nc bnc" id="L229" title="All 2 branches missed.">        if (count&gt;0) {</span>
+<span class="nc" id="L230">            return true;</span>
         }
-<span class="nc" id="L233">        return false;</span>
+<span class="nc" id="L232">        return false;</span>
     }
 
     public boolean cleanJob() throws SQLException {
-<span class="nc" id="L237">        int count = 0;</span>
-<span class="nc bnc" id="L238" title="All 2 branches missed.">        if (geomToJdbc instanceof OracleJdbcConverter) {</span>
-<span class="nc" id="L239">            count = new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(),</span>
+<span class="nc" id="L236">        int count = 0;</span>
+<span class="nc bnc" id="L237" title="All 2 branches missed.">        if (geomToJdbc instanceof OracleJdbcConverter) {</span>
+<span class="nc" id="L238">            count = new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(),</span>
                     &quot;delete from &quot; + BrmoFramework.JOB_TABLE + &quot; j where j.id in (select b.id from &quot;
                     + BrmoFramework.BERICHT_TABLE + &quot; b &quot;
                     // vanwege rare fout in oracle bij ophalen tabel metadata werkt dit niet
                     // https://issues.apache.org/jira/browse/DBUTILS-125
                     + &quot; where b.id = j.id and status != 'STAGING_OK')&quot;);
 
-<span class="nc bnc" id="L246" title="All 2 branches missed.">        } else if (geomToJdbc instanceof MssqlJdbcConverter) {</span>
-<span class="nc" id="L247">            count = new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(),</span>
-                    &quot;delete j from dbo.&quot; + BrmoFramework.JOB_TABLE + &quot; j where j.id in (select b.id from dbo.&quot;
-                    + BrmoFramework.BERICHT_TABLE + &quot; b &quot;
-<span class="nc" id="L250">                    + &quot; where b.id = j.id and status != ?)&quot;, Bericht.STATUS.STAGING_OK.toString());</span>
         } else {
-<span class="nc" id="L252">            count = new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(),</span>
+<span class="nc" id="L246">            count = new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(),</span>
                     &quot;delete from &quot; + BrmoFramework.JOB_TABLE + &quot; j where j.id in (select b.id from &quot;
                     + BrmoFramework.BERICHT_TABLE + &quot; b &quot;
-<span class="nc" id="L255">                    + &quot; where b.id = j.id and status != ?)&quot;, Bericht.STATUS.STAGING_OK.toString());</span>
+<span class="nc" id="L249">                    + &quot; where b.id = j.id and status != ?)&quot;, Bericht.STATUS.STAGING_OK.toString());</span>
         }
-<span class="nc bnc" id="L257" title="All 2 branches missed.">        if (count &gt; 0) {</span>
-<span class="nc" id="L258">            return true;</span>
+<span class="nc bnc" id="L251" title="All 2 branches missed.">        if (count &gt; 0) {</span>
+<span class="nc" id="L252">            return true;</span>
         }
-<span class="nc" id="L260">        return false;</span>
+<span class="nc" id="L254">        return false;</span>
     }
 
     public long setBerichtenJobByStatus(Bericht.STATUS status, boolean orderBerichten) throws SQLException {
-<span class="nc" id="L264">        StringBuilder q = new StringBuilder(&quot;insert into &quot; + BrmoFramework.JOB_TABLE</span>
+<span class="nc" id="L258">        StringBuilder q = new StringBuilder(&quot;insert into &quot; + BrmoFramework.JOB_TABLE</span>
                 + &quot; (id, datum, volgordenummer, object_ref, br_xml, soort) &quot;
                 + &quot; select id, datum, volgordenummer, object_ref, br_xml, soort from &quot;
                 + BrmoFramework.BERICHT_TABLE + &quot; where status = ? and datum &lt;= ? &quot;);
-<span class="nc bnc" id="L268" title="All 2 branches missed.">        if (orderBerichten) {</span>
-<span class="nc" id="L269">            q.append(&quot; order by &quot; + BerichtenSorter.SQL_ORDER_BY);</span>
+<span class="nc bnc" id="L262" title="All 2 branches missed.">        if (orderBerichten) {</span>
+<span class="nc" id="L263">            q.append(&quot; order by &quot; + BerichtenSorter.SQL_ORDER_BY);</span>
         } else {
-<span class="nc" id="L271">            q.append(&quot; and volgordenummer &lt; 0 &quot;);</span>
-<span class="nc bnc" id="L272" title="All 2 branches missed.">            if (this.limitStandBerichtenToTransform &gt; 0) {</span>
-<span class="nc" id="L273">                q = geomToJdbc.buildLimitSql(q, limitStandBerichtenToTransform);</span>
+<span class="nc" id="L265">            q.append(&quot; and volgordenummer &lt; 0 &quot;);</span>
+<span class="nc bnc" id="L266" title="All 2 branches missed.">            if (this.limitStandBerichtenToTransform &gt; 0) {</span>
+<span class="nc" id="L267">                q = geomToJdbc.buildLimitSql(q, limitStandBerichtenToTransform);</span>
             }
         }
-<span class="nc" id="L276">        log.debug(&quot;pre-transformatie SQL: &quot; + q);</span>
-<span class="nc" id="L277">        return new QueryRunner(geomToJdbc.isPmdKnownBroken())</span>
-<span class="nc" id="L278">                .update(getConnection(), q.toString(), status.toString(), new java.sql.Timestamp((new Date()).getTime()));</span>
+<span class="nc" id="L270">        log.debug(&quot;pre-transformatie SQL: &quot; + q);</span>
+<span class="nc" id="L271">        return new QueryRunner(geomToJdbc.isPmdKnownBroken())</span>
+<span class="nc" id="L272">                .update(getConnection(), q.toString(), status.toString(), new java.sql.Timestamp((new Date()).getTime()));</span>
     }
 
     public long setBerichtenJobForUpdate(String soort, boolean orderBerichten) throws SQLException {
-<span class="nc" id="L282">        StringBuilder q = new StringBuilder(&quot;insert into &quot; + BrmoFramework.JOB_TABLE</span>
+<span class="nc" id="L276">        StringBuilder q = new StringBuilder(&quot;insert into &quot; + BrmoFramework.JOB_TABLE</span>
                 + &quot; (id, datum, volgordenummer, object_ref, br_xml, soort) &quot;
                 + &quot; select id, datum, volgordenummer, object_ref, br_xml, soort from &quot;
                 + BrmoFramework.BERICHT_TABLE + &quot; where status = ? and soort = ? and datum &lt;= ? &quot;);
-<span class="nc bnc" id="L286" title="All 2 branches missed.">        if (orderBerichten) {</span>
-<span class="nc" id="L287">            q.append(&quot; order by &quot; + BerichtenSorter.SQL_ORDER_BY);</span>
+<span class="nc bnc" id="L280" title="All 2 branches missed.">        if (orderBerichten) {</span>
+<span class="nc" id="L281">            q.append(&quot; order by &quot; + BerichtenSorter.SQL_ORDER_BY);</span>
         } else {
-<span class="nc" id="L289">            q.append(&quot; and volgordenummer &lt; 0 &quot;);</span>
-<span class="nc bnc" id="L290" title="All 2 branches missed.">            if (this.limitStandBerichtenToTransform &gt; 0) {</span>
-<span class="nc" id="L291">                q = geomToJdbc.buildLimitSql(q, limitStandBerichtenToTransform);</span>
+<span class="nc" id="L283">            q.append(&quot; and volgordenummer &lt; 0 &quot;);</span>
+<span class="nc bnc" id="L284" title="All 2 branches missed.">            if (this.limitStandBerichtenToTransform &gt; 0) {</span>
+<span class="nc" id="L285">                q = geomToJdbc.buildLimitSql(q, limitStandBerichtenToTransform);</span>
             }
         }
-<span class="nc" id="L294">        log.debug(&quot;pre-transformatie SQL: &quot; + q);</span>
-<span class="nc" id="L295">        return new QueryRunner(geomToJdbc.isPmdKnownBroken())</span>
-<span class="nc" id="L296">                .update(getConnection(), q.toString(), Bericht.STATUS.RSGB_OK.toString(), soort, new java.sql.Timestamp((new Date()).getTime()));</span>
+<span class="nc" id="L288">        log.debug(&quot;pre-transformatie SQL: &quot; + q);</span>
+<span class="nc" id="L289">        return new QueryRunner(geomToJdbc.isPmdKnownBroken())</span>
+<span class="nc" id="L290">                .update(getConnection(), q.toString(), Bericht.STATUS.RSGB_OK.toString(), soort, new java.sql.Timestamp((new Date()).getTime()));</span>
    }
 
     public long setBerichtenJobByIds(long[] ids, boolean orderBerichten) throws SQLException {
-<span class="nc" id="L300">        StringBuilder q = new StringBuilder(&quot;insert into &quot; + BrmoFramework.JOB_TABLE</span>
+<span class="nc" id="L294">        StringBuilder q = new StringBuilder(&quot;insert into &quot; + BrmoFramework.JOB_TABLE</span>
                 + &quot; (id, datum, volgordenummer, object_ref, br_xml, soort) &quot;
                 + &quot; select id, datum, volgordenummer, object_ref, br_xml, soort from &quot;
                 + BrmoFramework.BERICHT_TABLE + &quot; where id in (&quot;);
-<span class="nc bnc" id="L304" title="All 2 branches missed.">        for (int i = 0; i &lt; ids.length; i++) {</span>
-<span class="nc bnc" id="L305" title="All 2 branches missed.">            if(i != 0) {</span>
-<span class="nc" id="L306">                q.append(&quot;,&quot;);</span>
+<span class="nc bnc" id="L298" title="All 2 branches missed.">        for (int i = 0; i &lt; ids.length; i++) {</span>
+<span class="nc bnc" id="L299" title="All 2 branches missed.">            if(i != 0) {</span>
+<span class="nc" id="L300">                q.append(&quot;,&quot;);</span>
             }
-<span class="nc" id="L308">            q.append(ids[i]);</span>
+<span class="nc" id="L302">            q.append(ids[i]);</span>
         }
-<span class="nc" id="L310">        q.append(&quot;) and datum &lt;= ? &quot;);</span>
-<span class="nc bnc" id="L311" title="All 2 branches missed.">        if (orderBerichten) {</span>
-<span class="nc" id="L312">            q.append(&quot; order by &quot; + BerichtenSorter.SQL_ORDER_BY);</span>
+<span class="nc" id="L304">        q.append(&quot;) and datum &lt;= ? &quot;);</span>
+<span class="nc bnc" id="L305" title="All 2 branches missed.">        if (orderBerichten) {</span>
+<span class="nc" id="L306">            q.append(&quot; order by &quot; + BerichtenSorter.SQL_ORDER_BY);</span>
         } else {
-<span class="nc" id="L314">            q.append(&quot; and volgordenummer &lt; 0 &quot;);</span>
-<span class="nc bnc" id="L315" title="All 2 branches missed.">            if (this.limitStandBerichtenToTransform &gt; 0) {</span>
-<span class="nc" id="L316">                q = geomToJdbc.buildLimitSql(q, limitStandBerichtenToTransform);</span>
+<span class="nc" id="L308">            q.append(&quot; and volgordenummer &lt; 0 &quot;);</span>
+<span class="nc bnc" id="L309" title="All 2 branches missed.">            if (this.limitStandBerichtenToTransform &gt; 0) {</span>
+<span class="nc" id="L310">                q = geomToJdbc.buildLimitSql(q, limitStandBerichtenToTransform);</span>
             }
         }
-<span class="nc" id="L319">        log.debug(&quot;pre-transformatie SQL: &quot; + q);</span>
-<span class="nc" id="L320">        return new QueryRunner(geomToJdbc.isPmdKnownBroken())</span>
-<span class="nc" id="L321">                .update(getConnection(), q.toString(), new java.sql.Timestamp((new Date()).getTime()));</span>
+<span class="nc" id="L313">        log.debug(&quot;pre-transformatie SQL: &quot; + q);</span>
+<span class="nc" id="L314">        return new QueryRunner(geomToJdbc.isPmdKnownBroken())</span>
+<span class="nc" id="L315">                .update(getConnection(), q.toString(), new java.sql.Timestamp((new Date()).getTime()));</span>
     }
 
     public long setBerichtenJobByLaadprocessen(long[] laadprocesIds, boolean orderBerichten) throws SQLException {
 
-<span class="nc" id="L326">        StringBuilder q = new StringBuilder(&quot;insert into &quot; + BrmoFramework.JOB_TABLE</span>
+<span class="nc" id="L320">        StringBuilder q = new StringBuilder(&quot;insert into &quot; + BrmoFramework.JOB_TABLE</span>
                 + &quot; (id, datum, volgordenummer, object_ref, br_xml, soort) &quot;
                 + &quot; select id, datum, volgordenummer, object_ref, br_xml, soort from &quot;
                 + BrmoFramework.BERICHT_TABLE + &quot; where laadprocesid in (&quot;);
-<span class="nc bnc" id="L330" title="All 2 branches missed.">        for (int i = 0; i &lt; laadprocesIds.length; i++) {</span>
-<span class="nc bnc" id="L331" title="All 2 branches missed.">            if(i != 0) {</span>
-<span class="nc" id="L332">                q.append(&quot;,&quot;);</span>
+<span class="nc bnc" id="L324" title="All 2 branches missed.">        for (int i = 0; i &lt; laadprocesIds.length; i++) {</span>
+<span class="nc bnc" id="L325" title="All 2 branches missed.">            if(i != 0) {</span>
+<span class="nc" id="L326">                q.append(&quot;,&quot;);</span>
             }
-<span class="nc" id="L334">            q.append(laadprocesIds[i]);</span>
+<span class="nc" id="L328">            q.append(laadprocesIds[i]);</span>
         }
-<span class="nc" id="L336">        q.append(&quot;) and status = ? and datum &lt;= ? &quot;);</span>
-<span class="nc bnc" id="L337" title="All 2 branches missed.">        if (orderBerichten) {</span>
-<span class="nc" id="L338">            q.append(&quot; order by &quot; + BerichtenSorter.SQL_ORDER_BY);</span>
+<span class="nc" id="L330">        q.append(&quot;) and status = ? and datum &lt;= ? &quot;);</span>
+<span class="nc bnc" id="L331" title="All 2 branches missed.">        if (orderBerichten) {</span>
+<span class="nc" id="L332">            q.append(&quot; order by &quot; + BerichtenSorter.SQL_ORDER_BY);</span>
         } else {
-<span class="nc" id="L340">            q.append(&quot; and volgordenummer &lt; 0 &quot;);</span>
-<span class="nc bnc" id="L341" title="All 2 branches missed.">            if (this.limitStandBerichtenToTransform &gt; 0) {</span>
-<span class="nc" id="L342">                q = geomToJdbc.buildLimitSql(q, limitStandBerichtenToTransform);</span>
+<span class="nc" id="L334">            q.append(&quot; and volgordenummer &lt; 0 &quot;);</span>
+<span class="nc bnc" id="L335" title="All 2 branches missed.">            if (this.limitStandBerichtenToTransform &gt; 0) {</span>
+<span class="nc" id="L336">                q = geomToJdbc.buildLimitSql(q, limitStandBerichtenToTransform);</span>
             }
         }
-<span class="nc" id="L345">        log.debug(&quot;pre-transformatie SQL: &quot; + q);</span>
-<span class="nc" id="L346">        return new QueryRunner(geomToJdbc.isPmdKnownBroken())</span>
-<span class="nc" id="L347">                .update(getConnection(), q.toString(), Bericht.STATUS.STAGING_OK.toString(), new java.sql.Timestamp((new Date()).getTime()));</span>
+<span class="nc" id="L339">        log.debug(&quot;pre-transformatie SQL: &quot; + q);</span>
+<span class="nc" id="L340">        return new QueryRunner(geomToJdbc.isPmdKnownBroken())</span>
+<span class="nc" id="L341">                .update(getConnection(), q.toString(), Bericht.STATUS.STAGING_OK.toString(), new java.sql.Timestamp((new Date()).getTime()));</span>
     }
 
     public void handleBerichtenByJob(long total, final BerichtenHandler handler, final boolean enablePipeline, int transformPipelineCapacity, boolean orderBerichten) throws Exception {
-<span class="nc" id="L351">        Split split = SimonManager.getStopwatch(&quot;b3p.rsgb.job&quot;).start();</span>
-<span class="nc" id="L352">        final String dateTime = new SimpleDateFormat(&quot;yyyyMMdd_HHmmss&quot;).format(new Date());</span>
-<span class="nc" id="L353">        Split jobSplit = SimonManager.getStopwatch(&quot;b3p.rsgb.job.&quot; + dateTime).start();</span>
-<span class="nc" id="L354">        ((RsgbProxy)handler).setSimonNamePrefix(&quot;b3p.rsgb.job.&quot; + dateTime + &quot;.&quot;);</span>
-<span class="nc" id="L355">        final RowProcessor processor = new StagingRowHandler();</span>
+<span class="nc" id="L345">        Split split = SimonManager.getStopwatch(&quot;b3p.rsgb.job&quot;).start();</span>
+<span class="nc" id="L346">        final String dateTime = new SimpleDateFormat(&quot;yyyyMMdd_HHmmss&quot;).format(new Date());</span>
+<span class="nc" id="L347">        Split jobSplit = SimonManager.getStopwatch(&quot;b3p.rsgb.job.&quot; + dateTime).start();</span>
+<span class="nc" id="L348">        ((RsgbProxy)handler).setSimonNamePrefix(&quot;b3p.rsgb.job.&quot; + dateTime + &quot;.&quot;);</span>
+<span class="nc" id="L349">        final RowProcessor processor = new StagingRowHandler();</span>
 
-<span class="nc" id="L357">        final ProcessDbXmlPipeline processDbXmlPipeline = new ProcessDbXmlPipeline(handler, transformPipelineCapacity, &quot;b3p.rsgb.job.&quot; + dateTime + &quot;.pipeline&quot;);</span>
-<span class="nc bnc" id="L358" title="All 2 branches missed.">        if(enablePipeline) {</span>
-<span class="nc" id="L359">            processDbXmlPipeline.start();</span>
+<span class="nc" id="L351">        final ProcessDbXmlPipeline processDbXmlPipeline = new ProcessDbXmlPipeline(handler, transformPipelineCapacity, &quot;b3p.rsgb.job.&quot; + dateTime + &quot;.pipeline&quot;);</span>
+<span class="nc bnc" id="L352" title="All 2 branches missed.">        if(enablePipeline) {</span>
+<span class="nc" id="L353">            processDbXmlPipeline.start();</span>
         }
-<span class="nc" id="L361">        int offset = 0;</span>
-<span class="nc" id="L362">        int batch = batchCapacity;</span>
-<span class="nc" id="L363">        final MutableInt processed = new MutableInt(0);</span>
-<span class="nc" id="L364">        final MutableInt lastJid = new MutableInt(0);</span>
-<span class="nc" id="L365">        final boolean doOrderBerichten = orderBerichten;</span>
-<span class="nc" id="L366">        boolean abort = false;</span>
+<span class="nc" id="L355">        int offset = 0;</span>
+<span class="nc" id="L356">        int batch = batchCapacity;</span>
+<span class="nc" id="L357">        final MutableInt processed = new MutableInt(0);</span>
+<span class="nc" id="L358">        final MutableInt lastJid = new MutableInt(0);</span>
+<span class="nc" id="L359">        final boolean doOrderBerichten = orderBerichten;</span>
+<span class="nc" id="L360">        boolean abort = false;</span>
         try {
             do {
-<span class="nc" id="L369">                log.debug(String.format(&quot;Ophalen berichten batch Job tabel, offset %d, limit %d&quot;, lastJid.intValue(), batch));</span>
-<span class="nc" id="L370">                String sql = &quot;select jid, id, datum, volgordenummer, object_ref, br_xml, soort from &quot;</span>
-<span class="nc" id="L371">                        + BrmoFramework.JOB_TABLE + &quot; where jid &gt; &quot; + lastJid.intValue() + &quot; order by jid &quot;;</span>
-<span class="nc" id="L372">                sql = geomToJdbc.buildPaginationSql(sql, 0, batch);</span>
-<span class="nc" id="L373">                log.debug(&quot;SQL voor ophalen berichten batch: &quot; + sql);</span>
+<span class="nc" id="L363">                log.debug(String.format(&quot;Ophalen berichten batch Job tabel, offset %d, limit %d&quot;, lastJid.intValue(), batch));</span>
+<span class="nc" id="L364">                String sql = &quot;select jid, id, datum, volgordenummer, object_ref, br_xml, soort from &quot;</span>
+<span class="nc" id="L365">                        + BrmoFramework.JOB_TABLE + &quot; where jid &gt; &quot; + lastJid.intValue() + &quot; order by jid &quot;;</span>
+<span class="nc" id="L366">                sql = geomToJdbc.buildPaginationSql(sql, 0, batch);</span>
+<span class="nc" id="L367">                log.debug(&quot;SQL voor ophalen berichten batch: &quot; + sql);</span>
 
-<span class="nc" id="L375">                processed.setValue(0);</span>
-<span class="nc" id="L376">                final Split getBerichten = SimonManager.getStopwatch(&quot;b3p.rsgb.job.&quot; + dateTime + &quot;.staging.berichten.getbatch&quot;).start();</span>
-<span class="nc" id="L377">                Exception e = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(), sql, new ResultSetHandler&lt;Exception&gt;() {</span>
+<span class="nc" id="L369">                processed.setValue(0);</span>
+<span class="nc" id="L370">                final Split getBerichten = SimonManager.getStopwatch(&quot;b3p.rsgb.job.&quot; + dateTime + &quot;.staging.berichten.getbatch&quot;).start();</span>
+<span class="nc" id="L371">                Exception e = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(), sql, new ResultSetHandler&lt;Exception&gt;() {</span>
                     @Override
                     public Exception handle(ResultSet rs) throws SQLException {
-<span class="nc" id="L380">                        getBerichten.stop();</span>
-<span class="nc" id="L381">                        final Split processResultSet = SimonManager.getStopwatch(&quot;b3p.rsgb.job.&quot; + dateTime + &quot;.staging.berichten.processresultset&quot;).start();</span>
+<span class="nc" id="L374">                        getBerichten.stop();</span>
+<span class="nc" id="L375">                        final Split processResultSet = SimonManager.getStopwatch(&quot;b3p.rsgb.job.&quot; + dateTime + &quot;.staging.berichten.processresultset&quot;).start();</span>
 
-<span class="nc bnc" id="L383" title="All 2 branches missed.">                        while(rs.next()) {</span>
+<span class="nc bnc" id="L377" title="All 2 branches missed.">                        while(rs.next()) {</span>
                             try {
-<span class="nc" id="L385">                                Bericht bericht = processor.toBean(rs, Bericht.class);</span>
-<span class="nc bnc" id="L386" title="All 4 branches missed.">                                if (bericht.getVolgordeNummer() &gt;= 0  &amp;&amp; !doOrderBerichten) {</span>
+<span class="nc" id="L379">                                Bericht bericht = processor.toBean(rs, Bericht.class);</span>
+<span class="nc bnc" id="L380" title="All 4 branches missed.">                                if (bericht.getVolgordeNummer() &gt;= 0  &amp;&amp; !doOrderBerichten) {</span>
                                     // mutaties hebben volgnr &gt;=0 dan sortering verplicht
-<span class="nc" id="L388">                                    throw new Exception(String.format(&quot;Het sorteren van berichten staat uit, terwijl bericht (id: %d) geen standbericht is (volgnummer &gt;=0)&quot;, bericht.getId()));</span>
+<span class="nc" id="L382">                                    throw new Exception(String.format(&quot;Het sorteren van berichten staat uit, terwijl bericht (id: %d) geen standbericht is (volgnummer &gt;=0)&quot;, bericht.getId()));</span>
                                 }
-<span class="nc" id="L390">                                final BerichtWorkUnit workUnit = new BerichtWorkUnit(bericht);</span>
+<span class="nc" id="L384">                                final BerichtWorkUnit workUnit = new BerichtWorkUnit(bericht);</span>
 
-<span class="nc" id="L392">                                handler.updateBerichtProcessing(bericht); // op basis van id</span>
+<span class="nc" id="L386">                                handler.updateBerichtProcessing(bericht); // op basis van id</span>
 
-<span class="nc bnc" id="L394" title="All 2 branches missed.">                                if(enablePipeline) {</span>
+<span class="nc bnc" id="L388" title="All 2 branches missed.">                                if(enablePipeline) {</span>
 
-<span class="nc" id="L396">                                    List&lt;TableData&gt; tableData = handler.transformToTableData(bericht);</span>
-<span class="nc bnc" id="L397" title="All 2 branches missed.">                                    if(tableData == null) {</span>
+<span class="nc" id="L390">                                    List&lt;TableData&gt; tableData = handler.transformToTableData(bericht);</span>
+<span class="nc bnc" id="L391" title="All 2 branches missed.">                                    if(tableData == null) {</span>
                                         // Exception during transform
 
                                         // updateProcessingResult() is aangeroepen, geen updateResultPipeline
-<span class="nc" id="L401">                                        continue;</span>
+<span class="nc" id="L395">                                        continue;</span>
                                     }
-<span class="nc" id="L403">                                    workUnit.setTableData(tableData);</span>
-<span class="nc" id="L404">                                    workUnit.setTypeOfWork(BerichtTypeOfWork.PROCESS_DBXML);</span>
-<span class="nc" id="L405">                                    Split pipelinePut = SimonManager.getStopwatch(&quot;b3p.rsgb.job.&quot; + dateTime + &quot;.pipeline.processdbxml.put&quot;).start();</span>
-<span class="nc" id="L406">                                    processDbXmlPipeline.getQueue().put(workUnit);</span>
-<span class="nc" id="L407">                                    pipelinePut.stop();</span>
-<span class="nc" id="L408">                                } else {</span>
-<span class="nc" id="L409">                                    Split berichtSplit = SimonManager.getStopwatch(&quot;b3p.rsgb.job.&quot; + dateTime + &quot;.bericht&quot;).start();</span>
-<span class="nc" id="L410">                                    handler.handle(bericht, null, true);</span>
-<span class="nc" id="L411">                                    berichtSplit.stop();</span>
+<span class="nc" id="L397">                                    workUnit.setTableData(tableData);</span>
+<span class="nc" id="L398">                                    workUnit.setTypeOfWork(BerichtTypeOfWork.PROCESS_DBXML);</span>
+<span class="nc" id="L399">                                    Split pipelinePut = SimonManager.getStopwatch(&quot;b3p.rsgb.job.&quot; + dateTime + &quot;.pipeline.processdbxml.put&quot;).start();</span>
+<span class="nc" id="L400">                                    processDbXmlPipeline.getQueue().put(workUnit);</span>
+<span class="nc" id="L401">                                    pipelinePut.stop();</span>
+<span class="nc" id="L402">                                } else {</span>
+<span class="nc" id="L403">                                    Split berichtSplit = SimonManager.getStopwatch(&quot;b3p.rsgb.job.&quot; + dateTime + &quot;.bericht&quot;).start();</span>
+<span class="nc" id="L404">                                    handler.handle(bericht, null, true);</span>
+<span class="nc" id="L405">                                    berichtSplit.stop();</span>
                                 }
-<span class="nc" id="L413">                                lastJid.setValue(rs.getInt(&quot;jid&quot;));</span>
-<span class="nc" id="L414">                            } catch(Exception e) {</span>
-<span class="nc" id="L415">                                return e;</span>
-<span class="nc" id="L416">                            }</span>
-<span class="nc" id="L417">                            processed.increment();</span>
+<span class="nc" id="L407">                                lastJid.setValue(rs.getInt(&quot;jid&quot;));</span>
+<span class="nc" id="L408">                            } catch(Exception e) {</span>
+<span class="nc" id="L409">                                return e;</span>
+<span class="nc" id="L410">                            }</span>
+<span class="nc" id="L411">                            processed.increment();</span>
                         }
-<span class="nc" id="L419">                        processResultSet.stop();</span>
-<span class="nc" id="L420">                        return null;</span>
+<span class="nc" id="L413">                        processResultSet.stop();</span>
+<span class="nc" id="L414">                        return null;</span>
                     }
                 });
 
-<span class="nc" id="L424">                offset += processed.intValue();</span>
+<span class="nc" id="L418">                offset += processed.intValue();</span>
 
                 // If handler threw exception processing row, rethrow it
-<span class="nc bnc" id="L427" title="All 2 branches missed.">                if(e != null) {</span>
-<span class="nc" id="L428">                    throw e;</span>
+<span class="nc bnc" id="L421" title="All 2 branches missed.">                if(e != null) {</span>
+<span class="nc" id="L422">                    throw e;</span>
                 }
 
-<span class="nc bnc" id="L431" title="All 4 branches missed.">            } while(processed.intValue() &gt; 0 &amp;&amp; (offset &lt; total));</span>
-<span class="nc bnc" id="L432" title="All 2 branches missed.">            if(offset &lt; total) {</span>
-<span class="nc" id="L433">                log.warn(String.format(&quot;Minder berichten verwerkt (%d) dan verwacht (%d)!&quot;, offset, total));</span>
+<span class="nc bnc" id="L425" title="All 4 branches missed.">            } while(processed.intValue() &gt; 0 &amp;&amp; (offset &lt; total));</span>
+<span class="nc bnc" id="L426" title="All 2 branches missed.">            if(offset &lt; total) {</span>
+<span class="nc" id="L427">                log.warn(String.format(&quot;Minder berichten verwerkt (%d) dan verwacht (%d)!&quot;, offset, total));</span>
             }
             // als succesvol beeindigd, dan verwijderen, anders herstart mogelijk maken
-<span class="nc" id="L436">            removeJob();</span>
-<span class="nc" id="L437">        } catch(Exception t) {</span>
-<span class="nc" id="L438">            abort = true;</span>
-<span class="nc" id="L439">            throw t;</span>
+<span class="nc" id="L430">            removeJob();</span>
+<span class="nc" id="L431">        } catch(Exception t) {</span>
+<span class="nc" id="L432">            abort = true;</span>
+<span class="nc" id="L433">            throw t;</span>
         } finally {
-<span class="nc bnc" id="L441" title="All 2 branches missed.">            if(enablePipeline) {</span>
-<span class="nc bnc" id="L442" title="All 2 branches missed.">                if(abort) {</span>
+<span class="nc bnc" id="L435" title="All 2 branches missed.">            if(enablePipeline) {</span>
+<span class="nc bnc" id="L436" title="All 2 branches missed.">                if(abort) {</span>
                     // Let threads stop by themselves, don't join
-<span class="nc" id="L444">                    processDbXmlPipeline.setAbortFlag();</span>
+<span class="nc" id="L438">                    processDbXmlPipeline.setAbortFlag();</span>
                 } else {
-<span class="nc" id="L446">                    processDbXmlPipeline.stopWhenQueueEmpty();</span>
+<span class="nc" id="L440">                    processDbXmlPipeline.stopWhenQueueEmpty();</span>
                     try {
-<span class="nc" id="L448">                        processDbXmlPipeline.join();</span>
-<span class="nc" id="L449">                    } catch(InterruptedException e) {</span>
-<span class="nc" id="L450">                    }</span>
+<span class="nc" id="L442">                        processDbXmlPipeline.join();</span>
+<span class="nc" id="L443">                    } catch(InterruptedException e) {</span>
+<span class="nc" id="L444">                    }</span>
                 }
             }
         }
-<span class="nc" id="L454">        jobSplit.stop();</span>
-<span class="nc" id="L455">        split.stop();</span>
-<span class="nc" id="L456">    }</span>
+<span class="nc" id="L448">        jobSplit.stop();</span>
+<span class="nc" id="L449">        split.stop();</span>
+<span class="nc" id="L450">    }</span>
 
     public void updateBerichtenDbXml(List&lt;Bericht&gt; berichten, RsgbTransformer transformer) throws SQLException, SAXException, IOException, TransformerException  {
-<span class="nc bnc" id="L459" title="All 2 branches missed.">        for (Bericht ber : berichten) {</span>
-<span class="nc" id="L460">            Split split = SimonManager.getStopwatch(&quot;b3p.staging.bericht.dbxml.transform&quot;).start();</span>
-<span class="nc" id="L461">            String dbxml = transformer.transformToDbXml(ber);</span>
+<span class="nc bnc" id="L453" title="All 2 branches missed.">        for (Bericht ber : berichten) {</span>
+<span class="nc" id="L454">            Split split = SimonManager.getStopwatch(&quot;b3p.staging.bericht.dbxml.transform&quot;).start();</span>
+<span class="nc" id="L455">            String dbxml = transformer.transformToDbXml(ber);</span>
             // HACK vanwege Oracle 8000 karakters bug, zie brmo wiki: https://github.com/B3Partners/brmo/wiki/Oracle-8000-bytes-bug
-<span class="nc bnc" id="L463" title="All 6 branches missed.">            if (geomToJdbc instanceof OracleJdbcConverter &amp;&amp; dbxml != null &amp;&amp; dbxml.length() == 8000) {</span>
-<span class="nc" id="L464">                log.debug(&quot;DB XML is 8000 bytes, er wordt een spatie aangeplakt.&quot;);</span>
-<span class="nc" id="L465">                dbxml += &quot; &quot;;</span>
-<span class="nc" id="L466">                log.debug(&quot;DB XML is nu &quot; + dbxml.length() + &quot; bytes.&quot;);</span>
+<span class="nc bnc" id="L457" title="All 6 branches missed.">            if (geomToJdbc instanceof OracleJdbcConverter &amp;&amp; dbxml != null &amp;&amp; dbxml.length() == 8000) {</span>
+<span class="nc" id="L458">                log.debug(&quot;DB XML is 8000 bytes, er wordt een spatie aangeplakt.&quot;);</span>
+<span class="nc" id="L459">                dbxml += &quot; &quot;;</span>
+<span class="nc" id="L460">                log.debug(&quot;DB XML is nu &quot; + dbxml.length() + &quot; bytes.&quot;);</span>
             }
 
-<span class="nc" id="L469">            ber.setDbXml(dbxml);</span>
-<span class="nc" id="L470">            split.stop();</span>
-<span class="nc" id="L471">        }</span>
-<span class="nc" id="L472">    }</span>
+<span class="nc" id="L463">            ber.setDbXml(dbxml);</span>
+<span class="nc" id="L464">            split.stop();</span>
+<span class="nc" id="L465">        }</span>
+<span class="nc" id="L466">    }</span>
 
     private PreparedStatement getOldBerichtStatement;
     private PreparedStatement getOldBerichtStatementById;
 
     public Bericht getOldBericht(Bericht nieuwBericht, StringBuilder loadLog) throws SQLException {
-<span class="nc" id="L478">        return getOldBericht(nieuwBericht.getObjectRef(), loadLog);</span>
+<span class="nc" id="L472">        return getOldBericht(nieuwBericht.getObjectRef(), loadLog);</span>
     }
     
     public Bericht getOldBericht(String objectRef, StringBuilder loadLog) throws SQLException {
-<span class="nc" id="L482">        Split split = SimonManager.getStopwatch(&quot;b3p.staging.bericht.getold&quot;).start();</span>
+<span class="nc" id="L476">        Split split = SimonManager.getStopwatch(&quot;b3p.staging.bericht.getold&quot;).start();</span>
 
-<span class="nc" id="L484">        Bericht bericht = null;</span>
-<span class="nc" id="L485">        ResultSetHandler&lt;List&lt;Bericht&gt;&gt; h</span>
+<span class="nc" id="L478">        Bericht bericht = null;</span>
+<span class="nc" id="L479">        ResultSetHandler&lt;List&lt;Bericht&gt;&gt; h</span>
                 = new BeanListHandler(Bericht.class, new StagingRowHandler());
 
-<span class="nc bnc" id="L488" title="All 2 branches missed.">        if(getOldBerichtStatement == null) {</span>
-<span class="nc" id="L489">            String sql = &quot;SELECT id, object_ref, datum, volgordenummer, soort, status, job_id, status_datum FROM &quot;</span>
+<span class="nc bnc" id="L482" title="All 2 branches missed.">        if(getOldBerichtStatement == null) {</span>
+<span class="nc" id="L483">            String sql = &quot;SELECT id, object_ref, datum, volgordenummer, soort, status, job_id, status_datum FROM &quot;</span>
                     + BrmoFramework.BERICHT_TABLE + &quot; WHERE&quot;
                     + &quot; object_ref = ?&quot;
                     + &quot; AND status in ('RSGB_OK', 'ARCHIVE')&quot;
                     + &quot; ORDER BY datum desc, volgordenummer desc&quot;;
-<span class="nc" id="L494">            sql = geomToJdbc.buildPaginationSql(sql, 0, 1);</span>
+<span class="nc" id="L488">            sql = geomToJdbc.buildPaginationSql(sql, 0, 1);</span>
 
-<span class="nc" id="L496">            getOldBerichtStatement = getConnection().prepareStatement(sql);</span>
-<span class="nc" id="L497">        } else {</span>
-<span class="nc" id="L498">            getOldBerichtStatement.clearParameters();</span>
+<span class="nc" id="L490">            getOldBerichtStatement = getConnection().prepareStatement(sql);</span>
+<span class="nc" id="L491">        } else {</span>
+<span class="nc" id="L492">            getOldBerichtStatement.clearParameters();</span>
         }
-<span class="nc" id="L500">        getOldBerichtStatement.setString(1, objectRef);</span>
+<span class="nc" id="L494">        getOldBerichtStatement.setString(1, objectRef);</span>
 
-<span class="nc" id="L502">        ResultSet rs = getOldBerichtStatement.executeQuery();</span>
-<span class="nc" id="L503">        List&lt;Bericht&gt; list = h.handle(rs);</span>
-<span class="nc" id="L504">        rs.close();</span>
+<span class="nc" id="L496">        ResultSet rs = getOldBerichtStatement.executeQuery();</span>
+<span class="nc" id="L497">        List&lt;Bericht&gt; list = h.handle(rs);</span>
+<span class="nc" id="L498">        rs.close();</span>
 
-<span class="nc bnc" id="L506" title="All 2 branches missed.">        if(!list.isEmpty()) {</span>
-<span class="nc" id="L507">            loadLog.append(&quot;Vorig bericht gevonden:\n&quot;);</span>
-<span class="nc bnc" id="L508" title="All 2 branches missed.">            for(Bericht b: list) {</span>
-<span class="nc bnc" id="L509" title="All 2 branches missed.">                if( (Bericht.STATUS.RSGB_OK.equals(b.getStatus()) </span>
-<span class="nc bnc" id="L510" title="All 4 branches missed.">                     || Bericht.STATUS.ARCHIVE.equals(b.getStatus()) ) </span>
+<span class="nc bnc" id="L500" title="All 2 branches missed.">        if(!list.isEmpty()) {</span>
+<span class="nc" id="L501">            loadLog.append(&quot;Vorig bericht gevonden:\n&quot;);</span>
+<span class="nc bnc" id="L502" title="All 2 branches missed.">            for(Bericht b: list) {</span>
+<span class="nc bnc" id="L503" title="All 2 branches missed.">                if( (Bericht.STATUS.RSGB_OK.equals(b.getStatus()) </span>
+<span class="nc bnc" id="L504" title="All 4 branches missed.">                     || Bericht.STATUS.ARCHIVE.equals(b.getStatus()) ) </span>
                         &amp;&amp; bericht == null) {
-<span class="nc" id="L512">                    loadLog.append(&quot;Meest recent bericht gevonden: &quot;).append(b).append(&quot;\n&quot;);</span>
-<span class="nc" id="L513">                    bericht = b;</span>
+<span class="nc" id="L506">                    loadLog.append(&quot;Meest recent bericht gevonden: &quot;).append(b).append(&quot;\n&quot;);</span>
+<span class="nc" id="L507">                    bericht = b;</span>
                 } else {
-<span class="nc" id="L515">                    loadLog.append(&quot;Niet geschikt bericht: &quot;).append(b).append(&quot;\n&quot;);</span>
+<span class="nc" id="L509">                    loadLog.append(&quot;Niet geschikt bericht: &quot;).append(b).append(&quot;\n&quot;);</span>
                 }
-<span class="nc" id="L517">            }</span>
+<span class="nc" id="L511">            }</span>
         }
 
-<span class="nc bnc" id="L520" title="All 2 branches missed.">        if (bericht != null) {</span>
+<span class="nc bnc" id="L514" title="All 2 branches missed.">        if (bericht != null) {</span>
             //bericht nu wel vullen met alle kolommen
-<span class="nc bnc" id="L522" title="All 2 branches missed.">            if (getOldBerichtStatementById == null) {</span>
-<span class="nc" id="L523">                String sql = &quot;SELECT * FROM &quot;</span>
+<span class="nc bnc" id="L516" title="All 2 branches missed.">            if (getOldBerichtStatementById == null) {</span>
+<span class="nc" id="L517">                String sql = &quot;SELECT * FROM &quot;</span>
                         + BrmoFramework.BERICHT_TABLE +
                         &quot; WHERE id = ?&quot;;
 
-<span class="nc" id="L527">                getOldBerichtStatementById = getConnection().prepareStatement(sql);</span>
-<span class="nc" id="L528">            } else {</span>
-<span class="nc" id="L529">                getOldBerichtStatementById.clearParameters();</span>
+<span class="nc" id="L521">                getOldBerichtStatementById = getConnection().prepareStatement(sql);</span>
+<span class="nc" id="L522">            } else {</span>
+<span class="nc" id="L523">                getOldBerichtStatementById.clearParameters();</span>
             }
-<span class="nc" id="L531">            getOldBerichtStatementById.setLong(1, bericht.getId());</span>
+<span class="nc" id="L525">            getOldBerichtStatementById.setLong(1, bericht.getId());</span>
 
-<span class="nc" id="L533">            ResultSet rs2 = getOldBerichtStatementById.executeQuery();</span>
-<span class="nc" id="L534">            List&lt;Bericht&gt; list2 = h.handle(rs2);</span>
-<span class="nc" id="L535">            rs2.close();</span>
+<span class="nc" id="L527">            ResultSet rs2 = getOldBerichtStatementById.executeQuery();</span>
+<span class="nc" id="L528">            List&lt;Bericht&gt; list2 = h.handle(rs2);</span>
+<span class="nc" id="L529">            rs2.close();</span>
 
-<span class="nc bnc" id="L537" title="All 2 branches missed.">            if(!list2.isEmpty()) {</span>
-<span class="nc" id="L538">                bericht = list2.get(0);</span>
+<span class="nc bnc" id="L531" title="All 2 branches missed.">            if(!list2.isEmpty()) {</span>
+<span class="nc" id="L532">                bericht = list2.get(0);</span>
             }
         }
 
-<span class="nc" id="L542">        split.stop();</span>
-<span class="nc" id="L543">        return bericht;</span>
+<span class="nc" id="L536">        split.stop();</span>
+<span class="nc" id="L537">        return bericht;</span>
     }
     
     
     private PreparedStatement getPreviousBerichtStatement;
 
     public Bericht getPreviousBericht(Bericht ber, StringBuilder loadLog) throws SQLException {
-<span class="nc" id="L550">        return getPreviousBericht(ber.getObjectRef(), ber.getDatum(), ber.getId(), loadLog);</span>
+<span class="nc" id="L544">        return getPreviousBericht(ber.getObjectRef(), ber.getDatum(), ber.getId(), loadLog);</span>
     }
 
     /**
@@ -560,67 +554,67 @@ public class StagingProxy {
      * @throws SQLException 
      */
     public Bericht getPreviousBericht(String objectRef, Date datum, Long currentBerichtId, StringBuilder loadLog) throws SQLException {
-<span class="nc" id="L563">        Split split = SimonManager.getStopwatch(&quot;b3p.staging.bericht.getprevious&quot;).start();</span>
+<span class="nc" id="L557">        Split split = SimonManager.getStopwatch(&quot;b3p.staging.bericht.getprevious&quot;).start();</span>
 
-<span class="nc" id="L565">        Bericht bericht = null;</span>
-<span class="nc" id="L566">        ResultSetHandler&lt;List&lt;Bericht&gt;&gt; h</span>
+<span class="nc" id="L559">        Bericht bericht = null;</span>
+<span class="nc" id="L560">        ResultSetHandler&lt;List&lt;Bericht&gt;&gt; h</span>
                 = new BeanListHandler(Bericht.class, new StagingRowHandler());
 
-<span class="nc bnc" id="L569" title="All 2 branches missed.">        if(getPreviousBerichtStatement == null) {</span>
-<span class="nc" id="L570">            String sql = &quot;SELECT id, object_ref, datum, volgordenummer, soort, status, job_id, status_datum FROM &quot;</span>
+<span class="nc bnc" id="L563" title="All 2 branches missed.">        if(getPreviousBerichtStatement == null) {</span>
+<span class="nc" id="L564">            String sql = &quot;SELECT id, object_ref, datum, volgordenummer, soort, status, job_id, status_datum FROM &quot;</span>
                     + BrmoFramework.BERICHT_TABLE + &quot; WHERE&quot;
                     + &quot; object_ref = ? and datum &lt;= ? and id &lt;&gt; ?&quot;
                     + &quot; ORDER BY datum asc, volgordenummer desc&quot;;
-<span class="nc" id="L574">            sql = geomToJdbc.buildPaginationSql(sql, 0, 1);</span>
+<span class="nc" id="L568">            sql = geomToJdbc.buildPaginationSql(sql, 0, 1);</span>
 
-<span class="nc" id="L576">            getPreviousBerichtStatement = getConnection().prepareStatement(sql);</span>
-<span class="nc" id="L577">        } else {</span>
-<span class="nc" id="L578">            getPreviousBerichtStatement.clearParameters();</span>
+<span class="nc" id="L570">            getPreviousBerichtStatement = getConnection().prepareStatement(sql);</span>
+<span class="nc" id="L571">        } else {</span>
+<span class="nc" id="L572">            getPreviousBerichtStatement.clearParameters();</span>
         }
-<span class="nc" id="L580">        getPreviousBerichtStatement.setString(1, objectRef);</span>
-<span class="nc" id="L581">        getPreviousBerichtStatement.setTimestamp(2, new java.sql.Timestamp(datum.getTime()));</span>
-<span class="nc" id="L582">        getPreviousBerichtStatement.setLong(3, currentBerichtId);</span>
+<span class="nc" id="L574">        getPreviousBerichtStatement.setString(1, objectRef);</span>
+<span class="nc" id="L575">        getPreviousBerichtStatement.setTimestamp(2, new java.sql.Timestamp(datum.getTime()));</span>
+<span class="nc" id="L576">        getPreviousBerichtStatement.setLong(3, currentBerichtId);</span>
 
-<span class="nc" id="L584">        ResultSet rs = getPreviousBerichtStatement.executeQuery();</span>
-<span class="nc" id="L585">        List&lt;Bericht&gt; list = h.handle(rs);</span>
-<span class="nc" id="L586">        rs.close();</span>
+<span class="nc" id="L578">        ResultSet rs = getPreviousBerichtStatement.executeQuery();</span>
+<span class="nc" id="L579">        List&lt;Bericht&gt; list = h.handle(rs);</span>
+<span class="nc" id="L580">        rs.close();</span>
 
-<span class="nc bnc" id="L588" title="All 2 branches missed.">        if(!list.isEmpty()) {</span>
-<span class="nc" id="L589">            loadLog.append(&quot;Vorig bericht gevonden:\n&quot;);</span>
-<span class="nc bnc" id="L590" title="All 2 branches missed.">            for(Bericht b: list) {</span>
-<span class="nc bnc" id="L591" title="All 2 branches missed.">                if( bericht == null) {</span>
-<span class="nc" id="L592">                    loadLog.append(&quot;Meest recent bericht gevonden: &quot;).append(b).append(&quot;\n&quot;);</span>
-<span class="nc" id="L593">                    bericht = b;</span>
+<span class="nc bnc" id="L582" title="All 2 branches missed.">        if(!list.isEmpty()) {</span>
+<span class="nc" id="L583">            loadLog.append(&quot;Vorig bericht gevonden:\n&quot;);</span>
+<span class="nc bnc" id="L584" title="All 2 branches missed.">            for(Bericht b: list) {</span>
+<span class="nc bnc" id="L585" title="All 2 branches missed.">                if( bericht == null) {</span>
+<span class="nc" id="L586">                    loadLog.append(&quot;Meest recent bericht gevonden: &quot;).append(b).append(&quot;\n&quot;);</span>
+<span class="nc" id="L587">                    bericht = b;</span>
                 } else {
-<span class="nc" id="L595">                    loadLog.append(&quot;Niet geschikt bericht: &quot;).append(b).append(&quot;\n&quot;);</span>
+<span class="nc" id="L589">                    loadLog.append(&quot;Niet geschikt bericht: &quot;).append(b).append(&quot;\n&quot;);</span>
                 }
-<span class="nc" id="L597">            }</span>
+<span class="nc" id="L591">            }</span>
         }
 
-<span class="nc bnc" id="L600" title="All 2 branches missed.">        if (bericht != null) {</span>
+<span class="nc bnc" id="L594" title="All 2 branches missed.">        if (bericht != null) {</span>
             //bericht nu wel vullen met alle kolommen
-<span class="nc bnc" id="L602" title="All 2 branches missed.">            if (getOldBerichtStatementById == null) {</span>
-<span class="nc" id="L603">                String sql = &quot;SELECT * FROM &quot;</span>
+<span class="nc bnc" id="L596" title="All 2 branches missed.">            if (getOldBerichtStatementById == null) {</span>
+<span class="nc" id="L597">                String sql = &quot;SELECT * FROM &quot;</span>
                         + BrmoFramework.BERICHT_TABLE +
                         &quot; WHERE id = ?&quot;;
 
-<span class="nc" id="L607">                getOldBerichtStatementById = getConnection().prepareStatement(sql);</span>
-<span class="nc" id="L608">            } else {</span>
-<span class="nc" id="L609">                getOldBerichtStatementById.clearParameters();</span>
+<span class="nc" id="L601">                getOldBerichtStatementById = getConnection().prepareStatement(sql);</span>
+<span class="nc" id="L602">            } else {</span>
+<span class="nc" id="L603">                getOldBerichtStatementById.clearParameters();</span>
             }
-<span class="nc" id="L611">            getOldBerichtStatementById.setLong(1, bericht.getId());</span>
+<span class="nc" id="L605">            getOldBerichtStatementById.setLong(1, bericht.getId());</span>
 
-<span class="nc" id="L613">            ResultSet rs2 = getOldBerichtStatementById.executeQuery();</span>
-<span class="nc" id="L614">            List&lt;Bericht&gt; list2 = h.handle(rs2);</span>
-<span class="nc" id="L615">            rs2.close();</span>
+<span class="nc" id="L607">            ResultSet rs2 = getOldBerichtStatementById.executeQuery();</span>
+<span class="nc" id="L608">            List&lt;Bericht&gt; list2 = h.handle(rs2);</span>
+<span class="nc" id="L609">            rs2.close();</span>
 
-<span class="nc bnc" id="L617" title="All 2 branches missed.">            if(!list2.isEmpty()) {</span>
-<span class="nc" id="L618">                bericht = list2.get(0);</span>
+<span class="nc bnc" id="L611" title="All 2 branches missed.">            if(!list2.isEmpty()) {</span>
+<span class="nc" id="L612">                bericht = list2.get(0);</span>
             }
         }
 
-<span class="nc" id="L622">        split.stop();</span>
-<span class="nc" id="L623">        return bericht;</span>
+<span class="nc" id="L616">        split.stop();</span>
+<span class="nc" id="L617">        return bericht;</span>
     }
 
     /**
@@ -632,16 +626,16 @@ public class StagingProxy {
      * @throws SQLException
      */
     public void updateBericht(Bericht b) throws SQLException {
-<span class="nc" id="L635">        Split split = SimonManager.getStopwatch(&quot;b3p.staging.bericht.update&quot;).start();</span>
-<span class="nc" id="L636">        String brXML = b.getBrXml();</span>
+<span class="nc" id="L629">        Split split = SimonManager.getStopwatch(&quot;b3p.staging.bericht.update&quot;).start();</span>
+<span class="nc" id="L630">        String brXML = b.getBrXml();</span>
         // HACK vanwege Oracle 8000 karakters bug, zie brmo wiki: https://github.com/B3Partners/brmo/wiki/Oracle-8000-bytes-bug
-<span class="nc bnc" id="L638" title="All 6 branches missed.">        if (geomToJdbc instanceof OracleJdbcConverter &amp;&amp; brXML != null &amp;&amp; brXML.length() == 8000) {</span>
-<span class="nc" id="L639">            log.debug(&quot;BR XML is 8000 bytes, er wordt een spatie aangeplakt.&quot;);</span>
-<span class="nc" id="L640">            brXML += &quot; &quot;;</span>
-<span class="nc" id="L641">            log.debug(&quot;BR XML is nu &quot; + brXML.length() + &quot; bytes.&quot;);</span>
+<span class="nc bnc" id="L632" title="All 6 branches missed.">        if (geomToJdbc instanceof OracleJdbcConverter &amp;&amp; brXML != null &amp;&amp; brXML.length() == 8000) {</span>
+<span class="nc" id="L633">            log.debug(&quot;BR XML is 8000 bytes, er wordt een spatie aangeplakt.&quot;);</span>
+<span class="nc" id="L634">            brXML += &quot; &quot;;</span>
+<span class="nc" id="L635">            log.debug(&quot;BR XML is nu &quot; + brXML.length() + &quot; bytes.&quot;);</span>
         }
 
-<span class="nc" id="L644">        new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(),</span>
+<span class="nc" id="L638">        new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(),</span>
                 &quot;UPDATE &quot; + BrmoFramework.BERICHT_TABLE + &quot; set &quot;
                 + &quot;object_ref = ?, &quot;
                 + &quot;datum = ?, &quot;
@@ -655,19 +649,19 @@ public class StagingProxy {
                 + &quot;db_xml = ?, &quot;
                 + &quot;xsl_version = ? &quot;
                 + &quot;WHERE id = ?&quot;,
-<span class="nc" id="L658">                b.getObjectRef(),</span>
-<span class="nc" id="L659">                new Timestamp(b.getDatum().getTime()),</span>
-<span class="nc" id="L660">                b.getVolgordeNummer(),</span>
-<span class="nc" id="L661">                b.getSoort(),</span>
-<span class="nc" id="L662">                b.getOpmerking(),</span>
-<span class="nc" id="L663">                b.getStatus().toString(),</span>
-<span class="nc" id="L664">                new Timestamp(b.getStatusDatum().getTime()), brXML,</span>
-<span class="nc" id="L665">                b.getBrOrgineelXml(),</span>
-<span class="nc" id="L666">                b.getDbXml(),</span>
-<span class="nc" id="L667">                b.getXslVersion(),</span>
-<span class="nc" id="L668">                b.getId());</span>
-<span class="nc" id="L669">        split.stop();</span>
-<span class="nc" id="L670">    }</span>
+<span class="nc" id="L652">                b.getObjectRef(),</span>
+<span class="nc" id="L653">                new Timestamp(b.getDatum().getTime()),</span>
+<span class="nc" id="L654">                b.getVolgordeNummer(),</span>
+<span class="nc" id="L655">                b.getSoort(),</span>
+<span class="nc" id="L656">                b.getOpmerking(),</span>
+<span class="nc" id="L657">                b.getStatus().toString(),</span>
+<span class="nc" id="L658">                new Timestamp(b.getStatusDatum().getTime()), brXML,</span>
+<span class="nc" id="L659">                b.getBrOrgineelXml(),</span>
+<span class="nc" id="L660">                b.getDbXml(),</span>
+<span class="nc" id="L661">                b.getXslVersion(),</span>
+<span class="nc" id="L662">                b.getId());</span>
+<span class="nc" id="L663">        split.stop();</span>
+<span class="nc" id="L664">    }</span>
 
     /**
      * Update een bericht in job tabel met processing status. (opmerking,
@@ -677,42 +671,42 @@ public class StagingProxy {
      * @throws SQLException als de update mislukt
      */
     public void updateBerichtProcessing(Bericht b) throws SQLException {
-<span class="nc" id="L680">        Split split = SimonManager.getStopwatch(&quot;b3p.staging.bericht.updateprocessing&quot;).start();</span>
+<span class="nc" id="L674">        Split split = SimonManager.getStopwatch(&quot;b3p.staging.bericht.updateprocessing&quot;).start();</span>
 
-<span class="nc" id="L682">        new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(),</span>
+<span class="nc" id="L676">        new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(),</span>
                 &quot;UPDATE &quot; + BrmoFramework.BERICHT_TABLE + &quot; set &quot;
                 + &quot;opmerking = ?, &quot;
                 + &quot;status = ?, &quot;
                 + &quot;status_datum = ?, &quot;
                 + &quot;db_xml = ? &quot; + &quot; WHERE id = ?&quot;,
-<span class="nc" id="L688">                b.getOpmerking(),</span>
-<span class="nc" id="L689">                b.getStatus().toString(),</span>
-<span class="nc" id="L690">                new Timestamp(b.getStatusDatum().getTime()),</span>
-<span class="nc" id="L691">                b.getDbXml(),</span>
-<span class="nc" id="L692">                b.getId()</span>
+<span class="nc" id="L682">                b.getOpmerking(),</span>
+<span class="nc" id="L683">                b.getStatus().toString(),</span>
+<span class="nc" id="L684">                new Timestamp(b.getStatusDatum().getTime()),</span>
+<span class="nc" id="L685">                b.getDbXml(),</span>
+<span class="nc" id="L686">                b.getId()</span>
         );
-<span class="nc" id="L694">        split.stop();</span>
-<span class="nc" id="L695">    }</span>
+<span class="nc" id="L688">        split.stop();</span>
+<span class="nc" id="L689">    }</span>
 
     public void deleteByLaadProcesId(Long id) throws SQLException {
-<span class="nc" id="L698">        new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(), &quot;DELETE FROM &quot; + BrmoFramework.BERICHT_TABLE</span>
+<span class="nc" id="L692">        new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(), &quot;DELETE FROM &quot; + BrmoFramework.BERICHT_TABLE</span>
                 + &quot; WHERE laadprocesid = ?&quot;, id);
-<span class="nc" id="L700">        new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(), &quot;DELETE FROM &quot; + BrmoFramework.LAADPROCES_TABEL</span>
+<span class="nc" id="L694">        new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(), &quot;DELETE FROM &quot; + BrmoFramework.LAADPROCES_TABEL</span>
                 + &quot; WHERE id = ?&quot;, id);
-<span class="nc" id="L702">    }</span>
+<span class="nc" id="L696">    }</span>
 
     public List&lt;LaadProces&gt; getLaadProcessen() throws SQLException {
         List&lt;LaadProces&gt; list;
-<span class="nc" id="L706">        ResultSetHandler&lt;List&lt;LaadProces&gt;&gt; h = new BeanListHandler(LaadProces.class, new StagingRowHandler());</span>
-<span class="nc" id="L707">        list = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(), &quot;select * from &quot; + BrmoFramework.LAADPROCES_TABEL, h);</span>
-<span class="nc" id="L708">        return list;</span>
+<span class="nc" id="L700">        ResultSetHandler&lt;List&lt;LaadProces&gt;&gt; h = new BeanListHandler(LaadProces.class, new StagingRowHandler());</span>
+<span class="nc" id="L701">        list = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(), &quot;select * from &quot; + BrmoFramework.LAADPROCES_TABEL, h);</span>
+<span class="nc" id="L702">        return list;</span>
     }
 
     public List&lt;Bericht&gt; getBerichten() throws SQLException {
         List&lt;Bericht&gt; berichten;
-<span class="nc" id="L713">        ResultSetHandler&lt;List&lt;Bericht&gt;&gt; h = new BeanListHandler(Bericht.class, new StagingRowHandler());</span>
-<span class="nc" id="L714">        berichten = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(), &quot;select * from &quot; + BrmoFramework.BERICHT_TABLE, h);</span>
-<span class="nc" id="L715">        return berichten;</span>
+<span class="nc" id="L707">        ResultSetHandler&lt;List&lt;Bericht&gt;&gt; h = new BeanListHandler(Bericht.class, new StagingRowHandler());</span>
+<span class="nc" id="L708">        berichten = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(), &quot;select * from &quot; + BrmoFramework.BERICHT_TABLE, h);</span>
+<span class="nc" id="L709">        return berichten;</span>
     }
 
     /**
@@ -731,8 +725,8 @@ public class StagingProxy {
      */
     @Deprecated
     public void loadBr(InputStream stream, String type, String fileName, Date d, ProgressUpdateListener listener) throws Exception {
-<span class="nc" id="L734">        this.loadBr(stream, type, fileName, d, listener, null);</span>
-<span class="nc" id="L735">    }</span>
+<span class="nc" id="L728">        this.loadBr(stream, type, fileName, d, listener, null);</span>
+<span class="nc" id="L729">    }</span>
 
     /**
      * Laadt het bestand uit de stream in de database.
@@ -747,142 +741,142 @@ public class StagingProxy {
      */
     public void loadBr(InputStream stream, String type, String fileName, Date d, ProgressUpdateListener listener, Long automatischProces) throws Exception {
 
-<span class="nc" id="L750">        CountingInputStream cis = new CountingInputStream(stream);</span>
+<span class="nc" id="L744">        CountingInputStream cis = new CountingInputStream(stream);</span>
 
-<span class="nc" id="L752">        BrmoXMLReader brmoXMLReader = null;</span>
-<span class="nc bnc" id="L753" title="All 2 branches missed.">        if (type.equals(BrmoFramework.BR_BRK)) {</span>
-<span class="nc" id="L754">            brmoXMLReader = new BrkSnapshotXMLReader(cis);</span>
-<span class="nc bnc" id="L755" title="All 2 branches missed.">        } else if (type.equals(BrmoFramework.BR_BAG)) {</span>
-<span class="nc" id="L756">            brmoXMLReader = new BagXMLReader(cis);</span>
-<span class="nc bnc" id="L757" title="All 2 branches missed.">        } else if (type.equals(BrmoFramework.BR_NHR)) {</span>
-<span class="nc" id="L758">            brmoXMLReader = new NhrXMLReader(cis);</span>
-<span class="nc bnc" id="L759" title="All 2 branches missed.">        } else if (TopNLType.isTopNLType(type)) {</span>
-<span class="nc" id="L760">            brmoXMLReader = new TopNLFileReader(fileName, type);</span>
-<span class="nc bnc" id="L761" title="All 2 branches missed.">        } else if(type.equals(BrmoFramework.BR_BRP)){</span>
-<span class="nc" id="L762">            brmoXMLReader = new BRPXMLReader(cis, d, this);</span>
-<span class="nc bnc" id="L763" title="All 2 branches missed.">        } else if (type.equals(BrmoFramework.BR_GBAV)) {</span>
-<span class="nc" id="L764">            brmoXMLReader = new GbavXMLReader(cis);</span>
-<span class="nc bnc" id="L765" title="All 2 branches missed.">        } else if(type.equals(BrmoFramework.BR_WOZ)){</span>
-<span class="nc" id="L766">            brmoXMLReader = new WozXMLReader(cis, d, this);</span>
+<span class="nc" id="L746">        BrmoXMLReader brmoXMLReader = null;</span>
+<span class="nc bnc" id="L747" title="All 2 branches missed.">        if (type.equals(BrmoFramework.BR_BRK)) {</span>
+<span class="nc" id="L748">            brmoXMLReader = new BrkSnapshotXMLReader(cis);</span>
+<span class="nc bnc" id="L749" title="All 2 branches missed.">        } else if (type.equals(BrmoFramework.BR_BAG)) {</span>
+<span class="nc" id="L750">            brmoXMLReader = new BagXMLReader(cis);</span>
+<span class="nc bnc" id="L751" title="All 2 branches missed.">        } else if (type.equals(BrmoFramework.BR_NHR)) {</span>
+<span class="nc" id="L752">            brmoXMLReader = new NhrXMLReader(cis);</span>
+<span class="nc bnc" id="L753" title="All 2 branches missed.">        } else if (TopNLType.isTopNLType(type)) {</span>
+<span class="nc" id="L754">            brmoXMLReader = new TopNLFileReader(fileName, type);</span>
+<span class="nc bnc" id="L755" title="All 2 branches missed.">        } else if(type.equals(BrmoFramework.BR_BRP)){</span>
+<span class="nc" id="L756">            brmoXMLReader = new BRPXMLReader(cis, d, this);</span>
+<span class="nc bnc" id="L757" title="All 2 branches missed.">        } else if (type.equals(BrmoFramework.BR_GBAV)) {</span>
+<span class="nc" id="L758">            brmoXMLReader = new GbavXMLReader(cis);</span>
+<span class="nc bnc" id="L759" title="All 2 branches missed.">        } else if(type.equals(BrmoFramework.BR_WOZ)){</span>
+<span class="nc" id="L760">            brmoXMLReader = new WozXMLReader(cis, d, this);</span>
         } else {
-<span class="nc" id="L768">            throw new UnsupportedOperationException(&quot;Ongeldige basisregistratie: &quot; + type);</span>
+<span class="nc" id="L762">            throw new UnsupportedOperationException(&quot;Ongeldige basisregistratie: &quot; + type);</span>
         }
 
-<span class="nc bnc" id="L771" title="All 2 branches missed.">        if (brmoXMLReader.getBestandsDatum()==null) {</span>
-<span class="nc" id="L772">            throw new BrmoException(&quot;Header van bestand bevat geen datum, verkeerd formaat?&quot;);</span>
+<span class="nc bnc" id="L765" title="All 2 branches missed.">        if (brmoXMLReader.getBestandsDatum()==null) {</span>
+<span class="nc" id="L766">            throw new BrmoException(&quot;Header van bestand bevat geen datum, verkeerd formaat?&quot;);</span>
         }
 
-<span class="nc" id="L775">        LaadProces lp = new LaadProces();</span>
-<span class="nc" id="L776">        lp.setBestandNaam(fileName);</span>
-<span class="nc" id="L777">        lp.setBestandDatum(brmoXMLReader.getBestandsDatum());</span>
-<span class="nc" id="L778">        lp.setSoort(type);</span>
-<span class="nc" id="L779">        lp.setGebied(brmoXMLReader.getGebied());</span>
-<span class="nc" id="L780">        lp.setStatus(LaadProces.STATUS.STAGING_OK);</span>
-<span class="nc" id="L781">        lp.setStatusDatum(new Date());</span>
-<span class="nc" id="L782">        lp.setAutomatischProcesId(automatischProces);</span>
+<span class="nc" id="L769">        LaadProces lp = new LaadProces();</span>
+<span class="nc" id="L770">        lp.setBestandNaam(fileName);</span>
+<span class="nc" id="L771">        lp.setBestandDatum(brmoXMLReader.getBestandsDatum());</span>
+<span class="nc" id="L772">        lp.setSoort(type);</span>
+<span class="nc" id="L773">        lp.setGebied(brmoXMLReader.getGebied());</span>
+<span class="nc" id="L774">        lp.setStatus(LaadProces.STATUS.STAGING_OK);</span>
+<span class="nc" id="L775">        lp.setStatusDatum(new Date());</span>
+<span class="nc" id="L776">        lp.setAutomatischProcesId(automatischProces);</span>
 
-<span class="nc bnc" id="L784" title="All 2 branches missed.">        if (laadProcesExists(lp)) {</span>
-<span class="nc" id="L785">            throw new BrmoDuplicaatLaadprocesException(&quot;Laadproces al gerund voor bestand &quot;+ fileName);</span>
+<span class="nc bnc" id="L778" title="All 2 branches missed.">        if (laadProcesExists(lp)) {</span>
+<span class="nc" id="L779">            throw new BrmoDuplicaatLaadprocesException(&quot;Laadproces al gerund voor bestand &quot;+ fileName);</span>
         }
-<span class="nc" id="L787">        lp = writeLaadProces(lp);</span>
+<span class="nc" id="L781">        lp = writeLaadProces(lp);</span>
 
-<span class="nc bnc" id="L789" title="All 2 branches missed.">        if (TopNLType.isTopNLType(type)) {</span>
+<span class="nc bnc" id="L783" title="All 2 branches missed.">        if (TopNLType.isTopNLType(type)) {</span>
             // van een TopNL GML bestand maken we alleen een LP, geen bericht,
             // de datum halen we van het zip bestand
-<span class="nc bnc" id="L792" title="All 2 branches missed.">            if (listener != null) {</span>
-<span class="nc" id="L793">                listener.total(((TopNLFileReader) brmoXMLReader).getFileSize());</span>
-<span class="nc" id="L794">                listener.progress(((TopNLFileReader) brmoXMLReader).getFileSize());</span>
+<span class="nc bnc" id="L786" title="All 2 branches missed.">            if (listener != null) {</span>
+<span class="nc" id="L787">                listener.total(((TopNLFileReader) brmoXMLReader).getFileSize());</span>
+<span class="nc" id="L788">                listener.progress(((TopNLFileReader) brmoXMLReader).getFileSize());</span>
             }
         } else {
-<span class="nc bnc" id="L797" title="All 2 branches missed.">            if (!brmoXMLReader.hasNext()) {</span>
-<span class="nc" id="L798">                updateLaadProcesStatus(lp, LaadProces.STATUS.STAGING_OK, &quot;Leeg bestand, geen berichten gevonden in &quot; + fileName);</span>
-<span class="nc" id="L799">                throw new BrmoLeegBestandException(&quot;Leeg bestand, geen berichten gevonden in &quot; + fileName);</span>
+<span class="nc bnc" id="L791" title="All 2 branches missed.">            if (!brmoXMLReader.hasNext()) {</span>
+<span class="nc" id="L792">                updateLaadProcesStatus(lp, LaadProces.STATUS.STAGING_OK, &quot;Leeg bestand, geen berichten gevonden in &quot; + fileName);</span>
+<span class="nc" id="L793">                throw new BrmoLeegBestandException(&quot;Leeg bestand, geen berichten gevonden in &quot; + fileName);</span>
             }
 
-<span class="nc" id="L802">            boolean isBerichtGeschreven = false;</span>
-<span class="nc" id="L803">            int berichten = 0;</span>
-<span class="nc" id="L804">            int foutBerichten = 0;</span>
-<span class="nc" id="L805">            String lastErrorMessage = null;</span>
+<span class="nc" id="L796">            boolean isBerichtGeschreven = false;</span>
+<span class="nc" id="L797">            int berichten = 0;</span>
+<span class="nc" id="L798">            int foutBerichten = 0;</span>
+<span class="nc" id="L799">            String lastErrorMessage = null;</span>
 
-<span class="nc bnc" id="L807" title="All 2 branches missed.">            while (brmoXMLReader.hasNext()) {</span>
+<span class="nc bnc" id="L801" title="All 2 branches missed.">            while (brmoXMLReader.hasNext()) {</span>
                 Bericht b;
                 try {
-<span class="nc" id="L810">                    b = brmoXMLReader.next();</span>
-<span class="nc" id="L811">                    b.setLaadProcesId(lp.getId());</span>
-<span class="nc" id="L812">                    b.setStatus(Bericht.STATUS.STAGING_OK);</span>
-<span class="nc" id="L813">                    b.setStatusDatum(new Date());</span>
-<span class="nc" id="L814">                    b.setSoort(type);</span>
+<span class="nc" id="L804">                    b = brmoXMLReader.next();</span>
+<span class="nc" id="L805">                    b.setLaadProcesId(lp.getId());</span>
+<span class="nc" id="L806">                    b.setStatus(Bericht.STATUS.STAGING_OK);</span>
+<span class="nc" id="L807">                    b.setStatusDatum(new Date());</span>
+<span class="nc" id="L808">                    b.setSoort(type);</span>
 
-<span class="nc bnc" id="L816" title="All 2 branches missed.">                    if (StringUtils.isEmpty(b.getObjectRef())) {</span>
+<span class="nc bnc" id="L810" title="All 2 branches missed.">                    if (StringUtils.isEmpty(b.getObjectRef())) {</span>
                         // geen object_ref kunnen vaststellen; dan ook niet transformeren, bijvoorbeeld bij WOZ
-<span class="nc" id="L818">                        b.setStatus(Bericht.STATUS.STAGING_NOK);</span>
-<span class="nc" id="L819">                        b.setOpmerking(&quot;Er kon geen object_ref bepaald worden uit de natuurlijke sleutel van het bericht.&quot;);</span>
+<span class="nc" id="L812">                        b.setStatus(Bericht.STATUS.STAGING_NOK);</span>
+<span class="nc" id="L813">                        b.setOpmerking(&quot;Er kon geen object_ref bepaald worden uit de natuurlijke sleutel van het bericht.&quot;);</span>
                     }
 
-<span class="nc bnc" id="L822" title="All 2 branches missed.">                    if (b.getDatum() == null) {</span>
-<span class="nc" id="L823">                        throw new BrmoException(&quot;Datum bericht is null&quot;);</span>
+<span class="nc bnc" id="L816" title="All 2 branches missed.">                    if (b.getDatum() == null) {</span>
+<span class="nc" id="L817">                        throw new BrmoException(&quot;Datum bericht is null&quot;);</span>
                     }
-<span class="nc" id="L825">                    log.debug(b);</span>
+<span class="nc" id="L819">                    log.debug(b);</span>
 
-<span class="nc" id="L827">                    Bericht existingBericht = getExistingBericht(b);</span>
-<span class="nc bnc" id="L828" title="All 4 branches missed.">                    if(type.equals(BrmoFramework.BR_BRK) &amp;&amp; !isBerichtGeschreven){</span>
+<span class="nc" id="L821">                    Bericht existingBericht = getExistingBericht(b);</span>
+<span class="nc bnc" id="L822" title="All 4 branches missed.">                    if(type.equals(BrmoFramework.BR_BRK) &amp;&amp; !isBerichtGeschreven){</span>
                         // haal alleen voor eerste 
-<span class="nc" id="L830">                        BrkBericht brkBericht = (BrkBericht)b;</span>
-<span class="nc" id="L831">                        lp.setBestandNaamHersteld(brkBericht.getRestoredFileName(lp.getBestandDatum(), b.getVolgordeNummer()));</span>
-<span class="nc" id="L832">                        updateLaadProcesBestandNaamHersteld(lp);</span>
+<span class="nc" id="L824">                        BrkBericht brkBericht = (BrkBericht)b;</span>
+<span class="nc" id="L825">                        lp.setBestandNaamHersteld(brkBericht.getRestoredFileName(lp.getBestandDatum(), b.getVolgordeNummer()));</span>
+<span class="nc" id="L826">                        updateLaadProcesBestandNaamHersteld(lp);</span>
                     }
                     
-<span class="nc bnc" id="L835" title="All 2 branches missed.">                    if (existingBericht == null) {</span>
-<span class="nc" id="L836">                        writeBericht(b);</span>
-<span class="nc" id="L837">                        isBerichtGeschreven = true;</span>
-<span class="nc bnc" id="L838" title="All 2 branches missed.">                    } else if (existingBericht.getStatus().equals(Bericht.STATUS.STAGING_OK)) {</span>
+<span class="nc bnc" id="L829" title="All 2 branches missed.">                    if (existingBericht == null) {</span>
+<span class="nc" id="L830">                        writeBericht(b);</span>
+<span class="nc" id="L831">                        isBerichtGeschreven = true;</span>
+<span class="nc bnc" id="L832" title="All 2 branches missed.">                    } else if (existingBericht.getStatus().equals(Bericht.STATUS.STAGING_OK)) {</span>
                         //als bericht nog niet getransformeerd is, dan overschrijven.
                         //als een BAG bericht inactief wordt gezet dan zal het
                         //oorspronkelijke bericht nog getransformeerd
                         //moeten worden, door overschrijven wordt dit bericht inactief
                         //en zal nooit getransformeerd worden.
-<span class="nc" id="L844">                        b.setId(existingBericht.getId());</span>
-<span class="nc" id="L845">                        this.updateBericht(b);</span>
+<span class="nc" id="L838">                        b.setId(existingBericht.getId());</span>
+<span class="nc" id="L839">                        this.updateBericht(b);</span>
                     }
-<span class="nc bnc" id="L847" title="All 2 branches missed.">                    if (listener != null) {</span>
-<span class="nc" id="L848">                        listener.progress(cis.getByteCount());</span>
+<span class="nc bnc" id="L841" title="All 2 branches missed.">                    if (listener != null) {</span>
+<span class="nc" id="L842">                        listener.progress(cis.getByteCount());</span>
                     }
-<span class="nc" id="L850">                    berichten++;</span>
-<span class="nc" id="L851">                } catch (Exception e) {</span>
-<span class="nc" id="L852">                    lastErrorMessage = String.format(&quot;Laden bericht uit %s mislukt vanwege: %s&quot;,</span>
-<span class="nc" id="L853">                            fileName, e.getLocalizedMessage());</span>
-<span class="nc" id="L854">                    log.error(lastErrorMessage);</span>
-<span class="nc" id="L855">                    log.trace(lastErrorMessage, e);</span>
-<span class="nc bnc" id="L856" title="All 2 branches missed.">                    if (listener != null) {</span>
-<span class="nc" id="L857">                        listener.exception(e);</span>
+<span class="nc" id="L844">                    berichten++;</span>
+<span class="nc" id="L845">                } catch (Exception e) {</span>
+<span class="nc" id="L846">                    lastErrorMessage = String.format(&quot;Laden bericht uit %s mislukt vanwege: %s&quot;,</span>
+<span class="nc" id="L847">                            fileName, e.getLocalizedMessage());</span>
+<span class="nc" id="L848">                    log.error(lastErrorMessage);</span>
+<span class="nc" id="L849">                    log.trace(lastErrorMessage, e);</span>
+<span class="nc bnc" id="L850" title="All 2 branches missed.">                    if (listener != null) {</span>
+<span class="nc" id="L851">                        listener.exception(e);</span>
                     }
-<span class="nc" id="L859">                    foutBerichten++;</span>
-<span class="nc" id="L860">                }</span>
+<span class="nc" id="L853">                    foutBerichten++;</span>
+<span class="nc" id="L854">                }</span>
             }
-<span class="nc bnc" id="L862" title="All 2 branches missed.">            if (listener != null) {</span>
-<span class="nc" id="L863">                listener.total(berichten);</span>
+<span class="nc bnc" id="L856" title="All 2 branches missed.">            if (listener != null) {</span>
+<span class="nc" id="L857">                listener.total(berichten);</span>
             }
-<span class="nc bnc" id="L865" title="All 2 branches missed.">            if (foutBerichten &gt; 0) {</span>
-<span class="nc" id="L866">                String opmerking = &quot;Laden van &quot; + foutBerichten</span>
+<span class="nc bnc" id="L859" title="All 2 branches missed.">            if (foutBerichten &gt; 0) {</span>
+<span class="nc" id="L860">                String opmerking = &quot;Laden van &quot; + foutBerichten</span>
                         + &quot; bericht(en) mislukt, laatste melding: &quot;
                         + lastErrorMessage + &quot;, zie logs voor meer info.&quot;;
-<span class="nc" id="L869">                this.updateLaadProcesStatus(lp, LaadProces.STATUS.STAGING_NOK, opmerking);</span>
-<span class="nc bnc" id="L870" title="All 2 branches missed.">            } else if (!isBerichtGeschreven) {</span>
-<span class="nc" id="L871">                String opmerking = &quot;Dit bestand is waarschijnlijk al eerder geladen.&quot;;</span>
-<span class="nc" id="L872">                this.updateLaadProcesStatus(lp, LaadProces.STATUS.STAGING_DUPLICAAT, opmerking);</span>
+<span class="nc" id="L863">                this.updateLaadProcesStatus(lp, LaadProces.STATUS.STAGING_NOK, opmerking);</span>
+<span class="nc bnc" id="L864" title="All 2 branches missed.">            } else if (!isBerichtGeschreven) {</span>
+<span class="nc" id="L865">                String opmerking = &quot;Dit bestand is waarschijnlijk al eerder geladen.&quot;;</span>
+<span class="nc" id="L866">                this.updateLaadProcesStatus(lp, LaadProces.STATUS.STAGING_DUPLICAAT, opmerking);</span>
             }
         }
-<span class="nc" id="L875">    }</span>
+<span class="nc" id="L869">    }</span>
 
     public void writeBericht(Bericht b) throws SQLException {
-<span class="nc" id="L878">        String brXML = b.getBrXml();</span>
+<span class="nc" id="L872">        String brXML = b.getBrXml();</span>
         // HACK vanwege Oracle 8000 karakters bug, zie brmo wiki: https://github.com/B3Partners/brmo/wiki/Oracle-8000-bytes-bug
-<span class="nc bnc" id="L880" title="All 6 branches missed.">        if (geomToJdbc instanceof OracleJdbcConverter &amp;&amp; brXML != null &amp;&amp; brXML.length() == 8000) {</span>
-<span class="nc" id="L881">            log.debug(&quot;BR XML is 8000 bytes, er wordt een spatie aangeplakt.&quot;);</span>
-<span class="nc" id="L882">            brXML += &quot; &quot;;</span>
-<span class="nc" id="L883">            log.debug(&quot;BR XML is nu &quot; + brXML.length() + &quot; bytes.&quot;);</span>
+<span class="nc bnc" id="L874" title="All 6 branches missed.">        if (geomToJdbc instanceof OracleJdbcConverter &amp;&amp; brXML != null &amp;&amp; brXML.length() == 8000) {</span>
+<span class="nc" id="L875">            log.debug(&quot;BR XML is 8000 bytes, er wordt een spatie aangeplakt.&quot;);</span>
+<span class="nc" id="L876">            brXML += &quot; &quot;;</span>
+<span class="nc" id="L877">            log.debug(&quot;BR XML is nu &quot; + brXML.length() + &quot; bytes.&quot;);</span>
         }
-<span class="nc" id="L885">        Object berId = new QueryRunner(geomToJdbc.isPmdKnownBroken()).insert(getConnection(),</span>
+<span class="nc" id="L879">        Object berId = new QueryRunner(geomToJdbc.isPmdKnownBroken()).insert(getConnection(),</span>
                 &quot;INSERT INTO &quot; + BrmoFramework.BERICHT_TABLE + &quot; (laadprocesid, &quot;
                 + &quot;object_ref, &quot;
                 + &quot;datum, &quot;
@@ -896,21 +890,21 @@ public class StagingProxy {
                 + &quot;db_xml, &quot;
                 + &quot;xsl_version) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)&quot;,
                 new ScalarHandler&lt;&gt;(),
-<span class="nc" id="L899">                b.getLaadProcesId(),</span>
-<span class="nc" id="L900">                b.getObjectRef(),</span>
-<span class="nc" id="L901">                new Timestamp(b.getDatum().getTime()),</span>
-<span class="nc" id="L902">                b.getVolgordeNummer(),</span>
-<span class="nc" id="L903">                b.getSoort(),</span>
-<span class="nc" id="L904">                b.getOpmerking(),</span>
-<span class="nc" id="L905">                b.getStatus().toString(),</span>
-<span class="nc" id="L906">                new Timestamp(b.getStatusDatum().getTime()),</span>
+<span class="nc" id="L893">                b.getLaadProcesId(),</span>
+<span class="nc" id="L894">                b.getObjectRef(),</span>
+<span class="nc" id="L895">                new Timestamp(b.getDatum().getTime()),</span>
+<span class="nc" id="L896">                b.getVolgordeNummer(),</span>
+<span class="nc" id="L897">                b.getSoort(),</span>
+<span class="nc" id="L898">                b.getOpmerking(),</span>
+<span class="nc" id="L899">                b.getStatus().toString(),</span>
+<span class="nc" id="L900">                new Timestamp(b.getStatusDatum().getTime()),</span>
                 brXML,
-<span class="nc" id="L908">                b.getBrOrgineelXml(),</span>
-<span class="nc" id="L909">                b.getDbXml(),</span>
-<span class="nc" id="L910">                b.getXslVersion()</span>
+<span class="nc" id="L902">                b.getBrOrgineelXml(),</span>
+<span class="nc" id="L903">                b.getDbXml(),</span>
+<span class="nc" id="L904">                b.getXslVersion()</span>
         );
-<span class="nc" id="L912">        log.trace(&quot;opgeslagen bericht heeft (row) id: &quot; + berId);</span>
-<span class="nc" id="L913">     }</span>
+<span class="nc" id="L906">        log.trace(&quot;opgeslagen bericht heeft (row) id: &quot; + berId);</span>
+<span class="nc" id="L907">     }</span>
 
     /**
      * Bepaal aan de hand van bestandsnaam en bestandsdatum van het laadproces
@@ -921,22 +915,22 @@ public class StagingProxy {
      * @throws SQLException
      */
     private boolean laadProcesExists(LaadProces lp) throws SQLException {
-<span class="nc" id="L924">        Object o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(),</span>
+<span class="nc" id="L918">        Object o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(),</span>
                 &quot;select 1 from laadproces where bestand_naam = ? and&quot;
                 + &quot; bestand_datum = ?&quot;, new ScalarHandler(),
-<span class="nc" id="L927">                lp.getBestandNaam(),</span>
-<span class="nc" id="L928">                new Timestamp(lp.getBestandDatum().getTime()));</span>
+<span class="nc" id="L921">                lp.getBestandNaam(),</span>
+<span class="nc" id="L922">                new Timestamp(lp.getBestandDatum().getTime()));</span>
 
-<span class="nc bnc" id="L930" title="All 2 branches missed.">        return o != null;</span>
+<span class="nc bnc" id="L924" title="All 2 branches missed.">        return o != null;</span>
     }
 
     private LaadProces writeLaadProces(LaadProces lp) throws SQLException {
-<span class="nc" id="L934">        log.trace(&quot;opslaan van laadproces: &quot; + lp);</span>
-<span class="nc bnc" id="L935" title="All 2 branches missed.">        if (lp == null) {</span>
-<span class="nc" id="L936">            return null;</span>
+<span class="nc" id="L928">        log.trace(&quot;opslaan van laadproces: &quot; + lp);</span>
+<span class="nc bnc" id="L929" title="All 2 branches missed.">        if (lp == null) {</span>
+<span class="nc" id="L930">            return null;</span>
         }
 
-<span class="nc" id="L939">        final String sql = &quot;INSERT INTO &quot; + BrmoFramework.LAADPROCES_TABEL + &quot;(bestand_naam, &quot;</span>
+<span class="nc" id="L933">        final String sql = &quot;INSERT INTO &quot; + BrmoFramework.LAADPROCES_TABEL + &quot;(bestand_naam, &quot;</span>
                 + &quot;bestand_datum, soort, gebied, opmerking, status, &quot;
                 + &quot;status_datum, contact_email, automatisch_proces &quot;
                 // nieuwe kolommen in 2.0.0
@@ -946,51 +940,51 @@ public class StagingProxy {
 
         // Oracle geeft een ROWID terug als &quot;generated key&quot; en niet de PK-kolom &quot;ID&quot; die we willen hebben, daarom zelf doen
         // zie ook: https://issues.apache.org/jira/browse/DBUTILS-54
-<span class="nc" id="L949">        QueryRunner queryRunner = new QueryRunner(geomToJdbc.isPmdKnownBroken());</span>
+<span class="nc" id="L943">        QueryRunner queryRunner = new QueryRunner(geomToJdbc.isPmdKnownBroken());</span>
         try (
                 // PG: Caused by: org.postgresql.util.PSQLException: ERROR: column &quot;ID&quot; does not exist
                 // maar lowercase werkt ook met oracle
-<span class="nc" id="L953">                PreparedStatement stmt = getConnection().prepareStatement(sql, new String[]{&quot;id&quot;});</span>
+<span class="nc" id="L947">                PreparedStatement stmt = getConnection().prepareStatement(sql, new String[]{&quot;id&quot;});</span>
                 // door een bug in de PG driver geen kolom index gebruiken, zie https://github.com/pgjdbc/pgjdbc/issues/1661
                 // PreparedStatement stmt = getConnection().prepareStatement(sql, new int[]{1});
         ) {
-<span class="nc" id="L957">            queryRunner.fillStatement(stmt,</span>
-<span class="nc" id="L958">                    lp.getBestandNaam(),</span>
-<span class="nc" id="L959">                    new Timestamp(lp.getBestandDatum().getTime()),</span>
-<span class="nc" id="L960">                    lp.getSoort(),</span>
-<span class="nc" id="L961">                    lp.getGebied(),</span>
-<span class="nc" id="L962">                    lp.getOpmerking(),</span>
-<span class="nc" id="L963">                    lp.getStatus().toString(),</span>
-<span class="nc" id="L964">                    new Timestamp(lp.getStatusDatum().getTime()),</span>
-<span class="nc" id="L965">                    lp.getContactEmail(),</span>
-<span class="nc" id="L966">                    lp.getAutomatischProcesId(),</span>
+<span class="nc" id="L951">            queryRunner.fillStatement(stmt,</span>
+<span class="nc" id="L952">                    lp.getBestandNaam(),</span>
+<span class="nc" id="L953">                    new Timestamp(lp.getBestandDatum().getTime()),</span>
+<span class="nc" id="L954">                    lp.getSoort(),</span>
+<span class="nc" id="L955">                    lp.getGebied(),</span>
+<span class="nc" id="L956">                    lp.getOpmerking(),</span>
+<span class="nc" id="L957">                    lp.getStatus().toString(),</span>
+<span class="nc" id="L958">                    new Timestamp(lp.getStatusDatum().getTime()),</span>
+<span class="nc" id="L959">                    lp.getContactEmail(),</span>
+<span class="nc" id="L960">                    lp.getAutomatischProcesId(),</span>
                     // nieuwe kolommen in 2.0.0
-<span class="nc" id="L968">                    lp.getAfgifteid(),</span>
-<span class="nc" id="L969">                    lp.getAfgiftereferentie(),</span>
-<span class="nc" id="L970">                    lp.getArtikelnummer(),</span>
-<span class="nc bnc" id="L971" title="All 2 branches missed.">                    (lp.getBeschikbaar_tot() == null) ? null : new Timestamp(lp.getBeschikbaar_tot().getTime()),</span>
-<span class="nc" id="L972">                    lp.getBestandsreferentie(),</span>
-<span class="nc" id="L973">                    lp.getContractafgiftenummer(),</span>
-<span class="nc" id="L974">                    lp.getContractnummer(),</span>
-<span class="nc" id="L975">                    lp.getKlantafgiftenummer(),</span>
-<span class="nc" id="L976">                    lp.getBestandNaamHersteld()</span>
+<span class="nc" id="L962">                    lp.getAfgifteid(),</span>
+<span class="nc" id="L963">                    lp.getAfgiftereferentie(),</span>
+<span class="nc" id="L964">                    lp.getArtikelnummer(),</span>
+<span class="nc bnc" id="L965" title="All 2 branches missed.">                    (lp.getBeschikbaar_tot() == null) ? null : new Timestamp(lp.getBeschikbaar_tot().getTime()),</span>
+<span class="nc" id="L966">                    lp.getBestandsreferentie(),</span>
+<span class="nc" id="L967">                    lp.getContractafgiftenummer(),</span>
+<span class="nc" id="L968">                    lp.getContractnummer(),</span>
+<span class="nc" id="L969">                    lp.getKlantafgiftenummer(),</span>
+<span class="nc" id="L970">                    lp.getBestandNaamHersteld()</span>
             );
-<span class="nc" id="L978">            stmt.executeUpdate();</span>
-<span class="nc" id="L979">            ResultSetHandler&lt;Number&gt; rsh = new ScalarHandler&lt;&gt;();</span>
-<span class="nc" id="L980">            Number lpId = rsh.handle(stmt.getGeneratedKeys());</span>
-<span class="nc" id="L981">            log.trace(&quot;opgeslagen laadproces heeft id: &quot; + lpId);</span>
-<span class="nc" id="L982">            return this.getLaadProcesById(lpId.longValue());</span>
+<span class="nc" id="L972">            stmt.executeUpdate();</span>
+<span class="nc" id="L973">            ResultSetHandler&lt;Number&gt; rsh = new ScalarHandler&lt;&gt;();</span>
+<span class="nc" id="L974">            Number lpId = rsh.handle(stmt.getGeneratedKeys());</span>
+<span class="nc" id="L975">            log.trace(&quot;opgeslagen laadproces heeft id: &quot; + lpId);</span>
+<span class="nc" id="L976">            return this.getLaadProcesById(lpId.longValue());</span>
         }
     }
 
     public void updateLaadProcesStatus(LaadProces lp, LaadProces.STATUS status, String opmerking) throws SQLException {
-<span class="nc" id="L987">        log.trace(&quot;update van laadproces status: &quot; + lp);</span>
-<span class="nc" id="L988">        new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(</span>
-<span class="nc" id="L989">                getConnection(),</span>
+<span class="nc" id="L981">        log.trace(&quot;update van laadproces status: &quot; + lp);</span>
+<span class="nc" id="L982">        new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(</span>
+<span class="nc" id="L983">                getConnection(),</span>
                 &quot;update &quot; + BrmoFramework.LAADPROCES_TABEL + &quot; set status = ?, opmerking = ?, status_datum = ? where id = ?&quot;,
-<span class="nc" id="L991">                status.toString(), opmerking, new Timestamp(new Date().getTime()), lp.getId()</span>
+<span class="nc" id="L985">                status.toString(), opmerking, new Timestamp(new Date().getTime()), lp.getId()</span>
         );
-<span class="nc" id="L993">    }</span>
+<span class="nc" id="L987">    }</span>
 
     /**
      * update laadproces (GDS2 afgifte) metadata.
@@ -1016,8 +1010,8 @@ public class StagingProxy {
             String bestandsreferentie,
             Date beschikbaar_tot
     ) throws SQLException {
-<span class="nc" id="L1019">        new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(</span>
-<span class="nc" id="L1020">                getConnection(),</span>
+<span class="nc" id="L1013">        new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(</span>
+<span class="nc" id="L1014">                getConnection(),</span>
                 &quot;update &quot; + BrmoFramework.LAADPROCES_TABEL + &quot; set &quot;
                 + &quot;afgifteid = ?,&quot;
                 + &quot;afgiftereferentie = ?,&quot;
@@ -1031,107 +1025,107 @@ public class StagingProxy {
                 afgifteid,
                 afgiftereferentie,
                 artikelnummer,
-<span class="nc" id="L1034">                new Timestamp(beschikbaar_tot.getTime()),</span>
+<span class="nc" id="L1028">                new Timestamp(beschikbaar_tot.getTime()),</span>
                 bestandsreferentie,
                 contractafgiftenummer,
                 contractnummer,
                 klantafgiftenummer,
                 lpId);
-<span class="nc" id="L1040">    }</span>
+<span class="nc" id="L1034">    }</span>
 
     public void updateLaadProcesBestandNaamHersteld(LaadProces lp) throws SQLException {
-<span class="nc" id="L1043">        new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(</span>
-<span class="nc" id="L1044">                getConnection(),</span>
+<span class="nc" id="L1037">        new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(</span>
+<span class="nc" id="L1038">                getConnection(),</span>
             &quot;update &quot; + BrmoFramework.LAADPROCES_TABEL + &quot; set bestand_naam_hersteld = ? where id = ?&quot;,
-<span class="nc" id="L1046">                lp.getBestandNaamHersteld(), lp.getId()</span>
+<span class="nc" id="L1040">                lp.getBestandNaamHersteld(), lp.getId()</span>
         );
-<span class="nc" id="L1048">    }</span>
+<span class="nc" id="L1042">    }</span>
 
 
     public void emptyStagingDb() throws SQLException {
-<span class="nc" id="L1052">        new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(), &quot;DELETE FROM &quot; + BrmoFramework.BERICHT_TABLE);</span>
-<span class="nc" id="L1053">        new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(), &quot;DELETE FROM &quot; + BrmoFramework.LAADPROCES_TABEL);</span>
-<span class="nc" id="L1054">    }</span>
+<span class="nc" id="L1046">        new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(), &quot;DELETE FROM &quot; + BrmoFramework.BERICHT_TABLE);</span>
+<span class="nc" id="L1047">        new QueryRunner(geomToJdbc.isPmdKnownBroken()).update(getConnection(), &quot;DELETE FROM &quot; + BrmoFramework.LAADPROCES_TABEL);</span>
+<span class="nc" id="L1048">    }</span>
 
     public List&lt;Bericht&gt; getBerichten(int page, int start, int limit, String sort,
             String dir, String filterSoort, String filterStatus) throws SQLException {
 
-<span class="nc" id="L1059">        List&lt;String&gt; params = new ArrayList();</span>
-<span class="nc bnc" id="L1060" title="All 4 branches missed.">        if (sort==null || sort.trim().isEmpty()) {</span>
-<span class="nc" id="L1061">            sort = &quot;id&quot;;</span>
+<span class="nc" id="L1053">        List&lt;String&gt; params = new ArrayList();</span>
+<span class="nc bnc" id="L1054" title="All 4 branches missed.">        if (sort==null || sort.trim().isEmpty()) {</span>
+<span class="nc" id="L1055">            sort = &quot;id&quot;;</span>
         }
-<span class="nc bnc" id="L1063" title="All 4 branches missed.">        if (dir==null || dir.trim().isEmpty()) {</span>
-<span class="nc" id="L1064">            sort = &quot;asc&quot;;</span>
+<span class="nc bnc" id="L1057" title="All 4 branches missed.">        if (dir==null || dir.trim().isEmpty()) {</span>
+<span class="nc" id="L1058">            sort = &quot;asc&quot;;</span>
         }
-<span class="nc" id="L1066">        String sql = &quot;SELECT * FROM &quot; + BrmoFramework.BERICHT_TABLE + buildFilterSql(page, sort, dir,</span>
+<span class="nc" id="L1060">        String sql = &quot;SELECT * FROM &quot; + BrmoFramework.BERICHT_TABLE + buildFilterSql(page, sort, dir,</span>
                 filterSoort, filterStatus, params);
 
-<span class="nc" id="L1069">        sql = geomToJdbc.buildPaginationSql(sql, start, limit);</span>
+<span class="nc" id="L1063">        sql = geomToJdbc.buildPaginationSql(sql, start, limit);</span>
 
-<span class="nc" id="L1071">        return (List&lt;Bericht&gt;)new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(), sql, new BeanListHandler(Bericht.class, new StagingRowHandler()), params.toArray());</span>
+<span class="nc" id="L1065">        return (List&lt;Bericht&gt;)new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(), sql, new BeanListHandler(Bericht.class, new StagingRowHandler()), params.toArray());</span>
     }
 
 
     public long getCountBerichten(String sort, String dir, String filterSoort, String filterStatus) throws SQLException {
 
-<span class="nc" id="L1077">        List&lt;String&gt; params = new ArrayList();</span>
-<span class="nc" id="L1078">        String filter = buildFilterSql(0, null, null, filterSoort,filterStatus, params);</span>
+<span class="nc" id="L1071">        List&lt;String&gt; params = new ArrayList();</span>
+<span class="nc" id="L1072">        String filter = buildFilterSql(0, null, null, filterSoort,filterStatus, params);</span>
 
         String sql;
         // gebruik estimate voor postgresql indien geen filter
-<span class="nc bnc" id="L1082" title="All 4 branches missed.">        if (StringUtils.isBlank(filter) &amp;&amp; geomToJdbc instanceof PostgisJdbcConverter) {</span>
-<span class="nc" id="L1083">            sql = &quot;SELECT reltuples::BIGINT AS estimate FROM pg_class WHERE relname= '&quot; + BrmoFramework.BERICHT_TABLE + &quot;'&quot;;</span>
+<span class="nc bnc" id="L1076" title="All 4 branches missed.">        if (StringUtils.isBlank(filter) &amp;&amp; geomToJdbc instanceof PostgisJdbcConverter) {</span>
+<span class="nc" id="L1077">            sql = &quot;SELECT reltuples::BIGINT AS estimate FROM pg_class WHERE relname= '&quot; + BrmoFramework.BERICHT_TABLE + &quot;'&quot;;</span>
         } else {
-<span class="nc" id="L1085">            sql = &quot;SELECT count(*) FROM &quot; + BrmoFramework.BERICHT_TABLE + filter;</span>
+<span class="nc" id="L1079">            sql = &quot;SELECT count(*) FROM &quot; + BrmoFramework.BERICHT_TABLE + filter;</span>
         }
 
-<span class="nc" id="L1088">        ResultSet rs = null;</span>
-<span class="nc" id="L1089">        PreparedStatement pstmt = null;</span>
+<span class="nc" id="L1082">        ResultSet rs = null;</span>
+<span class="nc" id="L1083">        PreparedStatement pstmt = null;</span>
         try {
-<span class="nc" id="L1091">            pstmt = getConnection().prepareStatement(sql);</span>
+<span class="nc" id="L1085">            pstmt = getConnection().prepareStatement(sql);</span>
             try {
-<span class="nc" id="L1093">                pstmt.setQueryTimeout(300); //seconds to wait</span>
-<span class="nc" id="L1094">            } catch (Exception e){</span>
-<span class="nc" id="L1095">                log.warn(&quot;Driver does not support setQueryTimeout, please update driver.&quot;);</span>
-<span class="nc" id="L1096">            }</span>
-<span class="nc bnc" id="L1097" title="All 2 branches missed.">            if (!params.isEmpty()) {</span>
-<span class="nc bnc" id="L1098" title="All 2 branches missed.">                for (int i = 0; i &lt; params.size(); i++) {</span>
-<span class="nc bnc" id="L1099" title="All 2 branches missed.">                    if (params.get(i) != null) {</span>
-<span class="nc" id="L1100">                        pstmt.setObject(i + 1, params.get(i));</span>
+<span class="nc" id="L1087">                pstmt.setQueryTimeout(300); //seconds to wait</span>
+<span class="nc" id="L1088">            } catch (Exception e){</span>
+<span class="nc" id="L1089">                log.warn(&quot;Driver does not support setQueryTimeout, please update driver.&quot;);</span>
+<span class="nc" id="L1090">            }</span>
+<span class="nc bnc" id="L1091" title="All 2 branches missed.">            if (!params.isEmpty()) {</span>
+<span class="nc bnc" id="L1092" title="All 2 branches missed.">                for (int i = 0; i &lt; params.size(); i++) {</span>
+<span class="nc bnc" id="L1093" title="All 2 branches missed.">                    if (params.get(i) != null) {</span>
+<span class="nc" id="L1094">                        pstmt.setObject(i + 1, params.get(i));</span>
                     } else {
-<span class="nc" id="L1102">                        pstmt.setNull(i + 1, Types.VARCHAR);</span>
+<span class="nc" id="L1096">                        pstmt.setNull(i + 1, Types.VARCHAR);</span>
                     }
                 }
             }
-<span class="nc" id="L1106">            rs = pstmt.executeQuery();</span>
-<span class="nc bnc" id="L1107" title="All 2 branches missed.">            if (rs.next()) {</span>
-<span class="nc" id="L1108">                Object o = rs.getObject(1);</span>
-<span class="nc bnc" id="L1109" title="All 2 branches missed.">                if (o instanceof BigDecimal) {</span>
-<span class="nc" id="L1110">                    return ((BigDecimal) o).longValue();</span>
-<span class="nc bnc" id="L1111" title="All 2 branches missed.">                } else if (o instanceof Integer) {</span>
-<span class="nc" id="L1112">                    return ((Integer) o).longValue();</span>
+<span class="nc" id="L1100">            rs = pstmt.executeQuery();</span>
+<span class="nc bnc" id="L1101" title="All 2 branches missed.">            if (rs.next()) {</span>
+<span class="nc" id="L1102">                Object o = rs.getObject(1);</span>
+<span class="nc bnc" id="L1103" title="All 2 branches missed.">                if (o instanceof BigDecimal) {</span>
+<span class="nc" id="L1104">                    return ((BigDecimal) o).longValue();</span>
+<span class="nc bnc" id="L1105" title="All 2 branches missed.">                } else if (o instanceof Integer) {</span>
+<span class="nc" id="L1106">                    return ((Integer) o).longValue();</span>
                 }
-<span class="nc" id="L1114">                return (Long) o;</span>
+<span class="nc" id="L1108">                return (Long) o;</span>
             } else {
-<span class="nc" id="L1116">                return -1;</span>
+<span class="nc" id="L1110">                return -1;</span>
             }
-<span class="nc" id="L1118">        } catch (Exception e) {</span>
-<span class="nc" id="L1119">            return -1;</span>
+<span class="nc" id="L1112">        } catch (Exception e) {</span>
+<span class="nc" id="L1113">            return -1;</span>
         } finally {
             try {
-<span class="nc bnc" id="L1122" title="All 4 branches missed.">                if (rs != null &amp;&amp; !rs.isClosed()) {</span>
-<span class="nc" id="L1123">                    rs.close();</span>
+<span class="nc bnc" id="L1116" title="All 4 branches missed.">                if (rs != null &amp;&amp; !rs.isClosed()) {</span>
+<span class="nc" id="L1117">                    rs.close();</span>
                 }
-<span class="nc" id="L1125">            } catch (SQLException e) {</span>
+<span class="nc" id="L1119">            } catch (SQLException e) {</span>
                 //ignore
-<span class="nc" id="L1127">            }</span>
+<span class="nc" id="L1121">            }</span>
             try {
-<span class="nc bnc" id="L1129" title="All 4 branches missed.">                if (pstmt != null &amp;&amp; !pstmt.isClosed()) {</span>
-<span class="nc" id="L1130">                    pstmt.close();</span>
+<span class="nc bnc" id="L1123" title="All 4 branches missed.">                if (pstmt != null &amp;&amp; !pstmt.isClosed()) {</span>
+<span class="nc" id="L1124">                    pstmt.close();</span>
                 }
-<span class="nc" id="L1132">            } catch (SQLException e) {</span>
+<span class="nc" id="L1126">            } catch (SQLException e) {</span>
                 //ignore
-<span class="nc" id="L1134">            }</span>
+<span class="nc" id="L1128">            }</span>
         }
 
 
@@ -1147,99 +1141,99 @@ public class StagingProxy {
 
     private String buildFilterSql(int page, String sort, String dir, String filterSoort, String filterStatus, List&lt;String&gt; params) {
 
-<span class="nc" id="L1150">        StringBuilder builder = new StringBuilder();</span>
+<span class="nc" id="L1144">        StringBuilder builder = new StringBuilder();</span>
 
-<span class="nc" id="L1152">        List&lt;String&gt; conjunctions = new ArrayList();</span>
+<span class="nc" id="L1146">        List&lt;String&gt; conjunctions = new ArrayList();</span>
 
-<span class="nc bnc" id="L1154" title="All 2 branches missed.">        if(!StringUtils.isBlank(filterSoort)) {</span>
-<span class="nc" id="L1155">            String[] soorten = filterSoort.split(&quot;,&quot;);</span>
-<span class="nc" id="L1156">            params.addAll(Arrays.asList(soorten));</span>
-<span class="nc" id="L1157">            conjunctions.add(&quot;soort in (&quot; + StringUtils.repeat(&quot;?&quot;, &quot;, &quot;, soorten.length) + &quot;)&quot;);</span>
+<span class="nc bnc" id="L1148" title="All 2 branches missed.">        if(!StringUtils.isBlank(filterSoort)) {</span>
+<span class="nc" id="L1149">            String[] soorten = filterSoort.split(&quot;,&quot;);</span>
+<span class="nc" id="L1150">            params.addAll(Arrays.asList(soorten));</span>
+<span class="nc" id="L1151">            conjunctions.add(&quot;soort in (&quot; + StringUtils.repeat(&quot;?&quot;, &quot;, &quot;, soorten.length) + &quot;)&quot;);</span>
         }
 
-<span class="nc bnc" id="L1160" title="All 2 branches missed.">        if(!StringUtils.isBlank(filterStatus)) {</span>
-<span class="nc" id="L1161">            String[] statussen = filterStatus.split(&quot;,&quot;);</span>
-<span class="nc" id="L1162">            params.addAll(Arrays.asList(statussen));</span>
-<span class="nc" id="L1163">            conjunctions.add(&quot;status in (&quot; + StringUtils.repeat(&quot;?&quot;, &quot;, &quot;, statussen.length) + &quot;)&quot;);</span>
+<span class="nc bnc" id="L1154" title="All 2 branches missed.">        if(!StringUtils.isBlank(filterStatus)) {</span>
+<span class="nc" id="L1155">            String[] statussen = filterStatus.split(&quot;,&quot;);</span>
+<span class="nc" id="L1156">            params.addAll(Arrays.asList(statussen));</span>
+<span class="nc" id="L1157">            conjunctions.add(&quot;status in (&quot; + StringUtils.repeat(&quot;?&quot;, &quot;, &quot;, statussen.length) + &quot;)&quot;);</span>
         }
 
         // build where part
-<span class="nc bnc" id="L1167" title="All 2 branches missed.">        if(!conjunctions.isEmpty()) {</span>
-<span class="nc" id="L1168">            builder.append(&quot; where &quot;);</span>
-<span class="nc" id="L1169">            builder.append(StringUtils.join(conjunctions.toArray(), &quot; and &quot;));</span>
+<span class="nc bnc" id="L1161" title="All 2 branches missed.">        if(!conjunctions.isEmpty()) {</span>
+<span class="nc" id="L1162">            builder.append(&quot; where &quot;);</span>
+<span class="nc" id="L1163">            builder.append(StringUtils.join(conjunctions.toArray(), &quot; and &quot;));</span>
         }
 
         // build order by part
-<span class="nc bnc" id="L1173" title="All 4 branches missed.">        if (sort != null &amp;&amp; dir != null) {</span>
-<span class="nc" id="L1174">            builder.append(&quot; ORDER BY &quot;);</span>
-<span class="nc" id="L1175">            builder.append(sort);</span>
-<span class="nc" id="L1176">            builder.append(&quot; &quot;);</span>
-<span class="nc" id="L1177">            builder.append(dir);</span>
+<span class="nc bnc" id="L1167" title="All 4 branches missed.">        if (sort != null &amp;&amp; dir != null) {</span>
+<span class="nc" id="L1168">            builder.append(&quot; ORDER BY &quot;);</span>
+<span class="nc" id="L1169">            builder.append(sort);</span>
+<span class="nc" id="L1170">            builder.append(&quot; &quot;);</span>
+<span class="nc" id="L1171">            builder.append(dir);</span>
         }
 
-<span class="nc" id="L1180">        return builder.toString();</span>
+<span class="nc" id="L1174">        return builder.toString();</span>
     }
 
     public long getCountLaadProces(String sort, String dir, String filterSoort, String filterStatus) throws SQLException {
 
-<span class="nc" id="L1185">        List&lt;String&gt; params = new ArrayList();</span>
-<span class="nc" id="L1186">        String sql = &quot;SELECT count(*) FROM &quot; + BrmoFramework.LAADPROCES_TABEL + buildFilterSql(0, null, null, filterSoort,</span>
+<span class="nc" id="L1179">        List&lt;String&gt; params = new ArrayList();</span>
+<span class="nc" id="L1180">        String sql = &quot;SELECT count(*) FROM &quot; + BrmoFramework.LAADPROCES_TABEL + buildFilterSql(0, null, null, filterSoort,</span>
               filterStatus, params);
 
-<span class="nc" id="L1189">        Object o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(), sql, new ScalarHandler(), params.toArray());</span>
-<span class="nc bnc" id="L1190" title="All 2 branches missed.">        if (o instanceof BigDecimal) {</span>
-<span class="nc" id="L1191">            return ((BigDecimal)o).longValue();</span>
-<span class="nc bnc" id="L1192" title="All 2 branches missed.">        } else if(o instanceof Integer) {</span>
-<span class="nc" id="L1193">            return ((Integer)o).longValue();</span>
+<span class="nc" id="L1183">        Object o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(), sql, new ScalarHandler(), params.toArray());</span>
+<span class="nc bnc" id="L1184" title="All 2 branches missed.">        if (o instanceof BigDecimal) {</span>
+<span class="nc" id="L1185">            return ((BigDecimal)o).longValue();</span>
+<span class="nc bnc" id="L1186" title="All 2 branches missed.">        } else if(o instanceof Integer) {</span>
+<span class="nc" id="L1187">            return ((Integer)o).longValue();</span>
         }
-<span class="nc" id="L1195">        return (Long)o;</span>
+<span class="nc" id="L1189">        return (Long)o;</span>
     }
 
     public List&lt;LaadProces&gt; getLaadprocessen(int page, int start, int limit, String sort,
             String dir, String filterSoort, String filterStatus) throws SQLException {
 
-<span class="nc" id="L1201">        List&lt;String&gt; params = new ArrayList();</span>
-<span class="nc bnc" id="L1202" title="All 4 branches missed.">        if (sort==null || sort.trim().isEmpty()) {</span>
-<span class="nc" id="L1203">            sort = &quot;id&quot;;</span>
+<span class="nc" id="L1195">        List&lt;String&gt; params = new ArrayList();</span>
+<span class="nc bnc" id="L1196" title="All 4 branches missed.">        if (sort==null || sort.trim().isEmpty()) {</span>
+<span class="nc" id="L1197">            sort = &quot;id&quot;;</span>
         }
-<span class="nc bnc" id="L1205" title="All 4 branches missed.">        if (dir==null || dir.trim().isEmpty()) {</span>
-<span class="nc" id="L1206">            sort = &quot;asc&quot;;</span>
+<span class="nc bnc" id="L1199" title="All 4 branches missed.">        if (dir==null || dir.trim().isEmpty()) {</span>
+<span class="nc" id="L1200">            sort = &quot;asc&quot;;</span>
         }
-<span class="nc" id="L1208">        String sql = &quot;SELECT * FROM &quot; + BrmoFramework.LAADPROCES_TABEL + buildFilterSql(page, sort, dir,</span>
+<span class="nc" id="L1202">        String sql = &quot;SELECT * FROM &quot; + BrmoFramework.LAADPROCES_TABEL + buildFilterSql(page, sort, dir,</span>
                 filterSoort, filterStatus,params);
 
-<span class="nc" id="L1211">        sql = geomToJdbc.buildPaginationSql(sql, start, limit);</span>
+<span class="nc" id="L1205">        sql = geomToJdbc.buildPaginationSql(sql, start, limit);</span>
 
-<span class="nc" id="L1213">        return (List&lt;LaadProces&gt;)new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(), sql, new BeanListHandler(LaadProces.class, new StagingRowHandler()), params.toArray());</span>
+<span class="nc" id="L1207">        return (List&lt;LaadProces&gt;)new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(), sql, new BeanListHandler(LaadProces.class, new StagingRowHandler()), params.toArray());</span>
     }
 
     public Long[] getLaadProcessenIds(String sort, String dir, String filterSoort, String filterStatus) throws SQLException {
-<span class="nc" id="L1217">        List&lt;String&gt; params = new ArrayList();</span>
-<span class="nc bnc" id="L1218" title="All 4 branches missed.">        if (sort == null || sort.trim().isEmpty()) {</span>
-<span class="nc" id="L1219">            sort = &quot;id&quot;;</span>
+<span class="nc" id="L1211">        List&lt;String&gt; params = new ArrayList();</span>
+<span class="nc bnc" id="L1212" title="All 4 branches missed.">        if (sort == null || sort.trim().isEmpty()) {</span>
+<span class="nc" id="L1213">            sort = &quot;id&quot;;</span>
         }
-<span class="nc bnc" id="L1221" title="All 4 branches missed.">        if (dir == null || dir.trim().isEmpty()) {</span>
-<span class="nc" id="L1222">            dir = &quot;asc&quot;;</span>
+<span class="nc bnc" id="L1215" title="All 4 branches missed.">        if (dir == null || dir.trim().isEmpty()) {</span>
+<span class="nc" id="L1216">            dir = &quot;asc&quot;;</span>
         }
-<span class="nc" id="L1224">        String sql = &quot;SELECT ID FROM &quot; + BrmoFramework.LAADPROCES_TABEL + buildFilterSql(-1, sort, dir, filterSoort, filterStatus, params);</span>
-<span class="nc" id="L1225">        List&lt;Long&gt; ids = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(), sql, new LongColumnListHandler(&quot;id&quot;), params.toArray());</span>
-<span class="nc" id="L1226">        return ids.toArray(new Long[ids.size()]);</span>
+<span class="nc" id="L1218">        String sql = &quot;SELECT ID FROM &quot; + BrmoFramework.LAADPROCES_TABEL + buildFilterSql(-1, sort, dir, filterSoort, filterStatus, params);</span>
+<span class="nc" id="L1219">        List&lt;Long&gt; ids = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(getConnection(), sql, new LongColumnListHandler(&quot;id&quot;), params.toArray());</span>
+<span class="nc" id="L1220">        return ids.toArray(new Long[ids.size()]);</span>
     }
 
     Bericht getOldBericht(Bericht nieuwBericht) {
-<span class="nc" id="L1230">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;);</span>
+<span class="nc" id="L1224">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;);</span>
     }
 
     /**
      * @param batchCapacity the batchCapacity to set
      */
     public void setBatchCapacity(Integer batchCapacity) {
-<span class="nc" id="L1237">        this.batchCapacity = batchCapacity;</span>
-<span class="nc" id="L1238">    }</span>
+<span class="nc" id="L1231">        this.batchCapacity = batchCapacity;</span>
+<span class="nc" id="L1232">    }</span>
 
     public void setLimitStandBerichtenToTransform(Integer limitStandBerichtenToTransform) {
-<span class="nc" id="L1241">        this.limitStandBerichtenToTransform = limitStandBerichtenToTransform;</span>
-<span class="nc" id="L1242">    }</span>
+<span class="nc" id="L1235">        this.limitStandBerichtenToTransform = limitStandBerichtenToTransform;</span>
+<span class="nc" id="L1236">    }</span>
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

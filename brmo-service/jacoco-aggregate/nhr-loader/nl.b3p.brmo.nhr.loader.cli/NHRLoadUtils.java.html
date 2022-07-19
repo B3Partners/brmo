@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>NHRLoadUtils.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">BRMO service</a> &gt; <a href="../index.html" class="el_bundle">nhr-loader</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.brmo.nhr.loader.cli</a> &gt; <span class="el_source">NHRLoadUtils.java</span></div><h1>NHRLoadUtils.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2022 B3Partners B.V.
+ *
+ * SPDX-License-Identifier: MIT
+ *
+ */
+
+package nl.b3p.brmo.nhr.loader.cli;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.security.KeyStore;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
+import javax.net.ssl.KeyManagerFactory;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManagerFactory;
+import javax.security.auth.callback.Callback;
+import javax.security.auth.callback.CallbackHandler;
+import javax.security.auth.callback.UnsupportedCallbackException;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.ws.BindingProvider;
+import nl.b3p.brmo.loader.BrmoFramework;
+import nl.b3p.brmo.loader.util.BrmoException;
+import nl.b3p.brmo.nhr.loader.NHRCertificateOptions;
+import nl.b3p.brmo.nhr.loader.NHRDatabaseOptions;
+import nl.kvk.schemas.schemas.hrip.dataservice._2015._02.Dataservice;
+import nl.kvk.schemas.schemas.hrip.dataservice._2015._02.DataserviceService;
+import org.apache.commons.dbcp2.BasicDataSource;
+import org.apache.cxf.configuration.jsse.TLSClientParameters;
+import org.apache.cxf.endpoint.Client;
+import org.apache.cxf.endpoint.Endpoint;
+import org.apache.cxf.frontend.ClientProxy;
+import org.apache.cxf.transport.http.HTTPConduit;
+import org.apache.cxf.ws.addressing.AddressingProperties;
+import org.apache.cxf.ws.addressing.AttributedURIType;
+import org.apache.cxf.ws.addressing.EndpointReferenceType;
+import org.apache.cxf.ws.addressing.JAXWSAConstants;
+import org.apache.cxf.ws.security.wss4j.WSS4JOutInterceptor;
+import org.apache.wss4j.common.ext.WSPasswordCallback;
+import org.apache.wss4j.dom.handler.WSHandlerConstants;
+
+
+<span class="nc" id="L45">public class NHRLoadUtils {</span>
+    public static BrmoFramework getFramework(NHRDatabaseOptions databaseOptions) throws BrmoException {
+<span class="nc" id="L47">        BasicDataSource dsStaging = new BasicDataSource();</span>
+
+<span class="nc" id="L49">        dsStaging.setUrl(databaseOptions.getConnectionString());</span>
+<span class="nc" id="L50">        dsStaging.setUsername(databaseOptions.getUser());</span>
+<span class="nc" id="L51">        dsStaging.setPassword(databaseOptions.getPassword());</span>
+
+<span class="nc" id="L53">        BrmoFramework fw = new BrmoFramework(dsStaging, null);</span>
+<span class="nc" id="L54">        fw.setOrderBerichten(true);</span>
+<span class="nc" id="L55">        return fw;</span>
+    }
+
+    private static Properties getCryptoProperties(NHRCertificateOptions certificateOptions, String alias) {
+<span class="nc" id="L59">        Properties props = new Properties();</span>
+
+<span class="nc" id="L61">        props.setProperty(&quot;org.apache.ws.security.crypto.provider&quot;, &quot;org.apache.ws.security.components.crypto.Merlin&quot;);</span>
+<span class="nc" id="L62">        props.setProperty(&quot;org.apache.ws.security.crypto.merlin.keystore.file&quot;, certificateOptions.getKeystore());</span>
+<span class="nc" id="L63">        props.setProperty(&quot;org.apache.ws.security.crypto.merlin.keystore.password&quot;, certificateOptions.getKeystorePassword());</span>
+<span class="nc" id="L64">        props.setProperty(&quot;org.apache.ws.security.crypto.merlin.keystore.type&quot;, &quot;PKCS12&quot;);</span>
+<span class="nc" id="L65">        props.setProperty(&quot;org.apache.ws.security.crypto.merlin.keystore.alias&quot;, alias);</span>
+
+<span class="nc" id="L67">        return props;</span>
+    }
+
+    public static Dataservice getDataservice(String targetLocation, boolean preprod, NHRCertificateOptions certificateOptions) throws Exception {
+<span class="nc" id="L71">        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();</span>
+<span class="nc" id="L72">        documentBuilderFactory.setNamespaceAware(true);</span>
+
+<span class="nc" id="L74">        DataserviceService dataServiceService = new DataserviceService();</span>
+<span class="nc" id="L75">        Dataservice dataService = dataServiceService.getDataserviceSoap11();</span>
+<span class="nc" id="L76">        Client client = ClientProxy.getClient(dataService);</span>
+<span class="nc" id="L77">        Endpoint endpoint = client.getEndpoint();</span>
+<span class="nc" id="L78">        HTTPConduit http = (HTTPConduit) client.getConduit();</span>
+
+        // Set up TLS certificates/keys
+<span class="nc" id="L81">        TrustManagerFactory trustManagerFactory = TrustManagerFactory.getInstance(&quot;SunX509&quot;);</span>
+<span class="nc" id="L82">        KeyStore trustStore = KeyStore.getInstance(&quot;PKCS12&quot;);</span>
+
+<span class="nc" id="L84">        try (FileInputStream trustStoreFile = new FileInputStream(certificateOptions.getTruststore())) {</span>
+<span class="nc" id="L85">            trustStore.load(trustStoreFile, certificateOptions.getTruststorePassword().toCharArray());</span>
+        }
+<span class="nc" id="L87">        trustManagerFactory.init(trustStore);</span>
+
+<span class="nc" id="L89">        KeyManagerFactory keyManagerFactory = KeyManagerFactory.getInstance(&quot;SunX509&quot;);</span>
+<span class="nc" id="L90">        KeyStore keyStore = KeyStore.getInstance(&quot;PKCS12&quot;);</span>
+
+<span class="nc" id="L92">        try (FileInputStream keyStoreFile = new FileInputStream(certificateOptions.getKeystore())) {</span>
+<span class="nc" id="L93">            keyStore.load(keyStoreFile, certificateOptions.getKeystorePassword().toCharArray());</span>
+        }
+<span class="nc" id="L95">        String alias = certificateOptions.getKeystoreAlias();</span>
+<span class="nc bnc" id="L96" title="All 4 branches missed.">        if (alias == null || alias.isBlank()) {</span>
+<span class="nc" id="L97">            alias = keyStore.aliases().nextElement();</span>
+        }
+<span class="nc" id="L99">        keyManagerFactory.init(keyStore, certificateOptions.getKeystorePassword().toCharArray());</span>
+
+<span class="nc" id="L101">        SSLContext context = SSLContext.getInstance(&quot;TLSv1.2&quot;);</span>
+<span class="nc" id="L102">        context.init(keyManagerFactory.getKeyManagers(), trustManagerFactory.getTrustManagers(), null);</span>
+
+<span class="nc" id="L104">        TLSClientParameters tlsClientParameters = new TLSClientParameters();</span>
+<span class="nc" id="L105">        tlsClientParameters.setKeyManagers(keyManagerFactory.getKeyManagers());</span>
+<span class="nc" id="L106">        tlsClientParameters.setSslContext(context);</span>
+<span class="nc" id="L107">        http.setTlsClientParameters(tlsClientParameters);</span>
+
+<span class="nc" id="L109">        Map&lt;String, Object&gt; props = new HashMap&lt;String, Object&gt;();</span>
+
+<span class="nc" id="L111">        props.put(WSHandlerConstants.ACTION, WSHandlerConstants.TIMESTAMP + &quot; &quot; + WSHandlerConstants.SIGNATURE);</span>
+<span class="nc" id="L112">        props.put(WSHandlerConstants.INCLUDE_SIGNATURE_TOKEN, &quot;true&quot;);</span>
+<span class="nc" id="L113">        props.put(WSHandlerConstants.SIG_KEY_ID, &quot;DirectReference&quot;);</span>
+<span class="nc" id="L114">        props.put(WSHandlerConstants.USE_SINGLE_CERTIFICATE, &quot;false&quot;);</span>
+
+<span class="nc" id="L116">        props.put(WSHandlerConstants.SIG_PROP_REF_ID, &quot;signatureProperties&quot;);</span>
+<span class="nc" id="L117">        props.put(&quot;signatureProperties&quot;, getCryptoProperties(certificateOptions, alias));</span>
+
+<span class="nc" id="L119">        props.put(WSHandlerConstants.SIGNATURE_PARTS,</span>
+                  &quot;{}{http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd}Timestamp;&quot;
+                  + &quot;{}{http://schemas.xmlsoap.org/soap/envelope/}Body;&quot;
+                  + &quot;{}{http://www.w3.org/2005/08/addressing}To;&quot;
+                  + &quot;{}{http://www.w3.org/2005/08/addressing}ReplyTo;&quot;
+                  + &quot;{}{http://www.w3.org/2005/08/addressing}MessageID;&quot;
+                  + &quot;{}{http://www.w3.org/2005/08/addressing}Action&quot;);
+
+<span class="nc" id="L127">        props.put(WSHandlerConstants.USER, alias);</span>
+<span class="nc" id="L128">        props.put(WSHandlerConstants.PW_CALLBACK_REF, new CallbackHandler() {</span>
+            public void handle(Callback[] callbacks) throws IOException, UnsupportedCallbackException {
+<span class="nc bnc" id="L130" title="All 2 branches missed.">                for (Callback callback : callbacks) {</span>
+<span class="nc" id="L131">                    ((WSPasswordCallback) callback).setPassword(certificateOptions.getKeystorePassword());</span>
+<span class="nc" id="L132">                    return;</span>
+                }
+<span class="nc" id="L134">            }</span>
+        });
+
+<span class="nc" id="L137">        WSS4JOutInterceptor wssOut = new WSS4JOutInterceptor(props);</span>
+<span class="nc" id="L138">        endpoint.getOutInterceptors().add(wssOut);</span>
+
+        // Set up necessary WS-Addressing fields.
+<span class="nc" id="L141">        AddressingProperties maps = new AddressingProperties();</span>
+<span class="nc" id="L142">        EndpointReferenceType anonref = new EndpointReferenceType();</span>
+<span class="nc" id="L143">        AttributedURIType anonymous = new AttributedURIType();</span>
+<span class="nc" id="L144">        anonymous.setValue(&quot;http://www.w3.org/2005/08/addressing/anonymous&quot;);</span>
+<span class="nc" id="L145">        anonref.setAddress(anonymous);</span>
+<span class="nc" id="L146">        maps.setReplyTo(anonref);</span>
+<span class="nc" id="L147">        maps.setFaultTo(anonref);</span>
+
+        // &lt;wsa:To&gt; needs to point at a predefined value.
+<span class="nc" id="L150">        EndpointReferenceType toval = new EndpointReferenceType();</span>
+<span class="nc" id="L151">        AttributedURIType target = new AttributedURIType();</span>
+<span class="nc bnc" id="L152" title="All 2 branches missed.">        target.setValue(preprod ? &quot;http://es.kvk.nl/kvk-DataservicePP/2015/02&quot; : &quot;http://es.kvk.nl/kvk-Dataservice/2015/02&quot;);</span>
+<span class="nc" id="L153">        toval.setAddress(target);</span>
+<span class="nc" id="L154">        maps.setTo(toval);</span>
+
+<span class="nc" id="L156">        BindingProvider bindingProvider = (BindingProvider) dataService;</span>
+<span class="nc" id="L157">        bindingProvider.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, targetLocation);</span>
+<span class="nc" id="L158">        bindingProvider.getRequestContext().put(JAXWSAConstants.CLIENT_ADDRESSING_PROPERTIES, maps);</span>
+
+<span class="nc" id="L160">        return dataService;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -3,19 +3,20 @@
  */
 package nl.b3p.brmo.service.proxy;
 
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.zip.GZIPInputStream;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
  * Endpoint servlet welke geposte bestanden doorstuurt naar de BRMO. Voorbeeld:
@@ -23,9 +24,9 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author mprins
  */
-<span class="nc" id="L26">public class BerichtEndpointProxyServlet extends HttpServlet {</span>
+<span class="nc" id="L27">public class BerichtEndpointProxyServlet extends HttpServlet {</span>
 
-<span class="nc" id="L28">    private static final Log log = LogFactory.getLog(BerichtEndpointProxyServlet.class);</span>
+<span class="nc" id="L29">    private static final Log log = LogFactory.getLog(BerichtEndpointProxyServlet.class);</span>
 
     private static final String PROXY_FOR_URL = &quot;proxy_for_url&quot;;
     private URL proxyForUrl;
@@ -35,17 +36,18 @@ import org.apache.commons.logging.LogFactory;
     @Override
     public void init() throws ServletException {
         try {
-<span class="nc" id="L38">            this.maxUploadSize = Integer.parseInt(this.getInitParameter(MAX_UPLOAD_SIZE)) * 1024;</span>
-<span class="nc" id="L39">        } catch (NumberFormatException nfe) {</span>
-<span class="nc" id="L40">            this.maxUploadSize = 25 * 1024 * 1024;</span>
-<span class="nc" id="L41">            log.warn(&quot;De maximale upload size is ingesteld op 25 MB (default).&quot;);</span>
-<span class="nc" id="L42">        }</span>
+<span class="nc" id="L39">            this.maxUploadSize = Integer.parseInt(this.getInitParameter(MAX_UPLOAD_SIZE)) * 1024 * 1024;</span>
+<span class="nc" id="L40">            log.info(&quot;De maximale upload size is ingesteld op &quot; + this.maxUploadSize + &quot; MB.&quot;);</span>
+<span class="nc" id="L41">        } catch (NumberFormatException nfe) {</span>
+<span class="nc" id="L42">            this.maxUploadSize = 25 * 1024 * 1024;</span>
+<span class="nc" id="L43">            log.warn(&quot;De maximale upload size is ingesteld op 25 MB (default).&quot;);</span>
+<span class="nc" id="L44">        }</span>
         try {
-<span class="nc" id="L44">            this.proxyForUrl = new URL(this.getInitParameter(PROXY_FOR_URL));</span>
-<span class="nc" id="L45">        } catch (MalformedURLException ex) {</span>
-<span class="nc" id="L46">            throw new ServletException(ex);</span>
-<span class="nc" id="L47">        }</span>
-<span class="nc" id="L48">    }</span>
+<span class="nc" id="L46">            this.proxyForUrl = new URL(this.getInitParameter(PROXY_FOR_URL));</span>
+<span class="nc" id="L47">        } catch (MalformedURLException ex) {</span>
+<span class="nc" id="L48">            throw new ServletException(ex);</span>
+<span class="nc" id="L49">        }</span>
+<span class="nc" id="L50">    }</span>
 
     /**
      * Handles the HTTP {@code POST} method.
@@ -59,26 +61,26 @@ import org.apache.commons.logging.LogFactory;
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-<span class="nc bnc" id="L62" title="All 2 branches missed.">        if (request.getContentLength() &gt; this.maxUploadSize) {</span>
-<span class="nc" id="L63">            throw new ServletException(&quot;De 'max_upload_size' is overschreden.&quot;);</span>
+<span class="nc bnc" id="L64" title="All 2 branches missed.">        if (request.getContentLength() &gt; this.maxUploadSize) {</span>
+<span class="nc" id="L65">            throw new ServletException(&quot;De 'max_upload_size' is overschreden.&quot;);</span>
         }
-<span class="nc" id="L65">        HttpURLConnection conn = (HttpURLConnection) this.proxyForUrl.openConnection();</span>
-<span class="nc" id="L66">        conn.setDoOutput(true);</span>
-<span class="nc" id="L67">        conn.setUseCaches(false);</span>
-<span class="nc" id="L68">        conn.setRequestMethod(&quot;POST&quot;);</span>
-<span class="nc" id="L69">        conn.setRequestProperty(&quot;Content-Length&quot;, &quot;&quot; + request.getContentLength());</span>
-<span class="nc" id="L70">        conn.setRequestProperty(&quot;Content-Type&quot;, &quot;application/octet-stream&quot;);</span>
-<span class="nc" id="L71">        InputStream in = request.getInputStream();</span>
-<span class="nc bnc" id="L72" title="All 2 branches missed.">        if (&quot;gzip&quot;.equals(request.getHeader(&quot;Content-Encoding&quot;))) {</span>
-<span class="nc" id="L73">            in = new GZIPInputStream(in);</span>
+<span class="nc" id="L67">        HttpURLConnection conn = (HttpURLConnection) this.proxyForUrl.openConnection();</span>
+<span class="nc" id="L68">        conn.setDoOutput(true);</span>
+<span class="nc" id="L69">        conn.setUseCaches(false);</span>
+<span class="nc" id="L70">        conn.setRequestMethod(&quot;POST&quot;);</span>
+<span class="nc" id="L71">        conn.setRequestProperty(&quot;Content-Length&quot;, &quot;&quot; + request.getContentLength());</span>
+<span class="nc" id="L72">        conn.setRequestProperty(&quot;Content-Type&quot;, &quot;application/octet-stream&quot;);</span>
+<span class="nc" id="L73">        InputStream in = request.getInputStream();</span>
+<span class="nc bnc" id="L74" title="All 2 branches missed.">        if (&quot;gzip&quot;.equals(request.getHeader(&quot;Content-Encoding&quot;))) {</span>
+<span class="nc" id="L75">            in = new GZIPInputStream(in);</span>
         }
-<span class="nc" id="L75">        int copied = IOUtils.copy(in, conn.getOutputStream());</span>
-<span class="nc" id="L76">        conn.disconnect();</span>
+<span class="nc" id="L77">        int copied = IOUtils.copy(in, conn.getOutputStream());</span>
+<span class="nc" id="L78">        conn.disconnect();</span>
 
-<span class="nc" id="L78">        log.info(String.format(&quot;BRMO response status: %d: %s (%d bytes).&quot;,</span>
-<span class="nc" id="L79">                conn.getResponseCode(), conn.getResponseMessage(), copied));</span>
+<span class="nc" id="L80">        log.info(String.format(&quot;BRMO response status: %d: %s (%d bytes).&quot;,</span>
+<span class="nc" id="L81">                conn.getResponseCode(), conn.getResponseMessage(), copied));</span>
 
-<span class="nc" id="L81">        response.setStatus(HttpServletResponse.SC_OK);</span>
-<span class="nc" id="L82">    }</span>
+<span class="nc" id="L83">        response.setStatus(HttpServletResponse.SC_OK);</span>
+<span class="nc" id="L84">    }</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

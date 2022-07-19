@@ -24,7 +24,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import nl.b3p.brmo.bgt.download.model.HalLink;
+import nl.b3p.brmo.bgt.download.model.DeltaCustomDownloadResponseLinksStatus;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 
@@ -37,33 +37,33 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @javax.annotation.processing.Generated(value = &quot;org.openapitools.codegen.languages.JavaClientCodegen&quot;)
 public class DeltaCustomDownloadResponseLinks {
   public static final String JSON_PROPERTY_STATUS = &quot;status&quot;;
-  private HalLink status;
+  private DeltaCustomDownloadResponseLinksStatus status;
 
 <span class="nc" id="L42">  public DeltaCustomDownloadResponseLinks() { </span>
 <span class="nc" id="L43">  }</span>
 
-  public DeltaCustomDownloadResponseLinks status(HalLink status) {
+  public DeltaCustomDownloadResponseLinks status(DeltaCustomDownloadResponseLinksStatus status) {
 <span class="nc" id="L46">    this.status = status;</span>
 <span class="nc" id="L47">    return this;</span>
   }
 
    /**
-   * Absolute path naar het endpoint waarop de status van de aanvraag opgehaald kan worden
+   * Get status
    * @return status
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = &quot;Absolute path naar het endpoint waarop de status van de aanvraag opgehaald kan worden&quot;)
+  @ApiModelProperty(value = &quot;&quot;)
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public HalLink getStatus() {
+  public DeltaCustomDownloadResponseLinksStatus getStatus() {
 <span class="nc" id="L60">    return status;</span>
   }
 
 
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setStatus(HalLink status) {
+  public void setStatus(DeltaCustomDownloadResponseLinksStatus status) {
 <span class="nc" id="L67">    this.status = status;</span>
 <span class="nc" id="L68">  }</span>
 
@@ -110,4 +110,4 @@ public class DeltaCustomDownloadResponseLinks {
 
 }
 
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

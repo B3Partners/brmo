@@ -27,6 +27,8 @@ import org.quartz.JobBuilder;
 import org.quartz.JobDetail;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
+import org.quartz.SimpleScheduleBuilder;
+import org.quartz.SimpleTrigger;
 import org.quartz.TriggerBuilder;
 import org.quartz.impl.StdSchedulerFactory;
 import org.stripesstuff.stripersist.Stripersist;
@@ -39,10 +41,11 @@ import org.stripesstuff.stripersist.Stripersist;
  *
  * @author mprins
  */
-<span class="nc" id="L42">public class GeplandeTakenInit implements Servlet {</span>
+<span class="nc" id="L44">public class GeplandeTakenInit implements Servlet {</span>
 
-<span class="nc" id="L44">    private static final Log log = LogFactory.getLog(GeplandeTakenInit.class);</span>
+<span class="nc" id="L46">    private static final Log log = LogFactory.getLog(GeplandeTakenInit.class);</span>
     private static Scheduler scheduler;
+    private static Scheduler nhrScheduler;
 
     public static final String JOBKEY_PREFIX = &quot;proces_&quot;;
 
@@ -52,82 +55,136 @@ import org.stripesstuff.stripersist.Stripersist;
 
     public static final String QUARTZ_FACTORY_KEY = &quot;BRMO_qtz_factory&quot;;
 
+    public static final String NHR_SCHEDULER_NAME = &quot;BRMOnhrTaken&quot;;
+
+    public static final String NHR_QUARTZ_FACTORY_KEY = &quot;BRMO_nhr_qtz_factory&quot;;
+
     private ServletConfig config;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
-<span class="nc" id="L59">        this.config = config;</span>
+<span class="nc" id="L66">        this.config = config;</span>
         try {
-<span class="nc" id="L61">            this.setupQuartz();</span>
-<span class="nc" id="L62">        } catch (SchedulerException ex) {</span>
-<span class="nc" id="L63">            log.error(ex);</span>
-<span class="nc" id="L64">        }</span>
-<span class="nc" id="L65">    }</span>
+<span class="nc" id="L68">            this.setupQuartz();</span>
+<span class="nc" id="L69">        } catch (SchedulerException ex) {</span>
+<span class="nc" id="L70">            log.error(ex);</span>
+<span class="nc" id="L71">        }</span>
+<span class="nc" id="L72">    }</span>
 
     @Override
     public ServletConfig getServletConfig() {
-<span class="nc" id="L69">        return config;</span>
+<span class="nc" id="L76">        return config;</span>
     }
 
     @Override
     public void service(ServletRequest req, ServletResponse res) throws ServletException, IOException {
-<span class="nc" id="L74">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;);</span>
+<span class="nc" id="L81">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;);</span>
     }
 
     @Override
     public String getServletInfo() {
-<span class="nc" id="L79">        return &quot;Initialiseer Quartz scheduler voor BRMO&quot;;</span>
+<span class="nc" id="L86">        return &quot;Initialiseer Quartz scheduler voor BRMO&quot;;</span>
     }
 
     @Override
     public void destroy() {
         try {
-<span class="nc" id="L85">            destroyQuartz();</span>
-<span class="nc" id="L86">        } catch (SchedulerException ex) {</span>
-<span class="nc" id="L87">            log.warn(ex);</span>
-<span class="nc" id="L88">        }</span>
-<span class="nc" id="L89">    }</span>
+<span class="nc" id="L92">            destroyQuartz();</span>
+<span class="nc" id="L93">        } catch (SchedulerException ex) {</span>
+<span class="nc" id="L94">            log.warn(ex);</span>
+<span class="nc" id="L95">        }</span>
+<span class="nc" id="L96">    }</span>
 
     private void destroyQuartz() throws SchedulerException {
-<span class="nc bnc" id="L92" title="All 2 branches missed.">        if (scheduler != null) {</span>
-<span class="nc" id="L93">            scheduler.shutdown(true);</span>
+<span class="nc bnc" id="L99" title="All 2 branches missed.">        if (scheduler != null) {</span>
+<span class="nc" id="L100">            scheduler.shutdown(true);</span>
         }
-<span class="nc" id="L95">    }</span>
+
+<span class="nc bnc" id="L103" title="All 2 branches missed.">        if (nhrScheduler != null) {</span>
+<span class="nc" id="L104">            nhrScheduler.shutdown(false);</span>
+        }
+<span class="nc" id="L106">    }</span>
 
     private void setupQuartz() throws SchedulerException {
-<span class="nc" id="L98">        Properties props = new Properties();</span>
-<span class="nc" id="L99">        props.put(&quot;org.quartz.scheduler.instanceName&quot;, SCHEDULER_NAME);</span>
-<span class="nc" id="L100">        String threadCount = this.getServletConfig().getServletContext().getInitParameter(&quot;quartz.threadCount&quot;);</span>
-<span class="nc bnc" id="L101" title="All 4 branches missed.">        if (threadCount != null &amp;&amp; (Integer.parseInt(threadCount) &gt; 1)) {</span>
-<span class="nc" id="L102">            log.warn(&quot;Instellen van quartz threadcount op niet-default waarde van &quot; + threadCount</span>
+<span class="nc" id="L109">        Properties props = new Properties();</span>
+<span class="nc" id="L110">        props.put(&quot;org.quartz.scheduler.instanceName&quot;, SCHEDULER_NAME);</span>
+<span class="nc" id="L111">        String threadCount = this.getServletConfig().getServletContext().getInitParameter(&quot;quartz.threadCount&quot;);</span>
+<span class="nc bnc" id="L112" title="All 4 branches missed.">        if (threadCount != null &amp;&amp; (Integer.parseInt(threadCount) &gt; 1)) {</span>
+<span class="nc" id="L113">            log.warn(&quot;Instellen van quartz threadcount op niet-default waarde van &quot; + threadCount</span>
                     + &quot; Gebruiker moet zorg dragen dat er geen overlappende transformatie- of GDS2 processen van eenzelfde soort zijn.&quot;);
-<span class="nc" id="L104">            props.put(&quot;org.quartz.threadPool.threadCount&quot;, threadCount);</span>
+<span class="nc" id="L115">            props.put(&quot;org.quartz.threadPool.threadCount&quot;, threadCount);</span>
         } else {
-<span class="nc" id="L106">            props.put(&quot;org.quartz.threadPool.threadCount&quot;, &quot;1&quot;);</span>
+<span class="nc" id="L117">            props.put(&quot;org.quartz.threadPool.threadCount&quot;, &quot;1&quot;);</span>
         }
-<span class="nc" id="L108">        props.put(&quot;org.quartz.scheduler.interruptJobsOnShutdownWithWait&quot;, &quot;true&quot;);</span>
-<span class="nc" id="L109">        props.put(&quot;org.quartz.jobStore.class&quot;, &quot;org.quartz.simpl.RAMJobStore&quot;);</span>
-<span class="nc" id="L110">        props.put(&quot;org.quartz.scheduler.skipUpdateCheck&quot;, &quot;true&quot;);</span>
-<span class="nc" id="L111">        log.debug(&quot;Start quartz scheduler met de opties: &quot; + props);</span>
+<span class="nc" id="L119">        props.put(&quot;org.quartz.scheduler.interruptJobsOnShutdownWithWait&quot;, &quot;true&quot;);</span>
+<span class="nc" id="L120">        props.put(&quot;org.quartz.jobStore.class&quot;, &quot;org.quartz.simpl.RAMJobStore&quot;);</span>
+<span class="nc" id="L121">        props.put(&quot;org.quartz.scheduler.skipUpdateCheck&quot;, &quot;true&quot;);</span>
+<span class="nc" id="L122">        log.debug(&quot;Start quartz scheduler met de opties: &quot; + props);</span>
 
-<span class="nc" id="L113">        StdSchedulerFactory factory = new StdSchedulerFactory(props);</span>
-<span class="nc" id="L114">        scheduler = factory.getScheduler();</span>
-<span class="nc" id="L115">        scheduler.start();</span>
+<span class="nc" id="L124">        StdSchedulerFactory factory = new StdSchedulerFactory(props);</span>
+<span class="nc" id="L125">        scheduler = factory.getScheduler();</span>
+<span class="nc" id="L126">        scheduler.start();</span>
 
-<span class="nc" id="L117">        Stripersist.requestInit();</span>
-<span class="nc" id="L118">        EntityManager entityManager = Stripersist.getEntityManager();</span>
+<span class="nc" id="L128">        Stripersist.requestInit();</span>
+<span class="nc" id="L129">        EntityManager entityManager = Stripersist.getEntityManager();</span>
 
-<span class="nc" id="L120">        CriteriaBuilder cb = entityManager.getCriteriaBuilder();</span>
-<span class="nc" id="L121">        CriteriaQuery&lt;AutomatischProces&gt; cq = cb.createQuery(AutomatischProces.class);</span>
-<span class="nc" id="L122">        Root&lt;AutomatischProces&gt; from = cq.from(AutomatischProces.class);</span>
-<span class="nc" id="L123">        cq.where(cb.isNotNull(from.get(&quot;cronExpressie&quot;)));</span>
-<span class="nc" id="L124">        List&lt;AutomatischProces&gt; procList = entityManager.createQuery(cq).getResultList();</span>
+<span class="nc" id="L131">        CriteriaBuilder cb = entityManager.getCriteriaBuilder();</span>
+<span class="nc" id="L132">        CriteriaQuery&lt;AutomatischProces&gt; cq = cb.createQuery(AutomatischProces.class);</span>
+<span class="nc" id="L133">        Root&lt;AutomatischProces&gt; from = cq.from(AutomatischProces.class);</span>
+<span class="nc" id="L134">        cq.where(cb.isNotNull(from.get(&quot;cronExpressie&quot;)));</span>
+<span class="nc" id="L135">        List&lt;AutomatischProces&gt; procList = entityManager.createQuery(cq).getResultList();</span>
 
-<span class="nc bnc" id="L126" title="All 2 branches missed.">        for (AutomatischProces p : procList) {</span>
-<span class="nc" id="L127">            addJobDetails(scheduler, p);</span>
-<span class="nc" id="L128">        }</span>
-<span class="nc" id="L129">        this.getServletConfig().getServletContext().setAttribute(QUARTZ_FACTORY_KEY, factory);</span>
-<span class="nc" id="L130">    }</span>
+<span class="nc bnc" id="L137" title="All 2 branches missed.">        for (AutomatischProces p : procList) {</span>
+<span class="nc" id="L138">            addJobDetails(scheduler, p);</span>
+<span class="nc" id="L139">        }</span>
+
+<span class="nc" id="L141">        createNHRJob();</span>
+
+<span class="nc" id="L143">        this.getServletConfig().getServletContext().setAttribute(QUARTZ_FACTORY_KEY, factory);</span>
+<span class="nc" id="L144">    }</span>
+
+    private void createNHRJob() throws SchedulerException {
+<span class="nc" id="L147">        Properties props = new Properties();</span>
+<span class="nc" id="L148">        props.put(&quot;org.quartz.scheduler.instanceName&quot;, NHR_SCHEDULER_NAME);</span>
+<span class="nc" id="L149">        props.put(&quot;org.quartz.threadPool.threadCount&quot;, &quot;1&quot;);</span>
+<span class="nc" id="L150">        props.put(&quot;org.quartz.scheduler.interruptJobsOnShutdownWithWait&quot;, &quot;true&quot;);</span>
+<span class="nc" id="L151">        props.put(&quot;org.quartz.jobStore.class&quot;, &quot;org.quartz.simpl.RAMJobStore&quot;);</span>
+<span class="nc" id="L152">        props.put(&quot;org.quartz.scheduler.skipUpdateCheck&quot;, &quot;true&quot;);</span>
+
+<span class="nc" id="L154">        StdSchedulerFactory factory = new StdSchedulerFactory(props);</span>
+<span class="nc" id="L155">        nhrScheduler = factory.getScheduler();</span>
+<span class="nc" id="L156">        nhrScheduler.start();</span>
+
+<span class="nc" id="L158">        JobDetail job = JobBuilder.newJob(NHRJob.class)</span>
+<span class="nc" id="L159">          .withIdentity(&quot;NHR&quot;)</span>
+<span class="nc" id="L160">          .build();</span>
+
+<span class="nc" id="L162">        SimpleTrigger trigger = TriggerBuilder.newTrigger()</span>
+<span class="nc" id="L163">          .startNow()</span>
+<span class="nc" id="L164">          .forJob(job)</span>
+<span class="nc" id="L165">          .withIdentity(&quot;NHR&quot;)</span>
+<span class="nc" id="L166">          .withSchedule(SimpleScheduleBuilder.repeatMinutelyForever(10))</span>
+<span class="nc" id="L167">          .build();</span>
+
+<span class="nc" id="L169">        nhrScheduler.scheduleJob(job, trigger);</span>
+
+<span class="nc" id="L171">        JobDetail emailJob = JobBuilder.newJob(NHREmailJob.class)</span>
+<span class="nc" id="L172">          .withIdentity(&quot;NHR-email&quot;)</span>
+<span class="nc" id="L173">          .build();</span>
+
+<span class="nc" id="L175">        CronTrigger emailTrigger = TriggerBuilder.newTrigger()</span>
+<span class="nc" id="L176">          .startNow()</span>
+<span class="nc" id="L177">          .forJob(emailJob)</span>
+<span class="nc" id="L178">          .withIdentity(&quot;NHR-email&quot;)</span>
+<span class="nc" id="L179">          .withSchedule(CronScheduleBuilder.dailyAtHourAndMinute(0, 0))</span>
+<span class="nc" id="L180">          .build();</span>
+
+<span class="nc" id="L182">        nhrScheduler.scheduleJob(emailJob, emailTrigger);</span>
+
+<span class="nc" id="L184">        log.info(&quot;NHR taak opgestart&quot;);</span>
+
+<span class="nc" id="L186">        this.getServletConfig().getServletContext().setAttribute(NHR_QUARTZ_FACTORY_KEY, factory);</span>
+<span class="nc" id="L187">    }</span>
 
     /**
      * voeg een job toe op basis van het proces.
@@ -138,28 +195,28 @@ import org.stripesstuff.stripersist.Stripersist;
      */
     public static void addJobDetails(Scheduler scheduler, AutomatischProces p) throws SchedulerException {
         try {
-<span class="nc" id="L141">            CronExpression cron = new CronExpression(p.getCronExpressie());</span>
+<span class="nc" id="L198">            CronExpression cron = new CronExpression(p.getCronExpressie());</span>
 
-<span class="nc" id="L143">            JobDetail job = JobBuilder.newJob(AutomatischProcesJob.class)</span>
-<span class="nc" id="L144">                    .usingJobData(&quot;id&quot;, p.getId())</span>
-<span class="nc" id="L145">                    .withIdentity(JOBKEY_PREFIX + p.getId())</span>
-<span class="nc" id="L146">                    .build();</span>
+<span class="nc" id="L200">            JobDetail job = JobBuilder.newJob(AutomatischProcesJob.class)</span>
+<span class="nc" id="L201">                    .usingJobData(&quot;id&quot;, p.getId())</span>
+<span class="nc" id="L202">                    .withIdentity(JOBKEY_PREFIX + p.getId())</span>
+<span class="nc" id="L203">                    .build();</span>
 
-<span class="nc" id="L148">            CronTrigger trigger = TriggerBuilder.newTrigger()</span>
-<span class="nc" id="L149">                    .startNow()</span>
-<span class="nc" id="L150">                    .forJob(job)</span>
-<span class="nc" id="L151">                    .withIdentity(TRIGGERKEY_PREFIX + p.getId())</span>
-<span class="nc" id="L152">                    .withSchedule(CronScheduleBuilder.cronSchedule(cron))</span>
-<span class="nc" id="L153">                    .build();</span>
-<span class="nc" id="L154">            scheduler.scheduleJob(job, trigger);</span>
+<span class="nc" id="L205">            CronTrigger trigger = TriggerBuilder.newTrigger()</span>
+<span class="nc" id="L206">                    .startNow()</span>
+<span class="nc" id="L207">                    .forJob(job)</span>
+<span class="nc" id="L208">                    .withIdentity(TRIGGERKEY_PREFIX + p.getId())</span>
+<span class="nc" id="L209">                    .withSchedule(CronScheduleBuilder.cronSchedule(cron))</span>
+<span class="nc" id="L210">                    .build();</span>
+<span class="nc" id="L211">            scheduler.scheduleJob(job, trigger);</span>
 
-<span class="nc" id="L156">            log.info(String.format(&quot;%s met id: %d met cron expressie %s is toegevoegd (of bijgewerkt).&quot;,</span>
-<span class="nc" id="L157">                    p.getClass().getSimpleName(), p.getId(), p.getCronExpressie()));</span>
-<span class="nc" id="L158">        } catch (ParseException ex) {</span>
-<span class="nc" id="L159">            log.warn(String.format(&quot;Ongeldige cron expressie voor %s met id %d. Het proces is niet ingepland.&quot;,</span>
-<span class="nc" id="L160">                    p.getClass().getSimpleName(), p.getId()), ex);</span>
-<span class="nc" id="L161">        }</span>
-<span class="nc" id="L162">    }</span>
+<span class="nc" id="L213">            log.info(String.format(&quot;%s met id: %d met cron expressie %s is toegevoegd (of bijgewerkt).&quot;,</span>
+<span class="nc" id="L214">                    p.getClass().getSimpleName(), p.getId(), p.getCronExpressie()));</span>
+<span class="nc" id="L215">        } catch (ParseException ex) {</span>
+<span class="nc" id="L216">            log.warn(String.format(&quot;Ongeldige cron expressie voor %s met id %d. Het proces is niet ingepland.&quot;,</span>
+<span class="nc" id="L217">                    p.getClass().getSimpleName(), p.getId()), ex);</span>
+<span class="nc" id="L218">        }</span>
+<span class="nc" id="L219">    }</span>
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

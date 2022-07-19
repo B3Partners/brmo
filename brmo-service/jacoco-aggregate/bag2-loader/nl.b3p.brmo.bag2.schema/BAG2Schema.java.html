@@ -77,23 +77,33 @@ public class BAG2Schema extends Schema {
     public BAG2Schema() {
 <span class="fc" id="L78">        super();</span>
 
-<span class="fc" id="L80">        addObjectType(new BAG2ObjectType(this, &quot;Woonplaats&quot;, withBaseAttributes(</span>
+        // For Woonplaats, use CHAR(4) instead of CHAR(16). For Oracle we can't use CHAR(16) because then we would need
+        // to query with space-padded values to correctly delete previous versions on mutaties (issue 13151).
+<span class="fc" id="L82">        List&lt;AttributeColumnMapping&gt; woonplaatsAttributes = bag2BaseAttributes.stream().map(attribute -&gt; {</span>
+<span class="fc bfc" id="L83" title="All 2 branches covered.">            if (&quot;identificatie&quot;.equals(attribute.getName())) {</span>
+<span class="fc" id="L84">                return new AttributeColumnMapping(&quot;identificatie&quot;,  &quot;char(4)&quot;, true, true);</span>
+            }
+<span class="fc" id="L86">            return attribute;</span>
+<span class="fc" id="L87">        }).collect(Collectors.toList());</span>
+<span class="fc" id="L88">        woonplaatsAttributes.addAll(List.of(</span>
                 new AttributeColumnMapping(&quot;naam&quot;),
                 new GeometryAttributeColumnMapping(&quot;geometrie&quot;, &quot;geometry(GEOMETRY, 28992)&quot;)
-<span class="fc" id="L83">        )).addExtraDataDefinitionSQL(List.of(</span>
+        ));
+<span class="fc" id="L92">        addObjectType(new BAG2ObjectType(this, &quot;Woonplaats&quot;, woonplaatsAttributes</span>
+<span class="fc" id="L93">        ).addExtraDataDefinitionSQL(List.of(</span>
                 &quot;create or replace view v_woonplaats_actueel as select * from woonplaats where &quot; + WHERE_CLAUSE_ACTUEEL
         )));
 
-<span class="fc" id="L87">        addObjectType(new BAG2ObjectType(this, &quot;OpenbareRuimte&quot;, withBaseAttributes(</span>
+<span class="fc" id="L97">        addObjectType(new BAG2ObjectType(this, &quot;OpenbareRuimte&quot;, withBaseAttributes(</span>
                 new AttributeColumnMapping(&quot;naam&quot;),
                 new AttributeColumnMapping(&quot;verkorteNaam&quot;, &quot;varchar(255)&quot;, false),
                 new AttributeColumnMapping(&quot;type&quot;),
                 new AttributeColumnMapping(&quot;ligtIn&quot;, &quot;char(4)&quot;, false)
-<span class="fc" id="L92">        )).addExtraDataDefinitionSQL(List.of(</span>
+<span class="fc" id="L102">        )).addExtraDataDefinitionSQL(List.of(</span>
                 &quot;create or replace view v_openbareruimte_actueel as select * from openbareruimte where &quot; + WHERE_CLAUSE_ACTUEEL
         )));
 
-<span class="fc" id="L96">        addObjectType(new BAG2ObjectType(this, &quot;Nummeraanduiding&quot;, withBaseAttributes(</span>
+<span class="fc" id="L106">        addObjectType(new BAG2ObjectType(this, &quot;Nummeraanduiding&quot;, withBaseAttributes(</span>
                 new IntegerAttributeColumnMapping(&quot;huisnummer&quot;),
                 new AttributeColumnMapping(&quot;huisletter&quot;, &quot;varchar(255)&quot;, false),
                 new AttributeColumnMapping(&quot;huisnummertoevoeging&quot;, &quot;varchar(255)&quot;, false),
@@ -101,49 +111,49 @@ public class BAG2Schema extends Schema {
                 new AttributeColumnMapping(&quot;typeAdresseerbaarObject&quot;, &quot;varchar(255)&quot;, false),
                 new AttributeColumnMapping(&quot;ligtIn&quot;, &quot;char(4)&quot;, false),
                 new AttributeColumnMapping(&quot;ligtAan&quot;, &quot;char(16)&quot;, false)
-<span class="fc" id="L104">        )).addExtraDataDefinitionSQL(List.of(</span>
+<span class="fc" id="L114">        )).addExtraDataDefinitionSQL(List.of(</span>
                 &quot;create or replace view v_nummeraanduiding_actueel as select * from nummeraanduiding where &quot; + WHERE_CLAUSE_ACTUEEL
         )));
 
-<span class="fc" id="L108">        addObjectType(new BAG2ObjectType(this, &quot;Verblijfsobject&quot;, withBaseAttributes(</span>
+<span class="fc" id="L118">        addObjectType(new BAG2ObjectType(this, &quot;Verblijfsobject&quot;, withBaseAttributes(</span>
                 new ArrayAttributeMapping(&quot;gebruiksdoel&quot;, &quot;gebruiksdoel&quot;, &quot;varchar(255)&quot;),
                 new IntegerAttributeColumnMapping(&quot;oppervlakte&quot;),
                 new AttributeColumnMapping(&quot;heeftAlsHoofdadres&quot;, &quot;char(16)&quot;, false),
                 new ArrayAttributeMapping(&quot;heeftAlsNevenadres&quot;, &quot;nevenadres&quot;, &quot;char(16)&quot;),
                 new ArrayAttributeMapping(&quot;maaktDeelUitVan&quot;, &quot;maaktdeeluitvan&quot;, &quot;char(16)&quot;),
                 new GeometryAttributeColumnMapping(&quot;geometrie&quot;, &quot;geometry(GEOMETRY, 28992)&quot;)
-<span class="fc" id="L115">        )).addExtraDataDefinitionSQL(List.of(</span>
+<span class="fc" id="L125">        )).addExtraDataDefinitionSQL(List.of(</span>
                 &quot;create or replace view v_verblijfsobject_actueel as select * from verblijfsobject where &quot; + WHERE_CLAUSE_ACTUEEL,
                 &quot;create index verblijfsobject_nevenadres_idx on verblijfsobject_nevenadres (identificatie, voorkomenidentificatie)&quot;,
                 &quot;create index verblijfsobject_maaktdeeluitvan_idx on verblijfsobject_maaktdeeluitvan (identificatie, voorkomenidentificatie)&quot;,
                 &quot;create index verblijfsobject_gebruiksdoel_idx on verblijfsobject_gebruiksdoel (identificatie, voorkomenidentificatie)&quot;
         )));
 
-<span class="fc" id="L122">        addObjectType(new BAG2ObjectType(this, &quot;Ligplaats&quot;, withBaseAttributes(</span>
+<span class="fc" id="L132">        addObjectType(new BAG2ObjectType(this, &quot;Ligplaats&quot;, withBaseAttributes(</span>
                 new GeometryAttributeColumnMapping(&quot;geometrie&quot;, &quot;geometry(POLYGON, 28992)&quot;),
                 new AttributeColumnMapping(&quot;heeftAlsHoofdadres&quot;, &quot;char(16)&quot;, false),
                 new ArrayAttributeMapping(&quot;heeftAlsNevenadres&quot;, &quot;nevenadres&quot;, &quot;char(16)&quot;)
-<span class="fc" id="L126">        )).addExtraDataDefinitionSQL(List.of(</span>
+<span class="fc" id="L136">        )).addExtraDataDefinitionSQL(List.of(</span>
                 &quot;create or replace view v_ligplaats_actueel as select * from ligplaats where &quot; + WHERE_CLAUSE_ACTUEEL,
                 &quot;create index ligplaats_nevenadres_idx on ligplaats_nevenadres (identificatie, voorkomenidentificatie)&quot;
         )));
 
-<span class="fc" id="L131">        addObjectType(new BAG2ObjectType(this, &quot;Standplaats&quot;, withBaseAttributes(</span>
+<span class="fc" id="L141">        addObjectType(new BAG2ObjectType(this, &quot;Standplaats&quot;, withBaseAttributes(</span>
                 new GeometryAttributeColumnMapping(&quot;geometrie&quot;, &quot;geometry(POLYGON, 28992)&quot;),
                 new AttributeColumnMapping(&quot;heeftAlsHoofdadres&quot;, &quot;char(16)&quot;, false),
                 new ArrayAttributeMapping(&quot;heeftAlsNevenadres&quot;, &quot;nevenadres&quot;, &quot;char(16)&quot;)
-<span class="fc" id="L135">        )).addExtraDataDefinitionSQL(List.of(</span>
+<span class="fc" id="L145">        )).addExtraDataDefinitionSQL(List.of(</span>
                 &quot;create or replace view v_standplaats_actueel as select * from standplaats where &quot; + WHERE_CLAUSE_ACTUEEL,
                 &quot;create index standplaats_nevenadres_idx on standplaats_nevenadres (identificatie, voorkomenidentificatie)&quot;
         )));
 
-<span class="fc" id="L140">        addObjectType(new BAG2ObjectType(this, &quot;Pand&quot;, withBaseAttributes(</span>
+<span class="fc" id="L150">        addObjectType(new BAG2ObjectType(this, &quot;Pand&quot;, withBaseAttributes(</span>
                 new IntegerAttributeColumnMapping(&quot;oorspronkelijkBouwjaar&quot;),
                 new GeometryAttributeColumnMapping(&quot;geometrie&quot;, &quot;geometry(POLYGON, 28992)&quot;)
-<span class="fc" id="L143">        )).addExtraDataDefinitionSQL(List.of(</span>
+<span class="fc" id="L153">        )).addExtraDataDefinitionSQL(List.of(</span>
                 &quot;create or replace view v_pand_actueel as select * from pand where &quot; + WHERE_CLAUSE_ACTUEEL
         )));
-<span class="fc" id="L146">    }</span>
+<span class="fc" id="L156">    }</span>
 
     @Override
     protected void addObjectType(ObjectType objectType) {
@@ -151,25 +161,25 @@ public class BAG2Schema extends Schema {
 
         // XXX table prefixes not supported here and also not in extra DDL above
 
-<span class="fc" id="L154">        String tableName = objectType.getName().toLowerCase();</span>
-<span class="fc" id="L155">        String sql = String.format(&quot;create index %s_objectid_idx on %s (objectid)&quot;, tableName, tableName);</span>
-<span class="fc" id="L156">        objectType.addExtraDataDefinitionSQL(List.of(sql));</span>
-<span class="fc" id="L157">        super.addObjectType(objectType);</span>
-<span class="fc" id="L158">    }</span>
+<span class="fc" id="L164">        String tableName = objectType.getName().toLowerCase();</span>
+<span class="fc" id="L165">        String sql = String.format(&quot;create index %s_objectid_idx on %s (objectid)&quot;, tableName, tableName);</span>
+<span class="fc" id="L166">        objectType.addExtraDataDefinitionSQL(List.of(sql));</span>
+<span class="fc" id="L167">        super.addObjectType(objectType);</span>
+<span class="fc" id="L168">    }</span>
 
     public static BAG2Schema getInstance() {
-<span class="fc bfc" id="L161" title="All 2 branches covered.">        if (instance == null) {</span>
-<span class="fc" id="L162">            instance = new BAG2Schema();</span>
+<span class="fc bfc" id="L171" title="All 2 branches covered.">        if (instance == null) {</span>
+<span class="fc" id="L172">            instance = new BAG2Schema();</span>
         }
-<span class="fc" id="L164">        return instance;</span>
+<span class="fc" id="L174">        return instance;</span>
     }
 
     public Stream&lt;BAG2ObjectType&gt; getAllObjectTypes() {
-<span class="nc" id="L168">        return (Stream&lt;BAG2ObjectType&gt;) super.getAllObjectTypes();</span>
+<span class="nc" id="L178">        return (Stream&lt;BAG2ObjectType&gt;) super.getAllObjectTypes();</span>
     }
 
     public BAG2ObjectType getObjectTypeByName(String name) {
-<span class="fc" id="L172">        return (BAG2ObjectType) super.getObjectTypeByName(name);</span>
+<span class="fc" id="L182">        return (BAG2ObjectType) super.getObjectTypeByName(name);</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -88,7 +88,7 @@
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>              }
 <a class="jxr_linenumber" name="L81" href="#L81">81</a>          } <strong class="jxr_keyword">catch</strong> (<a name="BrmoException" href="../../../../../nl/b3p/brmo/loader/util/BrmoException.html#BrmoException">BrmoException</a> | SQLException | ClassCastException | UnsupportedOperationException | IllegalArgumentException ex) {
 <a class="jxr_linenumber" name="L82" href="#L82">82</a>              LOG.error(<span class="jxr_string">"Ophalen contractnummers is mislukt."</span>, ex);
-<a class="jxr_linenumber" name="L83" href="#L83">83</a>              <strong class="jxr_keyword">return</strong> Collections.EMPTY_LIST;
+<a class="jxr_linenumber" name="L83" href="#L83">83</a>              <strong class="jxr_keyword">return</strong> Collections.emptyList();
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>          }
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>      }
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>  

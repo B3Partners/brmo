@@ -80,7 +80,7 @@ public class AfgifteNummerScanner extends AbstractExecutableProces {
             }
 <span class="nc" id="L81">        } catch (BrmoException | SQLException | ClassCastException | UnsupportedOperationException | IllegalArgumentException ex) {</span>
 <span class="nc" id="L82">            LOG.error(&quot;Ophalen contractnummers is mislukt.&quot;, ex);</span>
-<span class="nc" id="L83">            return Collections.EMPTY_LIST;</span>
+<span class="nc" id="L83">            return Collections.emptyList();</span>
         }
     }
 
@@ -351,4 +351,4 @@ public class AfgifteNummerScanner extends AbstractExecutableProces {
 <span class="nc" id="L351">        return this.ontbrekendeNummersGevonden;</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

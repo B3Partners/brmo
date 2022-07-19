@@ -14,10 +14,10 @@ import org.apache.commons.lang3.StringUtils;
     private String table;
     private boolean ignoreDuplicates;
 
-<span class="fc" id="L17">    private List&lt;String&gt; columns = new ArrayList();</span>
-<span class="fc" id="L18">    private List&lt;String&gt; values = new ArrayList();</span>
+<span class="fc" id="L17">    private List&lt;String&gt; columns = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L18">    private List&lt;String&gt; values = new ArrayList&lt;&gt;();</span>
 
-<span class="fc" id="L20">    private final Set&lt;String&gt; alleenArchiefColumns = new HashSet();</span>
+<span class="fc" id="L20">    private final Set&lt;String&gt; alleenArchiefColumns = new HashSet&lt;&gt;();</span>
 
     /* Used for archief tables */
     private String columnDatumBeginGeldigheid;
@@ -83,7 +83,7 @@ import org.apache.commons.lang3.StringUtils;
 <span class="nc" id="L83">        StringBuilder s = new StringBuilder();</span>
 <span class="nc" id="L84">        s.append(table).append(&quot;[&quot;);</span>
 
-<span class="nc" id="L86">        List&lt;String&gt; keys = new ArrayList();</span>
+<span class="nc" id="L86">        List&lt;String&gt; keys = new ArrayList&lt;&gt;();</span>
 <span class="nc" id="L87">        int i = -1;</span>
 <span class="nc bnc" id="L88" title="All 2 branches missed.">        for (String column: columns) {</span>
 <span class="nc" id="L89">            i++;</span>
@@ -93,7 +93,7 @@ import org.apache.commons.lang3.StringUtils;
 
 <span class="nc" id="L94">            keys.add(column + &quot;=&quot; + values.get(i));</span>
 <span class="nc" id="L95">        }</span>
-<span class="nc" id="L96">        s.append(StringUtils.join(keys, &quot;, &quot;));</span>
+<span class="nc" id="L96">        s.append(String.join( &quot;, &quot;, keys));</span>
 <span class="nc" id="L97">        s.append(&quot;]&quot;);</span>
 <span class="nc" id="L98">        return s.toString();</span>
     }
@@ -130,4 +130,4 @@ import org.apache.commons.lang3.StringUtils;
         }
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -30,7 +30,7 @@ import org.xml.sax.SAXException;
  *
  * @author Boy de Wit
  */
-<span class="pc bpc" id="L33" title="1 of 2 branches missed.">public class DataComfortXMLReader {</span>
+<span class="fc" id="L33">public class DataComfortXMLReader {</span>
 
     private static final int LEVEL_ROOT = 0;
     private static final int LEVEL_DATA = 1;
@@ -202,7 +202,7 @@ import org.xml.sax.SAXException;
 <span class="pc bpc" id="L202" title="1 of 2 branches missed.">                            } while (xer.isCharacters());</span>
 <span class="fc" id="L203">                            row.getValues().add(t.toString());</span>
 <span class="fc" id="L204">                        } else {</span>
-<span class="pc bpc" id="L205" title="2 of 4 branches missed.">                            assert (xer.isEndElement());</span>
+<span class="pc bpc" id="L205" title="1 of 2 branches missed.">                            assert (xer.isEndElement());</span>
 <span class="fc" id="L206">                            row.getValues().add(null);</span>
                         }
                     }
@@ -215,4 +215,4 @@ import org.xml.sax.SAXException;
 <span class="fc" id="L215">        return list;</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
