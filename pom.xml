@@ -970,9 +970,10 @@
                         <show>package</show>
                         <useStandardDocletOptions>true</useStandardDocletOptions>
                         <links>
-                            <link>http://www.slf4j.org/apidocs/</link>
-                            <link>https://download.oracle.com/javaee/7/api/</link>
-                            <link>https://docs.jboss.org/hibernate/stable/core/javadocs/</link>
+                            <link>https://www.slf4j.org/apidocs/</link>
+                            <link>https://docs.oracle.com/javaee/7/api/</link>
+                            <!-- <link>https://docs.jboss.org/hibernate/stable/core/javadocs/</link> -->
+                            <link>https://docs.jboss.org/hibernate/orm/5.6/javadocs/</link>
                             <link>https://docs.geotools.org/stable/javadocs/</link>
                             <link>https://reload4j.qos.ch/apidocs/</link>
                             <link>https://junit.org/junit5/docs/current/api/</link>
