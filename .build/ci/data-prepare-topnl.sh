@@ -2,10 +2,10 @@
 set -e
 
 # ophalen topnl test data
-wget --no-verbose --tries=5 --timeout=60 --waitretry=300 --user-agent="" "http://geodata.nationaalgeoregister.nl/top10nlv2/extract/kaartbladen/TOP10NL_07W.zip?formaat=gml" --output-document=./TOP10NL_07W.zip
-wget --no-verbose --tries=5 --timeout=60 --waitretry=300 --user-agent="" "http://geodata.nationaalgeoregister.nl/top50nl/extract/kaartbladen/TOP50NL_07W.zip?formaat=gml" --output-document=./TOP50NL_07W.zip
-wget --no-verbose --tries=5 --timeout=60 --waitretry=300 --user-agent="" "http://geodata.nationaalgeoregister.nl/top100nl/extract/chunkdata/top100nl_gml_filechunks.zip?formaat=gml" --output-document=./TOP100NL.zip
-wget --no-verbose --tries=5 --timeout=60 --waitretry=300 --user-agent="" "https://api.pdok.nl/brt/top250nl/download/v1_0/cache/24/b45351fd-7fd4-4259-bdb4-76b495b0e335/top250nl-gml-nl-nohist.zip" --output-document=./TOP250NL.zip
+wget --no-verbose --tries=5 --timeout=60 --waitretry=300 --user-agent="" "https://api.pdok.nl/brt/top10nl/download/v1_0/extract/fae0cf64-f1f4-4726-a2cd-56988c12a67c/extract.zip" --output-document=./TOP10NL.zip
+wget --no-verbose --tries=5 --timeout=60 --waitretry=300 --user-agent="" "https://api.pdok.nl/brt/top50nl/download/v1_0/extract/920d9e8e-a235-4dc0-b66c-1f36e9ab1477/extract.zip" --output-document=./TOP50NL.zip
+wget --no-verbose --tries=5 --timeout=60 --waitretry=300 --user-agent="" "https://api.pdok.nl/brt/top100nl/download/v1_0/full/predefined/top100nl-gml-nl-nohist.zip" --output-document=./TOP100NL.zip
+wget --no-verbose --tries=5 --timeout=60 --waitretry=300 --user-agent="" "https://api.pdok.nl/brt/top250nl/download/v1_0/full/predefined/top250nl-gml-nl-nohist.zip" --output-document=./TOP250NL.zip
 
 # uitpakken in de /tmp dir
 ls *.zip | while read filename; do unzip -j -o -d "/tmp" "$filename" *.gml; done;
@@ -13,7 +13,7 @@ ls *.zip | while read filename; do unzip -j -o -d "/tmp" "$filename" *.gml; done
 for f in /tmp/*.gml ; do mv -vn -- "$f" "$(tr '[:upper:]' '[:lower:]' <<< "$f")" ; done
 # van ieder alleen de eerste 5 features
 for f in /tmp/top250nl_*.gml ; do xmlstarlet transform .build/ci/data-prepare-top250nl.xsl "$f" > "brmo-loader/src/test/resources/topnl/${f##*/}"; done
-xmlstarlet transform .build/ci/data-prepare-top100nl.xsl /tmp/top100nl_000001.gml > brmo-loader/src/test/resources/topnl/Top100NL_000001.gml
-xmlstarlet transform .build/ci/data-prepare-top50nl.xsl /tmp/top50nl_07w.gml > brmo-loader/src/test/resources/topnl/Top50NL_07W.gml
-xmlstarlet transform .build/ci/data-prepare-top10nl.xsl /tmp/top10nl_07w.gml > brmo-loader/src/test/resources/topnl/TOP10NL_07W.gml
+for f in /tmp/top100nl_*.gml ; do xmlstarlet transform .build/ci/data-prepare-top100nl.xsl "$f" > "brmo-loader/src/test/resources/topnl/${f##*/}"; done
+for f in /tmp/top50nl_*.gml ; do xmlstarlet transform .build/ci/data-prepare-top50nl.xsl "$f" > "brmo-loader/src/test/resources/topnl/${f##*/}"; done
+for f in /tmp/top10nl_*.gml ; do xmlstarlet transform .build/ci/data-prepare-top10nl.xsl "$f" > "brmo-loader/src/test/resources/topnl/${f##*/}"; done
 
