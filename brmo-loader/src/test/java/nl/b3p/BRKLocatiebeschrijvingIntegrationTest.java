@@ -66,18 +66,20 @@ public class BRKLocatiebeschrijvingIntegrationTest extends AbstractDatabaseInteg
     private BrmoFramework brmo;
     private IDatabaseConnection staging;
     private IDatabaseConnection rsgb;
+    private BasicDataSource dsRsgb;
+    private BasicDataSource dsStaging;
     private final Lock sequential = new ReentrantLock(true);
 
     @BeforeEach
     @Override
     public void setUp() throws Exception {
-        BasicDataSource dsStaging = new BasicDataSource();
+        dsStaging = new BasicDataSource();
         dsStaging.setUrl(params.getProperty("staging.jdbc.url"));
         dsStaging.setUsername(params.getProperty("staging.user"));
         dsStaging.setPassword(params.getProperty("staging.passwd"));
         dsStaging.setAccessToUnderlyingConnectionAllowed(true);
 
-        BasicDataSource dsRsgb = new BasicDataSource();
+        dsRsgb = new BasicDataSource();
         dsRsgb.setUrl(params.getProperty("rsgb.jdbc.url"));
         dsRsgb.setUsername(params.getProperty("rsgb.user"));
         dsRsgb.setPassword(params.getProperty("rsgb.passwd"));
@@ -111,10 +113,12 @@ public class BRKLocatiebeschrijvingIntegrationTest extends AbstractDatabaseInteg
 
         CleanUtil.cleanSTAGING(staging, false);
         staging.close();
+        dsStaging.close();
 
         CleanUtil.cleanRSGB_BRK(rsgb, true);
         CleanUtil.cleanRSGB_BAG(rsgb, true);
         rsgb.close();
+        dsRsgb.close();
 
         sequential.unlock();
     }

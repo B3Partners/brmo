@@ -66,17 +66,18 @@ public class Mantis10547IntegrationTest extends AbstractDatabaseIntegrationTest 
     private IDatabaseConnection rsgb;
     private IDatabaseConnection staging;
     private final Lock sequential = new ReentrantLock();
-
+    private BasicDataSource dsRsgb;
+    private BasicDataSource dsStaging;
     @Override
     @BeforeEach
     public void setUp() throws Exception {
-        BasicDataSource dsStaging = new BasicDataSource();
+        dsStaging = new BasicDataSource();
         dsStaging.setUrl(params.getProperty("staging.jdbc.url"));
         dsStaging.setUsername(params.getProperty("staging.user"));
         dsStaging.setPassword(params.getProperty("staging.passwd"));
         dsStaging.setAccessToUnderlyingConnectionAllowed(true);
 
-        BasicDataSource dsRsgb = new BasicDataSource();
+        dsRsgb = new BasicDataSource();
         dsRsgb.setUrl(params.getProperty("rsgb.jdbc.url"));
         dsRsgb.setUsername(params.getProperty("rsgb.user"));
         dsRsgb.setPassword(params.getProperty("rsgb.passwd"));
@@ -112,12 +113,13 @@ public class Mantis10547IntegrationTest extends AbstractDatabaseIntegrationTest 
         }
         CleanUtil.cleanRSGB_BRK(rsgb, true);
         rsgb.close();
+        dsRsgb.close();
 
         CleanUtil.cleanSTAGING(staging, false);
         staging.close();
-
+        dsStaging.close();
         try {
-            sequential.unlock();
+          sequential.unlock();
         } catch (IllegalMonitorStateException e) {
             // in geval van niet waar gemaakte assumptions
             LOG.debug("unlock van thread is mislukt, mogelijk niet ge-lock-ed");

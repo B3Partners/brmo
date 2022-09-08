@@ -47,6 +47,7 @@ public class BAGXMLToStagingIntegrationTest extends AbstractDatabaseIntegrationT
     private final Lock sequential = new ReentrantLock();
     private IDatabaseConnection staging;
     private BrmoFramework brmo;
+    private BasicDataSource dsStaging;
 
     static Stream<Arguments> argumentsProvider() {
         return Stream.of(
@@ -62,7 +63,7 @@ public class BAGXMLToStagingIntegrationTest extends AbstractDatabaseIntegrationT
     @BeforeEach
     @Override
     public void setUp() throws Exception {
-        BasicDataSource dsStaging = new BasicDataSource();
+        dsStaging = new BasicDataSource();
         dsStaging.setUrl(params.getProperty("staging.jdbc.url"));
         dsStaging.setUsername(params.getProperty("staging.user"));
         dsStaging.setPassword(params.getProperty("staging.passwd"));
@@ -87,6 +88,7 @@ public class BAGXMLToStagingIntegrationTest extends AbstractDatabaseIntegrationT
         brmo.closeBrmoFramework();
         CleanUtil.cleanSTAGING(staging, false);
         staging.close();
+        dsStaging.close();
         sequential.unlock();
     }
 

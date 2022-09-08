@@ -130,17 +130,18 @@ public class TopNLIntegrationTest extends AbstractDatabaseIntegrationTest {
     private IDatabaseConnection staging;
     private IDatabaseConnection topnl;
     private BrmoFramework brmo;
-
+    private BasicDataSource dsTopnl;
+    private BasicDataSource dsStaging;
     @BeforeEach
     public void setUp() throws Exception {
-        BasicDataSource dsStaging = new BasicDataSource();
+        dsStaging = new BasicDataSource();
         dsStaging.setUrl(params.getProperty("staging.jdbc.url"));
         dsStaging.setUsername(params.getProperty("staging.user"));
         dsStaging.setPassword(params.getProperty("staging.passwd"));
         dsStaging.setAccessToUnderlyingConnectionAllowed(true);
         staging = new DatabaseDataSourceConnection(dsStaging);
 
-        BasicDataSource dsTopnl = new BasicDataSource();
+        dsTopnl = new BasicDataSource();
         dsTopnl.setUrl(params.getProperty("topnl.jdbc.url"));
         dsTopnl.setUsername(params.getProperty("topnl.user"));
         dsTopnl.setPassword(params.getProperty("topnl.passwd"));
@@ -179,12 +180,14 @@ public class TopNLIntegrationTest extends AbstractDatabaseIntegrationTest {
     @AfterEach
     public void cleanup() throws Exception {
         brmo.closeBrmoFramework();
-
+        brmo = null;
         CleanUtil.cleanSTAGING(staging, false);
-        staging.getConnection().close();
         staging.close();
+        dsStaging.close();
 
         topnl.close();
+        dsTopnl.close();
+
         try {
             sequential.unlock();
         } catch (IllegalMonitorStateException e) {

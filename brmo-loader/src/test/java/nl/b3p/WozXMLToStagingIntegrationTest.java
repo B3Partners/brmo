@@ -71,6 +71,8 @@ public class WozXMLToStagingIntegrationTest extends AbstractDatabaseIntegrationT
     // dbunit
     private IDatabaseConnection staging;
     private IDatabaseConnection rsgb;
+    private BasicDataSource dsRsgb;
+    private BasicDataSource dsStaging;
 
     static Stream<Arguments> argumentsProvider() {
         return Stream.of(
@@ -85,13 +87,13 @@ public class WozXMLToStagingIntegrationTest extends AbstractDatabaseIntegrationT
     @BeforeEach
     @Override
     public void setUp() throws Exception {
-        BasicDataSource dsStaging = new BasicDataSource();
+        dsStaging = new BasicDataSource();
         dsStaging.setUrl(params.getProperty("staging.jdbc.url"));
         dsStaging.setUsername(params.getProperty("staging.user"));
         dsStaging.setPassword(params.getProperty("staging.passwd"));
         dsStaging.setAccessToUnderlyingConnectionAllowed(true);
 
-        BasicDataSource dsRsgb = new BasicDataSource();
+        dsRsgb = new BasicDataSource();
         dsRsgb.setUrl(params.getProperty("rsgb.jdbc.url"));
         dsRsgb.setUsername(params.getProperty("rsgb.user"));
         dsRsgb.setPassword(params.getProperty("rsgb.passwd"));
@@ -137,6 +139,9 @@ public class WozXMLToStagingIntegrationTest extends AbstractDatabaseIntegrationT
         CleanUtil.cleanSTAGING(staging, false);
         CleanUtil.cleanRSGB_WOZ(rsgb, true);
         staging.close();
+        dsStaging.close();
+        rsgb.close();
+        dsRsgb.close();
         sequential.unlock();
     }
 
