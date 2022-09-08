@@ -1,5 +1,8 @@
 /*
  * Copyright (C) 2022 B3Partners B.V.
+ *
+ * SPDX-License-Identifier: MIT
+ *
  */
 package nl.b3p.brmo.nhr.loader;
 
