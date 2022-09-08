@@ -69,7 +69,7 @@ public class TopNLFileReader extends BrmoXMLReader {
                 "_-.", false);
 
         if (parts.countTokens() > 2) {
-            this.setGebied("" + parts.nextToken() + " blad " + parts.nextToken());
+            this.setGebied("" + parts.nextToken() +" "+ parts.nextToken());
         } else {
             this.setGebied("Nederland");
         }

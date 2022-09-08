@@ -57,7 +57,8 @@ public class BedrijfAlsFuntionarisNhrToStagingToRsgbIntegrationTest extends Abst
     // dbunit
     private IDatabaseConnection staging;
     private IDatabaseConnection rsgb;
-
+    private BasicDataSource dsRsgb;
+    private BasicDataSource dsStaging;
     static Stream<Arguments> argumentsProvider() {
         return Stream.of(
                 // #1 Eldon N.V. / 01037917 / een buitenlandseVennootschap als functionaris
@@ -213,14 +214,14 @@ public class BedrijfAlsFuntionarisNhrToStagingToRsgbIntegrationTest extends Abst
     @BeforeEach
     @Override
     public void setUp() throws Exception {
-        BasicDataSource dsStaging = new BasicDataSource();
+        dsStaging = new BasicDataSource();
         dsStaging.setUrl(params.getProperty("staging.jdbc.url"));
         dsStaging.setUsername(params.getProperty("staging.user"));
         dsStaging.setPassword(params.getProperty("staging.passwd"));
         dsStaging.setAccessToUnderlyingConnectionAllowed(true);
         dsStaging.setConnectionProperties(params.getProperty("staging.options", ""));
 
-        BasicDataSource dsRsgb = new BasicDataSource();
+        dsRsgb = new BasicDataSource();
         dsRsgb.setUrl(params.getProperty("rsgb.jdbc.url"));
         dsRsgb.setUsername(params.getProperty("rsgb.user"));
         dsRsgb.setPassword(params.getProperty("rsgb.passwd"));
@@ -264,8 +265,10 @@ public class BedrijfAlsFuntionarisNhrToStagingToRsgbIntegrationTest extends Abst
         brmo.closeBrmoFramework();
         CleanUtil.cleanSTAGING(staging, true);
         staging.close();
+        dsStaging.close();
         CleanUtil.cleanRSGB_NHR(rsgb);
         rsgb.close();
+        dsRsgb.close();
         sequential.unlock();
     }
 

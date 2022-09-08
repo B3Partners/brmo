@@ -49,11 +49,11 @@ public class BerichtenFilterSqlIntegrationTest extends AbstractDatabaseIntegrati
     private IDatabaseConnection staging;
     private final Lock sequential = new ReentrantLock();
     private BrmoFramework brmo;
-
+    private BasicDataSource dsStaging;
     @BeforeEach
     @Override
     public void setUp() throws Exception {
-        BasicDataSource dsStaging = new BasicDataSource();
+        dsStaging = new BasicDataSource();
         dsStaging.setUrl(params.getProperty("staging.jdbc.url"));
         dsStaging.setUsername(params.getProperty("staging.user"));
         dsStaging.setPassword(params.getProperty("staging.passwd"));
@@ -91,6 +91,7 @@ public class BerichtenFilterSqlIntegrationTest extends AbstractDatabaseIntegrati
         brmo.closeBrmoFramework();
         CleanUtil.cleanSTAGING(staging, false);
         staging.close();
+        dsStaging.close();
         sequential.unlock();
     }
 
