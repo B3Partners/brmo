@@ -107,6 +107,33 @@
             </ingeschr_nat_prs>
         </comfort>
     </xsl:template>
+    <xsl:template name="persoon">
+        <xsl:choose>
+            <xsl:when test="local-name() = 'natuurlijkPersoon'">
+                <xsl:call-template name="natPersoon" />
+            </xsl:when>
+
+            <xsl:when test="local-name() = 'rechtspersoon'">
+                <xsl:apply-templates select="cat:rechtspersoon"/>
+            </xsl:when>
+
+            <xsl:when test="local-name() = 'buitenlandseVennootschap'">
+                <xsl:apply-templates select="cat:buitenlandseVennootschap"/>
+            </xsl:when>
+
+            <xsl:when test="local-name() = 'samenwerkingsverband'">
+                <xsl:apply-templates select="cat:samenwerkingsverband"/>
+            </xsl:when>
+
+            <xsl:otherwise>
+                <xsl:comment>
+                    <xsl:text>namespace probleem voor node met naam: </xsl:text><xsl:value-of select="name()"/>
+                    <xsl:text> - local-name: </xsl:text><xsl:value-of select="local-name()"/>
+                    <xsl:text> - geen subject records aangemaakt</xsl:text>
+                </xsl:comment>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
 
     <xsl:template name="heeft">
         <xsl:for-each select="./*">
@@ -214,6 +241,10 @@
         <xsl:for-each select="cat:manifesteertZichAls/cat:onderneming">
             <xsl:comment>Maatschappelijke activiteit manifesteert zich als onderneming, met niet-hoofdvestigingen</xsl:comment>
             <xsl:apply-templates select="."/>
+        </xsl:for-each>
+
+        <xsl:for-each select="cat:heeftAlsEigenaar/*[not(local-name()='relatieRegistratie')]">
+            <xsl:call-template name="persoon" />
         </xsl:for-each>
 
         <maatschapp_activiteit column-dat-beg-geldh="datum_aanvang" column-datum-einde-geldh="datum_einde_geldig">
