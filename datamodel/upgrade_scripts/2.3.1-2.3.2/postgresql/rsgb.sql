@@ -4,6 +4,8 @@
 
 set search_path = public,bag;
 
+ALTER TABLE ingeschr_niet_nat_prs MODIFY publiekrechtelijke_rechtsvorm VARCHAR2(60);
+ALTER TABLE functionaris MODIFY soort_bev VARCHAR2(50);
 
 -- onderstaande dienen als laatste stappen van een upgrade uitgevoerd
 INSERT INTO brmo_metadata (naam,waarde) SELECT 'upgrade_2.3.1_naar_2.3.2','vorige versie was ' || waarde FROM brmo_metadata WHERE naam='brmoversie';

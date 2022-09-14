@@ -299,4 +299,24 @@
 			<xsl:apply-templates select="@*[name()!='typeName']|node()"/>
 		</xsl:copy>
 	</xsl:template>
+	<xsl:template match="*[@elementType='Objecttype - Property' and @id='EAID_A79988B8_DFD6_49c8_9996_A22579B02F5C']">
+		<xsl:comment>
+			<xsl:text>repair.xsl: Ingeschreven niet-natuurlijk persoon: vergroot ruimte publiekrechtelijke rechtsvorm</xsl:text>
+		</xsl:comment>
+		<xsl:copy>
+			<xsl:attribute name="type" select="'EAJava_AN60'"/>
+			<xsl:attribute name="typeName" select="'AN60'"/>
+			<xsl:apply-templates select="@*[name()!='typeName']|node()"/>
+		</xsl:copy>
+	</xsl:template>
+	<xsl:template match="*[@elementType='Objecttype/Relatieklasse - Property' and @id='EAID_3E00C0F2_1C7E_46d1_A04C_A43820E37FC1']">
+		<xsl:comment>
+			<xsl:text>repair.xsl: Functionaris: soort bevoegdheid: kolom vergroot naar 50</xsl:text>
+		</xsl:comment>
+		<xsl:copy>
+			<xsl:attribute name="type" select="'EANone_AN50'"/>
+			<xsl:attribute name="typeName" select="'AN50'"/>
+			<xsl:apply-templates select="@*[name()!='typeName']|node()"/>
+		</xsl:copy>
+	</xsl:template>
 </xsl:stylesheet>
