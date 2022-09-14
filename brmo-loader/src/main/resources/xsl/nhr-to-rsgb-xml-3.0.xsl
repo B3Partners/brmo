@@ -260,7 +260,7 @@
                 <fk_3ond_kvk_nummer><xsl:value-of select="."/></fk_3ond_kvk_nummer>
             </xsl:for-each>
             <fk_4pes_sc_identif>
-                <xsl:apply-templates select="cat:heeftAlsEigenaar/cat:rechtspersoon" mode="object_ref"/>
+                <xsl:apply-templates select="cat:heeftAlsEigenaar/*[not(local-name()='relatieRegistratie')]" mode="object_ref"/>
             </fk_4pes_sc_identif>
         </maatschapp_activiteit>
 
