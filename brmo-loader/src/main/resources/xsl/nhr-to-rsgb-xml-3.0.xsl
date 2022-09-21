@@ -122,151 +122,90 @@
                     </xsl:choose>
                     <xsl:text> BSN</xsl:text>
                 </xsl:comment>
-                <xsl:if test="$key =''">
-                    <xsl:comment>dataprobleem - geen natuurlijke sleutel gevonden voor persoon en functionaris</xsl:comment>
-                </xsl:if>
-                <xsl:if test="$key !=''">
-                    <!-- zonder key kunnen we geen persoon vastleggen -->
-                    <xsl:comment>heeft node: "<xsl:value-of select="local-name(.)" />" met "<xsl:value-of select="local-name(*[1])" />" en persoon: <xsl:value-of select="name(*[1])" />; <xsl:value-of select="$key" /></xsl:comment>
-                    <xsl:choose>
-                        <xsl:when test="local-name(*[1]) = 'natuurlijkPersoon'">
-                            <xsl:for-each select="cat:natuurlijkPersoon">
-                                <xsl:call-template name="natPersoon" />
-                            </xsl:for-each>
-                        </xsl:when>
+                <xsl:choose>
+                    <xsl:when test="$key ='' or $key = 'nhr.naamPersoon.naam.'">
+                        <xsl:comment>dataprobleem - geen natuurlijke sleutel gevonden voor persoon en functionaris</xsl:comment>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <!-- zonder key kunnen we geen persoon vastleggen -->
+                        <xsl:comment>heeft node: "<xsl:value-of select="local-name(.)" />" met "<xsl:value-of select="local-name(*[1])" />" en persoon: <xsl:value-of select="name(*[1])" />; <xsl:value-of select="$key" /></xsl:comment>
+                        <xsl:choose>
+                            <xsl:when test="local-name(*[1]) = 'natuurlijkPersoon'">
+                                <xsl:for-each select="cat:natuurlijkPersoon">
+                                    <xsl:call-template name="natPersoon" />
+                                </xsl:for-each>
+                            </xsl:when>
 
-                        <xsl:when test="local-name(*[1]) = 'rechtspersoon'">
-                            <xsl:apply-templates select="cat:rechtspersoon"/>
-<!--                            <xsl:variable name="class">INGESCHREVEN NIET-NATUURLIJK PERSOON</xsl:variable>-->
+                            <xsl:when test="local-name(*[1]) = 'rechtspersoon'">
+                                <xsl:apply-templates select="cat:rechtspersoon"/>
+                            </xsl:when>
 
-<!--                            <subject>-->
-<!--                                <identif><xsl:value-of select="$key" /></identif>-->
-<!--                                <clazz><xsl:value-of select="$class" /></clazz>-->
-<!--                                <typering><xsl:value-of select="substring($class,1,35)" /></typering>-->
-<!--                                <naam>-->
-<!--                                    <xsl:choose>-->
-<!--                                        <xsl:when test="cat:rechtspersoon/cat:volledigeNaam"><xsl:value-of select="cat:rechtspersoon/cat:volledigeNaam" /></xsl:when>-->
-<!--                                        <xsl:otherwise><xsl:value-of select="cat:naam" /></xsl:otherwise>-->
-<!--                                    </xsl:choose>-->
-<!--                                </naam>-->
-<!--                                <xsl:for-each select="cat:manifesteertZichAls/cat:onderneming/cat:kvkNummer">-->
-<!--                                    <kvk_nummer><xsl:value-of select="."/></kvk_nummer>-->
-<!--                                </xsl:for-each>-->
+                            <xsl:when test="local-name(*[1]) = 'buitenlandseVennootschap'">
+                                <xsl:apply-templates select="cat:buitenlandseVennootschap"/>
+                            </xsl:when>
 
-<!--                                <xsl:call-template name="subject" />-->
-<!--                            </subject>-->
+                            <xsl:when test="local-name(*[1]) = 'samenwerkingsverband'">
+                                <xsl:apply-templates select="cat:samenwerkingsverband"/>
+                            </xsl:when>
 
-<!--                            <prs>-->
-<!--                                <sc_identif><xsl:value-of select="$key" /></sc_identif>-->
-<!--                                <clazz><xsl:value-of select="$class" /></clazz>-->
-<!--                            </prs>-->
+                            <xsl:otherwise>
+                                <xsl:comment>
+                                    <xsl:text>namespace probleem voor node met naam: </xsl:text><xsl:value-of select="name(*[1])"/>
+                                    <xsl:text> - local-name: </xsl:text><xsl:value-of select="local-name(*[1])"/>
+                                    <xsl:text> - geen subject records aangemaakt</xsl:text>
+                                </xsl:comment>
+                            </xsl:otherwise>
+                        </xsl:choose>
 
-<!--                            <niet_nat_prs>-->
-<!--                                <sc_identif><xsl:value-of select="$key" /></sc_identif>-->
-<!--                                <clazz><xsl:value-of select="$class" /></clazz>-->
-<!--                                <naam>-->
-<!--                                    <xsl:choose>-->
-<!--                                        <xsl:when test="cat:rechtspersoon/cat:volledigeNaam"><xsl:value-of select="cat:rechtspersoon/cat:volledigeNaam" /></xsl:when>-->
-<!--                                        <xsl:otherwise><xsl:value-of select="cat:naam" /></xsl:otherwise>-->
-<!--                                    </xsl:choose>-->
-<!--                                </naam>-->
-<!--                                <verkorte_naam><xsl:value-of select="substring(cat:naam,1,45)" /></verkorte_naam>-->
-<!--                                <xsl:call-template name="registratie-datum">-->
-<!--                                    <xsl:with-param name="einde" select="'datum_beeindiging'" />-->
-<!--                                </xsl:call-template>-->
-<!--                            </niet_nat_prs>-->
+                        <!--functionaris-->
+                        <functionaris>
+                            <!--character varying(255) NOT NULL, - [FK] AN32, FK naar prs.sc_identif (is FK naar superclass SUBJECT)-->
+                            <fk_sc_lh_pes_sc_identif><xsl:value-of select="$key" /></fk_sc_lh_pes_sc_identif>
+                            <!--character varying(255) NOT NULL, - [FK] AN32, FK naar prs.sc_identif (is FK naar superclass SUBJECT)-->
+                            <fk_sc_rh_pes_sc_identif><xsl:value-of select="$objectRef" /></fk_sc_rh_pes_sc_identif>
 
-<!--                            <ingeschr_niet_nat_prs>-->
-<!--                                <sc_identif><xsl:value-of select="$key" /></sc_identif>-->
-<!--                                <typering><xsl:value-of select="substring($class,1,35)" /></typering>-->
-<!--                                <fk_8aoa_identif>-->
-<!--                                    <xsl:choose>-->
-<!--                                        <xsl:when test="cat:rechtspersoon/cat:bezoekLocatie/cat:adres/cat:binnenlandsAdres/cat:bagId/cat:identificatieAdresseerbaarObject">-->
-<!--                                            <xsl:value-of select="cat:rechtspersoon/cat:bezoekLocatie/cat:adres/cat:binnenlandsAdres/cat:bagId/cat:identificatieAdresseerbaarObject" />-->
-<!--                                        </xsl:when>-->
-<!--                                        <xsl:when test="cat:rechtspersoon/cat:bezoekLocatiePersoon/cat:adres/cat:binnenlandsAdres/cat:bagId/cat:identificatieAdresseerbaarObject">-->
-<!--                                            <xsl:value-of select="cat:rechtspersoon/cat:bezoekLocatiePersoon/cat:adres/cat:binnenlandsAdres/cat:bagId/cat:identificatieAdresseerbaarObject" />-->
-<!--                                        </xsl:when>-->
-<!--                                        <xsl:otherwise>-->
-<!--                                            <xsl:value-of select="cat:bezoekLocatie/cat:adres/cat:binnenlandsAdres/cat:bagId/cat:identificatieAdresseerbaarObject" />-->
-<!--                                        </xsl:otherwise>-->
-<!--                                    </xsl:choose>-->
-<!--                                </fk_8aoa_identif>-->
-<!--                                <rechtsvorm>-->
-<!--                                    <xsl:if test="cat:rechtspersoon/cat:persoonRechtsvorm"><xsl:value-of select="cat:rechtspersoon/cat:persoonRechtsvorm"/></xsl:if>-->
-<!--                                    <xsl:if test="cat:persoonRechtsvorm"><xsl:value-of select="cat:persoonRechtsvorm"/></xsl:if>-->
-<!--                                </rechtsvorm>-->
-<!--                                <publiekrechtelijke_rechtsvorm><xsl:value-of select="cat:publiekrechtelijkeRechtsvorm/cat:omschrijving"/></publiekrechtelijke_rechtsvorm>-->
-<!--                                <rsin><xsl:value-of select="cat:rechtspersoon/cat:rsin"/></rsin>-->
-<!--                            </ingeschr_niet_nat_prs>-->
+                            <!-- numeric(18,0), - N18 - Beperking bevoegdheid  in euros-->
+                            <beperking_bev_in_euros><xsl:value-of select="../cat:bevoegdheid/cat:beperkingInEuros/cat:waarde"/></beperking_bev_in_euros>
+                            <!-- numeric(18,0), - Groepsattribuut Beperkte volmacht FUNCTIONARIS.Beperking in geld - Beperking in geld-->
+                            <!--<bv_beperking_in_geld></bv_beperking_in_geld>-->
+                            <!--character vary ing(2000), - Groepsattribuut Beperkte volmacht FUNCTIONARIS.Omschrijving overige beperkingen - Omschrijving overige beperkingen-->
+                            <!--<bv_omschr_ovrg_beperkingen></bv_omschr_ovrg_beperkingen>-->
+                            <bv_ovrg_volmacht><xsl:value-of select="../cat:volmacht/cat:beperkteVolmacht/cat:heeftOverigeVolmacht/cat:omschrijving"/></bv_ovrg_volmacht>
 
-                        </xsl:when>
+                            <!-- character varying(35), - Groepsattribuut Beperkte volmacht FUNCTIONARIS.Soort handeling - Soort handeling-->
+                            <bv_soort_handeling><xsl:value-of select="local-name(../cat:volmacht/cat:beperkteVolmacht/*[1])"/></bv_soort_handeling>
+                            <bev_met_andere_prsn><xsl:value-of select="../cat:bevoegdheid/cat:isBevoegdMetAnderePersonen/cat:omschrijving" /></bev_met_andere_prsn>
+                            <!-- TODO er zijn alleen registratie datums in de berichten -->
+                            <!--datum_toetr character varying(19), - OnvolledigeDatum - Datum toetreding-->
+                            <!--<datum_toetr></datum_toetr>-->
+                            <!--datum_uittreding character varying(19), - OnvolledigeDatum - Datum uittreding-->
+                            <!--<datum_uittreding></datum_uittreding>-->
 
-                        <xsl:when test="local-name(*[1]) = 'buitenlandseVennootschap'">
-                            <xsl:apply-templates select="cat:buitenlandseVennootschap"/>
-                        </xsl:when>
-
-                        <xsl:when test="local-name(*[1]) = 'samenwerkingsverband'">
-                            <xsl:apply-templates select="cat:samenwerkingsverband"/>
-                        </xsl:when>
-
-                        <xsl:otherwise>
-                            <xsl:comment>
-                                <xsl:text>namespace probleem voor node met naam: </xsl:text><xsl:value-of select="name(*[1])"/>
-                                <xsl:text> - local-name: </xsl:text><xsl:value-of select="local-name(*[1])"/>
-                                <xsl:text> - geen subject records aangemaakt</xsl:text>
-                            </xsl:comment>
-                        </xsl:otherwise>
-                    </xsl:choose>
-
-                    <!--functionaris-->
-                    <functionaris>
-                        <!--character varying(255) NOT NULL, - [FK] AN32, FK naar prs.sc_identif (is FK naar superclass SUBJECT)-->
-                        <fk_sc_lh_pes_sc_identif><xsl:value-of select="$key" /></fk_sc_lh_pes_sc_identif>
-                        <!--character varying(255) NOT NULL, - [FK] AN32, FK naar prs.sc_identif (is FK naar superclass SUBJECT)-->
-                        <fk_sc_rh_pes_sc_identif><xsl:value-of select="$objectRef" /></fk_sc_rh_pes_sc_identif>
-
-                        <!-- numeric(18,0), - N18 - Beperking bevoegdheid  in euros-->
-                        <beperking_bev_in_euros><xsl:value-of select="../cat:bevoegdheid/cat:beperkingInEuros/cat:waarde"/></beperking_bev_in_euros>
-                        <!-- numeric(18,0), - Groepsattribuut Beperkte volmacht FUNCTIONARIS.Beperking in geld - Beperking in geld-->
-                        <!--<bv_beperking_in_geld></bv_beperking_in_geld>-->
-                        <!--character vary ing(2000), - Groepsattribuut Beperkte volmacht FUNCTIONARIS.Omschrijving overige beperkingen - Omschrijving overige beperkingen-->
-                        <!--<bv_omschr_ovrg_beperkingen></bv_omschr_ovrg_beperkingen>-->
-                        <bv_ovrg_volmacht><xsl:value-of select="../cat:volmacht/cat:beperkteVolmacht/cat:heeftOverigeVolmacht/cat:omschrijving"/></bv_ovrg_volmacht>
-
-                        <!-- character varying(35), - Groepsattribuut Beperkte volmacht FUNCTIONARIS.Soort handeling - Soort handeling-->
-                        <bv_soort_handeling><xsl:value-of select="local-name(../cat:volmacht/cat:beperkteVolmacht/*[1])"/></bv_soort_handeling>
-                        <bev_met_andere_prsn><xsl:value-of select="../cat:bevoegdheid/cat:isBevoegdMetAnderePersonen/cat:omschrijving" /></bev_met_andere_prsn>
-                        <!-- TODO er zijn alleen registratie datums in de berichten -->
-                        <!--datum_toetr character varying(19), - OnvolledigeDatum - Datum toetreding-->
-                        <!--<datum_toetr></datum_toetr>-->
-                        <!--datum_uittreding character varying(19), - OnvolledigeDatum - Datum uittreding-->
-                        <!--<datum_uittreding></datum_uittreding>-->
-
-                        <functie><xsl:value-of select="../cat:functie/cat:omschrijving" /></functie>
-                        <functionaristypering><xsl:value-of select="../cat:functietitel/cat:titel" /></functionaristypering>
-                        <indic_statutair_volmacht><xsl:value-of select="../cat:volmacht/cat:isStatutair/cat:omschrijving"/></indic_statutair_volmacht>
-                        <!-- character varying(3), - AN3 - Overige beperking bevoegdheid, alleen optioneel gevuld indien Aansprakelijke-->
-                        <xsl:if test="../cat:functie/cat:omschrijving = 'Aansprakelijke'">
-                            <ovrg_beperking_bev><xsl:value-of select="../cat:bevoegdheid/cat:overigeBeperking/cat:omschrijving"/></ovrg_beperking_bev>
-                        </xsl:if>
-                        <xsl:if test="../cat:functie/cat:omschrijving = 'Vennoot'">
-                            <ovrg_beperking_bev><xsl:value-of select="../cat:bevoegdheid/cat:overigeBeperking/cat:omschrijving"/></ovrg_beperking_bev>
-                        </xsl:if>
-
-
-                        <soort_bev><xsl:value-of select="../cat:bevoegdheid/cat:soort/cat:omschrijving" /></soort_bev>
-                        <!-- character varying(1), - AN1 - Volledig Beperkt volmacht, waarde "B" of "V" indien Gevolmachtigde-->
-                        <xsl:if test="../cat:functie/cat:omschrijving = 'Gevolmachtigde'">
-                            <xsl:if test="../cat:volmacht/cat:beperkteVolmacht">
-                                <volledig_beperkt_volmacht><xsl:value-of select="'B'"/></volledig_beperkt_volmacht>
+                            <functie><xsl:value-of select="../cat:functie/cat:omschrijving" /></functie>
+                            <functionaristypering><xsl:value-of select="../cat:functietitel/cat:titel" /></functionaristypering>
+                            <indic_statutair_volmacht><xsl:value-of select="../cat:volmacht/cat:isStatutair/cat:omschrijving"/></indic_statutair_volmacht>
+                            <!-- character varying(3), - AN3 - Overige beperking bevoegdheid, alleen optioneel gevuld indien Aansprakelijke-->
+                            <xsl:if test="../cat:functie/cat:omschrijving = 'Aansprakelijke'">
+                                <ovrg_beperking_bev><xsl:value-of select="../cat:bevoegdheid/cat:overigeBeperking/cat:omschrijving"/></ovrg_beperking_bev>
                             </xsl:if>
-                            <xsl:if test="not(../cat:volmacht/cat:beperkteVolmacht)">
-                                <volledig_beperkt_volmacht><xsl:value-of select="'V'"/></volledig_beperkt_volmacht>
+                            <xsl:if test="../cat:functie/cat:omschrijving = 'Vennoot'">
+                                <ovrg_beperking_bev><xsl:value-of select="../cat:bevoegdheid/cat:overigeBeperking/cat:omschrijving"/></ovrg_beperking_bev>
                             </xsl:if>
-                        </xsl:if>
-                    </functionaris>
-                </xsl:if>
+
+
+                            <soort_bev><xsl:value-of select="../cat:bevoegdheid/cat:soort/cat:omschrijving" /></soort_bev>
+                            <!-- character varying(1), - AN1 - Volledig Beperkt volmacht, waarde "B" of "V" indien Gevolmachtigde-->
+                            <xsl:if test="../cat:functie/cat:omschrijving = 'Gevolmachtigde'">
+                                <xsl:if test="../cat:volmacht/cat:beperkteVolmacht">
+                                    <volledig_beperkt_volmacht><xsl:value-of select="'B'"/></volledig_beperkt_volmacht>
+                                </xsl:if>
+                                <xsl:if test="not(../cat:volmacht/cat:beperkteVolmacht)">
+                                    <volledig_beperkt_volmacht><xsl:value-of select="'V'"/></volledig_beperkt_volmacht>
+                                </xsl:if>
+                            </xsl:if>
+                        </functionaris>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:for-each>
         </xsl:for-each>
     </xsl:template>
