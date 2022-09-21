@@ -100,7 +100,7 @@
         <test.persistence.unit>brmo.persistence.hsqldb</test.persistence.unit>
         <test.hsqldb.version>2.7.0</test.hsqldb.version>
         <test.onlyITs>false</test.onlyITs>
-        <test.junit-jupiter.version>5.9.0</test.junit-jupiter.version>
+        <test.junit-jupiter.version>5.9.1</test.junit-jupiter.version>
         <maven.surefire.version>3.0.0-M7</maven.surefire.version>
         <jacoco-maven-plugin.version>0.8.8</jacoco-maven-plugin.version>
         <versions-maven-plugin.version>2.12.0</versions-maven-plugin.version>
