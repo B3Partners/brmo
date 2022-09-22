@@ -95,6 +95,7 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
     private final String NHR_FIX_TYPERING = "Fix 'typering' en 'clazz' van nHR persoon";
     private final String NHR_ARCHIVING = "Opschonen en archiveren van nHR berichten met status RSGB_OK, ouder dan 3 maanden";
     private final String NHR_REMOVAL = "Verwijderen van nHR berichten met status ARCHIVE";
+    private final String NHR_OPNIEUW_VERWERKEN  = "Opnieuw verwerken van nHR berichten met status RSGB_NOK";
     private final String BRK_HERSTEL_BESTANDSNAAM = "Vul de 'herstelde bestandsnaam' van BRK laadprocessen";
 
     private final boolean repairFirst = false;
@@ -223,7 +224,8 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
             new AdvancedFunctionProcess(NHR_REMOVAL, BrmoFramework.BR_NHR, Bericht.STATUS.ARCHIVE.toString()),
             new AdvancedFunctionProcess(BRK_VERWIJDEREN_NOGMAALS_UITVOEREN, BrmoFramework.BR_BRK, Bericht.STATUS.RSGB_OK.toString()),
             new AdvancedFunctionProcess(NHR_FIX_TYPERING, BrmoFramework.BR_NHR, null),
-            new AdvancedFunctionProcess(BRK_HERSTEL_BESTANDSNAAM, BrmoFramework.BR_BRK, "0")
+            new AdvancedFunctionProcess(BRK_HERSTEL_BESTANDSNAAM, BrmoFramework.BR_BRK, "0"),
+            new AdvancedFunctionProcess(NHR_OPNIEUW_VERWERKEN, BrmoFramework.BR_NHR, Bericht.STATUS.RSGB_NOK.toString())
         );
     }
 
@@ -273,6 +275,8 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
                 deleteBerichten(process.getConfig(), BrmoFramework.BR_NHR);
             } else if (process.getName().equals(BRK_VERWIJDEREN_NOGMAALS_UITVOEREN)) {
                 replayBRKVerwijderBerichten(process.getSoort(), process.getConfig());
+            } else if (process.getName().equals(NHR_OPNIEUW_VERWERKEN)) {
+                replayNHRVerwerking(process.getSoort(), process.getConfig());
             } else if (process.getName().equals(NHR_FIX_TYPERING)) {
                 fixNHRTypering(process.getSoort(), process.getConfig());
             } else if (process.getName().equals(BRK_HERSTEL_BESTANDSNAAM)) {
@@ -689,6 +693,115 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
         }
         DbUtils.closeQuietly(conn);
     }
+
+    /**
+     * Deze actie verwerkt alle NHR berichten met status RSGB_NOK opnieuw.
+     *
+     * @param status bericht status
+     * @param soort soort bericht
+     * @throws SQLException if any
+     * @throws BrmoException if any
+     * @throws Exception if any
+     */
+    public void replayNHRVerwerking(String soort, String status) throws SQLException, BrmoException, Exception {
+        int offset = 0;
+        int batch = 1000;
+        final MutableInt processed = new MutableInt(0);
+        final DataSource dataSourceStaging = ConfigUtil.getDataSourceStaging();
+        final DataSource dataSourceRsgb = ConfigUtil.getDataSourceRsgb();
+        final Connection conn = dataSourceStaging.getConnection();
+        final GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
+        final RowProcessor processor = new StagingRowHandler();
+
+        LOG.debug("staging datasource: " + dataSourceStaging);
+        LOG.debug("rsgb datasource: " + dataSourceRsgb);
+
+        String countsql = "select count(id) from " + BrmoFramework.BERICHT_TABLE
+                + " where soort='" + soort + "'"
+                + " and status='" + status + "'";
+        LOG.debug("SQL voor tellen van berichten batch: " + countsql);
+        Object o = new QueryRunner(
+                geomToJdbc.isPmdKnownBroken()).query(conn,
+                countsql, new ScalarHandler());
+        LOG.debug("Totaal te verwerken verwijder berichten: " + o);
+
+        if (o instanceof BigDecimal) {
+            total(((BigDecimal) o).longValue());
+        } else if (o instanceof Integer) {
+            total(((Integer) o).longValue());
+        } else {
+            total((Long) o);
+        }
+
+        StagingProxy staging = new StagingProxy(dataSourceStaging);
+        RsgbProxy rsgb = new RsgbProxy(dataSourceRsgb, staging, Bericht.STATUS.RSGB_NOK, this);
+        rsgb.setErrorState(getContext().getServletContext().getInitParameter("error.state"));
+        rsgb.setOrderBerichten(true);
+        rsgb.init();
+
+        do {
+            LOG.debug(String.format("Ophalen berichten batch met offset %d, limit %d", offset, batch));
+            String sql = "select * from " + BrmoFramework.BERICHT_TABLE
+                    + " where soort='" + soort + "'"
+                    + " and status='" + status + "'"
+                    + " order by id";
+            sql = geomToJdbc.buildPaginationSql(sql, offset, batch);
+            LOG.debug("SQL voor ophalen berichten batch: " + sql);
+
+            processed.setValue(0);
+            Exception e = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, sql, new ResultSetHandler<Exception>() {
+                @Override
+                public Exception handle(ResultSet rs) throws SQLException {
+                    while (rs.next()) {
+                        try {
+                            Bericht bericht = processor.toBean(rs, Bericht.class);
+                            LOG.debug("Opnieuw verwerken van bericht: " + bericht);
+                            // bewaar oude log
+                            String oudeOpmerkingen = bericht.getOpmerking();
+                            // forceer verwerking door bericht op STAGING_OK te zetten en dan opnieuw te verwerken
+                            bericht.setStatus(Bericht.STATUS.STAGING_OK);
+                            new QueryRunner(geomToJdbc.isPmdKnownBroken())
+                                    .update(conn, "update " + BrmoFramework.BERICHT_TABLE
+                                            + " set status_datum = ?, status = ? where id = ?",
+                                            new Timestamp(bericht.getStatusDatum().getTime()),
+                                            bericht.getStatus().toString(),
+                                            bericht.getId());
+
+                            rsgb.handle(bericht, rsgb.transformToTableData(bericht), true);
+
+                            bericht.setOpmerking("Opnieuw verwerkt met geavanceerde functies optie.\nNieuwe verwerkingslog (oude log daaronder)\n"
+                                    + bericht.getOpmerking()
+                                    + "\n\nOude verwerkingslog\n\n"
+                                    + oudeOpmerkingen
+                            );
+                            bericht.setStatusDatum(new Date());
+                            new QueryRunner(geomToJdbc.isPmdKnownBroken())
+                                    .update(conn, "update " + BrmoFramework.BERICHT_TABLE
+                                            + " set opmerking = ? where id = ?",
+                                            bericht.getOpmerking(),
+                                            bericht.getId());
+                        } catch (Exception e) {
+                            return e;
+                        }
+                        processed.increment();
+                    }
+                    return null;
+                }
+            });
+            offset += processed.intValue();
+
+            progress(offset);
+
+            // If handler threw exception processing row, rethrow it
+            if (e != null) {
+                DbUtils.closeQuietly(conn);
+                throw e;
+            }
+        } while (processed.intValue() > 0);
+        DbUtils.closeQuietly(conn);
+        rsgb.close();
+    }
+
 
     /**
      * Deze actie loopt door de lijst brk verwijderberichten (={@code <empty/>}
