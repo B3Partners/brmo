@@ -166,7 +166,8 @@ public class UpdatesActionBean implements ActionBean, ProgressUpdateListener {
             new UpdateProcess("Bijwerken subject adres comfort data", BrmoFramework.BR_BRK, "/xsl/update-comfort-adres.xsl"),
             new UpdateProcess("Bijwerken ingangsdatum_recht zakelijk recht", BrmoFramework.BR_BRK, "/xsl/update-zak_recht-begindatum.xsl", true),
             new UpdateProcess("Bijwerken vestiging activiteit", BrmoFramework.BR_NHR, "/xsl/update-vestg-activiteit.xsl"),
-            new UpdateProcess("Bijwerken non-mailing attribuut maatschappelijke activiteit", BrmoFramework.BR_NHR, "/xsl/update-nonmailing.xsl")
+            new UpdateProcess("Bijwerken non-mailing attribuut maatschappelijke activiteit", BrmoFramework.BR_NHR, "/xsl/update-nonmailing.xsl"),
+            new UpdateProcess("Bijwerking fk_4pes_sc_identif op maatschappelijke activiteit", BrmoFramework.BR_NHR, "/xsl/update-kvk-koppeling.xsl")
         });
     }
 
