@@ -90,6 +90,8 @@
                     <xsl:choose>
                         <xsl:when test="cat:geslachtsaanduiding = 'Man'">M</xsl:when>
                         <xsl:when test="cat:geslachtsaanduiding = 'Vrouw'">V</xsl:when>
+                        <xsl:when test="cat:geslachtsaanduiding/cat:code = 'm'">M</xsl:when>
+                        <xsl:when test="cat:geslachtsaanduiding/cat:code = 'v'">V</xsl:when>
                         <xsl:otherwise>O</xsl:otherwise>
                     </xsl:choose>
                 </geslachtsaand>
@@ -514,6 +516,9 @@
             <xsl:if test="cat:rechtspersoon/cat:bezoekLocatiePersoon/cat:adres/cat:binnenlandsAdres">
                 <xsl:value-of select="normalize-space(cat:rechtspersoon/cat:bezoekLocatiePersoon/cat:volledigAdres)"/>
             </xsl:if>
+            <xsl:if test="cat:woonLocatie/cat:adres/cat:binnenlandsAdres">
+                <xsl:value-of select="normalize-space(cat:woonLocatie/cat:volledigAdres)"/>
+            </xsl:if>
         </adres_binnenland>
         <adres_buitenland>
             <xsl:if test="cat:bezoekLocatie/cat:adres/cat:buitenlandsAdres">
@@ -527,6 +532,9 @@
             </xsl:if>
             <xsl:if test="cat:buitenlandseVennootschap/cat:bezoekLocatiePersoon/cat:adres/cat:buitenlandsAdres">
                 <xsl:value-of select="normalize-space(cat:buitenlandseVennootschap/cat:bezoekLocatiePersoon/cat:adres/cat:buitenlandsAdres)"/>
+            </xsl:if>
+            <xsl:if test="cat:woonLocatie/cat:adres/cat:buitenlandsAdres">
+                <xsl:value-of select="normalize-space(cat:woonLocatie/cat:volledigAdres)"/>
             </xsl:if>
         </adres_buitenland>
 
