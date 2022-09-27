@@ -21120,15 +21120,16 @@
                     typeName="AN200"
                     visibility=""
                     association=""/>
-         <Property elementType="Objecttype - Property"
+         <!--repair.xsl: Ingeschreven niet-natuurlijk persoon: vergroot ruimte publiekrechtelijke rechtsvorm-->
+         <Property type="EAJava_AN40"
+                    typeName="AN60"
+                    elementType="Objecttype - Property"
                     id="EAID_A79988B8_DFD6_49c8_9996_A22579B02F5C"
                     name="Publiekrechtelijke rechtsvorm"
                     lowerValueType="uml:LiteralInteger"
                     lowerValueValue="0"
                     upperValueType="uml:LiteralUnlimitedNatural"
                     upperValueValue="1"
-                    type="EAJava_AN40"
-                    typeName="AN40"
                     visibility=""
                     association=""/>
          <Property elementType="Objecttype - Property"
@@ -26244,7 +26245,10 @@
                  typeName="AN3"
                  visibility=""
                  association=""/>
-      <Property elementType="Objecttype/Relatieklasse - Property"
+      <!--repair.xsl: Functionaris: soort bevoegdheid: kolom vergroot naar 50-->
+      <Property type="EAnone_AN30"
+                 typeName="AN50"
+                 elementType="Objecttype/Relatieklasse - Property"
                  classId="EAID_5A14942C_4B47_46dc_B355_837ACE27B4F7"
                  className="FUNCTIONARIS"
                  isAbstract=""
@@ -26254,8 +26258,6 @@
                  lowerValueValue="0"
                  upperValueType="uml:LiteralUnlimitedNatural"
                  upperValueValue="1"
-                 type="EAnone_AN30"
-                 typeName="AN30"
                  visibility=""
                  association=""/>
       <Property elementType="Objecttype/Relatieklasse - Property"

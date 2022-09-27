@@ -821,8 +821,8 @@
                desc="AN200"/>
       <column name="publiekrechtelijke_rechtsvorm"
                fullname="Publiekrechtelijke rechtsvorm"
-               type="varchar(40)"
-               desc="AN40"/>
+               type="varchar(60)"
+               desc="AN60"/>
       <column name="rechtstoestand"
                fullname="Rechtstoestand"
                type="varchar(30)"
@@ -3450,8 +3450,8 @@
                desc="AN3"/>
       <column name="soort_bev"
                fullname="Soort Bevoegdheid"
-               type="varchar(30)"
-               desc="AN30"/>
+               type="varchar(50)"
+               desc="AN50"/>
       <column name="volledig_beperkt_volmacht"
                fullname="Volledig Beperkt volmacht"
                type="varchar(1)"
