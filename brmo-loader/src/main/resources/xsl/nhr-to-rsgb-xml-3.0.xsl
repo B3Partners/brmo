@@ -90,6 +90,8 @@
                     <xsl:choose>
                         <xsl:when test="cat:geslachtsaanduiding = 'Man'">M</xsl:when>
                         <xsl:when test="cat:geslachtsaanduiding = 'Vrouw'">V</xsl:when>
+                        <xsl:when test="cat:geslachtsaanduiding/cat:code = 'm'">M</xsl:when>
+                        <xsl:when test="cat:geslachtsaanduiding/cat:code = 'v'">V</xsl:when>
                         <xsl:otherwise>O</xsl:otherwise>
                     </xsl:choose>
                 </geslachtsaand>
@@ -106,6 +108,33 @@
                 <fk_28nra_sc_identif><xsl:value-of select="cat:woonLocatie/cat:adres/cat:bagId/cat:identificatieAdresseerbaarObject"/></fk_28nra_sc_identif>
             </ingeschr_nat_prs>
         </comfort>
+    </xsl:template>
+    <xsl:template name="persoon">
+        <xsl:choose>
+            <xsl:when test="local-name() = 'natuurlijkPersoon'">
+                <xsl:call-template name="natPersoon" />
+            </xsl:when>
+
+            <xsl:when test="local-name() = 'rechtspersoon'">
+                <xsl:apply-templates select="cat:rechtspersoon"/>
+            </xsl:when>
+
+            <xsl:when test="local-name() = 'buitenlandseVennootschap'">
+                <xsl:apply-templates select="cat:buitenlandseVennootschap"/>
+            </xsl:when>
+
+            <xsl:when test="local-name() = 'samenwerkingsverband'">
+                <xsl:apply-templates select="cat:samenwerkingsverband"/>
+            </xsl:when>
+
+            <xsl:otherwise>
+                <xsl:comment>
+                    <xsl:text>namespace probleem voor node met naam: </xsl:text><xsl:value-of select="name()"/>
+                    <xsl:text> - local-name: </xsl:text><xsl:value-of select="local-name()"/>
+                    <xsl:text> - geen subject records aangemaakt</xsl:text>
+                </xsl:comment>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
 
     <xsl:template name="heeft">
@@ -216,6 +245,10 @@
             <xsl:apply-templates select="."/>
         </xsl:for-each>
 
+        <xsl:for-each select="cat:heeftAlsEigenaar/*[not(local-name()='relatieRegistratie')]">
+            <xsl:call-template name="persoon" />
+        </xsl:for-each>
+
         <maatschapp_activiteit column-dat-beg-geldh="datum_aanvang" column-datum-einde-geldh="datum_einde_geldig">
             <kvk_nummer><xsl:value-of select="cat:kvkNummer"/></kvk_nummer>
 
@@ -229,7 +262,7 @@
                 <fk_3ond_kvk_nummer><xsl:value-of select="."/></fk_3ond_kvk_nummer>
             </xsl:for-each>
             <fk_4pes_sc_identif>
-                <xsl:apply-templates select="cat:heeftAlsEigenaar/cat:rechtspersoon" mode="object_ref"/>
+                <xsl:apply-templates select="cat:heeftAlsEigenaar/*[not(local-name()='relatieRegistratie')]" mode="object_ref"/>
             </fk_4pes_sc_identif>
         </maatschapp_activiteit>
 
@@ -483,6 +516,9 @@
             <xsl:if test="cat:rechtspersoon/cat:bezoekLocatiePersoon/cat:adres/cat:binnenlandsAdres">
                 <xsl:value-of select="normalize-space(cat:rechtspersoon/cat:bezoekLocatiePersoon/cat:volledigAdres)"/>
             </xsl:if>
+            <xsl:if test="cat:woonLocatie/cat:adres/cat:binnenlandsAdres">
+                <xsl:value-of select="normalize-space(cat:woonLocatie/cat:volledigAdres)"/>
+            </xsl:if>
         </adres_binnenland>
         <adres_buitenland>
             <xsl:if test="cat:bezoekLocatie/cat:adres/cat:buitenlandsAdres">
@@ -496,6 +532,9 @@
             </xsl:if>
             <xsl:if test="cat:buitenlandseVennootschap/cat:bezoekLocatiePersoon/cat:adres/cat:buitenlandsAdres">
                 <xsl:value-of select="normalize-space(cat:buitenlandseVennootschap/cat:bezoekLocatiePersoon/cat:adres/cat:buitenlandsAdres)"/>
+            </xsl:if>
+            <xsl:if test="cat:woonLocatie/cat:adres/cat:buitenlandsAdres">
+                <xsl:value-of select="normalize-space(cat:woonLocatie/cat:volledigAdres)"/>
             </xsl:if>
         </adres_buitenland>
 

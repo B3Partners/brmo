@@ -63,10 +63,10 @@ public class NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
                 // aantalNat_prs, hoofd vestgID, aantalVestg_activiteit, kvkNummer v MaatschAct, sbiCodes,
                 // aantalFunctionarissen},
                 // #1
-                arguments("/mantis10752/52019667.xml", 2, 1, 1,/*subj*/ 2, 1, 0, "nhr.comVestg.000021991235", 1,
+                arguments("/mantis10752/52019667.xml", 2, 1, 2,/*subj*/ 3, 1, 1, "nhr.comVestg.000021991235", 1,
                         52019667, new String[]{"86912"}, 0),
                 /* #2 Verhoef ortho*/
-                arguments("/nhr-v3/52019667.anon.xml", 2, 1, 1,/*subj*/ 2, 1, 0, "nhr.comVestg.000021991235", 1,
+                arguments("/nhr-v3/52019667.anon.xml", 2, 1, 2,/*subj*/ 3, 1, 1, "nhr.comVestg.000021991235", 1,
                         52019667, new String[]{"86912"}, 0),
                 /* #3 dactari*/
                 arguments("/nhr-v3/16029104.anon.xml", 3, 1, 2 + 6, /*subj*/ 3 + 6, 2, 0 + 6,
@@ -257,6 +257,10 @@ public class NhrToStagingToRsgbIntegrationTest extends AbstractDatabaseIntegrati
         ITable vestg_activiteit = rsgb.createDataSet().getTable("vestg_activiteit");
         assertEquals(aantalVestg_activiteit, vestg_activiteit.getRowCount(),
                 "Het aantal 'vestg_activiteit' records klopt niet");
+
+        ITable maatschapp_activiteit = rsgb.createDataSet().getTable("maatschapp_activiteit");
+
+        assertNotNull(maatschapp_activiteit.getValue(0, "fk_4pes_sc_identif"), "Geen maatschappelijke activiteit -> persoon koppeling");
 
         ITable sbi_activiteit = rsgb.createDataSet().getTable("sbi_activiteit");
         ITable herkomst_metadata = rsgb.createDataSet().getTable("herkomst_metadata");
