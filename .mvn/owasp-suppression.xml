@@ -44,12 +44,10 @@
         <vulnerabilityName>CVE-2022-24198</vulnerabilityName>
     </suppress>
     <suppress>
-        <notes><![CDATA[
-                   file name: log4j-api-2.17.2.jar
-                   see: https://github.com/jeremylong/DependencyCheck/issues/4637
-   ]]></notes>
-        <packageUrl regex="true">^pkg:maven/org\.apache\.logging\.log4j/log4j\-api@.*$</packageUrl>
-        <cve>CVE-2022-33915</cve>
+       <notes><![CDATA[
+       file name: hsqldb-2.7.0.jar
+       ]]></notes>
+       <packageUrl regex="true">^pkg:maven/org\.hsqldb/hsqldb@2\.7\.0.*$</packageUrl>
+       <vulnerabilityName>CVE-2022-41853</vulnerabilityName>
     </suppress>
-
 </suppressions>
