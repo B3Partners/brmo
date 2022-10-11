@@ -1357,11 +1357,11 @@
     </reporting>
     <profiles>
         <profile>
-            <!-- actief voor Travis-CI builds -->
+            <!-- actief voor CI builds -->
             <id>postgresql</id>
             <properties>
                 <oracle.jdbc.groupId>com.oracle.database.jdbc</oracle.jdbc.groupId>
-                <oracle.jdbc.artifactId>ojdbc8</oracle.jdbc.artifactId>
+                <oracle.jdbc.artifactId>ojdbc11</oracle.jdbc.artifactId>
             </properties>
         </profile>
         <profile>
