@@ -82,9 +82,9 @@ statement geladen.
 Installeer PostgreSQL en PostGIS. Dit kan snel en makkelijk met Docker:
 
 ```shell
-docker run --name postgis --detach --publish 5432:5432 -e POSTGRES_PASSWORD=postgres postgis/postgis -c fsync=off
+docker run --name postgis --detach --publish 5432:5432 -e POSTGRES_PASSWORD=postgres postgis/postgis:15-3.3 -c fsync=off
 ```
-Heb je een Raspberry Pi? Gebruik de image naam `awill88/postgis:13-3.0` in plaats van `postgis/postgis`. Zonder Docker
+Heb je een Raspberry Pi? Gebruik de image naam `kartoza/postgis:14-3.3` in plaats van `postgis/postgis:15-3.3`. Zonder Docker
 ben je natuurlijk ook snel op weg met `apt install postgis`.
 
 Wacht een momentje totdat PostgreSQL is opgestart totdat `docker logs postgis` aangeeft "database system is ready to
