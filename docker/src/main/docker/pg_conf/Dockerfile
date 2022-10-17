@@ -1,4 +1,4 @@
-FROM postgis/postgis:14-3.3-alpine
+FROM postgis/postgis:15-3.3-alpine
 
 ARG TZ="Europe/Amsterdam"
 ARG BRMO_VERSION="2.3.1-SNAPSHOT"
