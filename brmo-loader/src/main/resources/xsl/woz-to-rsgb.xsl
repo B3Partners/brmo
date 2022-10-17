@@ -189,17 +189,25 @@
 
         <xsl:for-each
                 select="woz:omvat/woz:gerelateerde/bg:kadastraleIdentificatie| woz:bevatKadastraleObjecten/woz:gerelateerde/bg:kadastraleIdentificatie">
-            <woz_omvat>
-                <fk_sc_lh_kad_identif>
-                    <xsl:value-of select="."/>
-                </fk_sc_lh_kad_identif>
-                <fk_sc_rh_woz_nummer>
-                    <xsl:value-of select="$objectNum"/>
-                </fk_sc_rh_woz_nummer>
-                <toegekende_opp>
-                    <xsl:value-of select="../../woz:toegekendeOppervlakte"/>
-                </toegekende_opp>
-            </woz_omvat>
+            <!-- https://b3partners.atlassian.net/browse/BRMO-204 lege kadaster identificatie -->
+            <xsl:if test=". !=''">
+                <woz_omvat>
+                    <fk_sc_lh_kad_identif>
+                        <xsl:value-of select="."/>
+                    </fk_sc_lh_kad_identif>
+                    <fk_sc_rh_woz_nummer>
+                        <xsl:value-of select="$objectNum"/>
+                    </fk_sc_rh_woz_nummer>
+                    <toegekende_opp>
+                        <xsl:value-of select="../../woz:toegekendeOppervlakte"/>
+                    </toegekende_opp>
+                </woz_omvat>
+            </xsl:if>
+            <xsl:if test=". = ''">
+                <xsl:comment>
+                    <xsl:text>kadaster identificatie is leeg, kan woz object niet opnemen in woz_omvat koppeltabel</xsl:text>
+                </xsl:comment>
+            </xsl:if>
         </xsl:for-each>
     </xsl:template>
 
