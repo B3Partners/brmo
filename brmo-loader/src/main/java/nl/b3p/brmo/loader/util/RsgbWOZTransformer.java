@@ -7,6 +7,7 @@ import nl.b3p.brmo.loader.StagingProxy;
 import nl.b3p.brmo.loader.entity.Bericht;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.atteo.xmlcombiner.XmlCombiner;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -45,7 +46,7 @@ public class RsgbWOZTransformer extends RsgbTransformer {
         this.staging = staging;
     }
 
-    protected static Document merge(String oldFile, String newFile) throws XPathExpressionException, ParserConfigurationException, IOException, SAXException {
+    protected static Document merge(String oldDBxml, String newDBxml) throws XPathExpressionException, ParserConfigurationException, IOException, SAXException {
         final XPathExpression expression = XPathFactory.newInstance().newXPath().compile("/root/data");
 
         DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -57,15 +58,15 @@ public class RsgbWOZTransformer extends RsgbTransformer {
         docBuilderFactory.setNamespaceAware(false);
 
         DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
-        Document base = docBuilder.parse(new InputSource(new StringReader(oldFile)));
+        Document base = docBuilder.parse(new InputSource(new StringReader(oldDBxml)));
 
         Element old = (Element) expression.evaluate(base, XPathConstants.NODE);
         if (old == null) {
-            throw new IOException(oldFile + ": expression does not evaluate to node");
+            throw new IOException(oldDBxml + ": expression does not evaluate to node");
         }
-
-        Document merge = docBuilder.parse(new InputSource(new StringReader(newFile)));
-        Node newNode = (Node) expression.evaluate(merge, XPathConstants.NODE);
+        LOG.trace("oldDBxml bericht is: " + oldDBxml);
+        LOG.trace("newDBxml bericht is: " + newDBxml);
+        Document merge = docBuilder.parse(new InputSource(new StringReader(newDBxml)));
 
         /*
             (1)Voor elke node in merge, kijk of hij bestaat in base
@@ -77,60 +78,10 @@ public class RsgbWOZTransformer extends RsgbTransformer {
                             zo ja, overschrijf waarde
                     zo nee, recurse in (1)
          */
-        merge(base, newNode, old, true/*, merge*/);
-
-        return base;
-    }
-
-    private static void merge(Document base, Node newNode, Element old, boolean first/*, Node merge*/) {
-        while (newNode.hasChildNodes()) {
-            Node newChild = newNode.getFirstChild();
-            newNode.removeChild(newChild);
-            String name = newChild.getNodeName();
-            NodeList nl = old.getElementsByTagName(name);
-
-            // "comfort" data zit 1 nivo dieper
-            if ("comfort".equalsIgnoreCase(name)) {
-                merge(base, newChild, old, true);
-            }
-
-            if (nl.getLength() == 0) {
-                newChild = base.importNode(newChild, true);
-                newChild.setTextContent(newChild.getTextContent());
-                old.appendChild(newChild);
-            } else {
-                Element oldItem = (Element) nl.item(0);
-                if ("geom".equalsIgnoreCase(name)) {
-                    // gebruik newChild helemaal voor geometrie
-                    newChild = base.importNode(newChild, true);
-                    old.removeChild(oldItem);
-                    old.appendChild(newChild);
-                } else {
-                    if (first) {
-                        merge(base, newChild, oldItem, false);
-                    } else {
-                        String nieuweWaarde = newChild.getTextContent();
-                        if (nieuweWaarde.equals(STUF_GEEN_WAARDE)) {
-                            oldItem.setTextContent("");
-                        } else if (nieuweWaarde.equals("")) {
-                            //keep old content
-                        } else {
-                            oldItem.setTextContent(sanitizeValue(newChild.getTextContent()));
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    private static String sanitizeValue(String val) {
-        if (val.contains(STUF_GEEN_WAARDE)) {
-            String newValue = val.replaceAll(STUF_GEEN_WAARDE + " ", "");
-            newValue = newValue.replaceAll(STUF_GEEN_WAARDE, "");
-            return newValue;
-        } else {
-            return val;
-        }
+        XmlCombiner combiner = new XmlCombiner();
+        combiner.combine(base);
+        combiner.combine(merge);
+       return combiner.buildDocument();
     }
 
     protected static String print(Document doc) throws TransformerException {
@@ -161,8 +112,7 @@ public class RsgbWOZTransformer extends RsgbTransformer {
             Bericht previousBericht = staging.getPreviousBericht(bericht, loadLog);
             if (previousBericht != null) {
                 LOG.debug("vorige bericht is: " + previousBericht);
-                String oldDBXml = previousBericht.getDbXml();
-                if (null == oldDBXml) {
+                if (null == previousBericht.getDbXml()) {
                     // TODO mogelijk op te lossen door previousBericht nogmaals te transformeren via
                     //      oldDBXml = super.transformToDbXml(previousBericht);
                     //      voor nu zetten we de pipelining.enabled op false in de web.xml/context.xml
@@ -171,19 +121,16 @@ public class RsgbWOZTransformer extends RsgbTransformer {
                     //      is naar de bericht tabel
                     LOG.warn("Er is wel een vorige bericht, maar de DB_XML ontbreekt");
                 }
-                Document d = merge(oldDBXml, current);
+                Document d = merge(previousBericht.getDbXml(), current);
 
                 String mergedDBXML = print(d);
                 bericht.setDbXml(mergedDBXML);
+                LOG.trace("mergedDBXML bericht is: " + mergedDBXML);
                 current = mergedDBXML;
             }
         } catch (SQLException | XPathExpressionException | ParserConfigurationException | IOException | SAXException ex) {
             LOG.error("Vorige bericht kon niet worden opgehaald: ", ex);
         }
-
-        // retrieve old bericht
-        // apply current to old
-        // return modified dbxml
         LOG.debug(loadLog);
         return current;
     }

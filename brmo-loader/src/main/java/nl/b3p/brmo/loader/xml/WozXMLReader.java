@@ -36,6 +36,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -54,6 +55,8 @@ public class WozXMLReader extends BrmoXMLReader {
     private NodeList objectNodes = null;
     private int index;
     private String brOrigXML = null;
+    private String betrokkenWaterschap = null;
+    private String gemeenteCode = null;
 
     public WozXMLReader(InputStream in, Date d, StagingProxy staging) throws Exception {
         this.in = in;
@@ -95,6 +98,13 @@ public class WozXMLReader extends BrmoXMLReader {
             setDatumAsString(datum.getTextContent(), "yyyyMMddHHmmssSSS");
             LOG.debug("Tijdstip bericht ingesteld op " + getBestandsDatum());
         }
+
+        XPathExpression eersteGemeente = xpath.compile("//*[local-name()='verantwoordelijkeGemeente']/*[local-name()='gemeenteCode'][1]");
+        Node gem = (Node) eersteGemeente.evaluate(doc, XPathConstants.NODE);
+        gemeenteCode = null!=gem?gem.getTextContent():null;
+        XPathExpression eersteWaterschap = xpath.compile("//*[local-name()='ligtIn']/*[local-name()='gerelateerde']/*[local-name()='betrokkenWaterschap'][1]");
+        Node ws = (Node) eersteWaterschap.evaluate(doc, XPathConstants.NODE);
+        betrokkenWaterschap = null!=ws?ws.getTextContent():null;
 
         // actuele woz:object nodes
         XPathExpression objectNode = xpath.compile("//*[local-name()='object'][not(ancestor::*[local-name()='historie'])]");
@@ -155,12 +165,18 @@ public class WozXMLReader extends BrmoXMLReader {
         t.transform(new DOMSource(n), new StreamResult(sw));
 
         Map<String, String> bsns = extractBSN(n);
-        String el = getXML(bsns);
         String origXML = sw.toString();
-        String brXML = "<root>" + origXML;
-        brXML += el + "</root>";
+        StringBuilder brXML = new StringBuilder("<root>")
+                .append(origXML)
+                .append(getXML(bsns))
+                .append("<fallback>")
+                .append("<berichtDatum>").append(new SimpleDateFormat("yyyy-MM-dd").format(getBestandsDatum())).append("</berichtDatum>")
+                .append("<gemeenteCode>").append(gemeenteCode).append("</gemeenteCode>")
+                .append("<betrokkenWaterschap>").append(betrokkenWaterschap).append("</betrokkenWaterschap>")
+                .append("</fallback>")
+                .append("</root>");
 
-        WozBericht b = new WozBericht(brXML);
+        WozBericht b = new WozBericht(brXML.toString());
         b.setDatum(getBestandsDatum());
         if (index == 1) {
             // alleen op 1e brmo bericht van mogelijk meer uit originele bericht

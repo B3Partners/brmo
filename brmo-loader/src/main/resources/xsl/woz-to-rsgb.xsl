@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Copyright (C) 2021 B3Partners B.V. -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                 xmlns:woz="http://www.waarderingskamer.nl/StUF/0312"
                 xmlns:bg="http://www.egem.nl/StUF/sector/bg/0310"
                 xmlns:s="http://www.egem.nl/StUF/StUF0301"
@@ -104,16 +105,23 @@
         </xsl:comment>
 
         <woz_obj column-dat-beg-geldh="dat_beg_geldh" column-datum-einde-geldh="datum_einde_geldh">
-            <dat_beg_geldh>
-                <xsl:for-each select="s:tijdvakGeldigheid/s:beginGeldigheid">
+            <xsl:variable name="_datum">
+                <xsl:for-each select="s:tijdvakGeldigheid/s:beginGeldigheid | woz.heeftBelanghebbende/s:tijdvakGeldigheid/s:beginGeldigheid">
                     <xsl:call-template name="date-numeric"/>
                 </xsl:for-each>
-            </dat_beg_geldh>
+            </xsl:variable>
+            <xsl:if test="$_datum != ''">
+                <dat_beg_geldh><xsl:value-of select="$_datum"/></dat_beg_geldh>
+            </xsl:if>
+            <xsl:if test="$_datum = ''">
+                <xsl:comment>geen beginGeldigheid in deelbericht, gebruik bestandsdatum</xsl:comment>
+                <dat_beg_geldh><xsl:value-of select="../fallback/berichtDatum"/></dat_beg_geldh>
+            </xsl:if>
             <nummer>
                 <xsl:value-of select="$objectNum"/>
             </nummer>
             <datum_einde_geldh>
-                <xsl:for-each select="s:tijdvakGeldigheid/s:eindGeldigheid">
+                <xsl:for-each select="s:tijdvakGeldigheid/s:eindGeldigheid | woz.heeftBelanghebbende/s:tijdvakGeldigheid/s:eindGeldigheid">
                     <xsl:call-template name="date-numeric"/>
                 </xsl:for-each>
             </datum_einde_geldh>
@@ -139,12 +147,29 @@
             <geom>
                 <xsl:copy-of select="woz:wozObjectGeometrie/gml:Polygon"/>
             </geom>
-            <waterschap>
+
+            <xsl:variable name="_waterschap">
                 <xsl:value-of select="woz:ligtIn/woz:gerelateerde/woz:betrokkenWaterschap"/>
-            </waterschap>
-            <fk_verantw_gem_code>
+            </xsl:variable>
+            <xsl:if test="$_waterschap != ''">
+                <waterschap><xsl:value-of select="$_waterschap"/></waterschap>
+            </xsl:if>
+            <xsl:if test="$_waterschap = ''">
+                <xsl:comment>geen waterschap in deelbericht, gebruik fallback</xsl:comment>
+                <waterschap><xsl:value-of select="../fallback/betrokkenWaterschap"/></waterschap>
+            </xsl:if>
+
+            <xsl:variable name="_gemeenteCode">
                 <xsl:value-of select="woz:verantwoordelijkeGemeente/bg:gemeenteCode"/>
-            </fk_verantw_gem_code>
+            </xsl:variable>
+            <xsl:if test="$_gemeenteCode != ''">
+                <fk_verantw_gem_code><xsl:value-of select="$_gemeenteCode"/></fk_verantw_gem_code>
+            </xsl:if>
+            <xsl:if test="$_gemeenteCode = ''">
+                <xsl:comment>geen gemeenteCode in deelbericht, gebruik fallback</xsl:comment>
+                <fk_verantw_gem_code><xsl:value-of select="../fallback/gemeenteCode"/></fk_verantw_gem_code>
+            </xsl:if>
+
         </woz_obj>
 
         <xsl:call-template name="wozWaarde">
@@ -199,8 +224,6 @@
                 </xsl:call-template>
             </xsl:if>
 
-
-
             <xsl:call-template name="woz_belang">
                 <xsl:with-param name="key" select="$key"/>
             </xsl:call-template>
@@ -228,6 +251,8 @@
                 </xsl:comment>
             </xsl:if>
         </xsl:for-each>
+
+        <xsl:call-template name="aanduiding"/>
     </xsl:template>
 
     <xsl:template name="WRD" match="woz:object[@s:entiteittype='WRD']">
@@ -362,49 +387,53 @@
     </xsl:template>
 
     <xsl:template name="aanduiding">
-        <locaand_openb_rmte>
-            <fk_sc_lh_opr_identifcode>
-                <xsl:value-of select="woz:heeftAlsAanduiding/woz:gerelateerde/bg:identificatie"/>
-            </fk_sc_lh_opr_identifcode>
-            <fk_sc_rh_woz_nummer>
-                <xsl:value-of select="woz:wozObjectNummer"/>
-            </fk_sc_rh_woz_nummer>
-            <locomschr>
-                <xsl:value-of select="woz:heeftAlsAanduiding/woz:locatieOmschrijving"/>
-            </locomschr>
-        </locaand_openb_rmte>
+        <!-- . = woz_obj -->
+        <xsl:if test="./woz:heeftAlsAanduiding/woz:gerelateerde/bg:identificatie">
+            <locaand_openb_rmte>
+                <fk_sc_lh_opr_identifcode>
+                    <xsl:value-of select="woz:heeftAlsAanduiding/woz:gerelateerde/bg:identificatie"/>
+                </fk_sc_lh_opr_identifcode>
+                <fk_sc_rh_woz_nummer>
+                    <xsl:value-of select="woz:wozObjectNummer"/>
+                </fk_sc_rh_woz_nummer>
+                <locomschr>
+                    <xsl:value-of select="woz:heeftAlsAanduiding/woz:locatieOmschrijving"/>
+                </locomschr>
+            </locaand_openb_rmte>
+        </xsl:if>
 
-        <locaand_adres>
-            <fk_sc_lh_aoa_identif>
-                <xsl:value-of select="woz:aanduidingWOZobject/bg:aoa.identificatie"/>
-            </fk_sc_lh_aoa_identif>
-            <fk_sc_rh_woz_nummer>
-                <xsl:value-of select="woz:wozObjectNummer"/>
-            </fk_sc_rh_woz_nummer>
-            <locomschr>
-                <xsl:value-of select="woz:aanduidingWOZobject/bg:locatieOmschrijving"/>
-            </locomschr>
-        </locaand_adres>
+        <xsl:if test="./woz:aanduidingWOZobject/bg:aoa.identificatie">
+            <locaand_adres>
+                <fk_sc_lh_aoa_identif>
+                    <xsl:value-of select="woz:aanduidingWOZobject/bg:aoa.identificatie"/>
+                </fk_sc_lh_aoa_identif>
+                <fk_sc_rh_woz_nummer>
+                    <xsl:value-of select="woz:wozObjectNummer"/>
+                </fk_sc_rh_woz_nummer>
+                <locomschr>
+                    <xsl:value-of select="woz:aanduidingWOZobject/bg:locatieOmschrijving"/>
+                </locomschr>
+            </locaand_adres>
+        </xsl:if>
     </xsl:template>
 
     <xsl:template name="woz_belang">
         <xsl:param name="key"/>
-
         <xsl:choose>
             <xsl:when test="not($key) and not($key='')">
                 <xsl:comment>geen waarde voor fk_sc_lh_sub_identif - woz_belang kan niet gekoppeld worden</xsl:comment>
             </xsl:when>
             <xsl:when test="$key = $PREFIX_NPS">
-                <xsl:comment>geen geldige waarde voor fk_sc_lh_sub_identif - woz_belang kan niet gekoppeld worden
-                </xsl:comment>
+                <xsl:comment>geen geldige waarde voor fk_sc_lh_sub_identif - woz_belang kan niet gekoppeld worden</xsl:comment>
             </xsl:when>
             <xsl:when test="$key = $PREFIX_NNP">
-                <xsl:comment>geen geldige waarde voor fk_sc_lh_sub_identif - woz_belang kan niet gekoppeld worden
-                </xsl:comment>
+                <xsl:comment>geen geldige waarde voor fk_sc_lh_sub_identif - woz_belang kan niet gekoppeld worden</xsl:comment>
             </xsl:when>
             <xsl:when test="$key = $PREFIX_VES">
-                <xsl:comment>geen geldige waarde voor fk_sc_lh_sub_identif - woz_belang kan niet gekoppeld worden
-                </xsl:comment>
+                <xsl:comment>geen geldige waarde voor fk_sc_lh_sub_identif - woz_belang kan niet gekoppeld worden</xsl:comment>
+            </xsl:when>
+            <xsl:when test="../woz:heeftBelanghebbende[@xsi:nil]">
+                <xsl:comment>heeftBelanghebbende is leeg - woz_belang kan niet gekoppeld worden</xsl:comment>
             </xsl:when>
             <xsl:otherwise>
                 <!-- woz:object/woz:heeftBelanghebbende/ -->

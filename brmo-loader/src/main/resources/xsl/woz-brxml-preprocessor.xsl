@@ -16,15 +16,10 @@
     </xsl:template>
     <xsl:template match="*[@StUF:noValue='geenWaarde']">
         <xsl:copy><xsl:apply-templates select="@*|node()"/>
-            <xsl:text>geenWaarde</xsl:text>
+<!--            <xsl:text>geenWaarde</xsl:text>-->
         </xsl:copy>
     </xsl:template>
     <xsl:template match="@*|text()|comment()|processing-instruction()">
         <xsl:copy-of select="."/>
     </xsl:template>
-
-<!--    <xsl:template match="WOZ:historie">-->
-<!--        &lt;!&ndash; verwijder historie; voorlopig kunne we daar niks mee &ndash;&gt;-->
-<!--    </xsl:template>-->
-
 </xsl:stylesheet>
