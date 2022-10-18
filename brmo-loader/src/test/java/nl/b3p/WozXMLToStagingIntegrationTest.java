@@ -82,8 +82,8 @@ public class WozXMLToStagingIntegrationTest extends AbstractDatabaseIntegrationT
                 arguments("/woz/800000200021/204405262.xml", 2, 1, new String[]{"WOZ.NNP.428228574", "WOZ.WOZ.800000200021"}, "800000200021", 200, 8000, "8106", new String[][]{{"WOZ.NNP.428228574", "800000200021", "E"}}, new String[0], new String[]{"8000552570005"}),
                 arguments("/woz/object_met_geom.xml", 1, 1, new String[]{"WOZ.WOZ.800000003123"}, "800000003123", 450, 8000, "0372", new String[][]{{"WOZ.NPS.e19242199d42fea43af7201c13ec4ad980f1e2cb", "800000003123", "E"}}, new String[0], new String[]{"8000010170000"}),
                 arguments("/woz/BRMO-204_lege_kad_identif/086600003277.anon.xml",1,1,new String[]{"WOZ.WOZ.086600003277"},"86600003277", 218, 866, "0106", new String[][]{{"WOZ.NPS.42ee4ccf42af8c36500c43a5d105dfbf38175c31", "86600003277", "G"},{"WOZ.NPS.b9d71af53ab19882d968391b1d13497d2a5c5cf0", "86600003277", "E"},{"WOZ.NPS.ccc686355b0dd382c7bedce5f98ac6e4f846be25", "86600003277", "E"}}, new String[0], new String[0]),
-                // ingewikkeld bericht met historie en actueel
-                arguments("/woz/BRMO-184/45272376.anon.xml", 2, 1, new String[]{"WOZ.WOZ.077200029855"}, "077200029855", 18, 772, "0106", new String[][]{{"WOZ.NPS.1e4cfa740d8a05720aa51ac670a2561cd659a6f8", "800000003123", "E"}}, new String[0], new String[]{"8000010170000"})
+                // bericht met geometrie, maar geen kad identificatie
+                arguments("/woz/BRMO-184/45272376.anon.xml", 1, 1, new String[]{"WOZ.WOZ.077200029855"}, "77200029855", 18, 772, "0106", new String[][]{{"WOZ.NPS.1e4cfa740d8a05720aa51ac670a2561cd659a6f8", "77200029855", "E"},{"WOZ.NPS.88cfb32b49e0f41c205813a681c29d702fef9f56", "77200029855", "E"},{"WOZ.VES.000050302590", "77200029855", "E"}}, new String[0], new String[0])
         );
     }
 
@@ -127,7 +127,7 @@ public class WozXMLToStagingIntegrationTest extends AbstractDatabaseIntegrationT
 
         sequential.lock();
 
-         CleanUtil.cleanRSGB_WOZ(rsgb, true);
+        // CleanUtil.cleanRSGB_WOZ(rsgb, true);
 
         DatabaseOperation.CLEAN_INSERT.execute(staging, stagingDataSet);
         assumeTrue(0L == brmo.getCountBerichten(null, null, BrmoFramework.BR_WOZ, "STAGING_OK"),
@@ -139,8 +139,8 @@ public class WozXMLToStagingIntegrationTest extends AbstractDatabaseIntegrationT
     @AfterEach
     public void cleanup() throws Exception {
         brmo.closeBrmoFramework();
-//        CleanUtil.cleanSTAGING(staging, false);
-//        CleanUtil.cleanRSGB_WOZ(rsgb, true);
+        CleanUtil.cleanSTAGING(staging, false);
+        CleanUtil.cleanRSGB_WOZ(rsgb, true);
         staging.close();
         dsStaging.close();
         rsgb.close();
@@ -201,7 +201,7 @@ public class WozXMLToStagingIntegrationTest extends AbstractDatabaseIntegrationT
         assertEquals(wsCode, woz_obj.getValue(0, "waterschap"), "Waterschap object is niet correct");
         assertEquals(gemCode, ((Number) woz_obj.getValue(0, "fk_verantw_gem_code")).intValue(), "Gemeentecode object is niet correct");
 
-        if (objNummer.equalsIgnoreCase("800000003123")) {
+        if (objNummer.equalsIgnoreCase("800000003123")| objNummer.equalsIgnoreCase("77200029855")) {
             assertNotNull(woz_obj.getValue(0, "geom"), "geometrie verwacht voor dit object");
         }
 

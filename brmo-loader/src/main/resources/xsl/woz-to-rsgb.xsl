@@ -192,7 +192,6 @@
                 </xsl:call-template>
             </xsl:if>
             <xsl:if test="woz:gerelateerde/woz:vestiging/woz:isEen/woz:gerelateerde/bg:vestigingsNummer">
-                <xsl:text>VESTIGING</xsl:text>
                 <xsl:call-template name="comfortVestiging">
                     <xsl:with-param name="snapshot-date" select="$datum"/>
                     <xsl:with-param name="comfort-search-value" select="$key"/>
