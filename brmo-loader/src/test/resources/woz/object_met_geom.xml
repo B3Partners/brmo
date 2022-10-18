@@ -77,6 +77,15 @@
                 <WOZ:verantwoordelijkeGemeente>
                     <BG:gemeenteCode>8000</BG:gemeenteCode>
                 </WOZ:verantwoordelijkeGemeente>
+                <WOZ:wozObjectGeometrie>
+                    <gml:Polygon>
+                        <gml:exterior>
+                            <gml:LinearRing>
+                                <gml:posList>101046.545 439989.381 101037.316 440000.0 101033.976 440003.843 101028.315 440010.42 101015.891 440000.0 101000.0 439986.673 100999.962 439986.641 101000.0 439986.6 101006.19 439979.85 101018.809 439965.278 101032.193 439976.905 101046.545 439989.381</gml:posList>
+                            </gml:LinearRing>
+                        </gml:exterior>
+                    </gml:Polygon>
+                </WOZ:wozObjectGeometrie>
                 <WOZ:wozObjectGeometrie StUF:noValue="waardeOnbekend" xsi:nil="true"/>
                 <WOZ:ingangsdatumObject>20100413</WOZ:ingangsdatumObject>
                 <WOZ:einddatumObject StUF:noValue="geenWaarde" xsi:nil="true"/>

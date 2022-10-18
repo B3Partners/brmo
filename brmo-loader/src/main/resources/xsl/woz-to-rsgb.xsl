@@ -40,7 +40,7 @@
                 <xsl:value-of select="$soort"/>
             </xsl:comment>
             <data>
-                <xsl:apply-templates select="//woz:object"/>
+                <xsl:apply-templates select="//woz:object[not(ancestor::woz:historie)]"/>
             </data>
         </root>
     </xsl:template>
@@ -159,12 +159,6 @@
         </xsl:for-each>
 
         <xsl:for-each select="woz:heeftBelanghebbende">
-            <!--
-                TODO    voorafgaand aan belangen moeten de subjecten en objecten aangemaakt zijn omdat
-                        woz_belang in essentie een koppeltabel is tussen woz_obj en subject(en sub-tabellen)
-                        dus evt eerst comfortPerson aanroepen of belanghebbende als bericht uitsplitsen voor verwerken...
-                        vooralsnog lijkt dit niet nodig omdat alle berichten een voorgaand bericht hebben waarin de subject wordt gemaakt
-            -->
             <xsl:variable name="key">
                 <xsl:if test="woz:gerelateerde/woz:natuurlijkPersoon/woz:soFiNummer">
                     <xsl:call-template name="getHash">
@@ -182,6 +176,32 @@
                             select="woz:gerelateerde/woz:vestiging/woz:isEen/woz:gerelateerde/bg:vestigingsNummer"/>
                 </xsl:if>
             </xsl:variable>
+
+            <xsl:if test="woz:gerelateerde/woz:natuurlijkPersoon/woz:soFiNummer">
+                <xsl:call-template name="comfortPerson">
+                    <xsl:with-param name="snapshot-date" select="$datum"/>
+                    <xsl:with-param name="comfort-search-value" select="$key"/>
+                    <xsl:with-param name="class" select="'INGESCHREVEN NATUURLIJK PERSOON'"/>
+                </xsl:call-template>
+            </xsl:if>
+            <xsl:if test="woz:gerelateerde/woz:nietNatuurlijkPersoon/woz:isEen/woz:gerelateerde/bg:inn.nnpId">
+                <xsl:call-template name="comfortPerson">
+                    <xsl:with-param name="snapshot-date" select="$datum"/>
+                    <xsl:with-param name="comfort-search-value" select="$key"/>
+                    <xsl:with-param name="class" select="'INGESCHREVEN NIET NATUURLIJK PERSOON'"/>
+                </xsl:call-template>
+            </xsl:if>
+            <xsl:if test="woz:gerelateerde/woz:vestiging/woz:isEen/woz:gerelateerde/bg:vestigingsNummer">
+                <xsl:text>VESTIGING</xsl:text>
+                <xsl:call-template name="comfortVestiging">
+                    <xsl:with-param name="snapshot-date" select="$datum"/>
+                    <xsl:with-param name="comfort-search-value" select="$key"/>
+                    <xsl:with-param name="class" select="'VESTIGING'"/>
+                </xsl:call-template>
+            </xsl:if>
+
+
+
             <xsl:call-template name="woz_belang">
                 <xsl:with-param name="key" select="$key"/>
             </xsl:call-template>
@@ -663,10 +683,10 @@
                 <xsl:value-of select="bg:inp.indicatieGeheim"/>
             </indic_geheim>
             <gb_geboortedatum>
-                <xsl:value-of select="bg:geboortedatum"/>
+                <xsl:for-each select="bg:geboortedatum"><xsl:call-template name="numeric-date"/></xsl:for-each>
             </gb_geboortedatum>
             <ol_overlijdensdatum>
-                <xsl:value-of select="bg:datumOverlijden"/>
+                <xsl:for-each select="bg:datumOverlijden"><xsl:call-template name="numeric-date"/></xsl:for-each>
             </ol_overlijdensdatum>
             <ol_overlijdensplaats>
                 <xsl:value-of select="bg:plaatsOverlijden"/>
