@@ -96,8 +96,8 @@ public class WozXMLReader extends BrmoXMLReader {
             LOG.debug("Tijdstip bericht ingesteld op " + getBestandsDatum());
         }
 
-        // woz:object nodes
-        XPathExpression objectNode = xpath.compile("//*[local-name()='object']");
+        // actuele woz:object nodes
+        XPathExpression objectNode = xpath.compile("//*[local-name()='object'][not(ancestor::*[local-name()='historie'])]");
         objectNodes = (NodeList) objectNode.evaluate(doc, XPathConstants.NODESET);
 
         // mogelijk zijn er omhang berichten (WGEM_hangSubjectOm_Di01)
@@ -202,6 +202,13 @@ public class WozXMLReader extends BrmoXMLReader {
         obRefs = (NodeList) bsn.evaluate(wozObjectNode, XPathConstants.NODESET);
         if (obRefs.getLength() > 0) {
             return PREFIX_PRS + getHash(obRefs.item(0).getTextContent());
+        }
+
+        // ./WOZ:object StUF:entiteittype="WOZ"/WOZ:heeftBelanghebbende/WOZ:gerelateerde/WOZ:natuurlijkPersoon/WOZ:soFiNummer
+        bsn = xPathfactory.newXPath().compile("//*[local-name()='heeftBelanghebbende']/*[local-name()='gerelateerde']/*[local-name()='natuurlijkPersoon']/*[local-name()='soFiNummer']");
+        obRefs = (NodeList) bsn.evaluate(wozObjectNode, XPathConstants.NODESET);
+        if (obRefs.getLength() > 0 && !StringUtils.isEmpty(obRefs.item(0).getTextContent())) {
+            return PREFIX_PRS + obRefs.item(0).getTextContent();
         }
 
         // WOZ:object StUF:entiteittype="NNP"/WOZ:isEen/WOZ:gerelateerde/BG:inn.nnpId

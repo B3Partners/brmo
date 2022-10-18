@@ -80,7 +80,8 @@ public class WozXMLToStagingIntegrationTest extends AbstractDatabaseIntegrationT
                 arguments("/woz/800000793120/204253181.xml", 1, 1, new String[]{"WOZ.WOZ.800000793120"}, "800000793120", 4000, 8000, "8106", new String[0][0], new String[0], new String[]{"8000552570003"}),
                 arguments("/woz/800000793120/204325718.xml", 2, 1, new String[]{"WOZ.NPS.295f133e37f55dd610756bbb0e6eebcf0ebbc555", "WOZ.WOZ.800000200014"}, "800000200014", 500, 8000, "8106", new String[][]{{"WOZ.NPS.295f133e37f55dd610756bbb0e6eebcf0ebbc555", "800000200014", "E"}}, new String[]{"800000793120"}, new String[]{"8000552570004"}),
                 arguments("/woz/800000200021/204405262.xml", 2, 1, new String[]{"WOZ.NNP.428228574", "WOZ.WOZ.800000200021"}, "800000200021", 200, 8000, "8106", new String[][]{{"WOZ.NNP.428228574", "800000200021", "E"}}, new String[0], new String[]{"8000552570005"}),
-                arguments("/woz/object_met_geom.xml", 2, 1, new String[]{"WOZ.WOZ.800000003123", "WOZ.WOZ.800000003123"}, "800000003123", 450, 8000, "0372", new String[][]{{"WOZ.NPS.e19242199d42fea43af7201c13ec4ad980f1e2cb", "800000003123", "E"}}, new String[0], new String[]{"8000010170000"})
+                arguments("/woz/object_met_geom.xml", 1, 1, new String[]{"WOZ.WOZ.800000003123"}, "800000003123", 450, 8000, "0372", new String[][]{{"WOZ.NPS.e19242199d42fea43af7201c13ec4ad980f1e2cb", "800000003123", "E"}}, new String[0], new String[]{"8000010170000"}),
+                arguments("/woz/BRMO-204_lege_kad_identif/086600003277.anon.xml",1,1,new String[]{"WOZ.WOZ.086600003277"},"86600003277", 218, 866, "0106", new String[][]{{"WOZ.NPS.42ee4ccf42af8c36500c43a5d105dfbf38175c31", "86600003277", "G"},{"WOZ.NPS.b9d71af53ab19882d968391b1d13497d2a5c5cf0", "86600003277", "E"},{"WOZ.NPS.ccc686355b0dd382c7bedce5f98ac6e4f846be25", "86600003277", "E"}}, new String[0], new String[0])
         );
     }
 
@@ -215,7 +216,11 @@ public class WozXMLToStagingIntegrationTest extends AbstractDatabaseIntegrationT
             final Column[] woz_belang_cols = woz_belang.getTableMetaData().getColumns();
             for (int row = 0; row < wozBelang.length; row++) {
                 for (int i = 0; i < woz_belang_cols.length; i++) {
-                    assertEquals(wozBelang[row][i], woz_belang.getValue(0, woz_belang_cols[i].getColumnName()).toString(), "woz belang " + woz_belang_cols[i].getColumnName() + " is niet correct");
+                    assertEquals(
+                            wozBelang[row][i],
+                            woz_belang.getValue(row, woz_belang_cols[i].getColumnName()).toString(),
+                            "woz belang " + woz_belang_cols[i].getColumnName() + " is niet correct"
+                    );
                 }
             }
         }
