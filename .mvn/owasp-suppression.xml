@@ -37,10 +37,10 @@
     </suppress>
     <suppress>
         <notes><![CDATA[
-                   file name: kernel-7.2.3.jar
+                   file name: kernel-7.2.4.jar
                    see: https://github.com/jeremylong/DependencyCheck/issues/4613
    ]]></notes>
-        <gav regex="true">^com\.itextpdf:kernel:7\.2\.3.*$</gav>
+        <gav regex="true">^com\.itextpdf:kernel:7\.2\.4.*$</gav>
         <vulnerabilityName>CVE-2022-24198</vulnerabilityName>
     </suppress>
 </suppressions>
