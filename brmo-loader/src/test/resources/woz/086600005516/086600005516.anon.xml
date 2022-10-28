@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Geanonimiseerd door B3Partners BV op 2022-10-18+02:00, zie commentaar in bericht.-->
+<env:Envelope xmlns:env="http://schemas.xmlsoap.org/soap/envelope/">
+   <env:Header/>
+   <env:Body>
+      <dgl:VerstrekkingAanAfnemer xmlns:dgl="http://www.digilevering.nl/digilevering.xsd"
+                                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                                  xsi:schemaLocation="http://www.digilevering.nl/digilevering.xsd digilevering.xsd">
+         <datumtijdstempelDigilevering>2022-01-20T16:58:40.660Z</datumtijdstempelDigilevering>
+         <datumtijdstempelLV>2022-01-20T16:58:36.000Z</datumtijdstempelLV>
+         <kenmerkDigilevering>2e87409b-5952-45e2-98c0-72966231113b@digilevering.nl</kenmerkDigilevering>
+         <kenmerkLV>8883c511-42f1-4f7f-9163-853d236e4afd</kenmerkLV>
+         <versieBerichttype>1.0</versieBerichttype>
+         <abonnement>
+            <naam>WOZ Alles Waterschap de Dommel</naam>
+            <versie>1</versie>
+         </abonnement>
+         <basisregistratie>LVWOZ</basisregistratie>
+         <gebeurtenissoort>
+            <naam>MBG_Di01</naam>
+            <versie>312</versie>
+         </gebeurtenissoort>
+         <gebeurtenisinhoud>
+            <WOZ:MBG_Di01 xmlns:WOZ="http://www.waarderingskamer.nl/StUF/0312"
+                          xmlns:BG="http://www.egem.nl/StUF/sector/bg/0310"
+                          xmlns:StUF="http://www.egem.nl/StUF/StUF0301">
+               <WOZ:stuurgegevens>
+                  <StUF:berichtcode>Di01</StUF:berichtcode>
+                  <StUF:zender>
+                     <StUF:organisatie>00000001001902982000</StUF:organisatie>
+                     <StUF:applicatie>Key2WOZ Bronhouders</StUF:applicatie>
+                  </StUF:zender>
+                  <StUF:ontvanger>
+                     <StUF:organisatie>00000001802327497000</StUF:organisatie>
+                     <StUF:applicatie>LVWOZ</StUF:applicatie>
+                     <StUF:administratie>P</StUF:administratie>
+                  </StUF:ontvanger>
+                  <StUF:referentienummer>8883c511-42f1-4f7f-9163-853d236e4afd</StUF:referentienummer>
+                  <StUF:tijdstipBericht>20220120171003393</StUF:tijdstipBericht>
+                  <StUF:functie>WOZ-MBG</StUF:functie>
+               </WOZ:stuurgegevens>
+               <WOZ:routering StUF:entiteittype="WOZ" StUF:functie="entiteit">
+                  <WOZ:verantwoordelijkeGemeente>
+                     <BG:gemeenteCode>0866</BG:gemeenteCode>
+                  </WOZ:verantwoordelijkeGemeente>
+                  <WOZ:ligtIn StUF:entiteittype="WOZWSP">
+                     <WOZ:gerelateerde StUF:entiteittype="WSP">
+                        <WOZ:betrokkenWaterschap>0106</WOZ:betrokkenWaterschap>
+                     </WOZ:gerelateerde>
+                  </WOZ:ligtIn>
+               </WOZ:routering>
+               <WOZ:wijzigGebruikerWOZ StUF:entiteittype="WOZ" StUF:functie="update">
+                  <WOZ:parameters>
+                     <StUF:mutatiesoort>W</StUF:mutatiesoort>
+                     <StUF:indicatorOvername>V</StUF:indicatorOvername>
+                  </WOZ:parameters>
+                  <WOZ:object StUF:entiteittype="WOZ" StUF:verwerkingssoort="I">
+                     <WOZ:wozObjectNummer>086600005516</WOZ:wozObjectNummer>
+                     <WOZ:aanduidingWOZobject>
+                        <BG:aoa.identificatie>0866200000005891</BG:aoa.identificatie>
+                        <BG:wpl.woonplaatsNaam>Waalre</BG:wpl.woonplaatsNaam>
+                        <BG:aoa.postcode>5583CS</BG:aoa.postcode>
+                        <BG:gor.openbareRuimteNaam>Prins Mauritsweg</BG:gor.openbareRuimteNaam>
+                        <BG:aoa.huisnummer>14</BG:aoa.huisnummer>
+                        <BG:aoa.huisletter StUF:noValue="geenWaarde" xsi:nil="true"/>
+                        <BG:aoa.huisnummertoevoeging StUF:noValue="geenWaarde" xsi:nil="true"/>
+                        <BG:locatieOmschrijving StUF:noValue="geenWaarde" xsi:nil="true"/>
+                     </WOZ:aanduidingWOZobject>
+                     <WOZ:heeftBelanghebbende StUF:entiteittype="WOZSUB" StUF:noValue="geenWaarde" StUF:verwerkingssoort="T"
+                                              xsi:nil="true"/>
+                  </WOZ:object>
+                  <WOZ:object StUF:entiteittype="WOZ" StUF:verwerkingssoort="I">
+                     <WOZ:wozObjectNummer>086600005516</WOZ:wozObjectNummer>
+                     <WOZ:aanduidingWOZobject>
+                        <BG:aoa.identificatie>0866200000005891</BG:aoa.identificatie>
+                        <BG:wpl.woonplaatsNaam>Waalre</BG:wpl.woonplaatsNaam>
+                        <BG:aoa.postcode>5583CS</BG:aoa.postcode>
+                        <BG:gor.openbareRuimteNaam>Prins Mauritsweg</BG:gor.openbareRuimteNaam>
+                        <BG:aoa.huisnummer>14</BG:aoa.huisnummer>
+                        <BG:aoa.huisletter StUF:noValue="geenWaarde" xsi:nil="true"/>
+                        <BG:aoa.huisnummertoevoeging StUF:noValue="geenWaarde" xsi:nil="true"/>
+                        <BG:locatieOmschrijving StUF:noValue="geenWaarde" xsi:nil="true"/>
+                     </WOZ:aanduidingWOZobject>
+                     <WOZ:heeftBelanghebbende StUF:entiteittype="WOZSUB" StUF:verwerkingssoort="T">
+                        <WOZ:gerelateerde>
+                           <WOZ:natuurlijkPersoon StUF:entiteittype="NPS" StUF:verwerkingssoort="I">
+                              <WOZ:isEen StUF:entiteittype="NPSNPS" StUF:verwerkingssoort="I">
+                                 <WOZ:gerelateerde StUF:entiteittype="NPS" StUF:verwerkingssoort="I">
+                                    <BG:inp.bsn>828588680</BG:inp.bsn>
+                                    <!--Anonimisatie 'BG:inp.bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><BG:geslachtsnaam>2add3</BG:geslachtsnaam>
+                                    <!--Anonimisatie 'BG:geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><BG:voorvoegselGeslachtsnaam/>
+                                    <!--Anonimisatie 'BG:voorvoegselGeslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><BG:voorletters>ac</BG:voorletters>
+                                    <!--Anonimisatie 'BG:voorletters': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><BG:geslachtsaanduiding>M</BG:geslachtsaanduiding>
+                                    <BG:geboortedatum>1930-00-13</BG:geboortedatum>
+                                    <!--Anonimisatie 'BG:geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--><BG:verblijfsadres>
+                                       <BG:aoa.identificatie>0866200000005891</BG:aoa.identificatie>
+                                       <BG:wpl.woonplaatsNaam>Waalre</BG:wpl.woonplaatsNaam>
+                                       <BG:gor.openbareRuimteNaam>Prins Mauritsweg</BG:gor.openbareRuimteNaam>
+                                       <BG:aoa.postcode>5583CS</BG:aoa.postcode>
+                                       <BG:aoa.huisnummer>14</BG:aoa.huisnummer>
+                                       <BG:aoa.huisletter StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                       <BG:aoa.huisnummertoevoeging/>
+                                       <BG:inp.locatiebeschrijving StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                    </BG:verblijfsadres>
+                                 </WOZ:gerelateerde>
+                              </WOZ:isEen>
+                              <WOZ:soFiNummer>828588680</WOZ:soFiNummer>
+                              <!--Anonimisatie 'WOZ:soFiNummer': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><WOZ:aanvullingSoFiNummer StUF:noValue="geenWaarde" xsi:nil="true"/>
+                              <!--Anonimisatie 'WOZ:aanvullingSoFiNummer': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><WOZ:verantwoordelijkeGemeente>0866</WOZ:verantwoordelijkeGemeente>
+                           </WOZ:natuurlijkPersoon>
+                        </WOZ:gerelateerde>
+                        <WOZ:aanduidingEigenaarGebruiker>G</WOZ:aanduidingEigenaarGebruiker>
+                        <WOZ:statusBelang>0</WOZ:statusBelang>
+                        <StUF:tijdvakRelatie>
+                           <StUF:beginRelatie>20220115</StUF:beginRelatie>
+                           <StUF:eindRelatie StUF:noValue="geenWaarde" xsi:nil="true"/>
+                        </StUF:tijdvakRelatie>
+                        <StUF:tijdvakGeldigheid>
+                           <StUF:beginGeldigheid>20220115</StUF:beginGeldigheid>
+                           <StUF:eindGeldigheid StUF:noValue="geenWaarde" xsi:nil="true"/>
+                        </StUF:tijdvakGeldigheid>
+                        <StUF:tijdstipRegistratie>20220120160041950</StUF:tijdstipRegistratie>
+                     </WOZ:heeftBelanghebbende>
+                  </WOZ:object>
+               </WOZ:wijzigGebruikerWOZ>
+            </WOZ:MBG_Di01>
+         </gebeurtenisinhoud>
+      </dgl:VerstrekkingAanAfnemer>
+   </env:Body>
+</env:Envelope>

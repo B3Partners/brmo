@@ -210,6 +210,11 @@
                 <version>${jdbc-util.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.atteo</groupId>
+                <artifactId>xml-combiner</artifactId>
+                <version>3.0.0</version>
+            </dependency>
+            <dependency>
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
                 <version>2.11.0</version>
@@ -239,7 +244,6 @@
                 <artifactId>commons-fileupload</artifactId>
                 <version>1.4</version>
             </dependency>
-
             <!-- spatial -->
             <dependency>
                 <groupId>org.locationtech.jts</groupId>
