@@ -84,7 +84,8 @@ public class WozXMLToStagingIntegrationTest extends AbstractDatabaseIntegrationT
                 arguments("/woz/BRMO-204_lege_kad_identif/086600003277.anon.xml",1,1,new String[]{"WOZ.WOZ.086600003277"},"86600003277", 218, 866, "0106", new String[][]{{"WOZ.NPS.42ee4ccf42af8c36500c43a5d105dfbf38175c31", "86600003277", "G"},{"WOZ.NPS.b9d71af53ab19882d968391b1d13497d2a5c5cf0", "86600003277", "E"},{"WOZ.NPS.ccc686355b0dd382c7bedce5f98ac6e4f846be25", "86600003277", "E"}}, new String[0], new String[0]),
                 // bericht met geometrie, maar geen kad identificatie
                 arguments("/woz/BRMO-184/45272376.anon.xml", 1, 1, new String[]{"WOZ.WOZ.077200029855"}, "77200029855", 18, 772, "0106", new String[][]{{"WOZ.NPS.1e4cfa740d8a05720aa51ac670a2561cd659a6f8", "77200029855", "E"},{"WOZ.NPS.88cfb32b49e0f41c205813a681c29d702fef9f56", "77200029855", "E"},{"WOZ.VES.000050302590", "77200029855", "E"}}, new String[0], new String[0]),
-                arguments("/woz/086600005516/086600005516.anon.xml",2,1,new String[]{"WOZ.WOZ.086600005516"},"86600005516", null, 866, "0106", new String[][]{{"WOZ.NPS.2a86e2ec6709c4ad32446a928be0335656906bd0", "86600005516", "G"}}, new String[0], new String[0])
+                arguments("/woz/086600005516/086600005516.anon.xml",2,1,new String[]{"WOZ.WOZ.086600005516"},"86600005516", null, 866, "0106", new String[][]{{"WOZ.NPS.2a86e2ec6709c4ad32446a928be0335656906bd0", "86600005516", "G"}}, new String[0], new String[0]),
+                arguments("/woz/085800012189/085800012189.anon.xml",2,1,new String[]{"WOZ.WOZ.085800012189"},"85800012189", null, 858, "0106", new String[0][0], new String[0], new String[0])
         );
     }
 
