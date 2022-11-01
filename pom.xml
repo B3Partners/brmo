@@ -647,9 +647,6 @@
                 </exclusions>
             </dependency>
             <dependency>
-                <!-- patch versie vanwege https://issues.apache.org/jira/browse/COMPRESS-584
-                     gebouwd van: master@rda22ecf0fd91cdd5abd105692ff81ba40a5c27cf; 2021-08-23 15:01:42+0000
-                -->
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-compress</artifactId>
                 <version>1.22</version>
