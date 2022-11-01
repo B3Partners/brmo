@@ -10,6 +10,7 @@ services:
     build:
       context: ./src/main/docker
       dockerfile: pg_conf/Dockerfile
+    shm_size: '2gb'
     environment:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
       BRMO_PASSWORD: ${BRMO_DB_PASSWORD:-brmo}
