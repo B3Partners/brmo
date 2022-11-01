@@ -196,7 +196,7 @@ public class WozXMLReader extends BrmoXMLReader {
         if (StringUtils.isEmpty(b.getObjectRef())) {
             // geen object_ref kunnen vaststellen; dan ook niet transformeren
             b.setStatus(Bericht.STATUS.STAGING_NOK);
-            b.setOpmerking("Er kon geen object_ref bepaald worden uit de natuurlijke sleutel van het bericht.");
+            b.setOpmerking(Bericht.GEEN_OBJECT_REF_MSG);
         }
 
         LOG.trace("bericht: " + b);

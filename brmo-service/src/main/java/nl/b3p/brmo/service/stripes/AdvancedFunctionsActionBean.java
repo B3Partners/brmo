@@ -1,13 +1,54 @@
 package nl.b3p.brmo.service.stripes;
 
+import net.sourceforge.stripes.action.ActionBean;
+import net.sourceforge.stripes.action.ActionBeanContext;
+import net.sourceforge.stripes.action.Before;
+import net.sourceforge.stripes.action.DefaultHandler;
+import net.sourceforge.stripes.action.ForwardResolution;
+import net.sourceforge.stripes.action.Resolution;
+import net.sourceforge.stripes.action.SimpleMessage;
+import net.sourceforge.stripes.action.StrictBinding;
+import net.sourceforge.stripes.controller.LifecycleStage;
+import net.sourceforge.stripes.validation.Validate;
+import nl.b3p.brmo.loader.BrmoFramework;
+import nl.b3p.brmo.loader.ProgressUpdateListener;
+import nl.b3p.brmo.loader.RsgbProxy;
+import nl.b3p.brmo.loader.StagingProxy;
+import nl.b3p.brmo.loader.advancedfunctions.AdvancedFunctionProcess;
+import nl.b3p.brmo.loader.entity.Bericht;
+import nl.b3p.brmo.loader.entity.BrkBericht;
+import nl.b3p.brmo.loader.util.BrmoException;
+import nl.b3p.brmo.loader.util.StagingRowHandler;
+import nl.b3p.brmo.loader.xml.BagXMLReader;
+import nl.b3p.brmo.loader.xml.BrkSnapshotXMLReader;
+import nl.b3p.brmo.loader.xml.WozXMLReader;
+import nl.b3p.brmo.service.util.ConfigUtil;
+import nl.b3p.jdbc.util.converter.GeometryJdbcConverter;
+import nl.b3p.jdbc.util.converter.GeometryJdbcConverterFactory;
+import org.apache.commons.dbutils.DbUtils;
+import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.ResultSetHandler;
+import org.apache.commons.dbutils.RowProcessor;
+import org.apache.commons.dbutils.handlers.ScalarHandler;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.input.CountingInputStream;
+import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.apache.commons.lang3.mutable.MutableInt;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.stripesstuff.plugin.waitpage.WaitPage;
+
+import javax.sql.DataSource;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -21,35 +62,6 @@ import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 import java.util.zip.ZipOutputStream;
-import javax.sql.DataSource;
-import net.sourceforge.stripes.action.*;
-import net.sourceforge.stripes.controller.LifecycleStage;
-import net.sourceforge.stripes.validation.Validate;
-import nl.b3p.brmo.loader.BrmoFramework;
-import nl.b3p.brmo.loader.ProgressUpdateListener;
-import nl.b3p.brmo.loader.RsgbProxy;
-import nl.b3p.brmo.loader.StagingProxy;
-import nl.b3p.brmo.loader.entity.Bericht;
-import nl.b3p.brmo.loader.advancedfunctions.AdvancedFunctionProcess;
-import nl.b3p.brmo.loader.entity.BrkBericht;
-import nl.b3p.brmo.loader.util.BrmoException;
-import nl.b3p.brmo.loader.util.StagingRowHandler;
-import nl.b3p.brmo.loader.xml.BagXMLReader;
-import nl.b3p.brmo.loader.xml.BrkSnapshotXMLReader;
-import nl.b3p.brmo.service.util.ConfigUtil;
-import nl.b3p.jdbc.util.converter.GeometryJdbcConverter;
-import nl.b3p.jdbc.util.converter.GeometryJdbcConverterFactory;
-import org.apache.commons.dbutils.DbUtils;
-import org.apache.commons.dbutils.QueryRunner;
-import org.apache.commons.dbutils.ResultSetHandler;
-import org.apache.commons.dbutils.RowProcessor;
-import org.apache.commons.dbutils.handlers.ScalarHandler;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.apache.commons.lang3.mutable.MutableInt;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.stripesstuff.plugin.waitpage.WaitPage;
 
 /**
  *
@@ -95,8 +107,9 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
     private final String NHR_FIX_TYPERING = "Fix 'typering' en 'clazz' van nHR persoon";
     private final String NHR_ARCHIVING = "Opschonen en archiveren van nHR berichten met status RSGB_OK, ouder dan 3 maanden";
     private final String NHR_REMOVAL = "Verwijderen van nHR berichten met status ARCHIVE";
-    private final String NHR_OPNIEUW_VERWERKEN  = "Opnieuw verwerken van nHR berichten met status RSGB_NOK";
+    private final String NHR_OPNIEUW_VERWERKEN  = "Opnieuw verwerken van nHR berichten";
     private final String BRK_HERSTEL_BESTANDSNAAM = "Vul de 'herstelde bestandsnaam' van BRK laadprocessen";
+    private final String WOZ_OPNIEUW_VERWERKING = "Originele WOZ berichten opnieuw verwerken";
 
     private final boolean repairFirst = false;
 
@@ -225,7 +238,8 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
             new AdvancedFunctionProcess(BRK_VERWIJDEREN_NOGMAALS_UITVOEREN, BrmoFramework.BR_BRK, Bericht.STATUS.RSGB_OK.toString()),
             new AdvancedFunctionProcess(NHR_FIX_TYPERING, BrmoFramework.BR_NHR, null),
             new AdvancedFunctionProcess(BRK_HERSTEL_BESTANDSNAAM, BrmoFramework.BR_BRK, "0"),
-            new AdvancedFunctionProcess(NHR_OPNIEUW_VERWERKEN, BrmoFramework.BR_NHR, Bericht.STATUS.RSGB_NOK.toString())
+            new AdvancedFunctionProcess(NHR_OPNIEUW_VERWERKEN, BrmoFramework.BR_NHR, null),
+            new AdvancedFunctionProcess(WOZ_OPNIEUW_VERWERKING, BrmoFramework.BR_WOZ, null)
         );
     }
 
@@ -255,32 +269,49 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
 
         // Get berichten
         try {
-            if (process.getName().equals("Exporteren BRK mutaties")) {
-                exportBRKMutatieBerichten(process.getConfig());
-            } else if (process.getName().equals("Repareren BRK mutaties met status STAGING_NOK")) {
-                repairBRKMutatieBerichten(process.getConfig());
-            } else if (process.getName().equals("Repareren BAG mutaties met status STAGING_NOK")) {
-                repairBAGMutatieBerichten(process.getConfig());
-            } else if (process.getName().equals("Opschonen en archiveren van BRK berichten met status RSGB_OK, ouder dan 3 maanden")) {
-                cleanupBerichten(process.getConfig(), "brk");
-            } else if (process.getName().equals("Opschonen en archiveren van BAG berichten met status RSGB_OK, ouder dan 3 maanden")) {
-                cleanupBerichten(process.getConfig(), "bag");
-            } else if (process.getName().equals(NHR_ARCHIVING)) {
-                cleanupBerichten(process.getConfig(), BrmoFramework.BR_NHR);
-            } else if (process.getName().equals("Verwijderen van BRK berichten met status ARCHIVE")) {
-                deleteBerichten(process.getConfig(), "brk");
-            } else if (process.getName().equals("Verwijderen van BAG berichten met status ARCHIVE")) {
-                deleteBerichten(process.getConfig(), "bag");
-            } else if (process.getName().equals(NHR_REMOVAL)) {
-                deleteBerichten(process.getConfig(), BrmoFramework.BR_NHR);
-            } else if (process.getName().equals(BRK_VERWIJDEREN_NOGMAALS_UITVOEREN)) {
-                replayBRKVerwijderBerichten(process.getSoort(), process.getConfig());
-            } else if (process.getName().equals(NHR_OPNIEUW_VERWERKEN)) {
-                replayNHRVerwerking(process.getSoort(), process.getConfig());
-            } else if (process.getName().equals(NHR_FIX_TYPERING)) {
-                fixNHRTypering(process.getSoort(), process.getConfig());
-            } else if (process.getName().equals(BRK_HERSTEL_BESTANDSNAAM)) {
-                fillbestandsNaamHersteld(process.getSoort(), process.getConfig());
+            switch (process.getName()) {
+                case "Exporteren BRK mutaties":
+                    exportBRKMutatieBerichten(process.getConfig());
+                    break;
+                case "Repareren BRK mutaties met status STAGING_NOK":
+                    repairBRKMutatieBerichten(process.getConfig());
+                    break;
+                case "Repareren BAG mutaties met status STAGING_NOK":
+                    repairBAGMutatieBerichten(process.getConfig());
+                    break;
+                case "Opschonen en archiveren van BRK berichten met status RSGB_OK, ouder dan 3 maanden":
+                    cleanupBerichten(process.getConfig(), "brk");
+                    break;
+                case "Opschonen en archiveren van BAG berichten met status RSGB_OK, ouder dan 3 maanden":
+                    cleanupBerichten(process.getConfig(), "bag");
+                    break;
+                case NHR_ARCHIVING:
+                    cleanupBerichten(process.getConfig(), BrmoFramework.BR_NHR);
+                    break;
+                case "Verwijderen van BRK berichten met status ARCHIVE":
+                    deleteBerichten(process.getConfig(), "brk");
+                    break;
+                case "Verwijderen van BAG berichten met status ARCHIVE":
+                    deleteBerichten(process.getConfig(), "bag");
+                    break;
+                case NHR_REMOVAL:
+                    deleteBerichten(process.getConfig(), BrmoFramework.BR_NHR);
+                    break;
+                case BRK_VERWIJDEREN_NOGMAALS_UITVOEREN:
+                    replayBRKVerwijderBerichten(process.getSoort(), process.getConfig());
+                    break;
+                case NHR_OPNIEUW_VERWERKEN:
+                    replayNHRVerwerking(process.getSoort(), process.getConfig());
+                    break;
+                case NHR_FIX_TYPERING:
+                    fixNHRTypering(process.getSoort(), process.getConfig());
+                    break;
+                case BRK_HERSTEL_BESTANDSNAAM:
+                    fillbestandsNaamHersteld(process.getSoort(), process.getConfig());
+                    break;
+                case WOZ_OPNIEUW_VERWERKING:
+                    replayWOZVerwerking();
+                    break;
             }
             
             if (this.exceptionStacktrace == null) {
@@ -298,7 +329,70 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
         }
         return new ForwardResolution(JSP_PROGRESS);
     }
-    
+
+    private void replayWOZVerwerking() throws Exception {
+        final DataSource dataSourceStaging = ConfigUtil.getDataSourceStaging();
+        StagingProxy stagingProxy = new StagingProxy(dataSourceStaging);
+
+        try (Connection conn = dataSourceStaging.getConnection()) {
+            final GeometryJdbcConverter geomToJdbc = GeometryJdbcConverterFactory.getGeometryJdbcConverter(conn);
+
+            Number o = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, "SELECT count(*) FROM eerder_geladen_woz", new ScalarHandler<>());
+            long count = o.longValue();
+
+            this.total(count);
+            LOG.info("Aantal te verwerken WOZ berichten: " + count);
+
+            int offset = 0;
+            int batch = 10000;
+            final String selectSql = "SELECT id, br_orgineel_xml, laadprocesid, datum FROM eerder_geladen_woz";
+            Bericht b;
+            while (offset < count) {
+                LOG.info("Ophalen WOZ berichten vanaf offset: " + offset + " tot: "+ offset+batch +" van: " + count);
+                PreparedStatement ps = conn.prepareStatement(geomToJdbc.buildPaginationSql(selectSql, offset, batch));
+                ResultSet rs = ps.executeQuery();
+
+                while (rs.next()) {
+                    LOG.trace("Verwerken WOZ bericht voor laadprocesid: " + rs.getLong("laadprocesid") + " met id: " + rs.getLong("id"));
+                    InputStream origineelXMLInputStream = new ByteArrayInputStream(rs.getString("br_orgineel_xml").getBytes(StandardCharsets.UTF_8));
+                    WozXMLReader reader = new WozXMLReader(origineelXMLInputStream, /*rs.getDate("datum")*/null, stagingProxy);
+
+                    while (reader.hasNext()) {
+                        b = reader.next();
+                        b.setLaadProcesId(rs.getLong("laadprocesid"));
+                        b.setStatus(Bericht.STATUS.STAGING_OK);
+                        b.setStatusDatum(new Date());
+                        b.setSoort(BrmoFramework.BR_WOZ);
+                        b.setOpmerking("Herstel van eerder geladen WOZ bericht");
+                        if (null == b.getObjectRef()){
+                            b.setStatus(Bericht.STATUS.STAGING_NOK);
+                            b.setOpmerking(Bericht.GEEN_OBJECT_REF_MSG);
+                        }
+
+                        Bericht existingBericht;
+                        if (b.getVolgordeNummer() == 1) {
+                            existingBericht = stagingProxy.getBerichtById(rs.getLong("id"));
+                        } else {
+                            existingBericht = stagingProxy.getExistingBericht(b);
+                        }
+
+                        if (existingBericht == null) {
+                            stagingProxy.writeBericht(b);
+                        } else {
+                            b.setId(existingBericht.getId());
+                            stagingProxy.updateBericht(b);
+                        }
+                    }
+                    processed++;
+                }
+                offset += batch;
+                progress(processed);
+            }
+        } finally {
+            stagingProxy.closeStagingProxy();
+        }
+    }
+
     public void repairBRKMutatieBerichten(String config) throws Exception {
         int offset = 0;
         int batch = 1000;
@@ -318,7 +412,7 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
             sql = geomToJdbc.buildPaginationSql(sql, offset, batch);
             LOG.debug("SQL voor ophalen berichten batch: " + sql);
             
-            
+
             processed.setValue(0);
             Exception e = new QueryRunner(geomToJdbc.isPmdKnownBroken()).query(conn, sql, new ResultSetHandler<Exception>() {
                 @Override
