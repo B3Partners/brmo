@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Geanonimiseerd door B3Partners BV op 2022-10-27+02:00, zie commentaar in bericht.-->
+<env:Envelope xmlns:env="http://schemas.xmlsoap.org/soap/envelope/">
+   <env:Header/>
+   <env:Body>
+      <dgl:VerstrekkingAanAfnemer xmlns:dgl="http://www.digilevering.nl/digilevering.xsd"
+                                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                                  xsi:schemaLocation="http://www.digilevering.nl/digilevering.xsd digilevering.xsd">
+         <datumtijdstempelDigilevering>2022-02-08T20:14:00.725Z</datumtijdstempelDigilevering>
+         <datumtijdstempelLV>2022-02-08T20:13:55.000Z</datumtijdstempelLV>
+         <kenmerkDigilevering>0967de42-fdc6-49c8-93fa-ed7301abc697@digilevering.nl</kenmerkDigilevering>
+         <kenmerkLV>b9367e65-5f9a-426e-af38-8bcb2676cd2f</kenmerkLV>
+         <versieBerichttype>1.0</versieBerichttype>
+         <abonnement>
+            <naam>WOZ Alles</naam>
+            <versie>1</versie>
+         </abonnement>
+         <basisregistratie>LVWOZ</basisregistratie>
+         <gebeurtenissoort>
+            <naam>NBSK_Di01</naam>
+            <versie>312</versie>
+         </gebeurtenissoort>
+         <gebeurtenisinhoud>
+            <WOZ:NBSK_Di01 xmlns:WOZ="http://www.waarderingskamer.nl/StUF/0312"
+                           xmlns:BG="http://www.egem.nl/StUF/sector/bg/0310"
+                           xmlns:StUF="http://www.egem.nl/StUF/StUF0301">
+               <WOZ:stuurgegevens>
+                  <StUF:berichtcode>Di01</StUF:berichtcode>
+                  <StUF:zender>
+                     <StUF:organisatie>00000001001902933000</StUF:organisatie>
+                     <StUF:applicatie>VRIS_BRV 4</StUF:applicatie>
+                     <StUF:administratie>P</StUF:administratie>
+                  </StUF:zender>
+                  <StUF:ontvanger>
+                     <StUF:organisatie>KADASTER</StUF:organisatie>
+                     <StUF:applicatie>LVWOZ</StUF:applicatie>
+                     <StUF:administratie>P</StUF:administratie>
+                  </StUF:ontvanger>
+                  <StUF:referentienummer>b9367e65-5f9a-426e-af38-8bcb2676cd2f</StUF:referentienummer>
+                  <StUF:tijdstipBericht>20220208203916320</StUF:tijdstipBericht>
+                  <StUF:functie>WOZ-NBSK</StUF:functie>
+               </WOZ:stuurgegevens>
+               <WOZ:routering StUF:entiteittype="WOZ" StUF:functie="entiteit">
+                  <WOZ:verantwoordelijkeGemeente>
+                     <BG:gemeenteCode>0858</BG:gemeenteCode>
+                  </WOZ:verantwoordelijkeGemeente>
+                  <WOZ:ligtIn StUF:entiteittype="WOZWSP">
+                     <WOZ:gerelateerde StUF:entiteittype="WSP">
+                        <WOZ:betrokkenWaterschap>0106</WOZ:betrokkenWaterschap>
+                     </WOZ:gerelateerde>
+                  </WOZ:ligtIn>
+               </WOZ:routering>
+               <WOZ:voegBeschikkingtoe StUF:entiteittype="WRD" StUF:functie="update">
+                  <WOZ:parameters>
+                     <StUF:mutatiesoort>W</StUF:mutatiesoort>
+                     <StUF:indicatorOvername>V</StUF:indicatorOvername>
+                  </WOZ:parameters>
+                  <WOZ:object StUF:entiteittype="WRD" StUF:verwerkingssoort="I">
+                     <WOZ:waardepeildatum>20210101</WOZ:waardepeildatum>
+                     <WOZ:ingangsdatumWaarde>20220101</WOZ:ingangsdatumWaarde>
+                     <WOZ:isVoor StUF:entiteittype="WRDWOZ" StUF:verwerkingssoort="I">
+                        <WOZ:gerelateerde StUF:entiteittype="WOZ" StUF:verwerkingssoort="I">
+                           <WOZ:wozObjectNummer>085800012189</WOZ:wozObjectNummer>
+                           <WOZ:aanduidingWOZobject>
+                              <BG:aoa.identificatie>0858200000001920</BG:aoa.identificatie>
+                              <BG:wpl.woonplaatsNaam>Valkenswaard</BG:wpl.woonplaatsNaam>
+                              <BG:aoa.postcode>5555EK</BG:aoa.postcode>
+                              <BG:gor.openbareRuimteNaam>de Biezen</BG:gor.openbareRuimteNaam>
+                              <BG:aoa.huisnummer>1</BG:aoa.huisnummer>
+                              <BG:aoa.huisletter StUF:noValue="geenWaarde" xsi:nil="true"/>
+                              <BG:aoa.huisnummertoevoeging StUF:noValue="geenWaarde" xsi:nil="true"/>
+                              <BG:locatieOmschrijving>Gedeelte in gebruik</BG:locatieOmschrijving>
+                           </WOZ:aanduidingWOZobject>
+                        </WOZ:gerelateerde>
+                     </WOZ:isVoor>
+                     <WOZ:isBeschiktVoor StUF:entiteittype="WRDSUB" StUF:noValue="geenWaarde" StUF:verwerkingssoort="T" xsi:nil="true"/>
+                  </WOZ:object>
+                  <WOZ:object StUF:entiteittype="WRD" StUF:verwerkingssoort="I">
+                     <WOZ:waardepeildatum>20210101</WOZ:waardepeildatum>
+                     <WOZ:ingangsdatumWaarde>20220101</WOZ:ingangsdatumWaarde>
+                     <WOZ:isVoor StUF:entiteittype="WRDWOZ" StUF:verwerkingssoort="I">
+                        <WOZ:gerelateerde StUF:entiteittype="WOZ" StUF:verwerkingssoort="I">
+                           <WOZ:wozObjectNummer>085800012189</WOZ:wozObjectNummer>
+                           <WOZ:aanduidingWOZobject>
+                              <BG:aoa.identificatie>0858200000001920</BG:aoa.identificatie>
+                              <BG:wpl.woonplaatsNaam>Valkenswaard</BG:wpl.woonplaatsNaam>
+                              <BG:aoa.postcode>5555EK</BG:aoa.postcode>
+                              <BG:gor.openbareRuimteNaam>de Biezen</BG:gor.openbareRuimteNaam>
+                              <BG:aoa.huisnummer>1</BG:aoa.huisnummer>
+                              <BG:aoa.huisletter StUF:noValue="geenWaarde" xsi:nil="true"/>
+                              <BG:aoa.huisnummertoevoeging StUF:noValue="geenWaarde" xsi:nil="true"/>
+                              <BG:locatieOmschrijving>Gedeelte in gebruik</BG:locatieOmschrijving>
+                           </WOZ:aanduidingWOZobject>
+                        </WOZ:gerelateerde>
+                     </WOZ:isVoor>
+                     <WOZ:isBeschiktVoor StUF:entiteittype="WRDSUB" StUF:verwerkingssoort="T">
+                        <WOZ:gerelateerde>
+                           <WOZ:natuurlijkPersoon StUF:entiteittype="NPS" StUF:verwerkingssoort="I">
+                              <WOZ:isEen StUF:entiteittype="NPSNPS" StUF:verwerkingssoort="I">
+                                 <WOZ:gerelateerde StUF:entiteittype="NPS" StUF:verwerkingssoort="I">
+                                    <BG:inp.bsn>873266923</BG:inp.bsn>
+                                    <!--Anonimisatie 'BG:inp.bsn': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.--><BG:geslachtsnaam>d45cf4b</BG:geslachtsnaam>
+                                    <!--Anonimisatie 'BG:geslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><BG:voorvoegselGeslachtsnaam StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                    <!--Anonimisatie 'BG:voorvoegselGeslachtsnaam': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><BG:voorletters>bb45</BG:voorletters>
+                                    <!--Anonimisatie 'BG:voorletters': waarde is vervangen door een hash van de oorspronkelijke waarde met de zelfde lengte.--><BG:geslachtsaanduiding>V</BG:geslachtsaanduiding>
+                                    <BG:geboortedatum>1982-05-14</BG:geboortedatum>
+                                    <!--Anonimisatie 'BG:geboortedatum': datum is met behoud van vorm vervangen door een hash van de oorspronkelijke datum.--><BG:verblijfsadres>
+                                       <BG:aoa.identificatie>0858200000003460</BG:aoa.identificatie>
+                                       <BG:wpl.woonplaatsNaam>Valkenswaard</BG:wpl.woonplaatsNaam>
+                                       <BG:gor.openbareRuimteNaam>De Smelen</BG:gor.openbareRuimteNaam>
+                                       <BG:aoa.postcode>5553CT</BG:aoa.postcode>
+                                       <BG:aoa.huisnummer>26</BG:aoa.huisnummer>
+                                       <BG:aoa.huisletter StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                       <BG:aoa.huisnummertoevoeging StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                       <BG:inp.locatiebeschrijving StUF:noValue="geenWaarde" xsi:nil="true"/>
+                                    </BG:verblijfsadres>
+                                 </WOZ:gerelateerde>
+                              </WOZ:isEen>
+                              <WOZ:soFiNummer>873266923</WOZ:soFiNummer>
+                              <!--Anonimisatie 'WOZ:soFiNummer': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.-->
+                              <WOZ:aanvullingSoFiNummer StUF:noValue="geenWaarde" xsi:nil="true"/>
+                              <!--Anonimisatie 'WOZ:aanvullingSoFiNummer': getal is met behoud van vorm vervangen door een hash van van het oorspronkelijke getal.-->
+                              <WOZ:verantwoordelijkeGemeente>0858</WOZ:verantwoordelijkeGemeente>
+                           </WOZ:natuurlijkPersoon>
+                        </WOZ:gerelateerde>
+                        <WOZ:statusBeschikking>01</WOZ:statusBeschikking>
+                        <WOZ:brondocument StUF:metagegeven="true">
+                           <BG:identificatie>202200206167</BG:identificatie>
+                           <BG:datum>20220225</BG:datum>
+                        </WOZ:brondocument>
+                        <StUF:tijdvakRelatie>
+                           <StUF:beginRelatie>20220203</StUF:beginRelatie>
+                           <StUF:eindRelatie StUF:noValue="geenWaarde" xsi:nil="true"/>
+                        </StUF:tijdvakRelatie>
+                        <StUF:tijdvakGeldigheid>
+                           <StUF:beginGeldigheid>20220203</StUF:beginGeldigheid>
+                           <StUF:eindGeldigheid StUF:noValue="geenWaarde" xsi:nil="true"/>
+                        </StUF:tijdvakGeldigheid>
+                        <StUF:tijdstipRegistratie>20220208203819000</StUF:tijdstipRegistratie>
+                     </WOZ:isBeschiktVoor>
+                  </WOZ:object>
+               </WOZ:voegBeschikkingtoe>
+            </WOZ:NBSK_Di01>
+         </gebeurtenisinhoud>
+      </dgl:VerstrekkingAanAfnemer>
+   </env:Body>
+</env:Envelope>

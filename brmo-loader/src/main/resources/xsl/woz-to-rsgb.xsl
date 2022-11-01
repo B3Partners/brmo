@@ -104,73 +104,9 @@
             <xsl:value-of select="$objectNum"/>
         </xsl:comment>
 
-        <woz_obj column-dat-beg-geldh="dat_beg_geldh" column-datum-einde-geldh="datum_einde_geldh">
-            <xsl:variable name="_datum">
-                <xsl:for-each select="s:tijdvakGeldigheid/s:beginGeldigheid | woz.heeftBelanghebbende/s:tijdvakGeldigheid/s:beginGeldigheid">
-                    <xsl:call-template name="date-numeric"/>
-                </xsl:for-each>
-            </xsl:variable>
-            <xsl:if test="$_datum != ''">
-                <dat_beg_geldh><xsl:value-of select="$_datum"/></dat_beg_geldh>
-            </xsl:if>
-            <xsl:if test="$_datum = ''">
-                <xsl:comment>geen beginGeldigheid in deelbericht, gebruik bestandsdatum</xsl:comment>
-                <dat_beg_geldh><xsl:value-of select="../fallback/berichtDatum"/></dat_beg_geldh>
-            </xsl:if>
-            <nummer>
-                <xsl:value-of select="$objectNum"/>
-            </nummer>
-            <datum_einde_geldh>
-                <xsl:for-each select="s:tijdvakGeldigheid/s:eindGeldigheid | woz.heeftBelanghebbende/s:tijdvakGeldigheid/s:eindGeldigheid">
-                    <xsl:call-template name="date-numeric"/>
-                </xsl:for-each>
-            </datum_einde_geldh>
-            <gebruikscode>
-                <xsl:value-of select="woz:gebruikscode"/>
-            </gebruikscode>
-            <grondoppervlakte>
-                <xsl:value-of select="woz:grondoppervlakte"/>
-            </grondoppervlakte>
-            <!-- <xsl:value-of select="woz:codeGebouwdOngebouwd"/>is een letter, bijv. G voor gebouwd, of O, of... maar zit niet in woz_obj, wel in woz_deelobj             -->
-            <soort_obj_code><!-- 4 cijfer code; lijkt niet voor te komen in XML schema... --></soort_obj_code>
-            <status>
-                <xsl:value-of select="woz:statusWozObject"/>
-            </status>
-            <vastgestelde_waarde>
-                <xsl:value-of select="woz:vastgesteldeWaarde"/>
-            </vastgestelde_waarde>
-            <waardepeildatum>
-                <xsl:for-each select="woz:waardepeildatum">
-                    <xsl:call-template name="date-numeric"/>
-                </xsl:for-each>
-            </waardepeildatum>
-            <geom>
-                <xsl:copy-of select="woz:wozObjectGeometrie/gml:Polygon"/>
-            </geom>
-
-            <xsl:variable name="_waterschap">
-                <xsl:value-of select="woz:ligtIn/woz:gerelateerde/woz:betrokkenWaterschap"/>
-            </xsl:variable>
-            <xsl:if test="$_waterschap != ''">
-                <waterschap><xsl:value-of select="$_waterschap"/></waterschap>
-            </xsl:if>
-            <xsl:if test="$_waterschap = ''">
-                <xsl:comment>geen waterschap in deelbericht, gebruik fallback</xsl:comment>
-                <waterschap><xsl:value-of select="../fallback/betrokkenWaterschap"/></waterschap>
-            </xsl:if>
-
-            <xsl:variable name="_gemeenteCode">
-                <xsl:value-of select="woz:verantwoordelijkeGemeente/bg:gemeenteCode"/>
-            </xsl:variable>
-            <xsl:if test="$_gemeenteCode != ''">
-                <fk_verantw_gem_code><xsl:value-of select="$_gemeenteCode"/></fk_verantw_gem_code>
-            </xsl:if>
-            <xsl:if test="$_gemeenteCode = ''">
-                <xsl:comment>geen gemeenteCode in deelbericht, gebruik fallback</xsl:comment>
-                <fk_verantw_gem_code><xsl:value-of select="../fallback/gemeenteCode"/></fk_verantw_gem_code>
-            </xsl:if>
-
-        </woz_obj>
+        <xsl:call-template name="wozObject">
+            <xsl:with-param name="objectNum" select="$objectNum"/>
+        </xsl:call-template>
 
         <xsl:call-template name="wozWaarde">
             <xsl:with-param name="objectNum" select="$objectNum"/>
@@ -265,10 +201,88 @@
             <xsl:value-of select="$objectNum"/>
         </xsl:comment>
 
+        <xsl:call-template name="wozObject">
+            <xsl:with-param name="objectNum" select="$objectNum"/>
+        </xsl:call-template>
+
         <xsl:call-template name="wozWaarde">
             <xsl:with-param name="objectNum" select="$objectNum"/>
         </xsl:call-template>
 
+        <xsl:call-template name="aanduiding"/>
+    </xsl:template>
+
+    <xsl:template name="wozObject">
+        <!-- maak een woz_obj record aan -->
+        <xsl:param name="objectNum"/>
+
+        <woz_obj column-dat-beg-geldh="dat_beg_geldh" column-datum-einde-geldh="datum_einde_geldh">
+            <xsl:variable name="_datum">
+                <xsl:for-each select="s:tijdvakGeldigheid/s:beginGeldigheid | woz.heeftBelanghebbende/s:tijdvakGeldigheid/s:beginGeldigheid">
+                    <xsl:call-template name="date-numeric"/>
+                </xsl:for-each>
+            </xsl:variable>
+            <xsl:if test="$_datum != ''">
+                <dat_beg_geldh><xsl:value-of select="$_datum"/></dat_beg_geldh>
+            </xsl:if>
+            <xsl:if test="$_datum = ''">
+                <xsl:comment>geen beginGeldigheid in object, gebruik berichtdatum</xsl:comment>
+                <dat_beg_geldh><xsl:value-of select="substring($datum,1,19)"/></dat_beg_geldh>
+            </xsl:if>
+            <nummer>
+                <xsl:value-of select="$objectNum"/>
+            </nummer>
+            <datum_einde_geldh>
+                <xsl:for-each select="s:tijdvakGeldigheid/s:eindGeldigheid | woz.heeftBelanghebbende/s:tijdvakGeldigheid/s:eindGeldigheid">
+                    <xsl:call-template name="date-numeric"/>
+                </xsl:for-each>
+            </datum_einde_geldh>
+            <gebruikscode>
+                <xsl:value-of select="woz:gebruikscode"/>
+            </gebruikscode>
+            <grondoppervlakte>
+                <xsl:value-of select="woz:grondoppervlakte"/>
+            </grondoppervlakte>
+            <!-- <xsl:value-of select="woz:codeGebouwdOngebouwd"/>is een letter, bijv. G voor gebouwd, of O, of... maar zit niet in woz_obj, wel in woz_deelobj             -->
+            <soort_obj_code><!-- 4 cijfer code; lijkt niet voor te komen in XML schema... --></soort_obj_code>
+            <status>
+                <xsl:value-of select="woz:statusWozObject"/>
+            </status>
+            <vastgestelde_waarde>
+                <xsl:value-of select="woz:vastgesteldeWaarde"/>
+            </vastgestelde_waarde>
+            <waardepeildatum>
+                <xsl:for-each select="woz:waardepeildatum">
+                    <xsl:call-template name="date-numeric"/>
+                </xsl:for-each>
+            </waardepeildatum>
+            <geom>
+                <xsl:copy-of select="woz:wozObjectGeometrie/gml:Polygon"/>
+            </geom>
+
+            <xsl:variable name="_waterschap">
+                <xsl:value-of select="woz:ligtIn/woz:gerelateerde/woz:betrokkenWaterschap"/>
+            </xsl:variable>
+            <xsl:if test="$_waterschap != ''">
+                <waterschap><xsl:value-of select="$_waterschap"/></waterschap>
+            </xsl:if>
+            <xsl:if test="$_waterschap = ''">
+                <xsl:comment>geen waterschap in deelbericht, gebruik fallback</xsl:comment>
+                <waterschap><xsl:value-of select="../fallback/betrokkenWaterschap"/></waterschap>
+            </xsl:if>
+
+            <xsl:variable name="_gemeenteCode">
+                <xsl:value-of select="woz:verantwoordelijkeGemeente/bg:gemeenteCode"/>
+            </xsl:variable>
+            <xsl:if test="$_gemeenteCode != ''">
+                <fk_verantw_gem_code><xsl:value-of select="$_gemeenteCode"/></fk_verantw_gem_code>
+            </xsl:if>
+            <xsl:if test="$_gemeenteCode = ''">
+                <xsl:comment>geen gemeenteCode in deelbericht, gebruik fallback</xsl:comment>
+                <fk_verantw_gem_code><xsl:value-of select="../fallback/gemeenteCode"/></fk_verantw_gem_code>
+            </xsl:if>
+
+        </woz_obj>
     </xsl:template>
 
     <xsl:template name="wozWaarde">

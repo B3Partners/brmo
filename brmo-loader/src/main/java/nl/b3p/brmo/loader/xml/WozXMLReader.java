@@ -58,10 +58,10 @@ public class WozXMLReader extends BrmoXMLReader {
     private String betrokkenWaterschap = null;
     private String gemeenteCode = null;
 
-    public WozXMLReader(InputStream in, Date d, StagingProxy staging) throws Exception {
+    public WozXMLReader(InputStream in, Date bestandsDatum, StagingProxy staging) throws Exception {
         this.in = in;
         this.staging = staging;
-        setBestandsDatum(d);
+        setBestandsDatum(bestandsDatum);
         init();
     }
 
@@ -170,7 +170,6 @@ public class WozXMLReader extends BrmoXMLReader {
                 .append(origXML)
                 .append(getXML(bsns))
                 .append("<fallback>")
-                .append("<berichtDatum>").append(new SimpleDateFormat("yyyy-MM-dd").format(getBestandsDatum())).append("</berichtDatum>")
                 .append("<gemeenteCode>").append(gemeenteCode).append("</gemeenteCode>")
                 .append("<betrokkenWaterschap>").append(betrokkenWaterschap).append("</betrokkenWaterschap>")
                 .append("</fallback>")
