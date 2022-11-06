@@ -1,4 +1,7 @@
-set define off;
+-- https://docs.oracle.com/en/database/oracle/oracle-database/19/refrn/NLS_LENGTH_SEMANTICS.html#GUID-221B0A5E-A17A-4CBC-8309-3A79508466F9
+ALTER session SET nls_length_semantics='CHAR';
+SET DEFINE OFF;
+
 
 select 1 from dual;
 
