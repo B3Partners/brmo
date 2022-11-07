@@ -119,7 +119,7 @@ public class RsgbWOZTransformer extends RsgbTransformer {
                     //      .
                     //      Het probleem is dat het vorige bericht nog in de pipeline kan zitten en niet committed
                     //      is naar de bericht tabel
-                    LOG.warn("Er is wel een vorige bericht, maar de DB_XML ontbreekt");
+                    LOG.warn("Er is wel een vorig bericht, maar de DB_XML ontbreekt");
                 }
                 Document d = merge(previousBericht.getDbXml(), current);
 

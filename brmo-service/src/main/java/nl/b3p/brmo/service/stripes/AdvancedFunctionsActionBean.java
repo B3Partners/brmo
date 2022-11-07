@@ -63,6 +63,8 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 import java.util.zip.ZipOutputStream;
 
+import static org.apache.commons.dbutils.DbUtils.closeQuietly;
+
 /**
  *
  * @author Chris van Lith
@@ -351,7 +353,6 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
                 LOG.info("Ophalen WOZ berichten vanaf offset: " + offset + " tot: "+ offset+batch +" van: " + count);
                 PreparedStatement ps = conn.prepareStatement(geomToJdbc.buildPaginationSql(selectSql, offset, batch));
                 ResultSet rs = ps.executeQuery();
-
                 while (rs.next()) {
                     LOG.trace("Verwerken WOZ bericht voor laadprocesid: " + rs.getLong("laadprocesid") + " met id: " + rs.getLong("id"));
                     InputStream origineelXMLInputStream = new ByteArrayInputStream(rs.getString("br_orgineel_xml").getBytes(StandardCharsets.UTF_8));
@@ -385,6 +386,8 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
                     }
                     processed++;
                 }
+                closeQuietly(rs);
+                closeQuietly(ps);
                 offset += batch;
                 progress(processed);
             }
@@ -472,11 +475,11 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
 
             // If handler threw exception processing row, rethrow it
             if (e != null) {
-                DbUtils.closeQuietly(conn);
+                closeQuietly(conn);
                 throw e;
             }
         } while (processed.intValue() > 0);
-        DbUtils.closeQuietly(conn);
+        closeQuietly(conn);
     }
 
     public void repairBAGMutatieBerichten(String config) throws Exception {
@@ -554,11 +557,11 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
 
             // If handler threw exception processing row, rethrow it
             if (e != null) {
-                DbUtils.closeQuietly(conn);
+                closeQuietly(conn);
                 throw e;
             }
         } while (processed.intValue() > 0);
-        DbUtils.closeQuietly(conn);
+        closeQuietly(conn);
     }
 
     public void exportBRKMutatieBerichten(String locatie) throws Exception {
@@ -667,11 +670,11 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
 
             // If handler threw exception processing row, rethrow it
             if (e != null) {
-                DbUtils.closeQuietly(conn);
+                closeQuietly(conn);
                 throw e;
             }
         } while (processed.intValue() > 0);
-        DbUtils.closeQuietly(conn);
+        closeQuietly(conn);
     }
     
     public void cleanupBerichten(String config, String soort) throws Exception {
@@ -747,11 +750,11 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
 
             // If handler threw exception processing row, rethrow it
             if (e != null) {
-                DbUtils.closeQuietly(conn);
+                closeQuietly(conn);
                 throw e;
             }
         } while (processed.intValue() > 0);
-        DbUtils.closeQuietly(conn);
+        closeQuietly(conn);
     }
 
     public void deleteBerichten(String config, String soort) throws Exception {
@@ -785,7 +788,7 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
         } else {
             progress((Long) o);
         }
-        DbUtils.closeQuietly(conn);
+        closeQuietly(conn);
     }
 
     /**
@@ -888,11 +891,11 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
 
             // If handler threw exception processing row, rethrow it
             if (e != null) {
-                DbUtils.closeQuietly(conn);
+                closeQuietly(conn);
                 throw e;
             }
         } while (processed.intValue() > 0);
-        DbUtils.closeQuietly(conn);
+        closeQuietly(conn);
         rsgb.close();
     }
 
@@ -1000,11 +1003,11 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
 
             // If handler threw exception processing row, rethrow it
             if (e != null) {
-                DbUtils.closeQuietly(conn);
+                closeQuietly(conn);
                 throw e;
             }
         } while (processed.intValue() > 0);
-        DbUtils.closeQuietly(conn);
+        closeQuietly(conn);
         rsgb.close();
     }
 
@@ -1093,12 +1096,12 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
                 progress(this.processed + _processed.intValue());
 
                 if (e != null) {
-                    DbUtils.closeQuietly(conn);
+                    closeQuietly(conn);
                     throw e;
                 }
             } while (_processed.intValue() > 0);
         }
-        DbUtils.closeQuietly(conn);
+        closeQuietly(conn);
     }
 
     public void fillbestandsNaamHersteld(String soort, String config) throws BrmoException, SQLException, Exception {
@@ -1166,10 +1169,10 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
 
             // If handler threw exception processing row, rethrow it
             if (e != null) {
-                DbUtils.closeQuietly(conn);
+                closeQuietly(conn);
                 throw e;
             }
         } while (_processed.intValue() > 0);
-        DbUtils.closeQuietly(conn);
+        closeQuietly(conn);
     }
 }
