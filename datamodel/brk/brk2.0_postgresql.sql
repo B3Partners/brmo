@@ -2,25 +2,6 @@ CREATE SCHEMA IF NOT EXISTS brk;
 
 SET search_path = brk,public;
 
-DROP TABLE IF EXISTS adres CASCADE;
-DROP TABLE IF EXISTS appartementsrecht CASCADE;
-DROP TABLE IF EXISTS natuurlijkpersoon CASCADE;
-DROP TABLE IF EXISTS nietnatuurlijkpersoon CASCADE;
-DROP TABLE IF EXISTS onroerendezaak CASCADE;
-DROP TABLE IF EXISTS onroerendezaakbeperking CASCADE;
-DROP TABLE IF EXISTS onroerendezaakfiliatie CASCADE;
-DROP TABLE IF EXISTS perceel CASCADE;
-DROP TABLE IF EXISTS persoon CASCADE;
-DROP TABLE IF EXISTS publiekrechtelijkebeperking CASCADE;
-DROP TABLE IF EXISTS recht CASCADE;
-DROP TABLE IF EXISTS stuk CASCADE;
-DROP TABLE IF EXISTS stukdeel CASCADE;
-DROP TABLE IF EXISTS archief_appartementsrecht CASCADE;
-DROP TABLE IF EXISTS archief_onroerendezaak CASCADE;
-DROP TABLE IF EXISTS archief_onroerendezaakfiliatie CASCADE;
-DROP TABLE IF EXISTS archief_perceel CASCADE;
-DROP TABLE IF EXISTS archief_recht CASCADE;
-
 -- alle verschillende soorten stukken:
 --  NL.IMKAD.Kadasterstuk
 --  NL.IMKAD.TIAStuk
@@ -65,7 +46,7 @@ CREATE TABLE stuk
 CREATE TABLE stukdeel
 (
     -- Identificatie is een door het Kadaster toegekend landelijk uniek nummer aan een object binnen de kadastrale registratie.
-    identificatie               CHARACTER VARYING(255) NOT NULL PRIMARY KEY,
+    identificatie               VARCHAR(255) NOT NULL PRIMARY KEY,
     -- Aanduiding aard stukdeel is een aanduiding voor de aard van een rechtsfeit.
     -- De mogelijke waarden zijn vermeld in een waardenlijst.De mogelijke waarden zijn vermeld in een waardenlijst
     -- https://developer.kadaster.nl/schemas/waardelijsten/AardStukdeel/
@@ -77,7 +58,7 @@ CREATE TABLE stukdeel
     -- DatumKenbaarheid is de datum waarop een ter inschrijving aangboden publiekrechtelijke beperking besluit bekend is gemaakt of is geworden.
     datumkenbaarheidpb          DATE,
     -- referentie naar stuk
-    deelvan                     VARCHAR(255)           NOT NULL REFERENCES stuk (identificatie)
+    deelvan                     VARCHAR(255) NOT NULL REFERENCES stuk (identificatie)
 );
 
 
@@ -198,54 +179,62 @@ CREATE TABLE archief_onroerendezaak
 
 CREATE TABLE adres
 (
-    identificatie                        VARCHAR(255) PRIMARY KEY NOT NULL,
+    identificatie        VARCHAR(255) PRIMARY KEY NOT NULL,
     -- adres binnenland
-    huisnummer                           NUMERIC(4, 0),
-    huisletter                           VARCHAR(1),
-    huisnummertoevoeging                 VARCHAR(4),
-    postbusnummer                        NUMERIC(6, 0),
-    postcode                             VARCHAR(6),
-    openbareruimtenaam                   VARCHAR(80),
-    woonplaatsnaam                       VARCHAR(80),
-    openbareruimte /*BAG OPR id */       VARCHAR(16),
-    verblijfsobject /*BAG VBO id */      VARCHAR(16),
-    adresseerbaarobject /* BAG ADR id */ VARCHAR(16),
-    nummeraanduiding /* BAG NUM id */    VARCHAR(16),
-    standplaats /*BAG STA id */          VARCHAR(16),
-    ligplaats /*BAG LIG id */            VARCHAR(16),
+    huisnummer           NUMERIC(4, 0),
+    huisletter           VARCHAR(1),
+    huisnummertoevoeging VARCHAR(4),
+    postbusnummer        NUMERIC(6, 0),
+    postcode             VARCHAR(6),
+    openbareruimtenaam   VARCHAR(80),
+    woonplaatsnaam       VARCHAR(80),
+    -- BAG OPR id
+    openbareruimte       VARCHAR(16),
+    --BAG VBO id
+    verblijfsobject      VARCHAR(16),
+    -- BAG ADR id
+    adresseerbaarobject  VARCHAR(16),
+    -- BAG NUM id
+    nummeraanduiding     VARCHAR(16),
+    -- BAG STA id
+    standplaats          VARCHAR(16),
+    --BAG LIG id
+    ligplaats            VARCHAR(16),
     -- TODO uitzoeken
-    nevenadres                           VARCHAR,
+    nevenadres           VARCHAR,
     -- TODO uitzoeken
-    hoofdadres                           VARCHAR,
+    hoofdadres           VARCHAR,
     -- TODO uitzoeken
     -- https://developer.kadaster.nl/schemas/waardelijsten/Koppelingswijze/
-    koppelingswijze                      VARCHAR(29),
+    koppelingswijze      VARCHAR(29),
     -- adres buitenland
-    buitenlandadres                      VARCHAR(200),
-    buitenlandwoonplaats                 VARCHAR(200),
-    buitenlandregio                      VARCHAR(150),
+    buitenlandadres      VARCHAR(200),
+    buitenlandwoonplaats VARCHAR(200),
+    buitenlandregio      VARCHAR(150),
     -- https://developer.kadaster.nl/schemas/waardelijsten/BRPLand/
-    land                                 VARCHAR(40),
+    land                 VARCHAR(40),
     -- een onroerende kan meer dan 1 adres hebben
-    onroerendezaak                       VARCHAR REFERENCES onroerendezaak (identificatie)
+    onroerendezaak       VARCHAR REFERENCES onroerendezaak (identificatie)
 );
 
 -- Een persoon is een natuurlijk persoon of een niet-natuurlijk persoon.
 -- NL.IMKAD.Persoon
 CREATE TABLE persoon
 (
-    identificatie                               VARCHAR(255) NOT NULL PRIMARY KEY,
+    identificatie                 VARCHAR(255) NOT NULL PRIMARY KEY,
     -- Beschikkingsbevoegdheid is een aanduiding van de beschikkingsbevoegdheid van een persoon.
     -- https://developer.kadaster.nl/schemas/waardelijsten/Beschikkingsbevoegdheid/
-    beschikkingsbevoegdheid                     VARCHAR(33),
+    beschikkingsbevoegdheid       VARCHAR(33),
     -- Indicatie niet toonbare diakriet geeft aan of de naam van een persoon diakrieten bevat die niet getoond kunnen worden.
     -- Deze aanduiding was in het verleden nodig omdat de systemen niet alle diakrieten konden vastleggen en weergeven.
     -- Dit kan spelen bij personen die voor 2019 zijn geregistreerd in de BRK.
-    indicatieniettoonbarediakriet               BOOLEAN,
-    postlocatie /* post adres referentie */     VARCHAR REFERENCES adres (identificatie),
-    woonlocatie /* object locatie referentie */ VARCHAR REFERENCES adres (identificatie),
+    indicatieniettoonbarediakriet BOOLEAN,
+    -- post adres referentie
+    postlocatie                   VARCHAR REFERENCES adres (identificatie),
+    -- object locatie referentie
+    woonlocatie                   VARCHAR REFERENCES adres (identificatie),
     -- tbv. DATAMODEL: om opzoeken van de bijhorende persoonsgegevens makkelijk te maken
-    soort                                       VARCHAR(21) CHECK ( soort IN ('natuurlijkpersoon', 'nietnatuurlijkpersoon') )
+    soort                         VARCHAR(21) CHECK ( soort IN ('natuurlijkpersoon', 'nietnatuurlijkpersoon') )
 );
 
 CREATE TABLE natuurlijkpersoon
@@ -323,22 +312,25 @@ CREATE TABLE nietnatuurlijkpersoon
 -- omvat 1 of meer onroerendezaakbeperkingen
 CREATE TABLE publiekrechtelijkebeperking
 (
-    identificatie                         VARCHAR(255) PRIMARY KEY NOT NULL,
+    identificatie    VARCHAR(255) PRIMARY KEY NOT NULL,
     -- De grondslag is een verwijzing naar de wet waar de publiekrechtelijke beperking op gebaseerd is.
     -- https://developer.kadaster.nl/schemas/waardelijsten/GrondslagBRK-PB/index.html
-    grondslag                             VARCHAR(255),
-    datuminwerking                        DATE,
-    datumbeeindiging                      DATE,
-    isgebaseerdop /* stukdeel ref */      VARCHAR REFERENCES stukdeel (identificatie),
-    bevoegdgezag /*TODO NNP referentie */ VARCHAR
+    grondslag        VARCHAR(255),
+    datuminwerking   DATE,
+    datumbeeindiging DATE,
+    -- stukdeel ref
+    isgebaseerdop    VARCHAR REFERENCES stukdeel (identificatie),
+    -- TODO NNP referentie
+    bevoegdgezag     VARCHAR
 );
 
 CREATE TABLE onroerendezaakbeperking
 (
-    identificatie                                VARCHAR(255) PRIMARY KEY NOT NULL,
-    inonderzoek                                  BOOLEAN,
-    beperkt                                      VARCHAR REFERENCES onroerendezaak (identificatie),
-    leidttot /*publiekrechtelijkebeperking ref*/ VARCHAR REFERENCES publiekrechtelijkebeperking (identificatie)
+    identificatie VARCHAR(255) PRIMARY KEY NOT NULL,
+    inonderzoek   BOOLEAN,
+    beperkt       VARCHAR REFERENCES onroerendezaak (identificatie),
+    -- publiekrechtelijkebeperking ref
+    leidttot      VARCHAR REFERENCES publiekrechtelijkebeperking (identificatie)
 );
 
 -- Een Onroerende zaak filiatie geeft de relatie aan tussen een nieuwe en een oude Onroerende zaak.
@@ -436,15 +428,15 @@ CREATE TABLE archief_perceel
 -- TODO sommige rechten hebben meer dan 1 stukdeel ref... daarvoor zouden we een koppeltabel nodig hebben
 CREATE TABLE recht
 (
-    identificatie                                       VARCHAR(255) NOT NULL PRIMARY KEY,
+    identificatie                          VARCHAR(255) NOT NULL PRIMARY KEY,
     -- Aard (zakelijk recht) is een aanduiding voor de aard van het recht. De waarden zijn opgenomen in een waardelijst.
     -- https://developer.kadaster.nl/schemas/waardelijsten/AardZakelijkRecht/
     -- of
     -- https://developer.kadaster.nl/schemas/waardelijsten/AardAantekening/
-    aard                                                VARCHAR(255),
-    toelichtingbewaarder                                VARCHAR(4000),
-    --
-    isbelastmet /*zak. recht referentie*/               VARCHAR REFERENCES recht (identificatie),
+    aard                                   VARCHAR(255),
+    toelichtingbewaarder                   VARCHAR(4000),
+    -- zak. recht referentie
+    isbelastmet                            VARCHAR REFERENCES recht (identificatie),
     -- Meerdere ‘is gebaseerd op’ bij een zakelijk recht is een valide situatie.
     -- Dit komt voor als het zakelijk recht eerst ontstaat onder opschortende voorwaarden (ontstaat dan nog niet in de BRK)
     -- en er later een stuk komt waarin deze opschortende voorwaarden in vervulling gaan.
@@ -461,28 +453,36 @@ CREATE TABLE recht
     -- Bv. perceel1 verkregen obv stuk1 en perceel2 verkregen obv stuk2* Bij beëindigen van een beperkt recht
     -- krijgen de tenaamstellingen van het onderliggend recht het te verwerken stuk als extra ‘is gebaseerd op’,
     -- omdat dit ook een vorm van verkrijging is. Bv. Afstand beperkt recht.
-    isgebaseerdop /*stukdeel referentie*/VARCHAR(255) REFERENCES stukdeel (identificatie),
-    rustop /* OZ referentie*/                           VARCHAR REFERENCES onroerendezaak (identificatie),
-    isontstaanuit /* een splitsing ref */               VARCHAR REFERENCES recht (identificatie),
-    isbetrokkenbij /* een splitsing ref */              VARCHAR REFERENCES recht (identificatie),
-    isbestemdtot /* Mandeligheid ref */                 VARCHAR REFERENCES recht (identificatie),
-    isbeperkttot /* tenaamstelling ref */               VARCHAR REFERENCES recht (identificatie),
+    --
+    -- stukdeel referentie
+    isgebaseerdop                          VARCHAR(255) REFERENCES stukdeel (identificatie),
+    -- OZ referentie
+    rustop                                 VARCHAR REFERENCES onroerendezaak (identificatie),
+    -- een splitsing ref
+    isontstaanuit                          VARCHAR REFERENCES recht (identificatie),
+    -- een splitsing ref
+    isbetrokkenbij                         VARCHAR REFERENCES recht (identificatie),
+    -- Mandeligheid ref
+    isbestemdtot                           VARCHAR REFERENCES recht (identificatie),
+    --     tenaamstelling ref
+    isbeperkttot                           VARCHAR REFERENCES recht (identificatie),
     -- Erfpachtcanon.Soort is een nadere aanduiding van de erfpachtcanon. De waarden zijn opgenomen in een waardelijst
     -- We onderkennen de volgende soorten erfpachtcanon* Eeuwigdurend afgekocht* Afgekocht tot* Variabel bedrag* Jaarlijks bedrag
     -- https://developer.kadaster.nl/schemas/waardelijsten/SoortErfpachtcanon/
-    soort                                               VARCHAR(22),
+    soort                                  VARCHAR(22),
     -- Jaarlijksbedrag is het bedrag dat jaarlijks als erpachtcanon moet worden betaald.
-    jaarlijksbedrag                                     DECIMAL(9, 0),
+    jaarlijksbedrag                        DECIMAL(9, 0),
     -- Betreft meer onroerende zaken is een indicatie waarmee wordt aangegeven dat het jaarlijks bedrag meerdere onroerende zaken betreft.
-    jaarlijksbedragbetreftmeerdere_oz                   BOOLEAN,
+    jaarlijksbedragbetreftmeerdere_oz      BOOLEAN,
     -- erfpacht
-    einddatumafkoop                                     DATE,
+    einddatumafkoop                        DATE,
     -- Met deze indicatie wordt aangegeven dat de erfpacht oorspronkelijk gevestigd is bij een perceel dat later is verenigd met een ander perceel.
-    indicatieoudeonroerendezaakbetrokken                BOOLEAN,
+    indicatieoudeonroerendezaakbetrokken   BOOLEAN,
     -- Een Hoofdzaak is een onroerende zaak die een (aandeel in) een mandeligheid omvat.Wanneer een Hoofzaak uit een mandeligheid overgedragen wordt dan wordt ook de afhankelijke Mandelige zaak overgedragen.
     -- Mandeligheid komt vaak voor bij gemeenschappelijke achterpaden, parkeerplaatsen en dergelijke.
-    heefthoofdzaak                                      VARCHAR REFERENCES onroerendezaak (identificatie),
-    heeftverenigingvaneigenaren /*  NNP verwijzing */   VARCHAR REFERENCES nietnatuurlijkpersoon (identificatie),
+    heefthoofdzaak                         VARCHAR REFERENCES onroerendezaak (identificatie),
+    -- NNP verwijzing
+    heeftverenigingvaneigenaren            VARCHAR REFERENCES nietnatuurlijkpersoon (identificatie),
     -- TODO misschien een kolom met soort splitsing toevoegen? maar let op dat er al een soort kolom is voor erfpachtcanon
     -- TODO Hoofdsplitsing
     --		Een Hoofdsplitsing is het gesplitste Zakelijk recht van 1 of meer Percelen.De eigendom, het recht van erfpacht en/of het recht van
@@ -513,24 +513,29 @@ CREATE TABLE recht
     -- 		SpiegelsplitsingOndersplitsing is een spiegelsplitsing afkoop erfpacht van een ondersplitsing.
     -- Aandeel in Recht is het aandeel waarvoor een persoon deelneemt in het Recht of GezamenlijkAandeel.
     -- Het aantal delen. De teller is altijd lager dan de noemer.
-    aandeel_teller                                      DECIMAL(32, 0),
+    aandeel_teller                         DECIMAL(32, 0),
     -- De noemer van het deel
-    aandeel_noemer                                      DECIMAL(32, 0),
+    aandeel_noemer                         DECIMAL(32, 0),
     -- Burgerlijke staat tijdens verkrijging is een aanduiding voor de leefvorm van een persoon, zoals deze volgens het brondocument ten tijde van de verkrijging van het recht bestond.De waarden zijn opgenomen in een [waardelijst]
     -- Leefvorm van een persoon heeft betrekking op huwelijk c.q. geregistreerd partnerschap.
     -- https://developer.kadaster.nl/schemas/waardelijsten/BurgerlijkeStaat/
-    burgerlijkestaattentijdevanverkrijging              VARCHAR(43),
+    burgerlijkestaattentijdevanverkrijging VARCHAR(43),
     -- Verkregen namens samenwerkingsverband is de aard van het samenwerkingsverband (zoals Maatschap, VOF of CV) namens welke
     -- een natuurlijk persoon deze tenaamstelling heeft verkregen.
     -- https://developer.kadaster.nl/schemas/waardelijsten/Samenwerkingsverband/
-    verkregennamenssamenwerkingsverband                 VARCHAR(26),
-    betrokkenpartner /* NP verwijzing */                VARCHAR REFERENCES natuurlijkpersoon (identificatie),
-    geldtvoor /* GezamenlijkAandeelRef*/                VARCHAR REFERENCES recht (identificatie),
-    betrokkensamenwerkingsverband /*  NNP verwijzing */ VARCHAR REFERENCES nietnatuurlijkpersoon (identificatie),
-    betrokkengorzenenaanwassen /*  NNP verwijzing */    VARCHAR REFERENCES nietnatuurlijkpersoon (identificatie),
-    tennamevan /*  NNP of NP verwijzing */              VARCHAR REFERENCES persoon (identificatie),
+    verkregennamenssamenwerkingsverband    VARCHAR(26),
+    -- NP verwijzing
+    betrokkenpartner                       VARCHAR REFERENCES natuurlijkpersoon (identificatie),
+    -- GezamenlijkAandeelRef
+    geldtvoor                              VARCHAR REFERENCES recht (identificatie),
+    -- NNP verwijzing
+    betrokkensamenwerkingsverband          VARCHAR REFERENCES nietnatuurlijkpersoon (identificatie),
+    -- NNP verwijzing
+    betrokkengorzenenaanwassen             VARCHAR REFERENCES nietnatuurlijkpersoon (identificatie),
+    -- NNP of NP verwijzing
+    tennamevan                             VARCHAR REFERENCES persoon (identificatie),
     -- Omschrijving is de nadere beschrijving van de aantekening.
-    omschrijving                                        VARCHAR(4000),
+    omschrijving                           VARCHAR(4000),
     -- EinddatumRecht is de datum waarop een recht eindigt.
     -- De einddatum van een recht is in de BRK opgenomen als aantekening om de volgende redenen.
     -- Einddatum van een tenaamstelling is niet meer dan een aantekening (een verwijzing naar een stuk waarin iets is vermeld over een (mogelijke) einddatum).
@@ -538,75 +543,91 @@ CREATE TABLE recht
     -- De tenaamstelling in BRK vervalt enkel nadat er een nieuwe akte van levering is ingeschreven.
     -- Ook kan in een later stuk een andere einddatum zijn vermeld.
     -- Alle stukken betreffende een einddatum worden als aantekening bij de tenaamstelling vermeld.
-    einddatumrecht                                      DATE,
+    einddatumrecht                         DATE,
     -- Einddatum is de datum waarop de geldigheid van de aantekening eindigt.
-    einddatum                                           DATE,
+    einddatum                              DATE,
     -- BetreftGedeelteVanPerceel is een aanduiding of de aantekening het gehele perceel (nee of niet gevuld) betreft of slechts een gedeelte (ja).
-    betreftgedeeltevanperceel                           BOOLEAN,
+    betreftgedeeltevanperceel              BOOLEAN,
     -- AantekeningRecht is een aantekening bij een tenaamstelling van een recht.
-    aantekeningrecht /* tenaamstelling ref*/            VARCHAR REFERENCES recht (identificatie),
-    --
-    aantekeningkadastraalobject                         VARCHAR REFERENCES onroerendezaak (identificatie),
-    betrokkenpersoon /* NNP of NP verwijzing */         VARCHAR REFERENCES persoon (identificatie),
+    -- tenaamstelling ref
+    aantekeningrecht                       VARCHAR REFERENCES recht (identificatie),
+    aantekeningkadastraalobject            VARCHAR REFERENCES onroerendezaak (identificatie),
+    -- NNP of NP verwijzing
+    betrokkenpersoon                       VARCHAR REFERENCES persoon (identificatie),
     -- metadata tbv archivering
-    begingeldigheid                                     DATE         NOT NULL
+    begingeldigheid                        DATE         NOT NULL
 );
 
 CREATE TABLE archief_recht
 (
-    identificatie                                       VARCHAR(255) NOT NULL,
-    aard                                                VARCHAR(255),
-    toelichtingbewaarder                                VARCHAR(4000),
-    isbelastmet /*zak. recht referentie*/               VARCHAR REFERENCES recht (identificatie),
-    isgebaseerdop /*stukdeel referentie*/VARCHAR(255) REFERENCES stukdeel (identificatie),
-    rustop /* OZ referentie*/                           VARCHAR REFERENCES onroerendezaak (identificatie),
-    isontstaanuit /* een splitsing ref */               VARCHAR REFERENCES recht (identificatie),
-    isbetrokkenbij /* een splitsing ref */              VARCHAR REFERENCES recht (identificatie),
-    isbestemdtot /* Mandeligheid ref */                 VARCHAR REFERENCES recht (identificatie),
-    isbeperkttot /* tenaamstelling ref */               VARCHAR REFERENCES recht (identificatie),
-    soort                                               VARCHAR(22),
-    jaarlijksbedrag                                     DECIMAL(9, 0),
-    jaarlijksbedragbetreftmeerdere_oz                   BOOLEAN,
-    einddatumafkoop                                     DATE,
-    indicatieoudeonroerendezaakbetrokken                BOOLEAN,
-    heefthoofdzaak                                      VARCHAR REFERENCES onroerendezaak (identificatie),
-    heeftverenigingvaneigenaren /*  NNP verwijzing */   VARCHAR REFERENCES nietnatuurlijkpersoon (identificatie),
-    aandeel_teller                                      DECIMAL(32, 0),
-    aandeel_noemer                                      DECIMAL(32, 0),
-    burgerlijkestaattentijdevanverkrijging              VARCHAR(43),
-    verkregennamenssamenwerkingsverband                 VARCHAR(26),
-    betrokkenpartner /* NP verwijzing */                VARCHAR REFERENCES natuurlijkpersoon (identificatie),
-    geldtvoor /* GezamenlijkAandeelRef*/                VARCHAR REFERENCES recht (identificatie),
-    betrokkensamenwerkingsverband /*  NNP verwijzing */ VARCHAR REFERENCES nietnatuurlijkpersoon (identificatie),
-    betrokkengorzenenaanwassen /*  NNP verwijzing */    VARCHAR REFERENCES nietnatuurlijkpersoon (identificatie),
-    tennamevan /*  NNP of NP verwijzing */              VARCHAR REFERENCES persoon (identificatie),
-    omschrijving                                        VARCHAR(4000),
-    einddatumrecht                                      DATE,
-    einddatum                                           DATE,
-    betreftgedeeltevanperceel                           BOOLEAN,
-    aantekeningrecht /* tenaamstelling ref*/            VARCHAR REFERENCES recht (identificatie),
-    aantekeningkadastraalobject                         VARCHAR REFERENCES onroerendezaak (identificatie),
-    betrokkenpersoon /* NNP of NP verwijzing */         VARCHAR REFERENCES persoon (identificatie),
-    begingeldigheid                                     DATE         NOT NULL,
+    identificatie                          VARCHAR(255) NOT NULL,
+    aard                                   VARCHAR(255),
+    toelichtingbewaarder                   VARCHAR(4000),
+    -- zak. recht referentie
+    isbelastmet                            VARCHAR REFERENCES recht (identificatie),
+    -- stukdeel referentie
+    isgebaseerdop                          VARCHAR(255) REFERENCES stukdeel (identificatie),
+    -- OZ referentie
+    rustop                                 VARCHAR REFERENCES onroerendezaak (identificatie),
+    -- een splitsing ref
+    isontstaanuit                          VARCHAR REFERENCES recht (identificatie),
+    -- een splitsing ref
+    isbetrokkenbij                         VARCHAR REFERENCES recht (identificatie),
+    -- Mandeligheid ref
+    isbestemdtot                           VARCHAR REFERENCES recht (identificatie),
+    -- tenaamstelling ref
+    isbeperkttot                           VARCHAR REFERENCES recht (identificatie),
+    soort                                  VARCHAR(22),
+    jaarlijksbedrag                        DECIMAL(9, 0),
+    jaarlijksbedragbetreftmeerdere_oz      BOOLEAN,
+    einddatumafkoop                        DATE,
+    indicatieoudeonroerendezaakbetrokken   BOOLEAN,
+    heefthoofdzaak                         VARCHAR REFERENCES onroerendezaak (identificatie),
+    -- NNP verwijzing
+    heeftverenigingvaneigenaren            VARCHAR REFERENCES nietnatuurlijkpersoon (identificatie),
+    aandeel_teller                         DECIMAL(32, 0),
+    aandeel_noemer                         DECIMAL(32, 0),
+    burgerlijkestaattentijdevanverkrijging VARCHAR(43),
+    verkregennamenssamenwerkingsverband    VARCHAR(26),
+    -- NP verwijzing
+    betrokkenpartner                       VARCHAR REFERENCES natuurlijkpersoon (identificatie),
+    -- GezamenlijkAandeelRef
+    geldtvoor                              VARCHAR REFERENCES recht (identificatie),
+    -- NNP verwijzing
+    betrokkensamenwerkingsverband          VARCHAR REFERENCES nietnatuurlijkpersoon (identificatie),
+    -- NNP verwijzing
+    betrokkengorzenenaanwassen             VARCHAR REFERENCES nietnatuurlijkpersoon (identificatie),
+    -- NNP of NP verwijzing
+    tennamevan                             VARCHAR REFERENCES persoon (identificatie),
+    omschrijving                           VARCHAR(4000),
+    einddatumrecht                         DATE,
+    einddatum                              DATE,
+    betreftgedeeltevanperceel              BOOLEAN,
+    -- tenaamstelling ref
+    aantekeningrecht                       VARCHAR REFERENCES recht (identificatie),
+    aantekeningkadastraalobject            VARCHAR REFERENCES onroerendezaak (identificatie),
+    -- NNP of NP verwijzing
+    betrokkenpersoon                       VARCHAR REFERENCES persoon (identificatie),
+    begingeldigheid                        DATE         NOT NULL,
     PRIMARY KEY (identificatie, begingeldigheid)
 );
 
 CREATE TABLE appartementsrecht
 (
-    identifcatie    VARCHAR(255)           NOT NULL PRIMARY KEY,
+    identifcatie    VARCHAR(255) NOT NULL PRIMARY KEY,
     -- Een Hoofdsplitsing is het gesplitste Zakelijk recht van 1 of meer Percelen.
     -- De eigendom, het recht van erfpacht en/of het recht van opstal van 1 of enkele percelen (de zogenaamde grondpercelen) is gesplitst.
     -- De bij de hoofdsplitsing ontstane eigendom van de appartemenstrechten (de zogenaamde hoofd appartementsrechten) is
     -- tenaamgesteld van de gerechtigden (van het gesplitste zakelijke recht).
     -- Het gesplitste zakelijk recht van de grondpercelen is niet tenaamgesteld.
-    hoofdsplitsing  CHARACTER VARYING(255) NOT NULL REFERENCES recht (identificatie),
+    hoofdsplitsing  VARCHAR(255) NOT NULL REFERENCES recht (identificatie),
     -- metadata tbv archivering
-    begingeldigheid DATE                   NOT NULL
+    begingeldigheid DATE         NOT NULL
 );
 CREATE TABLE archief_appartementsrecht
 (
-    identificatie   VARCHAR(255)           NOT NULL,
-    hoofdsplitsing  CHARACTER VARYING(255) NOT NULL REFERENCES recht (identificatie),
-    begingeldigheid DATE                   NOT NULL,
+    identificatie   VARCHAR(255) NOT NULL,
+    hoofdsplitsing  VARCHAR(255) NOT NULL REFERENCES recht (identificatie),
+    begingeldigheid DATE         NOT NULL,
     PRIMARY KEY (identificatie, begingeldigheid)
 );
