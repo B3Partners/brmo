@@ -93,7 +93,9 @@
         </tr>
     </table>
 </div>
-<div class="footer"></div>
+<div class="footer">
+    <img src="images/logo.png" alt="B3Partners B.V." />
+</div>
 <script>
     // gebruik jsonp om de laatste release op te halen en te tonen
     function v(json) {

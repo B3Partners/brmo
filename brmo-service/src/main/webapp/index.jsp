@@ -28,5 +28,8 @@
             Alleen berichten met de status STAGING_OK worden geladen. Bij het
             laden van meerdere berichten wordt de juiste volgorde gebruikt.
         </p>
+        <p>
+            <img src="images/logo.png" alt="B3Partners B.V." />
+        </p>
     </stripes:layout-component>
 </stripes:layout-render>
