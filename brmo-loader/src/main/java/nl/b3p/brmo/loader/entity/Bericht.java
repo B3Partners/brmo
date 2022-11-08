@@ -31,6 +31,7 @@ public class Bericht {
     private String dbXml;
     private String xslVersion;
 
+    public static final String GEEN_OBJECT_REF_MSG = "Er kon geen object_ref bepaald worden uit de natuurlijke sleutel van het bericht.";
     public static enum STATUS {
         // bij toevoegen van een status deze ook in nl.b3p.brmo.persistence.staging.Bericht en /brmo-service/src/main/webapp/scripts/berichten.js toevoegen
         STAGING_OK, STAGING_NOK, STAGING_FORWARDED, RSGB_WAITING, RSGB_PROCESSING, RSGB_OK, RSGB_OUTDATED, RSGB_NOK, ARCHIVE, RSGB_BAG_NOK
