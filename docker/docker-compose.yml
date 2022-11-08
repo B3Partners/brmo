@@ -11,6 +11,12 @@ services:
       context: ./src/main/docker
       dockerfile: pg_conf/Dockerfile
     shm_size: '2gb'
+    command: >
+            -c shared_buffers=8GB
+            -c max_connections=200
+            -c max_wal_size=3GB
+            -c autovacuum_max_workers=4
+            -c maintenance_work_mem=2GB
     environment:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
       BRMO_PASSWORD: ${BRMO_DB_PASSWORD:-brmo}
@@ -28,6 +34,7 @@ services:
     build:
       context: ./src/main/docker
       dockerfile: Dockerfile
+    shm_size: '512mb'
     volumes:
       - brmo-logs:/usr/local/tomcat/logs
       - brmo-data:/opt/brmo-data
