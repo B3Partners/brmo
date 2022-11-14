@@ -14,7 +14,7 @@
         </head>
         <body class="x-body">
             <div class="header">
-                <h1>B3Partners BRMO</h1>
+                <h1><img src="images/icon.png" height="17" width="17" alt=""/> B3Partners BRMO</h1>
                 <jsp:include page="/WEB-INF/jsp/common/menu.jsp"/>
             </div>
             <div class="content">
