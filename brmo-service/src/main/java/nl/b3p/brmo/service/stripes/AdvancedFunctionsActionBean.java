@@ -350,7 +350,7 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
             final String selectSql = "SELECT id, br_orgineel_xml, laadprocesid, datum FROM eerder_geladen_woz";
             Bericht b;
             while (offset < count) {
-                LOG.info("Ophalen WOZ berichten vanaf offset: " + offset + " tot: "+ offset+batch +" van: " + count);
+                LOG.info("Ophalen WOZ berichten vanaf offset: " + offset + " tot: "+ (offset + batch) +" van: " + count);
                 PreparedStatement ps = conn.prepareStatement(geomToJdbc.buildPaginationSql(selectSql, offset, batch));
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
@@ -393,6 +393,7 @@ public class AdvancedFunctionsActionBean implements ActionBean, ProgressUpdateLi
             }
         } finally {
             stagingProxy.closeStagingProxy();
+            LOG.info("Originele WOZ berichten opnieuw verwerken afgerond.");
         }
     }
 
