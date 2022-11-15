@@ -30,8 +30,6 @@ jobs:
         # docker run --rm -e POSTGRES_PASSWORD=postgres -h brmo-dev-tmp --name brmo-dev-tmp -p 5432:5432 -d postgis/postgis:15-3.3 -c max_connections=200
         # zie ook https://www.postgresql.org/support/versioning/
         postgis: 
-            # tot 12-2022
-            - 10-2.5-alpine
             # tot 11-2023  
             - 11-3.3-alpine
             - 12-3.3-alpine
