@@ -101,10 +101,15 @@ public class WozXMLReader extends BrmoXMLReader {
 
         XPathExpression eersteGemeente = xpath.compile("//*[local-name()='verantwoordelijkeGemeente']/*[local-name()='gemeenteCode'][1]");
         Node gem = (Node) eersteGemeente.evaluate(doc, XPathConstants.NODE);
-        gemeenteCode = null!=gem?gem.getTextContent():null;
+        gemeenteCode = null != gem ? gem.getTextContent() : null;
+        if (null == gemeenteCode) {
+            eersteGemeente = xpath.compile("//*[local-name()='verantwoordelijkeGemeente'][1]");
+            gem = (Node) eersteGemeente.evaluate(doc, XPathConstants.NODE);
+            gemeenteCode = null != gem ? gem.getTextContent() : null;
+        }
         XPathExpression eersteWaterschap = xpath.compile("//*[local-name()='ligtIn']/*[local-name()='gerelateerde']/*[local-name()='betrokkenWaterschap'][1]");
         Node ws = (Node) eersteWaterschap.evaluate(doc, XPathConstants.NODE);
-        betrokkenWaterschap = null!=ws?ws.getTextContent():null;
+        betrokkenWaterschap = null != ws ? ws.getTextContent() : null;
 
         // actuele woz:object nodes
         XPathExpression objectNode = xpath.compile("//*[local-name()='object'][not(ancestor::*[local-name()='historie'])]");
@@ -169,10 +174,14 @@ public class WozXMLReader extends BrmoXMLReader {
         StringBuilder brXML = new StringBuilder("<root>")
                 .append(origXML)
                 .append(getXML(bsns))
-                .append("<fallback>")
-                .append("<gemeenteCode>").append(gemeenteCode).append("</gemeenteCode>")
-                .append("<betrokkenWaterschap>").append(betrokkenWaterschap).append("</betrokkenWaterschap>")
-                .append("</fallback>")
+                .append("<fallback>");
+        if (null != gemeenteCode) {
+            brXML.append("<gemeenteCode>").append(gemeenteCode).append("</gemeenteCode>");
+        }
+        if (null != betrokkenWaterschap) {
+            brXML.append("<betrokkenWaterschap>").append(betrokkenWaterschap).append("</betrokkenWaterschap>");
+        }
+        brXML.append("</fallback>")
                 .append("</root>");
 
         WozBericht b = new WozBericht(brXML.toString());
