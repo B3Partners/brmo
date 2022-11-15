@@ -159,6 +159,15 @@
                     <xsl:with-param name="class" select="'VESTIGING'"/>
                 </xsl:call-template>
             </xsl:if>
+            <!-- niet ingeschreven NNP; zou een WOZ:aanvullingSoFiNummer moeten hebben -->
+            <xsl:if test="woz:gerelateerde/woz:nietNatuurlijkPersoon/woz:isEen/woz:gerelateerde/ann.identificatie">
+                <!-- TODO verwerken van WOZ:aanvullingSoFiNummer -->
+                <xsl:call-template name="comfortPerson">
+                    <xsl:with-param name="snapshot-date" select="$datum"/>
+                    <xsl:with-param name="comfort-search-value" select="$key"/>
+                    <xsl:with-param name="class" select="'NIET INGESCHREVEN NIET NATUURLIJK PERSOON'"/>
+                </xsl:call-template>
+            </xsl:if>
 
             <xsl:call-template name="woz_belang">
                 <xsl:with-param name="key" select="$key"/>
@@ -275,11 +284,11 @@
                 <xsl:value-of select="woz:verantwoordelijkeGemeente/bg:gemeenteCode"/>
             </xsl:variable>
             <xsl:if test="$_gemeenteCode != ''">
-                <fk_verantw_gem_code><xsl:value-of select="$_gemeenteCode"/></fk_verantw_gem_code>
+                <fk_verantw_gem_code><xsl:value-of select="number($_gemeenteCode)"/></fk_verantw_gem_code>
             </xsl:if>
             <xsl:if test="$_gemeenteCode = ''">
                 <xsl:comment>geen gemeenteCode in deelbericht, gebruik fallback</xsl:comment>
-                <fk_verantw_gem_code><xsl:value-of select="../fallback/gemeenteCode"/></fk_verantw_gem_code>
+                <fk_verantw_gem_code><xsl:value-of select="number(../fallback/gemeenteCode)"/></fk_verantw_gem_code>
             </xsl:if>
 
         </woz_obj>
@@ -402,7 +411,7 @@
 
     <xsl:template name="aanduiding">
         <!-- . = woz_obj -->
-        <xsl:if test="./woz:heeftAlsAanduiding/woz:gerelateerde/bg:identificatie">
+        <xsl:if test="woz:heeftAlsAanduiding/woz:gerelateerde/bg:identificatie != ''">
             <locaand_openb_rmte>
                 <fk_sc_lh_opr_identifcode>
                     <xsl:value-of select="woz:heeftAlsAanduiding/woz:gerelateerde/bg:identificatie"/>
@@ -416,7 +425,7 @@
             </locaand_openb_rmte>
         </xsl:if>
 
-        <xsl:if test="./woz:aanduidingWOZobject/bg:aoa.identificatie">
+        <xsl:if test="woz:aanduidingWOZobject/bg:aoa.identificatie != ''">
             <locaand_adres>
                 <fk_sc_lh_aoa_identif>
                     <xsl:value-of select="woz:aanduidingWOZobject/bg:aoa.identificatie"/>
@@ -434,7 +443,7 @@
     <xsl:template name="woz_belang">
         <xsl:param name="key"/>
         <xsl:choose>
-            <xsl:when test="not($key) and not($key='')">
+            <xsl:when test="not($key) and $key=''">
                 <xsl:comment>geen waarde voor fk_sc_lh_sub_identif - woz_belang kan niet gekoppeld worden</xsl:comment>
             </xsl:when>
             <xsl:when test="$key = $PREFIX_NPS">
