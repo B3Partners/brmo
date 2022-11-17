@@ -2,11 +2,11 @@
 #
 # SPDX-License-Identifier: MIT
 
-FROM openjdk:11-jre-slim
+FROM eclipse-temurin:11.0.17_8-jre
 
 LABEL org.opencontainers.image.source=https://github.com/b3partners/brmo/bag2-loader
 
-ARG BRMO_VERSION=2.2.1
+ARG BRMO_VERSION=2.3.3-SNAPSHOT
 ARG DEBIAN_FRONTEND="noninteractive"
 ARG TZ="Europe/Amsterdam"
 
