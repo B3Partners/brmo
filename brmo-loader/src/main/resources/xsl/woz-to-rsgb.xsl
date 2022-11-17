@@ -295,11 +295,7 @@
     </xsl:template>
 
     <xsl:template name="wozWaarde">
-        <!-- maak woz_waarde en bijbehorend brondocument -->
-        <!-- TODO   nog niet duidelijk waar de
-                    WOZ:isBeschiktVoor/WOZ:gerelateerde/WOZ:natuurlijkPersoon/WOZ:isEen/WOZ:gerelateerde
-                    in moet komen
-        -->
+        <!-- maak woz_waarde en bijbehorende brondocumenten -->
         <xsl:param name="objectNum"/>
         <!-- conditioneel, alleen als er een waardepeildatum is... -->
         <xsl:if test="woz:waardepeildatum">
@@ -322,26 +318,81 @@
             </woz_waarde>
         </xsl:if>
 
-        <!-- conditioneel, alleen als er een brondocument identificatie is -->
-        <xsl:if test="woz:isBeschiktVoor/woz:brondocument/bg:identificatie">
-            <brondocument ignore-duplicates="yes">
-                <!-- brondocument voor beschikking woz waarde -->
-                <tabel>
-                    <xsl:value-of select="'woz_waarde'"/>
-                </tabel>
-                <tabel_identificatie>
-                    <xsl:value-of select="$objectNum"/>
-                </tabel_identificatie>
-                <identificatie>
-                    <xsl:value-of select="woz:isBeschiktVoor/woz:brondocument/bg:identificatie"/>
-                </identificatie>
-                <datum>
-                    <xsl:for-each select="woz:isBeschiktVoor/woz:brondocument/bg:datum">
-                        <xsl:call-template name="date-numeric"/>
-                    </xsl:for-each>
-                </datum>
-            </brondocument>
-        </xsl:if>
+        <!-- TODO   nog niet duidelijk waar de relatie
+                    WOZ:isBeschiktVoor/WOZ:gerelateerde/WOZ:natuurlijkPersoon/WOZ:isEen/WOZ:gerelateerde
+                    in moet komen, iig een subject-boom maken, maar er is geen koppeling voorzien (die zit nl. in woz_belang...)
+        -->
+        <xsl:for-each select="woz:isBeschiktVoor">
+
+            <xsl:if test="woz:gerelateerde/woz:natuurlijkPersoon/woz:isEen/woz:gerelateerde/bg:inp.bsn">
+                <xsl:for-each select="woz:gerelateerde/woz:natuurlijkPersoon/woz:isEen/woz:gerelateerde">
+
+                    <xsl:variable name="snapshot-date">
+                        <xsl:call-template name="comfort-date-formatter">
+                            <xsl:with-param name="snapshot-date" select="$datum"/>
+                        </xsl:call-template>
+                    </xsl:variable>
+
+                    <xsl:variable name="comfort-search-value">
+                        <xsl:call-template name="getHash">
+                            <xsl:with-param name="bsn" select="bg:inp.bsn"/>
+                        </xsl:call-template>
+                    </xsl:variable>
+
+                <comfort search-table="subject" search-column="identif" search-value="{$comfort-search-value}" snapshot-date="{$snapshot-date}">
+                    <xsl:call-template name="persoon">
+                        <xsl:with-param name="key" select="$comfort-search-value"/>
+                        <xsl:with-param name="class" select="'INGESCHREVEN NATUURLIJK PERSOON'"/>
+                    </xsl:call-template>
+                </comfort>
+                </xsl:for-each>
+            </xsl:if>
+
+            <xsl:if test="woz:gerelateerde/woz:nietNatuurlijkPersoon/woz:isEen/woz:gerelateerde/bg:inn.nnpId">
+                <xsl:for-each select="woz:gerelateerde/woz:nietNatuurlijkPersoon/woz:isEen/woz:gerelateerde">
+
+                    <xsl:variable name="snapshot-date">
+                        <xsl:call-template name="comfort-date-formatter">
+                            <xsl:with-param name="snapshot-date" select="$datum"/>
+                        </xsl:call-template>
+                    </xsl:variable>
+
+                    <xsl:variable name="comfort-search-value">
+                        <xsl:value-of select="$PREFIX_NNP"/>
+                        <xsl:value-of select="bg:inn.nnpId"/>
+                    </xsl:variable>
+
+                    <comfort search-table="subject" search-column="identif" search-value="{$comfort-search-value}" snapshot-date="{$snapshot-date}">
+                        <xsl:call-template name="persoon">
+                            <xsl:with-param name="key" select="$comfort-search-value"/>
+                            <xsl:with-param name="class" select="'INGESCHREVEN NIET NATUURLIJK PERSOON'"/>
+                        </xsl:call-template>
+                    </comfort>
+                </xsl:for-each>
+            </xsl:if>
+
+
+            <!-- conditioneel, alleen als er een brondocument identificatie is -->
+            <xsl:if test="woz:brondocument/bg:identificatie">
+                <brondocument ignore-duplicates="yes">
+                    <!-- brondocument voor beschikking woz waarde -->
+                    <tabel>
+                        <xsl:value-of select="'woz_waarde'"/>
+                    </tabel>
+                    <tabel_identificatie>
+                        <xsl:value-of select="$objectNum"/>
+                    </tabel_identificatie>
+                    <identificatie>
+                        <xsl:value-of select="woz:brondocument/bg:identificatie"/>
+                    </identificatie>
+                    <datum>
+                        <xsl:for-each select="woz:brondocument/bg:datum">
+                            <xsl:call-template name="date-numeric"/>
+                        </xsl:for-each>
+                    </datum>
+                </brondocument>
+            </xsl:if>
+        </xsl:for-each>
     </xsl:template>
 
     <xsl:template name="sluimerendObject">
@@ -483,10 +534,9 @@
 
         <xsl:if test="$comfort-search-value != ''">
             <xsl:variable name="datum">
-                <!-- 2020-07-12 07:23:07.439 naar 2020-07-12T07:23:07.439 -->
-                <xsl:value-of select="substring($snapshot-date,0,11)"/>
-                <xsl:value-of select="'T'"/>
-                <xsl:value-of select="substring($snapshot-date,12)"/>
+                <xsl:call-template name="comfort-date-formatter">
+                    <xsl:with-param name="snapshot-date" select="$snapshot-date"/>
+                </xsl:call-template>
             </xsl:variable>
 
             <comfort search-table="subject" search-column="identif" search-value="{$comfort-search-value}"
@@ -517,10 +567,9 @@
 
         <xsl:if test="$comfort-search-value != ''">
             <xsl:variable name="datum">
-                <!-- 2020-07-12 07:23:07.439 naar 2020-07-12T07:23:07.439 -->
-                <xsl:value-of select="substring($snapshot-date,0,11)"/>
-                <xsl:value-of select="'T'"/>
-                <xsl:value-of select="substring($snapshot-date,12)"/>
+                <xsl:call-template name="comfort-date-formatter">
+                    <xsl:with-param name="snapshot-date" select="$snapshot-date"/>
+                </xsl:call-template>
             </xsl:variable>
 
             <comfort search-table="subject" search-column="identif" search-value="{$comfort-search-value}"
@@ -844,6 +893,17 @@
                 <xsl:value-of select="concat(substring(.,1,4),'-01-01')"/>
             </xsl:when>
         </xsl:choose>
+    </xsl:template>
+
+    <!-- 2020-07-12 07:23:07.439 naar 2020-07-12T07:23:07.439 -->
+    <xsl:template name="comfort-date-formatter">
+        <xsl:param name="snapshot-date"/>
+        <xsl:variable name="comfort-date">
+        <xsl:value-of select="substring($snapshot-date,0,11)"/>
+        <xsl:value-of select="'T'"/>
+        <xsl:value-of select="substring($snapshot-date,12)"/>
+        </xsl:variable>
+        <xsl:value-of select="$comfort-date"/>
     </xsl:template>
 
     <!-- zoek hash op in mapping tabel -->
