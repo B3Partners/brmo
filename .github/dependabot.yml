@@ -96,6 +96,10 @@ updates:
       - matthijsln
     labels:
       - bouw- en testinfrastuctuur
+    ignore:
+      - dependency-name: "eclipse-temurin"
+        versions:
+          - ">= 12"
 
 
   - package-ecosystem: docker
@@ -113,4 +117,7 @@ updates:
       - matthijsln
     labels:
       - bouw- en testinfrastuctuur
-
+    ignore:
+      - dependency-name: "eclipse-temurin"
+        versions:
+          - ">= 12"
