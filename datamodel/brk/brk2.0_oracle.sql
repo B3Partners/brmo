@@ -28,6 +28,8 @@ CREATE TABLE onroerendezaak
 (
     identificatie                 VARCHAR2(255) NOT NULL PRIMARY KEY,
     akrkadastralegemeentecode     DECIMAL(4, 0),
+    akrkadastralegemeente         VARCHAR2(5),
+    kadastralegemeentecode        DECIMAL(4, 0),
     kadastralegemeente            VARCHAR2(30),
     sectie                        VARCHAR2(2),
     perceelnummer                 DECIMAL(5, 0),
@@ -49,6 +51,8 @@ CREATE TABLE archief_onroerendezaak
 (
     identificatie                 VARCHAR2(255) NOT NULL,
     akrkadastralegemeentecode     DECIMAL(4, 0),
+    akrkadastralegemeente         VARCHAR2(5),
+    kadastralegemeentecode        DECIMAL(4, 0),
     kadastralegemeente            VARCHAR2(30),
     sectie                        VARCHAR2(2),
     perceelnummer                 DECIMAL(5, 0),

@@ -87,7 +87,9 @@ CREATE TABLE onroerendezaak
     -- Er zijn 1111 kadastrale gemeentenamen. Elke kadastrale gemeentenaam is uniek.
     -- https://developer.kadaster.nl/schemas/waardelijsten/KadastraleGemeente/
     akrkadastralegemeentecode     DECIMAL(4, 0),
+    akrkadastralegemeente         VARCHAR(5),
     -- De kadastrale gemeente, deel van de kadastrale aanduiding van de onroerende zaak.
+    kadastralegemeentecode        DECIMAL(4, 0),
     kadastralegemeente            VARCHAR(30),
     -- Sectie is een onderverdeling van de kadastrale gemeente, bedoeld om het werk van de meetdienst en om de kadastrale kaarten overzichtelijk te houden.
     -- Per kadastrale gemeente zijn er max. 26x26 secties .
@@ -158,6 +160,8 @@ CREATE TABLE archief_onroerendezaak
 (
     identificatie                 VARCHAR(255) NOT NULL,
     akrkadastralegemeentecode     DECIMAL(4, 0),
+    akrkadastralegemeente         VARCHAR(5),
+    kadastralegemeentecode        DECIMAL(4, 0),
     kadastralegemeente            VARCHAR(30),
     sectie                        VARCHAR(2),
     perceelnummer                 DECIMAL(5, 0),
