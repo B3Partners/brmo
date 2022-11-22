@@ -33,6 +33,8 @@ public class HttpStartRangeInputStreamProvider implements ResumingInputStream.St
     private final URI uri;
     private final HttpClientWrapper httpClientWrapper;
 
+    private final Long contentLength;
+
     private boolean first = true;
     private String ifRange;
     private String acceptRanges;
@@ -42,10 +44,14 @@ public class HttpStartRangeInputStreamProvider implements ResumingInputStream.St
     }
 
     public HttpStartRangeInputStreamProvider(URI uri, HttpClientWrapper httpClientWrapper) {
-        this.uri = uri;
-        this.httpClientWrapper = httpClientWrapper;
+        this(uri, httpClientWrapper, null);
     }
 
+    public HttpStartRangeInputStreamProvider(URI uri, HttpClientWrapper httpClientWrapper, Long contentLength) {
+        this.uri = uri;
+        this.httpClientWrapper = httpClientWrapper;
+        this.contentLength = contentLength;
+    }
     @Override
     public InputStream get(long position, int totalRetries, Exception causeForRetry) throws IOException {
         List<String[]> headers = new ArrayList<>();
@@ -60,7 +66,7 @@ public class HttpStartRangeInputStreamProvider implements ResumingInputStream.St
             headers.add(new String[] {"If-Range", ifRange});
         }
         if (position > 0) {
-            headers.add(new String[] {"Range", "bytes=" + position + "-"});
+            headers.add(new String[] {"Range", "bytes=" + position + "-" + (contentLength != null ? contentLength - 1 : "")});
         }
         first = false;
 
