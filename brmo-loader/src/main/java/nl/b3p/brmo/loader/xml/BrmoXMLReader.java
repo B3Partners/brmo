@@ -44,8 +44,8 @@ public abstract class BrmoXMLReader {
         return  hash;
     }
 
-    public void setDatumAsString(String brkDatumString) {
-        setDatumAsString(brkDatumString, "yyyy-MM-dd");
+    public void setDatumAsString(String datumString) {
+        setDatumAsString(datumString, "yyyy-MM-dd");
     }
 
     public String getBestandsNaam() {

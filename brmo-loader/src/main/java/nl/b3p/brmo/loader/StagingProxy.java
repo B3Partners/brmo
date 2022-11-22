@@ -1,5 +1,6 @@
 package nl.b3p.brmo.loader;
 
+import nl.b3p.brmo.loader.entity.Brk2Bericht;
 import nl.b3p.brmo.loader.pipeline.ProcessDbXmlPipeline;
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,6 +28,7 @@ import nl.b3p.brmo.loader.util.StagingRowHandler;
 import nl.b3p.brmo.loader.util.TableData;
 import nl.b3p.brmo.loader.xml.BRPXMLReader;
 import nl.b3p.brmo.loader.xml.BagXMLReader;
+import nl.b3p.brmo.loader.xml.Brk2SnapshotXMLReader;
 import nl.b3p.brmo.loader.xml.BrkSnapshotXMLReader;
 import nl.b3p.brmo.loader.xml.BrmoXMLReader;
 import nl.b3p.brmo.loader.xml.GbavXMLReader;
@@ -743,9 +745,11 @@ public class StagingProxy {
 
         CountingInputStream cis = new CountingInputStream(stream);
 
-        BrmoXMLReader brmoXMLReader = null;
+        BrmoXMLReader brmoXMLReader;
         if (type.equals(BrmoFramework.BR_BRK)) {
             brmoXMLReader = new BrkSnapshotXMLReader(cis);
+        } else if (type.equals(BrmoFramework.BR_BRK2)) {
+            brmoXMLReader = new Brk2SnapshotXMLReader(cis);
         } else if (type.equals(BrmoFramework.BR_BAG)) {
             brmoXMLReader = new BagXMLReader(cis);
         } else if (type.equals(BrmoFramework.BR_NHR)) {
@@ -823,6 +827,14 @@ public class StagingProxy {
                         // haal alleen voor eerste 
                         BrkBericht brkBericht = (BrkBericht)b;
                         lp.setBestandNaamHersteld(brkBericht.getRestoredFileName(lp.getBestandDatum(), b.getVolgordeNummer()));
+                        updateLaadProcesBestandNaamHersteld(lp);
+                    }
+
+                    // TODO BRK2 bepalen of dit nog nodig is voor BRK2
+                    if(type.equals(BrmoFramework.BR_BRK2) && !isBerichtGeschreven){
+                        // haal alleen voor eerste
+                        Brk2Bericht brk2Bericht = (Brk2Bericht)b;
+                        lp.setBestandNaamHersteld(brk2Bericht.getRestoredFileName(lp.getBestandDatum(), b.getVolgordeNummer()));
                         updateLaadProcesBestandNaamHersteld(lp);
                     }
                     

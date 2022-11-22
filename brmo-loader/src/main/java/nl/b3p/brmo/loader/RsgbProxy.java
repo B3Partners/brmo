@@ -51,8 +51,6 @@ import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import static nl.b3p.brmo.loader.BrmoFramework.BR_BRK;
-import static nl.b3p.brmo.loader.BrmoFramework.XSL_BRK;
 
 /**
  *
@@ -606,13 +604,14 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
 
     public void update(Bericht jobBericht, List<TableData> pretransformedTableData) throws BrmoException {
 
-        if (updateProcess.isUpdateDbXml() && jobBericht.getSoort().equals(BR_BRK)) {
+        // TODO BRK2 bepalen of dit nog nodig is voor BRK2
+        if (updateProcess.isUpdateDbXml() && jobBericht.getSoort().equals(BrmoFramework.BR_BRK)) {
             try {
                 // maak nieuwe DbXml voor het bericht op basis van de br xml en gebruik die in verdere verwerking
                 Bericht berichtBericht = stagingProxy.getBerichtById(jobBericht.getId());
                 log.trace("job bericht: " + jobBericht);
                 log.trace("origineel bericht: " + berichtBericht);
-                RsgbTransformer t = new RsgbTransformer(XSL_BRK);
+                RsgbTransformer t = new RsgbTransformer(BrmoFramework.XSL_BRK);
                 final String newDbXml = t.transformToDbXml(berichtBericht);
                 berichtBericht.setDbXml(newDbXml);
                 jobBericht.setDbXml(newDbXml);
@@ -682,20 +681,30 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
     private RsgbTransformer getTransformer(String brType) throws TransformerConfigurationException, ParserConfigurationException {
         RsgbTransformer t = rsgbTransformers.get(brType);
         if (t == null) {
-            if (brType.equals(BR_BRK)) {
-                t = new RsgbTransformer(XSL_BRK);
-            } else if (brType.equals(BrmoFramework.BR_BAG)) {
-                t = new RsgbTransformer(BrmoFramework.XSL_BAG);
-            } else if(brType.equals(BrmoFramework.BR_BRP)){
-                t = new RsgbBRPTransformer(BrmoFramework.XSL_BRP, this.stagingProxy);
-            }else if (brType.equals(BrmoFramework.BR_NHR)) {
-                t = new RsgbTransformer(BrmoFramework.XSL_NHR);
-            } else if (brType.equals(BrmoFramework.BR_GBAV)) {
-                t = new RsgbTransformer(BrmoFramework.XSL_GBAV);
-            } else if(brType.equals(BrmoFramework.BR_WOZ)){
-                t = new RsgbWOZTransformer(BrmoFramework.XSL_WOZ, this.stagingProxy);
-            } else {
-                throw new IllegalArgumentException("Onbekende basisregistratie: " + brType);
+            switch (brType) {
+                case BrmoFramework.BR_BRK:
+                    t = new RsgbTransformer(BrmoFramework.XSL_BRK);
+                    break;
+                case BrmoFramework.BR_BRK2:
+                    t = new RsgbTransformer(BrmoFramework.XSL_BRK2);
+                    break;
+                case BrmoFramework.BR_BAG:
+                    t = new RsgbTransformer(BrmoFramework.XSL_BAG);
+                    break;
+                case BrmoFramework.BR_BRP:
+                    t = new RsgbBRPTransformer(BrmoFramework.XSL_BRP, this.stagingProxy);
+                    break;
+                case BrmoFramework.BR_NHR:
+                    t = new RsgbTransformer(BrmoFramework.XSL_NHR);
+                    break;
+                case BrmoFramework.BR_GBAV:
+                    t = new RsgbTransformer(BrmoFramework.XSL_GBAV);
+                    break;
+                case BrmoFramework.BR_WOZ:
+                    t = new RsgbWOZTransformer(BrmoFramework.XSL_WOZ, this.stagingProxy);
+                    break;
+                default:
+                    throw new IllegalArgumentException("Onbekende basisregistratie: " + brType);
             }
             rsgbTransformers.put(brType, t);
         }
@@ -932,8 +941,8 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
      * Probeer de datum te formatteren aan de hand van de formatting van de {@code otherDate} formatting.
      * De fallback optie voor formatting is {@code yyyy-MM-dd}, ondersteunde opties zijn:
      * <ul>
-     * <li>{@code yyyy-MM-dd} (BRK)
-     * <li>{@code yyyyMMddHHmmssSSS0} (BAG)
+     * <li>{@code yyyy-MM-dd} (BRK / BRK2)</li>
+     * <li>{@code yyyyMMddHHmmssSSS0} (BAG)</li>
      * </ul>
      *
      * @param newDate te formatten datum
@@ -942,7 +951,7 @@ public class RsgbProxy implements Runnable, BerichtenHandler {
      * @return formatted datum, indien mogelijk in de vorm van {@code otherDate}
      */
     private String formatDateLikeOtherDate(Date newDate, String otherDate) {
-        // 2010-06-29 (BRK)
+        // 2010-06-29 (BRK/BRK2)
         SimpleDateFormat dfltFmt = new SimpleDateFormat("yyyy-MM-dd"); 
         // 201006291200000000 (BAG)
         SimpleDateFormat f2 = new SimpleDateFormat("yyyyMMddHHmmssSSS0"); 

@@ -1,17 +1,10 @@
+/*
+ * Copyright (C) 2022 B3Partners B.V.
+ *
+ * SPDX-License-Identifier: MIT
+ *
+ */
 package nl.b3p.brmo.loader.entity;
-
-import java.io.IOException;
-import java.io.StringReader;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathExpression;
-import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactory;
 
 import nl.b3p.brmo.loader.BrmoFramework;
 import org.apache.commons.lang3.StringUtils;
@@ -21,19 +14,32 @@ import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-/**
- *
- * @author Boy de Wit
- */
-public class BrkBericht extends Bericht {
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
+import java.io.IOException;
+import java.io.StringReader;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-    private final String soort = BrmoFramework.BR_BRK;
+/**
+ * @author mprins
+ */
+public class Brk2Bericht extends Bericht {
+
+    private static final Log log = LogFactory.getLog(Brk2Bericht.class);
+    //private final String soort = BrmoFramework.BR_BRK2;
     private boolean xpathEvaluated = false;
 
-    private static final Log log = LogFactory.getLog(BrkBericht.class);
-
-    public BrkBericht(String brXml) {
+    public Brk2Bericht(String brXml) {
         super(brXml);
+
+        setSoort(BrmoFramework.BR_BRK2);
     }
 
     public void setVervallenInfo(String objectRef, Date datum) {
@@ -49,32 +55,32 @@ public class BrkBericht extends Bericht {
         }
 
         xpathEvaluated = true;
-        
-        if (objectRef!=null && datum!=null) {
+
+        if (objectRef != null && datum != null) {
             //al uit de header gehaald
             return;
         }
 
-        // dit moet dus een standberciht zijn
+        // dit moet dus een standbericht zijn
         try {
-
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
+
             Document doc = builder.parse(new InputSource(new StringReader(getBrXml())));
 
             XPathFactory xPathfactory = XPathFactory.newInstance();
             XPath xpath = xPathfactory.newXPath();
-            
-            XPathExpression expr = xpath.compile("/KadastraalObjectSnapshot/*[local-name()= 'Perceel' or local-name()='Appartementsrecht']/identificatie/namespace/text()");
+
+            XPathExpression expr = xpath.compile("/KadastraalObjectSnapshot/*[local-name()= 'Perceel' or local-name()='Appartementsrecht']/identificatie/@domein");
             objectRef = expr.evaluate(doc);
 
-            expr = xpath.compile("/KadastraalObjectSnapshot/*[local-name()= 'Perceel' or local-name()='Appartementsrecht']/identificatie/lokaalId/text()");
+            expr = xpath.compile("/KadastraalObjectSnapshot/*[local-name()= 'Perceel' or local-name()='Appartementsrecht']/identificatie/text()");
             objectRef += ":" + expr.evaluate(doc);
 
             expr = xpath.compile("/KadastraalObjectSnapshot/*[local-name()= 'toestandsdatum' or local-name()='toestandsdatum']/text()");
             setDatumAsString(expr.evaluate(doc));
         } catch (Exception e) {
-            log.error("Error while getting brk referentie", e);
+            log.error("Probleem met uitlezen van BRK 2 referentie", e);
         }
     }
 
@@ -87,7 +93,7 @@ public class BrkBericht extends Bericht {
         try {
             datum = sdf.parse(d);
         } catch (ParseException pe) {
-            log.error("Error while parsing date: " + datum, pe);
+            log.error("Probleem tijdens parsen van de datum: " + datum, pe);
         }
     }
 
@@ -104,15 +110,19 @@ public class BrkBericht extends Bericht {
 
         return datum;
     }
-    
-     public String getRestoredFileName(Date bestanddatum, Integer volgordenummer){
+
+    public String getRestoredFileName(Date bestanddatum, Integer volgordenummer) {
+        final String brkdatum = new SimpleDateFormat("yyyyMMdd").format(bestanddatum);
+        final String prefix = "MUTKX02";
+
+        if (volgordenummer <= 0) {
+            return "stand levering " + brkdatum;
+        }
+
         try {
-            final SimpleDateFormat output = new SimpleDateFormat("yyyyMMdd");
-            
-            String prefix = "BKE-MUTBX01";
+
             String kadGemCode;
             String perceelnummer;
-            String brkdatum = output.format(bestanddatum);
             String sectie;
             String appartementsrechtVolgnummer;
 
@@ -130,12 +140,12 @@ public class BrkBericht extends Bericht {
                 doc = builder.parse(new InputSource(new StringReader(this.getBrOrgineelXml())));
             }
 
-            XPathExpression expr = xpath.compile(basePath + "AKRKadastraleGemeenteCode/waarde/text()");
+            XPathExpression expr = xpath.compile(basePath + "akrKadastraleGemeenteCode/waarde/text()");
             kadGemCode = expr.evaluate(doc);
-            
+
             expr = xpath.compile(basePath + "sectie/text()");
             sectie = expr.evaluate(doc);
-            
+
             expr = xpath.compile(basePath + "perceelnummer/text()");
             perceelnummer = expr.evaluate(doc);
 
@@ -152,8 +162,8 @@ public class BrkBericht extends Bericht {
                 filename = prefix + "-" + aanduiding + "-" + brkdatum + "-" + volgordenummer.toString() + ".zip";
             }
             return filename;
-        } catch (ParserConfigurationException | XPathExpressionException | SAXException | IOException  ex) {
-            log.error("Cannot create filename from xml: ", ex);
+        } catch (ParserConfigurationException | XPathExpressionException | SAXException | IOException ex) {
+            log.error("Kan geen bestandsnaam maken van xml: ", ex);
             return "";
         }
     }
