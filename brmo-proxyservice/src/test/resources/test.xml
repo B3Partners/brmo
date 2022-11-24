@@ -11,7 +11,7 @@
         <init-param>
             <description>directory waar bestanden terecht komen</description>
             <param-name>save_dir</param-name>
-            <param-value>${java.io.tmpdir}/brk</param-value>
+            <param-value>/tmp/brk2</param-value>
         </init-param>
     </servlet>
     <servlet-mapping>
