@@ -28,6 +28,7 @@ import nl.b3p.brmo.persistence.staging.AutomatischProces;
 import nl.b3p.brmo.persistence.staging.BAG2MutatieProces;
 import nl.b3p.brmo.persistence.staging.BAGScannerProces;
 import nl.b3p.brmo.persistence.staging.BGTLoaderProces;
+import nl.b3p.brmo.persistence.staging.BRK2ScannerProces;
 import nl.b3p.brmo.persistence.staging.BRKScannerProces;
 import nl.b3p.brmo.persistence.staging.BerichtDoorstuurProces;
 import nl.b3p.brmo.persistence.staging.BerichtTransformatieProces;
@@ -181,6 +182,8 @@ public class OphaalConfigActionBean implements ActionBean {
                 return new BAG2MutatieProces();
             case BAGScannerProces:
                 return new BAGScannerProces();
+            case BRK2ScannerProces:
+                return new BRK2ScannerProces();
             case BRKScannerProces:
                 return new BRKScannerProces();
             case MailRapportageProces:
