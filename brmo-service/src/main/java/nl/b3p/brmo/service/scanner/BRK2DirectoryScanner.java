@@ -41,7 +41,7 @@ import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.ProcessingStatus.WAITING;
 
 /**
- * Directory scanner for BRK berichten in xml formaat.
+ * Directory scanner for BRK 2 berichten in xml formaat.
  *
  * @author Mark Prins
  */

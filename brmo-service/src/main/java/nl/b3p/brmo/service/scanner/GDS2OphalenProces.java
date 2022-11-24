@@ -44,10 +44,12 @@ import javax.persistence.*;
 import javax.xml.ws.BindingProvider;
 import javax.xml.ws.handler.Handler;
 import nl.b3p.brmo.loader.BrmoFramework;
+import nl.b3p.brmo.loader.entity.Brk2Bericht;
 import nl.b3p.brmo.loader.entity.BrkBericht;
 import nl.b3p.brmo.loader.util.BrmoDuplicaatLaadprocesException;
 import nl.b3p.brmo.loader.util.BrmoException;
 import nl.b3p.brmo.loader.util.BrmoLeegBestandException;
+import nl.b3p.brmo.loader.xml.Brk2SnapshotXMLReader;
 import nl.b3p.brmo.loader.xml.BrkSnapshotXMLReader;
 import nl.b3p.brmo.persistence.staging.AutomatischProces;
 import static nl.b3p.brmo.persistence.staging.AutomatischProces.LOG_NEWLINE;
@@ -81,7 +83,6 @@ import org.apache.commons.logging.LogFactory;
 import org.stripesstuff.stripersist.Stripersist;
 import org.apache.cxf.configuration.jsse.TLSClientParameters;
 import org.apache.cxf.endpoint.Client;
-import org.apache.cxf.endpoint.Endpoint;
 import org.apache.cxf.frontend.ClientProxy;
 import org.apache.cxf.transport.http.HTTPConduit;
 
@@ -181,7 +182,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             }
 
             // datum tijd parsen/instellen
-            GregorianCalendar vanaf = null;
+            GregorianCalendar vanaf;
             GregorianCalendar tot = getDatumTijd(ClobElement.nullSafeGet(this.config.getConfig().get("totdatum")));
             String sVanaf = ClobElement.nullSafeGet(this.config.getConfig().get("vanafdatum"));
             if (tot != null && ("-1".equals(sVanaf) | "-2".equals(sVanaf) | "-3".equals(sVanaf))) {
@@ -191,7 +192,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             }
 
             List<AfgifteType> afgiftes = new ArrayList<>();
-            BestandenlijstOpvragenResponse response = null;
+            BestandenlijstOpvragenResponse response;
             int hoogsteKlantAfgifteNummer = -1;
 
             Gds2AfgifteServiceV20170401 gds2 = initGDS2();
@@ -345,11 +346,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
                         }
 
                         //bereken of einde van periode bereikt is
-                        if (currentMoment.before(tot) && loopNum < loopMax) {
-                            morePeriods2Process = true;
-                        } else {
-                            morePeriods2Process = false;
-                        }
+                        morePeriods2Process = currentMoment.before(tot) && loopNum < loopMax;
                     }
 
                     verzoek.setAfgifteSelectieCriteria(criteria);
@@ -436,12 +433,15 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
 
             final String soort = this.config.getConfig().getOrDefault("gds2_br_soort", new ClobElement("brk")).getValue();
             switch (soort) {
+                case "brk2":
+                    verwerkAfgiftes(afgiftes, getCertificaatBaseURL(response.getAntwoord()), soort);
+                    break;
                 case "brk":
-                    verwerkAfgiftes(afgiftes, getCertificaatBaseURL(response.getAntwoord()));
+                    verwerkAfgiftes(afgiftes, getCertificaatBaseURL(response.getAntwoord()), soort);
                     break;
                 case "bag":
                     // bag heeft geen contractnummer
-                    verwerkAfgiftes(afgiftes, getAnoniemBaseURL(response.getAntwoord()));
+                    verwerkAfgiftes(afgiftes, getAnoniemBaseURL(response.getAntwoord()), soort);
                     break;
                 default:
                     throw new BrmoException("Onbekende basisregistratie soort: " + soort);
@@ -456,6 +456,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             if (e.getCause() != null) {
                 m += ", oorzaak: " + ExceptionUtils.getRootCauseMessage(e);
             }
+            l.addLog(m);
             l.exception(e);
         } finally {
             if (Stripersist.getEntityManager().getTransaction().getRollbackOnly()) {
@@ -474,7 +475,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         return a.getBestand().getBestandsnaam() + " (" + a.getAfgifteID() + ")";
     }
 
-    private boolean isAfgifteAlGeladen(AfgifteType a, String url) {
+    private boolean isAfgifteAlGeladen(AfgifteType a) {
         try {
             Stripersist.getEntityManager().createQuery("select 1 from LaadProces lp where lp.bestand_naam = :n")
                     .setParameter("n", getLaadprocesBestandsnaam(a))
@@ -493,14 +494,16 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
      * @param a de afgifte uit het soap verzoek
      * @param url te downloaden bestand
      * @throws Exception if any
-     * @see #laadAfgifte(AfgifteType, String)
+     * @see #laadAfgifte(AfgifteType, String, String)
+     * @deprecated BAG wordt niet meer via GDS2 aangeboden
      */
+    @Deprecated
     private void laadBagAfgifte(AfgifteType a, String url) throws Exception {
         String msg = "Downloaden " + url;
         l.updateStatus(msg);
         l.addLog(msg);
 
-        InputStream input = null;
+        InputStream input;
         int attempt = 0;
         while (true) {
             try {
@@ -591,7 +594,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         brmo.closeBrmoFramework();
     }
 
-    private Bericht laadAfgifte(AfgifteType a, String url) throws Exception {
+    private Bericht laadAfgifte(AfgifteType a, String url, String brkSoort) throws Exception {
         EntityManager em = Stripersist.getEntityManager();
         String msg = "Downloaden " + url;
         l.updateStatus(msg);
@@ -641,7 +644,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
                 break;
             }
         }
-        lp.setSoort("brk");
+        lp.setSoort(brkSoort);
         lp.setStatus(LaadProces.STATUS.STAGING_OK);
         lp.setStatus_datum(new Date());
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
@@ -651,7 +654,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
         Bericht b = new Bericht();
         b.setLaadprocesid(lp);
         b.setDatum(lp.getBestand_datum());
-        b.setSoort("brk");
+        b.setSoort(brkSoort);
         b.setStatus_datum(new Date());
 
         ZipInputStream zip = new ZipInputStream(new ByteArrayInputStream(bos.toByteArray()));
@@ -674,22 +677,37 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             log.debug("Dump xml bericht naar: " + fName);
             IOUtils.write(b.getBr_orgineel_xml(), new FileWriter(fName, StandardCharsets.UTF_8));
         }
-
         try {
-            BrkSnapshotXMLReader reader = new BrkSnapshotXMLReader(new ByteArrayInputStream(b.getBr_orgineel_xml().getBytes(StandardCharsets.UTF_8)));
-            BrkBericht bericht = reader.next();
-
-            if (bericht.getDatum() != null) {
-                b.setDatum(bericht.getDatum());
+            String brXML;
+            Date brDatum;
+            Integer brVolgordeNummer;
+            String brObjectRef;
+            if (BrmoFramework.BR_BRK.equals(brkSoort)) {
+                BrkSnapshotXMLReader reader = new BrkSnapshotXMLReader(new ByteArrayInputStream(b.getBr_orgineel_xml().getBytes(StandardCharsets.UTF_8)));
+                BrkBericht parsedBericht = reader.next();
+                brXML = parsedBericht.getBrXml();
+                brDatum = parsedBericht.getDatum();
+                brVolgordeNummer = parsedBericht.getVolgordeNummer();
+                brObjectRef = parsedBericht.getObjectRef();
+            } else {
+                Brk2SnapshotXMLReader reader2 = new Brk2SnapshotXMLReader(new ByteArrayInputStream(b.getBr_orgineel_xml().getBytes(StandardCharsets.UTF_8)));
+                Brk2Bericht parsedBericht = reader2.next();
+                brXML = parsedBericht.getBrXml();
+                brDatum = parsedBericht.getDatum();
+                brVolgordeNummer = parsedBericht.getVolgordeNummer();
+                brObjectRef = parsedBericht.getObjectRef();
             }
-            b.setBr_xml(bericht.getBrXml());
-            b.setVolgordenummer(bericht.getVolgordeNummer());
+
+            if (null != brDatum) {
+                b.setDatum(brDatum);
+            }
+            b.setBr_xml(brXML);
+            b.setVolgordenummer(brVolgordeNummer);
 
             //Als objectRef niet opgehaald kan worden,dan kan het
             //bericht niet verwerkt worden.
-            String objectRef = bericht.getObjectRef();
-            if (objectRef != null && !objectRef.isEmpty()) {
-                b.setObject_ref(bericht.getObjectRef());
+            if (null != brObjectRef && !brObjectRef.isBlank()) {
+                b.setObject_ref(brObjectRef);
                 b.setStatus(Bericht.STATUS.STAGING_OK);
                 b.setOpmerking("Klaar voor verwerking.");
             } else {
@@ -700,7 +718,7 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
             b.setStatus(Bericht.STATUS.STAGING_NOK);
             StringWriter sw = new StringWriter();
             e.printStackTrace(new PrintWriter(sw));
-            b.setOpmerking("Fout bij parsen BRK bericht: " + sw.toString());
+            b.setOpmerking("Fout bij parsen BRK bericht: " + sw);
         }
         try {
             em.persist(lp);
@@ -787,26 +805,25 @@ public class GDS2OphalenProces extends AbstractExecutableProces {
      * @param afgiftes lijst afgiftes
      * @throws Exception if any
      */
-    private void verwerkAfgiftes(List<AfgifteType> afgiftes, BaseURLType baseUrl) throws Exception {
+    private void verwerkAfgiftes(List<AfgifteType> afgiftes, BaseURLType baseUrl, final String soort) throws Exception {
         int filterAlVerwerkt = 0;
         int aantalGeladen = 0;
         int aantalDoorgestuurd = 0;
         int progress = 0;
-        List<Long> geladenBerichtIds = new ArrayList();
+        List<Long> geladenBerichtIds = new ArrayList<>();
         String doorsturenUrl = ClobElement.nullSafeGet(this.config.getConfig().get("delivery_endpoint"));
-        final String soort = this.config.getConfig().getOrDefault("gds2_br_soort", new ClobElement("brk")).getValue();
 
         for (AfgifteType a : afgiftes) {
             String url = getAfgifteURL(a, baseUrl);
 
-            if (url != null) {
-                if (isAfgifteAlGeladen(a, url)) {
+            if (null != url && !url.isBlank()) {
+                if (isAfgifteAlGeladen(a)) {
                     filterAlVerwerkt++;
-                } else if (soort.equalsIgnoreCase("bag")) {
+                } else if (soort.equalsIgnoreCase(BrmoFramework.BR_BAG)) {
                     laadBagAfgifte(a, url);
                     aantalGeladen++;
                 } else {
-                    Bericht b = laadAfgifte(a, url);
+                    Bericht b = laadAfgifte(a, url, soort);
                     if (b != null && doorsturenUrl != null) {
                         geladenBerichtIds.add(b.getId());
                     }
