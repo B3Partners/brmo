@@ -70,7 +70,7 @@ public class MailRapportageProcesTest extends TestUtil {
         entityManager.persist(p);
         final long pId = p.getId();
 
-        BRKScannerProces p2 = new BRKScannerProces();
+        BRK2ScannerProces p2 = new BRK2ScannerProces();
         p2.setScanDirectory(DIR);
         p2.getConfig().put("isActive", new ClobElement("true"));
         p2.setStatus(AutomatischProces.ProcessingStatus.ERROR);
@@ -78,7 +78,7 @@ public class MailRapportageProcesTest extends TestUtil {
         entityManager.persist(p2);
         final long pId2 = p2.getId();
 
-        BRKScannerProces p3 = new BRKScannerProces();
+        BRK2ScannerProces p3 = new BRK2ScannerProces();
         p3.setScanDirectory(DIR);
         p3.getConfig().put("isActive", new ClobElement("true"));
         p3.setStatus(AutomatischProces.ProcessingStatus.WAITING);
