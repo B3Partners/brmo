@@ -26,7 +26,8 @@
 <tr><td>Hoogste klantafgiftenummer:</td><td><c:out value="${actionBean.config['hoogste_afgiftenummer']}"/></td></tr>
 <tr>
     <td>Bericht soort:</td>
-    <td><stripes:select name="config['gds2_br_soort']" value="brk">
+    <td><stripes:select name="config['gds2_br_soort']" value="brk2">
+            <stripes:option value="brk2">BRK 2</stripes:option>
             <stripes:option value="brk">BRK</stripes:option>
             <stripes:option value="bag">BAG</stripes:option>
         </stripes:select>
