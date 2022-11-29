@@ -147,6 +147,7 @@ SPDX-License-Identifier: MIT
                     <generatePackage>nl.b3p.brmo.bag2.xml.leveringsdocument</generatePackage>
                     <schemaDirectory>${project.basedir}/src/main/xsd/</schemaDirectory>
                     <schemaIncludes>**/*.xsd</schemaIncludes>
+                    <markGenerated>true</markGenerated>
                 </configuration>
                 <executions>
                     <execution>

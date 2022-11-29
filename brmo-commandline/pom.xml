@@ -24,8 +24,6 @@
             <artifactId>commons-cli</artifactId>
         </dependency>
         <dependency>
-            <!-- deze is eigenlijk alleen nodig voor java 11, maar
-            omdat we een runnable jar met classpath maken makkelijk om ook voor java 8 er bij te stoppen -->
             <groupId>jakarta.xml.bind</groupId>
             <artifactId>jakarta.xml.bind-api</artifactId>
             <version>${jaxb.api.version}</version>
