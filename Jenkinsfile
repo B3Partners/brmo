@@ -48,6 +48,7 @@ timestamps {
                             sh "sqlplus -l -S top50nl/top50nl@192.168.1.26:15210/XE < ./.jenkins/clear-schema.sql"
                             sh "sqlplus -l -S top100nl/top100nl@192.168.1.26:15210/XE < ./.jenkins/clear-schema.sql"
                             sh "sqlplus -l -S top250nl/top250nl@192.168.1.26:15210/XE < ./.jenkins/clear-schema.sql"
+                            sh "sqlplus -l -S jenkins_brk/jenkins_brk@192.168.1.26:15210/XE < ./.jenkins/clear-schema.sql"
                         }
 
                         stage("Prepare Oracle staging") {
@@ -58,6 +59,11 @@ timestamps {
                         stage("Prepare Oracle rsgb") {
                             echo "init rsgb schema"
                             sh ".jenkins/db-prepare-rsgb.sh"
+                        }
+
+                        stage("Prepare Oracle brk") {
+                            echo "init brk schema"
+                            sh ".jenkins/db-prepare-brk.sh"
                         }
 
                         stage("Prepare Oracle topnl") {
@@ -119,6 +125,7 @@ timestamps {
                             sh "sqlplus -l -S top100nl/top100nl@192.168.1.26:15210/XE < ./.jenkins/clear-schema.sql"
                             sh "sqlplus -l -S top250nl/top250nl@192.168.1.26:15210/XE < ./.jenkins/clear-schema.sql"
                             sh "sqlplus -l -S jenkins_bag/jenkins_bag@192.168.1.26:15210/XE < ./.jenkins/clear-schema.sql"
+                            sh "sqlplus -l -S jenkins_brk/jenkins_brk@192.168.1.26:15210/XE < ./.jenkins/clear-schema.sql"
                         }
 
 
@@ -130,6 +137,7 @@ timestamps {
                             sh "\".jenkins/execute-upgrade-extras-oracle.sh\" rsgb"
                             sh "\".jenkins/execute-upgrades-oracle.sh\" rsgbbgt"
                             sh "\".jenkins/execute-upgrades-oracle.sh\" bag"
+                            sh "\".jenkins/execute-upgrades-oracle.sh\" brk"
                             sh "mvn -e -B -Poracle -pl 'datamodel' resources:testResources compiler:testCompile surefire:test -Dtest='*UpgradeTest'"
                         }
 
@@ -138,6 +146,7 @@ timestamps {
                             sh "sqlplus -l -S jenkins_staging/jenkins_staging@192.168.1.26:15210/XE < ./brmo-persistence/db/drop-brmo-persistence-oracle.sql"
                             sh "sqlplus -l -S jenkins_rsgb/jenkins_rsgb@192.168.1.26:15210/XE < ./.jenkins/clear-schema.sql"
                             sh "sqlplus -l -S jenkins_bag/jenkins_bag@192.168.1.26:15210/XE < ./.jenkins/clear-schema.sql"
+                            sh "sqlplus -l -S jenkins_brk/jenkins_brk@192.168.1.26:15210/XE < ./.jenkins/clear-schema.sql"
                         }
 
                         configFileProvider([

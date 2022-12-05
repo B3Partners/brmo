@@ -1,0 +1,21 @@
+CREATE SCHEMA IF NOT EXISTS brk;
+
+SET search_path = brk,public;
+DROP TABLE adres CASCADE;
+DROP TABLE appartementsrecht CASCADE;
+DROP TABLE natuurlijkpersoon CASCADE;
+DROP TABLE nietnatuurlijkpersoon CASCADE;
+DROP TABLE onroerendezaak CASCADE;
+DROP TABLE onroerendezaakbeperking CASCADE;
+DROP TABLE onroerendezaakfiliatie CASCADE;
+DROP TABLE perceel CASCADE;
+DROP TABLE persoon CASCADE;
+DROP TABLE publiekrechtelijkebeperking CASCADE;
+DROP TABLE recht CASCADE;
+DROP TABLE stuk CASCADE;
+DROP TABLE stukdeel CASCADE;
+DROP TABLE archief_appartementsrecht CASCADE;
+DROP TABLE archief_onroerendezaak CASCADE;
+DROP TABLE archief_onroerendezaakfiliatie CASCADE;
+DROP TABLE archief_perceel CASCADE;
+DROP TABLE archief_recht CASCADE;

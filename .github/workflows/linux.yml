@@ -165,10 +165,10 @@ jobs:
           java-version: '11.0.16'
 
       - name: Javadoc
-        run: mvn javadoc:javadoc
+        run: mvn compile javadoc:javadoc
 
       - name: Test Javadoc
-        run: mvn javadoc:test-javadoc
+        run: mvn test-compile javadoc:test-javadoc
 
 
   dependency-review:
