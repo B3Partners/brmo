@@ -21,7 +21,7 @@ mkdir -p "$PREVRELEASE-$NEXTRELEASE"/{oracle,postgresql}
 for DB in Oracle PostgreSQL; do
   DIR=$PREVRELEASE-$NEXTRELEASE/${DB,,}
   echo Migratie bestanden aanmaken voor $DB in $DIR
-  for b in bag rsgb rsgbbgt staging; do
+  for b in brk bag rsgb rsgbbgt staging; do
     if [ -f "$DIR/$b.sql" ]; then
       echo Bestand $DIR/$b.sql bestaal al.
     else
@@ -29,7 +29,7 @@ for DB in Oracle PostgreSQL; do
 
       if [ "$DB" == "Oracle" ]; then
         echo $'\n'WHENEVER SQLERROR EXIT SQL.SQLCODE >>$DIR/$b.sql
-        if [ "${b}" == "rsgbbgt" ] || [ "${b}" == "bag" ]; then
+        if [ "${b}" == "rsgbbgt" ] || [ "${b}" == "bag" ] || [ "${b}" == "brk" ]; then
           # brmo_metadata tabel aanmaken in oracle bag en rsgbbgt schema als die niet bestaat
           echo $'\n\n'
           echo $"BEGIN" >>$DIR/$b.sql
@@ -58,8 +58,13 @@ for DB in Oracle PostgreSQL; do
           echo $'\n'"SET search_path = bag,public;" >>$DIR/$b.sql
         fi
 
+        if [ "${b}" == "brk" ]; then
+          echo $'\n'"CREATE SCHEMA IF NOT EXISTS brk;" >>$DIR/$b.sql
+          echo $'\n'"SET search_path = brk,public;" >>$DIR/$b.sql
+        fi
+
         if [ "${b}" == "rsgb" ]; then
-          echo $'\n'"set search_path = public,bag;" >>$DIR/$b.sql
+          echo $'\n'"set search_path = public,bag,brk;" >>$DIR/$b.sql
         fi
       fi
 

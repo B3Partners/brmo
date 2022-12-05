@@ -137,7 +137,7 @@ timestamps {
                             sh "\".jenkins/execute-upgrade-extras-oracle.sh\" rsgb"
                             sh "\".jenkins/execute-upgrades-oracle.sh\" rsgbbgt"
                             sh "\".jenkins/execute-upgrades-oracle.sh\" bag"
-                            // TODO sh "\".jenkins/execute-upgrades-oracle.sh\" brk"
+                            sh "\".jenkins/execute-upgrades-oracle.sh\" brk"
                             sh "mvn -e -B -Poracle -pl 'datamodel' resources:testResources compiler:testCompile surefire:test -Dtest='*UpgradeTest'"
                         }
 
@@ -146,7 +146,7 @@ timestamps {
                             sh "sqlplus -l -S jenkins_staging/jenkins_staging@192.168.1.26:15210/XE < ./brmo-persistence/db/drop-brmo-persistence-oracle.sql"
                             sh "sqlplus -l -S jenkins_rsgb/jenkins_rsgb@192.168.1.26:15210/XE < ./.jenkins/clear-schema.sql"
                             sh "sqlplus -l -S jenkins_bag/jenkins_bag@192.168.1.26:15210/XE < ./.jenkins/clear-schema.sql"
-                            // TODO sh "sqlplus -l -S jenkins_brk/jenkins_brk@192.168.1.26:15210/XE < ./.jenkins/clear-schema.sql"
+                            sh "sqlplus -l -S jenkins_brk/jenkins_brk@192.168.1.26:15210/XE < ./.jenkins/clear-schema.sql"
                         }
 
                         configFileProvider([
