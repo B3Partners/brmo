@@ -163,7 +163,7 @@ jobs:
           distribution: 'temurin'
           # downgrade to 11 because javadoc bug https://bugs.openjdk.org/browse/JDK-8222091
           # see https://github.com/B3Partners/brmo/pull/1602
-          java-version: '11.0.16.1+1'
+          java-version: '11.0.16.1'
 
       - name: Javadoc
         run: mvn javadoc:javadoc
