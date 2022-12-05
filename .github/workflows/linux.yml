@@ -138,8 +138,7 @@ jobs:
 
   javadoc:
     name: JavaDoc Check
-    runs-on: ubuntu-22.04
-    needs: build
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
@@ -163,7 +162,7 @@ jobs:
           distribution: 'temurin'
           # downgrade to 11 because javadoc bug https://bugs.openjdk.org/browse/JDK-8222091
           # see https://github.com/B3Partners/brmo/pull/1602
-          java-version: '11.0.16.1+1'
+          java-version: '11.0.16'
 
       - name: Javadoc
         run: mvn javadoc:javadoc
@@ -185,8 +184,9 @@ jobs:
       - name: 'Dependency Review'
         uses: actions/dependency-review-action@v3
 
+
   cleanup:
-    name: Maven cache cleanup
+    name: 'Maven cache cleanup'
     if: ${{ always() }}
     needs: [ build, javadoc ]
     runs-on: ubuntu-latest
