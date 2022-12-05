@@ -124,7 +124,7 @@ je de gebruiksvoorwaarden van Oracle accepteert):
 Onderstaand commando gebruikt ter illustratie een onofficieel image (deze is wel 18 GB groot).
 
 ```shell
-docker run --detach --publish 1521:1521 --name oracle-xe -d pvargacl/oracle-xe-18.4.0:latest
+docker run --detach --publish 1521:1521 --name oracle-xe -d gvenzl/oracle-xe:21.3.0-full
 ```
 
 Let op dat je eventueel de Oracle editie [kan opgeven](https://github.com/oracle/docker-images/blob/main/OracleDatabase/SingleInstance/README.md) als je de licentie ervoor hebt. Voor de BAG van heel Nederland 
