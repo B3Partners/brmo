@@ -54,7 +54,7 @@ jobs:
 
       - name: Setup Oracle XE
         run: |
-          ./.build/ci/oracle-start-docker.sh 18.4.0-full
+          ./.build/ci/oracle-start-docker.sh 21.3.0-full
           ./.build/ci/oracle-setup-previous.sh
 
       - name: Upgrade databases

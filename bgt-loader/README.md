@@ -116,7 +116,7 @@ je de gebruiksvoorwaarden van Oracle accepteert):
 Onderstaand commando gebruikt ter illustratie een onofficieel image (deze is wel 18 GB groot).
 
 ```shell
-docker run --detach --publish 1521:1521 --name oracle-xe -d gvenzl/oracle-xe:18.4.0-full
+docker run --detach --publish 1521:1521 --name oracle-xe -d gvenzl/oracle-xe:21.3.0-full
 ```
 Wacht totdat Oracle is gestart en voer het volgende uit om een schema en gebruiker aan te maken (met bash syntax):
 ```shell
