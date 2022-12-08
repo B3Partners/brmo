@@ -282,3 +282,13 @@ CREATE TABLE archief_appartementsrecht
     begingeldigheid DATE          NOT NULL,
     PRIMARY KEY (identificatie, begingeldigheid)
 );
+
+
+CREATE TABLE brmo_metadata (
+    naam VARCHAR2(255 CHAR) NOT NULL PRIMARY KEY,
+    waarde VARCHAR2(255 CHAR)
+);
+COMMENT ON TABLE brmo_metadata IS 'BRMO metadata en versie gegevens';
+
+-- brmo versienummer
+INSERT INTO brmo_metadata (naam, waarde) VALUES ('brmoversie','${project.version}');
