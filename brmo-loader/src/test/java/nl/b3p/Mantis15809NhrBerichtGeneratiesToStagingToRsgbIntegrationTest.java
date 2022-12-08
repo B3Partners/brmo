@@ -76,7 +76,7 @@ public class Mantis15809NhrBerichtGeneratiesToStagingToRsgbIntegrationTest exten
         dsRsgb.setConnectionProperties(params.getProperty("rsgb.options", ""));
 
         staging = new DatabaseDataSourceConnection(dsStaging);
-        rsgb = new DatabaseDataSourceConnection(dsRsgb);
+        rsgb = new DatabaseDataSourceConnection(dsRsgb, params.getProperty("rsgb.schema"));
 
         if (this.isOracle) {
             staging = new DatabaseConnection(OracleConnectionUnwrapper.unwrap(dsStaging.getConnection()),

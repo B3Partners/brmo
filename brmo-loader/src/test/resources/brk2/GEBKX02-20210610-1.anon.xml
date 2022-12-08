@@ -1,34 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--Geanonimiseerd door B3Partners BV op 2022-11-22+01:00, zie commentaar in bericht.-->
-<Stand:Stand xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xmlns:Stand="http://www.kadaster.nl/schemas/brk-levering/product-stand/v20210702"
-             xmlns:Snapshot="http://www.kadaster.nl/schemas/brk-levering/snapshot/v20210702"
-             xmlns:Adres="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres/v20210702"
-             xmlns:Adres-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres-ref/v20210702"
-             xmlns:Herverkaveling="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-herverkaveling/v20210702"
-             xmlns:Herverkaveling-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-herverkaveling-ref/v20210702"
-             xmlns:InOnderzoek="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-inonderzoek/v20210702"
-             xmlns:InOnderzoek-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-inonderzoek-ref/v20210702"
-             xmlns:KadastraalObject="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-kadastraalobject/v20210702"
-             xmlns:KadastraalObject-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-kadastraalobject-ref/v20210702"
-             xmlns:OnroerendeZaak="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-onroerendezaak/v20210702"
-             xmlns:OnroerendeZaak-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-onroerendezaak-ref/v20210702"
-             xmlns:Persoon="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-persoon/v20210702"
-             xmlns:Persoon-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-persoon-ref/v20210702"
-             xmlns:PubliekrechtelijkeBeperking="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-publiekrechtelijkebeperking/v20210702"
-             xmlns:PubliekrechtelijkeBeperking-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-publiekrechtelijkebeperking-ref/v20210702"
-             xmlns:Recht="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht/v20210702"
-             xmlns:Recht-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht-ref/v20210702"
-             xmlns:Stuk="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-stuk/v20210702"
-             xmlns:Stuk-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-stuk-ref/v20210702"
-             xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702"
-             xmlns:KIMBAGAdres="http://www.kadaster.nl/schemas/brk-levering/snapshot/kimbag-adres/v20210702"
-             xmlns:KIMBAGAdres-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/kimbag-adres-ref/v20210702"
-             xmlns:KIMBRPAdres="http://www.kadaster.nl/schemas/brk-levering/snapshot/kimbrp-adres/v20210702"
-             xmlns:KIMBRPPersoon="http://www.kadaster.nl/schemas/brk-levering/snapshot/kimbrp-persoon/v20210702"
-             xmlns:KIMNHRRechtspersoon="http://www.kadaster.nl/schemas/brk-levering/snapshot/kimnhr-rechtspersoon/v20210702"
-             xmlns:xlink="http://www.w3.org/1999/xlink"
-             xmlns:gml="http://www.opengis.net/gml/3.2">
+<Stand:Stand xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Stand="http://www.kadaster.nl/schemas/brk-levering/product-stand/v20211119" xmlns:Snapshot="http://www.kadaster.nl/schemas/brk-levering/snapshot/v20211119" xmlns:Adres="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres/v20211119" xmlns:Adres-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-adres-ref/v20210702" xmlns:Herverkaveling="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-herverkaveling/v20210702" xmlns:Herverkaveling-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-herverkaveling-ref/v20210702" xmlns:InOnderzoek="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-inonderzoek/v20210702" xmlns:InOnderzoek-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-inonderzoek-ref/v20210702" xmlns:KadastraalObject="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-kadastraalobject/v20210702" xmlns:KadastraalObject-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-kadastraalobject-ref/v20210702" xmlns:OnroerendeZaak="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-onroerendezaak/v20211119" xmlns:OnroerendeZaak-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-onroerendezaak-ref/v20210702" xmlns:Persoon="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-persoon/v20210903" xmlns:Persoon-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-persoon-ref/v20210702" xmlns:PubliekrechtelijkeBeperking="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-publiekrechtelijkebeperking/v20210702" xmlns:PubliekrechtelijkeBeperking-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-publiekrechtelijkebeperking-ref/v20210702" xmlns:Recht="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht/v20210903" xmlns:Recht-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-recht-ref/v20210702" xmlns:Stuk="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-stuk/v20211119" xmlns:Stuk-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-stuk-ref/v20210702" xmlns:Typen="http://www.kadaster.nl/schemas/brk-levering/snapshot/imkad-typen/v20210702" xmlns:KIMBAGAdres="http://www.kadaster.nl/schemas/brk-levering/snapshot/kimbag-adres/v20210903" xmlns:KIMBAGAdres-ref="http://www.kadaster.nl/schemas/brk-levering/snapshot/kimbag-adres-ref/v20210702" xmlns:KIMBRPAdres="http://www.kadaster.nl/schemas/brk-levering/snapshot/kimbrp-adres/v20210702" xmlns:KIMBRPPersoon="http://www.kadaster.nl/schemas/brk-levering/snapshot/kimbrp-persoon/v20210903" xmlns:KIMNHRRechtspersoon="http://www.kadaster.nl/schemas/brk-levering/snapshot/kimnhr-rechtspersoon/v20210702" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:gml="http://www.opengis.net/gml/3.2">
    <Stand:productType>GebiedgebaseerdeStand</Stand:productType>
    <Stand:productSpecificatie>
       <Stand:kenmerknaam>Peildatum</Stand:kenmerknaam>

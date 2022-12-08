@@ -85,6 +85,7 @@ jobs:
           echo $projectversion
           export PROJECTVERSION=$projectversion
           sed -i s/\${project.version}/$projectversion/g ./brmo-persistence/db/create-brmo-persistence-postgresql.sql
+          sed -i s/\${project.version}/$projectversion/g ./datamodel/brk/brk2.0_postgresql.sql
 
       - name: Set up PostgreSQL
         run: |
@@ -107,7 +108,7 @@ jobs:
           mvn -e verify -B -Ppostgresql -T1 -Dtest.onlyITs=true -pl 'bag2-loader'
           .build/ci/pgsql-setup-bag2_views.sh
           mvn resources:testResources compiler:testCompile surefire:test -Ppostgresql -pl datamodel -Dtest='!*UpgradeTest,!P8*'
-          .build/ci/pgsql-drop-bag2_schema.sh
+#          .build/ci/pgsql-drop-bag2_schema.sh
 
       - name: Verify bgt-loader
         run: mvn -e verify -B -Ppostgresql -T1 -Dtest.onlyITs=true -pl 'bgt-loader'

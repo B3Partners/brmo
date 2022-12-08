@@ -60,11 +60,11 @@ public class BrkInfoIntegrationTest extends TestUtil {
     @BeforeEach
     @Override
     public void setUp() throws Exception {
-        rsgb = new DatabaseDataSourceConnection(this.dsRsgb);
+        rsgb = new DatabaseDataSourceConnection(this.dsRsgb, DBPROPS.getProperty("rsgb.schema"));
         IDataSet rsgbDataSet = new XmlDataSet(new FileInputStream(new File(BrkInfoIntegrationTest.class.getResource(sBestandsNaam).toURI())));
 
         if (this.isOracle) {
-            rsgb = new DatabaseConnection(dsRsgb.getConnection().unwrap(oracle.jdbc.OracleConnection.class), DBPROPS.getProperty("rsgb.username").toUpperCase());
+            rsgb = new DatabaseConnection(dsRsgb.getConnection().unwrap(oracle.jdbc.OracleConnection.class), DBPROPS.getProperty("rsgb.schema").toUpperCase());
             rsgb.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new Oracle10DataTypeFactory());
             rsgb.getConfig().setProperty(DatabaseConfig.FEATURE_SKIP_ORACLE_RECYCLEBIN_TABLES, true);
 
